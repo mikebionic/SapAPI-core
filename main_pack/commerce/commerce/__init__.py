@@ -1,0 +1,5 @@
+from flask import Blueprint
+
+bp = Blueprint('commerce',__name__)
+
+from main_pack.commerce.commerce import routes
