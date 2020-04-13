@@ -4,7 +4,6 @@ from main_pack import db, babel
 from main_pack.commerce.commerce import bp
 
 @bp.route("/")
-@bp.route("/commerce")
 def commerce():
 	return render_template ("commerce/main/commerce/commerce.html")
 

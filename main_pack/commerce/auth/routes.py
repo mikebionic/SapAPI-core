@@ -5,9 +5,10 @@ from main_pack.commerce.auth.forms import (LoginForm,RequestResetForm,ResetPassw
 from main_pack.commerce.users.models import Users
 from flask_login import login_user, current_user, logout_user
 from main_pack import db, bcrypt
+from main_pack.commerce.auth.utils import (send_reset_email,get_register_token,
+								verify_register_token,send_register_email)
 
-
-@bp.route("/commerce/login", methods=['GET', 'POST'])
+@bp.route("/login", methods=['GET', 'POST'])
 def login_commerce():
 	if current_user.is_authenticated:
 		return redirect('/commerce')
@@ -22,12 +23,12 @@ def login_commerce():
 			flash(f'Login Failed! Wrong email or password', 'danger')	
 	return render_template('commerce/main/auth/login.html',title='Login', form=form)
 
-@bp.route("/commerce/logout")
+@bp.route("/logout")
 def logout_commerce():
 	logout_user()
 	return redirect('/commerce')
 
-@bp.route("/commerce/resetPassword", methods=['GET','POST'])
+@bp.route("/resetPassword", methods=['GET','POST'])
 def reset_request_commerce():
 	if current_user.is_authenticated:
 		return redirect('/commerce')
@@ -39,7 +40,7 @@ def reset_request_commerce():
 		return redirect('/commerce/login')
 	return render_template('commerce/main/auth/reset_request.html',title='Reset Password', form=form)
 
-@bp.route("/commerce/resetPassword/<token>", methods=['GET','POST'])
+@bp.route("/resetPassword/<token>", methods=['GET','POST'])
 def reset_token_commerce(token):
 	if current_user.is_authenticated:
 		return redirect('/commerce')
@@ -56,7 +57,7 @@ def reset_token_commerce(token):
 		return redirect ('/commerce/login')
 	return render_template('commerce/main/auth/reset_token.html',title='Reset Password',form=form)
 
-@bp.route("/commerce/register", methods=['GET', 'POST'])
+@bp.route("/register", methods=['GET', 'POST'])
 def register_commerce():
 	if current_user.is_authenticated:
 		return redirect('/commerce')
@@ -68,7 +69,7 @@ def register_commerce():
 	return render_template('commerce/main/auth/register_request.html',title='Register',form=form)
 
 
-@bp.route("/commerce/register/<token>", methods=['GET','POST'])
+@bp.route("/register/<token>", methods=['GET','POST'])
 def register_token_commerce(token):
 	if current_user.is_authenticated:
 		return redirect('/commerce')

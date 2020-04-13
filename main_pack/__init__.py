@@ -42,20 +42,21 @@ def create_app(config_class=Config):
 	mail.init_app(app)
 	
 	# commerce blueprints
+	commerce_url_prefix = '/commerce'
 	from main_pack.commerce.auth import bp as commerce_auth_bp
-	app.register_blueprint(commerce_auth_bp)
+	app.register_blueprint(commerce_auth_bp,url_prefix=commerce_url_prefix)
 
 	from main_pack.commerce.commerce import bp as commerce_bp
-	app.register_blueprint(commerce_bp)
+	app.register_blueprint(commerce_bp,url_prefix=commerce_url_prefix)
 
 	from main_pack.commerce.errors import bp as commerce_errors_bp
-	app.register_blueprint(commerce_errors_bp)
+	app.register_blueprint(commerce_errors_bp,url_prefix=commerce_url_prefix)
 
 	from main_pack.commerce.users import bp as commerce_users_bp
-	app.register_blueprint(commerce_users_bp)
+	app.register_blueprint(commerce_users_bp,url_prefix=commerce_url_prefix)
 
 	from main_pack.commerce.admin import bp as commerce_admin_bp
-	app.register_blueprint(commerce_admin_bp)
+	app.register_blueprint(commerce_admin_bp,url_prefix=commerce_url_prefix)
 	# /commerce blueprints
 
 	return app

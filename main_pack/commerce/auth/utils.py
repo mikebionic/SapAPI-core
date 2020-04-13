@@ -1,13 +1,15 @@
+from flask import url_for
 from main_pack import db, bcrypt, mail
 from flask_mail import Message
 from flask import current_app
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
 def send_reset_email(user):
+	url = 'auth.reset_token_commerce'
 	token = user.get_reset_token()
 	msg = Message('Password reset request', sender='noterply@demo.com',recipients=[user.EMail])
 	msg.body = f'''To reset your password, visit the following link:
-	{url_for('auth.reset_token',token=token,_external=True)}
+	{url_for(url,token=token,_external=True)}
 	If you did not make this request then simply ignore this email. 
 	'''
 	mail.send(msg)
