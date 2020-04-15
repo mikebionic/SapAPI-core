@@ -17,7 +17,7 @@
                                         {% endfor %}
                                     </div>
                                 {% else %}
-                                    <label for="fid-name">Password:<span class="requite">*</span></label>
+                                    <label for="fid-name">{{_('Password')}}:<span class="requite">*</span></label>
                                     {{ form.password(class="txt-input", placeholder="Password") }}
                                 {% endif %}
                             </p>
@@ -30,7 +30,7 @@
                                         {% endfor %}
                                     </div>
                                 {% else %}
-                                    <label for="fid-name">Confirm password:<span class="requite">*</span></label>
+                                    <label for="fid-name">{{_('Confirm password')}}:<span class="requite">*</span></label>
                                     {{ form.confirm_password(class="txt-input", placeholder="Confirm password") }}
                                 {% endif %}
                             </p>

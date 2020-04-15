@@ -17,7 +17,6 @@ _________________________
 /category_grid
 
 ## authorization
-
 /login
 /register
 /logout

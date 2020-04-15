@@ -8,7 +8,20 @@
                     <div class="signin-container">
                         <form action="#" name="frm-login" method="post">
                             {{ form.csrf_token() }}
-                            <h2>Hello! please proceed the registration</h2>
+                            <h2>Hello! {{_('Please, proceed the registration')}}</h2>
+                            <p class="form-row">
+                                {% if form.full_name.errors %}
+                                    {{ form.full_name(class="txt-input is-invalid", placeholder="E-mail") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.full_name.errors %}
+                                           <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    <label for="fid-name">{{_('Full name')}}:<span class="requite">*</span></label>
+                                    {{ form.full_name(class="txt-input", placeholder="Full name") }}
+                                {% endif %}
+                            </p>
                             <p class="form-row">
                                 {% if form.password.errors %}
                                     {{ form.password(class="txt-input is-invalid", placeholder="Password") }}
@@ -18,7 +31,7 @@
                                         {% endfor %}
                                     </div>
                                 {% else %}
-                                    <label for="fid-pass">Password:<span class="requite">*</span></label>
+                                    <label for="fid-pass">{{_('Password')}}<span class="requite">*</span></label>
                                     {{ form.password(class="txt-input", placeholder="Password" )}}
                                 {% endif %}
                             </p>
@@ -31,7 +44,7 @@
                                         {% endfor %}
                                     </div>
                                 {% else %}
-                                    <label for="fid-pass">Confirm password:<span class="requite">*</span></label>
+                                    <label for="fid-pass">{{_('Confirm password')}}:<span class="requite">*</span></label>
                                     {{ form.confirm_password(class="txt-input", placeholder="Confirm password" )}}
                                 {% endif %}
                             </p>
@@ -47,9 +60,8 @@
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <div class="register-in-container">
                         <div class="intro">
-                            <h4 class="box-title">Have an account?</h4>
-                            <p class="sub-title">Create an account with us and you’ll be able to:</p>
-                            <a href="/commerce/login" class="btn btn-bold">Log in!</a>
+                            <h4 class="box-title">{{_('Have an account?')}}</h4>
+                            <a href="{{ url_for('auth.login_commerce') }}" class="btn btn-bold">{{_('Log in')}}!</a>
                         </div>
                     </div>
                 </div>

@@ -1,0 +1,405 @@
+from main_pack import db
+from datetime import datetime
+
+class CreatedModifiedInfo(object):
+	CreatedDate = db.Column(db.DateTime,default=datetime.now)
+	ModifiedDate = db.Column(db.DateTime,default=datetime.now)
+	CreatedUId = db.Column(db.Integer)
+	ModifiedUId = db.Column(db.Integer)
+	GCRecord = db.Column(db.Integer)
+
+	def createdInfo(self,UId):
+		self.CreatedUId = UId
+
+	def modifiedInfo(self,UId):
+		self.ModifiedDate = datetime.now()
+		self.ModifiedUId = UId
+
+class AddInf(object):
+	AddInf1 = db.Column(db.String(500))
+	AddInf2 = db.Column(db.String(500))
+	AddInf3 = db.Column(db.String(500))
+	AddInf4 = db.Column(db.String(500))
+	AddInf5 = db.Column(db.String(500))
+	AddInf6 = db.Column(db.String(500))
+
+class Acc_type(CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_acc_type"
+	AccTypeId = db.Column(db.Integer,primary_key=True)
+	AccTypeName_tkTM = db.Column(db.String(100))
+	AccTypeDesc_tkTm = db.Column(db.String(500))
+	AccTypeName_ruRU = db.Column(db.String(100))
+	AccTypeDesc_ruRU = db.Column(db.String(500))
+	AccTypeName_enUS = db.Column(db.String(100))
+	AccTypeDesc_enUS = db.Column(db.String(500))
+	Accounting_info = db.relationship('Accounting_info',backref='acc_type',lazy=True)
+
+class Accounting_info(AddInf,CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_accounting_info"
+	AccInfId = db.Column(db.Integer,primary_key=True,nullable=False)
+	DivisionId = BankId = db.Column(db.Integer,db.ForeignKey("tbl_dk_division.DivisionId"))
+	BankId = db.Column(db.Integer, db.ForeignKey("tbl_dk_bank.BankId"))
+	CurrencyId = db.Column(db.Integer, db.ForeignKey("tbl_dk_currency.CurrencyId"))
+	AccTypeId = db.Column(db.Integer, db.ForeignKey("tbl_dk_acc_type.AccTypeId"))
+	CId = db.Column(db.Integer, db.ForeignKey("tbl_dk_company.CId"))
+	RpAccId = db.Column(db.Integer, db.ForeignKey("tbl_dk_rp_acc.RpAccId"))
+	AccInfName = db.Column(db.String(100),nullable=False)
+	AccInfDesc = db.Column(db.String(500))
+	AccInfNo = db.Column(db.String(50),nullable=False)
+	AccInfActive = db.Column(db.Boolean,default=False)
+	AccInfCreatedDate = db.Column(db.DateTime)
+	AccInfClosedDate = db.Column(db.DateTime)
+
+class AdditionalInf1(CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_additional_inf1"
+	AddInf1Id = db.Column(db.Integer,nullable=False,primary_key=True)
+	AddInf1Name = db.Column(db.String(100),nullable=False)
+	AddInf1Desc = db.Column(db.String(500))
+	AddInfTypeId = db.Column(db.Integer,default=0)
+class AdditionalInf2(CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_additional_inf2"
+	AddInf2Id = db.Column(db.Integer,nullable=False,primary_key=True)
+	AddInf2Name = db.Column(db.String(100),nullable=False)
+	AddInf2Desc = db.Column(db.String(500))
+	AddInfTypeId = db.Column(db.Integer,default=0)
+class AdditionalInf3(CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_additional_inf3"
+	AddInf3Id = db.Column(db.Integer,nullable=False,primary_key=True)
+	AddInf3Name = db.Column(db.String(100),nullable=False)
+	AddInf3Desc = db.Column(db.String(500))
+	AddInfTypeId = db.Column(db.Integer,default=0)
+class AdditionalInf4(CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_additional_inf4"
+	AddInf4Id = db.Column(db.Integer,nullable=False,primary_key=True)
+	AddInf4Name = db.Column(db.String(100),nullable=False)
+	AddInf4Desc = db.Column(db.String(500))
+	AddInfTypeId = db.Column(db.Integer,default=0)
+class AdditionalInf5(CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_additional_inf5"
+	AddInf5Id = db.Column(db.Integer,nullable=False,primary_key=True)
+	AddInf5Name = db.Column(db.String(100),nullable=False)
+	AddInf5Desc = db.Column(db.String(500))
+	AddInfTypeId = db.Column(db.Integer,default=0)
+class AdditionalInf6(CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_additional_inf6"
+	AddInf6Id = db.Column(db.Integer,nullable=False,primary_key=True)
+	AddInf6Name = db.Column(db.String(100),nullable=False)
+	AddInf6Desc = db.Column(db.String(500))
+	AddInfTypeId = db.Column(db.Integer,default=0)
+
+class Bank(AddInf,CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_bank"
+	BankId = db.Column(db.Integer,nullable=False,primary_key=True)
+	MainContId = db.Column(db.Integer,default=0)
+	MainLocId = db.Column(db.Integer,default=0)
+	BankName = db.Column(db.String(200),nullable=False)
+	BankDesc = db.Column(db.String(500))
+	BankCorAcc = db.Column(db.String(50))
+	BankAccBik = db.Column(db.String(50))
+	Accounting_info = db.relationship('Accounting_info',backref='bank',lazy=True)
+	Contact = db.relationship('Contact',backref='bank',lazy=True)
+	Location = db.relationship('Location',backref='bank',lazy=True)
+	
+class City(AddInf,CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_city"
+	CityId = db.Column(db.Integer,nullable=False,primary_key=True)
+	CountryId = db.Column(db.Integer,db.ForeignKey("tbl_dk_country.CountryId"))
+	CityName = db.Column(db.String(50),nullable=False)
+	CityDesc = db.Column(db.String(500))
+	Location = db.relationship('Location',backref='city',lazy=True)
+
+class Company(AddInf,CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_company"
+	CId = db.Column(db.Integer,primary_key=True)
+	CName = db.Column(db.String(100),nullable=False)
+	CFullName = db.Column(db.String(500))
+	AccInfId = db.Column(db.Integer)
+	CAddress = db.Column(db.String(500))
+	CAddressLegal = db.Column(db.String(500))
+	# CLatitude = db.Column(db.Real)
+	# CLongitude = db.Column(db.Real)
+	Phone1 = db.Column(db.String(100))
+	Phone2 = db.Column(db.String(100))
+	Phone3 = db.Column(db.String(100))
+	Phone4 = db.Column(db.String(100))
+	CPostalCode = db.Column(db.String(100))
+	CEmail = db.Column(db.String(100))
+	Accounting_info = db.relationship('Accounting_info',backref='company',lazy=True)
+	Contact = db.relationship('Contact',backref='company',lazy=True)
+	Division = db.relationship('Division',backref='company',lazy=True)
+	Image = db.relationship('Image',backref='company',lazy=True)
+	Location = db.relationship('Location',backref='company',lazy=True)
+	Department_detail = db.relationship('Department_detail',backref='company',lazy=True)
+	Warehouse = db.relationship('Warehouse',backref='company',lazy=True)
+	Barcode = db.relationship('Barcode',backref='company',lazy=True)
+
+class Contact(AddInf,CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_contact"
+	ContId = db.Column(db.Integer,nullable=False,primary_key=True)
+	CId = db.Column(db.Integer,db.ForeignKey("tbl_dk_company.CId"))
+	EmpId = db.Column(db.Integer,db.ForeignKey("tbl_dk_employee.EmpId"))
+	RpAccId = db.Column(db.Integer,db.ForeignKey("tbl_dk_rp_acc.RpAccId"))
+	BankId = db.Column(db.Integer,db.ForeignKey("tbl_dk_bank.BankId"))
+	ContTypeId = db.Column(db.Integer,db.ForeignKey("tbl_dk_contact_type.ContTypeId"))
+	ContValue = db.Column(db.String(200),nullable=False)
+	ContDesc = db.Column(db.String(500))
+
+class Contact_type(CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_contact_type"
+	ContTypeId = db.Column(db.Integer,nullable=False,primary_key=True)
+	ContTypeName_tkTM = db.Column(db.String(100))
+	ContTypeDesc_tkTM = db.Column(db.String(500))
+	ContTypeName_ruRU = db.Column(db.String(100))
+	ContTypeDesc_ruRU = db.Column(db.String(500))
+	ContTypeName_enUS = db.Column(db.String(100))
+	ContTypeDesc_enUS = db.Column(db.String(500))
+	Contact = db.relationship('Contact',backref='contact_type',lazy=True)
+
+	def to_json(self):
+		json_contactType = {
+			'ContactTypeId': self.ContactTypeId,
+			'ContactTypeName_tkTM': self.ContactTypeName_tkTM,
+			'ContactTypeDesc_tkTM': self.ContactTypeDesc_tkTM,
+			'ContactTypeName_ruRU': self.ContactTypeName_ruRU,
+			'ContactTypeDesc_ruRU': self.ContactTypeDesc_ruRU,
+			'ContactTypeName_enUS': self.ContactTypeName_enUS,
+			'ContactTypeDesc_enUS': self.ContactTypeDesc_enUS
+		}
+		return json_contactType
+
+class Country(AddInf,CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_country"
+	CountryId = db.Column(db.Integer,nullable=False,primary_key=True)
+	CountryName = db.Column(db.String(50),nullable=False)
+	CountryDesc = db.Column(db.String(500))
+	City = db.relationship('City',backref='country',lazy=True)
+	Location = db.relationship('Location',backref='country',lazy=True)
+
+class Currency(AddInf,CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_currency"
+	CurrencyId = db.Column(db.Integer,nullable=False,primary_key=True)
+	CurrencyName_tkTM = db.Column(db.String(100),nullable=False)
+	CurrencyDesc_tkTM = db.Column(db.String(500))
+	CurrencyName_ruRU = db.Column(db.String(100),nullable=False)
+	CurrencyDesc_ruRU = db.Column(db.String(500))
+	CurrencyName_enUS = db.Column(db.String(100),nullable=False)
+	CurrencyDesc_enUS = db.Column(db.String(500))
+	CurrencyCode = db.Column(db.String(100))
+	CurrencySymbol = db.Column(db.String(100))
+	Accounting_info = db.relationship('Accounting_info',backref='currency',lazy=True)
+
+	def to_json(self):
+		json_currency = {
+			'CurrencyId': self.CurrencyId,
+			'CurrencyName_tkTM': self.CurrencyName_tkTM,
+			'CurrencyDesc_tkTM': self.CurrencyDesc_tkTM,
+			'CurrencyName_ruRU': self.CurrencyName_ruRU,
+			'CurrencyDesc_ruRU': self.CurrencyDesc_ruRU,
+			'CurrencyName_enUS': self.CurrencyName_enUS,
+			'CurrencyDesc_enUS': self.CurrencyDesc_enUS
+		}
+		return json_currency
+
+class Db_inf(db.Model):
+	__tablename__="tbl_dk_db_inf"
+	DbInfId = db.Column(db.Integer,nullable=False,primary_key=True)
+	DbInfDbVer = db.Column(db.String(100),nullable=False)
+	GCRecord = db.Column(db.Integer)
+
+class Department(AddInf,CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_department"
+	DeptId = db.Column(db.Integer,nullable=False,primary_key=True)
+	DeptName = db.Column(db.String(100),nullable=False)
+	DeptDesc = db.Column(db.String(500))
+	Employee = db.relationship('Employee',backref='department',lazy=True)
+	Department_detail = db.relationship('Department_detail',backref='department',lazy=True)
+
+class Department_detail(db.Model):
+	__tablename__="tbl_dk_department_detail"
+	DeptDetId = db.Column(db.Integer,nullable=False,primary_key=True)
+	DeptId = db.Column(db.Integer,db.ForeignKey("tbl_dk_department.DeptId")) #???
+	CId = db.Column(db.Integer,db.ForeignKey("tbl_dk_company.CId"))
+	DivisionId = db.Column(db.Integer,db.ForeignKey("tbl_dk_division.DivisionId"))
+	DeptHeadEmpId = db.Column(db.Integer,db.ForeignKey("tbl_dk_employee.EmpId"))
+
+class Division(AddInf,CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_division"
+	DivisionId = db.Column(db.Integer,nullable=False,primary_key=True)
+	CId = db.Column(db.Integer,db.ForeignKey("tbl_dk_company.CId"))
+	DivisionName = db.Column(db.String(100),nullable=False)
+	DivisionDesc = db.Column(db.String(500))
+	OwnerDivisionId = db.Column(db.Integer,default=0)
+	Users = db.relationship('Users',backref='division')
+	Department_detail = db.relationship('Department_detail',backref='division',lazy=True)
+	Accounting_info = db.relationship('Accounting_info',backref='division',lazy=True)
+	Barcode = db.relationship('Barcode',backref='division',lazy=True)
+
+class Gender(db.Model):
+	__tablename__="tbl_dk_gender"
+	GenderId = db.Column(db.Integer,nullable=False,primary_key=True)
+	GenderName_tkTM = db.Column(db.String(100))
+	GenderName_ruRU = db.Column(db.String(100))
+	GenderName_enUS = db.Column(db.String(100))
+	Employee = db.relationship('Employee',backref='gender',lazy=True)
+	Relatives = db.relationship('Relatives',backref='gender',lazy=True)
+
+class Image(CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_image"
+	ImgId = db.Column(db.Integer,nullable=False,primary_key=True)
+	EmpId = db.Column(db.Integer,db.ForeignKey("tbl_dk_employee.EmpId"))
+	CId = db.Column(db.Integer,db.ForeignKey("tbl_dk_company.CId"))
+	RpAccId = db.Column(db.Integer,db.ForeignKey("tbl_dk_rp_acc.RpAccId"))
+	ResId = db.Column(db.Integer,db.ForeignKey("tbl_dk_resource.ResId"))
+	FileName = db.Column(db.String(100))
+	FileHash = db.Column(db.String(100))
+	Image = db.Column(db.LargeBinary)
+
+class Location(AddInf,CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_location"
+	LocId = db.Column(db.Integer,nullable=False,primary_key=True)
+	CId = db.Column(db.Integer,db.ForeignKey("tbl_dk_company.CId"))
+	BankId = db.Column(db.Integer,db.ForeignKey("tbl_dk_bank.BankId"))
+	EmpId = db.Column(db.Integer,db.ForeignKey("tbl_dk_employee.EmpId"))
+	RpAccId = db.Column(db.Integer,db.ForeignKey("tbl_dk_rp_acc.RpAccId"))
+	CountryId = db.Column(db.Integer,db.ForeignKey("tbl_dk_country.CountryId"))
+	CityId = db.Column(db.Integer,db.ForeignKey("tbl_dk_city.CityId"))
+	LocAddress = db.Column(db.String(500),nullable=False)
+	LocAddressOffical = db.Column(db.String(500),nullable=False)
+	LocAddressReal = db.Column(db.String(500),nullable=False)
+	LocPostCode = db.Column(db.String(25))
+	LocLatitude = db.Column(db.Integer)
+	LocLongitude = db.Column(db.Integer)
+
+class Password(AddInf,CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_password"
+	PsswId = db.Column(db.Integer,nullable=False,primary_key=True)
+	PsswUId = db.Column(db.Integer,db.ForeignKey("tbl_dk_users.UId"))
+	PsswTypeId = db.Column(db.Integer,db.ForeignKey("tbl_dk_password_type.PsswTypeId"))
+	PsswPassHash = db.Column(db.String(255))
+	PsswPassword= db.Column(db.String(100),nullable=False)
+
+class Password_type(CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_password_type"
+	PsswTypeId = db.Column(db.Integer,nullable=False,primary_key=True)
+	PsswTypeName = db.Column(db.String(100),nullable=False)
+	PsswTypeDesc = db.Column(db.String(500))
+	Password = db.relationship('Password',backref='password_type',lazy=True)
+
+class Language(CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_language"
+	LangId = db.Column(db.Integer,nullable=False,primary_key=True)
+	LangName = db.Column(db.String(100),nullable=False)
+	LangDesc = db.Column(db.String(500))
+	Res_translations = db.relationship('Res_translations',backref='language',lazy=True)
+
+class Prog_language(CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_prog_language"
+	LangId = db.Column(db.Integer,nullable=False,primary_key=True)
+	LangName = db.Column(db.String(50),nullable=False)
+	LangDesc = db.Column(db.String(200))
+
+class Reg_num(CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_reg_num"
+	RegNumId = db.Column(db.Integer,nullable=False,primary_key=True)
+	RegNumTypeId = db.Column(db.Integer,db.ForeignKey("tbl_dk_reg_num_type.RegNumTypeId"))
+	UId = db.Column(db.Integer,db.ForeignKey("tbl_dk_users.UId"))
+	RegNumPrefix = db.Column(db.String(100))
+	RegNumLastNum = db.Column(db.Integer,nullable=False)
+	RegNumSuffix = db.Column(db.String(100))
+
+	def registerLastNum(self,RegNumLastNum):
+		self.RegNumLastNum+=1
+
+class Reg_num_type(CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_reg_num_type"
+	RegNumTypeId = db.Column(db.Integer,nullable=False,primary_key=True)
+	RegNumTypeName_tkTM = db.Column(db.String(50),nullable=False)
+	RegNumTypeDesc_tkTM = db.Column(db.String(500))
+	RegNumTypeName_ruRU = db.Column(db.String(50),nullable=False)
+	RegNumTypeDesc_ruRU = db.Column(db.String(500))
+	RegNumTypeName_enUS = db.Column(db.String(50),nullable=False)
+	RegNumTypeDesc_enUS = db.Column(db.String(500))
+	Reg_num = db.relationship('Reg_num',backref='reg_num_type',lazy=True)
+
+class Report_file(CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_report_file"
+	RpFileId = db.Column(db.Integer,nullable=False,primary_key=True)
+	RpFileTypeId = db.Column(db.Integer,nullable=False,default=0)
+	RpFileName = db.Column(db.String(100))
+	RpFileDesc = db.Column(db.String(100))
+	RpFileFileName = db.Column(db.String(100))
+	RpIsDefault = db.Column(db.Boolean,default=False)
+
+class Resource(AddInf,CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_resource"
+	ResId = db.Column(db.Integer,nullable=False,primary_key=True)
+	CId = db.Column(db.Integer,db.ForeignKey("tbl_dk_company.CId"))
+	DivId = db.Column(db.Integer,db.ForeignKey("tbl_dk_division.DivisionId"))
+	ResCatId = db.Column(db.Integer,db.ForeignKey("tbl_dk_resource_category.ResCatId"))
+	UnitId = db.Column(db.Integer,db.ForeignKey("tbl_dk_unit.UnitId"))
+	BrandId = db.Column(db.Integer,db.ForeignKey("tbl_dk_brand.BrandId"))
+	UsageStatusId = db.Column(db.Integer,db.ForeignKey("tbl_dk_usage_status.UsageStatusId"))
+	ResourceTypeId = db.Column(db.Integer,db.ForeignKey("tbl_dk_resource_type.ResourceTypeId"))
+	ResMainImgId = db.Column(db.Integer,default=0)
+	ResMakerId = db.Column(db.Integer,db.ForeignKey("tbl_dk_resource_maker.ResMakerId"))
+	ResLastVendorId = db.Column(db.Integer,db.ForeignKey("tbl_dk_rp_acc.RpAccId"))
+	ResCode = db.Column(db.String(50),nullable=False)
+	ResName = db.Column(db.String(255),nullable=False)
+	ResDesc = db.Column(db.String(500))
+	ResFullDesc = db.Column(db.String(1500))
+	# !!!!!! Floatsss
+	ResWidth = db.Column(db.Float,default=0)
+	ResHeight = db.Column(db.Float,default=0)
+	ResLength = db.Column(db.Float,default=0)
+	ResWeight = db.Column(db.Float,default=0)
+	ResProductionOnSale = db.Column(db.Boolean,default=False)
+	Image = db.relationship('Image',backref='resource',lazy=True)
+	Barcode = db.relationship('Barcode',backref='resource',lazy=True)
+	Res_color = db.relationship('Res_color',backref='resource',lazy=True)
+	Res_size = db.relationship('Res_size',backref='resource',lazy=True)
+	Res_translations = db.relationship('Res_translations',backref='resource',lazy=True)
+	Unit = db.relationship('Unit',backref='resource',lazy=True)
+	Res_unit = db.relationship('Res_unit',backref='resource',lazy=True)
+
+class Resource_category(CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_resource_category"
+	ResCatId = db.Column(db.Integer,nullable=False,primary_key=True)
+	ResOwnerCatId = db.Column(db.Integer,default=0)
+	ResCatName = db.Column(db.String(100),nullable=False)
+	ResCatDesc = db.Column(db.String(500))
+	Resource = db.relationship('Resource',backref='resource_category',lazy=True)
+
+class Resource_maker(AddInf,CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_resource_maker"
+	ResMakerId = db.Column(db.Integer,nullable=False,primary_key=True)
+	ResMakerName = db.Column(db.String(100),nullable=False)
+	ResMakerDesc = db.Column(db.String(500))
+	ResMakerSite = db.Column(db.String(150))
+	ResMakerMail = db.Column(db.String(100))
+	ResMakerPhone1 = db.Column(db.String(100))
+	ResMakerPhone2 = db.Column(db.String(100))
+	Resource = db.relationship('Resource',backref='resource_maker',lazy=True)
+
+class Resource_type(CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_resource_type"
+	ResourceTypeId = db.Column(db.Integer,nullable=False,primary_key=True)
+	ResourceTypeName = db.Column(db.String(100),nullable=False)
+	ResourceTypeDesc = db.Column(db.String(500))
+	Resource = db.relationship('Resource',backref='resource_type',lazy=True)
+
+class Rp_acc(db.Model):
+	__tablename__="tbl_dk_rp_acc"
+	RpAccId = db.Column(db.Integer,nullable=False,primary_key=True)
+	Accounting_info = db.relationship('Accounting_info',backref='rp_acc',lazy=True)
+	Contact = db.relationship('Contact',backref='rp_acc',lazy=True)
+	Image = db.relationship('Image',backref='rp_acc',lazy=True)
+	Location = db.relationship('Location',backref='rp_acc',lazy=True)
+	Resource = db.relationship('Resource',backref='last_vendor',lazy=True)
+
+class Warehouse(AddInf,CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_warehouse"
+	WhId = db.Column(db.Integer,nullable=False,primary_key=True)
+	CId = db.Column(db.Integer,db.ForeignKey("tbl_dk_company.CId"))
+	DivId = db.Column(db.Integer,db.ForeignKey("tbl_dk_division.DivisionId"))
+	WhName = db.Column(db.String(100),nullable=False)
+	WhDesc = db.Column(db.String(500))

@@ -6,9 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {% if title %}
-        <title>Commerce - {{title}}</title>
+        <title>{{_('Commerce')}} - {{title}}</title>
     {% else %}
-        <title>Commerce</title>
+        <title>{{_('Commerce')}}</title>
     {% endif %}
     <link href="https://fonts.googleapis.com/css?family=Cairo:400,600,700&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins:600&amp;display=swap" rel="stylesheet">
@@ -42,7 +42,7 @@
             <div class="container">
                 <div class="top-bar left">
                     <ul class="horizontal-menu">
-                        <li><a href="#"><i class="fa fa-envelope" aria-hidden="true"></i>Ikea@company.com</a></li>
+                        <li><i class="fa fa-envelope" aria-hidden="true"></i>Ikea@company.com</li>
                     </ul>
                 </div>
                 <div class="top-bar right">
@@ -54,13 +54,16 @@
                     <ul class="horizontal-menu">
                         <li class="horz-menu-item lang">
                             <select name="language">
-                                <option value="fr">French (EUR)</option>
-                                <option value="en" selected>English (USD)</option>
-                                <option value="ger">Germany (GBP)</option>
-                                <option value="jp">Japan (JPY)</option>
+                                <option value="tk">Türkmen</option>
+                                <option value="en" selected>English</option>
+                                <option value="ru">Русский</option>
                             </select>
                         </li>
-                        <li><a href="login.html" class="login-link"><i class="biolife-icon icon-login"></i>Login/Register</a></li>
+                        {% if current_user.is_authenticated %}
+                            <li><a href="{{ url_for('auth.logout_commerce') }}" class="login-link"><i class="biolife-icon icon-login"></i>{{ current_user.UFullName }} - {{_('Log out')}}</a></li>
+                        {% else %}
+                            <li><a href="{{ url_for('auth.login_commerce') }}" class="login-link"><i class="biolife-icon icon-login"></i>{{_('Log in')}}/{{_('Register')}}</a></li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>
@@ -74,9 +77,9 @@
                     <div class="col-lg-6 col-md-7 hidden-sm hidden-xs">
                         <div class="primary-menu">
                         <ul class="menu biolife-menu clone-main-menu clone-primary-menu" id="primary-menu" data-menuname="main menu">
-                            <li class="menu-item"><a href="index.html">Home</a></li>
-                            <li class="menu-item"><a href="about-us.html">About us</a></li>
-                            <li class="menu-item"><a href="contact.html">Contact</a></li>
+                            <li class="menu-item"><a href="{{ url_for('commerce.commerce') }}">{{_('Home')}}</a></li>
+                            <li class="menu-item"><a href="{{ url_for('commerce.about_commerce') }}">{{_('About us')}}</a></li>
+                            <li class="menu-item"><a href="{{ url_for('commerce.contact_commerce') }}">{{_('Contact')}}</a></li>
                         </ul>
                     </div>
                     </div>
@@ -119,7 +122,7 @@
                                                 <i class="icon-cart-mini biolife-icon"></i>
                                                 <span class="qty">8</span>
                                             </span>
-                                        <span class="title">My Cart -</span>
+                                        <span class="title">{{_('My Cart')}} -</span>
                                         <span class="sub-total">$0.00</span>
                                     </a>
                                     <div class="cart-content">
@@ -440,7 +443,7 @@
                     <div class="col-lg-9 col-md-8 padding-top-2px">
                         <div class="header-search-bar layout-01">
                             <form action="#" class="form-search" name="desktop-seacrh" method="get">
-                                <input type="text" name="s" class="input-text" value="" placeholder="Search here...">
+                                <input type="text" name="s" class="input-text" value="" placeholder="{{_('Search')}}...">
                                 <select name="category">
                                     <option value="-1" selected>All Categories</option>
                                     <option value="vegetables">Vegetables</option>
@@ -457,8 +460,8 @@
                             </form>
                         </div>
                         <div class="live-info">
-                            <p class="telephone"><i class="fa fa-phone" aria-hidden="true"></i><b class="phone-number">(+900) 123 456 7891</b></p>
-                            <p class="working-time">Mon-Fri: 8:30am-7:30pm; Sat-Sun: 9:30am-4:30pm</p>
+                            <p class="telephone"><i class="fa fa-phone" aria-hidden="true"></i><b class="phone-number">!!! Jinja phone number !!!</b></p>
+                            <p class="working-time">!!!! Mon-Fri: 8:30am-7:30pm; Sat-Sun: 9:30am-4:30pm</p>
                         </div>
                     </div>
                 </div>
@@ -477,9 +480,11 @@
     <div class="container">
         <nav class="biolife-nav">
             <ul>
-                <li class="nav-item"><a href="/commerce" class="permal-link">Home</a></li>
                 {% if title %}
+                    <li class="nav-item"><a href="{{ url_for('commerce.commerce') }}" class="permal-link">{{_('Home')}}</a></li>
                     <li class="nav-item"><span class="current-page">{{title}}</span></li>
+                {% else %}
+                    <li class="nav-item"><a href="{{ url_for('commerce.commerce') }}" class="current-page">{{_('Home')}}</a></li><li></li>
                 {% endif %}
             </ul>
         </nav>
@@ -506,7 +511,7 @@
                         <div class="separator sm-margin-top-70px xs-margin-top-40px"></div>
                     </div>
                     <div class="col-lg-6 col-sm-6 col-xs-12">
-                        <div class="copy-right-text"><p><a href="">Powered by E/G :p</a></p></div>
+                        <div class="copy-right-text"><p><a href="">Powered by E/G :p <p>Compiled by M :D</p></a></p></div>
                     </div>
                     <div class="col-lg-6 col-sm-6 col-xs-12">
                         <div class="payment-methods">
@@ -530,25 +535,25 @@
             <div class="mobile-block block-menu-main">
                 <a class="menu-bar menu-toggle btn-toggle" data-object="open-mobile-menu" href="javascript:void(0)">
                     <span class="fa fa-bars"></span>
-                    <span class="text">Menu</span>
+                    <span class="text">{{_('Menu')}}</span>
                 </a>
             </div>
             <div class="mobile-block block-sidebar">
                 <a class="menu-bar filter-toggle btn-toggle" data-object="open-mobile-filter" href="javascript:void(0)">
                     <i class="fa fa-sliders" aria-hidden="true"></i>
-                    <span class="text">Sidebar</span>
+                    <span class="text">{{_('Sidebar')}}</span>
                 </a>
             </div>
             <div class="mobile-block block-minicart">
                 <a class="link-to-cart" href="#">
                     <span class="fa fa-shopping-bag" aria-hidden="true"></span>
-                    <span class="text">Cart</span>
+                    <span class="text">{{_('Cart')}}</span>
                 </a>
             </div>
             <div class="mobile-block block-global">
                 <a class="menu-bar myaccount-toggle btn-toggle" data-object="global-panel-opened" href="javascript:void(0)">
                     <span class="fa fa-globe"></span>
-                    <span class="text">Global</span>
+                    <span class="text">{{_('Global')}}</span>
                 </a>
             </div>
         </div>
@@ -556,34 +561,34 @@
 
     <div class="mobile-block-global">
         <div class="biolife-mobile-panels">
-            <span class="biolife-current-panel-title">Global</span>
+            <span class="biolife-current-panel-title">{{_('Global')}}</span>
             <a class="biolife-close-btn" data-object="global-panel-opened" href="#">&times;</a>
         </div>
         <div class="block-global-contain">
             <div class="glb-item my-account">
-                <b class="title">My Account</b>
+                <b class="title">{{_('My Account')}}</b>
                 <ul class="list">
-                    <li class="list-item"><a href="#">Login/register</a></li>
-                    <li class="list-item"><a href="#">Wishlist <span class="index">(8)</span></a></li>
-                    <li class="list-item"><a href="#">Checkout</a></li>
+                    <li class="list-item"><a href="#">{{_('Log in')}}/{{_('Register')}}</a></li>
+                    <li class="list-item"><a href="#">{{_('Wishlist')}} <span class="index">(8)</span></a></li>
+                    <li class="list-item"><a href="#">{{_('Checkout')}}</a></li>
                 </ul>
             </div>
-            <div class="glb-item currency">
-                <b class="title">Currency</b>
+          <!--   <div class="glb-item currency">
+                <b class="title">{{_('Currency')}}</b>
                 <ul class="list">
                     <li class="list-item"><a href="#">€ EUR (Euro)</a></li>
                     <li class="list-item"><a href="#">$ USD (Dollar)</a></li>
                     <li class="list-item"><a href="#">£ GBP (Pound)</a></li>
                     <li class="list-item"><a href="#">¥ JPY (Yen)</a></li>
                 </ul>
-            </div>
+            </div> -->
             <div class="glb-item languages">
-                <b class="title">Language</b>
+                <b class="title">{{_('Language')}}</b>
                 <ul class="list inline">
-                    <li class="list-item"><a href="#"><img src="{{ url_for('static', filename='commerce/main/images/languages/us.jpg') }}" alt="flag" width="24" height="18"></a></li>
-                    <li class="list-item"><a href="#"><img src="{{ url_for('static', filename='commerce/main/images/languages/fr.jpg') }}" alt="flag" width="24" height="18"></a></li>
-                    <li class="list-item"><a href="#"><img src="{{ url_for('static', filename='commerce/main/images/languages/ger.jpg') }}" alt="flag" width="24" height="18"></a></li>
-                    <li class="list-item"><a href="#"><img src="{{ url_for('static', filename='commerce/main/images/languages/jap.jpg') }}" alt="flag" width="24" height="18"></a></li>
+                    <li class="list-item"><img src="{{ url_for('static', filename='commerce/main/images/languages/us.jpg') }}" alt="flag" width="24" height="18"></li>
+                    <li class="list-item"><img src="{{ url_for('static', filename='commerce/main/images/languages/fr.jpg') }}" alt="flag" width="24" height="18"></li>
+                    <li class="list-item"><img src="{{ url_for('static', filename='commerce/main/images/languages/ger.jpg') }}" alt="flag" width="24" height="18"></li>
+                    <li class="list-item"><img src="{{ url_for('static', filename='commerce/main/images/languages/jap.jpg') }}" alt="flag" width="24" height="18"></li>
                 </ul>
             </div>
         </div>

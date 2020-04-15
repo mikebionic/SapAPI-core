@@ -17,8 +17,8 @@
                                         {% endfor %}
                                     </div>
                                 {% else %}
-                                    <label for="fid-name">Email Address:<span class="requite">*</span></label>
-                                    {{ form.email(class="txt-input", placeholder="E-mail") }}
+                                    <label for="fid-name">{{_('Email Address')}}:<span class="requite">*</span></label>
+                                    {{ form.email(class="txt-input focus", placeholder="E-mail") }}
                                 {% endif %}
                             </p>
                             <p class="form-row">
@@ -30,8 +30,8 @@
                                         {% endfor %}
                                     </div>
                                 {% else %}
-                                    <label for="fid-pass">Password:<span class="requite">*</span></label>
-                                    {{ form.password(class="txt-input", placeholder="Password" )}}
+                                    <label for="fid-pass">{{_('Password')}}:<span class="requite">*</span></label>
+                                    {{ form.password(class="txt-input", placeholder="Password')}}" )}}
                                 {% endif %}
                             </p>                            
                             <div class="form-check">
@@ -40,7 +40,7 @@
                             </div>
                             <p class="form-row wrap-btn">
                                 {{ form.submit(class="btn btn-submit btn-bold") }}
-                                <a href="/commerce/resetPassword" class="link-to-help">Forgot your password?</a>
+                                <a href="{{ url_for('auth.reset_request_commerce') }}" class="link-to-help">{{_('Forgot your password?')}}</a>
                             </p>
                         </form>
                     </div>
@@ -50,16 +50,16 @@
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <div class="register-in-container">
                         <div class="intro">
-                            <h4 class="box-title">New Customer?</h4>
-                            <p class="sub-title">Create an account with us and you’ll be able to:</p>
+                            <h4 class="box-title">{{_('New Customer?')}}</h4>
+                            <p class="sub-title">{{_('Create an account with us and you’ll be able to')}}:</p>
                             <ul class="lis">
-                                <li>Check out faster</li>
+                                <li>{{_('Check out faster')}}</li>
                                 <li>Save multiple shipping anddesses</li>
-                                <li>Access your order history</li>
-                                <li>Track new orders</li>
-                                <li>Save items to your Wishlist</li>
+                                <li>{{_('Access your order history')}}</li>
+                                <li>{{_('Track new orders')}}</li>
+                                <li>{{_('Save items to your Wishlist')}}</li>
                             </ul>
-                            <a href="/commerce/register" class="btn btn-bold">Create an account</a>
+                            <a href="{{ url_for('auth.register_commerce') }}" class="btn btn-bold">{{_('Create an account')}}</a>
                         </div>
                     </div>
                 </div>

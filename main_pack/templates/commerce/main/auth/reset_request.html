@@ -17,7 +17,7 @@
                                         {% endfor %}
                                     </div>
                                 {% else %}
-                                    <label for="fid-name">Email Address:<span class="requite">*</span></label>
+                                    <label for="fid-name">{{_('Email address')}}:<span class="requite">*</span></label>
                                     {{ form.email(class="txt-input", placeholder="E-mail") }}
                                 {% endif %}
                             </p>
