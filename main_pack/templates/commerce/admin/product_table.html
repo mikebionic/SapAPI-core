@@ -1,0 +1,1414 @@
+{% extends "commerce/admin/layout.html" %}
+
+{% block styles %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/prism/prism.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/datatables/datatables.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/owlcarousel2/dist/assets/owl.carousel.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/owlcarousel2/dist/assets/owl.theme.default.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/pretty-checkbox/pretty-checkbox.min.css') }}">
+{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h4>Product table</h4>
+          <a href="#" class="btn btn-icon btn-info"><i class="fas fa-plus"></i></a>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-striped" id="table-1">
+              <thead>
+                <tr>
+                  <th class="text-center">
+                    #
+                  </th>
+                  <th>Task Name</th>
+                  <th>Much</th>
+                  <th>Members</th>
+                  <th>Due Date</th>
+                  <th>Buttons</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <img alt="image" src="{{ url_for('static', filename='commerce/admin/commerce_styles/images/product/1.jpg') }}" width="35">
+                  </td>
+                  <td>
+                    <div class="dropdown d-inline">
+                      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton2"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Brand
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item has-icon" href="#">
+                          Puma
+                        </a>
+                        <a class="dropdown-item has-icon" href="#">
+                          Puma
+                        </a>
+                        <a class="dropdown-item has-icon" href="#">
+                          Puma
+                        </a>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="form-group">
+                        <div class="row gutters-xs" >
+                          <div class="col-auto">
+                            <label class="colorinput">
+                              <input name="color" type="checkbox" value="primary" class="colorinput-input" />
+                              <span class="colorinput-color bg-primary"></span>
+                            </label>
+                          </div>
+                          <div class="col-auto">
+                            <label class="colorinput">
+                              <input name="color" type="checkbox" value="secondary" class="colorinput-input" />
+                              <span class="colorinput-color bg-secondary"></span>
+                            </label>
+                          </div>
+                          <div class="col-auto">
+                            <label class="colorinput">
+                              <input name="color" type="checkbox" value="danger" class="colorinput-input" />
+                              <span class="colorinput-color bg-danger"></span>
+                            </label>
+                          </div>
+                          <div class="col-auto">
+                            <label class="colorinput">
+                              <span class="colorinput-color bg-warning" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></span>
+                            </label>
+                          </div>
+                        </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="dropdown d-inline mr-2">
+                      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Size
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item has-icon" href="#">
+                          <div class="pretty p-icon p-curve p-tada">
+                            <input type="checkbox" name="radio66">
+                            <div class="state p-info-o">
+                              <i class="icon material-icons">done</i>
+                              <label> M</label>
+                            </div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item has-icon" href="#">
+                          <div class="pretty p-icon p-curve p-tada">
+                            <input type="checkbox" name="radio66">
+                            <div class="state p-info-o">
+                              <i class="icon material-icons">done</i>
+                              <label> L</label>
+                            </div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item has-icon" href="#">
+                          <div class="pretty p-icon p-curve p-tada">
+                            <input type="checkbox" name="radio66">
+                            <div class="state p-info-o">
+                              <i class="icon material-icons">done</i>
+                              <label> XXL</label>
+                            </div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item has-icon" data-toggle="modal" data-target="#basicModal" href="#">
+                          <div class="more_size">
+                              <i class="fas fa-plus"></i>
+                              <label> More size</label>
+                          </div>    
+                        </a>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="badge badge-success badge-shadow">Completed</div>
+                  </td>
+                  <td>
+                    <a href="#" class="btn btn-icon btn-info"><i class="fas fa-pencil-alt"></i></a>
+                    <a href="#" class="btn btn-icon btn-danger"><i class="fas fa-trash-alt"></i></a>
+                  </td>
+                  
+                </tr>
+                <tr>
+                  <td>
+                    <img alt="image" src="{{ url_for('static', filename='commerce/admin/commerce_styles/images/product/2.jpg') }}" width="35">
+                  </td>
+                  <td>
+                    <div class="dropdown d-inline">
+                      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton2"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Brand
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item has-icon" href="#">
+                          Puma
+                        </a>
+                        <a class="dropdown-item has-icon" href="#">
+                          Puma
+                        </a>
+                        <a class="dropdown-item has-icon" href="#">
+                          Puma
+                        </a>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="form-group">
+                      <div class="row gutters-xs">
+                        <div class="col-auto">
+                          <label class="colorinput">
+                            <input name="color" type="checkbox" value="primary" class="colorinput-input" />
+                            <span class="colorinput-color bg-primary"></span>
+                          </label>
+                        </div>
+                        <div class="col-auto">
+                          <label class="colorinput">
+                            <input name="color" type="checkbox" value="secondary" class="colorinput-input" />
+                            <span class="colorinput-color bg-secondary"></span>
+                          </label>
+                        </div>
+                        <div class="col-auto">
+                          <label class="colorinput">
+                            <input name="color" type="checkbox" value="danger" class="colorinput-input" />
+                            <span class="colorinput-color bg-danger"></span>
+                          </label>
+                        </div>
+                        <div class="col-auto">
+                          <label class="colorinput">
+                            <span class="colorinput-color bg-warning" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  
+                  <td>
+                    <div class="dropdown d-inline mr-2">
+                      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Size
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item has-icon" href="#">
+                          <div class="pretty p-icon p-curve p-tada">
+                            <input type="checkbox" name="radio66">
+                            <div class="state p-info-o">
+                              <i class="icon material-icons">done</i>
+                              <label> M</label>
+                            </div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item has-icon" href="#">
+                          <div class="pretty p-icon p-curve p-tada">
+                            <input type="checkbox" name="radio66">
+                            <div class="state p-info-o">
+                              <i class="icon material-icons">done</i>
+                              <label> L</label>
+                            </div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item has-icon" href="#">
+                          <div class="pretty p-icon p-curve p-tada">
+                            <input type="checkbox" name="radio66">
+                            <div class="state p-info-o">
+                              <i class="icon material-icons">done</i>
+                              <label> XXL</label>
+                            </div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item has-icon" data-toggle="modal" data-target="#basicModal" href="#">
+                          <div class="more_size">
+                              <i class="fas fa-plus"></i>
+                              <label> More size</label>
+                          </div>    
+                        </a>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="badge badge-info badge-shadow">Todo</div>
+                  </td>
+                  <td>
+                    <a href="#" class="btn btn-icon btn-info"><i class="fas fa-pencil-alt"></i></a>
+                    <a href="#" class="btn btn-icon btn-danger"><i class="fas fa-trash-alt"></i></a>
+                  </td>
+                  
+                </tr>
+                <tr>
+                  <td>
+                    <img alt="image" src="{{ url_for('static', filename='commerce/admin/commerce_styles/images/product/3.jpg') }}" width="35">
+                  </td>
+                  <td>
+                    <div class="dropdown d-inline">
+                      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton2"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Brand
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item has-icon" href="#">
+                          Puma
+                        </a>
+                        <a class="dropdown-item has-icon" href="#">
+                          Puma
+                        </a>
+                        <a class="dropdown-item has-icon" href="#">
+                          Puma
+                        </a>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="form-group">
+                      <div class="row gutters-xs">
+                        <div class="col-auto">
+                          <label class="colorinput">
+                            <input name="color" type="checkbox" value="primary" class="colorinput-input" />
+                            <span class="colorinput-color bg-primary"></span>
+                          </label>
+                        </div>
+                        <div class="col-auto">
+                          <label class="colorinput">
+                            <input name="color" type="checkbox" value="secondary" class="colorinput-input" />
+                            <span class="colorinput-color bg-secondary"></span>
+                          </label>
+                        </div>
+                        <div class="col-auto">
+                          <label class="colorinput">
+                            <input name="color" type="checkbox" value="danger" class="colorinput-input" />
+                            <span class="colorinput-color bg-danger"></span>
+                          </label>
+                        </div>
+                        <div class="col-auto">
+                          <label class="colorinput">
+                            <span class="colorinput-color bg-warning" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  
+                  <td>
+                    <div class="dropdown d-inline mr-2">
+                      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Size
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item has-icon" href="#">
+                          <div class="pretty p-icon p-curve p-tada">
+                            <input type="checkbox" name="radio66">
+                            <div class="state p-info-o">
+                              <i class="icon material-icons">done</i>
+                              <label> M</label>
+                            </div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item has-icon" href="#">
+                          <div class="pretty p-icon p-curve p-tada">
+                            <input type="checkbox" name="radio66">
+                            <div class="state p-info-o">
+                              <i class="icon material-icons">done</i>
+                              <label> L</label>
+                            </div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item has-icon" href="#">
+                          <div class="pretty p-icon p-curve p-tada">
+                            <input type="checkbox" name="radio66">
+                            <div class="state p-info-o">
+                              <i class="icon material-icons">done</i>
+                              <label> XXL</label>
+                            </div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item has-icon" data-toggle="modal" data-target="#basicModal" href="#">
+                          <div class="more_size">
+                              <i class="fas fa-plus"></i>
+                              <label> More size</label>
+                          </div>    
+                        </a>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="badge badge-warning badge-shadow">In Progress</div>
+                  </td>
+                  <td>
+                    <a href="#" class="btn btn-icon btn-info"><i class="fas fa-pencil-alt"></i></a>
+                    <a href="#" class="btn btn-icon btn-danger"><i class="fas fa-trash-alt"></i></a>
+                  </td>
+                  
+                </tr>
+                <tr>
+                 <td>
+                    <img alt="image" src="{{ url_for('static', filename='commerce/admin/commerce_styles/images/product/4.jpg') }}" width="35">
+                  </td>
+                  <td>
+                    <div class="dropdown d-inline">
+                      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton2"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Brand
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item has-icon" href="#">
+                          Puma
+                        </a>
+                        <a class="dropdown-item has-icon" href="#">
+                          Puma
+                        </a>
+                        <a class="dropdown-item has-icon" href="#">
+                          Puma
+                        </a>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="form-group">
+                      <div class="row gutters-xs">
+                        <div class="col-auto">
+                          <label class="colorinput">
+                            <input name="color" type="checkbox" value="primary" class="colorinput-input" />
+                            <span class="colorinput-color bg-primary"></span>
+                          </label>
+                        </div>
+                        <div class="col-auto">
+                          <label class="colorinput">
+                            <input name="color" type="checkbox" value="secondary" class="colorinput-input" />
+                            <span class="colorinput-color bg-secondary"></span>
+                          </label>
+                        </div>
+                        <div class="col-auto">
+                          <label class="colorinput">
+                            <input name="color" type="checkbox" value="danger" class="colorinput-input" />
+                            <span class="colorinput-color bg-danger"></span>
+                          </label>
+                        </div>
+                        <div class="col-auto">
+                          <label class="colorinput">
+                            <span class="colorinput-color bg-warning" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  
+                  <td>
+                    <div class="dropdown d-inline mr-2">
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Size
+                        </button>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item has-icon" href="#">
+                          <div class="pretty p-icon p-curve p-tada">
+                            <input type="checkbox" name="radio66">
+                            <div class="state p-info-o">
+                              <i class="icon material-icons">done</i>
+                              <label> M</label>
+                            </div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item has-icon" href="#">
+                          <div class="pretty p-icon p-curve p-tada">
+                            <input type="checkbox" name="radio66">
+                            <div class="state p-info-o">
+                              <i class="icon material-icons">done</i>
+                              <label> L</label>
+                            </div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item has-icon" href="#">
+                          <div class="pretty p-icon p-curve p-tada">
+                            <input type="checkbox" name="radio66">
+                            <div class="state p-info-o">
+                              <i class="icon material-icons">done</i>
+                              <label> XXL</label>
+                            </div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item has-icon" data-toggle="modal" data-target="#basicModal" href="#">
+                          <div class="more_size">
+                              <i class="fas fa-plus"></i>
+                              <label> More size</label>
+                          </div>    
+                        </a>
+                        </div>
+                    </div>
+                    </td>
+                  <td>
+                    <div class="badge badge-success badge-shadow">Completed</div>
+                  </td>
+                  <td>
+                    <a href="#" class="btn btn-icon btn-info"><i class="fas fa-pencil-alt"></i></a>
+                    <a href="#" class="btn btn-icon btn-danger"><i class="fas fa-trash-alt"></i></a>
+                  </td>
+                  
+                </tr>
+                <tr>
+                  <td>
+                    <img alt="image" src="{{ url_for('static', filename='commerce/admin/commerce_styles/images/product/5.jpg') }}" width="35">
+                  </td>
+                  <td>
+                    <div class="dropdown d-inline">
+                      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton2"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Brand
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item has-icon" href="#">
+                          Puma
+                        </a>
+                        <a class="dropdown-item has-icon" href="#">
+                          Puma
+                        </a>
+                        <a class="dropdown-item has-icon" href="#">
+                          Puma
+                        </a>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="form-group">
+                      <div class="row gutters-xs">
+                        <div class="col-auto">
+                          <label class="colorinput">
+                            <input name="color" type="checkbox" value="primary" class="colorinput-input" />
+                            <span class="colorinput-color bg-primary"></span>
+                          </label>
+                        </div>
+                        <div class="col-auto">
+                          <label class="colorinput">
+                            <input name="color" type="checkbox" value="secondary" class="colorinput-input" />
+                            <span class="colorinput-color bg-secondary"></span>
+                          </label>
+                        </div>
+                        <div class="col-auto">
+                          <label class="colorinput">
+                            <input name="color" type="checkbox" value="danger" class="colorinput-input" />
+                            <span class="colorinput-color bg-danger"></span>
+                          </label>
+                        </div>
+                        <div class="col-auto">
+                          <label class="colorinput">
+                            <span class="colorinput-color bg-warning" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  
+                  <td>
+                    <div class="dropdown d-inline mr-2">
+                      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Size
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item has-icon" href="#">
+                          <div class="pretty p-icon p-curve p-tada">
+                            <input type="checkbox" name="radio66">
+                            <div class="state p-info-o">
+                              <i class="icon material-icons">done</i>
+                              <label> M</label>
+                            </div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item has-icon" href="#">
+                          <div class="pretty p-icon p-curve p-tada">
+                            <input type="checkbox" name="radio66">
+                            <div class="state p-info-o">
+                              <i class="icon material-icons">done</i>
+                              <label> L</label>
+                            </div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item has-icon" href="#">
+                          <div class="pretty p-icon p-curve p-tada">
+                            <input type="checkbox" name="radio66">
+                            <div class="state p-info-o">
+                              <i class="icon material-icons">done</i>
+                              <label> XXL</label>
+                            </div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item has-icon" data-toggle="modal" data-target="#basicModal" href="#">
+                          <div class="more_size">
+                              <i class="fas fa-plus"></i>
+                              <label> More size</label>
+                          </div>    
+                        </a>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="badge badge-success badge-shadow">Completed</div>
+                  </td>
+                  <td>
+                    <a href="#" class="btn btn-icon btn-info"><i class="fas fa-pencil-alt"></i></a>
+                    <a href="#" class="btn btn-icon btn-danger"><i class="fas fa-trash-alt"></i></a>
+                  </td>
+                  
+                </tr>
+                <tr>
+                  <td>
+                    <img alt="image" src="{{ url_for('static', filename='commerce/admin/commerce_styles/images/product/6.jpg') }}" width="35">
+                  </td>
+                  <td>
+                    <div class="dropdown d-inline">
+                      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton2"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Brand
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item has-icon" href="#">
+                          Puma
+                        </a>
+                        <a class="dropdown-item has-icon" href="#">
+                          Puma
+                        </a>
+                        <a class="dropdown-item has-icon" href="#">
+                          Puma
+                        </a>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="form-group">
+                      <div class="row gutters-xs">
+                        <div class="col-auto">
+                          <label class="colorinput">
+                            <input name="color" type="checkbox" value="primary" class="colorinput-input" />
+                            <span class="colorinput-color bg-primary"></span>
+                          </label>
+                        </div>
+                        <div class="col-auto">
+                          <label class="colorinput">
+                            <input name="color" type="checkbox" value="secondary" class="colorinput-input" />
+                            <span class="colorinput-color bg-secondary"></span>
+                          </label>
+                        </div>
+                        <div class="col-auto">
+                          <label class="colorinput">
+                            <input name="color" type="checkbox" value="danger" class="colorinput-input" />
+                            <span class="colorinput-color bg-danger"></span>
+                          </label>
+                        </div>
+                        <div class="col-auto">
+                          <label class="colorinput">
+                            <span class="colorinput-color bg-warning" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  
+                  <td>
+                    <div class="dropdown d-inline mr-2">
+                      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Size
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item has-icon" href="#">
+                          <div class="pretty p-icon p-curve p-tada">
+                            <input type="checkbox" name="radio66">
+                            <div class="state p-info-o">
+                              <i class="icon material-icons">done</i>
+                              <label> M</label>
+                            </div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item has-icon" href="#">
+                          <div class="pretty p-icon p-curve p-tada">
+                            <input type="checkbox" name="radio66">
+                            <div class="state p-info-o">
+                              <i class="icon material-icons">done</i>
+                              <label> L</label>
+                            </div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item has-icon" href="#">
+                          <div class="pretty p-icon p-curve p-tada">
+                            <input type="checkbox" name="radio66">
+                            <div class="state p-info-o">
+                              <i class="icon material-icons">done</i>
+                              <label> XXL</label>
+                            </div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item has-icon" data-toggle="modal" data-target="#basicModal" href="#">
+                          <div class="more_size">
+                              <i class="fas fa-plus"></i>
+                              <label> More size</label>
+                          </div>    
+                        </a>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="badge badge-info badge-shadow">Todo</div>
+                  </td>
+                  <td>
+                    <a href="#" class="btn btn-icon btn-info"><i class="fas fa-pencil-alt"></i></a>
+                    <a href="#" class="btn btn-icon btn-danger"><i class="fas fa-trash-alt"></i></a>
+                  </td>
+                  
+                </tr>
+                <tr>
+                  <td>
+                    <img alt="image" src="{{ url_for('static', filename='commerce/admin/commerce_styles/images/product/7.jpg') }}" width="35">
+                  </td>
+                  <td>
+                    <div class="dropdown d-inline">
+                      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton2"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Brand
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item has-icon" href="#">
+                          Puma
+                        </a>
+                        <a class="dropdown-item has-icon" href="#">
+                          Puma
+                        </a>
+                        <a class="dropdown-item has-icon" href="#">
+                          Puma
+                        </a>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="form-group">
+                      <div class="row gutters-xs">
+                        <div class="col-auto">
+                          <label class="colorinput">
+                            <input name="color" type="checkbox" value="primary" class="colorinput-input" />
+                            <span class="colorinput-color bg-primary"></span>
+                          </label>
+                        </div>
+                        <div class="col-auto">
+                          <label class="colorinput">
+                            <input name="color" type="checkbox" value="secondary" class="colorinput-input" />
+                            <span class="colorinput-color bg-secondary"></span>
+                          </label>
+                        </div>
+                        <div class="col-auto">
+                          <label class="colorinput">
+                            <input name="color" type="checkbox" value="danger" class="colorinput-input" />
+                            <span class="colorinput-color bg-danger"></span>
+                          </label>
+                        </div>
+                        <div class="col-auto">
+                          <label class="colorinput">
+                            <span class="colorinput-color bg-warning" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  
+                  <td>
+                    <div class="dropdown d-inline mr-2">
+                      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Size
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item has-icon" href="#">
+                          <div class="pretty p-icon p-curve p-tada">
+                            <input type="checkbox" name="radio66">
+                            <div class="state p-info-o">
+                              <i class="icon material-icons">done</i>
+                              <label> M</label>
+                            </div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item has-icon" href="#">
+                          <div class="pretty p-icon p-curve p-tada">
+                            <input type="checkbox" name="radio66">
+                            <div class="state p-info-o">
+                              <i class="icon material-icons">done</i>
+                              <label> L</label>
+                            </div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item has-icon" href="#">
+                          <div class="pretty p-icon p-curve p-tada">
+                            <input type="checkbox" name="radio66">
+                            <div class="state p-info-o">
+                              <i class="icon material-icons">done</i>
+                              <label> XXL</label>
+                            </div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item has-icon" data-toggle="modal" data-target="#basicModal" href="#">
+                          <div class="more_size">
+                              <i class="fas fa-plus"></i>
+                              <label> More size</label>
+                          </div>    
+                        </a>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="badge badge-warning badge-shadow">In Progress</div>
+                  </td>
+                  <td>
+                    <a href="#" class="btn btn-icon btn-info"><i class="fas fa-pencil-alt"></i></a>
+                    <a href="#" class="btn btn-icon btn-danger"><i class="fas fa-trash-alt"></i></a>
+                  </td>
+                  
+                </tr>
+                <tr>
+                  <td>
+                    <img alt="image" src="{{ url_for('static', filename='commerce/admin/commerce_styles/images/product/8.jpg') }}" width="35">
+                  </td>
+                  <td>
+                    <div class="dropdown d-inline">
+                      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton2"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Brand
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item has-icon" href="#">
+                          Puma
+                        </a>
+                        <a class="dropdown-item has-icon" href="#">
+                          Puma
+                        </a>
+                        <a class="dropdown-item has-icon" href="#">
+                          Puma
+                        </a>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                   <div class="form-group">
+                      <div class="row gutters-xs">
+                        <div class="col-auto">
+                          <label class="colorinput">
+                            <input name="color" type="checkbox" value="primary" class="colorinput-input" />
+                            <span class="colorinput-color bg-primary"></span>
+                          </label>
+                        </div>
+                        <div class="col-auto">
+                          <label class="colorinput">
+                            <input name="color" type="checkbox" value="secondary" class="colorinput-input" />
+                            <span class="colorinput-color bg-secondary"></span>
+                          </label>
+                        </div>
+                        <div class="col-auto">
+                          <label class="colorinput">
+                            <input name="color" type="checkbox" value="danger" class="colorinput-input" />
+                            <span class="colorinput-color bg-danger"></span>
+                          </label>
+                        </div>
+                        <div class="col-auto">
+                          <label class="colorinput">
+                            <span class="colorinput-color bg-warning" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  
+                  <td>
+                    <div class="dropdown d-inline mr-2">
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Size
+                        </button>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item has-icon" href="#">
+                          <div class="pretty p-icon p-curve p-tada">
+                            <input type="checkbox" name="radio66">
+                            <div class="state p-info-o">
+                              <i class="icon material-icons">done</i>
+                              <label> M</label>
+                            </div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item has-icon" href="#">
+                          <div class="pretty p-icon p-curve p-tada">
+                            <input type="checkbox" name="radio66">
+                            <div class="state p-info-o">
+                              <i class="icon material-icons">done</i>
+                              <label> L</label>
+                            </div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item has-icon" href="#">
+                          <div class="pretty p-icon p-curve p-tada">
+                            <input type="checkbox" name="radio66">
+                            <div class="state p-info-o">
+                              <i class="icon material-icons">done</i>
+                              <label> XXL</label>
+                            </div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item has-icon" data-toggle="modal" data-target="#basicModal" href="#">
+                          <div class="more_size">
+                              <i class="fas fa-plus"></i>
+                              <label> More size</label>
+                          </div>    
+                        </a>
+                        </div>
+                    </div>
+                    </td>
+                  <td>
+                    <div class="badge badge-success badge-shadow">Completed</div>
+                  </td>
+                  <td>
+                    <a href="#" class="btn btn-icon btn-info"><i class="fas fa-pencil-alt"></i></a>
+                    <a href="#" class="btn btn-icon btn-danger"><i class="fas fa-trash-alt"></i></a>
+                  </td>
+                  
+                </tr>
+                <tr>
+                  <td>
+                    <img alt="image" src="{{ url_for('static', filename='commerce/admin/commerce_styles/images/product/9.jpg') }}" width="35">
+                  </td>
+                  <td>
+                    <div class="dropdown d-inline">
+                      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton2"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Brand
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item has-icon" href="#">
+                          Puma
+                        </a>
+                        <a class="dropdown-item has-icon" href="#">
+                          Puma
+                        </a>
+                        <a class="dropdown-item has-icon" href="#">
+                          Puma
+                        </a>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                   <div class="form-group">
+                      <div class="row gutters-xs">
+                        <div class="col-auto">
+                          <label class="colorinput">
+                            <input name="color" type="checkbox" value="primary" class="colorinput-input" />
+                            <span class="colorinput-color bg-primary"></span>
+                          </label>
+                        </div>
+                        <div class="col-auto">
+                          <label class="colorinput">
+                            <input name="color" type="checkbox" value="secondary" class="colorinput-input" />
+                            <span class="colorinput-color bg-secondary"></span>
+                          </label>
+                        </div>
+                        <div class="col-auto">
+                          <label class="colorinput">
+                            <input name="color" type="checkbox" value="danger" class="colorinput-input" />
+                            <span class="colorinput-color bg-danger"></span>
+                          </label>
+                        </div>
+                        <div class="col-auto">
+                          <label class="colorinput">
+                            <span class="colorinput-color bg-warning" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  
+                  <td>
+                    <div class="dropdown d-inline mr-2">
+                      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Size
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item has-icon" href="#">
+                          <div class="pretty p-icon p-curve p-tada">
+                            <input type="checkbox" name="radio66">
+                            <div class="state p-info-o">
+                              <i class="icon material-icons">done</i>
+                              <label> M</label>
+                            </div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item has-icon" href="#">
+                          <div class="pretty p-icon p-curve p-tada">
+                            <input type="checkbox" name="radio66">
+                            <div class="state p-info-o">
+                              <i class="icon material-icons">done</i>
+                              <label> L</label>
+                            </div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item has-icon" href="#">
+                          <div class="pretty p-icon p-curve p-tada">
+                            <input type="checkbox" name="radio66">
+                            <div class="state p-info-o">
+                              <i class="icon material-icons">done</i>
+                              <label> XXL</label>
+                            </div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item has-icon" data-toggle="modal" data-target="#basicModal" href="#">
+                          <div class="more_size">
+                              <i class="fas fa-plus"></i>
+                              <label> More size</label>
+                          </div>    
+                        </a>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="badge badge-success badge-shadow">Completed</div>
+                  </td>
+                  <td>
+                    <a href="#" class="btn btn-icon btn-info"><i class="fas fa-pencil-alt"></i></a>
+                    <a href="#" class="btn btn-icon btn-danger"><i class="fas fa-trash-alt"></i></a>
+                  </td>
+                  
+                </tr>
+                <tr>
+                  <td>
+                    <img alt="image" src="{{ url_for('static', filename='commerce/admin/commerce_styles/images/product/10.jpg') }}" width="35">
+                  </td>
+                  <td>
+                    <div class="dropdown d-inline">
+                      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton2"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Brand
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item has-icon" href="#">
+                          Puma
+                        </a>
+                        <a class="dropdown-item has-icon" href="#">
+                          Puma
+                        </a>
+                        <a class="dropdown-item has-icon" href="#">
+                          Puma
+                        </a>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                   <div class="form-group">
+                      <div class="row gutters-xs">
+                        <div class="col-auto">
+                          <label class="colorinput">
+                            <input name="color" type="checkbox" value="primary" class="colorinput-input" />
+                            <span class="colorinput-color bg-primary"></span>
+                          </label>
+                        </div>
+                        <div class="col-auto">
+                          <label class="colorinput">
+                            <input name="color" type="checkbox" value="secondary" class="colorinput-input" />
+                            <span class="colorinput-color bg-secondary"></span>
+                          </label>
+                        </div>
+                        <div class="col-auto">
+                          <label class="colorinput">
+                            <input name="color" type="checkbox" value="danger" class="colorinput-input" />
+                            <span class="colorinput-color bg-danger"></span>
+                          </label>
+                        </div>
+                        <div class="col-auto">
+                          <label class="colorinput">
+                            <span class="colorinput-color bg-warning" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  
+                  <td>
+                    <div class="dropdown d-inline mr-2">
+                      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Size
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item has-icon" href="#">
+                          <div class="pretty p-icon p-curve p-tada">
+                            <input type="checkbox" name="radio66">
+                            <div class="state p-info-o">
+                              <i class="icon material-icons">done</i>
+                              <label> M</label>
+                            </div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item has-icon" href="#">
+                          <div class="pretty p-icon p-curve p-tada">
+                            <input type="checkbox" name="radio66">
+                            <div class="state p-info-o">
+                              <i class="icon material-icons">done</i>
+                              <label> L</label>
+                            </div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item has-icon" href="#">
+                          <div class="pretty p-icon p-curve p-tada">
+                            <input type="checkbox" name="radio66">
+                            <div class="state p-info-o">
+                              <i class="icon material-icons">done</i>
+                              <label> XXL</label>
+                            </div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item has-icon" data-toggle="modal" data-target="#basicModal" href="#">
+                          <div class="more_size">
+                              <i class="fas fa-plus"></i>
+                              <label> More size</label>
+                          </div>    
+                        </a>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="badge badge-info badge-shadow">Todo</div>
+                  </td>
+                  <td>
+                    <a href="#" class="btn btn-icon btn-info"><i class="fas fa-pencil-alt"></i></a>
+                    <a href="#" class="btn btn-icon btn-danger"><i class="fas fa-trash-alt"></i></a>
+                  </td>
+                  
+                </tr>
+                <tr>
+                   <td>
+                    <img alt="image" src="{{ url_for('static', filename='commerce/admin/commerce_styles/images/product/11.jpg') }}" width="35">
+                  </td>
+                  <td>
+                    <div class="dropdown d-inline">
+                      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton2"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Brand
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item has-icon" href="#">
+                          Puma
+                        </a>
+                        <a class="dropdown-item has-icon" href="#">
+                          Puma
+                        </a>
+                        <a class="dropdown-item has-icon" href="#">
+                          Puma
+                        </a>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="form-group">
+                      <div class="row gutters-xs">
+                        <div class="col-auto">
+                          <label class="colorinput">
+                            <input name="color" type="checkbox" value="primary" class="colorinput-input" />
+                            <span class="colorinput-color bg-primary"></span>
+                          </label>
+                        </div>
+                        <div class="col-auto">
+                          <label class="colorinput">
+                            <input name="color" type="checkbox" value="secondary" class="colorinput-input" />
+                            <span class="colorinput-color bg-secondary"></span>
+                          </label>
+                        </div>
+                        <div class="col-auto">
+                          <label class="colorinput">
+                            <input name="color" type="checkbox" value="danger" class="colorinput-input" />
+                            <span class="colorinput-color bg-danger"></span>
+                          </label>
+                        </div>
+                        <div class="col-auto">
+                          <label class="colorinput">
+                            <span class="colorinput-color bg-warning" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                 
+                  <td>
+                    <div class="dropdown d-inline mr-2">
+                      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Size
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item has-icon" href="#">
+                          <div class="pretty p-icon p-curve p-tada">
+                            <input type="checkbox" name="radio66">
+                            <div class="state p-info-o">
+                              <i class="icon material-icons">done</i>
+                              <label> M</label>
+                            </div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item has-icon" href="#">
+                          <div class="pretty p-icon p-curve p-tada">
+                            <input type="checkbox" name="radio66">
+                            <div class="state p-info-o">
+                              <i class="icon material-icons">done</i>
+                              <label> L</label>
+                            </div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item has-icon" href="#">
+                          <div class="pretty p-icon p-curve p-tada">
+                            <input type="checkbox" name="radio66">
+                            <div class="state p-info-o">
+                              <i class="icon material-icons">done</i>
+                              <label> XXL</label>
+                            </div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item has-icon" data-toggle="modal" data-target="#basicModal" href="#">
+                          <div class="more_size">
+                              <i class="fas fa-plus"></i>
+                              <label> More size</label>
+                          </div>    
+                        </a>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="badge badge-warning badge-shadow">In Progress</div>
+                  </td>
+                  <td>
+                    <a href="#" class="btn btn-icon btn-info"><i class="fas fa-pencil-alt"></i></a>
+                    <a href="#" class="btn btn-icon btn-danger"><i class="fas fa-trash-alt"></i></a>
+                  </td>
+                  
+                </tr>
+                <tr>
+                  <td>
+                    <img alt="image" src="{{ url_for('static', filename='commerce/admin/commerce_styles/images/product/12.jpg') }}" width="35">
+                  </td>
+                  <td>
+                    <div class="dropdown d-inline">
+                      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton2"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Brand
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item has-icon" href="#">
+                          Puma
+                        </a>
+                        <a class="dropdown-item has-icon" href="#">
+                          Puma
+                        </a>
+                        <a class="dropdown-item has-icon" href="#">
+                          Puma
+                        </a>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                   <div class="form-group">
+                      <div class="row gutters-xs">
+                        <div class="col-auto">
+                          <label class="colorinput">
+                            <input name="color" type="checkbox" value="primary" class="colorinput-input" />
+                            <span class="colorinput-color bg-primary"></span>
+                          </label>
+                        </div>
+                        <div class="col-auto">
+                          <label class="colorinput">
+                            <input name="color" type="checkbox" value="secondary" class="colorinput-input" />
+                            <span class="colorinput-color bg-secondary"></span>
+                          </label>
+                        </div>
+                        <div class="col-auto">
+                          <label class="colorinput">
+                            <input name="color" type="checkbox" value="danger" class="colorinput-input" />
+                            <span class="colorinput-color bg-danger"></span>
+                          </label>
+                        </div>
+                        <div class="col-auto">
+                          <label class="colorinput">
+                            <span class="colorinput-color bg-warning" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  
+                  <td>
+                    <div class="dropdown d-inline mr-2">
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Size
+                        </button>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item has-icon" href="#">
+                          <div class="pretty p-icon p-curve p-tada">
+                            <input type="checkbox" name="radio66">
+                            <div class="state p-info-o">
+                              <i class="icon material-icons">done</i>
+                              <label> M</label>
+                            </div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item has-icon" href="#">
+                          <div class="pretty p-icon p-curve p-tada">
+                            <input type="checkbox" name="radio66">
+                            <div class="state p-info-o">
+                              <i class="icon material-icons">done</i>
+                              <label> L</label>
+                            </div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item has-icon" href="#">
+                          <div class="pretty p-icon p-curve p-tada">
+                            <input type="checkbox" name="radio66">
+                            <div class="state p-info-o">
+                              <i class="icon material-icons">done</i>
+                              <label> XXL</label>
+                            </div>
+                          </div>
+                        </a>
+                        <a class="dropdown-item has-icon" data-toggle="modal" data-target="#basicModal" href="#">
+                          <div class="more_size">
+                              <i class="fas fa-plus"></i>
+                              <label> More size</label>
+                          </div>    
+                        </a>
+                        </div>
+                    </div>
+                    </td>
+                  <td>
+                    <div class="badge badge-success badge-shadow">Completed</div>
+                  </td>
+                  <td>
+                    <a href="#" class="btn btn-icon btn-info"><i class="fas fa-pencil-alt"></i></a>
+                    <a href="#" class="btn btn-icon btn-danger"><i class="fas fa-trash-alt"></i></a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block modals %}
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="formModal"
+  aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="formModal">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form class="">
+            <div class="card-body">
+              <div class="form-group">
+                <label>Color</label>
+                <input type="color" class="form-control">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Color Input</label>
+                <div class="row gutters-xs">
+                  <div class="col-auto">
+                    <label class="colorinput">
+                      <input name="color" type="checkbox" value="primary" class="colorinput-input" />
+                      <span class="colorinput-color bg-primary"></span>
+                    </label>
+                  </div>
+                  <div class="col-auto">
+                    <label class="colorinput">
+                      <input name="color" type="checkbox" value="secondary" class="colorinput-input" />
+                      <span class="colorinput-color bg-secondary"></span>
+                    </label>
+                  </div>
+                  <div class="col-auto">
+                    <label class="colorinput">
+                      <input name="color" type="checkbox" value="danger" class="colorinput-input" />
+                      <span class="colorinput-color bg-danger"></span>
+                    </label>
+                  </div>
+                  <div class="col-auto">
+                    <label class="colorinput">
+                      <input name="color" type="checkbox" value="warning" class="colorinput-input" />
+                      <span class="colorinput-color bg-warning"></span>
+                    </label>
+                  </div>
+                  <div class="col-auto">
+                    <label class="colorinput">
+                      <input name="color" type="checkbox" value="info" class="colorinput-input" />
+                      <span class="colorinput-color bg-info"></span>
+                    </label>
+                  </div>
+                  <div class="col-auto">
+                    <label class="colorinput">
+                      <input name="color" type="checkbox" value="success" class="colorinput-input" />
+                      <span class="colorinput-color bg-success"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <button class="btn btn-primary mr-1" type="submit">Submit</button>
+              <button class="btn btn-secondary" type="reset">Reset</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- basic modal -->
+  <div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="selectgroup w-100">
+            <label class="selectgroup-item">
+              <input type="radio" name="radio1" value="1" class="selectgroup-input-radio" checked>
+              <span class="selectgroup-button">S</span>
+            </label>
+            <label class="selectgroup-item">
+              <input type="radio" name="radio1" value="2" class="selectgroup-input-radio">
+              <span class="selectgroup-button">M</span>
+            </label>
+            <label class="selectgroup-item">
+              <input type="radio" name="radio1" value="3" class="selectgroup-input-radio">
+              <span class="selectgroup-button">L</span>
+            </label>
+            <label class="selectgroup-item">
+              <input type="radio" name="radio1" value="4" class="selectgroup-input-radio">
+              <span class="selectgroup-button">XL</span>
+            </label>
+          </div>
+        </div>
+        <div class="modal-footer bg-whitesmoke br">
+          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  <script src="{{ url_for('static', filename='commerce/admin/bundles/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/admin/bundles/owlcarousel2/dist/owl.carousel.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/admin/js/page/owl-carousel.js') }}"></script>
+{% endblock %}

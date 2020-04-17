@@ -53,7 +53,7 @@ class Res_unit(CreatedModifiedInfo,db.Model):
 	ResUnitId = db.Column(db.Integer,nullable=False,primary_key=True)
 	ResId = db.Column(db.Integer,db.ForeignKey("tbl_dk_resource.ResId"))
 	ResUnitUnitId = db.Column(db.Integer,db.ForeignKey("tbl_dk_unit.UnitId"))
-	# ResUnitConvAmount = db.Column(db.Float!!!!!!!,nullable=False)
+	ResUnitConvAmount = db.Column(db.Float,nullable=False)
 	ResUnitConvTypeId = db.Column(db.Integer,nullable=False)
 
 class Size(AddInf,CreatedModifiedInfo,db.Model):

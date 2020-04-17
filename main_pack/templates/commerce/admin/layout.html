@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+    {% if title %}
+      <title>{{_('Admin panel')}} - {{title}}</title>
+    {% else %}
+      <title>{{_('Admin panel')}}</title>
+    {% endif %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/css/app.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/css/components.css') }}">
+    <link rel='shortcut icon' type='image/x-icon' href="{{ url_for('static', filename='commerce/admin/img/favicon.ico') }}" />
+    {% block styles %}{% endblock %}
+  </head>
+  <body>
+    <div class="loader"></div>
+    <div id="app">
+      <div class="main-wrapper main-wrapper-1">
+        <div class="navbar-bg"></div>
+        <nav class="navbar navbar-expand-lg main-navbar sticky">
+          <div class="form-inline mr-auto">
+            <ul class="navbar-nav mr-3">
+              <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg
+                    collapse-btn"> <i data-feather="align-justify"></i></a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        <div class="main-sidebar sidebar-style-2">
+          <aside id="sidebar-wrapper">
+            <div class="sidebar-brand">
+              <a href="index.html"> <img alt="image" src="{{ url_for('static', filename='commerce/admin/img/logo.png') }}" class="header-logo" /> <span
+                  class="logo-name">!! Company</span>
+              </a>
+            </div>
+            <ul class="sidebar-menu">
+              <li class="menu-header">{{_('Main')}}</li>
+              <li class="dropdown active">
+                <a href="index.html" class="nav-link"><i data-feather="home"></i><span>{{_('Dashboard')}}</span></a>
+              </li>
+              <li class="dropdown">
+                <a href="product_table.html" class="nav-link"><i data-feather="grid"></i><span>{{_('Product Table')}}</span></a>
+              </li>
+              <li class="dropdown">
+                <a href="navbar.html" class="nav-link"><i data-feather="menu"></i><span>{{_('Navbar')}}</span></a>
+              </li>
+               <li class="dropdown">
+                <a href="single_product.html" class="nav-link"><i data-feather="package"></i><span>{{_('Single Product')}}</span></a>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="menu-toggle nav-link has-dropdown"><i
+                    data-feather="clipboard"></i><span>{{_('Main page')}}</span></a>
+                <ul class="dropdown-menu">
+                  <li><a class="nav-link" href="bas_sahypa/pictures.html">{{_('Pictures')}}</a></li>
+                </ul>
+              </li>
+            </ul>
+          </aside>
+        </div>
+
+        <div class="main-content">
+          <section class="section">
+            {% block content %}{% endblock %}
+            {% block modals %}{% endblock %}
+          </section>
+        </div>
+        <footer class="main-footer">
+          <div class="footer-left">
+            <a href="saphasap.net">SapHasap</a></a>
+          </div>
+          <div class="footer-right">
+          </div>
+        </footer>
+      </div>
+    </div>
+    <script src="{{ url_for('static', filename='commerce/admin/js/app.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='commerce/admin/bundles/datatables/datatables.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='commerce/admin/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='commerce/admin/bundles/jquery-ui/jquery-ui.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='commerce/admin/js/page/datatables.js') }}"></script>
+    <script src="stuf_css/js/jquery-3.4.1.min.js') }}"></script>
+    {% block scripts %}{% endblock %}
+    <script src="{{ url_for('static', filename='commerce/admin/js/scripts.js') }}"></script>
+  </body>
+</html>
