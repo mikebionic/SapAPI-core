@@ -116,8 +116,8 @@ class Company(AddInf,CreatedModifiedInfo,db.Model):
 	AccInfId = db.Column(db.Integer)
 	CAddress = db.Column(db.String(500))
 	CAddressLegal = db.Column(db.String(500))
-	# CLatitude = db.Column(db.Real)
-	# CLongitude = db.Column(db.Real)
+	CLatitude = db.Column(db.Float)
+	CLongitude = db.Column(db.Float)
 	Phone1 = db.Column(db.String(100))
 	Phone2 = db.Column(db.String(100))
 	Phone3 = db.Column(db.String(100))
@@ -343,11 +343,10 @@ class Resource(AddInf,CreatedModifiedInfo,db.Model):
 	ResMainImgId = db.Column(db.Integer,default=0)
 	ResMakerId = db.Column(db.Integer,db.ForeignKey("tbl_dk_resource_maker.ResMakerId"))
 	ResLastVendorId = db.Column(db.Integer,db.ForeignKey("tbl_dk_rp_acc.RpAccId"))
-	ResCode = db.Column(db.String(50),nullable=False)
+	ResRegNum = db.Column(db.String(50),nullable=False)
 	ResName = db.Column(db.String(255),nullable=False)
 	ResDesc = db.Column(db.String(500))
 	ResFullDesc = db.Column(db.String(1500))
-	# !!!!!! Floatsss
 	ResWidth = db.Column(db.Float,default=0)
 	ResHeight = db.Column(db.Float,default=0)
 	ResLength = db.Column(db.Float,default=0)
@@ -367,6 +366,7 @@ class Resource_category(CreatedModifiedInfo,db.Model):
 	ResOwnerCatId = db.Column(db.Integer,default=0)
 	ResCatName = db.Column(db.String(100),nullable=False)
 	ResCatDesc = db.Column(db.String(500))
+	ResCatIconName = db.Column(db.String(50))
 	Resource = db.relationship('Resource',backref='resource_category',lazy=True)
 
 class Resource_maker(AddInf,CreatedModifiedInfo,db.Model):

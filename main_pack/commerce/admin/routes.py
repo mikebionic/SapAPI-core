@@ -2,6 +2,8 @@ from flask import render_template, url_for, jsonify, json, session, flash, redir
 from flask_login import current_user, login_required
 from main_pack import db,babel,gettext,lazy_gettext
 from main_pack.commerce.admin import bp
+from main_pack.commerce.admin.utils import prepare_data
+from main_pack.models.base.models import Resource_category
 
 @bp.route("/admin/dashboard")
 def dashboard_commerce():
@@ -9,7 +11,19 @@ def dashboard_commerce():
 
 @bp.route("/admin/navbar")
 def navbar_commerce():
-	return render_template ("commerce/admin/navbar.html",title=gettext('Navbar'))
+	categories = Resource_category.query.all()
+	baseTemplate = {
+		'categories':categories,
+		}
+	return render_template ("commerce/admin/navbar.html", **baseTemplate,title=gettext('Navbar'))
+
+@bp.route("/admin/navbar/", methods=['GET','POST'])
+def ui_navbar_commerce():
+	categories = Resource_category.query.all()
+	baseTemplate = {
+		'categories':categories,
+		}
+
 
 @bp.route("/admin/picture")
 def picture_commerce():

@@ -35,9 +35,10 @@
                   class="logo-name">!! Company</span>
               </a>
             </div>
+           
             <ul class="sidebar-menu">
               <li class="menu-header">{{_('Main')}}</li>
-              <li class="dropdown active">
+              <li class="dropdown">
                 <a href="{{ url_for('admin.dashboard_commerce') }}" class="nav-link"><i data-feather="home"></i><span>{{_('Dashboard')}}</span></a>
               </li>
               <li class="dropdown">
@@ -46,7 +47,7 @@
               <li class="dropdown">
                 <a href="{{ url_for('admin.navbar_commerce') }}" class="nav-link"><i data-feather="menu"></i><span>{{_('Navbar')}}</span></a>
               </li>
-               <li class="dropdown">
+              <li class="dropdown">
                 <a href="{{ url_for('admin.single_product_commerce') }}" class="nav-link"><i data-feather="package"></i><span>{{_('Single Product')}}</span></a>
               </li>
               <li class="dropdown">
@@ -57,6 +58,7 @@
                 </ul>
               </li>
             </ul>
+
           </aside>
         </div>
 
@@ -80,7 +82,7 @@
     <script src="{{ url_for('static', filename='commerce/admin/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ url_for('static', filename='commerce/admin/bundles/jquery-ui/jquery-ui.min.js') }}"></script>
     <script src="{{ url_for('static', filename='commerce/admin/js/page/datatables.js') }}"></script>
-    <script src="{{ url_for('static', filename='commerce/admin/commerce_admin/js/jquery-3.4.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='commerce/admin/commerce_styles/js/jquery-3.4.1.min.js') }}"></script>
     {% block scripts %}{% endblock %}
     <script src="{{ url_for('static', filename='commerce/admin/js/scripts.js') }}"></script>
   </body>
