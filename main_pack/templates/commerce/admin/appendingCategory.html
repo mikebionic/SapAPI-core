@@ -1,0 +1,46 @@
+{% if child_status == 'category' %}
+
+    <li class="menu-item menu-item-has-children has-megamenu category-menu">
+        <div class="form-group">
+            <a href="#" class="menu-name" data-title=""><i class="biolife-icon icon-fruits"></i>{{ category.ResCatName }}</a>
+        </div>
+
+        <div class="wrap-megamenu lg-width-300 md-width-640">
+            <div class="mega-content">
+                <div class="row">
+                    <div class="col-lg-7 col-md-4 col-sm-12 xs-margin-bottom-25 md-margin-bottom-0">
+                        <div class="wrap-custom-menu vertical-menu">
+                            <h4 class="menu-title subcategory-menu">
+
+                                <input type="text" name="name" value="" placeholder="Category Name" class="txt-input" style="width: 65%;height: 40px;">
+                                <a href="#"><i class="fas fa-pencil-alt"></i></a>
+                                <a href="#"><i class="fas fa-times" style="padding-left: 7px;"></i></a>
+
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>                        
+
+{% else if child_status == 'category_child' %}
+
+    <h4 class="menu-title">{{ category.ResCatName }}</h4>
+    <ul class="menu subcategory-child-menu"></ul>
+
+    <div class="form-group">
+        <div class="ico_category">
+            <a href="#" class="menu-name" data-title="Fruit & Nut Gifts"><i class="fas fa-plus-circle"></i></a>
+            <input type="text" name="name" value="" placeholder="Category" class="txt-input" style="width: 70%;height: 40px;">
+            <a href="#"><i class="fas fa-pencil-alt"></i></a>
+            <a href="#"><i class="fas fa-times" style="padding-left: 7px;"></i></a>
+        </div>
+    </div>
+    <!-- some divider here -->
+
+{% else if child_status == 'subcategory_child' %}
+
+    <li><a href="#">{{ category.ResCatName }}</a></li>
+
+{% endif %}

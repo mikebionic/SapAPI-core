@@ -17,14 +17,6 @@ def navbar_commerce():
 		}
 	return render_template ("commerce/admin/navbar.html", **baseTemplate,title=gettext('Navbar'))
 
-@bp.route("/admin/navbar/", methods=['GET','POST'])
-def ui_navbar_commerce():
-	categories = Resource_category.query.all()
-	baseTemplate = {
-		'categories':categories,
-		}
-
-
 @bp.route("/admin/picture")
 def picture_commerce():
 	return render_template ("commerce/admin/picture.html",title=gettext('Picture'))

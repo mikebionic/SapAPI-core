@@ -368,6 +368,20 @@ class Resource_category(CreatedModifiedInfo,db.Model):
 	ResCatDesc = db.Column(db.String(500))
 	ResCatIconName = db.Column(db.String(50))
 	Resource = db.relationship('Resource',backref='resource_category',lazy=True)
+	
+	def update(self, **kwargs):
+		for key, value in kwargs.items():
+			if value is not None:
+				if hasattr(self, key):
+					setattr(self, key, value)
+	def to_json(self):
+		json_category = {
+			'ownerCategory':self.ResOwnerCatId,
+			'categoryName':self.ResCatName,
+			'categoryDesc':self.ResCatDesc,
+			'categoryIcon':self.ResCatIconName
+			}
+		return json_category
 
 class Resource_maker(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_resource_maker"
