@@ -31,7 +31,7 @@
                                     </div>
                                 {% else %}
                                     <label for="fid-pass">{{_('Password')}}:<span class="requite">*</span></label>
-                                    {{ form.password(class="txt-input", placeholder="Password')}}" )}}
+                                    {{ form.password(class="txt-input", placeholder="Password" )}}
                                 {% endif %}
                             </p>                            
                             <div class="form-check">
@@ -40,7 +40,7 @@
                             </div>
                             <p class="form-row wrap-btn">
                                 {{ form.submit(class="btn btn-submit btn-bold") }}
-                                <a href="{{ url_for('auth.reset_request_commerce') }}" class="link-to-help">{{_('Forgot your password?')}}</a>
+                                <a href="{{ url_for('commerce_auth.reset_request') }}" class="link-to-help">{{_('Forgot your password?')}}</a>
                             </p>
                         </form>
                     </div>
@@ -59,7 +59,7 @@
                                 <li>{{_('Track new orders')}}</li>
                                 <li>{{_('Save items to your Wishlist')}}</li>
                             </ul>
-                            <a href="{{ url_for('auth.register_commerce') }}" class="btn btn-bold">{{_('Create an account')}}</a>
+                            <a href="{{ url_for('commerce_auth.register') }}" class="btn btn-bold">{{_('Create an account')}}</a>
                         </div>
                     </div>
                 </div>

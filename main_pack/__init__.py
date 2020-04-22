@@ -14,7 +14,7 @@ bcrypt = Bcrypt()
 login_manager = LoginManager()
 mail = Mail()
 
-login_manager.login_view = 'auth.login_commerce'
+login_manager.login_view = 'commerce_auth.login'
 login_manager.login_message = lazy_gettext('Login the system!')
 login_manager.login_message_category = 'info'
 

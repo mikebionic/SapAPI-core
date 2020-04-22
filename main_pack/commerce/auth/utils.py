@@ -5,7 +5,7 @@ from flask import current_app
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
 def send_reset_email(user):
-	url = 'auth.reset_token_commerce'
+	url = 'commerce_auth.reset_token'
 	token = user.get_reset_token()
 	msg = Message('Password reset request', sender='noterply@demo.com',recipients=[user.UEmail])
 	msg.body = f'''To reset your password, visit the following link:
@@ -33,7 +33,7 @@ def send_register_email(UName,UEmail):
 	msg.body = f'''Dear, {UName}
 	You have requested the registration on ecommerce.
 	Please follow the link to verify your email!
-	{url_for('auth.register_token_commerce',token=token,_external=True)}
+	{url_for('commerce_auth.register_token',token=token,_external=True)}
 	If you did not make this request then simply ignore this email. 
 	'''
 	mail.send(msg)

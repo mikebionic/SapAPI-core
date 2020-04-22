@@ -3,42 +3,7 @@ from flask import current_app
 from datetime import datetime
 from flask_login import UserMixin
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
-
-
-# from main_pack.models.hr_department.models import (Employee,Award,Contract_type,Edu_level,
-# 	Emp_status,Nationality,Profession,Rel_status,Relatives,School,School_type,
-# 	Visited_countries,Work_history,db)
-
-# from main_pack.models.base.models import (Acc_type,Accounting_info,AdditionalInf1,AdditionalInf2,
-# 	AdditionalInf3,AdditionalInf4,AdditionalInf5,AdditionalInf6,Bank,City,Company,Contact,Contact_type,
-# 	Country,Currency,Db_inf,Department,Department_detail,Division,Gender,Image,Location,Password,
-# 	Password_type,Prog_language,Reg_num,Reg_num_type,Report_file,Resource,Rp_acc,Warehouse,db)
-
-
 from main_pack.models.base.models import CreatedModifiedInfo, AddInf
-
-class CreatedModifiedInfo(object):
-	CreatedDate = db.Column(db.DateTime,default=datetime.now)
-	ModifiedDate = db.Column(db.DateTime,default=datetime.now)
-	CreatedUId = db.Column(db.Integer)
-	ModifiedUId = db.Column(db.Integer)
-	GCRecord = db.Column(db.Integer)
-
-	def createdInfo(self,UId):
-		self.CreatedUId = UId
-
-	def modifiedInfo(self,UId):
-		self.ModifiedDate = datetime.now()
-		self.ModifiedUId = UId
-
-class AddInf(object):
-	AddInf1 = db.Column(db.String(500))
-	AddInf2 = db.Column(db.String(500))
-	AddInf3 = db.Column(db.String(500))
-	AddInf4 = db.Column(db.String(500))
-	AddInf5 = db.Column(db.String(500))
-	AddInf6 = db.Column(db.String(500))
-
 
 @login_manager.user_loader
 def load_user(UId):

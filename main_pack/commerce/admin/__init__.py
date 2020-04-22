@@ -1,5 +1,5 @@
 from flask import Blueprint
 
-bp = Blueprint('admin', __name__)
+bp = Blueprint('commerce_admin', __name__)
 
 from main_pack.commerce.admin import routes, ui_resource

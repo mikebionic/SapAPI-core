@@ -9,7 +9,6 @@
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='commerce/admin/commerce_styles/css/nice-select.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='commerce/admin/commerce_styles/css/slick.min.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='commerce/admin/commerce_styles/css/style.css') }}">
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='commerce/admin/commerce_styles/css/material-design-iconic-font.min.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='commerce/admin/commerce_styles/css/main-color.css') }}">
 {% endblock %}
 
@@ -27,380 +26,550 @@
                     <ul class="menu biolife-menu clone-main-menu clone-primary-menu" id="primary-menu" data-menuname="main menu">
                         <li class="menu-item"><a href="index.html">Home</a></li>
                         <li class="menu-item"><a href="about-us.html">About us</a></li>
-                        <li class="menu-item"><a class="lookup btn_call_quickview" href="contact.html" style="width: 100%;">Contact</a></li>
+                        <li class="menu-item"><a data-toggle="modal"
+                            data-target=".bd-example-modal-lg" href="contact.html" style="width: 100%;">Contact</a></li>
                     </ul>
                 </div>
                 </div>
-                <div class="col-lg-3 col-md-3 col-md-6 col-xs-6">
-                    <div class="biolife-cart-info">
-                        <div class="mobile-search">
-                            <a href="javascript:void(0)" class="open-searchbox"><i class="biolife-icon icon-search"></i></a>
-                            <div class="mobile-search-content">
-                                <form action="#" class="form-search" name="mobile-seacrh" method="get">
-                                    <a href="#" class="btn-close"><span class="biolife-icon icon-close-menu"></span></a>
-                                    <input type="text" name="s" class="input-text" value="" placeholder="Search here...">
-                                    <select name="category">
-                                        <option value="-1" selected>All Categories</option>
-                                        <option value="vegetables">Vegetables</option>
-                                        <option value="fresh_berries">Fresh Berries</option>
-                                        <option value="ocean_foods">Ocean Foods</option>
-                                        <option value="butter_eggs">Butter & Eggs</option>
-                                        <option value="fastfood">Fastfood</option>
-                                        <option value="fresh_meat">Fresh Meat</option>
-                                        <option value="fresh_onion">Fresh Onion</option>
-                                        <option value="papaya_crisps">Papaya & Crisps</option>
-                                        <option value="oatmeal">Oatmeal</option>
-                                    </select>
-                                    <button type="submit" class="btn-submit">go</button>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="mobile-menu-toggle">
-                            <a class="btn-toggle" data-object="open-mobile-menu" href="javascript:void(0)">
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
-        <div class="header-bottom hidden-sm hidden-xs">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-3 col-md-4">
-                        <div class="vertical-menu vertical-category-block">
-                            <div class="block-title">
-                                <span class="menu-icon">
-                                    <span class="line-1"></span>
-                                    <span class="line-2"></span>
-                                    <span class="line-3"></span>
-                                </span>
-                                <span class="menu-title">Category</span>
-                                <span class="angle" data-tgleclass="fa fa-caret-down"><i class="fa fa-caret-up" aria-hidden="true"></i></span>
-                            </div>
-                            <div class="wrap-menu">
-                                <ul class="menu clone-main-menu">
-                                    <li class="menu-item menu-item-has-children has-megamenu">
-                                        <div class="form-group">
-                                            <a class="lookup btn_call_quickview" href="#" class="menu-name" data-title="Fruit & Nut Gifts"><i class="fas fa-plus-circle"></i></a>
-                                             <input type="text" name="name" value="" placeholder="Category" class="txt-input" style="width: 80%;height: 40px;">
-                                             <button id="newCategory">Add</button>
-                                        </div>
-                                    </li>
-                                    <li class="menu-item menu-item-has-children has-megamenu">
-                                        <div class="form-group">
-                                        <a class="lookup btn_call_quickview" href="#" class="menu-name" data-title="Fruit & Nut Gifts"><i class="fas fa-plus-circle"></i></a>
+    <div class="header-bottom hidden-sm hidden-xs">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-4">
+                    <div class="vertical-menu vertical-category-block">
+                        <div class="block-title">
+                            <span class="menu-icon">
+                                <span class="line-1"></span>
+                                <span class="line-2"></span>
+                                <span class="line-3"></span>
+                            </span>
+                            <span class="menu-title">Category</span>
+                            <span class="angle" data-tgleclass="fa fa-caret-down"><i class="fa fa-caret-up" aria-hidden="true"></i></span>
+                        </div>
+                        <div class="wrap-menu">
+                            <ul class="menu clone-main-menu">
+                                <li class="menu-item menu-item-has-children has-megamenu">
+                                <div class="form-group">
+                                    <a href="#" class="menu-name" data-toggle="modal"
+                                    data-target="#exampleModalCenter"><i class="fas fa-apple-alt"></i></a>
                                          <input type="text" name="name" value="" placeholder="Category" class="txt-input" style="width: 80%;height: 40px;">
-                                    </div>  
-                                    </li>
-                                    
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-9 col-md-8 padding-top-2px">
-                        <div class="header-search-bar layout-01">
-                            <form action="#" class="form-search" name="desktop-seacrh" method="get">
-                                <input type="text" name="s" class="input-text" value="" placeholder="Search here...">
-                                <select name="category">
-                                    <option value="-1" selected>All Categories</option>
-                                    <option value="vegetables">Vegetables</option>
-                                    <option value="fresh_berries">Fresh Berries</option>
-                                    <option value="ocean_foods">Ocean Foods</option>
-                                    <option value="butter_eggs">Butter & Eggs</option>
-                                    <option value="fastfood">Fastfood</option>
-                                    <option value="fresh_meat">Fresh Meat</option>
-                                    <option value="fresh_onion">Fresh Onion</option>
-                                    <option value="papaya_crisps">Papaya & Crisps</option>
-                                    <option value="oatmeal">Oatmeal</option>
-                                </select>
-                                <button type="submit" class="btn-submit"><i class="biolife-icon icon-search"></i></button>
-                            </form>
-                        </div>
-                        <div class="live-info">
-                            <p class="telephone"><i class="fa fa-phone" aria-hidden="true"></i><b class="phone-number"><input type="text" name="qty12554" value="" data-max_value="20" data-min_value="1" data-step="1" placeholder="Nomber"></b></p>
-                            <p class="working-time"><input type="text" name="qty12554" value="" data-max_value="20" data-min_value="1" data-step="1" placeholder="Open/Close"></p>
+                                         <a href="#" data-toggle="tooltip" data-placement="bottom" title="Say something"><i class="fas fa-question" data-toggle="modal"
+                                            data-target=".bd-example-modal-sm"></i></a>
+                                        <a href="#"><i class="fas fa-plus-circle"></i></a>
+                                </div>     
+
+                                    <div class="wrap-megamenu lg-width-300 md-width-640">
+                                        <div class="mega-content">
+                                            <div class="row">
+                                                <div class="col-lg-9 col-md-4 col-sm-12 xs-margin-bottom-25 md-margin-bottom-0">
+                                                    <div class="wrap-custom-menu vertical-menu">
+                                                        <h4 class="menu-title">
+                                                            <input type="text" name="name" value="" placeholder="Category Name" class="txt-input" style="width: 65%;height: 40px;">
+                                                            <a href="#" data-toggle="tooltip" data-placement="bottom" title="Say something"><i class="fas fa-question" data-toggle="modal"
+                                                                data-target=".bd-example-modal-sm"></i></a>
+                                                            <a href="#"><i class="fas fa-check"></i></a>
+                                                            <a href="#"><i class="fas fa-pencil-alt"></i></a>
+                                                            <a href="#"><i class="fas fa-times" style="padding-left: 7px;"></i></a>
+                                                        </h4>
+                                                        <div class="form-group">
+                                                            <div class="ico_category">
+                                                                <a href="#" class="menu-name" data-title="Fruit & Nut Gifts">
+                                                                <input type="text" name="name" value="" placeholder="Category" class="txt-input" style="width: 70%;height: 40px;">
+                                                                <a href="#" data-toggle="tooltip" data-placement="bottom" title="Say something"><i class="fas fa-question" data-toggle="modal"
+                                                                    data-target=".bd-example-modal-sm"></i></a>
+                                                                <a href="#"><i class="fas fa-check"></i></a>
+                                                                <a href="#"><i class="fas fa-pencil-alt"></i></a>
+                                                                <a href="#"><i class="fas fa-times" style="padding-left: 7px;"></i></a>
+                                                            </div>
+                                                      </div>  
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                
+                            </ul>
                         </div>
                     </div>
                 </div>
+                
             </div>
         </div>
-    </header>
-          </div>    
+    </div>
+</header>
+</div>    
 {% endblock %}
 
-{% block modals %}  
-	<div id="biolife-quickview-block" class="biolife-quickview-block">
-        <div class="quickview-container">
-            <a href="#" class="btn-close-quickview" data-object="open-quickview-block"><span class="biolife-icon icon-close-menu"></span></a>
-            <div class="biolife-quickview-inner">
-               <div class="card-body">
-                  <div class="icon-container row">
-                    <div class="col-sm-6 col-md-4 col-lg-3">
-                        <div class="preview">
-                            <div class="icon-preview">
-                                <i class="fas fa-address-book"></i>
-                            </div>
-                            <div class="icon-class">fas fa-address-book</div>
-                        </div>
+{% block modals %}
+<!-- Small Modal -->
+<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+aria-hidden="true">
+<div class="modal-dialog modal-sm">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="mySmallModalLabel">Modal title</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+       <textarea class="form-control"></textarea>
+       <a href="#" class="close"><i class="fas fa-check"></i></a>
+    </div>
+  </div>
+</div>
+</div>  
+ <!-- Vertically Center -->
+ <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+ aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+ <div class="modal-dialog modal-dialog-centered" role="document">
+   <div class="modal-content">
+     <div class="modal-header">
+       <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+         <span aria-hidden="true">&times;</span>
+       </button>
+     </div>
+     <div class="modal-body">
+        <div class="icon-container row">
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="preview">
+                    <div class="icon-preview">
+                        <a href="#"><i class="fas fa-address-book"></i></a>
                     </div>
-                    <div class="col-sm-6 col-md-4 col-lg-3">
-                        <div class="preview">
-                            <div class="icon-preview">
-                                <i class="fas fa-address-card"></i>
-                            </div>
-                            <div class="icon-class">fas fa-address-card</div>
-                        </div>
+                    <div class="icon-class"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="preview">
+                    <div class="icon-preview">
+                        <a href="#"><i class="fas fa-address-card"></i></a>
                     </div>
-                    <div class="col-sm-6 col-md-4 col-lg-3">
-                        <div class="preview">
-                            <div class="icon-preview">
-                                <i class="fas fa-angle-right"></i>
-                            </div>
-                            <div class="icon-class">fas fa-angle-right</div>
-                        </div>
+                    <div class="icon-class"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="preview">
+                    <div class="icon-preview">
+                        <a href="#"><i class="fas fa-adjust"></i></a>
                     </div>
-                    <div class="col-sm-6 col-md-4 col-lg-3">
-                        <div class="preview">
-                            <div class="icon-preview">
-                                <i class="fas fa-angle-up"></i>
-                            </div>
-                            <div class="icon-class">fas fa-angle-up</div>
-                        </div>
+                    <div class="icon-class"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="preview">
+                    <div class="icon-preview">
+                        <a href="#"><i class="fas fa-air-freshener"></i></a>
                     </div>
-                     <div class="col-sm-6 col-md-4 col-lg-3">
-                         <div class="preview">
-                             <div class="icon-preview">
-                                 <i class="fas fa-angry"></i>
-                             </div>
-                             <div class="icon-class">fas fa-angry</div>
-                         </div>
-                     </div>
-                     <div class="col-sm-6 col-md-4 col-lg-3">
-                         <div class="preview">
-                             <div class="icon-preview">
-                                 <i class="fas fa-apple-alt"></i>
-                             </div>
-                             <div class="icon-class">fas fa-apple-alt</div>
-                         </div>
-                     </div>
-                     <div class="col-sm-6 col-md-4 col-lg-3">
-                         <div class="preview">
-                             <div class="icon-preview">
-                                 <i class="fas fa-archive"></i>
-                             </div>
-                             <div class="icon-class">fas fa-archive</div>
-                         </div>
-                     </div>
-                     <div class="col-sm-6 col-md-4 col-lg-3">
-                         <div class="preview">
-                             <div class="icon-preview">
-                                 <i class="fas fa-archway"></i>
-                             </div>
-                             <div class="icon-class">fas fa-archway</div>
-                         </div>
-                     </div>
-                      <div class="col-sm-6 col-md-4 col-lg-3">
-                          <div class="preview">
-                              <div class="icon-preview">
-                                  <i class="fas fa-arrow-alt-circle-down"></i>
-                              </div>
-                              <div class="icon-class">fas fa-arrow-alt-circle-down</div>
-                          </div>
-                      </div>
-                       <div class="col-sm-6 col-md-4 col-lg-3">
-                           <div class="preview">
-                               <div class="icon-preview">
-                                   <i class="fas fa-arrow-alt-circle-left"></i>
-                               </div>
-                               <div class="icon-class">fas fa-arrow-alt-circle-left</div>
-                           </div>
-                       </div>
-                       <div class="col-sm-6 col-md-4 col-lg-3">
-                           <div class="preview">
-                               <div class="icon-preview">
-                                   <i class="fas fa-arrow-alt-circle-right"></i>
-                               </div>
-                               <div class="icon-class">fas fa-arrow-alt-circle-right</div>
-                           </div>
-                       </div>
-                       <div class="col-sm-6 col-md-4 col-lg-3">
-                           <div class="preview">
-                               <div class="icon-preview">
-                                   <i class="fas fa-arrow-alt-circle-up"></i>
-                               </div>
-                               <div class="icon-class">fas fa-arrow-alt-circle-up</div>
-                           </div>
-                       </div>
-                       <div class="col-sm-6 col-md-4 col-lg-3">
-                           <div class="preview">
-                               <div class="icon-preview">
-                                   <i class="fas fa-arrow-circle-down"></i>
-                               </div>
-                               <div class="icon-class">fas fa-arrow-circle-down</div>
-                           </div>
-                       </div>
-                        <div class="col-sm-6 col-md-4 col-lg-3">
-                            <div class="preview">
-                                <div class="icon-preview">
-                                    <i class="fas fa-arrow-circle-left"></i>
-                                </div>
-                                <div class="icon-class">fas fa-arrow-circle-left</div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-4 col-lg-3">
-                            <div class="preview">
-                                <div class="icon-preview">
-                                    <i class="fas fa-arrow-circle-right"></i>
-                                </div>
-                                <div class="icon-class">fas fa-arrow-circle-right</div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-4 col-lg-3">
-                            <div class="preview">
-                                <div class="icon-preview">
-                                    <i class="fas fa-arrow-circle-up"></i>
-                                </div>
-                                <div class="icon-class">fas fa-arrow-circle-up</div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-4 col-lg-3">
-                            <div class="preview">
-                                <div class="icon-preview">
-                                    <i class="fas fa-arrow-down"></i>
-                                </div>
-                                <div class="icon-class">fas fa-arrow-down</div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-4 col-lg-3">
-                            <div class="preview">
-                                <div class="icon-preview">
-                                    <i class="fas fa-arrow-left"></i>
-                                </div>
-                                <div class="icon-class">fas fa-arrow-left</div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-4 col-lg-3">
-                            <div class="preview">
-                                <div class="icon-preview">
-                                    <i class="fas fa-arrow-right"></i>
-                                </div>
-                                <div class="icon-class">fas fa-arrow-right</div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-4 col-lg-3">
-                            <div class="preview">
-                                <div class="icon-preview">
-                                    <i class="fas fa-arrow-up"></i>
-                                </div>
-                                <div class="icon-class">fas fa-arrow-up</div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-4 col-lg-3">
-                            <div class="preview">
-                                <div class="icon-preview">
-                                    <i class="fas fa-arrows-alt"></i>
-                                </div>
-                                <div class="icon-class">fas fa-arrows-alt</div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-4 col-lg-3">
-                            <div class="preview">
-                                <div class="icon-preview">
-                                    <i class="fas fa-arrows-alt-h"></i>
-                                </div>
-                                <div class="icon-class">fas fa-arrows-alt-h</div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-4 col-lg-3">
-                            <div class="preview">
-                                <div class="icon-preview">
-                                    <i class="fas fa-arrows-alt-v"></i>
-                                </div>
-                                <div class="icon-class">fas fa-arrows-alt-v</div>
-                            </div>
-                        </div>
-                       <div class="col-sm-6 col-md-4 col-lg-3">
-                           <div class="preview">
-                               <div class="icon-preview">
-                                   <i class="fas fa-assistive-listening-systems"></i>
-                               </div>
-                               <div class="icon-class">fas
-                                   fa-assistive-listening-systems</div>
-                           </div>
-                      </div>
-                      <div class="col-sm-6 col-md-4 col-lg-3">
-                          <div class="preview">
-                              <div class="icon-preview">
-                                  <i class="fas fa-asterisk"></i>
-                              </div>
-                              <div class="icon-class">fas fa-asterisk</div>
-                          </div>
-                      </div>
-                      <div class="col-sm-6 col-md-4 col-lg-3">
-                          <div class="preview">
-                              <div class="icon-preview">
-                                  <i class="fas fa-at"></i>
-                              </div>
-                              <div class="icon-class">fas fa-at</div>
-                          </div>
-                      </div>
-                      <div class="col-sm-6 col-md-4 col-lg-3">
-                          <div class="preview">
-                              <div class="icon-preview">
-                                  <i class="fas fa-atlas"></i>
-                              </div>
-                              <div class="icon-class">fas fa-atlas</div>
-                          </div>
-                      </div>
-                      <div class="col-sm-6 col-md-4 col-lg-3">
-                          <div class="preview">
-                              <div class="icon-preview">
-                                  <i class="fas fa-atom"></i>
-                              </div>
-                              <div class="icon-class">fas fa-atom</div>
-                          </div>
-                      </div>
-                      <div class="col-sm-6 col-md-4 col-lg-3">
-                          <div class="preview">
-                              <div class="icon-preview">
-                                  <i class="fas fa-audio-description"></i>
-                              </div>
-                              <div class="icon-class">fas fa-audio-description</div>
-                          </div>
-                      </div>
-                      <div class="col-sm-6 col-md-4 col-lg-3">
-                          <div class="preview">
-                              <div class="icon-preview">
-                                  <i class="fas fa-award"></i>
-                              </div>
-                              <div class="icon-class">fas fa-award</div>
-                          </div>
-                      </div>
-                      <div class="col-sm-6 col-md-4 col-lg-3">
-                          <div class="preview">
-                              <div class="icon-preview">
-                                  <i class="fas fa-backspace"></i>
-                              </div>
-                              <div class="icon-class">fas fa-backspace</div>
-                          </div>
-                      </div>
-                       <div class="col-sm-6 col-md-4 col-lg-3">
-                           <div class="preview">
-                               <div class="icon-preview">
-                                   <i class="fas fa-backward"></i>
-                               </div>
-                               <div class="icon-class">fas fa-backward</div>
-                           </div>
-                       </div>
-                   </div>
+                    <div class="icon-class"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="preview">
+                    <div class="icon-preview">
+                        <a href="#"><i class="fas fa-align-center"></i></a>
+                    </div>
+                    <div class="icon-class"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="preview">
+                    <div class="icon-preview">
+                        <a href="#"><i class="fas fa-align-justify"></i></a>
+                    </div>
+                    <div class="icon-class"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="preview">
+                    <div class="icon-preview">
+                        <a href="#"><i class="fas fa-align-left"></i></a>
+                    </div>
+                    <div class="icon-class"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="preview">
+                    <div class="icon-preview">
+                        <a href="#"><i class="fas fa-align-right"></i></a>
+                    </div>
+                    <div class="icon-class"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="preview">
+                    <div class="icon-preview">
+                        <a href="#"><i class="fas fa-allergies"></i></a>
+                    </div>
+                    <div class="icon-class"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="preview">
+                    <div class="icon-preview">
+                        <a href="#"><i class="fas fa-ambulance"></i></a>
+                    </div>
+                    <div class="icon-class"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="preview">
+                    <div class="icon-preview">
+                        <a href="#"><i class="fas fa-american-sign-language-interpreting"></i></a>
+                    </div>
+                    <div class="icon-class"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="preview">
+                    <div class="icon-preview">
+                        <a href="#"><i class="fas fa-anchor"></i></a>
+                    </div>
+                    <div class="icon-class"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="preview">
+                    <div class="icon-preview">
+                        <a href="#"><i class="fas fa-angle-double-down"></i></a>
+                    </div>
+                    <div class="icon-class"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="preview">
+                    <div class="icon-preview">
+                        <a href="#"><i class="fas fa-angle-double-left"></i></a>
+                    </div>
+                    <div class="icon-class"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="preview">
+                    <div class="icon-preview">
+                        <a href="#"><i class="fas fa-angle-double-right"></i></a>
+                    </div>
+                    <div class="icon-class"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="preview">
+                    <div class="icon-preview">
+                        <a href="#"><i class="fas fa-angle-double-up"></i></a>
+                    </div>
+                    <div class="icon-class"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="preview">
+                    <div class="icon-preview">
+                        <a href="#"><i class="fas fa-angle-down"></i></a>
+                    </div>
+                    <div class="icon-class"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="preview">
+                    <div class="icon-preview">
+                        <a href="#"><i class="fas fa-angle-left"></i></a>
+                    </div>
+                    <div class="icon-class"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="preview">
+                    <div class="icon-preview">
+                        <a href="#"><i class="fas fa-angle-right"></i></a>
+                    </div>
+                    <div class="icon-class"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="preview">
+                    <div class="icon-preview">
+                        <a href="#"><i class="fas fa-angle-up"></i></a>
+                    </div>
+                    <div class="icon-class"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="preview">
+                    <div class="icon-preview">
+                        <a href="#"><i class="fas fa-angry"></i></a>
+                    </div>
+                    <div class="icon-class"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="preview">
+                    <div class="icon-preview">
+                        <a href="#"><i class="fas fa-apple-alt"></i></a>
+                    </div>
+                    <div class="icon-class"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="preview">
+                    <div class="icon-preview">
+                        <a href="#"><i class="fas fa-archive"></i></a>
+                    </div>
+                    <div class="icon-class"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="preview">
+                    <div class="icon-preview">
+                        <a href="#"><i class="fas fa-archway"></i></a>
+                    </div>
+                    <div class="icon-class"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="preview">
+                    <div class="icon-preview">
+                        <a href="#"><i class="fas fa-arrow-alt-circle-down"></i></a>
+                    </div>
+                    <div class="icon-class"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="preview">
+                    <div class="icon-preview">
+                        <a href="#"><i class="fas fa-arrow-alt-circle-left"></i></a>
+                    </div>
+                    <div class="icon-class"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="preview">
+                    <div class="icon-preview">
+                        <a href="#"><i class="fas fa-arrow-alt-circle-right"></i></a>
+                    </div>
+                    <div class="icon-class"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="preview">
+                    <div class="icon-preview">
+                        <a href="#"><i class="fas fa-arrow-alt-circle-up"></i></a>
+                    </div>
+                    <div class="icon-class"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="preview">
+                    <div class="icon-preview">
+                        <a href="#"><i class="fas fa-arrow-circle-down"></i></a>
+                    </div>
+                    <div class="icon-class"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="preview">
+                    <div class="icon-preview">
+                        <a href="#"><i class="fas fa-arrow-circle-left"></i></a>
+                    </div>
+                    <div class="icon-class"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="preview">
+                    <div class="icon-preview">
+                        <a href="#"><i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                    <div class="icon-class"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="preview">
+                    <div class="icon-preview">
+                        <a href="#"><i class="fas fa-arrow-circle-up"></i></a>
+                    </div>
+                    <div class="icon-class"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="preview">
+                    <div class="icon-preview">
+                        <a href="#"><i class="fas fa-arrow-down"></i></a>
+                    </div>
+                    <div class="icon-class"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="preview">
+                    <div class="icon-preview">
+                        <a href="#"><i class="fas fa-arrow-left"></i></a>
+                    </div>
+                    <div class="icon-class"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="preview">
+                    <div class="icon-preview">
+                        <a href="#"><i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <div class="icon-class"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="preview">
+                    <div class="icon-preview">
+                        <a href="#"><i class="fas fa-arrow-up"></i></a>
+                    </div>
+                    <div class="icon-class"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="preview">
+                    <div class="icon-preview">
+                        <a href="#"><i class="fas fa-arrows-alt"></i></a>
+                    </div>
+                    <div class="icon-class"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="preview">
+                    <div class="icon-preview">
+                        <a href="#"><i class="fas fa-arrows-alt-h"></i></a>
+                    </div>
+                    <div class="icon-class"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="preview">
+                    <div class="icon-preview">
+                        <a href="#"><i class="fas fa-arrows-alt-v"></i></a>
+                    </div>
+                    <div class="icon-class"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="preview">
+                    <div class="icon-preview">
+                        <a href="#"><i class="fas fa-assistive-listening-systems"></i></a>
+                    </div>
+                    <div class="icon-class"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="preview">
+                    <div class="icon-preview">
+                        <a href="#"><i class="fas fa-asterisk"></i></a>
+                    </div>
+                    <div class="icon-class"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="preview">
+                    <div class="icon-preview">
+                        <a href="#"><i class="fas fa-at"></i></a>
+                    </div>
+                    <div class="icon-class"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="preview">
+                    <div class="icon-preview">
+                        <a href="#"><i class="fas fa-atlas"></i></a>
+                    </div>
+                    <div class="icon-class"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="preview">
+                    <div class="icon-preview">
+                        <a href="#"><i class="fas fa-atom"></i></a>
+                    </div>
+                    <div class="icon-class"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="preview">
+                    <div class="icon-preview">
+                        <a href="#"><i class="fas fa-audio-description"></i></a>
+                    </div>
+                    <div class="icon-class"></div>
                 </div>
             </div>
         </div>
+     </div>
+     <div class="modal-footer bg-whitesmoke br">
+       <button type="button" class="btn btn-primary">Save</button>
+       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+     </div>
+   </div>
+ </div>
+</div>
+<!-- Large modal -->
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+aria-hidden="true">
+<div class="modal-dialog modal-lg">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="myLargeModalLabel">Modal title</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
     </div>
+    <div class="modal-body">
+        <div class="contact-info-container sm-margin-top-27px xs-margin-bottom-60px xs-margin-top-60px" style="margin: 5px 15%;">
+            <h4 class="box-title">Our Contact</h4>
+            <ul class="addr-info">
+                <li>
+                    <div class="if-item">
+                        <b class="tie">Text:</b>
+                        <p class="dsc">
+                          <textarea name="mes" id="mes-1" cols="40" rows="2" placeholder="Text"></textarea>
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <div class="if-item">
+                        <b class="tie">Address:</b>
+                        <p class="dsc">
+                          <input type="text" name="name" cols="50" rows="2" value="" placeholder="7563 St. Vicent Place, Glasgow, Greater" class="txt-input">
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <div class="if-item">
+                        <b class="tie">Phone:</b>
+                        <p class="dsc">
+                          <input type="text" name="name" cols="50" rows="2" value="" placeholder="(800) 123 456789" class="txt-input">
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <div class="if-item">
+                        <b class="tie">Email:</b>
+                        <p class="dsc">
+                          <input type="text" name="name" cols="50" rows="2" value="" placeholder="Organic@example.com" class="txt-input">
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <div class="if-item">
+                        <b class="tie">Store Open:</b>
+                        <p class="dsc">
+                          <input type="text" name="name" cols="50" rows="2" value="" placeholder="8am - 08pm, Mon - Sat" class="txt-input">
+                        </p>
+                    </div>
+                </li>
+
+                <p class="form-row">
+                     <button class="btn" type="submit">SAVE</button>
+                </p>
+            </ul>
+        </div>
+    </div>
+  </div>
+</div>
+</div>
+
 {% endblock %}
 
 {% block scripts %}

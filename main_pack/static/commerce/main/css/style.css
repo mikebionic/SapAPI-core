@@ -121,7 +121,7 @@ input[type="password"],
 input[type="tel"],
 select,
 input[type="search"]{
-    border: 1px solid #e6e6e6;
+    border: 1px solid #5f5d5d;
     border-radius: 0;
     padding: 7px 20px;
     max-width: 100%;
@@ -943,6 +943,9 @@ body{
     line-height: 1;
     display: inline-block;
     color: #ffffff;
+}
+.addr-info .btn:hover{
+    border:1px solid rgba(5, 45, 243, 0.97);
 }
 .header-top .top-bar .social-list li a:hover{
     color: #dddddd;
@@ -10133,9 +10136,11 @@ body.open-quickview-block .biolife-quickview-block{
     display: inline-block;
     font-size: 0;
     line-height: 0;
-    width: 830px;
-    background-color: #ffffff;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.84);
     margin: 0;
+    margin-top: 10%;
+    margin-left: 15%;
     padding: 0;
     position: relative;
 }
