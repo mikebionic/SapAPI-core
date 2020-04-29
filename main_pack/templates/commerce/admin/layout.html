@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/css/app.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/css/components.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/izitoast/css/iziToast.min.css') }}">
     <link rel='shortcut icon' type='image/x-icon' href="{{ url_for('static', filename='commerce/admin/img/favicon.ico') }}" />
     {% block styles %}{% endblock %}
   </head>
@@ -86,5 +87,7 @@
     <script src="{{ url_for('static', filename='commerce/admin/commerce_styles/js/jquery-3.4.1.min.js') }}"></script>
     {% block scripts %}{% endblock %}
     <script src="{{ url_for('static', filename='commerce/admin/js/scripts.js') }}"></script>
+    <script src="{{ url_for('static', filename='commerce/admin/bundles/izitoast/js/iziToast.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='commerce/admin/js/page/toastr.js') }}"></script>
   </body>
 </html>

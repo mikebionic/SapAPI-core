@@ -3,10 +3,10 @@ from flask_login import current_user, login_required
 from main_pack import db, babel, gettext
 from main_pack.main import bp
 
-@bp.route('/<current_page>/language/<language>')
-def set_language(current_page,language=None):
+@bp.route('language/<language>')
+def set_language(language=None):
 	session['language'] = language
-	return redirect('/'+current_page) if current_page else redirect('/main')
+	return redirect(url_for('commerce.commerce'))
 
 @bp.route('/theme/<theme>')
 def set_theme(theme=None):

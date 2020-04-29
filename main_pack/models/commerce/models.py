@@ -86,3 +86,28 @@ class Usage_status(CreatedModifiedInfo,db.Model):
 	UsageStatusName = db.Column(db.String(100),nullable=False)
 	UsageStatusDesc = db.Column(db.String(500))
 	Resource = db.relationship('Resource',backref='usage_status',lazy=True)
+
+
+
+####### new models ###
+class Discount_type(CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_discount_type"
+	DiscTypeId = db.Column(db.Integer,nullable=False,primary_key=True)
+	DiscTypeName_tkTM = db.Column(db.String(100),nullable=False)
+	DiscTypeDesc_tkTM = db.Column(db.String(500))
+	DiscTypeName_ruRU = db.Column(db.String(100))
+	DiscTypeDesc_ruRU = db.Column(db.String(500))
+	DiscTypeName_enUS = db.Column(db.String(100))
+	DiscTypeDesc = db.Column(db.String(500))
+
+
+class Inv_status(CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_inv_status"
+	InvStatId = db.Column(db.Integer,nullable=False,primary_key=True)
+	InvStatName_tkTM = db.Column(db.String(100),nullable=False)
+	InvStatDesc_tkTM = db.Column(db.String(500))
+	InvStatName_ruRU = db.Column(db.String(100))
+	InvStatDesc_ruRU = db.Column(db.String(500))
+	InvStatName_enUS = db.Column(db.String(100))
+	InvStatDesc_enUS = db.Column(db.String(500))
+	# CONSTRAINT tbl_dk_inv_status_pkey PRIMARY KEY ("InvStatId")

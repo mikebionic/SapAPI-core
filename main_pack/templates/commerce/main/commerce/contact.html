@@ -2,60 +2,75 @@
 
 {% block content %}
     <div id="main-content" class="main-content">
-        <div class="wrap-map biolife-wrap-map" id="map-block">
-            <iframe
-                    width="1920"
-                    height="591"
-                    src="https://maps.google.com/maps?width=100%&amp;height=263&amp;hl=en&amp;q=1%20Grafton%20Street%2C%20Dublin%2C%20Ireland+(My%20Business%20Name)&amp;ie=UTF8&amp;t=p&amp;z=15&amp;iwloc=B&amp;output=embed"
-                    frameborder="0"
-                    scrolling="no"
-                    marginheight="0"
-                    marginwidth="0">
-            </iframe>
-        </div>
         <div class="container">
             <div class="row">
-
-                <!--Contact info-->
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <div class="contact-info-container sm-margin-top-27px xs-margin-bottom-60px xs-margin-top-60px">
-                        <h4 class="box-title">Our Contact</h4>
-                        <p class="frst-desc">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.</p>
+                        <h4 class="box-title">{{_('Contact')}}</h4>
+                        {% if company.CDesc %}
+                            <p class="frst-desc">{{company.CDesc}}</p>
+                        {% endif %}
                         <ul class="addr-info">
-                            <li>
-                                <div class="if-item">
-                                    <b class="tie">Addess:</b>
-                                    <p class="dsc">7563 St. Vicent Place, Glasgow, Greater<br>Newyork NH7689, UK</p>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="if-item">
-                                    <b class="tie">Phone:</b>
-                                    <p class="dsc">(800) 123 456789</p>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="if-item">
-                                    <b class="tie">Email:</b>
-                                    <p class="dsc">Organic@example.com</p>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="if-item">
-                                    <b class="tie">Store Open:</b>
-                                    <p class="dsc">8am - 08pm, Mon - Sat</p>
-                                </div>
-                            </li>
+                            {% if company.CName %}
+                                <li>
+                                    <div class="if-item">
+                                        <b class="tie">{{_('Company name')}}:</b>
+                                        <p class="dsc">{{company.CName}}</p>
+                                    </div>
+                                </li>
+                            {% endif %}
+                            {% if company.CFullName %}
+                                <li>
+                                    <div class="if-item">
+                                        <b class="tie">{{_('Full name')}}:</b>
+                                        <p class="dsc">{{company.CFullName}}</p>
+                                    </div>
+                                </li>
+                            {% endif %}
+                            {% if company.CAddress %}
+                                <li>
+                                    <div class="if-item">
+                                        <b class="tie">{{_('Addess')}}:</b>
+                                        <p class="dsc">{{company.CFullName}}</p>
+                                    </div>
+                                </li>
+                            {% endif %}
+                            {% if company.Phone1 or company.Phone2 or company.Phone3 or company.Phone4 %}
+                                <li>
+                                    <div class="if-item">
+                                        <b class="tie">{{_('Phone')}}:</b>
+                                        {% if company.Phone1 %}<p class="dsc">{{company.Phone1}}</p>{% endif %}
+                                        {% if company.Phone2 %}<p class="dsc">{{company.Phone2}}</p>{% endif %}
+                                        {% if company.Phone3 %}<p class="dsc">{{company.Phone3}}</p>{% endif %}
+                                        {% if company.Phone4 %}<p class="dsc">{{company.Phone4}}</p>{% endif %}
+                                    </div>
+                                </li>
+                            {% endif %}
+                            {% if company.CPostalCode %}
+                                <li>
+                                    <div class="if-item">
+                                        <b class="tie">{{_('Postal code')}}:</b>
+                                        <p class="dsc">{{company.CPostalCode}}</p>
+                                    </div>
+                                </li>
+                            {% endif %}
+                            {% if company.CEmail %}
+                                <li>
+                                    <div class="if-item">
+                                        <b class="tie">{{_('Email')}}:</b>
+                                        <p class="dsc">{{company.CEmail}}</p>
+                                    </div>
+                                </li>
+                            {% endif %}
+                            {% if company.CWTime %}
+                                <li>
+                                    <div class="if-item">
+                                        <b class="tie">{{_('Working time')}}:</b>
+                                        <p class="dsc">{{company.CWTime}}</p>
+                                    </div>
+                                </li>
+                            {% endif %}
                         </ul>
-                        <div class="biolife-social inline">
-                            <ul class="socials">
-                                <li><a href="#" title="twitter" class="socail-btn"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                                <li><a href="#" title="facebook" class="socail-btn"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                                <li><a href="#" title="pinterest" class="socail-btn"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
-                                <li><a href="#" title="youtube" class="socail-btn"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
-                                <li><a href="#" title="instagram" class="socail-btn"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
 

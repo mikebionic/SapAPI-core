@@ -113,6 +113,7 @@ class Company(AddInf,CreatedModifiedInfo,db.Model):
 	CId = db.Column(db.Integer,primary_key=True)
 	CName = db.Column(db.String(100),nullable=False)
 	CFullName = db.Column(db.String(500))
+	CDesc = db.Column(db.String(500))
 	AccInfId = db.Column(db.Integer)
 	CAddress = db.Column(db.String(500))
 	CAddressLegal = db.Column(db.String(500))
@@ -124,6 +125,7 @@ class Company(AddInf,CreatedModifiedInfo,db.Model):
 	Phone4 = db.Column(db.String(100))
 	CPostalCode = db.Column(db.String(100))
 	CEmail = db.Column(db.String(100))
+	CWTime = db.Column(db.String(100))
 	Accounting_info = db.relationship('Accounting_info',backref='company',lazy=True)
 	Contact = db.relationship('Contact',backref='company',lazy=True)
 	Division = db.relationship('Division',backref='company',lazy=True)
@@ -132,6 +134,12 @@ class Company(AddInf,CreatedModifiedInfo,db.Model):
 	Department_detail = db.relationship('Department_detail',backref='company',lazy=True)
 	Warehouse = db.relationship('Warehouse',backref='company',lazy=True)
 	Barcode = db.relationship('Barcode',backref='company',lazy=True)
+	
+	def update(self, **kwargs):
+		for key, value in kwargs.items():
+			if value is not None:
+				if hasattr(self, key):
+					setattr(self, key, value)
 
 class Contact(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_contact"
@@ -219,7 +227,7 @@ class Department_detail(db.Model):
 	DeptDetId = db.Column(db.Integer,nullable=False,primary_key=True)
 	DeptId = db.Column(db.Integer,db.ForeignKey("tbl_dk_department.DeptId")) #???
 	CId = db.Column(db.Integer,db.ForeignKey("tbl_dk_company.CId"))
-	DivisionId = db.Column(db.Integer,db.ForeignKey("tbl_dk_division.DivisionId"))
+	DivId = db.Column(db.Integer,db.ForeignKey("tbl_dk_division.DivisionId"))
 	DeptHeadEmpId = db.Column(db.Integer,db.ForeignKey("tbl_dk_employee.EmpId"))
 
 class Division(AddInf,CreatedModifiedInfo,db.Model):
@@ -335,7 +343,7 @@ class Resource(AddInf,CreatedModifiedInfo,db.Model):
 	ResId = db.Column(db.Integer,nullable=False,primary_key=True)
 	CId = db.Column(db.Integer,db.ForeignKey("tbl_dk_company.CId"))
 	DivId = db.Column(db.Integer,db.ForeignKey("tbl_dk_division.DivisionId"))
-	ResCatId = db.Column(db.Integer,db.ForeignKey("tbl_dk_resource_category.ResCatId"))
+	ResCatId = db.Column(db.Integer,db.ForeignKey("tbl_dk_res_category.ResCatId"))
 	UnitId = db.Column(db.Integer,db.ForeignKey("tbl_dk_unit.UnitId"))
 	BrandId = db.Column(db.Integer,db.ForeignKey("tbl_dk_brand.BrandId"))
 	UsageStatusId = db.Column(db.Integer,db.ForeignKey("tbl_dk_usage_status.UsageStatusId"))
@@ -360,15 +368,15 @@ class Resource(AddInf,CreatedModifiedInfo,db.Model):
 	Unit = db.relationship('Unit',backref='resource',lazy=True)
 	Res_unit = db.relationship('Res_unit',backref='resource',lazy=True)
 
-class Resource_category(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_resource_category"
+class Res_category(CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_res_category"
 	ResCatId = db.Column(db.Integer,nullable=False,primary_key=True)
 	ResOwnerCatId = db.Column(db.Integer,default=0)
 	ResCatName = db.Column(db.String(100),nullable=False)
 	ResCatDesc = db.Column(db.String(500))
-	ResCatIconName = db.Column(db.String(50))
-	Resource = db.relationship('Resource',backref='resource_category',lazy=True)
-	
+	ResCatIconName = db.Column(db.String(100))
+	Resource = db.relationship('Resource',backref='res_category',lazy=True)
+
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
 			if value is not None:

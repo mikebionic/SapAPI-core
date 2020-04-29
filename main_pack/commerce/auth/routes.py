@@ -8,6 +8,7 @@ from main_pack import db,bcrypt,babel,gettext,lazy_gettext
 from main_pack.commerce.auth.utils import (send_reset_email,get_register_token,
 								verify_register_token,send_register_email)
 
+
 @bp.route("/login", methods=['GET', 'POST'])
 def login():
 	if current_user.is_authenticated:

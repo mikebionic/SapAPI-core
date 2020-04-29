@@ -1,0 +1,1413 @@
+
+-- Table: public.tbl_dk_department_detail
+
+-- DROP TABLE public.tbl_dk_department_detail;
+
+CREATE TABLE public.tbl_dk_department_detail
+(
+  "DeptDetId" integer NOT NULL DEFAULT nextval('"tbl_dk_department_detail_DeptDetId_seq"'::regclass),
+  "DeptId" integer,
+  "CId" integer,
+  "DivId" integer,  ##########!!!!!!!!!!!!!!!!!!!!!!!
+  "DeptHeadEmpId" integer,
+  "CreatedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "ModifiedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "CreatedUId" integer DEFAULT 0,
+  "ModifiedUId" integer DEFAULT 0,
+
+
+!!!!!!!!!!!!   #Okay#
+-- Table: public.tbl_dk_discount_type
+
+-- DROP TABLE public.tbl_dk_discount_type;
+
+CREATE TABLE public.tbl_dk_discount_type
+(
+  "DiscTypeId" integer NOT NULL DEFAULT nextval('"tbl_dk_discount_type_DiscTypeId_seq"'::regclass),
+  "DiscTypeName_tkTM" character varying(100) NOT NULL,
+  "DiscTypeDesc_tkTM" character varying(500) DEFAULT ''::character varying,
+  "DiscTypeName_ruRU" character varying(100) DEFAULT ''::character varying,
+  "DiscTypeDesc_ruRU" character varying(500) DEFAULT ''::character varying,
+  "DiscTypeName_enUS" character varying(100) DEFAULT ''::character varying,
+  "DiscTypeDesc" character varying(500) DEFAULT ''::character varying,
+  "CreatedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "ModifiedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "CreatedUId" integer DEFAULT 0,
+  "ModifiedUId" integer DEFAULT 0,
+  "OptimisticLockField" integer,
+  "GCRecord" integer,
+  CONSTRAINT tbl_dk_discount_type_pkey PRIMARY KEY ("DiscTypeId")
+)
+WITH (
+  OIDS=FALSE
+!!!!!!!!!!!
+
+
+
+
+!!!!!!!!!!!!!!!
+-- Table: public.tbl_dk_inv_status
+
+-- DROP TABLE public.tbl_dk_inv_status;
+
+CREATE TABLE public.tbl_dk_inv_status
+(
+  "InvStatId" integer NOT NULL DEFAULT nextval('"tbl_dk_inv_status_InvStatId_seq"'::regclass),
+  "InvStatName_tkTM" character varying(100) NOT NULL,
+  "InvStatDesc_tkTM" character varying(500) DEFAULT ''::character varying,
+  "InvStatName_ruRU" character varying(100),
+  "InvStatDesc_ruRU" character varying(500) DEFAULT ''::character varying,
+  "InvStatName_enUS" character varying(100),
+  "InvStatDesc_enUS" character varying(500) DEFAULT ''::character varying,
+  "CreatedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "ModifiedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "CreatedUId" integer DEFAULT 0,
+  "ModifiedUId" integer DEFAULT 0,
+  "OptimisticLockField" integer,
+  "GCRecord" integer,
+  CONSTRAINT tbl_dk_inv_status_pkey PRIMARY KEY ("InvStatId")
+)
+WITH (
+  OIDS=FALSE
+);
+
+
+-- Table: public.tbl_dk_inv_type
+
+-- DROP TABLE public.tbl_dk_inv_type;
+
+CREATE TABLE public.tbl_dk_inv_type
+(
+  "InvTypeId" integer NOT NULL DEFAULT nextval('"tbl_dk_inv_type_InvTypeId_seq"'::regclass),
+  "InvTypeName_tkTM" character varying(100) NOT NULL,
+  "InvTypeDesc_tkTM" character varying(500) DEFAULT ''::character varying,
+  "InvTypeName_ruRU" character varying(100),
+  "InvTypeDesc_ruRU" character varying(500) DEFAULT ''::character varying,
+  "InvTypeName_enUS" character varying(100),
+  "InvTypeDesc_enUS" character varying(500) DEFAULT ''::character varying,
+  "CreatedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "ModifiedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "CreatedUId" integer DEFAULT 0,
+  "ModifiedUId" integer DEFAULT 0,
+  "OptimisticLockField" integer,
+  "GCRecord" integer,
+  CONSTRAINT tbl_dk_inv_type_pkey PRIMARY KEY ("InvTypeId")
+)
+WITH (
+  OIDS=FALSE
+);
+
+
+
+
+-- Table: public.tbl_dk_invoice
+
+-- DROP TABLE public.tbl_dk_invoice;
+
+CREATE TABLE public.tbl_dk_invoice
+(
+  "InvId" integer NOT NULL DEFAULT nextval('"tbl_dk_invoice_InvId_seq"'::regclass),
+  "InvTypeId" integer,
+  "InvStatId" integer,
+  "CurrencyId" integer,
+  "RpAccID" integer,
+  "CId" integer,
+  "DivId" integer,
+  "WhId" integer,
+  "WpId" integer,
+  "EmpId" integer,
+  "InvRegNo" character varying(100) NOT NULL,
+  "InvDesc" character varying(500) DEFAULT ''::character varying,
+  "InvDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "InvTotal" real,
+  "InvExpenseAmount" real DEFAULT 0,
+  "InvTaxAmount" real DEFAULT 0,
+  "InvDiscountAmount" real DEFAULT 0,
+  "InvFTotal" real DEFAULT 0,
+  "InvFTotalInWrite" character varying(100) DEFAULT 0,
+  "InvModifyCount" integer DEFAULT 0,
+  "InvPrintCount" integer DEFAULT 0,
+  "InvCreditDays" integer DEFAULT 0,
+  "InvCreditDesc" character varying(100) DEFAULT ''::character varying,
+  "AddInf1" character varying(500) DEFAULT ''::character varying,
+  "AddInf2" character varying(500) DEFAULT ''::character varying,
+  "AddInf3" character varying(500) DEFAULT ''::character varying,
+  "AddInf4" character varying(500) DEFAULT ''::character varying,
+  "AddInf5" character varying(500) DEFAULT ''::character varying,
+  "AddInf6" character varying(500) DEFAULT ''::character varying,
+  "CreatedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "ModifiedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "CreatedUId" integer DEFAULT 0,
+  "ModifiedUId" integer DEFAULT 0,
+  "OptimisticLockField" integer,
+  "GCRecord" integer,
+  CONSTRAINT tbl_dk_invoice_pkey PRIMARY KEY ("InvId"),
+  CONSTRAINT "FK_tbl_dk_invoice_CId" FOREIGN KEY ("CId")
+      REFERENCES public.tbl_dk_company ("CId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_invoice_CurrencyId" FOREIGN KEY ("CurrencyId")
+      REFERENCES public.tbl_dk_currency ("CurrencyId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_invoice_DivId" FOREIGN KEY ("DivId")
+      REFERENCES public.tbl_dk_division ("DivisionId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_invoice_EmpId" FOREIGN KEY ("EmpId")
+      REFERENCES public.tbl_dk_employee ("EmpId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_invoice_InvStatId" FOREIGN KEY ("InvStatId")
+      REFERENCES public.tbl_dk_inv_status ("InvStatId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_invoice_InvTypeId" FOREIGN KEY ("InvTypeId")
+      REFERENCES public.tbl_dk_inv_type ("InvTypeId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_invoice_RpAccID" FOREIGN KEY ("RpAccID")
+      REFERENCES public.tbl_dk_rp_acc ("RpAccId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_invoice_WhId" FOREIGN KEY ("WhId")
+      REFERENCES public.tbl_dk_warehouse ("WhId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_invoice_WpId" FOREIGN KEY ("WpId")
+      REFERENCES public.tbl_dk_work_period ("WpId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+
+
+
+
+
+
+
+
+
+!!!!!!!!!!!!!!!!1
+
+
+
+-- Table: public.tbl_dk_location
+
+-- DROP TABLE public.tbl_dk_location;
+
+CREATE TABLE public.tbl_dk_location
+(
+  "LocId" integer NOT NULL DEFAULT nextval('"tbl_dk_location_LocId_seq"'::regclass),
+  "CId" integer,
+  "BankId" integer,
+  "EmpId" integer,
+  "RpAccId" integer,
+  "CountryId" integer,
+  "CityId" integer,
+  "LocAddressName" character varying(500) NOT NULL,
+  "LocAddressOfficial" character varying(500) NOT NULL DEFAULT ''::character varying,
+  "LocAddressReal" character varying(500) NOT NULL DEFAULT ''::character varying,
+  "LocPostCode" character varying(25) DEFAULT ''::character varying,
+  "LocLatitude" real DEFAULT 0.0,
+  "LocLongitude" real DEFAULT 0.0,
+  "AddInf1" character varying(500) DEFAULT ''::character varying,
+  "AddInf2" character varying(500) DEFAULT ''::character varying,
+  "AddInf3" character varying(500) DEFAULT ''::character varying,
+  "AddInf4" character varying(500) DEFAULT ''::character varying,
+  "AddInf5" character varying(500) DEFAULT ''::character varying,
+  "AddInf6" character varying(500) DEFAULT ''::character varying,
+  "CreatedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "ModifiedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "CreatedUId" integer DEFAULT 0,
+  "ModifiedUId" integer DEFAULT 0,
+  "OptimisticLockField" integer,
+  "GCRecord" integer,
+  CONSTRAINT tbl_dk_location_pkey PRIMARY KEY ("LocId"),
+  CONSTRAINT "FK_tbl_dk_location_BankId" FOREIGN KEY ("BankId")
+      REFERENCES public.tbl_dk_bank ("BankId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_location_CId" FOREIGN KEY ("CId")
+      REFERENCES public.tbl_dk_company ("CId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_location_CityId" FOREIGN KEY ("CityId")
+      REFERENCES public.tbl_dk_city ("CityId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_location_CountryId" FOREIGN KEY ("CountryId")
+      REFERENCES public.tbl_dk_country ("CountryId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_location_EmpId" FOREIGN KEY ("EmpId")
+      REFERENCES public.tbl_dk_employee ("EmpId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_location_RpAccId" FOREIGN KEY ("RpAccId")
+      REFERENCES public.tbl_dk_rp_acc ("RpAccId") MATCH SIMPLE
+      ON UPDATE NO AC
+
+
+
+??????!!
+
+
+-- Table: public.tbl_dk_report_file
+
+-- DROP TABLE public.tbl_dk_report_file;
+
+CREATE TABLE public.tbl_dk_report_file
+(
+  "RpFileId" integer NOT NULL DEFAULT nextval('"tbl_dk_report_file_RpFileId_seq"'::regclass),
+  "RpFileTypeId" integer NOT NULL DEFAULT 0,
+  "RpFileName" character varying(100),
+  "RpFileDesc" character varying(100),
+  "RpFileFileName" character varying(100),
+  "RpIsDefault" boolean DEFAULT false,
+  "CreatedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "ModifiedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "CreatedUId" integer DEFAULT 0,
+  "ModifiedUId" integer DEFAULT 0,
+  "OptimisticLockField" integer,
+  "GCRecord" integer,
+  CONSTRAINT tbl_dk_report_file_pkey PRIMARY KEY ("RpFileId")
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.tbl_dk_report_file
+  OWNER TO postgres;
+
+
+
+
+
+-- Table: public.tbl_dk_representative
+
+-- DROP TABLE public.tbl_dk_representative;
+
+CREATE TABLE public.tbl_dk_representative
+(
+  "ReprId" integer NOT NULL DEFAULT nextval('"tbl_dk_representative_ReprId_seq"'::regclass),
+  "ReprStatusId" integer NOT NULL DEFAULT 1,
+  "CId" integer,
+  "DivId" integer,
+  "RpAccId" integer,
+  "GenderId" integer,
+  "ReprRegNo" character varying(100) NOT NULL,
+  "ReprName" character varying(100) NOT NULL,
+  "ReprDesc" character varying(500) DEFAULT ''::character varying,
+  "ReprProfession" character varying(100) DEFAULT ''::character varying,
+  "ReprMobilePhoneNumber" character varying(100) DEFAULT ''::character varying,
+  "ReprHomePhoneNumber" character varying(100) DEFAULT ''::character varying,
+  "ReprWorkPhoneNumber" character varying(100) DEFAULT ''::character varying,
+  "ReprWorkFaxNumber" character varying(100) DEFAULT ''::character varying,
+  "ReprZipCode" character varying(100) DEFAULT ''::character varying,
+  "ReprEMail" character varying(100) DEFAULT ''::character varying,
+  "AddInf1" character varying(500) DEFAULT ''::character varying,
+  "AddInf2" character varying(500) DEFAULT ''::character varying,
+  "AddInf3" character varying(500) DEFAULT ''::character varying,
+  "AddInf4" character varying(500) DEFAULT ''::character varying,
+  "AddInf5" character varying(500) DEFAULT ''::character varying,
+  "AddInf6" character varying(500) DEFAULT ''::character varying,
+  "CreatedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "ModifiedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "CreatedUId" integer DEFAULT 0,
+  "ModifiedUId" integer DEFAULT 0,
+  "MyProperty" integer,
+  "OptimisticLockField" integer,
+  "GCRecord" integer,
+  CONSTRAINT tbl_dk_representative_pkey PRIMARY KEY ("ReprId"),
+  CONSTRAINT "FK_tbl_dk_representative_CId" FOREIGN KEY ("CId")
+      REFERENCES public.tbl_dk_company ("CId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_representative_DivId" FOREIGN KEY ("DivId")
+      REFERENCES public.tbl_dk_division ("DivisionId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_representative_GenderId" FOREIGN KEY ("GenderId")
+      REFERENCES public.tbl_dk_gender ("GenderId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_representative_RpAccId" FOREIGN KEY ("RpAccId")
+      REFERENCES public.tbl_dk_rp_acc ("RpAccId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+
+
+
+
+-- Table: public.tbl_dk_res_category
+
+-- DROP TABLE public.tbl_dk_res_category;
+
+CREATE TABLE public.tbl_dk_res_category
+(
+  "ResCatId" integer NOT NULL DEFAULT nextval('"tbl_dk_res_category_ResCatId_seq"'::regclass),
+  "ResOwnerCatId" integer DEFAULT 0,
+  "ResCatName" character varying(100) NOT NULL,
+  "ResCatDesc" character varying(500) DEFAULT ''::character varying,
+  "ResCatIconName" character varying(100),
+  "CreatedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "ModifiedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "CreatedUId" integer DEFAULT 0,
+  "ModifiedUId" integer DEFAULT 0,
+  "OptimisticLockField" integer,
+  "GCRecord" integer,
+  CONSTRAINT tbl_dk_res_category_pkey PRIMARY KEY ("ResCatId")
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.tbl_dk_res_category
+  OWNER TO postgres;
+
+
+
+
+-- Table: public.tbl_dk_res_color
+
+-- DROP TABLE public.tbl_dk_res_color;
+
+CREATE TABLE public.tbl_dk_res_color
+(
+  "RcId" integer NOT NULL DEFAULT nextval('"tbl_dk_res_color_RcId_seq"'::regclass),
+  "ResId" integer,
+  "ColorId" integer,
+  "CreatedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "ModifiedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "CreatedUId" integer DEFAULT 0,
+  "ModifiedUId" integer DEFAULT 0,
+  "OptimisticLockField" integer,
+  "GCRecord" integer,
+  CONSTRAINT tbl_dk_res_color_pkey PRIMARY KEY ("RcId"),
+  CONSTRAINT "FK_tbl_dk_res_color_ColorId" FOREIGN KEY ("ColorId")
+      REFERENCES public.tbl_dk_color ("ColorId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_res_color_ResId" FOREIGN KEY ("ResId")
+      REFERENCES public.tbl_dk_resource ("ResId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+
+
+
+
+
+-- Table: public.tbl_dk_res_discount
+
+-- DROP TABLE public.tbl_dk_res_discount;
+
+CREATE TABLE public.tbl_dk_res_discount
+(
+  "ResDiscId" integer NOT NULL DEFAULT nextval('"tbl_dk_res_discount_ResDiscId_seq"'::regclass),
+  "SaleCardId" integer,
+  "ResDiscRegNo" character varying(100) NOT NULL,
+  "SaleResId" integer,
+  "SaleResAmount" real DEFAULT 0,
+  "DiscTypeId" integer,
+  "DiscValue" real NOT NULL DEFAULT 0.0,
+  "DiscDesc" character varying(500) DEFAULT ''::character varying,
+  "ResDiscStartDate" timestamp without time zone,
+  "ResDiscEndDate" timestamp without time zone,
+  "ResDiscIsActive" boolean NOT NULL DEFAULT true,
+  "GiftResId" integer,
+  "GiftResAmount" real DEFAULT 0,
+  "GiftResDiscValue" real DEFAULT 0,
+  "AddInf1" character varying(500) DEFAULT ''::character varying,
+  "AddInf2" character varying(500) DEFAULT ''::character varying,
+  "AddInf3" character varying(500) DEFAULT ''::character varying,
+  "AddInf4" character varying(500) DEFAULT ''::character varying,
+  "AddInf5" character varying(500) DEFAULT ''::character varying,
+  "AddInf6" character varying(500) DEFAULT ''::character varying,
+  "CreatedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "ModifiedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "CreatedUId" integer DEFAULT 0,
+  "ModifiedUId" integer DEFAULT 0,
+  "OptimisticLockField" integer,
+  "GCRecord" integer,
+  CONSTRAINT tbl_dk_res_discount_pkey PRIMARY KEY ("ResDiscId"),
+  CONSTRAINT "FK_tbl_dk_res_discount_DiscTypeId" FOREIGN KEY ("DiscTypeId")
+      REFERENCES public.tbl_dk_discount_type ("DiscTypeId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_res_discount_GiftResId" FOREIGN KEY ("GiftResId")
+      REFERENCES public.tbl_dk_resource ("ResId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_res_discount_SaleCardId" FOREIGN KEY ("SaleCardId")
+      REFERENCES public.tbl_dk_sale_card ("SaleCardId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_res_discount_SaleResId" FOREIGN KEY ("SaleResId")
+      REFERENCES public.tbl_dk_resource ("ResId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+
+
+
+
+
+
+-- Table: public.tbl_dk_res_maker
+
+-- DROP TABLE public.tbl_dk_res_maker;
+
+CREATE TABLE public.tbl_dk_res_maker
+(
+  "ResMakerId" integer NOT NULL DEFAULT nextval('"tbl_dk_res_maker_ResMakerId_seq"'::regclass),
+  "ResMakerName" character varying(100) NOT NULL,
+  "ResMakerDesc" character varying(500) DEFAULT ''::character varying,
+  "ResMakerSite" character varying(150) DEFAULT ''::character varying,
+  "ResMakerMail" character varying(100) DEFAULT ''::character varying,
+  "ResMakerPhone1" character varying(100) DEFAULT ''::character varying,
+  "ResMakerPhone2" character varying(100) DEFAULT ''::character varying,
+  "AddInf1" character varying(500) DEFAULT ''::character varying,
+  "AddInf2" character varying(500) DEFAULT ''::character varying,
+  "AddInf3" character varying(500) DEFAULT ''::character varying,
+  "AddInf4" character varying(500) DEFAULT ''::character varying,
+  "AddInf5" character varying(500) DEFAULT ''::character varying,
+  "AddInf6" character varying(500) DEFAULT ''::character varying,
+  "CreatedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "ModifiedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "CreatedUId" integer DEFAULT 0,
+  "ModifiedUId" integer DEFAULT 0,
+  "OptimisticLockField" integer,
+  "GCRecord" integer,
+  CONSTRAINT tbl_dk_res_maker_pkey PRIMARY KEY ("ResMakerId")
+)
+
+
+
+
+
+-- Table: public.tbl_dk_res_price
+
+-- DROP TABLE public.tbl_dk_res_price;
+
+CREATE TABLE public.tbl_dk_res_price
+(
+  "ResPriceId" integer NOT NULL DEFAULT nextval('"tbl_dk_res_price_ResPriceId_seq"'::regclass),
+  "ResPriceTypeId" integer,
+  "ResPriceGroupId" integer,
+  "UnitId" integer,
+  "CurrencyId" integer,
+  "ResId" integer,
+  "ResPriceRegNo" character varying(100) NOT NULL,
+  "ResPriceValue" real DEFAULT 0,
+  "PriceStartDate" timestamp without time zone,
+  "PriceEndDate" timestamp without time zone,
+  "CreatedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "ModifiedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "CreatedUId" integer DEFAULT 0,
+  "ModifiedUId" integer DEFAULT 0,
+  "OptimisticLockField" integer,
+  "GCRecord" integer,
+  CONSTRAINT tbl_dk_res_price_pkey PRIMARY KEY ("ResPriceId"),
+  CONSTRAINT "FK_tbl_dk_res_price_CurrencyId" FOREIGN KEY ("CurrencyId")
+      REFERENCES public.tbl_dk_currency ("CurrencyId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_res_price_ResId" FOREIGN KEY ("ResId")
+      REFERENCES public.tbl_dk_resource ("ResId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_res_price_ResPriceGroupId" FOREIGN KEY ("ResPriceGroupId")
+      REFERENCES public.tbl_dk_res_price_group ("ResPriceGroupId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_res_price_ResPriceTypeId" FOREIGN KEY ("ResPriceTypeId")
+      REFERENCES public.tbl_dk_res_price_type ("ResPriceTypeId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_res_price_UnitId" FOREIGN KEY ("UnitId")
+      REFERENCES public.tbl_dk_unit ("UnitId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+
+
+
+
+
+-- Table: public.tbl_dk_res_price_group
+
+-- DROP TABLE public.tbl_dk_res_price_group;
+
+CREATE TABLE public.tbl_dk_res_price_group
+(
+  "ResPriceGroupId" integer NOT NULL DEFAULT nextval('"tbl_dk_res_price_group_ResPriceGroupId_seq"'::regclass),
+  "UsageStatusId" integer,
+  "ResPriceGroupName" character varying(100) NOT NULL,
+  "ResPriceGroupDesc" character varying(500) DEFAULT ''::character varying,
+  "ResPriceGroupAMEnabled" boolean DEFAULT false,
+  "FromResPriceTypeId" integer,
+  "ToResPriceTypeId" integer,
+  "ResPriceGroupAMPerc" real DEFAULT 0,
+  "RoundingType" integer DEFAULT 1,
+  "CreatedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "ModifiedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "CreatedUId" integer DEFAULT 0,
+  "ModifiedUId" integer DEFAULT 0,
+  "OptimisticLockField" integer,
+  "GCRecord" integer,
+  CONSTRAINT tbl_dk_res_price_group_pkey PRIMARY KEY ("ResPriceGroupId"),
+  CONSTRAINT "FK_tbl_dk_res_price_group_FromResPriceTypeId" FOREIGN KEY ("FromResPriceTypeId")
+      REFERENCES public.tbl_dk_res_price_type ("ResPriceTypeId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_res_price_group_ToResPriceTypeId" FOREIGN KEY ("ToResPriceTypeId")
+      REFERENCES public.tbl_dk_res_price_type ("ResPriceTypeId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_res_price_group_UsageStatusId" FOREIGN KEY ("UsageStatusId")
+      REFERENCES public.tbl_dk_usage_status ("UsageStatusId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+
+
+
+
+
+-- Table: public.tbl_dk_res_price_type
+
+-- DROP TABLE public.tbl_dk_res_price_type;
+
+CREATE TABLE public.tbl_dk_res_price_type
+(
+  "ResPriceTypeId" integer NOT NULL DEFAULT nextval('"tbl_dk_res_price_type_ResPriceTypeId_seq"'::regclass),
+  "ResPriceTypeName_tkTM" character varying(100) NOT NULL,
+  "ResPriceTypeDesc_tkTM" character varying(500) DEFAULT ''::character varying,
+  "ResPriceTypeName_ruRU" character varying(100),
+  "ResPriceTypeDesc_ruRU" character varying(500) DEFAULT ''::character varying,
+  "ResPriceTypeName_enUS" character varying(100) DEFAULT ''::character varying,
+  "ResPriceTypeDesc_enUS" character varying(500) DEFAULT ''::character varying,
+  "CreatedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "ModifiedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "CreatedUId" integer DEFAULT 0,
+  "ModifiedUId" integer DEFAULT 0,
+  "OptimisticLockField" integer,
+  "GCRecord" integer,
+  CONSTRAINT tbl_dk_res_price_type_pkey PRIMARY KEY ("ResPriceTypeId")
+)
+
+
+
+-- Table: public.tbl_dk_res_size
+
+-- DROP TABLE public.tbl_dk_res_size;
+
+CREATE TABLE public.tbl_dk_res_size
+(
+  "RsId" integer NOT NULL DEFAULT nextval('"tbl_dk_res_size_RsId_seq"'::regclass),
+  "ResId" integer,
+  "SizeId" integer,
+  "CreatedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "ModifiedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "CreatedUId" integer DEFAULT 0,
+  "ModifiedUId" integer DEFAULT 0,
+  "OptimisticLockField" integer,
+  "GCRecord" integer,
+  CONSTRAINT tbl_dk_res_size_pkey PRIMARY KEY ("RsId"),
+  CONSTRAINT "FK_tbl_dk_res_size_ResId" FOREIGN KEY ("ResId")
+      REFERENCES public.tbl_dk_resource ("ResId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_res_size_SizeId" FOREIGN KEY ("SizeId")
+      REFERENCES public.tbl_dk_size ("SizeId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+
+
+
+-- Table: public.tbl_dk_res_trans_inv
+
+-- DROP TABLE public.tbl_dk_res_trans_inv;
+
+CREATE TABLE public.tbl_dk_res_trans_inv
+(
+  "ResTrInvId" integer NOT NULL DEFAULT nextval('"tbl_dk_res_trans_inv_ResTrInvId_seq"'::regclass),
+  "OptimisticLockField" integer,
+  "GCRecord" integer,
+  CONSTRAINT tbl_dk_res_trans_inv_pkey PRIMARY KEY ("ResTrInvId")
+)
+WITH (
+  OIDS=FALSE
+
+
+
+
+-- Table: public.tbl_dk_res_translations
+
+-- DROP TABLE public.tbl_dk_res_translations;
+
+CREATE TABLE public.tbl_dk_res_translations
+(
+  "ResTransId" integer NOT NULL DEFAULT nextval('"tbl_dk_res_translations_ResTransId_seq"'::regclass),
+  "ResId" integer,
+  "LangId" integer,
+  "ResName" character varying(255),
+  "ResDesc" character varying(500) DEFAULT ''::character varying,
+  "ResFullDesc" character varying(1500) DEFAULT ''::character varying,
+  "AddInf1" character varying(500) DEFAULT ''::character varying,
+  "AddInf2" character varying(500) DEFAULT ''::character varying,
+  "AddInf3" character varying(500) DEFAULT ''::character varying,
+  "AddInf4" character varying(500) DEFAULT ''::character varying,
+  "AddInf5" character varying(500) DEFAULT ''::character varying,
+  "AddInf6" character varying(500) DEFAULT ''::character varying,
+  "CreatedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "ModifiedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "CreatedUId" integer DEFAULT 0,
+  "ModifiedUId" integer DEFAULT 0,
+  "OptimisticLockField" integer,
+  "GCRecord" integer,
+  CONSTRAINT tbl_dk_res_translations_pkey PRIMARY KEY ("ResTransId"),
+  CONSTRAINT "FK_tbl_dk_res_translations_LangId" FOREIGN KEY ("LangId")
+      REFERENCES public.tbl_dk_language ("LangId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_res_translations_ResId" FOREIGN KEY ("ResId")
+      REFERENCES public.tbl_dk_resource ("ResId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+
+
+
+-- Table: public.tbl_dk_res_type
+
+-- DROP TABLE public.tbl_dk_res_type;
+
+CREATE TABLE public.tbl_dk_res_type
+(
+  "ResourceTypeId" integer NOT NULL DEFAULT nextval('"tbl_dk_res_type_ResourceTypeId_seq"'::regclass),
+  "ResourceTypeName" character varying(100) NOT NULL,
+  "ResourceTypeDesc" character varying(500) DEFAULT ''::character varying,
+  "CreatedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "ModifiedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "CreatedUId" integer DEFAULT 0,
+  "ModifiedUId" integer DEFAULT 0,
+  "OptimisticLockField" integer,
+  "GCRecord" integer,
+  CONSTRAINT tbl_dk_res_type_pkey PRIMARY KEY ("ResourceTypeId")
+)
+
+
+-- Table: public.tbl_dk_res_unit
+
+-- DROP TABLE public.tbl_dk_res_unit;
+
+CREATE TABLE public.tbl_dk_res_unit
+(
+  "ResUnitId" integer NOT NULL DEFAULT nextval('"tbl_dk_res_unit_ResUnitId_seq"'::regclass),
+  "ResId" integer,
+  "ResUnitUnitId" integer,
+  "ResUnitConvAmount" real NOT NULL DEFAULT 0.0,
+  "ResUnitConvTypeId" integer NOT NULL DEFAULT 0,
+  "CreatedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "ModifiedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "CreatedUId" integer DEFAULT 0,
+  "ModifiedUId" integer DEFAULT 0,
+  "OptimisticLockField" integer,
+  "GCRecord" integer,
+  CONSTRAINT tbl_dk_res_unit_pkey PRIMARY KEY ("ResUnitId"),
+  CONSTRAINT "FK_tbl_dk_res_unit_ResId" FOREIGN KEY ("ResId")
+      REFERENCES public.tbl_dk_resource ("ResId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_res_unit_ResUnitUnitId" FOREIGN KEY ("ResUnitUnitId")
+      REFERENCES public.tbl_dk_unit ("UnitId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+
+
+
+-- Table: public.tbl_dk_resource
+
+-- DROP TABLE public.tbl_dk_resource;
+
+CREATE TABLE public.tbl_dk_resource
+(
+  "ResId" integer NOT NULL DEFAULT nextval('"tbl_dk_resource_ResId_seq"'::regclass),
+  "CId" integer,
+  "DivId" integer,
+  "ResCatId" integer,
+  "UnitId" integer,
+  "BrandId" integer,
+  "UsageStatusId" integer,
+  "ResourceTypeId" integer,
+  "ResMainImgId" integer DEFAULT 0,
+  "ResMakerId" integer,
+  "ResLastVendorId" integer,
+  "ResRegNo" character varying(50) NOT NULL,
+  "ResName" character varying(255) NOT NULL,
+  "ResDesc" character varying(500),
+  "ResFullDesc" character varying(1500) DEFAULT ''::character varying,
+  "ResWidth" real DEFAULT 0,
+  "ResHeight" real DEFAULT 0,
+  "ResLength" real DEFAULT 0,
+  "ResWeight" real DEFAULT 0,
+  "ResProductionOnSale" boolean DEFAULT false,
+  "ResMinSaleAmount" real DEFAULT 0,
+  "ResMaxSaleAmount" real DEFAULT 0,
+  "ResMinSalePrice" real DEFAULT 0,
+  "ResMaxSalePrice" real DEFAULT 0,
+  "AddInf1" character varying(500) DEFAULT ''::character varying,
+  "AddInf2" character varying(500) DEFAULT ''::character varying,
+  "AddInf3" character varying(500) DEFAULT ''::character varying,
+  "AddInf4" character varying(500) DEFAULT ''::character varying,
+  "AddInf5" character varying(500) DEFAULT ''::character varying,
+  "AddInf6" character varying(500) DEFAULT ''::character varying,
+  "CreatedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "ModifiedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "CreatedUId" integer DEFAULT 0,
+  "ModifiedUId" integer DEFAULT 0,
+  "OptimisticLockField" integer,
+  "GCRecord" integer,
+  CONSTRAINT tbl_dk_resource_pkey PRIMARY KEY ("ResId"),
+  CONSTRAINT "FK_tbl_dk_resource_BrandId" FOREIGN KEY ("BrandId")
+      REFERENCES public.tbl_dk_brand ("BrandId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_resource_CId" FOREIGN KEY ("CId")
+      REFERENCES public.tbl_dk_company ("CId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_resource_DivId" FOREIGN KEY ("DivId")
+      REFERENCES public.tbl_dk_division ("DivisionId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_resource_ResCatId" FOREIGN KEY ("ResCatId")
+      REFERENCES public.tbl_dk_res_category ("ResCatId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_resource_ResLastVendorId" FOREIGN KEY ("ResLastVendorId")
+      REFERENCES public.tbl_dk_rp_acc ("RpAccId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_resource_ResMakerId" FOREIGN KEY ("ResMakerId")
+      REFERENCES public.tbl_dk_res_maker ("ResMakerId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_resource_ResourceTypeId" FOREIGN KEY ("ResourceTypeId")
+      REFERENCES public.tbl_dk_res_type ("ResourceTypeId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_resource_UnitId" FOREIGN KEY ("UnitId")
+      REFERENCES public.tbl_dk_unit ("UnitId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_resource_UsageStatusId" FOREIGN KEY ("UsageStatusId")
+      REFERENCES public.tbl_dk_usage_status ("UsageStatusId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+
+
+
+
+-- Table: public.tbl_dk_rp_acc
+
+-- DROP TABLE public.tbl_dk_rp_acc;
+
+CREATE TABLE public.tbl_dk_rp_acc
+(
+  "RpAccId" integer NOT NULL DEFAULT nextval('"tbl_dk_rp_acc_RpAccId_seq"'::regclass),
+  "CId" integer,
+  "DivId" integer,
+  "EmpId" integer,
+  "GendeId" integer,
+  "NatId" integer,
+  "RpAccStatusId" integer,
+  "ReprId" integer,
+  "RpAccTypeId" integer,
+  "WpId" integer,
+  "RpAccRegNo" character varying(100) NOT NULL,
+  "RpAccName" character varying(255),
+  "RpAccAddress" character varying(500) DEFAULT ''::character varying,
+  "RpAccMobilePhoneNumber" character varying(100) DEFAULT ''::character varying,
+  "RpAccHomePhoneNumber" character varying(100) DEFAULT ''::character varying,
+  "RpAccWorkPhoneNumber" character varying(100) DEFAULT ''::character varying,
+  "RpAccWorkFaxNumber" character varying(100) DEFAULT ''::character varying,
+  "RpAccZipCode" character varying(100) DEFAULT ''::character varying,
+  "RpAccEMail" character varying(100) DEFAULT ''::character varying,
+  "RpAccFirstName" character varying(100) DEFAULT ''::character varying,
+  "RpAccLastName" character varying(100) DEFAULT ''::character varying,
+  "RpAccPatronomic" character varying(100) DEFAULT ''::character varying,
+  "RpAccBirthDate" timestamp without time zone,
+  "RpAccResidency" character varying(100) DEFAULT ''::character varying,
+  "RpAccPassportNo" character varying(100) DEFAULT ''::character varying,
+  "RpAccPassportIssuePlace" character varying(100) DEFAULT ''::character varying,
+  "RpAccLangSkills" character varying(100) DEFAULT ''::character varying,
+  "RpAccSaleBalanceLimit" real DEFAULT 0,
+  "RpAccPurchBalanceLimit" real DEFAULT 0,
+  "AddInf1" character varying(500) DEFAULT ''::character varying,
+  "AddInf2" character varying(500) DEFAULT ''::character varying,
+  "AddInf3" character varying(500) DEFAULT ''::character varying,
+  "AddInf4" character varying(500) DEFAULT ''::character varying,
+  "AddInf5" character varying(500) DEFAULT ''::character varying,
+  "AddInf6" character varying(500) DEFAULT ''::character varying,
+  "CreatedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "ModifiedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "CreatedUId" integer DEFAULT 0,
+  "ModifiedUId" integer DEFAULT 0,
+  "OptimisticLockField" integer,
+  "GCRecord" integer,
+  CONSTRAINT tbl_dk_rp_acc_pkey PRIMARY KEY ("RpAccId"),
+  CONSTRAINT "FK_tbl_dk_rp_acc_CId" FOREIGN KEY ("CId")
+      REFERENCES public.tbl_dk_company ("CId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_rp_acc_DivId" FOREIGN KEY ("DivId")
+      REFERENCES public.tbl_dk_division ("DivisionId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_rp_acc_EmpId" FOREIGN KEY ("EmpId")
+      REFERENCES public.tbl_dk_employee ("EmpId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_rp_acc_GendeId" FOREIGN KEY ("GendeId")
+      REFERENCES public.tbl_dk_gender ("GenderId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_rp_acc_NatId" FOREIGN KEY ("NatId")
+      REFERENCES public.tbl_dk_nationality ("NatId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_rp_acc_ReprId" FOREIGN KEY ("ReprId")
+      REFERENCES public.tbl_dk_representative ("ReprId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_rp_acc_RpAccStatusId" FOREIGN KEY ("RpAccStatusId")
+      REFERENCES public.tbl_dk_rp_acc_status ("RpAccStatusId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_rp_acc_RpAccTypeId" FOREIGN KEY ("RpAccTypeId")
+      REFERENCES public.tbl_dk_rp_acc_type ("RpAccTypeId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_rp_acc_WpId" FOREIGN KEY ("WpId")
+      REFERENCES public.tbl_dk_work_period ("WpId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+
+
+
+
+-- Table: public.tbl_dk_rp_acc_price_list
+
+-- DROP TABLE public.tbl_dk_rp_acc_price_list;
+
+CREATE TABLE public.tbl_dk_rp_acc_price_list
+(
+  "RpAccPId" integer NOT NULL DEFAULT nextval('"tbl_dk_rp_acc_price_list_RpAccPId_seq"'::regclass),
+  "RpAccId" integer,
+  "UnitName" character varying(100) DEFAULT ''::character varying,
+  "ResBarcode" character varying(100) NOT NULL,
+  "ResName" character varying(100) NOT NULL,
+  "ResDesc" character varying(500) DEFAULT ''::character varying,
+  "RpAccPValue" real DEFAULT 0,
+  "RpAccPDesc" character varying(500) DEFAULT ''::character varying,
+  "RpAccPStartDate" timestamp without time zone,
+  "RpAccPEndDate" timestamp without time zone,
+  "CreatedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "ModifiedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "CreatedUId" integer DEFAULT 0,
+  "ModifiedUId" integer DEFAULT 0,
+  "OptimisticLockField" integer,
+  "GCRecord" integer,
+  CONSTRAINT tbl_dk_rp_acc_price_list_pkey PRIMARY KEY ("RpAccPId"),
+  CONSTRAINT "FK_tbl_dk_rp_acc_price_list_RpAccId" FOREIGN KEY ("RpAccId")
+      REFERENCES public.tbl_dk_rp_acc ("RpAccId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+
+
+
+
+-- Table: public.tbl_dk_rp_acc_resource
+
+-- DROP TABLE public.tbl_dk_rp_acc_resource;
+
+CREATE TABLE public.tbl_dk_rp_acc_resource
+(
+  "RpAccResId" integer NOT NULL DEFAULT nextval('"tbl_dk_rp_acc_resource_RpAccResId_seq"'::regclass),
+  "RpAccId" integer,
+  "ResId" integer,
+  "CreatedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "ModifiedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "CreatedUId" integer DEFAULT 0,
+  "ModifiedUId" integer DEFAULT 0,
+  "OptimisticLockField" integer,
+  "GCRecord" integer,
+  CONSTRAINT tbl_dk_rp_acc_resource_pkey PRIMARY KEY ("RpAccResId"),
+  CONSTRAINT "FK_tbl_dk_rp_acc_resource_ResId" FOREIGN KEY ("ResId")
+      REFERENCES public.tbl_dk_resource ("ResId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_rp_acc_resource_RpAccId" FOREIGN KEY ("RpAccId")
+      REFERENCES public.tbl_dk_rp_acc ("RpAccId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+
+
+
+
+-- Table: public.tbl_dk_rp_acc_status
+
+-- DROP TABLE public.tbl_dk_rp_acc_status;
+
+CREATE TABLE public.tbl_dk_rp_acc_status
+(
+  "RpAccStatusId" integer NOT NULL DEFAULT nextval('"tbl_dk_rp_acc_status_RpAccStatusId_seq"'::regclass),
+  "RpAccStatusName_tkTM" character varying(100) NOT NULL,
+  "RpAccStatusDesc_tkTM" character varying(500) DEFAULT ''::character varying,
+  "RpAccStatusName_ruRU" character varying(100) DEFAULT ''::character varying,
+  "RpAccStatusDesc_ruRU" character varying(500) DEFAULT ''::character varying,
+  "RpAccStatusName_enUS" character varying(100) DEFAULT ''::character varying,
+  "RpAccStatusdesc_enUS" character varying(500) DEFAULT ''::character varying,
+  "CreatedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "ModifiedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "CreatedUId" integer DEFAULT 0,
+  "ModifiedUId" integer DEFAULT 0,
+  "OptimisticLockField" integer,
+  "GCRecord" integer,
+  CONSTRAINT tbl_dk_rp_acc_status_pkey PRIMARY KEY ("RpAccStatusId")
+)
+
+
+-- Table: public.tbl_dk_rp_acc_trans_total
+
+-- DROP TABLE public.tbl_dk_rp_acc_trans_total;
+
+CREATE TABLE public.tbl_dk_rp_acc_trans_total
+(
+  "RpAccTrTotId" integer NOT NULL DEFAULT nextval('"tbl_dk_rp_acc_trans_total_RpAccTrTotId_seq"'::regclass),
+  "RpAccId" integer,
+  "CurrencyId" integer,
+  "RpAccTrTotBalance" real DEFAULT 0,
+  "RpAccTrTotDebit" real DEFAULT 0,
+  "RpAccTrTotCredit" real DEFAULT 0,
+  "RpAccTrTotLastTrDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "CreatedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "ModifiedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "CreatedUId" integer DEFAULT 0,
+  "ModifiedUId" integer DEFAULT 0,
+  "OptimisticLockField" integer,
+  "GCRecord" integer,
+  CONSTRAINT tbl_dk_rp_acc_trans_total_pkey PRIMARY KEY ("RpAccTrTotId"),
+  CONSTRAINT "FK_tbl_dk_rp_acc_trans_total_CurrencyId" FOREIGN KEY ("CurrencyId")
+      REFERENCES public.tbl_dk_currency ("CurrencyId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_rp_acc_trans_total_RpAccId" FOREIGN KEY ("RpAccId")
+      REFERENCES public.tbl_dk_rp_acc ("RpAccId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+
+
+
+
+-- Table: public.tbl_dk_rp_acc_transaction
+
+-- DROP TABLE public.tbl_dk_rp_acc_transaction;
+
+CREATE TABLE public.tbl_dk_rp_acc_transaction
+(
+  "RpAccTransId" integer NOT NULL DEFAULT nextval('"tbl_dk_rp_acc_transaction_RpAccTransId_seq"'::regclass),
+  "CId" integer,
+  "DivId" integer,
+  "WpId" integer,
+  "TransTypeId" integer,
+  "InvId" integer,
+  "ResTransInvId" integer,
+  "RpAccId" integer,
+  "CurrencyId" integer,
+  "RpAccTransName" character varying(100) NOT NULL,
+  "RpAccTransCode" character varying(100),
+  "RpAccTransDate" timestamp without time zone,
+  "RpAccTransDebit" real DEFAULT 0,
+  "RpAccTransCredit" real DEFAULT 0,
+  "RpAccTransTotal" real DEFAULT 0,
+  "AddInf1" character varying(500) DEFAULT ''::character varying,
+  "AddInf2" character varying(500) DEFAULT ''::character varying,
+  "AddInf3" character varying(500) DEFAULT ''::character varying,
+  "AddInf4" character varying(500) DEFAULT ''::character varying,
+  "AddInf5" character varying(500) DEFAULT ''::character varying,
+  "AddInf6" character varying(500) DEFAULT ''::character varying,
+  "CreatedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "ModifiedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "CreatedUId" integer DEFAULT 0,
+  "ModifiedUId" integer DEFAULT 0,
+  "OptimisticLockField" integer,
+  "GCRecord" integer,
+  CONSTRAINT tbl_dk_rp_acc_transaction_pkey PRIMARY KEY ("RpAccTransId"),
+  CONSTRAINT "FK_tbl_dk_rp_acc_transaction_CId" FOREIGN KEY ("CId")
+      REFERENCES public.tbl_dk_company ("CId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_rp_acc_transaction_CurrencyId" FOREIGN KEY ("CurrencyId")
+      REFERENCES public.tbl_dk_currency ("CurrencyId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_rp_acc_transaction_DivId" FOREIGN KEY ("DivId")
+      REFERENCES public.tbl_dk_division ("DivisionId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_rp_acc_transaction_InvId" FOREIGN KEY ("InvId")
+      REFERENCES public.tbl_dk_invoice ("InvId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_rp_acc_transaction_ResTransInvId" FOREIGN KEY ("ResTransInvId")
+      REFERENCES public.tbl_dk_res_trans_inv ("ResTrInvId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_rp_acc_transaction_RpAccId" FOREIGN KEY ("RpAccId")
+      REFERENCES public.tbl_dk_rp_acc ("RpAccId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_rp_acc_transaction_TransTypeId" FOREIGN KEY ("TransTypeId")
+      REFERENCES public.tbl_dk_transaction_type ("TransTypeId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_rp_acc_transaction_WpId" FOREIGN KEY ("WpId")
+      REFERENCES public.tbl_dk_work_period ("WpId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+
+
+
+
+
+-- Table: public.tbl_dk_rp_acc_type
+
+-- DROP TABLE public.tbl_dk_rp_acc_type;
+
+CREATE TABLE public.tbl_dk_rp_acc_type
+(
+  "RpAccTypeId" integer NOT NULL DEFAULT nextval('"tbl_dk_rp_acc_type_RpAccTypeId_seq"'::regclass),
+  "RpAccTypeName_tkTM" character varying(100) NOT NULL,
+  "RpAccTypeDesc_tkTM" character varying(500) DEFAULT ''::character varying,
+  "RpAccTypeName_ruRU" character varying(100),
+  "RpAccTypeDesc_ruRU" character varying(500) DEFAULT ''::character varying,
+  "RpAccTypeName_enUS" character varying(100) DEFAULT ''::character varying,
+  "RpAccTypeDesc_enUS" character varying(500) DEFAULT ''::character varying,
+  "CreatedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "ModifiedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "CreatedUId" integer DEFAULT 0,
+  "ModifiedUId" integer DEFAULT 0,
+  "OptimisticLockField" integer,
+  "GCRecord" integer,
+  CONSTRAINT tbl_dk_rp_acc_type_pkey PRIMARY KEY ("RpAccTypeId")
+)
+
+
+
+-- Table: public.tbl_dk_sale_agreement
+
+-- DROP TABLE public.tbl_dk_sale_agreement;
+
+CREATE TABLE public.tbl_dk_sale_agreement
+(
+  "SaleAgrId" integer NOT NULL DEFAULT nextval('"tbl_dk_sale_agreement_SaleAgrId_seq"'::regclass),
+  "OptimisticLockField" integer,
+  "GCRecord" integer,
+  CONSTRAINT tbl_dk_sale_agreement_pkey PRIMARY KEY ("SaleAgrId")
+)
+
+
+
+
+-- Table: public.tbl_dk_sale_card
+
+-- DROP TABLE public.tbl_dk_sale_card;
+
+CREATE TABLE public.tbl_dk_sale_card
+(
+  "SaleCardId" integer NOT NULL DEFAULT nextval('"tbl_dk_sale_card_SaleCardId_seq"'::regclass),
+  "CId" integer,
+  "DivId" integer,
+  "WpId" integer,
+  "RpAccId" integer,
+  "CurrencyId" integer,
+  "SaleAgrId" integer,
+  "ResPriceGroupId" integer,
+  "ResDiscId" integer,
+  "SaleCardStatusId" integer,
+  "SaleCardRegNo" character varying(100) NOT NULL,
+  "SaleCardName" character varying(100) NOT NULL,
+  "SaleCardDesc" character varying(500) DEFAULT ''::character varying,
+  "SaleCardStartDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "SaleCardEndDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "SaleCardMinSaleAmount" real DEFAULT 0,
+  "SaleCardMaxSaleAmount" real DEFAULT 0,
+  "SaleCardMinSalePrice" real DEFAULT 0,
+  "SaleCardMaxSalePrice" real DEFAULT 0,
+  "SaleCardMaxManualDiscPerc" real DEFAULT 0,
+  "SaleCardIsPayable" boolean DEFAULT true,
+  "SaleCardCustName" character varying(100) DEFAULT ''::character varying,
+  "SaleCardCustBirthDate" character varying(100) DEFAULT ''::character varying,
+  "SaleCardCustTel" character varying(100) DEFAULT ''::character varying,
+  "SaleCardCustEmail" character varying(100) DEFAULT ''::character varying,
+  "SaleCardCustAddress" character varying(100) DEFAULT ''::character varying,
+  "AddInf1" character varying(500) DEFAULT ''::character varying,
+  "AddInf2" character varying(500) DEFAULT ''::character varying,
+  "AddInf3" character varying(500) DEFAULT ''::character varying,
+  "AddInf4" character varying(500) DEFAULT ''::character varying,
+  "AddInf5" character varying(500) DEFAULT ''::character varying,
+  "AddInf6" character varying(500) DEFAULT ''::character varying,
+  "CreatedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "ModifiedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "CreatedUId" integer DEFAULT 0,
+  "ModifiedUId" integer DEFAULT 0,
+  "OptimisticLockField" integer,
+  "GCRecord" integer,
+  CONSTRAINT tbl_dk_sale_card_pkey PRIMARY KEY ("SaleCardId"),
+  CONSTRAINT "FK_tbl_dk_sale_card_CId" FOREIGN KEY ("CId")
+      REFERENCES public.tbl_dk_company ("CId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_sale_card_CurrencyId" FOREIGN KEY ("CurrencyId")
+      REFERENCES public.tbl_dk_currency ("CurrencyId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_sale_card_DivId" FOREIGN KEY ("DivId")
+      REFERENCES public.tbl_dk_division ("DivisionId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_sale_card_ResDiscId" FOREIGN KEY ("ResDiscId")
+      REFERENCES public.tbl_dk_res_discount ("ResDiscId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_sale_card_ResPriceGroupId" FOREIGN KEY ("ResPriceGroupId")
+      REFERENCES public.tbl_dk_res_price_group ("ResPriceGroupId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_sale_card_RpAccId" FOREIGN KEY ("RpAccId")
+      REFERENCES public.tbl_dk_rp_acc ("RpAccId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_sale_card_SaleAgrId" FOREIGN KEY ("SaleAgrId")
+      REFERENCES public.tbl_dk_sale_agreement ("SaleAgrId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_sale_card_SaleCardStatusId" FOREIGN KEY ("SaleCardStatusId")
+      REFERENCES public.tbl_dk_sale_card_status ("SaleCardStatusId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_sale_card_WpId" FOREIGN KEY ("WpId")
+      REFERENCES public.tbl_dk_work_period ("WpId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+
+
+
+
+
+-- Table: public.tbl_dk_sale_card_status
+
+-- DROP TABLE public.tbl_dk_sale_card_status;
+
+CREATE TABLE public.tbl_dk_sale_card_status
+(
+  "SaleCardStatusId" integer NOT NULL DEFAULT nextval('"tbl_dk_sale_card_status_SaleCardStatusId_seq"'::regclass),
+  "SaleCardStatusName_tkTM" character varying(100) NOT NULL,
+  "SaleCardStatusDesc_tkTM" character varying(500) DEFAULT ''::character varying,
+  "SaleCardStatusName_ruRU" character varying(100) DEFAULT ''::character varying,
+  "SaleCardStatusDesc_ruRU" character varying(500) DEFAULT ''::character varying,
+  "SaleCardStatusName_enUS" character varying(100) DEFAULT ''::character varying,
+  "SaleCardStatusDesc_enUS" character varying(500) DEFAULT ''::character varying,
+  "CreatedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "ModifiedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "CreatedUId" integer DEFAULT 0,
+  "ModifiedUId" integer DEFAULT 0,
+  "OptimisticLockField" integer,
+  "GCRecord" integer,
+  CONSTRAINT tbl_dk_sale_card_status_pkey PRIMARY KEY ("SaleCardStatusId")
+)
+
+
+
+
+
+-- Table: public.tbl_dk_size
+
+-- DROP TABLE public.tbl_dk_size;
+
+CREATE TABLE public.tbl_dk_size
+(
+  "SizeId" integer NOT NULL DEFAULT nextval('"tbl_dk_size_SizeId_seq"'::regclass),
+  "SizeName" character varying(100) NOT NULL,
+  "SizeDesc" character varying(500) DEFAULT ''::character varying,
+  "SizeTypeId" integer,
+  "AddInf1" character varying(500) DEFAULT ''::character varying,
+  "AddInf2" character varying(500) DEFAULT ''::character varying,
+  "AddInf3" character varying(500) DEFAULT ''::character varying,
+  "AddInf4" character varying(500) DEFAULT ''::character varying,
+  "AddInf5" character varying(500) DEFAULT ''::character varying,
+  "AddInf6" character varying(500) DEFAULT ''::character varying,
+  "CreatedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "ModifiedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "CreatedUId" integer DEFAULT 0,
+  "ModifiedUId" integer DEFAULT 0,
+  "OptimisticLockField" integer,
+  "GCRecord" integer,
+  CONSTRAINT tbl_dk_size_pkey PRIMARY KEY ("SizeId"),
+  CONSTRAINT "FK_tbl_dk_size_SizeTypeId" FOREIGN KEY ("SizeTypeId")
+      REFERENCES public.tbl_dk_size_type ("SizeTypeId") MATCH SIMPLE
+      ON UPDA
+
+
+
+
+
+-- Table: public.tbl_dk_size_type
+
+-- DROP TABLE public.tbl_dk_size_type;
+
+CREATE TABLE public.tbl_dk_size_type
+(
+  "SizeTypeId" integer NOT NULL DEFAULT nextval('"tbl_dk_size_type_SizeTypeId_seq"'::regclass),
+  "SizeTypeName" character varying(100) NOT NULL,
+  "SizeTypeDesc" character varying(500) DEFAULT ''::character varying,
+  "CreatedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "ModifiedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "CreatedUId" integer DEFAULT 0,
+  "ModifiedUId" integer DEFAULT 0,
+  "OptimisticLockField" integer,
+  "GCRecord" integer,
+  CONSTRAINT tbl_dk_size_type_pkey PRIMARY KEY ("SizeTypeId")
+)
+WITH (
+
+
+
+
+-- Table: public.tbl_dk_transaction_type
+
+-- DROP TABLE public.tbl_dk_transaction_type;
+
+CREATE TABLE public.tbl_dk_transaction_type
+(
+  "TransTypeId" integer NOT NULL DEFAULT nextval('"tbl_dk_transaction_type_TransTypeId_seq"'::regclass),
+  "TransTypeName" character varying(100) NOT NULL,
+  "TransTypeDesc" character varying(500) DEFAULT ''::character varying,
+  "CreatedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "ModifiedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "CreatedUId" integer DEFAULT 0,
+  "ModifiedUId" integer DEFAULT 0,
+  "OptimisticLockField" integer,
+  "GCRecord" integer,
+  CONSTRAINT tbl_dk_transaction_type_pkey PRIMARY KEY ("TransTypeId")
+)
+WITH (
+  OIDS=FALSE
+
+
+
+
+-- Table: public.tbl_dk_unit
+
+-- DROP TABLE public.tbl_dk_unit;
+
+CREATE TABLE public.tbl_dk_unit
+(
+  "UnitId" integer NOT NULL DEFAULT nextval('"tbl_dk_unit_UnitId_seq"'::regclass),
+  "UnitName" character varying(100) NOT NULL,
+  "UnitDesc" character varying(100) DEFAULT ''::character varying,
+  "CreatedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "ModifiedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "CreatedUId" integer DEFAULT 0,
+  "ModifiedUId" integer DEFAULT 0,
+  "OptimisticLockField" integer,
+  "GCRecord" integer,
+  CONSTRAINT tbl_dk_unit_pkey PRIMARY KEY ("UnitId")
+)
+WITH (
+  OIDS=FALSE
+
+
+
+-- Table: public.tbl_dk_usage_status
+
+-- DROP TABLE public.tbl_dk_usage_status;
+
+CREATE TABLE public.tbl_dk_usage_status
+(
+  "UsageStatusId" integer NOT NULL DEFAULT nextval('"tbl_dk_usage_status_UsageStatusId_seq"'::regclass),
+  "UsageStatusName" character varying(100) NOT NULL,
+  "UsageStatusDesc" character varying(500) DEFAULT ''::character varying,
+  "CreatedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "ModifiedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "CreatedUId" integer DEFAULT 0,
+  "ModifiedUId" integer DEFAULT 0,
+  "OptimisticLockField" integer,
+  "GCRecord" integer,
+  CONSTRAINT tbl_dk_usage_status_pkey PRIMARY KEY ("UsageStatusId")
+)
+WITH (
+  OIDS=FALSE
+
+
+
+
+!!!!!!
+
+-- Table: public.tbl_dk_warehouse
+
+-- DROP TABLE public.tbl_dk_warehouse;
+
+CREATE TABLE public.tbl_dk_warehouse
+(
+  "WhId" integer NOT NULL DEFAULT nextval('"tbl_dk_warehouse_WhId_seq"'::regclass),
+  "CId" integer,
+  "DivId" integer,
+  "WhName" character varying(100) NOT NULL,
+  "WhDesc" character varying(500) DEFAULT ''::character varying,
+  "AddInf1" character varying(500) DEFAULT ''::character varying,
+  "AddInf2" character varying(500) DEFAULT ''::character varying,
+  "AddInf3" character varying(500) DEFAULT ''::character varying,
+  "AddInf4" character varying(500) DEFAULT ''::character varying,
+  "AddInf5" character varying(500) DEFAULT ''::character varying,
+  "AddInf6" character varying(500) DEFAULT ''::character varying,
+  "CreatedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "ModifiedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "CreatedUId" integer DEFAULT 0,
+  "ModifiedUId" integer DEFAULT 0,
+  "OptimisticLockField" integer,
+  "GCRecord" integer,
+  CONSTRAINT tbl_dk_warehouse_pkey PRIMARY KEY ("WhId"),
+  CONSTRAINT "FK_tbl_dk_warehouse_CId" FOREIGN KEY ("CId")
+      REFERENCES public.tbl_dk_company ("CId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_warehouse_DivId" FOREIGN KEY ("DivId")
+      REFERENCES public.tbl_dk_division ("DivisionId") MATCH SIMPLE
+      ON UPDATE N
+
+!!!!!!!!!!
+
+
+
+
+
+???????????
+-- Table: public.tbl_dk_work_history
+
+-- DROP TABLE public.tbl_dk_work_history;
+
+CREATE TABLE public.tbl_dk_work_history
+(
+  "WorkHistId" integer NOT NULL DEFAULT nextval('"tbl_dk_work_history_WorkHistId_seq"'::regclass),
+  "EmpId" integer,
+  "WorkHistoryWorkPlace" character varying(100) NOT NULL DEFAULT ''::character varying,
+  "WorkHistoryWorkDesc" character varying(500) DEFAULT ''::character varying,
+  "WorkHistoryWorkDept" character varying(255) DEFAULT ''::character varying,
+  "WorkHistoryWorkPos" character varying(255) DEFAULT ''::character varying,
+  "WorkHistoryWorkStartDate" timestamp without time zone,
+  "WorkHistoryWorkEndDate" timestamp without time zone,
+  "WorkHistoryWorkEndReason" character varying(500),
+  "AddInf1" character varying(500) DEFAULT ''::character varying,
+  "AddInf2" character varying(500) DEFAULT ''::character varying,
+  "AddInf3" character varying(500) DEFAULT ''::character varying,
+  "AddInf4" character varying(500) DEFAULT ''::character varying,
+  "AddInf5" character varying(500) DEFAULT ''::character varying,
+  "AddInf6" character varying(500) DEFAULT ''::character varying,
+  "CreatedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "ModifiedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "CreatedUId" integer DEFAULT 0,
+  "ModifiedUId" integer DEFAULT 0,
+  "OptimisticLockField" integer,
+  "GCRecord" integer,
+
+
+
+
+-- Table: public.tbl_dk_work_period
+
+-- DROP TABLE public.tbl_dk_work_period;
+
+CREATE TABLE public.tbl_dk_work_period
+(
+  "WpId" integer NOT NULL DEFAULT nextval('"tbl_dk_work_period_WpId_seq"'::regclass),
+  "CId" integer,
+  "DivId" integer,
+  "CurrencyId" integer,
+  "WpStartDate" timestamp without time zone,
+  "WpEndDate" timestamp without time zone,
+  "WpIsDefault" boolean DEFAULT false,
+  "CreatedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "ModifiedDate" timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+  "CreatedUId" integer DEFAULT 0,
+  "ModifiedUId" integer DEFAULT 0,
+  "OptimisticLockField" integer,
+  "GCRecord" integer,
+  CONSTRAINT tbl_dk_work_period_pkey PRIMARY KEY ("WpId"),
+  CONSTRAINT "FK_tbl_dk_work_period_CId" FOREIGN KEY ("CId")
+      REFERENCES public.tbl_dk_company ("CId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_work_period_CurrencyId" FOREIGN KEY ("CurrencyId")
+      REFERENCES public.tbl_dk_currency ("CurrencyId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK_tbl_dk_work_period_DivId" FOREIGN KEY ("DivId")
+      REFERENCES public.tbl_dk_division ("DivisionId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+
+
+
+
+
+
+
+
+
