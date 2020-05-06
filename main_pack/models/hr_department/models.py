@@ -40,7 +40,10 @@ class Employee(AddInf,CreatedModifiedInfo,db.Model):
 	Work_history = db.relationship('Work_history',backref='employee',lazy=True)
 	Department_detail = db.relationship('Department_detail',backref='employee',lazy=True)
 	Image = db.relationship('Image',backref='employee',lazy=True)
-
+	Rp_acc = db.relationship('Rp_acc',backref='employee',lazy=True)
+	Invoice = db.relationship('Invoice',backref='employee',lazy=True)
+	Order_inv = db.relationship('Order_inv',backref='employee',lazy=True)
+	Res_trans_inv = db.relationship('Res_trans_inv',backref='employee',lazy=True)
 	# function updates db ignoring Null
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -180,6 +183,7 @@ class Nationality(CreatedModifiedInfo,db.Model):
 	NatName_enUS = db.Column(db.String(50))#,nullable=False)
 	NatDesc_enUS = db.Column(db.String(500))
 	Employee = db.relationship('Employee',backref='nationality',lazy=True)
+	Rp_acc = db.relationship('Rp_acc',backref='nationality',lazy=True)
 
 	def to_json(self):
 		json_nationality = {

@@ -28,3 +28,15 @@ function clearFields(formFields,formId){
 		$('.'+formFields[element]+formId).val('');
 	}
 }
+
+/////// backend requests //////
+
+function getRegNo(url){
+	$.ajax({
+	  type : 'GET',
+	  url : url,
+	  success: function(response){
+		$('.regNo').val(response);
+	  }
+	});
+}

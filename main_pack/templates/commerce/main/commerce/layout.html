@@ -56,9 +56,9 @@
                     <ul class="horizontal-menu">
                         <li class="horz-menu-item lang">
                             <select name="language">
-                                <a href="/language/tk"><option value="tk">Türkmen</option></a>
-                                <a href="/language/en"><option value="en" selected>English</option></a>
-                                <a href="/language/ru"><option value="ru">Русский</option></a>
+                                <a type="submit" href="/language/tk"><option value="tk">Türkmen</option></a>
+                                <a type="submit" href="/language/en"><option value="en" selected>English</option></a>
+                                <a type="submit" href="/language/ru"><option value="ru">Русский</option></a>
                             </select>
                         </li>
                         {% if current_user.is_authenticated %}
@@ -90,10 +90,9 @@
                             <div class="mobile-search">
                                 <a href="javascript:void(0)" class="open-searchbox"><i class="biolife-icon icon-search"></i></a>
                                 <div class="mobile-search-content">
-                                    <h1>Where the fuck is this?????</h1>
                                     <form action="#" class="form-search" name="mobile-seacrh" method="get">
                                         <a href="#" class="btn-close"><span class="biolife-icon icon-close-menu"></span></a>
-                                        <input type="text" name="s" class="input-text" value="" placeholder="{{_('Search')}}...">
+                                        <input type="text" name="s" class="input-text" placeholder="{{_('Search')}}...">
                                         <select name="category">
                                             <option value="-1" selected>{{_('All Categories')}}</option>
                                             {% for category in categories %}

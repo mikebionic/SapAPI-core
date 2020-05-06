@@ -53,6 +53,99 @@ def addCompanyInfoDict(req):
 # 		'companyAddress','companyAddressLegal','companyLatitude','companyLongitude',
 # 		'companyPhone1','companyPhone2','companyPhone3','companyPhone4',
 # 		'companyPostalCode','companyEmail','companyWTime']
+
+
+def addResourceDict(req):
+	CId = req.get('companyId')
+	DivId = req.get('divisionId')
+	ResCatId = req.get('resourceCategoryId')
+	UnitId = req.get('unitId')
+	BrandId = req.get('brandId')
+	UsageStatusId = req.get('usageStatusId')
+	ResourceTypeId = req.get('resourceTypeId')
+	ResMainImgId = req.get('mainImageId')
+	ResMakerId = req.get('resourceMakerId')
+	ResLastVendorId = req.get('lastVendorId')
+	ResRegNo = req.get('regNo')
+	ResName = req.get('resourceName')
+	ResDesc = req.get('resourceDesc')
+	ResFullDesc = req.get('resourceFullDesc')
+	ResWidth = req.get('resourceWidth')
+	ResHeight = req.get('resourceHeight')
+	ResLength = req.get('resourceLength')
+	ResWeight = req.get('resourceWeight')
+	ResProductionOnSale = req.get('resourceOnSale')
+	ResMinSaleAmount = req.get('resourceMinSaleAmount')
+	ResMaxSaleAmount = req.get('resourceMaxSaleAmount')
+	ResMinSalePrice = req.get('resourceMinSalePrice')
+	ResMaxSalePrice = req.get('resourceMaxSalePrice')
+	resource = {
+		'CId':CId,
+		'DivId':DivId,
+		'ResCatId':ResCatId,
+		'UnitId':UnitId,
+		'BrandId':BrandId,
+		'UsageStatusId':UsageStatusId,
+		'ResourceTypeId':ResourceTypeId,
+		'ResMainImgId':ResMainImgId,
+		'ResMakerId':ResMakerId,
+		'ResLastVendorId':ResLastVendorId,
+		'ResRegNo':ResRegNo,
+		'ResName':ResName,
+		'ResDesc':ResDesc,
+		'ResFullDesc':ResFullDesc,
+		'ResWidth':ResWidth,
+		'ResHeight':ResHeight,
+		'ResLength':ResLength,
+		'ResWeight':ResWeight,
+		'ResProductionOnSale':ResProductionOnSale,
+		'ResMinSaleAmount':ResMinSaleAmount,
+		'ResMaxSaleAmount':ResMaxSaleAmount,
+		'ResMinSalePrice':ResMinSalePrice,
+		'ResMaxSalePrice':ResMaxSalePrice
+	}
+	return resource
+
+# resource_forms = ['resourceId','companyId','divisionId','resourceCategoryId','unitId',
+# 	'brandId',	'usageStatusId','resourceTypeId','mainImageId','resourceMakerId',
+# 	'lastVendorId','regNo','resourceName','resourceDesc','resourceFullDesc','resourceWidth',
+# 	'resourceHeight','resourceLength','resourceWeight','resourceOnSale','resourceMinSaleAmount',
+# 	'resourceMaxSaleAmount','resourceMinSalePrice','resourceMaxSalePrice']
+
+def addBarcodeDict(req):
+	CId = req.get('companyId')
+	DivId = req.get('divisionId')
+	ResId = req.get('resourceId')
+	UnitId = req.get('unitId')
+	BarcodeVal = req.get('barcodeVal')
+	barcode = {
+		'companyId':CId,
+		'divisionId':DivId,
+		'resourceId':ResId,
+		'unitId':UnitId,
+		'barcodeVal':BarcodeVal
+	}
+	return barcode
+
+# barcode_forms = ['companyId','divisionId','resourceId','unitId','barcodeVal']
+
+
+def addBrandDict(req):
+	BrandName = req.get('brandName')
+	BrandDesc = req.get('brandDesc')
+	brand = {
+		'brandName':BrandName,
+		'brandDesc':BrandDesc
+	}
+	return brand
+
+# brand_forms = ['brandId','brandDesc']
+
+
+
+
+
+
 ############ useful methods ############# 
 def boolCheck(value):
 	if value == 'False' or value == 'false' or value == '0' or value == 0:

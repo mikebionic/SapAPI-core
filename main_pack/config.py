@@ -5,7 +5,7 @@ class Config:
 	POSTGRES = {
 	    'user': 'postgres',
 	    'pw': 'd152535k',
-	    'db': 'dbSapHasapNewNew',
+	    'db': 'SapBackuped',
 	    'host': 'localhost',
 	    'port': '5432',
 	}

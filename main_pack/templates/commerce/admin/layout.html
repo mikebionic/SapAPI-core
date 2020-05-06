@@ -32,13 +32,13 @@
         <div class="main-sidebar sidebar-style-2">
           <aside id="sidebar-wrapper">
             <div class="sidebar-brand">
-              <a href="{{ url_for('commerce_admin.dashboard') }}"> <img alt="image" src="{{ url_for('static', filename='commerce/admin/img/logo.png') }}" class="header-logo" /> <span
-                  class="logo-name">!! Company</span>
+              <a href="{{ url_for('commerce_admin.dashboard') }}"> <img alt="image" src="{{ url_for('static', filename='commerce/admin/img/logo.png') }}" class="header-logo" />
+                <span class="logo-name">{{_('Admin')}}</span>
               </a>
             </div>
             <ul class="sidebar-menu">
               <li class="menu-header">{{_('Main')}}</li>
-              <li class="dropdown active">
+              <li class="dropdown">
                 <a href="{{ url_for('commerce_admin.dashboard') }}" class="nav-link"><i data-feather="home"></i><span>{{_('Dashboard')}}</span></a>
               </li>
               <li class="dropdown">
@@ -51,11 +51,7 @@
                 <a href="{{ url_for('commerce_admin.single_product') }}" class="nav-link"><i data-feather="package"></i><span>{{_('Single Product')}}</span></a>
               </li>
               <li class="dropdown">
-                <a href="#" class="menu-toggle nav-link has-dropdown"><i
-                    data-feather="clipboard"></i><span>{{_('Main page')}}</span></a>
-                <ul class="dropdown-menu">
-                  <li><a class="nav-link" href="{{ url_for('commerce_admin.picture') }}">{{_('Pictures')}}</a></li>
-                </ul>
+                <a href="{{ url_for('commerce_admin.picture') }}" class="nav-link"><i data-feather="clipboard"></i><span>{{_('Pictures')}}</span></a>
               </li>
             </ul>
           </aside>

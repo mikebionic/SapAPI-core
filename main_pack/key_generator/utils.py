@@ -1,9 +1,12 @@
 from flask_login import current_user
 from main_pack import db, babel, gettext
 from main_pack.key_generator import bp
-from main_pack.base.models import Reg_num, Reg_num_type
-from main_pack.hr_department.models import Employee,Emp_status, Profession, Nationality
-from main_pack.hr_department.models import Edu_level, Contract_type
+from main_pack.models.base.models import Reg_num,Reg_num_type
+
+from main_pack.models.hr_department.models import Employee
+
+from main_pack.models.base.models import Resource
+
 from datetime import datetime
 from sqlalchemy import or_, and_
 
@@ -34,23 +37,47 @@ def generate(prefixType):
 
 
 def validate(fullRegNo,RegNumLastNum,prefixType):
-	prefixType = prefixTypesDict[prefixType]
-	reg_num = Reg_num.query.filter(
-		and_(Reg_num.UId==current_user.UId,Reg_num.RegNumTypeId==prefixType)).first()
-	employee = Employee.query.filter_by(EmpRegNo=fullRegNo).first()
+	if(prefixType=='employee code'):
+		prefixType = prefixTypesDict[prefixType]
+		reg_num = Reg_num.query.filter(
+			and_(Reg_num.UId==current_user.UId,Reg_num.RegNumTypeId==prefixType)).first()
+		employee = Employee.query.filter_by(EmpRegNo=fullRegNo).first()
 
-	if not employee and (RegNumLastNum>reg_num.RegNumLastNum):
-		response = {
-			'status':True,
-			'RegNumLastNum':RegNumLastNum
-		}
+		if not employee and (RegNumLastNum>reg_num.RegNumLastNum):
+			response = {
+				'status':True,
+				'RegNumLastNum':RegNumLastNum
+			}
 
+		else:
+			while RegNumLastNum<=reg_num.RegNumLastNum:
+				RegNumLastNum+=1
+			response = {
+				'status':False,
+				'RegNumLastNum':RegNumLastNum
+			}
+	elif(prefixType=='goods code'):
+		prefixType = prefixTypesDict[prefixType]
+		reg_num = Reg_num.query.filter(
+			and_(Reg_num.UId==current_user.UId,Reg_num.RegNumTypeId==prefixType)).first()
+		resource = Resource.query.filter_by(ResRegNo=fullRegNo).first()
+
+		if not resource and (RegNumLastNum>reg_num.RegNumLastNum):
+			response = {
+				'status':True,
+				'RegNumLastNum':RegNumLastNum
+			}
+		else:
+			while RegNumLastNum<=reg_num.RegNumLastNum:
+				RegNumLastNum+=1
+			response = {
+				'status':False,
+				'RegNumLastNum':RegNumLastNum
+			}
 	else:
-		while RegNumLastNum<=reg_num.RegNumLastNum:
-			RegNumLastNum+=1
-		response = {
-			'status':False,
-			'RegNumLastNum':RegNumLastNum
+		response={
+			'status':'error',
+			'responseText':'Wrong prefix type or missing in database'
 		}
 	return response
 

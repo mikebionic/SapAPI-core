@@ -121,8 +121,8 @@ input[type="password"],
 input[type="tel"],
 select,
 input[type="search"]{
-    border: 1px solid #e6e6e6;
-    border-radius: 0;
+    border: 1px solid #6777ef;
+    border-radius: 5px;
     padding: 7px 20px;
     max-width: 100%;
     outline: none;
@@ -4152,7 +4152,7 @@ body.open-overlay #overlay{
 .sumary-product .product-attribute{
     display: inline-block;
     float: left;
-    width: calc( 100% - 38.462% - 270px );
+    width: calc( 100% - 38.462% - 345px );
     padding-left: 20px;
     padding-top: 13px;
 }
@@ -4285,7 +4285,7 @@ body.open-overlay #overlay{
 }
 .sumary-product .action-form{
     display: inline-block;
-    width: 270px;
+    width: 155px;
     background-color: #f3f3f3;
     padding: 11px 20px 34px;
 }
@@ -4423,7 +4423,7 @@ body.open-overlay #overlay{
     margin-top: 20px;
 }
 .sumary-product .action-form .location-shipping-to .nice-select{
-    width: 100%;
+    width: 100px;
     background-color: #ffffff;
     padding-left: 20px;
     padding-right: 32px;
@@ -13567,7 +13567,7 @@ body.open-quickview-block .biolife-quickview-block{
     }
     /***************************************************/
     .sumary-product.single-layout{
-        min-height: 430px;
+        min-height: 335px;
     }
     .biolife-brd-container:not(.transparent-effect) figure{
         display: inline-block;

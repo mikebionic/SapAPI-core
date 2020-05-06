@@ -37,7 +37,7 @@ class Acc_type(CreatedModifiedInfo,db.Model):
 class Accounting_info(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_accounting_info"
 	AccInfId = db.Column(db.Integer,primary_key=True,nullable=False)
-	DivisionId = BankId = db.Column(db.Integer,db.ForeignKey("tbl_dk_division.DivisionId"))
+	DivisionId = BankId = db.Column(db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
 	BankId = db.Column(db.Integer, db.ForeignKey("tbl_dk_bank.BankId"))
 	CurrencyId = db.Column(db.Integer, db.ForeignKey("tbl_dk_currency.CurrencyId"))
 	AccTypeId = db.Column(db.Integer, db.ForeignKey("tbl_dk_acc_type.AccTypeId"))
@@ -49,6 +49,7 @@ class Accounting_info(AddInf,CreatedModifiedInfo,db.Model):
 	AccInfActive = db.Column(db.Boolean,default=False)
 	AccInfCreatedDate = db.Column(db.DateTime)
 	AccInfClosedDate = db.Column(db.DateTime)
+	# Company = db.relationship('Company',backref='accounting_info',lazy=True)
 
 class AdditionalInf1(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_additional_inf1"
@@ -134,6 +135,16 @@ class Company(AddInf,CreatedModifiedInfo,db.Model):
 	Department_detail = db.relationship('Department_detail',backref='company',lazy=True)
 	Warehouse = db.relationship('Warehouse',backref='company',lazy=True)
 	Barcode = db.relationship('Barcode',backref='company',lazy=True)
+	Rp_acc_transaction = db.relationship('Rp_acc_transaction',backref='company',lazy=True)
+	Sale_card = db.relationship('Sale_card',backref='company',lazy=True)
+	Work_period = db.relationship('Work_period',backref='company',lazy=True)
+	Invoice = db.relationship('Invoice',backref='company',lazy=True)
+	Order_inv = db.relationship('Order_inv',backref='company',lazy=True)
+	Representative = db.relationship('Representative',backref='company',lazy=True)
+	Res_total = db.relationship('Res_total',backref='company',lazy=True)
+	Res_trans_inv = db.relationship('Res_trans_inv',backref='company',lazy=True)
+	Rp_acc = db.relationship('Rp_acc',backref='company',lazy=True)
+
 	
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -195,6 +206,24 @@ class Currency(AddInf,CreatedModifiedInfo,db.Model):
 	CurrencyCode = db.Column(db.String(100))
 	CurrencySymbol = db.Column(db.String(100))
 	Accounting_info = db.relationship('Accounting_info',backref='currency',lazy=True)
+	Exc_rate = db.relationship('Exc_rate',backref='currency',lazy=True)
+	Inv_line = db.relationship('Inv_line',backref='currency',lazy=True)
+	Invoice = db.relationship('Invoice',backref='currency',lazy=True)
+	Order_inv = db.relationship('Order_inv',backref='currency',lazy=True)
+	Order_inv_line = db.relationship('Order_inv_line',backref='currency',lazy=True)
+	Res_price = db.relationship('Res_price',backref='currency',lazy=True)
+	Res_total = db.relationship('Res_total',backref='currency',lazy=True)
+	Res_trans_inv = db.relationship('Res_trans_inv',backref='currency',lazy=True)
+	Res_trans_inv_line = db.relationship('Res_trans_inv_line',backref='currency',lazy=True)
+	Res_transaction = db.relationship('Res_transaction',backref='currency',lazy=True)
+	Rp_acc_trans_total = db.relationship('Rp_acc_trans_total',backref='currency',lazy=True)
+	Rp_acc_transaction = db.relationship('Rp_acc_transaction',backref='currency',lazy=True)
+	Sale_agr_res_price = db.relationship('Sale_agr_res_price',backref='currency',lazy=True)
+	Sale_agreement = db.relationship('Sale_agreement',backref='currency',lazy=True)
+	Sale_card = db.relationship('Sale_card',backref='currency',lazy=True)
+	Work_period = db.relationship('Work_period',backref='currency',lazy=True)
+
+
 
 	def to_json(self):
 		json_currency = {
@@ -227,12 +256,12 @@ class Department_detail(db.Model):
 	DeptDetId = db.Column(db.Integer,nullable=False,primary_key=True)
 	DeptId = db.Column(db.Integer,db.ForeignKey("tbl_dk_department.DeptId")) #???
 	CId = db.Column(db.Integer,db.ForeignKey("tbl_dk_company.CId"))
-	DivId = db.Column(db.Integer,db.ForeignKey("tbl_dk_division.DivisionId"))
+	DivId = db.Column(db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
 	DeptHeadEmpId = db.Column(db.Integer,db.ForeignKey("tbl_dk_employee.EmpId"))
 
 class Division(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_division"
-	DivisionId = db.Column(db.Integer,nullable=False,primary_key=True)
+	DivId = db.Column(db.Integer,nullable=False,primary_key=True)
 	CId = db.Column(db.Integer,db.ForeignKey("tbl_dk_company.CId"))
 	DivisionName = db.Column(db.String(100),nullable=False)
 	DivisionDesc = db.Column(db.String(500))
@@ -241,6 +270,16 @@ class Division(AddInf,CreatedModifiedInfo,db.Model):
 	Department_detail = db.relationship('Department_detail',backref='division',lazy=True)
 	Accounting_info = db.relationship('Accounting_info',backref='division',lazy=True)
 	Barcode = db.relationship('Barcode',backref='division',lazy=True)
+	Rp_acc = db.relationship('Rp_acc',backref='division',lazy=True)
+	Res_trans_inv = db.relationship('Res_trans_inv',backref='division',lazy=True)
+	Rp_acc_transaction = db.relationship('Rp_acc_transaction',backref='division',lazy=True)
+	Sale_card = db.relationship('Sale_card',backref='division',lazy=True)
+	Work_period = db.relationship('Work_period',backref='division',lazy=True)
+	Invoice = db.relationship('Invoice',backref='division',lazy=True)
+	Order_inv = db.relationship('Order_inv',backref='division',lazy=True)
+	Representative = db.relationship('Representative',backref='division',lazy=True)
+	Res_total = db.relationship('Res_total',backref='division',lazy=True)
+
 
 class Gender(db.Model):
 	__tablename__="tbl_dk_gender"
@@ -250,6 +289,8 @@ class Gender(db.Model):
 	GenderName_enUS = db.Column(db.String(100))
 	Employee = db.relationship('Employee',backref='gender',lazy=True)
 	Relatives = db.relationship('Relatives',backref='gender',lazy=True)
+	Rp_acc = db.relationship('Rp_acc',backref='gender',lazy=True)
+	Representative = db.relationship('Representative',backref='gender',lazy=True)
 
 class Image(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_image"
@@ -342,7 +383,7 @@ class Resource(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_resource"
 	ResId = db.Column(db.Integer,nullable=False,primary_key=True)
 	CId = db.Column(db.Integer,db.ForeignKey("tbl_dk_company.CId"))
-	DivId = db.Column(db.Integer,db.ForeignKey("tbl_dk_division.DivisionId"))
+	DivId = db.Column(db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
 	ResCatId = db.Column(db.Integer,db.ForeignKey("tbl_dk_res_category.ResCatId"))
 	UnitId = db.Column(db.Integer,db.ForeignKey("tbl_dk_unit.UnitId"))
 	BrandId = db.Column(db.Integer,db.ForeignKey("tbl_dk_brand.BrandId"))
@@ -351,7 +392,7 @@ class Resource(AddInf,CreatedModifiedInfo,db.Model):
 	ResMainImgId = db.Column(db.Integer,default=0)
 	ResMakerId = db.Column(db.Integer,db.ForeignKey("tbl_dk_resource_maker.ResMakerId"))
 	ResLastVendorId = db.Column(db.Integer,db.ForeignKey("tbl_dk_rp_acc.RpAccId"))
-	ResRegNum = db.Column(db.String(50),nullable=False)
+	ResRegNo = db.Column(db.String(50),nullable=False)
 	ResName = db.Column(db.String(255),nullable=False)
 	ResDesc = db.Column(db.String(500))
 	ResFullDesc = db.Column(db.String(1500))
@@ -360,6 +401,10 @@ class Resource(AddInf,CreatedModifiedInfo,db.Model):
 	ResLength = db.Column(db.Float,default=0)
 	ResWeight = db.Column(db.Float,default=0)
 	ResProductionOnSale = db.Column(db.Boolean,default=False)
+	ResMinSaleAmount = db.Column(db.Float,default=0)
+	ResMaxSaleAmount = db.Column(db.Float,default=0)
+	ResMinSalePrice = db.Column(db.Float,default=0)
+	ResMaxSalePrice = db.Column(db.Float,default=0)
 	Image = db.relationship('Image',backref='resource',lazy=True)
 	Barcode = db.relationship('Barcode',backref='resource',lazy=True)
 	Res_color = db.relationship('Res_color',backref='resource',lazy=True)
@@ -367,6 +412,53 @@ class Resource(AddInf,CreatedModifiedInfo,db.Model):
 	Res_translations = db.relationship('Res_translations',backref='resource',lazy=True)
 	Unit = db.relationship('Unit',backref='resource',lazy=True)
 	Res_unit = db.relationship('Res_unit',backref='resource',lazy=True)
+	Inv_line = db.relationship('Inv_line',backref='resource',lazy=True)
+	Inv_line_det = db.relationship('Inv_line_det',backref='resource',lazy=True)	
+	Order_inv_line = db.relationship('Order_inv_line',backref='resource',lazy=True)
+	Res_price = db.relationship('Res_price',backref='resource',lazy=True)
+	Res_total = db.relationship('Res_total',backref='resource',lazy=True)
+	Res_trans_inv_line = db.relationship('Res_trans_inv_line',backref='resource',lazy=True)
+	Res_transaction = db.relationship('Res_transaction',backref='resource',lazy=True)
+	Rp_acc_resource = db.relationship('Rp_acc_resource',backref='resource',lazy=True)
+	Sale_agr_res_price = db.relationship('Sale_agr_res_price',backref='resource',lazy=True)
+	Res_discount = db.relationship('Res_discount',foreign_keys='Res_discount.SaleResId',backref='resource',lazy=True)
+	Res_discount = db.relationship('Res_discount',foreign_keys='Res_discount.GiftResId',backref='resource',lazy=True)
+	
+	def update(self, **kwargs):
+		for key, value in kwargs.items():
+			if value is not None:
+				if hasattr(self, key):
+					setattr(self, key, value)
+
+	def to_json(self):
+		json_resource = {
+			'resourceId':self.ResId,
+			'company':self.CId,
+			'division':self.DivId,
+			'resourceCategory':self.ResCatId,
+			'unit':self.UnitId,
+			'brand':self.BrandId,
+			'usageStatus':self.UsageStatusId,
+			'resourceType':self.ResourceTypeId,
+			'mainImage':self.ResMainImgId,
+			'resourceMaker':self.ResMakerId,
+			'lastVendor':self.ResLastVendorId,
+			'regNo':self.ResRegNo,
+			'resourceName':self.ResName,
+			'resourceDesc':self.ResDesc,
+			'resourceFullDesc':self.ResFullDesc,
+			'resourceWidth':self.ResWidth,
+			'resourceHeight':self.ResHeight,
+			'resourceLength':self.ResLength,
+			'resourceWeight':self.ResWeight,
+			'resourceOnSale':self.ResProductionOnSale,
+			'resourceMinSaleAmount':self.ResMinSaleAmount,
+			'resourceMaxSaleAmount':self.ResMaxSaleAmount,
+			'resourceMinSalePrice':self.ResMinSalePrice,
+			'resourceMaxSalePrice':self.ResMaxSalePrice
+			}
+		return json_resource
+
 
 class Res_category(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_res_category"
@@ -409,19 +501,80 @@ class Resource_type(CreatedModifiedInfo,db.Model):
 	ResourceTypeDesc = db.Column(db.String(500))
 	Resource = db.relationship('Resource',backref='resource_type',lazy=True)
 
-class Rp_acc(db.Model):
+
+### new models ###
+
+class Rp_acc(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_rp_acc"
 	RpAccId = db.Column(db.Integer,nullable=False,primary_key=True)
+	CId = db.Column(db.Integer,db.ForeignKey("tbl_dk_company.CId"))
+	DivId = db.Column(db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
+	EmpId = db.Column(db.Integer,db.ForeignKey("tbl_dk_employee.EmpId"))
+	GenderId = db.Column(db.Integer,db.ForeignKey("tbl_dk_gender.GenderId"))
+	NatId = db.Column(db.Integer,db.ForeignKey("tbl_dk_nationality.NatId"))
+	RpAccStatusId = db.Column(db.Integer,db.ForeignKey("tbl_dk_rp_acc_status.RpAccStatusId"))
+	ReprId = db.Column(db.Integer,db.ForeignKey("tbl_dk_representative.ReprId"))
+	RpAccTypeId = db.Column(db.Integer,db.ForeignKey("tbl_dk_rp_acc_type.RpAccTypeId"))
+	WpId = db.Column(db.Integer,db.ForeignKey("tbl_dk_work_period.WpId"))
+	RpAccRegNo = db.Column(db.String(100),nullable=False)
+	RpAccName = db.Column(db.String(255))
+	RpAccAddress = db.Column(db.String(500))
+	RpAccMobilePhoneNumber = db.Column(db.String(100))
+	RpAccHomePhoneNumber = db.Column(db.String(100))
+	RpAccWorkPhoneNumber = db.Column(db.String(100))
+	RpAccWorkFaxNumber = db.Column(db.String(100))
+	RpAccZipCode = db.Column(db.String(100))
+	RpAccEMail = db.Column(db.String(100))
+	RpAccFirstName = db.Column(db.String(100))
+	RpAccLastName = db.Column(db.String(100))
+	RpAccPatronomic = db.Column(db.String(100))
+	RpAccBirthDate = db.Column(db.DateTime)
+	RpAccResidency = db.Column(db.String(100))
+	RpAccPassportNo = db.Column(db.String(100))
+	RpAccPassportIssuePlace = db.Column(db.String(100))
+	RpAccLangSkills = db.Column(db.String(100))
+	RpAccSaleBalanceLimit = db.Column(db.Float,default=0)
+	RpAccPurchBalanceLimit = db.Column(db.Float,default=0)
+	Representative = db.relationship('Representative',backref='rp_acc',foreign_keys='Representative.RpAccId',lazy='dynamic')
 	Accounting_info = db.relationship('Accounting_info',backref='rp_acc',lazy=True)
 	Contact = db.relationship('Contact',backref='rp_acc',lazy=True)
 	Image = db.relationship('Image',backref='rp_acc',lazy=True)
 	Location = db.relationship('Location',backref='rp_acc',lazy=True)
 	Resource = db.relationship('Resource',backref='last_vendor',lazy=True)
+	Inv_line = db.relationship('Inv_line',backref='last_vendor',lazy=True)
+	Order_inv_line = db.relationship('Order_inv_line',backref='last_vendor',lazy=True)
+	Res_trans_inv_line = db.relationship('Res_trans_inv_line',backref='last_vendor',lazy=True)
+	Rp_acc_price_list = db.relationship('Rp_acc_price_list',backref='rp_acc',lazy=True)
+	Rp_acc_resource = db.relationship('Rp_acc_resource',backref='rp_acc',lazy=True)
+	Rp_acc_trans_total = db.relationship('Rp_acc_trans_total',backref='rp_acc',lazy=True)
+	Rp_acc_transaction = db.relationship('Rp_acc_transaction',backref='rp_acc',lazy=True)
+	Sale_card = db.relationship('Sale_card',backref='rp_acc',lazy=True)
+	Invoice = db.relationship('Invoice',backref='rp_acc',lazy=True)
+	Order_inv = db.relationship('Order_inv',backref='rp_acc',lazy=True)
+
+class Rp_acc_price_list(CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_rp_acc_price_list"
+	RpAccPId = db.Column(db.Integer,nullable=False,primary_key=True)
+	RpAccId = db.Column(db.Integer,db.ForeignKey("tbl_dk_rp_acc.RpAccId"))
+	UnitName = db.Column(db.String(100))
+	ResBarcode = db.Column(db.String(100),nullable=False)
+	ResName = db.Column(db.String(100),nullable=False)
+	ResDesc = db.Column(db.String(500))
+	RpAccPValue = db.Column(db.Float,default=0)
+	RpAccPDesc = db.Column(db.String(500))
+	RpAccPStartDate = db.Column(db.DateTime)
+	RpAccPEndDate = db.Column(db.DateTime)
 
 class Warehouse(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_warehouse"
 	WhId = db.Column(db.Integer,nullable=False,primary_key=True)
 	CId = db.Column(db.Integer,db.ForeignKey("tbl_dk_company.CId"))
-	DivId = db.Column(db.Integer,db.ForeignKey("tbl_dk_division.DivisionId"))
+	DivId = db.Column(db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
 	WhName = db.Column(db.String(100),nullable=False)
 	WhDesc = db.Column(db.String(500))
+	Res_transaction = db.relationship('Res_transaction',backref='warehouse',lazy=True)
+	Invoice = db.relationship('Invoice',backref='warehouse',lazy=True)
+	Order_inv = db.relationship('Order_inv',backref='warehouse',lazy=True)
+	Res_total = db.relationship('Res_total',backref='warehouse',lazy=True)
+	Res_trans_inv = db.relationship('Res_trans_inv',foreign_keys='Res_trans_inv.WhIdIn',backref='warehouse',lazy=True)
+	Res_trans_inv = db.relationship('Res_trans_inv',foreign_keys='Res_trans_inv.WhIdOut',backref='warehouse',lazy=True)

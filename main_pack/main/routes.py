@@ -3,7 +3,7 @@ from flask_login import current_user, login_required
 from main_pack import db, babel, gettext
 from main_pack.main import bp
 
-@bp.route('language/<language>')
+@bp.route('/language/<language>')
 def set_language(language=None):
 	session['language'] = language
 	return redirect(url_for('commerce.commerce'))

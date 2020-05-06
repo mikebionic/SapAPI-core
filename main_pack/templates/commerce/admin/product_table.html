@@ -5,6 +5,7 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/datatables/datatables.min.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/owlcarousel2/dist/assets/owl.carousel.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='commerce/admin/admin_commerce/style.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/owlcarousel2/dist/assets/owl.theme.default.min.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/pretty-checkbox/pretty-checkbox.min.css') }}">
 {% endblock %}
@@ -59,29 +60,19 @@
                   <td>
                     <div class="form-group">
                         <div class="row gutters-xs" >
-                          <div class="col-auto">
-                            <label class="colorinput">
-                              <input name="color" type="checkbox" value="primary" class="colorinput-input" />
-                              <span class="colorinput-color bg-primary"></span>
-                            </label>
-                          </div>
-                          <div class="col-auto">
-                            <label class="colorinput">
-                              <input name="color" type="checkbox" value="secondary" class="colorinput-input" />
-                              <span class="colorinput-color bg-secondary"></span>
-                            </label>
-                          </div>
-                          <div class="col-auto">
-                            <label class="colorinput">
-                              <input name="color" type="checkbox" value="danger" class="colorinput-input" />
-                              <span class="colorinput-color bg-danger"></span>
-                            </label>
-                          </div>
-                          <div class="col-auto">
-                            <label class="colorinput">
-                              <span class="colorinput-color bg-warning" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></span>
-                            </label>
-                          </div>
+                          <div class="box">
+                          <a style="background: #e74c3c">#e74c3c</a>
+                          <a style="background: #3498db">#3498db</a>
+                          <a style="background: #2ecc71">#2ecc71</a>
+                          <a style="background: #34495e">#34495e</a>
+                          <a style="background: #f1c40f">#f1c40f</a>
+                          <a style="background: #e67e22">#e67e22</a>
+                        </div>
+                        <div class="col-auto">
+                          <label class="colorinput">
+                            <span class="colorinput-color bg-warning" data-toggle="modal" data-target="#exampleModal" style="margin-top: 2.9px;"><i class="fas fa-plus"></i></span>
+                          </label>
+                        </div>
                         </div>
                     </div>
                   </td>
@@ -163,27 +154,17 @@
                   <td>
                     <div class="form-group">
                       <div class="row gutters-xs">
-                        <div class="col-auto">
-                          <label class="colorinput">
-                            <input name="color" type="checkbox" value="primary" class="colorinput-input" />
-                            <span class="colorinput-color bg-primary"></span>
-                          </label>
+                        <div class="box">
+                          <a style="background: #e74c3c">#e74c3c</a>
+                          <a style="background: #3498db">#3498db</a>
+                          <a style="background: #2ecc71">#2ecc71</a>
+                          <a style="background: #34495e">#34495e</a>
+                          <a style="background: #f1c40f">#f1c40f</a>
+                          <a style="background: #e67e22">#e67e22</a>
                         </div>
                         <div class="col-auto">
                           <label class="colorinput">
-                            <input name="color" type="checkbox" value="secondary" class="colorinput-input" />
-                            <span class="colorinput-color bg-secondary"></span>
-                          </label>
-                        </div>
-                        <div class="col-auto">
-                          <label class="colorinput">
-                            <input name="color" type="checkbox" value="danger" class="colorinput-input" />
-                            <span class="colorinput-color bg-danger"></span>
-                          </label>
-                        </div>
-                        <div class="col-auto">
-                          <label class="colorinput">
-                            <span class="colorinput-color bg-warning" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></span>
+                            <span class="colorinput-color bg-warning" data-toggle="modal" data-target="#exampleModal" style="margin-top: 2.9px;"><i class="fas fa-plus"></i></span>
                           </label>
                         </div>
                       </div>
@@ -268,27 +249,17 @@
                   <td>
                     <div class="form-group">
                       <div class="row gutters-xs">
-                        <div class="col-auto">
-                          <label class="colorinput">
-                            <input name="color" type="checkbox" value="primary" class="colorinput-input" />
-                            <span class="colorinput-color bg-primary"></span>
-                          </label>
+                        <div class="box">
+                          <a style="background: #e74c3c">#e74c3c</a>
+                          <a style="background: #3498db">#3498db</a>
+                          <a style="background: #2ecc71">#2ecc71</a>
+                          <a style="background: #34495e">#34495e</a>
+                          <a style="background: #f1c40f">#f1c40f</a>
+                          <a style="background: #e67e22">#e67e22</a>
                         </div>
                         <div class="col-auto">
                           <label class="colorinput">
-                            <input name="color" type="checkbox" value="secondary" class="colorinput-input" />
-                            <span class="colorinput-color bg-secondary"></span>
-                          </label>
-                        </div>
-                        <div class="col-auto">
-                          <label class="colorinput">
-                            <input name="color" type="checkbox" value="danger" class="colorinput-input" />
-                            <span class="colorinput-color bg-danger"></span>
-                          </label>
-                        </div>
-                        <div class="col-auto">
-                          <label class="colorinput">
-                            <span class="colorinput-color bg-warning" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></span>
+                            <span class="colorinput-color bg-warning" data-toggle="modal" data-target="#exampleModal" style="margin-top: 2.9px;"><i class="fas fa-plus"></i></span>
                           </label>
                         </div>
                       </div>
@@ -373,27 +344,17 @@
                   <td>
                     <div class="form-group">
                       <div class="row gutters-xs">
-                        <div class="col-auto">
-                          <label class="colorinput">
-                            <input name="color" type="checkbox" value="primary" class="colorinput-input" />
-                            <span class="colorinput-color bg-primary"></span>
-                          </label>
+                        <div class="box">
+                          <a style="background: #e74c3c">#e74c3c</a>
+                          <a style="background: #3498db">#3498db</a>
+                          <a style="background: #2ecc71">#2ecc71</a>
+                          <a style="background: #34495e">#34495e</a>
+                          <a style="background: #f1c40f">#f1c40f</a>
+                          <a style="background: #e67e22">#e67e22</a>
                         </div>
                         <div class="col-auto">
                           <label class="colorinput">
-                            <input name="color" type="checkbox" value="secondary" class="colorinput-input" />
-                            <span class="colorinput-color bg-secondary"></span>
-                          </label>
-                        </div>
-                        <div class="col-auto">
-                          <label class="colorinput">
-                            <input name="color" type="checkbox" value="danger" class="colorinput-input" />
-                            <span class="colorinput-color bg-danger"></span>
-                          </label>
-                        </div>
-                        <div class="col-auto">
-                          <label class="colorinput">
-                            <span class="colorinput-color bg-warning" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></span>
+                            <span class="colorinput-color bg-warning" data-toggle="modal" data-target="#exampleModal" style="margin-top: 2.9px;"><i class="fas fa-plus"></i></span>
                           </label>
                         </div>
                       </div>
@@ -478,27 +439,17 @@
                   <td>
                     <div class="form-group">
                       <div class="row gutters-xs">
-                        <div class="col-auto">
-                          <label class="colorinput">
-                            <input name="color" type="checkbox" value="primary" class="colorinput-input" />
-                            <span class="colorinput-color bg-primary"></span>
-                          </label>
+                        <div class="box">
+                          <a style="background: #e74c3c">#e74c3c</a>
+                          <a style="background: #3498db">#3498db</a>
+                          <a style="background: #2ecc71">#2ecc71</a>
+                          <a style="background: #34495e">#34495e</a>
+                          <a style="background: #f1c40f">#f1c40f</a>
+                          <a style="background: #e67e22">#e67e22</a>
                         </div>
                         <div class="col-auto">
                           <label class="colorinput">
-                            <input name="color" type="checkbox" value="secondary" class="colorinput-input" />
-                            <span class="colorinput-color bg-secondary"></span>
-                          </label>
-                        </div>
-                        <div class="col-auto">
-                          <label class="colorinput">
-                            <input name="color" type="checkbox" value="danger" class="colorinput-input" />
-                            <span class="colorinput-color bg-danger"></span>
-                          </label>
-                        </div>
-                        <div class="col-auto">
-                          <label class="colorinput">
-                            <span class="colorinput-color bg-warning" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></span>
+                            <span class="colorinput-color bg-warning" data-toggle="modal" data-target="#exampleModal" style="margin-top: 2.9px;"><i class="fas fa-plus"></i></span>
                           </label>
                         </div>
                       </div>
@@ -583,27 +534,17 @@
                   <td>
                     <div class="form-group">
                       <div class="row gutters-xs">
-                        <div class="col-auto">
-                          <label class="colorinput">
-                            <input name="color" type="checkbox" value="primary" class="colorinput-input" />
-                            <span class="colorinput-color bg-primary"></span>
-                          </label>
+                        <div class="box">
+                          <a style="background: #e74c3c">#e74c3c</a>
+                          <a style="background: #3498db">#3498db</a>
+                          <a style="background: #2ecc71">#2ecc71</a>
+                          <a style="background: #34495e">#34495e</a>
+                          <a style="background: #f1c40f">#f1c40f</a>
+                          <a style="background: #e67e22">#e67e22</a>
                         </div>
                         <div class="col-auto">
                           <label class="colorinput">
-                            <input name="color" type="checkbox" value="secondary" class="colorinput-input" />
-                            <span class="colorinput-color bg-secondary"></span>
-                          </label>
-                        </div>
-                        <div class="col-auto">
-                          <label class="colorinput">
-                            <input name="color" type="checkbox" value="danger" class="colorinput-input" />
-                            <span class="colorinput-color bg-danger"></span>
-                          </label>
-                        </div>
-                        <div class="col-auto">
-                          <label class="colorinput">
-                            <span class="colorinput-color bg-warning" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></span>
+                            <span class="colorinput-color bg-warning" data-toggle="modal" data-target="#exampleModal" style="margin-top: 2.9px;"><i class="fas fa-plus"></i></span>
                           </label>
                         </div>
                       </div>
@@ -688,27 +629,17 @@
                   <td>
                     <div class="form-group">
                       <div class="row gutters-xs">
-                        <div class="col-auto">
-                          <label class="colorinput">
-                            <input name="color" type="checkbox" value="primary" class="colorinput-input" />
-                            <span class="colorinput-color bg-primary"></span>
-                          </label>
+                        <div class="box">
+                          <a style="background: #e74c3c">#e74c3c</a>
+                          <a style="background: #3498db">#3498db</a>
+                          <a style="background: #2ecc71">#2ecc71</a>
+                          <a style="background: #34495e">#34495e</a>
+                          <a style="background: #f1c40f">#f1c40f</a>
+                          <a style="background: #e67e22">#e67e22</a>
                         </div>
                         <div class="col-auto">
                           <label class="colorinput">
-                            <input name="color" type="checkbox" value="secondary" class="colorinput-input" />
-                            <span class="colorinput-color bg-secondary"></span>
-                          </label>
-                        </div>
-                        <div class="col-auto">
-                          <label class="colorinput">
-                            <input name="color" type="checkbox" value="danger" class="colorinput-input" />
-                            <span class="colorinput-color bg-danger"></span>
-                          </label>
-                        </div>
-                        <div class="col-auto">
-                          <label class="colorinput">
-                            <span class="colorinput-color bg-warning" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></span>
+                            <span class="colorinput-color bg-warning" data-toggle="modal" data-target="#exampleModal" style="margin-top: 2.9px;"><i class="fas fa-plus"></i></span>
                           </label>
                         </div>
                       </div>
@@ -793,27 +724,17 @@
                   <td>
                    <div class="form-group">
                       <div class="row gutters-xs">
-                        <div class="col-auto">
-                          <label class="colorinput">
-                            <input name="color" type="checkbox" value="primary" class="colorinput-input" />
-                            <span class="colorinput-color bg-primary"></span>
-                          </label>
+                        <div class="box">
+                          <a style="background: #e74c3c">#e74c3c</a>
+                          <a style="background: #3498db">#3498db</a>
+                          <a style="background: #2ecc71">#2ecc71</a>
+                          <a style="background: #34495e">#34495e</a>
+                          <a style="background: #f1c40f">#f1c40f</a>
+                          <a style="background: #e67e22">#e67e22</a>
                         </div>
                         <div class="col-auto">
                           <label class="colorinput">
-                            <input name="color" type="checkbox" value="secondary" class="colorinput-input" />
-                            <span class="colorinput-color bg-secondary"></span>
-                          </label>
-                        </div>
-                        <div class="col-auto">
-                          <label class="colorinput">
-                            <input name="color" type="checkbox" value="danger" class="colorinput-input" />
-                            <span class="colorinput-color bg-danger"></span>
-                          </label>
-                        </div>
-                        <div class="col-auto">
-                          <label class="colorinput">
-                            <span class="colorinput-color bg-warning" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></span>
+                            <span class="colorinput-color bg-warning" data-toggle="modal" data-target="#exampleModal" style="margin-top: 2.9px;"><i class="fas fa-plus"></i></span>
                           </label>
                         </div>
                       </div>
@@ -898,27 +819,17 @@
                   <td>
                    <div class="form-group">
                       <div class="row gutters-xs">
-                        <div class="col-auto">
-                          <label class="colorinput">
-                            <input name="color" type="checkbox" value="primary" class="colorinput-input" />
-                            <span class="colorinput-color bg-primary"></span>
-                          </label>
+                        <div class="box">
+                          <a style="background: #e74c3c">#e74c3c</a>
+                          <a style="background: #3498db">#3498db</a>
+                          <a style="background: #2ecc71">#2ecc71</a>
+                          <a style="background: #34495e">#34495e</a>
+                          <a style="background: #f1c40f">#f1c40f</a>
+                          <a style="background: #e67e22">#e67e22</a>
                         </div>
                         <div class="col-auto">
                           <label class="colorinput">
-                            <input name="color" type="checkbox" value="secondary" class="colorinput-input" />
-                            <span class="colorinput-color bg-secondary"></span>
-                          </label>
-                        </div>
-                        <div class="col-auto">
-                          <label class="colorinput">
-                            <input name="color" type="checkbox" value="danger" class="colorinput-input" />
-                            <span class="colorinput-color bg-danger"></span>
-                          </label>
-                        </div>
-                        <div class="col-auto">
-                          <label class="colorinput">
-                            <span class="colorinput-color bg-warning" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></span>
+                            <span class="colorinput-color bg-warning" data-toggle="modal" data-target="#exampleModal" style="margin-top: 2.9px;"><i class="fas fa-plus"></i></span>
                           </label>
                         </div>
                       </div>
@@ -1003,27 +914,17 @@
                   <td>
                    <div class="form-group">
                       <div class="row gutters-xs">
-                        <div class="col-auto">
-                          <label class="colorinput">
-                            <input name="color" type="checkbox" value="primary" class="colorinput-input" />
-                            <span class="colorinput-color bg-primary"></span>
-                          </label>
+                        <div class="box">
+                          <a style="background: #e74c3c">#e74c3c</a>
+                          <a style="background: #3498db">#3498db</a>
+                          <a style="background: #2ecc71">#2ecc71</a>
+                          <a style="background: #34495e">#34495e</a>
+                          <a style="background: #f1c40f">#f1c40f</a>
+                          <a style="background: #e67e22">#e67e22</a>
                         </div>
                         <div class="col-auto">
                           <label class="colorinput">
-                            <input name="color" type="checkbox" value="secondary" class="colorinput-input" />
-                            <span class="colorinput-color bg-secondary"></span>
-                          </label>
-                        </div>
-                        <div class="col-auto">
-                          <label class="colorinput">
-                            <input name="color" type="checkbox" value="danger" class="colorinput-input" />
-                            <span class="colorinput-color bg-danger"></span>
-                          </label>
-                        </div>
-                        <div class="col-auto">
-                          <label class="colorinput">
-                            <span class="colorinput-color bg-warning" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></span>
+                            <span class="colorinput-color bg-warning" data-toggle="modal" data-target="#exampleModal" style="margin-top: 2.9px;"><i class="fas fa-plus"></i></span>
                           </label>
                         </div>
                       </div>
@@ -1108,27 +1009,17 @@
                   <td>
                     <div class="form-group">
                       <div class="row gutters-xs">
-                        <div class="col-auto">
-                          <label class="colorinput">
-                            <input name="color" type="checkbox" value="primary" class="colorinput-input" />
-                            <span class="colorinput-color bg-primary"></span>
-                          </label>
+                        <div class="box">
+                          <a style="background: #e74c3c">#e74c3c</a>
+                          <a style="background: #3498db">#3498db</a>
+                          <a style="background: #2ecc71">#2ecc71</a>
+                          <a style="background: #34495e">#34495e</a>
+                          <a style="background: #f1c40f">#f1c40f</a>
+                          <a style="background: #e67e22">#e67e22</a>
                         </div>
                         <div class="col-auto">
                           <label class="colorinput">
-                            <input name="color" type="checkbox" value="secondary" class="colorinput-input" />
-                            <span class="colorinput-color bg-secondary"></span>
-                          </label>
-                        </div>
-                        <div class="col-auto">
-                          <label class="colorinput">
-                            <input name="color" type="checkbox" value="danger" class="colorinput-input" />
-                            <span class="colorinput-color bg-danger"></span>
-                          </label>
-                        </div>
-                        <div class="col-auto">
-                          <label class="colorinput">
-                            <span class="colorinput-color bg-warning" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></span>
+                            <span class="colorinput-color bg-warning" data-toggle="modal" data-target="#exampleModal" style="margin-top: 2.9px;"><i class="fas fa-plus"></i></span>
                           </label>
                         </div>
                       </div>
@@ -1213,27 +1104,17 @@
                   <td>
                    <div class="form-group">
                       <div class="row gutters-xs">
-                        <div class="col-auto">
-                          <label class="colorinput">
-                            <input name="color" type="checkbox" value="primary" class="colorinput-input" />
-                            <span class="colorinput-color bg-primary"></span>
-                          </label>
+                        <div class="box">
+                          <a style="background: #e74c3c">#e74c3c</a>
+                          <a style="background: #3498db">#3498db</a>
+                          <a style="background: #2ecc71">#2ecc71</a>
+                          <a style="background: #34495e">#34495e</a>
+                          <a style="background: #f1c40f">#f1c40f</a>
+                          <a style="background: #e67e22">#e67e22</a>
                         </div>
                         <div class="col-auto">
                           <label class="colorinput">
-                            <input name="color" type="checkbox" value="secondary" class="colorinput-input" />
-                            <span class="colorinput-color bg-secondary"></span>
-                          </label>
-                        </div>
-                        <div class="col-auto">
-                          <label class="colorinput">
-                            <input name="color" type="checkbox" value="danger" class="colorinput-input" />
-                            <span class="colorinput-color bg-danger"></span>
-                          </label>
-                        </div>
-                        <div class="col-auto">
-                          <label class="colorinput">
-                            <span class="colorinput-color bg-warning" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></span>
+                            <span class="colorinput-color bg-warning" data-toggle="modal" data-target="#exampleModal" style="margin-top: 2.9px;"><i class="fas fa-plus"></i></span>
                           </label>
                         </div>
                       </div>
@@ -1321,42 +1202,14 @@
               <div class="form-group">
                 <label class="form-label">Color Input</label>
                 <div class="row gutters-xs">
-                  <div class="col-auto">
-                    <label class="colorinput">
-                      <input name="color" type="checkbox" value="primary" class="colorinput-input" />
-                      <span class="colorinput-color bg-primary"></span>
-                    </label>
-                  </div>
-                  <div class="col-auto">
-                    <label class="colorinput">
-                      <input name="color" type="checkbox" value="secondary" class="colorinput-input" />
-                      <span class="colorinput-color bg-secondary"></span>
-                    </label>
-                  </div>
-                  <div class="col-auto">
-                    <label class="colorinput">
-                      <input name="color" type="checkbox" value="danger" class="colorinput-input" />
-                      <span class="colorinput-color bg-danger"></span>
-                    </label>
-                  </div>
-                  <div class="col-auto">
-                    <label class="colorinput">
-                      <input name="color" type="checkbox" value="warning" class="colorinput-input" />
-                      <span class="colorinput-color bg-warning"></span>
-                    </label>
-                  </div>
-                  <div class="col-auto">
-                    <label class="colorinput">
-                      <input name="color" type="checkbox" value="info" class="colorinput-input" />
-                      <span class="colorinput-color bg-info"></span>
-                    </label>
-                  </div>
-                  <div class="col-auto">
-                    <label class="colorinput">
-                      <input name="color" type="checkbox" value="success" class="colorinput-input" />
-                      <span class="colorinput-color bg-success"></span>
-                    </label>
-                  </div>
+                  <div class="box">
+                          <a style="background: #e74c3c">#e74c3c</a>
+                          <a style="background: #3498db">#3498db</a>
+                          <a style="background: #2ecc71">#2ecc71</a>
+                          <a style="background: #34495e">#34495e</a>
+                          <a style="background: #f1c40f">#f1c40f</a>
+                          <a style="background: #e67e22">#e67e22</a>
+                        </div>
                 </div>
               </div>
               <button class="btn btn-primary mr-1" type="submit">Submit</button>

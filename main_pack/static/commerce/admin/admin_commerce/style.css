@@ -1,0 +1,59 @@
+﻿.main-contents{
+	padding-left:113px;
+	padding-right:50px;
+	padding-top:100px;
+	width:100%;
+	position:relative
+}
+.pictures_icon{
+	list-style: none;	
+	margin-left: 93%;
+	padding-bottom: 7px;
+}
+.carousel_icon{
+	list-style: none;	
+	margin-left: 93%;
+	padding-bottom: 45px;
+}
+
+.logo_icon{
+	list-style: none;	
+	margin-left: 90%;
+	margin-top: -32%;
+}
+.more_size{
+	border: 2px solid;
+    width: 90%;
+    background: rgba(0,0,0,0.1);
+    padding: 5px 20px;
+    margin: 6px 10px;
+}
+.menu-title i{
+	width: 23px;
+    border-radius: 50px;
+    height: 23px;
+    padding: 5px 5px;
+    background: #ddd;
+}
+.menu-title i:hover{
+	background:#fff
+}
+.ico_category i{
+	width: 23px;
+    border-radius: 50px;
+    height: 23px;
+    padding: 5px 5px;
+    background: #ddd;
+}
+.ico_category i:hover{
+	background: #fff;
+}
+
+.box a{
+	width: 25px;
+	height: 25px;
+	float: left;
+	text-indent: -9999px;
+	margin: 5px;
+	cursor: pointer;
+}

@@ -13,7 +13,7 @@ class Users(AddInf,CreatedModifiedInfo,db.Model,UserMixin):
 	__tablename__="tbl_dk_users"
 	UId = db.Column(db.Integer,nullable=False,primary_key=True)
 	CId = db.Column(db.Integer,db.ForeignKey("tbl_dk_company.CId"))
-	DivisionId = db.Column(db.Integer,db.ForeignKey("tbl_dk_division.DivisionId"))
+	DivisionId = db.Column(db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
 	UFullName = db.Column(db.String(100),nullable=False)
 	UName = db.Column(db.String(60),nullable=False)
 	UEmail = db.Column(db.String(100),unique=True,nullable =False)
