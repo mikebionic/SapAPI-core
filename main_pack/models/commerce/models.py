@@ -23,7 +23,7 @@ class Barcode(CreatedModifiedInfo,db.Model):
 			'barcodeId':self.BarcodeId,
 			'companyId':self.CId,
 			'divisionId':self.DivId,
-			'resourceId':self.ResId,
+			'resId':self.ResId,
 			'unitId':self.UnitId,
 			'barcodeVal':self.BarcodeVal
 			}
@@ -89,10 +89,10 @@ class Size(AddInf,CreatedModifiedInfo,db.Model):
 
 	def to_json(self):
 		json_size = {
-			'sizeId':self.ColorId,
-			'colorName':self.ColorName,
-			'colorDesc':self.ColorDesc,
-			'colorCode':self.ColorCode
+			'sizeId':self.SizeId,
+			'sizeName':self.SizeName,
+			'sizeDesc':self.SizeDesc,
+			'sizeTypeId':self.SizeTypeId
 			}
 		return json_size
 
@@ -109,6 +109,14 @@ class Size_type(CreatedModifiedInfo,db.Model):
 			if value is not None:
 				if hasattr(self, key):
 					setattr(self, key, value)
+
+	def to_json(self):
+		json_size_type = {
+			'sizeTypeId':self.SizeTypeId,
+			'sizeTypeName':self.SizeTypeName,
+			'sizeTypeDesc':self.SizeTypeDesc
+			}
+		return json_size_type
 
 class Unit(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_unit"
@@ -129,30 +137,18 @@ class Unit(CreatedModifiedInfo,db.Model):
 	Res_transaction = db.relationship('Res_transaction',backref='unit',lazy=True)
 	Sale_agr_res_price = db.relationship('Sale_agr_res_price',backref='unit',lazy=True)
 
-	def update(self, **kwargs):
-		for key, value in kwargs.items():
-			if value is not None:
-				if hasattr(self, key):
-					setattr(self, key, value)
 
 class Usage_status(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_usage_status"
 	UsageStatusId = db.Column(db.Integer,nullable=False,primary_key=True)
 	UsageStatusName_tkTM = db.Column(db.String(100))
 	UsageStatusDesc_tkTM = db.Column(db.String(500))
-	UsageStatusName_ruRu = db.Column(db.String(100))
-	UsageStatusDesc_ruRu = db.Column(db.String(500))
+	UsageStatusName_ruRU = db.Column(db.String(100))
+	UsageStatusDesc_ruRU = db.Column(db.String(500))
 	UsageStatusName_enUS = db.Column(db.String(100))
 	UsageStatusDesc_enUS = db.Column(db.String(500))
 	Resource = db.relationship('Resource',backref='usage_status',lazy=True)
 	Res_price_group = db.relationship('Res_price_group',backref='usage_status',lazy=True)
-
-	def update(self, **kwargs):
-		for key, value in kwargs.items():
-			if value is not None:
-				if hasattr(self, key):
-					setattr(self, key, value)
-
 
 
 ####### new models ###
@@ -255,7 +251,6 @@ class Inv_type(CreatedModifiedInfo,db.Model):
 	InvTypeDesc_enUS = db.Column(db.String(500))
 	Invoice = db.relationship('Invoice',backref='inv_type',lazy=True)
 
-
 class Invoice(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_invoice"
 	InvId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -284,7 +279,6 @@ class Invoice(AddInf,CreatedModifiedInfo,db.Model):
 	Inv_line = db.relationship('Inv_line',backref='invoice',lazy=True)
 	Rp_acc_transaction = db.relationship('Rp_acc_transaction',backref='invoice',lazy=True)
 
-
 class Order_inv(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_order_inv"
 	OInvId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -312,8 +306,6 @@ class Order_inv(AddInf,CreatedModifiedInfo,db.Model):
 	OInvCreditDesc = db.Column(db.String(100))
 	Order_inv_line = db.relationship('Order_inv_line',backref='order_inv',lazy=True)
 
-
-
 class Order_inv_line(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_order_inv_line"
 	OInvLineId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -332,7 +324,6 @@ class Order_inv_line(AddInf,CreatedModifiedInfo,db.Model):
 	OInvLineFTotal = db.Column(db.Float,default=0)
 	OInvLineDate = db.Column(db.DateTime)
 
-
 class Order_inv_type(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_order_inv_type"
 	OInvTypeId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -343,8 +334,6 @@ class Order_inv_type(CreatedModifiedInfo,db.Model):
 	OInvTypeName_enUS = db.Column(db.String(100))
 	OInvTypeDesc_enUS = db.Column(db.String(500))
 	Order_inv = db.relationship('Order_inv',backref='order_inv_type',lazy=True)
-
-
 
 class Representative(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_representative"
@@ -371,6 +360,124 @@ class Representative(AddInf,CreatedModifiedInfo,db.Model):
 	MyProperty = db.Column(db.Integer)
 	Rp_acc = db.relationship('Rp_acc',backref='representative',foreign_keys='Rp_acc.ReprId',lazy='dynamic')
 
+class Resource(AddInf,CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_resource"
+	ResId = db.Column(db.Integer,nullable=False,primary_key=True)
+	CId = db.Column(db.Integer,db.ForeignKey("tbl_dk_company.CId"))
+	DivId = db.Column(db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
+	ResCatId = db.Column(db.Integer,db.ForeignKey("tbl_dk_res_category.ResCatId"))
+	UnitId = db.Column(db.Integer,db.ForeignKey("tbl_dk_unit.UnitId"))
+	BrandId = db.Column(db.Integer,db.ForeignKey("tbl_dk_brand.BrandId"))
+	UsageStatusId = db.Column(db.Integer,db.ForeignKey("tbl_dk_usage_status.UsageStatusId"))
+	ResTypeId = db.Column(db.Integer,db.ForeignKey("tbl_dk_res_type.ResTypeId"))
+	ResMainImgId = db.Column(db.Integer,default=0)
+	ResMakerId = db.Column(db.Integer,db.ForeignKey("tbl_dk_res_maker.ResMakerId"))
+	ResLastVendorId = db.Column(db.Integer,db.ForeignKey("tbl_dk_rp_acc.RpAccId"))
+	ResRegNo = db.Column(db.String(50),nullable=False)
+	ResName = db.Column(db.String(255),nullable=False)
+	ResDesc = db.Column(db.String(500))
+	ResFullDesc = db.Column(db.String(1500))
+	ResWidth = db.Column(db.Float,default=0)
+	ResHeight = db.Column(db.Float,default=0)
+	ResLength = db.Column(db.Float,default=0)
+	ResWeight = db.Column(db.Float,default=0)
+	ResProductionOnSale = db.Column(db.Boolean,default=False)
+	ResMinSaleAmount = db.Column(db.Float,default=0)
+	ResMaxSaleAmount = db.Column(db.Float,default=0)
+	ResMinSalePrice = db.Column(db.Float,default=0)
+	ResMaxSalePrice = db.Column(db.Float,default=0)
+	Image = db.relationship('Image',backref='resource',lazy=True)
+	Barcode = db.relationship('Barcode',backref='resource',lazy=True)
+	Res_color = db.relationship('Res_color',backref='resource',lazy=True)
+	Res_size = db.relationship('Res_size',backref='resource',lazy=True)
+	Res_translations = db.relationship('Res_translations',backref='resource',lazy=True)
+	Unit = db.relationship('Unit',backref='resource',lazy=True)
+	Res_unit = db.relationship('Res_unit',backref='resource',lazy=True)
+	# sales and purchases
+	Inv_line = db.relationship('Inv_line',backref='resource',lazy=True)
+	Inv_line_det = db.relationship('Inv_line_det',backref='resource',lazy=True)	
+	Order_inv_line = db.relationship('Order_inv_line',backref='resource',lazy=True)
+	Res_price = db.relationship('Res_price',backref='resource',lazy=True)
+	# quantity of a resource
+	Res_total = db.relationship('Res_total',backref='resource',lazy=True)
+	Res_trans_inv_line = db.relationship('Res_trans_inv_line',backref='resource',lazy=True)
+	Res_transaction = db.relationship('Res_transaction',backref='resource',lazy=True)
+	Rp_acc_resource = db.relationship('Rp_acc_resource',backref='resource',lazy=True)
+	Sale_agr_res_price = db.relationship('Sale_agr_res_price',backref='resource',lazy=True)
+	Res_discount = db.relationship('Res_discount',foreign_keys='Res_discount.SaleResId',backref='resource',lazy=True)
+	Res_discount = db.relationship('Res_discount',foreign_keys='Res_discount.GiftResId',backref='resource',lazy=True)
+	
+	def update(self, **kwargs):
+		for key, value in kwargs.items():
+			if value is not None:
+				if hasattr(self, key):
+					setattr(self, key, value)
+
+	def to_json(self):
+		json_resource = {
+			'resId':self.ResId,
+			'companyId':self.CId,
+			'divisionId':self.DivId,
+			'resourceCategoryId':self.ResCatId,
+			'unitId':self.UnitId,
+			'brandId':self.BrandId,
+			'usageStatusId':self.UsageStatusId,
+			'resTypeId':self.ResTypeId,
+			'mainImageId':self.ResMainImgId,
+			'resMakerId':self.ResMakerId,
+			'lastVendorId':self.ResLastVendorId,
+			'regNo':self.ResRegNo,
+			'resourceName':self.ResName,
+			'resourceDesc':self.ResDesc,
+			'resourceFullDesc':self.ResFullDesc,
+			'resourceWidth':self.ResWidth,
+			'resourceHeight':self.ResHeight,
+			'resourceLength':self.ResLength,
+			'resourceWeight':self.ResWeight,
+			'resourceOnSale':self.ResProductionOnSale,
+			'resourceMinSaleAmount':self.ResMinSaleAmount,
+			'resourceMaxSaleAmount':self.ResMaxSaleAmount,
+			'resourceMinSalePrice':self.ResMinSalePrice,
+			'resourceMaxSalePrice':self.ResMaxSalePrice
+			}
+		return json_resource
+
+
+class Res_category(CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_res_category"
+	ResCatId = db.Column(db.Integer,nullable=False,primary_key=True)
+	ResOwnerCatId = db.Column(db.Integer,default=0)
+	ResCatName = db.Column(db.String(100),nullable=False)
+	ResCatDesc = db.Column(db.String(500))
+	ResCatIconName = db.Column(db.String(100))
+	Resource = db.relationship('Resource',backref='res_category',lazy=True)
+
+	def update(self, **kwargs):
+		for key, value in kwargs.items():
+			if value is not None:
+				if hasattr(self, key):
+					setattr(self, key, value)
+	def to_json(self):
+		json_category = {
+			'ownerCategoryId':self.ResOwnerCatId,
+			'categoryName':self.ResCatName,
+			'categoryDesc':self.ResCatDesc,
+			'categoryIcon':self.ResCatIconName
+			}
+		return json_category
+
+class Res_maker(AddInf,CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_res_maker"
+	ResMakerId = db.Column(db.Integer,nullable=False,primary_key=True)
+	ResMakerName = db.Column(db.String(100),nullable=False)
+	ResMakerDesc = db.Column(db.String(500))
+	ResMakerSite = db.Column(db.String(150))
+	ResMakerMail = db.Column(db.String(100))
+	ResMakerPhone1 = db.Column(db.String(100))
+	ResMakerPhone2 = db.Column(db.String(100))
+	Resource = db.relationship('Resource',backref='res_maker',lazy=True)
+
+
 ###  added before #####
 class Res_color(CreatedModifiedInfo,db.Model):
 	__tablename__ = "tbl_dk_res_color"
@@ -383,6 +490,13 @@ class Res_color(CreatedModifiedInfo,db.Model):
 			if value is not None:
 				if hasattr(self, key):
 					setattr(self, key, value)
+	def to_json(self):
+		json_res_color = {
+			'rcId':self.RcId,
+			'resId':self.ResId,
+			'colorId':self.ColorId
+			}
+		return json_res_color
 
 class Res_size(CreatedModifiedInfo,db.Model):
 	__tablename__ = "tbl_dk_res_size"
@@ -395,6 +509,13 @@ class Res_size(CreatedModifiedInfo,db.Model):
 			if value is not None:
 				if hasattr(self, key):
 					setattr(self, key, value)
+	def to_json(self):
+		json_res_size = {
+			'rsId':self.RsId,
+			'resId':self.ResId,
+			'sizeId':self.SizeId
+			}
+		return json_res_size
 
 ####################
 
@@ -417,18 +538,6 @@ class Res_discount(AddInf,CreatedModifiedInfo,db.Model):
 	GiftResDiscValue = db.Column(db.Float,default=0)
 	Sale_card = db.relationship('Sale_card',backref='res_discount',foreign_keys='Sale_card.ResDiscId',lazy=True)
 
-
-class Res_maker(AddInf,CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_res_maker"
-	ResMakerId = db.Column(db.Integer,nullable=False,primary_key=True)
-	ResMakerName = db.Column(db.String(100),nullable=False)
-	ResMakerDesc = db.Column(db.String(500))
-	ResMakerSite = db.Column(db.String(150))
-	ResMakerMail = db.Column(db.String(100))
-	ResMakerPhone1 = db.Column(db.String(100))
-	ResMakerPhone2 = db.Column(db.String(100))
-
-
 class Res_price(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_res_price"
 	ResPriceId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -442,6 +551,27 @@ class Res_price(CreatedModifiedInfo,db.Model):
 	PriceStartDate = db.Column(db.DateTime)
 	PriceEndDate = db.Column(db.DateTime)
 
+	def update(self, **kwargs):
+		for key, value in kwargs.items():
+			if value is not None:
+				if hasattr(self, key):
+					setattr(self, key, value)
+
+
+	def to_json(self):
+		json_res_price = {
+			'resPriceId':self.ResPriceId,
+			'resPriceTypeId':self.ResPriceTypeId,
+			'resPriceGroupId':self.ResPriceGroupId,
+			'unitId':self.UnitId,
+			'currencyId':self.CurrencyId,
+			'resId':self.ResId,
+			'resPriceRegNo':self.ResPriceRegNo,
+			'resPriceValue':self.ResPriceValue,
+			'priceStartDate':self.PriceStartDate,
+			'priceEndDate':self.PriceEndDate
+			}
+		return json_res_price
 
 class Res_price_group(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_res_price_group"
@@ -578,22 +708,40 @@ class Res_transaction(AddInf,CreatedModifiedInfo,db.Model):
 
 class Res_translations(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_res_translations"
-	ResTansId = db.Column(db.Integer,nullable=False,primary_key=True)
+	ResTransId = db.Column(db.Integer,nullable=False,primary_key=True)
 	ResId = db.Column(db.Integer,db.ForeignKey("tbl_dk_resource.ResId"))
 	LangId = db.Column(db.Integer,db.ForeignKey("tbl_dk_language.LangId"))
 	ResName = db.Column(db.String(255))
 	ResDesc = db.Column(db.String(500))
 	ResFullDesc = db.Column(db.String(1500))
 
+	def update(self, **kwargs):
+		for key, value in kwargs.items():
+			if value is not None:
+				if hasattr(self, key):
+					setattr(self, key, value)
+
+	def to_json(self):
+		json_res_translations = {
+			'resTransId':self.ResTransId,
+			'resId':self.ResId,
+			'langId':self.LangId,
+			'resNameTrans':self.ResName,
+			'resDescTrans':self.ResDesc,
+			'resFullDescTrans':self.ResFullDesc
+			}
+		return json_res_translations
+
 class Res_type(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_res_type"
-	ResourceTypeId = db.Column(db.Integer,nullable=False,primary_key=True)
-	ResourceTypeName_tkTM = db.Column(db.String(100))
-	ResourceTypeDesc_tkTM = db.Column(db.String(500))
-	ResourceTypeName_ruRU = db.Column(db.String(100))
-	ResourceTypeDesc_ruRU = db.Column(db.String(500))
-	ResourceTypeName_enUS = db.Column(db.String(100))
-	ResourceTypeDesc_enUS = db.Column(db.String(500))
+	ResTypeId = db.Column(db.Integer,nullable=False,primary_key=True)
+	ResTypeName_tkTM = db.Column(db.String(100))
+	ResTypeDesc_tkTM = db.Column(db.String(500))
+	ResTypeName_ruRU = db.Column(db.String(100))
+	ResTypeDesc_ruRU = db.Column(db.String(500))
+	ResTypeName_enUS = db.Column(db.String(100))
+	ResTypeDesc_enUS = db.Column(db.String(500))
+	Resource = db.relationship('Resource',backref='res_type',lazy=True)
 
 
 
@@ -611,15 +759,21 @@ class Res_unit(CreatedModifiedInfo,db.Model):
 				if hasattr(self, key):
 					setattr(self, key, value)
 
-
-
+	def to_json(self):
+		json_res_unit = {
+			'resUnitId':self.ResUnitId,
+			'resId':self.ResId,
+			'resUnitUnitId':self.ResUnitUnitId,
+			'resUnitConvAmount':self.ResUnitConvAmount,
+			'resUnitConvTypeId':self.ResUnitConvTypeId
+			}
+		return json_res_unit
 
 class Rp_acc_resource(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_rp_acc_resource"
 	RpAccResId = db.Column(db.Integer,nullable=False,primary_key=True)
 	RpAccId = db.Column(db.Integer,db.ForeignKey("tbl_dk_rp_acc.RpAccId"))
 	ResId = db.Column(db.Integer,db.ForeignKey("tbl_dk_resource.ResId"))
-
 
 class Rp_acc_status(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_rp_acc_status"
@@ -632,8 +786,6 @@ class Rp_acc_status(CreatedModifiedInfo,db.Model):
 	RpAccStatusdesc_enUS = db.Column(db.String(500))
 	Rp_acc = db.relationship('Rp_acc',backref='rp_acc_status',lazy=True)
 
-
-
 class Rp_acc_trans_total(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_rp_acc_trans_total"
 	RpAccTrTotId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -643,8 +795,6 @@ class Rp_acc_trans_total(CreatedModifiedInfo,db.Model):
 	RpAccTrTotDebit = db.Column(db.Float,default=0)
 	RpAccTrTotCredit = db.Column(db.Float,default=0)
 	RpAccTrTotLastTrDate = db.Column(db.DateTime,default=datetime.now)
-
-
 
 class Rp_acc_transaction(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_rp_acc_transaction"
@@ -676,7 +826,6 @@ class Rp_acc_type(CreatedModifiedInfo,db.Model):
 	RpAccTypeDesc_enUS = db.Column(db.String(500))
 	Rp_acc = db.relationship('Rp_acc',backref='rp_acc_type',lazy=True)
 
-
 class Sale_agr_res_price(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_sale_agr_res_price"
 	SAResPriceId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -689,7 +838,6 @@ class Sale_agr_res_price(CreatedModifiedInfo,db.Model):
 	SAResPriceValue = db.Column(db.Float,default=0)
 	SAPriceStartDate = db.Column(db.DateTime)
 	SAPriceEndDate = db.Column(db.DateTime)
-
 
 class Sale_agreement(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_sale_agreement"
@@ -735,7 +883,6 @@ class Sale_card(AddInf,CreatedModifiedInfo,db.Model):
 	SaleCardCustEmail = db.Column(db.String(100))
 	SaleCardCustAddress = db.Column(db.String(100))
 	Res_discount = db.relationship('Res_discount',backref='sale_card',foreign_keys='Res_discount.SaleCardId',lazy=True)
-
 
 class Sale_card_status(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_sale_card_status"

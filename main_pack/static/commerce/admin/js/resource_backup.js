@@ -1,19 +1,18 @@
 res_forms = ['resId','companyId','divisionId','resCategoryId','unitId',
 	'brandId',	'usageStatusId','resTypeId','mainImageId','resMakerId',
-	'lastVendorId','resRegNo','resName','resDesc','resFullDesc','resWidth',
+	'lastVendorId','regNo','resName','resDesc','resFullDesc','resWidth',
 	'resHeight','resLength','resWeight','resOnSale','resMinSaleAmount',
 	'resMaxSaleAmount','resMinSalePrice','resMaxSalePrice']
 
-required_res_fields = ['resRegNo','resName']
+required_res_fields = ['regNo','resName']
 
 barcode_forms = ['barcodeId','companyId','divisionId','resId','unitId','barcodeVal']
 required_barcode_fields = ['barcodeVal']
-// places the num into .resRegNo
+// places the num into .regNo
 getRegNo("/commerce/ui/resource/")
 
 $("body").delegate('.submitButton','click',function(event) {
 	resourceData = prepareFormData(res_forms,'');
-	console.log(resourceData);
 	if (validateInput(required_res_fields)==true){
 		postResData(resourceData,"/commerce/ui/resource/",res_forms[0]);
 	}
@@ -75,7 +74,7 @@ var beforeCreated=function(formData,formId,url,callback){
 		$('.'+formId).val(response[formId]);
 		if (response.status == 'regGenerated'){
 			warningToaster(response.responseText);
-			$('.resRegNo').val(response.regNo)
+			$('.regNo').val(response.regNo)
 		}
 		if(response.status == 'created'||response.status == 'updated') {
 			successToaster(response.responseText);
@@ -99,7 +98,7 @@ var postResData = function(formData,url,formId){
 			}
 			else if(response.status == 'regGenerated'){
 				warningToaster(response.responseText);
-				$('.resRegNo').val(response.regNo)
+				$('.regNo').val(response.regNo)
 			}
 			else{errorToaster(response.responseText);}
 		}

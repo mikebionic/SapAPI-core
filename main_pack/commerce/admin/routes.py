@@ -2,8 +2,10 @@ from flask import render_template, url_for, jsonify, json, session, flash, redir
 from flask_login import current_user, login_required
 from main_pack import db,babel,gettext,lazy_gettext
 from main_pack.commerce.admin import bp
+
 from main_pack.commerce.admin.utils import prepare_data
 from main_pack.commerce.commerce.utils import commonUsedData
+from main_pack.commerce.admin.utils import resRelatedData
 
 @bp.route("/admin/dashboard")
 def dashboard():
@@ -28,4 +30,5 @@ def single_product():
 
 @bp.route("/admin/add_product")
 def add_product():
-	return render_template ("commerce/admin/add_product.html",title=gettext('Single product'))
+	resData=resRelatedData()
+	return render_template ("commerce/admin/add_product.html",**resData,title=gettext('Single product'))

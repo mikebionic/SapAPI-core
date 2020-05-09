@@ -5,7 +5,8 @@ from main_pack.models.base.models import Reg_num,Reg_num_type
 
 from main_pack.models.hr_department.models import Employee
 
-from main_pack.models.base.models import Resource
+from main_pack.models.commerce.models import Resource
+from main_pack.models.commerce.models import Res_price
 
 from datetime import datetime
 from sqlalchemy import or_, and_
@@ -13,7 +14,9 @@ from sqlalchemy import or_, and_
 prefixTypesDict = {
 		'employee code':1,
 		'user code':2,
-		'goods code':3
+		'goods code':3,
+		'account code':4,
+		'price code':5
 	}
 
 def generate(prefixType):
@@ -63,6 +66,25 @@ def validate(fullRegNo,RegNumLastNum,prefixType):
 		resource = Resource.query.filter_by(ResRegNo=fullRegNo).first()
 
 		if not resource and (RegNumLastNum>reg_num.RegNumLastNum):
+			response = {
+				'status':True,
+				'RegNumLastNum':RegNumLastNum
+			}
+		else:
+			while RegNumLastNum<=reg_num.RegNumLastNum:
+				RegNumLastNum+=1
+			response = {
+				'status':False,
+				'RegNumLastNum':RegNumLastNum
+			}
+
+	elif(prefixType=='price code'):
+		prefixType = prefixTypesDict[prefixType]
+		reg_num = Reg_num.query.filter(
+			and_(Reg_num.UId==current_user.UId,Reg_num.RegNumTypeId==prefixType)).first()
+		resPrice = Res_price.query.filter_by(ResPriceRegNo=fullRegNo).first()
+
+		if not resPrice and (RegNumLastNum>reg_num.RegNumLastNum):
 			response = {
 				'status':True,
 				'RegNumLastNum':RegNumLastNum

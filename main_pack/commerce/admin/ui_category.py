@@ -3,7 +3,7 @@ from flask_login import current_user, login_required
 from main_pack import db,babel,gettext,lazy_gettext
 from main_pack.commerce.admin import bp
 from main_pack.commerce.admin.utils import addCategoryDict
-from main_pack.models.base.models import Res_category
+from main_pack.models.commerce.models import Res_category
 
 @bp.route("/admin/category/", methods=['POST','DELETE'])
 def ui_category():

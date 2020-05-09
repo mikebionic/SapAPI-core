@@ -1,3 +1,56 @@
+# used foreign keys
+from main_pack.models.commerce.models import Unit,Brand,Usage_status,Res_category,Res_type,Res_maker
+from main_pack.models.base.models import Company,Division,Rp_acc
+####
+# used relationship
+from main_pack.models.commerce.models import (Barcode,Res_color,Res_size,Res_translations,Unit,Res_unit,
+	Inv_line,Inv_line_det,Order_inv_line,Res_price,Res_total,Res_trans_inv_line,Res_transaction,Rp_acc_resource,
+	Sale_agr_res_price,Res_discount)
+from main_pack.models.base.models import Image
+#####
+from main_pack.models.base.models import Language
+from main_pack.models.commerce.models import Color,Size
+
+def resRelatedData():
+	resRelatedData = {}
+	units = Unit.query.all()
+	brands = Brand.query.all()
+	usageStatuses = Usage_status.query.all()
+	resCategories = Res_category.query.all()
+	resTypes = Res_type.query.all()
+	resMakers = Res_maker.query.all()
+	rpAccs = Rp_acc.query.all()
+	languages = Language.query.all()
+	colors = Color.query.all()
+	sizes = Size.query.all()
+
+	subcategory_children = []
+	subcategory = Res_category.query.filter(Res_category.ResOwnerCatId!=0)
+	for category in subcategory:
+		parents = Res_category.query.filter(Res_category.ResCatId==category.ResOwnerCatId)
+		for parent in parents:
+			if (parent.ResOwnerCatId == '' or parent.ResOwnerCatId == None or parent.ResOwnerCatId == 0):
+				pass
+			else:
+				subcategory_children.append(category)
+
+	resRelatedData = {
+		'units':units,
+		'brands':brands,
+		'usageStatuses':usageStatuses,
+		'resCategories':resCategories,
+		'resTypes':resTypes,
+		'resMakers':resMakers,
+		'rpAccs':rpAccs,
+		'languages':languages,
+		'colors':colors,
+		'sizes':sizes,
+		'subcategory_children':subcategory_children,
+		}
+
+	return resRelatedData
+
+
 def addCategoryDict(req):
 	ResOwnerCatId = req.get('ownerCategory')
 	ResCatName = req.get('categoryName')
@@ -58,27 +111,27 @@ def addCompanyInfoDict(req):
 def addResourceDict(req):
 	CId = req.get('companyId')
 	DivId = req.get('divisionId')
-	ResCatId = req.get('resourceCategoryId')
+	ResCatId = req.get('resCategoryId')
 	UnitId = req.get('unitId')
 	BrandId = req.get('brandId')
 	UsageStatusId = req.get('usageStatusId')
-	ResourceTypeId = req.get('resourceTypeId')
+	ResTypeId = req.get('resTypeId')
 	ResMainImgId = req.get('mainImageId')
-	ResMakerId = req.get('resourceMakerId')
+	ResMakerId = req.get('resMakerId')
 	ResLastVendorId = req.get('lastVendorId')
-	ResRegNo = req.get('regNo')
-	ResName = req.get('resourceName')
-	ResDesc = req.get('resourceDesc')
-	ResFullDesc = req.get('resourceFullDesc')
-	ResWidth = req.get('resourceWidth')
-	ResHeight = req.get('resourceHeight')
-	ResLength = req.get('resourceLength')
-	ResWeight = req.get('resourceWeight')
-	ResProductionOnSale = req.get('resourceOnSale')
-	ResMinSaleAmount = req.get('resourceMinSaleAmount')
-	ResMaxSaleAmount = req.get('resourceMaxSaleAmount')
-	ResMinSalePrice = req.get('resourceMinSalePrice')
-	ResMaxSalePrice = req.get('resourceMaxSalePrice')
+	ResRegNo = req.get('resRegNo')
+	ResName = req.get('resName')
+	ResDesc = req.get('resDesc')
+	ResFullDesc = req.get('resFullDesc')
+	ResWidth = req.get('resWidth')
+	ResHeight = req.get('resHeight')
+	ResLength = req.get('resLength')
+	ResWeight = req.get('resWeight')
+	ResProductionOnSale = req.get('resOnSale')
+	ResMinSaleAmount = req.get('resMinSaleAmount')
+	ResMaxSaleAmount = req.get('resMaxSaleAmount')
+	ResMinSalePrice = req.get('resMinSalePrice')
+	ResMaxSalePrice = req.get('resMaxSalePrice')
 	resource = {
 		'CId':CId,
 		'DivId':DivId,
@@ -86,7 +139,7 @@ def addResourceDict(req):
 		'UnitId':UnitId,
 		'BrandId':BrandId,
 		'UsageStatusId':UsageStatusId,
-		'ResourceTypeId':ResourceTypeId,
+		'ResTypeId':ResTypeId,
 		'ResMainImgId':ResMainImgId,
 		'ResMakerId':ResMakerId,
 		'ResLastVendorId':ResLastVendorId,
@@ -106,7 +159,7 @@ def addResourceDict(req):
 	}
 	return resource
 
-# resource_forms = ['resourceId','companyId','divisionId','resourceCategoryId','unitId',
+# resource_forms = ['resId','companyId','divisionId','resourceCategoryId','unitId',
 # 	'brandId',	'usageStatusId','resourceTypeId','mainImageId','resourceMakerId',
 # 	'lastVendorId','regNo','resourceName','resourceDesc','resourceFullDesc','resourceWidth',
 # 	'resourceHeight','resourceLength','resourceWeight','resourceOnSale','resourceMinSaleAmount',
@@ -115,34 +168,173 @@ def addResourceDict(req):
 def addBarcodeDict(req):
 	CId = req.get('companyId')
 	DivId = req.get('divisionId')
-	ResId = req.get('resourceId')
+	ResId = req.get('resId')
 	UnitId = req.get('unitId')
 	BarcodeVal = req.get('barcodeVal')
 	barcode = {
-		'companyId':CId,
-		'divisionId':DivId,
-		'resourceId':ResId,
-		'unitId':UnitId,
-		'barcodeVal':BarcodeVal
+		'CId':CId,
+		'DivId':DivId,
+		'ResId':ResId,
+		'UnitId':UnitId,
+		'BarcodeVal':BarcodeVal
 	}
 	return barcode
 
-# barcode_forms = ['companyId','divisionId','resourceId','unitId','barcodeVal']
+# barcode_forms = ['barcodeId','companyId','divisionId','resId','unitId','barcodeVal']
 
 
 def addBrandDict(req):
 	BrandName = req.get('brandName')
 	BrandDesc = req.get('brandDesc')
 	brand = {
-		'brandName':BrandName,
-		'brandDesc':BrandDesc
+		'BrandName':BrandName,
+		'BrandDesc':BrandDesc
 	}
 	return brand
 
-# brand_forms = ['brandId','brandDesc']
+# brand_forms = ['brandId','brandName,'brandDesc']
 
 
+def addColorDict(req):
+	# ColorId = req.get('colorId')
+	ColorName = req.get('colorName')
+	ColorDesc = req.get('colorDesc')
+	ColorCode = req.get('colorCode')
+	color = {
+		'ColorName':ColorName,
+		'ColorDesc':ColorDesc,
+		'ColorCode':ColorCode
+	}
+	return color
 
+def addSizeDict(req):
+	# SizeId = req.get('sizeId')
+	SizeName = req.get('sizeName')
+	SizeDesc = req.get('sizeDesc')
+	SizeTypeId = req.get('sizeTypeId')
+	size = {
+		'SizeName':SizeName,
+		'SizeDesc':SizeDesc,
+		'SizeTypeId':SizeTypeId
+	}
+	return size
+
+def addSizeTypeDict(req):
+	# SizeTypeId = req.get('sizeTypeId')
+	SizeTypeName = req.get('sizeTypeName')
+	SizeTypeDesc = req.get('sizeTypeDesc')
+	size_type = {
+		'SizeTypeName':SizeTypeName,
+		'SizeTypeDesc':SizeTypeDesc
+	}
+	return size_type
+
+def addResourceColorDict(req):
+	# RcId = req.get('rcId')
+	ResId = req.get('resId')
+	ColorId = req.get('colorId')
+	res_color = {
+		'ResId':ResId,
+		'ColorId':ColorId
+	}
+	return res_color
+
+def addResourceSizeDict(req):
+	# RsId = req.get('rsId')
+	ResId = req.get('resId')
+	SizeId = req.get('sizeId')
+	res_size = {
+		'ResId':ResId,
+		'SizeId':SizeId
+	}
+	return res_size
+
+def addResPriceDict(req):
+	# ResPriceId = req.get('resPriceId')
+	ResPriceTypeId = req.get('resPriceTypeId')
+	ResPriceGroupId = req.get('resPriceGroupId')
+	UnitId = req.get('unitId')
+	CurrencyId = req.get('currencyId')
+	ResId = req.get('resId')
+	ResPriceRegNo = req.get('resPriceRegNo')
+	ResPriceValue = req.get('resPriceValue')
+	PriceStartDate = req.get('priceStartDate')
+	PriceEndDate = req.get('priceEndDate')
+	res_price = {
+		# 'ResPriceId':ResPriceId,
+		'ResPriceTypeId':ResPriceTypeId,
+		'ResPriceGroupId':ResPriceGroupId,
+		'UnitId':UnitId,
+		'CurrencyId':CurrencyId,
+		'ResId':ResId,
+		'ResPriceRegNo':ResPriceRegNo,
+		'ResPriceValue':ResPriceValue,
+		'PriceStartDate':PriceStartDate,
+		'PriceEndDate':PriceEndDate
+	}
+	return res_price
+
+def addResTransDict(req):
+	# ResTansId = req.get('resTansId')
+	ResId = req.get('resId')
+	LangId = req.get('langId')
+	ResName = req.get('resNameTrans')
+	ResDesc = req.get('resDescTrans')
+	ResFullDesc = req.get('resFullDescTrans')
+	res_trans = {
+		'ResId':ResId,
+		'LangId':LangId,
+		'ResName':ResName,
+		'ResDesc':ResDesc,
+		'ResFullDesc':ResFullDesc
+	}
+	return res_trans
+
+# res_translations_forms = ['resTansId','resId','langId','resNameTrans','resDescTrans','resFullDescTrans']
+
+def addLanguageDict(req):
+	# LangId = req.get('langId')
+	LangName = req.get('langName')
+	LangDesc = req.get('langDesc')
+	language = {
+		'LangName':LangName,
+		'LangDesc':LangDesc
+	}
+	return language
+
+def addResUnitDict(req):
+	# ResUnitId = req.get('resUnitId')
+	ResId = req.get('resId')
+	ResUnitUnitId = req.get('resUnitUnitId')
+	ResUnitConvAmount = req.get('resUnitConvAmount')
+	ResUnitConvTypeId = req.get('resUnitConvTypeId')
+	res_unit = {
+		'ResId':ResId,
+		'ResUnitUnitId':ResUnitUnitId,
+		'ResUnitConvAmount':ResUnitConvAmount,
+		'ResUnitConvTypeId':ResUnitConvTypeId
+	}
+	return res_unit
+
+
+def addImageDict(req):
+	EmpId = req.get('empId')
+	CId = req.get('companyId')
+	RpAccId = req.get('rpAccId')
+	ResId = req.get('resId')
+	FileName = req.get('fileName')
+	FileHash = req.get('fileHash')
+	Image = req.get('image')
+	image_dict = {
+		'EmpId':self.EmpId,
+		'CId':self.CId,
+		'RpAccId':self.RpAccId,
+		'ResId':self.ResId,
+		'FileName':self.FileName,
+		'FileHash':self.FileHash,
+		'Image':self.Image,
+		}
+	return image_dict
 
 
 

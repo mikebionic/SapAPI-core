@@ -556,7 +556,7 @@ aria-hidden="true">
                     <div class="if-item">
                         <b class="tie">{{_('Full name')}}:</b>
                         <p class="dsc">
-                          <textarea class="companyFullName" {% if company.CFullName %}value='{{company.CFullName}}'{% endif %} cols="40" rows="2" placeholder="{{_('Full name')}}"></textarea>
+                          <textarea class="companyFullName" cols="40" rows="2" placeholder="{{_('Full name')}}">{% if company.CFullName %}{{company.CFullName}}{% endif %}</textarea>
                         </p>
                     </div>
                 </li>
@@ -564,7 +564,7 @@ aria-hidden="true">
                     <div class="if-item">
                         <b class="tie">{{_('Description')}}:</b>
                         <p class="dsc">
-                          <textarea class="companyDesc" {% if company.CDesc %}value='{{company.CDesc}}'{% endif %} cols="40" rows="2" placeholder="{{_('Description')}}"></textarea>
+                          <textarea class="companyDesc" cols="40" rows="2" placeholder="{{_('Description')}}">{% if company.CDesc %}{{company.CDesc}}{% endif %}</textarea>
                         </p>
                     </div>
                 </li>
@@ -653,7 +653,7 @@ aria-hidden="true">
   <script src="{{ url_for('static', filename='commerce/admin/commerce_styles/js/slick.min.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/commerce_styles/js/biolife.framework.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/commerce_styles/js/functions.js') }}"></script>
+  
   <script src="{{ url_for('static', filename='commerce/admin/js/category.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/js/companyInfo.js') }}"></script>
-  <script src="{{ url_for('static', filename='commerce/admin/js/ui_dynamicals.js') }}"></script>
 {% endblock %}

@@ -1,5 +1,6 @@
 from main_pack import db,babel,gettext,lazy_gettext
-from main_pack.models.base.models import Res_category,Company
+from main_pack.models.base.models import Company
+from main_pack.models.commerce.models import Res_category
 
 def commonUsedData():
 	commonData = {}

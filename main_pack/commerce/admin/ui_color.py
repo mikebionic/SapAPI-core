@@ -79,3 +79,17 @@ def resource_brand():
 					'responseText':gettext('Unknown error!'),
 					})
 	return response
+
+
+
+	<script> 
+        $('#GFG_UP') 
+        .text('First check few elements then click on the button.'); 
+        $('button').on('click', function() { 
+            var array = []; 
+            $("input:checkbox[name=type]:checked").each(function() { 
+                array.push($(this).val()); 
+            }); 
+            $('#GFG_DOWN').text(array); 
+        }); 
+    </script> 

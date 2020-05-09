@@ -303,6 +303,25 @@ class Image(CreatedModifiedInfo,db.Model):
 	FileHash = db.Column(db.String(100))
 	Image = db.Column(db.LargeBinary)
 
+	def update(self, **kwargs):
+		for key, value in kwargs.items():
+			if value is not None:
+				if hasattr(self, key):
+					setattr(self, key, value)
+
+	def to_json(self):
+		json_res_translations = {
+			'imgId':self.ImgId,
+			'empId':self.EmpId,
+			'companyId':self.CId,
+			'rpAccId':self.RpAccId,
+			'resId':self.ResId,
+			'fileName':self.FileName,
+			'fileHash':self.FileHash,
+			'image':self.Image,
+			}
+		return json_res_translations
+
 class Location(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_location"
 	LocId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -341,6 +360,20 @@ class Language(CreatedModifiedInfo,db.Model):
 	LangDesc = db.Column(db.String(500))
 	Res_translations = db.relationship('Res_translations',backref='language',lazy=True)
 
+	def update(self, **kwargs):
+		for key, value in kwargs.items():
+			if value is not None:
+				if hasattr(self, key):
+					setattr(self, key, value)
+
+	def to_json(self):
+		json_language = {
+			'langId':self.LangId,
+			'langName':self.LangName,
+			'langDesc':self.LangDesc
+			}
+		return json_language
+
 class Prog_language(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_prog_language"
 	LangId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -378,130 +411,7 @@ class Report_file(CreatedModifiedInfo,db.Model):
 	RpFileDesc = db.Column(db.String(100))
 	RpFileFileName = db.Column(db.String(100))
 	RpIsDefault = db.Column(db.Boolean,default=False)
-
-class Resource(AddInf,CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_resource"
-	ResId = db.Column(db.Integer,nullable=False,primary_key=True)
-	CId = db.Column(db.Integer,db.ForeignKey("tbl_dk_company.CId"))
-	DivId = db.Column(db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
-	ResCatId = db.Column(db.Integer,db.ForeignKey("tbl_dk_res_category.ResCatId"))
-	UnitId = db.Column(db.Integer,db.ForeignKey("tbl_dk_unit.UnitId"))
-	BrandId = db.Column(db.Integer,db.ForeignKey("tbl_dk_brand.BrandId"))
-	UsageStatusId = db.Column(db.Integer,db.ForeignKey("tbl_dk_usage_status.UsageStatusId"))
-	ResourceTypeId = db.Column(db.Integer,db.ForeignKey("tbl_dk_resource_type.ResourceTypeId"))
-	ResMainImgId = db.Column(db.Integer,default=0)
-	ResMakerId = db.Column(db.Integer,db.ForeignKey("tbl_dk_resource_maker.ResMakerId"))
-	ResLastVendorId = db.Column(db.Integer,db.ForeignKey("tbl_dk_rp_acc.RpAccId"))
-	ResRegNo = db.Column(db.String(50),nullable=False)
-	ResName = db.Column(db.String(255),nullable=False)
-	ResDesc = db.Column(db.String(500))
-	ResFullDesc = db.Column(db.String(1500))
-	ResWidth = db.Column(db.Float,default=0)
-	ResHeight = db.Column(db.Float,default=0)
-	ResLength = db.Column(db.Float,default=0)
-	ResWeight = db.Column(db.Float,default=0)
-	ResProductionOnSale = db.Column(db.Boolean,default=False)
-	ResMinSaleAmount = db.Column(db.Float,default=0)
-	ResMaxSaleAmount = db.Column(db.Float,default=0)
-	ResMinSalePrice = db.Column(db.Float,default=0)
-	ResMaxSalePrice = db.Column(db.Float,default=0)
-	Image = db.relationship('Image',backref='resource',lazy=True)
-	Barcode = db.relationship('Barcode',backref='resource',lazy=True)
-	Res_color = db.relationship('Res_color',backref='resource',lazy=True)
-	Res_size = db.relationship('Res_size',backref='resource',lazy=True)
-	Res_translations = db.relationship('Res_translations',backref='resource',lazy=True)
-	Unit = db.relationship('Unit',backref='resource',lazy=True)
-	Res_unit = db.relationship('Res_unit',backref='resource',lazy=True)
-	Inv_line = db.relationship('Inv_line',backref='resource',lazy=True)
-	Inv_line_det = db.relationship('Inv_line_det',backref='resource',lazy=True)	
-	Order_inv_line = db.relationship('Order_inv_line',backref='resource',lazy=True)
-	Res_price = db.relationship('Res_price',backref='resource',lazy=True)
-	Res_total = db.relationship('Res_total',backref='resource',lazy=True)
-	Res_trans_inv_line = db.relationship('Res_trans_inv_line',backref='resource',lazy=True)
-	Res_transaction = db.relationship('Res_transaction',backref='resource',lazy=True)
-	Rp_acc_resource = db.relationship('Rp_acc_resource',backref='resource',lazy=True)
-	Sale_agr_res_price = db.relationship('Sale_agr_res_price',backref='resource',lazy=True)
-	Res_discount = db.relationship('Res_discount',foreign_keys='Res_discount.SaleResId',backref='resource',lazy=True)
-	Res_discount = db.relationship('Res_discount',foreign_keys='Res_discount.GiftResId',backref='resource',lazy=True)
 	
-	def update(self, **kwargs):
-		for key, value in kwargs.items():
-			if value is not None:
-				if hasattr(self, key):
-					setattr(self, key, value)
-
-	def to_json(self):
-		json_resource = {
-			'resourceId':self.ResId,
-			'company':self.CId,
-			'division':self.DivId,
-			'resourceCategory':self.ResCatId,
-			'unit':self.UnitId,
-			'brand':self.BrandId,
-			'usageStatus':self.UsageStatusId,
-			'resourceType':self.ResourceTypeId,
-			'mainImage':self.ResMainImgId,
-			'resourceMaker':self.ResMakerId,
-			'lastVendor':self.ResLastVendorId,
-			'regNo':self.ResRegNo,
-			'resourceName':self.ResName,
-			'resourceDesc':self.ResDesc,
-			'resourceFullDesc':self.ResFullDesc,
-			'resourceWidth':self.ResWidth,
-			'resourceHeight':self.ResHeight,
-			'resourceLength':self.ResLength,
-			'resourceWeight':self.ResWeight,
-			'resourceOnSale':self.ResProductionOnSale,
-			'resourceMinSaleAmount':self.ResMinSaleAmount,
-			'resourceMaxSaleAmount':self.ResMaxSaleAmount,
-			'resourceMinSalePrice':self.ResMinSalePrice,
-			'resourceMaxSalePrice':self.ResMaxSalePrice
-			}
-		return json_resource
-
-
-class Res_category(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_res_category"
-	ResCatId = db.Column(db.Integer,nullable=False,primary_key=True)
-	ResOwnerCatId = db.Column(db.Integer,default=0)
-	ResCatName = db.Column(db.String(100),nullable=False)
-	ResCatDesc = db.Column(db.String(500))
-	ResCatIconName = db.Column(db.String(100))
-	Resource = db.relationship('Resource',backref='res_category',lazy=True)
-
-	def update(self, **kwargs):
-		for key, value in kwargs.items():
-			if value is not None:
-				if hasattr(self, key):
-					setattr(self, key, value)
-	def to_json(self):
-		json_category = {
-			'ownerCategory':self.ResOwnerCatId,
-			'categoryName':self.ResCatName,
-			'categoryDesc':self.ResCatDesc,
-			'categoryIcon':self.ResCatIconName
-			}
-		return json_category
-
-class Resource_maker(AddInf,CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_resource_maker"
-	ResMakerId = db.Column(db.Integer,nullable=False,primary_key=True)
-	ResMakerName = db.Column(db.String(100),nullable=False)
-	ResMakerDesc = db.Column(db.String(500))
-	ResMakerSite = db.Column(db.String(150))
-	ResMakerMail = db.Column(db.String(100))
-	ResMakerPhone1 = db.Column(db.String(100))
-	ResMakerPhone2 = db.Column(db.String(100))
-	Resource = db.relationship('Resource',backref='resource_maker',lazy=True)
-
-class Resource_type(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_resource_type"
-	ResourceTypeId = db.Column(db.Integer,nullable=False,primary_key=True)
-	ResourceTypeName = db.Column(db.String(100),nullable=False)
-	ResourceTypeDesc = db.Column(db.String(500))
-	Resource = db.relationship('Resource',backref='resource_type',lazy=True)
-
-
 ### new models ###
 
 class Rp_acc(AddInf,CreatedModifiedInfo,db.Model):

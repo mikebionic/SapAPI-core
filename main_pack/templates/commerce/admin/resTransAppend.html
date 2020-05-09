@@ -1,0 +1,8 @@
+<tr>
+	<td>{{ resTrans.ResTransId }}</td>
+	<td>{{ '' if resTrans.LangId==None }}{% for lang in languages %}{{lang.LangName if lang.LangId==resTrans.LangId}}{% endfor %}</td>
+	<td>{{ '' if resTrans.ResName==None else resTrans.ResName }}</td>
+	<td>{{ '' if resTrans.ResDesc==None else resTrans.ResDesc }}</td>
+	<td>{{ '' if resTrans.ResFullDesc==None else resTrans.ResFullDesc }}</td>
+	<td><a href="#" class="btn btn-primary deleteTranslationBtn" ownerId="{{resTrans.ResTransId}}">x</a></td>
+<tr>

@@ -30,95 +30,274 @@
                   </form>
                  </li>
               </ul>
+              
+              <div class="section-title">File Browser</div>
+              <p id="msg"></p>
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="multiFiles" name="files[]" multiple="multiple"/>
+                <label class="custom-file-label" for="customFile">Choose file</label>
+              <br>
+                <button id="upload" class="btn btn-outline-info">Upload</button>
+              </div>
+              <hr>
+              <br>
+
+
+              <div class="card">
+                <div class="card-header">
+                  <h4>{{_('Images')}}</h4>
+                </div>
+                <div class="card-body">
+                  <div class="form-group">
+                    <div class="row gutters-sm imagesList">
+                      <div class="col-6 col-sm-4">
+                        <label class="imagecheck mb-4">
+                          <input name="imagecheck" type="checkbox" value="1" class="imagecheck-input" />
+                          <span class="imagecheck-figure">
+                            <img src="assets/img/blog/img01.png" alt="}" class="imagecheck-image">
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h4>Form additional</h4>
+                </div>
+                <div class="card-body">
+                  
+                  <div class="form-group">
+                    <label>Brand</label>
+                    <select class="form-control">
+                      <option>Option 1</option>
+                      <option>Option 2</option>
+                      <option>Option 3</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Color</label>
+                    <select class="form-control">
+                      <option>Option 1</option>
+                      <option>Option 2</option>
+                      <option>Option 3</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Size</label>
+                    <select class="form-control">
+                      <option>Option 1</option>
+                      <option>Option 2</option>
+                      <option>Option 3</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Style</label>
+                    <select class="form-control">
+                      <option>Option 1</option>
+                      <option>Option 2</option>
+                      <option>Option 3</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
             </div>
+
             <div class="product-attribute">
-              <p class="excerpt"><input type="text" placeholder="{{_('Registration Number')}}" class="txt-input planText"></p>
-              <p class="excerpt"><h3 class="title"><textarea cols="30" rows="2" placeholder="{{_('Product name')}}" class="productName"></textarea></h3></p>
-              <p class="excerpt"><textarea cols="30" rows="4" placeholder="{{_('Description')}}"></textarea></p>
-              <p class="excerpt"><input type="text" placeholder="{{_('Barcode')}}" class="txt-input planText"></p>
+              <input type="hidden" class='resId' value>
+              <p class="excerpt"><input type="text" class="txt-input resRegNo" placeholder="{{_('Registration Number')}}"></p>
+              <p class="excerpt"><h3 class="title"><textarea class="resName" cols="30" rows="2" placeholder="{{_('Product name')}}"></textarea></h3></p>
+              <p class="excerpt"><textarea class="resDesc" cols="30" rows="4" placeholder="{{_('Description')}}"></textarea></p>
+               <p class="excerpt"><ul class="section-title barcodeList">{{_('Barcode')}}</ul></p>
+              <div class="input-group">
+                <input type="text" placeholder="{{_('Barcode')}}" class="txt-input barcodeVal"><button class="btn btn-primary addBarcodeBtn" type="button">+</button>
+              </div>
             </div>
             <div class="action-form">
 
               <div class="location-shipping-to">
                 <span class="title">{{_('Category')}}:</span>
-                <select name="category" class="">
-                  <option value="america">America</option>
+                <select class="resCategoryId">
+                  {% for category in subcategory_children %}
+                    {% if category.GCRecord == None or category.GCRecord == '' %}
+                      <option value="{{ category.ResCatId }}">{{category.ResCatName}}</option>
+                    {% endif %}
+                  {% endfor %}
                 </select>
               </div>
 
               <div class="quantity-box">
                 <span class="title">{{_('Quantity')}}:</span>
                 <div class="qty-input">
-                  <input type="text" name="qty12554" value="1" data-max_value="100000" data-min_value="0.1" data-step="1">
+                  <input type="text" data-max_value="9999999" data-min_value="1" value="1" data-step="1">
                   <a href="#" class="qty-btn btn-up"><i class="fa fa-caret-up" aria-hidden="true"></i></a>
                   <a href="#" class="qty-btn btn-down"><i class="fa fa-caret-down" aria-hidden="true"></i></a>
                 </div>
 
-                <div class="location-shipping-to">
-                  <span class="title">{{_('Unit')}}:</span>
-                  <select name="category" class="">
-                    <option value="america">kg</option>
-                  </select>
-                </div>
+              </div>
+              <div class="location-shipping-to">
+                <span class="title">{{_('Unit')}}:</span>
+                <select class="unitId">
+                  {% for unit in units %}
+                    {% if unit.GCRecord == None or unit.GCRecord == '' %}
+                      <option value="{{ unit.UnitId }}">{{_(unit.UnitName_enUS)}}</option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
               </div>
 
               <div class="price-box">
                 <span class="title">{{_('Price')}}:</span>
                 <div class="qty-input">
-                    <input type="text" name="qty12554" value="1" data-max_value="100000" data-min_value="0.1" data-step="1">
+                    <input type="hidden" class="resPriceRegNo" value>
+                    <input type="hidden" class="resPriceId" value>
+                    <input type="text" data-min_value="0" value="1" data-step="1">
                     <a href="#" class="qty-btn btn-up"><i class="fa fa-caret-up" aria-hidden="true"></i></a>
                     <a href="#" class="qty-btn btn-down"><i class="fa fa-caret-down" aria-hidden="true"></i></a>
                 </div>
+                <button class="btn btn-default savePriceBtn">+</button>
               </div>
             </div>
-
           </div>
-          <div class="action-form" style="margin-top: -90px">
-            <div class="form-group">
-              <select class="form-control">
-                <option>Option 1</option>
-                <option>Option 2</option>
-                <option>Option 3</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <select class="form-control">
-                <option>Option 1</option>
-                <option>Option 2</option>
-                <option>Option 3</option>
-              </select>
-            </div>
-          </divz>
+
+         
                   <!-- Tab info -->
           <div class="product-tabs single-layout biolife-tab-contain">
             <div class="tab-head">
                 <ul class="tabs">
                     <li class="tab-element active"><a href="#tab_1st" class="tab-link">{{_('Products descriptions')}}</a></li>
                     <li class="tab-element" ><a href="#tab_2nd" class="tab-link">{{_('Addtional information')}}</a></li>
+                    <li class="tab-element" ><a href="#tab_3rd" class="tab-link">{{_('Translations')}}</a></li>
                 </ul>
             </div>
             <div class="tab-content">
               <div id="tab_1st" class="tab-contain desc-tab active">
-                <p class="desc"><textarea cols="100" rows="5" placeholder="Quisque quis ipsum venenatis, fermentum ante volutpat, ornare enim. Phasellus molestie risus non aliquet cursus. Integer vestibulum mi lorem,"></textarea>
-                    <a href="#" class="btn btn-icon btn-danger"><i class="fas fa-times"></i></a>
+                <p class="desc"><textarea class="resFullDesc" cols="80" rows="5" placeholder="Producer, location, properties, outlines, etc ..."></textarea>
+                  <a href="#" class="btn btn-icon btn-danger"><i class="fas fa-times"></i></a>
                 </p>
               </div>
               <div id="tab_2nd" class="tab-contain addtional-info-tab">
+
+                <div class="card">
+                  <div class="card-header">
+                    <h4>Properties</h4>
+                  </div>
+                  <div class="card-body">
+
+                    <div class="card-body">
+                      <div class="form-group">
+                        <label>Color</label>
+                        <input type="color" class="form-control">
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label">Color Input</label>
+                          <div class="selectgroup selectgroup-pills">
+                            {% for color in colors %}
+                              <label class="selectgroup-item">
+                                <input type="checkbox" value="HTML" class="selectgroup-input" checked>
+                                <span style="background: #{{color.ColorCode}}" ownerId="{{color.ColorId}}">
+                                </span>
+                                <!-- <span class="selectgroup-button">HTML</span -->
+                              </label>
+                            {% endfor %}
+
+
+                        <div class="row gutters-xs">
+                          <div class="box">
+                            {% for color in colors %}
+                              <a style="background: #{{color.ColorCode}}" ownerId="{{color.ColorId}}"></a>
+                            {% endfor %}
+                          </div>
+                        </div>
+                      </div>
+                      <button class="btn btn-primary mr-1" type="submit">Submit</button>
+                      <button class="btn btn-secondary" type="reset">Reset</button>
+                    </div>
+
+
+                    <div class="form-group">
+                      <label>Color</label>
+                      <select class="form-control">
+                        <option>Option 1</option>
+                        <option>Option 2</option>
+                        <option>Option 3</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label>Size</label>
+                      <select class="form-control">
+                        <option>Option 1</option>
+                        <option>Option 2</option>
+                        <option>Option 3</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+
+
                 <table class="tbl_attributes">
                   <tbody>
                     <tr>
-                      <th><a href="#" data-toggle="modal" data-target="#exampleModal">Color</a></th>
+                      <th><a href="#" data-toggle="modal" data-target="#colorModal">Color</a></th>
                       <td><p>S, M, L</p></td>
                     </tr>
                     <tr>
-                      <th><a data-toggle="modal" data-target="#basicModal" href="#">Size</a></th>
+                      <th><a data-toggle="modal" data-target="#sizeModal" href="#">Size</a></th>
                       <td><p>S, M, L</p></td>
                     </tr>
                   </tbody>
                 </table>
               </div>
+
+              <div id="tab_3rd" class="tab-contain translations-tab">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>{{_('Translation')}}</h4>
+                    <a data-toggle="modal" data-target=".translationModal" class="btn btn-info">+</a>
+                  </div>
+                  <div class="card-body p-0">
+                    <div class="table-responsive">
+                      <table class="table table-striped table-md">
+                        <thead>
+                          <tr>
+                            <th>#</th>
+                            <th>{{_('Language')}}</th>
+                            <th>{{_('Name')}}</th>
+                            <th>{{_('Description')}}</th>
+                            <th>{{_('Full Description')}}</th>
+                            <th>{{_('Action')}}</th>
+                          </tr>
+                        </thead>
+                        <tbody class="translationsTable">
+                          <tr>
+                            <td>1</td>
+                            <td>English</td>
+                            <td>Irwansyah Saputra</td>
+                            <td>Really cool thing to carry with you and everywhere eheheheheheh</td>
+                            <td>
+                              such a coold fasdkf lorem ipsum
+                              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                              quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                              consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                              cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                              proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            </td>
+                            <td><a href="#" class="btn btn-primary deleteTranslationBtn">x</a></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+
+
+              </div>
             </div>
-            <a href="#" class="btn btn-icon icon-left btn-success" style="float: right;"><i class="fas fa-check"></i> {{_('Save')}}</a>
+            <a href="#" class="btn btn-icon icon-left btn-success submitButton" style="float: right;"><i class="fas fa-check"></i> {{_('Save')}}</a>
           </div>
         </div>
       </div>
@@ -127,7 +306,7 @@
 {% endblock %}
 
 {% block modals %}
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="formModal"
+  <div class="modal fade" id="colorModal" tabindex="-1" role="dialog" aria-labelledby="formModal"
   aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -166,12 +345,12 @@
     </div>
   </div>
 
-  <div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  <div class="modal fade" id="sizeModal" tabindex="-1" role="dialog" aria-labelledby="sizeModalLabel"
   aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <h5 class="modal-title" id="sizeModalLabel">Modal title</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -203,6 +382,53 @@
       </div>
     </div>
   </div>
+
+  <div class="modal fade translationModal" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="formModal">{{_('Add translation')}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form class="">
+
+            <div class="form-group">
+              <label>{{_('Language')}}</label>
+              <select class="form-control langId">
+                {% for lang in languages %}
+                  <option value="{{ lang.LangId }}">{{lang.LangName}}</option>
+                {% endfor %}
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>{{_('Product name')}}</label>
+              <div class="input-group">
+                <input type="text" class="form-control resNameTrans" placeholder="{{_('Product name')}}">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>{{_('Product description')}}</label>
+              <div class="input-group">
+                <textarea type="text" class="form-control resDescTrans" placeholder="{{_('Product description')}}"></textarea>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>{{_('Product full description')}}</label>
+              <div class="input-group">
+                <textarea type="text" class="form-control resFullDescTrans" placeholder="{{_('Product full description')}}"></textarea>
+              </div>
+            </div>
+            <button type="button" class="btn btn-primary m-t-15 waves-effect addTranslationBtn">{{_('Add')}}</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
 {% endblock %}
 
 {% block scripts %}
@@ -214,4 +440,9 @@
   <script src="{{ url_for('static', filename='commerce/admin/commerce_styles/js/biolife.framework.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/commerce_styles/js/functions.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/bundles/dropzonejs/min/dropzone.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/admin/js/resource.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/admin/js/price.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/admin/js/translations.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/admin/js/images.js') }}"></script>
+
 {% endblock %}

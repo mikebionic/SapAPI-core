@@ -36,19 +36,6 @@ $("body").delegate('.addCategoryBtn','click',function(event){
 	clearFields(category_fields,ownerId);
 })
 
-function prepareFormData(formFields,formId){
-	var formData = {};
-	function buildData(value){
-		if ($('.'+value+formId).val() == ""){
-			this.value = null;
-		}
-		else{
-			formData[value] = $('.'+value+formId).val();
-		}
-	}
-	formFields.forEach(buildData);
-	return formData;
-}
 
 var postFormData = function(formData,url,responseForm,listName){
 	$.ajax({
