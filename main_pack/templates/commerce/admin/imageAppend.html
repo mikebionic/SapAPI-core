@@ -1,7 +1,9 @@
-<div class="col-6 col-sm-4">
+<div class="col-6 col-sm-4 singleImage">
   <label class="imagecheck mb-4">
-    <input name="{{filename}}" type="checkbox" value="1" class="imagecheck-input" />
+  	<input type="hidden" class="imgId">
+    <input value="{{filename}}" type="checkbox" class="imagecheck-input fileName"/>
     <span class="imagecheck-figure">
+      <button class="btn btn-outline-danger removeImageBtn">x</button>
       <img src="{{url_for('static',filename='commerce/uploads/'+filename)}}" class="imagecheck-image">
     </span>
   </label>

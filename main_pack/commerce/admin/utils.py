@@ -326,16 +326,17 @@ def addImageDict(req):
 	FileHash = req.get('fileHash')
 	Image = req.get('image')
 	image_dict = {
-		'EmpId':self.EmpId,
-		'CId':self.CId,
-		'RpAccId':self.RpAccId,
-		'ResId':self.ResId,
-		'FileName':self.FileName,
-		'FileHash':self.FileHash,
-		'Image':self.Image,
+		'EmpId':EmpId,
+		'CId':CId,
+		'RpAccId':RpAccId,
+		'ResId':ResId,
+		'FileName':FileName,
+		'FileHash':FileHash,
+		'Image':Image,
 		}
 	return image_dict
 
+# image_forms = ['imgId','empId''companyId''rpAccId''resId''fileName''fileHash''image']
 
 
 ############ useful methods ############# 

@@ -14,7 +14,6 @@ $("body").delegate('.savePriceBtn','click',function(event){
 			if (validateInput(required_res_fields)==true){
 				beforeCreated(resourceData,res_forms[0],"/commerce/ui/resource/",function(){
 					resPriceData = prepareFormData(res_price_forms,'');
-
 					postPriceData(resPriceData,'/commerce/ui/price/',res_price_forms[0]);
 				});
 			}

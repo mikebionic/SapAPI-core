@@ -11,7 +11,15 @@ required_barcode_fields = ['barcodeVal']
 // places the num into .resRegNo
 getRegNo("/commerce/ui/resource/")
 
-$("body").delegate('.submitButton','click',function(event) {
+
+
+function getMainImage(){
+	mainImage = $('.imagesList input:checked').attr('name');
+	console.log("main image is "+mainImage)
+}
+
+
+$("body").delegate('.submitButton','click',function(event){
 	resourceData = prepareFormData(res_forms,'');
 	console.log(resourceData);
 	if (validateInput(required_res_fields)==true){
@@ -28,7 +36,6 @@ $("body").delegate('.addBarcodeBtn','click',function(event){
 			if (validateInput(required_res_fields)==true){
 				beforeCreated(resourceData,res_forms[0],"/commerce/ui/resource/",function(){
 					barcodeData = prepareFormData(barcode_forms,'');
-					console.log('the callback func ' + barcodeData);
 					postBarcodeData(barcodeData,'/commerce/ui/barcode/',barcode_forms[0],'barcodeList','htmlData');
 				});
 			}

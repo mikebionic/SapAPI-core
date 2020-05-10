@@ -21,86 +21,30 @@
         <div id="main-content" class="main-contentsslick-slide slick-current slick-active first-slick last-slick">
           <div class="sumary-product single-layout">
             <div class="media">
-              <ul class="biolife-carousel slider-for" data-slick='{"arrows":false,"dots":false,"slidesMargin":30,"slidesToShow":1,"slidesToScroll":1,"fade":true,"asNavFor":".slider-nav"}' style="width: 100%">
-                 <li>
-                  <form action="/commerce" class="dropzone" id="mydropzone" style="width:80%;margin-left: 50px; height:250px">
-                    <div class="fallback">
-                      <input name="file" type="file" multiple />
-                    </div>
-                  </form>
-                 </li>
-              </ul>
-              
-              <div class="section-title">File Browser</div>
-              <p id="msg"></p>
-              <div class="custom-file">
-                <input type="file" class="custom-file-input" id="multiFiles" name="files[]" multiple="multiple"/>
-                <label class="custom-file-label" for="customFile">Choose file</label>
-              <br>
-                <button id="upload" class="btn btn-outline-info">Upload</button>
-              </div>
-              <hr>
-              <br>
-
-
               <div class="card">
+                <div class="section-title">{{_('Upload images')}}</div>
+                <p id="msg"></p>
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" id="multiFiles" name="files[]" multiple="multiple"/>
+                  <label class="custom-file-label" for="customFile">Choose file</label>
+                <br>
+                  <button id="upload" class="btn btn-outline-info">Upload</button>
+                </div>
+                <hr>
+                <br>
+              </div>
+
+
+              <div class="card uploadedImagesCard" style="display: none;">
                 <div class="card-header">
                   <h4>{{_('Images')}}</h4>
                 </div>
                 <div class="card-body">
+                  <p>{{_('Choose the main image')}}</p>
                   <div class="form-group">
-                    <div class="row gutters-sm imagesList">
-                      <div class="col-6 col-sm-4">
-                        <label class="imagecheck mb-4">
-                          <input name="imagecheck" type="checkbox" value="1" class="imagecheck-input" />
-                          <span class="imagecheck-figure">
-                            <img src="assets/img/blog/img01.png" alt="}" class="imagecheck-image">
-                          </span>
-                        </label>
-                      </div>
-                    </div>
+                    <div class="row gutters-sm imagesList"></div>
                   </div>
-                </div>
-              </div>
-
-              <div class="card">
-                <div class="card-header">
-                  <h4>Form additional</h4>
-                </div>
-                <div class="card-body">
-                  
-                  <div class="form-group">
-                    <label>Brand</label>
-                    <select class="form-control">
-                      <option>Option 1</option>
-                      <option>Option 2</option>
-                      <option>Option 3</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label>Color</label>
-                    <select class="form-control">
-                      <option>Option 1</option>
-                      <option>Option 2</option>
-                      <option>Option 3</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label>Size</label>
-                    <select class="form-control">
-                      <option>Option 1</option>
-                      <option>Option 2</option>
-                      <option>Option 3</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label>Style</label>
-                    <select class="form-control">
-                      <option>Option 1</option>
-                      <option>Option 2</option>
-                      <option>Option 3</option>
-                    </select>
-                  </div>
+                  <button class="btn btn-outline-primary saveImagesBtn">{{_('Save')}}</button>
                 </div>
               </div>
             </div>

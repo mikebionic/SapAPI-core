@@ -12,126 +12,118 @@ import os
 import urllib.request
 from werkzeug.utils import secure_filename
 
-basedir = os.path.abspath(os.path.dirname(__file__))
+# basedir = os.path.abspath(os.path.dirname(__file__))
 
 # where to place this config in blueprints???
 # app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
-ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 
 def allowed_file(filename):
 	return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-@bp.route('/ui/images/',methods=['POST'])
-def ui_images():
+import os, secrets
+from flask import current_app
+from PIL import Image as ImageOperation
+
+def save_picture(form_picture, path):
+	random_hex = secrets.token_hex(8)
+	_, f_ext = os.path.splitext(form_picture.filename)
+	picture_fn = random_hex + f_ext
+	picture_path = os.path.join(current_app.root_path, 'static/'+path, picture_fn)
+	form_picture.save(picture_path)
+	output_size = (125,125)
+	i = ImageOperation.open(form_picture)
+	i.thumbnail(output_size)
+	i.save(picture_path)
+	return {"fileName":picture_fn,"filePath":picture_path}
+
+@bp.route('/ui/uploadImages/',methods=['POST'])
+def ui_uploadImages():
 	if 'files[]' not in request.files:
 		resp = jsonify({'message' : 'No file part in the request'})
 		resp.status_code = 400
 		return resp
-	
+
 	files = request.files.getlist('files[]')
-	print(files)
 	uploadedFiles=[]
 	response = {}
 	success = False
-
 	for file in files:
 		if file and allowed_file(file.filename):
-			filename = secure_filename(file.filename)
-			updir = os.path.join(basedir, '../../static/commerce/uploads/')
-			file.save(os.path.join(updir, filename))
-			success = True
-			print("it's in for loop "+file.filename)
+			print("its okay")
+			image = save_picture(file,"commerce/uploads")
+			filename = image['fileName']
+			filepath = image['filePath']
 			uploadedFiles.append({
-				'fileName':file.filename,
+				'fileName':filename,
 				'htmlData':render_template('/commerce/admin/imageAppend.html',
-					filename=file.filename,filepath=updir+file.filename),
+					filename=filename,filepath=filepath),
 			})
+			success=True
 		else:
 			response[file.filename] = 'File type is not allowed'
 	response['files']=uploadedFiles
 	if success and response:
 		response['message'] = 'File(s) successfully uploaded'
 		resp = jsonify(response)
-		print(resp)
-		resp.status_code = 206
+		resp.status_code = 201
 		return resp
 	if success:
 		resp = jsonify({'message' : 'Files successfully uploaded'})
-		print(resp)
 		resp.status_code = 201
 		return resp
 	else:
 		resp = jsonify(response)
+		print("somethhing wrong")
 		resp.status_code = 400
 		return resp
 
-###############################
-# @bp.route('/ui/res_translations/', methods=['GET','POST','PUT'])
-# def ui_res_translations():
-# 	languages = Language.query.all()
-# 	baseTemplate = {
-# 		'languages':languages,
-# 		}
-# 	if request.method == 'POST':
-# 		req = request.get_json()
-# 		resTrans = addResTransDict(req)
-# 		print(resTrans)
-# 		resTransId = req.get('resTransId')
-# 		if (resTransId == '' or resTransId == None):
-# 			newTranslation = Res_translations(**resTrans)
-# 			db.session.add(newTranslation)
-# 			print(newTranslation)
-# 			db.session.commit()
-# 			response = jsonify({
-# 				'resTransId':newTranslation.ResTransId,
-# 				'status':'created',
-# 				'responseText':gettext('Translation')+' '+gettext('successfully saved'),
-# 				'htmlData': render_template('/commerce/admin/resTransAppend.html',**baseTemplate,resTrans=newTranslation)
-# 				})
-# 			print(response)
-# 		else:
-# 			try:
-# 				updateTranslation = Res_translations.query.get(int(resTransId))
-# 				updateTranslation.update(**resTrans)
-# 				updateTranslation.modifiedInfo(UId=current_user.UId)
-# 				db.session.commit()
-# 				response = jsonify({
-# 						'resTransId':updateTranslation.ResTransId,
-# 						'status':'updated',
-# 						'responseText':gettext('Translation')+' '+gettext('successfully updated'),
-# 						'htmlData': render_template('/commerce/admin/resTransAppend.html',**baseTemplate,resTrans=updateTranslation)
-# 					})
-# 			except:
-# 				response = jsonify({
-# 					'status':'error',
-# 					'responseText':gettext('Unknown error!'),
-# 					})
-# 	if request.method == 'DELETE':
-# 		req = request.get_json()
-# 		resTransId = req.get('resTransId')
-# 		thisTranslation = Res_translations.query.get(resTransId)
-# 		thisTranslation.GCRecord == 1
-# 		response = jsonify({
-# 			'resTransId':thisTranslation.ResTransId,
-# 			'status':'deleted',
-# 			'responseText':gettext('Translation')+' '+gettext('successfully deleted')
-# 		})
-# 	return response
 
 
-#####################################
+@bp.route('/ui/images/',methods=['GET','POST','PUT'])
+def ui_images():
+	if request.method == 'POST':
+		req = request.get_json()
+		responses=[]
+		try:
+			for imgReq in req:
+				image = addImageDict(imgReq)
+				print(image)
+				imgId = imgReq.get('imgId')
+				if (imgId == '' or imgId == None):
+					newImage = Image(**image)
+					db.session.add(newImage)
+					db.session.commit()
+					response = {
+						'imgId':newImage.ImgId,
+						'fileName':newImage.FileName,
+						}
+					responses.append(response)
+			
+			fullResponse={
+				'status':'created',
+				'responseText':gettext('Image')+' '+gettext('successfully saved'),
+				}
+			fullResponse['responses']=responses
+			response = fullResponse
+		except:
+			response = jsonify({
+				'status':'error',
+				'responseText':gettext('Unknown error!'),
+				})
+		print('end response is ')
+		print(response)
 
-
-# @app.route('/uploadajax', methods=['POST'])
-# def upldfile():
-# 	if request.method == 'POST':
-# 		files = request.files['file']
-# 		if files and allowed_file(files.filename):
-# 			filename = secure_filename(files.filename)
-# 			app.logger.info('FileName: ' + filename)
-# 			updir = os.path.join(basedir, '/main_pack/static/commerce/uploads/')
-# 			files.save(os.path.join(updir, filename))
-# 			file_size = os.path.getsize(os.path.join(updir, filename))
-# 			return jsonify(name=filename, size=file_size)
+	if request.method == 'DELETE':
+		req = request.get_json()
+		imgId = req.get('imgId')
+		thisImage = Image.query.get(imgId)
+		thisImage.GCRecord == 1
+		response = jsonify({
+			'imgId':thisImage.ImgId,
+			'status':'deleted',
+			'responseText':gettext('Image')+' '+gettext('successfully deleted')
+		})
+	return response

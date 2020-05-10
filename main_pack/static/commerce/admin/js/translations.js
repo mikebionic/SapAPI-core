@@ -9,7 +9,6 @@ $("body").delegate('.addTranslationBtn','click',function(event){
 			if (validateInput(required_res_fields)==true){
 				beforeCreated(resourceData,res_forms[0],"/commerce/ui/resource/",function(){
 					resTransData = prepareFormData(res_translations_forms,'');
-					console.log('the callback func ' + resTransData);
 					postResTransData(resTransData,'/commerce/ui/res_translations/',res_translations_forms,'translationsTable','htmlData');
 				});
 			}
