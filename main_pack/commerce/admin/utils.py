@@ -9,7 +9,7 @@ from main_pack.models.commerce.models import (Barcode,Res_color,Res_size,Res_tra
 from main_pack.models.base.models import Image
 #####
 from main_pack.models.base.models import Language
-from main_pack.models.commerce.models import Color,Size
+from main_pack.models.commerce.models import Color,Size,Brand
 
 def resRelatedData():
 	resRelatedData = {}
@@ -23,6 +23,7 @@ def resRelatedData():
 	languages = Language.query.all()
 	colors = Color.query.all()
 	sizes = Size.query.all()
+	brands = Brand.query.all()
 
 	subcategory_children = []
 	subcategory = Res_category.query.filter(Res_category.ResOwnerCatId!=0)
@@ -45,6 +46,7 @@ def resRelatedData():
 		'languages':languages,
 		'colors':colors,
 		'sizes':sizes,
+		'brands':brands,
 		'subcategory_children':subcategory_children,
 		}
 
@@ -207,6 +209,8 @@ def addColorDict(req):
 	}
 	return color
 
+# color_forms = ['colorId','colorName','colorDesc','colorCode']
+
 def addSizeDict(req):
 	# SizeId = req.get('sizeId')
 	SizeName = req.get('sizeName')
@@ -232,12 +236,14 @@ def addSizeTypeDict(req):
 def addResourceColorDict(req):
 	# RcId = req.get('rcId')
 	ResId = req.get('resId')
-	ColorId = req.get('colorId')
+	ColorId = req.get('resColorId')
 	res_color = {
 		'ResId':ResId,
 		'ColorId':ColorId
 	}
 	return res_color
+
+# res_color_forms = ['rcId','resId','resColorId']
 
 def addResourceSizeDict(req):
 	# RsId = req.get('rsId')

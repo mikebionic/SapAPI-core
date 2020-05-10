@@ -24,16 +24,17 @@
               <div class="card">
                 <div class="section-title">{{_('Upload images')}}</div>
                 <p id="msg"></p>
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" id="multiFiles" name="files[]" multiple="multiple"/>
-                  <label class="custom-file-label" for="customFile">Choose file</label>
-                <br>
-                  <button id="upload" class="btn btn-outline-info">Upload</button>
+                <div class="card-body">
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="multiFiles" name="files[]" multiple="multiple"/>
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                  <br>
+                    <button id="upload" class="btn btn-outline-info">Upload</button>
+                  </div>
+                  <hr>
+                  <br>
                 </div>
-                <hr>
-                <br>
               </div>
-
 
               <div class="card uploadedImagesCard" style="display: none;">
                 <div class="card-header">
@@ -123,79 +124,70 @@
                 </p>
               </div>
               <div id="tab_2nd" class="tab-contain addtional-info-tab">
-
                 <div class="card">
                   <div class="card-header">
-                    <h4>Properties</h4>
+                    <h4>{{_('Properties')}}</h4>
                   </div>
                   <div class="card-body">
-
-                    <div class="card-body">
-                      <div class="form-group">
-                        <label>Color</label>
-                        <input type="color" class="form-control">
-                      </div>
-                      <div class="form-group">
-                        <label class="form-label">Color Input</label>
-                          <div class="selectgroup selectgroup-pills">
-                            {% for color in colors %}
-                              <label class="selectgroup-item">
-                                <input type="checkbox" value="HTML" class="selectgroup-input" checked>
-                                <span style="background: #{{color.ColorCode}}" ownerId="{{color.ColorId}}">
-                                </span>
-                                <!-- <span class="selectgroup-button">HTML</span -->
-                              </label>
-                            {% endfor %}
-
-
-                        <div class="row gutters-xs">
-                          <div class="box">
-                            {% for color in colors %}
-                              <a style="background: #{{color.ColorCode}}" ownerId="{{color.ColorId}}"></a>
-                            {% endfor %}
+                    <div class="form-group">
+                      <label>{{_('Add color')}}</label>
+                      <input type="text" class="form-control colorName" placeholder="{{_('Color name')}}">
+                      <input type="color" class="form-control colorCode">
+                      <button class="btn btn-info addColorBtn">{{_('Add')}}</button>
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">{{_('Select colors')}}</label>
+                      <div class="row gutters-xs colorsList">
+                        {% for color in colors %}
+                          <div class="col-auto">
+                            <label class="colorinput">
+                              <input name="color" type="checkbox" value="{{color.ColorId}}" class="colorinput-input resColorId" />
+                              <span class="colorinput-color" style="background: {{color.ColorCode}}"></span>
+                            </label>
                           </div>
-                        </div>
+                        {% endfor %}
                       </div>
-                      <button class="btn btn-primary mr-1" type="submit">Submit</button>
-                      <button class="btn btn-secondary" type="reset">Reset</button>
+                      <button class="btn btn-primary mr-1" type="submit">{{_('Save')}}</button>
+                      <button class="btn btn-secondary" type="reset">{{_('Reset')}}</button>
+                    </div>
+                  
+                    <div class="form-group">
+                      <label class="form-label">{{_('Sizes')}}</label>
+                      <div class="selectgroup selectgroup-pills">
+                        {% for size in sizes %}
+                          <label class="selectgroup-item">
+                            <input type="checkbox" value="{{size.SizeId}}" class="selectgroup-input resSizeId" checked>
+                            <span class="selectgroup-button">{{size.SizeName}}</span>
+                          </label>
+                        {% endfor %}
+                      </div>
+                      <div class="form-group">
+                        <label>{{_('Add size')}}</label>
+                        <input type="text" class="form-control sizeName" placeholder="{{_('Size name')}}">
+                        <button class="btn btn-info addSizeBtn">{{_('Add')}}</button>
+                      </div>
                     </div>
 
-
                     <div class="form-group">
-                      <label>Color</label>
-                      <select class="form-control">
-                        <option>Option 1</option>
-                        <option>Option 2</option>
-                        <option>Option 3</option>
-                      </select>
-                    </div>
-                    <div class="form-group">
-                      <label>Size</label>
-                      <select class="form-control">
-                        <option>Option 1</option>
-                        <option>Option 2</option>
-                        <option>Option 3</option>
-                      </select>
+                      <label class="form-label">{{_('Brands')}}</label>
+                      <div class="selectgroup selectgroup-pills">
+                        {% for brand in brands %}
+                          <label class="selectgroup-item">
+                            <input type="radio" value="{{brand.BrandId}}" class="selectgroup-input resBrandId" checked>
+                            <span class="selectgroup-button">{{brand.BrandName}}</span>
+                          </label>
+                        {% endfor %}
+                      </div>
+                      <div class="form-group">
+                        <label>{{_('Add Brand')}}</label>
+                        <input type="text" class="form-control brandName" placeholder="{{_('Brand name')}}">
+                        <!-- brand desc textarea should be added + make it js show() when brandName is filled -->
+                        <button class="btn btn-info addBrandBtn">{{_('Add')}}</button>
+                      </div>
                     </div>
                   </div>
                 </div>
-
-
-
-                <table class="tbl_attributes">
-                  <tbody>
-                    <tr>
-                      <th><a href="#" data-toggle="modal" data-target="#colorModal">Color</a></th>
-                      <td><p>S, M, L</p></td>
-                    </tr>
-                    <tr>
-                      <th><a data-toggle="modal" data-target="#sizeModal" href="#">Size</a></th>
-                      <td><p>S, M, L</p></td>
-                    </tr>
-                  </tbody>
-                </table>
               </div>
-
               <div id="tab_3rd" class="tab-contain translations-tab">
                 <div class="card">
                   <div class="card-header">
@@ -237,8 +229,6 @@
                     </div>
                   </div>
                 </div>
-
-
               </div>
             </div>
             <a href="#" class="btn btn-icon icon-left btn-success submitButton" style="float: right;"><i class="fas fa-check"></i> {{_('Save')}}</a>
@@ -388,5 +378,6 @@
   <script src="{{ url_for('static', filename='commerce/admin/js/price.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/js/translations.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/js/images.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/admin/js/colors.js') }}"></script>
 
 {% endblock %}

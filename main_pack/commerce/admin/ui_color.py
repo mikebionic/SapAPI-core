@@ -1,26 +1,32 @@
-from flask import render_template, url_for, jsonify, json, session, flash, redirect , request, Response, abort
-from flask_login import current_user, login_required
+from flask import render_template,url_for,jsonify,json,session,flash,redirect,request,abort
+from flask_login import current_user,login_required
 from main_pack import db,babel,gettext,lazy_gettext
 from main_pack.commerce.admin import bp
-from main_pack.commerce.admin.utils import addCategoryDict
+
+from main_pack.commerce.admin.utils import addColorDict,addSizeDict,addBrandDict
 from main_pack.models.commerce.models import Color,Size,Size_type,Unit,Brand,Barcode
 
-from main_pack.models.commerce.models import Size_type,Res_color,Res_sizens,Res_unit,Usage_status,Res_translations
+from main_pack.models.commerce.models import Size_type,Res_color,Res_size,Res_unit,Usage_status
 
 
-@bp.route('/admin/resource/color/', methods=['GET','POST','PUT'])
-def resource_color():
+@bp.route('/ui/color/', methods=['GET','POST','PUT'])
+def ui_color():
 	if request.method == 'POST':
+		# respon 
 		req = request.get_json()
 		color = addColorDict(req)
+		print(color)
+
 		colorId = req.get('colorId')
+		print(colorId)
 		if (colorId == '' or colorId == None):
 			try:
+				print('committing')
 				newColor = Color(**color)
 				db.session.add(newColor)
 				db.session.commit()
 				response = jsonify({
-					'colorId':newColor.colorId,
+					'colorId':newColor.ColorId,
 					'status':'created',
 					'responseText':gettext('Color')+' '+gettext('successfully saved'),
 					'htmlData': render_template('commerce/admin/colorAppend.html',color=newColor)
@@ -32,8 +38,8 @@ def resource_color():
 					})
 	return response
 
-@bp.route('/admin/resource/size/', methods=['GET','POST','PUT'])
-def resource_size():
+@bp.route('/ui/size/', methods=['POST','PUT'])
+def ui_size():
 	if request.method == 'POST':
 		req = request.get_json()
 		size = addSizeDict(req)
@@ -44,7 +50,7 @@ def resource_size():
 				db.session.add(newSize)
 				db.session.commit()
 				response = jsonify({
-					'sizeId':newSize.sizeId,
+					'sizeId':newSize.SizeId,
 					'status':'created',
 					'responseText':gettext('Size')+' '+gettext('successfully saved'),
 					'htmlData': render_template('commerce/admin/sizeAppend.html',size=newSize)
@@ -56,8 +62,8 @@ def resource_size():
 					})
 	return response
 
-@bp.route('/admin/resource/brand/', methods=['GET','POST','PUT'])
-def resource_brand():
+@bp.route('/ui/brand/', methods=['POST','PUT'])
+def ui_brand():
 	if request.method == 'POST':
 		req = request.get_json()
 		brand = addBrandDict(req)
@@ -68,7 +74,7 @@ def resource_brand():
 				db.session.add(newBrand)
 				db.session.commit()
 				response = jsonify({
-					'brandId':newBrand.brandId,
+					'brandId':newBrand.BrandId,
 					'status':'created',
 					'responseText':gettext('Brand')+' '+gettext('successfully saved'),
 					'htmlData': render_template('commerce/admin/brandAppend.html',brand=newBrand)
@@ -82,14 +88,14 @@ def resource_brand():
 
 
 
-	<script> 
-        $('#GFG_UP') 
-        .text('First check few elements then click on the button.'); 
-        $('button').on('click', function() { 
-            var array = []; 
-            $("input:checkbox[name=type]:checked").each(function() { 
-                array.push($(this).val()); 
-            }); 
-            $('#GFG_DOWN').text(array); 
-        }); 
-    </script> 
+	# <script> 
+ #        $('#GFG_UP') 
+ #        .text('First check few elements then click on the button.'); 
+ #        $('button').on('click', function() { 
+ #            var array = []; 
+ #            $("input:checkbox[name=type]:checked").each(function() { 
+ #                array.push($(this).val()); 
+ #            }); 
+ #            $('#GFG_DOWN').text(array); 
+ #        }); 
+ #    </script> 

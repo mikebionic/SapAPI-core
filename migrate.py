@@ -13,7 +13,7 @@
 
 from main_pack.models.base.models import (Company,Department,Department_detail,Division)
 
-from main_pack.models.commerce.models import Color
+from main_pack.models.commerce.models import Color,Size
 
 from main_pack.models.users.models import Users
 
@@ -38,18 +38,31 @@ app.app_context().push()
 # 	UShortName="ME",UFullName="Mike Bionic")
 
 ######## color migrate #########
-color = Color(ColorName="Red",ColorCode="e74c3c")
-db.session.add(color)
-color = Color(ColorName="Blue",ColorCode="3498db")
-db.session.add(color)
-color = Color(ColorName="Green",ColorCode="2ecc71")
-db.session.add(color)
-color = Color(ColorName="DarkBlue",ColorCode="34495e")
-db.session.add(color)
-color = Color(ColorName="Yellow",ColorCode="f1c40f")
-db.session.add(color)
-color = Color(ColorName="Orange",ColorCode="e67e22")
-db.session.add(color)
+# color = Color(ColorName="Red",ColorCode="e74c3c")
+# db.session.add(color)
+# color = Color(ColorName="Blue",ColorCode="3498db")
+# db.session.add(color)
+# color = Color(ColorName="Green",ColorCode="2ecc71")
+# db.session.add(color)
+# color = Color(ColorName="DarkBlue",ColorCode="34495e")
+# db.session.add(color)
+# color = Color(ColorName="Yellow",ColorCode="f1c40f")
+# db.session.add(color)
+# color = Color(ColorName="Orange",ColorCode="e67e22")
+# db.session.add(color)
 ###################
+
+####### sizes migrate ##########
+# size = Size(SizeName="S")
+# db.session.add(size)
+# size = Size(SizeName="M")
+# db.session.add(size)
+# size = Size(SizeName="L")
+# db.session.add(size)
+# size = Size(SizeName="XL")
+# db.session.add(size)
+# size = Size(SizeName="XXL")
+# db.session.add(size)
+##########################
 
 db.session.commit()
