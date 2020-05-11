@@ -140,8 +140,7 @@
                           </div>
                         {% endfor %}
                       </div>
-                      <button class="btn btn-primary mr-1" type="submit">{{_('Save')}}</button>
-                      <button class="btn btn-secondary" type="reset">{{_('Reset')}}</button>
+                      <button class="btn btn-primary mr-1 saveResColorBtn">{{_('Save')}}</button>
                     </div>
                     <div class="form-group">
                       <label>{{_('Add color')}}</label>
@@ -161,6 +160,8 @@
                           </label>
                         {% endfor %}
                       </div>
+                      <button class="btn btn-primary mr-1 saveResSizeBtn" type="submit">{{_('Save')}}</button>
+
                       <div class="form-group">
                         <label>{{_('Add size')}}</label>
                         <input type="text" class="form-control sizeName" placeholder="{{_('Size name')}}">
@@ -172,9 +173,13 @@
                     <div class="form-group">
                       <label class="form-label">{{_('Brands')}}</label>
                       <div class="selectgroup selectgroup-pills brandsList">
+                        <label class="selectgroup-item">
+                          <input type="radio" value class="selectgroup-input" checked>
+                          <span class="selectgroup-button">None</span>
+                        </label>
                         {% for brand in brands %}
                           <label class="selectgroup-item">
-                            <input type="radio" value="{{brand.BrandId}}" class="selectgroup-input resBrandId">
+                            <input type="checkbox" value="{{brand.BrandId}}" class="selectgroup-input resBrandId">
                             <span {% if brand.BrandDesc %} title="{{ brand.BrandDesc }}" {% endif %} class="selectgroup-button">{{brand.BrandName}}</span>
                           </label>
                         {% endfor %}
@@ -185,6 +190,33 @@
                         <textarea type="text" class="form-control brandDesc" placeholder="{{_('Brand description')}}" style="display: none;"></textarea>
                         <button class="btn btn-info addBrandBtn">{{_('Add')}}</button>
                       </div>
+
+
+
+
+                      <div class="form-group">
+                      <label class="form-label">Icon input</label>
+                      <div class="selectgroup selectgroup-pills">
+                        <label class="selectgroup-item">
+                          <input type="radio" name="icon-input" value="1" class="selectgroup-input" checked>
+                          <span class="selectgroup-button selectgroup-button-icon"><i class="fas fa-sun"></i></span>
+                        </label>
+                        <label class="selectgroup-item">
+                          <input type="radio" name="icon-input" value="2" class="selectgroup-input">
+                          <span class="selectgroup-button selectgroup-button-icon"><i class="fas fa-moon"></i></span>
+                        </label>
+                        <label class="selectgroup-item">
+                          <input type="radio" name="icon-input" value="3" class="selectgroup-input">
+                          <span class="selectgroup-button selectgroup-button-icon"><i
+                              class="fas fa-cloud-rain"></i></span>
+                        </label>
+                        <label class="selectgroup-item">
+                          <input type="radio" name="icon-input" value="4" class="selectgroup-input">
+                          <span class="selectgroup-button selectgroup-button-icon"><i class="fas fa-cloud"></i></span>
+                        </label>
+                      </div>
+                    </div>
+
                     </div>
                   </div>
                 </div>
@@ -215,7 +247,7 @@
                 </div>
               </div>
             </div>
-            <a href="#" class="btn btn-icon icon-left btn-success submitButton" style="float: right;"><i class="fas fa-check"></i> {{_('Save')}}</a>
+            <button class="btn btn-icon icon-left btn-success submitButton" style="float: right;"><i class="fas fa-check"></i> {{_('Save')}}</button>
           </div>
         </div>
       </div>
@@ -224,45 +256,7 @@
 {% endblock %}
 
 {% block modals %}
-  <div class="modal fade" id="colorModal" tabindex="-1" role="dialog" aria-labelledby="formModal"
-  aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="formModal">Modal title</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form class="">
-            <div class="card-body">
-              <div class="form-group">
-                <label>Color</label>
-                <input type="color" class="form-control">
-              </div>
-              <div class="form-group">
-                <label class="form-label">Color Input</label>
-                <div class="row gutters-xs">
-                  <div class="box">
-                    <a style="background: #e74c3c">#e74c3c</a>
-                    <a style="background: #3498db">#3498db</a>
-                    <a style="background: #2ecc71">#2ecc71</a>
-                    <a style="background: #34495e">#34495e</a>
-                    <a style="background: #f1c40f">#f1c40f</a>
-                    <a style="background: #e67e22">#e67e22</a>
-                  </div>
-                </div>
-              </div>
-              <button class="btn btn-primary mr-1" type="submit">Submit</button>
-              <button class="btn btn-secondary" type="reset">Reset</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-
+  
   <div class="modal fade translationModal" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -320,13 +314,13 @@
   <script src="{{ url_for('static', filename='commerce/admin/commerce_styles/js/biolife.framework.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/commerce_styles/js/functions.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/bundles/dropzonejs/min/dropzone.min.js') }}"></script>
+
   <script src="{{ url_for('static', filename='commerce/admin/js/resource.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/js/price.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/js/translations.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/js/images.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/js/colors.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/js/sizes.js') }}"></script>
-  <script src="{{ url_for('static', filename='commerce/admin/js/brands.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/js/propertiesMain.js') }}"></script>
 
 {% endblock %}

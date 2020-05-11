@@ -3,7 +3,7 @@ from flask_login import current_user,login_required
 from main_pack import db,babel,gettext,lazy_gettext
 from main_pack.commerce.admin import bp
 
-from main_pack.commerce.admin.utils import addColorDict,addSizeDict,addBrandDict
+from main_pack.commerce.admin.utils import addColorDict,addSizeDict,addBrandDict,addResColorDict,addResSizeDict
 from main_pack.models.commerce.models import Color,Size,Size_type,Unit,Brand,Barcode
 
 from main_pack.models.commerce.models import Size_type,Res_color,Res_size,Res_unit,Usage_status
@@ -86,6 +86,87 @@ def ui_brand():
 					})
 	return response
 
+@bp.route('/ui/res_color/', methods=['GET','POST','PUT'])
+def ui_res_color():
+	if request.method == 'POST':
+		req = request.get_json()
+		try:
+			for resColorReq in req:
+				resColor = addResColorDict(resColorReq)
+				print(resColor)
+				rcId = resColor.get('rcId')
+				if (rcId == '' or rcId == None):
+					newResColor = Res_color(**resColor)
+					db.session.add(newResColor)
+					db.session.commit()
+			response=jsonify({
+				'status':'created',
+				'responseText':gettext('Product colors')+' '+gettext('successfully saved'),
+				})
+		except:
+			response = jsonify({
+				'status':'error',
+				'responseText':gettext('Unknown error!'),
+				})
+
+	if request.method == 'DELETE':
+		req = request.get_json()
+		rcId = req.get('rcId')
+		thisResColor = Res_color.query.get(rcId)
+		thisResColor.GCRecord == 1
+		response = jsonify({
+			'rcId':thisResColor.RcId,
+			'status':'deleted',
+			'responseText':gettext('Product colors')+' '+gettext('successfully deleted')
+		})
+	return response
+
+
+@bp.route('/ui/res_size/', methods=['GET','POST','PUT'])
+def ui_res_size():
+	if request.method == 'POST':
+		req = request.get_json()
+		responses=[]
+		try:
+			for resColorReq in req:
+				resColor = addResColorDict(resColorReq)
+				print(resColor)
+				rcId = resColor.get('rcId')
+				if (rcId == '' or rcId == None):
+					newResColor = Res_color(**resColor)
+					db.session.add(newResColor)
+					db.session.commit()
+					response = {
+						'rcId':newResColor.RcId,
+						'fileName':newResColor.FileName,
+						}
+					responses.append(response)
+			
+			fullResponse={
+				'status':'created',
+				'responseText':gettext('Product colors')+' '+gettext('successfully saved'),
+				}
+			fullResponse['responses']=responses
+			response = fullResponse
+		except:
+			response = jsonify({
+				'status':'error',
+				'responseText':gettext('Unknown error!'),
+				})
+		print('end response is ')
+		print(response)
+
+	if request.method == 'DELETE':
+		req = request.get_json()
+		rcId = req.get('rcId')
+		thisResColor = Res_color.query.get(rcId)
+		thisResColor.GCRecord == 1
+		response = jsonify({
+			'rcId':thisResColor.RcId,
+			'status':'deleted',
+			'responseText':gettext('Product colors')+' '+gettext('successfully deleted')
+		})
+	return response
 
 
 	# <script> 

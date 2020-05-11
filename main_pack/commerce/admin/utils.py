@@ -238,7 +238,7 @@ def addSizeTypeDict(req):
 # size_type_forms = ['sizeTypeId','sizeTypeName','sizeTypeDesc']
 
 
-def addResourceColorDict(req):
+def addResColorDict(req):
 	# RcId = req.get('rcId')
 	ResId = req.get('resId')
 	ColorId = req.get('resColorId')
@@ -250,7 +250,7 @@ def addResourceColorDict(req):
 
 # res_color_forms = ['rcId','resId','resColorId']
 
-def addResourceSizeDict(req):
+def addResSizeDict(req):
 	# RsId = req.get('rsId')
 	ResId = req.get('resId')
 	SizeId = req.get('sizeId')

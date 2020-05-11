@@ -12,11 +12,16 @@ required_barcode_fields = ['barcodeVal']
 getRegNo("/commerce/ui/resource/")
 
 
-
 function getMainImage(){
 	mainImage = $('.imagesList input:checked').attr('name');
 	console.log("main image is "+mainImage)
 }
+
+/// setting the brand of resource
+$("body").delegate('.brandsList .resBrandId','click',function(event){
+	$('.brandsList .resBrandId').attr('class','selectgroup-input resBrandId')
+	$('.brandsList .resBrandId:checked').attr('class','selectgroup-input resBrandId" brandId')
+});
 
 
 $("body").delegate('.submitButton','click',function(event){

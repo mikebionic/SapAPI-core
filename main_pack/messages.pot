@@ -1,0 +1,543 @@
+# Translations template for PROJECT.
+# Copyright (C) 2020 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2020-05-11 03:05-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.8.0\n"
+
+#: commerce/admin/routes.py:12 templates/commerce/admin/layout.html:42
+msgid "Dashboard"
+msgstr ""
+
+#: commerce/admin/routes.py:17
+msgid "Navbar"
+msgstr ""
+
+#: commerce/admin/routes.py:21
+msgid "Picture"
+msgstr ""
+
+#: commerce/admin/routes.py:25
+msgid "Product table"
+msgstr ""
+
+#: commerce/admin/routes.py:29 commerce/admin/routes.py:34
+msgid "Single product"
+msgstr ""
+
+#: commerce/admin/ui_barcode.py:26 commerce/admin/ui_barcode.py:39
+#: commerce/admin/ui_barcode.py:55 templates/commerce/admin/add_product.html:58
+#: templates/commerce/admin/add_product.html:60
+msgid "Barcode"
+msgstr ""
+
+#: commerce/admin/ui_barcode.py:26 commerce/admin/ui_images.py:107
+#: commerce/admin/ui_properties.py:31 commerce/admin/ui_properties.py:55
+#: commerce/admin/ui_properties.py:79 commerce/admin/ui_translations.py:31
+msgid "successfully saved"
+msgstr ""
+
+#: commerce/admin/ui_barcode.py:39 commerce/admin/ui_translations.py:44
+msgid "successfully updated"
+msgstr ""
+
+#: commerce/admin/ui_barcode.py:45 commerce/admin/ui_category.py:39
+#: commerce/admin/ui_category.py:56 commerce/admin/ui_company.py:28
+#: commerce/admin/ui_images.py:114 commerce/admin/ui_price.py:85
+#: commerce/admin/ui_properties.py:37 commerce/admin/ui_properties.py:61
+#: commerce/admin/ui_properties.py:85 commerce/admin/ui_resource.py:104
+#: commerce/admin/ui_translations.py:50
+msgid "Unknown error!"
+msgstr ""
+
+#: commerce/admin/ui_barcode.py:55 commerce/admin/ui_category.py:51
+#: commerce/admin/ui_images.py:127 commerce/admin/ui_translations.py:60
+msgid "successfully deleted"
+msgstr ""
+
+#: commerce/admin/ui_category.py:33 commerce/commerce/routes.py:40
+#: commerce/commerce/routes.py:45 templates/commerce/admin/add_product.html:66
+#: templates/commerce/admin/appendCategory.html:15
+#: templates/commerce/admin/appendCategory.html:33
+#: templates/commerce/admin/navbar.html:83
+#: templates/commerce/admin/navbar.html:95
+#: templates/commerce/admin/navbar.html:114
+msgid "Category"
+msgstr ""
+
+#: commerce/admin/ui_category.py:33 commerce/admin/ui_price.py:51
+#: commerce/admin/ui_resource.py:68
+msgid "successfully saved!"
+msgstr ""
+
+#: commerce/admin/ui_company.py:23 templates/commerce/admin/navbar.html:551
+msgid "Company"
+msgstr ""
+
+#: commerce/admin/ui_company.py:23 commerce/admin/ui_price.py:79
+#: commerce/admin/ui_resource.py:98
+msgid "successfully updated!"
+msgstr ""
+
+#: commerce/admin/ui_images.py:107 commerce/admin/ui_images.py:127
+msgid "Image"
+msgstr ""
+
+#: commerce/admin/ui_price.py:34 commerce/admin/ui_resource.py:51
+msgid "Error generating Registration number"
+msgstr ""
+
+#: commerce/admin/ui_price.py:51 commerce/admin/ui_price.py:79
+#: templates/commerce/admin/add_product.html:97
+msgid "Price"
+msgstr ""
+
+#: commerce/admin/ui_price.py:65 commerce/admin/ui_resource.py:83
+msgid "That registration number already presents"
+msgstr ""
+
+#: commerce/admin/ui_price.py:65 commerce/admin/ui_resource.py:83
+msgid "It changed to "
+msgstr ""
+
+#: commerce/admin/ui_properties.py:31
+msgid "Color"
+msgstr ""
+
+#: commerce/admin/ui_properties.py:55
+msgid "Size"
+msgstr ""
+
+#: commerce/admin/ui_properties.py:79
+msgid "Brand"
+msgstr ""
+
+#: commerce/admin/ui_resource.py:68 commerce/admin/ui_resource.py:98
+msgid "Resource"
+msgstr ""
+
+#: commerce/admin/ui_translations.py:31 commerce/admin/ui_translations.py:44
+#: commerce/admin/ui_translations.py:60
+#: templates/commerce/admin/add_product.html:195
+msgid "Translation"
+msgstr ""
+
+#: commerce/auth/routes.py:28
+msgid "Login"
+msgstr ""
+
+#: commerce/auth/routes.py:47 commerce/auth/routes.py:66
+msgid "Reset Password"
+msgstr ""
+
+#: commerce/auth/routes.py:79 commerce/auth/routes.py:107
+#: templates/commerce/main/commerce/layout.html:67
+#: templates/commerce/main/commerce/layout.html:436
+msgid "Register"
+msgstr ""
+
+#: commerce/commerce/routes.py:15
+msgid "Collection"
+msgstr ""
+
+#: commerce/commerce/routes.py:20
+#: templates/commerce/main/commerce/layout.html:83
+msgid "About us"
+msgstr ""
+
+#: commerce/commerce/routes.py:25 templates/commerce/admin/navbar.html:538
+#: templates/commerce/admin/navbar.html:545
+#: templates/commerce/main/commerce/contact.html:9
+#: templates/commerce/main/commerce/layout.html:84
+msgid "Contact"
+msgstr ""
+
+#: commerce/commerce/routes.py:30
+#: templates/commerce/main/commerce/layout.html:415
+msgid "Cart"
+msgstr ""
+
+#: commerce/commerce/routes.py:35
+msgid "Product"
+msgstr ""
+
+#: templates/commerce/admin/add_product.html:25
+msgid "Upload images"
+msgstr ""
+
+#: templates/commerce/admin/add_product.html:41
+msgid "Images"
+msgstr ""
+
+#: templates/commerce/admin/add_product.html:44
+msgid "Choose the main image"
+msgstr ""
+
+#: templates/commerce/admin/add_product.html:48
+#: templates/commerce/admin/add_product.html:143
+#: templates/commerce/admin/add_product.html:218
+#: templates/commerce/admin/navbar.html:637
+msgid "Save"
+msgstr ""
+
+#: templates/commerce/admin/add_product.html:55
+msgid "Registration Number"
+msgstr ""
+
+#: templates/commerce/admin/add_product.html:56
+#: templates/commerce/admin/add_product.html:288
+#: templates/commerce/admin/add_product.html:290
+msgid "Product name"
+msgstr ""
+
+#: templates/commerce/admin/add_product.html:57
+#: templates/commerce/admin/add_product.html:206
+#: templates/commerce/admin/appendCategory.html:17
+#: templates/commerce/admin/appendCategory.html:35
+#: templates/commerce/admin/navbar.html:85
+#: templates/commerce/admin/navbar.html:97
+#: templates/commerce/admin/navbar.html:116
+#: templates/commerce/admin/navbar.html:138
+#: templates/commerce/admin/navbar.html:565
+#: templates/commerce/admin/navbar.html:567
+msgid "Description"
+msgstr ""
+
+#: templates/commerce/admin/add_product.html:77
+msgid "Quantity"
+msgstr ""
+
+#: templates/commerce/admin/add_product.html:86
+msgid "Unit"
+msgstr ""
+
+#: templates/commerce/admin/add_product.html:114
+msgid "Products descriptions"
+msgstr ""
+
+#: templates/commerce/admin/add_product.html:115
+msgid "Addtional information"
+msgstr ""
+
+#: templates/commerce/admin/add_product.html:116
+msgid "Translations"
+msgstr ""
+
+#: templates/commerce/admin/add_product.html:128
+msgid "Properties"
+msgstr ""
+
+#: templates/commerce/admin/add_product.html:132
+msgid "Select colors"
+msgstr ""
+
+#: templates/commerce/admin/add_product.html:144
+msgid "Reset"
+msgstr ""
+
+#: templates/commerce/admin/add_product.html:147
+msgid "Add color"
+msgstr ""
+
+#: templates/commerce/admin/add_product.html:148
+msgid "Color name"
+msgstr ""
+
+#: templates/commerce/admin/add_product.html:149
+msgid "Color description"
+msgstr ""
+
+#: templates/commerce/admin/add_product.html:151
+#: templates/commerce/admin/add_product.html:168
+#: templates/commerce/admin/add_product.html:186
+#: templates/commerce/admin/add_product.html:305
+msgid "Add"
+msgstr ""
+
+#: templates/commerce/admin/add_product.html:155
+msgid "Sizes"
+msgstr ""
+
+#: templates/commerce/admin/add_product.html:165
+msgid "Add size"
+msgstr ""
+
+#: templates/commerce/admin/add_product.html:166
+msgid "Size name"
+msgstr ""
+
+#: templates/commerce/admin/add_product.html:167
+msgid "Size description"
+msgstr ""
+
+#: templates/commerce/admin/add_product.html:173
+msgid "Brands"
+msgstr ""
+
+#: templates/commerce/admin/add_product.html:183
+msgid "Add Brand"
+msgstr ""
+
+#: templates/commerce/admin/add_product.html:184
+msgid "Brand name"
+msgstr ""
+
+#: templates/commerce/admin/add_product.html:185
+msgid "Brand description"
+msgstr ""
+
+#: templates/commerce/admin/add_product.html:204
+#: templates/commerce/admin/add_product.html:279
+#: templates/commerce/main/commerce/layout.html:451
+msgid "Language"
+msgstr ""
+
+#: templates/commerce/admin/add_product.html:205
+msgid "Name"
+msgstr ""
+
+#: templates/commerce/admin/add_product.html:207
+msgid "Full Description"
+msgstr ""
+
+#: templates/commerce/admin/add_product.html:208
+msgid "Action"
+msgstr ""
+
+#: templates/commerce/admin/add_product.html:270
+msgid "Add translation"
+msgstr ""
+
+#: templates/commerce/admin/add_product.html:294
+#: templates/commerce/admin/add_product.html:296
+msgid "Product description"
+msgstr ""
+
+#: templates/commerce/admin/add_product.html:300
+#: templates/commerce/admin/add_product.html:302
+msgid "Product full description"
+msgstr ""
+
+#: templates/commerce/admin/layout.html:7
+#: templates/commerce/admin/layout.html:9
+msgid "Admin panel"
+msgstr ""
+
+#: templates/commerce/admin/layout.html:36
+msgid "Admin"
+msgstr ""
+
+#: templates/commerce/admin/layout.html:40
+msgid "Main"
+msgstr ""
+
+#: templates/commerce/admin/layout.html:45
+msgid "Product Table"
+msgstr ""
+
+#: templates/commerce/admin/layout.html:48
+msgid "Navigation"
+msgstr ""
+
+#: templates/commerce/admin/layout.html:51
+msgid "Add Product"
+msgstr ""
+
+#: templates/commerce/admin/layout.html:54
+msgid "Pictures"
+msgstr ""
+
+#: templates/commerce/admin/navbar.html:157
+msgid "Icons"
+msgstr ""
+
+#: templates/commerce/admin/navbar.html:549
+#: templates/commerce/main/commerce/contact.html:17
+msgid "Company name"
+msgstr ""
+
+#: templates/commerce/admin/navbar.html:557
+#: templates/commerce/admin/navbar.html:559
+#: templates/commerce/main/auth/register_token.html:21
+#: templates/commerce/main/commerce/contact.html:25
+msgid "Full name"
+msgstr ""
+
+#: templates/commerce/admin/navbar.html:573
+msgid "Address"
+msgstr ""
+
+#: templates/commerce/admin/navbar.html:581
+#: templates/commerce/admin/navbar.html:589
+#: templates/commerce/admin/navbar.html:597
+#: templates/commerce/admin/navbar.html:605
+#: templates/commerce/main/commerce/contact.html:41
+msgid "Phone"
+msgstr ""
+
+#: templates/commerce/admin/navbar.html:613
+#: templates/commerce/admin/navbar.html:615
+#: templates/commerce/main/commerce/contact.html:52
+msgid "Postal code"
+msgstr ""
+
+#: templates/commerce/admin/navbar.html:621
+#: templates/commerce/main/commerce/contact.html:60
+msgid "Email"
+msgstr ""
+
+#: templates/commerce/admin/navbar.html:629
+#: templates/commerce/main/commerce/contact.html:68
+msgid "Working time"
+msgstr ""
+
+#: templates/commerce/main/auth/login.html:20
+msgid "Email Address"
+msgstr ""
+
+#: templates/commerce/main/auth/login.html:33
+#: templates/commerce/main/auth/register_token.html:34
+#: templates/commerce/main/auth/reset_token.html:20
+msgid "Password"
+msgstr ""
+
+#: templates/commerce/main/auth/login.html:43
+msgid "Forgot your password?"
+msgstr ""
+
+#: templates/commerce/main/auth/login.html:53
+msgid "New Customer?"
+msgstr ""
+
+#: templates/commerce/main/auth/login.html:54
+#: templates/commerce/main/auth/register_request.html:49
+msgid "Create an account with us and you’ll be able to"
+msgstr ""
+
+#: templates/commerce/main/auth/login.html:56
+msgid "Check out faster"
+msgstr ""
+
+#: templates/commerce/main/auth/login.html:58
+msgid "Access your order history"
+msgstr ""
+
+#: templates/commerce/main/auth/login.html:59
+msgid "Track new orders"
+msgstr ""
+
+#: templates/commerce/main/auth/login.html:60
+msgid "Save items to your Wishlist"
+msgstr ""
+
+#: templates/commerce/main/auth/login.html:62
+msgid "Create an account"
+msgstr ""
+
+#: templates/commerce/main/auth/register_request.html:20
+msgid "Username"
+msgstr ""
+
+#: templates/commerce/main/auth/register_request.html:48
+#: templates/commerce/main/auth/register_token.html:63
+msgid "Have an account?"
+msgstr ""
+
+#: templates/commerce/main/auth/register_request.html:50
+#: templates/commerce/main/auth/register_token.html:64
+#: templates/commerce/main/commerce/layout.html:67
+#: templates/commerce/main/commerce/layout.html:436
+msgid "Log in"
+msgstr ""
+
+#: templates/commerce/main/auth/register_token.html:11
+msgid "Please, proceed the registration"
+msgstr ""
+
+#: templates/commerce/main/auth/register_token.html:47
+#: templates/commerce/main/auth/reset_token.html:33
+msgid "Confirm password"
+msgstr ""
+
+#: templates/commerce/main/auth/reset_request.html:20
+msgid "Email address"
+msgstr ""
+
+#: templates/commerce/main/commerce/contact.html:33
+msgid "Addess"
+msgstr ""
+
+#: templates/commerce/main/commerce/layout.html:9
+#: templates/commerce/main/commerce/layout.html:11
+msgid "Commerce"
+msgstr ""
+
+#: templates/commerce/main/commerce/layout.html:65
+msgid "Log out"
+msgstr ""
+
+#: templates/commerce/main/commerce/layout.html:82
+#: templates/commerce/main/commerce/layout.html:349
+#: templates/commerce/main/commerce/layout.html:352
+msgid "Home"
+msgstr ""
+
+#: templates/commerce/main/commerce/layout.html:95
+#: templates/commerce/main/commerce/layout.html:317
+msgid "Search"
+msgstr ""
+
+#: templates/commerce/main/commerce/layout.html:97
+#: templates/commerce/main/commerce/layout.html:319
+msgid "All Categories"
+msgstr ""
+
+#: templates/commerce/main/commerce/layout.html:121
+msgid "My Cart"
+msgstr ""
+
+#: templates/commerce/main/commerce/layout.html:269
+msgid "Categories"
+msgstr ""
+
+#: templates/commerce/main/commerce/layout.html:403
+msgid "Menu"
+msgstr ""
+
+#: templates/commerce/main/commerce/layout.html:409
+msgid "Sidebar"
+msgstr ""
+
+#: templates/commerce/main/commerce/layout.html:421
+#: templates/commerce/main/commerce/layout.html:429
+msgid "Global"
+msgstr ""
+
+#: templates/commerce/main/commerce/layout.html:434
+msgid "My Account"
+msgstr ""
+
+#: templates/commerce/main/commerce/layout.html:437
+msgid "Wishlist"
+msgstr ""
+
+#: templates/commerce/main/commerce/layout.html:438
+msgid "Checkout"
+msgstr ""
+
+#: templates/commerce/main/commerce/layout.html:442
+msgid "Currency"
+msgstr ""
+
