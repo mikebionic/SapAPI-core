@@ -106,7 +106,6 @@
               </div>
             </div>
           </div>
-
          
                   <!-- Tab info -->
           <div class="product-tabs single-layout biolife-tab-contain">
@@ -120,7 +119,7 @@
             <div class="tab-content">
               <div id="tab_1st" class="tab-contain desc-tab active">
                 <p class="desc"><textarea class="resFullDesc" cols="80" rows="5" placeholder="Producer, location, properties, outlines, etc ..."></textarea>
-                  <a href="#" class="btn btn-icon btn-danger"><i class="fas fa-times"></i></a>
+                  <button class="btn btn-icon btn-danger" onclick="$('.resFullDesc').val('')"><i class="fas fa-times"></i></button>
                 </p>
               </div>
               <div id="tab_2nd" class="tab-contain addtional-info-tab">
@@ -130,19 +129,13 @@
                   </div>
                   <div class="card-body">
                     <div class="form-group">
-                      <label>{{_('Add color')}}</label>
-                      <input type="text" class="form-control colorName" placeholder="{{_('Color name')}}">
-                      <input type="color" class="form-control colorCode">
-                      <button class="btn btn-info addColorBtn">{{_('Add')}}</button>
-                    </div>
-                    <div class="form-group">
                       <label class="form-label">{{_('Select colors')}}</label>
                       <div class="row gutters-xs colorsList">
                         {% for color in colors %}
                           <div class="col-auto">
                             <label class="colorinput">
                               <input name="color" type="checkbox" value="{{color.ColorId}}" class="colorinput-input resColorId" />
-                              <span class="colorinput-color" style="background: {{color.ColorCode}}"></span>
+                              <span {% if color.ColorDesc %} title="{{ color.ColorDesc }}" {% endif %} class="colorinput-color" style="background: {{color.ColorCode}}"></span>
                             </label>
                           </div>
                         {% endfor %}
@@ -150,38 +143,46 @@
                       <button class="btn btn-primary mr-1" type="submit">{{_('Save')}}</button>
                       <button class="btn btn-secondary" type="reset">{{_('Reset')}}</button>
                     </div>
+                    <div class="form-group">
+                      <label>{{_('Add color')}}</label>
+                      <input type="text" class="form-control colorName" placeholder="{{_('Color name')}}">
+                      <textarea type="text" class="form-control colorDesc" placeholder="{{_('Color description')}}" style="display: none;"></textarea>
+                      <input type="color" class="form-control colorCode">
+                      <button class="btn btn-info addColorBtn">{{_('Add')}}</button>
+                    </div>
                   
                     <div class="form-group">
                       <label class="form-label">{{_('Sizes')}}</label>
-                      <div class="selectgroup selectgroup-pills">
+                      <div class="selectgroup selectgroup-pills sizesList">
                         {% for size in sizes %}
                           <label class="selectgroup-item">
-                            <input type="checkbox" value="{{size.SizeId}}" class="selectgroup-input resSizeId" checked>
-                            <span class="selectgroup-button">{{size.SizeName}}</span>
+                            <input type="checkbox"  value="{{size.SizeId}}" class="selectgroup-input resSizeId">
+                            <span {% if size.SizeDesc %} title="{{ size.SizeDesc }}" {% endif %} class="selectgroup-button">{{size.SizeName}}</span>
                           </label>
                         {% endfor %}
                       </div>
                       <div class="form-group">
                         <label>{{_('Add size')}}</label>
                         <input type="text" class="form-control sizeName" placeholder="{{_('Size name')}}">
+                        <textarea type="text" class="form-control sizeDesc" placeholder="{{_('Size description')}}" style="display: none;"></textarea>
                         <button class="btn btn-info addSizeBtn">{{_('Add')}}</button>
                       </div>
                     </div>
 
                     <div class="form-group">
                       <label class="form-label">{{_('Brands')}}</label>
-                      <div class="selectgroup selectgroup-pills">
+                      <div class="selectgroup selectgroup-pills brandsList">
                         {% for brand in brands %}
                           <label class="selectgroup-item">
-                            <input type="radio" value="{{brand.BrandId}}" class="selectgroup-input resBrandId" checked>
-                            <span class="selectgroup-button">{{brand.BrandName}}</span>
+                            <input type="radio" value="{{brand.BrandId}}" class="selectgroup-input resBrandId">
+                            <span {% if brand.BrandDesc %} title="{{ brand.BrandDesc }}" {% endif %} class="selectgroup-button">{{brand.BrandName}}</span>
                           </label>
                         {% endfor %}
                       </div>
                       <div class="form-group">
                         <label>{{_('Add Brand')}}</label>
                         <input type="text" class="form-control brandName" placeholder="{{_('Brand name')}}">
-                        <!-- brand desc textarea should be added + make it js show() when brandName is filled -->
+                        <textarea type="text" class="form-control brandDesc" placeholder="{{_('Brand description')}}" style="display: none;"></textarea>
                         <button class="btn btn-info addBrandBtn">{{_('Add')}}</button>
                       </div>
                     </div>
@@ -207,24 +208,7 @@
                             <th>{{_('Action')}}</th>
                           </tr>
                         </thead>
-                        <tbody class="translationsTable">
-                          <tr>
-                            <td>1</td>
-                            <td>English</td>
-                            <td>Irwansyah Saputra</td>
-                            <td>Really cool thing to carry with you and everywhere eheheheheheh</td>
-                            <td>
-                              such a coold fasdkf lorem ipsum
-                              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                              quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                              consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                              cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                              proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                            </td>
-                            <td><a href="#" class="btn btn-primary deleteTranslationBtn">x</a></td>
-                          </tr>
-                        </tbody>
+                        <tbody class="translationsTable"></tbody>
                       </table>
                     </div>
                   </div>
@@ -274,44 +258,6 @@
               <button class="btn btn-secondary" type="reset">Reset</button>
             </div>
           </form>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal fade" id="sizeModal" tabindex="-1" role="dialog" aria-labelledby="sizeModalLabel"
-  aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="sizeModalLabel">Modal title</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="selectgroup w-100">
-            <label class="selectgroup-item">
-              <input type="radio" name="radio1" value="1" class="selectgroup-input-radio" checked>
-              <span class="selectgroup-button">S</span>
-            </label>
-            <label class="selectgroup-item">
-              <input type="radio" name="radio1" value="2" class="selectgroup-input-radio">
-              <span class="selectgroup-button">M</span>
-            </label>
-            <label class="selectgroup-item">
-              <input type="radio" name="radio1" value="3" class="selectgroup-input-radio">
-              <span class="selectgroup-button">L</span>
-            </label>
-            <label class="selectgroup-item">
-              <input type="radio" name="radio1" value="4" class="selectgroup-input-radio">
-              <span class="selectgroup-button">XL</span>
-            </label>
-          </div>
-        </div>
-        <div class="modal-footer bg-whitesmoke br">
-          <button type="button" class="btn btn-primary">Save changes</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
@@ -379,5 +325,8 @@
   <script src="{{ url_for('static', filename='commerce/admin/js/translations.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/js/images.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/js/colors.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/admin/js/sizes.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/admin/js/brands.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/admin/js/propertiesMain.js') }}"></script>
 
 {% endblock %}

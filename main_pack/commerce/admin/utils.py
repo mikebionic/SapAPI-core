@@ -194,7 +194,7 @@ def addBrandDict(req):
 	}
 	return brand
 
-# brand_forms = ['brandId','brandName,'brandDesc']
+# brand_forms = ['brandId','brandName','brandDesc']
 
 
 def addColorDict(req):
@@ -223,6 +223,8 @@ def addSizeDict(req):
 	}
 	return size
 
+# size_forms = ['sizeId','sizeName','sizeDesc','sizeTypeId']
+
 def addSizeTypeDict(req):
 	# SizeTypeId = req.get('sizeTypeId')
 	SizeTypeName = req.get('sizeTypeName')
@@ -232,6 +234,9 @@ def addSizeTypeDict(req):
 		'SizeTypeDesc':SizeTypeDesc
 	}
 	return size_type
+
+# size_type_forms = ['sizeTypeId','sizeTypeName','sizeTypeDesc']
+
 
 def addResourceColorDict(req):
 	# RcId = req.get('rcId')
@@ -254,6 +259,8 @@ def addResourceSizeDict(req):
 		'SizeId':SizeId
 	}
 	return res_size
+
+# res_size_forms = ['rsId','resId','sizeId']
 
 def addResPriceDict(req):
 	# ResPriceId = req.get('resPriceId')
@@ -279,6 +286,9 @@ def addResPriceDict(req):
 		'PriceEndDate':PriceEndDate
 	}
 	return res_price
+
+# res_price_forms = ['resPriceId','resPriceTypeId','resPriceGroupId','unitId','currencyId',
+# 	'resId','resPriceRegNo','resPriceValue','priceStartDate','priceEndDate']
 
 def addResTransDict(req):
 	# ResTansId = req.get('resTansId')
