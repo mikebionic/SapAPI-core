@@ -55,6 +55,16 @@
               <p class="excerpt"><input type="text" class="txt-input resRegNo" placeholder="{{_('Registration Number')}}"></p>
               <p class="excerpt"><h3 class="title"><textarea class="resName" cols="30" rows="2" placeholder="{{_('Product name')}}"></textarea></h3></p>
               <p class="excerpt"><textarea class="resDesc" cols="30" rows="4" placeholder="{{_('Description')}}"></textarea></p>
+              <div class="form-group">
+                <div class="control-label"></div>
+                <label class="custom-switch mt-2">
+                  <span class="custom-switch-description">{{_('Production on sale')}}</span>
+                  <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input resOnSale" checked>
+                  <span class="custom-switch-indicator"></span>
+                </label>
+              </div>
+
+
                <p class="excerpt"><ul class="section-title barcodeList">{{_('Barcode')}}</ul></p>
               <div class="input-group">
                 <input type="text" placeholder="{{_('Barcode')}}" class="txt-input barcodeVal"><button class="btn btn-primary addBarcodeBtn" type="button">+</button>
@@ -76,7 +86,7 @@
               <div class="quantity-box">
                 <span class="title">{{_('Quantity')}}:</span>
                 <div class="qty-input">
-                  <input type="text" data-max_value="9999999" data-min_value="1" value="1" data-step="1">
+                  <input type="text" name="qty12554" data-min_value="1" value="1" data-step="1">
                   <a href="#" class="qty-btn btn-up"><i class="fa fa-caret-up" aria-hidden="true"></i></a>
                   <a href="#" class="qty-btn btn-down"><i class="fa fa-caret-down" aria-hidden="true"></i></a>
                 </div>
@@ -95,10 +105,12 @@
 
               <div class="price-box">
                 <span class="title">{{_('Price')}}:</span>
+
+
                 <div class="qty-input">
                     <input type="hidden" class="resPriceRegNo" value>
                     <input type="hidden" class="resPriceId" value>
-                    <input type="text" data-min_value="0" value="1" data-step="1">
+                    <input type="text" name="qty12554" data-min_value="0" class="resPriceValue" value="1" data-step="1">
                     <a href="#" class="qty-btn btn-up"><i class="fa fa-caret-up" aria-hidden="true"></i></a>
                     <a href="#" class="qty-btn btn-down"><i class="fa fa-caret-down" aria-hidden="true"></i></a>
                 </div>
@@ -118,6 +130,13 @@
             </div>
             <div class="tab-content">
               <div id="tab_1st" class="tab-contain desc-tab active">
+                <div class="form-group col-12 col-md-6 col-lg-6">
+                  <label>{{_('Size and form')}}</label>
+                  <input type="text" class="form-control resWidth" placeholder="{{_('Width')}}">
+                  <input type="text" class="form-control resHeight" placeholder="{{_('Height')}}">
+                  <input type="text" class="form-control resLength" placeholder="{{_('Length')}}">
+                  <input type="text" class="form-control resWeight" placeholder="{{_('Weight')}}">
+                </div>      
                 <p class="desc"><textarea class="resFullDesc" cols="80" rows="5" placeholder="Producer, location, properties, outlines, etc ..."></textarea>
                   <button class="btn btn-icon btn-danger" onclick="$('.resFullDesc').val('')"><i class="fas fa-times"></i></button>
                 </p>
@@ -132,12 +151,14 @@
                       <label class="form-label">{{_('Select colors')}}</label>
                       <div class="row gutters-xs colorsList">
                         {% for color in colors %}
-                          <div class="col-auto">
-                            <label class="colorinput">
-                              <input name="color" type="checkbox" value="{{color.ColorId}}" class="colorinput-input resColorId" />
-                              <span {% if color.ColorDesc %} title="{{ color.ColorDesc }}" {% endif %} class="colorinput-color" style="background: {{color.ColorCode}}"></span>
-                            </label>
-                          </div>
+                          {% if color.GCRecord == None or color.GCRecord == '' %}
+                            <div class="col-auto">
+                              <label class="colorinput">
+                                <input name="color" type="checkbox" value="{{color.ColorId}}" class="colorinput-input resColorId" />
+                                <span {% if color.ColorDesc %} title="{{ color.ColorDesc }}" {% endif %} class="colorinput-color" style="background: {{color.ColorCode}}"></span>
+                              </label>
+                            </div>
+                          {% endif %}
                         {% endfor %}
                       </div>
                       <button class="btn btn-primary mr-1 saveResColorBtn">{{_('Save')}}</button>
@@ -154,10 +175,12 @@
                       <label class="form-label">{{_('Sizes')}}</label>
                       <div class="selectgroup selectgroup-pills sizesList">
                         {% for size in sizes %}
-                          <label class="selectgroup-item">
-                            <input type="checkbox"  value="{{size.SizeId}}" class="selectgroup-input resSizeId">
-                            <span {% if size.SizeDesc %} title="{{ size.SizeDesc }}" {% endif %} class="selectgroup-button">{{size.SizeName}}</span>
-                          </label>
+                          {% if size.GCRecord == None or size.GCRecord == '' %}
+                            <label class="selectgroup-item">
+                              <input type="checkbox"  value="{{size.SizeId}}" class="selectgroup-input resSizeId">
+                              <span {% if size.SizeDesc %} title="{{ size.SizeDesc }}" {% endif %} class="selectgroup-button">{{size.SizeName}}</span>
+                            </label>
+                          {% endif %}
                         {% endfor %}
                       </div>
                       <button class="btn btn-primary mr-1 saveResSizeBtn" type="submit">{{_('Save')}}</button>
@@ -178,10 +201,12 @@
                           <span class="selectgroup-button">None</span>
                         </label>
                         {% for brand in brands %}
-                          <label class="selectgroup-item">
-                            <input type="checkbox" value="{{brand.BrandId}}" class="selectgroup-input resBrandId">
-                            <span {% if brand.BrandDesc %} title="{{ brand.BrandDesc }}" {% endif %} class="selectgroup-button">{{brand.BrandName}}</span>
-                          </label>
+                          {% if brand.GCRecord == None or brand.GCRecord == '' %}
+                            <label class="selectgroup-item">
+                              <input type="checkbox" value="{{brand.BrandId}}" class="selectgroup-input resBrandId">
+                              <span {% if brand.BrandDesc %} title="{{ brand.BrandDesc }}" {% endif %} class="selectgroup-button">{{brand.BrandName}}</span>
+                            </label>
+                          {% endif %}
                         {% endfor %}
                       </div>
                       <div class="form-group">
@@ -190,33 +215,6 @@
                         <textarea type="text" class="form-control brandDesc" placeholder="{{_('Brand description')}}" style="display: none;"></textarea>
                         <button class="btn btn-info addBrandBtn">{{_('Add')}}</button>
                       </div>
-
-
-
-
-                      <div class="form-group">
-                      <label class="form-label">Icon input</label>
-                      <div class="selectgroup selectgroup-pills">
-                        <label class="selectgroup-item">
-                          <input type="radio" name="icon-input" value="1" class="selectgroup-input" checked>
-                          <span class="selectgroup-button selectgroup-button-icon"><i class="fas fa-sun"></i></span>
-                        </label>
-                        <label class="selectgroup-item">
-                          <input type="radio" name="icon-input" value="2" class="selectgroup-input">
-                          <span class="selectgroup-button selectgroup-button-icon"><i class="fas fa-moon"></i></span>
-                        </label>
-                        <label class="selectgroup-item">
-                          <input type="radio" name="icon-input" value="3" class="selectgroup-input">
-                          <span class="selectgroup-button selectgroup-button-icon"><i
-                              class="fas fa-cloud-rain"></i></span>
-                        </label>
-                        <label class="selectgroup-item">
-                          <input type="radio" name="icon-input" value="4" class="selectgroup-input">
-                          <span class="selectgroup-button selectgroup-button-icon"><i class="fas fa-cloud"></i></span>
-                        </label>
-                      </div>
-                    </div>
-
                     </div>
                   </div>
                 </div>
@@ -248,6 +246,7 @@
               </div>
             </div>
             <button class="btn btn-icon icon-left btn-success submitButton" style="float: right;"><i class="fas fa-check"></i> {{_('Save')}}</button>
+            <a href="{{ url_for('commerce_admin.add_product') }}" class="btn btn-icon icon-left btn-info" style="float: right;"><i class="fas fa-plus-circle"></i> {{_('Add new product')}}</a>
           </div>
         </div>
       </div>

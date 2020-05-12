@@ -2,7 +2,7 @@ from flask import render_template, url_for, jsonify, json, session, flash, redir
 from flask_login import current_user,login_required
 from main_pack import db,babel,gettext,lazy_gettext
 from main_pack.commerce.commerce import bp
-from main_pack.commerce.commerce.utils import commonUsedData
+from main_pack.commerce.commerce.utils import commonUsedData,realResRelatedData
 
 @bp.route("/")
 def commerce():
@@ -43,3 +43,24 @@ def category_list():
 def category_grid():
 	commonData = commonUsedData()
 	return render_template ("commerce/main/commerce/category_grid.html",**commonData,title=gettext('Category'))
+
+
+
+########################
+@bp.route("/commerce_test")
+def commerce_test():
+	commonData = commonUsedData()
+	resData = realResRelatedData()
+	return render_template ("commerce/main/commerce/commerce_test.html",**commonData,**resData)
+
+@bp.route("/list_test")
+def list_test():
+	commonData = commonUsedData()
+	resData = realResRelatedData()
+	return render_template ("commerce/main/commerce/list_test.html",**commonData,**resData)
+
+@bp.route("/grid_test")
+def grid_test():
+	commonData = commonUsedData()
+	resData = realResRelatedData()
+	return render_template ("commerce/main/commerce/grid_test.html",**commonData,**resData)

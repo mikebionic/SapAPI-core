@@ -5,7 +5,7 @@ from main_pack.commerce.admin import bp
 
 from main_pack.commerce.admin.utils import prepare_data
 from main_pack.commerce.commerce.utils import commonUsedData
-from main_pack.commerce.admin.utils import resRelatedData
+from main_pack.commerce.admin.utils import resRelatedData,realResRelatedData
 
 @bp.route("/admin/dashboard")
 def dashboard():
@@ -22,13 +22,10 @@ def picture():
 
 @bp.route("/admin/product_table")
 def product_table():
-	return render_template ("commerce/admin/product_table.html",title=gettext('Product table'))
-
-@bp.route("/admin/single_product")
-def single_product():
-	return render_template ("commerce/admin/single_product.html",title=gettext('Single product'))
+	resData=realResRelatedData()
+	return render_template ("commerce/admin/product_table.html",**resData,title=gettext('Product table'))
 
 @bp.route("/admin/add_product")
 def add_product():
 	resData=resRelatedData()
-	return render_template ("commerce/admin/add_product.html",**resData,title=gettext('Single product'))
+	return render_template ("commerce/admin/add_product.html",**resData,title=gettext('Add product'))

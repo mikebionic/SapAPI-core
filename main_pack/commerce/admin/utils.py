@@ -11,6 +11,76 @@ from main_pack.models.base.models import Image
 from main_pack.models.base.models import Language
 from main_pack.models.commerce.models import Color,Size,Brand
 
+
+##### for realResRelatedData
+from main_pack.models.commerce.models import Resource 
+def realResRelatedData():
+	resRelatedData = {}
+	resources = Resource.query.all()
+	barcodes = Barcode.query.all()
+	resColors = Res_color.query.all()
+	resSizes = Res_size.query.all()
+	resTranslations = Res_translations.query.all()
+	resUnits = Res_unit.query.all()
+	resPrices = Res_price.query.all()
+	resTotals = Res_total.query.all()
+	resTransactions = Res_transaction.query.all()
+	resDiscounts = Res_discount.query.all()
+
+	images = Image.query.all()
+	units = Unit.query.all()
+	brands = Brand.query.all()
+	usageStatuses = Usage_status.query.all()
+	resCategories = Res_category.query.all()
+	resTypes = Res_type.query.all()
+	resMakers = Res_maker.query.all()
+	rpAccs = Rp_acc.query.all()
+	languages = Language.query.all()
+	colors = Color.query.all()
+	sizes = Size.query.all()
+	brands = Brand.query.all()
+
+	subcategory_children = []
+	subcategory = Res_category.query.filter(Res_category.ResOwnerCatId!=0)
+	for category in subcategory:
+		parents = Res_category.query.filter(Res_category.ResCatId==category.ResOwnerCatId)
+		for parent in parents:
+			if (parent.ResOwnerCatId == '' or parent.ResOwnerCatId == None or parent.ResOwnerCatId == 0):
+				pass
+			else:
+				subcategory_children.append(category)
+
+	resRelatedData = {
+		'resources':resources,
+		'barcodes':barcodes,
+		'resColors':resColors,
+		'resSizes':resSizes,
+		'resTranslations':resTranslations,
+		'resUnits':resUnits,
+		'resPrices':resPrices,
+		'resTotals':resTotals,
+		'resTransactions':resTransactions,
+		'resDiscounts':resDiscounts,
+
+		'images':images,
+		'units':units,
+		'brands':brands,
+		'usageStatuses':usageStatuses,
+		'resCategories':resCategories,
+		'resTypes':resTypes,
+		'resMakers':resMakers,
+		'rpAccs':rpAccs,
+		'languages':languages,
+		'colors':colors,
+		'sizes':sizes,
+		'brands':brands,
+		'subcategory_children':subcategory_children,
+		}
+
+	return resRelatedData
+
+
+
 def resRelatedData():
 	resRelatedData = {}
 	units = Unit.query.all()
@@ -125,15 +195,15 @@ def addResourceDict(req):
 	ResName = req.get('resName')
 	ResDesc = req.get('resDesc')
 	ResFullDesc = req.get('resFullDesc')
-	ResWidth = req.get('resWidth')
-	ResHeight = req.get('resHeight')
-	ResLength = req.get('resLength')
-	ResWeight = req.get('resWeight')
-	ResProductionOnSale = req.get('resOnSale')
-	ResMinSaleAmount = req.get('resMinSaleAmount')
-	ResMaxSaleAmount = req.get('resMaxSaleAmount')
-	ResMinSalePrice = req.get('resMinSalePrice')
-	ResMaxSalePrice = req.get('resMaxSalePrice')
+	ResWidth = configureFloat(req.get('resWidth'))
+	ResHeight = configureFloat(req.get('resHeight'))
+	ResLength = configureFloat(req.get('resLength'))
+	ResWeight = configureFloat(req.get('resWeight'))
+	ResProductionOnSale = boolCheck(req.get('resOnSale'))
+	ResMinSaleAmount = configureFloat(req.get('resMinSaleAmount'))
+	ResMaxSaleAmount = configureFloat(req.get('resMaxSaleAmount'))
+	ResMinSalePrice = configureFloat(req.get('resMinSalePrice'))
+	ResMaxSalePrice = configureFloat(req.get('resMaxSalePrice'))
 	resource = {
 		'CId':CId,
 		'DivId':DivId,
@@ -270,9 +340,10 @@ def addResPriceDict(req):
 	CurrencyId = req.get('currencyId')
 	ResId = req.get('resId')
 	ResPriceRegNo = req.get('resPriceRegNo')
-	ResPriceValue = req.get('resPriceValue')
+	ResPriceValue = configureFloat(req.get('resPriceValue'))
 	PriceStartDate = req.get('priceStartDate')
 	PriceEndDate = req.get('priceEndDate')
+	print(ResPriceValue)
 	res_price = {
 		# 'ResPriceId':ResPriceId,
 		'ResPriceTypeId':ResPriceTypeId,
@@ -356,6 +427,13 @@ def addImageDict(req):
 
 
 ############ useful methods ############# 
+def configureFloat(value):
+	try:
+		value = float(value)
+	except:
+		value = 0
+	return value
+
 def boolCheck(value):
 	if value == 'False' or value == 'false' or value == '0' or value == 0:
 		value = False
@@ -364,7 +442,6 @@ def boolCheck(value):
 	else:
 		value = False
 	return value
-	print(value)
 
 def dateDataCheck(date):
 	try:

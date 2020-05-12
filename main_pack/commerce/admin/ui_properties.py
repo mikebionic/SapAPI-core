@@ -93,7 +93,6 @@ def ui_res_color():
 		try:
 			for resColorReq in req:
 				resColor = addResColorDict(resColorReq)
-				print(resColor)
 				rcId = resColor.get('rcId')
 				if (rcId == '' or rcId == None):
 					newResColor = Res_color(**resColor)
@@ -126,45 +125,33 @@ def ui_res_color():
 def ui_res_size():
 	if request.method == 'POST':
 		req = request.get_json()
-		responses=[]
 		try:
-			for resColorReq in req:
-				resColor = addResColorDict(resColorReq)
-				print(resColor)
-				rcId = resColor.get('rcId')
-				if (rcId == '' or rcId == None):
-					newResColor = Res_color(**resColor)
-					db.session.add(newResColor)
+			for resSizeReq in req:
+				resSize = addResSizeDict(resSizeReq)
+				rsId = resSize.get('rsId')
+				if (rsId == '' or rsId == None):
+					newResSize = Res_size(**resSize)
+					db.session.add(newResSize)
 					db.session.commit()
-					response = {
-						'rcId':newResColor.RcId,
-						'fileName':newResColor.FileName,
-						}
-					responses.append(response)
-			
-			fullResponse={
+			response = jsonify({
 				'status':'created',
-				'responseText':gettext('Product colors')+' '+gettext('successfully saved'),
-				}
-			fullResponse['responses']=responses
-			response = fullResponse
+				'responseText':gettext('Product sizes')+' '+gettext('successfully saved'),
+				})
 		except:
 			response = jsonify({
 				'status':'error',
 				'responseText':gettext('Unknown error!'),
 				})
-		print('end response is ')
-		print(response)
 
 	if request.method == 'DELETE':
 		req = request.get_json()
-		rcId = req.get('rcId')
-		thisResColor = Res_color.query.get(rcId)
-		thisResColor.GCRecord == 1
+		rsId = req.get('rsId')
+		thisResSize = Res_size.query.get(rsId)
+		thisResSize.GCRecord == 1
 		response = jsonify({
-			'rcId':thisResColor.RcId,
+			'rsId':thisResSize.RsId,
 			'status':'deleted',
-			'responseText':gettext('Product colors')+' '+gettext('successfully deleted')
+			'responseText':gettext('Product sizes')+' '+gettext('successfully deleted')
 		})
 	return response
 

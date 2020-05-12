@@ -3,7 +3,8 @@ res_size_forms = ['rsId','resId','resSizeId']
 
 $("body").delegate('.saveResSizeBtn','click',function(event){
 	resourceData = prepareFormData(res_forms,'');
-	resSizeData = prepareresSizeData();
+	resSizeData = prepareResSizeData();
+	console.log(resSizeData)
 	if($('.'+res_forms[0]).val()==''){
 		if (validateInput(required_res_fields)==true){
 			beforeCreated(resourceData,res_forms[0],"/commerce/ui/resource/",function(){
@@ -32,7 +33,7 @@ function resSizeDict(formFields){
 	return resSizeData;
 }
 
-function prepareresSizeData(){
+function prepareResSizeData(){
 	var allData = [];
 	$('.sizesList .resSizeId:checked').each(function(){
 		resSizeData=resSizeDict(res_size_forms);
