@@ -3,6 +3,7 @@ from flask_login import current_user,login_required
 from main_pack import db,babel,gettext,lazy_gettext
 from main_pack.commerce.commerce import bp
 from main_pack.commerce.commerce.utils import commonUsedData,realResRelatedData
+from main_pack.models.commerce.models import Resource
 
 @bp.route("/")
 def commerce():
@@ -30,9 +31,9 @@ def cart():
 	return render_template ("commerce/main/commerce/cart.html",**commonData,title=gettext('Cart'))
 
 @bp.route("/product")
-def product():
+def product_ol():
 	commonData = commonUsedData()
-	return render_template ("commerce/main/commerce/product.html",**commonData,title=gettext('Product'))
+	return render_template ("commerce/main/commerce/product_ol.html",**commonData,title=gettext('Product'))
 
 @bp.route("/category_list")
 def category_list():
@@ -46,21 +47,75 @@ def category_grid():
 
 
 
-########################
+############ tests ############
 @bp.route("/commerce_test")
 def commerce_test():
+	resources = Resource.query.order_by(Resource.CreatedDate.desc())
 	commonData = commonUsedData()
 	resData = realResRelatedData()
-	return render_template ("commerce/main/commerce/commerce_test.html",**commonData,**resData)
+	return render_template ("commerce/main/commerce/commerce_test.html",
+		resources=resources,**commonData,**resData)
 
-@bp.route("/list_test")
-def list_test():
+@bp.route("/list_view")
+def list_view():
+	resources = Resource.query.order_by(Resource.CreatedDate.desc())
 	commonData = commonUsedData()
 	resData = realResRelatedData()
-	return render_template ("commerce/main/commerce/list_test.html",**commonData,**resData)
+	return render_template ("commerce/main/commerce/list_view.html",
+		resources=resources,**commonData,**resData,title=gettext('Category'))
 
-@bp.route("/grid_test")
-def grid_test():
+@bp.route("/grid_view")
+def grid_view():
+	resources = Resource.query.order_by(Resource.CreatedDate.desc())
 	commonData = commonUsedData()
 	resData = realResRelatedData()
-	return render_template ("commerce/main/commerce/grid_test.html",**commonData,**resData)
+	return render_template ("commerce/main/commerce/grid_view.html",
+		resources=resources,**commonData,**resData,title=gettext('Category'))
+
+
+
+
+
+
+#  pagiantions ########
+@bp.route("/list_paginate")
+def list_paginate():
+	page = request.args.get('page',1,type=int)
+	resources = Resource.query.filter(Resource.GCRecord=='' or Resource.GCRecord==None)\
+		.order_by(Resource.CreatedDate.desc()).paginate(per_page=20,page=page)
+	commonData = commonUsedData()
+	resData = realResRelatedData()
+	return render_template ("commerce/main/commerce/list_paginate.html",
+		resources=resources,**commonData,**resData,title=gettext('Category'))
+
+@bp.route("/grid_paginate")
+def grid_paginate():
+	page = request.args.get('page',1,type=int)
+	resources = Resource.query.filter(Resource.GCRecord=='' or Resource.GCRecord==None)\
+		.order_by(Resource.CreatedDate.desc()).paginate(per_page=20,page=page)
+	commonData = commonUsedData()
+	resData = realResRelatedData()
+	return render_template ("commerce/main/commerce/grid_paginate.html",
+		resources=resources,**commonData,**resData,title=gettext('Category'))
+
+
+@bp.route("/products/<string:category>")
+def category_product(category):
+	page = request.args.get('page',1,type=int)
+	resources = Resource.query.filter_by(ResCatName=category)\
+		.order_by(Resource.CreatedDate.desc())\
+		.paginate(per_page=5,page=page)
+	commonData = commonUsedData()
+	resData = realResRelatedData()
+	return render_template ("commerce/main/commerce/grid_view.html",
+		resources=resources,**commonData,**resData,title=gettext('Category'))
+
+
+
+@bp.route("/product/<int:resId>")
+def product(resId):
+	resource = Resource.query.get(resId)
+	commonData = commonUsedData()
+	resData = realResRelatedData()
+	return render_template ("commerce/main/commerce/product.html",
+		resource=resource,**commonData,**resData,title=gettext('Product'))

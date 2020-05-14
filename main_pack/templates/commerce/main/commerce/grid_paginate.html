@@ -4,42 +4,35 @@
 
   <div class="row">
     <ul class="products-list">
-      {% for resource in resources %}
-        {% if resource.ResProductionOnSale==True and (resource.GCRecord == None or resource.GCRecord == '') %}
+      {% for resource in resources.items %}
+        {% if resource.GCRecord == None or resource.GCRecord == '' %}
           <li class="product-item col-lg-4 col-md-4 col-sm-4 col-xs-6">
             <div class="sin-product">
               <div class="pro-image fix">
                 {% if resource.ResMainImgId != 0 and resource.ResMainImgId != '' %}
                   {% for image in images %}
                     {% if image.ImgId==resource.ResMainImgId %}
-                      <a href="#{{resource.ResId}}"class="image">
+                      <a href="{{ url_for('commerce.product',resId=resource.ResId)}}"class="image">
                         <img src="{{ url_for('static', filename='commerce/uploads/'+image.FileName) }}" width="270" height="270" class="product-thumnail"/>
                       </a>
                       <div class="pro-action">
-                        <a href="cart.html" class="action-btn cart"><i class="fa fa-fw fa-shopping-cart"></i></a>
+                        <a href="{{ url_for('commerce.product',resId=resource.ResId)}}" class="action-btn cart"><i class="fa fa-fw fa-shopping-cart"></i></a>
                         <a href="#" class="action-btn wishlist"><i class="fa fa-fw fa-heart-o"></i></a>
                       </div>
                     {% endif %}
                   {% endfor %}
                 {% else %}
-                  <a href="#{{resource.ResId}}"class="image">
+                  <a href="{{ url_for('commerce.product',resId=resource.ResId)}}"class="image">
                     <img src="{{ url_for('static', filename='commerce/uploads/noPhoto.jpg') }}" width="270" height="270" class="product-thumnail"/>
                   </a>
                   <div class="pro-action">
-                    <a href="cart.html" class="action-btn cart"><i class="fa fa-fw fa-shopping-cart"></i></a>
+                    <a href="{{ url_for('commerce.product',resId=resource.ResId)}}" class="action-btn cart"><i class="fa fa-fw fa-shopping-cart"></i></a>
                     <a href="#" class="action-btn wishlist"><i class="fa fa-fw fa-heart-o"></i></a>
                   </div>
                 {% endif %}
               </div>
               <div class="pro-details text-center">
-                <div class="top fix">
-                  <i class="fa fa-fw fa-star"></i>
-                  <i class="fa fa-fw fa-star"></i>
-                  <i class="fa fa-fw fa-star"></i>
-                  <i class="fa fa-fw fa-star"></i>
-                  <i class="fa fa-fw fa-star"></i>
-                </div>
-                <a href="#" class="pro-title">{{resource.ResName}}</a>
+                <a href="{{ url_for('commerce.product',resId=resource.ResId)}}" class="pro-title">{{'' if resource.ResName==None else resource.ResName}}</a>
                 <h3 class="pro-price">
                   <span class="new">
                     {% for resPrice in resPrices %}
@@ -65,12 +58,17 @@
 {% block paginate %}
   <div class="biolife-panigations-block">
     <ul class="panigation-contain">
-      <li><span class="current-page">1</span></li>
-      <li><a href="#" class="link-page">2</a></li>
-      <li><a href="#" class="link-page">3</a></li>
-      <li><span class="sep">....</span></li>
-      <li><a href="#" class="link-page">20</a></li>
-      <li><a href="#" class="link-page next"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+      {% for page_num in resources.iter_pages(left_edge=1, right_edge=1, left_current=2, right_current=3) %}
+        {% if page_num %}
+          {% if resources.page == page_num %}
+            <li><span class="current-page">{{ page_num }}</span></li>
+          {% else %}
+            <li><a href="{{ url_for('commerce.grid_paginate', page=page_num) }}" class="link-page">{{ page_num }}</a></li>
+          {% endif %}
+        {% else %}
+          <li><span class="sep">...</span></li>
+        {% endif %}
+      {% endfor %}
     </ul>
   </div>
 {% endblock %}

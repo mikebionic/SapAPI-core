@@ -79,7 +79,7 @@ def realResRelatedData():
 				subcategory_children.append(category)
 
 	resRelatedData = {
-		'resources':resources,
+		# 'resources':resources,
 		'barcodes':barcodes,
 		'resColors':resColors,
 		'resSizes':resSizes,

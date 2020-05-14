@@ -137,7 +137,7 @@
                   <input type="text" class="form-control resLength" placeholder="{{_('Length')}}">
                   <input type="text" class="form-control resWeight" placeholder="{{_('Weight')}}">
                 </div>      
-                <p class="desc"><textarea class="resFullDesc" cols="80" rows="5" placeholder="Producer, location, properties, outlines, etc ..."></textarea>
+                <p class="desc"><textarea class="resFullDesc" cols="80" rows="5" placeholder="{{_('Producer, location, properties, outlines, etc')}} ..."></textarea>
                   <button class="btn btn-icon btn-danger" onclick="$('.resFullDesc').val('')"><i class="fas fa-times"></i></button>
                 </p>
               </div>
@@ -196,10 +196,6 @@
                     <div class="form-group">
                       <label class="form-label">{{_('Brands')}}</label>
                       <div class="selectgroup selectgroup-pills brandsList">
-                        <label class="selectgroup-item">
-                          <input type="radio" value class="selectgroup-input" checked>
-                          <span class="selectgroup-button">None</span>
-                        </label>
                         {% for brand in brands %}
                           {% if brand.GCRecord == None or brand.GCRecord == '' %}
                             <label class="selectgroup-item">

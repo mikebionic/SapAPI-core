@@ -24,9 +24,9 @@
                 {% endif %}
               </div>
               <div class="info">
-                <b class="categories">{{resource.ResName}}</b>
-                <h4 class="product-title"><a href="#" class="pr-name">{{resource.ResDesc}}</a></h4>
-                <p class="excerpt">{{resource.ResFullDesc}}</p>
+                <b class="categories">{{ '' if resource.ResName==None else resource.ResName}}</b>
+                <h4 class="product-title"><a href="#" class="pr-name">{{'' if resource.ResDesc==None else resource.ResDesc}}</a></h4>
+                <p class="excerpt">{{'' if resource.ResFullDesc==None else resource.ResFullDesc}}</p>
                 <div class="price">
                   <ins><span class="price-amount">
                     <span class="currencySymbol">TMT</span>
