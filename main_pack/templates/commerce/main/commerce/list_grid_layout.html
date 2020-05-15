@@ -10,10 +10,10 @@
     {% else %}
       <title>{{_('Commerce')}}</title>
     {% endif %}
-    <link href="https://fonts.googleapis.com/css?family=Cairo:400,600,700&amp;display=swap" rel="stylesheet">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Cairo:400,600,700&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins:600&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400i,700i" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Ubuntu&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu&amp;display=swap" rel="stylesheet"> -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='commerce/main/images/favicon.png') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/animate.min.css') }}">
@@ -111,41 +111,18 @@
                     <a href="javascript:void(0)" class="link-to">
                             <span class="icon-qty-combine">
                                 <i class="icon-cart-mini biolife-icon"></i>
-                                <span class="qty">8</span>
+                                <span class="qty cartItemsQty"></span>
                             </span>
-                        <span class="title">{{_('My Cart')}} -</span>
-                        <span class="sub-total">$0.00</span>
+                        <span class="title">{{_('My Cart')}} TMT</span>
+                        <span class="sub-total cartTotalPrice">0.00</span>
                     </a>
                     <div class="cart-content">
                       <div class="cart-inner">
 <!--         USER's Cart here !!!       -->
-                        <ul class="products ">
-                          <li>
-                            <div class="minicart-item">
-                              <div class="thumb">
-                                <a href="#"><img src="{{ url_for('static', filename='commerce/main/images/product/28.jpg') }}" width="90" height="90" alt="National Fresh"></a>
-                              </div>
-                              <div class="left-info">
-                                <div class="product-title"><a href="#" class="product-name">National Fresh Fruit</a></div>
-                                <div class="price">
-                                  <ins><span class="price-amount"><span class="currencySymbol">£</span>85.00</span></ins>
-                                  <del><span class="price-amount"><span class="currencySymbol">£</span>95.00</span></del>
-                                </div>
-                                <div class="qty">
-                                  <label for="cart[id123][qty]">Qty:</label>
-                                  <input type="number" class="input-qty" name="cart[id123][qty]" id="cart[id123][qty]" value="1" disabled>
-                                </div>
-                              </div>
-                              <div class="action">
-                                <a href="#" class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                <a href="#" class="remove"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-                              </div>
-                            </div>
-                          </li>
-                        </ul>
+                        <ul class="products cartItemsList"></ul>
                         <p class="btn-control">
-                          <a href="#" class="btn view-cart">view cart</a>
-                          <a href="#" class="btn">checkout</a>
+                          <a href="{{ url_for('commerce.cart') }}" class="btn view-cart">{{_('View cart')}}</a>
+                          <a href="#" class="btn checkoutBtn">{{_('Checkout')}}</a>
                         </p>
                       </div>
                     </div>
@@ -197,7 +174,7 @@
                           {% for subcategory_child in subcategory_children %}
                           {% if subcategory_child.GCRecord == None or subcategory_child.GCRecord == '' %}
                             {% if subcategory_child.ResOwnerCatId == subcategory.ResCatId %}
-                              <li><a href="#" {% if subcategory_child.ResCatDesc %} title="{{ subcategory_child.ResCatDesc }}" {% endif %}>{{ subcategory_child.ResCatName }}</a></li>
+                              <li><a href="{{ url_for(pagination_url,catName=subcategory_child.ResCatName)}}" {% if subcategory_child.ResCatDesc %} title="{{ subcategory_child.ResCatDesc }}" {% endif %}>{{ subcategory_child.ResCatName }}</a></li>
                             {% endif %}
                           {% endif %}
                         {% endfor %}
@@ -320,12 +297,12 @@
                     <div class="wrap-selectors">
                         <div class="selector-item orderby-selector">
                             <select name="orderby" class="orderby" aria-label="Shop order">
-                                <option value="menu_order" selected="selected">Default sorting</option>
-                                <option value="popularity">popularity</option>
-                                <option value="rating">average rating</option>
-                                <option value="date">newness</option>
-                                <option value="price">price: low to high</option>
-                                <option value="price-desc">price: high to low</option>
+                                <option value="menu_order" selected="selected">{{_('Default sorting')}}</option>
+                                <option value="popularity">{{_('popularity')}}</option>
+                                <option value="rating">{{_('average rating')}}</option>
+                                <option value="date">{{_('newness')}}</option>
+                                <option value="price">{{_('price')}}: {{_('low to high')}}</option>
+                                <option value="price-desc">{{_('price')}}: {{_('high to low')}}</option>
                             </select>
                         </div>
                         <div class="selector-item viewmode-selector">
@@ -358,7 +335,7 @@
     <!-- Sidebar -->
     <aside id="sidebar" class="sidebar col-lg-3 col-md-4 col-sm-12 col-xs-12">
       <div class="biolife-mobile-panels">
-        <span class="biolife-current-panel-title">Sidebar</span>
+        <span class="biolife-current-panel-title">{{_('Sidebar')}}</span>
         <a class="biolife-close-btn" href="#" data-object="open-mobile-filter">&times;</a>
       </div>
       <div class="sidebar-contain">
@@ -569,6 +546,8 @@
     <script src="{{ url_for('static', filename='commerce/main/js/slick.min.js') }}"></script>
     <script src="{{ url_for('static', filename='commerce/main/js/biolife.framework.js') }}"></script>
     <script src="{{ url_for('static', filename='commerce/main/js/functions.js') }}"></script>
+    <script src="{{ url_for('static', filename='commerce/main/js/js.cookie.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='commerce/main/js/cartsAndCheckouts.js') }}"></script>
   </body>
 
 </html>

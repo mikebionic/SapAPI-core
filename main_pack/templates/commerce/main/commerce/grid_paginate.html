@@ -63,7 +63,7 @@
           {% if resources.page == page_num %}
             <li><span class="current-page">{{ page_num }}</span></li>
           {% else %}
-            <li><a href="{{ url_for('commerce.grid_paginate', page=page_num) }}" class="link-page">{{ page_num }}</a></li>
+            <li><a href="{{ url_for(pagination_url,catName=catName,page=page_num)}}" class="link-page">{{ page_num }}</a></li>
           {% endif %}
         {% else %}
           <li><span class="sep">...</span></li>
