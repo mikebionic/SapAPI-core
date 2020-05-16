@@ -1,5 +1,5 @@
 size_type_forms = ['sizeTypeId','sizeTypeName','sizeTypeDesc']
-res_size_forms = ['rsId','resId','resSizeId']
+res_size_forms = ['rsId','resId','sizeId']
 
 $("body").delegate('.saveResSizeBtn','click',function(event){
 	resourceData = prepareFormData(res_forms,'');
@@ -35,9 +35,9 @@ function resSizeDict(formFields){
 
 function prepareResSizeData(){
 	var allData = [];
-	$('.sizesList .resSizeId:checked').each(function(){
+	$('.sizesList .rsId:checked').each(function(){
 		resSizeData=resSizeDict(res_size_forms);
-		resSizeData['resSizeId']=$(this).val();
+		resSizeData['rsId']=$(this).val();
 		allData.push(resSizeData);
 	});
 	return allData;

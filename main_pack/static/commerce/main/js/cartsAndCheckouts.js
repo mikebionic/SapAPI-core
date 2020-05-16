@@ -40,10 +40,8 @@ $('body').delegate('.removeFromCart','click',function(){
 	delete cartData['product'+ownerId];
 	Cookies.set('cart',JSON.stringify(cartData));
 	countCartItems();
-})
+});
 
-
-	// $('.cartItemsQty').text(itemNum);
 function countCartItems(){
 	var num=0;
 	var totalPrice=0;

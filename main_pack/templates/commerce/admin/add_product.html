@@ -55,14 +55,8 @@
               <p class="excerpt"><input type="text" class="txt-input resRegNo" placeholder="{{_('Registration Number')}}"></p>
               <p class="excerpt"><h3 class="title"><textarea class="resName" cols="30" rows="2" placeholder="{{_('Product name')}}"></textarea></h3></p>
               <p class="excerpt"><textarea class="resDesc" cols="30" rows="4" placeholder="{{_('Description')}}"></textarea></p>
-              <div class="form-group">
-                <div class="control-label"></div>
-                <label class="custom-switch mt-2">
-                  <span class="custom-switch-description">{{_('Production on sale')}}</span>
-                  <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input resOnSale" checked>
-                  <span class="custom-switch-indicator"></span>
-                </label>
-              </div>
+
+
 
 
                <p class="excerpt"><ul class="section-title barcodeList">{{_('Barcode')}}</ul></p>
@@ -105,8 +99,6 @@
 
               <div class="price-box">
                 <span class="title">{{_('Price')}}:</span>
-
-
                 <div class="qty-input">
                     <input type="hidden" class="resPriceRegNo" value>
                     <input type="hidden" class="resPriceId" value>
@@ -116,6 +108,18 @@
                 </div>
                 <button class="btn btn-default savePriceBtn">+</button>
               </div>
+
+              <div class="location-shipping-to">
+                <span class="title">{{_('UsageStatus')}}:</span>
+                <select class="usageStatusId">
+                  {% for usageStatus in usageStatuses %}
+                    {% if usageStatus.GCRecord == None or usageStatus.GCRecord == '' %}
+                      <option value="{{ usageStatus.UsageStatusId }}">{{_(usageStatus.UsageStatusName_enUS)}}</option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+              </div>
+
             </div>
           </div>
          
@@ -177,7 +181,7 @@
                         {% for size in sizes %}
                           {% if size.GCRecord == None or size.GCRecord == '' %}
                             <label class="selectgroup-item">
-                              <input type="checkbox"  value="{{size.SizeId}}" class="selectgroup-input resSizeId">
+                              <input type="checkbox"  value="{{size.SizeId}}" class="selectgroup-input rsId">
                               <span {% if size.SizeDesc %} title="{{ size.SizeDesc }}" {% endif %} class="selectgroup-button">{{size.SizeName}}</span>
                             </label>
                           {% endif %}

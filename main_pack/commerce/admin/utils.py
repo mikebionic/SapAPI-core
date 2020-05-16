@@ -11,7 +11,6 @@ from main_pack.models.base.models import Image
 from main_pack.models.base.models import Language
 from main_pack.models.commerce.models import Color,Size,Brand
 
-
 ##### for realResRelatedData
 from main_pack.models.commerce.models import Resource 
 def realResRelatedData():
