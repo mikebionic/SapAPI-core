@@ -24,7 +24,9 @@ $('body').delegate('.addToCart','click',function(){
 	$(this).hide();
 	ownerId = $(this).attr('ownerId');
 	$('.removeFromCart'+'[ownerId='+ownerId+']').show();
-	productData={'resId':ownerId};
+	priceValue=$('.priceValue'+'[ownerId='+ownerId+']').text();
+	console.log(priceValue)
+	productData={'resId':ownerId,'priceValue':priceValue,'resQuantity':1};
 	cartData['product'+ownerId]=productData;
 	Cookies.set('cart',JSON.stringify(cartData));
 	cartOperations(productData,'/commerce/product/ui_cart/','POST','htmlData','cartItemsList');
@@ -40,13 +42,21 @@ $('body').delegate('.removeFromCart','click',function(){
 	countCartItems();
 })
 
+
 	// $('.cartItemsQty').text(itemNum);
 function countCartItems(){
 	var num=0;
+	var totalPrice=0;
 	$('.cartItemsList li').each(function(){
 		num+=1;
 	});
+	for(i in cartData){
+		quantity = cartData[i]['resQuantity'];
+		price = cartData[i]['priceValue'];
+		totalPrice+=price*quantity;
+	}
 	$('.cartItemsQty').text(num);
+	$('.cartTotalPrice').text(totalPrice);
 }
 
 function prepareFormData(formFields,formId){

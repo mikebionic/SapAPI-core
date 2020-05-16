@@ -21,20 +21,22 @@
         <div class="price">
           <ins>
             <span class="price-amount">
-              <span class="currencySymbol resPrice">TMT</span>
-              {% for resPrice in resPrices %}
-                {% if resPrice.GCRecord == None or resPrice.GCRecord == '' %}
-                  {% if resPrice.ResId==resource.ResId %}
-                    {{ resPrice.ResPriceValue }}
+              <span class="currencySymbol">TMT</span>
+              <div class="priceValue" ownerId="{{resource.ResId}}">
+                {% for resPrice in resPrices %}
+                  {% if resPrice.GCRecord == None or resPrice.GCRecord == '' %}
+                    {% if resPrice.ResId==resource.ResId %}
+                      {{ resPrice.ResPriceValue }}
+                    {% endif %}
                   {% endif %}
-                {% endif %}
-              {% endfor %}
+                {% endfor %}
+              </div>
             </span>
           </ins>
         </div>
         <div class="qty">
           <label for="cart[id123][qty]">{{_('Quantity')}}:</label>
-          <input type="number" class="input-qty" name="cart[id123][qty]" id="cart[id123][qty]" value="1" disabled>
+          <input type="number" class="input-qty resQuantity" name="cart[id123][qty]" id="cart[id123][qty]" value="1" disabled>
         </div>
       </div>
       <div class="action">
@@ -67,20 +69,22 @@
           <div class="price">
             <ins>
               <span class="price-amount">
-                <span class="currencySymbol resPrice">TMT</span>
-                {% for resPrice in resPrices %}
-                  {% if resPrice.GCRecord == None or resPrice.GCRecord == '' %}
-                    {% if resPrice.ResId==resource.ResId %}
-                      {{ resPrice.ResPriceValue }}
+                <span class="currencySymbol">TMT</span>
+                <div class="priceValue" ownerId="{{resource.ResId}}">
+                  {% for resPrice in resPrices %}
+                    {% if resPrice.GCRecord == None or resPrice.GCRecord == '' %}
+                      {% if resPrice.ResId==resource.ResId %}
+                        {{ resPrice.ResPriceValue }}
+                      {% endif %}
                     {% endif %}
-                  {% endif %}
-                {% endfor %}
+                  {% endfor %}
+                </div>
               </span>
             </ins>
           </div>
           <div class="qty">
             <label for="cart[id123][qty]">{{_('Quantity')}}:</label>
-            <input type="number" class="input-qty" name="cart[id123][qty]" id="cart[id123][qty]" value="1" disabled>
+            <input type="number" class="input-qty resQuantity" ownerId='{{resource.ResId}}' name="cart[id123][qty]" id="cart[id123][qty]" value="1" disabled>
           </div>
         </div>
         <div class="action">

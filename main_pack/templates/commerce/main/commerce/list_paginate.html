@@ -30,13 +30,15 @@
                 <div class="price">
                   <ins><span class="price-amount">
                     <span class="currencySymbol">TMT</span>
-                    {% for resPrice in resPrices %}
-                      {% if resPrice.GCRecord == None or resPrice.GCRecord == '' %}
-                        {% if resPrice.ResId==resource.ResId %}
-                          {{ resPrice.ResPriceValue }}
+                    <div class="priceValue" ownerId="{{resource.ResId}}">
+                      {% for resPrice in resPrices %}
+                        {% if resPrice.GCRecord == None or resPrice.GCRecord == '' %}
+                          {% if resPrice.ResId==resource.ResId %}
+                            {{ resPrice.ResPriceValue }}
+                          {% endif %}
                         {% endif %}
-                      {% endif %}
-                    {% endfor %}
+                      {% endfor %}
+                    </div>
                   </span></ins>
                 </div>
                 <div class="buttons">
