@@ -5,7 +5,7 @@ class Config:
 	POSTGRES = {
 	    'user': 'postgres',
 	    'pw': 'd152535k',
-	    'db': 'SapBackuped',
+	    'db': 'stableCommerce',
 	    'host': 'localhost',
 	    'port': '5432',
 	}
