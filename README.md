@@ -22,6 +22,9 @@ Set the db and secrets configurations in "config.py" file
 ------------------------------
 Initial Company and Division migrations (uncomment the lines first):
 > python3 migrate.py
+-----------------------------
+You can also use the ready to go backup db
+> commerceDBTemplate.backup
 ------------------------------
 Rest-Api backend information:
 > backend.md
