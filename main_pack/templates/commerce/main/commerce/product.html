@@ -88,6 +88,21 @@
               {% endfor %}
             </ul>
           </div>
+          <div class="atts-item">
+            <span class="title">{{_('Brand')}}:</span>
+            <ul class="brand-list">
+              {% for brand in brands %}
+                {% if brand.GCRecord == None or brand.GCRecord == '' %}
+                  {% if brand.BrandId==resource.BrandId %}
+                    <li>
+                      <a class="c-link"><span {% if brand.BrandDesc %} title="{{brand.BrandDesc}}" {% endif %} class="symbol"></span>{{brand.BrandName}}</a>
+                    </li>
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+            </ul>
+          </div>
+
         </div>
       </div>
       <div class="action-form">
@@ -112,7 +127,8 @@
           </p>
         </div>
         <div class="buttons">
-          <a href="#" class="btn add-to-cart-btn">{{_('Add to cart')}}</a>
+          <button class="btn add-to-cart-btn addToCart" ownerId="{{resource.ResId}}">{{_('Add to cart')}}</button>
+          <button class="btn add-to-cart-btn removeFromCart" ownerId="{{resource.ResId}}" style="display: none;">{{_('Remove')}}</button>
         </div>
         <div class="location-shipping-to">
           <span class="title">Ship to:</span>

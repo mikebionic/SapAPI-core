@@ -6,9 +6,13 @@ from main_pack.commerce.commerce.utils import commonUsedData,realResRelatedData
 from main_pack.models.commerce.models import Resource,Res_category
 
 @bp.route("/")
+@bp.route("/commerce")
 def commerce():
+	resources = Resource.query.order_by(Resource.CreatedDate.desc())
 	commonData = commonUsedData()
-	return render_template ("commerce/main/commerce/commerce.html",**commonData)
+	resData = realResRelatedData()
+	return render_template ("commerce/main/commerce/commerce.html",
+		resources=resources,**commonData,**resData)
 
 @bp.route("/collection")
 def collection():
@@ -51,13 +55,6 @@ def category_grid():
 
 
 ############ tests ############
-@bp.route("/commerce_test")
-def commerce_test():
-	resources = Resource.query.order_by(Resource.CreatedDate.desc())
-	commonData = commonUsedData()
-	resData = realResRelatedData()
-	return render_template ("commerce/main/commerce/commerce_test.html",
-		resources=resources,**commonData,**resData)
 
 @bp.route("/list_view")
 def list_view():

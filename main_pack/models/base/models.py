@@ -126,7 +126,6 @@ class Company(AddInf,CreatedModifiedInfo,db.Model):
 	Phone4 = db.Column(db.String(100))
 	CPostalCode = db.Column(db.String(100))
 	CEmail = db.Column(db.String(100))
-	CWTime = db.Column(db.String(100))
 	Accounting_info = db.relationship('Accounting_info',backref='company',lazy=True)
 	Contact = db.relationship('Contact',backref='company',lazy=True)
 	Division = db.relationship('Division',backref='company',lazy=True)

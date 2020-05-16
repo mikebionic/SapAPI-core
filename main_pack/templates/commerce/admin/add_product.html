@@ -181,7 +181,7 @@
                         {% for size in sizes %}
                           {% if size.GCRecord == None or size.GCRecord == '' %}
                             <label class="selectgroup-item">
-                              <input type="checkbox"  value="{{size.SizeId}}" class="selectgroup-input rsId">
+                              <input type="checkbox"  value="{{size.SizeId}}" class="selectgroup-input sizeId">
                               <span {% if size.SizeDesc %} title="{{ size.SizeDesc }}" {% endif %} class="selectgroup-button">{{size.SizeName}}</span>
                             </label>
                           {% endif %}

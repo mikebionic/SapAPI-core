@@ -24,31 +24,35 @@ app.app_context().push()
 
 # db.drop_all()
 # db.create_all()
-################
+
+########  initial company migration ########
 # comp = Company(CName="company")
 # db.session.add(comp)
 # div = Division(DivisionName="division",CId=1)
 # db.session.add(div)
 # dep = Department(DeptName="department")
 # db.session.add(dep)
+###########################
 
 # # UPass is "123" hashed
-# user = Users(UName="mike",UEmail="muhammedjepbarov@gmail.com",
+# user = Users(UName="administrator",UEmail="muhammedjepbarov@gmail.com",
 # 	UPass="$2b$12$ZltRSL4D1LpcJuoFEzW7PO/rEio8LKxhK9vPEG3Jv7Zg9S07f4Q1G",
-# 	UShortName="ME",UFullName="Mike Bionic")
+# 	UShortName="AR",UFullName="Mike Bionic",
+# 	CId=1,DivId=1,UTypeId=1)
+# db.session.add(user)
 
 ######## color migrate #########
-# color = Color(ColorName="Red",ColorCode="e74c3c")
+# color = Color(ColorName="Red",ColorCode="#e74c3c")
 # db.session.add(color)
-# color = Color(ColorName="Blue",ColorCode="3498db")
+# color = Color(ColorName="Blue",ColorCode="#3498db")
 # db.session.add(color)
-# color = Color(ColorName="Green",ColorCode="2ecc71")
+# color = Color(ColorName="Green",ColorCode="#2ecc71")
 # db.session.add(color)
-# color = Color(ColorName="DarkBlue",ColorCode="34495e")
+# color = Color(ColorName="DarkBlue",ColorCode="#34495e")
 # db.session.add(color)
-# color = Color(ColorName="Yellow",ColorCode="f1c40f")
+# color = Color(ColorName="Yellow",ColorCode="#f1c40f")
 # db.session.add(color)
-# color = Color(ColorName="Orange",ColorCode="e67e22")
+# color = Color(ColorName="Orange",ColorCode="#e67e22")
 # db.session.add(color)
 ###################
 

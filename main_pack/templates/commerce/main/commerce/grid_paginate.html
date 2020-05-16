@@ -23,7 +23,7 @@
                   {% endfor %}
                 {% else %}
                   <a href="{{ url_for('commerce.product',resId=resource.ResId)}}"class="image">
-                    <img src="{{ url_for('static', filename='commerce/uploads/noPhoto.jpg') }}" width="270" height="270" class="product-thumnail"/>
+                    <img src="{{ url_for('static', filename='commerce/uploads/noPhoto.png') }}" width="270" height="270" class="product-thumnail"/>
                   </a>
                   <div class="pro-action">
                     <a href="{{ url_for('commerce.product',resId=resource.ResId)}}" class="action-btn cart"><i class="fa fa-fw fa-shopping-cart"></i></a>

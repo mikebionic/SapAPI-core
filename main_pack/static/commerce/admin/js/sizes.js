@@ -35,9 +35,9 @@ function resSizeDict(formFields){
 
 function prepareResSizeData(){
 	var allData = [];
-	$('.sizesList .rsId:checked').each(function(){
+	$('.sizesList .sizeId:checked').each(function(){
 		resSizeData=resSizeDict(res_size_forms);
-		resSizeData['rsId']=$(this).val();
+		resSizeData['sizeId']=$(this).val();
 		allData.push(resSizeData);
 	});
 	return allData;

@@ -87,7 +87,6 @@ function prepareImagesData(){
 	$('.imagesList .fileName').each(function(){
 		imageData=imagesDict(image_forms);
 		imageData['fileName']=$(this).val();
-		console.log(imageData)
 		allImages.push(imageData);
 	});
 	return allImages;
@@ -108,7 +107,7 @@ var postImageData = function(formData,url,type){
 				$('.imagesList .fileName').each(function(){
 					for(image in response.responses){
 						console.log(image)
-						fileName = response.responses[image]["fileName"]
+						fileName = response.responses[image]["fileName"];
 						imgId = response.responses[image]["imgId"];
 						if($(this).val()==fileName){
 							$(this).prev().val(imgId);

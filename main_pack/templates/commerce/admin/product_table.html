@@ -63,9 +63,9 @@
       {% endfor %}
     </td>
     <td>
-      {% if resource.ResProductionOnSale %}
+      {% if resource.UsageStatusId==1 %}
         <div class="badge badge-success badge-shadow"><i class="fas fa-check"></i>{{_('Available')}}</div>
-      {% else %}
+      {% elif resource.UsageStatusId==2 %}
         <div class="badge badge-danger badge-shadow"><i class="fas fa-minus"></i>{{_('Unavailable')}}</div>
       {% endif %}
     </td>
