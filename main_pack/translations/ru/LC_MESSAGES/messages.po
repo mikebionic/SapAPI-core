@@ -1,17 +1,18 @@
-# Translations template for PROJECT.
+# Russian translations for PROJECT.
 # Copyright (C) 2020 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-05-17 03:27-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"POT-Creation-Date: 2020-05-17 07:31-0400\n"
+"PO-Revision-Date: 2020-05-17 07:37-0400\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: ru\n"
+"Language-Team: ru <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,44 +20,44 @@ msgstr ""
 
 #: __init__.py:18
 msgid "Login the system!"
-msgstr ""
+msgstr "Войти в систему!"
 
 #: commerce/admin/routes.py:12 templates/commerce/admin/layout.html:42
 msgid "Dashboard"
-msgstr ""
+msgstr "Панель инструментов"
 
 #: commerce/admin/routes.py:17
 msgid "Navbar"
-msgstr ""
+msgstr "Навбар"
 
 #: commerce/admin/routes.py:21
 msgid "Picture"
-msgstr ""
+msgstr "Изображение"
 
 #: commerce/admin/routes.py:26 templates/commerce/admin/product_table.html:18
 msgid "Product table"
-msgstr ""
+msgstr "Таблица товаров"
 
 #: commerce/admin/routes.py:31
 msgid "Add product"
-msgstr ""
+msgstr "Добавить товар"
 
 #: commerce/admin/ui_barcode.py:26 commerce/admin/ui_barcode.py:39
 #: commerce/admin/ui_barcode.py:55 templates/commerce/admin/add_product.html:62
 #: templates/commerce/admin/add_product.html:64
 msgid "Barcode"
-msgstr ""
+msgstr "Штрихкод"
 
 #: commerce/admin/ui_barcode.py:26 commerce/admin/ui_images.py:107
 #: commerce/admin/ui_properties.py:31 commerce/admin/ui_properties.py:55
 #: commerce/admin/ui_properties.py:79 commerce/admin/ui_properties.py:103
 #: commerce/admin/ui_properties.py:138 commerce/admin/ui_translations.py:31
 msgid "successfully saved"
-msgstr ""
+msgstr "успешно сохранено"
 
 #: commerce/admin/ui_barcode.py:39 commerce/admin/ui_translations.py:44
 msgid "successfully updated"
-msgstr ""
+msgstr "успешно обновлено"
 
 #: commerce/admin/ui_barcode.py:45 commerce/admin/ui_category.py:39
 #: commerce/admin/ui_category.py:56 commerce/admin/ui_company.py:28
@@ -67,13 +68,13 @@ msgstr ""
 #: commerce/admin/ui_translations.py:50 commerce/commerce/ui_cart.py:28
 #: commerce/commerce/ui_cart.py:49
 msgid "Unknown error!"
-msgstr ""
+msgstr "Неизвестная ошибка!"
 
 #: commerce/admin/ui_barcode.py:55 commerce/admin/ui_category.py:51
 #: commerce/admin/ui_images.py:127 commerce/admin/ui_properties.py:119
 #: commerce/admin/ui_properties.py:154 commerce/admin/ui_translations.py:60
 msgid "successfully deleted"
-msgstr ""
+msgstr "успешно удалено"
 
 #: commerce/admin/ui_category.py:33 commerce/commerce/routes.py:48
 #: commerce/commerce/routes.py:53 commerce/commerce/routes.py:65
@@ -88,172 +89,174 @@ msgstr ""
 #: templates/commerce/admin/product_table.html:30
 #: templates/commerce/main/commerce/product.html:28
 msgid "Category"
-msgstr ""
+msgstr "Категория"
 
 #: commerce/admin/ui_category.py:33 commerce/admin/ui_price.py:51
 #: commerce/admin/ui_resource.py:68 commerce/commerce/ui_cart.py:21
 #: commerce/commerce/ui_cart.py:42
 msgid "successfully saved!"
-msgstr ""
+msgstr "успешно сохранено!"
 
 #: commerce/admin/ui_company.py:23 templates/commerce/admin/navbar.html:551
 msgid "Company"
-msgstr ""
+msgstr "Компания"
 
 #: commerce/admin/ui_company.py:23 commerce/admin/ui_price.py:79
 #: commerce/admin/ui_resource.py:98
 msgid "successfully updated!"
-msgstr ""
+msgstr "успешно обновлено!"
 
 #: commerce/admin/ui_images.py:107 commerce/admin/ui_images.py:127
 #: templates/commerce/admin/product_table.html:28
 msgid "Image"
-msgstr ""
+msgstr "Изображение"
 
 #: commerce/admin/ui_price.py:34 commerce/admin/ui_resource.py:51
 msgid "Error generating Registration number"
-msgstr ""
+msgstr "Ошибка генерации регистрационного номера"
 
 #: commerce/admin/ui_price.py:51 commerce/admin/ui_price.py:79
 #: templates/commerce/admin/add_product.html:101
 #: templates/commerce/admin/product_table.html:31
 #: templates/commerce/main/commerce/cart.html:16
 #: templates/commerce/main/commerce/list_grid_layout.html:263
+#: templates/commerce/main/commerce/list_grid_layout.html:306
+#: templates/commerce/main/commerce/list_grid_layout.html:307
 #: templates/commerce/main/commerce/list_grid_layout.html:360
 msgid "Price"
-msgstr ""
+msgstr "Цена"
 
 #: commerce/admin/ui_price.py:65 commerce/admin/ui_resource.py:83
 msgid "That registration number already presents"
-msgstr ""
+msgstr "Этот регистрационный номер уже представлен"
 
 #: commerce/admin/ui_price.py:65 commerce/admin/ui_resource.py:83
 msgid "It changed to "
-msgstr ""
+msgstr "изменено на: "
 
 #: commerce/admin/ui_properties.py:31
 #: templates/commerce/main/commerce/list_grid_layout.html:397
 #: templates/commerce/main/commerce/product.html:50
 #: templates/commerce/main/commerce/product.html:158
 msgid "Color"
-msgstr ""
+msgstr "Цвет"
 
 #: commerce/admin/ui_properties.py:55
 #: templates/commerce/main/commerce/list_grid_layout.html:412
 #: templates/commerce/main/commerce/product.html:72
 #: templates/commerce/main/commerce/product.html:176
 msgid "Size"
-msgstr ""
+msgstr "Размер"
 
 #: commerce/admin/ui_properties.py:79
 #: templates/commerce/main/commerce/list_grid_layout.html:384
 #: templates/commerce/main/commerce/product.html:92
 msgid "Brand"
-msgstr ""
+msgstr "Бренд"
 
 #: commerce/admin/ui_properties.py:103 commerce/admin/ui_properties.py:119
 msgid "Product colors"
-msgstr ""
+msgstr "Цвета товара"
 
 #: commerce/admin/ui_properties.py:138 commerce/admin/ui_properties.py:154
 msgid "Product sizes"
-msgstr ""
+msgstr "Размеры товара"
 
 #: commerce/admin/ui_resource.py:68 commerce/admin/ui_resource.py:98
 msgid "Resource"
-msgstr ""
+msgstr "Ресурс"
 
 #: commerce/admin/ui_translations.py:31 commerce/admin/ui_translations.py:44
 #: commerce/admin/ui_translations.py:60
 #: templates/commerce/admin/add_product.html:225
 msgid "Translation"
-msgstr ""
+msgstr "Перевод"
 
 #: commerce/auth/forms.py:17
 msgid "That username is taken. Choose a different one!"
-msgstr ""
+msgstr "Это имя пользователя занято. Выберите другое!"
 
 #: commerce/auth/forms.py:21
 msgid "That email is taken. Choose a different one!"
-msgstr ""
+msgstr "Этот адрес эл.почты уже существует. Выберите другой!"
 
 #: commerce/auth/forms.py:24 templates/commerce/admin/navbar.html:557
 #: templates/commerce/admin/navbar.html:559
 #: templates/commerce/main/auth/register_token.html:21
 #: templates/commerce/main/commerce/contact.html:25
 msgid "Full name"
-msgstr ""
+msgstr "Полное имя"
 
 #: commerce/auth/forms.py:26 commerce/auth/forms.py:34
 #: commerce/auth/forms.py:50 templates/commerce/main/auth/login.html:33
 #: templates/commerce/main/auth/register_token.html:34
 #: templates/commerce/main/auth/reset_token.html:20
 msgid "Password"
-msgstr ""
+msgstr "Пароль"
 
 #: commerce/auth/forms.py:27 commerce/auth/forms.py:51
 #: templates/commerce/main/auth/register_token.html:47
 #: templates/commerce/main/auth/reset_token.html:33
 msgid "Confirm password"
-msgstr ""
+msgstr "Подтвердить пароль"
 
 #: commerce/auth/forms.py:29
 msgid "Sign Up"
-msgstr ""
+msgstr "Регистрация"
 
 #: commerce/auth/forms.py:32 commerce/auth/forms.py:40
 #: templates/commerce/admin/navbar.html:621
 #: templates/commerce/main/commerce/contact.html:60
 msgid "Email"
-msgstr ""
+msgstr "Эл.почта"
 
 #: commerce/auth/forms.py:35
 msgid "Remember Me"
-msgstr ""
+msgstr "Запомнить вход"
 
 #: commerce/auth/forms.py:36
 msgid "Log In"
-msgstr ""
+msgstr "Войти"
 
 #: commerce/auth/forms.py:42
 msgid "Request Password Reset"
-msgstr ""
+msgstr "Запрос на сброс пароля"
 
 #: commerce/auth/forms.py:47
-msgid "The account of that email not found! Please register fist."
-msgstr ""
+msgid "The profile of that email not found! Please register fist."
+msgstr "Аккаунт с данным эл. адресом не найен! Сначала зарегистрируйтесь."
 
 #: commerce/auth/forms.py:53
 msgid "Reset password"
-msgstr ""
+msgstr "Сбросить пароль"
 
 #: commerce/auth/routes.py:25
 msgid "Login Failed! Wrong email or password"
-msgstr ""
+msgstr "Ошибка входа! Неправильный адрес электронной почты или пароль"
 
 #: commerce/auth/routes.py:28
 msgid "Login"
-msgstr ""
+msgstr "Логин"
 
 #: commerce/auth/routes.py:43
 msgid "An email has been sent with instructions to reset your password"
-msgstr ""
+msgstr "Письмо с инструкциями по восстановлению пароля отправлено"
 
 #: commerce/auth/routes.py:47 commerce/auth/routes.py:66
 msgid "Reset Password"
-msgstr ""
+msgstr "Сбросить пароль"
 
 #: commerce/auth/routes.py:55 commerce/auth/routes.py:87
 msgid "Token is invalid or expired"
-msgstr ""
+msgstr "Токен недействителен или просрочен"
 
 #: commerce/auth/routes.py:62
 msgid "Your password has been updated!"
-msgstr ""
+msgstr "Ваш пароль был обновлен!"
 
 #: commerce/auth/routes.py:75
 msgid "An email has been sent with instructions to register your profile"
-msgstr ""
+msgstr "Письмо с инструкциями по регистрации отправлено на вашу эл.почту"
 
 #: commerce/auth/routes.py:79 commerce/auth/routes.py:107
 #: templates/commerce/main/commerce/layout.html:62
@@ -261,29 +264,29 @@ msgstr ""
 #: templates/commerce/main/commerce/list_grid_layout.html:62
 #: templates/commerce/main/commerce/list_grid_layout.html:526
 msgid "Register"
-msgstr ""
+msgstr "Регистрация"
 
 #: commerce/auth/routes.py:100
 msgid "your profile has been created!"
-msgstr ""
+msgstr "ваш аккаунт создан!"
 
 #: commerce/auth/routes.py:103
 msgid "Error occured, please try again."
-msgstr ""
+msgstr "Произошла ошибка, попробуйте еще раз."
 
 #: commerce/auth/utils.py:10 commerce/auth/utils.py:32
 msgid "Password reset request"
-msgstr ""
+msgstr "Запрос на изменение пароля"
 
 #: commerce/commerce/routes.py:20
 msgid "Collection"
-msgstr ""
+msgstr "Коллекция"
 
 #: commerce/commerce/routes.py:25
 #: templates/commerce/main/commerce/layout.html:80
 #: templates/commerce/main/commerce/list_grid_layout.html:80
 msgid "About us"
-msgstr ""
+msgstr "О нас"
 
 #: commerce/commerce/routes.py:30 templates/commerce/admin/navbar.html:538
 #: templates/commerce/admin/navbar.html:545
@@ -291,30 +294,30 @@ msgstr ""
 #: templates/commerce/main/commerce/layout.html:81
 #: templates/commerce/main/commerce/list_grid_layout.html:81
 msgid "Contact"
-msgstr ""
+msgstr "Контакт"
 
 #: commerce/commerce/routes.py:38
 #: templates/commerce/main/commerce/layout.html:303
 #: templates/commerce/main/commerce/list_grid_layout.html:505
 msgid "Cart"
-msgstr ""
+msgstr "Корзина"
 
 #: commerce/commerce/routes.py:43 commerce/commerce/routes.py:110
 #: commerce/commerce/ui_cart.py:21 commerce/commerce/ui_cart.py:42
 msgid "Product"
-msgstr ""
+msgstr "Продукт"
 
 #: templates/commerce/admin/add_product.html:25
 msgid "Upload images"
-msgstr ""
+msgstr "Загрузить изображения"
 
 #: templates/commerce/admin/add_product.html:41
 msgid "Images"
-msgstr ""
+msgstr "Изображения"
 
 #: templates/commerce/admin/add_product.html:44
 msgid "Choose the main image"
-msgstr ""
+msgstr "Выбрать основное изображение"
 
 #: templates/commerce/admin/add_product.html:48
 #: templates/commerce/admin/add_product.html:168
@@ -322,18 +325,18 @@ msgstr ""
 #: templates/commerce/admin/add_product.html:248
 #: templates/commerce/admin/navbar.html:637
 msgid "Save"
-msgstr ""
+msgstr "Сохранить"
 
 #: templates/commerce/admin/add_product.html:55
 msgid "Registration Number"
-msgstr ""
+msgstr "Регистрационный номер"
 
 #: templates/commerce/admin/add_product.html:56
 #: templates/commerce/admin/add_product.html:281
 #: templates/commerce/admin/add_product.html:283
 #: templates/commerce/main/commerce/cart.html:15
 msgid "Product name"
-msgstr ""
+msgstr "Название продукта"
 
 #: templates/commerce/admin/add_product.html:57
 #: templates/commerce/admin/add_product.html:236
@@ -346,7 +349,7 @@ msgstr ""
 #: templates/commerce/admin/navbar.html:565
 #: templates/commerce/admin/navbar.html:567
 msgid "Description"
-msgstr ""
+msgstr "Описание"
 
 #: templates/commerce/admin/add_product.html:81
 #: templates/commerce/main/commerce/cart.html:17
@@ -354,197 +357,197 @@ msgstr ""
 #: templates/commerce/main/commerce/cartItemAppend.html:86
 #: templates/commerce/main/commerce/product.html:110
 msgid "Quantity"
-msgstr ""
+msgstr "Количество"
 
 #: templates/commerce/admin/add_product.html:90
 msgid "Unit"
-msgstr ""
+msgstr "Система исчисления"
 
 #: templates/commerce/admin/add_product.html:113
 msgid "Usage status"
-msgstr ""
+msgstr "Состояние"
 
 #: templates/commerce/admin/add_product.html:130
 msgid "Products descriptions"
-msgstr ""
+msgstr "Описания продуктов"
 
 #: templates/commerce/admin/add_product.html:131
 #: templates/commerce/main/commerce/product.html:147
 msgid "Additional information"
-msgstr ""
+msgstr "Дополнительная информация"
 
 #: templates/commerce/admin/add_product.html:132
 msgid "Translations"
-msgstr ""
+msgstr "Переводы"
 
 #: templates/commerce/admin/add_product.html:138
 msgid "Size and form"
-msgstr ""
+msgstr "Размер и форма"
 
 #: templates/commerce/admin/add_product.html:139
 #: templates/commerce/main/commerce/product.html:196
 msgid "Width"
-msgstr ""
+msgstr "Ширина"
 
 #: templates/commerce/admin/add_product.html:140
 #: templates/commerce/main/commerce/product.html:205
 msgid "Height"
-msgstr ""
+msgstr "Высота"
 
 #: templates/commerce/admin/add_product.html:141
 #: templates/commerce/main/commerce/product.html:214
 msgid "Length"
-msgstr ""
+msgstr "Длина"
 
 #: templates/commerce/admin/add_product.html:142
 #: templates/commerce/main/commerce/product.html:223
 msgid "Weight"
-msgstr ""
+msgstr "Вес"
 
 #: templates/commerce/admin/add_product.html:144
-msgid "Producer, location, properties, outlines, etc"
+msgid "Производитель, местоположение, свойства, особенности и т.д."
 msgstr ""
 
 #: templates/commerce/admin/add_product.html:151
 msgid "Properties"
-msgstr ""
+msgstr "Свойства"
 
 #: templates/commerce/admin/add_product.html:155
 msgid "Select colors"
-msgstr ""
+msgstr "Выбрать цвета"
 
 #: templates/commerce/admin/add_product.html:171
 msgid "Add color"
-msgstr ""
+msgstr "Добавить цвет"
 
 #: templates/commerce/admin/add_product.html:172
 msgid "Color name"
-msgstr ""
+msgstr "Имя цвета"
 
 #: templates/commerce/admin/add_product.html:173
 msgid "Color description"
-msgstr ""
+msgstr "Описание цвета"
 
 #: templates/commerce/admin/add_product.html:175
 #: templates/commerce/admin/add_product.html:196
 #: templates/commerce/admin/add_product.html:216
 #: templates/commerce/admin/add_product.html:298
 msgid "Add"
-msgstr ""
+msgstr "Добавить"
 
 #: templates/commerce/admin/add_product.html:179
 msgid "Sizes"
-msgstr ""
+msgstr "Размеры"
 
 #: templates/commerce/admin/add_product.html:193
 msgid "Add size"
-msgstr ""
+msgstr "Добавить размер"
 
 #: templates/commerce/admin/add_product.html:194
 msgid "Size name"
-msgstr ""
+msgstr "Имя размера"
 
 #: templates/commerce/admin/add_product.html:195
 msgid "Size description"
-msgstr ""
+msgstr "Описание размера"
 
 #: templates/commerce/admin/add_product.html:201
 msgid "Brands"
-msgstr ""
+msgstr "Бренды"
 
 #: templates/commerce/admin/add_product.html:213
 msgid "Add Brand"
-msgstr ""
+msgstr "Добавить бренд"
 
 #: templates/commerce/admin/add_product.html:214
 msgid "Brand name"
-msgstr ""
+msgstr "Наименование бренда"
 
 #: templates/commerce/admin/add_product.html:215
 msgid "Brand description"
-msgstr ""
+msgstr "Описание бренда"
 
 #: templates/commerce/admin/add_product.html:234
 #: templates/commerce/admin/add_product.html:272
 #: templates/commerce/main/commerce/layout.html:331
 #: templates/commerce/main/commerce/list_grid_layout.html:533
 msgid "Language"
-msgstr ""
+msgstr "Язык"
 
 #: templates/commerce/admin/add_product.html:235
 #: templates/commerce/admin/product_table.html:29
 msgid "Name"
-msgstr ""
+msgstr "Имя"
 
 #: templates/commerce/admin/add_product.html:237
 msgid "Full Description"
-msgstr ""
+msgstr "Полное описание"
 
 #: templates/commerce/admin/add_product.html:238
 #: templates/commerce/admin/product_table.html:33
 msgid "Action"
-msgstr ""
+msgstr "Действие"
 
 #: templates/commerce/admin/add_product.html:249
 msgid "Add new product"
-msgstr ""
+msgstr "Добавить новый продукт"
 
 #: templates/commerce/admin/add_product.html:263
 msgid "Add translation"
-msgstr ""
+msgstr "Добавить перевод"
 
 #: templates/commerce/admin/add_product.html:287
 #: templates/commerce/admin/add_product.html:289
 msgid "Product description"
-msgstr ""
+msgstr "Описание продукта"
 
 #: templates/commerce/admin/add_product.html:293
 #: templates/commerce/admin/add_product.html:295
 msgid "Product full description"
-msgstr ""
+msgstr "Полное описание товара"
 
 #: templates/commerce/admin/layout.html:7
 #: templates/commerce/admin/layout.html:9
 msgid "Admin panel"
-msgstr ""
+msgstr "Панель администратора"
 
 #: templates/commerce/admin/layout.html:36
 msgid "Admin"
-msgstr ""
+msgstr "Админ"
 
 #: templates/commerce/admin/layout.html:40
 msgid "Main"
-msgstr ""
+msgstr "Главное"
 
 #: templates/commerce/admin/layout.html:45
 msgid "Product Table"
-msgstr ""
+msgstr "Таблица продуктов"
 
 #: templates/commerce/admin/layout.html:48
 msgid "Navigation"
-msgstr ""
+msgstr "Навигация"
 
 #: templates/commerce/admin/layout.html:51
 msgid "Add Product"
-msgstr ""
+msgstr "Добавить товар"
 
 #: templates/commerce/admin/layout.html:54
 msgid "Pictures"
-msgstr ""
+msgstr "Картинки"
 
 #: templates/commerce/admin/navbar.html:157
 msgid "Icons"
-msgstr ""
+msgstr "Иконки"
 
 #: templates/commerce/admin/navbar.html:549
 #: templates/commerce/main/commerce/contact.html:17
 msgid "Company name"
-msgstr ""
+msgstr "Название компании"
 
 #: templates/commerce/admin/navbar.html:573
 #: templates/commerce/main/commerce/contact.html:33
 msgid "Address"
-msgstr ""
+msgstr "Адрес"
 
 #: templates/commerce/admin/navbar.html:581
 #: templates/commerce/admin/navbar.html:589
@@ -552,77 +555,78 @@ msgstr ""
 #: templates/commerce/admin/navbar.html:605
 #: templates/commerce/main/commerce/contact.html:41
 msgid "Phone"
-msgstr ""
+msgstr "Телефон"
 
 #: templates/commerce/admin/navbar.html:613
 #: templates/commerce/admin/navbar.html:615
 #: templates/commerce/main/commerce/contact.html:52
 msgid "Postal code"
-msgstr ""
+msgstr "Почтовый индекс"
 
 #: templates/commerce/admin/navbar.html:629
 #: templates/commerce/main/commerce/contact.html:68
 msgid "Working time"
-msgstr ""
+msgstr "Рабочее время"
 
 #: templates/commerce/admin/product_table.html:27
 msgid "Reg No"
-msgstr ""
+msgstr "Регистрационный номер"
 
 #: templates/commerce/admin/product_table.html:32
 #: templates/commerce/admin/product_table.html:67
 msgid "Available"
-msgstr ""
+msgstr "Доступно"
 
 #: templates/commerce/admin/product_table.html:69
 msgid "Unavailable"
-msgstr ""
+msgstr "Недоступно"
 
 #: templates/commerce/main/auth/login.html:20
-msgid "Email Address"
-msgstr ""
+#: templates/commerce/main/auth/reset_request.html:20
+msgid "Email address"
+msgstr "Адрес электронной почты"
 
 #: templates/commerce/main/auth/login.html:43
 msgid "Forgot your password?"
-msgstr ""
+msgstr "Забыли пароль?"
 
 #: templates/commerce/main/auth/login.html:53
 msgid "New Customer?"
-msgstr ""
+msgstr "Новый клиент?"
 
 #: templates/commerce/main/auth/login.html:54
 #: templates/commerce/main/auth/register_request.html:49
 msgid "Create a profile and you’ll be able to"
-msgstr ""
+msgstr "Создайте аккаунт у нас, и вы сможете"
 
 #: templates/commerce/main/auth/login.html:56
-msgid "Check out faster"
-msgstr ""
+msgid "Order faster"
+msgstr "Заказывать быстрее"
 
 #: templates/commerce/main/auth/login.html:58
 msgid "Access your order history"
-msgstr ""
+msgstr "Получать доступ к вашей истории заказов"
 
 #: templates/commerce/main/auth/login.html:59
 msgid "Track new orders"
-msgstr ""
+msgstr "Отслеживать новые заказы"
 
 #: templates/commerce/main/auth/login.html:60
 msgid "Save items to your Wishlist"
-msgstr ""
+msgstr "Сохранить элементы в вашем списке пожеланий"
 
 #: templates/commerce/main/auth/login.html:62
 msgid "Create a profile"
-msgstr ""
+msgstr "Создать аккаунт"
 
 #: templates/commerce/main/auth/register_request.html:20
 msgid "Username"
-msgstr ""
+msgstr "Имя пользователя"
 
 #: templates/commerce/main/auth/register_request.html:48
 #: templates/commerce/main/auth/register_token.html:63
 msgid "Have a profile?"
-msgstr ""
+msgstr "Есть аккаунт?"
 
 #: templates/commerce/main/auth/register_request.html:50
 #: templates/commerce/main/auth/register_token.html:64
@@ -631,47 +635,51 @@ msgstr ""
 #: templates/commerce/main/commerce/list_grid_layout.html:62
 #: templates/commerce/main/commerce/list_grid_layout.html:526
 msgid "Log in"
-msgstr ""
+msgstr "Войти"
 
 #: templates/commerce/main/auth/register_token.html:11
 msgid "Please, proceed the registration"
-msgstr ""
-
-#: templates/commerce/main/auth/reset_request.html:20
-msgid "Email address"
-msgstr ""
+msgstr "Пожалуйста, пройдите регистрацию"
 
 #: templates/commerce/main/commerce/cart.html:10
 msgid "Your cart items"
-msgstr ""
+msgstr "Ваша корзина товаров"
 
 #: templates/commerce/main/commerce/cart.html:18
 msgid "Total"
-msgstr ""
+msgstr "Всего"
 
 #: templates/commerce/main/commerce/cart.html:25
 msgid "Back to Shop"
-msgstr ""
+msgstr "Вернуться в магазин"
 
 #: templates/commerce/main/commerce/cart.html:26
 msgid "update"
-msgstr ""
+msgstr "обновить"
 
 #: templates/commerce/main/commerce/cart.html:27
 msgid "clear all"
-msgstr ""
+msgstr "очистить все"
+
+#: templates/commerce/main/commerce/cart.html:50
+#: templates/commerce/main/commerce/layout.html:127
+#: templates/commerce/main/commerce/layout.html:326
+#: templates/commerce/main/commerce/list_grid_layout.html:127
+#: templates/commerce/main/commerce/list_grid_layout.html:528
+msgid "Send order"
+msgstr "Отправить заказ"
 
 #: templates/commerce/main/commerce/layout.html:9
 #: templates/commerce/main/commerce/layout.html:11
 #: templates/commerce/main/commerce/list_grid_layout.html:9
 #: templates/commerce/main/commerce/list_grid_layout.html:11
 msgid "Commerce"
-msgstr ""
+msgstr "Коммерция"
 
 #: templates/commerce/main/commerce/layout.html:60
 #: templates/commerce/main/commerce/list_grid_layout.html:60
 msgid "Log out"
-msgstr ""
+msgstr "Выйти"
 
 #: templates/commerce/main/commerce/layout.html:79
 #: templates/commerce/main/commerce/layout.html:236
@@ -680,147 +688,200 @@ msgstr ""
 #: templates/commerce/main/commerce/list_grid_layout.html:236
 #: templates/commerce/main/commerce/list_grid_layout.html:239
 msgid "Home"
-msgstr ""
+msgstr "Дом"
 
 #: templates/commerce/main/commerce/layout.html:92
 #: templates/commerce/main/commerce/layout.html:204
 #: templates/commerce/main/commerce/list_grid_layout.html:92
 #: templates/commerce/main/commerce/list_grid_layout.html:204
 msgid "Search"
-msgstr ""
+msgstr "Поиск"
 
 #: templates/commerce/main/commerce/layout.html:94
 #: templates/commerce/main/commerce/layout.html:206
 #: templates/commerce/main/commerce/list_grid_layout.html:94
 #: templates/commerce/main/commerce/list_grid_layout.html:206
 msgid "All Categories"
-msgstr ""
+msgstr "ÄВсе категории"
 
 #: templates/commerce/main/commerce/layout.html:99
 #: templates/commerce/main/commerce/list_grid_layout.html:99
 msgid "Submit"
-msgstr ""
+msgstr "Tassykla"
 
 #: templates/commerce/main/commerce/layout.html:118
 #: templates/commerce/main/commerce/list_grid_layout.html:118
 msgid "My Cart"
-msgstr ""
+msgstr "Моя корзина"
 
 #: templates/commerce/main/commerce/layout.html:126
 #: templates/commerce/main/commerce/list_grid_layout.html:126
 msgid "View cart"
-msgstr ""
+msgstr "Просмотр корзины"
 
 #: templates/commerce/main/commerce/layout.html:127
 #: templates/commerce/main/commerce/layout.html:326
 #: templates/commerce/main/commerce/list_grid_layout.html:127
 #: templates/commerce/main/commerce/list_grid_layout.html:528
 msgid "Checkout"
-msgstr ""
+msgstr "Оформить заказ"
 
 #: templates/commerce/main/commerce/layout.html:156
 #: templates/commerce/main/commerce/list_grid_layout.html:156
 #: templates/commerce/main/commerce/list_grid_layout.html:345
 msgid "Categories"
-msgstr ""
+msgstr "Категории"
 
 #: templates/commerce/main/commerce/layout.html:291
 #: templates/commerce/main/commerce/list_grid_layout.html:493
 msgid "Menu"
-msgstr ""
+msgstr "Меню"
 
 #: templates/commerce/main/commerce/layout.html:297
 #: templates/commerce/main/commerce/list_grid_layout.html:340
 #: templates/commerce/main/commerce/list_grid_layout.html:499
 msgid "Sidebar"
-msgstr ""
+msgstr "Боковая панель"
 
 #: templates/commerce/main/commerce/layout.html:309
 #: templates/commerce/main/commerce/layout.html:317
 #: templates/commerce/main/commerce/list_grid_layout.html:511
 #: templates/commerce/main/commerce/list_grid_layout.html:519
 msgid "Global"
-msgstr ""
+msgstr "Глобальные"
 
 #: templates/commerce/main/commerce/layout.html:322
 #: templates/commerce/main/commerce/list_grid_layout.html:524
 msgid "My profile"
-msgstr ""
+msgstr "Моя учетная запись"
 
 #: templates/commerce/main/commerce/layout.html:325
 #: templates/commerce/main/commerce/list_grid_layout.html:527
 msgid "Wishlist"
-msgstr ""
+msgstr "Список пожеланий"
 
-#: templates/commerce/main/commerce/list_grid_layout.html:252
+#: templates/commerce/main/commerce/layout.html:328
+msgid "Currency"
+msgstr "Валюта"
+
+#: templates/commerce/main/commerce/list_grid_layout.html:250
+#: templates/commerce/main/commerce/list_grid_layout.html:298
+msgid "Sort"
+msgstr "Сортировать"
+
+#: templates/commerce/main/commerce/list_grid_layout.html:250
+#: templates/commerce/main/commerce/list_grid_layout.html:298
 msgid "Refine"
-msgstr ""
+msgstr "Уточнить"
+
+#: templates/commerce/main/commerce/list_grid_layout.html:260
+msgid "Sort products by"
+msgstr "Сортировать продукты по:"
 
 #: templates/commerce/main/commerce/list_grid_layout.html:260
 msgid "Refine products by"
-msgstr ""
+msgstr "Уточнить продукты по:"
 
 #: templates/commerce/main/commerce/list_grid_layout.html:275
 msgid "All brands"
-msgstr ""
+msgstr "Все бренды"
 
-#: templates/commerce/main/commerce/list_grid_layout.html:298
-msgid "Sort"
-msgstr ""
+#: templates/commerce/main/commerce/list_grid_layout.html:293
+#: templates/commerce/main/commerce/list_grid_layout.html:372
+msgid "Go"
+msgstr "Вперёд"
 
 #: templates/commerce/main/commerce/list_grid_layout.html:302
 msgid "Default sorting"
-msgstr ""
+msgstr "Standart sortlama"
 
 #: templates/commerce/main/commerce/list_grid_layout.html:303
-msgid "popularity"
-msgstr ""
+msgid "Popularity"
+msgstr "Популярность"
 
 #: templates/commerce/main/commerce/list_grid_layout.html:304
-msgid "average rating"
-msgstr ""
+msgid "Average rating"
+msgstr "Средний рейтинг"
 
 #: templates/commerce/main/commerce/list_grid_layout.html:305
-msgid "newness"
-msgstr ""
-
-#: templates/commerce/main/commerce/list_grid_layout.html:306
-#: templates/commerce/main/commerce/list_grid_layout.html:307
-msgid "price"
-msgstr ""
+msgid "Newness"
+msgstr "Новизна"
 
 #: templates/commerce/main/commerce/list_grid_layout.html:306
 msgid "low to high"
-msgstr ""
+msgstr "от низкой до высокой"
 
 #: templates/commerce/main/commerce/list_grid_layout.html:307
 msgid "high to low"
-msgstr ""
+msgstr "от высокой до низкой"
 
 #: templates/commerce/main/commerce/list_grid_layout.html:425
-msgid "Recently Viewed"
-msgstr ""
+msgid "Recently viewed"
+msgstr "Недавно просмотренные"
 
 #: templates/commerce/main/commerce/list_paginate.html:46
 #: templates/commerce/main/commerce/list_view.html:44
 #: templates/commerce/main/commerce/product.html:130
 msgid "Add to cart"
-msgstr ""
+msgstr "Добавить в корзину"
 
 #: templates/commerce/main/commerce/list_paginate.html:47
 #: templates/commerce/main/commerce/product.html:131
 msgid "Remove"
-msgstr ""
+msgstr "Удалить"
 
 #: templates/commerce/main/commerce/product.html:68
 msgid "Other"
-msgstr ""
+msgstr "Другое"
 
 #: templates/commerce/main/commerce/product.html:118
 msgid "Total Price"
-msgstr ""
+msgstr "Общая цена"
 
 #: templates/commerce/main/commerce/product.html:146
 msgid "Products Descriptions"
-msgstr ""
+msgstr "Описания продуктов"
 
+# ## manual translations
+msgid "Invoice"
+msgstr "Фактура счёта"
+
+# Colors translations
+msgid "Red"
+msgstr "Красный"
+
+msgid "Blue"
+msgstr "Синий"
+
+msgid "White"
+msgstr "Белый"
+
+msgid "Black"
+msgstr "Чёрный"
+
+msgid "Green"
+msgstr "Зелёный"
+
+msgid "Yellow"
+msgstr "Жёлтый"
+
+msgid "Purple"
+msgstr "Фиотовый"
+
+msgid "Pink"
+msgstr "Розовый"
+
+msgid "Dark green"
+msgstr "Тёмно зелёный"
+
+msgid "Brown"
+msgstr "Коричневый"
+
+msgid "Grey"
+msgstr "Серый"
+
+msgid "Sky blue"
+msgstr "Небесно голубой"
+
+msgid "Orange"
+msgstr "Оранжевый"
