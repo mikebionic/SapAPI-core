@@ -110,7 +110,7 @@
               </div>
 
               <div class="location-shipping-to">
-                <span class="title">{{_('UsageStatus')}}:</span>
+                <span class="title">{{_('Usage status')}}:</span>
                 <select class="usageStatusId">
                   {% for usageStatus in usageStatuses %}
                     {% if usageStatus.GCRecord == None or usageStatus.GCRecord == '' %}
@@ -128,7 +128,7 @@
             <div class="tab-head">
                 <ul class="tabs">
                     <li class="tab-element active"><a href="#tab_1st" class="tab-link">{{_('Products descriptions')}}</a></li>
-                    <li class="tab-element" ><a href="#tab_2nd" class="tab-link">{{_('Addtional information')}}</a></li>
+                    <li class="tab-element" ><a href="#tab_2nd" class="tab-link">{{_('Additional information')}}</a></li>
                     <li class="tab-element" ><a href="#tab_3rd" class="tab-link">{{_('Translations')}}</a></li>
                 </ul>
             </div>
@@ -145,7 +145,7 @@
                   <button class="btn btn-icon btn-danger" onclick="$('.resFullDesc').val('')"><i class="fas fa-times"></i></button>
                 </p>
               </div>
-              <div id="tab_2nd" class="tab-contain addtional-info-tab">
+              <div id="tab_2nd" class="tab-contain additional-info-tab">
                 <div class="card">
                   <div class="card-header">
                     <h4>{{_('Properties')}}</h4>

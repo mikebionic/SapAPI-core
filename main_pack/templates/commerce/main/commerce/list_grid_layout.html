@@ -69,7 +69,9 @@
         <div class="container">
           <div class="row">
             <div class="col-lg-3 col-md-2 col-md-6 col-xs-6">
-              <a href="index.html" class="logo"><span style="color: #ff8300">I</span>KEA</a>
+              {% if company.CName %}
+                <a href="index.html" class="logo">{{company.CName}}</span></a>
+              {% endif %}
             </div>
             <div class="col-lg-6 col-md-7 hidden-sm hidden-xs">
               <div class="primary-menu">
@@ -94,7 +96,7 @@
                           <option value="{ category.ResCatId }}">{{ category.ResCatName }}</option>
                         {% endfor %}
                       </select>
-                      <button type="submit" class="btn-submit">go</button>
+                      <button type="submit" class="btn-submit">{{_('Submit')}}</button>
                     </form>
                   </div>
                 </div>
@@ -265,7 +267,7 @@
                                     <option value="class-4th">TMT 20 - 45 TMT</option>
                                     <option value="class-5th">TMT 45 - 100 TMT</option>
                                     <option value="class-6th">TMT 100 - 150 TMT</option>
-                                    <option value="class-7th">More than 150 TMT</option>
+                                    <option value="class-7th"> > 150 TMT</option>
                                 </select>
                             </div>
                             <div data-title="Brand:" class="selector-item">
@@ -293,7 +295,7 @@
                     </div>
                 </div>
                 <div class="flt-item to-right">
-                    <span class="flt-title">Sort</span>
+                    <span class="flt-title">{{_('Sort')}}</span>
                     <div class="wrap-selectors">
                         <div class="selector-item orderby-selector">
                             <select name="orderby" class="orderby" aria-label="Shop order">
@@ -364,7 +366,7 @@
                   <input class="input-number" type="number" id="pr-from" value="" name="price-from">
                 </p>
                 <p class="f-item">
-                  <label for="pr-to">to TMT</label>
+                  <label for="pr-to">-> TMT</label>
                   <input class="input-number" type="number" id="pr-to" value="" name="price-from">
                 </p>
                 <p class="f-item"><button class="btn-submit" type="submit">go</button></p>
@@ -420,9 +422,11 @@
         </div>
 
         <div class="widget biolife-filter">
-          <h4 class="wgt-title">Recently Viewed</h4>
+          <h4 class="wgt-title">{{_('Recently Viewed')}}</h4>
           <div class="wgt-content">
             <ul class="products">
+
+
               <li class="pr-item">
                 <div class="contain-product style-widget">
                   <div class="product-thumb">
@@ -440,6 +444,8 @@
                   </div>
                 </div>
               </li>
+
+
             </ul>
           </div>
         </div>
@@ -515,7 +521,7 @@
       </div>
       <div class="block-global-contain">
         <div class="glb-item my-account">
-          <b class="title">{{_('My Account')}}</b>
+          <b class="title">{{_('My profile')}}</b>
           <ul class="list">
             <li class="list-item"><a href="#">{{_('Log in')}}/{{_('Register')}}</a></li>
             <li class="list-item"><a href="#">{{_('Wishlist')}} <span class="index">(8)</span></a></li>

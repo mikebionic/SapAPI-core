@@ -1,0 +1,758 @@
+#: __init__.py:18
+msgstr "Войти в систему!"
+msgstr ""
+
+#: commerce / admin / rout.py: 12 шаблонов / commerce / admin / layout.html: 42
+msgstr "Панель инструментов"
+msgstr ""
+
+#: commerce / admin / rout.py: 17
+msgstr "Навбар"
+msgstr ""
+
+#: commerce / admin / rout.py: 21
+msgstr "Изображение"
+msgstr ""
+
+#: commerce / admin / rout.py: 26 шаблонов / commerce / admin / product_table.html: 18
+msgstr "Таблица продуктов"
+msgstr ""
+
+#: commerce / admin / rout.py: 31
+msgstr "Добавить товар"
+msgstr ""
+
+#: commerce / admin / ui_barcode.py: 26 commerce / admin / ui_barcode.py: 39
+#: commerce / admin / ui_barcode.py: 55 шаблонов / commerce / admin / add_product.html: 62
+#: templates / commerce / admin / add_product.html: 64
+msgstr "Штрихкод"
+msgstr ""
+
+#: commerce / admin / ui_barcode.py: 26 commerce / admin / ui_images.py: 107
+#: commerce / admin / ui_properties.py: 31 commerce / admin / ui_properties.py: 55
+#: commerce / admin / ui_properties.py: 79 commerce / admin / ui_properties.py: 103
+#: commerce / admin / ui_properties.py: 138 commerce / admin / ui_translations.py: 31
+msgstr "успешно сохранено"
+msgstr ""
+
+#: commerce / admin / ui_barcode.py: 39 commerce / admin / ui_translations.py: 44
+msgstr "успешно обновлено"
+msgstr ""
+
+#: commerce / admin / ui_barcode.py: 45 commerce / admin / ui_category.py: 39
+#: commerce / admin / ui_category.py: 56 commerce / admin / ui_company.py: 28
+#: commerce / admin / ui_images.py: 114 commerce / admin / ui_price.py: 85
+#: commerce / admin / ui_properties.py: 37 commerce / admin / ui_properties.py: 61
+#: commerce / admin / ui_properties.py: 85 commerce / admin / ui_properties.py: 108
+#: commerce / admin / ui_properties.py: 143 commerce / admin / ui_resource.py: 104
+#: commerce / admin / ui_translations.py: 50 commerce / commerce / ui_cart.py: 28
+#: коммерция / коммерция / ui_cart.py: 49
+msgstr "Неизвестная ошибка!"
+msgstr ""
+
+#: commerce / admin / ui_barcode.py: 55 commerce / admin / ui_category.py: 51
+#: commerce / admin / ui_images.py: 127 commerce / admin / ui_properties.py: 119
+#: commerce / admin / ui_properties.py: 154 commerce / admin / ui_translations.py: 60
+msgstr "успешно удалено"
+msgstr ""
+
+#: commerce / admin / ui_category.py: 33 commerce / commerce / rout.py: 48
+#: commerce / commerce / rout.py: 53 commerce / commerce / rout.py: 65
+#: commerce / commerce / rout.py: 73 commerce / commerce / rout.py: 89
+#: commerce / commerce / rout.py: 100 commerce / commerce / rout.py: 129
+#: templates / commerce / admin / add_product.html: 70
+#: templates / commerce / admin / appendCategory.html: 15
+#: templates / commerce / admin / appendCategory.html: 33
+#: templates / commerce / admin / navbar.html: 83
+#: templates / commerce / admin / navbar.html: 95
+#: templates / commerce / admin / navbar.html: 114
+#: templates / commerce / admin / product_table.html: 30
+#: templates / commerce / main / commerce / product.html: 28
+msgstr "Категория"
+msgstr ""
+
+#: commerce / admin / ui_category.py: 33 commerce / admin / ui_price.py: 51
+#: commerce / admin / ui_resource.py: 68 commerce / commerce / ui_cart.py: 21
+#: коммерция / коммерция / ui_cart.py: 42
+msgstr "успешно сохранено!"
+msgstr ""
+
+#: commerce / admin / ui_company.py: 23 шаблонов / commerce / admin / navbar.html: 551
+msgid "Компания"
+msgstr ""
+
+#: commerce / admin / ui_company.py: 23 commerce / admin / ui_price.py: 79
+#: commerce / admin / ui_resource.py: 98
+msgstr "успешно обновлено!"
+msgstr ""
+
+#: commerce / admin / ui_images.py: 107 commerce / admin / ui_images.py: 127
+#: templates / commerce / admin / product_table.html: 28
+msgstr "Изображение"
+msgstr ""
+
+#: commerce / admin / ui_price.py: 34 commerce / admin / ui_resource.py: 51
+msgstr "Ошибка генерации регистрационного номера"
+msgstr ""
+
+#: commerce / admin / ui_price.py: 51 commerce / admin / ui_price.py: 79
+#: templates / commerce / admin / add_product.html: 101
+#: templates / commerce / admin / product_table.html: 31
+#: templates / commerce / main / commerce / cart.html: 16
+#: templates / commerce / main / commerce / list_grid_layout.html: 261
+#: templates / commerce / main / commerce / list_grid_layout.html: 358
+msgstr "Цена"
+msgstr ""
+
+#: commerce / admin / ui_price.py: 65 commerce / admin / ui_resource.py: 83
+msgstr "Этот регистрационный номер уже представлен"
+msgstr ""
+
+#: commerce / admin / ui_price.py: 65 commerce / admin / ui_resource.py: 83
+msgstr "Это изменилось на"
+msgstr ""
+
+#: commerce / admin / ui_properties.py: 31
+#: templates / commerce / main / commerce / list_grid_layout.html: 395
+#: templates / commerce / main / commerce / product.html: 50
+#: templates / commerce / main / commerce / product.html: 158
+msgstr "Цвет"
+msgstr ""
+
+#: commerce / admin / ui_properties.py: 55
+#: templates / commerce / main / commerce / list_grid_layout.html: 410
+#: templates / commerce / main / commerce / product.html: 72
+#: templates / commerce / main / commerce / product.html: 176
+msgstr "Размер"
+msgstr ""
+
+#: commerce / admin / ui_properties.py: 79
+#: templates / commerce / main / commerce / list_grid_layout.html: 382
+#: templates / commerce / main / commerce / product.html: 92
+msgstr "Бренд"
+msgstr ""
+
+#: commerce / admin / ui_properties.py: 103 commerce / admin / ui_properties.py: 119
+msgstr "Цвета товара"
+msgstr ""
+
+#: commerce / admin / ui_properties.py: 138 commerce / admin / ui_properties.py: 154
+msgstr "Размеры товара"
+msgstr ""
+
+#: commerce / admin / ui_resource.py: 68 commerce / admin / ui_resource.py: 98
+msgstr "Ресурс"
+msgstr ""
+
+msgstr "Перевод"
+msgstr ""
+
+#: commerce / auth / rout.py: 25
+msgstr "Ошибка входа! Неправильный адрес электронной почты или пароль"
+msgstr ""
+
+#: commerce / auth / rout.py: 28
+msgstr "Логин"
+msgstr ""
+
+#: commerce / auth / rout.py: 43
+msgstr "Письмо отправлено с инструкциями по восстановлению пароля"
+msgstr ""
+
+#: commerce / auth / rout.py: 47 commerce / auth / rout.py: 66
+msgstr "Сбросить пароль"
+msgstr ""
+
+#: commerce / auth / rout.py: 55 commerce / auth / rout.py: 87
+msgstr "Токен недействителен или просрочен"
+msgstr ""
+
+#: commerce / auth / rout.py: 62
+msgstr "Ваш пароль был обновлен!"
+msgstr ""
+
+#: commerce / auth / rout.py: 75
+msgstr "Письмо с инструкциями по регистрации отправлено на вашу эл.почту"
+msgstr ""
+
+#: commerce / auth / rout.py: 79 commerce / auth / rout.py: 107
+#: templates / commerce / main / commerce / layout.html: 62
+#: templates / commerce / main / commerce / layout.html: 322
+#: templates / commerce / main / commerce / list_grid_layout.html: 62
+#: templates / commerce / main / commerce / list_grid_layout.html: 520
+msgstr "Регистрация"
+msgstr ""
+
+#: commerce / auth / rout.py: 100
+msgstr "ваш аккаунт создан!"
+msgstr ""
+
+#: commerce / auth / rout.py: 103
+msgstr "Произошла ошибка, попробуйте еще раз."
+msgstr ""
+
+#: коммерция / коммерция / rout.py: 20
+msgstr "Коллекция"
+msgstr ""
+
+#: коммерция / коммерция / rout.py: 25
+#: templates / commerce / main / commerce / layout.html: 78
+#: templates / commerce / main / commerce / list_grid_layout.html: 78
+msgstr "О нас"
+msgstr ""
+
+#: commerce / commerce / rout.py: 30 шаблонов / commerce / admin / navbar.html: 538
+#: templates / commerce / admin / navbar.html: 545
+#: templates / commerce / main / commerce / contact.html: 9
+#: templates / commerce / main / commerce / layout.html: 79
+#: templates / commerce / main / commerce / list_grid_layout.html: 79
+msgstr "Контакт"
+msgstr ""
+
+#: коммерция / коммерция / rout.py: 38
+#: templates / commerce / main / commerce / layout.html: 301
+#: templates / commerce / main / commerce / list_grid_layout.html: 499
+msgstr "Корзина"
+msgstr ""
+
+#: commerce / commerce / rout.py: 43 commerce / commerce / rout.py: 110
+#: коммерция / коммерция / ui_cart.py: 21 коммерция / коммерция / ui_cart.py: 42
+msgstr "Продукт"
+msgstr ""
+
+#: templates / commerce / admin / add_product.html: 25
+msgstr "Загрузить изображения"
+msgstr ""
+
+#: templates / commerce / admin / add_product.html: 41
+msgstr "Изображения"
+msgstr ""
+
+#: templates / commerce / admin / add_product.html: 44
+msgstr "Выбрать основное изображение"
+msgstr ""
+
+#: templates / commerce / admin / add_product.html: 48
+#: templates / commerce / admin / add_product.html: 168
+#: templates / commerce / admin / add_product.html: 190
+#: templates / commerce / admin / add_product.html: 248
+#: templates / commerce / admin / navbar.html: 637
+msgstr "Сохранить"
+msgstr ""
+
+#: templates / commerce / admin / add_product.html: 55
+msgstr "Регистрационный номер"
+msgstr ""
+
+#: templates / commerce / admin / add_product.html: 56
+#: templates / commerce / admin / add_product.html: 281
+#: templates / commerce / admin / add_product.html: 283
+msgstr "Название продукта"
+msgstr ""
+
+#: templates / commerce / admin / add_product.html: 57
+#: templates / commerce / admin / add_product.html: 236
+#: templates / commerce / admin / appendCategory.html: 17
+#: templates / commerce / admin / appendCategory.html: 35
+#: templates / commerce / admin / navbar.html: 85
+#: templates / commerce / admin / navbar.html: 97
+#: templates / commerce / admin / navbar.html: 116
+#: templates / commerce / admin / navbar.html: 138
+#: templates / commerce / admin / navbar.html: 565
+#: templates / commerce / admin / navbar.html: 567
+msgstr "Описание"
+msgstr ""
+
+#: templates / commerce / admin / add_product.html: 81
+#: templates / commerce / main / commerce / cart.html: 17
+#: templates / commerce / main / commerce / cartItemAppend.html: 38
+#: templates / commerce / main / commerce / cartItemAppend.html: 86
+#: templates / commerce / main / commerce / product.html: 110
+msgstr "Количество"
+msgstr ""
+
+#: templates / commerce / admin / add_product.html: 90
+msgstr "Блок"
+msgstr ""
+
+#: templates / commerce / admin / add_product.html: 113
+msgstr "UsageStatus"
+msgstr ""
+
+#: templates / commerce / admin / add_product.html: 130
+msgstr "Описания продуктов"
+msgstr ""
+
+#: templates / commerce / admin / add_product.html: 131
+#: templates / commerce / main / commerce / product.html: 147
+msgstr "Дополнительная информация"
+msgstr ""
+
+#: templates / commerce / admin / add_product.html: 132
+msgstr "Переводы"
+msgstr ""
+
+#: templates / commerce / admin / add_product.html: 138
+msgstr "Размер и форма"
+msgstr ""
+
+#: templates / commerce / admin / add_product.html: 139
+#: templates / commerce / main / commerce / product.html: 196
+msgstr "Ширина"
+msgstr ""
+
+#: templates / commerce / admin / add_product.html: 140
+#: templates / commerce / main / commerce / product.html: 205
+msgstr "Высота"
+msgstr ""
+
+#: templates / commerce / admin / add_product.html: 141
+#: templates / commerce / main / commerce / product.html: 214
+msgstr "Длина"
+msgstr ""
+
+#: templates / commerce / admin / add_product.html: 142
+#: templates / commerce / main / commerce / product.html: 223
+msgstr "Вес"
+msgstr ""
+
+#: templates / commerce / admin / add_product.html: 144
+msgstr "Производитель, местоположение, свойства, контуры и т. д."
+msgstr ""
+
+#: templates / commerce / admin / add_product.html: 151
+msgstr "Свойства"
+msgstr ""
+
+#: templates / commerce / admin / add_product.html: 155
+msgstr "Выбрать цвета"
+msgstr ""
+
+#: templates / commerce / admin / add_product.html: 171
+msgstr "Добавить цвет"
+msgstr ""
+
+#: templates / commerce / admin / add_product.html: 172
+msgstr "Имя цвета"
+msgstr ""
+
+#: templates / commerce / admin / add_product.html: 173
+msgstr "Описание цвета"
+msgstr ""
+
+#: templates / commerce / admin / add_product.html: 175
+#: templates / commerce / admin / add_product.html: 196
+#: templates / commerce / admin / add_product.html: 216
+#: templates / commerce / admin / add_product.html: 298
+msgstr "Добавить"
+msgstr ""
+
+#: templates / commerce / admin / add_product.html: 179
+msgstr "Размеры"
+msgstr ""
+
+#: templates / commerce / admin / add_product.html: 193
+msgstr "Добавить размер"
+msgstr ""
+
+#: templates / commerce / admin / add_product.html: 194
+msgstr "Имя размера"
+msgstr ""
+
+#: templates / commerce / admin / add_product.html: 195
+msgstr "Описание размера"
+msgstr ""
+
+#: templates / commerce / admin / add_product.html: 201
+msgstr "Бренды"
+msgstr ""
+
+#: templates / commerce / admin / add_product.html: 213
+msgstr "Добавить бренд"
+msgstr ""
+
+#: templates / commerce / admin / add_product.html: 214
+msgstr "Фирменное наименование"
+msgstr ""
+
+#: templates / commerce / admin / add_product.html: 215
+msgstr "Описание бренда"
+msgstr ""
+
+#: templates / commerce / admin / add_product.html: 234
+#: templates / commerce / admin / add_product.html: 272
+#: templates / commerce / main / commerce / layout.html: 337
+#: templates / commerce / main / commerce / list_grid_layout.html: 527
+msgstr "Язык"
+msgstr ""
+
+#: templates / commerce / admin / add_product.html: 235
+#: templates / commerce / admin / product_table.html: 29
+msgstr "Имя"
+msgstr ""
+
+#: templates / commerce / admin / add_product.html: 237
+msgstr "Полное описание"
+msgstr ""
+
+#: templates / commerce / admin / add_product.html: 238
+#: templates / commerce / admin / product_table.html: 33
+msgstr "Действие"
+msgstr ""
+
+#: templates / commerce / admin / add_product.html: 249
+msgstr "Добавить новый продукт"
+msgstr ""
+
+#: templates / commerce / admin / add_product.html: 263
+msgstr "Добавить перевод"
+msgstr ""
+
+#: templates / commerce / admin / add_product.html: 287
+#: templates / commerce / admin / add_product.html: 289
+msgstr "Описание продукта"
+msgstr ""
+
+#: templates / commerce / admin / add_product.html: 293
+#: templates / commerce / admin / add_product.html: 295
+msgstr "Полное описание товара"
+msgstr ""
+
+#: templates / commerce / admin / layout.html: 7
+#: templates / commerce / admin / layout.html: 9
+msgstr "Панель администратора"
+msgstr ""
+
+#: templates / commerce / admin / layout.html: 36
+msgstr "Админ"
+msgstr ""
+
+#: templates / commerce / admin / layout.html: 40
+msgstr "Главный"
+msgstr ""
+
+#: templates / commerce / admin / layout.html: 45
+msgstr "Таблица продуктов"
+msgstr ""
+
+#: templates / commerce / admin / layout.html: 48
+msgstr "Навигация"
+msgstr ""
+
+#: templates / commerce / admin / layout.html: 51
+msgstr "Добавить товар"
+msgstr ""
+
+#: templates / commerce / admin / layout.html: 54
+msgstr "Картинки"
+msgstr ""
+
+#: templates / commerce / admin / navbar.html: 157
+msgstr "Иконки"
+msgstr ""
+
+#: templates / commerce / admin / navbar.html: 549
+#: templates / commerce / main / commerce / contact.html: 17
+msgstr "Название компании"
+msgstr ""
+
+#: templates / commerce / admin / navbar.html: 557
+#: templates / commerce / admin / navbar.html: 559
+#: templates / commerce / main / auth / register_token.html: 21
+#: templates / commerce / main / commerce / contact.html: 25
+msgstr "Полное имя"
+msgstr ""
+
+#: templates / commerce / admin / navbar.html: 573
+msgstr "Адрес"
+msgstr ""
+
+#: templates / commerce / admin / navbar.html: 581
+#: templates / commerce / admin / navbar.html: 589
+#: templates / commerce / admin / navbar.html: 597
+#: templates / commerce / admin / navbar.html: 605
+#: templates / commerce / main / commerce / contact.html: 41
+msgstr "Телефон"
+msgstr ""
+
+#: templates / commerce / admin / navbar.html: 613
+#: templates / commerce / admin / navbar.html: 615
+#: templates / commerce / main / commerce / contact.html: 52
+msgstr "Почтовый индекс"
+msgstr ""
+
+#: templates / commerce / admin / navbar.html: 621
+#: templates / commerce / main / commerce / contact.html: 60
+msgstr "Электронная почта"
+msgstr ""
+
+#: templates / commerce / admin / navbar.html: 629
+#: templates / commerce / main / commerce / contact.html: 68
+msgstr "Рабочее время"
+msgstr ""
+
+#: templates / commerce / admin / product_table.html: 27
+msgstr "Рег Нет"
+msgstr ""
+
+#: templates / commerce / admin / product_table.html: 32
+#: templates / commerce / admin / product_table.html: 67
+msgstr "Доступен"
+msgstr ""
+
+#: templates / commerce / admin / product_table.html: 69
+msgstr "Недоступно"
+msgstr ""
+
+#: templates / commerce / main / auth / login.html: 20
+msgstr "Адрес электронной почты"
+msgstr ""
+
+#: templates / commerce / main / auth / login.html: 33
+#: templates / commerce / main / auth / register_token.html: 34
+#: templates / commerce / main / auth / reset_token.html: 20
+msgstr "Пароль"
+msgstr ""
+
+#: templates / commerce / main / auth / login.html: 43
+msgstr "Забыли пароль?"
+msgstr ""
+
+#: templates / commerce / main / auth / login.html: 53
+msgstr "Новый клиент?"
+msgstr ""
+
+#: templates / commerce / main / auth / login.html: 54
+#: templates / commerce / main / auth / register_request.html: 49
+msgstr "Создайте аккаунт у нас, и вы сможете"
+msgstr ""
+
+#: templates / commerce / main / auth / login.html: 56
+msgstr "Проверить быстрее"
+msgstr ""
+
+#: templates / commerce / main / auth / login.html: 58
+msgstr "Получить доступ к вашей истории заказов"
+msgstr ""
+
+#: templates / commerce / main / auth / login.html: 59
+msgstr "Отслеживать новые заказы"
+msgstr ""
+
+#: templates / commerce / main / auth / login.html: 60
+msgstr "Сохранить элементы в вашем списке пожеланий"
+msgstr ""
+
+#: templates / commerce / main / auth / login.html: 62
+msgstr "Создать аккаунт"
+msgstr ""
+
+#: templates / commerce / main / auth / register_request.html: 20
+msgstr "Имя пользователя"
+msgstr ""
+
+#: templates / commerce / main / auth / register_request.html: 48
+#: templates / commerce / main / auth / register_token.html: 63
+msgstr "Есть аккаунт?"
+msgstr ""
+
+#: templates / commerce / main / auth / register_request.html: 50
+#: templates / commerce / main / auth / register_token.html: 64
+#: templates / commerce / main / commerce / layout.html: 62
+#: templates / commerce / main / commerce / layout.html: 322
+#: templates / commerce / main / commerce / list_grid_layout.html: 62
+#: templates / commerce / main / commerce / list_grid_layout.html: 520
+msgstr "Войти"
+msgstr ""
+
+#: templates / commerce / main / auth / register_token.html: 11
+msgstr "Пожалуйста, пройдите регистрацию"
+msgstr ""
+
+#: templates / commerce / main / auth / register_token.html: 47
+#: templates / commerce / main / auth / reset_token.html: 33
+msgstr "Подтвердить пароль"
+msgstr ""
+
+#: templates / commerce / main / auth / reset_request.html: 20
+msgstr "Адрес электронной почты"
+msgstr ""
+
+#: templates / commerce / main / commerce / cart.html: 10
+msgstr "Ваша корзина товаров"
+msgstr ""
+
+#: templates / commerce / main / commerce / cart.html: 15
+msgstr "Название продукта"
+msgstr ""
+
+#: templates / commerce / main / commerce / cart.html: 18
+msgstr "Всего"
+msgstr ""
+
+#: templates / commerce / main / commerce / cart.html: 25
+msgstr "Вернуться в магазин"
+msgstr ""
+
+#: templates / commerce / main / commerce / cart.html: 26
+msgstr "обновить"
+msgstr ""
+
+#: templates / commerce / main / commerce / cart.html: 27
+msgstr "очистить все"
+msgstr ""
+
+#: templates / commerce / main / commerce / contact.html: 33
+msgstr "Аддесса"
+msgstr ""
+
+#: templates / commerce / main / commerce / layout.html: 9
+#: templates / commerce / main / commerce / layout.html: 11
+#: templates / commerce / main / commerce / list_grid_layout.html: 9
+#: templates / commerce / main / commerce / list_grid_layout.html: 11
+msgstr "Коммерция"
+msgstr ""
+
+#: templates / commerce / main / commerce / layout.html: 60
+#: templates / commerce / main / commerce / list_grid_layout.html: 60
+msgstr "Выйти"
+msgstr ""
+
+#: templates / commerce / main / commerce / layout.html: 77
+#: templates / commerce / main / commerce / layout.html: 234
+#: templates / commerce / main / commerce / layout.html: 237
+#: templates / commerce / main / commerce / list_grid_layout.html: 77
+#: templates / commerce / main / commerce / list_grid_layout.html: 234
+#: templates / commerce / main / commerce / list_grid_layout.html: 237
+msgstr "Дом"
+msgstr ""
+
+#: templates / commerce / main / commerce / layout.html: 90
+#: templates / commerce / main / commerce / layout.html: 202
+#: templates / commerce / main / commerce / list_grid_layout.html: 90
+#: templates / commerce / main / commerce / list_grid_layout.html: 202
+msgstr "Поиск"
+msgstr ""
+
+#: templates / commerce / main / commerce / layout.html: 92
+#: templates / commerce / main / commerce / layout.html: 204
+#: templates / commerce / main / commerce / list_grid_layout.html: 92
+#: templates / commerce / main / commerce / list_grid_layout.html: 204
+msgstr "Все категории"
+msgstr ""
+
+#: templates / commerce / main / commerce / layout.html: 116
+#: templates / commerce / main / commerce / list_grid_layout.html: 116
+msgstr "Моя корзина"
+msgstr ""
+
+#: templates / commerce / main / commerce / layout.html: 124
+#: templates / commerce / main / commerce / list_grid_layout.html: 124
+msgstr "Просмотр корзины"
+msgstr ""
+
+#: templates / commerce / main / commerce / layout.html: 125
+#: templates / commerce / main / commerce / layout.html: 324
+#: templates / commerce / main / commerce / list_grid_layout.html: 125
+#: templates / commerce / main / commerce / list_grid_layout.html: 522
+msgstr "Оформить заказ"
+msgstr ""
+
+#: templates / commerce / main / commerce / layout.html: 154
+#: templates / commerce / main / commerce / list_grid_layout.html: 154
+#: templates / commerce / main / commerce / list_grid_layout.html: 343
+msgstr "Категории"
+msgstr ""
+
+#: templates / commerce / main / commerce / layout.html: 289
+#: templates / commerce / main / commerce / list_grid_layout.html: 487
+msgstr "Меню"
+msgstr ""
+
+msgstr "Боковая панель"
+msgstr ""
+
+#: templates / commerce / main / commerce / layout.html: 307
+#: templates / commerce / main / commerce / layout.html: 315
+#: templates / commerce / main / commerce / list_grid_layout.html: 505
+#: templates / commerce / main / commerce / list_grid_layout.html: 513
+msgstr "Глобальный"
+msgstr ""
+
+#: templates / commerce / main / commerce / layout.html: 320
+#: templates / commerce / main / commerce / list_grid_layout.html: 518
+msgstr "Моя учетная запись"
+msgstr ""
+
+#: templates / commerce / main / commerce / layout.html: 323
+#: templates / commerce / main / commerce / list_grid_layout.html: 521
+msgstr "Список пожеланий"
+msgstr ""
+
+#: templates / commerce / main / commerce / layout.html: 328
+msgstr "Валюта"
+msgstr ""
+
+#: templates / commerce / main / commerce / list_grid_layout.html: 250
+msgstr "Уточнить"
+msgstr ""
+
+#: templates / commerce / main / commerce / list_grid_layout.html: 258
+msgstr "Уточнить продукты"
+msgstr ""
+
+#: templates / commerce / main / commerce / list_grid_layout.html: 273
+msgstr "Все бренды"
+msgstr ""
+
+#: templates / commerce / main / commerce / list_grid_layout.html: 300
+msgstr "Сортировка по умолчанию"
+msgstr ""
+
+#: templates / commerce / main / commerce / list_grid_layout.html: 301
+msgstr "популярность"
+msgstr ""
+
+#: templates / commerce / main / commerce / list_grid_layout.html: 302
+msgstr "средний рейтинг"
+msgstr ""
+
+#: templates / commerce / main / commerce / list_grid_layout.html: 303
+msgstr "новизна"
+msgstr ""
+
+#: templates / commerce / main / commerce / list_grid_layout.html: 304
+#: templates / commerce / main / commerce / list_grid_layout.html: 305
+msgstr "цена"
+msgstr ""
+
+#: templates / commerce / main / commerce / list_grid_layout.html: 304
+msgstr "от низкого до высокого"
+msgstr ""
+
+#: templates / commerce / main / commerce / list_grid_layout.html: 305
+msgstr "сверху вниз"
+msgstr ""
+
+#: templates / commerce / main / commerce / list_paginate.html: 46
+#: templates / commerce / main / commerce / list_view.html: 44
+#: templates / commerce / main / commerce / product.html: 130
+msgstr "Добавить в корзину"
+msgstr ""
+
+#: templates / commerce / main / commerce / list_paginate.html: 47
+#: templates / commerce / main / commerce / product.html: 131
+msgstr "Удалить"
+msgstr ""
+
+#: templates / commerce / main / commerce / product.html: 68
+msgstr "Другое"
+msgstr ""
+
+#: templates / commerce / main / commerce / product.html: 118
+msgstr "Общая цена"
+msgstr ""
+
+#: templates / commerce / main / commerce / product.html: 146
+msgstr "Описания продуктов"
+msgstr ""

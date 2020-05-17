@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from main_pack import babel,gettext,lazy_gettext
 from main_pack.models.users.models import Users
 
 class RequestRegistrationForm(FlaskForm):
@@ -13,40 +14,40 @@ class RequestRegistrationForm(FlaskForm):
 	def validate_username(self,username):
 		user = Users.query.filter_by(UName=username.data).first()
 		if user:
-			raise ValidationError('That username is taken. Choose a different one!')
+			raise ValidationError(lazy_gettext('That username is taken. Choose a different one!'))
 	def validate_email(self,email):
 		user = Users.query.filter_by(UEmail=email.data).first()
 		if user:
-			raise ValidationError('That email is taken. Choose a different one!')
+			raise ValidationError(lazy_gettext('That email is taken. Choose a different one!'))
 
 class PasswordRegistrationForm(FlaskForm):
-	full_name = StringField('Full name', 
+	full_name = StringField(lazy_gettext('Full name'), 
 							validators=[DataRequired(),Length(min=2,max=100)])
-	password = PasswordField('Password',validators=[DataRequired()])
-	confirm_password = PasswordField ('Confirm Password',
+	password = PasswordField(lazy_gettext('Password'),validators=[DataRequired()])
+	confirm_password = PasswordField (lazy_gettext('Confirm password'),
 									validators=[DataRequired(),EqualTo('password')])
-	submit = SubmitField('Sign Up')
+	submit = SubmitField(lazy_gettext('Sign Up'))
 
 class LoginForm(FlaskForm):
-	email = StringField ('Email',
+	email = StringField (lazy_gettext('Email'),
 						validators=[DataRequired(),Email()])
-	password = PasswordField('Password',validators=[DataRequired()])
-	remember = BooleanField('Remember Me')
-	submit = SubmitField('Log In')
+	password = PasswordField(lazy_gettext('Password'),validators=[DataRequired()])
+	remember = BooleanField(lazy_gettext('Remember Me'))
+	submit = SubmitField(lazy_gettext('Log In'))
 
 
 class RequestResetForm(FlaskForm):
-	email = StringField ('Email',
+	email = StringField (lazy_gettext('Email'),
 						validators=[DataRequired(),Email()])
-	submit = SubmitField('Request Password Reset')
+	submit = SubmitField(lazy_gettext('Request Password Reset'))
 
 	def validate_email(self,email):
 		user = Users.query.filter_by(UEmail=email.data).first()
 		if user is None:
-			raise ValidationError('The account of that email not found! Please register fist.')
+			raise ValidationError(lazy_gettext('The profile of that email not found! Please register fist.'))
 
 class ResetPasswordForm(FlaskForm):
-	password = PasswordField('Password',validators=[DataRequired()])
-	confirm_password = PasswordField('Confirm password',
+	password = PasswordField(lazy_gettext('Password'),validators=[DataRequired()])
+	confirm_password = PasswordField(lazy_gettext('Confirm password'),
 									validators=[DataRequired(),EqualTo('password')])
-	submit = SubmitField('Reset password')
+	submit = SubmitField(lazy_gettext('Reset password'))

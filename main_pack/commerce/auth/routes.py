@@ -72,7 +72,7 @@ def register():
 	form = RequestRegistrationForm()
 	if form.validate_on_submit():
 		send_register_email(UName=form.username.data,UEmail=form.email.data)
-		flash(lazy_gettext('An email has been sent with instructions to register your account'),'info')
+		flash(lazy_gettext('An email has been sent with instructions to register your profile'),'info')
 		return redirect(url_for('commerce_auth.register'))
 
 	commonData = commonUsedData()
@@ -97,7 +97,7 @@ def register_token(token):
 				UPass=hashed_password,UFullName=form.full_name.data)
 			db.session.add(user)
 			db.session.commit()
-			flash('{}!'.format(UName)+lazy_gettext('your account has been created!'),'success')
+			flash('{}!'.format(UName)+lazy_gettext('your profile has been created!'),'success')
 			return redirect(url_for('commerce_auth.login'))
 		except:
 			flash(lazy_gettext('Error occured, please try again.'),'danger')

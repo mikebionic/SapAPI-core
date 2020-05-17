@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-05-14 07:09-0400\n"
+"POT-Creation-Date: 2020-05-17 03:27-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,8 +42,8 @@ msgid "Add product"
 msgstr ""
 
 #: commerce/admin/ui_barcode.py:26 commerce/admin/ui_barcode.py:39
-#: commerce/admin/ui_barcode.py:55 templates/commerce/admin/add_product.html:68
-#: templates/commerce/admin/add_product.html:70
+#: commerce/admin/ui_barcode.py:55 templates/commerce/admin/add_product.html:62
+#: templates/commerce/admin/add_product.html:64
 msgid "Barcode"
 msgstr ""
 
@@ -64,7 +64,8 @@ msgstr ""
 #: commerce/admin/ui_properties.py:37 commerce/admin/ui_properties.py:61
 #: commerce/admin/ui_properties.py:85 commerce/admin/ui_properties.py:108
 #: commerce/admin/ui_properties.py:143 commerce/admin/ui_resource.py:104
-#: commerce/admin/ui_translations.py:50
+#: commerce/admin/ui_translations.py:50 commerce/commerce/ui_cart.py:28
+#: commerce/commerce/ui_cart.py:49
 msgid "Unknown error!"
 msgstr ""
 
@@ -74,22 +75,24 @@ msgstr ""
 msgid "successfully deleted"
 msgstr ""
 
-#: commerce/admin/ui_category.py:33 commerce/commerce/routes.py:41
-#: commerce/commerce/routes.py:46 commerce/commerce/routes.py:65
+#: commerce/admin/ui_category.py:33 commerce/commerce/routes.py:48
+#: commerce/commerce/routes.py:53 commerce/commerce/routes.py:65
 #: commerce/commerce/routes.py:73 commerce/commerce/routes.py:89
-#: commerce/commerce/routes.py:99 commerce/commerce/routes.py:111
-#: templates/commerce/admin/add_product.html:76
+#: commerce/commerce/routes.py:100 commerce/commerce/routes.py:129
+#: templates/commerce/admin/add_product.html:70
 #: templates/commerce/admin/appendCategory.html:15
 #: templates/commerce/admin/appendCategory.html:33
 #: templates/commerce/admin/navbar.html:83
 #: templates/commerce/admin/navbar.html:95
 #: templates/commerce/admin/navbar.html:114
 #: templates/commerce/admin/product_table.html:30
+#: templates/commerce/main/commerce/product.html:28
 msgid "Category"
 msgstr ""
 
 #: commerce/admin/ui_category.py:33 commerce/admin/ui_price.py:51
-#: commerce/admin/ui_resource.py:68
+#: commerce/admin/ui_resource.py:68 commerce/commerce/ui_cart.py:21
+#: commerce/commerce/ui_cart.py:42
 msgid "successfully saved!"
 msgstr ""
 
@@ -112,10 +115,11 @@ msgid "Error generating Registration number"
 msgstr ""
 
 #: commerce/admin/ui_price.py:51 commerce/admin/ui_price.py:79
-#: templates/commerce/admin/add_product.html:107
+#: templates/commerce/admin/add_product.html:101
 #: templates/commerce/admin/product_table.html:31
-#: templates/commerce/main/commerce/list_grid_layout.html:284
-#: templates/commerce/main/commerce/list_grid_layout.html:381
+#: templates/commerce/main/commerce/cart.html:16
+#: templates/commerce/main/commerce/list_grid_layout.html:263
+#: templates/commerce/main/commerce/list_grid_layout.html:360
 msgid "Price"
 msgstr ""
 
@@ -128,20 +132,22 @@ msgid "It changed to "
 msgstr ""
 
 #: commerce/admin/ui_properties.py:31
-#: templates/commerce/main/commerce/list_grid_layout.html:418
+#: templates/commerce/main/commerce/list_grid_layout.html:397
 #: templates/commerce/main/commerce/product.html:50
-#: templates/commerce/main/commerce/product.html:106
+#: templates/commerce/main/commerce/product.html:158
 msgid "Color"
 msgstr ""
 
 #: commerce/admin/ui_properties.py:55
-#: templates/commerce/main/commerce/list_grid_layout.html:433
-#: templates/commerce/main/commerce/product.html:110
+#: templates/commerce/main/commerce/list_grid_layout.html:412
+#: templates/commerce/main/commerce/product.html:72
+#: templates/commerce/main/commerce/product.html:176
 msgid "Size"
 msgstr ""
 
 #: commerce/admin/ui_properties.py:79
-#: templates/commerce/main/commerce/list_grid_layout.html:405
+#: templates/commerce/main/commerce/list_grid_layout.html:384
+#: templates/commerce/main/commerce/product.html:92
 msgid "Brand"
 msgstr ""
 
@@ -161,6 +167,64 @@ msgstr ""
 #: commerce/admin/ui_translations.py:60
 #: templates/commerce/admin/add_product.html:225
 msgid "Translation"
+msgstr ""
+
+#: commerce/auth/forms.py:17
+msgid "That username is taken. Choose a different one!"
+msgstr ""
+
+#: commerce/auth/forms.py:21
+msgid "That email is taken. Choose a different one!"
+msgstr ""
+
+#: commerce/auth/forms.py:24 templates/commerce/admin/navbar.html:557
+#: templates/commerce/admin/navbar.html:559
+#: templates/commerce/main/auth/register_token.html:21
+#: templates/commerce/main/commerce/contact.html:25
+msgid "Full name"
+msgstr ""
+
+#: commerce/auth/forms.py:26 commerce/auth/forms.py:34
+#: commerce/auth/forms.py:50 templates/commerce/main/auth/login.html:33
+#: templates/commerce/main/auth/register_token.html:34
+#: templates/commerce/main/auth/reset_token.html:20
+msgid "Password"
+msgstr ""
+
+#: commerce/auth/forms.py:27 commerce/auth/forms.py:51
+#: templates/commerce/main/auth/register_token.html:47
+#: templates/commerce/main/auth/reset_token.html:33
+msgid "Confirm password"
+msgstr ""
+
+#: commerce/auth/forms.py:29
+msgid "Sign Up"
+msgstr ""
+
+#: commerce/auth/forms.py:32 commerce/auth/forms.py:40
+#: templates/commerce/admin/navbar.html:621
+#: templates/commerce/main/commerce/contact.html:60
+msgid "Email"
+msgstr ""
+
+#: commerce/auth/forms.py:35
+msgid "Remember Me"
+msgstr ""
+
+#: commerce/auth/forms.py:36
+msgid "Log In"
+msgstr ""
+
+#: commerce/auth/forms.py:42
+msgid "Request Password Reset"
+msgstr ""
+
+#: commerce/auth/forms.py:47
+msgid "The account of that email not found! Please register fist."
+msgstr ""
+
+#: commerce/auth/forms.py:53
+msgid "Reset password"
 msgstr ""
 
 #: commerce/auth/routes.py:25
@@ -188,50 +252,55 @@ msgid "Your password has been updated!"
 msgstr ""
 
 #: commerce/auth/routes.py:75
-msgid "An email has been sent with instructions to register your account"
+msgid "An email has been sent with instructions to register your profile"
 msgstr ""
 
 #: commerce/auth/routes.py:79 commerce/auth/routes.py:107
-#: templates/commerce/main/commerce/layout.html:67
-#: templates/commerce/main/commerce/layout.html:436
+#: templates/commerce/main/commerce/layout.html:62
+#: templates/commerce/main/commerce/layout.html:324
 #: templates/commerce/main/commerce/list_grid_layout.html:62
-#: templates/commerce/main/commerce/list_grid_layout.html:543
+#: templates/commerce/main/commerce/list_grid_layout.html:526
 msgid "Register"
 msgstr ""
 
 #: commerce/auth/routes.py:100
-msgid "your account has been created!"
+msgid "your profile has been created!"
 msgstr ""
 
 #: commerce/auth/routes.py:103
 msgid "Error occured, please try again."
 msgstr ""
 
-#: commerce/commerce/routes.py:16
+#: commerce/auth/utils.py:10 commerce/auth/utils.py:32
+msgid "Password reset request"
+msgstr ""
+
+#: commerce/commerce/routes.py:20
 msgid "Collection"
 msgstr ""
 
-#: commerce/commerce/routes.py:21
-#: templates/commerce/main/commerce/layout.html:83
-#: templates/commerce/main/commerce/list_grid_layout.html:78
+#: commerce/commerce/routes.py:25
+#: templates/commerce/main/commerce/layout.html:80
+#: templates/commerce/main/commerce/list_grid_layout.html:80
 msgid "About us"
 msgstr ""
 
-#: commerce/commerce/routes.py:26 templates/commerce/admin/navbar.html:538
+#: commerce/commerce/routes.py:30 templates/commerce/admin/navbar.html:538
 #: templates/commerce/admin/navbar.html:545
 #: templates/commerce/main/commerce/contact.html:9
-#: templates/commerce/main/commerce/layout.html:84
-#: templates/commerce/main/commerce/list_grid_layout.html:79
+#: templates/commerce/main/commerce/layout.html:81
+#: templates/commerce/main/commerce/list_grid_layout.html:81
 msgid "Contact"
 msgstr ""
 
-#: commerce/commerce/routes.py:31
-#: templates/commerce/main/commerce/layout.html:415
-#: templates/commerce/main/commerce/list_grid_layout.html:522
+#: commerce/commerce/routes.py:38
+#: templates/commerce/main/commerce/layout.html:303
+#: templates/commerce/main/commerce/list_grid_layout.html:505
 msgid "Cart"
 msgstr ""
 
-#: commerce/commerce/routes.py:36 commerce/commerce/routes.py:121
+#: commerce/commerce/routes.py:43 commerce/commerce/routes.py:110
+#: commerce/commerce/ui_cart.py:21 commerce/commerce/ui_cart.py:42
 msgid "Product"
 msgstr ""
 
@@ -248,8 +317,8 @@ msgid "Choose the main image"
 msgstr ""
 
 #: templates/commerce/admin/add_product.html:48
-#: templates/commerce/admin/add_product.html:164
-#: templates/commerce/admin/add_product.html:186
+#: templates/commerce/admin/add_product.html:168
+#: templates/commerce/admin/add_product.html:190
 #: templates/commerce/admin/add_product.html:248
 #: templates/commerce/admin/navbar.html:637
 msgid "Save"
@@ -262,6 +331,7 @@ msgstr ""
 #: templates/commerce/admin/add_product.html:56
 #: templates/commerce/admin/add_product.html:281
 #: templates/commerce/admin/add_product.html:283
+#: templates/commerce/main/commerce/cart.html:15
 msgid "Product name"
 msgstr ""
 
@@ -278,96 +348,107 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: templates/commerce/admin/add_product.html:61
-msgid "Production on sale"
-msgstr ""
-
-#: templates/commerce/admin/add_product.html:87
-#: templates/commerce/main/commerce/product.html:59
+#: templates/commerce/admin/add_product.html:81
+#: templates/commerce/main/commerce/cart.html:17
+#: templates/commerce/main/commerce/cartItemAppend.html:38
+#: templates/commerce/main/commerce/cartItemAppend.html:86
+#: templates/commerce/main/commerce/product.html:110
 msgid "Quantity"
 msgstr ""
 
-#: templates/commerce/admin/add_product.html:96
+#: templates/commerce/admin/add_product.html:90
 msgid "Unit"
 msgstr ""
 
-#: templates/commerce/admin/add_product.html:126
+#: templates/commerce/admin/add_product.html:113
+msgid "Usage status"
+msgstr ""
+
+#: templates/commerce/admin/add_product.html:130
 msgid "Products descriptions"
 msgstr ""
 
-#: templates/commerce/admin/add_product.html:127
-#: templates/commerce/main/commerce/product.html:95
-msgid "Addtional information"
+#: templates/commerce/admin/add_product.html:131
+#: templates/commerce/main/commerce/product.html:147
+msgid "Additional information"
 msgstr ""
 
-#: templates/commerce/admin/add_product.html:128
+#: templates/commerce/admin/add_product.html:132
 msgid "Translations"
 msgstr ""
 
-#: templates/commerce/admin/add_product.html:134
+#: templates/commerce/admin/add_product.html:138
 msgid "Size and form"
 msgstr ""
 
-#: templates/commerce/admin/add_product.html:135
+#: templates/commerce/admin/add_product.html:139
+#: templates/commerce/main/commerce/product.html:196
 msgid "Width"
 msgstr ""
 
-#: templates/commerce/admin/add_product.html:136
+#: templates/commerce/admin/add_product.html:140
+#: templates/commerce/main/commerce/product.html:205
 msgid "Height"
 msgstr ""
 
-#: templates/commerce/admin/add_product.html:137
+#: templates/commerce/admin/add_product.html:141
+#: templates/commerce/main/commerce/product.html:214
 msgid "Length"
 msgstr ""
 
-#: templates/commerce/admin/add_product.html:138
+#: templates/commerce/admin/add_product.html:142
+#: templates/commerce/main/commerce/product.html:223
 msgid "Weight"
 msgstr ""
 
-#: templates/commerce/admin/add_product.html:147
-msgid "Properties"
+#: templates/commerce/admin/add_product.html:144
+msgid "Producer, location, properties, outlines, etc"
 msgstr ""
 
 #: templates/commerce/admin/add_product.html:151
+msgid "Properties"
+msgstr ""
+
+#: templates/commerce/admin/add_product.html:155
 msgid "Select colors"
 msgstr ""
 
-#: templates/commerce/admin/add_product.html:167
+#: templates/commerce/admin/add_product.html:171
 msgid "Add color"
 msgstr ""
 
-#: templates/commerce/admin/add_product.html:168
+#: templates/commerce/admin/add_product.html:172
 msgid "Color name"
 msgstr ""
 
-#: templates/commerce/admin/add_product.html:169
+#: templates/commerce/admin/add_product.html:173
 msgid "Color description"
 msgstr ""
 
-#: templates/commerce/admin/add_product.html:171
-#: templates/commerce/admin/add_product.html:192
+#: templates/commerce/admin/add_product.html:175
+#: templates/commerce/admin/add_product.html:196
 #: templates/commerce/admin/add_product.html:216
 #: templates/commerce/admin/add_product.html:298
 msgid "Add"
 msgstr ""
 
-#: templates/commerce/admin/add_product.html:175
+#: templates/commerce/admin/add_product.html:179
 msgid "Sizes"
 msgstr ""
 
-#: templates/commerce/admin/add_product.html:189
+#: templates/commerce/admin/add_product.html:193
 msgid "Add size"
 msgstr ""
 
-#: templates/commerce/admin/add_product.html:190
+#: templates/commerce/admin/add_product.html:194
 msgid "Size name"
 msgstr ""
 
-#: templates/commerce/admin/add_product.html:191
+#: templates/commerce/admin/add_product.html:195
 msgid "Size description"
 msgstr ""
 
-#: templates/commerce/admin/add_product.html:197
+#: templates/commerce/admin/add_product.html:201
 msgid "Brands"
 msgstr ""
 
@@ -385,8 +466,8 @@ msgstr ""
 
 #: templates/commerce/admin/add_product.html:234
 #: templates/commerce/admin/add_product.html:272
-#: templates/commerce/main/commerce/layout.html:451
-#: templates/commerce/main/commerce/list_grid_layout.html:550
+#: templates/commerce/main/commerce/layout.html:331
+#: templates/commerce/main/commerce/list_grid_layout.html:533
 msgid "Language"
 msgstr ""
 
@@ -460,14 +541,8 @@ msgstr ""
 msgid "Company name"
 msgstr ""
 
-#: templates/commerce/admin/navbar.html:557
-#: templates/commerce/admin/navbar.html:559
-#: templates/commerce/main/auth/register_token.html:21
-#: templates/commerce/main/commerce/contact.html:25
-msgid "Full name"
-msgstr ""
-
 #: templates/commerce/admin/navbar.html:573
+#: templates/commerce/main/commerce/contact.html:33
 msgid "Address"
 msgstr ""
 
@@ -483,11 +558,6 @@ msgstr ""
 #: templates/commerce/admin/navbar.html:615
 #: templates/commerce/main/commerce/contact.html:52
 msgid "Postal code"
-msgstr ""
-
-#: templates/commerce/admin/navbar.html:621
-#: templates/commerce/main/commerce/contact.html:60
-msgid "Email"
 msgstr ""
 
 #: templates/commerce/admin/navbar.html:629
@@ -512,12 +582,6 @@ msgstr ""
 msgid "Email Address"
 msgstr ""
 
-#: templates/commerce/main/auth/login.html:33
-#: templates/commerce/main/auth/register_token.html:34
-#: templates/commerce/main/auth/reset_token.html:20
-msgid "Password"
-msgstr ""
-
 #: templates/commerce/main/auth/login.html:43
 msgid "Forgot your password?"
 msgstr ""
@@ -528,7 +592,7 @@ msgstr ""
 
 #: templates/commerce/main/auth/login.html:54
 #: templates/commerce/main/auth/register_request.html:49
-msgid "Create an account with us and you’ll be able to"
+msgid "Create a profile and you’ll be able to"
 msgstr ""
 
 #: templates/commerce/main/auth/login.html:56
@@ -548,7 +612,7 @@ msgid "Save items to your Wishlist"
 msgstr ""
 
 #: templates/commerce/main/auth/login.html:62
-msgid "Create an account"
+msgid "Create a profile"
 msgstr ""
 
 #: templates/commerce/main/auth/register_request.html:20
@@ -557,15 +621,15 @@ msgstr ""
 
 #: templates/commerce/main/auth/register_request.html:48
 #: templates/commerce/main/auth/register_token.html:63
-msgid "Have an account?"
+msgid "Have a profile?"
 msgstr ""
 
 #: templates/commerce/main/auth/register_request.html:50
 #: templates/commerce/main/auth/register_token.html:64
-#: templates/commerce/main/commerce/layout.html:67
-#: templates/commerce/main/commerce/layout.html:436
+#: templates/commerce/main/commerce/layout.html:62
+#: templates/commerce/main/commerce/layout.html:324
 #: templates/commerce/main/commerce/list_grid_layout.html:62
-#: templates/commerce/main/commerce/list_grid_layout.html:543
+#: templates/commerce/main/commerce/list_grid_layout.html:526
 msgid "Log in"
 msgstr ""
 
@@ -573,17 +637,28 @@ msgstr ""
 msgid "Please, proceed the registration"
 msgstr ""
 
-#: templates/commerce/main/auth/register_token.html:47
-#: templates/commerce/main/auth/reset_token.html:33
-msgid "Confirm password"
-msgstr ""
-
 #: templates/commerce/main/auth/reset_request.html:20
 msgid "Email address"
 msgstr ""
 
-#: templates/commerce/main/commerce/contact.html:33
-msgid "Addess"
+#: templates/commerce/main/commerce/cart.html:10
+msgid "Your cart items"
+msgstr ""
+
+#: templates/commerce/main/commerce/cart.html:18
+msgid "Total"
+msgstr ""
+
+#: templates/commerce/main/commerce/cart.html:25
+msgid "Back to Shop"
+msgstr ""
+
+#: templates/commerce/main/commerce/cart.html:26
+msgid "update"
+msgstr ""
+
+#: templates/commerce/main/commerce/cart.html:27
+msgid "clear all"
 msgstr ""
 
 #: templates/commerce/main/commerce/layout.html:9
@@ -593,149 +668,159 @@ msgstr ""
 msgid "Commerce"
 msgstr ""
 
-#: templates/commerce/main/commerce/layout.html:65
+#: templates/commerce/main/commerce/layout.html:60
 #: templates/commerce/main/commerce/list_grid_layout.html:60
 msgid "Log out"
 msgstr ""
 
-#: templates/commerce/main/commerce/layout.html:82
-#: templates/commerce/main/commerce/layout.html:349
-#: templates/commerce/main/commerce/layout.html:352
-#: templates/commerce/main/commerce/list_grid_layout.html:77
-#: templates/commerce/main/commerce/list_grid_layout.html:257
-#: templates/commerce/main/commerce/list_grid_layout.html:260
+#: templates/commerce/main/commerce/layout.html:79
+#: templates/commerce/main/commerce/layout.html:236
+#: templates/commerce/main/commerce/layout.html:239
+#: templates/commerce/main/commerce/list_grid_layout.html:79
+#: templates/commerce/main/commerce/list_grid_layout.html:236
+#: templates/commerce/main/commerce/list_grid_layout.html:239
 msgid "Home"
 msgstr ""
 
-#: templates/commerce/main/commerce/layout.html:95
-#: templates/commerce/main/commerce/layout.html:317
-#: templates/commerce/main/commerce/list_grid_layout.html:90
-#: templates/commerce/main/commerce/list_grid_layout.html:225
+#: templates/commerce/main/commerce/layout.html:92
+#: templates/commerce/main/commerce/layout.html:204
+#: templates/commerce/main/commerce/list_grid_layout.html:92
+#: templates/commerce/main/commerce/list_grid_layout.html:204
 msgid "Search"
 msgstr ""
 
-#: templates/commerce/main/commerce/layout.html:97
-#: templates/commerce/main/commerce/layout.html:319
-#: templates/commerce/main/commerce/list_grid_layout.html:92
-#: templates/commerce/main/commerce/list_grid_layout.html:227
+#: templates/commerce/main/commerce/layout.html:94
+#: templates/commerce/main/commerce/layout.html:206
+#: templates/commerce/main/commerce/list_grid_layout.html:94
+#: templates/commerce/main/commerce/list_grid_layout.html:206
 msgid "All Categories"
 msgstr ""
 
-#: templates/commerce/main/commerce/layout.html:121
-#: templates/commerce/main/commerce/list_grid_layout.html:116
+#: templates/commerce/main/commerce/layout.html:99
+#: templates/commerce/main/commerce/list_grid_layout.html:99
+msgid "Submit"
+msgstr ""
+
+#: templates/commerce/main/commerce/layout.html:118
+#: templates/commerce/main/commerce/list_grid_layout.html:118
 msgid "My Cart"
 msgstr ""
 
-#: templates/commerce/main/commerce/layout.html:269
-#: templates/commerce/main/commerce/list_grid_layout.html:177
-#: templates/commerce/main/commerce/list_grid_layout.html:366
-msgid "Categories"
+#: templates/commerce/main/commerce/layout.html:126
+#: templates/commerce/main/commerce/list_grid_layout.html:126
+msgid "View cart"
 msgstr ""
 
-#: templates/commerce/main/commerce/layout.html:403
-#: templates/commerce/main/commerce/list_grid_layout.html:510
-msgid "Menu"
-msgstr ""
-
-#: templates/commerce/main/commerce/layout.html:409
-#: templates/commerce/main/commerce/list_grid_layout.html:516
-msgid "Sidebar"
-msgstr ""
-
-#: templates/commerce/main/commerce/layout.html:421
-#: templates/commerce/main/commerce/layout.html:429
+#: templates/commerce/main/commerce/layout.html:127
+#: templates/commerce/main/commerce/layout.html:326
+#: templates/commerce/main/commerce/list_grid_layout.html:127
 #: templates/commerce/main/commerce/list_grid_layout.html:528
-#: templates/commerce/main/commerce/list_grid_layout.html:536
-msgid "Global"
-msgstr ""
-
-#: templates/commerce/main/commerce/layout.html:434
-#: templates/commerce/main/commerce/list_grid_layout.html:541
-msgid "My Account"
-msgstr ""
-
-#: templates/commerce/main/commerce/layout.html:437
-#: templates/commerce/main/commerce/list_grid_layout.html:544
-msgid "Wishlist"
-msgstr ""
-
-#: templates/commerce/main/commerce/layout.html:438
-#: templates/commerce/main/commerce/list_grid_layout.html:545
 msgid "Checkout"
 msgstr ""
 
-#: templates/commerce/main/commerce/layout.html:442
-msgid "Currency"
+#: templates/commerce/main/commerce/layout.html:156
+#: templates/commerce/main/commerce/list_grid_layout.html:156
+#: templates/commerce/main/commerce/list_grid_layout.html:345
+msgid "Categories"
 msgstr ""
 
-#: templates/commerce/main/commerce/list_grid_layout.html:273
+#: templates/commerce/main/commerce/layout.html:291
+#: templates/commerce/main/commerce/list_grid_layout.html:493
+msgid "Menu"
+msgstr ""
+
+#: templates/commerce/main/commerce/layout.html:297
+#: templates/commerce/main/commerce/list_grid_layout.html:340
+#: templates/commerce/main/commerce/list_grid_layout.html:499
+msgid "Sidebar"
+msgstr ""
+
+#: templates/commerce/main/commerce/layout.html:309
+#: templates/commerce/main/commerce/layout.html:317
+#: templates/commerce/main/commerce/list_grid_layout.html:511
+#: templates/commerce/main/commerce/list_grid_layout.html:519
+msgid "Global"
+msgstr ""
+
+#: templates/commerce/main/commerce/layout.html:322
+#: templates/commerce/main/commerce/list_grid_layout.html:524
+msgid "My profile"
+msgstr ""
+
+#: templates/commerce/main/commerce/layout.html:325
+#: templates/commerce/main/commerce/list_grid_layout.html:527
+msgid "Wishlist"
+msgstr ""
+
+#: templates/commerce/main/commerce/list_grid_layout.html:252
 msgid "Refine"
 msgstr ""
 
-#: templates/commerce/main/commerce/list_grid_layout.html:281
+#: templates/commerce/main/commerce/list_grid_layout.html:260
 msgid "Refine products by"
 msgstr ""
 
-#: templates/commerce/main/commerce/list_grid_layout.html:296
+#: templates/commerce/main/commerce/list_grid_layout.html:275
 msgid "All brands"
 msgstr ""
 
-#: templates/commerce/main/commerce/list_paginate.html:44
+#: templates/commerce/main/commerce/list_grid_layout.html:298
+msgid "Sort"
+msgstr ""
+
+#: templates/commerce/main/commerce/list_grid_layout.html:302
+msgid "Default sorting"
+msgstr ""
+
+#: templates/commerce/main/commerce/list_grid_layout.html:303
+msgid "popularity"
+msgstr ""
+
+#: templates/commerce/main/commerce/list_grid_layout.html:304
+msgid "average rating"
+msgstr ""
+
+#: templates/commerce/main/commerce/list_grid_layout.html:305
+msgid "newness"
+msgstr ""
+
+#: templates/commerce/main/commerce/list_grid_layout.html:306
+#: templates/commerce/main/commerce/list_grid_layout.html:307
+msgid "price"
+msgstr ""
+
+#: templates/commerce/main/commerce/list_grid_layout.html:306
+msgid "low to high"
+msgstr ""
+
+#: templates/commerce/main/commerce/list_grid_layout.html:307
+msgid "high to low"
+msgstr ""
+
+#: templates/commerce/main/commerce/list_grid_layout.html:425
+msgid "Recently Viewed"
+msgstr ""
+
+#: templates/commerce/main/commerce/list_paginate.html:46
 #: templates/commerce/main/commerce/list_view.html:44
-#: templates/commerce/main/commerce/product.html:79
+#: templates/commerce/main/commerce/product.html:130
 msgid "Add to cart"
 msgstr ""
 
-#: templates/commerce/main/commerce/product.html:67
+#: templates/commerce/main/commerce/list_paginate.html:47
+#: templates/commerce/main/commerce/product.html:131
+msgid "Remove"
+msgstr ""
+
+#: templates/commerce/main/commerce/product.html:68
+msgid "Other"
+msgstr ""
+
+#: templates/commerce/main/commerce/product.html:118
 msgid "Total Price"
 msgstr ""
 
-#: templates/commerce/main/commerce/product.html:94
+#: templates/commerce/main/commerce/product.html:146
 msgid "Products Descriptions"
 msgstr ""
 
-### manual translations
-
-msgid "Invoice"
-msgstr ""
-
-
-# Colors translations
-msgid "Red"
-msgstr ""
-
-msgid "Blue"
-msgstr ""
-
-msgid "White"
-msgstr ""
-
-msgid "Black"
-msgstr ""
-
-msgid "Green"
-msgstr ""
-
-msgid "Yellow"
-msgstr ""
-
-msgid "Purple"
-msgstr ""
-
-msgid "Pink"
-msgstr ""
-
-msgid "Dark green"
-msgstr ""
-
-msgid "Brown"
-msgstr ""
-
-msgid "Grey"
-msgstr ""
-
-msgid "Sky blue"
-msgstr ""
-
-msgid "Orange"
-msgstr ""
