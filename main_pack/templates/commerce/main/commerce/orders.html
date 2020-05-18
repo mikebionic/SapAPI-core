@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags always come first -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+        <title> Nephos :: Modern Bulma Ecommerce App and Dashboard</title>
+        <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='commerce/main/images/favicon.png') }}" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/animate.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/font-awesome.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/nice-select.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/slick.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/style.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/main-color.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/bulma.css')}}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/core.css')}}">
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/icons.min.css')}}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/chosen/chosen.css')}}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/webuipopover/jquery.webui-popover.min.css')}}">
+
+
+    </head>
+    <body>
+        <!-- Preloader -->
+    <div id="biof-loading">
+        <div class="biof-loading-center">
+            <div class="biof-loading-center-absolute">
+                <div class="dot dot-one"></div>
+                <div class="dot dot-two"></div>
+                <div class="dot dot-three"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <header id="header" class="header-area style-01 layout-03" >
+        <div class="header-top bg-main hidden-xs" style="background: #c2ccd5">
+            <div class="container">
+                <div class="top-bar left">
+                    <ul class="horizontal-menu">
+                        <li><a href="#"><i class="fa fa-envelope" aria-hidden="true"></i>Ikea@company.com</a></li>
+                    </ul>
+                </div>
+                <div class="top-bar right">
+                    <ul class="social-list">
+                        <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                        <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                        <li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+                    </ul>
+                    <ul class="horizontal-menu">
+                        <li class="horz-menu-item lang">
+                            <select name="language">
+                                <option value="fr">French (EUR)</option>
+                                <option value="en" selected>English (USD)</option>
+                                <option value="ger">Germany (GBP)</option>
+                                <option value="jp">Japan (JPY)</option>
+                            </select>
+                        </li>
+                        <li><a href="login.html" class="login-link"><i class="biolife-icon icon-login"></i>Login/Register</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="header-middle biolife-sticky-object ">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-2 col-md-6 col-xs-6">
+                        <a href="index.html" class="logo"><span style="color: #ff8300">I</span>KEA</a>
+                    </div>
+                    <div class="col-lg-6 col-md-7 hidden-sm hidden-xs">
+                        <div class="primary-menu">
+                        <ul class="menu biolife-menu clone-main-menu clone-primary-menu" id="primary-menu" data-menuname="main menu">
+                            <li class="menu-item"><a href="index.html">Home</a></li>
+                            <li class="menu-item"><a href="about-us.html">About us</a></li>
+                            <li class="menu-item"><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-md-6 col-xs-6">
+                        <div class="biolife-cart-info">
+                            <div class="mobile-search">
+                                <a href="javascript:void(0)" class="open-searchbox"><i class="biolife-icon icon-search"></i></a>
+                                <div class="mobile-search-content">
+                                    <form action="#" class="form-search" name="mobile-seacrh" method="get">
+                                        <a href="#" class="btn-close"><span class="biolife-icon icon-close-menu"></span></a>
+                                        <input type="text" name="s" class="input-text" value="" placeholder="Search here...">
+                                        <select name="category">
+                                            <option value="-1" selected>All Categories</option>
+                                            <option value="vegetables">Vegetables</option>
+                                            <option value="fresh_berries">Fresh Berries</option>
+                                            <option value="ocean_foods">Ocean Foods</option>
+                                            <option value="butter_eggs">Butter & Eggs</option>
+                                            <option value="fastfood">Fastfood</option>
+                                            <option value="fresh_meat">Fresh Meat</option>
+                                            <option value="fresh_onion">Fresh Onion</option>
+                                            <option value="papaya_crisps">Papaya & Crisps</option>
+                                            <option value="oatmeal">Oatmeal</option>
+                                        </select>
+                                        <button type="submit" class="btn-submit">go</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="wishlist-block hidden-sm hidden-xs">
+                                <a href="#" class="link-to">
+                                    <span class="icon-qty-combine">
+                                        <i class="icon-heart-bold biolife-icon"></i>
+                                        <span class="qty">4</span>
+                                    </span>
+                                </a>
+                            </div>
+                            <div class="minicart-block">
+                                <div class="minicart-contain">
+                                    <a href="javascript:void(0)" class="link-to">
+                                            <span class="icon-qty-combine">
+                                                <i class="icon-cart-mini biolife-icon"></i>
+                                                <span class="qty">8</span>
+                                            </span>
+                                        <span class="title">My Cart -</span>
+                                        <span class="sub-total">$0.00</span>
+                                    </a>
+                                    <div class="cart-content">
+                                        <div class="cart-inner">
+                                            <ul class="products">
+                                                <li>
+                                                    <div class="minicart-item">
+                                                        <div class="thumb">
+                                                            <a href="#"><img src="assets/images/product/28.jpg" width="90" height="90" alt="National Fresh"></a>
+                                                        </div>
+                                                        <div class="left-info">
+                                                            <div class="product-title"><a href="#" class="product-name">National Fresh Fruit</a></div>
+                                                            <div class="price">
+                                                                <ins><span class="price-amount"><span class="currencySymbol">£</span>85.00</span></ins>
+                                                                <del><span class="price-amount"><span class="currencySymbol">£</span>95.00</span></del>
+                                                            </div>
+                                                            <div class="qty">
+                                                                <label for="cart[id123][qty]">Qty:</label>
+                                                                <input type="number" class="input-qty" name="cart[id123][qty]" id="cart[id123][qty]" value="1" disabled>
+                                                            </div>
+                                                        </div>
+                                                        <div class="action">
+                                                            <a href="#" class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                                            <a href="#" class="remove"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="minicart-item">
+                                                        <div class="thumb">
+                                                            <a href="#"><img src="assets/images/product/29.jpg" width="90" height="90" alt="National Fresh"></a>
+                                                        </div>
+                                                        <div class="left-info">
+                                                            <div class="product-title"><a href="#" class="product-name">National Fresh Fruit</a></div>
+                                                            <div class="price">
+                                                                <ins><span class="price-amount"><span class="currencySymbol">£</span>85.00</span></ins>
+                                                                <del><span class="price-amount"><span class="currencySymbol">£</span>95.00</span></del>
+                                                            </div>
+                                                            <div class="qty">
+                                                                <label for="cart[id124][qty]">Qty:</label>
+                                                                <input type="number" class="input-qty" name="cart[id124][qty]" id="cart[id124][qty]" value="1" disabled>
+                                                            </div>
+                                                        </div>
+                                                        <div class="action">
+                                                            <a href="#" class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                                            <a href="#" class="remove"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="minicart-item">
+                                                        <div class="thumb">
+                                                            <a href="#"><img src="assets/images/product/30.jpg" width="90" height="90" alt="National Fresh"></a>
+                                                        </div>
+                                                        <div class="left-info">
+                                                            <div class="product-title"><a href="#" class="product-name">National Fresh Fruit</a></div>
+                                                            <div class="price">
+                                                                <ins><span class="price-amount"><span class="currencySymbol">£</span>85.00</span></ins>
+                                                                <del><span class="price-amount"><span class="currencySymbol">£</span>95.00</span></del>
+                                                            </div>
+                                                            <div class="qty">
+                                                                <label for="cart[id125][qty]">Qty:</label>
+                                                                <input type="number" class="input-qty" name="cart[id125][qty]" id="cart[id125][qty]" value="1" disabled>
+                                                            </div>
+                                                        </div>
+                                                        <div class="action">
+                                                            <a href="#" class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                                            <a href="#" class="remove"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="minicart-item">
+                                                        <div class="thumb">
+                                                            <a href="#"><img src="assets/images/product/27.jpg" width="90" height="90" alt="National Fresh"></a>
+                                                        </div>
+                                                        <div class="left-info">
+                                                            <div class="product-title"><a href="#" class="product-name">National Fresh Fruit</a></div>
+                                                            <div class="price">
+                                                                <ins><span class="price-amount"><span class="currencySymbol">£</span>85.00</span></ins>
+                                                                <del><span class="price-amount"><span class="currencySymbol">£</span>95.00</span></del>
+                                                            </div>
+                                                            <div class="qty">
+                                                                <label for="cart[id126][qty]">Qty:</label>
+                                                                <input type="number" class="input-qty" name="cart[id126][qty]" id="cart[id126][qty]" value="1" disabled>
+                                                            </div>
+                                                        </div>
+                                                        <div class="action">
+                                                            <a href="#" class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                                            <a href="#" class="remove"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="minicart-item">
+                                                        <div class="thumb">
+                                                            <a href="#"><img src="assets/images/product/31.jpg" width="90" height="90" alt="National Fresh"></a>
+                                                        </div>
+                                                        <div class="left-info">
+                                                            <div class="product-title"><a href="#" class="product-name">National Fresh Fruit</a></div>
+                                                            <div class="price">
+                                                                <ins><span class="price-amount"><span class="currencySymbol">£</span>85.00</span></ins>
+                                                                <del><span class="price-amount"><span class="currencySymbol">£</span>95.00</span></del>
+                                                            </div>
+                                                            <div class="qty">
+                                                                <label for="cart[id127][qty]">Qty:</label>
+                                                                <input type="number" class="input-qty" name="cart[id127][qty]" id="cart[id127][qty]" value="1" disabled>
+                                                            </div>
+                                                        </div>
+                                                        <div class="action">
+                                                            <a href="#" class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                                            <a href="#" class="remove"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                            <p class="btn-control">
+                                                <a href="#" class="btn view-cart">view cart</a>
+                                                <a href="#" class="btn">checkout</a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mobile-menu-toggle">
+                                <a class="btn-toggle" data-object="open-mobile-menu" href="javascript:void(0)">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-bottom hidden-sm hidden-xs">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-4">
+                        <div class="vertical-menu vertical-category-block">
+                            <div class="block-title">
+                                <span class="menu-icon">
+                                    <span class="line-1"></span>
+                                    <span class="line-2"></span>
+                                    <span class="line-3"></span>
+                                </span>
+                                <span class="menu-title">All departments</span>
+                                <span class="angle" data-tgleclass="fa fa-caret-down"><i class="fa fa-caret-up" aria-hidden="true"></i></span>
+                            </div>
+                            <div class="wrap-menu">
+                                <ul class="menu clone-main-menu">
+                                    <li class="menu-item menu-item-has-children has-megamenu">
+                                        <a href="#" class="menu-name" data-title="Fruit & Nut Gifts"><i class="biolife-icon icon-fruits"></i>Fruit & Nut Gifts</a>
+                                        <div class="wrap-megamenu lg-width-300 md-width-640">
+                                            <div class="mega-content">
+                                                <div class="row">
+                                                    <div class="col-lg-6 col-md-4 col-sm-12 xs-margin-bottom-25 md-margin-bottom-0">
+                                                        <div class="wrap-custom-menu vertical-menu">
+                                                            <h4 class="menu-title">Fresh Fuits</h4>
+                                                            <ul class="menu">
+                                                                <li><a href="#">Fruit & Nut Gifts</a></li>
+                                                                <li><a href="#">Mixed Fruits</a></li>
+                                                                <li><a href="#">Oranges</a></li>
+                                                                <li><a href="#">Bananas & Plantains</a></li>
+                                                                <li><a href="#">Fresh Gala Apples</a></li>
+                                                                <li><a href="#">Berries</a></li>
+                                                                <li><a href="#">Pears</a></li>
+                                                                <li><a href="#">Produce</a></li>
+                                                                <li><a href="#">Snack Foods</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-4 col-sm-12 lg-padding-left-23 xs-margin-bottom-25 md-margin-bottom-0">
+                                                        <div class="wrap-custom-menu vertical-menu">
+                                                            <h4 class="menu-title">Nut Gifts</h4>
+                                                            <ul class="menu">
+                                                                <li><a href="#">Non-Dairy Coffee Creamers</a></li>
+                                                                <li><a href="#">Coffee Creamers</a></li>
+                                                                <li><a href="#">Mayonnaise</a></li>
+                                                                <li><a href="#">Almond Milk</a></li>
+                                                                <li><a href="#">Ghee</a></li>
+                                                                <li><a href="#">Beverages</a></li>
+                                                                <li><a href="#">Ranch Salad Dressings</a></li>
+                                                                <li><a href="#">Hemp Milk</a></li>
+                                                                <li><a href="#">Nuts & Seeds</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="menu-item menu-item-has-children has-megamenu">
+                                        <a href="#" class="menu-name" data-title="Vegetables"><i class="biolife-icon icon-broccoli-1"></i>Vegetables</a>
+                                        <div class="wrap-megamenu lg-width-300 md-width-640 background-mega-01">
+                                            <div class="mega-content">
+                                                <div class="row">
+                                                    <div class="col-lg-6 col-md-4 col-sm-12 xs-margin-bottom-25 md-margin-bottom-0">
+                                                        <div class="wrap-custom-menu vertical-menu">
+                                                            <h4 class="menu-title">Vegetables</h4>
+                                                            <ul class="menu">
+                                                                <li><a href="#">Fruit & Nut Gifts</a></li>
+                                                                <li><a href="#">Mixed Fruits</a></li>
+                                                                <li><a href="#">Oranges</a></li>
+                                                                <li><a href="#">Bananas & Plantains</a></li>
+                                                                <li><a href="#">Fresh Gala Apples</a></li>
+                                                                <li><a href="#">Berries</a></li>
+                                                                <li><a href="#">Pears</a></li>
+                                                                <li><a href="#">Produce</a></li>
+                                                                <li><a href="#">Snack Foods</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-4 col-sm-12 lg-padding-left-23 xs-margin-bottom-25 md-margin-bottom-0">
+                                                        <div class="wrap-custom-menu vertical-menu">
+                                                            <h4 class="menu-title">Gifts</h4>
+                                                            <ul class="menu">
+                                                                <li><a href="#">Non-Dairy Coffee Creamers</a></li>
+                                                                <li><a href="#">Coffee Creamers</a></li>
+                                                                <li><a href="#">Mayonnaise</a></li>
+                                                                <li><a href="#">Almond Milk</a></li>
+                                                                <li><a href="#">Ghee</a></li>
+                                                                <li><a href="#">Beverages</a></li>
+                                                                <li><a href="#">Ranch Salad Dressings</a></li>
+                                                                <li><a href="#">Hemp Milk</a></li>
+                                                                <li><a href="#">Nuts & Seeds</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="menu-item menu-item-has-children has-megamenu">
+                                        <a href="#" class="menu-name" data-title="Fresh Berries"><i class="biolife-icon icon-grape"></i>Fresh Berries</a>
+                                        <div class="wrap-megamenu lg-width-300 md-width-640 background-mega-02">
+                                            <div class="mega-content">
+                                                <div class="row">
+                                                    <div class="col-lg-6 col-md-4 sm-col-12 md-margin-bottom-83 xs-margin-bottom-25">
+                                                        <div class="wrap-custom-menu vertical-menu">
+                                                            <h4 class="menu-title">Fresh Berries</h4>
+                                                            <ul class="menu">
+                                                                <li><a href="#">Fruit & Nut Gifts</a></li>
+                                                                <li><a href="#">Mixed Fruits</a></li>
+                                                                <li><a href="#">Oranges</a></li>
+                                                                <li><a href="#">Bananas & Plantains</a></li>
+                                                                <li><a href="#">Fresh Gala Apples</a></li>
+                                                                <li><a href="#">Berries</a></li>
+                                                                <li><a href="#">Pears</a></li>
+                                                                <li><a href="#">Produce</a></li>
+                                                                <li><a href="#">Snack Foods</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-4 sm-col-12 lg-padding-left-23 xs-margin-bottom-36px md-margin-bottom-0">
+                                                        <div class="wrap-custom-menu vertical-menu">
+                                                            <h4 class="menu-title">Gifts</h4>
+                                                            <ul class="menu">
+                                                                <li><a href="#">Non-Dairy Coffee Creamers</a></li>
+                                                                <li><a href="#">Coffee Creamers</a></li>
+                                                                <li><a href="#">Mayonnaise</a></li>
+                                                                <li><a href="#">Almond Milk</a></li>
+                                                                <li><a href="#">Ghee</a></li>
+                                                                <li><a href="#">Beverages</a></li>
+                                                                <li><a href="#">Ranch Salad Dressings</a></li>
+                                                                <li><a href="#">Hemp Milk</a></li>
+                                                                <li><a href="#">Nuts & Seeds</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="menu-item"><a href="#" class="menu-name" data-title="Ocean Foods"><i class="biolife-icon icon-fish"></i>Ocean Foods</a></li>
+                                    <li class="menu-item menu-item-has-children has-child">
+                                        <a href="#" class="menu-name" data-title="Butter & Eggs"><i class="biolife-icon icon-honey"></i>Butter & Eggs</a>
+                                        <ul class="sub-menu">
+                                            <li class="menu-item"><a href="#">Omelettes</a></li>
+                                            <li class="menu-item"><a href="#">Breakfast Scrambles</a></li>
+                                            <li class="menu-item menu-item-has-children has-child"><a href="#" class="menu-name" data-title="Eggs & other considerations">Eggs & other considerations</a>
+                                                <ul class="sub-menu">
+                                                    <li class="menu-item"><a href="#">Classic Breakfast</a></li>
+                                                    <li class="menu-item"><a href="#">Huevos Rancheros</a></li>
+                                                    <li class="menu-item"><a href="#">Everything Egg Sandwich</a></li>
+                                                    <li class="menu-item"><a href="#">Egg Sandwich</a></li>
+                                                    <li class="menu-item"><a href="#">Vegan Burrito</a></li>
+                                                    <li class="menu-item"><a href="#">Biscuits and Gravy</a></li>
+                                                    <li class="menu-item"><a href="#">Bacon Avo Egg Sandwich</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="menu-item"><a href="#">Griddle</a></li>
+                                            <li class="menu-item menu-item-has-children has-child"><a href="#" class="menu-name" data-title="Sides & Extras">Sides & Extras</a>
+                                                <ul class="sub-menu">
+                                                    <li class="menu-item"><a href="#">Breakfast Burrito</a></li>
+                                                    <li class="menu-item"><a href="#">Crab Cake Benedict</a></li>
+                                                    <li class="menu-item"><a href="#">Corned Beef Hash</a></li>
+                                                    <li class="menu-item"><a href="#">Steak & Eggs</a></li>
+                                                    <li class="menu-item"><a href="#">Oatmeal</a></li>
+                                                    <li class="menu-item"><a href="#">Fruit & Yogurt Parfait</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="menu-item"><a href="#">Biscuits</a></li>
+                                            <li class="menu-item"><a href="#">Seasonal Fruit Plate</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="menu-item"><a href="#" class="menu-title"><i class="biolife-icon icon-fast-food"></i>Fastfood</a></li>
+                                    <li class="menu-item"><a href="#" class="menu-title"><i class="biolife-icon icon-beef"></i>Fresh Meat</a></li>
+                                    <li class="menu-item"><a href="#" class="menu-title"><i class="biolife-icon icon-onions"></i>Fresh Onion</a></li>
+                                    <li class="menu-item"><a href="#" class="menu-title"><i class="biolife-icon icon-avocado"></i>Papaya & Crisps</a></li>
+                                    <li class="menu-item"><a href="#" class="menu-title"><i class="biolife-icon icon-contain"></i>Oatmeal</a></li>
+                                    <li class="menu-item"><a href="#" class="menu-title"><i class="biolife-icon icon-fresh-juice"></i>Fresh Bananas & Plantains</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 col-md-8 padding-top-2px">
+                        <div class="header-search-bar layout-01">
+                            <form action="#" class="form-search" name="desktop-seacrh" method="get">
+                                <input type="text" name="s" class="input-text" value="" placeholder="Search here...">
+                                <select name="category">
+                                    <option value="-1" selected>All Categories</option>
+                                    <option value="vegetables">Vegetables</option>
+                                    <option value="fresh_berries">Fresh Berries</option>
+                                    <option value="ocean_foods">Ocean Foods</option>
+                                    <option value="butter_eggs">Butter & Eggs</option>
+                                    <option value="fastfood">Fastfood</option>
+                                    <option value="fresh_meat">Fresh Meat</option>
+                                    <option value="fresh_onion">Fresh Onion</option>
+                                    <option value="papaya_crisps">Papaya & Crisps</option>
+                                    <option value="oatmeal">Oatmeal</option>
+                                </select>
+                                <button type="submit" class="btn-submit"><i class="biolife-icon icon-search"></i></button>
+                            </form>
+                        </div>
+                        <div class="live-info">
+                            <p class="telephone"><i class="fa fa-phone" aria-hidden="true"></i><b class="phone-number">(+900) 123 456 7891</b></p>
+                            <p class="working-time">Mon-Fri: 8:30am-7:30pm; Sat-Sun: 9:30am-4:30pm</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!--Hero Section-->
+    <div class="hero-section hero-background">
+        <h1 class="page-title">MY ORDERS</h1>
+    </div>
+
+
+    <div class="shop-wrapper">
+        
+            <!-- Search overlay -->
+            <div class="search-overlay"></div>
+            
+            <!-- Search input -->
+            <div class="search-input-wrapper is-desktop is-hidden">
+                <div class="field">
+                    <div class="control">
+                        <input type="text" name="search" autofocus required>
+                        <span id="clear-search" role="button"><i data-feather="x"></i></span>
+                        <span class="search-help">Type the name of the product you are looking for</span>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Main section -->
+            <div class="section">
+                <!-- Container -->
+                <div class="container">
+        
+                    <!-- Orders Grid -->
+                    <div class="columns account-header">
+                        <div class="column is-10 is-offset-1 is-tablet-landscape-padded">
+                            <div class="account-title">
+                                <h2>MY ORDERS</h2>
+                                <img class="brand-filigrane" src="{{ url_for('static', filename='commerce/main/images/logo/nephos-greyscale.svg')}}" alt="">
+                            </div>
+        
+                            <!-- Account tabs -->
+                            <div class="tabs account-tabs has-controls">
+                                <ul>
+                                    <li><a href="account.html">Account</a></li>
+                                    <li class="is-active"><a href="orders.html">Orders</a></li>
+                                </ul>
+                            </div>
+                            <div class="columns is-account-grid is-multiline">
+                                <!-- Order card -->
+                                <div class="column is-4">
+                                    <div class="flat-card order-card has-popover-top">
+                                        <div class="order-info">
+                                            <span><a href="invoice.html" onclick="return true">ORDER-46895</a></span>
+                                            <span class="tag is-primary">Shipping</span>
+                                        </div>
+                                        <!-- Progress Circle -->
+                                        <div class="circle-chart-wrapper">
+                                            <svg class="circle-chart" viewbox="0 0 33.83098862 33.83098862" width="140" height="140" xmlns="http://www.w3.org/2000/svg">
+                                                <circle class="circle-chart-background" stroke="#efefef" stroke-width="2" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
+                                                <circle class="circle-chart-circle" stroke="#0023ff" stroke-width="2" stroke-dasharray="66,100" stroke-linecap="round" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
+                                            </svg>
+                                            <!-- Icon -->
+                                            <div class="chart-icon">
+                                                <i data-feather="truck"></i>
+                                            </div>
+                                            <!-- Label -->
+                                            <div class="ring-title has-text-centered">
+                                                <span>66% Complete</span>
+                                            </div>
+                                        </div>
+                                    </div>
+        
+                                    <!-- Order 46895 Popover -->
+                                    <div class="webui-popover-content">
+                                        <!-- Popover Block -->
+                                        <div class="popover-flex-block">
+                                            <img class="staff-avatar" src="{{ url_for('static', filename='commerce/main/images/avatars/janet.jpg')}}" alt="">
+                                            <div class="content-block">
+                                                <label>Order handled by</label>
+                                                <span>Jane Smith</span>
+                                            </div>
+                                        </div>
+                                        <!-- Popover Block -->
+                                        <div class="popover-flex-block">
+                                            <div class="icon-block">
+                                                <i data-feather="clock"></i>
+                                            </div>
+                                            <div class="content-block">
+                                                <label>Ordered on</label>
+                                                <span>mar 23th 2018</span>
+                                            </div>
+                                        </div>
+                                        <!-- Popover Block -->
+                                        <div class="popover-flex-block">
+                                            <div class="icon-block">
+                                                <i data-feather="dollar-sign"></i>
+                                            </div>
+                                            <div class="content-block">
+                                                <label>Order Total</label>
+                                                <span>$378,85</span>
+                                            </div>
+                                        </div>
+                                        <!-- Popover Block -->
+                                        <div class="popover-flex-block">
+                                            <div class="icon-block">
+                                                <i data-feather="truck"></i>
+                                            </div>
+                                            <div class="content-block">
+                                                <label>Shipping Method</label>
+                                                <span>UPS</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+        
+                                <!-- Order card -->
+                                <div class="column is-4">
+                                    <div class="flat-card order-card has-popover-top">
+                                        <div class="order-info">
+                                            <span><a href="invoice.html">ORDER-46878</a></span>
+                                            <span class="tag is-success">Preparing</span>
+                                        </div>
+                                        <!-- Progress Circle -->
+                                        <div class="circle-chart-wrapper">
+                                            <svg class="circle-chart" viewbox="0 0 33.83098862 33.83098862" width="140" height="140" xmlns="http://www.w3.org/2000/svg">
+                                                <circle class="circle-chart-background" stroke="#efefef" stroke-width="2" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
+                                                <circle class="circle-chart-circle" stroke="#00b289" stroke-width="2" stroke-dasharray="33,100" stroke-linecap="round" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
+                                            </svg>
+                                            <!-- Icon -->
+                                            <div class="chart-icon">
+                                                <i data-feather="package"></i>
+                                            </div>
+                                            <!-- Label -->
+                                            <div class="ring-title has-text-centered">
+                                                <span>33% Complete</span>
+                                            </div>
+                                        </div>
+                                    </div>
+        
+                                    <!-- Order 46878 Popover -->
+                                    <div class="webui-popover-content">
+                                        <!-- Popover Block -->
+                                        <div class="popover-flex-block">
+                                            <img class="staff-avatar" src="{{ url_for('static', filename='commerce/main/images/avatars/marc.jpg')}}" alt="">
+                                            <div class="content-block">
+                                                <label>Order handled by</label>
+                                                <span>Marc Korsky</span>
+                                            </div>
+                                        </div>
+                                        <!-- Popover Block -->
+                                        <div class="popover-flex-block">
+                                            <div class="icon-block">
+                                                <i data-feather="clock"></i>
+                                            </div>
+                                            <div class="content-block">
+                                                <label>Ordered on</label>
+                                                <span>mar 15th 2018</span>
+                                            </div>
+                                        </div>
+                                        <!-- Popover Block -->
+                                        <div class="popover-flex-block">
+                                            <div class="icon-block">
+                                                <i data-feather="dollar-sign"></i>
+                                            </div>
+                                            <div class="content-block">
+                                                <label>Order Total</label>
+                                                <span>$58,49</span>
+                                            </div>
+                                        </div>
+                                        <!-- Popover Block -->
+                                        <div class="popover-flex-block">
+                                            <div class="icon-block">
+                                                <i data-feather="truck"></i>
+                                            </div>
+                                            <div class="content-block">
+                                                <label>Shipping Method</label>
+                                                <span>Drone</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+        
+                                <!-- Order card -->
+                                <div class="column is-4">
+                                    <div class="flat-card order-card has-popover-top">
+                                        <div class="order-info">
+                                            <span><a href="invoice.html" class="is-disabled">ORDER-42135</a></span>
+                                            <span class="tag is-warning">Pending</span>
+                                        </div>
+                                        <!-- Progress Circle -->
+                                        <div class="circle-chart-wrapper">
+                                            <svg class="circle-chart" viewbox="0 0 33.83098862 33.83098862" width="140" height="140" xmlns="http://www.w3.org/2000/svg">
+                                                <circle class="circle-chart-background" stroke="#efefef" stroke-width="2" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
+                                                <circle class="circle-chart-circle" stroke="#eda514" stroke-width="2" stroke-dasharray="10,100" stroke-linecap="round" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
+                                            </svg>
+                                            <!-- Icon -->
+                                            <div class="chart-icon">
+                                                <i data-feather="dollar-sign"></i>
+                                            </div>
+                                            <!-- Label -->
+                                            <div class="ring-title has-text-centered">
+                                                <span>10% Complete</span>
+                                            </div>
+                                        </div>
+                                    </div>
+        
+                                    <!-- Order 42135 Popover -->
+                                    <div class="webui-popover-content">
+                                        <!-- Popover Block -->
+                                        <div class="popover-flex-block">
+                                            <img class="staff-avatar" src="{{ url_for('static', filename='commerce/main/images/avatars/janet.jpg')}}" alt="">
+                                            <div class="content-block">
+                                                <label>Order handled by</label>
+                                                <span>Janet Smith</span>
+                                            </div>
+                                        </div>
+                                        <!-- Popover Block -->
+                                        <div class="popover-flex-block">
+                                            <div class="icon-block">
+                                                <i data-feather="clock"></i>
+                                            </div>
+                                            <div class="content-block">
+                                                <label>Ordered on</label>
+                                                <span>feb 26th 2018</span>
+                                            </div>
+                                        </div>
+                                        <!-- Popover Block -->
+                                        <div class="popover-flex-block">
+                                            <div class="icon-block">
+                                                <i data-feather="dollar-sign"></i>
+                                            </div>
+                                            <div class="content-block">
+                                                <label>Order Total</label>
+                                                <span>$188,00</span>
+                                            </div>
+                                        </div>
+                                        <!-- Popover Block -->
+                                        <div class="popover-flex-block">
+                                            <div class="icon-block">
+                                                <i data-feather="truck"></i>
+                                            </div>
+                                            <div class="content-block">
+                                                <label>Shipping Method</label>
+                                                <span>FedEx</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+        
+                                <!-- Order card -->
+                                <div class="column is-4">
+                                    <div class="flat-card order-card has-popover-top">
+                                        <div class="order-info">
+                                            <span><a href="invoice.html">ORDER-39456</a></span>
+                                            <span class="tag is-danger">Has issue</span>
+                                        </div>
+                                        <!-- Progress Circle -->
+                                        <div class="circle-chart-wrapper">
+                                            <svg class="circle-chart" viewbox="0 0 33.83098862 33.83098862" width="140" height="140" xmlns="http://www.w3.org/2000/svg">
+                                                <circle class="circle-chart-background" stroke="#efefef" stroke-width="2" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
+                                                <circle class="circle-chart-circle" stroke="#FF7273" stroke-width="2" stroke-dasharray="40,100" stroke-linecap="round" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
+                                            </svg>
+                                            <!-- Icon -->
+                                            <div class="chart-icon">
+                                                <i data-feather="alert-octagon"></i>
+                                            </div>
+                                            <!-- Label -->
+                                            <div class="ring-title has-text-centered">
+                                                <span>40% Complete</span>
+                                            </div>
+                                        </div>
+                                    </div>
+        
+                                    <!-- Order 39456 Popover -->
+                                    <div class="webui-popover-content">
+                                        <!-- Popover Block -->
+                                        <div class="popover-flex-block">
+                                            <img class="staff-avatar" src="{{ url_for('static', filename='commerce/main/images/avatars/janet.jpg')}}" alt="">
+                                            <div class="content-block">
+                                                <label>Order handled by</label>
+                                                <span>Janet Smith</span>
+                                            </div>
+                                        </div>
+                                        <!-- Popover Block -->
+                                        <div class="popover-flex-block">
+                                            <div class="icon-block">
+                                                <i data-feather="clock"></i>
+                                            </div>
+                                            <div class="content-block">
+                                                <label>Ordered on</label>
+                                                <span>feb 19th 2018</span>
+                                            </div>
+                                        </div>
+                                        <!-- Popover Block -->
+                                        <div class="popover-flex-block">
+                                            <div class="icon-block">
+                                                <i data-feather="dollar-sign"></i>
+                                            </div>
+                                            <div class="content-block">
+                                                <label>Order Total</label>
+                                                <span>$219,22</span>
+                                            </div>
+                                        </div>
+                                        <!-- Popover Block -->
+                                        <div class="popover-flex-block">
+                                            <div class="icon-block">
+                                                <i data-feather="truck"></i>
+                                            </div>
+                                            <div class="content-block">
+                                                <label>Shipping Method</label>
+                                                <span>FedEx</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+        
+                                <!-- Order card -->
+                                <div class="column is-4">
+                                    <div class="flat-card order-card has-popover-top">
+                                        <div class="order-info">
+                                            <span><a href="invoice.html">ORDER-38246</a></span>
+                                            <span class="tag is-primary">Complete</span>
+                                        </div>
+                                        <!-- Progress Circle -->
+                                        <div class="circle-chart-wrapper">
+                                            <svg class="circle-chart" viewbox="0 0 33.83098862 33.83098862" width="140" height="140" xmlns="http://www.w3.org/2000/svg">
+                                                <circle class="circle-chart-background" stroke="#efefef" stroke-width="2" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
+                                                <circle class="circle-chart-circle" stroke="#0023ff" stroke-width="2" stroke-dasharray="100,100" stroke-linecap="round" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
+                                            </svg>
+                                            <!-- Icon -->
+                                            <div class="chart-icon">
+                                                <i data-feather="award"></i>
+                                            </div>
+                                            <!-- Label -->
+                                            <div class="ring-title has-text-centered">
+                                                <span>100% Complete</span>
+                                            </div>
+                                        </div>
+                                    </div>
+        
+                                    <!-- Order 38246 Popover -->
+                                    <div class="webui-popover-content">
+                                        <!-- Popover Block -->
+                                        <div class="popover-flex-block">
+                                            <img class="staff-avatar" src="{{ url_for('static', filename='commerce/main/images/avatars/nicole.jpg')}}" alt="">
+                                            <div class="content-block">
+                                                <label>Order handled by</label>
+                                                <span>Nicole Rogers</span>
+                                            </div>
+                                        </div>
+                                        <!-- Popover Block -->
+                                        <div class="popover-flex-block">
+                                            <div class="icon-block">
+                                                <i data-feather="clock"></i>
+                                            </div>
+                                            <div class="content-block">
+                                                <label>Ordered on</label>
+                                                <span>feb 5th 2018</span>
+                                            </div>
+                                        </div>
+                                        <!-- Popover Block -->
+                                        <div class="popover-flex-block">
+                                            <div class="icon-block">
+                                                <i data-feather="dollar-sign"></i>
+                                            </div>
+                                            <div class="content-block">
+                                                <label>Order Total</label>
+                                                <span>$29,22</span>
+                                            </div>
+                                        </div>
+                                        <!-- Popover Block -->
+                                        <div class="popover-flex-block">
+                                            <div class="icon-block">
+                                                <i data-feather="truck"></i>
+                                            </div>
+                                            <div class="content-block">
+                                                <label>Shipping Method</label>
+                                                <span>UPS</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Orders Grid -->
+                </div>
+                <!-- /Container -->
+            </div>
+            <!-- /Main section -->
+        </div>
+        <!-- /Main wrapper -->
+        <!-- Concatenated plugins -->
+       
+    <script src="{{ url_for('static', filename='commerce/main/js/jquery-3.4.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='commerce/main/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='commerce/main/js/jquery.countdown.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='commerce/main/js/jquery.nice-select.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='commerce/main/js/jquery.nicescroll.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='commerce/main/js/slick.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='commerce/main/js/biolife.framework.js') }}"></script>
+    <script src="{{ url_for('static', filename='commerce/main/js/functions.js') }}"></script>
+    <script src="{{ url_for('static', filename='commerce/main/js/js.cookie.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='commerce/main/js/cartsAndCheckouts.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='commerce/main/js/app.js')}}"></script>
+       
+    <script src="{{ url_for('static', filename='commerce/main/js/nephos.js')}}"></script>
+         </body>  
+</html>

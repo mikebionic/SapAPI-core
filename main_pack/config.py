@@ -1,6 +1,6 @@
 class Config:
 	SECRET_KEY = 'jbvfr84iojnbv7oi-02933jndudm094jfo+_OygcuHUH'
-	# SQLALCHEMY_DATABASE_URI = 'sqlite:///commerce.db'
+	SQLALCHEMY_DATABASE_URI = 'sqlite:///commerce.db'
 
 	POSTGRES = {
 	    'user': 'postgres',
@@ -9,7 +9,7 @@ class Config:
 	    'host': 'localhost',
 	    'port': '5432',
 	}
-	SQLALCHEMY_DATABASE_URI = 'postgresql://%(user)s:%(pw)s@%(host)s:%(port)s/%(db)s' % POSTGRES
+	# SQLALCHEMY_DATABASE_URI = 'postgresql://%(user)s:%(pw)s@%(host)s:%(port)s/%(db)s' % POSTGRES
 
 	BABEL_DEFAULT_LOCALE = 'tk'
 	MAIL_SERVER = 'smtp.googlemail.com'

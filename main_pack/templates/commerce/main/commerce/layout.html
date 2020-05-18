@@ -51,9 +51,9 @@
             <ul class="horizontal-menu">
               <li class="horz-menu-item lang">
                 <select name="language">
-                  <a type="submit" href="/language/tk"><option value="tk">Türkmen</option></a>
-                  <a type="submit" href="/language/en"><option value="en" selected>English</option></a>
-                  <a type="submit" href="/language/ru"><option value="ru">Русский</option></a>
+                  <a type="submit" href="/language/tk"><option >Türkmen</option></a>
+                  <a type="submit" href="/language/en"><option >English</option></a>
+                  <a type="submit" href="/language/ru"><option >Русский</option></a>
                 </select>
               </li>
               {% if current_user.is_authenticated %}
@@ -157,42 +157,31 @@
                   <span class="angle" data-tgleclass="fa fa-caret-down"><i class="fa fa-caret-up" aria-hidden="true"></i></span>
                 </div>
                 <div class="wrap-menu">
-                      <ul class="menu clone-main-menu">
-{% for category in categories %}
-  {% if category.GCRecord == None or category.GCRecord == '' %}
-    <li class="menu-item menu-item-has-children has-megamenu">
-      <div>
-        <a href="#" class="menu-name" {% if category.ResCatDesc %} title="{{ category.ResCatDesc }}" {% endif %}><i class="{% if category.ResCatIconName %}{{category.ResCatIconName}}{%else%}fas fa-apple-alt{%endif%}"></i> {{ category.ResCatName }}</a>
-        <div class="wrap-megamenu lg-width-300 md-width-640">
-          <div class="mega-content">
-            <div class="row">
-              <div class="col-lg-9 col-md-4 col-sm-12 xs-margin-bottom-25 md-margin-bottom-0">
-                {% for subcategory in subcategories %}
-                  {% if subcategory.GCRecord == None or subcategory.GCRecord == '' %}
-                    {% if subcategory.ResOwnerCatId == category.ResCatId %}
-                    <div class="wrap-custom-menu vertical-menu">
-                      <h4 class="menu-title" {% if subcategory.ResCatDesc %} title="{{ subcategory.ResCatDesc }}" {% endif %}>{{ subcategory.ResCatName }}</h4>
-                      <ul class="menu">
-                          {% for subcategory_child in subcategory_children %}
-                          {% if subcategory_child.GCRecord == None or subcategory_child.GCRecord == '' %}
-                            {% if subcategory_child.ResOwnerCatId == subcategory.ResCatId %}
-                              <li><a href="#" {% if subcategory_child.ResCatDesc %} title="{{ subcategory_child.ResCatDesc }}" {% endif %}>{{ subcategory_child.ResCatName }}</a></li>
-                            {% endif %}
-                          {% endif %}
-                        {% endfor %}
-                      </ul>
-                    </div>
-                    {% endif %}
-                  {% endif %}
-                {% endfor %}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </li>
-  {% endif %}
-{% endfor %}
+                  <ul class="menu clone-main-menu">
+                    {% for category in categories %}
+                        {% if category.GCRecord == None or category.GCRecord == '' %}
+                            <li class="menu-item menu-item-has-children has-child">
+                            <a href="#" class="menu-name" {% if category.ResCatDesc %} title="{{ category.ResCatDesc }}" {% endif %}><i class="biolife-icon icon-fruits"></i> {{ category.ResCatName }}</a>
+                            {% for subcategory in subcategories %}
+                                {% if subcategory.GCRecord == None or subcategory.GCRecord == '' %}
+                                    {% if subcategory.ResOwnerCatId == category.ResCatId %}
+                                        <ul class="sub-menu">
+                                        <h4 class="menu-title" {% if subcategory.ResCatDesc %} title="{{ subcategory.ResCatDesc }}" {% endif %}>{{ subcategory.ResCatName }}</h4>
+                                            {% for subcategory_child in subcategory_children %}
+                                                {% if subcategory_child.GCRecord == None or subcategory_child.GCRecord == '' %}
+                                                    {% if subcategory_child.ResOwnerCatId == subcategory.ResCatId %}
+                                                    
+                                                        <li class="menu-item"><a href="#" {% if subcategory_child.ResCatDesc %} title="{{ subcategory_child.ResCatDesc }}" {% endif %}>{{ subcategory_child.ResCatName }}</a></li>
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endfor %}
+                                        </ul>                                        
+                                        {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                            </li>
+                        {% endif %}
+                    {% endfor %}
 
                   </ul>
                 </div>

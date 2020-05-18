@@ -53,11 +53,8 @@
 {% for category in categories %}
     {% if category.GCRecord == None or category.GCRecord == '' %}
         <li class="menu-item menu-item-has-children has-megamenu">
-            <div>
-                <div class="form-group">
-                    <a href="#" class="menu-name" {% if category.ResCatDesc %} title="{{ category.ResCatDesc }}" {% endif %}><i class="{% if category.ResCatIconName %}{{category.ResCatIconName}}{%else%}fas fa-apple-alt {%endif%}"></i></a>{{ category.ResCatName }}
-                    <a href="#" class="removeCategoryBtn" ownerCategory="{{ category.ResCatId }}"><i class="fas fa-times" style="padding-left: 7px;"></i></a>
-                </div>
+                    <a href="#" class="menu-name" {% if category.ResCatDesc %} title="{{ category.ResCatDesc }}" {% endif %}><i class="{% if category.ResCatIconName %}{{category.ResCatIconName}}{%else%}fas fa-apple-alt {%endif%}"></i>{{ category.ResCatName }}
+                    <i class="fas fa-times removeCategoryBtn" ownerCategory="{{ category.ResCatId }}" style="padding-left: 7px;"></i></a>
                 <div class="wrap-megamenu lg-width-300 md-width-640">
                     <div class="mega-content">
                         <div class="row">
@@ -65,7 +62,7 @@
                                 {% for subcategory in subcategories %}
                                     {% if subcategory.GCRecord == None or subcategory.GCRecord == '' %}
                                         {% if subcategory.ResOwnerCatId == category.ResCatId %}
-                                        <div>
+                                        <div class="wrap-custom-menu vertical-menu">
                                             <h4 class="menu-title" {% if subcategory.ResCatDesc %} title="{{ subcategory.ResCatDesc }}" {% endif %}>{{ subcategory.ResCatName }}<a href="#" class="removeCategoryBtn" ownerCategory="{{ subcategory.ResCatId }}"><i class="fas fa-times" style="padding-left: 7px;"></i></a></h4>
                                             <div class="form-group">
                                                 <ul class="categoriesList{{ subcategory.ResCatId }}">
@@ -73,7 +70,7 @@
                                                         {% if subcategory_child.GCRecord == None or subcategory_child.GCRecord == '' %}
                                                             {% if subcategory_child.ResOwnerCatId == subcategory.ResCatId %}
                                                             <div>
-                                                                <li><a href="#" {% if subcategory_child.ResCatDesc %} title="{{ subcategory_child.ResCatDesc }}" {% endif %}>{{ subcategory_child.ResCatName }}</a><a href="#" class="removeCategoryBtn" ownerCategory="{{ subcategory_child.ResCatId }}"><i class="fas fa-times" style="padding-left: 7px;"></i></a></li>
+                                                                <li><a href="#" {% if subcategory_child.ResCatDesc %} title="{{ subcategory_child.ResCatDesc }}" {% endif %}>{{ subcategory_child.ResCatName }}</a><a href="#" class="removeCategoryBtn" ownerCategory="{{ subcategory_child.ResCatId }}"><i class="fas fa-times" style="padding-left: 7px;"></i><input type="text" name="name" value="" placeholder="Category" class="txt-input" style="width: 80%;height: 40px;"></a></li>
                                                             </div>
                                                             {% endif %}
                                                         {% endif %}
@@ -102,20 +99,14 @@
                         </div>
                     </div>
                 </div>
-            </div>
         </li>
     {% endif %}
 {% endfor %}
 
                                     <li class="menu-item menu-item-has-children has-megamenu newCategory">
-                                        <div class="form-group">
-                                            <a href="#" class="menu-name categoryIcon" ownerCategory="" data-toggle="modal"
-                                            data-target="#catIconsModal"><i class="fas fa-apple-alt"></i></a>
-                                            <input class="input100 categoryName" type="text" placeholder="{{_('Category')}}">
-                                            <input type="hidden" class="txt-input categoryDesc">
-                                            <a href="#" data-toggle="tooltip" data-placement="bottom" class="addDescBtn" ownerCategory="" title="{{_('Description')}}"><i class="fas fa-question" data-toggle="modal" data-target=".categoryDescModal"></i></a>
-                                            <a href="#" class="addCategoryBtn"><i class="fas fa-plus-circle"></i></a>
-                                        </div>
+                                        <a href="#" class="menu-name categoryIcon" ownerCategory=""><i class="biolife-icon icon-fruits"  data-toggle="modal"
+                                        data-target="#catIconsModal"></i><input class="input100 categoryName" type="text" placeholder="{{_('Category')}}"><i class="fas fa-question" data-toggle="modal" data-target=".categoryDescModal"></i><i class="fas fa-plus-circle addCategoryBtn"></i></a>
+                                        <input type="hidden" class="txt-input categoryDesc">
                                     </li>
                                 </ul>
 
@@ -164,7 +155,7 @@
             <div class="col-sm-6 col-md-4 col-lg-3">
                 <div class="preview">
                     <div class="icon-preview">
-                        <a href="#"><i class="fas fa-address-book"></i></a>
+                        <a href="#"><i class="fas fa-first-aid"></i></a>
                     </div>
                     <div class="icon-class"></div>
                 </div>
