@@ -702,7 +702,7 @@ msgstr "Поиск"
 #: templates/commerce/main/commerce/list_grid_layout.html:94
 #: templates/commerce/main/commerce/list_grid_layout.html:206
 msgid "All Categories"
-msgstr "ÄВсе категории"
+msgstr "Все категории"
 
 #: templates/commerce/main/commerce/layout.html:99
 #: templates/commerce/main/commerce/list_grid_layout.html:99
