@@ -28,24 +28,31 @@ $('body').delegate('.addToCart','click',function(){
 	if(productQty>1){}else{
 		productQty=1;
 	}
-	totalPriceCheckout(ownerId)
 	// saving cookie
 	productData={'resId':ownerId,'priceValue':priceValue,'productQty':productQty};
 	cartData['product'+ownerId]=productData;
 	Cookies.set('cart',JSON.stringify(cartData));
 	// sending request
 	cartOperations(productData,'/commerce/product/ui_cart/','POST','htmlData','cartItemsList');
+	totalPriceCheckout(ownerId)
 	qtyCheckout(ownerId,productQty);
 })
 
 $('body').delegate('.removeFromCart','click',function(){
 	ownerId = $(this).attr('ownerId');
-	$('.cartObject'+ownerId).remove();
-	$('.removeFromCart'+'[ownerId='+ownerId+']').hide();
-	$('.addToCart'+'[ownerId='+ownerId+']').show();
-	delete cartData['product'+ownerId];
-	Cookies.set('cart',JSON.stringify(cartData));
-	countCartItems();
+	if(ownerId>0){
+		$('.cartObject'+ownerId).remove();
+		$('.removeFromCart'+'[ownerId='+ownerId+']').hide();
+		$('.addToCart'+'[ownerId='+ownerId+']').show();
+		delete cartData['product'+ownerId];
+		Cookies.set('cart',JSON.stringify(cartData));
+		countCartItems();
+	}
+	else{
+		cartData={}
+		Cookies.set('cart',JSON.stringify(cartData));
+		countCartItems();
+	}
 });
 
 function countCartItems(){
@@ -73,14 +80,20 @@ function qtyCheckout(ownerId,newQtyValue){
 		Cookies.set('cart',JSON.stringify(cartData));
 		console.log(cartData)
 	}
+	else{
+		console.log(false);
+	}
 	countCartItems()
 }
 
 function totalPriceCheckout(ownerId){
 	priceValue=$('.priceValue'+'[ownerId='+ownerId+']').attr('value');
 	productQty=$('.productQty'+'[ownerId='+ownerId+']').val();
+	if(productQty>1){}else{
+		productQty=1;
+	}
 	productTotalPrice=priceValue*productQty;
-	$('.productTotalPrice').text(productTotalPrice);
+	$('.productTotalPrice'+'[ownerId='+ownerId+']').text(productTotalPrice);
 }
 
 $('body').delegate('.productQty','click',function(){

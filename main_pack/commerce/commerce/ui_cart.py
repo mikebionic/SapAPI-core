@@ -14,13 +14,15 @@ def ui_cart():
 		try:
 			req = request.get_json()
 			resId = req.get('resId')
+			productQty = req.get('productQty')
 			resource = Resource.query.get(resId)
 			resourceQty='single'
 			response = jsonify({
 				'status':'added',
 				'responseText':gettext('Product')+' '+gettext('successfully saved!'),
 				'htmlData':render_template('commerce/main/commerce/cartItemAppend.html',
-					resource=resource,**commonData,**resData,resourceQty=resourceQty)
+					resource=resource,**commonData,**resData,resourceQty=resourceQty,
+					productQty=productQty)
 				})
 		except:
 			response = jsonify({
@@ -30,12 +32,18 @@ def ui_cart():
 
 	elif request.method == "PUT":
 		resources=[]
+		# productQuantities=[]
 		req = request.get_json()
 		try:
 			for resElement in req:
 				resId = req[resElement].get('resId')
-				resource = Resource.query.get(resId)
-				resources.append(resource)
+				productQty = req[resElement].get('productQty')
+				
+				product={}
+				product['resource'] = Resource.query.get(resId)
+				# resources.append(resource)
+				product['productQty'] = productQty
+				resources.append(product)
 			resourceQty='multi'
 			response = jsonify({
 				'status':'added',

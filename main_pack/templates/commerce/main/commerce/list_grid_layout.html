@@ -70,7 +70,7 @@
           <div class="row">
             <div class="col-lg-3 col-md-2 col-md-6 col-xs-6">
               {% if company.CName %}
-                <a href="index.html" class="logo">{{company.CName}}</span></a>
+                <a href="{{ url_for('commerce.commerce')}}" class="logo">{{company.CName}}</span></a>
               {% endif %}
             </div>
             <div class="col-lg-6 col-md-7 hidden-sm hidden-xs">
@@ -79,6 +79,8 @@
                   <li class="menu-item"><a href="{{ url_for('commerce.commerce') }}">{{_('Home')}}</a></li>
                   <li class="menu-item"><a href="{{ url_for('commerce.about') }}">{{_('About us')}}</a></li>
                   <li class="menu-item"><a href="{{ url_for('commerce.contact') }}">{{_('Contact')}}</a></li>
+                  <li class="menu-item"><a href="{{ url_for('commerce.grid_paginate') }}" class="viewmode grid-mode"><i class="biolife-icon icon-grid"></i></a></li>
+                  <li class="menu-item"><a href="{{ url_for('commerce.list_paginate') }}" class="viewmode detail-mode active"><i class="biolife-icon icon-list"></i></a></li>
                 </ul>
               </div>
             </div>
