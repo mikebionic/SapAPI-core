@@ -1899,7 +1899,7 @@ body.open-mobile-search .header-area.layout-02{
 .vertical-category-block>.wrap-menu>.menu>li{
     font-size: 14px;
     line-height: 45px;
-    display: block;
+    display: flex;
     padding: 0 20px;
 }
 .vertical-category-block>.wrap-menu>.menu>li>a{

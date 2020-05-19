@@ -104,8 +104,9 @@
 {% endfor %}
 
                                     <li class="menu-item menu-item-has-children has-megamenu newCategory">
-                                        <a href="#" class="menu-name categoryIcon" ownerCategory=""><i class="biolife-icon icon-fruits"  data-toggle="modal"
-                                        data-target="#catIconsModal"></i><input class="input100 categoryName" type="text" placeholder="{{_('Category')}}"><i class="fas fa-question" data-toggle="modal" data-target=".categoryDescModal"></i><i class="fas fa-plus-circle addCategoryBtn"></i></a>
+                                        <div  class="menu-name categoryIcon" ownerCategory="">
+                                        <a href="#"><i class="biolife-icon icon-fruits"  data-toggle="modal"
+                                        data-target="#catIconsModal"></i></div><input class="input100 categoryName" type="text" placeholder="{{_('Category')}}"><i class="fas fa-question" data-toggle="modal" data-target=".categoryDescModal"></i><i class="fas fa-plus-circle addCategoryBtn"></i></a>
                                         <input type="hidden" class="txt-input categoryDesc">
                                     </li>
                                 </ul>
