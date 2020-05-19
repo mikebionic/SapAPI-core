@@ -46,6 +46,9 @@ def create_app(config_class=Config):
 	from main_pack.models import bp as models_bp
 	app.register_blueprint(models_bp)
 
+	from main_pack.main import bp as main_bp
+	app.register_blueprint(main_bp)
+
 	# commerce blueprints
 	commerce_url_prefix = '/commerce'
 	from main_pack.commerce.auth import bp as commerce_auth_bp

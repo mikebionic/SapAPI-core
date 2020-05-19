@@ -28,18 +28,18 @@
                 <h4 class="product-title"><a href="{{ url_for('commerce.product',resId=resource.ResId)}}" class="pr-name">{{'' if resource.ResDesc==None else resource.ResDesc}}</a></h4>
                 <p class="excerpt">{{'' if resource.ResFullDesc==None else resource.ResFullDesc[0:80]+'...'}}</p>
                 <div class="price">
-                  <ins><span class="price-amount">
-                    <span class="currencySymbol">TMT</span>
-                    <div class="priceValue" ownerId="{{resource.ResId}}">
+                  <ins>
+                    <span class="price-amount">
+                      <span class="currencySymbol">TMT</span>
                       {% for resPrice in resPrices %}
                         {% if resPrice.GCRecord == None or resPrice.GCRecord == '' %}
                           {% if resPrice.ResId==resource.ResId %}
-                            {{ resPrice.ResPriceValue }}
+                            <div class="priceValue" ownerId="{{resource.ResId}}" value="{{resPrice.ResPriceValue}}">{{ resPrice.ResPriceValue }}</div>
                           {% endif %}
                         {% endif %}
                       {% endfor %}
-                    </div>
-                  </span></ins>
+                    </span>
+                  </ins>
                 </div>
                 <div class="buttons">
                   <button class="btn wishlist-btn"><i class="fa fa-heart" aria-hidden="true"></i></button>

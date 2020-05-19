@@ -34,11 +34,12 @@
               <div class="pro-details text-center">
                 <a href="{{ url_for('commerce.product',resId=resource.ResId)}}" class="pro-title">{{'' if resource.ResName==None else resource.ResName}}</a>
                 <h3 class="pro-price">
+                  <span class="currencySymbol">TMT</span>
                   <span class="new">
                     {% for resPrice in resPrices %}
                       {% if resPrice.GCRecord == None or resPrice.GCRecord == '' %}
                         {% if resPrice.ResId==resource.ResId %}
-                          {{ resPrice.ResPriceValue }} TMT
+                          <div class="priceValue" ownerId="{{resource.ResId}}" value="{{resPrice.ResPriceValue}}">{{ resPrice.ResPriceValue }}</div>
                         {% endif %}
                       {% endif %}
                     {% endfor %}

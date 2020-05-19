@@ -70,7 +70,7 @@
           <div class="row">
             <div class="col-lg-3 col-md-2 col-md-6 col-xs-6">
               {% if company.CName %}
-                <a href="index.html" class="logo">{{company.CName}}</span></a>
+                <a href="{{ url_for('commerce.commerce')}}" class="logo">{{company.CName}}</span></a>
               {% endif %}
             </div>
             <div class="col-lg-6 col-md-7 hidden-sm hidden-xs">
@@ -79,6 +79,8 @@
                   <li class="menu-item"><a href="{{ url_for('commerce.commerce') }}">{{_('Home')}}</a></li>
                   <li class="menu-item"><a href="{{ url_for('commerce.about') }}">{{_('About us')}}</a></li>
                   <li class="menu-item"><a href="{{ url_for('commerce.contact') }}">{{_('Contact')}}</a></li>
+                  <li class="menu-item"><a href="{{ url_for('commerce.grid_paginate') }}" class="viewmode grid-mode"><i class="biolife-icon icon-grid"></i></a></li>
+                  <li class="menu-item"><a href="{{ url_for('commerce.list_paginate') }}" class="viewmode detail-mode active"><i class="biolife-icon icon-list"></i></a></li>
                 </ul>
               </div>
             </div>
@@ -290,7 +292,7 @@
                                     <option value="vl6">Availability 5</option>
                                 </select>
                             </div>
-                            <p class="btn-for-mobile"><button type="submit" class="btn-submit">Go</button></p>
+                            <p class="btn-for-mobile"><button type="submit" class="btn-submit">{{_('Go')}}</button></p>
                         </form>
                     </div>
                 </div>
@@ -300,11 +302,11 @@
                         <div class="selector-item orderby-selector">
                             <select name="orderby" class="orderby" aria-label="Shop order">
                                 <option value="menu_order" selected="selected">{{_('Default sorting')}}</option>
-                                <option value="popularity">{{_('popularity')}}</option>
-                                <option value="rating">{{_('average rating')}}</option>
-                                <option value="date">{{_('newness')}}</option>
-                                <option value="price">{{_('price')}}: {{_('low to high')}}</option>
-                                <option value="price-desc">{{_('price')}}: {{_('high to low')}}</option>
+                                <option value="popularity">{{_('Popularity')}}</option>
+                                <option value="rating">{{_('Average rating')}}</option>
+                                <option value="date">{{_('Newness')}}</option>
+                                <option value="price">{{_('Price')}}: {{_('low to high')}}</option>
+                                <option value="price-desc">{{_('Price')}}: {{_('high to low')}}</option>
                             </select>
                         </div>
                         <div class="selector-item viewmode-selector">
@@ -369,7 +371,7 @@
                   <label for="pr-to">-> TMT</label>
                   <input class="input-number" type="number" id="pr-to" value="" name="price-from">
                 </p>
-                <p class="f-item"><button class="btn-submit" type="submit">go</button></p>
+                <p class="f-item"><button class="btn-submit" type="submit">{{_('Go')}}</button></p>
               </form>
             </div>
             <ul class="check-list bold single">
@@ -422,7 +424,7 @@
         </div>
 
         <div class="widget biolife-filter">
-          <h4 class="wgt-title">{{_('Recently Viewed')}}</h4>
+          <h4 class="wgt-title">{{_('Recently viewed')}}</h4>
           <div class="wgt-content">
             <ul class="products">
 
@@ -466,7 +468,7 @@
               <div class="separator sm-margin-top-70px xs-margin-top-40px"></div>
             </div>
             <div class="col-lg-6 col-sm-6 col-xs-12">
-              <div class="copy-right-text"><p><a href="">Powered by E/G :p <p>Brought to life by M :p</p></a></p></div>
+              <div class="copy-right-text"><p><a href="">Sap Hyzmat</a></p></div>
             </div>
             <div class="col-lg-6 col-sm-6 col-xs-12">
               <div class="payment-methods">
