@@ -52,22 +52,6 @@ def category_grid():
 	commonData = commonUsedData()
 	return render_template ("commerce/main/commerce/category_grid.html",**commonData,title=gettext('Category'))
 
-@bp.route("/account")
-def account():
-	commonData = commonUsedData()
-	return render_template ("commerce/main/commerce/account.html",**commonData,title=gettext('Account'))
-
-@bp.route("/account_edit")
-def account_edit():
-	commonData = commonUsedData()
-	return render_template ("commerce/main/commerce/account_edit.html",**commonData,title=gettext('Account'))
-
-@bp.route("/orders")
-def orders():
-	commonData = commonUsedData()
-	return render_template ("commerce/main/commerce/orders.html",**commonData,title=gettext('Orders'))
-
-
 ############ tests ############
 
 @bp.route("/list_view")
@@ -85,9 +69,6 @@ def grid_view():
 	resData = realResRelatedData()
 	return render_template ("commerce/main/commerce/grid_view.html",
 		resources=resources,**commonData,**resData,title=gettext('Category'))
-
-
-
 
 
 

@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/slick.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/main-color.css') }}">
+    {% block styles %}{% endblock %}
   </head>
   <body class="biolife-body">
 
@@ -51,15 +52,15 @@
             <ul class="horizontal-menu">
               <li class="horz-menu-item lang">
                 <select name="language">
-                  <a type="submit" href="/language/tk"><option >Türkmen</option></a>
-                  <a type="submit" href="/language/en"><option >English</option></a>
-                  <a type="submit" href="/language/ru"><option >Русский</option></a>
+                  <a type="submit" href="/language/tk"><option value="tk">Türkmen</option></a>
+                  <a type="submit" href="/language/en"><option value="en" selected>English</option></a>
+                  <a type="submit" href="/language/ru"><option value="ru">Русский</option></a>
                 </select>
               </li>
               {% if current_user.is_authenticated %}
                 <li><a href="{{ url_for('commerce_auth.logout') }}" class="login-link"><i class="biolife-icon icon-login"></i>{{ current_user.UFullName }} - {{_('Log out')}}</a></li>
               {% else %}
-                <li><a href="{{ url_for('commerce_auth.login') }}" class="login-link"><i class="biolife-icon icon-login"></i>{{_('Log in')}}/{{_('Register')}}</a></li>
+                <li><a href="{{ url_for('commerce_auth.login') }}" class="login-link"><i class="biolife-icon icon-login"></i>{{_('Login')}}/{{_('Register')}}</a></li>
               {% endif %}
             </ul>
           </div>
@@ -161,30 +162,28 @@
                 <div class="wrap-menu">
                   <ul class="menu clone-main-menu">
                     {% for category in categories %}
-                        {% if category.GCRecord == None or category.GCRecord == '' %}
-                            <li class="menu-item menu-item-has-children has-child">
-                            <a href="#" class="menu-name" {% if category.ResCatDesc %} title="{{ category.ResCatDesc }}" {% endif %}><i class="biolife-icon icon-fruits"></i> {{ category.ResCatName }}</a>
-                            {% for subcategory in subcategories %}
-                                {% if subcategory.GCRecord == None or subcategory.GCRecord == '' %}
-                                    {% if subcategory.ResOwnerCatId == category.ResCatId %}
-                                        <ul class="sub-menu">
-                                        <h4 class="menu-title" {% if subcategory.ResCatDesc %} title="{{ subcategory.ResCatDesc }}" {% endif %}>{{ subcategory.ResCatName }}</h4>
-                                            {% for subcategory_child in subcategory_children %}
-                                                {% if subcategory_child.GCRecord == None or subcategory_child.GCRecord == '' %}
-                                                    {% if subcategory_child.ResOwnerCatId == subcategory.ResCatId %}
-                                                    
-                                                        <li class="menu-item"><a href="#" {% if subcategory_child.ResCatDesc %} title="{{ subcategory_child.ResCatDesc }}" {% endif %}>{{ subcategory_child.ResCatName }}</a></li>
-                                                    {% endif %}
-                                                {% endif %}
-                                            {% endfor %}
-                                        </ul>                                        
-                                        {% endif %}
-                                {% endif %}
-                            {% endfor %}
-                            </li>
-                        {% endif %}
+                      {% if category.GCRecord == None or category.GCRecord == '' %}
+                        <li class="menu-item menu-item-has-children has-child">
+                          <a href="#" class="menu-name" {% if category.ResCatDesc %} title="{{ category.ResCatDesc }}" {% endif %}><i class="biolife-icon icon-fruits"></i> {{ category.ResCatName }}</a>
+                          {% for subcategory in subcategories %}
+                            {% if subcategory.GCRecord == None or subcategory.GCRecord == '' %}
+                              {% if subcategory.ResOwnerCatId == category.ResCatId %}
+                                <ul class="sub-menu">
+                                <h4 class="menu-title" {% if subcategory.ResCatDesc %} title="{{ subcategory.ResCatDesc }}" {% endif %}>{{ subcategory.ResCatName }}</h4>
+                                  {% for subcategory_child in subcategory_children %}
+                                    {% if subcategory_child.GCRecord == None or subcategory_child.GCRecord == '' %}
+                                      {% if subcategory_child.ResOwnerCatId == subcategory.ResCatId %}
+                                        <li class="menu-item"><a href="#" {% if subcategory_child.ResCatDesc %} title="{{ subcategory_child.ResCatDesc }}" {% endif %}>{{ subcategory_child.ResCatName }}</a></li>
+                                      {% endif %}
+                                    {% endif %}
+                                  {% endfor %}
+                                </ul>                                        
+                              {% endif %}
+                            {% endif %}
+                          {% endfor %}
+                        </li>
+                      {% endif %}
                     {% endfor %}
-
                   </ul>
                 </div>
               </div>
@@ -255,7 +254,7 @@
               <div class="separator sm-margin-top-70px xs-margin-top-40px"></div>
             </div>
             <div class="col-lg-6 col-sm-6 col-xs-12">
-              <div class="copy-right-text"><p><a href="">Powered by E/G :p <p>Brought to life by M :p</p></a></p></div>
+              <div class="copy-right-text"><p><a href="">Sap Hyzmat</a></p></div>
             </div>
             <div class="col-lg-6 col-sm-6 col-xs-12">
               <div class="payment-methods">
@@ -312,7 +311,7 @@
         <div class="glb-item my-account">
           <b class="title">{{_('My profile')}}</b>
           <ul class="list">
-            <li class="list-item"><a href="#">{{_('Log in')}}/{{_('Register')}}</a></li>
+            <li class="list-item"><a href="#">{{_('Login')}}/{{_('Register')}}</a></li>
             <li class="list-item"><a href="#">{{_('Wishlist')}} <span class="index">(8)</span></a></li>
             <li class="list-item"><a href="#">{{_('Checkout')}}</a></li>
           </ul>
@@ -343,6 +342,7 @@
     <script src="{{ url_for('static', filename='commerce/main/js/functions.js') }}"></script>
     <script src="{{ url_for('static', filename='commerce/main/js/js.cookie.min.js') }}"></script>
     <script src="{{ url_for('static', filename='commerce/main/js/cartsAndCheckouts.js') }}"></script>
+    {% block scripts %}{% endblock %}
   </body>
 
 </html>

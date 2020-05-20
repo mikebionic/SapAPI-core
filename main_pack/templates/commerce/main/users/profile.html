@@ -1,54 +1,163 @@
 {% extends "commerce/main/commerce/layout.html" %}
+
+{% block styles %}
+	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/bulma.css')}}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/core.css')}}">
+{% endblock %}
+
 {% block content %}
-  <div class="media">
-    {% if current_user.UImage %}    
-        <img class="rounded-circle account-img" src="/static/images/avatar/{{current_user.UImage }}">
-    {% else %}
-        <img class="rounded-circle account-img" src="/static/images/avatar/user.png') }}">
-    {% endif %}
-    <div class="card-body">
-      <h2 class="account-heading">{{ current_user.UName }}</h2>
-      <p class="text-secondary">{{ current_user.UType }}</p>
+	<div class="shop-wrapper">
+    <div class="search-overlay"></div>
+    <div class="search-input-wrapper is-desktop is-hidden">
+      <div class="field">
+        <div class="control">
+          <input type="text" name="search" autofocus required>
+          <span id="clear-search" role="button"><i data-feather="x"></i></span>
+          <span class="search-help">Type the name of the product you are looking for</span>
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="container">
+        <div class="columns account-header">
+          <div class="column is-10 is-offset-1 is-tablet-landscape-padded">
+            <div class="account-title">
+              <h2>{{_('Profile')}}</h2>
+              <img class="brand-filigrane" src="{{ url_for('static', filename='commerce/main/images/logo/nephos-greyscale.svg')}}" alt="">
+            </div>
+            <div class="tabs account-tabs">
+              <ul>
+                <li class="is-active"><a href="{{ url_for('commerce_users.profile') }}">{{_('Profile')}}</a></li>
+                <li><a href="{{ url_for('commerce_users.orders') }}">{{_('Orders')}}</a></li>
+              </ul>
+            </div>
+            <div class="columns is-account-grid is-multiline">
+              <div class="column is-5">
+                <div class="flat-card profile-card is-auto">
+                  <div class="card-body">
+                    <div class="profile-image">
+                      <img src="{{ url_for('static', filename='commerce/main/images/avatars/elie.jpg')}}" alt="">
+                    </div>
+                    <div class="username has-text-centered">
+                      <span>Elie Daniels</span>
+                      <small>Member since Sep 23 2017</small>
+                    </div>
+                  </div>
+                  <div class="profile-footer has-text-centered">
+                    <span class="achievement-title">Next Achievement</span>
+                    <div class="count">24/150</div>
+                  </div>
+                </div>
+                <!-- Gold Customer card -->
+                <div class="flat-card profile-info-card is-auto is-dark is-achievement">
+                  <div class="card-body">
+                    <img src="{{ url_for('static', filename='commerce/main/images/logo/nephos-gold.svg')}}" alt="">
+                    <div class="achievement-name">
+                      <span class="is-gold">Nephos Gold Customer</span>
+                      <span>As a Gold Customer, you have a permanent 10% discount on all your purchases.</span>
+                    </div>
+                  </div>
+                </div>
+                <!-- Referal card -->
+                <div class="flat-card profile-info-card is-auto is-dark is-achievement">
+                  <div class="card-body">
+                    <img src="{{ url_for('static', filename='commerce/main/images/logo/nephos-referral.svg')}}" alt="">
+                    <div class="achievement-name">
+                      <span class="is-green">Nephos Referer</span>
+                      <span>You have referred <b>30+</b> customers. You get a 2.5% discount on all your purchases.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="column is-7">
+                <div class="flat-card profile-info-card is-auto">
+                  <div class="card-title">
+                    <h3>{{_('Profile details')}}</h3>
+                    <div class="edit-account has-simple-popover popover-hidden-mobile" data-content="Edit Account" data-placement="top">
+                      <a href="{{ url_for('commerce_users.profile_edit') }}"><i class="feather-icons" data-feather="settings"></i></a>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div class="columns">
+                      <div class="column is-6">
+                        <div class="info-block">
+                          <span class="label-text">{{_('First name')}}</span>
+                          <span class="label-value">Elie</span>
+                        </div>
+                        <div class="info-block">
+                          <span class="label-text">{{_('Email')}}</span>
+                          <span class="label-value">eliedaniels@gmail.com</span>
+                        </div>
+                      </div>
+                      <div class="column is-6">
+                        <div class="info-block">
+                          <span class="label-text">{{_('Last name')}}</span>
+                          <span class="label-value">Daniels</span>
+                        </div>
+                        <div class="info-block">
+                          <span class="label-text">{{_('Phone')}}</span>
+                          <span class="label-value">+1 555 623 568</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <img class="card-bg" src="{{ url_for('static', filename='commerce/main/images/logo/nephos-greyscale.svg')}}" alt="">
+                </div>
+
+                <div class="flat-card profile-info-card is-auto">
+                  <div class="card-title">
+                    <h3>{{_('Billing address')}}</h3>
+                    <div class="edit-account is-vhidden">
+                      <a href="{{ url_for('commerce_users.profile_edit') }}"><i class="feather-icons" data-feather="settings"></i></a>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div class="columns">
+                      <div class="column is-6">
+                        <div class="info-block">
+                          <span class="label-text">{{_('Number')}}</span>
+                          <span class="label-value">23, Block C2</span>
+                        </div>
+                        <div class="info-block">
+                          <span class="label-text">{{_('City')}}</span>
+                          <span class="label-value">Los Angeles</span>
+                        </div>
+                        <div class="info-block">
+                          <span class="label-text">{{_('State')}}</span>
+                          <span class="label-value">CA</span>
+                        </div>
+                      </div>
+                      <div class="column is-6">
+                        <div class="info-block">
+                          <span class="label-text">{{_('Street')}}</span>
+                          <span class="label-value">Church Street</span>
+                        </div>
+                        <div class="info-block">
+                          <span class="label-text">{{_('Postal Code')}}</span>
+                          <span class="label-value">100065</span>
+                        </div>
+                        <div class="info-block">
+                          <span class="label-text">{{_('Country')}}</span>
+                          <span class="label-value">United States</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  <!-- FORM HERE -->
-<div class="card-body">
-    <form method="POST" action="" enctype="multipart/form-data">
-        {{ form.hidden_tag() }}
-        <fieldset class="form-group">
-            <legend class="border-bottom mb-4">Account Info</legend>
-            <div class="form-group">
-                {{ form.username.label(class="form-control-label") }}
 
-                {% if form.username.errors %}
-                    {{ form.username(class="form-control form-control-lg  is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for error in form.username.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                {% else %}
-                    {{ form.username(class="form-control form-control-lg") }}
-                {% endif %}                          
-              
-            </div>
-            <div class="form-group">
-                {{ form.picture.label() }}
-                {{ form.picture(class="form-control-file") }}
-                {% if form.picture.errors %}
-                        {% for error in form.picture.errors %}
-                            <span class="text-danger">{{ error }}</span>
-                        {% endfor %}
-                {% endif %}
-            </div>
-        </fieldset>
-        <div class="form-group">
-            {{ form.submit(class="btn btn-outline-info") }}
-        </div>
-    </form>
-</div>
+{% endblock %}
 
 
 
 
-{% endblock content %}
+{% block scripts %}
+	<script src="{{ url_for('static', filename='commerce/main/js/app.js')}}"></script>
+	<script src="{{ url_for('static', filename='commerce/main/js/nephos.js')}}"></script>
+{% endblock %}

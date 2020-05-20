@@ -1,0 +1,388 @@
+{% extends "commerce/main/commerce/layout.html" %}
+
+{% block styles %}
+	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/bulma.css')}}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/core.css')}}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/icons.min.css')}}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/chosen/chosen.css')}}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/webuipopover/jquery.webui-popover.min.css')}}">
+{% endblock %}
+
+{% block content %}
+	<div class="shop-wrapper">
+		<div class="search-overlay"></div>
+		<div class="search-input-wrapper is-desktop is-hidden">
+			<div class="field">
+				<div class="control">
+					<input type="text" name="search" autofocus required>
+					<span id="clear-search" role="button"><i data-feather="x"></i></span>
+					<span class="search-help">Type the name of the product you are looking for</span>
+				</div>
+			</div>
+		</div>
+		<div class="section">
+			<div class="container">
+				<div class="columns account-header">
+					<div class="column is-10 is-offset-1 is-tablet-landscape-padded">
+						<div class="account-title">
+							<h2>{{_('Orders')}}</h2>
+							<img class="brand-filigrane" src="{{ url_for('static', filename='commerce/main/images/logo/nephos-greyscale.svg')}}" alt="">
+						</div>
+						<div class="tabs account-tabs has-controls">
+							<ul>
+								<li><a href="{{ url_for('commerce_users.profile') }}">{{_('Profile')}}</a></li>
+								<li class="is-active"><a href="{{ url_for('commerce_users.profile') }}">{{_('Orders')}}</a></li>
+							</ul>
+						</div>
+						<div class="columns is-account-grid is-multiline">
+
+							<!-- Order card -->
+							<div class="column is-4">
+								<div class="flat-card order-card has-popover-top">
+									<div class="order-info">
+										<span><a href="invoice.html" onclick="return true">ORDER-46895</a></span>
+										<span class="tag is-primary">{{_('Shipping')}}</span>
+									</div>
+									<!-- Progress Circle -->
+									<div class="circle-chart-wrapper">
+										<svg class="circle-chart" viewbox="0 0 33.83098862 33.83098862" width="140" height="140" xmlns="http://www.w3.org/2000/svg">
+											<circle class="circle-chart-background" stroke="#efefef" stroke-width="2" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
+											<circle class="circle-chart-circle" stroke="#0023ff" stroke-width="2" stroke-dasharray="66,100" stroke-linecap="round" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
+										</svg>
+										<div class="chart-icon">
+											<i data-feather="truck"></i>
+										</div>
+										<div class="ring-title has-text-centered">
+											<span>66% Complete</span>
+										</div>
+									</div>
+								</div>
+								<div class="webui-popover-content">
+									<!-- Popover Block -->
+									<div class="popover-flex-block">
+										<img class="staff-avatar" src="{{ url_for('static', filename='commerce/main/images/avatars/janet.jpg')}}" alt="">
+										<div class="content-block">
+											<label>Order handled by</label>
+											<span>Jane Smith</span>
+										</div>
+									</div>
+									<!-- Popover Block -->
+									<div class="popover-flex-block">
+										<div class="icon-block">
+											<i data-feather="clock"></i>
+										</div>
+										<div class="content-block">
+											<label>{{_('Ordered date')}}</label>
+											<span>mar 23th 2018</span>
+										</div>
+									</div>
+									<!-- Popover Block -->
+									<div class="popover-flex-block">
+										<div class="icon-block">
+											<i data-feather="dollar-sign"></i>
+										</div>
+										<div class="content-block">
+											<label>{{_('Order Total')}}</label>
+											<span>$378,85</span>
+										</div>
+									</div>
+									<!-- Popover Block -->
+									<div class="popover-flex-block">
+										<div class="icon-block">
+											<i data-feather="truck"></i>
+										</div>
+										<div class="content-block">
+											<label>Shipping Method</label>
+											<span>UPS</span>
+										</div>
+									</div>
+								</div>
+							</div>
+				
+
+
+
+
+				
+							<div class="column is-4">
+									<div class="flat-card order-card has-popover-top">
+											<div class="order-info">
+													<span><a href="invoice.html">ORDER-46878</a></span>
+													<span class="tag is-success">Preparing</span>
+											</div>
+											<!-- Progress Circle -->
+											<div class="circle-chart-wrapper">
+													<svg class="circle-chart" viewbox="0 0 33.83098862 33.83098862" width="140" height="140" xmlns="http://www.w3.org/2000/svg">
+															<circle class="circle-chart-background" stroke="#efefef" stroke-width="2" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
+															<circle class="circle-chart-circle" stroke="#00b289" stroke-width="2" stroke-dasharray="33,100" stroke-linecap="round" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
+													</svg>
+													<!-- Icon -->
+													<div class="chart-icon">
+															<i data-feather="package"></i>
+													</div>
+													<!-- Label -->
+													<div class="ring-title has-text-centered">
+															<span>33% Complete</span>
+													</div>
+											</div>
+									</div>
+
+									<!-- Order 46878 Popover -->
+									<div class="webui-popover-content">
+											<!-- Popover Block -->
+											<div class="popover-flex-block">
+													<img class="staff-avatar" src="{{ url_for('static', filename='commerce/main/images/avatars/marc.jpg')}}" alt="">
+													<div class="content-block">
+														<label>Order handled by</label>
+														<span>Marc Korsky</span>
+													</div>
+											</div>
+											<!-- Popover Block -->
+											<div class="popover-flex-block">
+													<div class="icon-block">
+															<i data-feather="clock"></i>
+													</div>
+													<div class="content-block">
+														<label>Ordered on</label>
+														<span>mar 15th 2018</span>
+													</div>
+											</div>
+											<!-- Popover Block -->
+											<div class="popover-flex-block">
+													<div class="icon-block">
+															<i data-feather="dollar-sign"></i>
+													</div>
+													<div class="content-block">
+														<label>Order Total</label>
+														<span>$58,49</span>
+													</div>
+											</div>
+											<!-- Popover Block -->
+											<div class="popover-flex-block">
+													<div class="icon-block">
+															<i data-feather="truck"></i>
+													</div>
+													<div class="content-block">
+														<label>Shipping Method</label>
+														<span>Drone</span>
+													</div>
+											</div>
+									</div>
+							</div>
+
+							<!-- Order card -->
+							<div class="column is-4">
+									<div class="flat-card order-card has-popover-top">
+											<div class="order-info">
+													<span><a href="invoice.html" class="is-disabled">ORDER-42135</a></span>
+													<span class="tag is-warning">Pending</span>
+											</div>
+											<!-- Progress Circle -->
+											<div class="circle-chart-wrapper">
+													<svg class="circle-chart" viewbox="0 0 33.83098862 33.83098862" width="140" height="140" xmlns="http://www.w3.org/2000/svg">
+															<circle class="circle-chart-background" stroke="#efefef" stroke-width="2" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
+															<circle class="circle-chart-circle" stroke="#eda514" stroke-width="2" stroke-dasharray="10,100" stroke-linecap="round" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
+													</svg>
+													<!-- Icon -->
+													<div class="chart-icon">
+															<i data-feather="dollar-sign"></i>
+													</div>
+													<!-- Label -->
+													<div class="ring-title has-text-centered">
+															<span>10% Complete</span>
+													</div>
+											</div>
+									</div>
+
+									<!-- Order 42135 Popover -->
+									<div class="webui-popover-content">
+											<!-- Popover Block -->
+											<div class="popover-flex-block">
+													<img class="staff-avatar" src="{{ url_for('static', filename='commerce/main/images/avatars/janet.jpg')}}" alt="">
+													<div class="content-block">
+															<label>Order handled by</label>
+															<span>Janet Smith</span>
+													</div>
+											</div>
+											<!-- Popover Block -->
+											<div class="popover-flex-block">
+													<div class="icon-block">
+															<i data-feather="clock"></i>
+													</div>
+													<div class="content-block">
+															<label>Ordered on</label>
+															<span>feb 26th 2018</span>
+													</div>
+											</div>
+											<!-- Popover Block -->
+											<div class="popover-flex-block">
+													<div class="icon-block">
+															<i data-feather="dollar-sign"></i>
+													</div>
+													<div class="content-block">
+															<label>Order Total</label>
+															<span>$188,00</span>
+													</div>
+											</div>
+											<!-- Popover Block -->
+											<div class="popover-flex-block">
+													<div class="icon-block">
+															<i data-feather="truck"></i>
+													</div>
+													<div class="content-block">
+															<label>Shipping Method</label>
+															<span>FedEx</span>
+													</div>
+											</div>
+									</div>
+							</div>
+
+							<!-- Order card -->
+							<div class="column is-4">
+									<div class="flat-card order-card has-popover-top">
+											<div class="order-info">
+													<span><a href="invoice.html">ORDER-39456</a></span>
+													<span class="tag is-danger">Has issue</span>
+											</div>
+											<!-- Progress Circle -->
+											<div class="circle-chart-wrapper">
+													<svg class="circle-chart" viewbox="0 0 33.83098862 33.83098862" width="140" height="140" xmlns="http://www.w3.org/2000/svg">
+															<circle class="circle-chart-background" stroke="#efefef" stroke-width="2" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
+															<circle class="circle-chart-circle" stroke="#FF7273" stroke-width="2" stroke-dasharray="40,100" stroke-linecap="round" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
+													</svg>
+													<!-- Icon -->
+													<div class="chart-icon">
+															<i data-feather="alert-octagon"></i>
+													</div>
+													<!-- Label -->
+													<div class="ring-title has-text-centered">
+															<span>40% Complete</span>
+													</div>
+											</div>
+									</div>
+
+									<!-- Order 39456 Popover -->
+									<div class="webui-popover-content">
+											<!-- Popover Block -->
+											<div class="popover-flex-block">
+													<img class="staff-avatar" src="{{ url_for('static', filename='commerce/main/images/avatars/janet.jpg')}}" alt="">
+													<div class="content-block">
+															<label>Order handled by</label>
+															<span>Janet Smith</span>
+													</div>
+											</div>
+											<!-- Popover Block -->
+											<div class="popover-flex-block">
+													<div class="icon-block">
+															<i data-feather="clock"></i>
+													</div>
+													<div class="content-block">
+															<label>Ordered on</label>
+															<span>feb 19th 2018</span>
+													</div>
+											</div>
+											<!-- Popover Block -->
+											<div class="popover-flex-block">
+													<div class="icon-block">
+															<i data-feather="dollar-sign"></i>
+													</div>
+													<div class="content-block">
+															<label>Order Total</label>
+															<span>$219,22</span>
+													</div>
+											</div>
+											<!-- Popover Block -->
+											<div class="popover-flex-block">
+													<div class="icon-block">
+															<i data-feather="truck"></i>
+													</div>
+													<div class="content-block">
+															<label>Shipping Method</label>
+															<span>FedEx</span>
+													</div>
+											</div>
+									</div>
+							</div>
+
+							<!-- Order card -->
+							<div class="column is-4">
+									<div class="flat-card order-card has-popover-top">
+											<div class="order-info">
+													<span><a href="invoice.html">ORDER-38246</a></span>
+													<span class="tag is-primary">Complete</span>
+											</div>
+											<!-- Progress Circle -->
+											<div class="circle-chart-wrapper">
+													<svg class="circle-chart" viewbox="0 0 33.83098862 33.83098862" width="140" height="140" xmlns="http://www.w3.org/2000/svg">
+															<circle class="circle-chart-background" stroke="#efefef" stroke-width="2" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
+															<circle class="circle-chart-circle" stroke="#0023ff" stroke-width="2" stroke-dasharray="100,100" stroke-linecap="round" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
+													</svg>
+													<!-- Icon -->
+													<div class="chart-icon">
+															<i data-feather="award"></i>
+													</div>
+													<!-- Label -->
+													<div class="ring-title has-text-centered">
+															<span>100% Complete</span>
+													</div>
+											</div>
+									</div>
+
+									<!-- Order 38246 Popover -->
+									<div class="webui-popover-content">
+											<!-- Popover Block -->
+											<div class="popover-flex-block">
+													<img class="staff-avatar" src="{{ url_for('static', filename='commerce/main/images/avatars/nicole.jpg')}}" alt="">
+													<div class="content-block">
+															<label>Order handled by</label>
+															<span>Nicole Rogers</span>
+													</div>
+											</div>
+											<!-- Popover Block -->
+											<div class="popover-flex-block">
+													<div class="icon-block">
+															<i data-feather="clock"></i>
+													</div>
+													<div class="content-block">
+															<label>Ordered on</label>
+															<span>feb 5th 2018</span>
+													</div>
+											</div>
+											<!-- Popover Block -->
+											<div class="popover-flex-block">
+													<div class="icon-block">
+															<i data-feather="dollar-sign"></i>
+													</div>
+													<div class="content-block">
+															<label>Order Total</label>
+															<span>$29,22</span>
+													</div>
+											</div>
+											<!-- Popover Block -->
+											<div class="popover-flex-block">
+													<div class="icon-block">
+															<i data-feather="truck"></i>
+													</div>
+													<div class="content-block">
+															<label>Shipping Method</label>
+															<span>UPS</span>
+													</div>
+											</div>
+									</div>
+							</div>
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+
+
+{% block scripts %}
+	<script src="{{ url_for('static', filename='commerce/main/js/app.js')}}"></script>
+	<script src="{{ url_for('static', filename='commerce/main/js/nephos.js')}}"></script>
+{% endblock %}

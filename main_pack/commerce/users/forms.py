@@ -3,7 +3,7 @@ from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Length, ValidationError
-from main_pack.commerce.users.models import Users
+from main_pack.models.users.models import Users
 
 class UpdateProfileForm(FlaskForm):
 	username = StringField('Username', 

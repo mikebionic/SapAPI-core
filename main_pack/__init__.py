@@ -60,8 +60,8 @@ def create_app(config_class=Config):
 	from main_pack.commerce.errors import bp as commerce_errors_bp
 	app.register_blueprint(commerce_errors_bp,url_prefix=commerce_url_prefix)
 
-	# from main_pack.commerce.users import bp as commerce_users_bp
-	# app.register_blueprint(commerce_users_bp,url_prefix=commerce_url_prefix)
+	from main_pack.commerce.users import bp as commerce_users_bp
+	app.register_blueprint(commerce_users_bp,url_prefix=commerce_url_prefix)
 
 	from main_pack.commerce.admin import bp as commerce_admin_bp
 	app.register_blueprint(commerce_admin_bp,url_prefix=commerce_url_prefix)
