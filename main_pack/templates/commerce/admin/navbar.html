@@ -6,10 +6,11 @@
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='commerce/admin/commerce_styles/css/bootstrap.min.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='commerce/admin/commerce_styles/css/animate.min.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='commerce/admin/commerce_styles/css/font-awesome.min.css') }}">
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='commerce/admin/commerce_styles/css/nice-select.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='commerce/admin/commerce_styles/css/slick.min.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='commerce/admin/commerce_styles/css/style.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='commerce/admin/commerce_styles/css/main-color.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/prism/prism.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/css/custom.css')}}">
 {% endblock %}
 
 {% block content %}
@@ -640,12 +641,11 @@ aria-hidden="true">
 {% block scripts %}
   <script src="{{ url_for('static', filename='commerce/admin/commerce_styles/js/bootstrap.min.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/commerce_styles/js/jquery.countdown.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='commerce/admin/commerce_styles/js/jquery.nice-select.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='commerce/admin/commerce_styles/js/jquery.nicescroll.min.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/commerce_styles/js/slick.min.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/commerce_styles/js/biolife.framework.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/commerce_styles/js/functions.js') }}"></script>
-  
+  <script src="{{ url_for('static', filename='commerce/admin/bundles/prism/prism.js')}}"></script>
+  <script src="{{ url_for('static', filename='commerce/admin/js/custom.js')}}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/js/category.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/js/companyInfo.js') }}"></script>
 {% endblock %}
