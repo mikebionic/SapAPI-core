@@ -57,3 +57,53 @@ def ui_cart():
 				'responseText':gettext('Unknown error!'),
 				})
 	return response
+
+
+@bp.route("/product/ui_cart_table/", methods=['POST','PUT'])
+def ui_cart_table():
+	commonData = commonUsedData()
+	resData = realResRelatedData()
+	if request.method == "POST":
+		try:
+			req = request.get_json()
+			resId = req.get('resId')
+			productQty = req.get('productQty')
+			resource = Resource.query.get(resId)
+			resourceQty='single'
+			response = jsonify({
+				'status':'added',
+				'responseText':gettext('Product')+' '+gettext('successfully saved!'),
+				'htmlData':render_template('commerce/main/commerce/cartTableAppend.html',
+					resource=resource,**commonData,**resData,resourceQty=resourceQty,
+					productQty=productQty)
+				})
+		except:
+			response = jsonify({
+				'status':'error',
+				'responseText':gettext('Unknown error!'),
+				})
+
+	elif request.method == "PUT":
+		resources=[]
+		req = request.get_json()
+		try:
+			for resElement in req:
+				resId = req[resElement].get('resId')
+				productQty = req[resElement].get('productQty')
+				product={}
+				product['resource'] = Resource.query.get(resId)
+				product['productQty'] = productQty
+				resources.append(product)
+			resourceQty='multi'
+			response = jsonify({
+				'status':'added',
+				'responseText':gettext('Product')+' '+gettext('successfully saved!'),
+				'htmlData':render_template('commerce/main/commerce/cartTableAppend.html',
+					resources=resources,**commonData,**resData,resourceQty=resourceQty)
+				})
+		except:
+			response = jsonify({
+				'status':'error',
+				'responseText':gettext('Unknown error!'),
+				})
+	return response

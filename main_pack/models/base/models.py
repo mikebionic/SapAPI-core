@@ -143,8 +143,11 @@ class Company(AddInf,CreatedModifiedInfo,db.Model):
 	Res_total = db.relationship('Res_total',backref='company',lazy=True)
 	Res_trans_inv = db.relationship('Res_trans_inv',backref='company',lazy=True)
 	Rp_acc = db.relationship('Rp_acc',backref='company',lazy=True)
+	Wish = db.relationship('Wish',backref='company',lazy=True)
+	Production = db.relationship('Production',backref='company',lazy=True)
+	Rating = db.relationship('Rating',backref='company',lazy=True)
+	Slider = db.relationship('Slider',backref='company',lazy=True)
 
-	
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
 			if value is not None:
@@ -222,8 +225,6 @@ class Currency(AddInf,CreatedModifiedInfo,db.Model):
 	Sale_card = db.relationship('Sale_card',backref='currency',lazy=True)
 	Work_period = db.relationship('Work_period',backref='currency',lazy=True)
 
-
-
 	def to_json(self):
 		json_currency = {
 			'CurrencyId': self.CurrencyId,
@@ -278,7 +279,10 @@ class Division(AddInf,CreatedModifiedInfo,db.Model):
 	Order_inv = db.relationship('Order_inv',backref='division',lazy=True)
 	Representative = db.relationship('Representative',backref='division',lazy=True)
 	Res_total = db.relationship('Res_total',backref='division',lazy=True)
-
+	Wish = db.relationship('Wish',backref='division',lazy=True)
+	Production = db.relationship('Production',backref='division',lazy=True)
+	Rating = db.relationship('Rating',backref='division',lazy=True)
+	Slider = db.relationship('Slider',backref='division',lazy=True)
 
 class Gender(db.Model):
 	__tablename__="tbl_dk_gender"
@@ -460,6 +464,7 @@ class Rp_acc(AddInf,CreatedModifiedInfo,db.Model):
 	Sale_card = db.relationship('Sale_card',backref='rp_acc',lazy=True)
 	Invoice = db.relationship('Invoice',backref='rp_acc',lazy=True)
 	Order_inv = db.relationship('Order_inv',backref='rp_acc',lazy=True)
+	Rating = db.relationship('Rating',backref='rp_acc',lazy=True)
 
 class Rp_acc_price_list(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_rp_acc_price_list"
@@ -474,6 +479,29 @@ class Rp_acc_price_list(CreatedModifiedInfo,db.Model):
 	RpAccPStartDate = db.Column(db.DateTime)
 	RpAccPEndDate = db.Column(db.DateTime)
 
+class Sl_image(AddInf,CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_sl_image"
+	SlImgId = db.Column(db.Integer,nullable=False,primary_key=True)
+	SlImgName = db.Column(db.String(100))
+	SlImgDesc = db.Column(db.String(500),default='')
+	# "SlImgMainImg" bytea,
+	SlImgMainImgFileName = db.Column(db.String(255),default='')
+	SlImgSubImageFileName1 = db.Column(db.String(500),default='')
+	SlImgSubImageFileName2 = db.Column(db.String(255),default='')
+	SlImgSubImageFileName3 = db.Column(db.String(255),default='')
+	SlImgSubImageFileName4 = db.Column(db.String(255),default='')
+	SlImgSubImageFileName5 = db.Column(db.String(255),default='')
+	SlImgStartDate = db.Column(db.DateTime,default=datetime.now)
+	SlImgEndDate = db.Column(db.DateTime)
+
+class Slider(AddInf,CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_slider"
+	SlId = db.Column(db.Integer,nullable=False,primary_key=True)
+	CId = db.Column(db.Integer,db.ForeignKey("tbl_dk_company.CId"))
+	DivId = db.Column(db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
+	SlName = db.Column(db.String(100),nullable=False)
+	SlDesc = db.Column(db.String(500),default='')
+
 class Warehouse(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_warehouse"
 	WhId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -487,3 +515,5 @@ class Warehouse(AddInf,CreatedModifiedInfo,db.Model):
 	Res_total = db.relationship('Res_total',backref='warehouse',lazy=True)
 	Res_trans_inv = db.relationship('Res_trans_inv',foreign_keys='Res_trans_inv.WhIdIn',backref='warehouse',lazy=True)
 	Res_trans_inv = db.relationship('Res_trans_inv',foreign_keys='Res_trans_inv.WhIdOut',backref='warehouse',lazy=True)
+	Production = db.relationship('Production',foreign_keys='Production.WhIdIn',backref='warehouse',lazy=True)
+	Production = db.relationship('Production',foreign_keys='Production.WhIdOut',backref='warehouse',lazy=True)

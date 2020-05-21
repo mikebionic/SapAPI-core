@@ -21,6 +21,8 @@ class Users(AddInf,CreatedModifiedInfo,db.Model,UserMixin):
 	UShortName = db.Column(db.String(10))
 	EmpId = db.Column(db.Integer)
 	UTypeId = db.Column(db.Integer,db.ForeignKey("tbl_dk_user_type.UTypeId"))
+	Wish = db.relationship('Wish',backref='users',lazy=True)
+	Rating = db.relationship('Rating',backref='users',lazy=True)
 	
 	def get_id(self):
 		return (self.UId)

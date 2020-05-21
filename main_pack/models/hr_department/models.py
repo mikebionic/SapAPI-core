@@ -44,6 +44,7 @@ class Employee(AddInf,CreatedModifiedInfo,db.Model):
 	Invoice = db.relationship('Invoice',backref='employee',lazy=True)
 	Order_inv = db.relationship('Order_inv',backref='employee',lazy=True)
 	Res_trans_inv = db.relationship('Res_trans_inv',backref='employee',lazy=True)
+	Rating = db.relationship('Rating',backref='employee',lazy=True)
 	# function updates db ignoring Null
 	def update(self, **kwargs):
 		for key, value in kwargs.items():

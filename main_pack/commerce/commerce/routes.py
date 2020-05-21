@@ -70,8 +70,6 @@ def grid_view():
 	return render_template ("commerce/main/commerce/grid_view.html",
 		resources=resources,**commonData,**resData,title=gettext('Category'))
 
-
-
 #  pagiantions ########
 @bp.route("/list_paginate")
 def list_paginate():
@@ -95,7 +93,6 @@ def grid_paginate():
 		resources=resources,**commonData,**resData,title=gettext('Category'),
 		pagination_url='commerce.grid_paginate')
 
-
 @bp.route("/product/<int:resId>")
 def product(resId):
 	resource = Resource.query.get(resId)
@@ -103,10 +100,6 @@ def product(resId):
 	resData = realResRelatedData()
 	return render_template ("commerce/main/commerce/product.html",
 		resource=resource,**commonData,**resData,title=gettext('Product'))
-
-
-
-
 
 ### sorting and search
 
@@ -123,8 +116,6 @@ def category_product():
 	return render_template ("commerce/main/commerce/grid_paginate.html",
 		resources=resources,**commonData,**resData,title=gettext('Category'),
 		pagination_url='commerce.category_product',catName=catName)
-
-
 
 @bp.route("/search/<string:resName>/")
 def ui_search(resName):

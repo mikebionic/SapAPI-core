@@ -136,6 +136,7 @@ class Unit(CreatedModifiedInfo,db.Model):
 	Res_trans_inv_line = db.relationship('Res_trans_inv_line',backref='unit',lazy=True)
 	Res_transaction = db.relationship('Res_transaction',backref='unit',lazy=True)
 	Sale_agr_res_price = db.relationship('Sale_agr_res_price',backref='unit',lazy=True)
+	Production_line = db.relationship('Production_line',backref='unit',lazy=True)
 
 
 class Usage_status(CreatedModifiedInfo,db.Model):
@@ -407,6 +408,11 @@ class Resource(AddInf,CreatedModifiedInfo,db.Model):
 	Res_discount = db.relationship('Res_discount',foreign_keys='Res_discount.SaleResId',backref='resource',lazy=True)
 	Res_discount = db.relationship('Res_discount',foreign_keys='Res_discount.GiftResId',backref='resource',lazy=True)
 	
+	Wish = db.relationship('Wish',backref='resource',lazy=True)
+	Production = db.relationship('Production',backref='resource',lazy=True)
+	Production_line = db.relationship('Production_line',backref='resource',lazy=True)
+	Rating = db.relationship('Rating',backref='resource',lazy=True)
+
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
 			if value is not None:
@@ -894,6 +900,50 @@ class Sale_card_status(CreatedModifiedInfo,db.Model):
 	SaleCardStatusName_enUS = db.Column(db.String(100))
 	SaleCardStatusDesc_enUS = db.Column(db.String(500))
 	Sale_card = db.relationship('Sale_card',backref='sale_card_status',lazy=True)
+
+class Production(AddInf,CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_production"
+	ProdId = db.Column(db.Integer,nullable=False,primary_key=True)
+	CId = db.Column(db.Integer,db.ForeignKey("tbl_dk_company.CId"))
+	DivId = db.Column(db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
+	WhIdIn = db.Column(db.Integer,db.ForeignKey("tbl_dk_warehouse.WhId"))
+	WhIdOut = db.Column(db.Integer,db.ForeignKey("tbl_dk_warehouse.WhId"))
+	ResId = db.Column(db.Integer,db.ForeignKey("tbl_dk_resource.ResId"))
+	ProdName = db.Column(db.String(100),nullable=False)
+	ProdDesc = db.Column(db.String(500),default='')
+	ProdTime = db.Column(db.Float)
+	ProdCostPrice = db.Column(db.Float)
+	Production_line = db.relationship('Production_line',backref='production',lazy=True)
+
+class Production_line(AddInf,CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_production_line"
+	ProdLineId = db.Column(db.Integer,nullable=False,primary_key=True)
+	ProdId = db.Column(db.Integer,db.ForeignKey("tbl_dk_production.ProdId"))
+	UnitId = db.Column(db.Integer,db.ForeignKey("tbl_dk_unit.UnitId"))
+	ResId = db.Column(db.Integer,db.ForeignKey("tbl_dk_resource.ResId"))
+	ProdLineAmount = db.Column(db.Float,nullable=False,default=0)
+	ProdLinePrice = db.Column(db.Float)
+	ProdLineDesc = db.Column(db.String(500),default='')
+
+class Rating(AddInf,CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_rating"
+	RtId = db.Column(db.Integer,nullable=False,primary_key=True)
+	CId = db.Column(db.Integer,db.ForeignKey("tbl_dk_company.CId"))
+	DivId = db.Column(db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
+	UId = db.Column(db.Integer,db.ForeignKey("tbl_dk_users.UId"))
+	ResId = db.Column(db.Integer,db.ForeignKey("tbl_dk_resource.ResId"))
+	RpAccId = db.Column(db.Integer,db.ForeignKey("tbl_dk_rp_acc.RpAccId"))
+	EmpId = db.Column(db.Integer,db.ForeignKey("tbl_dk_employee.EmpId"))
+	RtRemark = db.Column(db.String(100),default='')
+	RtRatingValue = db.Column(db.Float,nullable=False,default=0)
+
+class Wish(AddInf,CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_wish"
+	WishId = db.Column(db.Integer,nullable=False,primary_key=True)
+	CId = db.Column(db.Integer,db.ForeignKey("tbl_dk_company.CId"))
+	DivId = db.Column(db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
+	UId = db.Column(db.Integer,db.ForeignKey("tbl_dk_users.UId"))
+	ResId = db.Column(db.Integer,db.ForeignKey("tbl_dk_resource.ResId"))
 
 class Transaction_type(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_transaction_type"

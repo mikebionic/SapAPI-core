@@ -6,6 +6,7 @@ class Config:
 	    'user': 'postgres',
 	    'pw': 'd152535k',
 	    'db': 'stableCommerce',
+	    # 'db': 'okayDebug',
 	    'host': 'localhost',
 	    'port': '5432',
 	}
