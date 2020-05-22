@@ -13,7 +13,7 @@ class Users(AddInf,CreatedModifiedInfo,db.Model,UserMixin):
 	__tablename__="tbl_dk_users"
 	UId = db.Column(db.Integer,nullable=False,primary_key=True)
 	CId = db.Column(db.Integer,db.ForeignKey("tbl_dk_company.CId"))
-	DivisionId = db.Column(db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
+	DivId = db.Column(db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
 	UFullName = db.Column(db.String(100),nullable=False)
 	UName = db.Column(db.String(60),nullable=False)
 	UEmail = db.Column(db.String(100),unique=True,nullable =False)
@@ -39,8 +39,13 @@ class Users(AddInf,CreatedModifiedInfo,db.Model,UserMixin):
 		except:
 			return None
 		return	Users.query.get(UId)
-	def __repr__ (self):
-		return "Users('{}','{}')".format(self.UId,self.UName)
+
+	def update(self, **kwargs):
+		for key, value in kwargs.items():
+			if value is not None:
+				if hasattr(self, key):
+					setattr(self, key, value)
+
 
 class User_type(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_user_type"

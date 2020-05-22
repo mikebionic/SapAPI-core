@@ -45,7 +45,7 @@
   </li>
 {% elif resourceQty=='multi' %}
   {% for resource in resources %}
-    <li class="cartObject{{resource.ResId}}">
+    <li class="cartObject{{resource.resource.ResId}}">
       <div class="minicart-item">
         <div class="thumb">
           {% if resource.resource.ResMainImgId != 0 and resource.resource.ResMainImgId != '' %}
@@ -85,7 +85,7 @@
         </div>
         <div class="action">
           <a href="#" class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-          <a href="#" class="remove removeFromCart" ownerId='{{resource.ResId}}'><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+          <a href="#" class="remove removeFromCart" ownerId='{{resource.resource.ResId}}'><i class="fa fa-trash-o" aria-hidden="true"></i></a>
         </div>
       </div>
     </li>

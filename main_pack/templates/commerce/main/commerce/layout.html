@@ -127,7 +127,7 @@
                         <ul class="products cartItemsList"></ul>
                         <p class="btn-control">
                           <a href="{{ url_for('commerce.cart') }}" class="btn view-cart">{{_('View cart')}}</a>
-                          <a href="#" class="btn checkoutBtn">{{_('Checkout')}}</a>
+                          <a class="btn clearCartBtn">{{_('clear all')}}</a>
                         </p>
                       </div>
                     </div>
@@ -301,7 +301,6 @@
         </div>
       </div>
     </div>
-
     <div class="mobile-block-global">
       <div class="biolife-mobile-panels">
         <span class="biolife-current-panel-title">{{_('Global')}}</span>
@@ -316,7 +315,6 @@
             <li class="list-item"><a href="#">{{_('Checkout')}}</a></li>
           </ul>
         </div>
-
         <div class="glb-item languages">
           <b class="title">{{_('Language')}}</b>
           <ul class="list inline">
@@ -328,10 +326,7 @@
         </div>
       </div>
     </div>
-
-    <!-- Scroll Top Button -->
     <a class="btn-scroll-top"><i class="biolife-icon icon-left-arrow"></i></a>
-
     <script src="{{ url_for('static', filename='commerce/main/js/jquery-3.4.1.min.js') }}"></script>
     <script src="{{ url_for('static', filename='commerce/main/js/bootstrap.min.js') }}"></script>
     <script src="{{ url_for('static', filename='commerce/main/js/jquery.countdown.min.js') }}"></script>

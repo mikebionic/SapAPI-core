@@ -41,3 +41,28 @@ def save_picture(form_picture, path):
 	i.thumbnail(output_size)
 	i.save(picture_path)
 	return picture_fn
+
+
+
+def addUsersDict(req):
+	CId = req.get('companyId')
+	DivId = req.get('divisionId')
+	UFullName = req.get('userFullName')
+	UName = req.get('userName')
+	UEmail = req.get('userEmail')
+	UPass = req.get('userPassword')
+	UShortName = req.get('userShortName')
+	EmpId = req.get('empId')
+	UTypeId = req.get('userTypeId')
+	user = {
+		'CId':CId,
+		'DivId':DivId,
+		'UFullName':UFullName,
+		'UName':UName,
+		'UEmail':UEmail,
+		'UPass':UPass,
+		'UShortName':UShortName,
+		'EmpId':EmpId,
+		'UTypeId':UTypeId
+	}
+	return user

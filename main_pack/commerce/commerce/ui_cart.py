@@ -86,24 +86,26 @@ def ui_cart_table():
 	elif request.method == "PUT":
 		resources=[]
 		req = request.get_json()
-		try:
-			for resElement in req:
-				resId = req[resElement].get('resId')
-				productQty = req[resElement].get('productQty')
-				product={}
-				product['resource'] = Resource.query.get(resId)
-				product['productQty'] = productQty
-				resources.append(product)
-			resourceQty='multi'
-			response = jsonify({
-				'status':'added',
-				'responseText':gettext('Product')+' '+gettext('successfully saved!'),
-				'htmlData':render_template('commerce/main/commerce/cartTableAppend.html',
-					resources=resources,**commonData,**resData,resourceQty=resourceQty)
-				})
-		except:
-			response = jsonify({
-				'status':'error',
-				'responseText':gettext('Unknown error!'),
-				})
+		# try:
+		for resElement in req:
+			print(resElement)
+			resId = req[resElement].get('resId')
+			productQty = req[resElement].get('productQty')
+			product={}
+			product['resource'] = Resource.query.get(resId)
+			product['productQty'] = productQty
+			resources.append(product)
+			print(resources)
+		resourceQty='multi'
+		response = jsonify({
+			'status':'added',
+			'responseText':gettext('Product')+' '+gettext('successfully saved!'),
+			'htmlData':render_template('commerce/main/commerce/cartTableAppend.html',
+				resources=resources,**commonData,**resData,resourceQty=resourceQty)
+			})
+		# except:
+		# 	response = jsonify({
+		# 		'status':'error',
+		# 		'responseText':gettext('Unknown error!'),
+		# 		})
 	return response

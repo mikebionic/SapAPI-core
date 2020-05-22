@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/slick.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/main-color.css') }}">
+    {% block styles %}{% endblock %}
   </head>
   <body class="biolife-body">
 
@@ -126,7 +127,7 @@
                         <ul class="products cartItemsList"></ul>
                         <p class="btn-control">
                           <a href="{{ url_for('commerce.cart') }}" class="btn view-cart">{{_('View cart')}}</a>
-                          <a href="#" class="btn checkoutBtn">{{_('Checkout')}}</a>
+                          <a class="btn clearCartBtn">{{_('clear all')}}</a>
                         </p>
                       </div>
                     </div>
@@ -159,43 +160,30 @@
                   <span class="angle" data-tgleclass="fa fa-caret-down"><i class="fa fa-caret-up" aria-hidden="true"></i></span>
                 </div>
                 <div class="wrap-menu">
-                      <ul class="menu clone-main-menu">
-{% for category in categories %}
-  {% if category.GCRecord == None or category.GCRecord == '' %}
-    <li class="menu-item menu-item-has-children has-megamenu">
-      <div>
-        <a href="#" class="menu-name" {% if category.ResCatDesc %} title="{{ category.ResCatDesc }}" {% endif %}><i class="{% if category.ResCatIconName %}{{category.ResCatIconName}}{%else%}fas fa-apple-alt{%endif%}"></i> {{ category.ResCatName }}</a>
-        <div class="wrap-megamenu lg-width-300 md-width-640">
-          <div class="mega-content">
-            <div class="row">
-              <div class="col-lg-9 col-md-4 col-sm-12 xs-margin-bottom-25 md-margin-bottom-0">
-                {% for subcategory in subcategories %}
-                  {% if subcategory.GCRecord == None or subcategory.GCRecord == '' %}
-                    {% if subcategory.ResOwnerCatId == category.ResCatId %}
-                    <div class="wrap-custom-menu vertical-menu">
-                      <h4 class="menu-title" {% if subcategory.ResCatDesc %} title="{{ subcategory.ResCatDesc }}" {% endif %}>{{ subcategory.ResCatName }}</h4>
-                      <ul class="menu">
-                          {% for subcategory_child in subcategory_children %}
-                          {% if subcategory_child.GCRecord == None or subcategory_child.GCRecord == '' %}
-                            {% if subcategory_child.ResOwnerCatId == subcategory.ResCatId %}
-                              <li><a href="{{ url_for(pagination_url,catName=subcategory_child.ResCatName)}}" {% if subcategory_child.ResCatDesc %} title="{{ subcategory_child.ResCatDesc }}" {% endif %}>{{ subcategory_child.ResCatName }}</a></li>
+                  <ul class="menu clone-main-menu">
+                    {% for category in categories %}
+                      {% if category.GCRecord == None or category.GCRecord == '' %}
+                        <li class="menu-item menu-item-has-children has-child">
+                          <a href="#" class="menu-name" {% if category.ResCatDesc %} title="{{ category.ResCatDesc }}" {% endif %}><i class="biolife-icon icon-fruits"></i> {{ category.ResCatName }}</a>
+                          {% for subcategory in subcategories %}
+                            {% if subcategory.GCRecord == None or subcategory.GCRecord == '' %}
+                              {% if subcategory.ResOwnerCatId == category.ResCatId %}
+                                <ul class="sub-menu">
+                                <h4 class="menu-title" {% if subcategory.ResCatDesc %} title="{{ subcategory.ResCatDesc }}" {% endif %}>{{ subcategory.ResCatName }}</h4>
+                                  {% for subcategory_child in subcategory_children %}
+                                    {% if subcategory_child.GCRecord == None or subcategory_child.GCRecord == '' %}
+                                      {% if subcategory_child.ResOwnerCatId == subcategory.ResCatId %}
+                                        <li class="menu-item"><a href="#" {% if subcategory_child.ResCatDesc %} title="{{ subcategory_child.ResCatDesc }}" {% endif %}>{{ subcategory_child.ResCatName }}</a></li>
+                                      {% endif %}
+                                    {% endif %}
+                                  {% endfor %}
+                                </ul>                                        
+                              {% endif %}
                             {% endif %}
-                          {% endif %}
-                        {% endfor %}
-                      </ul>
-                    </div>
-                    {% endif %}
-                  {% endif %}
-                {% endfor %}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </li>
-  {% endif %}
-{% endfor %}
-
+                          {% endfor %}
+                        </li>
+                      {% endif %}
+                    {% endfor %}
                   </ul>
                 </div>
               </div>
@@ -530,7 +518,6 @@
             <li class="list-item"><a href="#">{{_('Checkout')}}</a></li>
           </ul>
         </div>
-
         <div class="glb-item languages">
           <b class="title">{{_('Language')}}</b>
           <ul class="list inline">
@@ -542,10 +529,7 @@
         </div>
       </div>
     </div>
-
-    <!-- Scroll Top Button -->
     <a class="btn-scroll-top"><i class="biolife-icon icon-left-arrow"></i></a>
-
     <script src="{{ url_for('static', filename='commerce/main/js/jquery-3.4.1.min.js') }}"></script>
     <script src="{{ url_for('static', filename='commerce/main/js/bootstrap.min.js') }}"></script>
     <script src="{{ url_for('static', filename='commerce/main/js/jquery.countdown.min.js') }}"></script>
@@ -556,6 +540,7 @@
     <script src="{{ url_for('static', filename='commerce/main/js/functions.js') }}"></script>
     <script src="{{ url_for('static', filename='commerce/main/js/js.cookie.min.js') }}"></script>
     <script src="{{ url_for('static', filename='commerce/main/js/cartsAndCheckouts.js') }}"></script>
+    {% block scripts %}{% endblock %}
   </body>
 
 </html>

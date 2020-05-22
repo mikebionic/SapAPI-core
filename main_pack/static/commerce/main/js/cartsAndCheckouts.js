@@ -40,8 +40,10 @@ $('body').delegate('.addToCart','click',function(){
 
 $('body').delegate('.removeFromCart','click',function(){
 	ownerId = $(this).attr('ownerId');
+	console.log(ownerId)
 	if(ownerId>0){
 		$('.cartObject'+ownerId).remove();
+		$('.cartTableObject'+ownerId).remove();
 		$('.removeFromCart'+'[ownerId='+ownerId+']').hide();
 		$('.addToCart'+'[ownerId='+ownerId+']').show();
 		delete cartData['product'+ownerId];
@@ -53,6 +55,27 @@ $('body').delegate('.removeFromCart','click',function(){
 		Cookies.set('cart',JSON.stringify(cartData));
 		countCartItems();
 	}
+});
+
+$('body').delegate('.clearCartBtn','click',function(){
+	cartCookie = Cookies.get('cart');
+	if(cartCookie==undefined){
+		cartData={};
+	}
+	else{
+		cartData=JSON.parse(cartCookie);
+		for (i in cartData){
+			ownerId = cartData[i]["resId"];
+			$('.addToCart'+'[ownerId='+ownerId+']').show();
+			$('.removeFromCart'+'[ownerId='+ownerId+']').hide();
+			$('.cartObject'+ownerId).remove();
+			$('.cartTableObject'+ownerId).remove();
+			delete cartData['product'+ownerId];
+			Cookies.set('cart',JSON.stringify(cartData));
+			countCartItems();
+		}
+	}
+	
 });
 
 function countCartItems(){
@@ -141,8 +164,6 @@ function cartOperations(formData,url,type,responseForm,listName){
 		}
 	})
 }
-
-
 
 function addItemsToCart(formData,url,responseForm,listName){
 	$.ajax({

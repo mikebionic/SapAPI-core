@@ -8,7 +8,7 @@
         <div class="row">
           <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
             <h3 class="box-title">{{_('Your cart items')}}</h3>
-            <form class="shopping-cart-form" action="#" method="post">
+            <form class="shopping-cart-form">
               <table class="shop_table cart-form">
                 <thead>
                   <tr>
@@ -21,9 +21,8 @@
                 <tbody class="cartItemsTable">
                   <tr class="cart_item wrap-buttons">
                     <td class="wrap-btn-control" colspan="4">
-                      <a class="btn back-to-shop">{{_('Back to Shop')}}</a>
-                      <button class="btn btn-update" type="submit" disabled>{{_('update')}}</button>
-                      <button class="btn btn-clear" type="reset">{{_('clear all')}}</button>
+                      <a href="{{url_for('commerce.list_paginate')}}" class="btn back-to-shop">{{_('Back to Shop')}}</a>
+                      <button class="btn btn-clear clearCartBtn" type="reset">{{_('clear all')}}</button>
                     </td>
                   </tr>
                 </tbody>
@@ -34,44 +33,19 @@
           <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
             <div class="shpcart-subtotal-block">
               <div class="subtotal-line">
-                <b class="stt-name">Subtotal <span class="sub">(2ittems)</span></b>
-                <span class="stt-price">£170.00</span>
+                <b class="stt-name">{{_('Total price')}}</b>
+                <span class="currencySymbol">TMT</span>
+                <span class="stt-price cartTotalPrice">0.00</span>
               </div>
-              <div class="subtotal-line">
-                <b class="stt-name">Shipping</b>
-                <span class="stt-price">£0.00</span>
-              </div>
-              <div class="tax-fee">
-                <p class="title">Est. Taxes & Fees</p>
-                <p class="desc">Based on 56789</p>
-              </div>
+              <span class="subtitle">{{_('Address')}} (required):</span>
+              <input type="text" class="txt-input recieverAddress" placeholder="{{_('City')}}, {{_('Av.')}}, {{_('Street')}}, {{_('House')}}, {{_('Flat')}}">
               <div class="btn-checkout">
-                <a href="#" class="btn checkout">{{_('Checkout')}}</a>
+                <a class="btn checkout checkoutBtn">{{_('Checkout')}}</a>
               </div>
-              <div class="biolife-progress-bar">
-                <table>
-                  <tr>
-                    <td class="first-position">
-                      <span class="index">$0</span>
-                    </td>
-                    <td class="mid-position">
-                      <div class="progress">
-                        <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                    </td>
-                    <td class="last-position">
-                      <span class="index">$99</span>
-                      </td>
-                  </tr>
-                </table>
-              </div>
-              <p class="pickup-info"><b>Free Pickup</b> is available as soon as today More about shipping and pickup</p>
             </div>
           </div>
         </div>
       </div>
-
-
 
 
 
@@ -280,5 +254,5 @@
 
 
 {% block scripts %}
-
+  <script src="{{ url_for('static', filename='commerce/main/js/cart.js') }}"></script>
 {% endblock %}

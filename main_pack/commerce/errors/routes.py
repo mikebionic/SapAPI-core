@@ -16,14 +16,14 @@ def forbidden(error):
 @bp.app_errorhandler(405)
 def method_not_found(error):
 	commonData = commonUsedData()
-	return render_template("commerce/errors/405.html",**commonData), 405
+	return render_template("commerce/main/errors/405.html",**commonData), 405
 
 @bp.app_errorhandler(410)
 def gone(error):
 	commonData = commonUsedData()
-	return render_template("commerce/errors/410.html",**commonData), 410
+	return render_template("commerce/main/errors/410.html",**commonData), 410
 
 @bp.app_errorhandler(500)
 def internal_server_error(error):
 	commonData = commonUsedData()
-	return render_template("commerce/errors/500.html",**commonData), 500
+	return render_template("commerce/main/errors/500.html",**commonData), 500

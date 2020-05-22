@@ -78,8 +78,6 @@ def realResRelatedData():
 
 	return resRelatedData
 
-
-
 def resRelatedData():
 	resRelatedData = {}
 	units = Unit.query.all()

@@ -7,16 +7,6 @@
 
 {% block content %}
 	<div class="shop-wrapper">
-    <div class="search-overlay"></div>
-    <div class="search-input-wrapper is-desktop is-hidden">
-      <div class="field">
-        <div class="control">
-          <input type="text" name="search" autofocus required>
-          <span id="clear-search" role="button"><i data-feather="x"></i></span>
-          <span class="search-help">Type the name of the product you are looking for</span>
-        </div>
-      </div>
-    </div>
     <div class="section">
       <div class="container">
         <div class="columns account-header">
@@ -39,32 +29,8 @@
                       <img src="{{ url_for('static', filename='commerce/main/images/avatars/elie.jpg')}}" alt="">
                     </div>
                     <div class="username has-text-centered">
-                      <span>Elie Daniels</span>
-                      <small>Member since Sep 23 2017</small>
-                    </div>
-                  </div>
-                  <div class="profile-footer has-text-centered">
-                    <span class="achievement-title">Next Achievement</span>
-                    <div class="count">24/150</div>
-                  </div>
-                </div>
-                <!-- Gold Customer card -->
-                <div class="flat-card profile-info-card is-auto is-dark is-achievement">
-                  <div class="card-body">
-                    <img src="{{ url_for('static', filename='commerce/main/images/logo/nephos-gold.svg')}}" alt="">
-                    <div class="achievement-name">
-                      <span class="is-gold">Nephos Gold Customer</span>
-                      <span>As a Gold Customer, you have a permanent 10% discount on all your purchases.</span>
-                    </div>
-                  </div>
-                </div>
-                <!-- Referal card -->
-                <div class="flat-card profile-info-card is-auto is-dark is-achievement">
-                  <div class="card-body">
-                    <img src="{{ url_for('static', filename='commerce/main/images/logo/nephos-referral.svg')}}" alt="">
-                    <div class="achievement-name">
-                      <span class="is-green">Nephos Referer</span>
-                      <span>You have referred <b>30+</b> customers. You get a 2.5% discount on all your purchases.</span>
+                      <span>{{current_user.UFullName}}</span>
+                      <small>{{_('Registered date')}}: {{current_user.CreatedDate.strftime('%d-%m-%Y') }}</small>
                     </div>
                   </div>
                 </div>
@@ -81,22 +47,14 @@
                     <div class="columns">
                       <div class="column is-6">
                         <div class="info-block">
-                          <span class="label-text">{{_('First name')}}</span>
-                          <span class="label-value">Elie</span>
-                        </div>
-                        <div class="info-block">
-                          <span class="label-text">{{_('Email')}}</span>
-                          <span class="label-value">eliedaniels@gmail.com</span>
+                          <span class="label-text">{{_('Full name')}}</span>
+                          <span class="label-value">{{current_user.UFullName}}</span>
                         </div>
                       </div>
                       <div class="column is-6">
                         <div class="info-block">
-                          <span class="label-text">{{_('Last name')}}</span>
-                          <span class="label-value">Daniels</span>
-                        </div>
-                        <div class="info-block">
-                          <span class="label-text">{{_('Phone')}}</span>
-                          <span class="label-value">+1 555 623 568</span>
+                          <span class="label-text">{{_('Email')}}</span>
+                          <span class="label-value">{{current_user.UEmail}}</span>
                         </div>
                       </div>
                     </div>
@@ -106,7 +64,7 @@
 
                 <div class="flat-card profile-info-card is-auto">
                   <div class="card-title">
-                    <h3>{{_('Billing address')}}</h3>
+                    <h3>{{_('Billing card')}}</h3>
                     <div class="edit-account is-vhidden">
                       <a href="{{ url_for('commerce_users.profile_edit') }}"><i class="feather-icons" data-feather="settings"></i></a>
                     </div>
@@ -114,6 +72,14 @@
                   <div class="card-body">
                     <div class="columns">
                       <div class="column is-6">
+                        <div class="info-block">
+                          <span class="label-text">{{_('First name')}}</span>
+                          <span class="label-value">Elie</span>
+                        </div>
+                        <div class="info-block">
+                          <span class="label-text">{{_('Email')}}</span>
+                          <span class="label-value">eliedaniels@gmail.com</span>
+                        </div>
                         <div class="info-block">
                           <span class="label-text">{{_('Number')}}</span>
                           <span class="label-value">23, Block C2</span>
@@ -128,6 +94,14 @@
                         </div>
                       </div>
                       <div class="column is-6">
+                        <div class="info-block">
+                          <span class="label-text">{{_('Last name')}}</span>
+                          <span class="label-value">Daniels</span>
+                        </div>
+                        <div class="info-block">
+                          <span class="label-text">{{_('Phone')}}</span>
+                          <span class="label-value">+1 555 623 568</span>
+                        </div>
                         <div class="info-block">
                           <span class="label-text">{{_('Street')}}</span>
                           <span class="label-value">Church Street</span>
