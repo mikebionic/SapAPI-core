@@ -3,4 +3,5 @@ __pycache__/
 *.swp
 *.db
 uploads/
+commerce/images/
 pips/
