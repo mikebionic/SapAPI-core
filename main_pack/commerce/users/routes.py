@@ -7,6 +7,20 @@ from main_pack.commerce.users.utils import save_picture,commonUsedData
 
 from main_pack.models.base.models import Image
 
+from functools import wraps
+def admin_required():
+	def decorator(f):
+		@wraps(f)
+		def decorated_function(*args, **kwargs):
+			if not current_user:
+				return redirect(url_for('commerce_auth.login'))
+			elif not current_user.is_admin():
+				flash(lazy_gettext('You do not have access to that page!'), 'danger')
+				return redirect(url_for('commerce.commerce'))
+			return f(*args, **kwargs)
+		return decorated_function
+	return decorator
+
 @bp.route("/profile")
 @login_required
 def profile():

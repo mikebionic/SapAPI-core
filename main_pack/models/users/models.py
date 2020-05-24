@@ -24,6 +24,10 @@ class Users(AddInf,CreatedModifiedInfo,db.Model,UserMixin):
 	Wish = db.relationship('Wish',backref='users',lazy=True)
 	Rating = db.relationship('Rating',backref='users',lazy=True)
 	
+
+	def is_admin(self):
+		return self.UTypeId == 1
+
 	def get_id(self):
 		return (self.UId)
 
