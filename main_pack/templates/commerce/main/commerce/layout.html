@@ -10,10 +10,10 @@
     {% else %}
       <title>{{_('Commerce')}}</title>
     {% endif %}
-    <!-- <link href="https://fonts.googleapis.com/css?family=Cairo:400,600,700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Cairo:400,600,700&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins:600&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400i,700i" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Ubuntu&amp;display=swap" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu&amp;display=swap" rel="stylesheet">
     <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='commerce/main/images/favicon.png') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/animate.min.css') }}">
@@ -49,13 +49,24 @@
           </div>
           <div class="top-bar right">
             <ul class="horizontal-menu">
-              <li class="horz-menu-item lang">
-                <select name="language">
-                  <a type="submit" href="/language/tk"><option >Türkmen</option></a>
-                  <a type="submit" href="/language/en"><option >English</option></a>
-                  <a type="submit" href="/language/ru"><option >Русский</option></a>
-                </select>
-              </li>
+              <li class="dropdown dropdown-list-toggle">
+            <a  href="#" class="nav-link nav-link-lg message-toggle" data-toggle="dropdown">
+              <i class="fa fa-globe" style="font-size: 25px;"></i>
+              <span class="badge headerBadge1">{{ session['language'] }}</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-lr dropdown-menu-right pullDown">
+              <a href="/{% if active_page %}{{active_page}}{% else %}main{% endif %}/language/en" class="dropdown-item">
+                <img src="{{ url_for('static', filename='commerce/main/images/us.svg') }}" style="width: 30px"> English language</a>
+              <div class="dropdown-divider"></div>
+              <a href="/{% if active_page %}{{active_page}}{% else %}main{% endif %}/language/tk" class="dropdown-item">
+                <img src="{{ url_for('static', filename='commerce/main/images/tm.svg') }}" style="width: 30px"> Türkmen dili</a>
+              <div class="dropdown-divider"></div>
+              <a href="/{% if active_page %}{{active_page}}{% else %}main{% endif %}/language/ru" class="dropdown-item">
+                <img src="{{ url_for('static', filename='commerce/main/images/ru.svg') }}" style="width: 30px"> Русский язык</a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item dropdown-footer">{{_('Başga diller')}}</a>
+            </div>
+          </li>
               {% if current_user.is_authenticated %}
                 <li><a href="{{ url_for('commerce_auth.logout') }}" class="login-link"><i class="biolife-icon icon-login"></i>{{ current_user.UFullName }} - {{_('Log out')}}</a></li>
               {% else %}
