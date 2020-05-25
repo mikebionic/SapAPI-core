@@ -472,6 +472,16 @@ class Res_category(CreatedModifiedInfo,db.Model):
 			}
 		return json_category
 
+	def to_json_api(self):
+		json_category = {
+			'ResCatId':self.ResCatId,
+			'ResOwnerCatId':self.ResOwnerCatId,
+			'ResCatName':self.ResCatName,
+			'ResCatDesc':self.ResCatDesc,
+			'ResCatIconName':self.ResCatIconName
+			}
+		return json_category
+
 class Res_maker(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_res_maker"
 	ResMakerId = db.Column(db.Integer,nullable=False,primary_key=True)

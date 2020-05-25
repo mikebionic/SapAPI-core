@@ -52,6 +52,20 @@ def create_app(config_class=Config):
 	from main_pack.base import bp as base_bp
 	app.register_blueprint(base_bp)
 
+	# api blueprints
+	api_url_prefix = '/api'
+	from main_pack.api.auth import api as auth_api
+	app.register_blueprint(auth_api,url_prefix=api_url_prefix)
+
+	from main_pack.api.errors import api as errors_api
+	app.register_blueprint(errors_api,url_prefix=api_url_prefix)
+
+	from main_pack.api.category import api as category_api
+	app.register_blueprint(category_api,url_prefix=api_url_prefix)
+
+
+	# /api blueprints
+
 	# commerce blueprints
 	commerce_url_prefix = '/commerce'
 	from main_pack.commerce.auth import bp as commerce_auth_bp
