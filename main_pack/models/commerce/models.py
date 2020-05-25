@@ -448,6 +448,35 @@ class Resource(AddInf,CreatedModifiedInfo,db.Model):
 			}
 		return json_resource
 
+	def to_json_api(self):
+		json_resource = {
+			'ResId':self.ResId,
+			'CId':self.CId,
+			'DivId':self.DivId,
+			'ResCatId':self.ResCatId,
+			'UnitId':self.UnitId,
+			'BrandId':self.BrandId,
+			'UsageStatusId':self.UsageStatusId,
+			'ResTypeId':self.ResTypeId,
+			'ResMainImgId':self.ResMainImgId,
+			'ResMakerId':self.ResMakerId,
+			'ResLastVendorId':self.ResLastVendorId,
+			'ResRegNo':self.ResRegNo,
+			'ResName':self.ResName,
+			'ResDesc':self.ResDesc,
+			'ResFullDesc':self.ResFullDesc,
+			'ResWidth':self.ResWidth,
+			'ResHeight':self.ResHeight,
+			'ResLength':self.ResLength,
+			'ResWeight':self.ResWeight,
+			'ResProductionOnSale':self.ResProductionOnSale,
+			'ResMinSaleAmount':self.ResMinSaleAmount,
+			'ResMaxSaleAmount':self.ResMaxSaleAmount,
+			'ResMinSalePrice':self.ResMinSalePrice,
+			'ResMaxSalePrice':self.ResMaxSalePrice
+			}
+		return json_resource
+
 
 class Res_category(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_res_category"
