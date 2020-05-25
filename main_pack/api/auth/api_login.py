@@ -31,8 +31,10 @@ def api_login():
 	auth = request.authorization
 	if not auth or not auth.username or not auth.password:
 		return make_response('Could not verify', 401, {'WWW-Authenticate':'basic realm'})
+		print("no username or passord")
 	user = Users.query.filter_by(UName=auth.username).first()
 	if not user:
+		print("no such user")
 		return make_response('Could not verify', 401, {'WWW-Authenticate':'basic realm'})
 	if check_auth(auth.username,auth.password):
 		token = jwt.encode({'UId':user.UId, 'exp':datetime.utcnow()+dt.timedelta(minutes=3)}, Config.SECRET_KEY)

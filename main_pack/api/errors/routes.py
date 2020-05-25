@@ -5,6 +5,10 @@ from flask import make_response, jsonify
 def not_found(error):
 	return make_response(jsonify({'error':'Not found'}),404)
 
+@api.errorhandler(401)
+def unauthorized(error):
+	return make_response(jsonify({'error':'Forbidden'}),401)
+
 @api.errorhandler(403)
 def forbidden(error):
 	return make_response(jsonify({'error':'Forbidden'}),403)

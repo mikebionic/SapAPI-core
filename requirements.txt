@@ -23,9 +23,7 @@ Werkzeug==1.0.1
 WTForms==2.2.1
 gunicorn
 elasticsearch==7.7.0
-cryptography-2.9.2 
-jwt==1.0.0 
-six==1.15.0
+pyjwt-1.7.1
 
 ###### if faced errors like compilation of psycopg
 # psycopg2-binary
