@@ -120,6 +120,10 @@ _______________________________________________
 
 # Resources and Resource table
 
+# Get all resources in pagination
+// page is given as example "?page=4"
+GET: /api/paginated_resources/<?page>
+
 # Get all resources in one go
 GET: /api/resources/
 
@@ -193,4 +197,65 @@ POST: /api/resources/
     "message": "Resources added",
     "status": "success"
 }
+```
+
+# Get only resources in single list
+GET: /api/just_resources/
+
+## Output:
+```JSON
+[
+  {
+    "BrandId": 7, 
+    "CId": null, 
+    "DivId": null, 
+    "ResCatId": 29, 
+    "ResDesc": "\u00d6r\u00e4n gowy we \u00fdokary hili diwanlar \u00fdorite t\u00fcrkmen ja\u00fdlara ni\u00fdetlenen", 
+    "ResFullDesc": "Uly we ki\u00e7i, D\u00fcrli re\u0148kli we \u00fdokary hili\nGowy taraplary:\n- uzak wagta ya\u015fayar\n- \u00fde\u0148ilik bilen arassalan\u00fdar", 
+    "ResHeight": 1.4, 
+    "ResId": 1, 
+    "ResLastVendorId": null, 
+    "ResLength": 0.0, 
+    "ResMainImgId": 3, 
+    "ResMakerId": null, 
+    "ResMaxSaleAmount": 0.0, 
+    "ResMaxSalePrice": 0.0, 
+    "ResMinSaleAmount": 0.0, 
+    "ResMinSalePrice": 0.0, 
+    "ResName": "Sada \u00fdum\u015fak diwan", 
+    "ResProductionOnSale": false, 
+    "ResRegNo": "ARHK1", 
+    "ResTypeId": null, 
+    "ResWeight": 88.0, 
+    "ResWidth": 3.5, 
+    "UnitId": 1, 
+    "UsageStatusId": 1
+  }, 
+  {
+    "BrandId": 5, 
+    "CId": null, 
+    "DivId": null, 
+    "ResCatId": 12, 
+    "ResDesc": "\u00d6r\u00e4n gowy we \u00fdokary hili krosovka.", 
+    "ResFullDesc": "Uly we ki\u00e7i, D\u00fcrli re\u0148kli we \u00fdokary hili\nGowy taraplary:\n- uzak wagta ya\u015fayar\n- \u00fde\u0148ilik bilen arassalan\u00fdar\n- Sport ucin oran gowy", 
+    "ResHeight": 0.0, 
+    "ResId": 2, 
+    "ResLastVendorId": null, 
+    "ResLength": 0.0, 
+    "ResMainImgId": 6, 
+    "ResMakerId": null, 
+    "ResMaxSaleAmount": 0.0, 
+    "ResMaxSalePrice": 0.0, 
+    "ResMinSaleAmount": 0.0, 
+    "ResMinSalePrice": 0.0, 
+    "ResName": "Nike krosovka", 
+    "ResProductionOnSale": false, 
+    "ResRegNo": "ARHK2", 
+    "ResTypeId": null, 
+    "ResWeight": 0.0, 
+    "ResWidth": 0.0, 
+    "UnitId": 1, 
+    "UsageStatusId": 1
+  }
+]
 ```

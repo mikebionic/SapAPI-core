@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class Config:
 	SECRET_KEY = 'jbvfr84iojnbv7oi-02933jndudm094jfo+_OygcuHUH'
 	# SQLALCHEMY_DATABASE_URI = 'sqlite:///commerce.db'
@@ -12,6 +13,7 @@ class Config:
 	}
 	SQLALCHEMY_DATABASE_URI = 'postgresql://%(user)s:%(pw)s@%(host)s:%(port)s/%(db)s' % POSTGRES
 
+
 	BABEL_DEFAULT_LOCALE = 'tk'
 	MAIL_SERVER = 'smtp.googlemail.com'
 	MAIL_PORT = 587
@@ -20,3 +22,7 @@ class Config:
 	# MAIL_PASSWORD = os.environ.get('EMAIL_PASS')
 	MAIL_USERNAME = 'teamofbionics@gmail.com'
 	MAIL_PASSWORD = 'bionics12345'
+
+	# # to give each api it's pagination: 
+	# REST_RESOURCES_PER_PAGE = 5
+	API_OBJECTS_PER_PAGE = 10

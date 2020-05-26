@@ -1,8 +1,11 @@
+# -*- coding: utf-8 -*-
 from flask import render_template,jsonify,request,abort,make_response
 from main_pack.api.commerce import api
 
 from main_pack.models.commerce.models import Res_category
 from main_pack.api.commerce.utils import addCategoryDict
+from main_pack import db
+from flask import current_app
 
 @api.route("/categories/<int:id>/",methods=['GET','PUT'])
 def api_category(id):
@@ -41,9 +44,11 @@ def api_categories():
 			"message": "All categories",
 			"data":{
 				"categories":[category.to_json_api() for category in categories],
+				"total":len(categories)
 			}
 		}
 		response = make_response(jsonify(res),200)
+		
 
 	elif request.method == 'POST':
 		if not request.json:
@@ -51,19 +56,30 @@ def api_categories():
 		else:
 			req = request.get_json()
 			categories = []
+			failed_categories = [] 
 			for category in req['categories']:
+				if not category['ResCatName']:
+					abort(400)
 				category = addCategoryDict(category)
-				categories.append(category)
-				# newCategory = Res_category(**category)
-				# db.session.add(newCategory)
-				# db.session.commit()
+				try:
+					newCategory = Res_category(**category)
+					db.session.add(newCategory)
+					db.session.commit()
+					categories.append(category)
+				except:
+					failed_categories.append(category)
+
 			res = {
 				"status": "success",
 				"message": "Categories added",
 				"data":{
 					"categories":categories,
+					"total":len(categories)
 				}
 			}
+			if len(failed_categories)>0:
+				res["data"]["fails"] = failed_categories
+
 			response = make_response(jsonify(res),200)
 
 	elif request.method == 'PUT':
@@ -72,196 +88,94 @@ def api_categories():
 		else:
 			req = request.get_json()
 			categories = []
+			failed_categories = [] 
 			for category in req['categories']:
+				category = addCategoryDict(category)
 				try:
-					category = addCategoryDict(category)
-					
-					# ResCatId = category['ResCatId']
-					# thisCategory = Res_category.query.get(ResCatId)
-					# thisCategory.update(**category)
-					# thisCategory.modifiedInfo(UId=1)
-					# db.session.commit()
-					categories.append(category)
+					ResCatId = category['ResCatId']
+					thisCategory = Res_category.query.get(ResCatId)
+					thisCategory.update(**category)
+					thisCategory.modifiedInfo(UId=1)
+					db.session.commit()
 
+					categories.append(category)
 				except:
-					res = {
-						"status": "error",
-						"message": "Update failed",
-					}
-					response = make_response(jsonify(res),400)
-					return response
+					failed_categories.append(category)
+			
 			res = {
 				"status": "success",
 				"message": "Categories updated",
 				"data":{
 					"categories":categories,
+					"total":len(categories)
 				}
 			}
+			if len(failed_categories)>0:
+				res["data"]["fails"] = failed_categories
+
 			response = make_response(jsonify(res),200)
 
 	elif request.method == 'DELETE':
-		if not request.json or not 'ResCatId' in request.json:
+		if not request.json:
 			abort(400)
 		else:
 			req = request.get_json()
-			try:
-				ResCatId = req.get('ResCatId')
-				category = Res_category.query.get_or_404(ResCatId)
-				category.GCRecord = int(datetime.now().strftime("%H"))
-				category.modifiedInfo(UId=1)
-				db.session.commit()
-				res = {
-					"status": "success",
-					"message": "Category deleted",
+			categories = []
+			failed_categories = []
+			for category in req['categories']:
+				category = addCategoryDict(category)
+				try:
+					ResCatId = category['ResCatId']
+					thisCategory = Res_category.query.get(ResCatId)
+					thisCategory.GCRecord = int(datetime.now().strftime("%H"))
+					thisCategory.modifiedInfo(UId=1)
+					db.session.commit()
+					categories.append(category)
+				except:
+					failed_categories.append(category)
+			
+			res = {
+				"status": "success",
+				"message": "Categories deleted",
+				"data":{
+					"categories":categories,
+					"total":len(categories)
 				}
-				response = make_response(jsonify(res),400)
-			except:
-				res = {
-					"status": "error",
-					"message": "Deletion failed, no change",
-				}
-				response = make_response(jsonify(res),400)
+			}
+			if len(failed_categories)>0:
+				res["data"]["fails"] = failed_categories
+
+			response = make_response(jsonify(res),200)
 	
 	return response
 
-#########################
-#####3 single insertion ###############
-
-# @api.route("/categories/",methods=['GET','POST','PUT'])
-# def api_categories():
-# 	if request.method == 'GET':
-# 		categories = Res_category.query.all()
-# 		response = jsonify({'categories':[category.to_json_api() for category in categories]})
-# 		return response
-# 	elif request.method == 'POST':
-# 		if not request.json or not 'ResCatName' in request.json:
-# 			abort(400)
-# 		else:
-# 			req = request.get_json()
-# 			category = addCategoryDict(req)
-# 			newCategory = Res_category(**category)
-# 			db.session.add(newCategory)
-# 			db.session.commit()
-# 			res = {
-# 				"status": "success",
-# 				"message": "Category added",
-# 				"data":{
-# 					"category":newCategory.to_json_api(),
-# 				}
-# 			}
-# 			response = make_response(jsonify(res),200)
-# 			return response
-
-# 	elif request.method == 'PUT':
-# 		if not request.json or not 'ResCatId' in request.json:
-# 			abort(400)
-# 		else:
-# 			req = request.get_json()
-# 			try:
-# 				ResCatId = req.get('ResCatId')
-# 				updateCategory = addCategoryDict(req)
-# 				category = Res_category.query.get(ResCatId)
-# 				category.update(**updateCategory)
-# 				category.modifiedInfo(UId=1)
-# 				db.session.commit()
-# 				res = {
-# 					"status": "success",
-# 					"message": "Category updated",
-# 					"data":{
-# 						"category":category.to_json_api(),
-# 					}
-# 				}
-# 				response = make_response(jsonify(res),200)
-# 				return response
-# 			except:
-# 				res = {
-# 					"status": "error",
-# 					"message": "Update failed",
-# 				}
-# 				response = make_response(jsonify(res),400)
-# 				return response
-
-# 	elif request.method == 'DELETE':
-# 		if not request.json or not 'ResCatId' in request.json:
-# 			abort(400)
-# 		else:
-# 			req = request.get_json()
-# 			try:
-# 				ResCatId = req.get('ResCatId')
-# 				category = Res_category.query.get_or_404(ResCatId)
-# 				category.GCRecord = int(datetime.now().strftime("%H"))
-# 				category.modifiedInfo(UId=1)
-# 				db.session.commit()
-# 				res = {
-# 					"status": "success",
-# 					"message": "Category deleted",
-# 				}
-# 				response = make_response(jsonify(res),400)
-				
-# 			except:
-# 				res = {
-# 					"status": "error",
-# 					"message": "Deletion failed, no change",
-# 				}
-# 				response = make_response(jsonify(res),400)
-# 			return response
-
-######################
-# @api.route('/api/employees/',methods=['DELETE'])
-# @token_required
-# def delete_employee(current_user):
-
-
-#####
-# @api.route("/category/", methods=['POST','DELETE'])
-# def ui_category():
-# 	categories = Res_category.query.all()
-# 	baseTemplate = {
-# 		'categories':categories,
-# 		}
-# 	if request.method == "POST":
-# 		try:
-# 			req = request.get_json()
-# 			category = addCategoryDict(req)
-# 			newCategory = Res_category(**category)
-# 			db.session.add(newCategory)
-# 			db.session.commit()
-# 			if (newCategory.ResOwnerCatId == '' or newCategory.ResOwnerCatId == None or newCategory.ResOwnerCatId == 0):
-# 				child_status = "category"
-# 			else:
-# 				parent = Res_category.query.filter_by(ResCatId=newCategory.ResOwnerCatId).first()
-# 				if (parent.ResOwnerCatId == '' or parent.ResOwnerCatId == None or parent.ResOwnerCatId == 0):
-# 					child_status = "subcategory"
-# 				else:
-# 					child_status = "subcategory_child"
-# 			response = jsonify({
-# 				'catId':newCategory.ResCatId,
-# 				'status':'created',
-# 				'child_status':child_status,
-# 				'responseText':gettext('Category')+' '+gettext('successfully saved!'),
-# 				'htmlData':render_template('commerce/admin/appendCategory.html',child_status=child_status,category=newCategory)
-# 				})
-# 		except:
-# 			response = jsonify({
-# 				'status':'error',
-# 				'responseText':gettext('Unknown error!'),
-# 				})
-
-# 	elif request.method == "DELETE":
-# 		try:
-# 			req = request.get_json()
-# 			catId = req.get('catId')
-# 			thisCategory = Res_category.query.get(catId)
-# 			thisCategory.GCRecord = 1
-# 			db.session.commit()
-# 			response = {
-# 				'status':'deleted',
-# 				'responseText':thisCategory.ResCatName+' '+gettext('successfully deleted'),
-# 			}
-# 		except:
-# 			response = jsonify({
-# 				'status':'error',
-# 				'responseText':gettext('Unknown error!'),
-# 				})
-
-# 	return response
+@api.route("/paginated_categories/",methods=['GET'])
+def api_paginated_categories():
+	page = request.args.get('page',1,type=int)
+	pagination = Resource.query\
+	.filter(Resource.GCRecord=='' or Resource.GCRecord==None)\
+	.order_by(Resource.CreatedDate.desc()).paginate(
+		page,per_page=current_app.config['API_OBJECTS_PER_PAGE'],
+		error_out=False
+		)
+	resources = pagination.items
+	prev = None
+	if pagination.has_prev:
+		prev = url_for('commerce_api.api_paginate_resources',page=page-1)
+	next = None
+	if pagination.has_next:
+		next = url_for('commerce_api.api_paginate_resources',page=page+1)
+	
+	res = {
+		"status":"success",
+		"message":"Resources",
+		"data":{
+			"resources":[resource.to_json_api() for resource in resources],
+			"total":len(resources)
+		},
+		'prev_url':prev,
+		'next_url':next,
+		'pages_total':pagination.total
+	}
+	
+	return jsonify(res)
