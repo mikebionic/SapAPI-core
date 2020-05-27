@@ -1,5 +1,6 @@
 from flask import render_template,url_for,jsonify,request,abort,make_response
 from main_pack.api.commerce import api
+from main_pack.base.apiMethods import checkApiResponseStatus
 
 from main_pack.models.commerce.models import Resource
 from main_pack.api.commerce.utils import addResourceDict
@@ -12,10 +13,8 @@ def api_resource(id):
 		resource = Resource.query.get(id)
 		response = jsonify({'resource':resource.to_json_api()})
 		res = {
-			"status":"success",
-			"data":{
-				"resource":resource.to_json_api(),
-			}
+			"status":1,
+			"data":resource.to_json_api()
 		}
 		response = make_response(jsonify(res),200)
 
@@ -26,11 +25,9 @@ def api_resource(id):
 		updateResource = addResourceDict(req)
 		resource.update(**resource)
 		res = {
-			"status":"success",
-			"message":"resource updated",
-			"data":{
-				"resource":resource.to_json_api(),
-			}
+			"status":1,
+			"message":"Resource updated",
+			"data":resource.to_json_api()
 		}
 		response = make_response(jsonify(res),200)
 	return response
@@ -40,23 +37,26 @@ def api_resources():
 	if request.method == 'GET':
 		resources = Resource.query.all()
 		res = {
-			"status":"success",
+			"status":1,
 			"message":"All resources",
-			"data":{
-				"resources":[resource.to_json_api() for resource in resources],
-				"total":len(resources)
-			}
+			"data":[resource.to_json_api() for resource in resources],
+			"total":len(resources)
 		}
 		response = make_response(jsonify(res),200)
 
 	elif request.method == 'POST':
 		if not request.json:
-			abort(400)
+			res = {
+				"status": 0,
+				"message": "Error. Not a JSON data."
+			}
+			response = make_response(jsonify(res),400)
+			
 		else:
 			req = request.get_json()
 			resources = []
 			failed_resources = [] 
-			for resource in req['resources']:
+			for resource in req:
 				resource = addResourceDict(resource)
 				try:
 					newResource = Resource(**resource)
@@ -64,29 +64,33 @@ def api_resources():
 					db.session.commit()
 					resources.append(resource)
 				except:
-					failed_resources.append(category)
+					failed_resources.append(resource)
 
+			status = checkApiResponseStatus(resources,failed_resources)
 			res = {
-				"status": "success",
+				"status": status,
 				"message":"Resources added",
-				"data":{
-					"resources":resources,
-					"total":len(resources)
-				}
+				"data":resources,
+				"fails":failed_resources,
+				"success_total":len(resources),
+				"fail_total":len(failed_resources)
 			}
-			if len(failed_resources)>0:
-				res["data"]["fails"] = failed_resources
 
 			response = make_response(jsonify(res),200)
 
 	elif request.method == 'PUT':
 		if not request.json:
-			abort(400)
+			res = {
+				"status": 0,
+				"message": "Error. Not a JSON data."
+			}
+			response = make_response(jsonify(res),400)
+			
 		else:
 			req = request.get_json()
 			resources = []
 			failed_resources = [] 
-			for resource in req['resources']:
+			for resource in req:
 				resource = addResourceDict(resource)
 				try:
 					ResId = resource['ResId']
@@ -98,27 +102,30 @@ def api_resources():
 				except:
 					failed_resources.append(resource)
 
+			status = checkApiResponseStatus(resources,failed_resources)
 			res = {
-				"status":"success",
+				"status":status,
 				"message":"Resources updated",
-				"data":{
-					"resources":resources,
-					"total":len(resources)
-				}
-			}
-			if len(failed_resources)>0:
-				res["data"]["fails"] = failed_resources
-			
+				"data":resources,
+				"fails":failed_resources,
+				"success_total":len(resources),
+				"fail_total":len(failed_resources)
+			}			
 			response = make_response(jsonify(res),200)
 
 	elif request.method == 'DELETE':
-		if not request.json or not 'ResId' in request.json:
-			abort(400)
+		if not request.json:
+			res = {
+				"status": 0,
+				"message": "Error. Not a JSON data."
+			}
+			response = make_response(jsonify(res),400)
+			
 		else:
 			req = request.get_json()
 			resources = []
 			failed_resources = [] 
-			for resource in req['resources']:
+			for resource in req:
 				resource = addResourceDict(resource)
 				try:
 					ResId = resource['ResId']
@@ -130,17 +137,17 @@ def api_resources():
 				except:
 					failed_resources.append(resource)
 
+			status = checkApiResponseStatus(resources,failed_resources)
 			res = {
-				"status":"success",
+				"status":status,
 				"message":"Resources deleted",
-				"data":{
-					"resources":resources,
-					"total":len(resources)
-				}
+				"data":resources,
+				"fails":failed_resources,
+				"total":len(resources),
+				"success_total":len(resources),
+				"fail_total":len(failed_resources)
 			}
-			if len(failed_resources)>0:
-				res["data"]["fails"] = failed_resources
-			
+
 			response = make_response(jsonify(res),200)
 	
 	return response
@@ -164,26 +171,13 @@ def api_paginated_resources():
 		next = url_for('commerce_api.api_paginated_resources',page=page+1)
 	
 	res = {
-		"status":"success",
+		"status":1,
 		"message":"Resources",
-		"data":{
-			"resources":[resource.to_json_api() for resource in resources],
-			"total":len(resources)
-		},
+		"data":[resource.to_json_api() for resource in resources],
+		"total":len(resources),
 		'prev_url':prev,
 		'next_url':next,
 		'pages_total':pagination.total
 	}
 	
 	return jsonify(res)	
-
-@api.route("/just_resources/",methods=['GET'])
-def api_just_resources():
-	if request.method == 'GET':
-		resources = Resource.query.all()
-		res = [
-			resource.to_json_api() for resource in resources
-		]
-		response = make_response(jsonify(res),200)
-
-		return response

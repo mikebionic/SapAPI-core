@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from flask import render_template,jsonify,request,abort,make_response
 from main_pack.api.commerce import api
+from main_pack.base.apiMethods import checkApiResponseStatus
 
 from main_pack.models.commerce.models import Res_category
 from main_pack.api.commerce.utils import addCategoryDict
@@ -13,10 +14,8 @@ def api_category(id):
 		category = Res_category.query.get(id)
 		response = jsonify({'category':category.to_json_api()})
 		res = {
-			"status": "success",
-			"data":{
-				"category":category.to_json_api(),
-			}
+			"status":1,
+			"data":category.to_json_api()
 		}
 		response = make_response(jsonify(res),200)
 
@@ -25,11 +24,9 @@ def api_category(id):
 		updateCategory = addCategoryDict(req)
 		category.update(**category)
 		res = {
-			"status": "success",
-			"message": "Category updated",
-			"data":{
-				"category":category.to_json_api(),
-			}
+			"status":1,
+			"message":"Category updated",
+			"data":category.to_json_api(),
 		}
 		response = make_response(jsonify(res),200)
 	return response
@@ -40,26 +37,34 @@ def api_categories():
 	if request.method == 'GET':
 		categories = Res_category.query.all()
 		res = {
-			"status": "success",
-			"message": "All categories",
-			"data":{
-				"categories":[category.to_json_api() for category in categories],
-				"total":len(categories)
-			}
+			"status":1,
+			"message":"All categories",
+			"data":[category.to_json_api() for category in categories],
+			"total":len(categories)
 		}
 		response = make_response(jsonify(res),200)
 		
 
 	elif request.method == 'POST':
 		if not request.json:
-			abort(400)
+			res = {
+				"status":0,
+				"message":"Error. Not a JSON data."
+			}
+			response = make_response(jsonify(res),400)
+
 		else:
 			req = request.get_json()
 			categories = []
 			failed_categories = [] 
-			for category in req['categories']:
-				if not category['ResCatName']:
-					abort(400)
+			for category in req:
+				# # fix this
+				# if not category['ResCatName']:
+				# 	res = {
+				# 		"status": 0,
+				# 		"message": "Error. ResCatName is None."
+				# 	}
+
 				category = addCategoryDict(category)
 				try:
 					newCategory = Res_category(**category)
@@ -69,27 +74,29 @@ def api_categories():
 				except:
 					failed_categories.append(category)
 
+			status = checkApiResponseStatus(categories,failed_categories)
 			res = {
-				"status": "success",
-				"message": "Categories added",
-				"data":{
-					"categories":categories,
-					"total":len(categories)
-				}
+				"status":status,
+				"message":"Categories added",
+				"data":categories,
+				"fails":failed_categories,
+				"success_total":len(categories),
+				"fail_total":len(failed_categories)
 			}
-			if len(failed_categories)>0:
-				res["data"]["fails"] = failed_categories
 
 			response = make_response(jsonify(res),200)
 
 	elif request.method == 'PUT':
 		if not request.json:
-			abort(400)
+			res = {
+				"status": 0,
+				"message": "Error. Not a JSON data."
+			}
 		else:
 			req = request.get_json()
 			categories = []
 			failed_categories = [] 
-			for category in req['categories']:
+			for category in req:
 				category = addCategoryDict(category)
 				try:
 					ResCatId = category['ResCatId']
@@ -102,27 +109,31 @@ def api_categories():
 				except:
 					failed_categories.append(category)
 			
+			status = checkApiResponseStatus(categories,failed_categories)
 			res = {
-				"status": "success",
-				"message": "Categories updated",
-				"data":{
-					"categories":categories,
-					"total":len(categories)
-				}
+				"status":status,
+				"message":"Categories updated",
+				"data":categories,
+				"fails":failed_categories,
+				"success_total":len(categories),
+				"fail_total":len(failed_categories)
 			}
-			if len(failed_categories)>0:
-				res["data"]["fails"] = failed_categories
 
 			response = make_response(jsonify(res),200)
 
 	elif request.method == 'DELETE':
 		if not request.json:
-			abort(400)
+			res = {
+				"status":0,
+				"message":"Error. Not a JSON data."
+			}
+			response = make_response(jsonify(res),400)
+
 		else:
 			req = request.get_json()
 			categories = []
 			failed_categories = []
-			for category in req['categories']:
+			for category in req:
 				category = addCategoryDict(category)
 				try:
 					ResCatId = category['ResCatId']
@@ -134,16 +145,15 @@ def api_categories():
 				except:
 					failed_categories.append(category)
 			
+			status = checkApiResponseStatus(categories,failed_categories)
 			res = {
-				"status": "success",
-				"message": "Categories deleted",
-				"data":{
-					"categories":categories,
-					"total":len(categories)
-				}
+				"status":status,
+				"message":"Categories deleted",
+				"data":categories,
+				"fails":failed_categories,
+				"success_total":len(categories),
+				"fail_total":len(failed_categories)
 			}
-			if len(failed_categories)>0:
-				res["data"]["fails"] = failed_categories
 
 			response = make_response(jsonify(res),200)
 	
@@ -152,27 +162,25 @@ def api_categories():
 @api.route("/paginated_categories/",methods=['GET'])
 def api_paginated_categories():
 	page = request.args.get('page',1,type=int)
-	pagination = Resource.query\
-	.filter(Resource.GCRecord=='' or Resource.GCRecord==None)\
-	.order_by(Resource.CreatedDate.desc()).paginate(
+	pagination = Res_category.query\
+	.filter(Res_category.GCRecord=='' or Res_category.GCRecord==None)\
+	.order_by(Res_category.CreatedDate.desc()).paginate(
 		page,per_page=current_app.config['API_OBJECTS_PER_PAGE'],
 		error_out=False
 		)
-	resources = pagination.items
+	categories = pagination.items
 	prev = None
 	if pagination.has_prev:
-		prev = url_for('commerce_api.api_paginate_resources',page=page-1)
+		prev = url_for('commerce_api.api_paginated_categories',page=page-1)
 	next = None
 	if pagination.has_next:
-		next = url_for('commerce_api.api_paginate_resources',page=page+1)
+		next = url_for('commerce_api.api_paginated_categories',page=page+1)
 	
 	res = {
-		"status":"success",
-		"message":"Resources",
-		"data":{
-			"resources":[resource.to_json_api() for resource in resources],
-			"total":len(resources)
-		},
+		"status":1,
+		"message":"Categories",
+		"data":[category.to_json_api() for category in categories],
+		"total":len(categories),
 		'prev_url':prev,
 		'next_url':next,
 		'pages_total':pagination.total

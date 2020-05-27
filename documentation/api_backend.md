@@ -22,7 +22,7 @@ GET: /api/categories/
 POST: /api/categories/
 ``` JSON
 {
-	"categories":[
+	"data":[
 		{
 			"ResOwnerCatId":0,
 			"ResCatName":"Test1",
@@ -75,7 +75,7 @@ POST: /api/categories/
 PUT: /api/categories/
 ```JSON
 {
-	"categories":[
+	"data":[
 		{
 			"ResCatId":4,
 			"ResOwnerCatId":0,
@@ -132,7 +132,7 @@ POST: /api/resources/
 
 ```JSON
 {
-	"resources":[
+	"data":[
 		{
 			"CId":1,
 			"DivId":1,

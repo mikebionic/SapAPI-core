@@ -478,7 +478,18 @@ class Resource(AddInf,CreatedModifiedInfo,db.Model):
 			'ResMinSaleAmount':self.ResMinSaleAmount,
 			'ResMaxSaleAmount':self.ResMaxSaleAmount,
 			'ResMinSalePrice':self.ResMinSalePrice,
-			'ResMaxSalePrice':self.ResMaxSalePrice
+			'ResMaxSalePrice':self.ResMaxSalePrice,
+			'AddInf1':self.AddInf1,
+			'AddInf2':self.AddInf2,
+			'AddInf3':self.AddInf3,
+			'AddInf4':self.AddInf4,
+			'AddInf5':self.AddInf5,
+			'AddInf6':self.AddInf6,
+			'CreatedDate':self.CreatedDate,
+			'ModifiedDate':self.ModifiedDate,
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
 			}
 		return json_resource
 
@@ -512,7 +523,18 @@ class Res_category(CreatedModifiedInfo,db.Model):
 			'ResOwnerCatId':self.ResOwnerCatId,
 			'ResCatName':self.ResCatName,
 			'ResCatDesc':self.ResCatDesc,
-			'ResCatIconName':self.ResCatIconName
+			'ResCatIconName':self.ResCatIconName,
+			'AddInf1':self.AddInf1,
+			'AddInf2':self.AddInf2,
+			'AddInf3':self.AddInf3,
+			'AddInf4':self.AddInf4,
+			'AddInf5':self.AddInf5,
+			'AddInf6':self.AddInf6,
+			'CreatedDate':self.CreatedDate,
+			'ModifiedDate':self.ModifiedDate,
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
 			}
 		return json_category
 
@@ -607,7 +629,6 @@ class Res_price(CreatedModifiedInfo,db.Model):
 				if hasattr(self, key):
 					setattr(self, key, value)
 
-
 	def to_json(self):
 		json_res_price = {
 			'resPriceId':self.ResPriceId,
@@ -620,6 +641,26 @@ class Res_price(CreatedModifiedInfo,db.Model):
 			'resPriceValue':self.ResPriceValue,
 			'priceStartDate':self.PriceStartDate,
 			'priceEndDate':self.PriceEndDate
+			}
+		return json_res_price
+
+	def to_json_api(self):
+		json_res_price = {
+			'ResPriceId':self.ResPriceId,
+			'ResPriceTypeId':self.ResPriceTypeId,
+			'ResPriceGroupId':self.ResPriceGroupId,
+			'UnitId':self.UnitId,
+			'CurrencyId':self.CurrencyId,
+			'ResId':self.ResId,
+			'ResPriceRegNo':self.ResPriceRegNo,
+			'ResPriceValue':self.ResPriceValue,
+			'PriceStartDate':self.PriceStartDate,
+			'PriceEndDate':self.PriceEndDate,
+			'CreatedDate':self.CreatedDate,
+			'ModifiedDate':self.ModifiedDate,
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
 			}
 		return json_res_price
 
@@ -667,6 +708,34 @@ class Res_total(CreatedModifiedInfo,db.Model):
 	ResTotOutAmount = db.Column(db.Float,default=0)
 	ResTotLastTrDate = db.Column(db.DateTime,default=datetime.now)
 	ResTotPurchAvgPrice = db.Column(db.Float,default=0)
+
+	def update(self, **kwargs):
+		for key, value in kwargs.items():
+			if value is not None:
+				if hasattr(self, key):
+					setattr(self, key, value)
+
+	def to_json_api(self):
+		json_res_total = {
+			'ResTotId':self.ResTotId,
+			'ResId':self.ResId,
+			'CurrencyId':self.CurrencyId,
+			'WhId':self.WhId,
+			'CId':self.CId,
+			'DivId':self.DivId,
+			'WpId':self.WpId,
+			'ResTotBalance':self.ResTotBalance,
+			'ResTotInAmount':self.ResTotInAmount,
+			'ResTotOutAmount':self.ResTotOutAmount,
+			'ResTotLastTrDate':self.ResTotLastTrDate,
+			'ResTotPurchAvgPrice':self.ResTotPurchAvgPrice,
+			'CreatedDate':self.CreatedDate,
+			'ModifiedDate':self.ModifiedDate,
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
+			}
+		return json_res_total
 
 
 class Res_trans_inv(AddInf,CreatedModifiedInfo,db.Model):
@@ -782,6 +851,17 @@ class Res_translations(AddInf,CreatedModifiedInfo,db.Model):
 			}
 		return json_res_translations
 
+	def to_json_api(self):
+		json_res_translations = {
+			'ResTransId':self.ResTransId,
+			'ResId':self.ResId,
+			'LangId':self.LangId,
+			'ResName':self.ResName,
+			'ResDesc':self.ResDesc,
+			'ResFullDesc':self.ResFullDesc
+			}
+		return json_res_translations
+
 class Res_type(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_res_type"
 	ResTypeId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -792,8 +872,6 @@ class Res_type(CreatedModifiedInfo,db.Model):
 	ResTypeName_enUS = db.Column(db.String(100))
 	ResTypeDesc_enUS = db.Column(db.String(500))
 	Resource = db.relationship('Resource',backref='res_type',lazy=True)
-
-
 
 class Res_unit(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_res_unit"
@@ -816,6 +894,16 @@ class Res_unit(CreatedModifiedInfo,db.Model):
 			'resUnitUnitId':self.ResUnitUnitId,
 			'resUnitConvAmount':self.ResUnitConvAmount,
 			'resUnitConvTypeId':self.ResUnitConvTypeId
+			}
+		return json_res_unit
+
+	def to_json_api(self):
+		json_res_unit = {
+			'ResUnitId':self.ResUnitId,
+			'ResId':self.ResId,
+			'ResUnitUnitId':self.ResUnitUnitId,
+			'ResUnitConvAmount':self.ResUnitConvAmount,
+			'ResUnitConvTypeId':self.ResUnitConvTypeId
 			}
 		return json_res_unit
 
