@@ -313,7 +313,7 @@ class Image(CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json(self):
-		json_res_translations = {
+		json_image = {
 			'imgId':self.ImgId,
 			'empId':self.EmpId,
 			'companyId':self.CId,
@@ -323,7 +323,26 @@ class Image(CreatedModifiedInfo,db.Model):
 			'fileHash':self.FileHash,
 			'image':self.Image,
 			}
-		return json_res_translations
+		return json_image
+
+	def to_json_api(self):
+		json_image = {
+			'ImgId':self.ImgId,
+			'EmpId':self.EmpId,
+			'CId':self.CId,
+			'RpAccId':self.RpAccId,
+			'ResId':self.ResId,
+			'FileName':self.FileName,
+			'FileHash':self.FileHash,
+			'Image':self.Image,
+			'CreatedDate':self.CreatedDate,
+			'ModifiedDate':self.ModifiedDate,
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
+			}
+		return json_image
+
 
 class Location(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_location"
@@ -465,6 +484,57 @@ class Rp_acc(AddInf,CreatedModifiedInfo,db.Model):
 	Invoice = db.relationship('Invoice',backref='rp_acc',lazy=True)
 	Order_inv = db.relationship('Order_inv',backref='rp_acc',lazy=True)
 	Rating = db.relationship('Rating',backref='rp_acc',lazy=True)
+
+	def update(self, **kwargs):
+		for key, value in kwargs.items():
+			if value is not None:
+				if hasattr(self, key):
+					setattr(self, key, value)
+
+	def to_json_api(self):
+		json_rp_acc = {
+			'RpAccId':self.RpAccId,
+			'CId':self.CId,
+			'DivId':self.DivId,
+			'EmpId':self.EmpId,
+			'GenderId':self.GenderId,
+			'NatId':self.NatId,
+			'RpAccStatusId':self.RpAccStatusId,
+			'ReprId':self.ReprId,
+			'RpAccTypeId':self.RpAccTypeId,
+			'WpId':self.WpId,
+			'RpAccRegNo':self.RpAccRegNo,
+			'RpAccName':self.RpAccName,
+			'RpAccAddress':self.RpAccAddress,
+			'RpAccMobilePhoneNumber':self.RpAccMobilePhoneNumber,
+			'RpAccHomePhoneNumber':self.RpAccHomePhoneNumber,
+			'RpAccWorkPhoneNumber':self.RpAccWorkPhoneNumber,
+			'RpAccWorkFaxNumber':self.RpAccWorkFaxNumber,
+			'RpAccZipCode':self.RpAccZipCode,
+			'RpAccEMail':self.RpAccEMail,
+			'RpAccFirstName':self.RpAccFirstName,
+			'RpAccLastName':self.RpAccLastName,
+			'RpAccPatronomic':self.RpAccPatronomic,
+			'RpAccBirthDate':self.RpAccBirthDate,
+			'RpAccResidency':self.RpAccResidency,
+			'RpAccPassportNo':self.RpAccPassportNo,
+			'RpAccPassportIssuePlace':self.RpAccPassportIssuePlace,
+			'RpAccLangSkills':self.RpAccLangSkills,
+			'RpAccSaleBalanceLimit':self.RpAccSaleBalanceLimit,
+			'RpAccPurchBalanceLimit':self.RpAccPurchBalanceLimit,
+			'AddInf1':self.AddInf1,
+			'AddInf2':self.AddInf2,
+			'AddInf3':self.AddInf3,
+			'AddInf4':self.AddInf4,
+			'AddInf5':self.AddInf5,
+			'AddInf6':self.AddInf6,
+			'CreatedDate':self.CreatedDate,
+			'ModifiedDate':self.ModifiedDate,
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
+			}
+		return json_rp_acc 			
 
 class Rp_acc_price_list(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_rp_acc_price_list"

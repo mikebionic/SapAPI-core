@@ -54,15 +54,36 @@ def api_resources():
 			
 		else:
 			req = request.get_json()
+			print(req)
 			resources = []
 			failed_resources = [] 
 			for resource in req:
 				resource = addResourceDict(resource)
 				try:
-					newResource = Resource(**resource)
-					db.session.add(newResource)
-					db.session.commit()
-					resources.append(resource)
+					if not 'ResId' in resource:
+						print("No resId")
+						newResource = Resource(**resource)
+						db.session.add(newResource)
+						db.session.commit()
+						resources.append(resource)
+					else:
+						ResId = resource['ResId']
+						thisResource = Resource.query.get(int(ResId))
+						if thisResource is not None:
+							print("update")
+							# check for presenting in database
+							thisResource.update(**resource)
+							# thisResource.modifiedInfo(UId=1)
+							db.session.commit()
+							resources.append(resource)
+
+						else:
+							print("hasIDbutInsert")
+							# create new resource
+							newResource = Resource(**resource)
+							db.session.add(newResource)
+							db.session.commit()
+							resources.append(resource)
 				except:
 					failed_resources.append(resource)
 
@@ -77,6 +98,7 @@ def api_resources():
 			}
 
 			response = make_response(jsonify(res),200)
+			print(response)
 
 	elif request.method == 'PUT':
 		if not request.json:

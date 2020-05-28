@@ -29,6 +29,22 @@ class Barcode(CreatedModifiedInfo,db.Model):
 			}
 		return json_barcode
 
+	def to_json_api(self):
+		json_barcode = {
+			'BarcodeId':self.BarcodeId,
+			'CId':self.CId,
+			'DivId':self.DivId,
+			'ResId':self.ResId,
+			'UnitId':self.UnitId,
+			'BarcodeVal':self.BarcodeVal,
+			'CreatedDate':self.CreatedDate,
+			'ModifiedDate':self.ModifiedDate,
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
+			}
+		return json_barcode
+
 class Brand(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__ = "tbl_dk_brand"
 	BrandId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -933,6 +949,30 @@ class Rp_acc_trans_total(CreatedModifiedInfo,db.Model):
 	RpAccTrTotDebit = db.Column(db.Float,default=0)
 	RpAccTrTotCredit = db.Column(db.Float,default=0)
 	RpAccTrTotLastTrDate = db.Column(db.DateTime,default=datetime.now)
+
+	def update(self, **kwargs):
+		for key, value in kwargs.items():
+			if value is not None:
+				if hasattr(self, key):
+					setattr(self, key, value)
+
+	def to_json_api(self):
+		json_rp_acc_trans_total={
+			'RpAccTrTotId':self.RpAccTrTotId,
+			'RpAccId':self.RpAccId,
+			'CurrencyId':self.CurrencyId,
+			'RpAccTrTotBalance':self.RpAccTrTotBalance,
+			'RpAccTrTotDebit':self.RpAccTrTotDebit,
+			'RpAccTrTotCredit':self.RpAccTrTotCredit,
+			'RpAccTrTotLastTrDate':self.RpAccTrTotLastTrDate,
+			'CreatedDate':self.CreatedDate,
+			'ModifiedDate':self.ModifiedDate,
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
+			}
+		return json_rp_acc_trans_total
+
 
 class Rp_acc_transaction(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_rp_acc_transaction"

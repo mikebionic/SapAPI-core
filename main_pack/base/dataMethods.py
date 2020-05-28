@@ -10,7 +10,7 @@ def configureFloat(value):
 def boolCheck(value):
 	if value == 'False' or value == 'false' or value == '0' or value == 0:
 		value = False
-	elif value: 
+	elif value:
 		value = True
 	else:
 		value = False
