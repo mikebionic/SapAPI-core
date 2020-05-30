@@ -1,5 +1,5 @@
 from flask import Blueprint
 
-bp = Blueprint('commerce_users', __name__)
+api = Blueprint('users_api', __name__)
 
-from main_pack.commerce.users import routes
+from main_pack.api.users import users_api

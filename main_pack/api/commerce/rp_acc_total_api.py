@@ -59,15 +59,13 @@ def api_rp_acc_trans_totals():
 
 			status = checkApiResponseStatus(rp_acc_trans_totals,failed_rp_acc_trans_totals)
 			res = {
-				"status": status,
-				"message":"Rp acc trans totals added",
 				"data":rp_acc_trans_totals,
 				"fails":failed_rp_acc_trans_totals,
 				"success_total":len(rp_acc_trans_totals),
 				"fail_total":len(failed_rp_acc_trans_totals)
 			}
-
+			for e in status:
+				res[e]=status[e]
 			response = make_response(jsonify(res),200)
-			print(response)
 
 	return response

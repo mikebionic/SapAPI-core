@@ -59,14 +59,13 @@ def api_res_totals():
 
 			status = checkApiResponseStatus(res_totals,failed_res_totals)
 			res = {
-				"status": status,
-				"message":"Res totals added",
 				"data":res_totals,
 				"fails":failed_res_totals,
 				"success_total":len(res_totals),
 				"fail_total":len(failed_res_totals)
 			}
-
+			for e in status:
+				res[e]=status[e]
 			response = make_response(jsonify(res),200)
 			print(response)
 

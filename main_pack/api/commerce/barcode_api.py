@@ -64,15 +64,12 @@ def api_barcodes():
 
 			status = checkApiResponseStatus(barcodes,failed_barcodes)
 			res = {
-				"status": status,
-				"message":"Barcodes added",
 				"data":barcodes,
 				"fails":failed_barcodes,
 				"success_total":len(barcodes),
 				"fail_total":len(failed_barcodes)
 			}
-
+			for e in status:
+				res[e]=status[e]
 			response = make_response(jsonify(res),200)
-			print(response)
-
 	return response

@@ -2,8 +2,17 @@
 
 def checkApiResponseStatus(success_list,fail_list):
 	if(len(success_list)>0 and len(fail_list)>0):
-		return 2
+		return {
+			"status":2,
+			"message":"Success and fail"
+			}
 	elif(len(success_list)==0 and len(fail_list)>0):
-		return 0
+		return {
+			"status":0,
+			"message":"Fail"
+			}
 	else:
-		return 1
+		return {
+			"status":1,
+			"message":"Success"
+			}

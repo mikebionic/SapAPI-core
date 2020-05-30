@@ -64,6 +64,10 @@ def create_app(config_class=Config):
 	from main_pack.api.commerce import api as commerce_api
 	app.register_blueprint(commerce_api,url_prefix=api_url_prefix)
 
+	from main_pack.api.users import api as users_api
+	app.register_blueprint(users_api,url_prefix=api_url_prefix)
+
+
 
 	# /api blueprints
 

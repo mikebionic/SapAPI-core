@@ -25,7 +25,7 @@ def dateDataCheck(date):
 
 def configureNulls(data):
 	for e in data:
-		if data[e] == '':
+		if data[e] == '' or data[e] == 0:
 			data[e] = None
 	return data
 

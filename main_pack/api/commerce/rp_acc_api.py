@@ -33,7 +33,7 @@ def api_rp_accs():
 			rp_accs = []
 			failed_rp_accs = [] 
 			for rp_acc in req:
-				rp_acc = addRpAccDict(rp_acc)
+				rp_acc = addRpAccDict(rp_acc)				
 				try:
 					if not 'RpAccId' in rp_acc:
 						newRpAcc = Rp_acc(**rp_acc)
@@ -44,16 +44,10 @@ def api_rp_accs():
 						RpAccId = rp_acc['RpAccId']
 						thisRpAcc = Rp_acc.query.get(int(RpAccId))
 						if thisRpAcc is not None:
-							print("update")
-							# check for presenting in database
 							thisRpAcc.update(**rp_acc)
-							# thisRpAcc.modifiedInfo(UId=1)
 							db.session.commit()
 							rp_accs.append(rp_acc)
-
 						else:
-							print("hasIDbutInsert")
-							# create new rp_acc
 							newRpAcc = Rp_acc(**rp_acc)
 							db.session.add(newRpAcc)
 							db.session.commit()
@@ -63,14 +57,13 @@ def api_rp_accs():
 
 			status = checkApiResponseStatus(rp_accs,failed_rp_accs)
 			res = {
-				"status": status,
-				"message":"Rp_accs added",
 				"data":rp_accs,
 				"fails":failed_rp_accs,
 				"success_total":len(rp_accs),
 				"fail_total":len(failed_rp_accs)
 			}
-
+			for e in status:
+				res[e]=status[e]
 			response = make_response(jsonify(res),200)
 			print(response)
 

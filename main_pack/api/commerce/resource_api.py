@@ -2,6 +2,7 @@ from flask import render_template,url_for,jsonify,request,abort,make_response
 from main_pack.api.commerce import api
 from main_pack.base.apiMethods import checkApiResponseStatus
 
+from main_pack.models.commerce.models import Res_category
 from main_pack.models.commerce.models import Resource
 from main_pack.api.commerce.utils import addResourceDict
 from main_pack import db
@@ -54,11 +55,27 @@ def api_resources():
 			
 		else:
 			req = request.get_json()
-			print(req)
 			resources = []
 			failed_resources = [] 
 			for resource in req:
 				resource = addResourceDict(resource)
+
+				# special syncronizer method
+				group = resource['AddInf2']
+				print(group)
+				if group:
+					category = Res_category.query.filter_by(ResCatName=group).first()
+					if not category:
+						category = Res_category(ResCatName=group)
+						db.session.add(category)
+						db.session.commit()
+						resource['ResCatId']=category.ResCatId
+						print("resCat added, it's id: "+str(category.ResCatId))
+					else:
+						resource['ResCatId']=category.ResCatId
+						print("resCat found, it's id: "+str(category.ResCatId))
+				# /special synchronizer method
+
 				try:
 					if not 'ResId' in resource:
 						print("No resId")
@@ -89,16 +106,14 @@ def api_resources():
 
 			status = checkApiResponseStatus(resources,failed_resources)
 			res = {
-				"status": status,
-				"message":"Resources added",
 				"data":resources,
 				"fails":failed_resources,
 				"success_total":len(resources),
 				"fail_total":len(failed_resources)
 			}
-
+			for e in status:
+				res[e]=status[e]
 			response = make_response(jsonify(res),200)
-			print(response)
 
 	elif request.method == 'PUT':
 		if not request.json:
@@ -126,13 +141,13 @@ def api_resources():
 
 			status = checkApiResponseStatus(resources,failed_resources)
 			res = {
-				"status":status,
-				"message":"Resources updated",
 				"data":resources,
 				"fails":failed_resources,
 				"success_total":len(resources),
 				"fail_total":len(failed_resources)
-			}			
+			}
+			for e in status:
+				res[e]=status[e]	
 			response = make_response(jsonify(res),200)
 
 	elif request.method == 'DELETE':
@@ -161,19 +176,17 @@ def api_resources():
 
 			status = checkApiResponseStatus(resources,failed_resources)
 			res = {
-				"status":status,
-				"message":"Resources deleted",
 				"data":resources,
 				"fails":failed_resources,
 				"total":len(resources),
 				"success_total":len(resources),
 				"fail_total":len(failed_resources)
 			}
-
+			for e in status:
+				res[e]=status[e]
 			response = make_response(jsonify(res),200)
 	
 	return response
-
 
 @api.route("/paginated_resources/",methods=['GET'])
 def api_paginated_resources():
@@ -202,4 +215,4 @@ def api_paginated_resources():
 		'pages_total':pagination.total
 	}
 	
-	return jsonify(res)	
+	return jsonify(res)

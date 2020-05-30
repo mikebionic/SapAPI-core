@@ -58,13 +58,6 @@ def api_categories():
 			categories = []
 			failed_categories = [] 
 			for category in req:
-				# # fix this
-				# if not category['ResCatName']:
-				# 	res = {
-				# 		"status": 0,
-				# 		"message": "Error. ResCatName is None."
-				# 	}
-
 				category = addCategoryDict(category)
 				try:
 					newCategory = Res_category(**category)
@@ -76,14 +69,13 @@ def api_categories():
 
 			status = checkApiResponseStatus(categories,failed_categories)
 			res = {
-				"status":status,
-				"message":"Categories added",
 				"data":categories,
 				"fails":failed_categories,
 				"success_total":len(categories),
 				"fail_total":len(failed_categories)
 			}
-
+			for e in status:
+				res[e]=status[e]
 			response = make_response(jsonify(res),200)
 
 	elif request.method == 'PUT':
@@ -111,14 +103,13 @@ def api_categories():
 			
 			status = checkApiResponseStatus(categories,failed_categories)
 			res = {
-				"status":status,
-				"message":"Categories updated",
 				"data":categories,
 				"fails":failed_categories,
 				"success_total":len(categories),
 				"fail_total":len(failed_categories)
 			}
-
+			for e in status:
+				res[e]=status[e]
 			response = make_response(jsonify(res),200)
 
 	elif request.method == 'DELETE':
@@ -147,14 +138,13 @@ def api_categories():
 			
 			status = checkApiResponseStatus(categories,failed_categories)
 			res = {
-				"status":status,
-				"message":"Categories deleted",
 				"data":categories,
 				"fails":failed_categories,
 				"success_total":len(categories),
 				"fail_total":len(failed_categories)
 			}
-
+			for e in status:
+				res[e]=status[e]
 			response = make_response(jsonify(res),200)
 	
 	return response

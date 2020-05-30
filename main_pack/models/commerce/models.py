@@ -296,6 +296,45 @@ class Invoice(AddInf,CreatedModifiedInfo,db.Model):
 	Inv_line = db.relationship('Inv_line',backref='invoice',lazy=True)
 	Rp_acc_transaction = db.relationship('Rp_acc_transaction',backref='invoice',lazy=True)
 
+	def to_json_api(self):
+		invoice = {
+			'InvId':self.InvId,
+			'InvTypeId':self.InvTypeId,
+			'InvStatId':self.InvStatId,
+			'CurrencyId':self.CurrencyId,
+			'RpAccId':self.RpAccId,
+			'CId':self.CId,
+			'DivId':self.DivId,
+			'WhId':self.WhId,
+			'WpId':self.WpId,
+			'EmpId':self.EmpId,
+			'InvRegNo':self.InvRegNo,
+			'InvDesc':self.InvDesc,
+			'InvDate':self.InvDate,
+			'InvTotal':self.InvTotal,
+			'InvExpenseAmount':self.InvExpenseAmount,
+			'InvTaxAmount':self.InvTaxAmount,
+			'InvDiscountAmount':self.InvDiscountAmount,
+			'InvFTotal':self.InvFTotal,
+			'InvFTotalInWrite':self.InvFTotalInWrite,
+			'InvModifyCount':self.InvModifyCount,
+			'InvPrintCount':self.InvPrintCount,
+			'InvCreditDays':self.InvCreditDays,
+			'InvCreditDesc':self.InvCreditDesc,
+			'AddInf1':self.AddInf1,
+			'AddInf2':self.AddInf2,
+			'AddInf3':self.AddInf3,
+			'AddInf4':self.AddInf4,
+			'AddInf5':self.AddInf5,
+			'AddInf6':self.AddInf6,
+			'CreatedDate':self.CreatedDate,
+			'ModifiedDate':self.ModifiedDate,
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
+			}
+		return invoice
+
 class Order_inv(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_order_inv"
 	OInvId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -323,6 +362,46 @@ class Order_inv(AddInf,CreatedModifiedInfo,db.Model):
 	OInvCreditDesc = db.Column(db.String(100))
 	Order_inv_line = db.relationship('Order_inv_line',backref='order_inv',lazy=True)
 
+	def to_json_api(self):
+		order_inv = {
+			'OInvId':self.OInvId,
+			'OInvTypeId':self.OInvTypeId,
+			'InvStatId':self.InvStatId,
+			'CurrencyId':self.CurrencyId,
+			'RpAccId':self.RpAccId,
+			'CId':self.CId,
+			'DivId':self.DivId,
+			'WhId':self.WhId,
+			'WpId':self.WpId,
+			'EmpId':self.EmpId,
+			'OInvRegNo':self.OInvRegNo,
+			'OInvDesc':self.OInvDesc,
+			'OInvDate':self.OInvDate,
+			'OInvTotal':self.OInvTotal,
+			'OInvExpenseAmount':self.OInvExpenseAmount,
+			'OInvTaxAmount':self.OInvTaxAmount,
+			'OInvDiscountAmount':self.OInvDiscountAmount,
+			'OInvFTotal':self.OInvFTotal,
+			'OInvFTotalInWrite':self.OInvFTotalInWrite,
+			'OInvModifyCount':self.OInvModifyCount,
+			'OInvPrintCount':self.OInvPrintCount,
+			'OInvCreditDays':self.OInvCreditDays,
+			'OInvCreditDesc':self.OInvCreditDesc,
+			'AddInf1':self.AddInf1,
+			'AddInf2':self.AddInf2,
+			'AddInf3':self.AddInf3,
+			'AddInf4':self.AddInf4,
+			'AddInf5':self.AddInf5,
+			'AddInf6':self.AddInf6,
+			'CreatedDate':self.CreatedDate,
+			'ModifiedDate':self.ModifiedDate,
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
+			}
+		return order_inv
+
+
 class Order_inv_line(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_order_inv_line"
 	OInvLineId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -341,6 +420,37 @@ class Order_inv_line(AddInf,CreatedModifiedInfo,db.Model):
 	OInvLineFTotal = db.Column(db.Float,default=0)
 	OInvLineDate = db.Column(db.DateTime)
 
+	def to_json_api(self):
+		order_inv_line = {
+			'OInvLineId':self.OInvLineId,
+			'OInvId':self.OInvId,
+			'UnitId':self.UnitId,
+			'CurrencyId':self.CurrencyId,
+			'ResId':self.ResId,
+			'LastVendorId':self.LastVendorId,
+			'OInvLineDesc':self.OInvLineDesc,
+			'OInvLineAmount':self.OInvLineAmount,
+			'OInvLinePrice':self.OInvLinePrice,
+			'OInvLineTotal':self.OInvLineTotal,
+			'OInvLineExpenseAmount':self.OInvLineExpenseAmount,
+			'OInvLineTaxAmount':self.OInvLineTaxAmount,
+			'OInvLineDiscAmount':self.OInvLineDiscAmount,
+			'OInvLineFTotal':self.OInvLineFTotal,
+			'OInvLineDate':self.OInvLineDate,
+			'AddInf1':self.AddInf1,
+			'AddInf2':self.AddInf2,
+			'AddInf3':self.AddInf3,
+			'AddInf4':self.AddInf4,
+			'AddInf5':self.AddInf5,
+			'AddInf6':self.AddInf6,
+			'CreatedDate':self.CreatedDate,
+			'ModifiedDate':self.ModifiedDate,
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
+			}
+		return order_inv_line
+
 class Order_inv_type(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_order_inv_type"
 	OInvTypeId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -351,6 +461,23 @@ class Order_inv_type(CreatedModifiedInfo,db.Model):
 	OInvTypeName_enUS = db.Column(db.String(100))
 	OInvTypeDesc_enUS = db.Column(db.String(500))
 	Order_inv = db.relationship('Order_inv',backref='order_inv_type',lazy=True)
+
+	def to_json_api(self):
+		json_order_inv_type = {
+			'OInvTypeId':self.OInvTypeId,
+			'OInvTypeName_tkTM':self.OInvTypeName_tkTM,
+			'OInvTypeDesc_tkTM':self.OInvTypeDesc_tkTM,
+			'OInvTypeName_ruRU':self.OInvTypeName_ruRU,
+			'OInvTypeDesc_ruRU':self.OInvTypeDesc_ruRU,
+			'OInvTypeName_enUS':self.OInvTypeName_enUS,
+			'OInvTypeDesc_enUS':self.OInvTypeDesc_enUS,
+			'CreatedDate':self.CreatedDate,
+			'ModifiedDate':self.ModifiedDate,
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
+			}
+		return json_order_inv_type
 
 class Representative(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_representative"

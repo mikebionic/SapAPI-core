@@ -64,15 +64,13 @@ def api_res_prices():
 
 			status = checkApiResponseStatus(res_prices,failed_res_prices)
 			res = {
-				"status": status,
-				"message":"Res prices added",
 				"data":res_prices,
 				"fails":failed_res_prices,
 				"success_total":len(res_prices),
 				"fail_total":len(failed_res_prices)
 			}
-
+			for e in status:
+				res[e]=status[e]
 			response = make_response(jsonify(res),200)
-			print(response)
 			
 	return response

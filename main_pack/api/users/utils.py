@@ -1,60 +1,29 @@
-from main_pack import db,babel,gettext,lazy_gettext
-from main_pack.models.base.models import Company
-from main_pack.models.commerce.models import Res_category
-
-def commonUsedData():
-	commonData = {}
-	subcategories = []
-	subcategory_children = []
-	company = Company.query.get(1)
-	categories = Res_category.query.filter_by(ResOwnerCatId=0)
-	subcategory = Res_category.query.filter(Res_category.ResOwnerCatId!=0)
-	for category in subcategory:
-		parents = Res_category.query.filter(Res_category.ResCatId==category.ResOwnerCatId)
-		for parent in parents:
-			if (parent.ResOwnerCatId == '' or parent.ResOwnerCatId == None or parent.ResOwnerCatId == 0):
-				subcategories.append(category)
-			else:
-				subcategory_children.append(category)
-
-	commonData.update({
-		"categories":categories,
-		"subcategories":subcategories,
-		"subcategory_children":subcategory_children,
-		"company":company
-		})
-	return commonData
-
-	
-import os, secrets
-from flask import current_app
-from PIL import Image
-
-def save_picture(form_picture, path):
-	random_hex = secrets.token_hex(8)
-	_, f_ext = os.path.splitext(form_picture.filename)
-	picture_fn = random_hex + f_ext
-	picture_path = os.path.join(current_app.root_path, 'static/main/images/'+path, picture_fn)
-	form_picture.save(picture_path)
-	output_size = (125,125)
-	i = Image.open(form_picture)
-	i.thumbnail(output_size)
-	i.save(picture_path)
-	return picture_fn
-
-
+from main_pack.base.dataMethods import configureNulls,configureFloat,boolCheck
 
 def addUsersDict(req):
-	CId = req.get('companyId')
-	DivId = req.get('divisionId')
-	UFullName = req.get('userFullName')
-	UName = req.get('userName')
-	UEmail = req.get('userEmail')
-	UPass = req.get('userPassword')
-	UShortName = req.get('userShortName')
-	EmpId = req.get('empId')
-	UTypeId = req.get('userTypeId')
-	user = {
+	UId = req.get('UId')
+	CId = req.get('CId')
+	DivId = req.get('DivId')
+	UFullName = req.get('UFullName')
+	UName = req.get('UName')
+	UEmail = req.get('UEmail')
+	UPass = req.get('UPass')
+	UShortName = req.get('UShortName')
+	EmpId = req.get('EmpId')
+	UTypeId = req.get('UTypeId')
+	AddInf1 = req.get('AddInf1')
+	AddInf2 = req.get('AddInf2')
+	AddInf3 = req.get('AddInf3')
+	AddInf4 = req.get('AddInf4')
+	AddInf5 = req.get('AddInf5')
+	AddInf6 = req.get('AddInf6')
+	CreatedDate = req.get('CreatedDate')
+	ModifiedDate = req.get('ModifiedDate')
+	CreatedUId = req.get('CreatedUId')
+	ModifiedUId = req.get('ModifiedUId')
+	GCRecord = req.get('GCRecord')
+
+	users = {
 		'CId':CId,
 		'DivId':DivId,
 		'UFullName':UFullName,
@@ -63,6 +32,20 @@ def addUsersDict(req):
 		'UPass':UPass,
 		'UShortName':UShortName,
 		'EmpId':EmpId,
-		'UTypeId':UTypeId
-	}
-	return user
+		'UTypeId':UTypeId,
+		'AddInf1':AddInf1,
+		'AddInf2':AddInf2,
+		'AddInf3':AddInf3,
+		'AddInf4':AddInf4,
+		'AddInf5':AddInf5,
+		'AddInf6':AddInf6,
+		'CreatedDate':CreatedDate,
+		'ModifiedDate':ModifiedDate,
+		'CreatedUId':CreatedUId,
+		'ModifiedUId':ModifiedUId,
+		'GCRecord':GCRecord
+		}
+	if(UId != '' and UId != None):
+		users['UId']=UId
+	users=configureNulls(users)
+	return users

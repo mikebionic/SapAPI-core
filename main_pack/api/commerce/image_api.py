@@ -59,15 +59,13 @@ def api_images():
 
 			status = checkApiResponseStatus(images,failed_images)
 			res = {
-				"status": status,
-				"message":"Images added",
-				"data":images,
+				# "data":images,
 				"fails":failed_images,
 				"success_total":len(images),
 				"fail_total":len(failed_images)
 			}
-
+			for e in status:
+				res[e]=status[e]
 			response = make_response(jsonify(res),200)
-			print(response)
 
 	return response

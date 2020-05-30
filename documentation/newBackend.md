@@ -44,8 +44,6 @@
 	}
 ]
 
-GET POST
-/api/res_prices/
 
 GET POST
 /api/barcodes/
@@ -69,5 +67,18 @@ GET POST
 /api/rp_accs/
 
 GET POST
-/api/rp_acc_totals/
+/api/rp_acc_trans_totals/
+
+GET POST
+/api/order_invoices/
+
+GET POST
+/api/order_inv_lines/
+
+GET POST
+/api/order_inv_types/
+
+GET POST
+/api/users/
+
 
