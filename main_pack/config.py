@@ -7,7 +7,6 @@ class Config:
 	    'user': 'postgres',
 	    'pw': 'd152535k',
 	    'db': 'dbSapHasap',
-	    # 'db': 'okayDebug',
 	    'host': 'localhost',
 	    'port': '5432',
 	}

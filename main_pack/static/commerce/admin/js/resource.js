@@ -9,7 +9,7 @@ required_res_fields = ['resRegNo','resName']
 barcode_forms = ['barcodeId','companyId','divisionId','resId','unitId','barcodeVal']
 required_barcode_fields = ['barcodeVal']
 // places the num into .resRegNo
-getRegNo("/commerce/ui/resource/")
+getRegNo(url_prefix+"/ui/resource/")
 
 
 function getMainImage(){
@@ -28,7 +28,7 @@ $("body").delegate('.submitButton','click',function(event){
 	resourceData = prepareFormData(res_forms,'');
 	console.log(resourceData);
 	if (validateInput(required_res_fields)==true){
-		postResData(resourceData,"/commerce/ui/resource/",res_forms[0]);
+		postResData(resourceData,url_prefix+"/ui/resource/",res_forms[0]);
 	}
 	event.preventDefault();
 });
@@ -39,15 +39,15 @@ $("body").delegate('.addBarcodeBtn','click',function(event){
 	if (validateInput(required_barcode_fields)==true){
 		if($('.'+res_forms[0]).val()==''){
 			if (validateInput(required_res_fields)==true){
-				beforeCreated(resourceData,res_forms[0],"/commerce/ui/resource/",function(){
+				beforeCreated(resourceData,res_forms[0],url_prefix+"/ui/resource/",function(){
 					barcodeData = prepareFormData(barcode_forms,'');
-					postBarcodeData(barcodeData,'/commerce/ui/barcode/',barcode_forms[0],'barcodeList','htmlData');
+					postBarcodeData(barcodeData,url_prefix+'/ui/barcode/',barcode_forms[0],'barcodeList','htmlData');
 				});
 			}
 			else{warningToaster('Product is not in database!');}
 		}
 		else{
-			postBarcodeData(barcodeData,'/commerce/ui/barcode/',barcode_forms[0],'barcodeList','htmlData');
+			postBarcodeData(barcodeData,url_prefix+'/ui/barcode/',barcode_forms[0],'barcodeList','htmlData');
 		}
 	}
 });

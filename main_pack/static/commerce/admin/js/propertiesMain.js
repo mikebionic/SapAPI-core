@@ -16,7 +16,7 @@ propertyDescShow('sizeName','sizeDesc');
 $("body").delegate('.addSizeBtn','click',function(event){
 	sizeData = prepareFormData(size_forms,'');
 	if (validateInput(required_size_fields)==true){
-		postPropData(sizeData,'/commerce/ui/size/',size_forms,'sizesList','htmlData');
+		postPropData(sizeData,url_prefix+'/ui/size/',size_forms,'sizesList','htmlData');
 	}
 });
 
@@ -28,7 +28,7 @@ propertyDescShow('brandName','brandDesc');
 $("body").delegate('.addBrandBtn','click',function(event){
 	brandData = prepareFormData(brand_forms,'');
 	if (validateInput(required_brand_forms)==true){
-		postPropData(brandData,'/commerce/ui/brand/',brand_forms,'brandsList','htmlData');
+		postPropData(brandData,url_prefix+'/ui/brand/',brand_forms,'brandsList','htmlData');
 	}
 });
 
@@ -40,7 +40,7 @@ propertyDescShow('colorName','colorDesc');
 $("body").delegate('.addColorBtn','click',function(event){
 	colorData = prepareFormData(color_forms,'');
 	if (validateInput(required_color_fields)==true){
-		postPropData(colorData,'/commerce/ui/color/',color_forms,'colorsList','htmlData');
+		postPropData(colorData,url_prefix+'/ui/color/',color_forms,'colorsList','htmlData');
 	}
 });
 ///////////////

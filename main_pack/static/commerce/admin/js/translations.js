@@ -7,15 +7,15 @@ $("body").delegate('.addTranslationBtn','click',function(event){
 	if (validateInput(required_res_translations_fields)==true){
 		if($('.'+res_forms[0]).val()==''){
 			if (validateInput(required_res_fields)==true){
-				beforeCreated(resourceData,res_forms[0],"/commerce/ui/resource/",function(){
+				beforeCreated(resourceData,res_forms[0],url_prefix+"/ui/resource/",function(){
 					resTransData = prepareFormData(res_translations_forms,'');
-					postResTransData(resTransData,'/commerce/ui/res_translations/',res_translations_forms,'translationsTable','htmlData');
+					postResTransData(resTransData,url_prefix+'/ui/res_translations/',res_translations_forms,'translationsTable','htmlData');
 				});
 			}
 			else{warningToaster('Product is not in database!');}
 		}
 		else{
-			postResTransData(resTransData,'/commerce/ui/res_translations/',res_translations_forms,'translationsTable','htmlData');
+			postResTransData(resTransData,url_prefix+'/ui/res_translations/',res_translations_forms,'translationsTable','htmlData');
 		}
 	}
 });

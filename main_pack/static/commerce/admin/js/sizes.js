@@ -7,14 +7,14 @@ $("body").delegate('.saveResSizeBtn','click',function(event){
 	console.log(resSizeData)
 	if($('.'+res_forms[0]).val()==''){
 		if (validateInput(required_res_fields)==true){
-			beforeCreated(resourceData,res_forms[0],"/commerce/ui/resource/",function(){
-				postResSizeData(resSizeData,'/commerce/ui/res_size/','POST');
+			beforeCreated(resourceData,res_forms[0],url_prefix+"/ui/resource/",function(){
+				postResSizeData(resSizeData,url_prefix+'/ui/res_size/','POST');
 			});
 		}
 		else{warningToaster('Product is not in database!');}
 	}
 	else{
-		postResSizeData(resSizeData,'/commerce/ui/res_size/','POST');
+		postResSizeData(resSizeData,url_prefix+'/ui/res_size/','POST');
 	}
 });
 

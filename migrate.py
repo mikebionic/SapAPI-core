@@ -23,8 +23,8 @@ from main_pack import db, create_app
 app = create_app()
 app.app_context().push()
 
-db.drop_all()
-db.create_all()
+# db.drop_all()
+# db.create_all()
 
 #######  initial company migration ########
 comp = Company(CName="company")
@@ -36,7 +36,7 @@ db.session.add(dep)
 ##########################
 
 # UPass is "123" hashed
-user = Users(UName="administrator",UEmail="20shamballa@gmail.com",
+user = Users(UName="administrator",UEmail="muhammedjepbarov@gmail.com",
 	UPass="$2b$12$ZltRSL4D1LpcJuoFEzW7PO/rEio8LKxhK9vPEG3Jv7Zg9S07f4Q1G",
 	UShortName="AR",UFullName="Mike Bionic",
 	UTypeId=1)

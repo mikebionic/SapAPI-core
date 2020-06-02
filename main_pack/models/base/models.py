@@ -334,7 +334,7 @@ class Image(CreatedModifiedInfo,db.Model):
 			'ResId':self.ResId,
 			'FileName':self.FileName,
 			'FileHash':self.FileHash,
-			# 'Image':self.Image.decode("utf-8").replace("'",'"'),
+			# 'Image':str.encode(self.Image),
 			'CreatedDate':self.CreatedDate,
 			'ModifiedDate':self.ModifiedDate,
 			'CreatedUId':self.CreatedUId,

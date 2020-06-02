@@ -59,7 +59,7 @@ def api_images():
 
 			status = checkApiResponseStatus(images,failed_images)
 			res = {
-				# "data":images,
+				"data":images,
 				"fails":failed_images,
 				"success_total":len(images),
 				"fail_total":len(failed_images)

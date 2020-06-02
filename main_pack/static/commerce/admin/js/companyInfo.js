@@ -5,7 +5,7 @@ companyInfo_fields = ['companyName','companyFullName','companyDesc','companyAccI
 
 $("body").delegate('.submitCompanyInfo','click',function(event){
 	companyData = prepareCompanyInfo(companyInfo_fields,'');
-	postCompanyInfo(companyData,"/commerce/admin/company/");
+	postCompanyInfo(companyData,url_prefix+"/admin/company/");
 })
 
 function prepareCompanyInfo(formFields,formId){

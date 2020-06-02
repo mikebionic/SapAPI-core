@@ -32,7 +32,7 @@ $("body").delegate('.addCategoryBtn','click',function(event){
 	else{
 		categoryData['categoryIcon']=thisIconName;
 	}
-	postFormData(categoryData,"/commerce/admin/category/","htmlData","categoriesList"+ownerId);
+	postFormData(categoryData,url_prefix+"/admin/category/","htmlData","categoriesList"+ownerId);
 	clearFields(category_fields,ownerId);
 })
 
@@ -72,6 +72,6 @@ var deleteForm = function(formData,url){
 
 $("body").delegate('.removeCategoryBtn','click',function(event){
 	ownerId = $(this).attr('ownerCategory');
-	deleteForm(({"catId":ownerId}),"/commerce/admin/category/");
+	deleteForm(({"catId":ownerId}),url_prefix+"/admin/category/");
 	$(this).parent().parent().remove();
 })

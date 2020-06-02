@@ -4,7 +4,7 @@ res_price_forms = ['resPriceId','resPriceTypeId','resPriceGroupId','unitId','cur
 required_res_price_fields = ['resPriceValue']
 
 
-getRegNo("/commerce/ui/price/")
+getRegNo(url_prefix+"/ui/price/")
 
 $("body").delegate('.savePriceBtn','click',function(event){
 	resourceData = prepareFormData(res_forms,'');
@@ -12,15 +12,15 @@ $("body").delegate('.savePriceBtn','click',function(event){
 	if (validateInput(required_res_price_fields)==true){
 		if($('.'+res_forms[0]).val()==''){
 			if (validateInput(required_res_fields)==true){
-				beforeCreated(resourceData,res_forms[0],"/commerce/ui/resource/",function(){
+				beforeCreated(resourceData,res_forms[0],url_prefix+"/ui/resource/",function(){
 					resPriceData = prepareFormData(res_price_forms,'');
-					postPriceData(resPriceData,'/commerce/ui/price/',res_price_forms[0]);
+					postPriceData(resPriceData,url_prefix+'/ui/price/',res_price_forms[0]);
 				});
 			}
 			else{warningToaster('Product is not in database!');}
 		}
 		else{
-			postPriceData(resPriceData,'/commerce/ui/price/',res_price_forms[0]);
+			postPriceData(resPriceData,url_prefix+'/ui/price/',res_price_forms[0]);
 		}
 	}
 });

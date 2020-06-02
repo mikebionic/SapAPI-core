@@ -13,7 +13,7 @@ $(document).ready(function(e){
 		}
 
 		$.ajax({
-			url: '/commerce/ui/uploadImages/',
+			url: url_prefix+'/ui/uploadImages/',
 			dataType: 'json',
 			cache: false,
 			contentType: false,
@@ -56,14 +56,14 @@ $("body").delegate('.saveImagesBtn','click',function(event){
 	imageData = prepareImagesData(image_forms);
 	if($('.'+res_forms[0]).val()==''){
 		if (validateInput(required_res_fields)==true){
-			beforeCreated(resourceData,res_forms[0],"/commerce/ui/resource/",function(){
-				postImageData(imageData,'/commerce/ui/images/','POST');
+			beforeCreated(resourceData,res_forms[0],url_prefix+"/ui/resource/",function(){
+				postImageData(imageData,url_prefix+'/ui/images/','POST');
 			});
 		}
 		else{warningToaster('Product is not in database!');}
 	}
 	else{
-		postImageData(imageData,'/commerce/ui/images/','POST');
+		postImageData(imageData,url_prefix+'/ui/images/','POST');
 	}
 });
 
