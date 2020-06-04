@@ -71,7 +71,7 @@
                                                         {% if subcategory_child.GCRecord == None or subcategory_child.GCRecord == '' %}
                                                             {% if subcategory_child.ResOwnerCatId == subcategory.ResCatId %}
                                                             <div>
-                                                                <li><a href="#" {% if subcategory_child.ResCatDesc %} title="{{ subcategory_child.ResCatDesc }}" {% endif %}>{{ subcategory_child.ResCatName }}</a><a href="#" class="removeCategoryBtn" ownerCategory="{{ subcategory_child.ResCatId }}"><i class="fas fa-times" style="padding-left: 7px;"></i><input type="text" name="name" value="" placeholder="Category" class="txt-input" style="width: 80%;height: 40px;"></a></li>
+                                                                <li><a href="#" {% if subcategory_child.ResCatDesc %} title="{{ subcategory_child.ResCatDesc }}" {% endif %}>{{ subcategory_child.ResCatName }}</a><a href="#" class="removeCategoryBtn" ownerCategory="{{ subcategory_child.ResCatId }}"><i class="fas fa-times" style="padding-left: 7px;"></i></a><input type="text" name="name" value="" placeholder="Category" class="txt-input" style="width: 80%;height: 40px;"></li>
                                                             </div>
                                                             {% endif %}
                                                         {% endif %}
