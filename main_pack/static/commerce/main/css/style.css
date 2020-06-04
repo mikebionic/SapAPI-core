@@ -1033,6 +1033,7 @@ body {
 .biolife-carousel .row-item {
     font-size: 0;
     line-height: 0;
+    margin-bottom: 30px;
 }
 
 .biolife-carousel.row-space-29px .row-item+.row-item {
@@ -2522,6 +2523,7 @@ body.open-mobile-search .header-area.layout-02 {
 
 .contain-product .info .product-title a {
     color: #222222;
+    width: 100%;
     display: inline-block;
 }
 
@@ -4783,13 +4785,14 @@ body.open-overlay #overlay {
 
 .sumary-product .media .slider-nav li.slick-current img {
     border-width: 2px;
+    height: 100%;
 }
 
 .sumary-product .product-attribute {
     display: inline-block;
     float: left;
-    width: calc( 100% - 38.462% - 270px );
-    padding-left: 20px;
+    width: calc( 105% - 38.462% - 26% );
+    padding-left: 10%;
     padding-top: 13px;
 }
 
@@ -4941,7 +4944,7 @@ body.open-overlay #overlay {
 
 .sumary-product .action-form {
     display: inline-block;
-    width: 270px;
+    width: 241px;
     background-color: #f3f3f3;
     padding: 11px 20px 34px;
 }
@@ -5164,7 +5167,7 @@ body.open-overlay #overlay {
 }
 
 .single-layout.product-tabs {
-    margin-top: 191px;
+    padding: 0 50px;
 }
 
 .product-tabs.single-layout .tab-head .tabs {
@@ -15330,9 +15333,9 @@ body.open-quickview-block .biolife-quickview-block {
         margin-top: 112px;
     }
 
-    .sm-margin-top-193px {
+    /* .sm-margin-top-193px {
         margin-top: 150px;
-    }
+    } */
 
     .sm-margin-top_58px {
         margin-top: -58px;
@@ -15635,7 +15638,8 @@ body.open-quickview-block .biolife-quickview-block {
 
     /***************************************************/
     .sumary-product.single-layout {
-        min-height: 430px;
+        /* min-height: 430px; */
+        padding: 50px 50px;
     }
 
     .biolife-brd-container:not(.transparent-effect) figure {
@@ -16862,6 +16866,7 @@ body.open-quickview-block .biolife-quickview-block {
 
 .pro-image .image img {
     width: 100%;
+    height: 250px;
 }
 
 /* Product Action */
@@ -17287,6 +17292,7 @@ body.open-quickview-block .biolife-quickview-block {
 
 .sin-mini-product .image a img {
     width: 100%;
+    height: 150px;
 }
 
 /* Mini Product Action */

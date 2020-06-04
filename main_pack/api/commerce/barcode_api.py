@@ -8,7 +8,7 @@ from main_pack import db
 from flask import current_app
 
 
-@api.route("/barcodes/",methods=['GET','POST','PUT'])
+@api.route("/tbl-dk-barcodes/",methods=['GET','POST','PUT'])
 def api_barcodes():
 	if request.method == 'GET':
 		barcodes = Barcode.query.all()
@@ -45,7 +45,6 @@ def api_barcodes():
 						BarcodeId = barcode['BarcodeId']
 						thisBarcode = Barcode.query.get(int(BarcodeId))
 						if thisBarcode is not None:
-							print("update")
 							# check for presenting in database
 							thisBarcode.update(**barcode)
 							# thisBarcode.modifiedInfo(UId=1)
@@ -53,7 +52,6 @@ def api_barcodes():
 							barcodes.append(barcode)
 
 						else:
-							print("hasIDbutInsert")
 							# create new barcode
 							newBarcode = Barcode(**barcode)
 							db.session.add(newBarcode)
@@ -71,5 +69,5 @@ def api_barcodes():
 			}
 			for e in status:
 				res[e]=status[e]
-			response = make_response(jsonify(res),200)
+			response = make_response(jsonify(res),201)
 	return response

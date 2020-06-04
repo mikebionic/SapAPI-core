@@ -40,7 +40,7 @@
 
   <!-- HEADER -->
   <header id="header" class="header-area style-01 layout-03">
-    <div class="header-top bg-main hidden-xs" style="background: #c2ccd5">
+    <div class="header-top bg-main hidden-xs">
       <div class="container">
         <div class="top-bar left">
           <ul class="horizontal-menu">
@@ -53,31 +53,50 @@
           <ul class="horizontal-menu">
             <li class="dropdown dropdown-list-toggle">
               <a href="#" class="nav-link nav-link-lg message-toggle" data-toggle="dropdown">
-                <i class="fa fa-globe" style="font-size: 25px;"></i>
+                <i class="fa fa-globe" style="font-size: 25px; color: #fff;"></i>
                 <span class="badge headerBadge1">{{ session['language'] }}</span>
               </a>
               <div class="dropdown-menu dropdown-menu-lr dropdown-menu-right pullDown">
-                <a href="/{% if active_page %}{{active_page}}{% else %}main{% endif %}/language/en" class="dropdown-item">
+                <a href="/language/en" class="dropdown-item">
                   <img src="{{ url_for('static', filename='commerce/main/images/us.svg') }}" style="width: 30px">
                   English language</a>
                 <div class="dropdown-divider"></div>
-                <a href="/{% if active_page %}{{active_page}}{% else %}main{% endif %}/language/tk" class="dropdown-item">
+                <a href="/language/tk" class="dropdown-item">
                   <img src="{{ url_for('static', filename='commerce/main/images/tm.svg') }}" style="width: 30px">
                   Türkmen dili</a>
                 <div class="dropdown-divider"></div>
-                <a href="/{% if active_page %}{{active_page}}{% else %}main{% endif %}/language/ru" class="dropdown-item">
+                <a href="/language/ru" class="dropdown-item">
                   <img src="{{ url_for('static', filename='commerce/main/images/ru.svg') }}" style="width: 30px">
                   Русский язык</a>
                 <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item dropdown-footer">{{_('Başga diller')}}</a>
+                <a href="#" class="dropdown-item dropdown-footer">{{_('Other languages')}}</a>
               </div>
             </li>
-            {% if current_user.is_authenticated %}
-            <li><a href="{{ url_for('commerce_auth.logout') }}" class="login-link"><i class="biolife-icon icon-login"></i>{{
-                current_user.UFullName }} - {{_('Log out')}}</a></li>
-            {% else %}
-            <li><a href="{{ url_for('commerce_auth.login') }}" class="login-link"><i class="biolife-icon icon-login"></i>{{_('Login')}}/{{_('Register')}}</a></li>
-            {% endif %}
+            <li class="dropdown"><a href="#"  data-toggle="dropdown"
+              class="nav-link dropdown-toggle nav-link-lg nav-link-user"><i class="biolife-icon icon-login" style="color: #fff;"></i>
+              <span class="d-sm-none d-lg-inline-block"></span></a>
+              <div class="dropdown-menu dropdown-menu-right pullDown">
+                {% if current_user.is_authenticated %}
+                  <a href="{{ url_for('commerce_users.profile') }}" class="dropdown-item has-icon"><i class="fafa-user"></i> 
+                    {{ current_user.UFullName }}
+                  </a>
+                  <a href="timeline.html" class="dropdown-item has-icon"><i class="fa fa-bolt"></i>
+                    Activities
+                  </a>
+                  <a href="#" class="dropdown-item has-icon"><i class="fa fa-cog"></i>
+                    {{_('Settings')}}
+                  </a>
+                  <div class="dropdown-divider"></div>
+                  <a href="{{ url_for('commerce_auth.logout') }}" class="dropdown-item has-icon text-danger"><i class="fa fa-sign-out-alt"></i>
+                    {{_('Log out')}}
+                  </a>
+                {% else %}
+                  <a href="{{ url_for('commerce_auth.login') }}" class="dropdown-item has-icon text-danger"><i class="fa fa-sign-out-alt"></i>
+                    {{_('Log in')}}
+                  </a>
+                {% endif %}
+              </div>
+            </li>
           </ul>
         </div>
       </div>
@@ -90,7 +109,7 @@
             <a href="{{ url_for('commerce.commerce')}}" class="logo">{{company.CName}}</span></a>
             {% endif %}
           </div>
-          <div class="col-lg-6 col-md-7 hidden-sm hidden-xs">
+          <div class="col-lg-5 col-md-7 hidden-sm hidden-xs">
             <div class="primary-menu">
               <ul class="menu biolife-menu clone-main-menu clone-primary-menu" id="primary-menu" data-menuname="main menu">
                 <li class="menu-item"><a href="{{ url_for('commerce.commerce') }}">{{_('Home')}}</a></li>
@@ -103,7 +122,7 @@
               </ul>
             </div>
           </div>
-          <div class="col-lg-3 col-md-3 col-md-6 col-xs-6">
+          <div class="col-lg-4 col-md-3 col-md-6 col-xs-6">
             <div class="biolife-cart-info">
               <div class="mobile-search">
                 <a href="javascript:void(0)" class="open-searchbox"><i class="biolife-icon icon-search"></i></a>
@@ -240,20 +259,6 @@
   </div>
   {% endif %}
 
-  <!--Navigation section-->
-  <div class="container">
-    <nav class="biolife-nav">
-      <ul>
-        {% if title %}
-        <li class="nav-item"><a href="{{ url_for('commerce.commerce') }}" class="permal-link">{{_('Home')}}</a></li>
-        <li class="nav-item"><span class="current-page">{{title}}</span></li>
-        {% else %}
-        <li class="nav-item"><a href="{{ url_for('commerce.commerce') }}" class="current-page">{{_('Home')}}</a></li>
-        <li></li>
-        {% endif %}
-      </ul>
-    </nav>
-  </div>
 
 
   {% with messages = get_flashed_messages(with_categories=true) %}

@@ -14,7 +14,7 @@
       {% else %}
         <a class="prd-thumb" href="{{ url_for('commerce.product',resId=resource.ResId)}}">
           <figure>
-            <img src="{{ url_for('static', filename='commerce/uploads/noPhoto.jpg') }}" width="113" height="113"/>
+            <img src="{{ url_for('static', filename='commerce/uploads/noPhoto.png') }}" width="113" height="113"/>
           </figure>
         </a>
       {% endif %}
@@ -77,7 +77,7 @@
         {% else %}
           <a class="prd-thumb" href="{{ url_for('commerce.product',resId=resource.resource.ResId)}}">
             <figure>
-              <img src="{{ url_for('static', filename='commerce/uploads/noPhoto.jpg') }}" width="113" height="113"/>
+              <img src="{{ url_for('static', filename='commerce/uploads/noPhoto.png') }}" width="113" height="113"/>
             </figure>
           </a>
         {% endif %}

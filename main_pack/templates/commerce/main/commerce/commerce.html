@@ -115,7 +115,7 @@
                                                         {% endfor %}
                                                       {% else %}
                                                         <a href="{{ url_for('commerce.product',resId=resource.ResId)}}"class="image">
-                                                          <img src="{{ url_for('static', filename='commerce/uploads/noPhoto.jpg') }}"/>
+                                                          <img src="{{ url_for('static', filename='commerce/uploads/noPhoto.png') }}"/>
                                                         </a> 
                                                       {% endif %}
                                                       <div class="pro-action">
@@ -190,7 +190,7 @@
                                 {% endfor %}
                               {% else %}
                                 <a href="{{url_for('commerce.product',resId=resource.ResId)}}"class="image">
-                                  <img src="{{ url_for('static', filename='commerce/uploads/noPhoto.jpg') }}"/>
+                                  <img src="{{ url_for('static', filename='commerce/uploads/noPhoto.png') }}"/>
                                 </a>
                               {% endif %}
                               <div class="mini-pro-action">

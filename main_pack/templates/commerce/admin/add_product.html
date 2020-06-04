@@ -31,7 +31,6 @@
                   <br>
                     <button id="upload" class="btn btn-outline-info">{{_('Upload')}}</button>
                   </div>
-                  <hr>
                   <br>
                 </div>
               </div>
@@ -55,9 +54,6 @@
               <p class="excerpt"><input type="text" class="txt-input resRegNo" placeholder="{{_('Registration Number')}}"></p>
               <p class="excerpt"><h3 class="title"><textarea class="resName" cols="30" rows="2" placeholder="{{_('Product name')}}"></textarea></h3></p>
               <p class="excerpt"><textarea class="resDesc" cols="30" rows="4" placeholder="{{_('Description')}}"></textarea></p>
-
-
-
 
                <p class="excerpt"><ul class="section-title barcodeList">{{_('Barcode')}}</ul></p>
               <div class="input-group">
@@ -245,8 +241,10 @@
                 </div>
               </div>
             </div>
-            <button class="btn btn-icon icon-left btn-success submitButton" style="float: right;"><i class="fas fa-check"></i> {{_('Save')}}</button>
-            <a href="{{ url_for('commerce_admin.add_product') }}" class="btn btn-icon icon-left btn-info" style="float: right;"><i class="fas fa-plus-circle"></i> {{_('Add new product')}}</a>
+            <div class="add_newp">
+              <button class="btn btn-icon icon-left btn-success submitButton"><i class="fas fa-check"></i> {{_('Save')}}</button>
+              <a href="{{ url_for('commerce_admin.add_product') }}" class="btn btn-icon icon-left btn-info"><i class="fas fa-plus-circle"></i> {{_('Add new product')}}</a>
+            </div>
           </div>
         </div>
       </div>

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags always come first -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+        <title> Nephos :: Modern Bulma Ecommerce App and Dashboard</title>
+        <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='commerce/main/images/favicon.png') }}" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/animate.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/font-awesome.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/nice-select.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/slick.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/style.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/main-color.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/bulma.css')}}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/core.css')}}">
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/icons.min.css')}}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/chosen/chosen.css')}}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/webuipopover/jquery.webui-popover.min.css')}}">
+        
+
+    </head>
+    <body>
+        
+ 
+    <!-- HEADER -->
+    <header id="header" class="header-area style-01 layout-03" >
+        <div class="header-top bg-main hidden-xs" style="background: #c2ccd5">
+          <div class="container">
+            <div class="top-bar left">
+              <ul class="horizontal-menu">
+                {% if company.CEmail %}
+                  <li><i class="fa fa-envelope" aria-hidden="true"></i>{{company.CEmail}}</li>
+                {% endif %}
+              </ul>
+            </div>
+            <div class="top-bar right">
+              <ul class="horizontal-menu">
+                <li class="dropdown dropdown-list-toggle">
+              <a  href="#" class="nav-link nav-link-lg message-toggle" data-toggle="dropdown">
+                <i class="fa fa-globe" style="font-size: 25px;"></i>
+                <span class="badge headerBadge1">{{ session['language'] }}</span>
+              </a>
+              <div class="dropdown-menu dropdown-menu-lr dropdown-menu-right pullDown">
+                <a href="/language/en" class="dropdown-item">
+                  <img src="{{ url_for('static', filename='commerce/main/images/us.svg') }}" style="width: 30px"> English language</a>
+                <div class="dropdown-divider"></div>
+                <a href="/language/tk" class="dropdown-item">
+                  <img src="{{ url_for('static', filename='commerce/main/images/tm.svg') }}" style="width: 30px"> Türkmen dili</a>
+                <div class="dropdown-divider"></div>
+                <a href="/language/ru" class="dropdown-item">
+                  <img src="{{ url_for('static', filename='commerce/main/images/ru.svg') }}" style="width: 30px"> Русский язык</a>
+                <div class="dropdown-divider"></div>
+                <a href="#" class="dropdown-item dropdown-footer">{{_('Başga diller')}}</a>
+              </div>
+            </li>
+                {% if current_user.is_authenticated %}
+                  <li><a href="{{ url_for('commerce_auth.logout') }}" class="login-link"><i class="biolife-icon icon-login"></i>{{ current_user.UFullName }} - {{_('Log out')}}</a></li>
+                {% else %}
+                  <li><a href="{{ url_for('commerce_auth.login') }}" class="login-link"><i class="biolife-icon icon-login"></i>{{_('Log in')}}/{{_('Register')}}</a></li>
+                {% endif %}
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="header-middle biolife-sticky-object ">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-3 col-md-2 col-md-6 col-xs-6">
+                {% if company.CName %}
+                  <a href="index.html" class="logo">{{company.CName}}</span></a>
+                {% endif %}
+              </div>
+              <div class="col-lg-6 col-md-7 hidden-sm hidden-xs">
+                <div class="primary-menu">
+                  <ul class="menu biolife-menu clone-main-menu clone-primary-menu" id="primary-menu" data-menuname="main menu">
+                    <li class="menu-item"><a href="{{ url_for('commerce.commerce') }}">{{_('Home')}}</a></li>
+                    <li class="menu-item"><a href="{{ url_for('commerce.about') }}">{{_('About us')}}</a></li>
+                    <li class="menu-item"><a href="{{ url_for('commerce.contact') }}">{{_('Contact')}}</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-3 col-md-6 col-xs-6">
+                <div class="biolife-cart-info">
+                  <div class="mobile-search">
+                    <a href="javascript:void(0)" class="open-searchbox"><i class="biolife-icon icon-search"></i></a>
+                    <div class="mobile-search-content">
+                      <form action="#" class="form-search" name="mobile-seacrh" method="get">
+                        <a href="#" class="btn-close"><span class="biolife-icon icon-close-menu"></span></a>
+                        <input type="text" name="s" class="input-text" placeholder="{{_('Search')}}...">
+                        <select name="category">
+                          <option value="-1" selected>{{_('All Categories')}}</option>
+                          {% for category in categories %}
+                            <option value="{ category.ResCatId }}">{{ category.ResCatName }}</option>
+                          {% endfor %}
+                        </select>
+                        <button type="submit" class="btn-submit">{{_('Submit')}}</button>
+                      </form>
+                    </div>
+                  </div>
+                  <div class="wishlist-block hidden-sm hidden-xs">
+                    <a href="#" class="link-to">
+                      <span class="icon-qty-combine">
+                        <i class="icon-heart-bold biolife-icon"></i>
+                        <span class="qty">4</span>
+                      </span>
+                    </a>
+                  </div>
+                  <div class="minicart-block">
+                    <div class="minicart-contain">
+                      <a href="javascript:void(0)" class="link-to">
+                              <span class="icon-qty-combine">
+                                  <i class="icon-cart-mini biolife-icon"></i>
+                                  <span class="qty cartItemsQty"></span>
+                              </span>
+                          <span class="title">{{_('My Cart')}} TMT</span>
+                          <span class="sub-total cartTotalPrice">0.00</span>
+                      </a>
+                      <div class="cart-content">
+                        <div class="cart-inner">
+  <!--         USER's Cart here !!!       -->
+                          <ul class="products cartItemsList"></ul>
+                          <p class="btn-control">
+                            <a href="{{ url_for('commerce.cart') }}" class="btn view-cart">{{_('View cart')}}</a>
+                            <a href="#" class="btn checkoutBtn">{{_('Checkout')}}</a>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mobile-menu-toggle">
+                    <a class="btn-toggle" data-object="open-mobile-menu" href="javascript:void(0)">
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="header-bottom hidden-sm hidden-xs">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-3 col-md-4">
+                <div class="vertical-menu vertical-category-block">
+                  <div class="block-title">
+                    <span class="menu-icon">
+                      <span class="line-1"></span>
+                      <span class="line-2"></span>
+                      <span class="line-3"></span>
+                    </span>
+                    <span class="menu-title">{{_('Categories')}}</span>
+                    <span class="angle" data-tgleclass="fa fa-caret-down"><i class="fa fa-caret-up" aria-hidden="true"></i></span>
+                  </div>
+                  <div class="wrap-menu">
+                    <ul class="menu clone-main-menu">
+                      {% for category in categories %}
+                          {% if category.GCRecord == None or category.GCRecord == '' %}
+                              <li class="menu-item menu-item-has-children has-child">
+                              <a href="#" class="menu-name" {% if category.ResCatDesc %} title="{{ category.ResCatDesc }}" {% endif %}><i class="biolife-icon icon-fruits"></i> {{ category.ResCatName }}</a>
+                              {% for subcategory in subcategories %}
+                                  {% if subcategory.GCRecord == None or subcategory.GCRecord == '' %}
+                                      {% if subcategory.ResOwnerCatId == category.ResCatId %}
+                                          <ul class="sub-menu">
+                                          <h4 class="menu-title" {% if subcategory.ResCatDesc %} title="{{ subcategory.ResCatDesc }}" {% endif %}>{{ subcategory.ResCatName }}</h4>
+                                              {% for subcategory_child in subcategory_children %}
+                                                  {% if subcategory_child.GCRecord == None or subcategory_child.GCRecord == '' %}
+                                                      {% if subcategory_child.ResOwnerCatId == subcategory.ResCatId %}
+                                                      
+                                                          <li class="menu-item"><a href="#" {% if subcategory_child.ResCatDesc %} title="{{ subcategory_child.ResCatDesc }}" {% endif %}>{{ subcategory_child.ResCatName }}</a></li>
+                                                      {% endif %}
+                                                  {% endif %}
+                                              {% endfor %}
+                                          </ul>                                        
+                                          {% endif %}
+                                  {% endif %}
+                              {% endfor %}
+                              </li>
+                          {% endif %}
+                      {% endfor %}
+  
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-9 col-md-8 padding-top-2px">
+                <div class="header-search-bar layout-01">
+                  <form action="#" class="form-search" name="desktop-seacrh" method="get">
+                    <input type="text" name="s" class="input-text" value="" placeholder="{{_('Search')}}...">
+                    <select name="category">
+                      <option value="" selected>{{_('All Categories')}}</option>
+                      {% for category in categories %}
+                        <option value="{ category.ResCatId }}">{{ category.ResCatName }}</option>
+                      {% endfor %}
+                    </select>
+                    <button type="submit" class="btn-submit"><i class="biolife-icon icon-search"></i></button>
+                  </form>
+                </div>
+                <div class="live-info">
+                  {% if company.Phone1 %}<p class="telephone"><i class="fa fa-phone" aria-hidden="true"></i><b class="phone-number">{{ company.Phone1 }}</b></p>{% endif %}
+                  {% if company.CWTime %}<p class="working-time">{{ company.CWTime }}</p>{% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+    <!--Hero Section-->
+    <div class="hero-section hero-background">
+        <h1 class="page-title">MY ORDERS</h1>
+    </div>
+
+
+    <div class="shop-wrapper">
+        
+            <!-- Search overlay -->
+            <div class="search-overlay"></div>
+            
+            <!-- Search input -->
+            <div class="search-input-wrapper is-desktop is-hidden">
+                <div class="field">
+                    <div class="control">
+                        <input type="text" name="search" autofocus required>
+                        <span id="clear-search" role="button"><i data-feather="x"></i></span>
+                        <span class="search-help">Type the name of the product you are looking for</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Main section -->
+            <div class="section">
+                <!-- Container -->
+                <div class="container">
+        
+                    <!-- Orders List -->
+                    <div class="columns account-header">
+                        <div class="column is-10 is-offset-1 is-tablet-landscape-padded">
+                            <div class="account-title">
+                                <h2>MY ORDERS</h2>
+                                <img class="brand-filigrane" src="assets/images/logo/nephos-greyscale.svg" alt="">
+                            </div>
+        
+                            <!-- Account tabs -->
+                            <div class="tabs account-tabs has-controls">
+                                <ul>
+                                    <li><a href="account.html">Account</a></li>
+                                    <li class="is-active"><a href="orders.html">Orders</a></li>
+
+                                <div class="layout-controls">
+                                    <a href="/orders.html"><span><i data-feather="arrow-left"></i></span></a>
+                                </div>
+                                </ul>
+                            </div>
+        
+                            <!-- Controls -->
+                            <div class="listing-controls">
+        
+                            <!-- Orders  -->
+                            <div class="columns is-account-grid is-multiline">
+                                <!-- Orders panel -->
+        
+                                <div class="column is-12">
+        
+                                    <!-- Order 46895 panel -->
+                                    <div id="46895" class="flat-card is-auto order-list-card animated preFadeInUp fadeInUp">
+                                        <!-- Orders team member -->
+                                        <div class="order-block">
+                                            <img src="{{ url_for('static', filename='commerce/main/images/avatars/janet.jpg')}}" alt="">
+                                            <div class="handled-by">
+                                                <div>Handled by</div>
+                                                <div>Janet Smith</div>
+                                            </div>
+                                            <div class="order-icon">
+                                                <i data-feather="info"></i>
+                                            </div>
+                                            <div class="status">
+                                                <div>Status</div>
+                                                <div><span class="tag primary-tag">Shipping</span></div>
+                                            </div>
+                                            <div class="order-icon">
+                                                <i data-feather="clock"></i>
+                                            </div>
+                                            <div class="date">
+                                                <div>Date</div>
+                                                <div class="is-date">mar 23 2018</div>
+                                            </div>
+                                            <div class="order-icon">
+                                                <i data-feather="dollar-sign"></i>
+                                            </div>
+                                            <div class="total">
+                                                <div>Order total</div>
+                                                <div class="is-price">683,99 <span class="tag success-tag">Paid</span></div>
+                                            </div>
+                                        </div>
+                                        <!-- Order details -->
+                                        <div class="table-block">
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Product</th>
+                                                        <th scope="col">SKU</th>
+                                                        <th scope="col">Quantity</th>
+                                                        <th scope="col">Total</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td data-label="Product">Shipping A1</td>
+                                                        <td data-label="SKU">-</td>
+                                                        <td data-label="Quantity">1</td>
+                                                        <td data-label="Total">$39,00</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td data-label="Product">Conqueror</td>
+                                                        <td data-label="SKU">587</td>
+                                                        <td data-label="Quantity">1</td>
+                                                        <td data-label="Total">$295,00</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td data-label="Product">Gentleman</td>
+                                                        <td data-label="SKU">029</td>
+                                                        <td data-label="Quantity">1</td>
+                                                        <td data-label="Total">$349,99</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <!-- View Invoice -->
+                                        <div class="button-block has-text-right">
+                                            <a href="invoice.html" class="button feather-button is-small primary-button is-bold raised">invoice</a>
+                                        </div>
+                                    </div>
+                                    <!-- /Order 46895 -->
+        
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Orders List -->
+                </div>
+                <!-- /Container -->
+            </div>
+            <!-- /Main section -->
+        </div>
+        
+        <script src="{{ url_for('static', filename='commerce/main/js/jquery-3.4.1.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='commerce/main/js/bootstrap.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='commerce/main/js/jquery.countdown.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='commerce/main/js/jquery.nice-select.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='commerce/main/js/jquery.nicescroll.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='commerce/main/js/slick.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='commerce/main/js/biolife.framework.js') }}"></script>
+        <script src="{{ url_for('static', filename='commerce/main/js/functions.js') }}"></script>
+        <script src="{{ url_for('static', filename='commerce/main/js/js.cookie.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='commerce/main/js/cartsAndCheckouts.js') }}"></script>
+
+
+
+    <script src="{{ url_for('static', filename='commerce/main/js/app.js')}}"></script>
+       
+    <script src="{{ url_for('static', filename='commerce/main/js/nephos.js')}}"></script>
+     </body>  
+</html>

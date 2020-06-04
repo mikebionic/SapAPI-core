@@ -30,6 +30,26 @@
     -ms-user-select: none;
     user-select: none
 }
+
+.select:not(.is-multiple):not(.is-loading)::after,.navbar-link::after {
+    border: 3px solid transparent;
+    border-radius: 2px;
+    border-right: 0;
+    border-top: 0;
+    content: " ";
+    display: block;
+    height: 0.625em;
+    margin-top: -0.4375em;
+    pointer-events: none;
+    position: absolute;
+    top: 50%;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    -webkit-transform-origin: center;
+    transform-origin: center;
+    width: 0.625em
+}
+
 .box:not(:last-child),.content:not(:last-child),.notification:not(:last-child),.progress:not(:last-child),.table:not(:last-child),.table-container:not(:last-child),.title:not(:last-child),.subtitle:not(:last-child),.block:not(:last-child),.highlight:not(:last-child),.breadcrumb:not(:last-child),.level:not(:last-child),.message:not(:last-child),.tabs:not(:last-child) {
     margin-bottom: 1.5rem
 }
@@ -114,6 +134,20 @@
     min-height: 32px;
     min-width: 32px;
     width: 32px
+}
+
+.button.is-loading::after,.select.is-loading::after,.control.is-loading::after,.loader {
+    -webkit-animation: spinAround 500ms infinite linear;
+    animation: spinAround 500ms infinite linear;
+    border: 2px solid #dbdbdb;
+    border-radius: 290486px;
+    border-right-color: transparent;
+    border-top-color: transparent;
+    content: "";
+    display: block;
+    height: 1em;
+    position: relative;
+    width: 1em
 }
 
 .is-overlay,.image.is-square img,.image.is-1by1 img,.image.is-5by4 img,.image.is-4by3 img,.image.is-3by2 img,.image.is-5by3 img,.image.is-16by9 img,.image.is-2by1 img,.image.is-3by1 img,.image.is-4by5 img,.image.is-3by4 img,.image.is-2by3 img,.image.is-3by5 img,.image.is-9by16 img,.image.is-1by2 img,.image.is-1by3 img,.modal,.modal-background,.hero-video {
@@ -1587,6 +1621,9 @@ a.box:active {
     color: #fff
 }
 
+.button.is-white.is-loading::after {
+    border-color: transparent transparent #0a0a0a #0a0a0a !important
+}
 
 .button.is-white.is-outlined {
     background-color: transparent;
@@ -1598,6 +1635,10 @@ a.box:active {
     background-color: #fff;
     border-color: #fff;
     color: #0a0a0a
+}
+
+.button.is-white.is-outlined.is-loading::after {
+    border-color: transparent transparent #fff #fff !important
 }
 
 .button.is-white.is-outlined[disabled] {
@@ -1674,6 +1715,9 @@ a.box:active {
     color: #0a0a0a
 }
 
+.button.is-black.is-loading::after {
+    border-color: transparent transparent #fff #fff !important
+}
 
 .button.is-black.is-outlined {
     background-color: transparent;
@@ -1685,6 +1729,10 @@ a.box:active {
     background-color: #0a0a0a;
     border-color: #0a0a0a;
     color: #fff
+}
+
+.button.is-black.is-outlined.is-loading::after {
+    border-color: transparent transparent #0a0a0a #0a0a0a !important
 }
 
 .button.is-black.is-outlined[disabled] {
@@ -1760,6 +1808,11 @@ a.box:active {
     box-shadow: none;
     color: #f5f5f5
 }
+
+.button.is-light.is-loading::after {
+    border-color: transparent transparent #363636 #363636 !important
+}
+
 .button.is-light.is-outlined {
     background-color: transparent;
     border-color: #f5f5f5;
@@ -1770,6 +1823,10 @@ a.box:active {
     background-color: #f5f5f5;
     border-color: #f5f5f5;
     color: #363636
+}
+
+.button.is-light.is-outlined.is-loading::after {
+    border-color: transparent transparent #f5f5f5 #f5f5f5 !important
 }
 
 .button.is-light.is-outlined[disabled] {
@@ -1845,6 +1902,11 @@ a.box:active {
     box-shadow: none;
     color: #363636
 }
+
+.button.is-dark.is-loading::after {
+    border-color: transparent transparent #f5f5f5 #f5f5f5 !important
+}
+
 .button.is-dark.is-outlined {
     background-color: transparent;
     border-color: #363636;
@@ -1857,6 +1919,9 @@ a.box:active {
     color: #f5f5f5
 }
 
+.button.is-dark.is-outlined.is-loading::after {
+    border-color: transparent transparent #363636 #363636 !important
+}
 
 .button.is-dark.is-outlined[disabled] {
     background-color: transparent;
@@ -1932,6 +1997,9 @@ a.box:active {
     color: #00d1b2
 }
 
+.button.is-primary.is-loading::after {
+    border-color: transparent transparent #fff #fff !important
+}
 
 .button.is-primary.is-outlined {
     background-color: transparent;
@@ -1943,6 +2011,10 @@ a.box:active {
     background-color: #00d1b2;
     border-color: #00d1b2;
     color: #fff
+}
+
+.button.is-primary.is-outlined.is-loading::after {
+    border-color: transparent transparent #00d1b2 #00d1b2 !important
 }
 
 .button.is-primary.is-outlined[disabled] {
@@ -2019,6 +2091,10 @@ a.box:active {
     color: #3273dc
 }
 
+.button.is-link.is-loading::after {
+    border-color: transparent transparent #fff #fff !important
+}
+
 .button.is-link.is-outlined {
     background-color: transparent;
     border-color: #3273dc;
@@ -2030,6 +2106,11 @@ a.box:active {
     border-color: #3273dc;
     color: #fff
 }
+
+.button.is-link.is-outlined.is-loading::after {
+    border-color: transparent transparent #3273dc #3273dc !important
+}
+
 .button.is-link.is-outlined[disabled] {
     background-color: transparent;
     border-color: #3273dc;
@@ -2104,6 +2185,10 @@ a.box:active {
     color: #209cee
 }
 
+.button.is-info.is-loading::after {
+    border-color: transparent transparent #fff #fff !important
+}
+
 .button.is-info.is-outlined {
     background-color: transparent;
     border-color: #209cee;
@@ -2114,6 +2199,10 @@ a.box:active {
     background-color: #209cee;
     border-color: #209cee;
     color: #fff
+}
+
+.button.is-info.is-outlined.is-loading::after {
+    border-color: transparent transparent #209cee #209cee !important
 }
 
 .button.is-info.is-outlined[disabled] {
@@ -2190,6 +2279,9 @@ a.box:active {
     color: #23d160
 }
 
+.button.is-success.is-loading::after {
+    border-color: transparent transparent #fff #fff !important
+}
 
 .button.is-success.is-outlined {
     background-color: transparent;
@@ -2203,6 +2295,9 @@ a.box:active {
     color: #fff
 }
 
+.button.is-success.is-outlined.is-loading::after {
+    border-color: transparent transparent #23d160 #23d160 !important
+}
 
 .button.is-success.is-outlined[disabled] {
     background-color: transparent;
@@ -2278,6 +2373,10 @@ a.box:active {
     color: #ffdd57
 }
 
+.button.is-warning.is-loading::after {
+    border-color: transparent transparent rgba(0,0,0,0.7) rgba(0,0,0,0.7) !important
+}
+
 .button.is-warning.is-outlined {
     background-color: transparent;
     border-color: #ffdd57;
@@ -2290,6 +2389,9 @@ a.box:active {
     color: rgba(0,0,0,0.7)
 }
 
+.button.is-warning.is-outlined.is-loading::after {
+    border-color: transparent transparent #ffdd57 #ffdd57 !important
+}
 
 .button.is-warning.is-outlined[disabled] {
     background-color: transparent;
@@ -2365,6 +2467,10 @@ a.box:active {
     color: #ff3860
 }
 
+.button.is-danger.is-loading::after {
+    border-color: transparent transparent #fff #fff !important
+}
+
 .button.is-danger.is-outlined {
     background-color: transparent;
     border-color: #ff3860;
@@ -2377,6 +2483,9 @@ a.box:active {
     color: #fff
 }
 
+.button.is-danger.is-outlined.is-loading::after {
+    border-color: transparent transparent #ff3860 #ff3860 !important
+}
 
 .button.is-danger.is-outlined[disabled] {
     background-color: transparent;
@@ -2427,6 +2536,18 @@ a.box:active {
     display: -ms-flexbox;
     display: flex;
     width: 100%
+}
+
+.button.is-loading {
+    color: transparent !important;
+    pointer-events: none
+}
+
+.button.is-loading::after {
+    position: absolute;
+    left: calc(50% - (1em / 2));
+    top: calc(50% - (1em / 2));
+    position: absolute !important
 }
 
 .button.is-static {
@@ -2956,6 +3077,11 @@ a.box:active {
     height: 2.25em
 }
 
+.select:not(.is-multiple):not(.is-loading)::after {
+    border-color: #3273dc;
+    right: 1.125em;
+    z-index: 4
+}
 
 .select.is-rounded select {
     border-radius: 290486px;
@@ -3040,6 +3166,10 @@ a.box:active {
 
 .select select[multiple] option {
     padding: 0.5em 1em
+}
+
+.select:not(.is-multiple):not(.is-loading):hover::after {
+    border-color: #363636
 }
 
 .select.is-white:not(:hover)::after {
@@ -3227,6 +3357,26 @@ a.box:active {
     width: 100%
 }
 
+.select.is-loading::after {
+    margin-top: 0;
+    position: absolute;
+    right: 0.625em;
+    top: 0.625em;
+    -webkit-transform: none;
+    transform: none
+}
+
+.select.is-loading.is-small:after {
+    font-size: .75rem
+}
+
+.select.is-loading.is-medium:after {
+    font-size: 1.25rem
+}
+
+.select.is-loading.is-large:after {
+    font-size: 1.5rem
+}
 
 .file {
     -ms-flex-align: stretch;
@@ -4030,6 +4180,24 @@ a.box:active {
     right: 0
 }
 
+.control.is-loading::after {
+    position: absolute !important;
+    right: 0.625em;
+    top: 0.625em;
+    z-index: 4
+}
+
+.control.is-loading.is-small:after {
+    font-size: .75rem
+}
+
+.control.is-loading.is-medium:after {
+    font-size: 1.25rem
+}
+
+.control.is-loading.is-large:after {
+    font-size: 1.5rem
+}
 
 .icon {
     -ms-flex-align: center;

@@ -30,12 +30,12 @@ def token_required(f):
 def api_login():
 	auth = request.authorization
 	if not auth or not auth.username or not auth.password:
-		return make_response('Could not verify', 401, {'WWW-Authenticate':'basic realm'})
-		print("no username or passord")
+		return make_response('Could not verify. Missing username or password.',
+			401, {'WWW-Authenticate':'basic realm'})
 	user = Users.query.filter_by(UName=auth.username).first()
 	if not user:
-		print("no such user")
-		return make_response('Could not verify', 401, {'WWW-Authenticate':'basic realm'})
+		return make_response('Could not verify. User does not exist.',
+			401, {'WWW-Authenticate':'basic realm'})
 	if check_auth(auth.username,auth.password):
 		token = jwt.encode({'UId':user.UId, 'exp':datetime.utcnow()+dt.timedelta(minutes=3)}, Config.SECRET_KEY)
 		return jsonify({'token':token.decode('UTF-8')})

@@ -8,7 +8,7 @@ from main_pack import db
 from flask import current_app
 
 
-@api.route("/res_prices/",methods=['GET','POST','PUT'])
+@api.route("/tbl-dk-res-prices/",methods=['GET','POST','PUT'])
 def api_res_prices():
 	if request.method == 'GET':
 		res_prices = Res_price.query.all()

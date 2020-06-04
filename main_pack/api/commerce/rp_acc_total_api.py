@@ -7,8 +7,8 @@ from main_pack.api.commerce.utils import addRpAccTrTotDict
 from main_pack import db
 from flask import current_app
 
-
 @api.route("/rp_acc_trans_totals/",methods=['GET','POST','PUT'])
+# @api.route("/total-transactions/",methods=['GET','POST','PUT'])
 def api_rp_acc_trans_totals():
 	if request.method == 'GET':
 		rp_acc_trans_totals = Rp_acc_trans_total.query.all()

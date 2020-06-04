@@ -12,7 +12,7 @@
           {% endfor %}
         {% else %}
           <a href="{{ url_for('commerce.product',resId=resource.ResId)}}">
-            <img src="{{ url_for('static', filename='commerce/uploads/noPhoto.jpg') }}" width="90" height="90"/>
+            <img src="{{ url_for('static', filename='commerce/uploads/noPhoto.png') }}" width="90" height="90"/>
           </a>
         {% endif %}
       </div>
@@ -58,7 +58,7 @@
             {% endfor %}
           {% else %}
             <a href="{{ url_for('commerce.product',resId=resource.resource.ResId)}}">
-              <img src="{{ url_for('static', filename='commerce/uploads/noPhoto.jpg') }}" width="90" height="90"/>
+              <img src="{{ url_for('static', filename='commerce/uploads/noPhoto.png') }}" width="90" height="90"/>
             </a>
           {% endif %}
         </div>

@@ -8,7 +8,7 @@ from main_pack import db
 from flask import current_app
 
 
-@api.route("/res_totals/",methods=['GET','POST','PUT'])
+@api.route("/tbl-dk-res-totals/",methods=['GET','POST','PUT'])
 def api_res_totals():
 	if request.method == 'GET':
 		res_totals = Res_total.query.all()

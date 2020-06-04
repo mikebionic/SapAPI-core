@@ -597,7 +597,7 @@ msgstr "Täze müşderimi?"
 #: templates/commerce/main/auth/login.html:54
 #: templates/commerce/main/auth/register_request.html:49
 msgid "Create a profile and you’ll be able to"
-msgstr "Profil dörediň, we siz başararsyňyz:"
+msgstr "Profil dörediň, we siz başararsyňyz"
 
 #: templates/commerce/main/auth/login.html:56
 msgid "Order faster"

@@ -7,6 +7,7 @@ from main_pack.api.commerce.utils import addRpAccDict
 from main_pack import db
 from flask import current_app
 
+# @api.route("/rp-accounts/",methods=['GET','POST','PUT'])
 @api.route("/rp_accs/",methods=['GET','POST','PUT'])
 def api_rp_accs():
 	if request.method == 'GET':
@@ -64,7 +65,7 @@ def api_rp_accs():
 			}
 			for e in status:
 				res[e]=status[e]
-			response = make_response(jsonify(res),200)
+			response = make_response(jsonify(res),201)
 			print(response)
 
 	return response 

@@ -46,39 +46,53 @@
 
 
 GET POST
-/api/barcodes/
+/api/tbl-dk-barcodes/
 
 GET POST
-/api/categories/
+/api/tbl-dk-categories/
+
+GET PUT
+/api/tbl-dk-categories/<int:id>/
+
+GET
+/api/tbl-dk-tbl-dk-categories/paginate/
 
 GET POST
-/api/resources/
+/api/tbl-dk-resources/
+
+GET PUT
+/api/tbl-dk-resources/<int:id>/
+
+GET
+/api/v-resources/
+/api/v-sm-resources/
 
 GET POST
-/api/res_prices/
+/api/tbl-dk-res-prices/
 
 GET POST
-/api/res_totals/
+/api/tbl-dk-res-totals/
 
 GET POST
-/api/images/
+/api/tbl-dk-images/
 
 GET POST
-/api/rp_accs/
+/api/tbl-dk-rp-accs/
 
 GET POST
-/api/rp_acc_trans_totals/
+/api/tbl-dk-rp_acc_trans_totals/
+/api/tbl-dk-total-transactions/
 
 GET POST
-/api/order_invoices/
+/api/tbl-dk-order-invoices/
 
 GET POST
-/api/order_inv_lines/
+/api/tbl-dk-order-inv-lines/
 
 GET POST
-/api/order_inv_types/
+/api/tbl-dk-order-inv-types/
 
 GET POST
-/api/users/
+/api/tbl-dk-users/
 
 

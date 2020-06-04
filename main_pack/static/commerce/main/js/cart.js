@@ -13,6 +13,6 @@ $(document).ready(function(){
 			$('.productQty'+'[ownerId='+ownerId+']').val(cartData[i]["productQty"]);
 		}
 		console.log(cartData)
-		cartOperations(cartData,'/commerce/product/ui_cart_table/','PUT','htmlData','cartItemsTable');
+		cartOperations(cartData,url_prefix+'/product/ui_cart_table/','PUT','htmlData','cartItemsTable');
 	}
 });

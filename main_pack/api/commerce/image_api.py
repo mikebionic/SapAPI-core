@@ -8,7 +8,7 @@ from main_pack import db
 from flask import current_app
 
 
-@api.route("/images/",methods=['GET','POST','PUT'])
+@api.route("/tbl-dk-images/",methods=['GET','POST','PUT'])
 def api_images():
 	if request.method == 'GET':
 		images = Image.query.all()
@@ -27,10 +27,8 @@ def api_images():
 				"message": "Error. Not a JSON data."
 			}
 			response = make_response(jsonify(res),400)
-			
 		else:
 			req = request.get_json()
-			print(req)
 			images = []
 			failed_images = [] 
 			for image in req:
@@ -48,7 +46,6 @@ def api_images():
 							thisImage.update(**image)
 							db.session.commit()
 							images.append(image)
-
 						else:
 							newImage = Image(**image)
 							db.session.add(newImage)
@@ -66,6 +63,6 @@ def api_images():
 			}
 			for e in status:
 				res[e]=status[e]
-			response = make_response(jsonify(res),200)
+			response = make_response(jsonify(res),201)
 
 	return response

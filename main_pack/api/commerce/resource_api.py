@@ -8,7 +8,7 @@ from main_pack.api.commerce.utils import addResourceDict
 from main_pack import db
 from flask import current_app
 
-@api.route("/resources/<int:id>/",methods=['GET','PUT'])
+@api.route("/tbl-dk-resources/<int:id>/",methods=['GET','PUT'])
 def api_resource(id):
 	if request.method == 'GET':
 		resource = Resource.query.get(id)
@@ -33,7 +33,7 @@ def api_resource(id):
 		response = make_response(jsonify(res),200)
 	return response
 
-@api.route("/resources/",methods=['GET','POST','PUT'])
+@api.route("/tbl-dk-resources/",methods=['GET','POST','PUT'])
 def api_resources():
 	if request.method == 'GET':
 		resources = Resource.query.all()

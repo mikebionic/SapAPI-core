@@ -12,7 +12,6 @@ class Config:
 	}
 	SQLALCHEMY_DATABASE_URI = 'postgresql://%(user)s:%(pw)s@%(host)s:%(port)s/%(db)s' % POSTGRES
 
-
 	BABEL_DEFAULT_LOCALE = 'tk'
 	MAIL_SERVER = 'smtp.googlemail.com'
 	MAIL_PORT = 587

@@ -8,7 +8,7 @@ from main_pack.api.commerce.utils import addCategoryDict
 from main_pack import db
 from flask import current_app
 
-@api.route("/categories/<int:id>/",methods=['GET','PUT'])
+@api.route("/tbl-dk-categories/<int:id>/",methods=['GET','PUT'])
 def api_category(id):
 	if request.method == 'GET':
 		category = Res_category.query.get(id)
@@ -32,7 +32,7 @@ def api_category(id):
 	return response
 
 
-@api.route("/categories/",methods=['GET','POST','PUT'])
+@api.route("/tbl-dk-categories/",methods=['GET','POST','PUT'])
 def api_categories():
 	if request.method == 'GET':
 		categories = Res_category.query.all()
@@ -149,7 +149,7 @@ def api_categories():
 	
 	return response
 
-@api.route("/paginated_categories/",methods=['GET'])
+@api.route("/tbl-dk-categories/paginate/",methods=['GET'])
 def api_paginated_categories():
 	page = request.args.get('page',1,type=int)
 	pagination = Res_category.query\

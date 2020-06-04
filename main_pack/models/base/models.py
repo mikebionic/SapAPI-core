@@ -295,6 +295,8 @@ class Gender(db.Model):
 	Rp_acc = db.relationship('Rp_acc',backref='gender',lazy=True)
 	Representative = db.relationship('Representative',backref='gender',lazy=True)
 
+import base64
+
 class Image(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_image"
 	ImgId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -334,7 +336,7 @@ class Image(CreatedModifiedInfo,db.Model):
 			'ResId':self.ResId,
 			'FileName':self.FileName,
 			'FileHash':self.FileHash,
-			# 'Image':str.encode(self.Image),
+			'Image':base64.encodebytes(self.Image).decode('ascii'),
 			'CreatedDate':self.CreatedDate,
 			'ModifiedDate':self.ModifiedDate,
 			'CreatedUId':self.CreatedUId,

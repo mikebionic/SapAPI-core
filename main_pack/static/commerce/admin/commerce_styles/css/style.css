@@ -4483,7 +4483,8 @@ body.open-overlay #overlay{
     clear: both;
 }
 .single-layout.product-tabs{
-    margin-top: 191px;
+    /* margin-top: 191px; */
+    width: 85%;
 }
 .product-tabs.single-layout .tab-head .tabs{
     display: block;
@@ -4533,10 +4534,10 @@ body.open-overlay #overlay{
     color: #222222;
 }
 .product-tabs.single-layout .tab-head .tabs li.active a::before{
-    width: 127px;
+    width: 100%;
 }
 .product-tabs.single-layout .tab-content{
-    position: relative;
+    /* position: relative; */
     display: inline-block;
     width: 100%;
 }

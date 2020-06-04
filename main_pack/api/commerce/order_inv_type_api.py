@@ -8,7 +8,7 @@ from main_pack import db
 from flask import current_app
 
 
-@api.route("/order_inv_types/",methods=['GET','POST','PUT'])
+@api.route("/tbl-dk-order-inv-types/",methods=['GET','POST','PUT'])
 def api_order_inv_types():
 	if request.method == 'GET':
 		order_inv_types = Order_inv_type.query.all()
