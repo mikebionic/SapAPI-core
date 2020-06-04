@@ -65,7 +65,7 @@ GET PUT
 
 GET
 /api/v-resources/
-/api/v-sm-resources/
+/api/v-full-resources/
 
 GET POST
 /api/tbl-dk-res-prices/

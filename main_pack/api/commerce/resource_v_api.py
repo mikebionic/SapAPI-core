@@ -25,7 +25,7 @@ from main_pack import db
 from flask import current_app
 
 
-@api.route("/v-resources/",methods=['GET'])
+@api.route("/v-full-resources/",methods=['GET'])
 def api_resources_pack():
 	if request.method == 'GET':
 		resources = Resource.query.all()
@@ -55,7 +55,7 @@ def api_resources_pack():
 
 import base64
 
-@api.route("/v-sm-resources/",methods=['GET'])
+@api.route("/v-resources/",methods=['GET'])
 def api_resources_short():
 	if request.method == 'GET':
 		resources = Resource.query.all()
@@ -74,10 +74,10 @@ def api_resources_short():
 			List_Res_total = [res_total.ResTotBalance for res_total in res_totals if res_total.ResId==resource.ResId]
 			List_Image = [base64.encodebytes(image.Image).decode('ascii') for image in images if image.ResId==resource.ResId]
 
-			resourceList["Barcode"] = List_Barcode[0] if len(List_Barcode)>0 else ''
-			resourceList["Res_category"] = List_Res_category[0] if len(List_Res_category)>0 else ''
-			resourceList["Res_price"] = List_Res_price[0] if len(List_Res_price)>0 else ''
-			resourceList["Res_total"] = List_Res_total[0] if len(List_Res_total)>0 else ''
+			resourceList["BarcodeVal"] = List_Barcode[0] if len(List_Barcode)>0 else ''
+			resourceList["ResCatName"] = List_Res_category[0] if len(List_Res_category)>0 else ''
+			resourceList["ResPriceValue"] = List_Res_price[0] if len(List_Res_price)>0 else ''
+			resourceList["ResTotBalance"] = List_Res_total[0] if len(List_Res_total)>0 else ''
 			resourceList["Image"] = List_Image[0] if len(List_Image)>0 else ''
 			data.append(resourceList)
 		res = {
