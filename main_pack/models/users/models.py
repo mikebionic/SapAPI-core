@@ -68,8 +68,8 @@ class Users(AddInf,CreatedModifiedInfo,db.Model,UserMixin):
 			'AddInf4':self.AddInf4,
 			'AddInf5':self.AddInf5,
 			'AddInf6':self.AddInf6,
-			'CreatedDate':self.CreatedDate,
-			'ModifiedDate':self.ModifiedDate,
+			'CreatedDate':(self.CreatedDate).strftime("%Y-%m-%d %H:%M:%S"),
+			'ModifiedDate':(self.ModifiedDate).strftime("%Y-%m-%d %H:%M:%S"),
 			'CreatedUId':self.CreatedUId,
 			'ModifiedUId':self.ModifiedUId,
 			'GCRecord':self.GCRecord
@@ -96,8 +96,8 @@ class User_type(CreatedModifiedInfo,db.Model):
 			'UTypeDesc_ruRU':self.UTypeDesc_ruRU,
 			'UTypeName_enUS':self.UTypeName_enUS,
 			'UTypeDesc_enUS':self.UTypeDesc_enUS,
-			'CreatedDate':self.CreatedDate,
-			'ModifiedDate':self.ModifiedDate,
+			'CreatedDate':(self.CreatedDate).strftime("%Y-%m-%d %H:%M:%S"),
+			'ModifiedDate':(self.ModifiedDate).strftime("%Y-%m-%d %H:%M:%S"),
 			'CreatedUId':self.CreatedUId,
 			'ModifiedUId':self.ModifiedUId,
 			'GCRecord':self.GCRecord

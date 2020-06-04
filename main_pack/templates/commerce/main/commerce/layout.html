@@ -254,19 +254,17 @@
 
   <!--Hero Section-->
   {% if title %}
-  <div class="hero-section hero-background">
-    <h1 class="page-title">{{title}}</h1>
-  </div>
+    <div class="hero-section hero-background">
+      <h1 class="page-title">{{title}}</h1>
+    </div>
   {% endif %}
-
-
 
   {% with messages = get_flashed_messages(with_categories=true) %}
   {% if messages %}
   {% for category, message in messages %}
-  <div class="p-3 alert alert-{{ category }}" role="alert">
-    {{ message }}
-  </div>
+    <div class="p-3 alert alert-{{ category }}" role="alert">
+      {{ message }}
+    </div>
   {% endfor %}
   {% endif %}
   {% endwith %}
