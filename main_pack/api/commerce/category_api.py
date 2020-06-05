@@ -35,7 +35,8 @@ def api_category(id):
 @api.route("/tbl-dk-categories/",methods=['GET','POST','PUT'])
 def api_categories():
 	if request.method == 'GET':
-		categories = Res_category.query.all()
+		categories = Res_category.query\
+			.filter(Res_category.GCRecord=='' or Res_category.GCRecord==None).all()
 		res = {
 			"status":1,
 			"message":"All categories",

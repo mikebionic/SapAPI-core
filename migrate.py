@@ -17,6 +17,7 @@ from main_pack.models.base.models import (Company,Department,Department_detail,D
 from main_pack.models.commerce.models import Color,Size
 
 from main_pack.models.users.models import Users
+from main_pack.models.base.models import Rp_acc,Reg_num
 
 from main_pack import db, create_app
 
@@ -27,47 +28,52 @@ app.app_context().push()
 # db.create_all()
 
 #######  initial company migration ########
-comp = Company(CName="company")
-db.session.add(comp)
-div = Division(DivisionName="division",CId=1)
-db.session.add(div)
-dep = Department(DeptName="department")
-db.session.add(dep)
+# comp = Company(CName="company")
+# db.session.add(comp)
+# div = Division(DivisionName="division",CId=1)
+# db.session.add(div)
+# dep = Department(DeptName="department")
+# db.session.add(dep)
 ##########################
 
-# UPass is "123" hashed
+# # UPass is "123" hashed
 user = Users(UName="administrator",UEmail="muhammedjepbarov@gmail.com",
 	UPass="$2b$12$ZltRSL4D1LpcJuoFEzW7PO/rEio8LKxhK9vPEG3Jv7Zg9S07f4Q1G",
 	UShortName="AR",UFullName="Mike Bionic",
 	UTypeId=1)
 db.session.add(user)
+regNum = Reg_num(UId=4, RegNumTypeId=6,
+			RegNumPrefix="AK",RegNumLastNum=0)
+db.session.add(regNum)
+rp_acc = Rp_acc(RpAccName="Mike Bionic",RpAccEMail="muhammedjepbarov@gmail.com",RpAccRegNo="ARAK1",RpAccTypeId=1)
+db.session.add(rp_acc)
 
 ####### color migrate #########
-color = Color(ColorName="Red",ColorCode="#e74c3c")
-db.session.add(color)
-color = Color(ColorName="Blue",ColorCode="#3498db")
-db.session.add(color)
-color = Color(ColorName="Green",ColorCode="#2ecc71")
-db.session.add(color)
-color = Color(ColorName="DarkBlue",ColorCode="#34495e")
-db.session.add(color)
-color = Color(ColorName="Yellow",ColorCode="#f1c40f")
-db.session.add(color)
-color = Color(ColorName="Orange",ColorCode="#e67e22")
-db.session.add(color)
+# color = Color(ColorName="Red",ColorCode="#e74c3c")
+# db.session.add(color)
+# color = Color(ColorName="Blue",ColorCode="#3498db")
+# db.session.add(color)
+# color = Color(ColorName="Green",ColorCode="#2ecc71")
+# db.session.add(color)
+# color = Color(ColorName="DarkBlue",ColorCode="#34495e")
+# db.session.add(color)
+# color = Color(ColorName="Yellow",ColorCode="#f1c40f")
+# db.session.add(color)
+# color = Color(ColorName="Orange",ColorCode="#e67e22")
+# db.session.add(color)
 ##################
 
 ###### sizes migrate ##########
-size = Size(SizeName="S")
-db.session.add(size)
-size = Size(SizeName="M")
-db.session.add(size)
-size = Size(SizeName="L")
-db.session.add(size)
-size = Size(SizeName="XL")
-db.session.add(size)
-size = Size(SizeName="XXL")
-db.session.add(size)
+# size = Size(SizeName="S")
+# db.session.add(size)
+# size = Size(SizeName="M")
+# db.session.add(size)
+# size = Size(SizeName="L")
+# db.session.add(size)
+# size = Size(SizeName="XL")
+# db.session.add(size)
+# size = Size(SizeName="XXL")
+# db.session.add(size)
 #########################
 
 db.session.commit()

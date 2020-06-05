@@ -24,3 +24,5 @@ class Config:
 	# # to give each api it's pagination: 
 	# REST_RESOURCES_PER_PAGE = 5
 	API_OBJECTS_PER_PAGE = 10
+
+	ELASTICSEARCH_URL = 'http://localhost:9200'

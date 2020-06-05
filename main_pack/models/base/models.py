@@ -1,5 +1,6 @@
 from main_pack import db
 from datetime import datetime
+from main_pack.base.dataMethods import apiDataFormat
 
 class CreatedModifiedInfo(object):
 	CreatedDate = db.Column(db.DateTime,default=datetime.now)
@@ -337,8 +338,8 @@ class Image(CreatedModifiedInfo,db.Model):
 			'FileName':self.FileName,
 			'FileHash':self.FileHash,
 			'Image':base64.encodebytes(self.Image).decode('ascii'),
-			'CreatedDate':(self.CreatedDate).strftime("%Y-%m-%d %H:%M:%S"),
-			'ModifiedDate':(self.ModifiedDate).strftime("%Y-%m-%d %H:%M:%S"),
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
 			'CreatedUId':self.CreatedUId,
 			'ModifiedUId':self.ModifiedUId,
 			'GCRecord':self.GCRecord
@@ -517,7 +518,7 @@ class Rp_acc(AddInf,CreatedModifiedInfo,db.Model):
 			'RpAccFirstName':self.RpAccFirstName,
 			'RpAccLastName':self.RpAccLastName,
 			'RpAccPatronomic':self.RpAccPatronomic,
-			'RpAccBirthDate':(self.RpAccBirthDate).strftime("%Y-%m-%d %H:%M:%S"),
+			'RpAccBirthDate':apiDataFormat(self.RpAccBirthDate),
 			'RpAccResidency':self.RpAccResidency,
 			'RpAccPassportNo':self.RpAccPassportNo,
 			'RpAccPassportIssuePlace':self.RpAccPassportIssuePlace,
@@ -530,8 +531,8 @@ class Rp_acc(AddInf,CreatedModifiedInfo,db.Model):
 			'AddInf4':self.AddInf4,
 			'AddInf5':self.AddInf5,
 			'AddInf6':self.AddInf6,
-			'CreatedDate':(self.CreatedDate).strftime("%Y-%m-%d %H:%M:%S"),
-			'ModifiedDate':(self.ModifiedDate).strftime("%Y-%m-%d %H:%M:%S"),
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
 			'CreatedUId':self.CreatedUId,
 			'ModifiedUId':self.ModifiedUId,
 			'GCRecord':self.GCRecord

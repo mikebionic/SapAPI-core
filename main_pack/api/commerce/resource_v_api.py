@@ -26,9 +26,10 @@ from flask import current_app
 
 
 @api.route("/v-full-resources/",methods=['GET'])
-def api_resources_pack():
+def api_v_full_resources():
 	if request.method == 'GET':
-		resources = Resource.query.all()
+		resources = Resource.query\
+			.filter(Resource.GCRecord=='' or Resource.GCRecord==None).all()
 		barcodes = Barcode.query.all()
 		categories = Res_category.query.all()
 		res_prices = Res_price.query.all()
@@ -56,9 +57,10 @@ def api_resources_pack():
 import base64
 
 @api.route("/v-resources/",methods=['GET'])
-def api_resources_short():
+def api_v_resources():
 	if request.method == 'GET':
-		resources = Resource.query.all()
+		resources = Resource.query\
+			.filter(Resource.GCRecord=='' or Resource.GCRecord==None).all()
 		barcodes = Barcode.query.all()
 		categories = Res_category.query.all()
 		res_prices = Res_price.query.all()
@@ -84,7 +86,43 @@ def api_resources_short():
 			"status":1,
 			"message":"All view resources",
 			"data":data,
-			"total":len(resources)
+			"total":len(data)
+		}
+		response = make_response(jsonify(res),200)
+	return response
+
+
+@api.route("/tbl-dk-categories/<int:ResCatId>/v-resources/",methods=['GET'])
+def api_category_v_resources(ResCatId):
+	if request.method == 'GET':
+		resources = Resource.query.filter_by(ResCatId=ResCatId)\
+			.filter(Resource.GCRecord=='' or Resource.GCRecord==None).all()
+		barcodes = Barcode.query.all()
+		categories = Res_category.query.all()
+		res_prices = Res_price.query.all()
+		res_totals = Res_total.query.all()
+		images = Image.query.all()
+		data = []
+		for resource in resources:
+			resourceList = resource.to_json_api()
+
+			List_Barcode = [barcode.BarcodeVal for barcode in barcodes if barcode.ResId==resource.ResId]
+			List_Res_category = [category.ResCatName for category in categories if category.ResCatId==resource.ResCatId]
+			List_Res_price = [res_price.ResPriceValue for res_price in res_prices if res_price.ResId==resource.ResId and res_price.ResPriceTypeId==2]
+			List_Res_total = [res_total.ResTotBalance for res_total in res_totals if res_total.ResId==resource.ResId]
+			List_Image = [base64.encodebytes(image.Image).decode('ascii') for image in images if image.ResId==resource.ResId]
+
+			resourceList["BarcodeVal"] = List_Barcode[0] if len(List_Barcode)>0 else ''
+			resourceList["ResCatName"] = List_Res_category[0] if len(List_Res_category)>0 else ''
+			resourceList["ResPriceValue"] = List_Res_price[0] if len(List_Res_price)>0 else ''
+			resourceList["ResTotBalance"] = List_Res_total[0] if len(List_Res_total)>0 else ''
+			resourceList["Image"] = List_Image[0] if len(List_Image)>0 else ''
+			data.append(resourceList)
+		res = {
+			"status":1,
+			"message":"All view resources",
+			"data":data,
+			"total":len(data)
 		}
 		response = make_response(jsonify(res),200)
 	return response

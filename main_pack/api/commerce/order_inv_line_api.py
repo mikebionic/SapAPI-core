@@ -11,7 +11,8 @@ from flask import current_app
 @api.route("/tbl-dk-order-inv-lines/",methods=['GET','POST','PUT'])
 def api_order_inv_lines():
 	if request.method == 'GET':
-		order_inv_lines = Order_inv_line.query.all()
+		order_inv_lines = Order_inv_line.query\
+			.filter(Order_inv_line.GCRecord=='' or Order_inv_line.GCRecord==None).all()
 		res = {
 			"status":1,
 			"message":"All order inv lines",

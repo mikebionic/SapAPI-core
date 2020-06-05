@@ -8,12 +8,16 @@ from main_pack.config import Config
 from flask_babel import Babel,format_date,gettext,lazy_gettext
 from flask_bcrypt import Bcrypt
 from flask_mail import Mail
+from elasticsearch import Elasticsearch
 
 babel = Babel()
 db = SQLAlchemy()
 bcrypt = Bcrypt()
 login_manager = LoginManager()
 mail = Mail()
+# elasticsearch = Elasticsearch([app.config['ELASTICSEARCH_URL']])\
+# 	if app.config['ELASTICSEARCH_URL'] else None
+
 
 login_manager.login_view = 'commerce_auth.login'
 login_manager.login_message = lazy_gettext('Login the system!')
@@ -42,6 +46,7 @@ def create_app(config_class=Config):
 	login_manager.init_app(app)
 	babel.init_app(app)
 	mail.init_app(app)
+	# elasticsearch.init_app(app)
 	
 	# all models are separated in the models folder
 	from main_pack.models import bp as models_bp

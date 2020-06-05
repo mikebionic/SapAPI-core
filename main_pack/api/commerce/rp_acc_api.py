@@ -8,10 +8,11 @@ from main_pack import db
 from flask import current_app
 
 # @api.route("/rp-accounts/",methods=['GET','POST','PUT'])
-@api.route("/rp_accs/",methods=['GET','POST','PUT'])
+@api.route("/tbl-dk-rp-accs/",methods=['GET','POST','PUT'])
 def api_rp_accs():
 	if request.method == 'GET':
-		rp_accs = Rp_acc.query.all()
+		rp_accs = Rp_acc.query\
+			.filter(Rp_acc.GCRecord=='' or Rp_acc.GCRecord==None).all()
 		res = {
 			"status":1,
 			"message":"All rp_accs",

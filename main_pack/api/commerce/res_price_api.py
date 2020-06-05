@@ -11,7 +11,8 @@ from flask import current_app
 @api.route("/tbl-dk-res-prices/",methods=['GET','POST','PUT'])
 def api_res_prices():
 	if request.method == 'GET':
-		res_prices = Res_price.query.all()
+		res_prices = Res_price.query\
+			.filter(Res_price.GCRecord=='' or Res_price.GCRecord==None).all()
 		res = {
 			"status":1,
 			"message":"All res prices",

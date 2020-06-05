@@ -11,7 +11,8 @@ from flask import current_app
 @api.route("/tbl-dk-res-totals/",methods=['GET','POST','PUT'])
 def api_res_totals():
 	if request.method == 'GET':
-		res_totals = Res_total.query.all()
+		res_totals = Res_total.query\
+			.filter(Res_total.GCRecord=='' or Res_total.GCRecord==None).all()
 		res = {
 			"status":1,
 			"message":"All res totals",

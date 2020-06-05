@@ -11,7 +11,8 @@ from flask import current_app
 @api.route("/tbl-dk-barcodes/",methods=['GET','POST','PUT'])
 def api_barcodes():
 	if request.method == 'GET':
-		barcodes = Barcode.query.all()
+		barcodes = Barcode.query\
+			.filter(Barcode.GCRecord=='' or Barcode.GCRecord==None).all()
 		res = {
 			"status":1,
 			"message":"All barcodes",

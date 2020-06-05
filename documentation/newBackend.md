@@ -52,7 +52,7 @@ GET POST
 /api/tbl-dk-categories/
 
 GET PUT
-/api/tbl-dk-categories/<int:id>/
+/api/tbl-dk-categories/<int:ResCatId>/
 
 GET
 /api/tbl-dk-tbl-dk-categories/paginate/
@@ -61,11 +61,14 @@ GET POST
 /api/tbl-dk-resources/
 
 GET PUT
-/api/tbl-dk-resources/<int:id>/
+/api/tbl-dk-resources/<int:ResId>/
 
 GET
 /api/v-resources/
 /api/v-full-resources/
+
+GET
+/api/tbl-dk-categories/<int:ResCatId>/v-resources/
 
 GET POST
 /api/tbl-dk-res-prices/

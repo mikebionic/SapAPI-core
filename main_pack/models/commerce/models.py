@@ -2,6 +2,7 @@ from main_pack import db
 from datetime import datetime
 from flask_login import current_user
 from main_pack.models.base.models import CreatedModifiedInfo, AddInf
+from main_pack.base.dataMethods import apiDataFormat
 
 class Barcode(CreatedModifiedInfo,db.Model):
 	__tablename__ = "tbl_dk_barcode"
@@ -37,8 +38,8 @@ class Barcode(CreatedModifiedInfo,db.Model):
 			'ResId':self.ResId,
 			'UnitId':self.UnitId,
 			'BarcodeVal':self.BarcodeVal,
-			'CreatedDate':(self.CreatedDate).strftime("%Y-%m-%d %H:%M:%S"),
-			'ModifiedDate':(self.ModifiedDate).strftime("%Y-%m-%d %H:%M:%S"),
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
 			'CreatedUId':self.CreatedUId,
 			'ModifiedUId':self.ModifiedUId,
 			'GCRecord':self.GCRecord
@@ -310,7 +311,7 @@ class Invoice(AddInf,CreatedModifiedInfo,db.Model):
 			'EmpId':self.EmpId,
 			'InvRegNo':self.InvRegNo,
 			'InvDesc':self.InvDesc,
-			'InvDate':(self.InvDate).strftime("%Y-%m-%d %H:%M:%S"),
+			'InvDate':apiDataFormat(self.InvDate),
 			'InvTotal':self.InvTotal,
 			'InvExpenseAmount':self.InvExpenseAmount,
 			'InvTaxAmount':self.InvTaxAmount,
@@ -327,8 +328,8 @@ class Invoice(AddInf,CreatedModifiedInfo,db.Model):
 			'AddInf4':self.AddInf4,
 			'AddInf5':self.AddInf5,
 			'AddInf6':self.AddInf6,
-			'CreatedDate':(self.CreatedDate).strftime("%Y-%m-%d %H:%M:%S"),
-			'ModifiedDate':(self.ModifiedDate).strftime("%Y-%m-%d %H:%M:%S"),
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
 			'CreatedUId':self.CreatedUId,
 			'ModifiedUId':self.ModifiedUId,
 			'GCRecord':self.GCRecord
@@ -376,7 +377,7 @@ class Order_inv(AddInf,CreatedModifiedInfo,db.Model):
 			'EmpId':self.EmpId,
 			'OInvRegNo':self.OInvRegNo,
 			'OInvDesc':self.OInvDesc,
-			'OInvDate':(self.OInvDate).strftime("%Y-%m-%d %H:%M:%S"),
+			'OInvDate':apiDataFormat(self.OInvDate),
 			'OInvTotal':self.OInvTotal,
 			'OInvExpenseAmount':self.OInvExpenseAmount,
 			'OInvTaxAmount':self.OInvTaxAmount,
@@ -393,8 +394,8 @@ class Order_inv(AddInf,CreatedModifiedInfo,db.Model):
 			'AddInf4':self.AddInf4,
 			'AddInf5':self.AddInf5,
 			'AddInf6':self.AddInf6,
-			'CreatedDate':(self.CreatedDate).strftime("%Y-%m-%d %H:%M:%S"),
-			'ModifiedDate':(self.ModifiedDate).strftime("%Y-%m-%d %H:%M:%S"),
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
 			'CreatedUId':self.CreatedUId,
 			'ModifiedUId':self.ModifiedUId,
 			'GCRecord':self.GCRecord
@@ -436,15 +437,15 @@ class Order_inv_line(AddInf,CreatedModifiedInfo,db.Model):
 			'OInvLineTaxAmount':self.OInvLineTaxAmount,
 			'OInvLineDiscAmount':self.OInvLineDiscAmount,
 			'OInvLineFTotal':self.OInvLineFTotal,
-			'OInvLineDate':(self.OInvLineDate).strftime("%Y-%m-%d %H:%M:%S"),
+			'OInvLineDate':apiDataFormat(self.OInvLineDate),
 			'AddInf1':self.AddInf1,
 			'AddInf2':self.AddInf2,
 			'AddInf3':self.AddInf3,
 			'AddInf4':self.AddInf4,
 			'AddInf5':self.AddInf5,
 			'AddInf6':self.AddInf6,
-			'CreatedDate':(self.CreatedDate).strftime("%Y-%m-%d %H:%M:%S"),
-			'ModifiedDate':(self.ModifiedDate).strftime("%Y-%m-%d %H:%M:%S"),
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
 			'CreatedUId':self.CreatedUId,
 			'ModifiedUId':self.ModifiedUId,
 			'GCRecord':self.GCRecord
@@ -471,8 +472,8 @@ class Order_inv_type(CreatedModifiedInfo,db.Model):
 			'OInvTypeDesc_ruRU':self.OInvTypeDesc_ruRU,
 			'OInvTypeName_enUS':self.OInvTypeName_enUS,
 			'OInvTypeDesc_enUS':self.OInvTypeDesc_enUS,
-			'CreatedDate':(self.CreatedDate).strftime("%Y-%m-%d %H:%M:%S"),
-			'ModifiedDate':(self.ModifiedDate).strftime("%Y-%m-%d %H:%M:%S"),
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
 			'CreatedUId':self.CreatedUId,
 			'ModifiedUId':self.ModifiedUId,
 			'GCRecord':self.GCRecord
@@ -628,8 +629,8 @@ class Resource(AddInf,CreatedModifiedInfo,db.Model):
 			'AddInf4':self.AddInf4,
 			'AddInf5':self.AddInf5,
 			'AddInf6':self.AddInf6,
-			'CreatedDate':(self.CreatedDate).strftime("%Y-%m-%d %H:%M:%S"),
-			'ModifiedDate':(self.ModifiedDate).strftime("%Y-%m-%d %H:%M:%S"),
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
 			'CreatedUId':self.CreatedUId,
 			'ModifiedUId':self.ModifiedUId,
 			'GCRecord':self.GCRecord
@@ -667,8 +668,8 @@ class Res_category(CreatedModifiedInfo,db.Model):
 			'ResCatName':self.ResCatName,
 			'ResCatDesc':self.ResCatDesc,
 			'ResCatIconName':self.ResCatIconName,
-			'CreatedDate':(self.CreatedDate).strftime("%Y-%m-%d %H:%M:%S"),
-			'ModifiedDate':(self.ModifiedDate).strftime("%Y-%m-%d %H:%M:%S"),
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
 			'CreatedUId':self.CreatedUId,
 			'ModifiedUId':self.ModifiedUId,
 			'GCRecord':self.GCRecord
@@ -776,7 +777,7 @@ class Res_price(CreatedModifiedInfo,db.Model):
 			'resId':self.ResId,
 			'resPriceRegNo':self.ResPriceRegNo,
 			'resPriceValue':self.ResPriceValue,
-			'priceStartDate':(self.PriceStartDate).strftime("%Y-%m-%d %H:%M:%S"),
+			'priceStartDate':apiDataFormat(self.PriceStartDate),
 			'priceEndDate':self.PriceEndDate
 			}
 		return json_res_price
@@ -791,10 +792,10 @@ class Res_price(CreatedModifiedInfo,db.Model):
 			'ResId':self.ResId,
 			'ResPriceRegNo':self.ResPriceRegNo,
 			'ResPriceValue':self.ResPriceValue,
-			'PriceStartDate':(self.PriceStartDate).strftime("%Y-%m-%d %H:%M:%S"),
-			'PriceEndDate':(self.PriceEndDate).strftime("%Y-%m-%d %H:%M:%S"),
-			'CreatedDate':(self.CreatedDate).strftime("%Y-%m-%d %H:%M:%S"),
-			'ModifiedDate':(self.ModifiedDate).strftime("%Y-%m-%d %H:%M:%S"),
+			'PriceStartDate':apiDataFormat(self.PriceStartDate),
+			'PriceEndDate':apiDataFormat(self.PriceEndDate),
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
 			'CreatedUId':self.CreatedUId,
 			'ModifiedUId':self.ModifiedUId,
 			'GCRecord':self.GCRecord
@@ -864,10 +865,10 @@ class Res_total(CreatedModifiedInfo,db.Model):
 			'ResTotBalance':self.ResTotBalance,
 			'ResTotInAmount':self.ResTotInAmount,
 			'ResTotOutAmount':self.ResTotOutAmount,
-			'ResTotLastTrDate':(self.ResTotLastTrDate).strftime("%Y-%m-%d %H:%M:%S"),
+			'ResTotLastTrDate':apiDataFormat(self.ResTotLastTrDate),
 			'ResTotPurchAvgPrice':self.ResTotPurchAvgPrice,
-			'CreatedDate':(self.CreatedDate).strftime("%Y-%m-%d %H:%M:%S"),
-			'ModifiedDate':(self.ModifiedDate).strftime("%Y-%m-%d %H:%M:%S"),
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
 			'CreatedUId':self.CreatedUId,
 			'ModifiedUId':self.ModifiedUId,
 			'GCRecord':self.GCRecord
@@ -1085,9 +1086,9 @@ class Rp_acc_trans_total(CreatedModifiedInfo,db.Model):
 			'RpAccTrTotBalance':self.RpAccTrTotBalance,
 			'RpAccTrTotDebit':self.RpAccTrTotDebit,
 			'RpAccTrTotCredit':self.RpAccTrTotCredit,
-			'RpAccTrTotLastTrDate':(self.RpAccTrTotLastTrDate).strftime("%Y-%m-%d %H:%M:%S"),
-			'CreatedDate':(self.CreatedDate).strftime("%Y-%m-%d %H:%M:%S"),
-			'ModifiedDate':(self.ModifiedDate).strftime("%Y-%m-%d %H:%M:%S"),
+			'RpAccTrTotLastTrDate':apiDataFormat(self.RpAccTrTotLastTrDate),
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
 			'CreatedUId':self.CreatedUId,
 			'ModifiedUId':self.ModifiedUId,
 			'GCRecord':self.GCRecord

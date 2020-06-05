@@ -11,7 +11,8 @@ from flask import current_app
 @api.route("/tbl-dk-order-invoices/",methods=['GET','POST','PUT'])
 def api_order_invoices():
 	if request.method == 'GET':
-		order_invoices = Order_inv.query.all()
+		order_invoices = Order_inv.query\
+			.filter(Order_inv.GCRecord=='' or Order_inv.GCRecord==None).all()
 		res = {
 			"status":1,
 			"message":"All order invoices",

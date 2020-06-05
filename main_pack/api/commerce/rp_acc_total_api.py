@@ -11,7 +11,8 @@ from flask import current_app
 # @api.route("/total-transactions/",methods=['GET','POST','PUT'])
 def api_rp_acc_trans_totals():
 	if request.method == 'GET':
-		rp_acc_trans_totals = Rp_acc_trans_total.query.all()
+		rp_acc_trans_totals = Rp_acc_trans_total.query\
+			.filter(Rp_acc_trans_total.GCRecord=='' or Rp_acc_trans_total.GCRecord==None).all()
 		res = {
 			"status":1,
 			"message":"All rp acc trans totals",

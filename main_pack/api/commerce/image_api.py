@@ -11,7 +11,8 @@ from flask import current_app
 @api.route("/tbl-dk-images/",methods=['GET','POST','PUT'])
 def api_images():
 	if request.method == 'GET':
-		images = Image.query.all()
+		images = Image.query\
+			.filter(Image.GCRecord=='' or Image.GCRecord==None).all()
 		res = {
 			"status":1,
 			"message":"All images",

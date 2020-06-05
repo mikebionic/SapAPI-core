@@ -36,7 +36,8 @@ def api_resource(id):
 @api.route("/tbl-dk-resources/",methods=['GET','POST','PUT'])
 def api_resources():
 	if request.method == 'GET':
-		resources = Resource.query.all()
+		resources = Resource.query\
+			.filter(Resource.GCRecord=='' or Resource.GCRecord==None).all()
 		res = {
 			"status":1,
 			"message":"All resources",

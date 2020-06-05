@@ -39,7 +39,7 @@ def ui_resource():
 		'resMakers':resMakers,
 		'rpAccs':rpAccs
 		}
-	reg_num = generate('goods code') # specify the generation prefix
+	reg_num = generate(UId=current_user.UId,prefixType='goods code') # specify the generation prefix
 	if request.method == "GET":
 		try:
 			regNo = makeRegNum(current_user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'')
@@ -56,7 +56,8 @@ def ui_resource():
 		resource = addResourceDict(req)
 		resId = req.get('resId')
 		if resId == None:
-			validation = validate(resource['ResRegNo'],reg_num.RegNumLastNum+1,prefixType='goods code')
+			validation = validate(UId=current_user.UId,fullRegNo=resource['ResRegNo'],
+				RegNumLastNum=reg_num.RegNumLastNum+1,prefixType='goods code')
 			if validation['status']==True:
 				reg_num.RegNumLastNum=validation['RegNumLastNum']
 				newResource = Resource(**resource)

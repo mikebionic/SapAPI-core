@@ -4,9 +4,11 @@ from main_pack.key_generator import bp
 from main_pack.models.base.models import Reg_num,Reg_num_type
 
 from main_pack.models.hr_department.models import Employee
+from main_pack.models.users.models import Users
 
 from main_pack.models.commerce.models import Resource
 from main_pack.models.commerce.models import Res_price
+from main_pack.models.base.models import Rp_acc
 
 from datetime import datetime
 from sqlalchemy import or_, and_
@@ -16,34 +18,36 @@ prefixTypesDict = {
 		'user code':2,
 		'goods code':3,
 		'account code':4,
-		'price code':5
+		'price code':5,
+		'rp code':6
 	}
 
-def generate(prefixType):
+def generate(UId,prefixType):
+	user = Users.query.get(UId)
 	prefixType = prefixTypesDict[prefixType]
 	reg_num = Reg_num.query.filter(
-		and_(Reg_num.UId==current_user.UId,Reg_num.RegNumTypeId==prefixType)).first()
+		and_(Reg_num.UId==user.UId,Reg_num.RegNumTypeId==prefixType)).first()
 	if not reg_num:
 		regNumType = Reg_num_type.query.filter_by(RegNumTypeId=prefixType).first()
 		RegNumPrefix = makeShortType(regNumType.RegNumTypeName_tkTM)
-		newRegNum = Reg_num(UId=current_user.UId, RegNumTypeId=regNumType.RegNumTypeId,
+		newRegNum = Reg_num(UId=user.UId, RegNumTypeId=regNumType.RegNumTypeId,
 			RegNumPrefix=RegNumPrefix,RegNumLastNum=0)
 		db.session.add(newRegNum)
 		db.session.commit()
 	try:
 		reg_num = Reg_num.query.filter(
-			and_(Reg_num.UId==current_user.UId,Reg_num.RegNumTypeId==prefixType)).first()
+			and_(Reg_num.UId==user.UId,Reg_num.RegNumTypeId==prefixType)).first()
 		response = reg_num
 	except:
 		response = jsonify({'error':'Error generating regNo'})
 	return response
 
-
-def validate(fullRegNo,RegNumLastNum,prefixType):
+def validate(UId,fullRegNo,RegNumLastNum,prefixType):
+	user = Users.query.get(UId)
 	if(prefixType=='employee code'):
 		prefixType = prefixTypesDict[prefixType]
 		reg_num = Reg_num.query.filter(
-			and_(Reg_num.UId==current_user.UId,Reg_num.RegNumTypeId==prefixType)).first()
+			and_(Reg_num.UId==user.UId,Reg_num.RegNumTypeId==prefixType)).first()
 		employee = Employee.query.filter_by(EmpRegNo=fullRegNo).first()
 
 		if not employee and (RegNumLastNum>reg_num.RegNumLastNum):
@@ -62,7 +66,7 @@ def validate(fullRegNo,RegNumLastNum,prefixType):
 	elif(prefixType=='goods code'):
 		prefixType = prefixTypesDict[prefixType]
 		reg_num = Reg_num.query.filter(
-			and_(Reg_num.UId==current_user.UId,Reg_num.RegNumTypeId==prefixType)).first()
+			and_(Reg_num.UId==user.UId,Reg_num.RegNumTypeId==prefixType)).first()
 		resource = Resource.query.filter_by(ResRegNo=fullRegNo).first()
 
 		if not resource and (RegNumLastNum>reg_num.RegNumLastNum):
@@ -81,7 +85,7 @@ def validate(fullRegNo,RegNumLastNum,prefixType):
 	elif(prefixType=='price code'):
 		prefixType = prefixTypesDict[prefixType]
 		reg_num = Reg_num.query.filter(
-			and_(Reg_num.UId==current_user.UId,Reg_num.RegNumTypeId==prefixType)).first()
+			and_(Reg_num.UId==user.UId,Reg_num.RegNumTypeId==prefixType)).first()
 		resPrice = Res_price.query.filter_by(ResPriceRegNo=fullRegNo).first()
 
 		if not resPrice and (RegNumLastNum>reg_num.RegNumLastNum):
@@ -96,11 +100,33 @@ def validate(fullRegNo,RegNumLastNum,prefixType):
 				'status':False,
 				'RegNumLastNum':RegNumLastNum
 			}
+	
+	elif(prefixType=='rp code'):
+		prefixType = prefixTypesDict[prefixType]
+		reg_num = Reg_num.query.filter(
+			and_(Reg_num.UId==user.UId,Reg_num.RegNumTypeId==prefixType)).first()
+		rpAcc = Rp_acc.query.filter_by(RpAccRegNo=fullRegNo).first()
+
+		if not rpAcc and (RegNumLastNum>reg_num.RegNumLastNum):
+			response = {
+				'status':True,
+				'RegNumLastNum':RegNumLastNum
+			}
+		else:
+			while RegNumLastNum<=reg_num.RegNumLastNum:
+				RegNumLastNum+=1
+			response = {
+				'status':False,
+				'RegNumLastNum':RegNumLastNum
+			}
+	
+
 	else:
 		response={
 			'status':'error',
 			'responseText':'Wrong prefix type or missing in database'
 		}
+
 	return response
 
 def makeRegNum(shortName,prefix,lastNum,suffix):
@@ -143,3 +169,90 @@ def makeShortName(name):
 # 	else:
 # 		response = 'regNo already presents'
 # 	return jsonify({'response':response})
+
+
+#######################################
+
+# def generate_ol(prefixType):
+# 	prefixType = prefixTypesDict[prefixType]
+# 	reg_num = Reg_num.query.filter(
+# 		and_(Reg_num.UId==current_user.UId,Reg_num.RegNumTypeId==prefixType)).first()
+# 	if not reg_num:
+# 		regNumType = Reg_num_type.query.filter_by(RegNumTypeId=prefixType).first()
+# 		RegNumPrefix = makeShortType(regNumType.RegNumTypeName_tkTM)
+# 		newRegNum = Reg_num(UId=current_user.UId, RegNumTypeId=regNumType.RegNumTypeId,
+# 			RegNumPrefix=RegNumPrefix,RegNumLastNum=0)
+# 		db.session.add(newRegNum)
+# 		db.session.commit()
+# 	try:
+# 		reg_num = Reg_num.query.filter(
+# 			and_(Reg_num.UId==current_user.UId,Reg_num.RegNumTypeId==prefixType)).first()
+# 		response = reg_num
+# 	except:
+# 		response = jsonify({'error':'Error generating regNo'})
+# 	return response
+
+
+# def validate_ol(fullRegNo,RegNumLastNum,prefixType):
+# 	if(prefixType=='employee code'):
+# 		prefixType = prefixTypesDict[prefixType]
+# 		reg_num = Reg_num.query.filter(
+# 			and_(Reg_num.UId==current_user.UId,Reg_num.RegNumTypeId==prefixType)).first()
+# 		employee = Employee.query.filter_by(EmpRegNo=fullRegNo).first()
+
+# 		if not employee and (RegNumLastNum>reg_num.RegNumLastNum):
+# 			response = {
+# 				'status':True,
+# 				'RegNumLastNum':RegNumLastNum
+# 			}
+
+# 		else:
+# 			while RegNumLastNum<=reg_num.RegNumLastNum:
+# 				RegNumLastNum+=1
+# 			response = {
+# 				'status':False,
+# 				'RegNumLastNum':RegNumLastNum
+# 			}
+# 	elif(prefixType=='goods code'):
+# 		prefixType = prefixTypesDict[prefixType]
+# 		reg_num = Reg_num.query.filter(
+# 			and_(Reg_num.UId==current_user.UId,Reg_num.RegNumTypeId==prefixType)).first()
+# 		resource = Resource.query.filter_by(ResRegNo=fullRegNo).first()
+
+# 		if not resource and (RegNumLastNum>reg_num.RegNumLastNum):
+# 			response = {
+# 				'status':True,
+# 				'RegNumLastNum':RegNumLastNum
+# 			}
+# 		else:
+# 			while RegNumLastNum<=reg_num.RegNumLastNum:
+# 				RegNumLastNum+=1
+# 			response = {
+# 				'status':False,
+# 				'RegNumLastNum':RegNumLastNum
+# 			}
+
+# 	elif(prefixType=='price code'):
+# 		prefixType = prefixTypesDict[prefixType]
+# 		reg_num = Reg_num.query.filter(
+# 			and_(Reg_num.UId==current_user.UId,Reg_num.RegNumTypeId==prefixType)).first()
+# 		resPrice = Res_price.query.filter_by(ResPriceRegNo=fullRegNo).first()
+
+# 		if not resPrice and (RegNumLastNum>reg_num.RegNumLastNum):
+# 			response = {
+# 				'status':True,
+# 				'RegNumLastNum':RegNumLastNum
+# 			}
+# 		else:
+# 			while RegNumLastNum<=reg_num.RegNumLastNum:
+# 				RegNumLastNum+=1
+# 			response = {
+# 				'status':False,
+# 				'RegNumLastNum':RegNumLastNum
+# 			}
+# 	else:
+# 		response={
+# 			'status':'error',
+# 			'responseText':'Wrong prefix type or missing in database'
+# 		}
+# 	return response

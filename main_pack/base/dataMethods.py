@@ -23,6 +23,13 @@ def dateDataCheck(date):
 		date = None
 	return date
 
+def apiDataFormat(date):
+	try:
+		date = date.strftime("%Y-%m-%d %H:%M:%S")
+	except:
+		date = None
+	return date
+
 def configureNulls(data):
 	for e in data:
 		if data[e] == '' or data[e] == 0:

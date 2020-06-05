@@ -10,6 +10,11 @@ from main_pack.commerce.auth.utils import (send_reset_email,get_register_token,
 
 from main_pack.commerce.commerce.utils import commonUsedData
 
+from main_pack.models.base.models import Rp_acc
+
+from main_pack.models.base.models import Reg_num,Reg_num_type
+from main_pack.key_generator.utils import makeRegNum,generate,validate
+
 @bp.route("/login", methods=['GET', 'POST'])
 def login():
 	if current_user.is_authenticated:
@@ -96,6 +101,16 @@ def register_token(token):
 			user = Users(UName=UName,UEmail=UEmail,UShortName=UShortName,
 				UPass=hashed_password,UFullName=form.full_name.data)
 			db.session.add(user)
+
+			try:
+				reg_num = generate(UId=user.UId,prefixType='rp code')
+				regNo = makeRegNum(user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'')
+			except:
+				flash(lazy_gettext('Error generating Registration number'),'warning')
+				return redirect(url_for('commerce_auth.register'))
+			rp_acc = Rp_acc(RpAccName=form.full_name.data,RpAccEMail=UEmail,RpAccRegNo=regNo,RpAccTypeId=1)
+			db.session.add(rp_acc)
+
 			db.session.commit()
 			flash('{}!'.format(UName)+lazy_gettext('your profile has been created!'),'success')
 			return redirect(url_for('commerce_auth.login'))
