@@ -42,8 +42,6 @@ def save_picture(form_picture, path):
 	i.save(picture_path)
 	return picture_fn
 
-
-
 def addUsersDict(req):
 	CId = req.get('companyId')
 	DivId = req.get('divisionId')

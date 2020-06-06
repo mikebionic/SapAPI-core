@@ -20,32 +20,19 @@ class UpdateProfileForm(FlaskForm):
 			if user:
 				raise ValidationError(lazy_gettext('That username is taken. Choose a different one!'))
 
-	# RpAccName = db.Column(db.String(255))
-	# RpAccAddress = db.Column(db.String(500))
-	# RpAccMobilePhoneNumber = db.Column(db.String(100))
-	# RpAccHomePhoneNumber = db.Column(db.String(100))
-	# RpAccZipCode = db.Column(db.String(100))
-	# RpAccEMail = db.Column(db.String(100))
-	# RpAccFirstName = db.Column(db.String(100))
-	# RpAccLastName = db.Column(db.String(100))
-	# RpAccPatronomic = db.Column(db.String(100))
-	# RpAccBirthDate = db.Column(db.DateTime)
-	# RpAccResidency = db.Column(db.String(100))
-
-
 class UpdateRpAccForm(FlaskForm):
 	username = StringField(lazy_gettext('Username'),
 							validators=[DataRequired(),Length(min=2,max=60)])
 	fullname = StringField(lazy_gettext('Full name'),
 							validators=[DataRequired(),Length(min=2,max=100)])
 	address = StringField(lazy_gettext('Address'),
-							validators=[Length(min=3,max=255)])
+							validators=[Length(max=255)])
 	mobilePhone = StringField(lazy_gettext('Mobile phone'),
 							validators=[DataRequired(),Length(min=2,max=100)])
 	homePhone = StringField(lazy_gettext('Home phone'),
-							validators=[Length(min=2,max=100)])
+							validators=[Length(max=100)])
 	zipCode = StringField(lazy_gettext('Zip code'),
-							validators=[Length(min=2,max=100)])
+							validators=[Length(max=100)])
 	picture = FileField(lazy_gettext('Update Profile Picture'),
 							validators=[FileAllowed(['jpg','png','img'])])
 	submit = SubmitField(lazy_gettext('Update'))

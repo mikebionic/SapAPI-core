@@ -29,7 +29,7 @@ def verify_register_token(token):
 
 def send_register_email(UName,UEmail):
 	token = get_register_token(UName=UName,UEmail=UEmail)
-	msg = Message(lazy_gettext('Password reset request'), sender='noterply@demo.com',recipients=[UEmail])
+	msg = Message(lazy_gettext('Registration request'), sender='noterply@demo.com',recipients=[UEmail])
 	msg.body = f'''{lazy_gettext('Dear')}, {UName}
 	{lazy_gettext('You have requested the registration on ecommerce')}.
 	{lazy_gettext('Please follow the link to verify your email')}!

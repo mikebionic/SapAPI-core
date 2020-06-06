@@ -15,6 +15,7 @@ class Users(AddInf,CreatedModifiedInfo,db.Model,UserMixin):
 	UId = db.Column(db.Integer,nullable=False,primary_key=True)
 	CId = db.Column(db.Integer,db.ForeignKey("tbl_dk_company.CId"))
 	DivId = db.Column(db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
+	RpAccId = db.Column(db.Integer)
 	UFullName = db.Column(db.String(100))
 	UName = db.Column(db.String(60),nullable=False)
 	UEmail = db.Column(db.String(100),unique=True)

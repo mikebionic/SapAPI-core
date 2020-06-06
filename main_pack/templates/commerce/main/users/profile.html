@@ -30,7 +30,7 @@
                     </div>
                     <div class="username has-text-centered">
                       <span>{{current_user.UFullName}}</span>
-                      <small>{{_('Registered date')}}: {{current_user.CreatedDate.strftime('%d-%m-%Y') }}</small>
+                      <small>{{_('Registered date')}}: {{current_user.CreatedDate.strftime('%d-%m-%Y') if current_user.CreatedDate else ''}}</small>
                     </div>
                   </div>
                 </div>
@@ -47,76 +47,35 @@
                     <div class="columns">
                       <div class="column is-6">
                         <div class="info-block">
+                          <span class="label-text">{{_('Email')}}</span>
+                          <span class="label-value">{{current_user.UEmail}}</span>
+                        </div>
+                        <div class="info-block">
                           <span class="label-text">{{_('Full name')}}</span>
                           <span class="label-value">{{current_user.UFullName}}</span>
+                        </div>
+                        <div class="info-block">
+                          <span class="label-text">{{_('Address')}}</span>
+                          <span class="label-value">{{rpAcc.RpAccAddress if rpAcc.RpAccAddress else ''}}</span>
                         </div>
                       </div>
                       <div class="column is-6">
                         <div class="info-block">
-                          <span class="label-text">{{_('Email')}}</span>
-                          <span class="label-value">{{current_user.UEmail}}</span>
+                          <span class="label-text">{{_('Mobile phone')}}</span>
+                          <span class="label-value">{{rpAcc.RpAccMobilePhoneNumber if rpAcc.RpAccMobilePhoneNumber else ''}}</span>
+                        </div>
+                        <div class="info-block">
+                          <span class="label-text">{{_('Home phone')}}</span>
+                          <span class="label-value">{{rpAcc.RpAccHomePhoneNumber if rpAcc.RpAccHomePhoneNumber else ''}}</span>
+                        </div>
+                        <div class="info-block">
+                          <span class="label-text">{{_('Zip Code')}}</span>
+                          <span class="label-value">{{rpAcc.RpAccZipCode if rpAcc.RpAccZipCode else ''}}</span>
                         </div>
                       </div>
                     </div>
                   </div>
                   <img class="card-bg" src="{{ url_for('static', filename='commerce/main/images/logo/nephos-greyscale.svg')}}" alt="">
-                </div>
-
-                <div class="flat-card profile-info-card is-auto">
-                  <div class="card-title">
-                    <h3>{{_('Billing card')}}</h3>
-                    <div class="edit-account is-vhidden">
-                      <a href="{{ url_for('commerce_users.profile_edit') }}"><i class="feather-icons" data-feather="settings"></i></a>
-                    </div>
-                  </div>
-                  <div class="card-body">
-                    <div class="columns">
-                      <div class="column is-6">
-                        <div class="info-block">
-                          <span class="label-text">{{_('First name')}}</span>
-                          <span class="label-value">Elie</span>
-                        </div>
-                        <div class="info-block">
-                          <span class="label-text">{{_('Email')}}</span>
-                          <span class="label-value">eliedaniels@gmail.com</span>
-                        </div>
-                        <div class="info-block">
-                          <span class="label-text">{{_('Number')}}</span>
-                          <span class="label-value">23, Block C2</span>
-                        </div>
-                        <div class="info-block">
-                          <span class="label-text">{{_('City')}}</span>
-                          <span class="label-value">Los Angeles</span>
-                        </div>
-                        <div class="info-block">
-                          <span class="label-text">{{_('State')}}</span>
-                          <span class="label-value">CA</span>
-                        </div>
-                      </div>
-                      <div class="column is-6">
-                        <div class="info-block">
-                          <span class="label-text">{{_('Last name')}}</span>
-                          <span class="label-value">Daniels</span>
-                        </div>
-                        <div class="info-block">
-                          <span class="label-text">{{_('Phone')}}</span>
-                          <span class="label-value">+1 555 623 568</span>
-                        </div>
-                        <div class="info-block">
-                          <span class="label-text">{{_('Street')}}</span>
-                          <span class="label-value">Church Street</span>
-                        </div>
-                        <div class="info-block">
-                          <span class="label-text">{{_('Postal Code')}}</span>
-                          <span class="label-value">100065</span>
-                        </div>
-                        <div class="info-block">
-                          <span class="label-text">{{_('Country')}}</span>
-                          <span class="label-value">United States</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>

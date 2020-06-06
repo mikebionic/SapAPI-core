@@ -25,8 +25,9 @@ def admin_required():
 @login_required
 def profile():
 	commonData = commonUsedData()
-	# rpAcc = Rp_acc.query.filter(Rp_acc.RpAccId==current_user.UId)
-	return render_template ("commerce/main/users/profile.html",**commonData,title=gettext('Profile'))
+	rpAcc = Rp_acc.query.filter(Rp_acc.RpAccId==current_user.UId).first()
+	return render_template ("commerce/main/users/profile.html",**commonData,
+		title=gettext('Profile'),rpAcc=rpAcc)
 
 @bp.route("/profile_edit",methods=['GET', 'POST'])
 @login_required
@@ -52,8 +53,8 @@ def profile_edit():
 		rpAcc.update(**rpAccData)
 
 		db.session.commit()
-		flash('Profile successfully updated!', 'success')
-		return redirect('/profile')
+		flash(lazy_gettext('Profile successfully updated!'), 'success')
+		return redirect(url_for('commerce_users.profile'))
 	elif request.method == 'GET':
 		form.username.data = current_user.UName
 		form.fullname.data = current_user.UFullName

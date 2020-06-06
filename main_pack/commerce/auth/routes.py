@@ -99,18 +99,21 @@ def register_token(token):
 			UShortName = (UName[0]+UName[-1]).upper()
 			hashed_password = bcrypt.generate_password_hash(form.password.data).decode() 
 			user = Users(UName=UName,UEmail=UEmail,UShortName=UShortName,
-				UPass=hashed_password,UFullName=form.full_name.data)
+				UPass=hashed_password,UFullName=form.full_name.data,UTypeId=2)
 			db.session.add(user)
 
+			# get the regNum for RpAccount registration
 			try:
 				reg_num = generate(UId=user.UId,prefixType='rp code')
 				regNo = makeRegNum(user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'')
 			except:
 				flash(lazy_gettext('Error generating Registration number'),'warning')
 				return redirect(url_for('commerce_auth.register'))
+			# assign the UId of created User Model to Rp acc
 			rp_acc = Rp_acc(RpAccName=form.full_name.data,RpAccEMail=UEmail,RpAccRegNo=regNo,RpAccTypeId=1,UId=user.UId)
 			db.session.add(rp_acc)
-
+			# assign the RpAccId to a User model
+			user.RpAccId = rp_acc.RpAccId
 			db.session.commit()
 			flash('{}!'.format(UName)+lazy_gettext('your profile has been created!'),'success')
 			return redirect(url_for('commerce_auth.login'))
