@@ -5,7 +5,7 @@ from main_pack.commerce.users import bp
 from main_pack.commerce.users.forms import UpdateProfileForm,UpdateRpAccForm
 from main_pack.commerce.users.utils import save_picture,commonUsedData
 
-from main_pack.models.base.models import Image
+from main_pack.models.base.models import Image,Rp_acc
 
 from functools import wraps
 def admin_required():
@@ -32,7 +32,7 @@ def profile():
 @login_required
 def profile_edit():
 	form = UpdateRpAccForm()
-	rpAcc = Rp_acc.query.filter(UId=current_user.UId).first()
+	rpAcc = Rp_acc.query.filter(Rp_acc.UId==current_user.UId).first()
 	
 	if form.validate_on_submit():
 		userData = {

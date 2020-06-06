@@ -108,7 +108,7 @@ def register_token(token):
 			except:
 				flash(lazy_gettext('Error generating Registration number'),'warning')
 				return redirect(url_for('commerce_auth.register'))
-			rp_acc = Rp_acc(RpAccName=form.full_name.data,RpAccEMail=UEmail,RpAccRegNo=regNo,RpAccTypeId=1)
+			rp_acc = Rp_acc(RpAccName=form.full_name.data,RpAccEMail=UEmail,RpAccRegNo=regNo,RpAccTypeId=1,UId=user.UId)
 			db.session.add(rp_acc)
 
 			db.session.commit()

@@ -24,6 +24,7 @@ class Users(AddInf,CreatedModifiedInfo,db.Model,UserMixin):
 	UTypeId = db.Column(db.Integer,db.ForeignKey("tbl_dk_user_type.UTypeId"))
 	Wish = db.relationship('Wish',backref='users',lazy=True)
 	Rating = db.relationship('Rating',backref='users',lazy=True)
+	Rp_acc = db.relationship('Rp_acc',backref='users',lazy=True)
 	
 
 	def is_admin(self):

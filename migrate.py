@@ -45,7 +45,7 @@ db.session.add(user)
 regNum = Reg_num(UId=4, RegNumTypeId=6,
 			RegNumPrefix="AK",RegNumLastNum=0)
 db.session.add(regNum)
-rp_acc = Rp_acc(RpAccName="Mike Bionic",RpAccEMail="muhammedjepbarov@gmail.com",RpAccRegNo="ARAK1",RpAccTypeId=1)
+rp_acc = Rp_acc(RpAccName="Mike Bionic",RpAccEMail="muhammedjepbarov@gmail.com",RpAccRegNo="ARAK1",RpAccTypeId=1,UId=4)
 db.session.add(rp_acc)
 
 ####### color migrate #########

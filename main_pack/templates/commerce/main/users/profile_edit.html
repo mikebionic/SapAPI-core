@@ -26,17 +26,26 @@
 						</div>
 						<!-- Edit Account Layout -->
 						<div class="columns is-account-grid is-multiline">
+							{{ form.hidden_tag() }}
 							<div class="column is-4">
 								<!-- Upload Avatar -->
 								<div class="flat-card upload-card is-auto">
 									<div class="card-body">
 										<!-- Avatar form -->
 										<div id="avatar-upload" class="avatar-wrapper has-simple-popover" data-content="Change profile picture" data-placement="top">
-											<img class="profile-pic" src="https://image.ibb.co/b04PYv/placeholder_w.jpg" alt="">
+										<!-- 	<img class="profile-pic" src="https://image.ibb.co/b04PYv/placeholder_w.jpg" alt="">
 											<div class="upload-button">
 												<i class="upload-icon" data-feather="plus" aria-hidden="true"></i>
 											</div>
 											<input class="file-upload" type="file" accept="image/*"/>
+ -->
+											{{ form.picture.label() }}
+			                {{ form.picture(class="file-upload") }}
+			                {% if form.picture.errors %}
+			                  {% for error in form.picture.errors %}
+													<span class="text-danger">{{ error }}</span>
+			                  {% endfor %}
+			                {% endif %}
 										</div>
 										<!-- /Avatar form -->
 
@@ -67,35 +76,118 @@
 										<div class="columns">
 											<div class="column is-6">
 												<div class="info-block">
-													<span class="label-text">{{('First name')}}</span>
+													{{ form.username.label(class="label-text") }}
 													<div class="control">
-														<input type="text" class="input is-default" value="Elie">
-													</div>
-												</div>
-												<div class="info-block">
-													<span class="label-text">{{('Email')}}</span>
+						                {% if form.username.errors %}
+					                    {{ form.username(class="input is-default  is-invalid") }}
+					                    <div class="invalid-feedback">
+				                        {% for error in form.username.errors %}
+				                          <span>{{ error }}</span>
+				                        {% endfor %}
+					                    </div>
+						                {% else %}
+															{{ form.username(class="input is-default") }}
+					                	{% endif %}
+				              		</div>
+				              	</div>
+				              	<div class="info-block">
+													{{ form.fullname.label(class="label-text") }}
 													<div class="control">
-														<input type="email" class="input is-default" value="eliedaniels@gmail.com">
-													</div>
-												</div>
-											</div>
+						                {% if form.fullname.errors %}
+					                    {{ form.fullname(class="input is-default  is-invalid") }}
+					                    <div class="invalid-feedback">
+				                        {% for error in form.fullname.errors %}
+				                          <span>{{ error }}</span>
+				                        {% endfor %}
+					                    </div>
+						                {% else %}
+															{{ form.fullname(class="input is-default") }}
+					                	{% endif %}
+				              		</div>
+				              	</div>
+				              	<div class="info-block">
+													{{ form.address.label(class="label-text") }}
+													<div class="control">
+						                {% if form.address.errors %}
+					                    {{ form.address(class="input is-default  is-invalid") }}
+					                    <div class="invalid-feedback">
+				                        {% for error in form.address.errors %}
+				                          <span>{{ error }}</span>
+				                        {% endfor %}
+					                    </div>
+						                {% else %}
+															{{ form.address(class="input is-default") }}
+					                	{% endif %}
+				              		</div>
+				              	</div>
+				              </div>
+
 											<div class="column is-6">
-												<div class="info-block">
-													<span class="label-text">{{('Last name')}}</span>
+				              	<div class="info-block">
+													{{ form.mobilePhone.label(class="label-text") }}
 													<div class="control">
-														<input type="text" class="input is-default" value="Daniels">
-													</div>
-												</div>
-												<div class="info-block">
-													<span class="label-text">{{('Phone')}}</span>
+						                {% if form.mobilePhone.errors %}
+					                    {{ form.mobilePhone(class="input is-default  is-invalid") }}
+					                    <div class="invalid-feedback">
+				                        {% for error in form.mobilePhone.errors %}
+				                          <span>{{ error }}</span>
+				                        {% endfor %}
+					                    </div>
+						                {% else %}
+															{{ form.mobilePhone(class="input is-default") }}
+					                	{% endif %}
+				              		</div>
+				              	</div>
+
+				              	<div class="info-block">
+													{{ form.homePhone.label(class="label-text") }}
 													<div class="control">
-														<input type="text" class="input is-default" value="+1 555 623 568">
-													</div>
-												</div>
+						                {% if form.homePhone.errors %}
+					                    {{ form.homePhone(class="input is-default  is-invalid") }}
+					                    <div class="invalid-feedback">
+				                        {% for error in form.homePhone.errors %}
+				                          <span>{{ error }}</span>
+				                        {% endfor %}
+					                    </div>
+						                {% else %}
+															{{ form.homePhone(class="input is-default") }}
+					                	{% endif %}
+				              		</div>
+				              	</div>
+
+				              	<div class="info-block">
+													{{ form.zipCode.label(class="label-text") }}
+													<div class="control">
+						                {% if form.zipCode.errors %}
+					                    {{ form.zipCode(class="input is-default  is-invalid") }}
+					                    <div class="invalid-feedback">
+				                        {% for error in form.zipCode.errors %}
+				                          <span>{{ error }}</span>
+				                        {% endfor %}
+					                    </div>
+						                {% else %}
+															{{ form.zipCode(class="input is-default") }}
+					                	{% endif %}
+				              		</div>
+				              	</div>
 											</div>
 										</div>
 									</div>
 								</div>
+
+ <div class="form-group">
+                {{ form.picture.label() }}
+                {{ form.picture(class="form-control-file") }}
+                {% if form.picture.errors %}
+                  {% for error in form.picture.errors %}
+										<span class="text-danger">{{ error }}</span>
+                  {% endfor %}
+                {% endif %}
+            </div>
+        </fieldset>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-outline-info") }}
+
 								<!-- /Edit contact Info -->
 								<!-- Edit BIlling Address -->
 								<div class="flat-card profile-info-card is-auto has-overflow">

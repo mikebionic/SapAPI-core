@@ -30,6 +30,14 @@ def apiDataFormat(date):
 		date = None
 	return date
 
+def apiCheckImageByte(image):
+	try:
+		image = base64.encodebytes(image).decode('ascii'),
+	except:
+		image = None
+
+	return image
+
 def configureNulls(data):
 	for e in data:
 		if data[e] == '' or data[e] == 0:

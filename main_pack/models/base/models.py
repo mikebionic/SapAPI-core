@@ -1,6 +1,6 @@
 from main_pack import db
 from datetime import datetime
-from main_pack.base.dataMethods import apiDataFormat
+from main_pack.base.dataMethods import apiDataFormat,apiCheckImageByte
 
 class CreatedModifiedInfo(object):
 	CreatedDate = db.Column(db.DateTime,default=datetime.now)
@@ -337,7 +337,8 @@ class Image(CreatedModifiedInfo,db.Model):
 			'ResId':self.ResId,
 			'FileName':self.FileName,
 			'FileHash':self.FileHash,
-			'Image':base64.encodebytes(self.Image).decode('ascii'),
+			# 'Image':base64.encodebytes(self.Image).decode('ascii'),
+			'Image':apiCheckImageByte(self.Image),
 			'CreatedDate':apiDataFormat(self.CreatedDate),
 			'ModifiedDate':apiDataFormat(self.ModifiedDate),
 			'CreatedUId':self.CreatedUId,
@@ -444,6 +445,7 @@ class Rp_acc(AddInf,CreatedModifiedInfo,db.Model):
 	RpAccId = db.Column(db.Integer,nullable=False,primary_key=True)
 	CId = db.Column(db.Integer,db.ForeignKey("tbl_dk_company.CId"))
 	DivId = db.Column(db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
+	UId = db.Column(db.Integer,db.ForeignKey("tbl_dk_users.UId"))
 	EmpId = db.Column(db.Integer,db.ForeignKey("tbl_dk_employee.EmpId"))
 	GenderId = db.Column(db.Integer,db.ForeignKey("tbl_dk_gender.GenderId"))
 	NatId = db.Column(db.Integer,db.ForeignKey("tbl_dk_nationality.NatId"))
