@@ -3,7 +3,7 @@
 {% block styles %}
 	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/bulma.css')}}">
 	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/core.css')}}">
-	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/assets/css/icons.min.css')}}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/icons.min.css')}}">
 	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/chosen/chosen.css')}}">
 {% endblock %}
 
@@ -34,12 +34,10 @@
 										<div class="card-body">
 											<!-- Avatar form -->
 											<div id="avatar-upload" class="avatar-wrapper has-simple-popover" data-content="Change profile picture" data-placement="top">
-											<!-- 	<img class="profile-pic" src="https://image.ibb.co/b04PYv/placeholder_w.jpg" alt="">
-												<div class="upload-button">
+	 											<img class="profile-pic" src="{{avatar}}" alt="">
+	 											<div class="upload-button">
 													<i class="upload-icon" data-feather="plus" aria-hidden="true"></i>
 												</div>
-												<input class="file-upload" type="file" accept="image/*"/>
-	 -->
 												{{ form.picture.label() }}
 				                {{ form.picture(class="file-upload") }}
 				                {% if form.picture.errors %}

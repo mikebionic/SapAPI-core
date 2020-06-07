@@ -74,9 +74,15 @@ def profile_edit():
 		form.mobilePhone.data = rpAcc.RpAccMobilePhoneNumber
 		form.homePhone.data = rpAcc.RpAccHomePhoneNumber
 		form.zipCode.data = rpAcc.RpAccZipCode
+
+		image = Image.query.filter_by(RpAccId=rpAcc.RpAccId).order_by(Image.CreatedDate.desc()).first()
+		if image:
+			avatar = url_for('static', filename=image.FileName)
+		else:
+			avatar = url_for('static', filename="commerce/uploads/noPhoto.png") 
 	commonData = commonUsedData()
 	return render_template ("commerce/main/users/profile_edit.html",**commonData,
-		title=gettext('Edit profile'),form=form)
+		title=gettext('Edit profile'),form=form,avatar=avatar)
 
 
 @bp.route("/orders")
