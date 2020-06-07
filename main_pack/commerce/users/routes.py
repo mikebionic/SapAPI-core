@@ -25,9 +25,15 @@ def admin_required():
 @login_required
 def profile():
 	commonData = commonUsedData()
-	rpAcc = Rp_acc.query.filter(Rp_acc.RpAccId==current_user.UId).first()
+	rpAcc = Rp_acc.query.filter(Rp_acc.UId==current_user.UId).first()
+	image = Image.query.filter_by(RpAccId=rpAcc.RpAccId).order_by(Image.CreatedDate.desc()).first()
+	if image:
+		avatar = url_for('static', filename=image.FileName)
+	else:
+		avatar = url_for('static', filename="commerce/uploads/noPhoto.png") 
+
 	return render_template ("commerce/main/users/profile.html",**commonData,
-		title=gettext('Profile'),rpAcc=rpAcc)
+		title=gettext('Profile'),rpAcc=rpAcc,avatar=avatar)
 
 @bp.route("/profile_edit",methods=['GET', 'POST'])
 @login_required
@@ -51,6 +57,12 @@ def profile_edit():
 			# 'RpAccEMail':form.email.data
 		}
 		rpAcc.update(**rpAccData)
+
+		if form.picture.data:
+			img = save_picture(form.picture.data,"commerce/main/users/avatars")
+			print(img['FilePath'])
+			image = Image(FileName=img['FilePath'],RpAccId=rpAcc.RpAccId)
+			db.session.add(image)
 
 		db.session.commit()
 		flash(lazy_gettext('Profile successfully updated!'), 'success')

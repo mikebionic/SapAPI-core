@@ -26,7 +26,7 @@
                 <div class="flat-card profile-card is-auto">
                   <div class="card-body">
                     <div class="profile-image">
-                      <img src="{{ url_for('static', filename='commerce/main/images/avatars/elie.jpg')}}" alt="">
+                      <img src="{{ avatar }}"/>
                     </div>
                     <div class="username has-text-centered">
                       <span>{{current_user.UFullName}}</span>
@@ -69,7 +69,7 @@
                           <span class="label-value">{{rpAcc.RpAccHomePhoneNumber if rpAcc.RpAccHomePhoneNumber else ''}}</span>
                         </div>
                         <div class="info-block">
-                          <span class="label-text">{{_('Zip Code')}}</span>
+                          <span class="label-text">{{_('Zip code')}}</span>
                           <span class="label-value">{{rpAcc.RpAccZipCode if rpAcc.RpAccZipCode else ''}}</span>
                         </div>
                       </div>
