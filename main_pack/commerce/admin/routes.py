@@ -41,3 +41,8 @@ def product_table():
 def add_product():
 	resData=resRelatedData()
 	return render_template ("commerce/admin/add_product.html",**resData,title=gettext('Add product'))
+
+@bp.route("/admin/orders")
+def orders():
+	resData=resRelatedData()
+	return render_template ("commerce/admin/orders.html",**resData,title=gettext('Orders'))

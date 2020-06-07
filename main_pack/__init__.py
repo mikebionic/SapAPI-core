@@ -8,7 +8,7 @@ from main_pack.config import Config
 from flask_babel import Babel,format_date,gettext,lazy_gettext
 from flask_bcrypt import Bcrypt
 from flask_mail import Mail
-from elasticsearch import Elasticsearch
+# from elasticsearch import Elasticsearch
 
 babel = Babel()
 db = SQLAlchemy()
