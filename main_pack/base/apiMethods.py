@@ -23,7 +23,8 @@ def checkApiResponseStatus(success_list,fail_list):
 def fileToURL(path):
 	# I want to return url but didn't succeed yet
 	if path:
-		print(send_file(os.path.join(current_app.root_path,'static',path)))
-		return os.path.join(current_app.root_path,'static',path)
+		# print(send_file(os.path.join(current_app.root_path,'static',path)))
+		# return os.path.join(current_app.root_path,'static',path)
+		return url_for('static',filename=path)
 	# except:
 	# 	return None
