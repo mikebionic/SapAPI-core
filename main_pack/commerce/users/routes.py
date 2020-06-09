@@ -3,9 +3,10 @@ from flask_login import current_user, login_required
 from main_pack import db,babel,gettext,lazy_gettext
 from main_pack.commerce.users import bp
 from main_pack.commerce.users.forms import UpdateProfileForm,UpdateRpAccForm
-from main_pack.commerce.users.utils import save_picture,commonUsedData
+from main_pack.commerce.users.utils import commonUsedData
 
 from main_pack.models.base.models import Image,Rp_acc
+from main_pack.base.imageMethods import save_image
 
 from functools import wraps
 def admin_required():
@@ -59,9 +60,15 @@ def profile_edit():
 		rpAcc.update(**rpAccData)
 
 		if form.picture.data:
-			img = save_picture(form.picture.data,"commerce/main/users/avatars")
-			print(img['FilePath'])
-			image = Image(FileName=img['FilePath'],RpAccId=rpAcc.RpAccId)
+
+			img = save_image(imageForm=form.picture.data,module="commerce/Rp_acc",id=rpAcc.RpAccId)
+			
+			# this image method should also change by change of database !
+			image = Image(FileName=img['FilePathR'],RpAccId=rpAcc.RpAccId)
+
+			# image = Image(FileName=img['FileName'],FilePathR=img['FilePathR'],FilePathM=img['FilePathM'],
+			# 	FilePathS=img['FilePathS'],RpAccId=rpAcc.RpAccId)
+			
 			db.session.add(image)
 
 		db.session.commit()

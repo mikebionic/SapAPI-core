@@ -1,3 +1,4 @@
+import base64
 
 ############ useful methods ############# 
 def configureFloat(value):

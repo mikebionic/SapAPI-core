@@ -2,6 +2,8 @@ from main_pack import db
 from datetime import datetime
 from main_pack.base.dataMethods import apiDataFormat,apiCheckImageByte
 
+from main_pack.base.apiMethods import fileToURL
+
 class CreatedModifiedInfo(object):
 	CreatedDate = db.Column(db.DateTime,default=datetime.now)
 	ModifiedDate = db.Column(db.DateTime,default=datetime.now)
@@ -296,8 +298,6 @@ class Gender(db.Model):
 	Rp_acc = db.relationship('Rp_acc',backref='gender',lazy=True)
 	Representative = db.relationship('Representative',backref='gender',lazy=True)
 
-import base64
-
 class Image(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_image"
 	ImgId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -336,8 +336,10 @@ class Image(CreatedModifiedInfo,db.Model):
 			'RpAccId':self.RpAccId,
 			'ResId':self.ResId,
 			'FileName':self.FileName,
+			# I should fix this soon
+			# 'FileName':fileToURL(self.FileName),
 			'FileHash':self.FileHash,
-			# 'Image':base64.encodebytes(self.Image).decode('ascii'),
+			# # 'Image':base64.encodebytes(self.Image).decode('ascii'),
 			'Image':apiCheckImageByte(self.Image),
 			'CreatedDate':apiDataFormat(self.CreatedDate),
 			'ModifiedDate':apiDataFormat(self.ModifiedDate),

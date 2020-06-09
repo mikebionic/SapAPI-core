@@ -55,8 +55,6 @@ def api_v_full_resources():
 		response = make_response(jsonify(res),200)
 	return response
 
-import base64
-
 @api.route("/v-resources/",methods=['GET'])
 def api_v_resources():
 	if request.method == 'GET':
