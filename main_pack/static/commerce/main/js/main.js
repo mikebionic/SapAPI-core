@@ -336,4 +336,3 @@ $('.tlt').textillate({
 })(jQuery);	
 
 
-

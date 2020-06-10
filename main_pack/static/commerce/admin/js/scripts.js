@@ -438,14 +438,6 @@ $(function () {
     form.addClass("was-validated");
   });
 
-  // alert dismissible
-  $(".alert-dismissible").each(function () {
-    var me = $(this);
-
-    me.find(".close").click(function () {
-      me.alert("close");
-    });
-  });
 
   if ($(".main-navbar").length) {
   }

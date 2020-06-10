@@ -39,7 +39,7 @@
 
     <!-- HEADER -->
     <header id="header" class="header-area style-01 layout-03" >
-      <div class="header-top bg-main hidden-xs" style="background: #c2ccd5">
+      <div class="header-top bg-main hidden-xs" style="background: #2a5cfb">
         <div class="container">
           <div class="top-bar left">
             <ul class="horizontal-menu">
@@ -50,18 +50,51 @@
           </div>
           <div class="top-bar right">
             <ul class="horizontal-menu">
-              <li class="horz-menu-item lang">
-                <select name="language">
-                  <a type="submit" href="/language/tk"><option value="tk">Türkmen</option></a>
-                  <a type="submit" href="/language/en"><option value="en" selected>English</option></a>
-                  <a type="submit" href="/language/ru"><option value="ru">Русский</option></a>
-                </select>
+              <li class="dropdown dropdown-list-toggle">
+                <a href="#" class="nav-link nav-link-lg message-toggle" data-toggle="dropdown">
+                  <i class="fa fa-globe" style="font-size: 25px; color: #fff;"></i>
+                  <span class="badge headerBadge1">{{ session['language'] }}</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-lr dropdown-menu-right pullDown">
+                  <a href="/language/en" class="dropdown-item">
+                    <img src="{{ url_for('static', filename='commerce/main/images/us.svg') }}" style="width: 30px">
+                    English language</a>
+                  <div class="dropdown-divider"></div>
+                  <a href="/language/tk" class="dropdown-item">
+                    <img src="{{ url_for('static', filename='commerce/main/images/tm.svg') }}" style="width: 30px">
+                    Türkmen dili</a>
+                  <div class="dropdown-divider"></div>
+                  <a href="/language/ru" class="dropdown-item">
+                    <img src="{{ url_for('static', filename='commerce/main/images/ru.svg') }}" style="width: 30px">
+                    Русский язык</a>
+                  <div class="dropdown-divider"></div>
+                  <a href="#" class="dropdown-item dropdown-footer">{{_('Other languages')}}</a>
+                </div>
               </li>
-              {% if current_user.is_authenticated %}
-                <li><a href="{{ url_for('commerce_auth.logout') }}" class="login-link"><i class="biolife-icon icon-login"></i>{{ current_user.UFullName }} - {{_('Log out')}}</a></li>
-              {% else %}
-                <li><a href="{{ url_for('commerce_auth.login') }}" class="login-link"><i class="biolife-icon icon-login"></i>{{_('Login')}}/{{_('Register')}}</a></li>
-              {% endif %}
+              <li class="dropdown"><a href="#"  data-toggle="dropdown"
+                class="nav-link dropdown-toggle nav-link-lg nav-link-user"><i class="biolife-icon icon-login" style="color: #fff;font-size: 20px;"></i>
+                <span class="d-sm-none d-lg-inline-block"></span></a>
+                <div class="dropdown-menu dropdown-menu-right pullDown" style="width: 167px;">
+                  {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('commerce_users.profile') }}" class="dropdown-item has-icon"><i class="fafa-user"></i> 
+                      {{ current_user.UFullName }}
+                    </a>
+                    <a href="timeline.html" class="dropdown-item has-icon">Activities
+                    </a>
+                    <a href="#" class="dropdown-item has-icon"><i class="fa fa-cog"></i>
+                      {{_('Settings')}}
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="{{ url_for('commerce_auth.logout') }}" class="dropdown-item has-icon text-danger"><i class="fa fa-sign-out"></i>
+                      {{_('Log out')}}
+                    </a>
+                  {% else %}
+                    <a href="{{ url_for('commerce_auth.login') }}" class="dropdown-item has-icon text-danger"><i class="fa fa-sign-out"></i>
+                      {{_('Log in')}}
+                    </a>
+                  {% endif %}
+                </div>
+              </li>
             </ul>
           </div>
         </div>
@@ -74,7 +107,7 @@
                 <a href="{{ url_for('commerce.commerce')}}" class="logo">{{company.CName}}</span></a>
               {% endif %}
             </div>
-            <div class="col-lg-6 col-md-7 hidden-sm hidden-xs">
+            <div class="col-lg-5 col-md-7 hidden-sm hidden-xs">
               <div class="primary-menu">
                 <ul class="menu biolife-menu clone-main-menu clone-primary-menu" id="primary-menu" data-menuname="main menu">
                   <li class="menu-item"><a href="{{ url_for('commerce.commerce') }}">{{_('Home')}}</a></li>
@@ -85,7 +118,7 @@
                 </ul>
               </div>
             </div>
-            <div class="col-lg-3 col-md-3 col-md-6 col-xs-6">
+            <div class="col-lg-4 col-md-3 col-md-6 col-xs-6">
               <div class="biolife-cart-info">
                 <div class="mobile-search">
                   <a href="javascript:void(0)" class="open-searchbox"><i class="biolife-icon icon-search"></i></a>
@@ -385,23 +418,25 @@
 
         <div class="widget biolife-filter">
           <h4 class="wgt-title">{{_('Color')}}</h4>
-          <div class="wgt-content">
-            <ul class="color-list">
-              {% for color in colors %}
-                {% if color.GCRecord == None or color.GCRecord == '' %}
-                  <li class="color-item">
-                    <a href="#" class="c-link"><span {% if color.ColorDesc %} title="{{ color.ColorDesc }}" {% endif %} class="symbol img-color" style="background: {{color.ColorCode}}"></span>{{color.ColorName}}</a>
-                  </li>
-                {% endif %}
-              {% endfor %}
-            </ul>
+          <div class="color">
+            <div class="wgt-content">
+              <ul class="color-list check-list">
+                {% for color in colors %}
+                  {% if color.GCRecord == None or color.GCRecord == '' %}
+                    <li class="color-item">
+                      <a href="#" class="check-link"><span {% if color.ColorDesc %} title="{{ color.ColorDesc }}" {% endif %} class="symbol img-color" style="background: {{color.ColorCode}}"></span>{{color.ColorName}}</a>
+                    </li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
+            </div>
           </div>
         </div>
 
         <div class="widget biolife-filter">
           <h4 class="wgt-title">{{_('Size')}}</h4>
           <div class="wgt-content">
-            <ul class="check-list bold multiple">
+            <ul class="check-list bold single">
               {% for size in sizes %}
                 {% if size.GCRecord == None or size.GCRecord == '' %}
                   <li class="check-list-item"><a href="#" class="check-link">{{size.SizeName}}</a></li>

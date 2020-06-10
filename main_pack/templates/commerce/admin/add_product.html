@@ -75,10 +75,12 @@
 
               <div class="quantity-box">
                 <span class="title">{{_('Quantity')}}:</span>
-                <div class="qty-input">
-                  <input type="text" name="qty12554" data-min_value="1" value="1" data-step="1">
-                  <a href="#" class="qty-btn btn-up"><i class="fa fa-caret-up" aria-hidden="true"></i></a>
-                  <a href="#" class="qty-btn btn-down"><i class="fa fa-caret-down" aria-hidden="true"></i></a>
+                <div class="cont">
+                  <span class="next" onclick="nextNum()"></span>
+                  <span class="prev" onclick="prevNum()"></span>
+                  <div id="box">
+                      <span>0</span>
+                  </div>
                 </div>
 
               </div>
@@ -95,12 +97,12 @@
 
               <div class="price-box">
                 <span class="title">{{_('Price')}}:</span>
-                <div class="qty-input">
-                    <input type="hidden" class="resPriceRegNo" value>
-                    <input type="hidden" class="resPriceId" value>
-                    <input type="text" name="qty12554" data-min_value="0" class="resPriceValue" value="1" data-step="1">
-                    <a href="#" class="qty-btn btn-up"><i class="fa fa-caret-up" aria-hidden="true"></i></a>
-                    <a href="#" class="qty-btn btn-down"><i class="fa fa-caret-down" aria-hidden="true"></i></a>
+                <div class="cont">
+                  <span class="next" onclick="nextNum()"></span>
+                  <span class="prev" onclick="prevNum()"></span>
+                  <div id="box">
+                      <span>0</span>
+                  </div>
                 </div>
                 <button class="btn btn-default savePriceBtn">+</button>
               </div>
@@ -320,4 +322,28 @@
   <script src="{{ url_for('static', filename='commerce/admin/js/sizes.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/js/propertiesMain.js') }}"></script>
 
+  <script>
+    
+    var numbers = document.getElementById('box');
+    for(i=0;i<100;i++){
+        var span = document.createElement('span');
+        span.textContent = i;
+        numbers.appendChild(span);
+    }
+        var num = numbers.getElementsByTagName('span')
+        var index = 0;
+
+        function nextNum(){
+            num[index].style.display = 'none';
+            index = (index + 1) % num.length;
+            num[index].style.display = 'initial';
+        }
+
+        function prevNum(){
+            num[index].style.display = 'none';
+            index = (index - 1 + num.length) % num.length;
+            num[index].style.display = 'initial';
+        }
+        
+  </script>
 {% endblock %}

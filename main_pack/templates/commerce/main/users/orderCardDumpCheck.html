@@ -34,7 +34,7 @@
 
 		<!-- Progress Circle -->
 		<div class="circle-chart-wrapper">
-			<svg class="circle-chart" viewbox="0 0 33.83098862 33.83098862" width="140" height="140" xmlns="http://www.w3.org/2000/svg">
+			<svg class="circle-chart" viewbox="0 0 33.83098862 33.83098862" width="140" height="140">
 				<circle class="circle-chart-background" stroke="#efefef" stroke-width="2" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
 				<circle class="circle-chart-circle" stroke="{{ order_status_color_hash }}" stroke-width="2" stroke-dasharray="{{ order_completion_percentage }}"   stroke-linecap="round" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
 			</svg>
@@ -42,7 +42,7 @@
 				<i data-feather="{{ order_status_icon }}"></i>
 			</div>
 			<div class="ring-title has-text-centered">
-				<span>66% Complete</span>
+				<span>{{ order_completion_percentage }}% Complete</span>
 			</div>
 		</div>
 	</div>

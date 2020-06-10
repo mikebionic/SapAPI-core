@@ -96,6 +96,7 @@ a:hover, a:focus, a:visited, a:active,
 button:hover, button:focus, button:visited, button:active{
     text-decoration: none;
     outline: none;
+    color: #6777ef;
 }
 table {
     border: 1px solid #E6E6E6;
