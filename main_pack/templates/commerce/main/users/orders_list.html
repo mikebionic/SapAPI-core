@@ -1,0 +1,113 @@
+{% extends "commerce/main/commerce/layout.html" %}
+
+{% block styles %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/bulma.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/core.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/icons.min.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/chosen/chosen.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/webuipopover/jquery.webui-popover.min.css')}}">
+{% endblock %}
+
+{% block content %}
+	<div class="shop-wrapper">
+		<div class="section">
+			<div class="container">
+				<div class="columns account-header">
+					<div class="column is-10 is-offset-1 is-tablet-landscape-padded">
+						<div class="account-title">
+							<h2>Orders</h2>
+							<img class="brand-filigrane" src="assets/images/logo/nephos-greyscale.svg" alt="">
+						</div>
+						<div class="tabs account-tabs has-controls">
+							<ul>
+								<li><a href="account.html">Profile</a></li>
+								<li class="is-active"><a href="{{ url_for('commerce_users.orders') }}">Orders</a></li>
+								<div class="layout-controls">
+									<a href="{{ url_for('commerce_users.orders') }}"><span><i data-feather="arrow-left"></i></span></a>
+								</div>
+							</ul>
+						</div>
+						<div class="listing-controls">
+							<div class="columns is-account-grid is-multiline">
+								<div class="column is-12">
+									<div id="46895" class="flat-card is-auto order-list-card animated preFadeInUp fadeInUp">
+										<div class="order-block">
+											<img src="{{ url_for('static', filename='commerce/main/images/avatars/janet.jpg')}}" alt="">
+											<div class="handled-by">
+												<div>Handled by</div>
+												<div>Janet Smith</div>
+											</div>
+											<div class="order-icon">
+												<i data-feather="info"></i>
+											</div>
+											<div class="status">
+												<div>Status</div>
+												<div><span class="tag primary-tag">Shipping</span></div>
+											</div>
+											<div class="order-icon">
+												<i data-feather="clock"></i>
+											</div>
+											<div class="date">
+												<div>Date</div>
+												<div class="is-date">mar 23 2018</div>
+											</div>
+											<div class="order-icon">
+												<i data-feather="dollar-sign"></i>
+											</div>
+											<div class="total">
+												<div>Order total</div>
+												<div class="is-price">683,99 <span class="tag success-tag">Paid</span></div>
+											</div>
+										</div>
+										<div class="table-block">
+											<table>
+												<thead>
+													<tr>
+														<th scope="col">Product</th>
+														<th scope="col">SKU</th>
+														<th scope="col">Quantity</th>
+														<th scope="col">Total</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td data-label="Product">Shipping A1</td>
+														<td data-label="SKU">-</td>
+														<td data-label="Quantity">1</td>
+														<td data-label="Total">$39,00</td>
+													</tr>
+													<tr>
+														<td data-label="Product">Conqueror</td>
+														<td data-label="SKU">587</td>
+														<td data-label="Quantity">1</td>
+														<td data-label="Total">$295,00</td>
+													</tr>
+													<tr>
+														<td data-label="Product">Gentleman</td>
+														<td data-label="SKU">029</td>
+														<td data-label="Quantity">1</td>
+														<td data-label="Total">$349,99</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<div class="button-block has-text-right">
+											<a href="invoice.html" class="button feather-button is-small primary-button is-bold raised">Invoice</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+
+
+{% block scripts %}
+  <script src="{{ url_for('static', filename='commerce/main/js/app.js')}}"></script>
+  <script src="{{ url_for('static', filename='commerce/main/js/nephos.js')}}"></script>
+{% endblock %}

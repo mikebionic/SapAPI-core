@@ -39,6 +39,7 @@ def api_images():
 						newImage = Image(**image)
 						db.session.add(newImage)
 						db.session.commit()
+						print('added')
 						images.append(image)
 					else:
 						ImgId = image['ImgId']
@@ -51,6 +52,7 @@ def api_images():
 							newImage = Image(**image)
 							db.session.add(newImage)
 							db.session.commit()
+							python('added else')
 							images.append(image)
 				except:
 					failed_images.append(image)
@@ -65,5 +67,7 @@ def api_images():
 			for e in status:
 				res[e]=status[e]
 			response = make_response(jsonify(res),201)
+
+			print(response)
 
 	return response

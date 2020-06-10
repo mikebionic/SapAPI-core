@@ -8,7 +8,7 @@ from main_pack import db
 from flask import current_app
 
 
-@api.route("/users/",methods=['GET','POST','PUT'])
+@api.route("/tbl-dk-users/",methods=['GET','POST','PUT'])
 def api_users():
 	if request.method == 'GET':
 		users = Users.query.all()

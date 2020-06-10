@@ -303,9 +303,13 @@ class Image(CreatedModifiedInfo,db.Model):
 	ImgId = db.Column(db.Integer,nullable=False,primary_key=True)
 	EmpId = db.Column(db.Integer,db.ForeignKey("tbl_dk_employee.EmpId"))
 	CId = db.Column(db.Integer,db.ForeignKey("tbl_dk_company.CId"))
+	UId = db.Column(db.Integer,db.ForeignKey("tbl_dk_users.UId"))
 	RpAccId = db.Column(db.Integer,db.ForeignKey("tbl_dk_rp_acc.RpAccId"))
 	ResId = db.Column(db.Integer,db.ForeignKey("tbl_dk_resource.ResId"))
 	FileName = db.Column(db.String(100))
+	FilePathS = db.Column(db.String(255))
+	FilePathM = db.Column(db.String(255))
+	FilePathR = db.Column(db.String(255))	
 	FileHash = db.Column(db.String(100))
 	Image = db.Column(db.LargeBinary)
 
@@ -333,14 +337,15 @@ class Image(CreatedModifiedInfo,db.Model):
 			'ImgId':self.ImgId,
 			'EmpId':self.EmpId,
 			'CId':self.CId,
+			'UId':self.UId,
 			'RpAccId':self.RpAccId,
 			'ResId':self.ResId,
-			'FileName':self.FileName,
+			# 'FileName':self.FileName,
 			# I should fix this soon
-			# 'FileName':fileToURL(self.FileName),
-			'FileHash':self.FileHash,
+			'FileName':fileToURL(self.FileName),
+			# 'FileHash':self.FileHash,
 			# # 'Image':base64.encodebytes(self.Image).decode('ascii'),
-			'Image':apiCheckImageByte(self.Image),
+			# 'Image':apiCheckImageByte(self.Image),
 			'CreatedDate':apiDataFormat(self.CreatedDate),
 			'ModifiedDate':apiDataFormat(self.ModifiedDate),
 			'CreatedUId':self.CreatedUId,

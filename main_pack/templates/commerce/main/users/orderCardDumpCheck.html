@@ -1,0 +1,89 @@
+<div class="column is-4">
+	<div class="flat-card order-card has-popover-top">
+		<div class="order-info">
+			<span><a href="{{ url_for('commerce_users.orders_list') }}" onclick="return true">ORDER-46895</a></span>
+			<span class="tag is-primary">{{_('Shipping')}}</span>
+		</div>
+
+		order_completion_percentage = 10, 40, 50, 66,88,...
+		order_status_icon = truck, package, dollar-sign, alert-octagon, award
+
+		tags =
+
+				<span class="tag is-primary">{{_('Shipping')}}</span>  
+
+				order_status_color_hash =    stroke="#0023ff"
+
+				<span class="tag is-success">Preparing</span>  
+
+				order_status_color_hash =    stroke="#00b28
+				9"
+				<span class="tag is-warning">Pending</span>  
+
+				order_status_color_hash =    stroke="#eda514
+				"
+				<span class="tag is-danger">Has issue</span>  
+
+				order_status_color_hash =    stroke="#FF7273
+				"
+				<span class="tag is-primary">Complete</span>  
+
+				order_status_color_hash =    stroke="#0023ff"
+
+
+
+		<!-- Progress Circle -->
+		<div class="circle-chart-wrapper">
+			<svg class="circle-chart" viewbox="0 0 33.83098862 33.83098862" width="140" height="140" xmlns="http://www.w3.org/2000/svg">
+				<circle class="circle-chart-background" stroke="#efefef" stroke-width="2" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
+				<circle class="circle-chart-circle" stroke="{{ order_status_color_hash }}" stroke-width="2" stroke-dasharray="{{ order_completion_percentage }}"   stroke-linecap="round" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
+			</svg>
+			<div class="chart-icon">
+				<i data-feather="{{ order_status_icon }}"></i>
+			</div>
+			<div class="ring-title has-text-centered">
+				<span>66% Complete</span>
+			</div>
+		</div>
+	</div>
+	<div class="webui-popover-content">
+		<!-- Popover Block -->
+		<div class="popover-flex-block">
+			<img class="staff-avatar" src="{{ url_for('static', filename='commerce/main/images/avatars/janet.jpg')}}" alt="">
+			<div class="content-block">
+				<label>Order handled by</label>
+				<span>Jane Smith</span>
+			</div>
+		</div>
+		<!-- Popover Block -->
+		<div class="popover-flex-block">
+			<div class="icon-block">
+				<i data-feather="clock"></i>
+			</div>
+			<div class="content-block">
+				<label>{{_('Ordered date')}}</label>
+				<span>mar 23th 2018</span>
+			</div>
+		</div>
+		<!-- Popover Block -->
+		<div class="popover-flex-block">
+			<div class="icon-block">
+				<i data-feather="dollar-sign"></i>
+			</div>
+			<div class="content-block">
+				<label>{{_('Order Total')}}</label>
+				<span>$378,85</span>
+			</div>
+		</div>
+		<!-- Popover Block -->
+		<div class="popover-flex-block">
+			<div class="icon-block">
+				<i data-feather="truck"></i>
+			</div>
+			<div class="content-block">
+				<label>Shipping Method</label>
+				<span>UPS</span>
+			</div>
+		</div>
+	</div>
+</div>

@@ -62,17 +62,6 @@ def account_edit():
 	commonData = commonUsedData()
 	return render_template ("commerce/main/commerce/account_edit.html",**commonData,title=gettext('Account'))
 
-# @bp.route("/orders")
-# def orders():
-# 	commonData = commonUsedData()
-# 	return render_template ("commerce/main/commerce/orders.html",**commonData,title=gettext('Orders'))
-
-@bp.route("/orders_list")
-def orders_list():
-	commonData = commonUsedData()
-	return render_template ("commerce/main/commerce/orders_list.html",**commonData,title=gettext('Orders'))
-
-
 ############ tests ############
 
 @bp.route("/list_view")
