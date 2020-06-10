@@ -27,7 +27,7 @@ for image in images:
 		module = "uploads/commmerce/Rp_acc"
 		id = image.RpAccId
 	elif image.ResId:
-		module = "uploads/commerce/Resources"
+		module = "uploads/commerce/Resource"
 		id = image.ResId
 	elif image.EmpId:
 		module = "uploads/Employee"
@@ -35,6 +35,9 @@ for image in images:
 	elif image.CId:
 		module = "uploads/Company"
 		id = image.CId
+	elif image.UId:
+		module = "uploads/Users"
+		id = image.UId
 	else:
 		module = None
 		id = None

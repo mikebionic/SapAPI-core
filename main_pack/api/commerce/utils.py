@@ -1,5 +1,11 @@
 # from main_pack.models.commerce.models import Res_category
 from main_pack.base.dataMethods import configureNulls,configureFloat,boolCheck
+from main_pack.base.imageMethods import save_image,dirHandler
+import io
+import os
+import base64
+from PIL import Image as ImageOperations
+from flask import current_app
 
 def addCategoryDict(req):
 	ResCatId = req.get('ResCatId')
@@ -135,7 +141,7 @@ def addImageDict(req):
 		'ResId':ResId,
 		'FileName':FileName,
 		'FileHash':FileHash,
-		'Image':Image,
+		# 'Image':Image,
 		'CreatedDate':CreatedDate,
 		'ModifiedDate':ModifiedDate,
 		'CreatedUId':CreatedUId,
@@ -145,6 +151,41 @@ def addImageDict(req):
 	if(ImgId != '' and ImgId != None):
 		print(ImgId)
 		image['ImgId']=ImgId
+
+	# if blob presents:
+	if Image:
+		imageBytes = Image
+		if image['RpAccId']:
+			module = "uploads/commmerce/Rp_acc"
+			id = image['RpAccId']
+		elif image['ResId']:
+			module = "uploads/commerce/Resource"
+			id = image['ResId']
+		elif image['EmpId']:
+			module = "uploads/Employee"
+			id = image['EmpId']
+		elif image['CId']:
+			module = "uploads/Company"
+			id = image['CId']
+		elif image['UId']:
+			module = "uploads/Users"
+			id = image['UId']
+		else:
+			module = None
+			id = None
+
+		dumpFolderPath = os.path.join(current_app.root_path,'static/imageDumps')
+		dirHandler(dumpFolderPath)
+		dumpImagePath = os.path.join(dumpFolderPath,"dump.jpg")
+		outfile = open(dumpImagePath,"wb")
+		outfile.write(base64.decodebytes(imageBytes))
+		outfile.flush()
+		outfile.close()
+		imageFile = save_image(savedImage=dumpImagePath,module=module,id=id)
+
+		for data in imageFile:
+			image[data]=imageFile[data]
+
 	image=configureNulls(image)
 	return image
 

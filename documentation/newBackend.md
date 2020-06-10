@@ -83,7 +83,7 @@ GET POST
 /api/tbl-dk-rp-accs/
 
 GET POST
-/api/tbl-dk-rp_acc_trans_totals/
+/api/tbl-dk-rp-acc-trans-totals/
 /api/tbl-dk-total-transactions/
 
 GET POST
