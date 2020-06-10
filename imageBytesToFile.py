@@ -1,7 +1,5 @@
 from main_pack.models.base.models import Image,Rp_acc
 from main_pack.base.imageMethods import save_image,dirHandler
-
-
 from main_pack import db, create_app
 
 from PIL import Image as ImageOperations
@@ -13,10 +11,6 @@ from sqlalchemy import or_, and_
 
 app = create_app()
 app.app_context().push()
-
-# image = (Image.query.get(12))
-
-# imageBytes = image.Image
 
 images = Image.query.filter(and_(Image.Image!=None, Image.FileName==None)).all()
 
@@ -54,18 +48,3 @@ for image in images:
 	print(imageFile)
 
 	db.session.commit()
-
-
-############3
-# print(bytes(imageBytes,'utf-8'))
-
-# conv = ImageOperations.open(io.BytesIO(bytes(imageBytes,'utf-8')))
-
-# conv.show()
-
-########
-
-# res = save_image(savedImage=(io.BytesIO(bytes(imageBytes[0],'utf-8'))))
-
-# print(res)
-# img = save_image(imageForm=)

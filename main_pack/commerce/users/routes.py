@@ -1,5 +1,5 @@
-from flask import render_template, url_for, json, jsonify, session, flash, redirect , request, Response, abort
-from flask_login import current_user, login_required
+from flask import render_template,url_for,json,jsonify,session,flash,redirect,request,Response,abort
+from flask_login import current_user,login_required
 from main_pack import db,babel,gettext,lazy_gettext
 from main_pack.commerce.users import bp
 from main_pack.commerce.users.forms import UpdateProfileForm,UpdateRpAccForm
@@ -60,15 +60,9 @@ def profile_edit():
 		rpAcc.update(**rpAccData)
 
 		if form.picture.data:
-
-			img = save_image(imageForm=form.picture.data,module="commerce/Rp_acc",id=rpAcc.RpAccId)
-			
-			# this image method should also change by change of database !
-			image = Image(FileName=img['FilePathR'],RpAccId=rpAcc.RpAccId)
-
-			# image = Image(FileName=img['FileName'],FilePathR=img['FilePathR'],FilePathM=img['FilePathM'],
-			# 	FilePathS=img['FilePathS'],RpAccId=rpAcc.RpAccId)
-			
+			imageFile = save_image(imageForm=form.picture.data,module="commerce/Rp_acc",id=rpAcc.RpAccId)
+			image = Image(FileName=imageFile['FileName'],FilePathR=imageFile['FilePathR'],FilePathM=imageFile['FilePathM'],
+				FilePathS=imageFile['FilePathS'],RpAccId=rpAcc.RpAccId)
 			db.session.add(image)
 
 		db.session.commit()
@@ -90,11 +84,3 @@ def profile_edit():
 	commonData = commonUsedData()
 	return render_template ("commerce/main/users/profile_edit.html",**commonData,
 		title=gettext('Edit profile'),form=form,avatar=avatar)
-
-
-@bp.route("/orders")
-@login_required
-def orders():
-	commonData = commonUsedData()
-	return render_template ("commerce/main/users/orders.html",**commonData,title=gettext('Orders'))
-

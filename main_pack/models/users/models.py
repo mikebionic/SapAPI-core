@@ -28,7 +28,6 @@ class Users(AddInf,CreatedModifiedInfo,db.Model,UserMixin):
 	Rp_acc = db.relationship('Rp_acc',backref='users',lazy=True)
 	Image = db.relationship('Image',backref='users',lazy=True)
 	
-
 	def is_admin(self):
 		return self.UTypeId == 1
 

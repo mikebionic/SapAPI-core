@@ -307,9 +307,9 @@ class Image(CreatedModifiedInfo,db.Model):
 	RpAccId = db.Column(db.Integer,db.ForeignKey("tbl_dk_rp_acc.RpAccId"))
 	ResId = db.Column(db.Integer,db.ForeignKey("tbl_dk_resource.ResId"))
 	FileName = db.Column(db.String(100))
-	FilePathS = db.Column(db.String(100))
-	FilePathM = db.Column(db.String(100))
-	FilePathR = db.Column(db.String(100))	
+	FilePathS = db.Column(db.String(255))
+	FilePathM = db.Column(db.String(255))
+	FilePathR = db.Column(db.String(255))	
 	FileHash = db.Column(db.String(100))
 	Image = db.Column(db.LargeBinary)
 

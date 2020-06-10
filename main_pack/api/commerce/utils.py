@@ -149,7 +149,6 @@ def addImageDict(req):
 		'GCRecord':GCRecord
 	}
 	if(ImgId != '' and ImgId != None):
-		print(ImgId)
 		image['ImgId']=ImgId
 
 	# if blob presents:
@@ -187,6 +186,7 @@ def addImageDict(req):
 			image[data]=imageFile[data]
 
 	image=configureNulls(image)
+
 	return image
 
 def addRpAccDict(req):
