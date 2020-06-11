@@ -20,11 +20,10 @@ def checkApiResponseStatus(success_list,fail_list):
 			"message":"Success"
 			}
 
-def fileToURL(path):
-	# I want to return url but didn't succeed yet
-	if path:
-		# print(send_file(os.path.join(current_app.root_path,'static',path)))
-		# return os.path.join(current_app.root_path,'static',path)
-		return url_for('static',filename=path)
-	# except:
-	# 	return None
+def fileToURL(size,name):
+	if size and name:
+		try:
+			fileUrl = url_for('commerce_api.get_image',image_size=size,image_name=name)
+		except:
+			fileUrl = None
+		return fileUrl

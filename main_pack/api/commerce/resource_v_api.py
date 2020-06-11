@@ -1,6 +1,6 @@
 from flask import render_template,url_for,jsonify,request,abort,make_response
 from main_pack.api.commerce import api
-from main_pack.base.apiMethods import checkApiResponseStatus
+from main_pack.base.apiMethods import checkApiResponseStatus,fileToURL
 from main_pack.base.dataMethods import apiCheckImageByte
 
 from main_pack.models.commerce.models import Res_category
@@ -73,13 +73,18 @@ def api_v_resources():
 			List_Res_category = [category.ResCatName for category in categories if category.ResCatId==resource.ResCatId]
 			List_Res_price = [res_price.ResPriceValue for res_price in res_prices if res_price.ResId==resource.ResId and res_price.ResPriceTypeId==2]
 			List_Res_total = [res_total.ResTotBalance for res_total in res_totals if res_total.ResId==resource.ResId]
-			List_Image = [apiCheckImageByte(image.Image) for image in images if image.ResId==resource.ResId]
+			# # we don't need this blob anymore
+			# List_Image = [apiCheckImageByte(image.Image) for image in images if image.ResId==resource.ResId]
+			List_FileName = [image.FileName for image in images if image.ResId==resource.ResId]
 
 			resourceList["BarcodeVal"] = List_Barcode[0] if len(List_Barcode)>0 else ''
 			resourceList["ResCatName"] = List_Res_category[0] if len(List_Res_category)>0 else ''
 			resourceList["ResPriceValue"] = List_Res_price[0] if len(List_Res_price)>0 else ''
 			resourceList["ResTotBalance"] = List_Res_total[0] if len(List_Res_total)>0 else ''
-			resourceList["Image"] = List_Image[0] if len(List_Image)>0 else ''
+			# resourceList["Image"] = List_Image[0] if len(List_Image)>0 else ''
+			resourceList["FilePathS"] = fileToURL('S',List_FileName[0]) if len(List_FileName)>0 else ''
+			resourceList["FilePathM"] = fileToURL('M',List_FileName[0]) if len(List_FileName)>0 else ''
+			resourceList["FilePathR"] = fileToURL('R',List_FileName[0]) if len(List_FileName)>0 else ''
 			data.append(resourceList)
 		res = {
 			"status":1,

@@ -340,9 +340,10 @@ class Image(CreatedModifiedInfo,db.Model):
 			'UId':self.UId,
 			'RpAccId':self.RpAccId,
 			'ResId':self.ResId,
-			# 'FileName':self.FileName,
-			# I should fix this soon
-			'FileName':fileToURL(self.FileName),
+			'FileName':self.FileName,
+			'FilePathS':fileToURL('S',self.FileName),
+			'FilePathM':fileToURL('M',self.FileName),
+			'FilePathR':fileToURL('R',self.FileName),
 			# 'FileHash':self.FileHash,
 			# # 'Image':base64.encodebytes(self.Image).decode('ascii'),
 			# 'Image':apiCheckImageByte(self.Image),
