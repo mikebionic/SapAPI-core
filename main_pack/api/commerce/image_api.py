@@ -5,7 +5,7 @@ from main_pack.base.apiMethods import checkApiResponseStatus
 from main_pack.models.base.models import Image
 from main_pack.api.commerce.utils import addImageDict
 from main_pack import db
-from flask import current_app
+from flask import current_app,send_from_directory
 
 
 @api.route("/tbl-dk-images/",methods=['GET','POST','PUT'])
@@ -71,3 +71,18 @@ def api_images():
 			print(response)
 
 	return response
+
+
+@api.route("/get-image/<image_size>/<image_name>")
+def get_image(image_size,image_name):
+	image = Image.query.filter(Image.FileName==image_name).first()
+	if image_size=='M':
+		path = image.FilePathM
+	elif image_size=='S':
+		path = image.FilePahtS
+	elif image_size=="R":
+		path = image.FilePathR
+	try:
+		return send_from_directory('static',filename=path,as_attachment=True)
+	except FileNotFoundError:
+		abort(404)

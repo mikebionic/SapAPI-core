@@ -3,8 +3,8 @@ var category_fields = ['categoryName','categoryDesc','categoryIcon']
 $("body").delegate('.categoryIcon','click',function(event){
 	ownerIconId = $(this).attr('ownerCategory');
 	$("body").delegate('.iconsList i','click',function(event){
-		selectedIcon = $(this).attr('class');
-		$(".categoryIcon"+ownerIconId+" i").attr('class',selectedIcon);
+		selectedIcon = $(this).text();
+		$(".categoryIcon"+ownerIconId+" i").text(selectedIcon);
 		$("#catIconsModal").modal("hide");
 	})
 })
@@ -25,8 +25,8 @@ $("body").delegate('.addCategoryBtn','click',function(event){
 	categoryData = prepareFormData(category_fields,ownerId);
 	categoryData['ownerCategory']=ownerId;
 
-	thisIconName = $(".categoryIcon"+ownerId+" i").attr('class');
-	if(thisIconName=="fas fa-apple-alt"){
+	thisIconName = $(".categoryIcon"+ownerId+" i").text();
+	if(thisIconName=="add_to_photos"){
 		thisIconName='';
 	}
 	else{

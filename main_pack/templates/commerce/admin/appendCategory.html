@@ -2,7 +2,7 @@
 
 	<li class="menu-item menu-item-has-children has-megamenu">
 		<div class="form-group">
-			<a href="#" class="menu-name" {% if category.ResCatDesc %} title="{{ category.ResCatDesc }}" {% endif %}><i class="{% if category.ResCatIconName %}{{category.ResCatIconName}}{%else%}fas fa-apple-alt {%endif%}"></i></a>{{ category.ResCatName }}
+			<a href="#" class="menu-name" {% if category.ResCatDesc %} title="{{ category.ResCatDesc }}" {% endif %}><i class="material-icons">{% if category.ResCatIconName %}{{category.ResCatIconName}}{%endif%}</i></a>{{ category.ResCatName }}
 			<a href="#" class="removeCategoryBtn" ownerCategory="{{ category.ResCatId }}"><i class="fas fa-times" style="padding-left: 7px;"></i></a>
 		</div>
 		<div class="wrap-megamenu lg-width-300 md-width-640">
