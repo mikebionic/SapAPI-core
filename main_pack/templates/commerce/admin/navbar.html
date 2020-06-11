@@ -1,8 +1,6 @@
 {% extends "commerce/admin/layout.html" %}
 
 {% block styles %}
-  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/datatables/datatables.min.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='commerce/admin/commerce_styles/css/bootstrap.min.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='commerce/admin/commerce_styles/css/animate.min.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='commerce/admin/commerce_styles/css/font-awesome.min.css') }}">
@@ -487,7 +485,6 @@ aria-hidden="true">
 {% endblock %}
 
 {% block scripts %}
-  <script src="{{ url_for('static', filename='commerce/admin/commerce_styles/js/bootstrap.min.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/commerce_styles/js/jquery.countdown.min.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/commerce_styles/js/slick.min.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/commerce_styles/js/biolife.framework.js') }}"></script>
