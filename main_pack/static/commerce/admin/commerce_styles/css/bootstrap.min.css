@@ -11401,6 +11401,7 @@ textarea.input-group-sm>.form-control,textarea.input-group-sm>.input-group-addon
 }
 
 .navbar {
+    background: #fcfcfc;
     position: relative;
     min-height: 50px;
     margin-bottom: 20px;
