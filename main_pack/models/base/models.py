@@ -564,7 +564,11 @@ class Rp_acc_price_list(CreatedModifiedInfo,db.Model):
 class Sl_image(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_sl_image"
 	SlImgId = db.Column(db.Integer,nullable=False,primary_key=True)
+	SlId = db.Column(db.Integer,db.ForeignKey("tbl_dk_slider.SlId"))
 	SlImgName = db.Column(db.String(100))
+	SlImgPathS = db.Column(db.String(255))
+	SlImgPathM = db.Column(db.String(255))
+	SlImgPathR = db.Column(db.String(255))
 	SlImgDesc = db.Column(db.String(500),default='')
 	# "SlImgMainImg" bytea,
 	SlImgMainImgFileName = db.Column(db.String(255),default='')
@@ -583,6 +587,7 @@ class Slider(AddInf,CreatedModifiedInfo,db.Model):
 	DivId = db.Column(db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
 	SlName = db.Column(db.String(100),nullable=False)
 	SlDesc = db.Column(db.String(500),default='')
+	Sl_image = db.relationship('Sl_image',backref='slider',lazy=True)
 
 class Warehouse(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_warehouse"

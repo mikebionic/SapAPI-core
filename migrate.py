@@ -44,6 +44,8 @@ user = Users(UName="administrator",UEmail="muhammedjepbarov@gmail.com",
 db.session.add(user)
 rp_acc = Rp_acc(RpAccName="Mike Bionic",RpAccEMail="muhammedjepbarov@gmail.com",RpAccRegNo="ARAK1",RpAccTypeId=1,UId=user.UId)
 db.session.add(rp_acc)
+rp_acc.UId = user.UId
+user.RpAccId = rp_acc.RpAccId
 regNum = Reg_num(UId=user.UId, RegNumTypeId=6,
 			RegNumPrefix="AK",RegNumLastNum=0)
 db.session.add(regNum)

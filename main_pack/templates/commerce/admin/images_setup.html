@@ -6,76 +6,107 @@
 {% endblock %}
 
 {% block content %}
-<form method="POST" action="" class="form" enctype="multipart/form-data">
-  <div class="row">
-    <div class="col-12 col-sm-6 col-lg-6">
-      <div class="card">
-        <div class="card-header">
-          <h4>{{_('Company logo')}}</h4>
-        </div>
-        <div class="card-body">
-          <div class="gallery gallery-fw" data-item-height="100">
-            <div class="gallery-item" data-image="{{ url_for('static', filename='commerce/admin/commerce_styles/images/home/ikea.png') }}" data-title="Image 1"></div>
-          </div>
-          <div class="logo_icon">
-            <li><a href="#" class="btn btn-icon btn-light"><i class="fas fa-plus"></i></a></li>
-            <li><a href="#" class="btn btn-icon btn-light"><i class="fas fa-trash-alt"></i></a></li>
-          </div>
-        </div>
-      </div>
-      <div class="card">
 
-  {{ logoForm.hidden_tag() }}
-        <div class="section-title">{{_('Upload images')}}</div>
-        <p id="msg"></p>
-        <div class="card-body">
-          <div class="custom-file">
-            {{ logoForm.logoImage(class="custom-file-input") }}
-            {% if logoForm.logoImage.errors %}
-              {% for error in logoForm.logoImage.errors %}
-                <span class="text-danger">{{ error }}</span>
+  <form method="POST" action="" class="form" enctype="multipart/form-data">
+    <div class="row">
+      <div class="col-12 col-sm-6 col-lg-6">
+        <div class="card">
+          <div class="card-header">
+            <h4>{{_('Company logo')}}</h4>
+          </div>
+          <div class="card-body">
+            {% if company_logo %}
+              <div class="gallery gallery-fw" data-item-height="100">
+                  <div class="gallery-item" data-image="{{ url_for('static', filename=company_logo.FilePathR) }}"></div>
+              </div>
+              <div class="logo_icon">
+                <li><a href="#" class="btn btn-icon btn-light addLogoBtn"><i class="fas fa-plus"></i></a></li>
+                <li><a href="{{ url_for('commerce_admin.remove_images',type='logo',imgId=company_logo.ImgId) }}" class="btn btn-icon btn-light deleteLogoBtn"><i class="fas fa-trash-alt"></i></a></li>
+              </div>
+            {% else %}
+              <div class="gallery gallery-fw" data-item-height="100">
+                  <div class="gallery-item" data-image="{{ url_for('static', filename='commerce/admin/commerce_styles/images/home/ikea.png') }}"></div>
+              </div>
+              <div class="logo_icon">
+                <li><a href="#" class="btn btn-icon btn-light addLogoBtn"><i class="fas fa-plus"></i></a></li>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+
+        {{ logoForm.hidden_tag() }}
+        <div class="card uploadLogoCard" style="display: none;">
+          <div class="section-title">{{_('Upload images')}}</div>
+          <p id="msg"></p>
+          <div class="card-body">
+            <div class="custom-file">
+              {{ logoForm.logoImage(class="custom-file-input") }}
+              {% if logoForm.logoImage.errors %}
+                {% for error in logoForm.logoImage.errors %}
+                  <span class="text-danger">{{ error }}</span>
+                {% endfor %}
+              {% endif %}
+              <button type="submit" class="btn btn-info" name="logoForm">Save logo</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-sm-6 col-lg-6">
+        <div class="card">
+          <div class="card-header">
+            <h4>{{_('Slider images')}}</h4>
+          </div>
+          <div class="card-body">
+            {% if not sl_images %}
+              <div class="gallery gallery-fw" data-item-height="100">
+                <div class="gallery-item" data-image="{{ url_for('static', filename='commerce/admin/commerce_styles/images/home/home1-banner1.jpg') }}"></div>
+                <div class="carousel_icon">
+                  <li><a href="#" class="btn btn-icon btn-light addSliderBtn"><i class="fas fa-plus"></i></a></li>
+                </div>
+              </div>
+            {% else %}
+              {% for sl_image in sl_images %}
+                  <div class="gallery gallery-fw" data-item-height="100">
+                    <div class="gallery-item" data-image="{{ url_for('static', filename=sl_image.SlImgPathR) }}"></div>
+                    <div class="carousel_icon">
+                      <li><a href="#" class="btn btn-icon btn-light addSliderBtn"><i class="fas fa-plus"></i></a></li>
+                      <li><a href="{{ url_for('commerce_admin.remove_images',type='slider',imgId=sl_image.SlImgId) }}" class="btn btn-icon btn-light deleteSliderBtn"><i class="fas fa-trash-alt"></i></a></li>
+                    </div>
+                  </div>
               {% endfor %}
             {% endif %}
-            {{ logoForm.submit(class="btn btn-info") }}
+          </div>
+        </div>
+        
+        {{ sliderForm.hidden_tag() }}
+        <div class="card uploadSliderCard" style="display: none;">
+          <div class="section-title">{{_('Upload images')}}</div>
+          <p id="msg"></p>
+          <div class="card-body">
+              {{ sliderForm.sliderImage(class="custom-file-input") }}
+              {% if sliderForm.sliderImage.errors %}
+                {% for error in sliderForm.sliderImage.errors %}
+                  <span class="text-danger">{{ error }}</span>
+                {% endfor %}
+              {% endif %}
+              <button type="submit" class="btn btn-info" name="sliderForm">Save slider</button>
           </div>
         </div>
       </div>
     </div>
-    <div class="col-12 col-sm-6 col-lg-6">
-      {{ sliderForm.hidden_tag() }}
-      <div class="card">
-        <div class="card-header">
-          <h4>{{_('Slider images')}}</h4>
-        </div>
-        <div class="card-body">
-          <div class="gallery gallery-fw" data-item-height="100">
-            <div class="gallery-item" data-image="{{ url_for('static', filename='commerce/admin/commerce_styles/images/home/home1-banner1.jpg') }}" data-title="Image 1">
-            </div>
-            <div class="carousel_icon">
-              <li><a href="#" class="btn btn-icon btn-light"><i class="fas fa-plus"></i></a></li>
-              <li><a href="#" class="btn btn-icon btn-light"><i class="fas fa-trash-alt"></i></a></li>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="section-title">{{_('Upload images')}}</div>
-        <p id="msg"></p>
-        <div class="card-body">
-            {{ sliderForm.sliderImage(class="custom-file-input") }}
-            {% if sliderForm.sliderImage.errors %}
-              {% for error in sliderForm.sliderImage.errors %}
-                <span class="text-danger">{{ error }}</span>
-              {% endfor %}
-            {% endif %}
-            {{ sliderForm.submit(class="btn btn-info") }}
-        </div>
-      </div>
-    </div>
-  </div>
+  </form>
 {% endblock %}
 
 {% block scripts %}
+  <script type="text/javascript">
+    $('.addSliderBtn').click(function(e){
+      $('.uploadSliderCard').show('slow');
+    })
+    $('.addLogoBtn').click(function(e){
+      $('.uploadLogoCard').show('slow');
+    })
+  </script>
   <script src="{{ url_for('static', filename='commerce/admin/bundles/chocolat/dist/js/jquery.chocolat.min.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/js/page/gallery1.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/bundles/dropzonejs/min/dropzone.min.js') }}"></script>

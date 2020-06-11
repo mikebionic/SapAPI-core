@@ -10,7 +10,6 @@
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='commerce/admin/commerce_styles/css/style.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='commerce/admin/commerce_styles/css/main-color.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/prism/prism.css')}}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/css/custom.css')}}">
 {% endblock %}
 
 {% block content %}
@@ -54,7 +53,7 @@
 {% for category in categories %}
 	{% if category.GCRecord == None or category.GCRecord == '' %}
 		<li class="menu-item menu-item-has-children has-megamenu">
-		  <a href="#" class="menu-name" {% if category.ResCatDesc %} title="{{ category.ResCatDesc }}" {% endif %}><i class="{% if category.ResCatIconName %}{{category.ResCatIconName}}{%else%}fas fa-apple-alt {%endif%}"></i>{{ category.ResCatName }}
+		  <a href="#" class="menu-name" {% if category.ResCatDesc %} title="{{ category.ResCatDesc }}" {% endif %}><i class="material-icons">{% if category.ResCatIconName %}{{category.ResCatIconName}}{%endif%}</i>{{ category.ResCatName }}
 		  <i class="fas fa-times removeCategoryBtn" ownerCategory="{{ category.ResCatId }}" style="padding-left: 7px;"></i></a>
 			<div class="wrap-megamenu lg-width-300 md-width-640">
 				<div class="mega-content">
@@ -103,10 +102,15 @@
 		</li>
 	{% endif %}
 {% endfor %}
+
+
 									<li class="menu-item menu-item-has-children has-megamenu newCategory">
-										<div  class="menu-name categoryIcon" ownerCategory="">
-										<a href="#"><i class="biolife-icon icon-fruits"  data-toggle="modal"
-										data-target="#catIconsModal"></i></div><input class="input100 categoryName" type="text" placeholder="{{_('Category')}}"><i class="fas fa-question" data-toggle="modal" data-target=".categoryDescModal"></i><i class="fas fa-plus-circle addCategoryBtn"></i></a>
+										<div class="menu-name categoryIcon" ownerCategory="">
+											<i class="material-icons" data-toggle="modal" data-target="#catIconsModal">add_to_photos</i> 
+										</div>
+										<input class="input100 categoryName" type="text" placeholder="{{_('Category')}}">
+										<i class="fas fa-question addDescBtn" ownerCategory="" title="{{_('Description')}}" data-toggle="modal" data-target=".categoryDescModal"></i>
+										<i class="fas fa-plus-circle addCategoryBtn"></i>
 										<input type="hidden" class="txt-input categoryDesc">
 									</li>
 								</ul>
@@ -133,8 +137,8 @@
 				</button>
 			</div>
 			<div class="modal-body">
-			   <textarea class="form-control descContent"></textarea>
-			   <a href="#" class="submitDescBtn"><i class="fas fa-check"></i></a>
+				<textarea class="form-control descContent"></textarea>
+				<a href="#" class="submitDescBtn"><i class="fas fa-check"></i></a>
 			</div>
 		</div>
 	</div>
@@ -143,230 +147,230 @@
 
 <!-- icon selection Modal -->
 <div class="modal fade" id="catIconsModal" tabindex="-1" role="dialog" aria-labelledby="catIconsModalTitle" aria-hidden="true">
- <div class="modal-dialog modal-dialog-centered" role="document">
-   <div class="modal-content">
-	 <div class="modal-header">
-	   <h5 class="modal-title" id="catIconsModalTitle">{{_('Icons')}}</h5>
-	   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		 <span aria-hidden="true">&times;</span>
-	   </button>
-	 </div>
-	 <div class="modal-body">
-		<ul class="nav nav-tabs" id="myTab2" role="tablist">
-			<li class="nav-item">
-			  <a class="nav-link active" id="home-tab2" data-toggle="tab" href="#tehnika" role="tab"
-				aria-controls="home" aria-selected="true">Tehnika</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" id="profile-tab2" data-toggle="tab" href="#sport" role="tab"
-				  aria-controls="profile" aria-selected="false">Sport</a>
-			  </li>
-			<li class="nav-item">
-			  <a class="nav-link" id="profile-tab2" data-toggle="tab" href="#koýnek" role="tab"
-				aria-controls="profile" aria-selected="false">Koýnek</a>
-			</li>
-			<li class="nav-item">
-			  <a class="nav-link" id="contact-tab2" data-toggle="tab" href="#konselyariya" role="tab"
-				aria-controls="contact" aria-selected="false">Konselýariýa</a>
-			</li>
-		  </ul>
-		  <div class="tab-content tab-bordered" id="myTab3Content">
-			<div class="tab-pane fade show active" id="tehnika" role="tabpanel" aria-labelledby="home-tab2">
-			  <div class="row icon-feather-container">
-				<div class="col-sm-6 col-md-4 col-lg-3">
-				<div class="preview">
-					<a href="#">
-						<i class="material-icons">alarm_on</i> 
-					</a>
-				</div>
-				</div>
-				<div class="col-sm-6 col-md-4 col-lg-3">
-				<div class="preview">
-					<a href="#">
-						<i class="material-icons">android</i> 
-					</a>
-				</div>
-				</div>
-				<div class="col-sm-6 col-md-4 col-lg-3">
-				<div class="preview">
-					<a href="#">
-						<i class="material-icons">important_devices</i> 
-					</a>
-				</div>
-				</div>
-				<div class="col-sm-6 col-md-4 col-lg-3">
-				<div class="preview">
-					<a href="#">
-						<i class="material-icons">print</i> 
-					</a>
-				</div>
-				</div>
-				<div class="col-sm-6 col-md-4 col-lg-3">
-				<div class="preview">
-					<a href="#">
-						<i class="material-icons">phonelink_ring</i> 
-					</a>
-				</div>
-				</div>
-				<div class="col-sm-6 col-md-4 col-lg-3">
-				<div class="preview">
-					<a href="#">
-						<i class="material-icons">screen_share</i> 
-					</a>
-				</div>
-				</div>
-				<div class="col-sm-6 col-md-4 col-lg-3">
-				<div class="preview">
-					<a href="#">
-						<i class="material-icons">tv</i> 
-					</a>
-				</div>
-				</div>
-				<div class="col-sm-6 col-md-4 col-lg-3">
-				<div class="preview">
-					<a href="#">
-						<i class="material-icons">tablet</i> 
-					</a>
-				</div>
-				</div>
-			  </div>
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="catIconsModalTitle">{{_('Icons')}}</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
 			</div>
-			<div class="tab-pane fade" id="sport" role="tabpanel" aria-labelledby="profile-tab2">
-				<div class="row icon-feather-container">
-					<div class="col-sm-6 col-md-4 col-lg-3">
-					<div class="preview">
-						<a href="#">
-							<i class="material-icons">directions_bike</i> 
-						</a>
+			<div class="modal-body">
+				<ul class="nav nav-tabs" id="myTab2" role="tablist">
+					<li class="nav-item">
+					  <a class="nav-link active" id="home-tab2" data-toggle="tab" href="#tehnika" role="tab"
+						aria-controls="home" aria-selected="true">Tehnika</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="profile-tab2" data-toggle="tab" href="#sport" role="tab"
+						  aria-controls="profile" aria-selected="false">Sport</a>
+					  </li>
+					<li class="nav-item">
+					  <a class="nav-link" id="profile-tab2" data-toggle="tab" href="#koýnek" role="tab"
+						aria-controls="profile" aria-selected="false">Koýnek</a>
+					</li>
+					<li class="nav-item">
+					  <a class="nav-link" id="contact-tab2" data-toggle="tab" href="#konselyariya" role="tab"
+						aria-controls="contact" aria-selected="false">Konselýariýa</a>
+					</li>
+				</ul>
+			  <div class="tab-content tab-bordered iconsList" id="myTab3Content">
+					<div class="tab-pane fade show active" id="tehnika" role="tabpanel" aria-labelledby="home-tab2">
+					  <div class="row icon-feather-container">
+							<div class="col-sm-6 col-md-4 col-lg-3">
+								<div class="preview">
+									<a href="#">
+										<i class="material-icons">alarm_on</i> 
+									</a>
+								</div>
+							</div>
+							<div class="col-sm-6 col-md-4 col-lg-3">
+								<div class="preview">
+									<a href="#">
+										<i class="material-icons">android</i> 
+									</a>
+								</div>
+							</div>
+							<div class="col-sm-6 col-md-4 col-lg-3">
+								<div class="preview">
+									<a href="#">
+										<i class="material-icons">important_devices</i> 
+									</a>
+								</div>
+							</div>
+							<div class="col-sm-6 col-md-4 col-lg-3">
+								<div class="preview">
+									<a href="#">
+										<i class="material-icons">print</i> 
+									</a>
+								</div>
+							</div>
+							<div class="col-sm-6 col-md-4 col-lg-3">
+								<div class="preview">
+									<a href="#">
+										<i class="material-icons">phonelink_ring</i> 
+									</a>
+								</div>
+							</div>
+							<div class="col-sm-6 col-md-4 col-lg-3">
+								<div class="preview">
+									<a href="#">
+										<i class="material-icons">screen_share</i> 
+									</a>
+								</div>
+							</div>
+							<div class="col-sm-6 col-md-4 col-lg-3">
+								<div class="preview">
+									<a href="#">
+										<i class="material-icons">tv</i> 
+									</a>
+								</div>
+							</div>
+							<div class="col-sm-6 col-md-4 col-lg-3">
+								<div class="preview">
+									<a href="#">
+										<i class="material-icons">tablet</i> 
+									</a>
+								</div>
+							</div>
+					  </div>
 					</div>
+					<div class="tab-pane fade" id="sport" role="tabpanel" aria-labelledby="profile-tab2">
+						<div class="row icon-feather-container">
+							<div class="col-sm-6 col-md-4 col-lg-3">
+								<div class="preview">
+									<a href="#">
+										<i class="material-icons">directions_bike</i> 
+									</a>
+								</div>
+							</div>
+							<div class="col-sm-6 col-md-4 col-lg-3">
+								<div class="preview">
+									<a href="#">
+										<i class="material-icons">pool</i> 
+									</a>
+								</div>
+							</div>
+							<div class="col-sm-6 col-md-4 col-lg-3">
+								<div class="preview">
+									<a href="#">
+										<i class="material-icons">fitness_center</i> 
+									</a>
+								</div>
+							</div>
+						 </div>
 					</div>
-					<div class="col-sm-6 col-md-4 col-lg-3">
-					<div class="preview">
-						<a href="#">
-							<i class="material-icons">pool</i> 
-						</a>
+					<div class="tab-pane fade" id="koýnek" role="tabpanel" aria-labelledby="profile-tab2">
+						<div class="row icon-feather-container">
+							<div class="col-sm-6 col-md-4 col-lg-3">
+								<div class="preview">
+									<a href="#">
+										<i class="material-icons">school</i>
+									</a>
+								</div>
+							</div>
+							<div class="col-sm-6 col-md-4 col-lg-3">
+								<div class="preview">
+									<a href="#">
+										<i class="material-icons">child_friendly</i>
+									</a>
+								</div>
+							</div>
+							<div class="col-sm-6 col-md-4 col-lg-3">
+								<div class="preview">
+									<a href="#">
+										<i class="material-icons">beach_access</i>
+									</a>
+								</div>
+							</div>
+							<div class="col-sm-6 col-md-4 col-lg-3">
+								<div class="preview">
+									<a href="#">
+										<i class="material-icons">business_center</i>
+									</a>
+								</div>
+							</div>
+							<div class="col-sm-6 col-md-4 col-lg-3">
+								<div class="preview">
+									<a href="#">
+										<i class="material-icons">local_mall</i>
+									</a>
+								</div>
+							</div>
+							<div class="col-sm-6 col-md-4 col-lg-3">
+								<div class="preview">
+									<a href="#">
+										<i class="material-icons">work</i>
+									</a>
+								</div>
+							</div>
+							<div class="col-sm-6 col-md-4 col-lg-3">
+								<div class="preview">
+									<a href="#">
+										<i class="material-icons">rowing</i>
+									</a>
+								</div>
+							</div>
+						</div>
 					</div>
+					<div class="tab-pane fade" id="konselyariya" role="tabpanel" aria-labelledby="contact-tab2">
+						<div class="row icon-feather-container">
+							<div class="col-sm-6 col-md-4 col-lg-3">
+								<div class="preview">
+									<a href="#">
+										<i class="material-icons">assignment</i>
+									</a>
+								</div>
+							</div>
+							<div class="col-sm-6 col-md-4 col-lg-3">
+								<div class="preview">
+									<a href="#">
+										<i class="material-icons">book</i>
+									</a>
+								</div>
+							</div>
+							<div class="col-sm-6 col-md-4 col-lg-3">
+								<div class="preview">
+									<a href="#">
+										<i class="material-icons">import_contacts</i>
+									</a>
+								</div>
+							</div>
+							<div class="col-sm-6 col-md-4 col-lg-3">
+								<div class="preview">
+									<a href="#">
+										<i class="material-icons">content_cut</i>
+									</a>
+								</div>
+							</div>
+							<div class="col-sm-6 col-md-4 col-lg-3">
+								<div class="preview">
+									<a href="#">
+										<i class="material-icons">create</i>
+									</a>
+								</div>
+							</div>
+							<div class="col-sm-6 col-md-4 col-lg-3">
+								<div class="preview">
+									<a href="#">
+										<i class="material-icons">text_format
+										</i>
+									</a>
+								</div>
+							</div>
+							<div class="col-sm-6 col-md-4 col-lg-3">
+								<div class="preview">
+									<a href="#">
+										<i class="material-icons">content_paste</i>
+									</a>
+								</div>
+							</div>
+						</div>
 					</div>
-					<div class="col-sm-6 col-md-4 col-lg-3">
-					<div class="preview">
-						<a href="#">
-							<i class="material-icons">fitness_center</i> 
-						</a>
-					</div>
-					</div>
-				  </div>
+				</div>
 			</div>
-			<div class="tab-pane fade" id="koýnek" role="tabpanel" aria-labelledby="profile-tab2">
-				<div class="row icon-feather-container">
-					<div class="col-sm-6 col-md-4 col-lg-3">
-					<div class="preview">
-						<a href="#">
-							<i class="material-icons">school</i>
-						</a>
-					</div>
-					</div>
-					<div class="col-sm-6 col-md-4 col-lg-3">
-					<div class="preview">
-						<a href="#">
-							<i class="material-icons">child_friendly</i>
-						</a>
-					</div>
-					</div>
-					<div class="col-sm-6 col-md-4 col-lg-3">
-					<div class="preview">
-						<a href="#">
-							<i class="material-icons">beach_access</i>
-						</a>
-					</div>
-					</div>
-					<div class="col-sm-6 col-md-4 col-lg-3">
-					<div class="preview">
-						<a href="#">
-							<i class="material-icons">business_center</i>
-						</a>
-					</div>
-					</div>
-					<div class="col-sm-6 col-md-4 col-lg-3">
-					<div class="preview">
-						<a href="#">
-							<i class="material-icons">local_mall</i>
-						</a>
-					</div>
-					</div>
-					<div class="col-sm-6 col-md-4 col-lg-3">
-					<div class="preview">
-						<a href="#">
-							<i class="material-icons">work</i>
-						</a>
-					</div>
-					</div>
-					<div class="col-sm-6 col-md-4 col-lg-3">
-					<div class="preview">
-						<a href="#">
-							<i class="material-icons">rowing</i>
-						</a>
-					</div>
-					</div>
-				  </div>
-			</div>
-			<div class="tab-pane fade" id="konselyariya" role="tabpanel" aria-labelledby="contact-tab2">
-				<div class="row icon-feather-container">
-					<div class="col-sm-6 col-md-4 col-lg-3">
-					<div class="preview">
-						<a href="#">
-							<i class="material-icons">assignment</i>
-						</a>
-					</div>
-					</div>
-					<div class="col-sm-6 col-md-4 col-lg-3">
-					<div class="preview">
-						<a href="#">
-							<i class="material-icons">book</i>
-						</a>
-					</div>
-					</div>
-					<div class="col-sm-6 col-md-4 col-lg-3">
-					<div class="preview">
-						<a href="#">
-							<i class="material-icons">import_contacts</i>
-						</a>
-					</div>
-					</div>
-					<div class="col-sm-6 col-md-4 col-lg-3">
-					<div class="preview">
-						<a href="#">
-							<i class="material-icons">content_cut</i>
-						</a>
-					</div>
-					</div>
-					<div class="col-sm-6 col-md-4 col-lg-3">
-					<div class="preview">
-						<a href="#">
-							<i class="material-icons">create</i>
-						</a>
-					</div>
-					</div>
-					<div class="col-sm-6 col-md-4 col-lg-3">
-					<div class="preview">
-						<a href="#">
-							<i class="material-icons">text_format
-							</i>
-						</a>
-					</div>
-					</div>
-					<div class="col-sm-6 col-md-4 col-lg-3">
-					<div class="preview">
-						<a href="#">
-							<i class="material-icons">content_paste</i>
-						</a>
-					</div>
-					</div>
-				  </div>
-			</div>
-		  </div>
-	 </div>
-   </div>
- </div>
+		</div>
+	</div>
 </div>
 <!-- icon modal -->
 
@@ -374,114 +378,114 @@
 <!-- Contact info modal -->
 <div class="modal fade bd-example-modal-lg contactModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
 aria-hidden="true">
-<div class="modal-dialog modal-lg">
-  <div class="modal-content">
-	<div class="modal-header">
-	  <h5 class="modal-title" id="myLargeModalLabel">{{_('Contact')}}</h5>
-	  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		<span aria-hidden="true">&times;</span>
-	  </button>
+	<div class="modal-dialog modal-lg">
+	  <div class="modal-content">
+			<div class="modal-header">
+			  <h5 class="modal-title" id="myLargeModalLabel">{{_('Contact')}}</h5>
+			  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+			  </button>
+			</div>
+			<div class="modal-body">
+				<div class="contact-info-container sm-margin-top-27px xs-margin-bottom-60px xs-margin-top-60px" style="margin: 5px 15%;">
+					<h4 class="box-title">{{_('Contact')}}</h4>
+					<ul class="addr-info">
+						<li>
+							<div class="if-item">
+								<b class="tie">{{_('Company name')}}:</b>
+								<p class="dsc">
+								  <input type="text" class="companyName" {% if company.CName %}value='{{company.CName}}'{% endif %} cols="50" rows="2" placeholder="{{_('Company')}}" class="txt-input">
+								</p>
+							</div>
+						</li>
+						<li>
+							<div class="if-item">
+								<b class="tie">{{_('Full name')}}:</b>
+								<p class="dsc">
+								  <textarea class="companyFullName" cols="40" rows="2" placeholder="{{_('Full name')}}">{% if company.CFullName %}{{company.CFullName}}{% endif %}</textarea>
+								</p>
+							</div>
+						</li>
+						<li>
+							<div class="if-item">
+								<b class="tie">{{_('Description')}}:</b>
+								<p class="dsc">
+								  <textarea class="companyDesc" cols="40" rows="2" placeholder="{{_('Description')}}">{% if company.CDesc %}{{company.CDesc}}{% endif %}</textarea>
+								</p>
+							</div>
+						</li>
+						<li>
+							<div class="if-item">
+								<b class="tie">{{_('Address')}}:</b>
+								<p class="dsc">
+								  <input type="text" class="companyAddress" {% if company.CAddress %}value='{{company.CAddress}}'{% endif %} cols="50" rows="2" placeholder="Example St. Example Av." class="txt-input">
+								</p>
+							</div>
+						</li>
+						<li>
+							<div class="if-item">
+								<b class="tie">{{_('Phone')}} 1:</b>
+								<p class="dsc">
+								  <input type="text" class="companyPhone1" {% if company.Phone1 %}value='{{company.Phone1}}'{% endif %} cols="50" rows="2" placeholder="(+993)123 456789" class="txt-input">
+								</p>
+							</div>
+						</li>
+						<li>
+							<div class="if-item">
+								<b class="tie">{{_('Phone')}} 2:</b>
+								<p class="dsc">
+								  <input type="text" class="companyPhone2" {% if company.Phone2 %}value='{{company.Phone2}}'{% endif %} cols="50" rows="2" placeholder="(+993)123 456789" class="txt-input">
+								</p>
+							</div>
+						</li>
+						<li>
+							<div class="if-item">
+								<b class="tie">{{_('Phone')}} 3:</b>
+								<p class="dsc">
+								  <input type="text" class="companyPhone3" {% if company.Phone3 %}value='{{company.Phone3}}'{% endif %} cols="50" rows="2" placeholder="(+993)123 456789" class="txt-input">
+								</p>
+							</div>
+						</li>
+						<li>
+							<div class="if-item">
+								<b class="tie">{{_('Phone')}} 4:</b>
+								<p class="dsc">
+								  <input type="text" class="companyPhone4" {% if company.Phone4 %}value='{{company.Phone4}}'{% endif %} cols="50" rows="2" placeholder="(+993)123 456789" class="txt-input">
+								</p>
+							</div>
+						</li>
+						<li>
+							<div class="if-item">
+								<b class="tie">{{_('Postal code')}}:</b>
+								<p class="dsc">
+								  <input type="text" class="companyPostalCode" {% if company.CPostalCode %}value='{{company.CPostalCode}}'{% endif %} cols="50" rows="2" placeholder="{{_('Postal code')}}" class="txt-input">
+								</p>
+							</div>
+						</li>
+						<li>
+							<div class="if-item">
+								<b class="tie">{{_('Email')}}:</b>
+								<p class="dsc">
+								  <input type="text" class="companyEmail" {% if company.CEmail %}value='{{company.CEmail}}'{% endif %} cols="50" rows="2" placeholder="example@example.com" class="txt-input">
+								</p>
+							</div>
+						</li>
+						<li>
+							<div class="if-item">
+								<b class="tie">{{_('Working time')}}:</b>
+								<p class="dsc">
+								  <input type="text" class="companyWTime" {% if company.AddInf1 %}value='{{company.AddInf1}}'{% endif %} cols="50" rows="2" placeholder="8am - 08pm, Mon - Sat" class="txt-input">
+								</p>
+							</div>
+						</li>
+						<p class="form-row">
+							<button class="btn btn-outline-info submitCompanyInfo" type="submit">{{_('Save')}}</button>
+						</p>
+					</ul>
+				</div>
+			</div>
+	  </div>
 	</div>
-	<div class="modal-body">
-		<div class="contact-info-container sm-margin-top-27px xs-margin-bottom-60px xs-margin-top-60px" style="margin: 5px 15%;">
-			<h4 class="box-title">{{_('Contact')}}</h4>
-			<ul class="addr-info">
-				<li>
-					<div class="if-item">
-						<b class="tie">{{_('Company name')}}:</b>
-						<p class="dsc">
-						  <input type="text" class="companyName" {% if company.CName %}value='{{company.CName}}'{% endif %} cols="50" rows="2" placeholder="{{_('Company')}}" class="txt-input">
-						</p>
-					</div>
-				</li>
-				<li>
-					<div class="if-item">
-						<b class="tie">{{_('Full name')}}:</b>
-						<p class="dsc">
-						  <textarea class="companyFullName" cols="40" rows="2" placeholder="{{_('Full name')}}">{% if company.CFullName %}{{company.CFullName}}{% endif %}</textarea>
-						</p>
-					</div>
-				</li>
-				<li>
-					<div class="if-item">
-						<b class="tie">{{_('Description')}}:</b>
-						<p class="dsc">
-						  <textarea class="companyDesc" cols="40" rows="2" placeholder="{{_('Description')}}">{% if company.CDesc %}{{company.CDesc}}{% endif %}</textarea>
-						</p>
-					</div>
-				</li>
-				<li>
-					<div class="if-item">
-						<b class="tie">{{_('Address')}}:</b>
-						<p class="dsc">
-						  <input type="text" class="companyAddress" {% if company.CAddress %}value='{{company.CAddress}}'{% endif %} cols="50" rows="2" placeholder="Example St. Example Av." class="txt-input">
-						</p>
-					</div>
-				</li>
-				<li>
-					<div class="if-item">
-						<b class="tie">{{_('Phone')}} 1:</b>
-						<p class="dsc">
-						  <input type="text" class="companyPhone1" {% if company.Phone1 %}value='{{company.Phone1}}'{% endif %} cols="50" rows="2" placeholder="(+993)123 456789" class="txt-input">
-						</p>
-					</div>
-				</li>
-				<li>
-					<div class="if-item">
-						<b class="tie">{{_('Phone')}} 2:</b>
-						<p class="dsc">
-						  <input type="text" class="companyPhone2" {% if company.Phone2 %}value='{{company.Phone2}}'{% endif %} cols="50" rows="2" placeholder="(+993)123 456789" class="txt-input">
-						</p>
-					</div>
-				</li>
-				<li>
-					<div class="if-item">
-						<b class="tie">{{_('Phone')}} 3:</b>
-						<p class="dsc">
-						  <input type="text" class="companyPhone3" {% if company.Phone3 %}value='{{company.Phone3}}'{% endif %} cols="50" rows="2" placeholder="(+993)123 456789" class="txt-input">
-						</p>
-					</div>
-				</li>
-				<li>
-					<div class="if-item">
-						<b class="tie">{{_('Phone')}} 4:</b>
-						<p class="dsc">
-						  <input type="text" class="companyPhone4" {% if company.Phone4 %}value='{{company.Phone4}}'{% endif %} cols="50" rows="2" placeholder="(+993)123 456789" class="txt-input">
-						</p>
-					</div>
-				</li>
-				<li>
-					<div class="if-item">
-						<b class="tie">{{_('Postal code')}}:</b>
-						<p class="dsc">
-						  <input type="text" class="companyPostalCode" {% if company.CPostalCode %}value='{{company.CPostalCode}}'{% endif %} cols="50" rows="2" placeholder="{{_('Postal code')}}" class="txt-input">
-						</p>
-					</div>
-				</li>
-				<li>
-					<div class="if-item">
-						<b class="tie">{{_('Email')}}:</b>
-						<p class="dsc">
-						  <input type="text" class="companyEmail" {% if company.CEmail %}value='{{company.CEmail}}'{% endif %} cols="50" rows="2" placeholder="example@example.com" class="txt-input">
-						</p>
-					</div>
-				</li>
-				<li>
-					<div class="if-item">
-						<b class="tie">{{_('Working time')}}:</b>
-						<p class="dsc">
-						  <input type="text" class="companyWTime" {% if company.AddInf1 %}value='{{company.AddInf1}}'{% endif %} cols="50" rows="2" placeholder="8am - 08pm, Mon - Sat" class="txt-input">
-						</p>
-					</div>
-				</li>
-				<p class="form-row">
-					<button class="btn btn-outline-info submitCompanyInfo" type="submit">{{_('Save')}}</button>
-				</p>
-			</ul>
-		</div>
-	</div>
-  </div>
-</div>
 </div>
 
 {% endblock %}

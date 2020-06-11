@@ -480,90 +480,71 @@
 <!--/        right block-sidebar             -->
 
 
-
-
-    <!-- FOOTER -->
-    <footer id="footer" class="footer layout-03">
-      <div class="footer-content background-footer-03">
-        <div class="container">
-          <div class="row">
-            <div class="col-xs-12">
-              <div class="separator sm-margin-top-70px xs-margin-top-40px"></div>
-            </div>
-            <div class="col-lg-6 col-sm-6 col-xs-12">
-              <div class="copy-right-text"><p><a href="">Sap Hyzmat</a></p></div>
-            </div>
-            <div class="col-lg-6 col-sm-6 col-xs-12">
-              <div class="payment-methods">
-                <ul>
-                  <li><a href="#" class="payment-link"><img src="{{ url_for('static', filename='commerce/main/images/card1.jpg') }}" width="51" height="36" alt=""></a></li>
-                  <li><a href="#" class="payment-link"><img src="{{ url_for('static', filename='commerce/main/images/card2.jpg') }}" width="51" height="36" alt=""></a></li>
-                  <li><a href="#" class="payment-link"><img src="{{ url_for('static', filename='commerce/main/images/card3.jpg') }}" width="51" height="36" alt=""></a></li>
-                  <li><a href="#" class="payment-link"><img src="{{ url_for('static', filename='commerce/main/images/card4.jpg') }}" width="51" height="36" alt=""></a></li>
-                  <li><a href="#" class="payment-link"><img src="{{ url_for('static', filename='commerce/main/images/card5.jpg') }}" width="51" height="36" alt=""></a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
+  <!--Footer For Mobile-->
+  <div class="mobile-footer">
+    <div class="mobile-footer-inner">
+      <div class="mobile-block block-menu-main">
+        <a class="menu-bar menu-toggle btn-toggle" data-object="open-mobile-menu" href="javascript:void(0)">
+          <span class="fa fa-bars"></span>
+          <span class="text">{{_('Menu')}}</span>
+        </a>
       </div>
-    </footer>
-
-    <!--Footer For Mobile-->
-    <div class="mobile-footer">
-      <div class="mobile-footer-inner">
-        <div class="mobile-block block-menu-main">
-          <a class="menu-bar menu-toggle btn-toggle" data-object="open-mobile-menu" href="javascript:void(0)">
-            <span class="fa fa-bars"></span>
-            <span class="text">{{_('Menu')}}</span>
-          </a>
-        </div>
-        <div class="mobile-block block-sidebar">
-          <a class="menu-bar filter-toggle btn-toggle" data-object="open-mobile-filter" href="javascript:void(0)">
-              <i class="fa fa-sliders" aria-hidden="true"></i>
-            <span class="text">{{_('Sidebar')}}</span>
-          </a>
-        </div>
-        <div class="mobile-block block-minicart">
-          <a class="link-to-cart" href="#">
-            <span class="fa fa-shopping-bag" aria-hidden="true"></span>
-            <span class="text">{{_('Cart')}}</span>
-          </a>
-        </div>
-        <div class="mobile-block block-global">
-          <a class="menu-bar myaccount-toggle btn-toggle" data-object="global-panel-opened" href="javascript:void(0)">
-            <span class="fa fa-globe"></span>
-            <span class="text">{{_('Global')}}</span>
-          </a>
-        </div>
+      <div class="mobile-block block-sidebar">
+        <a class="menu-bar filter-toggle btn-toggle" data-object="open-mobile-filter" href="javascript:void(0)">
+          <i class="fa fa-sliders" aria-hidden="true"></i>
+          <span class="text">{{_('Sidebar')}}</span>
+        </a>
+      </div>
+      <div class="mobile-block block-minicart">
+        <a class="link-to-cart" href="#">
+          <span class="fa fa-shopping-bag" aria-hidden="true"></span>
+          <span class="text">{{_('Cart')}}</span>
+        </a>
+      </div>
+      <div class="mobile-block block-global">
+        <a class="menu-bar myaccount-toggle btn-toggle" data-object="global-panel-opened" href="javascript:void(0)">
+          <span class="fa fa-globe"></span>
+          <span class="text">{{_('Global')}}</span>
+        </a>
       </div>
     </div>
-
-    <div class="mobile-block-global">
-      <div class="biolife-mobile-panels">
-        <span class="biolife-current-panel-title">{{_('Global')}}</span>
-        <a class="biolife-close-btn" data-object="global-panel-opened" href="#">&times;</a>
+  </div>
+  <div class="mobile-block-global">
+    <div class="biolife-mobile-panels">
+      <span class="biolife-current-panel-title">{{_('Global')}}</span>
+      <a class="biolife-close-btn" data-object="global-panel-opened" href="#">&times;</a>
+    </div>
+    <div class="block-global-contain">
+      <div class="glb-item my-account">
+        <b class="title">{{_('My profile')}}</b>
+        <ul class="list">
+          <li class="list-item"><a href="#">{{_('Login')}}/{{_('Register')}}</a></li>
+          <li class="list-item"><a href="#">{{_('Wishlist')}} <span class="index">(8)</span></a></li>
+          <li class="list-item"><a href="#">{{_('Checkout')}}</a></li>
+        </ul>
       </div>
-      <div class="block-global-contain">
-        <div class="glb-item my-account">
-          <b class="title">{{_('My profile')}}</b>
-          <ul class="list">
-            <li class="list-item"><a href="#">{{_('Login')}}/{{_('Register')}}</a></li>
-            <li class="list-item"><a href="#">{{_('Wishlist')}} <span class="index">(8)</span></a></li>
-            <li class="list-item"><a href="#">{{_('Checkout')}}</a></li>
-          </ul>
-        </div>
-        <div class="glb-item languages">
-          <b class="title">{{_('Language')}}</b>
-          <ul class="list inline">
-            <li class="list-item"><img src="{{ url_for('static', filename='commerce/main/images/languages/us.jpg') }}" alt="flag" width="24" height="18"></li>
-            <li class="list-item"><img src="{{ url_for('static', filename='commerce/main/images/languages/fr.jpg') }}" alt="flag" width="24" height="18"></li>
-            <li class="list-item"><img src="{{ url_for('static', filename='commerce/main/images/languages/ger.jpg') }}" alt="flag" width="24" height="18"></li>
-            <li class="list-item"><img src="{{ url_for('static', filename='commerce/main/images/languages/jap.jpg') }}" alt="flag" width="24" height="18"></li>
-          </ul>
-        </div>
+      <div class="glb-item languages">
+        <b class="title">{{_('Language')}}</b>
+        <ul class="list inline">
+          <li class="list-item">
+            <a href="/language/en" class="dropdown-item">
+              <img src="{{ url_for('static', filename='commerce/main/images/us.svg') }}" width="24" height="18">
+            </a>
+          </li>              
+          <li class="list-item">
+            <a href="/language/tk" class="dropdown-item">
+              <img src="{{ url_for('static', filename='commerce/main/images/tm.svg') }}" width="24" height="18">
+            </a>
+          </li>              
+          <li class="list-item">
+            <a href="/language/ru" class="dropdown-item">
+              <img src="{{ url_for('static', filename='commerce/main/images/ru.svg') }}" width="24" height="18">
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
+  </div>
     <a class="btn-scroll-top"><i class="biolife-icon icon-left-arrow"></i></a>
     <script src="{{ url_for('static', filename='commerce/main/js/jquery-3.4.1.min.js') }}"></script>
     <script type="text/javascript">
