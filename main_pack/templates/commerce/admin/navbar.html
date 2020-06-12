@@ -125,7 +125,7 @@
 
 {% block modals %}
 <!-- category desc Modal -->
-<div class="modal fade categoryDescModal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade categoryDescModal" tabindex="-1" role="dialog" aria-hidden="true" style="background-color: rgba(71, 69, 69, 0.548);">
 	<div class="modal-dialog modal-sm">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -144,7 +144,7 @@
 <!--/ category desc Modal -->
 
 <!-- icon selection Modal -->
-<div class="modal fade" id="catIconsModal" tabindex="-1" role="dialog" aria-labelledby="catIconsModalTitle" aria-hidden="true">
+<div class="modal fade" id="catIconsModal" tabindex="-1" role="dialog" aria-labelledby="catIconsModalTitle" aria-hidden="true" style="background-color: rgba(71, 69, 69, 0.548);">
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -375,7 +375,7 @@
 
 <!-- Contact info modal -->
 <div class="modal fade bd-example-modal-lg contactModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-aria-hidden="true">
+aria-hidden="true" style="background-color: rgba(71, 69, 69, 0.548);">
 	<div class="modal-dialog modal-lg">
 	  <div class="modal-content">
 			<div class="modal-header">
@@ -490,7 +490,6 @@ aria-hidden="true">
 
 {% block scripts %}
   <script src="{{ url_for('static', filename='commerce/admin/commerce_styles/js/jquery.countdown.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='commerce/admin/commerce_styles/js/slick.min.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/commerce_styles/js/biolife.framework.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/commerce_styles/js/functions.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/bundles/prism/prism.js')}}"></script>

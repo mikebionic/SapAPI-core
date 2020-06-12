@@ -17765,39 +17765,3 @@ a .badge{
     font-size:10px
 }
 
-
-/* commerce hr */
-    .main-content h1{
-    font-family: sans-serif;
-    margin: 60px auto;
-    margin-bottom: 45px;
-    text-align: center;
-    font-size: 40px;
-    max-width: 600px;
-    position:relative;
-     
-    }
-    .main-content h1:before{
-    content: "";
-    display:block;
-    width: 120px;
-    height:2px;
-    background: #000;
-    position: absolute;
-    left: 0;
-    top: 50%;
-    z-index: -2;
-    }
-    .main-content h1:after{
-    content: "";
-    display:block;
-    width: 120px;
-    height:2px;
-    background: #000;
-    position: absolute;
-    right: 0;
-    top: 50%;
-    z-index: -2;
-    }
-    /*end hr*/
-    

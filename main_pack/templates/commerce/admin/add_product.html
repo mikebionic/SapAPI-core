@@ -256,7 +256,7 @@
 
 {% block modals %}
   
-  <div class="modal fade translationModal" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+  <div class="modal fade translationModal" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true" style="background-color: rgba(71, 69, 69, 0.548);">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -305,7 +305,6 @@
 {% endblock %}
 
 {% block scripts %}
-  <script src="{{ url_for('static', filename='commerce/admin/commerce_styles/js/bootstrap.min.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/commerce_styles/js/jquery.countdown.min.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/commerce_styles/js/jquery.nice-select.min.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/commerce_styles/js/jquery.nicescroll.min.js') }}"></script>

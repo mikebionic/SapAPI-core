@@ -1813,6 +1813,7 @@ body.open-mobile-search .header-area.layout-02{
 }
 .vertical-category-block{
     display: block;
+    width: 350px;
     position: relative;
 }
 .vertical-category-block .block-title{
