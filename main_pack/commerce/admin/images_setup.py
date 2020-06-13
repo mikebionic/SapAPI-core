@@ -9,7 +9,7 @@ from main_pack.models.base.models import Company,Sl_image,Slider,Image
 from sqlalchemy import or_, and_
 
 
-@bp.route("/images_setup", methods=['GET', 'POST'])
+@bp.route("/admin/images_setup", methods=['GET', 'POST'])
 @login_required
 def images_setup():
 	company = Company.query.get(1)
@@ -32,8 +32,7 @@ def images_setup():
 		if sliderForm.sliderImage.data:
 
 			imageFile = save_image(imageForm=sliderForm.sliderImage.data,module="uploads/commerce/Slider",id=slider.SlId)
-			image = Sl_image(SlImgName=imageFile['FileName'],SlImgPathR=imageFile['FilePathR'],SlImgPathM=imageFile['FilePathM'],
-				SlImgPathS=imageFile['FilePathS'],SlId=slider.SlId)
+			image = Sl_image(SlImgName=imageFile['FileName'],SlImgMainImgFileName=imageFile['FilePathR'],SlId=slider.SlId)
 			db.session.add(image)
 			db.session.commit()
 

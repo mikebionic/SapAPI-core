@@ -567,9 +567,9 @@ class Sl_image(AddInf,CreatedModifiedInfo,db.Model):
 	SlImgId = db.Column(db.Integer,nullable=False,primary_key=True)
 	SlId = db.Column(db.Integer,db.ForeignKey("tbl_dk_slider.SlId"))
 	SlImgName = db.Column(db.String(100))
-	SlImgPathS = db.Column(db.String(255))
-	SlImgPathM = db.Column(db.String(255))
-	SlImgPathR = db.Column(db.String(255))
+	# SlImgPathS = db.Column(db.String(255))
+	# SlImgPathM = db.Column(db.String(255))
+	# SlImgPathR = db.Column(db.String(255))
 	SlImgDesc = db.Column(db.String(500),default='')
 	# "SlImgMainImg" bytea,
 	SlImgMainImgFileName = db.Column(db.String(255),default='')
