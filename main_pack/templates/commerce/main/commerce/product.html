@@ -78,13 +78,13 @@
         </div>
       </div>
       <div class="action-form">
-        <div class="quantity-box">
+        <div class="quantity-box" style="display: none">
           <span class="title">{{_('Quantity')}}:</span>
           <div class="cont">
-            <span class="next" onclick="nextNum()"></span>
-            <span class="prev" onclick="prevNum()"></span>
+            <span value="{{resource.productQty}}" class="next nextQtyVal productQty" ownerId="{{resource.ResId}}"></span>
+            <span value="{{resource.productQty}}" class="prev prevQtyVal productQty" ownerId="{{resource.ResId}}"></span>
             <div id="box">
-                <span>{{ resource.productQty }}</span>
+              <span value="{{resource.productQty}}" class="uiQtyText productQty" ownerId="{{resource.ResId}}">{{ resource.productQty }}</span>
             </div>
           </div>
         </div>
@@ -92,12 +92,12 @@
           <span class="title">{{_('Total Price')}}:</span>
           <p class="price">
             <span class="currencySymbol">TMT</span>
-            <div class="productTotalPrice" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue }}</div>
+            <div class="productTotalPrice" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue*resource.productQty }}</div>
           </p>
         </div>
         <div class="buttons">
-          <button class="btn add-to-cart-btn addToCart" ownerId="{{resource.ResId}}">{{_('Add to cart')}}</button>
-          <button class="btn add-to-cart-btn removeFromCart" ownerId="{{resource.ResId}}" style="display: none;">{{_('Remove')}}</button>
+          <button class="btn add-to-cart-btn addToCart" ownerId="{{resource.ResId}}" onclick="$('.quantity-box').show('slow')">{{_('Add to cart')}}</button>
+          <button class="btn add-to-cart-btn removeFromCart" ownerId="{{resource.ResId}}" style="display: none;" onclick="$('.quantity-box').hide('slow')">{{_('Remove')}}</button>
         </div>
       </div>
     </div>
@@ -177,4 +177,15 @@
       </div>
     </div>
   </div>
+{% endblock %}
+
+
+{% block scripts %}
+  <script type="text/javascript">
+    window.setTimeout(function (){
+      if($('.removeFromCart').css('display')!='none'){
+        $('.quantity-box').show('slow');
+      }      
+    }, 500);
+  </script>
 {% endblock %}

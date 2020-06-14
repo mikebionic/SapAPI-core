@@ -13,6 +13,8 @@ $(document).ready(function(){
 			$('.addToCart'+'[ownerId='+ownerId+']').hide();
 			$('.removeFromCart'+'[ownerId='+ownerId+']').show();
 			$('.productQty'+'[ownerId='+ownerId+']').val(cartData[i]["productQty"]);
+			$('.cartItemQty'+'[ownerId='+ownerId+']').val(cartData[i]["productQty"]);
+			$('.uiQtyText'+'[ownerId='+ownerId+']').text(cartData[i]["productQty"]);
 		}
 		cartOperations(cartData,url_prefix+'/product/ui_cart/','PUT','htmlData','cartItemsList');
 	}
@@ -22,6 +24,15 @@ $(document).ready(function(){
 $('body').delegate('.addToCart','click',function(){
 	$(this).hide();
 	ownerId = $(this).attr('ownerId');
+	addToCart(ownerId);
+})
+
+$('body').delegate('.removeFromCart','click',function(){
+	ownerId = $(this).attr('ownerId');
+	removeFromCart(ownerId);
+});
+
+function addToCart(ownerId){
 	$('.removeFromCart'+'[ownerId='+ownerId+']').show();
 	priceValue=$('.priceValue'+'[ownerId='+ownerId+']').attr('value');
 	productQty=$('.productQty'+'[ownerId='+ownerId+']').val();
@@ -34,13 +45,11 @@ $('body').delegate('.addToCart','click',function(){
 	Cookies.set('cart',JSON.stringify(cartData));
 	// sending request
 	cartOperations(productData,url_prefix+'/product/ui_cart/','POST','htmlData','cartItemsList');
-	totalPriceCheckout(ownerId)
 	qtyCheckout(ownerId,productQty);
-})
+	totalPriceCheckout(ownerId)
+}
 
-$('body').delegate('.removeFromCart','click',function(){
-	ownerId = $(this).attr('ownerId');
-	console.log(ownerId)
+function removeFromCart(ownerId){
 	if(ownerId>0){
 		$('.cartObject'+ownerId).remove();
 		$('.cartTableObject'+ownerId).remove();
@@ -55,7 +64,7 @@ $('body').delegate('.removeFromCart','click',function(){
 		Cookies.set('cart',JSON.stringify(cartData));
 		countCartItems();
 	}
-});
+}
 
 $('body').delegate('.clearCartBtn','click',function(){
 	cartCookie = Cookies.get('cart');
@@ -89,19 +98,21 @@ function countCartItems(){
 		price = cartData[i]['priceValue'];
 		totalPrice+=price*quantity;
 	}
-	$('.cartItemsQty').text(num);
+	$('.cartItemsFullQty').text(num);
 	$('.cartTotalPrice').text(totalPrice);
 }
 
 
 function qtyCheckout(ownerId,newQtyValue){
-	$('.productQty'+'[ownerId='+ownerId+']').val(newQtyValue);
+	$('.productQty'+'[ownerId='+ownerId+']').attr('value',newQtyValue);
+	$('.cartItemQty'+'[ownerId='+ownerId+']').val(newQtyValue);
+	// $('.productQty'+'[ownerId='+ownerId+']').attr('value',newQtyValue);
+	$('.uiQtyText'+'[ownerId='+ownerId+']').text(newQtyValue);
 	if(cartData['product'+ownerId]!=undefined){
 		productData = cartData['product'+ownerId];
 		productData['productQty']=newQtyValue;
 		cartData['product'+ownerId]=productData;
 		Cookies.set('cart',JSON.stringify(cartData));
-		console.log(cartData)
 	}
 	else{
 		console.log(false);
@@ -111,19 +122,43 @@ function qtyCheckout(ownerId,newQtyValue){
 
 function totalPriceCheckout(ownerId){
 	priceValue=$('.priceValue'+'[ownerId='+ownerId+']').attr('value');
-	productQty=$('.productQty'+'[ownerId='+ownerId+']').val();
+	productQty=$('.productQty'+'[ownerId='+ownerId+']').attr('value');
 	if(productQty>1){}else{
 		productQty=1;
 	}
-	productTotalPrice=priceValue*productQty;
+	productTotalPrice=parseInt(priceValue)*parseInt(productQty);
 	$('.productTotalPrice'+'[ownerId='+ownerId+']').text(productTotalPrice);
 }
 
-$('body').delegate('.productQty','click',function(){
+$('body').delegate('.nextQtyVal','click',function(){
 	ownerId = $(this).attr('ownerId');
-	newQtyValue = $(this).val(); 
-	console.log(newQtyValue)
-	qtyCheckout(ownerId,newQtyValue);
+	console.log('nextQtyVal')
+	var currentVal = $(this).attr('value');
+	console.log(currentVal)
+	newVal = parseInt(currentVal)+1;
+	$(this).attr('value',newVal);
+	if (newVal<1){
+		$(this).attr('value',1);
+	}
+	qtyCheckout(ownerId,newVal);
+	totalPriceCheckout(ownerId);
+})
+
+$('body').delegate('.prevQtyVal','click',function(){
+	ownerId = $(this).attr('ownerId');
+	var currentVal = $(this).attr('value');
+	newVal = parseInt(currentVal)-1;
+	$(this).attr('value',newVal);
+	 
+	qtyCheckout(ownerId,newVal);
+	totalPriceCheckout(ownerId);
+})
+$('body').delegate('.cartItemQty','click',function(){
+	ownerId = $(this).attr('ownerId');
+	var newVal = $(this).val();
+	$(this).val(newVal);
+	 
+	qtyCheckout(ownerId,newVal);
 	totalPriceCheckout(ownerId);
 })
 
@@ -159,7 +194,6 @@ function cartOperations(formData,url,type,responseForm,listName){
 			}
 			else{
 				console.log('err');
-				console.log(response);
 			}
 		}
 	})

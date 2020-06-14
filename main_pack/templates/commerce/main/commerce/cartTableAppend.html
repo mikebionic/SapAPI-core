@@ -29,10 +29,10 @@
     <td class="product-quantity" data-title="{{_('Quantity')}}">
       <div class="quantity-box type1">
         <div class="cont">
-          <span class="next" onclick="nextNum()"></span>
-          <span class="prev" onclick="prevNum()"></span>
+          <span value={{resource.productQty}} class="next nextQtyVal productQty" ownerId="{{resource.ResId}}"></span>
+          <span value={{resource.productQty}} class="prev prevQtyVal productQty" ownerId="{{resource.ResId}}"></span>
           <div id="box">
-              <span>0</span>
+            <span value={{resource.productQty}} class="uiQtyText productQty" ownerId="{{resource.ResId}}">{{ resource.productQty }}</span>
           </div>
         </div>
         <button class="btn btn-outline-info removeFromCart" ownerId='{{resource.ResId}}'>{{_('Remove')}}</button>
@@ -43,7 +43,7 @@
         <ins>
           <span class="price-amount">
             <span class="currencySymbol">TMT</span>
-            <div class="productTotalPrice" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue }}</div>
+            <div class="productTotalPrice" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue*resource.productQty }}</div>
           </span>
         </ins>
       </div>

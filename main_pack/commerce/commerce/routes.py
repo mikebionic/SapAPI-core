@@ -31,11 +31,9 @@ def contact():
 
 @bp.route("/cart")
 def cart():
-	resources = Resource.query.filter(Resource.GCRecord=='' or Resource.GCRecord==None).all()
 	commonData = commonUsedData()
-	resData = realResRelatedData()
 	return render_template ("commerce/main/commerce/cart.html",
-		resources=resources,**commonData,**resData,title=gettext('Cart'))
+		**commonData,title=gettext('Cart'))
 
 ### sorting and search
 

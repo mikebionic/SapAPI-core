@@ -154,7 +154,7 @@
                   <a href="javascript:void(0)" class="link-to">
                     <span class="icon-qty-combine">
                       <i class="icon-cart-mini biolife-icon"></i>
-                      <span class="qty cartItemsQty"></span>
+                      <span class="qty cartItemsFullQty"></span>
                     </span>
                     <span class="title">{{_('My Cart')}} TMT</span>
                     <span class="sub-total cartTotalPrice">0.00</span>
@@ -368,8 +368,8 @@
   <script src="{{ url_for('static', filename='commerce/main/js/biolife.framework.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/main/js/functions.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/main/js/js.cookie.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='commerce/main/js/cartsAndCheckouts.js') }}"></script>
   {% block scripts %}{% endblock %}
+  <script src="{{ url_for('static', filename='commerce/main/js/cartsAndCheckouts.js') }}"></script>
 </body>
 
 </html>
