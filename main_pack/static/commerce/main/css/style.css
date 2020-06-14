@@ -71,7 +71,9 @@ body {
     -ms-word-wrap: break-word;
     word-wrap: break-word;
 }
-
+a{
+    cursor: pointer;
+}
 label {
     font-weight: 400;
     color: #333333;
@@ -1676,6 +1678,7 @@ body.open-mobile-search .header-area.layout-02 {
 .price-contain ins .price-amount, .sumary-product .product-attribute .price ins .price-amount, .contain-product .info .price ins .price-amount, .minicart-item .left-info .price ins .price-amount {
     font-size: 18px;
     color: #111111;
+    float: left;
     font-weight: 700;
 }
 
@@ -2501,6 +2504,7 @@ body.open-mobile-search .header-area.layout-02 {
 
 .products-list.biolife-carousel.slick-initialized .contain-product .product-thumb img, .products-list:not(.biolife-carousel) .contain-product .product-thumb img {
     width: 100%;
+    height: 200px;
 }
 
 .contain-product .info .categories {
@@ -2545,7 +2549,7 @@ body.open-mobile-search .header-area.layout-02 {
 }
 
 .pr-detail-layout .product-thumb {
-    width: 31.036%;
+    width: 25.036%;
     float: left;
 }
 

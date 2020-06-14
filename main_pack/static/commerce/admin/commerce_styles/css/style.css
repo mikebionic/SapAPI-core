@@ -1902,6 +1902,7 @@ body.open-mobile-search .header-area.layout-02{
     font-size: 14px;
     line-height: 45px;
     display: flex;
+    position: relative;
     padding: 0 20px;
 }
 .vertical-category-block>.wrap-menu>.menu>li>a{
