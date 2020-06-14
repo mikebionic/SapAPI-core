@@ -42,16 +42,6 @@ def product_ol():
 	commonData = commonUsedData()
 	return render_template ("commerce/main/commerce/product_ol.html",**commonData,title=gettext('Product'))
 
-@bp.route("/category_list")
-def category_list():
-	commonData = commonUsedData()
-	return render_template ("commerce/main/commerce/category_list.html",**commonData,title=gettext('Category'))
-
-@bp.route("/category_grid")
-def category_grid():
-	commonData = commonUsedData()
-	return render_template ("commerce/main/commerce/category_grid.html",**commonData,title=gettext('Category'))
-
 @bp.route("/account")
 def account():
 	commonData = commonUsedData()
@@ -61,24 +51,6 @@ def account():
 def account_edit():
 	commonData = commonUsedData()
 	return render_template ("commerce/main/commerce/account_edit.html",**commonData,title=gettext('Account'))
-
-############ tests ############
-
-@bp.route("/list_view")
-def list_view():
-	resources = Resource.query.order_by(Resource.CreatedDate.desc())
-	commonData = commonUsedData()
-	resData = realResRelatedData()
-	return render_template ("commerce/main/commerce/list_view.html",
-		resources=resources,**commonData,**resData,title=gettext('Category'))
-
-@bp.route("/grid_view")
-def grid_view():
-	resources = Resource.query.order_by(Resource.CreatedDate.desc())
-	commonData = commonUsedData()
-	resData = realResRelatedData()
-	return render_template ("commerce/main/commerce/grid_view.html",
-		resources=resources,**commonData,**resData,title=gettext('Category'))
 
 #  pagiantions ########
 @bp.route("/list_paginate")

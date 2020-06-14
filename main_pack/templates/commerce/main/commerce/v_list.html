@@ -1,0 +1,71 @@
+{% extends "commerce/main/commerce/list_grid_layout.html" %}
+
+{% block content %}
+
+  <div class="row">
+    <ul class="products-list">
+      {% for resource in data %}
+
+        <li class="product-item col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="contain-product pr-detail-layout">
+              <div class="product-thumb">
+                {% if resource.FilePathM %}
+                  <a href="{{ url_for('commerce.product',resId=resource.ResId)}}"class="link-to-product">
+                    <img src="{{resource.FilePathM}}" width="270" height="270" class="product-thumnail"/>
+                  </a>
+                {% else %}
+                  <a href="{{ url_for('commerce.product',resId=resource.ResId)}}"class="link-to-product">
+                    <img src="{{ url_for('static', filename='commerce/uploads/noPhoto.png') }}" width="270" height="270" class="product-thumnail"/>
+                  </a>
+                {% endif %}
+              </div>
+              <div class="info">
+                <b class="categories">{{ '' if resource.ResName==None else resource.ResName}}</b>
+                <h4 class="product-title"><a href="{{ url_for('commerce.product',resId=resource.ResId)}}" class="pr-name">{{'' if resource.ResDesc==None else resource.ResDesc}}</a></h4>
+                <p class="excerpt">{{'' if resource.ResFullDesc==None else resource.ResFullDesc[0:80]+'...'}}</p>
+                <div class="price">
+                  <ins>
+                    <span class="price-amount">
+                      <span class="currencySymbol">TMT</span>
+                      <div class="priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue }}</div>
+                    </span>
+                  </ins>
+                </div>
+                <div class="buttons">
+                  <button class="btn wishlist-btn"><i class="fa fa-heart" aria-hidden="true"></i></button>
+                  <button class="btn add-to-cart-btn addToCart" ownerId="{{resource.ResId}}">{{_('Add to cart')}}</button>
+                  <button class="btn add-to-cart-btn removeFromCart" ownerId="{{resource.ResId}}" style="display: none;">{{_('Remove')}}</button>
+                </div>
+              </div>
+              <div class="advance-info">
+                <ul class="list">
+                  <li>
+                    {% for color in resource.Colors %}
+                      {{ color.ColorName }}
+                    {% endfor %}
+                  </li>
+                  <li>
+                    {% for size in resource.Sizes %}
+                      {{ size.SizeName }}
+                    {% endfor %}
+                  </li>
+                  <li>
+                    {{ resource.Brand.BrandName }}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </li>
+
+      {% endfor %}
+    </ul>
+  </div>
+
+{% endblock %}
+
+
+{% block paginate %}
+
+  <p>Pagination is gone for a fix</p>
+
+{% endblock %}

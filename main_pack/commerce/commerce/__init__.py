@@ -2,4 +2,4 @@ from flask import Blueprint
 
 bp = Blueprint('commerce',__name__)
 
-from main_pack.commerce.commerce import routes,ui_cart
+from main_pack.commerce.commerce import routes,ui_cart,v_products

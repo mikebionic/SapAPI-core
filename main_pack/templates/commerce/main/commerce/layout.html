@@ -22,6 +22,7 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/slick.min.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/style.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/main-color.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/css/app.min.css') }}">
   {% block styles %}{% endblock %}
 </head>
 
@@ -199,30 +200,27 @@
               <div class="wrap-menu">
                 <ul class="menu clone-main-menu">
                   {% for category in categories %}
-                  {% if category.GCRecord == None or category.GCRecord == '' %}
-                  <li class="menu-item menu-item-has-children has-child">
-                    <a href="#" class="menu-name" {% if category.ResCatDesc %} title="{{ category.ResCatDesc }}" {%
-                      endif %}><i class="biolife-icon icon-fruits"></i> {{ category.ResCatName }}</a>
-                    {% for subcategory in subcategories %}
-                    {% if subcategory.GCRecord == None or subcategory.GCRecord == '' %}
-                    {% if subcategory.ResOwnerCatId == category.ResCatId %}
-                    <ul class="sub-menu">
-                      <h4 class="menu-title" {% if subcategory.ResCatDesc %} title="{{ subcategory.ResCatDesc }}" {%
-                        endif %}>{{ subcategory.ResCatName }}</h4>
-                      {% for subcategory_child in subcategory_children %}
-                      {% if subcategory_child.GCRecord == None or subcategory_child.GCRecord == '' %}
-                      {% if subcategory_child.ResOwnerCatId == subcategory.ResCatId %}
-                      <li class="menu-item"><a href="#" {% if subcategory_child.ResCatDesc %} title="{{ subcategory_child.ResCatDesc }}"
-                          {% endif %}>{{ subcategory_child.ResCatName }}</a></li>
-                      {% endif %}
-                      {% endif %}
-                      {% endfor %}
-                    </ul>
+                    {% if category.GCRecord == None or category.GCRecord == '' %}
+                      <li class="menu-item menu-item-has-children has-child">
+                        <a href="#" class="menu-name" {% if category.ResCatDesc %} title="{{ category.ResCatDesc }}" {% endif %}><i class="material-icons">{{ category.ResCatIconName if category.ResCatIconName else "local_mall" }}</i> {{ category.ResCatName }}</a>
+                        {% for subcategory in subcategories %}
+                          {% if subcategory.GCRecord == None or subcategory.GCRecord == '' %}
+                            {% if subcategory.ResOwnerCatId == category.ResCatId %}
+                              <ul class="sub-menu">
+                              <h4 class="menu-title" {% if subcategory.ResCatDesc %} title="{{ subcategory.ResCatDesc }}" {% endif %}>{{ subcategory.ResCatName }}</h4>
+                                {% for subcategory_child in subcategory_children %}
+                                  {% if subcategory_child.GCRecord == None or subcategory_child.GCRecord == '' %}
+                                    {% if subcategory_child.ResOwnerCatId == subcategory.ResCatId %}
+                                      <li class="menu-item"><a href="#" {% if subcategory_child.ResCatDesc %} title="{{ subcategory_child.ResCatDesc }}" {% endif %}>{{ subcategory_child.ResCatName }}</a></li>
+                                    {% endif %}
+                                  {% endif %}
+                                {% endfor %}
+                              </ul>                                        
+                            {% endif %}
+                          {% endif %}
+                        {% endfor %}
+                      </li>
                     {% endif %}
-                    {% endif %}
-                    {% endfor %}
-                  </li>
-                  {% endif %}
                   {% endfor %}
                 </ul>
               </div>
@@ -235,7 +233,9 @@
                 <select name="category">
                   <option value="" selected>{{_('All Categories')}}</option>
                   {% for category in categories %}
-                  <option value="{ category.ResCatId }}">{{ category.ResCatName }}</option>
+                    {% if category.GCRecord == None or category.GCRecord =="" %}
+                      <option value="{ category.ResCatId }}">{{ category.ResCatName }}</option>
+                    {% endif %}
                   {% endfor %}
                 </select>
                 <button type="submit" class="btn-submit"><i class="biolife-icon icon-search"></i></button>

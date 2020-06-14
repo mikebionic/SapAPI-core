@@ -31,11 +31,16 @@ def api_v_full_resources():
 	if request.method == 'GET':
 		resources = Resource.query\
 			.filter(Resource.GCRecord=='' or Resource.GCRecord==None).all()
-		barcodes = Barcode.query.all()
-		categories = Res_category.query.all()
-		res_prices = Res_price.query.all()
-		res_totals = Res_total.query.all()
-		images = Image.query.all()
+		barcodes = Barcode.query\
+			.filter(Barcode.GCRecord=='' or Barcode.GCRecord==None).all()
+		categories = Res_category.query\
+			.filter(Res_category.GCRecord=='' or Res_category.GCRecord==None).all()
+		res_prices = Res_price.query\
+			.filter(Res_price.GCRecord=='' or Res_price.GCRecord==None).all()
+		res_totals = Res_total.query\
+			.filter(Res_total.GCRecord=='' or Res_total.GCRecord==None).all()
+		images = Image.query\
+			.filter(Image.GCRecord=='' or Image.GCRecord==None).all()
 		data = []
 		for resource in resources:
 			resourceList = resource.to_json_api()
@@ -60,11 +65,16 @@ def api_v_resources():
 	if request.method == 'GET':
 		resources = Resource.query\
 			.filter(Resource.GCRecord=='' or Resource.GCRecord==None).all()
-		barcodes = Barcode.query.all()
-		categories = Res_category.query.all()
-		res_prices = Res_price.query.all()
-		res_totals = Res_total.query.all()
-		images = Image.query.all()
+		barcodes = Barcode.query\
+			.filter(Barcode.GCRecord=='' or Barcode.GCRecord==None).all()
+		categories = Res_category.query\
+			.filter(Res_category.GCRecord=='' or Res_category.GCRecord==None).all()
+		res_prices = Res_price.query\
+			.filter(Res_price.GCRecord=='' or Res_price.GCRecord==None).all()
+		res_totals = Res_total.query\
+			.filter(Res_total.GCRecord=='' or Res_total.GCRecord==None).all()
+		images = Image.query\
+			.filter(Image.GCRecord=='' or Image.GCRecord==None).all()
 		data = []
 		for resource in resources:
 			resourceList = resource.to_json_api()
