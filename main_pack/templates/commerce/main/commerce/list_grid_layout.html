@@ -357,11 +357,9 @@
             <div class="wgt-content">
                 <ul class="cat-list">
                   {% for category in categories %}
-                    {% if category.GCRecord == None or category.GCRecord == '' %}
-                      <li class="cat-list-item">
-                          <a href="#{{category.ResCatId}}" class="cat-link">{{category.ResCatName}}</a>
-                      </li>
-                    {% endif %}
+                    <li class="cat-list-item">
+                      <a href="#{{category.ResCatId}}" class="cat-link">{{category.ResCatName}}</a>
+                    </li>
                   {% endfor %}
                 </ul>
             </div>
@@ -396,9 +394,7 @@
           <div class="wgt-content">
             <ul class="check-list multiple">
               {% for brand in brands %}
-                {% if brand.GCRecord == None or brand.GCRecord == '' %}
-                  <li class="check-list-item"><a href="#" class="check-link">{{brand.BrandName}}</a></li>
-                {% endif %}
+                <li class="check-list-item"><a href="#" class="check-link">{{brand.BrandName}}</a></li>
               {% endfor %}
             </ul>
           </div>
@@ -410,11 +406,9 @@
             <div class="wgt-content">
               <ul class="color-list check-list">
                 {% for color in colors %}
-                  {% if color.GCRecord == None or color.GCRecord == '' %}
-                    <li class="color-item">
-                      <a href="#" class="check-link"><span {% if color.ColorDesc %} title="{{ color.ColorDesc }}" {% endif %} class="symbol img-color" style="background: {{color.ColorCode}}"></span>{{color.ColorName}}</a>
-                    </li>
-                  {% endif %}
+                  <li class="color-item">
+                    <a href="#" class="check-link"><span {% if color.ColorDesc %} title="{{ color.ColorDesc }}" {% endif %} class="symbol img-color" style="background: {{color.ColorCode}}"></span>{{color.ColorName}}</a>
+                  </li>
                 {% endfor %}
               </ul>
             </div>
@@ -426,9 +420,7 @@
           <div class="wgt-content">
             <ul class="check-list bold single">
               {% for size in sizes %}
-                {% if size.GCRecord == None or size.GCRecord == '' %}
-                  <li class="check-list-item"><a href="#" class="check-link">{{size.SizeName}}</a></li>
-                {% endif %}
+                <li class="check-list-item"><a href="#" class="check-link">{{size.SizeName}}</a></li>
               {% endfor %}
             </ul>
           </div>

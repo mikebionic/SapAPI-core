@@ -1,0 +1,241 @@
+{% extends "commerce/main/commerce/layout.html" %}
+
+{% block content %}
+  <div id="main-content" class="main-content">
+    <div class="sumary-product single-layout">
+      <div class="media">
+        <ul class="biolife-carousel slider-for" data-slick='{"arrows":false,"dots":false,"slidesMargin":30,"slidesToShow":1,"slidesToScroll":1,"fade":true,"asNavFor":".slider-nav"}'>
+          {% for image in images %}
+            {% if image.ResId==resource.ResId %}
+              <li><img src="{{ url_for('static',filename='commerce/uploads/'+image.FileName) }}" width="500" height="500"></li>
+            {% endif %}
+          {% endfor %}                
+        </ul>
+        <ul class="biolife-carousel slider-nav" data-slick='{"arrows":false,"dots":false,"centerMode":false,"focusOnSelect":true,"slidesMargin":10,"slidesToShow":4,"slidesToScroll":1,"asNavFor":".slider-for"}'>
+          {% for image in images %}
+            {% if image.ResId==resource.ResId %}
+              <li><img src="{{ url_for('static',filename='commerce/uploads/'+image.FileName) }}" width="88" height="88"></li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="product-attribute">
+        <h3 class="title">{{'' if resource.ResName==None else resource.ResName}}</h3>
+        <div class="rating">
+          <p class="star-rating"><span class="width-80percent"></span></p>
+          {% for subcategory_child in subcategory_children %}
+            {% if resource.ResCatId == subcategory_child.ResCatId %}
+              <b class="category">{{_('Category')}}: {{subcategory_child.ResCatName}}</b>
+            {% endif %}
+          {% endfor %}
+        </div>
+        <span class="sku">#{{resource.ResRegNo}}</span>
+        <p class="excerpt">{{'' if resource.ResDesc==None else resource.ResDesc}}</p>
+        <div class="price">
+          <ins>
+            <span class="price-amount">
+              <span class="currencySymbol">TMT</span>
+              {% for resPrice in resPrices %}
+                {% if resPrice.GCRecord == None or resPrice.GCRecord == '' %}
+                  {% if resPrice.ResId==resource.ResId %}
+                    <div class="priceValue" ownerId="{{resource.ResId}}" value="{{resPrice.ResPriceValue}}">{{ resPrice.ResPriceValue }}</div>
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+            </span>
+          </ins>
+        </div>
+        <div class="product-atts">
+          <div class="atts-item">
+            <span class="title">{{_('Color')}}:</span>
+            <ul class="color-list">
+              {% for resColor in resColors %}
+                {% if resColor.GCRecord == None or resColor.GCRecord == '' %}
+                  {% if resColor.ResId==resource.ResId %}
+                    {% for color in colors %}
+                      {% if color.GCRecord == None or color.GCRecord == '' %}
+                        {% if color.ColorId==resColor.ColorId %}
+                            <label class="colorinput">
+                              <input name="color" type="checkbox" value="{{color.ColorId}}" class="colorinput-input resColorId" />
+                              <span {% if color.ColorDesc %} title="{{ color.ColorDesc }}" {% endif %}  class="colorinput-color" style="background: {{color.ColorCode}}">{{color.ColorName}}</span>
+                            </label>
+                        {% endif %}
+                      {% endif %}
+                    {% endfor %}
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+
+              <li class="color-item"><a class="c-link"><span class="symbol hex-code color-03"></span>{{_('Other')}}</a></li>
+            </ul>
+          </div>
+          <div class="atts-item">
+            <span class="title">{{_('Size')}}:</span>
+            <ul class="size-list productSizesList">
+              {% for resSize in resSizes %}
+                {% if resSize.GCRecord == None or resSize.GCRecord == '' %}
+                  {% if resSize.ResId==resource.ResId %}
+                    {% for size in sizes %}
+                      {% if size.GCRecord == None or size.GCRecord == '' %}
+                        {% if size.SizeId==resSize.SizeId %}
+                          <li>
+                            <a class="c-link"><span {% if size.SizeDesc %} title="{{ size.SizeDesc }}" {% endif %} class="symbol" ownerId="{{resource.ResId}}" value="{{size.SizeId}}"></span>{{size.SizeName}}</a>
+                          </li>
+                        {% endif %}
+                      {% endif %}
+                    {% endfor %}
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+            </ul>
+          </div>
+          <div class="atts-item">
+            <span class="title">{{_('Brand')}}:</span>
+            <ul class="brand-list">
+              {% for brand in brands %}
+                {% if brand.GCRecord == None or brand.GCRecord == '' %}
+                  {% if brand.BrandId==resource.BrandId %}
+                    <li>
+                      <a class="c-link"><span {% if brand.BrandDesc %} title="{{brand.BrandDesc}}" {% endif %} class="symbol"></span>{{brand.BrandName}}</a>
+                    </li>
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+            </ul>
+          </div>
+
+        </div>
+      </div>
+      <div class="action-form">
+        <div class="quantity-box">
+          <span class="title">{{_('Quantity')}}:</span>
+          <div class="cont">
+            <span class="next" onclick="nextNum()"></span>
+            <span class="prev" onclick="prevNum()"></span>
+            <div id="box">
+                <span>0</span>
+            </div>
+          </div>
+        </div>
+        <div class="total-price-contain">
+          <span class="title">{{_('Total Price')}}:</span>
+          <p class="price">
+            <span class="currencySymbol">TMT</span>
+            {% for resPrice in resPrices %}
+              {% if resPrice.GCRecord == None or resPrice.GCRecord == '' %}
+                {% if resPrice.ResId==resource.ResId %}
+                  <div class="productTotalPrice" ownerId="{{resource.ResId}}" value="{{resPrice.ResPriceValue}}">{{ resPrice.ResPriceValue }}</div>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+          </p>
+        </div>
+        <div class="buttons">
+          <button class="btn add-to-cart-btn addToCart" ownerId="{{resource.ResId}}">{{_('Add to cart')}}</button>
+          <button class="btn add-to-cart-btn removeFromCart" ownerId="{{resource.ResId}}" style="display: none;">{{_('Remove')}}</button>
+        </div>
+        <div class="location-shipping-to">
+          <span class="title">Ship to:</span>
+          <select name="shipping_to" class="country">
+            <option value="-1">Select Country</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab info -->
+    <div class="product-tabs single-layout biolife-tab-contain">
+      <div class="tab-head">
+        <ul class="tabs">
+          <li class="tab-element active"><a href="#tab_1st" class="tab-link">{{_('Products Descriptions')}}</a></li>
+          <li class="tab-element"><a href="#tab_2nd" class="tab-link">{{_('Additional information')}}</a></li>
+        </ul>
+      </div>
+      <div class="tab-content">
+        <div id="tab_1st" class="tab-contain desc-tab active">
+          <p class="desc">{{'' if resource.ResFullDesc==None else resource.ResFullDesc}}</p>
+        </div>
+        <div id="tab_2nd" class="tab-contain additional-info-tab">
+          <table class="tbl_attributes">
+            <tbody>
+              <tr>
+                <th>{{_('Color')}}</th>
+                <td><p>
+                  {% for resColor in resColors %}
+                    {% if resColor.GCRecord == None or resColor.GCRecord == '' %}
+                      {% if resColor.ResId==resource.ResId %}
+                        {% for color in colors %}
+                          {% if color.GCRecord == None or color.GCRecord == '' %}
+                            {% if color.ColorId==resColor.ColorId %}
+                              {{color.ColorName}} 
+                            {% endif %}
+                          {% endif %}
+                        {% endfor %}
+                      {% endif %}
+                    {% endif %}
+                  {% endfor %}
+                </p></td>
+              </tr>
+              <tr>
+                <th>{{_('Size')}}</th>
+                  <td><p>
+                    {% for resSize in resSizes %}
+                      {% if resSize.GCRecord == None or resSize.GCRecord == '' %}
+                        {% if resSize.ResId==resource.ResId %}
+                          {% for size in sizes %}
+                            {% if size.GCRecord == None or size.GCRecord == '' %}
+                              {% if size.SizeId==resSize.SizeId %}
+                                {{size.SizeName}} 
+                              {% endif %}
+                            {% endif %}
+                          {% endfor %}
+                        {% endif %}
+                      {% endif %}
+                    {% endfor %}
+                  </p></td>
+                </td>
+              </tr>
+              {% if resource.ResWidth %}
+                <tr>
+                  <th>{{_('Width')}}</th>
+                    <td><p>
+                      {{resource.ResWidth}}
+                    </p></td>
+                  </td>
+                </tr>
+              {% endif %}
+              {% if resource.ResHeight %}
+                <tr>
+                  <th>{{_('Height')}}</th>
+                    <td><p>
+                      {{resource.ResHeight}}
+                    </p></td>
+                  </td>
+                </tr>
+              {% endif %}
+              {% if resource.ResLength %}
+                <tr>
+                  <th>{{_('Length')}}</th>
+                    <td><p>
+                      {{resource.ResLength}}
+                    </p></td>
+                  </td>
+                </tr>
+              {% endif %}
+              {% if resource.ResWeight %}
+                <tr>
+                  <th>{{_('Weight')}}</th>
+                    <td><p>
+                      {{resource.ResWeight}}
+                    </p></td>
+                  </td>
+                </tr>
+              {% endif %}
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

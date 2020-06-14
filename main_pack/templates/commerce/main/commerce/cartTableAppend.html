@@ -1,16 +1,12 @@
-{% if resourceQty=='single' %}
+{% for resource in data %}
   <tr class="cart_item cartTableObject{{resource.ResId}}">
-    <td class="product-thumbnail" data-title="{{_('Product')}} Name">
-      {% if resource.ResMainImgId != 0 and resource.ResMainImgId != '' %}
-        {% for image in images %}
-          {% if image.ImgId==resource.ResMainImgId %}
-            <a class="prd-thumb" href="{{ url_for('commerce.product',resId=resource.ResId)}}">
-              <figure>
-                <img src="{{ url_for('static', filename='commerce/uploads/'+image.FileName) }}" width="113" height="113"/>
-              </figure>
-            </a>
-          {% endif %}
-        {% endfor %}
+    <td class="product-thumbnail" data-title="{{_('Product')}} Name">       
+      {% if resource.FilePathS %}
+        <a class="prd-thumb" href="{{ url_for('commerce.product',resId=resource.ResId)}}">
+          <figure>
+            <img src="{{resource.FilePathS}}" width="113" height="113"/>
+          </figure>
+        </a>
       {% else %}
         <a class="prd-thumb" href="{{ url_for('commerce.product',resId=resource.ResId)}}">
           <figure>
@@ -22,16 +18,12 @@
     </td>
     <td class="product-price" data-title="{{_('Price')}}">
       <div class="price price-contain">
-        <ins><span class="price-amount">
-          <span class="currencySymbol">TMT</span>
-            {% for resPrice in resPrices %}
-              {% if resPrice.GCRecord == None or resPrice.GCRecord == '' %}
-                {% if resPrice.ResId==resource.ResId %}
-                  <div class="priceValue" ownerId="{{resource.ResId}}" value="{{resPrice.ResPriceValue}}">{{ resPrice.ResPriceValue }}</div>
-                {% endif %}
-              {% endif %}
-            {% endfor %}
-          </span></ins>
+        <ins>
+          <span class="price-amount">
+            <span class="currencySymbol">TMT</span>
+            <div class="priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue }}</div>
+          </span>
+        </ins>
       </div>
     </td>
     <td class="product-quantity" data-title="{{_('Quantity')}}">
@@ -48,84 +40,13 @@
     </td>
     <td class="product-subtotal" data-title="{{_('Total')}}">
       <div class="price price-contain">
-        <ins><span class="price-amount">
-          <span class="currencySymbol">TMT</span>
-          {% for resPrice in resPrices %}
-            {% if resPrice.GCRecord == None or resPrice.GCRecord == '' %}
-              {% if resPrice.ResId==resource.ResId %}
-                <div class="productTotalPrice" ownerId="{{resource.ResId}}" value="{{resPrice.ResPriceValue}}">{{ resPrice.ResPriceValue }}</div>
-              {% endif %}
-            {% endif %}
-          {% endfor %}
-        </span></ins>
+        <ins>
+          <span class="price-amount">
+            <span class="currencySymbol">TMT</span>
+            <div class="productTotalPrice" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue }}</div>
+          </span>
+        </ins>
       </div>
     </td>
   </tr>
-
-{% elif resourceQty=='multi' %}
-  {% for resource in resources %}
-    <tr class="cart_item cartTableObject{{resource.resource.ResId}}">
-      <td class="product-thumbnail" data-title="{{_('Product')}} Name">       
-        {% if resource.resource.ResMainImgId != 0 and resource.resource.ResMainImgId != '' %}
-          {% for image in images %}
-            {% if image.ImgId==resource.resource.ResMainImgId %}
-              <a class="prd-thumb" href="{{ url_for('commerce.product',resId=resource.resource.ResId)}}">
-                <figure>
-                  <img src="{{ url_for('static', filename='commerce/uploads/'+image.FileName) }}" width="113" height="113"/>
-                </figure>
-              </a>
-            {% endif %}
-          {% endfor %}
-        {% else %}
-          <a class="prd-thumb" href="{{ url_for('commerce.product',resId=resource.resource.ResId)}}">
-            <figure>
-              <img src="{{ url_for('static', filename='commerce/uploads/noPhoto.png') }}" width="113" height="113"/>
-            </figure>
-          </a>
-        {% endif %}
-        <a class="prd-name resName" href="{{ url_for('commerce.product',resId=resource.resource.ResId)}}">{{ '' if resource.resource.ResName==None else resource.resource.ResName}}</a>
-      </td>
-      <td class="product-price" data-title="{{_('Price')}}">
-        <div class="price price-contain">
-          <ins><span class="price-amount">
-            <span class="currencySymbol">TMT</span>
-              {% for resPrice in resPrices %}
-                {% if resPrice.GCRecord == None or resPrice.GCRecord == '' %}
-                  {% if resPrice.ResId==resource.resource.ResId %}
-                    <div class="priceValue" ownerId="{{resource.resource.ResId}}" value="{{resPrice.ResPriceValue}}">{{ resPrice.ResPriceValue }}</div>
-                  {% endif %}
-                {% endif %}
-              {% endfor %}
-            </span></ins>
-        </div>
-      </td>
-      <td class="product-quantity" data-title="{{_('Quantity')}}">
-        <div class="quantity-box type1">
-          <div class="cont">
-            <span class="next" onclick="nextNum()"></span>
-            <span class="prev" onclick="prevNum()"></span>
-            <div id="box">
-                <span>0</span>
-            </div>
-          </div>
-          <button class="btn btn-outline-info removeFromCart" ownerId='{{resource.resource.ResId}}'>{{_('Remove')}}</button>
-        </div>
-      </td>
-      <td class="product-subtotal" data-title="{{_('Total')}}">
-        <div class="price price-contain">
-          <ins><span class="price-amount">
-            <span class="currencySymbol">TMT</span>
-            {% for resPrice in resPrices %}
-              {% if resPrice.GCRecord == None or resPrice.GCRecord == '' %}
-                {% if resPrice.ResId==resource.resource.ResId %}
-                  <div class="productTotalPrice" ownerId="{{resource.resource.ResId}}" value="{{resPrice.ResPriceValue}}">{{ resPrice.ResPriceValue }}</div>
-                {% endif %}
-              {% endif %}
-            {% endfor %}
-          </span></ins>
-        </div>
-      </td>
-    </tr>
-  {% endfor %}
-{% endif %}
-
+{% endfor %}

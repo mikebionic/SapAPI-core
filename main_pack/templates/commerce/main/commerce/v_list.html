@@ -66,6 +66,20 @@
 
 {% block paginate %}
 
-  <p>Pagination is gone for a fix</p>
+  <div class="biolife-panigations-block">
+    <ul class="panigation-contain">
+      {% for page_num in pagination_resources.iter_pages(left_edge=1, right_edge=1, left_current=2, right_current=3) %}
+        {% if page_num %}
+          {% if pagination_resources.page == page_num %}
+            <li><span class="current-page">{{ page_num }}</span></li>
+          {% else %}
+            <li><a href="{{ url_for(pagination_url, page=page_num) }}" class="link-page">{{ page_num }}</a></li>
+          {% endif %}
+        {% else %}
+          <li><span class="sep">...</span></li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </div>
 
 {% endblock %}

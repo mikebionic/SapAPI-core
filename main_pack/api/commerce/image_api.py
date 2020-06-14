@@ -95,7 +95,7 @@ def get_image(image_size,image_name):
 		if current_app.config['OS_TYPE']=='windows':
 			response = send_from_directory('static',filename=path.replace("\\","/"),as_attachment=True)
 		else:
-			response = send_from_directory('static',filename=path.replace("/","\\"),as_attachment=True)
+			response = send_from_directory('static',filename=path,as_attachment=True)
 		return response
 	except FileNotFoundError:
 		abort(404)

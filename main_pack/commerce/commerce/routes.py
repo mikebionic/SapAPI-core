@@ -75,14 +75,6 @@ def grid_paginate():
 		resources=resources,**commonData,**resData,title=gettext('Category'),
 		pagination_url='commerce.grid_paginate')
 
-@bp.route("/product/<int:resId>")
-def product(resId):
-	resource = Resource.query.get(resId)
-	commonData = commonUsedData()
-	resData = realResRelatedData()
-	return render_template ("commerce/main/commerce/product.html",
-		resource=resource,**commonData,**resData,title=gettext('Product'))
-
 ### sorting and search
 
 @bp.route("/category_product/")
