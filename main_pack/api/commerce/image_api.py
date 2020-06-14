@@ -3,7 +3,7 @@ from main_pack.api.commerce import api
 from main_pack.base.apiMethods import checkApiResponseStatus
 
 from main_pack.models.base.models import Image
-from main_pack.api.commerce.utils import addImageDict
+from main_pack.api.commerce.utils import addImageDict,saveImageFile
 from main_pack import db
 from flask import current_app,send_from_directory
 
@@ -31,28 +31,33 @@ def api_images():
 		else:
 			req = request.get_json()
 			images = []
-			failed_images = [] 
+			failed_images = []
 			for image in req:
-				image = addImageDict(image)
+				imageDictData = addImageDict(image)
 				try:
-					if not 'ImgId' in image:
+					if not 'ImgId' in imageDictData:
+						image = saveImageFile(image)
 						newImage = Image(**image)
 						db.session.add(newImage)
 						db.session.commit()
-						print('added')
+						print('added cuz no ImageId provided')
 						images.append(image)
 					else:
-						ImgId = image['ImgId']
+						ImgId = imageDictData['ImgId']
 						thisImage = Image.query.get(int(ImgId))
 						if thisImage is not None:
-							thisImage.update(**image)
-							db.session.commit()
-							images.append(image)
+							if thisImage.ModifiedDate != imageDictData['ModifiedDate']:
+								image = saveImageFile(image)
+								thisImage.update(**image)
+								db.session.commit()
+								images.append(image)
+								print('updated cuz different ModifiedDate')
 						else:
+							image = saveImageFile(image)
 							newImage = Image(**image)
 							db.session.add(newImage)
 							db.session.commit()
-							python('added else')
+							print('added image was none')
 							images.append(image)
 				except:
 					failed_images.append(image)

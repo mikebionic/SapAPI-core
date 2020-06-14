@@ -128,7 +128,7 @@ def addImageDict(req):
 	ResId = req.get('ResId')
 	FileName = req.get('FileName')
 	FileHash = req.get('FileHash')
-	Image = str.encode(req.get('Image'))
+	# Image = str.encode(req.get('Image'))
 	CreatedDate = req.get('CreatedDate')
 	ModifiedDate = req.get('ModifiedDate')
 	CreatedUId = req.get('CreatedUId')
@@ -151,6 +151,40 @@ def addImageDict(req):
 	if(ImgId != '' and ImgId != None):
 		image['ImgId']=ImgId
 
+	image=configureNulls(image)
+
+	return image
+
+def saveImageFile(req):
+	ImgId = req.get('ImgId')
+	EmpId = req.get('EmpId')
+	CId = req.get('CId')
+	RpAccId = req.get('RpAccId')
+	ResId = req.get('ResId')
+	FileName = req.get('FileName')
+	FileHash = req.get('FileHash')
+	Image = str.encode(req.get('Image'))
+	CreatedDate = req.get('CreatedDate')
+	ModifiedDate = req.get('ModifiedDate')
+	CreatedUId = req.get('CreatedUId')
+	ModifiedUId = req.get('ModifiedUId')
+	GCRecord = req.get('GCRecord')
+	image = {
+		'EmpId':EmpId,
+		'CId':CId,
+		'RpAccId':RpAccId,
+		'ResId':ResId,
+		'FileName':FileName,
+		'FileHash':FileHash,
+		# 'Image':Image,
+		'CreatedDate':CreatedDate,
+		'ModifiedDate':ModifiedDate,
+		'CreatedUId':CreatedUId,
+		'ModifiedUId':ModifiedUId,
+		'GCRecord':GCRecord
+	}
+	if(ImgId != '' and ImgId != None):
+		image['ImgId']=ImgId
 	# if blob presents:
 	if Image:
 		imageBytes = Image
