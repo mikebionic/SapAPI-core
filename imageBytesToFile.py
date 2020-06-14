@@ -18,25 +18,25 @@ images = Image.query.filter(and_(Image.Image!=None, Image.FileName==None)).all()
 for image in images:
 	imageBytes = image.Image
 	if image.RpAccId:
-		module = "uploads/commmerce/Rp_acc"
+		module = os.path.join("uploads","commmerce","Rp_acc")
 		id = image.RpAccId
 	elif image.ResId:
-		module = "uploads/commerce/Resource"
+		module = os.path.join("uploads","commerce","Resource")
 		id = image.ResId
 	elif image.EmpId:
-		module = "uploads/Employee"
+		module = os.path.join("uploads","Employee")
 		id = image.EmpId
 	elif image.CId:
-		module = "uploads/Company"
+		module = os.path.join("uploads","Company")
 		id = image.CId
 	elif image.UId:
-		module = "uploads/Users"
+		module = os.path.join("uploads","Users")
 		id = image.UId
 	else:
 		module = None
 		id = None
 
-	dumpFolderPath = os.path.join(app.root_path,'static/imageDumps')
+	dumpFolderPath = os.path.join(app.root_path,'static','imageDumps')
 	dirHandler(dumpFolderPath)
 	dumpImagePath = os.path.join(dumpFolderPath,"dump.jpg")
 	outfile = open(dumpImagePath,"wb")

@@ -26,3 +26,6 @@ class Config:
 	API_OBJECTS_PER_PAGE = 10
 
 	ELASTICSEARCH_URL = 'http://localhost:9200'
+
+	# OS_TYPE = 'windows'
+	OS_TYPE = 'linux'

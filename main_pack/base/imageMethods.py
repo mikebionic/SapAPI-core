@@ -22,7 +22,7 @@ def changeImageSize(imageFile,modulePath,FileName):
 		image = imageFile
 		
 		# create path according to a size abobe like "/images/M/blahblah.jpg"
-		sizeSpecificFullPath = os.path.join(current_app.root_path,'static/',modulePath,size)
+		sizeSpecificFullPath = os.path.join(current_app.root_path,'static',modulePath,size)
 		# check that it exists or create one
 		dirHandler(sizeSpecificFullPath)
 
@@ -57,7 +57,7 @@ def save_image(imageForm=None,savedImage=None,module="undefined",id="undefined")
 		FileName = random_hex + f_ext
 		size = "R"
 
-		sizeSpecificFullPath = os.path.join(current_app.root_path,'static/',modulePath,size)
+		sizeSpecificFullPath = os.path.join(current_app.root_path,'static',modulePath,size)
 		dirHandler(sizeSpecificFullPath)
 		FilePath = os.path.join(modulePath,size,FileName)
 		saving_path = os.path.join(sizeSpecificFullPath,FileName)

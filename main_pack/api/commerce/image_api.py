@@ -6,7 +6,8 @@ from main_pack.models.base.models import Image
 from main_pack.api.commerce.utils import addImageDict,saveImageFile
 from main_pack import db
 from flask import current_app,send_from_directory
-
+import dateutil.parser
+import os
 
 @api.route("/tbl-dk-images/",methods=['GET','POST','PUT'])
 def api_images():
@@ -33,6 +34,7 @@ def api_images():
 			images = []
 			failed_images = []
 			for image in req:
+				print(image)
 				imageDictData = addImageDict(image)
 				try:
 					if not 'ImgId' in imageDictData:
@@ -45,13 +47,18 @@ def api_images():
 					else:
 						ImgId = imageDictData['ImgId']
 						thisImage = Image.query.get(int(ImgId))
+						
+						updatingDate = dateutil.parser.parse(imageDictData['ModifiedDate'])
 						if thisImage is not None:
-							if thisImage.ModifiedDate != imageDictData['ModifiedDate']:
+							print("image is not none")
+							if thisImage.ModifiedDate!=updatingDate:
+								print('updated cuz different ModifiedDate')
 								image = saveImageFile(image)
 								thisImage.update(**image)
 								db.session.commit()
 								images.append(image)
-								print('updated cuz different ModifiedDate')
+							else:
+								print("same modified date")
 						else:
 							image = saveImageFile(image)
 							newImage = Image(**image)
@@ -72,9 +79,6 @@ def api_images():
 			for e in status:
 				res[e]=status[e]
 			response = make_response(jsonify(res),201)
-
-			print(response)
-
 	return response
 
 
@@ -88,6 +92,10 @@ def get_image(image_size,image_name):
 	elif image_size=="R":
 		path = image.FilePathR
 	try:
-		return send_from_directory('static',filename=path,as_attachment=True)
+		if current_app.config['OS_TYPE']=='windows':
+			response = send_from_directory('static',filename=path.replace("\\","/"),as_attachment=True)
+		else:
+			response = send_from_directory('static',filename=path.replace("/","\\"),as_attachment=True)
+		return response
 	except FileNotFoundError:
 		abort(404)

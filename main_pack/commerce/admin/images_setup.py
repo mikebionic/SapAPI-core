@@ -7,7 +7,7 @@ from main_pack import db,babel,gettext,lazy_gettext
 
 from main_pack.models.base.models import Company,Sl_image,Slider,Image
 from sqlalchemy import or_, and_
-
+import os
 
 @bp.route("/admin/images_setup", methods=['GET', 'POST'])
 @login_required
@@ -31,7 +31,7 @@ def images_setup():
 	if "sliderForm" in request.form and sliderForm.validate_on_submit():
 		if sliderForm.sliderImage.data:
 
-			imageFile = save_image(imageForm=sliderForm.sliderImage.data,module="uploads/commerce/Slider",id=slider.SlId)
+			imageFile = save_image(imageForm=sliderForm.sliderImage.data,module=os.path.join("uploads","commerce","Slider"),id=slider.SlId)
 			image = Sl_image(SlImgName=imageFile['FileName'],SlImgMainImgFileName=imageFile['FilePathR'],SlId=slider.SlId)
 			db.session.add(image)
 			db.session.commit()
@@ -42,7 +42,7 @@ def images_setup():
 	if "logoForm" in request.form and logoForm.validate_on_submit():
 		if logoForm.logoImage.data:
 
-			imageFile = save_image(imageForm=logoForm.logoImage.data,module="uploads/commerce/Company",id=company.CId)
+			imageFile = save_image(imageForm=logoForm.logoImage.data,module=os.path.join("uploads","commerce","Company"),id=company.CId)
 			image = Image(FileName=imageFile['FileName'],FilePathR=imageFile['FilePathR'],FilePathM=imageFile['FilePathM'],
 				FilePathS=imageFile['FilePathS'],CId=company.CId)
 			db.session.add(image)
