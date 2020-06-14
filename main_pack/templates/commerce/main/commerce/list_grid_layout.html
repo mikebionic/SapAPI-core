@@ -254,21 +254,6 @@
       </div>
     {% endif %}
 
-    <!--Navigation section-->
-    <div class="container">
-      <nav class="biolife-nav">
-        <ul>
-          {% if title %}
-            <li class="nav-item"><a href="{{ url_for('commerce.commerce') }}" class="permal-link">{{_('Home')}}</a></li>
-            <li class="nav-item"><span class="current-page">{{title}}</span></li>
-          {% else %}
-            <li class="nav-item"><a href="{{ url_for('commerce.commerce') }}" class="current-page">{{_('Home')}}</a></li><li></li>
-          {% endif %}
-        </ul>
-      </nav>
-    </div>
-
-
 <!--         views navbar selection   -->
 
 <div id="main-content" class="main-content col-lg-9 col-md-8 col-sm-12 col-xs-12">

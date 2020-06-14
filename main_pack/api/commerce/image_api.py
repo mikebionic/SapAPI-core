@@ -79,7 +79,7 @@ def get_image(image_size,image_name):
 	if image_size=='M':
 		path = image.FilePathM
 	elif image_size=='S':
-		path = image.FilePahtS
+		path = image.FilePathS
 	elif image_size=="R":
 		path = image.FilePathR
 	try:

@@ -1,0 +1,93 @@
+{% if resourceQty=='single' %}
+  <li class="cartObject{{resource.ResId}}">
+    <div class="minicart-item">
+      <div class="thumb">
+        {% if resource.ResMainImgId != 0 and resource.ResMainImgId != '' %}
+          {% for image in images %}
+            {% if image.ImgId==resource.ResMainImgId %}
+              <a href="{{ url_for('commerce.product',resId=resource.ResId)}}">
+                <img src="{{ url_for('static', filename='commerce/uploads/'+image.FileName) }}" width="90" height="90">
+              </a>
+            {% endif %}
+          {% endfor %}
+        {% else %}
+          <a href="{{ url_for('commerce.product',resId=resource.ResId)}}">
+            <img src="{{ url_for('static', filename='commerce/uploads/noPhoto.png') }}" width="90" height="90"/>
+          </a>
+        {% endif %}
+      </div>
+      <div class="left-info">
+        <div class="product-title"><a href="{{ url_for('commerce.product',resId=resource.ResId)}}" class="product-name resName">{{ '' if resource.ResName==None else resource.ResName}}</a></div>
+        <div class="price">
+          <ins>
+            <span class="price-amount">
+              <span class="currencySymbol">TMT</span>
+              {% for resPrice in resPrices %}
+                {% if resPrice.GCRecord == None or resPrice.GCRecord == '' %}
+                  {% if resPrice.ResId==resource.ResId %}
+                    <div class="priceValue" ownerId="{{resource.ResId}}" value="{{resPrice.ResPriceValue}}">{{ resPrice.ResPriceValue }}</div>
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+            </span>
+          </ins>
+        </div>
+        <div class="qty">
+          <label for="cart[id123][qty]">{{_('Quantity')}}:</label>
+          <input type="number" class="input-qty productQty" name="cart[id123][qty]" id="cart[id123][qty]" ownerId='{{resource.ResId}}' value="{{productQty}}" disabled>
+        </div>
+      </div>
+      <div class="action">
+        <a href="#" class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+        <a href="#" class="remove removeFromCart" ownerId='{{resource.ResId}}'><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+      </div>
+    </div>
+  </li>
+{% elif resourceQty=='multi' %}
+  {% for resource in resources %}
+    <li class="cartObject{{resource.resource.ResId}}">
+      <div class="minicart-item">
+        <div class="thumb">
+          {% if resource.resource.ResMainImgId != 0 and resource.resource.ResMainImgId != '' %}
+            {% for image in images %}
+              {% if image.ImgId==resource.resource.ResMainImgId %}
+                <a href="{{ url_for('commerce.product',resId=resource.resource.ResId)}}">
+                  <img src="{{ url_for('static', filename='commerce/uploads/'+image.FileName) }}" width="90" height="90">
+                </a>
+              {% endif %}
+            {% endfor %}
+          {% else %}
+            <a href="{{ url_for('commerce.product',resId=resource.resource.ResId)}}">
+              <img src="{{ url_for('static', filename='commerce/uploads/noPhoto.png') }}" width="90" height="90"/>
+            </a>
+          {% endif %}
+        </div>
+        <div class="left-info">
+          <div class="product-title"><a href="{{ url_for('commerce.product',resId=resource.resource.ResId)}}" class="product-name resName">{{ '' if resource.resource.ResName==None else resource.resource.ResName}}</a></div>
+          <div class="price">
+            <ins>
+              <span class="price-amount">
+                <span class="currencySymbol">TMT</span>
+                {% for resPrice in resPrices %}
+                  {% if resPrice.GCRecord == None or resPrice.GCRecord == '' %}
+                    {% if resPrice.ResId==resource.resource.ResId %}
+                      <div class="priceValue" ownerId="{{resource.resource.ResId}}" value="{{resPrice.ResPriceValue}}">{{ resPrice.ResPriceValue }}</div>
+                    {% endif %}
+                  {% endif %}
+                {% endfor %}
+              </span>
+            </ins>
+          </div>
+          <div class="qty">
+            <label for="cart[id123][qty]">{{_('Quantity')}}:</label>
+            <input type="number" class="input-qty productQty" ownerId='{{resource.resource.ResId}}' name="cart[id123][qty]" id="cart[id123][qty]" value="{{resource.productQty}}" disabled>
+          </div>
+        </div>
+        <div class="action">
+          <a href="#" class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+          <a href="#" class="remove removeFromCart" ownerId='{{resource.resource.ResId}}'><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+        </div>
+      </div>
+    </li>
+  {% endfor %}
+{% endif %}
