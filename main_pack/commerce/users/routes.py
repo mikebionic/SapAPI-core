@@ -3,7 +3,7 @@ from flask_login import current_user,login_required
 from main_pack import db,babel,gettext,lazy_gettext
 from main_pack.commerce.users import bp
 from main_pack.commerce.users.forms import UpdateProfileForm,UpdateRpAccForm
-from main_pack.commerce.users.utils import commonUsedData
+from main_pack.commerce.commerce.utils import UiCategoriesList
 
 from main_pack.models.base.models import Image,Rp_acc
 from main_pack.base.imageMethods import save_image
@@ -25,7 +25,7 @@ def admin_required():
 @bp.route("/profile")
 @login_required
 def profile():
-	commonData = commonUsedData()
+	categoryData = UiCategoriesList()
 	rpAcc = Rp_acc.query.filter(Rp_acc.UId==current_user.UId).first()
 	if rpAcc:
 		image = Image.query.filter_by(RpAccId=rpAcc.RpAccId).order_by(Image.CreatedDate.desc()).first()
@@ -34,7 +34,7 @@ def profile():
 		else:
 			avatar = url_for('static', filename="commerce/uploads/noPhoto.png") 
 
-	return render_template ("commerce/main/users/profile.html",**commonData,
+	return render_template ("commerce/main/users/profile.html",**categoryData,
 		title=gettext('Profile'),rpAcc=rpAcc,avatar=avatar)
 
 @bp.route("/profile_edit",methods=['GET', 'POST'])
@@ -82,6 +82,6 @@ def profile_edit():
 			avatar = url_for('static', filename=image.FileName)
 		else:
 			avatar = url_for('static', filename="commerce/uploads/noPhoto.png") 
-	commonData = commonUsedData()
-	return render_template ("commerce/main/users/profile_edit.html",**commonData,
+	categoryData = UiCategoriesList()
+	return render_template ("commerce/main/users/profile_edit.html",**categoryData,
 		title=gettext('Edit profile'),form=form,avatar=avatar)

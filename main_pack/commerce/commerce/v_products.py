@@ -3,7 +3,7 @@ from flask_login import current_user,login_required
 from main_pack import db,babel,gettext,lazy_gettext
 from main_pack.commerce.commerce import bp
 
-from main_pack.commerce.commerce.utils import UiResourcesList,commonUsedData,uiSortingData,UiPaginatedResList
+from main_pack.commerce.commerce.utils import UiCategoriesList,commonUsedData,uiSortingData,UiPaginatedResList,UiCategoriesList
 from main_pack.commerce.commerce.cart_utils import UiCartResourceData
 
 from main_pack.models.commerce.models import Resource
@@ -19,9 +19,10 @@ def v_list():
 		product['resId'] = resource.ResId
 		product_list.append(product)
 	res = UiPaginatedResList(product_list)
-	commonData = commonUsedData()
+	categoryData = UiCategoriesList()
+	# commonData = commonUsedData()
 	sortingData = uiSortingData()
-	return render_template ("commerce/main/commerce/v_list.html",**commonData,
+	return render_template ("commerce/main/commerce/v_list.html",**categoryData,
 		**sortingData,**res,title=gettext('Category'),pagination_url='commerce.v_list',
 		pagination_resources=pagination_resources)
 
@@ -36,9 +37,10 @@ def v_grid():
 		product['resId'] = resource.ResId
 		product_list.append(product)
 	res = UiPaginatedResList(product_list)
-	commonData = commonUsedData()
+	categoryData = UiCategoriesList()
+	# commonData = commonUsedData()
 	sortingData = uiSortingData()
-	return render_template ("commerce/main/commerce/v_grid.html",**commonData,
+	return render_template ("commerce/main/commerce/v_grid.html",**categoryData,
 		**sortingData,**res,title=gettext('Category'),pagination_url='commerce.v_grid',
 		pagination_resources=pagination_resources)
 
@@ -51,6 +53,7 @@ def product(resId):
 	]
 	resData = UiCartResourceData(product_list)
 	resource = resData["data"][0]
-	commonData = commonUsedData()
+	categoryData = UiCategoriesList()
+	# commonData = commonUsedData()
 	return render_template ("commerce/main/commerce/product.html",
-		**commonData,resource=resource,title=gettext('Product'))
+		**categoryData,resource=resource,title=gettext('Product'))

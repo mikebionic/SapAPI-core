@@ -2,38 +2,42 @@ from flask import render_template, url_for, jsonify, json, session, flash, redir
 from flask_login import current_user,login_required
 from main_pack import db,babel,gettext,lazy_gettext
 from main_pack.commerce.commerce import bp
-from main_pack.commerce.commerce.utils import commonUsedData,realResRelatedData
+from main_pack.commerce.commerce.utils import commonUsedData,realResRelatedData,UiResourcesList,UiCategoriesList
 from main_pack.models.commerce.models import Resource,Res_category
 
 @bp.route("/")
 @bp.route("/commerce")
 def commerce():
-	resources = Resource.query.order_by(Resource.CreatedDate.desc())
-	commonData = commonUsedData()
-	resData = realResRelatedData()
+	res = UiResourcesList()
+	# commonData = commonUsedData()
+	categoriesData = UiCategoriesList()
 	return render_template ("commerce/main/commerce/commerce.html",
-		resources=resources,**commonData,**resData)
+		**res,**categoriesData)
 
 @bp.route("/collection")
 def collection():
-	commonData = commonUsedData()
-	return render_template ("commerce/main/commerce/collection.html",**commonData,title=gettext('Collection'))
+	categoriesData = UiCategoriesList()
+	# commonData = commonUsedData()
+	return render_template ("commerce/main/commerce/collection.html",**categoriesData,title=gettext('Collection'))
 
 @bp.route("/about")
 def about():
-	commonData = commonUsedData()
-	return render_template ("commerce/main/commerce/about.html",**commonData,title=gettext('About us'))
+	categoriesData = UiCategoriesList()
+	# commonData = commonUsedData()
+	return render_template ("commerce/main/commerce/about.html",**categoriesData,title=gettext('About us'))
 
 @bp.route("/contact")
 def contact():
-	commonData = commonUsedData()
-	return render_template ("commerce/main/commerce/contact.html",**commonData,title=gettext('Contact'))
+	categoriesData = UiCategoriesList()
+	# commonData = commonUsedData()
+	return render_template ("commerce/main/commerce/contact.html",**categoriesData,title=gettext('Contact'))
 
 @bp.route("/cart")
 def cart():
-	commonData = commonUsedData()
+	categoriesData = UiCategoriesList()
+	# commonData = commonUsedData()
 	return render_template ("commerce/main/commerce/cart.html",
-		**commonData,title=gettext('Cart'))
+		**categoriesData,title=gettext('Cart'))
 
 ### sorting and search
 
@@ -45,8 +49,8 @@ def cart():
 # 	resources = Resource.query.filter_by(ResCatId=category.ResCatId)\
 # 		.order_by(Resource.CreatedDate.desc())\
 # 		.paginate(per_page=20,page=page)
-# 	commonData = commonUsedData()
+	# commonData = commonUsedData()
 # 	resData = realResRelatedData()
 # 	return render_template ("commerce/main/commerce/v_grid.html",
-# 		resources=resources,**commonData,**resData,title=gettext('Category'),
+# 		resources=resources,**resData,title=gettext('Category'),
 # 		pagination_url='commerce.category_product',catName=catName)

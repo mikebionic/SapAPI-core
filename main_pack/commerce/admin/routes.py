@@ -19,6 +19,7 @@ def dashboard():
 @login_required
 @admin_required()
 def navbar():
+	# categoryData = UiCategoriesList()
 	commonData = commonUsedData()
 	return render_template ("commerce/admin/navbar.html",**commonData,title=gettext('Navbar'))
 

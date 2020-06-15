@@ -5,6 +5,47 @@ from main_pack.base.apiMethods import fileToURL
 from main_pack.models.base.models import Company
 from main_pack.models.commerce.models import Res_category
 
+from sqlalchemy import and_
+
+
+def UiCategoriesList():
+	data = []
+	categories = Res_category.query\
+		.filter(and_(Res_category.GCRecord=='' or Res_category.GCRecord==None),\
+			(Res_category.ResOwnerCatId==0)).all()
+	for category in categories:
+		categoryPack = category.to_json_api()
+		subcategories = Res_category.query\
+			.filter(and_(Res_category.GCRecord=='' or Res_category.GCRecord==None),\
+			(Res_category.ResOwnerCatId==category.ResCatId)).all()
+
+		for category in subcategories:
+			subcategoryPack = category.to_json_api()
+			subcategories = Res_category.query\
+				.filter(and_(Res_category.GCRecord=='' or Res_category.GCRecord==None),\
+				(Res_category.ResOwnerCatId==category.ResCatId)).all()
+
+			for category in subcategories:
+				subcategoryChildPack = category.to_json_api()
+				subcategoryPack['subcategories'] = subcategoryChildPack
+
+			categoryPack['subcategories'] = subcategoryPack
+		
+		data.append(categoryPack)
+	# res = {
+	# 	"status":1,
+	# 	"message":"All view categories",
+	# 	"data":data,
+	# 	"total":len(data)
+	# }
+	company = Company.query.get(1)
+	res = {
+		"categories":data,
+		"company":company
+	}
+	return res
+
+
 def commonUsedData():
 	commonData = {}
 	subcategories = []
@@ -27,6 +68,30 @@ def commonUsedData():
 		"company":company
 		})
 	return commonData
+
+
+# def commonUsedData():
+# 	commonData = {}
+# 	subcategories = []
+# 	subcategory_children = []
+# 	company = Company.query.get(1)
+# 	categories = Res_category.query.filter_by(ResOwnerCatId=0)
+# 	subcategory = Res_category.query.filter(Res_category.ResOwnerCatId!=0)
+# 	for category in subcategory:
+# 		parents = Res_category.query.filter(Res_category.ResCatId==category.ResOwnerCatId)
+# 		for parent in parents:
+# 			if (parent.ResOwnerCatId == '' or parent.ResOwnerCatId == None or parent.ResOwnerCatId == 0):
+# 				subcategories.append(category)
+# 			else:
+# 				subcategory_children.append(category)
+
+# 	commonData.update({
+# 		"categories":categories,
+# 		"subcategories":subcategories,
+# 		"subcategory_children":subcategory_children,
+# 		"company":company
+# 		})
+# 	return commonData
 
 
 # used foreign keys

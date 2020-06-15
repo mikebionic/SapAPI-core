@@ -8,7 +8,7 @@ from main_pack import db,bcrypt,babel,gettext,lazy_gettext
 from main_pack.commerce.auth.utils import (send_reset_email,get_register_token,
 								verify_register_token,send_register_email)
 
-from main_pack.commerce.commerce.utils import commonUsedData
+from main_pack.commerce.commerce.utils import UiCategoriesList
 
 from main_pack.models.base.models import Rp_acc
 
@@ -29,8 +29,8 @@ def login():
 		else:
 			flash(lazy_gettext('Login Failed! Wrong email or password'), 'danger')
 	
-	commonData = commonUsedData()
-	return render_template('commerce/main/auth/login.html',**commonData,title=gettext('Login'), form=form)
+	categoryData = UiCategoriesList()
+	return render_template('commerce/main/auth/login.html',**categoryData,title=gettext('Login'), form=form)
 
 @bp.route("/logout")
 def logout():
@@ -48,8 +48,8 @@ def reset_request():
 		flash(lazy_gettext('An email has been sent with instructions to reset your password'),'info')
 		return redirect(url_for('commerce_auth.login'))
 	
-	commonData = commonUsedData()
-	return render_template('commerce/main/auth/reset_request.html',**commonData,title=gettext('Reset Password'), form=form)
+	categoryData = UiCategoriesList()
+	return render_template('commerce/main/auth/reset_request.html',**categoryData,title=gettext('Reset Password'), form=form)
 
 @bp.route("/resetPassword/<token>", methods=['GET','POST'])
 def reset_token(token):
@@ -67,8 +67,8 @@ def reset_token(token):
 		flash(lazy_gettext('Your password has been updated!'),'success')
 		return redirect(url_for('commerce_auth.login'))
 
-	commonData = commonUsedData()
-	return render_template('commerce/main/auth/reset_token.html',**commonData,title=gettext('Reset Password'),form=form)
+	categoryData = UiCategoriesList()
+	return render_template('commerce/main/auth/reset_token.html',**categoryData,title=gettext('Reset Password'),form=form)
 
 @bp.route("/register", methods=['GET', 'POST'])
 def register():
@@ -80,8 +80,8 @@ def register():
 		flash(lazy_gettext('An email has been sent with instructions to register your profile'),'info')
 		return redirect(url_for('commerce_auth.register'))
 
-	commonData = commonUsedData()
-	return render_template('commerce/main/auth/register_request.html',**commonData,title=gettext('Register'),form=form)
+	categoryData = UiCategoriesList()
+	return render_template('commerce/main/auth/register_request.html',**categoryData,title=gettext('Register'),form=form)
 
 @bp.route("/register/<token>", methods=['GET','POST'])
 def register_token(token):
@@ -121,5 +121,5 @@ def register_token(token):
 			flash(lazy_gettext('Error occured, please try again.'),'danger')
 			return redirect(url_for('commerce_auth.register'))
 
-	commonData = commonUsedData()
-	return render_template('commerce/main/auth/register_token.html',**commonData,title=gettext('Register'), form=form)
+	categoryData = UiCategoriesList()
+	return render_template('commerce/main/auth/register_token.html',**categoryData,title=gettext('Register'), form=form)

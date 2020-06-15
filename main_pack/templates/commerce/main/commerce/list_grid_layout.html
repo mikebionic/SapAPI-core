@@ -196,27 +196,17 @@
                 <div class="wrap-menu">
                   <ul class="menu clone-main-menu">
                     {% for category in categories %}
-                      {% if category.GCRecord == None or category.GCRecord == '' %}
-                        <li class="menu-item menu-item-has-children has-child">
-                          <a href="#" class="menu-name" {% if category.ResCatDesc %} title="{{ category.ResCatDesc }}" {% endif %}><i class="material-icons">{{ category.ResCatIconName if category.ResCatIconName else "local_mall" }}</i> {{ category.ResCatName }}</a>
-                          {% for subcategory in subcategories %}
-                            {% if subcategory.GCRecord == None or subcategory.GCRecord == '' %}
-                              {% if subcategory.ResOwnerCatId == category.ResCatId %}
-                                <ul class="sub-menu">
-                                <h4 class="menu-title" {% if subcategory.ResCatDesc %} title="{{ subcategory.ResCatDesc }}" {% endif %}>{{ subcategory.ResCatName }}</h4>
-                                  {% for subcategory_child in subcategory_children %}
-                                    {% if subcategory_child.GCRecord == None or subcategory_child.GCRecord == '' %}
-                                      {% if subcategory_child.ResOwnerCatId == subcategory.ResCatId %}
-                                        <li class="menu-item"><a href="#" {% if subcategory_child.ResCatDesc %} title="{{ subcategory_child.ResCatDesc }}" {% endif %}>{{ subcategory_child.ResCatName }}</a></li>
-                                      {% endif %}
-                                    {% endif %}
-                                  {% endfor %}
-                                </ul>                                        
-                              {% endif %}
-                            {% endif %}
-                          {% endfor %}
-                        </li>
-                      {% endif %}
+                      <li class="menu-item menu-item-has-children has-child">
+                        <a href="#" class="menu-name" {% if category.ResCatDesc %} title="{{ category.ResCatDesc }}" {% endif %}><i class="material-icons">{{ category.ResCatIconName if category.ResCatIconName else "local_mall" }}</i> {{ category.ResCatName }}</a>
+                        {% for subcategory in category.subcategories %}
+                          <ul class="sub-menu">
+                          <h4 class="menu-title" {% if subcategory.ResCatDesc %} title="{{ subcategory.ResCatDesc }}" {% endif %}>{{ subcategory.ResCatName }}</h4>
+                            {% for subcategory in subcategory.subcategories %}
+                              <li class="menu-item"><a href="#" {% if subcategory_child.ResCatDesc %} title="{{ subcategory_child.ResCatDesc }}" {% endif %}>{{ subcategory_child.ResCatName }}</a></li>
+                            {% endfor %}
+                          </ul>
+                        {% endfor %}
+                      </li>
                     {% endfor %}
                   </ul>
                 </div>

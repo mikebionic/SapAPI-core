@@ -6,7 +6,7 @@ class Config:
 	POSTGRES = {
 	    'user': 'postgres',
 	    'pw': 'd152535k',
-	    'db': 'dbSapHasap2',
+	    'db': 'dbSapHasap',
 	    'host': 'localhost',
 	    'port': '5432',
 	}
