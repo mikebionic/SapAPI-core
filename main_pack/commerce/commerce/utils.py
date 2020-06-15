@@ -1,12 +1,26 @@
 from main_pack import db,babel,gettext,lazy_gettext
 from main_pack.base.apiMethods import fileToURL
 
-
 from main_pack.models.base.models import Company
 from main_pack.models.commerce.models import Res_category
 
 from sqlalchemy import and_
 
+from main_pack.models.base.models import Company,Sl_image,Slider,Image
+
+def slidersData():
+	slider = Slider.query.get(1)
+	sl_images = Sl_image.query.filter(and_(Sl_image.SlId==slider.SlId, Sl_image.GCRecord==None)).all()
+	List_FileName = [sl_image.SlImgName for sl_image in sl_images]
+	imagesList = []
+	for imageName in List_FileName:
+		sliderImage = {}
+		sliderImage["FilePath"] = fileToURL(fileType="slider",name=imageName) if len(List_FileName)>0 else ''
+		imagesList.append(sliderImage)
+	res = {
+		'sl_images':imagesList
+	}
+	return res
 
 def UiCategoriesList():
 	data = []
@@ -19,18 +33,21 @@ def UiCategoriesList():
 			.filter(and_(Res_category.GCRecord=='' or Res_category.GCRecord==None),\
 			(Res_category.ResOwnerCatId==category.ResCatId)).all()
 
-		for category in subcategories:
-			subcategoryPack = category.to_json_api()
-			subcategories = Res_category.query\
+		subcategory_List = []
+		for subcategory in subcategories:
+			subcategoryPack = subcategory.to_json_api()
+			subcategory_children = Res_category.query\
 				.filter(and_(Res_category.GCRecord=='' or Res_category.GCRecord==None),\
-				(Res_category.ResOwnerCatId==category.ResCatId)).all()
+				(Res_category.ResOwnerCatId==subcategory.ResCatId)).all()
 
-			for category in subcategories:
-				subcategoryChildPack = category.to_json_api()
-				subcategoryPack['subcategories'] = subcategoryChildPack
+			children_List = []
+			for child in subcategory_children:
+				subcategoryChildPack = child.to_json_api()
+				children_List.append(subcategoryChildPack)
 
-			categoryPack['subcategories'] = subcategoryPack
-		
+			subcategoryPack['subcategories'] = children_List
+			subcategory_List.append(subcategoryPack)
+		categoryPack['subcategories'] = subcategory_List
 		data.append(categoryPack)
 	# res = {
 	# 	"status":1,
@@ -39,9 +56,19 @@ def UiCategoriesList():
 	# 	"total":len(data)
 	# }
 	company = Company.query.get(1)
+
+	logoIcon = {} 
+	company_logo = Image.query.filter(and_(Image.CId==company.CId, Image.GCRecord==None))\
+		.order_by(Image.CreatedDate.desc()).first()
+	if company_logo:
+		logoIcon["FilePathS"] = fileToURL(size='S',name=company_logo.FileName)
+		logoIcon["FilePathM"] = fileToURL(size='M',name=company_logo.FileName)
+		logoIcon["FilePathR"] = fileToURL(size='R',name=company_logo.FileName)
+
 	res = {
 		"categories":data,
-		"company":company
+		"company":company,
+		"company_logo":logoIcon
 	}
 	return res
 
@@ -68,30 +95,6 @@ def commonUsedData():
 		"company":company
 		})
 	return commonData
-
-
-# def commonUsedData():
-# 	commonData = {}
-# 	subcategories = []
-# 	subcategory_children = []
-# 	company = Company.query.get(1)
-# 	categories = Res_category.query.filter_by(ResOwnerCatId=0)
-# 	subcategory = Res_category.query.filter(Res_category.ResOwnerCatId!=0)
-# 	for category in subcategory:
-# 		parents = Res_category.query.filter(Res_category.ResCatId==category.ResOwnerCatId)
-# 		for parent in parents:
-# 			if (parent.ResOwnerCatId == '' or parent.ResOwnerCatId == None or parent.ResOwnerCatId == 0):
-# 				subcategories.append(category)
-# 			else:
-# 				subcategory_children.append(category)
-
-# 	commonData.update({
-# 		"categories":categories,
-# 		"subcategories":subcategories,
-# 		"subcategory_children":subcategory_children,
-# 		"company":company
-# 		})
-# 	return commonData
 
 
 # used foreign keys
@@ -241,9 +244,9 @@ def UiResourcesList():
 		resourceList["ResCatName"] = List_Res_category[0] if len(List_Res_category)>0 else ''
 		resourceList["ResPriceValue"] = List_Res_price[0] if len(List_Res_price)>0 else ''
 		resourceList["ResTotBalance"] = List_Res_total[0] if len(List_Res_total)>0 else ''
-		resourceList["FilePathS"] = fileToURL('S',List_FileName[0]) if len(List_FileName)>0 else ''
-		resourceList["FilePathM"] = fileToURL('M',List_FileName[0]) if len(List_FileName)>0 else ''
-		resourceList["FilePathR"] = fileToURL('R',List_FileName[0]) if len(List_FileName)>0 else ''
+		resourceList["FilePathS"] = fileToURL(size='S',name=List_FileName[0]) if len(List_FileName)>0 else ''
+		resourceList["FilePathM"] = fileToURL(size='M',name=List_FileName[0]) if len(List_FileName)>0 else ''
+		resourceList["FilePathR"] = fileToURL(size='R',name=List_FileName[0]) if len(List_FileName)>0 else ''
 
 		resourceList["Colors"] = List_Colors if len(List_Colors)>0 else ''
 		resourceList["Sizes"] = List_Sizes if len(List_Sizes)>0 else ''
@@ -304,9 +307,9 @@ def UiPaginatedResList(product_list):
 		resourceList["ResCatName"] = List_Res_category[0] if len(List_Res_category)>0 else ''
 		resourceList["ResPriceValue"] = List_Res_price[0] if len(List_Res_price)>0 else ''
 		resourceList["ResTotBalance"] = List_Res_total[0] if len(List_Res_total)>0 else ''
-		resourceList["FilePathS"] = fileToURL('S',List_FileName[0]) if len(List_FileName)>0 else ''
-		resourceList["FilePathM"] = fileToURL('M',List_FileName[0]) if len(List_FileName)>0 else ''
-		resourceList["FilePathR"] = fileToURL('R',List_FileName[0]) if len(List_FileName)>0 else ''
+		resourceList["FilePathS"] = fileToURL(size='S',name=List_FileName[0]) if len(List_FileName)>0 else ''
+		resourceList["FilePathM"] = fileToURL(size='M',name=List_FileName[0]) if len(List_FileName)>0 else ''
+		resourceList["FilePathR"] = fileToURL(size='R',name=List_FileName[0]) if len(List_FileName)>0 else ''
 
 		resourceList["Colors"] = List_Colors if len(List_Colors)>0 else ''
 		resourceList["Sizes"] = List_Sizes if len(List_Sizes)>0 else ''

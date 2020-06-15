@@ -6,24 +6,36 @@
 		<!--Block 01: Main slide-->
 		<div class="main-slide block-slider">
 			<ul class="biolife-carousel nav-none-on-mobile" data-slick='{"arrows": true, "dots": false, "slidesMargin": 0, "slidesToShow": 1, "infinite": true, "speed": 800}' >
-				<li>
-					<div class="slide-contain slider-opt03__layout01">
-						<div class="media">
+				{% if sl_images %}
+					{% for sl_image in sl_images %}
+						<li>
+							<div class="slide-contain">
+								<div class="media">
+									<img src="{{ sl_image.FilePath }}">
+								</div>
+							</div>
+						</li>
+					{% endfor %}
+				{% else %}
+					<li>
+						<div class="slide-contain slider-opt03__layout01">
+							<div class="media">
+							</div>
 						</div>
-					</div>
-				</li>
-				<li>
-					<div class="slide-contain slider-opt03__layout02">
-						<div class="media">
+					</li>
+					<li>
+						<div class="slide-contain slider-opt03__layout02">
+							<div class="media">
+							</div>
 						</div>
-					</div>
-				</li>
-				<li>
-					<div class="slide-contain slider-opt03__layout03">
-						<div class="media">
+					</li>
+					<li>
+						<div class="slide-contain slider-opt03__layout03">
+							<div class="media">
+							</div>
 						</div>
-					</div>
-				</li>
+					</li>
+				{% endif %}
 			</ul>
 		</div>
 
@@ -94,8 +106,8 @@
 										  <div class="sin-product">
 												<div class="pro-image fix">
 													<a href="{{ url_for('commerce.product',resId=resource.ResId)}}" class="image">
-												  	{% if resource.FilePathM %}
-														  <img src="{{ resource.FilePathM }}"/>
+												  	{% if resource.FilePathS %}
+														  <img src="{{ resource.FilePathS }}"/>
 												  	{% else %}
 														  <img src="{{ url_for('static', filename='commerce/uploads/noPhoto.png') }}"/>
 												  	{% endif %}
@@ -107,10 +119,8 @@
 												</div>
 
 												<div class="pro-details text-center">
-													<div class="top fix">													
-											  	</div>
+													<div class="top fix"></div>
 											  	<!-- wtf is this above??? -->
-
 												  <a href="#" class="pro-title">{{resource.ResName}}</a>
 												  <h3 class="pro-price">
 													<span class="new">
@@ -121,6 +131,41 @@
 										  </div>
 										</li>
 									{% endif %}
+									{% for category in category.subcategories %}
+										{% for category in category.subcategories %}
+											{% if resource.ResCatName == category.ResCatName %}
+												<li class="product-item">
+												  <div class="sin-product">
+														<div class="pro-image fix">
+															<a href="{{ url_for('commerce.product',resId=resource.ResId)}}" class="image">
+														  	{% if resource.FilePathS %}
+																  <img src="{{ resource.FilePathS }}"/>
+														  	{% else %}
+																  <img src="{{ url_for('static', filename='commerce/uploads/noPhoto.png') }}"/>
+														  	{% endif %}
+														  </a>
+														  <div class="pro-action">
+																<a href="#{{ url_for('commerce.product',resId=resource.ResId)}}" class="action-btn cart addToCart"><i class="fa fa-fw fa-shopping-cart"></i></a>
+																<a href="#" class="action-btn wishlist"><i class="fa fa-fw fa-heart-o"></i></a>
+														  </div>
+														</div>
+
+														<div class="pro-details text-center">
+															<div class="top fix"></div>
+													  	<!-- wtf is this above??? -->
+														  <a href="#" class="pro-title">{{resource.ResName}}</a>
+														  <h3 class="pro-price">
+															<span class="new">
+																{{ resource.ResPriceValue }} TMT
+															</span>
+														  </h3>
+														</div>
+												  </div>
+												</li>
+											{% endif %}
+										{% endfor %}
+									{% endfor %}
+
 							  {% endfor %}
 							</ul>
 						  </div>

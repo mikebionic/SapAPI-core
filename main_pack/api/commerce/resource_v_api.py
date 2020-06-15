@@ -92,9 +92,9 @@ def api_v_resources():
 			resourceList["ResPriceValue"] = List_Res_price[0] if len(List_Res_price)>0 else ''
 			resourceList["ResTotBalance"] = List_Res_total[0] if len(List_Res_total)>0 else ''
 			# resourceList["Image"] = List_Image[0] if len(List_Image)>0 else ''
-			resourceList["FilePathS"] = fileToURL('S',List_FileName[0]) if len(List_FileName)>0 else ''
-			resourceList["FilePathM"] = fileToURL('M',List_FileName[0]) if len(List_FileName)>0 else ''
-			resourceList["FilePathR"] = fileToURL('R',List_FileName[0]) if len(List_FileName)>0 else ''
+			resourceList["FilePathS"] = fileToURL(size='S',name=List_FileName[0]) if len(List_FileName)>0 else ''
+			resourceList["FilePathM"] = fileToURL(size='M',name=List_FileName[0]) if len(List_FileName)>0 else ''
+			resourceList["FilePathR"] = fileToURL(size='R',name=List_FileName[0]) if len(List_FileName)>0 else ''
 			data.append(resourceList)
 		res = {
 			"status":1,

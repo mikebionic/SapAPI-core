@@ -9,7 +9,7 @@ from main_pack.models.base.models import Image
 ###
 from main_pack.models.base.models import Language
 from main_pack.models.commerce.models import Color,Size,Brand
-from main_pack.models.commerce.models import Resource 
+from main_pack.models.commerce.models import Resource
 from main_pack.base.apiMethods import fileToURL
 
 
@@ -57,17 +57,17 @@ def UiCartResourceData(product_list):
 		resourceList["ResCatName"] = List_Res_category[0] if len(List_Res_category)>0 else ''
 		resourceList["ResPriceValue"] = List_Res_price[0] if len(List_Res_price)>0 else ''
 		resourceList["ResTotBalance"] = List_Res_total[0] if len(List_Res_total)>0 else ''
-		resourceList["FilePathS"] = fileToURL('S',List_FileName[0]) if len(List_FileName)>0 else ''
-		resourceList["FilePathM"] = fileToURL('M',List_FileName[0]) if len(List_FileName)>0 else ''
-		resourceList["FilePathR"] = fileToURL('R',List_FileName[0]) if len(List_FileName)>0 else ''
+		resourceList["FilePathS"] = fileToURL(size='S',name=List_FileName[0]) if len(List_FileName)>0 else ''
+		resourceList["FilePathM"] = fileToURL(size='M',name=List_FileName[0]) if len(List_FileName)>0 else ''
+		resourceList["FilePathR"] = fileToURL(size='R',name=List_FileName[0]) if len(List_FileName)>0 else ''
 
 		# configure this for uniqueness later on
 		imagesList = []
 		for image in List_FileName:
 			resImage = {}
-			resImage["FilePathS"] = fileToURL('S',List_FileName[0]) if len(List_FileName)>0 else ''
-			resImage["FilePathM"] = fileToURL('M',List_FileName[0]) if len(List_FileName)>0 else ''
-			resImage["FilePathR"] = fileToURL('R',List_FileName[0]) if len(List_FileName)>0 else ''
+			resImage["FilePathS"] = fileToURL(size='S',name=List_FileName[0]) if len(List_FileName)>0 else ''
+			resImage["FilePathM"] = fileToURL(size='M',name=List_FileName[0]) if len(List_FileName)>0 else ''
+			resImage["FilePathR"] = fileToURL(size='R',name=List_FileName[0]) if len(List_FileName)>0 else ''
 			imagesList.append(resImage)
 		resourceList['Images'] = imagesList
 

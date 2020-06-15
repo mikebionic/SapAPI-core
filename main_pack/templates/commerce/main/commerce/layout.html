@@ -14,7 +14,7 @@
   <link href="https://fonts.googleapis.com/css?family=Poppins:600&amp;display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400i,700i" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Ubuntu&amp;display=swap" rel="stylesheet"> -->
-  <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='commerce/main/images/favicon.png') }}" />
+  <link rel="shortcut icon" type="image/x-icon" href="{{ company_logo.FilePathS if company_logo else url_for('static', filename='commerce/main/images/favicon.png') }}" />
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/animate.min.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/font-awesome.min.css') }}">
@@ -106,8 +106,14 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-3 col-md-2 col-md-6 col-xs-6">
-            {% if company.CName %}
-            <a href="{{ url_for('commerce.commerce')}}" class="logo">{{company.CName}}</span></a>
+            {% if company_logo %}
+              <a href="{{ url_for('commerce.commerce')}}" class="logo">
+                <img src="{{ company_logo.FilePathS }}">
+              </a>
+            {% else %}
+              {% if company.CName %}
+              <a href="{{ url_for('commerce.commerce')}}" class="logo">{{company.CName}}</a>
+              {% endif %}
             {% endif %}
           </div>
           <div class="col-lg-5 col-md-7 hidden-sm hidden-xs">
@@ -201,16 +207,12 @@
                 <ul class="menu clone-main-menu">
                   {% for category in categories %}
                     <li class="menu-item menu-item-has-children has-child">
-                      <a href="#" class="menu-name" {% if category.ResCatDesc %} title="{{ category.ResCatDesc }}" {% endif %}><i class="material-icons">{{ category.ResCatIconName if category.ResCatIconName else "local_mall" }}</i> {{ category.ResCatName }}</a>
-                      <ul class="sub-menu">
-                        <h4 class="menu-title">example</h4>
-                      </ul>
-                      {% for cat in category.subcategories %}
-                      <h1>{{cat.ResCatName}}</h1>
+                      <a href="#" class="menu-name" title="{{ category.ResCatDesc if category.ResCatDesc }}"><i class="material-icons">{{ category.ResCatIconName if category.ResCatIconName else "local_mall" }}</i> {{ category.ResCatName }}</a>
+                      {% for category in category.subcategories %}
                         <ul class="sub-menu">
-                        <h4 class="menu-title" {% if cat.ResCatDesc %} title="{{ cat.ResCatDesc }}" {% endif %}>{{ cat.ResCatName }}</h4>
-                          {% for sub_cat in cat.subcategories %}
-                            <li class="menu-item"><a href="#" {% if sub_cat.ResCatDesc %} title="{{ sub_cat.ResCatDesc }}" {% endif %}>{{ sub_cat.ResCatName }}</a></li>
+                        <h4 class="menu-title" title="{{ category.ResCatDesc if category.ResCatDesc }}">{{ category.ResCatName }}</h4>
+                          {% for category in category.subcategories %}
+                            <li class="menu-item"><a href="#" {% if category.ResCatDesc %} title="{{ category.ResCatDesc }}" {% endif %}>{{ category.ResCatName }}</a></li>
                           {% endfor %}
                         </ul>
                       {% endfor %}

@@ -194,6 +194,8 @@ function cartOperations(formData,url,type,responseForm,listName){
 			}
 			else{
 				console.log('err');
+				cartData={};
+				Cookies.set('cart',JSON.stringify(cartData));
 			}
 		}
 	})

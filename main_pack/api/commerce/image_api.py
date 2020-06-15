@@ -2,7 +2,7 @@ from flask import render_template,url_for,jsonify,request,abort,make_response
 from main_pack.api.commerce import api
 from main_pack.base.apiMethods import checkApiResponseStatus
 
-from main_pack.models.base.models import Image
+from main_pack.models.base.models import Image,Sl_image
 from main_pack.api.commerce.utils import addImageDict,saveImageFile
 from main_pack import db
 from flask import current_app,send_from_directory
@@ -81,7 +81,6 @@ def api_images():
 			response = make_response(jsonify(res),201)
 	return response
 
-
 @api.route("/get-image/<image_size>/<image_name>")
 def get_image(image_size,image_name):
 	image = Image.query.filter(Image.FileName==image_name).first()
@@ -91,6 +90,21 @@ def get_image(image_size,image_name):
 		path = image.FilePathS
 	elif image_size=="R":
 		path = image.FilePathR
+	try:
+		if current_app.config['OS_TYPE']=='windows':
+			response = send_from_directory('static',filename=path.replace("\\","/"),as_attachment=True)
+		else:
+			response = send_from_directory('static',filename=path,as_attachment=True)
+		return response
+	except FileNotFoundError:
+		abort(404)
+
+
+@api.route("/get-file/<fileType>/<fileName>")
+def get_file(fileType,fileName):
+	if fileType=="slider":
+		sl_image = Sl_image.query.filter(Sl_image.SlImgName==fileName).first()
+		path = sl_image.SlImgMainImgFileName
 	try:
 		if current_app.config['OS_TYPE']=='windows':
 			response = send_from_directory('static',filename=path.replace("\\","/"),as_attachment=True)

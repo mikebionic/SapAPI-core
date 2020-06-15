@@ -2,17 +2,19 @@ from flask import render_template, url_for, jsonify, json, session, flash, redir
 from flask_login import current_user,login_required
 from main_pack import db,babel,gettext,lazy_gettext
 from main_pack.commerce.commerce import bp
-from main_pack.commerce.commerce.utils import commonUsedData,realResRelatedData,UiResourcesList,UiCategoriesList
+from main_pack.commerce.commerce.utils import (commonUsedData,realResRelatedData,
+	UiResourcesList,UiCategoriesList,slidersData)
 from main_pack.models.commerce.models import Resource,Res_category
 
 @bp.route("/")
 @bp.route("/commerce")
 def commerce():
 	res = UiResourcesList()
+	sl_images = slidersData()
 	# commonData = commonUsedData()
 	categoriesData = UiCategoriesList()
 	return render_template ("commerce/main/commerce/commerce.html",
-		**res,**categoriesData)
+		**res,**categoriesData,**sl_images)
 
 @bp.route("/collection")
 def collection():
