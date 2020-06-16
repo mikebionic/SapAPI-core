@@ -67,6 +67,19 @@ class Brand(AddInf,CreatedModifiedInfo,db.Model):
 			}
 		return json_brand
 
+	def to_json_api(self):
+		json_barcode = {
+			'BrandId':self.BrandId,
+			'BrandName':self.BrandName,
+			'BrandDesc':self.BrandDesc,
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
+			}
+		return json_barcode
+
 class Color(CreatedModifiedInfo,db.Model):
 	__tablename__ = "tbl_dk_color"
 	ColorId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -87,6 +100,19 @@ class Color(CreatedModifiedInfo,db.Model):
 			'colorName':self.ColorName,
 			'colorDesc':self.ColorDesc,
 			'colorCode':self.ColorCode
+			}
+		return json_color
+
+	def to_json_api(self):
+		json_color = {
+			'ColorName':self.ColorName,
+			'ColorDesc':self.ColorDesc,
+			'ColorCode':self.ColorCode,
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
 			}
 		return json_color
 
@@ -113,6 +139,19 @@ class Size(AddInf,CreatedModifiedInfo,db.Model):
 			}
 		return json_size
 
+	def to_json_api(self):
+		json_size = {
+			'SizeName':self.SizeName,
+			'SizeDesc':self.SizeDesc,
+			'SizeTypeId':self.SizeTypeId,
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
+			}
+		return json_size
+
 
 class Size_type(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_size_type"
@@ -132,6 +171,18 @@ class Size_type(CreatedModifiedInfo,db.Model):
 			'sizeTypeId':self.SizeTypeId,
 			'sizeTypeName':self.SizeTypeName,
 			'sizeTypeDesc':self.SizeTypeDesc
+			}
+		return json_size_type
+
+	def to_json_api(self):
+		json_size_type = {
+			'SizeTypeName':self.SizeTypeName,
+			'SizeTypeDesc':self.SizeTypeDesc,
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
 			}
 		return json_size_type
 
@@ -155,6 +206,21 @@ class Unit(CreatedModifiedInfo,db.Model):
 	Sale_agr_res_price = db.relationship('Sale_agr_res_price',backref='unit',lazy=True)
 	Production_line = db.relationship('Production_line',backref='unit',lazy=True)
 
+	def to_json_api(self):
+		json_unit = {
+			'UnitName_tkTM':self.UnitName_tkTM,
+			'UnitDesc_tkTM':self.UnitDesc_tkTM,
+			'UnitName_ruRU':self.UnitName_ruRU,
+			'UnitDesc_ruRU':self.UnitDesc_ruRU,
+			'UnitName_enUS':self.UnitName_enUS,
+			'UnitDesc_enUS':self.UnitDesc_enUS,
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
+			}
+		return json_unit
 
 class Usage_status(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_usage_status"
@@ -167,6 +233,22 @@ class Usage_status(CreatedModifiedInfo,db.Model):
 	UsageStatusDesc_enUS = db.Column(db.String(500))
 	Resource = db.relationship('Resource',backref='usage_status',lazy=True)
 	Res_price_group = db.relationship('Res_price_group',backref='usage_status',lazy=True)
+
+	def to_json_api(self):
+		json_usage_status = {
+			'UsageStatusName_tkTM':self.UsageStatusName_tkTM,
+			'UsageStatusDesc_tkTM':self.UsageStatusDesc_tkTM,
+			'UsageStatusName_ruRU':self.UsageStatusName_ruRU,
+			'UsageStatusDesc_ruRU':self.UsageStatusDesc_ruRU,
+			'UsageStatusName_enUS':self.UsageStatusName_enUS,
+			'UsageStatusDesc_enUS':self.UsageStatusDesc_enUS,
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
+			}
+		return json_usage_status
 
 
 ####### new models ###

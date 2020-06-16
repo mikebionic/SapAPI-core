@@ -29,52 +29,32 @@
                   <th>{{_('Name')}}</th>
                   <th>{{_('Category')}}</th>
                   <th>{{_('Price')}}</th>
-                  <th>{{_('Available')}}</th>
+                  <th>{{_('Status')}}</th>
                   <th>{{_('Action')}}</th>
                 </tr>
               </thead>
               <tbody>
-{% for resource in resources %}
-  <tr>
-    <td class="text-center">{{ resource.ResId }}</td>
-    <td class="text-center">{{ resource.ResRegNo }}</td>
-    <td>
-      {% if resource.ResMainImgId != 0 and resource.ResMainImgId != '' %}
-        {% for image in images %}
-          {% if image.ImgId==resource.ResMainImgId %}
-            <img alt="image" src="{{ url_for('static', filename='commerce/uploads/'+image.FileName) }}" width="70">
-          {% endif %}
-        {% endfor %}
-      {% endif %}
-    </td>
-    <td>{{resource.ResName}}</td>
-    <td>
-      {% if resource.ResCatId != '' and resource.ResCatId != None %}
-        {% for resCategory in resCategories %}
-          {{ resCategory.ResCatName if resCategory.ResCatId==resource.ResCatId }}
-        {% endfor %}
-      {% endif %}
-    </td>
-    <td>
-      {% for resPrice in resPrices %}
-        {% if resPrice.ResId==resource.ResId %}
-          {{ resPrice.ResPriceValue }} TMT
-        {% endif %}
-      {% endfor %}
-    </td>
-    <td>
-      {% if resource.UsageStatusId==1 %}
-        <div class="badge badge-success badge-shadow"><i class="fas fa-check"></i>{{_('Available')}}</div>
-      {% elif resource.UsageStatusId==2 %}
-        <div class="badge badge-danger badge-shadow"><i class="fas fa-minus"></i>{{_('Unavailable')}}</div>
-      {% endif %}
-    </td>
-    <td>
-      <a href="#" class="btn btn-icon btn-info editResource" ownerId="{{resource.RedId}}"><i class="fas fa-pencil-alt"></i></a>
-      <a href="#" class="btn btn-icon btn-danger deleteResource" ownerId="{{resource.RedId}}"><i class="fas fa-trash-alt"></i></a>
-    </td>
-  </tr>
-{% endfor %}
+                {% for resource in data %}
+                  <tr>
+                    <td class="text-center">{{ resource.ResId }}</td>
+                    <td class="text-center">{{ resource.ResRegNo }}</td>
+                    <td>
+                      {% if resource.FilePathS %}
+                        <img alt="image" src="{{ resource.FilePathS }}" width="70">
+                      {% endif %}
+                    </td>
+                    <td>{{ resource.ResName if resource.ResName else '' }}</td>
+                    <td>{{ resource.ResCatName }}</td>
+                    <td>{{ resource.ResPriceValue }} TMT</td>
+                    <td>
+                      <div class="badge {{ 'badge-success' if resource.UsageStatusId==1 else 'badge-danger' }} badge-shadow"><i class="{{ 'fas fa-check' if resource.UsageStatusId==1 else 'fas fa-minus' }}"></i></div>
+                    </td>
+                    <td>
+                      <a href="#" class="btn btn-icon btn-info editResource" ownerId="{{resource.RedId}}"><i class="fas fa-pencil-alt"></i></a>
+                      <a href="#" class="btn btn-icon btn-danger deleteResource" ownerId="{{resource.RedId}}"><i class="fas fa-trash-alt"></i></a>
+                    </td>
+                  </tr>
+                {% endfor %}
               </tbody>
             </table>
           </div>
@@ -84,84 +64,6 @@
   </div>
 {% endblock %}
 
-{% block modals %}
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="formModal"
-  aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="formModal">Modal title</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form class="">
-            <div class="card-body">
-              <div class="form-group">
-                <label>Color</label>
-                <input type="color" class="form-control">
-              </div>
-              <div class="form-group">
-                <label class="form-label">Color Input</label>
-                <div class="row gutters-xs">
-                  <div class="box">
-                          <a style="background: #e74c3c">#e74c3c</a>
-                          <a style="background: #3498db">#3498db</a>
-                          <a style="background: #2ecc71">#2ecc71</a>
-                          <a style="background: #34495e">#34495e</a>
-                          <a style="background: #f1c40f">#f1c40f</a>
-                          <a style="background: #e67e22">#e67e22</a>
-                        </div>
-                </div>
-              </div>
-              <button class="btn btn-primary mr-1" type="submit">Submit</button>
-              <button class="btn btn-secondary" type="reset">Reset</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- basic modal -->
-  <div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-  aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="selectgroup w-100">
-            <label class="selectgroup-item">
-              <input type="radio" name="radio1" value="1" class="selectgroup-input-radio" checked>
-              <span class="selectgroup-button">S</span>
-            </label>
-            <label class="selectgroup-item">
-              <input type="radio" name="radio1" value="2" class="selectgroup-input-radio">
-              <span class="selectgroup-button">M</span>
-            </label>
-            <label class="selectgroup-item">
-              <input type="radio" name="radio1" value="3" class="selectgroup-input-radio">
-              <span class="selectgroup-button">L</span>
-            </label>
-            <label class="selectgroup-item">
-              <input type="radio" name="radio1" value="4" class="selectgroup-input-radio">
-              <span class="selectgroup-button">XL</span>
-            </label>
-          </div>
-        </div>
-        <div class="modal-footer bg-whitesmoke br">
-          <button type="button" class="btn btn-primary">Save changes</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-{% endblock %}
 
 {% block scripts %}
   <script src="{{ url_for('static', filename='commerce/admin/bundles/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js') }}"></script>
