@@ -4,11 +4,12 @@ from main_pack import db,babel,gettext,lazy_gettext
 from main_pack.commerce.commerce import bp
 
 from main_pack.commerce.commerce.cart_utils import UiCartResourceData
-from main_pack.models.commerce.models import Resource
+from main_pack.models.commerce.models import Resource,Order_inv,Order_inv_line
 from main_pack.commerce.commerce.order_utils import addOInvLineDict,addOInvDict
 
 from main_pack.models.base.models import Reg_num,Reg_num_type
 from main_pack.key_generator.utils import makeRegNum,generate,validate
+from main_pack.base.num2text import num2text,price2text
 
 @bp.route("/product/ui_cart/", methods=['POST','PUT'])
 def ui_cart():
@@ -143,34 +144,50 @@ def ui_cart_checkout():
 	if request.method == "POST":
 		req = request.get_json()
 		print(req)
-		try:
+		if req:
 			reg_num = generate(UId=current_user.UId,prefixType='sale order invoice code')
-			print(reg_num)
 			try:
 				regNo = makeRegNum(current_user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'')
-				print(regNo)
 			except:
 				print("err generating regNo")
+
+			orderInv = Order_inv(
+					OInvTypeId=2,InvStatId=1,CurrencyId=1,
+					RpAccId=current_user.RpAccId,
+					OInvRegNo=regNo
+				)
+			# db.session.add(orderInv)
+			OInvTotal = 0
 			for resElement in req:
 				resId = req[resElement].get('resId')
 				productQty = int(req[resElement].get('productQty'))
 				priceValue = float(req[resElement].get('priceValue'))
 				resource = Resource.query.get(resId)
 				resourceInv = resource.to_json_api()
+				priceTotal = priceValue*productQty
 				resourceInv['OInvLineAmount'] = productQty
 				resourceInv['OInvLinePrice'] = priceValue
-				resourceInv['OInvLineTotal'] = priceValue*productQty
+				resourceInv['OInvLineTotal'] = priceTotal
+				# resourceInv['OInvId'] = orderInv.OInvId
 
+				# print("Order inv id is "+str(resourceInv['OInvId']))
+				
 				order_inv_line = addOInvLineDict(resourceInv)
+				
+				OInvTotal += priceTotal
 				print(order_inv_line)
+
+			print('total inv price is '+ str(OInvTotal))
+			OInvFTotalInWrite = price2text(543538.5319,'en','USD')
+			print(OInvFTotalInWrite)
 
 			response = jsonify({
 				'status':'added',
 				'responseText':gettext('Product')+' '+gettext('successfully saved!'),
 				})
-		except:
-			response = jsonify({
-				'status':'error',
-				'responseText':gettext('Unknown error!'),
-				})
+		# except:
+		# 	response = jsonify({
+		# 		'status':'error',
+		# 		'responseText':gettext('Unknown error!'),
+		# 		})
 	return response
