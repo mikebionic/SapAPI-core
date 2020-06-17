@@ -143,34 +143,34 @@ def ui_cart_checkout():
 	if request.method == "POST":
 		req = request.get_json()
 		print(req)
-		# try:
-		reg_num = generate(UId=current_user.UId,prefixType='account code')
-		print(reg_num)
 		try:
-			regNo = makeRegNum(current_user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'')
-			print(regNo)
+			reg_num = generate(UId=current_user.UId,prefixType='sale order invoice code')
+			print(reg_num)
+			try:
+				regNo = makeRegNum(current_user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'')
+				print(regNo)
+			except:
+				print("err generating regNo")
+			for resElement in req:
+				resId = req[resElement].get('resId')
+				productQty = int(req[resElement].get('productQty'))
+				priceValue = float(req[resElement].get('priceValue'))
+				resource = Resource.query.get(resId)
+				resourceInv = resource.to_json_api()
+				resourceInv['OInvLineAmount'] = productQty
+				resourceInv['OInvLinePrice'] = priceValue
+				resourceInv['OInvLineTotal'] = priceValue*productQty
+
+				order_inv_line = addOInvLineDict(resourceInv)
+				print(order_inv_line)
+
+			response = jsonify({
+				'status':'added',
+				'responseText':gettext('Product')+' '+gettext('successfully saved!'),
+				})
 		except:
-			print("err generating regNo")
-		for resElement in req:
-			resId = req[resElement].get('resId')
-			productQty = int(req[resElement].get('productQty'))
-			priceValue = float(req[resElement].get('priceValue'))
-			resource = Resource.query.get(resId)
-			resourceInv = resource.to_json_api()
-			resourceInv['OInvLineAmount'] = productQty
-			resourceInv['OInvLinePrice'] = priceValue
-			resourceInv['OInvLineTotal'] = priceValue*productQty
-
-			order_inv_line = addOInvLineDict(resourceInv)
-			print(order_inv_line)
-
-		response = jsonify({
-			'status':'added',
-			'responseText':gettext('Product')+' '+gettext('successfully saved!'),
-			})
-		# except:
-		# 	response = jsonify({
-		# 		'status':'error',
-		# 		'responseText':gettext('Unknown error!'),
-		# 		})
+			response = jsonify({
+				'status':'error',
+				'responseText':gettext('Unknown error!'),
+				})
 	return response
