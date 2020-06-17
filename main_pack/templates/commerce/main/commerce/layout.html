@@ -84,7 +84,7 @@
                   <a href="timeline.html" class="dropdown-item has-icon">Activities
                   </a>
                   <div class="dropdown-divider"></div>
-                  <a href="#" class="dropdown-item has-icon"><i class="fa fa-cog"></i>
+                  <a href="#" class="dropdown-item has-icon"><i class="material-icons" style="padding-left: 0;">settings</i>
                     {{_('Settings')}}
                   </a>
                   <div class="dropdown-divider"></div>
@@ -105,14 +105,14 @@
     <div class="header-middle biolife-sticky-object ">
       <div class="container">
         <div class="row">
-          <div class="col-lg-3 col-md-2 col-md-6 col-xs-6">
+          <div class="col-lg-3 col-md-2 col-md-6 col-xs-6" style="width: 50%; margin-bottom: 15px;">
             {% if company_logo %}
-              <a href="{{ url_for('commerce.commerce')}}" class="logo">
-                <img src="{{ company_logo.FilePathS }}">
+              <a href="{{ url_for('commerce.commerce')}}" class="biolife-logo">
+                <img src="{{ company_logo.FilePathS }}"  width="20%" height="34">
               </a>
             {% else %}
               {% if company.CName %}
-              <a href="{{ url_for('commerce.commerce')}}" class="logo">{{company.CName}}</a>
+              <a href="{{ url_for('commerce.commerce')}}" class="biolife-logo">{{company.CName}}</a>
               {% endif %}
             {% endif %}
           </div>
@@ -129,7 +129,7 @@
               </ul>
             </div>
           </div>
-          <div class="col-lg-4 col-md-3 col-md-6 col-xs-6">
+          <div class="col-lg-4 col-md-3 col-md-6 col-xs-6" style="width: 50%;">
             <div class="biolife-cart-info">
               <div class="mobile-search">
                 <a href="javascript:void(0)" class="open-searchbox"><i class="biolife-icon icon-search"></i></a>
@@ -170,8 +170,8 @@
                       <!--         USER's Cart here !!!       -->
                       <ul class="products cartItemsList"></ul>
                       <p class="btn-control">
-                        <a href="{{ url_for('commerce.cart') }}" class="btn view-cart">{{_('View cart')}}</a>
-                        <a class="btn clearCartBtn">{{_('clear all')}}</a>
+                        <a href="{{ url_for('commerce.cart') }}" class="btn view-cart"> {{_('View cart')}}</a>
+                        <a class="btn clearCartBtn" style="padding: 4px 10px 17px;"><i class="material-icons">delete</i></a>
                       </p>
                     </div>
                   </div>
@@ -270,9 +270,6 @@
     <div class="footer-content background-footer-03">
       <div class="container">
         <div class="row">
-          <div class="col-xs-12">
-            <div class="separator sm-margin-top-70px xs-margin-top-40px"></div>
-          </div>
           <div class="col-lg-6 col-sm-6 col-xs-12">
             <div class="copy-right-text">
               <p><a href="#">Sap Hyzmat</a></p>
@@ -362,6 +359,7 @@
   <script src="{{ url_for('static', filename='commerce/main/js/biolife.framework.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/main/js/functions.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/main/js/js.cookie.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/main/js/main.js') }}"></script>
   {% block scripts %}{% endblock %}
   <script src="{{ url_for('static', filename='commerce/main/js/cartsAndCheckouts.js') }}"></script>
 </body>
