@@ -432,7 +432,7 @@ class Order_inv(AddInf,CreatedModifiedInfo,db.Model):
 	EmpId = db.Column(db.Integer,db.ForeignKey("tbl_dk_employee.EmpId"))
 	OInvRegNo = db.Column(db.String(100),nullable=False)
 	OInvDesc = db.Column(db.String(500))
-	OInvDate = db.Column(db.DateTime)
+	OInvDate = db.Column(db.DateTime,default=datetime.now)
 	OInvTotal = db.Column(db.Float,default=0)
 	OInvExpenseAmount = db.Column(db.Float,default=0)
 	OInvTaxAmount = db.Column(db.Float,default=0)
@@ -501,7 +501,7 @@ class Order_inv_line(AddInf,CreatedModifiedInfo,db.Model):
 	OInvLineTaxAmount = db.Column(db.Float,default=0)
 	OInvLineDiscAmount = db.Column(db.Float,default=0)
 	OInvLineFTotal = db.Column(db.Float,default=0)
-	OInvLineDate = db.Column(db.DateTime)
+	OInvLineDate = db.Column(db.DateTime,default=datetime.now)
 
 	def to_json_api(self):
 		order_inv_line = {

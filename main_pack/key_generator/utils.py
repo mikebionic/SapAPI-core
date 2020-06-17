@@ -10,6 +10,7 @@ from main_pack.models.commerce.models import Resource
 from main_pack.models.commerce.models import Res_price
 from main_pack.models.base.models import Rp_acc
 
+from main_pack.models.commerce.models import Order_inv
 from datetime import datetime
 from sqlalchemy import or_, and_
 
@@ -106,6 +107,25 @@ def validate(UId,fullRegNo,RegNumLastNum,prefixType):
 		reg_num = Reg_num.query.filter(
 			and_(Reg_num.UId==UId,Reg_num.RegNumTypeId==prefixType)).first()
 		rpAcc = Rp_acc.query.filter_by(RpAccRegNo=fullRegNo).first()
+
+		if not rpAcc and (RegNumLastNum>reg_num.RegNumLastNum):
+			response = {
+				'status':True,
+				'RegNumLastNum':RegNumLastNum
+			}
+		else:
+			while RegNumLastNum<=reg_num.RegNumLastNum:
+				RegNumLastNum+=1
+			response = {
+				'status':False,
+				'RegNumLastNum':RegNumLastNum
+			}
+
+	elif(prefixType=='account code'):
+		prefixType = prefixTypesDict[prefixType]
+		reg_num = Reg_num.query.filter(
+			and_(Reg_num.UId==UId,Reg_num.RegNumTypeId==prefixType)).first()
+		oInv = Order_inv.query.filter_by(OInvRegNo=fullRegNo).first()
 
 		if not rpAcc and (RegNumLastNum>reg_num.RegNumLastNum):
 			response = {

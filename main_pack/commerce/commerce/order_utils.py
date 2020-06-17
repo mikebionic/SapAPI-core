@@ -10,7 +10,6 @@ from main_pack.models.commerce.models import (Barcode,Res_color,Res_size,Res_tra
 	Sale_agr_res_price,Res_discount)
 
 def addOInvLineDict(req):
-	OInvId = req.get('OInvId')
 	UnitId = req.get('UnitId')
 	CurrencyId = req.get('CurrencyId')
 	ResId = req.get('ResId')
@@ -37,7 +36,6 @@ def addOInvLineDict(req):
 	GCRecord = req.get('GCRecord')
 
 	orderInvLine = {
-		'OInvId':OInvId,
 		'UnitId':UnitId,
 		'CurrencyId':CurrencyId,
 		'ResId':ResId,
@@ -64,3 +62,76 @@ def addOInvLineDict(req):
 		'GCRecord':GCRecord
 	}
 	return orderInvLine
+
+
+def addOInvDict(req):
+	OInvTypeId = req.get('OInvTypeId')
+	InvStatId = req.get('InvStatId')
+	CurrencyId = req.get('CurrencyId')
+	RpAccId = req.get('RpAccId')
+	CId = req.get('CId')
+	DivId = req.get('DivId')
+	WhId = req.get('WhId')
+	WpId = req.get('WpId')
+	EmpId = req.get('EmpId')
+	OInvRegNo = req.get('OInvRegNo')
+	OInvDesc = req.get('OInvDesc')
+	OInvDate = req.get('OInvDate')
+	OInvTotal = req.get('OInvTotal')
+	OInvExpenseAmount = req.get('OInvExpenseAmount')
+	OInvTaxAmount = req.get('OInvTaxAmount')
+	OInvDiscountAmount = req.get('OInvDiscountAmount')
+	OInvFTotal = req.get('OInvFTotal')
+	OInvFTotalInWrite = req.get('OInvFTotalInWrite')
+	OInvModifyCount = req.get('OInvModifyCount')
+	OInvPrintCount = req.get('OInvPrintCount')
+	OInvCreditDays = req.get('OInvCreditDays')
+	OInvCreditDesc = req.get('OInvCreditDesc')
+	AddInf1 = req.get('AddInf1')
+	AddInf2 = req.get('AddInf2')
+	AddInf3 = req.get('AddInf3')
+	AddInf4 = req.get('AddInf4')
+	AddInf5 = req.get('AddInf5')
+	AddInf6 = req.get('AddInf6')
+	CreatedDate = req.get('CreatedDate')
+	ModifiedDate = req.get('ModifiedDate')
+	CreatedUId = req.get('CreatedUId')
+	ModifiedUId = req.get('ModifiedUId')
+	GCRecord = req.get('GCRecord')
+
+	orderInv = {
+		'OInvTypeId':OInvTypeId,
+		'InvStatId':InvStatId,
+		'CurrencyId':CurrencyId,
+		'RpAccId':RpAccId,
+		'CId':CId,
+		'DivId':DivId,
+		'WhId':WhId,
+		'WpId':WpId,
+		'EmpId':EmpId,
+		'OInvRegNo':OInvRegNo,
+		'OInvDesc':OInvDesc,
+		'OInvDate':OInvDate,
+		'OInvTotal':OInvTotal,
+		'OInvExpenseAmount':OInvExpenseAmount,
+		'OInvTaxAmount':OInvTaxAmount,
+		'OInvDiscountAmount':OInvDiscountAmount,
+		'OInvFTotal':OInvFTotal,
+		'OInvFTotalInWrite':OInvFTotalInWrite,
+		'OInvModifyCount':OInvModifyCount,
+		'OInvPrintCount':OInvPrintCount,
+		'OInvCreditDays':OInvCreditDays,
+		'OInvCreditDesc':OInvCreditDesc,
+		'AddInf1':AddInf1,
+		'AddInf2':AddInf2,
+		'AddInf3':AddInf3,
+		'AddInf4':AddInf4,
+		'AddInf5':AddInf5,
+		'AddInf6':AddInf6,
+		'CreatedDate':CreatedDate,
+		'ModifiedDate':ModifiedDate,
+		'CreatedUId':CreatedUId,
+		'ModifiedUId':ModifiedUId,
+		'GCRecord':GCRecord
+	}
+	return orderInv
