@@ -111,7 +111,9 @@ var postResData = function(formData,url,formId){
 			}
 			else if(response.status == 'regGenerated'){
 				warningToaster(response.responseText);
-				$('.resRegNo').val(response.regNo)
+				$('.resRegNo').val(response.regNo);
+				// placing the new reg num from the response
+				$('.'+formId).val(response[formId]);
 			}
 			else{errorToaster(response.responseText);}
 		}

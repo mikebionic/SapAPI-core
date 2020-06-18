@@ -5,7 +5,9 @@ from main_pack.commerce.admin import bp
 
 from main_pack.commerce.admin.utils import prepare_data
 from main_pack.commerce.commerce.utils import commonUsedData
-from main_pack.commerce.admin.utils import resRelatedData,realResRelatedData
+from main_pack.commerce.admin.utils import resRelatedData
+
+from main_pack.commerce.commerce.utils import UiResourcesList
 
 from main_pack.commerce.users.routes import admin_required
 
@@ -33,8 +35,9 @@ def picture():
 @login_required
 @admin_required()
 def product_table():
-	resData=realResRelatedData()
-	return render_template ("commerce/admin/product_table.html",**resData,title=gettext('Product table'))
+	resData=UiResourcesList()
+	return render_template ("commerce/admin/product_table.html",**resData,
+		title=gettext('Product table'))
 
 @bp.route("/admin/add_product")
 @login_required

@@ -39,8 +39,16 @@ def ui_price():
 		resPrice = addResPriceDict(req)
 		resPriceId = req.get('resPriceId')
 		if resPriceId == None:
-			validation = validate(UId=current_user.UId,fullRegNo=resPrice['ResPriceRegNo'],
-				RegNumLastNum=reg_num.RegNumLastNum+1,prefixType='price code')
+
+			lastObject = Res_price.query.order_by(Res_price.ResPriceId.desc()).first()
+			newId = lastObject.ResPriceId+1
+			resPrice['ResPirceId'] = newId
+
+			fullRegNo=resPrice['ResPriceRegNo']
+			dbModel = Res_price.query.filter_by(ResRegNo=fullRegNo).first()
+
+			validation = validate(UId=current_user.UId,fullRegNo=fullRegNo,
+				RegNumLastNum=reg_num.RegNumLastNum+1,dbModel=dbModel,prefixType='price code')
 			if validation['status']==True:
 				reg_num.RegNumLastNum=validation['RegNumLastNum']
 				newResPrice = Res_price(**resPrice)

@@ -3,13 +3,13 @@ from flask_login import current_user,login_required
 from main_pack import db,babel,gettext,lazy_gettext
 from main_pack.commerce.commerce import bp
 from main_pack.commerce.commerce.utils import (commonUsedData,realResRelatedData,
-	UiResourcesList,UiCategoriesList,slidersData)
+	UiResourcesList,UiCategoriesList,slidersData,UiResLimitedList)
 from main_pack.models.commerce.models import Resource,Res_category
 
 @bp.route("/")
 @bp.route("/commerce")
 def commerce():
-	res = UiResourcesList()
+	res = UiResLimitedList(100)
 	sl_images = slidersData()
 	# commonData = commonUsedData()
 	categoriesData = UiCategoriesList()
