@@ -13,6 +13,7 @@ from main_pack.models.commerce.models import Color,Size,Brand
 
 ##### for realResRelatedData
 from main_pack.models.commerce.models import Resource 
+
 def realResRelatedData():
 	resRelatedData = {}
 	resources = Resource.query.all()

@@ -1,12 +1,13 @@
+from flask import session
 from main_pack import db,babel,gettext,lazy_gettext
 from main_pack.base.apiMethods import fileToURL
-
 from main_pack.models.base.models import Company
 from main_pack.models.commerce.models import Res_category
 
 from sqlalchemy import and_
-
 from main_pack.models.base.models import Company,Sl_image,Slider,Image
+
+from main_pack.base.languageMethods import dataLangSelector
 
 def slidersData():
 	slider = Slider.query.get(1)
@@ -15,7 +16,7 @@ def slidersData():
 	imagesList = []
 	for imageName in List_FileName:
 		sliderImage = {}
-		sliderImage["FilePath"] = fileToURL(fileType="slider",name=imageName) if len(List_FileName)>0 else ''
+		sliderImage["FilePath"] = fileToURL(fileType="slider",name=imageName) if List_FileName else ''
 		imagesList.append(sliderImage)
 	res = {
 		'sl_images':imagesList
@@ -240,17 +241,17 @@ def UiResLimitedList(amount):
 		List_Sizes = [size for res_size in res_sizes if res_size.ResId==resource.ResId for size in sizes if size.SizeId==res_size.SizeId]
 		List_Brands = [brand for brand in brands if brand.BrandId==resource.BrandId]
 
-		resourceList["BarcodeVal"] = List_Barcode[0] if len(List_Barcode)>0 else ''
-		resourceList["ResCatName"] = List_Res_category[0] if len(List_Res_category)>0 else ''
-		resourceList["ResPriceValue"] = List_Res_price[0] if len(List_Res_price)>0 else ''
-		resourceList["ResTotBalance"] = List_Res_total[0] if len(List_Res_total)>0 else ''
-		resourceList["FilePathS"] = fileToURL(size='S',name=List_FileName[0]) if len(List_FileName)>0 else ''
-		resourceList["FilePathM"] = fileToURL(size='M',name=List_FileName[0]) if len(List_FileName)>0 else ''
-		resourceList["FilePathR"] = fileToURL(size='R',name=List_FileName[0]) if len(List_FileName)>0 else ''
+		resourceList["BarcodeVal"] = List_Barcode[0] if List_Barcode else ''
+		resourceList["ResCatName"] = List_Res_category[0] if List_Res_category else ''
+		resourceList["ResPriceValue"] = List_Res_price[0] if List_Res_price else ''
+		resourceList["ResTotBalance"] = List_Res_total[0] if List_Res_total else ''
+		resourceList["FilePathS"] = fileToURL(size='S',name=List_FileName[0]) if List_FileName else ''
+		resourceList["FilePathM"] = fileToURL(size='M',name=List_FileName[0]) if List_FileName else ''
+		resourceList["FilePathR"] = fileToURL(size='R',name=List_FileName[0]) if List_FileName else ''
 
-		resourceList["Colors"] = List_Colors if len(List_Colors)>0 else ''
-		resourceList["Sizes"] = List_Sizes if len(List_Sizes)>0 else ''
-		resourceList["Brand"] = List_Brands[0] if len(List_Brands)>0 else ''
+		resourceList["Colors"] = List_Colors if List_Colors else ''
+		resourceList["Sizes"] = List_Sizes if List_Sizes else ''
+		resourceList["Brand"] = List_Brands[0] if List_Brands else ''
 
 		data.append(resourceList)
 	res = {
@@ -303,31 +304,28 @@ def UiResourcesList():
 		List_Res_total = [res_total.ResTotBalance for res_total in res_totals if res_total.ResId==resource.ResId]
 		List_FileName = [image.FileName for image in images if image.ResId==resource.ResId]
 
-		# List_Colors = [color for res_color in res_colors if res_color.ResId==resource.ResId for color in colors if color.ColorId==res_color.ColorId]
-		# List_Sizes = [size for res_size in res_sizes if res_size.ResId==resource.ResId for size in sizes if size.SizeId==res_size.SizeId]
-		# List_Brands = [brand for brand in brands if brand.BrandId==resource.BrandId]
-		# List_Usage_statuses = [usage_status for usage_status in usage_statuses if usage_status.UsageStatusId==resource.UsageStatusId]
-		# List_Units = [unit for unit in units if unit.UnitId==resource.UnitId]
+		List_Colors = [color.to_json_api() for res_color in res_colors if res_color.ResId==resource.ResId for color in colors if color.ColorId==res_color.ColorId]
+		List_Sizes = [size.to_json_api() for res_size in res_sizes if res_size.ResId==resource.ResId for size in sizes if size.SizeId==res_size.SizeId]
+		List_Brand = [brand.to_json_api() for brand in brands if brand.BrandId==resource.BrandId]
+		List_Unit = [unit.to_json_api() for unit in units if unit.UnitId==resource.UnitId]
 
+		List_UsageStatus = [usage_status.to_json_api() for usage_status in usage_statuses if usage_status.UsageStatusId==resource.UsageStatusId]
+		
 		resourceList["Colors"] = [color.to_json_api() for res_color in res_colors if res_color.ResId==resource.ResId for color in colors if color.ColorId==res_color.ColorId]
 		resourceList["Sizes"] = [size.to_json_api() for res_size in res_sizes if res_size.ResId==resource.ResId for size in sizes if size.SizeId==res_size.SizeId]
 		resourceList["Brand"] = [brand.to_json_api() for brand in brands if brand.BrandId==resource.BrandId]
-		resourceList["UsageStatus"] = [usage_status.to_json_api() for usage_status in usage_statuses if usage_status.UsageStatusId==resource.UsageStatusId]
+		
+		resourceList["UsageStatus"] = dataLangSelector(List_UsageStatus[0]) if List_UsageStatus else ''
 		resourceList["Unit"] = [unit.to_json_api() for unit in units if unit.UnitId==resource.UnitId]
+		
+		resourceList["BarcodeVal"] = List_Barcode[0] if List_Barcode else ''
+		resourceList["ResCatName"] = List_Res_category[0] if List_Res_category else ''
+		resourceList["ResPriceValue"] = List_Res_price[0] if List_Res_price else ''
+		resourceList["ResTotBalance"] = List_Res_total[0] if List_Res_total else ''
+		resourceList["FilePathS"] = fileToURL(size='S',name=List_FileName[0]) if List_FileName else ''
+		resourceList["FilePathM"] = fileToURL(size='M',name=List_FileName[0]) if List_FileName else ''
+		resourceList["FilePathR"] = fileToURL(size='R',name=List_FileName[0]) if List_FileName else ''
 
-		resourceList["BarcodeVal"] = List_Barcode[0] if len(List_Barcode)>0 else ''
-		resourceList["ResCatName"] = List_Res_category[0] if len(List_Res_category)>0 else ''
-		resourceList["ResPriceValue"] = List_Res_price[0] if len(List_Res_price)>0 else ''
-		resourceList["ResTotBalance"] = List_Res_total[0] if len(List_Res_total)>0 else ''
-		resourceList["FilePathS"] = fileToURL(size='S',name=List_FileName[0]) if len(List_FileName)>0 else ''
-		resourceList["FilePathM"] = fileToURL(size='M',name=List_FileName[0]) if len(List_FileName)>0 else ''
-		resourceList["FilePathR"] = fileToURL(size='R',name=List_FileName[0]) if len(List_FileName)>0 else ''
-
-		# resourceList["Colors"] = List_Colors if len(List_Colors)>0 else ''
-		# resourceList["Sizes"] = List_Sizes if len(List_Sizes)>0 else ''
-		# resourceList["Brand"] = List_Brands[0] if len(List_Brands)>0 else ''
-		# resourceList["Unit"] = List_Units if len(List_Units)>0 else ''
-		# resourceList["Usage_status"] = List_Usage_statuses if len(List_Usage_statuses)>0 else ''
 		data.append(resourceList)
 	res = {
 		"status":1,
@@ -377,17 +375,17 @@ def UiPaginatedResList(product_list):
 		List_Sizes = [size for res_size in res_sizes if res_size.ResId==resource.ResId for size in sizes if size.SizeId==res_size.SizeId]
 		List_Brands = [brand for brand in brands if brand.BrandId==resource.BrandId]
 
-		resourceList["BarcodeVal"] = List_Barcode[0] if len(List_Barcode)>0 else ''
-		resourceList["ResCatName"] = List_Res_category[0] if len(List_Res_category)>0 else ''
-		resourceList["ResPriceValue"] = List_Res_price[0] if len(List_Res_price)>0 else ''
-		resourceList["ResTotBalance"] = List_Res_total[0] if len(List_Res_total)>0 else ''
-		resourceList["FilePathS"] = fileToURL(size='S',name=List_FileName[0]) if len(List_FileName)>0 else ''
-		resourceList["FilePathM"] = fileToURL(size='M',name=List_FileName[0]) if len(List_FileName)>0 else ''
-		resourceList["FilePathR"] = fileToURL(size='R',name=List_FileName[0]) if len(List_FileName)>0 else ''
+		resourceList["BarcodeVal"] = List_Barcode[0] if List_Barcode else ''
+		resourceList["ResCatName"] = List_Res_category[0] if List_Res_category else ''
+		resourceList["ResPriceValue"] = List_Res_price[0] if List_Res_price else ''
+		resourceList["ResTotBalance"] = List_Res_total[0] if List_Res_total else ''
+		resourceList["FilePathS"] = fileToURL(size='S',name=List_FileName[0]) if List_FileName else ''
+		resourceList["FilePathM"] = fileToURL(size='M',name=List_FileName[0]) if List_FileName else ''
+		resourceList["FilePathR"] = fileToURL(size='R',name=List_FileName[0]) if List_FileName else ''
 
-		resourceList["Colors"] = List_Colors if len(List_Colors)>0 else ''
-		resourceList["Sizes"] = List_Sizes if len(List_Sizes)>0 else ''
-		resourceList["Brand"] = List_Brands[0] if len(List_Brands)>0 else ''
+		resourceList["Colors"] = List_Colors if List_Colors else ''
+		resourceList["Sizes"] = List_Sizes if List_Sizes else ''
+		resourceList["Brand"] = List_Brands[0] if List_Brands else ''
 
 		data.append(resourceList)
 	res = {

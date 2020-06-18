@@ -36,6 +36,7 @@ def picture():
 @admin_required()
 def product_table():
 	resData=UiResourcesList()
+	print(resData)
 	return render_template ("commerce/admin/product_table.html",**resData,
 		title=gettext('Product table'))
 

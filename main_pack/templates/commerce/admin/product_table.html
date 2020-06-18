@@ -47,7 +47,10 @@
                     <td>{{ resource.ResCatName }}</td>
                     <td>{{ resource.ResPriceValue }} TMT</td>
                     <td>
-                      <div class="badge {{ 'badge-success' if resource.UsageStatusId==1 else 'badge-danger' }} badge-shadow"><i class="{{ 'fas fa-check' if resource.UsageStatusId==1 else 'fas fa-minus' }}"></i></div>
+                      <div class="badge {{ 'badge-success' if resource.UsageStatusId==1 else 'badge-danger' }} badge-shadow">
+                        {{resource.UsageStatus['UsageStatusName']}}
+                        <i class="{{ 'fas fa-check' if resource.UsageStatusId==1 else 'fas fa-minus' }}"></i>
+                      </div>
                     </td>
                     <td>
                       <a href="#" class="btn btn-icon btn-info editResource" ownerId="{{resource.RedId}}"><i class="fas fa-pencil-alt"></i></a>

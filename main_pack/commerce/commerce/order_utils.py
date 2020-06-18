@@ -10,6 +10,7 @@ from main_pack.models.commerce.models import (Barcode,Res_color,Res_size,Res_tra
 	Sale_agr_res_price,Res_discount)
 
 def addOInvLineDict(req):
+	OInvId = req.get('OInvId')
 	UnitId = req.get('UnitId')
 	CurrencyId = req.get('CurrencyId')
 	ResId = req.get('ResId')
@@ -36,6 +37,7 @@ def addOInvLineDict(req):
 	GCRecord = req.get('GCRecord')
 
 	orderInvLine = {
+		'OInvId':OInvId,
 		'UnitId':UnitId,
 		'CurrencyId':CurrencyId,
 		'ResId':ResId,
