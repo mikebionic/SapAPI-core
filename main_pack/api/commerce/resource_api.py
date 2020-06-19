@@ -188,32 +188,3 @@ def api_resources():
 			response = make_response(jsonify(res),200)
 	
 	return response
-
-@api.route("/paginated_resources/",methods=['GET'])
-def api_paginated_resources():
-	page = request.args.get('page',1,type=int)
-	pagination = Resource.query\
-	.filter(Resource.GCRecord=='' or Resource.GCRecord==None)\
-	.order_by(Resource.CreatedDate.desc()).paginate(
-		page,per_page=current_app.config['API_OBJECTS_PER_PAGE'],
-		error_out=False
-		)
-	resources = pagination.items
-	prev = None
-	if pagination.has_prev:
-		prev = url_for('commerce_api.api_paginated_resources',page=page-1)
-	next = None
-	if pagination.has_next:
-		next = url_for('commerce_api.api_paginated_resources',page=page+1)
-	
-	res = {
-		"status":1,
-		"message":"Resources",
-		"data":[resource.to_json_api() for resource in resources],
-		"total":len(resources),
-		'prev_url':prev,
-		'next_url':next,
-		'pages_total':pagination.total
-	}
-	
-	return jsonify(res)

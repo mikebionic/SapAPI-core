@@ -70,6 +70,9 @@ GET
 GET
 /api/tbl-dk-categories/<int:ResCatId>/v-resources/
 
+GET
+/api/paginate/v-resources/?last=<lastId>&limit=<quantity>
+
 GET POST
 /api/tbl-dk-res-prices/
 

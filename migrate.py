@@ -7,7 +7,6 @@ from main_pack.models.base.models import (Acc_type,Accounting_info,AdditionalInf
 	Country,Currency,Db_inf,Department,Department_detail,Division,Gender,Image,Location,Password,
 	Password_type,Language,Prog_language,Reg_num,Reg_num_type,Report_file,Rp_acc,Rp_acc_price_list,Warehouse)
 
-
 from main_pack.models.commerce.models import (Barcode,Brand,Color,Res_color,Res_size,Res_translations,
 	Res_unit,Size,Size_type,Unit,Usage_status,Resource,Res_category,
 	Res_maker,Res_type)
@@ -36,17 +35,23 @@ app.app_context().push()
 # db.session.add(dep)
 ##########################
 
+lastUser = Users.query.order_by(UId.desc()).first()
+lastRpAcc = Rp_acc.query.order_by(RpAccId.desc()).first()
+newUId = lastUser+1
+newRpAccId = lastRpAcc+1
+email = "muhammedjepbarov@gmail.com"
 # # UPass is "123" hashed
-user = Users(UName="administrator",UEmail="muhammedjepbarov@gmail.com",
-	UPass="$2b$12$ZltRSL4D1LpcJuoFEzW7PO/rEio8LKxhK9vPEG3Jv7Zg9S07f4Q1G",
-	UShortName="AR",UFullName="Mike Bionic",
-	UTypeId=1)
+password = "$2b$12$ZltRSL4D1LpcJuoFEzW7PO/rEio8LKxhK9vPEG3Jv7Zg9S07f4Q1G"
+
+user = Users(UId=newUId,UName="administrator",UEmail=email,
+	UPass=password,UShortName="AR",UFullName="Mike Bionic",UTypeId=1,RpAccId=newRpAccId)
 db.session.add(user)
-rp_acc = Rp_acc(RpAccName="Mike Bionic",RpAccEMail="muhammedjepbarov@gmail.com",RpAccRegNo="ARAK1",RpAccTypeId=1,UId=1)
+
+rp_acc = Rp_acc(RpAccId=newRpAccId,RpAccName="Mike Bionic",
+	RpAccEMail=email,RpAccRegNo="ARAK1",RpAccTypeId=1,UId=newUId)
 db.session.add(rp_acc)
-rp_acc.UId = user.UId
-user.RpAccId = rp_acc.RpAccId
-regNum = Reg_num(UId=1, RegNumTypeId=6,
+
+regNum = Reg_num(UId=newUId,RegNumTypeId=6,
 			RegNumPrefix="AK",RegNumLastNum=0)
 db.session.add(regNum)
 
@@ -78,4 +83,4 @@ size = Size(SizeName="XXL")
 db.session.add(size)
 #########################
 
-db.session.commit()
+# db.session.commit()

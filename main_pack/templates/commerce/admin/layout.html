@@ -46,14 +46,36 @@
                 <a href="{{ url_for('commerce_admin.product_table') }}" class="nav-link"><i data-feather="grid"></i><span>{{_('Product Table')}}</span></a>
               </li>
               <li class="dropdown">
-                <a href="{{ url_for('commerce_admin.navbar') }}" class="nav-link"><i data-feather="menu"></i><span>{{_('Navigation')}}</span></a>
+                <a href="{{ url_for('commerce_admin.navbar') }}" class="nav-link"><i data-feather="sidebar"></i><span>{{_('Navigation')}}</span></a>
               </li>
                <li class="dropdown">
                 <a href="{{ url_for('commerce_admin.add_product') }}" class="nav-link"><i data-feather="package"></i><span>{{_('Add Product')}}</span></a>
               </li>
               <li class="dropdown">
-                <a href="{{ url_for('commerce_admin.images_setup') }}" class="nav-link"><i data-feather="clipboard"></i><span>{{_('Pictures')}}</span></a>
+                <a href="{{ url_for('commerce_admin.images_setup') }}" class="nav-link"><i data-feather="image"></i><span>{{_('Pictures')}}</span></a>
               </li>
+
+              <li class="menu-header">{{_('Invoices')}}</li>
+              <li class="dropdown active">
+                <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="shopping-cart"></i><span>{{_('Order invoices')}}</span></a>
+                <ul class="dropdown-menu">
+                  <li><a class="nav-link" href="{{ url_for('commerce_admin.order_invoices') }}">{{_('Sale order invoices')}}</a></li>
+                </ul>
+              </li>
+              <li class="dropdown active">
+                <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="shopping-bag"></i><span>{{_('Invoices')}}</span></a>
+                <ul class="dropdown-menu">
+                  <li><a class="nav-link" href="#">{{_('Sale invoices')}}</a></li>
+                </ul>
+              </li>     
+
+              <li class="dropdown">
+                <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="users"></i><span>{{_('Users')}}</span></a>
+                <ul class="dropdown-menu">
+                  <li><a class="nav-link" href="#">{{_('Users table')}}</a></li>
+                </ul>
+              </li>
+
             </ul>
           </aside>
         </div>
@@ -88,12 +110,16 @@
     <script>
       var url_prefix = "/commerce";
     </script>
-    <script src="{{ url_for('static', filename='commerce/admin/js/ui_dynamicals.js') }}"></script>
     <script src="{{ url_for('static', filename='commerce/admin/js/app.min.js') }}"></script>
     <script src="{{ url_for('static', filename='commerce/admin/bundles/jquery-ui/jquery-ui.min.js') }}"></script>
+      <!-- Required for tables -->
+    <script src="{{ url_for('static', filename='commerce/admin/bundles/datatables/datatables.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='commerce/admin/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ url_for('static', filename='commerce/admin/js/page/datatables.js') }}"></script>
-    <script src="{{ url_for('static', filename='commerce/admin/commerce_styles/js/jquery-3.4.1.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='commerce/admin/commerce_styles/js/jquery.nicescroll.min.js') }}"></script>
+      <!-- Required for tables -->
+    <script src="{{ url_for('static', filename='commerce/admin/commerce_styles/js/jquery-3.4.1.min.js') }}"></script>  
+    <script src="{{ url_for('static', filename='commerce/admin/commerce_styles/js/jquery.nicescroll.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='commerce/admin/js/ui_dynamicals.js') }}"></script>
     {% block scripts %}{% endblock %}
     <script src="{{ url_for('static', filename='commerce/admin/js/scripts.js') }}"></script>
     <script src="{{ url_for('static', filename='commerce/admin/bundles/izitoast/js/iziToast.min.js') }}"></script>

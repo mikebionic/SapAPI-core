@@ -28,7 +28,9 @@ def get_locale():
 	try:
 		language = session['language']
 	except KeyError:
-		language = None
+		# language = None
+		session['language'] = 'tk'
+		language = session['language']
 	if language is not None:
 		return language
 	return 'tk'

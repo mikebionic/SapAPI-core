@@ -1,0 +1,84 @@
+{% extends "commerce/admin/layout.html" %}
+
+{% block styles %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/prism/prism.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/datatables/datatables.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/owlcarousel2/dist/assets/owl.carousel.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='commerce/admin/admin_commerce/style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/owlcarousel2/dist/assets/owl.theme.default.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/pretty-checkbox/pretty-checkbox.min.css') }}">
+{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h4>Basic DataTables</h4>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-striped" id="table-1">
+              <thead>
+                <tr>
+                  <th class="text-center">
+                    #
+                  </th>
+                  <th>Task Name</th>
+                  <th>Progress</th>
+                  <th>Members</th>
+                  <th>Due Date</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    1
+                  </td>
+                  <td>Create a mobile app</td>
+                  <td class="align-middle">
+                    <div class="progress progress-xs">
+                      <div class="progress-bar bg-{{tag_class}} width-per-{{ percentage }}">
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    wegefgt4v
+                  </td>
+                  <td>2018-01-20</td>
+                  <td>
+                    <div class="badge badge-success badge-shadow">Completed</div>
+                  </td>
+                  <td><a href="#" class="btn btn-primary">Detail</a></td>
+                </tr>
+                <tr>
+                  <td>
+                    2
+                  </td>
+                  <td>Redesign homepage</td>
+                  <td class="align-middle">
+                    <div class="progress progress-xs">
+                      <div class="progress-bar width-per-60"></div>
+                    </div>
+                  </td>
+                  <td>
+                    sgretgrt
+                  </td>
+                  <td>2018-04-10</td>
+                  <td>
+                    <div class="badge badge-info badge-shadow">Todo</div>
+                  </td>
+                  <td><a href="#" class="btn btn-primary">Detail</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
