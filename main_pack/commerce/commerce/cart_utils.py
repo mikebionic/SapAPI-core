@@ -63,11 +63,11 @@ def UiCartResourceData(product_list):
 
 		# configure this for uniqueness later on
 		imagesList = []
-		for image in List_FileName:
+		for imageName in List_FileName:
 			resImage = {}
-			resImage["FilePathS"] = fileToURL(size='S',name=List_FileName[0]) if len(List_FileName)>0 else ''
-			resImage["FilePathM"] = fileToURL(size='M',name=List_FileName[0]) if len(List_FileName)>0 else ''
-			resImage["FilePathR"] = fileToURL(size='R',name=List_FileName[0]) if len(List_FileName)>0 else ''
+			resImage["FilePathS"] = fileToURL(size='S',name=imageName) if len(List_FileName)>0 else ''
+			resImage["FilePathM"] = fileToURL(size='M',name=imageName) if len(List_FileName)>0 else ''
+			resImage["FilePathR"] = fileToURL(size='R',name=imageName) if len(List_FileName)>0 else ''
 			imagesList.append(resImage)
 		resourceList['Images'] = imagesList
 

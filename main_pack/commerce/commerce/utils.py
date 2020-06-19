@@ -199,10 +199,10 @@ def realResRelatedData():
 
 ##########
 
-
-def UiResourcesList():
+def UiResLimitedList(amount):
 	resources = Resource.query\
-		.filter(Resource.GCRecord=='' or Resource.GCRecord==None).all()
+		.filter(Resource.GCRecord=='' or Resource.GCRecord==None)\
+		.order_by(Resource.CreatedDate.desc()).limit(amount).all()
 	barcodes = Barcode.query\
 		.filter(Barcode.GCRecord=='' or Barcode.GCRecord==None).all()
 	categories = Res_category.query\
@@ -260,8 +260,82 @@ def UiResourcesList():
 		"total":len(data)
 	}
 	return res
+###############
 
+def UiResourcesList():
+	resources = Resource.query\
+		.filter(Resource.GCRecord=='' or Resource.GCRecord==None).all()
+	barcodes = Barcode.query\
+		.filter(Barcode.GCRecord=='' or Barcode.GCRecord==None).all()
+	categories = Res_category.query\
+		.filter(Res_category.GCRecord=='' or Res_category.GCRecord==None).all()
+	res_prices = Res_price.query\
+		.filter(Res_price.GCRecord=='' or Res_price.GCRecord==None).all()
+	res_totals = Res_total.query\
+		.filter(Res_total.GCRecord=='' or Res_total.GCRecord==None).all()
+	images = Image.query\
+		.filter(Image.GCRecord=='' or Image.GCRecord==None).all()
 
+	colors = Color.query\
+		.filter(Color.GCRecord=='' or Color.GCRecord==None).all()
+	sizes = Size.query\
+		.filter(Size.GCRecord=='' or Size.GCRecord==None).all()
+	brands = Brand.query\
+		.filter(Brand.GCRecord=='' or Brand.GCRecord==None).all()
+
+	res_colors = Res_color.query\
+		.filter(Res_color.GCRecord=='' or Res_color.GCRecord==None).all()
+	res_sizes = Res_size.query\
+		.filter(Res_size.GCRecord=='' or Res_size.GCRecord==None).all()
+
+	usage_statuses = Usage_status.query\
+		.filter(Size.GCRecord=='' or Size.GCRecord==None).all()
+	units = Unit.query\
+		.filter(Unit.GCRecord=='' or Unit.GCRecord==None).all()
+
+	data = []
+	for resource in resources:
+		resourceList = resource.to_json_api()
+
+		List_Barcode = [barcode.BarcodeVal for barcode in barcodes if barcode.ResId==resource.ResId]
+		List_Res_category = [category.ResCatName for category in categories if category.ResCatId==resource.ResCatId]
+		List_Res_price = [res_price.ResPriceValue for res_price in res_prices if res_price.ResId==resource.ResId and res_price.ResPriceTypeId==2]
+		List_Res_total = [res_total.ResTotBalance for res_total in res_totals if res_total.ResId==resource.ResId]
+		List_FileName = [image.FileName for image in images if image.ResId==resource.ResId]
+
+		# List_Colors = [color for res_color in res_colors if res_color.ResId==resource.ResId for color in colors if color.ColorId==res_color.ColorId]
+		# List_Sizes = [size for res_size in res_sizes if res_size.ResId==resource.ResId for size in sizes if size.SizeId==res_size.SizeId]
+		# List_Brands = [brand for brand in brands if brand.BrandId==resource.BrandId]
+		# List_Usage_statuses = [usage_status for usage_status in usage_statuses if usage_status.UsageStatusId==resource.UsageStatusId]
+		# List_Units = [unit for unit in units if unit.UnitId==resource.UnitId]
+
+		resourceList["Colors"] = [color.to_json_api() for res_color in res_colors if res_color.ResId==resource.ResId for color in colors if color.ColorId==res_color.ColorId]
+		resourceList["Sizes"] = [size.to_json_api() for res_size in res_sizes if res_size.ResId==resource.ResId for size in sizes if size.SizeId==res_size.SizeId]
+		resourceList["Brand"] = [brand.to_json_api() for brand in brands if brand.BrandId==resource.BrandId]
+		resourceList["UsageStatus"] = [usage_status.to_json_api() for usage_status in usage_statuses if usage_status.UsageStatusId==resource.UsageStatusId]
+		resourceList["Unit"] = [unit.to_json_api() for unit in units if unit.UnitId==resource.UnitId]
+
+		resourceList["BarcodeVal"] = List_Barcode[0] if len(List_Barcode)>0 else ''
+		resourceList["ResCatName"] = List_Res_category[0] if len(List_Res_category)>0 else ''
+		resourceList["ResPriceValue"] = List_Res_price[0] if len(List_Res_price)>0 else ''
+		resourceList["ResTotBalance"] = List_Res_total[0] if len(List_Res_total)>0 else ''
+		resourceList["FilePathS"] = fileToURL(size='S',name=List_FileName[0]) if len(List_FileName)>0 else ''
+		resourceList["FilePathM"] = fileToURL(size='M',name=List_FileName[0]) if len(List_FileName)>0 else ''
+		resourceList["FilePathR"] = fileToURL(size='R',name=List_FileName[0]) if len(List_FileName)>0 else ''
+
+		# resourceList["Colors"] = List_Colors if len(List_Colors)>0 else ''
+		# resourceList["Sizes"] = List_Sizes if len(List_Sizes)>0 else ''
+		# resourceList["Brand"] = List_Brands[0] if len(List_Brands)>0 else ''
+		# resourceList["Unit"] = List_Units if len(List_Units)>0 else ''
+		# resourceList["Usage_status"] = List_Usage_statuses if len(List_Usage_statuses)>0 else ''
+		data.append(resourceList)
+	res = {
+		"status":1,
+		"message":"All view resources",
+		"data":data,
+		"total":len(data)
+	}
+	return res
 
 def UiPaginatedResList(product_list):
 	barcodes = Barcode.query\

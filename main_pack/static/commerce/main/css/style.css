@@ -2241,7 +2241,7 @@ body.open-mobile-search .header-area.layout-02 {
 }
 
 .vertical-category-block .wrap-menu ul.sub-menu {
-    /* display: inline-block; */
+    display: inline-block;
     width: 250px;
     margin-left: 21px;
     padding: 10px;
@@ -2499,8 +2499,8 @@ body.open-mobile-search .header-area.layout-02 {
 }
 
 .products-list.biolife-carousel.slick-initialized .contain-product .product-thumb img, .products-list:not(.biolife-carousel) .contain-product .product-thumb img {
-    width: 100%;
-    height: 200px;
+    /* width: 100%;
+    height: 200px; */
 }
 
 .contain-product .info .categories {
@@ -2546,7 +2546,10 @@ body.open-mobile-search .header-area.layout-02 {
 
 .pr-detail-layout .product-thumb {
     width: 25.036%;
+    height: 300px;
+    overflow: hidden;
     float: left;
+    background: blue;
 }
 
 .pr-detail-layout .info {
@@ -6706,7 +6709,7 @@ body.open-overlay #overlay {
 
 .signin-container .form-row input {
     padding: 10px 10px 9px;
-    color: #444444;
+    /* color: #444444; */
     width: 100%;
 }
 
@@ -6754,9 +6757,22 @@ body.open-overlay #overlay {
 }
 
 .btn.btn-bold:hover {
-    background-color: #444444;
+    background-color: #5278f3;
 }
-
+/* card price */
+.priceValue{
+    float: left;
+}
+.productTotalPrice{
+    float: left;
+}
+.removeFromCart{
+    margin-right: auto;
+}
+.product-quantity .cont{
+    margin-left: auto;
+}
+/* end card price */
 .register-in-container {
     margin-top: 73px;
     margin-bottom: 80px;

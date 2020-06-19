@@ -1447,7 +1447,7 @@
     stroke-width: 1.2px
 }
 
-.profile-info-card .card-title .confirm-button a,.menu-card .card-title .confirm-button a {
+.profile-info-card .card-title .confirm-button button,.menu-card .card-title .confirm-button a {
     color: grey;
     height: 40px;
     width: 40px;
@@ -1463,16 +1463,16 @@
     transition: all .5s
 }
 
-.profile-info-card .card-title .confirm-button a span,.menu-card .card-title .confirm-button a span {
+.profile-info-card .card-title .confirm-button button span,.menu-card .card-title .confirm-button a span {
     font-size: 90% !important;
     padding-left: 5px
 }
 
-.profile-info-card .card-title .confirm-button a:hover,.menu-card .card-title .confirm-button a:hover {
+.profile-info-card .card-title .confirm-button button:hover,.menu-card .card-title .confirm-button button:hover {
     border: 1.8px solid #00b289
 }
 
-.profile-info-card .card-title .confirm-button a:hover svg,.menu-card .card-title .confirm-button a:hover svg {
+.profile-info-card .card-title .confirm-button button:hover svg,.menu-card .card-title .confirm-button button:hover svg {
     stroke: #00b289;
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg)

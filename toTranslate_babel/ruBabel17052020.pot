@@ -236,7 +236,7 @@ msgstr "Ошибка входа! Неправильный адрес элект�
 
 #: commerce/auth/routes.py:28
 msgid "Login"
-msgstr "Логин"
+msgstr "Вход"
 
 #: commerce/auth/routes.py:43
 msgid "An email has been sent with instructions to reset your password"

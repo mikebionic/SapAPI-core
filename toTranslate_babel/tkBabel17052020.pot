@@ -486,7 +486,7 @@ msgstr "Doly beýany"
 #: templates/commerce/admin/add_product.html:238
 #: templates/commerce/admin/product_table.html:33
 msgid "Action"
-msgstr "Hereket"
+msgstr "Amal"
 
 #: templates/commerce/admin/add_product.html:249
 msgid "Add new product"
@@ -659,7 +659,7 @@ msgstr "täzele"
 
 #: templates/commerce/main/commerce/cart.html:27
 msgid "clear all"
-msgstr "Öçür"
+msgstr "Hemmesini poz"
 
 #: templates/commerce/main/commerce/cart.html:50
 #: templates/commerce/main/commerce/layout.html:127

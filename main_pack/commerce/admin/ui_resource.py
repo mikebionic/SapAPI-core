@@ -56,8 +56,17 @@ def ui_resource():
 		resource = addResourceDict(req)
 		resId = req.get('resId')
 		if resId == None:
-			validation = validate(UId=current_user.UId,fullRegNo=resource['ResRegNo'],
-				RegNumLastNum=reg_num.RegNumLastNum+1,prefixType='goods code')
+			# # Method for getting the last resource if there're pre-added ones
+			lastObject = Resource.query.order_by(Resource.ResId.desc()).first()
+			newId = lastObject.ResId+1
+			resource['ResId'] = newId
+
+			# # validation of new resource
+			fullRegNo=resource['ResRegNo']
+			dbModel = Resource.query.filter_by(ResRegNo=fullRegNo).first()
+			validation = validate(UId=current_user.UId,fullRegNo=fullRegNo,
+				RegNumLastNum=reg_num.RegNumLastNum+1,dbModel=dbModel,prefixType='goods code')
+
 			if validation['status']==True:
 				reg_num.RegNumLastNum=validation['RegNumLastNum']
 				newResource = Resource(**resource)
@@ -84,7 +93,6 @@ def ui_resource():
 					'responseText':gettext('That registration number already presents')+'. '+gettext('It changed to ')+regNo,
 					'regNoForm':'resRegNo',
 					'regNo':regNo,
-					# 'data': render_template('/hr_department/tableEmpAppend.html',**baseTemplate,employee=newResource)
 					})
 			return response
 		else:
@@ -97,7 +105,6 @@ def ui_resource():
 					'resId':updateResource.ResId,
 					'status':'updated',
 					'responseText':gettext('Resource')+' '+gettext('successfully updated!'),
-					# 'data': render_template('/hr_department/tableEmpAppend.html',**baseTemplate,employee=updateResource),
 					})
 			except:
 				response = jsonify({

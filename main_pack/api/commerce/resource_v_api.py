@@ -3,7 +3,6 @@ from main_pack.api.commerce import api
 from main_pack.base.apiMethods import checkApiResponseStatus,fileToURL
 from main_pack.base.dataMethods import apiCheckImageByte
 
-from main_pack.models.commerce.models import Res_category
 from main_pack.models.commerce.models import Resource
 from main_pack.api.commerce.utils import addResourceDict
 
@@ -25,6 +24,8 @@ from main_pack.api.commerce.utils import addResTotalDict
 from main_pack import db
 from flask import current_app
 
+from main_pack.models.commerce.models import (Color,Size,Brand,Unit,Usage_status)
+from main_pack.models.commerce.models import (Res_color,Res_size,Res_unit)
 
 @api.route("/v-full-resources/",methods=['GET'])
 def api_v_full_resources():
@@ -41,6 +42,21 @@ def api_v_full_resources():
 			.filter(Res_total.GCRecord=='' or Res_total.GCRecord==None).all()
 		images = Image.query\
 			.filter(Image.GCRecord=='' or Image.GCRecord==None).all()
+
+		colors = Color.query\
+			.filter(Color.GCRecord=='' or Color.GCRecord==None).all()
+		sizes = Size.query\
+			.filter(Size.GCRecord=='' or Size.GCRecord==None).all()
+		brands = Brand.query\
+			.filter(Brand.GCRecord=='' or Brand.GCRecord==None).all()
+		res_colors = Res_color.query\
+			.filter(Res_color.GCRecord=='' or Res_color.GCRecord==None).all()
+		res_sizes = Res_size.query\
+			.filter(Res_size.GCRecord=='' or Res_size.GCRecord==None).all()
+		usage_statuses = Usage_status.query\
+			.filter(Size.GCRecord=='' or Size.GCRecord==None).all()
+		units = Unit.query\
+			.filter(Unit.GCRecord=='' or Unit.GCRecord==None).all()
 		data = []
 		for resource in resources:
 			resourceList = resource.to_json_api()
@@ -49,6 +65,11 @@ def api_v_full_resources():
 			resourceList["Res_price"] = [res_price.to_json_api() for res_price in res_prices if res_price.ResId==resource.ResId]
 			resourceList["Res_total"] = [res_total.to_json_api() for res_total in res_totals if res_total.ResId==resource.ResId]
 			resourceList["Image"] = [image.to_json_api() for image in images if image.ResId==resource.ResId]
+			resourceList["Colors"] = [color.to_json_api() for res_color in res_colors if res_color.ResId==resource.ResId for color in colors if color.ColorId==res_color.ColorId]
+			resourceList["Sizes"] = [size.to_json_api() for res_size in res_sizes if res_size.ResId==resource.ResId for size in sizes if size.SizeId==res_size.SizeId]
+			resourceList["Brand"] = [brand.to_json_api() for brand in brands if brand.BrandId==resource.BrandId]
+			resourceList["UsageStatus"] = [usage_status.to_json_api() for usage_status in usage_statuses if usage_status.UsageStatusId==resource.UsageStatusId]
+			resourceList["Unit"] = [unit.to_json_api() for unit in units if unit.UnitId==resource.UnitId]
 
 			data.append(resourceList)
 		res = {
@@ -75,6 +96,24 @@ def api_v_resources():
 			.filter(Res_total.GCRecord=='' or Res_total.GCRecord==None).all()
 		images = Image.query\
 			.filter(Image.GCRecord=='' or Image.GCRecord==None).all()
+
+		colors = Color.query\
+			.filter(Color.GCRecord=='' or Color.GCRecord==None).all()
+		sizes = Size.query\
+			.filter(Size.GCRecord=='' or Size.GCRecord==None).all()
+		brands = Brand.query\
+			.filter(Brand.GCRecord=='' or Brand.GCRecord==None).all()
+
+		res_colors = Res_color.query\
+			.filter(Res_color.GCRecord=='' or Res_color.GCRecord==None).all()
+		res_sizes = Res_size.query\
+			.filter(Res_size.GCRecord=='' or Res_size.GCRecord==None).all()
+
+		usage_statuses = Usage_status.query\
+			.filter(Size.GCRecord=='' or Size.GCRecord==None).all()
+		units = Unit.query\
+			.filter(Unit.GCRecord=='' or Unit.GCRecord==None).all()
+
 		data = []
 		for resource in resources:
 			resourceList = resource.to_json_api()
@@ -86,15 +125,26 @@ def api_v_resources():
 			# # we don't need this blob anymore
 			# List_Image = [apiCheckImageByte(image.Image) for image in images if image.ResId==resource.ResId]
 			List_FileName = [image.FileName for image in images if image.ResId==resource.ResId]
+			List_Colors = [color.ColorName for res_color in res_colors if res_color.ResId==resource.ResId for color in colors if color.ColorId==res_color.ColorId]
+			List_Sizes = [size.SizeName for res_size in res_sizes if res_size.ResId==resource.ResId for size in sizes if size.SizeId==res_size.SizeId]
+			List_Brands = [brand.BrandName for brand in brands if brand.BrandId==resource.BrandId]
+			List_Usage_statuses = [usage_status.UsageStatusName_tkTM for usage_status in usage_statuses if usage_status.UsageStatusId==resource.UsageStatusId]
+			List_Units = [unit.UnitName_tkTM for unit in units if unit.UnitId==resource.UnitId]
 
-			resourceList["BarcodeVal"] = List_Barcode[0] if len(List_Barcode)>0 else ''
-			resourceList["ResCatName"] = List_Res_category[0] if len(List_Res_category)>0 else ''
-			resourceList["ResPriceValue"] = List_Res_price[0] if len(List_Res_price)>0 else ''
-			resourceList["ResTotBalance"] = List_Res_total[0] if len(List_Res_total)>0 else ''
+			resourceList["BarcodeVal"] = List_Barcode[0] if List_Barcode else ''
+			resourceList["ResCatName"] = List_Res_category[0] if List_Res_category else ''
+			resourceList["ResPriceValue"] = List_Res_price[0] if List_Res_price else ''
+			resourceList["ResTotBalance"] = List_Res_total[0] if List_Res_total else ''
 			# resourceList["Image"] = List_Image[0] if len(List_Image)>0 else ''
-			resourceList["FilePathS"] = fileToURL(size='S',name=List_FileName[0]) if len(List_FileName)>0 else ''
-			resourceList["FilePathM"] = fileToURL(size='M',name=List_FileName[0]) if len(List_FileName)>0 else ''
-			resourceList["FilePathR"] = fileToURL(size='R',name=List_FileName[0]) if len(List_FileName)>0 else ''
+			resourceList["FilePathS"] = fileToURL(size='S',name=List_FileName[0]) if List_FileName else ''
+			resourceList["FilePathM"] = fileToURL(size='M',name=List_FileName[0]) if List_FileName else ''
+			resourceList["FilePathR"] = fileToURL(size='R',name=List_FileName[0]) if List_FileName else ''
+			resourceList["Colors"] = List_Colors if List_Colors else ''
+			resourceList["Sizes"] = List_Sizes if List_Sizes else ''
+			resourceList["Brand"] = List_Brands[0] if List_Brands else ''
+			resourceList["Unit"] = List_Units[0] if List_Units else ''
+			resourceList["UsageStatus"] = List_Usage_statuses[0] if List_Usage_statuses else ''
+
 			data.append(resourceList)
 		res = {
 			"status":1,
@@ -116,6 +166,21 @@ def api_category_v_resources(ResCatId):
 		res_prices = Res_price.query.all()
 		res_totals = Res_total.query.all()
 		images = Image.query.all()
+		
+		colors = Color.query\
+			.filter(Color.GCRecord=='' or Color.GCRecord==None).all()
+		sizes = Size.query\
+			.filter(Size.GCRecord=='' or Size.GCRecord==None).all()
+		brands = Brand.query\
+			.filter(Brand.GCRecord=='' or Brand.GCRecord==None).all()
+		res_colors = Res_color.query\
+			.filter(Res_color.GCRecord=='' or Res_color.GCRecord==None).all()
+		res_sizes = Res_size.query\
+			.filter(Res_size.GCRecord=='' or Res_size.GCRecord==None).all()
+		usage_statuses = Usage_status.query\
+			.filter(Size.GCRecord=='' or Size.GCRecord==None).all()
+		units = Unit.query\
+			.filter(Unit.GCRecord=='' or Unit.GCRecord==None).all()
 		data = []
 		for resource in resources:
 			resourceList = resource.to_json_api()
@@ -124,13 +189,25 @@ def api_category_v_resources(ResCatId):
 			List_Res_category = [category.ResCatName for category in categories if category.ResCatId==resource.ResCatId]
 			List_Res_price = [res_price.ResPriceValue for res_price in res_prices if res_price.ResId==resource.ResId and res_price.ResPriceTypeId==2]
 			List_Res_total = [res_total.ResTotBalance for res_total in res_totals if res_total.ResId==resource.ResId]
-			List_Image = [base64.encodebytes(image.Image).decode('ascii') for image in images if image.ResId==resource.ResId]
+			List_FileName = [image.FileName for image in images if image.ResId==resource.ResId]
+			List_Colors = [color.ColorName for res_color in res_colors if res_color.ResId==resource.ResId for color in colors if color.ColorId==res_color.ColorId]
+			List_Sizes = [size.SizeName for res_size in res_sizes if res_size.ResId==resource.ResId for size in sizes if size.SizeId==res_size.SizeId]
+			List_Brands = [brand.BrandName for brand in brands if brand.BrandId==resource.BrandId]
+			List_Usage_statuses = [usage_status.UsageStatusName_tkTM for usage_status in usage_statuses if usage_status.UsageStatusId==resource.UsageStatusId]
+			List_Units = [unit.UnitName_tkTM for unit in units if unit.UnitId==resource.UnitId]
 
-			resourceList["BarcodeVal"] = List_Barcode[0] if len(List_Barcode)>0 else ''
-			resourceList["ResCatName"] = List_Res_category[0] if len(List_Res_category)>0 else ''
-			resourceList["ResPriceValue"] = List_Res_price[0] if len(List_Res_price)>0 else ''
-			resourceList["ResTotBalance"] = List_Res_total[0] if len(List_Res_total)>0 else ''
-			resourceList["Image"] = List_Image[0] if len(List_Image)>0 else ''
+			resourceList["BarcodeVal"] = List_Barcode[0] if List_Barcode else ''
+			resourceList["ResCatName"] = List_Res_category[0] if List_Res_category else ''
+			resourceList["ResPriceValue"] = List_Res_price[0] if List_Res_price else ''
+			resourceList["ResTotBalance"] = List_Res_total[0] if List_Res_total else ''
+			resourceList["FilePathS"] = fileToURL(size='S',name=List_FileName[0]) if List_FileName else ''
+			resourceList["FilePathM"] = fileToURL(size='M',name=List_FileName[0]) if List_FileName else ''
+			resourceList["FilePathR"] = fileToURL(size='R',name=List_FileName[0]) if List_FileName else ''
+			resourceList["Colors"] = List_Colors if List_Colors else ''
+			resourceList["Sizes"] = List_Sizes if List_Sizes else ''
+			resourceList["Brand"] = List_Brands[0] if List_Brands else ''
+			resourceList["Unit"] = List_Units[0] if List_Units else ''
+			resourceList["UsageStatus"] = List_Usage_statuses[0] if List_Usage_statuses else ''
 			data.append(resourceList)
 		res = {
 			"status":1,
