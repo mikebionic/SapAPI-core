@@ -8,60 +8,30 @@
 			<div class="slider">
 				{% if sl_images %}
 					{% for sl_image in sl_images %}
-					<div class="slide active" style="background-image: url('{{ sl_image.FilePath }}')">
-						<div class="container">
-							<div class="caption">
-								<h1>1. Winter Collection 2020</h1>
-								<p>Lorem ipsum dummy text goes here.</p>
-								<a href="">Shop Now</a>
+						<div class="slide active" style="background-image: url('{{ sl_image.FilePath }}')">
+							<div class="container">
+								<div class="caption">
+									<h1>1. Winter Collection 2020</h1>
+									<p>Lorem ipsum dummy text goes here.</p>
+									<a href="">Shop Now</a>
+								</div>
 							</div>
 						</div>
-					</div>
 					{% endfor %}
 				{% else %}
-				
-					   <div class="slide active" style="background-image: url('{{ url_for('static', filename='commerce/main/images/home/5.jpg')}}')">
-						   <div class="container">
-							   <div class="caption">
-								   <h1>1. Lorem ipsum dolor sit amet.</h1>
-								   <p>Lorem ipsum dummy text goes here.</p>
-								   <a href="">Shop Now</a>
-							   </div>
-						   </div>
-					   </div>
-					   <div class="slide" style="background-image: url('{{ url_for('static', filename='commerce/main/images/home/5.jpg')}}')">
-						   <div class="container">
-							   <div class="caption">
-								   <h1>2. Winter Collection 2020</h1>
-								   <p>Lorem ipsum dummy text goes here.</p>
-								   <a href="">Shop Now</a>
-							   </div>
-						   </div>
-					   </div>
-					   <div class="slide" style="background-image: url('{{ url_for('static', filename='commerce/main/images/home/5.jpg')}}')">
-						   <div class="container">
-							   <div class="caption">
-								   <h1>3. Winter Collection 2020</h1>
-								   <p>Lorem ipsum dummy text goes here.</p>
-								   <a href="">Shop Now</a>
-							   </div>
-						   </div>
-					   </div>
-					</div>
-				  
-				   <!-- controls  -->
-				   <div class="controls">
-					   <div class="prev"><</div>
-					   <div class="next">></div>
-				   </div>
-			   
-				   <!-- indicators -->
-				   <div class="indicator">
-				   </div>
-			   
-				
-					
+					<div class="slide active" style="background-image: url('{{ url_for('static', filename='commerce/main/images/home/5.jpg')}}')"></div>
+					<div class="slide" style="background-image: url('{{ url_for('static', filename='commerce/main/images/home/5.jpg')}}')"></div>
+					<div class="slide" style="background-image: url('{{ url_for('static', filename='commerce/main/images/home/5.jpg')}}')"></div>
 				{% endif %}
+			</div>
+					<!-- controls  -->
+					<div class="controls">
+					<div class="prev"><</div>
+					<div class="next">></div>
+					</div>
+
+					<!-- indicators -->
+					<div class="indicator"></div>
 			</section>
 
 		<!--Block 02: Banner-->
@@ -69,7 +39,7 @@
 			<div class="container">
 				<ul class="biolife-carousel nav-center-bold nav-none-on-mobile" data-slick='{"rows":1,"arrows":true,"dots":false,"infinite":false,"speed":400,"slidesMargin":30,"slidesToShow":3, "responsive":[{"breakpoint":1200, "settings":{ "slidesToShow": 3}},{"breakpoint":992, "settings":{ "slidesToShow": 2}},{"breakpoint":768, "settings":{ "slidesToShow": 2}}, {"breakpoint":500, "settings":{ "slidesToShow": 1}}]}'>
 					<li>
-					   <div class="biolife-banner style-04 biolife-banner__style-04">
+						<div class="biolife-banner style-04 biolife-banner__style-04">
 							<div class="banner-contain">
 								<div class="media">
 									<a href="#" class="bn-link"><img src="{{ url_for('static', filename='commerce/main/images/home/7.jpg') }}" width="100%" height="100%" alt=""></a>

@@ -143,8 +143,7 @@ def ui_cart_table():
 def ui_cart_checkout():
 	if request.method == "POST":
 		req = request.get_json()
-		print(req)
-		if req:
+		try:
 			reg_num = generate(UId=current_user.UId,prefixType='sale order invoice code')
 			try:
 				regNo = makeRegNum(current_user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'')
@@ -156,7 +155,7 @@ def ui_cart_checkout():
 					RpAccId=current_user.RpAccId,
 					OInvRegNo=regNo
 				)
-			# db.session.add(orderInv)
+			db.session.add(orderInv)
 			OInvTotal = 0
 			for resElement in req:
 				resId = req[resElement].get('resId')
@@ -165,29 +164,38 @@ def ui_cart_checkout():
 				resource = Resource.query.get(resId)
 				resourceInv = resource.to_json_api()
 				priceTotal = priceValue*productQty
+				priceFTotal = priceTotal
 				resourceInv['OInvLineAmount'] = productQty
 				resourceInv['OInvLinePrice'] = priceValue
 				resourceInv['OInvLineTotal'] = priceTotal
-				# resourceInv['OInvId'] = orderInv.OInvId
-
-				# print("Order inv id is "+str(resourceInv['OInvId']))
+				resourceInv['OInvLineFTotal'] = priceFTotal
+				resourceInv['OInvId'] = orderInv.OInvId
+				resourceInv['CurrencyId'] = 1
+				print("Order inv id is "+str(resourceInv['OInvId']))
 				
 				order_inv_line = addOInvLineDict(resourceInv)
 				
-				OInvTotal += priceTotal
-				print(order_inv_line)
+				OInvTotal += priceFTotal
+				thisOInvLine = Order_inv_line(**order_inv_line)
+				db.session.add(thisOInvLine)
 
-			print('total inv price is '+ str(OInvTotal))
-			OInvFTotalInWrite = price2text(543538.5319,'en','USD')
-			print(OInvFTotalInWrite)
+			OInvFTotal = OInvTotal
+			OInvFTotalInWrite = price2text(OInvFTotal,'tk','TMT')
+
+			orderInv.OInvTotal = OInvTotal
+			orderInv.OInvFTotal = OInvFTotal
+			orderInv.OInvFTotalInWrite = OInvFTotalInWrite
+
+			db.session.commit()
 
 			response = jsonify({
 				'status':'added',
-				'responseText':gettext('Product')+' '+gettext('successfully saved!'),
+				'responseText':gettext('Checkout')+' '+gettext('successfully done!'),
+				'htmlData':render_template('commerce/main/commerce/successCheckoutAppend.html')
 				})
-		# except:
-		# 	response = jsonify({
-		# 		'status':'error',
-		# 		'responseText':gettext('Unknown error!'),
-		# 		})
+		except:
+			response = jsonify({
+				'status':'error',
+				'responseText':gettext('Unknown error!'),
+				})
 	return response

@@ -36,8 +36,18 @@ def picture():
 @admin_required()
 def product_table():
 	resData=UiResourcesList()
+	print(resData)
 	return render_template ("commerce/admin/product_table.html",**resData,
 		title=gettext('Product table'))
+
+
+@bp.route("/admin/order_invoices")
+@login_required
+@admin_required()
+def order_invoices():
+
+	return render_template ("commerce/admin/order_invoices.html",
+		title=gettext('Order invoices'))
 
 @bp.route("/admin/add_product")
 @login_required

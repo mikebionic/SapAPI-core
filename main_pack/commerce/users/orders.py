@@ -5,13 +5,10 @@ from main_pack.commerce.users import bp
 from main_pack.commerce.commerce.utils import UiCategoriesList
 # change this for something else
 
-from main_pack.models.base.models import Rp_acc
-
-
-
 @bp.route("/orders")
 @login_required
 def orders():
+	
 	categoryData = UiCategoriesList()
 	return render_template ("commerce/main/users/orders.html",**categoryData,title=gettext('Orders'))
 

@@ -27,6 +27,8 @@ from flask import current_app
 from main_pack.models.commerce.models import (Color,Size,Brand,Unit,Usage_status)
 from main_pack.models.commerce.models import (Res_color,Res_size,Res_unit)
 
+from sqlalchemy import and_
+
 @api.route("/v-full-resources/",methods=['GET'])
 def api_v_full_resources():
 	if request.method == 'GET':
@@ -211,9 +213,134 @@ def api_category_v_resources(ResCatId):
 			data.append(resourceList)
 		res = {
 			"status":1,
-			"message":"All view resources",
+			"message":"All view resources of category",
 			"data":data,
 			"total":len(data)
 		}
 		response = make_response(jsonify(res),200)
 	return response
+
+
+###### pagination #######
+
+
+def ApiPaginatedResList(product_list):
+	barcodes = Barcode.query\
+		.filter(Barcode.GCRecord=='' or Barcode.GCRecord==None).all()
+	categories = Res_category.query\
+		.filter(Res_category.GCRecord=='' or Res_category.GCRecord==None).all()
+	res_prices = Res_price.query\
+		.filter(Res_price.GCRecord=='' or Res_price.GCRecord==None).all()
+	res_totals = Res_total.query\
+		.filter(Res_total.GCRecord=='' or Res_total.GCRecord==None).all()
+	images = Image.query\
+		.filter(Image.GCRecord=='' or Image.GCRecord==None).all()
+
+	colors = Color.query\
+		.filter(Color.GCRecord=='' or Color.GCRecord==None).all()
+	sizes = Size.query\
+		.filter(Size.GCRecord=='' or Size.GCRecord==None).all()
+	brands = Brand.query\
+		.filter(Brand.GCRecord=='' or Brand.GCRecord==None).all()
+
+	res_colors = Res_color.query\
+		.filter(Res_color.GCRecord=='' or Res_color.GCRecord==None).all()
+	res_sizes = Res_size.query\
+		.filter(Res_size.GCRecord=='' or Res_size.GCRecord==None).all()
+
+	data = []
+
+	for product in product_list:
+		resource = Resource.query.get(product["resId"])
+		resourceList = resource.to_json_api()
+
+		List_Barcode = [barcode.BarcodeVal for barcode in barcodes if barcode.ResId==resource.ResId]
+		List_Res_category = [category.ResCatName for category in categories if category.ResCatId==resource.ResCatId]
+		List_Res_price = [res_price.ResPriceValue for res_price in res_prices if res_price.ResId==resource.ResId and res_price.ResPriceTypeId==2]
+		List_Res_total = [res_total.ResTotBalance for res_total in res_totals if res_total.ResId==resource.ResId]
+		List_FileName = [image.FileName for image in images if image.ResId==resource.ResId]
+
+		List_Colors = [color for res_color in res_colors if res_color.ResId==resource.ResId for color in colors if color.ColorId==res_color.ColorId]
+		List_Sizes = [size for res_size in res_sizes if res_size.ResId==resource.ResId for size in sizes if size.SizeId==res_size.SizeId]
+		List_Brands = [brand for brand in brands if brand.BrandId==resource.BrandId]
+
+		resourceList["BarcodeVal"] = List_Barcode[0] if List_Barcode else ''
+		resourceList["ResCatName"] = List_Res_category[0] if List_Res_category else ''
+		resourceList["ResPriceValue"] = List_Res_price[0] if List_Res_price else ''
+		resourceList["ResTotBalance"] = List_Res_total[0] if List_Res_total else ''
+		resourceList["FilePathS"] = fileToURL(size='S',name=List_FileName[0]) if List_FileName else ''
+		resourceList["FilePathM"] = fileToURL(size='M',name=List_FileName[0]) if List_FileName else ''
+		resourceList["FilePathR"] = fileToURL(size='R',name=List_FileName[0]) if List_FileName else ''
+
+		resourceList["Colors"] = List_Colors if List_Colors else ''
+		resourceList["Sizes"] = List_Sizes if List_Sizes else ''
+		resourceList["Brand"] = List_Brands[0] if List_Brands else ''
+
+		data.append(resourceList)
+	res = {
+		"status":1,
+		"message":"All view resources",
+		"data":data,
+		"total":len(data)
+	}
+	return res
+
+@api.route("/paginate/v-resources/",methods=['GET'])
+def api_paginate_resources():
+	latestResource = Resource.query\
+		.filter(Resource.GCRecord=='' or Resource.GCRecord==None)\
+		.order_by(Resource.ResId.desc())\
+		.first()
+	last = request.args.get('last',None,type=int)
+	limit = request.args.get('limit',10,type=int)
+	# handles the latest resource
+	if last is None:
+		last = latestResource.ResId+1
+
+	pagination = Resource.query\
+	.filter(and_(Resource.GCRecord=='' or Resource.GCRecord==None,Resource.ResId<last))\
+	.order_by(Resource.ResId.desc())\
+	.paginate(
+		per_page=limit,
+		error_out=False
+		)
+	# .order_by(Resource.ResId.desc())\
+	resources = pagination.items
+	prev = None
+
+	### Gotta check it ######
+	nextLast = Resource.query\
+		.filter(and_(Resource.GCRecord=='' or Resource.GCRecord==None,Resource.ResId<(last-limit+1)))\
+		.order_by(Resource.ResId.desc())\
+		.first()
+	prevLast = Resource.query\
+		.filter(and_(Resource.GCRecord=='' or Resource.GCRecord==None,Resource.ResId<(last+limit+1)))\
+		.order_by(Resource.ResId.desc())\
+		.first()
+	print(prevLast.ResId)
+	if nextLast:
+		prev = url_for('commerce_api.api_paginate_resources',last=nextLast.ResId,limit=limit)
+	next = None
+	if prevLast:
+		next = url_for('commerce_api.api_paginate_resources',last=prevLast.ResId,limit=limit)
+	
+
+	product_list = []
+	for resource in pagination.items:
+		product = {}
+		product['resId'] = resource.ResId
+		product_list.append(product)
+	res = ApiPaginatedResList(product_list)
+
+
+	res = {
+		"status":1,
+		"message":"Paginated resources",
+		"data":res['data'],
+		"total":len(resources),
+		'prev_url':prev,
+		'next_url':next,
+		'pages_total':pagination.total
+	}
+	
+	return jsonify(res)
