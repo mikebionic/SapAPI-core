@@ -31,7 +31,7 @@
             </ul>
           </div>
         </nav>
-        <div class="main-sidebar sidebar-style-2">
+        <div class="main-sidebar sidebar-style-2" tabindex="1">
           <aside id="sidebar-wrapper">
             <div class="sidebar-brand">
               <a href="{{ url_for('commerce_admin.dashboard') }}"> <img alt="image" src="{{ url_for('static', filename='commerce/admin/img/logo.png')}}" class="header-logo" /> 
@@ -56,13 +56,13 @@
               </li>
 
               <li class="menu-header">{{_('Invoices')}}</li>
-              <li class="dropdown active">
+              <li class="dropdown">
                 <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="shopping-cart"></i><span>{{_('Order invoices')}}</span></a>
                 <ul class="dropdown-menu">
                   <li><a class="nav-link" href="{{ url_for('commerce_admin.order_invoices') }}">{{_('Sale order invoices')}}</a></li>
                 </ul>
               </li>
-              <li class="dropdown active">
+              <li class="dropdown">
                 <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="shopping-bag"></i><span>{{_('Invoices')}}</span></a>
                 <ul class="dropdown-menu">
                   <li><a class="nav-link" href="#">{{_('Sale invoices')}}</a></li>
@@ -70,9 +70,9 @@
               </li>     
 
               <li class="dropdown">
-                <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="users"></i><span>{{_('Users')}}</span></a>
+                <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="users"></i><span>{{_('Cusomers')}}</span></a>
                 <ul class="dropdown-menu">
-                  <li><a class="nav-link" href="#">{{_('Users table')}}</a></li>
+                  <li><a class="nav-link" href="#">{{_('Customers table')}}</a></li>
                 </ul>
               </li>
 

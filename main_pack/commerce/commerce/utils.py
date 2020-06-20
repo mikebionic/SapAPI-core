@@ -298,6 +298,7 @@ def UiResourcesList():
 	for resource in resources:
 		resourceList = resource.to_json_api()
 
+		## one of these are usless
 		List_Barcode = [barcode.BarcodeVal for barcode in barcodes if barcode.ResId==resource.ResId]
 		List_Res_category = [category.ResCatName for category in categories if category.ResCatId==resource.ResCatId]
 		List_Res_price = [res_price.ResPriceValue for res_price in res_prices if res_price.ResId==resource.ResId and res_price.ResPriceTypeId==2]
@@ -308,7 +309,7 @@ def UiResourcesList():
 		List_Sizes = [size.to_json_api() for res_size in res_sizes if res_size.ResId==resource.ResId for size in sizes if size.SizeId==res_size.SizeId]
 		List_Brand = [brand.to_json_api() for brand in brands if brand.BrandId==resource.BrandId]
 		List_Unit = [unit.to_json_api() for unit in units if unit.UnitId==resource.UnitId]
-
+		##  ##
 		List_UsageStatus = [usage_status.to_json_api() for usage_status in usage_statuses if usage_status.UsageStatusId==resource.UsageStatusId]
 		
 		resourceList["Colors"] = [color.to_json_api() for res_color in res_colors if res_color.ResId==resource.ResId for color in colors if color.ColorId==res_color.ColorId]

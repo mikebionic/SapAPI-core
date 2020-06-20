@@ -13,6 +13,7 @@ from main_pack.models.users.models import Users
 # from main_pack.models.commerce.models import Order_inv
 from datetime import datetime
 from sqlalchemy import or_, and_
+from random import randint
 
 prefixTypesDict = {
 		'employee code':1,
@@ -74,10 +75,12 @@ def validate(UId,fullRegNo,RegNumLastNum,dbModel,prefixType):
 		}
 	return response
 
-def makeRegNum(shortName,prefix,lastNum,suffix):
+def makeRegNum(shortName,prefix,lastNum,suffix,random_mode=None):
+	if random_mode:
+		lastNum = randint(1,10000)
 	regNo = shortName+prefix+str(lastNum)+suffix
 	return regNo
-
+	
 # returnes first leters of typeName
 def makeShortType(text):
 	words = text.split()

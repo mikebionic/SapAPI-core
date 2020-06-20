@@ -23,44 +23,41 @@
               <thead>
                 <tr>
                   <th class="text-center">#</th>
-                  <th class="text-center">{{_('Reg No')}}</th>
-                  <th>{{_('Customer')}}</th>
-                  <th>{{_('E-mail')}}</th>
-                  <th>{{_('Phone')}}</th>
-                  <th>{{_('Progress')}}</th>
+                  <th class="text-center">{{_('Product name')}}</th>
+                  <th>{{_('Amount')}}</th>
+                  <th>{{_('Price')}}</th>
                   <th>{{_('Total price')}}</th>
                   <th>{{_('Currency')}}</th>
-                  <th>{{_('Date')}}</th>
-                  <th>{{_('Status')}}</th>
                   <th>{{_('Action')}}</th>
                 </tr>
               </thead>
               <tbody>
-                {% for orderInv in orderInvoices %}
+                {% for orderInvLine in orderInvLines %}
                   <tr>
-                    <td class="text-center">{{ orderInv.OInvId }}</td>
-                    <td class="text-center">{{ orderInv.OInvRegNo }}</td>
-                    <td>{{ orderInv.Rp_acc.RpAccName }}</td>
-                    <td>{{ orderInv.Rp_acc.RpAccEMail }}</td>
-                    <td>{{ orderInv.Rp_acc.RpAccMobilePhoneNumber }}</td>
-                    <td class="align-middle">
-                      <div class="progress progress-xs">
-                        <div class="progress-bar bg-{{orderInv.StatusUI.class}} width-per-{{orderInv.StatusUI.percentage}}">
-                        </div>
-                      </div>
-                    </td>
-
-                    <td>{{ orderInv.OInvFTotal }}</td>
-                    <td>{{ orderInv.Currency.CurrencyCode }}</td>
-                    <td>{{ orderInv.CreatedDate }}</td>
+                    <td class="text-center">{{ orderInvLine.OInvLineId }}</td>
+                    <td class="text-center">{{ orderInvLine.Resource.ResName }}</td>
+                    <td>{{ orderInvLine.OInvLineAmount }}</td>
+                    <td>{{ orderInvLine.OInvLinePrice }}</td>
+                    <td>{{ orderInvLine.OInvLineTotal }}</td>
+                    <td>{{ orderInvLine.Currency.CurrencyCode }}</td>
                     <td>
-                      <div class="badge badge-{{orderInv.StatusUI.class}} badge-shadow">{{orderInv.InvStatus.InvStatName}}</div>
+                      <a href="" class="btn btn-icon btn-info"><i class="fas fa-pencil-alt"></i></a>
+                      <a href="" class="btn btn-icon btn-danger"><i class="fas fa-trash-alt"></i></a>
                     </td>
-                    <td><a href="{{ url_for('commerce_admin.order_inv_lines',OInvRegNo=orderInv.OInvRegNo) }}" class="btn btn-primary">{{_('Detail')}}</a></td>
                   </tr>
                 {% endfor %}
               </tbody>
             </table>
+            {{ orderInvoices[0].OInvFTotal }} TMT
+
+            <form method="POST" action="" enctype="multipart/form-data">
+              {{ statusForm.hidden_tag() }}
+              <div class="form-group col-md-6">
+                {{ statusForm.invStatus(class="form-control") }}
+                {{ statusForm.submit(class="btn btn-info") }}
+              </div>
+            </form>
+                       
           </div>
         </div>
       </div>

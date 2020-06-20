@@ -32,67 +32,59 @@
 								<div class="column is-12">
 									<div id="46895" class="flat-card is-auto order-list-card animated preFadeInUp fadeInUp">
 										<div class="order-block">
-											<img src="{{ url_for('static', filename='commerce/main/images/avatars/janet.jpg')}}" alt="">
-											<div class="handled-by">
-												<div>Handled by</div>
-												<div>Janet Smith</div>
-											</div>
 											<div class="order-icon">
-												<i data-feather="info"></i>
+												<i data-feather="{{ orderInvoices[0].StatusUI.icon }}"></i>
 											</div>
 											<div class="status">
-												<div>Status</div>
-												<div><span class="tag primary-tag">Shipping</span></div>
+												<div>{{_('Status')}}</div>
+												<div><span class="tag {{orderInvoices[0].StatusUI.class}}-tag">{{orderInvoices[0].InvStatus.InvStatName}}</span></div>
 											</div>
 											<div class="order-icon">
 												<i data-feather="clock"></i>
 											</div>
 											<div class="date">
-												<div>Date</div>
-												<div class="is-date">mar 23 2018</div>
+												<div>{{_('Ordered date')}}</div>
+												<div class="is-date">{{orderInvoices[0].CreatedDate}}</div>
 											</div>
 											<div class="order-icon">
 												<i data-feather="dollar-sign"></i>
 											</div>
 											<div class="total">
-												<div>Order total</div>
-												<div class="is-price">683,99 <span class="tag success-tag">Paid</span></div>
+												<div>{{_('Total price')}}</div>
+												<div class="tag">{{ orderInvoices[0].Currency.CurrencyCode }} {{ orderInvoices[0].OInvFTotal }}</div>
 											</div>
 										</div>
 										<div class="table-block">
 											<table>
 												<thead>
 													<tr>
-														<th scope="col">Product</th>
-														<th scope="col">SKU</th>
-														<th scope="col">Quantity</th>
-														<th scope="col">Total</th>
+                  					<th scope="col">{{_('Product name')}}</th>
+														<th scope="col">{{_('Amount')}}</th>
+														<th scope="col">{{_('Price')}}</th>
+														<th scope="col">{{_('Total price')}}</th>
+														<th scope="col">{{_('Currency')}}</th>
+                  					<th scope="col">{{_('Action')}}</th>
 													</tr>
 												</thead>
-												<tbody>
-													<tr>
-														<td data-label="Product">Shipping A1</td>
-														<td data-label="SKU">-</td>
-														<td data-label="Quantity">1</td>
-														<td data-label="Total">$39,00</td>
-													</tr>
-													<tr>
-														<td data-label="Product">Conqueror</td>
-														<td data-label="SKU">587</td>
-														<td data-label="Quantity">1</td>
-														<td data-label="Total">$295,00</td>
-													</tr>
-													<tr>
-														<td data-label="Product">Gentleman</td>
-														<td data-label="SKU">029</td>
-														<td data-label="Quantity">1</td>
-														<td data-label="Total">$349,99</td>
-													</tr>
+												{% for orderInvLine in orderInvLines %}
+				                  <tr>
+				                    <td class="text-center">
+				                    	<a href="{{ url_for('commerce.product',resId=orderInvLine.Resource.ResId)}}">
+				                    		{{ orderInvLine.Resource.ResName }}
+				                    	</a>
+				                    </td>
+				                    <td>{{ orderInvLine.OInvLineAmount }}</td>
+				                    <td>{{ orderInvLine.OInvLinePrice }}</td>
+				                    <td>{{ orderInvLine.OInvLineTotal }}</td>
+				                    <td>{{ orderInvLine.Currency.CurrencyCode }}</td>
+				                    <td>
+				                      <a href="" class="btn btn-icon btn-info"><i class="fas fa-pencil-alt"></i></a>
+				                      <a href="" class="btn btn-icon btn-danger"><i class="fas fa-trash-alt"></i></a>
+				                    </td>
+				                  </tr>
+				                {% endfor %}
 												</tbody>
 											</table>
-										</div>
-										<div class="button-block has-text-right">
-											<a href="invoice.html" class="button feather-button is-small primary-button is-bold raised">Invoice</a>
 										</div>
 									</div>
 								</div>

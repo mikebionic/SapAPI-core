@@ -228,15 +228,28 @@ class Currency(AddInf,CreatedModifiedInfo,db.Model):
 	Sale_card = db.relationship('Sale_card',backref='currency',lazy=True)
 	Work_period = db.relationship('Work_period',backref='currency',lazy=True)
 
-	def to_json(self):
+	def to_json_api(self):
 		json_currency = {
-			'CurrencyId': self.CurrencyId,
-			'CurrencyName_tkTM': self.CurrencyName_tkTM,
-			'CurrencyDesc_tkTM': self.CurrencyDesc_tkTM,
-			'CurrencyName_ruRU': self.CurrencyName_ruRU,
-			'CurrencyDesc_ruRU': self.CurrencyDesc_ruRU,
-			'CurrencyName_enUS': self.CurrencyName_enUS,
-			'CurrencyDesc_enUS': self.CurrencyDesc_enUS
+			'CurrencyId':self.CurrencyId,
+			'CurrencyName_tkTM':self.CurrencyName_tkTM,
+			'CurrencyDesc_tkTM':self.CurrencyDesc_tkTM,
+			'CurrencyName_ruRU':self.CurrencyName_ruRU,
+			'CurrencyDesc_ruRU':self.CurrencyDesc_ruRU,
+			'CurrencyName_enUS':self.CurrencyName_enUS,
+			'CurrencyDesc_enUS':self.CurrencyDesc_enUS,
+			'CurrencyCode':self.CurrencyCode,
+			'CurrencySymbol':self.CurrencySymbol,
+			'AddInf1':self.AddInf1,
+			'AddInf2':self.AddInf2,
+			'AddInf3':self.AddInf3,
+			'AddInf4':self.AddInf4,
+			'AddInf5':self.AddInf5,
+			'AddInf6':self.AddInf6,
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
 		}
 		return json_currency
 

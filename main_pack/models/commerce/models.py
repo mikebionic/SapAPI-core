@@ -302,6 +302,43 @@ class Inv_line(AddInf,CreatedModifiedInfo,db.Model):
 	Res_transaction = db.relationship('Res_transaction',backref='inv_line',lazy=True)
 	# Rp_acc_transaction = db.relationship('Rp_acc_transaction',backref='inv_line',lazy=True)
 
+	def update(self, **kwargs):
+		for key, value in kwargs.items():
+			if value is not None:
+				if hasattr(self, key):
+					setattr(self, key, value)
+
+	def to_json_api(self):
+		inv_line = {
+			'InvLineId':self.InvLineId,
+			'InvId':self.InvId,
+			'UnitId':self.UnitId,
+			'CurrencyId':self.CurrencyId,
+			'ResId':self.ResId,
+			'LastVendorId':self.LastVendorId,
+			'InvLineDesc':self.InvLineDesc,
+			'InvLineAmount':self.InvLineAmount,
+			'InvLinePrice':self.InvLinePrice,
+			'InvLineTotal':self.InvLineTotal,
+			'InvLineExpenseAmount':self.InvLineExpenseAmount,
+			'InvLineTaxAmount':self.InvLineTaxAmount,
+			'InvLineDiscAmount':self.InvLineDiscAmount,
+			'InvLineFTotal':self.InvLineFTotal,
+			'InvLineDate':self.InvLineDate,
+			'AddInf1':self.AddInf1,
+			'AddInf2':self.AddInf2,
+			'AddInf3':self.AddInf3,
+			'AddInf4':self.AddInf4,
+			'AddInf5':self.AddInf5,
+			'AddInf6':self.AddInf6,
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
+			}
+		return inv_line
+
 class Inv_line_det(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_inv_line_det"
 	InvLineDetId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -314,6 +351,31 @@ class Inv_line_det(CreatedModifiedInfo,db.Model):
 	InvLineDetAmount = db.Column(db.Float)
 	InvLineDetAmountBalance = db.Column(db.Float)
 
+	def update(self, **kwargs):
+		for key, value in kwargs.items():
+			if value is not None:
+				if hasattr(self, key):
+					setattr(self, key, value)
+
+	def to_json_api(self):
+		inv_line_det = {
+			'InvLineDetId':self.InvLineDetId,
+			'InvLineId':self.InvLineId,
+			'InvLineDetTypeId':self.InvLineDetTypeId,
+			'ResId':self.ResId,
+			'InvLineDetResSN':self.InvLineDetResSN,
+			'InvLineDetSLStartDate':self.InvLineDetSLStartDate,
+			'InvLineDetSLEndDate':self.InvLineDetSLEndDate,
+			'InvLineDetAmount':self.InvLineDetAmount,
+			'InvLineDetAmountBalance':self.InvLineDetAmountBalance,
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
+			}
+		return inv_line_det
+
 
 class Inv_line_det_type(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_inv_line_det_type"
@@ -325,6 +387,24 @@ class Inv_line_det_type(CreatedModifiedInfo,db.Model):
 	InvLineDetTypeName_enUS = db.Column(db.String(100))
 	InvLineDetTypeDesc_enUS = db.Column(db.String(500))
 	Inv_line_det = db.relationship('Inv_line_det',backref='inv_line_det_type',lazy=True)
+
+	def to_json_api(self):
+		inv_line_det_type = {
+			'InvLineDetTypeId':self.InvLineDetTypeId,
+			'InvLineDetTypeName_tkTM':self.InvLineDetTypeName_tkTM,
+			'InvLineDetTypeDesc_tkTM':self.InvLineDetTypeDesc_tkTM,
+			'InvLineDetTypeName_ruRU':self.InvLineDetTypeName_ruRU,
+			'InvLineDetTypeDesc_ruRU':self.InvLineDetTypeDesc_ruRU,
+			'InvLineDetTypeName_enUS':self.InvLineDetTypeName_enUS,
+			'InvLineDetTypeDesc_enUS':self.InvLineDetTypeDesc_enUS,
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
+			}
+		return inv_line_det_type
+
 
 
 class Inv_status(CreatedModifiedInfo,db.Model):
@@ -339,6 +419,22 @@ class Inv_status(CreatedModifiedInfo,db.Model):
 	Order_inv = db.relationship('Order_inv',backref='inv_status',lazy=True)
 	Invoice = db.relationship('Invoice',backref='inv_status',lazy=True)
 
+	def to_json_api(self):
+		inv_status = {
+			'InvStatId':self.InvStatId,
+			'InvStatName_tkTM':self.InvStatName_tkTM,
+			'InvStatDesc_tkTM':self.InvStatDesc_tkTM,
+			'InvStatName_ruRU':self.InvStatName_ruRU,
+			'InvStatDesc_ruRU':self.InvStatDesc_ruRU,
+			'InvStatName_enUS':self.InvStatName_enUS,
+			'InvStatDesc_enUS':self.InvStatDesc_enUS,
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
+			}
+		return inv_status
 
 class Inv_type(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_inv_type"
@@ -350,6 +446,23 @@ class Inv_type(CreatedModifiedInfo,db.Model):
 	InvTypeName_enUS = db.Column(db.String(100))
 	InvTypeDesc_enUS = db.Column(db.String(500))
 	Invoice = db.relationship('Invoice',backref='inv_type',lazy=True)
+
+	def to_json_api(self):
+		inv_type = {
+			'InvTypeId':self.InvTypeId,
+			'InvTypeName_tkTM':self.InvTypeName_tkTM,
+			'InvTypeDesc_tkTM':self.InvTypeDesc_tkTM,
+			'InvTypeName_ruRU':self.InvTypeName_ruRU,
+			'InvTypeDesc_ruRU':self.InvTypeDesc_ruRU,
+			'InvTypeName_enUS':self.InvTypeName_enUS,
+			'InvTypeDesc_enUS':self.InvTypeDesc_enUS,
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
+			}
+		return inv_type
 
 class Invoice(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_invoice"
@@ -378,6 +491,12 @@ class Invoice(AddInf,CreatedModifiedInfo,db.Model):
 	InvCreditDesc = db.Column(db.String(100))
 	Inv_line = db.relationship('Inv_line',backref='invoice',lazy=True)
 	Rp_acc_transaction = db.relationship('Rp_acc_transaction',backref='invoice',lazy=True)
+
+	def update(self, **kwargs):
+		for key, value in kwargs.items():
+			if value is not None:
+				if hasattr(self, key):
+					setattr(self, key, value)
 
 	def to_json_api(self):
 		invoice = {
@@ -445,6 +564,12 @@ class Order_inv(AddInf,CreatedModifiedInfo,db.Model):
 	OInvCreditDesc = db.Column(db.String(100))
 	Order_inv_line = db.relationship('Order_inv_line',backref='order_inv',lazy=True)
 
+	def update(self, **kwargs):
+		for key, value in kwargs.items():
+			if value is not None:
+				if hasattr(self, key):
+					setattr(self, key, value)
+
 	def to_json_api(self):
 		order_inv = {
 			'OInvId':self.OInvId,
@@ -503,6 +628,12 @@ class Order_inv_line(AddInf,CreatedModifiedInfo,db.Model):
 	OInvLineFTotal = db.Column(db.Float,default=0)
 	OInvLineDate = db.Column(db.DateTime,default=datetime.now)
 
+	def update(self, **kwargs):
+		for key, value in kwargs.items():
+			if value is not None:
+				if hasattr(self, key):
+					setattr(self, key, value)
+
 	def to_json_api(self):
 		order_inv_line = {
 			'OInvLineId':self.OInvLineId,
@@ -544,6 +675,12 @@ class Order_inv_type(CreatedModifiedInfo,db.Model):
 	OInvTypeName_enUS = db.Column(db.String(100))
 	OInvTypeDesc_enUS = db.Column(db.String(500))
 	Order_inv = db.relationship('Order_inv',backref='order_inv_type',lazy=True)
+
+	def update(self, **kwargs):
+		for key, value in kwargs.items():
+			if value is not None:
+				if hasattr(self, key):
+					setattr(self, key, value)
 
 	def to_json_api(self):
 		json_order_inv_type = {

@@ -146,7 +146,7 @@ def ui_cart_checkout():
 		try:
 			reg_num = generate(UId=current_user.UId,prefixType='sale order invoice code')
 			try:
-				regNo = makeRegNum(current_user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'')
+				regNo = makeRegNum(current_user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'',True)
 			except:
 				print("err generating regNo")
 

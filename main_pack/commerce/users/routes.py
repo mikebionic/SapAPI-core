@@ -37,7 +37,7 @@ def profile():
 	return render_template ("commerce/main/users/profile.html",**categoryData,
 		title=gettext('Profile'),rpAcc=rpAcc,avatar=avatar)
 
-@bp.route("/profile_edit",methods=['GET', 'POST'])
+@bp.route("/profile_edit",methods=['GET','POST'])
 @login_required
 def profile_edit():
 	form = UpdateRpAccForm()

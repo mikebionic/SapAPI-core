@@ -2,87 +2,87 @@
 invStatSelector = {
 	# Waiting
 	1:{
-		"tag_class":"warning",
-		"status_color_hash":"#eda514", 
-		"status_value":10,
-		"status_icon":"loader",
+		"class":"warning",
+		"color_hash":"#eda514", 
+		"percentage":10,
+		"icon":"loader",
 	},
 	# Received (not order maybe, discuss with dovlet)
 	2:{
-		"tag_class":"success",
-		"status_color_hash":"#00b28", 
-		"status_value":30,
-		"status_icon":"dollar-sign",
+		"class":"success",
+		"color_hash":"#00b289", 
+		"percentage":30,
+		"icon":"dollar-sign",
 	},
 	# Talked with a client
 	3:{
-		"tag_class":"success",
-		"status_color_hash":"#00b28", 
-		"status_value":30,
-		"status_icon":"thumbs-up",
+		"class":"success",
+		"color_hash":"#00b289", 
+		"percentage":30,
+		"icon":"thumbs-up",
 	},
 	# Approved
 	4:{
-		"tag_class":"success",
-		"status_color_hash":"#00b28", 
-		"status_value":30,
-		"status_icon":"check",
+		"class":"success",
+		"color_hash":"#00b289", 
+		"percentage":30,
+		"icon":"check",
 	},
 	# Not approved
 	5:{
-		"tag_class":"danger",
-		"status_color_hash":"#FF7273", 
-		"status_value":30,
-		"status_icon":"x-circle",
+		"class":"danger",
+		"color_hash":"#FF7273", 
+		"percentage":30,
+		"icon":"x-circle",
 	},
 	# Collecting goods
 	6:{
-		"tag_class":"success",
-		"status_color_hash":"#00b28", 
-		"status_value":40,
-		"status_icon":"package",
+		"class":"success",
+		"color_hash":"#00b289", 
+		"percentage":40,
+		"icon":"package",
 	},
 	# Order sent
 	7:{
-		"tag_class":"primary",
-		"status_color_hash":"#0023ff", 
-		"status_value":65,
-		"status_icon":"truck",
+		"class":"info",
+		"color_hash":"#63d3fa", 
+		"percentage":65,
+		"icon":"truck",
 	},
 	# Transfered to customer
 	8:{
-		"tag_class":"primary",
-		"status_color_hash":"#0023ff", 
-		"status_value":88,
-		"status_icon":"gift",
+		"class":"info",
+		"color_hash":"#63d3fa", 
+		"percentage":88,
+		"icon":"gift",
 	},
 	# Returned
 	9:{
-		"tag_class":"danger",
-		"status_color_hash":"#FF7273", 
-		"status_value":60,
-		"status_icon":"corner-up-left",
+		"class":"danger",
+		"color_hash":"#FF7273", 
+		"percentage":60,
+		"icon":"corner-up-left",
 	},
 	# Note
 	10:{
-		"tag_class":"warning",
-		"status_color_hash":"#eda514", 
-		"status_value":50,
-		"status_icon":"alert-octagon",
+		"class":"warning",
+		"color_hash":"#eda514", 
+		"percentage":50,
+		"icon":"alert-octagon",
 	},
 	# Modified
 	11:{
-		"tag_class":"warning",
-		"status_color_hash":"#eda514", 
-		"status_value":60,
-		"status_icon":"edit-2",
+		"class":"warning",
+		"color_hash":"#eda514", 
+		"percentage":60,
+		"icon":"edit-2",
 	},
 	# Complete
 	12:{
-		"tag_class":"primary",
-		"status_color_hash":"#0023ff", 
-		"status_value":100,
-		"status_icon":" award",
+		"class":"primary",
+		"color_hash":"#0023ff", 
+		"percentage":100,
+		"icon":"award",
 	},
 }
 

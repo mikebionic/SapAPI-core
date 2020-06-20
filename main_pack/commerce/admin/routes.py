@@ -3,14 +3,18 @@ from flask_login import current_user, login_required
 from main_pack import db,babel,gettext,lazy_gettext
 from main_pack.commerce.admin import bp
 
-from main_pack.commerce.admin.utils import prepare_data
-from main_pack.commerce.commerce.utils import commonUsedData
-from main_pack.commerce.admin.utils import resRelatedData
-
-from main_pack.commerce.commerce.utils import UiResourcesList
+from main_pack.commerce.admin.utils import prepare_data,resRelatedData
+from main_pack.commerce.commerce.utils import commonUsedData,UiResourcesList
 
 from main_pack.commerce.users.routes import admin_required
 
+from main_pack.models.commerce.models import (Inv_line,Inv_line_det,Inv_line_det_type,
+	Inv_status,Inv_type,Invoice,Order_inv,Order_inv_line,Order_inv_type)
+from main_pack.commerce.commerce.order_utils import UiOInvData,UiOInvLineData
+from sqlalchemy import and_
+
+from main_pack.commerce.commerce.order_utils import invStatusesSelectData
+from main_pack.commerce.admin.forms import InvStatusForm
 @bp.route("/admin/dashboard")
 @login_required
 @admin_required()
@@ -40,14 +44,58 @@ def product_table():
 	return render_template ("commerce/admin/product_table.html",**resData,
 		title=gettext('Product table'))
 
-
 @bp.route("/admin/order_invoices")
 @login_required
 @admin_required()
 def order_invoices():
+	orderInvoices = Order_inv.query\
+		.filter(Order_inv.GCRecord=='' or Order_inv.GCRecord==None)\
+		.order_by(Order_inv.CreatedDate.desc()).all()
+	
+	orders_list = []
+	for orderInv in orderInvoices:
+		order = {}
+		order['OInvId'] = orderInv.OInvId
+		orders_list.append(order)
+	res = UiOInvData(orders_list)
 
-	return render_template ("commerce/admin/order_invoices.html",
+	return render_template ("commerce/admin/order_invoices.html",**res,
 		title=gettext('Order invoices'))
+
+@bp.route("/admin/order_invoices/<OInvRegNo>",methods=['GET','POST'])
+@login_required
+@admin_required()
+def order_inv_lines(OInvRegNo):
+	orderInvoice = Order_inv.query\
+		.filter(and_(Order_inv.GCRecord=='' or Order_inv.GCRecord==None),
+								Order_inv.OInvRegNo==OInvRegNo)\
+		.first()
+	orderInvRes = UiOInvData([{'OInvId':orderInvoice.OInvId}])
+	
+	orderInvLines = Order_inv_line.query\
+		.filter(and_(Order_inv_line.GCRecord=='' or Order_inv_line.GCRecord==None),
+									Order_inv_line.OInvId==orderInvoice.OInvId)\
+		.order_by(Order_inv_line.CreatedDate.desc()).all()
+
+	order_lines_list = []
+	for orderInvLine in orderInvLines:
+		order_inv_line = {}
+		order_inv_line['OInvLineId'] = orderInvLine.OInvLineId
+		order_lines_list.append(order_inv_line)
+	res = UiOInvLineData(order_lines_list)
+
+	statusForm = InvStatusForm()
+	statusForm.invStatus.choices = invStatusesSelectData()
+	if statusForm.validate_on_submit():
+		invStatusData = {
+			'InvStatId':statusForm.invStatus.data,
+			'OInvId':orderInvoice.OInvId,
+		}
+		
+		print(invStatusData)
+
+	return render_template ("commerce/admin/order_inv_lines.html",**res,
+		**orderInvRes,statusForm=statusForm,title=gettext('Order invoices'))
 
 @bp.route("/admin/add_product")
 @login_required
