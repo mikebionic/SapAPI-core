@@ -2547,9 +2547,12 @@ body.open-mobile-search .header-area.layout-02 {
 .pr-detail-layout .product-thumb {
     width: 25.036%;
     height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     overflow: hidden;
     float: left;
-    background: blue;
+    background: #e9eef1;
 }
 
 .pr-detail-layout .info {
@@ -16917,8 +16920,12 @@ body.open-quickview-block .biolife-quickview-block {
 
 /* Product Image */
 .pro-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 280px;
     overflow: hidden;
-    position: relative;
+    background: #e9eef1;
 }
 
 .pro-image .image {
@@ -16977,7 +16984,7 @@ body.open-quickview-block .biolife-quickview-block {
 
 .pro-image .image img {
     width: 100%;
-    height: 250px;
+    /* height: 250px; */
 }
 
 /* Product Action */
