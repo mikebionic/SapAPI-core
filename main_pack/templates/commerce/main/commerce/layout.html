@@ -68,8 +68,6 @@
                 <a href="/language/ru" class="dropdown-item">
                   <img src="{{ url_for('static', filename='commerce/main/images/ru.svg') }}" style="width: 30px">
                   Русский язык</a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item dropdown-footer">{{_('Other languages')}}</a>
               </div>
             </li>
             <li class="dropdown"><a href="#"  data-toggle="dropdown"
@@ -81,7 +79,7 @@
                     {{ current_user.UFullName }}
                   </a>
                   <div class="dropdown-divider"></div>
-                  <a href="timeline.html" class="dropdown-item has-icon">Activities
+                  <a href="timeline.html" class="dropdown-item has-icon">{{_('Activities')}}
                   </a>
                   <div class="dropdown-divider"></div>
                   <a href="#" class="dropdown-item has-icon"><i class="material-icons" style="padding-left: 0;">settings</i>

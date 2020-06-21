@@ -18,7 +18,6 @@ from main_pack.base.languageMethods import dataLangSelector
 from main_pack.base.invoiceMethods import getInvStatusUi
 
 from sqlalchemy import and_
-from main_pack import db
 
 def UiOInvData(orders_list):
 	data = []

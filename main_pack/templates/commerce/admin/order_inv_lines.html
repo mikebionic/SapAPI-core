@@ -15,6 +15,9 @@
     <div class="col-12">
       <div class="card">
         <div class="card-header">
+          <a href="{{ url_for('commerce_admin.order_invoices') }}">
+            <i data-feather="arrow-left-circle"></i>
+          </a>
           <h4>{{_('Sale order invoices')}}</h4>
         </div>
         <div class="card-body">
@@ -48,15 +51,24 @@
                 {% endfor %}
               </tbody>
             </table>
-            {{ orderInvoices[0].OInvFTotal }} TMT
-
-            <form method="POST" action="" enctype="multipart/form-data">
-              {{ statusForm.hidden_tag() }}
-              <div class="form-group col-md-6">
-                {{ statusForm.invStatus(class="form-control") }}
-                {{ statusForm.submit(class="btn btn-info") }}
+            TMT {{ orderInvoices[0].OInvFTotal }}
+            <div class="input-group">
+              <div class="col-3">
+                <form method="POST" action="" enctype="multipart/form-data">
+                  {{ statusForm.hidden_tag() }}
+                  <label>{{_('Status')}}</label>
+                  <div class="form-group">
+                    <div class="input-group">
+                      {{ statusForm.invStatus(class="form-control") }}
+                      <button type="submit" class="btn btn-info">{{_('Set')}}</button>
+                    </div>
+                  </div>
+                </form>
               </div>
-            </form>
+              <div class="col-3">
+                <button class="btn btn-primary">{{_('Invoice')}}</button>
+              </div>
+            </div>
                        
           </div>
         </div>

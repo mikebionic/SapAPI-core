@@ -7,7 +7,8 @@ from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from main_pack.models.users.models import Users
 def check_auth(username,password):
 	user = Users.query.filter_by(UName=username).first()
-	if user and bcrypt.check_password_hash(user.UPass,password):
+	# if user and bcrypt.check_password_hash(user.UPass,password):
+	if user and user.UPass==password:
 		return True
 	else:
 		return False

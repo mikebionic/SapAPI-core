@@ -26,7 +26,7 @@ from flask import current_app
 
 from main_pack.models.commerce.models import (Color,Size,Brand,Unit,Usage_status)
 from main_pack.models.commerce.models import (Res_color,Res_size,Res_unit)
-
+from main_pack.api.auth.api_login import token_required
 from sqlalchemy import and_
 
 @api.route("/v-full-resources/",methods=['GET'])
@@ -84,7 +84,8 @@ def api_v_full_resources():
 	return response
 
 @api.route("/v-resources/",methods=['GET'])
-def api_v_resources():
+@token_required
+def api_v_resources(current_user):
 	if request.method == 'GET':
 		resources = Resource.query\
 			.filter(Resource.GCRecord=='' or Resource.GCRecord==None).all()

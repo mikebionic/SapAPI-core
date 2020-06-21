@@ -91,9 +91,8 @@ def order_inv_lines(OInvRegNo):
 			'InvStatId':statusForm.invStatus.data,
 			'OInvId':orderInvoice.OInvId,
 		}
-		
 		print(invStatusData)
-
+		flash(lazy_gettext('success!'), 'success')
 	return render_template ("commerce/admin/order_inv_lines.html",**res,
 		**orderInvRes,statusForm=statusForm,title=gettext('Order invoices'))
 

@@ -19,20 +19,20 @@
         </div>
         <div class="card-body">
           <div class="table-responsive">
-            <table class="table table-striped" id="table-1">
+            <table class="table table-striped" id="save-stage" id="table-1">
               <thead>
                 <tr>
                   <th class="text-center">#</th>
                   <th class="text-center">{{_('Reg No')}}</th>
-                  <th>{{_('Customer')}}</th>
-                  <th>{{_('E-mail')}}</th>
-                  <th>{{_('Phone')}}</th>
-                  <th>{{_('Progress')}}</th>
-                  <th>{{_('Total price')}}</th>
-                  <th>{{_('Currency')}}</th>
-                  <th>{{_('Date')}}</th>
-                  <th>{{_('Status')}}</th>
-                  <th>{{_('Action')}}</th>
+                  <th class="text-center">{{_('Action')}}</th>
+                  <th class="text-center">{{_('Progress')}}</th>
+                  <th class="text-center">{{_('Total price')}}</th>
+                  <th class="text-center">{{_('Currency')}}</th>
+                  <th class="text-center">{{_('Date')}}</th>
+                  <th class="text-center">{{_('Status')}}</th>
+                  <th class="text-center">{{_('Customer')}}</th>
+                  <th class="text-center">{{_('Phone')}}</th>
+                  <th class="text-center">{{_('E-mail')}}</th>
                 </tr>
               </thead>
               <tbody>
@@ -40,9 +40,7 @@
                   <tr>
                     <td class="text-center">{{ orderInv.OInvId }}</td>
                     <td class="text-center">{{ orderInv.OInvRegNo }}</td>
-                    <td>{{ orderInv.Rp_acc.RpAccName }}</td>
-                    <td>{{ orderInv.Rp_acc.RpAccEMail }}</td>
-                    <td>{{ orderInv.Rp_acc.RpAccMobilePhoneNumber }}</td>
+                    <td><a href="{{ url_for('commerce_admin.order_inv_lines',OInvRegNo=orderInv.OInvRegNo) }}" class="btn btn-primary">{{_('Detail')}}</a></td>
                     <td class="align-middle">
                       <div class="progress progress-xs">
                         <div class="progress-bar bg-{{orderInv.StatusUI.class}} width-per-{{orderInv.StatusUI.percentage}}">
@@ -50,13 +48,15 @@
                       </div>
                     </td>
 
-                    <td>{{ orderInv.OInvFTotal }}</td>
-                    <td>{{ orderInv.Currency.CurrencyCode }}</td>
+                    <td class="text-center">{{ orderInv.OInvFTotal }}</td>
+                    <td class="text-center">{{ orderInv.Currency.CurrencyCode }}</td>
                     <td>{{ orderInv.CreatedDate }}</td>
                     <td>
                       <div class="badge badge-{{orderInv.StatusUI.class}} badge-shadow">{{orderInv.InvStatus.InvStatName}}</div>
                     </td>
-                    <td><a href="{{ url_for('commerce_admin.order_inv_lines',OInvRegNo=orderInv.OInvRegNo) }}" class="btn btn-primary">{{_('Detail')}}</a></td>
+                    <td class="text-center">{{ orderInv.Rp_acc.RpAccName }}</td>
+                    <td class="text-center">{{ orderInv.Rp_acc.RpAccMobilePhoneNumber }}</td>
+                    <td>{{ orderInv.Rp_acc.RpAccEMail }}</td>
                   </tr>
                 {% endfor %}
               </tbody>

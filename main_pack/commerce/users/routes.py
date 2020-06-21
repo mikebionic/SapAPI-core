@@ -59,7 +59,7 @@ def profile_edit():
 			# 'RpAccEMail':form.email.data
 		}
 		rpAcc.update(**rpAccData)
-
+		print(rpAccData)
 		if form.picture.data:
 			imageFile = save_image(imageForm=form.picture.data,module="commerce/Rp_acc",id=rpAcc.RpAccId)
 			image = Image(FileName=imageFile['FileName'],FilePathR=imageFile['FilePathR'],FilePathM=imageFile['FilePathM'],
@@ -69,19 +69,21 @@ def profile_edit():
 		db.session.commit()
 		flash(lazy_gettext('Profile successfully updated!'), 'success')
 		return redirect(url_for('commerce_users.profile'))
-	elif request.method == 'GET':
-		form.username.data = current_user.UName
-		form.fullname.data = current_user.UFullName
-		form.address.data = rpAcc.RpAccAddress
-		form.mobilePhone.data = rpAcc.RpAccMobilePhoneNumber
-		form.homePhone.data = rpAcc.RpAccHomePhoneNumber
-		form.zipCode.data = rpAcc.RpAccZipCode
+	
+	
+	form.username.data = current_user.UName
+	form.fullname.data = current_user.UFullName
+	form.address.data = rpAcc.RpAccAddress
+	form.mobilePhone.data = rpAcc.RpAccMobilePhoneNumber
+	form.homePhone.data = rpAcc.RpAccHomePhoneNumber
+	form.zipCode.data = rpAcc.RpAccZipCode
 
-		image = Image.query.filter_by(RpAccId=rpAcc.RpAccId).order_by(Image.CreatedDate.desc()).first()
-		if image:
-			avatar = url_for('static', filename=image.FileName)
-		else:
-			avatar = url_for('static', filename="commerce/uploads/noPhoto.png") 
+	image = Image.query.filter_by(RpAccId=rpAcc.RpAccId).order_by(Image.CreatedDate.desc()).first()
+	if image:
+		avatar = url_for('static', filename=image.FileName)
+	else:
+		avatar = url_for('static', filename="commerce/uploads/noPhoto.png") 
+	
 	categoryData = UiCategoriesList()
 	return render_template ("commerce/main/users/profile_edit.html",**categoryData,
 		title=gettext('Edit profile'),form=form,avatar=avatar)

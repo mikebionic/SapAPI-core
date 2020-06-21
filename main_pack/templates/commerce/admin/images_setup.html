@@ -17,7 +17,7 @@
           <div class="card-body">
             {% if company_logo %}
               <div class="gallery gallery-fw" data-item-height="100">
-                  <div class="gallery-item" data-image="{{ url_for('static', filename=company_logo.FilePathR) }}"></div>
+                <div class="gallery-item" data-image="{{ url_for('static', filename=company_logo.FilePathR) }}"></div>
               </div>
               <div class="logo_icon">
                 <li><a href="#" class="btn btn-icon btn-light addLogoBtn"><i class="fas fa-plus"></i></a></li>
@@ -46,7 +46,7 @@
                   <span class="text-danger">{{ error }}</span>
                 {% endfor %}
               {% endif %}
-              <button type="submit" class="btn btn-info" name="logoForm">Save logo</button>
+              <button type="submit" class="btn btn-info" name="logoForm">{{_('Save logo')}}</button>
             </div>
           </div>
         </div>
@@ -84,13 +84,13 @@
           <div class="section-title">{{_('Upload images')}}</div>
           <p id="msg"></p>
           <div class="card-body">
-              {{ sliderForm.sliderImage(class="custom-file-input") }}
-              {% if sliderForm.sliderImage.errors %}
-                {% for error in sliderForm.sliderImage.errors %}
-                  <span class="text-danger">{{ error }}</span>
-                {% endfor %}
-              {% endif %}
-              <button type="submit" class="btn btn-info" name="sliderForm">Save slider</button>
+            {{ sliderForm.sliderImage(class="custom-file-input") }}
+            {% if sliderForm.sliderImage.errors %}
+              {% for error in sliderForm.sliderImage.errors %}
+                <span class="text-danger">{{ error }}</span>
+              {% endfor %}
+            {% endif %}
+            <button type="submit" class="btn btn-info" name="sliderForm">{{_('Save slider')}}</button>
           </div>
         </div>
       </div>

@@ -11,7 +11,8 @@ class UpdateProfileForm(FlaskForm):
 							validators=[DataRequired(),Length(min=2,max=40)])
 	fullname = StringField(lazy_gettext('Full name'),
 							validators=[DataRequired()])
-	picture = FileField(lazy_gettext('Update Profile Picture'),validators=[FileAllowed(['jpg','png','img'])])
+	picture = FileField(lazy_gettext('Update Profile Picture'),
+							validators=[FileAllowed(['jpg','png','img'])])
 	submit = SubmitField(lazy_gettext('Update'))
 
 	def validate_username(self,username):
