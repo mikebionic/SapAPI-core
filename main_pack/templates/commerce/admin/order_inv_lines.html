@@ -51,25 +51,49 @@
                 {% endfor %}
               </tbody>
             </table>
-            TMT {{ orderInvoices[0].OInvFTotal }}
             <div class="input-group">
-              <div class="col-3">
-                <form method="POST" action="" enctype="multipart/form-data">
-                  {{ statusForm.hidden_tag() }}
-                  <label>{{_('Status')}}</label>
-                  <div class="form-group">
-                    <div class="input-group">
-                      {{ statusForm.invStatus(class="form-control") }}
-                      <button type="submit" class="btn btn-info">{{_('Set')}}</button>
-                    </div>
+              <div class="col-12">
+                <label>{{_('Set Status')}}</label>
+                <div class="form-group">
+                  <div class="input-group" style="display: flex;">
+                    <select class="dropdown">
+                      <option href="#">Options</option>
+                      <option href="#"> View</option>
+                      <option href="#"> Edit</option>
+                      <option href="#">Delete </option>
+                    </select>
+                    <button type="submit" class="btn btn-info">{{_('Set')}}</button>
                   </div>
-                </form>
+                </div>
               </div>
-              <div class="col-3">
-                <button class="btn btn-primary">{{_('Invoice')}}</button>
+              <div class="col-6">
+                <h6>{{_(' Customer: ')}}</h6>
+                <p>Mike Bionic</p>
+                <h6>{{_(' Reg №: ')}}</h6>
+                <p>ASSF9674</p>
+              </div>
+              
+              <div class="col-6">
+                <div class="inv_total">
+                  <h6>Total Price:</h6>
+                  TMT {{ orderInvoices[0].OInvFTotal }}
+                </div>
+                <br>
+                <div class="inv_btn">
+                  <button class="btn btn-primary">{{_('Invoice')}}</button>
+                </div>
+              </div>
+              <div class="col-12">
+              <div class="inv_about">
+                <h6>Email:</h6>
+                <p>muhammetjepbarow@gmail.com</p>
+                <h6>Phone:</h6>
+                <p>+99361290719</p>
+                <h6>Home phone:</h6>
+                <p>276492</p>
+              </div>  
               </div>
             </div>
-                       
           </div>
         </div>
       </div>

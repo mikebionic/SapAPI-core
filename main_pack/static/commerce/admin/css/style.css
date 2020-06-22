@@ -52,3 +52,33 @@
 
 
 
+select.dropdown{
+    background: #6777ef;
+	padding: 6px;
+    width: 30%;
+    color: #fff;
+    box-shadow: 1px 1px 1px 1px #888889;
+    border: #6777ef;
+    border-radius: 5px;
+}
+select.dropdown option{
+	background:white;
+	color:#000;
+}
+.input-group label{
+	font-size:17px;
+}
+.input-group .btn{
+	margin-left: 5px;
+}
+.inv_total{
+	font-size: 16px;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+.inv_btn{
+	margin-bottom: 25px;
+}
+.inv_about{
+	margin-top: 20px;
+}
