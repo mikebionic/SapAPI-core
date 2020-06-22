@@ -580,9 +580,6 @@ class Sl_image(AddInf,CreatedModifiedInfo,db.Model):
 	SlImgId = db.Column(db.Integer,nullable=False,primary_key=True)
 	SlId = db.Column(db.Integer,db.ForeignKey("tbl_dk_slider.SlId"))
 	SlImgName = db.Column(db.String(100))
-	# SlImgPathS = db.Column(db.String(255))
-	# SlImgPathM = db.Column(db.String(255))
-	# SlImgPathR = db.Column(db.String(255))
 	SlImgDesc = db.Column(db.String(500),default='')
 	# "SlImgMainImg" bytea,
 	SlImgMainImgFileName = db.Column(db.String(255),default='')
@@ -594,6 +591,40 @@ class Sl_image(AddInf,CreatedModifiedInfo,db.Model):
 	SlImgStartDate = db.Column(db.DateTime,default=datetime.now)
 	SlImgEndDate = db.Column(db.DateTime)
 
+	def update(self, **kwargs):
+		for key, value in kwargs.items():
+			if value is not None:
+				if hasattr(self, key):
+					setattr(self, key, value)
+
+	def to_json_api(self):
+		json_sl_image = {
+			'SlImgId':self.SlImgId,
+			'SlId':self.SlId,
+			'SlImgName':self.SlImgName,
+			'SlImgDesc':self.SlImgDesc,
+			'SlImgMainImgFileName':fileToURL(fileType="slider",name=self.SlImgName),
+			'SlImgSubImageFileName1':self.SlImgSubImageFileName1,
+			'SlImgSubImageFileName2':self.SlImgSubImageFileName2,
+			'SlImgSubImageFileName3':self.SlImgSubImageFileName3,
+			'SlImgSubImageFileName4':self.SlImgSubImageFileName4,
+			'SlImgSubImageFileName5':self.SlImgSubImageFileName5,
+			'SlImgStartDate':self.SlImgStartDate,			
+			'SlImgEndDate':self.SlImgEndDate,
+			'AddInf1':self.AddInf1,
+			'AddInf2':self.AddInf2,
+			'AddInf3':self.AddInf3,
+			'AddInf4':self.AddInf4,
+			'AddInf5':self.AddInf5,
+			'AddInf6':self.AddInf6,
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
+			}
+		return json_sl_image
+
 class Slider(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_slider"
 	SlId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -602,6 +633,33 @@ class Slider(AddInf,CreatedModifiedInfo,db.Model):
 	SlName = db.Column(db.String(100),nullable=False)
 	SlDesc = db.Column(db.String(500),default='')
 	Sl_image = db.relationship('Sl_image',backref='slider',lazy=True)
+
+	def update(self, **kwargs):
+		for key, value in kwargs.items():
+			if value is not None:
+				if hasattr(self, key):
+					setattr(self, key, value)
+
+	def to_json_api(self):
+		json_slider = {
+			'SlId':self.SlId,
+			'CId':self.CId,
+			'DivId':self.DivId,
+			'SlName':self.SlName,
+			'SlDesc':self.SlDesc,
+			'AddInf1':self.AddInf1,
+			'AddInf2':self.AddInf2,
+			'AddInf3':self.AddInf3,
+			'AddInf4':self.AddInf4,
+			'AddInf5':self.AddInf5,
+			'AddInf6':self.AddInf6,
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
+			}
+		return json_slider
 
 class Warehouse(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_warehouse"
