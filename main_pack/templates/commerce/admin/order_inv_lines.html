@@ -22,10 +22,10 @@
         </div>
         <div class="card-body">
           <div class="table-responsive">
-            <table class="table table-striped" id="table-1">
+            <table class="table table-striped" id="mainTable" >
               <thead>
                 <tr>
-                  <th class="text-center">#</th>
+                  <th class="text-center">№</th>
                   <th class="text-center">{{_('Product name')}}</th>
                   <th>{{_('Amount')}}</th>
                   <th>{{_('Price')}}</th>
@@ -39,8 +39,8 @@
                   <tr>
                     <td class="text-center">{{ orderInvLine.OInvLineId }}</td>
                     <td class="text-center">{{ orderInvLine.Resource.ResName }}</td>
-                    <td>{{ orderInvLine.OInvLineAmount }}</td>
-                    <td>{{ orderInvLine.OInvLinePrice }}</td>
+                    <td class="text-center editable">{{ orderInvLine.OInvLineAmount }}</td>
+                    <td class="text-center editable">{{ orderInvLine.OInvLinePrice }}</td>
                     <td>{{ orderInvLine.OInvLineTotal }}</td>
                     <td>{{ orderInvLine.Currency.CurrencyCode }}</td>
                     <td>
@@ -100,4 +100,9 @@
     </div>
   </div>
 
+{% endblock %}
+
+{% block scripts %}
+  <script src="{{ url_for('static', filename='commerce/admin/bundles/editable-table/mindmup-editabletable.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/admin/js/page/editable-table.js') }}"></script>
 {% endblock %}

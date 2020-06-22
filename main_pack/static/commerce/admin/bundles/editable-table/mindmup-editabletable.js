@@ -13,7 +13,7 @@ $.fn.editableTableWidget = function (options) {
 			editor = activeOptions.editor.css('position', 'absolute').hide().appendTo(element.parent()),
 			active,
 			showEditor = function (select) {
-				active = element.find('td:focus');
+				active = element.find('.editable:focus');
 				if (active.length) {
 					editor.val(active.text())
 						.removeClass('error')
