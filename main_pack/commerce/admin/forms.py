@@ -1,17 +1,17 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField,FileAllowed
 from wtforms import StringField,SubmitField,BooleanField,TextAreaField,FormField,SelectField
-from wtforms.validators import InputRequired,DataRequired,Length,ValidationError
+from wtforms.validators import DataRequired,Length,ValidationError
 from main_pack import babel,gettext,lazy_gettext
 
 class LogoImageForm(FlaskForm):
-	logoImage = FileField('Company logo', validators=[FileAllowed(['jpg','png','img'])])
+	logoImage = FileField('Company logo',validators=[FileAllowed(['jpg','png','img'])])
 
 
 class SliderImageForm(FlaskForm):
-	sliderImage = FileField('Slider Image', validators=[FileAllowed(['jpg','png','img'])])
+	sliderImage = FileField('Slider Image',validators=[FileAllowed(['jpg','png','img'])])
 
 
 class InvStatusForm(FlaskForm):
-	invStatus = SelectField(lazy_gettext('Status'),validators=[InputRequired])
+	invStatus = SelectField(lazy_gettext('Status'),coerce=int)
 	submit = SubmitField(lazy_gettext('Set'))

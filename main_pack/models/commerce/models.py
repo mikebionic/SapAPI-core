@@ -864,6 +864,7 @@ class Res_category(CreatedModifiedInfo,db.Model):
 	ResCatName = db.Column(db.String(100),nullable=False)
 	ResCatDesc = db.Column(db.String(500))
 	ResCatIconName = db.Column(db.String(100))
+	ResCatIconFilePath = db.Column(db.String(255))
 	Resource = db.relationship('Resource',backref='res_category',lazy=True)
 
 	def update(self, **kwargs):

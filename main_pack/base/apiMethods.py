@@ -25,7 +25,8 @@ def fileToURL(fileType=None,size=None,name=''):
 		if fileType==None:
 			fileUrl = url_for('commerce_api.get_image',image_size=size,image_name=name)
 		else:
-			fileUrl = url_for('commerce_api.get_file',fileType=fileType,fileName=name)
+			fileUrl = url_for('commerce_api.get_image_test',fileType=fileType,file_size=size,file_name=name)
+			# fileUrl = url_for('commerce_api.get_file',fileType=fileType,fileName=name)
 	except:
 		fileUrl = None
 	return fileUrl

@@ -35,22 +35,23 @@ app.app_context().push()
 # db.session.add(dep)
 ##########################
 
-lastUser = Users.query.order_by(UId.desc()).first()
-lastRpAcc = Rp_acc.query.order_by(RpAccId.desc()).first()
-newUId = lastUser+1
-newRpAccId = lastRpAcc+1
+lastUser = Users.query.order_by(Users.UId.desc()).first()
+lastRpAcc = Rp_acc.query.order_by(Rp_acc.RpAccId.desc()).first()
+newUId = lastUser.UId+1
+newRpAccId = lastRpAcc.RpAccId+1
 email = "muhammedjepbarov@gmail.com"
 # # UPass is "123" hashed
 password = "$2b$12$ZltRSL4D1LpcJuoFEzW7PO/rEio8LKxhK9vPEG3Jv7Zg9S07f4Q1G"
 
 user = Users(UId=newUId,UName="administrator",UEmail=email,
-	UPass=password,UShortName="AR",UFullName="Mike Bionic",UTypeId=1,RpAccId=newRpAccId)
+	UPass=password,UShortName="AR",UFullName="Mike Bionic",UTypeId=1)
 db.session.add(user)
-
+db.session.commit()
 rp_acc = Rp_acc(RpAccId=newRpAccId,RpAccName="Mike Bionic",
 	RpAccEMail=email,RpAccRegNo="ARAK1",RpAccTypeId=1,UId=newUId)
 db.session.add(rp_acc)
-
+db.session.commit()
+user.RpAccId = newRpAccId
 regNum = Reg_num(UId=newUId,RegNumTypeId=6,
 			RegNumPrefix="AK",RegNumLastNum=0)
 db.session.add(regNum)
@@ -83,4 +84,4 @@ size = Size(SizeName="XXL")
 db.session.add(size)
 #########################
 
-# db.session.commit()
+db.session.commit()

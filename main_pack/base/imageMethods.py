@@ -39,6 +39,8 @@ def changeImageSize(imageFile,modulePath,FileName):
 			image.save(saving_path)
 			paths["FilePath"+size]=FilePath
 
+	paths["FilePath"]=os.path.join(modulePath,"<FSize>",FileName)
+
 	return paths
 
 

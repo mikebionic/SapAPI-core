@@ -81,6 +81,8 @@ def api_images():
 			response = make_response(jsonify(res),201)
 	return response
 
+
+
 @api.route("/get-image/<image_size>/<image_name>")
 def get_image(image_size,image_name):
 	image = Image.query.filter(Image.FileName==image_name).first()
@@ -95,6 +97,27 @@ def get_image(image_size,image_name):
 			response = send_from_directory('static',filename=path.replace("\\","/"),as_attachment=True)
 		else:
 			response = send_from_directory('static',filename=path,as_attachment=True)
+		return response
+	except FileNotFoundError:
+		abort(404)
+
+
+@api.route("/get-image/<fileType>/<file_size>/<file_name>")
+def get_image_test(fileType,file_size,file_name):
+	if fileType=="slider":
+		sl_image = Sl_image.query.filter(Sl_image.SlImgName==file_name).first()
+		path = sl_image.SlImgMainImgFileName
+
+	if fileType=="image":
+		print('hehehe')
+		# image = Image.query.filter(Image.FileName==file_name).first()
+		# path = image.FilePath
+	try:
+		if current_app.config['OS_TYPE']=='windows':
+			response = send_from_directory('static',
+				filename=path.replace("\\","/").replace("<FSize>",file_size),as_attachment=True)
+		else:
+			response = send_from_directory('static',filename=path.replace("<FSize>",file_size),as_attachment=True)
 		return response
 	except FileNotFoundError:
 		abort(404)

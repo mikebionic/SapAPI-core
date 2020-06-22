@@ -1,3 +1,4 @@
+from flask import current_app
 from flask_login import current_user
 from main_pack import db, babel, gettext
 from main_pack.key_generator import bp
@@ -77,7 +78,7 @@ def validate(UId,fullRegNo,RegNumLastNum,dbModel,prefixType):
 
 def makeRegNum(shortName,prefix,lastNum,suffix,random_mode=None):
 	if random_mode:
-		lastNum = randint(1,10000)
+		lastNum = randint(1,current_app.config['REG_NUM_RANDOM_RANGE'])
 	regNo = shortName+prefix+str(lastNum)+suffix
 	return regNo
 	

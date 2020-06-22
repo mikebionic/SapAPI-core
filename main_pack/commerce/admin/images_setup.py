@@ -32,7 +32,7 @@ def images_setup():
 		if sliderForm.sliderImage.data:
 
 			imageFile = save_image(imageForm=sliderForm.sliderImage.data,module=os.path.join("uploads","commerce","Slider"),id=slider.SlId)
-			image = Sl_image(SlImgName=imageFile['FileName'],SlImgMainImgFileName=imageFile['FilePathR'],SlId=slider.SlId)
+			image = Sl_image(SlImgName=imageFile['FileName'],SlImgMainImgFileName=imageFile['FilePath'],SlId=slider.SlId)
 			db.session.add(image)
 			db.session.commit()
 

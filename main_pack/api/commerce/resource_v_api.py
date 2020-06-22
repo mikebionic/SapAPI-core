@@ -84,8 +84,9 @@ def api_v_full_resources():
 	return response
 
 @api.route("/v-resources/",methods=['GET'])
-@token_required
-def api_v_resources(current_user):
+# @token_required
+# def api_v_resources(current_user):
+def api_v_resources():
 	if request.method == 'GET':
 		resources = Resource.query\
 			.filter(Resource.GCRecord=='' or Resource.GCRecord==None).all()

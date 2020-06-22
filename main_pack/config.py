@@ -22,8 +22,10 @@ class Config:
 	MAIL_PASSWORD = 'bionics12345'
 
 	# # to give each api it's pagination: 
-	# REST_RESOURCES_PER_PAGE = 5
+	RESOURCES_PER_PAGE = 15
 	API_OBJECTS_PER_PAGE = 10
+
+	REG_NUM_RANDOM_RANGE = 10000
 
 	ELASTICSEARCH_URL = 'http://localhost:9200'
 
