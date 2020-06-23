@@ -62,11 +62,11 @@
                   English language</a>
                 <div class="dropdown-divider"></div>
                 <a href="/language/tk" class="dropdown-item">
-                  <img src="{{ url_for('static', filename='commerce/main/images/tm.svg') }}" style="width: 30px">
+                  <img loading="lazy" src="{{ url_for('static', filename='commerce/main/images/tm.svg') }}" style="width: 30px">
                   Türkmen dili</a>
                 <div class="dropdown-divider"></div>
                 <a href="/language/ru" class="dropdown-item">
-                  <img src="{{ url_for('static', filename='commerce/main/images/ru.svg') }}" style="width: 30px">
+                  <img loading="lazy" src="{{ url_for('static', filename='commerce/main/images/ru.svg') }}" style="width: 30px">
                   Русский язык</a>
               </div>
             </li>
@@ -106,7 +106,7 @@
           <div class="col-lg-3 col-md-2 col-md-6 col-xs-6" style="width: 50%; margin-bottom: 15px;">
             {% if company_logo %}
               <a href="{{ url_for('commerce.commerce')}}" class="biolife-logo">
-                <img src="{{ company_logo.FilePathS }}"  width="20%" height="34">
+                <img loading="lazy" src="{{ company_logo.FilePathS }}"  width="20%" height="34">
               </a>
             {% else %}
               {% if company.CName %}

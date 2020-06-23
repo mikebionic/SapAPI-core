@@ -42,7 +42,7 @@
 						<div class="biolife-banner style-04 biolife-banner__style-04">
 							<div class="banner-contain">
 								<div class="media">
-									<a href="#" class="bn-link"><img src="{{ url_for('static', filename='commerce/main/images/home/7.jpg') }}" width="100%" height="100%" alt=""></a>
+									<a href="#" class="bn-link"><img loading="lazy" src="{{ url_for('static', filename='commerce/main/images/home/7.jpg') }}" width="100%" height="100%" alt=""></a>
 								</div>
 								<div class="figcaption">
 									<div class="square">
@@ -58,7 +58,7 @@
 						<div class="biolife-banner style-04 biolife-banner__style-04">
 							<div class="banner-contain">
 								<div class="media">
-									<a href="#" class="bn-link"><img src="{{ url_for('static', filename='commerce/main/images/home/6.jpg') }}" width="100%" height="100%" alt=""></a>
+									<a href="#" class="bn-link"><img loading="lazy" src="{{ url_for('static', filename='commerce/main/images/home/6.jpg') }}" width="100%" height="100%" alt=""></a>
 								</div>
 
 								<div class="figcaption">
@@ -102,9 +102,9 @@
 												<div class="pro-image fix">
 													<a href="{{ url_for('commerce.product',resId=resource.ResId)}}" class="image">
 												  	{% if resource.FilePathS %}
-														  <img src="{{ resource.FilePathS }}"/>
+														  <img loading="lazy" src="{{ resource.FilePathS }}"/>
 												  	{% else %}
-														  <img src="{{ url_for('static', filename='commerce/uploads/noPhoto.png') }}"/>
+														  <img loading="lazy" src="{{ url_for('static', filename='commerce/uploads/noPhoto.png') }}"/>
 												  	{% endif %}
 												  </a>
 												  <div class="pro-action">
@@ -134,9 +134,9 @@
 														<div class="pro-image fix">
 															<a href="{{ url_for('commerce.product',resId=resource.ResId)}}" class="image">
 														  	{% if resource.FilePathS %}
-																  <img src="{{ resource.FilePathS }}"/>
+																  <img loading="lazy" src="{{ resource.FilePathS }}"/>
 														  	{% else %}
-																  <img src="{{ url_for('static', filename='commerce/uploads/noPhoto.png') }}"/>
+																  <img loading="lazy" src="{{ url_for('static', filename='commerce/uploads/noPhoto.png') }}"/>
 														  	{% endif %}
 														  </a>
 														  <div class="pro-action">
@@ -192,7 +192,7 @@
 									<div class="mini-product-item fix">
 										<div class="sin-mini-product clearfix">
 											<div class="image float-left fix">
-												<a href="single-product.html"><img src="{{ url_for('static', filename='commerce/main/images/product/10.jpg') }}" alt="" /></a>
+												<a href="single-product.html"><img loading="lazy" src="{{ url_for('static', filename='commerce/main/images/product/10.jpg') }}" alt="" /></a>
 												<div class="mini-pro-action">
 													<a href="cart.html" class="action-btn cart"><i class="fa fa-fw fa-shopping-cart"></i></a>
 												</div>

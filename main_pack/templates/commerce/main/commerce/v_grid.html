@@ -9,9 +9,9 @@
             <div class="pro-image fix">
               <a href="{{ url_for('commerce.product',resId=resource.ResId)}}"class="image">
                 {% if resource.FilePathM %}
-                  <img src="{{ resource.FilePathM }}" width="270" height="270" class="product-thumnail"/>
+                  <img loading="lazy" src="{{ resource.FilePathS }}" width="270" height="270" class="product-thumnail"/>
                 {% else %}
-                  <img src="{{ url_for('static', filename='commerce/uploads/noPhoto.png') }}" width="270" height="270" class="product-thumnail"/>
+                  <img loading="lazy" src="{{ url_for('static', filename='commerce/uploads/noPhoto.png') }}" width="270" height="270" class="product-thumnail"/>
                 {% endif %}
               </a>
               <div class="pro-action">

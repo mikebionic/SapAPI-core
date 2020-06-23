@@ -40,7 +40,7 @@
                     <td class="text-center">{{ resource.ResRegNo }}</td>
                     <td>
                       {% if resource.FilePathS %}
-                        <img alt="image" src="{{ resource.FilePathS }}" width="70">
+                        <img alt="image" loading="lazy" src="{{ resource.FilePathS }}" width="70">
                       {% endif %}
                     </td>
                     <td>{{ resource.ResName if resource.ResName else '' }}</td>

@@ -106,7 +106,7 @@
             <div class="col-lg-3 col-md-2 col-md-6 col-xs-6">
               {% if company_logo %}
                 <a href="{{ url_for('commerce.commerce')}}" class="logo">
-                  <img src="{{ company_logo.FilePathS }}">
+                  <img loading="lazy" loading="lazy" src="{{ company_logo.FilePathS }}">
                 </a>
               {% else %}
                 {% if company.CName %}
@@ -432,7 +432,7 @@
                 <div class="contain-product style-widget">
                   <div class="product-thumb">
                     <a href="#" class="link-to-product" tabindex="0">
-                      <img src="{{ url_for('static', filename='commerce/images/product/10.jpg') }}" alt="dd" width="270" height="270" class="product-thumnail">
+                      <img loading="lazy" src="{{ url_for('static', filename='commerce/images/product/10.jpg') }}" alt="dd" width="270" height="270" class="product-thumnail">
                     </a>
                   </div>
                   <div class="info">

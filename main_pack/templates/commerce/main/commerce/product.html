@@ -7,15 +7,15 @@
         <ul class="biolife-carousel slider-for" data-slick='{"arrows":false,"dots":false,"slidesMargin":30,"slidesToShow":1,"slidesToScroll":1,"fade":true,"asNavFor":".slider-nav"}'>
           {% if resource.Images %}
             {% for image in resource.Images %}
-              <li><img src="{{resource.FilePathM}}" width="500" height="500"></li>
+              <li><img loading="lazy" src="{{resource.FilePathM}}" width="500" height="500"></li>
             {% endfor %}
           {% else %}
-            <li><img src="{{ url_for('static', filename='commerce/uploads/noPhoto.png') }}" width="500" height="500"></li>
+            <li><img loading="lazy" src="{{ url_for('static', filename='commerce/uploads/noPhoto.png') }}" width="500" height="500"></li>
           {% endif %}
         </ul>
         <ul class="biolife-carousel slider-nav" data-slick='{"arrows":false,"dots":false,"centerMode":false,"focusOnSelect":true,"slidesMargin":10,"slidesToShow":4,"slidesToScroll":1,"asNavFor":".slider-for"}'>
           {% for image in resource.Images %}
-            <li><img src="{{resource.FilePathM}}" width="88" height="88"></li>          
+            <li><img loading="lazy" src="{{resource.FilePathM}}" width="88" height="88"></li>          
           {% endfor %}
         </ul>
       </div>
