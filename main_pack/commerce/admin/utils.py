@@ -126,11 +126,13 @@ def addCategoryDict(req):
 	ResCatName = req.get('categoryName')
 	ResCatDesc = req.get('categoryDesc')
 	ResCatIconName = req.get('categoryIcon')
+	ResCatIconFilePath = req.get('categoryIconPath')
 	category = {
 		'ResOwnerCatId':ResOwnerCatId,
 		'ResCatName':ResCatName,
 		'ResCatDesc':ResCatDesc,
-		'ResCatIconName':ResCatIconName
+		'ResCatIconName':ResCatIconName,
+		'ResCatIconFilePath':ResCatIconFilePath
 	}
 	category = configureNulls(category)
 	return category

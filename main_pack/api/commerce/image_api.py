@@ -136,3 +136,14 @@ def get_file(fileType,fileName):
 		return response
 	except FileNotFoundError:
 		abort(404)
+
+
+@api.route("/get-icon/<category>/<file_name>")
+def get_icon(category,file_name):
+	icons_path = os.path.join("commerce","icons","categories")
+	full_icon_path = os.path.join(icons_path,category,file_name)
+	try:
+		response = send_from_directory('static',filename=full_icon_path,as_attachment=True)
+		return response
+	except FileNotFoundError:
+		abort(404)

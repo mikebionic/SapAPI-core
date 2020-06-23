@@ -51,8 +51,11 @@
 {% for category in categories %}
 	{% if category.GCRecord == None or category.GCRecord == '' %}
 		<li class="menu-item menu-item-has-children has-megamenu">
-		  <a href="#" class="menu-name" {% if category.ResCatDesc %} title="{{ category.ResCatDesc }}" {% endif %}><i class="material-icons">{% if category.ResCatIconName %}{{category.ResCatIconName}}{%endif%}</i>{{ category.ResCatName }}
-		  <i class="fas fa-times removeCategoryBtn" ownerCategory="{{ category.ResCatId }}" style="padding-left: 7px;"></i></a>
+		  <a href="#" class="menu-name" {% if category.ResCatDesc %} title="{{ category.ResCatDesc }}" {% endif %}>
+		  	{% if category.ResCatIconFilePath %}<img class="img-fluid" src="{{category.ResCatIconFilePath}}">{%endif%}
+		  	{{ category.ResCatName }}
+		  	<i class="fas fa-times removeCategoryBtn" ownerCategory="{{ category.ResCatId }}" style="padding-left: 7px;"></i>
+			</a>
 			<div class="wrap-megamenu lg-width-300 md-width-640">
 				<div class="mega-content">
 					<div class="row">
@@ -104,7 +107,7 @@
 
 									<li class="menu-item menu-item-has-children has-megamenu newCategory">
 										<div class="menu-name categoryIcon" ownerCategory="">
-											<i class="material-icons" data-toggle="modal" data-target="#catIconsModal">add_to_photos</i> 
+											<img class="img-fluid" name='' icon_category='' src="{{ url_for('static', filename='commerce/admin/ICONS/surface1.svg')}}" data-toggle="modal" data-target="#catIconsModal">
 										</div>
 										<input class="input100 categoryName" type="text" placeholder="{{_('Category')}}">
 										<i class="fas fa-question addDescBtn" ownerCategory="" title="{{_('Description')}}" data-toggle="modal" data-target=".categoryDescModal"></i>
@@ -112,6 +115,7 @@
 										<input type="hidden" class="txt-input categoryDesc">
 									</li>
 								</ul>
+
 
 							</div>
 						</div>
@@ -155,162 +159,28 @@
 			</div>
 			<div class="modal-body">
 				<ul class="nav nav-tabs" id="myTab2" role="tablist">
-					<li class="nav-item">
-						<a class="badge badge-secondary active" id="profile-tab2" data-toggle="tab" href="#gökwebakjaönümler" role="tab"
-						  aria-controls="profile" aria-selected="false">Gök we bakja önümler</a>
-					  </li>
-					<li class="nav-item">
-					  <a class="badge badge-success" id="profile-tab2" data-toggle="tab" href="#etönümleri" role="tab"
-						aria-controls="profile" aria-selected="false">Et önümleri</a>
-					</li>
-					<li class="nav-item">
-					  <a class="badge badge-danger" id="contact-tab2" data-toggle="tab" href="#azylharytlar" role="tab"
-						aria-controls="contact" aria-selected="false">Azyk harytlar</a>
-					</li>
-					<li class="nav-item">
-						<a class="badge badge-warning" id="contact-tab2" data-toggle="tab" href="#süýtönümleri" role="tab"
-						  aria-controls="contact" aria-selected="false">Süýt önümleri</a>
-					  </li>
-					  <li class="nav-item">
-						<a class="badge badge-info" id="contact-tab2" data-toggle="tab" href="#içgiler" role="tab"
-						  aria-controls="contact" aria-selected="false">Içgiler</a>
-					  </li>
-					  <li class="nav-item">
-						<a class="badge badge-light" id="contact-tab2" data-toggle="tab" href="#çörekwekonditerönümleri" role="tab"
-						  aria-controls="contact" aria-selected="false">Çörek we konditer önümleri</a>
-					  </li>
-					  <li class="nav-item">
-						<a class="badge badge-dark" id="contact-tab2" data-toggle="tab" href="#gaplananönümler" role="tab"
-						  aria-controls="contact" aria-selected="false">Gaplanan önümler</a>
-					  </li>
-					  <li class="nav-item">
-						<a class="badge badge-primary" id="contact-tab2" data-toggle="tab" href="#gözellikwesaglyk" role="tab"
-						  aria-controls="contact" aria-selected="false">Gözellik we saglyk</a>
-					  </li>
-					  <li class="nav-item">
-						<a class="badge badge-secondary" id="contact-tab2" data-toggle="tab" href="#arassalaýjyserişdeler" role="tab"
-						  aria-controls="contact" aria-selected="false">Arassalaýjy serişdeler</a>
-					  </li>
-					  <li class="nav-item">
-						<a class="badge badge-success" id="contact-tab2" data-toggle="tab" href="#elektronika" role="tab"
-						  aria-controls="contact" aria-selected="false">Elektronika</a>
-					  </li>
+					{% for category in category_icons %}
+						<li class="nav-item">
+							<a class="badge badge-primary" id="contact-tab2" data-toggle="tab" href="#tab-{{category.replace(' ','-')}}" role="tab" aria-controls="contact" aria-selected="false">{{ category }}</a>
+						</li>
+					{% endfor %}
 				</ul>
 			  <div class="tab-content tab-bordered iconsList" id="myTab3Content">
-					<div class="tab-pane fade show active" id="gökwebakjaönümler" role="tabpanel" aria-labelledby="profile-tab2">
-						<div class="row icon-feather-container">
-							<div class="col-sm-6 col-md-4 col-lg-3">
-								<div class="preview">
-									<a href="#">
-										<img class="img-fluid" src="{{ url_for('static', filename='commerce/admin/ICONS/surface-1.svg')}}">
-									</a>
+					{% for category in category_icons %}
+						<div class="tab-pane fade" id="tab-{{category.replace(' ','-')}}" role="tabpanel" aria-labelledby="profile-tab2">
+							{% for iconInfo in category_icons[category] %}
+								<div class="row icon-feather-container">
+									<div class="col-sm-6 col-md-4 col-lg-3">
+										<div class="preview">
+											<a href="#">
+												<img name="{{ iconInfo['icon_name'] }}" icon_category="{{ iconInfo['category'] }}" class="img-fluid" src="{{ iconInfo['url'] }}">	
+											</a>
+										</div>
+									</div>
 								</div>
-							</div>
-						 </div>
-					</div>
-					<div class="tab-pane fade" id="etönümleri" role="tabpanel" aria-labelledby="profile-tab2">
-						<div class="row icon-feather-container">
-							<div class="col-sm-6 col-md-4 col-lg-3">
-								<div class="preview">
-									<a href="#">
-										<img class="img-fluid" src="{{ url_for('static', filename='commerce/admin/ICONS/surface-2.svg')}}">	
-									</a>
-								</div>
-							</div>
+							{% endfor %}
 						</div>
-					</div>
-					<div class="tab-pane fade" id="azylharytlar" role="tabpanel" aria-labelledby="contact-tab2">
-						<div class="row icon-feather-container">
-							<div class="col-sm-6 col-md-4 col-lg-3">
-								<div class="preview">
-									<a href="#">
-										<img class="img-fluid" src="{{ url_for('static', filename='commerce/admin/ICONS/surface-3.svg')}}">
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-
-
-
-
-					<div class="tab-pane fade" id="süýtönümleri" role="tabpanel" aria-labelledby="contact-tab2">
-						<div class="row icon-feather-container">
-							<div class="col-sm-6 col-md-4 col-lg-3">
-								<div class="preview">
-									<a href="#">
-										<img class="img-fluid" src="{{ url_for('static', filename='commerce/admin/ICONS/surface-4.svg')}}">
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="tab-pane fade" id="içgiler" role="tabpanel" aria-labelledby="contact-tab2">
-						<div class="row icon-feather-container">
-							<div class="col-sm-6 col-md-4 col-lg-3">
-								<div class="preview">
-									<a href="#">
-										<img class="img-fluid" src="{{ url_for('static', filename='commerce/admin/ICONS/surface-5.svg')}}">
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="tab-pane fade" id="çörekwekonditerönümleri" role="tabpanel" aria-labelledby="contact-tab2">
-						<div class="row icon-feather-container">
-							<div class="col-sm-6 col-md-4 col-lg-3">
-								<div class="preview">
-									<a href="#">
-										<img class="img-fluid" src="{{ url_for('static', filename='commerce/admin/ICONS/surface-6.svg')}}">
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="tab-pane fade" id="gaplananönümler" role="tabpanel" aria-labelledby="contact-tab2">
-						<div class="row icon-feather-container">
-							<div class="col-sm-6 col-md-4 col-lg-3">
-								<div class="preview">
-									<a href="#">
-										<img class="img-fluid" src="{{ url_for('static', filename='commerce/admin/ICONS/surface-7.svg')}}">
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="tab-pane fade" id="gözellikwesaglyk" role="tabpanel" aria-labelledby="contact-tab2">
-						<div class="row icon-feather-container">
-							<div class="col-sm-6 col-md-4 col-lg-3">
-								<div class="preview">
-									<a href="#">
-										<img class="img-fluid" src="{{ url_for('static', filename='commerce/admin/ICONS/surface-8.svg')}}">
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="tab-pane fade" id="arassalaýjyserişdeler" role="tabpanel" aria-labelledby="contact-tab2">
-						<div class="row icon-feather-container">
-							<div class="col-sm-6 col-md-4 col-lg-3">
-								<div class="preview">
-									<a href="#">
-										<img class="img-fluid" src="{{ url_for('static', filename='commerce/admin/ICONS/surface-9.svg')}}">
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="tab-pane fade" id="elektronika" role="tabpanel" aria-labelledby="contact-tab2">
-						<div class="row icon-feather-container">
-							<div class="col-sm-6 col-md-4 col-lg-3">
-								<div class="preview">
-									<a href="#">
-										<img class="img-fluid" src="{{ url_for('static', filename='commerce/admin/ICONS/surface-10.svg')}}">
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
+					{% endfor %}
 				</div>
 			</div>
 		</div>

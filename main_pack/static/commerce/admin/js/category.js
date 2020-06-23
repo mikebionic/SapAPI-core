@@ -2,9 +2,13 @@ var category_fields = ['categoryName','categoryDesc','categoryIcon']
 
 $("body").delegate('.categoryIcon','click',function(event){
 	ownerIconId = $(this).attr('ownerCategory');
-	$("body").delegate('.iconsList i','click',function(event){
-		selectedIcon = $(this).text();
-		$(".categoryIcon"+ownerIconId+" i").text(selectedIcon);
+	$("body").delegate('.iconsList img','click',function(event){
+		selectedIconSrc = $(this).attr('src');
+		selectedIconName = $(this).attr('name');
+		selectedIconCategory = $(this).attr('icon_category');
+		$(".categoryIcon"+ownerIconId+" img").attr('src',selectedIconSrc);
+		$(".categoryIcon"+ownerIconId+" img").attr('name',selectedIconName);
+		$(".categoryIcon"+ownerIconId+" img").attr('icon_category',selectedIconCategory);
 		$("#catIconsModal").modal("hide");
 	})
 })
@@ -25,12 +29,15 @@ $("body").delegate('.addCategoryBtn','click',function(event){
 	categoryData = prepareFormData(category_fields,ownerId);
 	categoryData['ownerCategory']=ownerId;
 
-	thisIconName = $(".categoryIcon"+ownerId+" i").text();
+	thisIconName = $(".categoryIcon"+ownerId+" img").attr('name');
+	thisIconPath = $(".categoryIcon"+ownerId+" img").attr('src');
 	if(thisIconName=="add_to_photos"){
 		thisIconName='';
+		thisIconPath='';
 	}
 	else{
 		categoryData['categoryIcon']=thisIconName;
+		categoryData['categoryIconPath']=thisIconPath;
 	}
 	postFormData(categoryData,url_prefix+"/admin/category/","htmlData","categoriesList"+ownerId);
 	clearFields(category_fields,ownerId);

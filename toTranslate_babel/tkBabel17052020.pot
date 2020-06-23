@@ -886,3 +886,37 @@ msgstr "Asman gök"
 msgid "Orange"
 msgstr "Mämişi"
 
+
+# category names
+msgid "Bread and confectionery"
+msgstr "Çörek we konditer önümleri"
+
+msgid "Cleansers"
+msgstr "Arassalaýjy serişdeler"
+
+msgid "Foodstuffs"
+msgstr "Azyk harytlar"
+
+msgid "Drinks"
+msgstr "Içgiler"
+
+msgid "Packaged products"
+msgstr "Gaplanan önümler"
+
+msgid "Fruits and vegetables"
+msgstr "Miwe we gök önümler"
+
+msgid "Dairy products"
+msgstr "Süýt önümleri"
+
+msgid "Meat products"
+msgstr "Et önümleri"
+
+msgid "Electronics"
+msgstr "Elektronika"
+
+msgid "Beauty and health"
+msgstr "Gözellik we saglyk"
+
+msgid "Others"
+msgstr "Beýlekiler"

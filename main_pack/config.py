@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import sys
+
 class Config:
 	SECRET_KEY = 'jbvfr84iojnbv7oi-02933jndudm094jfo+_OygcuHUH'
 	# SQLALCHEMY_DATABASE_URI = 'sqlite:///commerce.db'
@@ -29,5 +31,4 @@ class Config:
 
 	ELASTICSEARCH_URL = 'http://localhost:9200'
 
-	# OS_TYPE = 'windows'
-	OS_TYPE = 'linux'
+	OS_TYPE = sys.platform

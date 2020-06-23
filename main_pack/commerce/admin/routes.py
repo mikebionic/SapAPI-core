@@ -15,6 +15,10 @@ from sqlalchemy import and_
 
 from main_pack.commerce.commerce.order_utils import invStatusesSelectData
 from main_pack.commerce.admin.forms import InvStatusForm
+
+import os
+from flask import current_app
+
 @bp.route("/admin/dashboard")
 @login_required
 @admin_required()
@@ -25,9 +29,25 @@ def dashboard():
 @login_required
 @admin_required()
 def navbar():
-	# categoryData = UiCategoriesList()
+	icons_path = os.path.join("static","commerce","icons","categories")
+	full_icons_path = os.path.join(current_app.root_path,icons_path)
+	folders = os.listdir(full_icons_path)
+	category_icons = {} 
+	for folder in folders:
+		folder_icons = os.listdir(os.path.join(full_icons_path,folder))
+		icons = []
+		for icon in folder_icons:
+			iconInfo = {
+				'url':url_for('commerce_api.get_icon',category=folder,file_name=icon),
+				'icon_name':icon,
+				'category':folder
+			}
+			icons.append(iconInfo)
+		category_icons[folder]=icons
+
 	commonData = commonUsedData()
-	return render_template ("commerce/admin/navbar.html",**commonData,title=gettext('Navbar'))
+	return render_template ("commerce/admin/navbar.html",**commonData,category_icons=category_icons,
+		title=gettext('Navbar'))
 
 @bp.route("/admin/picture")
 @login_required

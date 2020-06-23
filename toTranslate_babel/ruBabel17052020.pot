@@ -885,3 +885,37 @@ msgstr "Небесно голубой"
 
 msgid "Orange"
 msgstr "Оранжевый"
+
+# category names
+msgid "Bread and confectionery"
+msgstr "Хлеб и кондитерские изделия"
+
+msgid "Cleansers"
+msgstr "Чистящие средства"
+
+msgid "Foodstuffs"
+msgstr "Продовольственные товары"
+
+msgid "Drinks"
+msgstr "Напитки"
+
+msgid "Packaged products"
+msgstr "Упакованные продукты"
+
+msgid "Fruits and vegetables"
+msgstr "Фрукты и овощи"
+
+msgid "Dairy products"
+msgstr "Молочные продукты"
+
+msgid "Meat products"
+msgstr "Мясные продукты"
+
+msgid "Electronics"
+msgstr "Электроника"
+
+msgid "Beauty and health"
+msgstr "Красота и здоровье"
+
+msgid "Others"
+msgstr "Другие"
