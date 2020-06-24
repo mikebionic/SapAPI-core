@@ -107,20 +107,15 @@ def get_image_test(fileType,file_size,file_name):
 	if fileType=="slider":
 		sl_image = Sl_image.query.filter(Sl_image.SlImgName==file_name).first()
 		path = sl_image.SlImgMainImgFileName
-		print(path)
-
 	if fileType=="image":
-		print('hehehe')
+		print('foo')
 		# image = Image.query.filter(Image.FileName==file_name).first()
 		# path = image.FilePath
 	try:
 		if current_app.config['OS_TYPE']=='windows':
-			print('its windows')
 			response = send_from_directory('static',
 				filename=path.replace("\\","/").replace("<FSize>",file_size),as_attachment=True)
-			print(response)
 		else:
-			print('its linux')
 			response = send_from_directory('static',filename=path.replace("<FSize>",file_size),as_attachment=True)
 		return response
 	except FileNotFoundError:

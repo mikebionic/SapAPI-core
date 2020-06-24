@@ -14,7 +14,6 @@ def slidersData():
 	if slider:
 		sl_images = Sl_image.query.filter(and_(Sl_image.SlId==slider.SlId, Sl_image.GCRecord==None)).all()
 		List_FileName = [sl_image.SlImgName for sl_image in sl_images]
-		print(List_FileName)
 		imagesList = []
 		for imageName in List_FileName:
 			sliderImage = {}
@@ -22,8 +21,6 @@ def slidersData():
 			sliderImage['SlImgMainImgFilePathM']=fileToURL(fileType="slider",size='M',name=imageName) if List_FileName else ''
 			sliderImage['SlImgMainImgFilePathR']=fileToURL(fileType="slider",size='R',name=imageName) if List_FileName else ''
 			imagesList.append(sliderImage)
-
-		print(imagesList)
 		res = {
 			'sl_images':imagesList
 		}
