@@ -1,460 +1,459 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    {% if title %}
-      <title>{{_('Commerce')}} - {{title}}</title>
-    {% else %}
-      <title>{{_('Commerce')}}</title>
-    {% endif %}
-    <!-- <link href="https://fonts.googleapis.com/css?family=Cairo:400,600,700&amp;display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Poppins:600&amp;display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400i,700i" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Ubuntu&amp;display=swap" rel="stylesheet"> -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{ company_logo.FilePathS if company_logo else url_for('static', filename='commerce/main/images/favicon.png') }}" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/animate.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/nice-select.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/slick.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/style.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/main-color.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/css/app.min.css') }}">
-    {% block styles %}{% endblock %}
-  </head>
-  <body class="biolife-body">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% if title %}
+  <title>{{_('Commerce')}} - {{title}}</title>
+  {% else %}
+  <title>{{_('Commerce')}}</title>
+  {% endif %}
+ <!--  <link href="https://fonts.googleapis.com/css?family=Cairo:400,600,700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Poppins:600&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400i,700i" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu&amp;display=swap" rel="stylesheet"> -->
+  <link rel="shortcut icon" type="image/x-icon" href="{{ company_logo.FilePathS if company_logo else url_for('static', filename='commerce/main/images/favicon.png') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/animate.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/font-awesome.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/nice-select.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/slick.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/main-color.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/css/app.min.css') }}">
+  {% block styles %}{% endblock %}
+</head>
 
-    <!-- Preloader -->
-    <div id="biof-loading">
-      <div class="biof-loading-center">
-        <div class="biof-loading-center-absolute">
-          <div class="dot dot-one"></div>
-          <div class="dot dot-two"></div>
-          <div class="dot dot-three"></div>
-        </div>
+<body class="biolife-body">
+
+<!-- Preloader -->
+  <div id="biof-loading">
+    <div class="biof-loading-center">
+      <div class="biof-loading-center-absolute">
+        <div class="dot dot-one"></div>
+        <div class="dot dot-two"></div>
+        <div class="dot dot-three"></div>
       </div>
     </div>
-
-    <!-- HEADER -->
-    <header id="header" class="header-area style-01 layout-03" >
-      <div class="header-top bg-main hidden-xs" style="background: #2a5cfb">
-        <div class="container">
-          <div class="top-bar left">
-            <ul class="horizontal-menu">
-              {% if company.CEmail %}
-                <li><i class="fa fa-envelope" aria-hidden="true"></i>{{company.CEmail}}</li>
-              {% endif %}
-            </ul>
-          </div>
-          <div class="top-bar right">
-            <ul class="horizontal-menu">
-              <li class="dropdown dropdown-list-toggle">
-                <a href="#" class="nav-link nav-link-lg message-toggle" data-toggle="dropdown">
-                  <i class="fa fa-globe" style="font-size: 25px; color: #fff;"></i>
-                  <span class="badge headerBadge1">{{ session['language'] }}</span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-lr dropdown-menu-right pullDown">
-                  <a href="/language/en" class="dropdown-item">
-                    <img src="{{ url_for('static', filename='commerce/main/images/us.svg') }}" style="width: 30px">
-                    English language</a>
-                  <div class="dropdown-divider"></div>
-                  <a href="/language/tk" class="dropdown-item">
-                    <img src="{{ url_for('static', filename='commerce/main/images/tm.svg') }}" style="width: 30px">
-                    Türkmen dili</a>
-                  <div class="dropdown-divider"></div>
-                  <a href="/language/ru" class="dropdown-item">
-                    <img src="{{ url_for('static', filename='commerce/main/images/ru.svg') }}" style="width: 30px">
-                    Русский язык</a>
-                  <div class="dropdown-divider"></div>
-                  <a href="#" class="dropdown-item dropdown-footer">{{_('Other languages')}}</a>
-                </div>
-              </li>
-              <li class="dropdown"><a href="#"  data-toggle="dropdown"
-                class="nav-link dropdown-toggle nav-link-lg nav-link-user"><i class="biolife-icon icon-login" style="color: #fff;font-size: 20px;"></i>
-                <span class="d-sm-none d-lg-inline-block"></span></a>
-                <div class="dropdown-menu dropdown-menu-right pullDown" style="width: 167px;">
-                  {% if current_user.is_authenticated %}
-                    <a href="{{ url_for('commerce_users.profile') }}" class="dropdown-item has-icon"><i class="fafa-user"></i> 
-                      {{ current_user.UFullName }}
-                    </a>
-                    <a href="timeline.html" class="dropdown-item has-icon">Activities
-                    </a>
-                    <a href="#" class="dropdown-item has-icon"><i class="fa fa-cog"></i>
-                      {{_('Settings')}}
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="{{ url_for('commerce_auth.logout') }}" class="dropdown-item has-icon text-danger"><i class="fa fa-sign-out"></i>
-                      {{_('Log out')}}
-                    </a>
-                  {% else %}
-                    <a href="{{ url_for('commerce_auth.login') }}" class="dropdown-item has-icon text-danger"><i class="fa fa-sign-out"></i>
-                      {{_('Log in')}}
-                    </a>
-                  {% endif %}
-                </div>
-              </li>
-            </ul>
-          </div>
+  </div>
+  <!-- HEADER -->
+  <header id="header" class="header-area style-01 layout-03">
+    <div class="header-top bg-main hidden-xs">
+      <div class="container">
+        <div class="top-bar left">
+          <ul class="horizontal-menu">
+            {% if company.CEmail %}
+            <li><i class="fa fa-envelope" aria-hidden="true"></i>{{company.CEmail}}</li>
+            {% endif %}
+          </ul>
         </div>
-      </div>
-      <div class="header-middle biolife-sticky-object ">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-3 col-md-2 col-md-6 col-xs-6">
-              {% if company_logo %}
-                <a href="{{ url_for('commerce.commerce')}}" class="logo">
-                  <img loading="lazy" loading="lazy" src="{{ company_logo.FilePathS }}">
-                </a>
-              {% else %}
-                {% if company.CName %}
-                <a href="{{ url_for('commerce.commerce')}}" class="logo">{{company.CName}}</a>
+        <div class="top-bar right">
+          <ul class="horizontal-menu">
+            <li class="dropdown dropdown-list-toggle">
+              <a href="#" class="nav-link nav-link-lg message-toggle" data-toggle="dropdown">
+                <i class="fa fa-globe" style="font-size: 25px; color: #fff;"></i>
+                <span class="badge headerBadge1">{{ session['language'] }}</span>
+              </a>
+              <div class="dropdown-menu dropdown-menu-lr dropdown-menu-right pullDown">
+                <a href="/language/en" class="dropdown-item">
+                  <img src="{{ url_for('static', filename='commerce/main/images/us.svg') }}" style="width: 30px">
+                  English language</a>
+                <div class="dropdown-divider"></div>
+                <a href="/language/tk" class="dropdown-item">
+                  <img loading="lazy" src="{{ url_for('static', filename='commerce/main/images/tm.svg') }}" style="width: 30px">
+                  Türkmen dili</a>
+                <div class="dropdown-divider"></div>
+                <a href="/language/ru" class="dropdown-item">
+                  <img loading="lazy" src="{{ url_for('static', filename='commerce/main/images/ru.svg') }}" style="width: 30px">
+                  Русский язык</a>
+              </div>
+            </li>
+            <li class="dropdown"><a href="#"  data-toggle="dropdown"
+              class="nav-link dropdown-toggle nav-link-lg nav-link-user"><i class="biolife-icon icon-login" style="color: #fff;font-size: 20px;"></i>
+              <span class="d-sm-none d-lg-inline-block"></span></a>
+              <div class="dropdown-menu dropdown-menu-right pullDown" style="width: 167px;">
+                {% if current_user.is_authenticated %}
+                  <a href="{{ url_for('commerce_users.profile') }}" class="dropdown-item has-icon"><i class="fafa-user"></i> 
+                    {{ current_user.UFullName }}
+                  </a>
+                  <div class="dropdown-divider"></div>
+                  <a href="timeline.html" class="dropdown-item has-icon">{{_('Activities')}}
+                  </a>
+                  <div class="dropdown-divider"></div>
+                  <a href="#" class="dropdown-item has-icon"><i class="material-icons" style="padding-left: 0;">settings</i>
+                    {{_('Settings')}}
+                  </a>
+                  <div class="dropdown-divider"></div>
+                  <a href="{{ url_for('commerce_auth.logout') }}" class="dropdown-item has-icon text-danger"><i class="fa fa-sign-out"></i>
+                    {{_('Log out')}}
+                  </a>
+                {% else %}
+                  <a href="{{ url_for('commerce_auth.login') }}" class="dropdown-item has-icon text-danger"><i class="fa fa-sign-out"></i>
+                    {{_('Log in')}}
+                  </a>
                 {% endif %}
-              {% endif %}
-            </div>
-            <div class="col-lg-5 col-md-7 hidden-sm hidden-xs">
-              <div class="primary-menu">
-                <ul class="menu biolife-menu clone-main-menu clone-primary-menu" id="primary-menu" data-menuname="main menu">
-                  <li class="menu-item"><a href="{{ url_for('commerce.commerce') }}">{{_('Home')}}</a></li>
-                  <li class="menu-item"><a href="{{ url_for('commerce.about') }}">{{_('About us')}}</a></li>
-                  <li class="menu-item"><a href="{{ url_for('commerce.contact') }}">{{_('Contact')}}</a></li>
-                  <li class="menu-item"><a href="{{ url_for('commerce.v_grid') }}" class="viewmode grid-mode"><i class="biolife-icon icon-grid"></i></a></li>
-                  <li class="menu-item"><a href="{{ url_for('commerce.v_list') }}" class="viewmode detail-mode active"><i class="biolife-icon icon-list"></i></a></li>
-                </ul>
               </div>
-            </div>
-            <div class="col-lg-4 col-md-3 col-md-6 col-xs-6">
-              <div class="biolife-cart-info">
-                <div class="mobile-search">
-                  <a href="javascript:void(0)" class="open-searchbox"><i class="biolife-icon icon-search"></i></a>
-                  <div class="mobile-search-content">
-                    <form action="#" class="form-search" name="mobile-seacrh" method="get">
-                      <a href="#" class="btn-close"><span class="biolife-icon icon-close-menu"></span></a>
-                      <input type="text" name="s" class="input-text" placeholder="{{_('Search')}}...">
-                      <select name="category">
-                        <option value="-1" selected>{{_('All Categories')}}</option>
-                        {% for category in categories %}
-                          <option value="{ category.ResCatId }}">{{ category.ResCatName }}</option>
-                        {% endfor %}
-                      </select>
-                      <button type="submit" class="btn-submit">{{_('Submit')}}</button>
-                    </form>
-                  </div>
-                </div>
-                <div class="wishlist-block hidden-sm hidden-xs">
-                  <a href="#" class="link-to">
-                    <span class="icon-qty-combine">
-                      <i class="icon-heart-bold biolife-icon"></i>
-                      <span class="qty">4</span>
-                    </span>
-                  </a>
-                </div>
-                <div class="minicart-block">
-                  <div class="minicart-contain">
-                    <a href="javascript:void(0)" class="link-to">
-                            <span class="icon-qty-combine">
-                                <i class="icon-cart-mini biolife-icon"></i>
-                                <span class="qty cartItemsQty"></span>
-                            </span>
-                        <span class="title">{{_('My Cart')}} TMT</span>
-                        <span class="sub-total cartTotalPrice">0.00</span>
-                    </a>
-                    <div class="cart-content">
-                      <div class="cart-inner">
-<!--         USER's Cart here !!!       -->
-                        <ul class="products cartItemsList"></ul>
-                        <p class="btn-control">
-                          <a href="{{ url_for('commerce.cart') }}" class="btn view-cart">{{_('View cart')}}</a>
-                          <a class="btn clearCartBtn">{{_('clear all')}}</a>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="mobile-menu-toggle">
-                  <a class="btn-toggle" data-object="open-mobile-menu" href="javascript:void(0)">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
+            </li>
+          </ul>
         </div>
       </div>
-      <div class="header-bottom hidden-sm hidden-xs">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-3 col-md-4">
-              <div class="vertical-menu vertical-category-block">
-                <div class="block-title">
-                  <span class="menu-icon">
-                    <span class="line-1"></span>
-                    <span class="line-2"></span>
-                    <span class="line-3"></span>
-                  </span>
-                  <span class="menu-title">{{_('Categories')}}</span>
-                  <span class="angle" data-tgleclass="fa fa-caret-down"><i class="fa fa-caret-up" aria-hidden="true"></i></span>
-                </div>
-                <div class="wrap-menu">
-                  <ul class="menu clone-main-menu">
-                    {% for category in categories %}
-                      <li class="menu-item menu-item-has-children has-child">
-                        <a href="#" class="menu-name" title="{{ category.ResCatDesc if category.ResCatDesc }}"><i class="material-icons">{{ category.ResCatIconName if category.ResCatIconName else "local_mall" }}</i> {{ category.ResCatName }}</a>
-                        {% for category in category.subcategories %}
-                          <ul class="sub-menu">
-                          <h4 class="menu-title" title="{{ category.ResCatDesc if category.ResCatDesc }}">{{ category.ResCatName }}</h4>
-                            {% for category in category.subcategories %}
-                              <li class="menu-item"><a href="#" {% if category.ResCatDesc %} title="{{ category.ResCatDesc }}" {% endif %}>{{ category.ResCatName }}</a></li>
-                            {% endfor %}
-                          </ul>
-                        {% endfor %}
-                      </li>
-                    {% endfor %}
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-9 col-md-8 padding-top-2px">
-              <div class="header-search-bar layout-01">
-                <form action="#" class="form-search" name="desktop-seacrh" method="get">
-                  <input type="text" name="s" class="input-text" value="" placeholder="{{_('Search')}}...">
-                  <select name="category">
-                    <option value="" selected>{{_('All Categories')}}</option>
-                    {% for category in categories %}
-                      {% if category.GCRecord == None or category.GCRecord =="" %}
-                        <option value="{ category.ResCatId }}">{{ category.ResCatName }}</option>
-                      {% endif %}
-                    {% endfor %}
-                  </select>
-                  <button type="submit" class="btn-submit"><i class="biolife-icon icon-search"></i></button>
-                </form>
-              </div>
-              <div class="live-info">
-                {% if company.Phone1 %}<p class="telephone"><i class="fa fa-phone" aria-hidden="true"></i><b class="phone-number">{{ company.Phone1 }}</b></p>{% endif %}
-                {% if company.CWTime %}<p class="working-time">{{ company.CWTime }}</p>{% endif %}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </header>
-
-    <!--Hero Section-->
-    {% if title %}
-      <div class="hero-section hero-background">
-        <h1 class="page-title">{{title}}</h1>
-      </div>
-    {% endif %}
-
-<!--         views navbar selection   -->
-
-<div id="main-content" class="main-content col-lg-9 col-md-8 col-sm-12 col-xs-12">
-        <div class="product-category list-style">
-            <div id="top-functions-area" class="top-functions-area" >
-                <div class="flt-item to-left group-on-mobile">
-                    <span class="flt-title">{{_('Refine')}}</span>
-                    <a href="#" class="icon-for-mobile">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </a>
-                    <div class="wrap-selectors">
-                        <form action="#" name="frm-refine" method="get">
-                            <span class="title-for-mobile">{{_('Refine products by')}}</span>
-                            <div data-title="Price:" class="selector-item">
-                                <select name="price" class="selector">
-                                    <option value="all">{{_('Price')}}</option>
-                                    <option value="class-1st">Less than 5 TMT</option>
-                                    <option value="class-2nd">TMT 5 - 10 TMT</option>
-                                    <option value="class-3rd">TMT 10 - 20 TMT</option>
-                                    <option value="class-4th">TMT 20 - 45 TMT</option>
-                                    <option value="class-5th">TMT 45 - 100 TMT</option>
-                                    <option value="class-6th">TMT 100 - 150 TMT</option>
-                                    <option value="class-7th"> > 150 TMT</option>
-                                </select>
-                            </div>
-                            <div data-title="Brand:" class="selector-item">
-                                <select name="brad" class="selector">
-                                    <option value="all">{{_('All brands')}}</option>
-                                    {% for brand in brands %}
-                                      {% if brand.GCRecord == None or brand.GCRecord == '' %}
-                                        <option value="{{brand.BrandId}}">{{brand.BrandName}}</option>
-                                      {% endif %}
-                                    {% endfor %}
-                                </select>
-                            </div>
-                            <div data-title="Avalability:" class="selector-item">
-                                <select name="ability" class="selector">
-                                    <option value="all">Availability</option>
-                                    <option value="vl2">Availability 1</option>
-                                    <option value="vl3">Availability 2</option>
-                                    <option value="vl4">Availability 3</option>
-                                    <option value="vl5">Availability 4</option>
-                                    <option value="vl6">Availability 5</option>
-                                </select>
-                            </div>
-                            <p class="btn-for-mobile"><button type="submit" class="btn-submit">{{_('Go')}}</button></p>
-                        </form>
-                    </div>
-                </div>
-                <div class="flt-item to-right">
-                    <span class="flt-title">{{_('Sort')}}</span>
-                    <div class="wrap-selectors">
-                        <div class="selector-item orderby-selector">
-                            <select name="orderby" class="orderby" aria-label="Shop order">
-                                <option value="menu_order" selected="selected">{{_('Default sorting')}}</option>
-                                <option value="popularity">{{_('Popularity')}}</option>
-                                <option value="rating">{{_('Average rating')}}</option>
-                                <option value="date">{{_('Newness')}}</option>
-                                <option value="price">{{_('Price')}}: {{_('low to high')}}</option>
-                                <option value="price-desc">{{_('Price')}}: {{_('high to low')}}</option>
-                            </select>
-                        </div>
-                        <div class="selector-item viewmode-selector">
-                            <a href="{{ url_for('commerce.v_grid') }}" class="viewmode grid-mode"><i class="biolife-icon icon-grid"></i></a>
-                            <a href="{{ url_for('commerce.v_list') }}" class="viewmode detail-mode active"><i class="biolife-icon icon-list"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-<!--             views navbar selection       -->
-
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        {% for category, message in messages %}
-          <div class="p-3 alert alert-{{ category }}" role="alert">
-            {{ message }}
-          </div>
-        {% endfor %}
-      {% endif %}
-    {% endwith %}
-    
-    {% block content %}{% endblock %}
-
-    {% block paginate %}{% endblock %}
-
-<!--         right block-sidebar        -->
-        </div>
     </div>
-    <!-- Sidebar -->
-    <aside id="sidebar" class="sidebar col-lg-3 col-md-4 col-sm-12 col-xs-12">
-      <div class="biolife-mobile-panels">
-        <span class="biolife-current-panel-title">{{_('Sidebar')}}</span>
-        <a class="biolife-close-btn" href="#" data-object="open-mobile-filter">&times;</a>
-      </div>
-      <div class="sidebar-contain">
-        <div class="widget biolife-filter">
-            <h4 class="wgt-title">{{_('Categories')}}</h4>
-            <div class="wgt-content">
-                <ul class="cat-list">
-                  {% for category in categories %}
-                    <li class="cat-list-item">
-                      <a href="#{{category.ResCatId}}" class="cat-link">{{category.ResCatName}}</a>
-                    </li>
-                  {% endfor %}
-                </ul>
-            </div>
-        </div>
-
-        <div class="widget price-filter biolife-filter">
-          <h4 class="wgt-title">{{_('Price')}}</h4>
-          <div class="wgt-content">
-            <div class="frm-contain">
-              <form action="#" name="price-filter" id="price-filter" method="get">
-                <p class="f-item">
-                  <label for="pr-from">TMT</label>
-                  <input class="input-number" type="number" id="pr-from" value="" name="price-from">
-                </p>
-                <p class="f-item">
-                  <label for="pr-to">-> TMT</label>
-                  <input class="input-number" type="number" id="pr-to" value="" name="price-from">
-                </p>
-                <p class="f-item"><button class="btn-submit" type="submit">{{_('Go')}}</button></p>
-              </form>
-            </div>
-            <ul class="check-list bold single">
-              <li class="check-list-item"><a href="#" class="check-link">TMT 0 - TMT 5</a></li>
-              <li class="check-list-item"><a href="#" class="check-link">TMT 5 - TMT 10</a></li>
-              <li class="check-list-item"><a href="#" class="check-link">TMT 15 - TMT 20</a></li>
-            </ul>
+    <div class="header-middle biolife-sticky-object ">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 col-md-2 col-md-6 col-xs-6" style="width: 50%; margin-bottom: 15px;">
+            {% if company_logo %}
+              <a href="{{ url_for('commerce.commerce')}}" class="biolife-logo">
+                <img loading="lazy" src="{{ company_logo.FilePathS }}"  width="20%" height="34">
+              </a>
+            {% else %}
+              {% if company.CName %}
+                <a href="{{ url_for('commerce.commerce')}}" class="biolife-logo">{{company.CName}}</a>
+              {% endif %}
+            {% endif %}
           </div>
-        </div>
-
-        <div class="widget biolife-filter">
-          <h4 class="wgt-title">{{_('Brand')}}</h4>
-          <div class="wgt-content">
-            <ul class="check-list multiple">
-              {% for brand in brands %}
-                <li class="check-list-item"><a href="#" class="check-link">{{brand.BrandName}}</a></li>
-              {% endfor %}
-            </ul>
-          </div>
-        </div>
-
-        <div class="widget biolife-filter">
-          <h4 class="wgt-title">{{_('Color')}}</h4>
-          <div class="color">
-            <div class="wgt-content">
-              <ul class="color-list check-list">
-                {% for color in colors %}
-                  <li class="color-item">
-                    <a href="#" class="check-link"><span {% if color.ColorDesc %} title="{{ color.ColorDesc }}" {% endif %} class="symbol img-color" style="background: {{color.ColorCode}}"></span>{{color.ColorName}}</a>
-                  </li>
-                {% endfor %}
+          <div class="col-lg-5 col-md-7 hidden-sm hidden-xs">
+            <div class="primary-menu">
+              <ul class="menu biolife-menu clone-main-menu clone-primary-menu" id="primary-menu" data-menuname="main menu">
+                <li class="menu-item"><a href="{{ url_for('commerce.commerce') }}">{{_('Home')}}</a></li>
+                <li class="menu-item"><a href="{{ url_for('commerce.about') }}">{{_('About us')}}</a></li>
+                <li class="menu-item"><a href="{{ url_for('commerce.contact') }}">{{_('Contact')}}</a></li>
+                <li class="menu-item"><a href="{{ url_for('commerce.v_grid') }}" class="viewmode grid-mode"><i class="biolife-icon icon-grid"></i></a></li>
+                <li class="menu-item"><a href="{{ url_for('commerce.v_list') }}" class="viewmode detail-mode active"><i class="biolife-icon icon-list"></i></a></li>
               </ul>
             </div>
           </div>
+          <div class="col-lg-4 col-md-3 col-md-6 col-xs-6" style="width: 50%;">
+            <div class="biolife-cart-info">
+              <div class="mobile-search">
+                <a href="javascript:void(0)" class="open-searchbox"><i class="biolife-icon icon-search"></i></a>
+                <div class="mobile-search-content">
+                  <form action="#" class="form-search" name="mobile-seacrh" method="get">
+                    <a href="#" class="btn-close"><span class="biolife-icon icon-close-menu"></span></a>
+                    <input type="text" name="s" class="input-text" placeholder="{{_('Search')}}...">
+                    <select name="category">
+                      <option value="-1" selected>{{_('All Categories')}}</option>
+                      {% for category in categories %}
+                      <option value="{ category.ResCatId }}">{{ category.ResCatName }}</option>
+                      {% endfor %}
+                    </select>
+                    <button type="submit" class="btn-submit">{{_('Submit')}}</button>
+                  </form>
+                </div>
+              </div>
+              <div class="wishlist-block hidden-sm hidden-xs">
+                <a href="#" class="link-to">
+                  <span class="icon-qty-combine">
+                    <i class="icon-heart-bold biolife-icon"></i>
+                    <span class="qty">4</span>
+                  </span>
+                </a>
+              </div>
+              <div class="minicart-block">
+                <div class="minicart-contain">
+                  <a href="javascript:void(0)" class="link-to">
+                    <span class="icon-qty-combine">
+                      <i class="icon-cart-mini biolife-icon"></i>
+                      <span class="qty cartItemsFullQty"></span>
+                    </span>
+                    <span class="title">{{_('My Cart')}} TMT</span>
+                    <span class="sub-total cartTotalPrice">0.00</span>
+                  </a>
+                  <div class="cart-content">
+                    <div class="cart-inner">
+                      <!--         USER's Cart       -->
+                      <ul class="products cartItemsList"></ul>
+                      <p class="btn-control">
+                        <a href="{{ url_for('commerce.cart') }}" class="btn view-cart"> {{_('View cart')}}</a>
+                        <a class="btn clearCartBtn" style="padding: 4px 10px 17px;"><i class="material-icons">delete</i></a>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="mobile-menu-toggle">
+                <a class="btn-toggle" data-object="open-mobile-menu" href="javascript:void(0)">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
+    </div>
+    <div class="header-bottom hidden-sm hidden-xs">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 col-md-4">
+            <div class="vertical-menu vertical-category-block">
+              <div class="block-title">
+                <span class="menu-icon">
+                  <span class="line-1"></span>
+                  <span class="line-2"></span>
+                  <span class="line-3"></span>
+                </span>
+                <span class="menu-title">{{_('Categories')}}</span>
+                <span class="angle" data-tgleclass="fa fa-caret-down"><i class="fa fa-caret-up" aria-hidden="true"></i></span>
+              </div>
+              <div class="wrap-menu">
+                <ul class="menu clone-main-menu">
+                  {% for category in categories %}
+                    <li class="menu-item menu-item-has-children has-child">
+                      <a href="#" class="menu-name" title="{{ category.ResCatDesc if category.ResCatDesc }}">
+                        {% if category.ResCatIconFilePath %}<img class="img-fluid" src="{{category.ResCatIconFilePath}}">{%endif%}
+                        {{ category.ResCatName }}
+                      </a>
+                      {% for category in category.subcategories %}
+                        <ul class="sub-menu" style="    transform: translateY(-48px);">
+                        <h4 class="menu-title" title="{{ category.ResCatDesc if category.ResCatDesc }}">{{ category.ResCatName }}</h4>
+                          {% for category in category.subcategories %}
+                            <li class="menu-item"><a href="#" {% if category.ResCatDesc %} title="{{ category.ResCatDesc }}" {% endif %}>{{ category.ResCatName }}</a></li>
+                          {% endfor %}
+                        </ul>
+                      {% endfor %}
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-9 col-md-8 padding-top-2px">
+            <div class="header-search-bar layout-01">
+              <form action="#" class="form-search" name="desktop-seacrh" method="get">
+                <input type="text" name="s" class="input-text" value="" placeholder="{{_('Search')}}...">
+                <select name="category">
+                  <option value="" selected>{{_('All Categories')}}</option>
+                  {% for category in categories %}
+                    <option value="{ category.ResCatId }}">{{ category.ResCatName }}</option>
+                  {% endfor %}
+                </select>
+                <button type="submit" class="btn-submit"><i class="biolife-icon icon-search"></i></button>
+              </form>
+            </div>
+            <div class="live-info">
+              {% if company.Phone1 %}
+                <p class="telephone"><i class="fa fa-phone" aria-hidden="true"></i><b class="phone-number">{{ company.Phone1 }}</b></p>
+              {% endif %}
+              {% if company.CWTime %}<p class="working-time">{{ company.CWTime }}</p>{% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
 
-        <div class="widget biolife-filter">
-          <h4 class="wgt-title">{{_('Size')}}</h4>
+  <!--Hero Section-->
+  {% if title %}
+    <div class="hero-section hero-background">
+      <h1 class="page-title">{{title}}</h1>
+    </div>
+  {% endif %}
+
+<!--         views navbar selection   -->
+
+  <div id="main-content" class="main-content col-lg-9 col-md-8 col-sm-12 col-xs-12">
+    <div class="product-category list-style">
+      <div id="top-functions-area" class="top-functions-area" >
+        <div class="flt-item to-left group-on-mobile">
+          <span class="flt-title">{{_('Refine')}}</span>
+          <a href="#" class="icon-for-mobile">
+            <span></span>
+            <span></span>
+            <span></span>
+          </a>
+          <div class="wrap-selectors">
+            <form action="#" name="frm-refine" method="get">
+              <span class="title-for-mobile">{{_('Refine products by')}}</span>
+              <div data-title="Price:" class="selector-item">
+                <select name="price" class="selector">
+                  <option value="all">{{_('Price')}}</option>
+                  <option value="class-1st">Less than 5 TMT</option>
+                  <option value="class-2nd">TMT 5 - 10 TMT</option>
+                  <option value="class-3rd">TMT 10 - 20 TMT</option>
+                  <option value="class-4th">TMT 20 - 45 TMT</option>
+                  <option value="class-5th">TMT 45 - 100 TMT</option>
+                  <option value="class-6th">TMT 100 - 150 TMT</option>
+                  <option value="class-7th"> > 150 TMT</option>
+                </select>
+              </div>
+              <div data-title="Brand:" class="selector-item">
+                <select name="brad" class="selector">
+                  <option value="all">{{_('All brands')}}</option>
+                  {% for brand in brands %}
+                    {% if brand.GCRecord == None or brand.GCRecord == '' %}
+                      <option value="{{brand.BrandId}}">{{brand.BrandName}}</option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+              </div>
+              <div data-title="Avalability:" class="selector-item">
+                <select name="ability" class="selector">
+                  <option value="all">Availability</option>
+                  <option value="vl2">Availability 1</option>
+                  <option value="vl3">Availability 2</option>
+                  <option value="vl4">Availability 3</option>
+                  <option value="vl5">Availability 4</option>
+                  <option value="vl6">Availability 5</option>
+                </select>
+              </div>
+              <p class="btn-for-mobile"><button type="submit" class="btn-submit">{{_('Go')}}</button></p>
+            </form>
+          </div>
+        </div>
+        <div class="flt-item to-right">
+          <span class="flt-title">{{_('Sort')}}</span>
+          <div class="wrap-selectors">
+            <div class="selector-item orderby-selector">
+              <select name="orderby" class="orderby" aria-label="Shop order">
+                <option value="menu_order" selected="selected">{{_('Default sorting')}}</option>
+                <option value="popularity">{{_('Popularity')}}</option>
+                <option value="rating">{{_('Average rating')}}</option>
+                <option value="date">{{_('Newness')}}</option>
+                <option value="price">{{_('Price')}}: {{_('low to high')}}</option>
+                <option value="price-desc">{{_('Price')}}: {{_('high to low')}}</option>
+              </select>
+            </div>
+            <div class="selector-item viewmode-selector">
+              <a href="{{ url_for('commerce.v_grid') }}" class="viewmode grid-mode"><i class="biolife-icon icon-grid"></i></a>
+              <a href="{{ url_for('commerce.v_list') }}" class="viewmode detail-mode active"><i class="biolife-icon icon-list"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+<!--             views navbar selection       -->
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="p-3 alert alert-{{ category }}" role="alert">
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  {% block content %}{% endblock %}
+
+  {% block paginate %}{% endblock %}
+
+<!--         right block-sidebar        -->
+    </div>
+  </div>
+  <!-- Sidebar -->
+  <aside id="sidebar" class="sidebar col-lg-3 col-md-4 col-sm-12 col-xs-12">
+    <div class="biolife-mobile-panels">
+      <span class="biolife-current-panel-title">{{_('Sidebar')}}</span>
+      <a class="biolife-close-btn" href="#" data-object="open-mobile-filter">&times;</a>
+    </div>
+    <div class="sidebar-contain">
+      <div class="widget biolife-filter">
+        <h4 class="wgt-title">{{_('Categories')}}</h4>
+        <div class="wgt-content">
+          <ul class="cat-list">
+            {% for category in categories %}
+              <li class="cat-list-item">
+                <a href="#{{category.ResCatId}}" class="cat-link">{{category.ResCatName}}</a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+
+      <div class="widget price-filter biolife-filter">
+        <h4 class="wgt-title">{{_('Price')}}</h4>
+        <div class="wgt-content">
+          <div class="frm-contain">
+            <form action="#" name="price-filter" id="price-filter" method="get">
+              <p class="f-item">
+                <label for="pr-from">TMT</label>
+                <input class="input-number" type="number" id="pr-from" value="" name="price-from">
+              </p>
+              <p class="f-item">
+                <label for="pr-to">-> TMT</label>
+                <input class="input-number" type="number" id="pr-to" value="" name="price-from">
+              </p>
+              <p class="f-item"><button class="btn-submit" type="submit">{{_('Go')}}</button></p>
+            </form>
+          </div>
+          <ul class="check-list bold single">
+            <li class="check-list-item"><a href="#" class="check-link">TMT 0 - TMT 5</a></li>
+            <li class="check-list-item"><a href="#" class="check-link">TMT 5 - TMT 10</a></li>
+            <li class="check-list-item"><a href="#" class="check-link">TMT 15 - TMT 20</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="widget biolife-filter">
+        <h4 class="wgt-title">{{_('Brand')}}</h4>
+        <div class="wgt-content">
+          <ul class="check-list multiple">
+            {% for brand in brands %}
+              <li class="check-list-item"><a href="#" class="check-link">{{brand.BrandName}}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+
+      <div class="widget biolife-filter">
+        <h4 class="wgt-title">{{_('Color')}}</h4>
+        <div class="color">
           <div class="wgt-content">
-            <ul class="check-list bold single">
-              {% for size in sizes %}
-                <li class="check-list-item"><a href="#" class="check-link">{{size.SizeName}}</a></li>
+            <ul class="color-list check-list">
+              {% for color in colors %}
+                <li class="color-item">
+                  <a href="#" class="check-link"><span {% if color.ColorDesc %} title="{{ color.ColorDesc }}" {% endif %} class="symbol img-color" style="background: {{color.ColorCode}}"></span>{{color.ColorName}}</a>
+                </li>
               {% endfor %}
             </ul>
           </div>
         </div>
+      </div>
 
-        <div class="widget biolife-filter">
-          <h4 class="wgt-title">{{_('Recently viewed')}}</h4>
-          <div class="wgt-content">
-            <ul class="products">
-
-
-              <li class="pr-item">
-                <div class="contain-product style-widget">
-                  <div class="product-thumb">
-                    <a href="#" class="link-to-product" tabindex="0">
-                      <img loading="lazy" src="{{ url_for('static', filename='commerce/images/product/10.jpg') }}" alt="dd" width="270" height="270" class="product-thumnail">
-                    </a>
-                  </div>
-                  <div class="info">
-                    <b class="categories">Fresh Fruit</b>
-                    <h4 class="product-title"><a href="#" class="pr-name" tabindex="0">National Fresh Fruit</a></h4>
-                    <div class="price">
-                      <ins><span class="price-amount"><span class="currencySymbol">£</span>85.00</span></ins>
-                      <del><span class="price-amount"><span class="currencySymbol">£</span>95.00</span></del>
-                    </div>
-                  </div>
-                </div>
-              </li>
-
-
-            </ul>
-          </div>
+      <div class="widget biolife-filter">
+        <h4 class="wgt-title">{{_('Size')}}</h4>
+        <div class="wgt-content">
+          <ul class="check-list bold single">
+            {% for size in sizes %}
+              <li class="check-list-item"><a href="#" class="check-link">{{size.SizeName}}</a></li>
+            {% endfor %}
+          </ul>
         </div>
       </div>
-    </aside>
+
+      <div class="widget biolife-filter">
+        <h4 class="wgt-title">{{_('Recently viewed')}}</h4>
+        <div class="wgt-content">
+          <ul class="products">
+
+            <li class="pr-item">
+              <div class="contain-product style-widget">
+                <div class="product-thumb">
+                  <a href="#" class="link-to-product" tabindex="0">
+                    <img loading="lazy" src="{{ url_for('static', filename='commerce/images/product/10.jpg') }}" alt="dd" width="270" height="270" class="product-thumnail">
+                  </a>
+                </div>
+                <div class="info">
+                  <b class="categories">Fresh Fruit</b>
+                  <h4 class="product-title"><a href="#" class="pr-name" tabindex="0">National Fresh Fruit</a></h4>
+                  <div class="price">
+                    <ins><span class="price-amount"><span class="currencySymbol">£</span>85.00</span></ins>
+                    <del><span class="price-amount"><span class="currencySymbol">£</span>95.00</span></del>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+  </aside>
 
 <!--/        right block-sidebar             -->
-
 
   <!--Footer For Mobile-->
   <div class="mobile-footer">
@@ -521,21 +520,22 @@
       </div>
     </div>
   </div>
-    <a class="btn-scroll-top"><i class="biolife-icon icon-left-arrow"></i></a>
-    <script src="{{ url_for('static', filename='commerce/main/js/jquery-3.4.1.min.js') }}"></script>
-    <script type="text/javascript">
-      var url_prefix = "/commerce";
-    </script>
-    <script src="{{ url_for('static', filename='commerce/main/js/bootstrap.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='commerce/main/js/jquery.countdown.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='commerce/main/js/jquery.nice-select.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='commerce/main/js/jquery.nicescroll.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='commerce/main/js/slick.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='commerce/main/js/biolife.framework.js') }}"></script>
-    <script src="{{ url_for('static', filename='commerce/main/js/functions.js') }}"></script>
-    <script src="{{ url_for('static', filename='commerce/main/js/js.cookie.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='commerce/main/js/cartsAndCheckouts.js') }}"></script>
-    {% block scripts %}{% endblock %}
-  </body>
+  <a class="btn-scroll-top"><i class="biolife-icon icon-left-arrow"></i></a>
+  <script type="text/javascript">
+    var url_prefix = "/commerce";
+  </script>
+  <script src="{{ url_for('static', filename='commerce/main/js/jquery-3.4.1.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/main/js/bootstrap.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/main/js/jquery.countdown.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/main/js/jquery.nice-select.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/main/js/jquery.nicescroll.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/main/js/slick.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/main/js/biolife.framework.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/main/js/functions.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/main/js/js.cookie.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/main/js/main.js') }}"></script>
+  {% block scripts %}{% endblock %}
+  <script src="{{ url_for('static', filename='commerce/main/js/cartsAndCheckouts.js') }}"></script>
+</body>
 
 </html>

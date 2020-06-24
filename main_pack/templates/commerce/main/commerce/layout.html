@@ -110,7 +110,7 @@
               </a>
             {% else %}
               {% if company.CName %}
-              <a href="{{ url_for('commerce.commerce')}}" class="biolife-logo">{{company.CName}}</a>
+                <a href="{{ url_for('commerce.commerce')}}" class="biolife-logo">{{company.CName}}</a>
               {% endif %}
             {% endif %}
           </div>
@@ -120,10 +120,8 @@
                 <li class="menu-item"><a href="{{ url_for('commerce.commerce') }}">{{_('Home')}}</a></li>
                 <li class="menu-item"><a href="{{ url_for('commerce.about') }}">{{_('About us')}}</a></li>
                 <li class="menu-item"><a href="{{ url_for('commerce.contact') }}">{{_('Contact')}}</a></li>
-                <li class="menu-item"><a href="{{ url_for('commerce.v_grid') }}" class="viewmode grid-mode"><i
-                      class="biolife-icon icon-grid"></i></a></li>
-                <li class="menu-item"><a href="{{ url_for('commerce.v_list') }}" class="viewmode detail-mode active"><i
-                      class="biolife-icon icon-list"></i></a></li>
+                <li class="menu-item"><a href="{{ url_for('commerce.v_grid') }}" class="viewmode grid-mode"><i class="biolife-icon icon-grid"></i></a></li>
+                <li class="menu-item"><a href="{{ url_for('commerce.v_list') }}" class="viewmode detail-mode active"><i class="biolife-icon icon-list"></i></a></li>
               </ul>
             </div>
           </div>
@@ -165,7 +163,7 @@
                   </a>
                   <div class="cart-content">
                     <div class="cart-inner">
-                      <!--         USER's Cart here !!!       -->
+                      <!--         USER's Cart       -->
                       <ul class="products cartItemsList"></ul>
                       <p class="btn-control">
                         <a href="{{ url_for('commerce.cart') }}" class="btn view-cart"> {{_('View cart')}}</a>
@@ -205,7 +203,11 @@
                 <ul class="menu clone-main-menu">
                   {% for category in categories %}
                     <li class="menu-item menu-item-has-children has-child">
-                      <a href="#" class="menu-name" title="{{ category.ResCatDesc if category.ResCatDesc }}"><i class="material-icons">{{ category.ResCatIconName if category.ResCatIconName else "local_mall" }}</i> {{ category.ResCatName }}</a>
+                      <a href="#" class="menu-name" title="{{ category.ResCatDesc if category.ResCatDesc }}">
+                        {% if category.ResCatIconFilePath %}<img class="img-fluid" src="{{category.ResCatIconFilePath}}">{%endif%}
+                        {{ category.ResCatName }}
+                      </a>
+
                       {% for category in category.subcategories %}
                         <ul class="sub-menu" style="    transform: translateY(-48px);">
                         <h4 class="menu-title" title="{{ category.ResCatDesc if category.ResCatDesc }}">{{ category.ResCatName }}</h4>
@@ -234,8 +236,9 @@
               </form>
             </div>
             <div class="live-info">
-              {% if company.Phone1 %}<p class="telephone"><i class="fa fa-phone" aria-hidden="true"></i><b class="phone-number">{{
-                  company.Phone1 }}</b></p>{% endif %}
+              {% if company.Phone1 %}
+                <p class="telephone"><i class="fa fa-phone" aria-hidden="true"></i><b class="phone-number">{{ company.Phone1 }}</b></p>
+              {% endif %}
               {% if company.CWTime %}<p class="working-time">{{ company.CWTime }}</p>{% endif %}
             </div>
           </div>

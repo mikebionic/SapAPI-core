@@ -51,10 +51,10 @@
 {% for category in categories %}
 	{% if category.GCRecord == None or category.GCRecord == '' %}
 		<li class="menu-item menu-item-has-children has-megamenu">
-		  <a href="#" class="menu-name" {% if category.ResCatDesc %} title="{{ category.ResCatDesc }}" {% endif %}>
-		  	{% if category.ResCatIconFilePath %}<img class="img-fluid" src="{{category.ResCatIconFilePath}}">{%endif%}
-		  	{{ category.ResCatName }}
-		  	<i class="fas fa-times removeCategoryBtn" ownerCategory="{{ category.ResCatId }}" style="padding-left: 7px;"></i>
+		  <a href="#" class="menu-name"  title="{{ category.ResCatDesc if category.ResCatDesc }}">
+				{% if category.ResCatIconFilePath %}<img class="img-fluid" src="{{category.ResCatIconFilePath}}">{%endif%}
+				{{ category.ResCatName }}
+				<i class="fas fa-times removeCategoryBtn" ownerCategory="{{ category.ResCatId }}" style="padding-left: 7px;"></i>
 			</a>
 			<div class="wrap-megamenu lg-width-300 md-width-640">
 				<div class="mega-content">
@@ -64,14 +64,14 @@
 								{% if subcategory.GCRecord == None or subcategory.GCRecord == '' %}
 									{% if subcategory.ResOwnerCatId == category.ResCatId %}
 									<div class="wrap-custom-menu vertical-menu">
-										<h4 class="menu-title" {% if subcategory.ResCatDesc %} title="{{ subcategory.ResCatDesc }}" {% endif %}>{{ subcategory.ResCatName }}<a href="#" class="removeCategoryBtn" ownerCategory="{{ subcategory.ResCatId }}"><i class="fas fa-times" style="padding-left: 7px;"></i></a></h4>
+										<h4 class="menu-title"  title="{{ subcategory.ResCatDesc if subcategory.ResCatDesc }}">{{ subcategory.ResCatName }}<a href="#" class="removeCategoryBtn" ownerCategory="{{ subcategory.ResCatId }}"><i class="fas fa-times" style="padding-left: 7px;"></i></a></h4>
 										<div class="form-group">
 											<ul class="categoriesList{{ subcategory.ResCatId }}">
 												{% for subcategory_child in subcategory_children %}
 													{% if subcategory_child.GCRecord == None or subcategory_child.GCRecord == '' %}
 														{% if subcategory_child.ResOwnerCatId == subcategory.ResCatId %}
 														<div>
-															<li><a href="#" {% if subcategory_child.ResCatDesc %} title="{{ subcategory_child.ResCatDesc }}" {% endif %}>{{ subcategory_child.ResCatName }}</a><a href="#" class="removeCategoryBtn" ownerCategory="{{ subcategory_child.ResCatId }}"><i class="fas fa-times" style="padding-left: 7px;"></i></a></li>
+															<li><a href="#"  title="{{ subcategory_child.ResCatDesc if subcategory_child.ResCatDesc }}">{{ subcategory_child.ResCatName }}</a><a href="#" class="removeCategoryBtn" ownerCategory="{{ subcategory_child.ResCatId }}"><i class="fas fa-times" style="padding-left: 7px;"></i></a></li>
 														</div>
 														{% endif %}
 													{% endif %}

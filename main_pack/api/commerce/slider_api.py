@@ -4,7 +4,7 @@ from main_pack.api.commerce import api
 from main_pack.models.base.models import Company,Sl_image,Slider
 from sqlalchemy import or_, and_
 
-@api.route("/sliders/")
+@api.route("/tbl-dk-sliders/")
 def api_sliders():
 	company = Company.query.get(1)
 	sliders = Slider.query\

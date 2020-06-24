@@ -888,6 +888,7 @@ class Res_category(CreatedModifiedInfo,db.Model):
 			'ResCatName':self.ResCatName,
 			'ResCatDesc':self.ResCatDesc,
 			'ResCatIconName':self.ResCatIconName,
+			'ResCatIconFilePath':self.ResCatIconFilePath,
 			'CreatedDate':apiDataFormat(self.CreatedDate),
 			'ModifiedDate':apiDataFormat(self.ModifiedDate),
 			'CreatedUId':self.CreatedUId,
