@@ -7,41 +7,53 @@ from main_pack.commerce.admin import bp
 from main_pack.models.base.models import Slider,Sl_image
 from main_pack.commerce.admin.utils import addSliderDict,addSliderImageDict
 
-@bp.route('/ui/slider/', methods=['GET','POST','PUT'])
+@bp.route('/ui/slider/', methods=['POST','DELETE'])
 def ui_sliders():
-	if request.method == 'POST':
-		req = request.get_json()
-		slider = addSliderDict(req)
-		print(slider)
-		sliderId = req.get('sliderId')
-		print(sliderId)
-		# try:
-		if (sliderId == '' or sliderId == None):
-			print('committing')
-			newSlider = Slider(**slider)
-			db.session.add(newSlider)
-			db.session.commit()
-			response = jsonify({
-				'sliderId':newSlider.SlId,
-				'status':'created',
-				'responseText':gettext('Slider')+' '+gettext('successfully saved'),
-				'htmlData': render_template('commerce/admin/sliderAppend.html',slider=newSlider)
-				})
-		else:
-			print('updating')
+	try:
+		if request.method == 'POST':
+			req = request.get_json()
+			slider = addSliderDict(req)
+			print(slider)
+			sliderId = req.get('sliderId')
+			print(sliderId)
+			
+			if (sliderId == '' or sliderId == None):
+				print('committing')
+				newSlider = Slider(**slider)
+				db.session.add(newSlider)
+				db.session.commit()
+				response = jsonify({
+					'sliderId':newSlider.SlId,
+					'status':'created',
+					'responseText':gettext('Slider')+' '+gettext('successfully saved'),
+					'htmlData': render_template('commerce/admin/sliderAppend.html',slider=newSlider)
+					})
+			else:
+				print('updating')
+				thisSlider = Slider.query.get(sliderId)
+				print(thisSlider.SlId)
+				thisSlider.update(**slider)
+				db.session.commit()
+				response = jsonify({
+					'status':'updated',
+					'responseText':gettext('Slider')+' '+gettext('successfully updated'),
+					})			
+		elif request.method == 'DELETE':
+			req = request.get_json()
+			print(req)
+			sliderId = req.get('sliderId')
 			thisSlider = Slider.query.get(sliderId)
-			print(thisSlider.SlId)
-			thisSlider.update(**slider)
+			thisSlider.GCRecord = 1
 			db.session.commit()
 			response = jsonify({
-				'status':'updated',
-				'responseText':gettext('Slider')+' '+gettext('successfully updated'),
+				'status':'deleted',
+				'responseText':gettext('Slider')+' '+gettext('successfully deleted'),
 				})
-		# except:
-		# 	response = jsonify({
-		# 		'status':'error',
-		# 		'responseText':gettext('Unknown error!'),
-		# 		})
+	except:
+		response = jsonify({
+			'status':'error',
+			'responseText':gettext('Unknown error!'),
+			})
 	return response
 
 @bp.route('/ui/sl_image/', methods=['GET','POST','PUT'])

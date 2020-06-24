@@ -16,7 +16,7 @@ from werkzeug.utils import secure_filename
 # where to place this config in blueprints???
 # app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
-ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
+ALLOWED_EXTENSIONS = set(['png','jpg','jpeg','svg'])
 
 def allowed_file(filename):
 	return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -58,6 +58,47 @@ def ui_uploadImages():
 			uploadedFiles.append({
 				'fileName':filename,
 				'htmlData':render_template('/commerce/admin/imageAppend.html',
+					filename=filename,filepath=filepath),
+			})
+			success=True
+		else:
+			response[file.filename] = 'File type is not allowed'
+	response['files']=uploadedFiles
+	if success and response:
+		response['message'] = 'File(s) successfully uploaded'
+		resp = jsonify(response)
+		resp.status_code = 201
+		return resp
+	if success:
+		resp = jsonify({'message' : 'Files successfully uploaded'})
+		resp.status_code = 201
+		return resp
+	else:
+		resp = jsonify(response)
+		print("somethhing wrong")
+		resp.status_code = 400
+		return resp
+
+@bp.route('/ui/uploadSliderImages/',methods=['POST'])
+def ui_uploadSliderImages():
+	if 'files[]' not in request.files:
+		resp = jsonify({'message' : 'No file part in the request'})
+		resp.status_code = 400
+		return resp
+
+	files = request.files.getlist('files[]')
+	uploadedFiles=[]
+	response = {}
+	success = False
+	for file in files:
+		if file and allowed_file(file.filename):
+			print("its okay")
+			image = save_picture(file,"commerce/uploads")
+			filename = image['fileName']
+			filepath = image['filePath']
+			uploadedFiles.append({
+				'fileName':filename,
+				'htmlData':render_template('/commerce/admin/sliderImageAppend.html',
 					filename=filename,filepath=filepath),
 			})
 			success=True

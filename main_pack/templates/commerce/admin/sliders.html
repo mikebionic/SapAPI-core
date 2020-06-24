@@ -3,6 +3,12 @@
 {% block styles %}
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/chocolat/dist/css/chocolat.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/dropzonejs/dropzone.css') }}">
+
+  <!-- NOTHING IS WORKING HERE -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/bootstrap-daterangepicker/daterangepicker.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/css/style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/css/components.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}">
 {% endblock %}
 
 {% block content %}
@@ -21,24 +27,31 @@
       </div>
     </div>
   </div>
+  <div class="form-group">
+                      <label>Date Picker</label>
+                      <input type="text" class="form-control datepicker">
+                    </div>
 
   <div class="row slidersList">
     {% for slider in sliders %}
-      <div class="col-12 col-sm-6 col-lg-6">
+      <div class="col-12 col-sm-6 col-lg-6 sliderCard" ownerId={{slider.SlId}}>
         <div class="card">
           <div class="card-header">
-            <h4 class="sliderName" ownerId={{slider.SlId}} value={{slider.SlName}}>{{slider.SlName}}</h4>
+            <h4 class="sliderName" ownerId={{slider.SlId}}>{{slider.SlName}}</h4>
             <button class="btn btn-outline-info editSliderBtn" ownerId={{slider.SlId}}>{{_('Edit')}}</button>
+            <button class="btn btn-outline-success saveSliderBtn" ownerId={{slider.SlId}} style="display: none;">{{_('Save')}}</button>
+            <button class="btn btn-outline-warning cancelEditSliderBtn" ownerId={{slider.SlId}} style="display: none;">{{_('Cancel')}}</button>
+            <button class="btn btn-outline-danger deleteSliderBtn" ownerId={{slider.SlId}} style="display: none;"><i class="fas fa-trash-alt"></i></button>
           </div>
           <div class="card-body">
             <div class="section-title">{{_('Description')}}</div>
-            <div class="sliderDesc" ownerId={{slider.SlId}} value={{slider.SlDesc}}>{{slider.SlDesc}}</div>
+            <div class="sliderDesc" ownerId={{slider.SlId}}>{{slider.SlDesc}}</div>
             <br>
             {% if not slider['Sl_images'] %}
               <div class="gallery gallery-fw" data-item-height="100">
                 <div class="gallery-item" data-image="{{ url_for('static', filename='commerce/admin/commerce_styles/images/home/home1-banner1.jpg') }}"></div>
                 <div class="carousel_icon">
-                  <li><a href="#" class="btn btn-icon btn-light addSliderImageBtn" ownerId={{slider.SlId}}><i class="fas fa-plus"></i></a></li>
+                  <li><a href="#" class="btn btn-icon btn-light addSliderImageBtn" ownerId={{slider.SlId}} data-toggle="modal" data-target=".addSliderImageModal"><i class="fas fa-plus"></i></a></li>
                 </div>
               </div>
             {% else %}
@@ -46,20 +59,12 @@
                 <div class="gallery gallery-fw" data-item-height="100">
                   <div class="gallery-item" data-image="{{ sl_image.SlImgMainImgFilePathM }}"></div>
                   <div class="carousel_icon">
-                    <li><a href="#" class="btn btn-icon btn-light addSliderImageBtn" ownerId={{slider.SlId}}><i class="fas fa-plus"></i></a></li>
+                    <li><a href="#" class="btn btn-icon btn-light addSliderImageBtn" ownerId={{slider.SlId}} data-toggle="modal" data-target=".addSliderImageModal"><i class="fas fa-plus"></i></a></li>
                     <li><a href="{{ url_for('commerce_admin.remove_images',type='slider',imgId=sl_image.SlImgId) }}" class="btn btn-icon btn-light deleteSliderBtn"><i class="fas fa-trash-alt"></i></a></li>
                   </div>
                 </div>
               {% endfor %}
             {% endif %}
-          </div>
-          <div class="card uploadSliderCard" ownerId={{slider.SlId}} style="display: none;">
-            <div class="section-title">{{_('Upload images')}}</div>
-            <p id="msg"></p>
-            <div class="card-body">
-              <input class="custom-file-input" >
-              <button type="submit" class="btn btn-info" name="sliderForm">{{_('Save slider')}}</button>
-            </div>
           </div>
         </div>
       </div>
@@ -68,16 +73,56 @@
 
 {% endblock %}
 
+
+{% block modals %}
+  <div class="modal fade addSliderImageModal" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="formModal">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>{{_('Name')}}</label>
+            <input type="text" class="form-control" placeholder="{{_('Name')}}">
+          </div>
+          <div class="form-group">
+            <label>{{_('Description')}}</label>
+            <input type="text" class="form-control" placeholder="{{_('Description')}}">
+          </div>
+          <div class="form-group">
+            <label>{{_('Start date')}}</label>
+            <input type="text" class="form-control datepicker">
+          </div>
+          <div class="form-group">
+            <label>{{_('End date')}}</label>
+            <input type="text" class="form-control datepicker">
+          </div>
+
+          <div class="sliderImagesList"></div>
+          <input type="file" class="custom-file-input" id="multiFiles" name="files[]" multiple="multiple"/>
+          <br>
+          <button id="upload" ownerId class="btn btn-outline-info">{{_('Upload')}}</button>
+
+        </div>
+        <button type="button" class="btn btn-primary m-t-15 waves-effect">{{_('Save')}}</button>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
 {% block scripts %}
-  <script type="text/javascript">
-    
-    ///////////////////////////////
-    
-    ///////////////////
-  </script>
+  <script src="{{ url_for('static', filename='commerce/admin/js/sliders.js') }}"></script>
+
+  <!-- DO WE NEED THESE JS FILES?? -->
   <script src="{{ url_for('static', filename='commerce/admin/bundles/chocolat/dist/js/jquery.chocolat.min.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/js/page/gallery1.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/bundles/dropzonejs/min/dropzone.min.js') }}"></script>
 
-  <script src="{{ url_for('static', filename='commerce/admin/js/sliders.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/admin/bundles/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/admin/js/page/forms-advanced-forms.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/admin/js/scripts.js') }}"></script>
 {% endblock %}
