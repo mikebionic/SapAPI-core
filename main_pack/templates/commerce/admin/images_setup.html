@@ -62,7 +62,7 @@
               <div class="gallery gallery-fw" data-item-height="100">
                 <div class="gallery-item" data-image="{{ url_for('static', filename='commerce/admin/commerce_styles/images/home/home1-banner1.jpg') }}"></div>
                 <div class="carousel_icon">
-                  <li><a href="#" class="btn btn-icon btn-light addSliderBtn"><i class="fas fa-plus"></i></a></li>
+                  <li><a href="#" class="btn btn-icon btn-light addSliderImageBtn"><i class="fas fa-plus"></i></a></li>
                 </div>
               </div>
             {% else %}
@@ -70,7 +70,7 @@
                 <div class="gallery gallery-fw" data-item-height="100">
                   <div class="gallery-item" data-image="{{ url_for('static', filename=sl_image.SlImgMainImgFileName.replace('<FSize>','M')) }}"></div>
                   <div class="carousel_icon">
-                    <li><a href="#" class="btn btn-icon btn-light addSliderBtn"><i class="fas fa-plus"></i></a></li>
+                    <li><a href="#" class="btn btn-icon btn-light addSliderImageBtn"><i class="fas fa-plus"></i></a></li>
                     <li><a href="{{ url_for('commerce_admin.remove_images',type='slider',imgId=sl_image.SlImgId) }}" class="btn btn-icon btn-light deleteSliderBtn"><i class="fas fa-trash-alt"></i></a></li>
                   </div>
                 </div>
@@ -100,7 +100,7 @@
 
 {% block scripts %}
   <script type="text/javascript">
-    $('.addSliderBtn').click(function(e){
+    $('.addSliderImageBtn').click(function(e){
       $('.uploadSliderCard').show('slow');
     })
     $('.addLogoBtn').click(function(e){

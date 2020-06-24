@@ -217,7 +217,11 @@ def saveImageFile(req):
 		imageFile = save_image(savedImage=dumpImagePath,module=module,id=id)
 
 		for data in imageFile:
-			image[data]=imageFile[data]
+			# Image db is currently not supporting this
+			# this will change later on
+			if data != "FilePath":
+				image[data]=imageFile[data]
+	
 
 	image=configureNulls(image)
 

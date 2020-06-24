@@ -72,3 +72,27 @@ def remove_images():
 	except:
 		flash("Error, unable to execute this",'warning')
 	return redirect(url_for('commerce_admin.images_setup'))
+
+
+@bp.route("/admin/sliders", methods=['GET', 'POST'])
+@login_required
+def sliders():
+
+	sliders = Slider.query\
+		.filter(Slider.GCRecord=='' or Slider.GCRecord==None).all()
+	slidersData = []
+	for slider in sliders:
+		sliderList = slider.to_json_api()
+
+		sl_images = Sl_image.query\
+			.filter(and_(Sl_image.SlId==slider.SlId,Sl_image.GCRecord==None)).all()
+		
+		slider_images = []
+		for sl_image in sl_images:
+			slider_images.append(sl_image.to_json_api())
+
+		sliderList["Sl_images"] = slider_images
+		slidersData.append(sliderList)
+
+	return render_template('commerce/admin/sliders.html',title=gettext('Setup images'),
+		sliders=slidersData)

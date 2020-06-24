@@ -603,7 +603,7 @@ class Sl_image(AddInf,CreatedModifiedInfo,db.Model):
 			'SlId':self.SlId,
 			'SlImgName':self.SlImgName,
 			'SlImgDesc':self.SlImgDesc,
-			# 'SlImgMainImgFileName':fileToURL(fileType="slider",name=self.SlImgName),
+			'SlImgMainImgFileName':fileToURL(fileType="slider",name=self.SlImgName),
 			'SlImgMainImgFilePathS':fileToURL(fileType="slider",size='S',name=self.SlImgName),
 			'SlImgMainImgFilePathM':fileToURL(fileType="slider",size='M',name=self.SlImgName),
 			'SlImgMainImgFilePathR':fileToURL(fileType="slider",size='R',name=self.SlImgName),

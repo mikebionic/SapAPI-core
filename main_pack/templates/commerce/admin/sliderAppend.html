@@ -1,0 +1,38 @@
+<div class="col-12 col-sm-6 col-lg-6">
+  <div class="card">
+    <div class="card-header">
+      <h4>{{slider.SlName}}</h4>
+      <button class="btn btn-outline-info">Edit</button>
+    </div>
+    <div class="card-body">
+      <div class="section-title">{{_('Name')}}</div>
+      <div class="sliderName">{{slider.SlName}}</div>
+      <div class="section-title">{{_('Description')}}</div>
+      <div class="sliderDesc">{{slider.SlDesc}}</div>
+      <br>
+      <div class="gallery gallery-fw" data-item-height="100">
+        <div class="gallery-item" data-image="{{ url_for('static', filename='commerce/admin/commerce_styles/images/home/home1-banner1.jpg') }}"></div>
+        <div class="carousel_icon">
+          <li><a href="#" class="btn btn-icon btn-light addSliderImageBtn" ownerId={{slider.SlId}}><i class="fas fa-plus"></i></a></li>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="card uploadSliderCard" style="display: none;">
+    <div class="section-title">{{_('Upload images')}}</div>
+    <p id="msg"></p>
+    <div class="card-body">
+      <input class="custom-file-input" >
+      <button type="submit" class="btn btn-info" name="sliderForm">{{_('Save slider')}}</button>
+    </div>
+    <div class="card uploadSliderCard" ownerId={{slider.SlId}} style="display: none;">
+      <div class="section-title">{{_('Upload images')}}</div>
+      <p id="msg"></p>
+      <div class="card-body">
+        <input class="custom-file-input" >
+        <button type="submit" class="btn btn-info" name="sliderForm">{{_('Save slider')}}</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,83 @@
+{% extends "commerce/admin/layout.html" %}
+
+{% block styles %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/chocolat/dist/css/chocolat.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/dropzonejs/dropzone.css') }}">
+{% endblock %}
+
+{% block content %}
+  <button class="btn btn-primary newSliderBtn"><i data-feather="plus-square"></i></button>
+  <div class="row newSliderCard" style="display: none;">
+    <div class="col-12 col-sm-6 col-lg-6">
+      <div class="card">
+        <div class="card-header">
+          <h4>{{_('New Slider')}}</h4>
+        </div>
+        <div class="card-body">
+          <input type="text" class="form-control sliderName" placeholder="{{_('Name')}}">
+          <textarea class="form-control sliderDesc" placeholder="{{_('Description')}}"></textarea>
+        </div>
+        <button class="btn btn-outline-info saveSliderBtn">{{_('Add')}}</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row slidersList">
+    {% for slider in sliders %}
+      <div class="col-12 col-sm-6 col-lg-6">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="sliderName" ownerId={{slider.SlId}} value={{slider.SlName}}>{{slider.SlName}}</h4>
+            <button class="btn btn-outline-info editSliderBtn" ownerId={{slider.SlId}}>{{_('Edit')}}</button>
+          </div>
+          <div class="card-body">
+            <div class="section-title">{{_('Description')}}</div>
+            <div class="sliderDesc" ownerId={{slider.SlId}} value={{slider.SlDesc}}>{{slider.SlDesc}}</div>
+            <br>
+            {% if not slider['Sl_images'] %}
+              <div class="gallery gallery-fw" data-item-height="100">
+                <div class="gallery-item" data-image="{{ url_for('static', filename='commerce/admin/commerce_styles/images/home/home1-banner1.jpg') }}"></div>
+                <div class="carousel_icon">
+                  <li><a href="#" class="btn btn-icon btn-light addSliderImageBtn" ownerId={{slider.SlId}}><i class="fas fa-plus"></i></a></li>
+                </div>
+              </div>
+            {% else %}
+              {% for sl_image in slider['Sl_images'] %}
+                <div class="gallery gallery-fw" data-item-height="100">
+                  <div class="gallery-item" data-image="{{ sl_image.SlImgMainImgFilePathM }}"></div>
+                  <div class="carousel_icon">
+                    <li><a href="#" class="btn btn-icon btn-light addSliderImageBtn" ownerId={{slider.SlId}}><i class="fas fa-plus"></i></a></li>
+                    <li><a href="{{ url_for('commerce_admin.remove_images',type='slider',imgId=sl_image.SlImgId) }}" class="btn btn-icon btn-light deleteSliderBtn"><i class="fas fa-trash-alt"></i></a></li>
+                  </div>
+                </div>
+              {% endfor %}
+            {% endif %}
+          </div>
+          <div class="card uploadSliderCard" ownerId={{slider.SlId}} style="display: none;">
+            <div class="section-title">{{_('Upload images')}}</div>
+            <p id="msg"></p>
+            <div class="card-body">
+              <input class="custom-file-input" >
+              <button type="submit" class="btn btn-info" name="sliderForm">{{_('Save slider')}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+{% endblock %}
+
+{% block scripts %}
+  <script type="text/javascript">
+    
+    ///////////////////////////////
+    
+    ///////////////////
+  </script>
+  <script src="{{ url_for('static', filename='commerce/admin/bundles/chocolat/dist/js/jquery.chocolat.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/admin/js/page/gallery1.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/admin/bundles/dropzonejs/min/dropzone.min.js') }}"></script>
+
+  <script src="{{ url_for('static', filename='commerce/admin/js/sliders.js') }}"></script>
+{% endblock %}

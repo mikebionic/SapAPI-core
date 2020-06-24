@@ -120,6 +120,63 @@ def resRelatedData():
 
 	return resRelatedData
 
+########### to dict methods ########
+
+def addSliderDict(req):
+	SlId = req.get('sliderId')
+	CId = req.get('companyId')
+	DivId = req.get('divisionId')
+	SlName = req.get('sliderName')
+	SlDesc = req.get('sliderDesc')
+	slider = {
+		'CId':CId,
+		'DivId':DivId,
+		'SlName':SlName,
+		'SlDesc':SlDesc,
+	}
+	if(SlId != '' and SlId != None):
+		slider['SlId']=SlId
+	slider=configureNulls(slider)
+	return slider
+
+	# slider_forms = ['sliderId','companyId','divisionId','sliderName','sliderDesc']
+
+def addSliderImageDict(req):
+	SlImgId = req.get('sliderImgId')
+	SlId = req.get('sliderId')
+	SlImgName = req.get('sliderImgName')
+	SlImgDesc = req.get('sliderImgDesc')
+	SlImgMainImgFileName = req.get('sliderImgMainImgFileName')
+	SlImgSubImageFileName1 = req.get('sliderImgSubImageFileName1')
+	SlImgSubImageFileName2 = req.get('sliderImgSubImageFileName2')
+	SlImgSubImageFileName3 = req.get('sliderImgSubImageFileName3')
+	SlImgSubImageFileName4 = req.get('sliderImgSubImageFileName4')
+	SlImgSubImageFileName5 = req.get('sliderImgSubImageFileName5')
+	SlImgStartDate = req.get('sliderImgStartDate')
+	SlImgEndDate = req.get('sliderImgEndDate')
+
+	slider_image = {
+		'SlId':self.SlId,
+		'SlImgName':self.SlImgName,
+		'SlImgDesc':self.SlImgDesc,
+		'SlImgMainImgFileName':self.SlImgMainImgFileName,
+		'SlImgSubImageFileName1':self.SlImgSubImageFileName1,
+		'SlImgSubImageFileName2':self.SlImgSubImageFileName2,
+		'SlImgSubImageFileName3':self.SlImgSubImageFileName3,
+		'SlImgSubImageFileName4':self.SlImgSubImageFileName4,
+		'SlImgSubImageFileName5':self.SlImgSubImageFileName5,
+		'SlImgStartDate':self.SlImgStartDate,
+		'SlImgEndDate':self.SlImgEndDate,
+	}
+	if(SlImgId != '' and SlImgId != None):
+		slider_image['SlImgId']=SlImgId
+	slider_image=configureNulls(slider_image)
+	return slider_image
+
+# sider_image_forms = ['sliderImgId','sliderId','sliderImgName','sliderImgDesc',
+# 	'sliderImgMainImgFileName','sliderImgSubImageFileName1','sliderImgSubImageFileName2',
+# 	'sliderImgSubImageFileName3','sliderImgSubImageFileName4','sliderImgSubImageFileName5',
+# 	'sliderImgStartDate','sliderImgEndDate']
 
 def addCategoryDict(req):
 	ResOwnerCatId = req.get('ownerCategory')

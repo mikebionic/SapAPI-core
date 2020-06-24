@@ -19,6 +19,7 @@ from main_pack.commerce.admin.forms import InvStatusForm
 import os
 from flask import current_app
 
+@bp.route("/admin")
 @bp.route("/admin/dashboard")
 @login_required
 @admin_required()

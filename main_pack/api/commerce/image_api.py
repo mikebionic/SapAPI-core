@@ -93,7 +93,7 @@ def get_image(image_size,image_name):
 	elif image_size=="R":
 		path = image.FilePathR
 	try:
-		if current_app.config['OS_TYPE']=='windows':
+		if current_app.config['OS_TYPE']=='win32':
 			response = send_from_directory('static',filename=path.replace("\\","/"),as_attachment=True)
 		else:
 			response = send_from_directory('static',filename=path,as_attachment=True)
@@ -112,7 +112,7 @@ def get_image_test(fileType,file_size,file_name):
 		# image = Image.query.filter(Image.FileName==file_name).first()
 		# path = image.FilePath
 	try:
-		if current_app.config['OS_TYPE']=='windows':
+		if current_app.config['OS_TYPE']=='win32':
 			response = send_from_directory('static',
 				filename=path.replace("\\","/").replace("<FSize>",file_size),as_attachment=True)
 		else:
@@ -128,7 +128,7 @@ def get_file(fileType,fileName):
 		sl_image = Sl_image.query.filter(Sl_image.SlImgName==fileName).first()
 		path = sl_image.SlImgMainImgFileName
 	try:
-		if current_app.config['OS_TYPE']=='windows':
+		if current_app.config['OS_TYPE']=='win32':
 			response = send_from_directory('static',filename=path.replace("\\","/"),as_attachment=True)
 		else:
 			response = send_from_directory('static',filename=path,as_attachment=True)
@@ -142,7 +142,10 @@ def get_icon(category,file_name):
 	icons_path = os.path.join("commerce","icons","categories")
 	full_icon_path = os.path.join(icons_path,category,file_name)
 	try:
-		response = send_from_directory('static',filename=full_icon_path,as_attachment=True)
+		if current_app.config['OS_TYPE']=='win32':
+			response = send_from_directory('static',filename=full_icon_path.replace("\\","/"),as_attachment=True)
+		else:
+			response = send_from_directory('static',filename=full_icon_path,as_attachment=True)
 		return response
 	except FileNotFoundError:
 		abort(404)
