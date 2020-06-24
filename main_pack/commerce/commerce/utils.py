@@ -11,16 +11,22 @@ from main_pack.base.languageMethods import dataLangSelector
 
 def slidersData():
 	slider = Slider.query.get(1)
-	sl_images = Sl_image.query.filter(and_(Sl_image.SlId==slider.SlId, Sl_image.GCRecord==None)).all()
-	List_FileName = [sl_image.SlImgName for sl_image in sl_images]
-	imagesList = []
-	for imageName in List_FileName:
-		sliderImage = {}
-		sliderImage["FilePath"] = fileToURL(fileType="slider",name=imageName) if List_FileName else ''
-		imagesList.append(sliderImage)
-	res = {
-		'sl_images':imagesList
-	}
+	if slider:
+		sl_images = Sl_image.query.filter(and_(Sl_image.SlId==slider.SlId, Sl_image.GCRecord==None)).all()
+		List_FileName = [sl_image.SlImgName for sl_image in sl_images]
+		print(List_FileName)
+		imagesList = []
+		for imageName in List_FileName:
+			sliderImage = {}
+			sliderImage['SlImgMainImgFilePathS']=fileToURL(fileType="slider",size='S',name=imageName) if List_FileName else ''
+			sliderImage['SlImgMainImgFilePathM']=fileToURL(fileType="slider",size='M',name=imageName) if List_FileName else ''
+			sliderImage['SlImgMainImgFilePathR']=fileToURL(fileType="slider",size='R',name=imageName) if List_FileName else ''
+			imagesList.append(sliderImage)
+
+		print(imagesList)
+		res = {
+			'sl_images':imagesList
+		}
 	return res
 
 def UiCategoriesList():
