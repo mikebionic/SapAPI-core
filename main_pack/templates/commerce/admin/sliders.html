@@ -26,6 +26,7 @@
       <div class="col-12 col-sm-6 col-lg-6 sliderCard" ownerId={{slider.SlId}}>
         <div class="card">
           <div class="card-header">
+            <input type="hidden" class="sliderId" ownerId="{{slider.SlId}}" value="{{slider.SlId}}">
             <h4 class="sliderName" ownerId={{slider.SlId}}>{{slider.SlName}}</h4>
             <button class="btn btn-icon icon-left btn-outline-info editSliderBtn" ownerId={{slider.SlId}}><i class="far fa-edit"></i> {{_('Edit')}}</button>
             <button class="btn btn-outline-success saveSliderBtn" ownerId={{slider.SlId}} style="display: none;">{{_('Save')}}</button>

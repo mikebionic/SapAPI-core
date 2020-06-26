@@ -320,6 +320,7 @@ class Image(CreatedModifiedInfo,db.Model):
 	RpAccId = db.Column(db.Integer,db.ForeignKey("tbl_dk_rp_acc.RpAccId"))
 	ResId = db.Column(db.Integer,db.ForeignKey("tbl_dk_resource.ResId"))
 	FileName = db.Column(db.String(100))
+	FilePath = db.Column(db.String(255))
 	FilePathS = db.Column(db.String(255))
 	FilePathM = db.Column(db.String(255))
 	FilePathR = db.Column(db.String(255))	
@@ -354,9 +355,10 @@ class Image(CreatedModifiedInfo,db.Model):
 			'RpAccId':self.RpAccId,
 			'ResId':self.ResId,
 			'FileName':self.FileName,
-			'FilePathS':fileToURL(size='S',name=self.FileName),
-			'FilePathM':fileToURL(size='M',name=self.FileName),
-			'FilePathR':fileToURL(size='R',name=self.FileName),
+			'FilePath':fileToURL(file_type='image',file_size='M',file_name=self.FileName),
+			'FilePathS':fileToURL(file_type='image',file_size='S',file_name=self.FileName),
+			'FilePathM':fileToURL(file_type='image',file_size='M',file_name=self.FileName),
+			'FilePathR':fileToURL(file_type='image',file_size='R',file_name=self.FileName),
 			# 'FileHash':self.FileHash,
 			# # 'Image':base64.encodebytes(self.Image).decode('ascii'),
 			# 'Image':apiCheckImageByte(self.Image),
@@ -603,10 +605,10 @@ class Sl_image(AddInf,CreatedModifiedInfo,db.Model):
 			'SlId':self.SlId,
 			'SlImgName':self.SlImgName,
 			'SlImgDesc':self.SlImgDesc,
-			'SlImgMainImgFileName':fileToURL(fileType="slider",name=self.SlImgName),
-			'SlImgMainImgFilePathS':fileToURL(fileType="slider",size='S',name=self.SlImgName),
-			'SlImgMainImgFilePathM':fileToURL(fileType="slider",size='M',name=self.SlImgName),
-			'SlImgMainImgFilePathR':fileToURL(fileType="slider",size='R',name=self.SlImgName),
+			'SlImgMainImgFileName':fileToURL(file_type="slider",file_size='M',file_name=self.SlImgName),
+			'SlImgMainImgFilePathS':fileToURL(file_type="slider",file_size='S',file_name=self.SlImgName),
+			'SlImgMainImgFilePathM':fileToURL(file_type="slider",file_size='M',file_name=self.SlImgName),
+			'SlImgMainImgFilePathR':fileToURL(file_type="slider",file_size='R',file_name=self.SlImgName),
 			'SlImgSubImageFileName1':self.SlImgSubImageFileName1,
 			'SlImgSubImageFileName2':self.SlImgSubImageFileName2,
 			'SlImgSubImageFileName3':self.SlImgSubImageFileName3,

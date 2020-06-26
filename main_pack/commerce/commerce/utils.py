@@ -67,9 +67,7 @@ def UiCategoriesList():
 	company_logo = Image.query.filter(and_(Image.CId==company.CId, Image.GCRecord==None))\
 		.order_by(Image.CreatedDate.desc()).first()
 	if company_logo:
-		logoIcon["FilePathS"] = fileToURL(size='S',name=company_logo.FileName)
-		logoIcon["FilePathM"] = fileToURL(size='M',name=company_logo.FileName)
-		logoIcon["FilePathR"] = fileToURL(size='R',name=company_logo.FileName)
+		logoIcon["FilePath"] = fileToURL(file_type='image',file_name=company_logo.FileName)
 
 	res = {
 		"categories":data,
@@ -77,7 +75,6 @@ def UiCategoriesList():
 		"company_logo":logoIcon
 	}
 	return res
-
 
 def commonUsedData():
 	commonData = {}
@@ -250,9 +247,9 @@ def UiResLimitedList(amount):
 		resourceList["ResCatName"] = List_Res_category[0] if List_Res_category else ''
 		resourceList["ResPriceValue"] = List_Res_price[0] if List_Res_price else ''
 		resourceList["ResTotBalance"] = List_Res_total[0] if List_Res_total else ''
-		resourceList["FilePathS"] = fileToURL(size='S',name=List_FileName[0]) if List_FileName else ''
-		resourceList["FilePathM"] = fileToURL(size='M',name=List_FileName[0]) if List_FileName else ''
-		resourceList["FilePathR"] = fileToURL(size='R',name=List_FileName[0]) if List_FileName else ''
+		resourceList["FilePathS"] = fileToURL(file_size='S',file_name=List_FileName[0]) if List_FileName else ''
+		resourceList["FilePathM"] = fileToURL(file_size='M',file_name=List_FileName[0]) if List_FileName else ''
+		resourceList["FilePathR"] = fileToURL(file_size='R',file_name=List_FileName[0]) if List_FileName else ''
 
 		resourceList["Colors"] = List_Colors if List_Colors else ''
 		resourceList["Sizes"] = List_Sizes if List_Sizes else ''
@@ -328,9 +325,9 @@ def UiResourcesList():
 		resourceList["ResCatName"] = List_Res_category[0] if List_Res_category else ''
 		resourceList["ResPriceValue"] = List_Res_price[0] if List_Res_price else ''
 		resourceList["ResTotBalance"] = List_Res_total[0] if List_Res_total else ''
-		resourceList["FilePathS"] = fileToURL(size='S',name=List_FileName[0]) if List_FileName else ''
-		resourceList["FilePathM"] = fileToURL(size='M',name=List_FileName[0]) if List_FileName else ''
-		resourceList["FilePathR"] = fileToURL(size='R',name=List_FileName[0]) if List_FileName else ''
+		resourceList["FilePathS"] = fileToURL(file_size='S',file_name=List_FileName[0]) if List_FileName else ''
+		resourceList["FilePathM"] = fileToURL(file_size='M',file_name=List_FileName[0]) if List_FileName else ''
+		resourceList["FilePathR"] = fileToURL(file_size='R',file_name=List_FileName[0]) if List_FileName else ''
 
 		data.append(resourceList)
 	res = {
@@ -385,9 +382,9 @@ def UiPaginatedResList(product_list):
 		resourceList["ResCatName"] = List_Res_category[0] if List_Res_category else ''
 		resourceList["ResPriceValue"] = List_Res_price[0] if List_Res_price else ''
 		resourceList["ResTotBalance"] = List_Res_total[0] if List_Res_total else ''
-		resourceList["FilePathS"] = fileToURL(size='S',name=List_FileName[0]) if List_FileName else ''
-		resourceList["FilePathM"] = fileToURL(size='M',name=List_FileName[0]) if List_FileName else ''
-		resourceList["FilePathR"] = fileToURL(size='R',name=List_FileName[0]) if List_FileName else ''
+		resourceList["FilePathS"] = fileToURL(file_size='S',file_name=List_FileName[0]) if List_FileName else ''
+		resourceList["FilePathM"] = fileToURL(file_size='M',file_name=List_FileName[0]) if List_FileName else ''
+		resourceList["FilePathR"] = fileToURL(file_size='R',file_name=List_FileName[0]) if List_FileName else ''
 
 		resourceList["Colors"] = List_Colors if List_Colors else ''
 		resourceList["Sizes"] = List_Sizes if List_Sizes else ''

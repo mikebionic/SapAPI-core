@@ -1,5 +1,5 @@
 from flask import render_template,url_for,json,jsonify,session,flash,redirect,request,Response
-from main_pack.base.imageMethods import save_image
+from main_pack.base.imageMethods import save_image,save_icon
 from main_pack.commerce.admin import bp
 from flask_login import current_user,login_required
 from main_pack import db,babel,gettext,lazy_gettext
@@ -14,45 +14,23 @@ from main_pack.commerce.admin.forms import LogoImageForm,SliderImageForm
 @login_required
 def images_setup():
 	company = Company.query.get(1)
-	slider = Slider.query.get(1)
-
-	# I will leave it here for a while
-	if not slider:
-		slider = Slider(SlName="Nav slider",CId=1)
-		db.session.add(slider)
-		db.session.commit()
-
-	sl_images = Sl_image.query.filter(and_(Sl_image.SlId==slider.SlId, Sl_image.GCRecord==None)).all()
-
+	
 	company_logo = Image.query.filter(and_(Image.CId==company.CId, Image.GCRecord==None)).order_by(Image.CreatedDate.desc()).first()
 
-	sliderForm = SliderImageForm()
 	logoForm = LogoImageForm()
-
-	if "sliderForm" in request.form and sliderForm.validate_on_submit():
-		if sliderForm.sliderImage.data:
-
-			imageFile = save_image(imageForm=sliderForm.sliderImage.data,module=os.path.join("uploads","commerce","Slider"),id=slider.SlId)
-			image = Sl_image(SlImgName=imageFile['FileName'],SlImgMainImgFileName=imageFile['FilePath'],SlId=slider.SlId)
-			db.session.add(image)
-			db.session.commit()
-
-		flash(lazy_gettext('Slider picture successfully uploaded!'),'success')
-		return redirect(url_for('commerce_admin.images_setup'))
 
 	if "logoForm" in request.form and logoForm.validate_on_submit():
 		if logoForm.logoImage.data:
 
-			imageFile = save_image(imageForm=logoForm.logoImage.data,module=os.path.join("uploads","commerce","Company"),id=company.CId)
-			image = Image(FileName=imageFile['FileName'],FilePathR=imageFile['FilePathR'],FilePathM=imageFile['FilePathM'],
-				FilePathS=imageFile['FilePathS'],CId=company.CId)
+			imageFile = save_icon(imageForm=logoForm.logoImage.data,module=os.path.join("uploads","commerce","Company"),id=company.CId)
+			image = Image(FileName=imageFile['FileName'],FilePath=imageFile['FilePath'],CId=company.CId)
 			db.session.add(image)
 			db.session.commit()
 
 		flash(lazy_gettext('Company logo successfully uploaded!'), 'success')
 		return redirect(url_for('commerce_admin.images_setup'))
 	return render_template('commerce/admin/images_setup.html',title=gettext('Setup images'),
-		logoForm=logoForm,sliderForm=sliderForm,sl_images=sl_images,company_logo=company_logo)
+		logoForm=logoForm,company_logo=company_logo)
 
 @bp.route("/remove_images")
 @login_required
@@ -78,6 +56,13 @@ def remove_images():
 @bp.route("/admin/sliders", methods=['GET', 'POST'])
 @login_required
 def sliders():
+	# handler for commerce view
+	header_slider = Slider.query\
+		.filter(and_(Slider.GCRecord=='' or Slider.GCRecord==None),Slider.SlName=='commerce_header').first()
+	if header_slider is None:
+		slider = Slider(SlName="commerce_header")
+		db.session.add(slider)
+		db.session.commit()
 
 	sliders = Slider.query\
 		.filter(Slider.GCRecord=='' or Slider.GCRecord==None).all()

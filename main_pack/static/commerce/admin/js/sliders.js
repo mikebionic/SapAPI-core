@@ -6,9 +6,11 @@ sider_image_forms = ['sliderImgId','sliderId','sliderImgName','sliderImgDesc',
 	'sliderImgStartDate','sliderImgEndDate']
 
 $("body").delegate('.saveSliderBtn','click',function(event){
-	sliderData = prepareFormData(slider_forms,'');
+	ownerId = $(this).attr('ownerId');
+	console.log("savig slider. owner is "+ownerId)
+	sliderData = prepareOwnerFormData(slider_forms,ownerId);
 	console.log(sliderData);
-	if (validateInput(required_slider_fields)==true){
+	if (validateOwnerInput(required_slider_fields,ownerId)==true){
 		postData(sliderData,url_prefix+"/ui/slider/",'POST',slider_forms[0],'slidersList','htmlData');
 	}
 	event.preventDefault();
@@ -28,7 +30,7 @@ var postData = function(formData,url,type,formId,listName,responseForm){
 		type:type,
 		url:url,
 		success:function(response){
-			if (response.status == 'created') {
+			if (response.status == 'created'){
 				$('.'+listName).prepend(response[responseForm]);
 				successToaster(response.responseText);
 				clearNewSliderFields()
@@ -68,8 +70,8 @@ function editSlidersUi(ownerId){
 	$('.deleteSliderBtn'+'[ownerId='+ownerId+']').show('slow');
 	var currentName = $('.sliderName'+'[ownerId='+ownerId+']').text();
 	var currentDesc = $('.sliderDesc'+'[ownerId='+ownerId+']').text();
-	$('div .sliderName'+'[ownerId='+ownerId+']').html("<input class='form-control sliderName' ownderId="+ownerId+" value="+"'"+currentName+"'"+" >");
-	$('div .sliderDesc'+'[ownerId='+ownerId+']').html("<input class='form-control sliderDesc' ownderId="+ownerId+" value="+"'"+currentDesc+"'"+" >");
+	$('.sliderName'+'[ownerId='+ownerId+']').replaceWith("<input class='form-control sliderName' ownerId="+ownerId+" value="+"'"+currentName+"'"+" >");
+	$('.sliderDesc'+'[ownerId='+ownerId+']').replaceWith("<input class='form-control sliderDesc' ownerId="+ownerId+" value="+"'"+currentDesc+"'"+" >");
 	
 	$('body').delegate('.cancelEditSliderBtn','click',function(){
 		ownerId = $(this).attr('ownerId');
@@ -81,8 +83,8 @@ function cancelEditSlidersUi(ownerId,oldName,oldDesc){
 	$('.saveSliderBtn'+'[ownerId='+ownerId+']').hide('slow');
 	$('.cancelEditSliderBtn'+'[ownerId='+ownerId+']').hide('slow');
 	$('.deleteSliderBtn'+'[ownerId='+ownerId+']').hide('slow');
-	$('.sliderName'+'[ownerId='+ownerId+']').html("<div class='sliderName' ownderId="+ownerId+">"+oldName+"</div>");
-	$('.sliderDesc'+'[ownerId='+ownerId+']').html("<div class='sliderDesc' ownderId="+ownerId+">"+oldDesc+"</div>");
+	$('.sliderName'+'[ownerId='+ownerId+']').replaceWith("<h4 class='sliderName' ownerId="+ownerId+">"+oldName+"</h4>");
+	$('.sliderDesc'+'[ownerId='+ownerId+']').replaceWith("<div class='sliderDesc' ownerId="+ownerId+">"+oldDesc+"</div>");
 }
 
 // other UI actions

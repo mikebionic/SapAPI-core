@@ -102,19 +102,20 @@ def get_image(image_size,image_name):
 		abort(404)
 
 
-@api.route("/get-image/<fileType>/<file_size>/<file_name>")
-def get_image_test(fileType,file_size,file_name):
-	if fileType=="slider":
+@api.route("/get-image/<file_type>/<file_size>/<file_name>")
+def get_image_test(file_type,file_size,file_name):
+	if file_type=="slider":
 		sl_image = Sl_image.query.filter(Sl_image.SlImgName==file_name).first()
 		path = sl_image.SlImgMainImgFileName
-	if fileType=="image":
-		print('foo')
-		# image = Image.query.filter(Image.FileName==file_name).first()
-		# path = image.FilePath
+	if file_type=="image":
+		image = Image.query.filter(Image.FileName==file_name).first()
+		path = image.FilePath
+	if file_size != 'undefined':
+		path = path.replace("<FSize>",file_size)
 	try:
 		if current_app.config['OS_TYPE']=='win32':
 			response = send_from_directory('static',
-				filename=path.replace("\\","/").replace("<FSize>",file_size),as_attachment=True)
+				filename=path.replace("\\","/"),as_attachment=True)
 		else:
 			response = send_from_directory('static',filename=path.replace("<FSize>",file_size),as_attachment=True)
 		return response
@@ -122,10 +123,10 @@ def get_image_test(fileType,file_size,file_name):
 		abort(404)
 
 
-@api.route("/get-file/<fileType>/<fileName>")
-def get_file(fileType,fileName):
-	if fileType=="slider":
-		sl_image = Sl_image.query.filter(Sl_image.SlImgName==fileName).first()
+@api.route("/get-file/<file_type>/<file_name>")
+def get_file(file_type,file_name):
+	if file_type=="slider":
+		sl_image = Sl_image.query.filter(Sl_image.SlImgName==file_name).first()
 		path = sl_image.SlImgMainImgFileName
 	try:
 		if current_app.config['OS_TYPE']=='win32':

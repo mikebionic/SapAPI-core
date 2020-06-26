@@ -20,13 +20,14 @@ def checkApiResponseStatus(success_list,fail_list):
 			"message":"Success"
 			}
 
-def fileToURL(fileType=None,size=None,name=''):
+def fileToURL(file_type=None,category=None,file_size='undefined',file_name=''):
 	try:
-		if fileType==None:
-			fileUrl = url_for('commerce_api.get_image',image_size=size,image_name=name)
+		if file_type==None:
+			fileUrl = url_for('commerce_api.get_image',image_size=file_size,image_name=file_name)
+		elif file_type=='icon':
+			fileUrl = url_for('commerce_api.get_icon',category=category,file_name=file_name)
 		else:
-			fileUrl = url_for('commerce_api.get_image_test',fileType=fileType,file_size=size,file_name=name)
-			# fileUrl = url_for('commerce_api.get_file',fileType=fileType,fileName=name)
+			fileUrl = url_for('commerce_api.get_image_test',file_type=file_type,file_name=file_name,file_size=file_size)
 	except:
 		fileUrl = None
 	return fileUrl

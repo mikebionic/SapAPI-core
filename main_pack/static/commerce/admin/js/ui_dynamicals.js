@@ -74,3 +74,49 @@ function prepareFormData(formFields,formId){
 	formFields.forEach(buildData);
 	return formData;
 }
+
+function prepareOwnerFormData(formFields,formId=null){
+	var formData = {};
+	function buildData(value){
+		if (formId>0){
+			formValue = $('.'+value+'[ownerId='+formId+']').val();
+		}
+		else{
+			formValue = $('.'+value).val();
+		}
+		if (formValue == ""){
+			this.value = null;
+		}
+		else{
+			formData[value] = formValue;
+		}
+	}
+	formFields.forEach(buildData);
+	return formData;
+}
+
+function validateOwnerInput(requiredFields,formId=null){
+	// universal method for all fields!!
+	var fieldsStatus = true
+	for (field in requiredFields){
+		console.log(formId)
+		if (formId>0){
+			thisField = $('.'+requiredFields[field]+' [ownerId='+formId+']');
+		}
+		else{
+			thisField = $('.'+requiredFields[field]);
+		}
+		console.log(requiredFields[field])
+		console.log(thisField)
+		if (thisField.val() == ""){
+			if (thisField.attr('placeholder') != null){
+				element = thisField.attr('placeholder')
+			}
+			else {element = thisField.attr('id')}
+			errorToaster('Please, fill the data: '+element);
+			fieldsStatus = false
+		}
+	}
+	if (fieldsStatus == false){return false;}
+	else {return true;}
+}
