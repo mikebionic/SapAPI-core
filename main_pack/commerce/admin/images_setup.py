@@ -1,5 +1,4 @@
 from flask import render_template,url_for,json,jsonify,session,flash,redirect,request,Response
-from main_pack.commerce.admin.forms import LogoImageForm,SliderImageForm
 from main_pack.base.imageMethods import save_image
 from main_pack.commerce.admin import bp
 from flask_login import current_user,login_required
@@ -8,6 +7,8 @@ from main_pack import db,babel,gettext,lazy_gettext
 from main_pack.models.base.models import Company,Sl_image,Slider,Image
 from sqlalchemy import or_, and_
 import os
+
+from main_pack.commerce.admin.forms import LogoImageForm,SliderImageForm
 
 @bp.route("/admin/images_setup", methods=['GET', 'POST'])
 @login_required
@@ -96,3 +97,32 @@ def sliders():
 
 	return render_template('commerce/admin/sliders.html',title=gettext('Setup images'),
 		sliders=slidersData)
+
+@bp.route("/admin/sliders/<SlId>", methods=['GET', 'POST'])
+@login_required
+def slider_images(SlId):
+	slider = Slider.query\
+		.filter(and_(Slider.GCRecord=='' or Slider.GCRecord==None),Slider.SlId==SlId).first()
+	if slider:
+		print(slider.SlName)
+		sl_images = Sl_image.query.filter(and_(Sl_image.SlId==slider.SlId, Sl_image.GCRecord==None)).all()
+		sliderForm = SliderImageForm()
+
+		if "sliderForm" in request.form and sliderForm.validate_on_submit():
+			if sliderForm.sliderImage.data:
+
+				imageFile = save_image(imageForm=sliderForm.sliderImage.data,module=os.path.join("uploads","commerce","Slider"),id=slider.SlId)
+				image = Sl_image(
+					SlImgName=imageFile['FileName'],
+					SlImgDesc=sliderForm.sliderImageDesc.data,
+					SlImgMainImgFileName=imageFile['FilePath'],				
+					SlId=slider.SlId)
+				db.session.add(image)
+				db.session.commit()
+
+			flash(lazy_gettext('Slider picture successfully uploaded!'),'success')
+			return redirect(url_for('commerce_admin.slider_images',SlId=slider.SlId))
+	else:
+		return redirect(url_for('commerce_admin.sliders'))
+	return render_template('commerce/admin/slider_setup.html',title=gettext('Setup images'),
+		sliderForm=sliderForm,slider=slider,sl_images=sl_images)

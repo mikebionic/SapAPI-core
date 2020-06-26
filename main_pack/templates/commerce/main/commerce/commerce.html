@@ -3,36 +3,24 @@
 {% block content %}
 	<div id="main-content" class="main-content">
 
-		<!--Block 01: Main slide-->
-		<section class="home">
-			<div class="slider">
-				{% if sl_images %}
-					{% for sl_image in sl_images %}
-						<div class="slide active" style="background-image: url('{{ sl_image.SlImgMainImgFilePathM }}')">
-							<div class="container">
-								<div class="caption">
-									<h1>1. Winter Collection 2020</h1>
-									<p>Lorem ipsum dummy text goes here.</p>
-									<a href="">Shop Now</a>
+			{% for slider in sliders %}
+				{% if slider.SlName == "commerce_header" and slider.Sl_images %}
+					<section class="home">
+						<div class="slider">
+							{% for sl_image in slider.Sl_images %}
+								<div class="slide active" style="background-image: url({{ sl_image.SlImgMainImgFilePathM }})">
+									<div class="container">
+										<div class="caption">
+											<h1>{{sl_image.SlImgDesc}}</h1>
+										</div>
+									</div>
 								</div>
-							</div>
+							{% endfor %}
 						</div>
-					{% endfor %}
-				{% else %}
-					<div class="slide active" style="background-image: url('{{ url_for('static', filename='commerce/main/images/home/5.jpg')}}')"></div>
-					<div class="slide" style="background-image: url('{{ url_for('static', filename='commerce/main/images/home/5.jpg')}}')"></div>
-					<div class="slide" style="background-image: url('{{ url_for('static', filename='commerce/main/images/home/5.jpg')}}')"></div>
+						<div class="indicator"></div>
+					</section>
 				{% endif %}
-			</div>
-					<!-- controls  -->
-					<div class="controls">
-					<div class="prev"><</div>
-					<div class="next">></div>
-					</div>
-
-					<!-- indicators -->
-					<div class="indicator"></div>
-			</section>
+			{% endfor %}
 
 		<!--Block 02: Banner-->
 		<div class="banner-block xs-margin-top-45px">

@@ -55,31 +55,3 @@ def ui_sliders():
 			'responseText':gettext('Unknown error!'),
 			})
 	return response
-
-@bp.route('/ui/sl_image/', methods=['GET','POST','PUT'])
-def ui_sl_image():
-	if request.method == 'POST':
-		req = request.get_json()
-		sl_image = addSliderImageDict(req)
-		print(sl_image)
-
-		sliderImgId = req.get('sliderImgId')
-		print(sliderImgId)
-		if (sliderImgId == '' or sliderImgId == None):
-			try:
-				print('committing')
-				newSliderImage = Sl_image(**sl_image)
-				db.session.add(newSliderImage)
-				db.session.commit()
-				response = jsonify({
-					'sliderImgId':newSliderImage.sliderImgId,
-					'status':'created',
-					'responseText':gettext('Slider image')+' '+gettext('successfully saved'),
-					'htmlData': render_template('commerce/admin/sliderImageAppend.html',sl_image=newSliderImage)
-					})
-			except:
-				response = jsonify({
-					'status':'error',
-					'responseText':gettext('Unknown error!'),
-					})
-	return response

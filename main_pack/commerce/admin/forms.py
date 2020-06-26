@@ -5,12 +5,11 @@ from wtforms.validators import DataRequired,Length,ValidationError
 from main_pack import babel,gettext,lazy_gettext
 
 class LogoImageForm(FlaskForm):
-	logoImage = FileField('Company logo',validators=[FileAllowed(['jpg','png','img'])])
-
+	logoImage = FileField('Company logo',validators=[FileAllowed(['jpg','png','img','svg','gif'])])
 
 class SliderImageForm(FlaskForm):
-	sliderImage = FileField('Slider Image',validators=[FileAllowed(['jpg','png','img'])])
-
+	sliderImageDesc = StringField()
+	sliderImage = FileField('Slider Image',validators=[FileAllowed(['jpg','png','img','svg','gif'])])
 
 class InvStatusForm(FlaskForm):
 	invStatus = SelectField(lazy_gettext('Status'),coerce=int)

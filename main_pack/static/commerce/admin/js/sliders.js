@@ -14,6 +14,12 @@ $("body").delegate('.saveSliderBtn','click',function(event){
 	event.preventDefault();
 });
 
+function clearNewSliderFields(){
+	$('.newSliderCard').hide('slow');
+	$('.newSliderCard input').val('');
+	$('.newSliderCard textarea').val('');
+}
+
 var postData = function(formData,url,type,formId,listName,responseForm){
 	$.ajax({
 		contentType:"application/json",
@@ -25,6 +31,7 @@ var postData = function(formData,url,type,formId,listName,responseForm){
 			if (response.status == 'created') {
 				$('.'+listName).prepend(response[responseForm]);
 				successToaster(response.responseText);
+				clearNewSliderFields()
 			}
 			else if (response.status == 'updated'){
 				successToaster(response.responseText);

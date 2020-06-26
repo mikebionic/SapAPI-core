@@ -9,12 +9,12 @@ from main_pack.models.commerce.models import Resource,Res_category
 @bp.route("/")
 @bp.route("/commerce")
 def commerce():
-	res = UiResLimitedList(100)
-	sl_images = slidersData()
+	res = UiResLimitedList(200)
+	sliders = slidersData()
 	# commonData = commonUsedData()
 	categoriesData = UiCategoriesList()
 	return render_template ("commerce/main/commerce/commerce.html",
-		**res,**categoriesData,**sl_images)
+		**res,**categoriesData,**sliders)
 
 @bp.route("/collection")
 def collection():

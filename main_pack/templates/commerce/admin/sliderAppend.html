@@ -1,8 +1,8 @@
-<div class="col-12 col-sm-6 col-lg-6">
+<div class="col-12 col-sm-6 col-lg-6 sliderCard" ownerId={{slider.SlId}}>
   <div class="card">
     <div class="card-header">
       <h4 class="sliderName" ownerId={{slider.SlId}}>{{slider.SlName}}</h4>
-      <button class="btn btn-outline-info editSliderBtn" ownerId={{slider.SlId}}>{{_('Edit')}}</button>
+      <button class="btn btn-icon icon-left btn-outline-info editSliderBtn" ownerId={{slider.SlId}}><i class="far fa-edit"></i> {{_('Edit')}}</button>
       <button class="btn btn-outline-success saveSliderBtn" ownerId={{slider.SlId}} style="display: none;">{{_('Save')}}</button>
       <button class="btn btn-outline-warning cancelEditSliderBtn" ownerId={{slider.SlId}} style="display: none;">{{_('Cancel')}}</button>
       <button class="btn btn-outline-danger deleteSliderBtn" ownerId={{slider.SlId}} style="display: none;"><i class="fas fa-trash-alt"></i></button>
@@ -11,12 +11,7 @@
       <div class="section-title">{{_('Description')}}</div>
       <div class="sliderDesc" ownerId={{slider.SlId}}>{{slider.SlDesc}}</div>
       <br>
-      <div class="gallery gallery-fw" data-item-height="100">
-        <div class="gallery-item" data-image="{{ url_for('static', filename='commerce/admin/commerce_styles/images/home/home1-banner1.jpg') }}"></div>
-        <div class="carousel_icon">
-          <li><a href="#" class="btn btn-icon btn-light addSliderImageBtn" ownerId={{slider.SlId}}><i class="fas fa-plus"></i></a></li>
-        </div>
-      </div>
+      <a href="{{ url_for('commerce_admin.slider_images',SlId=slider.SlId) }}" class="btn btn-outline-info">{{_('Add slider image')}}</a>
     </div>
   </div>
 </div>

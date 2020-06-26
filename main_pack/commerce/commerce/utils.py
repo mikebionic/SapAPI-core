@@ -10,20 +10,22 @@ from main_pack.models.base.models import Company,Sl_image,Slider,Image
 from main_pack.base.languageMethods import dataLangSelector
 
 def slidersData():
-	slider = Slider.query.get(1)
-	if slider:
+	data = []
+	sliders = Slider.query\
+		.filter(Slider.GCRecord=='' or Slider.GCRecord==None).all()
+	for slider in sliders:
+		List_sliders = slider.to_json_api()
 		sl_images = Sl_image.query.filter(and_(Sl_image.SlId==slider.SlId, Sl_image.GCRecord==None)).all()
-		List_FileName = [sl_image.SlImgName for sl_image in sl_images]
-		imagesList = []
-		for imageName in List_FileName:
-			sliderImage = {}
-			sliderImage['SlImgMainImgFilePathS']=fileToURL(fileType="slider",size='S',name=imageName) if List_FileName else ''
-			sliderImage['SlImgMainImgFilePathM']=fileToURL(fileType="slider",size='M',name=imageName) if List_FileName else ''
-			sliderImage['SlImgMainImgFilePathR']=fileToURL(fileType="slider",size='R',name=imageName) if List_FileName else ''
-			imagesList.append(sliderImage)
-		res = {
-			'sl_images':imagesList
-		}
+		List_sl_images = []
+		for sl_image in sl_images:
+			List_sl_images.append(sl_image.to_json_api())
+		List_sliders['Sl_images'] = List_sl_images
+		
+		data.append(List_sliders)
+
+	res = {
+		'sliders':data
+	}
 	return res
 
 def UiCategoriesList():

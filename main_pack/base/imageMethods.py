@@ -78,3 +78,36 @@ def save_image(imageForm=None,savedImage=None,module="undefined",id="undefined")
 	return response
 
 # save_image(savedImage='IMG_5660.JPG',module="commerce/users",id=12)
+
+def save_icon(imageForm=None,savedImage=None,module="undefined",id=None):
+	random_hex = secrets.token_hex(14)
+
+	if id:
+		modulePath = os.path.join(str(module),str(id),'images')
+	else:
+		modulePath = os.path.join(str(module))
+
+	if not imageForm:
+		print('module not working for saved image')
+		# image = Image.open(savedImage)
+		# _, f_ext = os.path.splitext(image.filename)
+		# FileName = random_hex + f_ext
+
+	if imageForm:
+		# need to save the file to proceed compression and resizing if imageForm
+		_, f_ext = os.path.splitext(imageForm.filename)
+		FileName = random_hex + f_ext
+
+		sizeSpecificFullPath = os.path.join(current_app.root_path,'static',modulePath)
+		dirHandler(sizeSpecificFullPath)
+		FilePath = os.path.join(modulePath,FileName)
+		saving_path = os.path.join(sizeSpecificFullPath,FileName)
+		imageForm.save(saving_path)
+		print('it was a form now saved into:')
+		print(saving_path)
+		
+	response = {
+		"FileName":FileName,
+		"FilePath":FilePath,
+	}
+	return response
