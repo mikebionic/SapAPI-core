@@ -14,7 +14,7 @@ from main_pack.commerce.commerce.order_utils import UiOInvData,UiOInvLineData
 from sqlalchemy import and_
 
 from main_pack.commerce.commerce.order_utils import invStatusesSelectData
-from main_pack.commerce.admin.forms import InvStatusForm
+from main_pack.models.commerce.models import Res_category
 
 import os
 from flask import current_app
@@ -49,6 +49,36 @@ def navbar():
 	commonData = commonUsedData()
 	return render_template ("commerce/admin/navbar.html",**commonData,category_icons=category_icons,
 		title=gettext('Navbar'))
+
+@bp.route("/admin/category_table")
+@login_required
+@ui_admin_required()
+def category_table():
+	data = {}
+	icons_path = os.path.join("static","commerce","icons","categories")
+	full_icons_path = os.path.join(current_app.root_path,icons_path)
+	folders = os.listdir(full_icons_path)
+	category_icons = {}
+	for folder in folders:
+		folder_icons = os.listdir(os.path.join(full_icons_path,folder))
+		icons = []
+		for icon in folder_icons:
+			iconInfo = {
+				'url':url_for('commerce_api.get_icon',category=folder,file_name=icon),
+				'icon_name':icon,
+				'category':folder
+			}
+			icons.append(iconInfo)
+		category_icons[folder]=icons
+
+	data['category_icons']=category_icons
+	categories = Res_category.query\
+		.filter(Res_category.GCRecord=='' or Res_category.GCRecord==None).all()
+
+	categoriesList = [category.to_json_api() for category in categories]
+	data['categories'] = categoriesList if categoriesList else []
+	return render_template ("commerce/admin/category_table.html",
+		**data,title=gettext('Category table'))
 
 @bp.route("/admin/picture")
 @login_required
@@ -105,17 +135,8 @@ def order_inv_lines(OInvRegNo):
 		order_lines_list.append(order_inv_line)
 	res = UiOInvLineData(order_lines_list)
 
-	statusForm = InvStatusForm()
-	statusForm.invStatus.choices = invStatusesSelectData()
-	if statusForm.validate_on_submit():
-		invStatusData = {
-			'InvStatId':statusForm.invStatus.data,
-			'OInvId':orderInvoice.OInvId,
-		}
-		print(invStatusData)
-		flash(lazy_gettext('success!'), 'success')
 	return render_template ("commerce/admin/order_inv_lines.html",**res,
-		**orderInvRes,statusForm=statusForm,title=gettext('Order invoices'))
+		**orderInvRes,title=gettext('Order invoices'))
 
 @bp.route("/admin/add_product")
 @login_required

@@ -1,0 +1,101 @@
+{% extends "commerce/admin/layout.html" %}
+
+{% block styles %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/datatables/datatables.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css') }}">
+{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h4>{{_('Category table')}}</h4>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-striped" id="mainTable" >
+              <thead>
+                <tr>
+                  <th class="text-center">№</th>
+                  <th class="text-center">{{_('Category name')}}</th>
+                  <th class="text-center">{{_('Description')}}</th>
+                  <th class="text-center">{{_('Main category')}}</th>
+                  <th class="text-center">{{_('Icon')}}</th>
+                  <th class="text-center">{{_('Action')}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for category in categories %}
+                  <tr>
+                    <td class="text-center editable categoryId" ownerId={{category.ResCatId}}>{{category.ResCatId}}</td>
+                    <td class="text-center editable categoryName" ownerId={{category.ResCatId}}>{{category.ResCatName}}</td>
+                    <td class="text-center editable categoryDesc" ownerId={{category.ResCatId}}>{{category.ResCatDesc}}</td>
+                    <td class="text-center editable categoryOwner" ownerId={{category.ResCatId}}>{{category.ResOwnerCatId}}</td>
+                    <td>
+                      <img class="img-fluid categoryIcon" ownerId={{category.ResCatId}} name='{{category.ResCatIconFileName}}' src="{{category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static', filename='commerce/admin/ICONS/surface1.svg') }}" data-toggle="modal" data-target="#catIconsModal">
+                    </td>
+                    <td>
+                      <a href="" class="btn btn-icon btn-success"><i class="fas fa-check"></i></a>
+                      <a href="" class="btn btn-icon btn-info"><i class="fas fa-pencil-alt"></i></a>
+                      <a href="" class="btn btn-icon btn-danger"><i class="fas fa-trash-alt"></i></a>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block modals %}
+<!-- icon selection Modal -->
+<div class="modal fade" id="catIconsModal" tabindex="-1" role="dialog" aria-labelledby="catIconsModalTitle" aria-hidden="true" style="background-color: rgba(71, 69, 69, 0.548);">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="catIconsModalTitle">{{_('Icons')}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ul class="nav nav-tabs" id="myTab2" role="tablist">
+          {% for category in category_icons %}
+            <li class="nav-item">
+              <a class="badge badge-primary" id="contact-tab2" data-toggle="tab" href="#tab-{{category.replace(' ','-')}}" role="tab" aria-controls="contact" aria-selected="false">{{ category }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+        <div class="tab-content tab-bordered iconsList" id="myTab3Content">
+          {% for category in category_icons %}
+            <div class="tab-pane fade" id="tab-{{category.replace(' ','-')}}" role="tabpanel" aria-labelledby="profile-tab2">
+              {% for iconInfo in category_icons[category] %}
+                <div class="row icon-feather-container">
+                  <div class="col-sm-6 col-md-4 col-lg-3">
+                    <div class="preview">
+                      <a href="#">
+                        <img name="{{ iconInfo['icon_name'] }}" icon_category="{{ iconInfo['category'] }}" class="img-fluid" src="{{ iconInfo['url'] }}"> 
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- icon modal -->
+{% endblock %}
+
+{% block scripts %}
+  <script src="{{ url_for('static', filename='commerce/admin/bundles/editable-table/mindmup-editabletable.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/admin/js/page/editable-table.js') }}"></script>
+{% endblock %}

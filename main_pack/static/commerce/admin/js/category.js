@@ -1,7 +1,7 @@
 var category_fields = ['categoryId','categoryName','categoryDesc','categoryIcon']
 
 $("body").delegate('.categoryIcon','click',function(event){
-	ownerIconId = $(this).attr('ownerCategory');
+	ownerIconId = $(this).attr('categoryOwner');
 	$("body").delegate('.iconsList img','click',function(event){
 		selectedIconSrc = $(this).attr('src');
 		selectedIconName = $(this).attr('name');
@@ -14,7 +14,7 @@ $("body").delegate('.categoryIcon','click',function(event){
 })
 
 $("body").delegate('.addDescBtn','click',function(event){
-	ownerModalId = $(this).attr('ownerCategory');
+	ownerModalId = $(this).attr('categoryOwner');
 		$(".descContent").val('');
 	$("body").delegate('.submitDescBtn','click',function(event){
 		description = $(".descContent").val();
@@ -100,10 +100,10 @@ var postData = function(formData,url,type,formId,listName,responseForm){
 
 
 $("body").delegate('.addCategoryBtn','click',function(event){
-	ownerId = $(this).attr('ownerCategory');
+	ownerId = $(this).attr('categoryOwner');
 	if(ownerId==null){ownerId='';}
 	categoryData = prepareFormData(category_fields,ownerId);
-	categoryData['ownerCategory']=ownerId;
+	categoryData['categoryOwner']=ownerId;
 
 	thisIconName = $(".categoryIcon"+ownerId+" img").attr('name');
 	thisIconPath = $(".categoryIcon"+ownerId+" img").attr('src');
@@ -154,7 +154,7 @@ var deleteForm = function(formData,url){
 }
 
 $("body").delegate('.removeCategoryBtn','click',function(event){
-	ownerId = $(this).attr('ownerCategory');
+	ownerId = $(this).attr('categoryOwner');
 	deleteForm(({"categoryId":ownerId}),url_prefix+"/admin/category/");
 	$(this).parent().parent().remove();
 })
