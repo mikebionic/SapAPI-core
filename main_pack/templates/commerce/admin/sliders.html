@@ -6,21 +6,6 @@
 {% endblock %}
 
 {% block content %}
-  <button class="btn btn-primary newSliderBtn"><i data-feather="plus-square"></i></button>
-  <div class="row newSliderCard" style="display: none;">
-    <div class="col-12 col-sm-6 col-lg-6">
-      <div class="card">
-        <div class="card-header">
-          <h4>{{_('New Slider')}}</h4>
-        </div>
-        <div class="card-body">
-          <input type="text" class="form-control sliderName" placeholder="{{_('Name')}}">
-          <textarea class="form-control sliderDesc" placeholder="{{_('Description')}}"></textarea>
-        </div>
-        <button class="btn btn-outline-info saveSliderBtn">{{_('Add')}}</button>
-      </div>
-    </div>
-  </div>
   <div class="row slidersList">
     {% for slider in sliders %}
       <div class="col-12 col-sm-6 col-lg-6 sliderCard" ownerId={{slider.SlId}}>
@@ -30,7 +15,7 @@
             <h4 class="sliderName" ownerId={{slider.SlId}}>{{slider.SlName}}</h4>
             <button class="btn btn-icon icon-left btn-outline-info editSliderBtn" ownerId={{slider.SlId}}><i class="far fa-edit"></i> {{_('Edit')}}</button>
             <button class="btn btn-outline-success saveSliderBtn" ownerId={{slider.SlId}} style="display: none;">{{_('Save')}}</button>
-            <button class="btn btn-outline-warning cancelEditSliderBtn" ownerId={{slider.SlId}} style="display: none;">{{_('Cancel')}}</button>
+            <a href="{{ url_for('commerce_admin.sliders') }}" class="btn btn-outline-warning cancelEditSliderBtn" ownerId={{slider.SlId}} style="display: none;">{{_('Cancel')}}</a>
             <button class="btn btn-outline-danger deleteSliderBtn" ownerId={{slider.SlId}} style="display: none;"><i class="fas fa-trash-alt"></i></button>
           </div>
           <div class="card-body">
@@ -52,6 +37,22 @@
         </div>
       </div>
     {% endfor %}
+  </div>
+  <button class="btn btn-primary newSliderBtn"><i data-feather="plus-square"></i></button>
+  <div class="row newSliderCard" style="display: none;">
+    <div class="col-12 col-sm-6 col-lg-6">
+      <div class="card">
+        <div class="card-header">
+          <h4>{{_('New Slider')}}</h4>
+        </div>
+        <div class="card-body">
+          <input type="hidden" class="sliderId" ownerId='undefined'>
+          <input type="text" class="form-control sliderName" ownerId='undefined' placeholder="{{_('Name')}}">
+          <textarea class="form-control sliderDesc" ownerId='undefined' placeholder="{{_('Description')}}"></textarea>
+        </div>
+        <button class="btn btn-outline-info saveSliderBtn" ownerId='undefined'>{{_('Add')}}</button>
+      </div>
+    </div>
   </div>
 
 {% endblock %}

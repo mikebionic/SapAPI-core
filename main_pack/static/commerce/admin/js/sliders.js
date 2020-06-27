@@ -72,21 +72,7 @@ function editSlidersUi(ownerId){
 	var currentDesc = $('.sliderDesc'+'[ownerId='+ownerId+']').text();
 	$('.sliderName'+'[ownerId='+ownerId+']').replaceWith("<input class='form-control sliderName' ownerId="+ownerId+" value="+"'"+currentName+"'"+" >");
 	$('.sliderDesc'+'[ownerId='+ownerId+']').replaceWith("<input class='form-control sliderDesc' ownerId="+ownerId+" value="+"'"+currentDesc+"'"+" >");
-	
-	$('body').delegate('.cancelEditSliderBtn','click',function(){
-		ownerId = $(this).attr('ownerId');
-		cancelEditSlidersUi(ownerId,currentName,currentDesc)
-	})
 }
-function cancelEditSlidersUi(ownerId,oldName,oldDesc){
-	$('.editSliderBtn'+'[ownerId='+ownerId+']').show('slow');
-	$('.saveSliderBtn'+'[ownerId='+ownerId+']').hide('slow');
-	$('.cancelEditSliderBtn'+'[ownerId='+ownerId+']').hide('slow');
-	$('.deleteSliderBtn'+'[ownerId='+ownerId+']').hide('slow');
-	$('.sliderName'+'[ownerId='+ownerId+']').replaceWith("<h4 class='sliderName' ownerId="+ownerId+">"+oldName+"</h4>");
-	$('.sliderDesc'+'[ownerId='+ownerId+']').replaceWith("<div class='sliderDesc' ownerId="+ownerId+">"+oldDesc+"</div>");
-}
-
 // other UI actions
 $('.newSliderBtn').click(function(e){
   $('.newSliderCard').show('slow');
@@ -95,7 +81,6 @@ $('.addSliderBtn').click(function(e){
   $('.newSliderCard').hide('slow');
 });
 ///////
-
 
 $('body').delegate('#upload','click',function(){
 	ownerId = $(this).attr('ownerId');
@@ -130,86 +115,3 @@ function uploadImage(ownerId){
 		}
 	});
 }
-
-///////////  saving to db  ///////////////
-
-// image_forms = ['imgId','empId','companyId','rpAccId','resId','fileName','fileHash','image']
-
-// $("body").delegate('.saveImagesBtn','click',function(event){
-// 	resourceData = prepareFormData(res_forms,'');
-// 	imageData = prepareImagesData(image_forms);
-// 	if($('.'+res_forms[0]).val()==''){
-// 		if (validateInput(required_res_fields)==true){
-// 			beforeCreated(resourceData,res_forms[0],url_prefix+"/ui/resource/",function(){
-// 				postImageData(imageData,url_prefix+'/ui/images/','POST');
-// 			});
-// 		}
-// 		else{warningToaster('Product is not in database!');}
-// 	}
-// 	else{
-// 		postImageData(imageData,url_prefix+'/ui/images/','POST');
-// 	}
-// });
-
-// //////// this is the only working for now //////
-// function imagesDict(formFields){
-// 	var imageData = {};
-// 	function buildData(value){
-// 		if ($('.'+value).val() == ""){
-// 			this.value = null;
-// 		}
-// 		else{
-// 			imageData[value] = $('.'+value).val();
-// 		}
-// 	}
-// 	formFields.forEach(buildData);
-// 	return imageData;
-// }
-
-// function prepareImagesData(){
-// 	var allImages = [];
-// 	$('.imagesList .fileName').each(function(){
-// 		imageData=imagesDict(image_forms);
-// 		imageData['fileName']=$(this).val();
-// 		allImages.push(imageData);
-// 	});
-// 	return allImages;
-// }
-// ///////////////////////////
-// var postImageData = function(formData,url,type){
-// 	$.ajax({
-// 		contentType:"application/json",
-// 		dataType:"json",
-// 		data:JSON.stringify(formData),
-// 		type : type,
-// 		url : url,
-// 		success: function(response){
-// 			if(response.status == 'created'){
-// 				successToaster(response.responseText);
-// 				resppp = response
-// 				console.log(response)
-// 				$('.imagesList .fileName').each(function(){
-// 					for(image in response.responses){
-// 						console.log(image)
-// 						fileName = response.responses[image]["fileName"];
-// 						imgId = response.responses[image]["imgId"];
-// 						if($(this).val()==fileName){
-// 							$(this).prev().val(imgId);
-// 						}
-// 					}
-// 				});
-// 				$('.saveImagesBtn').hide();
-// 			}
-// 			else if(response.status == 'deleted'){
-// 				warningToaster(response.responseText);
-// 			}
-// 			else{errorToaster(response.responseText);}
-// 		}
-// 	})
-// }
-
-
-// $("body").delegate('.imagesList .singleImage','click',function(event){
-// 	$('.imagesList .fileName').prev().attr('class','imgId')
-// 	$('.imagesList .fileName:checked').prev().attr('class','imgId mainImageId')
-// });

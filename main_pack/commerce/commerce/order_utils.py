@@ -13,7 +13,8 @@ from main_pack.models.commerce.models import (Inv_line,Inv_line_det,Inv_line_det
 from main_pack.models.base.models import Currency
 from main_pack.models.commerce.models import Resource
 
-from main_pack.models.base.models import Company,Division,Rp_acc
+from main_pack.models.base.models import Company,Division
+from main_pack.models.users.models import Rp_acc
 from main_pack.base.languageMethods import dataLangSelector
 from main_pack.base.invoiceMethods import getInvStatusUi
 

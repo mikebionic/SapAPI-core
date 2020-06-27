@@ -6,7 +6,8 @@ from main_pack.models.base.models import Reg_num,Reg_num_type
 from main_pack.models.base.models import Resource
 # used foreign keys
 from main_pack.models.commerce.models import Unit,Brand,Usage_status
-from main_pack.models.base.models import Company,Division,Res_category,Resource_type,Resource_maker,Rp_acc
+from main_pack.models.base.models import Company,Division,Res_category,Resource_type,Resource_maker
+from main_pack.models.users.models import Rp_acc
 ####
 # used relationship
 from main_pack.models.commerce.models import (Barcode,Res_color,Res_size,Res_translations,Unit,Res_unit,

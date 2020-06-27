@@ -5,13 +5,14 @@ from main_pack.commerce.users import bp
 from main_pack.commerce.users.forms import UpdateProfileForm,UpdateRpAccForm
 from main_pack.commerce.commerce.utils import UiCategoriesList
 
-from main_pack.models.base.models import Image,Rp_acc
+from main_pack.models.base.models import Image
+from main_pack.models.users.models import Rp_acc
 from main_pack.base.imageMethods import save_image
 from main_pack.base.apiMethods import fileToURL
 import os
 from functools import wraps
 
-def admin_required():
+def ui_admin_required():
 	def decorator(f):
 		@wraps(f)
 		def decorated_function(*args, **kwargs):

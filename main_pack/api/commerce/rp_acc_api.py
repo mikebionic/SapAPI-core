@@ -2,7 +2,7 @@ from flask import render_template,url_for,jsonify,request,abort,make_response
 from main_pack.api.commerce import api
 from main_pack.base.apiMethods import checkApiResponseStatus
 
-from main_pack.models.base.models import Rp_acc
+from main_pack.models.users.models import Rp_acc
 from main_pack.api.commerce.utils import addRpAccDict
 from main_pack import db
 from flask import current_app

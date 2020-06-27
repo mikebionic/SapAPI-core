@@ -5,6 +5,29 @@ from flask import current_app
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
 from main_pack.models.users.models import Users
+
+from flask import jsonify,request
+import jwt
+from functools import wraps
+from main_pack.config import Config
+
+def token_required(f):
+	@wraps(f)
+	def decorated(*args,**kwargs):
+		token = None
+		if 'x-access-token' in request.headers:
+			token = request.headers['x-access-token']
+		if not token:
+			return jsonify({'message':'Token is missing!'}), 401
+		try:
+			data=jwt.decode(token, Config.SECRET_KEY)
+			current_user = Users.query.filter_by(UId=data['UId']).first()
+		except:
+			return jsonify({'message':'Token is invalid!'}), 401
+		return f(current_user,*args,**kwargs)
+
+	return decorated
+
 def check_auth(username,password):
 	user = Users.query.filter_by(UName=username).first()
 	# if user and bcrypt.check_password_hash(user.UPass,password):

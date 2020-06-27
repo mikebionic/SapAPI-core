@@ -8,6 +8,7 @@ from main_pack.config import Config
 from main_pack.api.auth import api
 from main_pack.models.users.models import Users
 from main_pack.api.auth.utils import check_auth
+from main_pack.api.users.utils import apiUsersData
 
 def token_required(f):
 	@wraps(f)

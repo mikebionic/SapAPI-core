@@ -2,15 +2,13 @@ from flask import render_template, url_for, jsonify, session, flash, redirect , 
 from main_pack.commerce.auth import bp
 from main_pack.commerce.auth.forms import (LoginForm,RequestResetForm,ResetPasswordForm,
 								RequestRegistrationForm,PasswordRegistrationForm)
-from main_pack.models.users.models import Users
+from main_pack.models.users.models import Users,Rp_acc
 from flask_login import login_user, current_user, logout_user
 from main_pack import db,bcrypt,babel,gettext,lazy_gettext
 from main_pack.commerce.auth.utils import (send_reset_email,get_register_token,
 								verify_register_token,send_register_email)
 
 from main_pack.commerce.commerce.utils import UiCategoriesList
-
-from main_pack.models.base.models import Rp_acc
 
 from main_pack.models.base.models import Reg_num,Reg_num_type
 from main_pack.key_generator.utils import makeRegNum,generate,validate

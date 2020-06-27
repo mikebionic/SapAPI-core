@@ -77,12 +77,14 @@ function prepareFormData(formFields,formId){
 function prepareOwnerFormData(formFields,formId=null){
 	var formData = {};
 	function buildData(value){
-		if (formId>0){
+		if (formId>0 || formId>''){
 			formValue = $('.'+value+'[ownerId='+formId+']').val();
 		}
 		else{
 			formValue = $('.'+value).val();
 		}
+		console.log(formId)
+		console.log(formValue)
 		if (formValue == ""){
 			this.value = null;
 		}
@@ -99,8 +101,8 @@ function validateOwnerInput(requiredFields,formId=null){
 	var fieldsStatus = true
 	for (field in requiredFields){
 		console.log(formId)
-		if (formId>0){
-			thisField = $('.'+requiredFields[field]+' [ownerId='+formId+']');
+		if (formId>0 || formId>''){
+			thisField = $('.'+requiredFields[field]+'[ownerId='+formId+']');
 		}
 		else{
 			thisField = $('.'+requiredFields[field]);

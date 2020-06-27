@@ -5,7 +5,7 @@ from main_pack.models.hr_department.models import (Employee,Award,Contract_type,
 from main_pack.models.base.models import (Acc_type,Accounting_info,AdditionalInf1,AdditionalInf2,
 	AdditionalInf3,AdditionalInf4,AdditionalInf5,AdditionalInf6,Bank,City,Company,Contact,Contact_type,
 	Country,Currency,Db_inf,Department,Department_detail,Division,Gender,Image,Location,Password,
-	Password_type,Language,Prog_language,Reg_num,Reg_num_type,Report_file,Rp_acc,Rp_acc_price_list,Warehouse)
+	Password_type,Language,Prog_language,Reg_num,Reg_num_type,Report_file,Rp_acc_price_list,Warehouse)
 
 from main_pack.models.commerce.models import (Barcode,Brand,Color,Res_color,Res_size,Res_translations,
 	Res_unit,Size,Size_type,Unit,Usage_status,Resource,Res_category,
@@ -15,8 +15,8 @@ from main_pack.models.base.models import (Company,Department,Department_detail,D
 
 from main_pack.models.commerce.models import Color,Size
 
-from main_pack.models.users.models import Users
-from main_pack.models.base.models import Rp_acc,Reg_num
+from main_pack.models.users.models import Users,Rp_acc
+from main_pack.models.base.models import Reg_num
 
 from main_pack import db, create_app
 

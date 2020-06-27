@@ -6,7 +6,7 @@ from main_pack.commerce.admin import bp
 from main_pack.commerce.admin.utils import prepare_data,resRelatedData
 from main_pack.commerce.commerce.utils import commonUsedData,UiResourcesList
 
-from main_pack.commerce.users.routes import admin_required
+from main_pack.commerce.users.routes import ui_admin_required
 
 from main_pack.models.commerce.models import (Inv_line,Inv_line_det,Inv_line_det_type,
 	Inv_status,Inv_type,Invoice,Order_inv,Order_inv_line,Order_inv_type)
@@ -22,13 +22,13 @@ from flask import current_app
 @bp.route("/admin")
 @bp.route("/admin/dashboard")
 @login_required
-@admin_required()
+@ui_admin_required()
 def dashboard():
 	return render_template ("commerce/admin/dashboard.html",title=gettext('Dashboard'))
 
 @bp.route("/admin/navbar")
 @login_required
-@admin_required()
+@ui_admin_required()
 def navbar():
 	icons_path = os.path.join("static","commerce","icons","categories")
 	full_icons_path = os.path.join(current_app.root_path,icons_path)
@@ -52,13 +52,13 @@ def navbar():
 
 @bp.route("/admin/picture")
 @login_required
-@admin_required()
+@ui_admin_required()
 def picture():
 	return render_template ("commerce/admin/picture.html",title=gettext('Picture'))
 
 @bp.route("/admin/product_table")
 @login_required
-@admin_required()
+@ui_admin_required()
 def product_table():
 	resData=UiResourcesList()
 	print(resData)
@@ -67,7 +67,7 @@ def product_table():
 
 @bp.route("/admin/order_invoices")
 @login_required
-@admin_required()
+@ui_admin_required()
 def order_invoices():
 	orderInvoices = Order_inv.query\
 		.filter(Order_inv.GCRecord=='' or Order_inv.GCRecord==None)\
@@ -85,7 +85,7 @@ def order_invoices():
 
 @bp.route("/admin/order_invoices/<OInvRegNo>",methods=['GET','POST'])
 @login_required
-@admin_required()
+@ui_admin_required()
 def order_inv_lines(OInvRegNo):
 	orderInvoice = Order_inv.query\
 		.filter(and_(Order_inv.GCRecord=='' or Order_inv.GCRecord==None),
@@ -119,7 +119,7 @@ def order_inv_lines(OInvRegNo):
 
 @bp.route("/admin/add_product")
 @login_required
-@admin_required()
+@ui_admin_required()
 def add_product():
 	resData=resRelatedData()
 	return render_template ("commerce/admin/add_product.html",**resData,title=gettext('Add product'))

@@ -53,10 +53,10 @@ def addUsersDict(req):
 	return users
 
 
-from main_pack.models.base.models import Image,Rp_acc
+from main_pack.models.base.models import Image
 from main_pack.models.commerce.models import Resource
 from main_pack.base.apiMethods import fileToURL
-from main_pack.models.users.models import Users,User_type
+from main_pack.models.users.models import Users,Rp_acc,User_type
 from sqlalchemy import and_
 
 def apiUsersData(UId):

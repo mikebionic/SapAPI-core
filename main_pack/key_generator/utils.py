@@ -7,11 +7,6 @@ from main_pack.models.base.models import Reg_num,Reg_num_type
 from main_pack.models.hr_department.models import Employee
 from main_pack.models.users.models import Users
 
-# from main_pack.models.commerce.models import Resource
-# from main_pack.models.commerce.models import Res_price
-# from main_pack.models.base.models import Rp_acc
-
-# from main_pack.models.commerce.models import Order_inv
 from datetime import datetime
 from sqlalchemy import or_, and_
 from random import randint
