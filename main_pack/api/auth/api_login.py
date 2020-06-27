@@ -38,5 +38,6 @@ def api_login():
 			401, {'WWW-Authenticate':'basic realm'})
 	if check_auth(auth.username,auth.password):
 		token = jwt.encode({'UId':user.UId, 'exp':datetime.utcnow()+dt.timedelta(minutes=10)}, Config.SECRET_KEY)
-		return jsonify({'token':token.decode('UTF-8'),'user':user.to_json_api()})
+		userData = apiUsersData(user.UId)
+		return jsonify({'token':token.decode('UTF-8'),'user':userData['data']})
 	return make_response('Could not verify', 401, {'WWW-Authenticate':'basic realm'})

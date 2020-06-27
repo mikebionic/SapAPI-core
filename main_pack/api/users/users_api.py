@@ -3,9 +3,22 @@ from main_pack.api.users import api
 from main_pack.base.apiMethods import checkApiResponseStatus
 
 from main_pack.models.users.models import Users
-from main_pack.api.users.utils import addUsersDict
+from main_pack.api.users.utils import addUsersDict,apiUsersData
 from main_pack import db
 from flask import current_app
+
+@api.route("/tbl-dk-users/<UId>/",methods=['GET'])
+def api_users_user(UId):
+	user = apiUsersData(UId)
+	res = {
+		"status":1,
+		"message":"Single user",
+		"data":user['data'],
+		"total":1
+	}
+	response = make_response(jsonify(res),200)
+
+	return response
 
 
 @api.route("/tbl-dk-users/",methods=['GET','POST','PUT'])
@@ -14,7 +27,7 @@ def api_users():
 		users = Users.query.all()
 		res = {
 			"status":1,
-			"message":"All order inv types",
+			"message":"All users",
 			"data":[user.to_json_api() for user in users],
 			"total":len(users)
 		}

@@ -7,8 +7,10 @@ from main_pack.commerce.commerce.utils import UiCategoriesList
 
 from main_pack.models.base.models import Image,Rp_acc
 from main_pack.base.imageMethods import save_image
-
+from main_pack.base.apiMethods import fileToURL
+import os
 from functools import wraps
+
 def admin_required():
 	def decorator(f):
 		@wraps(f)
@@ -30,7 +32,7 @@ def profile():
 	if rpAcc:
 		image = Image.query.filter_by(RpAccId=rpAcc.RpAccId).order_by(Image.CreatedDate.desc()).first()
 		if image:
-			avatar = url_for('static', filename=image.FileName)
+			avatar = fileToURL(file_type='image',file_size='S',file_name=image.FileName)
 		else:
 			avatar = url_for('static', filename="commerce/uploads/noPhoto.png") 
 
@@ -61,9 +63,8 @@ def profile_edit():
 		rpAcc.update(**rpAccData)
 		print(rpAccData)
 		if form.picture.data:
-			imageFile = save_image(imageForm=form.picture.data,module="commerce/Rp_acc",id=rpAcc.RpAccId)
-			image = Image(FileName=imageFile['FileName'],FilePathR=imageFile['FilePathR'],FilePathM=imageFile['FilePathM'],
-				FilePathS=imageFile['FilePathS'],RpAccId=rpAcc.RpAccId)
+			imageFile = save_image(imageForm=form.picture.data,module=os.path.join("uploads","commerce","Rp_acc"),id=rpAcc.RpAccId)
+			image = Image(FileName=imageFile['FileName'],FilePath=imageFile['FilePath'],RpAccId=rpAcc.RpAccId)
 			db.session.add(image)
 
 		db.session.commit()
@@ -80,10 +81,10 @@ def profile_edit():
 
 	image = Image.query.filter_by(RpAccId=rpAcc.RpAccId).order_by(Image.CreatedDate.desc()).first()
 	if image:
-		avatar = url_for('static', filename=image.FileName)
+		avatar = fileToURL(file_type='image',file_size='S',file_name=image.FileName)
 	else:
 		avatar = url_for('static', filename="commerce/uploads/noPhoto.png") 
-	
+
 	categoryData = UiCategoriesList()
 	return render_template ("commerce/main/users/profile_edit.html",**categoryData,
 		title=gettext('Edit profile'),form=form,avatar=avatar)

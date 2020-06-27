@@ -27,7 +27,7 @@ def fileToURL(file_type=None,category=None,file_size='undefined',file_name=''):
 		elif file_type=='icon':
 			fileUrl = url_for('commerce_api.get_icon',category=category,file_name=file_name)
 		else:
-			fileUrl = url_for('commerce_api.get_image_test',file_type=file_type,file_name=file_name,file_size=file_size)
+			fileUrl = url_for('commerce_api.get_image_test',file_type=file_type,file_size=file_size,file_name=file_name)
 	except:
 		fileUrl = None
 	return fileUrl

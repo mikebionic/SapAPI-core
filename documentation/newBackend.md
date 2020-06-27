@@ -101,5 +101,8 @@ GET POST
 GET POST
 /api/tbl-dk-users/
 
+GET
+/api/tbl-dk-users/<int:UId>/
+
 GET POST
 /api/tbl-dk-sliders/
