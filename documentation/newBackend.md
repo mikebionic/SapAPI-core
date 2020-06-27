@@ -44,6 +44,9 @@
 	}
 ]
 
+# API authentication
+/api/login/users/
+/api/login/rp-accs/
 
 GET POST
 /api/tbl-dk-barcodes/

@@ -4,7 +4,7 @@ from flask_mail import Message
 from flask import current_app
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
-from main_pack.models.users.models import Users
+from main_pack.models.users.models import Users,Rp_acc
 
 from flask import jsonify,request
 import jwt
@@ -28,13 +28,20 @@ def token_required(f):
 
 	return decorated
 
-def check_auth(username,password):
-	user = Users.query.filter_by(UName=username).first()
-	# if user and bcrypt.check_password_hash(user.UPass,password):
-	if user and user.UPass==password:
-		return True
-	else:
-		return False
+def check_auth(modelName,username,password):
+	auth_status = False
+	if(modelName=='Users'):
+		user = Users.query.filter_by(UName=username).first()
+		# if user and bcrypt.check_password_hash(user.UPass,password):
+		if user and user.UPass==password:
+			auth_status = True
+	elif(modelName=='Rp_acc'):
+		rp_acc = Rp_acc.query.filter_by(RpAccUName=username).first()
+		# if user and bcrypt.check_password_hash(user.UPass,password):
+		if rp_acc and rp_acc.RpAccUPass==password:
+			auth_status = True
+	
+	return auth_status
 
 
 def send_reset_email(user):
