@@ -51,9 +51,10 @@
 {% for category in categories %}
 	{% if category.GCRecord == None or category.GCRecord == '' %}
 		<li class="menu-item menu-item-has-children has-megamenu">
-		  <a href="#" class="menu-name"  title="{{ category.ResCatDesc if category.ResCatDesc }}">
+		  <a href="#" class="menu-name categoryDesc" ownerId={{category.ResCatId}} title="{{ category.ResCatDesc if category.ResCatDesc }}" value="{{ category.ResCatDesc }}">
 				{% if category.ResCatIconFilePath %}<img class="img-fluid" src="{{category.ResCatIconFilePath}}">{%endif%}
-				{{ category.ResCatName }}
+				<p class="categoryName" ownerId={{category.ResCatId}}>{{ category.ResCatName }}</p>
+				<i data-toggle="modal" data-target=".editCategoryModal" ownerId={{category.ResCatId}} title="{{_('Edit')}}" class="fas fa-pen editCategoryBtn"></i>
 				<i class="fas fa-times removeCategoryBtn" ownerCategory="{{ category.ResCatId }}" style="padding-left: 7px;"></i>
 			</a>
 			<div class="wrap-megamenu lg-width-300 md-width-640">
@@ -188,6 +189,50 @@
 </div>
 <!-- icon modal -->
 
+<!-- edit category modal -->
+<div class="modal fade bd-example-modal-lg editCategoryModal" tabindex="-1" role="dialog" aria-hidden="true" style="background-color: rgba(71, 69, 69, 0.548);">
+	<div class="modal-dialog modal-lg">
+	  <div class="modal-content">
+			<div class="modal-header">
+			  <h5 class="modal-title">{{_('Edit')}}</h5>
+			  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+			  </button>
+			</div>
+			<div class="modal-body">
+				<div class="contact-info-container sm-margin-top-27px xs-margin-bottom-60px xs-margin-top-60px" style="margin: 5px 15%;">
+					<h4 class="box-title">{{_('Category')}}</h4>
+					<ul class="addr-info">
+						<input type="hidden" class="editCategoryId">
+						<li>
+							<div class="if-item">
+								<b class="tie">{{_('Name')}}:</b>
+								<p class="dsc">
+								  <input type="text" class="editCategoryName"  cols="50" rows="2" placeholder="{{_('Category')}}" class="txt-input">
+								</p>
+							</div>
+						</li>
+						<li>
+							<div class="if-item">
+								<b class="tie">{{_('Description')}}:</b>
+								<p class="dsc">
+								  <input type="text" class="editCategoryDesc" cols="50" rows="2" class="txt-input">
+								</p>
+							</div>
+						</li>					
+						<div class="menu-name editCategoryIcon">
+							<img class="img-fluid" name='' icon_category='' src="{{ url_for('static', filename='commerce/admin/ICONS/surface1.svg')}}" data-toggle="modal" data-target="#catIconsModal">
+						</div>
+						<p class="form-row">
+							<button class="btn btn-outline-info saveCategoryBtn" type="submit">{{_('Save')}}</button>
+						</p>
+					</ul>
+				</div>
+			</div>
+	  </div>
+	</div>
+</div>
+<!-- edit category modal -->
 
 <!-- Contact info modal -->
 <div class="modal fade bd-example-modal-lg contactModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
@@ -310,5 +355,6 @@ aria-hidden="true" style="background-color: rgba(71, 69, 69, 0.548);">
   <script src="{{ url_for('static', filename='commerce/admin/commerce_styles/js/functions.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/bundles/prism/prism.js')}}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/js/category.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/admin/js/ui_dynamicals.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/js/companyInfo.js') }}"></script>
 {% endblock %}

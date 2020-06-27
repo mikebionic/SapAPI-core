@@ -2,19 +2,20 @@ from flask import render_template, url_for, jsonify, json, session, flash, redir
 from flask_login import current_user, login_required
 from main_pack import db,babel,gettext,lazy_gettext
 from main_pack.commerce.admin import bp
-from main_pack.commerce.admin.utils import addCategoryDict
+from main_pack.commerce.admin.utils import addCategoryDict,addEditCategoryDict
 from main_pack.models.commerce.models import Res_category
 
 @bp.route("/admin/category/", methods=['POST','DELETE'])
 def ui_category():
-	categories = Res_category.query.all()
-	baseTemplate = {
-		'categories':categories,
-		}
-	if request.method == "POST":
-		try:
-			req = request.get_json()
-			category = addCategoryDict(req)
+	# try:
+	if request.method == 'POST':
+		req = request.get_json()
+		category = addCategoryDict(req)
+		categoryId = req.get('categoryId')
+		editCategoryId = req.get('editCategoryId')
+
+		if (editCategoryId == '' or editCategoryId == None):
+			print('committing')
 			newCategory = Res_category(**category)
 			db.session.add(newCategory)
 			db.session.commit()
@@ -33,27 +34,32 @@ def ui_category():
 				'responseText':gettext('Category')+' '+gettext('successfully saved!'),
 				'htmlData':render_template('commerce/admin/appendCategory.html',child_status=child_status,category=newCategory)
 				})
-		except:
+		else:
+			category = addEditCategoryDict(req)
+			print('updating')
+			thisCategory = Res_category.query.get(editCategoryId)
+			thisCategory.update(**category)
+			db.session.commit()
 			response = jsonify({
-				'status':'error',
-				'responseText':gettext('Unknown error!'),
+				'status':'updated',
+				'responseText':thisCategory.ResCatName+' '+gettext('successfully updated'),
 				})
 
 	elif request.method == "DELETE":
-		try:
-			req = request.get_json()
-			catId = req.get('catId')
-			thisCategory = Res_category.query.get(catId)
-			thisCategory.GCRecord = 1
-			db.session.commit()
-			response = {
-				'status':'deleted',
-				'responseText':thisCategory.ResCatName+' '+gettext('successfully deleted'),
-			}
-		except:
-			response = jsonify({
-				'status':'error',
-				'responseText':gettext('Unknown error!'),
-				})
+		req = request.get_json()
+		categoryId = req.get('categoryId')
+		thisCategory = Res_category.query.get(categoryId)
+		thisCategory.GCRecord = 1
+		db.session.commit()
+		response = {
+			'status':'deleted',
+			'responseText':thisCategory.ResCatName+' '+gettext('successfully deleted'),
+		}
+
+	# except:
+	# 	response = jsonify({
+	# 		'status':'error',
+	# 		'responseText':gettext('Unknown error!'),
+	# 		})
 
 	return response

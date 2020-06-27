@@ -13,9 +13,7 @@ def ui_sliders():
 		if request.method == 'POST':
 			req = request.get_json()
 			slider = addSliderDict(req)
-			print(slider)
 			sliderId = req.get('sliderId')
-			print(sliderId)
 			
 			if (sliderId == '' or sliderId == None):
 				print('committing')
@@ -31,7 +29,6 @@ def ui_sliders():
 			else:
 				print('updating')
 				thisSlider = Slider.query.get(sliderId)
-				print(thisSlider.SlId)
 				thisSlider.update(**slider)
 				db.session.commit()
 				response = jsonify({

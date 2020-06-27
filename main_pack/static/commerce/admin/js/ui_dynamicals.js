@@ -60,7 +60,6 @@ function validateInput(requiredFields){
 	else {return true;}
 }
 
-
 function prepareFormData(formFields,formId){
 	var formData = {};
 	function buildData(value){
