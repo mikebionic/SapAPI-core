@@ -6,6 +6,22 @@
 {% endblock %}
 
 {% block content %}
+  <button class="btn btn-primary newSliderBtn"><i data-feather="plus-square"></i></button>
+  <div class="row newSliderCard" style="display: none;">
+    <div class="col-12 col-sm-6 col-lg-6">
+      <div class="card">
+        <div class="card-header">
+          <h4>{{_('New Slider')}}</h4>
+        </div>
+        <div class="card-body">
+          <input type="hidden" class="sliderId" ownerId='undefined'>
+          <input type="text" class="form-control sliderName" ownerId='undefined' placeholder="{{_('Name')}}">
+          <textarea class="form-control sliderDesc" ownerId='undefined' placeholder="{{_('Description')}}"></textarea>
+        </div>
+        <button class="btn btn-outline-info saveSliderBtn" ownerId='undefined'>{{_('Add')}}</button>
+      </div>
+    </div>
+  </div>
   <div class="row slidersList">
     {% for slider in sliders %}
       <div class="col-12 col-sm-6 col-lg-6 sliderCard" ownerId={{slider.SlId}}>
@@ -37,22 +53,6 @@
         </div>
       </div>
     {% endfor %}
-  </div>
-  <button class="btn btn-primary newSliderBtn"><i data-feather="plus-square"></i></button>
-  <div class="row newSliderCard" style="display: none;">
-    <div class="col-12 col-sm-6 col-lg-6">
-      <div class="card">
-        <div class="card-header">
-          <h4>{{_('New Slider')}}</h4>
-        </div>
-        <div class="card-body">
-          <input type="hidden" class="sliderId" ownerId='undefined'>
-          <input type="text" class="form-control sliderName" ownerId='undefined' placeholder="{{_('Name')}}">
-          <textarea class="form-control sliderDesc" ownerId='undefined' placeholder="{{_('Description')}}"></textarea>
-        </div>
-        <button class="btn btn-outline-info saveSliderBtn" ownerId='undefined'>{{_('Add')}}</button>
-      </div>
-    </div>
   </div>
 
 {% endblock %}

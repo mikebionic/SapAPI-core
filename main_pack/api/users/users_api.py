@@ -20,7 +20,6 @@ def api_users_user(UId):
 
 	return response
 
-
 @api.route("/tbl-dk-users/",methods=['GET','POST','PUT'])
 def api_users():
 	if request.method == 'GET':

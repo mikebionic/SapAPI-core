@@ -127,6 +127,7 @@ def addImageDict(req):
 	RpAccId = req.get('RpAccId')
 	ResId = req.get('ResId')
 	FileName = req.get('FileName')
+	FilePath = req.get('FilePath')
 	FileHash = req.get('FileHash')
 	# Image = str.encode(req.get('Image'))
 	CreatedDate = req.get('CreatedDate')
@@ -140,6 +141,7 @@ def addImageDict(req):
 		'RpAccId':RpAccId,
 		'ResId':ResId,
 		'FileName':FileName,
+		'FilePath':FilePath,
 		'FileHash':FileHash,
 		# 'Image':Image,
 		'CreatedDate':CreatedDate,
@@ -150,9 +152,7 @@ def addImageDict(req):
 	}
 	if(ImgId != '' and ImgId != None):
 		image['ImgId']=ImgId
-
 	image=configureNulls(image)
-
 	return image
 
 def saveImageFile(req):
@@ -162,8 +162,9 @@ def saveImageFile(req):
 	RpAccId = req.get('RpAccId')
 	ResId = req.get('ResId')
 	FileName = req.get('FileName')
+	FilePath = req.get('FilePath')
 	FileHash = req.get('FileHash')
-	Image = str.encode(req.get('Image'))
+	# Image = str.encode(req.get('Image'))
 	CreatedDate = req.get('CreatedDate')
 	ModifiedDate = req.get('ModifiedDate')
 	CreatedUId = req.get('CreatedUId')
@@ -175,6 +176,7 @@ def saveImageFile(req):
 		'RpAccId':RpAccId,
 		'ResId':ResId,
 		'FileName':FileName,
+		'FilePath':FilePath,
 		'FileHash':FileHash,
 		# 'Image':Image,
 		'CreatedDate':CreatedDate,
@@ -215,106 +217,14 @@ def saveImageFile(req):
 		outfile.flush()
 		outfile.close()
 		imageFile = save_image(savedImage=dumpImagePath,module=module,id=id)
-
-		for data in imageFile:
-			# Image db is currently not supporting this
-			# this will change later on
-			if data != "FilePath":
-				image[data]=imageFile[data]
-	
-
+		image['FilePath'] = imageFile['FilePath']
+		# for data in imageFile:
+		# 	# Image db is currently not supporting this
+		# 	# this will change later on
+		# 	if data != "FilePath":
+		# 		image[data]=imageFile[data]
 	image=configureNulls(image)
-
 	return image
-
-def addRpAccDict(req):
-	RpAccId = req.get('RpAccId')
-	CId = req.get('CId')
-	DivId = req.get('DivId')
-	EmpId = req.get('EmpId')
-	GenderId = req.get('GenderId')
-	NatId = req.get('NatId')
-	RpAccStatusId = req.get('RpAccStatusId')
-	ReprId = req.get('ReprId')
-	RpAccTypeId = req.get('RpAccTypeId')
-	WpId = req.get('WpId')
-	RpAccRegNo = req.get('RpAccRegNo')
-	RpAccName = req.get('RpAccName')
-	RpAccAddress = req.get('RpAccAddress')
-	RpAccMobilePhoneNumber = req.get('RpAccMobilePhoneNumber')
-	RpAccHomePhoneNumber = req.get('RpAccHomePhoneNumber')
-	RpAccWorkPhoneNumber = req.get('RpAccWorkPhoneNumber')
-	RpAccWorkFaxNumber = req.get('RpAccWorkFaxNumber')
-	RpAccZipCode = req.get('RpAccZipCode')
-	RpAccEMail = req.get('RpAccEMail')
-	RpAccFirstName = req.get('RpAccFirstName')
-	RpAccLastName = req.get('RpAccLastName')
-	RpAccPatronomic = req.get('RpAccPatronomic')
-	RpAccBirthDate = req.get('RpAccBirthDate')
-	RpAccResidency = req.get('RpAccResidency')
-	RpAccPassportNo = req.get('RpAccPassportNo')
-	RpAccPassportIssuePlace = req.get('RpAccPassportIssuePlace')
-	RpAccLangSkills = req.get('RpAccLangSkills')
-	RpAccSaleBalanceLimit = req.get('RpAccSaleBalanceLimit')
-	RpAccPurchBalanceLimit = req.get('RpAccPurchBalanceLimit')
-	AddInf1 = req.get('AddInf1')
-	AddInf2 = req.get('AddInf2')
-	AddInf3 = req.get('AddInf3')
-	AddInf4 = req.get('AddInf4')
-	AddInf5 = req.get('AddInf5')
-	AddInf6 = req.get('AddInf6')
-	CreatedDate = req.get('CreatedDate')
-	ModifiedDate = req.get('ModifiedDate')
-	CreatedUId = req.get('CreatedUId')
-	ModifiedUId = req.get('ModifiedUId')
-	GCRecord = req.get('GCRecord')
-	rp_acc = {		
-		'CId':CId,
-		'DivId':DivId,
-		'EmpId':EmpId,
-		'GenderId':GenderId,
-		'NatId':NatId,
-		'RpAccStatusId':RpAccStatusId,
-		'ReprId':ReprId,
-		'RpAccTypeId':RpAccTypeId,
-		'WpId':WpId,
-		'RpAccRegNo':RpAccRegNo,
-		'RpAccName':RpAccName,
-		'RpAccAddress':RpAccAddress,
-		'RpAccMobilePhoneNumber':RpAccMobilePhoneNumber,
-		'RpAccHomePhoneNumber':RpAccHomePhoneNumber,
-		'RpAccWorkPhoneNumber':RpAccWorkPhoneNumber,
-		'RpAccWorkFaxNumber':RpAccWorkFaxNumber,
-		'RpAccZipCode':RpAccZipCode,
-		'RpAccEMail':RpAccEMail,
-		'RpAccFirstName':RpAccFirstName,
-		'RpAccLastName':RpAccLastName,
-		'RpAccPatronomic':RpAccPatronomic,
-		'RpAccBirthDate':RpAccBirthDate,
-		'RpAccResidency':RpAccResidency,
-		'RpAccPassportNo':RpAccPassportNo,
-		'RpAccPassportIssuePlace':RpAccPassportIssuePlace,
-		'RpAccLangSkills':RpAccLangSkills,
-		'RpAccSaleBalanceLimit':RpAccSaleBalanceLimit,
-		'RpAccPurchBalanceLimit':RpAccPurchBalanceLimit,
-		'AddInf1':AddInf1,
-		'AddInf2':AddInf2,
-		'AddInf3':AddInf3,
-		'AddInf4':AddInf4,
-		'AddInf5':AddInf5,
-		'AddInf6':AddInf6,
-		'CreatedDate':CreatedDate,
-		'ModifiedDate':ModifiedDate,
-		'CreatedUId':CreatedUId,
-		'ModifiedUId':ModifiedUId,
-		'GCRecord':GCRecord
-		}
-	if(RpAccId != '' and RpAccId != None):
-		print(RpAccId)
-		rp_acc['RpAccId']=RpAccId
-	rp_acc = configureNulls(rp_acc)
-	return rp_acc
-
 
 def addBarcodeDict(req):
 	BarcodeId = req.get('BarcodeId')
