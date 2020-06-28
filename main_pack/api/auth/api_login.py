@@ -64,5 +64,5 @@ def api_login_rp_accs():
 	if check_auth('Rp_acc',auth.username,auth.password):
 		token = jwt.encode({'RpAccId':rp_acc.RpAccId, 'exp':datetime.utcnow()+dt.timedelta(minutes=10)}, Config.SECRET_KEY)
 		rpAccData = apiRpAccData(rp_acc.RpAccId)
-		return jsonify({'token':token.decode('UTF-8'),'user':rpAccData['data']})
+		return jsonify({'token':token.decode('UTF-8'),'rp_acc':rpAccData['data']})
 	return make_response('Could not verify', 401, {'WWW-Authenticate':'basic realm'})
