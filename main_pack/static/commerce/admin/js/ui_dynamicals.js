@@ -29,6 +29,13 @@ function clearFields(formFields,formId){
 	}
 }
 
+function clearOwnerFields(formFields,formId){
+	for (element in formFields){
+		$('.'+formFields[element]+'[ownerId='+formId+']').val('');
+		$('.'+formFields[element]+'[ownerId='+formId+']').text('');
+	}
+}
+
 /////// backend requests //////
 
 function getRegNo(url){
@@ -97,18 +104,14 @@ function prepareOwnerFormData(formFields,formId=null){
 }
 
 function validateOwnerInput(requiredFields,formId=null){
-	// universal method for all fields!!
 	var fieldsStatus = true
 	for (field in requiredFields){
-		console.log(formId)
 		if (formId>0 || formId>''){
 			thisField = $('.'+requiredFields[field]+'[ownerId='+formId+']');
 		}
 		else{
 			thisField = $('.'+requiredFields[field]);
 		}
-		console.log(requiredFields[field])
-		console.log(thisField)
 		if (thisField.val() == ""){
 			if (thisField.attr('placeholder') != null){
 				element = thisField.attr('placeholder')
@@ -120,4 +123,28 @@ function validateOwnerInput(requiredFields,formId=null){
 	}
 	if (fieldsStatus == false){return false;}
 	else {return true;}
+}
+
+var postData = function(formData,url,type,formId,listName,responseForm){
+	$.ajax({
+		contentType:"application/json",
+		dataType:"json",
+		data:JSON.stringify(formData),
+		type:type,
+		url:url,
+		success:function(response){
+			if (response.status == 'created'){
+				$('.'+listName).prepend(response[responseForm]);
+				successToaster(response.responseText);
+			}
+			else if (response.status == 'updated'){
+				successToaster(response.responseText);
+			}
+			else if (response.status == 'deleted'){
+				successToaster(response.responseText);
+				$('[ownerId='+formId+']').remove();
+			}
+			else{errorToaster(response.responseText);}
+		}
+	})
 }
