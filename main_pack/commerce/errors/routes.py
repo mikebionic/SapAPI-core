@@ -1,6 +1,6 @@
 from flask import render_template
 from main_pack.commerce.errors import bp
-
+from flask_wtf.csrf import CSRFError
 from main_pack.commerce.commerce.utils import UiCategoriesList
 
 @bp.app_errorhandler(404)
@@ -27,3 +27,7 @@ def gone(error):
 def internal_server_error(error):
 	categoryData = UiCategoriesList()
 	return render_template("commerce/main/errors/500.html",**categoryData), 500
+
+@bp.errorhandler(CSRFError)
+def handle_csrf_error(e):
+	return {'status':'CSRFError','reason':e.description}, 400
