@@ -10,7 +10,3 @@ class LogoImageForm(FlaskForm):
 class SliderImageForm(FlaskForm):
 	sliderImageDesc = StringField()
 	sliderImage = FileField('Slider Image',validators=[FileAllowed(['jpg','png','img','svg','gif'])])
-
-class InvStatusForm(FlaskForm):
-	invStatus = SelectField(lazy_gettext('Status'),coerce=int)
-	submit = SubmitField(lazy_gettext('Set'))

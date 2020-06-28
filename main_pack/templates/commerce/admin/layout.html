@@ -46,9 +46,13 @@
                 <a href="{{ url_for('commerce_admin.product_table') }}" class="nav-link"><i data-feather="grid"></i><span>{{_('Product Table')}}</span></a>
               </li>
               <li class="dropdown">
-                <a href="{{ url_for('commerce_admin.navbar') }}" class="nav-link"><i data-feather="sidebar"></i><span>{{_('Navigation')}}</span></a>
+                <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="sidebar"></i><span>{{_('Navigation')}}</span></a>
+                <ul class="dropdown-menu">
+                  <li><a class="nav-link" href="{{ url_for('commerce_admin.navbar') }}">{{_('Navigation')}}</a></li>
+                  <li><a class="nav-link" href="{{ url_for('commerce_admin.category_table') }}">{{_('Category table')}}</a></li>
+                </ul>
               </li>
-               <li class="dropdown">
+              <li class="dropdown">
                 <a href="{{ url_for('commerce_admin.add_product') }}" class="nav-link"><i data-feather="package"></i><span>{{_('Add Product')}}</span></a>
               </li>
               <li class="dropdown">

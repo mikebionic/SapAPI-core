@@ -198,7 +198,7 @@ def addEditCategoryDict(req):
 
 def addCategoryDict(req):
 	ResCatId = req.get('categoryId')
-	ResOwnerCatId = req.get('ownerCategory')
+	ResOwnerCatId = req.get('categoryOwner')
 	ResCatName = req.get('categoryName')
 	ResCatDesc = req.get('categoryDesc')
 	ResCatIconName = req.get('categoryIcon')
@@ -215,7 +215,7 @@ def addCategoryDict(req):
 	category = configureNulls(category)
 	return category
 
-# category_fields = ['ownerCategory','categoryName','categoryDesc','categoryIcon']
+# category_fields = ['categoryOwner','categoryName','categoryDesc','categoryIcon']
 
 def addCompanyInfoDict(req):
 	CName = req.get('companyName')
