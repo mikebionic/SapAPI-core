@@ -1914,6 +1914,7 @@ body.open-mobile-search .header-area.layout-02{
 .vertical-category-block>.wrap-menu .menu li.has-child>a{
     position: relative;
     padding-right: 5px;
+    display: flex;
 }
 .vertical-category-block .wrap-menu .menu li.has-child{
     position: relative;

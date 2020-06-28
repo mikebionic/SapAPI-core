@@ -65,6 +65,14 @@ def product_table():
 	return render_template ("commerce/admin/product_table.html",**resData,
 		title=gettext('Product table'))
 
+
+@bp.route("/admin/admin_table")
+@login_required
+@ui_admin_required()
+def admin_table():
+	return render_template ("commerce/admin/admin_table.html",title=gettext('Admin table'))
+
+
 @bp.route("/admin/order_invoices")
 @login_required
 @ui_admin_required()
