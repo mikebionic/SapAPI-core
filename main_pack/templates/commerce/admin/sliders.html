@@ -6,7 +6,10 @@
 {% endblock %}
 
 {% block content %}
-  <button class="btn btn-primary newSliderBtn"><i data-feather="plus-square"></i></button>
+  <div class="row">
+    <button class="btn btn-primary newSliderBtn"><i data-feather="plus-square"></i></button>
+    <button class="btn btn-primary minimizeSlider" style="display: none;"><i data-feather="minus-square"></i></button>
+  </div>
   <div class="row newSliderCard" style="display: none;">
     <div class="col-12 col-sm-6 col-lg-6">
       <div class="card">

@@ -164,7 +164,7 @@ def saveImageFile(req):
 	FileName = req.get('FileName')
 	FilePath = req.get('FilePath')
 	FileHash = req.get('FileHash')
-	# Image = str.encode(req.get('Image'))
+	Image = str.encode(req.get('Image'))
 	CreatedDate = req.get('CreatedDate')
 	ModifiedDate = req.get('ModifiedDate')
 	CreatedUId = req.get('CreatedUId')
