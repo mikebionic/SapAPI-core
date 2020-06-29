@@ -128,7 +128,7 @@ def api_v_resources():
 			List_Res_total = [res_total.ResTotBalance for res_total in res_totals if res_total.ResId==resource.ResId]
 			# # we don't need this blob anymore
 			# List_Image = [apiCheckImageByte(image.Image) for image in images if image.ResId==resource.ResId]
-			List_FileName = [image.FileName for image in images if image.ResId==resource.ResId]
+			List_FileName = [image.to_json_api() for image in images if image.ResId==resource.ResId]
 			List_Colors = [color.ColorName for res_color in res_colors if res_color.ResId==resource.ResId for color in colors if color.ColorId==res_color.ColorId]
 			List_Sizes = [size.SizeName for res_size in res_sizes if res_size.ResId==resource.ResId for size in sizes if size.SizeId==res_size.SizeId]
 			List_Brands = [brand.BrandName for brand in brands if brand.BrandId==resource.BrandId]
@@ -140,11 +140,12 @@ def api_v_resources():
 			resourceList["ResPriceValue"] = List_Res_price[0] if List_Res_price else ''
 			resourceList["ResTotBalance"] = List_Res_total[0] if List_Res_total else ''
 			# resourceList["Image"] = List_Image[0] if len(List_Image)>0 else ''
-			resourceList["FilePathS"] = fileToURL(file_size='S',file_name=List_FileName[0]) if List_FileName else ''
-			resourceList["FilePathM"] = fileToURL(file_size='M',file_name=List_FileName[0]) if List_FileName else ''
-			resourceList["FilePathR"] = fileToURL(file_size='R',file_name=List_FileName[0]) if List_FileName else ''
-			resourceList["Colors"] = List_Colors if List_Colors else ''
-			resourceList["Sizes"] = List_Sizes if List_Sizes else ''
+			resourceList["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=List_FileName[0]['FileName']) if List_FileName else ''
+			resourceList["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=List_FileName[0]['FileName']) if List_FileName else ''
+			resourceList["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_FileName[0]['FileName']) if List_FileName else ''
+			resourceList["Images"] = List_FileName if List_FileName else []
+			resourceList["Colors"] = List_Colors if List_Colors else []
+			resourceList["Sizes"] = List_Sizes if List_Sizes else []
 			resourceList["Brand"] = List_Brands[0] if List_Brands else ''
 			resourceList["Unit"] = List_Units[0] if List_Units else ''
 			resourceList["UsageStatus"] = List_Usage_statuses[0] if List_Usage_statuses else ''
@@ -193,7 +194,7 @@ def api_category_v_resources(ResCatId):
 			List_Res_category = [category.ResCatName for category in categories if category.ResCatId==resource.ResCatId]
 			List_Res_price = [res_price.ResPriceValue for res_price in res_prices if res_price.ResId==resource.ResId and res_price.ResPriceTypeId==2]
 			List_Res_total = [res_total.ResTotBalance for res_total in res_totals if res_total.ResId==resource.ResId]
-			List_FileName = [image.FileName for image in images if image.ResId==resource.ResId]
+			List_FileName = [image.to_json_api() for image in images if image.ResId==resource.ResId]
 			List_Colors = [color.ColorName for res_color in res_colors if res_color.ResId==resource.ResId for color in colors if color.ColorId==res_color.ColorId]
 			List_Sizes = [size.SizeName for res_size in res_sizes if res_size.ResId==resource.ResId for size in sizes if size.SizeId==res_size.SizeId]
 			List_Brands = [brand.BrandName for brand in brands if brand.BrandId==resource.BrandId]
@@ -204,9 +205,10 @@ def api_category_v_resources(ResCatId):
 			resourceList["ResCatName"] = List_Res_category[0] if List_Res_category else ''
 			resourceList["ResPriceValue"] = List_Res_price[0] if List_Res_price else ''
 			resourceList["ResTotBalance"] = List_Res_total[0] if List_Res_total else ''
-			resourceList["FilePathS"] = fileToURL(file_size='S',file_name=List_FileName[0]) if List_FileName else ''
-			resourceList["FilePathM"] = fileToURL(file_size='M',file_name=List_FileName[0]) if List_FileName else ''
-			resourceList["FilePathR"] = fileToURL(file_size='R',file_name=List_FileName[0]) if List_FileName else ''
+			resourceList["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=List_FileName[0]['FileName']) if List_FileName else ''
+			resourceList["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=List_FileName[0]['FileName']) if List_FileName else ''
+			resourceList["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_FileName[0]['FileName']) if List_FileName else ''
+			resourceList["Images"] = List_FileName if List_FileName else []
 			resourceList["Colors"] = List_Colors if List_Colors else ''
 			resourceList["Sizes"] = List_Sizes if List_Sizes else ''
 			resourceList["Brand"] = List_Brands[0] if List_Brands else ''
@@ -260,7 +262,7 @@ def ApiPaginatedResList(product_list):
 		List_Res_category = [category.ResCatName for category in categories if category.ResCatId==resource.ResCatId]
 		List_Res_price = [res_price.ResPriceValue for res_price in res_prices if res_price.ResId==resource.ResId and res_price.ResPriceTypeId==2]
 		List_Res_total = [res_total.ResTotBalance for res_total in res_totals if res_total.ResId==resource.ResId]
-		List_FileName = [image.FileName for image in images if image.ResId==resource.ResId]
+		List_FileName = [image.to_json_api() for image in images if image.ResId==resource.ResId]
 
 		List_Colors = [color for res_color in res_colors if res_color.ResId==resource.ResId for color in colors if color.ColorId==res_color.ColorId]
 		List_Sizes = [size for res_size in res_sizes if res_size.ResId==resource.ResId for size in sizes if size.SizeId==res_size.SizeId]
@@ -270,12 +272,12 @@ def ApiPaginatedResList(product_list):
 		resourceList["ResCatName"] = List_Res_category[0] if List_Res_category else ''
 		resourceList["ResPriceValue"] = List_Res_price[0] if List_Res_price else ''
 		resourceList["ResTotBalance"] = List_Res_total[0] if List_Res_total else ''
-		resourceList["FilePathS"] = fileToURL(file_size='S',file_name=List_FileName[0]) if List_FileName else ''
-		resourceList["FilePathM"] = fileToURL(file_size='M',file_name=List_FileName[0]) if List_FileName else ''
-		resourceList["FilePathR"] = fileToURL(file_size='R',file_name=List_FileName[0]) if List_FileName else ''
-
-		resourceList["Colors"] = List_Colors if List_Colors else ''
-		resourceList["Sizes"] = List_Sizes if List_Sizes else ''
+		resourceList["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=List_FileName[0]['FileName']) if List_FileName else ''
+		resourceList["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=List_FileName[0]['FileName']) if List_FileName else ''
+		resourceList["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_FileName[0]['FileName']) if List_FileName else ''
+		resourceList["Images"] = List_FileName if List_FileName else []
+		resourceList["Colors"] = List_Colors if List_Colors else []
+		resourceList["Sizes"] = List_Sizes if List_Sizes else []
 		resourceList["Brand"] = List_Brands[0] if List_Brands else ''
 
 		data.append(resourceList)
