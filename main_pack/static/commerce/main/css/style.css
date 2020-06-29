@@ -254,7 +254,7 @@ select option {
     font-variant: normal;
     text-transform: none;
     line-height: 1;
-    color: #0730fb;
+    color: #4f51c0;
     /* Better Font Rendering =========== */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -960,7 +960,7 @@ body {
     left: 0;
     right: 0;
     font-size: 40px;
-    color: #0730fb;
+    color: #4f51c0;
     font-weight: 700;
     line-height: 50px;
     margin: 0;
@@ -1083,7 +1083,7 @@ body {
 }
 
 .header-top .left a>i {
-    color: #0730fb;
+    color: #4f51c0;
     font-size: 15px;
     margin-right: 6px;
 }
@@ -5048,7 +5048,7 @@ body.open-overlay #overlay {
     text-align: center;
     line-height: 46px;
     display: none;
-    color: #0730fb;
+    color: #4f51c0;
     font-size: 24px;
     font-weight: 700;
     user-select: none;
@@ -6059,7 +6059,7 @@ body.open-overlay #overlay {
 }
 
 .shopping-cart-container table td.product-thumbnail .action a:hover {
-    color: #0730fb;
+    color: #4f51c0;
 }
 
 .shopping-cart-container table td.wrap-btn-control {
@@ -11961,7 +11961,7 @@ body.open-quickview-block .biolife-quickview-block {
     font-size: 90px;
     font-weight: 700;
     margin-bottom: 13px;
-    color: #0730fb
+    color: #4f51c0
 }
 
 .content-404 .title {
@@ -16852,11 +16852,11 @@ body.open-quickview-block .biolife-quickview-block {
 }
 
 .product-tab-list li:hover a, .product-tab-list li.active a {
-    color: #0730fb;
+    color: #4f51c0;
 }
 
 .product-tab-list li.active a:before {
-    background-color: #0730fb;
+    background-color: #4f51c0;
 }
 
 /* Product Tab Content */
@@ -16884,7 +16884,7 @@ body.open-quickview-block .biolife-quickview-block {
 
 /* Product Label */
 .pro-label {
-    background-color: #0730fb;
+    background-color: #4f51c0;
     border-radius: 3px;
     color: #fff;
     font-size: 12px;
@@ -16911,7 +16911,7 @@ body.open-quickview-block .biolife-quickview-block {
 }
 
 .pro-label:after {
-    background-color: #0730fb;
+    background-color: #4f51c0;
     bottom: 100%;
     content: "";
     height: 20px;
@@ -16925,7 +16925,7 @@ body.open-quickview-block .biolife-quickview-block {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 280px;
+    height: 200px;
     overflow: hidden;
     background: #fff;
 }
@@ -17001,9 +17001,9 @@ body.open-quickview-block .biolife-quickview-block {
 }
 
 .pro-action .action-btn {
-    border: 2px solid #0730fb;
+    border: 2px solid #4f51c0;
     border-radius: 3px;
-    color: #0730fb;
+    color: #4f51c0;
     display: block;
     height: 40px;
     margin-bottom: 15px;
@@ -17051,7 +17051,7 @@ body.open-quickview-block .biolife-quickview-block {
 }
 
 .pro-action .action-btn:hover {
-    background-color: #0730fb;
+    background-color: #4f51c0;
     color: #fff;
 }
 
@@ -17066,7 +17066,7 @@ body.open-quickview-block .biolife-quickview-block {
 }
 
 .pro-details .pro-cat {
-    color: #0730fb;
+    color: #4f51c0;
     font-weight: 600;
     line-height: 16px;
     margin: 0;
@@ -17077,7 +17077,7 @@ body.open-quickview-block .biolife-quickview-block {
 }
 
 .pro-details .pro-ratting i {
-    color: #0730fb;
+    color: #4f51c0;
     display: block;
     float: left;
     line-height: 16px;
@@ -17085,7 +17085,7 @@ body.open-quickview-block .biolife-quickview-block {
 }
 
 .pro-details .pro-ratting span {
-    color: #0730fb;
+    color: #4f51c0;
     display: block;
     float: left;
     font-size: 12px;
@@ -17105,7 +17105,7 @@ body.open-quickview-block .biolife-quickview-block {
 }
 
 .pro-details .pro-title:hover {
-    color: #0730fb;
+    color: #4f51c0;
 }
 
 .pro-details .pro-price {
@@ -17196,7 +17196,7 @@ body.open-quickview-block .biolife-quickview-block {
 }
 
 .list-pro-details .pro-title:hover {
-    color: #0730fb;
+    color: #4f51c0;
 }
 
 .list-pro-details .pro-ratting {
@@ -17204,7 +17204,7 @@ body.open-quickview-block .biolife-quickview-block {
 }
 
 .list-pro-details .pro-ratting i {
-    color: #0730fb;
+    color: #4f51c0;
     display: block;
     float: left;
     line-height: 16px;
@@ -17212,7 +17212,7 @@ body.open-quickview-block .biolife-quickview-block {
 }
 
 .list-pro-details .pro-ratting span {
-    color: #0730fb;
+    color: #4f51c0;
     display: block;
     float: left;
     font-size: 12px;
@@ -17234,7 +17234,7 @@ body.open-quickview-block .biolife-quickview-block {
 }
 
 .list-pro-details .pro-price .new {
-    color: #0730fb;
+    color: #4f51c0;
     margin-right: 15px;
 }
 
@@ -17295,7 +17295,7 @@ body.open-quickview-block .biolife-quickview-block {
 }
 
 .mini-product-wrapper h4:before {
-    background-color: #0730fb;
+    background-color: #4f51c0;
     bottom: 0;
     content: "";
     height: 1px;
@@ -17427,9 +17427,9 @@ body.open-quickview-block .biolife-quickview-block {
 }
 
 .mini-pro-action .action-btn {
-    border: 2px solid #0730fb;
+    border: 2px solid #4f51c0;
     border-radius: 3px;
-    color: #0730fb;
+    color: #4f51c0;
     display: block;
     height: 40px;
     opacity: 0;
@@ -17453,7 +17453,7 @@ body.open-quickview-block .biolife-quickview-block {
 }
 
 .mini-pro-action .action-btn:hover {
-    background-color: #0730fb;
+    background-color: #4f51c0;
     color: #fff;
 }
 
@@ -17474,7 +17474,7 @@ body.open-quickview-block .biolife-quickview-block {
 }
 
 .sin-mini-product .content .title:hover {
-    color: #0730fb;
+    color: #4f51c0;
 }
 
 .sin-mini-product .content .ratting {
@@ -17483,7 +17483,7 @@ body.open-quickview-block .biolife-quickview-block {
 }
 
 .sin-mini-product .content .ratting i {
-    color: #0730fb;
+    color: #4f51c0;
     display: inline-block;
     vertical-align: top;
 }
@@ -17812,7 +17812,7 @@ a.dropdown-item:focus,a.dropdown-item:active,a.dropdown-item.active {
     border-radius:10px
 }
 a .badge{
-    background-color: #2a5cfb;
+    background-color: #4f51c0;
     padding:5px;
     position:absolute;
     top:4px;
@@ -17886,7 +17886,7 @@ a .badge{
 .home .caption a{
  display: inline-block;
  padding:10px 30px;
- background-color: #2a5cfb;
+ background-color: #4f51c0;
  text-decoration: none;
  color:#ffffff;
 }
@@ -17915,7 +17915,7 @@ a .badge{
  width: 40px;
  margin-top: -20px;
  color:#ffffff;
- background-color: #2a5cfb;
+ background-color: #4f51c0;
  text-align: center;
  line-height: 40px;
  font-size:20px;
@@ -18007,7 +18007,7 @@ a .badge{
   }
   .image img{
     width:100%;
-    height:auto;
+    height:100%;
   }
   
   /* Legend */

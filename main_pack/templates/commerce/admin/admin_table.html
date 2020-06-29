@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/prism/prism.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/datatables/datatables.min.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css') }}">
+
 {% endblock %}
 
 {% block content %}
@@ -38,8 +39,9 @@
                   <img alt="image" src="{{ url_for('static', filename='commerce/admin/img/users/user-5.png') }}" width="35">
                 </td>
                 <td>Plan Planowa</td>
-                <td><a href="{{ url_for('commerce_users.profile') }}" class="btn btn-primary">Profile</a></td>
-                <td><a href="{{ url_for('commerce_users.profile') }}" class="btn btn-primary">Orders</a></td>
+                <td><a href="#" data-toggle="modal"
+                      data-target=".bd-example-modal-lg" class="btn btn-primary">Profile</a></td>
+                <td><a href="#" data-toggle="modal" data-target="#basicModal" class="btn btn-primary">Orders</a></td>
                 <td class="align-middle">
                   <div class="progress progress-xs">
                     <div class="progress-bar bg-success width-per-40">
@@ -75,8 +77,9 @@
                   <img alt="image" src="{{ url_for('static', filename='commerce/admin/img/users/user-5.png') }}" width="35">
                 </td>
                 <td>Plan Planowa</td>
-                <td><a href="{{ url_for('commerce_users.profile') }}" class="btn btn-primary">Profile</a></td>
-                <td><a href="{{ url_for('commerce_users.orders') }}" class="btn btn-primary">Orders</a></td>
+                <td><a href="#" data-toggle="modal"
+                      data-target=".bd-example-modal-lg" class="btn btn-primary">Profile</a></td>
+                <td><a href="#" data-toggle="modal" data-target="#basicModal" class="btn btn-primary">Orders</a></td>
                 <td class="align-middle">
                   <div class="progress progress-xs">
                     <div class="progress-bar width-per-60"></div>
@@ -110,8 +113,9 @@
                   <img alt="image" src="{{ url_for('static', filename='commerce/admin/img/users/user-5.png') }}" width="35">
                 </td>
                 <td>Jemal Planowa</td>
-                <td><a href="{{ url_for('commerce_users.profile') }}" class="btn btn-primary">Profile</a></td>
-                <td><a href="{{ url_for('commerce_users.orders') }}" class="btn btn-primary">Orders</a></td>
+                <td><a href="#" data-toggle="modal"
+                      data-target=".bd-example-modal-lg" class="btn btn-primary">Profile</a></td>
+                <td><a href="#" data-toggle="modal" data-target="#basicModal" class="btn btn-primary">Orders</a></td>
                 <td class="align-middle">
                   <div class="progress progress-xs">
                     <div class="progress-bar bg-warning width-per-70"></div>
@@ -145,8 +149,9 @@
                   <img alt="image" src="{{ url_for('static', filename='commerce/admin/img/users/user-5.png') }}" width="35">
                 </td>
                 <td>Jeren Planowa</td>
-                <td><a href="{{ url_for('commerce_users.profile') }}" class="btn btn-primary">Profile</a></td>
-                <td><a href="{{ url_for('commerce_users.orders') }}" class="btn btn-primary">Orders</a></td>
+                <td><a href="#" data-toggle="modal"
+                      data-target=".bd-example-modal-lg" class="btn btn-primary">Profile</a></td>
+                <td><a href="#" data-toggle="modal" data-target="#basicModal" class="btn btn-primary">Orders</a></td>
                 <td class="align-middle">
                   <div class="progress progress-xs">
                     <div class="progress-bar bg-success width-per-90"></div>
@@ -180,8 +185,9 @@
                   <img alt="image" src="{{ url_for('static', filename='commerce/admin/img/users/user-5.png') }}" width="35">
                 </td>
                 <td>Plan Planowa</td>
-                <td><a href="{{ url_for('commerce_users.profile') }}" class="btn btn-primary">Profile</a></td>
-                <td><a href="{{ url_for('commerce_users.orders') }}" class="btn btn-primary">Orders</a></td>
+                <td><a href="#" data-toggle="modal"
+                      data-target=".bd-example-modal-lg" class="btn btn-primary">Profile</a></td>
+                <td><a href="#" data-toggle="modal" data-target="#basicModal" class="btn btn-primary">Orders</a></td>
                 <td class="align-middle">
                   <div class="progress progress-xs">
                     <div class="progress-bar bg-success width-per-40">
@@ -216,6 +222,147 @@
     </div>
   </div>
 </div>
+<!-- profile -->
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+aria-hidden="true">
+<div class="modal-dialog modal-lg" style="max-width: 100%; width: 80%;">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="columns is-account-grid is-multiline">
+        <div class="column is-5">
+          <div class="flat-card profile-card is-auto" style="margin-top: 30%;">
+            <div class="card-body">
+              <div class="profile-image">
+                <img src="{{ url_for('static', filename='commerce/main/images/avatars/jane.jpg') }}"/>
+              </div>
+              <div class="username has-text-centered">
+                <span>{{current_user.UFullName}}</span>
+                <small>{{_('Registered date')}}: {{current_user.CreatedDate.strftime('%d-%m-%Y') if current_user.CreatedDate else ''}}</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="column is-7">
+          <div class="flat-card profile-info-card is-auto">
+            <div class="card-title">
+              <h3>{{_('Profile details')}}</h3>
+            </div>
+            <div class="card-body">
+              <div class="columns">
+                <div class="column is-6">
+                  <div class="info-block">
+                    <span class="label-text">{{_('Email')}}</span>
+                    <span class="label-value">{{current_user.UEmail}}</span>
+                  </div>
+                  <div class="info-block">
+                    <span class="label-text">{{_('Full name')}}</span>
+                    <span class="label-value">{{current_user.UFullName}}</span>
+                  </div>
+                  <div class="info-block">
+                    <span class="label-text">{{_('Address')}}</span>
+                    <span class="label-value">Rpac bolany ucin acanok sonun ucin men rpac yazgylary pozdym</span>
+                  </div>
+                </div>
+                <div class="column is-6">
+                  <div class="info-block">
+                    <span class="label-text">{{_('Mobile phone')}}</span>
+                    <span class="label-value">Rpac bolany ucin acanok sonun ucin men rpac yazgylary pozdym</span>
+                  </div>
+                  <div class="info-block">
+                    <span class="label-text">{{_('Home phone')}}</span>
+                    <span class="label-value">Rpac bolany ucin acanok sonun ucin men rpac yazgylary pozdym</span>
+                  </div>
+                  <div class="info-block">
+                    <span class="label-text">{{_('Zip code')}}</span>
+                    <span class="label-value">Rpac bolany ucin acanok sonun ucin men rpac yazgylary pozdym</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <img class="card-bg" src="{{ url_for('static', filename='commerce/main/images/logo/nephos-greyscale.svg')}}" alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<!-- Orders -->
+<div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="columns is-account-grid is-multiline">
+                  {% for orderInv in orderInvoices %}
+                    <!-- Order card -->
+                    <div class="column is-4">
+                      <div class="flat-card order-card has-popover-top">
+                        <div class="order-info">
+                          <span><a href="{{ url_for('commerce_users.order_lines',OInvRegNo=orderInv.OInvRegNo) }}" onclick="return true">{{_('Order')}} - {{ orderInv.OInvRegNo }}</a></span>
+                          <span class="tag is-{{orderInv.StatusUI.class}}">{{orderInv.InvStatus.InvStatName}}</span>
+                        </div>
+                        <!-- Progress Circle -->
+                        <div class="circle-chart-wrapper">
+                          <svg class="circle-chart" viewbox="0 0 33.83098862 33.83098862" width="140" height="140" xmlns="http://www.w3.org/2000/svg">
+                            <circle class="circle-chart-background" stroke="#efefef" stroke-width="2" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
+                            <circle class="circle-chart-circle" stroke="{{orderInv.StatusUI.color_hash}}" stroke-width="2" stroke-dasharray="{{orderInv.StatusUI.percentage}},100" stroke-linecap="round" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
+                          </svg>
+                          <div class="chart-icon">
+                            <i data-feather="{{orderInv.StatusUI.icon}}"></i>
+                          </div>
+                          <div class="ring-title has-text-centered">
+                            <span>{{orderInv.StatusUI.percentage}}% Complete</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="webui-popover-content">
+                        <div class="popover-flex-block">
+                          <div class="icon-block">
+                            <i data-feather="clock"></i>
+                          </div>
+                          <div class="content-block">
+                            <label>{{_('Ordered date')}}</label>
+                            <span>{{ orderInv.CreatedDate }}</span>
+                          </div>
+                        </div>
+                        <div class="popover-flex-block">
+                          <div class="icon-block">
+                            <i data-feather="dollar-sign"></i>
+                          </div>
+                          <div class="content-block">
+                            <label>{{_('Order Total')}}</label>
+                            <span>{{ orderInv.Currency.CurrencyCode }} {{ orderInv.OInvFTotal }}</span>
+                          </div>
+                        </div>
+                        <div class="popover-flex-block">
+                          <div class="icon-block">
+                            <i data-feather="{{orderInv.StatusUI.icon}}"></i>
+                          </div>
+                          <div class="content-block">
+                            <label>{{_('Status')}}</label>
+                            <span>{{orderInv.InvStatus.InvStatName}}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 {% endblock %}
 
 

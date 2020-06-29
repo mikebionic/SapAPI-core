@@ -9,7 +9,7 @@
 
   <form method="POST" action="" class="form" enctype="multipart/form-data">
     <div class="row">
-      <div class="col">
+      <div class="col-6" style="margin-left: 23%;">
         <div class="card">
           <div class="card-header">
             <h4>{{_('Company logo')}}</h4>
@@ -24,8 +24,9 @@
                 <li><a href="{{ url_for('commerce_admin.remove_images',type='logo',imgId=company_logo.ImgId) }}" class="btn btn-icon btn-light deleteLogoBtn"><i class="fas fa-trash-alt"></i></a></li>
               </div>
             {% else %}
-              <div class="gallery gallery-fw" data-item-height="100">
-                  <div class="gallery-item" data-image="{{ url_for('static', filename='commerce/admin/commerce_styles/images/home/ikea.png') }}"></div>
+              <div class="gallery gallery-fw" data-item-height="100" >
+
+                  <div class="gallery-item" style="border: 1px solid;padding-top: 8%;" ><a href="#"><i class="fas fa-plus" style="margin-left: 50%;"></i></a></div>
               </div>
               <div class="logo_icon">
                 <li><a href="#" class="btn btn-icon btn-light addLogoBtn"><i class="fas fa-plus"></i></a></li>

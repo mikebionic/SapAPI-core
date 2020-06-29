@@ -2,24 +2,56 @@
 
 {% block content %}
 	<div id="main-content" class="main-content">
-	{% for slider in sliders %}
-		{% if slider.SlName == "commerce_header" and slider.Sl_images %}
 			<div id="slider">
 				<div class="slides">
-					{% for sl_image in slider.Sl_images %}
-						<div class="slider">
+					<div class="slider">
 						<div class="legend"></div>
 						<div class="content">
 							<div class="content-txt">
-							<h1>{{sl_image.SlImgDesc}}</h1>
+							<h1>Lorem ipsum</h1>
 							<h2>Nam ultrices pellentesque facilisis. In semper tellus mollis nisl pulvinar vitae vulputate lorem consequat. Fusce odio tortor, pretium sit amet auctor ut, ultrices vel nibh.</h2>
 							</div>
 						</div>
 						<div class="image">
 							<img src="{{ url_for('static', filename='commerce/main/images/home/5.jpg')}}">
 						</div>
+					</div>
+					<div class="slider">
+						<div class="legend"></div>
+						<div class="content">
+							<div class="content-txt">
+							<h1>Lorem ipsum</h1>
+							<h2>Nam ultrices pellentesque facilisis. In semper tellus mollis nisl pulvinar vitae vulputate lorem consequat. Fusce odio tortor, pretium sit amet auctor ut, ultrices vel nibh.</h2>
+							</div>
 						</div>
-					{% endfor %}
+						<div class="image">
+							<img src="{{ url_for('static', filename='commerce/main/images/home/5.jpg')}}">
+						</div>
+					</div>
+					<div class="slider">
+						<div class="legend"></div>
+						<div class="content">
+							<div class="content-txt">
+							<h1>Lorem ipsum</h1>
+							<h2>Nam ultrices pellentesque facilisis. In semper tellus mollis nisl pulvinar vitae vulputate lorem consequat. Fusce odio tortor, pretium sit amet auctor ut, ultrices vel nibh.</h2>
+							</div>
+						</div>
+						<div class="image">
+							<img src="{{ url_for('static', filename='commerce/main/images/home/5.jpg')}}">
+						</div>
+					</div>
+					<div class="slider">
+						<div class="legend"></div>
+						<div class="content">
+							<div class="content-txt">
+							<h1>Lorem ipsum</h1>
+							<h2>Nam ultrices pellentesque facilisis. In semper tellus mollis nisl pulvinar vitae vulputate lorem consequat. Fusce odio tortor, pretium sit amet auctor ut, ultrices vel nibh.</h2>
+							</div>
+						</div>
+						<div class="image">
+							<img src="{{ url_for('static', filename='commerce/main/images/home/5.jpg')}}">
+						</div>
+					</div>
 				</div>
 				<div class="switch">
 				<ul>
@@ -32,8 +64,6 @@
 				</ul>
 				</div>
 			</div>
-		{% endif %}
-	{% endfor %}
 			
 
 		<!--Block 02: Banner-->
