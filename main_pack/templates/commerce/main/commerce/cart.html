@@ -42,6 +42,10 @@
               <div class="btn-checkout">
                 <a class="btn checkout checkoutCartBtn">{{_('Checkout')}}</a>
               </div>
+              <div class="btn-checkout" style="display: flex;padding-left: 27px;">
+                    <button class="btn btn-primary" id="swal-2">Success</button>
+                    <button class="btn btn-primary" id="swal-3">Warning</button>
+                </div>
             </div>
           </div>
         </div>
@@ -250,5 +254,7 @@
 
 
 {% block scripts %}
+  <script src="{{ url_for('static', filename='commerce/admin/js/page/sweetalert.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/admin/bundles/sweetalert/sweetalert.min.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/main/js/cart.js') }}"></script>
 {% endblock %}

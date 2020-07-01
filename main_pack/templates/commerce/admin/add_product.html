@@ -176,14 +176,14 @@
                     <div class="form-group">
                       <label class="form-label">{{_('Sizes')}}</label>
                       <div class="selectgroup selectgroup-pills sizesList">
-                        {% for size in sizes %}
-                          {% if size.GCRecord == None or size.GCRecord == '' %}
-                            <label class="selectgroup-item">
-                              <input type="checkbox"  value="{{size.SizeId}}" class="selectgroup-input sizeId">
-                              <span {% if size.SizeDesc %} title="{{ size.SizeDesc }}" {% endif %} class="selectgroup-button">{{size.SizeName}}</span>
-                            </label>
-                          {% endif %}
-                        {% endfor %}
+                        <select class="custom-select sizeId" style="width: 20%;">
+                          <option selected="">Choose...</option>
+                          {% for size in sizes %}
+                            {% if size.GCRecord == None or size.GCRecord == '' %}
+                              <option value="{{size.SizeId}}">{{size.SizeName}}</option>
+                              {% endif %}
+                          {% endfor %}
+                        </select>
                       </div>
                       <button class="btn btn-primary mr-1 saveResSizeBtn" type="submit">{{_('Save')}}</button>
 
@@ -201,7 +201,7 @@
                         {% for brand in brands %}
                           {% if brand.GCRecord == None or brand.GCRecord == '' %}
                             <label class="selectgroup-item">
-                              <input type="checkbox" value="{{brand.BrandId}}" class="selectgroup-input resBrandId">
+                              <input type="radio" name="value" value="{{brand.BrandId}}" class="selectgroup-input resBrandId" checked>
                               <span {% if brand.BrandDesc %} title="{{ brand.BrandDesc }}" {% endif %} class="selectgroup-button">{{brand.BrandName}}</span>
                             </label>
                           {% endif %}

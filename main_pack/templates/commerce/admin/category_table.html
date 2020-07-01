@@ -67,38 +67,52 @@
 {% block modals %}
 <!-- icon selection Modal -->
 <div class="modal fade" id="catIconsModal" tabindex="-1" role="dialog" aria-labelledby="catIconsModalTitle" aria-hidden="true" style="background-color: rgba(71, 69, 69, 0.548);">
-  <div class="modal-dialog modal-dialog-centered" role="document">
+  <div class="modal-dialog modal-dialog-centered" style="max-width: 100%; width: 95%;" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="catIconsModalTitle">{{_('Icons')}}</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
+				<h5 class="modal-title" id="catIconsModalTitle">{{_('Icons')}}</h5>
+				<form class="card-header-form">
+					<div class="input-group">
+					  <input type="text" name="search" class="form-control" placeholder="Search" style="height: 37px;">
+					  <div class="input-group-btn">
+						<button class="btn btn-primary btn-icon" style="margin-left: 0;"><i class="fas fa-search"></i></button>
+					  </div>
+					</div>
+				  </form>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
       <div class="modal-body">
-        <ul class="nav nav-tabs" id="myTab2" role="tablist">
-          {% for category in category_icons %}
-            <li class="nav-item">
-              <a class="badge badge-primary" id="contact-tab2" data-toggle="tab" href="#tab-{{category.replace(' ','-')}}" role="tab" aria-controls="contact" aria-selected="false">{{ category }}</a>
-            </li>
-          {% endfor %}
-        </ul>
-        <div class="tab-content tab-bordered iconsList" id="myTab3Content">
-          {% for category in category_icons %}
-            <div class="tab-pane fade" id="tab-{{category.replace(' ','-')}}" role="tabpanel" aria-labelledby="profile-tab2">
-              {% for iconInfo in category_icons[category] %}
-                <div class="row icon-feather-container">
-                  <div class="col-sm-6 col-md-4 col-lg-3">
-                    <div class="preview">
-                      <a href="#">
-                        <img name="{{ iconInfo['icon_name'] }}" icon_category="{{ iconInfo['category'] }}" class="img-fluid" src="{{ iconInfo['url'] }}"> 
-                      </a>
-                    </div>
+        <div class="row">
+          <div class="col-4">
+            <div class="list-group" id="list-tab" role="tablist">
+              {% for category in category_icons %}
+                <a class="list-group-item list-group-item-action" id="list-home-list"
+                data-toggle="list" href="#tab-{{category.replace(' ','-')}}" role="tab" 
+                aria-controls="contact" aria-selected="false">{{ category }}</a>
+              {% endfor %}
+            </div>
+          </div>
+          <div class="col-8">
+            <div class="tab-content" id="nav-tabContent">
+              {% for category in category_icons %}
+                <div class="tab-pane fade" id="tab-{{category.replace(' ','-')}}" role="tabpanel" aria-labelledby="profile-tab2">
+                  <div class="row icon-feather-container">
+                    {% for iconInfo in category_icons[category] %}
+                      <div class="col-sm-6 col-md-4 col-lg-3">
+                        <div class="preview">
+                          <a href="#">
+                            <img name="{{ iconInfo['icon_name'] }}" icon_category="{{ iconInfo['category'] }}" class="img-fluid" style="margin-left: 43%;" src="{{ iconInfo['url'] }}">	
+                          </a>
+                        </div>
+                      </div>
+                    {% endfor %}
                   </div>
                 </div>
               {% endfor %}
             </div>
-          {% endfor %}
+          </div>
         </div>
       </div>
     </div>
