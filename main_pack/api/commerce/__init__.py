@@ -13,6 +13,7 @@ from main_pack.api.commerce import (category_api,
 																		order_inv_api,
 																		order_inv_line_api,
 																		order_inv_type_api,
+																		checkout_order_inv_api,
 																		resource_api,
 																		resource_v_api,
 																		slider_api)

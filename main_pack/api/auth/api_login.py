@@ -10,6 +10,8 @@ from main_pack.api.auth import api
 from main_pack.models.users.models import Users,Rp_acc
 from main_pack.api.auth.utils import check_auth
 from main_pack.api.users.utils import apiUsersData,apiRpAccData
+from main_pack.base.dataMethods import apiDataFormat
+
 def token_required(f):
 	@wraps(f)
 	def decorated(*args,**kwargs):
@@ -20,16 +22,21 @@ def token_required(f):
 			return jsonify({'message':'Token is missing!'}), 401
 		try:
 			data=jwt.decode(token, Config.SECRET_KEY)
-			print(data)
-			if data['UId']:
+			if 'UId' in data:
+				model_type = 'Users'
 				current_user = Users.query\
 					.filter(and_(Users.GCRecord=='' or Users.GCRecord==None),Users.UId==data['UId']).first()
-			elif data['RpAccId']:
+			elif 'RpAccId' in data:
+				model_type = 'Rp_acc'
 				current_user = Rp_acc.query\
 					.filter(and_(Rp_acc.GCRecord=='' or Rp_acc.GCRecord==None),Rp_acc.RpAccId==data['RpAccId']).first()
+			user = {
+				'model_type':model_type,
+				'current_user':current_user
+			}
 		except:
 			return jsonify({'message':'Token is invalid!'}), 401
-		return f(current_user,*args,**kwargs)
+		return f(user,*args,**kwargs)
 
 	return decorated
 
@@ -45,9 +52,14 @@ def api_login_users():
 		return make_response('Could not verify. User does not exist.',
 			401, {'WWW-Authenticate':'basic realm'})
 	if check_auth('Users',auth.username,auth.password):
-		token = jwt.encode({'UId':user.UId, 'exp':datetime.utcnow()+dt.timedelta(minutes=10)}, Config.SECRET_KEY)
+		exp = datetime.utcnow()+dt.timedelta(minutes=30)
+		token = jwt.encode({'UId':user.UId,'exp':exp}, Config.SECRET_KEY)
 		userData = apiUsersData(user.UId)
-		return jsonify({'token':token.decode('UTF-8'),'user':userData['data']})
+		return jsonify({
+			'token':token.decode('UTF-8'),
+			'user':userData['data'],
+			'exp':apiDataFormat(exp)
+			})
 	return make_response('Could not verify', 401, {'WWW-Authenticate':'basic realm'})
 
 @api.route('/login/rp-accs/',methods=['GET','POST'])
@@ -59,10 +71,15 @@ def api_login_rp_accs():
 	rp_acc = Rp_acc.query\
 		.filter(and_(Rp_acc.GCRecord=='' or Rp_acc.GCRecord==None),Rp_acc.RpAccUName==auth.username).first()
 	if not rp_acc:
-		return make_response('Could not verify. User does not exist.',
+		return make_response('Could not verify. Rp_acc does not exist.',
 			401, {'WWW-Authenticate':'basic realm'})
 	if check_auth('Rp_acc',auth.username,auth.password):
-		token = jwt.encode({'RpAccId':rp_acc.RpAccId, 'exp':datetime.utcnow()+dt.timedelta(minutes=10)}, Config.SECRET_KEY)
+		exp = datetime.utcnow()+dt.timedelta(minutes=30)
+		token = jwt.encode({'RpAccId':rp_acc.RpAccId,'exp':exp}, Config.SECRET_KEY)
 		rpAccData = apiRpAccData(rp_acc.RpAccId)
-		return jsonify({'token':token.decode('UTF-8'),'rp_acc':rpAccData['data']})
+		return jsonify({
+			'token':token.decode('UTF-8'),
+			'rp_acc':rpAccData['data'],
+			'exp':apiDataFormat(exp)
+			})
 	return make_response('Could not verify', 401, {'WWW-Authenticate':'basic realm'})

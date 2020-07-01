@@ -76,7 +76,9 @@ def create_app(config_class=Config):
 	from main_pack.api.users import api as users_api
 	app.register_blueprint(users_api,url_prefix=api_url_prefix)
 
-
+	csrf.exempt(auth_api)
+	csrf.exempt(commerce_api)
+	csrf.exempt(users_api)
 
 	# /api blueprints
 
