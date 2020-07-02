@@ -3,11 +3,23 @@ from main_pack.api.commerce import api
 from main_pack.base.apiMethods import checkApiResponseStatus
 
 from main_pack.models.users.models import Rp_acc
-from main_pack.api.users.utils import addRpAccDict
+from main_pack.api.users.utils import addRpAccDict,apiRpAccData
 from main_pack import db
 from flask import current_app
 
-# @api.route("/rp-accounts/",methods=['GET','POST','PUT'])
+@api.route("/tbl-dk-rp-accs/<RpAccId>/",methods=['GET'])
+def api_rp_accs_rp_acc(RpAccId):
+	rp_acc = apiRpAccData(RpAccId)
+	res = {
+		"status":1,
+		"message":"Single rp_acc",
+		"data":rp_acc['data'],
+		"total":1
+	}
+	response = make_response(jsonify(res),200)
+
+	return response
+
 @api.route("/tbl-dk-rp-accs/",methods=['GET','POST','PUT'])
 def api_rp_accs():
 	if request.method == 'GET':

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import sys
 
 class Config:
@@ -32,3 +31,14 @@ class Config:
 	ELASTICSEARCH_URL = 'http://localhost:9200'
 
 	OS_TYPE = sys.platform
+	# set to True if you want to sell product
+	# if no left in Res_total  
+	NEGATIVE_WH_QTY_SALE = False
+	NEGATIVE_WH_QTY_ORDER = True
+
+	PRICE_2_TEXT_LANGUAGE = 'tk'
+	# PRICE_2_TEXT_LANGUAGE = 'en'
+	# PRICE_2_TEXT_LANGUAGE = 'ru'
+	PRICE_2_TEXT_CURRENCY = 'TMT'
+	# PRICE_2_TEXT_CURRENCY = 'USD'
+	# PRICE_2_TEXT_CURRENCY = 'RUB'

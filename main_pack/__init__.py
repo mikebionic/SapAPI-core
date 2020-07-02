@@ -8,16 +8,17 @@ from main_pack.config import Config
 from flask_babel import Babel,format_date,gettext,lazy_gettext
 from flask_bcrypt import Bcrypt
 from flask_mail import Mail
+from flask_wtf.csrf import CSRFProtect
 # from elasticsearch import Elasticsearch
-
 babel = Babel()
 db = SQLAlchemy()
 bcrypt = Bcrypt()
 login_manager = LoginManager()
 mail = Mail()
+csrf = CSRFProtect()
+
 # elasticsearch = Elasticsearch([app.config['ELASTICSEARCH_URL']])\
 # 	if app.config['ELASTICSEARCH_URL'] else None
-
 
 login_manager.login_view = 'commerce_auth.login'
 login_manager.login_message = lazy_gettext('Login the system!')
@@ -48,6 +49,7 @@ def create_app(config_class=Config):
 	login_manager.init_app(app)
 	babel.init_app(app)
 	mail.init_app(app)
+	csrf.init_app(app)
 	# elasticsearch.init_app(app)
 	
 	# all models are separated in the models folder
@@ -74,7 +76,9 @@ def create_app(config_class=Config):
 	from main_pack.api.users import api as users_api
 	app.register_blueprint(users_api,url_prefix=api_url_prefix)
 
-
+	csrf.exempt(auth_api)
+	csrf.exempt(commerce_api)
+	csrf.exempt(users_api)
 
 	# /api blueprints
 

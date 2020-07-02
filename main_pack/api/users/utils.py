@@ -163,24 +163,14 @@ def apiUsersData(UId):
 	List_RpAccs = [rp_acc.to_json_api() for rp_acc in rp_accs]
 	################
 	userList = user.to_json_api()
-
-	userList["User_type"] = user_type.to_json_api() if user_type else ''
-
-	List_Images = [image.FileName for image in images if image.UId==user.UId]
-	userList["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=List_Images[0]) if List_Images else ''
-	userList["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=List_Images[0]) if List_Images else ''
-	userList["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_Images[0]) if List_Images else ''
-	# configure this for uniqueness later on
-	imagesList = []
-	for imageName in List_Images:
-		profileImage = {}
-		profileImage["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=imageName) if List_Images else ''
-		profileImage["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=imageName) if List_Images else ''
-		profileImage["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=imageName) if List_Images else ''
-		imagesList.append(profileImage)
-
-	userList['Images'] = imagesList
+	
+	List_Images = [image.to_json_api() for image in images if image.UId==user.UId]
+	userList["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=List_Images[0]['FileName']) if List_Images else ''
+	userList["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=List_Images[0]['FileName']) if List_Images else ''
+	userList["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_Images[0]['FileName']) if List_Images else ''
+	userList['Images'] = List_Images
 	userList["Rp_accs"] = List_RpAccs if List_RpAccs else ''
+	userList["User_type"] = user_type.to_json_api() if user_type else ''
 	#############
 	res = {
 		"status":1,
@@ -195,21 +185,18 @@ def apiRpAccData(RpAccId):
 	images = Image.query\
 		.filter(Image.GCRecord=='' or Image.GCRecord==None)\
 		.order_by(Image.CreatedDate.desc()).all()
+	users = Users.query\
+		.filter(and_(Users.GCRecord=='' or Users.GCRecord==None),Users.RpAccId==RpAccId).all()
+	
 	rpAccList = rp_acc.to_json_api()
 
-	List_Images = [image.FileName for image in images if image.RpAccId==rp_acc.RpAccId]
-	rpAccList["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=List_Images[0]) if List_Images else ''
-	rpAccList["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=List_Images[0]) if List_Images else ''
-	rpAccList["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_Images[0]) if List_Images else ''
-	# configure this for uniqueness later on
-	imagesList = []
-	for imageName in List_Images:
-		profileImage = {}
-		profileImage["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=imageName) if List_Images else ''
-		profileImage["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=imageName) if List_Images else ''
-		profileImage["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=imageName) if List_Images else ''
-		imagesList.append(profileImage)
-	rpAccList['Images'] = imagesList
+	List_Users = [user.to_json_api() for user in users]
+	List_Images = [image.to_json_api() for image in images if image.RpAccId==rp_acc.RpAccId]
+	rpAccList["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=List_Images[0]['FileName']) if List_Images else ''
+	rpAccList["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=List_Images[0]['FileName']) if List_Images else ''
+	rpAccList["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_Images[0]['FileName']) if List_Images else ''
+	rpAccList['Images'] = List_Images
+	rpAccList["Users"] = List_Users[0] if List_Users else ''
 
 	# data.append(rpAccList)
 	#############
