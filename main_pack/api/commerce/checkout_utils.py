@@ -15,7 +15,6 @@ def totalQtySubstitution(totalBalance,amount):
 			'status':0
 		}
 		return result
-	print(current_app.config['NEGATIVE_WH_QTY_ORDER'])
 	if current_app.config['NEGATIVE_WH_QTY_ORDER']==False:
 		if resultingTotal<0:
 			result = {

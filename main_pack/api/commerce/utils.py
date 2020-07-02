@@ -218,6 +218,7 @@ def saveImageFile(req):
 		outfile.close()
 		imageFile = save_image(savedImage=dumpImagePath,module=module,id=id)
 		image['FilePath'] = imageFile['FilePath']
+		image['FileName'] = imageFile['FileName']
 		# for data in imageFile:
 		# 	# Image db is currently not supporting this
 		# 	# this will change later on

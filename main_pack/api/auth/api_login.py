@@ -52,7 +52,7 @@ def api_login_users():
 		return make_response('Could not verify. User does not exist.',
 			401, {'WWW-Authenticate':'basic realm'})
 	if check_auth('Users',auth.username,auth.password):
-		exp = datetime.utcnow()+dt.timedelta(minutes=30)
+		exp = datetime.now()+dt.timedelta(minutes=30)
 		token = jwt.encode({'UId':user.UId,'exp':exp}, Config.SECRET_KEY)
 		userData = apiUsersData(user.UId)
 		return jsonify({
@@ -74,7 +74,7 @@ def api_login_rp_accs():
 		return make_response('Could not verify. Rp_acc does not exist.',
 			401, {'WWW-Authenticate':'basic realm'})
 	if check_auth('Rp_acc',auth.username,auth.password):
-		exp = datetime.utcnow()+dt.timedelta(minutes=30)
+		exp = datetime.now()+dt.timedelta(minutes=30)
 		token = jwt.encode({'RpAccId':rp_acc.RpAccId,'exp':exp}, Config.SECRET_KEY)
 		rpAccData = apiRpAccData(rp_acc.RpAccId)
 		return jsonify({

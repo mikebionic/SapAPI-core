@@ -109,3 +109,6 @@ GET
 
 GET POST
 /api/tbl-dk-sliders/
+
+POST [Token required of Rp_acc login]
+/api/checkout-sale-order-inv/
