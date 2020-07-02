@@ -64,7 +64,7 @@
 				</ul>
 				</div>
 			</div>
-			
+
 
 		<!--Block 02: Banner-->
 		<div class="banner-block xs-margin-top-45px">
@@ -99,7 +99,7 @@
 									</div>
 										<h2>Kathy<span> Hudson</span></h2>
 										<p>Neque porro quisquam</p>
-									
+
 								</div>
 							</div>
 						</div>
@@ -117,7 +117,14 @@
 						<ul class="tabs md-margin-bottom-35-im xs-margin-bottom-40-im">
 							{% for category in categories %}
 								<li class="tab-element">
-									<a href="#{{category.ResCatId}}" class="tab-link">{{category.ResCatName}}</a>
+									<a href="#{{category.ResCatId}}" class="tab-link">
+										{% if category.ResCatIconFilePath %}
+											<span class="biolife-icon">
+												<img class="img-fluid" src="{{category.ResCatIconFilePath}}"style="height: 40px;">
+											</span>
+										{%endif%}
+										{{category.ResCatName}}
+									</a>
 								</li>
 							{% endfor %}
 						</ul>
@@ -126,37 +133,37 @@
 					<div class="tab-content">
 					  {% for category in categories %}
 						  <div id="{{category.ResCatId}}" class="tab-contain">
-							<ul class="products-list biolife-carousel nav-center-02 nav-none-on-mobile eq-height-contain" data-slick='{"rows":2 ,"arrows":true,"dots":false,"infinite":true,"speed":400,"slidesMargin":10,"slidesToShow":4, "responsive":[{"breakpoint":1200, "settings":{ "slidesToShow": 4}},{"breakpoint":992, "settings":{ "slidesToShow": 3, "slidesMargin":25 }},{"breakpoint":768, "settings":{ "slidesToShow": 2, "slidesMargin":15}}]}'>								
+							<ul class="products-list biolife-carousel nav-center-02 nav-none-on-mobile eq-height-contain" data-slick='{"rows":2 ,"arrows":true,"dots":false,"infinite":true,"speed":400,"slidesMargin":10,"slidesToShow":4, "responsive":[{"breakpoint":1200, "settings":{ "slidesToShow": 4}},{"breakpoint":992, "settings":{ "slidesToShow": 3, "slidesMargin":25 }},{"breakpoint":768, "settings":{ "slidesToShow": 2, "slidesMargin":15}}]}'>
 							  {% for resource in data %}
 								  {% if resource.ResCatName == category.ResCatName %}
-										<li class="product-item">
-										  <div class="sin-product">
-												<div class="pro-image fix">
-													<a href="{{ url_for('commerce.product',resId=resource.ResId)}}" class="image">
-												  	{% if resource.FilePathS %}
-														  <img loading="lazy" src="{{ resource.FilePathS }}"/>
-												  	{% else %}
-														  <img loading="lazy" src="{{ url_for('static', filename='commerce/uploads/noPhoto.png') }}"/>
-												  	{% endif %}
-												  </a>
-												  <div class="pro-action">
-														<a href="#{{ url_for('commerce.product',resId=resource.ResId)}}" class="action-btn cart addToCart"><i class="fa fa-fw fa-shopping-cart"></i></a>
-														<a href="#" class="action-btn wishlist"><i class="fa fa-fw fa-heart-o"></i></a>
-												  </div>
-												</div>
-
-												<div class="pro-details text-center">
-													<div class="top fix"></div>
-											  	<!-- wtf is this above??? -->
-												  <a href="#" class="pro-title">{{resource.ResName}}</a>
-												  <h3 class="pro-price">
-													<span class="new">
-														{{ resource.ResPriceValue }} TMT
-													</span>
-												  </h3>
-												</div>
-										  </div>
-										</li>
+									<li class="product-item">
+											<div class="contain-product layout-default">
+													<div class="product-thumb">
+															<a href="{{ url_for('commerce.product',resId=resource.ResId)}}" class="link-to-product">
+																{% if resource.FilePathS %}
+																  <img loading="lazy" src="{{ resource.FilePathS }}" width="270" height="270" class="product-thumnail"/>
+														  	{% else %}
+																  <img loading="lazy" src="{{ url_for('static', filename='commerce/uploads/f97f1e51f3472883.jpeg') }}" width="270" height="270" class="product-thumnail"/>
+														  	{% endif %}
+															</a>
+													</div>
+													<div class="info">
+															<b class="categories">Vegetables</b>
+															<h4 class="product-title"><a href="#" class="pr-name">{{resource.ResName}}</a></h4>
+															<div class="price ">
+																	<ins><span class="price-amount">{{ resource.ResPriceValue }} TMT</span></ins>
+																	<del><span class="price-amount">{{ resource.ResPriceValue }} TMT</span></del>
+															</div>
+															<div class="slide-down-box">
+																	<p class="message">All products are carefully selected to ensure food safety.</p>
+																	<div class="buttons">
+																			<a href="#" class="btn wishlist-btn"><i class="fa fa-heart" aria-hidden="true"></i></a>
+																			<a href="{{ url_for('commerce.product',resId=resource.ResId)}}" class="btn add-to-cart-btn"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i>add to cart</a>
+																	</div>
+															</div>
+													</div>
+											</div>
+									</li>
 									{% endif %}
 									{% for category in category.subcategories %}
 										{% for category in category.subcategories %}
@@ -231,18 +238,18 @@
 											</div>
 											<div class="content text-center fix">
 												<a href="#" class="title">Dummy Product Name</a>
-													
-													
-													
-													
-													
+
+
+
+
+
 												<h3 class="price fix">
 													<span class="new">$185.00</span>
 													<span class="old">$200.00</span>
 												</h3>
 											</div>
 										</div>
-										
+
 									</div>
 								</div>
 							</div>
@@ -255,7 +262,7 @@
 {% endblock %}
 {% block scripts %}
 <script>
-	
+
 	const slides=document.querySelector(".slider").children;
  const prev=document.querySelector(".prev");
  const next=document.querySelector(".next");
@@ -265,15 +272,15 @@
 
    prev.addEventListener("click",function(){
        prevSlide();
-       updateCircleIndicator(); 
+       updateCircleIndicator();
        resetTimer();
    })
 
    next.addEventListener("click",function(){
-      nextSlide(); 
+      nextSlide();
       updateCircleIndicator();
       resetTimer();
-      
+
    })
 
    // create circle indicators
@@ -297,7 +304,7 @@
          updateCircleIndicator();
          resetTimer();
     }
-     
+
     function updateCircleIndicator(){
     	for(let i=0; i<indicator.children.length; i++){
     		indicator.children[i].classList.remove("active");
@@ -334,14 +341,14 @@
    }
 
    function resetTimer(){
-   	  // when click to indicator or controls button 
-   	  // stop timer 
+   	  // when click to indicator or controls button
+   	  // stop timer
    	  clearInterval(timer);
    	  // then started again timer
    	  timer=setInterval(autoPlay,4000);
    }
- 
-  
+
+
   function autoPlay(){
       nextSlide();
       updateCircleIndicator();
