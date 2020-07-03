@@ -21,9 +21,11 @@ def images_setup():
 
 	if "logoForm" in request.form and logoForm.validate_on_submit():
 		if logoForm.logoImage.data:
-
 			imageFile = save_icon(imageForm=logoForm.logoImage.data,module=os.path.join("uploads","commerce","Company"),id=company.CId)
-			image = Image(FileName=imageFile['FileName'],FilePath=imageFile['FilePath'],CId=company.CId)
+			
+			lastImage = Image.query.order_by(Image.ImgId.desc()).first()
+			ImgId = lastImage.ImgId+1
+			image = Image(ImgId=ImgId,FileName=imageFile['FileName'],FilePath=imageFile['FilePath'],CId=company.CId)
 			db.session.add(image)
 			db.session.commit()
 

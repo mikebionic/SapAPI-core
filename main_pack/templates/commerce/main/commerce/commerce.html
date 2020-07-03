@@ -2,71 +2,41 @@
 
 {% block content %}
 	<div id="main-content" class="main-content">
-			<div id="slider">
-				<div class="slides">
-					<div class="slider">
-						<div class="legend"></div>
-						<div class="content">
-							<div class="content-txt">
-							<h1>Lorem ipsum</h1>
-							<h2>Nam ultrices pellentesque facilisis. In semper tellus mollis nisl pulvinar vitae vulputate lorem consequat. Fusce odio tortor, pretium sit amet auctor ut, ultrices vel nibh.</h2>
+		{% for slider in sliders %}
+			{% if slider.SlName == "commerce_header" and slider.Sl_images %}
+				<div id="slider">
+					<div class="slides">
+						{% set qty_of_sliders = slider.Sl_images|length - 1 %}
+						{% for sl_image in slider.Sl_images %}
+							<div class="slider">
+								<div class="legend"></div>
+								<div class="content">
+									<div class="content-txt">
+										<h1>{{sl_image.SlImgDesc}}</h1>
+									</div>
+								</div>
+								<div class="image">
+									<img loading="lazy" src="{{ sl_image.SlImgMainImgFilePathM }}">
+								</div>
 							</div>
-						</div>
-						<div class="image">
-							<img src="{{ url_for('static', filename='commerce/main/images/home/5.jpg')}}">
-						</div>
+						{% endfor %}
 					</div>
-					<div class="slider">
-						<div class="legend"></div>
-						<div class="content">
-							<div class="content-txt">
-							<h1>Lorem ipsum</h1>
-							<h2>Nam ultrices pellentesque facilisis. In semper tellus mollis nisl pulvinar vitae vulputate lorem consequat. Fusce odio tortor, pretium sit amet auctor ut, ultrices vel nibh.</h2>
-							</div>
-						</div>
-						<div class="image">
-							<img src="{{ url_for('static', filename='commerce/main/images/home/5.jpg')}}">
-						</div>
-					</div>
-					<div class="slider">
-						<div class="legend"></div>
-						<div class="content">
-							<div class="content-txt">
-							<h1>Lorem ipsum</h1>
-							<h2>Nam ultrices pellentesque facilisis. In semper tellus mollis nisl pulvinar vitae vulputate lorem consequat. Fusce odio tortor, pretium sit amet auctor ut, ultrices vel nibh.</h2>
-							</div>
-						</div>
-						<div class="image">
-							<img src="{{ url_for('static', filename='commerce/main/images/home/5.jpg')}}">
-						</div>
-					</div>
-					<div class="slider">
-						<div class="legend"></div>
-						<div class="content">
-							<div class="content-txt">
-							<h1>Lorem ipsum</h1>
-							<h2>Nam ultrices pellentesque facilisis. In semper tellus mollis nisl pulvinar vitae vulputate lorem consequat. Fusce odio tortor, pretium sit amet auctor ut, ultrices vel nibh.</h2>
-							</div>
-						</div>
-						<div class="image">
-							<img src="{{ url_for('static', filename='commerce/main/images/home/5.jpg')}}">
-						</div>
+					<div class="switch">
+						<ul>
+							<li>
+								<div class="on"></div>
+							</li>
+							{% if qty_of_sliders>1 %}
+								{% for i in range(qty_of_sliders) %}
+									<li></li>
+								{% endfor %}
+							{% endif %}
+						</ul>
 					</div>
 				</div>
-				<div class="switch">
-				<ul>
-					<li>
-					<div class="on"></div>
-					</li>
-					<li></li>
-					<li></li>
-					<li></li>
-				</ul>
-				</div>
-			</div>
+			{% endif %}
+		{% endfor %}
 
-
-		<!--Block 02: Banner-->
 		<div class="banner-block xs-margin-top-45px">
 			<div class="container">
 				<ul class="biolife-carousel nav-center-bold nav-none-on-mobile" data-slick='{"rows":1,"arrows":true,"dots":false,"infinite":false,"speed":400,"slidesMargin":30,"slidesToShow":3, "responsive":[{"breakpoint":1200, "settings":{ "slidesToShow": 3}},{"breakpoint":992, "settings":{ "slidesToShow": 2}},{"breakpoint":768, "settings":{ "slidesToShow": 2}}, {"breakpoint":500, "settings":{ "slidesToShow": 1}}]}'>
@@ -80,8 +50,8 @@
 									<div class="square">
 									  <div></div>
 									</div>
-										<h2>Kathy<span> Hudson</span></h2>
-										<p>Neque porro quisquam</p>
+									<h2>Kathy<span> Hudson</span></h2>
+									<p>Neque porro quisquam</p>
 								</div>
 							</div>
 						</div>
@@ -97,9 +67,8 @@
 									<div class="square">
 									  <div></div>
 									</div>
-										<h2>Kathy<span> Hudson</span></h2>
-										<p>Neque porro quisquam</p>
-
+									<h2>Kathy<span> Hudson</span></h2>
+									<p>Neque porro quisquam</p>
 								</div>
 							</div>
 						</div>
@@ -136,34 +105,34 @@
 							<ul class="products-list biolife-carousel nav-center-02 nav-none-on-mobile eq-height-contain" data-slick='{"rows":2 ,"arrows":true,"dots":false,"infinite":true,"speed":400,"slidesMargin":10,"slidesToShow":4, "responsive":[{"breakpoint":1200, "settings":{ "slidesToShow": 4}},{"breakpoint":992, "settings":{ "slidesToShow": 3, "slidesMargin":25 }},{"breakpoint":768, "settings":{ "slidesToShow": 2, "slidesMargin":15}}]}'>
 							  {% for resource in data %}
 								  {% if resource.ResCatName == category.ResCatName %}
-									<li class="product-item">
+										<li class="product-item">
 											<div class="contain-product layout-default">
-													<div class="product-thumb">
-															<a href="{{ url_for('commerce.product',resId=resource.ResId)}}" class="link-to-product">
-																{% if resource.FilePathS %}
-																  <img loading="lazy" src="{{ resource.FilePathS }}" width="270" height="270" class="product-thumnail"/>
-														  	{% else %}
-																  <img loading="lazy" src="{{ url_for('static', filename='commerce/uploads/f97f1e51f3472883.jpeg') }}" width="270" height="270" class="product-thumnail"/>
-														  	{% endif %}
-															</a>
+												<div class="product-thumb">
+													<a href="{{ url_for('commerce.product',resId=resource.ResId)}}" class="link-to-product">
+														{% if resource.FilePathS %}
+														  <img loading="lazy" src="{{ resource.FilePathS }}" width="270" height="270" class="product-thumnail"/>
+												  	{% else %}
+														  <img loading="lazy" src="{{ url_for('static', filename='commerce/uploads/f97f1e51f3472883.jpeg') }}" width="270" height="270" class="product-thumnail"/>
+												  	{% endif %}
+													</a>
+												</div>
+												<div class="info">
+													<b class="categories">Vegetables</b>
+													<h4 class="product-title"><a href="#" class="pr-name">{{resource.ResName}}</a></h4>
+													<div class="price ">
+														<ins><span class="price-amount">{{ resource.ResPriceValue }} TMT</span></ins>
+														<del><span class="price-amount">{{ resource.ResPriceValue }} TMT</span></del>
 													</div>
-													<div class="info">
-															<b class="categories">Vegetables</b>
-															<h4 class="product-title"><a href="#" class="pr-name">{{resource.ResName}}</a></h4>
-															<div class="price ">
-																	<ins><span class="price-amount">{{ resource.ResPriceValue }} TMT</span></ins>
-																	<del><span class="price-amount">{{ resource.ResPriceValue }} TMT</span></del>
-															</div>
-															<div class="slide-down-box">
-																	<p class="message">All products are carefully selected to ensure food safety.</p>
-																	<div class="buttons">
-																			<a href="#" class="btn wishlist-btn"><i class="fa fa-heart" aria-hidden="true"></i></a>
-																			<a href="{{ url_for('commerce.product',resId=resource.ResId)}}" class="btn add-to-cart-btn"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i>add to cart</a>
-																	</div>
-															</div>
+													<div class="slide-down-box">
+														<p class="message">All products are carefully selected to ensure food safety.</p>
+														<div class="buttons">
+															<a href="#" class="btn wishlist-btn"><i class="fa fa-heart" aria-hidden="true"></i></a>
+															<a href="{{ url_for('commerce.product',resId=resource.ResId)}}" class="btn add-to-cart-btn"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i>add to cart</a>
+														</div>
 													</div>
+												</div>
 											</div>
-									</li>
+										</li>
 									{% endif %}
 									{% for category in category.subcategories %}
 										{% for category in category.subcategories %}
