@@ -1,4 +1,4 @@
-var category_forms = ['categoryId','categoryName','categoryDesc','categoryIcon']
+var category_forms = ['categoryId','categoryName','categoryDesc','categoryOwner','categoryIcon']
 var required_category_fields = ['categoryName']
 
 $("body").delegate('.saveCategoryBtn','click',function(event){
@@ -14,7 +14,9 @@ $("body").delegate('.saveCategoryBtn','click',function(event){
 
 	console.log(categoryData);
 	postData(categoryData,url_prefix+"/ui/category_table/",'POST',category_forms[0],'categoryTable','htmlData');
-	clearOwnerFields(category_forms,ownerId);
+	if (!ownerId || ownerId=='undefined'){
+		clearOwnerFields(category_forms,ownerId);
+	}
 	event.preventDefault();
 });
 

@@ -46,6 +46,7 @@ def navbar():
 			icons.append(iconInfo)
 		category_icons[folder]=icons
 
+	print(category_icons)
 	commonData = commonUsedData()
 	return render_template ("commerce/admin/navbar.html",**commonData,category_icons=category_icons,
 		title=gettext('Navbar'))

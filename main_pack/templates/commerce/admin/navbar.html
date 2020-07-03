@@ -51,10 +51,9 @@
 {% for category in categories %}
 	{% if category.GCRecord == None or category.GCRecord == '' %}
 		<li class="menu-item menu-item-has-children has-megamenu">
-		  <a href="#" class="menu-name categoryDesc" ownerId={{category.ResCatId}} title="{{ category.ResCatDesc if category.ResCatDesc }}" value="{{ category.ResCatDesc }}">
+		  <a href="#" class="menu-name"  title="{{ category.ResCatDesc if category.ResCatDesc }}">
 				{% if category.ResCatIconFilePath %}<img class="img-fluid" src="{{category.ResCatIconFilePath}}">{%endif%}
-				<p class="categoryName" ownerId={{category.ResCatId}}>{{ category.ResCatName }}</p>
-				<i data-toggle="modal" data-target=".editCategoryModal" ownerId={{category.ResCatId}} title="{{_('Edit')}}" class="fas fa-pen editCategoryBtn"></i>
+				{{ category.ResCatName }}
 				<i class="fas fa-times removeCategoryBtn" categoryOwner="{{ category.ResCatId }}" style="padding-left: 7px;"></i>
 			</a>
 			<div class="wrap-megamenu lg-width-300 md-width-640">
@@ -148,60 +147,64 @@
 </div>
 <!--/ category desc Modal -->
 
-<!-- icon selection Modal -->
-<div class="modal fade" id="catIconsModal" tabindex="-1" role="dialog" aria-labelledby="catIconsModalTitle" aria-hidden="true" style="background-color: rgba(71, 69, 69, 0.548);">
-	<div class="modal-dialog modal-dialog-centered" style="max-width: 100%; width: 95%; margin-top: 13%;" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="catIconsModalTitle">{{_('Icons')}}</h5>
-				<form class="card-header-form">
-					<div class="input-group">
-					  <input type="text" name="search" class="form-control" placeholder="Search">
-					  <div class="input-group-btn">
-						<button class="btn btn-primary btn-icon"><i class="fas fa-search"></i></button>
-					  </div>
-					</div>
-				  </form>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<div class="row">
-					<div class="col-4">
-					<div class="list-group" id="list-tab" role="tablist">
-						{% for category in category_icons %}
-							<a class="list-group-item list-group-item-action" id="list-home-list"
-							data-toggle="list" href="#tab-{{category.replace(' ','-')}}" role="tab" 
-							aria-controls="contact" aria-selected="false">{{ category }}</a>
-						{% endfor %}
-					</div>
-					</div>
-					<div class="col-8">
-					<div class="tab-content" id="nav-tabContent">
-						{% for category in category_icons %}
-							<div class="tab-pane fade" id="tab-{{category.replace(' ','-')}}" role="tabpanel" aria-labelledby="profile-tab2">
-								<div class="row icon-feather-container">
-									{% for iconInfo in category_icons[category] %}
-										<div class="col-sm-6 col-md-4 col-lg-3">
-											<div class="preview">
-												<a href="#">
-													<img name="{{ iconInfo['icon_name'] }}" icon_category="{{ iconInfo['category'] }}" class="img-fluid" style="margin-left: 43%;" src="{{ iconInfo['url'] }}">	
-												</a>
-											</div>
-										</div>
-									{% endfor %}
-								</div>
+	<!-- icon selection Modal -->
+	<div class="modal fade" id="catIconsModal" tabindex="-1" role="dialog" aria-labelledby="catIconsModalTitle" aria-hidden="true" style="background-color: rgba(71, 69, 69, 0.548);">
+		<div class="modal-dialog modal-dialog-centered" style="max-width: 100%; width: 95%;" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="catIconsModalTitle">{{_('Icons')}}</h5>
+					<form class="card-header-form">
+						<div class="input-group">
+							<input type="text" name="search" class="form-control" placeholder="Search" style="height: 37px;">
+							<div class="input-group-btn">
+							<button class="btn btn-primary btn-icon" style="margin-left: 0;"><i class="fas fa-search"></i></button>
 							</div>
-						{% endfor %}
-					</div>
+						</div>
+						</form>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-4">
+							<div class="list-group" id="list-tab" role="tablist">
+								{% for category in category_icons %}
+									<a class="list-group-item list-group-item-action" id="list-home-list"
+									data-toggle="list" href="#tab-{{category.replace(' ','-')}}" role="tab" 
+									aria-controls="contact" aria-selected="false">{{ category }}
+										<span class="badge badge-transparent">{{ category_icons[category]|length }}</span>
+									</a>
+								{% endfor %}
+							</div>
+						</div>
+						<div class="col-8">
+							<div class="tab-content iconsList" id="nav-tabContent">
+								{% for category in category_icons %}
+									<div class="tab-pane fade" id="tab-{{category.replace(' ','-')}}" role="tabpanel" aria-labelledby="profile-tab2">
+										<div class="row icon-feather-container">
+											{% for iconInfo in category_icons[category] %}
+												<div class="col-sm-6 col-md-4 col-lg-3">
+													<div class="preview">
+														<a href="#">
+															<img loading="lazy" name="{{ iconInfo['icon_name'] }}" icon_category="{{ iconInfo['category'] }}" class="img-fluid" style="margin-left: 43%;" src="{{ iconInfo['url'] }}">
+															<br>
+															<span class="icon_name">{{ iconInfo['icon_name'] }}</span>
+														</a>
+													</div>
+												</div>
+											{% endfor %}
+										</div>
+									</div>
+								{% endfor %}
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
-<!-- icon modal -->
+	<!-- icon modal -->
 
 <!-- edit category modal -->
 <div class="modal fade bd-example-modal-lg editCategoryModal" tabindex="-1" role="dialog" aria-hidden="true" style="background-color: rgba(71, 69, 69, 0.548);">
