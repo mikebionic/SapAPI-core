@@ -14,7 +14,7 @@
   <link href="https://fonts.googleapis.com/css?family=Poppins:600&amp;display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400i,700i" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Ubuntu&amp;display=swap" rel="stylesheet"> -->
-  <link rel="shortcut icon" type="image/x-icon" href="{{ company_logo.FilePathS if company_logo else url_for('static', filename='commerce/main/images/favicon.png') }}" />
+  <link rel="shortcut icon" type="image/x-icon" href="{{ company_logo.FilePath if company_logo else url_for('static', filename='commerce/main/images/favicon.png') }}" />
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/animate.min.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/font-awesome.min.css') }}">
@@ -106,7 +106,7 @@
           <div class="col-lg-3 col-md-2 col-md-6 col-xs-6" style="width: 50%; margin-bottom: 15px;">
             {% if company_logo %}
               <a href="{{ url_for('commerce.commerce')}}" class="biolife-logo">
-                <img loading="lazy" src="{{ company_logo.FilePathS }}"  width="20%" height="34">
+                <img loading="lazy" src="{{ company_logo.FilePath }}"  width="20%" height="34">
               </a>
             {% else %}
               {% if company.CName %}
@@ -117,7 +117,7 @@
           <div class="col-lg-5 col-md-7 hidden-sm hidden-xs">
             <div class="primary-menu">
               <ul class="menu biolife-menu clone-main-menu clone-primary-menu" id="primary-menu" data-menuname="main menu">
-                <li class="menu-item"><a href="{{ url_for('commerce.commerce') }}">{{_('Home')}}</a></li>
+                <li class="menu-item"><a href="{{ url_for('commerce.commerce') }}">{{_('Main')}}</a></li>
                 <li class="menu-item"><a href="{{ url_for('commerce.about') }}">{{_('About us')}}</a></li>
                 <li class="menu-item"><a href="{{ url_for('commerce.contact') }}">{{_('Contact')}}</a></li>
                 <li class="menu-item"><a href="{{ url_for('commerce.v_grid') }}" class="viewmode grid-mode"><i class="biolife-icon icon-grid"></i></a></li>
@@ -133,12 +133,6 @@
                   <form action="#" class="form-search" name="mobile-seacrh" method="get">
                     <a href="#" class="btn-close"><span class="biolife-icon icon-close-menu"></span></a>
                     <input type="text" name="s" class="input-text" placeholder="{{_('Search')}}...">
-                    <select name="category">
-                      <option value="-1" selected>{{_('All Categories')}}</option>
-                      {% for category in categories %}
-                      <option value="{ category.ResCatId }}">{{ category.ResCatName }}</option>
-                      {% endfor %}
-                    </select>
                     <button type="submit" class="btn-submit">{{_('Submit')}}</button>
                   </form>
                 </div>
@@ -224,13 +218,7 @@
           <div class="col-lg-9 col-md-8 padding-top-2px">
             <div class="header-search-bar layout-01">
               <form action="#" class="form-search" name="desktop-seacrh" method="get">
-                <input type="text" name="s" class="input-text" value="" placeholder="{{_('Search')}}...">
-                <select name="category">
-                  <option value="" selected>{{_('All Categories')}}</option>
-                  {% for category in categories %}
-                    <option value="{ category.ResCatId }}">{{ category.ResCatName }}</option>
-                  {% endfor %}
-                </select>
+                <input type="text" name="s" class="input-text" value="" placeholder="{{_('Search')}}...">              
                 <button type="submit" class="btn-submit"><i class="biolife-icon icon-search"></i></button>
               </form>
             </div>

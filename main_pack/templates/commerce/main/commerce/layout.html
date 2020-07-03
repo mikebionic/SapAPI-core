@@ -133,12 +133,6 @@
                   <form action="#" class="form-search" name="mobile-seacrh" method="get">
                     <a href="#" class="btn-close"><span class="biolife-icon icon-close-menu"></span></a>
                     <input type="text" name="s" class="input-text" placeholder="{{_('Search')}}...">
-                    <select name="category">
-                      <option value="-1" selected>{{_('All Categories')}}</option>
-                      {% for category in categories %}
-                      <option value="{ category.ResCatId }}">{{ category.ResCatName }}</option>
-                      {% endfor %}
-                    </select>
                     <button type="submit" class="btn-submit">{{_('Submit')}}</button>
                   </form>
                 </div>
@@ -207,7 +201,6 @@
                         {% if category.ResCatIconFilePath %}<img class="img-fluid" src="{{category.ResCatIconFilePath}}">{%endif%}
                         {{ category.ResCatName }}
                       </a>
-
                       {% for category in category.subcategories %}
                         <ul class="sub-menu" style="    transform: translateY(-48px);">
                         <h4 class="menu-title" title="{{ category.ResCatDesc if category.ResCatDesc }}">{{ category.ResCatName }}</h4>
@@ -226,12 +219,6 @@
             <div class="header-search-bar layout-01">
               <form action="#" class="form-search" name="desktop-seacrh" method="get">
                 <input type="text" name="s" class="input-text" value="" placeholder="{{_('Search')}}...">
-                <select name="category">
-                  <option value="" selected>{{_('All Categories')}}</option>
-                  {% for category in categories %}
-                    <option value="{ category.ResCatId }}">{{ category.ResCatName }}</option>
-                  {% endfor %}
-                </select>
                 <button type="submit" class="btn-submit"><i class="biolife-icon icon-search"></i></button>
               </form>
             </div>
