@@ -8,10 +8,10 @@ from main_pack.api.commerce.utils import addResourceDict
 from main_pack import db
 from flask import current_app
 
-@api.route("/tbl-dk-resources/<int:id>/",methods=['GET','PUT'])
-def api_resource(id):
+@api.route("/tbl-dk-resources/<int:ResId>/",methods=['GET','PUT'])
+def api_resource(ResId):
 	if request.method == 'GET':
-		resource = Resource.query.get(id)
+		resource = Resource.query.get(ResId)
 		response = jsonify({'resource':resource.to_json_api()})
 		res = {
 			"status":1,
@@ -20,7 +20,7 @@ def api_resource(id):
 		response = make_response(jsonify(res),200)
 
 	elif request.method == 'PUT':
-		resource = Resource.query.get(id)
+		resource = Resource.query.get(ResId)
 		# miguelGrinberg's method
 		# resource.from_json(request.json)
 		updateResource = addResourceDict(req)

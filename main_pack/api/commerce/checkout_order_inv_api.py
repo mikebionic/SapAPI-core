@@ -114,7 +114,6 @@ def api_checkout_sale_order_invoices(user):
 				db.session.add(thisOInvLine)			
 				order_inv_lines.append(thisOInvLine.to_json_api())
 			except:
-				print(Exception.message)
 				failed_order_inv_lines.append()
 
 	# add taxes and stuff later on
