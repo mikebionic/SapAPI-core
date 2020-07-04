@@ -21,6 +21,10 @@ var warningToaster = function(message){
   });
 }
 
+function sweetAlert(title,desc,style){
+  swal(title,desc,style);
+}
+
 //////// working with forms ///////
 
 function clearFields(formFields,formId){

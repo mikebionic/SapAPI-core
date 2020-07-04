@@ -79,11 +79,7 @@
                     {{ current_user.UFullName }}
                   </a>
                   <div class="dropdown-divider"></div>
-                  <a href="timeline.html" class="dropdown-item has-icon">{{_('Activities')}}
-                  </a>
-                  <div class="dropdown-divider"></div>
-                  <a href="#" class="dropdown-item has-icon"><i class="material-icons" style="padding-left: 0;">settings</i>
-                    {{_('Settings')}}
+                  <a href="{{ url_for('commerce_users.orders') }}" class="dropdown-item has-icon">{{_('Orders')}}
                   </a>
                   <div class="dropdown-divider"></div>
                   <a href="{{ url_for('commerce_auth.logout') }}" class="dropdown-item has-icon text-danger"><i class="fa fa-sign-out"></i>

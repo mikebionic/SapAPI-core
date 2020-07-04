@@ -1,4 +1,3 @@
-
 $(document).ready(function(){
 	cartCookie = Cookies.get('cart');
 	if(cartCookie==undefined){
