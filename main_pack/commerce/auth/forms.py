@@ -23,6 +23,8 @@ class RequestRegistrationForm(FlaskForm):
 class PasswordRegistrationForm(FlaskForm):
 	full_name = StringField(lazy_gettext('Full name'), 
 							validators=[DataRequired(),Length(min=2,max=100)])
+	phone_number = StringField(lazy_gettext('Phone number'), 
+							validators=[DataRequired(),Length(min=2,max=100)])
 	password = PasswordField(lazy_gettext('Password'),validators=[DataRequired()])
 	confirm_password = PasswordField (lazy_gettext('Confirm password'),
 									validators=[DataRequired(),EqualTo('password')])

@@ -79,11 +79,7 @@
                     {{ current_user.UFullName }}
                   </a>
                   <div class="dropdown-divider"></div>
-                  <a href="timeline.html" class="dropdown-item has-icon">{{_('Activities')}}
-                  </a>
-                  <div class="dropdown-divider"></div>
-                  <a href="#" class="dropdown-item has-icon"><i class="material-icons" style="padding-left: 0;">settings</i>
-                    {{_('Settings')}}
+                  <a href="{{ url_for('commerce_users.orders') }}" class="dropdown-item has-icon">{{_('Orders')}}
                   </a>
                   <div class="dropdown-divider"></div>
                   <a href="{{ url_for('commerce_auth.logout') }}" class="dropdown-item has-icon text-danger"><i class="fa fa-sign-out"></i>
@@ -218,7 +214,7 @@
           <div class="col-lg-9 col-md-8 padding-top-2px">
             <div class="header-search-bar layout-01">
               <form action="#" class="form-search" name="desktop-seacrh" method="get">
-                <input type="text" name="s" class="input-text" value="" placeholder="{{_('Search')}}...">              
+                <input type="text" name="s" class="input-text" value="" placeholder="{{_('Search')}}...">
                 <button type="submit" class="btn-submit"><i class="biolife-icon icon-search"></i></button>
               </form>
             </div>

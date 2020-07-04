@@ -643,7 +643,7 @@ msgstr "Hasaba alynmagyňyzy haýyş edýäris"
 
 #: templates/commerce/main/commerce/cart.html:10
 msgid "Your cart items"
-msgstr "Sepetdäki zatlar"
+msgstr "Sebetdäki zatlar"
 
 #: templates/commerce/main/commerce/cart.html:18
 msgid "Total"
