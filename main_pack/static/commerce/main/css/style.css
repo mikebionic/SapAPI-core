@@ -6075,8 +6075,8 @@ body.open-overlay #overlay {
 }
 
 .shopping-cart-container table td.wrap-btn-control .btn:not(:disabled):hover {
-    background-color: #444444 !important;
-    color: #ffffff !important;
+    background-color: #fff !important;
+    color: #000 !important;
 }
 
 .shopping-cart-container table td.wrap-btn-control button:disabled {
@@ -18401,8 +18401,9 @@ a .badge{
     height: 100%;
     width: 100%;
     z-index: 1;
-
-    &:hover ~ .order-info {  /* Hints by underlining title that the card is clickable */
-        text-decoration: underline;
-    }
+}
+.shpcart-subtotal-block textarea{
+    width: 100%;
+    font-size: 15px;
+    text-transform: capitalize;
 }

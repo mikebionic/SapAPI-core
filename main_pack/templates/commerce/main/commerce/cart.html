@@ -22,8 +22,14 @@
                 </tbody>
                 <tr class="cart_item wrap-buttons">
                   <td class="wrap-btn-control" colspan="4">
-                    <a href="{{url_for('commerce.v_list')}}" class="btn back-to-shop">{{_('Back to Shop')}}</a>
-                    <button class="btn btn-clear clearCartBtn" type="reset">{{_('clear all')}}</button>
+                    <a href="{{url_for('commerce.v_list')}}" class="btn back-to-shop" style=" background-color: #e2e2e2; color: #8a8888;box-shadow: 1px 1px 1px 1px #ececec;">
+                        <img src="{{ url_for('static', filename='commerce/icons/categories/other/checkout_50px.svg')}}" style="height: 22px;">
+                        {{_('Back to Shop')}}
+                    </a>
+                    <a class="btn btn-clear clearCartBtn" type="reset" style="background-color: #e2e2e2;box-shadow: 1px 1px 1px 1px #ececec;">
+                        <img src="{{ url_for('static', filename='commerce/icons/categories/other/disposal_50px.svg')}}" style="height: 22px;">
+                        {{_('clear all')}}
+                    </a>
                   </td>
                 </tr>
               </table>
@@ -37,19 +43,15 @@
                 <span class="currencySymbol">TMT</span>
                 <span class="stt-price cartTotalPrice">0.00</span>
               </div>
-              <hr>
-              {% if current_user.is_authenticated %}
-                <h5><b class="stt-name">{{_('Description')}}</b></h5>
-                <textarea type="text" class="orderDesc" placeholder="{{_('Description')}} ({{_('City')}}, {{_('Av.')}}, {{_('Street')}}, {{_('House')}}, {{_('Flat')}})"></textarea>
-                <div class="btn-checkout">
-                  <a class="btn checkout checkoutCartBtn">{{_('Checkout')}}</a>
+              <span class="subtitle">{{_('Address')}} (required):</span>
+              <input type="text" class="txt-input recieverAddress" placeholder="{{_('City')}}, {{_('Av.')}}, {{_('Street')}}, {{_('House')}}, {{_('Flat')}}">
+              <div class="btn-checkout">
+                <a class="btn checkout checkoutCartBtn">{{_('Checkout')}}</a>
+              </div>
+              <div class="btn-checkout" style="display: flex;padding-left: 27px;">
+                    <button class="btn btn-primary" id="swal-2">Success</button>
+                    <button class="btn btn-primary" id="swal-3">Warning</button>
                 </div>
-              {% else %}
-                <p>{{_('You should login if you want to checkout an order')}}!</p>
-                <div class="btn-checkout" style="display: flex;padding-left: 27px;">
-                  <a href="{{ url_for('commerce_auth.login') }}" class="btn btn-primary">{{_('Login')}}</a>
-                </div>
-              {% endif %}
             </div>
           </div>
         </div>
@@ -251,6 +253,7 @@
 
 
 {% block scripts %}
+  <script src="{{ url_for('static', filename='commerce/admin/js/page/sweetalert.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/bundles/sweetalert/sweetalert.min.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/main/js/cart.js') }}"></script>
 {% endblock %}
