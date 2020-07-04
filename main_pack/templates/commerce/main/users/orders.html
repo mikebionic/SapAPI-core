@@ -27,8 +27,9 @@
 						<div class="columns is-account-grid is-multiline">
 							{% for orderInv in orderInvoices %}
 								<!-- Order card -->
-								<div class="column is-4">
+								<div class="column is-4" onclick="toggle()">
 									<div class="flat-card order-card has-popover-top">
+										<a class="card-link" href="{{ url_for('commerce_users.order_lines',OInvRegNo=orderInv.OInvRegNo) }}"></a>
 										<div class="order-info">
 											<span><a href="{{ url_for('commerce_users.order_lines',OInvRegNo=orderInv.OInvRegNo) }}" onclick="return true">{{_('Order')}} - {{ orderInv.OInvRegNo }}</a></span>
 											<span class="tag is-{{orderInv.StatusUI.class}}">{{orderInv.InvStatus.InvStatName}}</span>

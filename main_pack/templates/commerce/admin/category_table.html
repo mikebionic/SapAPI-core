@@ -1,6 +1,7 @@
 {% extends "commerce/admin/layout.html" %}
 
 {% block styles %}
+
 	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/datatables/datatables.min.css') }}">
 	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css') }}">
 {% endblock %}
@@ -107,7 +108,7 @@
 														<a href="#">
 															<img loading="lazy" name="{{ iconInfo['icon_name'] }}" icon_category="{{ iconInfo['category'] }}" class="img-fluid" style="margin-left: 43%;" src="{{ iconInfo['url'] }}">
 															<br>
-															<span class="icon_name">{{ iconInfo['icon_name'] }}</span>
+															<span class="icon_name" style="text-transform: capitalize;color: #4f51c0;padding-left: 20px;">{{ iconInfo['icon_name'] }}</span>
 														</a>
 													</div>
 												</div>
