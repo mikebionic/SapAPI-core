@@ -34,9 +34,11 @@ $('body').delegate('.removeFromCart','click',function(){
 
 $('body').delegate('.checkoutCartBtn','click',function(){
 	cartCookie = Cookies.get('cart');
+	data={}
 	cartData=JSON.parse(cartCookie);
-	cartData['orderDesc']=$('.orderDesc').val();
-	checkoutCart(cartData,url_prefix+'/product/ui_cart_checkout/','POST');
+	data['cartData']=cartData;
+	data['orderDesc']=$('.orderDesc').val();
+	checkoutCart(data,url_prefix+'/product/ui_cart_checkout/','POST');
 });
 
 function addToCart(ownerId){
@@ -109,9 +111,8 @@ function countCartItems(){
 		totalPrice+=price*quantity;
 	}
 	$('.cartItemsFullQty').text(num);
-	$('.cartTotalPrice').text(totalPrice);
+	$('.cartTotalPrice').text(parseFloat(totalPrice).toFixed(2));
 }
-
 
 function qtyCheckout(ownerId,newQtyValue){
 	if(newQtyValue<=0){
@@ -139,7 +140,7 @@ function totalPriceCheckout(ownerId){
 	if(productQty<=0){
 		productQty=1;
 	}
-	productTotalPrice=parseInt(priceValue)*parseInt(productQty);
+	productTotalPrice=parseFloat(parseFloat(priceValue)*parseInt(productQty)).toFixed(2);
 	$('.productTotalPrice'+'[ownerId='+ownerId+']').text(productTotalPrice);
 }
 

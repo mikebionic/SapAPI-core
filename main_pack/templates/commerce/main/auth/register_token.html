@@ -11,7 +11,7 @@
 							<h2>{{_('Hello')}}! {{_('Please, proceed the registration')}}</h2>
 							<p class="form-row">
 								{% if form.full_name.errors %}
-									{{ form.full_name(class="txt-input is-invalid", placeholder="_('Full name')") }}
+									{{ form.full_name(class="txt-input is-invalid", placeholder=_('Full name')) }}
 									<div class="invalid-feedback">
 										{% for error in form.full_name.errors %}
 										   <span>{{ error }}</span>
@@ -19,12 +19,12 @@
 									</div>
 								{% else %}
 									<label for="fid-name">{{_('Full name')}}:<span class="requite">*</span></label>
-									{{ form.full_name(class="txt-input", placeholder="_('Full name')") }}
+									{{ form.full_name(class="txt-input", placeholder=_('Full name')) }}
 								{% endif %}
 							</p>
 							<p class="form-row">
 								{% if form.phone_number.errors %}
-									{{ form.phone_number(class="txt-input is-invalid", placeholder="_('Phone number')") }}
+									{{ form.phone_number(class="txt-input is-invalid", placeholder=_('Phone number')) }}
 									<div class="invalid-feedback">
 										{% for error in form.phone_number.errors %}
 										   <span>{{ error }}</span>
@@ -32,12 +32,12 @@
 									</div>
 								{% else %}
 									<label for="fid-name">{{_('Phone number')}}:<span class="requite">*</span></label>
-									{{ form.phone_number(class="txt-input", placeholder="_('Phone number')") }}
+									{{ form.phone_number(class="txt-input", placeholder=_('Phone number')) }}
 								{% endif %}
 							</p>
 							<p class="form-row">
 								{% if form.password.errors %}
-									{{ form.password(class="txt-input is-invalid", placeholder="_('Password')") }}
+									{{ form.password(class="txt-input is-invalid", placeholder=_('Password')) }}
 									<div class="invalid-feedback">
 										{% for error in form.password.errors %}
 											<span>{{ error }}</span>
@@ -45,12 +45,12 @@
 									</div>
 								{% else %}
 									<label for="fid-pass">{{_('Password')}}<span class="requite">*</span></label>
-									{{ form.password(class="txt-input", placeholder="_('Password')" )}}
+									{{ form.password(class="txt-input", placeholder=_('Password')) }}
 								{% endif %}
 							</p>
 							<p class="form-row">
 								{% if form.confirm_password.errors %}
-									{{ form.confirm_password(class="txt-input is-invalid", placeholder="_('Confirm password')") }}
+									{{ form.confirm_password(class="txt-input is-invalid", placeholder=_('Confirm password')) }}
 									<div class="invalid-feedback">
 										{% for error in form.confirm_password.errors %}
 											<span>{{ error }}</span>
@@ -58,7 +58,7 @@
 									</div>
 								{% else %}
 									<label for="fid-pass">{{_('Confirm password')}}:<span class="requite">*</span></label>
-									{{ form.confirm_password(class="txt-input", placeholder="_('Confirm password')" )}}
+									{{ form.confirm_password(class="txt-input", placeholder=_('Confirm password') )}}
 								{% endif %}
 							</p>
 
