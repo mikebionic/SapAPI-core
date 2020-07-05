@@ -63,9 +63,9 @@
 														<th scope="col">{{_('Price')}}</th>
 														<th scope="col">{{_('Total price')}}</th>
 														<th scope="col">{{_('Currency')}}</th>
-                  					<th scope="col">{{_('Action')}}</th>
 													</tr>
 												</thead>
+												<tbody>
 												{% for orderInvLine in orderInvLines %}
 				                  <tr>
 				                    <td class="text-center">
@@ -77,15 +77,13 @@
 				                    <td>{{ orderInvLine.OInvLinePrice }}</td>
 				                    <td>{{ orderInvLine.OInvLineTotal }}</td>
 				                    <td>{{ orderInvLine.Currency.CurrencyCode }}</td>
-				                    <td>
-				                      <a href="" class="btn btn-icon btn-info"><i class="fas fa-pencil-alt"></i></a>
-				                      <a href="" class="btn btn-icon btn-danger"><i class="fas fa-trash-alt"></i></a>
-				                    </td>
 				                  </tr>
 				                {% endfor %}
 												</tbody>
 											</table>
 										</div>
+										<p><b>{{_('Description')}}</b></p>
+										<p>{{ orderInvoices[0].OInvDesc }}</p>
 									</div>
 								</div>
 							</div>
