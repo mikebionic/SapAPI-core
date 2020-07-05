@@ -152,12 +152,14 @@
                     <span class="sub-total cartTotalPrice">0.00</span>
                   </a>
                   <div class="cart-content">
-                    <div class="cart-inner">
+                    <div class="cart-inner"> 
                       <!--         USER's Cart       -->
                       <ul class="products cartItemsList"></ul>
                       <p class="btn-control">
                         <a href="{{ url_for('commerce.cart') }}" class="btn view-cart"> {{_('View cart')}}</a>
-                        <a class="btn clearCartBtn" style="padding: 4px 10px 17px;"><i class="material-icons">delete</i></a>
+                        <a class="btn clearCartBtn" style="padding: 8px 10px 17px; background-color: #fff; box-shadow: 1px 1px 1px 1px #ececec;">
+                          <img src="{{ url_for('static', filename='commerce/icons/categories/other/disposal_50px.svg')}}" style="height: 22px;">
+                        </a>
                       </p>
                     </div>
                   </div>
