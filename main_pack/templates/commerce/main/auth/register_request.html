@@ -11,7 +11,7 @@
 							{{ form.csrf_token() }}
 							<p class="form-row">
 								{% if form.username.errors %}
-									{{ form.username(class="txt-input is-invalid", placeholder="E-mail") }}
+									{{ form.username(class="txt-input is-invalid", placeholder=_('Username')) }}
 									<div class="invalid-feedback">
 										{% for error in form.username.errors %}
 										   <span>{{ error }}</span>
@@ -19,20 +19,20 @@
 									</div>
 								{% else %}
 									<label for="fid-name">{{_('Username')}}:<span class="requite">*</span></label>
-									{{ form.username(class="txt-input", placeholder="Username") }}
+									{{ form.username(class="txt-input", placeholder=_('Username')) }}
 								{% endif %}
 							</p>
 							<p class="form-row">
 								{% if form.email.errors %}
-									{{ form.email(class="txt-input is-invalid", placeholder="E-mail") }}
+									{{ form.email(class="txt-input is-invalid", placeholder=_('E-mail')) }}
 									<div class="invalid-feedback">
 										{% for error in form.email.errors %}
 										   <span>{{ error }}</span>
 										{% endfor %}
 									</div>
 								{% else %}
-									<label for="fid-name">{{_('Email address')}}:<span class="requite">*</span></label>
-									{{ form.email(class="txt-input", placeholder="E-mail") }}
+									<label for="fid-name">{{_('E-mail address')}}:<span class="requite">*</span></label>
+									{{ form.email(class="txt-input", placeholder=_('E-mail')) }}
 								{% endif %}
 							</p>
 							<p class="form-row wrap-btn">

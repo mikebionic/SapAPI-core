@@ -583,8 +583,8 @@ msgstr "Elýeterli däl"
 
 #: templates/commerce/main/auth/login.html:20
 #: templates/commerce/main/auth/reset_request.html:20
-msgid "Email address"
-msgstr "Email salgysy"
+msgid "E-mail address"
+msgstr "E-mail salgysy"
 
 #: templates/commerce/main/auth/login.html:43
 msgid "Forgot your password?"

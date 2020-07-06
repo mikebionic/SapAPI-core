@@ -583,7 +583,7 @@ msgstr "Недоступно"
 
 #: templates/commerce/main/auth/login.html:20
 #: templates/commerce/main/auth/reset_request.html:20
-msgid "Email address"
+msgid "E-mail address"
 msgstr "Адрес электронной почты"
 
 #: templates/commerce/main/auth/login.html:43
