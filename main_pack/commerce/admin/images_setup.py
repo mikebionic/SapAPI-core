@@ -62,6 +62,7 @@ def sliders():
 	header_slider = Slider.query\
 		.filter(and_(Slider.GCRecord=='' or Slider.GCRecord==None),Slider.SlName=='commerce_header').first()
 	if header_slider is None:
+		# create a commerce_header for header slider automatically
 		slider = Slider(SlName="commerce_header")
 		db.session.add(slider)
 		db.session.commit()
@@ -113,3 +114,38 @@ def slider_images(SlId):
 		return redirect(url_for('commerce_admin.sliders'))
 	return render_template('commerce/admin/slider_setup.html',title=gettext('Setup images'),
 		sliderForm=sliderForm,slider=slider,sl_images=sl_images)
+
+
+@bp.route('/ui/svg-icons/',methods=['POST'])
+def ui_svg_icons():
+	if 'files[]' not in request.files:
+		resp = jsonify({'message' : 'No file part in the request'})
+		resp.status_code = 400
+		return resp
+
+	files = request.files.getlist('files[]')
+	uploadedFiles=[]
+	failedFiles=[]
+	
+	for icon_file in icon_files:
+		if icon_file and allowed_file(icon_file.filename):
+			imageFile = save_icon(imageForm=icon_file,module=os.path.join("commerce","icons","categories","Others"))
+			FileName = image['FileName']
+			FilePath = image['FilePath']
+			uploadedFiles.append({
+				'fileName':FileName,
+				'htmlData':render_template('/commerce/admin/imageAppend.html',
+					FileName=FileName,FilePath=FilePath),
+			})
+		else:
+			failedFiles.append({
+				'fileName':icon_file.fileName
+			})
+
+	response = jsonify({
+		"data":uploadedFiles,
+		"total":len(uploadedFiles),
+		"failed":failedFiles,
+		"failedTotal":len(failedFiles)
+		})
+	return response
