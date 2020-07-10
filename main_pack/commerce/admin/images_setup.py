@@ -1,9 +1,9 @@
 from flask import render_template,url_for,json,jsonify,session,flash,redirect,request,Response
-from main_pack.base.imageMethods import save_image,save_icon
+from main_pack.base.imageMethods import save_image,save_icon,allowed_icon,allowed_image
 from main_pack.commerce.admin import bp
 from flask_login import current_user,login_required
 from main_pack import db,babel,gettext,lazy_gettext
-
+from flask import current_app
 from main_pack.models.base.models import Company,Sl_image,Slider,Image
 from sqlalchemy import or_, and_
 import os
@@ -116,6 +116,20 @@ def slider_images(SlId):
 		sliderForm=sliderForm,slider=slider,sl_images=sl_images)
 
 
+@bp.route("/remove_svg_icon")
+@login_required
+def remove_svg_icon():
+	try:
+		name = request.args.get('name')
+		icon_category = request.args.get('icon_category')
+		path=os.path.join(current_app.root_path,'static',"commerce","icons","categories",icon_category,name)
+		os.remove(path)
+		flash("Image successfully deleted!",'success')
+	except:
+		flash("Error, unable to execute this",'warning')
+	return redirect(url_for('commerce_admin.category_table'))
+
+
 @bp.route('/ui/svg-icons/',methods=['POST'])
 def ui_svg_icons():
 	if 'files[]' not in request.files:
@@ -123,20 +137,27 @@ def ui_svg_icons():
 		resp.status_code = 400
 		return resp
 
-	files = request.files.getlist('files[]')
+	icon_files = request.files.getlist('files[]')
 	uploadedFiles=[]
 	failedFiles=[]
 	
 	for icon_file in icon_files:
-		if icon_file and allowed_file(icon_file.filename):
-			imageFile = save_icon(imageForm=icon_file,module=os.path.join("commerce","icons","categories","Others"))
-			FileName = image['FileName']
-			FilePath = image['FilePath']
+		if icon_file and allowed_icon(icon_file.filename):
+			imageFile = save_icon(imageForm=icon_file,module=os.path.join("commerce","icons","categories","Others"),randomName=False)
+			FileName = imageFile['FileName']
+			FilePath = imageFile['FilePath']
+			category = 'Others'
+			iconInfo = {
+				'url':url_for('commerce_api.get_icon',category=category,file_name=FileName),
+				'icon_name':FileName,
+				'category':category
+			}
 			uploadedFiles.append({
 				'fileName':FileName,
-				'htmlData':render_template('/commerce/admin/imageAppend.html',
-					FileName=FileName,FilePath=FilePath),
+				'htmlData':render_template('/commerce/admin/svgIconAppend.html',
+					iconInfo=iconInfo),
 			})
+
 		else:
 			failedFiles.append({
 				'fileName':icon_file.fileName
@@ -148,4 +169,7 @@ def ui_svg_icons():
 		"failed":failedFiles,
 		"failedTotal":len(failedFiles)
 		})
+
+	print (response)
+
 	return response

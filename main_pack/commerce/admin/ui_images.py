@@ -1,27 +1,11 @@
-from flask import render_template,url_for,json,jsonify,session,flash,redirect,request,Response, abort
+from flask import render_template,url_for,json,jsonify,session,flash,redirect,request,Response,abort
 from main_pack import db,babel,gettext
 from flask_login import current_user,login_required
-from datetime import datetime
 from main_pack.commerce.admin import bp
 
 from main_pack.commerce.admin.utils import addImageDict
 from main_pack.models.base.models import Image
-
-import os
-import urllib.request
-from werkzeug.utils import secure_filename
-
-# basedir = os.path.abspath(os.path.dirname(__file__))
-
-# where to place this config in blueprints???
-# app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
-
-ALLOWED_EXTENSIONS = set(['png','jpg','jpeg','svg'])
-
-def allowed_file(filename):
-	return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-
+from main_pack.base.imageMethods import allowed_image
 import os, secrets
 from flask import current_app
 from PIL import Image as ImageOperation
@@ -50,7 +34,7 @@ def ui_uploadImages():
 	response = {}
 	success = False
 	for file in files:
-		if file and allowed_file(file.filename):
+		if file and allowed_image(file.filename):
 			print("its okay")
 			image = save_picture(file,"commerce/uploads")
 			filename = image['fileName']
