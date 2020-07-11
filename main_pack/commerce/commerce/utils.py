@@ -6,8 +6,8 @@ from main_pack.models.commerce.models import Res_category
 
 from sqlalchemy import and_
 from main_pack.models.base.models import Company,Sl_image,Slider,Image
-
 from main_pack.base.languageMethods import dataLangSelector
+from datetime import datetime
 
 def slidersData():
 	data = []
@@ -18,7 +18,9 @@ def slidersData():
 		sl_images = Sl_image.query.filter(and_(Sl_image.SlId==slider.SlId, Sl_image.GCRecord==None)).all()
 		List_sl_images = []
 		for sl_image in sl_images:
-			List_sl_images.append(sl_image.to_json_api())
+			if (sl_image.SlImgStartDate<=datetime.now()):
+				if (sl_image.SlImgEndDate and sl_image.SlImgEndDate>datetime.now()):
+					List_sl_images.append(sl_image.to_json_api())
 		List_sliders['Sl_images'] = List_sl_images
 		
 		data.append(List_sliders)
@@ -26,6 +28,7 @@ def slidersData():
 	res = {
 		'sliders':data
 	}
+	print(res)
 	return res
 
 def UiCategoriesList():

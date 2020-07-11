@@ -1,4 +1,5 @@
 import base64
+from datetime import datetime
 
 ############ useful methods ############# 
 def configureFloat(value):
@@ -19,9 +20,11 @@ def boolCheck(value):
 
 def dateDataCheck(date):
 	try:
+		print(date)
 		date = datetime.strptime(date, "%Y-%m-%d")
 	except:
 		date = None
+	print(date)
 	return date
 
 def apiDataFormat(date):
