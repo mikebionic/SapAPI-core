@@ -22,6 +22,7 @@ $("body").delegate('.minimizeSlider','click',function(){
 });
 
 function clearNewSliderFields(){
+  $('.newSliderBtn').show('slow');
 	$('.newSliderCard').hide('slow');
 	$('.minimizeSlider').hide('slow');
 	$('.newSliderCard input').val('');
@@ -56,11 +57,13 @@ function editSlidersUi(ownerId){
 }
 // other UI actions
 $('.newSliderBtn').click(function(e){
-  $('.newSliderCard').show('slow');
+  $('.newSliderCard').show('slow'); 
+  $('.newSliderBtn').hide('slow');
   $('.minimizeSlider').show('slow');
 });
 $('.addSliderBtn').click(function(e){
   $('.newSliderCard').hide('slow');
   $('.minimizeSlider').hide('slow');
+  $('.newSliderBtn').show('slow');
 });
 //////

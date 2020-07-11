@@ -38,7 +38,9 @@
             <button class="btn btn-outline-danger deleteSliderBtn" ownerId={{slider.SlId}} style="display: none;"><i class="fas fa-trash-alt"></i></button>
           </div>
           <div class="card-body">
-            <div class="section-title">{{_('Description')}}</div>
+            <div class="card-header">
+              <h4>{{_('Description')}}</h4>
+            </div>
             <div class="sliderDesc" ownerId={{slider.SlId}}>{{slider.SlDesc}}</div>
             <br>
             <a href="{{ url_for('commerce_admin.slider_images',SlId=slider.SlId) }}" class="btn btn-outline-info">{{_('Add slider image')}}</a>

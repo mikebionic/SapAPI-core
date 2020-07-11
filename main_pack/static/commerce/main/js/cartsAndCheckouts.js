@@ -16,7 +16,14 @@ $(document).ready(function(){
 			$('.cartItemQty'+'[ownerId='+ownerId+']').val(cartData[i]["productQty"]);
 			$('.uiQtyText'+'[ownerId='+ownerId+']').text(cartData[i]["productQty"]);
 		}
-		cartOperations(cartData,url_prefix+'/product/ui_cart/','PUT','htmlData','cartItemsList');
+		for (i in cartData){
+			if (i){
+				var do_request = true;
+			}
+		}
+		if (do_request==true){
+			cartOperations(cartData,url_prefix+'/product/ui_cart/','PUT','htmlData','cartItemsList');
+		}
 	}
 });
 

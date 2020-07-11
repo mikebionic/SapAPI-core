@@ -4,6 +4,12 @@ import sys
 from PIL import Image
 import secrets
 
+def allowed_image(filename):
+	return '.' in filename and filename.rsplit('.', 1)[1].lower() in current_app.config['ALLOWED_IMAGE_EXTENSIONS']
+
+def allowed_icon(filename):
+	return '.' in filename and filename.rsplit('.', 1)[1].lower() in current_app.config['ALLOWED_ICON_EXTENSIONS']
+
 def dirHandler(path):
 	if not os.path.exists(path):
 		try:
@@ -79,7 +85,7 @@ def save_image(imageForm=None,savedImage=None,module="undefined",id="undefined")
 
 # save_image(savedImage='IMG_5660.JPG',module="commerce/users",id=12)
 
-def save_icon(imageForm=None,savedImage=None,module="undefined",id=None):
+def save_icon(imageForm=None,savedImage=None,module="undefined",id=None,randomName=True):
 	random_hex = secrets.token_hex(14)
 
 	if id:
@@ -94,9 +100,10 @@ def save_icon(imageForm=None,savedImage=None,module="undefined",id=None):
 		# FileName = random_hex + f_ext
 
 	if imageForm:
-		# need to save the file to proceed compression and resizing if imageForm
 		_, f_ext = os.path.splitext(imageForm.filename)
 		FileName = random_hex + f_ext
+		if randomName == False:
+			FileName = imageForm.filename
 
 		sizeSpecificFullPath = os.path.join(current_app.root_path,'static',modulePath)
 		dirHandler(sizeSpecificFullPath)
