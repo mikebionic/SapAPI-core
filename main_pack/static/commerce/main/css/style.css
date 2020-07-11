@@ -5000,7 +5000,8 @@ body.open-overlay #overlay {
 .quantity-box .cont .next{
     position: absolute;
     top: 8px;
-    right: 20px;
+    right: -5px;
+    width: 30%;
     z-index: 1;
     cursor: pointer;
     opacity: 1;
@@ -5012,7 +5013,8 @@ body.open-overlay #overlay {
     position: absolute;
     top: 4px;
     color:#4f51c0;
-    left: 20px;
+    left: 15px;
+    width: 30%;
     font-size: 27px;
     z-index: 1;
     cursor: pointer;
@@ -18407,4 +18409,9 @@ a .badge{
     width: 100%;
     font-size: 15px;
     text-transform: capitalize;
+}
+
+
+textarea::placeholder{
+    color: #000;
 }

@@ -1,6 +1,6 @@
 {% for resource in data %}
   <tr class="cart_item cartTableObject{{resource.ResId}}">
-    <td class="product-thumbnail" data-title="{{_('Product')}} Name">       
+    <td class="product-thumbnail" data-title="{{_('Product')}} Name">
       {% if resource.FilePathS %}
         <a class="prd-thumb" href="{{ url_for('commerce.product',resId=resource.ResId)}}">
           <figure>
@@ -29,8 +29,8 @@
     <td class="product-quantity" data-title="{{_('Quantity')}}">
       <div class="quantity-box type1">
         <div class="cont">
-          <span value={{resource.productQty}} class="next nextQtyVal productQty" ownerId="{{resource.ResId}}">+</span>
-          <span value={{resource.productQty}} class="prev prevQtyVal productQty" ownerId="{{resource.ResId}}">-</span>
+          <span value={{resource.productQty}} class="next nextQtyVal productQty" ownerId="{{resource.ResId}}" style="right: 6px;">+</span>
+          <span value={{resource.productQty}} class="prev prevQtyVal productQty" ownerId="{{resource.ResId}}" style="left: 6px;">-</span>
           <div id="box">
             <span value={{resource.productQty}} class="uiQtyText productQty" ownerId="{{resource.ResId}}">{{ resource.productQty }}</span>
           </div>

@@ -75,14 +75,17 @@
               <span class="d-sm-none d-lg-inline-block"></span></a>
               <div class="dropdown-menu dropdown-menu-right pullDown" style="width: 167px;">
                 {% if current_user.is_authenticated %}
-                  <a href="{{ url_for('commerce_users.profile') }}" class="dropdown-item has-icon"><i class="fafa-user"></i> 
+                  <a href="{{ url_for('commerce_users.profile') }}" class="dropdown-item has-icon"><i class="fafa-user"></i>
                     {{ current_user.UFullName }}
                   </a>
                   <div class="dropdown-divider"></div>
                   <a href="{{ url_for('commerce_users.orders') }}" class="dropdown-item has-icon">{{_('Orders')}}
                   </a>
                   <div class="dropdown-divider"></div>
-                  <a href="{{ url_for('commerce_auth.logout') }}" class="dropdown-item has-icon text-danger"><i class="fa fa-sign-out"></i>
+                  <a href="{{ url_for('commerce_auth.logout') }}" class="dropdown-item has-icon text-danger">
+                    <div class="preview">
+                      <i class="material-icons">assignment_return</i>
+                    </div>
                     {{_('Log out')}}
                   </a>
                 {% else %}
@@ -317,12 +320,12 @@
             <a href="/language/en" class="dropdown-item">
               <img src="{{ url_for('static', filename='commerce/main/images/us.svg') }}" width="24" height="18">
             </a>
-          </li>              
+          </li>
           <li class="list-item">
             <a href="/language/tk" class="dropdown-item">
               <img src="{{ url_for('static', filename='commerce/main/images/tm.svg') }}" width="24" height="18">
             </a>
-          </li>              
+          </li>
           <li class="list-item">
             <a href="/language/ru" class="dropdown-item">
               <img src="{{ url_for('static', filename='commerce/main/images/ru.svg') }}" width="24" height="18">
