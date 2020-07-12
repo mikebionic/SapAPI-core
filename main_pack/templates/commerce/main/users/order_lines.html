@@ -83,7 +83,7 @@
 											</table>
 										</div>
 										<p><b>{{_('Description')}}</b></p>
-										<p>{{ orderInvoices[0].OInvDesc }}</p>
+										<p>{{ orderInvoices[0].OInvDesc if orderInvoices[0].OInvDesc else '' }}</p>
 									</div>
 								</div>
 							</div>

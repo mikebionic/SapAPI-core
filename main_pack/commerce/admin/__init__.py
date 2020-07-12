@@ -9,4 +9,5 @@ from main_pack.commerce.admin import (ui_barcode,
 																			ui_images,
 																			ui_properties,
 																			images_setup,
-																			ui_sliders)
+																			ui_sliders,
+																			ui_invoices)

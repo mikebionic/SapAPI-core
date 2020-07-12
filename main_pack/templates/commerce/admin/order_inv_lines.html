@@ -21,6 +21,18 @@
           <h4>{{_('Sale order invoices')}}</h4>
         </div>
         <div class="card-body">
+          <div class="col-6">
+            <h6>{{_('Reg №')}}:</h6>
+            <p class="oInvRegNo" >{{ orderInvoices[0].OInvRegNo }}</p>
+          </div>
+          <div class="col-6">
+            <i data-feather="clock"></i>
+            <div class="date">
+              <div>{{_('Ordered date')}}</div>
+              <div class="is-date">{{orderInvoices[0].CreatedDate}}</div>
+            </div>
+          </div>
+
           <div class="table-responsive">
             <table class="table table-striped" id="mainTable" >
               <thead>
@@ -34,18 +46,23 @@
                   <th>{{_('Action')}}</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody class="productsTable">
                 {% for orderInvLine in orderInvLines %}
-                  <tr>
+                  <tr ownerId="{{ orderInvLine.OInvLineId }}">
                     <td class="text-center">{{ orderInvLine.OInvLineId }}</td>
                     <td class="text-center">{{ orderInvLine.Resource.ResName }}</td>
-                    <td class="text-center editable">{{ orderInvLine.OInvLineAmount }}</td>
-                    <td class="text-center editable">{{ orderInvLine.OInvLinePrice }}</td>
-                    <td>{{ orderInvLine.OInvLineTotal }}</td>
-                    <td>{{ orderInvLine.Currency.CurrencyCode }}</td>
+                    <td class="text-center editable productQty" ownerId="{{ orderInvLine.OInvLineId }}">
+                      {{ orderInvLine.OInvLineAmount }}
+                    </td>
+                    <td class="text-center editable productPrice" ownerId="{{ orderInvLine.OInvLineId }}">
+                      {{ orderInvLine.OInvLinePrice }}
+                    </td>
+                    <td class="text-center productTotalPrice" ownerId="{{ orderInvLine.OInvLineId }}">
+                      {{ orderInvLine.OInvLineTotal }}
+                    </td>
+                    <td class="text-center">{{ orderInvLine.Currency.CurrencyCode }}</td>
                     <td>
-                      <a href="" class="btn btn-icon btn-info"><i class="fas fa-pencil-alt"></i></a>
-                      <a href="" class="btn btn-icon btn-danger"><i class="fas fa-trash-alt"></i></a>
+                      <button class="btn btn-icon btn-danger removeInvProduct" ownerId="{{ orderInvLine.OInvLineId }}"><i class="fas fa-trash-alt"></i></button>
                     </td>
                   </tr>
                 {% endfor %}
@@ -57,41 +74,52 @@
                 <div class="form-group">
                   <div class="input-group" style="display: flex;">
                     <select class="dropdown">
-                      <option href="#">Options</option>
-                      <option href="#"> View</option>
-                      <option href="#"> Edit</option>
-                      <option href="#">Delete </option>
+                      {% for inv_status in inv_statuses %}
+                        <option class="orderInvStatus" value="{{ inv_status.InvStatId }}" 
+                          {{ 'selected' if inv_status.InvStatId == orderInvoices[0].InvStatus.InvStatId }}>
+                          {{ inv_status.InvStatName }}
+                        </option>
+                      {% endfor %}
                     </select>
-                    <button type="submit" class="btn btn-info">{{_('Set')}}</button>
+                    <button class="btn btn-info setInvStatus">{{_('Set')}}</button>
                   </div>
                 </div>
               </div>
               <div class="col-6">
-                <h6>{{_(' Customer: ')}}</h6>
-                <p>Mike Bionic</p>
-                <h6>{{_(' Reg №: ')}}</h6>
-                <p>ASSF9674</p>
+                <h6>{{_('Customer')}}:</h6>
+                <p>{{ orderInvoices[0].Rp_acc.RpAccName }}</p>
+                <h6>{{_('Reg №')}}:</h6>
+                <p>{{ orderInvoices[0].Rp_acc.RpAccRegNo }}</p>
               </div>
               
               <div class="col-6">
                 <div class="inv_total">
-                  <h6>Total Price:</h6>
-                  TMT {{ orderInvoices[0].OInvFTotal }}
+                  <h6>{{_('Total price')}}:</h6>
+                  <span>{{ orderInvoices[0].Currency.CurrencyCode }}</span>
+                  <span class="invTotalPrice">{{ orderInvoices[0].OInvFTotal }}</span>
+                  <span>({{orderInvoices[0].OInvFTotalInWrite}})</span>
                 </div>
                 <br>
                 <div class="inv_btn">
+                  <button class="btn btn-success saveInvData">{{_('Save')}}</button>
                   <button class="btn btn-primary">{{_('Invoice')}}</button>
+                </div>
+                <div>
+                  <h6>{{_('Description')}}</h6>
+                  <p>{{ orderInvoices[0].OInvDesc if orderInvoices[0].OInvDesc else '' }}</p>
                 </div>
               </div>
               <div class="col-12">
-              <div class="inv_about">
-                <h6>Email:</h6>
-                <p>muhammetjepbarow@gmail.com</p>
-                <h6>Phone:</h6>
-                <p>+99361290719</p>
-                <h6>Home phone:</h6>
-                <p>276492</p>
-              </div>  
+                <div class="inv_about">
+                  <h6>{{_('Email')}}:</h6>
+                  <p>{{ orderInvoices[0].Rp_acc.RpAccEMail }}</p>
+                  <h6>{{_('Mobile phone')}}:</h6>
+                  <p>{{ orderInvoices[0].Rp_acc.RpAccMobilePhoneNumber if orderInvoices[0].Rp_acc.RpAccMobilePhoneNumber else '' }}</p>
+                  <h6>{{_('Home phone')}}:</h6>
+                  <p>{{ orderInvoices[0].Rp_acc.RpAccHomePhoneNumber if orderInvoices[0].Rp_acc.RpAccHomePhoneNumber else '' }}</p>
+                  <h6>{{_('Zip code')}}:</h6>
+                  <p>{{ orderInvoices[0].Rp_acc.RpAccZipCode if orderInvoices[0].Rp_acc.RpAccZipCode else '' }}</p>
+                </div>  
               </div>
             </div>
           </div>
@@ -105,4 +133,6 @@
 {% block scripts %}
   <script src="{{ url_for('static', filename='commerce/admin/bundles/editable-table/mindmup-editabletable.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/js/page/editable-table.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/admin/js/order_invoices.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/admin/js/ui_dynamicals.js') }}"></script>
 {% endblock %}

@@ -571,6 +571,9 @@ msgstr ""
 msgid "Reg No"
 msgstr ""
 
+msgid "Reg №"
+msgstr ""
+
 #: templates/commerce/admin/product_table.html:32
 #: templates/commerce/admin/product_table.html:67
 msgid "Available"

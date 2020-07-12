@@ -86,7 +86,6 @@ invStatSelector = {
 	},
 }
 
-
 def getInvStatusUi(statusId):
 	try:
 		for status in invStatSelector:

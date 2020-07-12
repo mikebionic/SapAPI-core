@@ -14,6 +14,7 @@ from main_pack.commerce.commerce.order_utils import UiOInvData,UiOInvLineData
 from sqlalchemy import and_
 
 from main_pack.commerce.commerce.order_utils import invStatusesSelectData
+from main_pack.base.languageMethods import dataLangSelector
 from main_pack.models.commerce.models import Res_category
 
 import os
@@ -127,8 +128,7 @@ def order_invoices():
 def order_inv_lines(OInvRegNo):
 	orderInvoice = Order_inv.query\
 		.filter(and_(Order_inv.GCRecord=='' or Order_inv.GCRecord==None),
-								Order_inv.OInvRegNo==OInvRegNo)\
-		.first()
+								Order_inv.OInvRegNo==OInvRegNo).first()
 	orderInvRes = UiOInvData([{'OInvId':orderInvoice.OInvId}])
 	
 	orderInvLines = Order_inv_line.query\
@@ -142,9 +142,14 @@ def order_inv_lines(OInvRegNo):
 		order_inv_line['OInvLineId'] = orderInvLine.OInvLineId
 		order_lines_list.append(order_inv_line)
 	res = UiOInvLineData(order_lines_list)
-
-	return render_template ("commerce/admin/order_inv_lines.html",**res,
-		**orderInvRes,title=gettext('Order invoices'))
+	inv_statuses = Inv_status.query\
+		.filter(Inv_status.GCRecord=='' or Inv_status.GCRecord==None).all()
+	invoice_statuses = []
+	for inv_stat in inv_statuses:
+		invoice_statuses.append(dataLangSelector(inv_stat.to_json_api()))
+	InvoiceStatuses = {'inv_statuses':invoice_statuses}
+	return render_template ("commerce/admin/order_inv_lines.html",
+		**res,**InvoiceStatuses,**orderInvRes,title=gettext('Order invoices'))
 
 @bp.route("/admin/add_product")
 @login_required
