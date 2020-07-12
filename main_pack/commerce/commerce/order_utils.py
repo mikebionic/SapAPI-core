@@ -16,6 +16,7 @@ from main_pack.models.commerce.models import Resource
 from main_pack.models.base.models import Company,Division
 from main_pack.models.users.models import Rp_acc
 from main_pack.base.languageMethods import dataLangSelector
+# colorful bootstrap status configurations library
 from main_pack.base.invoiceMethods import getInvStatusUi
 
 from sqlalchemy import and_

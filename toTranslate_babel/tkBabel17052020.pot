@@ -572,6 +572,9 @@ msgstr "Iş wagty"
 msgid "Reg No"
 msgstr "Hasaba alyş belgisi"
 
+msgid "Reg №"
+msgstr "Hasaba alyş belgisi"
+
 #: templates/commerce/admin/product_table.html:32
 #: templates/commerce/admin/product_table.html:67
 msgid "Available"

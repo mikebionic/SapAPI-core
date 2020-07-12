@@ -572,6 +572,9 @@ msgstr "Рабочее время"
 msgid "Reg No"
 msgstr "Регистрационный номер"
 
+msgid "Reg №"
+msgstr "Регистрационный номер"
+
 #: templates/commerce/admin/product_table.html:32
 #: templates/commerce/admin/product_table.html:67
 msgid "Available"
