@@ -112,58 +112,25 @@
 													</a>
 												</div>
 												<div class="info">
-													<b class="categories">Vegetables</b>
+													<b class="categories">{{ resource.ResCatName }}</b>
 													<h4 class="product-title"><a href="#" class="pr-name">{{resource.ResName}}</a></h4>
 													<div class="price ">
-														<ins><span class="price-amount">{{ resource.ResPriceValue }} TMT</span></ins>
-														<del><span class="price-amount">{{ resource.ResPriceValue }} TMT</span></del>
+														<ins>
+															<span class="price-amount priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue }} TMT</span>
+														</ins>
 													</div>
 													<div class="slide-down-box">
 														<p class="message">All products are carefully selected to ensure food safety.</p>
 														<div class="buttons">
 															<a href="#" class="btn wishlist-btn"><i class="fa fa-heart" aria-hidden="true"></i></a>
-															<a href="{{ url_for('commerce.product',resId=resource.ResId)}}" class="btn add-to-cart-btn"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i>add to cart</a>
+															<button class="btn add-to-cart-btn addToCart" ownerId="{{ resource.ResId }}"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i>{{_('Add to cart')}}</button>
+															<button class="btn add-to-cart-btn removeFromCart" ownerId="{{resource.ResId}}" style="display: none;">{{_('Remove')}}</button>
 														</div>
 													</div>
 												</div>
 											</div>
 										</li>
 									{% endif %}
-									{% for category in category.subcategories %}
-										{% for category in category.subcategories %}
-											{% if resource.ResCatName == category.ResCatName %}
-												<li class="product-item">
-												  <div class="sin-product">
-														<div class="pro-image fix">
-															<a href="{{ url_for('commerce.product',resId=resource.ResId)}}" class="image">
-														  	{% if resource.FilePathS %}
-																  <img loading="lazy" src="{{ resource.FilePathS }}"/>
-														  	{% else %}
-																  <img loading="lazy" src="{{ url_for('static', filename='commerce/uploads/noPhoto.png') }}"/>
-														  	{% endif %}
-														  </a>
-														  <div class="pro-action">
-																<a href="#{{ url_for('commerce.product',resId=resource.ResId)}}" class="action-btn cart addToCart"><i class="fa fa-fw fa-shopping-cart"></i></a>
-																<a href="#" class="action-btn wishlist"><i class="fa fa-fw fa-heart-o"></i></a>
-														  </div>
-														</div>
-
-														<div class="pro-details text-center">
-															<div class="top fix"></div>
-													  	<!-- wtf is this above??? -->
-														  <a href="#" class="pro-title">{{resource.ResName}}</a>
-														  <h3 class="pro-price">
-															<span class="new">
-																{{ resource.ResPriceValue }} TMT
-															</span>
-														  </h3>
-														</div>
-												  </div>
-												</li>
-											{% endif %}
-										{% endfor %}
-									{% endfor %}
-
 							  {% endfor %}
 							</ul>
 						  </div>
@@ -202,11 +169,6 @@
 											</div>
 											<div class="content text-center fix">
 												<a href="#" class="title">Dummy Product Name</a>
-
-
-
-
-
 												<h3 class="price fix">
 													<span class="new">$185.00</span>
 													<span class="old">$200.00</span>
