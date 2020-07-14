@@ -1,7 +1,6 @@
 {% extends "commerce/admin/layout.html" %}
 
 {% block styles %}
-  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/chocolat/dist/css/chocolat.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/dropzonejs/dropzone.css') }}">
 {% endblock %}
 
@@ -46,10 +45,11 @@
             <a href="{{ url_for('commerce_admin.slider_images',SlId=slider.SlId) }}" class="btn btn-outline-info">{{_('Add slider image')}}</a>
             {% if slider['Sl_images'] %}
               {% for sl_image in slider['Sl_images'] %}
-                <div class="gallery gallery-fw" data-item-height="100">
-                  <div class="gallery-item" data-image="{{ sl_image.SlImgMainImgFilePathM }}"></div>
+                <div class="gallery gallery-fw" data-item-height="100" style="display: flex;">
+                  <div class="gallery-item" data-image="{{ sl_image.SlImgMainImgFilePathM }}">
+                  </div>
                   <div class="carousel_icon">
-                    <li><a href="{{ url_for('commerce_admin.remove_images',type='slider',imgId=sl_image.SlImgId) }}" class="btn btn-icon btn-light deleteSliderBtn"><i class="fas fa-trash-alt"></i></a></li>
+                    <li><a href="{{ url_for('commerce_admin.remove_images',type='slider',imgId=sl_image.SlImgId) }}" class="btn btn-icon btn-light deleteSliderBtn" ><i class="fas fa-trash-alt"></i></a></li>
                   </div>
                 </div>
               {% endfor %}
@@ -65,7 +65,6 @@
 {% block scripts %}
   <script src="{{ url_for('static', filename='commerce/admin/js/sliders.js') }}"></script>
   <!-- DO WE NEED THESE JS FILES?? -->
-  <script src="{{ url_for('static', filename='commerce/admin/bundles/chocolat/dist/js/jquery.chocolat.min.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/js/page/gallery1.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/bundles/dropzonejs/min/dropzone.min.js') }}"></script>
 {% endblock %}
