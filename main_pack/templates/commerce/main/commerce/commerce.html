@@ -4,31 +4,31 @@
 	<div id="main-content" class="main-content">
 		{% for slider in sliders %}
 			{% if slider.SlName == "commerce_header" and slider.Sl_images %}
-				<div id="slider">
-					<div class="slides">
-						{% set qty_of_sliders = slider.Sl_images|length - 1 %}
-						{% for sl_image in slider.Sl_images %}
-							<div class="slider">
-								<div class="legend"></div>
-								<div class="content">
-									<div class="content-txt">
-										<h1>{{sl_image.SlImgDesc}}</h1>
-									</div>
-								</div>
-								<div class="image">
-									<img loading="lazy" src="{{ sl_image.SlImgMainImgFilePathR }}">
+			<div id="slider">
+				<div class="slides">
+					{% set qty_of_sliders = slider.Sl_images|length - 1 %}
+					{% for sl_image in slider.Sl_images %}
+						<div class="slider">
+							<div class="legend"></div>
+							<div class="content">
+								<div class="content-txt">
+									<h1>{{sl_image.SlImgDesc}}</h1>
 								</div>
 							</div>
-						{% endfor %}
-					</div>
-					<div class="switch">
-						<ul>
-							<li>
-								<div class="on"></div>
-							</li>
-						</ul>
-					</div>
+							<div class="image">
+								<img loading="lazy" src="{{ sl_image.SlImgMainImgFilePathR }}">
+							</div>
+						</div>
+					{% endfor %}
 				</div>
+				<div class="switch">
+					<ul>
+						<li>
+							<div class="on"></div>
+						</li>
+					</ul>
+				</div>
+			</div>
 			{% endif %}
 		{% endfor %}
 
