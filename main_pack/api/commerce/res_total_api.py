@@ -37,14 +37,18 @@ def api_res_totals():
 			for res_total in req:
 				res_total = addResTotalDict(res_total)
 				try:
-					if not 'ResTotId' in res_total:
+					if not "ResId" in res_total and not "WhId" in res_total:
 						newResTotal = Res_total(**res_total)
 						db.session.add(newResTotal)
 						db.session.commit()
 						res_totals.append(res_total)
 					else:
-						ResTotId = res_total['ResTotId']
-						thisResTotal = Res_total.query.get(int(ResTotId))
+						####
+						ResId = res_total['ResId']
+						WhId = res_total['WhId']
+						thisResTotal = Res_total.query\
+							.filter(and_(Res_total.ResId==ResId,Res_total.WhId==WhId)).first()
+						####
 						if thisResTotal is not None:
 							thisResTotal.update(**res_total)
 							db.session.commit()
