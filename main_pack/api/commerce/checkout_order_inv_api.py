@@ -87,7 +87,10 @@ def api_checkout_sale_order_invoices(user):
 					raise Exception
 
 				OInvLineAmount = totalSubstitutionResult['amount']
-				res_total.ResTotBalance = totalSubstitutionResult['totalBalance']
+				### currently this shouldn't decrease the res_total on 
+				### order invoice but should on invoice
+				# res_total.ResTotBalance = totalSubstitutionResult['totalBalance']
+				############
 				res_price = Res_price.query\
 					.filter(and_(Res_price.GCRecord=='' or Res_price.GCRecord==None),\
 						Res_price.ResId==resource.ResId,Res_price.ResPriceTypeId==2).first()
@@ -98,7 +101,7 @@ def api_checkout_sale_order_invoices(user):
 				OInvLineFTotal = OInvLineTotal
 				
 				###### inv line assignment ######
-				order_inv_line['OInvLineAmount'] = OInvLineAmount
+				order_inv_line['OInvLineAmount'] = decimal.Decimal(OInvLineAmount)
 				order_inv_line['OInvLinePrice'] = decimal.Decimal(OInvLinePrice)
 				order_inv_line['OInvLineTotal'] = decimal.Decimal(OInvLineTotal)
 				order_inv_line['OInvLineFTotal'] = decimal.Decimal(OInvLineFTotal)
@@ -112,6 +115,7 @@ def api_checkout_sale_order_invoices(user):
 				thisOInvLine = Order_inv_line(**order_inv_line)
 				db.session.add(thisOInvLine)			
 				order_inv_lines.append(thisOInvLine.to_json_api())
+				print(thisOInvLine.to_json_api())
 			except:
 				failed_order_inv_lines.append(order_inv_line_req)
 
@@ -141,8 +145,26 @@ def api_checkout_sale_order_invoices(user):
 
 	except:
 		res = {
-			"data":newOrderInv,
+			"data":newOrderInv.to_json_api(),
 			"message":"Failed to checkout order"
 		}	
+		print('exception occured')
+		print(res)
+		print('-----------------')
+	response = make_response(jsonify(res),200)
+	return response
+
+@api.route("/decimal/")
+def chackDecimal():
+	decVal = 98.24445
+	converted = decimal.Decimal(decVal)
+
+	line = Order_inv_line.query.get(32)
+	res = {
+		"data":decVal,
+		"line":line.to_json_api()
+	}
+	print(res)
+
 	response = make_response(jsonify(res),200)
 	return response

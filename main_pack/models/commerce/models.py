@@ -1,8 +1,8 @@
 from main_pack import db
 from datetime import datetime
 from flask_login import current_user
-from main_pack.models.base.models import CreatedModifiedInfo, AddInf
-from main_pack.base.dataMethods import apiDataFormat
+from main_pack.models.base.models import CreatedModifiedInfo,AddInf
+from main_pack.base.dataMethods import apiDataFormat,configureFloat
 
 class Barcode(CreatedModifiedInfo,db.Model):
 	__tablename__ = "tbl_dk_barcode"
@@ -585,11 +585,11 @@ class Order_inv(AddInf,CreatedModifiedInfo,db.Model):
 			'OInvRegNo':self.OInvRegNo,
 			'OInvDesc':self.OInvDesc,
 			'OInvDate':apiDataFormat(self.OInvDate),
-			'OInvTotal':self.OInvTotal,
-			'OInvExpenseAmount':self.OInvExpenseAmount,
-			'OInvTaxAmount':self.OInvTaxAmount,
-			'OInvDiscountAmount':self.OInvDiscountAmount,
-			'OInvFTotal':self.OInvFTotal,
+			'OInvTotal':configureFloat(self.OInvTotal),
+			'OInvExpenseAmount':configureFloat(self.OInvExpenseAmount),
+			'OInvTaxAmount':configureFloat(self.OInvTaxAmount),
+			'OInvDiscountAmount':configureFloat(self.OInvDiscountAmount),
+			'OInvFTotal':configureFloat(self.OInvFTotal),
 			'OInvFTotalInWrite':self.OInvFTotalInWrite,
 			'OInvModifyCount':self.OInvModifyCount,
 			'OInvPrintCount':self.OInvPrintCount,
@@ -643,13 +643,13 @@ class Order_inv_line(AddInf,CreatedModifiedInfo,db.Model):
 			'ResId':self.ResId,
 			'LastVendorId':self.LastVendorId,
 			'OInvLineDesc':self.OInvLineDesc,
-			'OInvLineAmount':self.OInvLineAmount,
-			'OInvLinePrice':self.OInvLinePrice,
-			'OInvLineTotal':self.OInvLineTotal,
-			'OInvLineExpenseAmount':self.OInvLineExpenseAmount,
-			'OInvLineTaxAmount':self.OInvLineTaxAmount,
-			'OInvLineDiscAmount':self.OInvLineDiscAmount,
-			'OInvLineFTotal':self.OInvLineFTotal,
+			'OInvLineAmount':configureFloat(self.OInvLineAmount),
+			'OInvLinePrice':configureFloat(self.OInvLinePrice),
+			'OInvLineTotal':configureFloat(self.OInvLineTotal),
+			'OInvLineExpenseAmount':configureFloat(self.OInvLineExpenseAmount),
+			'OInvLineTaxAmount':configureFloat(self.OInvLineTaxAmount),
+			'OInvLineDiscAmount':configureFloat(self.OInvLineDiscAmount),
+			'OInvLineFTotal':configureFloat(self.OInvLineFTotal),
 			'OInvLineDate':apiDataFormat(self.OInvLineDate),
 			'AddInf1':self.AddInf1,
 			'AddInf2':self.AddInf2,

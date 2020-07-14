@@ -542,3 +542,42 @@ def addOrderInvTypeDict(req):
 		order_inv_type['OInvTypeId']=OInvTypeId
 	order_inv_type=configureNulls(order_inv_type)
 	return order_inv_type
+
+def addWarehouseDict(req):
+	WhId = req.get('WhId')
+	CId = req.get('CId')
+	DivId = req.get('DivId')
+	WhName = req.get('WhName')
+	WhDesc = req.get('WhDesc')
+	AddInf1 = req.get('AddInf1')
+	AddInf2 = req.get('AddInf2')
+	AddInf3 = req.get('AddInf3')
+	AddInf4 = req.get('AddInf4')
+	AddInf5 = req.get('AddInf5')
+	AddInf6 = req.get('AddInf6')
+	CreatedDate = req.get('CreatedDate')
+	ModifiedDate = req.get('ModifiedDate')
+	CreatedUId = req.get('CreatedUId')
+	ModifiedUId = req.get('ModifiedUId')
+	GCRecord = req.get('GCRecord')
+	warehouse = {
+		'CId':CId,
+		'DivId':DivId,
+		'WhName':WhName,
+		'WhDesc':WhDesc,
+		'AddInf1':AddInf1,
+		'AddInf2':AddInf2,
+		'AddInf3':AddInf3,
+		'AddInf4':AddInf4,
+		'AddInf5':AddInf5,
+		'AddInf6':AddInf6,
+		'CreatedDate':CreatedDate,
+		'ModifiedDate':ModifiedDate,
+		'CreatedUId':CreatedUId,
+		'ModifiedUId':ModifiedUId,
+		'GCRecord':GCRecord
+		}
+	if(WhId != '' and WhId != None):
+		warehouse['WhId']=WhId
+	warehouse=configureNulls(warehouse)
+	return warehouse
