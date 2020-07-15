@@ -102,7 +102,7 @@ def register_token(token):
 				UShortName=UShortName,
 				UPass=hashed_password,
 				UFullName=form.full_name.data,
-				UTypeId=2)
+				UTypeId=5)
 			db.session.add(user)
 
 			# get the regNum for RpAccount registration

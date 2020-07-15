@@ -29,6 +29,17 @@ import decimal
 # 	print(name)
 # 	return name
 
+def get_error_type(error_type):
+	fail_statuses = {
+		1:"Deleted",
+		2:"Usage satus: Inactive",
+		3:"Resource ended",
+		4:"False price"
+	}
+	print(fail_statuses[error_type])
+	return fail_statuses[error_type]
+
+
 @api.route("/checkout-sale-order-inv/",methods=['POST'])
 @token_required
 def api_checkout_sale_order_invoices(user):
@@ -86,12 +97,31 @@ def api_checkout_sale_order_invoices(user):
 			resource = Resource.query\
 				.filter(and_(Resource.GCRecord=='' or Resource.GCRecord==None),\
 					Resource.ResId==ResId).first()
+			res_price = Res_price.query\
+				.filter(and_(Res_price.GCRecord=='' or Res_price.GCRecord==None),\
+					Res_price.ResId==resource.ResId,Res_price.ResPriceTypeId==2).first()
 			res_total = Res_total.query\
 				.filter(and_(Res_total.GCRecord=='' or Res_total.GCRecord==None),\
 					Res_total.ResId==ResId).first()
 			totalSubstitutionResult = totalQtySubstitution(res_total.ResTotBalance,OInvLineAmount)
 			try:
-				if not resource or totalSubstitutionResult['status']==0:
+				if not resource:
+					# type deleted
+					error_type = 1
+					raise Exception
+
+				if resource.UsageStatId == 2:
+					# resource unavailable or inactive
+					error_type = 2
+					raise Exception
+				
+				if totalSubstitutionResult['status']==0:
+					# resource is empty or bad request with amount = -1
+					error_type = 3
+					raise Exception
+
+				if order_inv_line['OInvLinePrice'] != res_price.ResPriceValue:
+					error_type = 4
 					raise Exception
 
 				OInvLineAmount = totalSubstitutionResult['amount']
@@ -99,9 +129,6 @@ def api_checkout_sale_order_invoices(user):
 				### order invoice but should on invoice
 				# res_total.ResTotBalance = totalSubstitutionResult['totalBalance']
 				############
-				res_price = Res_price.query\
-					.filter(and_(Res_price.GCRecord=='' or Res_price.GCRecord==None),\
-						Res_price.ResId==resource.ResId,Res_price.ResPriceTypeId==2).first()
 				OInvLinePrice = float(res_price.ResPriceValue) if res_price else 0
 				OInvLineTotal = OInvLinePrice*OInvLineAmount
 
@@ -123,56 +150,55 @@ def api_checkout_sale_order_invoices(user):
 				thisOInvLine = Order_inv_line(**order_inv_line)
 				db.session.add(thisOInvLine)			
 				order_inv_lines.append(thisOInvLine.to_json_api())
-				print(thisOInvLine.to_json_api())
 			except:
+				order_inv_line_req['error_type_id'] = error_type
+				order_inv_line_req['error_type_message'] = get_error_type(error_type) 
 				failed_order_inv_lines.append(order_inv_line_req)
 
 		###### final order assignment and processing ######
 		# add taxes and stuff later on
-		OInvFTotal = OInvTotal
-		OInvFTotalInWrite = price2text(OInvFTotal,
-			current_app.config['PRICE_2_TEXT_LANGUAGE'],
-			current_app.config['PRICE_2_TEXT_CURRENCY'])
+		if len(failed_order_inv_lines)>0:
+			status = checkApiResponseStatus(order_inv_lines,failed_order_inv_lines)
+			res = {
+				"data":order_invoice,
+				"fails":failed_order_inv_lines,
+				"success_total":len(order_inv_lines),
+				"fail_total":len(failed_order_inv_lines)
+			}
+			for e in status:
+				res[e]=status[e]
+			response = make_response(jsonify(res),200)
+			return response
 
-		newOrderInv.OInvTotal = decimal.Decimal(OInvTotal)
-		newOrderInv.OInvFTotal = decimal.Decimal(OInvFTotal)
-		newOrderInv.OInvFTotalInWrite = OInvFTotalInWrite
+		else:
 
-		db.session.commit()
+			OInvFTotal = OInvTotal
+			OInvFTotalInWrite = price2text(OInvFTotal,
+				current_app.config['PRICE_2_TEXT_LANGUAGE'],
+				current_app.config['PRICE_2_TEXT_CURRENCY'])
 
-		status = checkApiResponseStatus(order_inv_lines,failed_order_inv_lines)
-		res = {
-			"data":order_inv_lines,
-			"fails":failed_order_inv_lines,
-			"success_total":len(order_inv_lines),
-			"fail_total":len(failed_order_inv_lines)
-		}
+			newOrderInv.OInvTotal = decimal.Decimal(OInvTotal)
+			newOrderInv.OInvFTotal = decimal.Decimal(OInvFTotal)
+			newOrderInv.OInvFTotalInWrite = OInvFTotalInWrite
 
-		for e in status:
-			res[e]=status[e]
+			db.session.commit()
+
+			status = checkApiResponseStatus(order_inv_lines,failed_order_inv_lines)
+			res = {
+				"data":order_inv_lines,
+				"fails":failed_order_inv_lines,
+				"success_total":len(order_inv_lines),
+				"fail_total":len(failed_order_inv_lines)
+			}
+
+			for e in status:
+				res[e]=status[e]
 
 	except:
 		res = {
 			"data":newOrderInv.to_json_api(),
 			"message":"Failed to checkout order"
 		}	
-		print('exception occured')
-		print(res)
-		print('-----------------')
 	response = make_response(jsonify(res),200)
-	return response
 
-@api.route("/decimal/")
-def chackDecimal():
-	decVal = 98.24445
-	converted = decimal.Decimal(decVal)
-
-	line = Order_inv_line.query.get(32)
-	res = {
-		"data":decVal,
-		"line":line.to_json_api()
-	}
-	print(res)
-
-	response = make_response(jsonify(res),200)
 	return response
