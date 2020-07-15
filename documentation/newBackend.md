@@ -30,6 +30,9 @@ GET POST
 /api/tbl-dk-order-inv-types/
 
 GET POST
+/api/tbl-dk-warehouses/
+
+GET POST
 /api/tbl-dk-categories/
 
 GET PUT

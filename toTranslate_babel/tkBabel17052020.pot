@@ -826,7 +826,7 @@ msgstr "Soňky görülen"
 #: templates/commerce/main/commerce/list_view.html:44
 #: templates/commerce/main/commerce/product.html:130
 msgid "Add to cart"
-msgstr "Goş"
+msgstr "Sebede goş"
 
 #: templates/commerce/main/commerce/list_paginate.html:47
 #: templates/commerce/main/commerce/product.html:131
