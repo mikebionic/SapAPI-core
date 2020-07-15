@@ -20,7 +20,7 @@ def api_rp_accs_rp_acc(RpAccId):
 
 	return response
 
-@api.route("/tbl-dk-rp-accs/",methods=['GET','POST','PUT'])
+@api.route("/tbl-dk-rp-accs/",methods=['GET','POST'])
 def api_rp_accs():
 	if request.method == 'GET':
 		rp_accs = Rp_acc.query\

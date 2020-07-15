@@ -7,7 +7,7 @@ from main_pack.api.commerce.utils import addWarehouseDict
 from main_pack import db
 from flask import current_app
 
-@api.route("/tbl-dk-warehouses/",methods=['GET','POST','PUT'])
+@api.route("/tbl-dk-warehouses/",methods=['GET','POST'])
 def api_warehouses():
 	if request.method == 'GET':
 		warehouses = Warehouse.query\

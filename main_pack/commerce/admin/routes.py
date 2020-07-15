@@ -18,6 +18,7 @@ from main_pack.base.languageMethods import dataLangSelector
 from main_pack.models.commerce.models import Res_category
 
 import os
+from main_pack.base.imageMethods import allowed_icon
 from flask import current_app
 
 @bp.route("/admin")
@@ -61,16 +62,20 @@ def category_table():
 	folders = os.listdir(full_icons_path)
 	category_icons = {}
 	for folder in folders:
-		folder_icons = os.listdir(os.path.join(full_icons_path,folder))
-		icons = []
-		for icon in folder_icons:
-			iconInfo = {
-				'url':url_for('commerce_api.get_icon',category=folder,file_name=icon),
-				'icon_name':icon,
-				'category':folder
-			}
-			icons.append(iconInfo)
-		category_icons[folder]=icons
+		try:
+			folder_icons = os.listdir(os.path.join(full_icons_path,folder))
+			icons = []
+			for icon in folder_icons:
+				if allowed_icon(icon):
+					iconInfo = {
+						'url':url_for('commerce_api.get_icon',category=folder,file_name=icon),
+						'icon_name':icon,
+						'category':folder
+					}
+					icons.append(iconInfo)
+			category_icons[folder]=icons
+		except:
+			print("Err: not a folder")
 
 	data['category_icons']=category_icons
 	categories = Res_category.query\
