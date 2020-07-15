@@ -1,7 +1,6 @@
 {% extends "commerce/admin/layout.html" %}
 
 {% block styles %}
-  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/chocolat/dist/css/chocolat.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/dropzonejs/dropzone.css') }}">
 {% endblock %}
 
@@ -17,7 +16,7 @@
           <div class="card-body">
             {% if company_logo %}
               <div class="gallery gallery-fw" data-item-height="100">
-                <div class="gallery-item" data-image="{{ url_for('static', filename=company_logo.FilePath) }}"></div>
+                <div class="gallery-item" data-image="{{ url_for('static', filename=company_logo.FilePath) }}" style="border-radius: 50px; width: 50%;margin: 0 80px;"></div>
               </div>
               <div class="logo_icon">
                 <li><a href="#" class="btn btn-icon btn-light addLogoBtn"><i class="fas fa-plus"></i></a></li>
@@ -60,7 +59,6 @@
       $('.uploadLogoCard').show('slow');
     })
   </script>
-  <script src="{{ url_for('static', filename='commerce/admin/bundles/chocolat/dist/js/jquery.chocolat.min.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/js/page/gallery1.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/bundles/dropzonejs/min/dropzone.min.js') }}"></script>
 {% endblock %}
