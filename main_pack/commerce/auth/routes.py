@@ -119,7 +119,8 @@ def register_token(token):
 				RpAccRegNo=regNo,
 				RpAccTypeId=1,
 				RpAccMobilePhoneNumber=form.phone_number.data,
-				UId=user.UId)
+				# UId=user.UId
+				)
 			db.session.add(rp_acc)
 			# assign the RpAccId to a User model
 			user.RpAccId = rp_acc.RpAccId

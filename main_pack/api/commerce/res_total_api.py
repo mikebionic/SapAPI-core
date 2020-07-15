@@ -6,7 +6,7 @@ from main_pack.models.commerce.models import Res_total
 from main_pack.api.commerce.utils import addResTotalDict
 from main_pack import db
 from flask import current_app
-
+from sqlalchemy import and_
 
 @api.route("/tbl-dk-res-totals/",methods=['GET','POST','PUT'])
 def api_res_totals():
@@ -37,6 +37,8 @@ def api_res_totals():
 			for res_total in req:
 				res_total = addResTotalDict(res_total)
 				try:
+					if res_total['WhId'] < 0:
+						raise Exception
 					if not "ResId" in res_total and not "WhId" in res_total:
 						newResTotal = Res_total(**res_total)
 						db.session.add(newResTotal)

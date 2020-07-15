@@ -34,12 +34,19 @@ import decimal
 def api_checkout_sale_order_invoices(user):
 	model_type = user['model_type']
 	current_user = user['current_user']
-
+	# current user is rp_acc if type is rp_acc !!
 	if model_type=='Rp_acc':
 		name = current_user.RpAccUName
 		RpAccId = current_user.RpAccId
+		# get the seller's user information of a specific rp_acc
 		user = Users.query\
-			.filter(and_(Users.GCRecord=='' or Users.GCRecord==None),Users.RpAccId==RpAccId).first()
+			.filter(and_(Users.GCRecord=='' or Users.GCRecord==None),\
+				Users.UId==current_user.UId).first()
+		if user is None:
+			# try to find the rp_acc registered user if no seller specified
+			user = Users.query\
+				.filter(and_(Users.GCRecord=='' or Users.GCRecord==None),\
+					Users.RpAccId==RpAccId).first()
 	try:
 		req = request.get_json()
 		order_invoice = addOrderInvDict(req['orderInv'])
@@ -59,6 +66,7 @@ def api_checkout_sale_order_invoices(user):
 		###### order inv setup ######
 		order_invoice['OInvRegNo']=orderRegNo
 		order_invoice['InvStatId']=1
+		# default currency is 1 TMT of not specified
 		if not order_invoice['CurrencyId']:
 			order_invoice['CurrencyId']=1
 		order_invoice['RpAccId']=RpAccId

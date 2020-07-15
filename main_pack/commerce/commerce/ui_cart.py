@@ -16,6 +16,7 @@ from main_pack.key_generator.utils import makeRegNum,generate,validate
 from main_pack.base.num2text import num2text,price2text
 from datetime import datetime
 import decimal
+from main_pack.models.users.models import Users,Rp_acc
 
 @bp.route("/product/ui_cart/", methods=['POST','PUT'])
 def ui_cart():
@@ -152,9 +153,22 @@ def ui_cart_checkout():
 				# no products in cart
 				raise Exception
 
+			# get the rp_acc of current logged user
+			rp_acc = Rp_acc.query\
+				.filter(and_(Rp_acc.GCRecord=='' or Rp_acc.GCRecord==None),\
+					Rp_acc.RpAccId==current_user.RpAccId).first()
 			try:
-				reg_num = generate(UId=current_user.UId,prefixType='sale order invoice code')
-				regNo = makeRegNum(current_user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'',True)
+				# get the seller user of the rp_acc
+				Rp_acc_user = Users.query\
+					.filter(and_(Users.GCRecord=='' or Users.GCRecord==None),\
+						Users.RpAccId==rp_acc.RpAccId).first()
+				if Rp_acc_user:
+					reg_num = generate(UId=Rp_acc_user.UId,prefixType='sale order invoice code')
+					regNo = makeRegNum(Rp_acc_user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'',True)
+				else:
+					# else if no seller user found for a current rp_acc:
+					reg_num = generate(UId=current_user.UId,prefixType='sale order invoice code')
+					regNo = makeRegNum(current_user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'',True)
 			except:
 				regNo = datetime.now()
 			
@@ -163,7 +177,7 @@ def ui_cart_checkout():
 					OInvTypeId=2,
 					InvStatId=1,
 					CurrencyId=1,
-					RpAccId=current_user.RpAccId,
+					RpAccId=rp_acc.RpAccId,
 					OInvRegNo=regNo,
 					OInvDesc=OInvDesc,
 				)
@@ -189,7 +203,8 @@ def ui_cart_checkout():
 
 					resourceInv = resource.to_json_api()
 					OInvLineAmount = totalSubstitutionResult['amount']
-					res_total.ResTotBalance = totalSubstitutionResult['totalBalance']
+					# # !! this shouldn't change total val if order_inv
+					# res_total.ResTotBalance = totalSubstitutionResult['totalBalance']
 					res_price = Res_price.query\
 						.filter(and_(Res_price.GCRecord=='' or Res_price.GCRecord==None),\
 							Res_price.ResId==resource.ResId,Res_price.ResPriceTypeId==2).first()

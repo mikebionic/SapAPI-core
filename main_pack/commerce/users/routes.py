@@ -29,13 +29,13 @@ def ui_admin_required():
 @login_required
 def profile():
 	categoryData = UiCategoriesList()
-	rpAcc = Rp_acc.query.filter(Rp_acc.UId==current_user.UId).first()
+	rpAcc = Rp_acc.query.filter(Rp_acc.RpAccId==current_user.RpAccId).first()
 	if rpAcc:
 		image = Image.query.filter_by(RpAccId=rpAcc.RpAccId).order_by(Image.CreatedDate.desc()).first()
 		if image:
 			avatar = fileToURL(file_type='image',file_size='S',file_name=image.FileName)
 		else:
-			avatar = url_for('static', filename="commerce/main/images/noPhoto.png") 
+			avatar = url_for('static', filename="commerce/main/shop_icons/no_photo.png") 
 
 	return render_template ("commerce/main/users/profile.html",**categoryData,
 		title=gettext('Profile'),rpAcc=rpAcc,avatar=avatar)
@@ -44,7 +44,7 @@ def profile():
 @login_required
 def profile_edit():
 	form = UpdateRpAccForm()
-	rpAcc = Rp_acc.query.filter(Rp_acc.UId==current_user.UId).first()
+	rpAcc = Rp_acc.query.filter(Rp_acc.RpAccId==current_user.RpAccId).first()
 	
 	if form.validate_on_submit():
 		userData = {
@@ -84,7 +84,7 @@ def profile_edit():
 	if image:
 		avatar = fileToURL(file_type='image',file_size='S',file_name=image.FileName)
 	else:
-		avatar = url_for('static', filename="commerce/main/images/noPhoto.png") 
+		avatar = url_for('static', filename="commerce/main/shop_icons/no_photo.png") 
 
 	categoryData = UiCategoriesList()
 	return render_template ("commerce/main/users/profile_edit.html",**categoryData,

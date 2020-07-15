@@ -47,8 +47,12 @@ user = Users(UId=newUId,UName="administrator",UEmail=email,
 	UPass=password,UShortName="AR",UFullName="Mike Bionic",UTypeId=1)
 db.session.add(user)
 db.session.commit()
-rp_acc = Rp_acc(RpAccId=newRpAccId,RpAccName="Mike Bionic",
-	RpAccEMail=email,RpAccRegNo="ARAK1",RpAccTypeId=1,UId=newUId)
+rp_acc = Rp_acc(
+	RpAccId=newRpAccId,
+	RpAccName="Mike Bionic",
+	RpAccEMail=email,
+	RpAccRegNo="ARAK1",
+	RpAccTypeId=1)
 db.session.add(rp_acc)
 db.session.commit()
 user.RpAccId = newRpAccId
