@@ -13005,7 +13005,7 @@ body.open-quickview-block .biolife-quickview-block {
     .header-area.layout-02 .biolife-logo, .header-area.layout-03 .biolife-logo, .header-area.layout-04 .biolife-logo, .header-area.layout-05 .biolife-logo {
         display: block;
         margin-top: 5px;
-        width: 50%;
+        width: 60%;
         margin-bottom: 15px;
     }
 }
@@ -13110,7 +13110,7 @@ body.open-quickview-block .biolife-quickview-block {
     .header-area.layout-02 .biolife-logo, .header-area.layout-03 .biolife-logo, .header-area.layout-04 .biolife-logo, .header-area.layout-05 .biolife-logo {
         display: block;
         margin-top: 5px;
-        width: 60%;
+        width: 100%;
     }
 
     .header-area .header-middle {
