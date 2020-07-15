@@ -35,7 +35,7 @@ def profile():
 		if image:
 			avatar = fileToURL(file_type='image',file_size='S',file_name=image.FileName)
 		else:
-			avatar = url_for('static', filename="commerce/uploads/noPhoto.png") 
+			avatar = url_for('static', filename="commerce/main/images/noPhoto.png") 
 
 	return render_template ("commerce/main/users/profile.html",**categoryData,
 		title=gettext('Profile'),rpAcc=rpAcc,avatar=avatar)
@@ -84,7 +84,7 @@ def profile_edit():
 	if image:
 		avatar = fileToURL(file_type='image',file_size='S',file_name=image.FileName)
 	else:
-		avatar = url_for('static', filename="commerce/uploads/noPhoto.png") 
+		avatar = url_for('static', filename="commerce/main/images/noPhoto.png") 
 
 	categoryData = UiCategoriesList()
 	return render_template ("commerce/main/users/profile_edit.html",**categoryData,
