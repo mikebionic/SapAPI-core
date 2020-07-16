@@ -103,7 +103,6 @@
 	],
 	"message": "Success and fail",
 	"status": 2,
-	"status_code": 206,
 	"success": [
 		{
 			"AddInf1": null,
