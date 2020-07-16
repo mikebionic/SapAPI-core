@@ -85,25 +85,29 @@
 	"fail_total": 2,
 	"fails": [
 		{
-			"OInvLineAmount": 8,
-			"OInvLineDesc": "Loasfef333333psum",
-			"OInvLinePrice": 2,
-			"ResId": 7,
+			"data":{
+					"OInvLineAmount": 8,
+					"OInvLineDesc": "Loasfef333333psum",
+					"OInvLinePrice": 2,
+					"ResId": 7
+				},
 			"error_type_id": 2,
 			"error_type_message": "Usage satus: Inactive"
 		},
 		{
-			"OInvLineAmount": 3,
-			"OInvLineDesc": "LoremIsdjfapsum",
-			"OInvLinePrice": 9999,
-			"ResId": 4,
+			"data":{
+				"OInvLineAmount": 3,
+				"OInvLineDesc": "LoremIsdjfapsum",
+				"OInvLinePrice": 9999,
+				"ResId": 4
+			},
 			"error_type_id": 1,
 			"error_type_message": "Deleted"
 		}
 	],
 	"message": "Success and fail",
 	"status": 2,
-	"success": [
+	"successes": [
 		{
 			"AddInf1": null,
 			"AddInf2": null,
