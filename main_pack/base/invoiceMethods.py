@@ -1,4 +1,49 @@
+from flask import current_app
 
+#### balance and qty substitution function ####
+def totalQtySubstitution(totalBalance,amount):
+	resultingTotal = totalBalance - amount
+	print(resultingTotal)
+	result = {
+		'totalBalance':resultingTotal,
+		'amount':amount,
+		'status':1
+	}
+	if resultingTotal>totalBalance:
+		result = {
+			'totalBalance':totalBalance,
+			'amount':0,
+			'status':0
+		}
+		return result
+	if current_app.config['NEGATIVE_WH_QTY_ORDER']==False:
+		if resultingTotal<0:
+			result = {
+				'totalBalance':0,
+				'amount':totalBalance,
+				'status':1
+			}
+		if totalBalance<=0:
+			result = {
+				'totalBalance':totalBalance,
+				'amount':0,
+				'status':0
+			}
+	return result
+
+#### if errors in order invoice ####
+def get_order_error_type(error_type):
+	fail_statuses = {
+		0:"Unknown error",
+		1:"Deleted",
+		2:"Usage satus: Inactive",
+		3:"Resource ended",
+		4:"False price"
+	}
+	print(fail_statuses[error_type])
+	return fail_statuses[error_type]
+
+###### invoice status UI styling ######
 invStatSelector = {
 	# Waiting
 	1:{

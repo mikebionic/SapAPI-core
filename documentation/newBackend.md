@@ -29,6 +29,18 @@ GET POST
 GET POST
 /api/tbl-dk-order-inv-types/
 
+POST [Token required of Rp_acc login]
+/api/checkout-sale-order-inv/
+
+# get all orders of a logged Rp_acc
+GET [Token required of Rp_acc login]
+/api/v-order-invoices/
+
+# get all lines of a specific reg no if it's order is Rp_acc
+GET [Token required of Rp_acc login]
+/api/v-order-invoices/<str:OInvRegNo>/
+
+
 GET POST
 /api/tbl-dk-warehouses/
 
@@ -80,6 +92,3 @@ GET
 
 GET
 /api/tbl-dk-sliders/
-
-POST [Token required of Rp_acc login]
-/api/checkout-sale-order-inv/

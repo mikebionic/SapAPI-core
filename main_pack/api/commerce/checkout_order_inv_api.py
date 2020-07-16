@@ -1,6 +1,7 @@
 from flask import render_template,url_for,jsonify,request,abort,make_response
 from main_pack.api.commerce import api
 from main_pack.base.apiMethods import checkApiResponseStatus
+from main_pack.base.invoiceMethods import get_order_error_type
 
 from main_pack.models.users.models import Users
 from main_pack.models.commerce.models import Order_inv,Order_inv_line
@@ -11,7 +12,7 @@ from datetime import datetime
 from main_pack.api.auth.api_login import token_required
 
 from main_pack.models.commerce.models import Resource,Res_price,Res_total
-from main_pack.api.commerce.checkout_utils import totalQtySubstitution
+from main_pack.base.invoiceMethods import totalQtySubstitution
 from main_pack.base.num2text import num2text,price2text
 from sqlalchemy import and_
 from main_pack.key_generator.utils import generate,makeRegNum
@@ -28,17 +29,6 @@ import decimal
 # 		name = current_user.RpAccUName
 # 	print(name)
 # 	return name
-
-def get_error_type(error_type):
-	fail_statuses = {
-		1:"Deleted",
-		2:"Usage satus: Inactive",
-		3:"Resource ended",
-		4:"False price"
-	}
-	print(fail_statuses[error_type])
-	return fail_statuses[error_type]
-
 
 @api.route("/checkout-sale-order-inv/",methods=['POST'])
 @token_required
@@ -90,27 +80,33 @@ def api_checkout_sale_order_invoices(user):
 		OInvTotal = 0
 		OrderInvLines = req['orderInv']['OrderInvLines']
 		for order_inv_line_req in OrderInvLines:
-			order_inv_line = addOrderInvLineDict(order_inv_line_req)
-
-			ResId = order_inv_line['ResId']
-			OInvLineAmount = int(order_inv_line['OInvLineAmount'])
-			resource = Resource.query\
-				.filter(and_(Resource.GCRecord=='' or Resource.GCRecord==None),\
-					Resource.ResId==ResId).first()
-			res_price = Res_price.query\
-				.filter(and_(Res_price.GCRecord=='' or Res_price.GCRecord==None),\
-					Res_price.ResId==resource.ResId,Res_price.ResPriceTypeId==2).first()
-			res_total = Res_total.query\
-				.filter(and_(Res_total.GCRecord=='' or Res_total.GCRecord==None),\
-					Res_total.ResId==ResId).first()
-			totalSubstitutionResult = totalQtySubstitution(res_total.ResTotBalance,OInvLineAmount)
 			try:
+				# in case of errors, the error_type is provided
+				error_type=0
+				
+				order_inv_line = addOrderInvLineDict(order_inv_line_req)
+
+				ResId = order_inv_line['ResId']
+				OInvLineAmount = int(order_inv_line['OInvLineAmount'])
+				resource = Resource.query\
+					.filter(and_(Resource.GCRecord=='' or Resource.GCRecord==None),\
+						Resource.ResId==ResId).first()
+				
 				if not resource:
-					# type deleted
+					# type deleted or none 
 					error_type = 1
 					raise Exception
+				
+				res_price = Res_price.query\
+					.filter(and_(Res_price.GCRecord=='' or Res_price.GCRecord==None),\
+						Res_price.ResId==resource.ResId,Res_price.ResPriceTypeId==2).first()
+				res_total = Res_total.query\
+					.filter(and_(Res_total.GCRecord=='' or Res_total.GCRecord==None),\
+						Res_total.ResId==ResId).first()
+				totalSubstitutionResult = totalQtySubstitution(res_total.ResTotBalance,OInvLineAmount)
 
-				if resource.UsageStatId == 2:
+
+				if resource.UsageStatusId == 2:
 					# resource unavailable or inactive
 					error_type = 2
 					raise Exception
@@ -148,30 +144,31 @@ def api_checkout_sale_order_invoices(user):
 				OInvTotal += OInvLineFTotal
 
 				thisOInvLine = Order_inv_line(**order_inv_line)
-				db.session.add(thisOInvLine)			
+				db.session.add(thisOInvLine)
 				order_inv_lines.append(thisOInvLine.to_json_api())
 			except:
 				order_inv_line_req['error_type_id'] = error_type
-				order_inv_line_req['error_type_message'] = get_error_type(error_type) 
+				order_inv_line_req['error_type_message'] = get_order_error_type(error_type) 
 				failed_order_inv_lines.append(order_inv_line_req)
 
 		###### final order assignment and processing ######
 		# add taxes and stuff later on
-		if len(failed_order_inv_lines)>0:
+
+		if failed_order_inv_lines:
 			status = checkApiResponseStatus(order_inv_lines,failed_order_inv_lines)
 			res = {
 				"data":order_invoice,
+				"success":order_inv_lines,
 				"fails":failed_order_inv_lines,
 				"success_total":len(order_inv_lines),
-				"fail_total":len(failed_order_inv_lines)
+				"fail_total":len(failed_order_inv_lines),
+				"total":len(OrderInvLines)
 			}
+			status_code = 400
 			for e in status:
 				res[e]=status[e]
-			response = make_response(jsonify(res),200)
-			return response
-
+		
 		else:
-
 			OInvFTotal = OInvTotal
 			OInvFTotalInWrite = price2text(OInvFTotal,
 				current_app.config['PRICE_2_TEXT_LANGUAGE'],
@@ -182,6 +179,7 @@ def api_checkout_sale_order_invoices(user):
 			newOrderInv.OInvFTotalInWrite = OInvFTotalInWrite
 
 			db.session.commit()
+			print("committed, done..")
 
 			status = checkApiResponseStatus(order_inv_lines,failed_order_inv_lines)
 			res = {
@@ -190,15 +188,17 @@ def api_checkout_sale_order_invoices(user):
 				"success_total":len(order_inv_lines),
 				"fail_total":len(failed_order_inv_lines)
 			}
-
+			status_code = 200
 			for e in status:
 				res[e]=status[e]
 
 	except:
+		status_code = 400
 		res = {
-			"data":newOrderInv.to_json_api(),
+			"data":order_invoice,
 			"message":"Failed to checkout order"
 		}	
-	response = make_response(jsonify(res),200)
+	print(res)
+	response = make_response(jsonify(res),status_code)
 
 	return response

@@ -11,7 +11,7 @@ from main_pack.base.num2text import num2text,price2text
 import decimal
 from flask import current_app
 from main_pack.models.commerce.models import Res_total
-from main_pack.api.commerce.checkout_utils import totalQtySubstitution
+from main_pack.base.invoiceMethods import totalQtySubstitution
 # invoiceRegNo
 # orderInvRegNo
 # >> search in db for presets
