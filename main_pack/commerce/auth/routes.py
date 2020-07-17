@@ -114,6 +114,8 @@ def register_token(token):
 				return redirect(url_for('commerce_auth.register'))
 			# assign the UId of created User Model to Rp acc
 			rp_acc = Rp_acc(
+				RpAccUName=UName,
+				RpAccUPass=hashed_password,
 				RpAccName=form.full_name.data,
 				RpAccEMail=UEmail,
 				RpAccRegNo=regNo,

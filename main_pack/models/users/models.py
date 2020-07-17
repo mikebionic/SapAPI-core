@@ -212,3 +212,59 @@ class Rp_acc(AddInf,CreatedModifiedInfo,db.Model):
 			'GCRecord':self.GCRecord
 			}
 		return json_rp_acc
+
+class Rp_acc_status(CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_rp_acc_status"
+	RpAccStatusId = db.Column(db.Integer,nullable=False,primary_key=True)
+	RpAccStatusName_tkTM = db.Column(db.String(100),nullable=False)
+	RpAccStatusDesc_tkTM = db.Column(db.String(500))
+	RpAccStatusName_ruRU = db.Column(db.String(100))
+	RpAccStatusDesc_ruRU = db.Column(db.String(500))
+	RpAccStatusName_enUS = db.Column(db.String(100))
+	RpAccStatusdesc_enUS = db.Column(db.String(500))
+	Rp_acc = db.relationship('Rp_acc',backref='rp_acc_status',lazy=True)
+
+	def to_json_api(self):
+		json_rp_acc_status = {
+			'RpAccStatusId':self.RpAccStatusId,
+			'RpAccStatusName_tkTM':self.RpAccStatusName_tkTM,
+			'RpAccStatusDesc_tkTM':self.RpAccStatusDesc_tkTM,
+			'RpAccStatusName_ruRU':self.RpAccStatusName_ruRU,
+			'RpAccStatusDesc_ruRU':self.RpAccStatusDesc_ruRU,
+			'RpAccStatusName_enUS':self.RpAccStatusName_enUS,
+			'RpAccStatusdesc_enUS':self.RpAccStatusdesc_enUS,
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
+			}
+		return json_rp_acc_status
+
+class Rp_acc_type(CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_rp_acc_type"
+	RpAccTypeId = db.Column(db.Integer,nullable=False,primary_key=True)
+	RpAccTypeName_tkTM = db.Column(db.String(100),nullable=False)
+	RpAccTypeDesc_tkTM = db.Column(db.String(500))
+	RpAccTypeName_ruRU = db.Column(db.String(100))
+	RpAccTypeDesc_ruRU = db.Column(db.String(500))
+	RpAccTypeName_enUS = db.Column(db.String(100))
+	RpAccTypeDesc_enUS = db.Column(db.String(500))
+	Rp_acc = db.relationship('Rp_acc',backref='rp_acc_type',lazy=True)
+
+	def to_json_api(self):
+		json_rp_acc_type = {
+			'RpAccTypeId':self.RpAccTypeId,
+			'RpAccTypeName_tkTM':self.RpAccTypeName_tkTM,
+			'RpAccTypeDesc_tkTM':self.RpAccTypeDesc_tkTM,
+			'RpAccTypeName_ruRU':self.RpAccTypeName_ruRU,
+			'RpAccTypeDesc_ruRU':self.RpAccTypeDesc_ruRU,
+			'RpAccTypeName_enUS':self.RpAccTypeName_enUS,
+			'RpAccTypeDesc_enUS':self.RpAccTypeDesc_enUS,
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
+			}
+		return json_rp_acc_type

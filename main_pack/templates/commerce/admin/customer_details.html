@@ -1,0 +1,88 @@
+{% extends "commerce/admin/layout.html" %}
+
+{% block content %}
+  <div>
+    <div class="card">
+      <div class="card-header">
+        <h4>{{_('Cusomer details')}}</h4>
+      </div>
+      <div class="card-body">
+        <ul class="nav nav-pills" id="myTab3" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#profile" role="tab"
+              aria-controls="home" aria-selected="true">{{_('Profile')}}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#orders" role="tab"
+              aria-controls="profile" aria-selected="false">{{_('Orders')}}</a>
+          </li>
+        </ul>
+        <div class="tab-content" id="myTabContent2">
+          <div class="tab-pane fade show active" id="profile" role="tabpanel">
+            <div class="columns is-account-grid is-multiline">
+              <div class="column is-5">
+                <div class="flat-card profile-card is-auto">
+                  <div class="card-body">
+                    <div class="profile-image">
+                      <img loading="lazy" src="{{ rp_acc.FilePathS if rp_acc.FilePathS else url_for('static', filename='commerce/admin/img/no_avatar.jpg') }}" />
+                    </div>
+                    <div class="username has-text-centered">
+                      <span>{{rp_acc.RpAccName}}</span>
+                      <small>{{_('Registered date')}}: {{rp_acc.CreatedDate if rp_acc.CreatedDate else ''}}</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="column is-7">
+                <div class="flat-card profile-info-card is-auto">
+                  <div class="card-title">
+                    <h3>{{_('Customer details')}}</h3>
+                  </div>
+                  <div class="card-body">
+                    <div class="columns">
+                      <div class="column is-6">
+                        <div class="info-block">
+                          <span class="label-text">{{_('Email')}}</span>
+                          <span class="label-value">{{rp_acc.RpAccEMail}}</span>
+                        </div>
+                        <div class="info-block">
+                          <span class="label-text">{{_('Full name')}}</span>
+                          <span class="label-value">{{rp_acc.RpAccName}}</span>
+                        </div>
+                        <div class="info-block">
+                          <span class="label-text">{{_('Address')}}</span>
+                          <span class="label-value">{{rp_acc.RpAccAddress if rp_acc.RpAccAddress else ''}}</span>
+                        </div>
+                      </div>
+                      <div class="column is-6">
+                        <div class="info-block">
+                          <span class="label-text">{{_('Mobile phone')}}</span>
+                          <span class="label-value">{{rp_acc.RpAccMobilePhoneNumber if rp_acc.RpAccMobilePhoneNumber else ''}}</span>
+                        </div>
+                        <div class="info-block">
+                          <span class="label-text">{{_('Home phone')}}</span>
+                          <span class="label-value">{{rp_acc.RpAccHomePhoneNumber if rp_acc.RpAccHomePhoneNumber else ''}}</span>
+                        </div>
+                        <div class="info-block">
+                          <span class="label-text">{{_('Zip code')}}</span>
+                          <span class="label-value">{{rp_acc.RpAccZipCode if rp_acc.RpAccZipCode else ''}}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <img class="card-bg" src="{{ url_for('static', filename='commerce/main/images/logo/nephos-greyscale.svg')}}" alt="">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="orders" role="tabpanel">
+            Vestibulum imperdiet odio sed neque ultricies, ut dapibus mi maximus. Proin ligula massa,
+            gravida in lacinia efficitur, hendrerit eget mauris. Pellentesque fermentum, sem interdum
+            molestie finibus, nulla diam varius leo, nec varius lectus elit id dolor.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

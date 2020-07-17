@@ -29,8 +29,8 @@
                       <img src="{{ avatar }}"/>
                     </div>
                     <div class="username has-text-centered">
-                      <span>{{current_user.UFullName}}</span>
-                      <small>{{_('Registered date')}}: {{current_user.CreatedDate.strftime('%d-%m-%Y') if current_user.CreatedDate else ''}}</small>
+                      <span>{{rpAcc.RpAccName}}</span>
+                      <small>{{_('Registered date')}}: {{rpAcc.CreatedDate.strftime('%d-%m-%Y') if rpAcc.CreatedDate else ''}}</small>
                     </div>
                   </div>
                 </div>
@@ -48,11 +48,11 @@
                       <div class="column is-6">
                         <div class="info-block">
                           <span class="label-text">{{_('Email')}}</span>
-                          <span class="label-value">{{current_user.UEmail}}</span>
+                          <span class="label-value">{{rpAcc.RpAccEMail}}</span>
                         </div>
                         <div class="info-block">
                           <span class="label-text">{{_('Full name')}}</span>
-                          <span class="label-value">{{current_user.UFullName}}</span>
+                          <span class="label-value">{{rpAcc.RpAccName}}</span>
                         </div>
                         <div class="info-block">
                           <span class="label-text">{{_('Address')}}</span>
@@ -75,7 +75,7 @@
                       </div>
                     </div>
                   </div>
-                  <img class="card-bg" src="{{ url_for('static', filename='commerce/main/images/logo/nephos-greyscale.svg')}}" alt="">
+                  <img class="card-bg" src="{{ url_for('static', filename='commerce/main/images/logo/nephos-greyscale.svg')}}">
                 </div>
               </div>
             </div>

@@ -144,6 +144,8 @@ def addRpAccDict(req):
 	rp_acc = configureNulls(rp_acc)
 	return rp_acc
 
+
+###### returning info for single user after api auth success #####
 from main_pack.models.base.models import Image
 from main_pack.models.commerce.models import Resource
 from main_pack.base.apiMethods import fileToURL
@@ -186,7 +188,7 @@ def apiRpAccData(RpAccId):
 		.filter(Image.GCRecord=='' or Image.GCRecord==None)\
 		.order_by(Image.CreatedDate.desc()).all()
 	users = Users.query\
-		.filter(and_(Users.GCRecord=='' or Users.GCRecord==None),Users.RpAccId==RpAccId).all()
+		.filter(and_(Users.GCRecord=='' or Users.GCRecord==None),Users.UId==rp_acc.UId).all()
 	
 	rpAccList = rp_acc.to_json_api()
 

@@ -8,7 +8,7 @@ from main_pack.models.commerce.models import Order_inv,Order_inv_line
 from main_pack.api.commerce.utils import addOrderInvDict,addOrderInvLineDict
 from main_pack import db,babel,gettext,lazy_gettext
 from flask import current_app
-from datetime import datetime
+from datetime import datetime,timezone
 from main_pack.api.auth.api_login import token_required
 
 from main_pack.models.commerce.models import Resource,Res_price,Res_total
@@ -62,7 +62,7 @@ def api_checkout_sale_order_invoices(user):
 			orderRegNo = makeRegNum(user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'',True)
 		except:
 			# use device model and other info
-			orderRegNo = datetime.now()
+			orderRegNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
 
 		###### order inv setup ######
 		order_invoice['OInvRegNo']=orderRegNo
@@ -147,18 +147,20 @@ def api_checkout_sale_order_invoices(user):
 				db.session.add(thisOInvLine)
 				order_inv_lines.append(thisOInvLine.to_json_api())
 			except:
-				order_inv_line_req['error_type_id'] = error_type
-				order_inv_line_req['error_type_message'] = get_order_error_type(error_type) 
-				failed_order_inv_lines.append(order_inv_line_req)
+				fail_info = {
+					"data":order_inv_line_req,
+					"error_type_id":error_type,
+					"error_type_message":get_order_error_type(error_type)
+				}
+				failed_order_inv_lines.append(fail_info)
 
 		###### final order assignment and processing ######
 		# add taxes and stuff later on
-
 		if failed_order_inv_lines:
 			status = checkApiResponseStatus(order_inv_lines,failed_order_inv_lines)
 			res = {
 				"data":order_invoice,
-				"success":order_inv_lines,
+				"successes":order_inv_lines,
 				"fails":failed_order_inv_lines,
 				"success_total":len(order_inv_lines),
 				"fail_total":len(failed_order_inv_lines),
@@ -183,10 +185,12 @@ def api_checkout_sale_order_invoices(user):
 
 			status = checkApiResponseStatus(order_inv_lines,failed_order_inv_lines)
 			res = {
-				"data":order_inv_lines,
+				"data":newOrderInv.to_json_api(),
+				"successes":order_inv_lines,
 				"fails":failed_order_inv_lines,
 				"success_total":len(order_inv_lines),
-				"fail_total":len(failed_order_inv_lines)
+				"fail_total":len(failed_order_inv_lines),
+				"total":len(OrderInvLines)
 			}
 			status_code = 200
 			for e in status:

@@ -1272,17 +1272,6 @@ class Rp_acc_resource(CreatedModifiedInfo,db.Model):
 	RpAccId = db.Column(db.Integer,db.ForeignKey("tbl_dk_rp_acc.RpAccId"))
 	ResId = db.Column(db.Integer,db.ForeignKey("tbl_dk_resource.ResId"))
 
-class Rp_acc_status(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_rp_acc_status"
-	RpAccStatusId = db.Column(db.Integer,nullable=False,primary_key=True)
-	RpAccStatusName_tkTM = db.Column(db.String(100),nullable=False)
-	RpAccStatusDesc_tkTM = db.Column(db.String(500))
-	RpAccStatusName_ruRU = db.Column(db.String(100))
-	RpAccStatusDesc_ruRU = db.Column(db.String(500))
-	RpAccStatusName_enUS = db.Column(db.String(100))
-	RpAccStatusdesc_enUS = db.Column(db.String(500))
-	Rp_acc = db.relationship('Rp_acc',backref='rp_acc_status',lazy=True)
-
 class Rp_acc_trans_total(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_rp_acc_trans_total"
 	RpAccTrTotId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -1316,7 +1305,6 @@ class Rp_acc_trans_total(CreatedModifiedInfo,db.Model):
 			}
 		return json_rp_acc_trans_total
 
-
 class Rp_acc_transaction(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_rp_acc_transaction"
 	RpAccTransId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -1334,18 +1322,6 @@ class Rp_acc_transaction(AddInf,CreatedModifiedInfo,db.Model):
 	RpAccTransDebit = db.Column(db.Float,default=0)
 	RpAccTransCredit = db.Column(db.Float,default=0)
 	RpAccTransTotal = db.Column(db.Float,default=0)
-
-
-class Rp_acc_type(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_rp_acc_type"
-	RpAccTypeId = db.Column(db.Integer,nullable=False,primary_key=True)
-	RpAccTypeName_tkTM = db.Column(db.String(100),nullable=False)
-	RpAccTypeDesc_tkTM = db.Column(db.String(500))
-	RpAccTypeName_ruRU = db.Column(db.String(100))
-	RpAccTypeDesc_ruRU = db.Column(db.String(500))
-	RpAccTypeName_enUS = db.Column(db.String(100))
-	RpAccTypeDesc_enUS = db.Column(db.String(500))
-	Rp_acc = db.relationship('Rp_acc',backref='rp_acc_type',lazy=True)
 
 class Sale_agr_res_price(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_sale_agr_res_price"
