@@ -21,6 +21,10 @@ import os
 from main_pack.base.imageMethods import allowed_icon
 from flask import current_app
 
+from main_pack.commerce.admin.users_utils import UiRpAccData
+from main_pack.models.users.models import (Users,User_type,
+																					Rp_acc,Rp_acc_type,Rp_acc_status)
+
 @bp.route("/admin")
 @bp.route("/admin/dashboard")
 @login_required
@@ -107,6 +111,54 @@ def product_table():
 @ui_admin_required()
 def admin_table():
 	return render_template ("commerce/admin/admin_table.html",title=gettext('Admin table'))
+
+
+@bp.route("/admin/customers_table")
+@login_required
+@ui_admin_required()
+def customers_table():
+	data = UiRpAccData()
+
+	rp_acc_statuses = Rp_acc_status.query\
+		.filter(Rp_acc_status.GCRecord=='' or Rp_acc_status.GCRecord==None).all()
+	rp_acc_statuses_list = []
+	for rp_acc_status in rp_acc_statuses:
+		rp_acc_statuses_list.append(dataLangSelector(rp_acc_status.to_json_api()))
+	data['rp_acc_statuses'] = rp_acc_statuses_list
+
+	rp_acc_types = Rp_acc_type.query\
+		.filter(Rp_acc_type.GCRecord=='' or Rp_acc_type.GCRecord==None).all()
+	rp_acc_types_list = []
+	for rp_acc_type in rp_acc_types:
+		rp_acc_types_list.append(dataLangSelector(rp_acc_type.to_json_api()))
+	data['rp_acc_types'] = rp_acc_types_list
+
+	return render_template ("commerce/admin/customers_table.html",**data,title=gettext('Customers'))
+
+@bp.route("/admin/customer_details/<RpAccId>")
+@login_required
+@ui_admin_required()
+def customer_details(RpAccId):
+	# try:
+	data = UiRpAccData([{'RpAccId':RpAccId}])
+	print(data)
+	data['rp_acc']=data['rp_accs'][0]
+	rp_acc_statuses = Rp_acc_status.query\
+		.filter(Rp_acc_status.GCRecord=='' or Rp_acc_status.GCRecord==None).all()
+	rp_acc_statuses_list = []
+	for rp_acc_status in rp_acc_statuses:
+		rp_acc_statuses_list.append(dataLangSelector(rp_acc_status.to_json_api()))
+	data['rp_acc_statuses'] = rp_acc_statuses_list
+
+	rp_acc_types = Rp_acc_type.query\
+		.filter(Rp_acc_type.GCRecord=='' or Rp_acc_type.GCRecord==None).all()
+	rp_acc_types_list = []
+	for rp_acc_type in rp_acc_types:
+		rp_acc_types_list.append(dataLangSelector(rp_acc_type.to_json_api()))
+	data['rp_acc_types'] = rp_acc_types_list
+	# except:
+	# 	return redirect(url_for('commerce_admin.customers_table'))
+	return render_template ("commerce/admin/customer_details.html",**data,title=gettext('Customer details'))
 
 
 @bp.route("/admin/order_invoices")

@@ -54,6 +54,7 @@ def profile_edit():
 		current_user.update(**userData)
 
 		rpAccData = {
+			'RpAccUName':form.username.data,
 			'RpAccName':form.fullname.data,
 			'RpAccAddress':form.address.data,
 			'RpAccMobilePhoneNumber':form.mobilePhone.data,
@@ -73,8 +74,8 @@ def profile_edit():
 		return redirect(url_for('commerce_users.profile'))
 	
 	
-	form.username.data = current_user.UName
-	form.fullname.data = current_user.UFullName
+	form.username.data = rpAcc.RpAccUName
+	form.fullname.data = rpAcc.RpAccName
 	form.address.data = rpAcc.RpAccAddress
 	form.mobilePhone.data = rpAcc.RpAccMobilePhoneNumber
 	form.homePhone.data = rpAcc.RpAccHomePhoneNumber
