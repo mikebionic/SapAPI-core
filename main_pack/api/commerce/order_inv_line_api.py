@@ -7,7 +7,6 @@ from main_pack.api.commerce.utils import addOrderInvLineDict
 from main_pack import db
 from flask import current_app
 
-
 @api.route("/tbl-dk-order-inv-lines/",methods=['GET','POST','PUT'])
 def api_order_inv_lines():
 	if request.method == 'GET':

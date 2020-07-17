@@ -5,7 +5,7 @@ from wtforms.validators import DataRequired,Length,ValidationError
 from main_pack import babel,gettext,lazy_gettext
 
 class LogoImageForm(FlaskForm):
-	logoImage = FileField('Company logo',validators=[FileAllowed(['jpg','png','img','gif'])])
+	logoImage = FileField('Company logo',validators=[FileAllowed(['jpg','png','img','gif','svg'])])
 
 class SliderImageForm(FlaskForm):
 	sliderImageDesc = StringField()

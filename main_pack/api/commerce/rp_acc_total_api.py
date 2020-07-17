@@ -8,7 +8,6 @@ from main_pack import db
 from flask import current_app
 
 @api.route("/tbl-dk-rp-acc-trans-totals/",methods=['GET','POST'])
-# @api.route("/total-transactions/",methods=['GET','POST','PUT'])
 def api_rp_acc_trans_totals():
 	if request.method == 'GET':
 		rp_acc_trans_totals = Rp_acc_trans_total.query\

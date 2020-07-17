@@ -102,7 +102,11 @@ def api_v_resources():
 def api_v_resource_info(ResId):
 	resource_list = [{'ResId':ResId}]
 	res = ResourceInfoFromList(resource_list)
-	response = make_response(jsonify(res),200)
+	if res['status']==1:
+		status_code = 200
+	else:
+		status_code = 404
+	response = make_response(jsonify(res),status_code)
 	return response
 
 @api.route("/tbl-dk-categories/<int:ResCatId>/v-resources/")
@@ -154,7 +158,7 @@ def ResourceInfoFromList(resource_list):
 	fails = []
 	for product in resource_list:
 		resource = Resource.query\
-			.filter(and_(Barcode.GCRecord=='' or Barcode.GCRecord==None),\
+			.filter(and_(Resource.GCRecord=='' or Resource.GCRecord==None),\
 				Resource.ResId==product["ResId"]).first()
 		try:
 			resourceList = resource.to_json_api()
@@ -189,6 +193,10 @@ def ResourceInfoFromList(resource_list):
 			fails.append(product)
 			
 	status = checkApiResponseStatus(data,fails)
+	if len(data)==1:
+		data = data[0]
+	if len(fails)==1:
+		fails = fails[0]
 	res = {
 			"message":"Resources",
 			"data":data,

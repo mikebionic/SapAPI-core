@@ -31,4 +31,3 @@ def fileToURL(file_type=None,category=None,file_size='undefined',file_name=''):
 	except:
 		fileUrl = None
 	return fileUrl
-

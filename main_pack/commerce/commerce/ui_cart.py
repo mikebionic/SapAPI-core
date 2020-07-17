@@ -11,7 +11,7 @@ from main_pack.commerce.commerce.order_utils import addOInvLineDict,addOInvDict
 
 from main_pack.models.base.models import Reg_num,Reg_num_type
 from main_pack.models.commerce.models import Res_price,Res_total
-from main_pack.api.commerce.checkout_utils import totalQtySubstitution
+from main_pack.base.invoiceMethods import totalQtySubstitution
 from main_pack.key_generator.utils import makeRegNum,generate,validate
 from main_pack.base.num2text import num2text,price2text
 from datetime import datetime

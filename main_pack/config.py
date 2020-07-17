@@ -44,5 +44,5 @@ class Config:
 	# PRICE_2_TEXT_CURRENCY = 'RUB'
 
 	ALLOWED_ICON_EXTENSIONS = set(['png','jpg','jpeg','svg'])
-	ALLOWED_IMAGE_EXTENSIONS = set(['png','jpg','jpeg','svg'])
+	ALLOWED_IMAGE_EXTENSIONS = set(['png','jpg','jpeg'])
 	MAX_CONTENT_LENGTH = 16 * 1024 * 1024
