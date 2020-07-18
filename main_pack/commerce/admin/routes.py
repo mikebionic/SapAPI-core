@@ -25,6 +25,11 @@ from main_pack.commerce.admin.users_utils import UiRpAccData,UiUsersData
 from main_pack.models.users.models import (Users,User_type,
 																					Rp_acc,Rp_acc_type,Rp_acc_status)
 
+from main_pack.commerce.admin.forms import UserRegistrationForm,CustomerRegistrationForm
+from main_pack.models.base.models import Image
+from main_pack.base.imageMethods import save_image
+from datetime import datetime,timezone
+
 @bp.route("/admin")
 @bp.route("/admin/dashboard")
 @login_required
@@ -105,7 +110,6 @@ def product_table():
 	return render_template ("commerce/admin/product_table.html",**resData,
 		title=gettext('Product table'))
 
-
 @bp.route("/admin/admin_table")
 @login_required
 @ui_admin_required()
@@ -172,11 +176,79 @@ def customer_details(RpAccId):
 	return render_template ("commerce/admin/customer_details.html",
 		**data,**orderInvRes,title=gettext('Customer details'))
 
-@bp.route("/admin/register_customer")
+@bp.route("/admin/register_customer",methods=['GET','POST'])
 @login_required
 @ui_admin_required()
 def register_customer():
-	return render_template ("commerce/admin/register_customer.html",title=gettext('Register'))
+	form = CustomerRegistrationForm()
+	if form.validate_on_submit():
+		print('validated')
+		try:
+			username = form.username.data
+			email = form.email.data
+			full_name = form.full_name.data
+
+			UShortName = (username[0]+username[-1]).upper()
+			if current_app.config['HASHED_PASSWORDS']==True:
+				password = bcrypt.generate_password_hash(form.password.data).decode() 
+			else:
+				password = form.password.data
+			user = Users(
+				UName=username,
+				UEmail=email,
+				UShortName=UShortName,
+				UPass=password,
+				UFullName=full_name,
+				UTypeId=5)
+			db.session.add(user)
+
+			# get the regNum for RpAccount registration
+			try:
+				# !! change to select field user selection
+				vendor_user = current_user
+				if vendor_user.UShortName:
+					reg_num = generate(UId=vendor_user.UId,prefixType='rp code')
+					regNo = makeRegNum(vendor_user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'')
+				else:
+					reg_num = generate(UId=user.UId,prefixType='rp code')
+					regNo = makeRegNum(user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'')
+			except:
+				regNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
+
+			# assign the UId of created User Model to Rp acc
+			rp_acc = Rp_acc(
+				RpAccUName=username,
+				RpAccUPass=password,
+				RpAccName=full_name,
+				RpAccEMail=email,
+				RpAccRegNo=regNo,
+				# make type id select field
+				RpAccTypeId=1,
+				RpAccAddress=form.address.data,
+				RpAccMobilePhoneNumber=form.mobilePhone.data,
+				RpAccHomePhoneNumber=form.homePhone.data,
+				RpAccZipCode=form.zipCode.data,
+				# UId=user.UId
+				)
+			db.session.add(rp_acc)
+
+			# assign the RpAccId to a User model
+			user.RpAccId = rp_acc.RpAccId
+
+			if form.picture.data:
+				imageFile = save_image(imageForm=form.picture.data,module=os.path.join("uploads","commerce","Rp_acc"),id=rpAcc.RpAccId)
+				image = Image(FileName=imageFile['FileName'],FilePath=imageFile['FilePath'],RpAccId=rpAcc.RpAccId)
+				db.session.add(image)
+
+			db.session.commit()
+
+			flash('{} '.format(username)+lazy_gettext('successfully saved'),'success')
+			return redirect(url_for('commerce_admin.customers_table'))
+		except:
+			flash(lazy_gettext('Error occured, please try again.'),'danger')
+			return redirect(url_for('commerce_admin.register_customer'))
+	return render_template ("commerce/admin/register_customer.html",
+		form=form,title=gettext('Register'))
 
 @bp.route("/admin/customer_details/<RpAccId>/remove")
 @login_required
@@ -216,11 +288,47 @@ def users_table():
 
 	return render_template ("commerce/admin/users_table.html",**data,title=gettext('Users'))
 
-@bp.route("/admin/register_user")
+@bp.route("/admin/register_user",methods=['GET','POST'])
 @login_required
 @ui_admin_required()
 def register_user():
-	return render_template ("commerce/admin/register_user.html",title=gettext('Register'))
+	form = UserRegistrationForm()
+	if form.validate_on_submit():
+		print('validated')
+		try:
+			username = form.username.data
+			email = form.email.data
+			full_name = form.full_name.data
+
+			UShortName = (username[0]+username[-1]).upper()
+			if current_app.config['HASHED_PASSWORDS']==True:
+				password = bcrypt.generate_password_hash(form.password.data).decode() 
+			else:
+				password = form.password.data
+			user = Users(
+				UName=username,
+				UEmail=email,
+				UShortName=UShortName,
+				UPass=password,
+				UFullName=full_name,
+				# make type selector
+				UTypeId=5)
+			db.session.add(user)
+
+			if form.picture.data:
+				imageFile = save_image(imageForm=form.picture.data,module=os.path.join("uploads","commerce","Users"),id=user.UId)
+				image = Image(FileName=imageFile['FileName'],FilePath=imageFile['FilePath'],UId=user.UId)
+				db.session.add(image)
+
+			db.session.commit()
+
+			flash('{} '.format(username)+lazy_gettext('successfully saved'),'success')
+			return redirect(url_for('commerce_admin.users_table'))
+		except:
+			flash(lazy_gettext('Error occured, please try again.'),'danger')
+			return redirect(url_for('commerce_admin.register_user'))
+	return render_template ("commerce/admin/register_user.html",
+		form=form,title=gettext('Register'))
 
 @bp.route("/admin/user_details/<UId>/remove")
 @login_required

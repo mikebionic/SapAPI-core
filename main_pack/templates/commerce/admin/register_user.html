@@ -12,26 +12,47 @@
             <h4>{{_('Register')}}</h4>
           </div>
           <div class="card-body">
-            <form method="POST">
+            <form action='' method="POST">
+              {{ form.csrf_token() }}
               <div class="row">
                 <div class="form-group col-6">
-                  <label for="frist_name">{{_('Username')}}</label>
-                  <input id="frist_name" type="text" class="form-control" name="frist_name" autofocus>
+                  <label>{{_('Username')}}</label>
+                  {{ form.username(class="form-control",placeholder=_('Username')) }} 
+                  {% if form.username.errors %}
+                    <div class="invalid-feedback">
+                      {% for error in form.username.errors %}
+                        <span>{{ error }}</span>
+                      {% endfor %}
+                    </div>
+                  {% endif %}
                 </div>
                 <div class="form-group col-6">
-                  <label for="last_name">{{_('Full name')}}</label>
-                  <input id="last_name" type="text" class="form-control" name="last_name">
+                  <label>{{_('Full name')}}</label>
+                  {{ form.full_name(class="form-control",placeholder=_('Full name')) }} 
+                  {% if form.full_name.errors %}
+                    <div class="invalid-feedback">
+                      {% for error in form.full_name.errors %}
+                        <span>{{ error }}</span>
+                      {% endfor %}
+                    </div>
+                  {% endif %}
                 </div>
               </div>
               <div class="row">
                 <div class="form-group col-6">
-                  <label for="email">{{_('Email address')}}</label>
+                  <label>{{_('Email address')}}</label>
                   <div class="input-group mb-2">
                     <div class="input-group-prepend">
                       <div class="input-group-text">@</div>
                     </div>
-                    <input id="email" type="email" class="form-control" name="email">
-                    <div class="invalid-feedback"></div>
+                    {{ form.email(class="form-control",placeholder=_('Email address')) }} 
+                    {% if form.email.errors %}
+                      <div class="invalid-feedback">
+                        {% for error in form.email.errors %}
+                          <span>{{ error }}</span>
+                        {% endfor %}
+                      </div>
+                    {% endif %}
                   </div>
                 </div>
                 <div class="form-group col-6">
@@ -46,15 +67,39 @@
                   </div>
                 </div>
               </div>
+              <div class="form-group">
+                <label>{{_('Avatar')}}</label>
+                <div class="custom-file">
+                  {{ form.picture(class="custom-file-input") }}
+                  {% if form.picture.errors %}
+                    {% for error in form.picture.errors %}
+                      <span class="text-danger">{{ error }}</span>
+                    {% endfor %}
+                  {% endif %}
+                </div>
+              </div>
               <div class="row">
                 <div class="form-group col-6">
-                  <label for="password" class="d-block">{{_('Password')}}</label>
-                  <input id="password" type="password" class="form-control pwstrength" data-indicator="pwindicator"
-                    name="password">
+                  <label>{{_('Password')}}</label>
+                  {{ form.password(class="form-control",placeholder=_('Password')) }} 
+                  {% if form.password.errors %}
+                    <div class="invalid-feedback">
+                      {% for error in form.password.errors %}
+                        <span>{{ error }}</span>
+                      {% endfor %}
+                    </div>
+                  {% endif %}
                 </div>
                 <div class="form-group col-6">
-                  <label for="password2" class="d-block">{{_('Confirm password')}}</label>
-                  <input id="password2" type="password" class="form-control" name="password-confirm">
+                  <label>{{_('Confirm password')}}</label>
+                  {{ form.confirm_password(class="form-control",placeholder=_('Confirm password')) }} 
+                  {% if form.confirm_password.errors %}
+                    <div class="invalid-feedback">
+                      {% for error in form.confirm_password.errors %}
+                        <span>{{ error }}</span>
+                      {% endfor %}
+                    </div>
+                  {% endif %}
                 </div>
               </div>
               <div class="form-group">

@@ -22,6 +22,9 @@ class Config:
 	MAIL_USERNAME = 'teamofbionics@gmail.com'
 	MAIL_PASSWORD = 'bionics12345'
 
+	# set to True if you want to use BCrypt hashing
+	HASHED_PASSWORDS = False
+
 	# # to give each api it's pagination: 
 	RESOURCES_PER_PAGE = 15
 	API_OBJECTS_PER_PAGE = 10
