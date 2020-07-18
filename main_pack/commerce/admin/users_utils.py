@@ -66,3 +66,50 @@ def UiRpAccData(rp_acc_list=None):
 		"rp_accs":data,
 	}
 	return res
+
+def UiUsersData(users_list=None):
+	data = []
+
+	user_types = User_type.query\
+		.filter(User_type.GCRecord=='' or User_type.GCRecord==None).all()
+	images = Image.query\
+		.filter(Image.GCRecord=='' or Image.GCRecord==None)\
+		.order_by(Image.CreatedDate.desc()).all()
+	rp_accs = Rp_acc.query\
+		.filter(Rp_acc.GCRecord=='' or Rp_acc.GCRecord==None)\
+		.order_by(Rp_acc.CreatedDate.desc()).all()
+
+	users_models = []
+	
+	if users_list is None:
+		users = Users.query\
+			.filter(and_(Users.GCRecord=='' or Users.GCRecord==None),\
+				Users.RpAccId==None).all()
+		for user in users:
+			users_models.append(user)
+	else:
+		for users_index in users_list:
+			user = Users.query\
+				.filter(and_(Users.GCRecord=='' or Users.GCRecord==None),\
+					Users.UId == users_index["UId"]).first()
+			users_models.append(user)
+		
+	for user in users_models:
+		userInfo = user.to_json_api()
+
+		List_User_types = [user_type.to_json_api() for user_type in user_types if user_type.UTypeId==user.UTypeId]
+		List_Images = [image.to_json_api() for image in images if image.UId==user.UId]
+		List_Rp_accs = [rp_acc.to_json_api() for rp_acc in rp_accs if rp_acc.UId==user.UId]
+
+		userInfo["User_type"] = dataLangSelector(List_User_types[0]) if List_User_types else ''
+		userInfo["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=List_Images[0]['FileName']) if List_Images else ''
+		userInfo["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=List_Images[0]['FileName']) if List_Images else ''
+		userInfo["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_Images[0]['FileName']) if List_Images else ''
+		userInfo['Images'] = List_Images
+		userInfo["Rp_accs"] = List_Rp_accs
+
+		data.append(userInfo)
+	res = {
+		"users":data,
+	}
+	return res

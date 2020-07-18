@@ -21,9 +21,14 @@ import os
 from main_pack.base.imageMethods import allowed_icon
 from flask import current_app
 
-from main_pack.commerce.admin.users_utils import UiRpAccData
+from main_pack.commerce.admin.users_utils import UiRpAccData,UiUsersData
 from main_pack.models.users.models import (Users,User_type,
 																					Rp_acc,Rp_acc_type,Rp_acc_status)
+
+from main_pack.commerce.admin.forms import UserRegistrationForm,CustomerRegistrationForm
+from main_pack.models.base.models import Image
+from main_pack.base.imageMethods import save_image
+from datetime import datetime,timezone
 
 @bp.route("/admin")
 @bp.route("/admin/dashboard")
@@ -32,6 +37,11 @@ from main_pack.models.users.models import (Users,User_type,
 def dashboard():
 	return render_template ("commerce/admin/dashboard.html",title=gettext('Dashboard'))
 
+@bp.route("/admin/login")
+def login():
+	return render_template ("commerce/admin/login.html",title=gettext('Login'))
+
+###### categories management and shop info #######
 @bp.route("/admin/navbar")
 @login_required
 @ui_admin_required()
@@ -89,12 +99,7 @@ def category_table():
 	data['categories'] = categoriesList if categoriesList else []
 	return render_template ("commerce/admin/category_table.html",
 		**data,title=gettext('Category table'))
-
-@bp.route("/admin/picture")
-@login_required
-@ui_admin_required()
-def picture():
-	return render_template ("commerce/admin/picture.html",title=gettext('Picture'))
+###################################
 
 @bp.route("/admin/product_table")
 @login_required
@@ -105,14 +110,13 @@ def product_table():
 	return render_template ("commerce/admin/product_table.html",**resData,
 		title=gettext('Product table'))
 
-
 @bp.route("/admin/admin_table")
 @login_required
 @ui_admin_required()
 def admin_table():
 	return render_template ("commerce/admin/admin_table.html",title=gettext('Admin table'))
 
-
+##### customers table and customers information ######
 @bp.route("/admin/customers_table")
 @login_required
 @ui_admin_required()
@@ -139,28 +143,210 @@ def customers_table():
 @login_required
 @ui_admin_required()
 def customer_details(RpAccId):
-	# try:
-	data = UiRpAccData([{'RpAccId':RpAccId}])
-	print(data)
-	data['rp_acc']=data['rp_accs'][0]
-	rp_acc_statuses = Rp_acc_status.query\
-		.filter(Rp_acc_status.GCRecord=='' or Rp_acc_status.GCRecord==None).all()
-	rp_acc_statuses_list = []
-	for rp_acc_status in rp_acc_statuses:
-		rp_acc_statuses_list.append(dataLangSelector(rp_acc_status.to_json_api()))
-	data['rp_acc_statuses'] = rp_acc_statuses_list
+	try:
+		data = UiRpAccData([{'RpAccId':RpAccId}])
+		data['rp_acc']=data['rp_accs'][0]
+		
+		rp_acc_statuses = Rp_acc_status.query\
+			.filter(Rp_acc_status.GCRecord=='' or Rp_acc_status.GCRecord==None).all()
+		rp_acc_statuses_list = []
+		for rp_acc_status in rp_acc_statuses:
+			rp_acc_statuses_list.append(dataLangSelector(rp_acc_status.to_json_api()))
+		data['rp_acc_statuses'] = rp_acc_statuses_list
 
-	rp_acc_types = Rp_acc_type.query\
-		.filter(Rp_acc_type.GCRecord=='' or Rp_acc_type.GCRecord==None).all()
-	rp_acc_types_list = []
-	for rp_acc_type in rp_acc_types:
-		rp_acc_types_list.append(dataLangSelector(rp_acc_type.to_json_api()))
-	data['rp_acc_types'] = rp_acc_types_list
-	# except:
-	# 	return redirect(url_for('commerce_admin.customers_table'))
-	return render_template ("commerce/admin/customer_details.html",**data,title=gettext('Customer details'))
+		rp_acc_types = Rp_acc_type.query\
+			.filter(Rp_acc_type.GCRecord=='' or Rp_acc_type.GCRecord==None).all()
+		rp_acc_types_list = []
+		for rp_acc_type in rp_acc_types:
+			rp_acc_types_list.append(dataLangSelector(rp_acc_type.to_json_api()))
+		data['rp_acc_types'] = rp_acc_types_list
 
+		orderInvoices = Order_inv.query\
+			.filter(and_(Order_inv.GCRecord=='' or Order_inv.GCRecord==None),
+				Order_inv.RpAccId==RpAccId)\
+			.order_by(Order_inv.CreatedDate.desc()).all()
+		orders_list = []
+		for orderInv in orderInvoices:
+			order = {}
+			order['OInvId'] = orderInv.OInvId
+			orders_list.append(order)
+		orderInvRes = UiOInvData(orders_list)
+	except:
+		return redirect(url_for('commerce_admin.customers_table'))
+	return render_template ("commerce/admin/customer_details.html",
+		**data,**orderInvRes,title=gettext('Customer details'))
 
+@bp.route("/admin/register_customer",methods=['GET','POST'])
+@login_required
+@ui_admin_required()
+def register_customer():
+	form = CustomerRegistrationForm()
+	if form.validate_on_submit():
+		print('validated')
+		try:
+			username = form.username.data
+			email = form.email.data
+			full_name = form.full_name.data
+
+			UShortName = (username[0]+username[-1]).upper()
+			if current_app.config['HASHED_PASSWORDS']==True:
+				password = bcrypt.generate_password_hash(form.password.data).decode() 
+			else:
+				password = form.password.data
+			user = Users(
+				UName=username,
+				UEmail=email,
+				UShortName=UShortName,
+				UPass=password,
+				UFullName=full_name,
+				UTypeId=5)
+			db.session.add(user)
+
+			# get the regNum for RpAccount registration
+			try:
+				# !! change to select field user selection
+				vendor_user = current_user
+				if vendor_user.UShortName:
+					reg_num = generate(UId=vendor_user.UId,prefixType='rp code')
+					regNo = makeRegNum(vendor_user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'')
+				else:
+					reg_num = generate(UId=user.UId,prefixType='rp code')
+					regNo = makeRegNum(user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'')
+			except:
+				regNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
+
+			# assign the UId of created User Model to Rp acc
+			rp_acc = Rp_acc(
+				RpAccUName=username,
+				RpAccUPass=password,
+				RpAccName=full_name,
+				RpAccEMail=email,
+				RpAccRegNo=regNo,
+				# make type id select field
+				RpAccTypeId=1,
+				RpAccAddress=form.address.data,
+				RpAccMobilePhoneNumber=form.mobilePhone.data,
+				RpAccHomePhoneNumber=form.homePhone.data,
+				RpAccZipCode=form.zipCode.data,
+				# UId=user.UId
+				)
+			db.session.add(rp_acc)
+
+			# assign the RpAccId to a User model
+			user.RpAccId = rp_acc.RpAccId
+
+			if form.picture.data:
+				imageFile = save_image(imageForm=form.picture.data,module=os.path.join("uploads","commerce","Rp_acc"),id=rpAcc.RpAccId)
+				image = Image(FileName=imageFile['FileName'],FilePath=imageFile['FilePath'],RpAccId=rpAcc.RpAccId)
+				db.session.add(image)
+
+			db.session.commit()
+
+			flash('{} '.format(username)+lazy_gettext('successfully saved'),'success')
+			return redirect(url_for('commerce_admin.customers_table'))
+		except:
+			flash(lazy_gettext('Error occured, please try again.'),'danger')
+			return redirect(url_for('commerce_admin.register_customer'))
+	return render_template ("commerce/admin/register_customer.html",
+		form=form,title=gettext('Register'))
+
+@bp.route("/admin/customer_details/<RpAccId>/remove")
+@login_required
+@ui_admin_required()
+def remove_customer(RpAccId):
+	try:
+		rp_acc = Rp_acc.query\
+			.filter(and_(Rp_acc.GCRecord=='' or Rp_acc.GCRecord==None),\
+				Rp_acc.RpAccId==RpAccId).first()
+		rp_acc.GCRecord=1
+
+		user = Users.query\
+			.filter(and_(Users.GCRecord=='' or Users.GCRecord==None),\
+				Users.RpAccId==RpAccId).first()
+		if user:
+			user.GCRecord=1
+		db.session.commit()
+		flash('{} '.format(rp_acc.RpAccName)+lazy_gettext('successfully deleted'),'success')
+	except:
+		flash('Unknown error!','danger')
+	return redirect(url_for('commerce_admin.customers_table'))
+
+################################
+
+###### users and user information #####
+@bp.route("/admin/users_table")
+@login_required
+@ui_admin_required()
+def users_table():
+	data = UiUsersData()
+	user_types = User_type.query\
+		.filter(User_type.GCRecord=='' or User_type.GCRecord==None).all()
+	user_types_list = []
+	for user_type in user_types:
+		user_types_list.append(dataLangSelector(user_type.to_json_api()))
+	data['user_types'] = user_types_list
+
+	return render_template ("commerce/admin/users_table.html",**data,title=gettext('Users'))
+
+@bp.route("/admin/register_user",methods=['GET','POST'])
+@login_required
+@ui_admin_required()
+def register_user():
+	form = UserRegistrationForm()
+	if form.validate_on_submit():
+		print('validated')
+		try:
+			username = form.username.data
+			email = form.email.data
+			full_name = form.full_name.data
+
+			UShortName = (username[0]+username[-1]).upper()
+			if current_app.config['HASHED_PASSWORDS']==True:
+				password = bcrypt.generate_password_hash(form.password.data).decode() 
+			else:
+				password = form.password.data
+			user = Users(
+				UName=username,
+				UEmail=email,
+				UShortName=UShortName,
+				UPass=password,
+				UFullName=full_name,
+				# make type selector
+				UTypeId=5)
+			db.session.add(user)
+
+			if form.picture.data:
+				imageFile = save_image(imageForm=form.picture.data,module=os.path.join("uploads","commerce","Users"),id=user.UId)
+				image = Image(FileName=imageFile['FileName'],FilePath=imageFile['FilePath'],UId=user.UId)
+				db.session.add(image)
+
+			db.session.commit()
+
+			flash('{} '.format(username)+lazy_gettext('successfully saved'),'success')
+			return redirect(url_for('commerce_admin.users_table'))
+		except:
+			flash(lazy_gettext('Error occured, please try again.'),'danger')
+			return redirect(url_for('commerce_admin.register_user'))
+	return render_template ("commerce/admin/register_user.html",
+		form=form,title=gettext('Register'))
+
+@bp.route("/admin/user_details/<UId>/remove")
+@login_required
+@ui_admin_required()
+def remove_user(UId):
+	try:
+		user = Users.query\
+			.filter(and_(Users.GCRecord=='' or Users.GCRecord==None),\
+				Users.UId==UId).first()
+		user.GCRecord=1
+		db.session.commit()
+		flash('{} '.format(user.UName)+lazy_gettext('successfully deleted'),'success')
+	except:
+		flash('Unknown error!','danger')
+	return redirect(url_for('commerce_admin.users_table'))
+#################################
+
+###### orders and order information #######
 @bp.route("/admin/order_invoices")
 @login_required
 @ui_admin_required()
@@ -174,9 +360,9 @@ def order_invoices():
 		order = {}
 		order['OInvId'] = orderInv.OInvId
 		orders_list.append(order)
-	res = UiOInvData(orders_list)
+	orderInvRes = UiOInvData(orders_list)
 
-	return render_template ("commerce/admin/order_invoices.html",**res,
+	return render_template ("commerce/admin/order_invoices.html",**orderInvRes,
 		title=gettext('Order invoices'))
 
 @bp.route("/admin/order_invoices/<OInvRegNo>",methods=['GET','POST'])
@@ -198,7 +384,7 @@ def order_inv_lines(OInvRegNo):
 		order_inv_line = {}
 		order_inv_line['OInvLineId'] = orderInvLine.OInvLineId
 		order_lines_list.append(order_inv_line)
-	res = UiOInvLineData(order_lines_list)
+	orderInvLineRes = UiOInvLineData(order_lines_list)
 	inv_statuses = Inv_status.query\
 		.filter(Inv_status.GCRecord=='' or Inv_status.GCRecord==None).all()
 	invoice_statuses = []
@@ -206,7 +392,8 @@ def order_inv_lines(OInvRegNo):
 		invoice_statuses.append(dataLangSelector(inv_stat.to_json_api()))
 	InvoiceStatuses = {'inv_statuses':invoice_statuses}
 	return render_template ("commerce/admin/order_inv_lines.html",
-		**res,**InvoiceStatuses,**orderInvRes,title=gettext('Order invoices'))
+		**orderInvLineRes,**InvoiceStatuses,**orderInvRes,title=gettext('Order invoices'))
+#########################################
 
 @bp.route("/admin/add_product")
 @login_required
@@ -214,8 +401,3 @@ def order_inv_lines(OInvRegNo):
 def add_product():
 	resData=resRelatedData()
 	return render_template ("commerce/admin/add_product.html",**resData,title=gettext('Add product'))
-
-@bp.route("/admin/orders")
-def orders():
-	resData=resRelatedData()
-	return render_template ("commerce/admin/orders.html",**resData,title=gettext('Orders'))
