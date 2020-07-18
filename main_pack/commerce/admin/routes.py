@@ -21,7 +21,7 @@ import os
 from main_pack.base.imageMethods import allowed_icon
 from flask import current_app
 
-from main_pack.commerce.admin.users_utils import UiRpAccData
+from main_pack.commerce.admin.users_utils import UiRpAccData,UiUsersData
 from main_pack.models.users.models import (Users,User_type,
 																					Rp_acc,Rp_acc_type,Rp_acc_status)
 
@@ -32,6 +32,11 @@ from main_pack.models.users.models import (Users,User_type,
 def dashboard():
 	return render_template ("commerce/admin/dashboard.html",title=gettext('Dashboard'))
 
+@bp.route("/admin/login")
+def login():
+	return render_template ("commerce/admin/login.html",title=gettext('Login'))
+
+###### categories management and shop info #######
 @bp.route("/admin/navbar")
 @login_required
 @ui_admin_required()
@@ -89,12 +94,7 @@ def category_table():
 	data['categories'] = categoriesList if categoriesList else []
 	return render_template ("commerce/admin/category_table.html",
 		**data,title=gettext('Category table'))
-
-@bp.route("/admin/picture")
-@login_required
-@ui_admin_required()
-def picture():
-	return render_template ("commerce/admin/picture.html",title=gettext('Picture'))
+###################################
 
 @bp.route("/admin/product_table")
 @login_required
@@ -112,7 +112,7 @@ def product_table():
 def admin_table():
 	return render_template ("commerce/admin/admin_table.html",title=gettext('Admin table'))
 
-
+##### customers table and customers information ######
 @bp.route("/admin/customers_table")
 @login_required
 @ui_admin_required()
@@ -139,28 +139,72 @@ def customers_table():
 @login_required
 @ui_admin_required()
 def customer_details(RpAccId):
-	# try:
-	data = UiRpAccData([{'RpAccId':RpAccId}])
+	try:
+		data = UiRpAccData([{'RpAccId':RpAccId}])
+		data['rp_acc']=data['rp_accs'][0]
+		
+		rp_acc_statuses = Rp_acc_status.query\
+			.filter(Rp_acc_status.GCRecord=='' or Rp_acc_status.GCRecord==None).all()
+		rp_acc_statuses_list = []
+		for rp_acc_status in rp_acc_statuses:
+			rp_acc_statuses_list.append(dataLangSelector(rp_acc_status.to_json_api()))
+		data['rp_acc_statuses'] = rp_acc_statuses_list
+
+		rp_acc_types = Rp_acc_type.query\
+			.filter(Rp_acc_type.GCRecord=='' or Rp_acc_type.GCRecord==None).all()
+		rp_acc_types_list = []
+		for rp_acc_type in rp_acc_types:
+			rp_acc_types_list.append(dataLangSelector(rp_acc_type.to_json_api()))
+		data['rp_acc_types'] = rp_acc_types_list
+
+		orderInvoices = Order_inv.query\
+			.filter(and_(Order_inv.GCRecord=='' or Order_inv.GCRecord==None),
+				Order_inv.RpAccId==RpAccId)\
+			.order_by(Order_inv.CreatedDate.desc()).all()
+		orders_list = []
+		for orderInv in orderInvoices:
+			order = {}
+			order['OInvId'] = orderInv.OInvId
+			orders_list.append(order)
+		orderInvRes = UiOInvData(orders_list)
+	except:
+		return redirect(url_for('commerce_admin.customers_table'))
+	return render_template ("commerce/admin/customer_details.html",
+		**data,**orderInvRes,title=gettext('Customer details'))
+
+@bp.route("/admin/register_customer")
+@login_required
+@ui_admin_required()
+def register_customer():
+	return render_template ("commerce/admin/register_customer.html",title=gettext('Register'))
+
+################################
+
+###### users and user information #####
+@bp.route("/admin/users_table")
+@login_required
+@ui_admin_required()
+def users_table():
+	data = UiUsersData()
 	print(data)
-	data['rp_acc']=data['rp_accs'][0]
-	rp_acc_statuses = Rp_acc_status.query\
-		.filter(Rp_acc_status.GCRecord=='' or Rp_acc_status.GCRecord==None).all()
-	rp_acc_statuses_list = []
-	for rp_acc_status in rp_acc_statuses:
-		rp_acc_statuses_list.append(dataLangSelector(rp_acc_status.to_json_api()))
-	data['rp_acc_statuses'] = rp_acc_statuses_list
+	user_types = User_type.query\
+		.filter(User_type.GCRecord=='' or User_type.GCRecord==None).all()
+	user_types_list = []
+	for user_type in user_types:
+		user_types_list.append(dataLangSelector(user_type.to_json_api()))
+	data['user_types'] = user_types_list
 
-	rp_acc_types = Rp_acc_type.query\
-		.filter(Rp_acc_type.GCRecord=='' or Rp_acc_type.GCRecord==None).all()
-	rp_acc_types_list = []
-	for rp_acc_type in rp_acc_types:
-		rp_acc_types_list.append(dataLangSelector(rp_acc_type.to_json_api()))
-	data['rp_acc_types'] = rp_acc_types_list
-	# except:
-	# 	return redirect(url_for('commerce_admin.customers_table'))
-	return render_template ("commerce/admin/customer_details.html",**data,title=gettext('Customer details'))
+	return render_template ("commerce/admin/users_table.html",**data,title=gettext('Users'))
 
+@bp.route("/admin/register_user")
+@login_required
+@ui_admin_required()
+def register_user():
+	return render_template ("commerce/admin/register_user.html",title=gettext('Register'))
 
+#################################
+
+###### orders and order information #######
 @bp.route("/admin/order_invoices")
 @login_required
 @ui_admin_required()
@@ -174,9 +218,9 @@ def order_invoices():
 		order = {}
 		order['OInvId'] = orderInv.OInvId
 		orders_list.append(order)
-	res = UiOInvData(orders_list)
+	orderInvRes = UiOInvData(orders_list)
 
-	return render_template ("commerce/admin/order_invoices.html",**res,
+	return render_template ("commerce/admin/order_invoices.html",**orderInvRes,
 		title=gettext('Order invoices'))
 
 @bp.route("/admin/order_invoices/<OInvRegNo>",methods=['GET','POST'])
@@ -198,7 +242,7 @@ def order_inv_lines(OInvRegNo):
 		order_inv_line = {}
 		order_inv_line['OInvLineId'] = orderInvLine.OInvLineId
 		order_lines_list.append(order_inv_line)
-	res = UiOInvLineData(order_lines_list)
+	orderInvLineRes = UiOInvLineData(order_lines_list)
 	inv_statuses = Inv_status.query\
 		.filter(Inv_status.GCRecord=='' or Inv_status.GCRecord==None).all()
 	invoice_statuses = []
@@ -206,7 +250,8 @@ def order_inv_lines(OInvRegNo):
 		invoice_statuses.append(dataLangSelector(inv_stat.to_json_api()))
 	InvoiceStatuses = {'inv_statuses':invoice_statuses}
 	return render_template ("commerce/admin/order_inv_lines.html",
-		**res,**InvoiceStatuses,**orderInvRes,title=gettext('Order invoices'))
+		**orderInvLineRes,**InvoiceStatuses,**orderInvRes,title=gettext('Order invoices'))
+#########################################
 
 @bp.route("/admin/add_product")
 @login_required
@@ -214,8 +259,3 @@ def order_inv_lines(OInvRegNo):
 def add_product():
 	resData=resRelatedData()
 	return render_template ("commerce/admin/add_product.html",**resData,title=gettext('Add product'))
-
-@bp.route("/admin/orders")
-def orders():
-	resData=resRelatedData()
-	return render_template ("commerce/admin/orders.html",**resData,title=gettext('Orders'))

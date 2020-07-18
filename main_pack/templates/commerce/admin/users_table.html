@@ -1,0 +1,86 @@
+{% extends "commerce/admin/layout.html" %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/prism/prism.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/datatables/datatables.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css') }}">
+
+{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h4>{{_('Users')}}</h4>
+        <a href="{{ url_for('commerce_admin.register_user') }}" class="btn btn-outline-primary">
+          <i data-feather="user-plus"></i> {{_("Add")}}
+        </a>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-striped" id="table-1">
+            <thead>
+              <tr>
+                <th class="text-center">№</th>
+                <th class="text-center">{{_('Username')}}</th>
+                <th class="text-center">{{_('Image')}}</th>
+                <th class="text-center">{{_('Short name')}}</th>
+                <th class="text-center">{{_('Full name')}}</th>
+                <th class="text-center">{{_('Type')}}</th>
+                <th class="text-center">{{_('Email address')}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for user in users %}
+                <tr>
+                  <td class="text-center">{{ user.UId }}</td>
+                  <td class="text-center">
+                    <a href="#" class="btn btn-outline-primary">
+                      {{ user.UName }}
+                    </a>
+                  </td>
+                  <td class="text-center">
+                    <img loading="lazy" src="{{ user.FilePathS if user.FilePathS else url_for('static', filename='commerce/admin/img/no_avatar.jpg') }}" width="40">
+                  </td>
+                  <td class="text-center">
+                    {{ user.UShortName if user.UShortName else '' }}
+                  </td>
+                  <td class="text-center">
+                    {{ user.UFullName if user.UFullName else '' }}
+                  </td>
+                  <td class="text-center">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <select class="custom-select" id="inputGroupSelect04">
+                          {% if user.User_type.UTypeId == Null %}
+                            <option class="userType" value="" selected>
+                              {{_('Select')}}
+                            </option>
+                          {% endif %}
+                          {% for user_type in user_types %}
+                            <option class="userType" value="{{ user_type.UTypeId }}" 
+                              {{ 'selected' if user_type.UTypeId == user.User_type.UTypeId }}>
+                              {{ user_type.UTypeName }}
+                            </option>
+                          {% endfor %}
+                        </select>
+                        <div class="input-group-append" style="margin-left: -5px;">
+                          <button class="btn btn-info setUserType"><i class="fas fa-check"></i></button>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="text-center">
+                    {{ user.UEmail if user.UEmail else '' }}
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

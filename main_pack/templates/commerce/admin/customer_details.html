@@ -1,24 +1,37 @@
 {% extends "commerce/admin/layout.html" %}
 
+{% block styles %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/prism/prism.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/datatables/datatables.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/owlcarousel2/dist/assets/owl.carousel.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='commerce/admin/admin_commerce/style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/owlcarousel2/dist/assets/owl.theme.default.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/pretty-checkbox/pretty-checkbox.min.css') }}">
+{% endblock %}
+
 {% block content %}
   <div>
     <div class="card">
       <div class="card-header">
+        <a href="{{ url_for('commerce_admin.customers_table') }}" class="btn btn-outline-primary">
+          <i data-feather="chevron-left"></i>
+        </a>
         <h4>{{_('Cusomer details')}}</h4>
       </div>
       <div class="card-body">
         <ul class="nav nav-pills" id="myTab3" role="tablist">
           <li class="nav-item">
-            <a class="nav-link active" data-toggle="tab" href="#profile" role="tab"
+            <a class="nav-link" data-toggle="tab" href="#profile" role="tab"
               aria-controls="home" aria-selected="true">{{_('Profile')}}</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#orders" role="tab"
+            <a class="nav-link active" data-toggle="tab" href="#orders" role="tab"
               aria-controls="profile" aria-selected="false">{{_('Orders')}}</a>
           </li>
         </ul>
         <div class="tab-content" id="myTabContent2">
-          <div class="tab-pane fade show active" id="profile" role="tabpanel">
+          <div class="tab-pane fade" id="profile" role="tabpanel">
             <div class="columns is-account-grid is-multiline">
               <div class="column is-5">
                 <div class="flat-card profile-card is-auto">
@@ -29,6 +42,21 @@
                     <div class="username has-text-centered">
                       <span>{{rp_acc.RpAccName}}</span>
                       <small>{{_('Registered date')}}: {{rp_acc.CreatedDate if rp_acc.CreatedDate else ''}}</small>
+                    </div>
+                  </div>
+
+                  <div class="columns">
+                    <div class="column is-6">
+                      <h3>{{_('Vendor')}}</h3>
+                      <div class="info-block">
+                        <span>{{_('Email')}}: {{rp_acc.Rp_acc_vendor.UEmail if rp_acc.Rp_acc_vendor.UEmail else ''}}</span>
+                      </div>
+                      <div class="info-block">
+                        <span class="label-value">{{_('Name')}}: {{rp_acc.Rp_acc_vendor.UName}}</span>
+                      </div>
+                      <div class="info-block">
+                        <span class="label-value">{{_('Full name')}}: {{rp_acc.Rp_acc_vendor.UFullName if rp_acc.Rp_acc_vendor.UFullName else ''}}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -75,10 +103,54 @@
               </div>
             </div>
           </div>
-          <div class="tab-pane fade" id="orders" role="tabpanel">
-            Vestibulum imperdiet odio sed neque ultricies, ut dapibus mi maximus. Proin ligula massa,
-            gravida in lacinia efficitur, hendrerit eget mauris. Pellentesque fermentum, sem interdum
-            molestie finibus, nulla diam varius leo, nec varius lectus elit id dolor.
+          <div class="tab-pane fade show active" id="orders" role="tabpanel">
+            <div class="row">
+              <div class="col-12">
+                <div class="table-responsive">
+                  <table class="table table-striped" id="save-stage" id="table-1">
+                    <thead>
+                      <tr>
+                        <th class="text-center">№</th>
+                        <th class="text-center">{{_('Reg No')}}</th>
+                        <th class="text-center">{{_('Action')}}</th>
+                        <th class="text-center">{{_('Progress')}}</th>
+                        <th class="text-center">{{_('Total price')}}</th>
+                        <th class="text-center">{{_('Currency')}}</th>
+                        <th class="text-center">{{_('Date')}}</th>
+                        <th class="text-center">{{_('Status')}}</th>
+                        <th class="text-center">{{_('Customer')}}</th>
+                        <th class="text-center">{{_('Phone')}}</th>
+                        <th class="text-center">{{_('E-mail')}}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for orderInv in orderInvoices %}
+                        <tr>
+                          <td class="text-center">{{ orderInv.OInvId }}</td>
+                          <td class="text-center">{{ orderInv.OInvRegNo }}</td>
+                          <td><a href="{{ url_for('commerce_admin.order_inv_lines',OInvRegNo=orderInv.OInvRegNo) }}" class="btn btn-primary">{{_('Detail')}}</a></td>
+                          <td class="align-middle">
+                            <div class="progress progress-xs">
+                              <div class="progress-bar bg-{{orderInv.StatusUI.class}} width-per-{{orderInv.StatusUI.percentage}}">
+                              </div>
+                            </div>
+                          </td>
+                          <td class="text-center">{{ orderInv.OInvFTotal }}</td>
+                          <td class="text-center">{{ orderInv.Currency.CurrencyCode }}</td>
+                          <td>{{ orderInv.CreatedDate }}</td>
+                          <td>
+                            <div class="badge badge-{{orderInv.StatusUI.class}} badge-shadow">{{orderInv.InvStatus.InvStatName}}</div>
+                          </td>
+                          <td class="text-center">{{ orderInv.Rp_acc.RpAccName }}</td>
+                          <td class="text-center">{{ orderInv.Rp_acc.RpAccMobilePhoneNumber }}</td>
+                          <td>{{ orderInv.Rp_acc.RpAccEMail }}</td>
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

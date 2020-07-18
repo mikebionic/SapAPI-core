@@ -1,0 +1,135 @@
+{% extends "commerce/admin/layout.html" %}
+
+{% block content %}
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
+        <div class="card card-primary">
+          <div class="card-header">
+            <a href="{{ url_for('commerce_admin.customers_table') }}" class="btn btn-outline-primary">
+              <i data-feather="chevron-left"></i>
+            </a>
+            <h4>{{_('Register')}}</h4>
+          </div>
+          <div class="card-body">
+            <form method="POST">
+              <div class="row">
+                <div class="form-group col-6">
+                  <label for="frist_name">{{_('Username')}}</label>
+                  <input id="frist_name" type="text" class="form-control" name="frist_name" autofocus>
+                </div>
+                <div class="form-group col-6">
+                  <label for="last_name">{{_('Full name')}}</label>
+                  <input id="last_name" type="text" class="form-control" name="last_name">
+                </div>
+              </div>
+              <div class="form-group">
+                <label>{{_('Type')}}</label>
+                <div class="input-group">
+                  <select class="custom-select" id="inputGroupSelect04">
+                    <option selected>Select...</option>
+                    <option value="1">Admin</option>
+                    <option value="2">User</option>
+                    <option value="3">Customer</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-6">
+                  <label for="email">{{_('Email address')}}</label>
+                  <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">@</div>
+                    </div>
+                    <input id="email" type="email" class="form-control" name="email">
+                    <div class="invalid-feedback"></div>
+                  </div>
+                </div>
+
+                <div class="form-group col-6">
+                  <label for="email">{{_('Address')}}</label>
+                  <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <i class="fas fa-home"></i>
+                      </div>
+                    </div>
+                    <input type="text" class="form-control">
+                    <div class="invalid-feedback"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="form-group col-6">
+                  <label>{{_('Mobile phone')}}</label>
+                  <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <i class="fas fa-mobile-alt"></i>
+                      </div>
+                    </div>
+                    <input type="text" class="form-control">
+                  </div>
+                </div>
+
+                <div class="form-group col-6">
+                  <label>{{_('Home phone')}}</label>
+                  <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <i class="fas fa-phone"></i>
+                      </div>
+                    </div>
+                    <input type="text" class="form-control">
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="form-group col-6">
+                  <label>{{_('Zip code')}}</label>
+                  <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <i class="fas fa-envelope"></i>
+                      </div>
+                    </div>
+                    <input type="text" class="form-control">
+                  </div>
+                </div>
+                <div class="form-group col-6">
+                  <label>{{_('Vendor')}}</label>
+                  <div class="input-group">
+                    <select class="custom-select" id="inputGroupSelect04">
+                      <option selected>Current user</option>
+                      <option value="1">mike</option>
+                      <option value="2">dowlpack</option>
+                      <option value="3">guljemal</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-6">
+                  <label for="password" class="d-block">{{_('Password')}}</label>
+                  <input id="password" type="password" class="form-control pwstrength" data-indicator="pwindicator"
+                    name="password">
+                </div>
+                <div class="form-group col-6">
+                  <label for="password2" class="d-block">{{_('Confirm password')}}</label>
+                  <input id="password2" type="password" class="form-control" name="password-confirm">
+                </div>
+              </div>
+              <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-lg btn-block">
+                  {{_('Save')}}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -13,6 +13,9 @@
     <div class="card">
       <div class="card-header">
         <h4>{{_('Customers')}}</h4>
+        <a href="{{ url_for('commerce_admin.register_customer') }}" class="btn btn-outline-primary">
+          <i data-feather="user-plus"></i> {{_("Add")}}
+        </a>
       </div>
       <div class="card-body">
         <div class="table-responsive">
@@ -44,6 +47,11 @@
                     <div class="form-group">
                       <div class="input-group">
                         <select class="custom-select" id="inputGroupSelect04">
+                          {% if rp_acc.Rp_acc_type.RpAccStatusId == Null %}
+                            <option class="rpAccStatus" value="" selected>
+                              {{_('Select')}}
+                            </option>
+                          {% endif %}
                           {% for rp_acc_status in rp_acc_statuses %}
                             <option class="rpAccStatus" value="{{ rp_acc_status.RpAccStatusId }}" 
                               {{ 'selected' if rp_acc_status.RpAccStatusId == rp_acc.Rp_acc_status.RpAccStatusId }}>
@@ -61,6 +69,11 @@
                     <div class="form-group">
                       <div class="input-group">
                         <select class="custom-select" id="inputGroupSelect04">
+                          {% if rp_acc.Rp_acc_type.RpAccTypeId == Null %}
+                            <option class="rpAccType" value="" selected>
+                              {{_('Select')}}
+                            </option>
+                          {% endif %}
                           {% for rp_acc_type in rp_acc_types %}
                             <option class="rpAccType" value="{{ rp_acc_type.RpAccTypeId }}" 
                               {{ 'selected' if rp_acc_type.RpAccTypeId == rp_acc.Rp_acc_type.RpAccTypeId }}>

@@ -15,10 +15,13 @@
     <div class="col-12">
       <div class="card">
         <div class="card-header">
-          <a href="{{ url_for('commerce_admin.order_invoices') }}">
-            <i data-feather="arrow-left-circle"></i>
-          </a>
           <h4>{{_('Sale order invoices')}}</h4>
+          <a href="{{ url_for('commerce_admin.order_invoices') }}" class="btn btn-outline-primary">
+            <i data-feather="layers"></i> {{_('All orders')}}
+          </a>
+          <a href="{{ url_for('commerce_admin.customer_details',RpAccId=orderInvoices[0].Rp_acc.RpAccId) }}" class="btn btn-outline-info">
+            <i data-feather="user"></i> {{_("This customer's orders")}}
+          </a>
         </div>
         <div class="card-body">
           <div class="col-6">
