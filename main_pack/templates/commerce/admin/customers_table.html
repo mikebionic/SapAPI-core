@@ -28,6 +28,7 @@
                 <th class="text-center">{{_('Name')}}</th>
                 <th class="text-center">{{_('Status')}}</th>
                 <th class="text-center">{{_('Type')}}</th>
+                <th class="text-center">{{_('Action')}}</th>
               </tr>
             </thead>
             <tbody>
@@ -49,7 +50,7 @@
                         <select class="custom-select" id="inputGroupSelect04">
                           {% if rp_acc.Rp_acc_type.RpAccStatusId == Null %}
                             <option class="rpAccStatus" value="" selected>
-                              {{_('Select')}}
+                              {{_('Select')}}...
                             </option>
                           {% endif %}
                           {% for rp_acc_status in rp_acc_statuses %}
@@ -86,6 +87,11 @@
                         </div>
                       </div>
                     </div>
+                  </td>
+                  <td class="text-center">
+                    <a class="btn btn-icon btn-danger" href="{{ url_for('commerce_admin.remove_customer',RpAccId=rp_acc.RpAccId) }}">
+                      <i class="fas fa-trash-alt"></i>
+                    </a>
                   </td>
                 </tr>
               {% endfor %}
