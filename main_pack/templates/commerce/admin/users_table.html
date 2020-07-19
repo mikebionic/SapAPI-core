@@ -37,7 +37,7 @@
                 <tr ownerId="{{ user.UId }}">
                   <td class="text-center">{{ user.UId }}</td>
                   <td class="text-center">
-                    <a href="#" class="btn btn-outline-primary">
+                    <a href="{{ url_for('commerce_admin.user_details',UId=user.UId)}}" class="btn btn-outline-primary">
                       {{ user.UName }}
                     </a>
                   </td>

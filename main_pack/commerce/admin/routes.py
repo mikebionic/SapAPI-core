@@ -155,8 +155,6 @@ def customers_table():
 @login_required
 @ui_admin_required()
 def customer_details(RpAccId):
-	# if not RpAccId:
-	# 	return redirect(url_for('commerce_admin.customers_table'))
 	try:
 		data = UiRpAccData([{'RpAccId':RpAccId}],deleted=True)
 		data['rp_acc']=data['rp_accs'][0]
@@ -274,10 +272,31 @@ def register_customer():
 @ui_admin_required()
 def users_table():
 	data = UiUsersData()
-	
 	data['user_types'] = user_types()
-
 	return render_template ("commerce/admin/users_table.html",**data,title=gettext('Users'))
+
+@bp.route("/admin/user_details/<UId>")
+@login_required
+@ui_admin_required()
+def user_details(UId):
+	# try:
+	data = UiUsersData([{'UId':UId}],deleted=True)
+	data['user']=data['users'][0]
+	data['user_types'] = user_types()
+	rp_accs = Rp_acc.query\
+		.filter(and_(Rp_acc.GCRecord=='' or Rp_acc.GCRecord==None),\
+			Rp_acc.UId==UId).all()
+	rp_acc_list = []
+	for rp_acc in rp_accs:
+		obj={'RpAccId':rp_acc.RpAccId}
+		rp_acc_list.append(obj)
+	rp_accs = UiRpAccData(rp_acc_list,deleted=True)
+	data['rp_acc_statuses'] = rp_acc_statuses()
+	data['rp_acc_types'] = rp_acc_types()
+	# except:
+	# 	return redirect(url_for('commerce_admin.users_table'))
+	return render_template ("commerce/admin/user_details.html",
+		**data,**rp_accs,title=gettext('Customer details'))
 
 @bp.route("/admin/register_user",methods=['GET','POST'])
 @login_required
