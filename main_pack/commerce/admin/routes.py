@@ -155,8 +155,10 @@ def customers_table():
 @login_required
 @ui_admin_required()
 def customer_details(RpAccId):
+	# if not RpAccId:
+	# 	return redirect(url_for('commerce_admin.customers_table'))
 	try:
-		data = UiRpAccData([{'RpAccId':RpAccId}])
+		data = UiRpAccData([{'RpAccId':RpAccId}],deleted=True)
 		data['rp_acc']=data['rp_accs'][0]
 
 		data['rp_acc_statuses'] = rp_acc_statuses()
@@ -264,27 +266,6 @@ def register_customer():
 	return render_template ("commerce/admin/register_customer.html",
 		form=form,title=gettext('Register'))
 
-@bp.route("/admin/customer_details/<RpAccId>/remove")
-@login_required
-@ui_admin_required()
-def remove_customer(RpAccId):
-	try:
-		rp_acc = Rp_acc.query\
-			.filter(and_(Rp_acc.GCRecord=='' or Rp_acc.GCRecord==None),\
-				Rp_acc.RpAccId==RpAccId).first()
-		rp_acc.GCRecord=1
-
-		user = Users.query\
-			.filter(and_(Users.GCRecord=='' or Users.GCRecord==None),\
-				Users.RpAccId==RpAccId).first()
-		if user:
-			user.GCRecord=1
-		db.session.commit()
-		flash('{} '.format(rp_acc.RpAccName)+lazy_gettext('successfully deleted'),'success')
-	except:
-		flash('Unknown error!','danger')
-	return redirect(url_for('commerce_admin.customers_table'))
-
 ################################
 
 ###### users and user information #####
@@ -348,20 +329,6 @@ def register_user():
 	return render_template ("commerce/admin/register_user.html",
 		form=form,title=gettext('Register'))
 
-@bp.route("/admin/user_details/<UId>/remove")
-@login_required
-@ui_admin_required()
-def remove_user(UId):
-	try:
-		user = Users.query\
-			.filter(and_(Users.GCRecord=='' or Users.GCRecord==None),\
-				Users.UId==UId).first()
-		user.GCRecord=1
-		db.session.commit()
-		flash('{} '.format(user.UName)+lazy_gettext('successfully deleted'),'success')
-	except:
-		flash('Unknown error!','danger')
-	return redirect(url_for('commerce_admin.users_table'))
 #################################
 
 ###### orders and order information #######

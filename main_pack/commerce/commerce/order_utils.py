@@ -30,8 +30,7 @@ def UiOInvData(orders_list):
 		.filter(Inv_status.GCRecord=='' or Inv_status.GCRecord==None).all()
 	orderInvTypes = Order_inv_type.query\
 		.filter(Order_inv_type.GCRecord=='' or Order_inv_type.GCRecord==None).all()
-	rpAccs = Rp_acc.query\
-		.filter(Rp_acc.GCRecord=='' or Rp_acc.GCRecord==None).all()
+	rpAccs = Rp_acc.query.all()
 
 	for order in orders_list:
 		orderInv = Order_inv.query.get(order["OInvId"])

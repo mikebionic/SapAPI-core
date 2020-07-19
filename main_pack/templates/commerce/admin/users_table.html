@@ -32,9 +32,9 @@
                 <th class="text-center">{{_('Action')}}</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody class="usersTable">
               {% for user in users %}
-                <tr>
+                <tr ownerId="{{ user.UId }}">
                   <td class="text-center">{{ user.UId }}</td>
                   <td class="text-center">
                     <a href="#" class="btn btn-outline-primary">
@@ -60,14 +60,13 @@
                             </option>
                           {% endif %}
                           {% for user_type in user_types %}
-                            <option class="userType" value="{{ user_type.UTypeId }}" 
-                              {{ 'selected' if user_type.UTypeId == user.User_type.UTypeId }}>
+                            <option class="userType" value="{{ user_type.UTypeId }}" ownerId="{{ user.UId }}" {{ 'selected' if user_type.UTypeId == user.User_type.UTypeId }}>
                               {{ user_type.UTypeName }}
                             </option>
                           {% endfor %}
                         </select>
                         <div class="input-group-append" style="margin-left: -5px;">
-                          <button class="btn btn-info setUserType"><i class="fas fa-check"></i></button>
+                          <button class="btn btn-info setUserType" ownerId="{{ user.UId }}"><i class="fas fa-check"></i></button>
                         </div>
                       </div>
                     </div>
@@ -76,9 +75,9 @@
                     {{ user.UEmail if user.UEmail else '' }}
                   </td>
                   <td class="text-center">
-                    <a class="btn btn-icon btn-danger" href="{{ url_for('commerce_admin.remove_user',UId=user.UId) }}">
+                    <button class="btn btn-icon btn-danger deleteUserBtn" ownerId="{{ user.UId }}">
                       <i class="fas fa-trash-alt"></i>
-                    </a>
+                    </button>
                   </td>
                 </tr>
               {% endfor %}
@@ -89,4 +88,9 @@
     </div>
   </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+  <script src="{{ url_for('static', filename='commerce/admin/js/users_customers_table.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/admin/js/ui_dynamicals.js') }}"></script>
 {% endblock %}

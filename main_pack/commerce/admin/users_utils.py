@@ -13,7 +13,7 @@ from main_pack.models.commerce.models import (Barcode,Res_color,Res_size,Res_tra
 
 from main_pack.base.languageMethods import dataLangSelector
 
-def UiRpAccData(rp_acc_list=None):
+def UiRpAccData(rp_acc_list=None,deleted=False):
 	data = []
 
 	rp_acc_statuses = Rp_acc_status.query\
@@ -28,15 +28,22 @@ def UiRpAccData(rp_acc_list=None):
 	rp_acc_models = []
 	
 	if rp_acc_list is None:
-		rp_accs = Rp_acc.query\
-			.filter(Rp_acc.GCRecord=='' or Rp_acc.GCRecord==None).all()
+		if deleted==True:
+			rp_accs = Rp_acc.query.all()
+		else:
+			rp_accs = Rp_acc.query\
+				.filter(Rp_acc.GCRecord=='' or Rp_acc.GCRecord==None).all()
 		for rp_acc in rp_accs:
 			rp_acc_models.append(rp_acc)
 	else:
 		for rp_acc_index in rp_acc_list:
-			rp_acc = Rp_acc.query\
-				.filter(and_(Rp_acc.GCRecord=='' or Rp_acc.GCRecord==None),\
-					Rp_acc.RpAccId == rp_acc_index["RpAccId"]).first()
+			if deleted==True:
+				rp_acc = Rp_acc.query\
+					.filter(Rp_acc.RpAccId == rp_acc_index["RpAccId"]).first()
+			else:
+				rp_acc = Rp_acc.query\
+					.filter(and_(Rp_acc.GCRecord=='' or Rp_acc.GCRecord==None),\
+						Rp_acc.RpAccId == rp_acc_index["RpAccId"]).first()
 			rp_acc_models.append(rp_acc)
 		
 	for rp_acc in rp_acc_models:
@@ -67,7 +74,7 @@ def UiRpAccData(rp_acc_list=None):
 	}
 	return res
 
-def UiUsersData(users_list=None):
+def UiUsersData(users_list=None,deleted=False):
 	data = []
 
 	user_types = User_type.query\
@@ -82,16 +89,24 @@ def UiUsersData(users_list=None):
 	users_models = []
 	
 	if users_list is None:
-		users = Users.query\
-			.filter(and_(Users.GCRecord=='' or Users.GCRecord==None),\
-				Users.RpAccId==None).all()
+		if deleted==True:
+			users = Users.query\
+				.filter(Users.RpAccId==None).all()
+		else:
+			users = Users.query\
+				.filter(and_(Users.GCRecord=='' or Users.GCRecord==None),\
+					Users.RpAccId==None).all()
 		for user in users:
 			users_models.append(user)
 	else:
 		for users_index in users_list:
-			user = Users.query\
-				.filter(and_(Users.GCRecord=='' or Users.GCRecord==None),\
-					Users.UId == users_index["UId"]).first()
+			if deleted==True:
+				user = Users.query\
+					.filter(Users.UId == users_index["UId"]).first()
+			else:
+				user = Users.query\
+					.filter(and_(Users.GCRecord=='' or Users.GCRecord==None),\
+						Users.UId == users_index["UId"]).first()
 			users_models.append(user)
 		
 	for user in users_models:

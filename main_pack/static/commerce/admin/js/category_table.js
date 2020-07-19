@@ -25,7 +25,6 @@ function prepareOwnerTableData(formFields,formId=null){
 	function buildData(value){
 		if (formId>0 || formId>''){
 			formValue = $('.'+value+'[ownerId='+formId+']').text();
-			console.log("IT IS GREATER THAN NOTHING")
 		}
 		else{
 			formValue = $('.'+value).text();
