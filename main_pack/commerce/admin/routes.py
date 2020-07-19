@@ -200,67 +200,69 @@ def register_customer():
 	form.vendor_user.choices = vendorUserChoices
 
 	if form.validate_on_submit():
+		# try:
+		username = form.username.data
+		email = form.email.data
+		full_name = form.full_name.data
+		UShortName = (username[0]+username[-1]).upper()
+		if current_app.config['HASHED_PASSWORDS']==True:
+			password = bcrypt.generate_password_hash(form.password.data).decode() 
+		else:
+			password = form.password.data
+		user = Users(
+			UName=username,
+			UEmail=email,
+			UShortName=UShortName,
+			UPass=password,
+			UFullName=full_name,
+			UTypeId=5)
+
+		# get the regNum for RpAccount registration
 		try:
-			username = form.username.data
-			email = form.email.data
-			full_name = form.full_name.data
-			UShortName = (username[0]+username[-1]).upper()
-			if current_app.config['HASHED_PASSWORDS']==True:
-				password = bcrypt.generate_password_hash(form.password.data).decode() 
+			vendor = Users.query.get(form.vendor_user.data)
+			if vendor.UShortName:
+				reg_num = generate(UId=vendor.UId,prefixType='rp code')
+				regNo = makeRegNum(vendor.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'')
 			else:
-				password = form.password.data
-			user = Users(
-				UName=username,
-				UEmail=email,
-				UShortName=UShortName,
-				UPass=password,
-				UFullName=full_name,
-				UTypeId=5)
-
-			# get the regNum for RpAccount registration
-			try:
-				vendor = Users.query.get(form.vendor_user.data)
-				if vendor.UShortName:
-					reg_num = generate(UId=vendor.UId,prefixType='rp code')
-					regNo = makeRegNum(vendor.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'')
-				else:
-					reg_num = generate(UId=user.UId,prefixType='rp code')
-					regNo = makeRegNum(user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'')
-			except:
-				regNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
-
-			rp_acc = Rp_acc(
-				RpAccUName=username,
-				RpAccUPass=password,
-				RpAccName=full_name,
-				RpAccEMail=email,
-				RpAccRegNo=regNo,
-				RpAccTypeId=form.customer_type.data,
-				RpAccAddress=form.address.data,
-				RpAccMobilePhoneNumber=form.mobilePhone.data,
-				RpAccHomePhoneNumber=form.homePhone.data,
-				RpAccZipCode=form.zipCode.data,
-				UId=form.vendor_user.data
-				)
-			db.session.add(rp_acc)
-			db.session.commit()
-
-			# assign the RpAccId to a User model
-			user.RpAccId = rp_acc.RpAccId
-			db.session.add(user)
-
-			if form.picture.data:
-				imageFile = save_image(imageForm=form.picture.data,module=os.path.join("uploads","commerce","Rp_acc"),id=rpAcc.RpAccId)
-				image = Image(FileName=imageFile['FileName'],FilePath=imageFile['FilePath'],RpAccId=rpAcc.RpAccId)
-				db.session.add(image)
-
-			db.session.commit()
-
-			flash('{} '.format(username)+lazy_gettext('successfully saved'),'success')
-			return redirect(url_for('commerce_admin.customers_table'))
+				reg_num = generate(UId=user.UId,prefixType='rp code')
+				regNo = makeRegNum(user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'')
 		except:
-			flash(lazy_gettext('Error occured, please try again.'),'danger')
-			return redirect(url_for('commerce_admin.register_customer'))
+			regNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
+
+		rp_acc = Rp_acc(
+			RpAccUName=username,
+			RpAccUPass=password,
+			RpAccName=full_name,
+			RpAccEMail=email,
+			RpAccRegNo=regNo,
+			RpAccTypeId=form.customer_type.data,
+			RpAccAddress=form.address.data,
+			RpAccMobilePhoneNumber=form.mobilePhone.data,
+			RpAccHomePhoneNumber=form.homePhone.data,
+			RpAccZipCode=form.zipCode.data,
+			UId=form.vendor_user.data
+			)
+		db.session.add(rp_acc)
+		db.session.commit()
+
+		# assign the RpAccId to a User model
+		user.RpAccId = rp_acc.RpAccId
+		db.session.add(user)
+
+		if form.picture.data:
+			imageFile = save_image(imageForm=form.picture.data,module=os.path.join("uploads","commerce","Rp_acc"),id=rp_acc.RpAccId)
+			lastImage = Image.query.order_by(Image.ImgId.desc()).first()
+			ImgId = lastImage.ImgId+1
+			image = Image(ImgId=ImgId,FileName=imageFile['FileName'],FilePath=imageFile['FilePath'],RpAccId=rp_acc.RpAccId)
+			db.session.add(image)
+
+		db.session.commit()
+
+		flash('{} '.format(username)+lazy_gettext('successfully saved'),'success')
+		return redirect(url_for('commerce_admin.customers_table'))
+		# except:
+		# 	flash(lazy_gettext('Error occured, please try again.'),'danger')
+		# 	return redirect(url_for('commerce_admin.register_customer'))
 	return render_template ("commerce/admin/register_customer.html",
 		form=form,title=gettext('Register'))
 
@@ -333,9 +335,10 @@ def register_user():
 
 			print(form.picture.data)
 			if form.picture.data:
-				
 				imageFile = save_image(imageForm=form.picture.data,module=os.path.join("uploads","commerce","Users"),id=user.UId)
-				image = Image(FileName=imageFile['FileName'],FilePath=imageFile['FilePath'],UId=user.UId)
+				lastImage = Image.query.order_by(Image.ImgId.desc()).first()
+				ImgId = lastImage.ImgId+1
+				image = Image(ImgId=ImgId,FileName=imageFile['FileName'],FilePath=imageFile['FilePath'],UId=user.UId)
 				db.session.add(image)
 
 			db.session.commit()
