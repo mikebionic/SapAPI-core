@@ -6748,9 +6748,11 @@ body.open-overlay #overlay {
 /* card price */
 .priceValue{
     float: left;
+
 }
 .productTotalPrice{
     float: left;
+    font-size: 15px;
 }
 .removeFromCart{
     margin-right: auto;
