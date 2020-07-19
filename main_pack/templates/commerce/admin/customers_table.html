@@ -41,7 +41,7 @@
                   </td>
                   <td class="text-center">
                     <a href="{{ url_for('commerce_admin.customer_details',RpAccId=rp_acc.RpAccId)}}" class="btn btn-outline-primary">
-                      {{ rp_acc.RpAccName }}
+                      {{ rp_acc.RpAccName if rp_acc.RpAccName else rp_acc.RpAccUName }}
                     </a>
                   </td>
                   <td class="text-center">

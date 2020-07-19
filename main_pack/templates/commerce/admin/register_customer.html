@@ -42,12 +42,7 @@
                 <div class="form-group col-6">
                   <label>{{_('Type')}}</label>
                   <div class="input-group">
-                    <select class="custom-select" id="inputGroupSelect04">
-                      <option selected>{{_('Select')}}...</option>
-                      <option value="1">Admin</option>
-                      <option value="2">User</option>
-                      <option value="3">Customer</option>
-                    </select>
+                    {{ form.customer_type(class="custom-select") }}
                   </div>
                 </div>
                 <div class="form-group col-6">
@@ -162,12 +157,7 @@
                 <div class="form-group col-6">
                   <label>{{_('Vendor')}}</label>
                   <div class="input-group">
-                    <select class="custom-select" id="inputGroupSelect04">
-                      <option selected>Current user</option>
-                      <option value="1">mike</option>
-                      <option value="2">dowlpack</option>
-                      <option value="3">guljemal</option>
-                    </select>
+                    {{ form.vendor_user(class="custom-select") }}
                   </div>
                 </div>
               </div>
