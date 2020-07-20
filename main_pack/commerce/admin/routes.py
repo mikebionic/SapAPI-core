@@ -401,3 +401,10 @@ def order_inv_lines(OInvRegNo):
 def add_product():
 	resData=resRelatedData()
 	return render_template ("commerce/admin/add_product.html",**resData,title=gettext('Add product'))
+
+
+@bp.route("/admin/sale_repots_table")
+@login_required
+@ui_admin_required()
+def sale_repots_table():
+	return render_template ("commerce/admin/sale_repots_table.html",title=gettext('Sale reports'))
