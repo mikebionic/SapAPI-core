@@ -6,10 +6,12 @@ from main_pack.models.users.models import Rp_acc
 from main_pack.api.users.utils import addRpAccDict,apiRpAccData
 from main_pack import db
 from flask import current_app
+from main_pack.api.auth.api_login import sha_required
 
-@api.route("/tbl-dk-rp-accs/<RpAccId>/",methods=['GET'])
-def api_rp_accs_rp_acc(RpAccId):
-	rp_acc = apiRpAccData(RpAccId)
+@api.route("/tbl-dk-rp-accs/<RpAccRegNo>/",methods=['GET'])
+@sha_required
+def api_rp_accs_rp_acc(RpAccRegNo):
+	rp_acc = apiRpAccData(RpAccRegNo)
 	res = {
 		"status":1,
 		"message":"Single rp_acc",
@@ -21,6 +23,7 @@ def api_rp_accs_rp_acc(RpAccId):
 	return response
 
 @api.route("/tbl-dk-rp-accs/",methods=['GET','POST'])
+@sha_required
 def api_rp_accs():
 	if request.method == 'GET':
 		rp_accs = Rp_acc.query\
@@ -49,23 +52,19 @@ def api_rp_accs():
 			for rp_acc in req:
 				rp_acc = addRpAccDict(rp_acc)				
 				try:
-					if not 'RpAccId' in rp_acc:
+					RpAccRegNo = rp_acc['RpAccRegNo']
+					RpAccName = rp_acc['RpAccName']
+					thisRpAcc = Rp_acc.query\
+						.filter(Rp_acc.RpAccRegNo==RpAccRegNo and Rp_acc.RpAccName==RpAccName).first()
+					if thisRpAcc:
+						thisRpAcc.update(**rp_acc)
+						db.session.commit()
+						rp_accs.append(rp_acc)
+					else:
 						newRpAcc = Rp_acc(**rp_acc)
 						db.session.add(newRpAcc)
 						db.session.commit()
 						rp_accs.append(rp_acc)
-					else:
-						RpAccId = rp_acc['RpAccId']
-						thisRpAcc = Rp_acc.query.get(int(RpAccId))
-						if thisRpAcc is not None:
-							thisRpAcc.update(**rp_acc)
-							db.session.commit()
-							rp_accs.append(rp_acc)
-						else:
-							newRpAcc = Rp_acc(**rp_acc)
-							db.session.add(newRpAcc)
-							db.session.commit()
-							rp_accs.append(rp_acc)
 				except:
 					failed_rp_accs.append(rp_acc)
 

@@ -6,8 +6,10 @@ from main_pack.models.commerce.models import Rp_acc_trans_total
 from main_pack.api.commerce.utils import addRpAccTrTotDict
 from main_pack import db
 from flask import current_app
+from main_pack.api.auth.api_login import sha_required
 
 @api.route("/tbl-dk-rp-acc-trans-totals/",methods=['GET','POST'])
+@sha_required
 def api_rp_acc_trans_totals():
 	if request.method == 'GET':
 		rp_acc_trans_totals = Rp_acc_trans_total.query\

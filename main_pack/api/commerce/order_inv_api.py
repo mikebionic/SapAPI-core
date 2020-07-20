@@ -7,17 +7,30 @@ from main_pack.api.commerce.utils import addOrderInvDict
 from main_pack import db
 from flask import current_app
 from main_pack.api.auth.api_login import token_required
+from main_pack.api.auth.api_login import sha_required
 from sqlalchemy import and_
+from main_pack.api.users.utils import apiRpAccData
+from main_pack.models.users.models import Rp_acc
 
 @api.route("/tbl-dk-order-invoices/",methods=['GET','POST'])
+@sha_required
 def api_order_invoices():
 	if request.method == 'GET':
+		data=[]
 		order_invoices = Order_inv.query\
-			.filter(Order_inv.GCRecord=='' or Order_inv.GCRecord==None).all()
+			.filter(and_(Order_inv.GCRecord=='' or Order_inv.GCRecord==None,\
+				Order_inv.InvStatId==1)).all()
+		for order_invoice in order_invoices:
+			oInvData = order_invoice.to_json_api()
+			rp_acc = Rp_acc.query.get(order_invoice.RpAccId)
+			if rp_acc:
+				rpAccData = apiRpAccData(rp_acc.RpAccRegNo)
+				oInvData['Rp_acc'] = rpAccData['data']
+			data.append(oInvData)
 		res = {
 			"status":1,
 			"message":"All order invoices",
-			"data":[order_invoice.to_json_api() for order_invoice in order_invoices],
+			"data":data,
 			"total":len(order_invoices)
 		}
 		response = make_response(jsonify(res),200)
@@ -29,7 +42,7 @@ def api_order_invoices():
 				"message": "Error. Not a JSON data."
 			}
 			response = make_response(jsonify(res),400)
-			
+
 		else:
 			req = request.get_json()
 			order_invoices = []
@@ -37,24 +50,18 @@ def api_order_invoices():
 			for order_invoice in req:
 				order_invoice = addOrderInvDict(order_invoice)
 				try:
-					if not 'OInvId' in order_invoice:
+					OInvRegNo = order_invoice['OInvRegNo']
+					thisOrderInv = Order_inv.query\
+						.filter(Order_inv.OInvRegNo==OInvRegNo).first()
+					if thisOrderInv:
+						thisOrderInv.update(**order_invoice)
+						db.session.commit()
+						order_invoices.append(order_invoice)
+					else:
 						newOrderInv = Order_inv(**order_invoice)
 						db.session.add(newOrderInv)
 						db.session.commit()
 						order_invoices.append(order_invoice)
-					else:
-						OInvId = order_invoice['OInvId']
-						thisOrderInv = Order_inv.query.get(int(OInvId))
-						if thisOrderInv is not None:
-							thisOrderInv.update(**order_invoice)
-							db.session.commit()
-							order_invoices.append(order_invoice)
-
-						else:
-							newOrderInv = Order_inv(**order_invoice)
-							db.session.add(newOrderInv)
-							db.session.commit()
-							order_invoices.append(order_invoice)
 				except:
 					failed_order_invoices.append(order_invoice)
 
@@ -96,7 +103,6 @@ def api_v_order_invoices(user):
 			"message":"Orders"
 		}
 		response = make_response(jsonify(res),200)
-		print(response)
 	return response
 
 @api.route("/v-order-invoices/<OInvRegNo>/",methods=['GET'])
@@ -130,5 +136,4 @@ def api_v_order_invoice(user,OInvRegNo):
 			"message":"Order lines"
 		}
 		response = make_response(jsonify(res),200)
-		print(response)
 	return response

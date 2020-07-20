@@ -7,8 +7,10 @@ from main_pack.api.commerce.utils import addResTotalDict
 from main_pack import db
 from flask import current_app
 from sqlalchemy import and_
+from main_pack.api.auth.api_login import sha_required
 
 @api.route("/tbl-dk-res-totals/",methods=['GET','POST','PUT'])
+@sha_required
 def api_res_totals():
 	if request.method == 'GET':
 		res_totals = Res_total.query\

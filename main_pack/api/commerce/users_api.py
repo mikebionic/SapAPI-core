@@ -6,8 +6,10 @@ from main_pack.models.users.models import Users
 from main_pack.api.users.utils import addUsersDict,apiUsersData
 from main_pack import db
 from flask import current_app
+from main_pack.api.auth.api_login import sha_required
 
 @api.route("/tbl-dk-users/<UId>/",methods=['GET'])
+@sha_required
 def api_users_user(UId):
 	user = apiUsersData(UId)
 	res = {
@@ -20,7 +22,8 @@ def api_users_user(UId):
 
 	return response
 
-@api.route("/tbl-dk-users/",methods=['GET','POST','PUT'])
+@api.route("/tbl-dk-users/",methods=['GET','POST'])
+@sha_required
 def api_users():
 	if request.method == 'GET':
 		users = Users.query.all()

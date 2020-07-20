@@ -6,9 +6,10 @@ from main_pack.models.commerce.models import Barcode
 from main_pack.api.commerce.utils import addBarcodeDict
 from main_pack import db
 from flask import current_app
-
+from main_pack.api.auth.api_login import sha_required
 
 @api.route("/tbl-dk-barcodes/",methods=['GET','POST','PUT'])
+@sha_required
 def api_barcodes():
 	if request.method == 'GET':
 		barcodes = Barcode.query\

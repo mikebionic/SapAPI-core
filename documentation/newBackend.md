@@ -82,7 +82,7 @@ GET POST
 /api/tbl-dk-rp-accs/
 
 GET
-/api/tbl-dk-rp-accs/<int:RpAccId>/
+/api/tbl-dk-rp-accs/<int:RpAccRegNo>/
 
 GET POST
 /api/tbl-dk-users/

@@ -76,10 +76,25 @@ def api_login_rp_accs():
 	if check_auth('Rp_acc',auth.username,auth.password):
 		exp = datetime.now()+dt.timedelta(minutes=30)
 		token = jwt.encode({'RpAccId':rp_acc.RpAccId,'exp':exp}, Config.SECRET_KEY)
-		rpAccData = apiRpAccData(rp_acc.RpAccId)
+		rpAccData = apiRpAccData(rp_acc.RpAccRegNo)
 		return jsonify({
 			'token':token.decode('UTF-8'),
 			'rp_acc':rpAccData['data'],
 			'exp':apiDataFormat(exp)
 			})
 	return make_response('Could not verify', 401, {'WWW-Authenticate':'basic realm'})
+
+def sha_required(f):
+	@wraps(f)
+	def decorated(*args,**kwargs):
+		token = None
+		if 'x-access-token' in request.headers:
+			token = request.headers['x-access-token']
+		if not token:
+			return jsonify({'message':'Token is missing!'}), 401
+		
+		if token != Config.SYNCH_SHA:
+			return jsonify({'message':'Token is invalid!'}), 401
+		return f(*args,**kwargs)
+
+	return decorated
