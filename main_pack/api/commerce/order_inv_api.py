@@ -3,7 +3,7 @@ from main_pack.api.commerce import api
 from main_pack.base.apiMethods import checkApiResponseStatus
 
 from main_pack.models.commerce.models import Order_inv,Order_inv_line
-from main_pack.api.commerce.utils import addOrderInvDict
+from main_pack.api.commerce.utils import addOrderInvDict,addOrderInvLineDict
 from main_pack import db
 from flask import current_app
 from main_pack.api.auth.api_login import token_required
@@ -26,6 +26,16 @@ def api_order_invoices():
 			if rp_acc:
 				rpAccData = apiRpAccData(rp_acc.RpAccRegNo)
 				oInvData['Rp_acc'] = rpAccData['data']
+
+			order_inv_lines = Order_inv_line.query\
+				.filter(and_(Order_inv_line.GCRecord=='' or Order_inv_line.GCRecord==None),\
+					Order_inv_line.OInvId==order_invoice.OInvId).all()
+
+			order_inv_lines_list = []
+			for order_inv_line in order_inv_lines:
+				order_inv_lines_list.append(order_inv_line.to_json_api())
+			oInvData['Order_inv_lines'] = order_inv_lines_list
+
 			data.append(oInvData)
 		res = {
 			"status":1,
@@ -47,8 +57,8 @@ def api_order_invoices():
 			req = request.get_json()
 			order_invoices = []
 			failed_order_invoices = [] 
-			for order_invoice in req:
-				order_invoice = addOrderInvDict(order_invoice)
+			for data in req['data']:
+				order_invoice = addOrderInvDict(data)
 				try:
 					OInvRegNo = order_invoice['OInvRegNo']
 					thisOrderInv = Order_inv.query\
@@ -56,12 +66,36 @@ def api_order_invoices():
 					if thisOrderInv:
 						thisOrderInv.update(**order_invoice)
 						db.session.commit()
-						order_invoices.append(order_invoice)
+						print('order invoice updated')
 					else:
 						newOrderInv = Order_inv(**order_invoice)
 						db.session.add(newOrderInv)
 						db.session.commit()
-						order_invoices.append(order_invoice)
+						print('order invoice created')
+
+					order_inv_lines = []
+					failed_order_inv_lines = []
+					print(data['Order_inv_lines'])
+					for order_inv_line in data['Order_inv_lines']:
+						order_inv_line = addOrderInvLineDict(order_inv_line)
+						try:
+							OInvLineId = order_inv_line['OInvLineId']
+							thisOrderInv = Order_inv_line.query.get(int(OInvLineId))
+							if thisOrderInv:
+								thisOrderInv.update(**order_inv_line)
+								db.session.commit()
+								order_inv_lines.append(order_inv_line)
+							else:
+								newOrderInv = Order_inv_line(**order_inv_line)
+								db.session.add(newOrderInv)
+								db.session.commit()
+								order_inv_lines.append(order_inv_line)
+						except:
+							failed_order_inv_lines.append(order_inv_line)
+
+					order_invoice['Order_inv_lines'] = order_inv_lines
+					order_invoices.append(order_invoice)
+
 				except:
 					failed_order_invoices.append(order_invoice)
 
@@ -70,12 +104,11 @@ def api_order_invoices():
 				"data":order_invoices,
 				"fails":failed_order_invoices,
 				"success_total":len(order_invoices),
-				"fail_total":len(failed_order_invoices)
+				"fail_total":len(failed_order_invoices),
 			}
 			for e in status:
 				res[e]=status[e]
 			response = make_response(jsonify(res),200)
-			print(response)
 
 	return response
 

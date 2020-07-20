@@ -8,8 +8,10 @@ from main_pack import db
 from flask import current_app,send_from_directory
 import dateutil.parser
 import os
+from main_pack.api.auth.api_login import sha_required
 
 @api.route("/tbl-dk-images/",methods=['GET','POST','PUT'])
+@sha_required
 def api_images():
 	if request.method == 'GET':
 		images = Image.query\
@@ -34,7 +36,6 @@ def api_images():
 			images = []
 			failed_images = []
 			for image in req:
-				print(image)
 				imageDictData = addImageDict(image)
 				try:
 					if not 'ImgId' in imageDictData:
