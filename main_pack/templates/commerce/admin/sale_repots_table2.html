@@ -1,0 +1,371 @@
+{% extends "commerce/admin/layout.html" %}
+ 
+{% block styles %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/datatables/datatables.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='commerce/admin/commerce_styles/css/bootstrap.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='commerce/admin/commerce_styles/css/font-awesome.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='commerce/admin/commerce_styles/css/style.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='commerce/admin/admin_commerce/style.css') }}">
+  
+  
+{% endblock %}
+
+{% block content %}
+
+<div class="card-body">
+  <ul class="nav nav-pills" id="myTab3" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" id="home-tab3" data-toggle="tab" href="#home3" role="tab"
+        aria-controls="home" aria-selected="true">Reytings</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="profile-tab3" data-toggle="tab" href="#profile3" role="tab"
+        aria-controls="profile" aria-selected="false">Sales</a>
+    </li>
+  </ul>
+
+
+  <div class="tab-content tab-bordered" id="myTab3Content">
+    <div class="tab-pane fade show active" id="home3" role="tabpanel" aria-labelledby="home-tab3">
+      <div class="table-responsive">
+        <table class="table table-bordered table-md">
+          <tr>
+            <th>#</th>
+            <th>Photo</th>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Reyting</th>
+            <th>Customers</th>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td><img alt="image" src="{{ url_for('static', filename='commerce/main/images/product/15.jpg')}}" class="rounded-circle" width="35"
+            data-toggle="popover" data-trigger="hover" title="Plan Pllanowa" data-content="And here's some amazing content. It's very engaging. Right?"></td>
+            <td>Noor yupek</td>
+            <td>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star"></span>
+            </td>
+            <td>5.0</td>
+            <td><img alt="image" src="{{ url_for('static', filename='commerce/main/images/avatars/elie.jpg')}}" class="rounded-circle" width="35"
+            data-toggle="popover" data-trigger="hover" title="Plan Planowa" data-content="And here's some amazing content. It's very engaging. Right?">
+            <img alt="image" src="{{ url_for('static', filename='commerce/main/images/avatars/marc.jpg')}}" class="rounded-circle" width="35"
+            data-toggle="popover" data-trigger="hover" title="Plan Planowa" data-content="And here's some amazing content. It's very engaging. Right?">
+            <img alt="image" src="{{ url_for('static', filename='commerce/main/images/avatars/nicole.jpg')}}" class="rounded-circle" width="35"
+            data-toggle="popover" data-trigger="hover" title="Plan Planowa" data-content="And here's some amazing content. It's very engaging. Right?">
+            <img alt="image" src="{{ url_for('static', filename='commerce/main/images/avatars/jane.jpg')}}" class="rounded-circle" width="35"
+            data-toggle="popover" data-trigger="hover" title="Plan Planowa" data-content="And here's some amazing content. It's very engaging. Right?">
+            <a href="#" class="btn btn-success rounded-circle" data-toggle="modal" data-target="#catIconsModal">All</a>  
+            </td>
+            
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><img alt="image" src="{{ url_for('static', filename='commerce/main/images/product/10.jpg')}}" class="rounded-circle" width="35"
+            data-toggle="popover" data-trigger="hover" title="Plan Planowa" data-content="And here's some amazing content. It's very engaging. Right?"></td>
+            <td>Noor yupek</td>
+            <td>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star"></span>
+            </td>
+            <td>5.0</td>
+            <td><img alt="image" src="{{ url_for('static', filename='commerce/main/images/avatars/janet.jpg')}}" class="rounded-circle" width="35"
+            data-toggle="popover" data-trigger="hover" title="Plan Planowa" data-content="And here's some amazing content. It's very engaging. Right?">
+            <img alt="image" src="{{ url_for('static', filename='commerce/main/images/avatars/john.jpg')}}" class="rounded-circle" width="35"
+            data-toggle="popover" data-trigger="hover" title="Plan Planowa" data-content="And here's some amazing content. It's very engaging. Right?">
+            <img alt="image" src="{{ url_for('static', filename='commerce/main/images/avatars/janet.jpg')}}" class="rounded-circle" width="35"
+            data-toggle="popover" data-trigger="hover" title="Plan Planowa" data-content="And here's some amazing content. It's very engaging. Right?">
+            <img alt="image" src="{{ url_for('static', filename='commerce/main/images/avatars/elie.jpg')}}" class="rounded-circle" width="35"
+            data-toggle="popover" data-trigger="hover" title="Plan Planowa" data-content="And here's some amazing content. It's very engaging. Right?">
+            <a href="#" class="btn btn-success rounded-circle" data-toggle="modal" data-target="#catIconsModal">All</a>  
+            </td>
+            
+          </tr>
+          <tr>
+            <td>3</td>
+            <td><img alt="image" src="{{ url_for('static', filename='commerce/main/images/product/5.jpg')}}" class="rounded-circle" width="35"
+            data-toggle="popover" data-trigger="hover" title="Plan Planowa" data-content="And here's some amazing content. It's very engaging. Right?"></td>
+            <td>Noor yupek</td>
+            <td>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star"></span>
+            </td>
+            <td>5.0</td>
+            <td><img alt="image" src="{{ url_for('static', filename='commerce/main/images/avatars/nicole.jpg')}}" class="rounded-circle" width="35"
+            data-toggle="popover" data-trigger="hover" title="Plan Planowa" data-content="And here's some amazing content. It's very engaging. Right?">
+            <img alt="image" src="{{ url_for('static', filename='commerce/main/images/avatars/marc.jpg')}}" class="rounded-circle" width="35"
+            data-toggle="popover" data-trigger="hover" title="Plan Planowa" data-content="And here's some amazing content. It's very engaging. Right?">
+            <a href="#" class="btn btn-success rounded-circle" data-toggle="modal" data-target="#catIconsModal">All</a>  
+            </td>
+            
+          </tr>
+          <tr>
+            <td>4</td>
+            <td><img alt="image" src="{{ url_for('static', filename='commerce/main/images/product/1.jpg')}}" class="rounded-circle" width="35"
+            data-toggle="popover" data-trigger="hover" title="Plan Planowa" data-content="And here's some amazing content. It's very engaging. Right?"></td>
+            <td>Noor yupek</td>
+            <td>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star"></span>
+            </td>
+            <td>5.0</td>
+            <td><img alt="image" src="{{ url_for('static', filename='commerce/main/images/avatars/nicole.jpg')}}" class="rounded-circle" width="35"
+            data-toggle="popover" data-trigger="hover" title="Plan Planowa" data-content="And here's some amazing content. It's very engaging. Right?">
+            <img alt="image" src="{{ url_for('static', filename='commerce/main/images/avatars/janet.jpg')}}" class="rounded-circle" width="35"
+            data-toggle="popover" data-trigger="hover" title="Plan Planowa" data-content="And here's some amazing content. It's very engaging. Right?">
+            <img alt="image" src="{{ url_for('static', filename='commerce/main/images/avatars/jane.jpg')}}" class="rounded-circle" width="35"
+            data-toggle="popover" data-trigger="hover" title="Plan Planowa" data-content="And here's some amazing content. It's very engaging. Right?">
+            <img alt="image" src="{{ url_for('static', filename='commerce/main/images/avatars/marc.jpg')}}" class="rounded-circle" width="35"
+            data-toggle="popover" data-trigger="hover" title="Plan Planowa" data-content="And here's some amazing content. It's very engaging. Right?">
+            <a href="#" class="btn btn-success rounded-circle" data-toggle="modal" data-target="#catIconsModal">All</a>  
+            </td>
+            
+          </tr>
+        </table>
+      </div>
+    </div>
+
+
+    <div class="tab-pane fade" id="profile3" role="tabpanel" aria-labelledby="profile-tab3">
+      <div class="table-responsive">
+        <table class="table table-bordered table-md">
+          <tr>
+            <th>#</th>
+            <th>Photo</th>
+            <th>Name</th>
+            <th>Tota sold</th>
+            <th>Customers</th>
+            <th>Price</th>
+            <th>Total sold price</th>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td><img alt="image" src="{{ url_for('static', filename='commerce/main/images/product/15.jpg')}}" class="rounded-circle" width="35"
+            data-toggle="popover" data-trigger="hover" title="Plan Planowa" data-content="And here's some amazing content. It's very engaging. Right?"></td>
+            <td>Noor yupek</td>
+            <td>
+              1
+            </td>
+            <td><img alt="image" src="{{ url_for('static', filename='commerce/main/images/avatars/elie.jpg')}}" class="rounded-circle" width="35"
+              data-toggle="popover" data-trigger="hover" title="Plan Planowa" data-content="And here's some amazing content. It's very engaging. Right?">
+              <img alt="image" src="{{ url_for('static', filename='commerce/main/images/avatars/marc.jpg')}}" class="rounded-circle" width="35"
+              data-toggle="popover" data-trigger="hover" title="Plan Planowa" data-content="And here's some amazing content. It's very engaging. Right?">
+              <img alt="image" src="{{ url_for('static', filename='commerce/main/images/avatars/nicole.jpg')}}" class="rounded-circle" width="35"
+              data-toggle="popover" data-trigger="hover" title="Plan Planowa" data-content="And here's some amazing content. It's very engaging. Right?">
+              <img alt="image" src="{{ url_for('static', filename='commerce/main/images/avatars/jane.jpg')}}" class="rounded-circle" width="35"
+              data-toggle="popover" data-trigger="hover" title="Plan Planowa" data-content="And here's some amazing content. It's very engaging. Right?">
+              <a href="#" class="btn btn-success rounded-circle" data-toggle="modal" data-target="#catIconsModal">All</a>  
+              </td>
+            <td>Price: 150 TMT</td>
+            <td>Total price: 1500 TMT</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><img alt="image" src="{{ url_for('static', filename='commerce/main/images/product/10.jpg')}}" class="rounded-circle" width="35"
+            data-toggle="popover" data-trigger="hover" title="Plan Planowa" data-content="And here's some amazing content. It's very engaging. Right?"></td>
+            <td>Noor yupek</td>
+            <td>
+              13
+            </td>
+            <td><img alt="image" src="{{ url_for('static', filename='commerce/main/images/avatars/janet.jpg')}}" class="rounded-circle" width="35"
+            data-toggle="popover" data-trigger="hover" title="Plan Planowa" data-content="And here's some amazing content. It's very engaging. Right?">
+            <img alt="image" src="{{ url_for('static', filename='commerce/main/images/avatars/john.jpg')}}" class="rounded-circle" width="35"
+            data-toggle="popover" data-trigger="hover" title="Plan Planowa" data-content="And here's some amazing content. It's very engaging. Right?">
+            <img alt="image" src="{{ url_for('static', filename='commerce/main/images/avatars/janet.jpg')}}" class="rounded-circle" width="35"
+            data-toggle="popover" data-trigger="hover" title="Plan Planowa" data-content="And here's some amazing content. It's very engaging. Right?">
+            <img alt="image" src="{{ url_for('static', filename='commerce/main/images/avatars/elie.jpg')}}" class="rounded-circle" width="35"
+            data-toggle="popover" data-trigger="hover" title="Plan Planowa" data-content="And here's some amazing content. It's very engaging. Right?">
+            <a href="#" class="btn btn-success rounded-circle" data-toggle="modal" data-target="#catIconsModal">All</a>  
+            </td>
+            <td>Price: 150 TMT</td>
+            <td>Total price: 1500 TMT</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td><img alt="image" src="{{ url_for('static', filename='commerce/main/images/product/5.jpg')}}" class="rounded-circle" width="35"
+            data-toggle="popover" data-trigger="hover" title="Plan Planowa" data-content="And here's some amazing content. It's very engaging. Right?"></td>
+            <td>Noor yupek</td>
+            <td>
+              16
+            </td>
+            <td><img alt="image" src="{{ url_for('static', filename='commerce/main/images/avatars/nicole.jpg')}}" class="rounded-circle" width="35"
+              data-toggle="popover" data-trigger="hover" title="Plan Planowa" data-content="And here's some amazing content. It's very engaging. Right?">
+              <img alt="image" src="{{ url_for('static', filename='commerce/main/images/avatars/marc.jpg')}}" class="rounded-circle" width="35"
+              data-toggle="popover" data-trigger="hover" title="Plan Planowa" data-content="And here's some amazing content. It's very engaging. Right?">
+              <a href="#" class="btn btn-success rounded-circle" data-toggle="modal" data-target="#catIconsModal">All</a>  
+              </td>
+            <td>Price: 150 TMT</td>
+            <td>Total price: 1500 TMT</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td><img alt="image" src="{{ url_for('static', filename='commerce/main/images/product/1.jpg')}}" class="rounded-circle" width="35"
+            data-toggle="popover" data-trigger="hover" title="Plan Planowa" data-content="And here's some amazing content. It's very engaging. Right?"></td>
+            <td>Noor yupek</td>
+            <td>
+              136
+            </td>
+            <td><img alt="image" src="{{ url_for('static', filename='commerce/main/images/avatars/nicole.jpg')}}" class="rounded-circle" width="35"
+            data-toggle="popover" data-trigger="hover" title="Plan Planowa" data-content="And here's some amazing content. It's very engaging. Right?">
+            <img alt="image" src="{{ url_for('static', filename='commerce/main/images/avatars/janet.jpg')}}" class="rounded-circle" width="35"
+            data-toggle="popover" data-trigger="hover" title="Plan Planowa" data-content="And here's some amazing content. It's very engaging. Right?">
+            <img alt="image" src="{{ url_for('static', filename='commerce/main/images/avatars/jane.jpg')}}" class="rounded-circle" width="35"
+            data-toggle="popover" data-trigger="hover" title="Plan Planowa" data-content="And here's some amazing content. It's very engaging. Right?">
+            <img alt="image" src="{{ url_for('static', filename='commerce/main/images/avatars/marc.jpg')}}" class="rounded-circle" width="35"
+            data-toggle="popover" data-trigger="hover" title="Plan Planowa" data-content="And here's some amazing content. It's very engaging. Right?">
+            <a href="#" class="btn btn-success rounded-circle" data-toggle="modal" data-target="#catIconsModal">All</a>  
+            </td>
+            <td>Price: 150 TMT</td>
+            <td>Total price: 1500 TMT</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div> 
+{% endblock %}
+
+
+{% block modals %}
+  
+<!-- reytingli harytlar -->
+<div class="modal fade" id="catIconsModal" tabindex="-1" role="dialog" aria-labelledby="catIconsModalTitle" aria-hidden="true" style="background-color: rgba(71, 69, 69, 0.548);">
+  <div class="modal-dialog modal-dialog-centered" style="max-width: 100%; width: 50%;" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="catIconsModalTitle">{{_('Customers')}}</h5>
+        <form class="card-header-form">
+          <div class="input-group">
+            <input type="text" name="search" class="form-control" placeholder="{{_('Search')}}" style="height: 37px;">
+            <div class="input-group-btn">
+            <button class="btn btn-primary btn-icon" style="margin-left: 0;"><i class="fas fa-search"></i></button>
+            </div>
+          </div>
+        </form>
+        <a href="#" class="nav-link nav-link-lg">
+          <i class="material-icons">assignment_return</i>
+        </a>
+        <li class="dropdown dropdown-list-toggle">
+          <a href="#" class="nav-link nav-link-lg message-toggle" data-toggle="dropdown">
+            <i class="material-icons">language</i>
+            <span class="badge headerBadge1">{{ session['language'] }}</span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-lr dropdown-menu-right pullDown">
+            <a href="/language/en" class="dropdown-item">
+              <img src="{{ url_for('static', filename='commerce/main/images/us.svg') }}" style="width: 30px">
+              English language</a>
+            <div class="dropdown-divider"></div>
+            <a href="/language/tk" class="dropdown-item">
+              <img loading="lazy" src="{{ url_for('static', filename='commerce/main/images/tm.svg') }}" style="width: 30px">
+              Türkmen dili</a>
+            <div class="dropdown-divider"></div>
+            <a href="/language/ru" class="dropdown-item">
+              <img loading="lazy" src="{{ url_for('static', filename='commerce/main/images/ru.svg') }}" style="width: 30px">
+              Русский язык</a>
+          </div>
+        </li>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <figure class="avatar mr-2 avatar-xl">
+          <img src="{{ url_for('static', filename='commerce/main/images/avatars/jane.jpg')}}" alt="...">
+          <i class="avatar-presence online"></i>
+        </figure>
+        <figure class="avatar mr-2 avatar-xl">
+          <img src="{{ url_for('static', filename='commerce/main/images/avatars/janet.jpg')}}" alt="...">
+          <i class="avatar-presence online"></i>
+        </figure>
+        <figure class="avatar mr-2 avatar-xl">
+          <img src="{{ url_for('static', filename='commerce/main/images/avatars/marc.jpg')}}" alt="...">
+          <i class="avatar-presence online"></i>
+        </figure>
+        <figure class="avatar mr-2 avatar-xl">
+          <img src="{{ url_for('static', filename='commerce/main/images/avatars/elie.jpg')}}" alt="...">
+          <i class="avatar-presence online"></i>
+        </figure>
+        <figure class="avatar mr-2 avatar-xl">
+          <img src="{{ url_for('static', filename='commerce/main/images/avatars/john.jpg')}}" alt="...">
+          <i class="avatar-presence online"></i>
+        </figure>
+        <figure class="avatar mr-2 avatar-xl">
+          <img src="{{ url_for('static', filename='commerce/main/images/avatars/janet.jpg')}}" alt="...">
+          <i class="avatar-presence online"></i>
+        </figure>
+        <figure class="avatar mr-2 avatar-xl">
+          <img src="{{ url_for('static', filename='commerce/main/images/avatars/jane.jpg')}}" alt="...">
+          <i class="avatar-presence online"></i>
+        </figure>
+        <figure class="avatar mr-2 avatar-xl">
+          <img src="{{ url_for('static', filename='commerce/main/images/avatars/marc.jpg')}}" alt="...">
+          <i class="avatar-presence online"></i>
+        </figure>
+        <figure class="avatar mr-2 avatar-xl">
+          <img src="{{ url_for('static', filename='commerce/main/images/avatars/elie.jpg')}}" alt="...">
+          <i class="avatar-presence online"></i>
+        </figure>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Customers -->
+
+{% endblock %}
+
+{% block scripts %}
+<!-- Chart js -->
+  <script src="{{ url_for('static', filename='commerce/admin/bundles/chartjs/chart.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/admin/js/page/chart-chartjs.js')}}"></script>
+<!-- Chart js end -->
+  <script src="{{ url_for('static', filename='commerce/admin/js/app.min.js') }}"></script>
+  
+
+
+  <script src="{{ url_for('static', filename='commerce/admin/js/resource.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/admin/js/price.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/admin/js/translations.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/admin/js/images.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/admin/js/colors.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/admin/js/sizes.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/admin/js/propertiesMain.js') }}"></script>
+
+  <script>
+    
+    var numbers = document.getElementById('box');
+    for(i=0;i<100;i++){
+        var span = document.createElement('span');
+        span.textContent = i;
+        numbers.appendChild(span);
+    }
+        var num = numbers.getElementsByTagName('span')
+        var index = 0;
+
+        function nextNum(){
+            num[index].style.display = 'none';
+            index = (index + 1) % num.length;
+            num[index].style.display = 'initial';
+        }
+
+        function prevNum(){
+            num[index].style.display = 'none';
+            index = (index - 1 + num.length) % num.length;
+            num[index].style.display = 'initial';
+        }
+        
+  </script>
+{% endblock %}

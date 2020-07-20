@@ -101,6 +101,56 @@
                   <img class="card-bg" src="{{ url_for('static', filename='commerce/main/images/logo/nephos-greyscale.svg')}}" alt="">
                 </div>
               </div>
+              <div class="column is-2">
+                <h4>{{_('Status')}}</h4>
+                <div class="form-group">
+                  <div class="input-group">
+                    <select class="custom-select" id="inputGroupSelect04">
+                      {% if rp_acc.Rp_acc_status.RpAccStatusId == Null %}
+                        <option class="rpAccStatus" value="" ownerId="{{ rp_acc.RpAccId }}" selected>
+                          {{_('Select')}}...
+                        </option>
+                      {% endif %}
+                      {% for rp_acc_status in rp_acc_statuses %}
+                        <option class="rpAccStatus" value="{{ rp_acc_status.RpAccStatusId }}" ownerId="{{ rp_acc.RpAccId }}" {{ 'selected' if rp_acc_status.RpAccStatusId == rp_acc.Rp_acc_status.RpAccStatusId }}>
+                          {{ rp_acc_status.RpAccStatusName }}
+                        </option>
+                      {% endfor %}
+                    </select>
+                    <div class="input-group-append" style="margin-left: -5px;">
+                      <button class="btn btn-info setRpAccStatus" ownerId="{{ rp_acc.RpAccId }}"><i class="fas fa-check"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="column is-2">
+                <h4>{{_('Type')}}</h4>
+                <div class="form-group">
+                  <div class="input-group">
+                    <select class="custom-select" id="inputGroupSelect04">
+                      {% if rp_acc.Rp_acc_type.RpAccTypeId == Null %}
+                        <option class="rpAccType" value="" ownerId="{{ rp_acc.RpAccId }}" selected>
+                          {{_('Select')}}
+                        </option>
+                      {% endif %}
+                      {% for rp_acc_type in rp_acc_types %}
+                        <option class="rpAccType" value="{{ rp_acc_type.RpAccTypeId }}" ownerId="{{ rp_acc.RpAccId }}" 
+                          {{ 'selected' if rp_acc_type.RpAccTypeId == rp_acc.Rp_acc_type.RpAccTypeId }}>
+                          {{ rp_acc_type.RpAccTypeName }}
+                        </option>
+                      {% endfor %}
+                    </select>
+                    <div class="input-group-append" style="margin-left: -5px;">
+                      <button class="btn btn-info setRpAccType" ownerId="{{ rp_acc.RpAccId }}"><i class="fas fa-check"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="column is-2" style="text-align: right">
+                <button class="btn btn-icon btn-danger deleteCustomerBtn" ownerId="{{ rp_acc.RpAccId }}">
+                  {{_('Delete')}} <i class="fas fa-trash-alt"></i>
+                </button>
+              </div>
             </div>
           </div>
           <div class="tab-pane fade show active" id="orders" role="tabpanel">
@@ -157,4 +207,9 @@
     </div>
   </div>
 
+{% endblock %}
+
+{% block scripts %}
+  <script src="{{ url_for('static', filename='commerce/admin/js/users_customers_table.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/admin/js/ui_dynamicals.js') }}"></script>
 {% endblock %}
