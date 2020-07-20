@@ -198,3 +198,12 @@
 #box span:nth-child(1){
     display: initial;
 }
+
+.fa {
+    font-size: 25px;
+  }
+  
+  .checked {
+    color: orange;
+  }
+  
