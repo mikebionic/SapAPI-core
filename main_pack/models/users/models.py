@@ -121,7 +121,7 @@ class Rp_acc(AddInf,CreatedModifiedInfo,db.Model):
 	ReprId = db.Column(db.Integer,db.ForeignKey("tbl_dk_representative.ReprId"))
 	RpAccTypeId = db.Column(db.Integer,db.ForeignKey("tbl_dk_rp_acc_type.RpAccTypeId"))
 	WpId = db.Column(db.Integer,db.ForeignKey("tbl_dk_work_period.WpId"))
-	RpAccRegNo = db.Column(db.String(100),nullable=False)
+	RpAccRegNo = db.Column(db.String(100),nullable=False,unique=True)
 	RpAccUName = db.Column(db.String(60))
 	RpAccUPass = db.Column(db.String(60))
 	RpAccName = db.Column(db.String(255))

@@ -6,8 +6,10 @@ from main_pack.models.base.models import Warehouse
 from main_pack.api.commerce.utils import addWarehouseDict
 from main_pack import db
 from flask import current_app
+from main_pack.api.auth.api_login import sha_required
 
 @api.route("/tbl-dk-warehouses/",methods=['GET','POST'])
+@sha_required
 def api_warehouses():
 	if request.method == 'GET':
 		warehouses = Warehouse.query\

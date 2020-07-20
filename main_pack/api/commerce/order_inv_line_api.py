@@ -6,8 +6,10 @@ from main_pack.models.commerce.models import Order_inv_line
 from main_pack.api.commerce.utils import addOrderInvLineDict
 from main_pack import db
 from flask import current_app
+from main_pack.api.auth.api_login import sha_required
 
 @api.route("/tbl-dk-order-inv-lines/",methods=['GET','POST','PUT'])
+@sha_required
 def api_order_inv_lines():
 	if request.method == 'GET':
 		order_inv_lines = Order_inv_line.query\
@@ -35,24 +37,17 @@ def api_order_inv_lines():
 			for order_inv_line in req:
 				order_inv_line = addOrderInvLineDict(order_inv_line)
 				try:
-					if not 'OInvLineId' in order_inv_line:
+					OInvLineId = order_inv_line['OInvLineId']
+					thisOrderInv = Order_inv_line.query.get(int(OInvLineId))
+					if thisOrderInv:
+						thisOrderInv.update(**order_inv_line)
+						db.session.commit()
+						order_inv_lines.append(order_inv_line)
+					else:
 						newOrderInv = Order_inv_line(**order_inv_line)
 						db.session.add(newOrderInv)
 						db.session.commit()
 						order_inv_lines.append(order_inv_line)
-					else:
-						OInvLineId = order_inv_line['OInvLineId']
-						thisOrderInv = Order_inv_line.query.get(int(OInvLineId))
-						if thisOrderInv is not None:
-							thisOrderInv.update(**order_inv_line)
-							db.session.commit()
-							order_inv_lines.append(order_inv_line)
-
-						else:
-							newOrderInv = Order_inv_line(**order_inv_line)
-							db.session.add(newOrderInv)
-							db.session.commit()
-							order_inv_lines.append(order_inv_line)
 				except:
 					failed_order_inv_lines.append(order_inv_line)
 

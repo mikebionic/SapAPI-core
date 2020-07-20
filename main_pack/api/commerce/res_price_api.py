@@ -6,9 +6,11 @@ from main_pack.models.commerce.models import Res_price
 from main_pack.api.commerce.utils import addResPriceDict
 from main_pack import db
 from flask import current_app
+from main_pack.api.auth.api_login import sha_required
 
 
 @api.route("/tbl-dk-res-prices/",methods=['GET','POST','PUT'])
+@sha_required
 def api_res_prices():
 	if request.method == 'GET':
 		res_prices = Res_price.query\

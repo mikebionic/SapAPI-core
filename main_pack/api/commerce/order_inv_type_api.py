@@ -6,9 +6,11 @@ from main_pack.models.commerce.models import Order_inv_type
 from main_pack.api.commerce.utils import addOrderInvTypeDict
 from main_pack import db
 from flask import current_app
+from main_pack.api.auth.api_login import sha_required
 
 
-@api.route("/tbl-dk-order-inv-types/",methods=['GET','POST','PUT'])
+@api.route("/tbl-dk-order-inv-types/",methods=['GET','POST'])
+@sha_required
 def api_order_inv_types():
 	if request.method == 'GET':
 		order_inv_types = Order_inv_type.query\

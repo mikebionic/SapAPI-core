@@ -2,6 +2,7 @@ import sys
 
 class Config:
 	SECRET_KEY = 'jbvfr84iojnbv7oi-02933jndudm094jfo+_OygcuHUH'
+	SYNCH_SHA = 'secret'
 	# SQLALCHEMY_DATABASE_URI = 'sqlite:///commerce.db'
 
 	POSTGRES = {

@@ -7,32 +7,21 @@ from main_pack.models.commerce.models import Res_category
 from main_pack.api.commerce.utils import addCategoryDict
 from main_pack import db
 from flask import current_app
+from main_pack.api.auth.api_login import sha_required
 
-@api.route("/tbl-dk-categories/<int:id>/",methods=['GET','PUT'])
-def api_category(id):
+@api.route("/tbl-dk-categories/<int:ResCatId>/",methods=['GET'])
+def api_category(ResCatId):
 	if request.method == 'GET':
-		category = Res_category.query.get(id)
+		category = Res_category.query.get(ResCatId)
 		response = jsonify({'category':category.to_json_api()})
 		res = {
 			"status":1,
 			"data":category.to_json_api()
 		}
 		response = make_response(jsonify(res),200)
-
-	elif request.method == 'PUT':
-		category = Res_category.query.get(id)
-		updateCategory = addCategoryDict(req)
-		category.update(**category)
-		res = {
-			"status":1,
-			"message":"Category updated",
-			"data":category.to_json_api(),
-		}
-		response = make_response(jsonify(res),200)
 	return response
 
-
-@api.route("/tbl-dk-categories/",methods=['GET','POST','PUT'])
+@api.route("/tbl-dk-categories/",methods=['GET'])
 def api_categories():
 	if request.method == 'GET':
 		categories = Res_category.query\
@@ -44,9 +33,12 @@ def api_categories():
 			"total":len(categories)
 		}
 		response = make_response(jsonify(res),200)
-		
-
-	elif request.method == 'POST':
+	return response
+	
+@api.route("/tbl-dk-categories/",methods=['POST'])
+@sha_required
+def api_post_categories():
+	if request.method == 'POST':
 		if not request.json:
 			res = {
 				"status":0,
@@ -79,74 +71,74 @@ def api_categories():
 				res[e]=status[e]
 			response = make_response(jsonify(res),200)
 
-	elif request.method == 'PUT':
-		if not request.json:
-			res = {
-				"status": 0,
-				"message": "Error. Not a JSON data."
-			}
-		else:
-			req = request.get_json()
-			categories = []
-			failed_categories = [] 
-			for category in req:
-				category = addCategoryDict(category)
-				try:
-					ResCatId = category['ResCatId']
-					thisCategory = Res_category.query.get(ResCatId)
-					thisCategory.update(**category)
-					thisCategory.modifiedInfo(UId=1)
-					db.session.commit()
+	# elif request.method == 'PUT':
+	# 	if not request.json:
+	# 		res = {
+	# 			"status": 0,
+	# 			"message": "Error. Not a JSON data."
+	# 		}
+	# 	else:
+	# 		req = request.get_json()
+	# 		categories = []
+	# 		failed_categories = [] 
+	# 		for category in req:
+	# 			category = addCategoryDict(category)
+	# 			try:
+	# 				ResCatId = category['ResCatId']
+	# 				thisCategory = Res_category.query.get(ResCatId)
+	# 				thisCategory.update(**category)
+	# 				thisCategory.modifiedInfo(UId=1)
+	# 				db.session.commit()
 
-					categories.append(category)
-				except:
-					failed_categories.append(category)
+	# 				categories.append(category)
+	# 			except:
+	# 				failed_categories.append(category)
 			
-			status = checkApiResponseStatus(categories,failed_categories)
-			res = {
-				"data":categories,
-				"fails":failed_categories,
-				"success_total":len(categories),
-				"fail_total":len(failed_categories)
-			}
-			for e in status:
-				res[e]=status[e]
-			response = make_response(jsonify(res),200)
+	# 		status = checkApiResponseStatus(categories,failed_categories)
+	# 		res = {
+	# 			"data":categories,
+	# 			"fails":failed_categories,
+	# 			"success_total":len(categories),
+	# 			"fail_total":len(failed_categories)
+	# 		}
+	# 		for e in status:
+	# 			res[e]=status[e]
+	# 		response = make_response(jsonify(res),200)
 
-	elif request.method == 'DELETE':
-		if not request.json:
-			res = {
-				"status":0,
-				"message":"Error. Not a JSON data."
-			}
-			response = make_response(jsonify(res),400)
+	# elif request.method == 'DELETE':
+	# 	if not request.json:
+	# 		res = {
+	# 			"status":0,
+	# 			"message":"Error. Not a JSON data."
+	# 		}
+	# 		response = make_response(jsonify(res),400)
 
-		else:
-			req = request.get_json()
-			categories = []
-			failed_categories = []
-			for category in req:
-				category = addCategoryDict(category)
-				try:
-					ResCatId = category['ResCatId']
-					thisCategory = Res_category.query.get(ResCatId)
-					thisCategory.GCRecord = int(datetime.now().strftime("%H"))
-					thisCategory.modifiedInfo(UId=1)
-					db.session.commit()
-					categories.append(category)
-				except:
-					failed_categories.append(category)
+	# 	else:
+	# 		req = request.get_json()
+	# 		categories = []
+	# 		failed_categories = []
+	# 		for category in req:
+	# 			category = addCategoryDict(category)
+	# 			try:
+	# 				ResCatId = category['ResCatId']
+	# 				thisCategory = Res_category.query.get(ResCatId)
+	# 				thisCategory.GCRecord = int(datetime.now().strftime("%H"))
+	# 				thisCategory.modifiedInfo(UId=1)
+	# 				db.session.commit()
+	# 				categories.append(category)
+	# 			except:
+	# 				failed_categories.append(category)
 			
-			status = checkApiResponseStatus(categories,failed_categories)
-			res = {
-				"data":categories,
-				"fails":failed_categories,
-				"success_total":len(categories),
-				"fail_total":len(failed_categories)
-			}
-			for e in status:
-				res[e]=status[e]
-			response = make_response(jsonify(res),200)
+	# 		status = checkApiResponseStatus(categories,failed_categories)
+	# 		res = {
+	# 			"data":categories,
+	# 			"fails":failed_categories,
+	# 			"success_total":len(categories),
+	# 			"fail_total":len(failed_categories)
+	# 		}
+	# 		for e in status:
+	# 			res[e]=status[e]
+	# 		response = make_response(jsonify(res),200)
 	
 	return response
 

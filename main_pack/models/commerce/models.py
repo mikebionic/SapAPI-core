@@ -549,7 +549,7 @@ class Order_inv(AddInf,CreatedModifiedInfo,db.Model):
 	WhId = db.Column(db.Integer,db.ForeignKey("tbl_dk_warehouse.WhId"))
 	WpId = db.Column(db.Integer,db.ForeignKey("tbl_dk_work_period.WpId"))
 	EmpId = db.Column(db.Integer,db.ForeignKey("tbl_dk_employee.EmpId"))
-	OInvRegNo = db.Column(db.String(100),nullable=False)
+	OInvRegNo = db.Column(db.String(100),nullable=False,unique=True)
 	OInvDesc = db.Column(db.String(500))
 	OInvDate = db.Column(db.DateTime,default=datetime.now)
 	OInvTotal = db.Column(db.Float,default=0)
