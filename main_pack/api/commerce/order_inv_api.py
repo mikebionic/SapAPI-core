@@ -57,12 +57,28 @@ def api_order_invoices():
 			req = request.get_json()
 			order_invoices = []
 			failed_order_invoices = [] 
-			for data in req['data']:
+			for data in req:
 				order_invoice = addOrderInvDict(data)
 				try:
 					OInvRegNo = order_invoice['OInvRegNo']
 					thisOrderInv = Order_inv.query\
 						.filter(Order_inv.OInvRegNo==OInvRegNo).first()
+
+					print (data['RpAccId'])
+					# getting correct rp_acc of a database
+					try:
+						RpAccRegNo = data['Rp_acc']['RpAccRegNo']
+						RpAccName = data['Rp_acc']['RpAccName']
+						rp_acc = Rp_acc.query\
+							.filter(Rp_acc.RpAccRegNo==RpAccRegNo and Rp_acc.RpAccName==RpAccName)\
+							.first()
+						if rp_acc:
+							print("account exists with id "+str(rp_acc.RpAccId))
+							order_invoice['RpAccId'] = rp_acc.RpAccId
+					except:
+						print("Rp_acc not provided")
+
+
 					if thisOrderInv:
 						thisOrderInv.update(**order_invoice)
 						db.session.commit()
@@ -75,21 +91,22 @@ def api_order_invoices():
 
 					order_inv_lines = []
 					failed_order_inv_lines = []
-					print(data['Order_inv_lines'])
 					for order_inv_line in data['Order_inv_lines']:
 						order_inv_line = addOrderInvLineDict(order_inv_line)
 						try:
 							OInvLineId = order_inv_line['OInvLineId']
-							thisOrderInv = Order_inv_line.query.get(int(OInvLineId))
-							if thisOrderInv:
-								thisOrderInv.update(**order_inv_line)
+							thisOrderInvLine = Order_inv_line.query.get(int(OInvLineId))
+							if thisOrderInvLine:
+								thisOrderInvLine.update(**order_inv_line)
 								db.session.commit()
 								order_inv_lines.append(order_inv_line)
+								print('order inv line updated')
 							else:
-								newOrderInv = Order_inv_line(**order_inv_line)
-								db.session.add(newOrderInv)
+								newOrderInvLine = Order_inv_line(**order_inv_line)
+								db.session.add(newOrderInvLine)
 								db.session.commit()
 								order_inv_lines.append(order_inv_line)
+								print('order inv line created')
 						except:
 							failed_order_inv_lines.append(order_inv_line)
 
