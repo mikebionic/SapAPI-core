@@ -199,7 +199,7 @@ def apiRpAccData(RpAccRegNo):
 	rpAccInfo["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=List_Images[0]['FileName']) if List_Images else ''
 	rpAccInfo["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_Images[0]['FileName']) if List_Images else ''
 	rpAccInfo['Images'] = List_Images
-	rpAccInfo["Users"] = List_Users[0] if List_Users else ''
+	rpAccInfo["User"] = List_Users[0] if List_Users else ''
 
 	# data.append(rpAccInfo)
 	#############
