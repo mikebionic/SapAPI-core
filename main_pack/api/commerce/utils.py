@@ -271,7 +271,7 @@ def addResPriceDict(req):
 	CreatedDate = req.get('CreatedDate')
 	ModifiedDate = req.get('ModifiedDate')
 	CreatedUId = req.get('CreatedUId')
-	ModifiedUId = req.get('ModifiedUId')	
+	ModifiedUId = req.get('ModifiedUId')
 	GCRecord = req.get('GCRecord')
 
 	res_price = {
@@ -332,7 +332,7 @@ def addResTotalDict(req):
 		'ModifiedUId':ModifiedUId,
 		'GCRecord':GCRecord
 	}
-	
+
 	if(ResTotId != '' and ResTotId != None):
 		res_total['ResTotId']=ResTotId
 	res_total=configureNulls(res_total)
@@ -366,7 +366,7 @@ def addRpAccTrTotDict(req):
 		'ModifiedUId':ModifiedUId,
 		'GCRecord':GCRecord
 	}
-	
+
 	if(RpAccTrTotId != '' and RpAccTrTotId != None):
 		rp_acc_trans_total['RpAccTrTotId']=RpAccTrTotId
 	rp_acc_trans_total=configureNulls(rp_acc_trans_total)
@@ -445,8 +445,8 @@ def addOrderInvDict(req):
 		'GCRecord':GCRecord
 		}
 
-	if(OInvId != '' and OInvId != None):
-		order_inv['OInvId']=OInvId
+	#if(OInvId != '' and OInvId != None):
+	#	order_inv['OInvId']=OInvId
 	order_inv=configureNulls(order_inv)
 	return order_inv
 
@@ -476,10 +476,10 @@ def addOrderInvLineDict(req):
 	ModifiedDate = req.get('ModifiedDate')
 	CreatedUId = req.get('CreatedUId')
 	ModifiedUId = req.get('ModifiedUId')
-	GCRecord = req.get('GCRecord')		
+	GCRecord = req.get('GCRecord')
 
 	order_inv_line = {
-		'OInvId':OInvId,
+		#'OInvId':OInvId,
 		'UnitId':UnitId,
 		'CurrencyId':CurrencyId,
 		'ResId':ResId,
