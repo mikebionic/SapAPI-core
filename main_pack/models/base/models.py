@@ -103,7 +103,7 @@ class Bank(AddInf,CreatedModifiedInfo,db.Model):
 	Accounting_info = db.relationship('Accounting_info',backref='bank',lazy=True)
 	Contact = db.relationship('Contact',backref='bank',lazy=True)
 	Location = db.relationship('Location',backref='bank',lazy=True)
-	
+
 class City(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_city"
 	CityId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -320,10 +320,7 @@ class Image(CreatedModifiedInfo,db.Model):
 	RpAccId = db.Column(db.Integer,db.ForeignKey("tbl_dk_rp_acc.RpAccId"))
 	ResId = db.Column(db.Integer,db.ForeignKey("tbl_dk_resource.ResId"))
 	FileName = db.Column(db.String(100))
-	FilePath = db.Column(db.String(255))
-	FilePathS = db.Column(db.String(255))
-	FilePathM = db.Column(db.String(255))
-	FilePathR = db.Column(db.String(255))	
+	FilePath = db.Column(db.String(255))	
 	FileHash = db.Column(db.String(100))
 	Image = db.Column(db.LargeBinary)
 
@@ -460,7 +457,7 @@ class Report_file(CreatedModifiedInfo,db.Model):
 	RpFileDesc = db.Column(db.String(100))
 	RpFileFileName = db.Column(db.String(100))
 	RpIsDefault = db.Column(db.Boolean,default=False)
-	
+
 ### new models ###
 
 class Rp_acc_price_list(CreatedModifiedInfo,db.Model):
@@ -513,7 +510,7 @@ class Sl_image(AddInf,CreatedModifiedInfo,db.Model):
 			'SlImgSubImageFileName3':self.SlImgSubImageFileName3,
 			'SlImgSubImageFileName4':self.SlImgSubImageFileName4,
 			'SlImgSubImageFileName5':self.SlImgSubImageFileName5,
-			'SlImgStartDate':self.SlImgStartDate,			
+			'SlImgStartDate':self.SlImgStartDate,
 			'SlImgEndDate':self.SlImgEndDate,
 			'AddInf1':self.AddInf1,
 			'AddInf2':self.AddInf2,

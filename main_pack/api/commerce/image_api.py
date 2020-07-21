@@ -37,38 +37,38 @@ def api_images():
 			failed_images = []
 			for image in req:
 				imageDictData = addImageDict(image)
-				try:
-					if not 'ImgId' in imageDictData:
+				# try:
+				if not 'ImgId' in imageDictData:
+					image = saveImageFile(image)
+					newImage = Image(**image)
+					db.session.add(newImage)
+					db.session.commit()
+					print('added cuz no ImageId provided')
+					images.append(image)
+				else:
+					ImgId = imageDictData['ImgId']
+					thisImage = Image.query.get(int(ImgId))
+
+					updatingDate = dateutil.parser.parse(imageDictData['ModifiedDate'])
+					if thisImage is not None:
+						print("image is not none")
+						if thisImage.ModifiedDate!=updatingDate:
+							print('updated cuz different ModifiedDate')
+							image = saveImageFile(image)
+							thisImage.update(**image)
+							db.session.commit()
+							images.append(image)
+						else:
+							print("same modified date")
+					else:
 						image = saveImageFile(image)
 						newImage = Image(**image)
 						db.session.add(newImage)
 						db.session.commit()
-						print('added cuz no ImageId provided')
+						print('added image was none')
 						images.append(image)
-					else:
-						ImgId = imageDictData['ImgId']
-						thisImage = Image.query.get(int(ImgId))
-						
-						updatingDate = dateutil.parser.parse(imageDictData['ModifiedDate'])
-						if thisImage is not None:
-							print("image is not none")
-							if thisImage.ModifiedDate!=updatingDate:
-								print('updated cuz different ModifiedDate')
-								image = saveImageFile(image)
-								thisImage.update(**image)
-								db.session.commit()
-								images.append(image)
-							else:
-								print("same modified date")
-						else:
-							image = saveImageFile(image)
-							newImage = Image(**image)
-							db.session.add(newImage)
-							db.session.commit()
-							print('added image was none')
-							images.append(image)
-				except:
-					failed_images.append(image)
+				# except:
+				# 	failed_images.append(image)
 
 			status = checkApiResponseStatus(images,failed_images)
 			res = {
