@@ -19,9 +19,9 @@
               {% endif %}
             </div>
             <div class="info">
-              <b class="categories">{{ '' if resource.ResName==None else resource.ResName}}</b>
+              <b class="categories">{{ resource.ResName if resource.ResName else '' }}</b>
               <h4 class="product-title"><a href="{{ url_for('commerce.product',resId=resource.ResId)}}" class="pr-name">{{'' if resource.ResDesc==None else resource.ResDesc}}</a></h4>
-              <p class="excerpt">{{'' if resource.ResFullDesc==None else resource.ResFullDesc[0:80]+'...'}}</p>
+              <p class="excerpt">{{ resource.ResFullDesc[0:80]+'...' if resource.ResFullDesc else '' }}</p>
               <div class="price">
                 <ins>
                   <span class="price-amount">
@@ -33,7 +33,7 @@
               <div class="buttons">
                 <button class="btn wishlist-btn"><i class="fa fa-heart" aria-hidden="true"></i></button>
                 <button class="btn add-to-cart-btn addToCart" ownerId="{{resource.ResId}}">{{_('Add to cart')}}</button>
-                <button class="btn add-to-cart-btn removeFromCart" ownerId="{{resource.ResId}}" style="display: none;">{{_('Remove')}}</button>
+                <button class="btn add-to-cart-btn removeFromCart" ownerId="{{resource.ResId}}" style="display: none;">{{_('Remove from cart')}}</button>
               </div>
             </div>
             <div class="advance-info">

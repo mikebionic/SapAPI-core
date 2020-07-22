@@ -48,16 +48,11 @@ def api_res_prices():
 						ResPriceId = res_price['ResPriceId']
 						thisResPrice = Res_price.query.get(int(ResPriceId))
 						if thisResPrice is not None:
-							print("update")
-							# check for presenting in database
 							thisResPrice.update(**res_price)
-							# thisResPrice.modifiedInfo(UId=1)
 							db.session.commit()
 							res_prices.append(res_price)
 
 						else:
-							print("hasIDbutInsert")
-							# create new res_price
 							newResPrice = Res_price(**res_price)
 							db.session.add(newResPrice)
 							db.session.commit()

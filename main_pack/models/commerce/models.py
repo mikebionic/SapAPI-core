@@ -27,7 +27,7 @@ class Barcode(CreatedModifiedInfo,db.Model):
 			'resId':self.ResId,
 			'unitId':self.UnitId,
 			'barcodeVal':self.BarcodeVal
-			}
+		}
 		return json_barcode
 
 	def to_json_api(self):
@@ -43,7 +43,7 @@ class Barcode(CreatedModifiedInfo,db.Model):
 			'CreatedUId':self.CreatedUId,
 			'ModifiedUId':self.ModifiedUId,
 			'GCRecord':self.GCRecord
-			}
+		}
 		return json_barcode
 
 class Brand(AddInf,CreatedModifiedInfo,db.Model):
@@ -64,7 +64,7 @@ class Brand(AddInf,CreatedModifiedInfo,db.Model):
 			'brandId':self.BrandId,
 			'brandName':self.BrandName,
 			'brandDesc':self.BrandDesc
-			}
+		}
 		return json_brand
 
 	def to_json_api(self):
@@ -77,7 +77,7 @@ class Brand(AddInf,CreatedModifiedInfo,db.Model):
 			'CreatedUId':self.CreatedUId,
 			'ModifiedUId':self.ModifiedUId,
 			'GCRecord':self.GCRecord
-			}
+		}
 		return json_barcode
 
 class Color(CreatedModifiedInfo,db.Model):
@@ -100,7 +100,7 @@ class Color(CreatedModifiedInfo,db.Model):
 			'colorName':self.ColorName,
 			'colorDesc':self.ColorDesc,
 			'colorCode':self.ColorCode
-			}
+		}
 		return json_color
 
 	def to_json_api(self):
@@ -113,7 +113,7 @@ class Color(CreatedModifiedInfo,db.Model):
 			'CreatedUId':self.CreatedUId,
 			'ModifiedUId':self.ModifiedUId,
 			'GCRecord':self.GCRecord
-			}
+		}
 		return json_color
 
 class Size(AddInf,CreatedModifiedInfo,db.Model):
@@ -136,7 +136,7 @@ class Size(AddInf,CreatedModifiedInfo,db.Model):
 			'sizeName':self.SizeName,
 			'sizeDesc':self.SizeDesc,
 			'sizeTypeId':self.SizeTypeId
-			}
+		}
 		return json_size
 
 	def to_json_api(self):
@@ -149,7 +149,7 @@ class Size(AddInf,CreatedModifiedInfo,db.Model):
 			'CreatedUId':self.CreatedUId,
 			'ModifiedUId':self.ModifiedUId,
 			'GCRecord':self.GCRecord
-			}
+		}
 		return json_size
 
 
@@ -171,7 +171,7 @@ class Size_type(CreatedModifiedInfo,db.Model):
 			'sizeTypeId':self.SizeTypeId,
 			'sizeTypeName':self.SizeTypeName,
 			'sizeTypeDesc':self.SizeTypeDesc
-			}
+		}
 		return json_size_type
 
 	def to_json_api(self):
@@ -183,7 +183,7 @@ class Size_type(CreatedModifiedInfo,db.Model):
 			'CreatedUId':self.CreatedUId,
 			'ModifiedUId':self.ModifiedUId,
 			'GCRecord':self.GCRecord
-			}
+		}
 		return json_size_type
 
 class Unit(CreatedModifiedInfo,db.Model):
@@ -219,7 +219,7 @@ class Unit(CreatedModifiedInfo,db.Model):
 			'CreatedUId':self.CreatedUId,
 			'ModifiedUId':self.ModifiedUId,
 			'GCRecord':self.GCRecord
-			}
+		}
 		return json_unit
 
 class Usage_status(CreatedModifiedInfo,db.Model):
@@ -247,7 +247,7 @@ class Usage_status(CreatedModifiedInfo,db.Model):
 			'CreatedUId':self.CreatedUId,
 			'ModifiedUId':self.ModifiedUId,
 			'GCRecord':self.GCRecord
-			}
+		}
 		return json_usage_status
 
 
@@ -336,7 +336,7 @@ class Inv_line(AddInf,CreatedModifiedInfo,db.Model):
 			'CreatedUId':self.CreatedUId,
 			'ModifiedUId':self.ModifiedUId,
 			'GCRecord':self.GCRecord
-			}
+		}
 		return inv_line
 
 class Inv_line_det(CreatedModifiedInfo,db.Model):
@@ -373,7 +373,7 @@ class Inv_line_det(CreatedModifiedInfo,db.Model):
 			'CreatedUId':self.CreatedUId,
 			'ModifiedUId':self.ModifiedUId,
 			'GCRecord':self.GCRecord
-			}
+		}
 		return inv_line_det
 
 
@@ -402,7 +402,7 @@ class Inv_line_det_type(CreatedModifiedInfo,db.Model):
 			'CreatedUId':self.CreatedUId,
 			'ModifiedUId':self.ModifiedUId,
 			'GCRecord':self.GCRecord
-			}
+		}
 		return inv_line_det_type
 
 
@@ -433,7 +433,7 @@ class Inv_status(CreatedModifiedInfo,db.Model):
 			'CreatedUId':self.CreatedUId,
 			'ModifiedUId':self.ModifiedUId,
 			'GCRecord':self.GCRecord
-			}
+		}
 		return inv_status
 
 class Inv_type(CreatedModifiedInfo,db.Model):
@@ -461,7 +461,7 @@ class Inv_type(CreatedModifiedInfo,db.Model):
 			'CreatedUId':self.CreatedUId,
 			'ModifiedUId':self.ModifiedUId,
 			'GCRecord':self.GCRecord
-			}
+		}
 		return inv_type
 
 class Invoice(AddInf,CreatedModifiedInfo,db.Model):
@@ -534,7 +534,7 @@ class Invoice(AddInf,CreatedModifiedInfo,db.Model):
 			'CreatedUId':self.CreatedUId,
 			'ModifiedUId':self.ModifiedUId,
 			'GCRecord':self.GCRecord
-			}
+		}
 		return invoice
 
 class Order_inv(AddInf,CreatedModifiedInfo,db.Model):
@@ -606,7 +606,7 @@ class Order_inv(AddInf,CreatedModifiedInfo,db.Model):
 			'CreatedUId':self.CreatedUId,
 			'ModifiedUId':self.ModifiedUId,
 			'GCRecord':self.GCRecord
-			}
+		}
 		return order_inv
 
 
@@ -662,7 +662,7 @@ class Order_inv_line(AddInf,CreatedModifiedInfo,db.Model):
 			'CreatedUId':self.CreatedUId,
 			'ModifiedUId':self.ModifiedUId,
 			'GCRecord':self.GCRecord
-			}
+		}
 		return order_inv_line
 
 class Order_inv_type(CreatedModifiedInfo,db.Model):
@@ -696,7 +696,7 @@ class Order_inv_type(CreatedModifiedInfo,db.Model):
 			'CreatedUId':self.CreatedUId,
 			'ModifiedUId':self.ModifiedUId,
 			'GCRecord':self.GCRecord
-			}
+		}
 		return json_order_inv_type
 
 class Representative(AddInf,CreatedModifiedInfo,db.Model):
@@ -723,6 +723,49 @@ class Representative(AddInf,CreatedModifiedInfo,db.Model):
 	ModifiedUId = db.Column(db.Integer,default=0)
 	MyProperty = db.Column(db.Integer)
 	Rp_acc = db.relationship('Rp_acc',backref='representative',foreign_keys='Rp_acc.ReprId',lazy='dynamic')
+
+	def update(self, **kwargs):
+		for key, value in kwargs.items():
+			if value is not None:
+				if hasattr(self, key):
+					setattr(self, key, value)
+
+	def to_json_api(self):
+		json_representative={
+			'ReprId':self.ReprId,
+			'ReprStatusId':self.ReprStatusId,
+			'CId':self.CId,
+			'DivId':self.DivId,
+			'RpAccId':self.RpAccId,
+			'GenderId':self.GenderId,
+			'ReprRegNo':self.ReprRegNo,
+			'ReprName':self.ReprName,
+			'ReprDesc':self.ReprDesc,
+			'ReprProfession':self.ReprProfession,
+			'ReprMobilePhoneNumber':self.ReprMobilePhoneNumber,
+			'ReprHomePhoneNumber':self.ReprHomePhoneNumber,
+			'ReprWorkPhoneNumber':self.ReprWorkPhoneNumber,
+			'ReprWorkFaxNumber':self.ReprWorkFaxNumber,
+			'ReprZipCode':self.ReprZipCode,
+			'ReprEMail':self.ReprEMail,
+			'CreatedDate':self.CreatedDate,
+			'ModifiedDate':self.ModifiedDate,
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'MyProperty':self.MyProperty,
+			'AddInf1':self.AddInf1,
+			'AddInf2':self.AddInf2,
+			'AddInf3':self.AddInf3,
+			'AddInf4':self.AddInf4,
+			'AddInf5':self.AddInf5,
+			'AddInf6':self.AddInf6,
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
+		}
+		return json_representative
 
 class Resource(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_resource"
@@ -813,7 +856,7 @@ class Resource(AddInf,CreatedModifiedInfo,db.Model):
 			'resourceMaxSaleAmount':self.ResMaxSaleAmount,
 			'resourceMinSalePrice':self.ResMinSalePrice,
 			'resourceMaxSalePrice':self.ResMaxSalePrice
-			}
+		}
 		return json_resource
 
 	def to_json_api(self):
@@ -853,7 +896,7 @@ class Resource(AddInf,CreatedModifiedInfo,db.Model):
 			'CreatedUId':self.CreatedUId,
 			'ModifiedUId':self.ModifiedUId,
 			'GCRecord':self.GCRecord
-			}
+		}
 		return json_resource
 
 
@@ -878,7 +921,7 @@ class Res_category(CreatedModifiedInfo,db.Model):
 			'categoryName':self.ResCatName,
 			'categoryDesc':self.ResCatDesc,
 			'categoryIcon':self.ResCatIconName
-			}
+		}
 		return json_category
 
 	def to_json_api(self):
@@ -894,7 +937,7 @@ class Res_category(CreatedModifiedInfo,db.Model):
 			'CreatedUId':self.CreatedUId,
 			'ModifiedUId':self.ModifiedUId,
 			'GCRecord':self.GCRecord
-			}
+		}
 		return json_category
 
 class Res_maker(AddInf,CreatedModifiedInfo,db.Model):
@@ -907,6 +950,35 @@ class Res_maker(AddInf,CreatedModifiedInfo,db.Model):
 	ResMakerPhone1 = db.Column(db.String(100))
 	ResMakerPhone2 = db.Column(db.String(100))
 	Resource = db.relationship('Resource',backref='res_maker',lazy=True)
+
+	def update(self, **kwargs):
+		for key, value in kwargs.items():
+			if value is not None:
+				if hasattr(self, key):
+					setattr(self, key, value)
+
+	def to_json_api(self):
+		json_res_maker={
+			'ResMakerId':self.ResMakerId,
+			'ResMakerName':self.ResMakerName,
+			'ResMakerDesc':self.ResMakerDesc,
+			'ResMakerSite':self.ResMakerSite,
+			'ResMakerMail':self.ResMakerMail,
+			'ResMakerPhone1':self.ResMakerPhone1,
+			'ResMakerPhone2':self.ResMakerPhone2,
+			'AddInf1':self.AddInf1,
+			'AddInf2':self.AddInf2,
+			'AddInf3':self.AddInf3,
+			'AddInf4':self.AddInf4,
+			'AddInf5':self.AddInf5,
+			'AddInf6':self.AddInf6,
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
+		}
+		return json_res_maker
 
 
 ###  added before #####
@@ -926,7 +998,7 @@ class Res_color(CreatedModifiedInfo,db.Model):
 			'rcId':self.RcId,
 			'resId':self.ResId,
 			'colorId':self.ColorId
-			}
+		}
 		return json_res_color
 
 class Res_size(CreatedModifiedInfo,db.Model):
@@ -945,7 +1017,7 @@ class Res_size(CreatedModifiedInfo,db.Model):
 			'rsId':self.RsId,
 			'resId':self.ResId,
 			'sizeId':self.SizeId
-			}
+		}
 		return json_res_size
 
 ####################
@@ -968,6 +1040,42 @@ class Res_discount(AddInf,CreatedModifiedInfo,db.Model):
 	GiftResAmount = db.Column(db.Float,default=0)
 	GiftResDiscValue = db.Column(db.Float,default=0)
 	Sale_card = db.relationship('Sale_card',backref='res_discount',foreign_keys='Sale_card.ResDiscId',lazy=True)
+
+	def update(self, **kwargs):
+		for key, value in kwargs.items():
+			if value is not None:
+				if hasattr(self, key):
+					setattr(self, key, value)
+
+	def to_json_api(self):
+		json_res_discount={
+			'ResDiscId':self.ResDiscId,
+			'SaleCardId':self.SaleCardId,
+			'ResDiscRegNo':self.ResDiscRegNo,
+			'SaleResId':self.SaleResId,
+			'SaleResAmount':self.SaleResAmount,
+			'DiscTypeId':self.DiscTypeId,
+			'DiscValue':self.DiscValue,
+			'DiscDesc':self.DiscDesc,
+			'ResDiscStartDate':self.ResDiscStartDate,
+			'ResDiscEndDate':self.ResDiscEndDate,
+			'ResDiscIsActive':self.ResDiscIsActive,
+			'GiftResId':self.GiftResId,
+			'GiftResAmount':self.GiftResAmount,
+			'GiftResDiscValue':self.GiftResDiscValue,
+			'AddInf1':self.AddInf1,
+			'AddInf2':self.AddInf2,
+			'AddInf3':self.AddInf3,
+			'AddInf4':self.AddInf4,
+			'AddInf5':self.AddInf5,
+			'AddInf6':self.AddInf6,
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
+		}
+		return json_res_discount
 
 class Res_price(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_res_price"
@@ -1000,7 +1108,7 @@ class Res_price(CreatedModifiedInfo,db.Model):
 			'resPriceValue':self.ResPriceValue,
 			'priceStartDate':apiDataFormat(self.PriceStartDate),
 			'priceEndDate':self.PriceEndDate
-			}
+		}
 		return json_res_price
 
 	def to_json_api(self):
@@ -1020,7 +1128,7 @@ class Res_price(CreatedModifiedInfo,db.Model):
 			'CreatedUId':self.CreatedUId,
 			'ModifiedUId':self.ModifiedUId,
 			'GCRecord':self.GCRecord
-			}
+		}
 		return json_res_price
 
 class Res_price_group(CreatedModifiedInfo,db.Model):
@@ -1037,6 +1145,31 @@ class Res_price_group(CreatedModifiedInfo,db.Model):
 	Res_price = db.relationship('Res_price',backref='res_price_group',lazy=True)
 	Sale_card = db.relationship('Sale_card',backref='res_price_group',lazy=True)
 
+	def update(self, **kwargs):
+		for key, value in kwargs.items():
+			if value is not None:
+				if hasattr(self, key):
+					setattr(self, key, value)
+
+	def to_json_api(self):
+		json_res_price_group={
+			'ResPriceGroupId':self.ResPriceGroupId,
+			'UsageStatusId':self.UsageStatusId,
+			'ResPriceGroupName':self.ResPriceGroupName,
+			'ResPriceGroupDesc':self.ResPriceGroupDesc,
+			'ResPriceGroupAMEnabled':self.ResPriceGroupAMEnabled,
+			'FromResPriceTypeId':self.FromResPriceTypeId,
+			'ToResPriceTypeId':self.ToResPriceTypeId,
+			'ResPriceGroupAMPerc':self.ResPriceGroupAMPerc,
+			'RoundingType':self.RoundingType,
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
+		}
+		return json_res_price_group
+
 class Res_price_type(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_res_price_type"
 	ResPriceTypeId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -1051,6 +1184,29 @@ class Res_price_type(AddInf,CreatedModifiedInfo,db.Model):
 	Res_price_group = db.relationship('Res_price_group',foreign_keys='Res_price_group.FromResPriceTypeId',backref='res_price_type',lazy=True)
 	Res_price_group = db.relationship('Res_price_group',foreign_keys='Res_price_group.ToResPriceTypeId',backref='res_price_type',lazy=True)
 	Sale_agr_res_price = db.relationship('Sale_agr_res_price',backref='res_price_type',lazy=True)
+
+	def to_json_api(self):
+		json_res_price_type={
+			'ResPriceTypeId':self.ResPriceTypeId,
+			'ResPriceTypeName_tkTM':self.ResPriceTypeName_tkTM,
+			'ResPriceTypeDesc_tkTM':self.ResPriceTypeDesc_tkTM,
+			'ResPriceTypeName_ruRU':self.ResPriceTypeName_ruRU,
+			'ResPriceTypeDesc_ruRU':self.ResPriceTypeDesc_ruRU,
+			'ResPriceTypeName_enUS':self.ResPriceTypeName_enUS,
+			'ResPriceTypeDesc_enUS':self.ResPriceTypeDesc_enUS,
+			'AddInf1':self.AddInf1,
+			'AddInf2':self.AddInf2,
+			'AddInf3':self.AddInf3,
+			'AddInf4':self.AddInf4,
+			'AddInf5':self.AddInf5,
+			'AddInf6':self.AddInf6,
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
+		}
+		return json_res_price_type
 
 
 class Res_total(CreatedModifiedInfo,db.Model):
@@ -1093,7 +1249,7 @@ class Res_total(CreatedModifiedInfo,db.Model):
 			'CreatedUId':self.CreatedUId,
 			'ModifiedUId':self.ModifiedUId,
 			'GCRecord':self.GCRecord
-			}
+		}
 		return json_res_total
 
 
@@ -1120,6 +1276,46 @@ class Res_trans_inv(AddInf,CreatedModifiedInfo,db.Model):
 	Res_trans_inv_line = db.relationship('Res_trans_inv_line',backref='res_trans_inv',lazy=True)
 	Rp_acc_transaction = db.relationship('Rp_acc_transaction',backref='res_trans_inv',lazy=True)
 
+	def update(self, **kwargs):
+		for key, value in kwargs.items():
+			if value is not None:
+				if hasattr(self, key):
+					setattr(self, key, value)
+
+	def to_json_api(self):
+		json_res_trans_inv={
+			'ResTrInvId':self.ResTrInvId,
+			'ResTrInvTypeId':self.ResTrInvTypeId,
+			'CurrencyId':self.CurrencyId,
+			'CId':self.CId,
+			'DivId':self.DivId,
+			'WhIdIn':self.WhIdIn,
+			'WhIdOut':self.WhIdOut,
+			'EmpId':self.EmpId,
+			'ResTrInvRegNo':self.ResTrInvRegNo,
+			'ResTrInvDesc':self.ResTrInvDesc,
+			'ResTrInvDate':self.ResTrInvDate,
+			'ResTrInvTotal':self.ResTrInvTotal,
+			'ResTrInvExpAmount':self.ResTrInvExpAmount,
+			'ResTrInvTaxAmount':self.ResTrInvTaxAmount,
+			'ResTrInvFTotal':self.ResTrInvFTotal,
+			'ResTrInvFTotalInWrite':self.ResTrInvFTotalInWrite,
+			'ResTrInvModifyCount':self.ResTrInvModifyCount,
+			'ResTrInvPrintCount':self.ResTrInvPrintCount,
+			'AddInf1':self.AddInf1,
+			'AddInf2':self.AddInf2,
+			'AddInf3':self.AddInf3,
+			'AddInf4':self.AddInf4,
+			'AddInf5':self.AddInf5,
+			'AddInf6':self.AddInf6,
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
+		}
+		return json_res_trans_inv
+
 
 class Res_trans_inv_line(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_res_trans_inv_line"
@@ -1139,6 +1335,42 @@ class Res_trans_inv_line(AddInf,CreatedModifiedInfo,db.Model):
 	ResTrInvLineDate = db.Column(db.DateTime)
 	Res_transaction = db.relationship('Res_transaction',backref='res_trans_inv_line',lazy=True)
 
+	def update(self, **kwargs):
+		for key, value in kwargs.items():
+			if value is not None:
+				if hasattr(self, key):
+					setattr(self, key, value)
+
+	def to_json_api(self):
+		json_res_rans_inv_line={
+			'ResTrInvLineId':self.ResTrInvLineId,
+			'ResTrInvId':self.ResTrInvId,
+			'UnitId':self.UnitId,
+			'CurrencyId':self.CurrencyId,
+			'ResId':self.ResId,
+			'LastVendorId':self.LastVendorId,
+			'ResTrInvLineDesc':self.ResTrInvLineDesc,
+			'ResTrInvLineAmount':self.ResTrInvLineAmount,
+			'ResTrInvLinePrice':self.ResTrInvLinePrice,
+			'ResTrInvLineTotal':self.ResTrInvLineTotal,
+			'ResTrInvLineExpenseAmount':self.ResTrInvLineExpenseAmount,
+			'ResTrInvLineTaxAmount':self.ResTrInvLineTaxAmount,
+			'ResTrInvLineFTotal':self.ResTrInvLineFTotal,
+			'ResTrInvLineDate':self.ResTrInvLineDate,
+			'AddInf1':self.AddInf1,
+			'AddInf2':self.AddInf2,
+			'AddInf3':self.AddInf3,
+			'AddInf4':self.AddInf4,
+			'AddInf5':self.AddInf5,
+			'AddInf6':self.AddInf6,
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
+		}
+		return json_res_rans_inv_line
+
 
 class Res_trans_inv_type(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_res_trans_inv_type"
@@ -1151,6 +1383,23 @@ class Res_trans_inv_type(CreatedModifiedInfo,db.Model):
 	ResTrInvDesc_enUS = db.Column(db.String(500))
 	Res_trans_inv = db.relationship('Res_trans_inv',backref='res_trans_inv_type',lazy=True)
 
+	def to_json_api(self):
+		json_res_trans_inv_type={
+			'ResTrInvTypeId':self.ResTrInvTypeId,
+			'ResTrInvName_tkTM':self.ResTrInvName_tkTM,
+			'ResTrInvDesc_tkTM':self.ResTrInvDesc_tkTM,
+			'ResTrInvName_ruRU':self.ResTrInvName_ruRU,
+			'ResTrInvDesc_ruRU':self.ResTrInvDesc_ruRU,
+			'ResTrInvName_enUS':self.ResTrInvName_enUS,
+			'ResTrInvDesc_enUS':self.ResTrInvDesc_enUS,
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
+		}
+		return json_res_trans_inv_type
+
 
 class Res_trans_type(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_res_trans_type"
@@ -1162,6 +1411,23 @@ class Res_trans_type(CreatedModifiedInfo,db.Model):
 	ResTransTypeName_enUS = db.Column(db.String(100))
 	ResTransTypeDesc_enUS = db.Column(db.String(500))
 	Res_transaction = db.relationship('Res_transaction',backref='res_trans_type',lazy=True)
+
+	def to_json_api(self):
+		json_res_trans_type={
+			'ResTransTypeId':self.ResTransTypeId,
+			'ResTransTypeName_tkTM':self.ResTransTypeName_tkTM,
+			'ResTransTypeDesc_tkTM':self.ResTransTypeDesc_tkTM,
+			'ResTransTypeName_ruRU':self.ResTransTypeName_ruRU,
+			'ResTransTypeDesc_ruRU':self.ResTransTypeDesc_ruRU,
+			'ResTransTypeName_enUS':self.ResTransTypeName_enUS,
+			'ResTransTypeDesc_enUS':self.ResTransTypeDesc_enUS,
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
+		}
+		return json_res_trans_type
 
 
 class Res_transaction(AddInf,CreatedModifiedInfo,db.Model):
@@ -1182,6 +1448,44 @@ class Res_transaction(AddInf,CreatedModifiedInfo,db.Model):
 	ResTransResBalance = db.Column(db.Float,default=0)
 	ResTransDate = db.Column(db.DateTime)
 	ResTransPurchAvgPrice = db.Column(db.Float,default=0)
+
+	def update(self, **kwargs):
+		for key, value in kwargs.items():
+			if value is not None:
+				if hasattr(self, key):
+					setattr(self, key, value)
+
+	def to_json_api(self):
+		json_res_transaction={
+			'ResTransId':self.ResTransId,
+			'ResTransTypeId':self.ResTransTypeId,
+			'InvLineId':self.InvLineId,
+			'ResTrInvLineId':self.ResTrInvLineId,
+			'CurrencyId':self.CurrencyId,
+			'UnitId':self.UnitId,
+			'WhId':self.WhId,
+			'ResId':self.ResId,
+			'ResTransName':self.ResTransName,
+			'ResTransDesc':self.ResTransDesc,
+			'ResTransAmount':self.ResTransAmount,
+			'ResTransPrice':self.ResTransPrice,
+			'ResTransFTotalPrice':self.ResTransFTotalPrice,
+			'ResTransResBalance':self.ResTransResBalance,
+			'ResTransDate':self.ResTransDate,
+			'ResTransPurchAvgPrice':self.ResTransPurchAvgPrice,
+			'AddInf1':self.AddInf1,
+			'AddInf2':self.AddInf2,
+			'AddInf3':self.AddInf3,
+			'AddInf4':self.AddInf4,
+			'AddInf5':self.AddInf5,
+			'AddInf6':self.AddInf6,
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
+		}
+		return json_res_transaction
 
 
 class Res_translations(AddInf,CreatedModifiedInfo,db.Model):
@@ -1207,7 +1511,7 @@ class Res_translations(AddInf,CreatedModifiedInfo,db.Model):
 			'resNameTrans':self.ResName,
 			'resDescTrans':self.ResDesc,
 			'resFullDescTrans':self.ResFullDesc
-			}
+		}
 		return json_res_translations
 
 	def to_json_api(self):
@@ -1218,7 +1522,7 @@ class Res_translations(AddInf,CreatedModifiedInfo,db.Model):
 			'ResName':self.ResName,
 			'ResDesc':self.ResDesc,
 			'ResFullDesc':self.ResFullDesc
-			}
+		}
 		return json_res_translations
 
 class Res_type(CreatedModifiedInfo,db.Model):
@@ -1231,6 +1535,23 @@ class Res_type(CreatedModifiedInfo,db.Model):
 	ResTypeName_enUS = db.Column(db.String(100))
 	ResTypeDesc_enUS = db.Column(db.String(500))
 	Resource = db.relationship('Resource',backref='res_type',lazy=True)
+
+	def to_json_api(self):
+		json_res_type={
+			'ResTypeId':self.ResTypeId,
+			'ResTypeName_tkTM':self.ResTypeName_tkTM,
+			'ResTypeDesc_tkTM':self.ResTypeDesc_tkTM,
+			'ResTypeName_ruRU':self.ResTypeName_ruRU,
+			'ResTypeDesc_ruRU':self.ResTypeDesc_ruRU,
+			'ResTypeName_enUS':self.ResTypeName_enUS,
+			'ResTypeDesc_enUS':self.ResTypeDesc_enUS,
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
+		}
+		return json_res_type
 
 class Res_unit(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_res_unit"
@@ -1253,7 +1574,7 @@ class Res_unit(CreatedModifiedInfo,db.Model):
 			'resUnitUnitId':self.ResUnitUnitId,
 			'resUnitConvAmount':self.ResUnitConvAmount,
 			'resUnitConvTypeId':self.ResUnitConvTypeId
-			}
+		}
 		return json_res_unit
 
 	def to_json_api(self):
@@ -1263,7 +1584,7 @@ class Res_unit(CreatedModifiedInfo,db.Model):
 			'ResUnitUnitId':self.ResUnitUnitId,
 			'ResUnitConvAmount':self.ResUnitConvAmount,
 			'ResUnitConvTypeId':self.ResUnitConvTypeId
-			}
+		}
 		return json_res_unit
 
 class Rp_acc_resource(CreatedModifiedInfo,db.Model):
@@ -1271,6 +1592,25 @@ class Rp_acc_resource(CreatedModifiedInfo,db.Model):
 	RpAccResId = db.Column(db.Integer,nullable=False,primary_key=True)
 	RpAccId = db.Column(db.Integer,db.ForeignKey("tbl_dk_rp_acc.RpAccId"))
 	ResId = db.Column(db.Integer,db.ForeignKey("tbl_dk_resource.ResId"))
+
+	def update(self, **kwargs):
+		for key, value in kwargs.items():
+			if value is not None:
+				if hasattr(self, key):
+					setattr(self, key, value)
+
+	def to_json_api(self):
+		json_rp_acc_resource={
+			'RpAccResId':self.RpAccResId,
+			'RpAccId':self.RpAccId,
+			'ResId':self.ResId,
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
+		}
+		return json_rp_acc_resource
 
 class Rp_acc_trans_total(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_rp_acc_trans_total"
@@ -1302,7 +1642,7 @@ class Rp_acc_trans_total(CreatedModifiedInfo,db.Model):
 			'CreatedUId':self.CreatedUId,
 			'ModifiedUId':self.ModifiedUId,
 			'GCRecord':self.GCRecord
-			}
+		}
 		return json_rp_acc_trans_total
 
 class Rp_acc_transaction(AddInf,CreatedModifiedInfo,db.Model):
@@ -1323,6 +1663,43 @@ class Rp_acc_transaction(AddInf,CreatedModifiedInfo,db.Model):
 	RpAccTransCredit = db.Column(db.Float,default=0)
 	RpAccTransTotal = db.Column(db.Float,default=0)
 
+	def update(self, **kwargs):
+		for key, value in kwargs.items():
+			if value is not None:
+				if hasattr(self, key):
+					setattr(self, key, value)
+
+	def to_json_api(self):
+		json_rp_acc_transaction={
+			'RpAccTransId':self.RpAccTransId,
+			'CId':self.CId,
+			'DivId':self.DivId,
+			'WpId':self.WpId,
+			'TransTypeId':self.TransTypeId,
+			'InvId':self.InvId,
+			'ResTransInvId':self.ResTransInvId,
+			'RpAccId':self.RpAccId,
+			'CurrencyId':self.CurrencyId,
+			'RpAccTransName':self.RpAccTransName,
+			'RpAccTransCode':self.RpAccTransCode,
+			'RpAccTransDate':self.RpAccTransDate,
+			'RpAccTransDebit':self.RpAccTransDebit,
+			'RpAccTransCredit':self.RpAccTransCredit,
+			'RpAccTransTotal':self.RpAccTransTotal,
+			'AddInf1':self.AddInf1,
+			'AddInf2':self.AddInf2,
+			'AddInf3':self.AddInf3,
+			'AddInf4':self.AddInf4,
+			'AddInf5':self.AddInf5,
+			'AddInf6':self.AddInf6,
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
+		}
+		return json_rp_acc_transaction
+
 class Sale_agr_res_price(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_sale_agr_res_price"
 	SAResPriceId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -1335,6 +1712,32 @@ class Sale_agr_res_price(CreatedModifiedInfo,db.Model):
 	SAResPriceValue = db.Column(db.Float,default=0)
 	SAPriceStartDate = db.Column(db.DateTime)
 	SAPriceEndDate = db.Column(db.DateTime)
+
+	def update(self, **kwargs):
+		for key, value in kwargs.items():
+			if value is not None:
+				if hasattr(self, key):
+					setattr(self, key, value)
+
+	def to_json_api(self):
+		json_sale_agr_res_price={
+			'SAResPriceId':self.SAResPriceId,
+			'SaleAgrId':self.SaleAgrId,
+			'ResPriceTypeId':self.ResPriceTypeId,
+			'UnitId':self.UnitId,
+			'CurrencyId':self.CurrencyId,
+			'ResId':self.ResId,
+			'SAResPriceRegNo':self.SAResPriceRegNo,
+			'SAResPriceValue':self.SAResPriceValue,
+			'SAPriceStartDate':self.SAPriceStartDate,
+			'SAPriceEndDate':self.SAPriceEndDate,
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
+		}
+		return json_sale_agr_res_price
 
 class Sale_agreement(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_sale_agreement"
@@ -1350,6 +1753,38 @@ class Sale_agreement(AddInf,CreatedModifiedInfo,db.Model):
 	SaleAgrUseOwnPriceList = db.Column(db.Boolean,default=False)
 	Sale_card = db.relationship('Sale_card',backref='sale_agreement',lazy=True)
 	Sale_agr_res_price = db.relationship('Sale_agr_res_price',backref='sale_agreement',lazy=True)
+
+	def update(self, **kwargs):
+		for key, value in kwargs.items():
+			if value is not None:
+				if hasattr(self, key):
+					setattr(self, key, value)
+
+	def to_json_api(self):
+		json_sale_agreement={
+			'SaleAgrId':self.SaleAgrId,
+			'CurrencyId':self.CurrencyId,
+			'SaleAgrName':self.SaleAgrName,
+			'SaleAgrDesc':self.SaleAgrDesc,
+			'SaleAgrMinOrderPrice':self.SaleAgrMinOrderPrice,
+			'SaleAgrDiscPerc':self.SaleAgrDiscPerc,
+			'SaleAgrMaxDiscPerc':self.SaleAgrMaxDiscPerc,
+			'SaleAgrTaxPerc':self.SaleAgrTaxPerc,
+			'SaleAgrTaxAmount':self.SaleAgrTaxAmount,
+			'SaleAgrUseOwnPriceList':self.SaleAgrUseOwnPriceList,
+			'AddInf1':self.AddInf1,
+			'AddInf2':self.AddInf2,
+			'AddInf3':self.AddInf3,
+			'AddInf4':self.AddInf4,
+			'AddInf5':self.AddInf5,
+			'AddInf6':self.AddInf6,
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
+		}
+		return json_sale_agreement
 
 class Sale_card(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_sale_card"
@@ -1381,6 +1816,54 @@ class Sale_card(AddInf,CreatedModifiedInfo,db.Model):
 	SaleCardCustAddress = db.Column(db.String(100))
 	Res_discount = db.relationship('Res_discount',backref='sale_card',foreign_keys='Res_discount.SaleCardId',lazy=True)
 
+	def update(self, **kwargs):
+		for key, value in kwargs.items():
+			if value is not None:
+				if hasattr(self, key):
+					setattr(self, key, value)
+
+	def to_json_api(self):
+		json_sale_card={
+			'SaleCardId':self.SaleCardId,
+			'CId':self.CId,
+			'DivId':self.DivId,
+			'WpId':self.WpId,
+			'RpAccId':self.RpAccId,
+			'CurrencyId':self.CurrencyId,
+			'SaleAgrId':self.SaleAgrId,
+			'ResPriceGroupId':self.ResPriceGroupId,
+			'ResDiscId':self.ResDiscId,
+			'SaleCardStatusId':self.SaleCardStatusId,
+			'SaleCardRegNo':self.SaleCardRegNo,
+			'SaleCardName':self.SaleCardName,
+			'SaleCardDesc':self.SaleCardDesc,
+			'SaleCardStartDate':self.SaleCardStartDate,
+			'SaleCardEndDate':self.SaleCardEndDate,
+			'SaleCardMinSaleAmount':self.SaleCardMinSaleAmount,
+			'SaleCardMaxSaleAmount':self.SaleCardMaxSaleAmount,
+			'SaleCardMinSalePrice':self.SaleCardMinSalePrice,
+			'SaleCardMaxSalePrice':self.SaleCardMaxSalePrice,
+			'SaleCardMaxManualDiscPerc':self.SaleCardMaxManualDiscPerc,
+			'SaleCardIsPayable':self.SaleCardIsPayable,
+			'SaleCardCustName':self.SaleCardCustName,
+			'SaleCardCustBirthDate':self.SaleCardCustBirthDate,
+			'SaleCardCustTel':self.SaleCardCustTel,
+			'SaleCardCustEmail':self.SaleCardCustEmail,
+			'SaleCardCustAddress':self.SaleCardCustAddress,
+			'AddInf1':self.AddInf1,
+			'AddInf2':self.AddInf2,
+			'AddInf3':self.AddInf3,
+			'AddInf4':self.AddInf4,
+			'AddInf5':self.AddInf5,
+			'AddInf6':self.AddInf6,
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
+		}
+		return json_sale_card
+
 class Sale_card_status(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_sale_card_status"
 	SaleCardStatusId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -1406,6 +1889,38 @@ class Production(AddInf,CreatedModifiedInfo,db.Model):
 	ProdCostPrice = db.Column(db.Float)
 	Production_line = db.relationship('Production_line',backref='production',lazy=True)
 
+	def update(self, **kwargs):
+		for key, value in kwargs.items():
+			if value is not None:
+				if hasattr(self, key):
+					setattr(self, key, value)
+
+	def to_json_api(self):
+		json_production={
+			'ProdId':self.ProdId,
+			'CId':self.CId,
+			'DivId':self.DivId,
+			'WhIdIn':self.WhIdIn,
+			'WhIdOut':self.WhIdOut,
+			'ResId':self.ResId,
+			'ProdName':self.ProdName,
+			'ProdDesc':self.ProdDesc,
+			'ProdTime':self.ProdTime,
+			'ProdCostPrice':self.ProdCostPrice,
+			'AddInf1':self.AddInf1,
+			'AddInf2':self.AddInf2,
+			'AddInf3':self.AddInf3,
+			'AddInf4':self.AddInf4,
+			'AddInf5':self.AddInf5,
+			'AddInf6':self.AddInf6,
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
+		}
+		return json_production
+
 class Production_line(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_production_line"
 	ProdLineId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -1415,6 +1930,35 @@ class Production_line(AddInf,CreatedModifiedInfo,db.Model):
 	ProdLineAmount = db.Column(db.Float,nullable=False,default=0)
 	ProdLinePrice = db.Column(db.Float)
 	ProdLineDesc = db.Column(db.String(500),default='')
+
+	def update(self, **kwargs):
+		for key, value in kwargs.items():
+			if value is not None:
+				if hasattr(self, key):
+					setattr(self, key, value)
+
+	def to_json_api(self):
+		json_production_line={
+			'ProdLineId':self.ProdLineId,
+			'ProdId':self.ProdId,
+			'UnitId':self.UnitId,
+			'ResId':self.ResId,
+			'ProdLineAmount':self.ProdLineAmount,
+			'ProdLinePrice':self.ProdLinePrice,
+			'ProdLineDesc':self.ProdLineDesc,			
+			'AddInf1':self.AddInf1,
+			'AddInf2':self.AddInf2,
+			'AddInf3':self.AddInf3,
+			'AddInf4':self.AddInf4,
+			'AddInf5':self.AddInf5,
+			'AddInf6':self.AddInf6,
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
+		}
+		return json_production_line
 
 class Rating(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_rating"
@@ -1428,6 +1972,37 @@ class Rating(AddInf,CreatedModifiedInfo,db.Model):
 	RtRemark = db.Column(db.String(100),default='')
 	RtRatingValue = db.Column(db.Float,nullable=False,default=0)
 
+	def update(self, **kwargs):
+		for key, value in kwargs.items():
+			if value is not None:
+				if hasattr(self, key):
+					setattr(self, key, value)
+
+	def to_json_api(self):
+		json_rating={
+			'RtId':self.RtId,
+			'CId':self.CId,
+			'DivId':self.DivId,
+			'UId':self.UId,
+			'ResId':self.ResId,
+			'RpAccId':self.RpAccId,
+			'EmpId':self.EmpId,
+			'RtRemark':self.RtRemark,
+			'RtRatingValue':self.RtRatingValue,
+			'AddInf1':self.AddInf1,
+			'AddInf2':self.AddInf2,
+			'AddInf3':self.AddInf3,
+			'AddInf4':self.AddInf4,
+			'AddInf5':self.AddInf5,
+			'AddInf6':self.AddInf6,
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
+		}
+		return json_rating
+
 class Wish(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_wish"
 	WishId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -1435,6 +2010,35 @@ class Wish(AddInf,CreatedModifiedInfo,db.Model):
 	DivId = db.Column(db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
 	UId = db.Column(db.Integer,db.ForeignKey("tbl_dk_users.UId"))
 	ResId = db.Column(db.Integer,db.ForeignKey("tbl_dk_resource.ResId"))
+	RpAccId = db.Column(db.Integer,db.ForeignKey("tbl_dk_rp_acc.RpAccId"))
+
+	def update(self, **kwargs):
+		for key, value in kwargs.items():
+			if value is not None:
+				if hasattr(self, key):
+					setattr(self, key, value)
+
+	def to_json_api(self):
+		json_wish={
+			'WishId':self.WishId,
+			'CId':self.CId,
+			'DivId':self.DivId,
+			'UId':self.UId,
+			'ResId':self.ResId,
+			'RpAccId':self.RpAccId,
+			'AddInf1':self.AddInf1,
+			'AddInf2':self.AddInf2,
+			'AddInf3':self.AddInf3,
+			'AddInf4':self.AddInf4,
+			'AddInf5':self.AddInf5,
+			'AddInf6':self.AddInf6,
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
+		}
+		return json_wish
 
 class Transaction_type(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_transaction_type"
@@ -1442,6 +2046,25 @@ class Transaction_type(CreatedModifiedInfo,db.Model):
 	TransTypeName = db.Column(db.String(100),nullable=False)
 	TransTypeDesc = db.Column(db.String(500))
 	Rp_acc_transaction = db.relationship('Rp_acc_transaction',backref='transaction_type',lazy=True)
+
+	def update(self, **kwargs):
+		for key, value in kwargs.items():
+			if value is not None:
+				if hasattr(self, key):
+					setattr(self, key, value)
+
+	def to_json_api(self):
+		json_transaction_type={
+			'TransTypeId':self.TransTypeId,
+			'TransTypeName':self.TransTypeName,
+			'TransTypeDesc':self.TransTypeDesc,
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
+		}
+		return json_transaction_type
 
 class Work_period(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_work_period"
@@ -1458,3 +2081,26 @@ class Work_period(CreatedModifiedInfo,db.Model):
 	Res_total = db.relationship('Res_total',backref='work_period',lazy=True)
 	Rp_acc_transaction = db.relationship('Rp_acc_transaction',backref='work_period',lazy=True)
 	Sale_card = db.relationship('Sale_card',backref='work_period',lazy=True)
+
+	def update(self, **kwargs):
+		for key, value in kwargs.items():
+			if value is not None:
+				if hasattr(self, key):
+					setattr(self, key, value)
+
+	def to_json_api(self):
+		json_work_period={
+			'WpId':self.WpId,
+			'CId':self.CId,
+			'DivId':self.DivId,
+			'CurrencyId':self.CurrencyId,
+			'WpStartDate':self.WpStartDate,
+			'WpEndDate':self.WpEndDate,
+			'WpIsDefault':self.WpIsDefault,
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
+		}
+		return json_work_period

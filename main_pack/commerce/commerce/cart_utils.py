@@ -47,7 +47,7 @@ def UiCartResourceData(product_list):
 		List_Res_category = [category.ResCatName for category in categories if category.ResCatId==resource.ResCatId]
 		List_Res_price = [res_price.ResPriceValue for res_price in res_prices if res_price.ResId==resource.ResId and res_price.ResPriceTypeId==2]
 		List_Res_total = [res_total.ResTotBalance for res_total in res_totals if res_total.ResId==resource.ResId]
-		List_FileName = [image.FileName for image in images if image.ResId==resource.ResId]
+		List_Images = [image.to_json_api() for image in images if image.ResId==resource.ResId]
 
 		List_Colors = [color for res_color in res_colors if res_color.ResId==resource.ResId for color in colors if color.ColorId==res_color.ColorId]
 		List_Sizes = [size for res_size in res_sizes if res_size.ResId==resource.ResId for size in sizes if size.SizeId==res_size.SizeId]
@@ -57,19 +57,12 @@ def UiCartResourceData(product_list):
 		resourceList["ResCatName"] = List_Res_category[0] if List_Res_category else ''
 		resourceList["ResPriceValue"] = List_Res_price[0] if List_Res_price else ''
 		resourceList["ResTotBalance"] = List_Res_total[0] if List_Res_total else ''
-		resourceList["FilePathS"] = fileToURL(file_size='S',file_name=List_FileName[0]) if List_FileName else ''
-		resourceList["FilePathM"] = fileToURL(file_size='M',file_name=List_FileName[0]) if List_FileName else ''
-		resourceList["FilePathR"] = fileToURL(file_size='R',file_name=List_FileName[0]) if List_FileName else ''
+		resourceList["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=List_Images[0]['FileName']) if List_Images else ''
+		resourceList["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=List_Images[0]['FileName']) if List_Images else ''
+		resourceList["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_Images[0]['FileName']) if List_Images else ''
 
-		# configure this for uniqueness later on
-		imagesList = []
-		for imageName in List_FileName:
-			resImage = {}
-			resImage["FilePathS"] = fileToURL(file_size='S',file_name=imageName) if List_FileName else ''
-			resImage["FilePathM"] = fileToURL(file_size='M',file_name=imageName) if List_FileName else ''
-			resImage["FilePathR"] = fileToURL(file_size='R',file_name=imageName) if List_FileName else ''
-			imagesList.append(resImage)
-		resourceList['Images'] = imagesList
+	
+		resourceList['Images'] = List_Images
 
 		resourceList["Colors"] = List_Colors if List_Colors else ''
 		resourceList["Sizes"] = List_Sizes if List_Sizes else ''

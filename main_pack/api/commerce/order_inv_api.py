@@ -82,17 +82,19 @@ def api_order_invoices():
 					if thisOrderInv:
 						thisOrderInv.update(**order_invoice)
 						db.session.commit()
-						print('order invoice updated')
+						print('order invoice updated with Id'+str(thisOrderInv.OInvId))
 					else:
-						newOrderInv = Order_inv(**order_invoice)
-						db.session.add(newOrderInv)
+						thisOrderInv = Order_inv(**order_invoice)
+						db.session.add(thisOrderInv)
 						db.session.commit()
-						print('order invoice created')
+						print('order invoice created with Id'+str(thisOrderInv.OInvId))
 
 					order_inv_lines = []
 					failed_order_inv_lines = []
 					for order_inv_line in data['Order_inv_lines']:
 						order_inv_line = addOrderInvLineDict(order_inv_line)
+						order_inv_line['OInvId'] = thisOrderInv.OInvId
+						print(order_inv_line)
 						try:
 							OInvLineId = order_inv_line['OInvLineId']
 							thisOrderInvLine = Order_inv_line.query.get(int(OInvLineId))

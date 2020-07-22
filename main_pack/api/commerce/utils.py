@@ -444,7 +444,6 @@ def addOrderInvDict(req):
 		'ModifiedUId':ModifiedUId,
 		'GCRecord':GCRecord
 		}
-
 	#if(OInvId != '' and OInvId != None):
 	#	order_inv['OInvId']=OInvId
 	order_inv=configureNulls(order_inv)
@@ -509,7 +508,6 @@ def addOrderInvLineDict(req):
 		order_inv_line['OInvLineId']=OInvLineId
 	order_inv_line=configureNulls(order_inv_line)
 	return order_inv_line
-
 
 def addOrderInvTypeDict(req):
 	OInvTypeId = req.get('OInvTypeId')
@@ -581,3 +579,34 @@ def addWarehouseDict(req):
 		warehouse['WhId']=WhId
 	warehouse=configureNulls(warehouse)
 	return warehouse
+
+def addWorkPeriodDict(req):
+	WpId = req.get('WpId')
+	CId = req.get('CId')
+	DivId = req.get('DivId')
+	CurrencyId = req.get('CurrencyId')
+	WpStartDate = req.get('WpStartDate')
+	WpEndDate = req.get('WpEndDate')
+	WpIsDefault = req.get('WpIsDefault')
+	CreatedDate = req.get('CreatedDate')
+	ModifiedDate = req.get('ModifiedDate')
+	CreatedUId = req.get('CreatedUId')
+	ModifiedUId = req.get('ModifiedUId')
+	GCRecord = req.get('GCRecord')
+	work_period = {
+		'CId':CId,
+		'DivId':DivId,
+		'CurrencyId':CurrencyId,
+		'WpStartDate':WpStartDate,
+		'WpEndDate':WpEndDate,
+		'WpIsDefault':WpIsDefault,
+		'CreatedDate':CreatedDate,
+		'ModifiedDate':ModifiedDate,
+		'CreatedUId':CreatedUId,
+		'ModifiedUId':ModifiedUId,
+		'GCRecord':GCRecord
+		}
+	if(WpId != '' and WpId != None):
+		work_period['WpId']=WpId
+	work_period=configureNulls(work_period)
+	return work_period

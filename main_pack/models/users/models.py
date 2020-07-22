@@ -77,7 +77,7 @@ class Users(AddInf,CreatedModifiedInfo,db.Model,UserMixin):
 			'CreatedUId':self.CreatedUId,
 			'ModifiedUId':self.ModifiedUId,
 			'GCRecord':self.GCRecord
-			}
+		}
 		return users
 
 class User_type(CreatedModifiedInfo,db.Model):
@@ -105,7 +105,7 @@ class User_type(CreatedModifiedInfo,db.Model):
 			'CreatedUId':self.CreatedUId,
 			'ModifiedUId':self.ModifiedUId,
 			'GCRecord':self.GCRecord
-			}
+		}
 		return user_type
 
 class Rp_acc(AddInf,CreatedModifiedInfo,db.Model):
@@ -210,7 +210,7 @@ class Rp_acc(AddInf,CreatedModifiedInfo,db.Model):
 			'CreatedUId':self.CreatedUId,
 			'ModifiedUId':self.ModifiedUId,
 			'GCRecord':self.GCRecord
-			}
+		}
 		return json_rp_acc
 
 class Rp_acc_status(CreatedModifiedInfo,db.Model):
@@ -238,7 +238,7 @@ class Rp_acc_status(CreatedModifiedInfo,db.Model):
 			'CreatedUId':self.CreatedUId,
 			'ModifiedUId':self.ModifiedUId,
 			'GCRecord':self.GCRecord
-			}
+		}
 		return json_rp_acc_status
 
 class Rp_acc_type(CreatedModifiedInfo,db.Model):
@@ -266,5 +266,5 @@ class Rp_acc_type(CreatedModifiedInfo,db.Model):
 			'CreatedUId':self.CreatedUId,
 			'ModifiedUId':self.ModifiedUId,
 			'GCRecord':self.GCRecord
-			}
+		}
 		return json_rp_acc_type

@@ -4,7 +4,7 @@ from main_pack.base.apiMethods import checkApiResponseStatus
 from main_pack.base.invoiceMethods import get_order_error_type
 
 from main_pack.models.users.models import Users
-from main_pack.models.commerce.models import Order_inv,Order_inv_line
+from main_pack.models.commerce.models import Order_inv,Order_inv_line,Work_period
 from main_pack.api.commerce.utils import addOrderInvDict,addOrderInvLineDict
 from main_pack import db,babel,gettext,lazy_gettext
 from flask import current_app
@@ -35,6 +35,10 @@ import decimal
 def api_checkout_sale_order_invoices(user):
 	model_type = user['model_type']
 	current_user = user['current_user']
+
+	work_period = Work_period.query\
+		.filter(and_(Work_period.GCRecord=='' or Work_period.GCRecord==None),\
+			Work_period.WpIsDefault==True).first()
 	# current user is rp_acc if type is rp_acc !!
 	if model_type=='Rp_acc':
 		name = current_user.RpAccUName
@@ -67,6 +71,8 @@ def api_checkout_sale_order_invoices(user):
 		###### order inv setup ######
 		order_invoice['OInvRegNo']=orderRegNo
 		order_invoice['InvStatId']=1
+		order_invoice['OInvTypeId']=2
+		order_invoice['WpId']=work_period.WpId
 		# default currency is 1 TMT of not specified
 		if not order_invoice['CurrencyId']:
 			order_invoice['CurrencyId']=1

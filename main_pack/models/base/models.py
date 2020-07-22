@@ -340,7 +340,7 @@ class Image(CreatedModifiedInfo,db.Model):
 			'fileName':self.FileName,
 			'fileHash':self.FileHash,
 			'image':self.Image,
-			}
+		}
 		return json_image
 
 	def to_json_api(self):
@@ -364,7 +364,7 @@ class Image(CreatedModifiedInfo,db.Model):
 			'CreatedUId':self.CreatedUId,
 			'ModifiedUId':self.ModifiedUId,
 			'GCRecord':self.GCRecord
-			}
+		}
 		return json_image
 
 
@@ -417,7 +417,7 @@ class Language(CreatedModifiedInfo,db.Model):
 			'langId':self.LangId,
 			'langName':self.LangName,
 			'langDesc':self.LangDesc
-			}
+		}
 		return json_language
 
 class Prog_language(CreatedModifiedInfo,db.Model):
@@ -523,7 +523,7 @@ class Sl_image(AddInf,CreatedModifiedInfo,db.Model):
 			'CreatedUId':self.CreatedUId,
 			'ModifiedUId':self.ModifiedUId,
 			'GCRecord':self.GCRecord
-			}
+		}
 		return json_sl_image
 
 class Slider(AddInf,CreatedModifiedInfo,db.Model):
@@ -559,7 +559,7 @@ class Slider(AddInf,CreatedModifiedInfo,db.Model):
 			'CreatedUId':self.CreatedUId,
 			'ModifiedUId':self.ModifiedUId,
 			'GCRecord':self.GCRecord
-			}
+		}
 		return json_slider
 
 class Warehouse(AddInf,CreatedModifiedInfo,db.Model):
@@ -602,5 +602,5 @@ class Warehouse(AddInf,CreatedModifiedInfo,db.Model):
 			'CreatedUId':self.CreatedUId,
 			'ModifiedUId':self.ModifiedUId,
 			'GCRecord':self.GCRecord
-			}
+		}
 		return json_warehouse

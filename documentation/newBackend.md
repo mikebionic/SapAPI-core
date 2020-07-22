@@ -1,94 +1,98 @@
 
 # API authentication
-/api/login/users/
-/api/login/rp-accs/
++ /api/login/users/
++ /api/login/rp-accs/
 
 # Simple data queries and insertions
 GET POST
-/api/tbl-dk-barcodes/
++ /api/tbl-dk-barcodes/
 
 GET POST
-/api/tbl-dk-res-prices/
++ /api/tbl-dk-res-prices/
 
 GET POST
-/api/tbl-dk-res-totals/
++ /api/tbl-dk-res-totals/
 
 GET POST
-/api/tbl-dk-images/
++ /api/tbl-dk-images/
 
 GET POST
-/api/tbl-dk-rp-acc-trans-totals/
-/api/tbl-dk-total-transactions/
++ /api/tbl-dk-rp-acc-trans-totals/
++ /api/tbl-dk-total-transactions/
 
 GET POST
-/api/tbl-dk-order-invoices/
++ /api/tbl-dk-order-invoices/
 
 GET POST
-/api/tbl-dk-order-inv-lines/
++ /api/tbl-dk-order-inv-lines/
 
 GET POST
-/api/tbl-dk-order-inv-types/
++ /api/tbl-dk-order-inv-types/
 
 POST [Token required of Rp_acc login]
-/api/checkout-sale-order-inv/
++ /api/checkout-sale-order-inv/
+
+GET POST
++ /api/tbl-dk-warehouses/
+
+GET POST
++ /api/tbl-dk-work-periods/
 
 # get all orders of a logged Rp_acc
 GET [Token required of Rp_acc login]
-/api/v-order-invoices/
++ /api/v-order-invoices/
 
 # get all lines of a specific reg no if it's order is Rp_acc
 GET [Token required of Rp_acc login]
-/api/v-order-invoices/<str:OInvRegNo>/
++ /api/v-order-invoices/<str:OInvRegNo>/
 
 
 GET POST
-/api/tbl-dk-warehouses/
-
-GET POST
-/api/tbl-dk-categories/
++ /api/tbl-dk-categories/
 
 GET PUT
-/api/tbl-dk-categories/<int:ResCatId>/
++ /api/tbl-dk-categories/<int:ResCatId>/
 
 GET
-/api/tbl-dk-categories/paginate/
++ /api/tbl-dk-categories/paginate/
 
 GET POST
-/api/tbl-dk-resources/
++ /api/tbl-dk-resources/
 
 GET PUT
 # short db info
-/api/tbl-dk-resources/<int:ResId>/
++ /api/tbl-dk-resources/<int:ResId>/
 
 GET
-/api/v-resources/
-/api/v-full-resources/
++ /api/v-resources/
+
++ /api/v-full-resources/
 
 GET
 # wide api info
-/api/v-resources/<int:ResId>/
++ /api/v-resources/<int:ResId>/
 
 GET
-/api/tbl-dk-categories/<int:ResCatId>/v-resources/
++ /api/tbl-dk-categories/<int:ResCatId>/v-resources/
 
 GET
 # from latest to first (needs configurations for datetime order)
 # withoud any initial data
-/api/paginate/v-resources/
-/api/paginate/v-resources/?last=<lastId>&limit=<quantity>
++ /api/paginate/v-resources/
++ /api/paginate/v-resources/?last=<lastId>&limit=<quantity>
 
 
 GET POST
-/api/tbl-dk-rp-accs/
++ /api/tbl-dk-rp-accs/
 
 GET
-/api/tbl-dk-rp-accs/<int:RpAccRegNo>/
++ /api/tbl-dk-rp-accs/<int:RpAccRegNo>/
 
 GET POST
-/api/tbl-dk-users/
++ /api/tbl-dk-users/
 
 GET
-/api/tbl-dk-users/<int:UId>/
++ /api/tbl-dk-users/<int:UId>/
 
 GET
-/api/tbl-dk-sliders/
++ /api/tbl-dk-sliders/

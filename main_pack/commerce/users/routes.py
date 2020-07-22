@@ -3,15 +3,18 @@ from flask_login import current_user,login_required
 from main_pack import db,babel,gettext,lazy_gettext
 from main_pack.commerce.users import bp
 from main_pack.commerce.users.forms import UpdateProfileForm,UpdateRpAccForm
-from main_pack.commerce.commerce.utils import UiCategoriesList
+from main_pack.commerce.commerce.utils import UiCategoriesList,UiPaginatedResList
+from main_pack.models.commerce.models import Resource,Wish
+from flask import current_app
+from sqlalchemy import and_
 
 from main_pack.models.base.models import Image
 from main_pack.models.users.models import Rp_acc
 from main_pack.base.imageMethods import save_image
 from main_pack.base.apiMethods import fileToURL
+
 import os
 from functools import wraps
-
 def ui_admin_required():
 	def decorator(f):
 		@wraps(f)
@@ -40,22 +43,30 @@ def profile():
 	return render_template ("commerce/main/users/profile.html",**categoryData,
 		title=gettext('Profile'),rpAcc=rpAcc,avatar=avatar)
 
-
-
 @bp.route("/wishlist")
 @login_required
 def wishlist():
 	categoryData = UiCategoriesList()
-	rpAcc = Rp_acc.query.filter(Rp_acc.RpAccId==current_user.RpAccId).first()
-	if rpAcc:
-		image = Image.query.filter_by(RpAccId=rpAcc.RpAccId).order_by(Image.CreatedDate.desc()).first()
-		if image:
-			avatar = fileToURL(file_type='image',file_size='S',file_name=image.FileName)
-		else:
-			avatar = url_for('static', filename="commerce/main/shop_icons/no_photo.png") 
+	rpAcc = Rp_acc.query.filter(Rp_acc.RpAccId==current_user.RpAccId).first()	
+	wishes = Wish.query\
+		.filter(and_(Wish.GCRecord=='' or Wish.GCRecord==None),\
+			Wish.RpAccId==rpAcc.RpAccId)
 
-	return render_template ("commerce/main/users/wishlist.html",**categoryData,
-		title=gettext('Wishlist'),rpAcc=rpAcc,avatar=avatar)
+	page = request.args.get('page',1,type=int)
+	pagination_wishes = Wish.query\
+		.filter(and_(Wish.GCRecord=='' or Wish.GCRecord==None),\
+			Wish.RpAccId==rpAcc.RpAccId)\
+		.order_by(Wish.CreatedDate.desc())\
+		.paginate(per_page=current_app.config['RESOURCES_PER_PAGE'],page=page)
+	product_list = []
+	for wish in pagination_wishes.items:
+		product = {}
+		product['resId'] = wish.ResId
+		product_list.append(product)
+	res = UiPaginatedResList(product_list)
+	return render_template ("commerce/main/users/wishlist.html",
+		**categoryData,**res,pagination_url='commerce_users.wishlist',
+		pagination_wishes=pagination_wishes,title=gettext('Wishlist'))
 
 @bp.route("/profile_edit",methods=['GET','POST'])
 @login_required

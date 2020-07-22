@@ -37,38 +37,38 @@ def api_images():
 			failed_images = []
 			for image in req:
 				imageDictData = addImageDict(image)
-				# try:
-				if not 'ImgId' in imageDictData:
-					image = saveImageFile(image)
-					newImage = Image(**image)
-					db.session.add(newImage)
-					db.session.commit()
-					print('added cuz no ImageId provided')
-					images.append(image)
-				else:
-					ImgId = imageDictData['ImgId']
-					thisImage = Image.query.get(int(ImgId))
-
-					updatingDate = dateutil.parser.parse(imageDictData['ModifiedDate'])
-					if thisImage is not None:
-						print("image is not none")
-						if thisImage.ModifiedDate!=updatingDate:
-							print('updated cuz different ModifiedDate')
-							image = saveImageFile(image)
-							thisImage.update(**image)
-							db.session.commit()
-							images.append(image)
-						else:
-							print("same modified date")
-					else:
+				try:
+					if not 'ImgId' in imageDictData:
 						image = saveImageFile(image)
 						newImage = Image(**image)
 						db.session.add(newImage)
 						db.session.commit()
-						print('added image was none')
+						print('added cuz no ImageId provided')
 						images.append(image)
-				# except:
-				# 	failed_images.append(image)
+					else:
+						ImgId = imageDictData['ImgId']
+						thisImage = Image.query.get(int(ImgId))
+
+						updatingDate = dateutil.parser.parse(imageDictData['ModifiedDate'])
+						if thisImage is not None:
+							print("image is not none")
+							if thisImage.ModifiedDate!=updatingDate:
+								print('updated cuz different ModifiedDate')
+								image = saveImageFile(image)
+								thisImage.update(**image)
+								db.session.commit()
+								images.append(image)
+							else:
+								print("same modified date")
+						else:
+							image = saveImageFile(image)
+							newImage = Image(**image)
+							db.session.add(newImage)
+							db.session.commit()
+							print('added image was none')
+							images.append(image)
+				except:
+					failed_images.append(image)
 
 			status = checkApiResponseStatus(images,failed_images)
 			res = {
@@ -83,28 +83,8 @@ def api_images():
 	return response
 
 
-
-@api.route("/get-image/<image_size>/<image_name>")
-def get_image(image_size,image_name):
-	image = Image.query.filter(Image.FileName==image_name).first()
-	if image_size=='M':
-		path = image.FilePathM
-	elif image_size=='S':
-		path = image.FilePathS
-	elif image_size=="R":
-		path = image.FilePathR
-	try:
-		if current_app.config['OS_TYPE']=='win32':
-			response = send_from_directory('static',filename=path.replace("\\","/"),as_attachment=True)
-		else:
-			response = send_from_directory('static',filename=path,as_attachment=True)
-		return response
-	except FileNotFoundError:
-		abort(404)
-
-
 @api.route("/get-image/<file_type>/<file_size>/<file_name>")
-def get_image_test(file_type,file_size,file_name):
+def get_image(file_type,file_size,file_name):
 	if file_type=="slider":
 		sl_image = Sl_image.query.filter(Sl_image.SlImgName==file_name).first()
 		path = sl_image.SlImgMainImgFileName
@@ -123,7 +103,6 @@ def get_image_test(file_type,file_size,file_name):
 	except FileNotFoundError:
 		abort(404)
 
-
 @api.route("/get-file/<file_type>/<file_name>")
 def get_file(file_type,file_name):
 	if file_type=="slider":
@@ -137,7 +116,6 @@ def get_file(file_type,file_name):
 		return response
 	except FileNotFoundError:
 		abort(404)
-
 
 @api.route("/get-icon/<category>/<file_name>")
 def get_icon(category,file_name):
