@@ -34,7 +34,7 @@
         <div class="main-sidebar sidebar-style-2" tabindex="1">
           <aside id="sidebar-wrapper">
             <div class="sidebar-brand">
-              <a href="{{ url_for('commerce_admin.dashboard') }}"> <img alt="image" src="{{ url_for('static', filename='commerce/admin/img/logo.png')}}" class="header-logo" /> 
+              <a href="{{ url_for('commerce_admin.dashboard') }}"> <img alt="image" src="{{ url_for('static', filename='commerce/admin/img/logo.png')}}" class="header-logo" />
                 <span class="logo-name">{{_('Admin')}}</span>
               </a>
             </div>
@@ -84,7 +84,7 @@
                 <ul class="dropdown-menu">
                   <li><a class="nav-link" href="#">{{_('Sale invoices')}}</a></li>
                 </ul>
-              </li>     
+              </li>
 
               <li class="dropdown">
                 <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="users"></i><span>{{_('Cusomers')}}</span></a>
@@ -112,7 +112,7 @@
                 {% endfor %}
               {% endif %}
             {% endwith %}
-            
+
             {% block content %}{% endblock %}
           </section>
         </div>
@@ -138,7 +138,7 @@
     <script src="{{ url_for('static', filename='commerce/admin/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ url_for('static', filename='commerce/admin/js/page/datatables.js') }}"></script>
       <!-- Required for tables -->
-    <script src="{{ url_for('static', filename='commerce/admin/commerce_styles/js/jquery-3.4.1.min.js') }}"></script>  
+    <script src="{{ url_for('static', filename='commerce/admin/commerce_styles/js/jquery-3.4.1.min.js') }}"></script>
     <script src="{{ url_for('static', filename='commerce/admin/commerce_styles/js/jquery.nicescroll.min.js') }}"></script>
     <script src="{{ url_for('static', filename='commerce/admin/js/ui_dynamicals.js') }}"></script>
     {% block scripts %}{% endblock %}
