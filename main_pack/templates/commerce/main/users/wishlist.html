@@ -32,11 +32,11 @@
 										<li class="wishlist-item" onclick="return true">
 											<div class="item-wrapper">
 												{% if resource.FilePathM %}
-													<a href="{{ url_for('commerce.product',resId=resource.ResId)}}"class="link-to-product">
+													<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}"class="link-to-product">
 														<img loading="lazy" src="{{resource.FilePathS}}" width="270" height="270" class="product-thumnail"/>
 													</a>
 												{% else %}
-													<a href="{{ url_for('commerce.product',resId=resource.ResId)}}"class="link-to-product">
+													<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}"class="link-to-product">
 														<img loading="lazy" src="{{ url_for('static', filename='commerce/main/shop_icons/no_photo.png') }}" width="270" height="270" class="product-thumnail"/>
 													</a>
 												{% endif %}
@@ -53,7 +53,7 @@
 														</span>
 														<div class="dropdown-menu" role="menu">
 															<div class="dropdown-content">
-																<a href="{{ url_for('commerce.product',resId=resource.ResId)}}" class="dropdown-item">
+																<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="dropdown-item">
 																	<i class="feather-icons" data-feather="eye"></i>
 																	<span>{{_('View product')}}</span>
 																</a>

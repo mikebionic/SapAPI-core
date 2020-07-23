@@ -1,35 +1,48 @@
-from flask import render_template, url_for, jsonify, json, session, flash, redirect , request, Response, abort
-from flask_login import current_user, login_required
-from main_pack import db,babel,gettext,lazy_gettext
+from flask import render_template,url_for,json,session,flash,redirect,request,Response,abort
 from main_pack.commerce.admin import bp
+import os
+from flask import current_app
 
-from main_pack.commerce.admin.utils import prepare_data,resRelatedData
-from main_pack.commerce.commerce.utils import commonUsedData,UiResourcesList
+# useful methods
+from main_pack import db,babel,gettext,lazy_gettext
+from main_pack.base.languageMethods import dataLangSelector
+from sqlalchemy import and_
+# / useful methods /
 
+# auth and validation
+from flask_login import current_user,login_required
 from main_pack.commerce.users.routes import ui_admin_required
+# / auth and validation /
 
+# Resource and view
+from main_pack.api.commerce.commerce_utils import apiResourceInfo
+from main_pack.commerce.commerce.utils import commonUsedData
+# / Resource and view /
+
+# Invoices
 from main_pack.models.commerce.models import (Inv_line,Inv_line_det,Inv_line_det_type,
 	Inv_status,Inv_type,Invoice,Order_inv,Order_inv_line,Order_inv_type)
 from main_pack.commerce.commerce.order_utils import UiOInvData,UiOInvLineData
-from sqlalchemy import and_
-
-from main_pack.commerce.commerce.order_utils import invStatusesSelectData
-from main_pack.base.languageMethods import dataLangSelector
 from main_pack.models.commerce.models import Res_category
+# / Invoices /
 
-import os
-from main_pack.base.imageMethods import allowed_icon
-from flask import current_app
-
-from main_pack.commerce.admin.users_utils import UiRpAccData,UiUsersData
+# users and customers
 from main_pack.models.users.models import (Users,User_type,
 																					Rp_acc,Rp_acc_type,Rp_acc_status)
-
-from main_pack.key_generator.utils import makeRegNum,generate,validate
+from main_pack.commerce.admin.users_utils import UiRpAccData,UiUsersData
 from main_pack.commerce.admin.forms import UserRegistrationForm,CustomerRegistrationForm
+# / users and customers /
+
+# RegNo
+from main_pack.key_generator.utils import makeRegNo,generate,validate
+from datetime import datetime,timezone
+# / RegNo /
+
+# Image operations
 from main_pack.models.base.models import Image
 from main_pack.base.imageMethods import save_image
-from datetime import datetime,timezone
+from main_pack.base.imageMethods import allowed_icon
+# / Image operations /
 
 @bp.route("/admin")
 @bp.route("/admin/dashboard")
@@ -106,8 +119,7 @@ def category_table():
 @login_required
 @ui_admin_required()
 def product_table():
-	resData=UiResourcesList()
-	print(resData)
+	resData=apiResourceInfo()
 	return render_template ("commerce/admin/product_table.html",**resData,
 		title=gettext('Product table'))
 
@@ -200,69 +212,69 @@ def register_customer():
 	form.vendor_user.choices = vendorUserChoices
 
 	if form.validate_on_submit():
-		# try:
-		username = form.username.data
-		email = form.email.data
-		full_name = form.full_name.data
-		UShortName = (username[0]+username[-1]).upper()
-		if current_app.config['HASHED_PASSWORDS']==True:
-			password = bcrypt.generate_password_hash(form.password.data).decode() 
-		else:
-			password = form.password.data
-		user = Users(
-			UName=username,
-			UEmail=email,
-			UShortName=UShortName,
-			UPass=password,
-			UFullName=full_name,
-			UTypeId=5)
-
-		# get the regNum for RpAccount registration
 		try:
-			vendor = Users.query.get(form.vendor_user.data)
-			if vendor.UShortName:
-				reg_num = generate(UId=vendor.UId,prefixType='rp code')
-				regNo = makeRegNum(vendor.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'')
+			username = form.username.data
+			email = form.email.data
+			full_name = form.full_name.data
+			UShortName = (username[0]+username[-1]).upper()
+			if current_app.config['HASHED_PASSWORDS']==True:
+				password = bcrypt.generate_password_hash(form.password.data).decode() 
 			else:
-				reg_num = generate(UId=user.UId,prefixType='rp code')
-				regNo = makeRegNum(user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'')
+				password = form.password.data
+			user = Users(
+				UName=username,
+				UEmail=email,
+				UShortName=UShortName,
+				UPass=password,
+				UFullName=full_name,
+				UTypeId=5)
+
+			# get the regNum for RpAccount registration
+			try:
+				vendor = Users.query.get(form.vendor_user.data)
+				if vendor.UShortName:
+					reg_num = generate(UId=vendor.UId,prefixType='rp code')
+					regNo = makeRegNo(vendor.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'')
+				else:
+					reg_num = generate(UId=user.UId,prefixType='rp code')
+					regNo = makeRegNo(user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'')
+			except:
+				regNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
+
+			rp_acc = Rp_acc(
+				RpAccUName=username,
+				RpAccUPass=password,
+				RpAccName=full_name,
+				RpAccEMail=email,
+				RpAccRegNo=regNo,
+				RpAccTypeId=form.customer_type.data,
+				RpAccAddress=form.address.data,
+				RpAccMobilePhoneNumber=form.mobilePhone.data,
+				RpAccHomePhoneNumber=form.homePhone.data,
+				RpAccZipCode=form.zipCode.data,
+				UId=form.vendor_user.data
+				)
+			db.session.add(rp_acc)
+			db.session.commit()
+
+			# assign the RpAccId to a User model
+			user.RpAccId = rp_acc.RpAccId
+			db.session.add(user)
+
+			if form.picture.data:
+				imageFile = save_image(imageForm=form.picture.data,module=os.path.join("uploads","commerce","Rp_acc"),id=rp_acc.RpAccId)
+				lastImage = Image.query.order_by(Image.ImgId.desc()).first()
+				ImgId = lastImage.ImgId+1
+				image = Image(ImgId=ImgId,FileName=imageFile['FileName'],FilePath=imageFile['FilePath'],RpAccId=rp_acc.RpAccId)
+				db.session.add(image)
+
+			db.session.commit()
+
+			flash('{} '.format(username)+lazy_gettext('successfully saved'),'success')
+			return redirect(url_for('commerce_admin.customers_table'))
 		except:
-			regNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
-
-		rp_acc = Rp_acc(
-			RpAccUName=username,
-			RpAccUPass=password,
-			RpAccName=full_name,
-			RpAccEMail=email,
-			RpAccRegNo=regNo,
-			RpAccTypeId=form.customer_type.data,
-			RpAccAddress=form.address.data,
-			RpAccMobilePhoneNumber=form.mobilePhone.data,
-			RpAccHomePhoneNumber=form.homePhone.data,
-			RpAccZipCode=form.zipCode.data,
-			UId=form.vendor_user.data
-			)
-		db.session.add(rp_acc)
-		db.session.commit()
-
-		# assign the RpAccId to a User model
-		user.RpAccId = rp_acc.RpAccId
-		db.session.add(user)
-
-		if form.picture.data:
-			imageFile = save_image(imageForm=form.picture.data,module=os.path.join("uploads","commerce","Rp_acc"),id=rp_acc.RpAccId)
-			lastImage = Image.query.order_by(Image.ImgId.desc()).first()
-			ImgId = lastImage.ImgId+1
-			image = Image(ImgId=ImgId,FileName=imageFile['FileName'],FilePath=imageFile['FilePath'],RpAccId=rp_acc.RpAccId)
-			db.session.add(image)
-
-		db.session.commit()
-
-		flash('{} '.format(username)+lazy_gettext('successfully saved'),'success')
-		return redirect(url_for('commerce_admin.customers_table'))
-		# except:
-		# 	flash(lazy_gettext('Error occured, please try again.'),'danger')
-		# 	return redirect(url_for('commerce_admin.register_customer'))
+			flash(lazy_gettext('Error occured, please try again.'),'danger')
+			return redirect(url_for('commerce_admin.register_customer'))
 	return render_template ("commerce/admin/register_customer.html",
 		form=form,title=gettext('Register'))
 

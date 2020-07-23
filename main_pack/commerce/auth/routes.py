@@ -11,7 +11,7 @@ from main_pack.commerce.auth.utils import (send_reset_email,get_register_token,
 from main_pack.commerce.commerce.utils import UiCategoriesList
 
 from main_pack.models.base.models import Reg_num,Reg_num_type
-from main_pack.key_generator.utils import makeRegNum,generate,validate
+from main_pack.key_generator.utils import makeRegNo,generate,validate
 
 @bp.route("/login",methods=['GET','POST'])
 def login():
@@ -108,7 +108,7 @@ def register_token(token):
 			# get the regNum for RpAccount registration
 			try:
 				reg_num = generate(UId=user.UId,prefixType='rp code')
-				regNo = makeRegNum(user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'')
+				regNo = makeRegNo(user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'')
 			except:
 				flash(lazy_gettext('Error generating Registration number'),'warning')
 				return redirect(url_for('commerce_auth.register'))

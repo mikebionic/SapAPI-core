@@ -71,7 +71,7 @@ def validate(UId,fullRegNo,RegNumLastNum,dbModel,prefixType):
 		}
 	return response
 
-def makeRegNum(shortName,prefix,lastNum,suffix,random_mode=None):
+def makeRegNo(shortName,prefix,lastNum,suffix,random_mode=None):
 	if random_mode:
 		lastNum = randint(1,current_app.config['REG_NUM_RANDOM_RANGE'])
 	regNo = shortName+prefix+str(lastNum)+suffix

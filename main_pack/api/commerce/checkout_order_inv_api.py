@@ -15,7 +15,7 @@ from main_pack.models.commerce.models import Resource,Res_price,Res_total
 from main_pack.base.invoiceMethods import totalQtySubstitution
 from main_pack.base.num2text import num2text,price2text
 from sqlalchemy import and_
-from main_pack.key_generator.utils import generate,makeRegNum
+from main_pack.key_generator.utils import generate,makeRegNo
 import decimal
 
 # @api.route("/test_token/",methods=['GET'])
@@ -63,7 +63,7 @@ def api_checkout_sale_order_invoices(user):
 		######## generate reg no ########
 		try:
 			reg_num = generate(UId=user.UId,prefixType='sale order invoice code')
-			orderRegNo = makeRegNum(user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'',True)
+			orderRegNo = makeRegNo(user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'',True)
 		except:
 			# use device model and other info
 			orderRegNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())

@@ -1,17 +1,33 @@
 from flask import render_template,url_for,json,jsonify,session,flash,redirect,request,Response,abort
-from flask_login import current_user,login_required
-from main_pack import db,babel,gettext,lazy_gettext
 from main_pack.commerce.users import bp
-from main_pack.commerce.users.forms import UpdateProfileForm,UpdateRpAccForm
-from main_pack.commerce.commerce.utils import UiCategoriesList,UiPaginatedResList
-from main_pack.models.commerce.models import Resource,Wish
 from flask import current_app
-from sqlalchemy import and_
 
-from main_pack.models.base.models import Image
+# useful methods
+from main_pack import db,babel,gettext,lazy_gettext
+from main_pack.base.languageMethods import dataLangSelector
+from sqlalchemy import and_
+# / useful methods /
+
+# auth and validation
+from flask_login import current_user,login_required
+# / auth and validation /
+
+# Resource and view
+from main_pack.api.commerce.commerce_utils import apiResourceInfo
+from main_pack.commerce.commerce.utils import UiCategoriesList
+from main_pack.models.commerce.models import Resource,Wish
+# / Resource and view /
+
+# users and customers
 from main_pack.models.users.models import Rp_acc
+from main_pack.commerce.users.forms import UpdateProfileForm,UpdateRpAccForm
+# / users and customers /
+
+# Image operations
+from main_pack.models.base.models import Image
 from main_pack.base.imageMethods import save_image
 from main_pack.base.apiMethods import fileToURL
+# / Image operations /
 
 import os
 from functools import wraps
@@ -63,7 +79,7 @@ def wishlist():
 		product = {}
 		product['resId'] = wish.ResId
 		product_list.append(product)
-	res = UiPaginatedResList(product_list)
+	res = apiResourceInfo(product_list)
 	return render_template ("commerce/main/users/wishlist.html",
 		**categoryData,**res,pagination_url='commerce_users.wishlist',
 		pagination_wishes=pagination_wishes,title=gettext('Wishlist'))

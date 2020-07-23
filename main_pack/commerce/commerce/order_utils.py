@@ -84,17 +84,6 @@ def UiOInvLineData(order_lines_list):
 	}
 	return res
 
-def invStatusesSelectData():
-	invStatusesList=[]
-	inv_statuses = Inv_status.query\
-	.filter(Inv_status.GCRecord=='' or Inv_status.GCRecord==None).all()
-	for inv_status in inv_statuses:
-		status = dataLangSelector(inv_status.to_json_api())
-		obj=(status['InvStatId'],status['InvStatName'])
-		invStatusesList.append(obj)
-	return invStatusesList
-
-
 def addOInvLineDict(req):
 	OInvId = req.get('OInvId')
 	UnitId = req.get('UnitId')

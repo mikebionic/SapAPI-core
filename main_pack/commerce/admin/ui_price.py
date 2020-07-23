@@ -5,7 +5,7 @@ from datetime import datetime
 from main_pack.commerce.admin import bp
 
 from main_pack.models.base.models import Reg_num,Reg_num_type
-from main_pack.key_generator.utils import makeRegNum,generate,validate
+from main_pack.key_generator.utils import makeRegNo,generate,validate
 
 from main_pack.models.commerce.models import Res_price
 from main_pack.commerce.admin.utils import addResPriceDict
@@ -26,7 +26,7 @@ def ui_price():
 	reg_num = generate(UId=current_user.UId,prefixType='price code') # specify the generation prefix
 	if request.method == "GET":
 		try:
-			regNo = makeRegNum(current_user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'')
+			regNo = makeRegNo(current_user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'')
 			response = jsonify({
 				'regNoForm':'resPriceRegNo',
 				'regNo':regNo
@@ -62,7 +62,7 @@ def ui_price():
 					})
 			
 			elif validation['status']==False:
-				regNo = makeRegNum(current_user.UShortName,reg_num.RegNumPrefix,
+				regNo = makeRegNo(current_user.UShortName,reg_num.RegNumPrefix,
 					validation['RegNumLastNum'],'')
 				resPrice['ResPriceRegNo']=regNo
 				reg_num.RegNumLastNum=validation['RegNumLastNum']

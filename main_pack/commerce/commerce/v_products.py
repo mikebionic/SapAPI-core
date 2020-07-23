@@ -4,10 +4,13 @@ from flask_login import current_user,login_required
 from main_pack import db,babel,gettext,lazy_gettext
 from main_pack.commerce.commerce import bp
 
-from main_pack.commerce.commerce.utils import UiCategoriesList,commonUsedData,uiSortingData,UiPaginatedResList,UiCategoriesList
-from main_pack.commerce.commerce.cart_utils import UiCartResourceData
-
+# Resource and view
+from main_pack.api.commerce.commerce_utils import apiResourceInfo
+from main_pack.commerce.commerce.utils import commonUsedData
 from main_pack.models.commerce.models import Resource
+from main_pack.commerce.commerce.utils import UiCategoriesList,uiSortingData
+from main_pack.commerce.commerce.cart_utils import UiCartResourceData
+# / Resource and view /
 
 @bp.route("/v-list")
 def v_list():
@@ -18,11 +21,10 @@ def v_list():
 	product_list = []
 	for resource in pagination_resources.items:
 		product = {}
-		product['resId'] = resource.ResId
+		product['ResId'] = resource.ResId
 		product_list.append(product)
-	res = UiPaginatedResList(product_list)
+	res = apiResourceInfo(product_list)
 	categoryData = UiCategoriesList()
-	# commonData = commonUsedData()
 	sortingData = uiSortingData()
 	return render_template ("commerce/main/commerce/v_list.html",**categoryData,
 		**sortingData,**res,title=gettext('Category'),pagination_url='commerce.v_list',
@@ -37,26 +39,24 @@ def v_grid():
 	product_list = []
 	for resource in pagination_resources.items:
 		product = {}
-		product['resId'] = resource.ResId
+		product['ResId'] = resource.ResId
 		product_list.append(product)
-	res = UiPaginatedResList(product_list)
+	res = apiResourceInfo(product_list)
 	categoryData = UiCategoriesList()
-	# commonData = commonUsedData()
 	sortingData = uiSortingData()
 	return render_template ("commerce/main/commerce/v_grid.html",**categoryData,
 		**sortingData,**res,title=gettext('Category'),pagination_url='commerce.v_grid',
 		pagination_resources=pagination_resources)
 
-@bp.route("/product/<int:resId>")
-def product(resId):
+@bp.route("/product/<int:ResId>")
+def product(ResId):
 	product_list=[
 		{
-			'resId':resId,
+			'ResId':ResId,
 		}
 	]
 	resData = UiCartResourceData(product_list)
 	resource = resData["data"][0]
 	categoryData = UiCategoriesList()
-	# commonData = commonUsedData()
 	return render_template ("commerce/main/commerce/product.html",
 		**categoryData,resource=resource,title=gettext('Product'))

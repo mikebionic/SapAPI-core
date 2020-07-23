@@ -7,7 +7,7 @@
         <li class="product-item col-lg-4 col-md-4 col-sm-4 col-xs-6">
           <div class="sin-product">
             <div class="pro-image fix">
-              <a href="{{ url_for('commerce.product',resId=resource.ResId)}}"class="image">
+              <a href="{{ url_for('commerce.product',ResId=resource.ResId)}}"class="image">
                 {% if resource.FilePathM %}
                   <img loading="lazy" src="{{ resource.FilePathS }}" width="270" height="270" class="product-thumnail"/>
                 {% else %}
@@ -15,12 +15,12 @@
                 {% endif %}
               </a>
               <div class="pro-action">
-                <a href="#{{ url_for('commerce.product',resId=resource.ResId)}}" class="action-btn cart addToCart" ownerId="{{resource.ResId}}"><i class="fa fa-fw fa-shopping-cart"></i></a>
+                <a href="#{{ url_for('commerce.product',ResId=resource.ResId)}}" class="action-btn cart addToCart" ownerId="{{resource.ResId}}"><i class="fa fa-fw fa-shopping-cart"></i></a>
                 <a href="#" class="action-btn wishlist"><i class="fa fa-fw fa-heart-o"></i></a>
               </div>
             </div>
             <div class="pro-details text-center">
-              <a href="{{ url_for('commerce.product',resId=resource.ResId)}}" class="pro-title">{{'' if resource.ResName==None else resource.ResName}}</a>
+              <a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="pro-title">{{'' if resource.ResName==None else resource.ResName}}</a>
               <h3 class="pro-price">
                 <span class="currencySymbol">TMT</span>
                 <span class="new">

@@ -4,17 +4,17 @@
     <div class="minicart-item">
       <div class="thumb">
         {% if resource.FilePathS %}
-          <a href="{{ url_for('commerce.product',resId=resource.ResId)}}">
+          <a href="{{ url_for('commerce.product',ResId=resource.ResId)}}">
             <img src="{{resource.FilePathS}}" width="90" height="90">
           </a>
         {% else %}
-          <a href="{{ url_for('commerce.product',resId=resource.ResId)}}">
+          <a href="{{ url_for('commerce.product',ResId=resource.ResId)}}">
             <img src="{{ url_for('static', filename='commerce/main/shop_icons/no_photo.png') }}" width="90" height="90"/>
           </a>
         {% endif %}
       </div>
       <div class="left-info">
-        <div class="product-title"><a href="{{ url_for('commerce.product',resId=resource.ResId)}}" class="product-name resName">{{ '' if resource.ResName==None else resource.ResName}}</a></div>
+        <div class="product-title"><a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="product-name resName">{{ '' if resource.ResName==None else resource.ResName}}</a></div>
         <div class="price">
           <ins>
             <span class="price-amount">

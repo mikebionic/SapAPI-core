@@ -9,18 +9,18 @@
           <div class="contain-product pr-detail-layout">
             <div class="product-thumb">
               {% if resource.FilePathM %}
-                <a href="{{ url_for('commerce.product',resId=resource.ResId)}}"class="link-to-product">
+                <a href="{{ url_for('commerce.product',ResId=resource.ResId)}}"class="link-to-product">
                   <img loading="lazy" src="{{resource.FilePathS}}" width="270" height="270" class="product-thumnail"/>
                 </a>
               {% else %}
-                <a href="{{ url_for('commerce.product',resId=resource.ResId)}}"class="link-to-product">
+                <a href="{{ url_for('commerce.product',ResId=resource.ResId)}}"class="link-to-product">
                   <img loading="lazy" src="{{ url_for('static', filename='commerce/main/shop_icons/no_photo.png') }}" width="270" height="270" class="product-thumnail"/>
                 </a>
               {% endif %}
             </div>
             <div class="info">
               <b class="categories">{{ resource.ResName if resource.ResName else '' }}</b>
-              <h4 class="product-title"><a href="{{ url_for('commerce.product',resId=resource.ResId)}}" class="pr-name">{{'' if resource.ResDesc==None else resource.ResDesc}}</a></h4>
+              <h4 class="product-title"><a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="pr-name">{{'' if resource.ResDesc==None else resource.ResDesc}}</a></h4>
               <p class="excerpt">{{ resource.ResFullDesc[0:80]+'...' if resource.ResFullDesc else '' }}</p>
               <div class="price">
                 <ins>

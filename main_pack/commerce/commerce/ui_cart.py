@@ -12,7 +12,7 @@ from main_pack.commerce.commerce.order_utils import addOInvLineDict,addOInvDict
 from main_pack.models.base.models import Reg_num,Reg_num_type
 from main_pack.models.commerce.models import Res_price,Res_total
 from main_pack.base.invoiceMethods import totalQtySubstitution
-from main_pack.key_generator.utils import makeRegNum,generate,validate
+from main_pack.key_generator.utils import makeRegNo,generate,validate
 from main_pack.base.num2text import num2text,price2text
 from datetime import datetime
 import decimal
@@ -164,11 +164,11 @@ def ui_cart_checkout():
 						Users.RpAccId==rp_acc.RpAccId).first()
 				if Rp_acc_user:
 					reg_num = generate(UId=Rp_acc_user.UId,prefixType='sale order invoice code')
-					regNo = makeRegNum(Rp_acc_user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'',True)
+					regNo = makeRegNo(Rp_acc_user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'',True)
 				else:
 					# else if no seller user found for a current rp_acc:
 					reg_num = generate(UId=current_user.UId,prefixType='sale order invoice code')
-					regNo = makeRegNum(current_user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'',True)
+					regNo = makeRegNo(current_user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'',True)
 			except:
 				regNo = datetime.now()
 			

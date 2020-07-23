@@ -2,19 +2,19 @@
   <tr class="cart_item cartTableObject{{resource.ResId}}">
     <td class="product-thumbnail" data-title="{{_('Product')}} Name">
       {% if resource.FilePathS %}
-        <a class="prd-thumb" href="{{ url_for('commerce.product',resId=resource.ResId)}}">
+        <a class="prd-thumb" href="{{ url_for('commerce.product',ResId=resource.ResId)}}">
           <figure>
             <img src="{{resource.FilePathS}}" width="113" height="113"/>
           </figure>
         </a>
       {% else %}
-        <a class="prd-thumb" href="{{ url_for('commerce.product',resId=resource.ResId)}}">
+        <a class="prd-thumb" href="{{ url_for('commerce.product',ResId=resource.ResId)}}">
           <figure>
             <img src="{{ url_for('static', filename='commerce/main/shop_icons/no_photo.png') }}" width="113" height="113"/>
           </figure>
         </a>
       {% endif %}
-      <a class="prd-name resName" href="{{ url_for('commerce.product',resId=resource.ResId)}}">{{ '' if resource.ResName==None else resource.ResName}}</a>
+      <a class="prd-name resName" href="{{ url_for('commerce.product',ResId=resource.ResId)}}">{{ '' if resource.ResName==None else resource.ResName}}</a>
     </td>
     <td class="product-price" data-title="{{_('Price')}}">
       <div class="price price-contain">
