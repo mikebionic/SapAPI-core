@@ -59,12 +59,11 @@ def api_order_invoices():
 			failed_order_invoices = [] 
 			for data in req:
 				order_invoice = addOrderInvDict(data)
+				print(order_invoice)
 				try:
 					OInvRegNo = order_invoice['OInvRegNo']
 					thisOrderInv = Order_inv.query\
 						.filter(Order_inv.OInvRegNo==OInvRegNo).first()
-
-					print (data['RpAccId'])
 					# getting correct rp_acc of a database
 					try:
 						RpAccRegNo = data['Rp_acc']['RpAccRegNo']
@@ -77,6 +76,7 @@ def api_order_invoices():
 							order_invoice['RpAccId'] = rp_acc.RpAccId
 					except:
 						print("Rp_acc not provided")
+						abort(400)
 
 
 					if thisOrderInv:
