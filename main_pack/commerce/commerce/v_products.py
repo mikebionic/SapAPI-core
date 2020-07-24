@@ -9,7 +9,7 @@ from main_pack.api.commerce.commerce_utils import apiResourceInfo
 from main_pack.commerce.commerce.utils import commonUsedData
 from main_pack.models.commerce.models import Resource
 from main_pack.commerce.commerce.utils import UiCategoriesList,uiSortingData
-from main_pack.commerce.commerce.cart_utils import UiCartResourceData
+from main_pack.api.commerce.commerce_utils import UiCartResourceData
 # / Resource and view /
 
 @bp.route("/v-list")

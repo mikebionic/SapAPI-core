@@ -16,7 +16,7 @@ from main_pack.models.commerce.models import (Color,
 from main_pack.models.base.models import Image
 from sqlalchemy import and_
 
-def apiResourceInfo(resource_list=None,deleted=False):
+def apiResourceInfo(resource_list=None,single_object=False,isDeleted=False,isInactive=False,fullInfo=False):
 	barcodes = Barcode.query\
 		.filter(Barcode.GCRecord=='' or Barcode.GCRecord==None).all()
 	categories = Res_category.query\
@@ -44,7 +44,7 @@ def apiResourceInfo(resource_list=None,deleted=False):
 	
 	resource_models = []
 	if resource_list is None:
-		if deleted==True:
+		if isDeleted==True:
 			resources = Resource.query.all()
 		else:
 			resources = Resource.query\
@@ -53,7 +53,7 @@ def apiResourceInfo(resource_list=None,deleted=False):
 			resource_models.append(resource)
 	else:
 		for resource_index in resource_list:
-			if deleted==True:
+			if isDeleted==True:
 				resource = Resource.query\
 					.filter(Resource.ResId == resource_index["ResId"]).first()
 			else:
@@ -68,10 +68,10 @@ def apiResourceInfo(resource_list=None,deleted=False):
 		try:
 			resource_info = resource.to_json_api()
 
-			List_Barcode = [barcode.BarcodeVal for barcode in barcodes if barcode.ResId==resource.ResId]
-			List_Res_category = [category.ResCatName for category in categories if category.ResCatId==resource.ResCatId]
-			List_Res_price = [res_price.ResPriceValue for res_price in res_prices if res_price.ResId==resource.ResId and res_price.ResPriceTypeId==2]
-			List_Res_total = [res_total.ResTotBalance for res_total in res_totals if res_total.ResId==resource.ResId]
+			List_Barcode = [barcode.to_json_api() for barcode in barcodes if barcode.ResId==resource.ResId]
+			List_Res_category = [category.to_json_api() for category in categories if category.ResCatId==resource.ResCatId]
+			List_Res_price = [res_price.to_json_api() for res_price in res_prices if res_price.ResId==resource.ResId and res_price.ResPriceTypeId==2]
+			List_Res_total = [res_total.to_json_api() for res_total in res_totals if res_total.ResId==resource.ResId]
 			List_Images = [image.to_json_api() for image in images if image.ResId==resource.ResId]
 			List_Colors = [color.to_json_api() for res_color in res_colors if res_color.ResId==resource.ResId for color in colors if color.ColorId==res_color.ColorId]
 			List_Sizes = [size.to_json_api() for res_size in res_sizes if res_size.ResId==resource.ResId for size in sizes if size.SizeId==res_size.SizeId]
@@ -79,10 +79,10 @@ def apiResourceInfo(resource_list=None,deleted=False):
 			List_UsageStatus = [usage_status.to_json_api() for usage_status in usage_statuses if usage_status.UsageStatusId==resource.UsageStatusId]
 			List_Units = [unit.to_json_api() for unit in units if unit.UnitId==resource.UnitId]
 
-			resource_info["BarcodeVal"] = List_Barcode[0] if List_Barcode else ''
-			resource_info["ResCatName"] = List_Res_category[0] if List_Res_category else ''
-			resource_info["ResPriceValue"] = List_Res_price[0] if List_Res_price else ''
-			resource_info["ResTotBalance"] = List_Res_total[0] if List_Res_total else ''
+			resource_info["BarcodeVal"] = List_Barcode[0]['BarcodeVal'] if List_Barcode else ''
+			resource_info["ResCatName"] = List_Res_category[0]['ResCatName'] if List_Res_category else ''
+			resource_info["ResPriceValue"] = List_Res_price[0]['ResPriceValue'] if List_Res_price else ''
+			resource_info["ResTotBalance"] = List_Res_total[0]['ResTotBalance'] if List_Res_total else ''
 			resource_info["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=List_Images[0]['FileName']) if List_Images else ''
 			resource_info["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=List_Images[0]['FileName']) if List_Images else ''
 			resource_info["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_Images[0]['FileName']) if List_Images else ''
@@ -91,17 +91,24 @@ def apiResourceInfo(resource_list=None,deleted=False):
 			resource_info["Sizes"] = List_Sizes if List_Sizes else []
 			resource_info["Brand"] = List_Brands[0] if List_Brands else ''
 			resource_info["Unit"] = dataLangSelector(List_Units[0]) if List_Units else ''
-			resource_info["UsageStatus"] = dataLangSelector(List_UsageStatus[0]) if List_UsageStatus else ''
-				
+
+			if fullInfo == True:
+				resource_info["UsageStatus"] = dataLangSelector(List_UsageStatus[0]) if List_UsageStatus else ''
+				resource_info["Barcode"] = List_Barcode if List_Barcode else ''
+				resource_info["Res_category"] = List_Res_category[0] if List_Res_category else ''
+				resource_info["Res_price"] = List_Res_price[0] if List_Res_price else ''
+				resource_info["Res_total"] = List_Res_total[0] if List_Res_total else ''
+
 			data.append(resource_info)
 		except:
 			fails.append(resource)
 			
 	status = checkApiResponseStatus(data,fails)
-	if len(data)==1:
-		data = data[0]
-	if len(fails)==1:
-		fails = fails[0]
+	if single_object==True:
+		if len(data)==1:
+			data = data[0]
+		if len(fails)==1:
+			fails = fails[0]
 	res = {
 			"message":"Resources",
 			"data":data,
@@ -112,4 +119,24 @@ def apiResourceInfo(resource_list=None,deleted=False):
 	for e in status:
 		res[e]=status[e]
 	response = make_response(jsonify(res),200)
+	return res
+
+def UiCartResourceData(product_list):
+	res = apiResourceInfo(product_list)
+	data = []
+	resources = res['data']
+	for resource in resources:
+		for product in product_list:
+			if (int(resource['ResId'])==int(product['ResId'])):
+				try:
+					resource["productQty"] = product["productQty"]
+				except:
+					resource["productQty"] = 1
+		resource["productTotal"]=int(resource["productQty"])*int(resource["ResPriceValue"])
+		data.append(resource)
+	res = {
+		"status":1,
+		"data":data,
+		"total":len(data)
+	}
 	return res

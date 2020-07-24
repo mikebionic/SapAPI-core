@@ -9,7 +9,10 @@ from main_pack import db
 from flask import current_app
 from main_pack.api.auth.api_login import sha_required
 
+from main_pack.api.commerce.commerce_utils import apiResourceInfo
+
 @api.route("/tbl-dk-resources/<int:ResId>/",methods=['GET'])
+@sha_required
 def api_resource(ResId):
 	if request.method == 'GET':
 		resource = Resource.query.get(ResId)
@@ -63,9 +66,9 @@ def api_resources():
 			for resource in req:
 				resource = addResourceDict(resource)
 
-				# special syncronizer method
+				# special syncronizer method 
+				# category is resource's AddInf2
 				group = resource['AddInf2']
-				print(group)
 				if group:
 					category = Res_category.query.filter_by(ResCatName=group).first()
 					if not category:
@@ -73,15 +76,12 @@ def api_resources():
 						db.session.add(category)
 						db.session.commit()
 						resource['ResCatId']=category.ResCatId
-						print("resCat added, it's id: "+str(category.ResCatId))
 					else:
 						resource['ResCatId']=category.ResCatId
-						print("resCat found, it's id: "+str(category.ResCatId))
 				# /special synchronizer method
 
 				try:
 					if not 'ResId' in resource:
-						print("No resId")
 						newResource = Resource(**resource)
 						db.session.add(newResource)
 						db.session.commit()
@@ -90,7 +90,6 @@ def api_resources():
 						ResId = resource['ResId']
 						thisResource = Resource.query.get(int(ResId))
 						if thisResource is not None:
-							print("update")
 							# check for presenting in database
 							thisResource.update(**resource)
 							# thisResource.modifiedInfo(UId=1)
@@ -98,7 +97,6 @@ def api_resources():
 							resources.append(resource)
 
 						else:
-							print("hasIDbutInsert")
 							# create new resource
 							newResource = Resource(**resource)
 							db.session.add(newResource)

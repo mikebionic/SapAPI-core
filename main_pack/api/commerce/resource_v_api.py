@@ -4,101 +4,24 @@ from main_pack import db
 from sqlalchemy import and_
 
 from main_pack.api.commerce.commerce_utils import apiResourceInfo
-
 from main_pack.models.commerce.models import Resource
-from main_pack.api.commerce.utils import addResourceDict
 
-from main_pack.models.commerce.models import Barcode
-from main_pack.api.commerce.utils import addBarcodeDict
-
-from main_pack.models.commerce.models import Res_category
-from main_pack.api.commerce.utils import addCategoryDict
-
-from main_pack.models.base.models import Image
-from main_pack.api.commerce.utils import addImageDict
-
-from main_pack.models.commerce.models import Res_price
-from main_pack.api.commerce.utils import addResPriceDict
-
-from main_pack.models.commerce.models import Res_total
-from main_pack.api.commerce.utils import addResTotalDict
-
-from main_pack.models.commerce.models import (Color,Size,Brand,Unit,Usage_status)
-from main_pack.models.commerce.models import (Res_color,Res_size,Res_unit)
-
-@api.route("/v-full-resources/",methods=['GET'])
+@api.route("/v-full-resources/")
 def api_v_full_resources():
-	if request.method == 'GET':
-		resources = Resource.query\
-			.filter(Resource.GCRecord=='' or Resource.GCRecord==None).all()
-		barcodes = Barcode.query\
-			.filter(Barcode.GCRecord=='' or Barcode.GCRecord==None).all()
-		categories = Res_category.query\
-			.filter(Res_category.GCRecord=='' or Res_category.GCRecord==None).all()
-		res_prices = Res_price.query\
-			.filter(Res_price.GCRecord=='' or Res_price.GCRecord==None).all()
-		res_totals = Res_total.query\
-			.filter(Res_total.GCRecord=='' or Res_total.GCRecord==None).all()
-		images = Image.query\
-			.filter(Image.GCRecord=='' or Image.GCRecord==None).all()
-
-		colors = Color.query\
-			.filter(Color.GCRecord=='' or Color.GCRecord==None).all()
-		sizes = Size.query\
-			.filter(Size.GCRecord=='' or Size.GCRecord==None).all()
-		brands = Brand.query\
-			.filter(Brand.GCRecord=='' or Brand.GCRecord==None).all()
-		res_colors = Res_color.query\
-			.filter(Res_color.GCRecord=='' or Res_color.GCRecord==None).all()
-		res_sizes = Res_size.query\
-			.filter(Res_size.GCRecord=='' or Res_size.GCRecord==None).all()
-		usage_statuses = Usage_status.query\
-			.filter(Size.GCRecord=='' or Size.GCRecord==None).all()
-		units = Unit.query\
-			.filter(Unit.GCRecord=='' or Unit.GCRecord==None).all()
-		data = []
-		for resource in resources:
-			resourceList = resource.to_json_api()
-			resourceList["Barcode"] = [barcode.to_json_api() for barcode in barcodes if barcode.ResId==resource.ResId]
-			resourceList["Res_category"] = [category.to_json_api() for category in categories if category.ResCatId==resource.ResCatId]
-			resourceList["Res_price"] = [res_price.to_json_api() for res_price in res_prices if res_price.ResId==resource.ResId]
-			resourceList["Res_total"] = [res_total.to_json_api() for res_total in res_totals if res_total.ResId==resource.ResId]
-			resourceList["Image"] = [image.to_json_api() for image in images if image.ResId==resource.ResId]
-			resourceList["Colors"] = [color.to_json_api() for res_color in res_colors if res_color.ResId==resource.ResId for color in colors if color.ColorId==res_color.ColorId]
-			resourceList["Sizes"] = [size.to_json_api() for res_size in res_sizes if res_size.ResId==resource.ResId for size in sizes if size.SizeId==res_size.SizeId]
-			resourceList["Brand"] = [brand.to_json_api() for brand in brands if brand.BrandId==resource.BrandId]
-			resourceList["UsageStatus"] = [usage_status.to_json_api() for usage_status in usage_statuses if usage_status.UsageStatusId==resource.UsageStatusId]
-			resourceList["Unit"] = [unit.to_json_api() for unit in units if unit.UnitId==resource.UnitId]
-
-			data.append(resourceList)
-		res = {
-			"status":1,
-			"message":"All view resources",
-			"data":data,
-			"total":len(resources)
-		}
-		response = make_response(jsonify(res),200)
+	res = apiResourceInfo(fullInfo=True)
+	response = make_response(jsonify(res),200)
 	return response
 
 @api.route("/v-resources/")
 def api_v_resources():
-	resources = Resource.query\
-		.filter(Resource.GCRecord=='' or Resource.GCRecord==None).all()
-
-	resource_list = []
-	for resource in resources:
-		product = {}
-		product['ResId'] = resource.ResId
-		resource_list.append(product)
-	res = apiResourceInfo(resource_list)
-	
+	res = apiResourceInfo()
 	response = make_response(jsonify(res),200)
 	return response
 
 @api.route("/v-resources/<int:ResId>/")
 def api_v_resource_info(ResId):
 	resource_list = [{'ResId':ResId}]
-	res = apiResourceInfo(resource_list)
+	res = apiResourceInfo(resource_list,single_object=True)
 	if res['status']==1:
 		status_code = 200
 	else:
@@ -111,19 +34,17 @@ def api_category_v_resources(ResCatId):
 	resources = Resource.query\
 		.filter(and_(Resource.GCRecord=='' or Resource.GCRecord==None),\
 			Resource.ResCatId==ResCatId).all()
-	
 	resource_list = []
 	for resource in resources:
 		product = {}
 		product['ResId'] = resource.ResId
 		resource_list.append(product)
+
 	res = apiResourceInfo(resource_list)
-	
 	response = make_response(jsonify(res),200)
 	return response
 
 ###### pagination #######
-
 @api.route("/paginate/v-resources/",methods=['GET'])
 def api_paginate_resources():
 	latestResource = Resource.query\
@@ -179,5 +100,4 @@ def api_paginate_resources():
 		'next_url':next,
 		'pages_total':pagination.total
 	}
-	
 	return jsonify(res)

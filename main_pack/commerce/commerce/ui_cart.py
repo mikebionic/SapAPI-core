@@ -5,7 +5,7 @@ from main_pack import db,babel,gettext,lazy_gettext
 from main_pack.commerce.commerce import bp
 from sqlalchemy import and_
 
-from main_pack.commerce.commerce.cart_utils import UiCartResourceData
+from main_pack.api.commerce.commerce_utils import UiCartResourceData
 from main_pack.models.commerce.models import Resource,Order_inv,Order_inv_line
 from main_pack.commerce.commerce.order_utils import addOInvLineDict,addOInvDict
 
@@ -24,11 +24,11 @@ def ui_cart():
 	if request.method == "POST":
 		try:
 			req = request.get_json()
-			resId = req.get('resId')
+			ResId = req.get('resId')
 			productQty = req.get('productQty')
 
 			product={}
-			product['resId'] = resId
+			product['ResId'] = ResId
 			product['productQty'] = productQty
 			product_list.append(product)
 
@@ -49,16 +49,15 @@ def ui_cart():
 		req = request.get_json()
 		try:
 			for resElement in req:
-				resId = req[resElement].get('resId')
+				ResId = req[resElement].get('resId')
 				productQty = req[resElement].get('productQty')
 				
 				product={}
-				product['resId'] = resId
+				product['ResId'] = ResId
 				product['productQty'] = productQty
 				product_list.append(product)
 
 			resData = UiCartResourceData(product_list)
-
 			response = jsonify({
 				'status':'added',
 				'responseText':gettext('Product')+' '+gettext('successfully saved!'),
@@ -78,11 +77,11 @@ def ui_cart_table():
 	if request.method == "POST":
 		try:
 			req = request.get_json()
-			resId = req.get('resId')
+			ResId = req.get('resId')
 			productQty = req.get('productQty')
 
 			product={}
-			product['resId'] = resId
+			product['ResId'] = ResId
 			product['productQty'] = productQty
 			product_list.append(product)
 
@@ -104,11 +103,11 @@ def ui_cart_table():
 		req = request.get_json()
 		try:
 			for resElement in req:
-				resId = req[resElement].get('resId')
+				ResId = req[resElement].get('resId')
 				productQty = req[resElement].get('productQty')
 				
 				product={}
-				product['resId'] = resId
+				product['ResId'] = ResId
 				product['productQty'] = productQty
 				product_list.append(product)
 
@@ -232,7 +231,6 @@ def ui_cart_checkout():
 					order_inv_lines.append(thisOInvLine.to_json_api())
 				except:
 					failed_order_inv_lines.append(req['cartData'][resElement])
-
 
 			if (len(order_inv_lines)==0):
 				raise Exception
