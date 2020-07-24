@@ -12,18 +12,20 @@ from sqlalchemy import or_, and_
 from random import randint
 
 prefixTypesDict = {
-		'employee code':1,
-		'user code':2,
-		'goods code':3,
-		'account code':4,
-		'price code':5,
-		'rp code':6,
-		'sale invoice code':7,
-		'purchase invoice code':8,
-		'sale order invoice code':9,
-		'purchase order invoice code':10,
-		'sale return invoice code':11,
-		'purchase return invoice code':12
+		'employee_code':1,
+		'user_code':2,
+		'goods_code':3,
+		'account_code':4,
+		'price_code':5,
+		'rp_code':6,
+		'sale_invoice_code':7,
+		'purchase_invoice_code':8,
+		'sale_order_invoice_code':9,
+		'purchase_order_invoice_code':10,
+		'sale_return_invoice_code':11,
+		'purchase_return_invoice_code':12,
+		'order_invoice_line_code':13,
+		'invoice_line_code':14
 	}
 
 def generate(UId,prefixType):

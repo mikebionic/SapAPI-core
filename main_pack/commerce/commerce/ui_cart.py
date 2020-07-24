@@ -6,7 +6,7 @@ from main_pack.commerce.commerce import bp
 from sqlalchemy import and_
 
 from main_pack.api.commerce.commerce_utils import UiCartResourceData
-from main_pack.models.commerce.models import Resource,Order_inv,Order_inv_line
+from main_pack.models.commerce.models import Resource,Order_inv,Order_inv_line,Work_period
 from main_pack.commerce.commerce.order_utils import addOInvLineDict,addOInvDict
 
 from main_pack.models.base.models import Reg_num,Reg_num_type
@@ -14,7 +14,7 @@ from main_pack.models.commerce.models import Res_price,Res_total
 from main_pack.base.invoiceMethods import totalQtySubstitution
 from main_pack.key_generator.utils import makeRegNo,generate,validate
 from main_pack.base.num2text import num2text,price2text
-from datetime import datetime
+from datetime import datetime,timezone
 import decimal
 from main_pack.models.users.models import Users,Rp_acc
 
@@ -152,37 +152,44 @@ def ui_cart_checkout():
 				# no products in cart
 				raise Exception
 
+			work_period = Work_period.query\
+				.filter(and_(Work_period.GCRecord=='' or Work_period.GCRecord==None),\
+					Work_period.WpIsDefault==True).first()
+
 			# get the rp_acc of current logged user
 			rp_acc = Rp_acc.query\
 				.filter(and_(Rp_acc.GCRecord=='' or Rp_acc.GCRecord==None),\
 					Rp_acc.RpAccId==current_user.RpAccId).first()
-			try:
-				# get the seller user of the rp_acc
-				Rp_acc_user = Users.query\
+
+			user = Users.query\
+				.filter(and_(Users.GCRecord=='' or Users.GCRecord==None),\
+					Users.UId==rp_acc.UId).first()
+			if user is None:
+				# try to find the rp_acc registered user if no seller specified
+				user = Users.query\
 					.filter(and_(Users.GCRecord=='' or Users.GCRecord==None),\
 						Users.RpAccId==rp_acc.RpAccId).first()
-				if Rp_acc_user:
-					reg_num = generate(UId=Rp_acc_user.UId,prefixType='sale order invoice code')
-					regNo = makeRegNo(Rp_acc_user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'',True)
-				else:
-					# else if no seller user found for a current rp_acc:
-					reg_num = generate(UId=current_user.UId,prefixType='sale order invoice code')
-					regNo = makeRegNo(current_user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'',True)
+
+			######## generate reg no ########
+			try:
+				reg_num = generate(UId=user.UId,prefixType='sale_order_invoice_code')
+				orderRegNo = makeRegNo(user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'',True)
 			except:
-				regNo = datetime.now()
-			
+				# use device model and other info
+				orderRegNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())			
+
 			OInvDesc = req.get('orderDesc')
 			orderInv = Order_inv(
 					OInvTypeId=2,
 					InvStatId=1,
 					CurrencyId=1,
+					WpId=work_period.WpId,
 					RpAccId=rp_acc.RpAccId,
-					OInvRegNo=regNo,
+					OInvRegNo=orderRegNo,
 					OInvDesc=OInvDesc,
 				)
 			db.session.add(orderInv)
 			OInvTotal = 0
-			
 			order_inv_lines = []
 			failed_order_inv_lines = []		
 			for resElement in req['cartData']:
@@ -223,6 +230,16 @@ def ui_cart_checkout():
 						resourceInv['CurrencyId'] = 1
 					
 					order_inv_line = addOInvLineDict(resourceInv)
+
+					# OInvLineRegNo generation
+					try:
+						reg_num = generate(UId=user.UId,prefixType='order_invoice_line_code')
+						orderLineRegNo = makeRegNo(user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'',True)
+					except:
+						# use device model and other info
+						orderLineRegNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
+					order_inv_line['OInvLineRegNo']=orderLineRegNo
+					
 					# increment of Main Order Inv Total Price
 					OInvTotal += OInvLineFTotal
 					print(order_inv_line)

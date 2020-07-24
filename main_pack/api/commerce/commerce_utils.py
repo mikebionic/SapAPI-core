@@ -16,6 +16,10 @@ from main_pack.models.commerce.models import (Color,
 from main_pack.models.base.models import Image
 from sqlalchemy import and_
 
+# isDeleted shows deleted resources with GCRecord != None
+# isInactive shows active resources with UsageStatusId = 1
+# fullInfo shows microframework full info with Foreign tables
+# single_object returns one resource in "data" instead of list 
 def apiResourceInfo(resource_list=None,single_object=False,isDeleted=False,isInactive=False,fullInfo=False):
 	barcodes = Barcode.query\
 		.filter(Barcode.GCRecord=='' or Barcode.GCRecord==None).all()
@@ -45,22 +49,49 @@ def apiResourceInfo(resource_list=None,single_object=False,isDeleted=False,isIna
 	resource_models = []
 	if resource_list is None:
 		if isDeleted==True:
-			resources = Resource.query.all()
+			if isInactive==True:
+				resources = Resource.query.all()
+			else:
+				resources = Resource.query\
+					.filter(Resource.UsageStatusId==1).all()
 		else:
-			resources = Resource.query\
-				.filter(Resource.GCRecord=='' or Resource.GCRecord==None).all()
+			if isInactive==True:
+				resources = Resource.query\
+					.filter(Resource.GCRecord=='' or Resource.GCRecord==None).all()	
+			else:
+				resources = Resource.query\
+					.filter(and_(\
+						(Resource.GCRecord=='' or Resource.GCRecord==None),\
+						Resource.UsageStatusId==1)).all()
 		for resource in resources:
 			resource_models.append(resource)
+
 	else:
 		for resource_index in resource_list:
+			ResId = int(resource_index["ResId"])
 			if isDeleted==True:
-				resource = Resource.query\
-					.filter(Resource.ResId == resource_index["ResId"]).first()
+				if isInactive==True:
+					resource = Resource.query\
+						.filter((Resource.ResId==ResId)).first()
+				else:
+					resource = Resource.query\
+						.filter(and_(\
+							(Resource.ResId==ResId),\
+							Resource.UsageStatusId==1)).first()
 			else:
-				resource = Resource.query\
-					.filter(and_(Resource.GCRecord=='' or Resource.GCRecord==None),\
-						Resource.ResId == resource_index["ResId"]).first()
-			resource_models.append(resource)
+				if isInactive==True:
+					resource = Resource.query\
+						.filter(and_(\
+							(Resource.ResId==ResId),\
+							(Resource.GCRecord=='' or Resource.GCRecord==None))).first()	
+				else:
+					resource = Resource.query\
+						.filter(and_(\
+							(Resource.ResId==ResId),\
+							(Resource.GCRecord=='' or Resource.GCRecord==None),\
+							Resource.UsageStatusId==1)).first()
+			if resource:
+				resource_models.append(resource)
 		
 	data = []
 	fails = []

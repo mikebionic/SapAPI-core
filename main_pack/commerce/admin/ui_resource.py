@@ -40,7 +40,7 @@ def ui_resource():
 		'resMakers':resMakers,
 		'rpAccs':rpAccs
 		}
-	reg_num = generate(UId=current_user.UId,prefixType='goods code') # specify the generation prefix
+	reg_num = generate(UId=current_user.UId,prefixType='goods_code') # specify the generation prefix
 	if request.method == "GET":
 		try:
 			regNo = makeRegNo(current_user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'')
@@ -66,7 +66,7 @@ def ui_resource():
 			fullRegNo=resource['ResRegNo']
 			dbModel = Resource.query.filter_by(ResRegNo=fullRegNo).first()
 			validation = validate(UId=current_user.UId,fullRegNo=fullRegNo,
-				RegNumLastNum=reg_num.RegNumLastNum+1,dbModel=dbModel,prefixType='goods code')
+				RegNumLastNum=reg_num.RegNumLastNum+1,dbModel=dbModel,prefixType='goods_code')
 
 			if validation['status']==True:
 				reg_num.RegNumLastNum=validation['RegNumLastNum']

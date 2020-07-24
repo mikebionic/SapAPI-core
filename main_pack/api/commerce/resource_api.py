@@ -11,17 +11,16 @@ from main_pack.api.auth.api_login import sha_required
 
 from main_pack.api.commerce.commerce_utils import apiResourceInfo
 
-@api.route("/tbl-dk-resources/<int:ResId>/",methods=['GET'])
+@api.route("/tbl-dk-resources/<int:ResId>/")
 @sha_required
 def api_resource(ResId):
-	if request.method == 'GET':
-		resource = Resource.query.get(ResId)
-		response = jsonify({'resource':resource.to_json_api()})
-		res = {
-			"status":1,
-			"data":resource.to_json_api()
-		}
-		response = make_response(jsonify(res),200)
+	resource_list = [{'ResId':ResId}]
+	res = apiResourceInfo(resource_list,single_object=True,isDeleted=True,isInactive=True,fullInfo=True)
+	if res['status']==1:
+		status_code = 200
+	else:
+		status_code = 404
+	response = make_response(jsonify(res),status_code)
 
 	# elif request.method == 'PUT':
 	# 	resource = Resource.query.get(ResId)
@@ -41,15 +40,12 @@ def api_resource(ResId):
 @sha_required
 def api_resources():
 	if request.method == 'GET':
-		resources = Resource.query\
-			.filter(Resource.GCRecord=='' or Resource.GCRecord==None).all()
-		res = {
-			"status":1,
-			"message":"All resources",
-			"data":[resource.to_json_api() for resource in resources],
-			"total":len(resources)
-		}
-		response = make_response(jsonify(res),200)
+		res = apiResourceInfo(isDeleted=True,isInactive=True,fullInfo=True)
+		if res['status']==0:
+			status_code = 404
+		else:
+			status_code = 200
+		response = make_response(jsonify(res),status_code)
 
 	elif request.method == 'POST':
 		if not request.json:
@@ -80,6 +76,10 @@ def api_resources():
 						resource['ResCatId']=category.ResCatId
 				# /special synchronizer method
 
+				# check that UsageStatusId specified
+				if resource['UsageStatusId']==None or '':
+					resource['UsageStatusId']=2
+
 				try:
 					if not 'ResId' in resource:
 						newResource = Resource(**resource)
@@ -89,8 +89,8 @@ def api_resources():
 					else:
 						ResId = resource['ResId']
 						thisResource = Resource.query.get(int(ResId))
+						# check for presenting in database
 						if thisResource is not None:
-							# check for presenting in database
 							thisResource.update(**resource)
 							# thisResource.modifiedInfo(UId=1)
 							db.session.commit()
@@ -114,77 +114,11 @@ def api_resources():
 			}
 			for e in status:
 				res[e]=status[e]
-			response = make_response(jsonify(res),200)
+			if res['status']==0:
+				status_code = 400
+			else:
+				status_code = 201
+				
+			response = make_response(jsonify(res),status_code)
 
-	# elif request.method == 'PUT':
-	# 	if not request.json:
-	# 		res = {
-	# 			"status": 0,
-	# 			"message": "Error. Not a JSON data."
-	# 		}
-	# 		response = make_response(jsonify(res),400)
-			
-	# 	else:
-	# 		req = request.get_json()
-	# 		resources = []
-	# 		failed_resources = [] 
-	# 		for resource in req:
-	# 			resource = addResourceDict(resource)
-	# 			try:
-	# 				ResId = resource['ResId']
-	# 				thisResource = Resource.query.get(ResId)
-	# 				thisResource.update(**resource)
-	# 				thisResource.modifiedInfo(UId=1)
-	# 				db.session.commit()
-	# 				resources.append(resource)
-	# 			except:
-	# 				failed_resources.append(resource)
-
-	# 		status = checkApiResponseStatus(resources,failed_resources)
-	# 		res = {
-	# 			"data":resources,
-	# 			"fails":failed_resources,
-	# 			"success_total":len(resources),
-	# 			"fail_total":len(failed_resources)
-	# 		}
-	# 		for e in status:
-	# 			res[e]=status[e]	
-	# 		response = make_response(jsonify(res),200)
-
-	# elif request.method == 'DELETE':
-	# 	if not request.json:
-	# 		res = {
-	# 			"status": 0,
-	# 			"message": "Error. Not a JSON data."
-	# 		}
-	# 		response = make_response(jsonify(res),400)
-			
-	# 	else:
-	# 		req = request.get_json()
-	# 		resources = []
-	# 		failed_resources = [] 
-	# 		for resource in req:
-	# 			resource = addResourceDict(resource)
-	# 			try:
-	# 				ResId = resource['ResId']
-	# 				thisResource = Resource.query.get(ResId)
-	# 				thisResource.GCRecord = int(datetime.now().strftime("%H"))
-	# 				thisResource.modifiedInfo(UId=1)
-	# 				db.session.commit()
-	# 				resources.append(resource)
-	# 			except:
-	# 				failed_resources.append(resource)
-
-	# 		status = checkApiResponseStatus(resources,failed_resources)
-	# 		res = {
-	# 			"data":resources,
-	# 			"fails":failed_resources,
-	# 			"total":len(resources),
-	# 			"success_total":len(resources),
-	# 			"fail_total":len(failed_resources)
-	# 		}
-	# 		for e in status:
-	# 			res[e]=status[e]
-	# 		response = make_response(jsonify(res),200)
-	
 	return response

@@ -62,7 +62,7 @@ def api_checkout_sale_order_invoices(user):
 
 		######## generate reg no ########
 		try:
-			reg_num = generate(UId=user.UId,prefixType='sale order invoice code')
+			reg_num = generate(UId=user.UId,prefixType='sale_order_invoice_code')
 			orderRegNo = makeRegNo(user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'',True)
 		except:
 			# use device model and other info
@@ -89,8 +89,17 @@ def api_checkout_sale_order_invoices(user):
 			try:
 				# in case of errors, the error_type is provided
 				error_type=0
-				
+
 				order_inv_line = addOrderInvLineDict(order_inv_line_req)
+
+				# OInvLineRegNo generation
+				try:
+					reg_num = generate(UId=user.UId,prefixType='order_invoice_line_code')
+					orderLineRegNo = makeRegNo(user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'',True)
+				except:
+					# use device model and other info
+					orderLineRegNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
+				order_inv_line['OInvLineRegNo']=orderLineRegNo
 
 				ResId = order_inv_line['ResId']
 				OInvLineAmount = int(order_inv_line['OInvLineAmount'])

@@ -49,6 +49,7 @@ db.session.add(user)
 db.session.commit()
 rp_acc = Rp_acc(
 	RpAccId=newRpAccId,
+	RpAccUName="administrator",
 	RpAccName="Mike Bionic",
 	RpAccEMail=email,
 	RpAccRegNo="ARAK1",
