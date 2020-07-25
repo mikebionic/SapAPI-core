@@ -45,7 +45,7 @@
                     </td>
                     <td>{{ resource.ResName if resource.ResName else '' }}</td>
                     <td>{{ resource.ResCatName }}</td>
-                    <td>{{ resource.ResPriceValue }} TMT</td>
+                    <td>{{ resource.CurrencyCode }}{{ resource.ResPriceValue }}</td>
                     <td>
                       <div class="badge {{ 'badge-success' if resource.UsageStatusId==1 else 'badge-danger' }} badge-shadow">
                         {{resource.UsageStatus['UsageStatusName']}}

@@ -1,22 +1,48 @@
-from flask import render_template,url_for,jsonify,json,session,flash,redirect,request,Response,abort
+from flask import render_template,url_for,json,session,flash,redirect,request,Response,abort
+from main_pack.commerce.admin import bp
+import os
 from flask import current_app
-from flask_login import current_user,login_required
+
+# useful methods
 from main_pack import db,babel,gettext,lazy_gettext
-from main_pack.commerce.commerce import bp
+from main_pack.base.languageMethods import dataLangSelector
 from sqlalchemy import and_
-
-from main_pack.api.commerce.commerce_utils import UiCartResourceData
-from main_pack.models.commerce.models import Resource,Order_inv,Order_inv_line,Work_period
-from main_pack.commerce.commerce.order_utils import addOInvLineDict,addOInvDict
-
-from main_pack.models.base.models import Reg_num,Reg_num_type
-from main_pack.models.commerce.models import Res_price,Res_total
-from main_pack.base.invoiceMethods import totalQtySubstitution
-from main_pack.key_generator.utils import makeRegNo,generate,validate
-from main_pack.base.num2text import num2text,price2text
-from datetime import datetime,timezone
 import decimal
-from main_pack.models.users.models import Users,Rp_acc
+from main_pack.base.num2text import num2text,price2text
+from main_pack.base.invoiceMethods import totalQtySubstitution
+# / useful methods /
+
+# auth and validation
+from flask_login import current_user,login_required
+from main_pack.commerce.users.routes import ui_admin_required
+# / auth and validation /
+
+# Resource and view
+from main_pack.api.commerce.commerce_utils import apiResourceInfo
+from main_pack.commerce.commerce.utils import commonUsedData
+from main_pack.commerce.admin.utils import resRelatedData
+# / Resource and view /
+
+# users and customers
+from main_pack.models.users.models import (Users,
+																					Rp_acc)
+# / users and customers /
+
+# Invoices
+from main_pack.api.commerce.commerce_utils import UiCartResourceData
+from main_pack.models.commerce.models import (Resource,
+																							Order_inv,
+																							Order_inv_line,
+																							Work_period,
+																							Res_price,
+																							Res_total)
+from main_pack.commerce.commerce.order_utils import addOInvLineDict
+# / Invoices /
+
+# RegNo
+from main_pack.key_generator.utils import makeRegNo,generate,validate
+from datetime import datetime,timezone
+# / RegNo /
 
 @bp.route("/product/ui_cart/", methods=['POST','PUT'])
 def ui_cart():

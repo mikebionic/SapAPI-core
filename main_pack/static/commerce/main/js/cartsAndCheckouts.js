@@ -28,6 +28,17 @@ $(document).ready(function(){
 });
 
 
+$('body').delegate('.addToWishlist','click',function(){
+	$(this).hide();
+	ownerId = $(this).attr('ownerId');
+	addToWishlist(ownerId);
+})
+
+$('body').delegate('.removeFromWishlist','click',function(){
+	ownerId = $(this).attr('ownerId');
+	removeFromWishlist(ownerId);
+});
+
 $('body').delegate('.addToCart','click',function(){
 	$(this).hide();
 	ownerId = $(this).attr('ownerId');
@@ -47,6 +58,22 @@ $('body').delegate('.checkoutCartBtn','click',function(){
 	data['orderDesc']=$('.orderDesc').val();
 	checkoutCart(data,url_prefix+'/product/ui_cart_checkout/','POST');
 });
+
+
+function addToWishlist(ownerId){
+	productData={'resId':ownerId};
+	postData(formData=productData,url=url_prefix+"/product/ui_wishlist/",type="POST",listName='wishlistItems');
+	$('.addToWishlist'+'[ownerId='+ownerId+']').hide();
+	$('.removeFromWishlist'+'[ownerId='+ownerId+']').show();
+}
+
+function removeFromWishlist(ownerId){
+	productData={'resId':ownerId};
+	postData(formData=productData,url=url_prefix+"/product/ui_wishlist/",type="DELETE",formId=ownerId);
+	$('.wishlistObject'+ownerId).remove();
+	$('.removeFromWishlist'+'[ownerId='+ownerId+']').hide();
+	$('.addToWishlist'+'[ownerId='+ownerId+']').show();
+}
 
 function addToCart(ownerId){
 	$('.removeFromCart'+'[ownerId='+ownerId+']').show();
@@ -235,7 +262,6 @@ function cartOperations(formData,url,type,responseForm,listName){
 				countCartItems();
 			}
 			else if(response.status=='removed'){
-				console.log('removed-ok');
 			}
 			else{
 				console.log('err');

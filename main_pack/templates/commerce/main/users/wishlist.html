@@ -42,7 +42,9 @@
 												{% endif %}
 												<span class="product-info">
 													<span>{{ resource.ResName if resource.ResName else '' }}</span>
-													<span>product category</span>
+													<span>{{ resource.ResCatName if resource.ResCatName else '' }}</span>
+													<span>{{ resource.BarcodeVal if resource.BarcodeVal else '' }}</span>
+													<span>{{ resource.CurrencyCode }}{{ resource.ResPriceValue if resource.ResPriceValue else '' }}</span>
 												</span>
 												<div class="action">
 													<div class="dropdown is-right">

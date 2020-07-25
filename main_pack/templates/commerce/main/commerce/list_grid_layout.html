@@ -145,7 +145,9 @@
 		                </a>
 		                <div class="cart-content">
 		                  <div class="cart-inner">
-		                    <ul class="products">
+		                    <ul class="products wishlistItems">
+
+
 		                      <li>
 		                        <div class="minicart-item">
 		                          <div class="thumb">
@@ -163,13 +165,15 @@
 		                            </div>
 		                          </div>
 		                        </div>
-		                      </li>
+                          </li>
+                          
+
 		                    </ul>
 		                    <p class="btn-control">
-		                      <a href="{{ url_for('commerce.cart') }}" class="btn view-cart"> {{_('View wihlist')}}</a>
-		                        <a class="btn" style="padding: 8px 10px 17px; background-color: #fff; box-shadow: 1px 1px 1px 1px #ececec;">
-		                          <img src="{{ url_for('static', filename='commerce/main/shop_icons/disposal_50px.svg')}}" style="height: 22px;">
-		                        </a>
+		                      <a href="{{ url_for('commerce_users.wishlist') }}" class="btn view-cart">{{_('View wihlist')}}</a>
+                          <a class="btn" style="padding: 8px 10px 17px; background-color: #fff; box-shadow: 1px 1px 1px 1px #ececec;">
+                            <img src="{{ url_for('static', filename='commerce/main/shop_icons/disposal_50px.svg')}}" style="height: 22px;">
+                          </a>
 		                    </p>
 		                  </div>
 		              	</div>

@@ -25,13 +25,14 @@
               <div class="price">
                 <ins>
                   <span class="price-amount">
-                    <span class="currencySymbol">TMT</span>
+                    <span class="currencySymbol">{{ resource.CurrencyCode }}</span>
                     <div class="priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue }}</div>
                   </span>
                 </ins>
               </div>
               <div class="buttons">
-                <button class="btn wishlist-btn"><i class="fa fa-heart" aria-hidden="true"></i></button>
+                <button class="btn wishlist-btn addToWishlist" ownerId="{{resource.ResId}}"><i class="fa fa-heart" aria-hidden="true"></i>{{_('Add to wishlist')}}</button>
+                <button class="btn wishlist-btn removeFromWishlist" ownerId="{{resource.ResId}}" style="display: none;"><i class="fa fa-heart" aria-hidden="true"></i>{{_('Remove from wishlist')}}</button>
                 <button class="btn add-to-cart-btn addToCart" ownerId="{{resource.ResId}}">{{_('Add to cart')}}</button>
                 <button class="btn add-to-cart-btn removeFromCart" ownerId="{{resource.ResId}}" style="display: none;">{{_('Remove from cart')}}</button>
               </div>
