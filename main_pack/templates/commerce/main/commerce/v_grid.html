@@ -16,13 +16,13 @@
               </a>
               <div class="pro-action">
                 <a href="#{{ url_for('commerce.product',ResId=resource.ResId)}}" class="action-btn cart addToCart" ownerId="{{resource.ResId}}"><i class="fa fa-fw fa-shopping-cart"></i></a>
-                <a href="#" class="action-btn wishlist"><i class="fa fa-fw fa-heart-o"></i></a>
+                <a href="#" class="action-btn wishlist addToWishlist" ownerId="{{resource.ResId}}"><i class="fa fa-fw fa-heart-o"></i></a>
               </div>
             </div>
             <div class="pro-details text-center">
               <a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="pro-title">{{'' if resource.ResName==None else resource.ResName}}</a>
               <h3 class="pro-price">
-                <span class="currencySymbol">TMT</span>
+                <span class="currencySymbol">{{ resource.CurrencyCode }}</span>
                 <span class="new">
                   <div class="priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue }}</div>
                 </span>

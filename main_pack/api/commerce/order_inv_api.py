@@ -1,16 +1,28 @@
 from flask import render_template,url_for,jsonify,request,abort,make_response,redirect
 from main_pack.api.commerce import api
-from main_pack.base.apiMethods import checkApiResponseStatus
-
-from main_pack.models.commerce.models import Order_inv,Order_inv_line
-from main_pack.api.commerce.utils import addOrderInvDict,addOrderInvLineDict
 from main_pack import db
 from flask import current_app
+
+# orders and db methods
+from main_pack.models.commerce.models import Order_inv,Order_inv_line
+from main_pack.api.commerce.utils import addOrderInvDict,addOrderInvLineDict
+from main_pack.base.apiMethods import checkApiResponseStatus
+from sqlalchemy import and_,extract
+# / orders and db methods /
+
+from main_pack.models.users.models import Rp_acc
+from main_pack.api.users.utils import apiRpAccData
+
+# auth and validation
 from main_pack.api.auth.api_login import token_required
 from main_pack.api.auth.api_login import sha_required
-from sqlalchemy import and_
-from main_pack.api.users.utils import apiRpAccData
-from main_pack.models.users.models import Rp_acc
+# / auth and validation /
+
+# datetime, date-parser
+import dateutil.parser
+import datetime as dt
+from datetime import datetime
+# / datetime, date-parser /
 
 @api.route("/tbl-dk-order-invoices/",methods=['GET','POST'])
 @sha_required
@@ -78,7 +90,6 @@ def api_order_invoices():
 						print("Rp_acc not provided")
 						abort(400)
 
-
 					if thisOrderInv:
 						thisOrderInv.update(**order_invoice)
 						db.session.commit()
@@ -127,6 +138,62 @@ def api_order_invoices():
 				res[e]=status[e]
 			response = make_response(jsonify(res),200)
 
+	return response
+
+
+# example request:
+# api/tbl-dk-order-invoices/filter/?statDate=2020-07-13 13:12:32.141562&endDate=2020-07-25 13:53:50.141948
+@api.route("/tbl-dk-order-invoices/filter/")
+@sha_required
+def api_order_invoices_filter():
+	startDate = request.args.get('startDate',None,type=str)
+	endDate = request.args.get('endDate',datetime.now().date())
+	if startDate == None:
+		order_inv_filtered = Order_inv.query\
+			.filter(and_(Order_inv.GCRecord=='' or Order_inv.GCRecord==None,\
+				Order_inv.InvStatId==1))\
+			.order_by(Order_inv.CreatedDate.desc()).all()
+	else:
+		if (type(startDate)!=datetime):
+			startDate = dateutil.parser.parse(startDate)
+			startDate = datetime.date(startDate)
+		if (type(endDate)!=datetime):
+			endDate = dateutil.parser.parse(endDate)
+			endDate = datetime.date(endDate)
+			
+		order_inv_filtered = Order_inv.query\
+		.filter(and_(Order_inv.GCRecord=='' or Order_inv.GCRecord==None,\
+			Order_inv.InvStatId==1,\
+			extract('year',Order_inv.OInvDate).between(startDate.year,endDate.year),\
+			extract('month',Order_inv.OInvDate).between(startDate.month,endDate.month),\
+			extract('day',Order_inv.OInvDate).between(startDate.day,endDate.day)))\
+		.order_by(Order_inv.OInvDate.desc()).all()
+
+	data = []
+	for order_invoice in order_inv_filtered:
+		oInvData = order_invoice.to_json_api()
+		rp_acc = Rp_acc.query.get(order_invoice.RpAccId)
+		if rp_acc:
+			rpAccData = apiRpAccData(rp_acc.RpAccRegNo)
+			oInvData['Rp_acc'] = rpAccData['data']
+
+		order_inv_lines = Order_inv_line.query\
+			.filter(and_(Order_inv_line.GCRecord=='' or Order_inv_line.GCRecord==None),\
+				Order_inv_line.OInvId==order_invoice.OInvId).all()
+
+		order_inv_lines_list = []
+		for order_inv_line in order_inv_lines:
+			order_inv_lines_list.append(order_inv_line.to_json_api())
+		oInvData['Order_inv_lines'] = order_inv_lines_list
+
+		data.append(oInvData)
+	res = {
+		"status":1,
+		"message":"All order invoices between dates",
+		"data":data,
+		"total":len(order_inv_filtered)
+	}
+	response = make_response(jsonify(res),200)
 	return response
 
 @api.route("/v-order-invoices/",methods=['GET'])

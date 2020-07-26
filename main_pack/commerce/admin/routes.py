@@ -17,6 +17,7 @@ from main_pack.commerce.users.routes import ui_admin_required
 # Resource and view
 from main_pack.api.commerce.commerce_utils import apiResourceInfo
 from main_pack.commerce.commerce.utils import commonUsedData
+from main_pack.commerce.admin.utils import resRelatedData
 # / Resource and view /
 
 # Invoices
@@ -119,7 +120,7 @@ def category_table():
 @login_required
 @ui_admin_required()
 def product_table():
-	resData=apiResourceInfo()
+	resData=apiResourceInfo(isInactive=True,fullInfo=True)
 	return render_template ("commerce/admin/product_table.html",**resData,
 		title=gettext('Product table'))
 

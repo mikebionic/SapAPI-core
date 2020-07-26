@@ -1,98 +1,110 @@
 
 # API authentication
+Provide **username** and **password** in Authentication headers
 + /api/login/users/
 + /api/login/rp-accs/
 
+
 # Simple data queries and insertions
-GET POST
+> GET POST
+
+**@sha_required** of **Synchronizer**
 + /api/tbl-dk-barcodes/
-
-GET POST
 + /api/tbl-dk-res-prices/
-
-GET POST
 + /api/tbl-dk-res-totals/
-
-GET POST
 + /api/tbl-dk-images/
-
-GET POST
 + /api/tbl-dk-rp-acc-trans-totals/
 + /api/tbl-dk-total-transactions/
-
-GET POST
-+ /api/tbl-dk-order-invoices/
-
-GET POST
-+ /api/tbl-dk-order-inv-lines/
-
-GET POST
-+ /api/tbl-dk-order-inv-types/
-
-POST [Token required of Rp_acc login]
-+ /api/checkout-sale-order-inv/
-
-GET POST
 + /api/tbl-dk-warehouses/
-
-GET POST
 + /api/tbl-dk-work-periods/
 
-# get all orders of a logged Rp_acc
-GET [Token required of Rp_acc login]
+
+# Order invoice api
+> GET POST
+
+**@sha_required** of **Synchronizer**
++ /api/tbl-dk-order-invoices/
++ /api/tbl-dk-order-inv-lines/
++ /api/tbl-dk-order-inv-types/
+
+> GET 
+
+## Filtering order invoices by datetime
+
+**@sha_required** of **Synchronizer**
+
++ /api/tbl-dk-order-invoices/filter/
+
+returns **all orders** if **blank**
+
+(Provide **startDate** and **endDate**)
+> **example request**
+```url
+/api/tbl-dk-order-invoices/filter/?statDate=2020-07-13 13:12:32.141562&endDate=2020-07-25 13:53:50.141948
+```
+> POST 
+
+**@token_required** of **Rp_acc** login
++ /api/checkout-sale-order-inv/
+
+> GET 
+
+## Get all orders of a logged Rp_acc
+**@token_required** of **Rp_acc** login
 + /api/v-order-invoices/
 
 # get all lines of a specific reg no if it's order is Rp_acc
-GET [Token required of Rp_acc login]
+> GET 
+
+**@token_required** of **Rp_acc** login
+
+Returns only if the **Rp_acc** is the **owner** of invoice
 + /api/v-order-invoices/<str:OInvRegNo>/
 
-
-GET POST
+# Resource category api
+> GET POST
 + /api/tbl-dk-categories/
 
-GET PUT
+> GET
 + /api/tbl-dk-categories/<int:ResCatId>/
 
-GET
+> GET
 + /api/tbl-dk-categories/paginate/
 
-GET POST
+# Resource api
+> GET POST
+
+**@sha_required** of **Synchronizer**
 + /api/tbl-dk-resources/
 
-GET PUT
-# short db info
+> GET
+
+**@sha_required** of **Synchronizer**
 + /api/tbl-dk-resources/<int:ResId>/
 
-GET
+## client view resource
+
+> GET
 + /api/v-resources/
-
 + /api/v-full-resources/
-
-GET
-# wide api info
 + /api/v-resources/<int:ResId>/
-
-GET
 + /api/tbl-dk-categories/<int:ResCatId>/v-resources/
 
-GET
-# from latest to first (needs configurations for datetime order)
-# withoud any initial data
+> GET
+
+from latest to first (needs configurations for datetime order
 + /api/paginate/v-resources/
 + /api/paginate/v-resources/?last=<lastId>&limit=<quantity>
 
+> GET POST
 
-GET POST
+**@sha_required** of **Synchronizer**
 + /api/tbl-dk-rp-accs/
-
-GET
-+ /api/tbl-dk-rp-accs/<int:RpAccRegNo>/
-
-GET POST
 + /api/tbl-dk-users/
 
-GET
-+ /api/tbl-dk-users/<int:UId>/
+> GET
 
-GET
+**@sha_required** of **Synchronizer**
++ /api/tbl-dk-rp-accs/<int:RpAccRegNo>/
++ /api/tbl-dk-users/<int:UId>/
 + /api/tbl-dk-sliders/

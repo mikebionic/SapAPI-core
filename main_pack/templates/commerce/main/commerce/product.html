@@ -34,7 +34,7 @@
         <div class="price">
           <ins>
             <span class="price-amount">
-              <span class="currencySymbol">TMT</span>
+              <span class="currencySymbol">{{ resource.CurrencyCode }}</span>
               <div class="priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue }}</div>
             </span>
           </ins>
@@ -91,13 +91,15 @@
         <div class="total-price-contain">
           <span class="title">{{_('Total Price')}}:</span>
           <p class="price">
-            <span class="currencySymbol">TMT</span>
+            <span class="currencySymbol">{{ resource.CurrencyCode }}</span>
             <div class="productTotalPrice" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue*resource.productQty }}</div>
           </p>
         </div>
         <div class="buttons">
           <button class="btn add-to-cart-btn addToCart" ownerId="{{resource.ResId}}" onclick="$('.quantity-box').show('slow')">{{_('Add to cart')}}</button>
           <button class="btn add-to-cart-btn removeFromCart" ownerId="{{resource.ResId}}" style="display: none;" onclick="$('.quantity-box').hide('slow')">{{_('Remove')}}</button>
+          <button class="btn add-to-cart-btn addToWishlist" ownerId="{{resource.ResId}}">{{_('Add to wishlist')}}</button>
+          <button class="btn add-to-cart-btn removeFromWishlist" ownerId="{{resource.ResId}}" style="display: none;">{{_('Remove from wishlist')}}</button>
         </div>
       </div>
     </div>
