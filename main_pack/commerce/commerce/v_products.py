@@ -1,8 +1,9 @@
-from flask import render_template,url_for,jsonify,json,session,flash,redirect,request,Response,abort
+from flask import render_template,url_for,jsonify,session,flash,redirect,request,Response,abort
 from flask import current_app
 from flask_login import current_user,login_required
 from main_pack import db,babel,gettext,lazy_gettext
 from main_pack.commerce.commerce import bp
+from sqlalchemy import and_
 
 # Resource and view
 from main_pack.api.commerce.commerce_utils import apiResourceInfo
@@ -15,7 +16,9 @@ from main_pack.api.commerce.commerce_utils import UiCartResourceData
 @bp.route("/v-list")
 def v_list():
 	page = request.args.get('page',1,type=int)
-	pagination_resources = Resource.query.filter(Resource.GCRecord=='' or Resource.GCRecord==None)\
+	pagination_resources = Resource.query\
+		.filter(and_(Resource.GCRecord=='' or Resource.GCRecord==None),\
+			Resource.UsageStatusId==1)\
 		.order_by(Resource.CreatedDate.desc())\
 		.paginate(per_page=current_app.config['RESOURCES_PER_PAGE'],page=page)
 	product_list = []
@@ -33,7 +36,9 @@ def v_list():
 @bp.route("/v-grid")
 def v_grid():
 	page = request.args.get('page',1,type=int)
-	pagination_resources = Resource.query.filter(Resource.GCRecord=='' or Resource.GCRecord==None)\
+	pagination_resources = Resource.query\
+		.filter(and_(Resource.GCRecord=='' or Resource.GCRecord==None),\
+			Resource.UsageStatusId==1)\
 		.order_by(Resource.CreatedDate.desc())\
 		.paginate(per_page=current_app.config['RESOURCES_PER_PAGE'],page=page)
 	product_list = []

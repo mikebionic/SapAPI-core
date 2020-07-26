@@ -1,4 +1,4 @@
-from flask import render_template,url_for,json,jsonify,session,flash,redirect,request,Response,abort
+from flask import render_template,url_for,jsonify,session,flash,redirect,request,Response,abort
 from flask_login import current_user,login_required
 from main_pack import db,babel,gettext,lazy_gettext
 from main_pack.commerce.users import bp

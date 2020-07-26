@@ -1,4 +1,4 @@
-from flask import render_template,url_for,json,jsonify,session,flash,redirect,request,Response, abort
+from flask import render_template,url_for,jsonify,session,flash,redirect,request,Response, abort
 from main_pack import db,babel,gettext
 from flask_login import current_user,login_required
 from datetime import datetime

@@ -1,4 +1,4 @@
-from flask import render_template,url_for,json,jsonify,session,flash,redirect,request,Response,abort
+from flask import render_template,url_for,jsonify,session,flash,redirect,request,Response,abort
 from main_pack.commerce.users import bp
 from flask import current_app
 

@@ -105,45 +105,45 @@ def apiResourceInfo(resource_list=None,single_object=False,isDeleted=False,isIna
 	data = []
 	fails = []
 	for resource in resource_models:
-		# try:
-		resource_info = resource.to_json_api()
+		try:
+			resource_info = resource.to_json_api()
 
-		List_Barcode = [barcode.to_json_api() for barcode in barcodes if barcode.ResId==resource.ResId]
-		List_Res_category = [category.to_json_api() for category in categories if category.ResCatId==resource.ResCatId]
-		List_Res_price = [res_price.to_json_api() for res_price in res_prices if res_price.ResId==resource.ResId and res_price.ResPriceTypeId==2]
-		List_Currencies = [currency.to_json_api() for currency in currencies if currency.CurrencyId==List_Res_price[0]['CurrencyId']]
-		List_Res_total = [res_total.to_json_api() for res_total in res_totals if res_total.ResId==resource.ResId]
-		List_Images = [image.to_json_api() for image in images if image.ResId==resource.ResId]
-		List_Colors = [color.to_json_api() for res_color in res_colors if res_color.ResId==resource.ResId for color in colors if color.ColorId==res_color.ColorId]
-		List_Sizes = [size.to_json_api() for res_size in res_sizes if res_size.ResId==resource.ResId for size in sizes if size.SizeId==res_size.SizeId]
-		List_Brands = [brand.to_json_api() for brand in brands if brand.BrandId==resource.BrandId]
-		List_UsageStatus = [usage_status.to_json_api() for usage_status in usage_statuses if usage_status.UsageStatusId==resource.UsageStatusId]
-		List_Units = [unit.to_json_api() for unit in units if unit.UnitId==resource.UnitId]
+			List_Barcode = [barcode.to_json_api() for barcode in barcodes if barcode.ResId==resource.ResId]
+			List_Res_category = [category.to_json_api() for category in categories if category.ResCatId==resource.ResCatId]
+			List_Res_price = [res_price.to_json_api() for res_price in res_prices if res_price.ResId==resource.ResId and res_price.ResPriceTypeId==2]
+			List_Currencies = [currency.to_json_api() for currency in currencies if currency.CurrencyId==List_Res_price[0]['CurrencyId']]
+			List_Res_total = [res_total.to_json_api() for res_total in res_totals if res_total.ResId==resource.ResId]
+			List_Images = [image.to_json_api() for image in images if image.ResId==resource.ResId]
+			List_Colors = [color.to_json_api() for res_color in res_colors if res_color.ResId==resource.ResId for color in colors if color.ColorId==res_color.ColorId]
+			List_Sizes = [size.to_json_api() for res_size in res_sizes if res_size.ResId==resource.ResId for size in sizes if size.SizeId==res_size.SizeId]
+			List_Brands = [brand.to_json_api() for brand in brands if brand.BrandId==resource.BrandId]
+			List_UsageStatus = [usage_status.to_json_api() for usage_status in usage_statuses if usage_status.UsageStatusId==resource.UsageStatusId]
+			List_Units = [unit.to_json_api() for unit in units if unit.UnitId==resource.UnitId]
 
-		resource_info["BarcodeVal"] = List_Barcode[0]['BarcodeVal'] if List_Barcode else ''
-		resource_info["ResCatName"] = List_Res_category[0]['ResCatName'] if List_Res_category else ''
-		resource_info["ResPriceValue"] = List_Res_price[0]['ResPriceValue'] if List_Res_price else ''
-		resource_info["CurrencyCode"] = List_Currencies[0]['CurrencyCode'] if List_Currencies else 'TMT'
-		resource_info["ResTotBalance"] = List_Res_total[0]['ResTotBalance'] if List_Res_total else ''
-		resource_info["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=List_Images[0]['FileName']) if List_Images else ''
-		resource_info["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=List_Images[0]['FileName']) if List_Images else ''
-		resource_info["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_Images[0]['FileName']) if List_Images else ''
-		resource_info["Images"] = List_Images if List_Images else []
-		resource_info["Colors"] = List_Colors if List_Colors else []
-		resource_info["Sizes"] = List_Sizes if List_Sizes else []
-		resource_info["Brand"] = List_Brands[0] if List_Brands else ''
-		resource_info["Unit"] = dataLangSelector(List_Units[0]) if List_Units else ''
+			resource_info["BarcodeVal"] = List_Barcode[0]['BarcodeVal'] if List_Barcode else ''
+			resource_info["ResCatName"] = List_Res_category[0]['ResCatName'] if List_Res_category else ''
+			resource_info["ResPriceValue"] = List_Res_price[0]['ResPriceValue'] if List_Res_price else ''
+			resource_info["CurrencyCode"] = List_Currencies[0]['CurrencyCode'] if List_Currencies else 'TMT'
+			resource_info["ResTotBalance"] = List_Res_total[0]['ResTotBalance'] if List_Res_total else ''
+			resource_info["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=List_Images[0]['FileName']) if List_Images else ''
+			resource_info["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=List_Images[0]['FileName']) if List_Images else ''
+			resource_info["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_Images[0]['FileName']) if List_Images else ''
+			resource_info["Images"] = List_Images if List_Images else []
+			resource_info["Colors"] = List_Colors if List_Colors else []
+			resource_info["Sizes"] = List_Sizes if List_Sizes else []
+			resource_info["Brand"] = List_Brands[0] if List_Brands else ''
+			resource_info["Unit"] = dataLangSelector(List_Units[0]) if List_Units else ''
 
-		if fullInfo == True:
-			resource_info["UsageStatus"] = dataLangSelector(List_UsageStatus[0]) if List_UsageStatus else ''
-			resource_info["Barcode"] = List_Barcode if List_Barcode else ''
-			resource_info["Res_category"] = List_Res_category[0] if List_Res_category else ''
-			resource_info["Res_price"] = List_Res_price[0] if List_Res_price else ''
-			resource_info["Currency"] = dataLangSelector(List_Currencies[0]) if List_Currencies else ''
-			resource_info["Res_total"] = List_Res_total[0] if List_Res_total else ''
-		data.append(resource_info)
-		# except:
-		# 	fails.append(resource)
+			if fullInfo == True:
+				resource_info["UsageStatus"] = dataLangSelector(List_UsageStatus[0]) if List_UsageStatus else ''
+				resource_info["Barcode"] = List_Barcode if List_Barcode else ''
+				resource_info["Res_category"] = List_Res_category[0] if List_Res_category else ''
+				resource_info["Res_price"] = List_Res_price[0] if List_Res_price else ''
+				resource_info["Currency"] = dataLangSelector(List_Currencies[0]) if List_Currencies else ''
+				resource_info["Res_total"] = List_Res_total[0] if List_Res_total else ''
+			data.append(resource_info)
+		except:
+			fails.append(resource.to_json_api())
 			
 	status = checkApiResponseStatus(data,fails)
 	if single_object==True:
