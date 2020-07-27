@@ -32,7 +32,9 @@ def api_v_resource_info(ResId):
 @api.route("/tbl-dk-categories/<int:ResCatId>/v-resources/")
 def api_category_v_resources(ResCatId):
 	resources = Resource.query\
-		.filter(and_(Resource.GCRecord=='' or Resource.GCRecord==None),\
+		.filter(and_(
+			Resource.GCRecord=='' or Resource.GCRecord==None),\
+			Resource.UsageStatusId==1,\
 			Resource.ResCatId==ResCatId).all()
 	resource_list = []
 	for resource in resources:
@@ -43,6 +45,24 @@ def api_category_v_resources(ResCatId):
 	res = apiResourceInfo(resource_list)
 	response = make_response(jsonify(res),200)
 	return response
+
+# @api.route("/tbl-dk-categories/<int:ResCatId>/tbl-dk-resources/")
+# def api_category_tbl_dk_resources(ResCatId):
+# 	resources = Resource.query\
+# 		.filter(and_(Resource.GCRecord=='' or Resource.GCRecord==None),\
+# 			Resource.UsageStatusId==1,\
+# 			Resource.ResCatId==ResCatId).all()
+# 	data = []
+# 	for resource in resources:
+# 		data.append(resource.to_json_api())
+
+# 	res = {
+# 		"status":1,
+# 		"data":data,
+# 		"total":len(data)
+# 	}
+# 	response = make_response(jsonify(res),200)
+# 	return response
 
 ###### pagination #######
 @api.route("/paginate/v-resources/",methods=['GET'])
@@ -58,7 +78,10 @@ def api_paginate_resources():
 		last = latestResource.ResId+1
 
 	pagination = Resource.query\
-	.filter(and_(Resource.GCRecord=='' or Resource.GCRecord==None,Resource.ResId<last))\
+	.filter(and_(
+		Resource.GCRecord=='' or Resource.GCRecord==None,\
+		Resource.ResId<last,\
+		Resource.UsageStatusId==1))\
 	.order_by(Resource.ResId.desc())\
 	.paginate(
 		per_page=limit,
@@ -70,11 +93,17 @@ def api_paginate_resources():
 
 	### Gotta check it ######
 	nextLast = Resource.query\
-		.filter(and_(Resource.GCRecord=='' or Resource.GCRecord==None,Resource.ResId<(last-limit+1)))\
+		.filter(and_(
+			Resource.GCRecord=='' or Resource.GCRecord==None,\
+			Resource.ResId<(last-limit+1),\
+			Resource.UsageStatusId==1))\
 		.order_by(Resource.ResId.desc())\
 		.first()
 	prevLast = Resource.query\
-		.filter(and_(Resource.GCRecord=='' or Resource.GCRecord==None,Resource.ResId<(last+limit+1)))\
+		.filter(and_(
+			Resource.GCRecord=='' or Resource.GCRecord==None,\
+			Resource.ResId<(last+limit+1),\
+			Resource.UsageStatusId==1))\
 		.order_by(Resource.ResId.desc())\
 		.first()
 	print(prevLast.ResId)
