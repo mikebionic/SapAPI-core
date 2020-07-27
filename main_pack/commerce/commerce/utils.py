@@ -1,13 +1,24 @@
-from flask import session
-from main_pack import db,babel,gettext,lazy_gettext
-from main_pack.base.apiMethods import fileToURL
-from main_pack.models.base.models import Company
-from main_pack.models.commerce.models import Res_category
+# auth and validation
+from flask_login import current_user,login_required
+# / auth and validation /
 
+# useful methods
+from main_pack import db,babel,gettext,lazy_gettext
 from sqlalchemy import and_
-from main_pack.models.base.models import Company,Sl_image,Slider,Image
-from main_pack.base.languageMethods import dataLangSelector
 from datetime import datetime
+from main_pack.base.apiMethods import fileToURL
+from main_pack.base.languageMethods import dataLangSelector
+# / useful methods / 
+
+# db Models
+from main_pack.models.commerce.models import (Res_category,
+																							Resource)
+from main_pack.models.base.models import (Company,
+																					Sl_image,
+																					Slider,
+																					Image)
+# / db Models /
+from main_pack.api.commerce.commerce_utils import UiCartResourceData
 
 def slidersData():
 	data = []
@@ -24,7 +35,6 @@ def slidersData():
 		List_sliders['Sl_images'] = List_sl_images
 
 		data.append(List_sliders)
-
 	res = {
 		'sliders':data
 	}
@@ -72,7 +82,8 @@ def UiCategoriesList():
 	}
 	return res
 
-# categories, company info {not used}
+# categories, company info {not used} 
+# !! delete after reconfiguring navbar.html
 def commonUsedData():
 	commonData = {}
 	subcategories = []
