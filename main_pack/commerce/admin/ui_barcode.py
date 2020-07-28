@@ -39,7 +39,7 @@ def ui_barcode():
 						'responseText':gettext('Barcode')+' '+gettext('successfully updated'),
 						'htmlData': render_template('/commerce/admin/barcodeAppend.html',barcode=updateBarcode)
 					})
-			except:
+			except Exception as ex:
 				response = jsonify({
 					'status':'error',
 					'responseText':gettext('Unknown error!'),

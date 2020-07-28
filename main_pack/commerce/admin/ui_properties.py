@@ -31,7 +31,7 @@ def ui_color():
 					'responseText':gettext('Color')+' '+gettext('successfully saved'),
 					'htmlData': render_template('commerce/admin/colorAppend.html',color=newColor)
 					})
-			except:
+			except Exception as ex:
 				response = jsonify({
 					'status':'error',
 					'responseText':gettext('Unknown error!'),
@@ -55,7 +55,7 @@ def ui_size():
 					'responseText':gettext('Size')+' '+gettext('successfully saved'),
 					'htmlData': render_template('commerce/admin/sizeAppend.html',size=newSize)
 					})
-			except:
+			except Exception as ex:
 				response = jsonify({
 					'status':'error',
 					'responseText':gettext('Unknown error!'),
@@ -79,7 +79,7 @@ def ui_brand():
 					'responseText':gettext('Brand')+' '+gettext('successfully saved'),
 					'htmlData': render_template('commerce/admin/brandAppend.html',brand=newBrand)
 					})
-			except:
+			except Exception as ex:
 				response = jsonify({
 					'status':'error',
 					'responseText':gettext('Unknown error!'),
@@ -102,7 +102,7 @@ def ui_res_color():
 				'status':'created',
 				'responseText':gettext('Product colors')+' '+gettext('successfully saved'),
 				})
-		except:
+		except Exception as ex:
 			response = jsonify({
 				'status':'error',
 				'responseText':gettext('Unknown error!'),
@@ -137,7 +137,7 @@ def ui_res_size():
 				'status':'created',
 				'responseText':gettext('Product sizes')+' '+gettext('successfully saved'),
 				})
-		except:
+		except Exception as ex:
 			response = jsonify({
 				'status':'error',
 				'responseText':gettext('Unknown error!'),

@@ -46,7 +46,7 @@ def ui_sliders():
 				'status':'deleted',
 				'responseText':gettext('Slider')+' '+gettext('successfully deleted'),
 				})
-	except:
+	except Exception as ex:
 		response = jsonify({
 			'status':'error',
 			'responseText':gettext('Unknown error!'),

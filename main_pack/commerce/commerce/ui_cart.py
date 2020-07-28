@@ -1,5 +1,5 @@
 from flask import render_template,url_for,jsonify,session,flash,redirect,request,Response,abort
-from main_pack.commerce.admin import bp
+from main_pack.commerce.commerce import bp
 import os
 from flask import current_app
 
@@ -60,11 +60,11 @@ def ui_cart():
 			resData = UiCartResourceData(product_list)
 			response = jsonify({
 				'status':'added',
-				'responseText':gettext('Product')+' '+gettext('successfully saved!'),
+				'responseText':gettext('Product')+' '+gettext('successfully saved'),
 				'htmlData':render_template('commerce/main/commerce/cartItemAppend.html',
 					**resData)
 				})
-		except:
+		except Exception as ex:
 			response = jsonify({
 				'status':'error',
 				'responseText':gettext('Unknown error!'),
@@ -85,11 +85,11 @@ def ui_cart():
 			resData = UiCartResourceData(product_list)
 			response = jsonify({
 				'status':'added',
-				'responseText':gettext('Product')+' '+gettext('successfully saved!'),
+				'responseText':gettext('Product')+' '+gettext('successfully saved'),
 				'htmlData':render_template('commerce/main/commerce/cartItemAppend.html',
 					**resData)
 				})
-		except:
+		except Exception as ex:
 			response = jsonify({
 				'status':'error',
 				'responseText':gettext('Unknown error!'),
@@ -113,11 +113,11 @@ def ui_cart_table():
 			resData = UiCartResourceData(product_list)
 			response = jsonify({
 				'status':'added',
-				'responseText':gettext('Product')+' '+gettext('successfully saved!'),
+				'responseText':gettext('Product')+' '+gettext('successfully saved'),
 				'htmlData':render_template('commerce/main/commerce/cartTableAppend.html',
 					**resData)
 				})
-		except:
+		except Exception as ex:
 			response = jsonify({
 				'status':'error',
 				'responseText':gettext('Unknown error!'),
@@ -138,11 +138,11 @@ def ui_cart_table():
 			resData = UiCartResourceData(product_list)
 			response = jsonify({
 				'status':'added',
-				'responseText':gettext('Product')+' '+gettext('successfully saved!'),
+				'responseText':gettext('Product')+' '+gettext('successfully saved'),
 				'htmlData':render_template('commerce/main/commerce/cartTableAppend.html',
 					**resData)
 				})
-		except:
+		except Exception as ex:
 			response = jsonify({
 				'status':'error',
 				'responseText':gettext('Unknown error!'),
@@ -198,7 +198,7 @@ def ui_cart_checkout():
 			try:
 				reg_num = generate(UId=user.UId,prefixType='sale_order_invoice_code')
 				orderRegNo = makeRegNo(user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'',True)
-			except:
+			except Exception as ex:
 				# use device model and other info
 				orderRegNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())			
 
@@ -259,7 +259,7 @@ def ui_cart_checkout():
 					try:
 						reg_num = generate(UId=user.UId,prefixType='order_invoice_line_code')
 						orderLineRegNo = makeRegNo(user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'',True)
-					except:
+					except Exception as ex:
 						# use device model and other info
 						orderLineRegNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
 					order_inv_line['OInvLineRegNo']=orderLineRegNo
@@ -270,7 +270,7 @@ def ui_cart_checkout():
 					thisOInvLine = Order_inv_line(**order_inv_line)
 					db.session.add(thisOInvLine)			
 					order_inv_lines.append(thisOInvLine.to_json_api())
-				except:
+				except Exception as ex:
 					failed_order_inv_lines.append(req['cartData'][resElement])
 
 			if (len(order_inv_lines)==0):
@@ -293,7 +293,7 @@ def ui_cart_checkout():
 				'responseText':gettext('Checkout')+' '+gettext('successfully done')+'! '+gettext('View orders in profile page.')
 				})
 
-		except:
+		except Exception as ex:
 			response = jsonify({
 				'status':'error',
 				'responseText':gettext('Unknown error!')

@@ -65,7 +65,8 @@ def api_rp_accs():
 						db.session.add(newRpAcc)
 						db.session.commit()
 						rp_accs.append(rp_acc)
-				except:
+				except Exception as ex:
+					print(ex)
 					failed_rp_accs.append(rp_acc)
 
 			status = checkApiResponseStatus(rp_accs,failed_rp_accs)

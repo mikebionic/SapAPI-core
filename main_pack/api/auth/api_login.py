@@ -34,7 +34,7 @@ def token_required(f):
 				'model_type':model_type,
 				'current_user':current_user
 			}
-		except:
+		except Exception as ex:
 			return jsonify({'message':'Token is invalid!'}), 401
 		return f(user,*args,**kwargs)
 

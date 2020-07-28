@@ -86,7 +86,7 @@ def api_order_invoices():
 						if rp_acc:
 							print("account exists with id "+str(rp_acc.RpAccId))
 							order_invoice['RpAccId'] = rp_acc.RpAccId
-					except:
+					except Exception as ex:
 						print("Rp_acc not provided")
 						abort(400)
 
@@ -118,13 +118,13 @@ def api_order_invoices():
 								db.session.commit()
 								order_inv_lines.append(order_inv_line)
 								print('order inv line created')
-						except:
+						except Exception as ex:
 							failed_order_inv_lines.append(order_inv_line)
 
 					order_invoice['Order_inv_lines'] = order_inv_lines
 					order_invoices.append(order_invoice)
 
-				except:
+				except Exception as ex:
 					failed_order_invoices.append(order_invoice)
 
 			status = checkApiResponseStatus(order_invoices,failed_order_invoices)

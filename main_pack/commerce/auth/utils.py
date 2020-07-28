@@ -23,7 +23,7 @@ def verify_register_token(token):
 	try:
 		UName = s.loads(token)['UName']
 		UEmail = s.loads(token)['UEmail']
-	except:
+	except Exception as ex:
 		return None
 	return {'UName':UName,'UEmail':UEmail}
 

@@ -31,7 +31,7 @@ def ui_price():
 				'regNoForm':'resPriceRegNo',
 				'regNo':regNo
 				})
-		except:
+		except Exception as ex:
 			response = jsonify({'error':gettext('Error generating Registration number')})
 		return response
 
@@ -58,7 +58,7 @@ def ui_price():
 				response = jsonify({
 					'resPriceId':newResPrice.ResPriceId,
 					'status':'created',
-					'responseText':gettext('Price')+' '+gettext('successfully saved!')
+					'responseText':gettext('Price')+' '+gettext('successfully saved')
 					})
 			
 			elif validation['status']==False:
@@ -89,7 +89,7 @@ def ui_price():
 					'responseText':gettext('Price')+' '+gettext('successfully updated!'),
 					# 'data': render_template('/hr_department/tableEmpAppend.html',**baseTemplate,employee=updateResPrice),
 					})
-			except:
+			except Exception as ex:
 				response = jsonify({
 					'status':'error',
 					'responseText':gettext('Unknown error!'),

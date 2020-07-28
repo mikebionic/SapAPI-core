@@ -31,8 +31,12 @@
                 </ins>
               </div>
               <div class="buttons">
-                <button class="btn wishlist-btn addToWishlist" ownerId="{{resource.ResId}}"><i class="fa fa-heart" aria-hidden="true"></i>{{_('Add to wishlist')}}</button>
-                <button class="btn wishlist-btn removeFromWishlist" ownerId="{{resource.ResId}}" style="display: none;"><i class="fa fa-heart" aria-hidden="true"></i>{{_('Remove from wishlist')}}</button>
+                {% if current_user.is_anonymous %}
+                  <a href="{{ url_for('commerce_auth.login') }}" class="btn wishlist-btn"><i class="fa fa-heart" aria-hidden="true"></i>{{_('Add to wishlist')}}</a>
+                {% else %}
+                  <button class="btn wishlist-btn addToWishlist" ownerId="{{resource.ResId}}" style="{{ 'display: none;' if resource.Wished == True }}"><i class="fa fa-heart" aria-hidden="true"></i>{{_('Add to wishlist')}}</button>
+                  <button class="btn wishlist-btn removeFromWishlist" ownerId="{{resource.ResId}}" style="{{ 'display: none;' if resource.Wished == False }}"><i class="fa fa-heart" aria-hidden="true"></i>{{_('Remove from wishlist')}}</button>
+                {% endif %}
                 <button class="btn add-to-cart-btn addToCart" ownerId="{{resource.ResId}}">{{_('Add to cart')}}</button>
                 <button class="btn add-to-cart-btn removeFromCart" ownerId="{{resource.ResId}}" style="display: none;">{{_('Remove from cart')}}</button>
               </div>

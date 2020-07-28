@@ -44,7 +44,7 @@ def generate(UId,prefixType):
 	reg_num = Reg_num.query.filter(
 		and_(Reg_num.UId==UId,Reg_num.RegNumTypeId==prefixType)).first()
 	response = reg_num
-	# except:
+	# except Exception as ex:
 	# 	response = jsonify({'error':'Error generating regNo'})
 	return response
 
@@ -66,7 +66,7 @@ def validate(UId,fullRegNo,RegNumLastNum,dbModel,prefixType):
 				'status':False,
 				'RegNumLastNum':RegNumLastNum
 			}
-	except:
+	except Exception as ex:
 		response={
 			'status':'error',
 			'responseText':'Wrong prefix type or missing in database'

@@ -59,7 +59,7 @@ def api_barcodes():
 							db.session.add(newBarcode)
 							db.session.commit()
 							barcodes.append(barcode)
-				except:
+				except Exception as ex:
 					failed_barcodes.append(barcode)
 
 			status = checkApiResponseStatus(barcodes,failed_barcodes)

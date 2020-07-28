@@ -54,7 +54,8 @@ def remove_images():
 			url = url_for('commerce_admin.sliders')
 
 		flash("Image successfully deleted!",'success')
-	except:
+	except Exception as ex:
+		print(ex)
 		flash("Error, unable to execute this",'warning')
 	return redirect(url)
 
@@ -168,6 +169,7 @@ def remove_svg_icon():
 		path=os.path.join(current_app.root_path,'static',"commerce","icons","categories",icon_category,name)
 		os.remove(path)
 		flash("Image successfully deleted!",'success')
-	except:
+	except Exception as ex:
+		print(ex)
 		flash("Error, unable to execute this",'warning')
 	return redirect(url_for('commerce_admin.category_table'))

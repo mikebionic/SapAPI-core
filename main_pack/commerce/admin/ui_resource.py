@@ -48,7 +48,7 @@ def ui_resource():
 				'regNoForm':'resRegNo',
 				'regNo':regNo
 				})
-		except:
+		except Exception as ex:
 			response = jsonify({'error':gettext('Error generating Registration number')})
 		return response
 
@@ -76,7 +76,7 @@ def ui_resource():
 				response = jsonify({
 					'resId':newResource.ResId,
 					'status':'created',
-					'responseText':gettext('Resource')+' '+gettext('successfully saved!'),
+					'responseText':gettext('Resource')+' '+gettext('successfully saved'),
 					# 'data': render_template('/hr_department/tableEmpAppend.html',**baseTemplate,employee=newResource)
 					})
 			
@@ -107,7 +107,7 @@ def ui_resource():
 					'status':'updated',
 					'responseText':gettext('Resource')+' '+gettext('successfully updated!'),
 					})
-			except:
+			except Exception as ex:
 				response = jsonify({
 					'status':'error',
 					'responseText':gettext('Unknown error!'),

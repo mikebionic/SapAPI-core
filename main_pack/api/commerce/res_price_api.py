@@ -57,7 +57,8 @@ def api_res_prices():
 							db.session.add(newResPrice)
 							db.session.commit()
 							res_prices.append(res_price)
-				except:
+				except Exception as ex:
+					print(ex)
 					failed_res_prices.append(res_price)
 
 			status = checkApiResponseStatus(res_prices,failed_res_prices)

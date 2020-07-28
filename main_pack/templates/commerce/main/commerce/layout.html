@@ -79,8 +79,9 @@
                     {{ current_user.UFullName }}
                   </a>
                   <div class="dropdown-divider"></div>
-                  <a href="{{ url_for('commerce_users.orders') }}" class="dropdown-item has-icon">{{_('Orders')}}
-                  </a>
+                  <a href="{{ url_for('commerce_users.orders') }}" class="dropdown-item has-icon">{{_('Orders')}}</a>
+                  <div class="dropdown-divider"></div>
+                  <a href="{{ url_for('commerce_users.wishlist') }}" class="dropdown-item has-icon">{{_('Wishlist')}}</a>
                   <div class="dropdown-divider"></div>
                   <a href="{{ url_for('commerce_auth.logout') }}" class="dropdown-item has-icon text-danger">
                       <i class="material-icons" style="padding-left: 0;">assignment_return</i>
@@ -341,6 +342,9 @@
   <script src="{{ url_for('static', filename='commerce/main/js/main.js') }}"></script>
   {% block scripts %}{% endblock %}
   <script src="{{ url_for('static', filename='commerce/main/js/cartsAndCheckouts.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/admin/js/ui_dynamicals.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/admin/bundles/izitoast/js/iziToast.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/admin/js/page/toastr.js') }}"></script>
   <script type="text/javascript">
     var csrf_token = "{{ csrf_token() }}";
     $.ajaxSetup({

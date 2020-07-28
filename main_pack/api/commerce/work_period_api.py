@@ -56,7 +56,8 @@ def api_work_periods():
 							db.session.add(newWorkPeriod)
 							db.session.commit()
 							work_periods.append(work_period)
-				except:
+				except Exception as ex:
+					print(ex)
 					failed_work_periods.append(work_period)
 
 			status = checkApiResponseStatus(work_periods,failed_work_periods)

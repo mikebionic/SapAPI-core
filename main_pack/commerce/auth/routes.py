@@ -109,7 +109,7 @@ def register_token(token):
 			try:
 				reg_num = generate(UId=user.UId,prefixType='rp_code')
 				regNo = makeRegNo(user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'')
-			except:
+			except Exception as ex:
 				flash(lazy_gettext('Error generating Registration number'),'warning')
 				return redirect(url_for('commerce_auth.register'))
 			# assign the UId of created User Model to Rp acc
@@ -129,7 +129,7 @@ def register_token(token):
 			db.session.commit()
 			flash('{}!'.format(UName)+lazy_gettext('your profile has been created!'),'success')
 			return redirect(url_for('commerce_auth.login'))
-		except:
+		except Exception as ex:
 			flash(lazy_gettext('Error occured, please try again.'),'danger')
 			return redirect(url_for('commerce_auth.register'))
 

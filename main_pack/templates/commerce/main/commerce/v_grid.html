@@ -15,8 +15,19 @@
                 {% endif %}
               </a>
               <div class="pro-action">
-                <a href="#{{ url_for('commerce.product',ResId=resource.ResId)}}" class="action-btn cart addToCart" ownerId="{{resource.ResId}}"><i class="fa fa-fw fa-shopping-cart"></i></a>
-                <a href="#" class="action-btn wishlist addToWishlist" ownerId="{{resource.ResId}}"><i class="fa fa-fw fa-heart-o"></i></a>
+                <a href="#" class="action-btn cart addToCart" ownerId="{{resource.ResId}}"><i class="fa fa-fw fa-shopping-cart"></i></a>
+                {% if current_user.is_anonymous %}
+                  <a href="{{ url_for('commerce_auth.login') }}" class="action-btn wishlist" ownerId="{{resource.ResId}}">
+                    <i class="fa fa-fw fa-heart-o"></i>
+                  </a>
+                {% else %}
+                  <a href="#" class="action-btn wishlist addToWishlist" ownerId="{{resource.ResId}}" style="{{ 'display: none;' if resource.Wished == True }}">
+                    <i class="fa fa-fw fa-heart-o"></i>
+                  </a>
+                  <a href="#" class="action-btn wishlist removeFromWishlist" ownerId="{{resource.ResId}}" style="{{ 'display: none;' if resource.Wished == False }}">
+                    <i class="fa fa-fw fa-heart-o"></i>
+                  </a>
+                {% endif %}
               </div>
             </div>
             <div class="pro-details text-center">

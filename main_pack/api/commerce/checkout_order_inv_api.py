@@ -64,7 +64,8 @@ def api_checkout_sale_order_invoices(user):
 		try:
 			reg_num = generate(UId=user.UId,prefixType='sale_order_invoice_code')
 			orderRegNo = makeRegNo(user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'',True)
-		except:
+		except Exception as ex:
+			print(ex)
 			# use device model and other info
 			orderRegNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
 
@@ -96,7 +97,8 @@ def api_checkout_sale_order_invoices(user):
 				try:
 					reg_num = generate(UId=user.UId,prefixType='order_invoice_line_code')
 					orderLineRegNo = makeRegNo(user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'',True)
-				except:
+				except Exception as ex:
+					print(ex)
 					# use device model and other info
 					orderLineRegNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
 				order_inv_line['OInvLineRegNo']=orderLineRegNo
@@ -161,7 +163,8 @@ def api_checkout_sale_order_invoices(user):
 				thisOInvLine = Order_inv_line(**order_inv_line)
 				db.session.add(thisOInvLine)
 				order_inv_lines.append(thisOInvLine.to_json_api())
-			except:
+			except Exception as ex:
+				print(ex)
 				fail_info = {
 					"data":order_inv_line_req,
 					"error_type_id":error_type,
@@ -211,13 +214,13 @@ def api_checkout_sale_order_invoices(user):
 			for e in status:
 				res[e]=status[e]
 
-	except:
+	except Exception as ex:
+		print(ex)
 		status_code = 400
 		res = {
 			"data":order_invoice,
 			"message":"Failed to checkout order"
 		}	
-	print(res)
 	response = make_response(jsonify(res),status_code)
 
 	return response

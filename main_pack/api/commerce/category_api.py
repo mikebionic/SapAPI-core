@@ -57,7 +57,8 @@ def api_post_categories():
 					db.session.add(newCategory)
 					db.session.commit()
 					categories.append(category)
-				except:
+				except Exception as ex:
+					print(ex)
 					failed_categories.append(category)
 
 			status = checkApiResponseStatus(categories,failed_categories)
@@ -69,77 +70,7 @@ def api_post_categories():
 			}
 			for e in status:
 				res[e]=status[e]
-			response = make_response(jsonify(res),200)
-
-	# elif request.method == 'PUT':
-	# 	if not request.json:
-	# 		res = {
-	# 			"status": 0,
-	# 			"message": "Error. Not a JSON data."
-	# 		}
-	# 	else:
-	# 		req = request.get_json()
-	# 		categories = []
-	# 		failed_categories = [] 
-	# 		for category in req:
-	# 			category = addCategoryDict(category)
-	# 			try:
-	# 				ResCatId = category['ResCatId']
-	# 				thisCategory = Res_category.query.get(ResCatId)
-	# 				thisCategory.update(**category)
-	# 				thisCategory.modifiedInfo(UId=1)
-	# 				db.session.commit()
-
-	# 				categories.append(category)
-	# 			except:
-	# 				failed_categories.append(category)
-			
-	# 		status = checkApiResponseStatus(categories,failed_categories)
-	# 		res = {
-	# 			"data":categories,
-	# 			"fails":failed_categories,
-	# 			"success_total":len(categories),
-	# 			"fail_total":len(failed_categories)
-	# 		}
-	# 		for e in status:
-	# 			res[e]=status[e]
-	# 		response = make_response(jsonify(res),200)
-
-	# elif request.method == 'DELETE':
-	# 	if not request.json:
-	# 		res = {
-	# 			"status":0,
-	# 			"message":"Error. Not a JSON data."
-	# 		}
-	# 		response = make_response(jsonify(res),400)
-
-	# 	else:
-	# 		req = request.get_json()
-	# 		categories = []
-	# 		failed_categories = []
-	# 		for category in req:
-	# 			category = addCategoryDict(category)
-	# 			try:
-	# 				ResCatId = category['ResCatId']
-	# 				thisCategory = Res_category.query.get(ResCatId)
-	# 				thisCategory.GCRecord = int(datetime.now().strftime("%H"))
-	# 				thisCategory.modifiedInfo(UId=1)
-	# 				db.session.commit()
-	# 				categories.append(category)
-	# 			except:
-	# 				failed_categories.append(category)
-			
-	# 		status = checkApiResponseStatus(categories,failed_categories)
-	# 		res = {
-	# 			"data":categories,
-	# 			"fails":failed_categories,
-	# 			"success_total":len(categories),
-	# 			"fail_total":len(failed_categories)
-	# 		}
-	# 		for e in status:
-	# 			res[e]=status[e]
-	# 		response = make_response(jsonify(res),200)
-	
+			response = make_response(jsonify(res),200)	
 	return response
 
 @api.route("/tbl-dk-categories/paginate/",methods=['GET'])

@@ -77,7 +77,7 @@ def wishlist():
 	product_list = []
 	for wish in pagination_wishes.items:
 		product = {}
-		product['resId'] = wish.ResId
+		product['ResId'] = wish.ResId
 		product_list.append(product)
 	res = apiResourceInfo(product_list)
 	return render_template ("commerce/main/users/wishlist.html",

@@ -19,7 +19,8 @@ def num2text(num,language='en'):
 			result = tk_num2text(num)
 		else:
 			result = en_num2text(num)
-	except:
+	except Exception as ex:
+		print(ex)
 		result = "out of range"
 
 	return result
@@ -55,7 +56,8 @@ def price2text(num,language='en',currencyCode='TMT'):
 					for lang in languages:
 						if lang == language:
 							res = languages[lang]
-	except:
+	except Exception as ex:
+		print(ex)
 		res = ''
 
 	try:
@@ -92,7 +94,8 @@ def price2text(num,language='en',currencyCode='TMT'):
 					int(num),
 					main_units=((res[0], res[0], res[0]), 'm'))
 
-	except:
+	except Exception as ex:
+		print(ex)
 		result = "out of range"
 
 	return result

@@ -22,7 +22,7 @@ def token_required(f):
 		try:
 			data=jwt.decode(token, Config.SECRET_KEY)
 			current_user = Users.query.filter_by(UId=data['UId']).first()
-		except:
+		except Exception as ex:
 			return jsonify({'message':'Token is invalid!'}), 401
 		return f(current_user,*args,**kwargs)
 
@@ -63,7 +63,7 @@ def verify_register_token(token):
 	try:
 		UName = s.loads(token)['UName']
 		UEmail = s.loads(token)['UEmail']
-	except:
+	except Exception as ex:
 		return None
 	return {'UName':UName,'UEmail':UEmail}
 

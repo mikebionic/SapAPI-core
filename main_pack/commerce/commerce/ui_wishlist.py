@@ -1,10 +1,22 @@
+from flask import render_template,url_for,jsonify,session,flash,redirect,request,Response,abort
+from main_pack.commerce.commerce import bp
+import os
+from flask import current_app
 
-# from main_pack.api.commerce.commerce_utils import apiResourceInfo
+# useful methods
+from main_pack import db,babel,gettext,lazy_gettext
+from sqlalchemy import and_
+# / useful methods /
 
+# auth and validation
+from flask_login import current_user,login_required
+# / auth and validation /
 
-# logi_required
-# Rp_acc
-# Wish
+# Resource and view
+from main_pack.models.commerce.models import Resource,Wish
+from main_pack.models.users.models import Rp_acc
+# / Resource and view /
+
 @bp.route('/product/ui_wishlist/',methods=['POST','DELETE'])
 @login_required
 def ui_wishlist():
@@ -45,20 +57,29 @@ def ui_wishlist():
 			wish = Wish(**wish)
 			db.session.add(wish)
 			db.session.commit()
-
-			# product={}
-			# product['ResId'] = ResId
-			# product_list=[product]
-			# resData = UiCartResourceData(product_list)
-
 			response = jsonify({
 				'status':'added',
-				'responseText':gettext('Product')+' '+gettext('successfully saved!')
+				'responseText':gettext('Product')+' '+gettext('successfully saved')
 			})
 		
-		if request.method=="DELETE":,
+		if request.method=="DELETE":
+			wish = Wish.query\
+				.filter(and_(Wish.GCRecord=='' or Wish.GCRecord==None),\
+					Wish.ResId==ResId,\
+					Wish.RpAccId==RpAccId)\
+				.first()
+			if Wish is None:
+				raise Exception
 
-	except:
+			wish.GCRecord = 1
+			db.session.commit()
+			response = jsonify({
+				'status':'deleted',
+				'responseText':gettext('Product')+' '+gettext('successfully deleted')
+			})
+
+	except Exception as ex:
+		print(ex)
 		response = jsonify({
 			'status':'error',
 			'responseText':gettext('Unknown error!'),

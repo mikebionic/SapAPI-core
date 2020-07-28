@@ -184,10 +184,12 @@
 
 {% block scripts %}
   <script type="text/javascript">
+  $(document).ready(function(){
     window.setTimeout(function (){
       if($('.removeFromCart').css('display')!='none'){
         $('.quantity-box').show('slow');
       }      
-    }, 500);
+    }, 150);
+  })
   </script>
 {% endblock %}

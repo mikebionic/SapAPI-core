@@ -44,7 +44,7 @@ def ui_res_translations():
 						'responseText':gettext('Translation')+' '+gettext('successfully updated'),
 						'htmlData': render_template('/commerce/admin/resTransAppend.html',**baseTemplate,resTrans=updateTranslation)
 					})
-			except:
+			except Exception as ex:
 				response = jsonify({
 					'status':'error',
 					'responseText':gettext('Unknown error!'),

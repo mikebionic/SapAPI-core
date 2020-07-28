@@ -89,7 +89,7 @@ def ui_images():
 				}
 			fullResponse['responses']=responses
 			response = fullResponse
-		except:
+		except Exception as ex:
 			response = jsonify({
 				'status':'error',
 				'responseText':gettext('Unknown error!'),

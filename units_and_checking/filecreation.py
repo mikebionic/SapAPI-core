@@ -15,7 +15,7 @@ def dirHandler(path):
 	if not os.path.exists(path):
 		try:
 			os.makedirs(path)
-		except:
+		except Exception as ex:
 			print("error creating directory")
 
 def changeImageSize(form_image,modulePath,FileName):
@@ -68,7 +68,7 @@ save_image('IMG_5660.JPG',"commerce/users",12)
 # 	if not os.path.exists(path):
 # 		try:
 # 			os.makedirs(path)
-# 		except:
+# 		except Exception as ex:
 # 			print("error creating directory")
 
 # def changeImageSize(FilePath,modulePath,FileName):

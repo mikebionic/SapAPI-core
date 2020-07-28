@@ -5,7 +5,7 @@ from datetime import datetime
 def configureFloat(value):
 	try:
 		value = float(value)
-	except:
+	except Exception as ex:
 		value = 0
 	return value
 
@@ -22,7 +22,7 @@ def dateDataCheck(date):
 	try:
 		print(date)
 		date = datetime.strptime(date, "%Y-%m-%d")
-	except:
+	except Exception as ex:
 		date = None
 	print(date)
 	return date
@@ -30,14 +30,14 @@ def dateDataCheck(date):
 def apiDataFormat(date):
 	try:
 		date = date.strftime("%Y-%m-%d %H:%M:%S")
-	except:
+	except Exception as ex:
 		date = None
 	return date
 
 def apiCheckImageByte(image):
 	try:
 		image = base64.encodebytes(image).decode('ascii'),
-	except:
+	except Exception as ex:
 		image = None
 
 	return image

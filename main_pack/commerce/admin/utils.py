@@ -440,7 +440,7 @@ def addImageDict(req):
 def configureFloat(value):
 	try:
 		value = float(value)
-	except:
+	except Exception as ex:
 		value = 0
 	return value
 
@@ -456,7 +456,7 @@ def boolCheck(value):
 def dateDataCheck(date):
 	try:
 		date = datetime.strptime(date, "%Y-%m-%d")
-	except:
+	except Exception as ex:
 		date = None
 	return date
 

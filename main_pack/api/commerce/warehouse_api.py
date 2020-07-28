@@ -61,7 +61,8 @@ def api_warehouses():
 							db.session.add(newWarehouse)
 							db.session.commit()
 							warehouses.append(warehouse)
-				except:
+				except Exception as ex:
+					print(ex)
 					failed_warehouses.append(warehouse)
 
 			status = checkApiResponseStatus(warehouses,failed_warehouses)

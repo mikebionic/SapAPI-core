@@ -136,6 +136,6 @@ def getInvStatusUi(statusId):
 		for status in invStatSelector:
 			if status == statusId:
 				invStatusUi = invStatSelector[status]				
-	except:
+	except Exception as ex:
 		invStatusUi = invStatSelector[1]
 	return invStatusUi

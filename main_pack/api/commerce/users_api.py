@@ -68,7 +68,8 @@ def api_users():
 							db.session.add(newOrderInv)
 							db.session.commit()
 							users.append(user)
-				except:
+				except Exception as ex:
+					print(ex)
 					failed_users.append(user)
 
 			status = checkApiResponseStatus(users,failed_users)

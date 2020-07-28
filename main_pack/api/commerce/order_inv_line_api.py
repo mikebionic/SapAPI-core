@@ -48,7 +48,8 @@ def api_order_inv_lines():
 						db.session.add(newOrderInv)
 						db.session.commit()
 						order_inv_lines.append(order_inv_line)
-				except:
+				except Exception as ex:
+					print(ex)
 					failed_order_inv_lines.append(order_inv_line)
 
 			status = checkApiResponseStatus(order_inv_lines,failed_order_inv_lines)

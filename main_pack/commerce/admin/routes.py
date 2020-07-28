@@ -103,7 +103,8 @@ def category_table():
 					}
 					icons.append(iconInfo)
 			category_icons[folder]=icons
-		except:
+		except Exception as ex:
+			print(ex)
 			print("Err: not a folder")
 
 	data['category_icons']=category_icons
@@ -185,7 +186,8 @@ def customer_details(RpAccId):
 			order['OInvId'] = orderInv.OInvId
 			orders_list.append(order)
 		orderInvRes = UiOInvData(orders_list)
-	except:
+	except Exception as ex:
+		print(ex)
 		return redirect(url_for('commerce_admin.customers_table'))
 	return render_template ("commerce/admin/customer_details.html",
 		**data,**orderInvRes,title=gettext('Customer details'))
@@ -239,7 +241,8 @@ def register_customer():
 				else:
 					reg_num = generate(UId=user.UId,prefixType='rp_code')
 					regNo = makeRegNo(user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'')
-			except:
+			except Exception as ex:
+				print(ex)
 				regNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
 
 			rp_acc = Rp_acc(
@@ -273,7 +276,8 @@ def register_customer():
 
 			flash('{} '.format(username)+lazy_gettext('successfully saved'),'success')
 			return redirect(url_for('commerce_admin.customers_table'))
-		except:
+		except Exception as ex:
+			print(ex)
 			flash(lazy_gettext('Error occured, please try again.'),'danger')
 			return redirect(url_for('commerce_admin.register_customer'))
 	return render_template ("commerce/admin/register_customer.html",
@@ -294,22 +298,23 @@ def users_table():
 @login_required
 @ui_admin_required()
 def user_details(UId):
-	# try:
-	data = UiUsersData([{'UId':UId}],deleted=True)
-	data['user']=data['users'][0]
-	data['user_types'] = user_types()
-	rp_accs = Rp_acc.query\
-		.filter(and_(Rp_acc.GCRecord=='' or Rp_acc.GCRecord==None),\
-			Rp_acc.UId==UId).all()
-	rp_acc_list = []
-	for rp_acc in rp_accs:
-		obj={'RpAccId':rp_acc.RpAccId}
-		rp_acc_list.append(obj)
-	rp_accs = UiRpAccData(rp_acc_list,deleted=True)
-	data['rp_acc_statuses'] = rp_acc_statuses()
-	data['rp_acc_types'] = rp_acc_types()
-	# except:
-	# 	return redirect(url_for('commerce_admin.users_table'))
+	try:
+		data = UiUsersData([{'UId':UId}],deleted=True)
+		data['user']=data['users'][0]
+		data['user_types'] = user_types()
+		rp_accs = Rp_acc.query\
+			.filter(and_(Rp_acc.GCRecord=='' or Rp_acc.GCRecord==None),\
+				Rp_acc.UId==UId).all()
+		rp_acc_list = []
+		for rp_acc in rp_accs:
+			obj={'RpAccId':rp_acc.RpAccId}
+			rp_acc_list.append(obj)
+		rp_accs = UiRpAccData(rp_acc_list,deleted=True)
+		data['rp_acc_statuses'] = rp_acc_statuses()
+		data['rp_acc_types'] = rp_acc_types()
+	except Exception as ex:
+		print(ex)
+		return redirect(url_for('commerce_admin.users_table'))
 	return render_template ("commerce/admin/user_details.html",
 		**data,**rp_accs,title=gettext('Customer details'))
 
@@ -358,7 +363,8 @@ def register_user():
 
 			flash('{} '.format(username)+lazy_gettext('successfully saved'),'success')
 			return redirect(url_for('commerce_admin.users_table'))
-		except:
+		except Exception as ex:
+			print(ex)
 			flash(lazy_gettext('Error occured, please try again.'),'danger')
 			return redirect(url_for('commerce_admin.register_user'))
 	return render_template ("commerce/admin/register_user.html",

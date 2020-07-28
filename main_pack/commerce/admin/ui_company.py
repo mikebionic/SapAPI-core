@@ -22,7 +22,7 @@ def ui_company():
 				'status':'updated',
 				'responseText':gettext('Company')+' '+gettext('successfully updated!'),
 				})
-		except:
+		except Exception as ex:
 			response = jsonify({
 				'status':'error',
 				'responseText':gettext('Unknown error!'),

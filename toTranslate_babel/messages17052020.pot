@@ -90,11 +90,6 @@ msgstr ""
 msgid "Category"
 msgstr ""
 
-#: commerce/admin/ui_category.py:33 commerce/admin/ui_price.py:51
-#: commerce/admin/ui_resource.py:68 commerce/commerce/ui_cart.py:21
-#: commerce/commerce/ui_cart.py:42
-msgid "successfully saved!"
-msgstr ""
 
 #: commerce/admin/ui_company.py:23 templates/commerce/admin/navbar.html:551
 msgid "Company"

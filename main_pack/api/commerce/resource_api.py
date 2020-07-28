@@ -102,7 +102,7 @@ def api_resources():
 							db.session.add(newResource)
 							db.session.commit()
 							resources.append(resource)
-				except:
+				except Exception as ex:
 					failed_resources.append(resource)
 
 			status = checkApiResponseStatus(resources,failed_resources)

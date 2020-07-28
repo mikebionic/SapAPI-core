@@ -56,7 +56,8 @@ def api_rp_acc_trans_totals():
 							db.session.add(newRpAccTrTotal)
 							db.session.commit()
 							rp_acc_trans_totals.append(rp_acc_trans_total)
-				except:
+				except Exception as ex:
+					print(ex)
 					failed_rp_acc_trans_totals.append(rp_acc_trans_total)
 
 			status = checkApiResponseStatus(rp_acc_trans_totals,failed_rp_acc_trans_totals)

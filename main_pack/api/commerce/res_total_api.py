@@ -63,7 +63,8 @@ def api_res_totals():
 							db.session.add(newResTotal)
 							db.session.commit()
 							res_totals.append(res_total)
-				except:
+				except Exception as ex:
+					print(ex)
 					failed_res_totals.append(res_total)
 
 			status = checkApiResponseStatus(res_totals,failed_res_totals)

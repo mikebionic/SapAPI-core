@@ -58,7 +58,8 @@ def api_order_inv_types():
 							db.session.add(newOrderInv)
 							db.session.commit()
 							order_inv_types.append(order_inv_type)
-				except:
+				except Exception as ex:
+					print(ex)
 					failed_order_inv_types.append(order_inv_type)
 
 			status = checkApiResponseStatus(order_inv_types,failed_order_inv_types)

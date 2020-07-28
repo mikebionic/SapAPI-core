@@ -67,7 +67,7 @@ def api_images():
 							db.session.commit()
 							print('added image was none')
 							images.append(image)
-				except:
+				except Exception as ex:
 					failed_images.append(image)
 
 			status = checkApiResponseStatus(images,failed_images)

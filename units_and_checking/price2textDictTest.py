@@ -32,7 +32,8 @@ def price2text(language='en',currencyCode='TMT'):
 						if lang == language:
 							res = languages[lang]
 
-	except:
+	except Exception as ex:
+		print(ex)
 		res = ''
 	return res
 

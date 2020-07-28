@@ -44,7 +44,7 @@ def ui_customers_table():
 				'status':'deleted',
 				'responseText':thisRpAcc.RpAccName+' '+gettext('successfully deleted'),
 				})
-	except:
+	except Exception as ex:
 		response = jsonify({
 			'status':'error',
 			'responseText':gettext('Unknown error!'),
@@ -79,7 +79,7 @@ def ui_users_table():
 				'status':'deleted',
 				'responseText':thisUser.UName+' '+gettext('successfully deleted'),
 				})
-	except:
+	except Exception as ex:
 		response = jsonify({
 			'status':'error',
 			'responseText':gettext('Unknown error!'),

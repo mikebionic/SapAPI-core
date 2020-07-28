@@ -40,7 +40,7 @@ def ui_inv_status():
 			'status':'updated',
 			'responseText':gettext('Invoice status')+' '+gettext('successfully updated'),
 		})
-	except:
+	except Exception as ex:
 		response = jsonify({
 			'status':'error',
 			'responseText':gettext('Unknown error!'),
@@ -132,7 +132,7 @@ def ui_order_inv():
 						'status':'updated',
 						'responseText':gettext('successfully updated'),
 						})
-				except:
+				except Exception as ex:
 					response = jsonify({
 						'status':'error',
 						'responseText':gettext('Unknown error!'),
@@ -162,7 +162,7 @@ def ui_order_inv():
 					})
 			else:
 				raise(Exception)
-	except:
+	except Exception as ex:
 		response = jsonify({
 			'status':'error',
 			'responseText':gettext('Unknown error!'),

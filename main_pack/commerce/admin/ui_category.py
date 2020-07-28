@@ -31,7 +31,7 @@ def ui_category():
 					'catId':newCategory.ResCatId,
 					'status':'created',
 					'child_status':child_status,
-					'responseText':gettext('Category')+' '+gettext('successfully saved!'),
+					'responseText':gettext('Category')+' '+gettext('successfully saved'),
 					'htmlData':render_template('commerce/admin/appendCategory.html',child_status=child_status,category=newCategory)
 					})
 			else:
@@ -55,7 +55,7 @@ def ui_category():
 				'status':'deleted',
 				'responseText':thisCategory.ResCatName+' '+gettext('successfully deleted'),
 			}
-	except:
+	except Exception as ex:
 		response = jsonify({
 			'status':'error',
 			'responseText':gettext('Unknown error!'),
@@ -101,7 +101,7 @@ def ui_category_table():
 				'status':'deleted',
 				'responseText':gettext('Category')+' '+gettext('successfully deleted'),
 				})
-	except:
+	except Exception as ex:
 		response = jsonify({
 			'status':'error',
 			'responseText':gettext('Unknown error!'),

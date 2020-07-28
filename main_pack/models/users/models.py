@@ -43,7 +43,7 @@ class Users(AddInf,CreatedModifiedInfo,db.Model,UserMixin):
 		s = Serializer(current_app.config['SECRET_KEY'])
 		try:
 			UId = s.loads(token)['UId']
-		except:
+		except Exception as ex:
 			return None
 		return	Users.query.get(UId)
 
