@@ -27,7 +27,7 @@ from main_pack.models.base.models import (Image,
 # isInactive shows active resources with UsageStatusId = 1
 # fullInfo shows microframework full info with Foreign tables
 # single_object returns one resource in "data" instead of list 
-def apiResourceInfo(resource_list=None,single_object=False,isDeleted=False,isInactive=False,fullInfo=False):
+def apiResourceInfo(resource_list=None,single_object=False,isDeleted=False,isInactive=False,fullInfo=False,current_user=None):
 	barcodes = Barcode.query\
 		.filter(Barcode.GCRecord=='' or Barcode.GCRecord==None).all()
 	categories = Res_category.query\
@@ -54,6 +54,13 @@ def apiResourceInfo(resource_list=None,single_object=False,isDeleted=False,isIna
 		.filter(Unit.GCRecord=='' or Unit.GCRecord==None).all()
 	currencies = Currency.query\
 		.filter(Currency.GCRecord=='' or Currency.GCRecord==None).all()
+
+	if current_user:
+		RpAccId = current_user.RpAccId
+		wishes = Wish.query\
+			.filter(and_(Wish.GCRecord=='' or Wish.GCRecord==None),\
+				Wish.RpAccId==RpAccId)\
+			.all()
 	
 	resource_models = []
 	if resource_list is None:
@@ -134,6 +141,15 @@ def apiResourceInfo(resource_list=None,single_object=False,isDeleted=False,isIna
 			resource_info["Brand"] = List_Brands[0] if List_Brands else ''
 			resource_info["Unit"] = dataLangSelector(List_Units[0]) if List_Units else ''
 
+			if current_user:
+				for wish in wishes:
+					if wish.ResId==resource.ResId:
+						resource_info["Wished"] = True
+					else:
+						resource_info["Wished"] = False
+				
+				print (resource_info["Wished"])
+
 			if fullInfo == True:
 				resource_info["UsageStatus"] = dataLangSelector(List_UsageStatus[0]) if List_UsageStatus else ''
 				resource_info["Barcode"] = List_Barcode if List_Barcode else ''
@@ -160,7 +176,6 @@ def apiResourceInfo(resource_list=None,single_object=False,isDeleted=False,isIna
 	}
 	for e in status:
 		res[e]=status[e]
-	response = make_response(jsonify(res),200)
 	return res
 
 def UiCartResourceData(product_list):

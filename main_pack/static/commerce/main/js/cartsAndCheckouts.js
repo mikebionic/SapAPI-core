@@ -62,15 +62,14 @@ $('body').delegate('.checkoutCartBtn','click',function(){
 
 function addToWishlist(ownerId){
 	productData={'resId':ownerId};
-	postData(formData=productData,url=url_prefix+"/product/ui_wishlist/",type="POST",listName='wishlistItems');
+	postData(formData=productData,url=url_prefix+"/product/ui_wishlist/",type="POST");
 	$('.addToWishlist'+'[ownerId='+ownerId+']').hide();
 	$('.removeFromWishlist'+'[ownerId='+ownerId+']').show();
 }
 
 function removeFromWishlist(ownerId){
 	productData={'resId':ownerId};
-	postData(formData=productData,url=url_prefix+"/product/ui_wishlist/",type="DELETE",formId=ownerId);
-	$('.wishlistObject'+ownerId).remove();
+	postData(formData=productData,url=url_prefix+"/product/ui_wishlist/",type="DELETE");
 	$('.removeFromWishlist'+'[ownerId='+ownerId+']').hide();
 	$('.addToWishlist'+'[ownerId='+ownerId+']').show();
 }

@@ -32,3 +32,21 @@ urllib3==1.25.9
 Werkzeug==1.0.1
 WTForms==2.3.1
 
+### redis cache tool ###
+flask-redis==0.4.0
+redis==3.5.3
+rq==1.5.0
+Flask-Cache==0.13.1
+cachelib==0.1.1
+#######
+
+### websocket integration ###
+Flask-SocketIO==4.3.1
+python-engineio==3.13.1
+python-socketio==4.6.0
+pySocket==0.35
+websockets==8.1
+gevent==20.6.2
+Flask-Session==0.3.2
+socketio==0.2.1
+########
