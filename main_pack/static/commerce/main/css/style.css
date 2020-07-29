@@ -8659,7 +8659,8 @@ body.open-overlay #overlay {
     text-align: center;
     font-size: 24px;
     color: #888888;
-    font-weight: 600;
+    font-weight: 300;
+    text-transform: capitalize;
     position: relative;
     padding-bottom: 4px;
     padding-left: 5px;
@@ -18418,5 +18419,42 @@ textarea::placeholder{
     color: #000;
 }
 
+/* heart */
 
+[id="heart"] {
+    position: absolute;
+    left: -100vw;
+  }
+  
+  [for="heart"] {
+    color: #aab8c2;
+    cursor: pointer;
+    font-size: 6em;
+    align-self: center;  
+    transition: color 0.2s ease-in-out;
+  }
+  
+  [for="heart"]:hover {
+    color: grey;
+  }
+  
+  [for="heart"]::selection {
+    color: none;
+    background: transparent;
+  }
+  
+  [for="heart"]::moz-selection {
+    color: none;
+    background: transparent;
+  }
+  
+  [id="heart"]:checked + label {
+    color: #e2264d;
+    will-change: font-size;
+    animation: heart 1s cubic-bezier(.17, .89, .32, 1.49);
+  }
+  
+  
+  
+  @keyframes heart {0%, 17.5% {font-size: 0;}}
 
