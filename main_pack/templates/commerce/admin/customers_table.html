@@ -40,7 +40,7 @@
                     <img loading="lazy" src="{{ rp_acc.FilePathS if rp_acc.FilePathS else url_for('static', filename='commerce/admin/img/no_avatar.jpg') }}" width="40">
                   </td>
                   <td class="text-center">
-                    <a href="{{ url_for('commerce_admin.customer_details',RpAccId=rp_acc.RpAccId)}}" class="btn btn-outline-primary">
+                    <a href="{{ url_for('commerce_admin.customer_details',RpAccRegNo=rp_acc.RpAccRegNo)}}" class="btn btn-outline-primary">
                       {{ rp_acc.RpAccName if rp_acc.RpAccName else rp_acc.RpAccUName }}
                     </a>
                   </td>

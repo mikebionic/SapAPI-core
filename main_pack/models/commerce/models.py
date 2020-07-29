@@ -250,7 +250,6 @@ class Usage_status(CreatedModifiedInfo,db.Model):
 		}
 		return json_usage_status
 
-
 ####### new models ###
 class Discount_type(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_discount_type"
@@ -263,6 +262,23 @@ class Discount_type(CreatedModifiedInfo,db.Model):
 	DiscTypeDesc = db.Column(db.String(500))
 	Res_discount = db.relationship('Res_discount',backref='discount_type',lazy=True)
 
+	def to_json_api(self):
+		json_sale_card_status={
+			'DiscTypeId':self.DiscTypeId,
+			'DiscTypeName_tkTM':self.DiscTypeName_tkTM,
+			'DiscTypeDesc_tkTM':self.DiscTypeDesc_tkTM,
+			'DiscTypeName_ruRU':self.DiscTypeName_ruRU,
+			'DiscTypeDesc_ruRU':self.DiscTypeDesc_ruRU,
+			'DiscTypeName_enUS':self.DiscTypeName_enUS,
+			'DiscTypeDesc':self.DiscTypeDesc,
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
+		}
+		return json_sale_card_status
+
 class Exc_rate(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_exc_rate"
 	ExcRateId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -270,7 +286,27 @@ class Exc_rate(CreatedModifiedInfo,db.Model):
 	ExcRateTypeId = db.Column(db.Integer,db.ForeignKey("tbl_dk_exc_rate_type.ExcRateTypeId"))
 	ExcRateDate = db.Column(db.DateTime)
 	ExcRateValue = db.Column(db.Float,default=0)
+	
+	def update(self, **kwargs):
+		for key, value in kwargs.items():
+			if value is not None:
+				if hasattr(self, key):
+					setattr(self, key, value)
 
+	def to_json_api(self):
+		json_sale_card_status={
+			'ExcRateId':self.ExcRateId,
+			'CurrencyId':self.CurrencyId,
+			'ExcRateTypeId':self.ExcRateTypeId,
+			'ExcRateDate':self.ExcRateDate,
+			'ExcRateValue':self.ExcRateValue,
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
+		}
+		return json_sale_card_status
 
 class Exc_rate_type(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_exc_rate_type"
@@ -280,6 +316,19 @@ class Exc_rate_type(CreatedModifiedInfo,db.Model):
 	ExcRateTypeExp = db.Column(db.String(100),nullable=False)
 	Exc_rate = db.relationship('Exc_rate',backref='exc_rate_type',lazy=True)
 
+	def to_json_api(self):
+		json_sale_card_status={
+			'ExcRateTypeId':self.ExcRateTypeId,
+			'ExcRateTypeName':self.ExcRateTypeName,
+			'ExcRateTypeDesc':self.ExcRateTypeDesc,
+			'ExcRateTypeExp':self.ExcRateTypeExp,
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
+		}
+		return json_sale_card_status
 
 class Inv_line(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_inv_line"
@@ -477,7 +526,7 @@ class Invoice(AddInf,CreatedModifiedInfo,db.Model):
 	WhId = db.Column(db.Integer,db.ForeignKey("tbl_dk_warehouse.WhId"))
 	WpId = db.Column(db.Integer,db.ForeignKey("tbl_dk_work_period.WpId"))
 	EmpId = db.Column(db.Integer,db.ForeignKey("tbl_dk_employee.EmpId"))
-	InvRegNo = db.Column(db.String(100),nullable=False)
+	InvRegNo = db.Column(db.String(100),nullable=False,unique=True)
 	InvDesc = db.Column(db.String(500))
 	InvDate = db.Column(db.DateTime,default=datetime.now)
 	InvTotal = db.Column(db.Float)
@@ -782,7 +831,7 @@ class Resource(AddInf,CreatedModifiedInfo,db.Model):
 	ResMainImgId = db.Column(db.Integer,default=0)
 	ResMakerId = db.Column(db.Integer,db.ForeignKey("tbl_dk_res_maker.ResMakerId"))
 	ResLastVendorId = db.Column(db.Integer,db.ForeignKey("tbl_dk_rp_acc.RpAccId"))
-	ResRegNo = db.Column(db.String(50),nullable=False)
+	ResRegNo = db.Column(db.String(50),nullable=False,unique=True)
 	ResName = db.Column(db.String(255),nullable=False)
 	ResDesc = db.Column(db.String(500))
 	ResFullDesc = db.Column(db.String(1500))
@@ -1876,6 +1925,23 @@ class Sale_card_status(CreatedModifiedInfo,db.Model):
 	SaleCardStatusName_enUS = db.Column(db.String(100))
 	SaleCardStatusDesc_enUS = db.Column(db.String(500))
 	Sale_card = db.relationship('Sale_card',backref='sale_card_status',lazy=True)
+
+	def to_json_api(self):
+		json_sale_card_status={
+			'SaleCardStatusId':self.SaleCardStatusId,
+			'SaleCardStatusName_tkTM':self.SaleCardStatusName_tkTM,
+			'SaleCardStatusDesc_tkTM':self.SaleCardStatusDesc_tkTM,
+			'SaleCardStatusName_ruRU':self.SaleCardStatusName_ruRU,
+			'SaleCardStatusDesc_ruRU':self.SaleCardStatusDesc_ruRU,
+			'SaleCardStatusName_enUS':self.SaleCardStatusName_enUS,
+			'SaleCardStatusDesc_enUS':self.SaleCardStatusDesc_enUS,
+			'CreatedDate':apiDataFormat(self.CreatedDate),
+			'ModifiedDate':apiDataFormat(self.ModifiedDate),
+			'CreatedUId':self.CreatedUId,
+			'ModifiedUId':self.ModifiedUId,
+			'GCRecord':self.GCRecord
+		}
+		return json_sale_card_status
 
 class Production(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_production"

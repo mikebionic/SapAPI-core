@@ -60,6 +60,15 @@ $('body').delegate('.checkoutCartBtn','click',function(){
 });
 
 
+function addRating(ownerId){
+	ratingValue = 4.3
+	productData={
+		'resId':ownerId,
+		'ratingValue':ratingValue
+	};
+	postData(formData=productData,url=url_prefix+"/product/ui_rating/",type="POST");
+}
+
 function addToWishlist(ownerId){
 	productData={'resId':ownerId};
 	postData(formData=productData,url=url_prefix+"/product/ui_wishlist/",type="POST");

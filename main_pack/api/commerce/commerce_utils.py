@@ -19,7 +19,8 @@ from main_pack.models.commerce.models import (Resource,
                                               Res_unit,
                                               Res_color,
                                               Res_size,
-																							Wish)
+																							Wish,
+																							Rating)
 from main_pack.models.commerce.models import (Color,
                                               Size,
                                               Brand,
@@ -60,6 +61,8 @@ def apiResourceInfo(resource_list=None,single_object=False,isDeleted=False,isIna
 		.filter(Unit.GCRecord=='' or Unit.GCRecord==None).all()
 	currencies = Currency.query\
 		.filter(Currency.GCRecord=='' or Currency.GCRecord==None).all()
+	ratings = Rating.query\
+		.filter(Rating.GCRecord=='' or Rating.GCRecord==None).all()
 
 	if current_user.is_authenticated:
 		user=current_user
@@ -134,6 +137,7 @@ def apiResourceInfo(resource_list=None,single_object=False,isDeleted=False,isIna
 			List_Brands = [brand.to_json_api() for brand in brands if brand.BrandId==resource.BrandId]
 			List_UsageStatus = [usage_status.to_json_api() for usage_status in usage_statuses if usage_status.UsageStatusId==resource.UsageStatusId]
 			List_Units = [unit.to_json_api() for unit in units if unit.UnitId==resource.UnitId]
+			List_Ratings = [rating.to_json_api() for rating in ratings if rating.ResId==resource.ResId]
 			if user:
 				List_Wish = [wish.to_json_api() for wish in wishes if wish.ResId==resource.ResId]
 			else:
@@ -150,16 +154,18 @@ def apiResourceInfo(resource_list=None,single_object=False,isDeleted=False,isIna
 			resource_info["Images"] = List_Images if List_Images else []
 			resource_info["Colors"] = List_Colors if List_Colors else []
 			resource_info["Sizes"] = List_Sizes if List_Sizes else []
-			resource_info["Brand"] = List_Brands[0] if List_Brands else ''
-			resource_info["Unit"] = dataLangSelector(List_Units[0]) if List_Units else ''
+			resource_info["Brand"] = List_Brands[0] if List_Brands else []
+			resource_info["Unit"] = dataLangSelector(List_Units[0]) if List_Units else []
+			resource_info["RtRatingValue"] = List_Ratings[0]['RtRatingValue'] if List_Ratings else ''
 			resource_info["Wished"] = True if List_Wish else False
 			if fullInfo == True:
-				resource_info["UsageStatus"] = dataLangSelector(List_UsageStatus[0]) if List_UsageStatus else ''
-				resource_info["Barcode"] = List_Barcode if List_Barcode else ''
-				resource_info["Res_category"] = List_Res_category[0] if List_Res_category else ''
-				resource_info["Res_price"] = List_Res_price[0] if List_Res_price else ''
-				resource_info["Currency"] = dataLangSelector(List_Currencies[0]) if List_Currencies else ''
-				resource_info["Res_total"] = List_Res_total[0] if List_Res_total else ''
+				resource_info["UsageStatus"] = dataLangSelector(List_UsageStatus[0]) if List_UsageStatus else []
+				resource_info["Barcode"] = List_Barcode if List_Barcode else []
+				resource_info["Res_category"] = List_Res_category[0] if List_Res_category else []
+				resource_info["Res_price"] = List_Res_price[0] if List_Res_price else []
+				resource_info["Currency"] = dataLangSelector(List_Currencies[0]) if List_Currencies else []
+				resource_info["Res_total"] = List_Res_total[0] if List_Res_total else []
+				resource_info["Rating"] = List_Ratings[0] if List_Ratings else []
 			data.append(resource_info)
 		except Exception as ex:
 			print(ex)

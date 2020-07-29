@@ -19,7 +19,7 @@
           <a href="{{ url_for('commerce_admin.order_invoices') }}" class="btn btn-outline-primary">
             <i data-feather="layers"></i> {{_('All orders')}}
           </a>
-          <a href="{{ url_for('commerce_admin.customer_details',RpAccId=orderInvoices[0].Rp_acc.RpAccId) }}" class="btn btn-outline-info">
+          <a href="{{ url_for('commerce_admin.customer_details',RpAccRegNo=orderInvoices[0].Rp_acc.RpAccRegNo) }}" class="btn btn-outline-info">
             <i data-feather="user"></i> {{_("This customer's orders")}}
           </a>
         </div>

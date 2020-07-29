@@ -165,11 +165,14 @@ def customers_table():
 	data['rp_acc_types'] = rp_acc_types()
 	return render_template ("commerce/admin/customers_table.html",**data,title=gettext('Customers'))
 
-@bp.route("/admin/customer_details/<RpAccId>")
+@bp.route("/admin/customer_details/<RpAccRegNo>")
 @login_required
 @ui_admin_required()
-def customer_details(RpAccId):
+def customer_details(RpAccRegNo):
 	try:
+		rp_acc = Rp_acc.query\
+			.filter(Rp_acc.RpAccRegNo==RpAccRegNo).first()
+		RpAccId = rp_acc.RpAccId
 		data = UiRpAccData([{'RpAccId':RpAccId}],deleted=True)
 		data['rp_acc']=data['rp_accs'][0]
 
@@ -398,11 +401,12 @@ def order_inv_lines(OInvRegNo):
 	orderInvoice = Order_inv.query\
 		.filter(and_(Order_inv.GCRecord=='' or Order_inv.GCRecord==None),
 								Order_inv.OInvRegNo==OInvRegNo).first()
-	orderInvRes = UiOInvData([{'OInvId':orderInvoice.OInvId}])
-	
+	OInvId = orderInvoice.OInvId
+	orderInvRes = UiOInvData([{'OInvId':OInvId}])
+
 	orderInvLines = Order_inv_line.query\
 		.filter(and_(Order_inv_line.GCRecord=='' or Order_inv_line.GCRecord==None),
-									Order_inv_line.OInvId==orderInvoice.OInvId)\
+									Order_inv_line.OInvId==OInvId)\
 		.order_by(Order_inv_line.CreatedDate.desc()).all()
 
 	order_lines_list = []
