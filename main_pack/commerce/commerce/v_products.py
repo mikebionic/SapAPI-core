@@ -32,7 +32,7 @@ def v_list():
 		product = {}
 		product['ResId'] = resource.ResId
 		product_list.append(product)
-	res = apiResourceInfo(product_list)
+	res = apiResourceInfo(product_list,current_user)
 	categoryData = UiCategoriesList()
 	sortingData = uiSortingData()
 	return render_template ("commerce/main/commerce/v_list.html",**categoryData,

@@ -206,3 +206,10 @@
 .fa .checked {
     color: orange;
 }
+.tab-pane .table-responsive{
+    display: flex;
+    align-items: flex-end;
+}
+.log_lang_btn{
+    display: flex;
+}

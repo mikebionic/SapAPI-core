@@ -138,12 +138,6 @@ def apiResourceInfo(resource_list=None,single_object=False,isDeleted=False,isIna
 				List_Wish = [wish.to_json_api() for wish in wishes if wish.ResId==resource.ResId]
 			else:
 				List_Wish = []
-			# if current_user:
-			# 	for wish in wishes:
-			# 		if wish.ResId==resource.ResId:
-			# 			resource_info["Wished"] = True
-			# 		else:
-			# 			resource_info["Wished"] = False
 
 			resource_info["BarcodeVal"] = List_Barcode[0]['BarcodeVal'] if List_Barcode else ''
 			resource_info["ResCatName"] = List_Res_category[0]['ResCatName'] if List_Res_category else ''
