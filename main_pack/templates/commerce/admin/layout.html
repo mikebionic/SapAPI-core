@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/css/core.css')}}">
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/css/app.min.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/css/style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/admin_commerce/style.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/css/components.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/izitoast/css/iziToast.min.css') }}">
   <link rel='shortcut icon' type='image/x-icon' href="{{ url_for('static', filename='commerce/admin/img/favicon.ico') }}" />
@@ -20,6 +21,40 @@
   </head>
   <body>
     <div class="loader"></div>
+    <div class="navbar-right">
+      <ul class="navbar-nav">
+          <li class="dropdown">
+              <a href="javascript:void(0);">
+                <i class="material-icons">subdirectory_arrow_left</i>
+              </a>
+          </li>
+          <li class="dropdown">
+              <a href="javascript:void(0);"  title="Language" data-toggle="dropdown" role="button"><i class="material-icons">language</i>
+                  <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
+              </a>
+              <ul class="dropdown-menu slideUp2">
+                  <li class="body">
+                      <ul class="menu list-unstyled">
+                          <li>
+                            <a href="/language/en" class="dropdown-item">
+                              <img src="{{ url_for('static', filename='commerce/main/images/us.svg') }}" style="width: 30px">
+                              English language</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="/language/tk" class="dropdown-item">
+                              <img loading="lazy" src="{{ url_for('static', filename='commerce/main/images/tm.svg') }}" style="width: 30px">
+                              Türkmen dili</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="/language/ru" class="dropdown-item">
+                              <img loading="lazy" src="{{ url_for('static', filename='commerce/main/images/ru.svg') }}" style="width: 30px">
+                              Русский язык</a>
+                          </li>
+                      </ul>
+                  </li>
+              </ul>
+          </li>
+      </ul>
+    </div>
+
     <div id="app">
       <div class="main-wrapper main-wrapper-1">
         <div class="navbar-bg"></div>
@@ -71,32 +106,6 @@
               <li class="dropdown">
                 <a href="{{ url_for('commerce_admin.sale_repots_table2') }}" class="nav-link"><i data-feather="grid"></i><span>{{_('Sale reports2')}}</span></a>
               </li>
-              <li class="menu-header">{{_('Invoices')}}</li>
-              <div class="log_lang_btn">
-                <a href="#" class="nav-link nav-link-lg">
-                  <i class="material-icons">assignment_return</i>
-                </a>
-                <a href="#" class="dropdown dropdown-list-toggle">
-                  <a href="#" class="nav-link nav-link-lg message-toggle" data-toggle="dropdown">
-                    <i class="material-icons">language</i>
-                    <span class="badge headerBadge1">{{ session['language'] }}</span>
-                  </a>
-                  <div class="dropdown-menu dropdown-menu-lr dropdown-menu-right pullDown">
-                    <a href="/language/en" class="dropdown-item">
-                      <img src="{{ url_for('static', filename='commerce/main/images/us.svg') }}" style="width: 30px">
-                      English language</a>
-                    <div class="dropdown-divider"></div>
-                    <a href="/language/tk" class="dropdown-item">
-                      <img loading="lazy" src="{{ url_for('static', filename='commerce/main/images/tm.svg') }}" style="width: 30px">
-                      Türkmen dili</a>
-                    <div class="dropdown-divider"></div>
-                    <a href="/language/ru" class="dropdown-item">
-                      <img loading="lazy" src="{{ url_for('static', filename='commerce/main/images/ru.svg') }}" style="width: 30px">
-                      Русский язык</a>
-                  </div>
-                </a>
-              </div>
-
               <li class="menu-header">{{_('Invoices')}}</li>
               <li class="dropdown">
                 <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="shopping-cart"></i><span>{{_('Order invoices')}}</span></a>

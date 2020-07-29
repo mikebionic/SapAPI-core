@@ -203,7 +203,7 @@
     font-size: 25px;
   }
   
-.fa .checked {
+ .fa .checked {
     color: orange;
 }
 .tab-pane .table-responsive{
@@ -212,4 +212,205 @@
 }
 .log_lang_btn{
     display: flex;
+}
+.d-inline .dropdown-menu{
+    overflow: auto;
+    height: 130px;
+}
+
+
+/* navbar-right */
+
+.right_icon_toggle .right_icon_toggle_btn i::before {
+    content: '\f2ea'
+}
+
+.right_icon_toggle .navbar-right .navbar-nav {
+    right: -70px
+}
+
+.right_icon_toggle section.content {
+    margin-right: 20px
+}
+
+.ls-closed .navbar-right .navbar-nav {
+    width: 30px;
+    margin: 0 5px
+}
+
+@media only screen and (max-width: 768px) {
+    .ls-closed .navbar-right .navbar-nav {
+        right:-40px
+    }
+}
+
+.ls-closed .navbar-right .navbar-nav>li>a {
+    width: 30px
+}
+
+.navbar-right .navbar-nav {
+    -moz-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+    position: fixed;
+    right: 0;
+    width: 50px;
+    margin: 0 10px;
+    z-index: 999;
+    height: 100%;
+    background-color: #fff;
+}
+
+.navbar-right .navbar-nav>li>a:hover {
+    background: #e47297
+}
+.navbar-right .navbar-nav>li>a {
+    -moz-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    border-radius: 5px;
+    color: #222;
+    line-height: 50px;
+    text-align: center;
+    width: 50px
+}
+
+.navbar-right .navbar-nav>li>a:hover {
+    color: #fff !important
+}
+
+.navbar-right .navbar-nav>li>a i {
+    font-size: 20px;
+    vertical-align: middle;
+    padding-left: 0;
+}
+
+.navbar-right .navbar-nav .dropdown-menu {
+    -moz-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+    position: absolute;
+    right: 60px;
+    left: auto !important;
+    transform: none !important
+}
+
+.navbar-right .navbar-nav .dropdown-menu:before {
+    color: #fff;
+    display: inline-block;
+    position: absolute;
+    width: 0;
+    height: 0;
+    vertical-align: middle;
+    content: "";
+    top: 15px;
+    left: auto;
+    right: -10px;
+    border-left: .6em solid;
+    border-top: .6em solid transparent;
+    border-bottom: .6em solid transparent
+}
+
+.navbar-right .navbar-nav .app_sortcut {
+    padding: 15px;
+    text-align: center
+}
+
+.navbar-right .navbar-nav .app_sortcut li {
+    display: inline-block;
+    vertical-align: top;
+    text-align: center;
+    height: 100px;
+    width: 120px
+}
+
+.navbar-right .navbar-nav .app_sortcut li a {
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    border-radius: 4px;
+    color: #444;
+    display: block
+}
+
+.navbar-right .navbar-nav .app_sortcut li a p {
+    font-size: 14px
+}
+
+.navbar-right .navbar-nav .tasks {
+    padding: 20px
+}
+
+.navbar-right .navbar-nav .tasks li {
+    margin-bottom: 15px
+}
+
+.inlineblock,.navbar-right .navbar-nav>li,.navbar-right .navbar-nav>li>a,.sidebar,.right-sidebar .choose-skin li div,.right-sidebar .bg_color li div,.right-sidebar .right_chat .media .message,.right-sidebar .right_chat .media .status,.right-sidebar .theme-light-dark li,.card,.card .header .header-dropdown li,.wizard .actions ul,.dropdown-menu ul.menu .icon-circle,.team-info li,.mcard_3 .social-links li,.mcard_4 .social-links li,.social_icon,.contact .c_list .checkbox,.contact .c_list .c_name {
+    display: inline-block
+}
+
+.padding-0,.navbar,.navbar-right .navbar-nav>li>a,.block-header .breadcrumb,.card .header .header-dropdown,.chat-widget ul,.profile_state,.profile_state li,.file_manager .file {
+    padding: 0 !important
+}
+
+
+.theme-purple .navbar-right .navbar-nav>li>a:hover {
+    background: #6f42c1
+}
+
+.theme-blue .navbar-right .navbar-nav>li>a:hover {
+    background: #46b6fe
+}
+
+.theme-cyan .navbar-right .navbar-nav>li>a:hover {
+    background: #5CC5CD
+}
+
+.theme-green .navbar-right .navbar-nav>li>a:hover {
+    background: #04BE5B
+}
+
+.theme-orange .navbar-right .navbar-nav>li>a:hover {
+    background: #FF9948
+}
+.theme-blush .navbar-right .navbar-nav>li>a:hover {
+    background: #e47297
+}
+
+.theme-blush.bbg-blush .navbar-right .navbar-nav>li>a {
+    color: #fff
+}
+
+.theme-blush.bbg-blush .navbar-right .navbar-nav>li>a:hover {
+    background: rgba(255,255,255,0.1)
+}
+
+.theme-dark .navbar-right .navbar-nav>li>a {
+    color: #8c8c8c
+}
+
+.theme-dark .navbar-right .navbar-nav .app_sortcut li a {
+    color: #8c8c8c
+}
+
+.theme-dark .navbar-right .notify .heartbit {
+    border-color: #fff
+}
+
+.theme-dark .navbar-right .notify .point {
+    background-color: #fff
+}
+
+.theme-dark .navbar-right .dropdown-menu {
+    color: inherit
+}
+
+.theme-dark .navbar-right .dropdown-menu::before {
+    color: #313131
 }
