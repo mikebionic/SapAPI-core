@@ -1,4 +1,5 @@
 from main_pack import db
+from sqlalchemy.ext.hybrid import hybrid_property
 from datetime import datetime
 from flask_login import current_user
 from main_pack.models.base.models import CreatedModifiedInfo,AddInf

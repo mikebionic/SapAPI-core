@@ -34,11 +34,21 @@ class Config:
 
 	ELASTICSEARCH_URL = 'http://localhost:9200'
 
+	# get OS Type to configure app for Windows or Linux
 	OS_TYPE = sys.platform
-	# set to True if you want to sell product
+
+	# set to True if you want to sell resources
 	# if no left in Res_total  
 	NEGATIVE_WH_QTY_SALE = False
 	NEGATIVE_WH_QTY_ORDER = True
+
+	# ability to make an order if qty of resoruce
+	# is greater than Res_total in warehouse
+	OWERRIDE_WH_QTY_ORDER = True
+
+	# set to True to show resources
+	# if no left in Res_total
+	SHOW_NEGATIVE_WH_QTY_RESOURCE = True
 
 	PRICE_2_TEXT_LANGUAGE = 'tk'
 	# PRICE_2_TEXT_LANGUAGE = 'en'

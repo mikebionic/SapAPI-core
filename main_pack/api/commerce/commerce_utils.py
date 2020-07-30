@@ -156,7 +156,7 @@ def apiResourceInfo(resource_list=None,single_object=False,isDeleted=False,isIna
 			resource_info["Sizes"] = List_Sizes if List_Sizes else []
 			resource_info["Brand"] = List_Brands[0] if List_Brands else []
 			resource_info["Unit"] = dataLangSelector(List_Units[0]) if List_Units else []
-			resource_info["RtRatingValue"] = List_Ratings[0]['RtRatingValue'] if List_Ratings else ''
+			resource_info["RtRatingValue"] = List_Ratings[0]['RtRatingValue'] if List_Ratings else 0.0
 			resource_info["Wished"] = True if List_Wish else False
 			if fullInfo == True:
 				resource_info["UsageStatus"] = dataLangSelector(List_UsageStatus[0]) if List_UsageStatus else []
