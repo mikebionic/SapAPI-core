@@ -42,7 +42,11 @@ or try with a [command](/documentation/pip_installation_command.md) in terminal
 
 --------------
 ## Configuring
-Set the db and secrets configurations in "[config.py](/main_pack/config.py)" file
+
+Set configurations in "[config.py](/main_pack/config.py)" file
+Sensitive informations are loaded from "[.env](/.env)" file
+Sensitive informations never shared if added to "[.gitignore](/.gitignore)" file
+
 Initial Company and Division migrations (uncomment the lines first):
 ```bash
 python3 migrate.py

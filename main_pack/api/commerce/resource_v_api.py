@@ -1,7 +1,7 @@
 from flask import jsonify,request,abort,make_response,url_for
 from main_pack.api.commerce import api
 from main_pack import db
-from sqlalchemy import and_
+from sqlalchemy import and_,or_
 
 from main_pack.api.commerce.commerce_utils import apiResourceInfo
 from main_pack.models.commerce.models import Resource
@@ -63,6 +63,41 @@ def api_category_v_resources(ResCatId):
 # 	}
 # 	response = make_response(jsonify(res),200)
 # 	return response
+
+@api.route("/v-resources/search/")
+def api_v_resources_search():
+	prod_name = request.args.get('prod_name',"",type=str)
+	barcode = request.args.get('barcode',None,type=str)
+	reg_no = request.args.get('reg_no',"",type=str)
+	prod_name = "%{}%".format(prod_name)
+	resources = Resource.query\
+	.filter(and_(
+		Resource.GCRecord=='' or Resource.GCRecord==None,\
+		or_(
+			Resource.ResName.ilike(prod_name),\
+			Resource.ResRegNo.ilike(reg_no)),\
+		Resource.UsageStatusId==1))\
+	.order_by(Resource.ResId.desc()).all()
+
+	resource_list = []
+	for resource in resources:
+		# for barcode in resource.Barcode:
+		# 	print(barcode.BarcodeVal)
+		product = {}
+		product['ResId'] = resource.ResId
+		resource_list.append(product)
+	res = apiResourceInfo(resource_list)
+
+	res = {
+		"status":1,
+		"message":"Paginated resources",
+		"data":res['data'],
+		"total":len(resource_list)
+	}
+	return jsonify(res)
+	res = apiResourceInfo()
+	response = make_response(jsonify(res),200)
+	return response
 
 ###### pagination #######
 @api.route("/paginate/v-resources/",methods=['GET'])
