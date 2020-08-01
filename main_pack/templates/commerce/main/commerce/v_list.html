@@ -8,6 +8,7 @@
         <li class="product-item col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <div class="contain-product pr-detail-layout">
             <div class="product-thumb">
+              <span class="pro-label">new</span>
               {% if resource.FilePathM %}
                 <a href="{{ url_for('commerce.product',ResId=resource.ResId)}}"class="link-to-product">
                   <img loading="lazy" src="{{resource.FilePathS}}" width="270" height="270" class="product-thumnail"/>

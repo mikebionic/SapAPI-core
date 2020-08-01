@@ -7,6 +7,7 @@
         <li class="product-item col-lg-4 col-md-4 col-sm-4 col-xs-6">
           <div class="sin-product">
             <div class="pro-image fix">
+              <span class="pro-label">new</span>
               <a href="{{ url_for('commerce.product',ResId=resource.ResId)}}"class="image">
                 {% if resource.FilePathM %}
                   <img loading="lazy" src="{{ resource.FilePathS }}" width="270" height="270" class="product-thumnail"/>
@@ -45,6 +46,7 @@
       <li class="product-item col-lg-4 col-md-3 col-sm-4 col-xs-6">
         <div class="contain-product layout-default">
             <div class="product-thumb">
+              <span class="pro-label">new</span>
                 <a href="#" class="link-to-product">
                     <img src="{{ url_for('static', filename='commerce/main/shop_icons/no_photo.png') }}" alt="dd" width="270" height="270" class="product-thumnail">
                 </a>

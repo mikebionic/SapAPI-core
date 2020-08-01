@@ -18419,42 +18419,40 @@ textarea::placeholder{
     color: #000;
 }
 
-/* heart */
 
-[id="heart"] {
+/* rating */
+
+.rating { 
+    border: none;
+    float: right;
+  }
+  
+  .rating > input { display: none; } 
+  .rating > label:before { 
+    margin: 5px;
+    font-size: 1.25em;
+    font-family: FontAwesome;
+    display: inline-block;
+    content: "\f005";
+  }
+  
+  .rating > .half:before { 
+    content: "\f089";
     position: absolute;
-    left: -100vw;
   }
   
-  [for="heart"] {
-    color: #aab8c2;
-    cursor: pointer;
-    font-size: 6em;
-    align-self: center;  
-    transition: color 0.2s ease-in-out;
+  .rating > label { 
+    color: #ddd; 
+   float: right; 
   }
   
-  [for="heart"]:hover {
-    color: grey;
-  }
+  /***** CSS Magic to Highlight Stars on Hover *****/
   
-  [for="heart"]::selection {
-    color: none;
-    background: transparent;
-  }
+  .rating > input:checked ~ label, /* show gold star when clicked */
+  .rating:not(:checked) > label:hover, /* hover current star */
+  .rating:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
   
-  [for="heart"]::moz-selection {
-    color: none;
-    background: transparent;
-  }
-  
-  [id="heart"]:checked + label {
-    color: #e2264d;
-    will-change: font-size;
-    animation: heart 1s cubic-bezier(.17, .89, .32, 1.49);
-  }
-  
-  
-  
-  @keyframes heart {0%, 17.5% {font-size: 0;}}
-
+  .rating > input:checked + label:hover, /* hover current star when changing rating */
+  .rating > input:checked ~ label:hover,
+  .rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+  .rating > input:checked ~ label:hover ~ label { color: #FFED85;  }
