@@ -233,7 +233,7 @@ def ui_cart_checkout():
 
 					resourceInv = resource.to_json_api()
 					OInvLineAmount = totalSubstitutionResult['amount']
-					# # !! this shouldn't change total val if order_inv
+					# # !!! this shouldn't change total val if order_inv
 					# res_total.ResTotBalance = totalSubstitutionResult['totalBalance']
 					res_price = Res_price.query\
 						.filter(and_(Res_price.GCRecord=='' or Res_price.GCRecord==None),\

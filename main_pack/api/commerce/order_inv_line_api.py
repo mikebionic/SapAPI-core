@@ -15,10 +15,10 @@ def api_order_inv_lines():
 		order_inv_lines = Order_inv_line.query\
 			.filter(Order_inv_line.GCRecord=='' or Order_inv_line.GCRecord==None).all()
 		res = {
-			"status":1,
-			"message":"All order inv lines",
-			"data":[order_inv_line.to_json_api() for order_inv_line in order_inv_lines],
-			"total":len(order_inv_lines)
+			"status": 1,
+			"message": "All order inv lines",
+			"data": [order_inv_line.to_json_api() for order_inv_line in order_inv_lines],
+			"total": len(order_inv_lines)
 		}
 		response = make_response(jsonify(res),200)
 
@@ -54,10 +54,10 @@ def api_order_inv_lines():
 
 			status = checkApiResponseStatus(order_inv_lines,failed_order_inv_lines)
 			res = {
-				"data":order_inv_lines,
-				"fails":failed_order_inv_lines,
-				"success_total":len(order_inv_lines),
-				"fail_total":len(failed_order_inv_lines)
+				"data": order_inv_lines,
+				"fails": failed_order_inv_lines,
+				"success_total": len(order_inv_lines),
+				"fail_total": len(failed_order_inv_lines)
 			}
 			for e in status:
 				res[e]=status[e]

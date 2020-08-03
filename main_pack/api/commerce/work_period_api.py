@@ -15,10 +15,10 @@ def api_work_periods():
 		work_periods = Work_period.query\
 			.filter(Work_period.GCRecord=='' or Work_period.GCRecord==None).all()
 		res = {
-			"status":1,
-			"message":"All work periods",
-			"data":[work_period.to_json_api() for work_period in work_periods],
-			"total":len(work_periods)
+			"status": 1,
+			"message": "All work periods",
+			"data": [work_period.to_json_api() for work_period in work_periods],
+			"total": len(work_periods)
 		}
 		response = make_response(jsonify(res),200)
 
@@ -62,10 +62,10 @@ def api_work_periods():
 
 			status = checkApiResponseStatus(work_periods,failed_work_periods)
 			res = {
-				"data":work_periods,
-				"fails":failed_work_periods,
-				"success_total":len(work_periods),
-				"fail_total":len(failed_work_periods)
+				"data": work_periods,
+				"fails": failed_work_periods,
+				"success_total": len(work_periods),
+				"fail_total": len(failed_work_periods)
 			}
 			for e in status:
 				res[e]=status[e]

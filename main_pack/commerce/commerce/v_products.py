@@ -63,7 +63,7 @@ def v_grid():
 def product(ResId):
 	product_list=[
 		{
-			'ResId':ResId,
+			"ResId": ResId,
 		}
 	]
 	resData = UiCartResourceData(product_list)

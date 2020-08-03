@@ -1,13 +1,13 @@
 from flask import session
 
 # session = {
-# 	'language':'en'
+# 	"language": 'en'
 # }
 
 dbLanguages = {
-	'en':'enUS',
-	'ru':'ruRU',
-	'tk':'tkTM'
+	"en": 'enUS',
+	"ru": 'ruRU',
+	"tk": 'tkTM'
 }
 def dataLangSelector(modelJSON):
 	language = dbLanguages[session['language']]
@@ -23,17 +23,17 @@ def dataLangSelector(modelJSON):
 ## example usage:
 
 # json_usage_status = {
-# 	'UsageStatusName_tkTM':'Plan zat',
-# 	'UsageStatusDesc_tkTM':'Plan zat descr',
-# 	'UsageStatusName_ruRU':'kakaya to vesh',
-# 	'UsageStatusDesc_ruRU':'kakava to vesh desc',
-# 	'UsageStatusName_enUS':"some thing",
-# 	'UsageStatusDesc_enUS':'some thing desc',
-# 	'CreatedDate':'12.12.2012',
-# 	'ModifiedDate':'12.12.2012',
-# 	'CreatedUId':1,
-# 	'ModifiedUId':1,
-# 	'GCRecord':None
+# 	"UsageStatusName_tkTM": 'Plan zat',
+# 	"UsageStatusDesc_tkTM": 'Plan zat descr',
+# 	"UsageStatusName_ruRU": 'kakaya to vesh',
+# 	"UsageStatusDesc_ruRU": 'kakava to vesh desc',
+# 	"UsageStatusName_enUS": "some thing",
+# 	"UsageStatusDesc_enUS": 'some thing desc',
+# 	"CreatedDate": '12.12.2012',
+# 	"ModifiedDate": '12.12.2012',
+# 	"CreatedUId": 1,
+# 	"ModifiedUId": 1,
+# 	"GCRecord": None
 # 	}
 
 # dataLangSelector(json_usage_status)

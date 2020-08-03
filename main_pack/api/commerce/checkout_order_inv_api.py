@@ -39,7 +39,7 @@ def api_checkout_sale_order_invoices(user):
 	work_period = Work_period.query\
 		.filter(and_(Work_period.GCRecord=='' or Work_period.GCRecord==None),\
 			Work_period.WpIsDefault==True).first()
-	# current user is rp_acc if type is rp_acc !!
+	# !!! scurrent user is rp_acc if type is rp_acc
 	if model_type=='Rp_acc':
 		name = current_user.RpAccUName
 		RpAccId = current_user.RpAccId

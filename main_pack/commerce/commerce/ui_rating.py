@@ -32,6 +32,7 @@ def ui_rating():
 			# if rp_acc is None:
 			# 	raise Exception
 			RtRatingValue = req.get("ratingValue")
+			RtRemark = req.get("ratingRemark")
 			if RtRatingValue is None:
 				raise Exception
 			# check for presense of rate
@@ -53,16 +54,17 @@ def ui_rating():
 				raise Exception
 			
 			rating = {
-				'RpAccId':RpAccId,
-				'ResId':ResId,
-				'RtRatingValue':RtRatingValue
+				"RpAccId": RpAccId,
+				"ResId": ResId,
+				"RtRatingValue": RtRatingValue,
+				"RtRemark": RtRemark
 			}
 			rating = Rating(**rating)
 			db.session.add(rating)
 			db.session.commit()
 			response = jsonify({
-				'status':'added',
-				'responseText':gettext('Rating')+' '+gettext('successfully saved')
+				"status": 'added',
+				"responseText": gettext('Rating')+' '+gettext('successfully saved')
 			})
 		
 		if request.method=="DELETE":
@@ -77,15 +79,15 @@ def ui_rating():
 			rating.GCRecord = 1
 			db.session.commit()
 			response = jsonify({
-				'status':'deleted',
-				'responseText':gettext('Rating')+' '+gettext('successfully deleted')
+				"status": 'deleted',
+				"responseText": gettext('Rating')+' '+gettext('successfully deleted')
 			})
 
 	except Exception as ex:
 		print(ex)
 		response = jsonify({
-			'status':'error',
-			'responseText':gettext('Unknown error!'),
+			"status": 'error',
+			"responseText": gettext('Unknown error!'),
 			})
 
 	return response

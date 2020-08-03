@@ -110,7 +110,9 @@ def profile_edit():
 		print(rpAccData)
 		if form.picture.data:
 			imageFile = save_image(imageForm=form.picture.data,module=os.path.join("uploads","commerce","Rp_acc"),id=rpAcc.RpAccId)
-			image = Image(FileName=imageFile['FileName'],FilePath=imageFile['FilePath'],RpAccId=rpAcc.RpAccId)
+			lastImage = Image.query.order_by(Image.ImgId.desc()).first()
+			ImgId = lastImage.ImgId+1
+			image = Image(ImgId=ImgId,FileName=imageFile['FileName'],FilePath=imageFile['FilePath'],RpAccId=rpAcc.RpAccId)
 			db.session.add(image)
 
 		db.session.commit()

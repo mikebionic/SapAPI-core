@@ -3,8 +3,14 @@ from main_pack.api.commerce import api
 from main_pack import db
 from sqlalchemy import and_,or_
 
+# functions
 from main_pack.api.commerce.commerce_utils import apiResourceInfo
-from main_pack.models.commerce.models import Resource
+# / functions /
+
+# db Models
+from main_pack.models.commerce.models import (Resource,
+																							Barcode)
+# / db Models /
 
 @api.route("/v-full-resources/")
 def api_v_full_resources():
@@ -20,7 +26,7 @@ def api_v_resources():
 
 @api.route("/v-resources/<int:ResId>/")
 def api_v_resource_info(ResId):
-	resource_list = [{'ResId':ResId}]
+	resource_list = [{"ResId": ResId}]
 	res = apiResourceInfo(resource_list,single_object=True)
 	if res['status']==1:
 		status_code = 200
@@ -57,96 +63,100 @@ def api_category_v_resources(ResCatId):
 # 		data.append(resource.to_json_api())
 
 # 	res = {
-# 		"status":1,
-# 		"data":data,
-# 		"total":len(data)
+# 		"status": 1,
+# 		"data": data,
+# 		"total": len(data)
 # 	}
 # 	response = make_response(jsonify(res),200)
 # 	return response
 
 @api.route("/v-resources/search/")
 def api_v_resources_search():
-	prod_name = request.args.get('prod_name',"",type=str)
-	barcode = request.args.get('barcode',None,type=str)
-	reg_no = request.args.get('reg_no',"",type=str)
-	prod_name = "%{}%".format(prod_name)
-	resources = Resource.query\
-	.filter(and_(
-		Resource.GCRecord=='' or Resource.GCRecord==None,\
-		or_(
-			Resource.ResName.ilike(prod_name),\
-			Resource.ResRegNo.ilike(reg_no)),\
-		Resource.UsageStatusId==1))\
-	.order_by(Resource.ResId.desc()).all()
+	searching_tag = request.args.get('tag',"",type=str)
+	searching_tag = "%{}%".format(searching_tag)
 
+	barcodes = Barcode.query\
+		.filter(and_(
+			Barcode.GCRecord=='' or Barcode.GCRecord==None,\
+			Barcode.BarcodeVal.ilike(searching_tag))).all()
+	
+	resources = Resource.query\
+		.filter(and_(
+			Resource.GCRecord=='' or Resource.GCRecord==None,\
+			Resource.ResName.ilike(searching_tag),\
+			Resource.UsageStatusId==1))\
+		.order_by(Resource.ResId.desc()).all()
+	
+	# !!! requires reconfiguring similarities
 	resource_list = []
+	if barcodes:
+		for barcode in barcodes:
+			resource_list.append({"ResId": barcode.ResId})
 	for resource in resources:
-		# for barcode in resource.Barcode:
-		# 	print(barcode.BarcodeVal)
-		product = {}
-		product['ResId'] = resource.ResId
-		resource_list.append(product)
+		for results in resource_list:
+			if results['ResId'] != resource.ResId:
+				resource_list.append({"ResId": resource.ResId})
+			else:
+				print('found match: '+str(resource.ResId) +'with'+str(results['ResId']))
 	res = apiResourceInfo(resource_list)
 
 	res = {
-		"status":1,
-		"message":"Paginated resources",
-		"data":res['data'],
-		"total":len(resource_list)
+		"status": 1,
+		"message": "Resource search results",
+		"data": res['data'],
+		"total": len(resource_list)
 	}
-	return jsonify(res)
-	res = apiResourceInfo()
+
 	response = make_response(jsonify(res),200)
 	return response
 
 ###### pagination #######
-@api.route("/paginate/v-resources/",methods=['GET'])
+@api.route("/v-resources/paginate/",methods=['GET'])
 def api_paginate_resources():
-	latestResource = Resource.query\
-		.filter(Resource.GCRecord=='' or Resource.GCRecord==None)\
-		.order_by(Resource.ResId.desc())\
-		.first()
-	last = request.args.get('last',None,type=int)
+	offset = request.args.get('offset',None,type=int)
 	limit = request.args.get('limit',10,type=int)
 	# handles the latest resource
-	if last is None:
-		last = latestResource.ResId+1
+	if offset is None:
+		latestResource = Resource.query\
+			.filter(and_(Resource.GCRecord=='' or Resource.GCRecord==None,\
+				Resource.UsageStatusId==1))\
+			.order_by(Resource.ResId.desc())\
+			.first()
+		offset = latestResource.ResId+1
 
 	pagination = Resource.query\
 	.filter(and_(
 		Resource.GCRecord=='' or Resource.GCRecord==None,\
-		Resource.ResId<last,\
+		Resource.ResId<offset,\
 		Resource.UsageStatusId==1))\
 	.order_by(Resource.ResId.desc())\
 	.paginate(
 		per_page=limit,
 		error_out=False
 		)
-	# .order_by(Resource.ResId.desc())\
 	resources = pagination.items
-	prev = None
 
-	### Gotta check it ######
 	nextLast = Resource.query\
 		.filter(and_(
 			Resource.GCRecord=='' or Resource.GCRecord==None,\
-			Resource.ResId<(last-limit+1),\
+			Resource.ResId<(offset-limit+1),\
 			Resource.UsageStatusId==1))\
 		.order_by(Resource.ResId.desc())\
 		.first()
 	prevLast = Resource.query\
 		.filter(and_(
 			Resource.GCRecord=='' or Resource.GCRecord==None,\
-			Resource.ResId<(last+limit+1),\
+			Resource.ResId<(offset+limit+1),\
 			Resource.UsageStatusId==1))\
 		.order_by(Resource.ResId.desc())\
 		.first()
-	print(prevLast.ResId)
-	if nextLast:
-		prev = url_for('commerce_api.api_paginate_resources',last=prevLast.ResId,limit=limit)
-	next = None
+
+	prev = None
 	if prevLast:
-		next = url_for('commerce_api.api_paginate_resources',last=nextLast.ResId,limit=limit)
+		prev = url_for('commerce_api.api_paginate_resources',offset=prevLast.ResId,limit=limit)
+	next = None
+	if nextLast:
+		next = url_for('commerce_api.api_paginate_resources',offset=nextLast.ResId,limit=limit)
 	
 	resource_list = []
 	for resource in pagination.items:
@@ -156,12 +166,12 @@ def api_paginate_resources():
 	res = apiResourceInfo(resource_list)
 
 	res = {
-		"status":1,
-		"message":"Paginated resources",
-		"data":res['data'],
-		"total":len(resources),
-		'prev_url':prev,
-		'next_url':next,
-		'pages_total':pagination.total
+		"status": 1,
+		"message": "Paginated resources",
+		"data": res['data'],
+		"total": len(resources),
+		"prev_url": prev,
+		"next_url": next,
+		"pages_total": pagination.total
 	}
 	return jsonify(res)

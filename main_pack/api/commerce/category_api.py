@@ -15,8 +15,8 @@ def api_category(ResCatId):
 		category = Res_category.query.get(ResCatId)
 		response = jsonify({'category':category.to_json_api()})
 		res = {
-			"status":1,
-			"data":category.to_json_api()
+			"status": 1,
+			"data": category.to_json_api()
 		}
 		response = make_response(jsonify(res),200)
 	return response
@@ -27,10 +27,10 @@ def api_categories():
 		categories = Res_category.query\
 			.filter(Res_category.GCRecord=='' or Res_category.GCRecord==None).all()
 		res = {
-			"status":1,
-			"message":"All categories",
-			"data":[category.to_json_api() for category in categories],
-			"total":len(categories)
+			"status": 1,
+			"message": "All categories",
+			"data": [category.to_json_api() for category in categories],
+			"total": len(categories)
 		}
 		response = make_response(jsonify(res),200)
 	return response
@@ -41,8 +41,8 @@ def api_post_categories():
 	if request.method == 'POST':
 		if not request.json:
 			res = {
-				"status":0,
-				"message":"Error. Not a JSON data."
+				"status": 0,
+				"message": "Error. Not a JSON data."
 			}
 			response = make_response(jsonify(res),400)
 
@@ -63,10 +63,10 @@ def api_post_categories():
 
 			status = checkApiResponseStatus(categories,failed_categories)
 			res = {
-				"data":categories,
-				"fails":failed_categories,
-				"success_total":len(categories),
-				"fail_total":len(failed_categories)
+				"data": categories,
+				"fails": failed_categories,
+				"success_total": len(categories),
+				"fail_total": len(failed_categories)
 			}
 			for e in status:
 				res[e]=status[e]
@@ -91,13 +91,13 @@ def api_paginated_categories():
 		next = url_for('commerce_api.api_paginated_categories',page=page+1)
 	
 	res = {
-		"status":1,
-		"message":"Categories",
-		"data":[category.to_json_api() for category in categories],
-		"total":len(categories),
-		'prev_url':prev,
-		'next_url':next,
-		'pages_total':pagination.total
+		"status": 1,
+		"message": "Categories",
+		"data": [category.to_json_api() for category in categories],
+		"total": len(categories),
+		"prev_url": prev,
+		"next_url": next,
+		"pages_total": pagination.total
 	}
 	
 	return jsonify(res)

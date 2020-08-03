@@ -20,21 +20,21 @@ def addCategoryDict(req):
 	GCRecord = req.get('GCRecord')
 
 	category = {
-		'ResOwnerCatId':ResOwnerCatId,
-		'ResCatName':ResCatName,
-		'ResCatDesc':ResCatDesc,
-		'ResCatIconName':ResCatIconName,
-		'AddInf1':AddInf1,
-		'AddInf2':AddInf2,
-		'AddInf3':AddInf3,
-		'AddInf4':AddInf4,
-		'AddInf5':AddInf5,
-		'AddInf6':AddInf6,
-		'CreatedDate':CreatedDate,
-		'ModifiedDate':ModifiedDate,
-		'CreatedUId':CreatedUId,
-		'ModifiedUId':ModifiedUId,
-		'GCRecord':GCRecord
+		"ResOwnerCatId": ResOwnerCatId,
+		"ResCatName": ResCatName,
+		"ResCatDesc": ResCatDesc,
+		"ResCatIconName": ResCatIconName,
+		"AddInf1": AddInf1,
+		"AddInf2": AddInf2,
+		"AddInf3": AddInf3,
+		"AddInf4": AddInf4,
+		"AddInf5": AddInf5,
+		"AddInf6": AddInf6,
+		"CreatedDate": CreatedDate,
+		"ModifiedDate": ModifiedDate,
+		"CreatedUId": CreatedUId,
+		"ModifiedUId": ModifiedUId,
+		"GCRecord": GCRecord
 	}
 	if(ResCatId != '' and ResCatId != None):
 		category['ResCatId']=ResCatId
@@ -79,40 +79,40 @@ def addResourceDict(req):
 	GCRecord = req.get('GCRecord')
 
 	resource = {
-		'CId':CId,
-		'DivId':DivId,
-		'ResCatId':ResCatId,
-		'UnitId':UnitId,
-		'BrandId':BrandId,
-		'UsageStatusId':UsageStatusId,
-		'ResTypeId':ResTypeId,
-		'ResMainImgId':ResMainImgId,
-		'ResMakerId':ResMakerId,
-		'ResLastVendorId':ResLastVendorId,
-		'ResRegNo':ResRegNo,
-		'ResName':ResName,
-		'ResDesc':ResDesc,
-		'ResFullDesc':ResFullDesc,
-		'ResWidth':ResWidth,
-		'ResHeight':ResHeight,
-		'ResLength':ResLength,
-		'ResWeight':ResWeight,
-		'ResProductionOnSale':ResProductionOnSale,
-		'ResMinSaleAmount':ResMinSaleAmount,
-		'ResMaxSaleAmount':ResMaxSaleAmount,
-		'ResMinSalePrice':ResMinSalePrice,
-		'ResMaxSalePrice':ResMaxSalePrice,
-		'AddInf1':AddInf1,
-		'AddInf2':AddInf2,
-		'AddInf3':AddInf3,
-		'AddInf4':AddInf4,
-		'AddInf5':AddInf5,
-		'AddInf6':AddInf6,
-		'CreatedDate':CreatedDate,
-		'ModifiedDate':ModifiedDate,
-		'CreatedUId':CreatedUId,
-		'ModifiedUId':ModifiedUId,
-		'GCRecord':GCRecord
+		"CId": CId,
+		"DivId": DivId,
+		"ResCatId": ResCatId,
+		"UnitId": UnitId,
+		"BrandId": BrandId,
+		"UsageStatusId": UsageStatusId,
+		"ResTypeId": ResTypeId,
+		"ResMainImgId": ResMainImgId,
+		"ResMakerId": ResMakerId,
+		"ResLastVendorId": ResLastVendorId,
+		"ResRegNo": ResRegNo,
+		"ResName": ResName,
+		"ResDesc": ResDesc,
+		"ResFullDesc": ResFullDesc,
+		"ResWidth": ResWidth,
+		"ResHeight": ResHeight,
+		"ResLength": ResLength,
+		"ResWeight": ResWeight,
+		"ResProductionOnSale": ResProductionOnSale,
+		"ResMinSaleAmount": ResMinSaleAmount,
+		"ResMaxSaleAmount": ResMaxSaleAmount,
+		"ResMinSalePrice": ResMinSalePrice,
+		"ResMaxSalePrice": ResMaxSalePrice,
+		"AddInf1": AddInf1,
+		"AddInf2": AddInf2,
+		"AddInf3": AddInf3,
+		"AddInf4": AddInf4,
+		"AddInf5": AddInf5,
+		"AddInf6": AddInf6,
+		"CreatedDate": CreatedDate,
+		"ModifiedDate": ModifiedDate,
+		"CreatedUId": CreatedUId,
+		"ModifiedUId": ModifiedUId,
+		"GCRecord": GCRecord
 	}
 	if(ResId != '' and ResId != None):
 		print(ResId)
@@ -136,19 +136,19 @@ def addImageDict(req):
 	ModifiedUId = req.get('ModifiedUId')
 	GCRecord = req.get('GCRecord')
 	image = {
-		'EmpId':EmpId,
-		'CId':CId,
-		'RpAccId':RpAccId,
-		'ResId':ResId,
-		'FileName':FileName,
-		'FilePath':FilePath,
-		'FileHash':FileHash,
-		# 'Image':Image,
-		'CreatedDate':CreatedDate,
-		'ModifiedDate':ModifiedDate,
-		'CreatedUId':CreatedUId,
-		'ModifiedUId':ModifiedUId,
-		'GCRecord':GCRecord
+		"EmpId": EmpId,
+		"CId": CId,
+		"RpAccId": RpAccId,
+		"ResId": ResId,
+		"FileName": FileName,
+		"FilePath": FilePath,
+		"FileHash": FileHash,
+		# "Image": Image,
+		"CreatedDate": CreatedDate,
+		"ModifiedDate": ModifiedDate,
+		"CreatedUId": CreatedUId,
+		"ModifiedUId": ModifiedUId,
+		"GCRecord": GCRecord
 	}
 	if(ImgId != '' and ImgId != None):
 		image['ImgId']=ImgId
@@ -171,19 +171,19 @@ def saveImageFile(req):
 	ModifiedUId = req.get('ModifiedUId')
 	GCRecord = req.get('GCRecord')
 	image = {
-		'EmpId':EmpId,
-		'CId':CId,
-		'RpAccId':RpAccId,
-		'ResId':ResId,
-		'FileName':FileName,
-		'FilePath':FilePath,
-		'FileHash':FileHash,
-		# 'Image':Image,
-		'CreatedDate':CreatedDate,
-		'ModifiedDate':ModifiedDate,
-		'CreatedUId':CreatedUId,
-		'ModifiedUId':ModifiedUId,
-		'GCRecord':GCRecord
+		"EmpId": EmpId,
+		"CId": CId,
+		"RpAccId": RpAccId,
+		"ResId": ResId,
+		"FileName": FileName,
+		"FilePath": FilePath,
+		"FileHash": FileHash,
+		# "Image": Image,
+		"CreatedDate": CreatedDate,
+		"ModifiedDate": ModifiedDate,
+		"CreatedUId": CreatedUId,
+		"ModifiedUId": ModifiedUId,
+		"GCRecord": GCRecord
 	}
 	if(ImgId != '' and ImgId != None):
 		image['ImgId']=ImgId
@@ -241,16 +241,16 @@ def addBarcodeDict(req):
 	GCRecord = req.get('GCRecord')
 
 	barcode = {
-		'CId':CId,
-		'DivId':DivId,
-		'ResId':ResId,
-		'UnitId':UnitId,
-		'BarcodeVal':BarcodeVal,
-		'CreatedDate':CreatedDate,
-		'ModifiedDate':ModifiedDate,
-		'CreatedUId':CreatedUId,
-		'ModifiedUId':ModifiedUId,
-		'GCRecord':GCRecord
+		"CId": CId,
+		"DivId": DivId,
+		"ResId": ResId,
+		"UnitId": UnitId,
+		"BarcodeVal": BarcodeVal,
+		"CreatedDate": CreatedDate,
+		"ModifiedDate": ModifiedDate,
+		"CreatedUId": CreatedUId,
+		"ModifiedUId": ModifiedUId,
+		"GCRecord": GCRecord
 		}
 	if(BarcodeId != '' and BarcodeId != None):
 		barcode['BarcodeId']=BarcodeId
@@ -275,20 +275,20 @@ def addResPriceDict(req):
 	GCRecord = req.get('GCRecord')
 
 	res_price = {
-		'ResPriceTypeId':ResPriceTypeId,
-		'ResPriceGroupId':ResPriceGroupId,
-		'UnitId':UnitId,
-		'CurrencyId':CurrencyId,
-		'ResId':ResId,
-		'ResPriceRegNo':ResPriceRegNo,
-		'ResPriceValue':ResPriceValue,
-		'PriceStartDate':PriceStartDate,
-		'PriceEndDate':PriceEndDate,
-		'CreatedDate':CreatedDate,
-		'ModifiedDate':ModifiedDate,
-		'CreatedUId':CreatedUId,
-		'ModifiedUId':ModifiedUId,
-		'GCRecord':GCRecord
+		"ResPriceTypeId": ResPriceTypeId,
+		"ResPriceGroupId": ResPriceGroupId,
+		"UnitId": UnitId,
+		"CurrencyId": CurrencyId,
+		"ResId": ResId,
+		"ResPriceRegNo": ResPriceRegNo,
+		"ResPriceValue": ResPriceValue,
+		"PriceStartDate": PriceStartDate,
+		"PriceEndDate": PriceEndDate,
+		"CreatedDate": CreatedDate,
+		"ModifiedDate": ModifiedDate,
+		"CreatedUId": CreatedUId,
+		"ModifiedUId": ModifiedUId,
+		"GCRecord": GCRecord
 		}
 	if(ResPriceId != '' and ResPriceId != None):
 		res_price['ResPriceId']=ResPriceId
@@ -315,22 +315,22 @@ def addResTotalDict(req):
 	GCRecord = req.get('GCRecord')
 
 	res_total = {
-		'ResId':ResId,
-		'CurrencyId':CurrencyId,
-		'WhId':WhId,
-		'CId':CId,
-		'DivId':DivId,
-		'WpId':WpId,
-		'ResTotBalance':ResTotBalance,
-		'ResTotInAmount':ResTotInAmount,
-		'ResTotOutAmount':ResTotOutAmount,
-		'ResTotLastTrDate':ResTotLastTrDate,
-		'ResTotPurchAvgPrice':ResTotPurchAvgPrice,
-		'CreatedDate':CreatedDate,
-		'ModifiedDate':ModifiedDate,
-		'CreatedUId':CreatedUId,
-		'ModifiedUId':ModifiedUId,
-		'GCRecord':GCRecord
+		"ResId": ResId,
+		"CurrencyId": CurrencyId,
+		"WhId": WhId,
+		"CId": CId,
+		"DivId": DivId,
+		"WpId": WpId,
+		"ResTotBalance": ResTotBalance,
+		"ResTotInAmount": ResTotInAmount,
+		"ResTotOutAmount": ResTotOutAmount,
+		"ResTotLastTrDate": ResTotLastTrDate,
+		"ResTotPurchAvgPrice": ResTotPurchAvgPrice,
+		"CreatedDate": CreatedDate,
+		"ModifiedDate": ModifiedDate,
+		"CreatedUId": CreatedUId,
+		"ModifiedUId": ModifiedUId,
+		"GCRecord": GCRecord
 	}
 
 	if(ResTotId != '' and ResTotId != None):
@@ -354,17 +354,17 @@ def addRpAccTrTotDict(req):
 	GCRecord = req.get('GCRecord')
 
 	rp_acc_trans_total={
-		'RpAccId':RpAccId,
-		'CurrencyId':CurrencyId,
-		'RpAccTrTotBalance':RpAccTrTotBalance,
-		'RpAccTrTotDebit':RpAccTrTotDebit,
-		'RpAccTrTotCredit':RpAccTrTotCredit,
-		'RpAccTrTotLastTrDate':RpAccTrTotLastTrDate,
-		'CreatedDate':CreatedDate,
-		'ModifiedDate':ModifiedDate,
-		'CreatedUId':CreatedUId,
-		'ModifiedUId':ModifiedUId,
-		'GCRecord':GCRecord
+		"RpAccId": RpAccId,
+		"CurrencyId": CurrencyId,
+		"RpAccTrTotBalance": RpAccTrTotBalance,
+		"RpAccTrTotDebit": RpAccTrTotDebit,
+		"RpAccTrTotCredit": RpAccTrTotCredit,
+		"RpAccTrTotLastTrDate": RpAccTrTotLastTrDate,
+		"CreatedDate": CreatedDate,
+		"ModifiedDate": ModifiedDate,
+		"CreatedUId": CreatedUId,
+		"ModifiedUId": ModifiedUId,
+		"GCRecord": GCRecord
 	}
 
 	if(RpAccTrTotId != '' and RpAccTrTotId != None):
@@ -410,39 +410,39 @@ def addOrderInvDict(req):
 	GCRecord = req.get('GCRecord')
 
 	order_inv = {
-		'OInvTypeId':OInvTypeId,
-		'InvStatId':InvStatId,
-		'CurrencyId':CurrencyId,
-		'RpAccId':RpAccId,
-		'CId':CId,
-		'DivId':DivId,
-		'WhId':WhId,
-		'WpId':WpId,
-		'EmpId':EmpId,
-		'OInvRegNo':OInvRegNo,
-		'OInvDesc':OInvDesc,
-		'OInvDate':OInvDate,
-		'OInvTotal':OInvTotal,
-		'OInvExpenseAmount':OInvExpenseAmount,
-		'OInvTaxAmount':OInvTaxAmount,
-		'OInvDiscountAmount':OInvDiscountAmount,
-		'OInvFTotal':OInvFTotal,
-		'OInvFTotalInWrite':OInvFTotalInWrite,
-		'OInvModifyCount':OInvModifyCount,
-		'OInvPrintCount':OInvPrintCount,
-		'OInvCreditDays':OInvCreditDays,
-		'OInvCreditDesc':OInvCreditDesc,
-		'AddInf1':AddInf1,
-		'AddInf2':AddInf2,
-		'AddInf3':AddInf3,
-		'AddInf4':AddInf4,
-		'AddInf5':AddInf5,
-		'AddInf6':AddInf6,
-		'CreatedDate':CreatedDate,
-		'ModifiedDate':ModifiedDate,
-		'CreatedUId':CreatedUId,
-		'ModifiedUId':ModifiedUId,
-		'GCRecord':GCRecord
+		"OInvTypeId": OInvTypeId,
+		"InvStatId": InvStatId,
+		"CurrencyId": CurrencyId,
+		"RpAccId": RpAccId,
+		"CId": CId,
+		"DivId": DivId,
+		"WhId": WhId,
+		"WpId": WpId,
+		"EmpId": EmpId,
+		"OInvRegNo": OInvRegNo,
+		"OInvDesc": OInvDesc,
+		"OInvDate": OInvDate,
+		"OInvTotal": OInvTotal,
+		"OInvExpenseAmount": OInvExpenseAmount,
+		"OInvTaxAmount": OInvTaxAmount,
+		"OInvDiscountAmount": OInvDiscountAmount,
+		"OInvFTotal": OInvFTotal,
+		"OInvFTotalInWrite": OInvFTotalInWrite,
+		"OInvModifyCount": OInvModifyCount,
+		"OInvPrintCount": OInvPrintCount,
+		"OInvCreditDays": OInvCreditDays,
+		"OInvCreditDesc": OInvCreditDesc,
+		"AddInf1": AddInf1,
+		"AddInf2": AddInf2,
+		"AddInf3": AddInf3,
+		"AddInf4": AddInf4,
+		"AddInf5": AddInf5,
+		"AddInf6": AddInf6,
+		"CreatedDate": CreatedDate,
+		"ModifiedDate": ModifiedDate,
+		"CreatedUId": CreatedUId,
+		"ModifiedUId": ModifiedUId,
+		"GCRecord": GCRecord
 		}
 	#if(OInvId != '' and OInvId != None):
 	#	order_inv['OInvId']=OInvId
@@ -478,31 +478,31 @@ def addOrderInvLineDict(req):
 	GCRecord = req.get('GCRecord')
 
 	order_inv_line = {
-		#'OInvId':OInvId,
-		'UnitId':UnitId,
-		'CurrencyId':CurrencyId,
-		'ResId':ResId,
-		'LastVendorId':LastVendorId,
-		'OInvLineDesc':OInvLineDesc,
-		'OInvLineAmount':OInvLineAmount,
-		'OInvLinePrice':OInvLinePrice,
-		'OInvLineTotal':OInvLineTotal,
-		'OInvLineExpenseAmount':OInvLineExpenseAmount,
-		'OInvLineTaxAmount':OInvLineTaxAmount,
-		'OInvLineDiscAmount':OInvLineDiscAmount,
-		'OInvLineFTotal':OInvLineFTotal,
-		'OInvLineDate':OInvLineDate,
-		'AddInf1':AddInf1,
-		'AddInf2':AddInf2,
-		'AddInf3':AddInf3,
-		'AddInf4':AddInf4,
-		'AddInf5':AddInf5,
-		'AddInf6':AddInf6,
-		'CreatedDate':CreatedDate,
-		'ModifiedDate':ModifiedDate,
-		'CreatedUId':CreatedUId,
-		'ModifiedUId':ModifiedUId,
-		'GCRecord':GCRecord
+		#"OInvId": OInvId,
+		"UnitId": UnitId,
+		"CurrencyId": CurrencyId,
+		"ResId": ResId,
+		"LastVendorId": LastVendorId,
+		"OInvLineDesc": OInvLineDesc,
+		"OInvLineAmount": OInvLineAmount,
+		"OInvLinePrice": OInvLinePrice,
+		"OInvLineTotal": OInvLineTotal,
+		"OInvLineExpenseAmount": OInvLineExpenseAmount,
+		"OInvLineTaxAmount": OInvLineTaxAmount,
+		"OInvLineDiscAmount": OInvLineDiscAmount,
+		"OInvLineFTotal": OInvLineFTotal,
+		"OInvLineDate": OInvLineDate,
+		"AddInf1": AddInf1,
+		"AddInf2": AddInf2,
+		"AddInf3": AddInf3,
+		"AddInf4": AddInf4,
+		"AddInf5": AddInf5,
+		"AddInf6": AddInf6,
+		"CreatedDate": CreatedDate,
+		"ModifiedDate": ModifiedDate,
+		"CreatedUId": CreatedUId,
+		"ModifiedUId": ModifiedUId,
+		"GCRecord": GCRecord
 		}
 	if(OInvLineId != '' and OInvLineId != None):
 		order_inv_line['OInvLineId']=OInvLineId
@@ -524,17 +524,17 @@ def addOrderInvTypeDict(req):
 	GCRecord = req.get('GCRecord')
 
 	order_inv_type = {
-		'OInvTypeName_tkTM':OInvTypeName_tkTM,
-		'OInvTypeDesc_tkTM':OInvTypeDesc_tkTM,
-		'OInvTypeName_ruRU':OInvTypeName_ruRU,
-		'OInvTypeDesc_ruRU':OInvTypeDesc_ruRU,
-		'OInvTypeName_enUS':OInvTypeName_enUS,
-		'OInvTypeDesc_enUS':OInvTypeDesc_enUS,
-		'CreatedDate':CreatedDate,
-		'ModifiedDate':ModifiedDate,
-		'CreatedUId':CreatedUId,
-		'ModifiedUId':ModifiedUId,
-		'GCRecord':GCRecord
+		"OInvTypeName_tkTM": OInvTypeName_tkTM,
+		"OInvTypeDesc_tkTM": OInvTypeDesc_tkTM,
+		"OInvTypeName_ruRU": OInvTypeName_ruRU,
+		"OInvTypeDesc_ruRU": OInvTypeDesc_ruRU,
+		"OInvTypeName_enUS": OInvTypeName_enUS,
+		"OInvTypeDesc_enUS": OInvTypeDesc_enUS,
+		"CreatedDate": CreatedDate,
+		"ModifiedDate": ModifiedDate,
+		"CreatedUId": CreatedUId,
+		"ModifiedUId": ModifiedUId,
+		"GCRecord": GCRecord
 		}
 	if(OInvTypeId != '' and OInvTypeId != None):
 		order_inv_type['OInvTypeId']=OInvTypeId
@@ -559,21 +559,21 @@ def addWarehouseDict(req):
 	ModifiedUId = req.get('ModifiedUId')
 	GCRecord = req.get('GCRecord')
 	warehouse = {
-		'CId':CId,
-		'DivId':DivId,
-		'WhName':WhName,
-		'WhDesc':WhDesc,
-		'AddInf1':AddInf1,
-		'AddInf2':AddInf2,
-		'AddInf3':AddInf3,
-		'AddInf4':AddInf4,
-		'AddInf5':AddInf5,
-		'AddInf6':AddInf6,
-		'CreatedDate':CreatedDate,
-		'ModifiedDate':ModifiedDate,
-		'CreatedUId':CreatedUId,
-		'ModifiedUId':ModifiedUId,
-		'GCRecord':GCRecord
+		"CId": CId,
+		"DivId": DivId,
+		"WhName": WhName,
+		"WhDesc": WhDesc,
+		"AddInf1": AddInf1,
+		"AddInf2": AddInf2,
+		"AddInf3": AddInf3,
+		"AddInf4": AddInf4,
+		"AddInf5": AddInf5,
+		"AddInf6": AddInf6,
+		"CreatedDate": CreatedDate,
+		"ModifiedDate": ModifiedDate,
+		"CreatedUId": CreatedUId,
+		"ModifiedUId": ModifiedUId,
+		"GCRecord": GCRecord
 		}
 	if(WhId != '' and WhId != None):
 		warehouse['WhId']=WhId
@@ -594,17 +594,17 @@ def addWorkPeriodDict(req):
 	ModifiedUId = req.get('ModifiedUId')
 	GCRecord = req.get('GCRecord')
 	work_period = {
-		'CId':CId,
-		'DivId':DivId,
-		'CurrencyId':CurrencyId,
-		'WpStartDate':WpStartDate,
-		'WpEndDate':WpEndDate,
-		'WpIsDefault':WpIsDefault,
-		'CreatedDate':CreatedDate,
-		'ModifiedDate':ModifiedDate,
-		'CreatedUId':CreatedUId,
-		'ModifiedUId':ModifiedUId,
-		'GCRecord':GCRecord
+		"CId": CId,
+		"DivId": DivId,
+		"CurrencyId": CurrencyId,
+		"WpStartDate": WpStartDate,
+		"WpEndDate": WpEndDate,
+		"WpIsDefault": WpIsDefault,
+		"CreatedDate": CreatedDate,
+		"ModifiedDate": ModifiedDate,
+		"CreatedUId": CreatedUId,
+		"ModifiedUId": ModifiedUId,
+		"GCRecord": GCRecord
 		}
 	if(WpId != '' and WpId != None):
 		work_period['WpId']=WpId

@@ -178,11 +178,11 @@ def apiResourceInfo(resource_list=None,single_object=False,isDeleted=False,isIna
 		if len(fails)==1:
 			fails = fails[0]
 	res = {
-			"message":"Resources",
-			"data":data,
-			"fails":fails,
-			"total":len(data),
-			"fail_total":len(fails)
+			"message": "Resources",
+			"data": data,
+			"fails": fails,
+			"total": len(data),
+			"fail_total": len(fails)
 	}
 	for e in status:
 		res[e]=status[e]
@@ -203,8 +203,8 @@ def UiCartResourceData(product_list):
 		resource["productTotal"]=int(resource["productQty"])*int(resource["ResPriceValue"])
 		data.append(resource)
 	res = {
-		"status":1,
-		"data":data,
-		"total":len(data)
+		"status": 1,
+		"data": data,
+		"total": len(data)
 	}
 	return res

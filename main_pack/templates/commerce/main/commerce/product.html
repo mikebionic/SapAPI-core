@@ -23,12 +23,9 @@
         <h3 class="title">{{'' if resource.ResName==None else resource.ResName}}</h3>
         <div class="rating">
           <p class="star-rating"><span class="width-80percent"></span></p>
-          {% for subcategory_child in subcategory_children %}
-            {% if resource.ResCatId == subcategory_child.ResCatId %}
-              <b class="category">{{_('Category')}}: {{subcategory_child.ResCatName}}</b>
-            {% endif %}
-          {% endfor %}
         </div>
+        <b class="category">{{_('Category')}}: {{ resource.ResCatName if resource.ResCatName else '' }}</b>
+        <div>{{_('Barcode')}}: {{ resource.BarcodeVal if resource.BarcodeVal else '' }}</div>
         <span class="sku">#{{resource.ResRegNo}}</span>
         <p class="excerpt">{{'' if resource.ResDesc==None else resource.ResDesc}}</p>
         <div class="price">
@@ -104,110 +101,91 @@
       </div>
     </div>
 
-    <!-- Tab info -->
     <div class="product-tabs single-layout biolife-tab-contain">
       <div class="tab-head">
         <ul class="tabs">
           <li class="tab-element active"><a href="#tab_1st" class="tab-link">{{_('Customers reviews')}}</a></li>
           <li class="tab-element"><a href="#tab_2nd" class="tab-link">{{_('Products Descriptions')}}</a></li>
           <li class="tab-element"><a href="#tab_3rd" class="tab-link">{{_('Additional information')}}</a></li>
-          <li class="tab-element"><a href="#tab_4th" class="tab-link">{{_('Additional information 2')}}</a></li>
         </ul>
       </div>
+      <!-- Ratings info -->
       <div class="tab-content">
         <div id="tab_1st" class="tab-contain review-tab active">
           <div class="container">
-              <div class="row">
-                  <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
-                      <div class="rating-info">
-                          <p class="index"><strong class="rating">4.4</strong>out of 5</p>
-                          <div class="rating"><p class="star-rating"><span class="width-80percent"></span></p></div>
-                          <p class="see-all">See all 68 reviews</p>
-                      </div>
-                  </div>
-                  <div class="col-lg-7 col-md-7 col-sm-6 col-xs-12">
-                      <div class="review-form-wrapper">
-                          <span class="title">Submit your review</span>
-                          <form action="#" name="frm-review" method="post">
-                              <div class="comment-form-rating">
-                                <label>1. Your rating of this products:</label>
-                                <fieldset class="rating">
-                                  <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
-                                  <input type="radio" id="star4half" name="rating" value="4 and a half" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
-                                  <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
-                                  <input type="radio" id="star3half" name="rating" value="3 and a half" /><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
-                                  <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
-                                  <input type="radio" id="star2half" name="rating" value="2 and a half" /><label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
-                                  <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
-                                  <input type="radio" id="star1half" name="rating" value="1 and a half" /><label class="half" for="star1half" title="Meh - 1.5 stars"></label>
-                                  <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
-                                  <input type="radio" id="starhalf" name="rating" value="half" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
-                                </fieldset>
-                              </div>
-                              <p class="form-row">
-                                  <textarea name="comment" id="txt-comment" cols="30" rows="10" placeholder="Write your review here..."></textarea>
-                              </p>
-                              <p class="form-row">
-                                  <button type="submit" name="submit">submit review</button>
-                                  <button class="btn btn-primary" id="swal-2">Submit</button>
-                                  <button class="btn btn-primary" id="swal-5">Error</button>
-                              </p>
-                          </form>
-                      </div>
-                  </div>
+
+            <div class="row">
+              <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
+                <div class="rating-info">
+                  <p class="index"><strong class="rating">4.4</strong>out of 5</p>
+                  <div class="rating"><p class="star-rating"><span class="width-80percent"></span></p></div>
+                  <p class="see-all">See all 68 reviews</p>
+                </div>
               </div>
-              <div id="comments">
-                  <ol class="commentlist">
-                      <li class="review">
-                          <div class="comment-container">
-                              <div class="row">
-                                  <div class="comment-content col-lg-8 col-md-9 col-sm-8 col-xs-12">
-                                      <p class="comment-in"><span class="post-name">Quality is our way of life</span><span class="post-date">01/04/2018</span></p>
-                                      <div class="rating"><p class="star-rating"><span class="width-80percent"></span></p></div>
-                                      <p class="author">by: <b>Shop organic</b></p>
-                                      <p class="comment-text">There are few things in life that please people more than the succulence of quality fresh fruit and vegetables.  At Fresh Fruits we work to deliver the world’s freshest, choicest, and juiciest produce to discerning customers across the UAE and GCC.</p>
-                                  </div>
-                              </div>
-                          </div>
-                      </li>
-                      <li class="review">
-                          <div class="comment-container">
-                              <div class="row">
-                                  <div class="comment-content col-lg-8 col-md-9 col-sm-8 col-xs-12">
-                                      <p class="comment-in"><span class="post-name">Quality is our way of life</span><span class="post-date">01/04/2018</span></p>
-                                      <div class="rating"><p class="star-rating"><span class="width-80percent"></span></p></div>
-                                      <p class="author">by: <b>Shop organic</b></p>
-                                      <p class="comment-text">There are few things in life that please people more than the succulence of quality fresh fruit and vegetables.  At Fresh Fruits we work to deliver the world’s freshest, choicest, and juiciest produce to discerning customers across the UAE and GCC.</p>
-                                  </div>
-                              </div>
-                          </div>
-                      </li>
-                      <li class="review">
-                          <div class="comment-container">
-                              <div class="row">
-                                  <div class="comment-content col-lg-8 col-md-9 col-sm-8 col-xs-12">
-                                      <p class="comment-in"><span class="post-name">Quality is our way of life</span><span class="post-date">01/04/2018</span></p>
-                                      <div class="rating"><p class="star-rating"><span class="width-80percent"></span></p></div>
-                                      <p class="author">by: <b>Shop organic</b></p>
-                                      <p class="comment-text">There are few things in life that please people more than the succulence of quality fresh fruit and vegetables.  At Fresh Fruits we work to deliver the world’s freshest, choicest, and juiciest produce to discerning customers across the UAE and GCC.</p>
-                                  </div>
-                              </div>
-                          </div>
-                      </li>
-                  </ol>
-                  <div class="biolife-panigations-block version-2">
-                      <ul class="panigation-contain">
-                          <li><span class="current-page">1</span></li>
-                          <li><a href="#" class="link-page">2</a></li>
-                          <li><a href="#" class="link-page">3</a></li>
-                          <li><span class="sep">....</span></li>
-                          <li><a href="#" class="link-page">20</a></li>
-                          <li><a href="#" class="link-page next"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-                      </ul>
+              {% if current_user.is_authenticated %}
+              <div class="col-lg-7 col-md-7 col-sm-6 col-xs-12">
+                <div class="review-form-wrapper">
+                  <span class="title">Submit your review</span>
+                  <div action="#" name="frm-review" method="post">
+                    <div class="comment-form-rating">
+                      <label>1. Your rating of this products:</label>
+                      <fieldset class="rating">
+                        <input type="radio" id="star5" class="ratingValue" ownerId="{{resource.ResId}}" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
+                        <input type="radio" id="star4half" class="ratingValue" ownerId="{{resource.ResId}}" value="4.5" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
+                        <input type="radio" id="star4" class="ratingValue" ownerId="{{resource.ResId}}" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
+                        <input type="radio" id="star3half" class="ratingValue" ownerId="{{resource.ResId}}" value="3.5" /><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
+                        <input type="radio" id="star3" class="ratingValue" ownerId="{{resource.ResId}}" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
+                        <input type="radio" id="star2half" class="ratingValue" ownerId="{{resource.ResId}}" value="2.5" /><label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
+                        <input type="radio" id="star2" class="ratingValue" ownerId="{{resource.ResId}}" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
+                        <input type="radio" id="star1half" class="ratingValue" ownerId="{{resource.ResId}}" value="1.5" /><label class="half" for="star1half" title="Meh - 1.5 stars"></label>
+                        <input type="radio" id="star1" class="ratingValue" ownerId="{{resource.ResId}}" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
+                        <input type="radio" id="starhalf" class="ratingValue" ownerId="{{resource.ResId}}" value="0.5" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+                      </fieldset>
+                    </div>
+                    <p class="form-row">
+                      <textarea name="comment" class="ratingRemark" ownerId="{{resource.ResId}}" id="txt-comment" cols="30" rows="10" placeholder="{{_('Write your review')}}..."></textarea>
+                    </p>
+                    <p class="form-row">
+                      <button type="submit" name="submit">{{_('Submit')}}</button>
+                      <button class="btn btn-primary" id="swal-2">Submit</button>
+                      <button class="btn btn-primary" id="swal-5">Error</button>
+                    </p>
                   </div>
+                </div>
               </div>
+              {% endif %}
+            </div>
+            <div id="comments">
+              <ol class="commentlist">
+                <li class="review">
+                  <div class="comment-container">
+                    <div class="row">
+                      <div class="comment-content col-lg-8 col-md-9 col-sm-8 col-xs-12">
+                        <p class="comment-in"><span class="post-name">Quality is our way of life</span><span class="post-date">01/04/2018</span></p>
+                        <div class="rating"><p class="star-rating"><span class="width-80percent"></span></p></div>
+                        <p class="author">by: <b>Shop organic</b></p>
+                        <p class="comment-text">There are few things in life that please people more than the succulence of quality fresh fruit and vegetables.  At Fresh Fruits we work to deliver the world’s freshest, choicest, and juiciest produce to discerning customers across the UAE and GCC.</p>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ol>
+<!-- 
+              <div class="biolife-panigations-block version-2">
+                <ul class="panigation-contain">
+                  <li><span class="current-page">1</span></li>
+                  <li><a href="#" class="link-page">2</a></li>
+                  <li><a href="#" class="link-page">3</a></li>
+                  <li><span class="sep">....</span></li>
+                  <li><a href="#" class="link-page">20</a></li>
+                  <li><a href="#" class="link-page next"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+                </ul>
+              </div>
+               -->
+            </div>
           </div>
         </div>
+
         <div id="tab_2nd" class="tab-contain desc-tab active">
           <p class="desc">{{'' if resource.ResFullDesc==None else resource.ResFullDesc}}</p>
         </div>
@@ -270,69 +248,6 @@
               </tr>
             </tbody>
           </table>
-        </div>
-        <div id="tab_4th" class="tab-contain review-tab active">
-          <div class="container">
-              <div class="row">
-                  <div class="col-lg-12 col-md-5 col-sm-6 col-xs-12">
-                      <div class="rating-info">
-                          <p class="index"><strong class="rating">4.4</strong>out of 5</p>
-                          <div class="rating"><p class="star-rating"><span class="width-80percent"></span></p></div>
-                          <p class="see-all">See all 68 reviews</p>
-                      </div>
-                  </div>
-              </div>
-              <div id="comments">
-                  <ol class="commentlist">
-                      <li class="review">
-                          <div class="comment-container">
-                              <div class="row">
-                                  <div class="comment-content col-lg-8 col-md-9 col-sm-8 col-xs-12">
-                                      <p class="comment-in"><span class="post-name">Quality is our way of life</span><span class="post-date">01/04/2018</span></p>
-                                      <div class="rating"><p class="star-rating"><span class="width-80percent"></span></p></div>
-                                      <p class="author">by: <b>Shop organic</b></p>
-                                      <p class="comment-text">There are few things in life that please people more than the succulence of quality fresh fruit and vegetables.  At Fresh Fruits we work to deliver the world’s freshest, choicest, and juiciest produce to discerning customers across the UAE and GCC.</p>
-                                  </div>
-                              </div>
-                          </div>
-                      </li>
-                      <li class="review">
-                          <div class="comment-container">
-                              <div class="row">
-                                  <div class="comment-content col-lg-8 col-md-9 col-sm-8 col-xs-12">
-                                      <p class="comment-in"><span class="post-name">Quality is our way of life</span><span class="post-date">01/04/2018</span></p>
-                                      <div class="rating"><p class="star-rating"><span class="width-80percent"></span></p></div>
-                                      <p class="author">by: <b>Shop organic</b></p>
-                                      <p class="comment-text">There are few things in life that please people more than the succulence of quality fresh fruit and vegetables.  At Fresh Fruits we work to deliver the world’s freshest, choicest, and juiciest produce to discerning customers across the UAE and GCC.</p>
-                                  </div>
-                              </div>
-                          </div>
-                      </li>
-                      <li class="review">
-                          <div class="comment-container">
-                              <div class="row">
-                                  <div class="comment-content col-lg-8 col-md-9 col-sm-8 col-xs-12">
-                                      <p class="comment-in"><span class="post-name">Quality is our way of life</span><span class="post-date">01/04/2018</span></p>
-                                      <div class="rating"><p class="star-rating"><span class="width-80percent"></span></p></div>
-                                      <p class="author">by: <b>Shop organic</b></p>
-                                      <p class="comment-text">There are few things in life that please people more than the succulence of quality fresh fruit and vegetables.  At Fresh Fruits we work to deliver the world’s freshest, choicest, and juiciest produce to discerning customers across the UAE and GCC.</p>
-                                  </div>
-                              </div>
-                          </div>
-                      </li>
-                  </ol>
-                  <div class="biolife-panigations-block version-2">
-                      <ul class="panigation-contain">
-                          <li><span class="current-page">1</span></li>
-                          <li><a href="#" class="link-page">2</a></li>
-                          <li><a href="#" class="link-page">3</a></li>
-                          <li><span class="sep">....</span></li>
-                          <li><a href="#" class="link-page">20</a></li>
-                          <li><a href="#" class="link-page next"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-                      </ul>
-                  </div>
-              </div>
-          </div>
         </div>
       </div>
     </div>

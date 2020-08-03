@@ -93,8 +93,8 @@ Returns only if the **Rp_acc** is the **owner** of invoice
 > GET
 
 from latest to first (needs configurations for datetime order
-+ /api/paginate/v-resources/
-+ /api/paginate/v-resources/?last=<lastId>&limit=<quantity>
++ /api/v-resources/paginate/
++ /api/v-resources/paginate/?offset=<lastId>&limit=<quantity>
 
 > GET POST
 

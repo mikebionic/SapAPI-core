@@ -24,8 +24,8 @@ def ui_customers_table():
 					rp_acc.RpAccStatusId = RpAccStatusId
 					db.session.commit()
 				response = jsonify({
-					'status':'updated',
-					'responseText':rp_acc.RpAccName+' '+gettext('successfully updated'),
+					"status": 'updated',
+					"responseText": rp_acc.RpAccName+' '+gettext('successfully updated'),
 					})
 		elif request.method == 'DELETE':
 			req = request.get_json()
@@ -41,13 +41,13 @@ def ui_customers_table():
 
 			db.session.commit()
 			response = jsonify({
-				'status':'deleted',
-				'responseText':thisRpAcc.RpAccName+' '+gettext('successfully deleted'),
+				"status": 'deleted',
+				"responseText": thisRpAcc.RpAccName+' '+gettext('successfully deleted'),
 				})
 	except Exception as ex:
 		response = jsonify({
-			'status':'error',
-			'responseText':gettext('Unknown error!'),
+			"status": 'error',
+			"responseText": gettext('Unknown error!'),
 			})
 	return response
 
@@ -66,8 +66,8 @@ def ui_users_table():
 					user.UTypeId = UTypeId
 					db.session.commit()
 				response = jsonify({
-					'status':'updated',
-					'responseText':user.UName+' '+gettext('successfully updated'),
+					"status": 'updated',
+					"responseText": user.UName+' '+gettext('successfully updated'),
 					})
 		elif request.method == 'DELETE':
 			req = request.get_json()
@@ -76,12 +76,12 @@ def ui_users_table():
 			thisUser.GCRecord = 1
 			db.session.commit()
 			response = jsonify({
-				'status':'deleted',
-				'responseText':thisUser.UName+' '+gettext('successfully deleted'),
+				"status": 'deleted',
+				"responseText": thisUser.UName+' '+gettext('successfully deleted'),
 				})
 	except Exception as ex:
 		response = jsonify({
-			'status':'error',
-			'responseText':gettext('Unknown error!'),
+			"status": 'error',
+			"responseText": gettext('Unknown error!'),
 			})
 	return response

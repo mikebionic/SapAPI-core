@@ -18,10 +18,10 @@ def api_order_inv_types():
 		order_inv_types = Order_inv_type.query\
 			.filter(Order_inv_type.GCRecord=='' or Order_inv_type.GCRecord==None).all()
 		res = {
-			"status":1,
-			"message":"All order inv types",
-			"data":[order_inv_type.to_json_api() for order_inv_type in order_inv_types],
-			"total":len(order_inv_types)
+			"status": 1,
+			"message": "All order inv types",
+			"data": [order_inv_type.to_json_api() for order_inv_type in order_inv_types],
+			"total": len(order_inv_types)
 		}
 		response = make_response(jsonify(res),200)
 
@@ -64,10 +64,10 @@ def api_order_inv_types():
 
 			status = checkApiResponseStatus(order_inv_types,failed_order_inv_types)
 			res = {
-				"data":order_inv_types,
-				"fails":failed_order_inv_types,
-				"success_total":len(order_inv_types),
-				"fail_total":len(failed_order_inv_types)
+				"data": order_inv_types,
+				"fails": failed_order_inv_types,
+				"success_total": len(order_inv_types),
+				"fail_total": len(failed_order_inv_types)
 			}
 			for e in status:
 				res[e]=status[e]

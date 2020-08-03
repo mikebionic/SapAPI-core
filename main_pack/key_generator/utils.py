@@ -12,20 +12,20 @@ from sqlalchemy import or_, and_
 from random import randint
 
 prefixTypesDict = {
-		'employee_code':1,
-		'user_code':2,
-		'goods_code':3,
-		'account_code':4,
-		'price_code':5,
-		'rp_code':6,
-		'sale_invoice_code':7,
-		'purchase_invoice_code':8,
-		'sale_order_invoice_code':9,
-		'purchase_order_invoice_code':10,
-		'sale_return_invoice_code':11,
-		'purchase_return_invoice_code':12,
-		'order_invoice_line_code':13,
-		'invoice_line_code':14
+		"employee_code": 1,
+		"user_code": 2,
+		"goods_code": 3,
+		"account_code": 4,
+		"price_code": 5,
+		"rp_code": 6,
+		"sale_invoice_code": 7,
+		"purchase_invoice_code": 8,
+		"sale_order_invoice_code": 9,
+		"purchase_order_invoice_code": 10,
+		"sale_return_invoice_code": 11,
+		"purchase_return_invoice_code": 12,
+		"order_invoice_line_code": 13,
+		"invoice_line_code": 14
 	}
 
 def generate(UId,prefixType):
@@ -45,7 +45,7 @@ def generate(UId,prefixType):
 		and_(Reg_num.UId==UId,Reg_num.RegNumTypeId==prefixType)).first()
 	response = reg_num
 	# except Exception as ex:
-	# 	response = jsonify({'error':'Error generating regNo'})
+	# 	response = jsonify({"error": 'Error generating regNo'})
 	return response
 
 def validate(UId,fullRegNo,RegNumLastNum,dbModel,prefixType):
@@ -56,20 +56,20 @@ def validate(UId,fullRegNo,RegNumLastNum,dbModel,prefixType):
 			and_(Reg_num.UId==UId,Reg_num.RegNumTypeId==prefixType)).first()
 		if not dbModel and (RegNumLastNum>reg_num.RegNumLastNum):
 			response = {
-				'status':True,
-				'RegNumLastNum':RegNumLastNum
+				"status": True,
+				"RegNumLastNum": RegNumLastNum
 			}
 		else:
 			while RegNumLastNum<=reg_num.RegNumLastNum:
 				RegNumLastNum+=1
 			response = {
-				'status':False,
-				'RegNumLastNum':RegNumLastNum
+				"status": False,
+				"RegNumLastNum": RegNumLastNum
 			}
 	except Exception as ex:
 		response={
-			'status':'error',
-			'responseText':'Wrong prefix type or missing in database'
+			"status": 'error',
+			"responseText": 'Wrong prefix type or missing in database'
 		}
 	return response
 

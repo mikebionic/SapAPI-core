@@ -29,9 +29,9 @@ def api_resource(ResId):
 	# 	updateResource = addResourceDict(req)
 	# 	resource.update(**resource)
 	# 	res = {
-	# 		"status":1,
-	# 		"message":"Resource updated",
-	# 		"data":resource.to_json_api()
+	# 		"status": 1,
+	# 		"message": "Resource updated",
+	# 		"data": resource.to_json_api()
 	# 	}
 	# 	response = make_response(jsonify(res),200)
 	return response
@@ -107,10 +107,10 @@ def api_resources():
 
 			status = checkApiResponseStatus(resources,failed_resources)
 			res = {
-				"data":resources,
-				"fails":failed_resources,
-				"success_total":len(resources),
-				"fail_total":len(failed_resources)
+				"data": resources,
+				"fails": failed_resources,
+				"success_total": len(resources),
+				"fail_total": len(failed_resources)
 			}
 			for e in status:
 				res[e]=status[e]

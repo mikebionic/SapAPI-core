@@ -13,10 +13,10 @@ from main_pack.api.auth.api_login import sha_required
 def api_users_user(UId):
 	user = apiUsersData(UId)
 	res = {
-		"status":1,
-		"message":"Single user",
-		"data":user['data'],
-		"total":1
+		"status": 1,
+		"message": "Single user",
+		"data": user['data'],
+		"total": 1
 	}
 	response = make_response(jsonify(res),200)
 
@@ -28,10 +28,10 @@ def api_users():
 	if request.method == 'GET':
 		users = Users.query.all()
 		res = {
-			"status":1,
-			"message":"All users",
-			"data":[user.to_json_api() for user in users],
-			"total":len(users)
+			"status": 1,
+			"message": "All users",
+			"data": [user.to_json_api() for user in users],
+			"total": len(users)
 		}
 		response = make_response(jsonify(res),200)
 
@@ -74,10 +74,10 @@ def api_users():
 
 			status = checkApiResponseStatus(users,failed_users)
 			res = {
-				"data":users,
-				"fails":failed_users,
-				"success_total":len(users),
-				"fail_total":len(failed_users)
+				"data": users,
+				"fails": failed_users,
+				"success_total": len(users),
+				"fail_total": len(failed_users)
 			}
 			for e in status:
 				res[e]=status[e]

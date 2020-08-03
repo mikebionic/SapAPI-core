@@ -5,40 +5,40 @@ def totalQtySubstitution(totalBalance,amount):
 	resultingTotal = totalBalance - amount
 	print(resultingTotal)
 	result = {
-		'totalBalance':resultingTotal,
-		'amount':amount,
-		'status':1
+		"totalBalance": resultingTotal,
+		"amount": amount,
+		"status": 1
 	}
 	if resultingTotal>totalBalance:
 		result = {
-			'totalBalance':totalBalance,
-			'amount':0,
-			'status':0
+			"totalBalance": totalBalance,
+			"amount": 0,
+			"status": 0
 		}
 		return result
 	if current_app.config['NEGATIVE_WH_QTY_ORDER']==False:
 		if resultingTotal<0:
 			result = {
-				'totalBalance':0,
-				'amount':totalBalance,
-				'status':1
+				"totalBalance": 0,
+				"amount": totalBalance,
+				"status": 1
 			}
 		if totalBalance<=0:
 			result = {
-				'totalBalance':totalBalance,
-				'amount':0,
-				'status':0
+				"totalBalance": totalBalance,
+				"amount": 0,
+				"status": 0
 			}
 	return result
 
 #### if errors in order invoice ####
 def get_order_error_type(error_type):
 	fail_statuses = {
-		0:"Unknown error",
-		1:"Deleted",
-		2:"Usage satus: Inactive",
-		3:"Resource ended",
-		4:"False price"
+		0: "Unknown error",
+		1: "Deleted",
+		2: "Usage satus: Inactive",
+		3: "Resource ended",
+		4: "False price"
 	}
 	print(fail_statuses[error_type])
 	return fail_statuses[error_type]
@@ -47,87 +47,87 @@ def get_order_error_type(error_type):
 invStatSelector = {
 	# Waiting
 	1:{
-		"class":"warning",
-		"color_hash":"#eda514", 
-		"percentage":10,
-		"icon":"loader",
+		"class": "warning",
+		"color_hash": "#eda514", 
+		"percentage": 10,
+		"icon": "loader",
 	},
 	# Received (not order maybe, discuss with dovlet)
 	2:{
-		"class":"success",
-		"color_hash":"#00b289", 
-		"percentage":30,
-		"icon":"dollar-sign",
+		"class": "success",
+		"color_hash": "#00b289", 
+		"percentage": 30,
+		"icon": "dollar-sign",
 	},
 	# Talked with a client
 	3:{
-		"class":"success",
-		"color_hash":"#00b289", 
-		"percentage":30,
-		"icon":"thumbs-up",
+		"class": "success",
+		"color_hash": "#00b289", 
+		"percentage": 30,
+		"icon": "thumbs-up",
 	},
 	# Approved
 	4:{
-		"class":"success",
-		"color_hash":"#00b289", 
-		"percentage":30,
-		"icon":"check",
+		"class": "success",
+		"color_hash": "#00b289", 
+		"percentage": 30,
+		"icon": "check",
 	},
 	# Not approved
 	5:{
-		"class":"danger",
-		"color_hash":"#FF7273", 
-		"percentage":30,
-		"icon":"x-circle",
+		"class": "danger",
+		"color_hash": "#FF7273", 
+		"percentage": 30,
+		"icon": "x-circle",
 	},
 	# Collecting goods
 	6:{
-		"class":"success",
-		"color_hash":"#00b289", 
-		"percentage":40,
-		"icon":"package",
+		"class": "success",
+		"color_hash": "#00b289", 
+		"percentage": 40,
+		"icon": "package",
 	},
 	# Order sent
 	7:{
-		"class":"info",
-		"color_hash":"#63d3fa", 
-		"percentage":65,
-		"icon":"truck",
+		"class": "info",
+		"color_hash": "#63d3fa", 
+		"percentage": 65,
+		"icon": "truck",
 	},
 	# Transfered to customer
 	8:{
-		"class":"info",
-		"color_hash":"#63d3fa", 
-		"percentage":88,
-		"icon":"gift",
+		"class": "info",
+		"color_hash": "#63d3fa", 
+		"percentage": 88,
+		"icon": "gift",
 	},
 	# Returned
 	9:{
-		"class":"danger",
-		"color_hash":"#FF7273", 
-		"percentage":60,
-		"icon":"corner-up-left",
+		"class": "danger",
+		"color_hash": "#FF7273", 
+		"percentage": 60,
+		"icon": "corner-up-left",
 	},
 	# Note
 	10:{
-		"class":"warning",
-		"color_hash":"#eda514", 
-		"percentage":50,
-		"icon":"alert-octagon",
+		"class": "warning",
+		"color_hash": "#eda514", 
+		"percentage": 50,
+		"icon": "alert-octagon",
 	},
 	# Modified
 	11:{
-		"class":"warning",
-		"color_hash":"#eda514", 
-		"percentage":60,
-		"icon":"edit-2",
+		"class": "warning",
+		"color_hash": "#eda514", 
+		"percentage": 60,
+		"icon": "edit-2",
 	},
 	# Complete
 	12:{
-		"class":"primary",
-		"color_hash":"#0023ff", 
-		"percentage":100,
-		"icon":"award",
+		"class": "primary",
+		"color_hash": "#0023ff", 
+		"percentage": 100,
+		"icon": "award",
 	},
 }
 

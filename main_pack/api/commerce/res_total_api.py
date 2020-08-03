@@ -16,10 +16,10 @@ def api_res_totals():
 		res_totals = Res_total.query\
 			.filter(Res_total.GCRecord=='' or Res_total.GCRecord==None).all()
 		res = {
-			"status":1,
-			"message":"All res totals",
-			"data":[res_total.to_json_api() for res_total in res_totals],
-			"total":len(res_totals)
+			"status": 1,
+			"message": "All res totals",
+			"data": [res_total.to_json_api() for res_total in res_totals],
+			"total": len(res_totals)
 		}
 		response = make_response(jsonify(res),200)
 
@@ -69,10 +69,10 @@ def api_res_totals():
 
 			status = checkApiResponseStatus(res_totals,failed_res_totals)
 			res = {
-				"data":res_totals,
-				"fails":failed_res_totals,
-				"success_total":len(res_totals),
-				"fail_total":len(failed_res_totals)
+				"data": res_totals,
+				"fails": failed_res_totals,
+				"success_total": len(res_totals),
+				"fail_total": len(failed_res_totals)
 			}
 			for e in status:
 				res[e]=status[e]

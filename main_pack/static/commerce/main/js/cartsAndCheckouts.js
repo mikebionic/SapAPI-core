@@ -61,10 +61,12 @@ $('body').delegate('.checkoutCartBtn','click',function(){
 
 
 function addRating(ownerId){
-	ratingValue = 4.3
+	ratingValue = 4.3;
+	ratingRemark = "It is a really good product";
 	productData={
 		'resId':ownerId,
-		'ratingValue':ratingValue
+		'ratingValue':ratingValue,
+		'ratingRemark':ratingRemark
 	};
 	postData(formData=productData,url=url_prefix+"/product/ui_rating/",type="POST");
 }

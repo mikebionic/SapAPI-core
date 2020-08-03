@@ -37,18 +37,18 @@ def resRelatedData():
 				subcategory_children.append(category)
 
 	resRelatedData = {
-		'units':units,
-		'brands':brands,
-		'usageStatuses':usageStatuses,
-		'resCategories':resCategories,
-		'resTypes':resTypes,
-		'resMakers':resMakers,
-		'rpAccs':rpAccs,
-		'languages':languages,
-		'colors':colors,
-		'sizes':sizes,
-		'brands':brands,
-		'subcategory_children':subcategory_children,
+		"units": units,
+		"brands": brands,
+		"usageStatuses": usageStatuses,
+		"resCategories": resCategories,
+		"resTypes": resTypes,
+		"resMakers": resMakers,
+		"rpAccs": rpAccs,
+		"languages": languages,
+		"colors": colors,
+		"sizes": sizes,
+		"brands": brands,
+		"subcategory_children": subcategory_children,
 		}
 
 	return resRelatedData
@@ -62,10 +62,10 @@ def addSliderDict(req):
 	SlName = req.get('sliderName')
 	SlDesc = req.get('sliderDesc')
 	slider = {
-		'CId':CId,
-		'DivId':DivId,
-		'SlName':SlName,
-		'SlDesc':SlDesc,
+		"CId": CId,
+		"DivId": DivId,
+		"SlName": SlName,
+		"SlDesc": SlDesc,
 	}
 	if(SlId != '' and SlId != None):
 		slider['SlId']=SlId
@@ -89,17 +89,17 @@ def addSliderImageDict(req):
 	SlImgEndDate = req.get('sliderImgEndDate')
 
 	slider_image = {
-		'SlId':self.SlId,
-		'SlImgName':self.SlImgName,
-		'SlImgDesc':self.SlImgDesc,
-		'SlImgMainImgFileName':self.SlImgMainImgFileName,
-		'SlImgSubImageFileName1':self.SlImgSubImageFileName1,
-		'SlImgSubImageFileName2':self.SlImgSubImageFileName2,
-		'SlImgSubImageFileName3':self.SlImgSubImageFileName3,
-		'SlImgSubImageFileName4':self.SlImgSubImageFileName4,
-		'SlImgSubImageFileName5':self.SlImgSubImageFileName5,
-		'SlImgStartDate':self.SlImgStartDate,
-		'SlImgEndDate':self.SlImgEndDate,
+		"SlId": self.SlId,
+		"SlImgName": self.SlImgName,
+		"SlImgDesc": self.SlImgDesc,
+		"SlImgMainImgFileName": self.SlImgMainImgFileName,
+		"SlImgSubImageFileName1": self.SlImgSubImageFileName1,
+		"SlImgSubImageFileName2": self.SlImgSubImageFileName2,
+		"SlImgSubImageFileName3": self.SlImgSubImageFileName3,
+		"SlImgSubImageFileName4": self.SlImgSubImageFileName4,
+		"SlImgSubImageFileName5": self.SlImgSubImageFileName5,
+		"SlImgStartDate": self.SlImgStartDate,
+		"SlImgEndDate": self.SlImgEndDate,
 	}
 	if(SlImgId != '' and SlImgId != None):
 		slider_image['SlImgId']=SlImgId
@@ -118,10 +118,10 @@ def addEditCategoryDict(req):
 	ResCatIconName = req.get('editCategoryIcon')
 	ResCatIconFilePath = req.get('editCategoryIconPath')
 	category = {
-		'ResCatName':ResCatName,
-		'ResCatDesc':ResCatDesc,
-		'ResCatIconName':ResCatIconName,
-		'ResCatIconFilePath':ResCatIconFilePath
+		"ResCatName": ResCatName,
+		"ResCatDesc": ResCatDesc,
+		"ResCatIconName": ResCatIconName,
+		"ResCatIconFilePath": ResCatIconFilePath
 	}
 	if(ResCatId != '' and ResCatId != None):
 		category['ResCatId']=ResCatId
@@ -136,11 +136,11 @@ def addCategoryDict(req):
 	ResCatIconName = req.get('categoryIcon')
 	ResCatIconFilePath = req.get('categoryIconPath')
 	category = {
-		'ResOwnerCatId':ResOwnerCatId,
-		'ResCatName':ResCatName,
-		'ResCatDesc':ResCatDesc,
-		'ResCatIconName':ResCatIconName,
-		'ResCatIconFilePath':ResCatIconFilePath
+		"ResOwnerCatId": ResOwnerCatId,
+		"ResCatName": ResCatName,
+		"ResCatDesc": ResCatDesc,
+		"ResCatIconName": ResCatIconName,
+		"ResCatIconFilePath": ResCatIconFilePath
 	}
 	if(ResCatId != '' and ResCatId != None):
 		category['ResCatId']=ResCatId
@@ -166,21 +166,21 @@ def addCompanyInfoDict(req):
 	CEmail = req.get('companyEmail')
 	AddInf1 = req.get('companyWTime')
 	companyInfo = {
-		'CName':CName,
-		'CFullName':CFullName,
-		'CDesc':CDesc,
-		'AccInfId':AccInfId,
-		'CAddress':CAddress,
-		'CAddressLegal':CAddressLegal,
-		'CLatitude':CLatitude,
-		'CLongitude':CLongitude,
-		'Phone1':Phone1,
-		'Phone2':Phone2,
-		'Phone3':Phone3,
-		'Phone4':Phone4,
-		'CPostalCode':CPostalCode,
-		'CEmail':CEmail,
-		'AddInf1':AddInf1
+		"CName": CName,
+		"CFullName": CFullName,
+		"CDesc": CDesc,
+		"AccInfId": AccInfId,
+		"CAddress": CAddress,
+		"CAddressLegal": CAddressLegal,
+		"CLatitude": CLatitude,
+		"CLongitude": CLongitude,
+		"Phone1": Phone1,
+		"Phone2": Phone2,
+		"Phone3": Phone3,
+		"Phone4": Phone4,
+		"CPostalCode": CPostalCode,
+		"CEmail": CEmail,
+		"AddInf1": AddInf1
 	}
 	return companyInfo
 
@@ -215,29 +215,29 @@ def addResourceDict(req):
 	ResMinSalePrice = configureFloat(req.get('resMinSalePrice'))
 	ResMaxSalePrice = configureFloat(req.get('resMaxSalePrice'))
 	resource = {
-		'CId':CId,
-		'DivId':DivId,
-		'ResCatId':ResCatId,
-		'UnitId':UnitId,
-		'BrandId':BrandId,
-		'UsageStatusId':UsageStatusId,
-		'ResTypeId':ResTypeId,
-		'ResMainImgId':ResMainImgId,
-		'ResMakerId':ResMakerId,
-		'ResLastVendorId':ResLastVendorId,
-		'ResRegNo':ResRegNo,
-		'ResName':ResName,
-		'ResDesc':ResDesc,
-		'ResFullDesc':ResFullDesc,
-		'ResWidth':ResWidth,
-		'ResHeight':ResHeight,
-		'ResLength':ResLength,
-		'ResWeight':ResWeight,
-		'ResProductionOnSale':ResProductionOnSale,
-		'ResMinSaleAmount':ResMinSaleAmount,
-		'ResMaxSaleAmount':ResMaxSaleAmount,
-		'ResMinSalePrice':ResMinSalePrice,
-		'ResMaxSalePrice':ResMaxSalePrice
+		"CId": CId,
+		"DivId": DivId,
+		"ResCatId": ResCatId,
+		"UnitId": UnitId,
+		"BrandId": BrandId,
+		"UsageStatusId": UsageStatusId,
+		"ResTypeId": ResTypeId,
+		"ResMainImgId": ResMainImgId,
+		"ResMakerId": ResMakerId,
+		"ResLastVendorId": ResLastVendorId,
+		"ResRegNo": ResRegNo,
+		"ResName": ResName,
+		"ResDesc": ResDesc,
+		"ResFullDesc": ResFullDesc,
+		"ResWidth": ResWidth,
+		"ResHeight": ResHeight,
+		"ResLength": ResLength,
+		"ResWeight": ResWeight,
+		"ResProductionOnSale": ResProductionOnSale,
+		"ResMinSaleAmount": ResMinSaleAmount,
+		"ResMaxSaleAmount": ResMaxSaleAmount,
+		"ResMinSalePrice": ResMinSalePrice,
+		"ResMaxSalePrice": ResMaxSalePrice
 	}
 	return resource
 
@@ -254,11 +254,11 @@ def addBarcodeDict(req):
 	UnitId = req.get('unitId')
 	BarcodeVal = req.get('barcodeVal')
 	barcode = {
-		'CId':CId,
-		'DivId':DivId,
-		'ResId':ResId,
-		'UnitId':UnitId,
-		'BarcodeVal':BarcodeVal
+		"CId": CId,
+		"DivId": DivId,
+		"ResId": ResId,
+		"UnitId": UnitId,
+		"BarcodeVal": BarcodeVal
 	}
 	return barcode
 
@@ -269,8 +269,8 @@ def addBrandDict(req):
 	BrandName = req.get('brandName')
 	BrandDesc = req.get('brandDesc')
 	brand = {
-		'BrandName':BrandName,
-		'BrandDesc':BrandDesc
+		"BrandName": BrandName,
+		"BrandDesc": BrandDesc
 	}
 	return brand
 
@@ -283,9 +283,9 @@ def addColorDict(req):
 	ColorDesc = req.get('colorDesc')
 	ColorCode = req.get('colorCode')
 	color = {
-		'ColorName':ColorName,
-		'ColorDesc':ColorDesc,
-		'ColorCode':ColorCode
+		"ColorName": ColorName,
+		"ColorDesc": ColorDesc,
+		"ColorCode": ColorCode
 	}
 	return color
 
@@ -297,9 +297,9 @@ def addSizeDict(req):
 	SizeDesc = req.get('sizeDesc')
 	SizeTypeId = req.get('sizeTypeId')
 	size = {
-		'SizeName':SizeName,
-		'SizeDesc':SizeDesc,
-		'SizeTypeId':SizeTypeId
+		"SizeName": SizeName,
+		"SizeDesc": SizeDesc,
+		"SizeTypeId": SizeTypeId
 	}
 	return size
 
@@ -310,8 +310,8 @@ def addSizeTypeDict(req):
 	SizeTypeName = req.get('sizeTypeName')
 	SizeTypeDesc = req.get('sizeTypeDesc')
 	size_type = {
-		'SizeTypeName':SizeTypeName,
-		'SizeTypeDesc':SizeTypeDesc
+		"SizeTypeName": SizeTypeName,
+		"SizeTypeDesc": SizeTypeDesc
 	}
 	return size_type
 
@@ -323,8 +323,8 @@ def addResColorDict(req):
 	ResId = req.get('resId')
 	ColorId = req.get('resColorId')
 	res_color = {
-		'ResId':ResId,
-		'ColorId':ColorId
+		"ResId": ResId,
+		"ColorId": ColorId
 	}
 	return res_color
 
@@ -335,8 +335,8 @@ def addResSizeDict(req):
 	ResId = req.get('resId')
 	SizeId = req.get('sizeId')
 	res_size = {
-		'ResId':ResId,
-		'SizeId':SizeId
+		"ResId": ResId,
+		"SizeId": SizeId
 	}
 	return res_size
 
@@ -355,16 +355,16 @@ def addResPriceDict(req):
 	PriceEndDate = req.get('priceEndDate')
 	print(ResPriceValue)
 	res_price = {
-		# 'ResPriceId':ResPriceId,
-		'ResPriceTypeId':ResPriceTypeId,
-		'ResPriceGroupId':ResPriceGroupId,
-		'UnitId':UnitId,
-		'CurrencyId':CurrencyId,
-		'ResId':ResId,
-		'ResPriceRegNo':ResPriceRegNo,
-		'ResPriceValue':ResPriceValue,
-		'PriceStartDate':PriceStartDate,
-		'PriceEndDate':PriceEndDate
+		# "ResPriceId": ResPriceId,
+		"ResPriceTypeId": ResPriceTypeId,
+		"ResPriceGroupId": ResPriceGroupId,
+		"UnitId": UnitId,
+		"CurrencyId": CurrencyId,
+		"ResId": ResId,
+		"ResPriceRegNo": ResPriceRegNo,
+		"ResPriceValue": ResPriceValue,
+		"PriceStartDate": PriceStartDate,
+		"PriceEndDate": PriceEndDate
 	}
 	return res_price
 
@@ -379,11 +379,11 @@ def addResTransDict(req):
 	ResDesc = req.get('resDescTrans')
 	ResFullDesc = req.get('resFullDescTrans')
 	res_trans = {
-		'ResId':ResId,
-		'LangId':LangId,
-		'ResName':ResName,
-		'ResDesc':ResDesc,
-		'ResFullDesc':ResFullDesc
+		"ResId": ResId,
+		"LangId": LangId,
+		"ResName": ResName,
+		"ResDesc": ResDesc,
+		"ResFullDesc": ResFullDesc
 	}
 	return res_trans
 
@@ -394,8 +394,8 @@ def addLanguageDict(req):
 	LangName = req.get('langName')
 	LangDesc = req.get('langDesc')
 	language = {
-		'LangName':LangName,
-		'LangDesc':LangDesc
+		"LangName": LangName,
+		"LangDesc": LangDesc
 	}
 	return language
 
@@ -406,10 +406,10 @@ def addResUnitDict(req):
 	ResUnitConvAmount = req.get('resUnitConvAmount')
 	ResUnitConvTypeId = req.get('resUnitConvTypeId')
 	res_unit = {
-		'ResId':ResId,
-		'ResUnitUnitId':ResUnitUnitId,
-		'ResUnitConvAmount':ResUnitConvAmount,
-		'ResUnitConvTypeId':ResUnitConvTypeId
+		"ResId": ResId,
+		"ResUnitUnitId": ResUnitUnitId,
+		"ResUnitConvAmount": ResUnitConvAmount,
+		"ResUnitConvTypeId": ResUnitConvTypeId
 	}
 	return res_unit
 
@@ -423,13 +423,13 @@ def addImageDict(req):
 	FileHash = req.get('fileHash')
 	Image = req.get('image')
 	image_dict = {
-		'EmpId':EmpId,
-		'CId':CId,
-		'RpAccId':RpAccId,
-		'ResId':ResId,
-		'FileName':FileName,
-		'FileHash':FileHash,
-		'Image':Image,
+		"EmpId": EmpId,
+		"CId": CId,
+		"RpAccId": RpAccId,
+		"ResId":ResId,
+		"FileName":FileName,
+		"FileHash":FileHash,
+		"Image":Image,
 		}
 	return image_dict
 
@@ -468,8 +468,8 @@ def configureNulls(data):
 
 def prepare_data(dropdown,page,title):
 	template_data={
-		'dropdown': dropdown,
-		'page': page,
-		'title': title,
+		"dropdown": dropdown,
+		"page": page,
+		"title": title,
 	}
 	return template_data

@@ -50,10 +50,10 @@ def api_order_invoices():
 
 			data.append(oInvData)
 		res = {
-			"status":1,
-			"message":"All order invoices",
-			"data":data,
-			"total":len(order_invoices)
+			"status": 1,
+			"message": "All order invoices",
+			"data": data,
+			"total": len(order_invoices)
 		}
 		response = make_response(jsonify(res),200)
 
@@ -129,10 +129,10 @@ def api_order_invoices():
 
 			status = checkApiResponseStatus(order_invoices,failed_order_invoices)
 			res = {
-				"data":order_invoices,
-				"fails":failed_order_invoices,
-				"success_total":len(order_invoices),
-				"fail_total":len(failed_order_invoices),
+				"data": order_invoices,
+				"fails": failed_order_invoices,
+				"success_total": len(order_invoices),
+				"fail_total": len(failed_order_invoices),
 			}
 			for e in status:
 				res[e]=status[e]
@@ -188,10 +188,10 @@ def api_order_invoices_filter():
 
 		data.append(oInvData)
 	res = {
-		"status":1,
-		"message":"All order invoices between dates",
-		"data":data,
-		"total":len(order_inv_filtered)
+		"status": 1,
+		"message": "All order invoices between dates",
+		"data": data,
+		"total": len(order_inv_filtered)
 	}
 	response = make_response(jsonify(res),200)
 	return response
@@ -214,10 +214,10 @@ def api_v_order_invoices(user):
 			order_inv_list.append(order_inv.to_json_api())
 
 		res = {
-			"data":order_inv_list,
-			"total":len(order_inv_list),
-			"status":1,
-			"message":"Orders"
+			"data": order_inv_list,
+			"total": len(order_inv_list),
+			"status": 1,
+			"message": "Orders"
 		}
 		response = make_response(jsonify(res),200)
 	return response
@@ -247,10 +247,10 @@ def api_v_order_invoice(user,OInvRegNo):
 
 		order_invoice['Order_inv_lines'] = order_inv_lines_list
 		res = {
-			"data":order_invoice,
-			"total":len(order_inv_lines_list),
-			"status":1,
-			"message":"Order lines"
+			"data": order_invoice,
+			"total": len(order_inv_lines_list),
+			"status": 1,
+			"message": "Order lines"
 		}
 		response = make_response(jsonify(res),200)
 	return response

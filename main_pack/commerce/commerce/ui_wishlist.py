@@ -51,15 +51,15 @@ def ui_wishlist():
 				raise Exception
 			
 			wish = {
-				'RpAccId':RpAccId,
-				'ResId':ResId,
+				"RpAccId": RpAccId,
+				"ResId": ResId,
 			}
 			wish = Wish(**wish)
 			db.session.add(wish)
 			db.session.commit()
 			response = jsonify({
-				'status':'added',
-				'responseText':gettext('Product')+' '+gettext('successfully saved')
+				"status": 'added',
+				"responseText": gettext('Product')+' '+gettext('successfully saved')
 			})
 		
 		if request.method=="DELETE":
@@ -74,15 +74,15 @@ def ui_wishlist():
 			wish.GCRecord = 1
 			db.session.commit()
 			response = jsonify({
-				'status':'deleted',
-				'responseText':gettext('Product')+' '+gettext('successfully deleted')
+				"status": 'deleted',
+				"responseText": gettext('Product')+' '+gettext('successfully deleted')
 			})
 
 	except Exception as ex:
 		print(ex)
 		response = jsonify({
-			'status':'error',
-			'responseText':gettext('Unknown error!'),
+			"status": 'error',
+			"responseText": gettext('Unknown error!'),
 			})
 
 	return response

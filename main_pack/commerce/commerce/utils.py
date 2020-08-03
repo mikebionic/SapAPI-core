@@ -76,14 +76,14 @@ def UiCategoriesList():
 		logoIcon["FilePath"] = fileToURL(file_type='image',file_name=company_logo.FileName)
 
 	res = {
-		"categories":data,
-		"company":company,
-		"company_logo":logoIcon
+		"categories": data,
+		"company": company,
+		"company_logo": logoIcon
 	}
 	return res
 
 # categories, company info {not used} 
-# !! delete after reconfiguring navbar.html
+# !!! delete after reconfiguring navbar.html
 def commonUsedData():
 	commonData = {}
 	subcategories = []
@@ -100,10 +100,10 @@ def commonUsedData():
 				subcategory_children.append(category)
 
 	commonData.update({
-		"categories":categories,
-		"subcategories":subcategories,
-		"subcategory_children":subcategory_children,
-		"company":company
+		"categories": categories,
+		"subcategories": subcategories,
+		"subcategory_children": subcategory_children,
+		"company": company
 		})
 	return commonData
 

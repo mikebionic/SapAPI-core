@@ -15,10 +15,10 @@ def api_rp_acc_trans_totals():
 		rp_acc_trans_totals = Rp_acc_trans_total.query\
 			.filter(Rp_acc_trans_total.GCRecord=='' or Rp_acc_trans_total.GCRecord==None).all()
 		res = {
-			"status":1,
-			"message":"All rp acc trans totals",
-			"data":[rp_acc_trans_total.to_json_api() for rp_acc_trans_total in rp_acc_trans_totals],
-			"total":len(rp_acc_trans_totals)
+			"status": 1,
+			"message": "All rp acc trans totals",
+			"data": [rp_acc_trans_total.to_json_api() for rp_acc_trans_total in rp_acc_trans_totals],
+			"total": len(rp_acc_trans_totals)
 		}
 		response = make_response(jsonify(res),200)
 
@@ -62,10 +62,10 @@ def api_rp_acc_trans_totals():
 
 			status = checkApiResponseStatus(rp_acc_trans_totals,failed_rp_acc_trans_totals)
 			res = {
-				"data":rp_acc_trans_totals,
-				"fails":failed_rp_acc_trans_totals,
-				"success_total":len(rp_acc_trans_totals),
-				"fail_total":len(failed_rp_acc_trans_totals)
+				"data": rp_acc_trans_totals,
+				"fails": failed_rp_acc_trans_totals,
+				"success_total": len(rp_acc_trans_totals),
+				"fail_total": len(failed_rp_acc_trans_totals)
 			}
 			for e in status:
 				res[e]=status[e]

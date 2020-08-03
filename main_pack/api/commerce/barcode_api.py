@@ -15,10 +15,10 @@ def api_barcodes():
 		barcodes = Barcode.query\
 			.filter(Barcode.GCRecord=='' or Barcode.GCRecord==None).all()
 		res = {
-			"status":1,
-			"message":"All barcodes",
-			"data":[barcode.to_json_api() for barcode in barcodes],
-			"total":len(barcodes)
+			"status": 1,
+			"message": "All barcodes",
+			"data": [barcode.to_json_api() for barcode in barcodes],
+			"total": len(barcodes)
 		}
 		response = make_response(jsonify(res),200)
 
@@ -64,10 +64,10 @@ def api_barcodes():
 
 			status = checkApiResponseStatus(barcodes,failed_barcodes)
 			res = {
-				"data":barcodes,
-				"fails":failed_barcodes,
-				"success_total":len(barcodes),
-				"fail_total":len(failed_barcodes)
+				"data": barcodes,
+				"fails": failed_barcodes,
+				"success_total": len(barcodes),
+				"fail_total": len(failed_barcodes)
 			}
 			for e in status:
 				res[e]=status[e]

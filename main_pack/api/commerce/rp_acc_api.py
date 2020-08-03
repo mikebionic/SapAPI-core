@@ -13,10 +13,10 @@ from main_pack.api.auth.api_login import sha_required
 def api_rp_accs_rp_acc(RpAccRegNo):
 	rp_acc = apiRpAccData(RpAccRegNo)
 	res = {
-		"status":1,
-		"message":"Single rp_acc",
-		"data":rp_acc['data'],
-		"total":1
+		"status": 1,
+		"message": "Single rp_acc",
+		"data": rp_acc['data'],
+		"total": 1
 	}
 	response = make_response(jsonify(res),200)
 
@@ -29,10 +29,10 @@ def api_rp_accs():
 		rp_accs = Rp_acc.query\
 			.filter(Rp_acc.GCRecord=='' or Rp_acc.GCRecord==None).all()
 		res = {
-			"status":1,
-			"message":"All rp_accs",
-			"data":[rp_acc.to_json_api() for rp_acc in rp_accs],
-			"total":len(rp_accs)
+			"status": 1,
+			"message": "All rp_accs",
+			"data": [rp_acc.to_json_api() for rp_acc in rp_accs],
+			"total": len(rp_accs)
 		}
 		response = make_response(jsonify(res),200)
 
@@ -71,10 +71,10 @@ def api_rp_accs():
 
 			status = checkApiResponseStatus(rp_accs,failed_rp_accs)
 			res = {
-				"data":rp_accs,
-				"fails":failed_rp_accs,
-				"success_total":len(rp_accs),
-				"fail_total":len(failed_rp_accs)
+				"data": rp_accs,
+				"fails": failed_rp_accs,
+				"success_total": len(rp_accs),
+				"fail_total": len(failed_rp_accs)
 			}		
 			for e in status:
 				res[e]=status[e]

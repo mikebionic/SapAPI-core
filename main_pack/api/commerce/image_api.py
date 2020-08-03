@@ -17,10 +17,10 @@ def api_images():
 		images = Image.query\
 			.filter(Image.GCRecord=='' or Image.GCRecord==None).all()
 		res = {
-			"status":1,
-			"message":"All images",
-			"data":[image.to_json_api() for image in images],
-			"total":len(images)
+			"status": 1,
+			"message": "All images",
+			"data": [image.to_json_api() for image in images],
+			"total": len(images)
 		}
 		response = make_response(jsonify(res),200)
 
@@ -72,10 +72,10 @@ def api_images():
 
 			status = checkApiResponseStatus(images,failed_images)
 			res = {
-				"data":images,
-				"fails":failed_images,
-				"success_total":len(images),
-				"fail_total":len(failed_images)
+				"data": images,
+				"fails": failed_images,
+				"success_total": len(images),
+				"fail_total": len(failed_images)
 			}
 			for e in status:
 				res[e]=status[e]
@@ -85,10 +85,10 @@ def api_images():
 
 @api.route("/get-image/<file_type>/<file_size>/<file_name>")
 def get_image(file_type,file_size,file_name):
-	if file_type=="slider":
+	if file_type=="slider": 
 		sl_image = Sl_image.query.filter(Sl_image.SlImgName==file_name).first()
 		path = sl_image.SlImgMainImgFileName
-	if file_type=="image":
+	if file_type=="image": 
 		image = Image.query.filter(Image.FileName==file_name).first()
 		path = image.FilePath
 	if file_size != 'undefined':
@@ -105,7 +105,7 @@ def get_image(file_type,file_size,file_name):
 
 @api.route("/get-file/<file_type>/<file_name>")
 def get_file(file_type,file_name):
-	if file_type=="slider":
+	if file_type=="slider": 
 		sl_image = Sl_image.query.filter(Sl_image.SlImgName==file_name).first()
 		path = sl_image.SlImgMainImgFileName
 	try:

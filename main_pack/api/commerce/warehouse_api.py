@@ -15,10 +15,10 @@ def api_warehouses():
 		warehouses = Warehouse.query\
 			.filter(Warehouse.GCRecord=='' or Warehouse.GCRecord==None).all()
 		res = {
-			"status":1,
-			"message":"All warehouses",
-			"data":[warehouse.to_json_api() for warehouse in warehouses],
-			"total":len(warehouses)
+			"status": 1,
+			"message": "All warehouses",
+			"data": [warehouse.to_json_api() for warehouse in warehouses],
+			"total": len(warehouses)
 		}
 		response = make_response(jsonify(res),200)
 
@@ -67,10 +67,10 @@ def api_warehouses():
 
 			status = checkApiResponseStatus(warehouses,failed_warehouses)
 			res = {
-				"data":warehouses,
-				"fails":failed_warehouses,
-				"success_total":len(warehouses),
-				"fail_total":len(failed_warehouses)
+				"data": warehouses,
+				"fails": failed_warehouses,
+				"success_total": len(warehouses),
+				"fail_total": len(failed_warehouses)
 			}
 			for e in status:
 				res[e]=status[e]

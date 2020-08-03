@@ -230,26 +230,26 @@ class Currency(AddInf,CreatedModifiedInfo,db.Model):
 
 	def to_json_api(self):
 		json_currency = {
-			'CurrencyId':self.CurrencyId,
-			'CurrencyName_tkTM':self.CurrencyName_tkTM,
-			'CurrencyDesc_tkTM':self.CurrencyDesc_tkTM,
-			'CurrencyName_ruRU':self.CurrencyName_ruRU,
-			'CurrencyDesc_ruRU':self.CurrencyDesc_ruRU,
-			'CurrencyName_enUS':self.CurrencyName_enUS,
-			'CurrencyDesc_enUS':self.CurrencyDesc_enUS,
-			'CurrencyCode':self.CurrencyCode,
-			'CurrencySymbol':self.CurrencySymbol,
-			'AddInf1':self.AddInf1,
-			'AddInf2':self.AddInf2,
-			'AddInf3':self.AddInf3,
-			'AddInf4':self.AddInf4,
-			'AddInf5':self.AddInf5,
-			'AddInf6':self.AddInf6,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"CurrencyId": self.CurrencyId,
+			"CurrencyName_tkTM": self.CurrencyName_tkTM,
+			"CurrencyDesc_tkTM": self.CurrencyDesc_tkTM,
+			"CurrencyName_ruRU": self.CurrencyName_ruRU,
+			"CurrencyDesc_ruRU": self.CurrencyDesc_ruRU,
+			"CurrencyName_enUS": self.CurrencyName_enUS,
+			"CurrencyDesc_enUS": self.CurrencyDesc_enUS,
+			"CurrencyCode": self.CurrencyCode,
+			"CurrencySymbol": self.CurrencySymbol,
+			"AddInf1": self.AddInf1,
+			"AddInf2": self.AddInf2,
+			"AddInf3": self.AddInf3,
+			"AddInf4": self.AddInf4,
+			"AddInf5": self.AddInf5,
+			"AddInf6": self.AddInf6,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return json_currency
 
@@ -332,38 +332,38 @@ class Image(CreatedModifiedInfo,db.Model):
 
 	def to_json(self):
 		json_image = {
-			'imgId':self.ImgId,
-			'empId':self.EmpId,
-			'companyId':self.CId,
-			'rpAccId':self.RpAccId,
-			'resId':self.ResId,
-			'fileName':self.FileName,
-			'fileHash':self.FileHash,
-			'image':self.Image,
+			"imgId": self.ImgId,
+			"empId": self.EmpId,
+			"companyId": self.CId,
+			"rpAccId": self.RpAccId,
+			"resId": self.ResId,
+			"fileName": self.FileName,
+			"fileHash": self.FileHash,
+			"image": self.Image,
 		}
 		return json_image
 
 	def to_json_api(self):
 		json_image = {
-			'ImgId':self.ImgId,
-			'EmpId':self.EmpId,
-			'CId':self.CId,
-			'UId':self.UId,
-			'RpAccId':self.RpAccId,
-			'ResId':self.ResId,
-			'FileName':self.FileName,
+			"ImgId": self.ImgId,
+			"EmpId": self.EmpId,
+			"CId": self.CId,
+			"UId": self.UId,
+			"RpAccId": self.RpAccId,
+			"ResId": self.ResId,
+			"FileName": self.FileName,
 			'FilePath':fileToURL(file_type='image',file_size='M',file_name=self.FileName),
 			'FilePathS':fileToURL(file_type='image',file_size='S',file_name=self.FileName),
 			'FilePathM':fileToURL(file_type='image',file_size='M',file_name=self.FileName),
 			'FilePathR':fileToURL(file_type='image',file_size='R',file_name=self.FileName),
-			# 'FileHash':self.FileHash,
-			# # 'Image':base64.encodebytes(self.Image).decode('ascii'),
-			# 'Image':apiCheckImageByte(self.Image),
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			# "FileHash": self.FileHash,
+			# # "Image": base64.encodebytes(self.Image).decode('ascii'),
+			# "Image": apiCheckImageByte(self.Image),
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return json_image
 
@@ -414,9 +414,9 @@ class Language(CreatedModifiedInfo,db.Model):
 
 	def to_json(self):
 		json_language = {
-			'langId':self.LangId,
-			'langName':self.LangName,
-			'langDesc':self.LangDesc
+			"langId": self.LangId,
+			"langName": self.LangName,
+			"langDesc": self.LangDesc
 		}
 		return json_language
 
@@ -497,32 +497,32 @@ class Sl_image(AddInf,CreatedModifiedInfo,db.Model):
 
 	def to_json_api(self):
 		json_sl_image = {
-			'SlImgId':self.SlImgId,
-			'SlId':self.SlId,
-			'SlImgName':self.SlImgName,
-			'SlImgDesc':self.SlImgDesc,
-			'SlImgMainImgFileName':fileToURL(file_type="slider",file_size='M',file_name=self.SlImgName),
+			"SlImgId": self.SlImgId,
+			"SlId": self.SlId,
+			"SlImgName": self.SlImgName,
+			"SlImgDesc": self.SlImgDesc,
+			"SlImgMainImgFileName": fileToURL(file_type="slider",file_size='M',file_name=self.SlImgName),
 			'SlImgMainImgFilePathS':fileToURL(file_type="slider",file_size='S',file_name=self.SlImgName),
 			'SlImgMainImgFilePathM':fileToURL(file_type="slider",file_size='M',file_name=self.SlImgName),
 			'SlImgMainImgFilePathR':fileToURL(file_type="slider",file_size='R',file_name=self.SlImgName),
-			'SlImgSubImageFileName1':self.SlImgSubImageFileName1,
-			'SlImgSubImageFileName2':self.SlImgSubImageFileName2,
-			'SlImgSubImageFileName3':self.SlImgSubImageFileName3,
-			'SlImgSubImageFileName4':self.SlImgSubImageFileName4,
-			'SlImgSubImageFileName5':self.SlImgSubImageFileName5,
-			'SlImgStartDate':self.SlImgStartDate,
-			'SlImgEndDate':self.SlImgEndDate,
-			'AddInf1':self.AddInf1,
-			'AddInf2':self.AddInf2,
-			'AddInf3':self.AddInf3,
-			'AddInf4':self.AddInf4,
-			'AddInf5':self.AddInf5,
-			'AddInf6':self.AddInf6,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"SlImgSubImageFileName1": self.SlImgSubImageFileName1,
+			"SlImgSubImageFileName2": self.SlImgSubImageFileName2,
+			"SlImgSubImageFileName3": self.SlImgSubImageFileName3,
+			"SlImgSubImageFileName4": self.SlImgSubImageFileName4,
+			"SlImgSubImageFileName5": self.SlImgSubImageFileName5,
+			"SlImgStartDate": self.SlImgStartDate,
+			"SlImgEndDate": self.SlImgEndDate,
+			"AddInf1": self.AddInf1,
+			"AddInf2": self.AddInf2,
+			"AddInf3": self.AddInf3,
+			"AddInf4": self.AddInf4,
+			"AddInf5": self.AddInf5,
+			"AddInf6": self.AddInf6,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return json_sl_image
 
@@ -543,22 +543,22 @@ class Slider(AddInf,CreatedModifiedInfo,db.Model):
 
 	def to_json_api(self):
 		json_slider = {
-			'SlId':self.SlId,
-			'CId':self.CId,
-			'DivId':self.DivId,
-			'SlName':self.SlName,
-			'SlDesc':self.SlDesc,
-			'AddInf1':self.AddInf1,
-			'AddInf2':self.AddInf2,
-			'AddInf3':self.AddInf3,
-			'AddInf4':self.AddInf4,
-			'AddInf5':self.AddInf5,
-			'AddInf6':self.AddInf6,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"SlId": self.SlId,
+			"CId": self.CId,
+			"DivId": self.DivId,
+			"SlName": self.SlName,
+			"SlDesc": self.SlDesc,
+			"AddInf1": self.AddInf1,
+			"AddInf2": self.AddInf2,
+			"AddInf3": self.AddInf3,
+			"AddInf4": self.AddInf4,
+			"AddInf5": self.AddInf5,
+			"AddInf6": self.AddInf6,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return json_slider
 
@@ -586,21 +586,21 @@ class Warehouse(AddInf,CreatedModifiedInfo,db.Model):
 
 	def to_json_api(self):
 		json_warehouse = {
-			'WhId':self.WhId,
-			'CId':self.CId,
-			'DivId':self.DivId,
-			'WhName':self.WhName,
-			'WhDesc':self.WhDesc,
-			'AddInf1':self.AddInf1,
-			'AddInf2':self.AddInf2,
-			'AddInf3':self.AddInf3,
-			'AddInf4':self.AddInf4,
-			'AddInf5':self.AddInf5,
-			'AddInf6':self.AddInf6,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"WhId": self.WhId,
+			"CId": self.CId,
+			"DivId": self.DivId,
+			"WhName": self.WhName,
+			"WhDesc": self.WhDesc,
+			"AddInf1": self.AddInf1,
+			"AddInf2": self.AddInf2,
+			"AddInf3": self.AddInf3,
+			"AddInf4": self.AddInf4,
+			"AddInf5": self.AddInf5,
+			"AddInf6": self.AddInf6,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return json_warehouse

@@ -36,7 +36,7 @@ class Users(AddInf,CreatedModifiedInfo,db.Model,UserMixin):
 
 	def get_reset_token(self,expires_sec=1800):
 		s = Serializer(current_app.config['SECRET_KEY'],expires_sec)
-		return s.dumps({'UId':self.UId}).decode('utf-8')
+		return s.dumps({"UId": self.UId}).decode('utf-8')
 
 	@staticmethod
 	def verify_reset_token(token):
@@ -55,28 +55,28 @@ class Users(AddInf,CreatedModifiedInfo,db.Model,UserMixin):
 
 	def to_json_api(self):
 		users = {
-			'UId':self.UId,
-			'CId':self.CId,
-			'DivId':self.DivId,
-			'RpAccId':self.RpAccId,
-			'UFullName':self.UFullName,
-			'UName':self.UName,
-			'UEmail':self.UEmail,
-			# 'UPass':self.UPass,
-			'UShortName':self.UShortName,
-			'EmpId':self.EmpId,
-			'UTypeId':self.UTypeId,
-			'AddInf1':self.AddInf1,
-			'AddInf2':self.AddInf2,
-			'AddInf3':self.AddInf3,
-			'AddInf4':self.AddInf4,
-			'AddInf5':self.AddInf5,
-			'AddInf6':self.AddInf6,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"UId": self.UId,
+			"CId": self.CId,
+			"DivId": self.DivId,
+			"RpAccId": self.RpAccId,
+			"UFullName": self.UFullName,
+			"UName": self.UName,
+			"UEmail": self.UEmail,
+			# "UPass": self.UPass,
+			"UShortName": self.UShortName,
+			"EmpId": self.EmpId,
+			"UTypeId": self.UTypeId,
+			"AddInf1": self.AddInf1,
+			"AddInf2": self.AddInf2,
+			"AddInf3": self.AddInf3,
+			"AddInf4": self.AddInf4,
+			"AddInf5": self.AddInf5,
+			"AddInf6": self.AddInf6,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return users
 
@@ -93,18 +93,18 @@ class User_type(CreatedModifiedInfo,db.Model):
 
 	def to_json_api(self):
 		user_type = {
-			'UTypeId':self.UTypeId,
-			'UTypeName_tkTM':self.UTypeName_tkTM,
-			'UTypeDesc_tkTM':self.UTypeDesc_tkTM,
-			'UTypeName_ruRU':self.UTypeName_ruRU,
-			'UTypeDesc_ruRU':self.UTypeDesc_ruRU,
-			'UTypeName_enUS':self.UTypeName_enUS,
-			'UTypeDesc_enUS':self.UTypeDesc_enUS,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"UTypeId": self.UTypeId,
+			"UTypeName_tkTM": self.UTypeName_tkTM,
+			"UTypeDesc_tkTM": self.UTypeDesc_tkTM,
+			"UTypeName_ruRU": self.UTypeName_ruRU,
+			"UTypeDesc_ruRU": self.UTypeDesc_ruRU,
+			"UTypeName_enUS": self.UTypeName_enUS,
+			"UTypeDesc_enUS": self.UTypeDesc_enUS,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return user_type
 
@@ -168,48 +168,48 @@ class Rp_acc(AddInf,CreatedModifiedInfo,db.Model):
 
 	def to_json_api(self):
 		json_rp_acc = {
-			'RpAccId':self.RpAccId,
-			'CId':self.CId,
-			'DivId':self.DivId,
-			'EmpId':self.EmpId,
-			'GenderId':self.GenderId,
-			'NatId':self.NatId,
-			'RpAccStatusId':self.RpAccStatusId,
-			'ReprId':self.ReprId,
-			'RpAccTypeId':self.RpAccTypeId,
-			'WpId':self.WpId,			
-			'RpAccRegNo':self.RpAccRegNo,
-			'RpAccUName':self.RpAccUName,
-			# 'RpAccUPass':self.RpAccUPass,
-			'RpAccName':self.RpAccName,
-			'RpAccAddress':self.RpAccAddress,
-			'RpAccMobilePhoneNumber':self.RpAccMobilePhoneNumber,
-			'RpAccHomePhoneNumber':self.RpAccHomePhoneNumber,
-			'RpAccWorkPhoneNumber':self.RpAccWorkPhoneNumber,
-			'RpAccWorkFaxNumber':self.RpAccWorkFaxNumber,
-			'RpAccZipCode':self.RpAccZipCode,
-			'RpAccEMail':self.RpAccEMail,
-			'RpAccFirstName':self.RpAccFirstName,
-			'RpAccLastName':self.RpAccLastName,
-			'RpAccPatronomic':self.RpAccPatronomic,
-			'RpAccBirthDate':apiDataFormat(self.RpAccBirthDate),
-			'RpAccResidency':self.RpAccResidency,
-			'RpAccPassportNo':self.RpAccPassportNo,
-			'RpAccPassportIssuePlace':self.RpAccPassportIssuePlace,
-			'RpAccLangSkills':self.RpAccLangSkills,
-			'RpAccSaleBalanceLimit':self.RpAccSaleBalanceLimit,
-			'RpAccPurchBalanceLimit':self.RpAccPurchBalanceLimit,
-			'AddInf1':self.AddInf1,
-			'AddInf2':self.AddInf2,
-			'AddInf3':self.AddInf3,
-			'AddInf4':self.AddInf4,
-			'AddInf5':self.AddInf5,
-			'AddInf6':self.AddInf6,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"RpAccId": self.RpAccId,
+			"CId": self.CId,
+			"DivId": self.DivId,
+			"EmpId": self.EmpId,
+			"GenderId": self.GenderId,
+			"NatId": self.NatId,
+			"RpAccStatusId": self.RpAccStatusId,
+			"ReprId": self.ReprId,
+			"RpAccTypeId": self.RpAccTypeId,
+			"WpId": self.WpId,			
+			"RpAccRegNo": self.RpAccRegNo,
+			"RpAccUName": self.RpAccUName,
+			# "RpAccUPass": self.RpAccUPass,
+			"RpAccName": self.RpAccName,
+			"RpAccAddress": self.RpAccAddress,
+			"RpAccMobilePhoneNumber": self.RpAccMobilePhoneNumber,
+			"RpAccHomePhoneNumber": self.RpAccHomePhoneNumber,
+			"RpAccWorkPhoneNumber": self.RpAccWorkPhoneNumber,
+			"RpAccWorkFaxNumber": self.RpAccWorkFaxNumber,
+			"RpAccZipCode": self.RpAccZipCode,
+			"RpAccEMail": self.RpAccEMail,
+			"RpAccFirstName": self.RpAccFirstName,
+			"RpAccLastName": self.RpAccLastName,
+			"RpAccPatronomic": self.RpAccPatronomic,
+			"RpAccBirthDate": apiDataFormat(self.RpAccBirthDate),
+			"RpAccResidency": self.RpAccResidency,
+			"RpAccPassportNo": self.RpAccPassportNo,
+			"RpAccPassportIssuePlace": self.RpAccPassportIssuePlace,
+			"RpAccLangSkills": self.RpAccLangSkills,
+			"RpAccSaleBalanceLimit": self.RpAccSaleBalanceLimit,
+			"RpAccPurchBalanceLimit": self.RpAccPurchBalanceLimit,
+			"AddInf1": self.AddInf1,
+			"AddInf2": self.AddInf2,
+			"AddInf3": self.AddInf3,
+			"AddInf4": self.AddInf4,
+			"AddInf5": self.AddInf5,
+			"AddInf6": self.AddInf6,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return json_rp_acc
 
@@ -226,18 +226,18 @@ class Rp_acc_status(CreatedModifiedInfo,db.Model):
 
 	def to_json_api(self):
 		json_rp_acc_status = {
-			'RpAccStatusId':self.RpAccStatusId,
-			'RpAccStatusName_tkTM':self.RpAccStatusName_tkTM,
-			'RpAccStatusDesc_tkTM':self.RpAccStatusDesc_tkTM,
-			'RpAccStatusName_ruRU':self.RpAccStatusName_ruRU,
-			'RpAccStatusDesc_ruRU':self.RpAccStatusDesc_ruRU,
-			'RpAccStatusName_enUS':self.RpAccStatusName_enUS,
-			'RpAccStatusdesc_enUS':self.RpAccStatusdesc_enUS,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"RpAccStatusId": self.RpAccStatusId,
+			"RpAccStatusName_tkTM": self.RpAccStatusName_tkTM,
+			"RpAccStatusDesc_tkTM": self.RpAccStatusDesc_tkTM,
+			"RpAccStatusName_ruRU": self.RpAccStatusName_ruRU,
+			"RpAccStatusDesc_ruRU": self.RpAccStatusDesc_ruRU,
+			"RpAccStatusName_enUS": self.RpAccStatusName_enUS,
+			"RpAccStatusdesc_enUS": self.RpAccStatusdesc_enUS,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return json_rp_acc_status
 
@@ -254,17 +254,17 @@ class Rp_acc_type(CreatedModifiedInfo,db.Model):
 
 	def to_json_api(self):
 		json_rp_acc_type = {
-			'RpAccTypeId':self.RpAccTypeId,
-			'RpAccTypeName_tkTM':self.RpAccTypeName_tkTM,
-			'RpAccTypeDesc_tkTM':self.RpAccTypeDesc_tkTM,
-			'RpAccTypeName_ruRU':self.RpAccTypeName_ruRU,
-			'RpAccTypeDesc_ruRU':self.RpAccTypeDesc_ruRU,
-			'RpAccTypeName_enUS':self.RpAccTypeName_enUS,
-			'RpAccTypeDesc_enUS':self.RpAccTypeDesc_enUS,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"RpAccTypeId": self.RpAccTypeId,
+			"RpAccTypeName_tkTM": self.RpAccTypeName_tkTM,
+			"RpAccTypeDesc_tkTM": self.RpAccTypeDesc_tkTM,
+			"RpAccTypeName_ruRU": self.RpAccTypeName_ruRU,
+			"RpAccTypeDesc_ruRU": self.RpAccTypeDesc_ruRU,
+			"RpAccTypeName_enUS": self.RpAccTypeName_enUS,
+			"RpAccTypeDesc_enUS": self.RpAccTypeDesc_enUS,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return json_rp_acc_type

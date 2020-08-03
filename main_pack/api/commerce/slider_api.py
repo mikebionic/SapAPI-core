@@ -26,10 +26,10 @@ def api_sliders():
 			sliderList["Sl_images"] = slider_images
 			data.append(sliderList)
 		res = {
-			"status":1,
-			"message":"All view sliders",
-			"data":data,
-			"total":len(data)
+			"status": 1,
+			"message": "All view sliders",
+			"data": data,
+			"total": len(data)
 		}
 		response = make_response(jsonify(res),200)
 	return response

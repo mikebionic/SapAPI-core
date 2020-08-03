@@ -22,28 +22,28 @@ class Barcode(CreatedModifiedInfo,db.Model):
 
 	def to_json(self):
 		json_barcode = {
-			'barcodeId':self.BarcodeId,
-			'companyId':self.CId,
-			'divisionId':self.DivId,
-			'resId':self.ResId,
-			'unitId':self.UnitId,
-			'barcodeVal':self.BarcodeVal
+			"barcodeId": self.BarcodeId,
+			"companyId": self.CId,
+			"divisionId": self.DivId,
+			"resId": self.ResId,
+			"unitId": self.UnitId,
+			"barcodeVal": self.BarcodeVal
 		}
 		return json_barcode
 
 	def to_json_api(self):
 		json_barcode = {
-			'BarcodeId':self.BarcodeId,
-			'CId':self.CId,
-			'DivId':self.DivId,
-			'ResId':self.ResId,
-			'UnitId':self.UnitId,
-			'BarcodeVal':self.BarcodeVal,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"BarcodeId": self.BarcodeId,
+			"CId": self.CId,
+			"DivId": self.DivId,
+			"ResId": self.ResId,
+			"UnitId": self.UnitId,
+			"BarcodeVal": self.BarcodeVal,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return json_barcode
 
@@ -62,22 +62,22 @@ class Brand(AddInf,CreatedModifiedInfo,db.Model):
 
 	def to_json(self):
 		json_brand = {
-			'brandId':self.BrandId,
-			'brandName':self.BrandName,
-			'brandDesc':self.BrandDesc
+			"brandId": self.BrandId,
+			"brandName": self.BrandName,
+			"brandDesc": self.BrandDesc
 		}
 		return json_brand
 
 	def to_json_api(self):
 		json_barcode = {
-			'BrandId':self.BrandId,
-			'BrandName':self.BrandName,
-			'BrandDesc':self.BrandDesc,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"BrandId": self.BrandId,
+			"BrandName": self.BrandName,
+			"BrandDesc": self.BrandDesc,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return json_barcode
 
@@ -97,23 +97,23 @@ class Color(CreatedModifiedInfo,db.Model):
 
 	def to_json(self):
 		json_color = {
-			'colorId':self.ColorId,
-			'colorName':self.ColorName,
-			'colorDesc':self.ColorDesc,
-			'colorCode':self.ColorCode
+			"colorId": self.ColorId,
+			"colorName": self.ColorName,
+			"colorDesc": self.ColorDesc,
+			"colorCode": self.ColorCode
 		}
 		return json_color
 
 	def to_json_api(self):
 		json_color = {
-			'ColorName':self.ColorName,
-			'ColorDesc':self.ColorDesc,
-			'ColorCode':self.ColorCode,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"ColorName": self.ColorName,
+			"ColorDesc": self.ColorDesc,
+			"ColorCode": self.ColorCode,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return json_color
 
@@ -133,23 +133,23 @@ class Size(AddInf,CreatedModifiedInfo,db.Model):
 
 	def to_json(self):
 		json_size = {
-			'sizeId':self.SizeId,
-			'sizeName':self.SizeName,
-			'sizeDesc':self.SizeDesc,
-			'sizeTypeId':self.SizeTypeId
+			"sizeId": self.SizeId,
+			"sizeName": self.SizeName,
+			"sizeDesc": self.SizeDesc,
+			"sizeTypeId": self.SizeTypeId
 		}
 		return json_size
 
 	def to_json_api(self):
 		json_size = {
-			'SizeName':self.SizeName,
-			'SizeDesc':self.SizeDesc,
-			'SizeTypeId':self.SizeTypeId,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"SizeName": self.SizeName,
+			"SizeDesc": self.SizeDesc,
+			"SizeTypeId": self.SizeTypeId,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return json_size
 
@@ -169,21 +169,21 @@ class Size_type(CreatedModifiedInfo,db.Model):
 
 	def to_json(self):
 		json_size_type = {
-			'sizeTypeId':self.SizeTypeId,
-			'sizeTypeName':self.SizeTypeName,
-			'sizeTypeDesc':self.SizeTypeDesc
+			"sizeTypeId": self.SizeTypeId,
+			"sizeTypeName": self.SizeTypeName,
+			"sizeTypeDesc": self.SizeTypeDesc
 		}
 		return json_size_type
 
 	def to_json_api(self):
 		json_size_type = {
-			'SizeTypeName':self.SizeTypeName,
-			'SizeTypeDesc':self.SizeTypeDesc,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"SizeTypeName": self.SizeTypeName,
+			"SizeTypeDesc": self.SizeTypeDesc,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return json_size_type
 
@@ -209,17 +209,17 @@ class Unit(CreatedModifiedInfo,db.Model):
 
 	def to_json_api(self):
 		json_unit = {
-			'UnitName_tkTM':self.UnitName_tkTM,
-			'UnitDesc_tkTM':self.UnitDesc_tkTM,
-			'UnitName_ruRU':self.UnitName_ruRU,
-			'UnitDesc_ruRU':self.UnitDesc_ruRU,
-			'UnitName_enUS':self.UnitName_enUS,
-			'UnitDesc_enUS':self.UnitDesc_enUS,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"UnitName_tkTM": self.UnitName_tkTM,
+			"UnitDesc_tkTM": self.UnitDesc_tkTM,
+			"UnitName_ruRU": self.UnitName_ruRU,
+			"UnitDesc_ruRU": self.UnitDesc_ruRU,
+			"UnitName_enUS": self.UnitName_enUS,
+			"UnitDesc_enUS": self.UnitDesc_enUS,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return json_unit
 
@@ -237,17 +237,17 @@ class Usage_status(CreatedModifiedInfo,db.Model):
 
 	def to_json_api(self):
 		json_usage_status = {
-			'UsageStatusName_tkTM':self.UsageStatusName_tkTM,
-			'UsageStatusDesc_tkTM':self.UsageStatusDesc_tkTM,
-			'UsageStatusName_ruRU':self.UsageStatusName_ruRU,
-			'UsageStatusDesc_ruRU':self.UsageStatusDesc_ruRU,
-			'UsageStatusName_enUS':self.UsageStatusName_enUS,
-			'UsageStatusDesc_enUS':self.UsageStatusDesc_enUS,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"UsageStatusName_tkTM": self.UsageStatusName_tkTM,
+			"UsageStatusDesc_tkTM": self.UsageStatusDesc_tkTM,
+			"UsageStatusName_ruRU": self.UsageStatusName_ruRU,
+			"UsageStatusDesc_ruRU": self.UsageStatusDesc_ruRU,
+			"UsageStatusName_enUS": self.UsageStatusName_enUS,
+			"UsageStatusDesc_enUS": self.UsageStatusDesc_enUS,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return json_usage_status
 
@@ -265,18 +265,18 @@ class Discount_type(CreatedModifiedInfo,db.Model):
 
 	def to_json_api(self):
 		json_sale_card_status={
-			'DiscTypeId':self.DiscTypeId,
-			'DiscTypeName_tkTM':self.DiscTypeName_tkTM,
-			'DiscTypeDesc_tkTM':self.DiscTypeDesc_tkTM,
-			'DiscTypeName_ruRU':self.DiscTypeName_ruRU,
-			'DiscTypeDesc_ruRU':self.DiscTypeDesc_ruRU,
-			'DiscTypeName_enUS':self.DiscTypeName_enUS,
-			'DiscTypeDesc':self.DiscTypeDesc,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"DiscTypeId": self.DiscTypeId,
+			"DiscTypeName_tkTM": self.DiscTypeName_tkTM,
+			"DiscTypeDesc_tkTM": self.DiscTypeDesc_tkTM,
+			"DiscTypeName_ruRU": self.DiscTypeName_ruRU,
+			"DiscTypeDesc_ruRU": self.DiscTypeDesc_ruRU,
+			"DiscTypeName_enUS": self.DiscTypeName_enUS,
+			"DiscTypeDesc": self.DiscTypeDesc,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return json_sale_card_status
 
@@ -296,16 +296,16 @@ class Exc_rate(CreatedModifiedInfo,db.Model):
 
 	def to_json_api(self):
 		json_sale_card_status={
-			'ExcRateId':self.ExcRateId,
-			'CurrencyId':self.CurrencyId,
-			'ExcRateTypeId':self.ExcRateTypeId,
-			'ExcRateDate':self.ExcRateDate,
-			'ExcRateValue':self.ExcRateValue,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"ExcRateId": self.ExcRateId,
+			"CurrencyId": self.CurrencyId,
+			"ExcRateTypeId": self.ExcRateTypeId,
+			"ExcRateDate": self.ExcRateDate,
+			"ExcRateValue": self.ExcRateValue,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return json_sale_card_status
 
@@ -319,15 +319,15 @@ class Exc_rate_type(CreatedModifiedInfo,db.Model):
 
 	def to_json_api(self):
 		json_sale_card_status={
-			'ExcRateTypeId':self.ExcRateTypeId,
-			'ExcRateTypeName':self.ExcRateTypeName,
-			'ExcRateTypeDesc':self.ExcRateTypeDesc,
-			'ExcRateTypeExp':self.ExcRateTypeExp,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"ExcRateTypeId": self.ExcRateTypeId,
+			"ExcRateTypeName": self.ExcRateTypeName,
+			"ExcRateTypeDesc": self.ExcRateTypeDesc,
+			"ExcRateTypeExp": self.ExcRateTypeExp,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return json_sale_card_status
 
@@ -361,32 +361,32 @@ class Inv_line(AddInf,CreatedModifiedInfo,db.Model):
 
 	def to_json_api(self):
 		inv_line = {
-			'InvLineId':self.InvLineId,
-			'InvId':self.InvId,
-			'UnitId':self.UnitId,
-			'CurrencyId':self.CurrencyId,
-			'ResId':self.ResId,
-			'LastVendorId':self.LastVendorId,
-			'InvLineDesc':self.InvLineDesc,
-			'InvLineAmount':self.InvLineAmount,
-			'InvLinePrice':self.InvLinePrice,
-			'InvLineTotal':self.InvLineTotal,
-			'InvLineExpenseAmount':self.InvLineExpenseAmount,
-			'InvLineTaxAmount':self.InvLineTaxAmount,
-			'InvLineDiscAmount':self.InvLineDiscAmount,
-			'InvLineFTotal':self.InvLineFTotal,
-			'InvLineDate':self.InvLineDate,
-			'AddInf1':self.AddInf1,
-			'AddInf2':self.AddInf2,
-			'AddInf3':self.AddInf3,
-			'AddInf4':self.AddInf4,
-			'AddInf5':self.AddInf5,
-			'AddInf6':self.AddInf6,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"InvLineId": self.InvLineId,
+			"InvId": self.InvId,
+			"UnitId": self.UnitId,
+			"CurrencyId": self.CurrencyId,
+			"ResId": self.ResId,
+			"LastVendorId": self.LastVendorId,
+			"InvLineDesc": self.InvLineDesc,
+			"InvLineAmount": self.InvLineAmount,
+			"InvLinePrice": self.InvLinePrice,
+			"InvLineTotal": self.InvLineTotal,
+			"InvLineExpenseAmount": self.InvLineExpenseAmount,
+			"InvLineTaxAmount": self.InvLineTaxAmount,
+			"InvLineDiscAmount": self.InvLineDiscAmount,
+			"InvLineFTotal": self.InvLineFTotal,
+			"InvLineDate": self.InvLineDate,
+			"AddInf1": self.AddInf1,
+			"AddInf2": self.AddInf2,
+			"AddInf3": self.AddInf3,
+			"AddInf4": self.AddInf4,
+			"AddInf5": self.AddInf5,
+			"AddInf6": self.AddInf6,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return inv_line
 
@@ -410,20 +410,20 @@ class Inv_line_det(CreatedModifiedInfo,db.Model):
 
 	def to_json_api(self):
 		inv_line_det = {
-			'InvLineDetId':self.InvLineDetId,
-			'InvLineId':self.InvLineId,
-			'InvLineDetTypeId':self.InvLineDetTypeId,
-			'ResId':self.ResId,
-			'InvLineDetResSN':self.InvLineDetResSN,
-			'InvLineDetSLStartDate':self.InvLineDetSLStartDate,
-			'InvLineDetSLEndDate':self.InvLineDetSLEndDate,
-			'InvLineDetAmount':self.InvLineDetAmount,
-			'InvLineDetAmountBalance':self.InvLineDetAmountBalance,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"InvLineDetId": self.InvLineDetId,
+			"InvLineId": self.InvLineId,
+			"InvLineDetTypeId": self.InvLineDetTypeId,
+			"ResId": self.ResId,
+			"InvLineDetResSN": self.InvLineDetResSN,
+			"InvLineDetSLStartDate": self.InvLineDetSLStartDate,
+			"InvLineDetSLEndDate": self.InvLineDetSLEndDate,
+			"InvLineDetAmount": self.InvLineDetAmount,
+			"InvLineDetAmountBalance": self.InvLineDetAmountBalance,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return inv_line_det
 
@@ -441,18 +441,18 @@ class Inv_line_det_type(CreatedModifiedInfo,db.Model):
 
 	def to_json_api(self):
 		inv_line_det_type = {
-			'InvLineDetTypeId':self.InvLineDetTypeId,
-			'InvLineDetTypeName_tkTM':self.InvLineDetTypeName_tkTM,
-			'InvLineDetTypeDesc_tkTM':self.InvLineDetTypeDesc_tkTM,
-			'InvLineDetTypeName_ruRU':self.InvLineDetTypeName_ruRU,
-			'InvLineDetTypeDesc_ruRU':self.InvLineDetTypeDesc_ruRU,
-			'InvLineDetTypeName_enUS':self.InvLineDetTypeName_enUS,
-			'InvLineDetTypeDesc_enUS':self.InvLineDetTypeDesc_enUS,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"InvLineDetTypeId": self.InvLineDetTypeId,
+			"InvLineDetTypeName_tkTM": self.InvLineDetTypeName_tkTM,
+			"InvLineDetTypeDesc_tkTM": self.InvLineDetTypeDesc_tkTM,
+			"InvLineDetTypeName_ruRU": self.InvLineDetTypeName_ruRU,
+			"InvLineDetTypeDesc_ruRU": self.InvLineDetTypeDesc_ruRU,
+			"InvLineDetTypeName_enUS": self.InvLineDetTypeName_enUS,
+			"InvLineDetTypeDesc_enUS": self.InvLineDetTypeDesc_enUS,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return inv_line_det_type
 
@@ -472,18 +472,18 @@ class Inv_status(CreatedModifiedInfo,db.Model):
 
 	def to_json_api(self):
 		inv_status = {
-			'InvStatId':self.InvStatId,
-			'InvStatName_tkTM':self.InvStatName_tkTM,
-			'InvStatDesc_tkTM':self.InvStatDesc_tkTM,
-			'InvStatName_ruRU':self.InvStatName_ruRU,
-			'InvStatDesc_ruRU':self.InvStatDesc_ruRU,
-			'InvStatName_enUS':self.InvStatName_enUS,
-			'InvStatDesc_enUS':self.InvStatDesc_enUS,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"InvStatId": self.InvStatId,
+			"InvStatName_tkTM": self.InvStatName_tkTM,
+			"InvStatDesc_tkTM": self.InvStatDesc_tkTM,
+			"InvStatName_ruRU": self.InvStatName_ruRU,
+			"InvStatDesc_ruRU": self.InvStatDesc_ruRU,
+			"InvStatName_enUS": self.InvStatName_enUS,
+			"InvStatDesc_enUS": self.InvStatDesc_enUS,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return inv_status
 
@@ -500,18 +500,18 @@ class Inv_type(CreatedModifiedInfo,db.Model):
 
 	def to_json_api(self):
 		inv_type = {
-			'InvTypeId':self.InvTypeId,
-			'InvTypeName_tkTM':self.InvTypeName_tkTM,
-			'InvTypeDesc_tkTM':self.InvTypeDesc_tkTM,
-			'InvTypeName_ruRU':self.InvTypeName_ruRU,
-			'InvTypeDesc_ruRU':self.InvTypeDesc_ruRU,
-			'InvTypeName_enUS':self.InvTypeName_enUS,
-			'InvTypeDesc_enUS':self.InvTypeDesc_enUS,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"InvTypeId": self.InvTypeId,
+			"InvTypeName_tkTM": self.InvTypeName_tkTM,
+			"InvTypeDesc_tkTM": self.InvTypeDesc_tkTM,
+			"InvTypeName_ruRU": self.InvTypeName_ruRU,
+			"InvTypeDesc_ruRU": self.InvTypeDesc_ruRU,
+			"InvTypeName_enUS": self.InvTypeName_enUS,
+			"InvTypeDesc_enUS": self.InvTypeDesc_enUS,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return inv_type
 
@@ -551,40 +551,40 @@ class Invoice(AddInf,CreatedModifiedInfo,db.Model):
 
 	def to_json_api(self):
 		invoice = {
-			'InvId':self.InvId,
-			'InvTypeId':self.InvTypeId,
-			'InvStatId':self.InvStatId,
-			'CurrencyId':self.CurrencyId,
-			'RpAccId':self.RpAccId,
-			'CId':self.CId,
-			'DivId':self.DivId,
-			'WhId':self.WhId,
-			'WpId':self.WpId,
-			'EmpId':self.EmpId,
-			'InvRegNo':self.InvRegNo,
-			'InvDesc':self.InvDesc,
-			'InvDate':apiDataFormat(self.InvDate),
-			'InvTotal':self.InvTotal,
-			'InvExpenseAmount':self.InvExpenseAmount,
-			'InvTaxAmount':self.InvTaxAmount,
-			'InvDiscountAmount':self.InvDiscountAmount,
-			'InvFTotal':self.InvFTotal,
-			'InvFTotalInWrite':self.InvFTotalInWrite,
-			'InvModifyCount':self.InvModifyCount,
-			'InvPrintCount':self.InvPrintCount,
-			'InvCreditDays':self.InvCreditDays,
-			'InvCreditDesc':self.InvCreditDesc,
-			'AddInf1':self.AddInf1,
-			'AddInf2':self.AddInf2,
-			'AddInf3':self.AddInf3,
-			'AddInf4':self.AddInf4,
-			'AddInf5':self.AddInf5,
-			'AddInf6':self.AddInf6,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"InvId": self.InvId,
+			"InvTypeId": self.InvTypeId,
+			"InvStatId": self.InvStatId,
+			"CurrencyId": self.CurrencyId,
+			"RpAccId": self.RpAccId,
+			"CId": self.CId,
+			"DivId": self.DivId,
+			"WhId": self.WhId,
+			"WpId": self.WpId,
+			"EmpId": self.EmpId,
+			"InvRegNo": self.InvRegNo,
+			"InvDesc": self.InvDesc,
+			"InvDate": apiDataFormat(self.InvDate),
+			"InvTotal": self.InvTotal,
+			"InvExpenseAmount": self.InvExpenseAmount,
+			"InvTaxAmount": self.InvTaxAmount,
+			"InvDiscountAmount": self.InvDiscountAmount,
+			"InvFTotal": self.InvFTotal,
+			"InvFTotalInWrite": self.InvFTotalInWrite,
+			"InvModifyCount": self.InvModifyCount,
+			"InvPrintCount": self.InvPrintCount,
+			"InvCreditDays": self.InvCreditDays,
+			"InvCreditDesc": self.InvCreditDesc,
+			"AddInf1": self.AddInf1,
+			"AddInf2": self.AddInf2,
+			"AddInf3": self.AddInf3,
+			"AddInf4": self.AddInf4,
+			"AddInf5": self.AddInf5,
+			"AddInf6": self.AddInf6,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return invoice
 
@@ -623,40 +623,40 @@ class Order_inv(AddInf,CreatedModifiedInfo,db.Model):
 
 	def to_json_api(self):
 		order_inv = {
-			'OInvId':self.OInvId,
-			'OInvTypeId':self.OInvTypeId,
-			'InvStatId':self.InvStatId,
-			'CurrencyId':self.CurrencyId,
-			'RpAccId':self.RpAccId,
-			'CId':self.CId,
-			'DivId':self.DivId,
-			'WhId':self.WhId,
-			'WpId':self.WpId,
-			'EmpId':self.EmpId,
-			'OInvRegNo':self.OInvRegNo,
-			'OInvDesc':self.OInvDesc,
-			'OInvDate':apiDataFormat(self.OInvDate),
-			'OInvTotal':configureFloat(self.OInvTotal),
-			'OInvExpenseAmount':configureFloat(self.OInvExpenseAmount),
-			'OInvTaxAmount':configureFloat(self.OInvTaxAmount),
-			'OInvDiscountAmount':configureFloat(self.OInvDiscountAmount),
-			'OInvFTotal':configureFloat(self.OInvFTotal),
-			'OInvFTotalInWrite':self.OInvFTotalInWrite,
-			'OInvModifyCount':self.OInvModifyCount,
-			'OInvPrintCount':self.OInvPrintCount,
-			'OInvCreditDays':self.OInvCreditDays,
-			'OInvCreditDesc':self.OInvCreditDesc,
-			'AddInf1':self.AddInf1,
-			'AddInf2':self.AddInf2,
-			'AddInf3':self.AddInf3,
-			'AddInf4':self.AddInf4,
-			'AddInf5':self.AddInf5,
-			'AddInf6':self.AddInf6,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"OInvId": self.OInvId,
+			"OInvTypeId": self.OInvTypeId,
+			"InvStatId": self.InvStatId,
+			"CurrencyId": self.CurrencyId,
+			"RpAccId": self.RpAccId,
+			"CId": self.CId,
+			"DivId": self.DivId,
+			"WhId": self.WhId,
+			"WpId": self.WpId,
+			"EmpId": self.EmpId,
+			"OInvRegNo": self.OInvRegNo,
+			"OInvDesc": self.OInvDesc,
+			"OInvDate": apiDataFormat(self.OInvDate),
+			"OInvTotal": configureFloat(self.OInvTotal),
+			"OInvExpenseAmount": configureFloat(self.OInvExpenseAmount),
+			"OInvTaxAmount": configureFloat(self.OInvTaxAmount),
+			"OInvDiscountAmount": configureFloat(self.OInvDiscountAmount),
+			"OInvFTotal": configureFloat(self.OInvFTotal),
+			"OInvFTotalInWrite": self.OInvFTotalInWrite,
+			"OInvModifyCount": self.OInvModifyCount,
+			"OInvPrintCount": self.OInvPrintCount,
+			"OInvCreditDays": self.OInvCreditDays,
+			"OInvCreditDesc": self.OInvCreditDesc,
+			"AddInf1": self.AddInf1,
+			"AddInf2": self.AddInf2,
+			"AddInf3": self.AddInf3,
+			"AddInf4": self.AddInf4,
+			"AddInf5": self.AddInf5,
+			"AddInf6": self.AddInf6,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return order_inv
 
@@ -688,32 +688,32 @@ class Order_inv_line(AddInf,CreatedModifiedInfo,db.Model):
 
 	def to_json_api(self):
 		order_inv_line = {
-			'OInvLineId':self.OInvLineId,
-			'OInvId':self.OInvId,
-			'UnitId':self.UnitId,
-			'CurrencyId':self.CurrencyId,
-			'ResId':self.ResId,
-			'LastVendorId':self.LastVendorId,
-			'OInvLineDesc':self.OInvLineDesc,
-			'OInvLineAmount':configureFloat(self.OInvLineAmount),
-			'OInvLinePrice':configureFloat(self.OInvLinePrice),
-			'OInvLineTotal':configureFloat(self.OInvLineTotal),
-			'OInvLineExpenseAmount':configureFloat(self.OInvLineExpenseAmount),
-			'OInvLineTaxAmount':configureFloat(self.OInvLineTaxAmount),
-			'OInvLineDiscAmount':configureFloat(self.OInvLineDiscAmount),
-			'OInvLineFTotal':configureFloat(self.OInvLineFTotal),
-			'OInvLineDate':apiDataFormat(self.OInvLineDate),
-			'AddInf1':self.AddInf1,
-			'AddInf2':self.AddInf2,
-			'AddInf3':self.AddInf3,
-			'AddInf4':self.AddInf4,
-			'AddInf5':self.AddInf5,
-			'AddInf6':self.AddInf6,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"OInvLineId": self.OInvLineId,
+			"OInvId": self.OInvId,
+			"UnitId": self.UnitId,
+			"CurrencyId": self.CurrencyId,
+			"ResId": self.ResId,
+			"LastVendorId": self.LastVendorId,
+			"OInvLineDesc": self.OInvLineDesc,
+			"OInvLineAmount": configureFloat(self.OInvLineAmount),
+			"OInvLinePrice": configureFloat(self.OInvLinePrice),
+			"OInvLineTotal": configureFloat(self.OInvLineTotal),
+			"OInvLineExpenseAmount": configureFloat(self.OInvLineExpenseAmount),
+			"OInvLineTaxAmount": configureFloat(self.OInvLineTaxAmount),
+			"OInvLineDiscAmount": configureFloat(self.OInvLineDiscAmount),
+			"OInvLineFTotal": configureFloat(self.OInvLineFTotal),
+			"OInvLineDate": apiDataFormat(self.OInvLineDate),
+			"AddInf1": self.AddInf1,
+			"AddInf2": self.AddInf2,
+			"AddInf3": self.AddInf3,
+			"AddInf4": self.AddInf4,
+			"AddInf5": self.AddInf5,
+			"AddInf6": self.AddInf6,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return order_inv_line
 
@@ -736,18 +736,18 @@ class Order_inv_type(CreatedModifiedInfo,db.Model):
 
 	def to_json_api(self):
 		json_order_inv_type = {
-			'OInvTypeId':self.OInvTypeId,
-			'OInvTypeName_tkTM':self.OInvTypeName_tkTM,
-			'OInvTypeDesc_tkTM':self.OInvTypeDesc_tkTM,
-			'OInvTypeName_ruRU':self.OInvTypeName_ruRU,
-			'OInvTypeDesc_ruRU':self.OInvTypeDesc_ruRU,
-			'OInvTypeName_enUS':self.OInvTypeName_enUS,
-			'OInvTypeDesc_enUS':self.OInvTypeDesc_enUS,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"OInvTypeId": self.OInvTypeId,
+			"OInvTypeName_tkTM": self.OInvTypeName_tkTM,
+			"OInvTypeDesc_tkTM": self.OInvTypeDesc_tkTM,
+			"OInvTypeName_ruRU": self.OInvTypeName_ruRU,
+			"OInvTypeDesc_ruRU": self.OInvTypeDesc_ruRU,
+			"OInvTypeName_enUS": self.OInvTypeName_enUS,
+			"OInvTypeDesc_enUS": self.OInvTypeDesc_enUS,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return json_order_inv_type
 
@@ -784,38 +784,38 @@ class Representative(AddInf,CreatedModifiedInfo,db.Model):
 
 	def to_json_api(self):
 		json_representative={
-			'ReprId':self.ReprId,
-			'ReprStatusId':self.ReprStatusId,
-			'CId':self.CId,
-			'DivId':self.DivId,
-			'RpAccId':self.RpAccId,
-			'GenderId':self.GenderId,
-			'ReprRegNo':self.ReprRegNo,
-			'ReprName':self.ReprName,
-			'ReprDesc':self.ReprDesc,
-			'ReprProfession':self.ReprProfession,
-			'ReprMobilePhoneNumber':self.ReprMobilePhoneNumber,
-			'ReprHomePhoneNumber':self.ReprHomePhoneNumber,
-			'ReprWorkPhoneNumber':self.ReprWorkPhoneNumber,
-			'ReprWorkFaxNumber':self.ReprWorkFaxNumber,
-			'ReprZipCode':self.ReprZipCode,
-			'ReprEMail':self.ReprEMail,
-			'CreatedDate':self.CreatedDate,
-			'ModifiedDate':self.ModifiedDate,
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'MyProperty':self.MyProperty,
-			'AddInf1':self.AddInf1,
-			'AddInf2':self.AddInf2,
-			'AddInf3':self.AddInf3,
-			'AddInf4':self.AddInf4,
-			'AddInf5':self.AddInf5,
-			'AddInf6':self.AddInf6,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"ReprId": self.ReprId,
+			"ReprStatusId": self.ReprStatusId,
+			"CId": self.CId,
+			"DivId": self.DivId,
+			"RpAccId": self.RpAccId,
+			"GenderId": self.GenderId,
+			"ReprRegNo": self.ReprRegNo,
+			"ReprName": self.ReprName,
+			"ReprDesc": self.ReprDesc,
+			"ReprProfession": self.ReprProfession,
+			"ReprMobilePhoneNumber": self.ReprMobilePhoneNumber,
+			"ReprHomePhoneNumber": self.ReprHomePhoneNumber,
+			"ReprWorkPhoneNumber": self.ReprWorkPhoneNumber,
+			"ReprWorkFaxNumber": self.ReprWorkFaxNumber,
+			"ReprZipCode": self.ReprZipCode,
+			"ReprEMail": self.ReprEMail,
+			"CreatedDate": self.CreatedDate,
+			"ModifiedDate": self.ModifiedDate,
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"MyProperty": self.MyProperty,
+			"AddInf1": self.AddInf1,
+			"AddInf2": self.AddInf2,
+			"AddInf3": self.AddInf3,
+			"AddInf4": self.AddInf4,
+			"AddInf5": self.AddInf5,
+			"AddInf6": self.AddInf6,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return json_representative
 
@@ -884,70 +884,70 @@ class Resource(AddInf,CreatedModifiedInfo,db.Model):
 	
 	def to_json(self):
 		json_resource = {
-			'resId':self.ResId,
-			'companyId':self.CId,
-			'divisionId':self.DivId,
-			'resourceCategoryId':self.ResCatId,
-			'unitId':self.UnitId,
-			'brandId':self.BrandId,
-			'usageStatusId':self.UsageStatusId,
-			'resTypeId':self.ResTypeId,
-			'mainImageId':self.ResMainImgId,
-			'resMakerId':self.ResMakerId,
-			'lastVendorId':self.ResLastVendorId,
-			'regNo':self.ResRegNo,
-			'resourceName':self.ResName,
-			'resourceDesc':self.ResDesc,
-			'resourceFullDesc':self.ResFullDesc,
-			'resourceWidth':self.ResWidth,
-			'resourceHeight':self.ResHeight,
-			'resourceLength':self.ResLength,
-			'resourceWeight':self.ResWeight,
-			'resourceOnSale':self.ResProductionOnSale,
-			'resourceMinSaleAmount':self.ResMinSaleAmount,
-			'resourceMaxSaleAmount':self.ResMaxSaleAmount,
-			'resourceMinSalePrice':self.ResMinSalePrice,
-			'resourceMaxSalePrice':self.ResMaxSalePrice
+			"resId": self.ResId,
+			"companyId": self.CId,
+			"divisionId": self.DivId,
+			"resourceCategoryId": self.ResCatId,
+			"unitId": self.UnitId,
+			"brandId": self.BrandId,
+			"usageStatusId": self.UsageStatusId,
+			"resTypeId": self.ResTypeId,
+			"mainImageId": self.ResMainImgId,
+			"resMakerId": self.ResMakerId,
+			"lastVendorId": self.ResLastVendorId,
+			"regNo": self.ResRegNo,
+			"resourceName": self.ResName,
+			"resourceDesc": self.ResDesc,
+			"resourceFullDesc": self.ResFullDesc,
+			"resourceWidth": self.ResWidth,
+			"resourceHeight": self.ResHeight,
+			"resourceLength": self.ResLength,
+			"resourceWeight": self.ResWeight,
+			"resourceOnSale": self.ResProductionOnSale,
+			"resourceMinSaleAmount": self.ResMinSaleAmount,
+			"resourceMaxSaleAmount": self.ResMaxSaleAmount,
+			"resourceMinSalePrice": self.ResMinSalePrice,
+			"resourceMaxSalePrice": self.ResMaxSalePrice
 		}
 		return json_resource
 
 	def to_json_api(self):
 		json_resource = {
-			'ResId':self.ResId,
-			'CId':self.CId,
-			'DivId':self.DivId,
-			'ResCatId':self.ResCatId,
-			'UnitId':self.UnitId,
-			'BrandId':self.BrandId,
-			'UsageStatusId':self.UsageStatusId,
-			'ResTypeId':self.ResTypeId,
-			'ResMainImgId':self.ResMainImgId,
-			'ResMakerId':self.ResMakerId,
-			'ResLastVendorId':self.ResLastVendorId,
-			'ResRegNo':self.ResRegNo,
-			'ResName':self.ResName,
-			'ResDesc':self.ResDesc,
-			'ResFullDesc':self.ResFullDesc,
-			'ResWidth':self.ResWidth,
-			'ResHeight':self.ResHeight,
-			'ResLength':self.ResLength,
-			'ResWeight':self.ResWeight,
-			'ResProductionOnSale':self.ResProductionOnSale,
-			'ResMinSaleAmount':self.ResMinSaleAmount,
-			'ResMaxSaleAmount':self.ResMaxSaleAmount,
-			'ResMinSalePrice':self.ResMinSalePrice,
-			'ResMaxSalePrice':self.ResMaxSalePrice,
-			'AddInf1':self.AddInf1,
-			'AddInf2':self.AddInf2,
-			'AddInf3':self.AddInf3,
-			'AddInf4':self.AddInf4,
-			'AddInf5':self.AddInf5,
-			'AddInf6':self.AddInf6,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"ResId": self.ResId,
+			"CId": self.CId,
+			"DivId": self.DivId,
+			"ResCatId": self.ResCatId,
+			"UnitId": self.UnitId,
+			"BrandId": self.BrandId,
+			"UsageStatusId": self.UsageStatusId,
+			"ResTypeId": self.ResTypeId,
+			"ResMainImgId": self.ResMainImgId,
+			"ResMakerId": self.ResMakerId,
+			"ResLastVendorId": self.ResLastVendorId,
+			"ResRegNo": self.ResRegNo,
+			"ResName": self.ResName,
+			"ResDesc": self.ResDesc,
+			"ResFullDesc": self.ResFullDesc,
+			"ResWidth": self.ResWidth,
+			"ResHeight": self.ResHeight,
+			"ResLength": self.ResLength,
+			"ResWeight": self.ResWeight,
+			"ResProductionOnSale": self.ResProductionOnSale,
+			"ResMinSaleAmount": self.ResMinSaleAmount,
+			"ResMaxSaleAmount": self.ResMaxSaleAmount,
+			"ResMinSalePrice": self.ResMinSalePrice,
+			"ResMaxSalePrice": self.ResMaxSalePrice,
+			"AddInf1": self.AddInf1,
+			"AddInf2": self.AddInf2,
+			"AddInf3": self.AddInf3,
+			"AddInf4": self.AddInf4,
+			"AddInf5": self.AddInf5,
+			"AddInf6": self.AddInf6,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return json_resource
 
@@ -969,26 +969,26 @@ class Res_category(CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 	def to_json(self):
 		json_category = {
-			'ownerCategoryId':self.ResOwnerCatId,
-			'categoryName':self.ResCatName,
-			'categoryDesc':self.ResCatDesc,
-			'categoryIcon':self.ResCatIconName
+			"ownerCategoryId": self.ResOwnerCatId,
+			"categoryName": self.ResCatName,
+			"categoryDesc": self.ResCatDesc,
+			"categoryIcon": self.ResCatIconName
 		}
 		return json_category
 
 	def to_json_api(self):
 		json_category = {
-			'ResCatId':self.ResCatId,
-			'ResOwnerCatId':self.ResOwnerCatId,
-			'ResCatName':self.ResCatName,
-			'ResCatDesc':self.ResCatDesc,
-			'ResCatIconName':self.ResCatIconName,
-			'ResCatIconFilePath':self.ResCatIconFilePath,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"ResCatId": self.ResCatId,
+			"ResOwnerCatId": self.ResOwnerCatId,
+			"ResCatName": self.ResCatName,
+			"ResCatDesc": self.ResCatDesc,
+			"ResCatIconName": self.ResCatIconName,
+			"ResCatIconFilePath": self.ResCatIconFilePath,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return json_category
 
@@ -1011,24 +1011,24 @@ class Res_maker(AddInf,CreatedModifiedInfo,db.Model):
 
 	def to_json_api(self):
 		json_res_maker={
-			'ResMakerId':self.ResMakerId,
-			'ResMakerName':self.ResMakerName,
-			'ResMakerDesc':self.ResMakerDesc,
-			'ResMakerSite':self.ResMakerSite,
-			'ResMakerMail':self.ResMakerMail,
-			'ResMakerPhone1':self.ResMakerPhone1,
-			'ResMakerPhone2':self.ResMakerPhone2,
-			'AddInf1':self.AddInf1,
-			'AddInf2':self.AddInf2,
-			'AddInf3':self.AddInf3,
-			'AddInf4':self.AddInf4,
-			'AddInf5':self.AddInf5,
-			'AddInf6':self.AddInf6,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"ResMakerId": self.ResMakerId,
+			"ResMakerName": self.ResMakerName,
+			"ResMakerDesc": self.ResMakerDesc,
+			"ResMakerSite": self.ResMakerSite,
+			"ResMakerMail": self.ResMakerMail,
+			"ResMakerPhone1": self.ResMakerPhone1,
+			"ResMakerPhone2": self.ResMakerPhone2,
+			"AddInf1": self.AddInf1,
+			"AddInf2": self.AddInf2,
+			"AddInf3": self.AddInf3,
+			"AddInf4": self.AddInf4,
+			"AddInf5": self.AddInf5,
+			"AddInf6": self.AddInf6,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return json_res_maker
 
@@ -1047,9 +1047,9 @@ class Res_color(CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 	def to_json(self):
 		json_res_color = {
-			'rcId':self.RcId,
-			'resId':self.ResId,
-			'colorId':self.ColorId
+			"rcId": self.RcId,
+			"resId": self.ResId,
+			"colorId": self.ColorId
 		}
 		return json_res_color
 
@@ -1066,9 +1066,9 @@ class Res_size(CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 	def to_json(self):
 		json_res_size = {
-			'rsId':self.RsId,
-			'resId':self.ResId,
-			'sizeId':self.SizeId
+			"rsId": self.RsId,
+			"resId": self.ResId,
+			"sizeId": self.SizeId
 		}
 		return json_res_size
 
@@ -1101,31 +1101,31 @@ class Res_discount(AddInf,CreatedModifiedInfo,db.Model):
 
 	def to_json_api(self):
 		json_res_discount={
-			'ResDiscId':self.ResDiscId,
-			'SaleCardId':self.SaleCardId,
-			'ResDiscRegNo':self.ResDiscRegNo,
-			'SaleResId':self.SaleResId,
-			'SaleResAmount':self.SaleResAmount,
-			'DiscTypeId':self.DiscTypeId,
-			'DiscValue':self.DiscValue,
-			'DiscDesc':self.DiscDesc,
-			'ResDiscStartDate':self.ResDiscStartDate,
-			'ResDiscEndDate':self.ResDiscEndDate,
-			'ResDiscIsActive':self.ResDiscIsActive,
-			'GiftResId':self.GiftResId,
-			'GiftResAmount':self.GiftResAmount,
-			'GiftResDiscValue':self.GiftResDiscValue,
-			'AddInf1':self.AddInf1,
-			'AddInf2':self.AddInf2,
-			'AddInf3':self.AddInf3,
-			'AddInf4':self.AddInf4,
-			'AddInf5':self.AddInf5,
-			'AddInf6':self.AddInf6,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"ResDiscId": self.ResDiscId,
+			"SaleCardId": self.SaleCardId,
+			"ResDiscRegNo": self.ResDiscRegNo,
+			"SaleResId": self.SaleResId,
+			"SaleResAmount": self.SaleResAmount,
+			"DiscTypeId": self.DiscTypeId,
+			"DiscValue": self.DiscValue,
+			"DiscDesc": self.DiscDesc,
+			"ResDiscStartDate": self.ResDiscStartDate,
+			"ResDiscEndDate": self.ResDiscEndDate,
+			"ResDiscIsActive": self.ResDiscIsActive,
+			"GiftResId": self.GiftResId,
+			"GiftResAmount": self.GiftResAmount,
+			"GiftResDiscValue": self.GiftResDiscValue,
+			"AddInf1": self.AddInf1,
+			"AddInf2": self.AddInf2,
+			"AddInf3": self.AddInf3,
+			"AddInf4": self.AddInf4,
+			"AddInf5": self.AddInf5,
+			"AddInf6": self.AddInf6,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return json_res_discount
 
@@ -1150,36 +1150,36 @@ class Res_price(CreatedModifiedInfo,db.Model):
 
 	def to_json(self):
 		json_res_price = {
-			'resPriceId':self.ResPriceId,
-			'resPriceTypeId':self.ResPriceTypeId,
-			'resPriceGroupId':self.ResPriceGroupId,
-			'unitId':self.UnitId,
-			'currencyId':self.CurrencyId,
-			'resId':self.ResId,
-			'resPriceRegNo':self.ResPriceRegNo,
-			'resPriceValue':self.ResPriceValue,
-			'priceStartDate':apiDataFormat(self.PriceStartDate),
-			'priceEndDate':self.PriceEndDate
+			"resPriceId": self.ResPriceId,
+			"resPriceTypeId": self.ResPriceTypeId,
+			"resPriceGroupId": self.ResPriceGroupId,
+			"unitId": self.UnitId,
+			"currencyId": self.CurrencyId,
+			"resId": self.ResId,
+			"resPriceRegNo": self.ResPriceRegNo,
+			"resPriceValue": self.ResPriceValue,
+			"priceStartDate": apiDataFormat(self.PriceStartDate),
+			"priceEndDate": self.PriceEndDate
 		}
 		return json_res_price
 
 	def to_json_api(self):
 		json_res_price = {
-			'ResPriceId':self.ResPriceId,
-			'ResPriceTypeId':self.ResPriceTypeId,
-			'ResPriceGroupId':self.ResPriceGroupId,
-			'UnitId':self.UnitId,
-			'CurrencyId':self.CurrencyId,
-			'ResId':self.ResId,
-			'ResPriceRegNo':self.ResPriceRegNo,
-			'ResPriceValue':self.ResPriceValue,
-			'PriceStartDate':apiDataFormat(self.PriceStartDate),
-			'PriceEndDate':apiDataFormat(self.PriceEndDate),
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"ResPriceId": self.ResPriceId,
+			"ResPriceTypeId": self.ResPriceTypeId,
+			"ResPriceGroupId": self.ResPriceGroupId,
+			"UnitId": self.UnitId,
+			"CurrencyId": self.CurrencyId,
+			"ResId": self.ResId,
+			"ResPriceRegNo": self.ResPriceRegNo,
+			"ResPriceValue": self.ResPriceValue,
+			"PriceStartDate": apiDataFormat(self.PriceStartDate),
+			"PriceEndDate": apiDataFormat(self.PriceEndDate),
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return json_res_price
 
@@ -1205,20 +1205,20 @@ class Res_price_group(CreatedModifiedInfo,db.Model):
 
 	def to_json_api(self):
 		json_res_price_group={
-			'ResPriceGroupId':self.ResPriceGroupId,
-			'UsageStatusId':self.UsageStatusId,
-			'ResPriceGroupName':self.ResPriceGroupName,
-			'ResPriceGroupDesc':self.ResPriceGroupDesc,
-			'ResPriceGroupAMEnabled':self.ResPriceGroupAMEnabled,
-			'FromResPriceTypeId':self.FromResPriceTypeId,
-			'ToResPriceTypeId':self.ToResPriceTypeId,
-			'ResPriceGroupAMPerc':self.ResPriceGroupAMPerc,
-			'RoundingType':self.RoundingType,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"ResPriceGroupId": self.ResPriceGroupId,
+			"UsageStatusId": self.UsageStatusId,
+			"ResPriceGroupName": self.ResPriceGroupName,
+			"ResPriceGroupDesc": self.ResPriceGroupDesc,
+			"ResPriceGroupAMEnabled": self.ResPriceGroupAMEnabled,
+			"FromResPriceTypeId": self.FromResPriceTypeId,
+			"ToResPriceTypeId": self.ToResPriceTypeId,
+			"ResPriceGroupAMPerc": self.ResPriceGroupAMPerc,
+			"RoundingType": self.RoundingType,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return json_res_price_group
 
@@ -1239,24 +1239,24 @@ class Res_price_type(AddInf,CreatedModifiedInfo,db.Model):
 
 	def to_json_api(self):
 		json_res_price_type={
-			'ResPriceTypeId':self.ResPriceTypeId,
-			'ResPriceTypeName_tkTM':self.ResPriceTypeName_tkTM,
-			'ResPriceTypeDesc_tkTM':self.ResPriceTypeDesc_tkTM,
-			'ResPriceTypeName_ruRU':self.ResPriceTypeName_ruRU,
-			'ResPriceTypeDesc_ruRU':self.ResPriceTypeDesc_ruRU,
-			'ResPriceTypeName_enUS':self.ResPriceTypeName_enUS,
-			'ResPriceTypeDesc_enUS':self.ResPriceTypeDesc_enUS,
-			'AddInf1':self.AddInf1,
-			'AddInf2':self.AddInf2,
-			'AddInf3':self.AddInf3,
-			'AddInf4':self.AddInf4,
-			'AddInf5':self.AddInf5,
-			'AddInf6':self.AddInf6,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"ResPriceTypeId": self.ResPriceTypeId,
+			"ResPriceTypeName_tkTM": self.ResPriceTypeName_tkTM,
+			"ResPriceTypeDesc_tkTM": self.ResPriceTypeDesc_tkTM,
+			"ResPriceTypeName_ruRU": self.ResPriceTypeName_ruRU,
+			"ResPriceTypeDesc_ruRU": self.ResPriceTypeDesc_ruRU,
+			"ResPriceTypeName_enUS": self.ResPriceTypeName_enUS,
+			"ResPriceTypeDesc_enUS": self.ResPriceTypeDesc_enUS,
+			"AddInf1": self.AddInf1,
+			"AddInf2": self.AddInf2,
+			"AddInf3": self.AddInf3,
+			"AddInf4": self.AddInf4,
+			"AddInf5": self.AddInf5,
+			"AddInf6": self.AddInf6,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return json_res_price_type
 
@@ -1284,23 +1284,23 @@ class Res_total(CreatedModifiedInfo,db.Model):
 
 	def to_json_api(self):
 		json_res_total = {
-			'ResTotId':self.ResTotId,
-			'ResId':self.ResId,
-			'CurrencyId':self.CurrencyId,
-			'WhId':self.WhId,
-			'CId':self.CId,
-			'DivId':self.DivId,
-			'WpId':self.WpId,
-			'ResTotBalance':self.ResTotBalance,
-			'ResTotInAmount':self.ResTotInAmount,
-			'ResTotOutAmount':self.ResTotOutAmount,
-			'ResTotLastTrDate':apiDataFormat(self.ResTotLastTrDate),
-			'ResTotPurchAvgPrice':self.ResTotPurchAvgPrice,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"ResTotId": self.ResTotId,
+			"ResId": self.ResId,
+			"CurrencyId": self.CurrencyId,
+			"WhId": self.WhId,
+			"CId": self.CId,
+			"DivId": self.DivId,
+			"WpId": self.WpId,
+			"ResTotBalance": self.ResTotBalance,
+			"ResTotInAmount": self.ResTotInAmount,
+			"ResTotOutAmount": self.ResTotOutAmount,
+			"ResTotLastTrDate": apiDataFormat(self.ResTotLastTrDate),
+			"ResTotPurchAvgPrice": self.ResTotPurchAvgPrice,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return json_res_total
 
@@ -1336,35 +1336,35 @@ class Res_trans_inv(AddInf,CreatedModifiedInfo,db.Model):
 
 	def to_json_api(self):
 		json_res_trans_inv={
-			'ResTrInvId':self.ResTrInvId,
-			'ResTrInvTypeId':self.ResTrInvTypeId,
-			'CurrencyId':self.CurrencyId,
-			'CId':self.CId,
-			'DivId':self.DivId,
-			'WhIdIn':self.WhIdIn,
-			'WhIdOut':self.WhIdOut,
-			'EmpId':self.EmpId,
-			'ResTrInvRegNo':self.ResTrInvRegNo,
-			'ResTrInvDesc':self.ResTrInvDesc,
-			'ResTrInvDate':self.ResTrInvDate,
-			'ResTrInvTotal':self.ResTrInvTotal,
-			'ResTrInvExpAmount':self.ResTrInvExpAmount,
-			'ResTrInvTaxAmount':self.ResTrInvTaxAmount,
-			'ResTrInvFTotal':self.ResTrInvFTotal,
-			'ResTrInvFTotalInWrite':self.ResTrInvFTotalInWrite,
-			'ResTrInvModifyCount':self.ResTrInvModifyCount,
-			'ResTrInvPrintCount':self.ResTrInvPrintCount,
-			'AddInf1':self.AddInf1,
-			'AddInf2':self.AddInf2,
-			'AddInf3':self.AddInf3,
-			'AddInf4':self.AddInf4,
-			'AddInf5':self.AddInf5,
-			'AddInf6':self.AddInf6,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"ResTrInvId": self.ResTrInvId,
+			"ResTrInvTypeId": self.ResTrInvTypeId,
+			"CurrencyId": self.CurrencyId,
+			"CId": self.CId,
+			"DivId": self.DivId,
+			"WhIdIn": self.WhIdIn,
+			"WhIdOut": self.WhIdOut,
+			"EmpId": self.EmpId,
+			"ResTrInvRegNo": self.ResTrInvRegNo,
+			"ResTrInvDesc": self.ResTrInvDesc,
+			"ResTrInvDate": self.ResTrInvDate,
+			"ResTrInvTotal": self.ResTrInvTotal,
+			"ResTrInvExpAmount": self.ResTrInvExpAmount,
+			"ResTrInvTaxAmount": self.ResTrInvTaxAmount,
+			"ResTrInvFTotal": self.ResTrInvFTotal,
+			"ResTrInvFTotalInWrite": self.ResTrInvFTotalInWrite,
+			"ResTrInvModifyCount": self.ResTrInvModifyCount,
+			"ResTrInvPrintCount": self.ResTrInvPrintCount,
+			"AddInf1": self.AddInf1,
+			"AddInf2": self.AddInf2,
+			"AddInf3": self.AddInf3,
+			"AddInf4": self.AddInf4,
+			"AddInf5": self.AddInf5,
+			"AddInf6": self.AddInf6,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return json_res_trans_inv
 
@@ -1395,31 +1395,31 @@ class Res_trans_inv_line(AddInf,CreatedModifiedInfo,db.Model):
 
 	def to_json_api(self):
 		json_res_rans_inv_line={
-			'ResTrInvLineId':self.ResTrInvLineId,
-			'ResTrInvId':self.ResTrInvId,
-			'UnitId':self.UnitId,
-			'CurrencyId':self.CurrencyId,
-			'ResId':self.ResId,
-			'LastVendorId':self.LastVendorId,
-			'ResTrInvLineDesc':self.ResTrInvLineDesc,
-			'ResTrInvLineAmount':self.ResTrInvLineAmount,
-			'ResTrInvLinePrice':self.ResTrInvLinePrice,
-			'ResTrInvLineTotal':self.ResTrInvLineTotal,
-			'ResTrInvLineExpenseAmount':self.ResTrInvLineExpenseAmount,
-			'ResTrInvLineTaxAmount':self.ResTrInvLineTaxAmount,
-			'ResTrInvLineFTotal':self.ResTrInvLineFTotal,
-			'ResTrInvLineDate':self.ResTrInvLineDate,
-			'AddInf1':self.AddInf1,
-			'AddInf2':self.AddInf2,
-			'AddInf3':self.AddInf3,
-			'AddInf4':self.AddInf4,
-			'AddInf5':self.AddInf5,
-			'AddInf6':self.AddInf6,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"ResTrInvLineId": self.ResTrInvLineId,
+			"ResTrInvId": self.ResTrInvId,
+			"UnitId": self.UnitId,
+			"CurrencyId": self.CurrencyId,
+			"ResId": self.ResId,
+			"LastVendorId": self.LastVendorId,
+			"ResTrInvLineDesc": self.ResTrInvLineDesc,
+			"ResTrInvLineAmount": self.ResTrInvLineAmount,
+			"ResTrInvLinePrice": self.ResTrInvLinePrice,
+			"ResTrInvLineTotal": self.ResTrInvLineTotal,
+			"ResTrInvLineExpenseAmount": self.ResTrInvLineExpenseAmount,
+			"ResTrInvLineTaxAmount": self.ResTrInvLineTaxAmount,
+			"ResTrInvLineFTotal": self.ResTrInvLineFTotal,
+			"ResTrInvLineDate": self.ResTrInvLineDate,
+			"AddInf1": self.AddInf1,
+			"AddInf2": self.AddInf2,
+			"AddInf3": self.AddInf3,
+			"AddInf4": self.AddInf4,
+			"AddInf5": self.AddInf5,
+			"AddInf6": self.AddInf6,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return json_res_rans_inv_line
 
@@ -1437,18 +1437,18 @@ class Res_trans_inv_type(CreatedModifiedInfo,db.Model):
 
 	def to_json_api(self):
 		json_res_trans_inv_type={
-			'ResTrInvTypeId':self.ResTrInvTypeId,
-			'ResTrInvName_tkTM':self.ResTrInvName_tkTM,
-			'ResTrInvDesc_tkTM':self.ResTrInvDesc_tkTM,
-			'ResTrInvName_ruRU':self.ResTrInvName_ruRU,
-			'ResTrInvDesc_ruRU':self.ResTrInvDesc_ruRU,
-			'ResTrInvName_enUS':self.ResTrInvName_enUS,
-			'ResTrInvDesc_enUS':self.ResTrInvDesc_enUS,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"ResTrInvTypeId": self.ResTrInvTypeId,
+			"ResTrInvName_tkTM": self.ResTrInvName_tkTM,
+			"ResTrInvDesc_tkTM": self.ResTrInvDesc_tkTM,
+			"ResTrInvName_ruRU": self.ResTrInvName_ruRU,
+			"ResTrInvDesc_ruRU": self.ResTrInvDesc_ruRU,
+			"ResTrInvName_enUS": self.ResTrInvName_enUS,
+			"ResTrInvDesc_enUS": self.ResTrInvDesc_enUS,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return json_res_trans_inv_type
 
@@ -1466,18 +1466,18 @@ class Res_trans_type(CreatedModifiedInfo,db.Model):
 
 	def to_json_api(self):
 		json_res_trans_type={
-			'ResTransTypeId':self.ResTransTypeId,
-			'ResTransTypeName_tkTM':self.ResTransTypeName_tkTM,
-			'ResTransTypeDesc_tkTM':self.ResTransTypeDesc_tkTM,
-			'ResTransTypeName_ruRU':self.ResTransTypeName_ruRU,
-			'ResTransTypeDesc_ruRU':self.ResTransTypeDesc_ruRU,
-			'ResTransTypeName_enUS':self.ResTransTypeName_enUS,
-			'ResTransTypeDesc_enUS':self.ResTransTypeDesc_enUS,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"ResTransTypeId": self.ResTransTypeId,
+			"ResTransTypeName_tkTM": self.ResTransTypeName_tkTM,
+			"ResTransTypeDesc_tkTM": self.ResTransTypeDesc_tkTM,
+			"ResTransTypeName_ruRU": self.ResTransTypeName_ruRU,
+			"ResTransTypeDesc_ruRU": self.ResTransTypeDesc_ruRU,
+			"ResTransTypeName_enUS": self.ResTransTypeName_enUS,
+			"ResTransTypeDesc_enUS": self.ResTransTypeDesc_enUS,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return json_res_trans_type
 
@@ -1509,33 +1509,33 @@ class Res_transaction(AddInf,CreatedModifiedInfo,db.Model):
 
 	def to_json_api(self):
 		json_res_transaction={
-			'ResTransId':self.ResTransId,
-			'ResTransTypeId':self.ResTransTypeId,
-			'InvLineId':self.InvLineId,
-			'ResTrInvLineId':self.ResTrInvLineId,
-			'CurrencyId':self.CurrencyId,
-			'UnitId':self.UnitId,
-			'WhId':self.WhId,
-			'ResId':self.ResId,
-			'ResTransName':self.ResTransName,
-			'ResTransDesc':self.ResTransDesc,
-			'ResTransAmount':self.ResTransAmount,
-			'ResTransPrice':self.ResTransPrice,
-			'ResTransFTotalPrice':self.ResTransFTotalPrice,
-			'ResTransResBalance':self.ResTransResBalance,
-			'ResTransDate':self.ResTransDate,
-			'ResTransPurchAvgPrice':self.ResTransPurchAvgPrice,
-			'AddInf1':self.AddInf1,
-			'AddInf2':self.AddInf2,
-			'AddInf3':self.AddInf3,
-			'AddInf4':self.AddInf4,
-			'AddInf5':self.AddInf5,
-			'AddInf6':self.AddInf6,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"ResTransId": self.ResTransId,
+			"ResTransTypeId": self.ResTransTypeId,
+			"InvLineId": self.InvLineId,
+			"ResTrInvLineId": self.ResTrInvLineId,
+			"CurrencyId": self.CurrencyId,
+			"UnitId": self.UnitId,
+			"WhId": self.WhId,
+			"ResId": self.ResId,
+			"ResTransName": self.ResTransName,
+			"ResTransDesc": self.ResTransDesc,
+			"ResTransAmount": self.ResTransAmount,
+			"ResTransPrice": self.ResTransPrice,
+			"ResTransFTotalPrice": self.ResTransFTotalPrice,
+			"ResTransResBalance": self.ResTransResBalance,
+			"ResTransDate": self.ResTransDate,
+			"ResTransPurchAvgPrice": self.ResTransPurchAvgPrice,
+			"AddInf1": self.AddInf1,
+			"AddInf2": self.AddInf2,
+			"AddInf3": self.AddInf3,
+			"AddInf4": self.AddInf4,
+			"AddInf5": self.AddInf5,
+			"AddInf6": self.AddInf6,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return json_res_transaction
 
@@ -1557,23 +1557,23 @@ class Res_translations(AddInf,CreatedModifiedInfo,db.Model):
 
 	def to_json(self):
 		json_res_translations = {
-			'resTransId':self.ResTransId,
-			'resId':self.ResId,
-			'langId':self.LangId,
-			'resNameTrans':self.ResName,
-			'resDescTrans':self.ResDesc,
-			'resFullDescTrans':self.ResFullDesc
+			"resTransId": self.ResTransId,
+			"resId": self.ResId,
+			"langId": self.LangId,
+			"resNameTrans": self.ResName,
+			"resDescTrans": self.ResDesc,
+			"resFullDescTrans": self.ResFullDesc
 		}
 		return json_res_translations
 
 	def to_json_api(self):
 		json_res_translations = {
-			'ResTransId':self.ResTransId,
-			'ResId':self.ResId,
-			'LangId':self.LangId,
-			'ResName':self.ResName,
-			'ResDesc':self.ResDesc,
-			'ResFullDesc':self.ResFullDesc
+			"ResTransId": self.ResTransId,
+			"ResId": self.ResId,
+			"LangId": self.LangId,
+			"ResName": self.ResName,
+			"ResDesc": self.ResDesc,
+			"ResFullDesc": self.ResFullDesc
 		}
 		return json_res_translations
 
@@ -1590,18 +1590,18 @@ class Res_type(CreatedModifiedInfo,db.Model):
 
 	def to_json_api(self):
 		json_res_type={
-			'ResTypeId':self.ResTypeId,
-			'ResTypeName_tkTM':self.ResTypeName_tkTM,
-			'ResTypeDesc_tkTM':self.ResTypeDesc_tkTM,
-			'ResTypeName_ruRU':self.ResTypeName_ruRU,
-			'ResTypeDesc_ruRU':self.ResTypeDesc_ruRU,
-			'ResTypeName_enUS':self.ResTypeName_enUS,
-			'ResTypeDesc_enUS':self.ResTypeDesc_enUS,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"ResTypeId": self.ResTypeId,
+			"ResTypeName_tkTM": self.ResTypeName_tkTM,
+			"ResTypeDesc_tkTM": self.ResTypeDesc_tkTM,
+			"ResTypeName_ruRU": self.ResTypeName_ruRU,
+			"ResTypeDesc_ruRU": self.ResTypeDesc_ruRU,
+			"ResTypeName_enUS": self.ResTypeName_enUS,
+			"ResTypeDesc_enUS": self.ResTypeDesc_enUS,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return json_res_type
 
@@ -1621,21 +1621,21 @@ class Res_unit(CreatedModifiedInfo,db.Model):
 
 	def to_json(self):
 		json_res_unit = {
-			'resUnitId':self.ResUnitId,
-			'resId':self.ResId,
-			'resUnitUnitId':self.ResUnitUnitId,
-			'resUnitConvAmount':self.ResUnitConvAmount,
-			'resUnitConvTypeId':self.ResUnitConvTypeId
+			"resUnitId": self.ResUnitId,
+			"resId": self.ResId,
+			"resUnitUnitId": self.ResUnitUnitId,
+			"resUnitConvAmount": self.ResUnitConvAmount,
+			"resUnitConvTypeId": self.ResUnitConvTypeId
 		}
 		return json_res_unit
 
 	def to_json_api(self):
 		json_res_unit = {
-			'ResUnitId':self.ResUnitId,
-			'ResId':self.ResId,
-			'ResUnitUnitId':self.ResUnitUnitId,
-			'ResUnitConvAmount':self.ResUnitConvAmount,
-			'ResUnitConvTypeId':self.ResUnitConvTypeId
+			"ResUnitId": self.ResUnitId,
+			"ResId": self.ResId,
+			"ResUnitUnitId": self.ResUnitUnitId,
+			"ResUnitConvAmount": self.ResUnitConvAmount,
+			"ResUnitConvTypeId": self.ResUnitConvTypeId
 		}
 		return json_res_unit
 
@@ -1653,14 +1653,14 @@ class Rp_acc_resource(CreatedModifiedInfo,db.Model):
 
 	def to_json_api(self):
 		json_rp_acc_resource={
-			'RpAccResId':self.RpAccResId,
-			'RpAccId':self.RpAccId,
-			'ResId':self.ResId,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"RpAccResId": self.RpAccResId,
+			"RpAccId": self.RpAccId,
+			"ResId": self.ResId,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return json_rp_acc_resource
 
@@ -1682,18 +1682,18 @@ class Rp_acc_trans_total(CreatedModifiedInfo,db.Model):
 
 	def to_json_api(self):
 		json_rp_acc_trans_total={
-			'RpAccTrTotId':self.RpAccTrTotId,
-			'RpAccId':self.RpAccId,
-			'CurrencyId':self.CurrencyId,
-			'RpAccTrTotBalance':self.RpAccTrTotBalance,
-			'RpAccTrTotDebit':self.RpAccTrTotDebit,
-			'RpAccTrTotCredit':self.RpAccTrTotCredit,
-			'RpAccTrTotLastTrDate':apiDataFormat(self.RpAccTrTotLastTrDate),
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"RpAccTrTotId": self.RpAccTrTotId,
+			"RpAccId": self.RpAccId,
+			"CurrencyId": self.CurrencyId,
+			"RpAccTrTotBalance": self.RpAccTrTotBalance,
+			"RpAccTrTotDebit": self.RpAccTrTotDebit,
+			"RpAccTrTotCredit": self.RpAccTrTotCredit,
+			"RpAccTrTotLastTrDate": apiDataFormat(self.RpAccTrTotLastTrDate),
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return json_rp_acc_trans_total
 
@@ -1723,32 +1723,32 @@ class Rp_acc_transaction(AddInf,CreatedModifiedInfo,db.Model):
 
 	def to_json_api(self):
 		json_rp_acc_transaction={
-			'RpAccTransId':self.RpAccTransId,
-			'CId':self.CId,
-			'DivId':self.DivId,
-			'WpId':self.WpId,
-			'TransTypeId':self.TransTypeId,
-			'InvId':self.InvId,
-			'ResTransInvId':self.ResTransInvId,
-			'RpAccId':self.RpAccId,
-			'CurrencyId':self.CurrencyId,
-			'RpAccTransName':self.RpAccTransName,
-			'RpAccTransCode':self.RpAccTransCode,
-			'RpAccTransDate':self.RpAccTransDate,
-			'RpAccTransDebit':self.RpAccTransDebit,
-			'RpAccTransCredit':self.RpAccTransCredit,
-			'RpAccTransTotal':self.RpAccTransTotal,
-			'AddInf1':self.AddInf1,
-			'AddInf2':self.AddInf2,
-			'AddInf3':self.AddInf3,
-			'AddInf4':self.AddInf4,
-			'AddInf5':self.AddInf5,
-			'AddInf6':self.AddInf6,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"RpAccTransId": self.RpAccTransId,
+			"CId": self.CId,
+			"DivId": self.DivId,
+			"WpId": self.WpId,
+			"TransTypeId": self.TransTypeId,
+			"InvId": self.InvId,
+			"ResTransInvId": self.ResTransInvId,
+			"RpAccId": self.RpAccId,
+			"CurrencyId": self.CurrencyId,
+			"RpAccTransName": self.RpAccTransName,
+			"RpAccTransCode": self.RpAccTransCode,
+			"RpAccTransDate": self.RpAccTransDate,
+			"RpAccTransDebit": self.RpAccTransDebit,
+			"RpAccTransCredit": self.RpAccTransCredit,
+			"RpAccTransTotal": self.RpAccTransTotal,
+			"AddInf1": self.AddInf1,
+			"AddInf2": self.AddInf2,
+			"AddInf3": self.AddInf3,
+			"AddInf4": self.AddInf4,
+			"AddInf5": self.AddInf5,
+			"AddInf6": self.AddInf6,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return json_rp_acc_transaction
 
@@ -1773,21 +1773,21 @@ class Sale_agr_res_price(CreatedModifiedInfo,db.Model):
 
 	def to_json_api(self):
 		json_sale_agr_res_price={
-			'SAResPriceId':self.SAResPriceId,
-			'SaleAgrId':self.SaleAgrId,
-			'ResPriceTypeId':self.ResPriceTypeId,
-			'UnitId':self.UnitId,
-			'CurrencyId':self.CurrencyId,
-			'ResId':self.ResId,
-			'SAResPriceRegNo':self.SAResPriceRegNo,
-			'SAResPriceValue':self.SAResPriceValue,
-			'SAPriceStartDate':self.SAPriceStartDate,
-			'SAPriceEndDate':self.SAPriceEndDate,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"SAResPriceId": self.SAResPriceId,
+			"SaleAgrId": self.SaleAgrId,
+			"ResPriceTypeId": self.ResPriceTypeId,
+			"UnitId": self.UnitId,
+			"CurrencyId": self.CurrencyId,
+			"ResId": self.ResId,
+			"SAResPriceRegNo": self.SAResPriceRegNo,
+			"SAResPriceValue": self.SAResPriceValue,
+			"SAPriceStartDate": self.SAPriceStartDate,
+			"SAPriceEndDate": self.SAPriceEndDate,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return json_sale_agr_res_price
 
@@ -1814,27 +1814,27 @@ class Sale_agreement(AddInf,CreatedModifiedInfo,db.Model):
 
 	def to_json_api(self):
 		json_sale_agreement={
-			'SaleAgrId':self.SaleAgrId,
-			'CurrencyId':self.CurrencyId,
-			'SaleAgrName':self.SaleAgrName,
-			'SaleAgrDesc':self.SaleAgrDesc,
-			'SaleAgrMinOrderPrice':self.SaleAgrMinOrderPrice,
-			'SaleAgrDiscPerc':self.SaleAgrDiscPerc,
-			'SaleAgrMaxDiscPerc':self.SaleAgrMaxDiscPerc,
-			'SaleAgrTaxPerc':self.SaleAgrTaxPerc,
-			'SaleAgrTaxAmount':self.SaleAgrTaxAmount,
-			'SaleAgrUseOwnPriceList':self.SaleAgrUseOwnPriceList,
-			'AddInf1':self.AddInf1,
-			'AddInf2':self.AddInf2,
-			'AddInf3':self.AddInf3,
-			'AddInf4':self.AddInf4,
-			'AddInf5':self.AddInf5,
-			'AddInf6':self.AddInf6,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"SaleAgrId": self.SaleAgrId,
+			"CurrencyId": self.CurrencyId,
+			"SaleAgrName": self.SaleAgrName,
+			"SaleAgrDesc": self.SaleAgrDesc,
+			"SaleAgrMinOrderPrice": self.SaleAgrMinOrderPrice,
+			"SaleAgrDiscPerc": self.SaleAgrDiscPerc,
+			"SaleAgrMaxDiscPerc": self.SaleAgrMaxDiscPerc,
+			"SaleAgrTaxPerc": self.SaleAgrTaxPerc,
+			"SaleAgrTaxAmount": self.SaleAgrTaxAmount,
+			"SaleAgrUseOwnPriceList": self.SaleAgrUseOwnPriceList,
+			"AddInf1": self.AddInf1,
+			"AddInf2": self.AddInf2,
+			"AddInf3": self.AddInf3,
+			"AddInf4": self.AddInf4,
+			"AddInf5": self.AddInf5,
+			"AddInf6": self.AddInf6,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return json_sale_agreement
 
@@ -1876,43 +1876,43 @@ class Sale_card(AddInf,CreatedModifiedInfo,db.Model):
 
 	def to_json_api(self):
 		json_sale_card={
-			'SaleCardId':self.SaleCardId,
-			'CId':self.CId,
-			'DivId':self.DivId,
-			'WpId':self.WpId,
-			'RpAccId':self.RpAccId,
-			'CurrencyId':self.CurrencyId,
-			'SaleAgrId':self.SaleAgrId,
-			'ResPriceGroupId':self.ResPriceGroupId,
-			'ResDiscId':self.ResDiscId,
-			'SaleCardStatusId':self.SaleCardStatusId,
-			'SaleCardRegNo':self.SaleCardRegNo,
-			'SaleCardName':self.SaleCardName,
-			'SaleCardDesc':self.SaleCardDesc,
-			'SaleCardStartDate':self.SaleCardStartDate,
-			'SaleCardEndDate':self.SaleCardEndDate,
-			'SaleCardMinSaleAmount':self.SaleCardMinSaleAmount,
-			'SaleCardMaxSaleAmount':self.SaleCardMaxSaleAmount,
-			'SaleCardMinSalePrice':self.SaleCardMinSalePrice,
-			'SaleCardMaxSalePrice':self.SaleCardMaxSalePrice,
-			'SaleCardMaxManualDiscPerc':self.SaleCardMaxManualDiscPerc,
-			'SaleCardIsPayable':self.SaleCardIsPayable,
-			'SaleCardCustName':self.SaleCardCustName,
-			'SaleCardCustBirthDate':self.SaleCardCustBirthDate,
-			'SaleCardCustTel':self.SaleCardCustTel,
-			'SaleCardCustEmail':self.SaleCardCustEmail,
-			'SaleCardCustAddress':self.SaleCardCustAddress,
-			'AddInf1':self.AddInf1,
-			'AddInf2':self.AddInf2,
-			'AddInf3':self.AddInf3,
-			'AddInf4':self.AddInf4,
-			'AddInf5':self.AddInf5,
-			'AddInf6':self.AddInf6,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"SaleCardId": self.SaleCardId,
+			"CId": self.CId,
+			"DivId": self.DivId,
+			"WpId": self.WpId,
+			"RpAccId": self.RpAccId,
+			"CurrencyId": self.CurrencyId,
+			"SaleAgrId": self.SaleAgrId,
+			"ResPriceGroupId": self.ResPriceGroupId,
+			"ResDiscId": self.ResDiscId,
+			"SaleCardStatusId": self.SaleCardStatusId,
+			"SaleCardRegNo": self.SaleCardRegNo,
+			"SaleCardName": self.SaleCardName,
+			"SaleCardDesc": self.SaleCardDesc,
+			"SaleCardStartDate": self.SaleCardStartDate,
+			"SaleCardEndDate": self.SaleCardEndDate,
+			"SaleCardMinSaleAmount": self.SaleCardMinSaleAmount,
+			"SaleCardMaxSaleAmount": self.SaleCardMaxSaleAmount,
+			"SaleCardMinSalePrice": self.SaleCardMinSalePrice,
+			"SaleCardMaxSalePrice": self.SaleCardMaxSalePrice,
+			"SaleCardMaxManualDiscPerc": self.SaleCardMaxManualDiscPerc,
+			"SaleCardIsPayable": self.SaleCardIsPayable,
+			"SaleCardCustName": self.SaleCardCustName,
+			"SaleCardCustBirthDate": self.SaleCardCustBirthDate,
+			"SaleCardCustTel": self.SaleCardCustTel,
+			"SaleCardCustEmail": self.SaleCardCustEmail,
+			"SaleCardCustAddress": self.SaleCardCustAddress,
+			"AddInf1": self.AddInf1,
+			"AddInf2": self.AddInf2,
+			"AddInf3": self.AddInf3,
+			"AddInf4": self.AddInf4,
+			"AddInf5": self.AddInf5,
+			"AddInf6": self.AddInf6,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return json_sale_card
 
@@ -1929,18 +1929,18 @@ class Sale_card_status(CreatedModifiedInfo,db.Model):
 
 	def to_json_api(self):
 		json_sale_card_status={
-			'SaleCardStatusId':self.SaleCardStatusId,
-			'SaleCardStatusName_tkTM':self.SaleCardStatusName_tkTM,
-			'SaleCardStatusDesc_tkTM':self.SaleCardStatusDesc_tkTM,
-			'SaleCardStatusName_ruRU':self.SaleCardStatusName_ruRU,
-			'SaleCardStatusDesc_ruRU':self.SaleCardStatusDesc_ruRU,
-			'SaleCardStatusName_enUS':self.SaleCardStatusName_enUS,
-			'SaleCardStatusDesc_enUS':self.SaleCardStatusDesc_enUS,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"SaleCardStatusId": self.SaleCardStatusId,
+			"SaleCardStatusName_tkTM": self.SaleCardStatusName_tkTM,
+			"SaleCardStatusDesc_tkTM": self.SaleCardStatusDesc_tkTM,
+			"SaleCardStatusName_ruRU": self.SaleCardStatusName_ruRU,
+			"SaleCardStatusDesc_ruRU": self.SaleCardStatusDesc_ruRU,
+			"SaleCardStatusName_enUS": self.SaleCardStatusName_enUS,
+			"SaleCardStatusDesc_enUS": self.SaleCardStatusDesc_enUS,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return json_sale_card_status
 
@@ -1966,27 +1966,27 @@ class Production(AddInf,CreatedModifiedInfo,db.Model):
 
 	def to_json_api(self):
 		json_production={
-			'ProdId':self.ProdId,
-			'CId':self.CId,
-			'DivId':self.DivId,
-			'WhIdIn':self.WhIdIn,
-			'WhIdOut':self.WhIdOut,
-			'ResId':self.ResId,
-			'ProdName':self.ProdName,
-			'ProdDesc':self.ProdDesc,
-			'ProdTime':self.ProdTime,
-			'ProdCostPrice':self.ProdCostPrice,
-			'AddInf1':self.AddInf1,
-			'AddInf2':self.AddInf2,
-			'AddInf3':self.AddInf3,
-			'AddInf4':self.AddInf4,
-			'AddInf5':self.AddInf5,
-			'AddInf6':self.AddInf6,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"ProdId": self.ProdId,
+			"CId": self.CId,
+			"DivId": self.DivId,
+			"WhIdIn": self.WhIdIn,
+			"WhIdOut": self.WhIdOut,
+			"ResId": self.ResId,
+			"ProdName": self.ProdName,
+			"ProdDesc": self.ProdDesc,
+			"ProdTime": self.ProdTime,
+			"ProdCostPrice": self.ProdCostPrice,
+			"AddInf1": self.AddInf1,
+			"AddInf2": self.AddInf2,
+			"AddInf3": self.AddInf3,
+			"AddInf4": self.AddInf4,
+			"AddInf5": self.AddInf5,
+			"AddInf6": self.AddInf6,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return json_production
 
@@ -2008,24 +2008,24 @@ class Production_line(AddInf,CreatedModifiedInfo,db.Model):
 
 	def to_json_api(self):
 		json_production_line={
-			'ProdLineId':self.ProdLineId,
-			'ProdId':self.ProdId,
-			'UnitId':self.UnitId,
-			'ResId':self.ResId,
-			'ProdLineAmount':self.ProdLineAmount,
-			'ProdLinePrice':self.ProdLinePrice,
-			'ProdLineDesc':self.ProdLineDesc,			
-			'AddInf1':self.AddInf1,
-			'AddInf2':self.AddInf2,
-			'AddInf3':self.AddInf3,
-			'AddInf4':self.AddInf4,
-			'AddInf5':self.AddInf5,
-			'AddInf6':self.AddInf6,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"ProdLineId": self.ProdLineId,
+			"ProdId": self.ProdId,
+			"UnitId": self.UnitId,
+			"ResId": self.ResId,
+			"ProdLineAmount": self.ProdLineAmount,
+			"ProdLinePrice": self.ProdLinePrice,
+			"ProdLineDesc": self.ProdLineDesc,			
+			"AddInf1": self.AddInf1,
+			"AddInf2": self.AddInf2,
+			"AddInf3": self.AddInf3,
+			"AddInf4": self.AddInf4,
+			"AddInf5": self.AddInf5,
+			"AddInf6": self.AddInf6,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return json_production_line
 
@@ -2049,26 +2049,26 @@ class Rating(AddInf,CreatedModifiedInfo,db.Model):
 
 	def to_json_api(self):
 		json_rating={
-			'RtId':self.RtId,
-			'CId':self.CId,
-			'DivId':self.DivId,
-			'UId':self.UId,
-			'ResId':self.ResId,
-			'RpAccId':self.RpAccId,
-			'EmpId':self.EmpId,
-			'RtRemark':self.RtRemark,
-			'RtRatingValue':self.RtRatingValue,
-			'AddInf1':self.AddInf1,
-			'AddInf2':self.AddInf2,
-			'AddInf3':self.AddInf3,
-			'AddInf4':self.AddInf4,
-			'AddInf5':self.AddInf5,
-			'AddInf6':self.AddInf6,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"RtId": self.RtId,
+			"CId": self.CId,
+			"DivId": self.DivId,
+			"UId": self.UId,
+			"ResId": self.ResId,
+			"RpAccId": self.RpAccId,
+			"EmpId": self.EmpId,
+			"RtRemark": self.RtRemark,
+			"RtRatingValue": self.RtRatingValue,
+			"AddInf1": self.AddInf1,
+			"AddInf2": self.AddInf2,
+			"AddInf3": self.AddInf3,
+			"AddInf4": self.AddInf4,
+			"AddInf5": self.AddInf5,
+			"AddInf6": self.AddInf6,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return json_rating
 
@@ -2089,23 +2089,23 @@ class Wish(AddInf,CreatedModifiedInfo,db.Model):
 
 	def to_json_api(self):
 		json_wish={
-			'WishId':self.WishId,
-			'CId':self.CId,
-			'DivId':self.DivId,
-			'UId':self.UId,
-			'ResId':self.ResId,
-			'RpAccId':self.RpAccId,
-			'AddInf1':self.AddInf1,
-			'AddInf2':self.AddInf2,
-			'AddInf3':self.AddInf3,
-			'AddInf4':self.AddInf4,
-			'AddInf5':self.AddInf5,
-			'AddInf6':self.AddInf6,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"WishId": self.WishId,
+			"CId": self.CId,
+			"DivId": self.DivId,
+			"UId": self.UId,
+			"ResId": self.ResId,
+			"RpAccId": self.RpAccId,
+			"AddInf1": self.AddInf1,
+			"AddInf2": self.AddInf2,
+			"AddInf3": self.AddInf3,
+			"AddInf4": self.AddInf4,
+			"AddInf5": self.AddInf5,
+			"AddInf6": self.AddInf6,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return json_wish
 
@@ -2124,14 +2124,14 @@ class Transaction_type(CreatedModifiedInfo,db.Model):
 
 	def to_json_api(self):
 		json_transaction_type={
-			'TransTypeId':self.TransTypeId,
-			'TransTypeName':self.TransTypeName,
-			'TransTypeDesc':self.TransTypeDesc,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"TransTypeId": self.TransTypeId,
+			"TransTypeName": self.TransTypeName,
+			"TransTypeDesc": self.TransTypeDesc,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return json_transaction_type
 
@@ -2159,17 +2159,17 @@ class Work_period(CreatedModifiedInfo,db.Model):
 
 	def to_json_api(self):
 		json_work_period={
-			'WpId':self.WpId,
-			'CId':self.CId,
-			'DivId':self.DivId,
-			'CurrencyId':self.CurrencyId,
-			'WpStartDate':self.WpStartDate,
-			'WpEndDate':self.WpEndDate,
-			'WpIsDefault':self.WpIsDefault,
-			'CreatedDate':apiDataFormat(self.CreatedDate),
-			'ModifiedDate':apiDataFormat(self.ModifiedDate),
-			'CreatedUId':self.CreatedUId,
-			'ModifiedUId':self.ModifiedUId,
-			'GCRecord':self.GCRecord
+			"WpId": self.WpId,
+			"CId": self.CId,
+			"DivId": self.DivId,
+			"CurrencyId": self.CurrencyId,
+			"WpStartDate": self.WpStartDate,
+			"WpEndDate": self.WpEndDate,
+			"WpIsDefault": self.WpIsDefault,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return json_work_period

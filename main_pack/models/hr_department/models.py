@@ -54,32 +54,32 @@ class Employee(AddInf,CreatedModifiedInfo,db.Model):
 
 	def to_json(self):
 		json_employee = {
-			'empId': self.EmpId,
-			'company': self.CId,
-			'contractType': self.ContractTypeId,
-			'department': self.DeptId,
-			'profession': self.ProfessionId,
-			'workStatus': self.EmpStatId,
-			'regNo': self.EmpRegNo,
-			'name': self.EmpName,
-			'lastName': self.EmpLastName,
-			'firstName': self.EmpFirstName,
-			'patronymicName': self.EmpPatronymic,
-			'gender': self.GenderId,
-			'birthDate': self.EmpBirthDate,
-			'birthPlace': self.EmpBirthPlace,
-			'residency': self.EmpResidency,
-			'nationality': self.NatId,
-			'passportNo': self.EmpPassportNo,
-			'paspIssuePlace': self.EmpPaspIssuePlace,
-			'educationLevel': self.EduLevelId,
-			'languageSkills': self.EmpLangSkills,
-			'mobilePhone': self.MobilePhoneNumber,
-			'homePhone': self.HomePhoneNumber,
-			'workPhone': self.WorkPhoneNumber,
-			'fax': self.WorkFaxNumber,
-			'zipCode': self.ZipCode,
-			'email': self.EMail
+			"empId": self.EmpId,
+			"company": self.CId,
+			"contractType": self.ContractTypeId,
+			"department": self.DeptId,
+			"profession": self.ProfessionId,
+			"workStatus": self.EmpStatId,
+			"regNo": self.EmpRegNo,
+			"name": self.EmpName,
+			"lastName": self.EmpLastName,
+			"firstName": self.EmpFirstName,
+			"patronymicName": self.EmpPatronymic,
+			"gender": self.GenderId,
+			"birthDate": self.EmpBirthDate,
+			"birthPlace": self.EmpBirthPlace,
+			"residency": self.EmpResidency,
+			"nationality": self.NatId,
+			"passportNo": self.EmpPassportNo,
+			"paspIssuePlace": self.EmpPaspIssuePlace,
+			"educationLevel": self.EduLevelId,
+			"languageSkills": self.EmpLangSkills,
+			"mobilePhone": self.MobilePhoneNumber,
+			"homePhone": self.HomePhoneNumber,
+			"workPhone": self.WorkPhoneNumber,
+			"fax": self.WorkFaxNumber,
+			"zipCode": self.ZipCode,
+			"email": self.EMail
 		}
 		return json_employee
 
@@ -97,11 +97,11 @@ class Award(AddInf,CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 	def to_json(self):
 		json_award = {
-			'awardId': self.AwardId,
-			'empId': self.EmpId,
-			'awardName': self.AwardName,
-			'awardDesc': self.AwardDesc,
-			'awardRecievedDate': self.AwardRecievedDate
+			"awardId": self.AwardId,
+			"empId": self.EmpId,
+			"awardName": self.AwardName,
+			"awardDesc": self.AwardDesc,
+			"awardRecievedDate": self.AwardRecievedDate
 		}
 		return json_award
 
@@ -118,13 +118,13 @@ class Contract_type(CreatedModifiedInfo,db.Model):
 	
 	def to_json(self):
 		json_contactType = {
-			'ContractTypeId': self.ContractTypeId,
-			'ContractTypeName_tkTM': self.ContractTypeName_tkTM,
-			'ContractTypeDesc_tkTM': self.ContractTypeDesc_tkTM,
-			'ContractTypeName_ruRU': self.ContractTypeName_ruRU,
-			'ContractTypeDesc_ruRU': self.ContractTypeDesc_ruRU,
-			'ContractTypeName_enUS': self.ContractTypeName_enUS,
-			'ContractTypeDesc_enUS': self.ContractTypeDesc_enUS
+			"ContractTypeId": self.ContractTypeId,
+			"ContractTypeName_tkTM": self.ContractTypeName_tkTM,
+			"ContractTypeDesc_tkTM": self.ContractTypeDesc_tkTM,
+			"ContractTypeName_ruRU": self.ContractTypeName_ruRU,
+			"ContractTypeDesc_ruRU": self.ContractTypeDesc_ruRU,
+			"ContractTypeName_enUS": self.ContractTypeName_enUS,
+			"ContractTypeDesc_enUS": self.ContractTypeDesc_enUS
 		}
 		return json_contactType
 
@@ -141,13 +141,13 @@ class Edu_level(CreatedModifiedInfo,db.Model):
 
 	def to_json(self):
 		json_eduLevel = {
-			'EduLevelId': self.EduLevelId,
-			'EduLevelName_tkTM': self.EduLevelName_tkTM,
-			'EduLevelDesc_tkTM': self.EduLevelDesc_tkTM,
-			'EduLevelName_ruRU': self.EduLevelName_ruRU,
-			'EduLevelDesc_ruRU': self.EduLevelDesc_ruRU,
-			'EduLevelName_enUS': self.EduLevelName_enUS,
-			'EduLevelDesc_enUS': self.EduLevelDesc_enUS
+			"EduLevelId": self.EduLevelId,
+			"EduLevelName_tkTM": self.EduLevelName_tkTM,
+			"EduLevelDesc_tkTM": self.EduLevelDesc_tkTM,
+			"EduLevelName_ruRU": self.EduLevelName_ruRU,
+			"EduLevelDesc_ruRU": self.EduLevelDesc_ruRU,
+			"EduLevelName_enUS": self.EduLevelName_enUS,
+			"EduLevelDesc_enUS": self.EduLevelDesc_enUS
 		}
 		return json_eduLevel
 	
@@ -164,13 +164,13 @@ class Emp_status(CreatedModifiedInfo,db.Model):
 
 	def to_json(self):
 		json_empStatus = {
-			'EmpStatId': self.EmpStatId,
-			'EmpStatName_tkTM': self.EmpStatName_tkTM,
-			'EmpStatDesc_tkTM': self.EmpStatDesc_tkTM,
-			'EmpStatName_ruRU': self.EmpStatName_ruRU,
-			'EmpStatDesc_ruRU': self.EmpStatDesc_ruRU,
-			'EmpStatName_enUS': self.EmpStatName_enUS,
-			'EmpStatDesc_enUS': self.EmpStatDesc_enUS
+			"EmpStatId": self.EmpStatId,
+			"EmpStatName_tkTM": self.EmpStatName_tkTM,
+			"EmpStatDesc_tkTM": self.EmpStatDesc_tkTM,
+			"EmpStatName_ruRU": self.EmpStatName_ruRU,
+			"EmpStatDesc_ruRU": self.EmpStatDesc_ruRU,
+			"EmpStatName_enUS": self.EmpStatName_enUS,
+			"EmpStatDesc_enUS": self.EmpStatDesc_enUS
 		}
 		return json_empStatus
 
@@ -188,13 +188,13 @@ class Nationality(CreatedModifiedInfo,db.Model):
 
 	def to_json(self):
 		json_nationality = {
-			'NatId': self.NatId,
-			'NatName_tkTM': self.NatName_tkTM,
-			'NatDesc_tkTM': self.NatDesc_tkTM,
-			'NatName_ruRU': self.NatName_ruRU,
-			'NatDesc_ruRU': self.NatDesc_ruRU,
-			'NatName_enUS': self.NatName_enUS,
-			'NatDesc_enUS': self.NatDesc_enUS
+			"NatId": self.NatId,
+			"NatName_tkTM": self.NatName_tkTM,
+			"NatDesc_tkTM": self.NatDesc_tkTM,
+			"NatName_ruRU": self.NatName_ruRU,
+			"NatDesc_ruRU": self.NatDesc_ruRU,
+			"NatName_enUS": self.NatName_enUS,
+			"NatDesc_enUS": self.NatDesc_enUS
 		}
 		return json_nationality
 
@@ -211,13 +211,13 @@ class Profession(CreatedModifiedInfo,db.Model):
 
 	def to_json(self):
 		json_profession = {
-			'ProfessionId': self.ProfessionId,
-			'ProfessionName_tkTM': self.ProfessionName_tkTM,
-			'ProfessionDesc_tkTM': self.ProfessionDesc_tkTM,
-			'ProfessionName_ruRU': self.ProfessionName_ruRU,
-			'ProfessionDesc_ruRU': self.ProfessionDesc_ruRU,
-			'ProfessionName_enUS': self.ProfessionName_enUS,
-			'ProfessionDesc_enUS': self.ProfessionDesc_enUS
+			"ProfessionId": self.ProfessionId,
+			"ProfessionName_tkTM": self.ProfessionName_tkTM,
+			"ProfessionDesc_tkTM": self.ProfessionDesc_tkTM,
+			"ProfessionName_ruRU": self.ProfessionName_ruRU,
+			"ProfessionDesc_ruRU": self.ProfessionDesc_ruRU,
+			"ProfessionName_enUS": self.ProfessionName_enUS,
+			"ProfessionDesc_enUS": self.ProfessionDesc_enUS
 		}
 		return json_profession
 
@@ -234,13 +234,13 @@ class Rel_status(CreatedModifiedInfo,db.Model):
 
 	def to_json(self):
 		json_relStatus = {
-			'RelStatId': self.RelStatId,
-			'RelStatName_tkTM': self.RelStatName_tkTM,
-			'RelStatDesc_tkTM': self.RelStatDesc_tkTM,
-			'RelStatName_ruRU': self.RelStatName_ruRU,
-			'RelStatDesc_ruRU': self.RelStatDesc_ruRU,
-			'RelStatName_enUS': self.RelStatName_enUS,
-			'RelStatDesc_enUS': self.RelStatDesc_enUS
+			"RelStatId": self.RelStatId,
+			"RelStatName_tkTM": self.RelStatName_tkTM,
+			"RelStatDesc_tkTM": self.RelStatDesc_tkTM,
+			"RelStatName_ruRU": self.RelStatName_ruRU,
+			"RelStatDesc_ruRU": self.RelStatDesc_ruRU,
+			"RelStatName_enUS": self.RelStatName_enUS,
+			"RelStatDesc_enUS": self.RelStatDesc_enUS
 		}
 		return json_relStatus
 
@@ -263,16 +263,16 @@ class Relatives(AddInf,CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 	def to_json(self):
 		json_relatives = {
-			'relativesId': self.RelId,
-			'empId': self.EmpId,
-			'relativesStatus': self.RelStatId,
-			'relativesName': self.RelPersonName,
-			'relativesGender': self.GenderId,
-			'relativesBirthDate': self.RelBirthDate,
-			'relativesBirthPlace': self.RelBirthPlace,
-			'relativesWorkPlace': self.RelWorkPlace,
-			'relativesWorkPosition': self.RelWorkPosition,
-			'relativesResidence': self.RelResidence
+			"relativesId": self.RelId,
+			"empId": self.EmpId,
+			"relativesStatus": self.RelStatId,
+			"relativesName": self.RelPersonName,
+			"relativesGender": self.GenderId,
+			"relativesBirthDate": self.RelBirthDate,
+			"relativesBirthPlace": self.RelBirthPlace,
+			"relativesWorkPlace": self.RelWorkPlace,
+			"relativesWorkPosition": self.RelWorkPosition,
+			"relativesResidence": self.RelResidence
 		}
 		return json_relatives
 
@@ -295,16 +295,16 @@ class School(AddInf,CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 	def to_json(self):
 		json_school = {
-			'schoolId': self.SchoolId,
-			'empId': self.EmpId,
-			'schoolType': self.SchoolTypeId,
-			'schoolName': self.SchoolName,
-			'schoolDesc': self.SchoolDesc,
-			'schoolPlace': self.SchoolPlace,
-			'eduStartDate': self.SchoolEduStartDate,
-			'eduEndDate': self.SchoolEduEndDate,
-			'schoolProfession': self.SchoolProfession,
-			'isGraduated': self.SchoolIsGraduated
+			"schoolId": self.SchoolId,
+			"empId": self.EmpId,
+			"schoolType": self.SchoolTypeId,
+			"schoolName": self.SchoolName,
+			"schoolDesc": self.SchoolDesc,
+			"schoolPlace": self.SchoolPlace,
+			"eduStartDate": self.SchoolEduStartDate,
+			"eduEndDate": self.SchoolEduEndDate,
+			"schoolProfession": self.SchoolProfession,
+			"isGraduated": self.SchoolIsGraduated
 		}
 		return json_school
 	
@@ -318,7 +318,8 @@ class School_type(CreatedModifiedInfo,db.Model):
 	SchoolTypeName_enUS = db.Column(db.String(50))#,nullable=False)
 	SchoolTypeDesc_enUS = db.Column(db.String(500))	
 
-class Visited_countries(AddInf,CreatedModifiedInfo,db.Model):   #changed !!!!!!!!!!!!!
+# !!! changed
+class Visited_countries(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_visited_countries"
 	VCId = db.Column(db.Integer,nullable=False,primary_key=True)
 	EmpId = db.Column(db.Integer,db.ForeignKey("tbl_dk_employee.EmpId"))
@@ -334,13 +335,13 @@ class Visited_countries(AddInf,CreatedModifiedInfo,db.Model):   #changed !!!!!!!
 					setattr(self, key, value)
 	def to_json(self):
 		json_vc = {
-			'vcId': self.VCId,
-			'empId': self.EmpId,
-			'vcCountryName': self.VCCountryName,
-			'vcCountryDesc': self.VCCountryDesc,
-			'vcPurpose': self.VCPurpose,
-			'vcStartDate': self.VCStartDate,
-			'vcEndDate': self.VCEndDate
+			"vcId": self.VCId,
+			"empId": self.EmpId,
+			"vcCountryName": self.VCCountryName,
+			"vcCountryDesc": self.VCCountryDesc,
+			"vcPurpose": self.VCPurpose,
+			"vcStartDate": self.VCStartDate,
+			"vcEndDate": self.VCEndDate
 		}
 		return json_vc
 
@@ -362,15 +363,15 @@ class Work_history(AddInf,CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 	def to_json(self):
 		json_workHistory = {
-			'workHistId': self.WorkHistId,
-			'empId': self.EmpId,
-			'whWorkPlace': self.WorkHistoryWorkPlace,
-			'whWorkDesc': self.WorkHistoryWorkDesc,
-			'whWorkDept': self.WorkHistoryWorkDept,
-			'whWorkPos': self.WorkHistoryWorkPos,
-			'whWorkStartDate': self.WorkHistoryWorkStartDate,
-			'whWorkEndDate': self.WorkHistoryWorkEndDate,
-			'whWorkEndReason': self.WorkHistoryWorkEndReason,
+			"workHistId": self.WorkHistId,
+			"empId": self.EmpId,
+			"whWorkPlace": self.WorkHistoryWorkPlace,
+			"whWorkDesc": self.WorkHistoryWorkDesc,
+			"whWorkDept": self.WorkHistoryWorkDept,
+			"whWorkPos": self.WorkHistoryWorkPos,
+			"whWorkStartDate": self.WorkHistoryWorkStartDate,
+			"whWorkEndDate": self.WorkHistoryWorkEndDate,
+			"whWorkEndReason": self.WorkHistoryWorkEndReason,
 		}
 		return json_workHistory
 

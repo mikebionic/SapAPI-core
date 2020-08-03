@@ -517,8 +517,6 @@
   {% block scripts %}{% endblock %}
   <script src="{{ url_for('static', filename='commerce/main/js/cartsAndCheckouts.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/js/ui_dynamicals.js') }}"></script>
-  <script src="{{ url_for('static', filename='commerce/admin/bundles/izitoast/js/iziToast.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='commerce/admin/js/page/toastr.js') }}"></script>
   <script type="text/javascript">
     var csrf_token = "{{ csrf_token() }}";
     $.ajaxSetup({
