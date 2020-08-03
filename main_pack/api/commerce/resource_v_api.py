@@ -86,18 +86,18 @@ def api_v_resources_search():
 			Resource.ResName.ilike(searching_tag),\
 			Resource.UsageStatusId==1))\
 		.order_by(Resource.ResId.desc()).all()
-	
-	# !!! requires reconfiguring similarities
+
 	resource_list = []
 	if barcodes:
 		for barcode in barcodes:
-			resource_list.append({"ResId": barcode.ResId})
+			resource_list.append(barcode.ResId)
 	for resource in resources:
-		for results in resource_list:
-			if results['ResId'] != resource.ResId:
-				resource_list.append({"ResId": resource.ResId})
-			else:
-				print('found match: '+str(resource.ResId) +'with'+str(results['ResId']))
+		resource_list.append(resource.ResId)
+
+	# removes dublicates
+	resource_list = list(set(resource_list))
+	resource_list = [{"ResId": resourceId} for resourceId in resource_list]
+
 	res = apiResourceInfo(resource_list)
 
 	res = {
