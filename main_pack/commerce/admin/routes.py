@@ -2,6 +2,7 @@ from flask import render_template,url_for,session,flash,redirect,request,Respons
 from main_pack.commerce.admin import bp
 import os
 from flask import current_app
+from main_pack.config import Config
 
 # useful methods
 from main_pack import db,babel,gettext,lazy_gettext
@@ -223,7 +224,7 @@ def register_customer():
 			email = form.email.data
 			full_name = form.full_name.data
 			UShortName = (username[0]+username[-1]).upper()
-			if current_app.config['HASHED_PASSWORDS']==True:
+			if Config.HASHED_PASSWORDS == True:
 				password = bcrypt.generate_password_hash(form.password.data).decode() 
 			else:
 				password = form.password.data
@@ -341,7 +342,7 @@ def register_user():
 			full_name = form.full_name.data
 			user_type = form.user_type.data
 			UShortName = (username[0]+username[-1]).upper()
-			if current_app.config['HASHED_PASSWORDS']==True:
+			if Config.HASHED_PASSWORDS == True:
 				password = bcrypt.generate_password_hash(form.password.data).decode() 
 			else:
 				password = form.password.data

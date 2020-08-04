@@ -167,7 +167,6 @@ def apiResourceInfo(resource_list=None,single_object=False,isDeleted=False,isIna
 				average_rating = sum(rating_values) / len(rating_values)
 				average_rating = round(average_ratign,2)
 			except Exception as ex:
-				print(ex)
 				average_rating = 0
 
 			resource_info["RtRatingValue"] = average_rating

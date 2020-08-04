@@ -6,7 +6,7 @@ from main_pack.base.apiMethods import checkApiResponseStatus
 from main_pack.models.commerce.models import Res_category
 from main_pack.api.commerce.utils import addCategoryDict
 from main_pack import db
-from flask import current_app
+from main_pack.config import Config
 from main_pack.api.auth.api_login import sha_required
 
 @api.route("/tbl-dk-categories/<int:ResCatId>/",methods=['GET'])
@@ -79,7 +79,7 @@ def api_paginated_categories():
 	pagination = Res_category.query\
 	.filter(Res_category.GCRecord=='' or Res_category.GCRecord==None)\
 	.order_by(Res_category.CreatedDate.desc()).paginate(
-		page,per_page=current_app.config['API_OBJECTS_PER_PAGE'],
+		page,per_page=Config.API_OBJECTS_PER_PAGE,
 		error_out=False
 		)
 	categories = pagination.items

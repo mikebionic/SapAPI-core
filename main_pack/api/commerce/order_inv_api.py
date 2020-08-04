@@ -4,14 +4,23 @@ from main_pack import db
 from flask import current_app
 
 # orders and db methods
-from main_pack.models.commerce.models import Order_inv,Order_inv_line
-from main_pack.api.commerce.utils import addOrderInvDict,addOrderInvLineDict
+from main_pack.models.commerce.models import (Order_inv,
+																							Order_inv_line,
+																							Inv_status)
+from main_pack.api.commerce.utils import (addOrderInvDict,
+																					addOrderInvLineDict)
 from main_pack.base.apiMethods import checkApiResponseStatus
-from sqlalchemy import and_,extract
+from sqlalchemy import and_, extract
 # / orders and db methods /
 
+# Rp_acc db Model and methods
 from main_pack.models.users.models import Rp_acc
 from main_pack.api.users.utils import apiRpAccData
+# / Rp_acc db Model and methods /
+
+# functions and methods
+from main_pack.base.languageMethods import dataLangSelector
+# / functions and methods /
 
 # auth and validation
 from main_pack.api.auth.api_login import token_required
@@ -32,11 +41,21 @@ def api_order_invoices():
 		order_invoices = Order_inv.query\
 			.filter(and_(Order_inv.GCRecord=='' or Order_inv.GCRecord==None,\
 				Order_inv.InvStatId==1)).all()
+		inv_statuses = Inv_status.query.all()
 		for order_invoice in order_invoices:
 			oInvData = order_invoice.to_json_api()
-			rp_acc = Rp_acc.query.get(order_invoice.RpAccId)
+			# !!! put order inv and inv fetch as a separate function
+			inv_status_list = [inv_status.to_json_api() for inv_status in inv_statuses if inv_status.InvStatId == order_invoice.InvStatId]
+			inv_status = dataLangSelector(inv_status_list[0])
+			oInvData['InvStatName'] = inv_status['InvStatName']
+		
+			rp_acc = Rp_acc.query\
+				.filter(and_(
+					Rp_acc.GCRecord == '' or Rp_acc.GCRecord == None),\
+					Rp_acc.RpAccId == order_invoice.RpAccId)\
+				.first()
 			if rp_acc:
-				rpAccData = apiRpAccData(rp_acc.RpAccRegNo)
+				rpAccData = apiRpAccData(dbModel=rp_acc)
 				oInvData['Rp_acc'] = rpAccData['data']
 
 			order_inv_lines = Order_inv_line.query\
@@ -75,18 +94,18 @@ def api_order_invoices():
 				try:
 					OInvRegNo = order_invoice['OInvRegNo']
 					thisOrderInv = Order_inv.query\
-						.filter(Order_inv.OInvRegNo==OInvRegNo).first()
+						.filter(Order_inv.OInvRegNo == OInvRegNo).first()
 					# getting correct rp_acc of a database
 					try:
 						RpAccRegNo = data['Rp_acc']['RpAccRegNo']
 						RpAccName = data['Rp_acc']['RpAccName']
 						rp_acc = Rp_acc.query\
-							.filter(Rp_acc.RpAccRegNo==RpAccRegNo and Rp_acc.RpAccName==RpAccName)\
+							.filter(Rp_acc.RpAccRegNo == RpAccRegNo and Rp_acc.RpAccName == RpAccName)\
 							.first()
 						if rp_acc:
-							print("account exists with id "+str(rp_acc.RpAccId))
 							order_invoice['RpAccId'] = rp_acc.RpAccId
 					except Exception as ex:
+						print(ex)
 						print("Rp_acc not provided")
 						abort(400)
 
@@ -106,7 +125,7 @@ def api_order_invoices():
 						try:
 							OInvLineRegNo = order_invoice['OInvLineRegNo']
 							thisOrderInvLine = Order_inv_line.query\
-								.filter(Order_inv_line.OInvLineRegNo==OInvLineRegNo).first()
+								.filter(Order_inv_line.OInvLineRegNo == OInvLineRegNo).first()
 							if thisOrderInvLine:
 								thisOrderInvLine.update(**order_inv_line)
 								db.session.commit()
@@ -146,6 +165,9 @@ def api_order_invoices():
 @api.route("/tbl-dk-order-invoices/filter/")
 @sha_required
 def api_order_invoices_filter():
+	# initialize statuses
+	inv_statuses = Inv_status.query.all()
+	
 	startDate = request.args.get('startDate',None,type=str)
 	endDate = request.args.get('endDate',datetime.now().date())
 	if startDate == None:
@@ -172,14 +194,24 @@ def api_order_invoices_filter():
 	data = []
 	for order_invoice in order_inv_filtered:
 		oInvData = order_invoice.to_json_api()
-		rp_acc = Rp_acc.query.get(order_invoice.RpAccId)
+
+		inv_status_list = [inv_status.to_json_api() for inv_status in inv_statuses if inv_status.InvStatId == order_invoice.InvStatId]
+		inv_status = dataLangSelector(inv_status_list[0])
+		oInvData['InvStatName'] = inv_status['InvStatName']
+		
+		rp_acc = Rp_acc.query\
+				.filter(and_(
+					Rp_acc.GCRecord == '' or Rp_acc.GCRecord == None),\
+					Rp_acc.RpAccId == order_invoice.RpAccId)\
+				.first()
 		if rp_acc:
-			rpAccData = apiRpAccData(rp_acc.RpAccRegNo)
+			rpAccData = apiRpAccData(dbModel=rp_acc)
 			oInvData['Rp_acc'] = rpAccData['data']
 
 		order_inv_lines = Order_inv_line.query\
-			.filter(and_(Order_inv_line.GCRecord=='' or Order_inv_line.GCRecord==None),\
-				Order_inv_line.OInvId==order_invoice.OInvId).all()
+			.filter(and_(
+				Order_inv_line.GCRecord == '' or Order_inv_line.GCRecord == None),\
+				Order_inv_line.OInvId == order_invoice.OInvId).all()
 
 		order_inv_lines_list = []
 		for order_inv_line in order_inv_lines:

@@ -3,6 +3,7 @@ from main_pack import db
 from datetime import datetime
 from main_pack.models.base.models import CreatedModifiedInfo, AddInf
 
+
 class Employee(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_employee"
 	EmpId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -83,6 +84,7 @@ class Employee(AddInf,CreatedModifiedInfo,db.Model):
 		}
 		return json_employee
 
+
 class Award(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_award"
 	AwardId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -104,6 +106,7 @@ class Award(AddInf,CreatedModifiedInfo,db.Model):
 			"awardRecievedDate": self.AwardRecievedDate
 		}
 		return json_award
+
 
 class Contract_type(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_contract_type"
@@ -128,6 +131,7 @@ class Contract_type(CreatedModifiedInfo,db.Model):
 		}
 		return json_contactType
 
+
 class Edu_level(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_edu_level"
 	EduLevelId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -150,7 +154,8 @@ class Edu_level(CreatedModifiedInfo,db.Model):
 			"EduLevelDesc_enUS": self.EduLevelDesc_enUS
 		}
 		return json_eduLevel
-	
+
+
 class Emp_status(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_emp_status"
 	EmpStatId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -173,6 +178,7 @@ class Emp_status(CreatedModifiedInfo,db.Model):
 			"EmpStatDesc_enUS": self.EmpStatDesc_enUS
 		}
 		return json_empStatus
+
 
 class Nationality(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_nationality"
@@ -198,6 +204,7 @@ class Nationality(CreatedModifiedInfo,db.Model):
 		}
 		return json_nationality
 
+
 class Profession(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_profession"
 	ProfessionId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -221,6 +228,7 @@ class Profession(CreatedModifiedInfo,db.Model):
 		}
 		return json_profession
 
+
 class Rel_status(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_rel_status"
 	RelStatId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -243,6 +251,7 @@ class Rel_status(CreatedModifiedInfo,db.Model):
 			"RelStatDesc_enUS": self.RelStatDesc_enUS
 		}
 		return json_relStatus
+
 
 class Relatives(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_relatives"
@@ -276,6 +285,7 @@ class Relatives(AddInf,CreatedModifiedInfo,db.Model):
 		}
 		return json_relatives
 
+
 class School(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_school"
 	SchoolId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -307,7 +317,8 @@ class School(AddInf,CreatedModifiedInfo,db.Model):
 			"isGraduated": self.SchoolIsGraduated
 		}
 		return json_school
-	
+
+
 class School_type(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_school_type"
 	SchoolTypeId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -317,6 +328,7 @@ class School_type(CreatedModifiedInfo,db.Model):
 	SchoolTypeDesc_ruRU = db.Column(db.String(500))
 	SchoolTypeName_enUS = db.Column(db.String(50))#,nullable=False)
 	SchoolTypeDesc_enUS = db.Column(db.String(500))	
+
 
 # !!! changed
 class Visited_countries(AddInf,CreatedModifiedInfo,db.Model):
@@ -344,6 +356,7 @@ class Visited_countries(AddInf,CreatedModifiedInfo,db.Model):
 			"vcEndDate": self.VCEndDate
 		}
 		return json_vc
+
 
 class Work_history(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_work_history"
@@ -374,4 +387,3 @@ class Work_history(AddInf,CreatedModifiedInfo,db.Model):
 			"whWorkEndReason": self.WorkHistoryWorkEndReason,
 		}
 		return json_workHistory
-

@@ -4,6 +4,9 @@ Provide **username** and **password** in Authentication headers
 + /api/login/users/
 + /api/login/rp-accs/
 
+# API config information
+> GET
++ /api/api-config/
 
 # Simple data queries and insertions
 > GET POST
@@ -53,7 +56,7 @@ returns **all orders** if **blank**
 **@token_required** of **Rp_acc** login
 + /api/v-order-invoices/
 
-# get all lines of a specific reg no if it's order is Rp_acc
+## Get all order lines of a specific OInvRegNo if it's owner is Rp_acc
 > GET 
 
 **@token_required** of **Rp_acc** login

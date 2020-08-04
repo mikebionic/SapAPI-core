@@ -12,3 +12,9 @@
 **/.vscode/
 **/idea/
 **/avatars/
+.idea/
+.vs/
+.env
+.pk
+.pem
+.pub

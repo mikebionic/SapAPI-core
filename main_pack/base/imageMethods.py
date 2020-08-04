@@ -1,14 +1,15 @@
 from flask import current_app
+from main_pack.config import Config
 import os
 import sys
 from PIL import Image
 import secrets
 
 def allowed_image(filename):
-	return '.' in filename and filename.rsplit('.', 1)[1].lower() in current_app.config['ALLOWED_IMAGE_EXTENSIONS']
+	return '.' in filename and filename.rsplit('.', 1)[1].lower() in Config.ALLOWED_IMAGE_EXTENSIONS
 
 def allowed_icon(filename):
-	return '.' in filename and filename.rsplit('.', 1)[1].lower() in current_app.config['ALLOWED_ICON_EXTENSIONS']
+	return '.' in filename and filename.rsplit('.', 1)[1].lower() in Config.ALLOWED_ICON_EXTENSIONS
 
 def dirHandler(path):
 	if not os.path.exists(path):

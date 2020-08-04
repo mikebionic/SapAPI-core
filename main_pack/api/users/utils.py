@@ -181,10 +181,13 @@ def apiUsersData(UId):
 	}
 	return res
 
-def apiRpAccData(RpAccRegNo):
-	rp_acc = Rp_acc.query\
-		.filter(and_(Rp_acc.GCRecord=='' or Rp_acc.GCRecord==None),\
-			Rp_acc.RpAccRegNo==RpAccRegNo).first()
+def apiRpAccData(RpAccRegNo=None,dbModel=None):
+	if dbModel:
+		rp_acc = dbModel
+	else:
+		rp_acc = Rp_acc.query\
+			.filter(and_(Rp_acc.GCRecord=='' or Rp_acc.GCRecord==None),\
+				Rp_acc.RpAccRegNo==RpAccRegNo).first()
 	images = Image.query\
 		.filter(Image.GCRecord=='' or Image.GCRecord==None)\
 		.order_by(Image.CreatedDate.desc()).all()

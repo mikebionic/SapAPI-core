@@ -4,19 +4,21 @@ from flask_login import current_user,login_required
 from datetime import datetime
 from main_pack.commerce.admin import bp
 
-from main_pack.models.commerce.models import (Inv_line,Inv_line_det,Inv_line_det_type,
-	Inv_status,Inv_type,Invoice,Order_inv,Order_inv_line,Order_inv_type)
+from main_pack.models.commerce.models import (Inv_line,
+																							Inv_line_det,
+																							Inv_line_det_type,
+																							Inv_status,
+																							Inv_type,
+																							Invoice,
+																							Order_inv,
+																							Order_inv_line,
+																							Order_inv_type)
 from sqlalchemy import and_
-from main_pack.base.num2text import num2text,price2text
+from main_pack.base.num2text import num2text, price2text
 import decimal
-from flask import current_app
+from main_pack.config import Config
 from main_pack.models.commerce.models import Res_total
 from main_pack.base.invoiceMethods import totalQtySubstitution
-# invoiceRegNo
-# orderInvRegNo
-# >> search in db for presets
-# inv_statusId
-# put the models inv stat is the new id
 
 @bp.route('/ui/inv_status/',methods=['POST'])
 def ui_inv_status():
@@ -37,13 +39,13 @@ def ui_inv_status():
 		invModel.InvStatId = InvStatId
 		db.session.commit()
 		response = jsonify({
-			'status':'updated',
-			'responseText':gettext('Invoice status')+' '+gettext('successfully updated'),
+			"status": 'updated',
+			"responseText": gettext('Invoice status')+' '+gettext('successfully updated'),
 		})
 	except Exception as ex:
 		response = jsonify({
-			'status':'error',
-			'responseText':gettext('Unknown error!'),
+			"status": 'error',
+			"responseText": gettext('Unknown error!'),
 			})
 	return response
 
@@ -69,25 +71,27 @@ def ui_order_inv():
 			OInvTotal = req.get('oInvTotalPrice')
 			OInvFTotal = OInvTotal
 			OInvFTotalInWrite = price2text(OInvFTotal,
-						current_app.config['PRICE_2_TEXT_LANGUAGE'],
-						current_app.config['PRICE_2_TEXT_CURRENCY'])
+						Config.PRICE_2_TEXT_LANGUAGE,
+						Config.PRICE_2_TEXT_CURRENCY)
 			thisOInv = Order_inv.query\
-				.filter(and_(Order_inv.GCRecord=='' or Order_inv.GCRecord==None),\
-					Order_inv.OInvRegNo==OInvRegNo).first()
+				.filter(and_(
+					Order_inv.GCRecord == '' or Order_inv.GCRecord == None),\
+					Order_inv.OInvRegNo == OInvRegNo).first()
 			products = req.get('products')
 			for product in products:
 				try:
 					# check for presence and equality with the editing product
 					thisOInvLine = Order_inv_line.query\
-						.filter(and_(Order_inv_line.GCRecord=='' or Order_inv_line.GCRecord==None),\
-							Order_inv_line.OInvLineId==product['productId']).first()
+						.filter(and_(
+							Order_inv_line.GCRecord == '' or Order_inv_line.GCRecord == None),\
+							Order_inv_line.OInvLineId == product['productId']).first()
 					# check the connection of OInvLine to the correct OInv
 					if (thisOInv.OInvId == thisOInvLine.OInvId):
 						OInvLineAmount = product['productQty']
 						OInvLinePrice = decimal.Decimal(product['productPrice'])
 						OInvLineTotal = decimal.Decimal(product['totalPrice'])
 
-						## check if new quantity is greater or not
+						## !!! check if new quantity is greater or not
 						# check if the quantity value is positive else exception
 						# if greater - substitude upcoming with present (get the qty of increased)
 						# decrement the resId with result (if config allows the negative values)
@@ -95,14 +99,15 @@ def ui_order_inv():
 						# increment the resId with result
 						##
 
-						if (OInvLineAmount<=0):
+						if (OInvLineAmount <= 0):
 							OInvLineAmount = 1
 							# # uncomment if I don't want to equal to 1 for errors
 							# print("amount is less than 1: ")
 							# raise Exception
 						res_total = Res_total.query\
-							.filter(and_(Res_total.GCRecord=='' or Res_total.GCRecord==None),\
-								Res_total.ResId==thisOInvLine.ResId).first()
+							.filter(and_(
+								Res_total.GCRecord == '' or Res_total.GCRecord == None),\
+								Res_total.ResId == thisOInvLine.ResId).first()
 
 						print(res_total.ResTotBalance)
 						pastQty = thisOInvLine.OInvLineAmount
@@ -111,7 +116,7 @@ def ui_order_inv():
 							print("substituded greater with result"+str(resulting_changes))
 							totalSubstitutionResult = totalQtySubstitution(res_total.ResTotBalance,resulting_changes)
 							
-							if totalSubstitutionResult['status']==0:
+							if totalSubstitutionResult['status'] == 0:
 								raise Exception
 
 							res_total.ResTotBalance = totalSubstitutionResult['totalBalance']
@@ -129,13 +134,13 @@ def ui_order_inv():
 					thisOInv.OInvFTotalInWrite = OInvFTotalInWrite
 					db.session.commit()
 					response = jsonify({
-						'status':'updated',
-						'responseText':gettext('successfully updated'),
+						"status": 'updated',
+						"responseText": gettext('successfully updated'),
 						})
 				except Exception as ex:
 					response = jsonify({
-						'status':'error',
-						'responseText':gettext('Unknown error!'),
+						"status": 'error',
+						"responseText": gettext('Unknown error!'),
 						})
 
 		elif request.method == 'DELETE':
@@ -145,26 +150,28 @@ def ui_order_inv():
 			
 			# checking if line exists
 			thisOInvLine = Order_inv_line.query\
-			.filter(and_(Order_inv_line.GCRecord=='' or Order_inv_line.GCRecord==None),\
-				Order_inv_line.OInvLineId==OInvLineId).first()
+			.filter(and_(
+				Order_inv_line.GCRecord == '' or Order_inv_line.GCRecord == None),\
+				Order_inv_line.OInvLineId == OInvLineId).first()
 			# checking if order inv exists
 			thisOInv = Order_inv.query\
-				.filter(and_(Order_inv.GCRecord=='' or Order_inv.GCRecord==None),\
-					Order_inv.OInvRegNo==OInvRegNo).first()
+				.filter(and_(
+					Order_inv.GCRecord == '' or Order_inv.GCRecord == None),\
+					Order_inv.OInvRegNo == OInvRegNo).first()
 			# check if the line is the correct orders line
 			if (thisOInv.OInvId == thisOInvLine.OInvId):
 				thisOInvLine.GCRecord = 1
 				db.session.commit()
 				
 				response = jsonify({
-					'status':'deleted',
-					'responseText':gettext('successfully deleted'),
+					"status": 'deleted',
+					"responseText": gettext('successfully deleted'),
 					})
 			else:
 				raise(Exception)
 	except Exception as ex:
 		response = jsonify({
-			'status':'error',
-			'responseText':gettext('Unknown error!'),
+			"status": 'error',
+			"responseText": gettext('Unknown error!'),
 			})
 	return response

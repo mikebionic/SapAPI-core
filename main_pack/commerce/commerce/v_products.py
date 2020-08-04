@@ -1,6 +1,6 @@
 from flask import render_template,url_for,jsonify,session,flash,redirect,request,Response,abort
 from main_pack.commerce.commerce import bp
-from flask import current_app
+from main_pack.config import Config
 
 # useful methods
 from main_pack import db,babel,gettext,lazy_gettext
@@ -26,7 +26,7 @@ def v_list():
 		.filter(and_(Resource.GCRecord=='' or Resource.GCRecord==None),\
 			Resource.UsageStatusId==1)\
 		.order_by(Resource.CreatedDate.desc())\
-		.paginate(per_page=current_app.config['RESOURCES_PER_PAGE'],page=page)
+		.paginate(per_page=Config.RESOURCES_PER_PAGE,page=page)
 	product_list = []
 	for resource in pagination_resources.items:
 		product = {}
@@ -46,7 +46,7 @@ def v_grid():
 		.filter(and_(Resource.GCRecord=='' or Resource.GCRecord==None),\
 			Resource.UsageStatusId==1)\
 		.order_by(Resource.CreatedDate.desc())\
-		.paginate(per_page=current_app.config['RESOURCES_PER_PAGE'],page=page)
+		.paginate(per_page=Config.RESOURCES_PER_PAGE,page=page)
 	product_list = []
 	for resource in pagination_resources.items:
 		product = {}

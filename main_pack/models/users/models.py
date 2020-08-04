@@ -1,5 +1,5 @@
 from main_pack import db, login_manager
-from flask import current_app
+from main_pack.config import Config
 from datetime import datetime
 from flask_login import UserMixin
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
@@ -9,6 +9,7 @@ from main_pack.base.dataMethods import apiDataFormat
 @login_manager.user_loader
 def load_user(UId):
 	return Users.query.get(int(UId))
+
 
 class Users(AddInf,CreatedModifiedInfo,db.Model,UserMixin):
 	__tablename__="tbl_dk_users"
@@ -35,12 +36,12 @@ class Users(AddInf,CreatedModifiedInfo,db.Model,UserMixin):
 		return (self.UId)
 
 	def get_reset_token(self,expires_sec=1800):
-		s = Serializer(current_app.config['SECRET_KEY'],expires_sec)
+		s = Serializer(Config.SECRET_KEY,expires_sec)
 		return s.dumps({"UId": self.UId}).decode('utf-8')
 
 	@staticmethod
 	def verify_reset_token(token):
-		s = Serializer(current_app.config['SECRET_KEY'])
+		s = Serializer(Config.SECRET_KEY)
 		try:
 			UId = s.loads(token)['UId']
 		except Exception as ex:
@@ -80,6 +81,7 @@ class Users(AddInf,CreatedModifiedInfo,db.Model,UserMixin):
 		}
 		return users
 
+
 class User_type(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_user_type"
 	UTypeId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -107,6 +109,7 @@ class User_type(CreatedModifiedInfo,db.Model):
 			"GCRecord": self.GCRecord
 		}
 		return user_type
+
 
 class Rp_acc(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_rp_acc"
@@ -213,6 +216,7 @@ class Rp_acc(AddInf,CreatedModifiedInfo,db.Model):
 		}
 		return json_rp_acc
 
+
 class Rp_acc_status(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_rp_acc_status"
 	RpAccStatusId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -240,6 +244,7 @@ class Rp_acc_status(CreatedModifiedInfo,db.Model):
 			"GCRecord": self.GCRecord
 		}
 		return json_rp_acc_status
+
 
 class Rp_acc_type(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_rp_acc_type"

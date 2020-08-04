@@ -5,6 +5,7 @@ from flask_login import current_user
 from main_pack.models.base.models import CreatedModifiedInfo,AddInf
 from main_pack.base.dataMethods import apiDataFormat,configureFloat
 
+
 class Barcode(CreatedModifiedInfo,db.Model):
 	__tablename__ = "tbl_dk_barcode"
 	BarcodeId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -47,6 +48,7 @@ class Barcode(CreatedModifiedInfo,db.Model):
 		}
 		return json_barcode
 
+
 class Brand(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__ = "tbl_dk_brand"
 	BrandId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -80,6 +82,7 @@ class Brand(AddInf,CreatedModifiedInfo,db.Model):
 			"GCRecord": self.GCRecord
 		}
 		return json_barcode
+
 
 class Color(CreatedModifiedInfo,db.Model):
 	__tablename__ = "tbl_dk_color"
@@ -116,6 +119,7 @@ class Color(CreatedModifiedInfo,db.Model):
 			"GCRecord": self.GCRecord
 		}
 		return json_color
+
 
 class Size(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_size"
@@ -187,6 +191,7 @@ class Size_type(CreatedModifiedInfo,db.Model):
 		}
 		return json_size_type
 
+
 class Unit(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_unit"
 	UnitId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -223,6 +228,7 @@ class Unit(CreatedModifiedInfo,db.Model):
 		}
 		return json_unit
 
+
 class Usage_status(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_usage_status"
 	UsageStatusId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -252,6 +258,7 @@ class Usage_status(CreatedModifiedInfo,db.Model):
 		return json_usage_status
 
 ####### new models ###
+
 class Discount_type(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_discount_type"
 	DiscTypeId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -279,6 +286,7 @@ class Discount_type(CreatedModifiedInfo,db.Model):
 			"GCRecord": self.GCRecord
 		}
 		return json_sale_card_status
+
 
 class Exc_rate(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_exc_rate"
@@ -309,6 +317,7 @@ class Exc_rate(CreatedModifiedInfo,db.Model):
 		}
 		return json_sale_card_status
 
+
 class Exc_rate_type(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_exc_rate_type"
 	ExcRateTypeId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -330,6 +339,7 @@ class Exc_rate_type(CreatedModifiedInfo,db.Model):
 			"GCRecord": self.GCRecord
 		}
 		return json_sale_card_status
+
 
 class Inv_line(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_inv_line"
@@ -389,6 +399,7 @@ class Inv_line(AddInf,CreatedModifiedInfo,db.Model):
 			"GCRecord": self.GCRecord
 		}
 		return inv_line
+
 
 class Inv_line_det(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_inv_line_det"
@@ -457,7 +468,6 @@ class Inv_line_det_type(CreatedModifiedInfo,db.Model):
 		return inv_line_det_type
 
 
-
 class Inv_status(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_inv_status"
 	InvStatId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -487,6 +497,7 @@ class Inv_status(CreatedModifiedInfo,db.Model):
 		}
 		return inv_status
 
+
 class Inv_type(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_inv_type"
 	InvTypeId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -514,6 +525,7 @@ class Inv_type(CreatedModifiedInfo,db.Model):
 			"GCRecord": self.GCRecord
 		}
 		return inv_type
+
 
 class Invoice(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_invoice"
@@ -588,6 +600,7 @@ class Invoice(AddInf,CreatedModifiedInfo,db.Model):
 		}
 		return invoice
 
+
 class Order_inv(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_order_inv"
 	OInvId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -661,6 +674,7 @@ class Order_inv(AddInf,CreatedModifiedInfo,db.Model):
 		return order_inv
 
 
+
 class Order_inv_line(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_order_inv_line"
 	OInvLineId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -717,6 +731,7 @@ class Order_inv_line(AddInf,CreatedModifiedInfo,db.Model):
 		}
 		return order_inv_line
 
+
 class Order_inv_type(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_order_inv_type"
 	OInvTypeId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -750,6 +765,7 @@ class Order_inv_type(CreatedModifiedInfo,db.Model):
 			"GCRecord": self.GCRecord
 		}
 		return json_order_inv_type
+
 
 class Representative(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_representative"
@@ -818,6 +834,7 @@ class Representative(AddInf,CreatedModifiedInfo,db.Model):
 			"GCRecord": self.GCRecord
 		}
 		return json_representative
+
 
 class Resource(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_resource"
@@ -992,6 +1009,7 @@ class Res_category(CreatedModifiedInfo,db.Model):
 		}
 		return json_category
 
+
 class Res_maker(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_res_maker"
 	ResMakerId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -1033,7 +1051,6 @@ class Res_maker(AddInf,CreatedModifiedInfo,db.Model):
 		return json_res_maker
 
 
-###  added before #####
 class Res_color(CreatedModifiedInfo,db.Model):
 	__tablename__ = "tbl_dk_res_color"
 	RcId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -1053,6 +1070,7 @@ class Res_color(CreatedModifiedInfo,db.Model):
 		}
 		return json_res_color
 
+
 class Res_size(CreatedModifiedInfo,db.Model):
 	__tablename__ = "tbl_dk_res_size"
 	RsId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -1071,8 +1089,6 @@ class Res_size(CreatedModifiedInfo,db.Model):
 			"sizeId": self.SizeId
 		}
 		return json_res_size
-
-####################
 
 
 class Res_discount(AddInf,CreatedModifiedInfo,db.Model):
@@ -1129,6 +1145,7 @@ class Res_discount(AddInf,CreatedModifiedInfo,db.Model):
 		}
 		return json_res_discount
 
+
 class Res_price(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_res_price"
 	ResPriceId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -1183,6 +1200,7 @@ class Res_price(CreatedModifiedInfo,db.Model):
 		}
 		return json_res_price
 
+
 class Res_price_group(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_res_price_group"
 	ResPriceGroupId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -1221,6 +1239,7 @@ class Res_price_group(CreatedModifiedInfo,db.Model):
 			"GCRecord": self.GCRecord
 		}
 		return json_res_price_group
+
 
 class Res_price_type(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_res_price_type"
@@ -1577,6 +1596,7 @@ class Res_translations(AddInf,CreatedModifiedInfo,db.Model):
 		}
 		return json_res_translations
 
+
 class Res_type(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_res_type"
 	ResTypeId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -1604,6 +1624,7 @@ class Res_type(CreatedModifiedInfo,db.Model):
 			"GCRecord": self.GCRecord
 		}
 		return json_res_type
+
 
 class Res_unit(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_res_unit"
@@ -1639,6 +1660,7 @@ class Res_unit(CreatedModifiedInfo,db.Model):
 		}
 		return json_res_unit
 
+
 class Rp_acc_resource(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_rp_acc_resource"
 	RpAccResId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -1663,6 +1685,7 @@ class Rp_acc_resource(CreatedModifiedInfo,db.Model):
 			"GCRecord": self.GCRecord
 		}
 		return json_rp_acc_resource
+
 
 class Rp_acc_trans_total(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_rp_acc_trans_total"
@@ -1696,6 +1719,7 @@ class Rp_acc_trans_total(CreatedModifiedInfo,db.Model):
 			"GCRecord": self.GCRecord
 		}
 		return json_rp_acc_trans_total
+
 
 class Rp_acc_transaction(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_rp_acc_transaction"
@@ -1752,6 +1776,7 @@ class Rp_acc_transaction(AddInf,CreatedModifiedInfo,db.Model):
 		}
 		return json_rp_acc_transaction
 
+
 class Sale_agr_res_price(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_sale_agr_res_price"
 	SAResPriceId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -1790,6 +1815,7 @@ class Sale_agr_res_price(CreatedModifiedInfo,db.Model):
 			"GCRecord": self.GCRecord
 		}
 		return json_sale_agr_res_price
+
 
 class Sale_agreement(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_sale_agreement"
@@ -1837,6 +1863,7 @@ class Sale_agreement(AddInf,CreatedModifiedInfo,db.Model):
 			"GCRecord": self.GCRecord
 		}
 		return json_sale_agreement
+
 
 class Sale_card(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_sale_card"
@@ -1916,6 +1943,7 @@ class Sale_card(AddInf,CreatedModifiedInfo,db.Model):
 		}
 		return json_sale_card
 
+
 class Sale_card_status(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_sale_card_status"
 	SaleCardStatusId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -1943,6 +1971,7 @@ class Sale_card_status(CreatedModifiedInfo,db.Model):
 			"GCRecord": self.GCRecord
 		}
 		return json_sale_card_status
+
 
 class Production(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_production"
@@ -1990,6 +2019,7 @@ class Production(AddInf,CreatedModifiedInfo,db.Model):
 		}
 		return json_production
 
+
 class Production_line(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_production_line"
 	ProdLineId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -2028,6 +2058,7 @@ class Production_line(AddInf,CreatedModifiedInfo,db.Model):
 			"GCRecord": self.GCRecord
 		}
 		return json_production_line
+
 
 class Rating(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_rating"
@@ -2072,6 +2103,7 @@ class Rating(AddInf,CreatedModifiedInfo,db.Model):
 		}
 		return json_rating
 
+
 class Wish(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_wish"
 	WishId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -2109,6 +2141,7 @@ class Wish(AddInf,CreatedModifiedInfo,db.Model):
 		}
 		return json_wish
 
+
 class Transaction_type(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_transaction_type"
 	TransTypeId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -2134,6 +2167,7 @@ class Transaction_type(CreatedModifiedInfo,db.Model):
 			"GCRecord": self.GCRecord
 		}
 		return json_transaction_type
+
 
 class Work_period(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_work_period"

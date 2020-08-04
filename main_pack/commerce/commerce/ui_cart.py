@@ -1,7 +1,7 @@
 from flask import render_template,url_for,jsonify,session,flash,redirect,request,Response,abort
 from main_pack.commerce.commerce import bp
 import os
-from flask import current_app
+from main_pack.config import Config
 
 # useful methods
 from main_pack import db,babel,gettext,lazy_gettext
@@ -45,32 +45,32 @@ from datetime import datetime,timezone
 
 @bp.route("/product/ui_cart/", methods=['POST','PUT'])
 def ui_cart():
-	product_list=[]
-	if request.method == "POST":
+	product_list = []
+	if request.method == 'POST':
 		try:
 			req = request.get_json()
 			ResId = req.get('resId')
 			productQty = req.get('productQty')
 
-			product={}
+			product = {}
 			product['ResId'] = ResId
 			product['productQty'] = productQty
 			product_list.append(product)
 
 			resData = UiCartResourceData(product_list)
 			response = jsonify({
-				'status':'added',
-				'responseText':gettext('Product')+' '+gettext('successfully saved'),
-				'htmlData':render_template('commerce/main/commerce/cartItemAppend.html',
+				"status": 'added',
+				"responseText": gettext('Product')+' '+gettext('successfully saved'),
+				"htmlData": render_template('commerce/main/commerce/cartItemAppend.html',
 					**resData)
 				})
 		except Exception as ex:
 			response = jsonify({
-				'status':'error',
-				'responseText':gettext('Unknown error!'),
+				"status": 'error',
+				"responseText": gettext('Unknown error!'),
 				})
 
-	elif request.method == "PUT":
+	elif request.method == 'PUT':
 		req = request.get_json()
 		try:
 			for resElement in req:
@@ -84,22 +84,22 @@ def ui_cart():
 
 			resData = UiCartResourceData(product_list)
 			response = jsonify({
-				'status':'added',
-				'responseText':gettext('Product')+' '+gettext('successfully saved'),
-				'htmlData':render_template('commerce/main/commerce/cartItemAppend.html',
+				"status": 'added',
+				"responseText": gettext('Product')+' '+gettext('successfully saved'),
+				"htmlData": render_template('commerce/main/commerce/cartItemAppend.html',
 					**resData)
 				})
 		except Exception as ex:
 			response = jsonify({
-				'status':'error',
-				'responseText':gettext('Unknown error!'),
+				"status": 'error',
+				"responseText": gettext('Unknown error!'),
 				})
 	return response
 
 @bp.route("/product/ui_cart_table/", methods=['POST','PUT'])
 def ui_cart_table():
 	product_list=[]
-	if request.method == "POST":
+	if request.method == 'POST':
 		try:
 			req = request.get_json()
 			ResId = req.get('resId')
@@ -112,18 +112,18 @@ def ui_cart_table():
 
 			resData = UiCartResourceData(product_list)
 			response = jsonify({
-				'status':'added',
-				'responseText':gettext('Product')+' '+gettext('successfully saved'),
-				'htmlData':render_template('commerce/main/commerce/cartTableAppend.html',
+				"status": 'added',
+				"responseText": gettext('Product')+' '+gettext('successfully saved'),
+				"htmlData": render_template('commerce/main/commerce/cartTableAppend.html',
 					**resData)
 				})
 		except Exception as ex:
 			response = jsonify({
-				'status':'error',
-				'responseText':gettext('Unknown error!'),
+				"status": 'error',
+				"responseText": gettext('Unknown error!'),
 				})
 
-	elif request.method == "PUT":
+	elif request.method == 'PUT':
 		req = request.get_json()
 		try:
 			for resElement in req:
@@ -137,39 +137,39 @@ def ui_cart_table():
 
 			resData = UiCartResourceData(product_list)
 			response = jsonify({
-				'status':'added',
-				'responseText':gettext('Product')+' '+gettext('successfully saved'),
-				'htmlData':render_template('commerce/main/commerce/cartTableAppend.html',
+				"status": 'added',
+				"responseText": gettext('Product')+' '+gettext('successfully saved'),
+				"htmlData": render_template('commerce/main/commerce/cartTableAppend.html',
 					**resData)
 				})
 		except Exception as ex:
 			response = jsonify({
-				'status':'error',
-				'responseText':gettext('Unknown error!'),
+				"status": 'error',
+				"responseText": gettext('Unknown error!'),
 				})
 	return response
 
 # Expected JSON
 # {
-# 	'cartData': {
-# 		'product5':{
-# 			'resId': '5',
-# 			'priceValue': '9.5',
-# 			'productQty': 1
+# 	"cartData": {
+# 		"product5": {
+# 			"resId": '5',
+# 			"priceValue": '9.5',
+# 			"productQty": 1
 # 		},
-# 		'product8':{
-# 			'resId': '8',
-# 			'priceValue': '10.0',
-# 			'productQty': 1
+# 		"product8": {
+# 			"resId": '8',
+# 			"priceValue": '10.0',
+# 			"productQty": 1
 # 		}
 # 	}, 
-# 	'orderDesc': ''
+# 	"orderDesc": ''
 # }
 
 @bp.route("/product/ui_cart_checkout/",methods=['POST'])
 @login_required
 def ui_cart_checkout():
-	if request.method == "POST":
+	if request.method == 'POST':
 		req = request.get_json()
 		try:
 			if not req['cartData']:
@@ -279,8 +279,8 @@ def ui_cart_checkout():
 			# add taxes and stuff later on
 			OInvFTotal = OInvTotal
 			OInvFTotalInWrite = price2text(OInvFTotal,
-				current_app.config['PRICE_2_TEXT_LANGUAGE'],
-				current_app.config['PRICE_2_TEXT_CURRENCY'])
+				Config.PRICE_2_TEXT_LANGUAGE,
+				Config.PRICE_2_TEXT_CURRENCY)
 
 			orderInv.OInvTotal = decimal.Decimal(OInvTotal)
 			orderInv.OInvFTotal = decimal.Decimal(OInvFTotal)
@@ -289,13 +289,13 @@ def ui_cart_checkout():
 			db.session.commit()
 
 			response = jsonify({
-				'status':'added',
-				'responseText':gettext('Checkout')+' '+gettext('successfully done')+'! '+gettext('View orders in profile page.')
+				"status": 'added',
+				"responseText": gettext('Checkout')+' '+gettext('successfully done')+'! '+gettext('View orders in profile page.')
 				})
 
 		except Exception as ex:
 			response = jsonify({
-				'status':'error',
-				'responseText':gettext('Unknown error!')
+				"status": 'error',
+				"responseText": gettext('Unknown error!')
 				})
 	return response

@@ -1,4 +1,4 @@
-from flask import current_app
+from main_pack.config import Config
 
 #### balance and qty substitution function ####
 def totalQtySubstitution(totalBalance,amount):
@@ -9,21 +9,21 @@ def totalQtySubstitution(totalBalance,amount):
 		"amount": amount,
 		"status": 1
 	}
-	if resultingTotal>totalBalance:
+	if resultingTotal > totalBalance:
 		result = {
 			"totalBalance": totalBalance,
 			"amount": 0,
 			"status": 0
 		}
 		return result
-	if current_app.config['NEGATIVE_WH_QTY_ORDER']==False:
+	if Config.NEGATIVE_WH_QTY_ORDER == False:
 		if resultingTotal<0:
 			result = {
 				"totalBalance": 0,
 				"amount": totalBalance,
 				"status": 1
 			}
-		if totalBalance<=0:
+		if totalBalance <= 0:
 			result = {
 				"totalBalance": totalBalance,
 				"amount": 0,

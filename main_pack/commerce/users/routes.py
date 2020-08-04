@@ -1,6 +1,6 @@
 from flask import render_template,url_for,jsonify,session,flash,redirect,request,Response,abort
 from main_pack.commerce.users import bp
-from flask import current_app
+from main_pack.config import Config
 
 # useful methods
 from main_pack import db,babel,gettext,lazy_gettext
@@ -73,7 +73,7 @@ def wishlist():
 		.filter(and_(Wish.GCRecord=='' or Wish.GCRecord==None),\
 			Wish.RpAccId==rpAcc.RpAccId)\
 		.order_by(Wish.CreatedDate.desc())\
-		.paginate(per_page=current_app.config['RESOURCES_PER_PAGE'],page=page)
+		.paginate(per_page=Config.RESOURCES_PER_PAGE,page=page)
 	product_list = []
 	for wish in pagination_wishes.items:
 		product = {}

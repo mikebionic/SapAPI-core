@@ -46,8 +46,8 @@ class Config:
 	# REG_NO generator's random range
 	REG_NUM_RANDOM_RANGE = 10000
 
-	# elasticsearch search engine's url
-	ELASTICSEARCH_URL = environ.get('ELASTICSEARCH_URL')
+	# # elasticsearch search engine's url
+	# ELASTICSEARCH_URL = environ.get('ELASTICSEARCH_URL')
 
 	# get OS Type to configure app for Windows or Linux
 	OS_TYPE = sys.platform

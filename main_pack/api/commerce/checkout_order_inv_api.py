@@ -7,7 +7,7 @@ from main_pack.models.users.models import Users
 from main_pack.models.commerce.models import Order_inv,Order_inv_line,Work_period
 from main_pack.api.commerce.utils import addOrderInvDict,addOrderInvLineDict
 from main_pack import db,babel,gettext,lazy_gettext
-from flask import current_app
+from main_pack.config import Config
 from datetime import datetime,timezone
 from main_pack.api.auth.api_login import token_required
 
@@ -191,8 +191,8 @@ def api_checkout_sale_order_invoices(user):
 		else:
 			OInvFTotal = OInvTotal
 			OInvFTotalInWrite = price2text(OInvFTotal,
-				current_app.config['PRICE_2_TEXT_LANGUAGE'],
-				current_app.config['PRICE_2_TEXT_CURRENCY'])
+				Config.PRICE_2_TEXT_LANGUAGE,
+				Config.PRICE_2_TEXT_CURRENCY)
 
 			newOrderInv.OInvTotal = decimal.Decimal(OInvTotal)
 			newOrderInv.OInvFTotal = decimal.Decimal(OInvFTotal)

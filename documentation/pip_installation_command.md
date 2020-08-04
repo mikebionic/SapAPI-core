@@ -1,1 +1,1 @@
-pip3 install flask-mail flask-uploads flask-sqlalchemy sqlalchemy gunicorn elasticsearch pyjwt python-dateutil email_validator psycopg2-binary setuptools Flask_login flask-wtf wtforms flask_bcrypt pillow flask-babel babel
+pip3 install flask-mail flask-uploads flask-sqlalchemy sqlalchemy gunicorn elasticsearch pyjwt python-dateutil email_validator psycopg2-binary setuptools Flask_login flask-wtf wtforms flask_bcrypt pillow flask-babel babel python-dotenv

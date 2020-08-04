@@ -1,8 +1,8 @@
-from flask import current_app
+from main_pack.config import Config
 from flask_login import current_user
 from main_pack import db, babel, gettext
 from main_pack.key_generator import bp
-from main_pack.models.base.models import Reg_num,Reg_num_type
+from main_pack.models.base.models import Reg_num, Reg_num_type
 
 from main_pack.models.hr_department.models import Employee
 from main_pack.models.users.models import Users
@@ -31,18 +31,24 @@ prefixTypesDict = {
 def generate(UId,prefixType):
 	# user = Users.query.get(UId)
 	prefixType = prefixTypesDict[prefixType]
-	reg_num = Reg_num.query.filter(
-		and_(Reg_num.UId==UId,Reg_num.RegNumTypeId==prefixType)).first()
+	reg_num = Reg_num.query\
+		.filter(and_(
+			Reg_num.UId == UId,\
+			Reg_num.RegNumTypeId == prefixType)).first()
 	if not reg_num:
 		regNumType = Reg_num_type.query.filter_by(RegNumTypeId=prefixType).first()
 		RegNumPrefix = makeShortType(regNumType.RegNumTypeName_tkTM)
-		newRegNum = Reg_num(UId=UId, RegNumTypeId=regNumType.RegNumTypeId,
-			RegNumPrefix=RegNumPrefix,RegNumLastNum=0)
+		newRegNum = Reg_num(UId=UId,
+												RegNumTypeId=regNumType.RegNumTypeId,
+												RegNumPrefix=RegNumPrefix,
+												RegNumLastNum=0)
 		db.session.add(newRegNum)
 		db.session.commit()
 	# try:
-	reg_num = Reg_num.query.filter(
-		and_(Reg_num.UId==UId,Reg_num.RegNumTypeId==prefixType)).first()
+	reg_num = Reg_num.query\
+		.filter(and_(
+			Reg_num.UId == UId,\
+			Reg_num.RegNumTypeId == prefixType)).first()
 	response = reg_num
 	# except Exception as ex:
 	# 	response = jsonify({"error": 'Error generating regNo'})
@@ -52,15 +58,17 @@ def validate(UId,fullRegNo,RegNumLastNum,dbModel,prefixType):
 	# user = Users.query.get(UId)
 	try:
 		prefixType = prefixTypesDict[prefixType]
-		reg_num = Reg_num.query.filter(
-			and_(Reg_num.UId==UId,Reg_num.RegNumTypeId==prefixType)).first()
-		if not dbModel and (RegNumLastNum>reg_num.RegNumLastNum):
+		reg_num = Reg_num.query\
+			.filter(and_(
+				Reg_num.UId == UId,\
+				Reg_num.RegNumTypeId == prefixType)).first()
+		if not dbModel and (RegNumLastNum > reg_num.RegNumLastNum):
 			response = {
 				"status": True,
 				"RegNumLastNum": RegNumLastNum
 			}
 		else:
-			while RegNumLastNum<=reg_num.RegNumLastNum:
+			while RegNumLastNum <= reg_num.RegNumLastNum:
 				RegNumLastNum+=1
 			response = {
 				"status": False,
@@ -75,7 +83,7 @@ def validate(UId,fullRegNo,RegNumLastNum,dbModel,prefixType):
 
 def makeRegNo(shortName,prefix,lastNum,suffix,random_mode=None):
 	if random_mode:
-		lastNum = randint(1,current_app.config['REG_NUM_RANDOM_RANGE'])
+		lastNum = randint(1,Config.REG_NUM_RANDOM_RANGE)
 	regNo = shortName+prefix+str(lastNum)+suffix
 	return regNo
 	

@@ -5,7 +5,8 @@ from main_pack.base.apiMethods import checkApiResponseStatus
 from main_pack.models.base.models import Image,Sl_image
 from main_pack.api.commerce.utils import addImageDict,saveImageFile
 from main_pack import db
-from flask import current_app,send_from_directory
+from main_pack.config import Config
+from flask import send_from_directory
 import dateutil.parser
 import os
 from main_pack.api.auth.api_login import sha_required
@@ -94,7 +95,7 @@ def get_image(file_type,file_size,file_name):
 	if file_size != 'undefined':
 		path = path.replace("<FSize>",file_size)
 	try:
-		if current_app.config['OS_TYPE']=='win32':
+		if Config.OS_TYPE == 'win32':
 			response = send_from_directory('static',
 				filename=path.replace("\\","/"),as_attachment=True)
 		else:
@@ -109,7 +110,7 @@ def get_file(file_type,file_name):
 		sl_image = Sl_image.query.filter(Sl_image.SlImgName==file_name).first()
 		path = sl_image.SlImgMainImgFileName
 	try:
-		if current_app.config['OS_TYPE']=='win32':
+		if Config.OS_TYPE == 'win32':
 			response = send_from_directory('static',filename=path.replace("\\","/"),as_attachment=True)
 		else:
 			response = send_from_directory('static',filename=path,as_attachment=True)
@@ -122,7 +123,7 @@ def get_icon(category,file_name):
 	icons_path = os.path.join("commerce","icons","categories")
 	full_icon_path = os.path.join(icons_path,category,file_name)
 	try:
-		if current_app.config['OS_TYPE']=='win32':
+		if Config.OS_TYPE == 'win32':
 			response = send_from_directory('static',filename=full_icon_path.replace("\\","/"),as_attachment=True)
 		else:
 			response = send_from_directory('static',filename=full_icon_path,as_attachment=True)
