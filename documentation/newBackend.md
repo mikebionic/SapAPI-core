@@ -63,6 +63,8 @@ returns **all orders** if **blank**
 
 Returns only if the **Rp_acc** is the **owner** of invoice
 + /api/v-order-invoices/<str:OInvRegNo>/
++ /api/v-order-invoices/?statDate=2020-07-13 13:12:32.141562&endDate=2020-07-25 13:53:50.141948
+
 
 # Resource category api
 > GET POST
