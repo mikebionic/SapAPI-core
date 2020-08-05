@@ -21,13 +21,13 @@
       </div>
       <div class="product-attribute">
         <h3 class="title">{{'' if resource.ResName==None else resource.ResName}}</h3>
+        <b class="category">{{_('Category')}}: {{ resource.ResCatName if resource.ResCatName else '' }}</b>
+        <div style="font-size: 15px;">{{_('Barcode')}}: {{ resource.BarcodeVal if resource.BarcodeVal else '' }}</div>
+        <span class="sku">#{{resource.ResRegNo}}</span>
+        <p class="excerpt">{{'' if resource.ResDesc==None else resource.ResDesc}}</p>
         <div class="rating">
           <p class="star-rating"><span class="width-80percent"></span></p>
         </div>
-        <b class="category">{{_('Category')}}: {{ resource.ResCatName if resource.ResCatName else '' }}</b>
-        <div>{{_('Barcode')}}: {{ resource.BarcodeVal if resource.BarcodeVal else '' }}</div>
-        <span class="sku">#{{resource.ResRegNo}}</span>
-        <p class="excerpt">{{'' if resource.ResDesc==None else resource.ResDesc}}</p>
         <div class="price">
           <ins>
             <span class="price-amount">
@@ -87,10 +87,12 @@
         </div>
         <div class="total-price-contain">
           <span class="title">{{_('Total Price')}}:</span>
-          <p class="price">
-            <span class="currencySymbol">{{ resource.CurrencyCode }}</span>
-            <div class="productTotalPrice" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue*resource.productQty }}</div>
-          </p>
+          <div class="_price">
+            <p class="price">
+              <span class="currencySymbol">{{ resource.CurrencyCode }}</span>
+              <div class="productTotalPrice" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue*resource.productQty }}</div>
+            </p>
+          </div>  
         </div>
         <div class="buttons">
           <button class="btn add-to-cart-btn addToCart" ownerId="{{resource.ResId}}" onclick="$('.quantity-box').show('slow')">{{_('Add to cart')}}</button>
@@ -115,15 +117,13 @@
           <div class="container">
 
             <div class="row">
-              <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
+              
+              <div class="col-lg-12 col-md-12 col-sm-11 col-xs-12">
                 <div class="rating-info">
-                  <p class="index"><strong class="rating">4.4</strong>out of 5</p>
+                  <p class="index"><strong class="rating">4.4</strong></p>
                   <div class="rating"><p class="star-rating"><span class="width-80percent"></span></p></div>
-                  <p class="see-all">See all 68 reviews</p>
                 </div>
-              </div>
               {% if current_user.is_authenticated %}
-              <div class="col-lg-7 col-md-7 col-sm-6 col-xs-12">
                 <div class="review-form-wrapper">
                   <span class="title">Submit your review</span>
                   <div action="#" name="frm-review" method="post">
