@@ -8,6 +8,10 @@ Provide **username** and **password** in Authentication headers
 > GET
 + /api/api-config/
 
+# Company information
+> GET
++ /api/company-info/
+
 # Simple data queries and insertions
 > GET POST
 
