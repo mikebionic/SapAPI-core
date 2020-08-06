@@ -24,7 +24,20 @@ class Config:
 	    'host': environ.get('POSTGRES_DB_HOST'),
 	    'port': environ.get('POSTGRES_DB_PORT'),
 	}
+
+	POSTGRES_TEST_DB_URI = {
+	    'user': environ.get('POSTGRES_TEST_DB_USERNAME'),
+	    'pw': environ.get('POSTGRES_TEST_DB_PASSWORD'),
+	    'db': environ.get('POSTGRES_TEST_DB_DATABASE'),
+	    'host': environ.get('POSTGRES_TEST_DB_HOST'),
+	    'port': environ.get('POSTGRES_TEST_DB_PORT'),
+	}
+	SQLALCHEMY_TEST_DATABASE_URI = 'postgresql://%(user)s:%(pw)s@%(host)s:%(port)s/%(db)s' % POSTGRES_TEST_DB_URI
+
 	SQLALCHEMY_DATABASE_URI = 'postgresql://%(user)s:%(pw)s@%(host)s:%(port)s/%(db)s' % POSTGRES_DB_URI
+	SQLALCHEMY_BINDS = {
+		'postgres_test': SQLALCHEMY_TEST_DATABASE_URI
+	}
 
 	# default language for session
 	BABEL_DEFAULT_LOCALE = 'tk'

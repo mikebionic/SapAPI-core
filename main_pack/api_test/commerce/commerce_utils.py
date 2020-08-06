@@ -11,15 +11,15 @@ from main_pack.base.languageMethods import dataLangSelector
 # / functions and methods /
 
 # db models
-from main_pack.models.commerce.models import (Resource,
+from main_pack.models_test.commerce.models import (Resource,
                                               Res_category,
 																							Wish)
-from main_pack.models.commerce.models import (Color,
+from main_pack.models_test.commerce.models import (Color,
                                               Size,
                                               Brand,
                                               Unit,
                                               Usage_status)
-from main_pack.models.base.models import Currency
+from main_pack.models_test.base.models import Currency
 # / db models /
 
 # isInactive shows active resources with UsageStatusId = 1
