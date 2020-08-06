@@ -53,16 +53,16 @@ class Config:
 	OS_TYPE = sys.platform
 
 	# set to True if you want to sell resources
-	# if no left in Res_total  
+	# if no left in Res_total.ResPendingTotalAmount
 	NEGATIVE_WH_QTY_SALE = False
 	NEGATIVE_WH_QTY_ORDER = True
 
-	# ability to make an order if qty of resoruce
-	# is greater than Res_total in warehouse
-	OWERRIDE_WH_QTY_ORDER = True
+	# # ability to make an order if qty of resoruce
+	# # is greater than Res_total in warehouse
+	# OVERRIDE_WH_QTY_ORDER = True
 
 	# set to True to show resources
-	# if no left in Res_total
+	# if no left in Res_total.ResTotBalace
 	SHOW_NEGATIVE_WH_QTY_RESOURCE = True
 
 	# language and currency of price-to-text converter

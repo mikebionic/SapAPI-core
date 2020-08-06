@@ -120,7 +120,7 @@ def api_checkout_sale_order_invoices(user):
 				res_total = Res_total.query\
 					.filter(and_(Res_total.GCRecord=='' or Res_total.GCRecord==None),\
 						Res_total.ResId==ResId).first()
-				totalSubstitutionResult = totalQtySubstitution(res_total.ResTotBalance,OInvLineAmount)
+				totalSubstitutionResult = totalQtySubstitution(res_total.ResPendingTotalAmount,OInvLineAmount)
 
 
 				if resource.UsageStatusId == 2:
@@ -138,9 +138,8 @@ def api_checkout_sale_order_invoices(user):
 					raise Exception
 
 				OInvLineAmount = totalSubstitutionResult['amount']
-				### currently this shouldn't decrease the res_total on 
-				### order invoice but should on invoice
-				# res_total.ResTotBalance = totalSubstitutionResult['totalBalance']
+				# ResPendingTotalAmount is decreased but not ResTotBalance
+				res_total.ResPendingTotalAmount = totalSubstitutionResult['totalBalance']
 				############
 				OInvLinePrice = float(res_price.ResPriceValue) if res_price else 0
 				OInvLineTotal = OInvLinePrice*OInvLineAmount

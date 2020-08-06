@@ -55,6 +55,7 @@ returns **all orders** if **blank**
 ## Get all orders of a logged Rp_acc
 **@token_required** of **Rp_acc** login
 + /api/v-order-invoices/
++ /api/v-order-invoices/?statDate=2020-07-13 13:12:32.141562&endDate=2020-07-25 13:53:50.141948
 
 ## Get all order lines of a specific OInvRegNo if it's owner is Rp_acc
 > GET 
@@ -63,7 +64,6 @@ returns **all orders** if **blank**
 
 Returns only if the **Rp_acc** is the **owner** of invoice
 + /api/v-order-invoices/<str:OInvRegNo>/
-+ /api/v-order-invoices/?statDate=2020-07-13 13:12:32.141562&endDate=2020-07-25 13:53:50.141948
 
 
 # Resource category api
@@ -94,6 +94,7 @@ Returns only if the **Rp_acc** is the **owner** of invoice
 + /api/v-full-resources/
 + /api/v-resources/<int:ResId>/
 + /api/tbl-dk-categories/<int:ResCatId>/v-resources/
++ /api/v-resources/search/?tag=<BarcodeVal or ResName>
 
 > GET
 

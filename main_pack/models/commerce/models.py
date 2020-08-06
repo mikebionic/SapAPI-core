@@ -1291,6 +1291,7 @@ class Res_total(CreatedModifiedInfo,db.Model):
 	WpId = db.Column(db.Integer,db.ForeignKey("tbl_dk_work_period.WpId"))
 	ResTotBalance = db.Column(db.Float,default=0)
 	ResTotInAmount = db.Column(db.Float,default=0)
+	ResPendingTotalAmount = db.Column(db.Float,default=0)
 	ResTotOutAmount = db.Column(db.Float,default=0)
 	ResTotLastTrDate = db.Column(db.DateTime,default=datetime.now)
 	ResTotPurchAvgPrice = db.Column(db.Float,default=0)
@@ -1312,6 +1313,7 @@ class Res_total(CreatedModifiedInfo,db.Model):
 			"WpId": self.WpId,
 			"ResTotBalance": self.ResTotBalance,
 			"ResTotInAmount": self.ResTotInAmount,
+			"ResPendingTotalAmount": self.ResPendingTotalAmount,
 			"ResTotOutAmount": self.ResTotOutAmount,
 			"ResTotLastTrDate": apiDataFormat(self.ResTotLastTrDate),
 			"ResTotPurchAvgPrice": self.ResTotPurchAvgPrice,
