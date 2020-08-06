@@ -76,7 +76,7 @@ class Config:
 
 	# set to True to show resources
 	# if no left in Res_total.ResTotBalace
-	SHOW_NEGATIVE_WH_QTY_RESOURCE = True
+	SHOW_NEGATIVE_WH_QTY_RESOURCE = False
 
 	# language and currency of price-to-text converter
 	PRICE_2_TEXT_LANGUAGE = 'tk'

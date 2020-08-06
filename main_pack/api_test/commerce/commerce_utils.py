@@ -1,5 +1,6 @@
 from sqlalchemy import and_
 from flask import jsonify,request,abort,make_response
+from main_pack.base.invoiceMethods import resource_config_check
 
 # auth and validation
 from flask_login import current_user,login_required
@@ -37,7 +38,6 @@ def apiResourceInfo(resource_list=None,
 	colors = Color.query.filter_by(GCRecord = None).all()
 	sizes = Size.query.filter_by(GCRecord = None).all()
 	currencies = Currency.query.filter_by(GCRecord = None).all()
-  
 	# return wishlist info for authenticated user
 	if current_user.is_authenticated:
 		user=current_user
@@ -59,7 +59,8 @@ def apiResourceInfo(resource_list=None,
 		resources = Resource.query\
 			.filter_by(**resource_filtering).all()
 		for resource in resources:
-			resource_models.append(resource)
+			if resource_config_check(resource):
+				resource_models.append(resource)
 	else:
 		for resource_index in resource_list:
 			ResId = int(resource_index["ResId"])
@@ -73,7 +74,8 @@ def apiResourceInfo(resource_list=None,
 			resource = Resource.query\
 				.filter_by(**resource_filtering).first()
 			if resource:
-				resource_models.append(resource)
+				if resource_config_check(resource):
+					resource_models.append(resource)
 		
 	data = []
 	fails = []
