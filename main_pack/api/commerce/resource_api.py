@@ -15,7 +15,7 @@ from main_pack.api.commerce.commerce_utils import apiResourceInfo
 @sha_required
 def api_resource(ResId):
 	resource_list = [{'ResId':ResId}]
-	res = apiResourceInfo(resource_list,single_object=True,isDeleted=True,isInactive=True,fullInfo=True)
+	res = apiResourceInfo(resource_list,single_object=True,isInactive=True,fullInfo=True)
 	if res['status']==1:
 		status_code = 200
 	else:
@@ -40,7 +40,7 @@ def api_resource(ResId):
 @sha_required
 def api_resources():
 	if request.method == 'GET':
-		res = apiResourceInfo(isDeleted=True,isInactive=True,fullInfo=True)
+		res = apiResourceInfo(isInactive=True,fullInfo=True)
 		if res['status']==0:
 			status_code = 404
 		else:
@@ -58,7 +58,7 @@ def api_resources():
 		else:
 			req = request.get_json()
 			resources = []
-			failed_resources = [] 
+			failed_resources = []
 			for resource in req:
 				resource = addResourceDict(resource)
 

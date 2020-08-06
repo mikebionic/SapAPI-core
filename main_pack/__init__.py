@@ -63,7 +63,7 @@ def create_app(config_class=Config):
 	app.register_blueprint(base_bp)
 
 	# api blueprints
-	api_url_prefix = '/api'
+	api_url_prefix = '/ls/api/'
 	from main_pack.api.auth import api as auth_api
 	app.register_blueprint(auth_api,url_prefix=api_url_prefix)
 
