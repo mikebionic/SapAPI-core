@@ -21,48 +21,41 @@
   </head>
   <body> 
     <div class="loader"></div>
-    <div class="navbar-right">
-      <ul class="navbar-nav">
-          <li class="dropdown">
-              <a href="javascript:void(0);">
-                <i class="material-icons">subdirectory_arrow_left</i>
-              </a>
-          </li>
-          <li class="dropdown">
-              <a href="javascript:void(0);"  title="Language" data-toggle="dropdown" role="button"><i class="material-icons">language</i>
-                  <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
-              </a>
-              <ul class="dropdown-menu slideUp2">
-                  <li class="body">
-                      <ul class="menu list-unstyled">
-                          <li>
-                            <a href="/language/en" class="dropdown-item">
-                              <img src="{{ url_for('static', filename='commerce/main/images/us.svg') }}" style="width: 30px">
-                              English language</a>
-                            <div class="dropdown-divider"></div>
-                            <a href="/language/tk" class="dropdown-item">
-                              <img loading="lazy" src="{{ url_for('static', filename='commerce/main/images/tm.svg') }}" style="width: 30px">
-                              Türkmen dili</a>
-                            <div class="dropdown-divider"></div>
-                            <a href="/language/ru" class="dropdown-item">
-                              <img loading="lazy" src="{{ url_for('static', filename='commerce/main/images/ru.svg') }}" style="width: 30px">
-                              Русский язык</a>
-                          </li>
-                      </ul>
-                  </li>
-              </ul>
-          </li>
-      </ul>
-    </div>
-
     <div id="app">
       <div class="main-wrapper main-wrapper-1">
         <div class="navbar-bg"></div>
-        <nav class="navbar navbar-expand-lg main-navbar sticky">
+        <nav class="navbar navbar-expand-lg main-navbar sticky" style="background: #fcfcfc">
           <div class="form-inline mr-auto">
             <ul class="navbar-nav mr-3">
               <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg
-                    collapse-btn"> <i data-feather="align-justify"></i></a></li>
+                    collapse-btn">
+                    <i data-feather="align-justify"></i>
+                  </a>
+              </li>
+              <li class="dropdown" style="margin-top: auto;">
+                <a href="javascript:void(0);"  title="Language" data-toggle="dropdown" role="button"><i class="material-icons">language</i>
+                    <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
+                </a>
+                <ul class="dropdown-menu slideUp2">
+                    <li class="body">
+                        <ul class="menu list-unstyled">
+                            <li>
+                              <a href="/language/en" class="dropdown-item">
+                                <img src="{{ url_for('static', filename='commerce/main/images/us.svg') }}" style="width: 30px">
+                                English language</a>
+                              <div class="dropdown-divider"></div>
+                              <a href="/language/tk" class="dropdown-item">
+                                <img loading="lazy" src="{{ url_for('static', filename='commerce/main/images/tm.svg') }}" style="width: 30px">
+                                Türkmen dili</a>
+                              <div class="dropdown-divider"></div>
+                              <a href="/language/ru" class="dropdown-item">
+                                <img loading="lazy" src="{{ url_for('static', filename='commerce/main/images/ru.svg') }}" style="width: 30px">
+                                Русский язык</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+              </li>   le   
             </ul>
           </div>
         </nav>
