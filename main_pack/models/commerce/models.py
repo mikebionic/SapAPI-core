@@ -626,7 +626,7 @@ class Order_inv(AddInf,CreatedModifiedInfo,db.Model):
 	OInvPrintCount = db.Column(db.Integer,default=0)
 	OInvCreditDays = db.Column(db.Integer,default=0)
 	OInvCreditDesc = db.Column(db.String(100))
-	Order_inv_line = db.relationship('Order_inv_line',backref='order_inv',lazy=True)
+	Order_inv_line = db.relationship('Order_inv_line',backref='order_inv',lazy='joined')
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():

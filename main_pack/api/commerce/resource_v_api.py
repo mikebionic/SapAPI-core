@@ -49,7 +49,11 @@ def api_category_v_resources(ResCatId):
 		resource_list.append(product)
 
 	res = apiResourceInfo(resource_list)
-	response = make_response(jsonify(res),200)
+	if res['status']==1:
+		status_code = 200
+	else:
+		status_code = 404
+	response = make_response(jsonify(res),status_code)
 	return response
 
 # @api.route("/tbl-dk-categories/<int:ResCatId>/tbl-dk-resources/")

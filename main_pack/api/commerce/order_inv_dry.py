@@ -1,189 +1,170 @@
 
-		order_invoices = Order_inv.query\
-			.filter(and_(
-        Order_inv.GCRecord=='' or Order_inv.GCRecord==None,\
-				Order_inv.InvStatId==1)).all()
+# orders and db methods
+from sqlalchemy import extract, and_
+from main_pack.base.apiMethods import checkApiResponseStatus
+from sqlalchemy import and_, extract
+# / orders and db methods /
 
-------------------------
-# single_object returns one resource in "data" instead of list 
-def apiResourceInfo(isInactive=False,
-                    fullInfo=False,
-                    user=None):
+# orders and db methods
+from main_pack.models.commerce.models import (Order_inv,
+																							Order_inv_line,
+																							Inv_status)
+from main_pack.api.commerce.utils import (addOrderInvDict,
+																					addOrderInvLineDict)
+from main_pack.base.apiMethods import checkApiResponseStatus
+from sqlalchemy import and_, extract
+# / orders and db methods /
 
-	inv_statuses = Inv_status.query\
-    .filter_by(GCRecord == None).all()
-    
-	# return wishlist info for authenticated user
-	if current_user.is_authenticated:
-		user=current_user
-	if user:
-		RpAccId = user.RpAccId
-		wishes = Wish.query\
-			.filter(and_(
-				Wish.GCRecord=='' or Wish.GCRecord==None),\
-				Wish.RpAccId==RpAccId)\
-			.all()
-	
+# Rp_acc methods
+from main_pack.api.users.utils import apiRpAccData
+# / Rp_acc methods /
 
+# functions and methods
+from main_pack.base.languageMethods import dataLangSelector
+# / functions and methods /
 
+# datetime, date-parser
+import dateutil.parser
+import datetime as dt
+from datetime import datetime
+# / datetime, date-parser /
 
-
-
-	
+# example request
+@api.route("/tbl-dk-order-invoices/filter/")
+@sha_required
+def api_order_invoices_filter():	
 	startDate = request.args.get('startDate',None,type=str)
 	endDate = request.args.get('endDate',datetime.now().date())
-	if startDate == None:
-		# !!! usage status is configurable, rp acc provided
-		order_invoices = Order_inv.query\
-			.filter(and_(
-				Order_inv.GCRecord=='' or Order_inv.GCRecord==None,\
-				Order_inv.RpAccId==RpAccId))\
-			.order_by(Order_inv.OInvDate.desc()).all()
-	else:
-		if (type(startDate)!=datetime):
-			startDate = dateutil.parser.parse(startDate)
-			startDate = datetime.date(startDate)
-		if (type(endDate)!=datetime):
-			endDate = dateutil.parser.parse(endDate)
-			endDate = datetime.date(endDate)
-			
-		order_invoices = Order_inv.query\
-		.filter(and_(
-      Order_inv.GCRecord=='' or Order_inv.GCRecord==None,\
-			Order_inv.RpAccId==RpAccId,\
-			extract('year',Order_inv.OInvDate).between(startDate.year,endDate.year),\
-			extract('month',Order_inv.OInvDate).between(startDate.month,endDate.month),\
-			extract('day',Order_inv.OInvDate).between(startDate.day,endDate.day)))\
-		.order_by(Order_inv.OInvDate.desc()).all()
 
-	data = []
-	for order_invoice in order_invoices:
-		oInvData = order_invoice.to_json_api()
+	order_invoices = apiOrderInvInfo(startDate,endDate,statusId=1)
 
-		inv_status_list = [inv_status.to_json_api() for inv_status in inv_statuses if inv_status.InvStatId == order_invoice.InvStatId]
-		inv_status = dataLangSelector(inv_status_list[0])
-		oInvData['InvStatName'] = inv_status['InvStatName']
-		
-		order_inv_lines = Order_inv_line.query\
-			.filter(and_(
-				Order_inv_line.GCRecord == '' or Order_inv_line.GCRecord == None),\
-				Order_inv_line.OInvId == order_invoice.OInvId).all()
+	res = {
+		"status": 1,
+		"message": "All order invoices between dates",
+		"data": order_invoices,
+		"total": len(order_invoices)
+	}
+	response = make_response(jsonify(res),200)
+	return response
 
-		order_inv_lines_list = []
-		for order_inv_line in order_inv_lines:
-			order_inv_lines_list.append(order_inv_line.to_json_api())
-		oInvData['Order_inv_lines'] = order_inv_lines_list
-
-		data.append(oInvData)
-
-#############################
-
-	resource_filtering = {
-			"GCRecord": None,
-		}
-		if isInactive==False:
-			resource_filtering["UsageStatusId"] = 1
-
-
-
-
-if not rp_acc:
-
-  # rp acc not provided and it found by order_invoce.rpaccid
-  #################33
-  rp_acc = Rp_acc.query\
-      .filter(and_(
-        Rp_acc.GCRecord == '' or Rp_acc.GCRecord == None),\
-        Rp_acc.RpAccId == order_invoice.RpAccId)\
-      .first()
-  if rp_acc:
-    rpAccData = apiRpAccData(dbModel=rp_acc)
-    oInvData['Rp_acc'] = rpAccData['data']
-  ######3#########
-  
-# rp acc is provided as a current user model
-###############
-  model_type = user['model_type']
+@api.route("/v-order-invoices/",methods=['GET'])
+@token_required
+def api_v_order_invoices(user):
+	model_type = user['model_type']
 	current_user = user['current_user']
 
-	if model_type=='Rp_acc':
-		RpAccId = current_user.RpAccId
-################
+	order_invoices = apiOrderInvInfo(startDate,endDate,user=current_user)
+
+	res = {
+		"status": 1,
+		"message": "Orders",
+		"data": data,
+		"total": len(data)
+	}
+	response = make_response(jsonify(res),200)
+	return response
+
+@api.route("/v-order-invoices/<OInvRegNo>/",methods=['GET'])
+@token_required
+def api_v_order_invoice(user,OInvRegNo):
+	model_type = user['model_type']
+	current_user = user['current_user']
+	
+	invoice_list = [{"OInvRegNo": OInvRegNo}]
+	order_invoices = apiOrderInvInfo(invoice_list,
+																	single_object=True,
+																	user=current_user)
+#########################
 
 
+def apiOrderInvInfo(startDate=None,
+										endDate=datetime.now(),
+										statusId=None,
+										single_object=False,
+										invoice_list=None,
+										rp_acc_user=None):
+	inv_statuses = Inv_status.query\
+		.filter_by(GCRecord = None).all()
 
+	order_filtering = {
+		"GCRecord": None
+	}
+	if statusId:
+		order_filtering['InvStatId'] = statusId
+	if rp_acc_user:
+		order_filtering['RpAccId'] = rp_acc_user.RpAccId
 
-
-
-----------------------------------
-	elif request.method == 'POST':
-		if not request.json:
-			res = {
-				"status": 0,
-				"message": "Error. Not a JSON data."
-			}
-			response = make_response(jsonify(res),400)
-
+	order_inv_models = []
+	if invoice_list is None:
+		if startDate == None:
+			order_invoices = Order_inv.query\
+				.filter_by(**order_filtering)\
+				.order_by(Order_inv.OInvDate.desc()).all()
 		else:
-			req = request.get_json()
-			order_invoices = []
-			failed_order_invoices = [] 
-			for data in req:
-				order_invoice = addOrderInvDict(data)
-				print(order_invoice)
-				try:
-					OInvRegNo = order_invoice['OInvRegNo']
-					thisOrderInv = Order_inv.query\
-						.filter(Order_inv.OInvRegNo == OInvRegNo).first()
-					# getting correct rp_acc of a database
-					try:
-						RpAccRegNo = data['Rp_acc']['RpAccRegNo']
-						RpAccName = data['Rp_acc']['RpAccName']
-						rp_acc = Rp_acc.query\
-							.filter(Rp_acc.RpAccRegNo == RpAccRegNo and Rp_acc.RpAccName == RpAccName)\
-							.first()
-						if rp_acc:
-							order_invoice['RpAccId'] = rp_acc.RpAccId
-					except Exception as ex:
-						print(ex)
-						print("Rp_acc not provided")
-						abort(400)
+			# filtering by date
+			if (type(startDate)!=datetime):
+				startDate = dateutil.parser.parse(startDate)
+				startDate = datetime.date(startDate)
+				print(startDate)
+			if (type(endDate)!=datetime):
+				print(type(endDate))
+				endDate = dateutil.parser.parse(endDate)
+				endDate = datetime.date(endDate)
+				print(endDate)
+			order_invoices = Order_inv.query\
+			.filter_by(**order_filtering)\
+			.filter(and_(
+				extract('year',Order_inv.OInvDate).between(startDate.year,endDate.year),\
+				extract('month',Order_inv.OInvDate).between(startDate.month,endDate.month),\
+				extract('day',Order_inv.OInvDate).between(startDate.day,endDate.day)))\
+			.order_by(Order_inv.OInvDate.desc()).all()
+		for order_inv in order_invoices:
+			order_inv_models.append(order_inv)
+	else:
+		for invoice_index in invoice_list:
+			OInvRegNo = invoice_index["OInvRegNo"]
+			order_filtering["OInvRegNo"] = OInvRegNo
+			order_inv = Order_inv.query\
+				.filter_by(**order_filtering).first()
+			if order_inv:
+				order_inv_models.append(order_inv)
 
-					if thisOrderInv:
-						thisOrderInv.update(**order_invoice)
-						db.session.commit()
-					else:
-						thisOrderInv = Order_inv(**order_invoice)
-						db.session.add(thisOrderInv)
-						db.session.commit()
+	data = []
+	fails = []
+	for order_inv in order_inv_models:
+		try:
+			order_inv_info = order_inv.to_json_api()
 
-					order_inv_lines = []
-					failed_order_inv_lines = []
-					for order_inv_line in data['Order_inv_lines']:
-						order_inv_line = addOrderInvLineDict(order_inv_line)
-						order_inv_line['OInvId'] = thisOrderInv.OInvId
-						try:
-							OInvLineRegNo = order_invoice['OInvLineRegNo']
-							thisOrderInvLine = Order_inv_line.query\
-								.filter(Order_inv_line.OInvLineRegNo == OInvLineRegNo).first()
-							if thisOrderInvLine:
-								thisOrderInvLine.update(**order_inv_line)
-								db.session.commit()
-								order_inv_lines.append(order_inv_line)
-								print('order inv line updated')
-							else:
-								newOrderInvLine = Order_inv_line(**order_inv_line)
-								db.session.add(newOrderInvLine)
-								db.session.commit()
-								order_inv_lines.append(order_inv_line)
-								print('order inv line created')
-						except Exception as ex:
-							failed_order_inv_lines.append(order_inv_line)
+			inv_status_list = [inv_status.to_json_api() for inv_status in inv_statuses if inv_status.InvStatId == order_inv.InvStatId]
+			inv_status = dataLangSelector(inv_status_list[0])
+			order_inv_info['InvStatName'] = inv_status['InvStatName']
 
-					order_invoice['Order_inv_lines'] = order_inv_lines
-					order_invoices.append(order_invoice)
+			if rp_acc_user:
+				rpAccData = apiRpAccData(dbModel=rp_acc_user)
+			else:
+				rp_acc = Rp_acc.query.filter_by(
+						GCRecord = None, RpAccId = order_inv.RpAccId).first()
+				rpAccData = apiRpAccData(dbModel=rp_acc)
+			order_inv_info['Rp_acc'] = rpAccData['data']
 
-				except Exception as ex:
-					failed_order_invoices.append(order_invoice)
-
-			status = checkApiResponseStatus(order_invoices,failed_order_invoices)
+			order_inv_info['Order_inv_lines'] = [order_inv_line.to_json_api() for order_inv_line in order_inv.Order_inv_line if order_inv_line.GCRecord == None]
+			data.append(order_inv_info)
+		except Exception as ex:
+			print(ex)
+			fails.append(order_inv.to_json_api())
+	status = checkApiResponseStatus(data,fails)
+	if single_object == True:
+		if len(data) == 1:
+			data = data[0]
+		if len(fails) == 1:
+			fails = fails[0]
+	res = {
+			"message": "Order invoice",
+			"data": data,
+			"fails": fails,
+			"total": len(data),
+			"fail_total": len(fails)
+	}
+	for e in status:
+		res[e] = status[e]
+	return res
