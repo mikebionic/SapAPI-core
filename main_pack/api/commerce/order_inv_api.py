@@ -171,10 +171,10 @@ def api_order_invoices_filter():
 	startDate = request.args.get('startDate',None,type=str)
 	endDate = request.args.get('endDate',datetime.now().date())
 	if startDate == None:
-		order_inv_filtered = Order_inv.query\
+		order_invoices = Order_inv.query\
 			.filter(and_(Order_inv.GCRecord=='' or Order_inv.GCRecord==None,\
 				Order_inv.InvStatId==1))\
-			.order_by(Order_inv.CreatedDate.desc()).all()
+			.order_by(Order_inv.OInvDate.desc()).all()
 	else:
 		if (type(startDate)!=datetime):
 			startDate = dateutil.parser.parse(startDate)
@@ -183,7 +183,7 @@ def api_order_invoices_filter():
 			endDate = dateutil.parser.parse(endDate)
 			endDate = datetime.date(endDate)
 			
-		order_inv_filtered = Order_inv.query\
+		order_invoices = Order_inv.query\
 		.filter(and_(Order_inv.GCRecord=='' or Order_inv.GCRecord==None,\
 			Order_inv.InvStatId==1,\
 			extract('year',Order_inv.OInvDate).between(startDate.year,endDate.year),\
@@ -192,7 +192,7 @@ def api_order_invoices_filter():
 		.order_by(Order_inv.OInvDate.desc()).all()
 
 	data = []
-	for order_invoice in order_inv_filtered:
+	for order_invoice in order_invoices:
 		oInvData = order_invoice.to_json_api()
 
 		inv_status_list = [inv_status.to_json_api() for inv_status in inv_statuses if inv_status.InvStatId == order_invoice.InvStatId]
@@ -223,11 +223,13 @@ def api_order_invoices_filter():
 		"status": 1,
 		"message": "All order invoices between dates",
 		"data": data,
-		"total": len(order_inv_filtered)
+		"total": len(data)
 	}
 	response = make_response(jsonify(res),200)
 	return response
 
+# example request:
+# api/v-order-invoices/?statDate=2020-07-13 13:12:32.141562&endDate=2020-07-25 13:53:50.141948
 @api.route("/v-order-invoices/",methods=['GET'])
 @token_required
 def api_v_order_invoices(user):
@@ -237,21 +239,59 @@ def api_v_order_invoices(user):
 	if model_type=='Rp_acc':
 		RpAccId = current_user.RpAccId
 
+	inv_statuses = Inv_status.query.all()
+	
+	startDate = request.args.get('startDate',None,type=str)
+	endDate = request.args.get('endDate',datetime.now().date())
+	if startDate == None:
+		# !!! usage status is configurable, rp acc provided
 		order_invoices = Order_inv.query\
-			.filter(and_(Order_inv.GCRecord=='' or Order_inv.GCRecord==None),\
-				Order_inv.RpAccId==RpAccId).all()
+			.filter(and_(
+				Order_inv.GCRecord=='' or Order_inv.GCRecord==None,\
+				Order_inv.RpAccId==RpAccId))\
+			.order_by(Order_inv.OInvDate.desc()).all()
+	else:
+		if (type(startDate)!=datetime):
+			startDate = dateutil.parser.parse(startDate)
+			startDate = datetime.date(startDate)
+		if (type(endDate)!=datetime):
+			endDate = dateutil.parser.parse(endDate)
+			endDate = datetime.date(endDate)
+			
+		order_invoices = Order_inv.query\
+		.filter(and_(Order_inv.GCRecord=='' or Order_inv.GCRecord==None,\
+			Order_inv.RpAccId==RpAccId,\
+			extract('year',Order_inv.OInvDate).between(startDate.year,endDate.year),\
+			extract('month',Order_inv.OInvDate).between(startDate.month,endDate.month),\
+			extract('day',Order_inv.OInvDate).between(startDate.day,endDate.day)))\
+		.order_by(Order_inv.OInvDate.desc()).all()
 
-		order_inv_list = []
-		for order_inv in order_invoices:
-			order_inv_list.append(order_inv.to_json_api())
+	data = []
+	for order_invoice in order_invoices:
+		oInvData = order_invoice.to_json_api()
 
-		res = {
-			"data": order_inv_list,
-			"total": len(order_inv_list),
-			"status": 1,
-			"message": "Orders"
-		}
-		response = make_response(jsonify(res),200)
+		inv_status_list = [inv_status.to_json_api() for inv_status in inv_statuses if inv_status.InvStatId == order_invoice.InvStatId]
+		inv_status = dataLangSelector(inv_status_list[0])
+		oInvData['InvStatName'] = inv_status['InvStatName']
+		
+		order_inv_lines = Order_inv_line.query\
+			.filter(and_(
+				Order_inv_line.GCRecord == '' or Order_inv_line.GCRecord == None),\
+				Order_inv_line.OInvId == order_invoice.OInvId).all()
+
+		order_inv_lines_list = []
+		for order_inv_line in order_inv_lines:
+			order_inv_lines_list.append(order_inv_line.to_json_api())
+		oInvData['Order_inv_lines'] = order_inv_lines_list
+
+		data.append(oInvData)
+	res = {
+		"status": 1,
+		"message": "Orders",
+		"data": data,
+		"total": len(data)
+	}
+	response = make_response(jsonify(res),200)
 	return response
 
 @api.route("/v-order-invoices/<OInvRegNo>/",methods=['GET'])
