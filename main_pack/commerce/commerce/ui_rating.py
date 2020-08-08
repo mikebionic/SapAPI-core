@@ -37,17 +37,14 @@ def ui_rating():
 				raise Exception
 			# check for presense of rate
 			rating = Rating.query\
-				.filter(and_(Rating.GCRecord=='' or Rating.GCRecord==None),\
-					Rating.ResId==ResId,\
-					Rating.RpAccId==RpAccId)\
+				.filter_by(GCRecord = None, ResId = ResId, RpAccId = RpAccId)\
 				.first()
 			# avoid double insertion
 			if rating:
 				raise Exception
 
 			resource = Resource.query\
-				.filter(and_(Resource.GCRecord=='' or Resource.GCRecord==None),\
-					Resource.ResId==ResId)\
+				.filter_by(GCRecord = None, ResId = ResId)\
 				.first()
 			# avoid insertion of Deleted or null resource
 			if resource is None:
@@ -69,9 +66,7 @@ def ui_rating():
 		
 		if request.method=="DELETE":
 			rating = Rating.query\
-				.filter(and_(Rating.GCRecord=='' or Rating.GCRecord==None),\
-					Rating.ResId==ResId,\
-					Rating.RpAccId==RpAccId)\
+				.filter_by(GCRecord = None, ResId = ResId, RpAccId = RpAccId)\
 				.first()
 			if Rating is None:
 				raise Exception

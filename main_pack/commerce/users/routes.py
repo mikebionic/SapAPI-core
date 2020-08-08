@@ -34,9 +34,12 @@ from main_pack.base.apiMethods import fileToURL
 @login_required
 def profile():
 	categoryData = UiCategoriesList()
-	rpAcc = Rp_acc.query.filter(Rp_acc.RpAccId==current_user.RpAccId).first()
+	rpAcc = Rp_acc.query.filter_by(RpAccId = current_user.RpAccId).first()
 	if rpAcc:
-		image = Image.query.filter_by(RpAccId=rpAcc.RpAccId).order_by(Image.CreatedDate.desc()).first()
+		image = Image.query\
+			.filter_by(RpAccId = rpAcc.RpAccId)\
+			.order_by(Image.CreatedDate.desc())\
+			.first()
 		if image:
 			avatar = fileToURL(file_type='image',file_size='S',file_name=image.FileName)
 		else:
@@ -49,15 +52,13 @@ def profile():
 @login_required
 def wishlist():
 	categoryData = UiCategoriesList()
-	rpAcc = Rp_acc.query.filter(Rp_acc.RpAccId==current_user.RpAccId).first()	
-	wishes = Wish.query\
-		.filter(and_(Wish.GCRecord=='' or Wish.GCRecord==None),\
-			Wish.RpAccId==rpAcc.RpAccId)
+	rpAcc = Rp_acc.query\
+		.filter_by(RpAccId = current_user.RpAccId)\
+		.first()
 
 	page = request.args.get('page',1,type=int)
 	pagination_wishes = Wish.query\
-		.filter(and_(Wish.GCRecord=='' or Wish.GCRecord==None),\
-			Wish.RpAccId==rpAcc.RpAccId)\
+		.filter_by(GCRecord = None, RpAccId = rpAcc.RpAccId)\
 		.order_by(Wish.CreatedDate.desc())\
 		.paginate(per_page=Config.RESOURCES_PER_PAGE,page=page)
 	product_list = []
@@ -74,7 +75,9 @@ def wishlist():
 @login_required
 def profile_edit():
 	form = UpdateRpAccForm()
-	rpAcc = Rp_acc.query.filter(Rp_acc.RpAccId==current_user.RpAccId).first()
+	rpAcc = Rp_acc.query\
+		.filter_by(RpAccId = current_user.RpAccId)\
+		.first()
 	
 	if form.validate_on_submit():
 		userData = {
@@ -113,7 +116,10 @@ def profile_edit():
 	form.homePhone.data = rpAcc.RpAccHomePhoneNumber
 	form.zipCode.data = rpAcc.RpAccZipCode
 
-	image = Image.query.filter_by(RpAccId=rpAcc.RpAccId).order_by(Image.CreatedDate.desc()).first()
+	image = Image.query\
+		.filter_by(RpAccId = rpAcc.RpAccId)\
+		.order_by(Image.CreatedDate.desc())\
+		.first()
 	if image:
 		avatar = fileToURL(file_type='image',file_size='S',file_name=image.FileName)
 	else:

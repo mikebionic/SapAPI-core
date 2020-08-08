@@ -34,17 +34,14 @@ def ui_wishlist():
 
 			# check for presense of wish
 			wish = Wish.query\
-				.filter(and_(Wish.GCRecord=='' or Wish.GCRecord==None),\
-					Wish.ResId==ResId,\
-					Wish.RpAccId==RpAccId)\
+				.filter_by(GCRecord = None, ResId = ResId, RpAccId = RpAccId)\
 				.first()
 			# avoid double insertion
 			if wish:
 				raise Exception
 
 			resource = Resource.query\
-				.filter(and_(Resource.GCRecord=='' or Resource.GCRecord==None),\
-					Resource.ResId==ResId)\
+				.filter_by(GCRecord = None, ResId = ResId)\
 				.first()
 			# avoid insertion of Deleted or null resource
 			if resource is None:
@@ -64,9 +61,7 @@ def ui_wishlist():
 		
 		if request.method=="DELETE":
 			wish = Wish.query\
-				.filter(and_(Wish.GCRecord=='' or Wish.GCRecord==None),\
-					Wish.ResId==ResId,\
-					Wish.RpAccId==RpAccId)\
+				.filter_by(GCRecord = None, ResId = ResId, RpAccId = RpAccId)\
 				.first()
 			if Wish is None:
 				raise Exception

@@ -177,28 +177,29 @@ def ui_cart_checkout():
 				raise Exception
 
 			work_period = Work_period.query\
-				.filter(and_(Work_period.GCRecord=='' or Work_period.GCRecord==None),\
-					Work_period.WpIsDefault==True).first()
+				.filter_by(GCRecord = None, WpIsDefault = True)\
+				.first()
 
 			# get the rp_acc of current logged user
 			rp_acc = Rp_acc.query\
-				.filter(and_(Rp_acc.GCRecord=='' or Rp_acc.GCRecord==None),\
-					Rp_acc.RpAccId==current_user.RpAccId).first()
+				.filter_by(GCRecord = None, RpAccId = current_user.RpAccId)\
+				.first()
 
 			user = Users.query\
-				.filter(and_(Users.GCRecord=='' or Users.GCRecord==None),\
-					Users.UId==rp_acc.UId).first()
+				.filter_by(GCRecord = None, UId = rp_acc.UId)\
+				.first()
 			if user is None:
 				# try to find the rp_acc registered user if no seller specified
 				user = Users.query\
-					.filter(and_(Users.GCRecord=='' or Users.GCRecord==None),\
-						Users.RpAccId==rp_acc.RpAccId).first()
+					.filter_by(GCRecord = None, RpAccId = rp_acc.RpAccId)\
+					.first()
 
 			######## generate reg no ########
 			try:
 				reg_num = generate(UId=user.UId,prefixType='sale_order_invoice_code')
 				orderRegNo = makeRegNo(user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'',True)
 			except Exception as ex:
+				print(ex)
 				# use device model and other info
 				orderRegNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())			
 
@@ -221,23 +222,22 @@ def ui_cart_checkout():
 				OInvLineAmount = int(req['cartData'][resElement].get('productQty'))
 
 				resource = Resource.query\
-					.filter(and_(Resource.GCRecord=='' or Resource.GCRecord==None),\
-						Resource.ResId==ResId).first()
+					.filter_by(GCRecord = None, ResId = ResId)\
+					.first()
 				res_total = Res_total.query\
-					.filter(and_(Res_total.GCRecord=='' or Res_total.GCRecord==None),\
-						Res_total.ResId==ResId).first()
-				totalSubstitutionResult = totalQtySubstitution(res_total.ResTotBalance,OInvLineAmount)
+					.filter_by(GCRecord = None, ResId = ResId)\
+					.first()
+				totalSubstitutionResult = totalQtySubstitution(res_total.ResPendingTotalAmount,OInvLineAmount)
 				try:
 					if not resource or totalSubstitutionResult['status']==0:
 						raise Exception
 
 					resourceInv = resource.to_json_api()
 					OInvLineAmount = totalSubstitutionResult['amount']
-					# # !!! this shouldn't change total val if order_inv
-					# res_total.ResTotBalance = totalSubstitutionResult['totalBalance']
+					res_total.ResPendingTotalAmount = totalSubstitutionResult['totalBalance']
 					res_price = Res_price.query\
-						.filter(and_(Res_price.GCRecord=='' or Res_price.GCRecord==None),\
-							Res_price.ResId==resource.ResId,Res_price.ResPriceTypeId==2).first()
+						.filter_by(GCRecord = None, ResId = resource.ResId, ResPriceTypeId = 2)\
+						.first()
 					OInvLinePrice = float(res_price.ResPriceValue) if res_price else 0
 					OInvLineTotal = OInvLinePrice*OInvLineAmount
 

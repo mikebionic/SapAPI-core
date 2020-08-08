@@ -15,16 +15,12 @@ def ui_admin_required():
 	def decorator(f):
 		@wraps(f)
 		def decorated_function(*args, **kwargs):
-			print(current_user.is_admin())
-			print(current_user.UName)
-			print(current_user.UTypeId)
 			if not current_user:
 				try:
 					return redirect(url_for('commerce_auth.login'))
 				except:
 					return redirect(url_for('commerce_auth.admin_login'))
 			elif not current_user.is_admin():
-				print('is not admin')
 				# flash(lazy_gettext('You do not have access to that page!'), 'danger')
 				return redirect(url_for('commerce.commerce'))
 			return f(*args, **kwargs)

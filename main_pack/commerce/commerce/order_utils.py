@@ -25,11 +25,11 @@ def UiOInvData(orders_list):
 	data = []
 
 	currencies = Currency.query\
-		.filter(Currency.GCRecord=='' or Currency.GCRecord==None).all()
+		.filter_by(GCRecord = None).all()
 	inv_statuses = Inv_status.query\
-		.filter(Inv_status.GCRecord=='' or Inv_status.GCRecord==None).all()
+		.filter_by(GCRecord = None).all()
 	orderInvTypes = Order_inv_type.query\
-		.filter(Order_inv_type.GCRecord=='' or Order_inv_type.GCRecord==None).all()
+		.filter_by(GCRecord = None).all()
 	rpAccs = Rp_acc.query.all()
 
 	for order in orders_list:
@@ -57,11 +57,11 @@ def UiOInvLineData(order_lines_list):
 	data = []
 
 	units = Unit.query\
-		.filter(Currency.GCRecord=='' or Currency.GCRecord==None).all()
+		.filter_by(GCRecord = None).all()
 	currencies = Currency.query\
-		.filter(Currency.GCRecord=='' or Currency.GCRecord==None).all()
+		.filter_by(GCRecord = None).all()
 	orderInvTypes = Order_inv_type.query\
-		.filter(Order_inv_type.GCRecord=='' or Order_inv_type.GCRecord==None).all()
+		.filter_by(GCRecord = None).all()
 
 	print(order_lines_list)
 	for order_line in order_lines_list:
@@ -69,7 +69,8 @@ def UiOInvLineData(order_lines_list):
 		orderInvLineList = orderInvLine.to_json_api()
 		
 		resource = Resource.query\
-			.filter(and_(Resource.GCRecord=='' or Resource.GCRecord==None),Resource.ResId==orderInvLine.ResId).first()
+			.filter_by(GCRecord = None, ResId = orderInvLine.ResId)\
+			.first()
 		
 		List_Units = [unit.to_json_api() for unit in units if unit.UnitId==orderInvLine.UnitId]
 		List_Currencies = [currency.to_json_api() for currency in currencies if currency.CurrencyId==orderInvLine.CurrencyId]
@@ -139,7 +140,6 @@ def addOInvLineDict(req):
 		"GCRecord": GCRecord
 	}
 	return orderInvLine
-
 
 def addOInvDict(req):
 	OInvTypeId = req.get('OInvTypeId')
