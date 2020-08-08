@@ -14,7 +14,7 @@ from main_pack.base.invoiceMethods import totalQtySubstitution
 
 # auth and validation
 from flask_login import current_user,login_required
-from main_pack.commerce.users.routes import ui_admin_required
+from main_pack.commerce.auth.utils import ui_admin_required
 # / auth and validation /
 
 # Resource and view

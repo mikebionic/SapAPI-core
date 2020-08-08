@@ -1,6 +1,7 @@
 from flask import render_template,url_for,jsonify,session,flash,redirect,request,Response,abort
 from main_pack.commerce.users import bp
 from main_pack.config import Config
+import os
 
 # useful methods
 from main_pack import db,babel,gettext,lazy_gettext
@@ -28,21 +29,6 @@ from main_pack.models.base.models import Image
 from main_pack.base.imageMethods import save_image
 from main_pack.base.apiMethods import fileToURL
 # / Image operations /
-
-import os
-from functools import wraps
-def ui_admin_required():
-	def decorator(f):
-		@wraps(f)
-		def decorated_function(*args, **kwargs):
-			if not current_user:
-				return redirect(url_for('commerce_auth.login'))
-			elif not current_user.is_admin():
-				flash(lazy_gettext('You do not have access to that page!'), 'danger')
-				return redirect(url_for('commerce.commerce'))
-			return f(*args, **kwargs)
-		return decorated_function
-	return decorator
 
 @bp.route("/profile")
 @login_required

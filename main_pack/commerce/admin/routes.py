@@ -12,7 +12,7 @@ from sqlalchemy import and_
 
 # auth and validation
 from flask_login import current_user,login_required
-from main_pack.commerce.users.routes import ui_admin_required
+from main_pack.commerce.auth.utils import ui_admin_required
 # / auth and validation /
 
 # Resource and view
@@ -52,10 +52,6 @@ from main_pack.base.imageMethods import allowed_icon
 @ui_admin_required()
 def dashboard():
 	return render_template ("commerce/admin/dashboard.html",title=gettext('Dashboard'))
-
-@bp.route("/admin/login")
-def login():
-	return render_template ("commerce/admin/login.html",title=gettext('Login'))
 
 ###### categories management and shop info #######
 @bp.route("/admin/navbar")

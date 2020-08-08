@@ -1,8 +1,35 @@
-from flask import url_for
+from flask import url_for,redirect
 from main_pack import db,bcrypt,mail,babel,gettext,lazy_gettext
 from flask_mail import Message
 from main_pack.config import Config
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+
+# auth and validation
+from flask_login import current_user,login_required
+# / auth and validation /
+
+import os
+from functools import wraps
+
+def ui_admin_required():
+	def decorator(f):
+		@wraps(f)
+		def decorated_function(*args, **kwargs):
+			print(current_user.is_admin())
+			print(current_user.UName)
+			print(current_user.UTypeId)
+			if not current_user:
+				try:
+					return redirect(url_for('commerce_auth.login'))
+				except:
+					return redirect(url_for('commerce_auth.admin_login'))
+			elif not current_user.is_admin():
+				print('is not admin')
+				# flash(lazy_gettext('You do not have access to that page!'), 'danger')
+				return redirect(url_for('commerce.commerce'))
+			return f(*args, **kwargs)
+		return decorated_function
+	return decorator
 
 def send_reset_email(user):
 	url = 'commerce_auth.reset_token'
