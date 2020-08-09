@@ -1,9 +1,9 @@
 # The E-commerce Web application [Branch of SAPHASAP System] 
 ## Languages:
 
-> Python
+> Python >= v3.6
 
-> JavaScript
+> JavaScript | jQuery | ReactJS
 
 ## Includes:
 + Stable Web-Api

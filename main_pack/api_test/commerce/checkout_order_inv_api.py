@@ -1,17 +1,17 @@
 from flask import render_template,url_for,jsonify,request,abort,make_response
-from main_pack.api.commerce import api
+from main_pack.api_test.commerce import api
 from main_pack.base.apiMethods import checkApiResponseStatus
 from main_pack.base.invoiceMethods import get_order_error_type
 
-from main_pack.models.users.models import Users
-from main_pack.models.commerce.models import Order_inv,Order_inv_line,Work_period
-from main_pack.api.commerce.utils import addOrderInvDict,addOrderInvLineDict
-from main_pack import db,babel,gettext,lazy_gettext
+from main_pack.models_test.users.models import Users
+from main_pack.models_test.commerce.models import Order_inv,Order_inv_line,Work_period
+from main_pack.api_test.commerce.utils import addOrderInvDict,addOrderInvLineDict
+from main_pack import db_test,babel,gettext,lazy_gettext
 from main_pack.config import Config
 from datetime import datetime,timezone
-from main_pack.api.auth.api_login import token_required
+from main_pack.api_test.auth.api_login import token_required
 
-from main_pack.models.commerce.models import Resource,Res_price,Res_total
+from main_pack.models_test.commerce.models import Resource,Res_price,Res_total
 from main_pack.base.invoiceMethods import totalQtySubstitution
 from main_pack.base.num2text import num2text,price2text
 from sqlalchemy import and_
@@ -80,7 +80,7 @@ def api_checkout_sale_order_invoices(user):
 		order_invoice['RpAccId']=RpAccId
 
 		newOrderInv = Order_inv(**order_invoice)
-		db.session.add(newOrderInv)
+		db_test.session.add(newOrderInv)
 
 		order_inv_lines = []
 		failed_order_inv_lines = []
@@ -160,7 +160,7 @@ def api_checkout_sale_order_invoices(user):
 				OInvTotal += OInvLineFTotal
 
 				thisOInvLine = Order_inv_line(**order_inv_line)
-				db.session.add(thisOInvLine)
+				db_test.session.add(thisOInvLine)
 				order_inv_lines.append(thisOInvLine.to_json_api())
 			except Exception as ex:
 				print(ex)
@@ -197,7 +197,7 @@ def api_checkout_sale_order_invoices(user):
 			newOrderInv.OInvFTotal = decimal.Decimal(OInvFTotal)
 			newOrderInv.OInvFTotalInWrite = OInvFTotalInWrite
 
-			db.session.commit()
+			db_test.session.commit()
 			print("committed, done..")
 
 			status = checkApiResponseStatus(order_inv_lines,failed_order_inv_lines)

@@ -1,15 +1,15 @@
 from flask import render_template,url_for,jsonify,request,abort,make_response
-from main_pack.api.commerce import api
+from main_pack.api_test.commerce import api
 from main_pack.base.apiMethods import checkApiResponseStatus
 
-from main_pack.models.commerce.models import Res_category
-from main_pack.models.commerce.models import Resource
-from main_pack.api.commerce.utils import addResourceDict
-from main_pack import db
+from main_pack.models_test.commerce.models import Res_category
+from main_pack.models_test.commerce.models import Resource
+from main_pack.api_test.commerce.utils import addResourceDict
+from main_pack import db_test
 from flask import current_app
-from main_pack.api.auth.api_login import sha_required
+from main_pack.api_test.auth.api_login import sha_required
 
-from main_pack.api.commerce.commerce_utils import apiResourceInfo
+from main_pack.api_test.commerce.commerce_utils import apiResourceInfo
 
 @api.route("/tbl-dk-resources/<int:ResId>/")
 @sha_required
@@ -69,8 +69,8 @@ def api_resources():
 					category = Res_category.query.filter_by(ResCatName=group).first()
 					if not category:
 						category = Res_category(ResCatName=group)
-						db.session.add(category)
-						db.session.commit()
+						db_test.session.add(category)
+						db_test.session.commit()
 						resource['ResCatId']=category.ResCatId
 					else:
 						resource['ResCatId']=category.ResCatId
@@ -83,8 +83,8 @@ def api_resources():
 				try:
 					if not 'ResId' in resource:
 						newResource = Resource(**resource)
-						db.session.add(newResource)
-						db.session.commit()
+						db_test.session.add(newResource)
+						db_test.session.commit()
 						resources.append(resource)
 					else:
 						ResId = resource['ResId']
@@ -93,14 +93,14 @@ def api_resources():
 						if thisResource is not None:
 							thisResource.update(**resource)
 							# thisResource.modifiedInfo(UId=1)
-							db.session.commit()
+							db_test.session.commit()
 							resources.append(resource)
 
 						else:
 							# create new resource
 							newResource = Resource(**resource)
-							db.session.add(newResource)
-							db.session.commit()
+							db_test.session.add(newResource)
+							db_test.session.commit()
 							resources.append(resource)
 				except Exception as ex:
 					failed_resources.append(resource)

@@ -1,14 +1,14 @@
 from flask import jsonify,request,abort,make_response,url_for
-from main_pack.api.commerce import api
-from main_pack import db
+from main_pack.api_test.commerce import api
+from main_pack import db_test
 from sqlalchemy import and_,or_
 
 # functions
-from main_pack.api.commerce.commerce_utils import apiResourceInfo
+from main_pack.api_test.commerce.commerce_utils import apiResourceInfo
 # / functions /
 
 # db Models
-from main_pack.models.commerce.models import (Resource,
+from main_pack.models_test.commerce.models import (Resource,
 																							Barcode)
 # / db Models /
 
@@ -49,11 +49,7 @@ def api_category_v_resources(ResCatId):
 		resource_list.append(product)
 
 	res = apiResourceInfo(resource_list)
-	if res['status']==1:
-		status_code = 200
-	else:
-		status_code = 404
-	response = make_response(jsonify(res),status_code)
+	response = make_response(jsonify(res),200)
 	return response
 
 # @api.route("/tbl-dk-categories/<int:ResCatId>/tbl-dk-resources/")

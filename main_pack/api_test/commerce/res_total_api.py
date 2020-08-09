@@ -1,13 +1,13 @@
 from flask import render_template,url_for,jsonify,request,abort,make_response
-from main_pack.api.commerce import api
+from main_pack.api_test.commerce import api
 from main_pack.base.apiMethods import checkApiResponseStatus
 
-from main_pack.models.commerce.models import Res_total
-from main_pack.api.commerce.utils import addResTotalDict
-from main_pack import db
+from main_pack.models_test.commerce.models import Res_total
+from main_pack.api_test.commerce.utils import addResTotalDict
+from main_pack import db_test
 from flask import current_app
 from sqlalchemy import and_
-from main_pack.api.auth.api_login import sha_required
+from main_pack.api_test.auth.api_login import sha_required
 
 @api.route("/tbl-dk-res-totals/",methods=['GET','POST','PUT'])
 @sha_required
@@ -45,8 +45,8 @@ def api_res_totals():
 						raise Exception
 					if not "ResId" in res_total and not "WhId" in res_total:
 						newResTotal = Res_total(**res_total)
-						db.session.add(newResTotal)
-						db.session.commit()
+						db_test.session.add(newResTotal)
+						db_test.session.commit()
 						res_totals.append(res_total)
 					else:
 						####
@@ -57,13 +57,13 @@ def api_res_totals():
 						####
 						if thisResTotal is not None:
 							thisResTotal.update(**res_total)
-							db.session.commit()
+							db_test.session.commit()
 							res_totals.append(res_total)
 
 						else:
 							newResTotal = Res_total(**res_total)
-							db.session.add(newResTotal)
-							db.session.commit()
+							db_test.session.add(newResTotal)
+							db_test.session.commit()
 							res_totals.append(res_total)
 				except Exception as ex:
 					print(ex)

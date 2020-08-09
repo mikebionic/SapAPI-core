@@ -24,7 +24,20 @@ class Config:
 	    'host': environ.get('POSTGRES_DB_HOST'),
 	    'port': environ.get('POSTGRES_DB_PORT'),
 	}
+
+	POSTGRES_TEST_DB_URI = {
+	    'user': environ.get('POSTGRES_TEST_DB_USERNAME'),
+	    'pw': environ.get('POSTGRES_TEST_DB_PASSWORD'),
+	    'db': environ.get('POSTGRES_TEST_DB_DATABASE'),
+	    'host': environ.get('POSTGRES_TEST_DB_HOST'),
+	    'port': environ.get('POSTGRES_TEST_DB_PORT'),
+	}
+	SQLALCHEMY_TEST_DATABASE_URI = 'postgresql://%(user)s:%(pw)s@%(host)s:%(port)s/%(db)s' % POSTGRES_TEST_DB_URI
+
 	SQLALCHEMY_DATABASE_URI = 'postgresql://%(user)s:%(pw)s@%(host)s:%(port)s/%(db)s' % POSTGRES_DB_URI
+	SQLALCHEMY_BINDS = {
+		'postgres_test': SQLALCHEMY_TEST_DATABASE_URI
+	}
 
 	# default language for session
 	BABEL_DEFAULT_LOCALE = 'tk'
@@ -53,17 +66,17 @@ class Config:
 	OS_TYPE = sys.platform
 
 	# set to True if you want to sell resources
-	# if no left in Res_total  
+	# if no left in Res_total.ResPendingTotalAmount
 	NEGATIVE_WH_QTY_SALE = False
 	NEGATIVE_WH_QTY_ORDER = True
 
-	# ability to make an order if qty of resoruce
-	# is greater than Res_total in warehouse
-	OWERRIDE_WH_QTY_ORDER = True
+	# # ability to make an order if qty of resoruce
+	# # is greater than Res_total in warehouse
+	# OVERRIDE_WH_QTY_ORDER = True
 
 	# set to True to show resources
-	# if no left in Res_total
-	SHOW_NEGATIVE_WH_QTY_RESOURCE = True
+	# if no left in Res_total.ResTotBalace
+	SHOW_NEGATIVE_WH_QTY_RESOURCE = False
 
 	# language and currency of price-to-text converter
 	PRICE_2_TEXT_LANGUAGE = 'tk'

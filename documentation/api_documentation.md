@@ -8,6 +8,10 @@ Provide **username** and **password** in Authentication headers
 > GET
 + /api/api-config/
 
+# Company information
+> GET
++ /api/company-info/
+
 # Simple data queries and insertions
 > GET POST
 
@@ -27,6 +31,7 @@ Provide **username** and **password** in Authentication headers
 
 **@sha_required** of **Synchronizer**
 + /api/tbl-dk-order-invoices/
++ /api/tbl-dk-order-invoices/<OInvRegNo>/
 + /api/tbl-dk-order-inv-lines/
 + /api/tbl-dk-order-inv-types/
 
@@ -36,14 +41,14 @@ Provide **username** and **password** in Authentication headers
 
 **@sha_required** of **Synchronizer**
 
-+ /api/tbl-dk-order-invoices/filter/
++ /api/tbl-dk-order-invoices/?startDate=&endDate=
 
 returns **all orders** if **blank**
 
 (Provide **startDate** and **endDate**)
 > **example request**
 ```url
-/api/tbl-dk-order-invoices/filter/?statDate=2020-07-13 13:12:32.141562&endDate=2020-07-25 13:53:50.141948
+/api/tbl-dk-order-invoices/?startDate=2020-07-13 13:12:32.141562&endDate=2020-07-25 13:53:50.141948
 ```
 > POST 
 
@@ -55,6 +60,7 @@ returns **all orders** if **blank**
 ## Get all orders of a logged Rp_acc
 **@token_required** of **Rp_acc** login
 + /api/v-order-invoices/
++ /api/v-order-invoices/?startDate=2020-07-13 13:12:32.141562&endDate=2020-07-25 13:53:50.141948
 
 ## Get all order lines of a specific OInvRegNo if it's owner is Rp_acc
 > GET 
@@ -63,7 +69,6 @@ returns **all orders** if **blank**
 
 Returns only if the **Rp_acc** is the **owner** of invoice
 + /api/v-order-invoices/<str:OInvRegNo>/
-+ /api/v-order-invoices/?statDate=2020-07-13 13:12:32.141562&endDate=2020-07-25 13:53:50.141948
 
 
 # Resource category api
@@ -94,6 +99,7 @@ Returns only if the **Rp_acc** is the **owner** of invoice
 + /api/v-full-resources/
 + /api/v-resources/<int:ResId>/
 + /api/tbl-dk-categories/<int:ResCatId>/v-resources/
++ /api/v-resources/search/?tag=<BarcodeVal or ResName>
 
 > GET
 
