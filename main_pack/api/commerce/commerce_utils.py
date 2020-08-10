@@ -115,8 +115,11 @@ def apiResourceInfo(resource_list=None,
 			
 			List_Barcode = [barcode.to_json_api() for barcode in resource.Barcode if barcode.GCRecord == None]
 			List_Res_price = [res_price.to_json_api() for res_price in resource.Res_price if res_price.ResPriceTypeId == 2 and res_price.GCRecord == None]
-			List_Currencies = [currency.to_json_api() for currency in currencies if currency.CurrencyId == List_Res_price[0]['CurrencyId']]
-			List_Res_total = [res_total.to_json_api() for res_total in resource.Res_total if res_total.GCRecord == None]
+			try:
+				List_Currencies = [currency.to_json_api() for currency in currencies if currency.CurrencyId == List_Res_price[0]['CurrencyId']]
+			except:
+				List_Currencies = []
+			List_Res_total = [res_total.to_json_api() for res_total in resource.Res_total if res_total.GCRecord == None and res_total.WhId == 1]
 			List_Images = [image.to_json_api() for image in resource.Image if image.GCRecord == None]
 			List_Ratings = [rating.to_json_api() for rating in resource.Rating if rating.GCRecord == None]
 			if user:

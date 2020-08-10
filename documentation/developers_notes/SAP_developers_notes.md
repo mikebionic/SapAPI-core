@@ -61,6 +61,8 @@ class Resource(self,name,price):
 ```python
 # !!! BUG: the response is crashing
 
+# !!! TODO: convert to single function
+
 # ??? Why is it crashing?
 ```
 -----------
@@ -69,8 +71,8 @@ class Resource(self,name,price):
 + use camelCase in **JavaScript**
 -----------
 ## Quotes or double-quotes
-+ use **double-quotes ""** in dictionaries, lists, tuples and JSON
-+ use **quotes in methods** in request methods
++ use **double-quotes " "** in dictionaries, lists, tuples and JSON
++ use **single-quotes ' '** in request methods
 ```python
 if request.method == 'GET':
   response = {

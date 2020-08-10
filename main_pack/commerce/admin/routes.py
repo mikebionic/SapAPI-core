@@ -51,6 +51,7 @@ from main_pack.base.imageMethods import allowed_icon
 @login_required
 @ui_admin_required()
 def dashboard():
+	print(current_user.UName)
 	return render_template ("commerce/admin/dashboard.html",title=gettext('Dashboard'))
 
 ###### categories management and shop info #######

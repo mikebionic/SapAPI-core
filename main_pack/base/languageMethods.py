@@ -10,7 +10,10 @@ dbLanguages = {
 	"tk": 'tkTM'
 }
 def dataLangSelector(modelJSON):
-	language = dbLanguages[session['language']]
+	try:
+		language = dbLanguages[session['language']]
+	except:
+		language = dbLanguages['tk']
 	convertedJSON = {}
 	for data in modelJSON:
 		splittedData = data.split('_')
