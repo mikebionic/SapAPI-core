@@ -118,7 +118,7 @@ def api_checkout_sale_order_invoices(user):
 					.filter_by(GCRecord = None, ResId = resource.ResId, ResPriceTypeId = 2)\
 					.first()
 				res_total = Res_total.query\
-					.filter_by(GCRecord = None, ResId = ResId)\
+					.filter_by(GCRecord = None, ResId = ResId, WhId = 1)\
 					.first()
 				totalSubstitutionResult = totalQtySubstitution(res_total.ResPendingTotalAmount,OInvLineAmount)
 

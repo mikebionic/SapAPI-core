@@ -1,5 +1,5 @@
 from flask import render_template,url_for,flash,redirect,request,session
-from main_pack.commerce.admin import bp
+from main_pack.commerce.auth import bp
 from main_pack.config import Config
 
 # useful methods

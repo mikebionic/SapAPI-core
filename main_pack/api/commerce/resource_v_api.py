@@ -49,10 +49,7 @@ def api_category_v_resources(ResCatId):
 		resource_list.append(product)
 
 	res = apiResourceInfo(resource_list)
-	if res['status']==1:
-		status_code = 200
-	else:
-		status_code = 404
+	status_code = 200
 	response = make_response(jsonify(res),status_code)
 	return response
 
