@@ -22,11 +22,12 @@ from main_pack.api.commerce.commerce_utils import UiCartResourceData
 
 def slidersData():
 	data = []
-	sliders = Slider.query\
-		.filter(Slider.GCRecord=='' or Slider.GCRecord==None).all()
+	sliders = Slider.query.filter_by(GCRecord = None).all()
 	for slider in sliders:
 		List_sliders = slider.to_json_api()
-		sl_images = Sl_image.query.filter(and_(Sl_image.SlId==slider.SlId, Sl_image.GCRecord==None)).all()
+		sl_images = Sl_image.query\
+			.filter_by(GCRecord = None, SlId = slider.SlId)\
+			.all()
 		List_sl_images = []
 		for sl_image in sl_images:
 			if (sl_image.SlImgStartDate<=datetime.now()):
@@ -43,20 +44,20 @@ def slidersData():
 def UiCategoriesList():
 	data = []
 	categories = Res_category.query\
-		.filter(and_(Res_category.GCRecord=='' or Res_category.GCRecord==None),\
-			(Res_category.ResOwnerCatId==0)).all()
+		.filter_by(GCRecord = None, ResOwnerCatId = 0)\
+		.all()
 	for category in categories:
 		categoryPack = category.to_json_api()
 		subcategories = Res_category.query\
-			.filter(and_(Res_category.GCRecord=='' or Res_category.GCRecord==None),\
-			(Res_category.ResOwnerCatId==category.ResCatId)).all()
+			.filter_by(GCRecord = None, ResOwnerCatId = category.ResCatId)\
+			.all()
 
 		subcategory_List = []
 		for subcategory in subcategories:
 			subcategoryPack = subcategory.to_json_api()
 			subcategory_children = Res_category.query\
-				.filter(and_(Res_category.GCRecord=='' or Res_category.GCRecord==None),\
-				(Res_category.ResOwnerCatId==subcategory.ResCatId)).all()
+				.filter_by(GCRecord = None, ResOwnerCatId = subcategory.ResCatId)\
+				.all()
 
 			children_List = []
 			for child in subcategory_children:
@@ -70,8 +71,10 @@ def UiCategoriesList():
 	company = Company.query.get(1)
 
 	logoIcon = {}
-	company_logo = Image.query.filter(and_(Image.CId==company.CId, Image.GCRecord==None))\
-		.order_by(Image.CreatedDate.desc()).first()
+	company_logo = Image.query\
+		.filter_by(GCRecord = None, CId = company.CId)\
+		.order_by(Image.CreatedDate.desc())\
+		.first()
 	if company_logo:
 		logoIcon["FilePath"] = fileToURL(file_type='image',file_name=company_logo.FileName)
 

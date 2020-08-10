@@ -31,6 +31,7 @@ def totalQtySubstitution(totalBalance,amount):
 			}
 	return result
 
+# Res_total.ResTotBalance table required
 def resource_config_check(dbModel):
 	if Config.SHOW_NEGATIVE_WH_QTY_RESOURCE == False:
 		for res_total in dbModel.Res_total:

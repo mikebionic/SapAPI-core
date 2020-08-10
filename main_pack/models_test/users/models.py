@@ -6,12 +6,14 @@ from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from main_pack.models_test.base.models import CreatedModifiedInfo, AddInf
 from main_pack.base.dataMethods import apiDataFormat
 
-@login_manager.user_loader
-def load_user(UId):
-	return Users.query.get(int(UId))
+# # !!! FIX: this is a hack for flask-login to login the user..
+# # !!! should be updated to a single model for multi bindin' usage
+# @login_manager.user_loader
+# def load_user(UId):
+# 	return Users.query.get(int(UId))
 
 
-class Users(AddInf,CreatedModifiedInfo,db_test.Model,UserMixin):
+class Users(AddInf,CreatedModifiedInfo,db_test.Model):
 	__tablename__ = "tbl_dk_users"
 	__bind_key__ = 'postgres_test'
 	UId = db_test.Column(db_test.Integer,nullable=False,primary_key=True)

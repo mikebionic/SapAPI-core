@@ -34,6 +34,13 @@ class Users(AddInf,CreatedModifiedInfo,db.Model,UserMixin):
 
 	def get_id(self):
 		return (self.UId)
+	
+	# @property
+	# def is_active(self):
+	# 	return True
+
+	# def is_authenticated(self):
+	# 	return True
 
 	def get_reset_token(self,expires_sec=1800):
 		s = Serializer(Config.SECRET_KEY,expires_sec)
