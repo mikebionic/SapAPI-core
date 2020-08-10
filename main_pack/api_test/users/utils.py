@@ -154,19 +154,23 @@ from sqlalchemy import and_
 
 def apiUsersData(UId):
 	user = Users.query\
-		.filter(and_(Users.GCRecord=='' or Users.GCRecord==None),Users.UId==UId).first()
+		.filter_by(GCRecord = None, UId = UId)\
+		.first()
 	images = Image.query\
-		.filter(Image.GCRecord=='' or Image.GCRecord==None)\
-		.order_by(Image.CreatedDate.desc()).all()
+		.filter_by(GCRecord = None)\
+		.order_by(Image.CreatedDate.desc())\
+		.all()
 	user_type = User_type.query\
-		.filter(and_(User_type.GCRecord=='' or User_type.GCRecord==None),User_type.UTypeId==user.UTypeId).first()
+		.filter_by(GCRecord = None, UTypeId = user.UTypeId)\
+		.first()
 	rp_accs = Rp_acc.query\
-		.filter(and_(Rp_acc.GCRecord=='' or Rp_acc.GCRecord==None),Rp_acc.UId==UId).all()
+		.filter_by(GCRecord = None, UId = UId)\
+		.all()
 	List_RpAccs = [rp_acc.to_json_api() for rp_acc in rp_accs]
 	################
 	userInfo = user.to_json_api()
 	
-	List_Images = [image.to_json_api() for image in images if image.UId==user.UId]
+	List_Images = [image.to_json_api() for image in images if image.UId == user.UId]
 	userInfo["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=List_Images[0]['FileName']) if List_Images else ''
 	userInfo["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=List_Images[0]['FileName']) if List_Images else ''
 	userInfo["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_Images[0]['FileName']) if List_Images else ''
@@ -186,13 +190,14 @@ def apiRpAccData(RpAccRegNo=None,dbModel=None):
 		rp_acc = dbModel
 	else:
 		rp_acc = Rp_acc.query\
-			.filter(and_(Rp_acc.GCRecord=='' or Rp_acc.GCRecord==None),\
-				Rp_acc.RpAccRegNo==RpAccRegNo).first()
+			.filter_by(GCRecord = None, RpAccRegNo = RpAccRegNo)\
+			.first()
 	images = Image.query\
 		.filter(Image.GCRecord=='' or Image.GCRecord==None)\
 		.order_by(Image.CreatedDate.desc()).all()
 	users = Users.query\
-		.filter(and_(Users.GCRecord=='' or Users.GCRecord==None),Users.UId==rp_acc.UId).all()
+		.filter_by(GCRecord = None, UId = rp_acc.UId)\
+		.all()
 	
 	rpAccInfo = rp_acc.to_json_api()
 

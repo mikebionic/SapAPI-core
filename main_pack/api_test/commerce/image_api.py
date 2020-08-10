@@ -69,6 +69,7 @@ def api_images():
 							print('added image was none')
 							images.append(image)
 				except Exception as ex:
+					print(ex)
 					failed_images.append(image)
 
 			status = checkApiResponseStatus(images,failed_images)

@@ -106,8 +106,8 @@ def api_checkout_sale_order_invoices(user):
 				ResId = order_inv_line['ResId']
 				OInvLineAmount = int(order_inv_line['OInvLineAmount'])
 				resource = Resource.query\
-					.filter(and_(Resource.GCRecord=='' or Resource.GCRecord==None),\
-						Resource.ResId==ResId).first()
+					.filter_by(GCRecord = None, ResId = ResId)\
+					.first()
 				
 				if not resource:
 					# type deleted or none 
@@ -115,11 +115,11 @@ def api_checkout_sale_order_invoices(user):
 					raise Exception
 				
 				res_price = Res_price.query\
-					.filter(and_(Res_price.GCRecord=='' or Res_price.GCRecord==None),\
-						Res_price.ResId==resource.ResId,Res_price.ResPriceTypeId==2).first()
+					.filter_by(GCRecord = None, ResId = resource.ResId, ResPriceTypeId = 2)\
+					.first()
 				res_total = Res_total.query\
-					.filter(and_(Res_total.GCRecord=='' or Res_total.GCRecord==None),\
-						Res_total.ResId==ResId).first()
+					.filter_by(GCRecord = None, ResId = ResId, WhId = 1)\
+					.first()
 				totalSubstitutionResult = totalQtySubstitution(res_total.ResPendingTotalAmount,OInvLineAmount)
 
 
