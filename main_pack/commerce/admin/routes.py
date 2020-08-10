@@ -46,6 +46,12 @@ from main_pack.base.imageMethods import save_image
 from main_pack.base.imageMethods import allowed_icon
 # / Image operations /
 
+
+@bp.route('/admin/language/<language>')
+def set_language(language=None):
+	session['language'] = language
+	return redirect(url_for('commerce_admin.dashboard'))
+
 @bp.route("/admin")
 @bp.route("/admin/dashboard")
 @login_required
