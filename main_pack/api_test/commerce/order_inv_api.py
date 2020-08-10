@@ -143,19 +143,6 @@ def api_order_invoice_info(OInvRegNo):
 	response = make_response(jsonify(res),status_code)
 	return response
 
-# !!! delete this route after client update
-# example request:
-# api/tbl-dk-order-invoices/filter/?startDate=2020-07-13 13:12:32.141562&endDate=2020-07-25 13:53:50.141948
-@api.route("/tbl-dk-order-invoices/filter/")
-@sha_required
-def api_order_invoices_filter():
-	startDate = request.args.get('startDate',None,type=str)
-	endDate = request.args.get('endDate',datetime.now())
-	res = apiOrderInvInfo(startDate,endDate,statusId=1)
-	status_code = 200
-	response = make_response(jsonify(res),status_code)
-	return response
-
 # example request:
 # api/v-order-invoices/?startDate=2020-07-13 13:12:32.141562&endDate=2020-07-25 13:53:50.141948
 @api.route("/v-order-invoices/",methods=['GET'])
