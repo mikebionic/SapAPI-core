@@ -2,7 +2,7 @@ from flask import render_template,url_for,jsonify,request,abort,make_response
 from main_pack.api_test.commerce import api
 from main_pack.base.apiMethods import checkApiResponseStatus
 
-from main_pack.models_test.commerce.models import Rp_acc_trans_total
+from main_pack.models_test.commerce.models import Rp_acc_trans_total,Rp_acc
 from main_pack.api_test.commerce.utils import addRpAccTrTotDict
 from main_pack import db_test
 from flask import current_app
@@ -30,31 +30,35 @@ def api_rp_acc_trans_totals():
 			response = make_response(jsonify(res),400)
 			
 		else:
+			rp_accs = Rp_acc.query\
+				.filter_by(GCRecord = None)\
+				.all()
 			req = request.get_json()
 			print(req)
 			rp_acc_trans_totals = []
 			failed_rp_acc_trans_totals = [] 
 			for rp_acc_trans_total in req:
 				rp_acc_trans_total = addRpAccTrTotDict(rp_acc_trans_total)
+				RpAccRegNo = rp_acc_trans_total['RpAccRegNo'] 
 				try:
-					if not 'RpAccTrTotId' in rp_acc_trans_total:
-						newRpAccTrTotal = Rp_acc_trans_total(**rp_acc_trans_total)
-						db_test.session.add(newRpAccTrTotal)
-						db_test.session.commit()
-						rp_acc_trans_totals.append(rp_acc_trans_total)
-					else:
-						RpAccTrTotId = rp_acc_trans_total['RpAccTrTotId']
-						thisRpAccTrTotal = Rp_acc_trans_total.query.get(int(RpAccTrTotId))
+					rp_acc_list = [rp_acc.to_json_api() for rp_acc in rp_accs if rp_acc.RpAccRegNo == RpAccRegNo]
+					print(rp_acc_list)
+					if rp_acc_list:
+						RpAccId = rp_acc_list[0]['RpAccId']
+						thisRpAccTrTotal = Rp_acc_trans_total.query\
+							.filter_by(RpAccId = RpAccId)\
+							.first()
 						if thisRpAccTrTotal is not None:
 							thisRpAccTrTotal.update(**rp_acc_trans_total)
 							db_test.session.commit()
 							rp_acc_trans_totals.append(rp_acc_trans_total)
-
 						else:
 							newRpAccTrTotal = Rp_acc_trans_total(**rp_acc_trans_total)
 							db_test.session.add(newRpAccTrTotal)
 							db_test.session.commit()
 							rp_acc_trans_totals.append(rp_acc_trans_total)
+					else:
+						raise Exception
 				except Exception as ex:
 					print(ex)
 					failed_rp_acc_trans_totals.append(rp_acc_trans_total)
