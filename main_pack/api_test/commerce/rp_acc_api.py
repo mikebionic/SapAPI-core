@@ -54,20 +54,19 @@ def api_rp_accs():
 					RpAccRegNo = rp_acc['RpAccRegNo']
 					RpAccName = rp_acc['RpAccName']
 					thisRpAcc = Rp_acc.query\
-						.filter_by(RpAccRegNo = RpAccRegNo, RpAccName = RpAccName)\
+						.filter_by(RpAccRegNo = RpAccRegNo)\
 						.first()
 					if thisRpAcc:
 						thisRpAcc.update(**rp_acc)
-						db_test.session.commit()
 						rp_accs.append(rp_acc)
 					else:
 						newRpAcc = Rp_acc(**rp_acc)
 						db_test.session.add(newRpAcc)
-						db_test.session.commit()
 						rp_accs.append(rp_acc)
 				except Exception as ex:
 					print(ex)
 					failed_rp_accs.append(rp_acc)
+				db_test.session.commit()
 
 			status = checkApiResponseStatus(rp_accs,failed_rp_accs)
 			res = {

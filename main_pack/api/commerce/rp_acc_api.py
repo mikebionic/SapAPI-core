@@ -58,16 +58,15 @@ def api_rp_accs():
 						.first()
 					if thisRpAcc:
 						thisRpAcc.update(**rp_acc)
-						db.session.commit()
 						rp_accs.append(rp_acc)
 					else:
 						newRpAcc = Rp_acc(**rp_acc)
 						db.session.add(newRpAcc)
-						db.session.commit()
 						rp_accs.append(rp_acc)
 				except Exception as ex:
 					print(ex)
 					failed_rp_accs.append(rp_acc)
+				db.session.commit()
 
 			status = checkApiResponseStatus(rp_accs,failed_rp_accs)
 			res = {

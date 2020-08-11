@@ -34,37 +34,36 @@ def api_rp_acc_trans_totals():
 			rp_accs = Rp_acc.query\
 				.filter_by(GCRecord = None)\
 				.all()
+			rp_acc_list_reg_no = [rp_acc.RpAccRegNo for rp_acc in rp_accs]
+			rp_acc_list = [rp_acc.RpAccId for rp_acc in rp_accs]
 			req = request.get_json()
 			print(req)
 			rp_acc_trans_totals = []
-			failed_rp_acc_trans_totals = [] 
+			failed_rp_acc_trans_totals = []
 			for rp_acc_trans_total in req:
 				try:
-					RpAccRegNo = rp_acc_trans_total['RpAccRegNo'] 
+					RpAccRegNo = rp_acc_trans_total['RpAccRegNo']
 					rp_acc_trans_total = addRpAccTrTotDict(rp_acc_trans_total)
-					rp_acc_list = [rp_acc.to_json_api() for rp_acc in rp_accs if rp_acc.RpAccRegNo == RpAccRegNo]
-					if rp_acc_list:
-						RpAccId = rp_acc_list[0]['RpAccId']
+					rp_acc_id = rp_acc_list[rp_acc_list_reg_no.index(RpAccRegNo)]
+					if rp_acc_id:
+						RpAccId = int(rp_acc_id)
 						rp_acc_trans_total['RpAccId'] = RpAccId
 						thisRpAccTrTotal = Rp_acc_trans_total.query\
 							.filter_by(RpAccId = RpAccId)\
 							.first()
 						if thisRpAccTrTotal is not None:
 							thisRpAccTrTotal.update(**rp_acc_trans_total)
-							db_test.session.commit()
 							rp_acc_trans_totals.append(rp_acc_trans_total)
-							print('updated tr total')
 						else:
 							newRpAccTrTotal = Rp_acc_trans_total(**rp_acc_trans_total)
 							db_test.session.add(newRpAccTrTotal)
-							db_test.session.commit()
-							print('created tr total')
 							rp_acc_trans_totals.append(rp_acc_trans_total)
 					else:
 						raise Exception
 				except Exception as ex:
 					print(ex)
 					failed_rp_acc_trans_totals.append(rp_acc_trans_total)
+				db_test.session.commit()
 
 			status = checkApiResponseStatus(rp_acc_trans_totals,failed_rp_acc_trans_totals)
 			res = {

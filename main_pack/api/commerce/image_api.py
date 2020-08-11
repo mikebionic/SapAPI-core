@@ -42,7 +42,6 @@ def api_images():
 						image = saveImageFile(image)
 						newImage = Image(**image)
 						db.session.add(newImage)
-						db.session.commit()
 						images.append(image)
 					else:
 						ImgId = imageDictData['ImgId']
@@ -50,25 +49,26 @@ def api_images():
 
 						updatingDate = dateutil.parser.parse(imageDictData['ModifiedDate'])
 						if thisImage is not None:
-							print("image is not none")
 							if thisImage.ModifiedDate!=updatingDate:
 								print('updated cuz different ModifiedDate')
 								image = saveImageFile(image)
 								thisImage.update(**image)
-								db.session.commit()
-								images.append(image)
 							else:
 								print("same modified date")
+							image['Image'] = ''
+							images.append(image)
 						else:
 							image = saveImageFile(image)
 							newImage = Image(**image)
 							db.session.add(newImage)
-							db.session.commit()
 							print('added image was none')
+							image['Image'] = ''
 							images.append(image)
 				except Exception as ex:
 					print(ex)
+					image['Image'] = ''
 					failed_images.append(image)
+			db.session.commit()
 
 			status = checkApiResponseStatus(images,failed_images)
 			res = {
