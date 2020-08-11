@@ -3,27 +3,17 @@ from main_pack.api.commerce import api
 
 from main_pack.models.base.models import Company,Sl_image,Slider
 from sqlalchemy import or_, and_
-from main_pack.api.auth.api_login import sha_required
+# from main_pack.api.auth.api_login import sha_required
 
 @api.route("/tbl-dk-sliders/")
-@sha_required
 def api_sliders():
 	company = Company.query.get(1)
-	sliders = Slider.query\
-		.filter(Slider.GCRecord=='' or Slider.GCRecord==None).all()
+	sliders = Slider.query.filter_by(GCRecord = None).all()
 	if request.method == 'GET':
 		data = []
 		for slider in sliders:
 			sliderList = slider.to_json_api()
-
-			sl_images = Sl_image.query\
-				.filter(and_(Sl_image.SlId==slider.SlId,Sl_image.GCRecord==None)).all()
-			
-			slider_images = []
-			for sl_image in sl_images:
-				slider_images.append(sl_image.to_json_api())
-
-			sliderList["Sl_images"] = slider_images
+			sliderList["Sl_images"] = [sl_image.to_json_api() for sl_image in slider.Sl_image if sl_image.GCRecord == None]
 			data.append(sliderList)
 		res = {
 			"status": 1,

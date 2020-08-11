@@ -13,8 +13,7 @@ from main_pack.api.auth.api_login import sha_required
 @sha_required
 def api_res_prices():
 	if request.method == 'GET':
-		res_prices = Res_price.query\
-			.filter(Res_price.GCRecord=='' or Res_price.GCRecord==None).all()
+		res_prices = Res_price.query.filter_by(GCRecord = None).all()
 		res = {
 			"status": 1,
 			"message": "All res prices",
@@ -71,5 +70,4 @@ def api_res_prices():
 			for e in status:
 				res[e]=status[e]
 			response = make_response(jsonify(res),200)
-			
 	return response

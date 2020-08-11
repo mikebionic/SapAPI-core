@@ -26,8 +26,7 @@ def api_rp_accs_rp_acc(RpAccRegNo):
 @sha_required
 def api_rp_accs():
 	if request.method == 'GET':
-		rp_accs = Rp_acc.query\
-			.filter(Rp_acc.GCRecord=='' or Rp_acc.GCRecord==None).all()
+		rp_accs = Rp_acc.query.filter_by(GCRecord = None).all()
 		res = {
 			"status": 1,
 			"message": "All rp_accs",
@@ -55,7 +54,8 @@ def api_rp_accs():
 					RpAccRegNo = rp_acc['RpAccRegNo']
 					RpAccName = rp_acc['RpAccName']
 					thisRpAcc = Rp_acc.query\
-						.filter(Rp_acc.RpAccRegNo==RpAccRegNo and Rp_acc.RpAccName==RpAccName).first()
+						.filter_by(RpAccRegNo = RpAccRegNo, RpAccName = RpAccName)\
+						.first()
 					if thisRpAcc:
 						thisRpAcc.update(**rp_acc)
 						db_test.session.commit()
@@ -78,7 +78,5 @@ def api_rp_accs():
 			}		
 			for e in status:
 				res[e]=status[e]
-			response = make_response(jsonify(res),201)				
-			print(response)					
-
+			response = make_response(jsonify(res),201)
 	return response 

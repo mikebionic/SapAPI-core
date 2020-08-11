@@ -8,12 +8,11 @@ from main_pack import db_test
 from flask import current_app
 from main_pack.api_test.auth.api_login import sha_required
 
-@api.route("/tbl-dk-order-inv-lines/",methods=['GET','POST','PUT'])
+@api.route("/tbl-dk-order-inv-lines/",methods=['GET','POST'])
 @sha_required
 def api_order_inv_lines():
 	if request.method == 'GET':
-		order_inv_lines = Order_inv_line.query\
-			.filter(Order_inv_line.GCRecord=='' or Order_inv_line.GCRecord==None).all()
+		order_inv_lines = Order_inv_line.query.filter_by(GCRecord = None).all()
 		res = {
 			"status": 1,
 			"message": "All order inv lines",

@@ -25,30 +25,30 @@ def addUsersDict(req):
 	GCRecord = req.get('GCRecord')
 
 	users = {
-		'CId':CId,
-		'DivId':DivId,
-		'RpAccId':RpAccId,
-		'UFullName':UFullName,
-		'UName':UName,
-		'UEmail':UEmail,
-		'UPass':UPass,
-		'UShortName':UShortName,
-		'EmpId':EmpId,
-		'UTypeId':UTypeId,
-		'AddInf1':AddInf1,
-		'AddInf2':AddInf2,
-		'AddInf3':AddInf3,
-		'AddInf4':AddInf4,
-		'AddInf5':AddInf5,
-		'AddInf6':AddInf6,
-		'CreatedDate':CreatedDate,
-		'ModifiedDate':ModifiedDate,
-		'CreatedUId':CreatedUId,
-		'ModifiedUId':ModifiedUId,
-		'GCRecord':GCRecord
+		"CId": CId,
+		"DivId": DivId,
+		"RpAccId": RpAccId,
+		"UFullName": UFullName,
+		"UName": UName,
+		"UEmail": UEmail,
+		"UPass": UPass,
+		"UShortName": UShortName,
+		"EmpId": EmpId,
+		"UTypeId": UTypeId,
+		"AddInf1": AddInf1,
+		"AddInf2": AddInf2,
+		"AddInf3": AddInf3,
+		"AddInf4": AddInf4,
+		"AddInf5": AddInf5,
+		"AddInf6": AddInf6,
+		"CreatedDate": CreatedDate,
+		"ModifiedDate": ModifiedDate,
+		"CreatedUId": CreatedUId,
+		"ModifiedUId": ModifiedUId,
+		"GCRecord": GCRecord
 		}
 	if(UId != '' and UId != None):
-		users['UId']=UId
+		users['UId'] = UId
 	users=configureNulls(users)
 	return users
 
@@ -96,51 +96,51 @@ def addRpAccDict(req):
 	ModifiedUId = req.get('ModifiedUId')
 	GCRecord = req.get('GCRecord')
 	rp_acc = {		
-		'CId':CId,
-		'DivId':DivId,
-		'EmpId':EmpId,
-		'GenderId':GenderId,
-		'NatId':NatId,
-		'RpAccStatusId':RpAccStatusId,
-		'ReprId':ReprId,
-		'RpAccTypeId':RpAccTypeId,
-		'WpId':WpId,
-		'RpAccRegNo':RpAccRegNo,
-		'RpAccName':RpAccName,
-		'RpAccUName':RpAccUName,
-		'RpAccUPass':RpAccUPass,
-		'RpAccAddress':RpAccAddress,
-		'RpAccMobilePhoneNumber':RpAccMobilePhoneNumber,
-		'RpAccHomePhoneNumber':RpAccHomePhoneNumber,
-		'RpAccWorkPhoneNumber':RpAccWorkPhoneNumber,
-		'RpAccWorkFaxNumber':RpAccWorkFaxNumber,
-		'RpAccZipCode':RpAccZipCode,
-		'RpAccEMail':RpAccEMail,
-		'RpAccFirstName':RpAccFirstName,
-		'RpAccLastName':RpAccLastName,
-		'RpAccPatronomic':RpAccPatronomic,
-		'RpAccBirthDate':RpAccBirthDate,
-		'RpAccResidency':RpAccResidency,
-		'RpAccPassportNo':RpAccPassportNo,
-		'RpAccPassportIssuePlace':RpAccPassportIssuePlace,
-		'RpAccLangSkills':RpAccLangSkills,
-		'RpAccSaleBalanceLimit':RpAccSaleBalanceLimit,
-		'RpAccPurchBalanceLimit':RpAccPurchBalanceLimit,
-		'AddInf1':AddInf1,
-		'AddInf2':AddInf2,
-		'AddInf3':AddInf3,
-		'AddInf4':AddInf4,
-		'AddInf5':AddInf5,
-		'AddInf6':AddInf6,
-		'CreatedDate':CreatedDate,
-		'ModifiedDate':ModifiedDate,
-		'CreatedUId':CreatedUId,
-		'ModifiedUId':ModifiedUId,
-		'GCRecord':GCRecord
+		"CId": CId,
+		"DivId": DivId,
+		"EmpId": EmpId,
+		"GenderId": GenderId,
+		"NatId": NatId,
+		"RpAccStatusId": RpAccStatusId,
+		"ReprId": ReprId,
+		"RpAccTypeId": RpAccTypeId,
+		"WpId": WpId,
+		"RpAccRegNo": RpAccRegNo,
+		"RpAccName": RpAccName,
+		"RpAccUName": RpAccUName,
+		"RpAccUPass": RpAccUPass,
+		"RpAccAddress": RpAccAddress,
+		"RpAccMobilePhoneNumber": RpAccMobilePhoneNumber,
+		"RpAccHomePhoneNumber": RpAccHomePhoneNumber,
+		"RpAccWorkPhoneNumber": RpAccWorkPhoneNumber,
+		"RpAccWorkFaxNumber": RpAccWorkFaxNumber,
+		"RpAccZipCode": RpAccZipCode,
+		"RpAccEMail": RpAccEMail,
+		"RpAccFirstName": RpAccFirstName,
+		"RpAccLastName": RpAccLastName,
+		"RpAccPatronomic": RpAccPatronomic,
+		"RpAccBirthDate": RpAccBirthDate,
+		"RpAccResidency": RpAccResidency,
+		"RpAccPassportNo": RpAccPassportNo,
+		"RpAccPassportIssuePlace": RpAccPassportIssuePlace,
+		"RpAccLangSkills": RpAccLangSkills,
+		"RpAccSaleBalanceLimit": RpAccSaleBalanceLimit,
+		"RpAccPurchBalanceLimit": RpAccPurchBalanceLimit,
+		"AddInf1": AddInf1,
+		"AddInf2": AddInf2,
+		"AddInf3": AddInf3,
+		"AddInf4": AddInf4,
+		"AddInf5": AddInf5,
+		"AddInf6": AddInf6,
+		"CreatedDate": CreatedDate,
+		"ModifiedDate": ModifiedDate,
+		"CreatedUId": CreatedUId,
+		"ModifiedUId": ModifiedUId,
+		"GCRecord": GCRecord
 		}
 	if(RpAccId != '' and RpAccId != None):
 		print(RpAccId)
-		rp_acc['RpAccId']=RpAccId
+		rp_acc['RpAccId'] = RpAccId
 	rp_acc = configureNulls(rp_acc)
 	return rp_acc
 
@@ -193,7 +193,7 @@ def apiRpAccData(RpAccRegNo=None,dbModel=None):
 			.filter_by(GCRecord = None, RpAccRegNo = RpAccRegNo)\
 			.first()
 	images = Image.query\
-		.filter(Image.GCRecord=='' or Image.GCRecord==None)\
+		.filter_by(GCRecord = None)\
 		.order_by(Image.CreatedDate.desc()).all()
 	users = Users.query\
 		.filter_by(GCRecord = None, UId = rp_acc.UId)\
@@ -212,8 +212,8 @@ def apiRpAccData(RpAccRegNo=None,dbModel=None):
 	# data.append(rpAccInfo)
 	#############
 	res = {
-		"status":1,
-		"data":rpAccInfo,
-		"total":1
+		"status": 1,
+		"data": rpAccInfo,
+		"total": 1
 	}
 	return res

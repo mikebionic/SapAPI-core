@@ -24,8 +24,7 @@ def api_category(ResCatId):
 @api.route("/tbl-dk-categories/",methods=['GET'])
 def api_categories():
 	if request.method == 'GET':
-		categories = Res_category.query\
-			.filter(Res_category.GCRecord=='' or Res_category.GCRecord==None).all()
+		categories = Res_category.query.filter_by(GCRecord = None).all()
 		res = {
 			"status": 1,
 			"message": "All categories",
@@ -77,11 +76,12 @@ def api_post_categories():
 def api_paginated_categories():
 	page = request.args.get('page',1,type=int)
 	pagination = Res_category.query\
-	.filter(Res_category.GCRecord=='' or Res_category.GCRecord==None)\
-	.order_by(Res_category.CreatedDate.desc()).paginate(
-		page,per_page=Config.API_OBJECTS_PER_PAGE,
-		error_out=False
-		)
+		.filter_by(GCRecord = None)\
+		.order_by(Res_category.CreatedDate.desc())\
+		.paginate(
+			page,per_page = Config.API_OBJECTS_PER_PAGE,
+			error_out = False
+			)
 	categories = pagination.items
 	prev = None
 	if pagination.has_prev:
