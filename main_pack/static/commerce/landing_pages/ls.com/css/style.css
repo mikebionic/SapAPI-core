@@ -733,7 +733,7 @@ img.svg{
 }
 .arlo_tm_about_wrap .about_short_contact_wrap ul li{
 	margin: 0px 0px 10px 0px;
-	width: 50%;
+	width: 65%;
 	float: left;
 }
 .arlo_tm_about_wrap .about_short_contact_wrap ul li:nth-of-type(2n){clear: right;}

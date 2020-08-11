@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 <meta name="description" content="Name of your web site">
@@ -13,11 +14,9 @@
 <!-- STYLES -->
 <link href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href={{ url_for('static', filename='commerce/landing_pages/ls.com/css/plugins.css') }} />
-<link rel="stylesheet" type="text/css" href={{ url_for('static', filename='commerce/landing_pages/ls.com/css/style.css') }} />
-<!--[if lt IE 9]> <script type="text/javascript" src="js/modernizr.custom.js"></script> <![endif]-->
-<!-- /STYLES -->
-
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='commerce/landing_pages/ls.com/css/plugins.css') }}" />
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='commerce/landing_pages/ls.com/css/style.css') }}" />
+<link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/logo/favicon.ico') }}">
 </head>
 
 <body>
@@ -44,7 +43,7 @@
 	<div class="arlo_tm_mobile_header_wrap">
 		<div class="main_wrap">
 			<div class="logo">
-				<img src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/logo/mobile_logo.png') }}" alt="" />
+				<img src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/logo/logo2.png') }}" alt="" style="height: 133px;">
 			</div>
 			<div class="arlo_tm_trigger">
 				<div class="hamburger hamburger--collapse-r">
@@ -73,7 +72,7 @@
 		<div class="arlo_tm_leftpart_wrap">
 			<div class="leftpart_inner">
 				<div class="logo_wrap">
-					<a href="#"><img src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/logo/desktop-logo.png') }}" alt="" /></a>
+					<a href="#"><img src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/logo/logo2.png') }}" alt="" style="height: 133px;" ></a>
 				</div>
 				<div class="menu_list_wrap">
 					<ul class="anchor_nav">
@@ -116,7 +115,7 @@
 						<div class="container">
 							<div class="arlo_tm_title_holder">
 								<h3>Biz barada</h3>
-								<span>Kiçiräk maglumat</span>
+								<span>Gysgaça maglumat</span>
 							</div>
 							<div class="arlo_tm_about_wrap">
 								<div class="author_wrap">
@@ -152,9 +151,11 @@
 												<li>
 													<span><label>Biziň salgymyz:</label> Aşgabat şäheri Parahat 7/4, 18</span>
 												</li>
+												<li></li>
 												<li>
 													<span><label>Tel:</label>+993 61 70 33 39</span>
 												</li>
+												<li></li>
 												<li>
 													<span><label>Tel:</label>+993 65 71 52 81</span>
 												</li>
@@ -184,13 +185,12 @@
 									<li><a href="#" data-filter=".alssam_coffee_14gr">ALSSAM coffee 14gr</a></li>
 									<li><a href="#" data-filter=".alssam_coffee_25gr">ALSSAM coffee 25gr</a></li>
 									<li><a href="#" data-filter=".disposable_cup">Disposable cup</a></li>
-									<li><a href="#" data-filter=".şeker_tozy">ALSSAM şeker tozy</a></li>
 								</ul>
 								<ul class="arlo_tm_portfolio_list gallery_zoom">
 									<li class="alssam_coffee_14gr">
 										<div class="entry arlo_tm_portfolio_animation_wrap" data-title="ALSSAM coffee 14gr, 3 in 1, CARAMEL" data-category="Lomaý söwda">
 											<a href="#">
-												<img src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/1.png') }}" alt="" />
+												<img src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/600x600.jpg') }}" alt="" />
 												<div class="arlo_tm_portfolio_image_main" data-img-url="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/1.png') }}"></div>
 											</a>
 										</div>
@@ -198,7 +198,7 @@
 									<li class="alssam_coffee_14gr">
 										<div class="entry arlo_tm_portfolio_animation_wrap" data-title="ALSSAM coffee 14gr, 3 in 1, FRENCH VANILLA" data-category="Lomaý söwda">
 											<a href="#">
-												<img src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/1.png') }}" alt="" />
+												<img src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/600x600.jpg') }}" alt="" />
 												<div class="arlo_tm_portfolio_image_main" data-img-url="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/2.png') }}"></div>
 											</a>
 										</div>
@@ -206,7 +206,7 @@
 									<li class="alssam_coffee_14gr">
 										<div class="entry arlo_tm_portfolio_animation_wrap" data-title="ALSSAM coffee 14gr, 3 in 1, GINGER IMBIR" data-category="Lomaý söwda">
 											<a href="#">
-												<img src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/1.png') }}" alt="" />
+												<img src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/600x600.jpg') }}" alt="" />
 												<div class="arlo_tm_portfolio_image_main" data-img-url="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/3.png') }}"></div>
 											</a>
 										</div>
@@ -214,7 +214,7 @@
 									<li class="alssam_coffee_14gr">
 										<div class="entry arlo_tm_portfolio_animation_wrap" data-title="ALSSAM coffee 14gr, 3 in 1, HAZELNUT" data-category="Lomaý söwda">
 											<a href="#">
-												<img src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/1.png') }}" alt="" />
+												<img src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/600x600.jpg') }}" alt="" />
 												<div class="arlo_tm_portfolio_image_main" data-img-url="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/4.png') }}"></div>
 											</a>
 										</div>
@@ -222,7 +222,7 @@
 									<li class="alssam_coffee_14gr">
 										<div class="entry arlo_tm_portfolio_animation_wrap" data-title="ALSSAM coffee 14gr, 3 in 1, MILK" data-category="Lomaý söwda">
 											<a href="#">
-												<img src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/1.png') }}" alt="" />
+												<img src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/600x600.jpg') }}" alt="" />
 												<div class="arlo_tm_portfolio_image_main" data-img-url="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/5.png') }}"></div>
 											</a>
 										</div>
@@ -230,7 +230,7 @@
 									<li class="alssam_coffee_25gr">
 										<div class="entry arlo_tm_portfolio_animation_wrap" data-title="ALSSAM coffee 25gr, 3 in 1, CAPPUCCINO" data-category="Lomaý söwda">
 											<a href="#">
-												<img src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/1.png') }}" alt="" />
+												<img src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/600x600.jpg') }}" alt="" />
 												<div class="arlo_tm_portfolio_image_main" data-img-url="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/6.png') }}"></div>
 											</a>
 										</div>
@@ -238,7 +238,7 @@
 									<li class="photography">
 										<div class="entry arlo_tm_portfolio_animation_wrap" data-title="TYLLA SKO-82, metal lid for canning" data-category="Lomaý söwda">
 											<a href="#">
-												<img src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/1.png') }}" alt="" />
+												<img src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/600x600.jpg') }}" alt="" />
 												<div class="arlo_tm_portfolio_image_main" data-img-url="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/22.png') }}"></div>
 											</a>
 										</div>
@@ -246,7 +246,7 @@
 									<li class="alssam_coffee_25gr">
 										<div class="entry arlo_tm_portfolio_animation_wrap" data-title="ALSSAM coffee 25gr, 3 in 1, CAPPUCCINO, Paper disposable Cup, ECO, 80'" data-category="Lomaý söwda">
 											<a href="#">
-												<img src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/1.png') }}" alt="" />
+												<img src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/600x600.jpg') }}" alt="" />
 												<div class="arlo_tm_portfolio_image_main" data-img-url="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/7.png') }}"></div>
 											</a>
 										</div>
@@ -254,7 +254,7 @@
 									<li class="alssam_coffee_25gr">
 										<div class="entry arlo_tm_portfolio_animation_wrap" data-title="ALSSAM coffee 25gr, 3 in 1, MILK, Paper disposable Cup, ECO, 80'" data-category="Lomaý söwda">
 											<a href="#">
-												<img src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/1.png') }}" alt="" />
+												<img src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/600x600.jpg') }}" alt="" />
 												<div class="arlo_tm_portfolio_image_main" data-img-url="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/8.png') }}"></div>
 											</a>
 										</div>
@@ -262,7 +262,7 @@
 									<li class="disposable_cup">
 										<div class="entry arlo_tm_portfolio_animation_wrap" data-title="ALSSAM, Paper disposable Cup, ECO, 80'" data-category="Lomaý söwda">
 											<a href="#">
-												<img src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/1.png') }}" alt="" />
+												<img src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/600x600.jpg') }}" alt="" />
 												<div class="arlo_tm_portfolio_image_main" data-img-url="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/9.png') }}"></div>
 											</a>
 										</div>
@@ -270,7 +270,7 @@
 									<li class="ALSSAM şeker tozy">
 										<div class="entry arlo_tm_portfolio_animation_wrap" data-title="ALSSAM şeker tozy" data-category="Lomaý söwda">
 											<a href="#">
-												<img src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/1.png') }}" alt="" />
+												<img src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/600x600.jpg') }}" alt="" />
 												<div class="arlo_tm_portfolio_image_main" data-img-url="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/10.png') }}"></div>
 											</a>
 										</div>
@@ -278,7 +278,7 @@
 									<li class="disposable_cup">
 										<div class="entry arlo_tm_portfolio_animation_wrap" data-title="Paper disposable Cup, ECO, 50" data-category="Lomaý söwda">
 											<a href="#">
-												<img src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/1.png') }}" alt="" />
+												<img src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/600x600.jpg') }}" alt="" />
 												<div class="arlo_tm_portfolio_image_main" data-img-url="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/11.png') }}"></div>
 											</a>
 										</div>
@@ -286,7 +286,7 @@
 									<li class="development">
 										<div class="entry arlo_tm_portfolio_animation_wrap" data-title="RAHATLYK 7, sanitary pads for women" data-category="Lomaý söwda">
 											<a href="#">
-												<img src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/1.png') }}" alt="" />
+												<img src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/600x600.jpg') }}" alt="" />
 												<div class="arlo_tm_portfolio_image_main" data-img-url="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/12.png') }}"></div>
 											</a>
 										</div>
@@ -294,7 +294,7 @@
 									<li class="photography">
 										<div class="entry arlo_tm_portfolio_animation_wrap" data-title="RAHATLYK 10, sanitary pads for women" data-category="Lomaý söwda">
 											<a href="#">
-												<img src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/1.png') }}" alt="" />
+												<img src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/600x600.jpg') }}" alt="" />
 												<div class="arlo_tm_portfolio_image_main" data-img-url="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/13.png') }}"></div>
 											</a>
 										</div>
@@ -302,7 +302,7 @@
 									<li class="design">
 										<div class="entry arlo_tm_portfolio_animation_wrap" data-title="TALANT, JELE 10ml" data-category="Lomaý söwda">
 											<a href="#">
-												<img src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/1.png') }}" alt="" />
+												<img src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/600x600.jpg') }}" alt="" />
 												<div class="arlo_tm_portfolio_image_main" data-img-url="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/14.png') }}"></div>
 											</a>
 										</div>
@@ -310,7 +310,7 @@
 									<li class="photography">
 										<div class="entry arlo_tm_portfolio_animation_wrap" data-title="TAMIZLIK, sanitary pads for women" data-category="Lomaý söwda">
 											<a href="#">
-												<img src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/1.png') }}" alt="" />
+												<img src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/600x600.jpg') }}" alt="" />
 												<div class="arlo_tm_portfolio_image_main" data-img-url="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/15.png') }}"></div>
 											</a>
 										</div>
@@ -318,7 +318,7 @@
 									<li class="photography">
 										<div class="entry arlo_tm_portfolio_animation_wrap" data-title="THERMAL PAPERS" data-category="Lomaý söwda">
 											<a href="#">
-												<img src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/1.png') }}" alt="" />
+												<img src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/600x600.jpg') }}" alt="" />
 												<div class="arlo_tm_portfolio_image_main" data-img-url="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/16.png') }}"></div>
 											</a>
 										</div>
@@ -326,7 +326,7 @@
 									<li class="development">
 										<div class="entry arlo_tm_portfolio_animation_wrap" data-title="THERMAL STIСKERЫ 57 36, (700)" data-category="Lomaý söwda">
 											<a href="#">
-												<img src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/1.png') }}" alt="" />
+												<img src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/600x600.jpg') }}" alt="" />
 												<div class="arlo_tm_portfolio_image_main" data-img-url="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/17.png') }}"></div>
 											</a>
 										</div>
@@ -334,7 +334,7 @@
 									<li class="photography">
 										<div class="entry arlo_tm_portfolio_animation_wrap" data-title="TIZ TAGAM, 60gr Instant noodles with beef flavor" data-category="Lomaý söwda">
 											<a href="#">
-												<img src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/1.png') }}" alt="" />
+												<img src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/600x600.jpg') }}" alt="" />
 												<div class="arlo_tm_portfolio_image_main" data-img-url="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/18.png') }}"></div>
 											</a>
 										</div>
@@ -342,7 +342,7 @@
 									<li class="design">
 										<div class="entry arlo_tm_portfolio_animation_wrap" data-title="TIZ TAGAM, 60gr Instant noodles with chicken flavor" data-category="Lomaý söwda">
 											<a href="#">
-												<img src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/1.png') }}" alt="" />
+												<img src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/600x600.jpg') }}" alt="" />
 												<div class="arlo_tm_portfolio_image_main" data-img-url="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/19.png') }}"></div>
 											</a>
 										</div>
@@ -350,7 +350,7 @@
 									<li class="photography">
 										<div class="entry arlo_tm_portfolio_animation_wrap" data-title="TIZ TAGAM, 100gr Instant noodles with beef flavor" data-category="Lomaý söwda">
 											<a href="#">
-												<img src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/1.png') }}" alt="" />
+												<img src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/600x600.jpg') }}" alt="" />
 												<div class="arlo_tm_portfolio_image_main" data-img-url="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/20.png') }}"></div>
 											</a>
 										</div>
@@ -358,7 +358,7 @@
 									<li class="photography">
 										<div class="entry arlo_tm_portfolio_animation_wrap" data-title="TIZ TAGAM, 100gr Instant noodles with chicken flavor" data-category="Lomaý söwda">
 											<a href="#">
-												<img src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/1.png') }}" alt="" />
+												<img src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/600x600.jpg') }}" alt="" />
 												<div class="arlo_tm_portfolio_image_main" data-img-url="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/portfolio/21.png') }}"></div>
 											</a>
 										</div>
@@ -381,16 +381,10 @@
 		
 	</div>
 </div>
-<!-- / WRAPPER ALL -->
-	
-<!-- SCRIPTS -->
-<script src={{ url_for('static', filename='commerce/landing_pages/ls.com/js/jquery.js') }}></script>
-<!--[if lt IE 10]> <script type="text/javascript" src={{ url_for('static', filename='commerce/landing_pages/ls.com/js/ie8.js') }}></script> <![endif]-->	
-<script src={{ url_for('static', filename='commerce/landing_pages/ls.com/js/plugins.js') }}></script>
-<script src={{ url_for('static', filename='commerce/landing_pages/ls.com/js/init.js') }}></script>
-<!-- /SCRIPTS -->
+
+<script src="{{ url_for('static', filename='commerce/landing_pages/ls.com/js/jquery.js') }}"></script>
+<script src="{{ url_for('static', filename='commerce/landing_pages/ls.com/js/plugins.js') }}"></script>
+<script src="{{ url_for('static', filename='commerce/landing_pages/ls.com/js/init.js') }}"></script>
 
 </body>
-
-<!-- Mirrored from frenify.com/envato/marketify/html/arlo/1/index-3.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 Mar 2019 09:48:42 GMT -->
 </html>
