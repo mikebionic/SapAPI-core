@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from flask import jsonify,make_response
 from main_pack.api.commerce import api
 from flask import current_app

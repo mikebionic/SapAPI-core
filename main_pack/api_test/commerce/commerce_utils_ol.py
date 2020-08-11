@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from sqlalchemy import and_
 from flask import jsonify,request,abort,make_response
 

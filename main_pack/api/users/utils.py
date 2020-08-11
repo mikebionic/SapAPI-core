@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from main_pack.base.dataMethods import configureNulls,configureFloat,boolCheck
 
 def addUsersDict(req):

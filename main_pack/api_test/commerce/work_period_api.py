@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from flask import jsonify,request,abort,make_response
 from main_pack.api_test.commerce import api
 from main_pack.base.apiMethods import checkApiResponseStatus
