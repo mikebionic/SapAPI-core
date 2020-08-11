@@ -29,15 +29,14 @@ def api_rp_acc_trans_totals():
 				"message": "Error. Not a JSON data."
 			}
 			response = make_response(jsonify(res),400)
-			
+
 		else:
 			rp_accs = Rp_acc.query\
 				.filter_by(GCRecord = None)\
 				.all()
 			rp_acc_list_reg_no = [rp_acc.RpAccRegNo for rp_acc in rp_accs]
 			rp_acc_list = [rp_acc.RpAccId for rp_acc in rp_accs]
-			req = request.get_json()
-			print(req)
+			req = request.get_json()			
 			rp_acc_trans_totals = []
 			failed_rp_acc_trans_totals = []
 			for rp_acc_trans_total in req:
@@ -63,7 +62,7 @@ def api_rp_acc_trans_totals():
 				except Exception as ex:
 					print(ex)
 					failed_rp_acc_trans_totals.append(rp_acc_trans_total)
-				db.session.commit()
+			db.session.commit()
 
 			status = checkApiResponseStatus(rp_acc_trans_totals,failed_rp_acc_trans_totals)
 			res = {
@@ -74,7 +73,5 @@ def api_rp_acc_trans_totals():
 			}
 			for e in status:
 				res[e]=status[e]
-			print(res)
 			response = make_response(jsonify(res),200)
-
 	return response

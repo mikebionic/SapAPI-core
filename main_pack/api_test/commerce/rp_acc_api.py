@@ -45,7 +45,6 @@ def api_rp_accs():
 			
 		else:
 			req = request.get_json()
-			print(req)
 			rp_accs = []
 			failed_rp_accs = [] 
 			for rp_acc in req:
@@ -66,7 +65,7 @@ def api_rp_accs():
 				except Exception as ex:
 					print(ex)
 					failed_rp_accs.append(rp_acc)
-				db_test.session.commit()
+			db_test.session.commit()
 
 			status = checkApiResponseStatus(rp_accs,failed_rp_accs)
 			res = {
@@ -78,4 +77,4 @@ def api_rp_accs():
 			for e in status:
 				res[e]=status[e]
 			response = make_response(jsonify(res),201)
-	return response 
+	return response
