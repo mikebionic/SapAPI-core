@@ -2,7 +2,8 @@ from flask import render_template,url_for,jsonify,request,abort,make_response
 from main_pack.api_test.commerce import api
 from main_pack.base.apiMethods import checkApiResponseStatus
 
-from main_pack.models_test.commerce.models import Rp_acc_trans_total,Rp_acc
+from main_pack.models_test.commerce.models import Rp_acc_trans_total
+from main_pack.models_test.users.models import Rp_acc
 from main_pack.api_test.commerce.utils import addRpAccTrTotDict
 from main_pack import db_test
 from flask import current_app
