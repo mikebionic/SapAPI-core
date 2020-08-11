@@ -172,9 +172,9 @@ def apiUsersData(UId):
 	userInfo = user.to_json_api()
 	
 	List_Images = [image.to_json_api() for image in images if image.UId == user.UId]
-	userInfo["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=List_Images[0]['FileName']) if List_Images else ''
-	userInfo["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=List_Images[0]['FileName']) if List_Images else ''
-	userInfo["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_Images[0]['FileName']) if List_Images else ''
+	userInfo["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=List_Images[0]['FileName'],url='commerce_api_test.get_image') if List_Images else ''
+	userInfo["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=List_Images[0]['FileName'],url='commerce_api_test.get_image') if List_Images else ''
+	userInfo["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_Images[0]['FileName'],url='commerce_api_test.get_image') if List_Images else ''
 	userInfo['Images'] = List_Images
 	userInfo["Rp_accs"] = List_RpAccs if List_RpAccs else ''
 	userInfo["User_type"] = user_type.to_json_api() if user_type else ''
@@ -204,9 +204,9 @@ def apiRpAccData(RpAccRegNo=None,dbModel=None):
 
 	List_Users = [user.to_json_api() for user in users]
 	List_Images = [image.to_json_api() for image in images if image.RpAccId==rp_acc.RpAccId]
-	rpAccInfo["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=List_Images[0]['FileName']) if List_Images else ''
-	rpAccInfo["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=List_Images[0]['FileName']) if List_Images else ''
-	rpAccInfo["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_Images[0]['FileName']) if List_Images else ''
+	rpAccInfo["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=List_Images[0]['FileName'],url='commerce_api_test.get_image') if List_Images else ''
+	rpAccInfo["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=List_Images[0]['FileName'],url='commerce_api_test.get_image') if List_Images else ''
+	rpAccInfo["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_Images[0]['FileName'],url='commerce_api_test.get_image') if List_Images else ''
 	rpAccInfo['Images'] = List_Images
 	rpAccInfo["User"] = List_Users[0] if List_Users else ''
 

@@ -149,9 +149,9 @@ def apiResourceInfo(resource_list=None,single_object=False,isDeleted=False,isIna
 			resource_info["ResPriceValue"] = List_Res_price[0]['ResPriceValue'] if List_Res_price else ''
 			resource_info["CurrencyCode"] = List_Currencies[0]['CurrencyCode'] if List_Currencies else 'TMT'
 			resource_info["ResTotBalance"] = List_Res_total[0]['ResTotBalance'] if List_Res_total else ''
-			resource_info["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=List_Images[0]['FileName']) if List_Images else ''
-			resource_info["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=List_Images[0]['FileName']) if List_Images else ''
-			resource_info["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_Images[0]['FileName']) if List_Images else ''
+			resource_info["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=List_Images[0]['FileName'],url='commerce_api_test.get_image') if List_Images else ''
+			resource_info["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=List_Images[0]['FileName'],url='commerce_api_test.get_image') if List_Images else ''
+			resource_info["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_Images[0]['FileName'],url='commerce_api_test.get_image') if List_Images else ''
 			resource_info["Images"] = List_Images if List_Images else []
 			resource_info["Colors"] = List_Colors if List_Colors else []
 			resource_info["Sizes"] = List_Sizes if List_Sizes else []
