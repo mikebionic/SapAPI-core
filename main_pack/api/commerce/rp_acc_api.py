@@ -54,7 +54,7 @@ def api_rp_accs():
 					RpAccRegNo = rp_acc['RpAccRegNo']
 					RpAccName = rp_acc['RpAccName']
 					thisRpAcc = Rp_acc.query\
-						.filter_by(RpAccRegNo = RpAccRegNo, RpAccName = RpAccName)\
+						.filter_by(RpAccRegNo = RpAccRegNo)\
 						.first()
 					if thisRpAcc:
 						thisRpAcc.update(**rp_acc)
