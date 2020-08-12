@@ -35,7 +35,9 @@
             <span value={{resource.productQty}} class="uiQtyText productQty" ownerId="{{resource.ResId}}">{{ resource.productQty }}</span>
           </div>
         </div>
-        <button class="btn btn-outline-info removeFromCart" ownerId='{{resource.ResId}}'>{{_('Remove')}}</button>
+        <a class="btn clearCartBtn" style="padding: 8px 10px 17px;box-shadow: 1px 1px 1px 1px #ececec;">
+          <img src="{{ url_for('static', filename='commerce/main/shop_icons/disposal_50px.svg')}}" style="height: 22px;">
+        </a>
       </div>
     </td>
     <td class="product-subtotal" data-title="{{_('Total')}}">

@@ -104,7 +104,7 @@
           <div class="col-lg-3 col-md-2 col-md-6 col-xs-6" style="width: 50%; margin-bottom: 15px;">
             {% if company_logo %}
               <a href="{{ url_for('commerce.commerce')}}" class="biolife-logo">
-                <img loading="lazy" src="{{ company_logo.FilePath }}"  width="40%" height="34">
+                <img loading="lazy" src="{{ company_logo.FilePath }}"  width="40%" style="height: 50px;">
               </a>
             {% else %}
               {% if company.CName %}
