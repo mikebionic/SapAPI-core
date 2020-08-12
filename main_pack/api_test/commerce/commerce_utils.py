@@ -27,17 +27,17 @@ from main_pack.models_test.base.models import Currency
 # / db models /
 
 # orders and db methods
-from main_pack.models.commerce.models import (Order_inv,
+from main_pack.models_test.commerce.models import (Order_inv,
 																							Order_inv_line,
 																							Inv_status)
-from main_pack.api.commerce.utils import (addOrderInvDict,
+from main_pack.api_test.commerce.utils import (addOrderInvDict,
 																					addOrderInvLineDict)
 from sqlalchemy import and_, extract
 # / orders and db methods /
 
 # Rp_acc db Model and methods
-from main_pack.models.users.models import Rp_acc
-from main_pack.api.users.utils import apiRpAccData
+from main_pack.models_test.users.models import Rp_acc
+from main_pack.api_test.users.utils import apiRpAccData
 # / Rp_acc db Model and methods /
 
 # datetime, date-parser

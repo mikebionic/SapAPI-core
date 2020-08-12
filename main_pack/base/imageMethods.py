@@ -57,6 +57,9 @@ def save_image(imageForm=None,savedImage=None,module="undefined",id="undefined")
 	
 	if not imageForm:
 		image = Image.open(savedImage)
+		image = image.convert('RGB')
+		image.save(savedImage)
+		image = Image.open(savedImage)
 		_, f_ext = os.path.splitext(image.filename)
 		FileName = random_hex + f_ext
 

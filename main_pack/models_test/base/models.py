@@ -6,8 +6,8 @@ from main_pack.base.apiMethods import fileToURL
 
 
 class CreatedModifiedInfo(object):
-	CreatedDate = db_test.Column(db_test.DateTime,default=datetime.now)
-	ModifiedDate = db_test.Column(db_test.DateTime,default=datetime.now,onupdate=datetime.now)
+	CreatedDate = db_test.Column(db_test.DateTime,default=datetime.now())
+	ModifiedDate = db_test.Column(db_test.DateTime,default=datetime.now(),onupdate=datetime.now())
 	CreatedUId = db_test.Column(db_test.Integer)
 	ModifiedUId = db_test.Column(db_test.Integer)
 	GCRecord = db_test.Column(db_test.Integer)
