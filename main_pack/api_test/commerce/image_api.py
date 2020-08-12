@@ -4,6 +4,7 @@ from main_pack.api_test.commerce import api
 from main_pack.base.apiMethods import checkApiResponseStatus
 
 from main_pack.models_test.base.models import Image,Sl_image
+from main_pack.models_test.commerce.models import Resource
 from main_pack.api_test.commerce.utils import addImageDict,saveImageFile
 from main_pack import db_test
 from main_pack.config import Config
@@ -34,11 +35,19 @@ def api_images():
 			response = make_response(jsonify(res),400)
 		else:
 			req = request.get_json()
+			
+			resources = Resource.query.filter_by(GCRecord = None).all()
+			ResId_list = [resource.ResId for resource in resources]
+
 			images = []
 			failed_images = []
 			for image in req:
 				imageDictData = addImageDict(image)
 				try:
+					resource = ResId_list.index(imageDictData['ResId'])
+					if not resource:
+						print('resource is none')
+						raise Exception
 					if not 'ImgId' in imageDictData:
 						image = saveImageFile(image)
 						newImage = Image(**image)
@@ -56,20 +65,17 @@ def api_images():
 								thisImage.update(**image)
 							else:
 								print("same modified date")
-							image['Image'] = ''
-							images.append(image)
+							images.append(imageDictData)
 						else:
 							image = saveImageFile(image)
 							newImage = Image(**image)
 							db_test.session.add(newImage)
 							print('added image was none')
-							image['Image'] = ''
-							images.append(image)
-					db_test.session.commit()
+							images.append(imageDictData)
 				except Exception as ex:
 					print(ex)
-					image['Image'] = ''
-					failed_images.append(image)
+					failed_images.append(imageDictData)
+			db.session.commit()
 
 			status = checkApiResponseStatus(images,failed_images)
 			res = {

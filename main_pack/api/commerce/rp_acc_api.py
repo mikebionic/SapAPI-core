@@ -78,4 +78,4 @@ def api_rp_accs():
 			for e in status:
 				res[e]=status[e]
 			response = make_response(jsonify(res),201)
-	return response 
+	return response
