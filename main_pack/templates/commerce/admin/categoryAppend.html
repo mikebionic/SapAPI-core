@@ -3,7 +3,7 @@
   <td class="text-center editable categoryName" ownerId={{category.ResCatId}}>{{category.ResCatName if category.ResCatName else ''}}</td>
   <td class="text-center editable categoryDesc" ownerId={{category.ResCatId}}>{{category.ResCatDesc if category.ResCatDesc else ''}}</td>
   <td class="text-center editable categoryOwner" ownerId={{category.ResCatId}}>{{category.ResOwnerCatId}}</td>
-  <td>
+  <td class="categoryIcon" ownerId={{category.ResCatId}} data-toggle="modal" data-target="#catIconsModal">
     <img loading="lazy" class="img-fluid categoryIcon" ownerId={{category.ResCatId}} name='{{category.ResCatIconFileName}}' src="{{category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static', filename='commerce/admin/ICONS/surface1.svg') }}" data-toggle="modal" data-target="#catIconsModal">
   </td>
   <td>

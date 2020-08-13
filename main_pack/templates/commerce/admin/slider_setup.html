@@ -5,38 +5,38 @@
 {% endblock %}
 
 {% block content %}
-    <div class="row">
-      <div class="col">
-        <div class="card">
-          <div class="card-header">
-            <a href="{{ url_for('commerce_admin.sliders') }}">
-              <i data-feather="arrow-left-circle"></i>
-            </a>
-            <h4>{{slider.SlName}}</h4>
-          </div>
-          <div class="card-body">
-            {% if slider.SlDesc %}
-              <div class="card-header">
-                <h4>{{_('Description')}}</h4>
-              </div>
-              <div class="sliderDesc" ownerId={{slider.SlId}}>{{slider.SlDesc}}</div>
-              <br>
-            {% endif %}
-            {% if sl_images %}
-              {% for sl_image in sl_images %}
-                <div class="gallery gallery-fw" data-item-height="100" style="display: flex;">
-                  <div class="gallery-item" data-image="{{ url_for('static', filename=sl_image.SlImgMainImgFileName.replace('<FSize>','M')) }}"></div>
-                  <div class="carousel_icon">
-                    <li><a href="{{ url_for('commerce_admin.remove_images',type='slider',imgId=sl_image.SlImgId) }}" class="btn btn-icon btn-light deleteSliderBtn"><i class="fas fa-trash-alt"></i></a></li>
-                  </div>
-                </div>
-              {% endfor %}
-            {% endif %}
-          </div>
-          <button class="btn btn-info" data-toggle="modal" data-target=".addSliderImageModal"><i class="fas fa-plus"></i></button>
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="card-header">
+          <a href="{{ url_for('commerce_admin.sliders') }}">
+            <i data-feather="arrow-left-circle"></i>
+          </a>
+          <h4>{{slider.SlName}}</h4>
         </div>
+        <div class="card-body">
+          {% if slider.SlDesc %}
+            <div class="card-header">
+              <h4>{{_('Description')}}</h4>
+            </div>
+            <div class="sliderDesc" ownerId={{slider.SlId}}>{{slider.SlDesc}}</div>
+            <br>
+          {% endif %}
+          {% if sl_images %}
+            {% for sl_image in sl_images %}
+              <div class="gallery gallery-fw" data-item-height="100" style="display: flex;">
+                <div class="gallery-item" data-toggle="popover" data-trigger="hover" title="{{slider.SlName}}" data-content="{{_('Description')}}: {{sl_image.SlImgDesc}}. {{_('Date')}}: {{SlImgStartDate}} - {{SlImgEndDate}}" data-image="{{ url_for('static', filename=sl_image.SlImgMainImgFileName.replace('<FSize>','M')) }}"></div>
+                <div class="carousel_icon">
+                  <li><a href="{{ url_for('commerce_admin.remove_images',type='slider',imgId=sl_image.SlImgId) }}" class="btn btn-icon btn-light deleteSliderBtn"><i class="fas fa-trash-alt"></i></a></li>
+                </div>
+              </div>
+            {% endfor %}
+          {% endif %}
+        </div>
+        <button class="btn btn-info" data-toggle="modal" data-target=".addSliderImageModal"><i class="fas fa-plus"></i></button>
       </div>
     </div>
+  </div>
 {% endblock %}
 
 {% block modals %}
@@ -49,7 +49,6 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-
         <div class="modal-body">
           <form method="POST" action="" enctype="multipart/form-data">
             {{ sliderForm.hidden_tag() }}
@@ -65,7 +64,6 @@
               <label>{{_('End date')}}</label>
               {{ sliderForm.SlImgEndDate(class="form-control datepicker") }}
             </div>
-
             <div class="section-title">{{_('Upload images')}}</div>
             {{ sliderForm.sliderImage(class="custom-file-input") }}
             {% if sliderForm.sliderImage.errors %}
@@ -86,6 +84,6 @@
 
   <script src="{{ url_for('static', filename='commerce/admin/bundles/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/js/page/gallery1.js') }}"></script>
-  <script src="{{ url_for('static', filename='commerce/admin/bundles/dropzonejs/min/dropzone.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/admin/js/sliders.js') }}"></script>
   
 {% endblock %}
