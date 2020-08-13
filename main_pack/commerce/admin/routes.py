@@ -129,12 +129,6 @@ def product_table():
 	return render_template ("commerce/admin/product_table.html",**resData,
 		title=gettext('Product table'))
 
-@bp.route("/admin/admin_table")
-@login_required
-@ui_admin_required()
-def admin_table():
-	return render_template ("commerce/admin/admin_table.html",title=gettext('Admin table'))
-
 def rp_acc_types():
 	rp_acc_types = Rp_acc_type.query\
 			.filter(Rp_acc_type.GCRecord=='' or Rp_acc_type.GCRecord==None).all()

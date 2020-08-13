@@ -60,7 +60,7 @@ $('.saveCategoryBtn').click(function(e){
 $("body").delegate('.categoryIcon','click',function(event){
 	ownerId = $(this).attr('ownerId');
 	console.log(ownerId);
-	$("body").delegate('.iconsList img','click',function(event){
+	$("body").delegate('.iconsList .singleIcon','click',function(event){
 		selectedIconSrc = $(this).attr('src');
 		selectedIconName = $(this).attr('name');
 		selectedIconCategory = $(this).attr('icon_category');
