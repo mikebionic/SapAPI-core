@@ -1,12 +1,12 @@
 from flask import render_template, url_for, jsonify, json, session, flash, redirect , request, Response, abort
 from flask_login import current_user,login_required
-from main_pack import db,babel,gettext,lazy_gettext
-from main_pack.commerce.commerce import bp
+from main_pack import db_test,babel,gettext,lazy_gettext
+from main_pack.commerce_test.commerce import bp
 
 # Resource and view
 from main_pack.api.commerce.commerce_utils import apiResourceInfo
-from main_pack.commerce.commerce.utils import slidersData,UiCategoriesList
-from main_pack.models.commerce.models import Resource,Res_category
+from main_pack.commerce_test.commerce.utils import slidersData,UiCategoriesList
+from main_pack.models_test.commerce.models import Resource,Res_category
 # / Resource and view /
 
 @bp.route("/")

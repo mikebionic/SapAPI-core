@@ -1,0 +1,13 @@
+<tr ownerId={{category.ResCatId}}>
+  <td class="text-center editable categoryId" ownerId={{category.ResCatId}}>{{category.ResCatId}}</td>
+  <td class="text-center editable categoryName" ownerId={{category.ResCatId}}>{{category.ResCatName if category.ResCatName else ''}}</td>
+  <td class="text-center editable categoryDesc" ownerId={{category.ResCatId}}>{{category.ResCatDesc if category.ResCatDesc else ''}}</td>
+  <td class="text-center editable categoryOwner" ownerId={{category.ResCatId}}>{{category.ResOwnerCatId}}</td>
+  <td class="categoryIcon" ownerId={{category.ResCatId}} data-toggle="modal" data-target="#catIconsModal">
+    <img loading="lazy" class="img-fluid categoryIcon" ownerId={{category.ResCatId}} name='{{category.ResCatIconFileName}}' src="{{category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static', filename='commerce/admin/ICONS/surface1.svg') }}" data-toggle="modal" data-target="#catIconsModal">
+  </td>
+  <td>
+    <button class="btn btn-icon btn-success saveCategoryBtn" ownerId={{category.ResCatId}}><i class="fas fa-check"></i></button>
+    <button class="btn btn-icon btn-danger deleteCategoryBtn" ownerId={{category.ResCatId}}><i class="fas fa-trash-alt"></i></button>
+  </td>
+</tr>

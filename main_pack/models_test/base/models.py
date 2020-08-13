@@ -245,13 +245,13 @@ class Contact_type(CreatedModifiedInfo,db_test.Model):
 
 	def to_json(self):
 		json_contactType = {
-			'ContactTypeId': self.ContactTypeId,
-			'ContactTypeName_tkTM': self.ContactTypeName_tkTM,
-			'ContactTypeDesc_tkTM': self.ContactTypeDesc_tkTM,
-			'ContactTypeName_ruRU': self.ContactTypeName_ruRU,
-			'ContactTypeDesc_ruRU': self.ContactTypeDesc_ruRU,
-			'ContactTypeName_enUS': self.ContactTypeName_enUS,
-			'ContactTypeDesc_enUS': self.ContactTypeDesc_enUS
+			"ContactTypeId": self.ContactTypeId,
+			"ContactTypeName_tkTM": self.ContactTypeName_tkTM,
+			"ContactTypeDesc_tkTM": self.ContactTypeDesc_tkTM,
+			"ContactTypeName_ruRU": self.ContactTypeName_ruRU,
+			"ContactTypeDesc_ruRU": self.ContactTypeDesc_ruRU,
+			"ContactTypeName_enUS": self.ContactTypeName_enUS,
+			"ContactTypeDesc_enUS": self.ContactTypeDesc_enUS
 		}
 		return json_contactType
 
@@ -432,10 +432,10 @@ class Image(CreatedModifiedInfo,db_test.Model):
 			"RpAccId": self.RpAccId,
 			"ResId": self.ResId,
 			"FileName": self.FileName,
-			'FilePath':fileToURL(file_type='image',file_size='M',file_name=self.FileName,url='commerce_api_test.get_image'),
-			'FilePathS':fileToURL(file_type='image',file_size='S',file_name=self.FileName,url='commerce_api_test.get_image'),
-			'FilePathM':fileToURL(file_type='image',file_size='M',file_name=self.FileName,url='commerce_api_test.get_image'),
-			'FilePathR':fileToURL(file_type='image',file_size='R',file_name=self.FileName,url='commerce_api_test.get_image'),
+			"FilePath": fileToURL(file_type='image',file_size='M',file_name=self.FileName,url='commerce_api_test.get_image'),
+			"FilePathS": fileToURL(file_type='image',file_size='S',file_name=self.FileName,url='commerce_api_test.get_image'),
+			"FilePathM": fileToURL(file_type='image',file_size='M',file_name=self.FileName,url='commerce_api_test.get_image'),
+			"FilePathR": fileToURL(file_type='image',file_size='R',file_name=self.FileName,url='commerce_api_test.get_image'),
 			# "FileHash": self.FileHash,
 			# # "Image": base64.encodebytes(self.Image).decode('ascii'),
 			# "Image": apiCheckImageByte(self.Image),
@@ -598,10 +598,10 @@ class Sl_image(AddInf,CreatedModifiedInfo,db_test.Model):
 			"SlId": self.SlId,
 			"SlImgName": self.SlImgName,
 			"SlImgDesc": self.SlImgDesc,
-			"SlImgMainImgFileName": fileToURL(file_type="slider",file_size='M',file_name=self.SlImgName),
-			'SlImgMainImgFilePathS':fileToURL(file_type="slider",file_size='S',file_name=self.SlImgName),
-			'SlImgMainImgFilePathM':fileToURL(file_type="slider",file_size='M',file_name=self.SlImgName),
-			'SlImgMainImgFilePathR':fileToURL(file_type="slider",file_size='R',file_name=self.SlImgName),
+			"SlImgMainImgFileName": fileToURL(file_type="slider",file_size='M',file_name=self.SlImgName,url='commerce_api_test.get_image'),
+			"SlImgMainImgFilePathS": fileToURL(file_type="slider",file_size='S',file_name=self.SlImgName,url='commerce_api_test.get_image'),
+			"SlImgMainImgFilePathM": fileToURL(file_type="slider",file_size='M',file_name=self.SlImgName,url='commerce_api_test.get_image'),
+			"SlImgMainImgFilePathR": fileToURL(file_type="slider",file_size='R',file_name=self.SlImgName,url='commerce_api_test.get_image'),
 			"SlImgSubImageFileName1": self.SlImgSubImageFileName1,
 			"SlImgSubImageFileName2": self.SlImgSubImageFileName2,
 			"SlImgSubImageFileName3": self.SlImgSubImageFileName3,

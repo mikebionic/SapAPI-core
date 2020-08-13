@@ -1,0 +1,214 @@
+{% extends "commerce_test/admin/layout.html" %}
+
+{% block styles %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/prism/prism.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/datatables/datatables.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/owlcarousel2/dist/assets/owl.carousel.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='commerce/admin/admin_commerce/style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/owlcarousel2/dist/assets/owl.theme.default.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/pretty-checkbox/pretty-checkbox.min.css') }}">
+{% endblock %}
+
+{% block content %}
+  <div>
+    <div class="card">
+      <div class="card-header">
+        <a href="{{ url_for('commerce_admin_test.customers_table') }}" class="btn btn-outline-primary">
+          <i data-feather="chevron-left"></i>
+        </a>
+        <h4>{{_('Cusomer details')}}</h4>
+      </div>
+      <div class="card-body">
+        <ul class="nav nav-pills" id="myTab3" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#profile" role="tab"
+              aria-controls="home" aria-selected="true">{{_('Profile')}}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#orders" role="tab"
+              aria-controls="profile" aria-selected="false">{{_('Orders')}}</a>
+          </li>
+        </ul>
+        <div class="tab-content" id="myTabContent2">
+          <div class="tab-pane fade" id="profile" role="tabpanel">
+            <div class="columns is-account-grid is-multiline">
+              <div class="column is-5">
+                <div class="flat-card profile-card is-auto">
+                  <div class="card-body">
+                    <div class="profile-image">
+                      <img loading="lazy" src="{{ rp_acc.FilePathS if rp_acc.FilePathS else url_for('static', filename='commerce/admin/img/no_avatar.jpg') }}" />
+                    </div>
+                    <div class="username has-text-centered">
+                      <span>{{rp_acc.RpAccName}}</span>
+                      <small>{{_('Registered date')}}: {{rp_acc.CreatedDate if rp_acc.CreatedDate else ''}}</small>
+                    </div>
+                    <div class="columns">
+                      <div class="column is-12">
+                        <h3 style="text-align: center;">{{_('Vendor')}}</h3>
+                        <div class="info-block" style="text-align: center;">
+                          <span>{{_('Email')}}: {{rp_acc.Rp_acc_vendor.UEmail if rp_acc.Rp_acc_vendor.UEmail else ''}}</span>
+                        </div>
+                        <div class="info-block" style="text-align: center;">
+                          <span class="label-value">{{_('Name')}}: {{rp_acc.Rp_acc_vendor.UName}}</span>
+                        </div>
+                        <div class="info-block" style="text-align: center;">
+                          <span class="label-value">{{_('Full name')}}: {{rp_acc.Rp_acc_vendor.UFullName if rp_acc.Rp_acc_vendor.UFullName else ''}}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="column is-7">
+                <div class="flat-card profile-info-card is-auto">
+                  <div class="card-title">
+                    <h3>{{_('Customer details')}}</h3>
+                  </div>
+                  <div class="card-body">
+                    <div class="columns">
+                      <div class="column is-6">
+                        <div class="info-block">
+                          <span class="label-text">{{_('Email')}}</span>
+                          <span class="label-value">{{rp_acc.RpAccEMail}}</span>
+                        </div>
+                        <div class="info-block">
+                          <span class="label-text">{{_('Full name')}}</span>
+                          <span class="label-value">{{rp_acc.RpAccName}}</span>
+                        </div>
+                        <div class="info-block">
+                          <span class="label-text">{{_('Address')}}</span>
+                          <span class="label-value">{{rp_acc.RpAccAddress if rp_acc.RpAccAddress else ''}}</span>
+                        </div>
+                      </div>
+                      <div class="column is-6">
+                        <div class="info-block">
+                          <span class="label-text">{{_('Mobile phone')}}</span>
+                          <span class="label-value">{{rp_acc.RpAccMobilePhoneNumber if rp_acc.RpAccMobilePhoneNumber else ''}}</span>
+                        </div>
+                        <div class="info-block">
+                          <span class="label-text">{{_('Home phone')}}</span>
+                          <span class="label-value">{{rp_acc.RpAccHomePhoneNumber if rp_acc.RpAccHomePhoneNumber else ''}}</span>
+                        </div>
+                        <div class="info-block">
+                          <span class="label-text">{{_('Zip code')}}</span>
+                          <span class="label-value">{{rp_acc.RpAccZipCode if rp_acc.RpAccZipCode else ''}}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <img class="card-bg" src="{{ url_for('static', filename='commerce/main/images/logo/nephos-greyscale.svg')}}" alt="">
+                </div>
+              </div>
+              <div class="column is-2">
+                <h4>{{_('Status')}}</h4>
+                <div class="form-group">
+                  <div class="input-group">
+                    <select class="custom-select" id="inputGroupSelect04">
+                      {% if rp_acc.Rp_acc_status.RpAccStatusId == Null %}
+                        <option class="rpAccStatus" value="" ownerId="{{ rp_acc.RpAccId }}" selected>
+                          {{_('Select')}}...
+                        </option>
+                      {% endif %}
+                      {% for rp_acc_status in rp_acc_statuses %}
+                        <option class="rpAccStatus" value="{{ rp_acc_status.RpAccStatusId }}" ownerId="{{ rp_acc.RpAccId }}" {{ 'selected' if rp_acc_status.RpAccStatusId == rp_acc.Rp_acc_status.RpAccStatusId }}>
+                          {{ rp_acc_status.RpAccStatusName }}
+                        </option>
+                      {% endfor %}
+                    </select>
+                    <div class="input-group-append" style="margin-left: -5px;">
+                      <button class="btn btn-info setRpAccStatus" ownerId="{{ rp_acc.RpAccId }}"><i class="fas fa-check"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="column is-2">
+                <h4>{{_('Type')}}</h4>
+                <div class="form-group">
+                  <div class="input-group">
+                    <select class="custom-select" id="inputGroupSelect04">
+                      {% if rp_acc.Rp_acc_type.RpAccTypeId == Null %}
+                        <option class="rpAccType" value="" ownerId="{{ rp_acc.RpAccId }}" selected>
+                          {{_('Select')}}
+                        </option>
+                      {% endif %}
+                      {% for rp_acc_type in rp_acc_types %}
+                        <option class="rpAccType" value="{{ rp_acc_type.RpAccTypeId }}" ownerId="{{ rp_acc.RpAccId }}" 
+                          {{ 'selected' if rp_acc_type.RpAccTypeId == rp_acc.Rp_acc_type.RpAccTypeId }}>
+                          {{ rp_acc_type.RpAccTypeName }}
+                        </option>
+                      {% endfor %}
+                    </select>
+                    <div class="input-group-append" style="margin-left: -5px;">
+                      <button class="btn btn-info setRpAccType" ownerId="{{ rp_acc.RpAccId }}"><i class="fas fa-check"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="column is-2" style="text-align: right">
+                <button class="btn btn-icon btn-danger deleteCustomerBtn" ownerId="{{ rp_acc.RpAccId }}">
+                  {{_('Delete')}} <i class="fas fa-trash-alt"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade show active" id="orders" role="tabpanel">
+            <div class="row">
+              <div class="col-12">
+                <div class="table-responsive">
+                  <table class="table table-striped" id="save-stage" id="table-1">
+                    <thead>
+                      <tr>
+                        <th class="text-center">№</th>
+                        <th class="text-center">{{_('Reg No')}}</th>
+                        <th class="text-center">{{_('Action')}}</th>
+                        <th class="text-center">{{_('Progress')}}</th>
+                        <th class="text-center">{{_('Total price')}}</th>
+                        <th class="text-center">{{_('Currency')}}</th>
+                        <th class="text-center">{{_('Date')}}</th>
+                        <th class="text-center">{{_('Status')}}</th>
+                        <th class="text-center">{{_('Customer')}}</th>
+                        <th class="text-center">{{_('Phone')}}</th>
+                        <th class="text-center">{{_('E-mail')}}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for orderInv in orderInvoices %}
+                        <tr>
+                          <td class="text-center">{{ orderInv.OInvId }}</td>
+                          <td class="text-center">{{ orderInv.OInvRegNo }}</td>
+                          <td><a href="{{ url_for('commerce_admin_test.order_inv_lines',OInvRegNo=orderInv.OInvRegNo) }}" class="btn btn-primary">{{_('Detail')}}</a></td>
+                          <td class="align-middle">
+                            <div class="progress progress-xs">
+                              <div class="progress-bar bg-{{orderInv.StatusUI.class}} width-per-{{orderInv.StatusUI.percentage}}">
+                              </div>
+                            </div>
+                          </td>
+                          <td class="text-center">{{ orderInv.OInvFTotal }}</td>
+                          <td class="text-center">{{ orderInv.Currency.CurrencyCode }}</td>
+                          <td>{{ orderInv.CreatedDate }}</td>
+                          <td>
+                            <div class="badge badge-{{orderInv.StatusUI.class}} badge-shadow">{{orderInv.InvStatus.InvStatName}}</div>
+                          </td>
+                          <td class="text-center">{{ orderInv.Rp_acc.RpAccName }}</td>
+                          <td class="text-center">{{ orderInv.Rp_acc.RpAccMobilePhoneNumber }}</td>
+                          <td>{{ orderInv.Rp_acc.RpAccEMail }}</td>
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block scripts %}
+  <script src="{{ url_for('static', filename='commerce/admin/js/users_customers_table.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/admin/js/ui_dynamicals.js') }}"></script>
+{% endblock %}

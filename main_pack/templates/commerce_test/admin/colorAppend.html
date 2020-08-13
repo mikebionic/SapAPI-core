@@ -1,0 +1,6 @@
+<div class="col-auto">
+  <label class="colorinput">
+    <input name="color" type="checkbox" value="{{color.ColorId}}" class="colorinput-input resColorId"/>
+    <span {% if color.ColorDesc %} title="{{ color.ColorDesc }}" {% endif %} class="colorinput-color" style="background: {{color.ColorCode}}"></span>
+  </label>
+</div>

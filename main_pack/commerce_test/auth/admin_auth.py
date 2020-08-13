@@ -1,25 +1,25 @@
 from flask import render_template,url_for,flash,redirect,request,session
-from main_pack.commerce.auth import bp
+from main_pack.commerce_test.auth import bp
 from main_pack.config import Config
 
 # useful methods
-from main_pack import db,babel,gettext,lazy_gettext,bcrypt
+from main_pack import db_test,babel,gettext,lazy_gettext,bcrypt
 # / useful methods /
 
 # auth and validation
 from flask_login import current_user,login_required,login_user,logout_user
-# from main_pack.commerce.auth.utils import ui_admin_required
+# from main_pack.commerce_test.auth.utils import ui_admin_required
 # / auth and validation /
 
 # users and customers
-from main_pack.models.users.models import Users
-from main_pack.commerce.auth.forms import AdminLoginForm
+from main_pack.models_test.users.models import Users
+from main_pack.commerce_test.auth.forms import AdminLoginForm
 # / users and customers /
 
 @bp.route("/admin/login",methods=['GET','POST'])
 def admin_login():
 	if current_user.is_authenticated:
-		return redirect(url_for('commerce_admin.dashboard'))
+		return redirect(url_for('commerce_admin_test.dashboard'))
 	form = AdminLoginForm()
 	if form.validate_on_submit():
 		user = Users.query.filter_by(GCRecord = None, UName = form.username.data).first()
@@ -31,13 +31,13 @@ def admin_login():
 			if password:
 				login_user(user,remember=form.remember.data)
 				next_page = request.args.get('next')
-				return redirect(next_page) if next_page else redirect(url_for('commerce_admin.dashboard'))
+				return redirect(next_page) if next_page else redirect(url_for('commerce_admin_test.dashboard'))
 		else:
 			flash(lazy_gettext('Login Failed! Wrong username or password'),'danger')
-	return render_template("commerce/main/auth/admin_login.html",url_prefix="/commerce",
+	return render_template("commerce/main/auth/admin_login.html",url_prefix="/test/commerce",
 		title=gettext('Login'),form=form)
 
 @bp.route("/admin/logout")
 def admin_logout():
 	logout_user()
-	return redirect(url_for('commerce_auth.admin_login'))
+	return redirect(url_for('commerce_auth_test.admin_login'))

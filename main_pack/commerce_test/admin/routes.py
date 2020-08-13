@@ -1,38 +1,38 @@
 from flask import render_template,url_for,session,flash,redirect,request,Response,abort
-from main_pack.commerce.admin import bp
+from main_pack.commerce_test.admin import bp
 import os
 from flask import current_app
 from main_pack.config import Config
 
 # useful methods
-from main_pack import db,babel,gettext,lazy_gettext
+from main_pack import db_test,babel,gettext,lazy_gettext
 from main_pack.base.languageMethods import dataLangSelector
 from sqlalchemy import and_
 # / useful methods /
 
 # auth and validation
 from flask_login import current_user,login_required
-from main_pack.commerce.auth.utils import ui_admin_required
+from main_pack.commerce_test.auth.utils import ui_admin_required
 # / auth and validation /
 
 # Resource and view
-from main_pack.api.commerce.commerce_utils import apiResourceInfo
-from main_pack.commerce.commerce.utils import commonUsedData
-from main_pack.commerce.admin.utils import resRelatedData
+from main_pack.api_test.commerce.commerce_utils import apiResourceInfo
+from main_pack.commerce_test.commerce.utils import commonUsedData
+from main_pack.commerce_test.admin.utils import resRelatedData
 # / Resource and view /
 
 # Invoices
-from main_pack.models.commerce.models import (Inv_line,Inv_line_det,Inv_line_det_type,
+from main_pack.models_test.commerce.models import (Inv_line,Inv_line_det,Inv_line_det_type,
 	Inv_status,Inv_type,Invoice,Order_inv,Order_inv_line,Order_inv_type)
-from main_pack.commerce.commerce.order_utils import UiOInvData,UiOInvLineData
-from main_pack.models.commerce.models import Res_category
+from main_pack.commerce_test.commerce.order_utils import UiOInvData,UiOInvLineData
+from main_pack.models_test.commerce.models import Res_category
 # / Invoices /
 
 # users and customers
-from main_pack.models.users.models import (Users,User_type,
+from main_pack.models_test.users.models import (Users,User_type,
 																					Rp_acc,Rp_acc_type,Rp_acc_status)
-from main_pack.commerce.admin.users_utils import UiRpAccData,UiUsersData
-from main_pack.commerce.admin.forms import UserRegistrationForm,CustomerRegistrationForm
+from main_pack.commerce_test.admin.users_utils import UiRpAccData,UiUsersData
+from main_pack.commerce_test.admin.forms import UserRegistrationForm,CustomerRegistrationForm
 # / users and customers /
 
 # RegNo
@@ -41,7 +41,7 @@ from datetime import datetime,timezone
 # / RegNo /
 
 # Image operations
-from main_pack.models.base.models import Image
+from main_pack.models_test.base.models import Image
 from main_pack.base.imageMethods import save_image
 from main_pack.base.imageMethods import allowed_icon
 # / Image operations /
@@ -50,7 +50,7 @@ from main_pack.base.imageMethods import allowed_icon
 @bp.route('/admin/language/<language>')
 def set_language(language=None):
 	session['language'] = language
-	return redirect(url_for('commerce_admin.dashboard'))
+	return redirect(url_for('commerce_admin_test.dashboard'))
 
 @bp.route("/admin")
 @bp.route("/admin/dashboard")
@@ -58,7 +58,7 @@ def set_language(language=None):
 @ui_admin_required()
 def dashboard():
 	print(current_user.UName)
-	return render_template("commerce/admin/dashboard.html",url_prefix="/commerce",
+	return render_template("commerce_test/admin/dashboard.html",url_prefix="/test/commerce",
 		title=gettext('Dashboard'))
 
 ###### categories management and shop info #######
@@ -83,7 +83,7 @@ def navbar():
 		category_icons[folder]=icons
 
 	commonData = commonUsedData()
-	return render_template("commerce/admin/navbar.html",url_prefix="/commerce",
+	return render_template("commerce_test/admin/navbar.html",url_prefix="/test/commerce",
 		**commonData,category_icons=category_icons,title=gettext('Navbar'))
 
 @bp.route("/admin/category_table")
@@ -118,7 +118,7 @@ def category_table():
 
 	categoriesList = [category.to_json_api() for category in categories]
 	data['categories'] = categoriesList if categoriesList else []
-	return render_template("commerce/admin/category_table.html",url_prefix="/commerce",
+	return render_template("commerce_test/admin/category_table.html",url_prefix="/test/commerce",
 		**data,title=gettext('Category table'))
 ###################################
 
@@ -127,7 +127,7 @@ def category_table():
 @ui_admin_required()
 def product_table():
 	resData=apiResourceInfo(isInactive=True,fullInfo=True)
-	return render_template("commerce/admin/product_table.html",url_prefix="/commerce",
+	return render_template("commerce_test/admin/product_table.html",url_prefix="/test/commerce",
 		**resData,title=gettext('Product table'))
 
 def rp_acc_types():
@@ -162,7 +162,7 @@ def customers_table():
 	data = UiRpAccData()
 	data['rp_acc_statuses'] = rp_acc_statuses()
 	data['rp_acc_types'] = rp_acc_types()
-	return render_template("commerce/admin/customers_table.html",url_prefix="/commerce",
+	return render_template("commerce_test/admin/customers_table.html",url_prefix="/test/commerce",
 		**data,title=gettext('Customers'))
 
 @bp.route("/admin/customer_details/<RpAccRegNo>")
@@ -191,8 +191,8 @@ def customer_details(RpAccRegNo):
 		orderInvRes = UiOInvData(orders_list)
 	except Exception as ex:
 		print(ex)
-		return redirect(url_for('commerce_admin.customers_table'))
-	return render_template("commerce/admin/customer_details.html",url_prefix="/commerce",
+		return redirect(url_for('commerce_admin_test.customers_table'))
+	return render_template("commerce_test/admin/customer_details.html",url_prefix="/test/commerce",
 		**data,**orderInvRes,title=gettext('Customer details'))
 
 @bp.route("/admin/register_customer",methods=['GET','POST'])
@@ -261,29 +261,29 @@ def register_customer():
 				RpAccZipCode=form.zipCode.data,
 				UId=form.vendor_user.data
 				)
-			db.session.add(rp_acc)
-			db.session.commit()
+			db_test.session.add(rp_acc)
+			db_test.session.commit()
 
 			# assign the RpAccId to a User model
 			user.RpAccId = rp_acc.RpAccId
-			db.session.add(user)
+			db_test.session.add(user)
 
 			if form.picture.data:
 				imageFile = save_image(imageForm=form.picture.data,module=os.path.join("uploads","commerce","Rp_acc"),id=rp_acc.RpAccId)
 				lastImage = Image.query.order_by(Image.ImgId.desc()).first()
 				ImgId = lastImage.ImgId+1
 				image = Image(ImgId=ImgId,FileName=imageFile['FileName'],FilePath=imageFile['FilePath'],RpAccId=rp_acc.RpAccId)
-				db.session.add(image)
+				db_test.session.add(image)
 
-			db.session.commit()
+			db_test.session.commit()
 
 			flash('{} '.format(username)+lazy_gettext('successfully saved'),'success')
-			return redirect(url_for('commerce_admin.customers_table'))
+			return redirect(url_for('commerce_admin_test.customers_table'))
 		except Exception as ex:
 			print(ex)
 			flash(lazy_gettext('Error occured, please try again.'),'danger')
-			return redirect(url_for('commerce_admin.register_customer'))
-	return render_template("commerce/admin/register_customer.html",url_prefix="/commerce",
+			return redirect(url_for('commerce_admin_test.register_customer'))
+	return render_template("commerce_test/admin/register_customer.html",url_prefix="/test/commerce",
 		form=form,title=gettext('Register'))
 
 ################################
@@ -295,7 +295,7 @@ def register_customer():
 def users_table():
 	data = UiUsersData()
 	data['user_types'] = user_types()
-	return render_template("commerce/admin/users_table.html",url_prefix="/commerce",
+	return render_template("commerce_test/admin/users_table.html",url_prefix="/test/commerce",
 		**data,title=gettext('Users'))
 
 @bp.route("/admin/user_details/<UId>")
@@ -318,8 +318,8 @@ def user_details(UId):
 		data['rp_acc_types'] = rp_acc_types()
 	except Exception as ex:
 		print(ex)
-		return redirect(url_for('commerce_admin.users_table'))
-	return render_template("commerce/admin/user_details.html",url_prefix="/commerce",
+		return redirect(url_for('commerce_admin_test.users_table'))
+	return render_template("commerce_test/admin/user_details.html",url_prefix="/test/commerce",
 		**data,**rp_accs,title=gettext('Customer details'))
 
 @bp.route("/admin/register_user",methods=['GET','POST'])
@@ -353,7 +353,7 @@ def register_user():
 				UPass=password,
 				UFullName=full_name,
 				UTypeId=user_type)
-			db.session.add(user)
+			db_test.session.add(user)
 
 			print(form.picture.data)
 			if form.picture.data:
@@ -361,17 +361,17 @@ def register_user():
 				lastImage = Image.query.order_by(Image.ImgId.desc()).first()
 				ImgId = lastImage.ImgId+1
 				image = Image(ImgId=ImgId,FileName=imageFile['FileName'],FilePath=imageFile['FilePath'],UId=user.UId)
-				db.session.add(image)
+				db_test.session.add(image)
 
-			db.session.commit()
+			db_test.session.commit()
 
 			flash('{} '.format(username)+lazy_gettext('successfully saved'),'success')
-			return redirect(url_for('commerce_admin.users_table'))
+			return redirect(url_for('commerce_admin_test.users_table'))
 		except Exception as ex:
 			print(ex)
 			flash(lazy_gettext('Error occured, please try again.'),'danger')
-			return redirect(url_for('commerce_admin.register_user'))
-	return render_template("commerce/admin/register_user.html",url_prefix="/commerce",
+			return redirect(url_for('commerce_admin_test.register_user'))
+	return render_template("commerce_test/admin/register_user.html",url_prefix="/test/commerce",
 		form=form,title=gettext('Register'))
 
 #################################
@@ -392,7 +392,7 @@ def order_invoices():
 		orders_list.append(order)
 	orderInvRes = UiOInvData(orders_list)
 
-	return render_template("commerce/admin/order_invoices.html",url_prefix="/commerce",
+	return render_template("commerce_test/admin/order_invoices.html",url_prefix="/test/commerce",
 		**orderInvRes,title=gettext('Order invoices'))
 
 @bp.route("/admin/order_invoices/<OInvRegNo>",methods=['GET','POST'])
@@ -422,7 +422,7 @@ def order_inv_lines(OInvRegNo):
 	for inv_stat in inv_statuses:
 		invoice_statuses.append(dataLangSelector(inv_stat.to_json_api()))
 	InvoiceStatuses = {'inv_statuses':invoice_statuses}
-	return render_template("commerce/admin/order_inv_lines.html",url_prefix="/commerce",
+	return render_template("commerce_test/admin/order_inv_lines.html",url_prefix="/test/commerce",
 		**orderInvLineRes,**InvoiceStatuses,**orderInvRes,title=gettext('Order invoices'))
 #########################################
 
@@ -431,7 +431,7 @@ def order_inv_lines(OInvRegNo):
 @ui_admin_required()
 def add_product():
 	resData=resRelatedData()
-	return render_template("commerce/admin/add_product.html",url_prefix="/commerce",
+	return render_template("commerce_test/admin/add_product.html",url_prefix="/test/commerce",
 		**resData,title=gettext('Add product'))
 
 
@@ -439,12 +439,12 @@ def add_product():
 @login_required
 @ui_admin_required()
 def sale_repots_table():
-	return render_template("commerce/admin/sale_repots_table.html",url_prefix="/commerce",
+	return render_template("commerce_test/admin/sale_repots_table.html",url_prefix="/test/commerce",
 		title=gettext('Sale reports'))
 
 @bp.route("/admin/sale_repots_table2")
 @login_required
 @ui_admin_required()
 def sale_repots_table2():
-	return render_template("commerce/admin/sale_repots_table2.html",url_prefix="/commerce",
+	return render_template("commerce_test/admin/sale_repots_table2.html",url_prefix="/test/commerce",
 		title=gettext('Sale reports2'))

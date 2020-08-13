@@ -1,9 +1,9 @@
 from flask import render_template,url_for,jsonify,session,flash,redirect,request,Response,abort
-from main_pack.commerce.commerce import bp
+from main_pack.commerce_test.commerce import bp
 from main_pack.config import Config
 
 # useful methods
-from main_pack import db,babel,gettext,lazy_gettext
+from main_pack import db_test,babel,gettext,lazy_gettext
 from sqlalchemy import and_
 # / useful methods / 
 
@@ -13,8 +13,8 @@ from flask_login import current_user,login_required
 
 # Resource and view
 from main_pack.api.commerce.commerce_utils import apiResourceInfo
-from main_pack.models.commerce.models import Resource
-from main_pack.commerce.commerce.utils import UiCategoriesList,uiSortingData
+from main_pack.models_test.commerce.models import Resource
+from main_pack.commerce_test.commerce.utils import UiCategoriesList,uiSortingData
 from main_pack.api.commerce.commerce_utils import UiCartResourceData
 # / Resource and view /
 

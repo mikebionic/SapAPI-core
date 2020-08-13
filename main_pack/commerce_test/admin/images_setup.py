@@ -1,15 +1,15 @@
 from flask import render_template,url_for,jsonify,session,flash,redirect,request,Response
 from main_pack.base.imageMethods import save_image,save_icon,allowed_icon,allowed_image
 from main_pack.base.dataMethods import dateDataCheck
-from main_pack.commerce.admin import bp
+from main_pack.commerce_test.admin import bp
 from flask_login import current_user,login_required
-from main_pack import db,babel,gettext,lazy_gettext
+from main_pack import db_test,babel,gettext,lazy_gettext
 from flask import current_app
-from main_pack.models.base.models import Company,Sl_image,Slider,Image
+from main_pack.models_test.base.models import Company,Sl_image,Slider,Image
 from sqlalchemy import or_, and_
 import os
 
-from main_pack.commerce.admin.forms import LogoImageForm,SliderImageForm
+from main_pack.commerce_test.admin.forms import LogoImageForm,SliderImageForm
 
 @bp.route("/admin/logo_setup", methods=['GET', 'POST'])
 @login_required
@@ -28,12 +28,12 @@ def logo_setup():
 			lastImage = Image.query.order_by(Image.ImgId.desc()).first()
 			ImgId = lastImage.ImgId+1
 			image = Image(ImgId=ImgId,FileName=imageFile['FileName'],FilePath=imageFile['FilePath'],CId=company.CId)
-			db.session.add(image)
-			db.session.commit()
+			db_test.session.add(image)
+			db_test.session.commit()
 
 		flash(lazy_gettext('Company logo successfully uploaded!'), 'success')
-		return redirect(url_for('commerce_admin.logo_setup'))
-	return render_template('commerce/admin/logo_setup.html',url_prefix="/commerce",
+		return redirect(url_for('commerce_admin_test.logo_setup'))
+	return render_template('commerce_test/admin/logo_setup.html',url_prefix="/test/commerce",
 		title=gettext('Company logo'),logoForm=logoForm,company_logo=company_logo)
 
 @bp.route("/remove_images")
@@ -45,13 +45,13 @@ def remove_images():
 		if imgType == 'logo':
 			image = Image.query.get(imgId)
 			image.GCRecord=1
-			db.session.commit()
-			url = url_for('commerce_admin.logo_setup')
+			db_test.session.commit()
+			url = url_for('commerce_admin_test.logo_setup')
 		elif imgType == 'slider':
 			sl_image = Sl_image.query.get(imgId)
 			sl_image.GCRecord = 1
-			db.session.commit()
-			url = url_for('commerce_admin.sliders')
+			db_test.session.commit()
+			url = url_for('commerce_admin_test.sliders')
 
 		flash("Image successfully deleted!",'success')
 	except Exception as ex:
@@ -68,8 +68,8 @@ def sliders():
 	if header_slider is None:
 		# create a commerce_header for header slider automatically
 		slider = Slider(SlName="commerce_header")
-		db.session.add(slider)
-		db.session.commit()
+		db_test.session.add(slider)
+		db_test.session.commit()
 
 	sliders = Slider.query\
 		.filter(Slider.GCRecord=='' or Slider.GCRecord==None).all()
@@ -87,7 +87,7 @@ def sliders():
 		sliderList["Sl_images"] = slider_images
 		slidersData.append(sliderList)
 
-	return render_template('commerce/admin/sliders.html',url_prefix="/commerce",
+	return render_template('commerce_test/admin/sliders.html',url_prefix="/test/commerce",
 		title=gettext('Sliders'),sliders=slidersData)
 
 @bp.route("/admin/sliders/<SlId>", methods=['GET', 'POST'])
@@ -112,13 +112,13 @@ def slider_images(SlId):
 					SlImgEndDate=dateDataCheck(sliderForm.SlImgEndDate.data),
 					SlImgMainImgFileName=imageFile['FilePath'],				
 					SlId=slider.SlId)
-				db.session.add(image)
-				db.session.commit()
+				db_test.session.add(image)
+				db_test.session.commit()
 				flash(lazy_gettext('Slider picture successfully uploaded!'),'success')
-			return redirect(url_for('commerce_admin.slider_images',SlId=slider.SlId))
+			return redirect(url_for('commerce_admin_test.slider_images',SlId=slider.SlId))
 	else:
-		return redirect(url_for('commerce_admin.sliders'))
-	return render_template('commerce/admin/slider_setup.html',url_prefix="/commerce",
+		return redirect(url_for('commerce_admin_test.sliders'))
+	return render_template('commerce_test/admin/slider_setup.html',url_prefix="/test/commerce",
 		title=gettext('Sliders'),sliderForm=sliderForm,slider=slider,sl_images=sl_images)
 
 @bp.route('/ui/svg-icons/',methods=['POST'])
@@ -172,4 +172,4 @@ def remove_svg_icon():
 	except Exception as ex:
 		print(ex)
 		flash("Error, unable to execute this",'warning')
-	return redirect(url_for('commerce_admin.category_table'))
+	return redirect(url_for('commerce_admin_test.category_table'))

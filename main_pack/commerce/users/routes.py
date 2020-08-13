@@ -45,7 +45,7 @@ def profile():
 		else:
 			avatar = url_for('static', filename="commerce/main/shop_icons/no_photo.png") 
 
-	return render_template ("commerce/main/users/profile.html",**categoryData,
+	return render_template("commerce/main/users/profile.html",**categoryData,
 		title=gettext('Profile'),rpAcc=rpAcc,avatar=avatar)
 
 @bp.route("/wishlist")
@@ -67,7 +67,7 @@ def wishlist():
 		product['ResId'] = wish.ResId
 		product_list.append(product)
 	res = apiResourceInfo(product_list)
-	return render_template ("commerce/main/users/wishlist.html",
+	return render_template("commerce/main/users/wishlist.html",
 		**categoryData,**res,pagination_url='commerce_users.wishlist',
 		pagination_wishes=pagination_wishes,title=gettext('Wishlist'))
 
@@ -126,5 +126,5 @@ def profile_edit():
 		avatar = url_for('static', filename="commerce/main/shop_icons/no_photo.png") 
 
 	categoryData = UiCategoriesList()
-	return render_template ("commerce/main/users/profile_edit.html",**categoryData,
+	return render_template("commerce/main/users/profile_edit.html",**categoryData,
 		title=gettext('Edit profile'),form=form,avatar=avatar)
