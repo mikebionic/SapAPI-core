@@ -37,7 +37,7 @@ def addCategoryDict(req):
 		"GCRecord": GCRecord
 	}
 	if(ResCatId != '' and ResCatId != None):
-		category['ResCatId']=ResCatId
+		category['ResCatId'] = ResCatId
 	category=configureNulls(category)
 	return category
 
@@ -116,7 +116,7 @@ def addResourceDict(req):
 	}
 	if(ResId != '' and ResId != None):
 		print(ResId)
-		resource['ResId']=ResId
+		resource['ResId'] = ResId
 	resource=configureNulls(resource)
 	return resource
 
@@ -151,7 +151,7 @@ def addImageDict(req):
 		"GCRecord": GCRecord
 	}
 	if(ImgId != '' and ImgId != None):
-		image['ImgId']=ImgId
+		image['ImgId'] = ImgId
 	image=configureNulls(image)
 	return image
 
@@ -186,7 +186,7 @@ def saveImageFile(req):
 		"GCRecord": GCRecord
 	}
 	if(ImgId != '' and ImgId != None):
-		image['ImgId']=ImgId
+		image['ImgId'] = ImgId
 	# if blob presents:
 	if Image:
 		imageBytes = Image
@@ -253,7 +253,7 @@ def addBarcodeDict(req):
 		"GCRecord": GCRecord
 		}
 	if(BarcodeId != '' and BarcodeId != None):
-		barcode['BarcodeId']=BarcodeId
+		barcode['BarcodeId'] = BarcodeId
 	barcode = configureNulls(barcode)
 	return	barcode
 
@@ -291,7 +291,7 @@ def addResPriceDict(req):
 		"GCRecord": GCRecord
 		}
 	if(ResPriceId != '' and ResPriceId != None):
-		res_price['ResPriceId']=ResPriceId
+		res_price['ResPriceId'] = ResPriceId
 	res_price=configureNulls(res_price)
 	return res_price
 
@@ -334,7 +334,7 @@ def addResTotalDict(req):
 	}
 
 	if(ResTotId != '' and ResTotId != None):
-		res_total['ResTotId']=ResTotId
+		res_total['ResTotId'] = ResTotId
 	res_total=configureNulls(res_total)
 	return res_total
 
@@ -368,7 +368,7 @@ def addRpAccTrTotDict(req):
 	}
 
 	if(RpAccTrTotId != '' and RpAccTrTotId != None):
-		rp_acc_trans_total['RpAccTrTotId']=RpAccTrTotId
+		rp_acc_trans_total['RpAccTrTotId'] = RpAccTrTotId
 	rp_acc_trans_total=configureNulls(rp_acc_trans_total)
 	return rp_acc_trans_total
 
@@ -445,7 +445,7 @@ def addOrderInvDict(req):
 		"GCRecord": GCRecord
 		}
 	#if(OInvId != '' and OInvId != None):
-	#	order_inv['OInvId']=OInvId
+	#	order_inv['OInvId'] = OInvId
 	order_inv=configureNulls(order_inv)
 	return order_inv
 
@@ -505,7 +505,7 @@ def addOrderInvLineDict(req):
 		"GCRecord": GCRecord
 		}
 	if(OInvLineId != '' and OInvLineId != None):
-		order_inv_line['OInvLineId']=OInvLineId
+		order_inv_line['OInvLineId'] = OInvLineId
 	order_inv_line=configureNulls(order_inv_line)
 	return order_inv_line
 
@@ -537,7 +537,7 @@ def addOrderInvTypeDict(req):
 		"GCRecord": GCRecord
 		}
 	if(OInvTypeId != '' and OInvTypeId != None):
-		order_inv_type['OInvTypeId']=OInvTypeId
+		order_inv_type['OInvTypeId'] = OInvTypeId
 	order_inv_type=configureNulls(order_inv_type)
 	return order_inv_type
 
@@ -576,7 +576,7 @@ def addWarehouseDict(req):
 		"GCRecord": GCRecord
 		}
 	if(WhId != '' and WhId != None):
-		warehouse['WhId']=WhId
+		warehouse['WhId'] = WhId
 	warehouse=configureNulls(warehouse)
 	return warehouse
 
@@ -607,6 +607,6 @@ def addWorkPeriodDict(req):
 		"GCRecord": GCRecord
 		}
 	if(WpId != '' and WpId != None):
-		work_period['WpId']=WpId
+		work_period['WpId'] = WpId
 	work_period=configureNulls(work_period)
 	return work_period

@@ -66,7 +66,7 @@ def api_resources():
 				# category is resource's AddInf2
 				group = resource['AddInf2']
 				if group:
-					category = Res_category.query.filter_by(ResCatName=group).first()
+					category = Res_category.query.filter_by(ResCatName = group).first()
 					if not category:
 						category = Res_category(ResCatName=group)
 						db.session.add(category)

@@ -790,7 +790,7 @@ class Representative(AddInf,CreatedModifiedInfo,db.Model):
 	CreatedUId = db.Column(db.Integer,default=0)
 	ModifiedUId = db.Column(db.Integer,default=0)
 	MyProperty = db.Column(db.Integer)
-	Rp_acc = db.relationship('Rp_acc',backref='representative',foreign_keys='Rp_acc.ReprId',lazy='dynamic')
+	Rp_acc = db.relationship('Rp_acc',backref='representative',foreign_keys='Rp_acc.ReprId',lazy='joined')
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():

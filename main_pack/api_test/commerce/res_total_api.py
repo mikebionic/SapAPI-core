@@ -13,8 +13,7 @@ from main_pack.api_test.auth.api_login import sha_required
 @sha_required
 def api_res_totals():
 	if request.method == 'GET':
-		res_totals = Res_total.query\
-			.filter(Res_total.GCRecord=='' or Res_total.GCRecord==None).all()
+		res_totals = Res_total.query.filter_by(GCRecord = None).all()
 		res = {
 			"status": 1,
 			"message": "All res totals",
@@ -53,7 +52,8 @@ def api_res_totals():
 						ResId = res_total['ResId']
 						WhId = res_total['WhId']
 						thisResTotal = Res_total.query\
-							.filter(and_(Res_total.ResId==ResId,Res_total.WhId==WhId)).first()
+							.filter_by(ResId = ResId, WhId = WhId)\
+							.first()
 						####
 						if thisResTotal is not None:
 							thisResTotal.update(**res_total)
@@ -79,6 +79,4 @@ def api_res_totals():
 			for e in status:
 				res[e]=status[e]
 			response = make_response(jsonify(res),200)
-			print(response)
-
 	return response

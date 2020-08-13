@@ -11,12 +11,11 @@ import dateutil.parser
 import os
 from main_pack.api.auth.api_login import sha_required
 
-@api.route("/tbl-dk-images/",methods=['GET','POST','PUT'])
+@api.route("/tbl-dk-images/",methods=['GET','POST'])
 @sha_required
 def api_images():
 	if request.method == 'GET':
-		images = Image.query\
-			.filter(Image.GCRecord=='' or Image.GCRecord==None).all()
+		images = Image.query.filter_by(GCRecord = None).all()
 		res = {
 			"status": 1,
 			"message": "All images",
@@ -44,7 +43,6 @@ def api_images():
 						newImage = Image(**image)
 						db.session.add(newImage)
 						db.session.commit()
-						print('added cuz no ImageId provided')
 						images.append(image)
 					else:
 						ImgId = imageDictData['ImgId']

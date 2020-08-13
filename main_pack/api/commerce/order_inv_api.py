@@ -64,14 +64,13 @@ def api_order_invoices():
 				print(order_invoice)
 				try:
 					OInvRegNo = order_invoice['OInvRegNo']
-					thisOrderInv = Order_inv.query\
-						.filter(Order_inv.OInvRegNo == OInvRegNo).first()
+					thisOrderInv = Order_inv.query.filter_by(OInvRegNo = OInvRegNo).first()
 					# getting correct rp_acc of a database
 					try:
 						RpAccRegNo = data['Rp_acc']['RpAccRegNo']
 						RpAccName = data['Rp_acc']['RpAccName']
 						rp_acc = Rp_acc.query\
-							.filter(Rp_acc.RpAccRegNo == RpAccRegNo and Rp_acc.RpAccName == RpAccName)\
+							.filter_by(RpAccRegNo = RpAccRegNo, RpAccName = RpAccName)\
 							.first()
 						if rp_acc:
 							order_invoice['RpAccId'] = rp_acc.RpAccId
@@ -96,7 +95,8 @@ def api_order_invoices():
 						try:
 							OInvLineRegNo = order_invoice['OInvLineRegNo']
 							thisOrderInvLine = Order_inv_line.query\
-								.filter(Order_inv_line.OInvLineRegNo == OInvLineRegNo).first()
+								.filter_by(OInvLineRegNo = OInvLineRegNo)\
+								.first()
 							if thisOrderInvLine:
 								thisOrderInvLine.update(**order_inv_line)
 								db.session.commit()
@@ -136,10 +136,7 @@ def api_order_invoice_info(OInvRegNo):
 	invoice_list = [{"OInvRegNo": OInvRegNo}]
 	res = apiOrderInvInfo(invoice_list=invoice_list,
 												single_object=True)
-	if res['status']==1:
-		status_code = 200
-	else:
-		status_code = 404
+	status_code = 200
 	response = make_response(jsonify(res),status_code)
 	return response
 

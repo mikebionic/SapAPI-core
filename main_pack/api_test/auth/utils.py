@@ -18,27 +18,27 @@ def token_required(f):
 		if 'x-access-token' in request.headers:
 			token = request.headers['x-access-token']
 		if not token:
-			return jsonify({'message':'Token is missing!'}), 401
+			return jsonify({"message": "Token is missing!"}), 401
 		try:
 			data=jwt.decode(token, Config.SECRET_KEY)
-			current_user = Users.query.filter_by(UId=data['UId']).first()
+			current_user = Users.query.filter_by(UId = data['UId']).first()
 		except Exception as ex:
-			return jsonify({'message':'Token is invalid!'}), 401
+			return jsonify({"message": "Token is invalid!"}), 401
 		return f(current_user,*args,**kwargs)
 
 	return decorated
 
 def check_auth(modelName,username,password):
 	auth_status = False
-	if(modelName=='Users'):
-		user = Users.query.filter_by(UName=username).first()
+	if(modelName == 'Users'):
+		user = Users.query.filter_by(UName = username).first()
 		# if user and bcrypt.check_password_hash(user.UPass,password):
-		if user and user.UPass==password:
+		if user and user.UPass == password:
 			auth_status = True
-	elif(modelName=='Rp_acc'):
-		rp_acc = Rp_acc.query.filter_by(RpAccUName=username).first()
+	elif(modelName == 'Rp_acc'):
+		rp_acc = Rp_acc.query.filter_by(RpAccUName = username).first()
 		# if user and bcrypt.check_password_hash(user.UPass,password):
-		if rp_acc and rp_acc.RpAccUPass==password:
+		if rp_acc and rp_acc.RpAccUPass == password:
 			auth_status = True
 	
 	return auth_status
@@ -56,7 +56,7 @@ def send_reset_email(user):
 
 def get_register_token(UName,UEmail):
 	s = Serializer(Config.SECRET_KEY,1800)
-	return s.dumps({'UName':UName,'UEmail':UEmail}).decode('utf-8')
+	return s.dumps({"UName": UName, "UEmail": UEmail}).decode('utf-8')
 
 def verify_register_token(token):
 	s = Serializer(Config.SECRET_KEY)
@@ -65,7 +65,7 @@ def verify_register_token(token):
 		UEmail = s.loads(token)['UEmail']
 	except Exception as ex:
 		return None
-	return {'UName':UName,'UEmail':UEmail}
+	return {"UName": UName, "UEmail": UEmail}
 
 def send_register_email(UName,UEmail):
 	token = get_register_token(UName=UName,UEmail=UEmail)

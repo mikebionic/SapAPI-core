@@ -15,8 +15,7 @@ from main_pack.api_test.auth.api_login import sha_required
 @sha_required
 def api_images():
 	if request.method == 'GET':
-		images = Image.query\
-			.filter(Image.GCRecord=='' or Image.GCRecord==None).all()
+		images = Image.query.filter_by(GCRecord = None).all()
 		res = {
 			"status": 1,
 			"message": "All images",
@@ -44,7 +43,6 @@ def api_images():
 						newImage = Image(**image)
 						db_test.session.add(newImage)
 						db_test.session.commit()
-						print('added cuz no ImageId provided')
 						images.append(image)
 					else:
 						ImgId = imageDictData['ImgId']

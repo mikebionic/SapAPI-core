@@ -18,18 +18,6 @@ from sqlalchemy import and_
 from main_pack.key_generator.utils import generate,makeRegNo
 import decimal
 
-# @api.route("/test_token/",methods=['GET'])
-# @token_required
-# def token_test(user):
-# 	model_type = user['model_type']
-# 	current_user = user['current_user']
-# 	if model_type=='Users':
-# 		name = current_user.UName
-# 	elif model_type=='Rp_acc':
-# 		name = current_user.RpAccUName
-# 	print(name)
-# 	return name
-
 @api.route("/checkout-sale-order-inv/",methods=['POST'])
 @token_required
 def api_checkout_sale_order_invoices(user):
@@ -37,9 +25,9 @@ def api_checkout_sale_order_invoices(user):
 	current_user = user['current_user']
 
 	work_period = Work_period.query\
-		.filter(and_(Work_period.GCRecord=='' or Work_period.GCRecord==None),\
-			Work_period.WpIsDefault==True).first()
-	# !!! scurrent user is rp_acc if type is rp_acc
+		.filter_by(GCRecord = None, WpIsDefault = True)\
+		.first()
+	# !!! current user is rp_acc if type is rp_acc
 	if model_type=='Rp_acc':
 		name = current_user.RpAccUName
 		RpAccId = current_user.RpAccId
@@ -165,9 +153,9 @@ def api_checkout_sale_order_invoices(user):
 			except Exception as ex:
 				print(ex)
 				fail_info = {
-					"data":order_inv_line_req,
-					"error_type_id":error_type,
-					"error_type_message":get_order_error_type(error_type)
+					"data": order_inv_line_req,
+					"error_type_id": error_type,
+					"error_type_message": get_order_error_type(error_type)
 				}
 				failed_order_inv_lines.append(fail_info)
 
@@ -176,12 +164,12 @@ def api_checkout_sale_order_invoices(user):
 		if failed_order_inv_lines:
 			status = checkApiResponseStatus(order_inv_lines,failed_order_inv_lines)
 			res = {
-				"data":order_invoice,
-				"successes":order_inv_lines,
-				"fails":failed_order_inv_lines,
-				"success_total":len(order_inv_lines),
-				"fail_total":len(failed_order_inv_lines),
-				"total":len(OrderInvLines)
+				"data": order_invoice,
+				"successes": order_inv_lines,
+				"fails": failed_order_inv_lines,
+				"success_total": len(order_inv_lines),
+				"fail_total": len(failed_order_inv_lines),
+				"total": len(OrderInvLines)
 			}
 			status_code = 400
 			for e in status:
@@ -190,8 +178,8 @@ def api_checkout_sale_order_invoices(user):
 		else:
 			OInvFTotal = OInvTotal
 			OInvFTotalInWrite = price2text(OInvFTotal,
-				Config.PRICE_2_TEXT_LANGUAGE,
-				Config.PRICE_2_TEXT_CURRENCY)
+																		Config.PRICE_2_TEXT_LANGUAGE,
+																		Config.PRICE_2_TEXT_CURRENCY)
 
 			newOrderInv.OInvTotal = decimal.Decimal(OInvTotal)
 			newOrderInv.OInvFTotal = decimal.Decimal(OInvFTotal)
@@ -202,12 +190,12 @@ def api_checkout_sale_order_invoices(user):
 
 			status = checkApiResponseStatus(order_inv_lines,failed_order_inv_lines)
 			res = {
-				"data":newOrderInv.to_json_api(),
-				"successes":order_inv_lines,
-				"fails":failed_order_inv_lines,
-				"success_total":len(order_inv_lines),
-				"fail_total":len(failed_order_inv_lines),
-				"total":len(OrderInvLines)
+				"data": newOrderInv.to_json_api(),
+				"successes": order_inv_lines,
+				"fails": failed_order_inv_lines,
+				"success_total": len(order_inv_lines),
+				"fail_total": len(failed_order_inv_lines),
+				"total": len(OrderInvLines)
 			}
 			status_code = 200
 			for e in status:
@@ -217,8 +205,8 @@ def api_checkout_sale_order_invoices(user):
 		print(ex)
 		status_code = 400
 		res = {
-			"data":order_invoice,
-			"message":"Failed to checkout order"
+			"data": order_invoice,
+			"message": "Failed to checkout order"
 		}	
 	response = make_response(jsonify(res),status_code)
 

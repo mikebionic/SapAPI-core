@@ -12,8 +12,7 @@ from main_pack.api.auth.api_login import sha_required
 @sha_required
 def api_barcodes():
 	if request.method == 'GET':
-		barcodes = Barcode.query\
-			.filter(Barcode.GCRecord=='' or Barcode.GCRecord==None).all()
+		barcodes = Barcode.query.filter_by(GCRecord = None).all()
 		res = {
 			"status": 1,
 			"message": "All barcodes",
@@ -32,7 +31,6 @@ def api_barcodes():
 			
 		else:
 			req = request.get_json()
-			print(req)
 			barcodes = []
 			failed_barcodes = [] 
 			for barcode in req:
@@ -60,6 +58,7 @@ def api_barcodes():
 							db.session.commit()
 							barcodes.append(barcode)
 				except Exception as ex:
+					print(ex)
 					failed_barcodes.append(barcode)
 
 			status = checkApiResponseStatus(barcodes,failed_barcodes)
