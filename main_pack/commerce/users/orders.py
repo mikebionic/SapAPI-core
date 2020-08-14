@@ -26,7 +26,7 @@ def orders():
 	res = UiOInvData(orders_list)
 
 	categoryData = UiCategoriesList()
-	return render_template ("commerce/main/users/orders.html",**categoryData,**res,
+	return render_template("commerce/main/users/orders.html",**categoryData,**res,
 		title=gettext('Orders'))
 
 @bp.route("/orders/<OInvRegNo>")
@@ -52,7 +52,7 @@ def order_lines(OInvRegNo):
 		res = UiOInvLineData(order_lines_list)
 		
 		categoryData = UiCategoriesList()
-		return render_template ("commerce/main/users/order_lines.html",**categoryData,
+		return render_template("commerce/main/users/order_lines.html",**categoryData,
 			**res,**orderInvRes,title=gettext('Orders'))
 	
 	else:

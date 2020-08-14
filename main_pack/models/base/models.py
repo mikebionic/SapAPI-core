@@ -6,8 +6,8 @@ from main_pack.base.apiMethods import fileToURL
 
 
 class CreatedModifiedInfo(object):
-	CreatedDate = db.Column(db.DateTime,default=datetime.now)
-	ModifiedDate = db.Column(db.DateTime,default=datetime.now,onupdate=datetime.now)
+	CreatedDate = db.Column(db.DateTime,default=datetime.now())
+	ModifiedDate = db.Column(db.DateTime,default=datetime.now(),onupdate=datetime.now())
 	CreatedUId = db.Column(db.Integer)
 	ModifiedUId = db.Column(db.Integer)
 	GCRecord = db.Column(db.Integer)
@@ -232,13 +232,13 @@ class Contact_type(CreatedModifiedInfo,db.Model):
 
 	def to_json(self):
 		json_contactType = {
-			'ContactTypeId': self.ContactTypeId,
-			'ContactTypeName_tkTM': self.ContactTypeName_tkTM,
-			'ContactTypeDesc_tkTM': self.ContactTypeDesc_tkTM,
-			'ContactTypeName_ruRU': self.ContactTypeName_ruRU,
-			'ContactTypeDesc_ruRU': self.ContactTypeDesc_ruRU,
-			'ContactTypeName_enUS': self.ContactTypeName_enUS,
-			'ContactTypeDesc_enUS': self.ContactTypeDesc_enUS
+			"ContactTypeId": self.ContactTypeId,
+			"ContactTypeName_tkTM": self.ContactTypeName_tkTM,
+			"ContactTypeDesc_tkTM": self.ContactTypeDesc_tkTM,
+			"ContactTypeName_ruRU": self.ContactTypeName_ruRU,
+			"ContactTypeDesc_ruRU": self.ContactTypeDesc_ruRU,
+			"ContactTypeName_enUS": self.ContactTypeName_enUS,
+			"ContactTypeDesc_enUS": self.ContactTypeDesc_enUS
 		}
 		return json_contactType
 
@@ -411,10 +411,10 @@ class Image(CreatedModifiedInfo,db.Model):
 			"RpAccId": self.RpAccId,
 			"ResId": self.ResId,
 			"FileName": self.FileName,
-			'FilePath':fileToURL(file_type='image',file_size='M',file_name=self.FileName),
-			'FilePathS':fileToURL(file_type='image',file_size='S',file_name=self.FileName),
-			'FilePathM':fileToURL(file_type='image',file_size='M',file_name=self.FileName),
-			'FilePathR':fileToURL(file_type='image',file_size='R',file_name=self.FileName),
+			"FilePath": fileToURL(file_type='image',file_size='M',file_name=self.FileName),
+			"FilePathS": fileToURL(file_type='image',file_size='S',file_name=self.FileName),
+			"FilePathM": fileToURL(file_type='image',file_size='M',file_name=self.FileName),
+			"FilePathR": fileToURL(file_type='image',file_size='R',file_name=self.FileName),
 			# "FileHash": self.FileHash,
 			# # "Image": base64.encodebytes(self.Image).decode('ascii'),
 			# "Image": apiCheckImageByte(self.Image),
@@ -568,9 +568,9 @@ class Sl_image(AddInf,CreatedModifiedInfo,db.Model):
 			"SlImgName": self.SlImgName,
 			"SlImgDesc": self.SlImgDesc,
 			"SlImgMainImgFileName": fileToURL(file_type="slider",file_size='M',file_name=self.SlImgName),
-			'SlImgMainImgFilePathS':fileToURL(file_type="slider",file_size='S',file_name=self.SlImgName),
-			'SlImgMainImgFilePathM':fileToURL(file_type="slider",file_size='M',file_name=self.SlImgName),
-			'SlImgMainImgFilePathR':fileToURL(file_type="slider",file_size='R',file_name=self.SlImgName),
+			"SlImgMainImgFilePathS": fileToURL(file_type="slider",file_size='S',file_name=self.SlImgName),
+			"SlImgMainImgFilePathM": fileToURL(file_type="slider",file_size='M',file_name=self.SlImgName),
+			"SlImgMainImgFilePathR": fileToURL(file_type="slider",file_size='R',file_name=self.SlImgName),
 			"SlImgSubImageFileName1": self.SlImgSubImageFileName1,
 			"SlImgSubImageFileName2": self.SlImgSubImageFileName2,
 			"SlImgSubImageFileName3": self.SlImgSubImageFileName3,

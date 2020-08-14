@@ -35,7 +35,7 @@ def v_list():
 	res = apiResourceInfo(product_list)
 	categoryData = UiCategoriesList()
 	sortingData = uiSortingData()
-	return render_template ("commerce/main/commerce/v_list.html",**categoryData,
+	return render_template("commerce/main/commerce/v_list.html",**categoryData,
 		**sortingData,**res,title=gettext('Category'),pagination_url='commerce.v_list',
 		pagination_resources=pagination_resources)
 
@@ -55,7 +55,7 @@ def v_grid():
 	res = apiResourceInfo(product_list)
 	categoryData = UiCategoriesList()
 	sortingData = uiSortingData()
-	return render_template ("commerce/main/commerce/v_grid.html",**categoryData,
+	return render_template("commerce/main/commerce/v_grid.html",**categoryData,
 		**sortingData,**res,title=gettext('Category'),pagination_url='commerce.v_grid',
 		pagination_resources=pagination_resources)
 
@@ -69,5 +69,5 @@ def product(ResId):
 	resData = UiCartResourceData(product_list)
 	resource = resData["data"][0]
 	categoryData = UiCategoriesList()
-	return render_template ("commerce/main/commerce/product.html",
+	return render_template("commerce/main/commerce/product.html",
 		**categoryData,resource=resource,title=gettext('Product'))

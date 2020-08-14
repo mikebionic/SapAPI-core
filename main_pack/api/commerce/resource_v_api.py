@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from flask import jsonify,request,abort,make_response,url_for
 from main_pack.api.commerce import api
 from main_pack import db

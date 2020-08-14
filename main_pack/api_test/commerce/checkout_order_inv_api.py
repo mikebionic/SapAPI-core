@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from flask import render_template,url_for,jsonify,request,abort,make_response
 from main_pack.api_test.commerce import api
 from main_pack.base.apiMethods import checkApiResponseStatus
@@ -33,13 +34,13 @@ def api_checkout_sale_order_invoices(user):
 		RpAccId = current_user.RpAccId
 		# get the seller's user information of a specific rp_acc
 		user = Users.query\
-			.filter(and_(Users.GCRecord=='' or Users.GCRecord==None),\
-				Users.UId==current_user.UId).first()
+			.filter_by(GCRecord = None, UId = current_user.UId)\
+			.first()
 		if user is None:
 			# try to find the rp_acc registered user if no seller specified
 			user = Users.query\
-				.filter(and_(Users.GCRecord=='' or Users.GCRecord==None),\
-					Users.RpAccId==RpAccId).first()
+				.filter_by(GCRecord = None, RpAccId = RpAccId)\
+				.first()
 	try:
 		req = request.get_json()
 		order_invoice = addOrderInvDict(req['orderInv'])
@@ -116,7 +117,7 @@ def api_checkout_sale_order_invoices(user):
 					error_type = 2
 					raise Exception
 				
-				if totalSubstitutionResult['status']==0:
+				if totalSubstitutionResult['status'] == 0:
 					# resource is empty or bad request with amount = -1
 					error_type = 3
 					raise Exception

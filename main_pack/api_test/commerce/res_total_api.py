@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from flask import render_template,url_for,jsonify,request,abort,make_response
 from main_pack.api_test.commerce import api
 from main_pack.base.apiMethods import checkApiResponseStatus
@@ -32,7 +33,6 @@ def api_res_totals():
 			
 		else:
 			req = request.get_json()
-			print(req)
 			res_totals = []
 			failed_res_totals = [] 
 			for res_total in req:

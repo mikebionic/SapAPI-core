@@ -1,0 +1,152 @@
+{% extends "commerce_test/admin/layout.html" %}
+
+{% block styles %}
+	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/datatables/datatables.min.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css') }}">
+{% endblock %}
+
+{% block content %}
+	<div class="row">
+		<div class="col-12">
+			<div class="card">
+				<div class="card-header">
+					<h4>{{_('Category table')}}</h4>
+				</div>
+				<div class="card-body">
+					<div class="table-responsive">
+						<button class="btn btn-primary newCategoryBtn"><i data-feather="plus-square"></i></button>
+						<table class="table table-striped" id="mainTable">
+							<thead>
+								<tr>
+									<th class="text-center">№</th>
+									<th class="text-center">{{_('Category name')}}</th>
+									<th class="text-center">{{_('Description')}}</th>
+									<th class="text-center">{{_('Main category')}}</th>
+									<th class="text-center">{{_('Icon')}}</th>
+									<th class="text-center">{{_('Action')}}</th>
+								</tr>
+								<tr class="newCategoryForm" style="display: none;">
+									<td class="text-center categoryId" ownerId='undefined'></td>
+									<td class="text-center editable categoryName" ownerId='undefined'></td>
+									<td class="text-center editable categoryDesc" ownerId='undefined'></td>
+									<td class="text-center editable categoryOwner" ownerId='undefined'></td>
+									<td>
+										<img loading="lazy" class="img-fluid categoryIcon" src="{{ url_for('static', filename='commerce/admin/ICONS/surface1.svg') }}" data-toggle="modal" data-target="#catIconsModal" ownerId='undefined'>
+									</td>
+									<td>
+										<button class="btn btn-icon btn-success saveCategoryBtn" ownerId='undefined'><i class="fas fa-check"></i></button>
+									</td>
+								</tr>
+							</thead>
+							<tbody class="categoryTable">
+								{% for category in categories %}
+									<tr ownerId={{category.ResCatId}}>
+										<td class="text-center editable categoryId" ownerId={{category.ResCatId}}>{{category.ResCatId}}</td>
+										<td class="text-center editable categoryName" ownerId={{category.ResCatId}}>{{category.ResCatName if category.ResCatName else ''}}</td>
+										<td class="text-center editable categoryDesc" ownerId={{category.ResCatId}}>{{category.ResCatDesc if category.ResCatDesc else ''}}</td>
+										<td class="text-center editable categoryOwner" ownerId={{category.ResCatId}}>{{category.ResOwnerCatId}}</td>
+										<td class="categoryIcon" ownerId={{category.ResCatId}} data-toggle="modal" data-target="#catIconsModal">
+											<img loading="lazy" class="img-fluid categoryIcon" ownerId={{category.ResCatId}} name='{{category.ResCatIconFileName}}' src="{{category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static', filename='commerce/admin/ICONS/surface1.svg') }}" data-toggle="modal" data-target="#catIconsModal">
+										</td>
+										<td>
+											<button class="btn btn-icon btn-success saveCategoryBtn" ownerId={{category.ResCatId}}><i class="fas fa-check"></i></button>
+											<button class="btn btn-icon btn-danger deleteCategoryBtn" ownerId={{category.ResCatId}}><i class="fas fa-trash-alt"></i></button>
+										</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block modals %}
+	<!-- icon selection Modal -->
+	<div class="modal fade" id="catIconsModal" tabindex="-1" role="dialog" aria-labelledby="catIconsModalTitle" aria-hidden="true" style="background-color: rgba(71, 69, 69, 0.548);">
+		<div class="modal-dialog modal-dialog-centered" style="max-width: 100%; width: 95%;" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="catIconsModalTitle">{{_('Icons')}}</h5>
+					<form class="card-header-form">
+						<div class="input-group">
+							<input type="text" name="search" class="form-control" placeholder="{{_('Search')}}" style="height: 37px;">
+							<div class="input-group-btn">
+							<button class="btn btn-primary btn-icon" style="margin-left: 0;"><i class="fas fa-search"></i></button>
+							</div>
+						</div>
+					</form>
+						<button class="btn btn-primary newIconBtn"><i data-feather="plus-square"></i></button>
+						<button class="btn btn-primary minimizeIcon" style="display: none;"><i data-feather="minus-square"></i></button>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+
+				<div class="card col-md-4 newIconCard" style="display: none;">
+					<div class="card-header">
+            <h4>{{_('Upload images')}}</h4>
+          </div>
+					<div class="card-body">
+						<div class="custom-file">
+							<input type="file" class="custom-file-input" id="multiFiles" name="files[]" multiple="multiple"/>
+							<label class="custom-file-label" for="customFile">{{_('Choose file')}}</label>
+							<button id="upload" class="btn btn-outline-primary">{{_('Upload')}}</button>
+						</div>
+						<br>
+					</div>
+				</div>
+
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-4">
+							<div class="list-group" id="list-tab" role="tablist">
+								{% for category in category_icons %}
+									<a class="list-group-item list-group-item-action" id="list-home-list"
+									data-toggle="list" href="#tab-{{category.replace(' ','-')}}" role="tab" 
+									aria-controls="contact" aria-selected="false">{{ category }}
+										<span class="badge badge-transparent">{{ category_icons[category]|length }}</span>
+									</a>
+								{% endfor %}
+							</div>
+						</div>
+						<div class="col-8">
+							<div class="tab-content iconsList" id="nav-tabContent">
+								{% for category in category_icons %}
+									<div class="tab-pane fade" id="tab-{{category.replace(' ','-')}}" role="tabpanel" aria-labelledby="profile-tab2">
+										<div class="row icon-feather-container categoryIcons">
+											{% for iconInfo in category_icons[category] %}
+												<div class="col-sm-6 col-md-4 col-lg-3">
+													<div class="preview singleIcon" name="{{ iconInfo['icon_name'] }}" icon_category="{{ iconInfo['category'] }}" src="{{ iconInfo['url'] }}" data-dismiss="modal">
+      											<a href="{{ url_for('commerce_admin_test.remove_svg_icon', name=iconInfo['icon_name'], icon_category=iconInfo['category']) }}" class="btn btn-outline-danger removeIconBtn">x</a>
+														<a href="#">
+															<img loading="lazy" name="{{ iconInfo['icon_name'] }}" icon_category="{{ iconInfo['category'] }}" class="img-fluid singleIcon" style="margin-left: 43%;" src="{{ iconInfo['url'] }}" data-dismiss="modal">
+															<br>
+															<span class="icon_name" style="text-transform: capitalize;color: #4f51c0;padding-left: 20px;">{{ iconInfo['icon_name'] }}</span>
+														</a>
+													</div>
+												</div>
+											{% endfor %}
+										</div>
+									</div>
+								{% endfor %}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- icon modal -->
+{% endblock %}
+
+{% block scripts %}
+	<script src="{{ url_for('static', filename='commerce/admin/bundles/editable-table/mindmup-editabletable.js') }}"></script>
+	<script src="{{ url_for('static', filename='commerce/admin/js/page/editable-table.js') }}"></script>
+	<script src="{{ url_for('static', filename='commerce/admin/js/category_table.js') }}"></script>
+	<script src="{{ url_for('static', filename='commerce/admin/js/ui_dynamicals.js') }}"></script>
+	<script src="{{ url_for('static', filename='commerce/admin/js/category_icons.js') }}"></script>
+{% endblock %}

@@ -3,11 +3,12 @@ from flask_wtf.file import FileField,FileAllowed
 from wtforms import StringField,PasswordField,SubmitField,BooleanField,SelectField
 from wtforms.validators import DataRequired,Length,Length,Email,EqualTo,ValidationError
 from main_pack import babel,gettext,lazy_gettext
-
 from main_pack.models.users.models import Users,Rp_acc
+
 
 class LogoImageForm(FlaskForm):
 	logoImage = FileField('Company logo',validators=[FileAllowed(['jpg','png','img','gif','svg'])])
+
 
 class SliderImageForm(FlaskForm):
 	sliderImageDesc = StringField()
@@ -39,6 +40,7 @@ class UserRegistrationForm(FlaskForm):
 		if user:
 			raise ValidationError(lazy_gettext('That email is taken. Choose a different one!'))
 
+
 class CustomerRegistrationForm(FlaskForm):
 	username = StringField('Username', 
 							validators=[DataRequired(),Length(min=2,max=60)])
@@ -64,15 +66,9 @@ class CustomerRegistrationForm(FlaskForm):
 		user = Users.query.filter_by(UName=username.data).first()
 		if rp_acc or user:
 			raise ValidationError(lazy_gettext('That username is taken. Choose a different one!'))
+		
 	def validate_email(self,email):
 		rp_acc = Rp_acc.query.filter_by(RpAccEMail=email.data).first()
 		user = Users.query.filter_by(UEmail=email.data).first()
 		if rp_acc or user:
 			raise ValidationError(lazy_gettext('That email is taken. Choose a different one!'))
-
-class AdminLoginForm(FlaskForm):
-	username = StringField (lazy_gettext('Username'),
-						validators=[DataRequired()])
-	password = PasswordField(lazy_gettext('Password'),validators=[DataRequired()])
-	remember = BooleanField(lazy_gettext('Remember Me'))
-	submit = SubmitField(lazy_gettext('Log In'))

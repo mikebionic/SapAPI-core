@@ -84,8 +84,9 @@ def create_app(config_class=Config):
 	csrf.exempt(auth_api)
 	csrf.exempt(commerce_api)
 	csrf.exempt(users_api)
+	# /api blueprints
 
-
+	# api blueprints
 	api_test_url_prefix = '/test/ls/api/'
 	from main_pack.api_test.auth import api as auth_api_test
 	app.register_blueprint(auth_api_test,url_prefix=api_test_url_prefix)
@@ -121,5 +122,14 @@ def create_app(config_class=Config):
 	from main_pack.commerce.admin import bp as commerce_admin_bp
 	app.register_blueprint(commerce_admin_bp,url_prefix=commerce_url_prefix)
 	# /commerce blueprints
+
+	# commerce_test blueprints
+	commerce_test_url_prefix = '/test/commerce'
+	from main_pack.commerce_test.auth import bp as commerce_auth_bp_test
+	app.register_blueprint(commerce_auth_bp_test,url_prefix=commerce_test_url_prefix)
+
+	from main_pack.commerce_test.admin import bp as commerce_admin_bp_test
+	app.register_blueprint(commerce_admin_bp_test,url_prefix=commerce_test_url_prefix)
+	# /commerce_test blueprints
 
 	return app

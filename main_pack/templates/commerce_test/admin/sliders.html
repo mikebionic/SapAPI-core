@@ -1,0 +1,70 @@
+{% extends "commerce_test/admin/layout.html" %}
+
+{% block styles %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/dropzonejs/dropzone.css') }}">
+{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <button class="btn btn-primary newSliderBtn"><i data-feather="plus-square"></i></button>
+    <button class="btn btn-primary minimizeSlider" style="display: none;"><i data-feather="minus-square"></i></button>
+  </div>
+  <div class="row newSliderCard" style="display: none;">
+    <div class="col-12 col-sm-6 col-lg-6">
+      <div class="card">
+        <div class="card-header">
+          <h4>{{_('New Slider')}}</h4>
+        </div>
+        <div class="card-body">
+          <input type="hidden" class="sliderId" ownerId='undefined'>
+          <input type="text" class="form-control sliderName" ownerId='undefined' placeholder="{{_('Name')}}">
+          <textarea class="form-control sliderDesc" ownerId='undefined' placeholder="{{_('Description')}}"></textarea>
+        </div>
+        <button class="btn btn-outline-info saveSliderBtn" ownerId='undefined'>{{_('Add')}}</button>
+      </div>
+    </div>
+  </div>
+  <div class="row slidersList">
+    {% for slider in sliders %}
+      <div class="col-12 col-sm-6 col-lg-6 sliderCard" ownerId={{slider.SlId}}>
+        <div class="card">
+          <div class="card-header">
+            <input type="hidden" class="sliderId" ownerId="{{slider.SlId}}" value="{{slider.SlId}}">
+            <h4 class="sliderName" ownerId={{slider.SlId}}>{{slider.SlName}}</h4>
+            <button class="btn btn-icon icon-left btn-outline-info editSliderBtn" ownerId={{slider.SlId}}><i class="far fa-edit"></i> {{_('Edit')}}</button>
+            <button class="btn btn-outline-success saveSliderBtn" ownerId={{slider.SlId}} style="display: none;">{{_('Save')}}</button>
+            <a href="{{ url_for('commerce_admin_test.sliders') }}" class="btn btn-outline-warning cancelEditSliderBtn" ownerId={{slider.SlId}} style="display: none;">{{_('Cancel')}}</a>
+            <button class="btn btn-outline-danger deleteSliderBtn" ownerId={{slider.SlId}} style="display: none;"><i class="fas fa-trash-alt"></i></button>
+          </div>
+          <div class="card-body">
+            <div class="card-header">
+              <h4>{{_('Description')}}</h4>
+            </div>
+            <div class="sliderDesc" ownerId={{slider.SlId}}>{{slider.SlDesc}}</div>
+            <br>
+            <a href="{{ url_for('commerce_admin_test.slider_images',SlId=slider.SlId) }}" class="btn btn-outline-info">{{_('Add slider image')}}</a>
+            {% if slider['Sl_images'] %}
+              {% for sl_image in slider['Sl_images'] %}
+                <div class="gallery gallery-fw" data-item-height="100" style="display: flex;">
+                  <div class="gallery-item" data-toggle="popover" data-trigger="hover" title="{{slider.SlName}}" data-content="{{_('Description')}}: {{sl_image.SlImgDesc}}. {{_('Date')}}: {{SlImgStartDate}} - {{SlImgEndDate}}" data-image="{{ sl_image.SlImgMainImgFilePathM }}">
+                  </div>
+                  <div class="carousel_icon">
+                    <li><a href="{{ url_for('commerce_admin_test.remove_images',type='slider',imgId=sl_image.SlImgId) }}" class="btn btn-icon btn-light deleteSliderBtn" ><i class="fas fa-trash-alt"></i></a></li>
+                  </div>
+                </div>
+              {% endfor %}
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+{% endblock %}
+
+{% block scripts %}
+  <script src="{{ url_for('static', filename='commerce/admin/js/app.min.js') }}"></script>  
+  <script src="{{ url_for('static', filename='commerce/admin/js/sliders.js') }}"></script>
+  <!-- DO WE NEED THESE JS FILES?? -->
+  <script src="{{ url_for('static', filename='commerce/admin/js/page/gallery1.js') }}"></script>
+{% endblock %}

@@ -34,7 +34,8 @@ def admin_login():
 				return redirect(next_page) if next_page else redirect(url_for('commerce_admin.dashboard'))
 		else:
 			flash(lazy_gettext('Login Failed! Wrong username or password'),'danger')
-	return render_template ("commerce/main/auth/admin_login.html",title=gettext('Login'),form=form)
+	return render_template("commerce/main/auth/admin_login.html",url_prefix="/commerce",
+		title=gettext('Login'),form=form)
 
 @bp.route("/admin/logout")
 def admin_logout():

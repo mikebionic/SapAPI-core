@@ -97,7 +97,7 @@
         <div class="buttons">
           <button class="btn add-to-cart-btn addToCart" ownerId="{{resource.ResId}}" onclick="$('.quantity-box').show('slow')">{{_('Add to cart')}}</button>
           <button class="btn add-to-cart-btn removeFromCart" ownerId="{{resource.ResId}}" style="display: none; margin-right: 0;" onclick="$('.quantity-box').hide('slow')">{{_('Remove')}}</button>
-          <a href="#" class="btn wishlist-btn" style="font-size: 20px;"><i class="fa fa-heart" aria-hidden="true"></i></a>
+          <a href="#" class="btn wishlist-btn addToWishlist" ownerId="{{resource.ResId}}" style="font-size: 20px;"><i class="fa fa-heart" aria-hidden="true"></i></a>
           <button class="btn add-to-cart-btn removeFromWishlist" ownerId="{{resource.ResId}}" style="display: none;">{{_('Remove from wishlist')}}</button>
         </div>
       </div>

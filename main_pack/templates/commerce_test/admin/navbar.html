@@ -1,0 +1,396 @@
+{% extends "commerce_test/admin/layout.html" %}
+
+{% block styles %}
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='commerce/admin/commerce_styles/css/bootstrap.min.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='commerce/admin/commerce_styles/css/animate.min.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='commerce/admin/commerce_styles/css/font-awesome.min.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='commerce/admin/commerce_styles/css/slick.min.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='commerce/admin/commerce_styles/css/style.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='commerce/admin/commerce_styles/css/main-color.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/prism/prism.css')}}">
+{% endblock %}
+
+{% block content %}
+<div class="section-body">
+	<header id="header" class="header-area style-01 layout-03" >
+		<div class="header-middle biolife-sticky-object ">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-3 col-md-2 col-md-6 col-xs-6">
+						<a href="#" class="logo"><span style="color: #ff8300">NAV</span>BAR</a>
+					</div>
+					<div class="col-lg-6 col-md-7 hidden-sm hidden-xs">
+						<div class="primary-menu">
+							<ul class="menu biolife-menu clone-main-menu clone-primary-menu" id="primary-menu" data-menuname="main menu">
+								<!-- <li class="menu-item">{{_('Home')}}</a></li>
+								<li class="menu-item">{{_('About us')}}</a></li> -->
+								<li class="menu-item"><a data-toggle="modal" data-target=".contactModal" style="width: 100%;">{{_('Contact')}}</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="header-bottom hidden-sm hidden-xs">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-4 col-md-4">
+						<div class="vertical-menu vertical-category-block">
+							<div class="block-title">
+								<span class="menu-icon">
+									<span class="line-1"></span>
+									<span class="line-2"></span>
+									<span class="line-3"></span>
+								</span>
+								<span class="menu-title">{{_('Category')}}</span>
+								<span class="angle" data-tgleclass="fa fa-caret-down"><i class="fa fa-caret-up" aria-hidden="true"></i></span>
+							</div>
+							<div class="wrap-menu">
+								<ul class="menu categoriesList">
+
+{% for category in categories %}
+	{% if category.GCRecord == None or category.GCRecord == '' %}
+		<li class="menu-item menu-item-has-children has-megamenu">
+			<a href="#" class="menu-name"  title="{{ category.ResCatDesc if category.ResCatDesc }}">
+				{% if category.ResCatIconFilePath %}<img class="img-fluid" src="{{category.ResCatIconFilePath}}">{%endif%}
+				{{ category.ResCatName }}
+				<i class="fas fa-times removeCategoryBtn" categoryOwner="{{ category.ResCatId }}" style="padding-left: 7px;"></i>
+			</a>
+			<div class="wrap-megamenu lg-width-300 md-width-640">
+				<div class="mega-content">
+					<div class="row">
+						<div class="col-lg-9 col-md-4 col-sm-12 xs-margin-bottom-25 md-margin-bottom-0 categoriesList{{ category.ResCatId }}">
+							{% for subcategory in subcategories %}
+								{% if subcategory.GCRecord == None or subcategory.GCRecord == '' %}
+									{% if subcategory.ResOwnerCatId == category.ResCatId %}
+									<div class="wrap-custom-menu vertical-menu">
+										<h4 class="menu-title"  title="{{ subcategory.ResCatDesc if subcategory.ResCatDesc }}">{{ subcategory.ResCatName }}<a href="#" class="removeCategoryBtn" categoryOwner="{{ subcategory.ResCatId }}"><i class="fas fa-times" style="padding-left: 7px;"></i></a></h4>
+										<div class="form-group">
+											<ul class="categoriesList{{ subcategory.ResCatId }}">
+												{% for subcategory_child in subcategory_children %}
+													{% if subcategory_child.GCRecord == None or subcategory_child.GCRecord == '' %}
+														{% if subcategory_child.ResOwnerCatId == subcategory.ResCatId %}
+														<div>
+															<li><a href="#"  title="{{ subcategory_child.ResCatDesc if subcategory_child.ResCatDesc }}">{{ subcategory_child.ResCatName }}</a><a href="#" class="removeCategoryBtn" categoryOwner="{{ subcategory_child.ResCatId }}"><i class="fas fa-times" style="padding-left: 7px;"></i></a></li>
+														</div>
+														{% endif %}
+													{% endif %}
+												{% endfor %}
+											</ul>
+											<div class="ico_category">
+												<input type="text" placeholder="{{_('Category')}}" class="txt-input categoryName{{ subcategory.ResCatId }}" style="width: 70%;height: 40px;">
+												<input type="hidden" class="txt-input categoryDesc{{ subcategory.ResCatId }}">
+												<a href="#" data-toggle="tooltip" data-placement="bottom" class="addDescBtn" categoryOwner="{{ subcategory.ResCatId }}" title="{{_('Description')}}"><i class="fas fa-question" data-toggle="modal" data-target=".categoryDescModal"></i></a>
+												<a href="#" class="addCategoryBtn" categoryOwner="{{ subcategory.ResCatId }}"><i class="fas fa-check"></i></a>
+											</div>
+										</div>
+									</div>
+									{% endif %}
+								{% endif %}
+							{% endfor %}
+							<div class="wrap-custom-menu vertical-menu">
+								<h4 class="menu-title subcategory-menu">
+									<input type="text" placeholder="{{_('Category')}}" class="txt-input categoryName{{ category.ResCatId }}" style="width: 65%;height: 40px;">
+									<input type="hidden" class="txt-input categoryDesc{{ category.ResCatId }}">
+									<a href="#" data-toggle="tooltip" data-placement="bottom" class="addDescBtn" categoryOwner="{{ category.ResCatId }}" title="{{_('Description')}}"><i class="fas fa-question" data-toggle="modal" data-target=".categoryDescModal"></i></a>
+									<a href="#" class="addCategoryBtn" categoryOwner="{{ category.ResCatId }}"><i class="fas fa-check"></i></a>
+								</h4>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</li>
+	{% endif %}
+{% endfor %}
+
+
+									<li class="menu-item menu-item-has-children has-megamenu newCategory">
+										<div class="menu-name categoryIcon" categoryOwner="">
+											<img class="img-fluid" name='' icon_category='' src="{{ url_for('static', filename='commerce/admin/ICONS/surface1.svg')}}" data-toggle="modal" data-target="#catIconsModal">
+										</div>
+										<input class="input100 categoryName" type="text" placeholder="{{_('Category')}}">
+										<i class="fas fa-question addDescBtn" categoryOwner="" title="{{_('Description')}}" data-toggle="modal" data-target=".categoryDescModal"></i>
+										<i class="fas fa-plus-circle addCategoryBtn"></i>
+										<input type="hidden" class="txt-input categoryDesc">
+									</li>
+								</ul>
+
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+</div>    
+{% endblock %}
+
+{% block modals %}
+<!-- category desc Modal -->
+<div class="modal fade categoryDescModal" tabindex="-1" role="dialog" aria-hidden="true" style="background-color: rgba(71, 69, 69, 0.548);">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">{{_('Description')}}</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<textarea class="form-control descContent"></textarea>
+				<a href="#" class="submitDescBtn"><i class="fas fa-check"></i></a>
+			</div>
+		</div>
+	</div>
+</div>
+<!--/ category desc Modal -->
+
+	<!-- icon selection Modal -->
+	<div class="modal fade" id="catIconsModal" tabindex="-1" role="dialog" aria-labelledby="catIconsModalTitle" aria-hidden="true" style="background-color: rgba(71, 69, 69, 0.548);">
+		<div class="modal-dialog modal-dialog-centered" style="max-width: 100%; width: 95%;" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="catIconsModalTitle">{{_('Icons')}}</h5>
+					<form class="card-header-form">
+						<div class="input-group">
+							<input type="text" name="search" class="form-control" placeholder="{{_('Search')}}" style="height: 37px;">
+							<div class="input-group-btn">
+							<button class="btn btn-primary btn-icon" style="margin-left: 0;"><i class="fas fa-search"></i></button>
+							</div>
+						</div>
+					</form>
+						<button class="btn btn-primary newIconBtn"><i data-feather="plus-square"></i></button>
+						<button class="btn btn-primary minimizeIcon" style="display: none;"><i data-feather="minus-square"></i></button>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+
+				<div class="card col-md-4 newIconCard" style="display: none;">
+					<div class="card-header">
+            <h4>{{_('Upload images')}}</h4>
+          </div>
+					<div class="card-body">
+						<div class="custom-file">
+							<input type="file" class="custom-file-input" id="multiFiles" name="files[]" multiple="multiple"/>
+							<label class="custom-file-label" for="customFile">{{_('Choose file')}}</label>
+							<button id="upload" class="btn btn-outline-primary">{{_('Upload')}}</button>
+						</div>
+						<br>
+					</div>
+				</div>
+
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-4">
+							<div class="list-group" id="list-tab" role="tablist">
+								{% for category in category_icons %}
+									<a class="list-group-item list-group-item-action" id="list-home-list"
+									data-toggle="list" href="#tab-{{category.replace(' ','-')}}" role="tab" 
+									aria-controls="contact" aria-selected="false">{{ category }}
+										<span class="badge badge-transparent">{{ category_icons[category]|length }}</span>
+									</a>
+								{% endfor %}
+							</div>
+						</div>
+						<div class="col-8">
+							<div class="tab-content iconsList" id="nav-tabContent">
+								{% for category in category_icons %}
+									<div class="tab-pane fade" id="tab-{{category.replace(' ','-')}}" role="tabpanel" aria-labelledby="profile-tab2">
+										<div class="row icon-feather-container categoryIcons">
+											{% for iconInfo in category_icons[category] %}
+												<div class="col-sm-6 col-md-4 col-lg-3">
+													<div class="preview">
+      											<a href="{{ url_for('commerce_admin_test.remove_svg_icon', name=iconInfo['icon_name'], icon_category=iconInfo['category']) }}" class="btn btn-outline-danger removeIconBtn" style="border: 1px solid #dd414f;">x</a>
+														<a href="#">
+															<img loading="lazy" name="{{ iconInfo['icon_name'] }}" icon_category="{{ iconInfo['category'] }}" class="img-fluid" style="margin-left: 43%;" src="{{ iconInfo['url'] }}">
+															<br>
+															<span class="icon_name" style="text-transform: capitalize;color: #4f51c0;padding-left: 20px;">{{ iconInfo['icon_name'] }}</span>
+														</a>
+													</div>
+												</div>
+											{% endfor %}
+										</div>
+									</div>
+								{% endfor %}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- icon modal -->
+
+<!-- edit category modal -->
+<div class="modal fade bd-example-modal-lg editCategoryModal" tabindex="-1" role="dialog" aria-hidden="true" style="background-color: rgba(71, 69, 69, 0.548);">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">{{_('Edit')}}</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="contact-info-container sm-margin-top-27px xs-margin-bottom-60px xs-margin-top-60px" style="margin: 5px 15%;">
+					<h4 class="box-title">{{_('Category')}}</h4>
+					<ul class="addr-info">
+						<input type="hidden" class="editCategoryId">
+						<li>
+							<div class="if-item">
+								<b class="tie">{{_('Name')}}:</b>
+								<p class="dsc">
+									<input type="text" class="editCategoryName"  cols="50" rows="2" placeholder="{{_('Category')}}" class="txt-input">
+								</p>
+							</div>
+						</li>
+						<li>
+							<div class="if-item">
+								<b class="tie">{{_('Description')}}:</b>
+								<p class="dsc">
+									<input type="text" class="editCategoryDesc" cols="50" rows="2" class="txt-input">
+								</p>
+							</div>
+						</li>					
+						<div class="menu-name editCategoryIcon">
+							<img class="img-fluid" name='' icon_category='' src="{{ url_for('static', filename='commerce/admin/ICONS/surface1.svg')}}" data-toggle="modal" data-target="#catIconsModal">
+						</div>
+						<p class="form-row">
+							<button class="btn btn-outline-info saveCategoryBtn" type="submit">{{_('Save')}}</button>
+						</p>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- edit category modal -->
+
+<!-- Contact info modal -->
+<div class="modal fade bd-example-modal-lg contactModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+aria-hidden="true" style="background-color: rgba(71, 69, 69, 0.548);">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="myLargeModalLabel">{{_('Contact')}}</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="contact-info-container sm-margin-top-27px xs-margin-bottom-60px xs-margin-top-60px" style="margin: 5px 15%;">
+					<h4 class="box-title">{{_('Contact')}}</h4>
+					<ul class="addr-info">
+						<li>
+							<div class="if-item">
+								<b class="tie">{{_('Company name')}}:</b>
+								<p class="dsc">
+									<input type="text" class="companyName" {% if company.CName %}value='{{company.CName}}'{% endif %} cols="50" rows="2" placeholder="{{_('Company')}}" class="txt-input">
+								</p>
+							</div>
+						</li>
+						<li>
+							<div class="if-item">
+								<b class="tie">{{_('Full name')}}:</b>
+								<p class="dsc">
+									<textarea class="companyFullName" cols="40" rows="2" placeholder="{{_('Full name')}}">{% if company.CFullName %}{{company.CFullName}}{% endif %}</textarea>
+								</p>
+							</div>
+						</li>
+						<li>
+							<div class="if-item">
+								<b class="tie">{{_('Description')}}:</b>
+								<p class="dsc">
+									<textarea class="companyDesc" cols="40" rows="2" placeholder="{{_('Description')}}">{% if company.CDesc %}{{company.CDesc}}{% endif %}</textarea>
+								</p>
+							</div>
+						</li>
+						<li>
+							<div class="if-item">
+								<b class="tie">{{_('Address')}}:</b>
+								<p class="dsc">
+									<input type="text" class="companyAddress" {% if company.CAddress %}value='{{company.CAddress}}'{% endif %} cols="50" rows="2" placeholder="Example St. Example Av." class="txt-input">
+								</p>
+							</div>
+						</li>
+						<li>
+							<div class="if-item">
+								<b class="tie">{{_('Phone')}} 1:</b>
+								<p class="dsc">
+									<input type="text" class="companyPhone1" {% if company.Phone1 %}value='{{company.Phone1}}'{% endif %} cols="50" rows="2" placeholder="(+993)123 456789" class="txt-input">
+								</p>
+							</div>
+						</li>
+						<li>
+							<div class="if-item">
+								<b class="tie">{{_('Phone')}} 2:</b>
+								<p class="dsc">
+									<input type="text" class="companyPhone2" {% if company.Phone2 %}value='{{company.Phone2}}'{% endif %} cols="50" rows="2" placeholder="(+993)123 456789" class="txt-input">
+								</p>
+							</div>
+						</li>
+						<li>
+							<div class="if-item">
+								<b class="tie">{{_('Phone')}} 3:</b>
+								<p class="dsc">
+									<input type="text" class="companyPhone3" {% if company.Phone3 %}value='{{company.Phone3}}'{% endif %} cols="50" rows="2" placeholder="(+993)123 456789" class="txt-input">
+								</p>
+							</div>
+						</li>
+						<li>
+							<div class="if-item">
+								<b class="tie">{{_('Phone')}} 4:</b>
+								<p class="dsc">
+									<input type="text" class="companyPhone4" {% if company.Phone4 %}value='{{company.Phone4}}'{% endif %} cols="50" rows="2" placeholder="(+993)123 456789" class="txt-input">
+								</p>
+							</div>
+						</li>
+						<li>
+							<div class="if-item">
+								<b class="tie">{{_('Postal code')}}:</b>
+								<p class="dsc">
+									<input type="text" class="companyPostalCode" {% if company.CPostalCode %}value='{{company.CPostalCode}}'{% endif %} cols="50" rows="2" placeholder="{{_('Postal code')}}" class="txt-input">
+								</p>
+							</div>
+						</li>
+						<li>
+							<div class="if-item">
+								<b class="tie">{{_('Email')}}:</b>
+								<p class="dsc">
+									<input type="text" class="companyEmail" {% if company.CEmail %}value='{{company.CEmail}}'{% endif %} cols="50" rows="2" placeholder="example@example.com" class="txt-input">
+								</p>
+							</div>
+						</li>
+						<li>
+							<div class="if-item">
+								<b class="tie">{{_('Working time')}}:</b>
+								<p class="dsc">
+									<input type="text" class="companyWTime" {% if company.AddInf1 %}value='{{company.AddInf1}}'{% endif %} cols="50" rows="2" placeholder="8am - 08pm, Mon - Sat" class="txt-input">
+								</p>
+							</div>
+						</li>
+						<p class="form-row">
+							<button class="btn btn-outline-info submitCompanyInfo" type="submit">{{_('Save')}}</button>
+						</p>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+	<script src="{{ url_for('static', filename='commerce/admin/commerce_styles/js/jquery.countdown.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='commerce/admin/commerce_styles/js/biolife.framework.js') }}"></script>
+	<script src="{{ url_for('static', filename='commerce/admin/commerce_styles/js/functions.js') }}"></script>
+	<script src="{{ url_for('static', filename='commerce/admin/bundles/prism/prism.js')}}"></script>
+	<script src="{{ url_for('static', filename='commerce/admin/js/category.js') }}"></script>
+	<script src="{{ url_for('static', filename='commerce/admin/js/ui_dynamicals.js') }}"></script>
+	<script src="{{ url_for('static', filename='commerce/admin/js/companyInfo.js') }}"></script>
+	<script src="{{ url_for('static', filename='commerce/admin/js/category_icons.js') }}"></script>
+{% endblock %}

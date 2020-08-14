@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from flask import render_template,url_for,jsonify,request,abort,make_response
 from main_pack.api_test.commerce import api
 from main_pack.base.apiMethods import checkApiResponseStatus
@@ -45,7 +46,6 @@ def api_rp_accs():
 			
 		else:
 			req = request.get_json()
-			print(req)
 			rp_accs = []
 			failed_rp_accs = [] 
 			for rp_acc in req:
@@ -54,20 +54,19 @@ def api_rp_accs():
 					RpAccRegNo = rp_acc['RpAccRegNo']
 					RpAccName = rp_acc['RpAccName']
 					thisRpAcc = Rp_acc.query\
-						.filter_by(RpAccRegNo = RpAccRegNo, RpAccName = RpAccName)\
+						.filter_by(RpAccRegNo = RpAccRegNo)\
 						.first()
 					if thisRpAcc:
 						thisRpAcc.update(**rp_acc)
-						db_test.session.commit()
 						rp_accs.append(rp_acc)
 					else:
 						newRpAcc = Rp_acc(**rp_acc)
 						db_test.session.add(newRpAcc)
-						db_test.session.commit()
 						rp_accs.append(rp_acc)
 				except Exception as ex:
 					print(ex)
 					failed_rp_accs.append(rp_acc)
+			db_test.session.commit()
 
 			status = checkApiResponseStatus(rp_accs,failed_rp_accs)
 			res = {
@@ -79,4 +78,4 @@ def api_rp_accs():
 			for e in status:
 				res[e]=status[e]
 			response = make_response(jsonify(res),201)
-	return response 
+	return response

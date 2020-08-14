@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from flask import json, jsonify, request, make_response, abort
 from sqlalchemy import and_
 from datetime import datetime

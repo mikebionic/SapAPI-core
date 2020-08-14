@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # from main_pack.models.commerce.models import Res_category
 from main_pack.base.dataMethods import configureNulls,configureFloat,boolCheck
 from main_pack.base.imageMethods import save_image,dirHandler

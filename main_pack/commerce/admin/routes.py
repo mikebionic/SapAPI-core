@@ -58,7 +58,8 @@ def set_language(language=None):
 @ui_admin_required()
 def dashboard():
 	print(current_user.UName)
-	return render_template ("commerce/admin/dashboard.html",title=gettext('Dashboard'))
+	return render_template("commerce/admin/dashboard.html",url_prefix="/commerce",
+		title=gettext('Dashboard'))
 
 ###### categories management and shop info #######
 @bp.route("/admin/navbar")
@@ -82,8 +83,8 @@ def navbar():
 		category_icons[folder]=icons
 
 	commonData = commonUsedData()
-	return render_template ("commerce/admin/navbar.html",**commonData,category_icons=category_icons,
-		title=gettext('Navbar'))
+	return render_template("commerce/admin/navbar.html",url_prefix="/commerce",
+		**commonData,category_icons=category_icons,title=gettext('Navbar'))
 
 @bp.route("/admin/category_table")
 @login_required
@@ -117,7 +118,7 @@ def category_table():
 
 	categoriesList = [category.to_json_api() for category in categories]
 	data['categories'] = categoriesList if categoriesList else []
-	return render_template ("commerce/admin/category_table.html",
+	return render_template("commerce/admin/category_table.html",url_prefix="/commerce",
 		**data,title=gettext('Category table'))
 ###################################
 
@@ -126,14 +127,8 @@ def category_table():
 @ui_admin_required()
 def product_table():
 	resData=apiResourceInfo(isInactive=True,fullInfo=True)
-	return render_template ("commerce/admin/product_table.html",**resData,
-		title=gettext('Product table'))
-
-@bp.route("/admin/admin_table")
-@login_required
-@ui_admin_required()
-def admin_table():
-	return render_template ("commerce/admin/admin_table.html",title=gettext('Admin table'))
+	return render_template("commerce/admin/product_table.html",url_prefix="/commerce",
+		**resData,title=gettext('Product table'))
 
 def rp_acc_types():
 	rp_acc_types = Rp_acc_type.query\
@@ -167,7 +162,8 @@ def customers_table():
 	data = UiRpAccData()
 	data['rp_acc_statuses'] = rp_acc_statuses()
 	data['rp_acc_types'] = rp_acc_types()
-	return render_template ("commerce/admin/customers_table.html",**data,title=gettext('Customers'))
+	return render_template("commerce/admin/customers_table.html",url_prefix="/commerce",
+		**data,title=gettext('Customers'))
 
 @bp.route("/admin/customer_details/<RpAccRegNo>")
 @login_required
@@ -196,7 +192,7 @@ def customer_details(RpAccRegNo):
 	except Exception as ex:
 		print(ex)
 		return redirect(url_for('commerce_admin.customers_table'))
-	return render_template ("commerce/admin/customer_details.html",
+	return render_template("commerce/admin/customer_details.html",url_prefix="/commerce",
 		**data,**orderInvRes,title=gettext('Customer details'))
 
 @bp.route("/admin/register_customer",methods=['GET','POST'])
@@ -287,7 +283,7 @@ def register_customer():
 			print(ex)
 			flash(lazy_gettext('Error occured, please try again.'),'danger')
 			return redirect(url_for('commerce_admin.register_customer'))
-	return render_template ("commerce/admin/register_customer.html",
+	return render_template("commerce/admin/register_customer.html",url_prefix="/commerce",
 		form=form,title=gettext('Register'))
 
 ################################
@@ -299,7 +295,8 @@ def register_customer():
 def users_table():
 	data = UiUsersData()
 	data['user_types'] = user_types()
-	return render_template ("commerce/admin/users_table.html",**data,title=gettext('Users'))
+	return render_template("commerce/admin/users_table.html",url_prefix="/commerce",
+		**data,title=gettext('Users'))
 
 @bp.route("/admin/user_details/<UId>")
 @login_required
@@ -322,7 +319,7 @@ def user_details(UId):
 	except Exception as ex:
 		print(ex)
 		return redirect(url_for('commerce_admin.users_table'))
-	return render_template ("commerce/admin/user_details.html",
+	return render_template("commerce/admin/user_details.html",url_prefix="/commerce",
 		**data,**rp_accs,title=gettext('Customer details'))
 
 @bp.route("/admin/register_user",methods=['GET','POST'])
@@ -374,7 +371,7 @@ def register_user():
 			print(ex)
 			flash(lazy_gettext('Error occured, please try again.'),'danger')
 			return redirect(url_for('commerce_admin.register_user'))
-	return render_template ("commerce/admin/register_user.html",
+	return render_template("commerce/admin/register_user.html",url_prefix="/commerce",
 		form=form,title=gettext('Register'))
 
 #################################
@@ -395,8 +392,8 @@ def order_invoices():
 		orders_list.append(order)
 	orderInvRes = UiOInvData(orders_list)
 
-	return render_template ("commerce/admin/order_invoices.html",**orderInvRes,
-		title=gettext('Order invoices'))
+	return render_template("commerce/admin/order_invoices.html",url_prefix="/commerce",
+		**orderInvRes,title=gettext('Order invoices'))
 
 @bp.route("/admin/order_invoices/<OInvRegNo>",methods=['GET','POST'])
 @login_required
@@ -425,7 +422,7 @@ def order_inv_lines(OInvRegNo):
 	for inv_stat in inv_statuses:
 		invoice_statuses.append(dataLangSelector(inv_stat.to_json_api()))
 	InvoiceStatuses = {'inv_statuses':invoice_statuses}
-	return render_template ("commerce/admin/order_inv_lines.html",
+	return render_template("commerce/admin/order_inv_lines.html",url_prefix="/commerce",
 		**orderInvLineRes,**InvoiceStatuses,**orderInvRes,title=gettext('Order invoices'))
 #########################################
 
@@ -434,17 +431,20 @@ def order_inv_lines(OInvRegNo):
 @ui_admin_required()
 def add_product():
 	resData=resRelatedData()
-	return render_template ("commerce/admin/add_product.html",**resData,title=gettext('Add product'))
+	return render_template("commerce/admin/add_product.html",url_prefix="/commerce",
+		**resData,title=gettext('Add product'))
 
 
 @bp.route("/admin/sale_repots_table")
 @login_required
 @ui_admin_required()
 def sale_repots_table():
-	return render_template ("commerce/admin/sale_repots_table.html",title=gettext('Sale reports'))
+	return render_template("commerce/admin/sale_repots_table.html",url_prefix="/commerce",
+		title=gettext('Sale reports'))
 
 @bp.route("/admin/sale_repots_table2")
 @login_required
 @ui_admin_required()
 def sale_repots_table2():
-	return render_template ("commerce/admin/sale_repots_table2.html",title=gettext('Sale reports2'))
+	return render_template("commerce/admin/sale_repots_table2.html",url_prefix="/commerce",
+		title=gettext('Sale reports2'))

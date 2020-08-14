@@ -15,21 +15,21 @@
 			</ul>
 			<div class="carousel-inner">
 			<div class="carousel-item active">
-				<img src="{{ url_for('static', filename='commerce/main/images/home/5.jpg') }}" alt="Los Angeles" width="1100" height="100">
+				<img loading="lazy" src="{{ url_for('static', filename='commerce/main/images/home/5.jpg') }}" alt="Los Angeles" width="1100" height="100">
 				<div class="carousel-caption">
 				<h3 class="animated fadeInLeftBig wow">Los Angeles</h3>
 				<p class="animated fadeInLeftBig wow">We had such a great time in LA!</p>
 				</div>   
 			</div>
 			<div class="carousel-item">
-				<img src="{{ url_for('static', filename='commerce/main/images/home/7.jpg') }}" alt="Chicago" width="1100" height="500">
+				<img loading="lazy" src="{{ url_for('static', filename='commerce/main/images/home/7.jpg') }}" alt="Chicago" width="1100" height="500">
 				<div class="carousel-caption">
 				<h3 class="animated fadeInLeft wow">Chicago</h3>
 				<p class="animated fadeInLeftBig wow">Thank you, Chicago!</p>
 				</div>   
 			</div>
 			<div class="carousel-item">
-				<img src="{{ url_for('static', filename='commerce/main/images/home/6.jpg') }}" alt="New York" width="1100" height="500">
+				<img loading="lazy" src="{{ url_for('static', filename='commerce/main/images/home/6.jpg') }}" alt="New York" width="1100" height="500">
 				<div class="carousel-caption">
 				<h3 class="animated fadeInTopLeft wow">New York</h3>
 				<p class="animated fadeInLeftBig wow">We love the Big Apple!</p>
@@ -97,7 +97,7 @@
 									<a href="#{{category.ResCatId}}" class="tab-link">
 										{% if category.ResCatIconFilePath %}
 											<span class="biolife-icon">
-												<img class="img-fluid" src="{{category.ResCatIconFilePath}}"style="height: 40px;">
+												<img loading="lazy" class="img-fluid" src="{{category.ResCatIconFilePath}}"style="height: 40px;">
 											</span>
 										{%endif%}
 										{{category.ResCatName}}

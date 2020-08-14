@@ -1,0 +1,89 @@
+{% extends "commerce_test/admin/layout.html" %}
+
+{% block styles %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/bootstrap-daterangepicker/daterangepicker.css')}}">
+{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="card-header">
+          <a href="{{ url_for('commerce_admin_test.sliders') }}">
+            <i data-feather="arrow-left-circle"></i>
+          </a>
+          <h4>{{slider.SlName}}</h4>
+        </div>
+        <div class="card-body">
+          {% if slider.SlDesc %}
+            <div class="card-header">
+              <h4>{{_('Description')}}</h4>
+            </div>
+            <div class="sliderDesc" ownerId={{slider.SlId}}>{{slider.SlDesc}}</div>
+            <br>
+          {% endif %}
+          {% if sl_images %}
+            {% for sl_image in sl_images %}
+              <div class="gallery gallery-fw" data-item-height="100" style="display: flex;">
+                <div class="gallery-item" data-toggle="popover" data-trigger="hover" title="{{slider.SlName}}" data-content="{{_('Description')}}: {{sl_image.SlImgDesc}}. {{_('Date')}}: {{SlImgStartDate}} - {{SlImgEndDate}}" data-image="{{ url_for('static', filename=sl_image.SlImgMainImgFileName.replace('<FSize>','M')) }}"></div>
+                <div class="carousel_icon">
+                  <li><a href="{{ url_for('commerce_admin_test.remove_images',type='slider',imgId=sl_image.SlImgId) }}" class="btn btn-icon btn-light deleteSliderBtn"><i class="fas fa-trash-alt"></i></a></li>
+                </div>
+              </div>
+            {% endfor %}
+          {% endif %}
+        </div>
+        <button class="btn btn-info" data-toggle="modal" data-target=".addSliderImageModal"><i class="fas fa-plus"></i></button>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block modals %}
+  <div class="modal fade addSliderImageModal" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="formModal">{{_('Add slider image')}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form method="POST" action="" enctype="multipart/form-data">
+            {{ sliderForm.hidden_tag() }}
+            <div class="form-group">
+              <label>{{_('Description')}}</label>
+              {{ sliderForm.sliderImageDesc(class="form-control",placeholder=_('Description')) }}
+            </div>
+            <div class="form-group">
+              <label>{{_('Start date')}}</label>
+              {{ sliderForm.SlImgStartDate(class="form-control datepicker") }}
+            </div>
+            <div class="form-group">
+              <label>{{_('End date')}}</label>
+              {{ sliderForm.SlImgEndDate(class="form-control datepicker") }}
+            </div>
+            <div class="section-title">{{_('Upload images')}}</div>
+            {{ sliderForm.sliderImage(class="custom-file-input") }}
+            {% if sliderForm.sliderImage.errors %}
+              {% for error in sliderForm.sliderImage.errors %}
+                <span class="text-danger">{{ error }}</span>
+              {% endfor %}
+            {% endif %}
+            <button type="submit" class="btn btn-primary m-t-15 waves-effect" name="sliderForm">{{_('Save')}}</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+
+{% block scripts %}
+
+  <script src="{{ url_for('static', filename='commerce/admin/bundles/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/admin/js/page/gallery1.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/admin/js/sliders.js') }}"></script>
+  
+{% endblock %}

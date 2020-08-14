@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from flask import url_for
 from main_pack import db_test,bcrypt,mail #,babel,gettext,lazy_gettext
 from flask_mail import Message

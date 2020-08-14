@@ -33,8 +33,8 @@ def logo_setup():
 
 		flash(lazy_gettext('Company logo successfully uploaded!'), 'success')
 		return redirect(url_for('commerce_admin.logo_setup'))
-	return render_template('commerce/admin/logo_setup.html',title=gettext('Company logo'),
-		logoForm=logoForm,company_logo=company_logo)
+	return render_template('commerce/admin/logo_setup.html',url_prefix="/commerce",
+		title=gettext('Company logo'),logoForm=logoForm,company_logo=company_logo)
 
 @bp.route("/remove_images")
 @login_required
@@ -87,8 +87,8 @@ def sliders():
 		sliderList["Sl_images"] = slider_images
 		slidersData.append(sliderList)
 
-	return render_template('commerce/admin/sliders.html',title=gettext('Sliders'),
-		sliders=slidersData)
+	return render_template('commerce/admin/sliders.html',url_prefix="/commerce",
+		title=gettext('Sliders'),sliders=slidersData)
 
 @bp.route("/admin/sliders/<SlId>", methods=['GET', 'POST'])
 @login_required
@@ -118,8 +118,8 @@ def slider_images(SlId):
 			return redirect(url_for('commerce_admin.slider_images',SlId=slider.SlId))
 	else:
 		return redirect(url_for('commerce_admin.sliders'))
-	return render_template('commerce/admin/slider_setup.html',title=gettext('Sliders'),
-		sliderForm=sliderForm,slider=slider,sl_images=sl_images)
+	return render_template('commerce/admin/slider_setup.html',url_prefix="/commerce",
+		title=gettext('Sliders'),sliderForm=sliderForm,slider=slider,sl_images=sl_images)
 
 @bp.route('/ui/svg-icons/',methods=['POST'])
 def ui_svg_icons():

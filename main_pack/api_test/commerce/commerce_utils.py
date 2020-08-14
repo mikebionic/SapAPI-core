@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from flask import jsonify,request,abort,make_response
 
 # functions and methods
@@ -26,17 +27,17 @@ from main_pack.models_test.base.models import Currency
 # / db models /
 
 # orders and db methods
-from main_pack.models.commerce.models import (Order_inv,
+from main_pack.models_test.commerce.models import (Order_inv,
 																							Order_inv_line,
 																							Inv_status)
-from main_pack.api.commerce.utils import (addOrderInvDict,
+from main_pack.api_test.commerce.utils import (addOrderInvDict,
 																					addOrderInvLineDict)
 from sqlalchemy import and_, extract
 # / orders and db methods /
 
 # Rp_acc db Model and methods
-from main_pack.models.users.models import Rp_acc
-from main_pack.api.users.utils import apiRpAccData
+from main_pack.models_test.users.models import Rp_acc
+from main_pack.api_test.users.utils import apiRpAccData
 # / Rp_acc db Model and methods /
 
 # datetime, date-parser
@@ -132,9 +133,9 @@ def apiResourceInfo(resource_list=None,
 			resource_info["ResPriceValue"] = List_Res_price[0]['ResPriceValue'] if List_Res_price else ''
 			resource_info["CurrencyCode"] = List_Currencies[0]['CurrencyCode'] if List_Currencies else 'TMT'
 			resource_info["ResTotBalance"] = List_Res_total[0]['ResTotBalance'] if List_Res_total else ''
-			resource_info["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=List_Images[0]['FileName']) if List_Images else ''
-			resource_info["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=List_Images[0]['FileName']) if List_Images else ''
-			resource_info["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_Images[0]['FileName']) if List_Images else ''
+			resource_info["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=List_Images[0]['FileName'],url='commerce_api_test.get_image') if List_Images else ''
+			resource_info["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=List_Images[0]['FileName'],url='commerce_api_test.get_image') if List_Images else ''
+			resource_info["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_Images[0]['FileName'],url='commerce_api_test.get_image') if List_Images else ''
 			resource_info["Images"] = List_Images if List_Images else []
 			resource_info["Colors"] = List_Colors if List_Colors else []
 			resource_info["Sizes"] = List_Sizes if List_Sizes else []

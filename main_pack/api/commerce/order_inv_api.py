@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from flask import jsonify,request,abort,make_response
 from main_pack.api.commerce import api
 from main_pack import db
@@ -149,7 +150,7 @@ def api_v_order_invoices(user):
 	endDate = request.args.get('endDate',datetime.now())
 	model_type = user['model_type']
 	current_user = user['current_user']
-	order_invoices = apiOrderInvInfo(startDate=startDate,
+	res = apiOrderInvInfo(startDate=startDate,
 																	endDate=endDate,
 																	rp_acc_user=current_user)
 	status_code = 200
@@ -162,7 +163,7 @@ def api_v_order_invoice(user,OInvRegNo):
 	model_type = user['model_type']
 	current_user = user['current_user']
 	invoice_list = [{"OInvRegNo": OInvRegNo}]
-	order_invoices = apiOrderInvInfo(invoice_list=invoice_list,
+	res = apiOrderInvInfo(invoice_list=invoice_list,
 																	single_object=True,
 																	rp_acc_user=current_user)
 	if res['status']==1:

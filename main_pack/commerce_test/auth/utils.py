@@ -1,0 +1,62 @@
+from flask import url_for,redirect
+from main_pack import db_test,bcrypt,mail,babel,gettext,lazy_gettext
+from flask_mail import Message
+from main_pack.config import Config
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+
+# auth and validation
+from flask_login import current_user,login_required
+# / auth and validation /
+
+import os
+from functools import wraps
+
+def ui_admin_required():
+	def decorator(f):
+		@wraps(f)
+		def decorated_function(*args, **kwargs):
+			if not current_user:
+				try:
+					return redirect(url_for('commerce_auth_test.login'))
+				except:
+					return redirect(url_for('commerce_auth_test.admin_login'))
+			elif not current_user.is_admin():
+				# flash(lazy_gettext('You do not have access to that page!'), 'danger')
+				return redirect(url_for('commerce.commerce'))
+			return f(*args, **kwargs)
+		return decorated_function
+	return decorator
+
+def send_reset_email(user):
+	url = 'commerce_auth_test.reset_token'
+	token = user.get_reset_token()
+	msg = Message(lazy_gettext('Password reset request'), sender='noterply@demo.com',recipients=[user.UEmail])
+	msg.body = f'''{lazy_gettext('To reset your password, visit the following link')}:
+	{url_for(url,token=token,_external=True)}
+	{lazy_gettext('If you did not make this request then simply ignore this email')}. 
+	'''
+	mail.send(msg)
+
+def get_register_token(UName,UEmail):
+	s = Serializer(Config.SECRET_KEY,1800)
+	return s.dumps({'UName':UName,'UEmail':UEmail}).decode('utf-8')
+
+def verify_register_token(token):
+	s = Serializer(Config.SECRET_KEY)
+	try:
+		UName = s.loads(token)['UName']
+		UEmail = s.loads(token)['UEmail']
+	except Exception as ex:
+		return None
+	return {'UName':UName,'UEmail':UEmail}
+
+def send_register_email(UName,UEmail):
+	token = get_register_token(UName=UName,UEmail=UEmail)
+	msg = Message(lazy_gettext('Registration request'), sender='noterply@demo.com',recipients=[UEmail])
+	msg.body = f'''{lazy_gettext('Dear')}, {UName}
+	{lazy_gettext('You have requested the registration on ecommerce')}.
+	{lazy_gettext('Please follow the link to verify your email')}!
+	{url_for('commerce_auth_test.register_token',token=token,_external=True)}
+	{lazy_gettext('If you did not make this request then simply ignore this email')}. 
+	'''
+	mail.send(msg)

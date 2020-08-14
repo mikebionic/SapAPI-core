@@ -16,8 +16,7 @@
           <div class="card-body">
             {% if company_logo %}
               <div class="gallery gallery-fw" data-item-height="100">
-                <div class="gallery-item" data-toggle="tooltip" data-placement="top"
-                title="Logo =)." data-image="{{ url_for('static', filename=company_logo.FilePath) }}" style=" width: 103px;height: 150px;margin: 0 80px;"></div>
+                <div class="gallery-item" data-toggle="tooltip" data-placement="top" data-image="{{ url_for('static', filename=company_logo.FilePath) }}" style=" width: 103px;height: 150px;margin: 0 80px;"></div>
               </div>
               <div class="logo_icon">
                 <li><a href="#" class="btn btn-icon btn-light addLogoBtn"><i class="fas fa-plus"></i></a></li>

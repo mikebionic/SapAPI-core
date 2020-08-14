@@ -23,11 +23,11 @@
                 <tr class="cart_item wrap-buttons">
                   <td class="wrap-btn-control" colspan="4">
                     <a href="{{url_for('commerce.v_list')}}" class="btn back-to-shop" style=" background-color: #e2e2e2; color: #8a8888;box-shadow: 1px 1px 1px 1px #ececec;">
-                      <img src="{{ url_for('static', filename='commerce/main/shop_icons/checkout_50px.svg')}}" style="height: 22px;">
+                      <img loading="lazy" src="{{ url_for('static', filename='commerce/main/shop_icons/checkout_50px.svg')}}" style="height: 22px;">
                       {{_('Back to Shop')}}
                     </a>
                     <a class="btn btn-clear clearCartBtn" type="reset" style="background-color: #e2e2e2;box-shadow: 1px 1px 1px 1px #ececec;">
-                      <img src="{{ url_for('static', filename='commerce/main/shop_icons/disposal_50px.svg')}}" style="height: 22px;">
+                      <img loading="lazy" src="{{ url_for('static', filename='commerce/main/shop_icons/disposal_50px.svg')}}" style="height: 22px;">
                       {{_('clear all')}}
                     </a>
                   </td>

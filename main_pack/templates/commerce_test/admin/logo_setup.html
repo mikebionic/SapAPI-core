@@ -1,0 +1,64 @@
+{% extends "commerce_test/admin/layout.html" %}
+
+{% block styles %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/dropzonejs/dropzone.css') }}">
+{% endblock %}
+
+{% block content %}
+
+  <form method="POST" action="" class="form" enctype="multipart/form-data">
+    <div class="row">
+      <div class="col-6" style="margin-left: 23%;">
+        <div class="card">
+          <div class="card-header">
+            <h4>{{_('Company logo')}}</h4>
+          </div>
+          <div class="card-body">
+            {% if company_logo %}
+              <div class="gallery gallery-fw" data-item-height="100">
+                <div class="gallery-item" data-toggle="tooltip" data-placement="top" data-image="{{ url_for('static', filename=company_logo.FilePath) }}" style=" width: 103px;height: 150px;margin: 0 80px;"></div>
+              </div>
+              <div class="logo_icon">
+                <li><a href="#" class="btn btn-icon btn-light addLogoBtn"><i class="fas fa-plus"></i></a></li>
+                <li><a href="{{ url_for('commerce_admin_test.remove_images',type='logo',imgId=company_logo.ImgId) }}" class="btn btn-icon btn-light deleteLogoBtn"><i class="fas fa-trash-alt"></i></a></li>
+              </div>
+            {% else %}
+              <a href="#" class="btn btn-icon btn-light gallery gallery-fw addLogoBtn"><i class="fas fa-plus"></i></a>    
+            {% endif %}
+          </div>
+        </div>
+
+        {{ logoForm.hidden_tag() }}
+        <div class="card uploadLogoCard" style="display: none;">
+          <div class="card-header">
+            <h4>{{_('Upload images')}}</h4>
+          </div>
+          <div class="card-body">
+            <div class="custom-file">
+              {{ logoForm.logoImage(class="custom-file-input") }}
+              {% if logoForm.logoImage.errors %}
+                {% for error in logoForm.logoImage.errors %}
+                  <span class="text-danger">{{ error }}</span>
+                {% endfor %}
+              {% endif %}
+              <button type="submit" class="btn btn-info" name="logoForm">{{_('Save logo')}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+{% endblock %}
+
+{% block scripts %}
+  <script type="text/javascript">
+    $('.addSliderImageBtn').click(function(e){
+      $('.uploadSliderCard').show('slow');
+    })
+    $('.addLogoBtn').click(function(e){
+      $('.uploadLogoCard').show('slow');
+    })
+  </script>
+  <script src="{{ url_for('static', filename='commerce/admin/js/page/gallery1.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/admin/bundles/dropzonejs/min/dropzone.min.js') }}"></script>
+{% endblock %}
