@@ -1,6 +1,11 @@
 from flask import render_template,url_for,jsonify,session,flash,redirect,request,Response, abort
 from main_pack import db,babel,gettext
+
+# auth and validation
 from flask_login import current_user,login_required
+from main_pack.commerce.auth.utils import ui_admin_required
+# / auth and validation /
+
 from datetime import datetime
 from main_pack.commerce.admin import bp
 
@@ -20,22 +25,23 @@ from main_pack.models.commerce.models import (Unit,Res_unit,Inv_line,Inv_line_de
 	Res_total,Res_trans_inv_line,Res_transaction,Rp_acc_resource,Sale_agr_res_price,Res_discount)
 #####
 
-@bp.route("/ui/price/",methods=['GET','POST','PUT'])
+@bp.route("/ui/price/",methods=['GET','POST'])
 @login_required
+@ui_admin_required()
 def ui_price():
 	reg_num = generate(UId=current_user.UId,prefixType='price_code') # specify the generation prefix
-	if request.method == "GET":
+	if request.method == 'GET':
 		try:
 			regNo = makeRegNo(current_user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'')
 			response = jsonify({
-				'regNoForm':'resPriceRegNo',
-				'regNo':regNo
+				"regNoForm": "resPriceRegNo",
+				"regNo": regNo
 				})
 		except Exception as ex:
-			response = jsonify({'error':gettext('Error generating Registration number')})
+			response = jsonify({"error": gettext('Error generating Registration number')})
 		return response
 
-	elif request.method == "POST":
+	elif request.method == 'POST':
 		req = request.get_json()
 		resPrice = addResPriceDict(req)
 		resPriceId = req.get('resPriceId')
@@ -56,9 +62,9 @@ def ui_price():
 				db.session.add(newResPrice)
 				db.session.commit()
 				response = jsonify({
-					'resPriceId':newResPrice.ResPriceId,
-					'status':'created',
-					'responseText':gettext('Price')+' '+gettext('successfully saved')
+					"resPriceId": newResPrice.ResPriceId,
+					"status": "created",
+					"responseText": gettext('Price')+' '+gettext('successfully saved')
 					})
 			
 			elif validation['status']==False:
@@ -70,11 +76,11 @@ def ui_price():
 				db.session.add(newResPrice)
 				db.session.commit()
 				response = jsonify({
-					'resPriceId':newResPrice.ResPriceId,
-					'status':'regGenerated',
-					'responseText':gettext('That registration number already presents')+'. '+gettext('It changed to ')+regNo,
-					'regNoForm':'resPriceRegNo',
-					'regNo':regNo
+					"resPriceId": newResPrice.ResPriceId,
+					"status": "regGenerated",
+					"responseText": gettext('That registration number already presents')+'. '+gettext('It changed to ')+regNo,
+					"regNoForm": "resPriceRegNo",
+					"regNo": regNo
 					})
 			return response
 		else:
@@ -84,14 +90,14 @@ def ui_price():
 				updateResPrice.modifiedInfo(UId=current_user.UId)
 				db.session.commit()
 				response = jsonify({
-					'resPriceId':updateResPrice.ResPriceId,
-					'status':'updated',
-					'responseText':gettext('Price')+' '+gettext('successfully updated!'),
-					# 'data': render_template('/hr_department/tableEmpAppend.html',**baseTemplate,employee=updateResPrice),
+					"resPriceId": updateResPrice.ResPriceId,
+					"status": "updated",
+					"responseText": gettext('Price')+' '+gettext('successfully updated!'),
+					# "data":  render_template('/hr_department/tableEmpAppend.html',**baseTemplate,employee=updateResPrice),
 					})
 			except Exception as ex:
 				response = jsonify({
-					'status':'error',
-					'responseText':gettext('Unknown error!'),
+					"status": "error",
+					"responseText": gettext('Unknown error!'),
 					})
 			return response

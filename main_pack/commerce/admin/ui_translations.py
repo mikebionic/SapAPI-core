@@ -1,6 +1,11 @@
 from flask import render_template,url_for,jsonify,session,flash,redirect,request,Response, abort
 from main_pack import db,babel,gettext
+
+# auth and validation
 from flask_login import current_user,login_required
+from main_pack.commerce.auth.utils import ui_admin_required
+# / auth and validation /
+
 from datetime import datetime
 from main_pack.commerce.admin import bp
 
@@ -9,11 +14,13 @@ from main_pack.models.commerce.models import Res_translations
 from main_pack.models.base.models import Language
 
 
-@bp.route('/ui/res_translations/', methods=['GET','POST','PUT'])
+@bp.route('/ui/res_translations/', methods=['POST','DELETE'])
+@login_required
+@ui_admin_required()
 def ui_res_translations():
 	languages = Language.query.all()
 	baseTemplate = {
-		'languages':languages,
+		"languages": languages,
 		}
 	if request.method == 'POST':
 		req = request.get_json()
@@ -26,10 +33,10 @@ def ui_res_translations():
 			print(newTranslation)
 			db.session.commit()
 			response = jsonify({
-				'resTransId':newTranslation.ResTransId,
-				'status':'created',
-				'responseText':gettext('Translation')+' '+gettext('successfully saved'),
-				'htmlData': render_template('/commerce/admin/resTransAppend.html',**baseTemplate,resTrans=newTranslation)
+				"resTransId": newTranslation.ResTransId,
+				"status": "created",
+				"responseText": gettext('Translation')+' '+gettext('successfully saved'),
+				"htmlData":  render_template('/commerce/admin/resTransAppend.html',**baseTemplate,resTrans=newTranslation)
 				})
 			print(response)
 		else:
@@ -39,15 +46,15 @@ def ui_res_translations():
 				updateTranslation.modifiedInfo(UId=current_user.UId)
 				db.session.commit()
 				response = jsonify({
-						'resTransId':updateTranslation.ResTransId,
-						'status':'updated',
-						'responseText':gettext('Translation')+' '+gettext('successfully updated'),
-						'htmlData': render_template('/commerce/admin/resTransAppend.html',**baseTemplate,resTrans=updateTranslation)
+						"resTransId": updateTranslation.ResTransId,
+						"status": "updated",
+						"responseText": gettext('Translation')+' '+gettext('successfully updated'),
+						"htmlData":  render_template('/commerce/admin/resTransAppend.html',**baseTemplate,resTrans=updateTranslation)
 					})
 			except Exception as ex:
 				response = jsonify({
-					'status':'error',
-					'responseText':gettext('Unknown error!'),
+					"status": "error",
+					"responseText": gettext('Unknown error!'),
 					})
 	if request.method == 'DELETE':
 		req = request.get_json()
@@ -55,8 +62,8 @@ def ui_res_translations():
 		thisTranslation = Res_translations.query.get(resTransId)
 		thisTranslation.GCRecord == 1
 		response = jsonify({
-			'resTransId':thisTranslation.ResTransId,
-			'status':'deleted',
-			'responseText':gettext('Translation')+' '+gettext('successfully deleted')
+			"resTransId": thisTranslation.ResTransId,
+			"status": "deleted",
+			"responseText": gettext('Translation')+' '+gettext('successfully deleted')
 		})
 	return response

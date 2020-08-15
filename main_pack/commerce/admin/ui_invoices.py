@@ -1,6 +1,11 @@
 from flask import render_template,url_for,jsonify,session,flash,redirect,request,Response, abort
 from main_pack import db,babel,gettext
+
+# auth and validation
 from flask_login import current_user,login_required
+from main_pack.commerce.auth.utils import ui_admin_required
+# / auth and validation /
+
 from datetime import datetime
 from main_pack.commerce.admin import bp
 
@@ -21,6 +26,8 @@ from main_pack.models.commerce.models import Res_total
 from main_pack.base.invoiceMethods import totalQtySubstitution
 
 @bp.route('/ui/inv_status/',methods=['POST'])
+@login_required
+@ui_admin_required()
 def ui_inv_status():
 	req = request.get_json()
 	InvRegNo = req.get("invRegNo")
@@ -39,18 +46,21 @@ def ui_inv_status():
 		invModel.InvStatId = InvStatId
 		db.session.commit()
 		response = jsonify({
-			"status": 'updated',
+			"status": "updated",
 			"responseText": gettext('Invoice status')+' '+gettext('successfully updated'),
 		})
 	except Exception as ex:
+		print(ex)
 		response = jsonify({
-			"status": 'error',
+			"status": "error",
 			"responseText": gettext('Unknown error!'),
 			})
 	return response
 
 
 @bp.route('/ui/order_inv/',methods=['POST','DELETE'])
+@login_required
+@ui_admin_required()
 def ui_order_inv():
 	try:
 		if request.method == 'POST':
@@ -134,12 +144,13 @@ def ui_order_inv():
 					thisOInv.OInvFTotalInWrite = OInvFTotalInWrite
 					db.session.commit()
 					response = jsonify({
-						"status": 'updated',
+						"status": "updated",
 						"responseText": gettext('successfully updated'),
 						})
 				except Exception as ex:
+					print(ex)
 					response = jsonify({
-						"status": 'error',
+						"status": "error",
 						"responseText": gettext('Unknown error!'),
 						})
 
@@ -164,14 +175,15 @@ def ui_order_inv():
 				db.session.commit()
 				
 				response = jsonify({
-					"status": 'deleted',
+					"status": "deleted",
 					"responseText": gettext('successfully deleted'),
 					})
 			else:
 				raise(Exception)
 	except Exception as ex:
+		print(ex)
 		response = jsonify({
-			"status": 'error',
+			"status": "error",
 			"responseText": gettext('Unknown error!'),
 			})
 	return response

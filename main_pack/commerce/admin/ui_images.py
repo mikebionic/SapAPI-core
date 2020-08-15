@@ -1,6 +1,11 @@
 from flask import render_template,url_for,jsonify,session,flash,redirect,request,Response,abort
 from main_pack import db,babel,gettext
+
+# auth and validation
 from flask_login import current_user,login_required
+from main_pack.commerce.auth.utils import ui_admin_required
+# / auth and validation /
+
 from main_pack.commerce.admin import bp
 
 from main_pack.commerce.admin.utils import addImageDict
@@ -20,12 +25,14 @@ def save_picture(form_picture, path):
 	i = ImageOperation.open(form_picture)
 	i.thumbnail(output_size)
 	i.save(picture_path)
-	return {"fileName":picture_fn,"filePath":picture_path}
+	return {"fileName": picture_fn,"filePath": picture_path}
 
 @bp.route('/ui/uploadImages/',methods=['POST'])
+@login_required
+@ui_admin_required()
 def ui_uploadImages():
 	if 'files[]' not in request.files:
-		resp = jsonify({'message' : 'No file part in the request'})
+		resp = jsonify({"message": "No file part in the request"})
 		resp.status_code = 400
 		return resp
 
@@ -35,13 +42,12 @@ def ui_uploadImages():
 	success = False
 	for file in files:
 		if file and allowed_image(file.filename):
-			print("its okay")
 			image = save_picture(file,"commerce/uploads")
 			filename = image['fileName']
 			filepath = image['filePath']
 			uploadedFiles.append({
-				'fileName':filename,
-				'htmlData':render_template('/commerce/admin/imageAppend.html',
+				"fileName": filename,
+				"htmlData": render_template('/commerce/admin/imageAppend.html',
 					filename=filename,filepath=filepath),
 			})
 			success=True
@@ -54,16 +60,17 @@ def ui_uploadImages():
 		resp.status_code = 201
 		return resp
 	if success:
-		resp = jsonify({'message' : 'Files successfully uploaded'})
+		resp = jsonify({"message": "Files successfully uploaded"})
 		resp.status_code = 201
 		return resp
 	else:
 		resp = jsonify(response)
-		print("somethhing wrong")
 		resp.status_code = 400
 		return resp
 
-@bp.route('/ui/images/',methods=['GET','POST','PUT'])
+@bp.route('/ui/images/',methods=['POST','DELETE'])
+@login_required
+@ui_admin_required()
 def ui_images():
 	if request.method == 'POST':
 		req = request.get_json()
@@ -78,24 +85,23 @@ def ui_images():
 					db.session.add(newImage)
 					db.session.commit()
 					response = {
-						'imgId':newImage.ImgId,
-						'fileName':newImage.FileName,
+						"imgId": newImage.ImgId,
+						"fileName": newImage.FileName,
 						}
 					responses.append(response)
 			
 			fullResponse={
-				'status':'created',
-				'responseText':gettext('Image')+' '+gettext('successfully saved'),
+				"status": "created",
+				"responseText": gettext('Image')+' '+gettext('successfully saved'),
 				}
 			fullResponse['responses']=responses
 			response = fullResponse
 		except Exception as ex:
+			print(ex)
 			response = jsonify({
-				'status':'error',
-				'responseText':gettext('Unknown error!'),
+				"status": "error",
+				"responseText": gettext('Unknown error!'),
 				})
-		print('end response is ')
-		print(response)
 
 	if request.method == 'DELETE':
 		req = request.get_json()
@@ -103,8 +109,8 @@ def ui_images():
 		thisImage = Image.query.get(imgId)
 		thisImage.GCRecord == 1
 		response = jsonify({
-			'imgId':thisImage.ImgId,
-			'status':'deleted',
-			'responseText':gettext('Image')+' '+gettext('successfully deleted')
+			"imgId": thisImage.ImgId,
+			"status": "deleted",
+			"responseText": gettext('Image')+' '+gettext('successfully deleted')
 		})
 	return response

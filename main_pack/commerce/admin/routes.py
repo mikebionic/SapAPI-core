@@ -75,9 +75,9 @@ def navbar():
 		icons = []
 		for icon in folder_icons:
 			iconInfo = {
-				'url':url_for('commerce_api.get_icon',category=folder,file_name=icon),
-				'icon_name':icon,
-				'category':folder
+				"url": url_for('commerce_api.get_icon',category=folder,file_name=icon),
+				"icon_name": icon,
+				"category": folder
 			}
 			icons.append(iconInfo)
 		category_icons[folder]=icons
@@ -102,9 +102,9 @@ def category_table():
 			for icon in folder_icons:
 				if allowed_icon(icon):
 					iconInfo = {
-						'url':url_for('commerce_api.get_icon',category=folder,file_name=icon),
-						'icon_name':icon,
-						'category':folder
+						"url": url_for('commerce_api.get_icon',category=folder,file_name=icon),
+						"icon_name": icon,
+						"category": folder
 					}
 					icons.append(iconInfo)
 			category_icons[folder]=icons
@@ -173,7 +173,7 @@ def customer_details(RpAccRegNo):
 		rp_acc = Rp_acc.query\
 			.filter(Rp_acc.RpAccRegNo==RpAccRegNo).first()
 		RpAccId = rp_acc.RpAccId
-		data = UiRpAccData([{'RpAccId':RpAccId}],deleted=True)
+		data = UiRpAccData([{"RpAccId": RpAccId}],deleted=True)
 		data['rp_acc']=data['rp_accs'][0]
 
 		data['rp_acc_statuses'] = rp_acc_statuses()
@@ -303,7 +303,7 @@ def users_table():
 @ui_admin_required()
 def user_details(UId):
 	try:
-		data = UiUsersData([{'UId':UId}],deleted=True)
+		data = UiUsersData([{"UId": UId}],deleted=True)
 		data['user']=data['users'][0]
 		data['user_types'] = user_types()
 		rp_accs = Rp_acc.query\
@@ -311,7 +311,7 @@ def user_details(UId):
 				Rp_acc.UId==UId).all()
 		rp_acc_list = []
 		for rp_acc in rp_accs:
-			obj={'RpAccId':rp_acc.RpAccId}
+			obj={"RpAccId": rp_acc.RpAccId}
 			rp_acc_list.append(obj)
 		rp_accs = UiRpAccData(rp_acc_list,deleted=True)
 		data['rp_acc_statuses'] = rp_acc_statuses()
@@ -403,7 +403,7 @@ def order_inv_lines(OInvRegNo):
 		.filter(and_(Order_inv.GCRecord=='' or Order_inv.GCRecord==None),
 								Order_inv.OInvRegNo==OInvRegNo).first()
 	OInvId = orderInvoice.OInvId
-	orderInvRes = UiOInvData([{'OInvId':OInvId}])
+	orderInvRes = UiOInvData([{"OInvId": OInvId}])
 
 	orderInvLines = Order_inv_line.query\
 		.filter(and_(Order_inv_line.GCRecord=='' or Order_inv_line.GCRecord==None),
@@ -421,7 +421,7 @@ def order_inv_lines(OInvRegNo):
 	invoice_statuses = []
 	for inv_stat in inv_statuses:
 		invoice_statuses.append(dataLangSelector(inv_stat.to_json_api()))
-	InvoiceStatuses = {'inv_statuses':invoice_statuses}
+	InvoiceStatuses = {"inv_statuses": invoice_statuses}
 	return render_template("commerce/admin/order_inv_lines.html",url_prefix="/commerce",
 		**orderInvLineRes,**InvoiceStatuses,**orderInvRes,title=gettext('Order invoices'))
 #########################################
