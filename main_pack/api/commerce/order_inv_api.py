@@ -62,7 +62,6 @@ def api_order_invoices():
 			failed_order_invoices = [] 
 			for data in req:
 				order_invoice = addOrderInvDict(data)
-				print(order_invoice)
 				try:
 					OInvRegNo = order_invoice['OInvRegNo']
 					thisOrderInv = Order_inv.query.filter_by(OInvRegNo = OInvRegNo).first()

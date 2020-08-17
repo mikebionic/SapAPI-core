@@ -20,7 +20,7 @@ from main_pack.api.commerce.commerce_utils import UiCartResourceData
 
 @bp.route("/v-list")
 def v_list():
-	print(current_user)
+	url_prefix = request.url_rule.rule
 	page = request.args.get('page',1,type=int)
 	pagination_resources = Resource.query\
 		.filter(and_(Resource.GCRecord=='' or Resource.GCRecord==None),\

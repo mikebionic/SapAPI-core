@@ -9,17 +9,15 @@ from flask_babel import Babel,format_date,gettext,lazy_gettext
 from flask_bcrypt import Bcrypt
 from flask_mail import Mail
 from flask_wtf.csrf import CSRFProtect
-# from elasticsearch import Elasticsearch
+
 babel = Babel()
 db = SQLAlchemy()
-db_test = SQLAlchemy()
+# # if db_bindings present:
+# db_test = SQLAlchemy()
 bcrypt = Bcrypt()
 login_manager = LoginManager()
 mail = Mail()
 csrf = CSRFProtect()
-
-# elasticsearch = Elasticsearch([app.config['ELASTICSEARCH_URL']])\
-# 	if app.config['ELASTICSEARCH_URL'] else None
 
 login_manager.login_view = 'commerce_auth.login'
 login_manager.login_message = lazy_gettext('Login the system!')
@@ -44,22 +42,20 @@ LANGUAGES = {
 }
 
 def create_app(config_class=Config):
-	app = Flask(__name__)
+	# !!! TODO: make import from config or unique config set
+	app = Flask(__name__, static_url_path='/test/ls/static')
 	app.config.from_object(Config)
 	db.init_app(app)
-	db_test.init_app(app)
+	# # if db_bindings present:
+	# db_test.init_app(app)
 	login_manager.init_app(app)
 	babel.init_app(app)
 	mail.init_app(app)
 	csrf.init_app(app)
-	# elasticsearch.init_app(app)
 	
 	# all models are separated in the models folder
 	from main_pack.models import bp as models_bp
 	app.register_blueprint(models_bp)
-
-	from main_pack.models_test import bp as models_test_bp
-	app.register_blueprint(models_test_bp)
 
 	from main_pack.main import bp as main_bp
 	app.register_blueprint(main_bp)
@@ -68,7 +64,7 @@ def create_app(config_class=Config):
 	app.register_blueprint(base_bp)
 
 	# api blueprints
-	api_url_prefix = '/ls/api/'
+	api_url_prefix = app.config.get('API_URL_PREFIX')
 	from main_pack.api.auth import api as auth_api
 	app.register_blueprint(auth_api,url_prefix=api_url_prefix)
 
@@ -86,27 +82,8 @@ def create_app(config_class=Config):
 	csrf.exempt(users_api)
 	# /api blueprints
 
-	# api blueprints
-	api_test_url_prefix = '/test/ls/api/'
-	from main_pack.api_test.auth import api as auth_api_test
-	app.register_blueprint(auth_api_test,url_prefix=api_test_url_prefix)
-
-	from main_pack.api_test.errors import api as errors_api_test
-	app.register_blueprint(errors_api_test,url_prefix=api_test_url_prefix)
-
-	from main_pack.api_test.commerce import api as commerce_api_test
-	app.register_blueprint(commerce_api_test,url_prefix=api_test_url_prefix)
-
-	from main_pack.api_test.users import api as users_api_test
-	app.register_blueprint(users_api_test,url_prefix=api_test_url_prefix)
-
-	csrf.exempt(auth_api_test)
-	csrf.exempt(commerce_api_test)
-	csrf.exempt(users_api_test)
-	# /api blueprints
-
 	# commerce blueprints
-	commerce_url_prefix = '/commerce'
+	commerce_url_prefix = app.config.get('COMMERCE_URL_PREFIX')
 	from main_pack.commerce.auth import bp as commerce_auth_bp
 	app.register_blueprint(commerce_auth_bp,url_prefix=commerce_url_prefix)
 
@@ -122,14 +99,5 @@ def create_app(config_class=Config):
 	from main_pack.commerce.admin import bp as commerce_admin_bp
 	app.register_blueprint(commerce_admin_bp,url_prefix=commerce_url_prefix)
 	# /commerce blueprints
-
-	# commerce_test blueprints
-	commerce_test_url_prefix = '/test/commerce'
-	from main_pack.commerce_test.auth import bp as commerce_auth_bp_test
-	app.register_blueprint(commerce_auth_bp_test,url_prefix=commerce_test_url_prefix)
-
-	from main_pack.commerce_test.admin import bp as commerce_admin_bp_test
-	app.register_blueprint(commerce_admin_bp_test,url_prefix=commerce_test_url_prefix)
-	# /commerce_test blueprints
 
 	return app

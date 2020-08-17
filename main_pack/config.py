@@ -15,6 +15,10 @@ class Config:
 	DEBUG = True
 	TESTING = True
 
+	# # these two didn't work
+	# STATIC_FOLDER = "/static"
+	# STATIC_URL_PATH="/ls/static/"
+
 	# SQLALCHEMY_DATABASE_URI = 'sqlite:///commerce.db'
 
 	POSTGRES_DB_URI = {
@@ -25,19 +29,30 @@ class Config:
 	    'port': environ.get('POSTGRES_DB_PORT'),
 	}
 
-	POSTGRES_TEST_DB_URI = {
-	    'user': environ.get('POSTGRES_TEST_DB_USERNAME'),
-	    'pw': environ.get('POSTGRES_TEST_DB_PASSWORD'),
-	    'db': environ.get('POSTGRES_TEST_DB_DATABASE'),
-	    'host': environ.get('POSTGRES_TEST_DB_HOST'),
-	    'port': environ.get('POSTGRES_TEST_DB_PORT'),
-	}
-	SQLALCHEMY_TEST_DATABASE_URI = 'postgresql://%(user)s:%(pw)s@%(host)s:%(port)s/%(db)s' % POSTGRES_TEST_DB_URI
-
 	SQLALCHEMY_DATABASE_URI = 'postgresql://%(user)s:%(pw)s@%(host)s:%(port)s/%(db)s' % POSTGRES_DB_URI
-	SQLALCHEMY_BINDS = {
-		'postgres_test': SQLALCHEMY_TEST_DATABASE_URI
-	}
+	
+	# # Database bindings
+	#
+	# POSTGRES_TEST_DB_URI = {
+	#     'user': environ.get('POSTGRES_TEST_DB_USERNAME'),
+	#     'pw': environ.get('POSTGRES_TEST_DB_PASSWORD'),
+	#     'db': environ.get('POSTGRES_TEST_DB_DATABASE'),
+	#     'host': environ.get('POSTGRES_TEST_DB_HOST'),
+	#     'port': environ.get('POSTGRES_TEST_DB_PORT'),
+	# }
+	#
+	# SQLALCHEMY_TEST_DATABASE_URI = 'postgresql://%(user)s:%(pw)s@%(host)s:%(port)s/%(db)s' % POSTGRES_TEST_DB_URI
+	#
+	# SQLALCHEMY_BINDS = {
+	# 	'postgres_test': SQLALCHEMY_TEST_DATABASE_URI
+	# }
+	#
+	# # / Database bindings /
+
+	# modules url prefixes
+	API_URL_PREFIX = '/ls/api/'
+	COMMERCE_URL_PREFIX = '/commerce'
+	# / module url prefixes /
 
 	# default language for session
 	BABEL_DEFAULT_LOCALE = 'tk'
