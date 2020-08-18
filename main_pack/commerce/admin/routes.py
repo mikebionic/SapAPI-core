@@ -446,4 +446,4 @@ def sale_repots_table():
 @ui_admin_required()
 def sale_repots_table2():
 	return render_template("commerce/admin/sale_repots_table2.html",url_prefix=url_prefix,
-		title=gettext('Sale reports2'))
+		title=gettext('Sale reports'))

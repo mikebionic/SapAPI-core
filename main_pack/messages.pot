@@ -3,12 +3,13 @@
 # This file is distributed under the same license as the PROJECT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
 #
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2020-08-18 13:21+0500\n"
-"PO-Revision-Date: 2020-08-18 16:46+0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: tk\n"
 "Language-Team: tk <LL@li.org>\n"
@@ -22,20 +23,16 @@ msgstr ""
 msgid "Login the system!"
 msgstr "Ulgama giriň!"
 
-#: api/auth/utils.py:51 api/auth/utils.py:73 commerce/auth/utils.py:10
-#: commerce/auth/utils.py:32 commerce/auth/utils.py:33
+#: api/auth/utils.py:51 api/auth/utils.py:73 commerce/auth/utils.py:33
 msgid "Password reset request"
-msgstr "Açarsöz üýtgetmek teklibi"
+msgstr ""
 
 #: commerce/admin/forms.py:26 commerce/admin/forms.py:49
-#: commerce/auth/forms.py:24 commerce/auth/forms.py:33
-#: commerce/users/forms.py:12 commerce/users/forms.py:27
-#: templates/commerce/admin/customer_details.html:56
+#: commerce/auth/forms.py:33 commerce/users/forms.py:12
+#: commerce/users/forms.py:27 templates/commerce/admin/customer_details.html:56
 #: templates/commerce/admin/customer_details.html:76
 #: templates/commerce/admin/navbar.html:297
 #: templates/commerce/admin/navbar.html:299
-#: templates/commerce/admin/navbar.html:557
-#: templates/commerce/admin/navbar.html:559
 #: templates/commerce/admin/register_customer.html:30
 #: templates/commerce/admin/register_customer.html:31
 #: templates/commerce/admin/register_user.html:30
@@ -48,29 +45,25 @@ msgstr "Açarsöz üýtgetmek teklibi"
 #: templates/commerce/main/commerce/contact.html:25
 #: templates/commerce/main/users/profile.html:55
 msgid "Full name"
-msgstr "Doly ady"
+msgstr ""
 
 #: commerce/admin/forms.py:28 commerce/admin/forms.py:58
 #: templates/commerce/admin/register_customer.html:49
 #: templates/commerce/admin/register_user.html:66
 msgid "Avatar"
-msgstr "Awatar"
+msgstr ""
 
 #: commerce/admin/forms.py:30 commerce/admin/forms.py:60
-#: commerce/auth/forms.py:26 commerce/auth/forms.py:34
 #: commerce/auth/forms.py:37 commerce/auth/forms.py:46
-#: commerce/auth/forms.py:50 commerce/auth/forms.py:54
-#: commerce/auth/forms.py:71
+#: commerce/auth/forms.py:54 commerce/auth/forms.py:71
 #: templates/commerce/admin/register_customer.html:166
 #: templates/commerce/admin/register_customer.html:167
 #: templates/commerce/admin/register_user.html:78
 #: templates/commerce/admin/register_user.html:79
 #: templates/commerce/main/auth/admin_login.html:49
 #: templates/commerce/main/auth/admin_login.html:50
-#: templates/commerce/main/auth/login.html:33
 #: templates/commerce/main/auth/login.html:46
 #: templates/commerce/main/auth/login.html:60
-#: templates/commerce/main/auth/register_token.html:34
 #: templates/commerce/main/auth/register_token.html:40
 #: templates/commerce/main/auth/register_token.html:47
 #: templates/commerce/main/auth/register_token.html:48
@@ -78,16 +71,14 @@ msgstr "Awatar"
 #: templates/commerce/main/auth/reset_token.html:20
 #: templates/commerce/main/auth/reset_token.html:21
 msgid "Password"
-msgstr "Açar sözi"
+msgstr ""
 
 #: commerce/admin/forms.py:31 commerce/admin/forms.py:61
-#: commerce/auth/forms.py:27 commerce/auth/forms.py:38
-#: commerce/auth/forms.py:51 commerce/auth/forms.py:72
+#: commerce/auth/forms.py:38 commerce/auth/forms.py:72
 #: templates/commerce/admin/register_customer.html:177
 #: templates/commerce/admin/register_customer.html:178
 #: templates/commerce/admin/register_user.html:89
 #: templates/commerce/admin/register_user.html:90
-#: templates/commerce/main/auth/register_token.html:47
 #: templates/commerce/main/auth/register_token.html:53
 #: templates/commerce/main/auth/register_token.html:60
 #: templates/commerce/main/auth/register_token.html:61
@@ -95,23 +86,22 @@ msgstr "Açar sözi"
 #: templates/commerce/main/auth/reset_token.html:33
 #: templates/commerce/main/auth/reset_token.html:34
 msgid "Confirm password"
-msgstr "Açar sözi tassykla"
+msgstr ""
 
 #: commerce/admin/forms.py:37 commerce/admin/forms.py:68
-#: commerce/auth/forms.py:17 commerce/auth/forms.py:25
-#: commerce/users/forms.py:22 commerce/users/forms.py:45
+#: commerce/auth/forms.py:25 commerce/users/forms.py:22
+#: commerce/users/forms.py:45
 msgid "That username is taken. Choose a different one!"
-msgstr "Bu ulanyjy ady ulanylan. Beýlekini saýlaň!"
+msgstr ""
 
 #: commerce/admin/forms.py:41 commerce/admin/forms.py:74
-#: commerce/auth/forms.py:21 commerce/auth/forms.py:29
+#: commerce/auth/forms.py:29
 msgid "That email is taken. Choose a different one!"
-msgstr "Bu E-mail ulanylan. Beýlekini saýlaň! "
+msgstr ""
 
 #: commerce/admin/forms.py:52 commerce/users/forms.py:29
 #: templates/commerce/admin/customer_details.html:80
 #: templates/commerce/admin/navbar.html:313
-#: templates/commerce/admin/navbar.html:573
 #: templates/commerce/admin/register_customer.html:78
 #: templates/commerce/admin/register_customer.html:85
 #: templates/commerce/main/commerce/contact.html:33
@@ -126,7 +116,7 @@ msgstr ""
 #: templates/commerce/admin/register_customer.html:106
 #: templates/commerce/main/users/profile.html:65
 msgid "Mobile phone"
-msgstr "El telefony"
+msgstr ""
 
 #: commerce/admin/forms.py:55 commerce/users/forms.py:33
 #: templates/commerce/admin/customer_details.html:90
@@ -135,7 +125,7 @@ msgstr "El telefony"
 #: templates/commerce/admin/register_customer.html:125
 #: templates/commerce/main/users/profile.html:69
 msgid "Home phone"
-msgstr "Öý telefony"
+msgstr ""
 
 #: commerce/admin/forms.py:56 commerce/users/forms.py:35
 #: templates/commerce/admin/customer_details.html:94
@@ -144,25 +134,25 @@ msgstr "Öý telefony"
 #: templates/commerce/admin/register_customer.html:147
 #: templates/commerce/main/users/profile.html:73
 msgid "Zip code"
-msgstr "Poçta kody"
+msgstr ""
 
 #: commerce/admin/images_setup.py:40
 msgid "Company logo successfully uploaded!"
-msgstr "Kärhanaň nyşany üstünlikli ýüklendi!"
+msgstr ""
 
 #: commerce/admin/images_setup.py:43 templates/commerce/admin/layout.html:100
 #: templates/commerce/admin/logo_setup.html:14
 msgid "Company logo"
-msgstr "Kärhanaň nyşany"
+msgstr ""
 
 #: commerce/admin/images_setup.py:99 commerce/admin/images_setup.py:131
 #: templates/commerce/admin/layout.html:101
 msgid "Sliders"
-msgstr "Slaýder"
+msgstr ""
 
 #: commerce/admin/images_setup.py:126
 msgid "Slider picture successfully uploaded!"
-msgstr "Slaýder suraty üstünlikli ýüklendi"
+msgstr ""
 
 #: commerce/admin/routes.py:61 templates/commerce/admin/layout.html:79
 msgid "Dashboard"
@@ -179,7 +169,7 @@ msgstr "Surat"
 #: commerce/admin/routes.py:121 templates/commerce/admin/category_table.html:13
 #: templates/commerce/admin/layout.html:88
 msgid "Category table"
-msgstr "Kategoriýa tablisasy"
+msgstr ""
 
 #: commerce/admin/routes.py:130 templates/commerce/admin/product_table.html:18
 msgid "Product table"
@@ -189,13 +179,13 @@ msgstr "Haryt tablisasy"
 #: templates/commerce/admin/customers_table.html:15
 #: templates/commerce/admin/user_details.html:30
 msgid "Customers"
-msgstr "Müşderiler"
+msgstr ""
 
 #: commerce/admin/routes.py:195 commerce/admin/routes.py:322
 #: templates/commerce/admin/customer_details.html:66
 #: templates/commerce/admin/user_details.html:52
 msgid "Customer details"
-msgstr "Müşderiniň giňişleýin maglumatlary"
+msgstr ""
 
 #: commerce/admin/routes.py:279 commerce/admin/routes.py:367
 #: commerce/admin/ui_barcode.py:31 commerce/admin/ui_category.py:40
@@ -209,35 +199,30 @@ msgstr "Müşderiniň giňişleýin maglumatlary"
 #: commerce/commerce/ui_cart.py:141 commerce/commerce/ui_rating.py:64
 #: commerce/commerce/ui_wishlist.py:59
 msgid "successfully saved"
-msgstr "üstünlikli ýatda saklanyldy"
+msgstr ""
 
 #: commerce/admin/routes.py:283 commerce/admin/routes.py:371
-#: commerce/auth/routes.py:103 commerce/auth/routes.py:133
+#: commerce/auth/routes.py:133
 msgid "Error occured, please try again."
-msgstr "Ýalňýşlyk ýüze çykdy, täzeden synanşyp görüň."
+msgstr ""
 
 #: commerce/admin/routes.py:286 commerce/admin/routes.py:374
-#: commerce/auth/routes.py:79 commerce/auth/routes.py:82
-#: commerce/auth/routes.py:107 commerce/auth/routes.py:137
+#: commerce/auth/routes.py:82 commerce/auth/routes.py:137
 #: templates/commerce/admin/register_customer.html:12
 #: templates/commerce/admin/register_user.html:12
-#: templates/commerce/main/commerce/layout.html:62
 #: templates/commerce/main/commerce/layout.html:302
-#: templates/commerce/main/commerce/layout.html:324
-#: templates/commerce/main/commerce/list_grid_layout.html:62
 #: templates/commerce/main/commerce/list_grid_layout.html:476
-#: templates/commerce/main/commerce/list_grid_layout.html:526
 msgid "Register"
-msgstr "Registrasiýa"
+msgstr ""
 
 #: commerce/admin/routes.py:298 templates/commerce/admin/users_table.html:15
 msgid "Users"
-msgstr "Ulanyjylar"
+msgstr ""
 
 #: commerce/admin/routes.py:395 commerce/admin/routes.py:425
 #: templates/commerce/admin/layout.html:112
 msgid "Order invoices"
-msgstr "Sargytlar"
+msgstr ""
 
 #: commerce/admin/routes.py:434
 msgid "Add product"
@@ -245,7 +230,7 @@ msgstr "Haryt goş"
 
 #: commerce/admin/routes.py:442 templates/commerce/admin/layout.html:105
 msgid "Sale reports"
-msgstr "Satuw hasabatlary"
+msgstr ""
 
 #: commerce/admin/ui_barcode.py:31 commerce/admin/ui_barcode.py:43
 #: commerce/admin/ui_barcode.py:60
@@ -327,7 +312,7 @@ msgstr "Surat"
 
 #: commerce/admin/ui_invoices.py:50
 msgid "Invoice status"
-msgstr "Sargyt ýagdaýy"
+msgstr ""
 
 #: commerce/admin/ui_price.py:41 commerce/admin/ui_resource.py:59
 #: commerce/auth/routes.py:113
@@ -391,11 +376,11 @@ msgstr "Çeşme"
 #: commerce/admin/ui_sliders.py:32 commerce/admin/ui_sliders.py:43
 #: commerce/admin/ui_sliders.py:53 commerce/admin/ui_sliders.py:63
 msgid "Slider"
-msgstr "Slaýder"
+msgstr ""
 
 #: commerce/admin/ui_sliders.py:32
 msgid "already present"
-msgstr "eýýäm bar"
+msgstr ""
 
 #: commerce/admin/ui_translations.py:38 commerce/admin/ui_translations.py:51
 #: commerce/admin/ui_translations.py:67
@@ -403,19 +388,47 @@ msgstr "eýýäm bar"
 msgid "Translation"
 msgstr "Terjime"
 
+#: commerce/auth/forms.py:17
+msgid "That username is taken. Choose a different one!"
+msgstr "Bu ulanyjy ady ulanylan. Beýlekini saýlaň!"
+
+#: commerce/auth/forms.py:21
+msgid "That email is taken. Choose a different one!"
+msgstr "Bu Email ulanylan. Beýlekini saýlaň!"
+
+#: commerce/auth/forms.py:24 templates/commerce/admin/navbar.html:557
+#: templates/commerce/admin/navbar.html:559
+#: templates/commerce/main/auth/register_token.html:21
+#: templates/commerce/main/commerce/contact.html:25
+msgid "Full name"
+msgstr "Doly ady"
+
+#: commerce/auth/forms.py:26 commerce/auth/forms.py:34
+#: commerce/auth/forms.py:50 templates/commerce/main/auth/login.html:33
+#: templates/commerce/main/auth/register_token.html:34
+#: templates/commerce/main/auth/reset_token.html:20
+msgid "Password"
+msgstr "Açar söz"
+
+#: commerce/auth/forms.py:27 commerce/auth/forms.py:51
+#: templates/commerce/main/auth/register_token.html:47
+#: templates/commerce/main/auth/reset_token.html:33
+msgid "Confirm password"
+msgstr "Açar sözüňizi tassyklaň"
+
 #: commerce/auth/admin_auth.py:36
 msgid "Login Failed! Wrong username or password"
-msgstr "Giriş şowsyz! Ulanyjy ady ya-da açar sözi ýalňyş"
+msgstr ""
 
-#: commerce/auth/admin_auth.py:38 commerce/auth/routes.py:28
-#: commerce/auth/routes.py:31 templates/commerce/main/auth/admin_login.html:6
+#: commerce/auth/admin_auth.py:38 commerce/auth/routes.py:31
+#: templates/commerce/main/auth/admin_login.html:6
 #: templates/commerce/main/auth/admin_login.html:31
 #: templates/commerce/main/auth/admin_login.html:70
 #: templates/commerce/main/commerce/cart.html:54
 #: templates/commerce/main/commerce/layout.html:302
 #: templates/commerce/main/commerce/list_grid_layout.html:476
 msgid "Login"
-msgstr "Giriş"
+msgstr ""
 
 #: commerce/auth/forms.py:35
 #: templates/commerce/main/auth/register_token.html:27
@@ -423,21 +436,15 @@ msgstr "Giriş"
 #: templates/commerce/main/auth/register_token.html:35
 #: templates/commerce/main/commerce/contact.html:88
 msgid "Phone number"
-msgstr "Telefon belgisi"
+msgstr ""
 
 #: commerce/auth/forms.py:40
 msgid "Sign Up"
 msgstr "Agza bol"
 
 #: commerce/auth/forms.py:32 commerce/auth/forms.py:40
-#: commerce/auth/forms.py:52 commerce/auth/forms.py:60
-#: templates/commerce/admin/customer_details.html:50
-#: templates/commerce/admin/customer_details.html:72
-#: templates/commerce/admin/navbar.html:361
 #: templates/commerce/admin/navbar.html:621
-#: templates/commerce/admin/order_inv_lines.html:117
 #: templates/commerce/main/commerce/contact.html:60
-#: templates/commerce/main/users/profile.html:51
 msgid "Email"
 msgstr "Email"
 
@@ -451,11 +458,10 @@ msgstr "Email"
 #: templates/commerce/main/auth/admin_login.html:37
 #: templates/commerce/main/auth/admin_login.html:38
 #: templates/commerce/main/auth/register_request.html:14
-#: templates/commerce/main/auth/register_request.html:20
 #: templates/commerce/main/auth/register_request.html:21
 #: templates/commerce/main/auth/register_request.html:22
 msgid "Username"
-msgstr "Ulanyjy ady"
+msgstr ""
 
 #: commerce/auth/forms.py:47 commerce/auth/forms.py:55
 msgid "Remember Me"
@@ -464,6 +470,16 @@ msgstr "Girişi ýatla"
 #: commerce/auth/forms.py:48 commerce/auth/forms.py:56
 msgid "Log In"
 msgstr "Gir"
+
+#: commerce/auth/forms.py:52 commerce/auth/forms.py:60
+#: templates/commerce/admin/customer_details.html:50
+#: templates/commerce/admin/customer_details.html:72
+#: templates/commerce/admin/navbar.html:361
+#: templates/commerce/admin/order_inv_lines.html:117
+#: templates/commerce/main/commerce/contact.html:60
+#: templates/commerce/main/users/profile.html:51
+msgid "Email"
+msgstr ""
 
 #: commerce/auth/forms.py:62
 msgid "Request Password Reset"
@@ -480,6 +496,10 @@ msgstr "Açar sözi üýtget"
 #: commerce/auth/routes.py:28
 msgid "Login Failed! Wrong email or password"
 msgstr "Giriş şowsuz! Nädogry email ýa-da açar söz"
+
+#: commerce/auth/routes.py:28
+msgid "Login"
+msgstr "Giriş"
 
 #: commerce/auth/routes.py:43
 msgid "An email has been sent with instructions to reset your password"
@@ -501,13 +521,29 @@ msgstr "Siziň açar sözüňiz täzelendi"
 msgid "An email has been sent with instructions to register your profile"
 msgstr "Profiliňizi hasaba almak üçin görkezmeler bilen email ugradyldy"
 
+#: commerce/auth/routes.py:79 commerce/auth/routes.py:107
+#: templates/commerce/main/commerce/layout.html:62
+#: templates/commerce/main/commerce/layout.html:324
+#: templates/commerce/main/commerce/list_grid_layout.html:62
+#: templates/commerce/main/commerce/list_grid_layout.html:526
+msgid "Register"
+msgstr "Registrasiýa"
+
 #: commerce/auth/routes.py:100
 msgid "your profile has been created!"
 msgstr "siziň profiliňiz döredildi!"
 
+#: commerce/auth/routes.py:103
+msgid "Error occured, please try again."
+msgstr "Ýalňyşlyk ýüze çykdy, gaýtadan synanyşyň."
+
 #: commerce/auth/utils.py:55
 msgid "Registration request"
-msgstr "Registrasiýa teklibi"
+msgstr ""
+
+#: commerce/auth/utils.py:10 commerce/auth/utils.py:32
+msgid "Password reset request"
+msgstr "Açar sözi üýtegmetmek teklibi"
 
 #: commerce/commerce/routes.py:20
 msgid "Collection"
@@ -544,34 +580,30 @@ msgstr "Haryt"
 
 #: commerce/commerce/ui_cart.py:293
 #: templates/commerce/main/commerce/cart.html:49
-#: templates/commerce/main/commerce/layout.html:127
 #: templates/commerce/main/commerce/layout.html:304
-#: templates/commerce/main/commerce/layout.html:326
-#: templates/commerce/main/commerce/list_grid_layout.html:127
 #: templates/commerce/main/commerce/list_grid_layout.html:478
-#: templates/commerce/main/commerce/list_grid_layout.html:528
 msgid "Checkout"
-msgstr "Sargydy iber"
+msgstr ""
 
 #: commerce/commerce/ui_cart.py:293
 msgid "successfully done"
-msgstr "üstünlikli tamamlandy"
+msgstr ""
 
 #: commerce/commerce/ui_cart.py:293
 msgid "View orders in profile page."
-msgstr "Sargytlary profil sahypasynda gorüň."
+msgstr ""
 
 #: commerce/commerce/ui_rating.py:64 commerce/commerce/ui_rating.py:78
 msgid "Rating"
-msgstr "Reýting"
+msgstr ""
 
 #: commerce/users/forms.py:14 commerce/users/forms.py:37
 msgid "Update Profile Picture"
-msgstr "Profil suratyny täzele"
+msgstr ""
 
 #: commerce/users/forms.py:16 commerce/users/forms.py:39
 msgid "Update"
-msgstr "Täzele"
+msgstr ""
 
 #: commerce/users/orders.py:30 commerce/users/orders.py:56
 #: templates/commerce/admin/customer_details.html:30
@@ -585,7 +617,7 @@ msgstr "Täzele"
 #: templates/commerce/main/users/profile_edit.html:26
 #: templates/commerce/main/users/wishlist.html:21
 msgid "Orders"
-msgstr "Sargytlar"
+msgstr ""
 
 #: commerce/users/routes.py:49
 #: templates/commerce/admin/customer_details.html:26
@@ -597,30 +629,28 @@ msgstr "Sargytlar"
 #: templates/commerce/main/users/profile_edit.html:25
 #: templates/commerce/main/users/wishlist.html:20
 msgid "Profile"
-msgstr "Profil"
+msgstr ""
 
 #: commerce/users/routes.py:72 templates/commerce/main/commerce/layout.html:84
 #: templates/commerce/main/commerce/layout.html:303
-#: templates/commerce/main/commerce/layout.html:325
 #: templates/commerce/main/commerce/list_grid_layout.html:84
 #: templates/commerce/main/commerce/list_grid_layout.html:477
-#: templates/commerce/main/commerce/list_grid_layout.html:527
 #: templates/commerce/main/users/order_lines.html:25
 #: templates/commerce/main/users/orders.html:25
 #: templates/commerce/main/users/profile.html:22
 #: templates/commerce/main/users/wishlist.html:15
 #: templates/commerce/main/users/wishlist.html:22
 msgid "Wishlist"
-msgstr "Isleg sanawy"
+msgstr ""
 
 #: commerce/users/routes.py:108
 msgid "Profile successfully updated!"
-msgstr "Profil üstünlikli täzelendi!"
+msgstr ""
 
 #: commerce/users/routes.py:130
 #: templates/commerce/main/users/profile_edit.html:19
 msgid "Edit profile"
-msgstr "Profili üýtget"
+msgstr ""
 
 #: templates/commerce/admin/add_product.html:92
 #: templates/commerce/admin/category_table.html:91
@@ -634,13 +664,13 @@ msgstr "Suratlary ýükläň"
 #: templates/commerce/admin/category_table.html:96
 #: templates/commerce/admin/navbar.html:178
 msgid "Choose file"
-msgstr "Faýl saýla"
+msgstr ""
 
 #: templates/commerce/admin/add_product.html:100
 #: templates/commerce/admin/category_table.html:97
 #: templates/commerce/admin/navbar.html:179
 msgid "Upload"
-msgstr "Ýükle"
+msgstr ""
 
 #: templates/commerce/admin/add_product.html:108
 msgid "Images"
@@ -757,7 +787,7 @@ msgstr "Uzynlygy"
 #: templates/commerce/admin/add_product.html:208
 #: templates/commerce/main/commerce/product.html:241
 msgid "Weight"
-msgstr "Agramy"
+msgstr ""
 
 #: templates/commerce/admin/add_product.html:210
 msgid "Producer, location, properties, outlines, etc"
@@ -879,21 +909,20 @@ msgstr "Harydyň doly beýany"
 
 #: templates/commerce/admin/category_table.html:22
 msgid "Category name"
-msgstr "Kategoriýaň ady"
+msgstr ""
 
 #: templates/commerce/admin/category_table.html:24
 msgid "Main category"
-msgstr "Esasy kategoriýasy"
+msgstr ""
 
 #: templates/commerce/admin/category_table.html:25
 msgid "Icon"
-msgstr "Nyşan"
+msgstr ""
 
 #: templates/commerce/admin/category_table.html:73
 #: templates/commerce/admin/navbar.html:155
-#: templates/commerce/admin/navbar.html:157
 msgid "Icons"
-msgstr "Nyşanlar"
+msgstr ""
 
 #: templates/commerce/admin/category_table.html:76
 #: templates/commerce/admin/navbar.html:158
@@ -904,33 +933,29 @@ msgstr "Nyşanlar"
 #: templates/commerce/admin/sale_repots_table.html:425
 #: templates/commerce/admin/sale_repots_table.html:518
 #: templates/commerce/admin/sale_repots_table.html:612
-#: templates/commerce/main/commerce/layout.html:92
 #: templates/commerce/main/commerce/layout.html:133
-#: templates/commerce/main/commerce/layout.html:204
 #: templates/commerce/main/commerce/layout.html:213
-#: templates/commerce/main/commerce/list_grid_layout.html:92
 #: templates/commerce/main/commerce/list_grid_layout.html:133
-#: templates/commerce/main/commerce/list_grid_layout.html:204
 #: templates/commerce/main/commerce/list_grid_layout.html:213
 msgid "Search"
-msgstr "Gözleg"
+msgstr ""
 
 #: templates/commerce/admin/customer_details.html:20
 #: templates/commerce/admin/user_details.html:20
 msgid "Cusomer details"
-msgstr "Müşderiň giňişleýin maglumaty"
+msgstr ""
 
 #: templates/commerce/admin/customer_details.html:44
 #: templates/commerce/admin/user_details.html:44
 #: templates/commerce/main/users/profile.html:34
 #: templates/commerce/main/users/profile_edit.html:56
 msgid "Registered date"
-msgstr "Hasaba duran senesi"
+msgstr ""
 
 #: templates/commerce/admin/customer_details.html:48
 #: templates/commerce/admin/register_customer.html:158
 msgid "Vendor"
-msgstr "Satyjy"
+msgstr ""
 
 #: templates/commerce/admin/customer_details.html:104
 #: templates/commerce/admin/customer_details.html:169
@@ -941,7 +966,7 @@ msgstr "Satyjy"
 #: templates/commerce/main/users/order_lines.html:37
 #: templates/commerce/main/users/orders.html:76
 msgid "Status"
-msgstr "Ýagdaý"
+msgstr ""
 
 #: templates/commerce/admin/customer_details.html:110
 #: templates/commerce/admin/customer_details.html:132
@@ -952,7 +977,7 @@ msgstr "Ýagdaý"
 #: templates/commerce/admin/user_details.html:167
 #: templates/commerce/admin/users_table.html:59
 msgid "Select"
-msgstr "Saýla"
+msgstr ""
 
 #: templates/commerce/admin/customer_details.html:126
 #: templates/commerce/admin/customers_table.html:30
@@ -962,12 +987,12 @@ msgstr "Saýla"
 #: templates/commerce/admin/user_details.html:123
 #: templates/commerce/admin/users_table.html:30
 msgid "Type"
-msgstr "Görnüşi"
+msgstr ""
 
 #: templates/commerce/admin/customer_details.html:150
 #: templates/commerce/admin/user_details.html:106
 msgid "Delete"
-msgstr "Öçür"
+msgstr ""
 
 #: templates/commerce/admin/customer_details.html:163
 #: templates/commerce/admin/customers_table.html:26
@@ -975,12 +1000,12 @@ msgstr "Öçür"
 #: templates/commerce/admin/product_table.html:27
 #: templates/commerce/admin/user_details.html:119
 msgid "Reg No"
-msgstr "Hasaba alyş belgisi"
+msgstr ""
 
 #: templates/commerce/admin/customer_details.html:165
 #: templates/commerce/admin/order_invoices.html:28
 msgid "Progress"
-msgstr "Progres"
+msgstr ""
 
 #: templates/commerce/admin/customer_details.html:166
 #: templates/commerce/admin/order_inv_lines.html:47
@@ -990,42 +1015,37 @@ msgstr "Progres"
 #: templates/commerce/main/users/order_lines.html:51
 #: templates/commerce/main/users/order_lines.html:62
 msgid "Total price"
-msgstr "Umumy bahasy"
+msgstr ""
 
 #: templates/commerce/admin/customer_details.html:167
 #: templates/commerce/admin/order_inv_lines.html:48
 #: templates/commerce/admin/order_invoices.html:30
-#: templates/commerce/main/commerce/layout.html:328
 #: templates/commerce/main/users/order_lines.html:63
 msgid "Currency"
-msgstr "Walýuta"
+msgstr ""
 
 #: templates/commerce/admin/customer_details.html:168
 #: templates/commerce/admin/order_invoices.html:31
 #: templates/commerce/admin/slider_setup.html:28
 #: templates/commerce/admin/sliders.html:49
 msgid "Date"
-msgstr "Sene"
+msgstr ""
 
 #: templates/commerce/admin/customer_details.html:170
 #: templates/commerce/admin/order_inv_lines.html:92
 #: templates/commerce/admin/order_invoices.html:33
 msgid "Customer"
-msgstr "Müşderi"
+msgstr ""
 
 #: templates/commerce/admin/customer_details.html:171
 #: templates/commerce/admin/navbar.html:321
 #: templates/commerce/admin/navbar.html:329
 #: templates/commerce/admin/navbar.html:337
 #: templates/commerce/admin/navbar.html:345
-#: templates/commerce/admin/navbar.html:581
-#: templates/commerce/admin/navbar.html:589
-#: templates/commerce/admin/navbar.html:597
-#: templates/commerce/admin/navbar.html:605
 #: templates/commerce/admin/order_invoices.html:34
 #: templates/commerce/main/commerce/contact.html:41
 msgid "Phone"
-msgstr "Telefony"
+msgstr ""
 
 #: templates/commerce/admin/customer_details.html:172
 #: templates/commerce/admin/order_invoices.html:35
@@ -1034,12 +1054,12 @@ msgstr "Telefony"
 #: templates/commerce/main/auth/reset_request.html:13
 #: templates/commerce/main/auth/reset_request.html:21
 msgid "E-mail"
-msgstr "E-mail"
+msgstr ""
 
 #: templates/commerce/admin/customer_details.html:180
 #: templates/commerce/admin/order_invoices.html:43
 msgid "Detail"
-msgstr "Giňişleýin"
+msgstr ""
 
 #: templates/commerce/admin/layout.html:7
 #: templates/commerce/admin/layout.html:9
@@ -1051,8 +1071,6 @@ msgid "Admin"
 msgstr "Admin"
 
 #: templates/commerce/admin/layout.html:40
-#: templates/commerce/main/commerce/layout.html:118
-#: templates/commerce/main/commerce/list_grid_layout.html:118
 msgid "Main"
 msgstr "Esasy"
 
@@ -1071,59 +1089,70 @@ msgstr "Haryt goş"
 
 #: templates/commerce/admin/layout.html:95
 msgid "Users table"
-msgstr "Ulanyjylar tablisasy"
+msgstr ""
 
 #: templates/commerce/admin/layout.html:98
 msgid "Pictures"
 msgstr "Suratlar"
 
+#: templates/commerce/admin/navbar.html:157
+msgid "Icons"
+msgstr "Nyşanlar"
+
 #: templates/commerce/admin/layout.html:110
 #: templates/commerce/admin/layout.html:118
 msgid "Invoices"
-msgstr "Sargyt fakturalary"
+msgstr ""
 
 #: templates/commerce/admin/layout.html:114
 #: templates/commerce/admin/order_inv_lines.html:18
 #: templates/commerce/admin/order_invoices.html:18
 msgid "Sale order invoices"
-msgstr "Satuw sargytlary"
+msgstr ""
 
 #: templates/commerce/admin/layout.html:120
 msgid "Sale invoices"
-msgstr "Satuw sargyt fakturasy"
+msgstr ""
 
 #: templates/commerce/admin/layout.html:125
 msgid "Cusomers"
-msgstr "Müşderiler"
+msgstr ""
 
 #: templates/commerce/admin/layout.html:129
 msgid "Customers table"
-msgstr "Ulanyjylar tablisasy"
+msgstr ""
 
 #: templates/commerce/admin/logo_setup.html:44
 msgid "Save logo"
-msgstr "Nyşany ýatda sakla"
+msgstr ""
 
 #: templates/commerce/admin/navbar.html:25
-#: templates/commerce/main/commerce/layout.html:79
-#: templates/commerce/main/commerce/layout.html:236
-#: templates/commerce/main/commerce/layout.html:239
-#: templates/commerce/main/commerce/list_grid_layout.html:79
-#: templates/commerce/main/commerce/list_grid_layout.html:236
-#: templates/commerce/main/commerce/list_grid_layout.html:239
 msgid "Home"
-msgstr "Öý"
+msgstr ""
 
 #: templates/commerce/admin/navbar.html:232
 #: templates/commerce/admin/sliderAppend.html:6
 #: templates/commerce/admin/sliders.html:34
 msgid "Edit"
-msgstr "Üýtget"
+msgstr ""
 
 #: templates/commerce/admin/navbar.html:289
 #: templates/commerce/main/commerce/contact.html:17
 msgid "Company name"
 msgstr "Kärhananyň ady"
+
+#: templates/commerce/admin/navbar.html:573
+#: templates/commerce/main/commerce/contact.html:33
+msgid "Address"
+msgstr "Salgysy"
+
+#: templates/commerce/admin/navbar.html:581
+#: templates/commerce/admin/navbar.html:589
+#: templates/commerce/admin/navbar.html:597
+#: templates/commerce/admin/navbar.html:605
+#: templates/commerce/main/commerce/contact.html:41
+msgid "Phone"
+msgstr "Telefony"
 
 #: templates/commerce/admin/navbar.html:613
 #: templates/commerce/admin/navbar.html:615
@@ -1138,11 +1167,15 @@ msgstr "Iş wagty"
 
 #: templates/commerce/admin/order_inv_lines.html:20
 msgid "All orders"
-msgstr "Ähli sargytlar"
+msgstr ""
+
+#: templates/commerce/admin/product_table.html:27
+msgid "Reg No"
+msgstr "Hasaba alyş belgisi"
 
 #: templates/commerce/admin/order_inv_lines.html:23
 msgid "This customer's orders"
-msgstr "Şu müşderiniň sargytlary"
+msgstr ""
 
 #: templates/commerce/admin/order_inv_lines.html:28
 #: templates/commerce/admin/order_inv_lines.html:94
@@ -1159,9 +1192,7 @@ msgid "Unavailable"
 msgstr "Elýeterli däl"
 
 #: templates/commerce/main/auth/login.html:20
-#: templates/commerce/main/auth/register_request.html:34
 #: templates/commerce/main/auth/reset_request.html:20
-#: templates/commerce/main/commerce/contact.html:85
 msgid "E-mail address"
 msgstr "Email salgysy"
 
@@ -1169,25 +1200,24 @@ msgstr "Email salgysy"
 #: templates/commerce/main/users/order_lines.html:44
 #: templates/commerce/main/users/orders.html:58
 msgid "Ordered date"
-msgstr "Sargyt senesi"
+msgstr ""
 
 #: templates/commerce/admin/order_inv_lines.html:45
 #: templates/commerce/main/users/order_lines.html:60
 msgid "Amount"
-msgstr "Sany"
+msgstr ""
 
 #: templates/commerce/admin/order_inv_lines.html:76
 msgid "Set Status"
-msgstr "Ýagdaýy gur"
+msgstr ""
 
 #: templates/commerce/admin/order_inv_lines.html:87
 msgid "Set"
-msgstr "Gur"
+msgstr ""
 
-# ## manual translations
 #: templates/commerce/admin/order_inv_lines.html:108
 msgid "Invoice"
-msgstr "Sargyt faktura"
+msgstr ""
 
 #: templates/commerce/admin/register_customer.html:62
 #: templates/commerce/admin/register_customer.html:67
@@ -1198,7 +1228,7 @@ msgstr "Sargyt faktura"
 #: templates/commerce/main/auth/login.html:22
 #: templates/commerce/main/auth/login.html:35
 msgid "Email address"
-msgstr "E-mail salgysy"
+msgstr ""
 
 #: templates/commerce/admin/sale_repots_table.html:77
 #: templates/commerce/admin/sale_repots_table.html:201
@@ -1228,38 +1258,38 @@ msgstr ""
 #: templates/commerce/admin/sliderAppend.html:8
 #: templates/commerce/admin/sliders.html:36
 msgid "Cancel"
-msgstr "Bes et"
+msgstr ""
 
 #: templates/commerce/admin/sliderAppend.html:17
 #: templates/commerce/admin/slider_setup.html:47
 #: templates/commerce/admin/sliders.html:45
 msgid "Add slider image"
-msgstr "Slaýder suratyny goş"
+msgstr ""
 
 #: templates/commerce/admin/slider_setup.html:60
 msgid "Start date"
-msgstr "Başlangyç senesi"
+msgstr ""
 
 #: templates/commerce/admin/slider_setup.html:64
 msgid "End date"
-msgstr "Tamamlanýan senesi"
+msgstr ""
 
 #: templates/commerce/admin/sliders.html:16
 msgid "New Slider"
-msgstr "Täze slaýder"
+msgstr ""
 
 #: templates/commerce/admin/user_details.html:66
 #: templates/commerce/admin/users_table.html:28
 msgid "Short name"
-msgstr "Gysgaça ady"
+msgstr ""
 
 #: templates/commerce/main/auth/admin_login.html:65
 msgid "Remember me"
-msgstr "Girişi ýatda sakla"
+msgstr ""
 
 #: templates/commerce/main/auth/login.html:14
 msgid "Welcome"
-msgstr "Hoş geldiňiz"
+msgstr ""
 
 #: templates/commerce/main/auth/login.html:65
 msgid "Forgot your password?"
@@ -1297,6 +1327,16 @@ msgstr "Harytlary isleg sanawyňyzda ýatda saklaň"
 #: templates/commerce/main/auth/login.html:84
 msgid "Create a profile"
 msgstr "Profil döret"
+
+#: templates/commerce/main/auth/register_request.html:20
+msgid "Username"
+msgstr "Ulanyjy ady"
+
+#: templates/commerce/main/auth/register_request.html:34
+#: templates/commerce/main/auth/reset_request.html:20
+#: templates/commerce/main/commerce/contact.html:85
+msgid "E-mail address"
+msgstr ""
 
 #: templates/commerce/main/auth/register_request.html:49
 #: templates/commerce/main/auth/register_token.html:76
@@ -1345,7 +1385,7 @@ msgstr "Sargydy iber"
 
 #: templates/commerce/main/commerce/cart.html:47
 msgid "City"
-msgstr "Şäher"
+msgstr ""
 
 #: templates/commerce/main/commerce/cart.html:47
 msgid "Av."
@@ -1353,53 +1393,48 @@ msgstr ""
 
 #: templates/commerce/main/commerce/cart.html:47
 msgid "Street"
-msgstr "Köçe"
+msgstr ""
 
 #: templates/commerce/main/commerce/cart.html:47
 msgid "House"
-msgstr "Jaý"
+msgstr ""
 
 #: templates/commerce/main/commerce/cart.html:47
 msgid "Flat"
-msgstr "Otag"
+msgstr ""
 
 #: templates/commerce/main/commerce/cart.html:52
 msgid "You should login if you want to checkout an order"
-msgstr "Sargydy ibermek üçin ulgama girmeli"
+msgstr ""
 
 #: templates/commerce/main/commerce/commerce.html:90
 msgid "Products"
-msgstr "Harytlar"
+msgstr ""
 
 #: templates/commerce/main/commerce/commerce.html:140
-#: templates/commerce/main/commerce/list_paginate.html:46
-#: templates/commerce/main/commerce/list_view.html:44
 #: templates/commerce/main/commerce/product.html:98
-#: templates/commerce/main/commerce/product.html:130
 #: templates/commerce/main/commerce/v_list.html:41
 #: templates/commerce/main/users/wishlist.html:66
 msgid "Add to cart"
-msgstr "Sebede goş"
+msgstr ""
 
 #: templates/commerce/main/commerce/commerce.html:141
-#: templates/commerce/main/commerce/list_paginate.html:47
 #: templates/commerce/main/commerce/product.html:99
-#: templates/commerce/main/commerce/product.html:131
 #: templates/commerce/main/users/wishlist.html:75
 msgid "Remove"
-msgstr "Öçür"
+msgstr ""
 
 #: templates/commerce/main/commerce/contact.html:82
 msgid "Your name"
-msgstr "Siziň adyňyz"
+msgstr ""
 
 #: templates/commerce/main/commerce/contact.html:91
 msgid "Leave message"
-msgstr "Haty iber"
+msgstr ""
 
 #: templates/commerce/main/commerce/contact.html:94
 msgid "Send"
-msgstr "Iber"
+msgstr ""
 
 #: templates/commerce/main/commerce/layout.html:9
 #: templates/commerce/main/commerce/layout.html:11
@@ -1412,6 +1447,27 @@ msgstr "Söwda"
 #: templates/commerce/main/commerce/list_grid_layout.html:88
 msgid "Log out"
 msgstr "Çyk"
+
+#: templates/commerce/main/commerce/layout.html:79
+#: templates/commerce/main/commerce/layout.html:236
+#: templates/commerce/main/commerce/layout.html:239
+#: templates/commerce/main/commerce/list_grid_layout.html:79
+#: templates/commerce/main/commerce/list_grid_layout.html:236
+#: templates/commerce/main/commerce/list_grid_layout.html:239
+msgid "Home"
+msgstr "Öý"
+
+#: templates/commerce/main/commerce/layout.html:92
+#: templates/commerce/main/commerce/layout.html:204
+#: templates/commerce/main/commerce/list_grid_layout.html:92
+#: templates/commerce/main/commerce/list_grid_layout.html:204
+msgid "Search"
+msgstr "Gözleg"
+
+#: templates/commerce/main/commerce/layout.html:118
+#: templates/commerce/main/commerce/list_grid_layout.html:118
+msgid "Main"
+msgstr ""
 
 #: templates/commerce/main/commerce/layout.html:94
 #: templates/commerce/main/commerce/layout.html:206
@@ -1434,6 +1490,13 @@ msgstr "Meniň sebedim"
 #: templates/commerce/main/commerce/list_grid_layout.html:153
 msgid "View cart"
 msgstr "Sebedi görkez"
+
+#: templates/commerce/main/commerce/layout.html:127
+#: templates/commerce/main/commerce/layout.html:326
+#: templates/commerce/main/commerce/list_grid_layout.html:127
+#: templates/commerce/main/commerce/list_grid_layout.html:528
+msgid "Checkout"
+msgstr "Sargydy iber"
 
 #: templates/commerce/main/commerce/layout.html:156
 #: templates/commerce/main/commerce/list_grid_layout.html:156
@@ -1464,17 +1527,28 @@ msgstr "Global"
 msgid "My profile"
 msgstr "Profilim"
 
+#: templates/commerce/main/commerce/layout.html:325
+#: templates/commerce/main/commerce/list_grid_layout.html:527
+msgid "Wishlist"
+msgstr "Isleg sanawy"
+
+#: templates/commerce/main/commerce/layout.html:328
+msgid "Currency"
+msgstr "Walýuta"
+
 #: templates/commerce/main/commerce/list_grid_layout.html:242
-#: templates/commerce/main/commerce/list_grid_layout.html:250
-#: templates/commerce/main/commerce/list_grid_layout.html:298
 msgid "Refine"
 msgstr ""
 
 #: templates/commerce/main/commerce/list_grid_layout.html:250
-#: templates/commerce/main/commerce/list_grid_layout.html:288
 #: templates/commerce/main/commerce/list_grid_layout.html:298
 msgid "Sort"
 msgstr "Sortla"
+
+#: templates/commerce/main/commerce/list_grid_layout.html:250
+#: templates/commerce/main/commerce/list_grid_layout.html:298
+msgid "Refine"
+msgstr "Anyklamak"
 
 #: templates/commerce/main/commerce/list_grid_layout.html:260
 msgid "Sort products by"
@@ -1492,6 +1566,10 @@ msgstr "Ähli markalar"
 #: templates/commerce/main/commerce/list_grid_layout.html:359
 msgid "Go"
 msgstr "Öňe"
+
+#: templates/commerce/main/commerce/list_grid_layout.html:288
+msgid "Sort"
+msgstr ""
 
 #: templates/commerce/main/commerce/list_grid_layout.html:292
 msgid "Default sorting"
@@ -1521,19 +1599,32 @@ msgstr "ulydan kiçä"
 msgid "Recently viewed"
 msgstr "Soňky görülen"
 
+#: templates/commerce/main/commerce/list_paginate.html:46
+#: templates/commerce/main/commerce/list_view.html:44
+#: templates/commerce/main/commerce/product.html:130
+msgid "Add to cart"
+msgstr "Sebede goş"
+
+#: templates/commerce/main/commerce/list_paginate.html:47
+#: templates/commerce/main/commerce/product.html:131
+msgid "Remove"
+msgstr "Poz"
+
 #: templates/commerce/main/commerce/product.html:68
 msgid "Other"
 msgstr "Beýleki"
 
-#: templates/commerce/main/commerce/product.html:89
 #: templates/commerce/main/commerce/product.html:118
 msgid "Total Price"
 msgstr "Jemi bahasy"
 
-#: templates/commerce/main/commerce/product.html:110
 #: templates/commerce/main/commerce/product.html:146
 msgid "Products Descriptions"
 msgstr "Harytlaryň beýanlary"
+
+# ## manual translations
+msgid "Invoice"
+msgstr "Hasap-faktura"
 
 # Colors translations
 msgid "Red"
@@ -1609,42 +1700,50 @@ msgstr "Gözellik we saglyk"
 msgid "Others"
 msgstr "Beýlekiler"
 
+#: templates/commerce/main/commerce/product.html:89
+msgid "Total Price"
+msgstr ""
+
 #: templates/commerce/main/commerce/product.html:101
 #: templates/commerce/main/commerce/v_list.html:39
 msgid "Remove from wishlist"
-msgstr "Isleg sanawdan aýyr"
+msgstr ""
 
 #: templates/commerce/main/commerce/product.html:109
 msgid "Customers reviews"
-msgstr "Teswirleri"
+msgstr ""
+
+#: templates/commerce/main/commerce/product.html:110
+msgid "Products Descriptions"
+msgstr ""
 
 #: templates/commerce/main/commerce/product.html:146
 msgid "Write your review"
-msgstr "Teswir ýaz"
+msgstr ""
 
 #: templates/commerce/main/commerce/v_list.html:36
 #: templates/commerce/main/commerce/v_list.html:38
 msgid "Add to wishlist"
-msgstr "Isleg sanawa goş"
+msgstr ""
 
 #: templates/commerce/main/commerce/v_list.html:42
 #: templates/commerce/main/users/wishlist.html:70
 msgid "Remove from cart"
-msgstr "Sebetden aýyr"
+msgstr ""
 
 #: templates/commerce/main/users/orders.html:35
 msgid "Order"
-msgstr "Sargyt"
+msgstr ""
 
 #: templates/commerce/main/users/orders.html:67
 msgid "Order Total"
-msgstr "Sargydyň jemi"
+msgstr ""
 
 #: templates/commerce/main/users/profile.html:42
 msgid "Profile details"
-msgstr "Profiliň giňişleýin maglumaty"
+msgstr ""
 
 #: templates/commerce/main/users/wishlist.html:62
 msgid "View product"
-msgstr "Harydy gör"
+msgstr ""
 
