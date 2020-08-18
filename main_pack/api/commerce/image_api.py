@@ -75,7 +75,7 @@ def api_images():
 				except Exception as ex:
 					print(ex)
 					failed_images.append(imageDictData)
-			db_test.session.commit()
+			db.session.commit()
 			print('images were committed')
 			status = checkApiResponseStatus(images,failed_images)
 			res = {

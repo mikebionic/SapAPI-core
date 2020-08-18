@@ -23,15 +23,16 @@ def ui_sliders():
 			sliderId = req.get('sliderId')
 			SlName = slider['SlName']
 			# check for slider presense in database
-			slider = Slider.query\
-				.filter(GCRecord = None, SlName = SlName)\
+			slider_model = Slider.query\
+				.filter_by(GCRecord = None, SlName = SlName)\
 				.first()
-			if slider:
+			if slider_model:
 				response = jsonify({
 					"status": "error",
 					"responseText": gettext('Slider')+' '+gettext('already present'),
 					"htmlData":  render_template('commerce/admin/sliderAppend.html',slider=newSlider)
 				})
+				return response
 			if (sliderId == '' or sliderId == None):
 				print('committing')
 				newSlider = Slider(**slider)

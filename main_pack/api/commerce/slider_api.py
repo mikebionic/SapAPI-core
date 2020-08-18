@@ -29,15 +29,20 @@ def api_slider_info(SlName):
 	slider = Slider.query\
 		.filter_by(GCRecord = None, SlName = SlName)\
 		.first()
-	
-	data = slider.to_json_api()
-	data["Sl_images"] = [sl_image.to_json_api() for sl_image in slider.Sl_image if sl_image.GCRecord == None]
-
+	try:
+		data = slider.to_json_api()
+		data["Sl_images"] = [sl_image.to_json_api() for sl_image in slider.Sl_image if sl_image.GCRecord == None]
+		status_code = 200
+	except Exception as ex:
+		print(ex)
+		data = []
+		status_code = 404
+		
 	res = {
 		"status": 1,
 		"message": "Slider",
 		"data": data,
 		"total": 1
 	}
-	response = make_response(jsonify(res),200)
+	response = make_response(jsonify(res),status_code)
 	return response
