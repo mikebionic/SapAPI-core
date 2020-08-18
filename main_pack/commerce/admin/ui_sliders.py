@@ -21,7 +21,17 @@ def ui_sliders():
 			req = request.get_json()
 			slider = addSliderDict(req)
 			sliderId = req.get('sliderId')
-			
+			SlName = slider['SlName']
+			# check for slider presense in database
+			slider = Slider.query\
+				.filter(GCRecord = None, SlName = SlName)\
+				.first()
+			if slider:
+				response = jsonify({
+					"status": "error",
+					"responseText": gettext('Slider')+' '+gettext('already present'),
+					"htmlData":  render_template('commerce/admin/sliderAppend.html',slider=newSlider)
+				})
 			if (sliderId == '' or sliderId == None):
 				print('committing')
 				newSlider = Slider(**slider)
@@ -32,7 +42,7 @@ def ui_sliders():
 					"status": "created",
 					"responseText": gettext('Slider')+' '+gettext('successfully saved'),
 					"htmlData":  render_template('commerce/admin/sliderAppend.html',slider=newSlider)
-					})
+				})
 			else:
 				print('updating')
 				thisSlider = Slider.query.get(sliderId)
@@ -41,7 +51,7 @@ def ui_sliders():
 				response = jsonify({
 					"status": "updated",
 					"responseText": gettext('Slider')+' '+gettext('successfully updated'),
-					})			
+				})			
 		elif request.method == 'DELETE': 
 			req = request.get_json()
 			sliderId = req.get('sliderId')
@@ -51,11 +61,11 @@ def ui_sliders():
 			response = jsonify({
 				"status": "deleted",
 				"responseText": gettext('Slider')+' '+gettext('successfully deleted'),
-				})
+			})
 	except Exception as ex:
 		print(ex)
 		response = jsonify({
 			"status": "error",
 			"responseText": gettext('Unknown error!'),
-			})
+		})
 	return response

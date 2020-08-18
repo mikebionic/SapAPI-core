@@ -37,31 +37,22 @@ def api_barcodes():
 			for barcode in req:
 				barcode = addBarcodeDict(barcode)
 				try:
-					if not 'BarcodeId' in barcode:
-						newBarcode = Barcode(**barcode)
-						db.session.add(newBarcode)
-						db.session.commit()
+					ResId = barcode['ResId']
+					UnitId = barcode['UnitId']
+					thisBarcode = Barcode.query\
+						.filter_by(ResId = ResId, UnitId = UnitId)\
+						.first()
+					if thisBarcode:
+						thisBarcode.update(**barcode)
 						barcodes.append(barcode)
 					else:
-						BarcodeId = barcode['BarcodeId']
-						thisBarcode = Barcode.query.get(int(BarcodeId))
-						if thisBarcode is not None:
-							# check for presenting in database
-							thisBarcode.update(**barcode)
-							# thisBarcode.modifiedInfo(UId=1)
-							db.session.commit()
-							barcodes.append(barcode)
-
-						else:
-							# create new barcode
-							newBarcode = Barcode(**barcode)
-							db.session.add(newBarcode)
-							db.session.commit()
-							barcodes.append(barcode)
+						newBarcode = Barcode(**barcode)
+						db.session.add(newBarcode)
+						barcodes.append(barcode)
 				except Exception as ex:
 					print(ex)
 					failed_barcodes.append(barcode)
-
+			db.session.commit()
 			status = checkApiResponseStatus(barcodes,failed_barcodes)
 			res = {
 				"data": barcodes,
