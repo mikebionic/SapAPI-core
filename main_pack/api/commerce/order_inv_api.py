@@ -6,7 +6,8 @@ from main_pack import db
 # orders and db methods
 from main_pack.models.commerce.models import (Order_inv,
 																							Order_inv_line,
-																							Inv_status)
+																							Inv_status,
+																							Res_total)
 from main_pack.api.commerce.utils import (addOrderInvDict,
 																					addOrderInvLineDict)
 from main_pack.base.apiMethods import checkApiResponseStatus
@@ -79,9 +80,16 @@ def api_order_invoices():
 						print("Rp_acc not provided")
 						abort(400)
 
+					thisInvStatus = None
+
 					if thisOrderInv:
 						thisOrderInv.update(**order_invoice)
 						db.session.commit()
+
+						# if status: "returned" (id=9), all lines should 
+						# update res_total.ResPendingTotalAmount
+						thisInvStatus = order_invoice['InvStatId']
+
 					else:
 						thisOrderInv = Order_inv(**order_invoice)
 						db.session.add(thisOrderInv)
@@ -99,6 +107,14 @@ def api_order_invoices():
 								.first()
 							if thisOrderInvLine:
 								thisOrderInvLine.update(**order_inv_line)
+								if thisInvStatus == 9:
+									try:
+										order_res_total = Res_total.query\
+											.filter_by(ResId = thisOrderInvLine.ResId)\
+											.first()
+										order_res_total.ResPendingTotalAmount += thisOrderInvLine.OInvLineAmount
+									except Exception as ex:
+										print(ex)
 								db.session.commit()
 								order_inv_lines.append(order_inv_line)
 								print('order inv line updated')
