@@ -1,5 +1,10 @@
 from flask import render_template,url_for,jsonify,session,flash,redirect,request,abort
+
+# auth and validation
 from flask_login import current_user,login_required
+from main_pack.commerce.auth.utils import ui_admin_required
+# / auth and validation /
+
 from main_pack import db,babel,gettext,lazy_gettext
 from main_pack.commerce.admin import bp
 
@@ -9,36 +14,37 @@ from main_pack.models.commerce.models import Color,Size,Size_type,Unit,Brand,Bar
 from main_pack.models.commerce.models import Size_type,Res_color,Res_size,Res_unit,Usage_status
 
 
-@bp.route('/ui/color/', methods=['GET','POST','PUT'])
+@bp.route('/ui/color/', methods=['POST'])
+@login_required
+@ui_admin_required()
 def ui_color():
 	if request.method == 'POST':
-		# respon 
 		req = request.get_json()
 		color = addColorDict(req)
-		print(color)
 
 		colorId = req.get('colorId')
-		print(colorId)
 		if (colorId == '' or colorId == None):
 			try:
-				print('committing')
 				newColor = Color(**color)
 				db.session.add(newColor)
 				db.session.commit()
 				response = jsonify({
-					'colorId':newColor.ColorId,
-					'status':'created',
-					'responseText':gettext('Color')+' '+gettext('successfully saved'),
-					'htmlData': render_template('commerce/admin/colorAppend.html',color=newColor)
+					"colorId": newColor.ColorId,
+					"status": "created",
+					"responseText": gettext('Color')+' '+gettext('successfully saved'),
+					"htmlData":  render_template('commerce/admin/colorAppend.html',color=newColor)
 					})
 			except Exception as ex:
+				print(ex)
 				response = jsonify({
-					'status':'error',
-					'responseText':gettext('Unknown error!'),
+					"status": "error",
+					"responseText": gettext('Unknown error!'),
 					})
 	return response
 
-@bp.route('/ui/size/', methods=['POST','PUT'])
+@bp.route('/ui/size/', methods=['POST'])
+@login_required
+@ui_admin_required()
 def ui_size():
 	if request.method == 'POST':
 		req = request.get_json()
@@ -50,19 +56,22 @@ def ui_size():
 				db.session.add(newSize)
 				db.session.commit()
 				response = jsonify({
-					'sizeId':newSize.SizeId,
-					'status':'created',
-					'responseText':gettext('Size')+' '+gettext('successfully saved'),
-					'htmlData': render_template('commerce/admin/sizeAppend.html',size=newSize)
+					"sizeId": newSize.SizeId,
+					"status": "created",
+					"responseText": gettext('Size')+' '+gettext('successfully saved'),
+					"htmlData": render_template('commerce/admin/sizeAppend.html',size=newSize)
 					})
 			except Exception as ex:
+				print(ex)
 				response = jsonify({
-					'status':'error',
-					'responseText':gettext('Unknown error!'),
+					"status": "error",
+					"responseText": gettext('Unknown error!'),
 					})
 	return response
 
-@bp.route('/ui/brand/', methods=['POST','PUT'])
+@bp.route('/ui/brand/', methods=['POST'])
+@login_required
+@ui_admin_required()
 def ui_brand():
 	if request.method == 'POST':
 		req = request.get_json()
@@ -74,19 +83,22 @@ def ui_brand():
 				db.session.add(newBrand)
 				db.session.commit()
 				response = jsonify({
-					'brandId':newBrand.BrandId,
-					'status':'created',
-					'responseText':gettext('Brand')+' '+gettext('successfully saved'),
-					'htmlData': render_template('commerce/admin/brandAppend.html',brand=newBrand)
+					"brandId": newBrand.BrandId,
+					"status": "created",
+					"responseText": gettext('Brand')+' '+gettext('successfully saved'),
+					"htmlData":  render_template('commerce/admin/brandAppend.html',brand=newBrand)
 					})
 			except Exception as ex:
+				print(ex)
 				response = jsonify({
-					'status':'error',
-					'responseText':gettext('Unknown error!'),
+					"status": "error",
+					"responseText": gettext('Unknown error!'),
 					})
 	return response
 
-@bp.route('/ui/res_color/', methods=['GET','POST','PUT'])
+@bp.route('/ui/res_color/', methods=['POST','DELETE'])
+@login_required
+@ui_admin_required()
 def ui_res_color():
 	if request.method == 'POST':
 		req = request.get_json()
@@ -99,13 +111,14 @@ def ui_res_color():
 					db.session.add(newResColor)
 					db.session.commit()
 			response=jsonify({
-				'status':'created',
-				'responseText':gettext('Product colors')+' '+gettext('successfully saved'),
+				"status": "created",
+				"responseText": gettext('Product colors')+' '+gettext('successfully saved'),
 				})
 		except Exception as ex:
+			print(ex)
 			response = jsonify({
-				'status':'error',
-				'responseText':gettext('Unknown error!'),
+				"status": "error",
+				"responseText": gettext('Unknown error!'),
 				})
 
 	if request.method == 'DELETE':
@@ -114,14 +127,16 @@ def ui_res_color():
 		thisResColor = Res_color.query.get(rcId)
 		thisResColor.GCRecord == 1
 		response = jsonify({
-			'rcId':thisResColor.RcId,
-			'status':'deleted',
-			'responseText':gettext('Product colors')+' '+gettext('successfully deleted')
+			"rcId": thisResColor.RcId,
+			"status": "deleted",
+			"responseText": gettext('Product colors')+' '+gettext('successfully deleted')
 		})
 	return response
 
 
-@bp.route('/ui/res_size/', methods=['GET','POST','PUT'])
+@bp.route('/ui/res_size/', methods=['POST','DELETE'])
+@login_required
+@ui_admin_required()
 def ui_res_size():
 	if request.method == 'POST':
 		req = request.get_json()
@@ -134,13 +149,14 @@ def ui_res_size():
 					db.session.add(newResSize)
 					db.session.commit()
 			response = jsonify({
-				'status':'created',
-				'responseText':gettext('Product sizes')+' '+gettext('successfully saved'),
+				"status": "created",
+				"responseText": gettext('Product sizes')+' '+gettext('successfully saved'),
 				})
 		except Exception as ex:
+			print(ex)
 			response = jsonify({
-				'status':'error',
-				'responseText':gettext('Unknown error!'),
+				"status": "error",
+				"responseText": gettext('Unknown error!'),
 				})
 
 	if request.method == 'DELETE':
@@ -149,9 +165,9 @@ def ui_res_size():
 		thisResSize = Res_size.query.get(rsId)
 		thisResSize.GCRecord == 1
 		response = jsonify({
-			'rsId':thisResSize.RsId,
-			'status':'deleted',
-			'responseText':gettext('Product sizes')+' '+gettext('successfully deleted')
+			"rsId": thisResSize.RsId,
+			"status": "deleted",
+			"responseText": gettext('Product sizes')+' '+gettext('successfully deleted')
 		})
 	return response
 

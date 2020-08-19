@@ -27,35 +27,43 @@
         <nav class="navbar navbar-expand-lg main-navbar sticky" style="background: #fcfcfc">
           <div class="form-inline mr-auto">
             <ul class="navbar-nav mr-3">
-              <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg
-                    collapse-btn">
-                    <i data-feather="align-justify"></i>
-                  </a>
+              <li>
+                <a href="#" data-toggle="sidebar" class="nav-link nav-link-lg collapse-btn">
+                  <i data-feather="align-justify"></i>
+                </a>
+              </li>
+              <li>
+                <a href="{{ url_for('commerce_auth.admin_logout') }}" data-toggle="sidebar" class="nav-link nav-link-lg collapse-btn" style="color: #3c7fb9;">
+                  <i class="material-icons">subdirectory_arrow_left</i>
+                </a>
               </li>
               <li class="dropdown" style="margin-top: auto;">
                 <a href="javascript:void(0);"  title="Language" data-toggle="dropdown" role="button"><i class="material-icons">language</i>
-                    <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
+                  <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
                 </a>
                 <ul class="dropdown-menu slideUp2">
-                    <li class="body">
-                        <ul class="menu list-unstyled">
-                            <li>
-                              <a href="/language/en" class="dropdown-item">
-                                <img src="{{ url_for('static', filename='commerce/main/images/us.svg') }}" style="width: 30px">
-                                English language</a>
-                              <div class="dropdown-divider"></div>
-                              <a href="/language/tk" class="dropdown-item">
-                                <img loading="lazy" src="{{ url_for('static', filename='commerce/main/images/tm.svg') }}" style="width: 30px">
-                                Türkmen dili</a>
-                              <div class="dropdown-divider"></div>
-                              <a href="/language/ru" class="dropdown-item">
-                                <img loading="lazy" src="{{ url_for('static', filename='commerce/main/images/ru.svg') }}" style="width: 30px">
-                                Русский язык</a>
-                            </li>
-                        </ul>
-                    </li>
+                  <li class="body">
+                    <ul class="menu list-unstyled">
+                      <li>
+                        <a href="{{ url_for('commerce_admin.set_language',language='en') }}" class="dropdown-item">
+                          <img src="{{ url_for('static', filename='commerce/main/images/us.svg') }}" style="width: 30px">
+                          English language
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="{{ url_for('commerce_admin.set_language',language='tk') }}" class="dropdown-item">
+                          <img loading="lazy" src="{{ url_for('static', filename='commerce/main/images/tm.svg') }}" style="width: 30px">
+                          Türkmen dili
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="{{ url_for('commerce_admin.set_language',language='ru') }}" class="dropdown-item">
+                          <img loading="lazy" src="{{ url_for('static', filename='commerce/main/images/ru.svg') }}" style="width: 30px">
+                          Русский язык
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
                 </ul>
-              </li>   le   
+              </li>
             </ul>
           </div>
         </nav>
@@ -148,7 +156,7 @@
 
         <footer class="main-footer">
           <div class="footer-left">
-            <a href="saphasap.net">SapHasap</a></a>
+            <a href="saphasap.net">Sap Çözgüt</a></a>
           </div>
           <div class="footer-right">
           </div>
@@ -156,7 +164,7 @@
       </div>
     </div>
     <script>
-      var url_prefix = "/commerce";
+      var url_prefix = "{{url_prefix if url_prefix else '/commerce'}}";
     </script>
     <script src="{{ url_for('static', filename='commerce/admin/js/app.min.js') }}"></script>
     <script src="{{ url_for('static', filename='commerce/admin/bundles/jquery-ui/jquery-ui.min.js') }}"></script>
@@ -178,6 +186,11 @@
         beforeSend: function(xhr, settings){
           if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain){
             xhr.setRequestHeader("X-CSRFToken", csrf_token);
+          }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          if (jqXHR.status == 401) {
+            location.reload();
           }
         }
       });

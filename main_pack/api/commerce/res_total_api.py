@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from flask import render_template,url_for,jsonify,request,abort,make_response
 from main_pack.api.commerce import api
 from main_pack.base.apiMethods import checkApiResponseStatus
@@ -13,8 +14,7 @@ from main_pack.api.auth.api_login import sha_required
 @sha_required
 def api_res_totals():
 	if request.method == 'GET':
-		res_totals = Res_total.query\
-			.filter(Res_total.GCRecord=='' or Res_total.GCRecord==None).all()
+		res_totals = Res_total.query.filter_by(GCRecord = None).all()
 		res = {
 			"status": 1,
 			"message": "All res totals",
@@ -38,6 +38,8 @@ def api_res_totals():
 			failed_res_totals = [] 
 			for res_total in req:
 				res_total = addResTotalDict(res_total)
+				# sync the pending amount (used by synchronizer)
+				res_total['ResPendingTotalAmount'] = res_total['ResTotBalance']
 				try:
 					if res_total['WhId'] < 0:
 						raise Exception
@@ -51,7 +53,8 @@ def api_res_totals():
 						ResId = res_total['ResId']
 						WhId = res_total['WhId']
 						thisResTotal = Res_total.query\
-							.filter(and_(Res_total.ResId==ResId,Res_total.WhId==WhId)).first()
+							.filter_by(ResId = ResId, WhId = WhId)\
+							.first()
 						####
 						if thisResTotal is not None:
 							thisResTotal.update(**res_total)
@@ -77,6 +80,4 @@ def api_res_totals():
 			for e in status:
 				res[e]=status[e]
 			response = make_response(jsonify(res),200)
-			print(response)
-
 	return response

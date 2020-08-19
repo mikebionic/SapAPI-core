@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from flask import render_template,url_for,jsonify,request,abort,make_response
 from main_pack.api.commerce import api
 from main_pack.base.apiMethods import checkApiResponseStatus
@@ -15,7 +16,7 @@ from main_pack.api.commerce.commerce_utils import apiResourceInfo
 @sha_required
 def api_resource(ResId):
 	resource_list = [{'ResId':ResId}]
-	res = apiResourceInfo(resource_list,single_object=True,isDeleted=True,isInactive=True,fullInfo=True)
+	res = apiResourceInfo(resource_list,single_object=True,isInactive=True,fullInfo=True)
 	if res['status']==1:
 		status_code = 200
 	else:
@@ -40,7 +41,7 @@ def api_resource(ResId):
 @sha_required
 def api_resources():
 	if request.method == 'GET':
-		res = apiResourceInfo(isDeleted=True,isInactive=True,fullInfo=True)
+		res = apiResourceInfo(isInactive=True,fullInfo=True)
 		if res['status']==0:
 			status_code = 404
 		else:
@@ -58,7 +59,7 @@ def api_resources():
 		else:
 			req = request.get_json()
 			resources = []
-			failed_resources = [] 
+			failed_resources = []
 			for resource in req:
 				resource = addResourceDict(resource)
 
@@ -66,7 +67,7 @@ def api_resources():
 				# category is resource's AddInf2
 				group = resource['AddInf2']
 				if group:
-					category = Res_category.query.filter_by(ResCatName=group).first()
+					category = Res_category.query.filter_by(ResCatName = group).first()
 					if not category:
 						category = Res_category(ResCatName=group)
 						db.session.add(category)

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from flask import render_template,url_for,jsonify,request,abort,make_response
 from main_pack.api.commerce import api
 from main_pack.base.apiMethods import checkApiResponseStatus
@@ -18,18 +19,6 @@ from sqlalchemy import and_
 from main_pack.key_generator.utils import generate,makeRegNo
 import decimal
 
-# @api.route("/test_token/",methods=['GET'])
-# @token_required
-# def token_test(user):
-# 	model_type = user['model_type']
-# 	current_user = user['current_user']
-# 	if model_type=='Users':
-# 		name = current_user.UName
-# 	elif model_type=='Rp_acc':
-# 		name = current_user.RpAccUName
-# 	print(name)
-# 	return name
-
 @api.route("/checkout-sale-order-inv/",methods=['POST'])
 @token_required
 def api_checkout_sale_order_invoices(user):
@@ -37,21 +26,21 @@ def api_checkout_sale_order_invoices(user):
 	current_user = user['current_user']
 
 	work_period = Work_period.query\
-		.filter(and_(Work_period.GCRecord=='' or Work_period.GCRecord==None),\
-			Work_period.WpIsDefault==True).first()
-	# !!! scurrent user is rp_acc if type is rp_acc
+		.filter_by(GCRecord = None, WpIsDefault = True)\
+		.first()
+	# !!! current user is rp_acc if type is rp_acc
 	if model_type=='Rp_acc':
 		name = current_user.RpAccUName
 		RpAccId = current_user.RpAccId
 		# get the seller's user information of a specific rp_acc
 		user = Users.query\
-			.filter(and_(Users.GCRecord=='' or Users.GCRecord==None),\
-				Users.UId==current_user.UId).first()
+			.filter_by(GCRecord = None, UId = current_user.UId)\
+			.first()
 		if user is None:
 			# try to find the rp_acc registered user if no seller specified
 			user = Users.query\
-				.filter(and_(Users.GCRecord=='' or Users.GCRecord==None),\
-					Users.RpAccId==RpAccId).first()
+				.filter_by(GCRecord = None, RpAccId = RpAccId)\
+				.first()
 	try:
 		req = request.get_json()
 		order_invoice = addOrderInvDict(req['orderInv'])
@@ -106,8 +95,8 @@ def api_checkout_sale_order_invoices(user):
 				ResId = order_inv_line['ResId']
 				OInvLineAmount = int(order_inv_line['OInvLineAmount'])
 				resource = Resource.query\
-					.filter(and_(Resource.GCRecord=='' or Resource.GCRecord==None),\
-						Resource.ResId==ResId).first()
+					.filter_by(GCRecord = None, ResId = ResId)\
+					.first()
 				
 				if not resource:
 					# type deleted or none 
@@ -115,12 +104,12 @@ def api_checkout_sale_order_invoices(user):
 					raise Exception
 				
 				res_price = Res_price.query\
-					.filter(and_(Res_price.GCRecord=='' or Res_price.GCRecord==None),\
-						Res_price.ResId==resource.ResId,Res_price.ResPriceTypeId==2).first()
+					.filter_by(GCRecord = None, ResId = resource.ResId, ResPriceTypeId = 2)\
+					.first()
 				res_total = Res_total.query\
-					.filter(and_(Res_total.GCRecord=='' or Res_total.GCRecord==None),\
-						Res_total.ResId==ResId).first()
-				totalSubstitutionResult = totalQtySubstitution(res_total.ResTotBalance,OInvLineAmount)
+					.filter_by(GCRecord = None, ResId = ResId, WhId = 1)\
+					.first()
+				totalSubstitutionResult = totalQtySubstitution(res_total.ResPendingTotalAmount,OInvLineAmount)
 
 
 				if resource.UsageStatusId == 2:
@@ -128,7 +117,7 @@ def api_checkout_sale_order_invoices(user):
 					error_type = 2
 					raise Exception
 				
-				if totalSubstitutionResult['status']==0:
+				if totalSubstitutionResult['status'] == 0:
 					# resource is empty or bad request with amount = -1
 					error_type = 3
 					raise Exception
@@ -138,9 +127,8 @@ def api_checkout_sale_order_invoices(user):
 					raise Exception
 
 				OInvLineAmount = totalSubstitutionResult['amount']
-				### currently this shouldn't decrease the res_total on 
-				### order invoice but should on invoice
-				# res_total.ResTotBalance = totalSubstitutionResult['totalBalance']
+				# ResPendingTotalAmount is decreased but not ResTotBalance
+				res_total.ResPendingTotalAmount = totalSubstitutionResult['totalBalance']
 				############
 				OInvLinePrice = float(res_price.ResPriceValue) if res_price else 0
 				OInvLineTotal = OInvLinePrice*OInvLineAmount
@@ -166,9 +154,9 @@ def api_checkout_sale_order_invoices(user):
 			except Exception as ex:
 				print(ex)
 				fail_info = {
-					"data":order_inv_line_req,
-					"error_type_id":error_type,
-					"error_type_message":get_order_error_type(error_type)
+					"data": order_inv_line_req,
+					"error_type_id": error_type,
+					"error_type_message": get_order_error_type(error_type)
 				}
 				failed_order_inv_lines.append(fail_info)
 
@@ -177,12 +165,12 @@ def api_checkout_sale_order_invoices(user):
 		if failed_order_inv_lines:
 			status = checkApiResponseStatus(order_inv_lines,failed_order_inv_lines)
 			res = {
-				"data":order_invoice,
-				"successes":order_inv_lines,
-				"fails":failed_order_inv_lines,
-				"success_total":len(order_inv_lines),
-				"fail_total":len(failed_order_inv_lines),
-				"total":len(OrderInvLines)
+				"data": order_invoice,
+				"successes": order_inv_lines,
+				"fails": failed_order_inv_lines,
+				"success_total": len(order_inv_lines),
+				"fail_total": len(failed_order_inv_lines),
+				"total": len(OrderInvLines)
 			}
 			status_code = 400
 			for e in status:
@@ -191,8 +179,8 @@ def api_checkout_sale_order_invoices(user):
 		else:
 			OInvFTotal = OInvTotal
 			OInvFTotalInWrite = price2text(OInvFTotal,
-				Config.PRICE_2_TEXT_LANGUAGE,
-				Config.PRICE_2_TEXT_CURRENCY)
+																		Config.PRICE_2_TEXT_LANGUAGE,
+																		Config.PRICE_2_TEXT_CURRENCY)
 
 			newOrderInv.OInvTotal = decimal.Decimal(OInvTotal)
 			newOrderInv.OInvFTotal = decimal.Decimal(OInvFTotal)
@@ -203,12 +191,12 @@ def api_checkout_sale_order_invoices(user):
 
 			status = checkApiResponseStatus(order_inv_lines,failed_order_inv_lines)
 			res = {
-				"data":newOrderInv.to_json_api(),
-				"successes":order_inv_lines,
-				"fails":failed_order_inv_lines,
-				"success_total":len(order_inv_lines),
-				"fail_total":len(failed_order_inv_lines),
-				"total":len(OrderInvLines)
+				"data": newOrderInv.to_json_api(),
+				"successes": order_inv_lines,
+				"fails": failed_order_inv_lines,
+				"success_total": len(order_inv_lines),
+				"fail_total": len(failed_order_inv_lines),
+				"total": len(OrderInvLines)
 			}
 			status_code = 200
 			for e in status:
@@ -218,8 +206,8 @@ def api_checkout_sale_order_invoices(user):
 		print(ex)
 		status_code = 400
 		res = {
-			"data":order_invoice,
-			"message":"Failed to checkout order"
+			"data": order_invoice,
+			"message": "Failed to checkout order"
 		}	
 	response = make_response(jsonify(res),status_code)
 

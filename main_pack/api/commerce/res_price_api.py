@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from flask import render_template,url_for,jsonify,request,abort,make_response
 from main_pack.api.commerce import api
 from main_pack.base.apiMethods import checkApiResponseStatus
@@ -13,8 +14,7 @@ from main_pack.api.auth.api_login import sha_required
 @sha_required
 def api_res_prices():
 	if request.method == 'GET':
-		res_prices = Res_price.query\
-			.filter(Res_price.GCRecord=='' or Res_price.GCRecord==None).all()
+		res_prices = Res_price.query.filter_by(GCRecord = None).all()
 		res = {
 			"status": 1,
 			"message": "All res prices",
@@ -71,5 +71,4 @@ def api_res_prices():
 			for e in status:
 				res[e]=status[e]
 			response = make_response(jsonify(res),200)
-			
 	return response

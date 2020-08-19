@@ -14,9 +14,9 @@ from sqlalchemy import and_
 @login_required
 def orders():
 	orderInvoices = Order_inv.query\
-		.filter(and_(Order_inv.GCRecord=='' or Order_inv.GCRecord==None),
-			Order_inv.RpAccId==current_user.RpAccId)\
-		.order_by(Order_inv.CreatedDate.desc()).all()
+		.filter_by(GCRecord = None, RpAccId = current_user.RpAccId)\
+		.order_by(Order_inv.CreatedDate.desc())\
+		.all()
 	
 	orders_list = []
 	for orderInv in orderInvoices:
@@ -26,24 +26,23 @@ def orders():
 	res = UiOInvData(orders_list)
 
 	categoryData = UiCategoriesList()
-	return render_template ("commerce/main/users/orders.html",**categoryData,**res,
+	return render_template("commerce/main/users/orders.html",**categoryData,**res,
 		title=gettext('Orders'))
 
 @bp.route("/orders/<OInvRegNo>")
 @login_required
 def order_lines(OInvRegNo):
 	orderInvoice = Order_inv.query\
-		.filter(and_(Order_inv.GCRecord=='' or Order_inv.GCRecord==None),
-								Order_inv.OInvRegNo==OInvRegNo)\
+		.filter_by(GCRecord = None, OInvRegNo = OInvRegNo)\
 		.first()
 
 	if orderInvoice.RpAccId == current_user.RpAccId:
 		orderInvRes = UiOInvData([{'OInvId':orderInvoice.OInvId}])
 		
 		orderInvLines = Order_inv_line.query\
-			.filter(and_(Order_inv_line.GCRecord=='' or Order_inv_line.GCRecord==None),
-										Order_inv_line.OInvId==orderInvoice.OInvId)\
-			.order_by(Order_inv_line.CreatedDate.desc()).all()
+			.filter_by(GCRecord = None, OInvId = orderInvoice.OInvId)\
+			.order_by(Order_inv_line.CreatedDate.desc())\
+			.all()
 
 		order_lines_list = []
 		for orderInvLine in orderInvLines:
@@ -53,7 +52,7 @@ def order_lines(OInvRegNo):
 		res = UiOInvLineData(order_lines_list)
 		
 		categoryData = UiCategoriesList()
-		return render_template ("commerce/main/users/order_lines.html",**categoryData,
+		return render_template("commerce/main/users/order_lines.html",**categoryData,
 			**res,**orderInvRes,title=gettext('Orders'))
 	
 	else:

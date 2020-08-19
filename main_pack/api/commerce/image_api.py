@@ -1,8 +1,10 @@
+# -*- coding: utf-8 -*-
 from flask import render_template,url_for,jsonify,request,abort,make_response
 from main_pack.api.commerce import api
 from main_pack.base.apiMethods import checkApiResponseStatus
 
 from main_pack.models.base.models import Image,Sl_image
+from main_pack.models.commerce.models import Resource
 from main_pack.api.commerce.utils import addImageDict,saveImageFile
 from main_pack import db
 from main_pack.config import Config
@@ -11,12 +13,11 @@ import dateutil.parser
 import os
 from main_pack.api.auth.api_login import sha_required
 
-@api.route("/tbl-dk-images/",methods=['GET','POST','PUT'])
+@api.route("/tbl-dk-images/",methods=['GET','POST'])
 @sha_required
 def api_images():
 	if request.method == 'GET':
-		images = Image.query\
-			.filter(Image.GCRecord=='' or Image.GCRecord==None).all()
+		images = Image.query.filter_by(GCRecord = None).all()
 		res = {
 			"status": 1,
 			"message": "All images",
@@ -34,17 +35,23 @@ def api_images():
 			response = make_response(jsonify(res),400)
 		else:
 			req = request.get_json()
+			
+			resources = Resource.query.filter_by(GCRecord = None).all()
+			ResId_list = [resource.ResId for resource in resources]
+
 			images = []
 			failed_images = []
 			for image in req:
 				imageDictData = addImageDict(image)
 				try:
+					resource = ResId_list.index(imageDictData['ResId'])
+					if not resource:
+						print('resource is none')
+						raise Exception
 					if not 'ImgId' in imageDictData:
 						image = saveImageFile(image)
 						newImage = Image(**image)
 						db.session.add(newImage)
-						db.session.commit()
-						print('added cuz no ImageId provided')
 						images.append(image)
 					else:
 						ImgId = imageDictData['ImgId']
@@ -52,25 +59,24 @@ def api_images():
 
 						updatingDate = dateutil.parser.parse(imageDictData['ModifiedDate'])
 						if thisImage is not None:
-							print("image is not none")
 							if thisImage.ModifiedDate!=updatingDate:
 								print('updated cuz different ModifiedDate')
 								image = saveImageFile(image)
 								thisImage.update(**image)
-								db.session.commit()
-								images.append(image)
 							else:
 								print("same modified date")
+							images.append(imageDictData)
 						else:
 							image = saveImageFile(image)
 							newImage = Image(**image)
 							db.session.add(newImage)
-							db.session.commit()
 							print('added image was none')
-							images.append(image)
+							images.append(imageDictData)
 				except Exception as ex:
-					failed_images.append(image)
-
+					print(ex)
+					failed_images.append(imageDictData)
+			db.session.commit()
+			print('images were committed')
 			status = checkApiResponseStatus(images,failed_images)
 			res = {
 				"data": images,

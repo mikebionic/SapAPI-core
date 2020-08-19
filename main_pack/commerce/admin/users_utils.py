@@ -63,7 +63,7 @@ def UiRpAccData(rp_acc_list=None,deleted=False):
 		rpAccInfo["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=List_Images[0]['FileName']) if List_Images else ''
 		rpAccInfo["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=List_Images[0]['FileName']) if List_Images else ''
 		rpAccInfo["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_Images[0]['FileName']) if List_Images else ''
-		rpAccInfo['Images'] = List_Images
+		rpAccInfo["Images"] = List_Images
 		
 		rpAccInfo["Rp_acc_user"] = rp_acc_user.to_json_api() if rp_acc_user else ''
 		rpAccInfo["Rp_acc_vendor"] = rp_acc_vendor.to_json_api() if rp_acc_vendor else ''
@@ -120,7 +120,7 @@ def UiUsersData(users_list=None,deleted=False):
 		userInfo["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=List_Images[0]['FileName']) if List_Images else ''
 		userInfo["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=List_Images[0]['FileName']) if List_Images else ''
 		userInfo["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_Images[0]['FileName']) if List_Images else ''
-		userInfo['Images'] = List_Images
+		userInfo["Images"] = List_Images
 		userInfo["Rp_accs"] = List_Rp_accs
 
 		data.append(userInfo)

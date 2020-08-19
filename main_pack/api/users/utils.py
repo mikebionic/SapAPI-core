@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from main_pack.base.dataMethods import configureNulls,configureFloat,boolCheck
 
 def addUsersDict(req):
@@ -25,30 +26,30 @@ def addUsersDict(req):
 	GCRecord = req.get('GCRecord')
 
 	users = {
-		'CId':CId,
-		'DivId':DivId,
-		'RpAccId':RpAccId,
-		'UFullName':UFullName,
-		'UName':UName,
-		'UEmail':UEmail,
-		'UPass':UPass,
-		'UShortName':UShortName,
-		'EmpId':EmpId,
-		'UTypeId':UTypeId,
-		'AddInf1':AddInf1,
-		'AddInf2':AddInf2,
-		'AddInf3':AddInf3,
-		'AddInf4':AddInf4,
-		'AddInf5':AddInf5,
-		'AddInf6':AddInf6,
-		'CreatedDate':CreatedDate,
-		'ModifiedDate':ModifiedDate,
-		'CreatedUId':CreatedUId,
-		'ModifiedUId':ModifiedUId,
-		'GCRecord':GCRecord
+		"CId": CId,
+		"DivId": DivId,
+		"RpAccId": RpAccId,
+		"UFullName": UFullName,
+		"UName": UName,
+		"UEmail": UEmail,
+		"UPass": UPass,
+		"UShortName": UShortName,
+		"EmpId": EmpId,
+		"UTypeId": UTypeId,
+		"AddInf1": AddInf1,
+		"AddInf2": AddInf2,
+		"AddInf3": AddInf3,
+		"AddInf4": AddInf4,
+		"AddInf5": AddInf5,
+		"AddInf6": AddInf6,
+		"CreatedDate": CreatedDate,
+		"ModifiedDate": ModifiedDate,
+		"CreatedUId": CreatedUId,
+		"ModifiedUId": ModifiedUId,
+		"GCRecord": GCRecord
 		}
 	if(UId != '' and UId != None):
-		users['UId']=UId
+		users['UId'] = UId
 	users=configureNulls(users)
 	return users
 
@@ -96,51 +97,51 @@ def addRpAccDict(req):
 	ModifiedUId = req.get('ModifiedUId')
 	GCRecord = req.get('GCRecord')
 	rp_acc = {		
-		'CId':CId,
-		'DivId':DivId,
-		'EmpId':EmpId,
-		'GenderId':GenderId,
-		'NatId':NatId,
-		'RpAccStatusId':RpAccStatusId,
-		'ReprId':ReprId,
-		'RpAccTypeId':RpAccTypeId,
-		'WpId':WpId,
-		'RpAccRegNo':RpAccRegNo,
-		'RpAccName':RpAccName,
-		'RpAccUName':RpAccUName,
-		'RpAccUPass':RpAccUPass,
-		'RpAccAddress':RpAccAddress,
-		'RpAccMobilePhoneNumber':RpAccMobilePhoneNumber,
-		'RpAccHomePhoneNumber':RpAccHomePhoneNumber,
-		'RpAccWorkPhoneNumber':RpAccWorkPhoneNumber,
-		'RpAccWorkFaxNumber':RpAccWorkFaxNumber,
-		'RpAccZipCode':RpAccZipCode,
-		'RpAccEMail':RpAccEMail,
-		'RpAccFirstName':RpAccFirstName,
-		'RpAccLastName':RpAccLastName,
-		'RpAccPatronomic':RpAccPatronomic,
-		'RpAccBirthDate':RpAccBirthDate,
-		'RpAccResidency':RpAccResidency,
-		'RpAccPassportNo':RpAccPassportNo,
-		'RpAccPassportIssuePlace':RpAccPassportIssuePlace,
-		'RpAccLangSkills':RpAccLangSkills,
-		'RpAccSaleBalanceLimit':RpAccSaleBalanceLimit,
-		'RpAccPurchBalanceLimit':RpAccPurchBalanceLimit,
-		'AddInf1':AddInf1,
-		'AddInf2':AddInf2,
-		'AddInf3':AddInf3,
-		'AddInf4':AddInf4,
-		'AddInf5':AddInf5,
-		'AddInf6':AddInf6,
-		'CreatedDate':CreatedDate,
-		'ModifiedDate':ModifiedDate,
-		'CreatedUId':CreatedUId,
-		'ModifiedUId':ModifiedUId,
-		'GCRecord':GCRecord
+		"CId": CId,
+		"DivId": DivId,
+		"EmpId": EmpId,
+		"GenderId": GenderId,
+		"NatId": NatId,
+		"RpAccStatusId": RpAccStatusId,
+		"ReprId": ReprId,
+		"RpAccTypeId": RpAccTypeId,
+		"WpId": WpId,
+		"RpAccRegNo": RpAccRegNo,
+		"RpAccName": RpAccName,
+		"RpAccUName": RpAccUName,
+		"RpAccUPass": RpAccUPass,
+		"RpAccAddress": RpAccAddress,
+		"RpAccMobilePhoneNumber": RpAccMobilePhoneNumber,
+		"RpAccHomePhoneNumber": RpAccHomePhoneNumber,
+		"RpAccWorkPhoneNumber": RpAccWorkPhoneNumber,
+		"RpAccWorkFaxNumber": RpAccWorkFaxNumber,
+		"RpAccZipCode": RpAccZipCode,
+		"RpAccEMail": RpAccEMail,
+		"RpAccFirstName": RpAccFirstName,
+		"RpAccLastName": RpAccLastName,
+		"RpAccPatronomic": RpAccPatronomic,
+		"RpAccBirthDate": RpAccBirthDate,
+		"RpAccResidency": RpAccResidency,
+		"RpAccPassportNo": RpAccPassportNo,
+		"RpAccPassportIssuePlace": RpAccPassportIssuePlace,
+		"RpAccLangSkills": RpAccLangSkills,
+		"RpAccSaleBalanceLimit": RpAccSaleBalanceLimit,
+		"RpAccPurchBalanceLimit": RpAccPurchBalanceLimit,
+		"AddInf1": AddInf1,
+		"AddInf2": AddInf2,
+		"AddInf3": AddInf3,
+		"AddInf4": AddInf4,
+		"AddInf5": AddInf5,
+		"AddInf6": AddInf6,
+		"CreatedDate": CreatedDate,
+		"ModifiedDate": ModifiedDate,
+		"CreatedUId": CreatedUId,
+		"ModifiedUId": ModifiedUId,
+		"GCRecord": GCRecord
 		}
 	if(RpAccId != '' and RpAccId != None):
 		print(RpAccId)
-		rp_acc['RpAccId']=RpAccId
+		rp_acc['RpAccId'] = RpAccId
 	rp_acc = configureNulls(rp_acc)
 	return rp_acc
 
@@ -154,19 +155,23 @@ from sqlalchemy import and_
 
 def apiUsersData(UId):
 	user = Users.query\
-		.filter(and_(Users.GCRecord=='' or Users.GCRecord==None),Users.UId==UId).first()
+		.filter_by(GCRecord = None, UId = UId)\
+		.first()
 	images = Image.query\
-		.filter(Image.GCRecord=='' or Image.GCRecord==None)\
-		.order_by(Image.CreatedDate.desc()).all()
+		.filter_by(GCRecord = None)\
+		.order_by(Image.CreatedDate.desc())\
+		.all()
 	user_type = User_type.query\
-		.filter(and_(User_type.GCRecord=='' or User_type.GCRecord==None),User_type.UTypeId==user.UTypeId).first()
+		.filter_by(GCRecord = None, UTypeId = user.UTypeId)\
+		.first()
 	rp_accs = Rp_acc.query\
-		.filter(and_(Rp_acc.GCRecord=='' or Rp_acc.GCRecord==None),Rp_acc.UId==UId).all()
+		.filter_by(GCRecord = None, UId = UId)\
+		.all()
 	List_RpAccs = [rp_acc.to_json_api() for rp_acc in rp_accs]
 	################
 	userInfo = user.to_json_api()
 	
-	List_Images = [image.to_json_api() for image in images if image.UId==user.UId]
+	List_Images = [image.to_json_api() for image in images if image.UId == user.UId]
 	userInfo["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=List_Images[0]['FileName']) if List_Images else ''
 	userInfo["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=List_Images[0]['FileName']) if List_Images else ''
 	userInfo["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_Images[0]['FileName']) if List_Images else ''
@@ -186,13 +191,14 @@ def apiRpAccData(RpAccRegNo=None,dbModel=None):
 		rp_acc = dbModel
 	else:
 		rp_acc = Rp_acc.query\
-			.filter(and_(Rp_acc.GCRecord=='' or Rp_acc.GCRecord==None),\
-				Rp_acc.RpAccRegNo==RpAccRegNo).first()
+			.filter_by(GCRecord = None, RpAccRegNo = RpAccRegNo)\
+			.first()
 	images = Image.query\
-		.filter(Image.GCRecord=='' or Image.GCRecord==None)\
+		.filter_by(GCRecord = None)\
 		.order_by(Image.CreatedDate.desc()).all()
 	users = Users.query\
-		.filter(and_(Users.GCRecord=='' or Users.GCRecord==None),Users.UId==rp_acc.UId).all()
+		.filter_by(GCRecord = None, UId = rp_acc.UId)\
+		.all()
 	
 	rpAccInfo = rp_acc.to_json_api()
 
@@ -207,8 +213,8 @@ def apiRpAccData(RpAccRegNo=None,dbModel=None):
 	# data.append(rpAccInfo)
 	#############
 	res = {
-		"status":1,
-		"data":rpAccInfo,
-		"total":1
+		"status": 1,
+		"data": rpAccInfo,
+		"total": 1
 	}
 	return res

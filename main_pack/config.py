@@ -15,6 +15,10 @@ class Config:
 	DEBUG = True
 	TESTING = True
 
+	# # these two didn't work
+	# STATIC_FOLDER = "/static"
+	# STATIC_URL_PATH="/ls/static/"
+
 	# SQLALCHEMY_DATABASE_URI = 'sqlite:///commerce.db'
 
 	POSTGRES_DB_URI = {
@@ -24,7 +28,31 @@ class Config:
 	    'host': environ.get('POSTGRES_DB_HOST'),
 	    'port': environ.get('POSTGRES_DB_PORT'),
 	}
+
 	SQLALCHEMY_DATABASE_URI = 'postgresql://%(user)s:%(pw)s@%(host)s:%(port)s/%(db)s' % POSTGRES_DB_URI
+	
+	# # Database bindings
+	#
+	# POSTGRES_TEST_DB_URI = {
+	#     'user': environ.get('POSTGRES_TEST_DB_USERNAME'),
+	#     'pw': environ.get('POSTGRES_TEST_DB_PASSWORD'),
+	#     'db': environ.get('POSTGRES_TEST_DB_DATABASE'),
+	#     'host': environ.get('POSTGRES_TEST_DB_HOST'),
+	#     'port': environ.get('POSTGRES_TEST_DB_PORT'),
+	# }
+	#
+	# SQLALCHEMY_TEST_DATABASE_URI = 'postgresql://%(user)s:%(pw)s@%(host)s:%(port)s/%(db)s' % POSTGRES_TEST_DB_URI
+	#
+	# SQLALCHEMY_BINDS = {
+	# 	'postgres_test': SQLALCHEMY_TEST_DATABASE_URI
+	# }
+	#
+	# # / Database bindings /
+
+	# modules url prefixes
+	API_URL_PREFIX = '/ls/api/'
+	COMMERCE_URL_PREFIX = '/commerce'
+	# / module url prefixes /
 
 	# default language for session
 	BABEL_DEFAULT_LOCALE = 'tk'
@@ -53,17 +81,17 @@ class Config:
 	OS_TYPE = sys.platform
 
 	# set to True if you want to sell resources
-	# if no left in Res_total  
+	# if no left in Res_total.ResPendingTotalAmount
 	NEGATIVE_WH_QTY_SALE = False
 	NEGATIVE_WH_QTY_ORDER = True
 
-	# ability to make an order if qty of resoruce
-	# is greater than Res_total in warehouse
-	OWERRIDE_WH_QTY_ORDER = True
+	# # ability to make an order if qty of resoruce
+	# # is greater than Res_total in warehouse
+	# OVERRIDE_WH_QTY_ORDER = True
 
 	# set to True to show resources
-	# if no left in Res_total
-	SHOW_NEGATIVE_WH_QTY_RESOURCE = True
+	# if no left in Res_total.ResTotBalace
+	SHOW_NEGATIVE_WH_QTY_RESOURCE = False
 
 	# language and currency of price-to-text converter
 	PRICE_2_TEXT_LANGUAGE = 'tk'
@@ -77,3 +105,8 @@ class Config:
 	ALLOWED_ICON_EXTENSIONS = set(['png','jpg','jpeg','svg'])
 	ALLOWED_IMAGE_EXTENSIONS = set(['png','jpg','jpeg'])
 	MAX_CONTENT_LENGTH = 16 * 1024 * 1024
+
+	# cookies / security
+	# SESSION_COOKIE_SECURE=True,
+	# SESSION_COOKIE_HTTPONLY=True,
+	# SESSION_COOKIE_SAMESITE='Lax'

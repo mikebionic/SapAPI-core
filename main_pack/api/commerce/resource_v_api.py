@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from flask import jsonify,request,abort,make_response,url_for
 from main_pack.api.commerce import api
 from main_pack import db
@@ -38,10 +39,8 @@ def api_v_resource_info(ResId):
 @api.route("/tbl-dk-categories/<int:ResCatId>/v-resources/")
 def api_category_v_resources(ResCatId):
 	resources = Resource.query\
-		.filter(and_(
-			Resource.GCRecord=='' or Resource.GCRecord==None),\
-			Resource.UsageStatusId==1,\
-			Resource.ResCatId==ResCatId).all()
+		.filter_by(GCRecord = None, UsageStatusId = 1, ResCatId = ResCatId)\
+		.all()
 	resource_list = []
 	for resource in resources:
 		product = {}
@@ -49,7 +48,8 @@ def api_category_v_resources(ResCatId):
 		resource_list.append(product)
 
 	res = apiResourceInfo(resource_list)
-	response = make_response(jsonify(res),200)
+	status_code = 200
+	response = make_response(jsonify(res),status_code)
 	return response
 
 # @api.route("/tbl-dk-categories/<int:ResCatId>/tbl-dk-resources/")
@@ -77,15 +77,17 @@ def api_v_resources_search():
 
 	barcodes = Barcode.query\
 		.filter(and_(
-			Barcode.GCRecord=='' or Barcode.GCRecord==None,\
-			Barcode.BarcodeVal.ilike(searching_tag))).all()
+			Barcode.GCRecord == None,\
+			Barcode.BarcodeVal.ilike(searching_tag)))\
+		.all()
 	
 	resources = Resource.query\
 		.filter(and_(
-			Resource.GCRecord=='' or Resource.GCRecord==None,\
+			Resource.GCRecord == None,\
 			Resource.ResName.ilike(searching_tag),\
-			Resource.UsageStatusId==1))\
-		.order_by(Resource.ResId.desc()).all()
+			Resource.UsageStatusId == 1))\
+		.order_by(Resource.ResId.desc())\
+		.all()
 
 	resource_list = []
 	if barcodes:
@@ -118,36 +120,35 @@ def api_paginate_resources():
 	# handles the latest resource
 	if offset is None:
 		latestResource = Resource.query\
-			.filter(and_(Resource.GCRecord=='' or Resource.GCRecord==None,\
-				Resource.UsageStatusId==1))\
+			.filter_by(GCRecord = None, UsageStatusId = 1)\
 			.order_by(Resource.ResId.desc())\
 			.first()
 		offset = latestResource.ResId+1
 
 	pagination = Resource.query\
-	.filter(and_(
-		Resource.GCRecord=='' or Resource.GCRecord==None,\
-		Resource.ResId<offset,\
-		Resource.UsageStatusId==1))\
-	.order_by(Resource.ResId.desc())\
-	.paginate(
-		per_page=limit,
-		error_out=False
-		)
+		.filter(and_(
+			GCRecord == None,\
+			Resource.ResId < offset,\
+			Resource.UsageStatusId == 1))\
+		.order_by(Resource.ResId.desc())\
+		.paginate(
+			per_page=limit,
+			error_out=False
+			)
 	resources = pagination.items
 
 	nextLast = Resource.query\
 		.filter(and_(
-			Resource.GCRecord=='' or Resource.GCRecord==None,\
-			Resource.ResId<(offset-limit+1),\
-			Resource.UsageStatusId==1))\
+			Resource.GCRecord == None,\
+			Resource.ResId < (offset-limit+1),\
+			Resource.UsageStatusId == 1))\
 		.order_by(Resource.ResId.desc())\
 		.first()
 	prevLast = Resource.query\
 		.filter(and_(
-			Resource.GCRecord=='' or Resource.GCRecord==None,\
-			Resource.ResId<(offset+limit+1),\
-			Resource.UsageStatusId==1))\
+			Resource.GCRecord == None,\
+			Resource.ResId < (offset+limit+1),\
+			Resource.UsageStatusId == 1))\
 		.order_by(Resource.ResId.desc())\
 		.first()
 

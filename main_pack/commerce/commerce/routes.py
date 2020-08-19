@@ -15,26 +15,26 @@ def commerce():
 	res = apiResourceInfo()
 	sliders = slidersData()
 	categoriesData = UiCategoriesList()
-	return render_template ("commerce/main/commerce/commerce.html",
+	return render_template("commerce/main/commerce/commerce.html",
 		**res,**categoriesData,**sliders)
 
 @bp.route("/collection")
 def collection():
 	categoriesData = UiCategoriesList()
-	return render_template ("commerce/main/commerce/collection.html",**categoriesData,title=gettext('Collection'))
+	return render_template("commerce/main/commerce/collection.html",**categoriesData,title=gettext('Collection'))
 
 @bp.route("/about")
 def about():
 	categoriesData = UiCategoriesList()
-	return render_template ("commerce/main/commerce/about.html",**categoriesData,title=gettext('About us'))
+	return render_template("commerce/main/commerce/about.html",**categoriesData,title=gettext('About us'))
 
 @bp.route("/contact")
 def contact():
 	categoriesData = UiCategoriesList()
-	return render_template ("commerce/main/commerce/contact.html",**categoriesData,title=gettext('Contact'))
+	return render_template("commerce/main/commerce/contact.html",**categoriesData,title=gettext('Contact'))
 
 @bp.route("/cart")
 def cart():
 	categoriesData = UiCategoriesList()
-	return render_template ("commerce/main/commerce/cart.html",
+	return render_template("commerce/main/commerce/cart.html",
 		**categoriesData,title=gettext('Cart'))

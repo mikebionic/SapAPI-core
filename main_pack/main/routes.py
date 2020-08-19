@@ -14,10 +14,9 @@ def set_theme(theme=None):
 	return jsonify({'respone':'theme changed'}),200
 
 
-# @bp.route("/main")
-# @login_required
-# def main():
-# 	return render_template ("main/main.html", title=gettext("Main window"))
+@bp.route("/")
+def main():
+	return render_template ("commerce/landing_pages/ls.com/index.html", title="Lomaý söwda")
 
 ########################################
 def prepare_data(dropdown,page,title):

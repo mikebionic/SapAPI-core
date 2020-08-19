@@ -1,9 +1,9 @@
 # The E-commerce Web application [Branch of SAPHASAP System] 
 ## Languages:
 
-> Python
+> Python >= v3.6
 
-> JavaScript
+> JavaScript | jQuery | ReactJS
 
 ## Includes:
 + Stable Web-Api
@@ -67,3 +67,6 @@ commerceDBTemplate.backup
 **logs information**
 + [order invoice logs](/documentation/order_invoice_post_request_logs.md)
 + [checkout invoice logs](/documentation/checkout_order_inv_api_logs.md)
+
+**translations and language creation**
++ [py-Babel usage](/documentation/pybabel_usage.md)

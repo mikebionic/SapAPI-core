@@ -1,6 +1,11 @@
 from flask import render_template,url_for,jsonify,session,flash,redirect,request,Response, abort
 from main_pack import db,babel,gettext
+
+# auth and validation
 from flask_login import current_user,login_required
+from main_pack.commerce.auth.utils import ui_admin_required
+# / auth and validation /
+
 from datetime import datetime
 from main_pack.commerce.admin import bp
 
@@ -23,6 +28,7 @@ from main_pack.models.base.models import Image
 
 @bp.route("/ui/resource/",methods=['GET','POST','PUT'])
 @login_required
+@ui_admin_required()
 def ui_resource():
 	units = Unit.query.all()
 	brands = Brand.query.all()
@@ -32,27 +38,28 @@ def ui_resource():
 	resMakers = Res_maker.query.all()
 	rpAccs = Rp_acc.query.all()
 	baseTemplate = {
-		'units':units,
-		'brands':brands,
-		'usageStatuses':usageStatuses,
-		'resCategories':resCategories,
-		'resTypes':resTypes,
-		'resMakers':resMakers,
-		'rpAccs':rpAccs
+		"units": units,
+		"brands": brands,
+		"usageStatuses": usageStatuses,
+		"resCategories": resCategories,
+		"resTypes": resTypes,
+		"resMakers": resMakers,
+		"rpAccs": rpAccs
 		}
 	reg_num = generate(UId=current_user.UId,prefixType='goods_code') # specify the generation prefix
-	if request.method == "GET":
+	if request.method == 'GET':
 		try:
 			regNo = makeRegNo(current_user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'')
 			response = jsonify({
-				'regNoForm':'resRegNo',
-				'regNo':regNo
+				"regNoForm": 'resRegNo',
+				"regNo": regNo
 				})
 		except Exception as ex:
-			response = jsonify({'error':gettext('Error generating Registration number')})
+			print(ex)
+			response = jsonify({"error": gettext('Error generating Registration number')})
 		return response
 
-	elif request.method == "POST":
+	elif request.method == 'POST':
 		req = request.get_json()
 		resource = addResourceDict(req)
 		resId = req.get('resId')
@@ -74,10 +81,10 @@ def ui_resource():
 				db.session.add(newResource)
 				db.session.commit()
 				response = jsonify({
-					'resId':newResource.ResId,
-					'status':'created',
-					'responseText':gettext('Resource')+' '+gettext('successfully saved'),
-					# 'data': render_template('/hr_department/tableEmpAppend.html',**baseTemplate,employee=newResource)
+					"resId": newResource.ResId,
+					"status": "created",
+					"responseText": gettext('Resource')+' '+gettext('successfully saved'),
+					# "data":  render_template('/hr_department/tableEmpAppend.html',**baseTemplate,employee=newResource)
 					})
 			
 			elif validation['status']==False:
@@ -89,11 +96,11 @@ def ui_resource():
 				db.session.add(newResource)
 				db.session.commit()
 				response = jsonify({
-					'resId':newResource.ResId,
-					'status':'regGenerated',
-					'responseText':gettext('That registration number already presents')+'. '+gettext('It changed to ')+regNo,
-					'regNoForm':'resRegNo',
-					'regNo':regNo,
+					"resId": newResource.ResId,
+					"status": "regGenerated",
+					"responseText": gettext('That registration number already presents')+'. '+gettext('It changed to ')+regNo,
+					"regNoForm": "resRegNo",
+					"regNo": regNo,
 					})
 			return response
 		else:
@@ -103,19 +110,20 @@ def ui_resource():
 				updateResource.modifiedInfo(UId=current_user.UId)
 				db.session.commit()
 				response = jsonify({
-					'resId':updateResource.ResId,
-					'status':'updated',
-					'responseText':gettext('Resource')+' '+gettext('successfully updated!'),
+					"resId": updateResource.ResId,
+					"status": "updated",
+					"responseText": gettext('Resource')+' '+gettext('successfully updated!'),
 					})
 			except Exception as ex:
+				print(ex)
 				response = jsonify({
-					'status':'error',
-					'responseText':gettext('Unknown error!'),
+					"status": "error",
+					"responseText": gettext('Unknown error!'),
 					})
 			return response
 
 
-	# elif request.method == 'PUT':
+	# elif request.method == "PUT": 
 	# 	req = request.get_json()
 	# 	resId = req.get('resId')
 	# 	currentResource = Resource.query.get(resId)
@@ -125,25 +133,25 @@ def ui_resource():
 	# 	visitedCountries = Visited_countries.query.filter_by(ResId=resId).order_by(Visited_countries.VCId.desc())
 	# 	relatives = Relatives.query.filter_by(ResId=resId).order_by(Relatives.RelId.desc())
 	# 	thisTemplate = {
-	# 		'currentResource':currentResource,
-	# 		'schools':schools,
-	# 		'workHistories':workHistories,
-	# 		'awards':awards,
-	# 		'visitedCountries':visitedCountries,
-	# 		'relatives':relatives,
+	# 		"currentResource": currentResource,
+	# 		"schools": schools,
+	# 		"workHistories": workHistories,
+	# 		"awards": awards,
+	# 		"visitedCountries": visitedCountries,
+	# 		"relatives": relatives,
 	# 		}
 	# 	templateConfig = {
-	# 		'tabTitle':(gettext("Modify employee")+' '+currentResource.EmpName),
-	# 		'tabBtnClassName':'updateEmpTabBtn',
-	# 		'tabBtnName':('updateEmpTabBtn'+str(currentResource.ResId)),
-	# 		'tabName':('updateEmpTab'+str(currentResource.ResId)),
-	# 		'tabClassName':'updateEmpTab'
+	# 		"tabTitle":( gettext("Modify employee")+' '+currentResource.EmpName),
+	# 		"tabBtnClassName": "updateEmpTabBtn",
+	# 		"tabBtnName":(' updateEmpTabBtn'+str(currentResource.ResId)),
+	# 		"tabName":(' updateEmpTab'+str(currentResource.ResId)),
+	# 		"tabClassName": "updateEmpTa"'
 	# 	}
 	# 	response = {
-	# 		# 'professions':professions,
-	# 		'empFormNav':render_template('hr_department/empFormNav.html',**baseTemplate,**thisTemplate,**templateConfig),
-	# 		'empForm':render_template('hr_department/empForm.html',**baseTemplate,**thisTemplate,**templateConfig),
-	# 		'currentResource':currentResource.to_json(),
-	# 		'schools':[school.to_json() for school in schools],
+	# 		# "professions": professions,
+	# 		"empFormNav": render_template('hr_department/empFormNav.html',**baseTemplate,**thisTemplate,**templateConfig),
+	# 		"empForm": render_template('hr_department/empForm.html',**baseTemplate,**thisTemplate,**templateConfig),
+	# 		"currentResource": currentResource.to_json(),
+	# 		"schools":[ school.to_json() for school in schools],
 	# 		}
 	# 	return jsonify(response)

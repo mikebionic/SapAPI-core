@@ -1,8 +1,13 @@
 from flask import render_template,url_for,jsonify,session,flash,redirect,request,Response
 from main_pack.base.imageMethods import save_image,save_icon,allowed_icon,allowed_image
 from main_pack.base.dataMethods import dateDataCheck
-from main_pack.commerce.admin import bp
+from main_pack.commerce.admin import bp, url_prefix
+
+# auth and validation
 from flask_login import current_user,login_required
+from main_pack.commerce.auth.utils import ui_admin_required
+# / auth and validation /
+
 from main_pack import db,babel,gettext,lazy_gettext
 from flask import current_app
 from main_pack.models.base.models import Company,Sl_image,Slider,Image
@@ -13,6 +18,7 @@ from main_pack.commerce.admin.forms import LogoImageForm,SliderImageForm
 
 @bp.route("/admin/logo_setup", methods=['GET', 'POST'])
 @login_required
+@ui_admin_required()
 def logo_setup():
 	company = Company.query\
 		.filter(Company.GCRecord=='' or Company.GCRecord==None).first()
@@ -33,11 +39,12 @@ def logo_setup():
 
 		flash(lazy_gettext('Company logo successfully uploaded!'), 'success')
 		return redirect(url_for('commerce_admin.logo_setup'))
-	return render_template('commerce/admin/logo_setup.html',title=gettext('Company logo'),
-		logoForm=logoForm,company_logo=company_logo)
+	return render_template('commerce/admin/logo_setup.html',url_prefix=url_prefix,
+		title=gettext('Company logo'),logoForm=logoForm,company_logo=company_logo)
 
 @bp.route("/remove_images")
 @login_required
+@ui_admin_required()
 def remove_images():
 	try:
 		imgId = request.args.get('imgId')
@@ -61,6 +68,7 @@ def remove_images():
 
 @bp.route("/admin/sliders", methods=['GET', 'POST'])
 @login_required
+@ui_admin_required()
 def sliders():
 	# handler for commerce view
 	header_slider = Slider.query\
@@ -87,11 +95,12 @@ def sliders():
 		sliderList["Sl_images"] = slider_images
 		slidersData.append(sliderList)
 
-	return render_template('commerce/admin/sliders.html',title=gettext('Sliders'),
-		sliders=slidersData)
+	return render_template('commerce/admin/sliders.html',url_prefix=url_prefix,
+		title=gettext('Sliders'),sliders=slidersData)
 
 @bp.route("/admin/sliders/<SlId>", methods=['GET', 'POST'])
 @login_required
+@ui_admin_required()
 def slider_images(SlId):
 	slider = Slider.query\
 		.filter(and_(Slider.GCRecord=='' or Slider.GCRecord==None),Slider.SlId==SlId).first()
@@ -118,10 +127,12 @@ def slider_images(SlId):
 			return redirect(url_for('commerce_admin.slider_images',SlId=slider.SlId))
 	else:
 		return redirect(url_for('commerce_admin.sliders'))
-	return render_template('commerce/admin/slider_setup.html',title=gettext('Sliders'),
-		sliderForm=sliderForm,slider=slider,sl_images=sl_images)
+	return render_template('commerce/admin/slider_setup.html',url_prefix=url_prefix,
+		title=gettext('Sliders'),sliderForm=sliderForm,slider=slider,sl_images=sl_images)
 
 @bp.route('/ui/svg-icons/',methods=['POST'])
+@login_required
+@ui_admin_required()
 def ui_svg_icons():
 	if 'files[]' not in request.files:
 		resp = jsonify({'message' : 'No file part in the request'})
@@ -138,30 +149,31 @@ def ui_svg_icons():
 			FilePath = imageFile['FilePath']
 			category = 'Others'
 			iconInfo = {
-				'url':url_for('commerce_api.get_icon',category=category,file_name=FileName),
-				'icon_name':FileName,
-				'category':category
+				"url": url_for('commerce_api.get_icon',category=category,file_name=FileName),
+				"icon_name": FileName,
+				"category": category
 			}
 			uploadedFiles.append({
-				'fileName':FileName,
-				'htmlData':render_template('/commerce/admin/svgIconAppend.html',
+				"fileName": FileName,
+				"htmlData": render_template('/commerce/admin/svgIconAppend.html',
 					iconInfo=iconInfo),
 			})
 		else:
 			failedFiles.append({
-				'fileName':icon_file.fileName
+				"fileName": icon_file.fileName
 			})
 
 	response = jsonify({
-		"data":uploadedFiles,
-		"total":len(uploadedFiles),
-		"failed":failedFiles,
-		"failedTotal":len(failedFiles)
+		"data": uploadedFiles,
+		"total": len(uploadedFiles),
+		"failed": failedFiles,
+		"failedTotal": len(failedFiles)
 		})
 	return response
 
 @bp.route("/remove_svg_icon")
 @login_required
+@ui_admin_required()
 def remove_svg_icon():
 	try:
 		name = request.args.get('name')

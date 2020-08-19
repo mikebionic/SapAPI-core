@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from flask import render_template,url_for,jsonify,request,abort,make_response
 from main_pack.api.commerce import api
 from main_pack.base.apiMethods import checkApiResponseStatus
@@ -12,8 +13,7 @@ from main_pack.api.auth.api_login import sha_required
 @sha_required
 def api_warehouses():
 	if request.method == 'GET':
-		warehouses = Warehouse.query\
-			.filter(Warehouse.GCRecord=='' or Warehouse.GCRecord==None).all()
+		warehouses = Warehouse.query.filter_by(GCRecord = None).all()
 		res = {
 			"status": 1,
 			"message": "All warehouses",
@@ -32,7 +32,6 @@ def api_warehouses():
 			
 		else:
 			req = request.get_json()
-			print(req)
 			warehouses = []
 			failed_warehouses = [] 
 			for warehouse in req:
@@ -47,7 +46,6 @@ def api_warehouses():
 						WhId = warehouse['WhId']
 						thisWarehouse = Warehouse.query.get(int(WhId))
 						if thisWarehouse is not None:
-							print("update")
 							# check for presenting in database
 							thisWarehouse.update(**warehouse)
 							# thisWarehouse.modifiedInfo(UId=1)
@@ -55,7 +53,6 @@ def api_warehouses():
 							warehouses.append(warehouse)
 
 						else:
-							print("hasIDbutInsert")
 							# create new warehouse
 							newWarehouse = Warehouse(**warehouse)
 							db.session.add(newWarehouse)

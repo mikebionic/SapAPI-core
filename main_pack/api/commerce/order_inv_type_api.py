@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from flask import render_template,url_for,jsonify,request,abort,make_response
 from main_pack.api.commerce import api
 from main_pack import db
@@ -15,8 +16,7 @@ from main_pack.api.auth.api_login import sha_required
 @sha_required
 def api_order_inv_types():
 	if request.method == 'GET':
-		order_inv_types = Order_inv_type.query\
-			.filter(Order_inv_type.GCRecord=='' or Order_inv_type.GCRecord==None).all()
+		order_inv_types = Order_inv_type.query.filter_by(GCRecord = None).all()
 		res = {
 			"status": 1,
 			"message": "All order inv types",

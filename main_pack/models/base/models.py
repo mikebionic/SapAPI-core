@@ -6,8 +6,8 @@ from main_pack.base.apiMethods import fileToURL
 
 
 class CreatedModifiedInfo(object):
-	CreatedDate = db.Column(db.DateTime,default=datetime.now)
-	ModifiedDate = db.Column(db.DateTime,default=datetime.now,onupdate=datetime.now)
+	CreatedDate = db.Column(db.DateTime,default=datetime.now())
+	ModifiedDate = db.Column(db.DateTime,default=datetime.now(),onupdate=datetime.now())
 	CreatedUId = db.Column(db.Integer)
 	ModifiedUId = db.Column(db.Integer)
 	GCRecord = db.Column(db.Integer)
@@ -175,6 +175,37 @@ class Company(AddInf,CreatedModifiedInfo,db.Model):
 				if hasattr(self, key):
 					setattr(self, key, value)
 
+	def to_json_api(self):
+		json_company = {
+			"CId": self.CId,
+			"CName": self.CName,
+			"CFullName": self.CFullName,
+			"CDesc": self.CDesc,
+			"AccInfId": self.AccInfId,
+			"CAddress": self.CAddress,
+			"CAddressLegal": self.CAddressLegal,
+			"CLatitude": self.CLatitude,
+			"CLongitude": self.CLongitude,
+			"Phone1": self.Phone1,
+			"Phone2": self.Phone2,
+			"Phone3": self.Phone3,
+			"Phone4": self.Phone4,
+			"CPostalCode": self.CPostalCode,
+			"CEmail": self.CEmail,
+			"AddInf1": self.AddInf1,
+			"AddInf2": self.AddInf2,
+			"AddInf3": self.AddInf3,
+			"AddInf4": self.AddInf4,
+			"AddInf5": self.AddInf5,
+			"AddInf6": self.AddInf6,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
+		}
+		return json_company
+
 
 class Contact(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_contact"
@@ -201,13 +232,13 @@ class Contact_type(CreatedModifiedInfo,db.Model):
 
 	def to_json(self):
 		json_contactType = {
-			'ContactTypeId': self.ContactTypeId,
-			'ContactTypeName_tkTM': self.ContactTypeName_tkTM,
-			'ContactTypeDesc_tkTM': self.ContactTypeDesc_tkTM,
-			'ContactTypeName_ruRU': self.ContactTypeName_ruRU,
-			'ContactTypeDesc_ruRU': self.ContactTypeDesc_ruRU,
-			'ContactTypeName_enUS': self.ContactTypeName_enUS,
-			'ContactTypeDesc_enUS': self.ContactTypeDesc_enUS
+			"ContactTypeId": self.ContactTypeId,
+			"ContactTypeName_tkTM": self.ContactTypeName_tkTM,
+			"ContactTypeDesc_tkTM": self.ContactTypeDesc_tkTM,
+			"ContactTypeName_ruRU": self.ContactTypeName_ruRU,
+			"ContactTypeDesc_ruRU": self.ContactTypeDesc_ruRU,
+			"ContactTypeName_enUS": self.ContactTypeName_enUS,
+			"ContactTypeDesc_enUS": self.ContactTypeDesc_enUS
 		}
 		return json_contactType
 
@@ -380,10 +411,10 @@ class Image(CreatedModifiedInfo,db.Model):
 			"RpAccId": self.RpAccId,
 			"ResId": self.ResId,
 			"FileName": self.FileName,
-			'FilePath':fileToURL(file_type='image',file_size='M',file_name=self.FileName),
-			'FilePathS':fileToURL(file_type='image',file_size='S',file_name=self.FileName),
-			'FilePathM':fileToURL(file_type='image',file_size='M',file_name=self.FileName),
-			'FilePathR':fileToURL(file_type='image',file_size='R',file_name=self.FileName),
+			"FilePath": fileToURL(file_type='image',file_size='M',file_name=self.FileName),
+			"FilePathS": fileToURL(file_type='image',file_size='S',file_name=self.FileName),
+			"FilePathM": fileToURL(file_type='image',file_size='M',file_name=self.FileName),
+			"FilePathR": fileToURL(file_type='image',file_size='R',file_name=self.FileName),
 			# "FileHash": self.FileHash,
 			# # "Image": base64.encodebytes(self.Image).decode('ascii'),
 			# "Image": apiCheckImageByte(self.Image),
@@ -537,16 +568,16 @@ class Sl_image(AddInf,CreatedModifiedInfo,db.Model):
 			"SlImgName": self.SlImgName,
 			"SlImgDesc": self.SlImgDesc,
 			"SlImgMainImgFileName": fileToURL(file_type="slider",file_size='M',file_name=self.SlImgName),
-			'SlImgMainImgFilePathS':fileToURL(file_type="slider",file_size='S',file_name=self.SlImgName),
-			'SlImgMainImgFilePathM':fileToURL(file_type="slider",file_size='M',file_name=self.SlImgName),
-			'SlImgMainImgFilePathR':fileToURL(file_type="slider",file_size='R',file_name=self.SlImgName),
+			"SlImgMainImgFilePathS": fileToURL(file_type="slider",file_size='S',file_name=self.SlImgName),
+			"SlImgMainImgFilePathM": fileToURL(file_type="slider",file_size='M',file_name=self.SlImgName),
+			"SlImgMainImgFilePathR": fileToURL(file_type="slider",file_size='R',file_name=self.SlImgName),
 			"SlImgSubImageFileName1": self.SlImgSubImageFileName1,
 			"SlImgSubImageFileName2": self.SlImgSubImageFileName2,
 			"SlImgSubImageFileName3": self.SlImgSubImageFileName3,
 			"SlImgSubImageFileName4": self.SlImgSubImageFileName4,
 			"SlImgSubImageFileName5": self.SlImgSubImageFileName5,
-			"SlImgStartDate": self.SlImgStartDate,
-			"SlImgEndDate": self.SlImgEndDate,
+			"SlImgStartDate": apiDataFormat(self.SlImgStartDate),
+			"SlImgEndDate": apiDataFormat(self.SlImgEndDate),
 			"AddInf1": self.AddInf1,
 			"AddInf2": self.AddInf2,
 			"AddInf3": self.AddInf3,
@@ -569,7 +600,7 @@ class Slider(AddInf,CreatedModifiedInfo,db.Model):
 	DivId = db.Column(db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
 	SlName = db.Column(db.String(100),nullable=False)
 	SlDesc = db.Column(db.String(500),default='')
-	Sl_image = db.relationship('Sl_image',backref='slider',lazy=True)
+	Sl_image = db.relationship('Sl_image',backref='slider',lazy='joined')
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():

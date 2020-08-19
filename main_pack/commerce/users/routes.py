@@ -1,6 +1,7 @@
 from flask import render_template,url_for,jsonify,session,flash,redirect,request,Response,abort
 from main_pack.commerce.users import bp
 from main_pack.config import Config
+import os
 
 # useful methods
 from main_pack import db,babel,gettext,lazy_gettext
@@ -29,49 +30,35 @@ from main_pack.base.imageMethods import save_image
 from main_pack.base.apiMethods import fileToURL
 # / Image operations /
 
-import os
-from functools import wraps
-def ui_admin_required():
-	def decorator(f):
-		@wraps(f)
-		def decorated_function(*args, **kwargs):
-			if not current_user:
-				return redirect(url_for('commerce_auth.login'))
-			elif not current_user.is_admin():
-				flash(lazy_gettext('You do not have access to that page!'), 'danger')
-				return redirect(url_for('commerce.commerce'))
-			return f(*args, **kwargs)
-		return decorated_function
-	return decorator
-
 @bp.route("/profile")
 @login_required
 def profile():
 	categoryData = UiCategoriesList()
-	rpAcc = Rp_acc.query.filter(Rp_acc.RpAccId==current_user.RpAccId).first()
+	rpAcc = Rp_acc.query.filter_by(RpAccId = current_user.RpAccId).first()
 	if rpAcc:
-		image = Image.query.filter_by(RpAccId=rpAcc.RpAccId).order_by(Image.CreatedDate.desc()).first()
+		image = Image.query\
+			.filter_by(RpAccId = rpAcc.RpAccId)\
+			.order_by(Image.CreatedDate.desc())\
+			.first()
 		if image:
 			avatar = fileToURL(file_type='image',file_size='S',file_name=image.FileName)
 		else:
 			avatar = url_for('static', filename="commerce/main/shop_icons/no_photo.png") 
 
-	return render_template ("commerce/main/users/profile.html",**categoryData,
+	return render_template("commerce/main/users/profile.html",**categoryData,
 		title=gettext('Profile'),rpAcc=rpAcc,avatar=avatar)
 
 @bp.route("/wishlist")
 @login_required
 def wishlist():
 	categoryData = UiCategoriesList()
-	rpAcc = Rp_acc.query.filter(Rp_acc.RpAccId==current_user.RpAccId).first()	
-	wishes = Wish.query\
-		.filter(and_(Wish.GCRecord=='' or Wish.GCRecord==None),\
-			Wish.RpAccId==rpAcc.RpAccId)
+	rpAcc = Rp_acc.query\
+		.filter_by(RpAccId = current_user.RpAccId)\
+		.first()
 
 	page = request.args.get('page',1,type=int)
 	pagination_wishes = Wish.query\
-		.filter(and_(Wish.GCRecord=='' or Wish.GCRecord==None),\
-			Wish.RpAccId==rpAcc.RpAccId)\
+		.filter_by(GCRecord = None, RpAccId = rpAcc.RpAccId)\
 		.order_by(Wish.CreatedDate.desc())\
 		.paginate(per_page=Config.RESOURCES_PER_PAGE,page=page)
 	product_list = []
@@ -80,7 +67,7 @@ def wishlist():
 		product['ResId'] = wish.ResId
 		product_list.append(product)
 	res = apiResourceInfo(product_list)
-	return render_template ("commerce/main/users/wishlist.html",
+	return render_template("commerce/main/users/wishlist.html",
 		**categoryData,**res,pagination_url='commerce_users.wishlist',
 		pagination_wishes=pagination_wishes,title=gettext('Wishlist'))
 
@@ -88,7 +75,9 @@ def wishlist():
 @login_required
 def profile_edit():
 	form = UpdateRpAccForm()
-	rpAcc = Rp_acc.query.filter(Rp_acc.RpAccId==current_user.RpAccId).first()
+	rpAcc = Rp_acc.query\
+		.filter_by(RpAccId = current_user.RpAccId)\
+		.first()
 	
 	if form.validate_on_submit():
 		userData = {
@@ -127,12 +116,15 @@ def profile_edit():
 	form.homePhone.data = rpAcc.RpAccHomePhoneNumber
 	form.zipCode.data = rpAcc.RpAccZipCode
 
-	image = Image.query.filter_by(RpAccId=rpAcc.RpAccId).order_by(Image.CreatedDate.desc()).first()
+	image = Image.query\
+		.filter_by(RpAccId = rpAcc.RpAccId)\
+		.order_by(Image.CreatedDate.desc())\
+		.first()
 	if image:
 		avatar = fileToURL(file_type='image',file_size='S',file_name=image.FileName)
 	else:
 		avatar = url_for('static', filename="commerce/main/shop_icons/no_photo.png") 
 
 	categoryData = UiCategoriesList()
-	return render_template ("commerce/main/users/profile_edit.html",**categoryData,
+	return render_template("commerce/main/users/profile_edit.html",**categoryData,
 		title=gettext('Edit profile'),form=form,avatar=avatar)

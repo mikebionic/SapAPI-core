@@ -1,11 +1,18 @@
 from flask import render_template,url_for,jsonify,session,flash,redirect,request,Response,abort
+
+# auth and validation
 from flask_login import current_user,login_required
+from main_pack.commerce.auth.utils import ui_admin_required
+# / auth and validation /
+
 from main_pack import db,babel,gettext,lazy_gettext
 from main_pack.commerce.admin import bp
 from main_pack.models.users.models import Users,Rp_acc
 from sqlalchemy import and_
 
 @bp.route('/ui/customers_table/', methods=['POST','DELETE'])
+@login_required
+@ui_admin_required()
 def ui_customers_table():
 	try:
 		if request.method == 'POST':
@@ -24,7 +31,7 @@ def ui_customers_table():
 					rp_acc.RpAccStatusId = RpAccStatusId
 					db.session.commit()
 				response = jsonify({
-					"status": 'updated',
+					"status": "updated",
 					"responseText": rp_acc.RpAccName+' '+gettext('successfully updated'),
 					})
 		elif request.method == 'DELETE':
@@ -41,17 +48,20 @@ def ui_customers_table():
 
 			db.session.commit()
 			response = jsonify({
-				"status": 'deleted',
+				"status": "deleted",
 				"responseText": thisRpAcc.RpAccName+' '+gettext('successfully deleted'),
 				})
 	except Exception as ex:
+		print(ex)
 		response = jsonify({
-			"status": 'error',
+			"status": "error",
 			"responseText": gettext('Unknown error!'),
 			})
 	return response
 
 @bp.route('/ui/users_table/', methods=['POST','DELETE'])
+@login_required
+@ui_admin_required()
 def ui_users_table():
 	try:
 		if request.method == 'POST':
@@ -66,7 +76,7 @@ def ui_users_table():
 					user.UTypeId = UTypeId
 					db.session.commit()
 				response = jsonify({
-					"status": 'updated',
+					"status": "updated",
 					"responseText": user.UName+' '+gettext('successfully updated'),
 					})
 		elif request.method == 'DELETE':
@@ -76,12 +86,13 @@ def ui_users_table():
 			thisUser.GCRecord = 1
 			db.session.commit()
 			response = jsonify({
-				"status": 'deleted',
+				"status": "deleted",
 				"responseText": thisUser.UName+' '+gettext('successfully deleted'),
 				})
 	except Exception as ex:
+		print(ex)
 		response = jsonify({
-			"status": 'error',
+			"status": "error",
 			"responseText": gettext('Unknown error!'),
 			})
 	return response

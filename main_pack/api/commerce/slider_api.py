@@ -1,29 +1,19 @@
+# -*- coding: utf-8 -*-
 from flask import jsonify,request,abort,make_response
 from main_pack.api.commerce import api
 
 from main_pack.models.base.models import Company,Sl_image,Slider
 from sqlalchemy import or_, and_
-from main_pack.api.auth.api_login import sha_required
+# from main_pack.api.auth.api_login import sha_required
 
 @api.route("/tbl-dk-sliders/")
-@sha_required
 def api_sliders():
-	company = Company.query.get(1)
-	sliders = Slider.query\
-		.filter(Slider.GCRecord=='' or Slider.GCRecord==None).all()
+	sliders = Slider.query.filter_by(GCRecord = None).all()
 	if request.method == 'GET':
 		data = []
 		for slider in sliders:
 			sliderList = slider.to_json_api()
-
-			sl_images = Sl_image.query\
-				.filter(and_(Sl_image.SlId==slider.SlId,Sl_image.GCRecord==None)).all()
-			
-			slider_images = []
-			for sl_image in sl_images:
-				slider_images.append(sl_image.to_json_api())
-
-			sliderList["Sl_images"] = slider_images
+			sliderList["Sl_images"] = [sl_image.to_json_api() for sl_image in slider.Sl_image if sl_image.GCRecord == None]
 			data.append(sliderList)
 		res = {
 			"status": 1,
@@ -32,4 +22,27 @@ def api_sliders():
 			"total": len(data)
 		}
 		response = make_response(jsonify(res),200)
+	return response
+
+@api.route("/tbl-dk-sliders/<SlName>/")
+def api_slider_info(SlName):
+	slider = Slider.query\
+		.filter_by(GCRecord = None, SlName = SlName)\
+		.first()
+	try:
+		data = slider.to_json_api()
+		data["Sl_images"] = [sl_image.to_json_api() for sl_image in slider.Sl_image if sl_image.GCRecord == None]
+		status_code = 200
+	except Exception as ex:
+		print(ex)
+		data = []
+		status_code = 404
+		
+	res = {
+		"status": 1,
+		"message": "Slider",
+		"data": data,
+		"total": 1
+	}
+	response = make_response(jsonify(res),status_code)
 	return response

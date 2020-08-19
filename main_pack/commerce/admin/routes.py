@@ -1,5 +1,5 @@
 from flask import render_template,url_for,session,flash,redirect,request,Response,abort
-from main_pack.commerce.admin import bp
+from main_pack.commerce.admin import bp, url_prefix
 import os
 from flask import current_app
 from main_pack.config import Config
@@ -12,7 +12,7 @@ from sqlalchemy import and_
 
 # auth and validation
 from flask_login import current_user,login_required
-from main_pack.commerce.users.routes import ui_admin_required
+from main_pack.commerce.auth.utils import ui_admin_required
 # / auth and validation /
 
 # Resource and view
@@ -46,16 +46,19 @@ from main_pack.base.imageMethods import save_image
 from main_pack.base.imageMethods import allowed_icon
 # / Image operations /
 
+
+@bp.route('/admin/language/<language>')
+def set_language(language=None):
+	session['language'] = language
+	return redirect(url_for('commerce_admin.dashboard'))
+
 @bp.route("/admin")
 @bp.route("/admin/dashboard")
 @login_required
 @ui_admin_required()
 def dashboard():
-	return render_template ("commerce/admin/dashboard.html",title=gettext('Dashboard'))
-
-@bp.route("/admin/login")
-def login():
-	return render_template ("commerce/admin/login.html",title=gettext('Login'))
+	return render_template("commerce/admin/dashboard.html",url_prefix=url_prefix,
+		title=gettext('Dashboard'))
 
 ###### categories management and shop info #######
 @bp.route("/admin/navbar")
@@ -71,16 +74,16 @@ def navbar():
 		icons = []
 		for icon in folder_icons:
 			iconInfo = {
-				'url':url_for('commerce_api.get_icon',category=folder,file_name=icon),
-				'icon_name':icon,
-				'category':folder
+				"url": url_for('commerce_api.get_icon',category=folder,file_name=icon),
+				"icon_name": icon,
+				"category": folder
 			}
 			icons.append(iconInfo)
 		category_icons[folder]=icons
 
 	commonData = commonUsedData()
-	return render_template ("commerce/admin/navbar.html",**commonData,category_icons=category_icons,
-		title=gettext('Navbar'))
+	return render_template("commerce/admin/navbar.html",url_prefix=url_prefix,
+		**commonData,category_icons=category_icons,title=gettext('Navbar'))
 
 @bp.route("/admin/category_table")
 @login_required
@@ -98,9 +101,9 @@ def category_table():
 			for icon in folder_icons:
 				if allowed_icon(icon):
 					iconInfo = {
-						'url':url_for('commerce_api.get_icon',category=folder,file_name=icon),
-						'icon_name':icon,
-						'category':folder
+						"url": url_for('commerce_api.get_icon',category=folder,file_name=icon),
+						"icon_name": icon,
+						"category": folder
 					}
 					icons.append(iconInfo)
 			category_icons[folder]=icons
@@ -114,7 +117,7 @@ def category_table():
 
 	categoriesList = [category.to_json_api() for category in categories]
 	data['categories'] = categoriesList if categoriesList else []
-	return render_template ("commerce/admin/category_table.html",
+	return render_template("commerce/admin/category_table.html",url_prefix=url_prefix,
 		**data,title=gettext('Category table'))
 ###################################
 
@@ -123,14 +126,8 @@ def category_table():
 @ui_admin_required()
 def product_table():
 	resData=apiResourceInfo(isInactive=True,fullInfo=True)
-	return render_template ("commerce/admin/product_table.html",**resData,
-		title=gettext('Product table'))
-
-@bp.route("/admin/admin_table")
-@login_required
-@ui_admin_required()
-def admin_table():
-	return render_template ("commerce/admin/admin_table.html",title=gettext('Admin table'))
+	return render_template("commerce/admin/product_table.html",url_prefix=url_prefix,
+		**resData,title=gettext('Product table'))
 
 def rp_acc_types():
 	rp_acc_types = Rp_acc_type.query\
@@ -164,7 +161,8 @@ def customers_table():
 	data = UiRpAccData()
 	data['rp_acc_statuses'] = rp_acc_statuses()
 	data['rp_acc_types'] = rp_acc_types()
-	return render_template ("commerce/admin/customers_table.html",**data,title=gettext('Customers'))
+	return render_template("commerce/admin/customers_table.html",url_prefix=url_prefix,
+		**data,title=gettext('Customers'))
 
 @bp.route("/admin/customer_details/<RpAccRegNo>")
 @login_required
@@ -174,7 +172,7 @@ def customer_details(RpAccRegNo):
 		rp_acc = Rp_acc.query\
 			.filter(Rp_acc.RpAccRegNo==RpAccRegNo).first()
 		RpAccId = rp_acc.RpAccId
-		data = UiRpAccData([{'RpAccId':RpAccId}],deleted=True)
+		data = UiRpAccData([{"RpAccId": RpAccId}],deleted=True)
 		data['rp_acc']=data['rp_accs'][0]
 
 		data['rp_acc_statuses'] = rp_acc_statuses()
@@ -193,7 +191,7 @@ def customer_details(RpAccRegNo):
 	except Exception as ex:
 		print(ex)
 		return redirect(url_for('commerce_admin.customers_table'))
-	return render_template ("commerce/admin/customer_details.html",
+	return render_template("commerce/admin/customer_details.html",url_prefix=url_prefix,
 		**data,**orderInvRes,title=gettext('Customer details'))
 
 @bp.route("/admin/register_customer",methods=['GET','POST'])
@@ -284,7 +282,7 @@ def register_customer():
 			print(ex)
 			flash(lazy_gettext('Error occured, please try again.'),'danger')
 			return redirect(url_for('commerce_admin.register_customer'))
-	return render_template ("commerce/admin/register_customer.html",
+	return render_template("commerce/admin/register_customer.html",url_prefix=url_prefix,
 		form=form,title=gettext('Register'))
 
 ################################
@@ -296,14 +294,15 @@ def register_customer():
 def users_table():
 	data = UiUsersData()
 	data['user_types'] = user_types()
-	return render_template ("commerce/admin/users_table.html",**data,title=gettext('Users'))
+	return render_template("commerce/admin/users_table.html",url_prefix=url_prefix,
+		**data,title=gettext('Users'))
 
 @bp.route("/admin/user_details/<UId>")
 @login_required
 @ui_admin_required()
 def user_details(UId):
 	try:
-		data = UiUsersData([{'UId':UId}],deleted=True)
+		data = UiUsersData([{"UId": UId}],deleted=True)
 		data['user']=data['users'][0]
 		data['user_types'] = user_types()
 		rp_accs = Rp_acc.query\
@@ -311,7 +310,7 @@ def user_details(UId):
 				Rp_acc.UId==UId).all()
 		rp_acc_list = []
 		for rp_acc in rp_accs:
-			obj={'RpAccId':rp_acc.RpAccId}
+			obj={"RpAccId": rp_acc.RpAccId}
 			rp_acc_list.append(obj)
 		rp_accs = UiRpAccData(rp_acc_list,deleted=True)
 		data['rp_acc_statuses'] = rp_acc_statuses()
@@ -319,7 +318,7 @@ def user_details(UId):
 	except Exception as ex:
 		print(ex)
 		return redirect(url_for('commerce_admin.users_table'))
-	return render_template ("commerce/admin/user_details.html",
+	return render_template("commerce/admin/user_details.html",url_prefix=url_prefix,
 		**data,**rp_accs,title=gettext('Customer details'))
 
 @bp.route("/admin/register_user",methods=['GET','POST'])
@@ -371,7 +370,7 @@ def register_user():
 			print(ex)
 			flash(lazy_gettext('Error occured, please try again.'),'danger')
 			return redirect(url_for('commerce_admin.register_user'))
-	return render_template ("commerce/admin/register_user.html",
+	return render_template("commerce/admin/register_user.html",url_prefix=url_prefix,
 		form=form,title=gettext('Register'))
 
 #################################
@@ -392,8 +391,8 @@ def order_invoices():
 		orders_list.append(order)
 	orderInvRes = UiOInvData(orders_list)
 
-	return render_template ("commerce/admin/order_invoices.html",**orderInvRes,
-		title=gettext('Order invoices'))
+	return render_template("commerce/admin/order_invoices.html",url_prefix=url_prefix,
+		**orderInvRes,title=gettext('Order invoices'))
 
 @bp.route("/admin/order_invoices/<OInvRegNo>",methods=['GET','POST'])
 @login_required
@@ -403,7 +402,7 @@ def order_inv_lines(OInvRegNo):
 		.filter(and_(Order_inv.GCRecord=='' or Order_inv.GCRecord==None),
 								Order_inv.OInvRegNo==OInvRegNo).first()
 	OInvId = orderInvoice.OInvId
-	orderInvRes = UiOInvData([{'OInvId':OInvId}])
+	orderInvRes = UiOInvData([{"OInvId": OInvId}])
 
 	orderInvLines = Order_inv_line.query\
 		.filter(and_(Order_inv_line.GCRecord=='' or Order_inv_line.GCRecord==None),
@@ -421,8 +420,8 @@ def order_inv_lines(OInvRegNo):
 	invoice_statuses = []
 	for inv_stat in inv_statuses:
 		invoice_statuses.append(dataLangSelector(inv_stat.to_json_api()))
-	InvoiceStatuses = {'inv_statuses':invoice_statuses}
-	return render_template ("commerce/admin/order_inv_lines.html",
+	InvoiceStatuses = {"inv_statuses": invoice_statuses}
+	return render_template("commerce/admin/order_inv_lines.html",url_prefix=url_prefix,
 		**orderInvLineRes,**InvoiceStatuses,**orderInvRes,title=gettext('Order invoices'))
 #########################################
 
@@ -431,17 +430,20 @@ def order_inv_lines(OInvRegNo):
 @ui_admin_required()
 def add_product():
 	resData=resRelatedData()
-	return render_template ("commerce/admin/add_product.html",**resData,title=gettext('Add product'))
+	return render_template("commerce/admin/add_product.html",url_prefix=url_prefix,
+		**resData,title=gettext('Add product'))
 
 
 @bp.route("/admin/sale_repots_table")
 @login_required
 @ui_admin_required()
 def sale_repots_table():
-	return render_template ("commerce/admin/sale_repots_table.html",title=gettext('Sale reports'))
+	return render_template("commerce/admin/sale_repots_table.html",url_prefix=url_prefix,
+		title=gettext('Sale reports'))
 
 @bp.route("/admin/sale_repots_table2")
 @login_required
 @ui_admin_required()
 def sale_repots_table2():
-	return render_template ("commerce/admin/sale_repots_table2.html",title=gettext('Sale reports2'))
+	return render_template("commerce/admin/sale_repots_table2.html",url_prefix=url_prefix,
+		title=gettext('Sale reports'))

@@ -3,14 +3,13 @@
 	<li class="menu-item menu-item-has-children has-megamenu">
 		<div class="form-group">
 			<a href="#" class="menu-name" {% if category.ResCatDesc %} title="{{ category.ResCatDesc }}" {% endif %}>
-		  	{% if category.ResCatIconFilePath %}<img class="img-fluid" src="{{category.ResCatIconFilePath}}">{%endif%}
+		  	{% if category.ResCatIconFilePath %}<img loading="lazy" class="img-fluid" src="{{category.ResCatIconFilePath}}">{%endif%}
 		  </a>{{ category.ResCatName }}
 			<a href="#" class="removeCategoryBtn" categoryOwner="{{ category.ResCatId }}"><i class="fas fa-times" style="padding-left: 7px;"></i></a>
 		</div>
 		<div class="wrap-megamenu lg-width-300 md-width-640">
 			<div class="mega-content">
 				<div class="row">
-					<!-- categorylist of subcategory with it's ownerId to sort -->
 					<div class="col-lg-9 col-md-4 col-sm-12 xs-margin-bottom-25 md-margin-bottom-0 categoriesList{{ category.ResCatId }}">
 						<div class="wrap-custom-menu vertical-menu">
 							<h4 class="menu-title subcategory-menu">
@@ -40,8 +39,6 @@
 			</ul>
 		</div>
 	</div>
-
-	<!-- some divider here -->
 
 {% elif child_status == "subcategory_child" %}
 	<div>
