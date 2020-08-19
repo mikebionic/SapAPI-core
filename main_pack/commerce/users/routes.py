@@ -30,7 +30,8 @@ from main_pack.base.imageMethods import save_image
 from main_pack.base.apiMethods import fileToURL
 # / Image operations /
 
-@bp.route("/profile")
+
+@bp.route(Config.COMMERCE_PROFILE_PAGE)
 @login_required
 def profile():
 	categoryData = UiCategoriesList()
@@ -48,7 +49,7 @@ def profile():
 	return render_template("commerce/main/users/profile.html",**categoryData,
 		title=gettext('Profile'),rpAcc=rpAcc,avatar=avatar)
 
-@bp.route("/wishlist")
+@bp.route(Config.COMMERCE_WISHLIST_PAGE)
 @login_required
 def wishlist():
 	categoryData = UiCategoriesList()
@@ -71,7 +72,7 @@ def wishlist():
 		**categoryData,**res,pagination_url='commerce_users.wishlist',
 		pagination_wishes=pagination_wishes,title=gettext('Wishlist'))
 
-@bp.route("/profile_edit",methods=['GET','POST'])
+@bp.route(Config.COMMERCE_PROFILE_EDIT_PAGE,methods=['GET','POST'])
 @login_required
 def profile_edit():
 	form = UpdateRpAccForm()

@@ -3,6 +3,7 @@ from flask_login import current_user,login_required
 from main_pack import db,babel,gettext,lazy_gettext
 from main_pack.commerce.users import bp
 from main_pack.commerce.commerce.utils import UiCategoriesList
+from main_pack.config import Config
 # change this for something else
 
 from main_pack.models.commerce.models import (Inv_line,Inv_line_det,Inv_line_det_type,
@@ -10,7 +11,7 @@ from main_pack.models.commerce.models import (Inv_line,Inv_line_det,Inv_line_det
 from main_pack.commerce.commerce.order_utils import UiOInvData,UiOInvLineData
 from sqlalchemy import and_
 
-@bp.route("/orders")
+@bp.route(Config.COMMERCE_ORDERS_PAGE)
 @login_required
 def orders():
 	orderInvoices = Order_inv.query\
@@ -29,7 +30,7 @@ def orders():
 	return render_template("commerce/main/users/orders.html",**categoryData,**res,
 		title=gettext('Orders'))
 
-@bp.route("/orders/<OInvRegNo>")
+@bp.route(Config.COMMERCE_ORDERS_PAGE+"/<OInvRegNo>")
 @login_required
 def order_lines(OInvRegNo):
 	orderInvoice = Order_inv.query\

@@ -10,7 +10,8 @@ from main_pack.api.commerce.commerce_utils import apiResourceInfo
 
 # db Models
 from main_pack.models.commerce.models import (Resource,
-																							Barcode)
+																							Barcode,
+																							Res_total)
 # / db Models /
 
 @api.route("/v-full-resources/")
@@ -121,15 +122,17 @@ def api_paginate_resources():
 	if offset is None:
 		latestResource = Resource.query\
 			.filter_by(GCRecord = None, UsageStatusId = 1)\
+			.join(Res_total, Res_total.ResId == Resource.ResId)\
+			.filter(Res_total.ResTotBalance > 0)\
 			.order_by(Resource.ResId.desc())\
 			.first()
 		offset = latestResource.ResId+1
 
 	pagination = Resource.query\
-		.filter(and_(
-			GCRecord == None,\
-			Resource.ResId < offset,\
-			Resource.UsageStatusId == 1))\
+		.filter_by(GCRecord = None, UsageStatusId = 1)\
+		.filter(Resource.ResId < offset)\
+		.join(Res_total, Res_total.ResId == Resource.ResId)\
+		.filter(Res_total.ResTotBalance > 0)\
 		.order_by(Resource.ResId.desc())\
 		.paginate(
 			per_page=limit,
@@ -138,17 +141,17 @@ def api_paginate_resources():
 	resources = pagination.items
 
 	nextLast = Resource.query\
-		.filter(and_(
-			Resource.GCRecord == None,\
-			Resource.ResId < (offset-limit+1),\
-			Resource.UsageStatusId == 1))\
+		.filter_by(GCRecord = None, UsageStatusId = 1)\
+		.filter(Resource.ResId < (offset-limit+1))\
+		.join(Res_total, Res_total.ResId == Resource.ResId)\
+		.filter(Res_total.ResTotBalance > 0)\
 		.order_by(Resource.ResId.desc())\
 		.first()
 	prevLast = Resource.query\
-		.filter(and_(
-			Resource.GCRecord == None,\
-			Resource.ResId < (offset+limit+1),\
-			Resource.UsageStatusId == 1))\
+		.filter_by(GCRecord = None, UsageStatusId = 1)\
+		.filter(Resource.ResId < (offset+limit+1))\
+		.join(Res_total, Res_total.ResId == Resource.ResId)\
+		.filter(Res_total.ResTotBalance > 0)\
 		.order_by(Resource.ResId.desc())\
 		.first()
 

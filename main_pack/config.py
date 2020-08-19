@@ -110,3 +110,21 @@ class Config:
 	# SESSION_COOKIE_SECURE=True,
 	# SESSION_COOKIE_HTTPONLY=True,
 	# SESSION_COOKIE_SAMESITE='Lax'
+
+	# view routes naming configurations
+	COMMERCE_HOME_PAGE = "/commerce"
+	COMMERCE_ABOUT_PAGE = "/about"
+	COMMERCE_COLLECTION_VIEW = "/collection"
+	COMMERCE_CONTACTS_PAGE = "/contact"
+
+	COMMERCE_PROFILE_PAGE = "/profile"
+	COMMERCE_PROFILE_EDIT_PAGE = "/profile_edit"
+	COMMERCE_WISHLIST_PAGE = "/wishlist"
+	COMMERCE_ORDERS_PAGE = "/orders"
+
+
+	COMMERCE_CART_VIEW = "/cart"
+	COMMERCE_LIST_VIEW = "/v-list"
+	COMMERCE_GRID_VIEW = "/v-grid"
+	COMMERCE_RESOURCE_VIEW = "/product"
+	# view routes naming configurations

@@ -12,19 +12,21 @@ from flask_login import current_user,login_required
 # / auth and validation /
 
 # Resource and view
+from main_pack.base.invoiceMethods import resource_config_check
 from main_pack.api.commerce.commerce_utils import apiResourceInfo
-from main_pack.models.commerce.models import Resource
+from main_pack.models.commerce.models import Resource,Res_total
 from main_pack.commerce.commerce.utils import UiCategoriesList,uiSortingData
 from main_pack.api.commerce.commerce_utils import UiCartResourceData
 # / Resource and view /
 
-@bp.route("/v-list")
+@bp.route(Config.COMMERCE_LIST_VIEW)
 def v_list():
 	url_prefix = request.url_rule.rule
 	page = request.args.get('page',1,type=int)
 	pagination_resources = Resource.query\
-		.filter(and_(Resource.GCRecord=='' or Resource.GCRecord==None),\
-			Resource.UsageStatusId==1)\
+		.filter_by(GCRecord = None, UsageStatusId = 1)\
+		.join(Res_total, Res_total.ResId == Resource.ResId)\
+		.filter(Res_total.ResTotBalance > 0)\
 		.order_by(Resource.CreatedDate.desc())\
 		.paginate(per_page=Config.RESOURCES_PER_PAGE,page=page)
 	product_list = []
@@ -39,12 +41,13 @@ def v_list():
 		**sortingData,**res,title=gettext('Category'),pagination_url='commerce.v_list',
 		pagination_resources=pagination_resources)
 
-@bp.route("/v-grid")
+@bp.route(Config.COMMERCE_GRID_VIEW)
 def v_grid():
 	page = request.args.get('page',1,type=int)
 	pagination_resources = Resource.query\
-		.filter(and_(Resource.GCRecord=='' or Resource.GCRecord==None),\
-			Resource.UsageStatusId==1)\
+		.filter_by(GCRecord = None, UsageStatusId = 1)\
+		.join(Res_total, Res_total.ResId == Resource.ResId)\
+		.filter(Res_total.ResTotBalance > 0)\
 		.order_by(Resource.CreatedDate.desc())\
 		.paginate(per_page=Config.RESOURCES_PER_PAGE,page=page)
 	product_list = []
@@ -59,7 +62,7 @@ def v_grid():
 		**sortingData,**res,title=gettext('Category'),pagination_url='commerce.v_grid',
 		pagination_resources=pagination_resources)
 
-@bp.route("/product/<int:ResId>")
+@bp.route(Config.COMMERCE_RESOURCE_VIEW+"/<int:ResId>")
 def product(ResId):
 	product_list=[
 		{
