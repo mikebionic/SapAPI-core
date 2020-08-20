@@ -33,7 +33,6 @@ def api_res_totals():
 			
 		else:
 			req = request.get_json()
-			print(req)
 			res_totals = []
 			failed_res_totals = [] 
 			for res_total in req:

@@ -26,7 +26,9 @@ def v_list():
 	pagination_resources = Resource.query\
 		.filter_by(GCRecord = None, UsageStatusId = 1)\
 		.join(Res_total, Res_total.ResId == Resource.ResId)\
-		.filter(Res_total.ResTotBalance > 0)\
+		.filter(and_(
+			Res_total.WhId == 1, 
+			Res_total.ResTotBalance > 0))\
 		.order_by(Resource.CreatedDate.desc())\
 		.paginate(per_page=Config.RESOURCES_PER_PAGE,page=page)
 	product_list = []
@@ -48,7 +50,9 @@ def v_grid():
 	pagination_resources = Resource.query\
 		.filter_by(GCRecord = None, UsageStatusId = 1)\
 		.join(Res_total, Res_total.ResId == Resource.ResId)\
-		.filter(Res_total.ResTotBalance > 0)\
+		.filter(and_(
+			Res_total.WhId == 1, 
+			Res_total.ResTotBalance > 0))\
 		.order_by(Resource.CreatedDate.desc())\
 		.paginate(per_page=Config.RESOURCES_PER_PAGE,page=page)
 	product_list = []
@@ -155,7 +159,9 @@ def v_list_search():
 		pagination_resources = Resource.query\
 			.filter_by(GCRecord = None, UsageStatusId = 1)\
 			.join(Res_total, Res_total.ResId == Resource.ResId)\
-			.filter(Res_total.ResTotBalance > 0)\
+			.filter(and_(
+				Res_total.WhId == 1, 
+				Res_total.ResTotBalance > 0))\
 			.order_by(Resource.CreatedDate.desc())\
 			.paginate(per_page=Config.RESOURCES_PER_PAGE,page=page)
 		product_list = []

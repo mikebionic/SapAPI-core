@@ -116,7 +116,6 @@ def addResourceDict(req):
 		"GCRecord": GCRecord
 	}
 	if(ResId != '' and ResId != None):
-		print(ResId)
 		resource['ResId'] = ResId
 	resource=configureNulls(resource)
 	return resource

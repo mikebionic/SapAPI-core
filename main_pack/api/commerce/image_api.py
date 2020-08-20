@@ -43,12 +43,8 @@ def api_images():
 			failed_images = []
 			for image in req:
 				imageDictData = addImageDict(image)
-				print(imageDictData)
 				try:
 					resource = ResId_list.index(imageDictData['ResId'])
-					if not resource:
-						print('resource is none')
-						raise Exception
 					if not 'ImgId' in imageDictData:
 						image = saveImageFile(image)
 						newImage = Image(**image)

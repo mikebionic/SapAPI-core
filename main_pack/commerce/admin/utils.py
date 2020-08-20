@@ -353,7 +353,6 @@ def addResPriceDict(req):
 	ResPriceValue = configureFloat(req.get('resPriceValue'))
 	PriceStartDate = req.get('priceStartDate')
 	PriceEndDate = req.get('priceEndDate')
-	print(ResPriceValue)
 	res_price = {
 		# "ResPriceId": ResPriceId,
 		"ResPriceTypeId": ResPriceTypeId,

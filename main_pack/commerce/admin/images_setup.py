@@ -112,11 +112,9 @@ def slider_images(SlId):
 		sliderForm = SliderImageForm()
 
 		if "sliderForm" in request.form and sliderForm.validate_on_submit():
-			print(request.form)
 			if sliderForm.sliderImage.data:
 
 				imageFile = save_image(imageForm=sliderForm.sliderImage.data,module=os.path.join("uploads","commerce","Slider"),id=slider.SlId)
-				print(sliderForm.SlImgStartDate.data)
 				image = Sl_image(
 					SlImgName=imageFile['FileName'],
 					SlImgDesc=sliderForm.sliderImageDesc.data,

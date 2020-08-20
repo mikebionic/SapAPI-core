@@ -25,12 +25,10 @@ def ui_res_translations():
 	if request.method == 'POST':
 		req = request.get_json()
 		resTrans = addResTransDict(req)
-		print(resTrans)
 		resTransId = req.get('resTransId')
 		if (resTransId == '' or resTransId == None):
 			newTranslation = Res_translations(**resTrans)
 			db.session.add(newTranslation)
-			print(newTranslation)
 			db.session.commit()
 			response = jsonify({
 				"resTransId": newTranslation.ResTransId,
@@ -38,7 +36,6 @@ def ui_res_translations():
 				"responseText": gettext('Translation')+' '+gettext('successfully saved'),
 				"htmlData":  render_template('/commerce/admin/resTransAppend.html',**baseTemplate,resTrans=newTranslation)
 				})
-			print(response)
 		else:
 			try:
 				updateTranslation = Res_translations.query.get(int(resTransId))
@@ -52,6 +49,7 @@ def ui_res_translations():
 						"htmlData":  render_template('/commerce/admin/resTransAppend.html',**baseTemplate,resTrans=updateTranslation)
 					})
 			except Exception as ex:
+				print(ex)
 				response = jsonify({
 					"status": "error",
 					"responseText": gettext('Unknown error!'),

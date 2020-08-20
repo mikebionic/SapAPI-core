@@ -119,7 +119,6 @@ def ui_order_inv():
 								Res_total.GCRecord == '' or Res_total.GCRecord == None),\
 								Res_total.ResId == thisOInvLine.ResId).first()
 
-						print(res_total.ResTotBalance)
 						pastQty = thisOInvLine.OInvLineAmount
 						if (pastQty<OInvLineAmount):
 							resulting_changes = OInvLineAmount-pastQty

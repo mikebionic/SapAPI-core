@@ -33,7 +33,6 @@ def api_res_prices():
 			
 		else:
 			req = request.get_json()
-			print(req)
 			res_prices = []
 			failed_res_prices = [] 
 			for res_price in req:

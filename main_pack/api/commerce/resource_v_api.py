@@ -123,7 +123,9 @@ def api_paginate_resources():
 		latestResource = Resource.query\
 			.filter_by(GCRecord = None, UsageStatusId = 1)\
 			.join(Res_total, Res_total.ResId == Resource.ResId)\
-			.filter(Res_total.ResTotBalance > 0)\
+			.filter(and_(
+				Res_total.WhId == 1, 
+				Res_total.ResTotBalance > 0))\
 			.order_by(Resource.ResId.desc())\
 			.first()
 		offset = latestResource.ResId+1
@@ -132,7 +134,9 @@ def api_paginate_resources():
 		.filter_by(GCRecord = None, UsageStatusId = 1)\
 		.filter(Resource.ResId < offset)\
 		.join(Res_total, Res_total.ResId == Resource.ResId)\
-		.filter(Res_total.ResTotBalance > 0)\
+		.filter(and_(
+			Res_total.WhId == 1, 
+			Res_total.ResTotBalance > 0))\
 		.order_by(Resource.ResId.desc())\
 		.paginate(
 			per_page=limit,
@@ -144,14 +148,18 @@ def api_paginate_resources():
 		.filter_by(GCRecord = None, UsageStatusId = 1)\
 		.filter(Resource.ResId < (offset-limit+1))\
 		.join(Res_total, Res_total.ResId == Resource.ResId)\
-		.filter(Res_total.ResTotBalance > 0)\
+		.filter(and_(
+			Res_total.WhId == 1, 
+			Res_total.ResTotBalance > 0))\
 		.order_by(Resource.ResId.desc())\
 		.first()
 	prevLast = Resource.query\
 		.filter_by(GCRecord = None, UsageStatusId = 1)\
 		.filter(Resource.ResId < (offset+limit+1))\
 		.join(Res_total, Res_total.ResId == Resource.ResId)\
-		.filter(Res_total.ResTotBalance > 0)\
+		.filter(and_(
+			Res_total.WhId == 1, 
+			Res_total.ResTotBalance > 0))\
 		.order_by(Resource.ResId.desc())\
 		.first()
 

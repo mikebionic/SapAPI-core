@@ -33,7 +33,6 @@ def api_work_periods():
 			
 		else:
 			req = request.get_json()
-			print(req)
 			work_periods = []
 			failed_work_periods = [] 
 			for work_period in req:

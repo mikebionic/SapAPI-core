@@ -62,6 +62,5 @@ def api_order_inv_lines():
 			for e in status:
 				res[e]=status[e]
 			response = make_response(jsonify(res),200)
-			print(response)
 
 	return response
