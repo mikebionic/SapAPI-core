@@ -17,7 +17,7 @@ from main_pack.api.commerce.commerce_utils import apiResourceInfo
 def api_resource(ResId):
 	resource_list = [{'ResId':ResId}]
 	res = apiResourceInfo(resource_list,single_object=True,isInactive=True,fullInfo=True)
-	if res['status']==1:
+	if res['status'] == 1:
 		status_code = 200
 	else:
 		status_code = 404
@@ -42,7 +42,7 @@ def api_resource(ResId):
 def api_resources():
 	if request.method == 'GET':
 		res = apiResourceInfo(isInactive=True,fullInfo=True)
-		if res['status']==0:
+		if res['status'] == 0:
 			status_code = 404
 		else:
 			status_code = 200
@@ -67,45 +67,44 @@ def api_resources():
 				# category is resource's AddInf2
 				group = resource['AddInf2']
 				if group:
-					category = Res_category.query.filter_by(ResCatName = group).first()
-					if not category:
-						category = Res_category(ResCatName=group)
-						db.session.add(category)
-						db.session.commit()
-						resource['ResCatId']=category.ResCatId
-					else:
-						resource['ResCatId']=category.ResCatId
-				# /special synchronizer method
+					try:
+						category = Res_category.query\
+							.filter_by(GCRecord = None, ResCatName = group)\
+							.first()
+						if not category:
+							new_category = Res_category(ResCatName = group)
+							db.session.add(new_category)
+							db.session.commit()
+							newCategoryId = new_category.ResCatId
+						else:
+							newCategoryId = category.ResCatId
+						resource['ResCatId'] = newCategoryId
+					except Exception as ex:
+						print(ex)
+				# / special synchronizer method /
 
 				# check that UsageStatusId specified
-				if resource['UsageStatusId']==None or '':
-					resource['UsageStatusId']=2
+				if resource['UsageStatusId'] == None or resource['UsageStatusId'] == '':
+					resource['UsageStatusId'] = 2
 
 				try:
-					if not 'ResId' in resource:
-						newResource = Resource(**resource)
-						db.session.add(newResource)
-						db.session.commit()
+					ResRegNo = resource['ResRegNo']
+					thisResource = Resource.query\
+						.filter(ResRegNo = ResRegNo)\
+						.first()
+					if thisResource is not None:
+						thisResource.update(**resource)
+						# thisResource.modifiedInfo(UId=1)
 						resources.append(resource)
 					else:
-						ResId = resource['ResId']
-						thisResource = Resource.query.get(int(ResId))
+						# create new resource
+						newResource = Resource(**resource)
+						db.session.add(newResource)
+						resources.append(resource)
 						# check for presenting in database
-						if thisResource is not None:
-							thisResource.update(**resource)
-							# thisResource.modifiedInfo(UId=1)
-							db.session.commit()
-							resources.append(resource)
-
-						else:
-							# create new resource
-							newResource = Resource(**resource)
-							db.session.add(newResource)
-							db.session.commit()
-							resources.append(resource)
 				except Exception as ex:
 					failed_resources.append(resource)
-
+			db.session.commit()
 			status = checkApiResponseStatus(resources,failed_resources)
 			res = {
 				"data": resources,
@@ -114,8 +113,8 @@ def api_resources():
 				"fail_total": len(failed_resources)
 			}
 			for e in status:
-				res[e]=status[e]
-			if res['status']==0:
+				res[e] = status[e]
+			if res['status'] == 0:
 				status_code = 400
 			else:
 				status_code = 201

@@ -86,9 +86,10 @@ def api_order_invoices():
 						thisOrderInv.update(**order_invoice)
 						db.session.commit()
 
-						# if status: "returned" (id=9), all lines should 
-						# update res_total.ResPendingTotalAmount
-						thisInvStatus = order_invoice['InvStatId']
+						# if status: "returned" or "cancelled" (id=9, id=5) 
+						# all lines should update 
+						# res_total.ResPendingTotalAmount
+						thisInvStatus = thisOrderInv.InvStatId
 
 					else:
 						thisOrderInv = Order_inv(**order_invoice)
@@ -101,13 +102,13 @@ def api_order_invoices():
 						order_inv_line = addOrderInvLineDict(order_inv_line)
 						order_inv_line['OInvId'] = thisOrderInv.OInvId
 						try:
-							OInvLineRegNo = order_invoice['OInvLineRegNo']
+							OInvLineRegNo = order_inv_line['OInvLineRegNo']
 							thisOrderInvLine = Order_inv_line.query\
 								.filter_by(OInvLineRegNo = OInvLineRegNo)\
 								.first()
 							if thisOrderInvLine:
 								thisOrderInvLine.update(**order_inv_line)
-								if thisInvStatus == 9:
+								if thisInvStatus == 9 or thisInvStatus == 5:
 									try:
 										order_res_total = Res_total.query\
 											.filter_by(ResId = thisOrderInvLine.ResId)\
@@ -141,7 +142,7 @@ def api_order_invoices():
 				"fail_total": len(failed_order_invoices),
 			}
 			for e in status:
-				res[e]=status[e]
+				res[e] = status[e]
 			response = make_response(jsonify(res),200)
 
 	return response
@@ -166,8 +167,8 @@ def api_v_order_invoices(user):
 	model_type = user['model_type']
 	current_user = user['current_user']
 	res = apiOrderInvInfo(startDate=startDate,
-																	endDate=endDate,
-																	rp_acc_user=current_user)
+												endDate=endDate,
+												rp_acc_user=current_user)
 	status_code = 200
 	response = make_response(jsonify(res),status_code)
 	return response
@@ -179,9 +180,9 @@ def api_v_order_invoice(user,OInvRegNo):
 	current_user = user['current_user']
 	invoice_list = [{"OInvRegNo": OInvRegNo}]
 	res = apiOrderInvInfo(invoice_list=invoice_list,
-																	single_object=True,
-																	rp_acc_user=current_user)
-	if res['status']==1:
+												single_object=True,
+												rp_acc_user=current_user)
+	if res['status'] == 1:
 		status_code = 200
 	else:
 		status_code = 404

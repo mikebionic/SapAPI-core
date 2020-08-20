@@ -40,7 +40,6 @@ def api_warehouses():
 					if not 'WhId' in warehouse:
 						newWarehouse = Warehouse(**warehouse)
 						db.session.add(newWarehouse)
-						db.session.commit()
 						warehouses.append(warehouse)
 					else:
 						WhId = warehouse['WhId']
@@ -49,19 +48,16 @@ def api_warehouses():
 							# check for presenting in database
 							thisWarehouse.update(**warehouse)
 							# thisWarehouse.modifiedInfo(UId=1)
-							db.session.commit()
 							warehouses.append(warehouse)
-
 						else:
 							# create new warehouse
 							newWarehouse = Warehouse(**warehouse)
 							db.session.add(newWarehouse)
-							db.session.commit()
 							warehouses.append(warehouse)
 				except Exception as ex:
 					print(ex)
 					failed_warehouses.append(warehouse)
-
+			db.session.commit()
 			status = checkApiResponseStatus(warehouses,failed_warehouses)
 			res = {
 				"data": warehouses,
@@ -70,7 +66,7 @@ def api_warehouses():
 				"fail_total": len(failed_warehouses)
 			}
 			for e in status:
-				res[e]=status[e]
+				res[e] = status[e]
 			response = make_response(jsonify(res),200)
 			
 	return response

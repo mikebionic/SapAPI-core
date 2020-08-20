@@ -49,17 +49,22 @@ def api_post_categories():
 			req = request.get_json()
 			categories = []
 			failed_categories = [] 
-			for category in req:
-				category = addCategoryDict(category)
+			for category_req in req:
 				try:
-					newCategory = Res_category(**category)
-					db.session.add(newCategory)
-					db.session.commit()
-					categories.append(category)
+					new_category = addCategoryDict(category_req)
+					category = Res_category.query\
+						.filter_by(ResCatName = new_category.ResCatName)\
+						.first()
+					if not category:
+						category = Res_category(**new_category)
+						db.session.add(category)
+					else:
+						category.update(**new_category)
+					categories.append(new_category)
 				except Exception as ex:
 					print(ex)
-					failed_categories.append(category)
-
+					failed_categories.append(new_category)
+			db.session.commit()
 			status = checkApiResponseStatus(categories,failed_categories)
 			res = {
 				"data": categories,
@@ -68,7 +73,7 @@ def api_post_categories():
 				"fail_total": len(failed_categories)
 			}
 			for e in status:
-				res[e]=status[e]
+				res[e] = status[e]
 			response = make_response(jsonify(res),200)	
 	return response
 

@@ -708,6 +708,7 @@ class Order_inv_line(AddInf,CreatedModifiedInfo,db.Model):
 			"CurrencyId": self.CurrencyId,
 			"ResId": self.ResId,
 			"LastVendorId": self.LastVendorId,
+			"OInvLineRegNo": self.OInvLineRegNo,
 			"OInvLineDesc": self.OInvLineDesc,
 			"OInvLineAmount": configureFloat(self.OInvLineAmount),
 			"OInvLinePrice": configureFloat(self.OInvLinePrice),

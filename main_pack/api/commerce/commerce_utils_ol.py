@@ -185,7 +185,7 @@ def apiResourceInfo(resource_list=None,single_object=False,isDeleted=False,isIna
 			"fail_total": len(fails)
 	}
 	for e in status:
-		res[e]=status[e]
+		res[e] = status[e]
 	return res
 
 def UiCartResourceData(product_list):

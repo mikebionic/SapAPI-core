@@ -64,7 +64,6 @@ def api_rp_acc_trans_totals():
 					print(ex)
 					failed_rp_acc_trans_totals.append(rp_acc_trans_total)
 			db.session.commit()
-
 			status = checkApiResponseStatus(rp_acc_trans_totals,failed_rp_acc_trans_totals)
 			res = {
 				"data": rp_acc_trans_totals,
@@ -73,6 +72,6 @@ def api_rp_acc_trans_totals():
 				"fail_total": len(failed_rp_acc_trans_totals)
 			}
 			for e in status:
-				res[e]=status[e]
+				res[e] = status[e]
 			response = make_response(jsonify(res),200)
 	return response

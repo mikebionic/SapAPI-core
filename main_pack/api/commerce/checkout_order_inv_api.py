@@ -174,7 +174,7 @@ def api_checkout_sale_order_invoices(user):
 			}
 			status_code = 400
 			for e in status:
-				res[e]=status[e]
+				res[e] = status[e]
 		
 		else:
 			OInvFTotal = OInvTotal
@@ -200,7 +200,7 @@ def api_checkout_sale_order_invoices(user):
 			}
 			status_code = 200
 			for e in status:
-				res[e]=status[e]
+				res[e] = status[e]
 
 	except Exception as ex:
 		print(ex)
