@@ -101,6 +101,16 @@ def ui_category_table():
 			req = request.get_json()
 			categoryId = req.get('categoryId')
 			thisCategory = Res_category.query.get(categoryId)
+
+			# checking for presense of resources in this category
+			category_resources = [resource for resource in thisCategory.Resource if resource.GCRecord == None]
+			if category_resources:
+				response = jsonify({
+					"status": "error",
+					"responseText": gettext('Error')+', '+gettext('category has resources, delete related resources first and try again.'),
+					})
+				return response
+
 			thisCategory.GCRecord = 1
 			db.session.commit()
 			response = jsonify({
