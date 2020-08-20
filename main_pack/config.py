@@ -111,7 +111,8 @@ class Config:
 	# SESSION_COOKIE_HTTPONLY=True,
 	# SESSION_COOKIE_SAMESITE='Lax'
 
-	# view routes naming configurations
+	# view routes naming configuration
+	# put the route names to be used to access the pages
 	COMMERCE_HOME_PAGE = "/commerce"
 	COMMERCE_ABOUT_PAGE = "/about"
 	COMMERCE_COLLECTION_VIEW = "/collection"
@@ -127,4 +128,29 @@ class Config:
 	COMMERCE_LIST_VIEW = "/v-list"
 	COMMERCE_GRID_VIEW = "/v-grid"
 	COMMERCE_RESOURCE_VIEW = "/product"
-	# view routes naming configurations
+	# / view routes naming configuration /
+
+	# view route titles configuration
+	# Info to be displayed in html: <title>Home page</title>
+	# set to None if dont want to display anything 
+	COMMERCE_HOME_PAGE_TITLE = None
+	COMMERCE_ABOUT_PAGE_TITLE = "About us"
+	COMMERCE_COLLECTION_VIEW_TITLE = "Collection"
+	COMMERCE_CONTACTS_PAGE_TITLE = "Contact"
+
+	COMMERCE_PROFILE_PAGE_TITLE = "Profile"
+	COMMERCE_PROFILE_EDIT_PAGE_TITLE = "Edit profile"
+	COMMERCE_WISHLIST_PAGE_TITLE = "Wishlist"
+	COMMERCE_ORDERS_PAGE_TITLE = "Orders"
+
+
+	COMMERCE_CART_VIEW_TITLE = "Cart"
+	COMMERCE_LIST_VIEW_TITLE = "Category"
+	COMMERCE_GRID_VIEW_TITLE = "Category"
+	COMMERCE_RESOURCE_VIEW_TITLE = "Product"
+	COMMERCE_SEARCH_VIEW_TITLE = "Search"
+	COMMERCE_SORT_VIEW_TITLE = "Filter"
+	# / view route titles configuration /
+
+	# tag resources as new if they exist **amount** days
+	COMMERCE_RESOURCE_NEWNESS_DAYS = 10

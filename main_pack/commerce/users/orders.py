@@ -27,8 +27,8 @@ def orders():
 	res = UiOInvData(orders_list)
 
 	categoryData = UiCategoriesList()
-	return render_template("commerce/main/users/orders.html",**categoryData,**res,
-		title=gettext('Orders'))
+	return render_template("commerce/main/users/orders.html",
+		**categoryData,**res,title=gettext(Config.COMMERCE_ORDERS_PAGE_TITLE))
 
 @bp.route(Config.COMMERCE_ORDERS_PAGE+"/<OInvRegNo>")
 @login_required
@@ -53,8 +53,8 @@ def order_lines(OInvRegNo):
 		res = UiOInvLineData(order_lines_list)
 		
 		categoryData = UiCategoriesList()
-		return render_template("commerce/main/users/order_lines.html",**categoryData,
-			**res,**orderInvRes,title=gettext('Orders'))
+		return render_template("commerce/main/users/order_lines.html",
+			**categoryData,**res,**orderInvRes,title=gettext(Config.COMMERCE_ORDERS_PAGE_TITLE))
 	
 	else:
 		return redirect(url_for('commerce_users.orders'))

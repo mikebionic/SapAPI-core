@@ -1989,10 +1989,11 @@ img.svg{
   	z-index: 2;
 }
 .arlo_tm_universal_box_wrap.particle{
-	height: 117vh;
+	height: 100vh;
 	position: relative;
 	background-image: url(../img/hero/2.jpg);
 	background-repeat: no-repeat;
+	background-size: contain;
 	background-position: center;
 }
 .arlo_tm_universal_box_wrap.particle .particle_overlay{

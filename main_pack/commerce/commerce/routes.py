@@ -17,25 +17,28 @@ def commerce():
 	sliders = slidersData()
 	categoriesData = UiCategoriesList()
 	return render_template("commerce/main/commerce/commerce.html",
-		**res,**categoriesData,**sliders)
+		**res,**categoriesData,**sliders,title=gettext(Config.COMMERCE_HOME_PAGE_TITLE))
 
 @bp.route(Config.COMMERCE_COLLECTION_VIEW)
 def collection():
 	categoriesData = UiCategoriesList()
-	return render_template("commerce/main/commerce/collection.html",**categoriesData,title=gettext('Collection'))
+	return render_template("commerce/main/commerce/collection.html",
+		**categoriesData,title=gettext(Config.COMMERCE_COLLECTION_VIEW_TITLE))
 
 @bp.route(Config.COMMERCE_ABOUT_PAGE)
 def about():
 	categoriesData = UiCategoriesList()
-	return render_template("commerce/main/commerce/about.html",**categoriesData,title=gettext('About us'))
+	return render_template("commerce/main/commerce/about.html",
+		**categoriesData,title=gettext(Config.COMMERCE_ABOUT_PAGE_TITLE))
 
 @bp.route(Config.COMMERCE_CONTACTS_PAGE)
 def contact():
 	categoriesData = UiCategoriesList()
-	return render_template("commerce/main/commerce/contact.html",**categoriesData,title=gettext('Contact'))
+	return render_template("commerce/main/commerce/contact.html",
+		**categoriesData,title=gettext(Config.COMMERCE_CONTACTS_PAGE_TITLE))
 
 @bp.route(Config.COMMERCE_CART_VIEW)
 def cart():
 	categoriesData = UiCategoriesList()
 	return render_template("commerce/main/commerce/cart.html",
-		**categoriesData,title=gettext('Cart'))
+		**categoriesData,title=gettext(Config.COMMERCE_CART_VIEW_TITLE))

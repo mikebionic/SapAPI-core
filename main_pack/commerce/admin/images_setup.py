@@ -20,10 +20,9 @@ from main_pack.commerce.admin.forms import LogoImageForm,SliderImageForm
 @login_required
 @ui_admin_required()
 def logo_setup():
-	company = Company.query\
-		.filter(Company.GCRecord=='' or Company.GCRecord==None).first()
+	company = Company.query.filter_by(GCRecord = None).first()
 	company_logo = Image.query\
-		.filter(and_(Image.CId==company.CId,Image.GCRecord==None))\
+		.filter_by(GCRecord = None, CId = company.CId)\
 		.order_by(Image.CreatedDate.desc()).first()
 	logoForm = LogoImageForm()
 
@@ -72,21 +71,22 @@ def remove_images():
 def sliders():
 	# handler for commerce view
 	header_slider = Slider.query\
-		.filter(and_(Slider.GCRecord=='' or Slider.GCRecord==None),Slider.SlName=='commerce_header').first()
+		.filter_by(GCRecord = None, SlName = 'commerce_header')\
+		.first()
 	if header_slider is None:
 		# create a commerce_header for header slider automatically
 		slider = Slider(SlName="commerce_header")
 		db.session.add(slider)
 		db.session.commit()
 
-	sliders = Slider.query\
-		.filter(Slider.GCRecord=='' or Slider.GCRecord==None).all()
+	sliders = Slider.query.filter_by(GCRecord = None).all()
 	slidersData = []
 	for slider in sliders:
 		sliderList = slider.to_json_api()
 
 		sl_images = Sl_image.query\
-			.filter(and_(Sl_image.SlId==slider.SlId,Sl_image.GCRecord==None)).all()
+			.filter_by(GCRecord = None,SlId = slider.SlId)\
+			.all()
 		
 		slider_images = []
 		for sl_image in sl_images:
@@ -103,9 +103,12 @@ def sliders():
 @ui_admin_required()
 def slider_images(SlId):
 	slider = Slider.query\
-		.filter(and_(Slider.GCRecord=='' or Slider.GCRecord==None),Slider.SlId==SlId).first()
+		.filter_by(GCRecord = None, SlId = SlId)\
+		.first()
 	if slider:
-		sl_images = Sl_image.query.filter(and_(Sl_image.SlId==slider.SlId, Sl_image.GCRecord==None)).all()
+		sl_images = Sl_image.query\
+			.filter_by(GCRecord = None, SlId = slider.SlId)\
+			.all()
 		sliderForm = SliderImageForm()
 
 		if "sliderForm" in request.form and sliderForm.validate_on_submit():

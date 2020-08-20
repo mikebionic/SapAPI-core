@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from flask import jsonify,request,abort,make_response
+from main_pack.config import Config
 
 # functions and methods
 from main_pack.base.invoiceMethods import resource_config_check
@@ -43,7 +44,7 @@ from main_pack.api.users.utils import apiRpAccData
 # datetime, date-parser
 import dateutil.parser
 import datetime as dt
-from datetime import datetime
+from datetime import datetime,timedelta
 # / datetime, date-parser /
 
 
@@ -152,6 +153,7 @@ def apiResourceInfo(resource_list=None,
 
 			resource_info["RtRatingValue"] = average_rating
 			resource_info["Wished"] = True if List_Wish else False
+			resource_info["New"] = True if resource.CreatedDate >= datetime.today() - timedelta(days=Config.COMMERCE_RESOURCE_NEWNESS_DAYS) else False
 			if fullInfo == True:
 				resource_info["UsageStatus"] = dataLangSelector(List_UsageStatus[0]) if List_UsageStatus else []
 				resource_info["Barcode"] = List_Barcode if List_Barcode else []

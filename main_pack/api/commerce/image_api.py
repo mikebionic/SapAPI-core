@@ -43,6 +43,7 @@ def api_images():
 			failed_images = []
 			for image in req:
 				imageDictData = addImageDict(image)
+				print(imageDictData)
 				try:
 					resource = ResId_list.index(imageDictData['ResId'])
 					if not resource:
@@ -92,11 +93,11 @@ def api_images():
 
 @api.route("/get-image/<file_type>/<file_size>/<file_name>")
 def get_image(file_type,file_size,file_name):
-	if file_type=="slider": 
-		sl_image = Sl_image.query.filter(Sl_image.SlImgName==file_name).first()
+	if file_type == "slider": 
+		sl_image = Sl_image.query.filter(Sl_image.SlImgName == file_name).first()
 		path = sl_image.SlImgMainImgFileName
-	if file_type=="image": 
-		image = Image.query.filter(Image.FileName==file_name).first()
+	if file_type == "image": 
+		image = Image.query.filter(Image.FileName == file_name).first()
 		path = image.FilePath
 	if file_size != 'undefined':
 		path = path.replace("<FSize>",file_size)
@@ -112,8 +113,8 @@ def get_image(file_type,file_size,file_name):
 
 @api.route("/get-file/<file_type>/<file_name>")
 def get_file(file_type,file_name):
-	if file_type=="slider": 
-		sl_image = Sl_image.query.filter(Sl_image.SlImgName==file_name).first()
+	if file_type == "slider": 
+		sl_image = Sl_image.query.filter(Sl_image.SlImgName == file_name).first()
 		path = sl_image.SlImgMainImgFileName
 	try:
 		if Config.OS_TYPE == 'win32':
