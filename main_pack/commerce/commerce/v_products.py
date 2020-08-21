@@ -14,7 +14,7 @@ from flask_login import current_user,login_required
 # Resource and view
 from main_pack.base.invoiceMethods import resource_config_check
 from main_pack.api.commerce.commerce_utils import apiResourceInfo
-from main_pack.models.commerce.models import Resource,Res_total,Barcode
+from main_pack.models.commerce.models import Resource,Res_total,Barcode,Rating
 from main_pack.commerce.commerce.utils import UiCategoriesList,uiSortingData
 from main_pack.api.commerce.commerce_utils import UiCartResourceData
 # / Resource and view /
@@ -75,8 +75,23 @@ def product(ResId):
 			"ResId": ResId,
 		}
 	]
-	resData = UiCartResourceData(product_list)
-	resource = resData["data"][0]
+	try:
+		resData = UiCartResourceData(product_list)
+		resource = resData["data"][0]
+	except:
+		abort(404)
+
+	# !!! TODO: make single selection with select_from() and join()
+	thisResource = Resource.query.get(ResId)
+	related_resources = Resource.query\
+		.filter_by(ResCatId = thisResource.ResCatId)\
+		.outerjoin(Rating, Rating.ResId == Resource.ResId)\
+		.order_by(Rating.RtRatingValue.asc())\
+		.limit(5)\
+		.all()
+	print(related_resources)
+	
+
 	categoryData = UiCategoriesList()
 	return render_template("commerce/main/commerce/product.html",
 		**categoryData,resource=resource,
