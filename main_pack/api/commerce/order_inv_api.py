@@ -107,13 +107,15 @@ def api_order_invoices():
 								.filter_by(OInvLineRegNo = OInvLineRegNo)\
 								.first()
 							if thisOrderInvLine:
+								old_invoice_status = thisOrderInvLine.InvStatId
 								thisOrderInvLine.update(**order_inv_line)
 								if thisInvStatus == 9 or thisInvStatus == 5:
 									try:
-										order_res_total = Res_total.query\
-											.filter_by(ResId = thisOrderInvLine.ResId)\
-											.first()
-										order_res_total.ResPendingTotalAmount += thisOrderInvLine.OInvLineAmount
+										if old_invoice_status != 5 or old_invoice_status != 9:
+											order_res_total = Res_total.query\
+												.filter_by(ResId = thisOrderInvLine.ResId)\
+												.first()
+											order_res_total.ResPendingTotalAmount += thisOrderInvLine.OInvLineAmount
 									except Exception as ex:
 										print(ex)
 								db.session.commit()

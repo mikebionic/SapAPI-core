@@ -64,6 +64,7 @@ def api_checkout_sale_order_invoices(user):
 		order_invoice['OInvTypeId'] = 2
 		order_invoice['WpId'] = work_period.WpId
 		order_invoice['WhId'] = 1
+
 		# default currency is 1 TMT of not specified
 		if not order_invoice['CurrencyId']:
 			order_invoice['CurrencyId'] = 1
@@ -142,6 +143,7 @@ def api_checkout_sale_order_invoices(user):
 				order_inv_line['OInvLineTotal'] = decimal.Decimal(OInvLineTotal)
 				order_inv_line['OInvLineFTotal'] = decimal.Decimal(OInvLineFTotal)
 				order_inv_line['OInvId'] = newOrderInv.OInvId
+				order_inv_line['UnitId'] = resource.UnitId
 				if not order_inv_line['CurrencyId']:
 					order_inv_line['CurrencyId'] = 1
 				
