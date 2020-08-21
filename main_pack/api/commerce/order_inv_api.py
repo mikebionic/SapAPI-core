@@ -83,9 +83,9 @@ def api_order_invoices():
 					thisInvStatus = None
 
 					if thisOrderInv:
+						old_invoice_status = thisOrderInv.InvStatId
 						thisOrderInv.update(**order_invoice)
 						db.session.commit()
-
 						# if status: "returned" or "cancelled" (id=9, id=5) 
 						# all lines should update 
 						# res_total.ResPendingTotalAmount
@@ -107,11 +107,10 @@ def api_order_invoices():
 								.filter_by(OInvLineRegNo = OInvLineRegNo)\
 								.first()
 							if thisOrderInvLine:
-								old_invoice_status = thisOrderInvLine.InvStatId
 								thisOrderInvLine.update(**order_inv_line)
 								if thisInvStatus == 9 or thisInvStatus == 5:
 									try:
-										if old_invoice_status != 5 or old_invoice_status != 9:
+										if (old_invoice_status != 5 or old_invoice_status != 9):
 											order_res_total = Res_total.query\
 												.filter_by(ResId = thisOrderInvLine.ResId)\
 												.first()

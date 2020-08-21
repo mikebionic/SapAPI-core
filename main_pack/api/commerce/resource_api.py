@@ -62,7 +62,6 @@ def api_resources():
 			failed_resources = []
 			for resource in req:
 				resource = addResourceDict(resource)
-
 				# special syncronizer method 
 				# category is resource's AddInf2
 				group = resource['AddInf2']
@@ -90,7 +89,7 @@ def api_resources():
 				try:
 					ResRegNo = resource['ResRegNo']
 					thisResource = Resource.query\
-						.filter(ResRegNo = ResRegNo)\
+						.filter_by(ResRegNo = ResRegNo)\
 						.first()
 					if thisResource is not None:
 						thisResource.update(**resource)
@@ -103,6 +102,7 @@ def api_resources():
 						resources.append(resource)
 						# check for presenting in database
 				except Exception as ex:
+					print(ex)
 					failed_resources.append(resource)
 			db.session.commit()
 			status = checkApiResponseStatus(resources,failed_resources)
@@ -115,7 +115,7 @@ def api_resources():
 			for e in status:
 				res[e] = status[e]
 			if res['status'] == 0:
-				status_code = 400
+				status_code = 200
 			else:
 				status_code = 201
 				
