@@ -59,14 +59,15 @@ def api_checkout_sale_order_invoices(user):
 			orderRegNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
 
 		###### order inv setup ######
-		order_invoice['OInvRegNo']=orderRegNo
-		order_invoice['InvStatId']=1
-		order_invoice['OInvTypeId']=2
-		order_invoice['WpId']=work_period.WpId
+		order_invoice['OInvRegNo'] = orderRegNo
+		order_invoice['InvStatId'] = 1
+		order_invoice['OInvTypeId'] = 2
+		order_invoice['WpId'] = work_period.WpId
+		order_invoice['WhId'] = 1
 		# default currency is 1 TMT of not specified
 		if not order_invoice['CurrencyId']:
-			order_invoice['CurrencyId']=1
-		order_invoice['RpAccId']=RpAccId
+			order_invoice['CurrencyId'] = 1
+		order_invoice['RpAccId'] = RpAccId
 
 		newOrderInv = Order_inv(**order_invoice)
 		db.session.add(newOrderInv)
@@ -78,10 +79,9 @@ def api_checkout_sale_order_invoices(user):
 		for order_inv_line_req in OrderInvLines:
 			try:
 				# in case of errors, the error_type is provided
-				error_type=0
-
+				error_type = 0
 				order_inv_line = addOrderInvLineDict(order_inv_line_req)
-
+				
 				# OInvLineRegNo generation
 				try:
 					reg_num = generate(UId=user.UId,prefixType='order_invoice_line_code')

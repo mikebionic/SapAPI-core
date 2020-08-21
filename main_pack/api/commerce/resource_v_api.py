@@ -29,7 +29,7 @@ def api_v_resources():
 @api.route("/v-resources/<int:ResId>/")
 def api_v_resource_info(ResId):
 	resource_list = [{"ResId": ResId}]
-	res = apiResourceInfo(resource_list,single_object=True)
+	res = apiResourceInfo(resource_list,single_object=True,showRelated=True)
 	if res['status'] == 1:
 		status_code = 200
 	else:

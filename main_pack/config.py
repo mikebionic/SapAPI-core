@@ -154,3 +154,5 @@ class Config:
 
 	# tag resources as new if they exist **amount** days
 	COMMERCE_RESOURCE_NEWNESS_DAYS = 10
+	# how many resources to show in rating view
+	TOP_RATED_RESOURCES_AMOUNT = 5
