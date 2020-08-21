@@ -1232,28 +1232,28 @@ msgstr "E-mail salgysy"
 
 #: templates/commerce/admin/sale_repots_table.html:77
 #: templates/commerce/admin/sale_repots_table.html:201
-msgid "Reýtingli harytlaryň tablisasy"
-msgstr ""
+msgid "Rated products table"
+msgstr "Reýtingli harytlaryň tablisasy"
 
 #: templates/commerce/admin/sale_repots_table.html:234
-msgid "Soňky sagatda satylan"
-msgstr ""
+msgid "Sold in last hour"
+msgstr "Soňky sagatda satylan"
 
 #: templates/commerce/admin/sale_repots_table.html:328
-msgid "Soňky günde satylan"
-msgstr ""
+msgid "Sold in last day"
+msgstr "Soňky günde satylan"
 
 #: templates/commerce/admin/sale_repots_table.html:422
-msgid "Soňky hepdede satylan"
-msgstr ""
+msgid "Sold in last week"
+msgstr "Soňky hepdede satylan"
 
 #: templates/commerce/admin/sale_repots_table.html:515
-msgid "Soňky aýda satylan"
-msgstr ""
+msgid "Sold in last month"
+msgstr "Soňky aýda satylan"
 
 #: templates/commerce/admin/sale_repots_table.html:609
-msgid "Kop satyn alynan harytlar"
-msgstr ""
+msgid "Top sold products"
+msgstr "Köp satylan harytlar"
 
 #: templates/commerce/admin/sliderAppend.html:8
 #: templates/commerce/admin/sliders.html:36
@@ -1389,7 +1389,7 @@ msgstr "Şäher"
 
 #: templates/commerce/main/commerce/cart.html:47
 msgid "Av."
-msgstr ""
+msgstr "Şa ýoly"
 
 #: templates/commerce/main/commerce/cart.html:47
 msgid "Street"

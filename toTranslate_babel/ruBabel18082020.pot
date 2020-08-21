@@ -582,7 +582,7 @@ msgstr "Продукт"
 #: templates/commerce/main/commerce/layout.html:304
 #: templates/commerce/main/commerce/list_grid_layout.html:478
 msgid "Checkout"
-msgstr ""
+msgstr "Оформить заказ"
 
 #: commerce/commerce/ui_cart.py:293
 msgid "successfully done"
@@ -1231,47 +1231,47 @@ msgstr ""
 
 #: templates/commerce/admin/sale_repots_table.html:77
 #: templates/commerce/admin/sale_repots_table.html:201
-msgid "Reýtingli harytlaryň tablisasy"
-msgstr ""
+msgid "Rated products table"
+msgstr "Таблица оценённых товаров"
 
 #: templates/commerce/admin/sale_repots_table.html:234
-msgid "Soňky sagatda satylan"
-msgstr ""
+msgid "Sold in last hour"
+msgstr "Проданные за последий час"
 
 #: templates/commerce/admin/sale_repots_table.html:328
-msgid "Soňky günde satylan"
-msgstr ""
+msgid "Sold in last day"
+msgstr "Проданные за последий день"
 
 #: templates/commerce/admin/sale_repots_table.html:422
-msgid "Soňky hepdede satylan"
-msgstr ""
+msgid "Sold in last week"
+msgstr "Проданные за последюю неделю"
 
 #: templates/commerce/admin/sale_repots_table.html:515
-msgid "Soňky aýda satylan"
-msgstr ""
+msgid "Sold in last month"
+msgstr "Проданные за последий месяц"
 
 #: templates/commerce/admin/sale_repots_table.html:609
-msgid "Kop satyn alynan harytlar"
-msgstr ""
+msgid "Top sold products"
+msgstr "Топ проданные товары"
 
 #: templates/commerce/admin/sliderAppend.html:8
 #: templates/commerce/admin/sliders.html:36
 msgid "Cancel"
-msgstr ""
+msgstr "Отмена"
 
 #: templates/commerce/admin/sliderAppend.html:17
 #: templates/commerce/admin/slider_setup.html:47
 #: templates/commerce/admin/sliders.html:45
 msgid "Add slider image"
-msgstr ""
+msgstr "Добавить изображение слайдера"
 
 #: templates/commerce/admin/slider_setup.html:60
 msgid "Start date"
-msgstr ""
+msgstr "Дата начала"
 
 #: templates/commerce/admin/slider_setup.html:64
 msgid "End date"
-msgstr ""
+msgstr "Дата завершения"
 
 #: templates/commerce/admin/sliders.html:16
 msgid "New Slider"
@@ -1384,27 +1384,27 @@ msgstr "Отправить заказ"
 
 #: templates/commerce/main/commerce/cart.html:47
 msgid "City"
-msgstr ""
+msgstr "Город"
 
 #: templates/commerce/main/commerce/cart.html:47
 msgid "Av."
-msgstr ""
+msgstr "Проспект"
 
 #: templates/commerce/main/commerce/cart.html:47
 msgid "Street"
-msgstr ""
+msgstr "Улица"
 
 #: templates/commerce/main/commerce/cart.html:47
 msgid "House"
-msgstr ""
+msgstr "Дом"
 
 #: templates/commerce/main/commerce/cart.html:47
 msgid "Flat"
-msgstr ""
+msgstr "Квартира"
 
 #: templates/commerce/main/commerce/cart.html:52
 msgid "You should login if you want to checkout an order"
-msgstr ""
+msgstr "Вам нужно войти чтобы оформить заказ"
 
 #: templates/commerce/main/commerce/commerce.html:90
 msgid "Products"

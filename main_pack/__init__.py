@@ -43,7 +43,7 @@ LANGUAGES = {
 
 def create_app(config_class=Config):
 	# !!! TODO: make import from config or unique config set
-	app = Flask(__name__, static_url_path='/test/ls/static')
+	app = Flask(__name__, static_url_path='/ls/static')
 	app.config.from_object(Config)
 	db.init_app(app)
 	# # if db_bindings present:

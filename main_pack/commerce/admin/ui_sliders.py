@@ -29,8 +29,7 @@ def ui_sliders():
 			if slider_model:
 				response = jsonify({
 					"status": "error",
-					"responseText": gettext('Slider')+' '+gettext('already present'),
-					"htmlData":  render_template('commerce/admin/sliderAppend.html',slider=newSlider)
+					"responseText": gettext('Slider')+' '+gettext('already present')
 				})
 				return response
 			if (sliderId == '' or sliderId == None):
