@@ -1,7 +1,7 @@
 from flask import url_for,redirect
+from main_pack.config import Config
 from main_pack import db,bcrypt,mail,babel,gettext,lazy_gettext
 from flask_mail import Message
-from main_pack.config import Config
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
 # auth and validation

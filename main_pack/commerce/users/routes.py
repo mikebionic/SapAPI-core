@@ -36,6 +36,7 @@ from main_pack.base.apiMethods import fileToURL
 def profile():
 	categoryData = UiCategoriesList()
 	rpAcc = Rp_acc.query.filter_by(RpAccId = current_user.RpAccId).first()
+	avatar = url_for('static', filename=Config.COMMERCE_TEMPLATES_FOLDER_PATH+"shop_icons/no_photo.png") 
 	if rpAcc:
 		image = Image.query\
 			.filter_by(RpAccId = rpAcc.RpAccId)\
@@ -43,10 +44,7 @@ def profile():
 			.first()
 		if image:
 			avatar = fileToURL(file_type='image',file_size='S',file_name=image.FileName)
-		else:
-			avatar = url_for('static', filename="commerce/main/shop_icons/no_photo.png") 
-
-	return render_template("commerce/main/users/profile.html",**categoryData,
+	return render_template(Config.COMMERCE_TEMPLATES_FOLDER_PATH+"users/profile.html",**categoryData,
 		rpAcc=rpAcc,avatar=avatar,title=gettext(Config.COMMERCE_PROFILE_PAGE_TITLE))
 
 @bp.route(Config.COMMERCE_WISHLIST_PAGE)
@@ -68,7 +66,7 @@ def wishlist():
 		product['ResId'] = wish.ResId
 		product_list.append(product)
 	res = apiResourceInfo(product_list)
-	return render_template("commerce/main/users/wishlist.html",
+	return render_template(Config.COMMERCE_TEMPLATES_FOLDER_PATH+"users/wishlist.html",
 		**categoryData,**res,pagination_url='commerce_users.wishlist',
 		pagination_wishes=pagination_wishes,title=gettext(Config.COMMERCE_WISHLIST_PAGE_TITLE))
 
@@ -124,8 +122,8 @@ def profile_edit():
 	if image:
 		avatar = fileToURL(file_type='image',file_size='S',file_name=image.FileName)
 	else:
-		avatar = url_for('static', filename="commerce/main/shop_icons/no_photo.png") 
+		avatar = url_for('static', filename=Config.COMMERCE_TEMPLATES_FOLDER_PATH+"shop_icons/no_photo.png") 
 
 	categoryData = UiCategoriesList()
-	return render_template("commerce/main/users/profile_edit.html",**categoryData,
+	return render_template(Config.COMMERCE_TEMPLATES_FOLDER_PATH+"users/profile_edit.html",**categoryData,
 		form=form,avatar=avatar,title=gettext(Config.COMMERCE_PROFILE_EDIT_PAGE_TITLE))

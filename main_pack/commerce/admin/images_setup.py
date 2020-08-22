@@ -1,4 +1,5 @@
 from flask import render_template,url_for,jsonify,session,flash,redirect,request,Response
+from main_pack.config import Config
 from main_pack.base.imageMethods import save_image,save_icon,allowed_icon,allowed_image
 from main_pack.base.dataMethods import dateDataCheck
 from main_pack.commerce.admin import bp, url_prefix
@@ -38,7 +39,7 @@ def logo_setup():
 
 		flash(lazy_gettext('Company logo successfully uploaded!'), 'success')
 		return redirect(url_for('commerce_admin.logo_setup'))
-	return render_template('commerce/admin/logo_setup.html',url_prefix=url_prefix,
+	return render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"logo_setup.html",url_prefix=url_prefix,
 		title=gettext('Company logo'),logoForm=logoForm,company_logo=company_logo)
 
 @bp.route("/remove_images")
@@ -95,7 +96,7 @@ def sliders():
 		sliderList["Sl_images"] = slider_images
 		slidersData.append(sliderList)
 
-	return render_template('commerce/admin/sliders.html',url_prefix=url_prefix,
+	return render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"sliders.html",url_prefix=url_prefix,
 		title=gettext('Sliders'),sliders=slidersData)
 
 @bp.route("/admin/sliders/<SlId>", methods=['GET', 'POST'])
@@ -128,7 +129,7 @@ def slider_images(SlId):
 			return redirect(url_for('commerce_admin.slider_images',SlId=slider.SlId))
 	else:
 		return redirect(url_for('commerce_admin.sliders'))
-	return render_template('commerce/admin/slider_setup.html',url_prefix=url_prefix,
+	return render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"slider_setup.html",url_prefix=url_prefix,
 		title=gettext('Sliders'),sliderForm=sliderForm,slider=slider,sl_images=sl_images)
 
 @bp.route('/ui/svg-icons/',methods=['POST'])
@@ -156,7 +157,7 @@ def ui_svg_icons():
 			}
 			uploadedFiles.append({
 				"fileName": FileName,
-				"htmlData": render_template('/commerce/admin/svgIconAppend.html',
+				"htmlData": render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"svgIconAppend.html",
 					iconInfo=iconInfo),
 			})
 		else:

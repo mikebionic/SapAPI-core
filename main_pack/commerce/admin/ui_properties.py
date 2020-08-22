@@ -1,4 +1,5 @@
 from flask import render_template,url_for,jsonify,session,flash,redirect,request,abort
+from main_pack.config import Config
 
 # auth and validation
 from flask_login import current_user,login_required
@@ -32,7 +33,7 @@ def ui_color():
 					"colorId": newColor.ColorId,
 					"status": "created",
 					"responseText": gettext('Color')+' '+gettext('successfully saved'),
-					"htmlData":  render_template('commerce/admin/colorAppend.html',color=newColor)
+					"htmlData":  render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"colorAppend.html",color=newColor)
 					})
 			except Exception as ex:
 				print(ex)
@@ -59,7 +60,7 @@ def ui_size():
 					"sizeId": newSize.SizeId,
 					"status": "created",
 					"responseText": gettext('Size')+' '+gettext('successfully saved'),
-					"htmlData": render_template('commerce/admin/sizeAppend.html',size=newSize)
+					"htmlData": render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"sizeAppend.html",size=newSize)
 					})
 			except Exception as ex:
 				print(ex)
@@ -86,7 +87,7 @@ def ui_brand():
 					"brandId": newBrand.BrandId,
 					"status": "created",
 					"responseText": gettext('Brand')+' '+gettext('successfully saved'),
-					"htmlData":  render_template('commerce/admin/brandAppend.html',brand=newBrand)
+					"htmlData":  render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"brandAppend.html",brand=newBrand)
 					})
 			except Exception as ex:
 				print(ex)

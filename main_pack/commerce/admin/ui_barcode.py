@@ -1,5 +1,6 @@
 from flask import render_template,url_for,jsonify,session,flash,redirect,request,Response, abort
 from main_pack import db,babel,gettext
+from main_pack.config import Config
 
 # auth and validation
 from flask_login import current_user,login_required
@@ -29,7 +30,7 @@ def ui_barcode():
 				"barcodeId": newBarcode.BarcodeId,
 				"status": "created",
 				"responseText": gettext('Barcode')+' '+gettext('successfully saved'),
-				"htmlData":  render_template('/commerce/admin/barcodeAppend.html',barcode=newBarcode)
+				"htmlData":  render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"barcodeAppend.html",barcode=newBarcode)
 				})
 		else:
 			try:
@@ -41,7 +42,7 @@ def ui_barcode():
 						"barcodeId": updateBarcode.BarcodeId,
 						"status": "updated",
 						"responseText": gettext('Barcode')+' '+gettext('successfully updated'),
-						"htmlData":  render_template('/commerce/admin/barcodeAppend.html',barcode=updateBarcode)
+						"htmlData":  render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"barcodeAppend.html",barcode=updateBarcode)
 					})
 			except Exception as ex:
 				print(ex)

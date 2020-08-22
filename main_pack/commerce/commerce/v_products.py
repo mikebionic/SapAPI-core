@@ -39,7 +39,7 @@ def v_list():
 	res = apiResourceInfo(product_list)
 	categoryData = UiCategoriesList()
 	sortingData = uiSortingData()
-	return render_template("commerce/main/commerce/v_list.html",**categoryData,
+	return render_template(Config.COMMERCE_TEMPLATES_FOLDER_PATH+"commerce/v_list.html",**categoryData,
 		**sortingData,**res,pagination_url='commerce.v_list',
 		pagination_resources=pagination_resources,
 		title=gettext(Config.COMMERCE_LIST_VIEW_TITLE))
@@ -63,7 +63,7 @@ def v_grid():
 	res = apiResourceInfo(product_list)
 	categoryData = UiCategoriesList()
 	sortingData = uiSortingData()
-	return render_template("commerce/main/commerce/v_grid.html",**categoryData,
+	return render_template(Config.COMMERCE_TEMPLATES_FOLDER_PATH+"commerce/v_grid.html",**categoryData,
 		**sortingData,**res,pagination_url='commerce.v_grid',
 		pagination_resources=pagination_resources,
 		title=gettext(Config.COMMERCE_GRID_VIEW_TITLE))
@@ -93,7 +93,7 @@ def product(ResId):
 	
 
 	categoryData = UiCategoriesList()
-	return render_template("commerce/main/commerce/product.html",
+	return render_template(Config.COMMERCE_TEMPLATES_FOLDER_PATH+"commerce/product.html",
 		**categoryData,resource=resource,
 		title=gettext(Config.COMMERCE_RESOURCE_VIEW_TITLE))
 
@@ -188,7 +188,7 @@ def v_list_search():
 
 	categoryData = UiCategoriesList()
 	sortingData = uiSortingData()
-	return render_template("commerce/main/commerce/v_list.html",**categoryData,
+	return render_template(Config.COMMERCE_TEMPLATES_FOLDER_PATH+"commerce/v_list.html",**categoryData,
 		**sortingData,**res,pagination_url='commerce.v_list',
 		pagination_resources=pagination_resources,
 		title=gettext(Config.COMMERCE_SORT_VIEW_TITLE))

@@ -1,9 +1,9 @@
 from flask import render_template,url_for,jsonify,session,flash,redirect,request,Response,abort
 from flask_login import current_user,login_required
 from main_pack import db,babel,gettext,lazy_gettext
+from main_pack.config import Config
 from main_pack.commerce.users import bp
 from main_pack.commerce.commerce.utils import UiCategoriesList
-from main_pack.config import Config
 # change this for something else
 
 from main_pack.models.commerce.models import (Inv_line,Inv_line_det,Inv_line_det_type,
@@ -27,7 +27,7 @@ def orders():
 	res = UiOInvData(orders_list)
 
 	categoryData = UiCategoriesList()
-	return render_template("commerce/main/users/orders.html",
+	return render_template(Config.COMMERCE_TEMPLATES_FOLDER_PATH+"users/orders.html",
 		**categoryData,**res,title=gettext(Config.COMMERCE_ORDERS_PAGE_TITLE))
 
 @bp.route(Config.COMMERCE_ORDERS_PAGE+"/<OInvRegNo>")
@@ -53,7 +53,7 @@ def order_lines(OInvRegNo):
 		res = UiOInvLineData(order_lines_list)
 		
 		categoryData = UiCategoriesList()
-		return render_template("commerce/main/users/order_lines.html",
+		return render_template(Config.COMMERCE_TEMPLATES_FOLDER_PATH+"users/order_lines.html",
 			**categoryData,**res,**orderInvRes,title=gettext(Config.COMMERCE_ORDERS_PAGE_TITLE))
 	
 	else:

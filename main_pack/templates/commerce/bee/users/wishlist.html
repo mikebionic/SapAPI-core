@@ -1,0 +1,113 @@
+{% extends "commerce/bee/commerce/layout.html" %}
+
+{% block styles %}
+	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/bulma.css')}}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/core.css')}}">
+{% endblock %}
+
+{% block content %}
+<div class="shop-wrapper">
+	<div class="section">
+		<div class="container">
+			<div class="columns account-header">
+				<div class="column is-10 is-offset-1 is-tablet-landscape-padded">
+					<div class="account-title">
+						<h2>{{_('Wishlist')}}</h2>
+						<img class="brand-filigrane" src="{{ url_for('static', filename='commerce/main/images/logo/nephos-greyscale.svg')}}" alt="">
+					</div>
+					<div class="tabs account-tabs">
+						<ul>
+						<li><a href="{{ url_for('commerce_users.profile') }}">{{_('Profile')}}</a></li>
+						<li><a href="{{ url_for('commerce_users.orders') }}">{{_('Orders')}}</a></li>
+						<li class="is-active"><a href="{{ url_for('commerce_users.wishlist') }}">{{_('Wishlist')}}</a></li>
+						</ul>
+					</div>
+			 
+					<div class="columns is-account-grid is-multiline">
+						<div class="column is-12">
+							<div class="flat-card wishlist-card is-auto">
+								<!-- List of Wishlist Items -->
+								<ul class="wishlist">
+									{% for resource in data %}
+										<li class="wishlist-item" onclick="return true">
+											<div class="item-wrapper">
+												{% if resource.FilePathM %}
+													<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}"class="link-to-product">
+														<img loading="lazy" src="{{resource.FilePathS}}" width="270" height="270" class="product-thumnail"/>
+													</a>
+												{% else %}
+													<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}"class="link-to-product">
+														<img loading="lazy" src="{{ url_for('static', filename='commerce/main/shop_icons/no_photo.png') }}" width="270" height="270" class="product-thumnail"/>
+													</a>
+												{% endif %}
+												<span class="product-info">
+													<span>{{ resource.ResName if resource.ResName else '' }}</span>
+													<span>{{_('Category')}}: {{ resource.ResCatName if resource.ResCatName else '' }}</span>
+													<span>{{_('Barcode')}}: {{ resource.BarcodeVal if resource.BarcodeVal else '' }}</span>
+													<span class="priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">
+														{{ resource.CurrencyCode }}{{ resource.ResPriceValue if resource.ResPriceValue else '' }}
+													</span>
+												</span>
+												<div class="action">
+													<div class="dropdown is-right">
+														<span class="dropdown-trigger">
+															<span class="dropdown-button">
+																<a href="javascript:void(0);"><i class="feather-icons" data-feather="chevron-down"></i></a>
+															</span>
+														</span>
+														<div class="dropdown-menu" role="menu">
+															<div class="dropdown-content">
+																<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="dropdown-item">
+																	<i class="feather-icons" data-feather="eye"></i>
+																	<span>{{_('View product')}}</span>
+																</a>
+																<a href="#" class="dropdown-item addToCart" ownerId="{{resource.ResId}}">
+																	<i class="feather-icons" data-feather="shopping-cart"></i>
+																	<span>{{_('Add to cart')}}</span>
+																</a>
+																<a href="#" class="dropdown-item removeFromCart" ownerId="{{resource.ResId}}" style="display: none;">
+																	<i class="feather-icons" data-feather="shopping-cart"></i>
+																	<span>{{_('Remove from cart')}}</span>
+																</a>
+																<hr class="dropdown-divider">
+																<a href="#" class="dropdown-item removeFromWishlist" ownerId="{{resource.ResId}}">
+																	<i class="feather-icons" data-feather="x"></i>
+																	<span>{{_('Remove')}}</span>
+																</a>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</li>
+									{% endfor %}
+								</ul>
+							</div>
+							<div class="wishlist-pagination">
+								<ul>
+									{% for page_num in pagination_wishes.iter_pages(left_edge=1, right_edge=1, left_current=2, right_current=3) %}
+										{% if page_num %}
+											{% if pagination_wishes.page == page_num %}
+												<li class="is-active">{{ page_num }}</li>
+											{% else %}
+												<li><a href="{{ url_for(pagination_url, page=page_num) }}">{{ page_num }}</a></li>
+											{% endif %}
+										{% else %}
+											<li>...</li>
+										{% endif %}
+									{% endfor %}
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+	  </div>
+	</div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+	<script src="{{ url_for('static', filename='commerce/main/js/app.js')}}"></script>
+	<script src="{{ url_for('static', filename='commerce/main/js/nephos.js')}}"></script>
+{% endblock %}

@@ -1,5 +1,6 @@
 from flask import render_template,url_for,jsonify,session,flash,redirect,request,Response, abort
 from main_pack import db,babel,gettext
+from main_pack.config import Config
 
 # auth and validation
 from flask_login import current_user,login_required
@@ -41,7 +42,7 @@ def ui_sliders():
 					"sliderId": newSlider.SlId,
 					"status": "created",
 					"responseText": gettext('Slider')+' '+gettext('successfully saved'),
-					"htmlData":  render_template('commerce/admin/sliderAppend.html',slider=newSlider)
+					"htmlData":  render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"sliderAppend.html",slider=newSlider)
 				})
 			else:
 				print('updating')
