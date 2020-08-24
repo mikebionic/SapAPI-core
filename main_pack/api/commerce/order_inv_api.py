@@ -149,7 +149,7 @@ def api_order_invoices():
 	return response
 
 @api.route("/tbl-dk-order-invoices/<OInvRegNo>/")
-# @sha_required
+@sha_required
 def api_order_invoice_info(OInvRegNo):
 	invoice_list = [{"OInvRegNo": OInvRegNo}]
 	res = apiOrderInvInfo(invoice_list=invoice_list,
