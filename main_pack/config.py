@@ -15,6 +15,10 @@ class Config:
 	DEBUG = True
 	TESTING = True
 
+	# # these two didn't work
+	# STATIC_FOLDER = "/static"
+	# STATIC_URL_PATH="/ls/static/"
+
 	# SQLALCHEMY_DATABASE_URI = 'sqlite:///commerce.db'
 
 	POSTGRES_DB_URI = {
@@ -25,19 +29,30 @@ class Config:
 	    'port': environ.get('POSTGRES_DB_PORT'),
 	}
 
-	POSTGRES_TEST_DB_URI = {
-	    'user': environ.get('POSTGRES_TEST_DB_USERNAME'),
-	    'pw': environ.get('POSTGRES_TEST_DB_PASSWORD'),
-	    'db': environ.get('POSTGRES_TEST_DB_DATABASE'),
-	    'host': environ.get('POSTGRES_TEST_DB_HOST'),
-	    'port': environ.get('POSTGRES_TEST_DB_PORT'),
-	}
-	SQLALCHEMY_TEST_DATABASE_URI = 'postgresql://%(user)s:%(pw)s@%(host)s:%(port)s/%(db)s' % POSTGRES_TEST_DB_URI
-
 	SQLALCHEMY_DATABASE_URI = 'postgresql://%(user)s:%(pw)s@%(host)s:%(port)s/%(db)s' % POSTGRES_DB_URI
-	SQLALCHEMY_BINDS = {
-		'postgres_test': SQLALCHEMY_TEST_DATABASE_URI
-	}
+	
+	# # Database bindings
+	#
+	# POSTGRES_TEST_DB_URI = {
+	#     'user': environ.get('POSTGRES_TEST_DB_USERNAME'),
+	#     'pw': environ.get('POSTGRES_TEST_DB_PASSWORD'),
+	#     'db': environ.get('POSTGRES_TEST_DB_DATABASE'),
+	#     'host': environ.get('POSTGRES_TEST_DB_HOST'),
+	#     'port': environ.get('POSTGRES_TEST_DB_PORT'),
+	# }
+	#
+	# SQLALCHEMY_TEST_DATABASE_URI = 'postgresql://%(user)s:%(pw)s@%(host)s:%(port)s/%(db)s' % POSTGRES_TEST_DB_URI
+	#
+	# SQLALCHEMY_BINDS = {
+	# 	'postgres_test': SQLALCHEMY_TEST_DATABASE_URI
+	# }
+	#
+	# # / Database bindings /
+
+	# modules url prefixes
+	API_URL_PREFIX = '/ls/api/'
+	COMMERCE_URL_PREFIX = '/commerce'
+	# / module url prefixes /
 
 	# default language for session
 	BABEL_DEFAULT_LOCALE = 'tk'
@@ -95,3 +110,57 @@ class Config:
 	# SESSION_COOKIE_SECURE=True,
 	# SESSION_COOKIE_HTTPONLY=True,
 	# SESSION_COOKIE_SAMESITE='Lax'
+
+	# view routes naming configuration
+	# put the route names to be used to access the pages
+	COMMERCE_HOME_PAGE = "/commerce"
+	COMMERCE_ABOUT_PAGE = "/about"
+	COMMERCE_COLLECTION_VIEW = "/collection"
+	COMMERCE_CONTACTS_PAGE = "/contact"
+
+	COMMERCE_PROFILE_PAGE = "/profile"
+	COMMERCE_PROFILE_EDIT_PAGE = "/profile_edit"
+	COMMERCE_WISHLIST_PAGE = "/wishlist"
+	COMMERCE_ORDERS_PAGE = "/orders"
+
+
+	COMMERCE_CART_VIEW = "/cart"
+	COMMERCE_LIST_VIEW = "/v-list"
+	COMMERCE_GRID_VIEW = "/v-grid"
+	COMMERCE_RESOURCE_VIEW = "/product"
+	# / view routes naming configuration /
+
+	# view route titles configuration
+	# Info to be displayed in html: <title>Home page</title>
+	# set to None if dont want to display anything 
+	COMMERCE_HOME_PAGE_TITLE = None
+	COMMERCE_ABOUT_PAGE_TITLE = "About us"
+	COMMERCE_COLLECTION_VIEW_TITLE = "Collection"
+	COMMERCE_CONTACTS_PAGE_TITLE = "Contact"
+
+	COMMERCE_PROFILE_PAGE_TITLE = "Profile"
+	COMMERCE_PROFILE_EDIT_PAGE_TITLE = "Edit profile"
+	COMMERCE_WISHLIST_PAGE_TITLE = "Wishlist"
+	COMMERCE_ORDERS_PAGE_TITLE = "Orders"
+
+
+	COMMERCE_CART_VIEW_TITLE = "Cart"
+	COMMERCE_LIST_VIEW_TITLE = "Category"
+	COMMERCE_GRID_VIEW_TITLE = "Category"
+	COMMERCE_RESOURCE_VIEW_TITLE = "Product"
+	COMMERCE_SEARCH_VIEW_TITLE = "Search"
+	COMMERCE_SORT_VIEW_TITLE = "Filter"
+	# / view route titles configuration /
+
+	# templates file location configuration
+	# !!! Important to add forward slash "/"
+	COMMERCE_TEMPLATES_FOLDER_PATH = "/commerce/bee/"
+	# COMMERCE_TEMPLATES_FOLDER_PATH = "/commerce/main/"
+	
+	COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH = "/commerce/admin/"
+	# / templates file location configuration /
+
+	# tag resources as new if they exist **amount** days
+	COMMERCE_RESOURCE_NEWNESS_DAYS = 10
+	# how many resources to show in rating view
+	TOP_RATED_RESOURCES_AMOUNT = 5

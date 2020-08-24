@@ -45,9 +45,6 @@ def api_images():
 				imageDictData = addImageDict(image)
 				try:
 					resource = ResId_list.index(imageDictData['ResId'])
-					if not resource:
-						print('resource is none')
-						raise Exception
 					if not 'ImgId' in imageDictData:
 						image = saveImageFile(image)
 						newImage = Image(**image)
@@ -76,7 +73,7 @@ def api_images():
 					print(ex)
 					failed_images.append(imageDictData)
 			db.session.commit()
-
+			print('images were committed')
 			status = checkApiResponseStatus(images,failed_images)
 			res = {
 				"data": images,
@@ -85,18 +82,18 @@ def api_images():
 				"fail_total": len(failed_images)
 			}
 			for e in status:
-				res[e]=status[e]
+				res[e] = status[e]
 			response = make_response(jsonify(res),201)
 	return response
 
 
 @api.route("/get-image/<file_type>/<file_size>/<file_name>")
 def get_image(file_type,file_size,file_name):
-	if file_type=="slider": 
-		sl_image = Sl_image.query.filter(Sl_image.SlImgName==file_name).first()
+	if file_type == "slider": 
+		sl_image = Sl_image.query.filter(Sl_image.SlImgName == file_name).first()
 		path = sl_image.SlImgMainImgFileName
-	if file_type=="image": 
-		image = Image.query.filter(Image.FileName==file_name).first()
+	if file_type == "image": 
+		image = Image.query.filter(Image.FileName == file_name).first()
 		path = image.FilePath
 	if file_size != 'undefined':
 		path = path.replace("<FSize>",file_size)
@@ -112,8 +109,8 @@ def get_image(file_type,file_size,file_name):
 
 @api.route("/get-file/<file_type>/<file_name>")
 def get_file(file_type,file_name):
-	if file_type=="slider": 
-		sl_image = Sl_image.query.filter(Sl_image.SlImgName==file_name).first()
+	if file_type == "slider": 
+		sl_image = Sl_image.query.filter(Sl_image.SlImgName == file_name).first()
 		path = sl_image.SlImgMainImgFileName
 	try:
 		if Config.OS_TYPE == 'win32':

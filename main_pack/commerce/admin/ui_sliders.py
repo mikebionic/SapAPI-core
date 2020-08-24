@@ -1,5 +1,6 @@
 from flask import render_template,url_for,jsonify,session,flash,redirect,request,Response, abort
 from main_pack import db,babel,gettext
+from main_pack.config import Config
 
 # auth and validation
 from flask_login import current_user,login_required
@@ -21,7 +22,17 @@ def ui_sliders():
 			req = request.get_json()
 			slider = addSliderDict(req)
 			sliderId = req.get('sliderId')
-			
+			SlName = slider['SlName']
+			# check for slider presense in database
+			slider_model = Slider.query\
+				.filter_by(GCRecord = None, SlName = SlName)\
+				.first()
+			if slider_model:
+				response = jsonify({
+					"status": "error",
+					"responseText": gettext('Slider')+' '+gettext('already present')
+				})
+				return response
 			if (sliderId == '' or sliderId == None):
 				print('committing')
 				newSlider = Slider(**slider)
@@ -31,8 +42,8 @@ def ui_sliders():
 					"sliderId": newSlider.SlId,
 					"status": "created",
 					"responseText": gettext('Slider')+' '+gettext('successfully saved'),
-					"htmlData":  render_template('commerce/admin/sliderAppend.html',slider=newSlider)
-					})
+					"htmlData":  render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"sliderAppend.html",slider=newSlider)
+				})
 			else:
 				print('updating')
 				thisSlider = Slider.query.get(sliderId)
@@ -41,7 +52,7 @@ def ui_sliders():
 				response = jsonify({
 					"status": "updated",
 					"responseText": gettext('Slider')+' '+gettext('successfully updated'),
-					})			
+				})			
 		elif request.method == 'DELETE': 
 			req = request.get_json()
 			sliderId = req.get('sliderId')
@@ -51,11 +62,11 @@ def ui_sliders():
 			response = jsonify({
 				"status": "deleted",
 				"responseText": gettext('Slider')+' '+gettext('successfully deleted'),
-				})
+			})
 	except Exception as ex:
 		print(ex)
 		response = jsonify({
 			"status": "error",
 			"responseText": gettext('Unknown error!'),
-			})
+		})
 	return response

@@ -3,7 +3,6 @@ from main_pack.config import Config
 #### balance and qty substitution function ####
 def totalQtySubstitution(totalBalance,amount):
 	resultingTotal = totalBalance - amount
-	print(resultingTotal)
 	result = {
 		"totalBalance": resultingTotal,
 		"amount": amount,
@@ -35,7 +34,7 @@ def totalQtySubstitution(totalBalance,amount):
 def resource_config_check(dbModel):
 	if Config.SHOW_NEGATIVE_WH_QTY_RESOURCE == False:
 		for res_total in dbModel.Res_total:
-			if res_total.ResTotBalance > 0:
+			if res_total.WhId == 1 and res_total.ResTotBalance > 0:
 				return True
 		return False
 	else:

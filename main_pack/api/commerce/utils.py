@@ -116,7 +116,6 @@ def addResourceDict(req):
 		"GCRecord": GCRecord
 	}
 	if(ResId != '' and ResId != None):
-		print(ResId)
 		resource['ResId'] = ResId
 	resource=configureNulls(resource)
 	return resource
@@ -457,6 +456,7 @@ def addOrderInvLineDict(req):
 	CurrencyId = req.get('CurrencyId')
 	ResId = req.get('ResId')
 	LastVendorId = req.get('LastVendorId')
+	OInvLineRegNo = req.get('OInvLineRegNo')
 	OInvLineDesc = req.get('OInvLineDesc')
 	OInvLineAmount = req.get('OInvLineAmount')
 	OInvLinePrice = req.get('OInvLinePrice')
@@ -484,6 +484,7 @@ def addOrderInvLineDict(req):
 		"CurrencyId": CurrencyId,
 		"ResId": ResId,
 		"LastVendorId": LastVendorId,
+		"OInvLineRegNo": OInvLineRegNo,
 		"OInvLineDesc": OInvLineDesc,
 		"OInvLineAmount": OInvLineAmount,
 		"OInvLinePrice": OInvLinePrice,

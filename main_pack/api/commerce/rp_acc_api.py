@@ -76,6 +76,6 @@ def api_rp_accs():
 				"fail_total": len(failed_rp_accs)
 			}		
 			for e in status:
-				res[e]=status[e]
+				res[e] = status[e]
 			response = make_response(jsonify(res),201)
 	return response

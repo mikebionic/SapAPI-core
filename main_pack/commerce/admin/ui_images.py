@@ -1,5 +1,6 @@
 from flask import render_template,url_for,jsonify,session,flash,redirect,request,Response,abort
 from main_pack import db,babel,gettext
+from main_pack.config import Config
 
 # auth and validation
 from flask_login import current_user,login_required
@@ -47,7 +48,7 @@ def ui_uploadImages():
 			filepath = image['filePath']
 			uploadedFiles.append({
 				"fileName": filename,
-				"htmlData": render_template('/commerce/admin/imageAppend.html',
+				"htmlData": render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"imageAppend.html",
 					filename=filename,filepath=filepath),
 			})
 			success=True

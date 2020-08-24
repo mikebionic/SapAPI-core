@@ -674,7 +674,6 @@ class Order_inv(AddInf,CreatedModifiedInfo,db.Model):
 		return order_inv
 
 
-
 class Order_inv_line(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_order_inv_line"
 	OInvLineId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -708,6 +707,7 @@ class Order_inv_line(AddInf,CreatedModifiedInfo,db.Model):
 			"CurrencyId": self.CurrencyId,
 			"ResId": self.ResId,
 			"LastVendorId": self.LastVendorId,
+			"OInvLineRegNo": self.OInvLineRegNo,
 			"OInvLineDesc": self.OInvLineDesc,
 			"OInvLineAmount": configureFloat(self.OInvLineAmount),
 			"OInvLinePrice": configureFloat(self.OInvLinePrice),

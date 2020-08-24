@@ -1,7 +1,8 @@
 from flask import render_template,url_for,jsonify,session,flash,redirect,request,Response
+from main_pack.config import Config
 from main_pack.base.imageMethods import save_image,save_icon,allowed_icon,allowed_image
 from main_pack.base.dataMethods import dateDataCheck
-from main_pack.commerce.admin import bp
+from main_pack.commerce.admin import bp, url_prefix
 
 # auth and validation
 from flask_login import current_user,login_required
@@ -20,10 +21,9 @@ from main_pack.commerce.admin.forms import LogoImageForm,SliderImageForm
 @login_required
 @ui_admin_required()
 def logo_setup():
-	company = Company.query\
-		.filter(Company.GCRecord=='' or Company.GCRecord==None).first()
+	company = Company.query.filter_by(GCRecord = None).first()
 	company_logo = Image.query\
-		.filter(and_(Image.CId==company.CId,Image.GCRecord==None))\
+		.filter_by(GCRecord = None, CId = company.CId)\
 		.order_by(Image.CreatedDate.desc()).first()
 	logoForm = LogoImageForm()
 
@@ -39,7 +39,7 @@ def logo_setup():
 
 		flash(lazy_gettext('Company logo successfully uploaded!'), 'success')
 		return redirect(url_for('commerce_admin.logo_setup'))
-	return render_template('commerce/admin/logo_setup.html',url_prefix="/commerce",
+	return render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"logo_setup.html",url_prefix=url_prefix,
 		title=gettext('Company logo'),logoForm=logoForm,company_logo=company_logo)
 
 @bp.route("/remove_images")
@@ -72,21 +72,22 @@ def remove_images():
 def sliders():
 	# handler for commerce view
 	header_slider = Slider.query\
-		.filter(and_(Slider.GCRecord=='' or Slider.GCRecord==None),Slider.SlName=='commerce_header').first()
+		.filter_by(GCRecord = None, SlName = 'commerce_header')\
+		.first()
 	if header_slider is None:
 		# create a commerce_header for header slider automatically
 		slider = Slider(SlName="commerce_header")
 		db.session.add(slider)
 		db.session.commit()
 
-	sliders = Slider.query\
-		.filter(Slider.GCRecord=='' or Slider.GCRecord==None).all()
+	sliders = Slider.query.filter_by(GCRecord = None).all()
 	slidersData = []
 	for slider in sliders:
 		sliderList = slider.to_json_api()
 
 		sl_images = Sl_image.query\
-			.filter(and_(Sl_image.SlId==slider.SlId,Sl_image.GCRecord==None)).all()
+			.filter_by(GCRecord = None,SlId = slider.SlId)\
+			.all()
 		
 		slider_images = []
 		for sl_image in sl_images:
@@ -95,7 +96,7 @@ def sliders():
 		sliderList["Sl_images"] = slider_images
 		slidersData.append(sliderList)
 
-	return render_template('commerce/admin/sliders.html',url_prefix="/commerce",
+	return render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"sliders.html",url_prefix=url_prefix,
 		title=gettext('Sliders'),sliders=slidersData)
 
 @bp.route("/admin/sliders/<SlId>", methods=['GET', 'POST'])
@@ -103,17 +104,18 @@ def sliders():
 @ui_admin_required()
 def slider_images(SlId):
 	slider = Slider.query\
-		.filter(and_(Slider.GCRecord=='' or Slider.GCRecord==None),Slider.SlId==SlId).first()
+		.filter_by(GCRecord = None, SlId = SlId)\
+		.first()
 	if slider:
-		sl_images = Sl_image.query.filter(and_(Sl_image.SlId==slider.SlId, Sl_image.GCRecord==None)).all()
+		sl_images = Sl_image.query\
+			.filter_by(GCRecord = None, SlId = slider.SlId)\
+			.all()
 		sliderForm = SliderImageForm()
 
 		if "sliderForm" in request.form and sliderForm.validate_on_submit():
-			print(request.form)
 			if sliderForm.sliderImage.data:
 
 				imageFile = save_image(imageForm=sliderForm.sliderImage.data,module=os.path.join("uploads","commerce","Slider"),id=slider.SlId)
-				print(sliderForm.SlImgStartDate.data)
 				image = Sl_image(
 					SlImgName=imageFile['FileName'],
 					SlImgDesc=sliderForm.sliderImageDesc.data,
@@ -127,7 +129,7 @@ def slider_images(SlId):
 			return redirect(url_for('commerce_admin.slider_images',SlId=slider.SlId))
 	else:
 		return redirect(url_for('commerce_admin.sliders'))
-	return render_template('commerce/admin/slider_setup.html',url_prefix="/commerce",
+	return render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"slider_setup.html",url_prefix=url_prefix,
 		title=gettext('Sliders'),sliderForm=sliderForm,slider=slider,sl_images=sl_images)
 
 @bp.route('/ui/svg-icons/',methods=['POST'])
@@ -155,7 +157,7 @@ def ui_svg_icons():
 			}
 			uploadedFiles.append({
 				"fileName": FileName,
-				"htmlData": render_template('/commerce/admin/svgIconAppend.html',
+				"htmlData": render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"svgIconAppend.html",
 					iconInfo=iconInfo),
 			})
 		else:

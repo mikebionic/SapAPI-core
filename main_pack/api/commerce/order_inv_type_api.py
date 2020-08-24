@@ -43,25 +43,21 @@ def api_order_inv_types():
 					if not 'OInvTypeId' in order_inv_type:
 						newOrderInv = Order_inv_type(**order_inv_type)
 						db.session.add(newOrderInv)
-						db.session.commit()
 						order_inv_types.append(order_inv_type)
 					else:
 						OInvTypeId = order_inv_type['OInvTypeId']
 						thisOrderInv = Order_inv_type.query.get(int(OInvTypeId))
 						if thisOrderInv is not None:
 							thisOrderInv.update(**order_inv_type)
-							db.session.commit()
 							order_inv_types.append(order_inv_type)
-
 						else:
 							newOrderInv = Order_inv_type(**order_inv_type)
 							db.session.add(newOrderInv)
-							db.session.commit()
 							order_inv_types.append(order_inv_type)
 				except Exception as ex:
 					print(ex)
 					failed_order_inv_types.append(order_inv_type)
-
+			db.session.commit()
 			status = checkApiResponseStatus(order_inv_types,failed_order_inv_types)
 			res = {
 				"data": order_inv_types,
@@ -70,8 +66,6 @@ def api_order_inv_types():
 				"fail_total": len(failed_order_inv_types)
 			}
 			for e in status:
-				res[e]=status[e]
+				res[e] = status[e]
 			response = make_response(jsonify(res),200)
-			print(response)
-
 	return response

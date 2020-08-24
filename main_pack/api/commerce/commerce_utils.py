@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from flask import jsonify,request,abort,make_response
+from main_pack.config import Config
 
 # functions and methods
 from main_pack.base.invoiceMethods import resource_config_check
@@ -17,7 +18,8 @@ from main_pack.base.languageMethods import dataLangSelector
 # db models
 from main_pack.models.commerce.models import (Resource,
                                               Res_category,
-																							Wish)
+																							Wish,
+																							Rating)
 from main_pack.models.commerce.models import (Color,
                                               Size,
                                               Brand,
@@ -43,7 +45,7 @@ from main_pack.api.users.utils import apiRpAccData
 # datetime, date-parser
 import dateutil.parser
 import datetime as dt
-from datetime import datetime
+from datetime import datetime,timedelta
 # / datetime, date-parser /
 
 
@@ -54,7 +56,8 @@ def apiResourceInfo(resource_list=None,
 										single_object=False,
 										isInactive=False,
 										fullInfo=False,
-										user=None):
+										user=None,
+										showRelated=False):
 	categories = Res_category.query.filter_by(GCRecord = None).all()
 	usage_statuses = Usage_status.query.filter_by(GCRecord = None).all()
 	units = Unit.query.filter_by(GCRecord = None).all()
@@ -152,6 +155,15 @@ def apiResourceInfo(resource_list=None,
 
 			resource_info["RtRatingValue"] = average_rating
 			resource_info["Wished"] = True if List_Wish else False
+			resource_info["New"] = True if resource.CreatedDate >= datetime.today() - timedelta(days=Config.COMMERCE_RESOURCE_NEWNESS_DAYS) else False
+			if showRelated == True:
+				related_resources = Resource.query\
+					.filter_by(GCRecord = None, ResCatId = resource.ResCatId)\
+					.outerjoin(Rating, Rating.ResId == Resource.ResId)\
+					.order_by(Rating.RtRatingValue.asc())\
+					.limit(Config.TOP_RATED_RESOURCES_AMOUNT)\
+					.all()
+				resource_info["Related_resources"] = [resource.to_json_api() for resource in related_resources]
 			if fullInfo == True:
 				resource_info["UsageStatus"] = dataLangSelector(List_UsageStatus[0]) if List_UsageStatus else []
 				resource_info["Barcode"] = List_Barcode if List_Barcode else []
@@ -182,8 +194,8 @@ def apiResourceInfo(resource_list=None,
 		res[e] = status[e]
 	return res
 
-def UiCartResourceData(product_list):
-	res = apiResourceInfo(product_list)
+def UiCartResourceData(product_list,showRelated=False):
+	res = apiResourceInfo(product_list,showRelated=showRelated)
 	data = []
 	resources = res['data']
 	for resource in resources:

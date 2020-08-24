@@ -7,10 +7,10 @@
         <ul class="biolife-carousel slider-for" data-slick='{"arrows":false,"dots":false,"slidesMargin":30,"slidesToShow":1,"slidesToScroll":1,"fade":true,"asNavFor":".slider-nav"}'>
           {% if resource.Images %}
             {% for image in resource.Images %}
-              <li><img loading="lazy" src="{{resource.FilePathM}}" width="500" height="500"></li>
+              <li><img loading="lazy" src="{{resource.FilePathM}}" width="500" height="500" class="productImage" ownerId="{{resource.ResId}}"></li>
             {% endfor %}
           {% else %}
-            <li><img loading="lazy" src="{{ url_for('static', filename='commerce/main/shop_icons/no_photo.png') }}" width="500" height="500"></li>
+            <li><img loading="lazy" src="{{ url_for('static', filename='commerce/main/shop_icons/no_photo.png') }}" width="500" height="500" class="productImage" ownerId="{{resource.ResId}}"></li>
           {% endif %}
         </ul>
         <ul class="biolife-carousel slider-nav" data-slick='{"arrows":false,"dots":false,"centerMode":false,"focusOnSelect":true,"slidesMargin":10,"slidesToShow":4,"slidesToScroll":1,"asNavFor":".slider-for"}'>
@@ -20,8 +20,8 @@
         </ul>
       </div>
       <div class="product-attribute">
-        <h3 class="title">{{'' if resource.ResName==None else resource.ResName}}</h3>
-        <b class="category">{{_('Category')}}: {{ resource.ResCatName if resource.ResCatName else '' }}</b>
+        <h3 class="title productName" ownerId="{{resource.ResId}}">{{'' if resource.ResName==None else resource.ResName}}</h3>
+        <b class="category productCategory" ownerId="{{resource.ResId}}">{{_('Category')}}: {{ resource.ResCatName if resource.ResCatName else '' }}</b>
         <div style="font-size: 15px;">{{_('Barcode')}}: {{ resource.BarcodeVal if resource.BarcodeVal else '' }}</div>
         <span class="sku">#{{resource.ResRegNo}}</span>
         <p class="excerpt">{{'' if resource.ResDesc==None else resource.ResDesc}}</p>
@@ -125,10 +125,10 @@
                 </div>
               {% if current_user.is_authenticated %}
                 <div class="review-form-wrapper">
-                  <span class="title">Submit your review</span>
+                  <span class="title">{{_('Submit your review')}}</span>
                   <div action="#" name="frm-review" method="post">
                     <div class="comment-form-rating">
-                      <label>1. Your rating of this products:</label>
+                      <label>1. {{_('Your rating')}}:</label>
                       <fieldset class="rating">
                         <input type="radio" id="star5" class="ratingValue" ownerId="{{resource.ResId}}" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
                         <input type="radio" id="star4half" class="ratingValue" ownerId="{{resource.ResId}}" value="4.5" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
@@ -256,6 +256,7 @@
 
 
 {% block scripts %}
+  <script src="{{ url_for('static', filename='commerce/main/js/mostViewed.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/js/page/sweetalert.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/bundles/sweetalert/sweetalert.min.js') }}"></script>
   <script type="text/javascript">

@@ -33,12 +33,12 @@ def api_res_prices():
 			
 		else:
 			req = request.get_json()
-			print(req)
 			res_prices = []
 			failed_res_prices = [] 
 			for res_price in req:
 				res_price = addResPriceDict(res_price)
 				try:
+					# !!! Res price Id why not RegNO
 					if not 'ResPriceId' in res_price:
 						newResPrice = Res_price(**res_price)
 						db.session.add(newResPrice)
@@ -69,6 +69,6 @@ def api_res_prices():
 				"fail_total": len(failed_res_prices)
 			}
 			for e in status:
-				res[e]=status[e]
+				res[e] = status[e]
 			response = make_response(jsonify(res),200)
 	return response

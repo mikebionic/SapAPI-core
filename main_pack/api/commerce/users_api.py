@@ -52,27 +52,23 @@ def api_users():
 				user = addUsersDict(user)
 				try:
 					if not 'UId' in user:
-						newOrderInv = Users(**user)
+						newUser = Users(**user)
 						db.session.add(newOrderInv)
-						db.session.commit()
 						users.append(user)
 					else:
 						UId = user['UId']
-						thisOrderInv = Users.query.get(int(UId))
-						if thisOrderInv is not None:
-							thisOrderInv.update(**user)
-							db.session.commit()
+						thisUser = Users.query.get(int(UId))
+						if thisUser is not None:
+							thisUser.update(**user)
 							users.append(user)
-
 						else:
-							newOrderInv = Users(**user)
+							newUser = Users(**user)
 							db.session.add(newOrderInv)
-							db.session.commit()
 							users.append(user)
 				except Exception as ex:
 					print(ex)
 					failed_users.append(user)
-
+			db.session.commit()
 			status = checkApiResponseStatus(users,failed_users)
 			res = {
 				"data": users,
@@ -81,6 +77,6 @@ def api_users():
 				"fail_total": len(failed_users)
 			}
 			for e in status:
-				res[e]=status[e]
+				res[e] = status[e]
 			response = make_response(jsonify(res),201)
 	return response

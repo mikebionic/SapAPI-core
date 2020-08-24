@@ -1,7 +1,7 @@
 from flask import render_template,url_for,jsonify,session,flash,redirect,request,Response,abort
 from main_pack.commerce.commerce import bp
-import os
 from main_pack.config import Config
+import os
 
 # useful methods
 from main_pack import db,babel,gettext,lazy_gettext
@@ -61,7 +61,7 @@ def ui_cart():
 			response = jsonify({
 				"status": 'added',
 				"responseText": gettext('Product')+' '+gettext('successfully saved'),
-				"htmlData": render_template('commerce/main/commerce/cartItemAppend.html',
+				"htmlData": render_template(Config.COMMERCE_TEMPLATES_FOLDER_PATH+"commerce/cartItemAppend.html",
 					**resData)
 				})
 		except Exception as ex:
@@ -86,7 +86,7 @@ def ui_cart():
 			response = jsonify({
 				"status": 'added',
 				"responseText": gettext('Product')+' '+gettext('successfully saved'),
-				"htmlData": render_template('commerce/main/commerce/cartItemAppend.html',
+				"htmlData": render_template(Config.COMMERCE_TEMPLATES_FOLDER_PATH+"commerce/cartItemAppend.html",
 					**resData)
 				})
 		except Exception as ex:
@@ -114,7 +114,7 @@ def ui_cart_table():
 			response = jsonify({
 				"status": 'added',
 				"responseText": gettext('Product')+' '+gettext('successfully saved'),
-				"htmlData": render_template('commerce/main/commerce/cartTableAppend.html',
+				"htmlData": render_template(Config.COMMERCE_TEMPLATES_FOLDER_PATH+"commerce/cartTableAppend.html",
 					**resData)
 				})
 		except Exception as ex:
@@ -139,7 +139,7 @@ def ui_cart_table():
 			response = jsonify({
 				"status": 'added',
 				"responseText": gettext('Product')+' '+gettext('successfully saved'),
-				"htmlData": render_template('commerce/main/commerce/cartTableAppend.html',
+				"htmlData": render_template(Config.COMMERCE_TEMPLATES_FOLDER_PATH+"commerce/cartTableAppend.html",
 					**resData)
 				})
 		except Exception as ex:

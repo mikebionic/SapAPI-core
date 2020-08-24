@@ -1,5 +1,7 @@
 from flask import render_template,url_for,jsonify,session,flash,redirect,request,Response,abort
 from flask_login import current_user,login_required
+from main_pack import db,babel,gettext
+from main_pack.config import Config
 
 # auth and validation
 from flask_login import current_user,login_required
@@ -38,7 +40,7 @@ def ui_category():
 					"status": "created",
 					"child_status": child_status,
 					"responseText": gettext('Category')+' '+gettext('successfully saved'),
-					"htmlData": render_template('commerce/admin/appendCategory.html',child_status=child_status,category=newCategory)
+					"htmlData": render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"appendCategory.html",child_status=child_status,category=newCategory)
 					})
 			else:
 				category = addEditCategoryDict(req)
@@ -86,7 +88,7 @@ def ui_category_table():
 					"categoryId": newCategory.ResCatId,
 					"status": "created",
 					"responseText": gettext('Category')+' '+gettext('successfully saved'),
-					"htmlData":  render_template('commerce/admin/categoryAppend.html',category=newCategory)
+					"htmlData":  render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"categoryAppend.html",category=newCategory)
 					})
 			else:
 				thisCategory = Res_category.query.get(categoryId)
@@ -100,6 +102,16 @@ def ui_category_table():
 			req = request.get_json()
 			categoryId = req.get('categoryId')
 			thisCategory = Res_category.query.get(categoryId)
+
+			# checking for presense of resources in this category
+			category_resources = [resource for resource in thisCategory.Resource if resource.GCRecord == None]
+			if category_resources:
+				response = jsonify({
+					"status": "error",
+					"responseText": gettext('Error')+', '+gettext('category has resources, delete related resources first and try again.'),
+					})
+				return response
+
 			thisCategory.GCRecord = 1
 			db.session.commit()
 			response = jsonify({

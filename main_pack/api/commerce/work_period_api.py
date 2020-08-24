@@ -33,7 +33,6 @@ def api_work_periods():
 			
 		else:
 			req = request.get_json()
-			print(req)
 			work_periods = []
 			failed_work_periods = [] 
 			for work_period in req:
@@ -42,25 +41,21 @@ def api_work_periods():
 					if not 'WpId' in work_period:
 						newWorkPeriod = Work_period(**work_period)
 						db.session.add(newWorkPeriod)
-						db.session.commit()
 						work_periods.append(work_period)
 					else:
 						WpId = work_period['WpId']
 						thisWorkPeriod = Work_period.query.get(int(WpId))
 						if thisWorkPeriod is not None:
 							thisWorkPeriod.update(**work_period)
-							db.session.commit()
 							work_periods.append(work_period)
-
 						else:
 							newWorkPeriod = Work_period(**work_period)
 							db.session.add(newWorkPeriod)
-							db.session.commit()
 							work_periods.append(work_period)
 				except Exception as ex:
 					print(ex)
 					failed_work_periods.append(work_period)
-
+			db.session.commit()
 			status = checkApiResponseStatus(work_periods,failed_work_periods)
 			res = {
 				"data": work_periods,
@@ -69,7 +64,7 @@ def api_work_periods():
 				"fail_total": len(failed_work_periods)
 			}
 			for e in status:
-				res[e]=status[e]
+				res[e] = status[e]
 			response = make_response(jsonify(res),200)
 			
 	return response

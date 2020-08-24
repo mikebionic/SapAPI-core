@@ -41,17 +41,15 @@ def api_order_inv_lines():
 					thisOrderInv = Order_inv_line.query.get(int(OInvLineId))
 					if thisOrderInv:
 						thisOrderInv.update(**order_inv_line)
-						db.session.commit()
 						order_inv_lines.append(order_inv_line)
 					else:
 						newOrderInv = Order_inv_line(**order_inv_line)
 						db.session.add(newOrderInv)
-						db.session.commit()
 						order_inv_lines.append(order_inv_line)
 				except Exception as ex:
 					print(ex)
 					failed_order_inv_lines.append(order_inv_line)
-
+			db.session.commit()
 			status = checkApiResponseStatus(order_inv_lines,failed_order_inv_lines)
 			res = {
 				"data": order_inv_lines,
@@ -60,8 +58,7 @@ def api_order_inv_lines():
 				"fail_total": len(failed_order_inv_lines)
 			}
 			for e in status:
-				res[e]=status[e]
+				res[e] = status[e]
 			response = make_response(jsonify(res),200)
-			print(response)
 
 	return response

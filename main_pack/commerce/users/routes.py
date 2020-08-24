@@ -30,11 +30,13 @@ from main_pack.base.imageMethods import save_image
 from main_pack.base.apiMethods import fileToURL
 # / Image operations /
 
-@bp.route("/profile")
+
+@bp.route(Config.COMMERCE_PROFILE_PAGE)
 @login_required
 def profile():
 	categoryData = UiCategoriesList()
 	rpAcc = Rp_acc.query.filter_by(RpAccId = current_user.RpAccId).first()
+	avatar = url_for('static', filename=Config.COMMERCE_TEMPLATES_FOLDER_PATH+"shop_icons/no_photo.png") 
 	if rpAcc:
 		image = Image.query\
 			.filter_by(RpAccId = rpAcc.RpAccId)\
@@ -42,13 +44,10 @@ def profile():
 			.first()
 		if image:
 			avatar = fileToURL(file_type='image',file_size='S',file_name=image.FileName)
-		else:
-			avatar = url_for('static', filename="commerce/main/shop_icons/no_photo.png") 
+	return render_template(Config.COMMERCE_TEMPLATES_FOLDER_PATH+"users/profile.html",**categoryData,
+		rpAcc=rpAcc,avatar=avatar,title=gettext(Config.COMMERCE_PROFILE_PAGE_TITLE))
 
-	return render_template("commerce/main/users/profile.html",**categoryData,
-		title=gettext('Profile'),rpAcc=rpAcc,avatar=avatar)
-
-@bp.route("/wishlist")
+@bp.route(Config.COMMERCE_WISHLIST_PAGE)
 @login_required
 def wishlist():
 	categoryData = UiCategoriesList()
@@ -67,11 +66,11 @@ def wishlist():
 		product['ResId'] = wish.ResId
 		product_list.append(product)
 	res = apiResourceInfo(product_list)
-	return render_template("commerce/main/users/wishlist.html",
+	return render_template(Config.COMMERCE_TEMPLATES_FOLDER_PATH+"users/wishlist.html",
 		**categoryData,**res,pagination_url='commerce_users.wishlist',
-		pagination_wishes=pagination_wishes,title=gettext('Wishlist'))
+		pagination_wishes=pagination_wishes,title=gettext(Config.COMMERCE_WISHLIST_PAGE_TITLE))
 
-@bp.route("/profile_edit",methods=['GET','POST'])
+@bp.route(Config.COMMERCE_PROFILE_EDIT_PAGE,methods=['GET','POST'])
 @login_required
 def profile_edit():
 	form = UpdateRpAccForm()
@@ -123,8 +122,8 @@ def profile_edit():
 	if image:
 		avatar = fileToURL(file_type='image',file_size='S',file_name=image.FileName)
 	else:
-		avatar = url_for('static', filename="commerce/main/shop_icons/no_photo.png") 
+		avatar = url_for('static', filename=Config.COMMERCE_TEMPLATES_FOLDER_PATH+"shop_icons/no_photo.png") 
 
 	categoryData = UiCategoriesList()
-	return render_template("commerce/main/users/profile_edit.html",**categoryData,
-		title=gettext('Edit profile'),form=form,avatar=avatar)
+	return render_template(Config.COMMERCE_TEMPLATES_FOLDER_PATH+"users/profile_edit.html",**categoryData,
+		form=form,avatar=avatar,title=gettext(Config.COMMERCE_PROFILE_EDIT_PAGE_TITLE))

@@ -1,0 +1,94 @@
+{% extends "commerce/bee/commerce/layout.html" %}
+
+{% block styles %}
+	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/bulma.css')}}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/core.css')}}">
+{% endblock %}
+
+{% block content %}
+	<div class="shop-wrapper">
+    <div class="section">
+      <div class="container">
+        <div class="columns account-header">
+          <div class="column is-10 is-offset-1 is-tablet-landscape-padded">
+            <div class="account-title">
+              <h2>{{_('Profile')}}</h2>
+              <img class="brand-filigrane" src="{{ url_for('static', filename='commerce/main/images/logo/nephos-greyscale.svg')}}" alt="">
+            </div>
+            <div class="tabs account-tabs">
+              <ul>
+                <li class="is-active"><a href="{{ url_for('commerce_users.profile') }}">{{_('Profile')}}</a></li>
+                <li><a href="{{ url_for('commerce_users.orders') }}">{{_('Orders')}}</a></li>
+                <li><a href="{{ url_for('commerce_users.wishlist') }}">{{_('Wishlist')}}</a></li>
+              </ul>
+            </div>
+            <div class="columns is-account-grid is-multiline">
+              <div class="column is-5">
+                <div class="flat-card profile-card is-auto">
+                  <div class="card-body">
+                    <div class="profile-image">
+                      <img src="{{ avatar }}"/>
+                    </div>
+                    <div class="username has-text-centered">
+                      <span>{{rpAcc.RpAccName}}</span>
+                      <small>{{_('Registered date')}}: {{rpAcc.CreatedDate.strftime('%d-%m-%Y') if rpAcc.CreatedDate else ''}}</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="column is-7">
+                <div class="flat-card profile-info-card is-auto">
+                  <div class="card-title">
+                    <h3>{{_('Profile details')}}</h3>
+                    <div class="edit-account has-simple-popover popover-hidden-mobile" data-content="Edit Account" data-placement="top">
+                      <a href="{{ url_for('commerce_users.profile_edit') }}"><i class="feather-icons" data-feather="settings"></i></a>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div class="columns">
+                      <div class="column is-6">
+                        <div class="info-block">
+                          <span class="label-text">{{_('Email')}}</span>
+                          <span class="label-value">{{rpAcc.RpAccEMail}}</span>
+                        </div>
+                        <div class="info-block">
+                          <span class="label-text">{{_('Full name')}}</span>
+                          <span class="label-value">{{rpAcc.RpAccName}}</span>
+                        </div>
+                        <div class="info-block">
+                          <span class="label-text">{{_('Address')}}</span>
+                          <span class="label-value">{{rpAcc.RpAccAddress if rpAcc.RpAccAddress else ''}}</span>
+                        </div>
+                      </div>
+                      <div class="column is-6">
+                        <div class="info-block">
+                          <span class="label-text">{{_('Mobile phone')}}</span>
+                          <span class="label-value">{{rpAcc.RpAccMobilePhoneNumber if rpAcc.RpAccMobilePhoneNumber else ''}}</span>
+                        </div>
+                        <div class="info-block">
+                          <span class="label-text">{{_('Home phone')}}</span>
+                          <span class="label-value">{{rpAcc.RpAccHomePhoneNumber if rpAcc.RpAccHomePhoneNumber else ''}}</span>
+                        </div>
+                        <div class="info-block">
+                          <span class="label-text">{{_('Zip code')}}</span>
+                          <span class="label-value">{{rpAcc.RpAccZipCode if rpAcc.RpAccZipCode else ''}}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <img class="card-bg" src="{{ url_for('static', filename='commerce/main/images/logo/nephos-greyscale.svg')}}">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block scripts %}
+	<script src="{{ url_for('static', filename='commerce/main/js/app.js')}}"></script>
+	<script src="{{ url_for('static', filename='commerce/main/js/nephos.js')}}"></script>
+{% endblock %}

@@ -33,7 +33,6 @@ def api_res_totals():
 			
 		else:
 			req = request.get_json()
-			print(req)
 			res_totals = []
 			failed_res_totals = [] 
 			for res_total in req:
@@ -46,7 +45,6 @@ def api_res_totals():
 					if not "ResId" in res_total and not "WhId" in res_total:
 						newResTotal = Res_total(**res_total)
 						db.session.add(newResTotal)
-						db.session.commit()
 						res_totals.append(res_total)
 					else:
 						####
@@ -58,18 +56,16 @@ def api_res_totals():
 						####
 						if thisResTotal is not None:
 							thisResTotal.update(**res_total)
-							db.session.commit()
 							res_totals.append(res_total)
 
 						else:
 							newResTotal = Res_total(**res_total)
 							db.session.add(newResTotal)
-							db.session.commit()
 							res_totals.append(res_total)
 				except Exception as ex:
 					print(ex)
 					failed_res_totals.append(res_total)
-
+			db.session.commit()
 			status = checkApiResponseStatus(res_totals,failed_res_totals)
 			res = {
 				"data": res_totals,
@@ -78,6 +74,6 @@ def api_res_totals():
 				"fail_total": len(failed_res_totals)
 			}
 			for e in status:
-				res[e]=status[e]
+				res[e] = status[e]
 			response = make_response(jsonify(res),200)
 	return response

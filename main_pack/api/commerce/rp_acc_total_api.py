@@ -4,7 +4,7 @@ from main_pack.api.commerce import api
 from main_pack.base.apiMethods import checkApiResponseStatus
 
 from main_pack.models.commerce.models import Rp_acc_trans_total
-from main_pack.models_test.users.models import Rp_acc
+from main_pack.models.users.models import Rp_acc
 from main_pack.api.commerce.utils import addRpAccTrTotDict
 from main_pack import db
 from flask import current_app
@@ -64,7 +64,6 @@ def api_rp_acc_trans_totals():
 					print(ex)
 					failed_rp_acc_trans_totals.append(rp_acc_trans_total)
 			db.session.commit()
-
 			status = checkApiResponseStatus(rp_acc_trans_totals,failed_rp_acc_trans_totals)
 			res = {
 				"data": rp_acc_trans_totals,
@@ -73,6 +72,6 @@ def api_rp_acc_trans_totals():
 				"fail_total": len(failed_rp_acc_trans_totals)
 			}
 			for e in status:
-				res[e]=status[e]
+				res[e] = status[e]
 			response = make_response(jsonify(res),200)
 	return response

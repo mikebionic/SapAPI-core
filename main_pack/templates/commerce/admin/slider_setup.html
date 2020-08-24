@@ -1,6 +1,7 @@
 {% extends "commerce/admin/layout.html" %}
 
 {% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/css/app.min.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/bootstrap-daterangepicker/daterangepicker.css')}}">
 {% endblock %}
 
@@ -81,7 +82,7 @@
 
 
 {% block scripts %}
-
+<script src="{{ url_for('static', filename='commerce/admin/js/app.min.js') }}"></script> 
   <script src="{{ url_for('static', filename='commerce/admin/bundles/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/js/page/gallery1.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/js/sliders.js') }}"></script>
