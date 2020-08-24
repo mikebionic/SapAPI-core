@@ -8,7 +8,7 @@
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='commerce/admin/commerce_styles/css/font-awesome.min.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='commerce/admin/commerce_styles/css/style.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='commerce/admin/admin_commerce/style.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/bootstrap-daterangepicker/daterangepicker.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css')}}">
   
   
 {% endblock %}
@@ -194,7 +194,9 @@
                 aria-controls="contact" aria-selected="false">Soňky ýyl</a>
             </li>
             <li class="nav-item">
-                <input type="text" class="form-control datetimepicker">
+              <div class="input-group">
+                <input type="text" class="form-control datetimepicker" placeholder="Please choose date & time...">
+              </div>
             </li>
           </ul>
         </div>
@@ -905,7 +907,7 @@
 {% endblock %}
 
 {% block scripts %}
-  <script src="{{ url_for('static', filename='commerce/admin/bundles/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+  
   <script src="{{ url_for('static', filename='commerce/admin/js/resource.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/js/price.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/js/translations.js') }}"></script>
@@ -913,4 +915,7 @@
   <script src="{{ url_for('static', filename='commerce/admin/js/colors.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/js/sizes.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/js/propertiesMain.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/admin/bundles/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/admin/js/moment.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/admin/js/basic-form-elements.js') }}"></script>
 {% endblock %}
