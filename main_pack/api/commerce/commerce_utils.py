@@ -57,6 +57,7 @@ def apiResourceInfo(resource_list=None,
 										isInactive=False,
 										fullInfo=False,
 										user=None,
+										resource_models=None,
 										showRelated=False):
 	categories = Res_category.query.filter_by(GCRecord = None).all()
 	usage_statuses = Usage_status.query.filter_by(GCRecord = None).all()
@@ -71,38 +72,39 @@ def apiResourceInfo(resource_list=None,
 	if user:
 		RpAccId = user.RpAccId
 		wishes = Wish.query\
-			.filter_by(GCRecord = None,RpAccId = RpAccId)\
+			.filter_by(GCRecord = None, RpAccId = RpAccId)\
 			.all()
 	
-	resource_models = []
-	# if list with "ResId" is not provided, return all resources
-	if resource_list is None:
-		resource_filtering = {
-			"GCRecord": None,
-		}
-		if isInactive==False:
-			resource_filtering["UsageStatusId"] = 1
-
-		resources = Resource.query\
-			.filter_by(**resource_filtering).all()
-		for resource in resources:
-			if resource_config_check(resource):
-				resource_models.append(resource)
-	else:
-		for resource_index in resource_list:
-			ResId = int(resource_index["ResId"])
+	if not resource_models:
+		resource_models = []
+		# if list with "ResId" is not provided, return all resources
+		if resource_list is None:
 			resource_filtering = {
-				"ResId": ResId,
 				"GCRecord": None,
 			}
 			if isInactive==False:
 				resource_filtering["UsageStatusId"] = 1
 
-			resource = Resource.query\
-				.filter_by(**resource_filtering).first()
-			if resource:
+			resources = Resource.query\
+				.filter_by(**resource_filtering).all()
+			for resource in resources:
 				if resource_config_check(resource):
 					resource_models.append(resource)
+		else:
+			for resource_index in resource_list:
+				ResId = int(resource_index["ResId"])
+				resource_filtering = {
+					"ResId": ResId,
+					"GCRecord": None,
+				}
+				if isInactive==False:
+					resource_filtering["UsageStatusId"] = 1
+
+				resource = Resource.query\
+					.filter_by(**resource_filtering).first()
+				if resource:
+					if resource_config_check(resource):
+						resource_models.append(resource)
 		
 	data = []
 	fails = []
@@ -285,7 +287,22 @@ def apiOrderInvInfo(startDate=None,
 				rpAccData = apiRpAccData(dbModel=rp_acc)
 			order_inv_info['Rp_acc'] = rpAccData['data']
 
-			order_inv_info['Order_inv_lines'] = [order_inv_line.to_json_api() for order_inv_line in order_inv.Order_inv_line if order_inv_line.GCRecord == None]
+			order_inv_lines = []
+			for order_inv_line in order_inv.Order_inv_line:
+				if order_inv_line.GCRecord == None:
+					this_order_inv_line = order_inv_line.to_json_api()
+					try:
+						resource = Resource.query\
+							.filter_by(GCRecord = None, ResId = order_inv_line.ResId).first()
+						resource_json = apiResourceInfo(resource_models=[resource],single_object=True)
+						this_order_inv_line['Resource'] = resource_json['data']
+					except Exception as ex:
+						print(ex)
+						this_order_inv_line['Resource'] = []
+					order_inv_lines.append(this_order_inv_line)
+			
+			order_inv_info['Order_inv_lines'] = order_inv_lines
+			# order_inv_info['Order_inv_lines'] = [order_inv_line.to_json_api() for order_inv_line in order_inv.Order_inv_line if order_inv_line.GCRecord == None]
 			data.append(order_inv_info)
 		except Exception as ex:
 			print(ex)
