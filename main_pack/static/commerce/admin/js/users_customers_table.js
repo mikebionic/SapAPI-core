@@ -12,7 +12,7 @@ $("body").delegate('.setRpAccStatus','click',function(){
 $('body').delegate('.deleteCustomerBtn','click',function(){
 	ownerId = $(this).attr('ownerId');
 	data = {"rpAccId":ownerId};
-	postData(formData=data,url=url_prefix+"/ui/customers_table/",type="DELETE",formId=ownerId);
+	postData(formData=data,url=url_prefix+"/ui/customers_table/",type="DELETE",alertStyle="swal",formId=ownerId);
 })
 
 $("body").delegate('.setUserType','click',function(){
@@ -23,7 +23,7 @@ $("body").delegate('.setUserType','click',function(){
 $('body').delegate('.deleteUserBtn','click',function(){
 	ownerId = $(this).attr('ownerId');
 	data = {"userId":ownerId};
-	postData(formData=data,url=url_prefix+"/ui/users_table/",type="DELETE",formId=ownerId);
+	postData(formData=data,url=url_prefix+"/ui/users_table/",type="DELETE",alertStyle="swal",formId=ownerId);
 })
 
 // ajax functions

@@ -21,8 +21,8 @@ def ui_customers_table():
 			RpAccTypeId = req.get('rpAccTypeId')
 			RpAccStatusId = req.get('rpAccStatusId')
 			rp_acc = Rp_acc.query\
-				.filter(and_(Rp_acc.GCRecord=='' or Rp_acc.GCRecord==None),\
-					Rp_acc.RpAccId==RpAccId).first()
+				.filter_by(GCRecord = None, RpAccId = RpAccId)\
+				.first()
 			if rp_acc:
 				if RpAccTypeId:
 					rp_acc.RpAccTypeId = RpAccTypeId
@@ -37,12 +37,41 @@ def ui_customers_table():
 		elif request.method == 'DELETE':
 			req = request.get_json()
 			RpAccId = req.get('rpAccId')
-			thisRpAcc = Rp_acc.query.get(RpAccId)
-			thisRpAcc.GCRecord = 1
+			thisRpAcc = Rp_acc.query\
+				.filter_by(GCRecord = None, RpAccId = RpAccId)\
+				.first()
 
+			# handling the deletion if invoice exists
+			errors = []
+			invoices = [invoice.to_json_api() for invoice in thisRpAcc.Invoice if invoice.GCRecord == None]
+			inv_lines = [inv_line.to_json_api() for inv_line in thisRpAcc.Inv_line if inv_line.GCRecord == None]
+			order_invoices = [order_inv.to_json_api() for order_inv in thisRpAcc.Order_inv if order_inv.GCRecord == None]
+			order_inv_lines = [order_inv_line.to_json_api() for order_inv_line in thisRpAcc.Order_inv_line if order_inv_line.GCRecord == None]
+			
+			if invoices:
+				errors.append({"message": "Invoices", "data": invoices})
+			if inv_lines:
+				errors.append({"message": "Invoice lines", "data": inv_lines})
+			if order_invoices:
+				errors.append({"message": "Order invoices", "data": order_invoices})
+			if order_inv_lines:
+				errors.append({"message": "Order invoice lines", "data": order_inv_lines})
+			
+			if errors:
+				issues_text = ''
+				for error in errors:
+					issues_text += ' {} '.format(error["message"])
+				response = jsonify({
+					"status": "error",
+					"responseText": gettext('Failed')+'! [{}]'.format(issues_text),
+					"errors": errors
+					})
+				return response
+
+			thisRpAcc.GCRecord = 1
 			user = Users.query\
-				.filter(and_(Users.GCRecord=='' or Users.GCRecord==None),\
-					Users.RpAccId==RpAccId).first()
+				.filter_by(GCRecord = None, RpAccId = RpAccId)\
+				.first()
 			if user:
 				user.GCRecord=1
 
@@ -69,8 +98,8 @@ def ui_users_table():
 			UId = req.get('userId')
 			UTypeId = req.get('userTypeId')
 			user = Users.query\
-				.filter(and_(Users.GCRecord=='' or Users.GCRecord==None),\
-					Users.UId==UId).first()
+				.filter_by(GCRecord = None, UId = UId)\
+				.first()
 			if user:
 				if UTypeId:
 					user.UTypeId = UTypeId
@@ -83,6 +112,26 @@ def ui_users_table():
 			req = request.get_json()
 			UId = req.get('userId')
 			thisUser = Users.query.get(UId)
+
+			# handling the deletion if invoice exists
+			errors = []
+			rp_accs = [rp_acc.to_json_api() for rp_acc in thisRpAcc.Rp_acc if rp_acc.GCRecord == None]
+			
+			if rp_accs:
+				errors.append({"message": "Customers", "data": rp_accs})
+			
+			if errors:
+				issues_text = ''
+				for error in errors:
+					issues_text += ' {} '.format(error["message"])
+				response = jsonify({
+					"status": "error",
+					"responseText": gettext('Failed')+'! [{}]'.format(issues_text),
+					"errors": errors
+					})
+				return response
+
+
 			thisUser.GCRecord = 1
 			db.session.commit()
 			response = jsonify({

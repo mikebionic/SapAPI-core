@@ -1120,7 +1120,7 @@ msgstr "Müşderiler"
 
 #: templates/commerce/admin/layout.html:129
 msgid "Customers table"
-msgstr "Ulanyjylar tablisasy"
+msgstr "Müşderiler tablisasy"
 
 #: templates/commerce/admin/logo_setup.html:44
 msgid "Save logo"

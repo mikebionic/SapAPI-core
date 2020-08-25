@@ -151,7 +151,7 @@ def apiResourceInfo(resource_list=None,
 			rating_values = [rating['RtRatingValue'] for rating in List_Ratings if List_Ratings]
 			try:
 				average_rating = sum(rating_values) / len(rating_values)
-				average_rating = round(average_ratign,2)
+				average_rating = round(average_rating,2)
 			except Exception as ex:
 				average_rating = 0
 

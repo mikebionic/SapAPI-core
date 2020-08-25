@@ -102,10 +102,10 @@
                 </ul>
               </li>
               <li class="dropdown">
-                <a href="{{ url_for('commerce_admin.sale_repots_table') }}" class="nav-link"><i data-feather="grid"></i><span>{{_('Sale reports')}}</span></a>
+                <a href="{{ url_for('commerce_admin.sale_repots_table') }}" class="nav-link"><i data-feather="grid"></i><span>{{_('Sale reports')}} - Chart</span></a>
               </li>
               <li class="dropdown">
-                <a href="{{ url_for('commerce_admin.sale_repots_table2') }}" class="nav-link"><i data-feather="grid"></i><span>{{_('Sale reports2')}}</span></a>
+                <a href="{{ url_for('commerce_admin.sale_repots_table2') }}" class="nav-link"><i data-feather="grid"></i><span>{{_('Sale reports')}}</span></a>
               </li>
               <li class="menu-header">{{_('Invoices')}}</li>
               <li class="dropdown">
@@ -180,6 +180,7 @@
     <script src="{{ url_for('static', filename='commerce/admin/js/scripts.js') }}"></script>
     <script src="{{ url_for('static', filename='commerce/admin/bundles/izitoast/js/iziToast.min.js') }}"></script>
     <script src="{{ url_for('static', filename='commerce/admin/js/page/toastr.js') }}"></script>
+    <script src="{{ url_for('static', filename='commerce/admin/bundles/sweetalert/sweetalert.min.js') }}"></script>
     <script type="text/javascript">
       var csrf_token = "{{ csrf_token() }}";
       $.ajaxSetup({

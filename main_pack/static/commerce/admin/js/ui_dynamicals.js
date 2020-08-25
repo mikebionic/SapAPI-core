@@ -129,7 +129,7 @@ function validateOwnerInput(requiredFields,formId=null){
 	else {return true;}
 }
 
-var postData = function(formData,url,type,formId,listName,responseForm){
+var postData = function(formData,url,type,alertStyle,formId,listName,responseForm){
 	$.ajax({
 		contentType:"application/json",
 		dataType:"json",
@@ -139,16 +139,38 @@ var postData = function(formData,url,type,formId,listName,responseForm){
 		success:function(response){
 			if (response.status == 'created'){
 				$('.'+listName).prepend(response[responseForm]);
-				successToaster(response.responseText);
+				if (alertStyle == 'swal'){
+					swal(title="Success",desc=response.responseText,style="success");
+				}
+				else{
+					successToaster(response.responseText);
+				}
 			}
 			else if (response.status == 'updated'){
-				successToaster(response.responseText);
+				if (alertStyle == 'swal'){
+					swal(title="Success",desc=response.responseText,style="success");
+				}
+				else{
+					successToaster(response.responseText);
+				}
 			}
 			else if (response.status == 'deleted'){
-				successToaster(response.responseText);
+				if (alertStyle == 'swal'){
+					swal(title="Success",desc=response.responseText,style="success");
+				}
+				else{
+					successToaster(response.responseText);
+				}
 				$('[ownerId='+formId+']').remove();
 			}
-			else{errorToaster(response.responseText);}
+			else{
+				if (alertStyle == 'swal'){
+					swal(title="Error",desc=response.responseText,style="warning");
+				}
+				else{
+					errorToaster(response.responseText);
+				}
+			}
 		}
 	})
 }

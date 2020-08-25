@@ -4,42 +4,44 @@
 <!-- Single Product Section Start -->
 <div class="product-section section mt-90 mb-90">
 	<div class="container">
-		
+
 		<div class="row mb-90">
-					
+
 			<div class="col-lg-6 col-12 mb-50">
 
 				<!-- Image -->
 				<div class="single-product-image thumb-right">
 
-					<div class="tab-content">
-						<div id="single-image-1" class="tab-pane fade show active big-image-slider">
-							<div class="big-image"><img src="{{ url_for('static', filename='commerce/bee/images/single-product/big-1.png') }}"><a href="{{ url_for('static', filename='commerce/bee/images/single-product/big-1.png') }}" class="big-image-popup"><i class="fa fa-search-plus"></i></a></div>
-							<div class="big-image"><img src="{{ url_for('static', filename='commerce/bee/images/single-product/big-2.png') }}"><a href="{{ url_for('static', filename='commerce/bee/images/single-product/big-2.png') }}" class="big-image-popup"><i class="fa fa-search-plus"></i></a></div>
-							<div class="big-image"><img src="{{ url_for('static', filename='commerce/bee/images/single-product/big-3.png') }}"><a href="{{ url_for('static', filename='commerce/bee/images/single-product/big-3.png') }}" class="big-image-popup"><i class="fa fa-search-plus"></i></a></div>
+					{% if resource.Images %}
+						<div class="tab-content">
+							{% for image in resource.Images %}
+							<div id="single-image-{{image}}" class="tab-pane fade show active big-image-slider">
+								<div class="big-image">
+									<img loading="lazy" src="{{resource.FilePathM}}" class="big-image-popup">
+									<a href="{{ url_for('static', filename='commerce/bee/images/single-product/big-2.png') }}" class="big-image-popup">
+										<i class="fa fa-search-plus"></i>
+									</a>
+								</div>
+								<!-- <div class="big-image"><img loading="lazy" src="{{ url_for('static', filename='commerce/bee/images/single-product/big-2.png') }}"><a href="{{ url_for('static', filename='commerce/bee/images/single-product/big-2.png') }}" class="big-image-popup"><i class="fa fa-search-plus"></i></a></div>
+								<div class="big-image"><img loading="lazy" src="{{ url_for('static', filename='commerce/bee/images/single-product/big-3.png') }}"><a href="{{ url_for('static', filename='commerce/bee/images/single-product/big-3.png') }}" class="big-image-popup"><i class="fa fa-search-plus"></i></a></div> -->
+							</div>
+							{% endfor %}
 						</div>
-						<div id="single-image-2" class="tab-pane fade big-image-slider">
-							<div class="big-image"><img src="{{ url_for('static', filename='commerce/bee/images/single-product/big-7.png') }}"><a href="{{ url_for('static', filename='commerce/bee/images/single-product/big-7.png') }}" class="big-image-popup"><i class="fa fa-search-plus"></i></a></div>
-							<div class="big-image"><img src="{{ url_for('static', filename='commerce/bee/images/single-product/big-8.png') }}"><a href="{{ url_for('static', filename='commerce/bee/images/single-product/big-9.png') }}" class="big-image-popup"><i class="fa fa-search-plus"></i></a></div>
-							<div class="big-image"><img src="{{ url_for('static', filename='commerce/bee/images/single-product/big-9.png') }}"><a href="{{ url_for('static', filename='commerce/bee/images/single-product/big-9.png') }}" class="big-image-popup"><i class="fa fa-search-plus"></i></a></div>
+						<div class="thumb-image-slider nav" data-vertical="true">
+							{% for image in resource.Images %}
+								<a class="thumb-image active" data-toggle="tab" href="#single-image-{{image}}"><img loading="lazy" src="{{ url_for('static', filename='commerce/bee/images/single-product/thumb-1.png') }}"></a>
+							{% endfor %}
 						</div>
-						<div id="single-image-3" class="tab-pane fade big-image-slider">
-							<div class="big-image"><img src="{{ url_for('static', filename='commerce/bee/images/single-product/big-13.png') }}"><a href="{{ url_for('static', filename='commerce/bee/images/single-product/big-13.png') }}" class="big-image-popup"><i class="fa fa-search-plus"></i></a></div>
-							<div class="big-image"><img src="{{ url_for('static', filename='commerce/bee/images/single-product/big-14.png') }}"><a href="{{ url_for('static', filename='commerce/bee/images/single-product/big-14.png') }}" class="big-image-popup"><i class="fa fa-search-plus"></i></a></div>
-							<div class="big-image"><img src="{{ url_for('static', filename='commerce/bee/images/single-product/big-15.png') }}"><a href="{{ url_for('static', filename='commerce/bee/images/single-product/big-15.png') }}" class="big-image-popup"><i class="fa fa-search-plus"></i></a></div>
+					{% else %}
+						<div class="tab-content">
+							<div id="single-image-1" class="tab-pane fade show active big-image-slider">
+								<div class="big-image"><img loading="lazy" src="{{ url_for('static', filename='commerce/main/shop_icons/no_photo.png') }}" class="big-image-popup"><i class="fa fa-search-plus"></i></a></div>
+							</div>
 						</div>
-					</div>
-					
-					<div class="thumb-image-slider nav" data-vertical="true">
-						<a class="thumb-image active" data-toggle="tab" href="#single-image-1"><img src="{{ url_for('static', filename='commerce/bee/images/single-product/thumb-1.png') }}"></a>
-						<a class="thumb-image" data-toggle="tab" href="#single-image-2"><img src="{{ url_for('static', filename='commerce/bee/images/single-product/thumb-2.png') }}"></a>
-						<a class="thumb-image" data-toggle="tab" href="#single-image-3"><img src="{{ url_for('static', filename='commerce/bee/images/single-product/thumb-3.png') }}"></a>
-					</div>
-
+					{% endif %}
 				</div>
-
 			</div>
-					
+
 			<div class="col-lg-6 col-12 mb-50">
 
 				<!-- Content -->
@@ -47,14 +49,11 @@
 
 					<!-- Category & Title -->
 					<div class="head-content">
-
 						<div class="category-title">
-							<a href="#" class="cat">Smartphone</a>
-							<h5 class="title">Flex 3310</h5>
+							<a href="#" class="cat">{{ resource.ResCatName }}</a>
+							<h5 class="title">{{ resource.ResName }}</h5>
 						</div>
-
-						<h5 class="price">$295.00</h5>
-
+						<span>TMT</span><h5 class="price">{{ resource.ResPriceValue }}</h5>
 					</div>
 
 					<div class="single-product-description">
@@ -68,19 +67,18 @@
 						</div>
 
 						<div class="desc">
-							<p>enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia res eos qui ratione voluptatem sequi Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora inform </p>
+							<p>{{ resource.ResFullDesc }}</p>
 						</div>
-						
-						<span class="availability">Availability: <span>In Stock</span></span>
-						
+
+						<span class="availability">{{_('Availability')}}: <span>{{_('In stock')}}</span></span>
+
 						<div class="quantity-colors">
-							
+
 							<div class="quantity">
-								<h5>Quantity</h5>
+								<h5>{{_s('Quantity')}}</h5>
 								<div class="pro-qty"><input type="text" value="1"></div>
-							</div>                            
-							
-							<div class="colors">
+							</div>
+							<!-- <div class="colors">
 								<h5>Color</h5>
 								<select class="nice-select">
 									<option>red</option>
@@ -88,9 +86,8 @@
 									<option>yellow</option>
 									<option>grey</option>
 								</select>
-							</div>                            
-							
-						</div> 
+							</div> -->
+						</div>
 
 						<div class="actions">
 
@@ -101,26 +98,26 @@
 							</div>
 
 						</div>
-						
+
 						<div class="tags">
-							
+
 							<h5>Tags:</h5>
 							<a href="#">Electronic</a>
 							<a href="#">Smartphone</a>
 							<a href="#">Phone</a>
 							<a href="#">Charger</a>
 							<a href="#">Powerbank</a>
-							
+
 						</div>
-						
+
 						<div class="share">
-							
+
 							<h5>Share: </h5>
 							<a href="#"><i class="fa fa-facebook"></i></a>
 							<a href="#"><i class="fa fa-twitter"></i></a>
 							<a href="#"><i class="fa fa-instagram"></i></a>
 							<a href="#"><i class="fa fa-google-plus"></i></a>
-							
+
 						</div>
 
 					</div>
@@ -128,22 +125,22 @@
 				</div>
 
 			</div>
-			
+
 		</div>
-		
+
 		<div class="row">
-			
+
 			<div class="col-lg-10 col-12 ml-auto mr-auto">
-				
+
 				<ul class="single-product-tab-list nav">
 					<li><a href="#product-description" class="active" data-toggle="tab" >description</a></li>
 					<li><a href="#product-specifications" data-toggle="tab" >specifications</a></li>
 					<li><a href="#product-reviews" data-toggle="tab" >reviews</a></li>
 				</ul>
-				
+
 				<div class="single-product-tab-content tab-content">
 					<div class="tab-pane fade show active" id="product-description">
-						
+
 						<div class="row">
 							<div class="single-product-description-content col-lg-8 col-12">
 								<h4>Introducing Flex 3310</h4>
@@ -154,10 +151,10 @@
 								<p>enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia res eos qui ratione voluptatem sequi Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci veli</p>
 							</div>
 							<div class="single-product-description-image col-lg-4 col-12">
-								<img src="{{ url_for('static', filename='commerce/bee/images/single-product/description.png') }}">
+								<img loading="lazy" src="{{ url_for('static', filename='commerce/bee/images/single-product/description.png') }}">
 							</div>
 						</div>
-						
+
 					</div>
 					<div class="tab-pane fade" id="product-specifications">
 						<div class="single-product-specification">
@@ -172,7 +169,7 @@
 						</div>
 					</div>
 					<div class="tab-pane fade" id="product-reviews">
-					   
+
 						<div class="product-ratting-wrap">
 							<div class="pro-avg-ratting">
 								<h4>4.5 <span>(Overall)</span></h4>
@@ -221,7 +218,7 @@
 								</div>
 							</div>
 							<div class="rattings-wrapper">
-							
+
 								<div class="sin-rattings">
 									<div class="ratting-author">
 										<h3>Cristopher Lee</h3>
@@ -236,7 +233,7 @@
 									</div>
 									<p>enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia res eos qui ratione voluptatem sequi Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci veli</p>
 								</div>
-								
+
 								<div class="sin-rattings">
 									<div class="ratting-author">
 										<h3>Nirob Khan</h3>
@@ -251,7 +248,7 @@
 									</div>
 									<p>enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia res eos qui ratione voluptatem sequi Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci veli</p>
 								</div>
-								
+
 								<div class="sin-rattings">
 									<div class="ratting-author">
 										<h3>MD.ZENAUL ISLAM</h3>
@@ -266,7 +263,7 @@
 									</div>
 									<p>enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia res eos qui ratione voluptatem sequi Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci veli</p>
 								</div>
-								
+
 							</div>
 							<div class="ratting-form-wrapper fix">
 								<h3>Add your Comments</h3>
@@ -301,14 +298,14 @@
 								</form>
 							</div>
 						</div>
-						
+
 					</div>
 				</div>
-				
+
 			</div>
-			
+
 		</div>
-		
+
 	</div>
 </div><!-- Single Product Section End -->
 
@@ -316,15 +313,15 @@
 <div class="product-section section mb-70">
 	<div class="container">
 		<div class="row">
-			
+
 			<!-- Section Title Start -->
 			<div class="col-12 mb-40">
 				<div class="section-title-one" data-title="RELATED PRODUCT"><h1>RELATED PRODUCT</h1></div>
 			</div><!-- Section Title End -->
-			
+
 			<!-- Product Tab Content Start -->
 			<div class="col-12">
-						
+
 				<!-- Product Slider Wrap Start -->
 				<div class="product-slider-wrap product-slider-arrow-one">
 					<!-- Product Slider Start -->
@@ -337,7 +334,7 @@
 								<!-- Image -->
 								<div class="image">
 
-									<a href="single-product.html" class="img"><img src="{{ url_for('static', filename='commerce/bee/images/product/product-1.png') }}"></a>
+									<a href="single-product.html" class="img"><img loading="lazy" src="{{ url_for('static', filename='commerce/bee/images/product/product-1.png') }}"></a>
 
 									<div class="wishlist-compare">
 										<a href="#" data-tooltip="Wishlist"><i class="ti-heart"></i></a>
@@ -386,7 +383,7 @@
 
 									<span class="label sale">sale</span>
 
-									<a href="single-product.html" class="img"><img src="{{ url_for('static', filename='commerce/bee/images/product/product-2.png') }}"></a>
+									<a href="single-product.html" class="img"><img loading="lazy" src="{{ url_for('static', filename='commerce/bee/images/product/product-2.png') }}"></a>
 
 									<div class="wishlist-compare">
 										<a href="#" data-tooltip="Wishlist"><i class="ti-heart"></i></a>
@@ -433,7 +430,7 @@
 								<!-- Image -->
 								<div class="image">
 
-									<a href="single-product.html" class="img"><img src="{{ url_for('static', filename='commerce/bee/images/product/product-3.png') }}""></a>
+									<a href="single-product.html" class="img"><img loading="lazy" src="{{ url_for('static', filename='commerce/bee/images/product/product-3.png') }}""></a>
 
 									<div class="wishlist-compare">
 										<a href="#" data-tooltip="Wishlist"><i class="ti-heart"></i></a>
@@ -480,7 +477,7 @@
 								<!-- Image -->
 								<div class="image">
 
-									<a href="single-product.html" class="img"><img src="{{ url_for('static', filename='commerce/bee/images/product/product-4.png') }}"></a>
+									<a href="single-product.html" class="img"><img loading="lazy" src="{{ url_for('static', filename='commerce/bee/images/product/product-4.png') }}"></a>
 
 									<div class="wishlist-compare">
 										<a href="#" data-tooltip="Wishlist"><i class="ti-heart"></i></a>
@@ -527,7 +524,7 @@
 								<!-- Image -->
 								<div class="image">
 
-									<a href="single-product.html" class="img"><img src="{{ url_for('static', filename='commerce/bee/images/product/product-5.png') }}"></a>
+									<a href="single-product.html" class="img"><img loading="lazy" src="{{ url_for('static', filename='commerce/bee/images/product/product-5.png') }}"></a>
 
 									<div class="wishlist-compare">
 										<a href="#" data-tooltip="Wishlist"><i class="ti-heart"></i></a>
@@ -569,9 +566,9 @@
 
 					</div><!-- Product Slider End -->
 				</div><!-- Product Slider Wrap End -->
-						
+
 			</div><!-- Product Tab Content End -->
-			
+
 		</div>
 	</div>
 </div><!-- Related Product Section End -->

@@ -6,14 +6,14 @@
 <div class="login-section section mt-90 mb-90">
 	<div class="container">
 		<div class="row">
-			
+
 			<!-- Login -->
 			<div class="col-md-6 col-12 d-flex">
 				<div class="ee-login">
-					
+
 					<h3>{{_('Login')}}</h3>
 					<p>{{_('Welcome')}}</p>
-					
+
 					<!-- Login Form -->
 					<form action="#" method="post">
 						{{ form.csrf_token() }}
@@ -28,30 +28,30 @@
 						</div>
 					</form>
 					<h4>{{_('Don’t have account?')}} <a href="{{ url_for('commerce_auth.register') }}">{{_('Register')}}</a></h4>
-					
+
 				</div>
 			</div>
-			
+
 			<div class="col-md-1 col-12 d-flex">
-				
+
 				<div class="login-reg-vertical-boder"></div>
-				
+
 			</div>
-			
+
 			<!-- Login With Social -->
 			<div class="col-md-5 col-12 d-flex">
-				
+
 				<div class="ee-social-login">
 					<h3>Also you can login with...</h3>
-					
+
 					<a href="#" class="facebook-login">Login with <i class="fa fa-facebook"></i></a>
 					<a href="#" class="twitter-login">Login with <i class="fa fa-twitter"></i></a>
 					<a href="#" class="google-plus-login">Login with <i class="fa fa-google-plus"></i></a>
-					
+
 				</div>
-				
+
 			</div>
-			
+
 		</div>
 	</div>
 </div><!-- Login Section End -->

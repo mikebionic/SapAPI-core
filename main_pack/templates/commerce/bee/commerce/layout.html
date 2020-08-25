@@ -39,19 +39,19 @@
         <div class="col mt-10 mb-10">
           <!-- Header Links Start -->
           <div class="header-links">
-            <a href="{{ url_for('commerce_users.orders') }}"><img src="{{ url_for('static', filename='commerce/bee/images/icons/car.png') }}" alt="Car Icon"> <span>Track your order</span></a>
+            <a href="{{ url_for('commerce_users.orders') }}"><img loading="lazy" src="{{ url_for('static', filename='commerce/bee/images/icons/car.png') }}" alt="Car Icon"> <span>Track your order</span></a>
           </div><!-- Header Links End -->
         </div>
 
         <div class="col order-12 order-xs-12 order-lg-2 mt-10 mb-10">
           <!-- Header Advance Search Start -->
           <div class="header-advance-search">
-            
+
             <form action="#">
               <div class="input"><input type="text" placeholder="{{_('Search')}}"></div>
               <div class="submit"><button><i class="icofont icofont-search-alt-1"></i></button></div>
             </form>
-            
+
           </div><!-- Header Advance Search End -->
         </div>
 
@@ -82,7 +82,7 @@
           <div class="header-logo">
             <a href="{{ url_for('commerce.commerce')}}">
               {% if company_logo %}
-                <img src="{{ company_logo.FilePath }}">
+                <img loading="lazy" src="{{ company_logo.FilePath }}">
               {% else %}
                 <h4>{{company.CName}}</h4>
               {% endif %}
@@ -107,15 +107,15 @@
         <div class="col order-2 order-lg-12 order-xl-12">
           <!-- Header Shop Links Start -->
           <div class="header-shop-links">
-            
+
             <!-- Wishlist -->
             <a href="{{ url_for('commerce_users.wishlist') }}" class="header-wishlist"><i class="ti-heart"></i> <span class="number">3</span></a>
             <!-- Cart -->
             <a href="{{ url_for('commerce.cart') }}" class="header-cart"><i class="ti-shopping-cart"></i> <span class="number">3</span></a>
-            
+
           </div><!-- Header Shop Links End -->
         </div>
-        
+
         <!-- Mobile Menu -->
         <div class="mobile-menu order-12 d-block d-lg-none col"></div>
 
@@ -125,18 +125,18 @@
 
 </div><!-- Header Section End -->
 
-<!-- Mini Cart Wrap Start -->                      
+<!-- Mini Cart Wrap Start -->
 <div class="mini-cart-wrap">
 
   <!-- Mini Cart Top -->
-  <div class="mini-cart-top">    
+  <div class="mini-cart-top">
     <button class="close-cart">{{_('Close')}}<i class="icofont icofont-close"></i></button>
   </div>
 
   <!-- Mini Cart Products -->
   <ul class="mini-cart-products">
     <li>
-      <a class="image"><img src="{{ url_for('static', filename='commerce/bee/images/product/product-1.png') }}" alt="Product"></a>
+      <a class="image"><img loading="lazy" src="{{ url_for('static', filename='commerce/bee/images/product/product-1.png') }}" alt="Product"></a>
       <div class="content">
         <a href="single-product.html" class="title">Waxon Note Book Pro 5</a>
         <span class="price">{{_('Price')}}: $295</span>
@@ -147,14 +147,14 @@
   </ul>
 
   <!-- Mini Cart Bottom -->
-  <div class="mini-cart-bottom">    
+  <div class="mini-cart-bottom">
     <h4 class="sub-total">{{_('Total')}}: <span>$1160</span></h4>
     <div class="button">
       <a href="checkout.html">{{_('Checkout')}}</a>
     </div>
   </div>
 
-</div><!-- Mini Cart Wrap End --> 
+</div><!-- Mini Cart Wrap End -->
 <!-- Cart Overlay -->
 <div class="cart-overlay"></div>
 
@@ -177,12 +177,12 @@
       <div class="row">
         <div class="col-lg-6 col-12">
           <div class="footer-copyright"><p>Sap Çözgut</p></div>
-        </div>               
+        </div>
       </div>
     </div>
   </div>
 </div>
-<!-- Footer Section End --> 
+<!-- Footer Section End -->
 
 <!-- jQuery JS -->
 <script src="{{ url_for('static', filename='commerce/bee/js/vendor/jquery-1.12.4.min.js') }}"></script>
