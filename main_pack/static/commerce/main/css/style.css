@@ -6632,6 +6632,10 @@ body.open-overlay #overlay {
 .contact-form-container .form-row input {
     height: 45px;
 }
+.contact-form-container .form-row input::placeholder {
+    color: #000;
+}
+
 
 .contact-form-container .form-row input::-webkit-input-placeholder {
     /* Edge */
