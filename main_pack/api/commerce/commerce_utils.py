@@ -139,9 +139,9 @@ def apiResourceInfo(resource_list=None,
 			resource_info["CurrencyCode"] = List_Currencies[0]['CurrencyCode'] if List_Currencies else 'TMT'
 			resource_info["ResTotBalance"] = List_Res_total[0]['ResTotBalance'] if List_Res_total else ''
 			resource_info["ResPendingTotalAmount"] = List_Res_total[0]['ResPendingTotalAmount'] if List_Res_total else ''
-			resource_info["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=List_Images[0]['FileName']) if List_Images else ''
-			resource_info["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=List_Images[0]['FileName']) if List_Images else ''
-			resource_info["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_Images[0]['FileName']) if List_Images else ''
+			resource_info["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=List_Images[-1]['FileName']) if List_Images else ''
+			resource_info["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=List_Images[-1]['FileName']) if List_Images else ''
+			resource_info["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_Images[-1]['FileName']) if List_Images else ''
 			resource_info["Images"] = List_Images if List_Images else []
 			resource_info["Colors"] = List_Colors if List_Colors else []
 			resource_info["Sizes"] = List_Sizes if List_Sizes else []
@@ -151,7 +151,7 @@ def apiResourceInfo(resource_list=None,
 			rating_values = [rating['RtRatingValue'] for rating in List_Ratings if List_Ratings]
 			try:
 				average_rating = sum(rating_values) / len(rating_values)
-				average_rating = round(average_rating,2)
+				average_rating = round(average_ratign,2)
 			except Exception as ex:
 				average_rating = 0
 

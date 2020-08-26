@@ -3,11 +3,12 @@ from flask import render_template,jsonify,request,abort,make_response
 from main_pack.api.commerce import api
 from main_pack.base.apiMethods import checkApiResponseStatus
 
-from main_pack.models.commerce.models import Res_category
+from main_pack.models.commerce.models import Res_category,Resource,Res_total
 from main_pack.api.commerce.utils import addCategoryDict
 from main_pack import db
 from main_pack.config import Config
 from main_pack.api.auth.api_login import sha_required
+from sqlalchemy import and_
 
 @api.route("/tbl-dk-categories/<int:ResCatId>/",methods=['GET'])
 def api_category(ResCatId):
@@ -24,7 +25,15 @@ def api_category(ResCatId):
 @api.route("/tbl-dk-categories/",methods=['GET'])
 def api_categories():
 	if request.method == 'GET':
-		categories = Res_category.query.filter_by(GCRecord = None).all()
+		categories = Res_category.query\
+			.filter_by(GCRecord = None)\
+			.join(Resource, Resource.ResCatId == Res_category.ResCatId)\
+			.filter(Resource.GCRecord == None)\
+			.join(Res_total, Res_total.ResId == Resource.ResId)\
+			.filter(and_(
+				Res_total.WhId == 1, 
+				Res_total.ResTotBalance > 0))\
+			.all()
 		res = {
 			"status": 1,
 			"message": "All categories",
