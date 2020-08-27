@@ -31,7 +31,8 @@ def api_company_info():
 	res = {
 		"status": 1,
 		"message": "Company information",
-		"data": company_info
+		"data": company_info,
+		"total": 1
 	}
 	response = make_response(jsonify(res),200)
 	return response
