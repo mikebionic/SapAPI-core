@@ -4,32 +4,27 @@
 <!-- Single Product Section Start -->
 <div class="product-section section mt-90 mb-90">
 	<div class="container">
-
 		<div class="row mb-90">
-
 			<div class="col-lg-6 col-12 mb-50">
-
 				<!-- Image -->
 				<div class="single-product-image thumb-right">
 
 					{% if resource.Images %}
 						<div class="tab-content">
-							{% for image in resource.Images %}
-							<div id="single-image-{{image}}" class="tab-pane fade show active big-image-slider">
+							<div id="single-image-1" class="tab-pane fade show active big-image-slider">
+								{% for image in resource.Images %}
 								<div class="big-image">
-									<img loading="lazy" src="{{resource.FilePathM}}" class="big-image-popup">
-									<a href="{{ url_for('static', filename='commerce/bee/images/single-product/big-2.png') }}" class="big-image-popup">
+									<img loading="lazy" src="{{image.FilePathM}}" class="big-image-popup">
+									<a href="{{image.FilePathM}}" class="big-image-popup">
 										<i class="fa fa-search-plus"></i>
 									</a>
 								</div>
-								<!-- <div class="big-image"><img loading="lazy" src="{{ url_for('static', filename='commerce/bee/images/single-product/big-2.png') }}"><a href="{{ url_for('static', filename='commerce/bee/images/single-product/big-2.png') }}" class="big-image-popup"><i class="fa fa-search-plus"></i></a></div>
-								<div class="big-image"><img loading="lazy" src="{{ url_for('static', filename='commerce/bee/images/single-product/big-3.png') }}"><a href="{{ url_for('static', filename='commerce/bee/images/single-product/big-3.png') }}" class="big-image-popup"><i class="fa fa-search-plus"></i></a></div> -->
+								{% endfor %}
 							</div>
-							{% endfor %}
 						</div>
 						<div class="thumb-image-slider nav" data-vertical="true">
 							{% for image in resource.Images %}
-								<a class="thumb-image active" data-toggle="tab" href="#single-image-{{image}}"><img loading="lazy" src="{{ url_for('static', filename='commerce/bee/images/single-product/thumb-1.png') }}"></a>
+								<a class="thumb-image active" data-toggle="tab" href="#single-image-1"><img loading="lazy" src="{{image.FilePathM}}"></a>
 							{% endfor %}
 						</div>
 					{% else %}
@@ -43,10 +38,8 @@
 			</div>
 
 			<div class="col-lg-6 col-12 mb-50">
-
 				<!-- Content -->
 				<div class="single-product-content">
-
 					<!-- Category & Title -->
 					<div class="head-content">
 						<div class="category-title">
@@ -62,7 +55,7 @@
 							<i class="fa fa-star"></i>
 							<i class="fa fa-star"></i>
 							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
+							<i class="fa fa-star-half-o"></i>
 							<i class="fa fa-star-o"></i>
 						</div>
 
@@ -75,7 +68,7 @@
 						<div class="quantity-colors">
 
 							<div class="quantity">
-								<h5>{{_s('Quantity')}}</h5>
+								<h5>{{_('Quantity')}}</h5>
 								<div class="pro-qty"><input type="text" value="1"></div>
 							</div>
 							<!-- <div class="colors">
@@ -90,15 +83,12 @@
 						</div>
 
 						<div class="actions">
-
-							<a href="#" class="add-to-cart"><i class="ti-shopping-cart"></i><span>ADD TO CART</span></a>
-
+							<a href="#" class="add-to-cart"><i class="ti-shopping-cart"></i><span>{{_('Add to cart')}}</span></a>
 							<div class="wishlist-compare">
 								<a href="#" data-tooltip="Wishlist"><i class="ti-heart"></i></a>
 							</div>
-
 						</div>
-
+<!-- 
 						<div class="tags">
 
 							<h5>Tags:</h5>
@@ -119,44 +109,26 @@
 							<a href="#"><i class="fa fa-google-plus"></i></a>
 
 						</div>
-
+ -->
 					</div>
-
 				</div>
-
 			</div>
-
 		</div>
 
 		<div class="row">
-
 			<div class="col-lg-10 col-12 ml-auto mr-auto">
 
 				<ul class="single-product-tab-list nav">
-					<li><a href="#product-description" class="active" data-toggle="tab" >description</a></li>
-					<li><a href="#product-specifications" data-toggle="tab" >specifications</a></li>
-					<li><a href="#product-reviews" data-toggle="tab" >reviews</a></li>
+					<li><a href="#product-description" class="active" data-toggle="tab" >{{_('Description')}}</a></li>
+					<li><a href="#product-reviews" data-toggle="tab" >{{_('Customers reviews')}}</a></li>
 				</ul>
 
 				<div class="single-product-tab-content tab-content">
 					<div class="tab-pane fade show active" id="product-description">
-
-						<div class="row">
-							<div class="single-product-description-content col-lg-8 col-12">
-								<h4>Introducing Flex 3310</h4>
-								<p>enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia res eos qui ratione voluptatem sequi Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora in</p>
-								<h4>Stylish Design</h4>
-								<p>enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia res eos qui ratione voluptatem sequi Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci veli</p>
-								<h4>Digital Camera, FM Radio & many more...</h4>
-								<p>enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia res eos qui ratione voluptatem sequi Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci veli</p>
-							</div>
-							<div class="single-product-description-image col-lg-4 col-12">
-								<img loading="lazy" src="{{ url_for('static', filename='commerce/bee/images/single-product/description.png') }}">
-							</div>
-						</div>
-
+						{{ resource.ResFullDesc if resource.ResFullDesc else '' }}
 					</div>
-					<div class="tab-pane fade" id="product-specifications">
+
+					<!-- <div class="tab-pane fade" id="product-specifications">
 						<div class="single-product-specification">
 							<ul>
 								<li>Full HD Camcorder</li>
@@ -167,87 +139,39 @@
 								<li>X type battery operation</li>
 							</ul>
 						</div>
-					</div>
+					</div> -->
+
 					<div class="tab-pane fade" id="product-reviews">
-
 						<div class="product-ratting-wrap">
+
 							<div class="pro-avg-ratting">
-								<h4>4.5 <span>(Overall)</span></h4>
-								<span>Based on 9 Comments</span>
-							</div>
-							<div class="ratting-list">
-								<div class="sin-list float-left">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<span>(5)</span>
-								</div>
-								<div class="sin-list float-left">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star-o"></i>
-									<span>(3)</span>
-								</div>
-								<div class="sin-list float-left">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star-o"></i>
-									<i class="fa fa-star-o"></i>
-									<span>(1)</span>
-								</div>
-								<div class="sin-list float-left">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star-o"></i>
-									<i class="fa fa-star-o"></i>
-									<i class="fa fa-star-o"></i>
-									<span>(0)</span>
-								</div>
-								<div class="sin-list float-left">
-									<i class="fa fa-star"></i>
+								<h4>{{ resource.RtRatingValue }} <span>(Overall)</span></h4>
+								<div class="ratting">
+									<i class="fa fa-star-half-o"></i>
 									<i class="fa fa-star-o"></i>
 									<i class="fa fa-star-o"></i>
 									<i class="fa fa-star-o"></i>
 									<i class="fa fa-star-o"></i>
-									<span>(0)</span>
 								</div>
 							</div>
+
 							<div class="rattings-wrapper">
-
-								<div class="sin-rattings">
-									<div class="ratting-author">
-										<h3>Cristopher Lee</h3>
-										<div class="ratting-star">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<span>(5)</span>
+								{% for rating in resource.Rating %}
+									<div class="sin-rattings">
+										<div class="ratting-author">
+											<h3>{{ rating.Rp_acc.RpAccName }}</h3>
+											<div class="ratting-star">
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<span>({{ rating.RtRatingValue }})</span>
+											</div>
 										</div>
+										<p>{{ rating.RtRemark }}</p>
 									</div>
-									<p>enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia res eos qui ratione voluptatem sequi Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci veli</p>
-								</div>
-
-								<div class="sin-rattings">
-									<div class="ratting-author">
-										<h3>Nirob Khan</h3>
-										<div class="ratting-star">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<span>(5)</span>
-										</div>
-									</div>
-									<p>enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia res eos qui ratione voluptatem sequi Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci veli</p>
-								</div>
+								{% endfor %}
 
 								<div class="sin-rattings">
 									<div class="ratting-author">
@@ -266,46 +190,39 @@
 
 							</div>
 							<div class="ratting-form-wrapper fix">
-								<h3>Add your Comments</h3>
-								<form action="#">
-									<div class="ratting-form row">
-										<div class="col-12 mb-15">
-											<h5>Rating:</h5>
-											<div class="ratting-star fix">
-												<i class="fa fa-star-o"></i>
-												<i class="fa fa-star-o"></i>
-												<i class="fa fa-star-o"></i>
-												<i class="fa fa-star-o"></i>
-												<i class="fa fa-star-o"></i>
+								{% if current_user.is_authenticated %}
+									<h3>{{_('Submit your review')}}</h3>
+									<form action="#">
+										<div class="ratting-form row">
+											<div class="col-12 mb-15">
+												<h5>{{_('Your rating')}}:</h5>
+												<div class="ratting-star fix">
+													<i class="fa fa-star-o"></i>
+													<i class="fa fa-star-o"></i>
+													<i class="fa fa-star-o"></i>
+													<i class="fa fa-star-o"></i>
+													<i class="fa fa-star-o"></i>
+												</div>
+											</div>
+											<div class="col-12 mb-15">
+												<label for="your-review">{{_('Write your review')}}</label>
+												<textarea name="review" id="your-review" placeholder="{{_('Write your review')}}..."></textarea>
+											</div>
+											<div class="col-12">
+												<input value="{{_('Send')}}" type="submit">
 											</div>
 										</div>
-										<div class="col-md-6 col-12 mb-15">
-											<label for="name">Name:</label>
-											<input id="name" placeholder="Name" type="text">
-										</div>
-										<div class="col-md-6 col-12 mb-15">
-											<label for="email">Email:</label>
-											<input id="email" placeholder="Email" type="text">
-										</div>
-										<div class="col-12 mb-15">
-											<label for="your-review">Your Review:</label>
-											<textarea name="review" id="your-review" placeholder="Write a review"></textarea>
-										</div>
-										<div class="col-12">
-											<input value="add review" type="submit">
-										</div>
-									</div>
-								</form>
+									</form>
+								{% else %}
+									<h3>{{_('You should login to add a review')}}</h3>
+								{% endif %}
 							</div>
 						</div>
-
 					</div>
+
 				</div>
-
 			</div>
-
 		</div>
-
 	</div>
 </div><!-- Single Product Section End -->
 
@@ -316,259 +233,68 @@
 
 			<!-- Section Title Start -->
 			<div class="col-12 mb-40">
-				<div class="section-title-one" data-title="RELATED PRODUCT"><h1>RELATED PRODUCT</h1></div>
+				<div class="section-title-one" data-title="RELATED PRODUCT"><h1>{{_('Related products')}}</h1></div>
 			</div><!-- Section Title End -->
 
 			<!-- Product Tab Content Start -->
 			<div class="col-12">
-
 				<!-- Product Slider Wrap Start -->
 				<div class="product-slider-wrap product-slider-arrow-one">
 					<!-- Product Slider Start -->
 					<div class="product-slider product-slider-4">
+						{% for related_resource in resource.Related_resources %}
+							<div class="col pb-20 pt-10">
+								<!-- Product Start -->
+								<div class="ee-product">
 
-						<div class="col pb-20 pt-10">
-							<!-- Product Start -->
-							<div class="ee-product">
-
-								<!-- Image -->
-								<div class="image">
-
-									<a href="single-product.html" class="img"><img loading="lazy" src="{{ url_for('static', filename='commerce/bee/images/product/product-1.png') }}"></a>
-
-									<div class="wishlist-compare">
-										<a href="#" data-tooltip="Wishlist"><i class="ti-heart"></i></a>
+									<!-- Image -->
+									<div class="image">
+										{% if resource.FilePathM %}
+											<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
+												<img loading="lazy" src="{{resource.FilePathS}}">
+											</a>
+										{% else %}
+											<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
+												<img loading="lazy" src="{{ url_for('static', filename='commerce/main/shop_icons/no_photo.png') }}">
+											</a>
+										{% endif %}
+										
+										<div class="wishlist-compare">
+											<a href="#" data-tooltip="Wishlist"><i class="ti-heart"></i></a>
+										</div>
+										<a href="#" class="add-to-cart"><i class="ti-shopping-cart"></i><span>{{_('Add to cart')}}</span></a>
 									</div>
 
-									<a href="#" class="add-to-cart"><i class="ti-shopping-cart"></i><span>ADD TO CART</span></a>
-
-								</div>
-
-								<!-- Content -->
-								<div class="content">
-
-									<!-- Category & Title -->
-									<div class="category-title">
-
-										<a href="#" class="cat">Laptop</a>
-										<h5 class="title"><a href="single-product.html">Zeon Zen 4 Pro</a></h5>
-
-									</div>
-
-									<!-- Price & Ratting -->
-									<div class="price-ratting">
-
-										<h5 class="price">$295.00</h5>
-										<div class="ratting">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star-half-o"></i>
-											<i class="fa fa-star-o"></i>
+									<!-- Content -->
+									<div class="content">
+										<!-- Category & Title -->
+										<div class="category-title">
+											<a href="#" class="cat">{{ related_resource.ResCatName }}</a>
+											<h5 class="title"><a href="single-product.html">{{ related_resource.ResName }}</a></h5>
 										</div>
 
-									</div>
-
-								</div>
-
-							</div><!-- Product End -->
-						</div>
-
-						<div class="col pb-20 pt-10">
-							<!-- Product Start -->
-							<div class="ee-product">
-
-								<!-- Image -->
-								<div class="image">
-
-									<span class="label sale">sale</span>
-
-									<a href="single-product.html" class="img"><img loading="lazy" src="{{ url_for('static', filename='commerce/bee/images/product/product-2.png') }}"></a>
-
-									<div class="wishlist-compare">
-										<a href="#" data-tooltip="Wishlist"><i class="ti-heart"></i></a>
-									</div>
-
-									<a href="#" class="add-to-cart"><i class="ti-shopping-cart"></i><span>ADD TO CART</span></a>
-
-								</div>
-
-								<!-- Content -->
-								<div class="content">
-
-									<!-- Category & Title -->
-									<div class="category-title">
-
-										<a href="#" class="cat">Drone</a>
-										<h5 class="title"><a href="single-product.html">Aquet Drone D 420</a></h5>
-
-									</div>
-
-									<!-- Price & Ratting -->
-									<div class="price-ratting">
-
-										<h5 class="price"><span class="old">$350</span>$275.00</h5>
-										<div class="ratting">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star-half-o"></i>
-											<i class="fa fa-star-o"></i>
+										<!-- Price & Ratting -->
+										<div class="price-ratting">
+											<h5 class="price">
+												<!-- <span class="old">$350</span> -->
+												<p>{{ related_resource.CurrencyCode }}</p>
+												<div class="priceValue" ownerId="{{related_resource.ResId}}" value="{{related_resource.ResPriceValue}}">{{ related_resource.ResPriceValue }}</div>
+											</h5>
+											<!-- <div class="ratting">
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star-half-o"></i>
+												<i class="fa fa-star-o"></i>
+											</div> -->
 										</div>
-
 									</div>
-
-								</div>
-
-							</div><!-- Product End -->
-						</div>
-
-						<div class="col pb-20 pt-10">
-							<!-- Product Start -->
-							<div class="ee-product">
-
-								<!-- Image -->
-								<div class="image">
-
-									<a href="single-product.html" class="img"><img loading="lazy" src="{{ url_for('static', filename='commerce/bee/images/product/product-3.png') }}""></a>
-
-									<div class="wishlist-compare">
-										<a href="#" data-tooltip="Wishlist"><i class="ti-heart"></i></a>
-									</div>
-
-									<a href="#" class="add-to-cart"><i class="ti-shopping-cart"></i><span>ADD TO CART</span></a>
-
-								</div>
-
-								<!-- Content -->
-								<div class="content">
-
-									<!-- Category & Title -->
-									<div class="category-title">
-
-										<a href="#" class="cat">Games</a>
-										<h5 class="title"><a href="single-product.html">Game Station X 22</a></h5>
-
-									</div>
-
-									<!-- Price & Ratting -->
-									<div class="price-ratting">
-
-										<h5 class="price">$295.00</h5>
-										<div class="ratting">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star-half-o"></i>
-										</div>
-
-									</div>
-
-								</div>
-
-							</div><!-- Product End -->
-						</div>
-
-						<div class="col pb-20 pt-10">
-							<!-- Product Start -->
-							<div class="ee-product">
-
-								<!-- Image -->
-								<div class="image">
-
-									<a href="single-product.html" class="img"><img loading="lazy" src="{{ url_for('static', filename='commerce/bee/images/product/product-4.png') }}"></a>
-
-									<div class="wishlist-compare">
-										<a href="#" data-tooltip="Wishlist"><i class="ti-heart"></i></a>
-									</div>
-
-									<a href="#" class="add-to-cart"><i class="ti-shopping-cart"></i><span>ADD TO CART</span></a>
-
-								</div>
-
-								<!-- Content -->
-								<div class="content">
-
-									<!-- Category & Title -->
-									<div class="category-title">
-
-										<a href="#" class="cat">Accessories</a>
-										<h5 class="title"><a href="single-product.html">Roxxe Headphone Z 75</a></h5>
-
-									</div>
-
-									<!-- Price & Ratting -->
-									<div class="price-ratting">
-
-										<h5 class="price">$110.00</h5>
-										<div class="ratting">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-										</div>
-
-									</div>
-
-								</div>
-
-							</div><!-- Product End -->
-						</div>
-
-						<div class="col pb-20 pt-10">
-							<!-- Product Start -->
-							<div class="ee-product">
-
-								<!-- Image -->
-								<div class="image">
-
-									<a href="single-product.html" class="img"><img loading="lazy" src="{{ url_for('static', filename='commerce/bee/images/product/product-5.png') }}"></a>
-
-									<div class="wishlist-compare">
-										<a href="#" data-tooltip="Wishlist"><i class="ti-heart"></i></a>
-									</div>
-
-									<a href="#" class="add-to-cart"><i class="ti-shopping-cart"></i><span>ADD TO CART</span></a>
-
-								</div>
-
-								<!-- Content -->
-								<div class="content">
-
-									<!-- Category & Title -->
-									<div class="category-title">
-
-										<a href="#" class="cat">Camera</a>
-										<h5 class="title"><a href="single-product.html">Mony Handycam Z 105</a></h5>
-
-									</div>
-
-									<!-- Price & Ratting -->
-									<div class="price-ratting">
-
-										<h5 class="price">$110.00</h5>
-										<div class="ratting">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star-half-o"></i>
-											<i class="fa fa-star-o"></i>
-										</div>
-
-									</div>
-
-								</div>
-
-							</div><!-- Product End -->
-						</div>
-
+								</div><!-- Product End -->
+							</div>
+						{% endfor %}
 					</div><!-- Product Slider End -->
 				</div><!-- Product Slider Wrap End -->
-
 			</div><!-- Product Tab Content End -->
-
 		</div>
 	</div>
 </div><!-- Related Product Section End -->

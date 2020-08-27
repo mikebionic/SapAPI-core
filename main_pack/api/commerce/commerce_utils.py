@@ -127,7 +127,18 @@ def apiResourceInfo(resource_list=None,
 				List_Currencies = []
 			List_Res_total = [res_total.to_json_api() for res_total in resource.Res_total if res_total.GCRecord == None and res_total.WhId == 1]
 			List_Images = [image.to_json_api() for image in resource.Image if image.GCRecord == None]
-			List_Ratings = [rating.to_json_api() for rating in resource.Rating if rating.GCRecord == None]
+			if fullInfo == True:
+				List_Ratings = []
+				for rating in resource.Rating:
+					Rating_info = rating.to_json_api()
+					rp_acc = Rp_acc.query\
+						.filter_by(GCRecord = None, RpAccId = rating.RpAccId)\
+						.first()
+					rpAccData = apiRpAccData(dbModel=rp_acc)
+					Rating_info['Rp_acc'] = rpAccData['data']
+					List_Ratings.append(Rating_info)
+			else:
+				List_Ratings = [rating.to_json_api() for rating in resource.Rating if rating.GCRecord == None]
 			if user:
 				List_Wish = [wish.to_json_api() for wish in wishes if wish.ResId == resource.ResId]
 			else:
@@ -139,9 +150,9 @@ def apiResourceInfo(resource_list=None,
 			resource_info["CurrencyCode"] = List_Currencies[0]['CurrencyCode'] if List_Currencies else 'TMT'
 			resource_info["ResTotBalance"] = List_Res_total[0]['ResTotBalance'] if List_Res_total else ''
 			resource_info["ResPendingTotalAmount"] = List_Res_total[0]['ResPendingTotalAmount'] if List_Res_total else ''
-			resource_info["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=List_Images[0]['FileName']) if List_Images else ''
-			resource_info["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=List_Images[0]['FileName']) if List_Images else ''
-			resource_info["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_Images[0]['FileName']) if List_Images else ''
+			resource_info["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=List_Images[-1]['FileName']) if List_Images else ''
+			resource_info["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=List_Images[-1]['FileName']) if List_Images else ''
+			resource_info["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_Images[-1]['FileName']) if List_Images else ''
 			resource_info["Images"] = List_Images if List_Images else []
 			resource_info["Colors"] = List_Colors if List_Colors else []
 			resource_info["Sizes"] = List_Sizes if List_Sizes else []
@@ -151,9 +162,9 @@ def apiResourceInfo(resource_list=None,
 			rating_values = [rating['RtRatingValue'] for rating in List_Ratings if List_Ratings]
 			try:
 				average_rating = sum(rating_values) / len(rating_values)
-				average_rating = round(average_rating,2)
+				average_rating = round(average_ratign,2)
 			except Exception as ex:
-				average_rating = 0
+				average_rating = 0.0
 
 			resource_info["RtRatingValue"] = average_rating
 			resource_info["Wished"] = True if List_Wish else False
@@ -165,6 +176,15 @@ def apiResourceInfo(resource_list=None,
 					.order_by(Rating.RtRatingValue.asc())\
 					.limit(Config.TOP_RATED_RESOURCES_AMOUNT)\
 					.all()
+
+				Related_resources = []
+				for resource in related_resources:
+					Resource_info = resource.to_json_api()
+					Related_resource_Images = [image.to_json_api() for image in resource.Image if image.GCRecord == None]
+					Resource_info["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=Related_resource_Images[-1]['FileName']) if Related_resource_Images else ''
+					Resource_info["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=Related_resource_Images[-1]['FileName']) if Related_resource_Images else ''
+					Resource_info["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=Related_resource_Images[-1]['FileName']) if Related_resource_Images else ''
+
 				resource_info["Related_resources"] = [resource.to_json_api() for resource in related_resources]
 			if fullInfo == True:
 				resource_info["UsageStatus"] = dataLangSelector(List_UsageStatus[0]) if List_UsageStatus else []
@@ -173,7 +193,7 @@ def apiResourceInfo(resource_list=None,
 				resource_info["Res_price"] = List_Res_price[0] if List_Res_price else []
 				resource_info["Currency"] = dataLangSelector(List_Currencies[0]) if List_Currencies else []
 				resource_info["Res_total"] = List_Res_total[0] if List_Res_total else []
-				resource_info["Rating"] = List_Ratings[0] if List_Ratings else []
+				resource_info["Rating"] = List_Ratings if List_Ratings else []
 			data.append(resource_info)
 		except Exception as ex:
 			print(ex)
@@ -196,8 +216,8 @@ def apiResourceInfo(resource_list=None,
 		res[e] = status[e]
 	return res
 
-def UiCartResourceData(product_list,showRelated=False):
-	res = apiResourceInfo(product_list,showRelated=showRelated)
+def UiCartResourceData(product_list,fullInfo=False,showRelated=False):
+	res = apiResourceInfo(product_list,fullInfo=fullInfo,showRelated=showRelated)
 	data = []
 	resources = res['data']
 	for resource in resources:

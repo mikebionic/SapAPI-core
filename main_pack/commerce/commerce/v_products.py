@@ -76,7 +76,7 @@ def product(ResId):
 		}
 	]
 	try:
-		resData = UiCartResourceData(product_list,showRelated=True)
+		resData = UiCartResourceData(product_list,fullInfo=True,showRelated=True)
 		resource = resData["data"][0]
 	except:
 		abort(404)

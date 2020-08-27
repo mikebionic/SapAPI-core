@@ -170,12 +170,10 @@ def api_paginate_resources():
 	if nextLast:
 		next = url_for('commerce_api.api_paginate_resources',offset=nextLast.ResId,limit=limit)
 	
-	resource_list = []
+	resource_models = []
 	for resource in pagination.items:
-		product = {}
-		product['ResId'] = resource.ResId
-		resource_list.append(product)
-	res = apiResourceInfo(resource_list)
+		resource_models.append(resource)
+	res = apiResourceInfo(resource_models)
 
 	res = {
 		"status": 1,
