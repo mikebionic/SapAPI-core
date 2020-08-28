@@ -99,13 +99,8 @@
 										<p>{{ resource.CurrencyCode }}</p>
 										<div class="priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue }}</div>
 									</h5>
-									<div class="ratting">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star-half-o"></i>
-										<i class="fa fa-star-o"></i>
-									</div>
+									<input type="hidden" class="ratingValue" value="{{ resource.RtRatingValue }}" ownerId="{{ resource.ResId }}">
+									<div class="ratting ratingStars" ownerId="{{ resource.ResId }}"></div>
 								</div>
 							</div>
 						</div><!-- Product End -->
@@ -147,14 +142,7 @@
 								</div>
 
 								<div class="left-content">
-
-									<div class="ratting">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star-half-o"></i>
-										<i class="fa fa-star-o"></i>
-									</div>
+									<div class="ratting ratingStars" ownerId="{{ resource.ResId }}"></div>
 
 									<div class="desc">
 										<p>{{ resource.ResFullDesc[0:100]+'...' if resource.ResFullDesc else '' }}</p>
@@ -173,7 +161,7 @@
 								<div class="right-content">
 									<div class="specification">
 										<h5>{{_('Specifications')}}</h5>
-										{{ resource.ResDesc }}
+										{{ resource.ResDesc if resource.ResDesc else '' }}
 										<!-- <ul>
 											<li>Diagonal Size 350mm</li>
 											<li>Max Speed 16m/s (ATTI mode)</li>
