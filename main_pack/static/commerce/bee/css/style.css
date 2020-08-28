@@ -11919,6 +11919,8 @@ ul.link-widget li {
   position: relative;
   display: inline-block;
   max-width: none;
+  height: 90vh;
+  width: 100%;
 }
 
 *,
@@ -11954,7 +11956,7 @@ ul.link-widget li {
   height:100%;
   top:0px;
   left:0px;
-  line-height:50vh;
+  line-height:100vh;
   text-align:center;
 }
 
