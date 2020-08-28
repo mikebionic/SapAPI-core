@@ -32,6 +32,8 @@ def admin_login():
 				login_user(user,remember=form.remember.data)
 				next_page = request.args.get('next')
 				return redirect(next_page) if next_page else redirect(url_for('commerce_admin.dashboard'))
+			else:
+				flash(lazy_gettext('Login Failed! Wrong username or password'),'danger')
 		else:
 			flash(lazy_gettext('Login Failed! Wrong username or password'),'danger')
 	return render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"admin_login.html",url_prefix=url_prefix,
