@@ -17,6 +17,7 @@ from main_pack.base.languageMethods import dataLangSelector
 
 # db models
 from main_pack.models.commerce.models import (Resource,
+																							Res_total,
                                               Res_category,
 																							Wish,
 																							Rating)
@@ -38,8 +39,8 @@ from sqlalchemy import and_, extract
 # / orders and db methods /
 
 # Rp_acc db Model and methods
-from main_pack.models.users.models import Rp_acc
-from main_pack.api.users.utils import apiRpAccData
+from main_pack.models.users.models import Rp_acc,Users
+from main_pack.api.users.utils import apiRpAccData,apiUsersData
 # / Rp_acc db Model and methods /
 
 # datetime, date-parser
@@ -131,11 +132,18 @@ def apiResourceInfo(resource_list=None,
 				List_Ratings = []
 				for rating in resource.Rating:
 					Rating_info = rating.to_json_api()
-					rp_acc = Rp_acc.query\
-						.filter_by(GCRecord = None, RpAccId = rating.RpAccId)\
-						.first()
-					rpAccData = apiRpAccData(dbModel=rp_acc)
-					Rating_info['Rp_acc'] = rpAccData['data']
+					if rating.UId:
+						rated_user = Users.query\
+							.filter_by(GCRecord = None, UId = rating.UId)\
+							.first()
+						userData = apiUsersData(dbModel=rated_user)
+						Rating_info['User'] = userData['data']
+					if rating.RpAccId:
+						rated_rp_acc = Rp_acc.query\
+							.filter_by(GCRecord = None, RpAccId = rating.RpAccId)\
+							.first()
+						rpAccData = apiRpAccData(dbModel=rated_rp_acc)
+						Rating_info['Rp_acc'] = rpAccData['data']
 					List_Ratings.append(Rating_info)
 			else:
 				List_Ratings = [rating.to_json_api() for rating in resource.Rating if rating.GCRecord == None]
@@ -162,7 +170,7 @@ def apiResourceInfo(resource_list=None,
 			rating_values = [rating['RtRatingValue'] for rating in List_Ratings if List_Ratings]
 			try:
 				average_rating = sum(rating_values) / len(rating_values)
-				average_rating = round(average_ratign,2)
+				average_rating = round(average_rating,2)
 			except Exception as ex:
 				average_rating = 0.0
 
@@ -172,6 +180,11 @@ def apiResourceInfo(resource_list=None,
 			if showRelated == True:
 				related_resources = Resource.query\
 					.filter_by(GCRecord = None, ResCatId = resource.ResCatId)\
+					.filter(Resource.ResId != resource.ResId)\
+					.join(Res_total, Res_total.ResId == Resource.ResId)\
+					.filter(and_(
+						Res_total.WhId == 1, 
+						Res_total.ResTotBalance > 0))\
 					.outerjoin(Rating, Rating.ResId == Resource.ResId)\
 					.order_by(Rating.RtRatingValue.asc())\
 					.limit(Config.TOP_RATED_RESOURCES_AMOUNT)\
@@ -265,12 +278,9 @@ def apiOrderInvInfo(startDate=None,
 			if (type(startDate)!=datetime):
 				startDate = dateutil.parser.parse(startDate)
 				startDate = datetime.date(startDate)
-				print(startDate)
 			if (type(endDate)!=datetime):
-				print(type(endDate))
 				endDate = dateutil.parser.parse(endDate)
 				endDate = datetime.date(endDate)
-				print(endDate)
 			order_invoices = Order_inv.query\
 			.filter_by(**order_filtering)\
 			.filter(and_(
@@ -302,9 +312,9 @@ def apiOrderInvInfo(startDate=None,
 			if rp_acc_user:
 				rpAccData = apiRpAccData(dbModel=rp_acc_user)
 			else:
-				rp_acc = Rp_acc.query.filter_by(
+				rp_acc_user = Rp_acc.query.filter_by(
 						GCRecord = None, RpAccId = order_inv.RpAccId).first()
-				rpAccData = apiRpAccData(dbModel=rp_acc)
+				rpAccData = apiRpAccData(dbModel=rp_acc_user)
 			order_inv_info['Rp_acc'] = rpAccData['data']
 
 			order_inv_lines = []

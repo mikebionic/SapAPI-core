@@ -24,11 +24,11 @@
 							<div class="product-showing">
 								<p>{{_('Showing')}}</p>
 								<select name="showing" class="nice-select">
-									<option value="1">8</option>
-									<option value="2">12</option>
-									<option value="3">16</option>
-									<option value="4">20</option>
-									<option value="5">24</option>
+									<option value="8">8</option>
+									<option value="12">12</option>
+									<option value="16">16</option>
+									<option value="20">20</option>
+									<option value="24">24</option>
 								</select>
 							</div>
 
@@ -99,13 +99,8 @@
 										<p>{{ resource.CurrencyCode }}</p>
 										<div class="priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue }}</div>
 									</h5>
-									<div class="ratting">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star-half-o"></i>
-										<i class="fa fa-star-o"></i>
-									</div>
+									<input type="hidden" class="ratingValue" value="{{ resource.RtRatingValue }}" ownerId="{{ resource.ResId }}">
+									<div class="ratting ratingStars" ownerId="{{ resource.ResId }}"></div>
 								</div>
 							</div>
 						</div><!-- Product End -->
@@ -147,14 +142,7 @@
 								</div>
 
 								<div class="left-content">
-
-									<div class="ratting">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star-half-o"></i>
-										<i class="fa fa-star-o"></i>
-									</div>
+									<div class="ratting ratingStars" ownerId="{{ resource.ResId }}"></div>
 
 									<div class="desc">
 										<p>{{ resource.ResFullDesc[0:100]+'...' if resource.ResFullDesc else '' }}</p>
@@ -173,7 +161,7 @@
 								<div class="right-content">
 									<div class="specification">
 										<h5>{{_('Specifications')}}</h5>
-										{{ resource.ResDesc }}
+										{{ resource.ResDesc if resource.ResDesc else '' }}
 										<!-- <ul>
 											<li>Diagonal Size 350mm</li>
 											<li>Max Speed 16m/s (ATTI mode)</li>

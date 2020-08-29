@@ -153,10 +153,13 @@ from main_pack.base.apiMethods import fileToURL
 from main_pack.models.users.models import Users,Rp_acc,User_type
 from sqlalchemy import and_
 
-def apiUsersData(UId):
-	user = Users.query\
-		.filter_by(GCRecord = None, UId = UId)\
-		.first()
+def apiUsersData(UId=None,dbModel=None):
+	if dbModel:
+		user = dbModel
+	else:	
+		user = Users.query\
+			.filter_by(GCRecord = None, UId = UId)\
+			.first()
 	images = Image.query\
 		.filter_by(GCRecord = None)\
 		.order_by(Image.CreatedDate.desc())\

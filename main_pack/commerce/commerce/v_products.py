@@ -80,18 +80,6 @@ def product(ResId):
 		resource = resData["data"][0]
 	except:
 		abort(404)
-
-	# !!! TODO: make single selection with select_from() and join()
-	thisResource = Resource.query.get(ResId)
-	related_resources = Resource.query\
-		.filter_by(ResCatId = thisResource.ResCatId)\
-		.outerjoin(Rating, Rating.ResId == Resource.ResId)\
-		.order_by(Rating.RtRatingValue.asc())\
-		.limit(5)\
-		.all()
-	print(related_resources)
-	
-
 	categoryData = UiCategoriesList()
 	return render_template(Config.COMMERCE_TEMPLATES_FOLDER_PATH+"commerce/product.html",
 		**categoryData,resource=resource,
