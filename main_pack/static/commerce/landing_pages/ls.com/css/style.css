@@ -509,7 +509,7 @@ img.svg{
 	clear: both;
 	float: left;
 	text-align: left;
-	padding-bottom: 100px;
+	padding-bottom: 15px;
 	position: relative;
 	
 	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
@@ -2571,7 +2571,7 @@ img.svg{
 @media (max-width: 768px) {
 	.arlo_tm_hero_header_wrap .name_holder h3{font-size: 40px;}
 	.arlo_tm_hero_header_wrap .text_typing p{font-size: 21px;}
-	.arlo_tm_title_holder h3{font-size: 45px;}
+	.arlo_tm_title_holder h3{font-size: 35px;}
 	.arlo_tm_title_holder:before{top: -2px;}
 	.arlo_tm_services_wrap .list_wrap ul{margin: 0px;}
 	.arlo_tm_services_wrap .list_wrap ul li{width: 100%;padding-left: 0px;}
