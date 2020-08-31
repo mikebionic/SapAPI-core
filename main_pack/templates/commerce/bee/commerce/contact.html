@@ -9,7 +9,7 @@
 
 			<!-- Contact Page Title -->
 			<div class="contact-page-title col mb-40">
-				<h1>Hi, Howdy <br>Let’s Connect us</h1>
+				<h1>{{_('Contact')}}</h1>
 			</div>
 		</div>
 		<div class="row">
@@ -17,9 +17,8 @@
 			<!-- Contact Tab List -->
 			<div class="col-lg-4 col-12 mb-50">
 				<ul class="contact-tab-list nav">
-					<li><a class="active" data-toggle="tab" href="#contact-address">Contact us</a></li>
-					<li><a data-toggle="tab" href="#contact-form-tab">Leave us a message</a></li>
-					<li><a data-toggle="tab" href="#store-location">All Store location</a></li>
+					<li><a class="active" data-toggle="tab" href="#contact-address">{{_('Contact us')}}</a></li>
+					<li><a data-toggle="tab" href="#contact-form-tab">{{_('Leave us a message')}}</a></li>
 				</ul>
 			</div>
 
@@ -32,25 +31,59 @@
 
 						<div class="col-lg-4 col-md-6 col-12 mb-50">
 							<div class="contact-information">
-								<h4>Address</h4>
-								<p>You address will be here Lorem Ipsum text</p>
+								<h4>{{company.CName}}</h4>
+								<p>{{company.CFullName if company.CFullName else ''}}</p>
+								<p>{{company.CDesc if company.CDesc else ''}}</p>
 							</div>
 						</div>
 
-						<div class="col-lg-4 col-md-6 col-12 mb-50">
-							<div class="contact-information">
-								<h4>Phone</h4>
-								<p><a href="tel:01234567890">01234 567 890</a><a href="tel:01234567891">01234 567 891</a></p>
+						{% if company.CAddress %}
+							<div class="col-lg-4 col-md-6 col-12 mb-50">
+								<div class="contact-information">
+									<h4>{{_('Address')}}</h4>
+									<p>{{company.CAddress}}</p>
+								</div>
 							</div>
-						</div>
+						{% endif %}
 
-						<div class="col-lg-4 col-md-6 col-12 mb-50">
-							<div class="contact-information">
-								<h4>Web</h4>
-								<p><a href="mailto:info@example.com">info@example.com</a><a href="#">www.example.com</a></p>
+						{% if company.Phone1 or company.Phone2 or company.Phone3 or company.Phone4 %}
+							<div class="col-lg-4 col-md-6 col-12 mb-50">
+								<div class="contact-information">
+									<h4>{{_('Phone')}}</h4>
+									{% if company.Phone1 %}<p>{{company.Phone1}}</p>{% endif %}
+									{% if company.Phone2 %}<p>{{company.Phone2}}</p>{% endif %}
+									{% if company.Phone3 %}<p>{{company.Phone3}}</p>{% endif %}
+									{% if company.Phone4 %}<p>{{company.Phone4}}</p>{% endif %}
+								</div>
 							</div>
-						</div>
+						{% endif %}
 
+						{% if company.CEmail %}
+							<div class="col-lg-4 col-md-6 col-12 mb-50">
+								<div class="contact-information">
+									<h4>{{_('Email')}}</h4>
+									<p>{{company.CEmail}}</p>
+								</div>
+							</div>
+						{% endif %}
+
+						{% if company.CPostalCode %}
+							<div class="col-lg-4 col-md-6 col-12 mb-50">
+								<div class="contact-information">
+									<h4>{{_('Postal code')}}</h4>
+									<p>{{company.CPostalCode}}</p>
+								</div>
+							</div>
+						{% endif %}
+
+						{% if company.AddInf1 %}
+							<div class="col-lg-4 col-md-6 col-12 mb-50">
+								<div class="contact-information">
+									<h4>{{_('Working time')}}</h4>
+									<p>{{company.AddInf1}}</p>
+								</div>
+							</div>
+						{% endif %}
 					</div>
 
 					<!-- Contact Form Tab -->
@@ -89,64 +122,6 @@
 						</div>
 					</div>
 
-					<!-- Contact Stores Tab -->
-					<div class="tab-pane fade row d-flex" id="store-location">
-
-						<div class="col-md-6 col-12 mb-50">
-							<div class="single-store">
-								<h3>E&E Australia</h3>
-								<p>You address will be here Lorem Ipsum is simply dummy text.</p>
-								<p><a href="tel:01234567890">01234 567 890</a> / <a href="tel:01234567891">01234 567 891</a></p>
-								<p><a href="mailto:info@example.com">info@example.com</a> / <a href="#">www.example.com</a></p>
-							</div>
-						</div>
-
-						<div class="col-md-6 col-12 mb-50">
-							<div class="single-store">
-								<h3>E&E England</h3>
-								<p>You address will be here Lorem Ipsum is simply dummy text.</p>
-								<p><a href="tel:01234567890">01234 567 890</a> / <a href="tel:01234567891">01234 567 891</a></p>
-								<p><a href="mailto:info@example.com">info@example.com</a> / <a href="#">www.example.com</a></p>
-							</div>
-						</div>
-
-						<div class="col-md-6 col-12 mb-50">
-							<div class="single-store">
-								<h3>E&E Germany</h3>
-								<p>You address will be here Lorem Ipsum is simply dummy text.</p>
-								<p><a href="tel:01234567890">01234 567 890</a> / <a href="tel:01234567891">01234 567 891</a></p>
-								<p><a href="mailto:info@example.com">info@example.com</a> / <a href="#">www.example.com</a></p>
-							</div>
-						</div>
-
-						<div class="col-md-6 col-12 mb-50">
-							<div class="single-store">
-								<h3>E&E France</h3>
-								<p>You address will be here Lorem Ipsum is simply dummy text.</p>
-								<p><a href="tel:01234567890">01234 567 890</a> / <a href="tel:01234567891">01234 567 891</a></p>
-								<p><a href="mailto:info@example.com">info@example.com</a> / <a href="#">www.example.com</a></p>
-							</div>
-						</div>
-
-						<div class="col-md-6 col-12 mb-50">
-							<div class="single-store">
-								<h3>E&E Canada</h3>
-								<p>You address will be here Lorem Ipsum is simply dummy text.</p>
-								<p><a href="tel:01234567890">01234 567 890</a> / <a href="tel:01234567891">01234 567 891</a></p>
-								<p><a href="mailto:info@example.com">info@example.com</a> / <a href="#">www.example.com</a></p>
-							</div>
-						</div>
-
-						<div class="col-md-6 col-12 mb-50">
-							<div class="single-store">
-								<h3>E&E Denmark</h3>
-								<p>You address will be here Lorem Ipsum is simply dummy text.</p>
-								<p><a href="tel:01234567890">01234 567 890</a> / <a href="tel:01234567891">01234 567 891</a></p>
-								<p><a href="mailto:info@example.com">info@example.com</a> / <a href="#">www.example.com</a></p>
-							</div>
-						</div>
-
-					</div>
 				</div>
 			</div>
 		</div>
