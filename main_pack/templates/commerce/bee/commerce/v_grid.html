@@ -73,9 +73,11 @@
 									</a>
 								{% endif %}
 								<div class="wishlist-compare">
-									<a href="#" data-tooltip="Wishlist"><i class="ti-heart"></i></a>
+									<a href="#" data-tooltip="Wishlist" class="{{'added' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}">
+										<i class="ti-heart"></i>
+									</a>
 								</div>
-								<a href="#" class="add-to-cart">
+								<a href="#" class="add-to-cart" ownerId="{{ resource.ResId }}">
 									<i class="ti-shopping-cart"></i>
 									<span>{{_('Add to cart')}}</span>
 								</a>
@@ -148,12 +150,14 @@
 										<p>{{ resource.ResFullDesc[0:100]+'...' if resource.ResFullDesc else '' }}</p>
 									</div>
 									<div class="actions">
-										<a href="#" class="add-to-cart">
+										<a href="#" class="add-to-cart" ownerId="{{ resource.ResId }}">
 											<i class="ti-shopping-cart"></i>
 											<span>{{_('Add to cart')}}</span>
 										</a>
 										<div class="wishlist-compare">
-											<a href="#" data-tooltip="Wishlist"><i class="ti-heart"></i></a>
+											<a href="#" data-tooltip="Wishlist" class="{{'added' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}">
+												<i class="ti-heart"></i>
+											</a>
 										</div>
 									</div>
 								</div>

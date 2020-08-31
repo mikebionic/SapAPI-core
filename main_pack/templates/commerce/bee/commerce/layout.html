@@ -195,9 +195,14 @@
 <!-- Main JS -->
 <script src="{{ url_for('static', filename='commerce/bee/js/main.js') }}"></script>
 <script src="{{ url_for('static', filename='commerce/bee/js/rating.js') }}"></script>
+<script src="{{ url_for('static', filename='commerce/bee/js/js.cookie.min.js') }}"></script>
+<script src="{{ url_for('static', filename='commerce/bee/js/cartsAndCheckouts.js') }}"></script>
+<script src="{{ url_for('static', filename='commerce/admin/js/ui_dynamicals.js') }}"></script>
 
 <script type="text/javascript">
   var url_prefix = "/commerce";
+  var add_to_cart_text = "{{_('Add to cart')}}";
+  var remove_from_cart_text = "{{_('Remove from cart')}}";
 </script>
 {% block scripts %}{% endblock %}
 <script type="text/javascript">
@@ -209,7 +214,7 @@
       }
     },
     error: function(jqXHR, textStatus, errorThrown) {
-      if (jqXHR.status == 401) {
+      if (jqXHR.status == 401 || jqXHR.status == 400) {
         location.reload();
       }
     }

@@ -81,9 +81,16 @@ def product(ResId):
 	except:
 		abort(404)
 	categoryData = UiCategoriesList()
+
+	title =	gettext(Config.COMMERCE_RESOURCE_VIEW_TITLE)
+	if Config.RESOURCE_NAME_ON_TITLE == True:
+		try:
+			title = resource["ResName"]	if resource["ResName"] else ''
+		except Exception as ex:
+			print(ex)
 	return render_template(Config.COMMERCE_TEMPLATES_FOLDER_PATH+"commerce/product.html",
 		**categoryData,resource=resource,
-		title=gettext(Config.COMMERCE_RESOURCE_VIEW_TITLE))
+		title=title)
 
 @bp.route(Config.COMMERCE_LIST_VIEW+"/search")
 def resources_list_search():
