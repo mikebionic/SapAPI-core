@@ -109,9 +109,14 @@
           <div class="header-shop-links">
 
             <!-- Wishlist -->
-            <a href="{{ url_for('commerce_users.wishlist') }}" class="header-wishlist"><i class="ti-heart"></i> <span class="number">3</span></a>
+            <a href="{{ url_for('commerce_users.wishlist') }}" class="header-wishlist">
+              <i class="ti-heart"></i>
+            </a>
             <!-- Cart -->
-            <a href="{{ url_for('commerce.cart') }}" class="header-cart"><i class="ti-shopping-cart"></i> <span class="number">3</span></a>
+            <a href="{{ url_for('commerce.cart') }}" class="header-cart">
+              <i class="ti-shopping-cart"></i>
+              <span class="number cartItemsFullQty"></span>
+            </a>
 
           </div><!-- Header Shop Links End -->
         </div>
@@ -134,7 +139,7 @@
   </div>
 
   <!-- Mini Cart Products -->
-  <ul class="mini-cart-products">
+  <ul class="mini-cart-products cartItemsList">
     <li>
       <a class="image"><img loading="lazy" src="{{ url_for('static', filename='commerce/bee/images/product/product-1.png') }}" alt="Product"></a>
       <div class="content">
@@ -148,7 +153,7 @@
 
   <!-- Mini Cart Bottom -->
   <div class="mini-cart-bottom">
-    <h4 class="sub-total">{{_('Total')}}: <span>$1160</span></h4>
+    <h4 class="sub-total">{{_('Total')}}: <span class="cartTotalPrice">$1160</span></h4>
     <div class="button">
       <a href="checkout.html">{{_('Checkout')}}</a>
     </div>

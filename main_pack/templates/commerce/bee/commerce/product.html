@@ -63,15 +63,19 @@
 
 							<div class="quantity">
 								<h5>{{_('Quantity')}}</h5>
-								<div class="pro-qty"><input class="productQty" ownerId="{{ resource.ResId }}" type="text" value="{{resource.productQty}}"></div>
+								<div class="pro-qty cartItemQty">
+									<input class="productQty" ownerId="{{ resource.ResId }}" type="text" value="{{resource.productQty}}">
+								</div>
 							</div>
 						</div>
 
 						<div class="actions">
 							<a href="#" class="add-to-cart" ownerId="{{ resource.ResId }}"><i class="ti-shopping-cart"></i><span>{{_('Add to cart')}}</span></a>
-							<div class="wishlist-compare">
-								<a href="#" data-tooltip="Wishlist" class="{{'added' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}"><i class="ti-heart"></i></a>
-							</div>
+							{% if current_user.is_authenticated %}
+								<div class="wishlist-compare">
+									<a href="#" data-tooltip="{{_('Wishlist')}}" class="{{'added' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}"><i class="ti-heart"></i></a>
+								</div>
+							{% endif %}
 						</div>
 					</div>
 				</div>
@@ -196,12 +200,13 @@
 												<img loading="lazy" src="{{ url_for('static', filename='commerce/main/shop_icons/no_photo.png') }}">
 											</a>
 										{% endif %}
-										
-										<div class="wishlist-compare">
-											<a href="#" data-tooltip="Wishlist" class="{{'added' if related_resource.Wishlist == true}}" ownerId="{{ related_resource.ResId }}">
-												<i class="ti-heart"></i>
-											</a>
-										</div>
+										{% if current_user.is_authenticated %}
+											<div class="wishlist-compare">
+												<a href="#" data-tooltip="Wishlist" class="{{'added' if related_resource.Wishlist == true}}" ownerId="{{ related_resource.ResId }}">
+													<i class="ti-heart"></i>
+												</a>
+											</div>
+										{% endif %}
 										<a href="#" class="add-to-cart" ownerId="{{ related_resource.ResId }}">
 											<i class="ti-shopping-cart"></i>
 											<span>{{_('Add to cart')}}</span>
