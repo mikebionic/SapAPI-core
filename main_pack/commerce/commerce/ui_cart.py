@@ -90,6 +90,7 @@ def ui_cart():
 					**resData)
 				})
 		except Exception as ex:
+			print(ex)
 			response = jsonify({
 				"status": 'error',
 				"responseText": gettext('Unknown error!'),
@@ -118,6 +119,7 @@ def ui_cart_table():
 					**resData)
 				})
 		except Exception as ex:
+			print(ex)
 			response = jsonify({
 				"status": 'error',
 				"responseText": gettext('Unknown error!'),
@@ -143,6 +145,7 @@ def ui_cart_table():
 					**resData)
 				})
 		except Exception as ex:
+			print(ex)
 			response = jsonify({
 				"status": 'error',
 				"responseText": gettext('Unknown error!'),
@@ -260,6 +263,7 @@ def ui_cart_checkout():
 						reg_num = generate(UId=user.UId,prefixType='order_invoice_line_code')
 						orderLineRegNo = makeRegNo(user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'',True)
 					except Exception as ex:
+						print(ex)
 						# use device model and other info
 						orderLineRegNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
 					order_inv_line['OInvLineRegNo']=orderLineRegNo
@@ -294,6 +298,7 @@ def ui_cart_checkout():
 				})
 
 		except Exception as ex:
+			print(ex)
 			response = jsonify({
 				"status": 'error',
 				"responseText": gettext('Unknown error!')

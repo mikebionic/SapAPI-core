@@ -175,7 +175,7 @@ def apiResourceInfo(resource_list=None,
 				average_rating = 0.0
 
 			resource_info["RtRatingValue"] = average_rating
-			resource_info["Wished"] = True if List_Wish else False
+			resource_info["Wishlist"] = True if List_Wish else False
 			resource_info["New"] = True if resource.CreatedDate >= datetime.today() - timedelta(days=Config.COMMERCE_RESOURCE_NEWNESS_DAYS) else False
 			if showRelated == True:
 				related_resources = Resource.query\
@@ -192,13 +192,19 @@ def apiResourceInfo(resource_list=None,
 
 				Related_resources = []
 				for resource in related_resources:
-					Resource_info = resource.to_json_api()
+					related_resource_info = resource.to_json_api()
 					Related_resource_Images = [image.to_json_api() for image in resource.Image if image.GCRecord == None]
-					Resource_info["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=Related_resource_Images[-1]['FileName']) if Related_resource_Images else ''
-					Resource_info["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=Related_resource_Images[-1]['FileName']) if Related_resource_Images else ''
-					Resource_info["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=Related_resource_Images[-1]['FileName']) if Related_resource_Images else ''
-
-				resource_info["Related_resources"] = [resource.to_json_api() for resource in related_resources]
+					related_resource_info["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=Related_resource_Images[-1]['FileName']) if Related_resource_Images else ''
+					related_resource_info["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=Related_resource_Images[-1]['FileName']) if Related_resource_Images else ''
+					related_resource_info["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=Related_resource_Images[-1]['FileName']) if Related_resource_Images else ''
+					if user:
+						Related_resource_Wish = [wish.to_json_api() for wish in wishes if wish.ResId == resource.ResId]
+					else:
+						Related_resource_Wish = []
+					related_resource_info["Wishlist"] = True if Related_resource_Wish else False
+					Related_resources.append(related_resource_info)
+				resource_info["Related_resources"] = Related_resources
+				# resource_info["Related_resources"] = [resource.to_json_api() for resource in related_resources]
 			if fullInfo == True:
 				resource_info["UsageStatus"] = dataLangSelector(List_UsageStatus[0]) if List_UsageStatus else []
 				resource_info["Barcode"] = List_Barcode if List_Barcode else []

@@ -46,7 +46,10 @@
 							<a href="#" class="cat">{{ resource.ResCatName }}</a>
 							<h5 class="title">{{ resource.ResName }}</h5>
 						</div>
-						<span>TMT</span><h5 class="price">{{ resource.ResPriceValue }}</h5>
+						<div style="display: flex;">
+							<span>TMT</span>
+							<h5 class="price priceValue" ownerId="{{ resource.ResId }}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue }}</h5>
+						</div>	
 					</div>
 
 					<div class="single-product-description">
@@ -63,15 +66,19 @@
 
 							<div class="quantity">
 								<h5>{{_('Quantity')}}</h5>
-								<div class="pro-qty"><input type="text" value="1"></div>
+								<div class="pro-qty cartItemQty">
+									<input class="productQty" ownerId="{{ resource.ResId }}" type="text" value="{{resource.productQty}}">
+								</div>
 							</div>
 						</div>
 
 						<div class="actions">
-							<a href="#" class="add-to-cart"><i class="ti-shopping-cart"></i><span>{{_('Add to cart')}}</span></a>
-							<div class="wishlist-compare">
-								<a href="#" data-tooltip="Wishlist"><i class="ti-heart"></i></a>
-							</div>
+							<a href="#" class="add-to-cart" ownerId="{{ resource.ResId }}"><i class="ti-shopping-cart"></i><span>{{_('Add to cart')}}</span></a>
+							{% if current_user.is_authenticated %}
+								<div class="wishlist-compare">
+									<a href="#" data-tooltip="{{_('Wishlist')}}" class="{{'added' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}"><i class="ti-heart"></i></a>
+								</div>
+							{% endif %}
 						</div>
 					</div>
 				</div>
@@ -136,11 +143,13 @@
 											<div class="col-12 mb-15">
 												<h5>{{_('Your rating')}}:</h5>
 												<div class="ratting-star fix">
-													<i class="fa fa-star-o"></i>
-													<i class="fa fa-star-o"></i>
-													<i class="fa fa-star-o"></i>
-													<i class="fa fa-star-o"></i>
-													<i class="fa fa-star-o"></i>
+													<div class="rating"><!--
+													--><input name="stars" id="e5" type="radio"></a><label for="e5">☆</label><!--
+														--><input name="stars" id="e4" type="radio"></a><label for="e4">☆</label><!--
+														--><input name="stars" id="e3" type="radio"></a><label for="e3">☆</label><!--
+														--><input name="stars" id="e2" type="radio"></a><label for="e2">☆</label><!--
+														--><input name="stars" id="e1" type="radio"></a><label for="e1">☆</label>
+													</div>
 												</div>
 											</div>
 											<div class="col-12 mb-15">
@@ -172,7 +181,7 @@
 
 			<!-- Section Title Start -->
 			<div class="col-12 mb-40">
-				<div class="section-title-one" data-title="RELATED PRODUCT"><h1>{{_('Related products')}}</h1></div>
+				<div class="section-title-one" style="text-transform:uppercase" data-title="{{_('Related products')}}"><h1>{{_('Related products')}}</h1></div>
 			</div><!-- Section Title End -->
 
 			<!-- Product Tab Content Start -->
@@ -185,23 +194,28 @@
 							<div class="col pb-20 pt-10">
 								<!-- Product Start -->
 								<div class="ee-product">
-
 									<!-- Image -->
 									<div class="image">
 										{% if related_resource.FilePathM %}
 											<a href="{{ url_for('commerce.product',ResId=related_resource.ResId)}}" class="img">
-												<img loading="lazy" src="{{related_resource.FilePathS}}">
+												<img loading="lazy" src="{{related_resource.FilePathM}}">
 											</a>
 										{% else %}
 											<a href="{{ url_for('commerce.product',ResId=related_resource.ResId)}}" class="img">
 												<img loading="lazy" src="{{ url_for('static', filename='commerce/main/shop_icons/no_photo.png') }}">
 											</a>
 										{% endif %}
-										
-										<div class="wishlist-compare">
-											<a href="#" data-tooltip="Wishlist"><i class="ti-heart"></i></a>
-										</div>
-										<a href="#" class="add-to-cart"><i class="ti-shopping-cart"></i><span>{{_('Add to cart')}}</span></a>
+										{% if current_user.is_authenticated %}
+											<div class="wishlist-compare">
+												<a href="#" data-tooltip="Wishlist" class="{{'added' if related_resource.Wishlist == true}}" ownerId="{{ related_resource.ResId }}">
+													<i class="ti-heart"></i>
+												</a>
+											</div>
+										{% endif %}
+										<a href="#" class="add-to-cart" ownerId="{{ related_resource.ResId }}">
+											<i class="ti-shopping-cart"></i>
+											<span>{{_('Add to cart')}}</span>
+										</a>
 									</div>
 
 									<!-- Content -->
@@ -219,13 +233,6 @@
 												<p>{{ related_resource.CurrencyCode }}</p>
 												<div class="priceValue" ownerId="{{related_resource.ResId}}" value="{{related_resource.ResPriceValue}}">{{ related_resource.ResPriceValue }}</div>
 											</h5>
-											<!-- <div class="ratting">
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star-half-o"></i>
-												<i class="fa fa-star-o"></i>
-											</div> -->
 										</div>
 									</div>
 								</div><!-- Product End -->

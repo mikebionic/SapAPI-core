@@ -143,13 +143,15 @@ class Config:
 	COMMERCE_WISHLIST_PAGE_TITLE = "Wishlist"
 	COMMERCE_ORDERS_PAGE_TITLE = "Orders"
 
-
 	COMMERCE_CART_VIEW_TITLE = "Cart"
 	COMMERCE_LIST_VIEW_TITLE = "Category"
 	COMMERCE_GRID_VIEW_TITLE = "Category"
-	COMMERCE_RESOURCE_VIEW_TITLE = "Product"
 	COMMERCE_SEARCH_VIEW_TITLE = "Search"
 	COMMERCE_SORT_VIEW_TITLE = "Filter"
+
+	# set to False if you want to use unique COMMERCE_RESOURCE_VIEW_TITLE
+	RESOURCE_NAME_ON_TITLE = True
+	COMMERCE_RESOURCE_VIEW_TITLE = "Product"
 	# / view route titles configuration /
 
 	# templates file location configuration

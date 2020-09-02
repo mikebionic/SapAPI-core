@@ -15,6 +15,7 @@
   <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='commerce/bee/images/favicon.ico') }}">
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/bee/css/bootstrap.min.css') }}">
+  
   <!-- Icon Font CSS -->
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/bee/css/icon-font.min.css') }}">
   <!-- Plugins CSS -->
@@ -54,7 +55,35 @@
 
           </div><!-- Header Advance Search End -->
         </div>
-
+        <div class="col order-12 order-xs-12 order-lg-2 mt-10 mb-10">
+          <li class="dropdown" style="margin-top: auto;">
+            <a href="javascript:void(0);"  title="Language" data-toggle="dropdown" role="button"><i class="material-icons">language</i>
+              <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
+            </a>
+            <ul class="dropdown-menu slideUp2">
+              <li class="body">
+                <ul class="menu list-unstyled">
+                  <li>
+                    <a href="#" class="dropdown-item">
+                      <img src="{{ url_for('static', filename='commerce/main/images/us.svg') }}" style="width: 30px">
+                      English language
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item">
+                      <img loading="lazy" src="{{ url_for('static', filename='commerce/main/images/tm.svg') }}" style="width: 30px">
+                      Türkmen dili
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item">
+                      <img loading="lazy" src="{{ url_for('static', filename='commerce/main/images/ru.svg') }}" style="width: 30px">
+                      Русский язык
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </div>
         <div class="col order-2 order-xs-2 order-lg-12 mt-10 mb-10">
           <!-- Header Account Links Start -->
           <div class="header-account-links">
@@ -109,9 +138,14 @@
           <div class="header-shop-links">
 
             <!-- Wishlist -->
-            <a href="{{ url_for('commerce_users.wishlist') }}" class="header-wishlist"><i class="ti-heart"></i> <span class="number">3</span></a>
+            <a href="{{ url_for('commerce_users.wishlist') }}" class="header-wishlist">
+              <i class="ti-heart"></i>
+            </a>
             <!-- Cart -->
-            <a href="{{ url_for('commerce.cart') }}" class="header-cart"><i class="ti-shopping-cart"></i> <span class="number">3</span></a>
+            <a href="{{ url_for('commerce.cart') }}" class="header-cart">
+              <i class="ti-shopping-cart"></i>
+              <span class="number cartItemsFullQty"></span>
+            </a>
 
           </div><!-- Header Shop Links End -->
         </div>
@@ -134,13 +168,19 @@
   </div>
 
   <!-- Mini Cart Products -->
-  <ul class="mini-cart-products">
+  <ul class="mini-cart-products cartItemsList">
     <li>
       <a class="image"><img loading="lazy" src="{{ url_for('static', filename='commerce/bee/images/product/product-1.png') }}" alt="Product"></a>
       <div class="content">
         <a href="single-product.html" class="title">Waxon Note Book Pro 5</a>
         <span class="price">{{_('Price')}}: $295</span>
-        <span class="qty">Qty: 02</span>
+        <div class="quantity-colors">
+          <div class="quantity">
+            <div class="pro-qty cartItemQty">
+              <input class="productQty" type="text" value="1">
+            </div>
+          </div>
+        </div>
       </div>
       <button class="remove"><i class="fa fa-trash-o"></i></button>
     </li>
@@ -148,7 +188,7 @@
 
   <!-- Mini Cart Bottom -->
   <div class="mini-cart-bottom">
-    <h4 class="sub-total">{{_('Total')}}: <span>$1160</span></h4>
+    <h4 class="sub-total">{{_('Total')}}: <span class="cartTotalPrice">$1160</span></h4>
     <div class="button">
       <a href="checkout.html">{{_('Checkout')}}</a>
     </div>
@@ -195,9 +235,14 @@
 <!-- Main JS -->
 <script src="{{ url_for('static', filename='commerce/bee/js/main.js') }}"></script>
 <script src="{{ url_for('static', filename='commerce/bee/js/rating.js') }}"></script>
+<script src="{{ url_for('static', filename='commerce/bee/js/js.cookie.min.js') }}"></script>
+<script src="{{ url_for('static', filename='commerce/bee/js/cartsAndCheckouts.js') }}"></script>
+<script src="{{ url_for('static', filename='commerce/admin/js/ui_dynamicals.js') }}"></script>
 
 <script type="text/javascript">
   var url_prefix = "/commerce";
+  var add_to_cart_text = "{{_('Add to cart')}}";
+  var remove_from_cart_text = "{{_('Remove from cart')}}";
 </script>
 {% block scripts %}{% endblock %}
 <script type="text/javascript">
@@ -209,7 +254,7 @@
       }
     },
     error: function(jqXHR, textStatus, errorThrown) {
-      if (jqXHR.status == 401) {
+      if (jqXHR.status == 401 || jqXHR.status == 400) {
         location.reload();
       }
     }

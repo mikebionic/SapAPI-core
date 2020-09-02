@@ -1,0 +1,32 @@
+{% for resource in data %}
+  <li class="cartObject{{resource.ResId}}">
+    {% if resource.FilePathS %}
+      <a class="image" href="{{ url_for('commerce.product',ResId=resource.ResId)}}">
+        <img loading="lazy" src="{{resource.FilePathS}}">
+      </a>
+    {% else %}
+      <a class="image" href="{{ url_for('commerce.product',ResId=resource.ResId)}}">
+        <img loading="lazy" src="{{ url_for('static', filename='commerce/main/shop_icons/no_photo.png') }}">
+      </a>
+    {% endif %}
+    <div class="content">
+      <a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="title resName">{{ resource.ResName if resource.ResName else '' }}</a>
+      <div style="display: flex;">
+        <span class="price">{{_('Price')}}:</span>
+        <span class="currencySymbol">{{ resource.CurrencyCode }}</span>
+        <span class="price priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{resource.ResPriceValue}}</span>
+      </div>
+      <div class="quantity-colors">
+        <div class="quantity">
+          <h5>{{_('Quantity')}}</h5>
+          <div class="pro-qty cartItemQty">
+            <span class="dec qtybtn">-</span>
+              <input class="productQty" ownerId="{{ resource.ResId }}" type="text" value="{{resource.productQty}}">
+            <span class="inc qtybtn">+</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="remove removeFromCart" ownerId="{{resource.ResId}}"><i class="fa fa-trash-o"></i></button>
+  </li>
+{% endfor %}

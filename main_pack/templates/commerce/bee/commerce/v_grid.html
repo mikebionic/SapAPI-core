@@ -65,17 +65,21 @@
 								<!-- <span class="label sale">sale</span> -->
 								{% if resource.FilePathM %}
 									<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
-										<img loading="lazy" src="{{resource.FilePathS}}">
+										<img loading="lazy" src="{{resource.FilePathM}}">
 									</a>
 								{% else %}
 									<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
 										<img loading="lazy" src="{{ url_for('static', filename='commerce/main/shop_icons/no_photo.png') }}">
 									</a>
 								{% endif %}
-								<div class="wishlist-compare">
-									<a href="#" data-tooltip="Wishlist"><i class="ti-heart"></i></a>
-								</div>
-								<a href="#" class="add-to-cart">
+								{% if current_user.is_authenticated %}
+									<div class="wishlist-compare">
+										<a href="#" data-tooltip="Wishlist" class="{{'added' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}">
+											<i class="ti-heart"></i>
+										</a>
+									</div>
+								{% endif %}
+								<a href="#" class="add-to-cart" ownerId="{{ resource.ResId }}">
 									<i class="ti-shopping-cart"></i>
 									<span>{{_('Add to cart')}}</span>
 								</a>
@@ -114,7 +118,7 @@
 								<!-- <span class="label sale">sale</span> -->
 								{% if resource.FilePathM %}
 									<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
-										<img loading="lazy" src="{{resource.FilePathS}}">
+										<img loading="lazy" src="{{resource.FilePathM}}">
 									</a>
 								{% else %}
 									<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
@@ -148,13 +152,17 @@
 										<p>{{ resource.ResFullDesc[0:100]+'...' if resource.ResFullDesc else '' }}</p>
 									</div>
 									<div class="actions">
-										<a href="#" class="add-to-cart">
+										<a href="#" class="add-to-cart" ownerId="{{ resource.ResId }}">
 											<i class="ti-shopping-cart"></i>
 											<span>{{_('Add to cart')}}</span>
 										</a>
-										<div class="wishlist-compare">
-											<a href="#" data-tooltip="Wishlist"><i class="ti-heart"></i></a>
-										</div>
+										{% if current_user.is_authenticated %}
+											<div class="wishlist-compare">
+												<a href="#" data-tooltip="{{_('Wishlist')}}" class="{{'added' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}">
+													<i class="ti-heart"></i>
+												</a>
+											</div>
+										{% endif %}
 									</div>
 								</div>
 

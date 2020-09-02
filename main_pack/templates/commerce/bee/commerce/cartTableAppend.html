@@ -1,0 +1,54 @@
+{% for resource in data %}
+  <tr class="cart_item cartTableObject{{resource.ResId}}">
+    <td class="product-thumbnail" data-title="{{_('Product')}} Name">
+      {% if resource.FilePathS %}
+        <a class="prd-thumb" href="{{ url_for('commerce.product',ResId=resource.ResId)}}">
+          <figure>
+            <img src="{{resource.FilePathS}}" width="113" height="113"/>
+          </figure>
+        </a>
+      {% else %}
+        <a class="prd-thumb" href="{{ url_for('commerce.product',ResId=resource.ResId)}}">
+          <figure>
+            <img src="{{ url_for('static', filename='commerce/main/shop_icons/no_photo.png') }}" width="113" height="113"/>
+          </figure>
+        </a>
+      {% endif %}
+      <a class="prd-name resName" href="{{ url_for('commerce.product',ResId=resource.ResId)}}">{{ '' if resource.ResName==None else resource.ResName}}</a>
+    </td>
+    <td class="product-price" data-title="{{_('Price')}}">
+      <div class="price price-contain">
+        <ins>
+          <span class="price-amount">
+            <span class="currencySymbol">{{ resource.CurrencyCode }}</span>
+            <div class="priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue }}</div>
+          </span>
+        </ins>
+      </div>
+    </td>
+    <td class="product-quantity" data-title="{{_('Quantity')}}">
+      <div class="quantity-box type1">
+        <div class="cont">
+          <span value={{resource.productQty}} class="next nextQtyVal productQty" ownerId="{{resource.ResId}}" style="right: 6px;">+</span>
+          <span value={{resource.productQty}} class="prev prevQtyVal productQty" ownerId="{{resource.ResId}}" style="left: 6px;">-</span>
+          <div id="box">
+            <span value={{resource.productQty}} class="uiQtyText productQty" ownerId="{{resource.ResId}}">{{ resource.productQty }}</span>
+          </div>
+        </div>
+        <a class="btn removeFromCart" ownerId="{{resource.ResId}}" style="padding: 8px 10px 17px;box-shadow: 1px 1px 1px 1px #ececec;">
+          <img src="{{ url_for('static', filename='commerce/main/shop_icons/disposal_50px.svg')}}" style="height: 22px;">
+        </a>
+      </div>
+    </td>
+    <td class="product-subtotal" data-title="{{_('Total')}}">
+      <div class="price price-contain">
+        <ins>
+          <span class="price-amount">
+            <span class="currencySymbol">{{ resource.CurrencyCode }}</span>
+            <div class="productTotalPrice" ownerId="{{resource.ResId}}" value="{{resource.productTotal}}">{{ resource.productTotal }}</div>
+          </span>
+        </ins>
+      </div>
+    </td>
+  </tr>
+{% endfor %}

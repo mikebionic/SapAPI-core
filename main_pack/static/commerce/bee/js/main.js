@@ -497,27 +497,27 @@ windows.resize(productTabFilterScreen);
 /*--
 	Add To Cart Animation
 ------------------------*/
-$('.add-to-cart').on('click', function(e){
-    e.preventDefault();
+// $('.add-to-cart').on('click', function(e){
+//     e.preventDefault();
     
-    if($(this).hasClass('added')){
-       $(this).removeClass('added').find('i').removeClass('ti-check').addClass('ti-shopping-cart').siblings('span').text('add to cart'); 
-    } else{
-        $(this).addClass('added').find('i').addClass('ti-check').removeClass('ti-shopping-cart').siblings('span').text('added'); 
-    }
-});
+//     if($(this).hasClass('added')){
+//        $(this).removeClass('added').find('i').removeClass('ti-check').addClass('ti-shopping-cart').siblings('span').text('add to cart'); 
+//     } else{
+//         $(this).addClass('added').find('i').addClass('ti-check').removeClass('ti-shopping-cart').siblings('span').text('added'); 
+//     }
+// });
 /*--
 	Wishlist & Compare
 ------------------------*/
-$('.wishlist-compare a').on('click', function(e){
-    e.preventDefault();
+// $('.wishlist-compare a').on('click', function(e){
+//     e.preventDefault();
     
-    if($(this).hasClass('added')){
-       $(this).removeClass('added');
-    } else{
-        $(this).addClass('added');
-    }
-});
+//     if($(this).hasClass('added')){
+//        $(this).removeClass('added');
+//     } else{
+//         $(this).addClass('added');
+//     }
+// });
 
 /*--
 	Count Down Timer
@@ -630,10 +630,10 @@ $('.qtybtn').on('click', function() {
 	  var newVal = parseFloat(oldValue) + 1;
 	} else {
 	   // Don't allow decrementing below zero
-	  if (oldValue > 0) {
+	  if (oldValue > 1) {
 		var newVal = parseFloat(oldValue) - 1;
 		} else {
-		newVal = 0;
+		newVal = 1;
 	  }
 	  }
 	$button.parent().find('input').val(newVal);

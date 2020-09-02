@@ -7068,7 +7068,7 @@ img.mfp-img {
       color: #202020;
       border-radius: 50px;
       display: block;
-      width: 170px;
+      width: 185px;
       padding: 10px 25px 10px 56px;
       opacity: 0;
       visibility: hidden;
@@ -7965,7 +7965,7 @@ img.mfp-img {
           color: #202020;
           border-radius: 50px;
           display: block;
-          width: 170px;
+          width: 185px;
           padding: 10px 25px 10px 56px;
           -webkit-transition: all 0.7s cubic-bezier(0.77, -1.5, 0.12, 3) 0s;
           -o-transition: all 0.7s cubic-bezier(0.77, -1.5, 0.12, 3) 0s;
@@ -8505,7 +8505,7 @@ img.mfp-img {
         color: #202020;
         border-radius: 50px;
         display: block;
-        width: 170px;
+        width: 185px;
         padding: 10px 25px 10px 56px;
         -webkit-transition: all 0.7s cubic-bezier(0.77, -1.5, 0.12, 3) 0s;
         -o-transition: all 0.7s cubic-bezier(0.77, -1.5, 0.12, 3) 0s;
@@ -12086,3 +12086,139 @@ ul.link-widget li {
 .slick-initialized .slick-slide{display:block}
 .slick-loading .slick-slide{visibility:hidden}
 .slick-vertical .slick-slide{display:block;height:auto;border:1px solid transparent}
+
+
+.quantity-colors {
+  float: left;
+  width: 100%;
+  margin-bottom: 30px; }
+  .quantity-colors .quantity {
+    float: left;
+    width: 50%;
+    margin-bottom: 10px; }
+    @media only screen and (max-width: 479px) {
+      .quantity-colors .quantity {
+        width: 100%; } }
+    .quantity-colors .quantity h5 {
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 25px;
+      margin: 5px 0;
+      margin-right: 20px;
+      float: left; }
+    .quantity-colors .quantity .pro-qty {
+      width: 90px;
+      height: 35px;
+      border: 1px solid #999999;
+      border-radius: 50px;
+      padding: 0 15px;
+      float: left; }
+      .quantity-colors .quantity .pro-qty .qtybtn {
+        width: 15px;
+        display: block;
+        float: left;
+        line-height: 31px;
+        cursor: pointer;
+        text-align: center;
+        font-size: 15px;
+        font-weight: 700;
+        color: #444444; }
+      .quantity-colors .quantity .pro-qty input {
+        width: 28px;
+        float: left;
+        border: none;
+        height: 33px;
+        line-height: 33px;
+        padding: 0;
+        text-align: center;
+        background-color: transparent; }
+  .quantity-colors .colors {
+    float: left;
+    width: 50%;
+    margin-bottom: 10px; }
+    @media only screen and (max-width: 479px) {
+      .quantity-colors .colors {
+        width: 100%; } }
+    .quantity-colors .colors h5 {
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 25px;
+      margin: 5px 0;
+      margin-right: 20px;
+      float: left; }
+    .quantity-colors .colors div.nice-select {
+      clear: none;
+      width: 125px;
+      height: 35px;
+      border: 1px solid #999999;
+      border-radius: 50px;
+      background-color: transparent; }
+      .quantity-colors .colors div.nice-select::after {
+        border-width: 1px;
+        right: 20px;
+        border-color: #444444; }
+      .quantity-colors .colors div.nice-select .current {
+        font-size: 13px;
+        color: #444444;
+        line-height: 33px;
+        display: block;
+        text-transform: capitalize; }
+      .quantity-colors .colors div.nice-select ul {
+        width: 100%; }
+        .quantity-colors .colors div.nice-select ul li {
+          font-weight: 400;
+          text-transform: capitalize; }
+    .quantity-colors .colors .color-options {
+      float: left;
+      margin: 4px 0; }
+      .quantity-colors .colors .color-options button {
+        width: 27px;
+        height: 27px;
+        border-radius: 50%;
+        border: none;
+        display: block;
+        float: left;
+        margin-right: 10px; }
+        .quantity-colors .colors .color-options button:last-child {
+          margin-right: 0; }
+
+
+	/*  
+		 * Rating styles
+		 */
+     .rating {
+			width: 125px;
+			overflow:hidden;
+		}
+.rating input {
+  float: right;
+  opacity: 0;
+  position: absolute;
+}
+		.rating a,
+    .rating label {
+			float:right;
+      color: #000;
+      font-size: 20px;
+			text-decoration: none;
+			-webkit-transition: color .4s;
+			-moz-transition: color .4s;
+			-o-transition: color .4s;
+			transition: color .4s;
+		}
+.rating label:hover ~ label,
+.rating input:focus ~ label,
+.rating label:hover,
+		.rating a:hover,
+		.rating a:hover ~ a,
+		.rating a:focus,
+		.rating a:focus ~ a		{
+			color: orange;
+			cursor: pointer;
+		}
+		.rating2 {
+			direction: rtl;
+		}
+		.rating2 a {
+			float:none
+		}          
