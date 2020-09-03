@@ -623,7 +623,7 @@ $('#price-amount').val( '$' + $('#price-range').slider( 'values', 0 ) +
 --------------------------------*/
 $('.pro-qty').prepend('<span class="dec qtybtn">-</span>');
 $('.pro-qty').append('<span class="inc qtybtn">+</span>');
-$('.qtybtn').on('click', function() {
+$('body').delegate('.qtybtn','click', function() {
 	var $button = $(this);
 	var oldValue = $button.parent().find('input').val();
 	if ($button.hasClass('inc')) {

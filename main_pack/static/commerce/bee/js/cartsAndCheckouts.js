@@ -167,6 +167,7 @@ function qtyCheckout(ownerId,newQtyValue){
 		newQtyValue = 1;
 	}
 	$('.productQty'+'[ownerId='+ownerId+']').attr('value',newQtyValue);
+	$('.productQty'+'[ownerId='+ownerId+']').text(newQtyValue);
 	$('.cartItemQty'+'[ownerId='+ownerId+']').val(newQtyValue);
 	$('.cartItemQty'+'[ownerId='+ownerId+']').text(newQtyValue);
 	$('.uiQtyText'+'[ownerId='+ownerId+']').text(newQtyValue);
