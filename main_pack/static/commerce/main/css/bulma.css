@@ -12,7 +12,7 @@
 }
 
 @keyframes spinAround {
-    from {
+    from { 
         -webkit-transform: rotate(0deg);
         transform: rotate(0deg)
     }
@@ -147,14 +147,6 @@
     vertical-align: top
 }
 
-.button:focus,.input:focus,.textarea:focus,.select select:focus,.file-cta:focus,.file-name:focus,.pagination-previous:focus,.pagination-next:focus,.pagination-link:focus,.pagination-ellipsis:focus,.is-focused.button,.is-focused.input,.is-focused.textarea,.select select.is-focused,.is-focused.file-cta,.is-focused.file-name,.is-focused.pagination-previous,.is-focused.pagination-next,.is-focused.pagination-link,.is-focused.pagination-ellipsis,.button:active,.input:active,.textarea:active,.select select:active,.file-cta:active,.file-name:active,.pagination-previous:active,.pagination-next:active,.pagination-link:active,.pagination-ellipsis:active,.is-active.button,.is-active.input,.is-active.textarea,.select select.is-active,.is-active.file-cta,.is-active.file-name,.is-active.pagination-previous,.is-active.pagination-next,.is-active.pagination-link,.is-active.pagination-ellipsis {
-    outline: none
-}
-
-[disabled].button,[disabled].input,[disabled].textarea,.select select[disabled],[disabled].file-cta,[disabled].file-name,[disabled].pagination-previous,[disabled].pagination-next,[disabled].pagination-link,[disabled].pagination-ellipsis {
-    cursor: not-allowed
-}
-
 /*! minireset.css v0.0.3 | MIT License | github.com/jgthms/minireset.css */
 html,body,p,ol,ul,li,dl,dt,dd,blockquote,figure,fieldset,legend,textarea,pre,iframe,hr,h1,h2,h3,h4,h5,h6 {
     margin: 0;
@@ -268,10 +260,6 @@ hr {
 img {
     height: auto;
     max-width: 100%
-}
-
-input[type="checkbox"],input[type="radio"] {
-    vertical-align: baseline
 }
 
 small {
@@ -2722,94 +2710,6 @@ a.box:active {
     font-size: 1.5rem
 }
 
-.input,.textarea {
-    background-color: #fff;
-    border-color: #dbdbdb;
-    color: #363636;
-    box-shadow: inset 0 1px 2px rgba(10,10,10,0.1);
-    max-width: 100%;
-    width: 100%
-}
-
-.input::-moz-placeholder,.textarea::-moz-placeholder {
-    color: rgba(54,54,54,0.3)
-}
-
-.input::-webkit-input-placeholder,.textarea::-webkit-input-placeholder {
-    color: rgba(54,54,54,0.3)
-}
-
-.input:-moz-placeholder,.textarea:-moz-placeholder {
-    color: rgba(54,54,54,0.3)
-}
-
-.input:-ms-input-placeholder,.textarea:-ms-input-placeholder {
-    color: rgba(54,54,54,0.3)
-}
-
-.input:hover,.input.is-hovered,.textarea:hover,.textarea.is-hovered {
-    border-color: #b5b5b5
-}
-
-.input:focus,.input.is-focused,.input:active,.input.is-active,.textarea:focus,.textarea.is-focused,.textarea:active,.textarea.is-active {
-    border-color: #3273dc;
-    box-shadow: 0 0 0 0.125em rgba(50,115,220,0.25)
-}
-
-.input[disabled],.textarea[disabled] {
-    background-color: #f5f5f5;
-    border-color: #f5f5f5;
-    box-shadow: none;
-    color: #7a7a7a
-}
-
-.input[disabled]::-moz-placeholder,.textarea[disabled]::-moz-placeholder {
-    color: rgba(122,122,122,0.3)
-}
-
-.input[disabled]::-webkit-input-placeholder,.textarea[disabled]::-webkit-input-placeholder {
-    color: rgba(122,122,122,0.3)
-}
-
-.input[disabled]:-moz-placeholder,.textarea[disabled]:-moz-placeholder {
-    color: rgba(122,122,122,0.3)
-}
-
-.input[disabled]:-ms-input-placeholder,.textarea[disabled]:-ms-input-placeholder {
-    color: rgba(122,122,122,0.3)
-}
-
-.input[readonly],.textarea[readonly] {
-    box-shadow: none
-}
-
-.input.is-white,.textarea.is-white {
-    border-color: #fff
-}
-
-.input.is-white:focus,.input.is-white.is-focused,.input.is-white:active,.input.is-white.is-active,.textarea.is-white:focus,.textarea.is-white.is-focused,.textarea.is-white:active,.textarea.is-white.is-active {
-    box-shadow: 0 0 0 0.125em rgba(255,255,255,0.25)
-}
-
-.input.is-black,.textarea.is-black {
-    border-color: #0a0a0a
-}
-
-.input.is-black:focus,.input.is-black.is-focused,.input.is-black:active,.input.is-black.is-active,.textarea.is-black:focus,.textarea.is-black.is-focused,.textarea.is-black:active,.textarea.is-black.is-active {
-    box-shadow: 0 0 0 0.125em rgba(10,10,10,0.25)
-}
-
-.input.is-light,.textarea.is-light {
-    border-color: #f5f5f5
-}
-
-.input.is-light:focus,.input.is-light.is-focused,.input.is-light:active,.input.is-light.is-active,.textarea.is-light:focus,.textarea.is-light.is-focused,.textarea.is-light:active,.textarea.is-light.is-active {
-    box-shadow: 0 0 0 0.125em rgba(245,245,245,0.25)
-}
-
-.input.is-dark,.textarea.is-dark {
-    border-color: #363636
-}
 
 .input.is-dark:focus,.input.is-dark.is-focused,.input.is-dark:active,.input.is-dark.is-active,.textarea.is-dark:focus,.textarea.is-dark.is-focused,.textarea.is-dark:active,.textarea.is-dark.is-active {
     box-shadow: 0 0 0 0.125em rgba(54,54,54,0.25)
@@ -2858,48 +2758,6 @@ a.box:active {
 .input.is-danger,.textarea.is-danger {
     border-color: #ff3860
 }
-
-.input.is-danger:focus,.input.is-danger.is-focused,.input.is-danger:active,.input.is-danger.is-active,.textarea.is-danger:focus,.textarea.is-danger.is-focused,.textarea.is-danger:active,.textarea.is-danger.is-active {
-    box-shadow: 0 0 0 0.125em rgba(255,56,96,0.25)
-}
-
-.input.is-small,.textarea.is-small {
-    border-radius: 2px;
-    font-size: .75rem
-}
-
-.input.is-medium,.textarea.is-medium {
-    font-size: 1.25rem
-}
-
-.input.is-large,.textarea.is-large {
-    font-size: 1.5rem
-}
-
-.input.is-fullwidth,.textarea.is-fullwidth {
-    display: block;
-    width: 100%
-}
-
-.input.is-inline,.textarea.is-inline {
-    display: inline;
-    width: auto
-}
-
-.input.is-rounded {
-    border-radius: 290486px;
-    padding-left: 1em;
-    padding-right: 1em
-}
-
-.input.is-static {
-    background-color: transparent;
-    border-color: transparent;
-    box-shadow: none;
-    padding-left: 0;
-    padding-right: 0
-}
-
 .textarea {
     display: block;
     max-width: 100%;
@@ -4907,24 +4765,6 @@ a.tag:hover {
 .highlight pre {
     overflow: auto;
     max-width: 100%
-}
-
-.number {
-    -ms-flex-align: center;
-    align-items: center;
-    background-color: #f5f5f5;
-    border-radius: 290486px;
-    display: -ms-inline-flexbox;
-    display: inline-flex;
-    font-size: 1.25rem;
-    height: 2em;
-    -ms-flex-pack: center;
-    justify-content: center;
-    margin-right: 1.5rem;
-    min-width: 2.5em;
-    padding: 0.25rem 0.5rem;
-    text-align: center;
-    vertical-align: top
 }
 
 .breadcrumb {

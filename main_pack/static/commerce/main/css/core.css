@@ -355,7 +355,6 @@
     left: 84px;
     height: 100%;
     width: 280px;
-    background-color: #344258;
     background-size: cover;
     background-position: bottom;
     box-shadow: -2px 0px -2px 0px rgba(0,0,0,0.06);
@@ -1508,7 +1507,6 @@
 }
 
 .profile-info-card.is-dark,.menu-card.is-dark {
-    background: #344258;
     color: #fff
 }
 
@@ -1652,7 +1650,7 @@
 }
 
 .wishlist-card .wishlist .wishlist-item .item-wrapper img {
-    height: 80px
+    height: 150px
 }
 
 .wishlist-card .wishlist .wishlist-item .item-wrapper .product-info span:first-child {
@@ -4986,7 +4984,6 @@ textarea.textarea.is-button+.textarea-button button {
 }
 
 .is-element-details .columns.is-gapless {
-    background: #344258
 }
 
 .is-element-details .is-component .inner,.is-element-details .is-description .inner {
@@ -5500,7 +5497,6 @@ textarea.textarea.is-button+.textarea-button button {
 }
 
 .mobile-navbar .navbar-menu {
-    background: #344258
 }
 
 .mobile-navbar .navbar-menu .navbar-item,.mobile-navbar .navbar-menu .navbar-link {
@@ -5657,7 +5653,6 @@ textarea.textarea.is-button+.textarea-button button {
 
 .webui-popover {
     box-shadow: rgba(0,0,0,0.04) 0px 3px 10px 4px !important;
-    background: #344258 !important;
     color: #fff !important;
     border: none !important;
     margin-top: -20px !important
@@ -5676,7 +5671,6 @@ textarea.textarea.is-button+.textarea-button button {
 }
 
 .webui-popover .webui-popover-title {
-    background-color: #344258 !important;
     border-bottom: none !important;
     font-weight: 500
 }
