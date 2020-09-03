@@ -15,7 +15,7 @@
   <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='commerce/bee/images/favicon.ico') }}">
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/bee/css/bootstrap.min.css') }}">
-  
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/bee/css/font-awesome.min.css') }}">
   <!-- Icon Font CSS -->
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/bee/css/icon-font.min.css') }}">
   <!-- Plugins CSS -->
@@ -56,9 +56,10 @@
           </div><!-- Header Advance Search End -->
         </div>
         <div class="col order-12 order-xs-12 order-lg-2 mt-10 mb-10">
-          <li class="dropdown" style="margin-top: auto;">
-            <a href="javascript:void(0);"  title="Language" data-toggle="dropdown" role="button"><i class="material-icons">language</i>
-              <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
+          <li class="dropdown" style="margin-top: auto;list-style: none;">
+            <a href="#" class="nav-link nav-link-lg message-toggle" data-toggle="dropdown">
+              <i class="fa fa-globe" style="font-size: 25px; color: #202020;"></i>
+              <span class="badge headerBadge1" style="background: #f5d730; border-radius: 50px;">{{ session['language'] }}</span>
             </a>
             <ul class="dropdown-menu slideUp2">
               <li class="body">
