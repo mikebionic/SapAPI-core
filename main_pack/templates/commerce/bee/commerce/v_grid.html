@@ -24,6 +24,7 @@
 							<div class="product-showing">
 								<p>{{_('Showing')}}</p>
 								<select name="showing" class="nice-select">
+									<option value="{{ per_page }}">{{ per_page }}</option>
 									<option value="8">8</option>
 									<option value="12">12</option>
 									<option value="16">16</option>
@@ -47,7 +48,7 @@
 
 							<!-- Product Pages -->
 							<div class="product-pages">
-								<p>{{_('Page')}} 1 of 25</p>
+								<p>{{_('Page')}}: {{ page }} / {{ pages_total }}</p>
 							</div>
 						</div>
 					</div>
@@ -189,17 +190,23 @@
 				<div class="row mt-30">
 					<div class="col">
 						<ul class="pagination">
-							{% for page_num in pagination_resources.iter_pages(left_edge=1, right_edge=1, left_current=2, right_current=3) %}
+							{% if prev_url %}
+								<li><a href="{{ prev_url }}"><</a></li>
+							{% endif %}
+							{% for page_num in page_num_list %}
 								{% if page_num %}
-									{% if pagination_resources.page == page_num %}
-										<li class="active">{{ page_num }}</li>
+									{% if page_num.status == "active" %}
+										<li class="active">{{ page_num.page }}</li>
+									{% elif page_num.status == None %}
+										<li> - - - - </li>
 									{% else %}
-										<li><a href="{{ url_for(pagination_url, page=page_num) }}">{{ page_num }}</a></li>
+										<li><a href="{{ page_num.url }}">{{ page_num.page }}</a></li>
 									{% endif %}
-								{% else %}
-									<li> - - - - </li>
 								{% endif %}
 							{% endfor %}
+							{% if next_url %}
+								<li><a href="{{ next_url }}">></a></li>
+							{% endif %}
 						</ul>
 					</div>
 				</div>

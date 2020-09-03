@@ -88,7 +88,7 @@ def api_post_categories():
 
 @api.route("/tbl-dk-categories/paginate/",methods=['GET'])
 def api_paginated_categories():
-	page = request.args.get('page',1,type=int)
+	page = request.args.get("page",1,type=int)
 	pagination = Res_category.query\
 		.filter_by(GCRecord = None)\
 		.order_by(Res_category.CreatedDate.desc())\

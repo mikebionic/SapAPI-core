@@ -318,9 +318,11 @@ def apiOrderInvInfo(startDate=None,
 			if rp_acc_user:
 				rpAccData = apiRpAccData(dbModel=rp_acc_user)
 			else:
-				rp_acc_user = Rp_acc.query.filter_by(
-						GCRecord = None, RpAccId = order_inv.RpAccId).first()
+				rp_acc_user = Rp_acc.query\
+					.filter_by(GCRecord = None, RpAccId = order_inv.RpAccId)\
+					.first()
 				rpAccData = apiRpAccData(dbModel=rp_acc_user)
+			rp_acc_user = None
 			order_inv_info['Rp_acc'] = rpAccData['data']
 
 			order_inv_lines = []
@@ -329,7 +331,8 @@ def apiOrderInvInfo(startDate=None,
 					this_order_inv_line = order_inv_line.to_json_api()
 					try:
 						resource = Resource.query\
-							.filter_by(GCRecord = None, ResId = order_inv_line.ResId).first()
+							.filter_by(GCRecord = None, ResId = order_inv_line.ResId)\
+							.first()
 						resource_json = apiResourceInfo(resource_models=[resource],single_object=True)
 						this_order_inv_line['Resource'] = resource_json['data']
 					except Exception as ex:

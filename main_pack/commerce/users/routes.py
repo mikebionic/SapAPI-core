@@ -55,7 +55,7 @@ def wishlist():
 		.filter_by(RpAccId = current_user.RpAccId)\
 		.first()
 
-	page = request.args.get('page',1,type=int)
+	page = request.args.get("page",1,type=int)
 	pagination_wishes = Wish.query\
 		.filter_by(GCRecord = None, RpAccId = rpAcc.RpAccId)\
 		.order_by(Wish.CreatedDate.desc())\

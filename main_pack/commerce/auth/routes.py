@@ -24,7 +24,7 @@ def login():
 		user = Users.query.filter_by(UEmail=form.email.data).first()
 		if user and bcrypt.check_password_hash(user.UPass,form.password.data):
 			login_user(user,remember=form.remember.data)
-			next_page = request.args.get('next')
+			next_page = request.args.get("next")
 			return redirect(next_page) if next_page else redirect(url_for('commerce.commerce'))
 		else:
 			flash(lazy_gettext('Login Failed! Wrong email or password'),'danger')

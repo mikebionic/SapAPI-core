@@ -40,8 +40,8 @@ from main_pack.api.commerce.commerce_utils import apiOrderInvInfo
 @sha_required
 def api_order_invoices():
 	if request.method == 'GET':
-		startDate = request.args.get('startDate',None,type=str)
-		endDate = request.args.get('endDate',datetime.now())
+		startDate = request.args.get("startDate",None,type=str)
+		endDate = request.args.get("endDate",datetime.now())
 		res = apiOrderInvInfo(startDate,
 													endDate,
 													statusId=1)
@@ -163,8 +163,8 @@ def api_order_invoice_info(OInvRegNo):
 @api.route("/v-order-invoices/",methods=['GET'])
 @token_required
 def api_v_order_invoices(user):
-	startDate = request.args.get('startDate',None,type=str)
-	endDate = request.args.get('endDate',datetime.now())
+	startDate = request.args.get("startDate",None,type=str)
+	endDate = request.args.get("endDate",datetime.now())
 	model_type = user['model_type']
 	current_user = user['current_user']
 	res = apiOrderInvInfo(startDate=startDate,

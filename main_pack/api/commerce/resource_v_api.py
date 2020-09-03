@@ -73,7 +73,7 @@ def api_category_v_resources(ResCatId):
 
 @api.route("/v-resources/search/")
 def api_v_resources_search():
-	searching_tag = request.args.get('tag',"",type=str)
+	searching_tag = request.args.get("tag","",type=str)
 	searching_tag = "%{}%".format(searching_tag)
 
 	barcodes = Barcode.query\
@@ -116,8 +116,8 @@ def api_v_resources_search():
 ###### pagination #######
 @api.route("/v-resources/paginate/",methods=['GET'])
 def api_paginate_resources():
-	offset = request.args.get('offset',None,type=int)
-	limit = request.args.get('limit',10,type=int)
+	offset = request.args.get("offset",None,type=int)
+	limit = request.args.get("limit",10,type=int)
 	# handles the latest resource
 	if offset is None:
 		latestResource = Resource.query\

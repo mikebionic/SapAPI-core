@@ -127,6 +127,7 @@ class Config:
 	COMMERCE_CART_VIEW = "/cart"
 	COMMERCE_LIST_VIEW = "/v-list"
 	COMMERCE_GRID_VIEW = "/v-grid"
+	COMMERCE_SEARCH_VIEW = "/search"
 	COMMERCE_RESOURCE_VIEW = "/product"
 	# / view routes naming configuration /
 

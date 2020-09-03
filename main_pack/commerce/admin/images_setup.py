@@ -47,8 +47,8 @@ def logo_setup():
 @ui_admin_required()
 def remove_images():
 	try:
-		imgId = request.args.get('imgId')
-		imgType = request.args.get('type')
+		imgId = request.args.get("imgId")
+		imgType = request.args.get("type")
 		if imgType == 'logo':
 			image = Image.query.get(imgId)
 			image.GCRecord=1
@@ -178,8 +178,8 @@ def ui_svg_icons():
 @ui_admin_required()
 def remove_svg_icon():
 	try:
-		name = request.args.get('name')
-		icon_category = request.args.get('icon_category')
+		name = request.args.get("name")
+		icon_category = request.args.get("icon_category")
 		path=os.path.join(current_app.root_path,'static',"commerce","icons","categories",icon_category,name)
 		os.remove(path)
 		flash("Image successfully deleted!",'success')

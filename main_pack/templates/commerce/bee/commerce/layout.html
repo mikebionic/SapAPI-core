@@ -47,8 +47,8 @@
           <!-- Header Advance Search Start -->
           <div class="header-advance-search">
 
-            <form action="#">
-              <div class="input"><input type="text" placeholder="{{_('Search')}}"></div>
+            <form action="{{ url_for('commerce.resources_grid_search') }}">
+              <div class="input"><input type="text" name="tag" placeholder="{{_('Search')}}"></div>
               <div class="submit"><button><i class="icofont icofont-search-alt-1"></i></button></div>
             </form>
 
@@ -95,7 +95,7 @@
           <div class="main-menu">
             <nav>
               <ul>
-                <li class="active"><a href="{{ url_for('commerce.commerce')}}">{{_('Main')}}</a></li>
+                <li><a href="{{ url_for('commerce.commerce')}}">{{_('Main')}}</a></li>
                 <li><a href="{{ url_for('commerce.v_grid') }}">{{_('Shop')}}</a></li>
                 <li><a href="{{ url_for('commerce.about') }}">{{_('About us')}}</a></li>
                 <li><a href="{{ url_for('commerce.contact') }}">{{_('Contact')}}</a></li>
