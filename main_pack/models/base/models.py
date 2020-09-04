@@ -146,6 +146,7 @@ class Company(AddInf,CreatedModifiedInfo,db.Model):
 	Phone3 = db.Column(db.String(100))
 	Phone4 = db.Column(db.String(100))
 	CPostalCode = db.Column(db.String(100))
+	WebAddress= db.Column(db.String(100))
 	CEmail = db.Column(db.String(100))
 	Accounting_info = db.relationship('Accounting_info',backref='company',lazy=True)
 	Contact = db.relationship('Contact',backref='company',lazy=True)
@@ -191,6 +192,7 @@ class Company(AddInf,CreatedModifiedInfo,db.Model):
 			"Phone3": self.Phone3,
 			"Phone4": self.Phone4,
 			"CPostalCode": self.CPostalCode,
+			"WebAddress": self.WebAddress,
 			"CEmail": self.CEmail,
 			"AddInf1": self.AddInf1,
 			"AddInf2": self.AddInf2,
@@ -374,13 +376,14 @@ class Image(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_image"
 	ImgId = db.Column(db.Integer,nullable=False,primary_key=True)
 	EmpId = db.Column(db.Integer,db.ForeignKey("tbl_dk_employee.EmpId"))
+	BrandId = db.Column(db.Integer,db.ForeignKey("tbl_dk_brand.BrandId"))
 	CId = db.Column(db.Integer,db.ForeignKey("tbl_dk_company.CId"))
 	UId = db.Column(db.Integer,db.ForeignKey("tbl_dk_users.UId"))
 	RpAccId = db.Column(db.Integer,db.ForeignKey("tbl_dk_rp_acc.RpAccId"))
 	ResId = db.Column(db.Integer,db.ForeignKey("tbl_dk_resource.ResId"))
 	FileName = db.Column(db.String(100))
-	FilePath = db.Column(db.String(255))	
 	FileHash = db.Column(db.String(100))
+	FilePath = db.Column(db.String(255))	
 	Image = db.Column(db.LargeBinary)
 
 	def update(self, **kwargs):
@@ -406,6 +409,7 @@ class Image(CreatedModifiedInfo,db.Model):
 		json_image = {
 			"ImgId": self.ImgId,
 			"EmpId": self.EmpId,
+			"BrandId": self.BrandId,
 			"CId": self.CId,
 			"UId": self.UId,
 			"RpAccId": self.RpAccId,
@@ -543,17 +547,24 @@ class Sl_image(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_sl_image"
 	SlImgId = db.Column(db.Integer,nullable=False,primary_key=True)
 	SlId = db.Column(db.Integer,db.ForeignKey("tbl_dk_slider.SlId"))
-	SlImgName = db.Column(db.String(100))
+	SlImgTitle = db.Column(db.String(100))
 	SlImgDesc = db.Column(db.String(500),default='')
 	# "SlImgMainImg" bytea,
 	SlImgMainImgFileName = db.Column(db.String(255),default='')
-	SlImgSubImageFileName1 = db.Column(db.String(500),default='')
+	SlImgMainImgFilePath = db.Column(db.String(255),default='')
+	SlImgSubImageFileName1 = db.Column(db.String(255),default='')
+	SlImgSubImageFilePath1 = db.Column(db.String(255),default='')
 	SlImgSubImageFileName2 = db.Column(db.String(255),default='')
+	SlImgSubImageFilePath2 = db.Column(db.String(255),default='')
 	SlImgSubImageFileName3 = db.Column(db.String(255),default='')
+	SlImgSubImageFilePath3 = db.Column(db.String(255),default='')
 	SlImgSubImageFileName4 = db.Column(db.String(255),default='')
+	SlImgSubImageFilePath4 = db.Column(db.String(255),default='')
 	SlImgSubImageFileName5 = db.Column(db.String(255),default='')
+	SlImgSubImageFilePath5 = db.Column(db.String(255),default='')
 	SlImgStartDate = db.Column(db.DateTime,default=datetime.now)
 	SlImgEndDate = db.Column(db.DateTime)
+	Translations = db.relationship('Translations',backref='sl_image',lazy=True)
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -565,17 +576,22 @@ class Sl_image(AddInf,CreatedModifiedInfo,db.Model):
 		json_sl_image = {
 			"SlImgId": self.SlImgId,
 			"SlId": self.SlId,
-			"SlImgName": self.SlImgName,
+			"SlImgTitle": self.SlImgTitle,
 			"SlImgDesc": self.SlImgDesc,
-			"SlImgMainImgFileName": fileToURL(file_type="slider",file_size='M',file_name=self.SlImgName),
-			"SlImgMainImgFilePathS": fileToURL(file_type="slider",file_size='S',file_name=self.SlImgName),
-			"SlImgMainImgFilePathM": fileToURL(file_type="slider",file_size='M',file_name=self.SlImgName),
-			"SlImgMainImgFilePathR": fileToURL(file_type="slider",file_size='R',file_name=self.SlImgName),
+			"SlImgMainImgFileName": fileToURL(file_type="slider",file_size='M',file_name=self.SlImgMainImgFileName),
+			"SlImgMainImgFilePathS": fileToURL(file_type="slider",file_size='S',file_name=self.SlImgMainImgFileName),
+			"SlImgMainImgFilePathM": fileToURL(file_type="slider",file_size='M',file_name=self.SlImgMainImgFileName),
+			"SlImgMainImgFilePathR": fileToURL(file_type="slider",file_size='R',file_name=self.SlImgMainImgFileName),
 			"SlImgSubImageFileName1": self.SlImgSubImageFileName1,
+			"SlImgSubImageFilePath1": self.SlImgSubImageFilePath1,
 			"SlImgSubImageFileName2": self.SlImgSubImageFileName2,
+			"SlImgSubImageFilePath2": self.SlImgSubImageFilePath2,
 			"SlImgSubImageFileName3": self.SlImgSubImageFileName3,
+			"SlImgSubImageFilePath3": self.SlImgSubImageFilePath3,
 			"SlImgSubImageFileName4": self.SlImgSubImageFileName4,
+			"SlImgSubImageFilePath4": self.SlImgSubImageFilePath4,
 			"SlImgSubImageFileName5": self.SlImgSubImageFileName5,
+			"SlImgSubImageFilePath5": self.SlImgSubImageFilePath5,
 			"SlImgStartDate": apiDataFormat(self.SlImgStartDate),
 			"SlImgEndDate": apiDataFormat(self.SlImgEndDate),
 			"AddInf1": self.AddInf1,
@@ -628,6 +644,17 @@ class Slider(AddInf,CreatedModifiedInfo,db.Model):
 			"GCRecord": self.GCRecord
 		}
 		return json_slider
+
+
+class Translations(AddInf,CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_translations"
+	TranslId = db.Column(db.Integer,nullable=False,primary_key=True)
+	ResCatId = db.Column(db.Integer,db.ForeignKey("tbl_dk_res_category.ResCatId"))
+	ColorId = db.Column(db.Integer,db.ForeignKey("tbl_dk_color.ColorId"))
+	ProdId = db.Column(db.Integer,db.ForeignKey("tbl_dk_production.ProdId"))
+	SlImgId = db.Column(db.Integer,db.ForeignKey("tbl_dk_sl_image.SlImgId"))
+	TransMain = db.Column(db.String(500))
+	TransDesc = db.Column(db.String(1000))
 
 
 class Warehouse(AddInf,CreatedModifiedInfo,db.Model):

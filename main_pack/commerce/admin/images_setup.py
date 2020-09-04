@@ -117,11 +117,11 @@ def slider_images(SlId):
 
 				imageFile = save_image(imageForm=sliderForm.sliderImage.data,module=os.path.join("uploads","commerce","Slider"),id=slider.SlId)
 				image = Sl_image(
-					SlImgName=imageFile['FileName'],
+					SlImgMainImgFileName=imageFile['FileName'],
 					SlImgDesc=sliderForm.sliderImageDesc.data,
 					SlImgStartDate=dateDataCheck(sliderForm.SlImgStartDate.data),
 					SlImgEndDate=dateDataCheck(sliderForm.SlImgEndDate.data),
-					SlImgMainImgFileName=imageFile['FilePath'],				
+					SlImgMainImgFilePath=imageFile['FilePath'],				
 					SlId=slider.SlId)
 				db.session.add(image)
 				db.session.commit()

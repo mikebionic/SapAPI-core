@@ -53,8 +53,14 @@ class Brand(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__ = "tbl_dk_brand"
 	BrandId = db.Column(db.Integer,nullable=False,primary_key=True)
 	BrandName = db.Column(db.String(100),nullable=False)
-	BrandDesc = db.Column(db.String(100))
+	BrandDesc = db.Column(db.String(100),default="")
+	BrandLink1 = db.Column(db.String(255))
+	BrandLink2 = db.Column(db.String(255))
+	BrandLink3 = db.Column(db.String(255))
+	BrandLink4 = db.Column(db.String(255))
+	BrandLink5 = db.Column(db.String(255))
 	Resource = db.relationship('Resource',backref='brand',lazy=True)
+	Image = db.relationship('Image',backref='brand',lazy=True)
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -66,7 +72,12 @@ class Brand(AddInf,CreatedModifiedInfo,db.Model):
 		json_brand = {
 			"brandId": self.BrandId,
 			"brandName": self.BrandName,
-			"brandDesc": self.BrandDesc
+			"brandDesc": self.BrandDesc,
+			"BrandLink1": self.BrandLink1,
+			"BrandLink2": self.BrandLink2,
+			"BrandLink3": self.BrandLink3,
+			"BrandLink4": self.BrandLink4,
+			"BrandLink5": self.BrandLink5
 		}
 		return json_brand
 
@@ -91,6 +102,7 @@ class Color(CreatedModifiedInfo,db.Model):
 	ColorDesc = db.Column(db.String(500))
 	ColorCode = db.Column(db.String(100))
 	Res_color = db.relationship('Res_color',backref='color',lazy=True)
+	Translations = db.relationship('Translations',backref='color',lazy=True)
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -973,11 +985,14 @@ class Res_category(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_res_category"
 	ResCatId = db.Column(db.Integer,nullable=False,primary_key=True)
 	ResOwnerCatId = db.Column(db.Integer,default=0)
+	ResCatVisibleIndex = db.Column(db.Integer,default=0)
+	IsMain = db.Column(db.Boolean,default=False)
 	ResCatName = db.Column(db.String(100),nullable=False)
-	ResCatDesc = db.Column(db.String(500))
+	ResCatDesc = db.Column(db.String(500),default='')
 	ResCatIconName = db.Column(db.String(100))
 	ResCatIconFilePath = db.Column(db.String(255))
 	Resource = db.relationship('Resource',backref='res_category',lazy=True)
+	Translations = db.relationship('Translations',backref='res_category',lazy=True)
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -997,6 +1012,8 @@ class Res_category(CreatedModifiedInfo,db.Model):
 		json_category = {
 			"ResCatId": self.ResCatId,
 			"ResOwnerCatId": self.ResOwnerCatId,
+			"ResCatVisibleIndex": self.ResCatVisibleIndex,
+			"IsMain": self.IsMain,
 			"ResCatName": self.ResCatName,
 			"ResCatDesc": self.ResCatDesc,
 			"ResCatIconName": self.ResCatIconName,
@@ -1988,6 +2005,7 @@ class Production(AddInf,CreatedModifiedInfo,db.Model):
 	ProdTime = db.Column(db.Float)
 	ProdCostPrice = db.Column(db.Float)
 	Production_line = db.relationship('Production_line',backref='production',lazy=True)
+	Translations = db.relationship('Translations',backref='production',lazy=True)
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():

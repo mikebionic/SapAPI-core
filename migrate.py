@@ -37,7 +37,10 @@ app.app_context().push()
 
 lastUser = Users.query.order_by(Users.UId.desc()).first()
 lastRpAcc = Rp_acc.query.order_by(Rp_acc.RpAccId.desc()).first()
-newUId = lastUser.UId+1
+if lastUser:
+	newUId = lastUser.UId+1
+else:
+	newUId = 1
 newRpAccId = lastRpAcc.RpAccId+1
 email = "muhammedjepbarov@gmail.com"
 # # UPass is "123" hashed
