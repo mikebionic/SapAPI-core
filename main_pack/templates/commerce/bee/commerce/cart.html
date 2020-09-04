@@ -12,39 +12,16 @@
 						<table class="table">
 							<thead>
 								<tr>
-									<th class="pro-thumbnail">Image</th>
-									<th class="pro-title">Product</th>
-									<th class="pro-price">Price</th>
-									<th class="pro-quantity">Quantity</th>
-									<th class="pro-subtotal">Total</th>
-									<th class="pro-remove">Remove</th>
+									<th class="pro-thumbnail">{{_('Image')}}</th>
+									<th class="pro-title">{{_('Product')}}</th>
+									<th class="pro-price">{{_('Price')}}</th>
+									<th class="pro-quantity">{{_('Quantity')}}</th>
+									<th class="pro-subtotal">{{_('Total')}}</th>
+									<th class="pro-remove">{{_('Remove')}}</th>
 								</tr>
 							</thead>
-							<tbody>
-								<tr>
-									<td class="pro-thumbnail"><a href="#"><img loading="lazy" src="{{ url_for('static', filename='commerce/bee/images/product/product-1.png') }}"></a></td>
-									<td class="pro-title"><a href="#">Zeon Zen 4 Pro</a></td>
-									<td class="pro-price"><span>$295.00</span></td>
-									<td class="pro-quantity"><div class="pro-qty"><input type="text" value="1"></div></td>
-									<td class="pro-subtotal"><span>$295.00</span></td>
-									<td class="pro-remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
-								</tr>
-								<tr>
-									<td class="pro-thumbnail"><a href="#"><img loading="lazy" src="{{ url_for('static', filename='commerce/bee/images/product/product-2.png') }}"></a></td>
-									<td class="pro-title"><a href="#">Aquet Drone D 420</a></td>
-									<td class="pro-price"><span>$275.00</span></td>
-									<td class="pro-quantity"><div class="pro-qty"><input type="text" value="2"></div></td>
-									<td class="pro-subtotal"><span>$550.00</span></td>
-									<td class="pro-remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
-								</tr>
-								<tr>
-									<td class="pro-thumbnail"><a href="#"><img loading="lazy" src="{{ url_for('static', filename='commerce/bee/images/product/product-3.png') }}"></a></td>
-									<td class="pro-title"><a href="#">Game Station X 22</a></td>
-									<td class="pro-price"><span>$295.00</span></td>
-									<td class="pro-quantity"><div class="pro-qty"><input type="text" value="1"></div></td>
-									<td class="pro-subtotal"><span>$295.00</span></td>
-									<td class="pro-remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
-								</tr>
+							<tbody class="cartItemsTable">
+								
 								<tr>
 									<td class="pro-thumbnail"><a href="#"><img loading="lazy" src="{{ url_for('static', filename='commerce/bee/images/product/product-4.png') }}"></a></td>
 									<td class="pro-title"><a href="#">Roxxe Headphone Z 75 </a></td>
@@ -60,71 +37,46 @@
 				</form>
 
 				<div class="row">
-
-					<div class="col-lg-6 col-12 mb-15">
-						<!-- Calculate Shipping -->
-						<div class="calculate-shipping">
-							<h4>Calculate Shipping</h4>
-							<form action="#">
+					{% if current_user.is_authenticated %}
+						<div class="col-lg-6 col-12 mb-15">
+							<!-- Discount Coupon -->
+							<div class="discount-coupon">
+								<h4>{{_('Description')}}</h4>
 								<div class="row">
-									<div class="col-md-6 col-12 mb-25">
-										<select class="nice-select">
-											<option>Bangladesh</option>
-											<option>China</option>
-											<option>country</option>
-											<option>India</option>
-											<option>Japan</option>
-										</select>
-									</div>
-									<div class="col-md-6 col-12 mb-25">
-										<select class="nice-select">
-											<option>Dhaka</option>
-											<option>Barisal</option>
-											<option>Khulna</option>
-											<option>Comilla</option>
-											<option>Chittagong</option>
-										</select>
-									</div>
-									<div class="col-md-6 col-12 mb-25">
-										<input type="text" placeholder="Postcode / Zip">
-									</div>
-									<div class="col-md-6 col-12 mb-25">
-										<input type="submit" value="Estimate">
+									<div class="col-md-6 col-12 mb-15">
+										<textarea type="text" class="orderDesc" placeholder="{{_('Description')}} ({{_('City')}}, {{_('Av.')}}, {{_('Street')}}, {{_('House')}}, {{_('Flat')}})"></textarea>
 									</div>
 								</div>
-							</form>
+							</div>
 						</div>
-						<!-- Discount Coupon -->
-						<div class="discount-coupon">
-							<h4>Discount Coupon Code</h4>
-							<form action="#">
-								<div class="row">
-									<div class="col-md-6 col-12 mb-25">
-										<input type="text" placeholder="Coupon Code">
-									</div>
-									<div class="col-md-6 col-12 mb-25">
-										<input type="submit" value="Apply Code">
-									</div>
+						<!-- Cart Summary -->
+						<div class="col-lg-6 col-12 mb-40 d-flex">
+							<div class="cart-summary">
+								<div class="cart-summary-wrap">
+									<h4>{{_('Summary')}}</h4>
+									<p>
+										{{_('Total price')}}
+										<span class="currencySymbol">TMT</span>
+										<span class="cartTotalPrice">0.00</span>
+									</p>
 								</div>
-							</form>
-						</div>
-					</div>
-
-					<!-- Cart Summary -->
-					<div class="col-lg-6 col-12 mb-40 d-flex">
-						<div class="cart-summary">
-							<div class="cart-summary-wrap">
-								<h4>Cart Summary</h4>
-								<p>Sub Total <span>$1250.00</span></p>
-								<p>Shipping Cost <span>$00.00</span></p>
-								<h2>Grand Total <span>$1250.00</span></h2>
-							</div>
-							<div class="cart-summary-button">
-								<button class="checkout-btn">Checkout</button>
-								<button class="update-btn">Update Cart</button>
+								<div class="cart-summary-button">
+									<button class="checkout-btn checkoutCartBtn">{{_('Checkout')}}</button>
+								</div>
 							</div>
 						</div>
-					</div>
+					{% else %}
+						<div class="col-lg-6 col-12 mb-40 d-flex">
+							<div class="cart-summary">
+								<div class="cart-summary-wrap">
+			            <h4>{{_('You should login if you want to checkout an order')}}!</h4>
+								</div>
+		            <div class="cart-summary-button">
+		              <a href="{{ url_for('commerce_auth.login') }}" class="checkout-btn">{{_('Login')}}</a>
+		            </div>
+							</div>
+						</div>
+          {% endif %}
 
 				</div>
 
@@ -134,4 +86,8 @@
 </div>
 <!-- Cart Page End -->
 
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='commerce/bee/js/cart.js') }}"></script>
 {% endblock %}

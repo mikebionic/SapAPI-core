@@ -119,8 +119,8 @@ def product(ResId):
 
 @bp.route(Config.COMMERCE_SEARCH_VIEW)
 def resources_grid_search():
-	searching_tag = request.args.get("tag","",type=str)
-	searching_tag = "%{}%".format(searching_tag)
+	tag = request.args.get("tag","",type=str)
+	searching_tag = "%{}%".format(tag)
 
 	barcodes = Barcode.query\
 		.filter(and_(
@@ -163,7 +163,7 @@ def resources_grid_search():
 	sortingData = uiSortingData()
 
 	return render_template(Config.COMMERCE_TEMPLATES_FOLDER_PATH+"commerce/v_search.html",
-		**categoryData,**sortingData,**res,
+		**categoryData,**sortingData,**res,searching_tag=tag,
 		title=gettext(Config.COMMERCE_SEARCH_VIEW_TITLE))
 
 
