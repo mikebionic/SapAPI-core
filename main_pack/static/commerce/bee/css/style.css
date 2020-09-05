@@ -3411,7 +3411,7 @@ img.mfp-img {
       border-radius: 50px;
       text-align: center;
       line-height: 30px;
-      margin-right: 10px;
+      /* margin-right: 10px; */
       -webkit-transition: all 0.3s ease 0s;
       -o-transition: all 0.3s ease 0s;
       transition: all 0.3s ease 0s; }
@@ -4490,18 +4490,22 @@ img.mfp-img {
     03.2 Hero Side Category Style
 -----------------------------------------*/
 .hero-side-category {
-  background-color: #f6f7f8;
+  /* background-color: #f6f7f8; */
   width: 260px;
+  height: 0;
+  margin-top: 15px;
+  margin-left: 25px;
   float: left; }
   @media only screen and (min-width: 768px) and (max-width: 991px) {
     .hero-side-category {
-      width: 100%;
+      width: 260px;
       z-index: 999;
       position: relative; } }
   @media only screen and (max-width: 767px) {
     .hero-side-category {
       width: 100%;
       z-index: 9;
+      margin-left: 0;
       position: relative; } }
   .hero-side-category .category-toggle-wrap {
     background-color: #f5d730; }
@@ -4520,16 +4524,19 @@ img.mfp-img {
   .hero-side-category nav.category-menu {
     background-color: #f6f7f8;
     float: left;
-    width: 100%;
-    left: 0;
-    width: 100%;
-    top: 100%; }
+    width: 261px;
+    /* left: 0;
+    width: 100%; */
+    top: 85%; }
     @media only screen and (min-width: 768px) and (max-width: 991px) {
       .hero-side-category nav.category-menu {
-        position: absolute; } }
+        position: absolute;
+      top: 54px; } }
     @media only screen and (max-width: 767px) {
       .hero-side-category nav.category-menu {
-        position: absolute; } }
+        position: absolute;
+        width: 100%;
+        top: 47px; } }
     @media only screen and (max-width: 767px) {
       .hero-side-category nav.category-menu > ul {
         max-height: 180px;
@@ -4622,9 +4629,10 @@ img.mfp-img {
 /*-- Category Mega Menu --*/
 .category-mega-menu {
   position: absolute;
-  left: 275px;
+  left: 261px;
   top: 0;
-  width: calc(100% - 290px);
+  width: 240%;
+  /* width: calc(100% - 290px); */
   max-width: 910px;
   display: -webkit-box;
   display: -ms-flexbox;
