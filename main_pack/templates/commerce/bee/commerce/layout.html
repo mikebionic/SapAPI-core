@@ -37,11 +37,27 @@
     <div class="container">
       <div class="row align-items-center justify-content-between">
 
-        <div class="col mt-10 mb-10">
+        <div class="col mt-10 mb-10" style="display: flex;">
           <!-- Header Links Start -->
           <div class="header-links">
             <a href="{{ url_for('commerce_users.orders') }}"><img loading="lazy" src="{{ url_for('static', filename='commerce/bee/images/icons/car.png') }}" alt="Car Icon"> <span>Track your order</span></a>
           </div><!-- Header Links End -->
+          <div class="col order-2 order-lg-12 order-xl-12">
+            <!-- Header Shop Links Start -->
+            <div class="header-shop-links">
+  
+              <!-- Wishlist -->
+              <a href="{{ url_for('commerce_users.wishlist') }}" class="header-wishlist">
+                <i class="ti-heart"></i>
+              </a>
+              <!-- Cart -->
+              <a href="{{ url_for('commerce.cart') }}" class="header-cart">
+                <i class="ti-shopping-cart"></i>
+                <span class="number cartItemsFullQty"></span>
+              </a>
+  
+            </div><!-- Header Shop Links End -->
+          </div>
         </div>
 
         <div class="col order-12 order-xs-12 order-lg-2 mt-10 mb-10">
@@ -84,10 +100,6 @@
               </li>
             </ul>
           </li>
-        </div>
-        <div class="col order-2 order-xs-2 order-lg-12 mt-10 mb-10">
-          <!-- Header Account Links Start -->
-          <div class="header-account-links">
             {% if current_user.is_authenticated %}
               <a href="{{ url_for('commerce_users.profile') }}"><i class="icofont icofont-user-alt-7"></i> <span>{{_('My profile')}}</span></a>
               <a href="{{ url_for('commerce_auth.logout') }}"><i class="icofont icofont-login d-none"></i> <span>{{_('Log out')}}</span></a>
@@ -107,9 +119,9 @@
     <div class="container">
       <div class="row align-items-center justify-content-between">
 
-        <div class="col mt-15 mb-15">
+        <div class="col mt-15 mb-15" style="display: flex;">
           <!-- Logo Start -->
-          <div class="header-logo">
+          <div class="header-logo" >
             <a href="{{ url_for('commerce.commerce')}}">
               {% if company_logo %}
                 <img loading="lazy" src="{{ company_logo.FilePath }}">
@@ -118,8 +130,69 @@
               {% endif %}
             </a>
           </div><!-- Logo End -->
+          <div class="hero-side-category">
+            <div class="category">
+    
+              <!-- Category Toggle Wrap -->
+              <div class="category-toggle-wrap">
+                <!-- Category Toggle -->
+                <button class="category-toggle">Categories <i class="ti-menu"></i></button>
+              </div>
+      
+              <!-- Category Menu -->
+              <nav class="category-menu" style="position: absolute;z-index: 99;">
+                <ul>
+                  <li><a href="category-1.html">Tv &amp; Audio System</a></li>
+                  <li class="menu-item-has-children"><a href="category-2.html">Computer &amp; Laptop</a>
+      
+                    <!-- Mega Category Menu Start -->
+                    <ul class="category-mega-menu" style="display: flex; width: 240%;">
+                      <li class="menu-item-has-children">
+                        <a href="category-1.html">Smartphone</a>
+                        <ul style="display: block;">
+                          <li><a href="category-1.html">Samsome</a></li>
+                          <li><a href="category-2.html">GL Stylus</a></li>
+                          <li><a href="category-3.html">Uawei</a></li>
+                          <li><a href="category-1.html">Cherry Berry</a></li>
+                          <li><a href="category-2.html">uPhone</a></li>
+                          <li><a href="category-3.html">Sany Experia</a></li>
+                          <li><a href="category-1.html">Syphony</a></li>
+                        </ul>
+                      </li>
+                      <li class="menu-item-has-children">
+                        <a href="category-2.html">headphone</a>
+                        <ul style="display: block;">
+                          <li><a href="category-1.html">Desktop Headphone</a></li>
+                          <li><a href="category-2.html">Mobile Headphone</a></li>
+                          <li><a href="category-3.html">Wireless Headphone</a></li>
+                        </ul>
+                      </li>
+                      <li class="menu-item-has-children">
+                        <a href="category-3.html">accessories</a>
+                        <ul style="display: block;">
+                          <li><a href="category-1.html">Power Bank</a></li>
+                          <li><a href="category-2.html">Data Cable</a></li>
+                          <li><a href="category-3.html">Power Cable</a></li>
+                          <li><a href="category-1.html">Battery</a></li>
+                          <li><a href="category-2.html">OTG Cable</a></li>
+                          <li><a href="category-3.html">Neck-sitting</a></li>
+                          <li><a href="category-1.html">Memory Card</a></li>
+                        </ul>
+                      </li>
+                    </ul><!-- Mega Category Menu End -->
+      
+                  </li>
+                  <li><a href="category-1.html">Home Appliances</a></li>
+                  <li><a href="category-2.html">Kitchen appliances</a></li>
+                  <li><a href="category-2.html">Smart Watch</a></li>
+                  <li><a href="category-3.html">Accessories</a></li>
+                </ul>
+              </nav>
+      
+            </div>
+          </div>
         </div>
-
+        
         <div class="col order-12 order-lg-2 order-xl-2 d-none d-lg-block">
           <!-- Main Menu Start -->
           <div class="main-menu">
@@ -134,23 +207,8 @@
           </div><!-- Main Menu End -->
         </div>
 
-        <div class="col order-2 order-lg-12 order-xl-12">
-          <!-- Header Shop Links Start -->
-          <div class="header-shop-links">
-
-            <!-- Wishlist -->
-            <a href="{{ url_for('commerce_users.wishlist') }}" class="header-wishlist">
-              <i class="ti-heart"></i>
-            </a>
-            <!-- Cart -->
-            <a href="{{ url_for('commerce.cart') }}" class="header-cart">
-              <i class="ti-shopping-cart"></i>
-              <span class="number cartItemsFullQty"></span>
-            </a>
-
-          </div><!-- Header Shop Links End -->
-        </div>
-
+        
+        <div class="col order-2 order-lg-12 order-xl-12"></div>
         <!-- Mobile Menu -->
         <div class="mobile-menu order-12 d-block d-lg-none col"></div>
 
@@ -223,8 +281,6 @@
     </div>
   </div>
 </div>
-<!-- Footer Section End -->
-
 <!-- jQuery JS -->
 <script src="{{ url_for('static', filename='commerce/bee/js/vendor/jquery-1.12.4.min.js') }}"></script>
 <!-- Popper JS -->
