@@ -7076,7 +7076,7 @@ img.mfp-img {
       color: #202020;
       border-radius: 50px;
       display: block;
-      width: 185px;
+      width: 90%;
       padding: 10px 25px 10px 56px;
       opacity: 0;
       visibility: hidden;
@@ -7973,7 +7973,7 @@ img.mfp-img {
           color: #202020;
           border-radius: 50px;
           display: block;
-          width: 185px;
+          width: 75%;
           padding: 10px 25px 10px 56px;
           -webkit-transition: all 0.7s cubic-bezier(0.77, -1.5, 0.12, 3) 0s;
           -o-transition: all 0.7s cubic-bezier(0.77, -1.5, 0.12, 3) 0s;
@@ -8513,7 +8513,7 @@ img.mfp-img {
         color: #202020;
         border-radius: 50px;
         display: block;
-        width: 185px;
+        width: 45%;
         padding: 10px 25px 10px 56px;
         -webkit-transition: all 0.7s cubic-bezier(0.77, -1.5, 0.12, 3) 0s;
         -o-transition: all 0.7s cubic-bezier(0.77, -1.5, 0.12, 3) 0s;
@@ -8856,7 +8856,12 @@ img.mfp-img {
 /*-- Ratting Form Wrap --*/
 .ratting-form-wrapper {
   float: left;
-  width: 100%; }
+    border: 2px solid #f5d730;
+    width: 50%;
+    margin: 0 50;
+    margin: 0px 30%;
+    padding: 33px 5px 5px 55px;
+  }
   .ratting-form-wrapper h3 {
     font-size: 16px;
     margin: 0 0 30px;
