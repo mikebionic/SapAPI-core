@@ -53,7 +53,7 @@ def api_users():
 				try:
 					if not 'UId' in user:
 						newUser = Users(**user)
-						db.session.add(newOrderInv)
+						db.session.add(newUser)
 						users.append(user)
 					else:
 						UId = user['UId']
@@ -63,7 +63,7 @@ def api_users():
 							users.append(user)
 						else:
 							newUser = Users(**user)
-							db.session.add(newOrderInv)
+							db.session.add(newUser)
 							users.append(user)
 				except Exception as ex:
 					print(ex)

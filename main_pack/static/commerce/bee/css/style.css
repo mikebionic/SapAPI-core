@@ -8856,12 +8856,15 @@ img.mfp-img {
 /*-- Ratting Form Wrap --*/
 .ratting-form-wrapper {
   float: left;
+  }
+  .rating_l{
     border: 2px solid #f5d730;
     width: 50%;
     margin: 0 50;
     margin: 0px 30%;
     padding: 33px 5px 5px 55px;
-  }
+  
+  } 
   .ratting-form-wrapper h3 {
     font-size: 16px;
     margin: 0 0 30px;

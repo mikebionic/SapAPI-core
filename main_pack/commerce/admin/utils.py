@@ -77,9 +77,10 @@ def addSliderDict(req):
 def addSliderImageDict(req):
 	SlImgId = req.get('sliderImgId')
 	SlId = req.get('sliderId')
-	SlImgName = req.get('sliderImgName')
+	SlImgTitle = req.get('sliderImgTitle')
 	SlImgDesc = req.get('sliderImgDesc')
-	SlImgMainImgFileName = req.get('sliderImgMainImgFileName')
+	SlImgMainImgFileName = req.get('sliderImgName')
+	SlImgMainImgFilePath = req.get('sliderImgMainImgFileName')
 	SlImgSubImageFileName1 = req.get('sliderImgSubImageFileName1')
 	SlImgSubImageFileName2 = req.get('sliderImgSubImageFileName2')
 	SlImgSubImageFileName3 = req.get('sliderImgSubImageFileName3')
@@ -90,9 +91,10 @@ def addSliderImageDict(req):
 
 	slider_image = {
 		"SlId": self.SlId,
-		"SlImgName": self.SlImgName,
+		"SlImgTitle": self.SlImgTitle,
 		"SlImgDesc": self.SlImgDesc,
 		"SlImgMainImgFileName": self.SlImgMainImgFileName,
+		"SlImgMainImgFilePath": self.SlImgMainImgFilePath,
 		"SlImgSubImageFileName1": self.SlImgSubImageFileName1,
 		"SlImgSubImageFileName2": self.SlImgSubImageFileName2,
 		"SlImgSubImageFileName3": self.SlImgSubImageFileName3,
