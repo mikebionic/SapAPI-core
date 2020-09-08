@@ -1002,6 +1002,8 @@ class Res_category(CreatedModifiedInfo,db.Model):
 	def to_json(self):
 		json_category = {
 			"ownerCategoryId": self.ResOwnerCatId,
+			"visibleIndex": self.ResCatVisibleIndex,
+			"isMain": self.IsMain,
 			"categoryName": self.ResCatName,
 			"categoryDesc": self.ResCatDesc,
 			"categoryIcon": self.ResCatIconName

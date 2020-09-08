@@ -113,32 +113,20 @@ def addSliderImageDict(req):
 # 	'sliderImgSubImageFileName3','sliderImgSubImageFileName4','sliderImgSubImageFileName5',
 # 	'sliderImgStartDate','sliderImgEndDate']
 
-def addEditCategoryDict(req):
-	ResCatId = req.get('editCategoryId')
-	ResCatName = req.get('editCategoryName')
-	ResCatDesc = req.get('editCategoryDesc')
-	ResCatIconName = req.get('editCategoryIcon')
-	ResCatIconFilePath = req.get('editCategoryIconPath')
-	category = {
-		"ResCatName": ResCatName,
-		"ResCatDesc": ResCatDesc,
-		"ResCatIconName": ResCatIconName,
-		"ResCatIconFilePath": ResCatIconFilePath
-	}
-	if(ResCatId != '' and ResCatId != None):
-		category['ResCatId']=ResCatId
-	category = configureNulls(category)
-	return category
 
 def addCategoryDict(req):
 	ResCatId = req.get('categoryId')
 	ResOwnerCatId = req.get('categoryOwner')
+	ResCatVisibleIndex = req.get('visibleIndex')
+	IsMain = req.get('isMain')
 	ResCatName = req.get('categoryName')
 	ResCatDesc = req.get('categoryDesc')
 	ResCatIconName = req.get('categoryIcon')
 	ResCatIconFilePath = req.get('categoryIconPath')
 	category = {
 		"ResOwnerCatId": ResOwnerCatId,
+		"ResCatVisibleIndex": ResCatVisibleIndex,
+		"IsMain": IsMain,
 		"ResCatName": ResCatName,
 		"ResCatDesc": ResCatDesc,
 		"ResCatIconName": ResCatIconName,

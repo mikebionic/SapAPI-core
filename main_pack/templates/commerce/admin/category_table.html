@@ -22,6 +22,8 @@
 									<th class="text-center">{{_('Category name')}}</th>
 									<th class="text-center">{{_('Description')}}</th>
 									<th class="text-center">{{_('Main category')}}</th>
+									<th class="text-center">{{_('Visible index')}}</th>
+									<th class="text-center">{{_('Featured')}}</th>
 									<th class="text-center">{{_('Icon')}}</th>
 									<th class="text-center">{{_('Action')}}</th>
 								</tr>
@@ -30,6 +32,13 @@
 									<td class="text-center editable categoryName" ownerId='undefined'></td>
 									<td class="text-center editable categoryDesc" ownerId='undefined'></td>
 									<td class="text-center editable categoryOwner" ownerId='undefined'></td>
+									<td class="text-center editable visibleIndex" ownerId='undefined'></td>
+									<td class="p-0 text-center">
+                    <div class="custom-checkbox custom-control">
+                      <input type="checkbox" class="custom-control-input isMain" ownerId='undefined' id="checkbox-undefined">
+                      <label for="checkbox-undefined" class="custom-control-label">&nbsp;</label>
+                    </div>
+                  </td>
 									<td class="categoryIcon" ownerId='undefined' data-toggle="modal" data-target="#catIconsModal">
 										<img loading="lazy" class="img-fluid categoryIcon" src="{{ url_for('static', filename='commerce/admin/ICONS/surface1.svg') }}" data-toggle="modal" data-target="#catIconsModal" ownerId='undefined'>
 									</td>
@@ -45,7 +54,14 @@
 										<td class="text-center editable categoryName" ownerId={{category.ResCatId}}>{{category.ResCatName if category.ResCatName else ''}}</td>
 										<td class="text-center editable categoryDesc" ownerId={{category.ResCatId}}>{{category.ResCatDesc if category.ResCatDesc else ''}}</td>
 										<td class="text-center editable categoryOwner" ownerId={{category.ResCatId}}>{{category.ResOwnerCatId}}</td>
-										<td class="categoryIcon" ownerId={{category.ResCatId}} data-toggle="modal" data-target="#catIconsModal">
+										<td class="text-center editable visibleIndex" ownerId={{category.ResCatId}}>{{category.ResCatVisibleIndex}}</td>
+										<td class="p-0 text-center">
+                      <div class="custom-checkbox custom-control">
+                        <input type="checkbox" class="custom-control-input isMain" ownerId={{category.ResCatId}} id="checkbox{{category.ResCatId}}" {{ "checked" if category.IsMain }}>
+                        <label for="checkbox{{category.ResCatId}}" class="custom-control-label">&nbsp;</label>
+                      </div>
+                    </td>
+										<td class="align-middle categoryIcon" ownerId={{category.ResCatId}} data-toggle="modal" data-target="#catIconsModal">
 											<img loading="lazy" class="img-fluid categoryIcon" ownerId={{category.ResCatId}} name='{{category.ResCatIconFileName}}' src="{{category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static', filename='commerce/admin/ICONS/surface1.svg') }}" data-toggle="modal" data-target="#catIconsModal">
 										</td>
 										<td>
