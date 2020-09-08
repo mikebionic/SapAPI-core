@@ -38,26 +38,21 @@
       <div class="row align-items-center justify-content-between">
 
         <div class="col mt-10 mb-10" style="display: flex;">
+          <!-- Logo Start -->
+          <div class="header-logo" >
+            <a href="{{ url_for('commerce.commerce')}}">
+              {% if company_logo %}
+                <img loading="lazy" src="{{ company_logo.FilePath }}" style="width: 60%">
+              {% else %}
+                <h4>{{company.CName}}</h4>
+              {% endif %}
+            </a>
+          </div><!-- Logo End -->
           <!-- Header Links Start -->
           <div class="header-links">
             <a href="{{ url_for('commerce_users.orders') }}"><img loading="lazy" src="{{ url_for('static', filename='commerce/bee/images/icons/car.png') }}" alt="Car Icon"> <span>Track your order</span></a>
           </div><!-- Header Links End -->
-          <div class="col order-2 order-lg-12 order-xl-12">
-            <!-- Header Shop Links Start -->
-            <div class="header-shop-links">
-  
-              <!-- Wishlist -->
-              <a href="{{ url_for('commerce_users.wishlist') }}" class="header-wishlist">
-                <i class="ti-heart"></i>
-              </a>
-              <!-- Cart -->
-              <a href="{{ url_for('commerce.cart') }}" class="header-cart">
-                <i class="ti-shopping-cart"></i>
-                <span class="number cartItemsFullQty"></span>
-              </a>
-  
-            </div><!-- Header Shop Links End -->
-          </div>
+          
         </div>
 
         <div class="col order-12 order-xs-12 order-lg-2 mt-10 mb-10">
@@ -72,34 +67,36 @@
           </div><!-- Header Advance Search End -->
         </div>
         <div class="col order-12 order-xs-12 order-lg-2 mt-10 mb-10">
-          <li class="dropdown" style="margin-top: auto;list-style: none;">
-            <a href="#" class="nav-link nav-link-lg message-toggle" data-toggle="dropdown">
-              <i class="fa fa-globe" style="font-size: 25px; color: #202020;"></i>
-              <span class="badge headerBadge1" style="background: #f5d730; border-radius: 50px;">{{ session['language'] }}</span>
-            </a>
-            <ul class="dropdown-menu slideUp2">
-              <li class="body">
-                <ul class="menu list-unstyled">
-                  <li>
-                    <a href="{{ url_for('main.set_language',language='en') }}" class="dropdown-item">
-                      <img src="{{ url_for('static', filename='commerce/main/images/us.svg') }}" style="width: 30px">
-                      English language
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="{{ url_for('main.set_language',language='tk') }}" class="dropdown-item">
-                      <img loading="lazy" src="{{ url_for('static', filename='commerce/main/images/tm.svg') }}" style="width: 30px">
-                      Türkmen dili
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="{{ url_for('main.set_language',language='ru') }}" class="dropdown-item">
-                      <img loading="lazy" src="{{ url_for('static', filename='commerce/main/images/ru.svg') }}" style="width: 30px">
-                      Русский язык
-                    </a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </li>
+          <!-- Header Account Links Start -->
+          <div class="header-account-links" style="display:flex;">
+            <li class="dropdown" style="margin-top: -7px;list-style: none; position: inherit;">
+              <a href="#" class="nav-link nav-link-lg message-toggle" data-toggle="dropdown">
+                <i class="fa fa-globe" style="font-size: 25px; color: #a6a6a6;"></i>
+                <span class="badge headerBadge1" style="background: #f5d730; border-radius: 50px;">{{ session['language'] }}</span>
+              </a>
+              <ul class="dropdown-menu slideUp2">
+                <li class="body">
+                  <ul class="menu list-unstyled">
+                    <li>
+                      <a href="{{ url_for('main.set_language',language='en') }}" class="dropdown-item">
+                        <img src="{{ url_for('static', filename='commerce/main/images/us.svg') }}" style="width: 30px">
+                        English language
+                      </a>
+                      <div class="dropdown-divider"></div>
+                      <a href="{{ url_for('main.set_language',language='tk') }}" class="dropdown-item">
+                        <img loading="lazy" src="{{ url_for('static', filename='commerce/main/images/tm.svg') }}" style="width: 30px">
+                        Türkmen dili
+                      </a>
+                      <div class="dropdown-divider"></div>
+                      <a href="{{ url_for('main.set_language',language='ru') }}" class="dropdown-item">
+                        <img loading="lazy" src="{{ url_for('static', filename='commerce/main/images/ru.svg') }}" style="width: 30px">
+                        Русский язык
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
             {% if current_user.is_authenticated %}
               <a href="{{ url_for('commerce_users.profile') }}"><i class="icofont icofont-user-alt-7"></i> <span>{{_('My profile')}}</span></a>
               <a href="{{ url_for('commerce_auth.logout') }}"><i class="icofont icofont-login d-none"></i> <span>{{_('Log out')}}</span></a>
@@ -120,16 +117,6 @@
       <div class="row align-items-center justify-content-between">
 
         <div class="col mt-15 mb-15" style="display: flex;">
-          <!-- Logo Start -->
-          <div class="header-logo" >
-            <a href="{{ url_for('commerce.commerce')}}">
-              {% if company_logo %}
-                <img loading="lazy" src="{{ company_logo.FilePath }}">
-              {% else %}
-                <h4>{{company.CName}}</h4>
-              {% endif %}
-            </a>
-          </div><!-- Logo End -->
           <div class="hero-side-category">
             <div class="category">
     
@@ -191,6 +178,7 @@
       
             </div>
           </div>
+          
         </div>
         
         <div class="col order-12 order-lg-2 order-xl-2 d-none d-lg-block">
@@ -208,7 +196,22 @@
         </div>
 
         
-        <div class="col order-2 order-lg-12 order-xl-12"></div>
+        <div class="col order-2 order-lg-12 order-xl-12">
+          <!-- Header Shop Links Start -->
+          <div class="header-shop-links">
+
+            <!-- Wishlist -->
+            <a href="{{ url_for('commerce_users.wishlist') }}" class="header-wishlist">
+              <i class="ti-heart"></i>
+            </a>
+            <!-- Cart -->
+            <a href="{{ url_for('commerce.cart') }}" class="header-cart">
+              <i class="ti-shopping-cart"></i>
+              <span class="number cartItemsFullQty"></span>
+            </a>
+
+          </div><!-- Header Shop Links End -->
+        </div>
         <!-- Mobile Menu -->
         <div class="mobile-menu order-12 d-block d-lg-none col"></div>
 

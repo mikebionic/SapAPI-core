@@ -3339,7 +3339,8 @@ img.mfp-img {
 
 /*-- Header Links --*/
 .header-links {
-  overflow: hidden; }
+  overflow: hidden;
+  margin-top: 3%; }
   .header-links a {
     color: #444444;
     text-transform: uppercase;
@@ -4495,6 +4496,7 @@ img.mfp-img {
   height: 0;
   margin-top: 15px;
   margin-left: 25px;
+  margin-bottom: 20%;
   float: left; }
   @media only screen and (min-width: 768px) and (max-width: 991px) {
     .hero-side-category {
@@ -4527,7 +4529,7 @@ img.mfp-img {
     width: 261px;
     /* left: 0;
     width: 100%; */
-    top: 85%; }
+    top: 97%; }
     @media only screen and (min-width: 768px) and (max-width: 991px) {
       .hero-side-category nav.category-menu {
         position: absolute;
@@ -7076,7 +7078,7 @@ img.mfp-img {
       color: #202020;
       border-radius: 50px;
       display: block;
-      width: 185px;
+      width: 90%;
       padding: 10px 25px 10px 56px;
       opacity: 0;
       visibility: hidden;
@@ -7973,7 +7975,7 @@ img.mfp-img {
           color: #202020;
           border-radius: 50px;
           display: block;
-          width: 185px;
+          width: 75%;
           padding: 10px 25px 10px 56px;
           -webkit-transition: all 0.7s cubic-bezier(0.77, -1.5, 0.12, 3) 0s;
           -o-transition: all 0.7s cubic-bezier(0.77, -1.5, 0.12, 3) 0s;
@@ -8513,7 +8515,7 @@ img.mfp-img {
         color: #202020;
         border-radius: 50px;
         display: block;
-        width: 185px;
+        width: 45%;
         padding: 10px 25px 10px 56px;
         -webkit-transition: all 0.7s cubic-bezier(0.77, -1.5, 0.12, 3) 0s;
         -o-transition: all 0.7s cubic-bezier(0.77, -1.5, 0.12, 3) 0s;
@@ -8856,7 +8858,15 @@ img.mfp-img {
 /*-- Ratting Form Wrap --*/
 .ratting-form-wrapper {
   float: left;
-  width: 100%; }
+  }
+  .rating_l{
+    border: 2px solid #f5d730;
+    width: 50%;
+    margin: 0 50;
+    margin: 0px 30%;
+    padding: 33px 5px 5px 55px;
+  
+  } 
   .ratting-form-wrapper h3 {
     font-size: 16px;
     margin: 0 0 30px;
@@ -12229,4 +12239,4 @@ ul.link-widget li {
 		}
 		.rating2 a {
 			float:none
-		}          
+    }   

@@ -47,7 +47,7 @@
 							<h5 class="title">{{ resource.ResName }}</h5>
 						</div>
 						<div style="display: flex;">
-							<span>TMT</span>
+							<span class="price">TMT</span>
 							<h5 class="price priceValue" ownerId="{{ resource.ResId }}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue }}</h5>
 						</div>	
 					</div>
@@ -162,7 +162,9 @@
 										</div>
 									</form>
 								{% else %}
-									<h3>{{_('You should login to add a review')}}</h3>
+								<a href="{{ url_for('commerce_auth.register') }}" style="height: 100%; width: 100%;">
+									<h3 class="rating_l">{{_('You should login to add a review')}}</h3>
+								</a>	
 								{% endif %}
 							</div>
 						</div>

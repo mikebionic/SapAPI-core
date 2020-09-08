@@ -112,8 +112,7 @@ def category_table():
 			print("Err: not a folder")
 
 	data['category_icons']=category_icons
-	categories = Res_category.query\
-		.filter(Res_category.GCRecord=='' or Res_category.GCRecord==None).all()
+	categories = Res_category.query.filter_by(GCRecord = None).all()
 
 	categoriesList = [category.to_json_api() for category in categories]
 	data['categories'] = categoriesList if categoriesList else []

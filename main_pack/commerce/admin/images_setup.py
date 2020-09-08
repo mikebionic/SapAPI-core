@@ -115,14 +115,20 @@ def slider_images(SlId):
 		if "sliderForm" in request.form and sliderForm.validate_on_submit():
 			if sliderForm.sliderImage.data:
 
-				imageFile = save_image(imageForm=sliderForm.sliderImage.data,module=os.path.join("uploads","commerce","Slider"),id=slider.SlId)
+				imageFile = save_image(
+					imageForm = sliderForm.sliderImage.data,
+					module = os.path.join("uploads","commerce","Slider"),
+					id = slider.SlId)
+
 				image = Sl_image(
-					SlImgMainImgFileName=imageFile['FileName'],
-					SlImgDesc=sliderForm.sliderImageDesc.data,
-					SlImgStartDate=dateDataCheck(sliderForm.SlImgStartDate.data),
-					SlImgEndDate=dateDataCheck(sliderForm.SlImgEndDate.data),
-					SlImgMainImgFilePath=imageFile['FilePath'],				
-					SlId=slider.SlId)
+					SlImgMainImgFileName = imageFile['FileName'],
+					SlImgTitle = sliderForm.sliderImageTitle.data,
+					SlImgDesc = sliderForm.sliderImageDesc.data,
+					SlImgStartDate = dateDataCheck(sliderForm.SlImgStartDate.data),
+					SlImgEndDate = dateDataCheck(sliderForm.SlImgEndDate.data),
+					SlImgMainImgFilePath = imageFile['FilePath'],				
+					SlId = slider.SlId)
+
 				db.session.add(image)
 				db.session.commit()
 				flash(lazy_gettext('Slider picture successfully uploaded!'),'success')
@@ -146,7 +152,10 @@ def ui_svg_icons():
 	failedFiles=[]
 	for icon_file in icon_files:
 		if icon_file and allowed_icon(icon_file.filename):
-			imageFile = save_icon(imageForm=icon_file,module=os.path.join("commerce","icons","categories","Others"),randomName=False)
+			imageFile = save_icon(
+				imageForm = icon_file,
+				module = os.path.join("commerce","icons","categories","Others"),
+				randomName = False)
 			FileName = imageFile['FileName']
 			FilePath = imageFile['FilePath']
 			category = 'Others'

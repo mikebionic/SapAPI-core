@@ -1,4 +1,4 @@
-var category_forms = ['categoryId','categoryName','categoryDesc','categoryOwner','categoryIcon']
+var category_forms = ['categoryId','categoryName','categoryDesc','categoryOwner','categoryIcon','visibleIndex','isMain']
 var required_category_fields = ['categoryName']
 
 $("body").delegate('.saveCategoryBtn','click',function(event){
@@ -9,12 +9,19 @@ $("body").delegate('.saveCategoryBtn','click',function(event){
 	thisIconName = $(".categoryIcon"+"[ownerId="+ownerId+"]").attr('name');
 	thisIconPath = $(".categoryIcon"+"[ownerId="+ownerId+"]").attr('src');
 
-	categoryData['categoryIcon']=thisIconName;
-	categoryData['categoryIconPath']=thisIconPath;
+	isMain = $(".isMain"+"[ownerId="+ownerId+"]").prop('checked');
+	categoryData['isMain'] = isMain;
+	// if (isMain == true){
+	// 	categoryData['isMain'] = 1;
+	// } else{
+	// 	categoryData['isMain'] = 0;
+	// }
+	categoryData['categoryIcon'] = thisIconName;
+	categoryData['categoryIconPath'] = thisIconPath;
 
 	console.log(categoryData);
 	postData(categoryData,url_prefix+"/ui/category_table/",'POST',category_forms[0],'categoryTable','htmlData');
-	if (!ownerId || ownerId=='undefined'){
+	if (!ownerId || ownerId == 'undefined'){
 		clearOwnerFields(category_forms,ownerId);
 	}
 	event.preventDefault();
@@ -29,8 +36,6 @@ function prepareOwnerTableData(formFields,formId=null){
 		else{
 			formValue = $('.'+value).text();
 		}
-		console.log(formId)
-		console.log(formValue)
 		if (formValue == ""){
 			this.value = null;
 		}
@@ -59,12 +64,10 @@ $('.saveCategoryBtn').click(function(e){
 
 $("body").delegate('.categoryIcon','click',function(event){
 	ownerId = $(this).attr('ownerId');
-	console.log(ownerId);
 	$("body").delegate('.iconsList .singleIcon','click',function(event){
 		selectedIconSrc = $(this).attr('src');
 		selectedIconName = $(this).attr('name');
 		selectedIconCategory = $(this).attr('icon_category');
-		console.log(selectedIconCategory)
 		$(".categoryIcon"+'[ownerId='+ownerId+"]").attr('src',selectedIconSrc);
 		$(".categoryIcon"+'[ownerId='+ownerId+"]").attr('name',selectedIconName);
 		$(".categoryIcon"+'[ownerId='+ownerId+"]").attr('icon_category',selectedIconCategory);
