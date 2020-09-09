@@ -10,7 +10,7 @@ from main_pack.commerce.admin import bp
 from main_pack.commerce.admin.utils import addCompanyInfoDict
 from main_pack.models.base.models import Company
 
-@bp.route("/admin/company/", methods=['POST'])
+@bp.route("/admin/ui_company/", methods=['POST'])
 @login_required
 @ui_admin_required()
 def ui_company():

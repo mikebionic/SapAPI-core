@@ -154,6 +154,7 @@ def addCompanyInfoDict(req):
 	Phone4 = req.get('companyPhone4')
 	CPostalCode = req.get('companyPostalCode')
 	CEmail = req.get('companyEmail')
+	WebAddress = req.get('companyWebAddress')
 	AddInf1 = req.get('companyWTime')
 	companyInfo = {
 		"CName": CName,
@@ -170,6 +171,7 @@ def addCompanyInfoDict(req):
 		"Phone4": Phone4,
 		"CPostalCode": CPostalCode,
 		"CEmail": CEmail,
+		"WebAddress": WebAddress,
 		"AddInf1": AddInf1
 	}
 	return companyInfo
