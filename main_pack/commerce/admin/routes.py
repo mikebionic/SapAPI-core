@@ -60,30 +60,38 @@ def dashboard():
 	return render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"dashboard.html",url_prefix=url_prefix,
 		title=gettext('Dashboard'))
 
-###### categories management and shop info #######
-@bp.route("/admin/navbar")
+@bp.route("/admin/company")
 @login_required
 @ui_admin_required()
-def navbar():
-	icons_path = os.path.join("static","commerce","icons","categories")
-	full_icons_path = os.path.join(current_app.root_path,icons_path)
-	folders = os.listdir(full_icons_path)
-	category_icons = {} 
-	for folder in folders:
-		folder_icons = os.listdir(os.path.join(full_icons_path,folder))
-		icons = []
-		for icon in folder_icons:
-			iconInfo = {
-				"url": url_for('commerce_api.get_icon',category=folder,file_name=icon),
-				"icon_name": icon,
-				"category": folder
-			}
-			icons.append(iconInfo)
-		category_icons[folder]=icons
-
+def company():
 	commonData = commonUsedData()
-	return render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"navbar.html",url_prefix=url_prefix,
-		**commonData,category_icons=category_icons,title=gettext('Navbar'))
+	return render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"company.html",url_prefix=url_prefix,
+		**commonData,title=gettext('Company'))
+
+###### categories management and shop info #######
+# @bp.route("/admin/navbar")
+# @login_required
+# @ui_admin_required()
+# def navbar():
+# 	icons_path = os.path.join("static","commerce","icons","categories")
+# 	full_icons_path = os.path.join(current_app.root_path,icons_path)
+# 	folders = os.listdir(full_icons_path)
+# 	category_icons = {} 
+# 	for folder in folders:
+# 		folder_icons = os.listdir(os.path.join(full_icons_path,folder))
+# 		icons = []
+# 		for icon in folder_icons:
+# 			iconInfo = {
+# 				"url": url_for('commerce_api.get_icon',category=folder,file_name=icon),
+# 				"icon_name": icon,
+# 				"category": folder
+# 			}
+# 			icons.append(iconInfo)
+# 		category_icons[folder]=icons
+
+# 	commonData = commonUsedData()
+# 	return render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"navbar.html",url_prefix=url_prefix,
+# 		**commonData,category_icons=category_icons,title=gettext('Navbar'))
 
 @bp.route("/admin/category_table")
 @login_required
