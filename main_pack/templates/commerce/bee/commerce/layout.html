@@ -38,16 +38,6 @@
       <div class="row align-items-center justify-content-between">
 
         <div class="col mt-10 mb-10" style="display: flex;">
-          <!-- Logo Start -->
-          <div class="header-logo" >
-            <a href="{{ url_for('commerce.commerce')}}">
-              {% if company_logo %}
-                <img loading="lazy" src="{{ company_logo.FilePath }}" style="width: 60%">
-              {% else %}
-                <h4>{{company.CName}}</h4>
-              {% endif %}
-            </a>
-          </div><!-- Logo End -->
           <!-- Header Links Start -->
           <div class="header-links">
             <a href="{{ url_for('commerce_users.orders') }}"><img loading="lazy" src="{{ url_for('static', filename='commerce/bee/images/icons/car.png') }}" alt="Car Icon"> <span>Track your order</span></a>
@@ -117,6 +107,16 @@
       <div class="row align-items-center justify-content-between">
 
         <div class="col mt-15 mb-15" style="display: flex;">
+          <!-- Logo Start -->
+          <div class="header-logo" >
+            <a href="{{ url_for('commerce.commerce')}}">
+              {% if company_logo %}
+                <img loading="lazy" src="{{ company_logo.FilePath }}" style="width: 60%">
+              {% else %}
+                <h4>{{company.CName}}</h4>
+              {% endif %}
+            </a>
+          </div><!-- Logo End -->
           <div class="hero-side-category">
             <div class="category">
     
@@ -178,7 +178,6 @@
       
             </div>
           </div>
-          
         </div>
         
         <div class="col order-12 order-lg-2 order-xl-2 d-none d-lg-block">

@@ -129,7 +129,7 @@ function validateOwnerInput(requiredFields,formId=null){
 	else {return true;}
 }
 
-var postData = function(formData,url,type,alertStyle,formId,listName,responseForm){
+var postData = function(formData,url,type,formId,listName,responseForm,alertStyle){
 	$.ajax({
 		contentType:"application/json",
 		dataType:"json",

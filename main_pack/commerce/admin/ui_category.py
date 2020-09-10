@@ -9,7 +9,7 @@ from main_pack.commerce.auth.utils import ui_admin_required
 # / auth and validation /
 
 from main_pack.commerce.admin import bp
-from main_pack.commerce.admin.utils import addCategoryDict,addEditCategoryDict
+from main_pack.commerce.admin.utils import addCategoryDict
 from main_pack.models.commerce.models import Res_category
 
 @bp.route("/admin/category/", methods=['POST','DELETE'])
@@ -42,15 +42,6 @@ def ui_category():
 					"responseText": gettext('Category')+' '+gettext('successfully saved'),
 					"htmlData": render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"appendCategory.html",child_status=child_status,category=newCategory)
 					})
-			else:
-				category = addEditCategoryDict(req)
-				thisCategory = Res_category.query.get(editCategoryId)
-				thisCategory.update(**category)
-				db.session.commit()
-				response = jsonify({
-					"status": "updated",
-					"responseText": thisCategory.ResCatName+' '+gettext('successfully updated'),
-					})
 
 		elif request.method == 'DELETE':
 			req = request.get_json()
@@ -75,9 +66,11 @@ def ui_category():
 @ui_admin_required()
 def ui_category_table():
 	try:
-		if request.method == 'POST': 
+		if request.method == 'POST':
 			req = request.get_json()
+			print(req)
 			category = addCategoryDict(req)
+			print(category)
 			categoryId = req.get('categoryId')
 
 			if (categoryId == '' or categoryId == None):
