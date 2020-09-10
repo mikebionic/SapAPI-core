@@ -53,12 +53,14 @@ def set_language(language=None):
 	return redirect(url_for('commerce_admin.dashboard'))
 
 @bp.route("/admin")
+
 @bp.route("/admin/dashboard")
 @login_required
 @ui_admin_required()
 def dashboard():
 	return render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"dashboard.html",url_prefix=url_prefix,
 		title=gettext('Dashboard'))
+
 
 @bp.route("/admin/company")
 @login_required
@@ -68,30 +70,6 @@ def company():
 	return render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"company.html",url_prefix=url_prefix,
 		**commonData,title=gettext('Company'))
 
-###### categories management and shop info #######
-# @bp.route("/admin/navbar")
-# @login_required
-# @ui_admin_required()
-# def navbar():
-# 	icons_path = os.path.join("static","commerce","icons","categories")
-# 	full_icons_path = os.path.join(current_app.root_path,icons_path)
-# 	folders = os.listdir(full_icons_path)
-# 	category_icons = {} 
-# 	for folder in folders:
-# 		folder_icons = os.listdir(os.path.join(full_icons_path,folder))
-# 		icons = []
-# 		for icon in folder_icons:
-# 			iconInfo = {
-# 				"url": url_for('commerce_api.get_icon',category=folder,file_name=icon),
-# 				"icon_name": icon,
-# 				"category": folder
-# 			}
-# 			icons.append(iconInfo)
-# 		category_icons[folder]=icons
-
-# 	commonData = commonUsedData()
-# 	return render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"navbar.html",url_prefix=url_prefix,
-# 		**commonData,category_icons=category_icons,title=gettext('Navbar'))
 
 @bp.route("/admin/category_table")
 @login_required
@@ -128,6 +106,7 @@ def category_table():
 		**data,title=gettext('Category table'))
 ###################################
 
+
 @bp.route("/admin/product_table")
 @login_required
 @ui_admin_required()
@@ -161,6 +140,7 @@ def user_types():
 	return user_types_list
 
 ##### customers table and customers information ######
+
 @bp.route("/admin/customers_table")
 @login_required
 @ui_admin_required()
@@ -171,13 +151,14 @@ def customers_table():
 	return render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"customers_table.html",url_prefix=url_prefix,
 		**data,title=gettext('Customers'))
 
+
 @bp.route("/admin/customer_details/<RpAccRegNo>")
 @login_required
 @ui_admin_required()
 def customer_details(RpAccRegNo):
 	try:
 		rp_acc = Rp_acc.query\
-			.filter(Rp_acc.RpAccRegNo==RpAccRegNo).first()
+			.filter_by(RpAccRegNo = RpAccRegNo).first()
 		RpAccId = rp_acc.RpAccId
 		data = UiRpAccData([{"RpAccId": RpAccId}],deleted=True)
 		data['rp_acc']=data['rp_accs'][0]
@@ -186,8 +167,7 @@ def customer_details(RpAccRegNo):
 		data['rp_acc_types'] = rp_acc_types()
 
 		orderInvoices = Order_inv.query\
-			.filter(and_(Order_inv.GCRecord=='' or Order_inv.GCRecord==None),
-				Order_inv.RpAccId==RpAccId)\
+			.filter_by(GCRecord = None, RpAccId = RpAccId)\
 			.order_by(Order_inv.CreatedDate.desc()).all()
 		orders_list = []
 		for orderInv in orderInvoices:
@@ -201,6 +181,7 @@ def customer_details(RpAccRegNo):
 	return render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"customer_details.html",url_prefix=url_prefix,
 		**data,**orderInvRes,title=gettext('Customer details'))
 
+
 @bp.route("/admin/register_customer",methods=['GET','POST'])
 @login_required
 @ui_admin_required()
@@ -210,16 +191,15 @@ def register_customer():
 	customer_types_list = rp_acc_types()
 	customerTypeChoices=[]
 	for customer_type in customer_types_list:
-		obj=(customer_type['RpAccTypeId'],customer_type['RpAccTypeName'])
+		obj = (customer_type['RpAccTypeId'],customer_type['RpAccTypeName'])
 		customerTypeChoices.append(obj)
 	form.customer_type.choices = customerTypeChoices
 
 	vendor_users = Users.query\
-		.filter(and_(Users.GCRecord=='' or Users.GCRecord==None),\
-			Users.RpAccId==None).all()
+		.filter_by(GCRecord = None, RpAccId = None).all()
 	vendorUserChoices=[]
 	for vendor_user in vendor_users:
-		obj=(vendor_user.UId,vendor_user.UName)
+		obj = (vendor_user.UId,vendor_user.UName)
 		vendorUserChoices.append(obj)
 	form.vendor_user.choices = vendorUserChoices
 
@@ -233,7 +213,11 @@ def register_customer():
 				password = bcrypt.generate_password_hash(form.password.data).decode() 
 			else:
 				password = form.password.data
+
+			last_User = Users.query.order_by(Users.UId.desc()).first()
+			UId = last_User.UId+1
 			user = Users(
+				UId = UId,
 				UName=username,
 				UEmail=email,
 				UShortName=UShortName,
@@ -254,7 +238,10 @@ def register_customer():
 				print(ex)
 				regNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
 
+			last_RpAccId = Rp_acc.query.order_by(Rp_acc.RpAccId.desc()).first()
+			RpAccId = last_RpAccId.UId+1
 			rp_acc = Rp_acc(
+				RpAccId = RpAccId,
 				RpAccUName=username,
 				RpAccUPass=password,
 				RpAccName=full_name,
@@ -295,6 +282,7 @@ def register_customer():
 ################################
 
 ###### users and user information #####
+
 @bp.route("/admin/users_table")
 @login_required
 @ui_admin_required()
@@ -303,6 +291,7 @@ def users_table():
 	data['user_types'] = user_types()
 	return render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"users_table.html",url_prefix=url_prefix,
 		**data,title=gettext('Users'))
+
 
 @bp.route("/admin/user_details/<UId>")
 @login_required
@@ -328,6 +317,7 @@ def user_details(UId):
 	return render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"user_details.html",url_prefix=url_prefix,
 		**data,**rp_accs,title=gettext('Customer details'))
 
+
 @bp.route("/admin/register_user",methods=['GET','POST'])
 @login_required
 @ui_admin_required()
@@ -341,7 +331,6 @@ def register_user():
 	form.user_type.choices = userTypeChoices
 
 	if form.validate_on_submit():
-		print('validated')
 		try:
 			username = form.username.data
 			email = form.email.data
@@ -352,13 +341,16 @@ def register_user():
 				password = bcrypt.generate_password_hash(form.password.data).decode() 
 			else:
 				password = form.password.data
+			last_User = Users.query.order_by(Users.UId.desc()).first()
+			UId = last_User.UId+1
 			user = Users(
-				UName=username,
-				UEmail=email,
-				UShortName=UShortName,
-				UPass=password,
-				UFullName=full_name,
-				UTypeId=user_type)
+				UId = UId,
+				UName = username,
+				UEmail = email,
+				UShortName = UShortName,
+				UPass = password,
+				UFullName = full_name,
+				UTypeId = user_type)
 			db.session.add(user)
 
 			print(form.picture.data)
@@ -366,7 +358,11 @@ def register_user():
 				imageFile = save_image(imageForm=form.picture.data,module=os.path.join("uploads","commerce","Users"),id=user.UId)
 				lastImage = Image.query.order_by(Image.ImgId.desc()).first()
 				ImgId = lastImage.ImgId+1
-				image = Image(ImgId=ImgId,FileName=imageFile['FileName'],FilePath=imageFile['FilePath'],UId=user.UId)
+				image = Image(
+					ImgId=ImgId,
+					FileName=imageFile['FileName'],
+					FilePath=imageFile['FilePath'],
+					UId=user.UId)
 				db.session.add(image)
 
 			db.session.commit()
@@ -383,12 +379,13 @@ def register_user():
 #################################
 
 ###### orders and order information #######
+
 @bp.route("/admin/order_invoices")
 @login_required
 @ui_admin_required()
 def order_invoices():
 	orderInvoices = Order_inv.query\
-		.filter(Order_inv.GCRecord=='' or Order_inv.GCRecord==None)\
+		.filter_by(GCRecord = None)\
 		.order_by(Order_inv.CreatedDate.desc()).all()
 	
 	orders_list = []
@@ -401,19 +398,19 @@ def order_invoices():
 	return render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"order_invoices.html",url_prefix=url_prefix,
 		**orderInvRes,title=gettext('Order invoices'))
 
+
 @bp.route("/admin/order_invoices/<OInvRegNo>",methods=['GET','POST'])
 @login_required
 @ui_admin_required()
 def order_inv_lines(OInvRegNo):
 	orderInvoice = Order_inv.query\
-		.filter(and_(Order_inv.GCRecord=='' or Order_inv.GCRecord==None),
-								Order_inv.OInvRegNo==OInvRegNo).first()
+		.filter_by(GCRecord = None, OInvRegNo = OInvRegNo)\
+		.first()
 	OInvId = orderInvoice.OInvId
 	orderInvRes = UiOInvData([{"OInvId": OInvId}])
 
 	orderInvLines = Order_inv_line.query\
-		.filter(and_(Order_inv_line.GCRecord=='' or Order_inv_line.GCRecord==None),
-									Order_inv_line.OInvId==OInvId)\
+		.filter_by(GCRecord = None, OInvId = OInvId)\
 		.order_by(Order_inv_line.CreatedDate.desc()).all()
 
 	order_lines_list = []
@@ -423,7 +420,7 @@ def order_inv_lines(OInvRegNo):
 		order_lines_list.append(order_inv_line)
 	orderInvLineRes = UiOInvLineData(order_lines_list)
 	inv_statuses = Inv_status.query\
-		.filter(Inv_status.GCRecord=='' or Inv_status.GCRecord==None).all()
+		.filter_by(GCRecord = None).all()
 	invoice_statuses = []
 	for inv_stat in inv_statuses:
 		invoice_statuses.append(dataLangSelector(inv_stat.to_json_api()))
@@ -431,6 +428,7 @@ def order_inv_lines(OInvRegNo):
 	return render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"order_inv_lines.html",url_prefix=url_prefix,
 		**orderInvLineRes,**InvoiceStatuses,**orderInvRes,title=gettext('Order invoices'))
 #########################################
+
 
 @bp.route("/admin/add_product")
 @login_required
@@ -447,6 +445,7 @@ def add_product():
 def sale_repots_table():
 	return render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"sale_repots_table.html",url_prefix=url_prefix,
 		title=gettext('Sale reports'))
+
 
 @bp.route("/admin/sale_repots_table2")
 @login_required

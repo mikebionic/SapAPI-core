@@ -17,12 +17,12 @@ def UiRpAccData(rp_acc_list=None,deleted=False):
 	data = []
 
 	rp_acc_statuses = Rp_acc_status.query\
-		.filter(Rp_acc_status.GCRecord=='' or Rp_acc_status.GCRecord==None).all()
+		.filter_by(GCRecord = None).all()
 	rp_acc_types = Rp_acc_type.query\
-		.filter(Rp_acc_type.GCRecord=='' or Rp_acc_type.GCRecord==None).all()
+		.filter_by(GCRecord = None).all()
 
 	images = Image.query\
-		.filter(Image.GCRecord=='' or Image.GCRecord==None)\
+		.filter_by(GCRecord = None)\
 		.order_by(Image.CreatedDate.desc()).all()
 
 	rp_acc_models = []
@@ -32,31 +32,34 @@ def UiRpAccData(rp_acc_list=None,deleted=False):
 			rp_accs = Rp_acc.query.all()
 		else:
 			rp_accs = Rp_acc.query\
-				.filter(Rp_acc.GCRecord=='' or Rp_acc.GCRecord==None).all()
+				.filter_by(GCRecord = None).all()
 		for rp_acc in rp_accs:
 			rp_acc_models.append(rp_acc)
 	else:
 		for rp_acc_index in rp_acc_list:
 			if deleted==True:
 				rp_acc = Rp_acc.query\
-					.filter(Rp_acc.RpAccId == rp_acc_index["RpAccId"]).first()
+					.filter_by(RpAccId = rp_acc_index["RpAccId"])\
+					.first()
 			else:
 				rp_acc = Rp_acc.query\
-					.filter(and_(Rp_acc.GCRecord=='' or Rp_acc.GCRecord==None),\
-						Rp_acc.RpAccId == rp_acc_index["RpAccId"]).first()
+					.filter_by(GCRecord = None, RpAccId = rp_acc_index["RpAccId"])\
+					.first()
 			rp_acc_models.append(rp_acc)
 		
 	for rp_acc in rp_acc_models:
 		rpAccInfo = rp_acc.to_json_api()
 
 		rp_acc_user = Users.query\
-			.filter(and_(Users.GCRecord=='' or Users.GCRecord==None),Users.RpAccId==rp_acc.RpAccId).first()
+			.filter_by(GCRecord = None, RpAccId = rp_acc.RpAccId)\
+			.first()
 		rp_acc_vendor = Users.query\
-			.filter(and_(Users.GCRecord=='' or Users.GCRecord==None),Users.UId==rp_acc.UId).first()
+			.filter_by(GCRecord = None, UId = rp_acc.UId)\
+			.first()
 		
 		List_RpAccStatuses = [rp_acc_status.to_json_api() for rp_acc_status in rp_acc_statuses if rp_acc_status.RpAccStatusId==rp_acc.RpAccStatusId]
 		List_RpAccTypes = [rp_acc_type.to_json_api() for rp_acc_type in rp_acc_types if rp_acc_type.RpAccTypeId==rp_acc.RpAccTypeId]
-		List_Images = [image.to_json_api() for image in images if image.RpAccId==rp_acc.RpAccId]
+		List_Images = [image.to_json_api() for image in images if image.RpAccId == rp_acc.RpAccId]
 
 		rpAccInfo["Rp_acc_status"] = dataLangSelector(List_RpAccStatuses[0]) if List_RpAccStatuses else ''
 		rpAccInfo["Rp_acc_type"] = dataLangSelector(List_RpAccTypes[0]) if List_RpAccTypes else ''
@@ -78,12 +81,12 @@ def UiUsersData(users_list=None,deleted=False):
 	data = []
 
 	user_types = User_type.query\
-		.filter(User_type.GCRecord=='' or User_type.GCRecord==None).all()
+		.filter_by(GCRecord = None).all()
 	images = Image.query\
-		.filter(Image.GCRecord=='' or Image.GCRecord==None)\
+		.filter_by(GCRecord = None)\
 		.order_by(Image.CreatedDate.desc()).all()
 	rp_accs = Rp_acc.query\
-		.filter(Rp_acc.GCRecord=='' or Rp_acc.GCRecord==None)\
+		.filter_by(GCRecord = None)\
 		.order_by(Rp_acc.CreatedDate.desc()).all()
 
 	users_models = []
@@ -91,22 +94,22 @@ def UiUsersData(users_list=None,deleted=False):
 	if users_list is None:
 		if deleted==True:
 			users = Users.query\
-				.filter(Users.RpAccId==None).all()
+				.filter_by(RpAccId = None).all()
 		else:
 			users = Users.query\
-				.filter(and_(Users.GCRecord=='' or Users.GCRecord==None),\
-					Users.RpAccId==None).all()
+				.filter_by(GCRecord = None, RpAccId = None)\
+				.all()
 		for user in users:
 			users_models.append(user)
 	else:
 		for users_index in users_list:
 			if deleted==True:
 				user = Users.query\
-					.filter(Users.UId == users_index["UId"]).first()
+					.filter_by(UId = users_index["UId"]).first()
 			else:
 				user = Users.query\
-					.filter(and_(Users.GCRecord=='' or Users.GCRecord==None),\
-						Users.UId == users_index["UId"]).first()
+					.filter_by(GCRecord = None, UId = users_index["UId"])\
+					.first()
 			users_models.append(user)
 		
 	for user in users_models:
@@ -125,6 +128,6 @@ def UiUsersData(users_list=None,deleted=False):
 
 		data.append(userInfo)
 	res = {
-		"users":data,
+		"users": data,
 	}
 	return res
