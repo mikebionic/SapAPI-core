@@ -29,7 +29,7 @@ from main_pack.models.commerce.models import (Unit,Res_unit,Inv_line,Inv_line_de
 @login_required
 @ui_admin_required()
 def ui_price():
-	reg_num = generate(UId=current_user.UId,prefixType='price_code') # specify the generation prefix
+	reg_num = generate(UId=current_user.UId,RegNumTypeName='price_code') # specify the generation prefix
 	if request.method == 'GET':
 		try:
 			regNo = makeRegNo(current_user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'')
@@ -55,7 +55,7 @@ def ui_price():
 			dbModel = Res_price.query.filter_by(ResRegNo=fullRegNo).first()
 
 			validation = validate(UId=current_user.UId,fullRegNo=fullRegNo,
-				RegNumLastNum=reg_num.RegNumLastNum+1,dbModel=dbModel,prefixType='price_code')
+				RegNumLastNum=reg_num.RegNumLastNum+1,dbModel=dbModel,RegNumTypeName='price_code')
 			if validation['status']==True:
 				reg_num.RegNumLastNum=validation['RegNumLastNum']
 				newResPrice = Res_price(**resPrice)

@@ -779,6 +779,70 @@ class Order_inv_type(CreatedModifiedInfo,db.Model):
 		return json_order_inv_type
 
 
+class Payment_method(AddInf,CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_payment_method"
+	PmId = db.Column(db.Integer,nullable=False,primary_key=True)	
+	PmName = db.Column(db.String(100),nullable=False)
+	PmDesc = db.Column(db.String(500))
+
+	def update(self, **kwargs):
+		for key, value in kwargs.items():
+			if value is not None:
+				if hasattr(self, key):
+					setattr(self, key, value)
+
+	def to_json_api(self):
+		payment_method = {
+			"PmId": self.PmId,			
+			"PmName": self.PmName,
+			"PmDesc": self.PmDesc,
+			"AddInf1": self.AddInf1,
+			"AddInf2": self.AddInf2,
+			"AddInf3": self.AddInf3,
+			"AddInf4": self.AddInf4,
+			"AddInf5": self.AddInf5,
+			"AddInf6": self.AddInf6,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
+		}
+		return payment_method
+
+
+class Payment_type(AddInf,CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_payment_type"
+	PtId = db.Column(db.Integer,nullable=False,primary_key=True)
+	PtName = db.Column(db.String(100),nullable=False)
+	PtDesc = db.Column(db.String(500))
+
+	def update(self, **kwargs):
+		for key, value in kwargs.items():
+			if value is not None:
+				if hasattr(self, key):
+					setattr(self, key, value)
+
+	def to_json_api(self):
+		payment_type = {
+			"PtId": self.PtId,
+			"PtName": self.PtName,
+			"PtDesc": self.PtDesc,
+			"AddInf1": self.AddInf1,
+			"AddInf2": self.AddInf2,
+			"AddInf3": self.AddInf3,
+			"AddInf4": self.AddInf4,
+			"AddInf5": self.AddInf5,
+			"AddInf6": self.AddInf6,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
+		}
+		return payment_type
+
+
 class Representative(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_representative"
 	ReprId = db.Column(db.Integer,nullable=False,primary_key=True)

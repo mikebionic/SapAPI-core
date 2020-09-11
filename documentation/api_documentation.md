@@ -54,6 +54,20 @@ returns **all orders** if **blank**
 
 **@token_required** of **Rp_acc** login
 + /api/checkout-sale-order-inv/
++ /api/gen-reg-no/
+```json
+// example JSON for gen-reg-no
+{
+	"RegNumTypeId": 3,
+	"random_mode": 1
+}
+```
+
+> GET
+
+## Payment info from database
++ /api/tbl-dk-payment-methods/
++ /api/tbl-dk-payment-types/
 
 > GET 
 

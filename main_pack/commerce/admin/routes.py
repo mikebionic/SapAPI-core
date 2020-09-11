@@ -229,10 +229,10 @@ def register_customer():
 			try:
 				vendor = Users.query.get(form.vendor_user.data)
 				if vendor.UShortName:
-					reg_num = generate(UId=vendor.UId,prefixType='rp_code')
+					reg_num = generate(UId=vendor.UId,RegNumTypeName='rp_code')
 					regNo = makeRegNo(vendor.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'')
 				else:
-					reg_num = generate(UId=user.UId,prefixType='rp_code')
+					reg_num = generate(UId=user.UId,RegNumTypeName='rp_code')
 					regNo = makeRegNo(user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'')
 			except Exception as ex:
 				print(ex)
