@@ -2,7 +2,7 @@ from main_pack.config import Config
 from flask_login import current_user
 from main_pack import db, babel, gettext
 from main_pack.key_generator import bp
-from main_pack.models.base.models import Reg_num, Reg_num_type
+from main_pack.models.base.models import Reg_num, Reg_num_type, Pred_regnum
 
 from main_pack.models.hr_department.models import Employee
 from main_pack.models.users.models import Users
@@ -11,7 +11,7 @@ from datetime import datetime
 from sqlalchemy import or_, and_
 from random import randint
 
-prefixTypesDict = {
+RegNumTypeNamesDict = {
 		"employee_code": 1,
 		"user_code": 2,
 		"goods_code": 3,
@@ -28,64 +28,102 @@ prefixTypesDict = {
 		"invoice_line_code": 14
 	}
 
-def generate(UId,prefixType):
+def generate(UId,RegNumTypeName=None,RegNumTypeId=None):
 	# user = Users.query.get(UId)
-	prefixType = prefixTypesDict[prefixType]
+	if RegNumTypeId is None:
+		RegNumTypeId = RegNumTypeNamesDict[RegNumTypeName]
 	reg_num = Reg_num.query\
-		.filter(and_(
-			Reg_num.UId == UId,\
-			Reg_num.RegNumTypeId == prefixType)).first()
+		.filter_by(UId = UId, RegNumTypeId = RegNumTypeId)\
+		.first()
 	if not reg_num:
-		regNumType = Reg_num_type.query.filter_by(RegNumTypeId=prefixType).first()
+		regNumType = Reg_num_type.query.filter_by(RegNumTypeId = RegNumTypeId).first()
 		RegNumPrefix = makeShortType(regNumType.RegNumTypeName_tkTM)
-		newRegNum = Reg_num(UId=UId,
-												RegNumTypeId=regNumType.RegNumTypeId,
-												RegNumPrefix=RegNumPrefix,
-												RegNumLastNum=0)
+		newRegNum = Reg_num(UId = UId,
+												RegNumTypeId = regNumType.RegNumTypeId,
+												RegNumPrefix = RegNumPrefix,
+												RegNumLastNum = 0)
 		db.session.add(newRegNum)
 		db.session.commit()
-	# try:
-	reg_num = Reg_num.query\
-		.filter(and_(
-			Reg_num.UId == UId,\
-			Reg_num.RegNumTypeId == prefixType)).first()
-	response = reg_num
-	# except Exception as ex:
-	# 	response = jsonify({"error": 'Error generating regNo'})
+	try:
+		reg_num = Reg_num.query\
+			.filter_by(UId = UId, RegNumTypeId = RegNumTypeId)\
+			.first()
+		response = reg_num
+	except Exception as ex:
+		print(ex)
+		response = jsonify({"error": "Error generating regNo"})
 	return response
 
-def validate(UId,fullRegNo,RegNumLastNum,dbModel,prefixType):
+def validate(UId,
+						fullRegNo,
+						RegNumLastNum,
+						dbModel,
+						RegNumTypeName = None,
+						RegNumTypeId = None):
 	# user = Users.query.get(UId)
 	try:
-		prefixType = prefixTypesDict[prefixType]
+		if RegNumTypeId is None:
+			RegNumTypeId = RegNumTypeNamesDict[RegNumTypeName]
 		reg_num = Reg_num.query\
-			.filter(and_(
-				Reg_num.UId == UId,\
-				Reg_num.RegNumTypeId == prefixType)).first()
+			.filter_by(UId = UId, RegNumTypeId = RegNumTypeId)\
+			.first()
 		if not dbModel and (RegNumLastNum > reg_num.RegNumLastNum):
 			response = {
 				"status": True,
 				"RegNumLastNum": RegNumLastNum
 			}
 		else:
-			while RegNumLastNum <= reg_num.RegNumLastNum:
-				RegNumLastNum+=1
+			
+			while (RegNumLastNum <= reg_num.RegNumLastNum):
+				RegNumLastNum += 1
+
 			response = {
 				"status": False,
 				"RegNumLastNum": RegNumLastNum
 			}
 	except Exception as ex:
-		response={
-			"status": 'error',
-			"responseText": 'Wrong prefix type or missing in database'
+		print(ex)
+		response = {
+			"status": "error",
+			"responseText": "Wrong prefix type or missing in database"
 		}
 	return response
 
-def makeRegNo(shortName,prefix,lastNum,suffix,random_mode=None):
-	if random_mode:
+def makeRegNo(shortName,
+							prefix,
+							lastNum,
+							suffix = '',
+							random_mode = False,
+							RegNumTypeId = None,
+							RegNumTypeName = None):
+	try:
+		if RegNumTypeId is None:
+			RegNumTypeId = RegNumTypeNamesDict[RegNumTypeName]
+	except Exception as ex:
+		print(ex)
+	
+	if random_mode == True:
 		lastNum = randint(1,Config.REG_NUM_RANDOM_RANGE)
-	regNo = shortName+prefix+str(lastNum)+suffix
+	
+	while True:
+		regNo = shortName+prefix+str(lastNum)+suffix
+		existingObj = checkPredExistence(RegNum=regNo,RegNumTypeId=RegNumTypeId)
+		if not existingObj:
+			break
+		lastNum += 1
+
 	return regNo
+
+def checkPredExistence(RegNum,RegNumTypeId=None):
+	filtering = {
+		"RegNum": RegNum,
+	}
+	if RegNumTypeId:
+		filtering["RegNumTypeId"] = RegNumTypeId
+	registeredRegNo = Pred_regnum.query\
+		.filter_by(**filtering)\
+		.first()
+	return registeredRegNo
 	
 # returnes first leters of typeName
 def makeShortType(text):

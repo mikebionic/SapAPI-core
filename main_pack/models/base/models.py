@@ -494,6 +494,32 @@ class Prog_language(CreatedModifiedInfo,db.Model):
 	LangDesc = db.Column(db.String(200))
 
 
+class Pred_regnum(CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_pred_regnum"
+	PredRegNumId = db.Column(db.Integer,nullable=False,primary_key=True)
+	RegNumTypeId = db.Column(db.Integer,db.ForeignKey("tbl_dk_reg_num_type.RegNumTypeId"))
+	RegNum = db.Column(db.String(100),nullable=False)
+
+	def update(self, **kwargs):
+		for key, value in kwargs.items():
+			if value is not None:
+				if hasattr(self, key):
+					setattr(self, key, value)
+
+	def to_json_api(self):
+		pred_regnum = {
+			"PredRegNumId": self.PredRegNumId,			
+			"RegNumTypeId": self.RegNumTypeId,
+			"RegNum": self.RegNum,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
+		}
+		return pred_regnum
+
+
 class Reg_num(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_reg_num"
 	RegNumId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -516,7 +542,8 @@ class Reg_num_type(CreatedModifiedInfo,db.Model):
 	RegNumTypeDesc_ruRU = db.Column(db.String(500))
 	RegNumTypeName_enUS = db.Column(db.String(50),nullable=False)
 	RegNumTypeDesc_enUS = db.Column(db.String(500))
-	Reg_num = db.relationship('Reg_num',backref='reg_num_type',lazy=True)
+	Reg_num = db.relationship('Reg_num',backref='reg_num_type',lazy='joined')
+	Pred_regnum = db.relationship('Pred_regnum',backref='reg_num_type',lazy='joined')
 
 
 class Report_file(CreatedModifiedInfo,db.Model):

@@ -16,7 +16,7 @@ from main_pack.models.commerce.models import Resource,Res_price,Res_total
 from main_pack.base.invoiceMethods import totalQtySubstitution
 from main_pack.base.num2text import num2text,price2text
 from sqlalchemy import and_
-from main_pack.key_generator.utils import generate,makeRegNo
+from main_pack.key_generator.utils import generate,makeRegNo,Pred_regnum
 import decimal
 
 @api.route("/checkout-sale-order-inv/",methods=['POST'])
@@ -44,19 +44,27 @@ def api_checkout_sale_order_invoices(user):
 	try:
 		req = request.get_json()
 		order_invoice = addOrderInvDict(req['orderInv'])
+		orderRegNo = req['orderInv']['OInvRegNo']
+		reg_num_pred_exists = None
 
 		##### check if invoice is not empty #####
 		if not req['orderInv']['OrderInvLines']:
 			raise Exception
 
-		######## generate reg no ########
-		try:
-			reg_num = generate(UId=user.UId,prefixType='sale_order_invoice_code')
-			orderRegNo = makeRegNo(user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'',True)
-		except Exception as ex:
-			print(ex)
-			# use device model and other info
-			orderRegNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
+		if not orderRegNo:
+			######## generate reg no ########
+			try:
+				reg_num = generate(UId=user.UId,RegNumTypeName='sale_order_invoice_code')
+				orderRegNo = makeRegNo(user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'',True)
+			except Exception as ex:
+				print(ex)
+				# use device model and other info
+				orderRegNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
+		else:
+			reg_num_pred_exists = Pred_regnum.query\
+				.filter_by(GCRecord = None, RegNum = orderRegNo).first()
+			if not reg_num_pred_exists:
+				raise Exception
 
 		###### order inv setup ######
 		order_invoice['OInvRegNo'] = orderRegNo
@@ -85,7 +93,7 @@ def api_checkout_sale_order_invoices(user):
 				
 				# OInvLineRegNo generation
 				try:
-					reg_num = generate(UId=user.UId,prefixType='order_invoice_line_code')
+					reg_num = generate(UId=user.UId,RegNumTypeName='order_invoice_line_code')
 					orderLineRegNo = makeRegNo(user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'',True)
 				except Exception as ex:
 					print(ex)
@@ -188,6 +196,9 @@ def api_checkout_sale_order_invoices(user):
 			newOrderInv.OInvFTotal = decimal.Decimal(OInvFTotal)
 			newOrderInv.OInvFTotalInWrite = OInvFTotalInWrite
 
+			if reg_num_pred_exists:
+				db.session.delete(reg_num_pred_exists)
+
 			db.session.commit()
 			print("committed, done..")
 
@@ -203,6 +214,7 @@ def api_checkout_sale_order_invoices(user):
 			status_code = 200
 			for e in status:
 				res[e] = status[e]
+
 
 	except Exception as ex:
 		print(ex)

@@ -384,6 +384,10 @@ def addOrderInvDict(req):
 	WhId = req.get('WhId')
 	WpId = req.get('WpId')
 	EmpId = req.get('EmpId')
+	PtId = req.get('PtId')
+	PmId = req.get('PmId')
+	OInvLatitude = req.get('OInvLatitude')
+	OInvLongitude = req.get('OInvLongitude')
 	OInvRegNo = req.get('OInvRegNo')
 	OInvDesc = req.get('OInvDesc')
 	OInvDate = req.get('OInvDate')
@@ -419,6 +423,10 @@ def addOrderInvDict(req):
 		"WhId": WhId,
 		"WpId": WpId,
 		"EmpId": EmpId,
+		"PtId": PtId,
+		"PmId": PmId,
+		"OInvLatitude": OInvLatitude,
+		"OInvLongitude": OInvLongitude,
 		"OInvRegNo": OInvRegNo,
 		"OInvDesc": OInvDesc,
 		"OInvDate": OInvDate,

@@ -199,7 +199,7 @@ def ui_cart_checkout():
 
 			######## generate reg no ########
 			try:
-				reg_num = generate(UId=user.UId,prefixType='sale_order_invoice_code')
+				reg_num = generate(UId=user.UId,RegNumTypeName='sale_order_invoice_code')
 				orderRegNo = makeRegNo(user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'',True)
 			except Exception as ex:
 				print(ex)
@@ -260,7 +260,7 @@ def ui_cart_checkout():
 
 					# OInvLineRegNo generation
 					try:
-						reg_num = generate(UId=user.UId,prefixType='order_invoice_line_code')
+						reg_num = generate(UId=user.UId,RegNumTypeName='order_invoice_line_code')
 						orderLineRegNo = makeRegNo(user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'',True)
 					except Exception as ex:
 						print(ex)
