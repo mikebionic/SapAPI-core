@@ -1,11 +1,11 @@
 companyInfo_fields = ['companyName','companyFullName','companyDesc','companyAccInfId',
 		'companyAddress','companyAddressLegal','companyLatitude','companyLongitude',
 		'companyPhone1','companyPhone2','companyPhone3','companyPhone4',
-		'companyPostalCode','companyEmail','companyWTime']
+		'companyPostalCode','companyEmail','companyWebAddress','companyWTime']
 
 $("body").delegate('.submitCompanyInfo','click',function(event){
 	companyData = prepareCompanyInfo(companyInfo_fields,'');
-	postCompanyInfo(companyData,url_prefix+"/admin/company/");
+	postCompanyInfo(companyData,url_prefix+"/admin/ui_company/");
 })
 
 function prepareCompanyInfo(formFields,formId){

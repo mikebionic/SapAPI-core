@@ -251,7 +251,7 @@
   <div class="mini-cart-bottom">
     <h4 class="sub-total">{{_('Total')}}: <span class="cartTotalPrice">$1160</span></h4>
     <div class="button">
-      <a href="checkout.html">{{_('Checkout')}}</a>
+      <a href="{{url_for('commerce.cart')}}">{{_('Checkout')}}</a>
     </div>
   </div>
 
@@ -262,9 +262,14 @@
 {% with messages = get_flashed_messages(with_categories=true) %}
 {% if messages %}
   {% for category, message in messages %}
-    <div class="p-3 alert alert-{{ category }}" role="alert">
+  <div class="alert alert-{{ category }} alert-dismissible show fade" style="margin: auto; height: 10%; opacity: 1; width: 95%; overflow: auto; text-align: center;">
+    <div class="alert-body" style="padding-top: 5px;">
+      <button class="close" data-dismiss="alert">
+        <span>×</span>
+      </button>
       {{ message }}
     </div>
+  </div>
   {% endfor %}
 {% endif %}
 {% endwith %}
