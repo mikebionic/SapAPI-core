@@ -58,8 +58,8 @@ def validate(UId,
 						fullRegNo,
 						RegNumLastNum,
 						dbModel,
-						RegNumTypeName=None,
-						RegNumTypeId=None):
+						RegNumTypeName = None,
+						RegNumTypeId = None):
 	# user = Users.query.get(UId)
 	try:
 		if RegNumTypeId is None:
@@ -93,9 +93,9 @@ def makeRegNo(shortName,
 							prefix,
 							lastNum,
 							suffix = '',
-							random_mode=False,
-							RegNumTypeId=None,
-							RegNumTypeName=None):
+							random_mode = False,
+							RegNumTypeId = None,
+							RegNumTypeName = None):
 	try:
 		if RegNumTypeId is None:
 			RegNumTypeId = RegNumTypeNamesDict[RegNumTypeName]

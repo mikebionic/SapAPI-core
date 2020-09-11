@@ -306,7 +306,7 @@ class Exc_rate(CreatedModifiedInfo,db.Model):
 	CurrencyId = db.Column(db.Integer,db.ForeignKey("tbl_dk_currency.CurrencyId"))
 	ExcRateTypeId = db.Column(db.Integer,db.ForeignKey("tbl_dk_exc_rate_type.ExcRateTypeId"))
 	ExcRateDate = db.Column(db.DateTime)
-	ExcRateValue = db.Column(db.Float,default=0)
+	ExcRateValue = db.Column(db.Float,default=0.0)
 	
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -364,12 +364,12 @@ class Inv_line(AddInf,CreatedModifiedInfo,db.Model):
 	InvLineRegNo = db.Column(db.String(100),nullable=False,unique=True)
 	InvLineDesc = db.Column(db.String(500))
 	InvLineAmount = db.Column(db.Float)
-	InvLinePrice = db.Column(db.Float,default=0)
-	InvLineTotal = db.Column(db.Float,default=0)
-	InvLineExpenseAmount = db.Column(db.Float,default=0)
-	InvLineTaxAmount = db.Column(db.Float,default=0)
-	InvLineDiscAmount = db.Column(db.Float,default=0)
-	InvLineFTotal = db.Column(db.Float,default=0)
+	InvLinePrice = db.Column(db.Float,default=0.0)
+	InvLineTotal = db.Column(db.Float,default=0.0)
+	InvLineExpenseAmount = db.Column(db.Float,default=0.0)
+	InvLineTaxAmount = db.Column(db.Float,default=0.0)
+	InvLineDiscAmount = db.Column(db.Float,default=0.0)
+	InvLineFTotal = db.Column(db.Float,default=0.0)
 	InvLineDate = db.Column(db.DateTime,default=datetime.now)
 	Inv_line_det = db.relationship('Inv_line_det',backref='inv_line',lazy=True)
 	Res_transaction = db.relationship('Res_transaction',backref='inv_line',lazy=True)
@@ -551,14 +551,18 @@ class Invoice(AddInf,CreatedModifiedInfo,db.Model):
 	WhId = db.Column(db.Integer,db.ForeignKey("tbl_dk_warehouse.WhId"))
 	WpId = db.Column(db.Integer,db.ForeignKey("tbl_dk_work_period.WpId"))
 	EmpId = db.Column(db.Integer,db.ForeignKey("tbl_dk_employee.EmpId"))
+	PtId = db.Column(db.Integer,db.ForeignKey("tbl_dk_payment_type.PtId"))
+	PmId = db.Column(db.Integer,db.ForeignKey("tbl_dk_payment_method.PmId"))
+	InvLatitude = db.Column(db.Float,default=0.0)
+	InvLongitude = db.Column(db.Float,default=0.0)
 	InvRegNo = db.Column(db.String(100),nullable=False,unique=True)
 	InvDesc = db.Column(db.String(500))
 	InvDate = db.Column(db.DateTime,default=datetime.now)
 	InvTotal = db.Column(db.Float)
-	InvExpenseAmount = db.Column(db.Float,default=0)
-	InvTaxAmount = db.Column(db.Float,default=0)
-	InvDiscountAmount = db.Column(db.Float,default=0)
-	InvFTotal = db.Column(db.Float,default=0)
+	InvExpenseAmount = db.Column(db.Float,default=0.0)
+	InvTaxAmount = db.Column(db.Float,default=0.0)
+	InvDiscountAmount = db.Column(db.Float,default=0.0)
+	InvFTotal = db.Column(db.Float,default=0.0)
 	InvFTotalInWrite = db.Column(db.String(100),default=0)
 	InvModifyCount = db.Column(db.Integer,default=0)
 	InvPrintCount = db.Column(db.Integer,default=0)
@@ -585,6 +589,10 @@ class Invoice(AddInf,CreatedModifiedInfo,db.Model):
 			"WhId": self.WhId,
 			"WpId": self.WpId,
 			"EmpId": self.EmpId,
+			"PtId": self.PtId,
+			"PmId": self.PmId,
+			"InvLatitude": self.InvLatitude,
+			"InvLongitude": self.InvLongitude,
 			"InvRegNo": self.InvRegNo,
 			"InvDesc": self.InvDesc,
 			"InvDate": apiDataFormat(self.InvDate),
@@ -625,14 +633,18 @@ class Order_inv(AddInf,CreatedModifiedInfo,db.Model):
 	WhId = db.Column(db.Integer,db.ForeignKey("tbl_dk_warehouse.WhId"))
 	WpId = db.Column(db.Integer,db.ForeignKey("tbl_dk_work_period.WpId"))
 	EmpId = db.Column(db.Integer,db.ForeignKey("tbl_dk_employee.EmpId"))
+	PtId = db.Column(db.Integer,db.ForeignKey("tbl_dk_payment_type.PtId"))
+	PmId = db.Column(db.Integer,db.ForeignKey("tbl_dk_payment_method.PmId"))
+	OInvLatitude = db.Column(db.Float,default=0.0)
+	OInvLongitude = db.Column(db.Float,default=0.0)
 	OInvRegNo = db.Column(db.String(100),nullable=False,unique=True)
 	OInvDesc = db.Column(db.String(500))
 	OInvDate = db.Column(db.DateTime,default=datetime.now)
-	OInvTotal = db.Column(db.Float,default=0)
-	OInvExpenseAmount = db.Column(db.Float,default=0)
-	OInvTaxAmount = db.Column(db.Float,default=0)
-	OInvDiscountAmount = db.Column(db.Float,default=0)
-	OInvFTotal = db.Column(db.Float,default=0)
+	OInvTotal = db.Column(db.Float,default=0.0)
+	OInvExpenseAmount = db.Column(db.Float,default=0.0)
+	OInvTaxAmount = db.Column(db.Float,default=0.0)
+	OInvDiscountAmount = db.Column(db.Float,default=0.0)
+	OInvFTotal = db.Column(db.Float,default=0.0)
 	OInvFTotalInWrite = db.Column(db.String(100))
 	OInvModifyCount = db.Column(db.Integer,default=0)
 	OInvPrintCount = db.Column(db.Integer,default=0)
@@ -658,6 +670,10 @@ class Order_inv(AddInf,CreatedModifiedInfo,db.Model):
 			"WhId": self.WhId,
 			"WpId": self.WpId,
 			"EmpId": self.EmpId,
+			"PtId": self.PtId,
+			"PmId": self.PmId,
+			"OInvLatitude": self.OInvLatitude,
+			"OInvLongitude": self.OInvLongitude,
 			"OInvRegNo": self.OInvRegNo,
 			"OInvDesc": self.OInvDesc,
 			"OInvDate": apiDataFormat(self.OInvDate),
@@ -696,13 +712,13 @@ class Order_inv_line(AddInf,CreatedModifiedInfo,db.Model):
 	LastVendorId = db.Column(db.Integer,db.ForeignKey("tbl_dk_rp_acc.RpAccId"))
 	OInvLineRegNo = db.Column(db.String(100),nullable=False,unique=True)
 	OInvLineDesc = db.Column(db.String(500))
-	OInvLineAmount = db.Column(db.Float,default=0)
-	OInvLinePrice = db.Column(db.Float,default=0)
-	OInvLineTotal = db.Column(db.Float,default=0)
-	OInvLineExpenseAmount = db.Column(db.Float,default=0)
-	OInvLineTaxAmount = db.Column(db.Float,default=0)
-	OInvLineDiscAmount = db.Column(db.Float,default=0)
-	OInvLineFTotal = db.Column(db.Float,default=0)
+	OInvLineAmount = db.Column(db.Float,default=0.0)
+	OInvLinePrice = db.Column(db.Float,default=0.0)
+	OInvLineTotal = db.Column(db.Float,default=0.0)
+	OInvLineExpenseAmount = db.Column(db.Float,default=0.0)
+	OInvLineTaxAmount = db.Column(db.Float,default=0.0)
+	OInvLineDiscAmount = db.Column(db.Float,default=0.0)
+	OInvLineFTotal = db.Column(db.Float,default=0.0)
 	OInvLineDate = db.Column(db.DateTime,default=datetime.now)
 
 	def update(self, **kwargs):
@@ -784,6 +800,8 @@ class Payment_method(AddInf,CreatedModifiedInfo,db.Model):
 	PmId = db.Column(db.Integer,nullable=False,primary_key=True)	
 	PmName = db.Column(db.String(100),nullable=False)
 	PmDesc = db.Column(db.String(500))
+	Order_inv = db.relationship('Order_inv',backref='payment_method',lazy=True)
+	Invoice = db.relationship('Invoice',backref='payment_method',lazy=True)
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -816,6 +834,8 @@ class Payment_type(AddInf,CreatedModifiedInfo,db.Model):
 	PtId = db.Column(db.Integer,nullable=False,primary_key=True)
 	PtName = db.Column(db.String(100),nullable=False)
 	PtDesc = db.Column(db.String(500))
+	Order_inv = db.relationship('Order_inv',backref='payment_type',lazy=True)
+	Invoice = db.relationship('Invoice',backref='payment_type',lazy=True)
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -929,15 +949,15 @@ class Resource(AddInf,CreatedModifiedInfo,db.Model):
 	ResName = db.Column(db.String(255),nullable=False)
 	ResDesc = db.Column(db.String(500))
 	ResFullDesc = db.Column(db.String(1500))
-	ResWidth = db.Column(db.Float,default=0)
-	ResHeight = db.Column(db.Float,default=0)
-	ResLength = db.Column(db.Float,default=0)
-	ResWeight = db.Column(db.Float,default=0)
+	ResWidth = db.Column(db.Float,default=0.0)
+	ResHeight = db.Column(db.Float,default=0.0)
+	ResLength = db.Column(db.Float,default=0.0)
+	ResWeight = db.Column(db.Float,default=0.0)
 	ResProductionOnSale = db.Column(db.Boolean,default=False)
-	ResMinSaleAmount = db.Column(db.Float,default=0)
-	ResMaxSaleAmount = db.Column(db.Float,default=0)
-	ResMinSalePrice = db.Column(db.Float,default=0)
-	ResMaxSalePrice = db.Column(db.Float,default=0)
+	ResMinSaleAmount = db.Column(db.Float,default=0.0)
+	ResMaxSaleAmount = db.Column(db.Float,default=0.0)
+	ResMinSalePrice = db.Column(db.Float,default=0.0)
+	ResMaxSalePrice = db.Column(db.Float,default=0.0)
 	Image = db.relationship('Image',backref='resource',lazy=True)
 	Barcode = db.relationship('Barcode',backref='resource',lazy='joined')
 	Res_color = db.relationship('Res_color',backref='resource',lazy='joined')
@@ -1180,7 +1200,7 @@ class Res_discount(AddInf,CreatedModifiedInfo,db.Model):
 	SaleCardId = db.Column(db.Integer,db.ForeignKey("tbl_dk_sale_card.SaleCardId"))
 	ResDiscRegNo = db.Column(db.String(100),nullable=False)
 	SaleResId = db.Column(db.Integer,db.ForeignKey("tbl_dk_resource.ResId"))
-	SaleResAmount = db.Column(db.Float,default=0)
+	SaleResAmount = db.Column(db.Float,default=0.0)
 	DiscTypeId = db.Column(db.Integer,db.ForeignKey("tbl_dk_discount_type.DiscTypeId"))
 	DiscValue = db.Column(db.Float,default=0.0)
 	DiscDesc = db.Column(db.String(500))
@@ -1188,8 +1208,8 @@ class Res_discount(AddInf,CreatedModifiedInfo,db.Model):
 	ResDiscEndDate = db.Column(db.DateTime)
 	ResDiscIsActive = db.Column(db.Boolean,default=True)
 	GiftResId = db.Column(db.Integer,db.ForeignKey("tbl_dk_resource.ResId"))
-	GiftResAmount = db.Column(db.Float,default=0)
-	GiftResDiscValue = db.Column(db.Float,default=0)
+	GiftResAmount = db.Column(db.Float,default=0.0)
+	GiftResDiscValue = db.Column(db.Float,default=0.0)
 	Sale_card = db.relationship('Sale_card',backref='res_discount',foreign_keys='Sale_card.ResDiscId',lazy=True)
 
 	def update(self, **kwargs):
@@ -1238,7 +1258,7 @@ class Res_price(CreatedModifiedInfo,db.Model):
 	CurrencyId = db.Column(db.Integer,db.ForeignKey("tbl_dk_currency.CurrencyId"))
 	ResId = db.Column(db.Integer,db.ForeignKey("tbl_dk_resource.ResId"))
 	ResPriceRegNo = db.Column(db.String(100),nullable=False)
-	ResPriceValue = db.Column(db.Float,default=0)
+	ResPriceValue = db.Column(db.Float,default=0.0)
 	PriceStartDate = db.Column(db.DateTime)
 	PriceEndDate = db.Column(db.DateTime)
 
@@ -1293,7 +1313,7 @@ class Res_price_group(CreatedModifiedInfo,db.Model):
 	ResPriceGroupAMEnabled = db.Column(db.Boolean,default=False)
 	FromResPriceTypeId = db.Column(db.Integer,db.ForeignKey("tbl_dk_res_price_type.ResPriceTypeId"))
 	ToResPriceTypeId = db.Column(db.Integer,db.ForeignKey("tbl_dk_res_price_type.ResPriceTypeId"))
-	ResPriceGroupAMPerc = db.Column(db.Float,default=0)
+	ResPriceGroupAMPerc = db.Column(db.Float,default=0.0)
 	RoundingType = db.Column(db.Integer,default=1)
 	Res_price = db.relationship('Res_price',backref='res_price_group',lazy=True)
 	Sale_card = db.relationship('Sale_card',backref='res_price_group',lazy=True)
@@ -1372,12 +1392,12 @@ class Res_total(CreatedModifiedInfo,db.Model):
 	CId = db.Column(db.Integer,db.ForeignKey("tbl_dk_company.CId"))
 	DivId = db.Column(db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
 	WpId = db.Column(db.Integer,db.ForeignKey("tbl_dk_work_period.WpId"))
-	ResTotBalance = db.Column(db.Float,default=0)
-	ResTotInAmount = db.Column(db.Float,default=0)
-	ResPendingTotalAmount = db.Column(db.Float,default=0)
-	ResTotOutAmount = db.Column(db.Float,default=0)
+	ResTotBalance = db.Column(db.Float,default=0.0)
+	ResTotInAmount = db.Column(db.Float,default=0.0)
+	ResPendingTotalAmount = db.Column(db.Float,default=0.0)
+	ResTotOutAmount = db.Column(db.Float,default=0.0)
 	ResTotLastTrDate = db.Column(db.DateTime,default=datetime.now)
-	ResTotPurchAvgPrice = db.Column(db.Float,default=0)
+	ResTotPurchAvgPrice = db.Column(db.Float,default=0.0)
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -1422,10 +1442,10 @@ class Res_trans_inv(AddInf,CreatedModifiedInfo,db.Model):
 	ResTrInvRegNo = db.Column(db.String(100),nullable=False)
 	ResTrInvDesc = db.Column(db.String(500))
 	ResTrInvDate = db.Column(db.DateTime,default=datetime.now)
-	ResTrInvTotal = db.Column(db.Float,default=0)
-	ResTrInvExpAmount = db.Column(db.Float,default=0)
-	ResTrInvTaxAmount = db.Column(db.Float,default=0)
-	ResTrInvFTotal = db.Column(db.Float,default=0)
+	ResTrInvTotal = db.Column(db.Float,default=0.0)
+	ResTrInvExpAmount = db.Column(db.Float,default=0.0)
+	ResTrInvTaxAmount = db.Column(db.Float,default=0.0)
+	ResTrInvFTotal = db.Column(db.Float,default=0.0)
 	ResTrInvFTotalInWrite = db.Column(db.String(100))
 	ResTrInvModifyCount = db.Column(db.Integer,default=0)
 	ResTrInvPrintCount = db.Column(db.Integer,default=0)
@@ -1482,12 +1502,12 @@ class Res_trans_inv_line(AddInf,CreatedModifiedInfo,db.Model):
 	ResId = db.Column(db.Integer,db.ForeignKey("tbl_dk_resource.ResId"))
 	LastVendorId = db.Column(db.Integer,db.ForeignKey("tbl_dk_rp_acc.RpAccId"))
 	ResTrInvLineDesc = db.Column(db.String(500))
-	ResTrInvLineAmount = db.Column(db.Float,default=0)
-	ResTrInvLinePrice = db.Column(db.Float,default=0)
-	ResTrInvLineTotal = db.Column(db.Float,default=0)
-	ResTrInvLineExpenseAmount = db.Column(db.Float,default=0)
-	ResTrInvLineTaxAmount = db.Column(db.Float,default=0)
-	ResTrInvLineFTotal = db.Column(db.Float,default=0)
+	ResTrInvLineAmount = db.Column(db.Float,default=0.0)
+	ResTrInvLinePrice = db.Column(db.Float,default=0.0)
+	ResTrInvLineTotal = db.Column(db.Float,default=0.0)
+	ResTrInvLineExpenseAmount = db.Column(db.Float,default=0.0)
+	ResTrInvLineTaxAmount = db.Column(db.Float,default=0.0)
+	ResTrInvLineFTotal = db.Column(db.Float,default=0.0)
 	ResTrInvLineDate = db.Column(db.DateTime)
 	Res_transaction = db.relationship('Res_transaction',backref='res_trans_inv_line',lazy=True)
 
@@ -1598,12 +1618,12 @@ class Res_transaction(AddInf,CreatedModifiedInfo,db.Model):
 	ResId = db.Column(db.Integer,db.ForeignKey("tbl_dk_resource.ResId"))
 	ResTransName = db.Column(db.String(100),nullable=False)
 	ResTransDesc = db.Column(db.String(500))
-	ResTransAmount = db.Column(db.Float,default=0)
-	ResTransPrice = db.Column(db.Float,default=0)
-	ResTransFTotalPrice = db.Column(db.Float,default=0)
-	ResTransResBalance = db.Column(db.Float,default=0)
+	ResTransAmount = db.Column(db.Float,default=0.0)
+	ResTransPrice = db.Column(db.Float,default=0.0)
+	ResTransFTotalPrice = db.Column(db.Float,default=0.0)
+	ResTransResBalance = db.Column(db.Float,default=0.0)
 	ResTransDate = db.Column(db.DateTime)
-	ResTransPurchAvgPrice = db.Column(db.Float,default=0)
+	ResTransPurchAvgPrice = db.Column(db.Float,default=0.0)
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -1777,9 +1797,9 @@ class Rp_acc_trans_total(CreatedModifiedInfo,db.Model):
 	RpAccTrTotId = db.Column(db.Integer,nullable=False,primary_key=True)
 	RpAccId = db.Column(db.Integer,db.ForeignKey("tbl_dk_rp_acc.RpAccId"))
 	CurrencyId = db.Column(db.Integer,db.ForeignKey("tbl_dk_currency.CurrencyId"))
-	RpAccTrTotBalance = db.Column(db.Float,default=0)
-	RpAccTrTotDebit = db.Column(db.Float,default=0)
-	RpAccTrTotCredit = db.Column(db.Float,default=0)
+	RpAccTrTotBalance = db.Column(db.Float,default=0.0)
+	RpAccTrTotDebit = db.Column(db.Float,default=0.0)
+	RpAccTrTotCredit = db.Column(db.Float,default=0.0)
 	RpAccTrTotLastTrDate = db.Column(db.DateTime,default=datetime.now)
 
 	def update(self, **kwargs):
@@ -1820,9 +1840,9 @@ class Rp_acc_transaction(AddInf,CreatedModifiedInfo,db.Model):
 	RpAccTransName = db.Column(db.String(100),nullable=False)
 	RpAccTransCode = db.Column(db.String(100))
 	RpAccTransDate = db.Column(db.DateTime)
-	RpAccTransDebit = db.Column(db.Float,default=0)
-	RpAccTransCredit = db.Column(db.Float,default=0)
-	RpAccTransTotal = db.Column(db.Float,default=0)
+	RpAccTransDebit = db.Column(db.Float,default=0.0)
+	RpAccTransCredit = db.Column(db.Float,default=0.0)
+	RpAccTransTotal = db.Column(db.Float,default=0.0)
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -1871,7 +1891,7 @@ class Sale_agr_res_price(CreatedModifiedInfo,db.Model):
 	CurrencyId = db.Column(db.Integer,db.ForeignKey("tbl_dk_currency.CurrencyId"))
 	ResId = db.Column(db.Integer,db.ForeignKey("tbl_dk_resource.ResId"))
 	SAResPriceRegNo = db.Column(db.String(100),nullable=False)
-	SAResPriceValue = db.Column(db.Float,default=0)
+	SAResPriceValue = db.Column(db.Float,default=0.0)
 	SAPriceStartDate = db.Column(db.DateTime)
 	SAPriceEndDate = db.Column(db.DateTime)
 
@@ -1908,11 +1928,11 @@ class Sale_agreement(AddInf,CreatedModifiedInfo,db.Model):
 	CurrencyId = db.Column(db.Integer,db.ForeignKey("tbl_dk_currency.CurrencyId"))
 	SaleAgrName = db.Column(db.String(100),nullable=False)
 	SaleAgrDesc = db.Column(db.String(500))
-	SaleAgrMinOrderPrice = db.Column(db.Float,default=0)
-	SaleAgrDiscPerc = db.Column(db.Float,default=0)
-	SaleAgrMaxDiscPerc = db.Column(db.Float,default=0)
-	SaleAgrTaxPerc = db.Column(db.Float,default=0)
-	SaleAgrTaxAmount = db.Column(db.Float,default=0)
+	SaleAgrMinOrderPrice = db.Column(db.Float,default=0.0)
+	SaleAgrDiscPerc = db.Column(db.Float,default=0.0)
+	SaleAgrMaxDiscPerc = db.Column(db.Float,default=0.0)
+	SaleAgrTaxPerc = db.Column(db.Float,default=0.0)
+	SaleAgrTaxAmount = db.Column(db.Float,default=0.0)
 	SaleAgrUseOwnPriceList = db.Column(db.Boolean,default=False)
 	Sale_card = db.relationship('Sale_card',backref='sale_agreement',lazy=True)
 	Sale_agr_res_price = db.relationship('Sale_agr_res_price',backref='sale_agreement',lazy=True)
@@ -1967,11 +1987,11 @@ class Sale_card(AddInf,CreatedModifiedInfo,db.Model):
 	SaleCardDesc = db.Column(db.String(500))
 	SaleCardStartDate = db.Column(db.DateTime,default=datetime.now)
 	SaleCardEndDate = db.Column(db.DateTime,default=datetime.now)
-	SaleCardMinSaleAmount = db.Column(db.Float,default=0)
-	SaleCardMaxSaleAmount = db.Column(db.Float,default=0)
-	SaleCardMinSalePrice = db.Column(db.Float,default=0)
-	SaleCardMaxSalePrice = db.Column(db.Float,default=0)
-	SaleCardMaxManualDiscPerc = db.Column(db.Float,default=0)
+	SaleCardMinSaleAmount = db.Column(db.Float,default=0.0)
+	SaleCardMaxSaleAmount = db.Column(db.Float,default=0.0)
+	SaleCardMinSalePrice = db.Column(db.Float,default=0.0)
+	SaleCardMaxSalePrice = db.Column(db.Float,default=0.0)
+	SaleCardMaxManualDiscPerc = db.Column(db.Float,default=0.0)
 	SaleCardIsPayable = db.Column(db.Boolean,default=True)
 	SaleCardCustName = db.Column(db.String(100))
 	SaleCardCustBirthDate = db.Column(db.String(100))
