@@ -46,7 +46,7 @@ def ui_resource():
 		"resMakers": resMakers,
 		"rpAccs": rpAccs
 		}
-	reg_num = generate(UId=current_user.UId,prefixType='goods_code') # specify the generation prefix
+	reg_num = generate(UId=current_user.UId,RegNumTypeName='goods_code') # specify the generation prefix
 	if request.method == 'GET':
 		try:
 			regNo = makeRegNo(current_user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'')
@@ -73,7 +73,7 @@ def ui_resource():
 			fullRegNo=resource['ResRegNo']
 			dbModel = Resource.query.filter_by(ResRegNo=fullRegNo).first()
 			validation = validate(UId=current_user.UId,fullRegNo=fullRegNo,
-				RegNumLastNum=reg_num.RegNumLastNum+1,dbModel=dbModel,prefixType='goods_code')
+				RegNumLastNum=reg_num.RegNumLastNum+1,dbModel=dbModel,RegNumTypeName='goods_code')
 
 			if validation['status']==True:
 				reg_num.RegNumLastNum=validation['RegNumLastNum']
@@ -88,8 +88,9 @@ def ui_resource():
 					})
 			
 			elif validation['status']==False:
-				regNo = makeRegNo(current_user.UShortName,reg_num.RegNumPrefix,
-					validation['RegNumLastNum'],'')
+				regNo = makeRegNo(current_user.UShortName,
+													reg_num.RegNumPrefix,
+													validation['RegNumLastNum'],'')
 				resource['ResRegNo']=regNo
 				reg_num.RegNumLastNum=validation['RegNumLastNum']
 				newResource = Resource(**resource)
@@ -121,37 +122,3 @@ def ui_resource():
 					"responseText": gettext('Unknown error!'),
 					})
 			return response
-
-
-	# elif request.method == "PUT": 
-	# 	req = request.get_json()
-	# 	resId = req.get('resId')
-	# 	currentResource = Resource.query.get(resId)
-	# 	schools = School.query.filter_by(ResId=resId).order_by(School.SchoolId.desc())
-	# 	workHistories = Work_history.query.filter_by(ResId=resId).order_by(Work_history.WorkHistId.desc())
-	# 	awards = Award.query.filter_by(ResId=resId).order_by(Award.AwardId.desc())	
-	# 	visitedCountries = Visited_countries.query.filter_by(ResId=resId).order_by(Visited_countries.VCId.desc())
-	# 	relatives = Relatives.query.filter_by(ResId=resId).order_by(Relatives.RelId.desc())
-	# 	thisTemplate = {
-	# 		"currentResource": currentResource,
-	# 		"schools": schools,
-	# 		"workHistories": workHistories,
-	# 		"awards": awards,
-	# 		"visitedCountries": visitedCountries,
-	# 		"relatives": relatives,
-	# 		}
-	# 	templateConfig = {
-	# 		"tabTitle":( gettext("Modify employee")+' '+currentResource.EmpName),
-	# 		"tabBtnClassName": "updateEmpTabBtn",
-	# 		"tabBtnName":(' updateEmpTabBtn'+str(currentResource.ResId)),
-	# 		"tabName":(' updateEmpTab'+str(currentResource.ResId)),
-	# 		"tabClassName": "updateEmpTa"'
-	# 	}
-	# 	response = {
-	# 		# "professions": professions,
-	# 		"empFormNav": render_template('hr_department/empFormNav.html',**baseTemplate,**thisTemplate,**templateConfig),
-	# 		"empForm": render_template('hr_department/empForm.html',**baseTemplate,**thisTemplate,**templateConfig),
-	# 		"currentResource": currentResource.to_json(),
-	# 		"schools":[ school.to_json() for school in schools],
-	# 		}
-	# 	return jsonify(response)

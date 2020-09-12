@@ -109,7 +109,7 @@ def register_token(token):
 
 			# get the regNum for RpAccount registration
 			try:
-				reg_num = generate(UId=user.UId,prefixType='rp_code')
+				reg_num = generate(UId=user.UId,RegNumTypeName='rp_code')
 				regNo = makeRegNo(user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'')
 			except Exception as ex:
 				flash(lazy_gettext('Error generating Registration number'),'warning')
