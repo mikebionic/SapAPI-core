@@ -44,7 +44,8 @@ def api_checkout_sale_order_invoices(user):
 	try:
 		req = request.get_json()
 		order_invoice = addOrderInvDict(req['orderInv'])
-		orderRegNo = req['OInvLineRegNo']
+		orderRegNo = req['orderInv']['OInvRegNo']
+		reg_num_pred_exists = None
 
 		##### check if invoice is not empty #####
 		if not req['orderInv']['OrderInvLines']:
@@ -195,6 +196,9 @@ def api_checkout_sale_order_invoices(user):
 			newOrderInv.OInvFTotal = decimal.Decimal(OInvFTotal)
 			newOrderInv.OInvFTotalInWrite = OInvFTotalInWrite
 
+			if reg_num_pred_exists:
+				db.session.delete(reg_num_pred_exists)
+
 			db.session.commit()
 			print("committed, done..")
 
@@ -211,9 +215,6 @@ def api_checkout_sale_order_invoices(user):
 			for e in status:
 				res[e] = status[e]
 
-		if reg_num_pred_exists:
-			db.session.delete(reg_num_pred_exists)
-			db.session.commit()
 
 	except Exception as ex:
 		print(ex)
