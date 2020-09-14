@@ -86,22 +86,22 @@
  
 <div class="product-section section mb-70">
 	<div class="container">
-			<div class="row"> 
-				<div class="col-12">
-					<div class="product-slider-wrap product-slider-arrow-one">
-							<!-- Product Slider Start -->
-							<div class="product-slider product-slider-4">
+		<div class="row"> 
+			<div class="col-12">
+				<div class="product-slider-wrap product-slider-arrow-one">
+					<!-- Product Slider Start -->
+					<div class="product-slider product-slider-4">
 
-									<div class="col pb-20 pt-10">
-											<!-- Product Start -->
-											<a href="#" class="cat-block">
-												<figure>
-														<span>
-																<img src="{{ url_for('static', filename='commerce/bee/images/brands/brand-1.png') }}" alt="Category image">
-														</span>
-												</figure>	
-											</a>
-									</div>
+						<div class="col pb-20 pt-10">
+							<!-- Product Start -->
+							<a href="#" class="cat-block">
+								<figure>
+									<span>
+										<img src="{{ url_for('static', filename='commerce/bee/images/brands/brand-1.png') }}" alt="Category image">
+									</span>
+								</figure> 
+							</a>
+						</div>
 
 									<div class="col pb-20 pt-10">
 											<!-- Product Start -->
@@ -146,9 +146,9 @@
 												</figure>
 											</a>
 									</div>
-							</div><!-- Product Slider End -->
-					</div><!-- Product Slider Wrap End -->
-				</div><!-- Product Tab Content End -->
+					</div><!-- Product Slider End -->
+				</div><!-- Product Slider Wrap End -->
+			</div><!-- Product Tab Content End -->
 		</div>
 	</div>
 </div><!-- Feature Product Section End -->
@@ -161,216 +161,69 @@
 
 			<!-- Section Title Start -->
 			<div class="col-12 mb-40">
-				<div class="section-title-one" style="text-transform:uppercase" data-title="NEW ARRIVAL"><h1>NEW ARRIVAL</h1></div>
+				<div class="section-title-one" style="text-transform:uppercase" data-title="{{_('New arrival')}}"><h1>{{_('New arrival')}}</h1></div>
 			</div><!-- Section Title End -->
 
 			<div class="col-12">
 				<div class="row">
-
-					<div class="col-xl-3 col-lg-4 col-md-6 col-12 pb-30 pt-10">
-						<!-- Product Start -->
-						<div class="ee-product">
-
-							<!-- Image -->
-							<div class="image">
-
-								<span class="label new">{{_('New')}}</span>
-
-								<a href="single-product.html" class="img"><img loading="lazy" src="{{ url_for('static', filename='commerce/bee/images/product/product-17.png') }}"></a>
-
-								<div class="wishlist-compare">
-									<a href="#" data-tooltip="Compare"><i class="ti-control-shuffle"></i></a>
-									<a href="#" data-tooltip="Wishlist"><i class="ti-heart"></i></a>
-								</div>
-
-								<a href="#" class="add-to-cart"><i class="ti-shopping-cart"></i><span>ADD TO CART</span></a>
-
-							</div>
-
-							<!-- Content -->
-							<div class="content">
-
-								<!-- Category & Title -->
-								<div class="category-title">
-
-									<a href="#" class="cat">Smartphone</a>
-									<h5 class="title"><a href="single-product.html">Ornet Note 9</a></h5>
-
-								</div>
-
-								<!-- Price & Ratting -->
-								<div class="price-ratting">
-
-									<h5 class="price"><span class="old">$285</span>$230.00</h5>
-									<div class="ratting">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
+					{% for resource in data %}
+						{% if resource.New %}
+							<div class="col-xl-3 col-lg-4 col-md-4 col-6 pb-30 pt-10">
+								<div class="ee-product">
+									<div class="image">
+										{% if resource.New %}
+											<span class="label new">{{_('New')}}</span>
+										{% endif %}
+										{% if resource.FilePathM %}
+											<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
+												<img loading="lazy" src="{{resource.FilePathM}}">
+											</a>
+										{% else %}
+											<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
+												<img loading="lazy" src="{{ url_for('static', filename='commerce/main/shop_icons/no_photo.png') }}">
+											</a>
+										{% endif %}
+										{% if current_user.is_authenticated %}
+											<div class="wishlist-compare">
+												<a href="#" data-tooltip="Wishlist" class="{{'added' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}">
+													<i class="ti-heart"></i>
+												</a>
+											</div>
+										{% endif %}
+										<a href="#" class="add-to-cart" ownerId="{{ resource.ResId }}">
+											<i class="ti-shopping-cart"></i>
+											<span>{{_('Add to cart')}}</span>
+										</a>
 									</div>
 
-								</div>
-
-							</div>
-
-						</div><!-- Product End -->
-					</div>
-
-
-					<div class="col-xl-3 col-lg-4 col-md-6 col-12 pb-30 pt-10">
-						<!-- Product Start -->
-						<div class="ee-product">
-
-							<!-- Image -->
-							<div class="image">
-
-								<span class="label sale">sale</span>
-
-								<a href="single-product.html" class="img"><img loading="lazy" src="{{ url_for('static', filename='commerce/bee/images/product/product-20.png') }}"></a>
-
-								<div class="wishlist-compare">
-									<a href="#" data-tooltip="Compare"><i class="ti-control-shuffle"></i></a>
-									<a href="#" data-tooltip="Wishlist"><i class="ti-heart"></i></a>
-								</div>
-
-								<a href="#" class="add-to-cart"><i class="ti-shopping-cart"></i><span>ADD TO CART</span></a>
-
-							</div>
-
-							<!-- Content -->
-							<div class="content">
-
-								<!-- Category & Title -->
-								<div class="category-title">
-
-									<a href="#" class="cat">Kitchen Appliances</a>
-									<h5 class="title"><a href="single-product.html">Jackson Toster V 27</a></h5>
-
-								</div>
-
-								<!-- Price & Ratting -->
-								<div class="price-ratting">
-
-									<h5 class="price"><span class="old">$185</span>$135.00</h5>
-									<div class="ratting">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
+									<!-- Content -->
+									<div class="content">
+										<!-- Category & Title -->
+										<div class="category-title">
+											<a href="#" class="cat">{{ resource.ResCatName if resource.ResCatName else '' }}</a>
+											<h5 class="title">
+												<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}">
+													{{ resource.ResName if resource.ResName else '' }}
+												</a>
+											</h5>
+										</div>
+										<!-- Price & Ratting -->
+										<div class="price-ratting">
+											<h5 class="price">
+												<!-- <span class="old">$350</span> -->
+												<p>{{ resource.CurrencyCode }}</p>
+												<div class="priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue }}</div>
+											</h5>
+											<input type="hidden" class="ratingValue" value="{{ resource.RtRatingValue }}" ownerId="{{ resource.ResId }}">
+											<div class="ratting ratingStars" ownerId="{{ resource.ResId }}"></div>
+										</div>
 									</div>
-
-								</div>
-
+								</div><!-- Product End -->
 							</div>
-
-						</div><!-- Product End -->
-					</div>
-					<div class="col-xl-3 col-lg-4 col-md-6 col-12 pb-30 pt-10">
-						<!-- Product Start -->
-						<div class="ee-product">
-
-							<!-- Image -->
-							<div class="image">
-
-								<span class="label sale">sale</span>
-
-								<a href="single-product.html" class="img"><img loading="lazy" src="{{ url_for('static', filename='commerce/bee/images/product/product-20.png') }}"></a>
-
-								<div class="wishlist-compare">
-									<a href="#" data-tooltip="Compare"><i class="ti-control-shuffle"></i></a>
-									<a href="#" data-tooltip="Wishlist"><i class="ti-heart"></i></a>
-								</div>
-
-								<a href="#" class="add-to-cart"><i class="ti-shopping-cart"></i><span>ADD TO CART</span></a>
-
-							</div>
-
-							<!-- Content -->
-							<div class="content">
-
-								<!-- Category & Title -->
-								<div class="category-title">
-
-									<a href="#" class="cat">Kitchen Appliances</a>
-									<h5 class="title"><a href="single-product.html">Jackson Toster V 27</a></h5>
-
-								</div>
-
-								<!-- Price & Ratting -->
-								<div class="price-ratting">
-
-									<h5 class="price"><span class="old">$185</span>$135.00</h5>
-									<div class="ratting">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-									</div>
-
-								</div>
-
-							</div>
-
-						</div><!-- Product End -->
-					</div>
-					<div class="col-xl-3 col-lg-4 col-md-6 col-12 pb-30 pt-10">
-						<!-- Product Start -->
-						<div class="ee-product">
-
-							<!-- Image -->
-							<div class="image">
-
-								<span class="label sale">sale</span>
-
-								<a href="single-product.html" class="img"><img loading="lazy" src="{{ url_for('static', filename='commerce/bee/images/product/product-20.png') }}"></a>
-
-								<div class="wishlist-compare">
-									<a href="#" data-tooltip="Compare"><i class="ti-control-shuffle"></i></a>
-									<a href="#" data-tooltip="Wishlist"><i class="ti-heart"></i></a>
-								</div>
-
-								<a href="#" class="add-to-cart"><i class="ti-shopping-cart"></i><span>ADD TO CART</span></a>
-
-							</div>
-
-							<!-- Content -->
-							<div class="content">
-
-								<!-- Category & Title -->
-								<div class="category-title">
-
-									<a href="#" class="cat">Kitchen Appliances</a>
-									<h5 class="title"><a href="single-product.html">Jackson Toster V 27</a></h5>
-
-								</div>
-
-								<!-- Price & Ratting -->
-								<div class="price-ratting">
-
-									<h5 class="price"><span class="old">$185</span>$135.00</h5>
-									<div class="ratting">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-									</div>
-
-								</div>
-
-							</div>
-
-						</div><!-- Product End -->
-					</div>
-
-
-
+						{% endif %}
+					{% endfor %}
 				</div>
 			</div>
-
 		</div>
 	</div>
 </div><!-- New Arrival Product Section End -->
@@ -383,7 +236,7 @@
 
 			<!-- Section Title Start -->
 			<div class="col-12 mb-40">
-				<div class="section-title-one" style="text-transform:uppercase" data-title="FEATURED ITEMS"><h1>FEATURED ITEMS</h1></div>
+				<div class="section-title-one" style="text-transform:uppercase" data-title="{{_('Featured')}}"><h1>{{_('Featured')}}</h1></div>
 			</div><!-- Section Title End -->
 
 			<!-- Product Tab Filter Start -->
@@ -396,8 +249,11 @@
 					<!-- Product Tab List -->
 					<ul class="nav product-tab-list">
 						<li><a class="active" data-toggle="tab" href="#tab-one">all</a></li>
-						<li><a data-toggle="tab" href="#tab-two">LAPTOP</a></li>
-						<li><a data-toggle="tab" href="#tab-one">DRONE</a></li>
+						{% for category in categories %}
+							{% if category.IsMain %}
+								<li><a data-toggle="tab" href="#tab-{{category.ResCatId}}">{{category.ResCatName}}</a></li>
+							{% endif %}
+						{% endfor %}
 					</ul>
 
 				</div>
@@ -414,7 +270,62 @@
 						<div class="product-slider-wrap product-slider-arrow-one">
 							<!-- Product Slider Start -->
 							<div class="product-slider product-slider-4">
+								{% for resource in data %}
+									{% if resource.RtRatingValue >= 3 %}
+										<div class="col pb-20 pt-10">
+											<div class="ee-product">
+												<div class="image">
+													{% if resource.New %}
+														<span class="label new">{{_('New')}}</span>
+													{% endif %}
+													{% if resource.FilePathM %}
+														<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
+															<img loading="lazy" src="{{resource.FilePathM}}">
+														</a>
+													{% else %}
+														<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
+															<img loading="lazy" src="{{ url_for('static', filename='commerce/main/shop_icons/no_photo.png') }}">
+														</a>
+													{% endif %}
+													{% if current_user.is_authenticated %}
+														<div class="wishlist-compare">
+															<a href="#" data-tooltip="Wishlist" class="{{'added' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}">
+																<i class="ti-heart"></i>
+															</a>
+														</div>
+													{% endif %}
+													<a href="#" class="add-to-cart" ownerId="{{ resource.ResId }}">
+														<i class="ti-shopping-cart"></i>
+														<span>{{_('Add to cart')}}</span>
+													</a>
+												</div>
 
+												<!-- Content -->
+												<div class="content">
+													<!-- Category & Title -->
+													<div class="category-title">
+														<a href="#" class="cat">{{ resource.ResCatName if resource.ResCatName else '' }}</a>
+														<h5 class="title">
+															<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}">
+																{{ resource.ResName if resource.ResName else '' }}
+															</a>
+														</h5>
+													</div>
+													<!-- Price & Ratting -->
+													<div class="price-ratting">
+														<h5 class="price">
+															<!-- <span class="old">$350</span> -->
+															<p>{{ resource.CurrencyCode }}</p>
+															<div class="priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue }}</div>
+														</h5>
+														<input type="hidden" class="ratingValue" value="{{ resource.RtRatingValue }}" ownerId="{{ resource.ResId }}">
+														<div class="ratting ratingStars" ownerId="{{ resource.ResId }}"></div>
+													</div>
+												</div>
+											</div><!-- Product End -->
+										</div>
+									{% endif %}
+								{% endfor %}
 								<div class="col pb-20 pt-10">
 									<!-- Product Start -->
 									<div class="ee-product">
@@ -469,70 +380,75 @@
 
 					</div><!-- Tab Pane End -->
 
-					<!-- Tab Pane Start -->
-					<div class="tab-pane fade" id="tab-two">
+					{% for category in categories %}
+						{% if category.IsMain %}
+							<div class="tab-pane fade" id="tab-{{category.ResCatId}}">
+								<!-- Product Slider Wrap Start -->
+								<div class="product-slider-wrap product-slider-arrow-one">
+									<!-- Product Slider Start -->
+									<div class="product-slider product-slider-4">
+										{% for resource in data %}
+											{% if resource.RtRatingValue >= 3 and resource.ResCatId == category.ResCatId %}
+												<div class="col pb-20 pt-10">
+													<div class="ee-product">
+														<div class="image">
+															{% if resource.New %}
+																<span class="label new">{{_('New')}}</span>
+															{% endif %}
+															{% if resource.FilePathM %}
+																<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
+																	<img loading="lazy" src="{{resource.FilePathM}}">
+																</a>
+															{% else %}
+																<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
+																	<img loading="lazy" src="{{ url_for('static', filename='commerce/main/shop_icons/no_photo.png') }}">
+																</a>
+															{% endif %}
+															{% if current_user.is_authenticated %}
+																<div class="wishlist-compare">
+																	<a href="#" data-tooltip="Wishlist" class="{{'added' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}">
+																		<i class="ti-heart"></i>
+																	</a>
+																</div>
+															{% endif %}
+															<a href="#" class="add-to-cart" ownerId="{{ resource.ResId }}">
+																<i class="ti-shopping-cart"></i>
+																<span>{{_('Add to cart')}}</span>
+															</a>
+														</div>
 
-						<!-- Product Slider Wrap Start -->
-						<div class="product-slider-wrap product-slider-arrow-one">
-							<!-- Product Slider Start -->
-							<div class="product-slider product-slider-4">
-
-								<div class="col pb-20 pt-10">
-									<!-- Product Start -->
-									<div class="ee-product">
-
-										<!-- Image -->
-										<div class="image">
-
-											<span class="label sale">sale</span>
-
-											<a href="single-product.html" class="img"><img loading="lazy" src="{{ url_for('static', filename='commerce/bee/images/product/product-6.png') }}"></a>
-
-											<div class="wishlist-compare">
-												<a href="#" data-tooltip="Compare"><i class="ti-control-shuffle"></i></a>
-												<a href="#" data-tooltip="Wishlist"><i class="ti-heart"></i></a>
-											</div>
-
-											<a href="#" class="add-to-cart"><i class="ti-shopping-cart"></i><span>ADD TO CART</span></a>
-
-										</div>
-
-										<!-- Content -->
-										<div class="content">
-
-											<!-- Category & Title -->
-											<div class="category-title">
-
-												<a href="#" class="cat">Camera</a>
-												<h5 class="title"><a href="single-product.html">Axor Digital camera</a></h5>
-
-											</div>
-
-											<!-- Price & Ratting -->
-											<div class="price-ratting">
-
-												<h5 class="price"><span class="old">$265</span>$199.00</h5>
-												<div class="ratting">
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star-half-o"></i>
-													<i class="fa fa-star-o"></i>
+														<!-- Content -->
+														<div class="content">
+															<!-- Category & Title -->
+															<div class="category-title">
+																<a href="#" class="cat">{{ resource.ResCatName if resource.ResCatName else '' }}</a>
+																<h5 class="title">
+																	<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}">
+																		{{ resource.ResName if resource.ResName else '' }}
+																	</a>
+																</h5>
+															</div>
+															<!-- Price & Ratting -->
+															<div class="price-ratting">
+																<h5 class="price">
+																	<!-- <span class="old">$350</span> -->
+																	<p>{{ resource.CurrencyCode }}</p>
+																	<div class="priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue }}</div>
+																</h5>
+																<input type="hidden" class="ratingValue" value="{{ resource.RtRatingValue }}" ownerId="{{ resource.ResId }}">
+																<div class="ratting ratingStars" ownerId="{{ resource.ResId }}"></div>
+															</div>
+														</div>
+													</div><!-- Product End -->
 												</div>
+											{% endif %}
+										{% endfor %}
+									</div><!-- Product Slider End -->
+								</div><!-- Product Slider Wrap End -->
 
-											</div>
-
-										</div>
-
-									</div><!-- Product End -->
-								</div>
-
-
-							</div><!-- Product Slider End -->
-						</div><!-- Product Slider Wrap End -->
-
-					</div><!-- Tab Pane End -->
-
+							</div><!-- Tab Pane End -->
+						{% endif %}
+					{% endfor %}
 				</div>
 			</div><!-- Product Tab Content End -->
 
