@@ -10,7 +10,11 @@
 
 				<div class="row mb-50">
 					<div class="col">
-
+						{% if category %}
+						<div class="col-12 mb-40">
+							<div class="section-title-one" style="text-transform:uppercase" data-title="{{_('Category')}}"><h1>{{ category }}</h1></div>
+						</div>
+						{% endif %}
 						<!-- Shop Top Bar Start -->
 						<div class="shop-top-bar">
 
@@ -37,6 +41,9 @@
 							<div class="product-short">
 								<p>{{_('Filter')}}</p>
 								<select name="sortby" class="nice-select">
+									{% if filtration %}
+										<option value="{{filtration}}">{{filtration}}</option>
+									{% endif %}
 									<option value="trending">{{_('Trending')}}</option>
 									<option value="sales">{{_('Best sellers')}}</option>
 									<option value="rating">{{_('Best rated')}}</option>
@@ -45,6 +52,7 @@
 									<option value="price-desc">{{_('Price')}}: {{_('high to low')}}</option>
 								</select>
 							</div>
+
 
 							<!-- Product Pages -->
 							<div class="product-pages">
