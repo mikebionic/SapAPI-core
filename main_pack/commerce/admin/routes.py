@@ -25,14 +25,14 @@ from main_pack.commerce.admin.utils import resRelatedData
 from main_pack.models.commerce.models import (Inv_line,Inv_line_det,Inv_line_det_type,
 	Inv_status,Inv_type,Invoice,Order_inv,Order_inv_line,Order_inv_type)
 from main_pack.commerce.commerce.order_utils import UiOInvData,UiOInvLineData
-from main_pack.models.commerce.models import Res_category
+from main_pack.models.commerce.models import Res_category,Brand
 # / Invoices /
 
 # users and customers
 from main_pack.models.users.models import (Users,User_type,
 																					Rp_acc,Rp_acc_type,Rp_acc_status)
 from main_pack.commerce.admin.users_utils import UiRpAccData,UiUsersData
-from main_pack.commerce.admin.forms import UserRegistrationForm,CustomerRegistrationForm
+from main_pack.commerce.admin.forms import UserRegistrationForm,CustomerRegistrationForm,BrandForm
 # / users and customers /
 
 # RegNo
@@ -453,3 +453,49 @@ def sale_repots_table():
 def sale_repots_table2():
 	return render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"sale_repots_table2.html",url_prefix=url_prefix,
 		title=gettext('Sale reports'))
+
+
+@bp.route("/admin/brands_table")
+@login_required
+@ui_admin_required()
+def brands_table():
+	brands = Brand.query.filter_by(GCRecord = None).all()
+	return render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"brands_table.html",url_prefix=url_prefix,
+		**data,title=gettext('Brands'))
+
+
+@bp.route("/admin/register_brand",methods=['GET','POST'])
+@login_required
+@ui_admin_required()
+def register_brand():
+	form = BrandForm()
+	if form.validate_on_submit():
+		try:
+			brand_data = {
+				"BrandName": form.BrandName.data,
+				"BrandDesc": form.BrandDesc.data,
+				"BrandVisibleIndex": form.BrandVisibleIndex.data,
+				"IsMain": form.IsMain.data
+			}
+			brand = Brand(**brand_data)
+
+			db.session.add(brand)
+			db.session.commit()
+
+			if form.Image.data:
+				imageFile = save_image(imageForm=form.Image.data,module=os.path.join("uploads","commerce","Brand"),id=brand.BrandId)
+				lastImage = Image.query.order_by(Image.ImgId.desc()).first()
+				ImgId = lastImage.ImgId+1
+				image = Image(ImgId=ImgId,FileName=imageFile['FileName'],FilePath=imageFile['FilePath'],BrandId=brand.BrandId)
+				db.session.add(image)
+
+			db.session.commit()
+
+			flash('{} '.format(brand.BrandName)+lazy_gettext('successfully saved'),'success')
+			return redirect(url_for('commerce_admin.brands_table'))
+		except Exception as ex:
+			print(ex)
+			flash(lazy_gettext('Error occured, please try again.'),'danger')
+			return redirect(url_for('commerce_admin.register_brand'))
+	return render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"register_brand.html",url_prefix=url_prefix,
+		form=form,title=gettext('Register'))

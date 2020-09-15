@@ -19,6 +19,20 @@ class SliderImageForm(FlaskForm):
 	SlImgEndDate = StringField('End date')
 
 
+class BrandForm(FlaskForm):
+	BrandName = StringField(validators=[DataRequired()])
+	BrandDesc = StringField()
+	BrandVisibleIndex = StringField()
+	IsMain = BooleanField()
+	BrandLink1 = StringField()
+	BrandLink2 = StringField()
+	BrandLink3 = StringField()
+	BrandLink4 = StringField()
+	BrandLink5 = StringField()
+	Image = FileField('Slider Image',validators=[
+		FileAllowed(['jpg','png','img','gif','svg'])])
+
+
 class UserRegistrationForm(FlaskForm):
 	username = StringField('Username', 
 							validators=[DataRequired(),Length(min=2,max=60)])

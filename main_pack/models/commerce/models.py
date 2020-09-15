@@ -54,6 +54,8 @@ class Brand(AddInf,CreatedModifiedInfo,db.Model):
 	BrandId = db.Column(db.Integer,nullable=False,primary_key=True)
 	BrandName = db.Column(db.String(100),nullable=False)
 	BrandDesc = db.Column(db.String(100),default="")
+	BrandVisibleIndex = db.Column(db.Integer,default=0)
+	IsMain = db.Column(db.Boolean,default=False)
 	BrandLink1 = db.Column(db.String(255))
 	BrandLink2 = db.Column(db.String(255))
 	BrandLink3 = db.Column(db.String(255))
@@ -82,17 +84,19 @@ class Brand(AddInf,CreatedModifiedInfo,db.Model):
 		return json_brand
 
 	def to_json_api(self):
-		json_barcode = {
+		json_brand = {
 			"BrandId": self.BrandId,
 			"BrandName": self.BrandName,
 			"BrandDesc": self.BrandDesc,
+			"BrandVisibleIndex": self.BrandVisibleIndex,
+			"IsMain": self.IsMain,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_barcode
+		return json_brand
 
 
 class Color(CreatedModifiedInfo,db.Model):
