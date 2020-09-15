@@ -698,3 +698,69 @@ $(document).ready(function(){
     });
     
   })
+
+//Input min
+var selectMin = document.getElementById('input-min');
+
+// Append the option elements
+for (var i = 1; i <= 5; i++) {
+
+  var option = document.createElement("option");
+  option.text = i;
+  option.value = i;
+
+  selectMin.appendChild(option);
+}
+//Input max
+var selectMax = document.getElementById('input-max');
+
+// Append the option elements
+for (var i = 1; i <= 5; i++) {
+
+  var option = document.createElement("option");
+  option.text = i;
+  option.value = i;
+
+  selectMax.appendChild(option);
+}
+//Slider
+var html5Slider = document.getElementById('star-rating-slider');
+
+noUiSlider.create(html5Slider, {
+  start: [1, 5],
+  connect: true,
+  step: 1,
+  range: {
+    'min': 1,
+    'max': 5
+  }
+});
+
+//link option and slider
+html5Slider.noUiSlider.on('update', function(values, handle) {
+
+  var value = values[handle];
+
+  if (handle) {
+    selectMax.value = Math.round(value);
+
+    angular.element(selectMax).triggerHandler('change');
+  } else {
+    selectMin.value = Math.round(value);
+
+    angular.element(selectMin).triggerHandler('change');
+  }
+});
+
+selectMin.addEventListener('change', function() {
+  html5Slider.noUiSlider.set([this.value, null]);
+});
+selectMax.addEventListener('change', function() {
+  html5Slider.noUiSlider.set([null, this.value]);
+});
+
+$('#stars .fa-star').click(function() {
+
+  setTimeout("html5Slider.noUiSlider.set([null, selectMax.value]);", 100);
+
+});  
