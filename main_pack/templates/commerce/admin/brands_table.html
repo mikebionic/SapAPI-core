@@ -1,0 +1,68 @@
+{% extends "commerce/admin/layout.html" %}
+
+{% block styles %}
+	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/datatables/datatables.min.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css') }}">
+{% endblock %}
+
+{% block content %}
+	<div class="row">
+		<div class="col-12">
+			<div class="card">
+				<div class="card-header">
+					<h4>{{_('Brands table')}}</h4>
+				</div>
+				<div class="card-body">
+					<div class="table-responsive">
+						<button class="btn btn-primary newbrandBtn"><i data-feather="plus-square"></i></button>
+						<table class="table table-striped" id="mainTable">
+							<thead>
+								<tr>
+									<th class="text-center">№</th>
+									<th class="text-center">{{_('Brand name')}}</th>
+									<th class="text-center">{{_('Description')}}</th>
+									<th class="text-center">{{_('Visible index')}}</th>
+									<th class="text-center">{{_('Featured')}}</th>
+									<th class="text-center">{{_('Icon')}}</th>
+									<th class="text-center">{{_('Action')}}</th>
+								</tr>
+							</thead>
+							<tbody class="brandTable">
+								{% for brand in data %}
+									<tr>
+										<td class="text-center">{{brand.BrandId}}</td>
+										<td class="text-center">{{brand.BrandName if brand.BrandName else ''}}</td>
+										<td class="text-center">{{brand.BrandDesc if brand.BrandDesc else ''}}</td>
+										<td class="text-center">{{brand.BrandVisibleIndex}}</td>
+										<td class="p-0 text-center">
+                      <div class="custom-checkbox custom-control">
+                        <input type="checkbox" class="custom-control-input" id="checkbox{{brand.BrandId}}" {{ "checked" if brand.IsMain }}>
+                        <label for="checkbox{{brand.BrandId}}" class="custom-control-label">&nbsp;</label>
+                      </div>
+                    </td>
+										<td class="align-middle" data-toggle="modal" data-target="#catIconsModal">
+											<img loading="lazy" class="img-fluid" src="{{brand.FilePathM if brand.FilePathM else url_for('static', filename='commerce/admin/ICONS/surface1.svg') }}" data-toggle="modal" data-target="#catIconsModal">
+										</td>
+										<td>
+											<button class="btn btn-icon btn-success"><i class="fas fa-check"></i></button>
+											<button class="btn btn-icon btn-danger"><i class="fas fa-trash-alt"></i></button>
+										</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block scripts %}
+	<script src="{{ url_for('static', filename='commerce/admin/bundles/editable-table/mindmup-editabletable.js') }}"></script>
+	<script src="{{ url_for('static', filename='commerce/admin/js/page/editable-table.js') }}"></script>
+	<script src="{{ url_for('static', filename='commerce/admin/js/brand_table.js') }}"></script>
+	<script src="{{ url_for('static', filename='commerce/admin/js/ui_dynamicals.js') }}"></script>
+	<script src="{{ url_for('static', filename='commerce/admin/js/brand_icons.js') }}"></script>
+{% endblock %}

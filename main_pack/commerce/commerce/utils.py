@@ -85,31 +85,23 @@ def UiCategoriesList():
 	}
 	return res
 
-# categories, company info {not used} 
-# !!! delete after reconfiguring navbar.html
-def commonUsedData():
-	commonData = {}
-	subcategories = []
-	subcategory_children = []
-	company = Company.query.get(1)
-	categories = Res_category.query.filter_by(ResOwnerCatId=0)
-	subcategory = Res_category.query.filter(Res_category.ResOwnerCatId!=0)
-	for category in subcategory:
-		parents = Res_category.query.filter(Res_category.ResCatId==category.ResOwnerCatId)
-		for parent in parents:
-			if (parent.ResOwnerCatId == '' or parent.ResOwnerCatId == None or parent.ResOwnerCatId == 0):
-				subcategories.append(category)
-			else:
-				subcategory_children.append(category)
-
-	commonData.update({
-		"categories": categories,
-		"subcategories": subcategories,
-		"subcategory_children": subcategory_children,
-		"company": company
-		})
-	return commonData
-
+def UiBrandsList():
+	brands = Brand.query.filter_by(GCRecord = None).all() 
+	data = []
+	for brand in brands:
+		brand_info = brand.to_json_api()
+		List_Images = [image.to_json_api() for image in brand.Image if image.GCRecord == None]
+		brand_info['Images'] = List_Images if List_Images else []
+		brand_info["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=List_Images[-1]['FileName']) if List_Images else ''
+		brand_info["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=List_Images[-1]['FileName']) if List_Images else ''
+		brand_info["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_Images[-1]['FileName']) if List_Images else ''
+		data.append(brand_info)
+	res = {
+		"message": "Brands",
+		"data": data,
+		"total": len(data)
+	}
+	return res
 
 # used foreign keys
 from main_pack.models.commerce.models import Unit,Brand,Usage_status,Res_category,Res_type,Res_maker

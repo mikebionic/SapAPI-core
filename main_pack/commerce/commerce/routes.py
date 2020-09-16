@@ -5,9 +5,9 @@ from main_pack import db,babel,gettext,lazy_gettext
 from main_pack.commerce.commerce import bp
 
 # Resource and view
-from main_pack.api.commerce.commerce_utils import apiResourceInfo
+from main_pack.api.commerce.commerce_utils import apiResourceInfo,apiFeaturedResCat_Resources
 from main_pack.commerce.commerce.utils import slidersData,UiCategoriesList
-from main_pack.models.commerce.models import Resource,Res_category
+# from main_pack.models.commerce.models import Resource
 # / Resource and view /
 
 @bp.route("/")
@@ -15,36 +15,11 @@ from main_pack.models.commerce.models import Resource,Res_category
 def commerce():
 	latest_resources = apiResourceInfo(showLatest = True)
 	rated_resources = apiResourceInfo(showRated = True)
-	featured_resources = Resource.query\
-		.filter_by(GCRecord = None)\
-		.outerjoin(Res_category, Res_category.ResCatId == Resource.ResCatId)\
-		.filter(Res_category.GCRecord == None)\
-		.filter(Res_category.IsMain == True)\
-		.order_by(Resource.CreatedDate.desc())\
-		.limit(50)\
-		.all()
-	resource_models = [resource for resource in featured_resources if featured_resources]
-	featured_resources = apiResourceInfo(resource_models = resource_models)
-
-	featured_categories = Res_category.query\
-		.filter_by(GCRecord = None)\
-		.filter(Res_category.IsMain == True)\
-		.all()
-	Featured_categories_list = []
-	if featured_categories:
-		for category in featured_categories:
-			featured_category = category.to_json_api()
-			resources_list = []
-			for resource in featured_resources['data']:
-				if resource['ResCatId'] == category.ResCatId:
-					resources_list.append(resource)
-			featured_category['Resources'] = resources_list
-			Featured_categories_list.append(featured_category)
-
+	featured_categories = apiFeaturedResCat_Resources()
 	res = {
 		"Latest_resources": latest_resources['data'],
 		"Rated_resources": rated_resources['data'],
-		"Featured_categories": Featured_categories_list,
+		"Featured_categories": featured_categories['data']
 	}
 	sliders = slidersData()
 	categoriesData = UiCategoriesList()
