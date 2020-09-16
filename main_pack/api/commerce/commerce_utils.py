@@ -52,14 +52,18 @@ from datetime import datetime,timedelta
 
 # isInactive shows active resources with UsageStatusId = 1
 # fullInfo shows microframework full info with Foreign tables
-# single_object returns one resource in "data" instead of list 
-def apiResourceInfo(resource_list=None,
-										single_object=False,
-										isInactive=False,
-										fullInfo=False,
-										user=None,
-										resource_models=None,
-										showRelated=False):
+# single_object returns one resource in "data" instead of list
+# showRated gives you latest rated resources
+# showLatest gives you latest resources by datetime
+def apiResourceInfo(resource_list = None,
+										single_object = False,
+										isInactive = False,
+										fullInfo = False,
+										user = None,
+										resource_models = None,
+										showRelated = False,
+										showLatest = False,
+										showRated = False):
 	categories = Res_category.query.filter_by(GCRecord = None).all()
 	usage_statuses = Usage_status.query.filter_by(GCRecord = None).all()
 	units = Unit.query.filter_by(GCRecord = None).all()
@@ -87,7 +91,30 @@ def apiResourceInfo(resource_list=None,
 				resource_filtering["UsageStatusId"] = 1
 
 			resources = Resource.query\
-				.filter_by(**resource_filtering).all()
+				.filter_by(**resource_filtering)
+			if Config.SHOW_NEGATIVE_WH_QTY_RESOURCE == True:
+				resources = resources\
+					.join(Res_total, Res_total.ResId == Resource.ResId)\
+					.filter(and_(
+						Res_total.WhId == 1, 
+						Res_total.ResTotBalance > 0))
+
+			if showLatest == True:
+				resources = resources\
+					.order_by(Resource.CreatedDate.desc())\
+					.limit(Config.RESOURCE_MAIN_PAGE_SHOW_QTY+1)
+
+			if showRated == True:
+				resources = resources\
+					.join(Res_category, Res_category.ResCatId == Resource.ResCatId)\
+					.filter(Res_category.IsMain == True)\
+					.outerjoin(Rating, Rating.ResId == Resource.ResId)\
+					.filter(Rating.RtRatingValue >= Config.SMALLEST_RATING_VALUE_SHOW)\
+					.order_by(Rating.RtRatingValue.asc())\
+					.limit(Config.RESOURCE_MAIN_PAGE_SHOW_QTY+1)
+			
+			resources = resources.all()
+
 			for resource in resources:
 				if resource_config_check(resource):
 					resource_models.append(resource)
@@ -102,7 +129,17 @@ def apiResourceInfo(resource_list=None,
 					resource_filtering["UsageStatusId"] = 1
 
 				resource = Resource.query\
-					.filter_by(**resource_filtering).first()
+					.filter_by(**resource_filtering)
+				
+				if Config.SHOW_NEGATIVE_WH_QTY_RESOURCE == True:
+					resource = resource\
+						.join(Res_total, Res_total.ResId == Resource.ResId)\
+						.filter(and_(
+							Res_total.WhId == 1, 
+							Res_total.ResTotBalance > 0))
+				
+				resource = resource.first()
+				
 				if resource:
 					if resource_config_check(resource):
 						resource_models.append(resource)
@@ -187,7 +224,7 @@ def apiResourceInfo(resource_list=None,
 						Res_total.ResTotBalance > 0))\
 					.outerjoin(Rating, Rating.ResId == Resource.ResId)\
 					.order_by(Rating.RtRatingValue.asc())\
-					.limit(Config.TOP_RATED_RESOURCES_AMOUNT)\
+					.limit(Config.TOP_RATED_RESOURCES_AMOUNT+1)\
 					.all()
 
 				Related_resources = []

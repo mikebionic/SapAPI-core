@@ -13,7 +13,39 @@ from main_pack.models.commerce.models import Resource,Res_category
 @bp.route("/")
 @bp.route(Config.COMMERCE_HOME_PAGE)
 def commerce():
-	res = apiResourceInfo()
+	latest_resources = apiResourceInfo(showLatest = True)
+	rated_resources = apiResourceInfo(showRated = True)
+	featured_resources = Resource.query\
+		.filter_by(GCRecord = None)\
+		.outerjoin(Res_category, Res_category.ResCatId == Resource.ResCatId)\
+		.filter(Res_category.GCRecord == None)\
+		.filter(Res_category.IsMain == True)\
+		.order_by(Resource.CreatedDate.desc())\
+		.limit(50)\
+		.all()
+	resource_models = [resource for resource in featured_resources if featured_resources]
+	featured_resources = apiResourceInfo(resource_models = resource_models)
+
+	featured_categories = Res_category.query\
+		.filter_by(GCRecord = None)\
+		.filter(Res_category.IsMain == True)\
+		.all()
+	Featured_categories_list = []
+	if featured_categories:
+		for category in featured_categories:
+			featured_category = category.to_json_api()
+			resources_list = []
+			for resource in featured_resources['data']:
+				if resource['ResCatId'] == category.ResCatId:
+					resources_list.append(resource)
+			featured_category['Resources'] = resources_list
+			Featured_categories_list.append(featured_category)
+
+	res = {
+		"Latest_resources": latest_resources['data'],
+		"Rated_resources": rated_resources['data'],
+		"Featured_categories": Featured_categories_list,
+	}
 	sliders = slidersData()
 	categoriesData = UiCategoriesList()
 	return render_template(Config.COMMERCE_TEMPLATES_FOLDER_PATH+"commerce/commerce.html",
