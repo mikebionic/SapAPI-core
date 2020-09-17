@@ -6,7 +6,7 @@ from main_pack.commerce.commerce import bp
 
 # Resource and view
 from main_pack.api.commerce.commerce_utils import apiResourceInfo,apiFeaturedResCat_Resources
-from main_pack.commerce.commerce.utils import slidersData,UiCategoriesList
+from main_pack.commerce.commerce.utils import slidersData,UiCategoriesList,UiBrandsList
 # from main_pack.models.commerce.models import Resource
 # / Resource and view /
 
@@ -16,10 +16,12 @@ def commerce():
 	latest_resources = apiResourceInfo(showLatest = True)
 	rated_resources = apiResourceInfo(showRated = True)
 	featured_categories = apiFeaturedResCat_Resources()
+	brands = UiBrandsList()
 	res = {
 		"Latest_resources": latest_resources['data'],
 		"Rated_resources": rated_resources['data'],
-		"Featured_categories": featured_categories['data']
+		"Featured_categories": featured_categories['data'],
+		"Brands": brands['data']
 	}
 	sliders = slidersData()
 	categoriesData = UiCategoriesList()

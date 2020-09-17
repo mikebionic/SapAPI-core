@@ -14,7 +14,7 @@
 				</div>
 				<div class="card-body">
 					<div class="table-responsive">
-						<button class="btn btn-primary newbrandBtn"><i data-feather="plus-square"></i></button>
+						<a href="{{ url_for('commerce_admin.manage_brand') }}" class="btn btn-primary newbrandBtn"><i data-feather="plus-square"></i></a>
 						<table class="table table-striped" id="mainTable">
 							<thead>
 								<tr>
@@ -25,11 +25,16 @@
 									<th class="text-center">{{_('Featured')}}</th>
 									<th class="text-center">{{_('Icon')}}</th>
 									<th class="text-center">{{_('Action')}}</th>
+									<th class="text-center">{{_('Link')}} 1</th>
+									<th class="text-center">{{_('Link')}} 2</th>
+									<th class="text-center">{{_('Link')}} 3</th>
+									<th class="text-center">{{_('Link')}} 4</th>
+									<th class="text-center">{{_('Link')}} 5</th>
 								</tr>
 							</thead>
 							<tbody class="brandTable">
 								{% for brand in data %}
-									<tr>
+									<tr ownerId="{{ brand.BrandId }}">
 										<td class="text-center">{{brand.BrandId}}</td>
 										<td class="text-center">{{brand.BrandName if brand.BrandName else ''}}</td>
 										<td class="text-center">{{brand.BrandDesc if brand.BrandDesc else ''}}</td>
@@ -41,12 +46,17 @@
                       </div>
                     </td>
 										<td class="align-middle" data-toggle="modal" data-target="#catIconsModal">
-											<img loading="lazy" class="img-fluid" src="{{brand.FilePathM if brand.FilePathM else url_for('static', filename='commerce/admin/ICONS/surface1.svg') }}" data-toggle="modal" data-target="#catIconsModal">
+											<img loading="lazy" class="img-fluid" src="{{brand.FilePath if brand.FilePath else url_for('static', filename='commerce/admin/ICONS/surface1.svg') }}" data-toggle="modal" data-target="#catIconsModal">
 										</td>
 										<td>
-											<button class="btn btn-icon btn-success"><i class="fas fa-check"></i></button>
-											<button class="btn btn-icon btn-danger"><i class="fas fa-trash-alt"></i></button>
+											<a href="{{ url_for('commerce_admin.manage_brand',brandId=brand.BrandId) }}" class="btn btn-icon btn-info"><i class="fas fa-edit"></i></a>
+											<button class="btn btn-icon btn-danger deleteBrandBtn" ownerId="{{ brand.BrandId }}"><i class="fas fa-trash-alt"></i></button>
 										</td>
+										<td class="text-center">{{brand.BrandLink1}}</td>
+										<td class="text-center">{{brand.BrandLink2}}</td>
+										<td class="text-center">{{brand.BrandLink3}}</td>
+										<td class="text-center">{{brand.BrandLink4}}</td>
+										<td class="text-center">{{brand.BrandLink5}}</td>
 									</tr>
 								{% endfor %}
 							</tbody>
@@ -62,7 +72,7 @@
 {% block scripts %}
 	<script src="{{ url_for('static', filename='commerce/admin/bundles/editable-table/mindmup-editabletable.js') }}"></script>
 	<script src="{{ url_for('static', filename='commerce/admin/js/page/editable-table.js') }}"></script>
-	<script src="{{ url_for('static', filename='commerce/admin/js/brand_table.js') }}"></script>
+	<script src="{{ url_for('static', filename='commerce/admin/js/brands_table.js') }}"></script>
 	<script src="{{ url_for('static', filename='commerce/admin/js/ui_dynamicals.js') }}"></script>
 	<script src="{{ url_for('static', filename='commerce/admin/js/brand_icons.js') }}"></script>
 {% endblock %}

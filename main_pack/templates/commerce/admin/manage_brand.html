@@ -1,0 +1,122 @@
+{% extends "commerce/admin/layout.html" %}
+
+{% block content %}
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
+        <div class="card card-primary">
+          <div class="card-header">
+            <a href="{{ url_for('commerce_admin.brands_table') }}" class="btn btn-outline-primary">
+              <i data-feather="chevron-left"></i>
+            </a>
+            <h4>{{_('Brand')}}</h4>
+          </div>
+          <div class="card-body">
+            <form action='' method="POST" enctype="multipart/form-data">
+              {{ form.csrf_token() }}
+              <div class="row">
+                <div class="form-group col-6">
+                  <label>{{_('Name')}}</label>
+                  {{ form.BrandName(class="form-control",placeholder=_('Name'),autofocus=true) }} 
+                  {% if form.BrandName.errors %}
+                    <div class="invalid-feedback">
+                      {% for error in form.BrandName.errors %}
+                        <span>{{ error }}</span>
+                      {% endfor %}
+                    </div>
+                  {% endif %}
+                </div>
+                <div class="form-group col-6">
+                  <label>{{_('Description')}}</label>
+                  {{ form.BrandDesc(class="form-control",placeholder=_('Description')) }} 
+                  {% if form.BrandDesc.errors %}
+                    <div class="invalid-feedback">
+                      {% for error in form.BrandDesc.errors %}
+                        <span>{{ error }}</span>
+                      {% endfor %}
+                    </div>
+                  {% endif %}
+                </div>
+                <div class="form-group col-3">
+                  <label>{{_('Visible index')}}</label>
+                  <div class="input-group">
+                    {{ form.BrandVisibleIndex(class="form-control",placeholder='#') }}
+                  </div>
+                </div>
+                <div class="form-group col-3">
+                  <label>{{_('Featured')}}</label>
+                  <div class="input-group">
+                    {{_('Status')}}: {{ form.IsMain }}
+                  </div>
+                </div>
+                <div class="form-group col-6">
+                  <label>{{_('Logo')}}</label>
+                  <div class="custom-file">
+                    {{ form.Image(class="custom-file-input") }}
+                    {% if form.Image.errors %}
+                      {% for error in form.Image.errors %}
+                        <span class="text-danger">{{ error }}</span>
+                      {% endfor %}
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-6">
+                  <label>{{_('Link')}} 1</label>
+                  <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">@</div>
+                    </div>
+                    {{ form.BrandLink1(class="form-control",placeholder=_('Link')) }}
+                  </div>
+                </div>
+                <div class="form-group col-6">
+                  <label>{{_('Link')}} 2</label>
+                  <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">@</div>
+                    </div>
+                    {{ form.BrandLink2(class="form-control",placeholder=_('Link')) }}
+                  </div>
+                </div>
+                <div class="form-group col-6">
+                  <label>{{_('Link')}} 3</label>
+                  <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">@</div>
+                    </div>
+                    {{ form.BrandLink3(class="form-control",placeholder=_('Link')) }}
+                  </div>
+                </div>
+                <div class="form-group col-6">
+                  <label>{{_('Link')}} 4</label>
+                  <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">@</div>
+                    </div>
+                    {{ form.BrandLink4(class="form-control",placeholder=_('Link')) }}
+                  </div>
+                </div>
+                <div class="form-group col-6">
+                  <label>{{_('Link')}} 5</label>
+                  <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">@</div>
+                    </div>
+                    {{ form.BrandLink5(class="form-control",placeholder=_('Link')) }}
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-lg btn-block">
+                  {{_('Save')}}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

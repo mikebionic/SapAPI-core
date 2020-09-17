@@ -97,6 +97,31 @@ def ui_brand():
 					})
 	return response
 
+
+@bp.route('/ui/brands_table/', methods=['DELETE'])
+@login_required
+@ui_admin_required()
+def ui_brands_table():
+	if request.method == 'DELETE':
+		try:
+			req = request.get_json()
+			BrandId = req.get('brandId')
+			thisBrand = Brand.query.get(BrandId)
+			thisBrand.GCRecord = 1
+			db.session.commit()
+			response = jsonify({
+				"status": "deleted",
+				"responseText": thisBrand.BrandName+' '+gettext('successfully deleted'),
+				})
+		except Exception as ex:
+			print(ex)
+			response = jsonify({
+				"status": "error",
+				"responseText": gettext('Unknown error!'),
+				})
+	return response
+
+
 @bp.route('/ui/res_color/', methods=['POST','DELETE'])
 @login_required
 @ui_admin_required()

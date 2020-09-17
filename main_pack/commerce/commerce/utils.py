@@ -92,9 +92,7 @@ def UiBrandsList():
 		brand_info = brand.to_json_api()
 		List_Images = [image.to_json_api() for image in brand.Image if image.GCRecord == None]
 		brand_info['Images'] = List_Images if List_Images else []
-		brand_info["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=List_Images[-1]['FileName']) if List_Images else ''
-		brand_info["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=List_Images[-1]['FileName']) if List_Images else ''
-		brand_info["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_Images[-1]['FileName']) if List_Images else ''
+		brand_info["FilePath"] = fileToURL(file_type='image',file_name=List_Images[-1]['FileName']) if List_Images else ''
 		data.append(brand_info)
 	res = {
 		"message": "Brands",
