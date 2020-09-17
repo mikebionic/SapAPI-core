@@ -127,7 +127,7 @@
               </div>
       
               <!-- Category Menu -->
-              <nav class="category-menu" style="position: absolute;z-index: 99;">
+              <nav class="category-menu" style="position: absolute;z-index: 99; display: none;">
                 <ul>
                   {% for category in categories %}
                     <li><a href="{{url_for('commerce.v_grid',category = category.ResCatName)}}">{{category.ResCatName}}</a></li>

@@ -7114,6 +7114,14 @@ img.mfp-img {
         overflow: hidden;
         display: block;
         text-align: center; }
+        .ee-product .image .add-to-cart a {
+          font-size: 13px;
+          text-transform: uppercase;
+          font-weight: 700;
+          line-height: 21px;
+          overflow: hidden;
+          display: block;
+          text-align: center; }
       .ee-product .image .add-to-cart.added {
         padding-left: 25px;
         padding-right: 56px; }
@@ -12143,7 +12151,10 @@ ul.link-widget li {
 }   
 
 @media ( max-width: 478px) {
-  ..ee-product-list .content .left-content .actions .add-to-cart {
+  .ee-product-list .content .left-content .actions .add-to-cart {
       width: 205px;
   }
 }   
+.t_price{
+  display: flex;
+}

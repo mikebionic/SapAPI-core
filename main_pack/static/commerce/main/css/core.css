@@ -1650,7 +1650,8 @@
 }
 
 .wishlist-card .wishlist .wishlist-item .item-wrapper img {
-    height: 50vh;
+    height: 20vh;
+    width: 20vh;
 }
 
 .wishlist-card .wishlist .wishlist-item .item-wrapper .product-info span:first-child {

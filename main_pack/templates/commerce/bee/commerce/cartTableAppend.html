@@ -15,8 +15,10 @@
       <a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="resName">{{ resource.ResName if resource.ResName else '' }}</a>
     </td>
     <td class="pro-price">
-      <span class="price currencySymbol">{{ resource.CurrencyCode }} !!!</span>
-      <span class="priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue }}</span>
+      <div class="t_price">
+        <span class="price currencySymbol">{{ resource.CurrencyCode }} !!!</span>
+        <span class="priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue }}</span>
+      </div>
     </td>
     <td class="pro-quantity">
       <div class="pro-qty cartItemQty">
@@ -27,8 +29,10 @@
       </div>
     </td>
     <td class="pro-subtotal">
-      <span class="price currencySymbol">{{ resource.CurrencyCode }} !!!</span>
-      <span class="productTotalPrice" ownerId="{{resource.ResId}}" value="{{resource.productTotal}}">{{ resource.productTotal }}</span>
+      <div class="t_price">
+        <span class="price currencySymbol">{{ resource.CurrencyCode }} !!!</span>
+        <span class="productTotalPrice" ownerId="{{resource.ResId}}" value="{{resource.productTotal}}">{{ resource.productTotal }}</span>
+      </div>
     </td>
     <td class="pro-remove">
       <a href="#" class="removeFromCart" ownerId="{{resource.ResId}}"><i class="fa fa-trash-o"></i></a>

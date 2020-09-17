@@ -118,8 +118,23 @@
 										<p>{{ rating.RtRemark if rating.RtRemark else '' }}</p>
 									</div>
 								{% endfor %}
+
+								<div class="sin-rattings">
+									<div class="ratting-author">
+										<h3>MD.ZENAUL ISLAM</h3>
+										<div class="ratting-star">
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<span>(5)</span>
+										</div>
+									</div>
+									<p>enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia res eos qui ratione voluptatem sequi Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci veli</p>
+								</div>
+
 							</div>
-							
 							<div class="ratting-form-wrapper fix" ng-app>
 								{% if current_user.is_authenticated %}
 									<h3>{{_('Submit your review')}}</h3>
