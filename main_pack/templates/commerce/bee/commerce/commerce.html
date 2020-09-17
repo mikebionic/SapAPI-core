@@ -27,7 +27,7 @@
 
 									<!-- Hero Image -->
 									<div class="hero-image col">
-										 <img src="{{ url_for('static', filename='commerce/bee/images/hero/hero-1.png') }}" alt="Hero Image">
+										 <img loading="lazy" src="{{ url_for('static', filename='commerce/bee/images/hero/hero-1.png') }}" alt="Hero Image">
 									</div>
 							
 							</div>     
@@ -49,7 +49,7 @@
 
 									<!-- Hero Image -->
 									<div class="hero-image col">
-										 <img src="{{ url_for('static', filename='commerce/bee/images/hero/hero-2.png') }}" alt="Hero Image">
+										 <img loading="lazy" src="{{ url_for('static', filename='commerce/bee/images/hero/hero-2.png') }}" alt="Hero Image">
 									</div>
 							
 							</div>     
@@ -71,7 +71,7 @@
 
 									<!-- Hero Image -->
 									<div class="hero-image col">
-										 <img src="{{ url_for('static', filename='commerce/bee/images/hero/hero-3.png') }}" alt="Hero Image">
+										 <img loading="lazy" src="{{ url_for('static', filename='commerce/bee/images/hero/hero-3.png') }}" alt="Hero Image">
 									</div>
 							
 							</div>     
@@ -91,61 +91,19 @@
 				<div class="product-slider-wrap product-slider-arrow-one">
 					<!-- Product Slider Start -->
 					<div class="product-slider product-slider-4">
-
-						<div class="col pb-20 pt-10">
-							<!-- Product Start -->
-							<a href="#" class="cat-block">
-								<figure>
-									<span>
-										<img src="{{ url_for('static', filename='commerce/bee/images/brands/brand-1.png') }}" alt="Category image">
-									</span>
-								</figure> 
-							</a>
-						</div>
-
-									<div class="col pb-20 pt-10">
-											<!-- Product Start -->
-											<a href="#" class="cat-block">
-												<figure>
-														<span>
-																<img src="{{ url_for('static', filename='commerce/bee/images/brands/brand-2.png') }}" alt="Category image">
-														</span>
-												</figure>
-											</a>
-									</div>
-
-									<div class="col pb-20 pt-10">
-											<!-- Product Start -->
-											<a href="#" class="cat-block">
-												<figure>
-														<span>
-																<img src="{{ url_for('static', filename='commerce/bee/images/brands/brand-3.png') }}" alt="Category image">
-														</span>
-												</figure>
-											</a>
-									</div>
-
-									<div class="col pb-20 pt-10">
-											<!-- Product Start -->
-											<a href="#" class="cat-block">
-												<figure>
-														<span>
-																<img src="{{ url_for('static', filename='commerce/bee/images/brands/brand-4.png') }}" alt="Category image">
-														</span>
-												</figure>
-											</a>
-									</div>
-
-									<div class="col pb-20 pt-10">
-											<!-- Product Start -->
-											<a href="#" class="cat-block">
-												<figure>
-														<span>
-																<img src="{{ url_for('static', filename='commerce/bee/images/brands/brand-5.png') }}" alt="Category image">
-														</span>
-												</figure>
-											</a>
-									</div>
+						{% for brand in Brands %}
+							{% if brand.FilePath %}
+								<div class="col pb-20 pt-10">
+									<a href="{{brand.BrandLink1 if brand.BrandLink1 else '#'}}" class="cat-block">
+										<figure>
+											<span>
+												<img loading="lazy" src="{{brand.FilePath if brand.FilePath}}">
+											</span>
+										</figure> 
+									</a>
+								</div>
+							{% endif %}
+						{% endfor %}
 					</div><!-- Product Slider End -->
 				</div><!-- Product Slider Wrap End -->
 			</div><!-- Product Tab Content End -->
