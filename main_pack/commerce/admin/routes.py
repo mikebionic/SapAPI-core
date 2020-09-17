@@ -15,9 +15,13 @@ from flask_login import current_user,login_required
 from main_pack.commerce.auth.utils import ui_admin_required
 # / auth and validation /
 
+# Company and Brand
+from main_pack.models.base.models import Company
+from main_pack.commerce.commerce.utils import UiBrandsList
+# / Company and Brand /
+
 # Resource and view
 from main_pack.api.commerce.commerce_utils import apiResourceInfo
-from main_pack.commerce.commerce.utils import commonUsedData
 from main_pack.commerce.admin.utils import resRelatedData
 # / Resource and view /
 
@@ -66,9 +70,9 @@ def dashboard():
 @login_required
 @ui_admin_required()
 def company():
-	commonData = commonUsedData()
+	company = Company.query.get(1)
 	return render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"company.html",url_prefix=url_prefix,
-		**commonData,title=gettext('Company'))
+		company = company,title=gettext('Company'))
 
 
 @bp.route("/admin/category_table")
@@ -459,9 +463,9 @@ def sale_repots_table2():
 @login_required
 @ui_admin_required()
 def brands_table():
-	brands = Brand.query.filter_by(GCRecord = None).all()
+	res = UiBrandsList()
 	return render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"brands_table.html",url_prefix=url_prefix,
-		**data,title=gettext('Brands'))
+		**res,title=gettext('Brands'))
 
 
 @bp.route("/admin/register_brand",methods=['GET','POST'])

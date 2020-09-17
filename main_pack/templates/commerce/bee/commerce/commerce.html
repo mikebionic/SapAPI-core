@@ -243,7 +243,6 @@
 
 					<!-- Product Tab List -->
 					<ul class="nav product-tab-list">
-						<li><a class="active" data-toggle="tab" href=".allTabs">all</a></li>
 						{% for category in Featured_categories %}
 							<li><a data-toggle="tab" href="#tab-{{category.ResCatId}}">{{category.ResCatName}}</a></li>
 						{% endfor %}
@@ -308,8 +307,8 @@
 															<p>{{ resource.CurrencyCode }}</p>
 															<div class="priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue }}</div>
 														</h5>
-														<input type="hidden" class="ratingValue" value="{{ resource.RtRatingValue }}" ownerId="{{ resource.ResId }}">
-														<div class="ratting ratingStars" ownerId="{{ resource.ResId }}"></div>
+														<input type="hidden" class="ratingValue" value="{{ resource.RtRatingValue }}" ownerId="featured{{ resource.ResId }}">
+														<div class="ratting ratingStars" ownerId="featured{{ resource.ResId }}"></div>
 													</div>
 												</div>
 											</div><!-- Product End -->

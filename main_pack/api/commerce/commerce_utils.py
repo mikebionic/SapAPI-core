@@ -3,7 +3,6 @@ from flask import jsonify,request,abort,make_response
 from main_pack.config import Config
 
 # functions and methods
-from main_pack.base.invoiceMethods import resource_config_check
 from main_pack.base.apiMethods import checkApiResponseStatus,fileToURL
 # functions and methods
 
@@ -92,7 +91,7 @@ def apiResourceInfo(resource_list = None,
 
 			resources = Resource.query\
 				.filter_by(**resource_filtering)
-			if Config.SHOW_NEGATIVE_WH_QTY_RESOURCE == True:
+			if Config.SHOW_NEGATIVE_WH_QTY_RESOURCE == False:
 				resources = resources\
 					.join(Res_total, Res_total.ResId == Resource.ResId)\
 					.filter(and_(
@@ -102,7 +101,7 @@ def apiResourceInfo(resource_list = None,
 			if showLatest == True:
 				resources = resources\
 					.order_by(Resource.CreatedDate.desc())\
-					.limit(Config.RESOURCE_MAIN_PAGE_SHOW_QTY+1)
+					.limit(Config.RESOURCE_MAIN_PAGE_SHOW_QTY)
 
 			if showRated == True:
 				resources = resources\
@@ -116,8 +115,8 @@ def apiResourceInfo(resource_list = None,
 			resources = resources.all()
 
 			for resource in resources:
-				if resource_config_check(resource):
-					resource_models.append(resource)
+				resource_models.append(resource)
+
 		else:
 			for resource_index in resource_list:
 				ResId = int(resource_index["ResId"])
@@ -131,7 +130,7 @@ def apiResourceInfo(resource_list = None,
 				resource = Resource.query\
 					.filter_by(**resource_filtering)
 				
-				if Config.SHOW_NEGATIVE_WH_QTY_RESOURCE == True:
+				if Config.SHOW_NEGATIVE_WH_QTY_RESOURCE == False:
 					resource = resource\
 						.join(Res_total, Res_total.ResId == Resource.ResId)\
 						.filter(and_(
@@ -141,8 +140,7 @@ def apiResourceInfo(resource_list = None,
 				resource = resource.first()
 				
 				if resource:
-					if resource_config_check(resource):
-						resource_models.append(resource)
+					resource_models.append(resource)
 		
 	data = []
 	fails = []
@@ -271,6 +269,49 @@ def apiResourceInfo(resource_list = None,
 	for e in status:
 		res[e] = status[e]
 	return res
+
+def apiFeaturedResCat_Resources():
+	featured_resources = Resource.query\
+		.filter_by(GCRecord = None)
+	if Config.SHOW_NEGATIVE_WH_QTY_RESOURCE == False:
+		featured_resources = featured_resources.join(Res_total, Res_total.ResId == Resource.ResId)\
+			.filter(and_(
+				Res_total.WhId == 1, 
+			Res_total.ResTotBalance > 0))
+
+	featured_resources = featured_resources\
+		.outerjoin(Res_category, Res_category.ResCatId == Resource.ResCatId)\
+		.filter(Res_category.GCRecord == None)\
+		.filter(Res_category.IsMain == True)\
+		.order_by(Resource.CreatedDate.desc())\
+		.limit(50)\
+		.all()
+	resource_models = [resource for resource in featured_resources if featured_resources]
+	featured_resources = apiResourceInfo(resource_models = resource_models)
+
+	featured_categories = Res_category.query\
+		.filter_by(GCRecord = None)\
+		.filter(Res_category.IsMain == True)\
+		.all()
+
+	data = []
+	if featured_categories:
+		for category in featured_categories:
+			featured_category = category.to_json_api()
+			resources_list = []
+			for resource in featured_resources['data']:
+				if resource['ResCatId'] == category.ResCatId:
+					resources_list.append(resource)
+			featured_category['Resources'] = resources_list
+			data.append(featured_category)
+
+	res = {
+		"status": 1,
+		"data": data,
+		"total": len(data)
+	}
+	return res
+
 
 def UiCartResourceData(product_list,fullInfo=False,showRelated=False):
 	res = apiResourceInfo(product_list,fullInfo=fullInfo,showRelated=showRelated)

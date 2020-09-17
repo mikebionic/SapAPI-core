@@ -188,27 +188,11 @@
   </div>
 
   <!-- Mini Cart Products -->
-  <ul class="mini-cart-products cartItemsList">
-    <li>
-      <a class="image"><img loading="lazy" src="{{ url_for('static', filename='commerce/bee/images/product/product-1.png') }}" alt="Product"></a>
-      <div class="content">
-        <a href="single-product.html" class="title">Waxon Note Book Pro 5</a>
-        <span class="price">{{_('Price')}}: $295</span>
-        <div class="quantity-colors">
-          <div class="quantity">
-            <div class="pro-qty cartItemQty">
-              <input class="productQty" type="text" value="1">
-            </div>
-          </div>
-        </div>
-      </div>
-      <button class="remove"><i class="fa fa-trash-o"></i></button>
-    </li>
-  </ul>
+  <ul class="mini-cart-products cartItemsList"></ul>
 
   <!-- Mini Cart Bottom -->
   <div class="mini-cart-bottom">
-    <h4 class="sub-total">{{_('Total')}}: <span class="cartTotalPrice">$1160</span></h4>
+    <h4 class="sub-total">{{_('Total')}}: <span class="cartTotalPrice">0.0</span></h4>
     <div class="button">
       <a href="{{url_for('commerce.cart')}}">{{_('Checkout')}}</a>
     </div>
