@@ -7162,7 +7162,8 @@ img.mfp-img {
       display: flex;
       -ms-flex-wrap: wrap;
       flex-wrap: wrap; 
-      height: 65px;
+      height: 100px;
+      overflow: hidden;
       }
       .ee-product .content .category-title .cat {
         display: inline-block;
