@@ -43,12 +43,24 @@ var categoryMenu = $('.category-menu');
 *  Category Menu Default Close for Mobile & Tablet Device
 *  And Open for Desktop Device and Above
 */
+
+
 function categoryMenuToggle() {
     var screenSize = windows.width();
-    if ( screenSize <= 991) {
+    if (screenSize <= 991) {
         categoryMenu.slideUp();
-    } else {
-        categoryMenu.slideDown();
+    }
+    else{
+        var pathnames = ['/commerce','/commerce/','/commerce/commerce','/commerce/commerce/','/main','/commerce/main','/main/','/commerce/main/','/','/index']
+        var current_path = location.pathname;
+        pathnames.forEach(function (item, index) {
+            if (item == current_path){
+                categoryMenu.slideDown();
+            }
+        });
+        if (document.body.scrollTop > 13) {
+            categoryMenu.slideUp();
+        }
     }
 }
 
@@ -159,8 +171,8 @@ closeCart.on('click', function(e){
 var heroSlider = $('.hero-slider');
 heroSlider.slick({
     arrows: true,
-    autoplay: false,
-    autoplaySpeed: 5000,
+    autoplay: true,
+    autoplaySpeed: 6000,
     dots: true,
     pauseOnFocus: false,
     pauseOnHover: false,
@@ -699,68 +711,69 @@ $(document).ready(function(){
     
   })
 
-//Input min
-var selectMin = document.getElementById('input-min');
+// //Input min
+// var selectMin = document.getElementById('input-min');
 
-// Append the option elements
-for (var i = 1; i <= 5; i++) {
+// // Append the option elements
+// for (var i = 1; i <= 5; i++) {
 
-  var option = document.createElement("option");
-  option.text = i;
-  option.value = i;
+//   var option = document.createElement("option");
+//   option.text = i;
+//   option.value = i;
 
-  selectMin.appendChild(option);
-}
-//Input max
-var selectMax = document.getElementById('input-max');
+//   // selectMin.appendChild(option);
+// }
+// //Input max
+// var selectMax = document.getElementById('input-max');
 
-// Append the option elements
-for (var i = 1; i <= 5; i++) {
+// // Append the option elements
+// for (var i = 1; i <= 5; i++) {
 
-  var option = document.createElement("option");
-  option.text = i;
-  option.value = i;
+//   var option = document.createElement("option");
+//   option.text = i;
+//   option.value = i;
 
-  selectMax.appendChild(option);
-}
+//   selectMax.appendChild(option);
+// }
+///////////////////////
 //Slider
-var html5Slider = document.getElementById('star-rating-slider');
+// var html5Slider = document.getElementById('star-rating-slider');
 
-noUiSlider.create(html5Slider, {
-  start: [1, 5],
-  connect: true,
-  step: 1,
-  range: {
-    'min': 1,
-    'max': 5
-  }
-});
+// noUiSlider.create(html5Slider, {
+//   start: [1, 5],
+//   connect: true,
+//   step: 1,
+//   range: {
+//     'min': 1,
+//     'max': 5
+//   }
+// });
 
-//link option and slider
-html5Slider.noUiSlider.on('update', function(values, handle) {
+// //link option and slider
+// html5Slider.noUiSlider.on('update', function(values, handle) {
 
-  var value = values[handle];
+//   var value = values[handle];
 
-  if (handle) {
-    selectMax.value = Math.round(value);
+//   if (handle) {
+//     selectMax.value = Math.round(value);
 
-    angular.element(selectMax).triggerHandler('change');
-  } else {
-    selectMin.value = Math.round(value);
+//     angular.element(selectMax).triggerHandler('change');
+//   } else {
+//     selectMin.value = Math.round(value);
 
-    angular.element(selectMin).triggerHandler('change');
-  }
-});
+//     angular.element(selectMin).triggerHandler('change');
+//   }
+// });
 
-selectMin.addEventListener('change', function() {
-  html5Slider.noUiSlider.set([this.value, null]);
-});
-selectMax.addEventListener('change', function() {
-  html5Slider.noUiSlider.set([null, this.value]);
-});
+// selectMin.addEventListener('change', function() {
+//   html5Slider.noUiSlider.set([this.value, null]);
+// });
+// selectMax.addEventListener('change', function() {
+//   html5Slider.noUiSlider.set([null, this.value]);
+// });
 
-$('#stars .fa-star').click(function() {
+// $('#stars .fa-star').click(function() {
 
-  setTimeout("html5Slider.noUiSlider.set([null, selectMax.value]);", 100);
+//   setTimeout("html5Slider.noUiSlider.set([null, selectMax.value]);", 100);
 
-});  
+// });  

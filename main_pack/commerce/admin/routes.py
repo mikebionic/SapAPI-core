@@ -488,7 +488,7 @@ def manage_brand():
 			brand_data = {
 				"BrandName": form.BrandName.data,
 				"BrandDesc": form.BrandDesc.data,
-				"BrandVisibleIndex": form.BrandVisibleIndex.data,
+				"BrandVisibleIndex": form.BrandVisibleIndex.data if isinstance(form.BrandVisibleIndex.data,int) else None,
 				"IsMain": form.IsMain.data,
 				"BrandLink1": form.BrandLink1.data,
 				"BrandLink2": form.BrandLink2.data,

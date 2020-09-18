@@ -36,19 +36,9 @@
   <div class="header-top header-top-one header-top-border pt-10 pb-10">
     <div class="container">
       <div class="row align-items-center justify-content-between">
-
-        <div class="col mt-10 mb-10" style="display: flex;">
-          <!-- Header Links Start -->
-          <div class="header-links">
-            <a href="{{ url_for('commerce_users.orders') }}"><img loading="lazy" src="{{ url_for('static', filename='commerce/bee/images/icons/car.png') }}" alt="Car Icon"> <span>Track your order</span></a>
-          </div><!-- Header Links End -->
-          
-        </div>
-
         <div class="col order-12 order-xs-12 order-lg-2 mt-10 mb-10">
           <!-- Header Advance Search Start -->
           <div class="header-advance-search">
-
             <form action="{{ url_for('commerce.resources_grid_search') }}">
               <div class="input"><input type="text" name="tag" placeholder="{{_('Search')}}"></div>
               <div class="submit"><button><i class="icofont icofont-search-alt-1"></i></button></div>
@@ -56,46 +46,44 @@
 
           </div><!-- Header Advance Search End -->
         </div>
-        <div class="col order-12 order-xs-12 order-lg-2 mt-10 mb-10">
-          <!-- Header Account Links Start -->
-          <div class="header-account-links" style="display:flex;">
-            <li class="dropdown" style="margin-top: -7px;list-style: none; position: inherit;">
-              <a href="#" class="nav-link nav-link-lg message-toggle" data-toggle="dropdown">
-                <i class="fa fa-globe" style="font-size: 25px; color: #a6a6a6;"></i>
-                <span class="badge headerBadge1" style="background: #f5d730; border-radius: 50px;">{{ session['language'] }}</span>
-              </a>
-              <ul class="dropdown-menu slideUp2">
-                <li class="body">
-                  <ul class="menu list-unstyled">
-                    <li>
-                      <a href="{{ url_for('main.set_language',language='en') }}" class="dropdown-item">
-                        <img src="{{ url_for('static', filename='commerce/main/images/us.svg') }}" style="width: 30px">
-                        English language
-                      </a>
-                      <div class="dropdown-divider"></div>
-                      <a href="{{ url_for('main.set_language',language='tk') }}" class="dropdown-item">
-                        <img loading="lazy" src="{{ url_for('static', filename='commerce/main/images/tm.svg') }}" style="width: 30px">
-                        Türkmen dili
-                      </a>
-                      <div class="dropdown-divider"></div>
-                      <a href="{{ url_for('main.set_language',language='ru') }}" class="dropdown-item">
-                        <img loading="lazy" src="{{ url_for('static', filename='commerce/main/images/ru.svg') }}" style="width: 30px">
-                        Русский язык
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-            {% if current_user.is_authenticated %}
-              <a href="{{ url_for('commerce_users.profile') }}"><i class="icofont icofont-user-alt-7"></i> <span>{{_('My profile')}}</span></a>
-              <a href="{{ url_for('commerce_auth.logout') }}"><i class="icofont icofont-login d-none"></i> <span>{{_('Log out')}}</span></a>
-            {% else %}
-              <a href="{{ url_for('commerce_auth.login') }}"><i class="icofont icofont-login d-none"></i> <span>{{_('Login')}}</span></a>
-              <a href="{{ url_for('commerce_auth.register') }}"><i class="icofont icofont-login d-none"></i> <span>{{_('Register')}}</span></a>
-            {% endif %}
-          </div><!-- Header Account Links End -->
-        </div>
+        <!-- Header Account Links Start -->
+        <div class="header-account-links" style="display:flex;">
+          <li class="dropdown" style="margin-top: -7px;list-style: none; position: inherit;">
+            <a href="#" class="nav-link nav-link-lg message-toggle" data-toggle="dropdown">
+              <i class="fa fa-globe" style="font-size: 25px; color: #a6a6a6;"></i>
+              <span class="badge headerBadge1" style="background: #f5d730; border-radius: 50px;">{{ session['language'] }}</span>
+            </a>
+            <ul class="dropdown-menu slideUp2">
+              <li class="body">
+                <ul class="menu list-unstyled">
+                  <li>
+                    <a href="{{ url_for('main.set_language',language='en') }}" class="dropdown-item">
+                      <img src="{{ url_for('static', filename='commerce/main/images/us.svg') }}" style="width: 30px">
+                      English language
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="{{ url_for('main.set_language',language='tk') }}" class="dropdown-item">
+                      <img loading="lazy" src="{{ url_for('static', filename='commerce/main/images/tm.svg') }}" style="width: 30px">
+                      Türkmen dili
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="{{ url_for('main.set_language',language='ru') }}" class="dropdown-item">
+                      <img loading="lazy" src="{{ url_for('static', filename='commerce/main/images/ru.svg') }}" style="width: 30px">
+                      Русский язык
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          {% if current_user.is_authenticated %}
+            <a href="{{ url_for('commerce_users.profile') }}"><i class="icofont icofont-user-alt-7"></i> <span>{{_('My profile')}}</span></a>
+            <a href="{{ url_for('commerce_auth.logout') }}"><i class="icofont icofont-login d-none"></i> <span>{{_('Log out')}}</span></a>
+          {% else %}
+            <a href="{{ url_for('commerce_auth.login') }}"><i class="icofont icofont-login d-none"></i> <span>{{_('Login')}}</span></a>
+            <a href="{{ url_for('commerce_auth.register') }}"><i class="icofont icofont-login d-none"></i> <span>{{_('Register')}}</span></a>
+          {% endif %}
+        </div><!-- Header Account Links End -->
 
       </div>
     </div>
@@ -123,7 +111,7 @@
               <!-- Category Toggle Wrap -->
               <div class="category-toggle-wrap">
                 <!-- Category Toggle -->
-                <button class="category-toggle">Categories <i class="ti-menu"></i></button>
+                <button class="category-toggle" style="font-size : 80%;">{{_('Categories')}} <i class="ti-menu"></i></button>
               </div>
       
               <!-- Category Menu -->

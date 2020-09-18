@@ -30,9 +30,12 @@ def slidersData():
 			.all()
 		List_sl_images = []
 		for sl_image in sl_images:
-			if (sl_image.SlImgStartDate<=datetime.now()):
-				if (sl_image.SlImgEndDate and sl_image.SlImgEndDate>datetime.now()):
-					List_sl_images.append(sl_image.to_json_api())
+			if sl_image.SlImgEndDate:
+				if (sl_image.SlImgStartDate<=datetime.now()):
+					if (sl_image.SlImgEndDate and sl_image.SlImgEndDate>datetime.now()):
+						List_sl_images.append(sl_image.to_json_api())
+			else:
+				List_sl_images.append(sl_image.to_json_api())
 		List_sliders['Sl_images'] = List_sl_images
 
 		data.append(List_sliders)
