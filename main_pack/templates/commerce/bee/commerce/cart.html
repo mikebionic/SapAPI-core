@@ -27,7 +27,7 @@
 
 				<div class="row">
 					{% if current_user.is_authenticated %}
-						<!-- <div class="col-lg-6 col-12 mb-15">
+						<div class="col-lg-6 col-12 mb-15">
 							<div class="discount-coupon">
 								<h4>{{_('Note')}}</h4>
 								<div class="row">
@@ -35,54 +35,6 @@
 										<textarea type="text" class="orderDesc" placeholder="{{_('Description')}} ({{_('City')}}, {{_('Av.')}}, {{_('Street')}}, {{_('House')}}, {{_('Flat')}})"></textarea>
 									</div>
 								</div>
-							</div>
-						</div> -->
-						<div class="col-lg-6 col-12 mb-15">
-							<!-- Calculate Shipping -->
-							<div class="calculate-shipping">
-									<h4>Calculate Shipping</h4>
-									<form action="#">
-											<div class="row">
-													<div class="col-md-6 col-12 mb-25">
-															<select class="nice-select">
-																	<option>Bangladesh</option>
-																	<option>China</option>
-																	<option>country</option>
-																	<option>India</option>
-																	<option>Japan</option>
-															</select>
-													</div>
-													<div class="col-md-6 col-12 mb-25">
-															<select class="nice-select">
-																	<option>Dhaka</option>
-																	<option>Barisal</option>
-																	<option>Khulna</option>
-																	<option>Comilla</option>
-																	<option>Chittagong</option>
-															</select>
-													</div>
-													<div class="col-md-6 col-12 mb-25">
-															<input type="text" placeholder="Postcode / Zip">
-													</div>
-													<div class="col-md-6 col-12 mb-25">
-															<input type="submit" value="Estimate">
-													</div>
-											</div>
-									</form>
-							</div>
-							<!-- Discount Coupon -->
-							<div class="discount-coupon">
-									<h4>Discount Coupon Code</h4>
-									<form action="#">
-											<div class="row">
-													<div class="col-md-6 col-12 mb-25">
-															<input type="text" placeholder="Coupon Code">
-													</div>
-													<div class="col-md-6 col-12 mb-25">
-															<input type="submit" value="Apply Code">
-													</div>
-											</div>
-									</form>
 							</div>
 						</div>
 						<!-- Cart Summary -->
@@ -103,13 +55,17 @@
 						</div>
 					{% else %}
 						<div class="col-lg-6 col-12 mb-40 d-flex">
-							<div class="cart-summary">
-								<div class="cart-summary-wrap">
-			            <h4>{{_('You should login if you want to checkout an order')}}!</h4>
-								</div>
-		            <div class="cart-summary-button">
-		              <a href="{{ url_for('commerce_auth.login') }}" class="checkout-btn">{{_('Login')}}</a>
-		            </div>
+							<div class="header-advance-search" style="width: 70%;">
+                        
+								<form action="{{ url_for('commerce_auth.login') }}">
+										<div class="input" style="width: 75%;">
+											<input type="text" value="{{_('You should login if you want to checkout an order')}}!">
+										</div>
+										<div class="submit" style="float: right;">
+											<button><i class="icofont icofont-login"></i></button>
+										</div>
+								</form>
+								
 							</div>
 						</div>
           {% endif %}

@@ -87,16 +87,11 @@
 											<i class="ti-heart"></i>
 										</a>
 									</div>
+								{% endif %}	
 									<a href="#" class="add-to-cart" ownerId="{{ resource.ResId }}">
 										<i class="ti-shopping-cart"></i>
 										<span>{{_('Add to cart')}}</span>
 									</a>
-								{% else %}
-									<div class="add-to-cart" onmousedown="javascript:location.replace('{{ url_for('commerce_auth.register') }}');">
-										<i class="ti-shopping-cart"></i>
-										<a href="#" onclick="javascript:event.stopPropagation();">{{_('Add to cart')}}</a>
-									</div>
-								{% endif %}
 							</div>
 
 							<!-- Content -->

@@ -93,11 +93,11 @@
 					<div class="product-slider product-slider-4">
 						{% for brand in Brands %}
 							{% if brand.FilePath %}
-								<div class="col pb-20 pt-10">
+								<div class="col pb-20 pt-10" style="padding-top: 25px;">
 									<a href="{{brand.BrandLink1 if brand.BrandLink1 else '#'}}" class="cat-block">
 										<figure>
 											<span>
-												<img loading="lazy" src="{{brand.FilePath if brand.FilePath}}">
+												<img loading="lazy" src="{{brand.FilePath if brand.FilePath}}" style="height: 100px;">
 											</span>
 										</figure> 
 									</a>
@@ -125,7 +125,7 @@
 			<div class="col-12">
 				<div class="row">
 					{% for resource in Latest_resources %}
-						<div class="col-xl-3 col-lg-4 col-md-4 col-6 pb-30 pt-10">
+						<div class="col-xl-3 col-lg-4 col-md-4 col-12 pb-30 pt-10">
 							<div class="ee-product">
 								<div class="image">
 									{% if resource.New %}
@@ -147,16 +147,11 @@
 											</a>
 										</div>
 									
+									{% endif %}
 									<a href="#" class="add-to-cart" ownerId="{{ resource.ResId }}">
 										<i class="ti-shopping-cart"></i>
 										<span>{{_('Add to cart')}}</span>
 									</a>
-									{% else %}
-									<div class="add-to-cart" onmousedown="javascript:location.replace('{{ url_for('commerce_auth.register') }}');">
-										<i class="ti-shopping-cart"></i>
-										<a href="#" onclick="javascript:event.stopPropagation();">{{_('Add to cart')}}</a>
-									</div>
-									{% endif %}
 								</div>
 
 								<!-- Content -->
@@ -246,16 +241,11 @@
 																<i class="ti-heart"></i>
 															</a>
 														</div>
+													{% endif %}	
 														<a href="#" class="add-to-cart" ownerId="{{ resource.ResId }}">
 															<i class="ti-shopping-cart"></i>
 															<span>{{_('Add to cart')}}</span>
 														</a>
-													{% else %}
-														<div class="add-to-cart" onmousedown="javascript:location.replace('{{ url_for('commerce_auth.register') }}');">
-															<i class="ti-shopping-cart"></i>
-															<a href="#" onclick="javascript:event.stopPropagation();">{{_('Add to cart')}}</a>
-														</div>
-													{% endif %}
 												</div>
 
 												<!-- Content -->

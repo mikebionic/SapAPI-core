@@ -14,7 +14,7 @@
 							<div id="single-image-1" class="tab-pane fade show active big-image-slider">
 								{% for image in resource.Images %}
 								<div class="big-image">
-									<img loading="lazy" src="{{image.FilePathM}}" class="big-image-popup">
+									<img loading="lazy" src="{{image.FilePathM}}">
 									<a href="{{image.FilePathM}}" class="big-image-popup">
 										<i class="fa fa-search-plus"></i>
 									</a>
@@ -206,16 +206,11 @@
 													<i class="ti-heart"></i>
 												</a>
 											</div>
+										{% endif %}	
 											<a href="#" class="add-to-cart" ownerId="{{ resource.ResId }}">
 												<i class="ti-shopping-cart"></i>
 												<span>{{_('Add to cart')}}</span>
 											</a>
-										{% else %}
-											<div class="add-to-cart" onmousedown="javascript:location.replace('{{ url_for('commerce_auth.register') }}');">
-												<i class="ti-shopping-cart"></i>
-												<a href="#" onclick="javascript:event.stopPropagation();">{{_('Add to cart')}}</a>
-											</div>
-										{% endif %}
 									</div>
 
 									<!-- Content -->
