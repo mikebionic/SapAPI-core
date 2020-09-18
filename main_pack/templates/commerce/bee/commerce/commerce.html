@@ -10,75 +10,26 @@
 		<div class="row">
 			<div class="col"><!-- Hero Slider Start -->
 				<div class="hero-slider hero-slider-one">
-
-					<!-- Hero Item Start -->
-					<div class="hero-item">
-							<div class="row align-items-center justify-content-between">
-
-									<!-- Hero Content -->
+					{% for slider in sliders %}
+					{% if slider.SlName == "commerce_header" %}
+						{% for sl_image in slider.Sl_images %}
+						{% if sl_image.SlImgMainImgFilePathM %}
+							<div class="hero-item">
+								<div class="row align-items-center justify-content-between">
 									<div class="hero-content col">
-
-											<h2>HURRY UP!</h2>
-											<h1><span>uPhone X</span></h1>
-											<h1>IT’S <span class="big">29%</span> OFF</h1>
-											<a href="#">get it now</a>
-
+										<h2>{{ sl_image.SlImgTitle if sl_image.SlImgTitle else '' }}</h2>
+										<h3>{{ sl_image.SlImgDesc if sl_image.SlImgDesc else '' }}</h3>
 									</div>
-
-									<!-- Hero Image -->
 									<div class="hero-image col">
-										 <img loading="lazy" src="{{ url_for('static', filename='commerce/bee/images/hero/hero-1.png') }}" alt="Hero Image">
+										<img loading="lazy" src="{{ sl_image.SlImgMainImgFilePathM }}">
 									</div>
-							
-							</div>     
-					</div><!-- Hero Item End -->
-
-					<!-- Hero Item Start -->
-					<div class="hero-item">
-							<div class="row align-items-center justify-content-between">
-
-									<!-- Hero Content -->
-									<div class="hero-content col">
-
-											<h2>HURRY UP!</h2>
-											<h1><span>GL G6</span></h1>
-											<h1>IT’S <span class="big">35%</span> OFF</h1>
-											<a href="#">get it now</a>
-
-									</div>
-
-									<!-- Hero Image -->
-									<div class="hero-image col">
-										 <img loading="lazy" src="{{ url_for('static', filename='commerce/bee/images/hero/hero-2.png') }}" alt="Hero Image">
-									</div>
-							
-							</div>     
-					</div><!-- Hero Item End -->
-
-					<!-- Hero Item Start -->
-					<div class="hero-item">
-							<div class="row align-items-center justify-content-between">
-
-									<!-- Hero Content -->
-									<div class="hero-content col">
-
-											<h2>HURRY UP!</h2>
-											<h1><span>MSVII Case</span></h1>
-											<h1>IT’S <span class="big">15%</span> OFF</h1>
-											<a href="#">get it now</a>
-
-									</div>
-
-									<!-- Hero Image -->
-									<div class="hero-image col">
-										 <img loading="lazy" src="{{ url_for('static', filename='commerce/bee/images/hero/hero-3.png') }}" alt="Hero Image">
-									</div>
-							
-							</div>     
-					</div><!-- Hero Item End -->
-
-			</div><!-- Hero Slider End -->
-
+								</div>     
+							</div><!-- Hero Item End -->
+						{% endif %}
+						{% endfor %}
+					{% endif %}
+					{% endfor %}
+				</div><!-- Hero Slider End -->
 			</div>
 		</div>
 	</div>
@@ -99,7 +50,8 @@
 											<span>
 												<img loading="lazy" src="{{brand.FilePath if brand.FilePath}}" style="height: 100px;">
 											</span>
-										</figure> 
+										</figure>
+										<h3 class="cat-block-title">{{brand.BrandName}}</h3>
 									</a>
 								</div>
 							{% endif %}
@@ -288,18 +240,26 @@
 
 
 <!-- Banner Section Start -->
+{% for slider in sliders %}
+{% if slider.SlName == "commerce_footer" %}
 <div class="banner-section section mb-90">
 	<div class="container">
 		<div class="row">
-
-			<!-- Banner -->
-			<div class="col-12">
-				<div class="banner"><a href="#"><img loading="lazy" src="{{ url_for('static', filename='commerce/bee/images/banner/banner-3.jpg') }}"></a></div>
-			</div>
-
+			{% for sl_image in slider.Sl_images %}
+			{% if sl_image.SlImgMainImgFilePathM %}
+				<!-- Banner -->
+				<div class="col-12">
+					<div class="banner"><a href="#"><img loading="lazy" src="{{ sl_image.SlImgMainImgFilePathM }}"></a></div>
+				</div>
+			{% endif %}
+			{% endfor %}
 		</div>
 	</div>
 </div><!-- Banner Section End -->
+{% endif %}
+{% endfor %}
+
+
 
 
 <!-- Feature Section Start -->
