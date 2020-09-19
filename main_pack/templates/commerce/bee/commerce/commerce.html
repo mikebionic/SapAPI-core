@@ -18,10 +18,10 @@
 								<div class="row align-items-center justify-content-between">
 									<div class="hero-content col">
 										<h2>{{ sl_image.SlImgTitle if sl_image.SlImgTitle else '' }}</h2>
-										<h3>{{ sl_image.SlImgDesc if sl_image.SlImgDesc else '' }}</h3>
+										<h2><span style="font-weight: 900;">{{ sl_image.SlImgDesc if sl_image.SlImgDesc else '' }}</span></h2>
 									</div>
 									<div class="hero-image col">
-										<img loading="lazy" src="{{ sl_image.SlImgMainImgFilePathM }}">
+										<img loading="lazy" src="{{ sl_image.SlImgMainImgFilePathM }}" style="height: 350px; width: 300px;">
 									</div>
 								</div>     
 							</div><!-- Hero Item End -->
@@ -44,7 +44,7 @@
 					<div class="product-slider product-slider-4">
 						{% for brand in Brands %}
 							{% if brand.FilePath %}
-								<div class="col pb-20 pt-10" style="padding-top: 25px;">
+								<div class="col pb-20 pt-10" style="padding-top: 65px;">
 									<a href="{{brand.BrandLink1 if brand.BrandLink1 else '#'}}" class="cat-block">
 										<figure>
 											<span>
