@@ -24,36 +24,34 @@
 								<a href="#" data-target="list"><i class="fa fa-list"></i></a>
 							</div>
 
-							<form action="#" href="{{ url_for('commerce.v_grid') }}">
-								<!-- Product Showing -->
-								<div class="product-showing">
-									<p>{{_('Showing')}}</p>
-									<select name="showing" class="nice-select">
-										<option value="{{ per_page }}">{{ per_page }}</option>
-										<option value="8">8</option>
-										<option value="12">12</option>
-										<option value="16">16</option>
-										<option value="20">20</option>
-										<option value="24">24</option>
-									</select>
-								</div>
+							<!-- Product Showing -->
+							<div class="product-showing">
+								<p>{{_('Showing')}}</p>
+								<select name="showing" class="nice-select">
+									<option value="{{ per_page }}">{{ per_page }}</option>
+									<option value="8">8</option>
+									<option value="12">12</option>
+									<option value="16">16</option>
+									<option value="20">20</option>
+									<option value="24">24</option>
+								</select>
+							</div>
 
-								<!-- Product Short -->
-								<div class="product-short">
-									<p>{{_('Filter')}}</p>
-									<select name="sortby" class="nice-select">
-										{% if filtration %}
-											<option value="{{filtration}}">{{filtration}}</option>
-										{% endif %}
-										<option value="trending">{{_('Trending')}}</option>
-										<option value="sales">{{_('Best sellers')}}</option>
-										<option value="rating">{{_('Best rated')}}</option>
-										<option value="date">{{_('Newest')}}</option>
-										<option value="price-asc">{{_('Price')}}: {{_('low to high')}}</option>
-										<option value="price-desc">{{_('Price')}}: {{_('high to low')}}</option>
-									</select>
-								</div>
-							</form>
+							<!-- Product Short -->
+							<div class="product-short">
+								<p>{{_('Filter')}}</p>
+								<select name="sortby" class="nice-select">
+									{% if filtration %}
+										<option value="{{filtration}}">{{filtration}}</option>
+									{% endif %}
+									<option value="trending">{{_('Trending')}}</option>
+									<option value="sales">{{_('Best sellers')}}</option>
+									<option value="rating">{{_('Best rated')}}</option>
+									<option value="date">{{_('Newest')}}</option>
+									<option value="price-asc">{{_('Price')}}: {{_('low to high')}}</option>
+									<option value="price-desc">{{_('Price')}}: {{_('high to low')}}</option>
+								</select>
+							</div>
 
 
 							<!-- Product Pages -->
