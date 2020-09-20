@@ -90,17 +90,11 @@
 
 				<div class="single-product-tab-content tab-content">
 					<div class="tab-pane fade show active" id="product-description">
-						{{ resource.ResFullDesc if resource.ResFullDesc else '' }}
+						{{ resource.ResFullDesc if resource.ResFullDesc else _('No description provided for this product') }}
 					</div>
 
 					<div class="tab-pane fade" id="product-reviews">
 						<div class="product-ratting-wrap">
-
-							<div class="pro-avg-ratting">
-								<h4>{{ resource.RtRatingValue }} <span>(Overall)</span></h4>
-								<div class="ratting ratingStars" ownerId="{{ resource.ResId }}"></div>
-							</div>
-
 							<div class="rattings-wrapper">
 								{% for rating in resource.Rating %}
 									<div class="sin-rattings">
@@ -134,7 +128,7 @@
 										</div>
 									</form>
 								{% else %}
-									<a href="{{ url_for('commerce_auth.register') }}" style="height: 100%; width: 400px;">
+									<a href="{{ url_for('commerce_auth.login') }}" style="height: 100%; width: 400px;">
 										<h3 class="rating_l" style="overflow: hidden;">{{_('You should login to add a review')}}</h3>
 									</a>
 								{% endif %}

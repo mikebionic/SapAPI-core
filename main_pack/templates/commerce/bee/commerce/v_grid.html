@@ -27,31 +27,32 @@
 							<!-- Product Showing -->
 							<div class="product-showing">
 								<p>{{_('Showing')}}</p>
-								<select name="showing" class="nice-select">
+								<select name="showing" class="nice-select per_page">
 									<option value="{{ per_page }}">{{ per_page }}</option>
 									<option value="8">8</option>
-									<option value="12">12</option>
 									<option value="16">16</option>
-									<option value="20">20</option>
-									<option value="24">24</option>
+									<option value="32">32</option>
+									<option value="56">56</option>
+									<option value="80">80</option>
 								</select>
 							</div>
-
+							
 							<!-- Product Short -->
 							<div class="product-short">
 								<p>{{_('Filter')}}</p>
-								<select name="sortby" class="nice-select">
+								<select name="sortby" class="nice-select filtration">
 									{% if filtration %}
-										<option value="{{filtration}}">{{filtration}}</option>
+										<option value="{{filtration}}">{{filtration_Title if filtration_Title else ''}}</option>
 									{% endif %}
-									<option value="trending">{{_('Trending')}}</option>
-									<option value="sales">{{_('Best sellers')}}</option>
-									<option value="rating">{{_('Best rated')}}</option>
-									<option value="date">{{_('Newest')}}</option>
-									<option value="price-asc">{{_('Price')}}: {{_('low to high')}}</option>
-									<option value="price-desc">{{_('Price')}}: {{_('high to low')}}</option>
+									<option value="date_new">{{_('Newest')}}</option>
+									<option value="date_old">{{_('Oldest')}}</option>
+									<option value="rated">{{_('Rated')}}</option>
+									<option value="price_high">{{_('Price')}}: {{_('high to low')}}</option>
+									<option value="price_low">{{_('Price')}}: {{_('low to high')}}</option>
 								</select>
 							</div>
+							<input type="hidden" class="category_filter" value="{{category}}">
+							<button class="applyFiltersBtn">{{_('Filter')}}</button>
 
 
 							<!-- Product Pages -->

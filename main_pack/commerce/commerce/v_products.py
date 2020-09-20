@@ -30,6 +30,30 @@ def collect_resource_paginate_info(pagination_url,
 																	per_page = None,
 																	filtration = None,
 																	category = None):
+	filtration_titles = [
+		{
+			"filtration": "date_new",
+			"filtration_Title": gettext("Newest")
+		},
+		{
+			"filtration": "date_old",
+			"filtration_Title": gettext("Oldest")
+		},
+		{
+			"filtration": "price_high",
+			"filtration_Title": f'{gettext("Price")} {gettext("high to low")}'
+		},
+		{
+			"filtration": "price_low",
+			"filtration_Title": f'{gettext("Price")} {gettext("low to high")}'
+		},
+		{
+			"filtration": "rated",
+			"filtration_Title": gettext("Rated")
+		}
+	]
+	filtration_Title = None
+
 	resources = Resource.query\
 		.filter_by(GCRecord = None, UsageStatusId = 1)\
 		.join(Res_total, Res_total.ResId == Resource.ResId)\
@@ -55,6 +79,10 @@ def collect_resource_paginate_info(pagination_url,
 			resources = resources\
 				.outerjoin(Rating, Rating.ResId == Resource.ResId)\
 				.order_by(Rating.RtRatingValue.asc())
+		for title in filtration_titles:
+			if title['filtration'] == filtration:
+				filtration_Title = title["filtration_Title"]
+
 	if category:
 		category = Res_category.query\
 			.filter_by(GCRecord = None)\
@@ -66,7 +94,6 @@ def collect_resource_paginate_info(pagination_url,
 	pagination_resources = resources.paginate(per_page=per_page if per_page else Config.RESOURCES_PER_PAGE,page=page)
 
 	resource_models = [resource for resource in pagination_resources.items if pagination_resources.items]
-
 	res = apiResourceInfo(resource_models=resource_models)
 	pagination_info = {
 		"data": res["data"],
@@ -77,6 +104,7 @@ def collect_resource_paginate_info(pagination_url,
 		"next_url": None,
 		"prev_url": None,
 		"filtration": filtration,
+		"filtration_Title": filtration_Title,
 		"category": category.ResCatName if category else None
 	}
 	if pagination_resources.has_next:

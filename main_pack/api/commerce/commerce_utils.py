@@ -284,28 +284,37 @@ def apiResourceInfo(resource_list = None,
 	return res
 
 def apiFeaturedResCat_Resources():
-	featured_resources = Resource.query\
-		.filter_by(GCRecord = None)
-	if Config.SHOW_NEGATIVE_WH_QTY_RESOURCE == False:
-		featured_resources = featured_resources.join(Res_total, Res_total.ResId == Resource.ResId)\
-			.filter(and_(
-				Res_total.WhId == 1, 
-			Res_total.ResTotBalance > 0))
-
-	featured_resources = featured_resources\
-		.outerjoin(Res_category, Res_category.ResCatId == Resource.ResCatId)\
-		.filter(Res_category.GCRecord == None)\
-		.filter(Res_category.IsMain == True)\
-		.order_by(Resource.CreatedDate.desc())\
-		.limit(50)\
-		.all()
-	resource_models = [resource for resource in featured_resources if featured_resources]
-	featured_resources = apiResourceInfo(resource_models = resource_models)
 
 	featured_categories = Res_category.query\
 		.filter_by(GCRecord = None)\
 		.filter(Res_category.IsMain == True)\
+		.order_by(Res_category.ResCatVisibleIndex.asc())\
 		.all()
+
+	resource_models = []
+	if featured_categories:
+		for category in featured_categories:
+			featured_resources = Resource.query\
+				.filter_by(GCRecord = None)
+
+			if Config.SHOW_NEGATIVE_WH_QTY_RESOURCE == False:
+				featured_resources = featured_resources.join(Res_total, Res_total.ResId == Resource.ResId)\
+					.filter(and_(
+						Res_total.WhId == 1, 
+					Res_total.ResTotBalance > 0))
+
+			featured_resources = featured_resources\
+				.filter(Resource.ResCatId == category.ResCatId)\
+				.order_by(Resource.CreatedDate.desc())\
+				.limit(Config.FEATURED_RESOURCE_AMOUNT)\
+				.all()
+
+			for resource in featured_resources:
+				resource_models.append(resource)
+			featured_resources = None
+
+	if resource_models:
+		featured_resources = apiResourceInfo(resource_models = resource_models)
 
 	data = []
 	if featured_categories:

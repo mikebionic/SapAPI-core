@@ -712,6 +712,18 @@ $(document).ready(function(){
     
   })
 
+
+$('body').delegate('.applyFiltersBtn','click',function(){
+    var url = location.pathname;
+    var per_page = $('.per_page option:selected').val();
+    var filtration = $('.filtration option:selected').val();
+    var category =  $('.category_filter').val();
+    url = url+"?per_page="+per_page+"&filter="+filtration+"&category="+category;
+    window.location.href = url;
+})
+
+
+
 // //Input min
 // var selectMin = document.getElementById('input-min');
 

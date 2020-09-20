@@ -280,6 +280,9 @@ function checkoutCart(formData,url,type){
 			if(response.status == 'added'){
 				sweetAlert(title='',message=response.responseText,style='success');
 				clearCart();
+				setTimeout(function(){
+					window.location.href = url_prefix+'/orders';
+				}, 5000);
 			}
 			else{
 				sweetAlert(title='',message=response.responseText,style='warning');
