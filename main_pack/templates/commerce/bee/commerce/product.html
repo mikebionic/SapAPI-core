@@ -9,28 +9,23 @@
 				<!-- Image -->
 				<div class="single-product-image thumb-right">
 
-					{% if resource.Images %}
+					{% if resource.FilePathM %}
 						<div class="tab-content">
 							<div id="single-image-1" class="tab-pane fade show active big-image-slider">
-								{% for image in resource.Images %}
 								<div class="big-image">
-									<img loading="lazy" src="{{image.FilePathM}}">
-									<a href="{{image.FilePathM}}" class="big-image-popup">
+									<img loading="lazy" src="{{resource.FilePathM}}">
+									<a href="{{resource.FilePathM}}" class="big-image-popup">
 										<i class="fa fa-search-plus"></i>
 									</a>
 								</div>
-								{% endfor %}
 							</div>
-						</div>
-						<div class="thumb-image-slider nav" data-vertical="true">
-							{% for image in resource.Images %}
-								<a class="thumb-image active" data-toggle="tab" href="#single-image-1"><img loading="lazy" src="{{image.FilePathM}}"></a>
-							{% endfor %}
 						</div>
 					{% else %}
 						<div class="tab-content">
 							<div id="single-image-1" class="tab-pane fade show active big-image-slider">
-								<div class="big-image"><img loading="lazy" src="{{ url_for('static', filename='commerce/main/shop_icons/no_photo.png') }}" class="big-image-popup"><i class="fa fa-search-plus"></i></a></div>
+								<div class="big-image">
+									<img loading="lazy" src="{{ url_for('static', filename='commerce/main/shop_icons/no_photo.png') }}">
+								</div>
 							</div>
 						</div>
 					{% endif %}
@@ -122,26 +117,26 @@
 							<div class="ratting-form-wrapper fix" ng-app>
 								{% if current_user.is_authenticated %}
 									<h3>{{_('Submit your review')}}</h3>
-									<form action="#">
+									<form>
 										<div class="ratting-form row">
 											<div class="col-12 mb-15">
 												<h5>{{_('Your rating')}}:</h5>
-												<input type="range" id="rating" value="5" min="1" max="5" step="1" oninput="adjustRating(this.value)" onchange="adjustRating(this.value)">
-												<span id="ratingvalue">5</span>
+												<input type="range" id="rating" value="5" min="1" max="5" step="0.5" oninput="adjustRating(this.value)" onchange="adjustRating(this.value)">
+												<span id="ratingvalue" class="reviewRatingValue" ownerId="{{ resource.ResId }}">5</span>
 											</div>
 											<div class="col-12 mb-15">
 												<label for="your-review">{{_('Write your review')}}</label>
-												<textarea name="review" id="your-review" placeholder="{{_('Write your review')}}..."></textarea>
+												<textarea name="review" class="reviewRatingText" ownerId="{{ resource.ResId }}" id="your-review" placeholder="{{_('Write your review')}}..."></textarea>
 											</div>
 											<div class="col-12">
-												<input value="{{_('Send')}}" type="submit">
+												<input value="{{_('Send')}}" class="sendReviewBtn" ownerId="{{ resource.ResId }}" type="submit">
 											</div>
 										</div>
 									</form>
 								{% else %}
-								<a href="{{ url_for('commerce_auth.register') }}" style="height: 100%; width: 400px;">
-									<h3 class="rating_l" style="overflow: hidden;">{{_('You should login to add a review')}}</h3>
-								</a>	
+									<a href="{{ url_for('commerce_auth.register') }}" style="height: 100%; width: 400px;">
+										<h3 class="rating_l" style="overflow: hidden;">{{_('You should login to add a review')}}</h3>
+									</a>
 								{% endif %}
 							</div>
 						</div>
@@ -190,8 +185,8 @@
 													<i class="ti-heart"></i>
 												</a>
 											</div>
-										{% endif %}	
-											<a href="#" class="add-to-cart" ownerId="{{ resource.ResId }}">
+										{% endif %}
+											<a href="#" class="add-to-cart" ownerId="{{ related_resource.ResId }}">
 												<i class="ti-shopping-cart"></i>
 												<span>{{_('Add to cart')}}</span>
 											</a>
@@ -202,13 +197,12 @@
 										<!-- Category & Title -->
 										<div class="category-title">
 											<a href="#" class="cat">{{ related_resource.ResCatName }}</a>
-											<h5 class="title"><a href="single-product.html">{{ related_resource.ResName }}</a></h5>
+											<h5 class="title"><a href="{{ url_for('static', filename='commerce/main/shop_icons/no_photo.png') }}">{{ related_resource.ResName }}</a></h5>
 										</div>
 
 										<!-- Price & Ratting -->
 										<div class="price-ratting">
 											<h5 class="price">
-												<!-- <span class="old">$350</span> -->
 												<p>{{ related_resource.CurrencyCode }}</p>
 												<div class="priceValue" ownerId="{{related_resource.ResId}}" value="{{related_resource.ResPriceValue}}">{{ related_resource.ResPriceValue }}</div>
 											</h5>

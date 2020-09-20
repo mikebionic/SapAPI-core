@@ -39,6 +39,14 @@ $('.wishlist-compare a').on('click', function(e){
 	}
 });
 
+$('body').delegate('.addToCart','click',function(){
+	$(this).hide();
+	ownerId = $(this).attr('ownerId');
+	console.log(ownerId)
+	addToCart(ownerId);
+	$('.add-to-cart'+'[ownerId='+ownerId+']').addClass('added').find('i').addClass('ti-check').removeClass('ti-shopping-cart').siblings('span').text(remove_from_cart_text);
+})
+
 $('body').delegate('.removeFromCart','click',function(){
 	ownerId = $(this).attr('ownerId');
 	removeFromCart(ownerId);
@@ -69,32 +77,40 @@ $('body').delegate('.checkoutCartBtn','click',function(){
 });
 
 
+$('body').delegate('.sendReviewBtn','click',function(){
+	ownerId = $(this).attr('ownerId');
+	addRating(ownerId);
+});
+
+
 function addRating(ownerId){
-	ratingValue = 4.3;
-	ratingRemark = "It is a really good product";
+	ratingValue = $('.reviewRatingValue').text();
+	ratingRemark = $('.reviewRatingText').val();
 	productData={
 		'resId':ownerId,
 		'ratingValue':ratingValue,
 		'ratingRemark':ratingRemark
 	};
-	postData(formData=productData,url=url_prefix+"/product/ui_rating/",type="POST");
+	postData(formData=productData,url=url_prefix+"/product/ui_rating/",type="POST",formId=ownerId)
 }
 
 function addToWishlist(ownerId){
 	productData={'resId':ownerId};
 	postData(formData=productData,url=url_prefix+"/product/ui_wishlist/",type="POST");
-	// $('.addToWishlist'+'[ownerId='+ownerId+']').hide();
-	// $('.removeFromWishlist'+'[ownerId='+ownerId+']').show();
+	$('.addToWishlist'+'[ownerId='+ownerId+']').hide();
+	$('.removeFromWishlist'+'[ownerId='+ownerId+']').show();
 }
 
 function removeFromWishlist(ownerId){
 	productData={'resId':ownerId};
 	postData(formData=productData,url=url_prefix+"/product/ui_wishlist/",type="DELETE");
-	// $('.removeFromWishlist'+'[ownerId='+ownerId+']').hide();
-	// $('.addToWishlist'+'[ownerId='+ownerId+']').show();
+	$('.removeFromWishlist'+'[ownerId='+ownerId+']').hide();
+	$('.addToWishlist'+'[ownerId='+ownerId+']').show();
 }
 
-function addToCart(ownerId){
+function addToCart(ownerId){	
+	$('.addToCart'+'[ownerId='+ownerId+']').hide();
+	$('.removeFromCart'+'[ownerId='+ownerId+']').show();
 	priceValue=$('.priceValue'+'[ownerId='+ownerId+']').attr('value');
 	productQty=$('.productQty'+'[ownerId='+ownerId+']').val();
 	if(productQty > 1){} else {
@@ -114,6 +130,8 @@ function removeFromCart(ownerId){
 	if(ownerId > 0){
 		$('.cartObject'+ownerId).remove();
 		$('.cartTableObject'+ownerId).remove();
+		$('.removeFromCart'+'[ownerId='+ownerId+']').hide();
+		$('.addToCart'+'[ownerId='+ownerId+']').show();
 		delete cartData['product'+ownerId];
 		Cookies.set('cart',JSON.stringify(cartData));
 		countCartItems();
@@ -262,6 +280,25 @@ function checkoutCart(formData,url,type){
 			if(response.status == 'added'){
 				sweetAlert(title='',message=response.responseText,style='success');
 				clearCart();
+			}
+			else{
+				sweetAlert(title='',message=response.responseText,style='warning');
+			}
+		}
+	})
+}
+
+function sendReview(formData,url,type,formId){
+	$.ajax({
+		contentType:"application/json",
+		dataType:"json",
+		data:JSON.stringify(formData),
+		type : type,
+		url : url,
+		success: function(response){
+			if(response.status == 'added'){
+				sweetAlert(title='',message=response.responseText,style='success');
+				$('[ownerId='+formId+']').remove();
 			}
 			else{
 				sweetAlert(title='',message=response.responseText,style='warning');

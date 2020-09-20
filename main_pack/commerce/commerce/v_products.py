@@ -117,6 +117,7 @@ def collect_resource_paginate_info(pagination_url,
 	
 	return pagination_info
 
+
 @bp.route(Config.COMMERCE_LIST_VIEW)
 def v_list():
 	page = request.args.get("page",1,type=int)
@@ -136,6 +137,7 @@ def v_list():
 		**categoryData,**sortingData,**pagination_info,
 		title=gettext(Config.COMMERCE_LIST_VIEW_TITLE))
 
+
 @bp.route(Config.COMMERCE_GRID_VIEW)
 def v_grid():
 	page = request.args.get("page",1,type=int)
@@ -154,6 +156,7 @@ def v_grid():
 	return render_template(Config.COMMERCE_TEMPLATES_FOLDER_PATH+"commerce/v_grid.html",
 		**categoryData,**sortingData,**pagination_info,
 		title=gettext(Config.COMMERCE_GRID_VIEW_TITLE))
+
 
 @bp.route(Config.COMMERCE_RESOURCE_VIEW+"/<int:ResId>")
 def product(ResId):
@@ -178,6 +181,7 @@ def product(ResId):
 	return render_template(Config.COMMERCE_TEMPLATES_FOLDER_PATH+"commerce/product.html",
 		**categoryData,resource=resource,
 		title=title)
+
 
 @bp.route(Config.COMMERCE_SEARCH_VIEW)
 def resources_grid_search():
