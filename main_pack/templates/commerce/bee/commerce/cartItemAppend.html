@@ -13,8 +13,8 @@
       <a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="title resName">{{ resource.ResName if resource.ResName else '' }}</a>
       <div style="display: flex;">
         <span class="price">{{_('Price')}}:</span>
-        <span class="price currencySymbol">{{ resource.CurrencyCode }}</span>
         <span class="price priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{resource.ResPriceValue}}</span>
+        <span class="price currencySymbol">{{ resource.CurrencyCode }}</span>
       </div>
       <div class="quantity-colors">
         <div class="quantity">

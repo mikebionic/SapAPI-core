@@ -41,7 +41,7 @@
 							<a href="#" class="cat">{{ resource.ResCatName }}</a>
 							<h5 class="title">{{ resource.ResName }}</h5>
 						</div>
-						<div style="display: flex;">
+						<div>
 							<span class="price">TMT</span>
 							<h5 class="price priceValue" ownerId="{{ resource.ResId }}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue }}</h5>
 						</div>	
@@ -89,8 +89,8 @@
 				</ul>
 
 				<div class="single-product-tab-content tab-content">
-					<div class="tab-pane fade show active" id="product-description">
-						{{ resource.ResFullDesc if resource.ResFullDesc else _('No description provided for this product') }}
+					<div class="tab-pane fade show active" id="product-description" style="margin: 10px 10px; padding: 10px 10px;text-align: center;">
+						<h2 style="font-weight: 100;">{{ resource.ResFullDesc if resource.ResFullDesc else _('No description provided for this product') }}</h2>
 					</div>
 
 					<div class="tab-pane fade" id="product-reviews">
@@ -128,9 +128,14 @@
 										</div>
 									</form>
 								{% else %}
-									<a href="{{ url_for('commerce_auth.login') }}" style="height: 100%; width: 400px;">
-										<h3 class="rating_l" style="overflow: hidden;">{{_('You should login to add a review')}}</h3>
-									</a>
+								<div class="col-lg-12 col-12 mb-40 d-flex">
+									<div class="y_login">
+										<h2>{{_('You should login to add a review')}}</h2>
+										<div class="cart-summary-button">
+											<button class="checkout-btn checkoutCartBtn" style="width: auto;float: none;">Login</button>
+										</div>
+									</div>
+								</div>
 								{% endif %}
 							</div>
 						</div>

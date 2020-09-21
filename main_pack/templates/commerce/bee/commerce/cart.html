@@ -27,12 +27,14 @@
 
 				<div class="row">
 					{% if current_user.is_authenticated %}
-						<div class="col-lg-6 col-12 mb-15">
+						<div class="col-lg-6 col-12 mb-15 mt-10">
 							<div class="discount-coupon">
-								<h4>{{_('Note')}}</h4>
-								<div class="row">
-									<div class="col-md-6 col-12 mb-15">
-										<textarea type="text" class="orderDesc" placeholder="{{_('Description')}} ({{_('City')}}, {{_('Av.')}}, {{_('Street')}}, {{_('House')}}, {{_('Flat')}})"></textarea>
+								<div class="contact-form mb-50">
+									<div class="row">
+										<div class="col-12 mb-25">
+											<label for="message">{{_('Note')}}</label>
+											<textarea id="message" type="text" placeholder="{{_('Description')}} ({{_('City')}}, {{_('Av.')}}, {{_('Street')}}, {{_('House')}}, {{_('Flat')}})"></textarea>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -54,18 +56,12 @@
 							</div>
 						</div>
 					{% else %}
-						<div class="col-lg-6 col-12 mb-40 d-flex">
-							<div class="header-advance-search" style="width: 70%;">
-                        
-								<form action="{{ url_for('commerce_auth.login') }}">
-										<div class="input" style="width: 75%;">
-											<input type="text" value="{{_('You should login if you want to checkout an order')}}!">
-										</div>
-										<div class="submit" style="float: right;">
-											<button><i class="icofont icofont-login"></i></button>
-										</div>
-								</form>
-								
+						<div class="col-lg-12 col-12 mb-40 d-flex">
+							<div class="y_login">
+								<h2>{{_('You should login if you want to checkout an order')}}!</h2>
+								<div class="cart-summary-button">
+									<button class="checkout-btn checkoutCartBtn" style="width: auto;float: none;">Login</button>
+								</div>
 							</div>
 						</div>
           {% endif %}

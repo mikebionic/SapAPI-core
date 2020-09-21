@@ -77,7 +77,7 @@
             </ul>
           </li>
           {% if current_user.is_authenticated %}
-            <a href="{{ url_for('commerce_users.profile') }}"><i class="icofont icofont-user-alt-7"></i> <span>{{_('My profile')}}</span></a>
+            <a href="{{ url_for('commerce_users.profile') }}"><i class="icofont icofont-user-alt-7"></i> <span style="margin-left: 3px;">{{_('My profile')}}</span></a>
             <a href="{{ url_for('commerce_auth.logout') }}"><i class="icofont icofont-login d-none"></i> <span>{{_('Log out')}}</span></a>
           {% else %}
             <a href="{{ url_for('commerce_auth.login') }}"><i class="icofont icofont-login d-none"></i> <span>{{_('Login')}}</span></a>

@@ -48,7 +48,7 @@
 									<a href="{{brand.BrandLink1 if brand.BrandLink1 else '#'}}" class="cat-block">
 										<figure>
 											<span>
-												<img loading="lazy" src="{{brand.FilePath if brand.FilePath}}" style="height: 100px;">
+												<img loading="lazy" src="{{brand.FilePath if brand.FilePath}}" style="height: 100px;width: 170px;">
 											</span>
 										</figure>
 										<h3 class="cat-block-title">{{brand.BrandName}}</h3>
@@ -121,8 +121,8 @@
 									<div class="price-ratting">
 										<h5 class="price">
 											<!-- <span class="old">$350</span> -->
-											<p>{{ resource.CurrencyCode }}</p>
 											<div class="priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue }}</div>
+											<p>{{ resource.CurrencyCode }}</p>
 										</h5>
 										<input type="hidden" class="ratingValue" value="{{ resource.RtRatingValue }}" ownerId="{{ resource.ResId }}">
 										<div class="ratting ratingStars" ownerId="{{ resource.ResId }}"></div>
@@ -214,8 +214,8 @@
 													<!-- Price & Ratting -->
 													<div class="price-ratting">
 														<h5 class="price">
-															<p>{{ resource.CurrencyCode }}</p>
 															<div class="priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue }}</div>
+															<p>{{ resource.CurrencyCode }}</p>
 														</h5>
 													</div>
 												</div>
