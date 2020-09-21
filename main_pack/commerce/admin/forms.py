@@ -19,6 +19,10 @@ class SliderImageForm(FlaskForm):
 	SlImgEndDate = StringField('End date')
 
 
+class resourceImageForm(FlaskForm):
+	resourceImage = FileField('Image',validators=[FileAllowed(['jpg','png','img'])])
+
+
 class BrandForm(FlaskForm):
 	BrandName = StringField(validators=[DataRequired()])
 	BrandDesc = StringField()

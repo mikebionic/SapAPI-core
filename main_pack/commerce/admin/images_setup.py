@@ -1,21 +1,29 @@
 from flask import render_template,url_for,jsonify,session,flash,redirect,request,Response
 from main_pack.config import Config
-from main_pack.base.imageMethods import save_image,save_icon,allowed_icon,allowed_image
-from main_pack.base.dataMethods import dateDataCheck
 from main_pack.commerce.admin import bp, url_prefix
+from main_pack import db,babel,gettext,lazy_gettext
+from flask import current_app
 
 # auth and validation
 from flask_login import current_user,login_required
 from main_pack.commerce.auth.utils import ui_admin_required
 # / auth and validation /
 
-from main_pack import db,babel,gettext,lazy_gettext
-from flask import current_app
+# data operations
+from main_pack.base.imageMethods import save_image,save_icon,allowed_icon,allowed_image
+from main_pack.base.dataMethods import dateDataCheck
+# / data operations /
+
+# data and models
 from main_pack.models.base.models import Company,Sl_image,Slider,Image
+from main_pack.models.commerce.models import Resource
+from main_pack.api.commerce.commerce_utils import apiResourceInfo
 from sqlalchemy import or_, and_
 import os
+# / data and models /
 
-from main_pack.commerce.admin.forms import LogoImageForm,SliderImageForm
+from main_pack.commerce.admin.forms import LogoImageForm,SliderImageForm,resourceImageForm
+
 
 @bp.route("/admin/logo_setup", methods=['GET', 'POST'])
 @login_required
@@ -42,6 +50,7 @@ def logo_setup():
 	return render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"logo_setup.html",url_prefix=url_prefix,
 		title=gettext('Company logo'),logoForm=logoForm,company_logo=company_logo)
 
+
 @bp.route("/remove_images")
 @login_required
 @ui_admin_required()
@@ -49,7 +58,7 @@ def remove_images():
 	try:
 		imgId = request.args.get("imgId")
 		imgType = request.args.get("type")
-		if imgType == 'logo':
+		if imgType == 'image':
 			image = Image.query.get(imgId)
 			image.GCRecord=1
 			db.session.commit()
@@ -65,6 +74,7 @@ def remove_images():
 		print(ex)
 		flash("Error, unable to execute this",'warning')
 	return redirect(url)
+
 
 @bp.route("/admin/sliders", methods=['GET', 'POST'])
 @login_required
@@ -98,6 +108,7 @@ def sliders():
 
 	return render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"sliders.html",url_prefix=url_prefix,
 		title=gettext('Sliders'),sliders=slidersData)
+
 
 @bp.route("/admin/sliders/<SlId>", methods=['GET', 'POST'])
 @login_required
@@ -137,6 +148,7 @@ def slider_images(SlId):
 		return redirect(url_for('commerce_admin.sliders'))
 	return render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"slider_setup.html",url_prefix=url_prefix,
 		title=gettext('Sliders'),sliderForm=sliderForm,slider=slider,sl_images=sl_images)
+
 
 @bp.route('/ui/svg-icons/',methods=['POST'])
 @login_required
@@ -182,6 +194,7 @@ def ui_svg_icons():
 		})
 	return response
 
+
 @bp.route("/remove_svg_icon")
 @login_required
 @ui_admin_required()
@@ -196,3 +209,31 @@ def remove_svg_icon():
 		print(ex)
 		flash("Error, unable to execute this",'warning')
 	return redirect(url_for('commerce_admin.category_table'))
+
+
+@bp.route("/admin/resource_images/<ResId>", methods=['GET', 'POST'])
+@login_required
+@ui_admin_required()
+def resource_images(ResId):
+	resource = Resource.query\
+		.filter_by(GCRecord = None, ResId = ResId)\
+		.first()
+	resource_models = [resource]
+	res = apiResourceInfo(resource_models=resource_models,single_object=True,showInactive=True,avoidQtyCheckup=True)
+	resource = res['data']
+
+	resourceForm = resourceImageForm()
+	if "resourceForm" in request.form and resourceForm.validate_on_submit():
+		if resourceForm.resourceImage.data:
+			imageFile = save_image(imageForm=resourceForm.resourceImage.data,module=os.path.join("uploads","commerce","Resource"),id=ResId)
+			
+			lastImage = Image.query.order_by(Image.ImgId.desc()).first()
+			ImgId = lastImage.ImgId + 1
+			image = Image(ImgId=ImgId,FileName=imageFile['FileName'],FilePath=imageFile['FilePath'],ResId=ResId)
+			db.session.add(image)
+			db.session.commit()
+
+			flash(f"{lazy_gettext('Resource picture')} {lazy_gettext('successfully uploaded!')}",'success')
+		return redirect(url_for('commerce_admin.resource_images',ResId=ResId))
+	return render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"resource_images.html",url_prefix=url_prefix,
+		title=gettext('Images'),resourceForm=resourceForm,resource=resource)
