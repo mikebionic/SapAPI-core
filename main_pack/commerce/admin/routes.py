@@ -112,12 +112,12 @@ def category_table():
 ###################################
 
 
-@bp.route("/admin/product_table")
+@bp.route("/admin/resources_table")
 @login_required
 @ui_admin_required()
-def product_table():
-	resData=apiResourceInfo(isInactive=True,fullInfo=True)
-	return render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"product_table.html",url_prefix=url_prefix,
+def resources_table():
+	resData=apiResourceInfo(showInactive=True,fullInfo=True,avoidQtyCheckup=True)
+	return render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"resources_table.html",url_prefix=url_prefix,
 		**resData,title=gettext('Product table'))
 
 def rp_acc_types():

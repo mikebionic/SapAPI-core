@@ -20,7 +20,7 @@
               </div>
               <div class="logo_icon">
                 <li><a href="#" class="btn btn-icon btn-light addLogoBtn"><i class="fas fa-plus"></i></a></li>
-                <li><a href="{{ url_for('commerce_admin.remove_images',type='logo',imgId=company_logo.ImgId) }}" class="btn btn-icon btn-light deleteLogoBtn"><i class="fas fa-trash-alt"></i></a></li>
+                <li><a href="{{ url_for('commerce_admin.remove_images',type='image',imgId=company_logo.ImgId) }}" class="btn btn-icon btn-light deleteLogoBtn"><i class="fas fa-trash-alt"></i></a></li>
               </div>
             {% else %}
               <a href="#" class="btn btn-icon btn-light gallery gallery-fw addLogoBtn"><i class="fas fa-plus"></i></a>    

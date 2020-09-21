@@ -12,7 +12,11 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Favicon -->
+  {% if company_logo %}
+  <link rel="shortcut icon" type="image/x-icon" href="{{ company_logo.FilePath }}">
+  {% else %}
   <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='commerce/bee/images/favicon.ico') }}">
+  {% endif %}
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/bee/css/bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/bee/css/font-awesome.min.css') }}">
@@ -117,7 +121,7 @@
               <!-- Category Menu -->
               <nav class="category-menu" style="position: absolute;z-index: 99; display: none;">
                 <ul>
-                  <li><a href="{{url_for('commerce.v_grid')}}">{{_('All')}}</li>
+                  <li><a href="{{url_for('commerce.v_grid')}}">{{_('All')}}</a></li>
                   {% for category in categories %}
                     <li>
                       <a href="{{url_for('commerce.v_grid',category = category.ResCatName)}}">

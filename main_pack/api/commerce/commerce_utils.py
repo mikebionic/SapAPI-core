@@ -49,20 +49,21 @@ from datetime import datetime,timedelta
 # / datetime, date-parser /
 
 
-# isInactive shows active resources with UsageStatusId = 1
+# showInactive shows active resources with UsageStatusId = 1
 # fullInfo shows microframework full info with Foreign tables
 # single_object returns one resource in "data" instead of list
 # showRated gives you latest rated resources
 # showLatest gives you latest resources by datetime
 def apiResourceInfo(resource_list = None,
 										single_object = False,
-										isInactive = False,
+										showInactive = False,
 										fullInfo = False,
 										user = None,
 										resource_models = None,
 										showRelated = False,
 										showLatest = False,
-										showRated = False):
+										showRated = False,
+										avoidQtyCheckup = False):
 	categories = Res_category.query.filter_by(GCRecord = None).all()
 	usage_statuses = Usage_status.query.filter_by(GCRecord = None).all()
 	units = Unit.query.filter_by(GCRecord = None).all()
@@ -86,17 +87,18 @@ def apiResourceInfo(resource_list = None,
 			resource_filtering = {
 				"GCRecord": None,
 			}
-			if isInactive==False:
+			if showInactive==False:
 				resource_filtering["UsageStatusId"] = 1
 
 			resources = Resource.query\
 				.filter_by(**resource_filtering)
-			if Config.SHOW_NEGATIVE_WH_QTY_RESOURCE == False:
-				resources = resources\
-					.join(Res_total, Res_total.ResId == Resource.ResId)\
-					.filter(and_(
-						Res_total.WhId == 1, 
-						Res_total.ResTotBalance > 0))
+			if avoidQtyCheckup == False:
+				if Config.SHOW_NEGATIVE_WH_QTY_RESOURCE == False:
+					resources = resources\
+						.join(Res_total, Res_total.ResId == Resource.ResId)\
+						.filter(and_(
+							Res_total.WhId == 1, 
+							Res_total.ResTotBalance > 0))
 
 			if showLatest == True:
 				resources = resources\
@@ -124,18 +126,19 @@ def apiResourceInfo(resource_list = None,
 					"ResId": ResId,
 					"GCRecord": None,
 				}
-				if isInactive==False:
+				if showInactive == False:
 					resource_filtering["UsageStatusId"] = 1
 
 				resource = Resource.query\
 					.filter_by(**resource_filtering)
-				
-				if Config.SHOW_NEGATIVE_WH_QTY_RESOURCE == False:
-					resource = resource\
-						.join(Res_total, Res_total.ResId == Resource.ResId)\
-						.filter(and_(
-							Res_total.WhId == 1, 
-							Res_total.ResTotBalance > 0))
+			
+				if avoidQtyCheckup == False:
+					if Config.SHOW_NEGATIVE_WH_QTY_RESOURCE == False:
+						resource = resource\
+							.join(Res_total, Res_total.ResId == Resource.ResId)\
+							.filter(and_(
+								Res_total.WhId == 1, 
+								Res_total.ResTotBalance > 0))
 				
 				resource = resource.first()
 				
