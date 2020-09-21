@@ -20,9 +20,7 @@ def ui_category_table():
 	try:
 		if request.method == 'POST':
 			req = request.get_json()
-			print(req)
 			category = addCategoryDict(req)
-			print(category)
 			categoryId = req.get('categoryId')
 
 			if (categoryId == '' or categoryId == None):

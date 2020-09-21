@@ -155,7 +155,7 @@
 					<!-- Product Tab List -->
 					<ul class="nav product-tab-list">
 						{% for category in Featured_categories %}
-							<li><a data-toggle="tab" href="#tab-{{category.ResCatId}}">{{category.ResCatName}}</a></li>
+							<li><a data-toggle="tab" class="featrued-cat-btn" href="#tab-{{category.ResCatId}}">{{category.ResCatName}}</a></li>
 						{% endfor %}
 					</ul>
 				</div>
@@ -166,7 +166,7 @@
 				<div class="tab-content">
 					<!-- Tab Pane Start -->
 					{% for category in Featured_categories %}
-						<div class="tab-pane fade" id="tab-{{category.ResCatId}}">
+						<div class="tab-pane featrued-cat-tab fade" id="tab-{{category.ResCatId}}">
 							<!-- Product Slider Wrap Start -->
 							<div class="product-slider-wrap product-slider-arrow-one">
 								<!-- Product Slider Start -->
@@ -214,12 +214,9 @@
 													<!-- Price & Ratting -->
 													<div class="price-ratting">
 														<h5 class="price">
-															<!-- <span class="old">$350</span> -->
 															<p>{{ resource.CurrencyCode }}</p>
 															<div class="priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue }}</div>
 														</h5>
-														<input type="hidden" class="ratingValue" value="{{ resource.RtRatingValue }}" ownerId="featured{{ resource.ResId }}">
-														<div class="ratting ratingStars" ownerId="featured{{ resource.ResId }}"></div>
 													</div>
 												</div>
 											</div><!-- Product End -->
@@ -304,4 +301,13 @@
 	</div>
 </div><!-- Feature Section End -->
 
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('.featrued-cat-btn:first').addClass('active');
+		$('.featrued-cat-tab:first').addClass('active');
+	});
+</script>
 {% endblock %}

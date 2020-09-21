@@ -64,6 +64,7 @@ function categoryMenuToggle() {
     }
 }
 
+
 /*-- Category Menu Toggles --*/
 function categorySubMenuToggle() {
     var screenSize = windows.width();
@@ -592,13 +593,13 @@ counter.counterUp({
 });
 
 /*--
-	Twitter Feed
------------------------------------*/
-$('.footer-tweet').twittie({
-    template: '<span class="author">{{screen_name}}</span>, {{tweet}}',
-    count: 2,
-    apiPath: 'assets/api/tweet.php',
-});
+// 	Twitter Feed
+// -----------------------------------*/
+// $('.footer-tweet').twittie({
+//     template: '<span class="author">{{screen_name}}</span>, {{tweet}}',
+//     count: 2,
+//     apiPath: 'assets/api/tweet.php',
+// });
 
 /*--
     Scroll Up
@@ -710,6 +711,18 @@ $(document).ready(function(){
     });
     
   })
+
+
+$('body').delegate('.applyFiltersBtn','click',function(){
+    var url = location.pathname;
+    var per_page = $('.per_page option:selected').val();
+    var filtration = $('.filtration option:selected').val();
+    var category =  $('.category_filter').val();
+    url = url+"?per_page="+per_page+"&filter="+filtration+"&category="+category;
+    window.location.href = url;
+})
+
+
 
 // //Input min
 // var selectMin = document.getElementById('input-min');

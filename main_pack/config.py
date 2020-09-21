@@ -58,12 +58,16 @@ class Config:
 	BABEL_DEFAULT_LOCALE = 'tk'
 
 	# MAIL CONFIGURATION
-	MAIL_SERVER = environ.get('MAIL_SERVER')
-	MAIL_PORT = environ.get('MAIL_PORT')
-	MAIL_USE_TLS = environ.get('MAIL_USE_TLS')
+	### testing ##
+	MAIL_SUPPRESS_SEND = False
+	# MAIL_DEBUG = True
+	### / testing /
+	MAIL_SERVER = 'smtp.googlemail.com'
+	MAIL_PORT = 587
+	MAIL_USE_TLS = True
 	MAIL_USERNAME = environ.get('MAIL_USERNAME')
 	MAIL_PASSWORD = environ.get('MAIL_PASSWORD')
-
+	
 	# set to True if you want to use BCrypt hashing
 	HASHED_PASSWORDS = False
 
@@ -167,5 +171,6 @@ class Config:
 	COMMERCE_RESOURCE_NEWNESS_DAYS = 10
 	# how many resources to show in rating view
 	TOP_RATED_RESOURCES_AMOUNT = 5
+	FEATURED_RESOURCE_AMOUNT = 5
 	RESOURCE_MAIN_PAGE_SHOW_QTY = 8
 	SMALLEST_RATING_VALUE_SHOW = 3.5

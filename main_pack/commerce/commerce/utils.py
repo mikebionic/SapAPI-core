@@ -31,7 +31,7 @@ def slidersData():
 		List_sl_images = []
 		for sl_image in sl_images:
 			if sl_image.SlImgEndDate:
-				if (sl_image.SlImgStartDate<=datetime.now()):
+				if (sl_image.SlImgStartDate <= datetime.now()):
 					if (sl_image.SlImgEndDate and sl_image.SlImgEndDate>datetime.now()):
 						List_sl_images.append(sl_image.to_json_api())
 			else:
@@ -45,32 +45,17 @@ def slidersData():
 	return res
 
 def UiCategoriesList():
-	data = []
 	categories = Res_category.query\
-		.filter_by(GCRecord = None, ResOwnerCatId = 0)\
-		.all()
-	for category in categories:
-		categoryPack = category.to_json_api()
-		subcategories = Res_category.query\
-			.filter_by(GCRecord = None, ResOwnerCatId = category.ResCatId)\
+			.filter_by(GCRecord = None)\
+			.join(Resource, Resource.ResCatId == Res_category.ResCatId)\
+			.filter(Resource.GCRecord == None)\
+			.join(Res_total, Res_total.ResId == Resource.ResId)\
+			.filter(and_(
+				Res_total.WhId == 1, 
+				Res_total.ResTotBalance > 0))\
 			.all()
+	category_info = [category.to_json_api() for category in categories if categories]
 
-		subcategory_List = []
-		for subcategory in subcategories:
-			subcategoryPack = subcategory.to_json_api()
-			subcategory_children = Res_category.query\
-				.filter_by(GCRecord = None, ResOwnerCatId = subcategory.ResCatId)\
-				.all()
-
-			children_List = []
-			for child in subcategory_children:
-				subcategoryChildPack = child.to_json_api()
-				children_List.append(subcategoryChildPack)
-
-			subcategoryPack['subcategories'] = children_List
-			subcategory_List.append(subcategoryPack)
-		categoryPack['subcategories'] = subcategory_List
-		data.append(categoryPack)
 	company = Company.query.get(1)
 
 	logoIcon = {}
@@ -82,7 +67,7 @@ def UiCategoriesList():
 		logoIcon["FilePath"] = fileToURL(file_type='image',file_name=company_logo.FileName)
 
 	res = {
-		"categories": data,
+		"categories": category_info,
 		"company": company,
 		"company_logo": logoIcon
 	}

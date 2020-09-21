@@ -232,10 +232,23 @@ def apiResourceInfo(resource_list = None,
 					related_resource_info["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=Related_resource_Images[-1]['FileName']) if Related_resource_Images else ''
 					related_resource_info["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=Related_resource_Images[-1]['FileName']) if Related_resource_Images else ''
 					related_resource_info["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=Related_resource_Images[-1]['FileName']) if Related_resource_Images else ''
+					
+
+					Related_resource_category = [category.to_json_api() for category in categories if category.ResCatId == resource.ResCatId]
+					Related_resource_price = [res_price.to_json_api() for res_price in resource.Res_price if res_price.ResPriceTypeId == 2 and res_price.GCRecord == None]
+					try:
+						Related_resource_currencies = [currency.to_json_api() for currency in currencies if currency.CurrencyId == Related_resource_price[0]['CurrencyId']]
+					except:
+						Related_resource_currencies = []
+					related_resource_info["ResCatName"] = Related_resource_category[0]['ResCatName'] if Related_resource_category else ''
+					related_resource_info["ResPriceValue"] = Related_resource_price[0]['ResPriceValue'] if Related_resource_price else ''
+					related_resource_info["CurrencyCode"] = Related_resource_currencies[0]['CurrencyCode'] if Related_resource_currencies else 'TMT'
+
 					if user:
 						Related_resource_Wish = [wish.to_json_api() for wish in wishes if wish.ResId == resource.ResId]
 					else:
 						Related_resource_Wish = []
+
 					related_resource_info["Wishlist"] = True if Related_resource_Wish else False
 					Related_resources.append(related_resource_info)
 				resource_info["Related_resources"] = Related_resources
@@ -271,28 +284,37 @@ def apiResourceInfo(resource_list = None,
 	return res
 
 def apiFeaturedResCat_Resources():
-	featured_resources = Resource.query\
-		.filter_by(GCRecord = None)
-	if Config.SHOW_NEGATIVE_WH_QTY_RESOURCE == False:
-		featured_resources = featured_resources.join(Res_total, Res_total.ResId == Resource.ResId)\
-			.filter(and_(
-				Res_total.WhId == 1, 
-			Res_total.ResTotBalance > 0))
-
-	featured_resources = featured_resources\
-		.outerjoin(Res_category, Res_category.ResCatId == Resource.ResCatId)\
-		.filter(Res_category.GCRecord == None)\
-		.filter(Res_category.IsMain == True)\
-		.order_by(Resource.CreatedDate.desc())\
-		.limit(50)\
-		.all()
-	resource_models = [resource for resource in featured_resources if featured_resources]
-	featured_resources = apiResourceInfo(resource_models = resource_models)
 
 	featured_categories = Res_category.query\
 		.filter_by(GCRecord = None)\
 		.filter(Res_category.IsMain == True)\
+		.order_by(Res_category.ResCatVisibleIndex.asc())\
 		.all()
+
+	resource_models = []
+	if featured_categories:
+		for category in featured_categories:
+			featured_resources = Resource.query\
+				.filter_by(GCRecord = None)
+
+			if Config.SHOW_NEGATIVE_WH_QTY_RESOURCE == False:
+				featured_resources = featured_resources.join(Res_total, Res_total.ResId == Resource.ResId)\
+					.filter(and_(
+						Res_total.WhId == 1, 
+					Res_total.ResTotBalance > 0))
+
+			featured_resources = featured_resources\
+				.filter(Resource.ResCatId == category.ResCatId)\
+				.order_by(Resource.CreatedDate.desc())\
+				.limit(Config.FEATURED_RESOURCE_AMOUNT)\
+				.all()
+
+			for resource in featured_resources:
+				resource_models.append(resource)
+			featured_resources = None
+
+	if resource_models:
+		featured_resources = apiResourceInfo(resource_models = resource_models)
 
 	data = []
 	if featured_categories:
@@ -311,7 +333,6 @@ def apiFeaturedResCat_Resources():
 		"total": len(data)
 	}
 	return res
-
 
 def UiCartResourceData(product_list,fullInfo=False,showRelated=False):
 	res = apiResourceInfo(product_list,fullInfo=fullInfo,showRelated=showRelated)
