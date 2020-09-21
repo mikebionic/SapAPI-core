@@ -3946,7 +3946,9 @@ img.mfp-img {
   flex-grow: 0;
   -ms-flex-preferred-size: auto;
   flex-basis: auto;
-  width: auto; }
+  width: auto;
+  padding-right: 10px;
+  }
 
 .header-bottom .justify-content-center > [class*="col"]:first-child {
   -webkit-box-pack: start;
