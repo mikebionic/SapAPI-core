@@ -55,7 +55,7 @@ rp_acc = Rp_acc(
 	RpAccUName="administrator",
 	RpAccName="Mike Bionic",
 	RpAccEMail=email,
-	RpAccRegNo="ARAK1",
+	RpAccRegNo="3289490A0RAK1",
 	RpAccTypeId=1)
 db.session.add(rp_acc)
 db.session.commit()

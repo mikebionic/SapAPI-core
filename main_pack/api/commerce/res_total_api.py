@@ -40,6 +40,7 @@ def api_res_totals():
 				# sync the pending amount (used by synchronizer)
 				res_total['ResPendingTotalAmount'] = res_total['ResTotBalance']
 				try:
+					# handle AkHasap's database exceptions of -1 meaning "all"
 					if res_total['WhId'] < 0:
 						raise Exception
 					if not "ResId" in res_total and not "WhId" in res_total:
