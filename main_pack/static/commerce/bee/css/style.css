@@ -3985,7 +3985,7 @@ img.mfp-img {
 @media only screen and (max-width: 479px) {
   .header-bottom > .container > .row > .col:nth-child(3), .header-bottom > .container > .row > [class*="col-"]:nth-child(3), .header-bottom > .container-fluid > .row > .col:nth-child(3), .header-bottom > .container-fluid > .row > [class*="col-"]:nth-child(3) {
     margin-right: 40px;
-    transform: translate(204px, -255px); } }
+    transform: translate(155px, -185px); } }
 
 @media only screen and (max-width: 479px) {
   .header-bottom .header-call-us {
@@ -4046,7 +4046,7 @@ img.mfp-img {
 .header-logo {
   position: relative;
   vertical-align: top;
-  margin-top: 5%;
+  /* margin-top: 5%; */
   display: inline-block; }
   .header-logo img.theme-dark {
     opacity: 0;
@@ -8906,7 +8906,7 @@ img.mfp-img {
 
 .ratting-form label {
   display: block;
-  font-size: 14px;
+  font-size: 25px;
   color: #666666;
   margin-bottom: 3px; }
 
@@ -12137,6 +12137,39 @@ ul.link-widget li {
 
 
 
+@media ( max-width: 477px) {
+  .header-logo{
+    margin-left: 50px;
+  }
+}  
+ 
+@media ( max-width: 476px) {
+  .ee-product .content .category-title .title {
+      font-size: 13px;
+  }
+} 
+@media ( max-width: 476px) {
+  .ee-product {
+      width: 138px;
+  }
+}  
+@media ( max-width: 476px) {
+  .ee-product .content .category-title {
+      height: 65px;
+      padding: 0 20px;
+  }
+}   
+@media ( max-width: 476px) {
+  .ee-product .content .price-ratting {
+      padding: 0 20px;
+  }
+}   
+@media ( max-width: 476px) {
+  .ee-product .content .price-ratting .ratting {
+      float: left;
+      margin: 0;
+  }
+}   
 @media ( max-width: 763px) {
   .ee-product .content .category-title {
       height: 85px;
@@ -12144,7 +12177,7 @@ ul.link-widget li {
 }   
 @media ( max-width: 763px) {
   .ee-product .image {
-      height: 205px;
+      height: 180px;
   }
 }   
   
@@ -12234,3 +12267,145 @@ ul.link-widget li {
   background-color: transparent;
   margin-left: 5px;
 }        
+
+
+
+/****** Style Star Rating Widget *****/
+.rating {
+  border: none;
+  float: left;
+  margin-top: -2px;
+}
+
+.rating > input {
+  display: none;
+}
+
+.rating > label:before {
+  margin: 5px;
+  margin-top: 0;
+  font-size: 1em;
+  font-family: FontAwesome;
+  display: inline-block;
+  content: "\f005";
+}
+
+.rating > .half:before {
+  content: "\f089";
+  position: absolute;
+}
+
+.rating > label {
+  color: #ddd;
+  float: right;
+}
+
+/***** CSS Magic to Highlight Stars on Hover *****/
+.rating > input:checked ~ label,
+.rating:not(:checked) > label:hover,
+.rating:not(:checked) > label:hover ~ label {
+  color: #FFD700;
+}
+
+/* hover previous stars in list */
+.rating > input:checked + label:hover,
+.rating > input:checked ~ label:hover,
+.rating > label:hover ~ input:checked ~ label,
+.rating > input:checked ~ label:hover ~ label {
+  color: #FFED85;
+}
+
+
+
+/* Emoji */
+
+.emoji-box:hover ~ .emoji-box {
+  filter: blur(3px);
+}
+
+.single-product-tab-content {
+  background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
+  height: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+}
+.single-product-tab-content .emoji-box {
+  width: 110px;
+  height: 110px;
+  border-radius: 12px;
+  margin-right: 2rem;
+  padding: 16px;
+  position: relative;
+  transform: scale(1);
+  transition: all 0.2s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+}
+.single-product-tab-content .eyes {
+  margin-top: 6px;
+  display: flex;
+  overflow: hidden;
+  justify-content: space-between;
+  align-items: center;
+}
+.single-product-tab-content .eyes .eye {
+  width: 32px;
+  height: 32px;
+  background-color: #fff;
+  border-radius: 50%;
+  position: relative;
+}
+.single-product-tab-content .eyes .eye:before {
+  content: "";
+  min-width: 50%;
+  position: absolute;
+  min-height: 50%;
+  left: 50%;
+  top: 50%;
+  background-color: #000;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+}
+.emoji-box.outfit {
+  background-color: #4da696;
+}
+.emoji-box.outfit .spects {
+  position: absolute;
+  left: 8px;
+  top: 14px;
+}
+.emoji-box.outfit .spects .box {
+  width: 44px;
+  height: 52px;
+  border: 4px solid black;
+  display: inline-block;
+  border-radius: 4px;
+}
+.emoji-box.outfit .spects .box:before, .emoji-box.outfit .spects .box:after {
+  content: "";
+  width: 16px;
+  height: 4px;
+  background-color: black;
+  position: absolute;
+  top: 50%;
+  transform: translateX(-50%);
+}
+.emoji-box.outfit .spects .box:before {
+  right: 90%;
+}
+.emoji-box.outfit .spects .box:after {
+  left: 109%;
+}
+.emoji-box.outfit .eye {
+  overflow: hidden;
+}
+.emoji-box.outfit .eye:before {
+  width: 70%;
+  height: 70%;
+  top: -1px;
+  transform: unset;
+  left: 32%;
+}
+
+
+ 

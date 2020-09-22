@@ -88,7 +88,15 @@
             <a href="{{ url_for('commerce_auth.register') }}"><i class="icofont icofont-login d-none"></i> <span>{{_('Register')}}</span></a>
           {% endif %}
         </div><!-- Header Account Links End -->
-
+        <div class="header-logo" >
+          <a href="{{ url_for('commerce.commerce')}}">
+            {% if company_logo %}
+              <img loading="lazy" src="{{ company_logo.FilePath }}" style="width: 68px; margin-right: 15px;" >
+            {% else %}
+              <h4>{{company.CName}}</h4>
+            {% endif %}
+          </a>
+        </div><!-- Logo End -->
       </div>
     </div>
   </div><!-- Header Top End -->
@@ -99,16 +107,6 @@
       <div class="row align-items-center justify-content-between">
 
         <div class="col mt-15 mb-15" style="display: flex;">
-          <!-- Logo Start -->
-          <div class="header-logo" >
-            <a href="{{ url_for('commerce.commerce')}}">
-              {% if company_logo %}
-                <img loading="lazy" src="{{ company_logo.FilePath }}" style="width: 68px; margin-right: 15px;" >
-              {% else %}
-                <h4>{{company.CName}}</h4>
-              {% endif %}
-            </a>
-          </div><!-- Logo End -->
           <div class="hero-side-category">
             <div class="category">
     
@@ -186,7 +184,7 @@
   </div>
 
   <!-- Mini Cart Products -->
-  <ul class="mini-cart-products cartItemsList"></ul>
+  <ul class="mini-cart-products cartItemsList"></ul>ory
 
   <!-- Mini Cart Bottom -->
   <div class="mini-cart-bottom">
