@@ -29,7 +29,7 @@ def api_checkout_sale_order_invoices(user):
 		.filter_by(GCRecord = None, WpIsDefault = True)\
 		.first()
 	# !!! current user is rp_acc if type is rp_acc
-	if model_type=='Rp_acc':
+	if model_type == 'Rp_acc':
 		name = current_user.RpAccUName
 		RpAccId = current_user.RpAccId
 		# get the seller's user information of a specific rp_acc
@@ -99,7 +99,7 @@ def api_checkout_sale_order_invoices(user):
 					print(ex)
 					# use device model and other info
 					orderLineRegNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
-				order_inv_line['OInvLineRegNo']=orderLineRegNo
+				order_inv_line['OInvLineRegNo'] = orderLineRegNo
 
 				ResId = order_inv_line['ResId']
 				OInvLineAmount = int(order_inv_line['OInvLineAmount'])
@@ -189,8 +189,8 @@ def api_checkout_sale_order_invoices(user):
 		else:
 			OInvFTotal = OInvTotal
 			OInvFTotalInWrite = price2text(OInvFTotal,
-																		Config.PRICE_2_TEXT_LANGUAGE,
-																		Config.PRICE_2_TEXT_CURRENCY)
+				Config.PRICE_2_TEXT_LANGUAGE,
+				Config.PRICE_2_TEXT_CURRENCY)
 
 			newOrderInv.OInvTotal = decimal.Decimal(OInvTotal)
 			newOrderInv.OInvFTotal = decimal.Decimal(OInvFTotal)
@@ -200,7 +200,6 @@ def api_checkout_sale_order_invoices(user):
 				db.session.delete(reg_num_pred_exists)
 
 			db.session.commit()
-			print("committed, done..")
 
 			status = checkApiResponseStatus(order_inv_lines,failed_order_inv_lines)
 			res = {

@@ -63,7 +63,6 @@ def UiOInvLineData(order_lines_list):
 	orderInvTypes = Order_inv_type.query\
 		.filter_by(GCRecord = None).all()
 
-	print(order_lines_list)
 	for order_line in order_lines_list:
 		orderInvLine = Order_inv_line.query.get(order_line["OInvLineId"])
 		orderInvLineList = orderInvLine.to_json_api()

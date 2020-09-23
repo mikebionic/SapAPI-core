@@ -644,6 +644,7 @@ class Order_inv(AddInf,CreatedModifiedInfo,db.Model):
 	EmpId = db.Column(db.Integer,db.ForeignKey("tbl_dk_employee.EmpId"))
 	PtId = db.Column(db.Integer,db.ForeignKey("tbl_dk_payment_type.PtId"))
 	PmId = db.Column(db.Integer,db.ForeignKey("tbl_dk_payment_method.PmId"))
+	# PaymStatusId = db.Column(db.Integer,db.ForeignKey("tbl_dk_payment_status.PaymStatusId"))
 	OInvLatitude = db.Column(db.Float,default=0.0)
 	OInvLongitude = db.Column(db.Float,default=0.0)
 	OInvRegNo = db.Column(db.String(100),nullable=False,unique=True)
@@ -653,6 +654,7 @@ class Order_inv(AddInf,CreatedModifiedInfo,db.Model):
 	OInvExpenseAmount = db.Column(db.Float,default=0.0)
 	OInvTaxAmount = db.Column(db.Float,default=0.0)
 	OInvDiscountAmount = db.Column(db.Float,default=0.0)
+	OInvPaymAmount = db.Column(db.Float,default=0.0)
 	OInvFTotal = db.Column(db.Float,default=0.0)
 	OInvFTotalInWrite = db.Column(db.String(100))
 	OInvModifyCount = db.Column(db.Integer,default=0)
@@ -802,6 +804,34 @@ class Order_inv_type(CreatedModifiedInfo,db.Model):
 			"GCRecord": self.GCRecord
 		}
 		return json_order_inv_type
+
+
+# class Payment_status(CreatedModifiedInfo,db.Model):
+# 	__tablename__="tbl_dk_payment_status"
+# 	PaymStatusId = db.Column(db.Integer,nullable=False,primary_key=True)
+# 	PaymStatusName_tkTM = db.Column(db.String(100))
+# 	PaymStatusDesc_tkTM = db.Column(db.String(500))
+# 	PaymStatusName_ruRU = db.Column(db.String(100))
+# 	PaymStatusDesc_ruRU = db.Column(db.String(500))
+# 	PaymStatusName_enUS = db.Column(db.String(100))
+# 	PaymStatusDesc_enUS = db.Column(db.String(500))
+#		Order_inv = db.relationship('Order_inv',backref='payment_type',lazy=True)
+
+# 	def to_json_api(self):
+# 		json_payment_status = {
+# 			"PaymStatusName_tkTM": self.PaymStatusName_tkTM,			
+# 			"PaymStatusDesc_tkTM": self.PaymStatusDesc_tkTM,
+# 			"PaymStatusName_ruRU": self.PaymStatusName_ruRU,
+# 			"PaymStatusDesc_ruRU": self.PaymStatusDesc_ruRU,
+# 			"PaymStatusName_enUS": self.PaymStatusName_enUS,
+# 			"PaymStatusDesc_enUS": self.PaymStatusDesc_enUS,
+# 			"CreatedDate": apiDataFormat(self.CreatedDate),
+# 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+# 			"CreatedUId": self.CreatedUId,
+# 			"ModifiedUId": self.ModifiedUId,
+# 			"GCRecord": self.GCRecord
+# 		}
+# 		return json_payment_status
 
 
 class Payment_method(AddInf,CreatedModifiedInfo,db.Model):

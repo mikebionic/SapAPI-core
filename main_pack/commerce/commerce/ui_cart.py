@@ -208,13 +208,14 @@ def ui_cart_checkout():
 
 			OInvDesc = req.get('orderDesc')
 			orderInv = Order_inv(
-					OInvTypeId=2,
-					InvStatId=1,
-					CurrencyId=1,
-					WpId=work_period.WpId,
-					RpAccId=rp_acc.RpAccId,
-					OInvRegNo=orderRegNo,
-					OInvDesc=OInvDesc,
+					OInvTypeId = 2,
+					InvStatId = 1,
+					CurrencyId = 1,
+					WhId = 1,
+					WpId = work_period.WpId,
+					RpAccId = rp_acc.RpAccId,
+					OInvRegNo = orderRegNo,
+					OInvDesc = OInvDesc,
 				)
 			db.session.add(orderInv)
 			OInvTotal = 0
@@ -232,12 +233,13 @@ def ui_cart_checkout():
 					.first()
 				totalSubstitutionResult = totalQtySubstitution(res_total.ResPendingTotalAmount,OInvLineAmount)
 				try:
-					if not resource or totalSubstitutionResult['status']==0:
+					if not resource or totalSubstitutionResult['status'] == 0:
 						raise Exception
 
 					resourceInv = resource.to_json_api()
 					OInvLineAmount = totalSubstitutionResult['amount']
 					res_total.ResPendingTotalAmount = totalSubstitutionResult['totalBalance']
+
 					res_price = Res_price.query\
 						.filter_by(GCRecord = None, ResId = resource.ResId, ResPriceTypeId = 2)\
 						.first()
@@ -253,6 +255,7 @@ def ui_cart_checkout():
 					resourceInv['OInvLineTotal'] = decimal.Decimal(OInvLineTotal)
 					resourceInv['OInvLineFTotal'] = decimal.Decimal(OInvLineFTotal)
 					resourceInv['OInvId'] = orderInv.OInvId
+					resourceInv['UnitId'] = resource.UnitId
 					if not 'CurrencyId' in resourceInv:
 						resourceInv['CurrencyId'] = 1
 					
@@ -266,18 +269,19 @@ def ui_cart_checkout():
 						print(ex)
 						# use device model and other info
 						orderLineRegNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
-					order_inv_line['OInvLineRegNo']=orderLineRegNo
+					order_inv_line['OInvLineRegNo'] = orderLineRegNo
 					
 					# increment of Main Order Inv Total Price
 					OInvTotal += OInvLineFTotal
-					print(order_inv_line)
+
 					thisOInvLine = Order_inv_line(**order_inv_line)
 					db.session.add(thisOInvLine)			
 					order_inv_lines.append(thisOInvLine.to_json_api())
 				except Exception as ex:
+					print(ex)
 					failed_order_inv_lines.append(req['cartData'][resElement])
 
-			if (len(order_inv_lines)==0):
+			if (len(order_inv_lines) == 0):
 				raise Exception
 			###### final order assignment and processing ######
 			# add taxes and stuff later on

@@ -234,6 +234,7 @@ def resources_grid_search():
 			Resource.UsageStatusId == 1))\
 		.order_by(Resource.ResId.desc())\
 		.all()
+	print(resources)
 
 	resource_list = []
 	if barcodes:
@@ -257,7 +258,12 @@ def resources_grid_search():
 			.first()
 		if resource_model:
 			resource_models.append(resource_model)
-	res = apiResourceInfo(resource_models=resource_models)
+	if resource_models:
+		res = apiResourceInfo(resource_models=resource_models)
+	else:
+		res = {
+			"data": []
+		}
 	categoryData = UiCategoriesList()
 	sortingData = uiSortingData()
 

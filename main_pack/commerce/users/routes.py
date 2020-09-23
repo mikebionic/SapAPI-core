@@ -95,7 +95,6 @@ def profile_edit():
 			# 'RpAccEMail':form.email.data
 		}
 		rpAcc.update(**rpAccData)
-		print(rpAccData)
 		if form.picture.data:
 			imageFile = save_image(imageForm=form.picture.data,module=os.path.join("uploads","commerce","Rp_acc"),id=rpAcc.RpAccId)
 			lastImage = Image.query.order_by(Image.ImgId.desc()).first()
