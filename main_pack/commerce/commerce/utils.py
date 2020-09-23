@@ -53,6 +53,7 @@ def UiCategoriesList():
 			.filter(and_(
 				Res_total.WhId == 1, 
 				Res_total.ResTotBalance > 0))\
+			.order_by(Res_category.ResCatVisibleIndex.asc())\
 			.all()
 	category_info = [category.to_json_api() for category in categories if categories]
 

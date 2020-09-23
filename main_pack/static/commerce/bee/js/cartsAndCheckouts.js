@@ -83,8 +83,12 @@ $('body').delegate('.sendReviewBtn','click',function(){
 });
 
 
+$('.rateButtons input').click(function(){
+	$('.reviewRatingValue').val($(this).val());
+})
+
 function addRating(ownerId){
-	ratingValue = $('.reviewRatingValue').text();
+	ratingValue = $('.reviewRatingValue').val();
 	ratingRemark = $('.reviewRatingText').val();
 	productData={
 		'resId':ownerId,

@@ -73,7 +73,7 @@ def apiResourceInfo(resource_list = None,
 	currencies = Currency.query.filter_by(GCRecord = None).all()
 	# return wishlist info for authenticated user
 	if current_user.is_authenticated:
-		user=current_user
+		user = current_user
 	if user:
 		RpAccId = user.RpAccId
 		wishes = Wish.query\
@@ -87,7 +87,7 @@ def apiResourceInfo(resource_list = None,
 			resource_filtering = {
 				"GCRecord": None,
 			}
-			if showInactive==False:
+			if showInactive == False:
 				resource_filtering["UsageStatusId"] = 1
 
 			resources = Resource.query\
@@ -358,12 +358,12 @@ def UiCartResourceData(product_list,fullInfo=False,showRelated=False):
 	}
 	return res
 
-def apiOrderInvInfo(startDate=None,
-										endDate=datetime.now(),
-										statusId=None,
-										single_object=False,
-										invoice_list=None,
-										rp_acc_user=None):
+def apiOrderInvInfo(startDate = None,
+										endDate = datetime.now(),
+										statusId = None,
+										single_object = False,
+										invoice_list = None,
+										rp_acc_user = None):
 	inv_statuses = Inv_status.query\
 		.filter_by(GCRecord = None).all()
 

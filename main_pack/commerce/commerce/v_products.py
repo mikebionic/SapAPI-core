@@ -30,29 +30,34 @@ def collect_resource_paginate_info(pagination_url,
 																	per_page = None,
 																	filtration = None,
 																	category = None):
-	filtration_titles = [
+	filtration_types = [
 		{
 			"filtration": "date_new",
-			"filtration_Title": gettext("Newest")
+			"filtration_title": gettext("Newest"),
+			"status": 0
 		},
 		{
 			"filtration": "date_old",
-			"filtration_Title": gettext("Oldest")
+			"filtration_title": gettext("Oldest"),
+			"status": 0
 		},
 		{
 			"filtration": "price_high",
-			"filtration_Title": f'{gettext("Price")} {gettext("high to low")}'
+			"filtration_title": f'{gettext("Price")}: {gettext("high to low")}',
+			"status": 0
 		},
 		{
 			"filtration": "price_low",
-			"filtration_Title": f'{gettext("Price")} {gettext("low to high")}'
+			"filtration_title": f'{gettext("Price")}: {gettext("low to high")}',
+			"status": 0
 		},
 		{
 			"filtration": "rated",
-			"filtration_Title": gettext("Rated")
+			"filtration_title": gettext("Rated"),
+			"status": 0
 		}
 	]
-	filtration_Title = None
+	filtration_title = None
 
 	resources = Resource.query\
 		.filter_by(GCRecord = None, UsageStatusId = 1)\
@@ -79,9 +84,9 @@ def collect_resource_paginate_info(pagination_url,
 			resources = resources\
 				.outerjoin(Rating, Rating.ResId == Resource.ResId)\
 				.order_by(Rating.RtRatingValue.asc())
-		for title in filtration_titles:
-			if title['filtration'] == filtration:
-				filtration_Title = title["filtration_Title"]
+		for filtration_type in filtration_types:
+			if filtration_type['filtration'] == filtration:
+				filtration_type["status"] = 1
 
 	if category:
 		category = Res_category.query\
@@ -103,8 +108,8 @@ def collect_resource_paginate_info(pagination_url,
 		"pages_total": pagination_resources.pages,
 		"next_url": None,
 		"prev_url": None,
-		"filtration": filtration,
-		"filtration_Title": filtration_Title,
+		"current_filtration": filtration,
+		"filtration_types": filtration_types,
 		"category": category.ResCatName if category else None
 	}
 	if pagination_resources.has_next:
@@ -112,14 +117,14 @@ def collect_resource_paginate_info(pagination_url,
 			pagination_url,
 			page = pagination_resources.next_num,
 			per_page = pagination_resources.per_page,
-			filter = pagination_info["filtration"],
+			filter = pagination_info["current_filtration"],
 			category = pagination_info["category"])
 	if pagination_resources.has_prev:
 		pagination_info["prev_url"] = url_for(
 			pagination_url,
 			page = pagination_resources.prev_num,
 			per_page = pagination_resources.per_page,
-			filter = pagination_info["filtration"],
+			filter = pagination_info["current_filtration"],
 			category = pagination_info["category"])
 
 	# method for footer pagination
@@ -132,7 +137,7 @@ def collect_resource_paginate_info(pagination_url,
 				pagination_url,
 				page = page_num,
 				per_page = pagination_resources.per_page,
-				filter = pagination_info["filtration"],
+				filter = pagination_info["current_filtration"],
 				category = pagination_info["category"])
 		}
 		if page_num == pagination_resources.page:

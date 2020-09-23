@@ -14,7 +14,7 @@
 							<div id="single-image-1" class="tab-pane fade show active big-image-slider">
 								<div class="big-image">
 									<img loading="lazy" src="{{resource.FilePathM}}">
-									<a href="{{resource.FilePathM}}" class="big-image-popup">
+									<a href="{{resource.FilePathR}}" class="big-image-popup">
 										<i class="fa fa-search-plus"></i>
 									</a>
 								</div>
@@ -106,19 +106,6 @@
 
 					<div class="tab-pane fade" id="product-reviews">
 						<div class="product-ratting-wrap">
-							<div class="rattings-wrapper">
-								{% for rating in resource.Rating %}
-									<div class="sin-rattings">
-										<div class="ratting-author">
-											<h3>{{ rating.User.UName if rating.User else rating.Rp_acc.RpAccName }}</h3>
-											<input type="hidden" class="ratingValue" value="{{ rating.RtRatingValue }}" ownerId="uz3R{{ rating.User.UId if rating.User else rating.Rp_acc.RpAccId }}">
-											<div class="ratting-star ratingStars" ownerId="uz3R{{ rating.User.UId if rating.User else rating.Rp_acc.RpAccId }}"></div>
-											<span>({{ rating.RtRatingValue }})</span>
-										</div>
-										<p>{{ rating.RtRemark if rating.RtRemark else '' }}</p>
-									</div>
-								{% endfor %}
-							</div>
 							<div class="ratting-form-wrapper fix" ng-app>
 								{% if current_user.is_authenticated %}
 									<h3>{{_('Submit your review')}}</h3>
@@ -126,21 +113,21 @@
 										<div class="ratting-form row">
 											<div class="col-12 mb-15">
 												<h5>{{_('Your rating')}}:</h5>
-												<fieldset class="rating">
+												<fieldset class="rating rateButtons">
 													<input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
-													<input type="radio" id="star4half" name="rating" value="4 and a half" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
+													<input type="radio" id="star4half" name="rating" value="4.5" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
 													<input type="radio" id="star4" name="rating" value="4" checked /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
-													<input type="radio" id="star3half" name="rating" value="3 and a half" /><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
+													<input type="radio" id="star3half" name="rating" value="3.5" /><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
 													<input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
-													<input type="radio" id="star2half" name="rating" value="2 and a half" /><label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
+													<input type="radio" id="star2half" name="rating" value="2.5" /><label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
 													<input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
-													<input type="radio" id="star1half" name="rating" value="1 and a half" /><label class="half" for="star1half" title="Meh - 1.5 stars"></label>
+													<input type="radio" id="star1half" name="rating" value="1.5" /><label class="half" for="star1half" title="Meh - 1.5 stars"></label>
 													<input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
 													<input type="radio" id="starhalf" name="rating" value="half" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
 												</fieldset>
 											</div>
+											<input type="hidden" class="reviewRatingValue" value="4">
 											<div class="col-12 mb-15">
-												<label for="your-review">{{_('Write your review')}}</label>
 												<textarea name="review" class="reviewRatingText" ownerId="{{ resource.ResId }}" id="your-review" placeholder="{{_('Write your review')}}..."></textarea>
 											</div>
 											<div class="col-12">
@@ -153,11 +140,24 @@
 									<div class="y_login">
 										<h2>{{_('You should login to add a review')}}</h2>
 										<div class="cart-summary-button">
-											<button class="checkout-btn checkoutCartBtn" style="width: auto;float: none;">Login</button>
+											<a href="{{ url_for('commerce_auth.login') }}"><button class="checkout-btn checkoutCartBtn" style="width: auto;float: none;">{{_('Login')}}</button></a>
 										</div>
 									</div>
 								</div>
 								{% endif %}
+							</div>
+							<div class="rattings-wrapper">
+								{% for rating in resource.Rating %}
+									<div class="sin-rattings">
+										<div class="ratting-author">
+											<h3>{{ rating.User.UName if rating.User else rating.Rp_acc.RpAccName }}</h3>
+											<input type="hidden" class="ratingValue" value="{{ rating.RtRatingValue }}" ownerId="uz3R{{ rating.User.UId if rating.User else rating.Rp_acc.RpAccId }}">
+											<div class="ratting-star ratingStars" ownerId="uz3R{{ rating.User.UId if rating.User else rating.Rp_acc.RpAccId }}"></div>
+											<span>({{ rating.RtRatingValue }})</span>
+										</div>
+										<p>{{ rating.RtRemark if rating.RtRemark else '' }}</p>
+									</div>
+								{% endfor %}
 							</div>
 						</div>
 					</div>
@@ -184,6 +184,7 @@
 				<div class="product-slider-wrap product-slider-arrow-one">
 					<!-- Product Slider Start -->
 					<div class="product-slider product-slider-4">
+						{% if resource.Related_resources %}
 						{% for related_resource in resource.Related_resources %}
 							<div class="col pb-20 pt-10">
 								<!-- Product Start -->
@@ -231,6 +232,7 @@
 								</div><!-- Product End -->
 							</div>
 						{% endfor %}
+						{% endif %}
 					</div><!-- Product Slider End -->
 				</div><!-- Product Slider Wrap End -->
 			</div><!-- Product Tab Content End -->
@@ -243,8 +245,8 @@
 
 {% block scripts %}
 <script>
-function adjustRating(rating) {
-	document.getElementById("ratingvalue").innerHTML = rating;
-}
+	function adjustRating(rating) {
+		document.getElementById("ratingvalue").innerHTML = rating;
+	}
 </script>
 {% endblock %}

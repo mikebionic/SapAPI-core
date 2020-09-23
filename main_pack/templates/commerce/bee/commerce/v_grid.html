@@ -41,14 +41,9 @@
 							<div class="product-short">
 								<p>{{_('Filter')}}</p>
 								<select name="sortby" class="nice-select filtration">
-									{% if filtration %}
-										<option value="{{filtration}}">{{filtration_Title if filtration_Title else ''}}</option>
-									{% endif %}
-									<option value="date_new">{{_('Newest')}}</option>
-									<option value="date_old">{{_('Oldest')}}</option>
-									<option value="rated">{{_('Rated')}}</option>
-									<option value="price_high">{{_('Price')}}: {{_('high to low')}}</option>
-									<option value="price_low">{{_('Price')}}: {{_('low to high')}}</option>
+									{% for filtration in filtration_types %}
+										<option value="{{filtration.filtration}}" {{ 'selected' if filtration.status == 1 }}>{{filtration.filtration_title}}</option>
+									{% endfor %}
 								</select>
 							</div>
 							<input type="hidden" class="category_filter" value="{{category}}">

@@ -33,6 +33,7 @@ def api_categories():
 			.filter(and_(
 				Res_total.WhId == 1, 
 				Res_total.ResTotBalance > 0))\
+			.order_by(Res_category.ResCatVisibleIndex.asc())\
 			.all()
 		res = {
 			"status": 1,
