@@ -644,7 +644,7 @@ class Order_inv(AddInf,CreatedModifiedInfo,db.Model):
 	EmpId = db.Column(db.Integer,db.ForeignKey("tbl_dk_employee.EmpId"))
 	PtId = db.Column(db.Integer,db.ForeignKey("tbl_dk_payment_type.PtId"))
 	PmId = db.Column(db.Integer,db.ForeignKey("tbl_dk_payment_method.PmId"))
-	# PaymStatusId = db.Column(db.Integer,db.ForeignKey("tbl_dk_payment_status.PaymStatusId"))
+	PaymStatusId = db.Column(db.Integer,db.ForeignKey("tbl_dk_payment_status.PaymStatusId"))
 	OInvLatitude = db.Column(db.Float,default=0.0)
 	OInvLongitude = db.Column(db.Float,default=0.0)
 	OInvRegNo = db.Column(db.String(100),nullable=False,unique=True)

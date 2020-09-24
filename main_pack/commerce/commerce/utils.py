@@ -1,7 +1,7 @@
+from main_pack.config import Config
 # auth and validation
 from flask_login import current_user,login_required
 # / auth and validation /
-
 # useful methods
 from main_pack import db,babel,gettext,lazy_gettext
 from sqlalchemy import and_
@@ -124,3 +124,21 @@ def uiSortingData():
 		'brands':brands,
 		}
 	return uiSortingData
+
+
+from main_pack import mail
+from flask_mail import Message
+
+def send_email_to_company(FirstName,LastName,Email,Phone,Message):
+	recipient = Config.MAIL_USERNAME
+	msg = Message('Message from users',
+		sender = "noterply@mail.io",
+		recipients = recipient)
+	msg.body = f'''Message from user.
+	Email: {Email},
+	First name: {FirstName},
+	Last name: {LastName},
+	Phone: {Phone},
+	Message: {Message}
+	'''
+	mail.send(msg)

@@ -98,27 +98,28 @@
 					<div class="tab-pane fade row d-flex" id="contact-form-tab">
 						<div class="col">
 
-							<form id="contact-form" action="" method="post" class="contact-form mb-50">
+							<form id="contact-form" action="" method="POST" class="contact-form mb-50">
+								{{form.hidden_tag()}}
 								<div class="row">
 									<div class="col-md-6 col-12 mb-25">
-										<label for="first_name">First Name*</label>
-										<input id="first_name" type="text" name="first_name">
+										<label for="first_name">{{_('First name')}}*</label>
+										{{form.FirstName}}
 									</div>
 									<div class="col-md-6 col-12 mb-25">
-										<label for="last_name">Last Name*</label>
-										<input id="last_name" type="text" name="last_name">
+										<label for="last_name">{{_('Last name')}}*</label>
+										{{form.LastName}}
 									</div>
 									<div class="col-md-6 col-12 mb-25">
-										<label for="email_address">Email*</label>
-										<input id="email_address" type="email" name="email_address">
+										<label for="email_address">{{_('Email')}}*</label>
+										{{form.Email}}
 									</div>
 									<div class="col-md-6 col-12 mb-25">
-										<label for="phone_number">Phone</label>
-										<input id="phone_number" type="text" name="phone_number">
+										<label for="phone_number">{{_('Phone')}}</label>
+										{{form.Phone}}
 									</div>
 									<div class="col-12 mb-25">
-										<label for="message">Message*</label>
-										<textarea id="message" name="message"></textarea>
+										<label for="message">{{_('Message')}}*</label>
+										{{form.Message}}
 									</div>
 									<div class="col-12">
 										<input type="submit" value="SEND NOW">
