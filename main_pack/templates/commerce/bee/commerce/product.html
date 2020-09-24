@@ -106,6 +106,19 @@
 
 					<div class="tab-pane fade" id="product-reviews">
 						<div class="product-ratting-wrap">
+							<div class="rattings-wrapper">
+								{% for rating in resource.Rating %}
+									<div class="sin-rattings">
+										<div class="ratting-author">
+											<h3>{{ rating.User.UName if rating.User else rating.Rp_acc.RpAccName }}</h3>
+											<input type="hidden" class="ratingValue" value="{{ rating.RtRatingValue }}" ownerId="uz3R{{ rating.User.UId if rating.User else rating.Rp_acc.RpAccId }}">
+											<div class="ratting-star ratingStars" ownerId="uz3R{{ rating.User.UId if rating.User else rating.Rp_acc.RpAccId }}"></div>
+											<span>({{ rating.RtRatingValue }})</span>
+										</div>
+										<p>{{ rating.RtRemark if rating.RtRemark else '' }}</p>
+									</div>
+								{% endfor %}
+							</div>
 							<div class="ratting-form-wrapper fix" ng-app>
 								{% if current_user.is_authenticated %}
 									<h3>{{_('Submit your review')}}</h3>
@@ -145,19 +158,6 @@
 									</div>
 								</div>
 								{% endif %}
-							</div>
-							<div class="rattings-wrapper">
-								{% for rating in resource.Rating %}
-									<div class="sin-rattings">
-										<div class="ratting-author">
-											<h3>{{ rating.User.UName if rating.User else rating.Rp_acc.RpAccName }}</h3>
-											<input type="hidden" class="ratingValue" value="{{ rating.RtRatingValue }}" ownerId="uz3R{{ rating.User.UId if rating.User else rating.Rp_acc.RpAccId }}">
-											<div class="ratting-star ratingStars" ownerId="uz3R{{ rating.User.UId if rating.User else rating.Rp_acc.RpAccId }}"></div>
-											<span>({{ rating.RtRatingValue }})</span>
-										</div>
-										<p>{{ rating.RtRemark if rating.RtRemark else '' }}</p>
-									</div>
-								{% endfor %}
 							</div>
 						</div>
 					</div>
