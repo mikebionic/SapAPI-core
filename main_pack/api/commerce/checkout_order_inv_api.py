@@ -45,6 +45,7 @@ def api_checkout_sale_order_invoices(user):
 		req = request.get_json()
 		order_invoice = addOrderInvDict(req['orderInv'])
 		orderRegNo = req['orderInv']['OInvRegNo']
+		InvStatId = req['orderInv']['InvStatId']
 		reg_num_pred_exists = None
 
 		##### check if invoice is not empty #####
@@ -72,6 +73,8 @@ def api_checkout_sale_order_invoices(user):
 		order_invoice['OInvTypeId'] = 2
 		order_invoice['WpId'] = work_period.WpId
 		order_invoice['WhId'] = 1
+		if InvStatId == 13:
+			order_invoice['InvStatId'] = InvStatId
 
 		# default currency is 1 TMT of not specified
 		if not order_invoice['CurrencyId']:

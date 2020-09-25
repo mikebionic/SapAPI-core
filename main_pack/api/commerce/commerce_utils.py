@@ -112,7 +112,7 @@ def apiResourceInfo(resource_list = None,
 					.outerjoin(Rating, Rating.ResId == Resource.ResId)\
 					.filter(Rating.RtRatingValue >= Config.SMALLEST_RATING_VALUE_SHOW)\
 					.order_by(Rating.RtRatingValue.asc())\
-					.limit(Config.RESOURCE_MAIN_PAGE_SHOW_QTY+1)
+					.limit(Config.RESOURCE_MAIN_PAGE_SHOW_QTY + 1)
 			
 			resources = resources.all()
 

@@ -57,7 +57,16 @@ def contact():
 			"Phone": form.Phone.data,
 			"Message": form.Message.data
 		}
-		send_email_to_company(**email_data)
+		# print(email_data)
+		message	= f'''Message from user.
+		Email: {email_data["Email"]},
+		First name: {email_data["FirstName"]},
+		Last name: {email_data["LastName"]},
+		Phone: {email_data["Phone"]},
+		Message: {email_data["Message"]}
+		'''
+		print(message)
+		send_email_to_company(message)
 	return render_template(Config.COMMERCE_TEMPLATES_FOLDER_PATH+"commerce/contact.html",
 		**categoriesData,form=form,title=gettext(Config.COMMERCE_CONTACTS_PAGE_TITLE))
 

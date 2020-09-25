@@ -129,16 +129,10 @@ def uiSortingData():
 from main_pack import mail
 from flask_mail import Message
 
-def send_email_to_company(FirstName,LastName,Email,Phone,Message):
+def send_email_to_company(message):
 	recipient = Config.MAIL_USERNAME
 	msg = Message('Message from users',
 		sender = "noterply@mail.io",
-		recipients = recipient)
-	msg.body = f'''Message from user.
-	Email: {Email},
-	First name: {FirstName},
-	Last name: {LastName},
-	Phone: {Phone},
-	Message: {Message}
-	'''
+		recipients = [recipient])
+	msg.body = message
 	mail.send(msg)
