@@ -2,6 +2,7 @@
 from flask import render_template,url_for,jsonify,request,abort,make_response
 from main_pack.api.commerce import api
 from main_pack.base.apiMethods import checkApiResponseStatus
+from datetime import datetime
 
 from main_pack.models.commerce.models import Res_price
 from main_pack.api.commerce.utils import addResPriceDict
@@ -58,7 +59,7 @@ def api_res_prices():
 							db.session.commit()
 							res_prices.append(res_price)
 				except Exception as ex:
-					print(ex)
+					print(f"{datetime.now()} | Res_price Api Exception: {ex}")
 					failed_res_prices.append(res_price)
 
 			status = checkApiResponseStatus(res_prices,failed_res_prices)

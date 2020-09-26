@@ -44,7 +44,7 @@ def apiCheckImageByte(image):
 
 def configureNulls(data):
 	for e in data:
-		if data[e] == '' or data[e] == 0:
+		if data[e] == '':
 			data[e] = None
 	return data
 

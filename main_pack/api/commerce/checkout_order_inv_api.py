@@ -19,6 +19,7 @@ from sqlalchemy import and_
 from main_pack.key_generator.utils import generate,makeRegNo,Pred_regnum
 import decimal
 
+
 @api.route("/checkout-sale-order-inv/",methods=['POST'])
 @token_required
 def api_checkout_sale_order_invoices(user):
@@ -58,7 +59,7 @@ def api_checkout_sale_order_invoices(user):
 				reg_num = generate(UId=user.UId,RegNumTypeName='sale_order_invoice_code')
 				orderRegNo = makeRegNo(user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'',True)
 			except Exception as ex:
-				print(ex)
+				print(f"{datetime.now()} | Checkout OInv Exception: {ex}")
 				# use device model and other info
 				orderRegNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
 		else:
@@ -99,7 +100,7 @@ def api_checkout_sale_order_invoices(user):
 					reg_num = generate(UId=user.UId,RegNumTypeName='order_invoice_line_code')
 					orderLineRegNo = makeRegNo(user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'',True)
 				except Exception as ex:
-					print(ex)
+					print(f"{datetime.now()} | Checkout OInv Exception: {ex}")
 					# use device model and other info
 					orderLineRegNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
 				order_inv_line['OInvLineRegNo'] = orderLineRegNo
@@ -165,7 +166,7 @@ def api_checkout_sale_order_invoices(user):
 				db.session.add(thisOInvLine)
 				order_inv_lines.append(thisOInvLine.to_json_api())
 			except Exception as ex:
-				print(ex)
+				print(f"{datetime.now()} | Checkout OInv Exception: {ex}")
 				fail_info = {
 					"data": order_inv_line_req,
 					"error_type_id": error_type,
@@ -217,9 +218,8 @@ def api_checkout_sale_order_invoices(user):
 			for e in status:
 				res[e] = status[e]
 
-
 	except Exception as ex:
-		print(ex)
+		print(f"{datetime.now()} | Checkout OInv Exception: {ex}")
 		status_code = 400
 		res = {
 			"data": order_invoice,

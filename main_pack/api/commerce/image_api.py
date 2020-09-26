@@ -2,6 +2,7 @@
 from flask import render_template,url_for,jsonify,request,abort,make_response
 from main_pack.api.commerce import api
 from main_pack.base.apiMethods import checkApiResponseStatus
+from datetime import datetime
 
 from main_pack.models.base.models import Image,Sl_image
 from main_pack.models.commerce.models import Resource
@@ -12,6 +13,7 @@ from flask import send_from_directory
 import dateutil.parser
 import os
 from main_pack.api.auth.api_login import sha_required
+
 
 @api.route("/tbl-dk-images/",methods=['GET','POST'])
 @sha_required
@@ -70,7 +72,7 @@ def api_images():
 							print('added image was none')
 							images.append(imageDictData)
 				except Exception as ex:
-					print(ex)
+					print(f"{datetime.now()} | Image Api Exception: {ex}")
 					failed_images.append(imageDictData)
 			db.session.commit()
 			print('images were committed')
@@ -107,6 +109,7 @@ def get_image(file_type,file_size,file_name):
 	except FileNotFoundError:
 		abort(404)
 
+
 @api.route("/get-file/<file_type>/<file_name>")
 def get_file(file_type,file_name):
 	if file_type == "slider": 
@@ -120,6 +123,7 @@ def get_file(file_type,file_name):
 		return response
 	except FileNotFoundError:
 		abort(404)
+
 
 @api.route("/get-icon/<category>/<file_name>")
 def get_icon(category,file_name):

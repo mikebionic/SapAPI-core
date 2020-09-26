@@ -36,6 +36,7 @@ from datetime import datetime
 
 from main_pack.api.commerce.commerce_utils import apiOrderInvInfo
 
+
 @api.route("/tbl-dk-order-invoices/",methods=['GET','POST'])
 @sha_required
 def api_order_invoices():
@@ -76,7 +77,7 @@ def api_order_invoices():
 						if rp_acc:
 							order_invoice['RpAccId'] = rp_acc.RpAccId
 					except Exception as ex:
-						print(ex)
+						print(f"{datetime.now()} | OInv Api Exception: {ex}")
 						print("Rp_acc not provided")
 						abort(400)
 
@@ -116,7 +117,7 @@ def api_order_invoices():
 												.first()
 											order_res_total.ResPendingTotalAmount += thisOrderInvLine.OInvLineAmount
 									except Exception as ex:
-										print(ex)
+										print(f"{datetime.now()} | OInv Api Exception: {ex}")
 								db.session.commit()
 								order_inv_lines.append(order_inv_line)
 								print('order inv line updated')
@@ -127,12 +128,14 @@ def api_order_invoices():
 								order_inv_lines.append(order_inv_line)
 								print('order inv line created')
 						except Exception as ex:
+							print(f"{datetime.now()} | OInv Api Exception: {ex}")
 							failed_order_inv_lines.append(order_inv_line)
 
 					order_invoice['Order_inv_lines'] = order_inv_lines
 					order_invoices.append(order_invoice)
 
 				except Exception as ex:
+					print(f"{datetime.now()} | OInv Api Exception: {ex}")
 					failed_order_invoices.append(order_invoice)
 
 			status = checkApiResponseStatus(order_invoices,failed_order_invoices)
@@ -148,6 +151,7 @@ def api_order_invoices():
 
 	return response
 
+
 @api.route("/tbl-dk-order-invoices/<OInvRegNo>/")
 @sha_required
 def api_order_invoice_info(OInvRegNo):
@@ -157,6 +161,7 @@ def api_order_invoice_info(OInvRegNo):
 	status_code = 200
 	response = make_response(jsonify(res),status_code)
 	return response
+
 
 # example request:
 # api/v-order-invoices/?startDate=2020-07-13 13:12:32.141562&endDate=2020-07-25 13:53:50.141948
@@ -173,6 +178,7 @@ def api_v_order_invoices(user):
 	status_code = 200
 	response = make_response(jsonify(res),status_code)
 	return response
+
 
 @api.route("/v-order-invoices/<OInvRegNo>/",methods=['GET'])
 @token_required

@@ -2,6 +2,7 @@
 from flask import jsonify,request,abort,make_response
 from main_pack.api.commerce import api
 from main_pack.base.apiMethods import checkApiResponseStatus
+from datetime import datetime
 
 from main_pack.models.commerce.models import Work_period
 from main_pack.api.commerce.utils import addWorkPeriodDict
@@ -53,7 +54,7 @@ def api_work_periods():
 							db.session.add(newWorkPeriod)
 							work_periods.append(work_period)
 				except Exception as ex:
-					print(ex)
+					print(f"{datetime.now()} | Work_period Api Exception: {ex}")
 					failed_work_periods.append(work_period)
 			db.session.commit()
 			status = checkApiResponseStatus(work_periods,failed_work_periods)

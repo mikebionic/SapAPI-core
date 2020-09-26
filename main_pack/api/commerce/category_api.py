@@ -2,6 +2,7 @@
 from flask import jsonify,request,abort,make_response
 from main_pack.api.commerce import api
 from main_pack.base.apiMethods import checkApiResponseStatus
+from datetime import datetime
 
 from main_pack.models.commerce.models import Res_category,Resource,Res_total
 from main_pack.api.commerce.utils import addCategoryDict
@@ -9,6 +10,7 @@ from main_pack import db
 from main_pack.config import Config
 from main_pack.api.auth.api_login import sha_required
 from sqlalchemy import and_
+
 
 @api.route("/tbl-dk-categories/<int:ResCatId>/",methods=['GET'])
 def api_category(ResCatId):
@@ -21,6 +23,7 @@ def api_category(ResCatId):
 		}
 		response = make_response(jsonify(res),200)
 	return response
+
 
 @api.route("/tbl-dk-categories/",methods=['GET'])
 def api_categories():
@@ -43,6 +46,7 @@ def api_categories():
 		}
 		response = make_response(jsonify(res),200)
 	return response
+	
 	
 @api.route("/tbl-dk-categories/",methods=['POST'])
 @sha_required
@@ -72,7 +76,7 @@ def api_post_categories():
 						category.update(**new_category)
 					categories.append(new_category)
 				except Exception as ex:
-					print(ex)
+					print(f"{datetime.now()} | Category Api Exception: {ex}")
 					failed_categories.append(new_category)
 			db.session.commit()
 			status = checkApiResponseStatus(categories,failed_categories)
@@ -86,6 +90,7 @@ def api_post_categories():
 				res[e] = status[e]
 			response = make_response(jsonify(res),200)	
 	return response
+
 
 @api.route("/tbl-dk-categories/paginate/",methods=['GET'])
 def api_paginated_categories():

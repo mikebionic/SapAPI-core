@@ -2,6 +2,7 @@
 from flask import render_template,url_for,jsonify,request,abort,make_response
 from main_pack.api.commerce import api
 from main_pack.base.apiMethods import checkApiResponseStatus
+from datetime import datetime
 
 from main_pack.models.commerce.models import Res_total
 from main_pack.api.commerce.utils import addResTotalDict
@@ -9,6 +10,7 @@ from main_pack import db
 from flask import current_app
 from sqlalchemy import and_
 from main_pack.api.auth.api_login import sha_required
+
 
 @api.route("/tbl-dk-res-totals/",methods=['GET','POST','PUT'])
 @sha_required
@@ -64,7 +66,7 @@ def api_res_totals():
 							db.session.add(newResTotal)
 							res_totals.append(res_total)
 				except Exception as ex:
-					print(ex)
+					print(f"{datetime.now()} | Res_total Api Exception: {ex}")
 					failed_res_totals.append(res_total)
 			db.session.commit()
 			status = checkApiResponseStatus(res_totals,failed_res_totals)

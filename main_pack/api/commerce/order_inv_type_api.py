@@ -3,6 +3,7 @@ from flask import render_template,url_for,jsonify,request,abort,make_response
 from main_pack.api.commerce import api
 from main_pack import db
 from flask import current_app
+from datetime import datetime
 
 # orders and db methods
 from main_pack.models.commerce.models import Order_inv_type
@@ -11,6 +12,7 @@ from main_pack.base.apiMethods import checkApiResponseStatus
 # / orders and db methods /
 
 from main_pack.api.auth.api_login import sha_required
+
 
 @api.route("/tbl-dk-order-inv-types/",methods=['GET','POST'])
 @sha_required
@@ -55,7 +57,7 @@ def api_order_inv_types():
 							db.session.add(newOrderInv)
 							order_inv_types.append(order_inv_type)
 				except Exception as ex:
-					print(ex)
+					print(f"{datetime.now()} | OInv_type Api Exception: {ex}")
 					failed_order_inv_types.append(order_inv_type)
 			db.session.commit()
 			status = checkApiResponseStatus(order_inv_types,failed_order_inv_types)

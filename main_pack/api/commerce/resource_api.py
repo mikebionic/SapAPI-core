@@ -2,6 +2,7 @@
 from flask import render_template,url_for,jsonify,request,abort,make_response
 from main_pack.api.commerce import api
 from main_pack.base.apiMethods import checkApiResponseStatus
+from datetime import datetime
 
 from main_pack.models.commerce.models import Res_category
 from main_pack.models.commerce.models import Resource
@@ -11,6 +12,7 @@ from flask import current_app
 from main_pack.api.auth.api_login import sha_required
 
 from main_pack.api.commerce.commerce_utils import apiResourceInfo
+
 
 @api.route("/tbl-dk-resources/<int:ResId>/")
 @sha_required
@@ -36,6 +38,7 @@ def api_resource(ResId):
 	# 	}
 	# 	response = make_response(jsonify(res),200)
 	return response
+
 
 @api.route("/tbl-dk-resources/",methods=['GET','POST'])
 @sha_required
@@ -79,7 +82,7 @@ def api_resources():
 							newCategoryId = category.ResCatId
 						resource['ResCatId'] = newCategoryId
 					except Exception as ex:
-						print(ex)
+						print(f"{datetime.now()} | Resource Api Exception: {ex}")
 				# / special synchronizer method /
 
 				# check that UsageStatusId specified
@@ -102,7 +105,7 @@ def api_resources():
 						resources.append(resource)
 						# check for presenting in database
 				except Exception as ex:
-					print(ex)
+					print(f"{datetime.now()} | Resource Api Exception: {ex}")
 					failed_resources.append(resource)
 			db.session.commit()
 			status = checkApiResponseStatus(resources,failed_resources)

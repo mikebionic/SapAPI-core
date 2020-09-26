@@ -2,12 +2,14 @@
 from flask import render_template,url_for,jsonify,request,abort,make_response
 from main_pack.api.commerce import api
 from main_pack.base.apiMethods import checkApiResponseStatus
+from datetime import datetime
 
 from main_pack.models.commerce.models import Barcode
 from main_pack.api.commerce.utils import addBarcodeDict
 from main_pack import db
 from flask import current_app
 from main_pack.api.auth.api_login import sha_required
+
 
 @api.route("/tbl-dk-barcodes/",methods=['GET','POST','PUT'])
 @sha_required
@@ -50,7 +52,7 @@ def api_barcodes():
 						db.session.add(newBarcode)
 						barcodes.append(barcode)
 				except Exception as ex:
-					print(ex)
+					print(f"{datetime.now()} | Barcode Api Exception: {ex}")
 					failed_barcodes.append(barcode)
 			db.session.commit()
 			status = checkApiResponseStatus(barcodes,failed_barcodes)

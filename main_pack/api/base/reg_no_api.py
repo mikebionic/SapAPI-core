@@ -49,7 +49,7 @@ def api_gen_reg_no(user):
 			}
 			currentRegNo = makeRegNo(**generation_params)
 		except Exception as ex:
-			print(ex)
+			print(f"{datetime.now()} | Reg_no Api Exception: {ex}")
 			currentRegNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
 
 		New_Pred_regnum = Pred_regnum(RegNum = currentRegNo, RegNumTypeId = RegNumTypeId)
@@ -61,7 +61,7 @@ def api_gen_reg_no(user):
 		message = "Generated Reg num"
 
 	except Exception as ex:
-		print(ex)
+		print(f"{datetime.now()} | Reg_no Api Exception: {ex}")
 		status = 0
 		data = ""
 		message = "Failed to generate"

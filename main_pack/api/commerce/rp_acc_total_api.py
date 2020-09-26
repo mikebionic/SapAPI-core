@@ -2,6 +2,7 @@
 from flask import render_template,url_for,jsonify,request,abort,make_response
 from main_pack.api.commerce import api
 from main_pack.base.apiMethods import checkApiResponseStatus
+from datetime import datetime
 
 from main_pack.models.commerce.models import Rp_acc_trans_total
 from main_pack.models.users.models import Rp_acc
@@ -9,6 +10,7 @@ from main_pack.api.commerce.utils import addRpAccTrTotDict
 from main_pack import db
 from flask import current_app
 from main_pack.api.auth.api_login import sha_required
+
 
 @api.route("/tbl-dk-rp-acc-trans-totals/",methods=['GET','POST'])
 @sha_required
@@ -61,7 +63,7 @@ def api_rp_acc_trans_totals():
 					else:
 						raise Exception
 				except Exception as ex:
-					print(ex)
+					print(f"{datetime.now()} | Rp_acc_total Api Exception: {ex}")
 					failed_rp_acc_trans_totals.append(rp_acc_trans_total)
 			db.session.commit()
 			status = checkApiResponseStatus(rp_acc_trans_totals,failed_rp_acc_trans_totals)

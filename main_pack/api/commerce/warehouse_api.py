@@ -2,12 +2,14 @@
 from flask import render_template,url_for,jsonify,request,abort,make_response
 from main_pack.api.commerce import api
 from main_pack.base.apiMethods import checkApiResponseStatus
+from datetime import datetime
 
 from main_pack.models.base.models import Warehouse
 from main_pack.api.commerce.utils import addWarehouseDict
 from main_pack import db
 from flask import current_app
 from main_pack.api.auth.api_login import sha_required
+
 
 @api.route("/tbl-dk-warehouses/",methods=['GET','POST'])
 @sha_required
@@ -55,7 +57,7 @@ def api_warehouses():
 							db.session.add(newWarehouse)
 							warehouses.append(warehouse)
 				except Exception as ex:
-					print(ex)
+					print(f"{datetime.now()} | Warehouse Api Exception: {ex}")
 					failed_warehouses.append(warehouse)
 			db.session.commit()
 			status = checkApiResponseStatus(warehouses,failed_warehouses)

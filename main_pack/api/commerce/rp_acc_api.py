@@ -2,12 +2,14 @@
 from flask import render_template,url_for,jsonify,request,abort,make_response
 from main_pack.api.commerce import api
 from main_pack.base.apiMethods import checkApiResponseStatus
+from datetime import datetime
 
 from main_pack.models.users.models import Rp_acc
 from main_pack.api.users.utils import addRpAccDict,apiRpAccData
 from main_pack import db
 from flask import current_app
 from main_pack.api.auth.api_login import sha_required
+
 
 @api.route("/tbl-dk-rp-accs/<RpAccRegNo>/",methods=['GET'])
 @sha_required
@@ -22,6 +24,7 @@ def api_rp_accs_rp_acc(RpAccRegNo):
 	response = make_response(jsonify(res),200)
 
 	return response
+
 
 @api.route("/tbl-dk-rp-accs/",methods=['GET','POST'])
 @sha_required
@@ -64,7 +67,7 @@ def api_rp_accs():
 						db.session.add(newRpAcc)
 						rp_accs.append(rp_acc)
 				except Exception as ex:
-					print(ex)
+					print(f"{datetime.now()} | Rp_acc Api Exception: {ex}")
 					failed_rp_accs.append(rp_acc)
 			db.session.commit()
 

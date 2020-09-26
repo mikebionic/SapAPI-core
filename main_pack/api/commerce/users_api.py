@@ -2,12 +2,14 @@
 from flask import render_template,url_for,jsonify,request,abort,make_response
 from main_pack.api.users import api
 from main_pack.base.apiMethods import checkApiResponseStatus
+from datetime import datetime
 
 from main_pack.models.users.models import Users
 from main_pack.api.users.utils import addUsersDict,apiUsersData
 from main_pack import db
 from flask import current_app
 from main_pack.api.auth.api_login import sha_required
+
 
 @api.route("/tbl-dk-users/<UId>/",methods=['GET'])
 @sha_required
@@ -22,6 +24,7 @@ def api_users_user(UId):
 	response = make_response(jsonify(res),200)
 
 	return response
+
 
 @api.route("/tbl-dk-users/",methods=['GET','POST'])
 @sha_required
@@ -66,7 +69,7 @@ def api_users():
 							db.session.add(newUser)
 							users.append(user)
 				except Exception as ex:
-					print(ex)
+					print(f"{datetime.now()} | Users Api Exception: {ex}")
 					failed_users.append(user)
 			db.session.commit()
 			status = checkApiResponseStatus(users,failed_users)
