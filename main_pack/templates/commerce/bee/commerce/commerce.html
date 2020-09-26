@@ -9,27 +9,37 @@
 	<div class="container">
 		<div class="row">
 			<div class="col"><!-- Hero Slider Start -->
-				<div class="hero-slider hero-slider-one">
+				<div class="hero-slider hero-slider-two fix slick slick-slider slick-dotted">
+
+					<!-- Hero Item Start -->
 					{% for slider in sliders %}
 					{% if slider.SlName == "commerce_header" %}
 						{% for sl_image in slider.Sl_images %}
 						{% if sl_image.SlImgMainImgFilePathM %}
-							<div class="hero-item">
-								<div class="row align-items-center justify-content-between">
-									<div class="hero-content col-6" style="margin-left: 25px;">
-										<h3>{{ sl_image.SlImgTitle if sl_image.SlImgTitle else '' }}</h3>
-										<h2 style="font-weight: 900;">{{ sl_image.SlImgDesc if sl_image.SlImgDesc else '' }}</h2>
-									</div>
-									<div class="hero-image col">
-										<img loading="lazy" src="{{ sl_image.SlImgMainImgFilePathM }}" style="height: 350px; width: 350px;">
+							<div class="slick-list draggable">
+								<div class="slick-track" style="opacity: 1; width: 1820px;">
+									<div class="hero-item-two slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" tabindex="0" role="tabpanel" id="slick-slide00" aria-describedby="slick-slide-control00" style="width: 910px; position: relative; left: 262px; top: 0px; z-index: 999; opacity: 1;">
+										<div class="row align-items-center justify-content-between">
+
+												<!-- Hero Content -->
+												<div class="hero-content-two col">
+													<h3>{{ sl_image.SlImgTitle if sl_image.SlImgTitle else '' }}</h3>
+													<h2 style="font-weight: 900;">{{ sl_image.SlImgDesc if sl_image.SlImgDesc else '' }}</h2>
+												</div>
+
+												<!-- Hero Image -->
+												<div class="hero-image-two col">
+													<img loading="lazy" src="{{ sl_image.SlImgMainImgFilePathM }}" alt="Hero Image" style="height: 350px; width: 350px;">
+												</div>
+										</div>
 									</div>
 								</div>     
-							</div><!-- Hero Item End -->
+							</div>
 						{% endif %}
 						{% endfor %}
 					{% endif %}
 					{% endfor %}
-				</div><!-- Hero Slider End -->
+				</div>
 			</div>
 		</div>
 	</div>
