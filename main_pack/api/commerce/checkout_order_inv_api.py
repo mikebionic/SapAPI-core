@@ -45,6 +45,7 @@ def api_checkout_sale_order_invoices(user):
 		req = request.get_json()
 		order_invoice = addOrderInvDict(req['orderInv'])
 		orderRegNo = req['orderInv']['OInvRegNo']
+		InvStatId = req['orderInv']['InvStatId']
 		reg_num_pred_exists = None
 
 		##### check if invoice is not empty #####
@@ -72,6 +73,8 @@ def api_checkout_sale_order_invoices(user):
 		order_invoice['OInvTypeId'] = 2
 		order_invoice['WpId'] = work_period.WpId
 		order_invoice['WhId'] = 1
+		if InvStatId == 13:
+			order_invoice['InvStatId'] = InvStatId
 
 		# default currency is 1 TMT of not specified
 		if not order_invoice['CurrencyId']:
@@ -224,4 +227,48 @@ def api_checkout_sale_order_invoices(user):
 		}	
 	response = make_response(jsonify(res),status_code)
 
+	return response
+
+
+@api.route("/set-sale-order-inv-status/",methods=['GET','POST'])
+@token_required
+def api_set_sale_order_inv_status(user):
+	current_user = user['current_user']
+	RpAccId = current_user.RpAccId
+
+	if request.method == 'POST':
+		if not request.json:
+			res = {
+				"status": 0,
+				"message": "Error. Not a JSON data."
+			}
+			response = make_response(jsonify(res),400)
+			
+		else:
+			req = request.get_json()
+			OInvRegNo = req["OInvRegNo"]
+			InvStatId = req["InvStatId"]
+			order_inv = Order_inv.query\
+				.filter_by(RpAccId = RpAccId, OInvRegNo = OInvRegNo, GCRecord = None)\
+				.first()
+
+			data = []
+			status = 0
+			if order_inv:
+				order_inv.InvStatId = InvStatId
+				db.session.commit()
+				data = order_inv.to_json_api()
+				status = 1
+
+			res = {
+				"data": data,
+				"status": status,
+				"total": len(data)
+			}
+
+			if res['status'] == 0:
+				status_code = 200
+			else:
+				status_code = 201
+			response = make_response(jsonify(res),status_code)
 	return response

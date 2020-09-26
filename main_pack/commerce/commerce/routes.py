@@ -6,7 +6,12 @@ from main_pack.commerce.commerce import bp
 
 # Resource and view
 from main_pack.api.commerce.commerce_utils import apiResourceInfo,apiFeaturedResCat_Resources
-from main_pack.commerce.commerce.utils import slidersData,UiCategoriesList,UiBrandsList
+from main_pack.commerce.commerce.utils import (slidersData,
+																							UiCategoriesList,
+																							UiBrandsList,
+																							send_email_to_company)
+
+from main_pack.commerce.commerce.forms import SendEmailToCompanyForm																						
 # from main_pack.models.commerce.models import Resource
 # / Resource and view /
 
@@ -40,11 +45,30 @@ def about():
 	return render_template(Config.COMMERCE_TEMPLATES_FOLDER_PATH+"commerce/about.html",
 		**categoriesData,title=gettext(Config.COMMERCE_ABOUT_PAGE_TITLE))
 
-@bp.route(Config.COMMERCE_CONTACTS_PAGE)
+@bp.route(Config.COMMERCE_CONTACTS_PAGE, methods=['GET', 'POST'])
 def contact():
 	categoriesData = UiCategoriesList()
+	form = SendEmailToCompanyForm()
+	if form.validate_on_submit():
+		email_data = {
+			"FirstName": form.FirstName.data,
+			"LastName": form.LastName.data,
+			"Email": form.Email.data,
+			"Phone": form.Phone.data,
+			"Message": form.Message.data
+		}
+		# print(email_data)
+		message	= f'''Message from user.
+		Email: {email_data["Email"]},
+		First name: {email_data["FirstName"]},
+		Last name: {email_data["LastName"]},
+		Phone: {email_data["Phone"]},
+		Message: {email_data["Message"]}
+		'''
+		print(message)
+		send_email_to_company(message)
 	return render_template(Config.COMMERCE_TEMPLATES_FOLDER_PATH+"commerce/contact.html",
-		**categoriesData,title=gettext(Config.COMMERCE_CONTACTS_PAGE_TITLE))
+		**categoriesData,form=form,title=gettext(Config.COMMERCE_CONTACTS_PAGE_TITLE))
 
 @bp.route(Config.COMMERCE_CART_VIEW)
 def cart():

@@ -151,10 +151,10 @@
 
 								<div class="left-content">
 									<div class="ratting ratingStars" ownerId="{{ resource.ResId }}"></div>
-
+<!-- 
 									<div class="desc">
-										<p>{{ resource.ResFullDesc[0:100]+'...' if resource.ResFullDesc else '' }}</p>
-									</div>
+										<p class="descriptionText">{{ resource.ResFullDesc if resource.ResFullDesc else '' }}</p>
+									</div> -->
 									<div class="actions">
 										<a href="#" class="add-to-cart" ownerId="{{ resource.ResId }}">
 											<i class="ti-shopping-cart"></i>
@@ -174,11 +174,6 @@
 									<div class="specification">
 										<h5>{{_('Specifications')}}</h5>
 										{{ resource.ResDesc if resource.ResDesc else '' }}
-										<!-- <ul>
-											<li>Diagonal Size 350mm</li>
-											<li>Max Speed 16m/s (ATTI mode)</li>
-											<li>Maz Flight Time  Approx. 25min</li>
-										</ul> -->
 									</div>
 									<span class="availability">{{_('Availability')}}: <span>{{_('In stock')}}</span></span>
 								</div>
