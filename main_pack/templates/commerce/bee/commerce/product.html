@@ -90,18 +90,22 @@
 
 				<div class="single-product-tab-content tab-content">
 					<div class="tab-pane fade show active" id="product-description" style="margin: 10px 10px;display: flex; padding: 10px 10px;text-align: center;">
-						<h2 style="font-weight: 100; margin-top: 30px; padding-right: 45px;">{{ resource.ResFullDesc if resource.ResFullDesc else _('No description provided for this product') }}</h2>
-						<div class="emoji-box outfit">
-							<div class="spects">
-								<div class="box"></div>
-								<div class="box"></div>
+						{% if resource.ResFullDesc %}
+							<h4 style="font-weight: 100; margin-top: 30px; padding-right: 45px;" class="descriptionText">{{ resource.ResFullDesc }}</h4>
+						{% else %}
+							<h2 style="font-weight: 100; margin-top: 30px; padding-right: 45px;">{{ _('No description provided for this product') }}</h2>
+							<div class="emoji-box outfit">
+								<div class="spects">
+									<div class="box"></div>
+									<div class="box"></div>
+								</div>
+								<div class="eyes">
+									<div class="eye"></div>
+									<div class="eye"></div>
+								</div>
+								<div class="smile"></div>
 							</div>
-							<div class="eyes">
-								<div class="eye"></div>
-								<div class="eye"></div>
-							</div>
-							<div class="smile"></div>
-						</div>
+						{% endif %}
 					</div>
 
 					<div class="tab-pane fade" id="product-reviews">

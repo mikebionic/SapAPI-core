@@ -32,7 +32,7 @@
                   <th class="text-center">{{_('Price')}}</th>
                   <th class="text-center">{{_('Amount')}}</th>
                   <th class="text-center">{{_('Status')}}</th>
-                  <!-- <th class="text-center">{{_('Action')}}</th> -->
+                  <th class="text-center">{{_('Action')}}</th>
                 </tr>
               </thead>
               <tbody>
@@ -44,7 +44,6 @@
                       {% if resource.FilePathS %}
                         <img alt="image" loading="lazy" src="{{ resource.FilePathS }}" width="70">
                       {% endif %}
-                      <a href="{{ url_for('commerce_admin.resource_images',ResId = resource.ResId) }}" class="btn btn-icon btn-outline-info"><i class="fas fa-plus"></i></a>
                     </td>
                     <td class="text-center">{{ resource.ResName if resource.ResName else '' }}</td>
                     <td class="text-center">{{ resource.BarcodeVal if resource.BarcodeVal else '' }}</td>
@@ -57,10 +56,9 @@
                         <i class="{{ 'fas fa-check' if resource.UsageStatusId==1 else 'fas fa-minus' }}"></i>
                       </div>
                     </td>
-                    <!-- <td class="text-center">
-                      <a href="#" class="btn btn-icon btn-info editResource" ownerId="{{resource.RedId}}"><i class="fas fa-pencil-alt"></i></a>
-                      <a href="#" class="btn btn-icon btn-danger deleteResource" ownerId="{{resource.RedId}}"><i class="fas fa-trash-alt"></i></a>
-                    </td> -->
+                    <td class="text-center">
+                      <a href="{{ url_for('commerce_admin.resource_edit',ResId = resource.ResId) }}" class="btn btn-icon btn-info"><i class="fas fa-pencil-alt"></i></a>
+                    </td>
                   </tr>
                 {% endfor %}
               </tbody>

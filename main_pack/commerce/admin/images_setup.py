@@ -22,7 +22,7 @@ from sqlalchemy import or_, and_
 import os
 # / data and models /
 
-from main_pack.commerce.admin.forms import LogoImageForm,SliderImageForm,resourceImageForm
+from main_pack.commerce.admin.forms import LogoImageForm,SliderImageForm,resourceEditForm
 
 
 @bp.route("/admin/logo_setup", methods=['GET', 'POST'])
@@ -211,19 +211,21 @@ def remove_svg_icon():
 	return redirect(url_for('commerce_admin.category_table'))
 
 
-@bp.route("/admin/resource_images/<ResId>", methods=['GET', 'POST'])
+@bp.route("/admin/resource_edit/<ResId>", methods=['GET', 'POST'])
 @login_required
 @ui_admin_required()
-def resource_images(ResId):
+def resource_edit(ResId):
 	resource = Resource.query\
 		.filter_by(GCRecord = None, ResId = ResId)\
 		.first()
 	resource_models = [resource]
 	res = apiResourceInfo(resource_models=resource_models,single_object=True,showInactive=True,avoidQtyCheckup=True)
-	resource = res['data']
-
-	resourceForm = resourceImageForm()
+	resource_info = res['data']
+	resourceForm = resourceEditForm()
 	if "resourceForm" in request.form and resourceForm.validate_on_submit():
+		resource.ResName = resourceForm.ResName.data
+		resource.ResDesc = resourceForm.ResDesc.data
+		resource.ResFullDesc = resourceForm.ResFullDesc.data
 		if resourceForm.resourceImage.data:
 			imageFile = save_image(imageForm=resourceForm.resourceImage.data,module=os.path.join("uploads","commerce","Resource"),id=ResId)
 			
@@ -234,6 +236,12 @@ def resource_images(ResId):
 			db.session.commit()
 
 			flash(f"{lazy_gettext('Resource picture')} {lazy_gettext('successfully uploaded!')}",'success')
-		return redirect(url_for('commerce_admin.resource_images',ResId=ResId))
-	return render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"resource_images.html",url_prefix=url_prefix,
-		title=gettext('Images'),resourceForm=resourceForm,resource=resource)
+		db.session.commit()
+		return redirect(url_for('commerce_admin.resource_edit',ResId=ResId))
+
+	resourceForm.ResName.data = resource_info["ResName"]
+	resourceForm.ResDesc.data = resource_info["ResDesc"]
+	resourceForm.ResFullDesc.data = resource_info["ResFullDesc"]
+
+	return render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"resource_edit.html",url_prefix=url_prefix,
+		title=resource_info["ResName"],resourceForm=resourceForm,resource=resource_info)

@@ -1,8 +1,19 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField,FileAllowed
-from wtforms import StringField,PasswordField,SubmitField,BooleanField,SelectField
-from wtforms.validators import DataRequired,Length,Length,Email,EqualTo,ValidationError
+from wtforms import (StringField,
+										PasswordField,
+										SubmitField,
+										BooleanField,
+										SelectField)
+from wtforms.widgets import TextArea
+from wtforms.validators import (DataRequired,
+																Length,
+																Length,
+																Email,
+																EqualTo,
+																ValidationError)
 from main_pack import babel,gettext,lazy_gettext
+
 from main_pack.models.users.models import Users,Rp_acc
 
 
@@ -19,8 +30,11 @@ class SliderImageForm(FlaskForm):
 	SlImgEndDate = StringField('End date')
 
 
-class resourceImageForm(FlaskForm):
+class resourceEditForm(FlaskForm):
 	resourceImage = FileField('Image',validators=[FileAllowed(['jpg','png','img'])])
+	ResName = StringField(validators=[DataRequired(),Length(min=2,max=255)])
+	ResDesc = StringField(validators=[Length(max=500)])
+	ResFullDesc = StringField(validators=[Length(max=1500)],widget=TextArea())
 
 
 class BrandForm(FlaskForm):
