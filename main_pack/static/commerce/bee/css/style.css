@@ -9282,7 +9282,7 @@ img.mfp-img {
   color: #444444; }
 
 .cart-table td.pro-price span {
-  display: block;
+  /* display: block; */
   font-size: 15px;
   font-weight: 600;
   color: #444444; }
@@ -9316,10 +9316,11 @@ img.mfp-img {
     background-color: transparent; }
   @media only screen and (max-width: 767px) {
     .cart-table td.pro-quantity .pro-qty {
-      margin-left: 32%; } }
+      /* margin-left: 32%;  */
+    } }
 
 .cart-table td.pro-subtotal span {
-  display: block;
+  /* display: block; */
   font-size: 15px;
   font-weight: 600;
   color: #444444; }
@@ -12138,9 +12139,6 @@ ul.link-widget li {
       width: 205px;
   }
 }   
-.t_price{
-  display: flex;
-}
 
 .y_login{
   max-width: 100%;
@@ -12153,17 +12151,17 @@ ul.link-widget li {
   width: 100%; }
   @media only screen and (min-width: 768px) and (max-width: 991px) {
     .y_login .cart-summary-button {
-      display: -webkit-box;
+      /* display: -webkit-box; */
       display: -ms-flexbox;
-      display: flex;
+      /* display: flex; */
       -webkit-box-pack: start;
       -ms-flex-pack: start;
       justify-content: flex-start; } }
   @media only screen and (max-width: 767px) {
     .y_login .cart-summary-button {
-      display: -webkit-box;
+      /* display: -webkit-box; */
       display: -ms-flexbox;
-      display: flex;
+      /* display: flex; */
       -webkit-box-pack: start;
       -ms-flex-pack: start;
       justify-content: flex-start; } }
