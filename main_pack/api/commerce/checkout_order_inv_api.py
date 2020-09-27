@@ -1,23 +1,31 @@
 # -*- coding: utf-8 -*-
 from flask import render_template,url_for,jsonify,request,abort,make_response
-from main_pack.api.commerce import api
-from main_pack.base.apiMethods import checkApiResponseStatus
-from main_pack.base.invoiceMethods import get_order_error_type
-
-from main_pack.models.users.models import Users
-from main_pack.models.commerce.models import Order_inv,Order_inv_line,Work_period
-from main_pack.api.commerce.utils import addOrderInvDict,addOrderInvLineDict
 from main_pack import db,babel,gettext,lazy_gettext
 from main_pack.config import Config
-from datetime import datetime,timezone
-from main_pack.api.auth.api_login import token_required
+from main_pack.api.commerce import api
+import requests,json
 
+# Users and auth
+from main_pack.models.users.models import Users
+from main_pack.api.auth.api_login import token_required
+# / Users and auth /
+
+# Orders
+from main_pack.models.commerce.models import Order_inv,Order_inv_line,Work_period
+from main_pack.api.commerce.utils import addOrderInvDict,addOrderInvLineDict
+from main_pack.base.invoiceMethods import get_order_error_type
+from main_pack.base.apiMethods import checkApiResponseStatus
+# / Orders /
+
+from datetime import datetime,timezone
+from main_pack.key_generator.utils import generate,makeRegNo,Pred_regnum
+
+# Resource models and operations
 from main_pack.models.commerce.models import Resource,Res_price,Res_total
 from main_pack.base.invoiceMethods import totalQtySubstitution
 from main_pack.base.num2text import num2text,price2text
-from sqlalchemy import and_
-from main_pack.key_generator.utils import generate,makeRegNo,Pred_regnum
 import decimal
+# / Resource models and operations /
 
 
 @api.route("/checkout-sale-order-inv/",methods=['POST'])
@@ -248,17 +256,28 @@ def api_set_sale_order_inv_status(user):
 			req = request.get_json()
 			OInvRegNo = req["OInvRegNo"]
 			InvStatId = req["InvStatId"]
-			order_inv = Order_inv.query\
-				.filter_by(RpAccId = RpAccId, OInvRegNo = OInvRegNo, GCRecord = None)\
-				.first()
+			ReqStr = req["ReqStr"]
 
 			data = []
 			status = 0
-			if order_inv:
-				order_inv.InvStatId = InvStatId
-				db.session.commit()
-				data = order_inv.to_json_api()
-				status = 1
+			if ReqStr:
+				r = requests.get(f"{Config.ORDER_CONFIRMATION_SERVICE_URL}?{ReqStr}")
+				response_json = json.loads(r)
+
+				if response_json[Config.ORDER_CONFIRMATION_KEY] == Config.ORDER_CONFIRMATION_VALUE:
+					order_inv = Order_inv.query\
+						.filter_by(RpAccId = RpAccId, OInvRegNo = OInvRegNo, GCRecord = None)\
+						.first()
+
+					if order_inv:
+						order_inv.InvStatId = InvStatId
+						db.session.commit()
+						data = order_inv.to_json_api()
+						status = 1
+				else:
+					print(f"{datetime.now()} | Payment Confirmation: failed")
+			else:
+				print(f"{datetime.now()} | Payment Confirmation: ReqStr is None")
 
 			res = {
 				"data": data,
