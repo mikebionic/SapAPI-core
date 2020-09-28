@@ -71,7 +71,6 @@ returns **all orders** if **blank**
 # example of request to change the Order status
 {
   "OInvRegNo": "ARSFFK43013",
-  "OInvStatId": 1,
   "ReqStr":"language=ru&orderId=934d3b94-b95e-45ea-ad2b-a114db47a411&password=e235erHw4784fwf&userName=103122512345"
 }
 

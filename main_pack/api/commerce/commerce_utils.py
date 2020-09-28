@@ -166,6 +166,8 @@ def apiResourceInfo(resource_list = None,
 				List_Currencies = []
 			List_Res_total = [res_total.to_json_api() for res_total in resource.Res_total if res_total.GCRecord == None and res_total.WhId == 1]
 			List_Images = [image.to_json_api() for image in resource.Image if image.GCRecord == None]
+			# Sorting list by Modified date
+			List_Images = (sorted(List_Images, key = lambda i: i['ModifiedDate']))
 			if fullInfo == True:
 				List_Ratings = []
 				for rating in resource.Rating:

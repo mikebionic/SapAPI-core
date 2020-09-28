@@ -55,6 +55,7 @@ def addUsersDict(req):
 
 def addRpAccDict(req):
 	RpAccId = req.get('RpAccId')
+	UId = req.get('UId')
 	CId = req.get('CId')
 	DivId = req.get('DivId')
 	EmpId = req.get('EmpId')
@@ -96,7 +97,8 @@ def addRpAccDict(req):
 	CreatedUId = req.get('CreatedUId')
 	ModifiedUId = req.get('ModifiedUId')
 	GCRecord = req.get('GCRecord')
-	rp_acc = {		
+	rp_acc = {
+		"UId": UId,
 		"CId": CId,
 		"DivId": DivId,
 		"EmpId": EmpId,

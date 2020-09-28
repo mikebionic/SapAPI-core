@@ -67,7 +67,7 @@ def api_checkout_sale_order_invoices(user):
 				reg_num = generate(UId=user.UId,RegNumTypeName='sale_order_invoice_code')
 				orderRegNo = makeRegNo(user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'',True)
 			except Exception as ex:
-				print(f"{datetime.now()} | Checkout OInv Exception: {ex}")
+				print(f"{datetime.now()} | Checkout OInv Exception: {ex}. Couldn't generate RegNo using User's credentials")
 				# use device model and other info
 				orderRegNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
 		else:
@@ -108,7 +108,7 @@ def api_checkout_sale_order_invoices(user):
 					reg_num = generate(UId=user.UId,RegNumTypeName='order_invoice_line_code')
 					orderLineRegNo = makeRegNo(user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'',True)
 				except Exception as ex:
-					print(f"{datetime.now()} | Checkout OInv Exception: {ex}")
+					print(f"{datetime.now()} | Checkout OInv Exception: {ex}. Couldn't generate RegNo using User's credentials")
 					# use device model and other info
 					orderLineRegNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
 				order_inv_line['OInvLineRegNo'] = orderLineRegNo
@@ -259,6 +259,7 @@ def validate_order_inv_payment(user):
 			
 			status = 0
 			message = ''
+			data = []
 
 			if OrderId:
 				order_inv = Order_inv.query\
@@ -269,34 +270,31 @@ def validate_order_inv_payment(user):
 					.first()
 
 				if order_inv:
-					if order_inv.PsId != 2:
+					if order_inv.PaymStatusId != 2:
 						try:
-							r = requests.get(f"{Config.ORDER_VALIDATION_SERVICE_URL}\
-							&orderId={OrderId}\
-							&password={Config.ORDER_VALIDATION_SERVICE_PASSWORD}\
-							&userName={Config.ORDER_VALIDATION_SERVICE_USERNAME}")
-							response_json = json.loads(r)
+							r = requests.get(f"{Config.ORDER_VALIDATION_SERVICE_URL}?orderId={OrderId}&password={Config.ORDER_VALIDATION_SERVICE_PASSWORD}&userName={Config.ORDER_VALIDATION_SERVICE_USERNAME}")
+							response_json = json.loads(r.text)
 
-							if response_json[Config.ORDER_VALIDATION_KEY] == Config.ORDER_VALIDATION_VALUE:
-								PaymentAmount = r["Amount"]/100
+							if (str(response_json[Config.ORDER_VALIDATION_KEY]) == str(Config.ORDER_VALIDATION_VALUE)):
+								PaymentAmount = int(response_json["Amount"])/100
 								order_inv.OInvPaymAmount = PaymentAmount
 								order_inv.InvStatId = 1
 								if (PaymentAmount >= order_inv.OInvFTotal):
-									order_inv.PsId = 2
+									order_inv.PaymStatusId = 2
 								elif (PaymentAmount < order_inv.OInvFTotal and PaymentAmount > 0):
-									order_inv.PsId = 3
+									order_inv.PaymStatusId = 3
 								message = "Payment Validation: success"
 
 							else:
-								order_inv.PsId = 1
+								order_inv.PaymStatusId = 1
 								order_inv.OInvPaymAmount = 0
 
-								message = "Payment Validation: failed\
-									(OrderStatus = {response_json[Config.ORDER_VALIDATION_KEY]})"
+								message = f"Payment Validation: failed (OrderStatus = {response_json[Config.ORDER_VALIDATION_KEY]})"
 								print(f"{datetime.now()} | {message}")
 							
 							order_inv.AddInf5 = str(response_json)
 							db.session.commit()
+							data = [response_json]
 							status = 1
 						
 						except Exception as ex:
@@ -311,8 +309,7 @@ def validate_order_inv_payment(user):
 						message = "Already paid"
 
 				else:
-					message = "Payment Validation: failed\
-						(Order_inv is None)"
+					message = "Payment Validation: failed (Order_inv is None)"
 					print(f"{datetime.now()} | {message}")
 					
 			else:
@@ -320,8 +317,10 @@ def validate_order_inv_payment(user):
 				print(f"{datetime.now()} | {message}")
 
 			res = {
+				"data": data,
 				"message": message,
-				"status": status
+				"status": status,
+				"total": len(data)
 			}
 
 			if res['status'] == 0:
