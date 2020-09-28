@@ -238,9 +238,9 @@ def api_checkout_sale_order_invoices(user):
 	return response
 
 
-@api.route("/set-sale-order-inv-status/",methods=['GET','POST'])
+@api.route("/validate-order-inv-payment/",methods=['GET','POST'])
 @token_required
-def api_set_sale_order_inv_status(user):
+def validate_order_inv_payment(user):
 	current_user = user['current_user']
 	RpAccId = current_user.RpAccId
 
@@ -255,37 +255,73 @@ def api_set_sale_order_inv_status(user):
 		else:
 			req = request.get_json()
 			OInvRegNo = req["OInvRegNo"]
-			InvStatId = req["InvStatId"]
 			OrderId = req["OrderId"]
-			data = []
+			
 			status = 0
+			message = ''
+
 			if OrderId:
-				r = requests.get(f"{Config.ORDER_CONFIRMATION_SERVICE_URL}\
-				&orderId={OrderId}\
-				&password={Config.ORDER_CONFIRMATION_SERVICE_PASSWORD}\
-				&userName={Config.ORDER_CONFIRMATION_SERVICE_USERNAME}")
-				response_json = json.loads(r)
+				order_inv = Order_inv.query\
+					.filter_by(
+						RpAccId = RpAccId,
+						OInvRegNo = OInvRegNo,
+						GCRecord = None)\
+					.first()
 
-				if response_json[Config.ORDER_CONFIRMATION_KEY] == Config.ORDER_CONFIRMATION_VALUE:
-					order_inv = Order_inv.query\
-						.filter_by(RpAccId = RpAccId, OInvRegNo = OInvRegNo, GCRecord = None)\
-						.first()
+				if order_inv:
+					if order_inv.PsId != 2:
+						try:
+							r = requests.get(f"{Config.ORDER_VALIDATION_SERVICE_URL}\
+							&orderId={OrderId}\
+							&password={Config.ORDER_VALIDATION_SERVICE_PASSWORD}\
+							&userName={Config.ORDER_VALIDATION_SERVICE_USERNAME}")
+							response_json = json.loads(r)
 
-					if order_inv:
-						order_inv.InvStatId = InvStatId
-						order_inv.AddInf5 = r.text
-						db.session.commit()
-						data = order_inv.to_json_api()
-						status = 1
+							if response_json[Config.ORDER_VALIDATION_KEY] == Config.ORDER_VALIDATION_VALUE:
+								PaymentAmount = r["Amount"]/100
+								order_inv.OInvPaymAmount = PaymentAmount
+								order_inv.InvStatId = 1
+								if (PaymentAmount >= order_inv.OInvFTotal):
+									order_inv.PsId = 2
+								elif (PaymentAmount < order_inv.OInvFTotal and PaymentAmount > 0):
+									order_inv.PsId = 3
+								message = "Payment Validation: success"
+
+							else:
+								order_inv.PsId = 1
+								order_inv.OInvPaymAmount = 0
+
+								message = "Payment Validation: failed\
+									(OrderStatus = {response_json[Config.ORDER_VALIDATION_KEY]})"
+								print(f"{datetime.now()} | {message}")
+							
+							order_inv.AddInf5 = str(response_json)
+							db.session.commit()
+							status = 1
+						
+						except Exception as ex:
+							message = "Payment Validation: failed (Connection error)"
+							print(f"{datetime.now()} | Payment Validation Exception: {ex}")
+
+							req["message"] = message
+							order_inv.AddInf5 = str(req)
+							db.session.commit()
+
+					else:
+						message = "Already paid"
+
 				else:
-					print(f"{datetime.now()} | Payment Confirmation: failed")
+					message = "Payment Validation: failed\
+						(Order_inv is None)"
+					print(f"{datetime.now()} | {message}")
+					
 			else:
-				print(f"{datetime.now()} | Payment Confirmation: OrderId is None")
+				message = "Payment Validation: failed (OrderId is None)"
+				print(f"{datetime.now()} | {message}")
 
 			res = {
-				"data": data,
-				"status": status,
-				"total": len(data)
+				"message": message,
+				"status": status
 			}
 
 			if res['status'] == 0:

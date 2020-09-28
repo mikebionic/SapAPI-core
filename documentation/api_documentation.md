@@ -66,7 +66,7 @@ returns **all orders** if **blank**
 # this will create a special RegNum and save in Pred_regnum
 ```
 
-+ /api/set-sale-order-inv-status/
++ /api/validate-order-inv-payment/
 ```python
 # example of request to change the Order status
 {
