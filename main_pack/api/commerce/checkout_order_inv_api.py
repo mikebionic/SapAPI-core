@@ -256,12 +256,14 @@ def api_set_sale_order_inv_status(user):
 			req = request.get_json()
 			OInvRegNo = req["OInvRegNo"]
 			InvStatId = req["InvStatId"]
-			ReqStr = req["ReqStr"]
-
+			OrderId = req["OrderId"]
 			data = []
 			status = 0
-			if ReqStr:
-				r = requests.get(f"{Config.ORDER_CONFIRMATION_SERVICE_URL}?{ReqStr}")
+			if OrderId:
+				r = requests.get(f"{Config.ORDER_CONFIRMATION_SERVICE_URL}\
+				&orderId={OrderId}\
+				&password={Config.ORDER_CONFIRMATION_SERVICE_PASSWORD}\
+				&userName={Config.ORDER_CONFIRMATION_SERVICE_USERNAME}")
 				response_json = json.loads(r)
 
 				if response_json[Config.ORDER_CONFIRMATION_KEY] == Config.ORDER_CONFIRMATION_VALUE:
@@ -271,13 +273,14 @@ def api_set_sale_order_inv_status(user):
 
 					if order_inv:
 						order_inv.InvStatId = InvStatId
+						order_inv.AddInf5 = r.text
 						db.session.commit()
 						data = order_inv.to_json_api()
 						status = 1
 				else:
 					print(f"{datetime.now()} | Payment Confirmation: failed")
 			else:
-				print(f"{datetime.now()} | Payment Confirmation: ReqStr is None")
+				print(f"{datetime.now()} | Payment Confirmation: OrderId is None")
 
 			res = {
 				"data": data,

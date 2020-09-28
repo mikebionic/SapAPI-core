@@ -605,7 +605,7 @@ class Sl_image(AddInf,CreatedModifiedInfo,db.Model):
 			"SlId": self.SlId,
 			"SlImgTitle": self.SlImgTitle,
 			"SlImgDesc": self.SlImgDesc,
-			"SlImgMainImgFileName": fileToURL(file_type="slider",file_size='M',file_name=self.SlImgMainImgFileName),
+			"SlImgMainImgFileName": self.SlImgMainImgFileName,
 			"SlImgMainImgFilePathS": fileToURL(file_type="slider",file_size='S',file_name=self.SlImgMainImgFileName),
 			"SlImgMainImgFilePathM": fileToURL(file_type="slider",file_size='M',file_name=self.SlImgMainImgFileName),
 			"SlImgMainImgFilePathR": fileToURL(file_type="slider",file_size='R',file_name=self.SlImgMainImgFileName),

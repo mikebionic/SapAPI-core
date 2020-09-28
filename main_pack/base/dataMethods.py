@@ -44,12 +44,18 @@ def apiCheckImageByte(image):
 
 def configureNulls(data):
 	for e in data:
+		if data[e] == '' or data[e] == 0:
+			data[e] = None
+	return data
+
+def configureEmptyQuotesNulls(data):
+	for e in data:
 		if data[e] == '':
 			data[e] = None
 	return data
 
 def prepare_data(dropdown,page,title):
-	template_data={
+	template_data = {
 		'dropdown': dropdown,
 		'page': page,
 		'title': title,
