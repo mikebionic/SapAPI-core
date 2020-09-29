@@ -62,12 +62,24 @@ class Config:
 	MAIL_SUPPRESS_SEND = False
 	# MAIL_DEBUG = True
 	### / testing /
-	MAIL_SERVER = 'smtp.googlemail.com'
-	MAIL_PORT = 587
+	MAIL_SERVER = environ.get('MAIL_SERVER')
+	MAIL_PORT = environ.get('MAIL_PORT')
 	MAIL_USE_TLS = True
 	MAIL_USERNAME = environ.get('MAIL_USERNAME')
 	MAIL_PASSWORD = environ.get('MAIL_PASSWORD')
+	# / MAIL CONFIGURATION /
 	
+	# #  Online Payment
+	# URL for the service that will be used for payment check 
+	ORDER_VALIDATION_SERVICE_URL = environ.get('ORDER_VALIDATION_SERVICE_URL')
+	ORDER_VALIDATION_SERVICE_USERNAME = environ.get('ORDER_VALIDATION_SERVICE_USERNAME')
+	ORDER_VALIDATION_SERVICE_PASSWORD = environ.get('ORDER_VALIDATION_SERVICE_PASSWORD')
+	ORDER_VALIDATION_KEY = environ.get('ORDER_VALIDATION_KEY')
+	ORDER_VALIDATION_VALUE = environ.get('ORDER_VALIDATION_VALUE')
+	
+	# # / Online Payment /
+
+
 	# set to True if you want to use BCrypt hashing
 	HASHED_PASSWORDS = False
 

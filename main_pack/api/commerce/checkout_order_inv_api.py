@@ -1,23 +1,31 @@
 # -*- coding: utf-8 -*-
 from flask import render_template,url_for,jsonify,request,abort,make_response
-from main_pack.api.commerce import api
-from main_pack.base.apiMethods import checkApiResponseStatus
-from main_pack.base.invoiceMethods import get_order_error_type
-
-from main_pack.models.users.models import Users
-from main_pack.models.commerce.models import Order_inv,Order_inv_line,Work_period
-from main_pack.api.commerce.utils import addOrderInvDict,addOrderInvLineDict
 from main_pack import db,babel,gettext,lazy_gettext
 from main_pack.config import Config
-from datetime import datetime,timezone
-from main_pack.api.auth.api_login import token_required
+from main_pack.api.commerce import api
+import requests,json
 
+# Users and auth
+from main_pack.models.users.models import Users
+from main_pack.api.auth.api_login import token_required
+# / Users and auth /
+
+# Orders
+from main_pack.models.commerce.models import Order_inv,Order_inv_line,Work_period
+from main_pack.api.commerce.utils import addOrderInvDict,addOrderInvLineDict
+from main_pack.base.invoiceMethods import get_order_error_type
+from main_pack.base.apiMethods import checkApiResponseStatus
+# / Orders /
+
+from datetime import datetime,timezone
+from main_pack.key_generator.utils import generate,makeRegNo,Pred_regnum
+
+# Resource models and operations
 from main_pack.models.commerce.models import Resource,Res_price,Res_total
 from main_pack.base.invoiceMethods import totalQtySubstitution
 from main_pack.base.num2text import num2text,price2text
-from sqlalchemy import and_
-from main_pack.key_generator.utils import generate,makeRegNo,Pred_regnum
 import decimal
+# / Resource models and operations /
 
 
 @api.route("/checkout-sale-order-inv/",methods=['POST'])
@@ -59,7 +67,7 @@ def api_checkout_sale_order_invoices(user):
 				reg_num = generate(UId=user.UId,RegNumTypeName='sale_order_invoice_code')
 				orderRegNo = makeRegNo(user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'',True)
 			except Exception as ex:
-				print(f"{datetime.now()} | Checkout OInv Exception: {ex}")
+				print(f"{datetime.now()} | Checkout OInv Exception: {ex}. Couldn't generate RegNo using User's credentials")
 				# use device model and other info
 				orderRegNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
 		else:
@@ -100,7 +108,7 @@ def api_checkout_sale_order_invoices(user):
 					reg_num = generate(UId=user.UId,RegNumTypeName='order_invoice_line_code')
 					orderLineRegNo = makeRegNo(user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'',True)
 				except Exception as ex:
-					print(f"{datetime.now()} | Checkout OInv Exception: {ex}")
+					print(f"{datetime.now()} | Checkout OInv Exception: {ex}. Couldn't generate RegNo using User's credentials")
 					# use device model and other info
 					orderLineRegNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
 				order_inv_line['OInvLineRegNo'] = orderLineRegNo
@@ -230,9 +238,9 @@ def api_checkout_sale_order_invoices(user):
 	return response
 
 
-@api.route("/set-sale-order-inv-status/",methods=['GET','POST'])
+@api.route("/validate-order-inv-payment/",methods=['GET','POST'])
 @token_required
-def api_set_sale_order_inv_status(user):
+def validate_order_inv_payment(user):
 	current_user = user['current_user']
 	RpAccId = current_user.RpAccId
 
@@ -247,21 +255,70 @@ def api_set_sale_order_inv_status(user):
 		else:
 			req = request.get_json()
 			OInvRegNo = req["OInvRegNo"]
-			InvStatId = req["InvStatId"]
-			order_inv = Order_inv.query\
-				.filter_by(RpAccId = RpAccId, OInvRegNo = OInvRegNo, GCRecord = None)\
-				.first()
-
-			data = []
+			OrderId = req["OrderId"]
+			
 			status = 0
-			if order_inv:
-				order_inv.InvStatId = InvStatId
-				db.session.commit()
-				data = order_inv.to_json_api()
-				status = 1
+			message = ''
+			data = []
+
+			if OrderId:
+				order_inv = Order_inv.query\
+					.filter_by(
+						RpAccId = RpAccId,
+						OInvRegNo = OInvRegNo,
+						GCRecord = None)\
+					.first()
+
+				if order_inv:
+					if order_inv.PaymStatusId != 2:
+						try:
+							r = requests.get(f"{Config.ORDER_VALIDATION_SERVICE_URL}?orderId={OrderId}&password={Config.ORDER_VALIDATION_SERVICE_PASSWORD}&userName={Config.ORDER_VALIDATION_SERVICE_USERNAME}")
+							response_json = json.loads(r.text)
+
+							if (str(response_json[Config.ORDER_VALIDATION_KEY]) == str(Config.ORDER_VALIDATION_VALUE)):
+								PaymentAmount = int(response_json["Amount"])/100
+								order_inv.OInvPaymAmount = PaymentAmount
+								order_inv.InvStatId = 1
+								if (PaymentAmount >= order_inv.OInvFTotal):
+									order_inv.PaymStatusId = 2
+								elif (PaymentAmount < order_inv.OInvFTotal and PaymentAmount > 0):
+									order_inv.PaymStatusId = 3
+								message = "Payment Validation: success"
+
+							else:
+								order_inv.PaymStatusId = 1
+								order_inv.OInvPaymAmount = 0
+
+								message = f"Payment Validation: failed (OrderStatus = {response_json[Config.ORDER_VALIDATION_KEY]})"
+								print(f"{datetime.now()} | {message}")
+							
+							order_inv.AddInf5 = str(response_json)
+							db.session.commit()
+							data = [response_json]
+							status = 1
+						
+						except Exception as ex:
+							message = "Payment Validation: failed (Connection error)"
+							print(f"{datetime.now()} | Payment Validation Exception: {ex}")
+
+							req["message"] = message
+							order_inv.AddInf5 = str(req)
+							db.session.commit()
+
+					else:
+						message = "Already paid"
+
+				else:
+					message = "Payment Validation: failed (Order_inv is None)"
+					print(f"{datetime.now()} | {message}")
+					
+			else:
+				message = "Payment Validation: failed (OrderId is None)"
+				print(f"{datetime.now()} | {message}")
 
 			res = {
 				"data": data,
+				"message": message,
 				"status": status,
 				"total": len(data)
 			}

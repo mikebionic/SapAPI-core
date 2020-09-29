@@ -54,14 +54,49 @@ returns **all orders** if **blank**
 
 **@token_required** of **Rp_acc** login
 + /api/checkout-sale-order-inv/
+
 + /api/gen-reg-no/
-```json
-// example JSON for gen-reg-no
+```python
+# example JSON for gen-reg-no
 {
 	"RegNumTypeId": 3,
 	"random_mode": 1
 }
+
+# this will create a special RegNum and save in Pred_regnum
 ```
+
++ /api/validate-order-inv-payment/
+```python
+# example of request to change the Order status
+{
+  "OInvRegNo": "ARSFFK43013",
+  "ReqStr":"language=ru&orderId=934d3b94-b95e-45ea-ad2b-a114db47a411&password=e235erHw4784fwf&userName=103122512345"
+}
+
+# url_request: https://mpi.gov.tm/payment/rest/getOrderStatus.do?language=ru&orderId=934d3b94-b95e-45ea-ad2b-a114db47a411&password=e235erHw4784fwf&userName=103122512345
+
+# output of the url_request will be like:
+{
+	"expiration": "206004",
+	"cardholderName": "John Doe",
+	"depositAmount": 123,
+	"currency": "934",
+	"approvalCode": "7****9",
+	"authCode": 2,
+	"ErrorCode": "0",
+	"ErrorMessage": "Успешно",
+	"OrderStatus": 2,
+	"OrderNumber": "011**0******1",
+	"Pan": "99*******51",
+	"Amount": 123,
+	"Ip": "***.***.***.***",
+	"SvfeResponse": "0"
+}
+# OrderStatus == 2 means "Payment success"
+# URL, Key and Value should be set in Config and .env
+```
+
 
 > GET
 

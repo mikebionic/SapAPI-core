@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # from main_pack.models.commerce.models import Res_category
-from main_pack.base.dataMethods import configureNulls,configureFloat,boolCheck
+from main_pack.base.dataMethods import configureNulls,configureFloat,boolCheck,configureEmptyQuotesNulls
 from main_pack.base.imageMethods import save_image,dirHandler
 import io
 import os
@@ -39,7 +39,7 @@ def addCategoryDict(req):
 	}
 	if(ResCatId != '' and ResCatId != None):
 		category['ResCatId'] = ResCatId
-	category=configureNulls(category)
+	category = configureNulls(category)
 	return category
 
 def addResourceDict(req):
@@ -117,7 +117,7 @@ def addResourceDict(req):
 	}
 	if(ResId != '' and ResId != None):
 		resource['ResId'] = ResId
-	resource=configureNulls(resource)
+	resource = configureNulls(resource)
 	return resource
 
 def addImageDict(req):
@@ -152,7 +152,7 @@ def addImageDict(req):
 	}
 	if(ImgId != '' and ImgId != None):
 		image['ImgId'] = ImgId
-	image=configureNulls(image)
+	image = configureNulls(image)
 	return image
 
 def saveImageFile(req):
@@ -224,7 +224,7 @@ def saveImageFile(req):
 		# 	# this will change later on
 		# 	if data != "FilePath":
 		# 		image[data]=imageFile[data]
-	image=configureNulls(image)
+	image = configureNulls(image)
 	return image
 
 def addBarcodeDict(req):
@@ -265,7 +265,7 @@ def addResPriceDict(req):
 	CurrencyId = req.get('CurrencyId')
 	ResId = req.get('ResId')
 	ResPriceRegNo = req.get('ResPriceRegNo')
-	ResPriceValue = req.get('ResPriceValue')
+	ResPriceValue = configureFloat(req.get('ResPriceValue'))
 	PriceStartDate = req.get('PriceStartDate')
 	PriceEndDate = req.get('PriceEndDate')
 	CreatedDate = req.get('CreatedDate')
@@ -292,7 +292,7 @@ def addResPriceDict(req):
 		}
 	if(ResPriceId != '' and ResPriceId != None):
 		res_price['ResPriceId'] = ResPriceId
-	res_price=configureNulls(res_price)
+	res_price = configureNulls(res_price)
 	return res_price
 
 def addResTotalDict(req):
@@ -335,7 +335,7 @@ def addResTotalDict(req):
 
 	if(ResTotId != '' and ResTotId != None):
 		res_total['ResTotId'] = ResTotId
-	res_total=configureNulls(res_total)
+	res_total = configureEmptyQuotesNulls(res_total)
 	return res_total
 
 
@@ -369,7 +369,7 @@ def addRpAccTrTotDict(req):
 
 	if(RpAccTrTotId != '' and RpAccTrTotId != None):
 		rp_acc_trans_total['RpAccTrTotId'] = RpAccTrTotId
-	rp_acc_trans_total=configureNulls(rp_acc_trans_total)
+	rp_acc_trans_total = configureNulls(rp_acc_trans_total)
 	return rp_acc_trans_total
 
 
@@ -387,16 +387,16 @@ def addOrderInvDict(req):
 	PtId = req.get('PtId')
 	PmId = req.get('PmId')
 	PaymStatusId = req.get('PaymStatusId')
-	OInvLatitude = req.get('OInvLatitude')
-	OInvLongitude = req.get('OInvLongitude')
+	OInvLatitude = configureFloat(req.get('OInvLatitude'))
+	OInvLongitude = configureFloat(req.get('OInvLongitude'))
 	OInvRegNo = req.get('OInvRegNo')
 	OInvDesc = req.get('OInvDesc')
 	OInvDate = req.get('OInvDate')
-	OInvTotal = req.get('OInvTotal')
-	OInvExpenseAmount = req.get('OInvExpenseAmount')
-	OInvTaxAmount = req.get('OInvTaxAmount')
-	OInvDiscountAmount = req.get('OInvDiscountAmount')
-	OInvFTotal = req.get('OInvFTotal')
+	OInvTotal = configureFloat(req.get('OInvTotal'))
+	OInvExpenseAmount = configureFloat(req.get('OInvExpenseAmount'))
+	OInvTaxAmount = configureFloat(req.get('OInvTaxAmount'))
+	OInvDiscountAmount = configureFloat(req.get('OInvDiscountAmount'))
+	OInvFTotal = configureFloat(req.get('OInvFTotal'))
 	OInvFTotalInWrite = req.get('OInvFTotalInWrite')
 	OInvModifyCount = req.get('OInvModifyCount')
 	OInvPrintCount = req.get('OInvPrintCount')
@@ -456,7 +456,7 @@ def addOrderInvDict(req):
 		}
 	#if(OInvId != '' and OInvId != None):
 	#	order_inv['OInvId'] = OInvId
-	order_inv=configureNulls(order_inv)
+	order_inv = configureNulls(order_inv)
 	return order_inv
 
 def addOrderInvLineDict(req):
@@ -468,13 +468,13 @@ def addOrderInvLineDict(req):
 	LastVendorId = req.get('LastVendorId')
 	OInvLineRegNo = req.get('OInvLineRegNo')
 	OInvLineDesc = req.get('OInvLineDesc')
-	OInvLineAmount = req.get('OInvLineAmount')
-	OInvLinePrice = req.get('OInvLinePrice')
-	OInvLineTotal = req.get('OInvLineTotal')
-	OInvLineExpenseAmount = req.get('OInvLineExpenseAmount')
-	OInvLineTaxAmount = req.get('OInvLineTaxAmount')
-	OInvLineDiscAmount = req.get('OInvLineDiscAmount')
-	OInvLineFTotal = req.get('OInvLineFTotal')
+	OInvLineAmount = configureFloat(req.get('OInvLineAmount'))
+	OInvLinePrice = configureFloat(req.get('OInvLinePrice'))
+	OInvLineTotal = configureFloat(req.get('OInvLineTotal'))
+	OInvLineExpenseAmount = configureFloat(req.get('OInvLineExpenseAmount'))
+	OInvLineTaxAmount = configureFloat(req.get('OInvLineTaxAmount'))
+	OInvLineDiscAmount = configureFloat(req.get('OInvLineDiscAmount'))
+	OInvLineFTotal = configureFloat(req.get('OInvLineFTotal'))
 	OInvLineDate = req.get('OInvLineDate')
 	AddInf1 = req.get('AddInf1')
 	AddInf2 = req.get('AddInf2')
@@ -518,7 +518,7 @@ def addOrderInvLineDict(req):
 		}
 	if(OInvLineId != '' and OInvLineId != None):
 		order_inv_line['OInvLineId'] = OInvLineId
-	order_inv_line=configureNulls(order_inv_line)
+	order_inv_line = configureNulls(order_inv_line)
 	return order_inv_line
 
 def addOrderInvTypeDict(req):
@@ -550,7 +550,7 @@ def addOrderInvTypeDict(req):
 		}
 	if(OInvTypeId != '' and OInvTypeId != None):
 		order_inv_type['OInvTypeId'] = OInvTypeId
-	order_inv_type=configureNulls(order_inv_type)
+	order_inv_type = configureNulls(order_inv_type)
 	return order_inv_type
 
 def addWarehouseDict(req):
@@ -589,7 +589,7 @@ def addWarehouseDict(req):
 		}
 	if(WhId != '' and WhId != None):
 		warehouse['WhId'] = WhId
-	warehouse=configureNulls(warehouse)
+	warehouse = configureNulls(warehouse)
 	return warehouse
 
 def addWorkPeriodDict(req):
@@ -620,5 +620,5 @@ def addWorkPeriodDict(req):
 		}
 	if(WpId != '' and WpId != None):
 		work_period['WpId'] = WpId
-	work_period=configureNulls(work_period)
+	work_period = configureNulls(work_period)
 	return work_period

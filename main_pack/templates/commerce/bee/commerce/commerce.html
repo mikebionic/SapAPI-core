@@ -29,7 +29,7 @@
 
 												<!-- Hero Image -->
 												<div class="hero-image-two col">
-													<img loading="lazy" src="{{ sl_image.SlImgMainImgFilePathM }}" alt="Hero Image" style="height: 350px; width: 350px;">
+													<img loading="lazy" src="{{ sl_image.SlImgMainImgFilePathM }}" alt="{{ sl_image.SlImgTitle if sl_image.SlImgTitle else 'sl_image.SlImgMainImgFileName' }}" style="height: 350px; width: 350px;">
 												</div>
 										</div>
 									</div>
@@ -58,7 +58,7 @@
 									<a href="{{brand.BrandLink1 if brand.BrandLink1 else '#'}}" class="cat-block">
 										<figure>
 											<span>
-												<img loading="lazy" src="{{brand.FilePath if brand.FilePath}}" style="height: 100px;width: 170px;">
+												<img loading="lazy" src="{{brand.FilePath if brand.FilePath}}" alt="Brand {{brand.BrandName}}" style="height: 100px;width: 170px;">
 											</span>
 										</figure>
 										<h3 class="cat-block-title">{{brand.BrandName}}</h3>
@@ -95,11 +95,11 @@
 									{% endif %}
 									{% if resource.FilePathM %}
 										<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
-											<img loading="lazy" src="{{resource.FilePathM}}">
+											<img loading="lazy" src="{{resource.FilePathM}}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
 										</a>
 									{% else %}
 										<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
-											<img loading="lazy" src="{{ url_for('static', filename='commerce/main/shop_icons/no_photo.png') }}">
+											<img loading="lazy" src="{{ url_for('static', filename='commerce/main/shop_icons/no_photo.png') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
 										</a>
 									{% endif %}
 									{% if current_user.is_authenticated %}
@@ -193,11 +193,11 @@
 													{% endif %}
 													{% if resource.FilePathM %}
 														<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
-															<img loading="lazy" src="{{resource.FilePathM}}">
+															<img loading="lazy" src="{{resource.FilePathM}}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
 														</a>
 													{% else %}
 														<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
-															<img loading="lazy" src="{{ url_for('static', filename='commerce/main/shop_icons/no_photo.png') }}">
+															<img loading="lazy" src="{{ url_for('static', filename='commerce/main/shop_icons/no_photo.png') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
 														</a>
 													{% endif %}
 													{% if current_user.is_authenticated %}
@@ -260,7 +260,7 @@
 			{% if sl_image.SlImgMainImgFilePathM %}
 				<!-- Banner -->
 				<div class="col-12">
-					<div class="banner"><a href="#"><img loading="lazy" src="{{ sl_image.SlImgMainImgFilePathM }}"></a></div>
+					<div class="banner"><a href="#"><img loading="lazy" src="{{ sl_image.SlImgMainImgFilePathM }}" alt="banner {{ sl_image.SlImgMainImgFileName }}"></a></div>
 				</div>
 			{% endif %}
 			{% endfor %}
