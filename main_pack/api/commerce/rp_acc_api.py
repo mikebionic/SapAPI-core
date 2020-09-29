@@ -58,7 +58,10 @@ def api_rp_accs():
 			for rp_acc in req:
 				rp_acc = addRpAccDict(rp_acc)
 				try:
-					user = UId_list.index(rp_acc['UId'])
+					try:
+						user = UId_list.index(rp_acc['UId'])
+					except:
+						rp_acc['UId'] = None
 					RpAccRegNo = rp_acc['RpAccRegNo']
 					RpAccName = rp_acc['RpAccName']
 					thisRpAcc = Rp_acc.query\
