@@ -259,7 +259,7 @@ def validate_order_inv_payment(user):
 			
 			status = 0
 			message = ''
-			data = []
+			data = {}
 
 			if OrderId:
 				order_inv = Order_inv.query\
@@ -294,7 +294,7 @@ def validate_order_inv_payment(user):
 							
 							order_inv.AddInf5 = str(response_json)
 							db.session.commit()
-							data = [response_json]
+							data = response_json
 							status = 1
 						
 						except Exception as ex:

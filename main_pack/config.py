@@ -186,3 +186,6 @@ class Config:
 	FEATURED_RESOURCE_AMOUNT = 5
 	RESOURCE_MAIN_PAGE_SHOW_QTY = 8
 	SMALLEST_RATING_VALUE_SHOW = 3.5
+
+	# location of robots.txt and sitemap.xml
+	WEB_CONFIG_DIRECTORY = "static/web_config"

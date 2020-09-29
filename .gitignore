@@ -19,3 +19,4 @@
 .pem
 .pub
 **/imageDumps/*.jpg
+**/web_config/

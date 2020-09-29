@@ -1,7 +1,9 @@
 from flask import render_template, url_for, jsonify, json, session, flash, redirect , request, Response, abort
+from flask import send_from_directory, make_response
 from flask_login import current_user, login_required
 from main_pack import db, babel, gettext
 from main_pack.main import bp
+from main_pack import Config
 
 from main_pack.api.commerce.commerce_utils import apiResourceInfo
 from main_pack.models.commerce.models import (Res_category,
@@ -9,15 +11,18 @@ from main_pack.models.commerce.models import (Res_category,
 																							Resource)
 from sqlalchemy import and_
 
+
 @bp.route('/language/<language>')
 def set_language(language=None):
 	session['language'] = language
 	return redirect(url_for('commerce.commerce'))
 
+
 @bp.route('/theme/<theme>')
 def set_theme(theme=None):
 	session['theme'] = theme
 	return jsonify({'respone':'theme changed'}),200
+
 
 @bp.route("/")
 def main():
@@ -43,3 +48,19 @@ def prepare_data(dropdown,page,title):
 		'title': title,
 	}
 	return template_data
+
+
+@bp.route('/robots.txt')
+def robots():
+	return send_from_directory(
+		directory = Config.WEB_CONFIG_DIRECTORY,
+		filename="robots.txt",
+		as_attachment=False)
+
+
+@bp.route('/sitemap.xml')
+def sitemap():
+	return send_from_directory(
+		directory = Config.WEB_CONFIG_DIRECTORY,
+		filename="sitemap.xml",
+		as_attachment=False)
