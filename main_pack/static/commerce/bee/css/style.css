@@ -6972,7 +6972,7 @@ img.mfp-img {
   transition: all 0.3s ease 0s; }
   .ee-product .image {
     position: relative; 
-    height: 240px;
+    height: 310px;
     }
     .ee-product .image .label {
       position: absolute;
@@ -12352,18 +12352,17 @@ ul.link-widget li {
 }
 
 
-@media only screen and (min-width: 479px) and (max-width: 753px) {
-  .ee-product .content .category-title .cat{
-    margin-top: -10px;
-  }  
-}
-@media only screen and (min-width: 771px) and (max-width: 998px) {
+  @media only screen and (min-width: 479px) and (max-width: 768px) {
+    .ee-product .content .category-title .cat{
+      margin-top: -10px;
+    }  
+  }
+@media only screen and (min-width: 771px) and (max-wth: 998px) {
   .product-slider .ee-product{
     width: 210px;
   }  
 }
-@media only screen and (min-width: 771px) and (max-width: 998px) {
-  .slick-slide{
-    width: 240px;
-  }  
-}
+
+
+
+
