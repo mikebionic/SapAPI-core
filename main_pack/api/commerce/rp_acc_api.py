@@ -4,7 +4,7 @@ from main_pack.api.commerce import api
 from main_pack.base.apiMethods import checkApiResponseStatus
 from datetime import datetime
 
-from main_pack.models.users.models import Rp_acc
+from main_pack.models.users.models import Rp_acc,Users
 from main_pack.api.users.utils import addRpAccDict,apiRpAccData
 from main_pack import db
 from flask import current_app
@@ -49,11 +49,19 @@ def api_rp_accs():
 			
 		else:
 			req = request.get_json()
+
+			users = Users.query.filter_by(GCRecord = None).all()
+			UId_list = [user.UId for user in users]
+
 			rp_accs = []
 			failed_rp_accs = [] 
 			for rp_acc in req:
-				rp_acc = addRpAccDict(rp_acc)				
+				rp_acc = addRpAccDict(rp_acc)
 				try:
+					try:
+						user = UId_list.index(rp_acc['UId'])
+					except:
+						rp_acc['UId'] = None
 					RpAccRegNo = rp_acc['RpAccRegNo']
 					RpAccName = rp_acc['RpAccName']
 					thisRpAcc = Rp_acc.query\

@@ -841,6 +841,7 @@ class Payment_method(AddInf,CreatedModifiedInfo,db.Model):
 	PmId = db.Column(db.Integer,nullable=False,primary_key=True)	
 	PmName = db.Column(db.String(100),nullable=False)
 	PmDesc = db.Column(db.String(500))
+	PmVisibleIndex = db.Column(db.Integer,default=0)
 	Order_inv = db.relationship('Order_inv',backref='payment_method',lazy=True)
 	Invoice = db.relationship('Invoice',backref='payment_method',lazy=True)
 
@@ -855,6 +856,7 @@ class Payment_method(AddInf,CreatedModifiedInfo,db.Model):
 			"PmId": self.PmId,			
 			"PmName": self.PmName,
 			"PmDesc": self.PmDesc,
+			"PmVisibleIndex": self.PmVisibleIndex,
 			"AddInf1": self.AddInf1,
 			"AddInf2": self.AddInf2,
 			"AddInf3": self.AddInf3,
@@ -875,6 +877,7 @@ class Payment_type(AddInf,CreatedModifiedInfo,db.Model):
 	PtId = db.Column(db.Integer,nullable=False,primary_key=True)
 	PtName = db.Column(db.String(100),nullable=False)
 	PtDesc = db.Column(db.String(500))
+	PtVisibleIndex = db.Column(db.Integer,default=0)
 	Order_inv = db.relationship('Order_inv',backref='payment_type',lazy=True)
 	Invoice = db.relationship('Invoice',backref='payment_type',lazy=True)
 
@@ -889,6 +892,7 @@ class Payment_type(AddInf,CreatedModifiedInfo,db.Model):
 			"PtId": self.PtId,
 			"PtName": self.PtName,
 			"PtDesc": self.PtDesc,
+			"PtVisibleIndex": self.PtVisibleIndex,
 			"AddInf1": self.AddInf1,
 			"AddInf2": self.AddInf2,
 			"AddInf3": self.AddInf3,

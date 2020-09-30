@@ -58,7 +58,7 @@ def api_images():
 
 						updatingDate = dateutil.parser.parse(imageDictData['ModifiedDate'])
 						if thisImage is not None:
-							if thisImage.ModifiedDate!=updatingDate:
+							if thisImage.ModifiedDate != updatingDate:
 								print('updated cuz different ModifiedDate')
 								image = saveImageFile(image)
 								thisImage.update(**image)

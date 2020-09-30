@@ -259,7 +259,7 @@ def validate_order_inv_payment(user):
 			
 			status = 0
 			message = ''
-			data = []
+			data = {}
 
 			if OrderId:
 				order_inv = Order_inv.query\
@@ -288,13 +288,14 @@ def validate_order_inv_payment(user):
 							else:
 								order_inv.PaymStatusId = 1
 								order_inv.OInvPaymAmount = 0
+								order_inv.InvStatId = 14
 
 								message = f"Payment Validation: failed (OrderStatus = {response_json[Config.ORDER_VALIDATION_KEY]})"
 								print(f"{datetime.now()} | {message}")
 							
 							order_inv.AddInf5 = str(response_json)
 							db.session.commit()
-							data = [response_json]
+							data = response_json
 							status = 1
 						
 						except Exception as ex:
@@ -303,6 +304,7 @@ def validate_order_inv_payment(user):
 
 							req["message"] = message
 							order_inv.AddInf5 = str(req)
+							order_inv.InvStatId = 14
 							db.session.commit()
 
 					else:
