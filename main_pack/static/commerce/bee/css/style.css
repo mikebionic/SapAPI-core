@@ -5241,9 +5241,13 @@ img.mfp-img {
     font-size: 24px;
     font-weight: 700;
     display: block; }
-    @media only screen and (max-width: 479px) {
-      .hero-content-two .offer span {
-        font-size: 18px; } }
+  @media only screen and (min-width: 1200px) and (max-width: 3000px) {
+    .hero-content-two .offer {
+      font-size: 30px;
+      padding: 18px 10px;
+      width: 100px;
+      height: 90px;
+      margin-bottom: 30px; } }
   @media only screen and (min-width: 992px) and (max-width: 1199px) {
     .hero-content-two .offer {
       font-size: 30px;
@@ -5272,6 +5276,9 @@ img.mfp-img {
       width: 80px;
       height: 70px;
       margin-bottom: 20px; } }
+  @media only screen and (max-width: 479px) {
+    .hero-content-two .offer span {
+      font-size: 18px; } }
 
 .hero-content-two h1 {
   font-size: 46px;
@@ -6977,6 +6984,28 @@ img.mfp-img {
 /*----
     07.2 Protuct Style One
 -----------------------------------------*/
+.p_slider .ee-product{
+  width: 260px;
+}
+
+@media only screen and (min-width: 769px) and (max-width: 991px) {
+  .p_slider .ee-product{
+    width: 210px;
+  }
+}
+
+@media only screen and (min-width: 480px) and (max-width: 768px) {
+  .p_slider .ee-product{
+    width: 195px;
+  }
+}
+@media only screen and (min-width: 320px) and (max-width: 479px) {
+  .p_slider .ee-product{
+    width: 138px;
+  }
+}
+
+
 .ee-product {
   -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
@@ -12132,10 +12161,11 @@ ul.link-widget li {
     background: transparent;
   }
   .ee-product .image .add-to-cart i{
-    margin-top: 35px;
+    margin-top: 41px;
     margin-left: 74px;
-    box-shadow: none;
-    background: transparent;
+    /* box-shadow: none; */
+    /* position: relative; */
+    background: #fff;
   }
   .ee-product .image .add-to-cart.added i{
     left: calc(0% - 0px);
@@ -12370,11 +12400,7 @@ ul.link-widget li {
       margin-top: -10px;
     }  
   }
-@media only screen and (min-width: 771px) and (max-wth: 998px) {
-  .product-slider .ee-product{
-    width: 210px;
-  }  
-}
+
 
 
 
