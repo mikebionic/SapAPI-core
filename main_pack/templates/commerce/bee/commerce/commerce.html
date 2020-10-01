@@ -9,37 +9,41 @@
 	<div class="container">
 		<div class="row">
 			<div class="col"><!-- Hero Slider Start -->
+				<div class="hero-side-category" style="margin-bottom: 0;"></div>
 				<div class="hero-slider hero-slider-two fix slick slick-slider slick-dotted">
 
-					<!-- Hero Item Start -->
 					{% for slider in sliders %}
 					{% if slider.SlName == "commerce_header" %}
 						{% for sl_image in slider.Sl_images %}
 						{% if sl_image.SlImgMainImgFilePathM %}
+							<!-- Hero Item Start -->
 							<div class="slick-list draggable">
-								<div class="slick-track" style="opacity: 1; width: 1820px;">
-									<div class="hero-item-two slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" tabindex="0" role="tabpanel" id="slick-slide00" aria-describedby="slick-slide-control00" style="width: 910px; position: relative; left: 262px; top: 0px; z-index: 999; opacity: 1;">
-										<div class="row align-items-center justify-content-between">
+									<div class="slick-track" style="opacity: 1; width: 1820px;">
+											<div class="hero-item-two slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" tabindex="0" role="tabpanel" id="slick-slide00" aria-describedby="slick-slide-control00" style="width: 910px; position: relative; left: 0px; top: 0px; z-index: 999; opacity: 1;">
+													<div class="row align-items-center justify-content-between">
 
-												<!-- Hero Content -->
-												<div class="hero-content-two col">
-													<h3>{{ sl_image.SlImgTitle if sl_image.SlImgTitle else '' }}</h3>
-													<h2 style="font-weight: 900;">{{ sl_image.SlImgDesc if sl_image.SlImgDesc else '' }}</h2>
-												</div>
+															<!-- Hero Content -->
+															<div class="hero-content-two col">
 
-												<!-- Hero Image -->
-												<div class="hero-image-two col">
-													<img loading="lazy" src="{{ sl_image.SlImgMainImgFilePathM }}" alt="{{ sl_image.SlImgTitle if sl_image.SlImgTitle else 'sl_image.SlImgMainImgFileName' }}" style="height: 350px; width: 350px;">
-												</div>
-										</div>
+																<h1>{{sl_image.SlImgTitle}}</h1>
+																<h2>{{sl_image.SlImgDesc}}</h2>
+
+															</div>
+
+															<!-- Hero Image -->
+															<div class="hero-image-two col" style="width: 75vh">
+															<img src="{{ sl_image.SlImgMainImgFilePathM }}" alt="Hero Image">
+															</div>
+													
+													</div>     
+											</div>
 									</div>
-								</div>     
 							</div>
 						{% endif %}
 						{% endfor %}
 					{% endif %}
-					{% endfor %}
-				</div>
+				{% endfor %}
+			</div>
 			</div>
 		</div>
 	</div>

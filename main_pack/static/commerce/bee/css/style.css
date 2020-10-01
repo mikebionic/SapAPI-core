@@ -4502,6 +4502,10 @@ img.mfp-img {
   /* margin-left: 25px; */
   margin-bottom: 20%;
   float: left; }
+  @media only screen and (max-width: 479px){
+    .hero-side-category {
+    top: 23px;
+    }}
   @media only screen and (min-width: 768px) and (max-width: 991px) {
     .hero-side-category {
       width: 260px;
@@ -5170,22 +5174,26 @@ img.mfp-img {
 /*-- Hero Image --*/
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
   .hero-image-two {
+    margin-right: auto;
     max-width: 220px; } }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   .hero-image-two {
-    max-width: 200px; } }
+    max-width: 200px; 
+    margin-right: 22%;
+  } }
 
 @media only screen and (max-width: 767px) {
   .hero-image-two {
     max-width: 200px;
-    margin: auto;
+    margin: 0 75px;
     -webkit-box-ordinal-group: 2;
     -ms-flex-order: 1;
     order: 1; } }
 
 @media only screen and (max-width: 479px) {
   .hero-image-two {
+    margin-left: 33px;
     max-width: 150px; } }
 
 .hero-image-two img {
@@ -5203,6 +5211,7 @@ img.mfp-img {
     -webkit-box-ordinal-group: 3;
     -ms-flex-order: 2;
     order: 2;
+    margin-right: 100%;
     margin-top: 30px; } }
 
 .hero-content-two > * {
@@ -5284,7 +5293,11 @@ img.mfp-img {
       line-height: 36px; } }
   @media only screen and (max-width: 479px) {
     .hero-content-two h1 {
-      font-size: 20px;
+      font-size: 17px;
+      line-height: 26px; } }
+  @media only screen and (max-width: 479px) {
+    .hero-content-two h2 {
+      font-size: 15px;
       line-height: 26px; } }
 
 .hero-content-two a {
@@ -12362,6 +12375,8 @@ ul.link-widget li {
     width: 210px;
   }  
 }
+
+
 
 
 
