@@ -1,7 +1,6 @@
 {% extends "commerce/admin/layout.html" %}
 
 {% block styles %}
-  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css')}}">
 {% endblock %}
 
 {% block content %}
@@ -27,11 +26,11 @@
             {{ resourceForm.ResFullDesc(class="form-control") }}
             <br>
             {% for image in resource.Images %}
-              <div class="gallery gallery-fw" data-item-height="100" style="display: flex;">
+              <div class="gallery gallery-md" data-item-height="100" style="display: flex;">
                 <div class="gallery-item" data-toggle="popover" data-trigger="hover" title="{{image.FileName}}" data-image="{{ image.FilePathM }}"></div>
                 <div class="carousel_icon">
                   <li>
-                    <a href="{{ url_for('commerce_admin.remove_images',type='image',imgId=image.ImgId) }}" class="btn btn-icon btn-light">
+                    <a href="{{ url_for('commerce_admin.remove_images',type='image',imgId=image.ImgId,prodId=resource.ResId) }}" class="btn btn-icon btn-light">
                       <i class="fas fa-trash-alt"></i>
                     </a>
                   </li>
@@ -57,5 +56,5 @@
 {% block scripts %}
   <script src="{{ url_for('static', filename='commerce/admin/js/moment.js') }}"></script>
   <script src="{{ url_for('static', filename='commerce/admin/js/basic-form-elements.js') }}"></script>
-  <script src="{{ url_for('static', filename='commerce/admin/js/page/gallery1.js') }}"></script>  
+  <script src="{{ url_for('static', filename='commerce/admin/js/page/gallery1.js') }}"></script>
 {% endblock %}
