@@ -219,8 +219,11 @@ def product(ResId):
 @bp.route(Config.COMMERCE_SEARCH_VIEW)
 def resources_grid_search():
 	tag = request.args.get("tag","",type=str)
+	# remove leading and trailing spaces
+	tag = tag.strip()
 	searching_tag = "%{}%".format(tag)
-
+	if tag == "" or len(tag) < 3:
+		return redirect(url_for('commerce.v_grid'))
 	barcodes = Barcode.query\
 		.filter(and_(
 			Barcode.GCRecord == None,\
@@ -234,7 +237,6 @@ def resources_grid_search():
 			Resource.UsageStatusId == 1))\
 		.order_by(Resource.ResId.desc())\
 		.all()
-	print(resources)
 
 	resource_list = []
 	if barcodes:

@@ -24,15 +24,13 @@
 
 															<!-- Hero Content -->
 															<div class="hero-content-two col">
-
-																<h1>{{sl_image.SlImgTitle}}</h1>
-																<h2>{{sl_image.SlImgDesc}}</h2>
-
+																<h1>{{sl_image.SlImgTitle if sl_image.SlImgTitle else ''}}</h1>
+																<h2>{{sl_image.SlImgDesc if sl_image.SlImgDesc else ''}}</h2>
 															</div>
 
 															<!-- Hero Image -->
 															<div class="hero-image-two col" style="width: 50%">
-															<img src="{{ sl_image.SlImgMainImgFilePathM }}" alt="Hero Image">
+															<img src="{{ sl_image.SlImgMainImgFilePathM }}" alt="{{ sl_image.SlImgTitle if sl_image.SlImgTitle else 'sl_image.SlImgMainImgFileName' }}">
 															</div>
 													
 													</div>     

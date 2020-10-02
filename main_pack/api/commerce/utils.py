@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
-# from main_pack.models.commerce.models import Res_category
-from main_pack.base.dataMethods import configureNulls,configureFloat,boolCheck,configureEmptyQuotesNulls
-from main_pack.base.imageMethods import save_image,dirHandler
+from flask import current_app
 import io
 import os
 import base64
 from PIL import Image as ImageOperations
-from flask import current_app
+
+from main_pack import Config
+from main_pack.base.dataMethods import configureNulls,configureFloat,boolCheck,configureEmptyQuotesNulls
+from main_pack.base.imageMethods import save_image,dirHandler
+
 
 def addCategoryDict(req):
 	ResCatId = req.get('ResCatId')
@@ -211,7 +213,7 @@ def saveImageFile(req):
 
 		dumpFolderPath = os.path.join(current_app.root_path,'static','imageDumps')
 		dirHandler(dumpFolderPath)
-		dumpImagePath = os.path.join(dumpFolderPath,"dump.jpg")
+		dumpImagePath = os.path.join(dumpFolderPath,f"dump.{Config.BLOB_TO_IMAGE_SAVE_EXT}")
 		outfile = open(dumpImagePath,"wb")
 		outfile.write(base64.decodebytes(imageBytes))
 		outfile.flush()

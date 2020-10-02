@@ -122,6 +122,9 @@ class Config:
 	ALLOWED_IMAGE_EXTENSIONS = set(['png','jpg','jpeg'])
 	MAX_CONTENT_LENGTH = 16 * 1024 * 1024
 
+	# Extention to be saved to while blob synch
+	BLOB_TO_IMAGE_SAVE_EXT = "png"
+
 	# cookies / security
 	# SESSION_COOKIE_SECURE=True,
 	# SESSION_COOKIE_HTTPONLY=True,

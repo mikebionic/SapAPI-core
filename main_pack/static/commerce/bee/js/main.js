@@ -12,8 +12,10 @@ windows.on('scroll', function() {
     var scroll = windows.scrollTop();
     if (scroll < 300) {
         sticky.removeClass('is-sticky');
+        categoryMenuToggle();
     }else{
         sticky.addClass('is-sticky');
+        categoryMenu.slideUp();
     }
 });
 
@@ -51,20 +53,23 @@ function categoryMenuToggle() {
         categoryMenu.slideUp();
     }
     else{
-        var pathnames = ['/commerce','/commerce/','/commerce/commerce','/commerce/commerce/','/main','/commerce/main','/main/','/commerce/main/','/','/index']
-        var current_path = location.pathname;
-        pathnames.forEach(function (item, index) {
-            if (item == current_path){
-                categoryMenu.slideDown();
-            }
-        });
-        if (document.body.scrollTop > 13) {
-            categoryMenu.slideUp();
-        }
+        slideCategoryByPathname();
+        
+        // if (document.body.scrollTop > 13) {
+        //     categoryMenu.slideUp();
+        // }
     }
 }
 
-
+function slideCategoryByPathname() {
+    var pathnames = ['/commerce','/commerce/','/commerce/commerce','/commerce/commerce/','/main','/commerce/main','/main/','/commerce/main/','/','/index']
+    var current_path = location.pathname;
+    pathnames.forEach(function (item, index) {
+        if (item == current_path){
+            categoryMenu.slideDown();
+        }
+    });
+}
 /*-- Category Menu Toggles --*/
 function categorySubMenuToggle() {
     var screenSize = windows.width();

@@ -270,6 +270,7 @@ def validate_order_inv_payment(user):
 					.first()
 
 				if order_inv:
+					# if order isn't already paid
 					if order_inv.PaymStatusId != 2:
 						try:
 							r = requests.get(f"{Config.ORDER_VALIDATION_SERVICE_URL}?orderId={OrderId}&password={Config.ORDER_VALIDATION_SERVICE_PASSWORD}&userName={Config.ORDER_VALIDATION_SERVICE_USERNAME}")
@@ -286,6 +287,8 @@ def validate_order_inv_payment(user):
 								message = "Payment Validation: success"
 
 							else:
+								# invoice status = "Payment fail"
+								# Payment status = "Not paid"
 								order_inv.PaymStatusId = 1
 								order_inv.OInvPaymAmount = 0
 								order_inv.InvStatId = 14
