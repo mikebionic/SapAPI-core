@@ -18,5 +18,5 @@
 .pk
 .pem
 .pub
-**/imageDumps/*.jpg
+**/imageDumps/*
 **/web_config/

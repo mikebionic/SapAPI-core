@@ -56,15 +56,18 @@ def logo_setup():
 @ui_admin_required()
 def remove_images():
 	try:
-		imgId = request.args.get("imgId")
+		ImgId = request.args.get("imgId")
+		ResId = request.args.get("prodId",None)
 		imgType = request.args.get("type")
 		if imgType == 'image':
-			image = Image.query.get(imgId)
+			image = Image.query.get(ImgId)
 			image.GCRecord=1
 			db.session.commit()
 			url = url_for('commerce_admin.logo_setup')
+			if ResId:
+				url = url_for('commerce_admin.resource_edit',ResId=ResId)
 		elif imgType == 'slider':
-			sl_image = Sl_image.query.get(imgId)
+			sl_image = Sl_image.query.get(ImgId)
 			sl_image.GCRecord = 1
 			db.session.commit()
 			url = url_for('commerce_admin.sliders')
