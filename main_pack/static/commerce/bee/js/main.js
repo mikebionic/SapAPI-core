@@ -203,6 +203,7 @@ $('.product-slider-4').slick({
     responsive: [
         {
             breakpoint: 1199,
+
             settings: {
                 slidesToShow: 3,
             }
