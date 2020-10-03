@@ -218,7 +218,7 @@ $('.product-slider-4').slick({
             breakpoint: 767,
             settings: {
                 autoplay: true,
-                slidesToShow: 1,
+                slidesToShow: 2,
                 arrows: false,
             }
         }

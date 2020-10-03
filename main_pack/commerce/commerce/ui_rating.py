@@ -33,7 +33,8 @@ def ui_rating():
 			# 	raise Exception
 			RtRatingValue = req.get("ratingValue")
 			RtRemark = req.get("ratingRemark")
-			if RtRatingValue is None:
+			RtRemark = RtRemark.strip()
+			if RtRatingValue is None or len(RtRemark) <= 2:
 				raise Exception
 			# check for presense of rate
 			rating = Rating.query\
