@@ -12219,7 +12219,18 @@ ul.link-widget li {
     height: 33px;
     line-height: 32px;
   }
-}     
+} 
+
+@media ( max-width: 476px) {
+  .ee-product .image .add-to-cart i{
+    margin-top: -90px;
+    margin-left: 57px;
+    background: #fff;
+    width: 33px;
+    height: 33px;
+    line-height: 32px;
+  }
+} 
 @media ( max-width: 478px) {
   .single-product-content .single-product-description .actions .add-to-cart {
       width: 205px;
