@@ -7014,7 +7014,7 @@ img.mfp-img {
   transition: all 0.3s ease 0s; }
   .ee-product .image {
     position: relative; 
-    height: 310px;
+    height: 270px;
     }
     .ee-product .image .label {
       position: absolute;
@@ -8977,7 +8977,7 @@ img.mfp-img {
 
 .ratting-form textarea {
   width: 100%;
-  background-color: transparent;
+  background-color: #fff;
   border: 1px solid #dddddd;
   font-size: 13px;
   line-height: 24px;
