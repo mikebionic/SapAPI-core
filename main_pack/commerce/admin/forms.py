@@ -1,3 +1,4 @@
+from flask import flash
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField,FileAllowed
 from wtforms import (StringField,
@@ -66,12 +67,14 @@ class UserRegistrationForm(FlaskForm):
 									validators=[DataRequired(),EqualTo('password')])
 
 	def validate_username(self,username):
-		user = Users.query.filter_by(UName=username.data).first()
+		user = Users.query.filter_by(UName = username.data, GCRecord = None).first()
 		if user:
+			# flash(lazy_gettext('That username is taken. Choose a different one!'),'warning')
 			raise ValidationError(lazy_gettext('That username is taken. Choose a different one!'))
 	def validate_email(self,email):
-		user = Users.query.filter_by(UEmail=email.data).first()
+		user = Users.query.filter_by(UEmail = email.data, GCRecord = None).first()
 		if user:
+			# flash(lazy_gettext('That email is taken. Choose a different one!'),'warning')
 			raise ValidationError(lazy_gettext('That email is taken. Choose a different one!'))
 
 

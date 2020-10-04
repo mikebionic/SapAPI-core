@@ -54,8 +54,7 @@ def send_register_email(UName,UEmail):
 	token = get_register_token(UName=UName,UEmail=UEmail)
 	msg = Message(lazy_gettext('Registration request'),sender="noterply@mail.io",recipients=[UEmail])
 	msg_dear = lazy_gettext('Dear')
-	msg_bodyText = f'''{lazy_gettext('You have requested the registration on ecommerce')}.
-	{lazy_gettext('Please follow the link to verify your email')}!'''
+	msg_bodyText = f"{lazy_gettext('You have requested the registration on ecommerce')}. {lazy_gettext('Please follow the link to verify your email')}!"
 	msg_ending = lazy_gettext('If you did not make this request then simply ignore this email') 
 	msg.body = f'''{msg_dear}, {UName}
 	{msg_bodyText}

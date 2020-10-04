@@ -1,3 +1,5 @@
+from flask import flash
+
 from flask_wtf import FlaskForm
 from wtforms import (StringField,
 										PasswordField,
@@ -22,10 +24,12 @@ class RequestRegistrationForm(FlaskForm):
 	def validate_username(self,username):
 		user = Users.query.filter_by(UName=username.data).first()
 		if user:
+			flash(lazy_gettext('That username is taken. Choose a different one!'),'warning')
 			raise ValidationError(lazy_gettext('That username is taken. Choose a different one!'))
 	def validate_email(self,email):
 		user = Users.query.filter_by(UEmail=email.data).first()
 		if user:
+			flash(lazy_gettext('That email is taken. Choose a different one!'),'warning')
 			raise ValidationError(lazy_gettext('That email is taken. Choose a different one!'))
 
 
