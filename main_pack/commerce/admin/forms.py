@@ -30,11 +30,12 @@ class SliderImageForm(FlaskForm):
 	SlImgEndDate = StringField('End date')
 
 
-class resourceEditForm(FlaskForm):
+class ResourceEditForm(FlaskForm):
 	resourceImage = FileField('Image',validators=[FileAllowed(['jpg','png','img'])])
 	ResName = StringField(validators=[DataRequired(),Length(min=2,max=255)])
 	ResDesc = StringField(validators=[Length(max=500)])
 	ResFullDesc = StringField(validators=[Length(max=1500)],widget=TextArea())
+	BrandId = SelectField('Brand',coerce=int)
 
 
 class BrandForm(FlaskForm):

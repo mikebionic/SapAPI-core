@@ -18,24 +18,19 @@
 						{% if sl_image.SlImgMainImgFilePathM %}
 							<!-- Hero Item Start -->
 							<div class="slick-list draggable">
-									<div class="slick-track" style="opacity: 1; width: 1820px;">
-											<div class="hero-item-two slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" tabindex="0" role="tabpanel" id="slick-slide00" aria-describedby="slick-slide-control00" style="width: 910px; position: relative; left: 0px; top: 0px; z-index: 999; opacity: 1;">
-													<div class="row align-items-center justify-content-between">
-
-															<!-- Hero Content -->
-															<div class="hero-content-two col-6">
-																<h1>{{sl_image.SlImgTitle if sl_image.SlImgTitle else ''}}</h1>
-																<h2>{{sl_image.SlImgDesc if sl_image.SlImgDesc else ''}}</h2>
-															</div>
-
-															<!-- Hero Image -->
-															<div class="hero-image-two col-6" style="width: 50%">
-															<img src="{{ sl_image.SlImgMainImgFilePathM }}" alt="{{ sl_image.SlImgTitle if sl_image.SlImgTitle else 'sl_image.SlImgMainImgFileName' }}">
-															</div>
-													
-													</div>     
+								<div class="slick-track" style="opacity: 1; width: 1820px;">
+									<div class="hero-item-two slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" tabindex="0" role="tabpanel" id="slick-slide00" aria-describedby="slick-slide-control00" style="width: 910px; position: relative; left: 0px; top: 0px; z-index: 999; opacity: 1;">
+										<div class="row align-items-center justify-content-between">
+											<div class="hero-content-two col-6">
+												<h1>{{sl_image.SlImgTitle if sl_image.SlImgTitle else ''}}</h1>
+												<h2>{{sl_image.SlImgDesc if sl_image.SlImgDesc else ''}}</h2>
 											</div>
+											<div class="hero-image-two col-6" style="width: 50%">
+											<img src="{{ sl_image.SlImgMainImgFilePathM }}" alt="{{ sl_image.SlImgTitle if sl_image.SlImgTitle else 'sl_image.SlImgMainImgFileName' }}">
+											</div>
+										</div>     
 									</div>
+								</div>
 							</div>
 						{% endif %}
 						{% endfor %}
@@ -74,7 +69,6 @@
 		</div>
 	</div>
 </div><!-- Feature Product Section End -->
-
 
 <!-- New Arrival Product Section Start -->
 <div class="product-section section mb-60">
@@ -274,8 +268,6 @@
 </div><!-- Banner Section End -->
 {% endif %}
 {% endfor %}
-
-
 
 
 <!-- Feature Section Start -->

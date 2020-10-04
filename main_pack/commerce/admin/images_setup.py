@@ -12,17 +12,17 @@ from main_pack.commerce.auth.utils import ui_admin_required
 # data operations
 from main_pack.base.imageMethods import save_image,save_icon,allowed_icon,allowed_image
 from main_pack.base.dataMethods import dateDataCheck
+from sqlalchemy import or_, and_
 # / data operations /
 
 # data and models
 from main_pack.models.base.models import Company,Sl_image,Slider,Image
-from main_pack.models.commerce.models import Resource
+from main_pack.models.commerce.models import Resource, Brand
 from main_pack.api.commerce.commerce_utils import apiResourceInfo
-from sqlalchemy import or_, and_
 import os
 # / data and models /
 
-from main_pack.commerce.admin.forms import LogoImageForm,SliderImageForm,resourceEditForm
+from main_pack.commerce.admin.forms import LogoImageForm,SliderImageForm,ResourceEditForm
 
 
 @bp.route("/admin/logo_setup", methods=['GET', 'POST'])
@@ -213,6 +213,10 @@ def remove_svg_icon():
 		flash("Error, unable to execute this",'warning')
 	return redirect(url_for('commerce_admin.category_table'))
 
+def brands():
+	brands = Brand.query.filter_by(GCRecord = None).all()
+	brands_list = [brand.to_json_api() for brand in brands]
+	return brands_list
 
 @bp.route("/admin/resource_edit/<ResId>", methods=['GET', 'POST'])
 @login_required
@@ -224,14 +228,15 @@ def resource_edit(ResId):
 	resource_models = [resource]
 	res = apiResourceInfo(resource_models=resource_models,single_object=True,showInactive=True,avoidQtyCheckup=True)
 	resource_info = res['data']
-	resourceForm = resourceEditForm()
+	resourceForm = ResourceEditForm()
 	if "resourceForm" in request.form and resourceForm.validate_on_submit():
 		resource.ResName = resourceForm.ResName.data
 		resource.ResDesc = resourceForm.ResDesc.data
 		resource.ResFullDesc = resourceForm.ResFullDesc.data
+		resource.BrandId = resourceForm.BrandId.data
+
 		if resourceForm.resourceImage.data:
 			imageFile = save_image(imageForm=resourceForm.resourceImage.data,module=os.path.join("uploads","commerce","Resource"),id=ResId)
-			
 			lastImage = Image.query.order_by(Image.ImgId.desc()).first()
 			ImgId = lastImage.ImgId + 1
 			image = Image(ImgId=ImgId,FileName=imageFile['FileName'],FilePath=imageFile['FilePath'],ResId=ResId)
@@ -245,6 +250,13 @@ def resource_edit(ResId):
 	resourceForm.ResName.data = resource_info["ResName"]
 	resourceForm.ResDesc.data = resource_info["ResDesc"]
 	resourceForm.ResFullDesc.data = resource_info["ResFullDesc"]
+	
+	brands_list = brands()
+	brandChoices = []
+	for brand in brands_list:
+		obj = (brand['BrandId'],brand['BrandName'])
+		brandChoices.append(obj)
+	resourceForm.BrandId.choices = brandChoices
 
 	return render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"resource_edit.html",url_prefix=url_prefix,
 		title=resource_info["ResName"],resourceForm=resourceForm,resource=resource_info)
