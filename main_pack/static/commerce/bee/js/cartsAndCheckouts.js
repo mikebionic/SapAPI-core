@@ -90,12 +90,15 @@ $('.rateButtons input').click(function(){
 function addRating(ownerId){
 	ratingValue = $('.reviewRatingValue').val();
 	ratingRemark = $('.reviewRatingText').val();
+	ratingRemark = ratingRemark.trim()
 	productData={
 		'resId':ownerId,
 		'ratingValue':ratingValue,
 		'ratingRemark':ratingRemark
 	};
-	postData(formData=productData,url=url_prefix+"/product/ui_rating/",type="POST",formId=ownerId)
+	if (ratingRemark != ""){
+		postData(formData=productData,url=url_prefix+"/product/ui_rating/",type="POST",formId=ownerId)
+	}
 }
 
 function addToWishlist(ownerId){
