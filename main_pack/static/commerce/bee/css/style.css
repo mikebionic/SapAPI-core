@@ -7014,7 +7014,7 @@ img.mfp-img {
   transition: all 0.3s ease 0s; }
   .ee-product .image {
     position: relative; 
-    height: 310px;
+    height: 270px;
     }
     .ee-product .image .label {
       position: absolute;
@@ -8977,7 +8977,7 @@ img.mfp-img {
 
 .ratting-form textarea {
   width: 100%;
-  background-color: transparent;
+  background-color: #fff;
   border: 1px solid #dddddd;
   font-size: 13px;
   line-height: 24px;
@@ -12219,7 +12219,18 @@ ul.link-widget li {
     height: 33px;
     line-height: 32px;
   }
-}     
+} 
+
+@media ( max-width: 476px) {
+  .ee-product .image .add-to-cart i{
+    margin-top: -90px;
+    margin-left: 57px;
+    background: #fff;
+    width: 33px;
+    height: 33px;
+    line-height: 32px;
+  }
+} 
 @media ( max-width: 478px) {
   .single-product-content .single-product-description .actions .add-to-cart {
       width: 205px;
