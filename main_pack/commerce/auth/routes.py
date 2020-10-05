@@ -88,50 +88,73 @@ def register_token(token):
 	if current_user.is_authenticated:
 		return redirect(url_for('commerce.commerce'))
 	new_user = verify_register_token(token)
-	if not 'UEmail' in new_user:
+	if not new_user:
 		flash(lazy_gettext('Token is invalid or expired'),'warning')
 		return redirect(url_for('commerce_auth.register'))
 	form = PasswordRegistrationForm()
 	if form.validate_on_submit():
 		try:
+
 			UName = new_user['UName']
 			UEmail = new_user['UEmail']
 			UShortName = (UName[0]+UName[-1]).upper()
 			hashed_password = bcrypt.generate_password_hash(form.password.data).decode() 
+			
+			check_registration = Users.query.filter_by(UEmail = UEmail, GCRecord = None).first()
+			if check_registration:
+				raise Exception
+
+			check_registration = Users.query.filter_by(UName = UName, GCRecord = None).first()
+			if check_registration:
+				raise Exception
+			
+			lastUser = Users.query.order_by(Users.UId.desc()).first()
+			UId = lastUser.UId + 1
+			
 			user = Users(
-				UName=UName,
-				UEmail=UEmail,
-				UShortName=UShortName,
-				UPass=hashed_password,
-				UFullName=form.full_name.data,
-				UTypeId=5)
+				UId = UId,
+				UName = UName,
+				UEmail = UEmail,
+				UShortName = UShortName,
+				UPass = hashed_password,
+				UFullName = form.full_name.data,
+				UTypeId = 5)
 			db.session.add(user)
+			db.session.commit()
 
 			# get the regNum for RpAccount registration
 			try:
 				reg_num = generate(UId=user.UId,RegNumTypeName='rp_code')
 				regNo = makeRegNo(user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'')
 			except Exception as ex:
+				print(ex)
 				flash(lazy_gettext('Error generating Registration number'),'warning')
 				return redirect(url_for('commerce_auth.register'))
+
 			# assign the UId of created User Model to Rp acc
+			lastRpAcc = Rp_acc.query.order_by(Rp_acc.RpAccId.desc()).first()
+			RpAccId = lastRpAcc.RpAccId + 1
 			rp_acc = Rp_acc(
-				RpAccUName=UName,
-				RpAccUPass=hashed_password,
-				RpAccName=form.full_name.data,
-				RpAccEMail=UEmail,
-				RpAccRegNo=regNo,
-				RpAccTypeId=1,
-				RpAccMobilePhoneNumber=form.phone_number.data,
+				RpAccId = RpAccId,
+				RpAccUName = UName,
+				RpAccUPass = hashed_password,
+				RpAccName = form.full_name.data,
+				RpAccEMail = UEmail,
+				RpAccRegNo = regNo,
+				RpAccTypeId = 1,
+				RpAccMobilePhoneNumber = form.phone_number.data,
 				# UId=user.UId
 				)
 			db.session.add(rp_acc)
+			db.session.commit()
 			# assign the RpAccId to a User model
 			user.RpAccId = rp_acc.RpAccId
 			db.session.commit()
-			flash('{}!'.format(UName)+lazy_gettext('your profile has been created!'),'success')
+			flash(f"{UName}, {lazy_gettext('your profile has been created!')}",'success')
 			return redirect(url_for('commerce_auth.login'))
+
 		except Exception as ex:
+			print(ex)
 			flash(lazy_gettext('Error occured, please try again.'),'danger')
 			return redirect(url_for('commerce_auth.register'))
 
