@@ -15,7 +15,11 @@ from main_pack.api.auth.api_login import sha_required
 @sha_required
 def api_warehouses():
 	if request.method == 'GET':
-		warehouses = Warehouse.query.filter_by(GCRecord = None).all()
+		DivId = request.args.get("DivId",None,type=int)
+		warehouses = Warehouse.query.filter_by(GCRecord = None)
+		if DivId:
+			warehouses = warehouses.filter_by(DivId = DivId)
+		warehouses = warehouses.all()
 		res = {
 			"status": 1,
 			"message": "All warehouses",

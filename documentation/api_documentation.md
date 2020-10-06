@@ -6,11 +6,15 @@ Provide **username** and **password** in Authentication headers
 
 # API config information
 > GET
+
 + /api/api-config/
 
-# Company information
+# Company and Division information
 > GET
+
 + /api/company-info/
++ /api/company/?CName=<CName>&CKey=<CKey>
++ /api/division/?DivName=<DivName>&DivKey=<DivKey>
 
 # Simple data queries and insertions
 > GET POST
@@ -37,11 +41,12 @@ Provide **username** and **password** in Authentication headers
 
 > GET 
 
-## Filtering order invoices by datetime
+## Filtering order invoices and invoices by datetime
 
 **@sha_required** of **Synchronizer**
 
 + /api/tbl-dk-order-invoices/?startDate=&endDate=
++ /api/tbl-dk-invoices/?startDate=&endDate=
 
 returns **all orders** if **blank**
 
@@ -110,6 +115,8 @@ returns **all orders** if **blank**
 **@token_required** of **Rp_acc** login
 + /api/v-order-invoices/
 + /api/v-order-invoices/?startDate=2020-07-13 13:12:32.141562&endDate=2020-07-25 13:53:50.141948
++ /api/v-invoices/
++ /api/v-invoices/?startDate=2020-07-13 13:12:32.141562&endDate=2020-07-25 13:53:50.141948
 
 ## Get all order lines of a specific OInvRegNo if it's owner is Rp_acc
 > GET 
@@ -144,6 +151,7 @@ Returns only if the **Rp_acc** is the **owner** of invoice
 ## client view resource
 
 > GET
+
 + /api/v-resources/
 + /api/v-full-resources/
 + /api/v-resources/<int:ResId>/
@@ -153,7 +161,7 @@ Returns only if the **Rp_acc** is the **owner** of invoice
 > GET
 
 from latest to first (needs configurations for datetime order
-+ /api/v-resources/paginate/
++ /api/v-resources/paginate
 + /api/v-resources/paginate/?offset=<lastId>&limit=<quantity>
 
 > GET POST

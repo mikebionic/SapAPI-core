@@ -134,6 +134,7 @@ class Company(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_company"
 	CId = db.Column(db.Integer,primary_key=True)
 	CName = db.Column(db.String(100),nullable=False)
+	CKey = db.Column(db.String(100))
 	CFullName = db.Column(db.String(500))
 	CDesc = db.Column(db.String(500))
 	AccInfId = db.Column(db.Integer)
@@ -180,6 +181,7 @@ class Company(AddInf,CreatedModifiedInfo,db.Model):
 		json_company = {
 			"CId": self.CId,
 			"CName": self.CName,
+			"CKey": self.CKey,
 			"CFullName": self.CFullName,
 			"CDesc": self.CDesc,
 			"AccInfId": self.AccInfId,
@@ -338,8 +340,9 @@ class Division(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_division"
 	DivId = db.Column(db.Integer,nullable=False,primary_key=True)
 	CId = db.Column(db.Integer,db.ForeignKey("tbl_dk_company.CId"))
-	DivisionName = db.Column(db.String(100),nullable=False)
-	DivisionDesc = db.Column(db.String(500))
+	DivName = db.Column(db.String(100),nullable=False)
+	DivDesc = db.Column(db.String(500))
+	DivKey = db.Column(db.String(100))
 	OwnerDivisionId = db.Column(db.Integer,default=0)
 	Users = db.relationship('Users',backref='division')
 	Department_detail = db.relationship('Department_detail',backref='division',lazy=True)
@@ -358,6 +361,28 @@ class Division(AddInf,CreatedModifiedInfo,db.Model):
 	Production = db.relationship('Production',backref='division',lazy=True)
 	Rating = db.relationship('Rating',backref='division',lazy=True)
 	Slider = db.relationship('Slider',backref='division',lazy=True)
+
+	def to_json_api(self):
+		json_division = {
+			"DivId": self.DivId,
+			"CId": self.CId,
+			"DivName": self.DivName,
+			"DivDesc": self.DivDesc,
+			"DivKey": self.DivKey,
+			"OwnerDivisionId": self.OwnerDivisionId,
+			"AddInf1": self.AddInf1,
+			"AddInf2": self.AddInf2,
+			"AddInf3": self.AddInf3,
+			"AddInf4": self.AddInf4,
+			"AddInf5": self.AddInf5,
+			"AddInf6": self.AddInf6,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
+		}
+		return json_division
 
 
 class Gender(db.Model):
@@ -383,8 +408,9 @@ class Image(CreatedModifiedInfo,db.Model):
 	ResId = db.Column(db.Integer,db.ForeignKey("tbl_dk_resource.ResId"))
 	FileName = db.Column(db.String(100))
 	FileHash = db.Column(db.String(100))
-	FilePath = db.Column(db.String(255))	
+	FilePath = db.Column(db.String(255))
 	Image = db.Column(db.LargeBinary)
+	ImgRegNum = db.Column(db.String(100),unique=True)
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -414,6 +440,7 @@ class Image(CreatedModifiedInfo,db.Model):
 			"UId": self.UId,
 			"RpAccId": self.RpAccId,
 			"ResId": self.ResId,
+			"ImgRegNum": self.ImgRegNum,
 			"FileName": self.FileName,
 			"FilePath": fileToURL(file_type='image',file_size='M',file_name=self.FileName),
 			"FilePathS": fileToURL(file_type='image',file_size='S',file_name=self.FileName),

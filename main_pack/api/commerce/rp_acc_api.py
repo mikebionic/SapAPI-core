@@ -30,7 +30,11 @@ def api_rp_accs_rp_acc(RpAccRegNo):
 @sha_required
 def api_rp_accs():
 	if request.method == 'GET':
-		rp_accs = Rp_acc.query.filter_by(GCRecord = None).all()
+		DivId = request.args.get("DivId",None,type=int)
+		rp_accs = Rp_acc.query.filter_by(GCRecord = None)
+		if DivId:
+			rp_accs = rp_accs.filter_by(DivId = DivId)
+		rp_accs = rp_accs.all()
 		res = {
 			"status": 1,
 			"message": "All rp_accs",

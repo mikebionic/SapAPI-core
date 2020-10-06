@@ -30,7 +30,11 @@ def api_users_user(UId):
 @sha_required
 def api_users():
 	if request.method == 'GET':
-		users = Users.query.all()
+		DivId = request.args.get("DivId",None,type=int)
+		users = Users.query.filter_by(GCRecord = None)
+		if DivId:
+			users = users.filter_by(DivId = DivId)
+		users = users.all()
 		res = {
 			"status": 1,
 			"message": "All users",
@@ -59,8 +63,8 @@ def api_users():
 						db.session.add(newUser)
 						users.append(user)
 					else:
-						UId = user['UId']
-						thisUser = Users.query.get(int(UId))
+						URegNo = user['URegNo']
+						thisUser = Users.query.filter_by(URegNo = URegNo).first()
 						if thisUser is not None:
 							thisUser.update(**user)
 							users.append(user)

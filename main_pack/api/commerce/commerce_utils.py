@@ -31,9 +31,9 @@ from main_pack.models.base.models import Currency
 # orders and db methods
 from main_pack.models.commerce.models import (Order_inv,
 																							Order_inv_line,
+																							Invoice,
+																							Inv_line,
 																							Inv_status)
-from main_pack.api.commerce.utils import (addOrderInvDict,
-																					addOrderInvLineDict)
 from sqlalchemy import and_, extract
 # / orders and db methods /
 
@@ -63,7 +63,8 @@ def apiResourceInfo(resource_list = None,
 										showRelated = False,
 										showLatest = False,
 										showRated = False,
-										avoidQtyCheckup = False):
+										avoidQtyCheckup = False,
+										DivId = None):
 	categories = Res_category.query.filter_by(GCRecord = None).all()
 	usage_statuses = Usage_status.query.filter_by(GCRecord = None).all()
 	units = Unit.query.filter_by(GCRecord = None).all()
@@ -114,6 +115,8 @@ def apiResourceInfo(resource_list = None,
 					.order_by(Rating.RtRatingValue.asc())\
 					.limit(Config.RESOURCE_MAIN_PAGE_SHOW_QTY + 1)
 			
+			if DivId:
+				resources = resources.filter_by(DivId = DivId)
 			resources = resources.all()
 
 			for resource in resources:
@@ -268,7 +271,7 @@ def apiResourceInfo(resource_list = None,
 				resource_info["Rating"] = List_Ratings if List_Ratings else []
 			data.append(resource_info)
 		except Exception as ex:
-			print(ex)
+			print(f"{datetime.now()} | Resource info utils Exception: {ex}")
 			fails.append(resource.to_json_api())
 			
 	status = checkApiResponseStatus(data,fails)
@@ -289,7 +292,6 @@ def apiResourceInfo(resource_list = None,
 	return res
 
 def apiFeaturedResCat_Resources():
-
 	featured_categories = Res_category.query\
 		.filter_by(GCRecord = None)\
 		.filter(Res_category.IsMain == True)\
@@ -349,7 +351,7 @@ def UiCartResourceData(product_list,fullInfo=False,showRelated=False):
 				try:
 					resource["productQty"] = product["productQty"]
 				except Exception as ex:
-					print(ex)
+					print(f"{datetime.now()} | Cart Resource Data utils Exception: {ex}")
 					resource["productQty"] = 1
 		resource["productTotal"]=int(resource["productQty"])*int(resource["ResPriceValue"])
 		data.append(resource)
@@ -365,47 +367,50 @@ def apiOrderInvInfo(startDate = None,
 										statusId = None,
 										single_object = False,
 										invoice_list = None,
-										rp_acc_user = None):
+										rp_acc_user = None,
+										DivId = None):
 	inv_statuses = Inv_status.query\
 		.filter_by(GCRecord = None).all()
 
-	order_filtering = {
+	invoice_filtering = {
 		"GCRecord": None
 	}
 	if statusId:
-		order_filtering['InvStatId'] = statusId
+		invoice_filtering['InvStatId'] = statusId
 	if rp_acc_user:
-		order_filtering['RpAccId'] = rp_acc_user.RpAccId
+		invoice_filtering['RpAccId'] = rp_acc_user.RpAccId
 
 	order_inv_models = []
 	if invoice_list is None:
-		if startDate == None:
-			order_invoices = Order_inv.query\
-				.filter_by(**order_filtering)\
-				.order_by(Order_inv.OInvDate.desc()).all()
-		else:
+		order_invoices = Order_inv.query\
+			.filter_by(**invoice_filtering)
+		if DivId:
+			order_invoices = order_invoices.filter_by(DivId = DivId)			
+
+		if startDate:
 			# filtering by date
-			if (type(startDate)!=datetime):
+			if (type(startDate) != datetime):
 				startDate = dateutil.parser.parse(startDate)
 				startDate = datetime.date(startDate)
-			if (type(endDate)!=datetime):
+			if (type(endDate) != datetime):
 				endDate = dateutil.parser.parse(endDate)
 				endDate = datetime.date(endDate)
-			order_invoices = Order_inv.query\
-			.filter_by(**order_filtering)\
-			.filter(and_(
-				extract('year',Order_inv.OInvDate).between(startDate.year,endDate.year),\
-				extract('month',Order_inv.OInvDate).between(startDate.month,endDate.month),\
-				extract('day',Order_inv.OInvDate).between(startDate.day,endDate.day)))\
-			.order_by(Order_inv.OInvDate.desc()).all()
+			order_invoices = order_invoices\
+				.filter(and_(
+					extract('year',Order_inv.OInvDate).between(startDate.year,endDate.year),\
+					extract('month',Order_inv.OInvDate).between(startDate.month,endDate.month),\
+					extract('day',Order_inv.OInvDate).between(startDate.day,endDate.day)))
+			
+		order_invoices = order_invoices.order_by(Order_inv.OInvDate.desc()).all()
+
 		for order_inv in order_invoices:
 			order_inv_models.append(order_inv)
 	else:
 		for invoice_index in invoice_list:
 			OInvRegNo = invoice_index["OInvRegNo"]
-			order_filtering["OInvRegNo"] = OInvRegNo
+			invoice_filtering["OInvRegNo"] = OInvRegNo
 			order_inv = Order_inv.query\
-				.filter_by(**order_filtering).first()
+				.filter_by(**invoice_filtering).first()
 			if order_inv:
 				order_inv_models.append(order_inv)
 
@@ -440,7 +445,7 @@ def apiOrderInvInfo(startDate = None,
 						resource_json = apiResourceInfo(resource_models=[resource],single_object=True)
 						this_order_inv_line['Resource'] = resource_json['data']
 					except Exception as ex:
-						print(ex)
+						print(f"{datetime.now()} | Order_inv_line info utils Exception: {ex}")
 						this_order_inv_line['Resource'] = []
 					order_inv_lines.append(this_order_inv_line)
 			
@@ -448,7 +453,7 @@ def apiOrderInvInfo(startDate = None,
 			# order_inv_info['Order_inv_lines'] = [order_inv_line.to_json_api() for order_inv_line in order_inv.Order_inv_line if order_inv_line.GCRecord == None]
 			data.append(order_inv_info)
 		except Exception as ex:
-			print(ex)
+			print(f"{datetime.now()} | Order_inv info utils Exception: {ex}")
 			fails.append(order_inv.to_json_api())
 	status = checkApiResponseStatus(data,fails)
 	if single_object == True:
@@ -458,6 +463,116 @@ def apiOrderInvInfo(startDate = None,
 			fails = fails[0]
 	res = {
 			"message": "Order invoice",
+			"data": data,
+			"fails": fails,
+			"total": len(data),
+			"fail_total": len(fails)
+	}
+	for e in status:
+		res[e] = status[e]
+	return res
+
+def apiInvInfo(startDate = None,
+							endDate = datetime.now(),
+							statusId = None,
+							single_object = False,
+							invoice_list = None,
+							rp_acc_user = None,
+							DivId = None):
+	inv_statuses = Inv_status.query\
+		.filter_by(GCRecord = None).all()
+
+	invoice_filtering = {
+		"GCRecord": None
+	}
+	if statusId:
+		invoice_filtering['InvStatId'] = statusId
+	if rp_acc_user:
+		invoice_filtering['RpAccId'] = rp_acc_user.RpAccId
+
+	inv_models = []
+	if invoice_list is None:
+		invoices = Invoice.query.filter_by(**invoice_filtering)
+
+		if DivId:
+			invoices = invoices.filter_by(DivId = DivId)			
+
+		if startDate:
+			# filtering by date
+			if (type(startDate) != datetime):
+				startDate = dateutil.parser.parse(startDate)
+				startDate = datetime.date(startDate)
+			if (type(endDate) != datetime):
+				endDate = dateutil.parser.parse(endDate)
+				endDate = datetime.date(endDate)
+			invoices = invoices\
+				.filter(and_(
+					extract('year',Invoice.InvDate).between(startDate.year,endDate.year),\
+					extract('month',Invoice.InvDate).between(startDate.month,endDate.month),\
+					extract('day',Invoice.InvDate).between(startDate.day,endDate.day)))
+			
+		invoices = invoices.order_by(Invoice.InvDate.desc()).all()
+
+		for invoice in invoices:
+			inv_models.append(invoice)
+	else:
+		for invoice_index in invoice_list:
+			InvRegNo = invoice_index["InvRegNo"]
+			invoice_filtering["InvRegNo"] = InvRegNo
+			invoice = Invoice.query\
+				.filter_by(**invoice_filtering).first()
+			if invoice:
+				inv_models.append(invoice)
+
+	data = []
+	fails = []
+	for invoice in inv_models:
+		try:
+			inv_info = invoice.to_json_api()
+
+			inv_status_list = [inv_status.to_json_api() for inv_status in inv_statuses if inv_status.InvStatId == invoice.InvStatId]
+			inv_status = dataLangSelector(inv_status_list[0])
+			inv_info['InvStatName'] = inv_status['InvStatName']
+
+			if rp_acc_user:
+				rpAccData = apiRpAccData(dbModel=rp_acc_user)
+			else:
+				rp_acc_user = Rp_acc.query\
+					.filter_by(GCRecord = None, RpAccId = invoice.RpAccId)\
+					.first()
+				rpAccData = apiRpAccData(dbModel=rp_acc_user)
+			rp_acc_user = None
+			inv_info['Rp_acc'] = rpAccData['data']
+
+			inv_lines = []
+			for inv_line in invoice.Inv_line:
+				if inv_line.GCRecord == None:
+					this_inv_line = inv_line.to_json_api()
+					try:
+						resource = Resource.query\
+							.filter_by(GCRecord = None, ResId = inv_line.ResId)\
+							.first()
+						resource_json = apiResourceInfo(resource_models=[resource],single_object=True)
+						this_inv_line['Resource'] = resource_json['data']
+					except Exception as ex:
+						print(f"{datetime.now()} | Invoice_line info utils Exception: {ex}")
+						this_inv_line['Resource'] = []
+					inv_lines.append(this_inv_line)
+			
+			inv_info['Inv_lines'] = inv_lines
+			data.append(inv_info)
+		except Exception as ex:
+			print(f"{datetime.now()} | Invoice info utils Exception: {ex}")
+			fails.append(invoice.to_json_api())
+	
+	status = checkApiResponseStatus(data,fails)
+	if single_object == True:
+		if len(data) == 1:
+			data = data[0]
+		if len(fails) == 1:
+			fails = fails[0]
+	res = {
+			"message": "Invoice",
 			"data": data,
 			"fails": fails,
 			"total": len(data),

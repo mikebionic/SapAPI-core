@@ -14,8 +14,11 @@ from main_pack.api.auth.api_login import sha_required
 @sha_required
 def api_work_periods():
 	if request.method == 'GET':
-		work_periods = Work_period.query\
-			.filter(Work_period.GCRecord=='' or Work_period.GCRecord==None).all()
+		DivId = request.args.get("DivId",None,type=int)
+		work_periods = Work_period.query.filter_by(GCRecord = None)
+		if DivId:
+			work_periods = work_periods.filter_by(DivId = DivId)
+		work_periods = work_periods.all()
 		res = {
 			"status": 1,
 			"message": "All work periods",

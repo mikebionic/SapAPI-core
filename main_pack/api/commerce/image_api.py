@@ -19,7 +19,11 @@ from main_pack.api.auth.api_login import sha_required
 @sha_required
 def api_images():
 	if request.method == 'GET':
-		images = Image.query.filter_by(GCRecord = None).all()
+		DivId = request.args.get("DivId",None,type=int)
+		images = Image.query.filter_by(GCRecord = None)
+		if DivId:
+			images = images.filter_by(DivId = DivId)
+		images = images.all()
 		res = {
 			"status": 1,
 			"message": "All images",
@@ -37,45 +41,41 @@ def api_images():
 			response = make_response(jsonify(res),400)
 		else:
 			req = request.get_json()
-			
 			resources = Resource.query.filter_by(GCRecord = None).all()
 			ResId_list = [resource.ResId for resource in resources]
-
 			images = []
 			failed_images = []
 			for image in req:
 				imageDictData = addImageDict(image)
 				try:
 					resource = ResId_list.index(imageDictData['ResId'])
-					if not 'ImgId' in imageDictData:
+					ImgRegNo = imageDictData['ImgRegNo']
+					thisImage = Image.query\
+						.filter_by(ImgRegNo = ImgRegNo)\
+						.first()
+
+					if thisImage is not None:
+						updatingDate = dateutil.parser.parse(imageDictData['ModifiedDate'])
+						if thisImage.ModifiedDate != updatingDate:
+							print(f"{datetime.now()} | Image updated (Different ModifiedDate)")
+							image = saveImageFile(image)
+							thisImage.update(**image)
+						# else:
+						# 	print(f"{datetime.now()} | Image dropped (Same ModifiedDate)")
+						images.append(imageDictData)
+					else:
 						image = saveImageFile(image)
 						newImage = Image(**image)
 						db.session.add(newImage)
-						images.append(image)
-					else:
-						ImgId = imageDictData['ImgId']
-						thisImage = Image.query.get(int(ImgId))
+						# print(f"{datetime.now()} | Image created")
+						images.append(imageDictData)
 
-						updatingDate = dateutil.parser.parse(imageDictData['ModifiedDate'])
-						if thisImage is not None:
-							if thisImage.ModifiedDate != updatingDate:
-								print('updated cuz different ModifiedDate')
-								image = saveImageFile(image)
-								thisImage.update(**image)
-							else:
-								print("same modified date")
-							images.append(imageDictData)
-						else:
-							image = saveImageFile(image)
-							newImage = Image(**image)
-							db.session.add(newImage)
-							print('added image was none')
-							images.append(imageDictData)
 				except Exception as ex:
 					print(f"{datetime.now()} | Image Api Exception: {ex}")
 					failed_images.append(imageDictData)
+
 			db.session.commit()
-			print('images were committed')
+			print(f"{datetime.now()} | Images were committed")
 			status = checkApiResponseStatus(images,failed_images)
 			res = {
 				"data": images,

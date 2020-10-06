@@ -16,7 +16,11 @@ from main_pack.api.auth.api_login import sha_required
 @sha_required
 def api_rp_acc_trans_totals():
 	if request.method == 'GET':
-		rp_acc_trans_totals = Rp_acc_trans_total.query.filter_by(GCRecord = None).all()
+		DivId = request.args.get("DivId",None,type=int)
+		rp_acc_trans_totals = Rp_acc_trans_total.query.filter_by(GCRecord = None)
+		if DivId:
+			rp_acc_trans_totals = rp_acc_trans_totals.filter_by(DivId = DivId)
+		rp_acc_trans_totals = rp_acc_trans_totals.all()
 		res = {
 			"status": 1,
 			"message": "All rp acc trans totals",

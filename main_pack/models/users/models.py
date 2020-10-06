@@ -21,6 +21,7 @@ class Users(AddInf,CreatedModifiedInfo,db.Model,UserMixin):
 	UName = db.Column(db.String(60),nullable=False)
 	UEmail = db.Column(db.String(100),unique=True)
 	UPass = db.Column(db.String(60),nullable=False)
+	URegNo = db.Column(db.String(100),unique=True)
 	UShortName = db.Column(db.String(10))
 	EmpId = db.Column(db.Integer)
 	UTypeId = db.Column(db.Integer,db.ForeignKey("tbl_dk_user_type.UTypeId"))
@@ -72,6 +73,7 @@ class Users(AddInf,CreatedModifiedInfo,db.Model,UserMixin):
 			"UEmail": self.UEmail,
 			# "UPass": self.UPass,
 			"UShortName": self.UShortName,
+			"URegNo": self.URegNo,
 			"EmpId": self.EmpId,
 			"UTypeId": self.UTypeId,
 			"AddInf1": self.AddInf1,

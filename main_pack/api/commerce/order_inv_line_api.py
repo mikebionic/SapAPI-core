@@ -15,7 +15,11 @@ from main_pack.api.auth.api_login import sha_required
 @sha_required
 def api_order_inv_lines():
 	if request.method == 'GET':
-		order_inv_lines = Order_inv_line.query.filter_by(GCRecord = None).all()
+		DivId = request.args.get("DivId",None,type=int)
+		order_inv_lines = Order_inv_line.query.filter_by(GCRecord = None)
+		if DivId:
+			order_inv_lines = order_inv_lines.filter_by(DivId = DivId)
+		order_inv_lines = order_inv_lines.all()
 		res = {
 			"status": 1,
 			"message": "All order inv lines",

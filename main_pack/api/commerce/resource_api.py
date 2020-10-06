@@ -25,18 +25,6 @@ def api_resource(ResId):
 		status_code = 404
 	response = make_response(jsonify(res),status_code)
 
-	# elif request.method == 'PUT':
-	# 	resource = Resource.query.get(ResId)
-	# 	# miguelGrinberg's method
-	# 	# resource.from_json(request.json)
-	# 	updateResource = addResourceDict(req)
-	# 	resource.update(**resource)
-	# 	res = {
-	# 		"status": 1,
-	# 		"message": "Resource updated",
-	# 		"data": resource.to_json_api()
-	# 	}
-	# 	response = make_response(jsonify(res),200)
 	return response
 
 
@@ -44,7 +32,8 @@ def api_resource(ResId):
 @sha_required
 def api_resources():
 	if request.method == 'GET':
-		res = apiResourceInfo(isInactive=True,fullInfo=True)
+		DivId = request.args.get("DivId",None,type=int)
+		res = apiResourceInfo(isInactive=True,fullInfo=True,DivId=DivId)
 		if res['status'] == 0:
 			status_code = 404
 		else:

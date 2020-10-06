@@ -28,10 +28,16 @@ def api_category(ResCatId):
 @api.route("/tbl-dk-categories/",methods=['GET'])
 def api_categories():
 	if request.method == 'GET':
+		DivId = request.args.get("DivId",None,type=int)
 		categories = Res_category.query\
 			.filter_by(GCRecord = None)\
 			.join(Resource, Resource.ResCatId == Res_category.ResCatId)\
-			.filter(Resource.GCRecord == None)\
+			.filter(Resource.GCRecord == None)
+
+		if DivId:
+			categories = categories.filter(Resource.DivId == DivId)
+
+		categories = categories\
 			.join(Res_total, Res_total.ResId == Resource.ResId)\
 			.filter(and_(
 				Res_total.WhId == 1, 

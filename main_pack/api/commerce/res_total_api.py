@@ -16,7 +16,11 @@ from main_pack.api.auth.api_login import sha_required
 @sha_required
 def api_res_totals():
 	if request.method == 'GET':
-		res_totals = Res_total.query.filter_by(GCRecord = None).all()
+		DivId = request.args.get("DivId",None,type=int)
+		res_totals = Res_total.query.filter_by(GCRecord = None)
+		if DivId:
+			res_totals = res_totals.filter_by(DivId = DivId)
+		res_totals = res_totals.all()
 		res = {
 			"status": 1,
 			"message": "All res totals",

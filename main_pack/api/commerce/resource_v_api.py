@@ -17,14 +17,16 @@ from main_pack.models.commerce.models import (Resource,
 
 @api.route("/v-full-resources/")
 def api_v_full_resources():
-	res = apiResourceInfo(fullInfo=True)
+	DivId = request.args.get("DivId",None,type=int)
+	res = apiResourceInfo(fullInfo=True,DivId=DivId)
 	response = make_response(jsonify(res),200)
 	return response
 
 
 @api.route("/v-resources/")
 def api_v_resources():
-	res = apiResourceInfo()
+	DivId = request.args.get("DivId",None,type=int)
+	res = apiResourceInfo(DivId=DivId)
 	response = make_response(jsonify(res),200)
 	return response
 
@@ -43,9 +45,11 @@ def api_v_resource_info(ResId):
 
 @api.route("/tbl-dk-categories/<int:ResCatId>/v-resources/")
 def api_category_v_resources(ResCatId):
-	resources = Resource.query\
-		.filter_by(GCRecord = None, UsageStatusId = 1, ResCatId = ResCatId)\
-		.all()
+	DivId = request.args.get("DivId",None,type=int)
+	resources = Resource.query.filter_by(GCRecord = None, UsageStatusId = 1, ResCatId = ResCatId)
+	if DivId:
+		resources = resources.filter_by(DivId = DivId)
+	resources = resources.all()
 	resource_list = []
 	for resource in resources:
 		product = {}
@@ -60,6 +64,7 @@ def api_category_v_resources(ResCatId):
 
 @api.route("/v-resources/search/")
 def api_v_resources_search():
+	DivId = request.args.get("DivId",None,type=int)
 	searching_tag = request.args.get("tag","",type=str)
 	searching_tag = "%{}%".format(searching_tag)
 
@@ -67,7 +72,6 @@ def api_v_resources_search():
 		.filter(and_(
 			Barcode.GCRecord == None,\
 			Barcode.BarcodeVal.ilike(searching_tag)))\
-		.all()
 	
 	resources = Resource.query\
 		.filter(and_(
@@ -75,7 +79,13 @@ def api_v_resources_search():
 			Resource.ResName.ilike(searching_tag),\
 			Resource.UsageStatusId == 1))\
 		.order_by(Resource.ResId.desc())\
-		.all()
+
+	if DivId:
+		barcodes = barcodes.filter_by(DivId = DivId)
+		resources = resources.filter_by(DivId = DivId)
+
+	barcodes = barcodes.all()
+	resources = resources.all()
 
 	resource_list = []
 	if barcodes:

@@ -15,7 +15,11 @@ from main_pack.api.auth.api_login import sha_required
 @sha_required
 def api_barcodes():
 	if request.method == 'GET':
-		barcodes = Barcode.query.filter_by(GCRecord = None).all()
+		DivId = request.args.get("DivId",None,type=int)
+		barcodes = Barcode.query.filter_by(GCRecord = None)
+		if DivId:
+			barcodes = barcodes.filter_by(DivId = DivId)
+		barcodes = barcodes.all()
 		res = {
 			"status": 1,
 			"message": "All barcodes",

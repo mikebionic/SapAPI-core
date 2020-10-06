@@ -461,6 +461,7 @@ def addOrderInvDict(req):
 	order_inv = configureNulls(order_inv)
 	return order_inv
 
+
 def addOrderInvLineDict(req):
 	OInvLineId = req.get('OInvLineId')
 	OInvId = req.get('OInvId')
@@ -518,8 +519,8 @@ def addOrderInvLineDict(req):
 		"ModifiedUId": ModifiedUId,
 		"GCRecord": GCRecord
 		}
-	if(OInvLineId != '' and OInvLineId != None):
-		order_inv_line['OInvLineId'] = OInvLineId
+	# if(OInvLineId != '' and OInvLineId != None):
+	# 	order_inv_line['OInvLineId'] = OInvLineId
 	order_inv_line = configureNulls(order_inv_line)
 	return order_inv_line
 
@@ -554,6 +555,152 @@ def addOrderInvTypeDict(req):
 		order_inv_type['OInvTypeId'] = OInvTypeId
 	order_inv_type = configureNulls(order_inv_type)
 	return order_inv_type
+
+
+def addInvDict(req):
+	InvId = req.get('InvId')
+	InvTypeId = req.get('InvTypeId')
+	InvStatId = req.get('InvStatId')
+	CurrencyId = req.get('CurrencyId')
+	RpAccId = req.get('RpAccId')
+	CId = req.get('CId')
+	DivId = req.get('DivId')
+	WhId = req.get('WhId')
+	WpId = req.get('WpId')
+	EmpId = req.get('EmpId')
+	PtId = req.get('PtId')
+	PmId = req.get('PmId')
+	InvLatitude = req.get('InvLatitude')
+	InvLongitude = req.get('InvLongitude')
+	InvRegNo = req.get('InvRegNo')
+	InvDesc = req.get('InvDesc')
+	InvDate = req.get('InvDate')
+	InvTotal = configureFloat(req.get('InvTotal'))
+	InvExpenseAmount = configureFloat(req.get('InvExpenseAmount'))
+	InvTaxAmount = configureFloat(req.get('InvTaxAmount'))
+	InvDiscountAmount = configureFloat(req.get('InvDiscountAmount'))
+	InvFTotal = configureFloat(req.get('InvFTotal'))
+	InvFTotalInWrite = req.get('InvFTotalInWrite')
+	InvModifyCount = req.get('InvModifyCount')
+	InvPrintCount = req.get('InvPrintCount')
+	InvCreditDays = req.get('InvCreditDays')
+	InvCreditDesc = req.get('InvCreditDesc')
+	AddInf1 = req.get('AddInf1')
+	AddInf2 = req.get('AddInf2')
+	AddInf3 = req.get('AddInf3')
+	AddInf4 = req.get('AddInf4')
+	AddInf5 = req.get('AddInf5')
+	AddInf6 = req.get('AddInf6')
+	CreatedDate = req.get('CreatedDate')
+	ModifiedDate = req.get('ModifiedDate')
+	CreatedUId = req.get('CreatedUId')
+	ModifiedUId = req.get('ModifiedUId')
+	GCRecord = req.get('GCRecord')	
+	inv = {
+		"InvTypeId": InvTypeId,
+		"InvStatId": InvStatId,
+		"CurrencyId": CurrencyId,
+		"RpAccId": RpAccId,
+		"CId": CId,
+		"DivId": DivId,
+		"WhId": WhId,
+		"WpId": WpId,
+		"EmpId": EmpId,
+		"PtId": PtId,
+		"PmId": PmId,
+		"InvLatitude": InvLatitude,
+		"InvLongitude": InvLongitude,
+		"InvRegNo": InvRegNo,
+		"InvDesc": InvDesc,
+		"InvDate": InvDate,
+		"InvTotal": InvTotal,
+		"InvExpenseAmount": InvExpenseAmount,
+		"InvTaxAmount": InvTaxAmount,
+		"InvDiscountAmount": InvDiscountAmount,
+		"InvFTotal": InvFTotal,
+		"InvFTotalInWrite": InvFTotalInWrite,
+		"InvModifyCount": InvModifyCount,	
+		"InvPrintCount": InvPrintCount,
+		"InvCreditDays": InvCreditDays,
+		"InvCreditDesc": InvCreditDesc,
+		"AddInf1": AddInf1,
+		"AddInf2": AddInf2,
+		"AddInf3": AddInf3,
+		"AddInf4": AddInf4,
+		"AddInf5": AddInf5,
+		"AddInf6": AddInf6,
+		"CreatedDate": CreatedDate,
+		"ModifiedDate": ModifiedDate,
+		"CreatedUId": CreatedUId,
+		"ModifiedUId": ModifiedUId,
+		"GCRecord": GCRecord
+		}
+	#if(InvId != '' and InvId != None):
+	#	inv['InvId'] = InvId
+	inv = configureNulls(inv)
+	return inv
+
+
+def addInvLineDict(req):
+	InvLineId = req.get('InvLineId')
+	InvId = req.get('InvId')
+	UnitId = req.get('UnitId')
+	CurrencyId = req.get('CurrencyId')
+	ResId = req.get('ResId')
+	LastVendorId = req.get('LastVendorId')
+	InvLineDesc = req.get('InvLineDesc')
+	InvLineAmount = req.get('InvLineAmount')
+	InvLinePrice = configureFloat(req.get('InvLinePrice'))
+	InvLineTotal = configureFloat(req.get('InvLineTotal'))
+	InvLineExpenseAmount = configureFloat(req.get('InvLineExpenseAmount'))
+	InvLineTaxAmount = configureFloat(req.get('InvLineTaxAmount'))
+	InvLineDiscAmount = configureFloat(req.get('InvLineDiscAmount'))
+	InvLineFTotal = configureFloat(req.get('InvLineFTotal'))
+	InvLineDate = req.get('InvLineDate')
+	AddInf1 = req.get('AddInf1')
+	AddInf2 = req.get('AddInf2')
+	AddInf3 = req.get('AddInf3')
+	AddInf4 = req.get('AddInf4')
+	AddInf5 = req.get('AddInf5')
+	AddInf6 = req.get('AddInf6')
+	CreatedDate = req.get('CreatedDate')
+	ModifiedDate = req.get('ModifiedDate')
+	CreatedUId = req.get('CreatedUId')
+	ModifiedUId = req.get('ModifiedUId')
+	GCRecord = req.get('GCRecord')
+
+	inv_line = {
+		"InvId": InvId,
+		"UnitId": UnitId,
+		"CurrencyId": CurrencyId,
+		"ResId": ResId,
+		"LastVendorId": LastVendorId,
+		"InvLineDesc": InvLineDesc,
+		"InvLineAmount": InvLineAmount,
+		"InvLinePrice": InvLinePrice,
+		"InvLineTotal": InvLineTotal,
+		"InvLineExpenseAmount": InvLineExpenseAmount,
+		"InvLineTaxAmount": InvLineTaxAmount,
+		"InvLineDiscAmount": InvLineDiscAmount,
+		"InvLineFTotal": InvLineFTotal,
+		"InvLineDate": InvLineDate,
+		"AddInf1": AddInf1,
+		"AddInf2": AddInf2,
+		"AddInf3": AddInf3,
+		"AddInf4": AddInf4,
+		"AddInf5": AddInf5,
+		"AddInf6": AddInf6,
+		"CreatedDate": CreatedDate,
+		"ModifiedDate": ModifiedDate,
+		"CreatedUId": CreatedUId,
+		"ModifiedUId": ModifiedUId,
+		"GCRecord": GCRecord
+		}
+	# if(InvLineId != '' and InvLineId != None):
+	# 	inv_line['InvLineId'] = InvLineId
+	inv_line = configureNulls(inv_line)
+	return inv_line
+
 
 def addWarehouseDict(req):
 	WhId = req.get('WhId')

@@ -48,8 +48,8 @@ def addUsersDict(req):
 		"ModifiedUId": ModifiedUId,
 		"GCRecord": GCRecord
 		}
-	if(UId != '' and UId != None):
-		users['UId'] = UId
+	# if(UId != '' and UId != None):
+	# 	users['UId'] = UId
 	users=configureNulls(users)
 	return users
 
@@ -141,9 +141,9 @@ def addRpAccDict(req):
 		"ModifiedUId": ModifiedUId,
 		"GCRecord": GCRecord
 		}
-	if(RpAccId != '' and RpAccId != None):
-		print(RpAccId)
-		rp_acc['RpAccId'] = RpAccId
+	# if(RpAccId != '' and RpAccId != None):
+	# 	print(RpAccId)
+	# 	rp_acc['RpAccId'] = RpAccId
 	rp_acc = configureNulls(rp_acc)
 	return rp_acc
 
