@@ -218,6 +218,7 @@ def brands():
 	brands_list = [brand.to_json_api() for brand in brands]
 	return brands_list
 
+
 @bp.route("/admin/resource_edit/<ResId>", methods=['GET', 'POST'])
 @login_required
 @ui_admin_required()
@@ -229,11 +230,28 @@ def resource_edit(ResId):
 	res = apiResourceInfo(resource_models=resource_models,single_object=True,showInactive=True,avoidQtyCheckup=True)
 	resource_info = res['data']
 	resourceForm = ResourceEditForm()
+	
+	brands_list = brands()
+	No_brand = (0,"...")
+	brandChoices = [No_brand]
+	for brand in brands_list:
+		obj = (brand['BrandId'],brand['BrandName'])
+		brandChoices.append(obj)
+	
+	if resource_info["BrandId"]:
+		try:
+			BrandId = resource_info["Brand"]["BrandId"]
+			BrandName = resource_info["Brand"]["BrandName"]
+			brandChoices.insert(0, brandChoices.pop(brandChoices.index((BrandId,BrandName))))
+		except Exception as ex:
+			print(ex)
+	resourceForm.BrandId.choices = brandChoices
+
 	if "resourceForm" in request.form and resourceForm.validate_on_submit():
 		resource.ResName = resourceForm.ResName.data
 		resource.ResDesc = resourceForm.ResDesc.data
 		resource.ResFullDesc = resourceForm.ResFullDesc.data
-		resource.BrandId = resourceForm.BrandId.data
+		resource.BrandId = resourceForm.BrandId.data if resourceForm.BrandId.data > 0 else None
 
 		if resourceForm.resourceImage.data:
 			imageFile = save_image(imageForm=resourceForm.resourceImage.data,module=os.path.join("uploads","commerce","Resource"),id=ResId)
@@ -251,11 +269,6 @@ def resource_edit(ResId):
 	resourceForm.ResDesc.data = resource_info["ResDesc"]
 	resourceForm.ResFullDesc.data = resource_info["ResFullDesc"]
 	
-	brands_list = brands()
-	brandChoices = []
-	for brand in brands_list:
-		obj = (brand['BrandId'],brand['BrandName'])
-		brandChoices.append(obj)
 	resourceForm.BrandId.choices = brandChoices
 
 	return render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"resource_edit.html",url_prefix=url_prefix,

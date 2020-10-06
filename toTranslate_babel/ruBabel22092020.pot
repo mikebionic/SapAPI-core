@@ -1588,7 +1588,7 @@ msgstr "Вам нужно войти чтобы оформить заказ"
 
 #: templates/commerce/main/commerce/commerce.html:90
 msgid "Products"
-msgstr "Продуктов"
+msgstr "Товары"
 
 #: templates/commerce/bee/commerce/commerce.html:74
 msgid "New arrival"

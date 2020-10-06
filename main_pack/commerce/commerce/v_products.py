@@ -19,6 +19,7 @@ from main_pack.models.commerce.models import (Resource,
 																							Barcode,
 																							Rating,
 																							Res_category,
+																							Brand,
 																							Res_price)
 from main_pack.commerce.commerce.utils import UiCategoriesList,uiSortingData
 from main_pack.api.commerce.commerce_utils import UiCartResourceData
@@ -29,7 +30,8 @@ def collect_resource_paginate_info(pagination_url,
 																	page = 1,
 																	per_page = None,
 																	filtration = None,
-																	category = None):
+																	category = None,
+																	brand = None):
 	filtration_types = [
 		{
 			"filtration": "date_new",
@@ -65,6 +67,15 @@ def collect_resource_paginate_info(pagination_url,
 		.filter(and_(
 			Res_total.WhId == 1, 
 			Res_total.ResTotBalance > 0))
+	
+	if brand:
+		brand = Brand.query\
+			.filter_by(GCRecord = None)\
+			.filter(Brand.BrandName.ilike(brand))\
+			.first()
+		if brand:
+			resources = resources.filter(Resource.BrandId == brand.BrandId)
+
 	if filtration:
 		if filtration == "date_new":
 			resources = resources.order_by(Resource.CreatedDate.desc())
@@ -110,7 +121,8 @@ def collect_resource_paginate_info(pagination_url,
 		"prev_url": None,
 		"current_filtration": filtration,
 		"filtration_types": filtration_types,
-		"category": category.ResCatName if category else None
+		"category": category.ResCatName if category else None,
+		"brand": brand.BrandName if brand else None
 	}
 	if pagination_resources.has_next:
 		pagination_info["next_url"] = url_for(
@@ -118,14 +130,16 @@ def collect_resource_paginate_info(pagination_url,
 			page = pagination_resources.next_num,
 			per_page = pagination_resources.per_page,
 			filter = pagination_info["current_filtration"],
-			category = pagination_info["category"])
+			category = pagination_info["category"],
+			brand = pagination_info["brand"])
 	if pagination_resources.has_prev:
 		pagination_info["prev_url"] = url_for(
 			pagination_url,
 			page = pagination_resources.prev_num,
 			per_page = pagination_resources.per_page,
 			filter = pagination_info["current_filtration"],
-			category = pagination_info["category"])
+			category = pagination_info["category"],
+			brand = pagination_info["brand"])
 
 	# method for footer pagination
 	page_num_list = []
@@ -138,7 +152,8 @@ def collect_resource_paginate_info(pagination_url,
 				page = page_num,
 				per_page = pagination_resources.per_page,
 				filter = pagination_info["current_filtration"],
-				category = pagination_info["category"])
+				category = pagination_info["category"],
+				brand = pagination_info["brand"])
 		}
 		if page_num == pagination_resources.page:
 			page_num_info["status"] = "active"
@@ -157,6 +172,7 @@ def v_list():
 	filtration = request.args.get("filter","date",type=str)
 	category = request.args.get("category",None,type=str)
 	per_page = request.args.get("per_page",None,type=int)
+	brand = request.args.get("brand",None,type=str)
 	pagination_url = 'commerce.v_list'
 	categoryData = UiCategoriesList()
 	sortingData = uiSortingData()
@@ -165,7 +181,8 @@ def v_list():
 		page = page,
 		per_page = per_page,
 		filtration = filtration,
-		category = category)
+		category = category,
+		brand = brand)
 	return render_template(Config.COMMERCE_TEMPLATES_FOLDER_PATH+"commerce/v_list.html",
 		**categoryData,**sortingData,**pagination_info,
 		title=gettext(Config.COMMERCE_LIST_VIEW_TITLE))
@@ -177,6 +194,7 @@ def v_grid():
 	filtration = request.args.get("filter","date",type=str)
 	category = request.args.get("category",None,type=str)
 	per_page = request.args.get("per_page",None,type=int)
+	brand = request.args.get("brand",None,type=str)
 	pagination_url = 'commerce.v_grid'
 	categoryData = UiCategoriesList()
 	sortingData = uiSortingData()
@@ -185,7 +203,8 @@ def v_grid():
 		page = page,
 		per_page = per_page,
 		filtration = filtration,
-		category = category)
+		category = category,
+		brand = brand)
 	return render_template(Config.COMMERCE_TEMPLATES_FOLDER_PATH+"commerce/v_grid.html",
 		**categoryData,**sortingData,**pagination_info,
 		title=gettext(Config.COMMERCE_GRID_VIEW_TITLE))

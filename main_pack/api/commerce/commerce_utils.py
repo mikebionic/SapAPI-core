@@ -116,7 +116,7 @@ def apiResourceInfo(resource_list = None,
 					.limit(Config.RESOURCE_MAIN_PAGE_SHOW_QTY + 1)
 			
 			if DivId:
-				resources = resources.filter_by(DivId = DivId)
+				resources = resources.filter(resources.DivId == DivId)
 			resources = resources.all()
 
 			for resource in resources:
