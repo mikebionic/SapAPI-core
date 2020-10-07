@@ -2,7 +2,8 @@
 from flask import render_template,url_for,jsonify,request,abort,make_response
 from main_pack.api.users import api
 from main_pack.base.apiMethods import checkApiResponseStatus
-from datetime import datetime
+from datetime import datetime, timedelta
+import dateutil.parser
 
 from main_pack.models.users.models import Users
 from main_pack.api.users.utils import addUsersDict,apiUsersData
@@ -31,9 +32,14 @@ def api_users_user(UId):
 def api_users():
 	if request.method == 'GET':
 		DivId = request.args.get("DivId",None,type=int)
+		synchDateTime = request.args.get("synchDateTime",None,type=str)
 		users = Users.query.filter_by(GCRecord = None)
 		if DivId:
 			users = users.filter_by(DivId = DivId)
+		if synchDateTime:
+			if (type(synchDateTime) != datetime):
+				synchDateTime = dateutil.parser.parse(synchDateTime)
+			users = users.filter(Users.ModifiedDate > (synchDateTime - timedelta(minutes = 5)))
 		users = users.all()
 		res = {
 			"status": 1,

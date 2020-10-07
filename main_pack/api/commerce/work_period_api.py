@@ -2,7 +2,8 @@
 from flask import jsonify,request,abort,make_response
 from main_pack.api.commerce import api
 from main_pack.base.apiMethods import checkApiResponseStatus
-from datetime import datetime
+from datetime import datetime, timedelta
+import dateutil.parser
 
 from main_pack.models.commerce.models import Work_period
 from main_pack.api.commerce.utils import addWorkPeriodDict
@@ -15,9 +16,14 @@ from main_pack.api.auth.api_login import sha_required
 def api_work_periods():
 	if request.method == 'GET':
 		DivId = request.args.get("DivId",None,type=int)
+		synchDateTime = request.args.get("synchDateTime",None,type=str)
 		work_periods = Work_period.query.filter_by(GCRecord = None)
 		if DivId:
 			work_periods = work_periods.filter_by(DivId = DivId)
+		if synchDateTime:
+			if (type(synchDateTime) != datetime):
+				synchDateTime = dateutil.parser.parse(synchDateTime)
+			work_periods = work_periods.filter(Barcode.ModifiedDate > (synchDateTime - timedelta(minutes = 5)))
 		work_periods = work_periods.all()
 		res = {
 			"status": 1,

@@ -410,7 +410,7 @@ class Image(CreatedModifiedInfo,db.Model):
 	FileHash = db.Column(db.String(100))
 	FilePath = db.Column(db.String(255))
 	Image = db.Column(db.LargeBinary)
-	ImgRegNum = db.Column(db.String(100),unique=True)
+	ImgRegNo = db.Column(db.String(100),unique=True)
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -440,7 +440,7 @@ class Image(CreatedModifiedInfo,db.Model):
 			"UId": self.UId,
 			"RpAccId": self.RpAccId,
 			"ResId": self.ResId,
-			"ImgRegNum": self.ImgRegNum,
+			"ImgRegNo": self.ImgRegNo,
 			"FileName": self.FileName,
 			"FilePath": fileToURL(file_type='image',file_size='M',file_name=self.FileName),
 			"FilePathS": fileToURL(file_type='image',file_size='S',file_name=self.FileName),

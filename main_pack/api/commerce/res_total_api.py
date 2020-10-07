@@ -2,7 +2,8 @@
 from flask import render_template,url_for,jsonify,request,abort,make_response
 from main_pack.api.commerce import api
 from main_pack.base.apiMethods import checkApiResponseStatus
-from datetime import datetime
+from datetime import datetime, timedelta
+import dateutil.parser
 
 from main_pack.models.commerce.models import Res_total
 from main_pack.api.commerce.utils import addResTotalDict
@@ -17,9 +18,14 @@ from main_pack.api.auth.api_login import sha_required
 def api_res_totals():
 	if request.method == 'GET':
 		DivId = request.args.get("DivId",None,type=int)
+		synchDateTime = request.args.get("synchDateTime",None,type=str)
 		res_totals = Res_total.query.filter_by(GCRecord = None)
 		if DivId:
 			res_totals = res_totals.filter_by(DivId = DivId)
+		if synchDateTime:
+			if (type(synchDateTime) != datetime):
+				synchDateTime = dateutil.parser.parse(synchDateTime)
+			res_totals = res_totals.filter(Res_total.ModifiedDate > (synchDateTime - timedelta(minutes = 5)))
 		res_totals = res_totals.all()
 		res = {
 			"status": 1,

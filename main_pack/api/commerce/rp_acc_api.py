@@ -2,7 +2,8 @@
 from flask import render_template,url_for,jsonify,request,abort,make_response
 from main_pack.api.commerce import api
 from main_pack.base.apiMethods import checkApiResponseStatus
-from datetime import datetime
+from datetime import datetime, timedelta
+import dateutil.parser
 
 from main_pack.models.users.models import Rp_acc,Users
 from main_pack.api.users.utils import addRpAccDict,apiRpAccData
@@ -31,9 +32,14 @@ def api_rp_accs_rp_acc(RpAccRegNo):
 def api_rp_accs():
 	if request.method == 'GET':
 		DivId = request.args.get("DivId",None,type=int)
+		synchDateTime = request.args.get("synchDateTime",None,type=str)
 		rp_accs = Rp_acc.query.filter_by(GCRecord = None)
 		if DivId:
 			rp_accs = rp_accs.filter_by(DivId = DivId)
+		if synchDateTime:
+			if (type(synchDateTime) != datetime):
+				synchDateTime = dateutil.parser.parse(synchDateTime)
+			rp_accs = rp_accs.filter(Rp_acc.ModifiedDate > (synchDateTime - timedelta(minutes = 5)))
 		rp_accs = rp_accs.all()
 		res = {
 			"status": 1,

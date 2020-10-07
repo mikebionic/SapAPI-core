@@ -2,7 +2,8 @@
 from flask import render_template,url_for,jsonify,request,abort,make_response
 from main_pack.api.commerce import api
 from main_pack.base.apiMethods import checkApiResponseStatus
-from datetime import datetime
+from datetime import datetime, timedelta
+import dateutil.parser
 
 from main_pack.models.base.models import Warehouse
 from main_pack.api.commerce.utils import addWarehouseDict
@@ -16,9 +17,14 @@ from main_pack.api.auth.api_login import sha_required
 def api_warehouses():
 	if request.method == 'GET':
 		DivId = request.args.get("DivId",None,type=int)
+		synchDateTime = request.args.get("synchDateTime",None,type=str)
 		warehouses = Warehouse.query.filter_by(GCRecord = None)
 		if DivId:
 			warehouses = warehouses.filter_by(DivId = DivId)
+		if synchDateTime:
+			if (type(synchDateTime) != datetime):
+				synchDateTime = dateutil.parser.parse(synchDateTime)
+			warehouses = warehouses.filter(Warehouse.ModifiedDate > (synchDateTime - timedelta(minutes = 5)))
 		warehouses = warehouses.all()
 		res = {
 			"status": 1,

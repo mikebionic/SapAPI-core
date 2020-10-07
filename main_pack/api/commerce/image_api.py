@@ -2,7 +2,8 @@
 from flask import render_template,url_for,jsonify,request,abort,make_response
 from main_pack.api.commerce import api
 from main_pack.base.apiMethods import checkApiResponseStatus
-from datetime import datetime
+from datetime import datetime, timedelta
+import dateutil.parser
 
 from main_pack.models.base.models import Image,Sl_image
 from main_pack.models.commerce.models import Resource
@@ -21,8 +22,15 @@ def api_images():
 	if request.method == 'GET':
 		DivId = request.args.get("DivId",None,type=int)
 		images = Image.query.filter_by(GCRecord = None)
+
 		if DivId:
 			images = images.filter_by(DivId = DivId)
+
+		if synchDateTime:
+			if (type(synchDateTime) != datetime):
+				synchDateTime = dateutil.parser.parse(synchDateTime)
+			images = images.filter(Image.ModifiedDate > (synchDateTime - timedelta(minutes = 5)))
+		
 		images = images.all()
 		res = {
 			"status": 1,
