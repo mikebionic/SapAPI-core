@@ -106,11 +106,23 @@ def collect_resource_paginate_info(pagination_url,
 			.first()
 		if category:
 			resources = resources.filter(Resource.ResCatId == category.ResCatId)
+			# categories = Res_category.query\
+			# 	.filter_by(GCRecord = None, ResOwnerCatId = category.ResCatId)\
+			# 	.all()
+			# if categories:
+			# 	for category in categories:
+			# 		resources = resources.filter(Resource.ResCatId == category.ResCatId)
 
 	pagination_resources = resources.paginate(per_page=per_page if per_page else Config.RESOURCES_PER_PAGE,page=page)
 
 	resource_models = [resource for resource in pagination_resources.items if pagination_resources.items]
-	res = apiResourceInfo(resource_models=resource_models)
+	if resource_models:
+		res = apiResourceInfo(resource_models=resource_models)
+	else:
+		res = {
+			"data": [],
+			"total": 0
+		}
 	pagination_info = {
 		"data": res["data"],
 		"total": res["total"],

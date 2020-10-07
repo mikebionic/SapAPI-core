@@ -708,6 +708,7 @@ def addWarehouseDict(req):
 	DivId = req.get('DivId')
 	WhName = req.get('WhName')
 	WhDesc = req.get('WhDesc')
+	Guid = req.get('Guid')
 	AddInf1 = req.get('AddInf1')
 	AddInf2 = req.get('AddInf2')
 	AddInf3 = req.get('AddInf3')
@@ -724,6 +725,7 @@ def addWarehouseDict(req):
 		"DivId": DivId,
 		"WhName": WhName,
 		"WhDesc": WhDesc,
+		"Guid": Guid,
 		"AddInf1": AddInf1,
 		"AddInf2": AddInf2,
 		"AddInf3": AddInf3,

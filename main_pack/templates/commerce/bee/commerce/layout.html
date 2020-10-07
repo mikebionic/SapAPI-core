@@ -121,11 +121,33 @@
                 <ul>
                   <li><a href="{{url_for('commerce.v_grid')}}">{{_('All')}}</a></li>
                   {% for category in categories %}
-                    <li>
+                    <li class="{{ 'menu-item-has-children' if category.Categories }}">
                       <a href="{{url_for('commerce.v_grid',category = category.ResCatName)}}">
                         {% if category.ResCatIconFilePath %}<img class="img-fluid" src="{{category.ResCatIconFilePath}}" style="width: 25px; margin-right: 7px;">{%endif%}
                         {{category.ResCatName}}
                       </a>
+                      {% if category.Categories %}
+                        <ul class="category-mega-menu" style="display: flex;">
+                        {% for category in category.Categories %}
+                          <li class="{{ 'menu-item-has-children' if category.Categories }}">
+                            <a href="{{url_for('commerce.v_grid',category = category.ResCatName)}}">
+                              {{category.ResCatName}}
+                            </a>
+                            {% if category.Categories %}
+                            <ul style="display: block;">
+                              {% for category in category.Categories %}
+                              <li>
+                                <a href="{{url_for('commerce.v_grid',category = category.ResCatName)}}">
+                                  {{category.ResCatName}}
+                                </a>
+                              </li>
+                              {% endfor %}
+                            </ul>
+                            {% endif %}
+                          </li>
+                        {% endfor %}
+                        </ul>
+                      {% endif %}
                     </li>
                   {% endfor %}
                 </ul>

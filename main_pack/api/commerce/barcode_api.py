@@ -18,18 +18,13 @@ def api_barcodes():
 	if request.method == 'GET':
 		DivId = request.args.get("DivId",None,type=int)
 		synchDateTime = request.args.get("synchDateTime",None,type=str)
-		
 		barcodes = Barcode.query.filter_by(GCRecord = None)
-
-		# if synchDateTime- 5minutes < Modified date
 		if DivId:
 			barcodes = barcodes.filter_by(DivId = DivId)
-		
 		if synchDateTime:
 			if (type(synchDateTime) != datetime):
 				synchDateTime = dateutil.parser.parse(synchDateTime)
 			barcodes = barcodes.filter(Barcode.ModifiedDate > (synchDateTime - timedelta(minutes = 5)))
-			
 		barcodes = barcodes.all()
 		res = {
 			"status": 1,

@@ -45,20 +45,29 @@ def slidersData():
 	return res
 
 def UiCategoriesList():
-	categories = Res_category.query\
-			.filter_by(GCRecord = None)\
-			.join(Resource, Resource.ResCatId == Res_category.ResCatId)\
-			.filter(Resource.GCRecord == None)\
-			.join(Res_total, Res_total.ResId == Resource.ResId)\
-			.filter(and_(
-				Res_total.WhId == 1, 
-				Res_total.ResTotBalance > 0))\
-			.order_by(Res_category.ResCatVisibleIndex.asc())\
-			.all()
+	categories = Res_category.query.filter_by(GCRecord = None).all()
+
+	# categories = Res_category.query\
+	# 	.filter_by(GCRecord = None)\
+	# 	.join(Resource, Resource.ResCatId == Res_category.ResCatId)\
+	# 	.filter(Resource.GCRecord == None)\
+	# 	.join(Res_total, Res_total.ResId == Resource.ResId)\
+	# 	.filter(and_(
+	# 		Res_total.WhId == 1, 
+	# 		Res_total.ResTotBalance > 0))\
+	# 	.order_by(Res_category.ResCatVisibleIndex.asc())\
+	# 	.all()
+
 	category_info = [category.to_json_api() for category in categories if categories]
+	categories = [category_info[category_info.index(category_data)] for category_data in category_info if category_data["ResOwnerCatId"] == 0 or category_data["ResOwnerCatId"] == None]
+	for category in categories:
+		subcategories = [category_info[category_info.index(category_data)] for category_data in category_info if category_data["ResOwnerCatId"] == category["ResCatId"]]
+		for subcategory in subcategories:
+			subcategory_children = [category_info[category_info.index(category_data)] for category_data in category_info if category_data["ResOwnerCatId"] == subcategory["ResCatId"]]
+			subcategory["Categories"] = subcategory_children
+		category["Categories"] = subcategories
 
 	company = Company.query.get(1)
-
 	logoIcon = {}
 	company_logo = Image.query\
 		.filter_by(GCRecord = None, CId = company.CId)\
@@ -68,7 +77,7 @@ def UiCategoriesList():
 		logoIcon["FilePath"] = fileToURL(file_type='image',file_name=company_logo.FileName)
 
 	res = {
-		"categories": category_info,
+		"categories": categories,
 		"company": company,
 		"company_logo": logoIcon
 	}

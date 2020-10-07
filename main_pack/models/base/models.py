@@ -1,7 +1,7 @@
 from main_pack import db
 from datetime import datetime
 from main_pack.base.dataMethods import apiDataFormat,apiCheckImageByte
-
+from sqlalchemy.dialects.postgresql import UUID
 from main_pack.base.apiMethods import fileToURL
 
 
@@ -718,6 +718,7 @@ class Warehouse(AddInf,CreatedModifiedInfo,db.Model):
 	DivId = db.Column(db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
 	WhName = db.Column(db.String(100),nullable=False)
 	WhDesc = db.Column(db.String(500))
+	Guid = db.Column(UUID(as_uuid=True))
 	Res_transaction = db.relationship('Res_transaction',backref='warehouse',lazy=True)
 	Invoice = db.relationship('Invoice',backref='warehouse',lazy=True)
 	Order_inv = db.relationship('Order_inv',backref='warehouse',lazy=True)
@@ -740,6 +741,7 @@ class Warehouse(AddInf,CreatedModifiedInfo,db.Model):
 			"DivId": self.DivId,
 			"WhName": self.WhName,
 			"WhDesc": self.WhDesc,
+			"Guid": self.Guid,
 			"AddInf1": self.AddInf1,
 			"AddInf2": self.AddInf2,
 			"AddInf3": self.AddInf3,
