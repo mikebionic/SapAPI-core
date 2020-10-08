@@ -75,7 +75,6 @@ def UiCategoriesList():
 		.first()
 	if company_logo:
 		logoIcon["FilePath"] = fileToURL(file_type='image',file_name=company_logo.FileName)
-
 	res = {
 		"categories": categories,
 		"company": company,

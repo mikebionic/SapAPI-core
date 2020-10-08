@@ -14,7 +14,7 @@ getRegNo(url_prefix+"/ui/resource/")
 
 function getMainImage(){
 	mainImage = $('.imagesList input:checked').attr('name');
-	console.log("main image is "+mainImage)
+	// console.log("main image is "+mainImage)
 }
 
 /// setting the brand of resource
@@ -26,7 +26,7 @@ $("body").delegate('.brandsList .resBrandId','click',function(event){
 
 $("body").delegate('.submitButton','click',function(event){
 	resourceData = prepareFormData(res_forms,'');
-	console.log(resourceData);
+	// console.log(resourceData);
 	if (validateInput(required_res_fields)==true){
 		postResData(resourceData,url_prefix+"/ui/resource/",res_forms[0]);
 	}

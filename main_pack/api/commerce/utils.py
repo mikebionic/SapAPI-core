@@ -4,10 +4,10 @@ import io
 import os
 import base64
 from PIL import Image as ImageOperations
-
 from main_pack import Config
-from main_pack.base.dataMethods import configureNulls,configureFloat,boolCheck,configureEmptyQuotesNulls
+
 from main_pack.base.imageMethods import save_image,dirHandler
+from main_pack.base.dataMethods import configureNulls,configureFloat,boolCheck,configureEmptyQuotesNulls
 
 
 def addCategoryDict(req):
@@ -217,7 +217,7 @@ def saveImageFile(req):
 		outfile = open(dumpImagePath,"wb")
 		outfile.write(base64.decodebytes(imageBytes))
 		outfile.flush()
-		outfile.close()
+		outfile.close()		
 		imageFile = save_image(savedImage=dumpImagePath,module=module,id=id)
 		image['FilePath'] = imageFile['FilePath']
 		image['FileName'] = imageFile['FileName']

@@ -94,8 +94,6 @@ function prepareOwnerFormData(formFields,formId=null){
 		else{
 			formValue = $('.'+value).val();
 		}
-		console.log(formId)
-		console.log(formValue)
 		if (formValue == ""){
 			this.value = null;
 		}

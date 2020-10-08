@@ -35,7 +35,7 @@ var postPriceData = function(formData,url,formId){
 		success: function(response){
 			if(response.status == 'created'||response.status == 'updated'){
 				successToaster(response.responseText);
-				console.log('responseform '+response[formId])
+				// console.log('responseform '+response[formId])
 				$('.'+formId).val(response[formId]);
 			}
 			else if(response.status == 'regGenerated'){
