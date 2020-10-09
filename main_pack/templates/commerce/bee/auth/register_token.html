@@ -25,10 +25,18 @@
 							</div>
 							<div class="col-12 mb-30">
 								{{ form.password(placeholder=_('Password')) }}
+								<span>
+									<i class="fa fa-eye" id="eye" onclick="toggle()">
+									</i>
+								</span> 
 							</div>
 
 							<div class="col-12 mb-30">
 								{{ form.confirm_password(placeholder=_('Confirm password') )}}
+								<span>
+									<i class="fa fa-eye" id="eye" onclick="toggle()">
+									</i>
+								</span> 
 							</div>
 							<div class="col-12">
 								<input type="submit" value="register">
