@@ -64,7 +64,8 @@ def apiResourceInfo(resource_list = None,
 										showLatest = False,
 										showRated = False,
 										avoidQtyCheckup = False,
-										DivId = None):
+										DivId = None,
+										notDivId = None):
 	categories = Res_category.query.filter_by(GCRecord = None).all()
 	usage_statuses = Usage_status.query.filter_by(GCRecord = None).all()
 	units = Unit.query.filter_by(GCRecord = None).all()
@@ -116,7 +117,9 @@ def apiResourceInfo(resource_list = None,
 					.limit(Config.RESOURCE_MAIN_PAGE_SHOW_QTY + 1)
 			
 			if DivId:
-				resources = resources.filter(resources.DivId == DivId)
+				resources = resources.filter(Resource.DivId == DivId)
+			if notDivId:
+				resources = resources.filter(Resource.DivId != notDivId)
 			resources = resources.all()
 
 			for resource in resources:
@@ -368,7 +371,8 @@ def apiOrderInvInfo(startDate = None,
 										single_object = False,
 										invoice_list = None,
 										rp_acc_user = None,
-										DivId = None):
+										DivId = None,
+										notDivId = None):
 	inv_statuses = Inv_status.query\
 		.filter_by(GCRecord = None).all()
 
@@ -385,7 +389,9 @@ def apiOrderInvInfo(startDate = None,
 		order_invoices = Order_inv.query\
 			.filter_by(**invoice_filtering)
 		if DivId:
-			order_invoices = order_invoices.filter_by(DivId = DivId)			
+			order_invoices = order_invoices.filter_by(DivId = DivId)
+		if notDivId:
+			order_invoices = order_invoices.filter(Order_inv.DivId != notDivId)
 
 		if startDate:
 			# filtering by date
@@ -478,7 +484,8 @@ def apiInvInfo(startDate = None,
 							single_object = False,
 							invoice_list = None,
 							rp_acc_user = None,
-							DivId = None):
+							DivId = None,
+							notDivId = None):
 	inv_statuses = Inv_status.query\
 		.filter_by(GCRecord = None).all()
 
@@ -495,7 +502,9 @@ def apiInvInfo(startDate = None,
 		invoices = Invoice.query.filter_by(**invoice_filtering)
 
 		if DivId:
-			invoices = invoices.filter_by(DivId = DivId)			
+			invoices = invoices.filter_by(DivId = DivId)
+		if notDivId:
+			invoices = invoices.filter(Invoice.DivId != notDivId)
 
 		if startDate:
 			# filtering by date

@@ -41,10 +41,13 @@ def api_rp_accs_rp_acc(RpAccRegNo):
 def api_rp_accs():
 	if request.method == 'GET':
 		DivId = request.args.get("DivId",None,type=int)
+		notDivId = request.args.get("notDivId",None,type=int)
 		synchDateTime = request.args.get("synchDateTime",None,type=str)
 		rp_accs = Rp_acc.query.filter_by(GCRecord = None)
 		if DivId:
 			rp_accs = rp_accs.filter_by(DivId = DivId)
+		if notDivId:
+			rp_accs = rp_accs.filter(Rp_acc.DivId != notDivId)
 		if synchDateTime:
 			if (type(synchDateTime) != datetime):
 				synchDateTime = dateutil.parser.parse(synchDateTime)
@@ -112,6 +115,7 @@ def api_rp_accs():
 					rp_acc_trans_total = req['RpAccTransTotal']
 					try:
 						rp_acc_trans_total = addRpAccTrTotDict(rp_acc_trans_total)
+						rp_acc_trans_total['RpAccTrTotId'] = None
 						rp_acc_trans_total['RpAccId'] = thisRpAcc.RpAccId
 						thisRpAccTrTotal = Rp_acc_trans_total.query\
 							.filter_by(RpAccId = RpAccId)\

@@ -16,9 +16,12 @@ from main_pack.api.auth.api_login import sha_required
 def api_order_inv_lines():
 	if request.method == 'GET':
 		DivId = request.args.get("DivId",None,type=int)
+		notDivId = request.args.get("notDivId",None,type=int)
 		order_inv_lines = Order_inv_line.query.filter_by(GCRecord = None)
 		if DivId:
 			order_inv_lines = order_inv_lines.filter_by(DivId = DivId)
+		if notDivId:
+			order_inv_lines = order_inv_lines.filter(Order_inv_line.notDivId != notDivId)
 		order_inv_lines = order_inv_lines.all()
 		res = {
 			"status": 1,

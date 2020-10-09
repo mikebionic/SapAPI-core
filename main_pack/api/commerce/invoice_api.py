@@ -42,12 +42,14 @@ from main_pack.api.commerce.commerce_utils import apiInvInfo
 def api_invoices():
 	if request.method == 'GET':
 		DivId = request.args.get("DivId",None,type=int)
+		notDivId = request.args.get("notDivId",None,type=int)
 		startDate = request.args.get("startDate",None,type=str)
 		endDate = request.args.get("endDate",datetime.now())
 		res = apiInvInfo(startDate = startDate,
 										endDate = endDate,
 										statusId = 1,
-										DivId = DivId)
+										DivId = DivId,
+										notDivId = notDivId)
 		status_code = 200
 		response = make_response(jsonify(res),status_code)
 		return response

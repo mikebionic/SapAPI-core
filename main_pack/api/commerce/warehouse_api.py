@@ -21,6 +21,8 @@ def api_warehouses():
 		warehouses = Warehouse.query.filter_by(GCRecord = None)
 		if DivId:
 			warehouses = warehouses.filter_by(DivId = DivId)
+		if notDivId:
+			warehouses = warehouses.filter(Warehouse.DivId != notDivId)
 		if synchDateTime:
 			if (type(synchDateTime) != datetime):
 				synchDateTime = dateutil.parser.parse(synchDateTime)

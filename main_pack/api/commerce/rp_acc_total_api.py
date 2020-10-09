@@ -18,10 +18,13 @@ from main_pack.api.auth.api_login import sha_required
 def api_rp_acc_trans_totals():
 	if request.method == 'GET':
 		DivId = request.args.get("DivId",None,type=int)
+		notDivId = request.args.get("notDivId",None,type=int)
 		synchDateTime = request.args.get("synchDateTime",None,type=str)
 		rp_acc_trans_totals = Rp_acc_trans_total.query.filter_by(GCRecord = None)
 		if DivId:
 			rp_acc_trans_totals = rp_acc_trans_totals.filter_by(DivId = DivId)
+		if notDivId:
+			rp_acc_trans_totals = rp_acc_trans_totals.filter(Rp_acc_trans_total.DivId != notDivId)
 		if synchDateTime:
 			if (type(synchDateTime) != datetime):
 				synchDateTime = dateutil.parser.parse(synchDateTime)
