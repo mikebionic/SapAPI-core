@@ -29,6 +29,7 @@ def api_category(ResCatId):
 def api_categories():
 	if request.method == 'GET':
 		DivId = request.args.get("DivId",None,type=int)
+		notDivId = request.args.get("notDivId",None,type=int)
 		categories = Res_category.query\
 			.filter_by(GCRecord = None)\
 			.join(Resource, Resource.ResCatId == Res_category.ResCatId)\
@@ -36,6 +37,8 @@ def api_categories():
 
 		if DivId:
 			categories = categories.filter(Resource.DivId == DivId)
+		if notDivId:
+			categories = categories.filter(Resource.DivId != notDivId)
 
 		categories = categories\
 			.join(Res_total, Res_total.ResId == Resource.ResId)\

@@ -34,10 +34,13 @@ def api_resource(ResId):
 def api_synch_resources():
 	if request.method == 'GET':
 		DivId = request.args.get("DivId",None,type=int)
+		notDivId = request.args.get("notDivId",None,type=int)
 		synchDateTime = request.args.get("synchDateTime",None,type=str)
 		resources = Resource.query.filter_by(GCRecord = None)
 		if DivId:
-			resources = resources.filter_by(DivId = DivId)		
+			resources = resources.filter_by(DivId = DivId)
+		if notDivId:
+			resources = resources.filter(Resource.DivId != notDivId)		
 		if synchDateTime:
 			if (type(synchDateTime) != datetime):
 				synchDateTime = dateutil.parser.parse(synchDateTime)
@@ -121,6 +124,7 @@ def api_synch_resources():
 							thisBarcode = Barcode.query\
 								.filter_by(ResId = thisResource.ResId, UnitId = UnitId)\
 								.first()
+							barcode['BarcodeId'] = None
 							barcode['ResId'] = thisResource.ResId
 							if thisBarcode:
 								thisBarcode.update(**barcode)
@@ -159,7 +163,12 @@ def api_synch_resources():
 def api_resources():
 	if request.method == 'GET':
 		DivId = request.args.get("DivId",None,type=int)
-		res = apiResourceInfo(isInactive=True,fullInfo=True,DivId=DivId)
+		notDivId = request.args.get("notDivId",None,type=int)
+		res = apiResourceInfo(
+			isInactive = True,
+			fullInfo = True,
+			DivId = DivId,
+			notDivId = notDivId)
 		if res['status'] == 0:
 			status_code = 404
 		else:

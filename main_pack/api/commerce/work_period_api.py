@@ -16,10 +16,13 @@ from main_pack.api.auth.api_login import sha_required
 def api_work_periods():
 	if request.method == 'GET':
 		DivId = request.args.get("DivId",None,type=int)
+		notDivId = request.args.get("notDivId",None,type=int)
 		synchDateTime = request.args.get("synchDateTime",None,type=str)
 		work_periods = Work_period.query.filter_by(GCRecord = None)
 		if DivId:
 			work_periods = work_periods.filter_by(DivId = DivId)
+		if notDivId:
+			work_periods = work_periods.filter(Work_period.DivId != notDivId)
 		if synchDateTime:
 			if (type(synchDateTime) != datetime):
 				synchDateTime = dateutil.parser.parse(synchDateTime)

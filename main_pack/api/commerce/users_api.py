@@ -32,10 +32,13 @@ def api_users_user(UId):
 def api_users():
 	if request.method == 'GET':
 		DivId = request.args.get("DivId",None,type=int)
+		notDivId = request.args.get("notDivId",None,type=int)
 		synchDateTime = request.args.get("synchDateTime",None,type=str)
 		users = Users.query.filter_by(GCRecord = None)
 		if DivId:
 			users = users.filter_by(DivId = DivId)
+		if notDivId:
+			users = users.filter(Users.DivId != notDivId)
 		if synchDateTime:
 			if (type(synchDateTime) != datetime):
 				synchDateTime = dateutil.parser.parse(synchDateTime)

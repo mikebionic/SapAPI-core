@@ -11,9 +11,12 @@ from sqlalchemy import or_, and_
 @api.route("/tbl-dk-sliders/")
 def api_sliders():
 	DivId = request.args.get("DivId",None,type=int)
+	notDivId = request.args.get("notDivId",None,type=int)
 	sliders = Slider.query.filter_by(GCRecord = None)
 	if DivId:
 		sliders = sliders.filter_by(DivId = DivId)
+	if notDivId:
+		sliders = sliders.filter(Slider.DivId != notDivId)
 	sliders = sliders.all()
 	if request.method == 'GET':
 		data = []
