@@ -41,18 +41,18 @@ def api_images():
 	if request.method == 'GET':
 		DivId = request.args.get("DivId",None,type=int)
 		notDivId = request.args.get("notDivId",None,type=int)
+		synchDateTime = request.args.get("synchDateTime",None,type=str)
 		images = Image.query.filter_by(GCRecord = None)
 
 		if DivId:
 			images = images.filter_by(DivId = DivId)
 		if notDivId:
 			images = images.filter(Image.DivId != notDivId)
-
 		if synchDateTime:
 			if (type(synchDateTime) != datetime):
 				synchDateTime = dateutil.parser.parse(synchDateTime)
 			images = images.filter(Image.ModifiedDate > (synchDateTime - timedelta(minutes = 5)))
-		
+
 		images = images.all()
 		res = {
 			"status": 1,

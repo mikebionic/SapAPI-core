@@ -45,12 +45,12 @@ def collect_resource_paginate_info(pagination_url,
 		},
 		{
 			"filtration": "price_high",
-			"filtration_title": f'{gettext("Price")}: {gettext("high to low")}',
+			"filtration_title": gettext("Price: high to low"),
 			"status": 0
 		},
 		{
 			"filtration": "price_low",
-			"filtration_title": f'{gettext("Price")}: {gettext("low to high")}',
+			"filtration_title": gettext("Price: low to high"),
 			"status": 0
 		},
 		{
