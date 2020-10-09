@@ -12464,4 +12464,22 @@ ul.link-widget li {
 
 
 
+.ee-register span{
+    position: absolute;
+    right: 15px;
+    transform: translate(0,-50%);
+    top: 50%;
+    cursor: pointer;
+    font-size: 20px;
+    margin-right: 20px;
+}
 
+.ee-login span{
+    position: absolute;
+    right: 15px;
+    transform: translate(0,-50%);
+    top: 50%;
+    cursor: pointer;
+    font-size: 20px;
+    margin-right: 20px;
+}
