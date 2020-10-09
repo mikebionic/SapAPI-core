@@ -4,7 +4,7 @@ res_size_forms = ['rsId','resId','sizeId']
 $("body").delegate('.saveResSizeBtn','click',function(event){
 	resourceData = prepareFormData(res_forms,'');
 	resSizeData = prepareResSizeData();
-	console.log(resSizeData)
+	// console.log(resSizeData)
 	if($('.'+res_forms[0]).val()==''){
 		if (validateInput(required_res_fields)==true){
 			beforeCreated(resourceData,res_forms[0],url_prefix+"/ui/resource/",function(){

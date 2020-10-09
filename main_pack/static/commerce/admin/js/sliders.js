@@ -7,9 +7,9 @@ sider_image_forms = ['sliderImgId','sliderId','sliderImgName','sliderImgDesc',
 
 $("body").delegate('.saveSliderBtn','click',function(event){
 	ownerId = $(this).attr('ownerId');
-	console.log("savig slider. owner is "+ownerId)
+	// console.log("savig slider. owner is "+ownerId)
 	sliderData = prepareOwnerFormData(slider_forms,ownerId);
-	console.log(sliderData);
+	// console.log(sliderData);
 	if (validateOwnerInput(required_slider_fields,ownerId)==true){
 		postData(sliderData,url_prefix+"/ui/slider/",'POST',slider_forms[0],'slidersList','htmlData');
 		clearNewSliderFields();

@@ -66,6 +66,8 @@ def api_synch_resources():
 			response = make_response(jsonify(res),400)
 			
 		else:
+			req = request.get_json()
+			
 			resources = []
 			failed_resources = []
 			for data in req:

@@ -12,6 +12,7 @@ from main_pack.commerce.auth.utils import ui_admin_required
 # data operations
 from main_pack.base.imageMethods import save_image,save_icon,allowed_icon,allowed_image
 from main_pack.base.dataMethods import dateDataCheck
+from main_pack.api.commerce.image_api import remove_image
 from sqlalchemy import or_, and_
 # / data operations /
 
@@ -59,16 +60,34 @@ def remove_images():
 		ImgId = request.args.get("imgId")
 		ResId = request.args.get("prodId",None)
 		imgType = request.args.get("type")
-		if imgType == 'image':
+		if imgType == 'image' or imgType == 'icon':
 			image = Image.query.get(ImgId)
-			image.GCRecord=1
+
+			try:
+				file_type = imgType
+				file_name = image.FileName
+				remove_image(file_type,file_name)
+				db.session.delete(image)
+			except Exception as ex:
+				print(ex)
+				image.GCRecord = 1
+
 			db.session.commit()
 			url = url_for('commerce_admin.logo_setup')
 			if ResId:
 				url = url_for('commerce_admin.resource_edit',ResId=ResId)
 		elif imgType == 'slider':
 			sl_image = Sl_image.query.get(ImgId)
-			sl_image.GCRecord = 1
+			
+			try:
+				file_type = imgType
+				file_name = Sl_image.SlImgMainImgFileName
+				remove_image(file_type,file_name)
+				db.session.delete(sl_image)
+			except Exception as ex:
+				sl_image.GCRecord = 1
+				print(ex)
+
 			db.session.commit()
 			url = url_for('commerce_admin.sliders')
 

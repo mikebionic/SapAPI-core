@@ -57,7 +57,7 @@ def save_image(imageForm=None,savedImage=None,module="undefined",id="undefined")
 	
 	if not imageForm:
 		image = Image.open(savedImage)
-		image = image.convert('RGB')
+		image = image.convert('RGBA')
 		image.save(savedImage)
 		image = Image.open(savedImage)
 		_, f_ext = os.path.splitext(image.filename)
