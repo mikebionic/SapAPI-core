@@ -1,15 +1,24 @@
 # -*- coding: utf-8 -*-
 from flask import render_template,url_for,jsonify,request,abort,make_response
-from main_pack.api.commerce import api
-from main_pack.base.apiMethods import checkApiResponseStatus
+from flask import current_app
 from datetime import datetime, timedelta
 import dateutil.parser
+from main_pack import db
+from main_pack.api.commerce import api
 
+
+from main_pack.base.apiMethods import checkApiResponseStatus
+from main_pack.api.auth.api_login import sha_required
+
+# Users, Rp_accs and functions
 from main_pack.models.users.models import Rp_acc,Users
 from main_pack.api.users.utils import addRpAccDict,apiRpAccData
-from main_pack import db
-from flask import current_app
-from main_pack.api.auth.api_login import sha_required
+# / Users, Rp_accs and functions /
+
+# Rp_acc_trans_total and functions
+from main_pack.models.commerce.models import Rp_acc_trans_total
+from main_pack.api.commerce.utils import addRpAccTrTotDict
+# / Rp_acc_trans_total and functions /
 
 
 @api.route("/tbl-dk-rp-accs/<RpAccRegNo>/",methods=['GET'])
@@ -41,10 +50,23 @@ def api_rp_accs():
 				synchDateTime = dateutil.parser.parse(synchDateTime)
 			rp_accs = rp_accs.filter(Rp_acc.ModifiedDate > (synchDateTime - timedelta(minutes = 5)))
 		rp_accs = rp_accs.all()
+
+		data = []
+		for rp_acc in rp_accs:
+			rp_acc_info = rp_acc.to_json_api()
+			trans_total = [rp_acc_trans_total.to_json_api() for rp_acc_trans_total in rp_acc.Rp_acc_trans_total]
+			
+			total_info = {}
+			if trans_total:
+				total_info = trans_total[0]
+			rp_acc_info["RpAccTransTotal"] = total_info
+			trans_total = None
+			data.append(rp_acc_info)
+
 		res = {
 			"status": 1,
-			"message": "All rp_accs",
-			"data": [rp_acc.to_json_api() for rp_acc in rp_accs],
+			"message": "Rp_acc",
+			"data": data,
 			"total": len(rp_accs)
 		}
 		response = make_response(jsonify(res),200)
@@ -65,8 +87,8 @@ def api_rp_accs():
 
 			rp_accs = []
 			failed_rp_accs = [] 
-			for rp_acc in req:
-				rp_acc = addRpAccDict(rp_acc)
+			for data in req:
+				rp_acc = addRpAccDict(data)
 				try:
 					try:
 						user = UId_list.index(rp_acc['UId'])
@@ -81,9 +103,26 @@ def api_rp_accs():
 						thisRpAcc.update(**rp_acc)
 						rp_accs.append(rp_acc)
 					else:
-						newRpAcc = Rp_acc(**rp_acc)
-						db.session.add(newRpAcc)
+						thisRpAcc = Rp_acc(**rp_acc)
+						db.session.add(thisRpAcc)
 						rp_accs.append(rp_acc)
+
+					db.session.commit()
+
+					rp_acc_trans_total = req['RpAccTransTotal']
+					try:
+						rp_acc_trans_total = addRpAccTrTotDict(rp_acc_trans_total)
+						rp_acc_trans_total['RpAccId'] = thisRpAcc.RpAccId
+						thisRpAccTrTotal = Rp_acc_trans_total.query\
+							.filter_by(RpAccId = RpAccId)\
+							.first()
+						if thisRpAccTrTotal:
+							thisRpAccTrTotal.update(**rp_acc_trans_total)
+						else:
+							newRpAccTrTotal = Rp_acc_trans_total(**rp_acc_trans_total)
+							db.session.add(newRpAccTrTotal)
+					except Exception as ex:
+						print(f"{datetime.now()} | Rp_acc Api Rp_acc_total Exception: {ex}")
 				except Exception as ex:
 					print(f"{datetime.now()} | Rp_acc Api Exception: {ex}")
 					failed_rp_accs.append(rp_acc)
