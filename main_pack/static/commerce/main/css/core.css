@@ -1433,10 +1433,19 @@
 }
 
 .profile-info-card .card-title .confirm-button,.menu-card .card-title .confirm-button {
-    position: relative;
+    color: grey;
     height: 40px;
     width: 40px;
-    max-height: 40px
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-align: center;
+    align-items: center;
+    border: 1.8px dashed #999;
+    border-radius: 50%;
+    max-height: 40px;
+    transition: all .5s
 }
 
 .profile-info-card .card-title .confirm-button svg,.menu-card .card-title .confirm-button svg {

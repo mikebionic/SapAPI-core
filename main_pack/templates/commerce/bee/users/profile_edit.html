@@ -66,7 +66,7 @@
 										<div class="card-title">
 											<h3>{{('Contact info')}}</h3>
 											<div class="confirm-button">
-												<button type="submit" class="has-simple-popover" data-content="Save Contact info" data-placement="top" style="color: #000;"i class="feather-icons" data-feather="check"></i></button>
+												<a href="javascript:void(0);" role="button" class="has-simple-popover" data-content="Save Contact info" data-placement="top"><i class="feather-icons" data-feather="check" style="color: #000;"></i></a>
 											</div>
 										</div>
 										<div class="card-body">
@@ -185,4 +185,6 @@
 
 
 {% block scripts %}
+	<script src="{{ url_for('static', filename='commerce/main/js/app.js')}}"></script>
+	<script src="{{ url_for('static', filename='commerce/main/js/nephos.js')}}"></script>
 {% endblock %}
