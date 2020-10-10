@@ -105,6 +105,12 @@ def collect_resource_paginate_info(pagination_url,
 			.filter(Res_category.ResCatName.ilike(category))\
 			.first()
 		if category:
+			# category = Res_category.query\
+			# 	.filter_by(GCRecord = None)\
+			# 	.filter(or_(
+			# 		Res_category.ResCatId == category.ResCatId,
+			# 		Res_category.ResCatId == category.ResOwnerCatId))\
+			# 	.all()
 			resources = resources.filter(Resource.ResCatId == category.ResCatId)
 			# categories = Res_category.query\
 			# 	.filter_by(GCRecord = None, ResOwnerCatId = category.ResCatId)\
