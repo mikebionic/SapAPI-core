@@ -84,7 +84,7 @@ class Config:
 	HASHED_PASSWORDS = False
 
 	# # to give each api it's pagination: 
-	RESOURCES_PER_PAGE = 8
+	RESOURCES_PER_PAGE = 16
 	API_OBJECTS_PER_PAGE = 10
 
 	# REG_NO generator's random range
