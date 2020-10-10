@@ -211,7 +211,7 @@ $('.product-slider-4').slick({
         {
             breakpoint: 991,
             settings: {
-                slidesToShow: 2,
+                slidesToShow: 3,
             }
         },
         {
@@ -219,6 +219,39 @@ $('.product-slider-4').slick({
             settings: {
                 autoplay: true,
                 slidesToShow: 2,
+                arrows: false,
+            }
+        }
+    ]
+});
+
+$('.brands-slider').slick({
+    arrows: true,
+    dots: false,
+    autoplay: false,
+    infinite: true,
+    slidesToShow: 4,
+    prevArrow: '<button type="button" class="slick-prev"><i class="icofont icofont-long-arrow-left"></i></button>',
+    nextArrow: '<button type="button" class="slick-next"><i class="icofont icofont-long-arrow-right"></i></button>',
+    responsive: [
+        {
+            breakpoint: 1199,
+
+            settings: {
+                slidesToShow: 4,
+            }
+        },
+        {
+            breakpoint: 991,
+            settings: {
+                slidesToShow: 3,
+            }
+        },
+        {
+            breakpoint: 767,
+            settings: {
+                autoplay: true,
+                slidesToShow: 1,
                 arrows: false,
             }
         }

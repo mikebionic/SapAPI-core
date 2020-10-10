@@ -67,9 +67,7 @@
 					<div class="col-xl-3 col-lg-4 col-md-4 col-6 pb-30 pt-10">
 						<div class="ee-product">
 							<div class="image">
-								{% if resource.New %}
-									<span class="label new">{{_('New')}}</span>
-								{% endif %}
+									<span class="label new">New</span>
 								<!-- <span class="label sale">sale</span> -->
 								{% if resource.FilePathM %}
 									<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
