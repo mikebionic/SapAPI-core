@@ -64,8 +64,8 @@ def api_users():
 			req = request.get_json()
 			users = []
 			failed_users = [] 
-			for user in req:
-				user = addUsersDict(user)
+			for user_req in req:
+				user = addUsersDict(user_req)
 				try:
 					if not 'UId' in user:
 						newUser = Users(**user)

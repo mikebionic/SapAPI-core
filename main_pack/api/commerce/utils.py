@@ -9,6 +9,111 @@ from main_pack import Config
 from main_pack.base.imageMethods import save_image,dirHandler
 from main_pack.base.dataMethods import configureNulls,configureFloat,boolCheck,configureEmptyQuotesNulls
 
+def addCompanyDict(req):
+	CId = req.get('CId')
+	CName = req.get('CName')
+	CKey = req.get('CKey')
+	CFullName = req.get('CFullName')
+	CDesc = req.get('CDesc')
+	AccInfId = req.get('AccInfId')
+	CAddress = req.get('CAddress')
+	CAddressLegal = req.get('CAddressLegal')
+	CLatitude = req.get('CLatitude')
+	CLongitude = req.get('CLongitude')
+	Phone1 = req.get('Phone1')
+	Phone2 = req.get('Phone2')
+	Phone3 = req.get('Phone3')
+	Phone4 = req.get('Phone4')
+	CPostalCode = req.get('CPostalCode')
+	WebAddress = req.get('WebAddress')
+	CEmail = req.get('CEmail')
+	AddInf1 = req.get('AddInf1')
+	AddInf2 = req.get('AddInf2')
+	AddInf3 = req.get('AddInf3')
+	AddInf4 = req.get('AddInf4')
+	AddInf5 = req.get('AddInf5')
+	AddInf6 = req.get('AddInf6')
+	CreatedDate = req.get('CreatedDate')
+	ModifiedDate = req.get('ModifiedDate')
+	CreatedUId = req.get('CreatedUId')
+	ModifiedUId = req.get('ModifiedUId')
+	GCRecord = req.get('GCRecord')
+
+	company = {
+		"CName": CName,
+		"CKey": CKey,
+		"CFullName": CFullName,
+		"CDesc": CDesc,
+		"AccInfId": AccInfId,
+		"CAddress": CAddress,
+		"CAddressLegal": CAddressLegal,
+		"CLatitude": CLatitude,
+		"CLongitude": CLongitude,
+		"Phone1": Phone1,
+		"Phone2": Phone2,
+		"Phone3": Phone3,
+		"Phone4": Phone4,
+		"CPostalCode": CPostalCode,
+		"WebAddress": WebAddress,
+		"CEmail": CEmail,
+		"AddInf1": AddInf1,
+		"AddInf2": AddInf2,
+		"AddInf3": AddInf3,
+		"AddInf4": AddInf4,
+		"AddInf5": AddInf5,
+		"AddInf6": AddInf6,
+		"CreatedDate": CreatedDate,
+		"ModifiedDate": ModifiedDate,
+		"CreatedUId": CreatedUId,
+		"ModifiedUId": ModifiedUId,
+		"GCRecord": GCRecord
+	}
+	if(CId != '' and CId != None):
+		company['CId'] = CId
+	company = configureNulls(company)
+	return company
+
+def addDivisionDict(req):
+	DivId = req.get('DivId')
+	CId = req.get('CId')
+	DivName = req.get('DivName')
+	DivDesc = req.get('DivDesc')
+	DivKey = req.get('DivKey')
+	OwnerDivisionId = req.get('OwnerDivisionId')
+	AddInf1 = req.get('AddInf1')
+	AddInf2 = req.get('AddInf2')
+	AddInf3 = req.get('AddInf3')
+	AddInf4 = req.get('AddInf4')
+	AddInf5 = req.get('AddInf5')
+	AddInf6 = req.get('AddInf6')
+	CreatedDate = req.get('CreatedDate')
+	ModifiedDate = req.get('ModifiedDate')
+	CreatedUId = req.get('CreatedUId')
+	ModifiedUId = req.get('ModifiedUId')
+	GCRecord = req.get('GCRecord')
+
+	division = {
+		"CId": CId,
+		"DivName": DivName,
+		"DivDesc": DivDesc,
+		"DivKey": DivKey,
+		"OwnerDivisionId": OwnerDivisionId,
+		"AddInf1": AddInf1,
+		"AddInf2": AddInf2,
+		"AddInf3": AddInf3,
+		"AddInf4": AddInf4,
+		"AddInf5": AddInf5,
+		"AddInf6": AddInf6,
+		"CreatedDate": CreatedDate,
+		"ModifiedDate": ModifiedDate,
+		"CreatedUId": CreatedUId,
+		"ModifiedUId": ModifiedUId,
+		"GCRecord": GCRecord
+	}
+	if(DivId != '' and DivId != None):
+		division['DivId'] = DivId
+	division = configureNulls(division)
+	return division
 
 def addCategoryDict(req):
 	ResCatId = req.get('ResCatId')
@@ -128,6 +233,7 @@ def addImageDict(req):
 	CId = req.get('CId')
 	RpAccId = req.get('RpAccId')
 	ResId = req.get('ResId')
+	ImgRegNo = req.get('ImgRegNo')
 	FileName = req.get('FileName')
 	FilePath = req.get('FilePath')
 	FileHash = req.get('FileHash')
@@ -142,6 +248,7 @@ def addImageDict(req):
 		"CId": CId,
 		"RpAccId": RpAccId,
 		"ResId": ResId,
+		"ImgRegNo": ImgRegNo,
 		"FileName": FileName,
 		"FilePath": FilePath,
 		"FileHash": FileHash,
@@ -163,6 +270,7 @@ def saveImageFile(req):
 	CId = req.get('CId')
 	RpAccId = req.get('RpAccId')
 	ResId = req.get('ResId')
+	ImgRegNo = req.get('ImgRegNo')
 	FileName = req.get('FileName')
 	FilePath = req.get('FilePath')
 	FileHash = req.get('FileHash')
@@ -177,6 +285,7 @@ def saveImageFile(req):
 		"CId": CId,
 		"RpAccId": RpAccId,
 		"ResId": ResId,
+		"ImgRegNo": ImgRegNo,
 		"FileName": FileName,
 		"FilePath": FilePath,
 		"FileHash": FileHash,

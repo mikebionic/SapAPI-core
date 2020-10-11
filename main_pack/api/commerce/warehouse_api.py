@@ -48,8 +48,8 @@ def api_warehouses():
 			req = request.get_json()
 			warehouses = []
 			failed_warehouses = [] 
-			for warehouse in req:
-				warehouse = addWarehouseDict(warehouse)
+			for warehouse_req in req:
+				warehouse = addWarehouseDict(warehouse_req)
 				try:
 					if not 'WhId' in warehouse:
 						newWarehouse = Warehouse(**warehouse)

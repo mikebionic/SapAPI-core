@@ -13,13 +13,13 @@ Provide **username** and **password** in Authentication headers
 > GET
 
 + /api/company-info/
-+ /api/company/?CName=<CName>&CKey=<CKey>
-+ /api/division/?DivName=<DivName>&DivKey=<DivKey>
 
 # Simple data queries and insertions
 > GET POST
 
 **@sha_required** of **Synchronizer**
++ /api/company/?CName=<CName>&CKey=<CKey>
++ /api/division/?DivName=<DivName>&DivKey=<DivKey>
 + /api/tbl-dk-barcodes/?synchDateTime=<datetime>&DivId=<id>&notDivId=<id>
 + /api/tbl-dk-res-prices/
 + /api/tbl-dk-res-totals/?synchDateTime=<datetime>&DivId=<id>&notDivId=<id>

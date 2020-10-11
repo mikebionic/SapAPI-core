@@ -100,8 +100,8 @@ def api_invoices():
 
 					inv_lines = []
 					failed_inv_lines = []
-					for inv_line in data['inv_lines']:
-						inv_line = addInvLineDict(inv_line)
+					for inv_line_req in data['inv_lines']:
+						inv_line = addInvLineDict(inv_line_req)
 						inv_line['InvId'] = thisInv.InvId
 						try:
 							InvLineRegNo = inv_line['InvLineRegNo']

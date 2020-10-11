@@ -117,8 +117,8 @@ def api_resources():
 
 					barcodes = []
 					failed_barcodes = []
-					for barcode in data['Barcodes']:
-						barcode = addBarcodeDict(barcode)
+					for barcode_req in data['Barcodes']:
+						barcode = addBarcodeDict(barcode_req)
 						try:
 							UnitId = barcode['UnitId']
 							thisBarcode = Barcode.query\
@@ -187,8 +187,8 @@ def api_resources():
 # 			req = request.get_json()
 # 			resources = []
 # 			failed_resources = []
-# 			for resource in req:
-# 				resource = addResourceDict(resource)
+# 			for resource_req in req:
+# 				resource = addResourceDict(resource_req)
 # 				# special syncronizer method 
 # 				# category is resource's AddInf2
 # 				group = resource['AddInf2']

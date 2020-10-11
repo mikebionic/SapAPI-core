@@ -36,8 +36,8 @@ def api_res_prices():
 			req = request.get_json()
 			res_prices = []
 			failed_res_prices = [] 
-			for res_price in req:
-				res_price = addResPriceDict(res_price)
+			for res_price_req in req:
+				res_price = addResPriceDict(res_price_req)
 				try:
 					# !!! Res price Id why not RegNO
 					if not 'ResPriceId' in res_price:

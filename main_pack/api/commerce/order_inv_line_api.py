@@ -43,8 +43,8 @@ def api_order_inv_lines():
 			req = request.get_json()
 			order_inv_lines = []
 			failed_order_inv_lines = [] 
-			for order_inv_line in req:
-				order_inv_line = addOrderInvLineDict(order_inv_line)
+			for order_inv_line_req in req:
+				order_inv_line = addOrderInvLineDict(order_inv_line_req)
 				try:
 					OInvLineId = order_inv_line['OInvLineId']
 					thisOrderInv = Order_inv_line.query.get(int(OInvLineId))

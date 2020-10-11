@@ -50,8 +50,8 @@ def api_res_totals():
 			req = request.get_json()
 			res_totals = []
 			failed_res_totals = [] 
-			for res_total in req:
-				res_total = addResTotalDict(res_total)
+			for res_total_req in req:
+				res_total = addResTotalDict(res_total_req)
 				# sync the pending amount (used by synchronizer)
 				res_total['ResPendingTotalAmount'] = res_total['ResTotBalance']
 				try:

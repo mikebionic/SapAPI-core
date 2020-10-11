@@ -174,7 +174,7 @@ def api_checkout_sale_order_invoices(user):
 				db.session.add(thisOInvLine)
 				order_inv_lines.append(thisOInvLine.to_json_api())
 			except Exception as ex:
-				print(f"{datetime.now()} | Checkout OInv Exception: {ex}")
+				print(f"{datetime.now()} | Checkout OInv Line Exception: {ex} | Error type {error_type}")
 				fail_info = {
 					"data": order_inv_line_req,
 					"error_type_id": error_type,
