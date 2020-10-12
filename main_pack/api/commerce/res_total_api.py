@@ -13,7 +13,7 @@ from sqlalchemy import and_
 from main_pack.api.auth.api_login import sha_required
 
 
-@api.route("/tbl-dk-res-totals/",methods=['GET','POST','PUT'])
+@api.route("/tbl-dk-res-totals/",methods=['GET','POST'])
 @sha_required
 def api_res_totals():
 	if request.method == 'GET':
@@ -54,24 +54,34 @@ def api_res_totals():
 				res_total = addResTotalDict(res_total_req)
 				# sync the pending amount (used by synchronizer)
 				res_total['ResPendingTotalAmount'] = res_total['ResTotBalance']
+				ResRegNo = res_total_req['ResRegNo']
+				Guid = res_total_req['Guid'] # used for fetching Wh and Resources
 				try:
 					# handle AkHasap's database exceptions of -1 meaning "all"
 					if res_total['WhId'] > 0:
-						if not "ResId" in res_total and not "WhId" in res_total:
+						# handling WhId existence exception
+						res_total_req['WhId'] = None
+						if not ResRegNo or not Guid:
 							newResTotal = Res_total(**res_total)
 							db.session.add(newResTotal)
 							res_totals.append(res_total)
 						else:
 							####
-							ResId = res_total['ResId']
-							WhId = res_total['WhId']
-							thisResTotal = Res_total.query\
-								.filter_by(ResId = ResId, WhId = WhId)\
-								.first()
+							# !!! should i check resource is available?
+							resource = Resource.query\
+								.filter_by(GCRecord = None, ResRegNo = ResRegNo).first()
+							warehouse = Warehouse.query\
+								.filter_by(GCRecord = None, Guid = Guid).first()
+							if resource and warehouse:
+								thisResTotal = Res_total.query\
+									.filter_by(ResId = resource.ResId, WhId = warehouse.WhId)\
+									.first()
 							####
+							# ??? won't it cause problems of Null in Guid?
 							if thisResTotal is not None:
 								thisResTotal.update(**res_total)
 								res_totals.append(res_total)
+								thisResTotal = None
 
 							else:
 								newResTotal = Res_total(**res_total)

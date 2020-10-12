@@ -222,8 +222,8 @@ def addResourceDict(req):
 		"ModifiedUId": ModifiedUId,
 		"GCRecord": GCRecord
 	}
-	if(ResId != '' and ResId != None):
-		resource['ResId'] = ResId
+	# if(ResId != '' and ResId != None):
+	# 	resource['ResId'] = ResId
 	resource = configureNulls(resource)
 	return resource
 
@@ -259,8 +259,8 @@ def addImageDict(req):
 		"ModifiedUId": ModifiedUId,
 		"GCRecord": GCRecord
 	}
-	if(ImgId != '' and ImgId != None):
-		image['ImgId'] = ImgId
+	# if(ImgId != '' and ImgId != None):
+	# 	image['ImgId'] = ImgId
 	image = configureNulls(image)
 	return image
 
@@ -296,8 +296,9 @@ def saveImageFile(req):
 		"ModifiedUId": ModifiedUId,
 		"GCRecord": GCRecord
 	}
-	if(ImgId != '' and ImgId != None):
-		image['ImgId'] = ImgId
+	# if(ImgId != '' and ImgId != None):
+	# 	image['ImgId'] = ImgId
+	
 	# if blob presents:
 	if Image:
 		imageBytes = Image
@@ -444,8 +445,8 @@ def addResTotalDict(req):
 		"GCRecord": GCRecord
 	}
 
-	if(ResTotId != '' and ResTotId != None):
-		res_total['ResTotId'] = ResTotId
+	# if(ResTotId != '' and ResTotId != None):
+	# 	res_total['ResTotId'] = ResTotId
 	res_total = configureEmptyQuotesNulls(res_total)
 	return res_total
 
