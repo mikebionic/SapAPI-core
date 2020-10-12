@@ -15,6 +15,7 @@ def addCompanyDict(req):
 	CKey = req.get('CKey')
 	CFullName = req.get('CFullName')
 	CDesc = req.get('CDesc')
+	CGuid = req.get('CGuid')
 	AccInfId = req.get('AccInfId')
 	CAddress = req.get('CAddress')
 	CAddressLegal = req.get('CAddressLegal')
@@ -44,6 +45,7 @@ def addCompanyDict(req):
 		"CKey": CKey,
 		"CFullName": CFullName,
 		"CDesc": CDesc,
+		"CGuid": CGuid,
 		"AccInfId": AccInfId,
 		"CAddress": CAddress,
 		"CAddressLegal": CAddressLegal,
@@ -79,6 +81,7 @@ def addDivisionDict(req):
 	DivName = req.get('DivName')
 	DivDesc = req.get('DivDesc')
 	DivKey = req.get('DivKey')
+	DivGuid = req.get('DivGuid')
 	OwnerDivisionId = req.get('OwnerDivisionId')
 	AddInf1 = req.get('AddInf1')
 	AddInf2 = req.get('AddInf2')
@@ -97,6 +100,7 @@ def addDivisionDict(req):
 		"DivName": DivName,
 		"DivDesc": DivDesc,
 		"DivKey": DivKey,
+		"DivGuid": DivGuid,
 		"OwnerDivisionId": OwnerDivisionId,
 		"AddInf1": AddInf1,
 		"AddInf2": AddInf2,
@@ -818,7 +822,7 @@ def addWarehouseDict(req):
 	DivId = req.get('DivId')
 	WhName = req.get('WhName')
 	WhDesc = req.get('WhDesc')
-	Guid = req.get('Guid')
+	WhGuid = req.get('WhGuid')
 	AddInf1 = req.get('AddInf1')
 	AddInf2 = req.get('AddInf2')
 	AddInf3 = req.get('AddInf3')
@@ -835,7 +839,7 @@ def addWarehouseDict(req):
 		"DivId": DivId,
 		"WhName": WhName,
 		"WhDesc": WhDesc,
-		"Guid": Guid,
+		"WhGuid": WhGuid,
 		"AddInf1": AddInf1,
 		"AddInf2": AddInf2,
 		"AddInf3": AddInf3,

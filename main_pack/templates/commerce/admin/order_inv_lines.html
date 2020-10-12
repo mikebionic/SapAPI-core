@@ -23,16 +23,19 @@
             <i data-feather="user"></i> {{_("This customer's orders")}}
           </a>
         </div>
+
         <div class="card-body">
-          <div class="col-6">
-            <h6>{{_('Reg №')}}:</h6>
-            <p class="oInvRegNo" >{{ orderInvoices[0].OInvRegNo }}</p>
-          </div>
-          <div class="col-6">
-            <i data-feather="clock"></i>
-            <div class="date">
-              <div>{{_('Ordered date')}}</div>
-              <div class="is-date">{{orderInvoices[0].CreatedDate}}</div>
+          <div class="row">
+            <div class="col-md-6">
+              <h6>{{_('Reg №')}}:</h6>
+              <p class="oInvRegNo" >{{ orderInvoices[0].OInvRegNo }}</p>
+            </div>
+            <div class="col-md-6 text-md-right">
+              <i data-feather="clock"></i>
+              <div class="date">
+                <div>{{_('Ordered date')}}</div>
+                <div class="is-date">{{orderInvoices[0].CreatedDate}}</div>
+              </div>
             </div>
           </div>
 
@@ -42,11 +45,11 @@
                 <tr>
                   <th class="text-center">№</th>
                   <th class="text-center">{{_('Product name')}}</th>
-                  <th>{{_('Amount')}}</th>
-                  <th>{{_('Price')}}</th>
-                  <th>{{_('Total price')}}</th>
-                  <th>{{_('Currency')}}</th>
-                  <th>{{_('Action')}}</th>
+                  <th class="text-center">{{_('Amount')}}</th>
+                  <th class="text-center">{{_('Price')}}</th>
+                  <th class="text-center">{{_('Total price')}}</th>
+                  <th class="text-center">{{_('Currency')}}</th>
+                  <th class="text-center">{{_('Action')}}</th>
                 </tr>
               </thead>
               <tbody class="productsTable">
@@ -64,7 +67,7 @@
                       {{ orderInvLine.OInvLineTotal }}
                     </td>
                     <td class="text-center">{{ orderInvLine.Currency.CurrencyCode }}</td>
-                    <td>
+                    <td class="text-center">
                       <button class="btn btn-icon btn-danger removeInvProduct" ownerId="{{ orderInvLine.OInvLineId }}"><i class="fas fa-trash-alt"></i></button>
                     </td>
                   </tr>
@@ -93,9 +96,19 @@
                 <p>{{ orderInvoices[0].Rp_acc.RpAccName }}</p>
                 <h6>{{_('Reg №')}}:</h6>
                 <p>{{ orderInvoices[0].Rp_acc.RpAccRegNo }}</p>
+                <div class="inv_about">
+                  <h6>{{_('Email')}}:</h6>
+                  <p>{{ orderInvoices[0].Rp_acc.RpAccEMail }}</p>
+                  <h6>{{_('Mobile phone')}}:</h6>
+                  <p>{{ orderInvoices[0].Rp_acc.RpAccMobilePhoneNumber if orderInvoices[0].Rp_acc.RpAccMobilePhoneNumber else '' }}</p>
+                  <h6>{{_('Home phone')}}:</h6>
+                  <p>{{ orderInvoices[0].Rp_acc.RpAccHomePhoneNumber if orderInvoices[0].Rp_acc.RpAccHomePhoneNumber else '' }}</p>
+                  <h6>{{_('Zip code')}}:</h6>
+                  <p>{{ orderInvoices[0].Rp_acc.RpAccZipCode if orderInvoices[0].Rp_acc.RpAccZipCode else '' }}</p>
+                </div>  
               </div>
               
-              <div class="col-6">
+              <div class="col-6 text-right">
                 <div class="inv_total">
                   <h6>{{_('Total price')}}:</h6>
                   <span>{{ orderInvoices[0].Currency.CurrencyCode }}</span>
@@ -111,18 +124,6 @@
                   <h6>{{_('Description')}}</h6>
                   <p>{{ orderInvoices[0].OInvDesc if orderInvoices[0].OInvDesc else '' }}</p>
                 </div>
-              </div>
-              <div class="col-12">
-                <div class="inv_about">
-                  <h6>{{_('Email')}}:</h6>
-                  <p>{{ orderInvoices[0].Rp_acc.RpAccEMail }}</p>
-                  <h6>{{_('Mobile phone')}}:</h6>
-                  <p>{{ orderInvoices[0].Rp_acc.RpAccMobilePhoneNumber if orderInvoices[0].Rp_acc.RpAccMobilePhoneNumber else '' }}</p>
-                  <h6>{{_('Home phone')}}:</h6>
-                  <p>{{ orderInvoices[0].Rp_acc.RpAccHomePhoneNumber if orderInvoices[0].Rp_acc.RpAccHomePhoneNumber else '' }}</p>
-                  <h6>{{_('Zip code')}}:</h6>
-                  <p>{{ orderInvoices[0].Rp_acc.RpAccZipCode if orderInvoices[0].Rp_acc.RpAccZipCode else '' }}</p>
-                </div>  
               </div>
             </div>
           </div>

@@ -738,7 +738,7 @@ msgstr ""
 
 #: templates/commerce/admin/customer_details.html:20
 #: templates/commerce/admin/user_details.html:20
-msgid "Cusomer details"
+msgid "Customer details"
 msgstr ""
 
 #: templates/commerce/admin/customer_details.html:26
@@ -942,7 +942,7 @@ msgid "Sale invoices"
 msgstr ""
 
 #: templates/commerce/admin/layout.html:126
-msgid "Cusomers"
+msgid "Customers"
 msgstr ""
 
 #: templates/commerce/admin/layout.html:130

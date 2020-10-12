@@ -145,7 +145,7 @@ def api_division():
 					division = Division.query\
 						.filter_by(
 							DivName = new_division.DivName,
-							Guid = new_division.Guid)\
+							DivGuid = new_division.DivGuid)\
 						.first()
 					if not division:
 						division = Division(**new_division)

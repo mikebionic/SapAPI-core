@@ -382,15 +382,16 @@ def register_user():
 
 #################################
 
-###### orders and order information #######
 
+###### orders and order information #######
 @bp.route("/admin/order_invoices")
 @login_required
 @ui_admin_required()
 def order_invoices():
+	InvStatId = request.args.get("statusId",1,type=int)
 	orderInvoices = Order_inv.query\
-		.filter_by(GCRecord = None)\
-		.order_by(Order_inv.CreatedDate.desc()).all()
+		.filter_by(GCRecord = None, InvStatId = InvStatId)\
+		.order_by(Order_inv.ModifiedDate.desc()).all()
 	
 	orders_list = []
 	for orderInv in orderInvoices:
@@ -398,9 +399,16 @@ def order_invoices():
 		order['OInvId'] = orderInv.OInvId
 		orders_list.append(order)
 	orderInvRes = UiOInvData(orders_list)
+	
+	inv_statuses = Inv_status.query\
+		.filter_by(GCRecord = None).all()
+	invoice_statuses = []
+	for inv_stat in inv_statuses:
+		invoice_statuses.append(dataLangSelector(inv_stat.to_json_api()))
+	InvoiceStatuses = {"inv_statuses": invoice_statuses}
 
 	return render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"order_invoices.html",url_prefix=url_prefix,
-		**orderInvRes,title=gettext('Order invoices'))
+		**orderInvRes,**InvoiceStatuses,InvStatId=InvStatId,title=gettext('Order invoices'))
 
 
 @bp.route("/admin/order_invoices/<OInvRegNo>",methods=['GET','POST'])

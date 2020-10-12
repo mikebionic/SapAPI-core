@@ -1077,7 +1077,7 @@ msgstr "Время работы"
 
 #: templates/commerce/admin/customer_details.html:20
 #: templates/commerce/admin/user_details.html:20
-msgid "Cusomer details"
+msgid "Customer details"
 msgstr "Детали клиента"
 
 #: templates/commerce/admin/customer_details.html:26
@@ -1302,7 +1302,7 @@ msgid "Sale invoices"
 msgstr "Счета-фактуры продажи"
 
 #: templates/commerce/admin/layout.html:126
-msgid "Cusomers"
+msgid "Customers"
 msgstr "Клиенты"
 
 #: templates/commerce/admin/layout.html:130

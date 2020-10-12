@@ -137,6 +137,7 @@ class Company(AddInf,CreatedModifiedInfo,db.Model):
 	CKey = db.Column(db.String(100))
 	CFullName = db.Column(db.String(500))
 	CDesc = db.Column(db.String(500))
+	CGuid = db.Column(UUID(as_uuid=True))
 	AccInfId = db.Column(db.Integer)
 	CAddress = db.Column(db.String(500))
 	CAddressLegal = db.Column(db.String(500))
@@ -184,6 +185,7 @@ class Company(AddInf,CreatedModifiedInfo,db.Model):
 			"CKey": self.CKey,
 			"CFullName": self.CFullName,
 			"CDesc": self.CDesc,
+			"CGuid": self.CGuid,
 			"AccInfId": self.AccInfId,
 			"CAddress": self.CAddress,
 			"CAddressLegal": self.CAddressLegal,
@@ -343,6 +345,7 @@ class Division(AddInf,CreatedModifiedInfo,db.Model):
 	DivName = db.Column(db.String(100),nullable=False)
 	DivDesc = db.Column(db.String(500))
 	DivKey = db.Column(db.String(100))
+	DivGuid = db.Column(UUID(as_uuid=True))
 	OwnerDivisionId = db.Column(db.Integer,default=0)
 	Users = db.relationship('Users',backref='division')
 	Department_detail = db.relationship('Department_detail',backref='division',lazy=True)
@@ -369,6 +372,7 @@ class Division(AddInf,CreatedModifiedInfo,db.Model):
 			"DivName": self.DivName,
 			"DivDesc": self.DivDesc,
 			"DivKey": self.DivKey,
+			"DivGuid": self.DivGuid,
 			"OwnerDivisionId": self.OwnerDivisionId,
 			"AddInf1": self.AddInf1,
 			"AddInf2": self.AddInf2,
@@ -718,7 +722,7 @@ class Warehouse(AddInf,CreatedModifiedInfo,db.Model):
 	DivId = db.Column(db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
 	WhName = db.Column(db.String(100),nullable=False)
 	WhDesc = db.Column(db.String(500))
-	Guid = db.Column(UUID(as_uuid=True))
+	WhGuid = db.Column(UUID(as_uuid=True))
 	Res_transaction = db.relationship('Res_transaction',backref='warehouse',lazy=True)
 	Invoice = db.relationship('Invoice',backref='warehouse',lazy=True)
 	Order_inv = db.relationship('Order_inv',backref='warehouse',lazy=True)
@@ -741,7 +745,7 @@ class Warehouse(AddInf,CreatedModifiedInfo,db.Model):
 			"DivId": self.DivId,
 			"WhName": self.WhName,
 			"WhDesc": self.WhDesc,
-			"Guid": self.Guid,
+			"WhGuid": self.WhGuid,
 			"AddInf1": self.AddInf1,
 			"AddInf2": self.AddInf2,
 			"AddInf3": self.AddInf3,
