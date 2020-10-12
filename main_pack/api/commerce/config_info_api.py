@@ -80,19 +80,21 @@ def api_company():
 			failed_companies = []
 			for company_req in req:
 				try:
-					new_company = addCompanyDict(company_req)
+					company_data = addCompanyDict(company_req)
 					company = Company.query\
-						.filter_by(CName = new_company.CName)\
+						.filter_by(
+							CName = company_data.CName,
+							CGuid = company_data.CGuid)\
 						.first()
-					if not company:
-						company = Company(**new_company)
-						db.session.add(company)
+					if company:
+						company.update(**company_data)
 					else:
-						company.update(**new_company)
-					companies.append(new_company)
+						company = Company(**company_data)
+						db.session.add(company)
+					companies.append(company_data)
 				except Exception as ex:
 					print(f"{datetime.now()} | Company Api Exception: {ex}")
-					failed_companies.append(new_company)
+					failed_companies.append(company_data)
 			db.session.commit()
 			status = checkApiResponseStatus(companies,failed_companies)
 			res = {
@@ -141,21 +143,21 @@ def api_division():
 			failed_divisions = []
 			for division_req in req:
 				try:
-					new_division = addDivisionDict(division_req)
+					division_info = addDivisionDict(division_req)
 					division = Division.query\
 						.filter_by(
-							DivName = new_division.DivName,
-							DivGuid = new_division.DivGuid)\
+							DivName = division_info.DivName,
+							DivGuid = division_info.DivGuid)\
 						.first()
-					if not division:
-						division = Division(**new_division)
-						db.session.add(division)
+					if division:
+						division.update(**division_info)
 					else:
-						division.update(**new_division)
-					divisions.append(new_division)
+						division = Division(**division_info)
+						db.session.add(division)
+					divisions.append(division_info)
 				except Exception as ex:
 					print(f"{datetime.now()} | Division Api Exception: {ex}")
-					failed_divisions.append(new_division)
+					failed_divisions.append(division_info)
 			db.session.commit()
 			status = checkApiResponseStatus(divisions,failed_divisions)
 			res = {
