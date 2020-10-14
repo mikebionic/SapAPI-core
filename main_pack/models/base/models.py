@@ -404,6 +404,7 @@ class Gender(db.Model):
 class Image(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_image"
 	ImgId = db.Column(db.Integer,nullable=False,primary_key=True)
+	ImgGuid = db.Column(UUID(as_uuid=True))
 	EmpId = db.Column(db.Integer,db.ForeignKey("tbl_dk_employee.EmpId"))
 	BrandId = db.Column(db.Integer,db.ForeignKey("tbl_dk_brand.BrandId"))
 	CId = db.Column(db.Integer,db.ForeignKey("tbl_dk_company.CId"))
@@ -414,7 +415,6 @@ class Image(CreatedModifiedInfo,db.Model):
 	FileHash = db.Column(db.String(100))
 	FilePath = db.Column(db.String(255))
 	Image = db.Column(db.LargeBinary)
-	ImgRegNo = db.Column(db.String(100),unique=True)
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -438,6 +438,7 @@ class Image(CreatedModifiedInfo,db.Model):
 	def to_json_api(self):
 		json_image = {
 			"ImgId": self.ImgId,
+			"ImgGuid": self.ImgGuid,
 			"EmpId": self.EmpId,
 			"BrandId": self.BrandId,
 			"CId": self.CId,
@@ -720,6 +721,7 @@ class Warehouse(AddInf,CreatedModifiedInfo,db.Model):
 	WhId = db.Column(db.Integer,nullable=False,primary_key=True)
 	CId = db.Column(db.Integer,db.ForeignKey("tbl_dk_company.CId"))
 	DivId = db.Column(db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
+	UsageStatusId = db.Column(db.Integer,db.ForeignKey("tbl_dk_usage_status.UsageStatusId"))
 	WhName = db.Column(db.String(100),nullable=False)
 	WhDesc = db.Column(db.String(500))
 	WhGuid = db.Column(UUID(as_uuid=True))
@@ -743,6 +745,7 @@ class Warehouse(AddInf,CreatedModifiedInfo,db.Model):
 			"WhId": self.WhId,
 			"CId": self.CId,
 			"DivId": self.DivId,
+			"UsageStatusId": self.UsageStatusId,
 			"WhName": self.WhName,
 			"WhDesc": self.WhDesc,
 			"WhGuid": self.WhGuid,

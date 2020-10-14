@@ -237,7 +237,7 @@ def addImageDict(req):
 	CId = req.get('CId')
 	RpAccId = req.get('RpAccId')
 	ResId = req.get('ResId')
-	ImgRegNo = req.get('ImgRegNo')
+	ImgGuid = req.get('ImgGuid')
 	FileName = req.get('FileName')
 	FilePath = req.get('FilePath')
 	FileHash = req.get('FileHash')
@@ -252,7 +252,7 @@ def addImageDict(req):
 		"CId": CId,
 		"RpAccId": RpAccId,
 		"ResId": ResId,
-		"ImgRegNo": ImgRegNo,
+		"ImgGuid": ImgGuid,
 		"FileName": FileName,
 		"FilePath": FilePath,
 		"FileHash": FileHash,
@@ -274,7 +274,7 @@ def saveImageFile(req):
 	CId = req.get('CId')
 	RpAccId = req.get('RpAccId')
 	ResId = req.get('ResId')
-	ImgRegNo = req.get('ImgRegNo')
+	ImgGuid = req.get('ImgGuid')
 	FileName = req.get('FileName')
 	FilePath = req.get('FilePath')
 	FileHash = req.get('FileHash')
@@ -289,7 +289,7 @@ def saveImageFile(req):
 		"CId": CId,
 		"RpAccId": RpAccId,
 		"ResId": ResId,
-		"ImgRegNo": ImgRegNo,
+		"ImgGuid": ImgGuid,
 		"FileName": FileName,
 		"FilePath": FilePath,
 		"FileHash": FileHash,

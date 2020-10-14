@@ -31,6 +31,7 @@ def api_config():
 	response = make_response(jsonify(res),200)
 	return response
 
+
 @api.route("/company-info/")
 def api_company_info():
 	company = Company.query.first()

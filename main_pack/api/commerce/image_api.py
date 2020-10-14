@@ -79,9 +79,9 @@ def api_images():
 				imageDictData = addImageDict(image)
 				try:
 					resource = ResId_list.index(imageDictData['ResId'])
-					ImgRegNo = imageDictData['ImgRegNo']
+					ImgGuid = imageDictData['ImgGuid']
 					thisImage = Image.query\
-						.filter_by(ImgRegNo = ImgRegNo)\
+						.filter_by(ImgGuid = ImgGuid)\
 						.first()
 
 					if thisImage is not None:
