@@ -234,7 +234,7 @@ def addImageDict(req):
 	CId = req.get('CId')
 	RpAccId = req.get('RpAccId')
 	ResId = req.get('ResId')
-	ImgGuid = req.get('ImgGuid')
+	ImgGuid = uuid.UUID(req.get('ImgGuid'))
 	FileName = req.get('FileName')
 	FilePath = req.get('FilePath')
 	FileHash = req.get('FileHash')
@@ -271,7 +271,7 @@ def saveImageFile(req):
 	CId = req.get('CId')
 	RpAccId = req.get('RpAccId')
 	ResId = req.get('ResId')
-	ImgGuid = req.get('ImgGuid')
+	ImgGuid = uuid.UUID(req.get('ImgGuid'))
 	FileName = req.get('FileName')
 	FilePath = req.get('FilePath')
 	FileHash = req.get('FileHash')
@@ -819,7 +819,7 @@ def addWarehouseDict(req):
 	DivId = req.get('DivId')
 	WhName = req.get('WhName')
 	WhDesc = req.get('WhDesc')
-	WhGuid = req.get('WhGuid')
+	WhGuid = uuid.UUID(req.get('WhGuid'))
 	AddInf1 = req.get('AddInf1')
 	AddInf2 = req.get('AddInf2')
 	AddInf3 = req.get('AddInf3')
@@ -849,8 +849,8 @@ def addWarehouseDict(req):
 		"ModifiedUId": ModifiedUId,
 		"GCRecord": GCRecord
 		}
-	if(WhId != '' and WhId != None):
-		warehouse['WhId'] = WhId
+	# if(WhId != '' and WhId != None):
+	# 	warehouse['WhId'] = WhId
 	warehouse = configureNulls(warehouse)
 	return warehouse
 

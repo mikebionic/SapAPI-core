@@ -51,27 +51,19 @@ def api_warehouses():
 			failed_warehouses = [] 
 			for warehouse_req in req:
 				warehouse = addWarehouseDict(warehouse_req)
-				try:
-					if not 'WhId' in warehouse:
-						newWarehouse = Warehouse(**warehouse)
-						db.session.add(newWarehouse)
-						warehouses.append(warehouse)
+				warehouse = Warehouse.query\
+						.filter_by(
+							WhGuid = warehouse_info['WhGuid'])\
+						.first()
+					if warehouse:
+						warehouse.update(**warehouse_info)
 					else:
-						WhId = warehouse['WhId']
-						thisWarehouse = Warehouse.query.get(int(WhId))
-						if thisWarehouse is not None:
-							# check for presenting in database
-							thisWarehouse.update(**warehouse)
-							# thisWarehouse.modifiedInfo(UId=1)
-							warehouses.append(warehouse)
-						else:
-							# create new warehouse
-							newWarehouse = Warehouse(**warehouse)
-							db.session.add(newWarehouse)
-							warehouses.append(warehouse)
+						warehouse = Warehouse(**warehouse_info)
+						db.session.add(warehouse)
+					warehouses.append(warehouse_info)
 				except Exception as ex:
 					print(f"{datetime.now()} | Warehouse Api Exception: {ex}")
-					failed_warehouses.append(warehouse)
+					failed_warehouses.append(warehouse_info)
 			db.session.commit()
 			status = checkApiResponseStatus(warehouses,failed_warehouses)
 			res = {

@@ -86,7 +86,6 @@ def api_company():
 					company_data = addCompanyDict(company_req)
 					company = Company.query\
 						.filter_by(
-							CName = company_data['CName'],
 							CGuid = company_data['CGuid'])\
 						.first()
 					if company:
@@ -149,7 +148,6 @@ def api_division():
 					division_info = addDivisionDict(division_req)
 					division = Division.query\
 						.filter_by(
-							DivName = division_info['DivName'],
 							DivGuid = division_info['DivGuid'])\
 						.first()
 					if division:
