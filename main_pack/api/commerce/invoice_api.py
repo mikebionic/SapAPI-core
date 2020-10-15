@@ -110,13 +110,10 @@ def api_invoices():
 								.first()
 							if thisInvLine:
 								thisInvLine.update(**inv_line)
-								inv_lines.append(inv_line)
-								print('inv line updated')
 							else:
 								newInvLine = Inv_line(**inv_line)
 								db.session.add(newInvLine)
-								inv_lines.append(inv_line)
-								print('inv line created')
+							inv_lines.append(inv_line)
 						except Exception as ex:
 							print(f"{datetime.now()} | Inv Api Exception: {ex}")
 							failed_inv_lines.append(inv_line)

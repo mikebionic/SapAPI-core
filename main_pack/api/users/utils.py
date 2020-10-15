@@ -10,6 +10,7 @@ def addUsersDict(req):
 	UName = req.get('UName')
 	UEmail = req.get('UEmail')
 	UPass = req.get('UPass')
+	URegNo = req.get('URegNo')
 	UShortName = req.get('UShortName')
 	EmpId = req.get('EmpId')
 	UTypeId = req.get('UTypeId')
@@ -33,6 +34,7 @@ def addUsersDict(req):
 		"UName": UName,
 		"UEmail": UEmail,
 		"UPass": UPass,
+		"URegNo": URegNo,
 		"UShortName": UShortName,
 		"EmpId": EmpId,
 		"UTypeId": UTypeId,

@@ -96,7 +96,7 @@ def api_company():
 					companies.append(company_data)
 				except Exception as ex:
 					print(f"{datetime.now()} | Company Api Exception: {ex}")
-					failed_companies.append(company_data)
+					failed_companies.append(company_req)
 			db.session.commit()
 			status = checkApiResponseStatus(companies,failed_companies)
 			res = {
@@ -158,7 +158,7 @@ def api_division():
 					divisions.append(division_info)
 				except Exception as ex:
 					print(f"{datetime.now()} | Division Api Exception: {ex}")
-					failed_divisions.append(division_info)
+					failed_divisions.append(division_req)
 			db.session.commit()
 			status = checkApiResponseStatus(divisions,failed_divisions)
 			res = {

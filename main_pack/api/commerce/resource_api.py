@@ -107,12 +107,11 @@ def api_resources():
 						.first()
 					if thisResource is not None:
 						thisResource.update(**resource)
-						resources.append(resource)
 					else:
 						thisResource = Resource(**resource)
 						db.session.add(thisResource)
-						resources.append(resource)
-
+					
+					resources.append(resource)
 					db.session.commit()
 
 					barcodes = []

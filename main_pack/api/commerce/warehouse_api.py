@@ -50,8 +50,9 @@ def api_warehouses():
 			warehouses = []
 			failed_warehouses = [] 
 			for warehouse_req in req:
-				warehouse = addWarehouseDict(warehouse_req)
-				warehouse = Warehouse.query\
+				try:
+					warehouse_info = addWarehouseDict(warehouse_req)
+					warehouse = Warehouse.query\
 						.filter_by(
 							WhGuid = warehouse_info['WhGuid'])\
 						.first()
@@ -63,7 +64,7 @@ def api_warehouses():
 					warehouses.append(warehouse_info)
 				except Exception as ex:
 					print(f"{datetime.now()} | Warehouse Api Exception: {ex}")
-					failed_warehouses.append(warehouse_info)
+					failed_warehouses.append(warehouse_req)
 			db.session.commit()
 			status = checkApiResponseStatus(warehouses,failed_warehouses)
 			res = {
