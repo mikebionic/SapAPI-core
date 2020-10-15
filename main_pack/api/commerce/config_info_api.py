@@ -2,9 +2,11 @@
 from flask import jsonify,make_response,request
 from flask import current_app
 from datetime import datetime
+import uuid
 
 from main_pack.api.commerce import api
 from main_pack.config import Config
+from main_pack import db
 
 from main_pack.api.auth.api_login import sha_required
 from main_pack.base.apiMethods import checkApiResponseStatus
@@ -51,9 +53,9 @@ def api_company_info():
 def api_company():
 	if request.method == 'GET':
 		CName = request.args.get("CName","",type=str)
-		CKey = request.args.get("CKey","",type=str)
+		CGuid = request.args.get("CGuid","",type=str)
 		company = Company.query\
-			.filter_by(CName = CName, CKey = CKey)\
+			.filter_by(CName = CName, CGuid = uuid.UUID(CGuid))\
 			.first_or_404()
 
 		company_info = company.to_json_api()
@@ -84,8 +86,8 @@ def api_company():
 					company_data = addCompanyDict(company_req)
 					company = Company.query\
 						.filter_by(
-							CName = company_data.CName,
-							CGuid = company_data.CGuid)\
+							CName = company_data['CName'],
+							CGuid = company_data['CGuid'])\
 						.first()
 					if company:
 						company.update(**company_data)
@@ -115,9 +117,9 @@ def api_company():
 def api_division():
 	if request.method == 'GET':
 		DivName = request.args.get("DivName","",type=str)
-		DivKey = request.args.get("DivKey","",type=str)
+		DivGuid = request.args.get("DivGuid","",type=str)
 		division = Division.query\
-			.filter_by(DivName = DivName, DivKey = DivKey)\
+			.filter_by(DivName = DivName, DivGuid = uuid.UUID(DivGuid))\
 			.first_or_404()
 
 		division_info = division.to_json_api()
@@ -147,8 +149,8 @@ def api_division():
 					division_info = addDivisionDict(division_req)
 					division = Division.query\
 						.filter_by(
-							DivName = division_info.DivName,
-							DivGuid = division_info.DivGuid)\
+							DivName = division_info['DivName'],
+							DivGuid = division_info['DivGuid'])\
 						.first()
 					if division:
 						division.update(**division_info)

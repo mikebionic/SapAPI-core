@@ -134,7 +134,6 @@ class Company(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_company"
 	CId = db.Column(db.Integer,primary_key=True)
 	CName = db.Column(db.String(100),nullable=False)
-	CKey = db.Column(db.String(100))
 	CFullName = db.Column(db.String(500))
 	CDesc = db.Column(db.String(500))
 	CGuid = db.Column(UUID(as_uuid=True))
@@ -182,7 +181,6 @@ class Company(AddInf,CreatedModifiedInfo,db.Model):
 		json_company = {
 			"CId": self.CId,
 			"CName": self.CName,
-			"CKey": self.CKey,
 			"CFullName": self.CFullName,
 			"CDesc": self.CDesc,
 			"CGuid": self.CGuid,
@@ -344,7 +342,6 @@ class Division(AddInf,CreatedModifiedInfo,db.Model):
 	CId = db.Column(db.Integer,db.ForeignKey("tbl_dk_company.CId"))
 	DivName = db.Column(db.String(100),nullable=False)
 	DivDesc = db.Column(db.String(500))
-	DivKey = db.Column(db.String(100))
 	DivGuid = db.Column(UUID(as_uuid=True))
 	OwnerDivisionId = db.Column(db.Integer,default=0)
 	Users = db.relationship('Users',backref='division')
@@ -364,6 +361,12 @@ class Division(AddInf,CreatedModifiedInfo,db.Model):
 	Production = db.relationship('Production',backref='division',lazy=True)
 	Rating = db.relationship('Rating',backref='division',lazy=True)
 	Slider = db.relationship('Slider',backref='division',lazy=True)
+	
+	def update(self, **kwargs):
+		for key, value in kwargs.items():
+			if value is not None:
+				if hasattr(self, key):
+					setattr(self, key, value)
 
 	def to_json_api(self):
 		json_division = {
@@ -371,7 +374,6 @@ class Division(AddInf,CreatedModifiedInfo,db.Model):
 			"CId": self.CId,
 			"DivName": self.DivName,
 			"DivDesc": self.DivDesc,
-			"DivKey": self.DivKey,
 			"DivGuid": self.DivGuid,
 			"OwnerDivisionId": self.OwnerDivisionId,
 			"AddInf1": self.AddInf1,
@@ -445,7 +447,6 @@ class Image(CreatedModifiedInfo,db.Model):
 			"UId": self.UId,
 			"RpAccId": self.RpAccId,
 			"ResId": self.ResId,
-			"ImgRegNo": self.ImgRegNo,
 			"FileName": self.FileName,
 			"FilePath": fileToURL(file_type='image',file_size='M',file_name=self.FileName),
 			"FilePathS": fileToURL(file_type='image',file_size='S',file_name=self.FileName),

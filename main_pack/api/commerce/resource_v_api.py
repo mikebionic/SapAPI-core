@@ -180,7 +180,7 @@ def api_paginate_resources():
 	resource_models = []
 	for resource in pagination.items:
 		resource_models.append(resource)
-	res = apiResourceInfo(resource_models)
+	res = apiResourceInfo(resource_models=resource_models)
 
 	res = {
 		"status": 1,

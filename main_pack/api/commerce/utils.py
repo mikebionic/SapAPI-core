@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from flask import current_app
+import uuid
 import io
 import os
 import base64
@@ -12,10 +13,9 @@ from main_pack.base.dataMethods import configureNulls,configureFloat,boolCheck,c
 def addCompanyDict(req):
 	CId = req.get('CId')
 	CName = req.get('CName')
-	CKey = req.get('CKey')
 	CFullName = req.get('CFullName')
 	CDesc = req.get('CDesc')
-	CGuid = req.get('CGuid')
+	CGuid = uuid.UUID(req.get('CGuid'))
 	AccInfId = req.get('AccInfId')
 	CAddress = req.get('CAddress')
 	CAddressLegal = req.get('CAddressLegal')
@@ -42,7 +42,6 @@ def addCompanyDict(req):
 
 	company = {
 		"CName": CName,
-		"CKey": CKey,
 		"CFullName": CFullName,
 		"CDesc": CDesc,
 		"CGuid": CGuid,
@@ -70,8 +69,8 @@ def addCompanyDict(req):
 		"ModifiedUId": ModifiedUId,
 		"GCRecord": GCRecord
 	}
-	if(CId != '' and CId != None):
-		company['CId'] = CId
+	# if(CId != '' and CId != None):
+	# 	company['CId'] = CId
 	company = configureNulls(company)
 	return company
 
@@ -80,8 +79,7 @@ def addDivisionDict(req):
 	CId = req.get('CId')
 	DivName = req.get('DivName')
 	DivDesc = req.get('DivDesc')
-	DivKey = req.get('DivKey')
-	DivGuid = req.get('DivGuid')
+	DivGuid = uuid.UUID(req.get('DivGuid'))
 	OwnerDivisionId = req.get('OwnerDivisionId')
 	AddInf1 = req.get('AddInf1')
 	AddInf2 = req.get('AddInf2')
@@ -99,7 +97,6 @@ def addDivisionDict(req):
 		"CId": CId,
 		"DivName": DivName,
 		"DivDesc": DivDesc,
-		"DivKey": DivKey,
 		"DivGuid": DivGuid,
 		"OwnerDivisionId": OwnerDivisionId,
 		"AddInf1": AddInf1,
@@ -114,8 +111,8 @@ def addDivisionDict(req):
 		"ModifiedUId": ModifiedUId,
 		"GCRecord": GCRecord
 	}
-	if(DivId != '' and DivId != None):
-		division['DivId'] = DivId
+	# if(DivId != '' and DivId != None):
+	# 	division['DivId'] = DivId
 	division = configureNulls(division)
 	return division
 

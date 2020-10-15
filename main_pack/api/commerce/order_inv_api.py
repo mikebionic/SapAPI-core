@@ -108,7 +108,6 @@ def api_order_invoices():
 						order_inv_line['OInvId'] = thisOrderInv.OInvId
 						try:
 							OInvLineRegNo = order_inv_line['OInvLineRegNo']
-							print(OInvLineRegNo)
 							thisOrderInvLine = Order_inv_line.query\
 								.filter_by(OInvLineRegNo = OInvLineRegNo)\
 								.first()
@@ -123,17 +122,14 @@ def api_order_invoices():
 											order_res_total.ResPendingTotalAmount += thisOrderInvLine.OInvLineAmount
 									except Exception as ex:
 										print(f"{datetime.now()} | OInv Api Res_total Exception: {ex}")
-								print('oinvline updating')
 								db.session.commit()
 								order_inv_lines.append(order_inv_line)
-								print('order inv line updated')
 							else:
-								print('oinvline creation')
 								newOrderInvLine = Order_inv_line(**order_inv_line)
 								db.session.add(newOrderInvLine)
 								db.session.commit()
 								order_inv_lines.append(order_inv_line)
-								print('order inv line created')
+								newOrderInvLine = None
 						except Exception as ex:
 							print(f"{datetime.now()} | OInv Api OInvLine Exception: {ex}")
 							failed_order_inv_lines.append(order_inv_line)
