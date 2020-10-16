@@ -8,6 +8,7 @@ from main_pack import db
 from datetime import datetime, timedelta
 import dateutil.parser
 from sqlalchemy import and_
+import uuid
 
 from main_pack.models.base.models import Warehouse
 from main_pack.models.commerce.models import Res_total,Resource
@@ -63,7 +64,7 @@ def api_res_totals():
 						# handling WhId existence exception
 						res_total_req['WhId'] = None
 						ResRegNo = res_total_req['ResRegNo']
-						WhGuid = res_total_req['WhGuid'] # used for fetching Wh and Resources
+						WhGuid = uuid.UUID(res_total_req['WhGuid']) # used for fetching Wh and Resources
 						if not ResRegNo or not WhGuid:
 							raise Exception
 

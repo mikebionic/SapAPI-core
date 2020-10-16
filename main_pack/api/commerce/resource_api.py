@@ -60,7 +60,7 @@ def api_resources():
 		}
 		response = make_response(jsonify(res),200)
 
-	elif request.metod == 'POST':
+	elif request.method == 'POST':
 		if not request.json:
 			res = {
 				"status": 0,

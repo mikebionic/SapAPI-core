@@ -113,7 +113,8 @@ def api_rp_accs():
 					try:
 						rp_acc_trans_total = addRpAccTrTotDict(rp_acc_trans_total)
 						rp_acc_trans_total['RpAccTrTotId'] = None
-						rp_acc_trans_total['RpAccId'] = thisRpAcc.RpAccId
+						RpAccId = thisRpAcc.RpAccId
+						rp_acc_trans_total['RpAccId'] = RpAccId
 						thisRpAccTrTotal = Rp_acc_trans_total.query\
 							.filter_by(RpAccId = RpAccId)\
 							.first()
@@ -125,6 +126,7 @@ def api_rp_accs():
 						rp_accs.append(rp_acc)
 					except Exception as ex:
 						print(f"{datetime.now()} | Rp_acc Api Rp_acc_total Exception: {ex}")
+						failed_rp_accs.append(rp_acc)
 				except Exception as ex:
 					print(f"{datetime.now()} | Rp_acc Api Exception: {ex}")
 					failed_rp_accs.append(rp_acc)

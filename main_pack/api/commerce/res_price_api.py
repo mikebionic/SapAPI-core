@@ -3,8 +3,9 @@ from flask import render_template,url_for,jsonify,request,abort,make_response
 from main_pack.api.commerce import api
 from main_pack.base.apiMethods import checkApiResponseStatus
 from datetime import datetime
+from sqlalchemy import and_
 
-from main_pack.models.commerce.models import Res_price
+from main_pack.models.commerce.models import Res_price, Resource
 from main_pack.api.commerce.utils import addResPriceDict
 from main_pack import db
 from flask import current_app
@@ -15,7 +16,21 @@ from main_pack.api.auth.api_login import sha_required
 @sha_required
 def api_res_prices():
 	if request.method == 'GET':
-		res_prices = Res_price.query.filter_by(GCRecord = None).all()
+		DivId = request.args.get("DivId",None,type=int)
+		notDivId = request.args.get("notDivId",None,type=int)
+		res_prices = Res_price.query.filter_by(GCRecord = None)
+		if DivId:
+			res_prices = res_prices\
+				.join(Resource, and_(
+					Resource.ResId == Res_price.ResId,
+					Resource.DivId == DivId))
+		if notDivId:
+			res_prices = res_prices\
+				.join(Resource, and_(
+					Resource.ResId == Res_price.ResId,
+					Resource.DivId != notDivId))
+
+		res_prices = res_prices.all()
 		res = {
 			"status": 1,
 			"message": "All res prices",

@@ -87,8 +87,9 @@ def api_images():
 					if thisImage is not None:
 						updatingDate = dateutil.parser.parse(imageDictData['ModifiedDate'])
 						if thisImage.ModifiedDate != updatingDate:
-							image = saveImageFile(image)
-							
+							image_data = saveImageFile(image)
+							print("Image is gonna update")
+							image_data['ImgId'] = thisImage.ImgId
 							try:
 								# Delete last image
 								file_type = "image"
@@ -97,14 +98,17 @@ def api_images():
 							except Exception as ex:
 								print(f"{datetime.now()} | Image Api Deletion Exception: {ex}")
 							
-							thisImage.update(**image)
-							# print(f"{datetime.now()} | Image updated (Different ModifiedDate)")
-						# else:
-						# 	print(f"{datetime.now()} | Image dropped (Same ModifiedDate)")
+							thisImage.update(**image_data)
+							print(f"{datetime.now()} | Image updated (Different ModifiedDate)")
+						else:
+							print(f"{datetime.now()} | Image dropped (Same ModifiedDate)")
 						images.append(imageDictData)
 					else:
-						image = saveImageFile(image)
-						newImage = Image(**image)
+						# lastImage = Image.query.order_by(Image.ImgId.desc()).first()
+						# ImgId = lastImage.ImgId+1
+						image_data = saveImageFile(image)
+						image_data['ImgId'] = ImgId
+						newImage = Image(**image_data)
 						db.session.add(newImage)
 						print(f"{datetime.now()} | Image created")
 						images.append(imageDictData)
