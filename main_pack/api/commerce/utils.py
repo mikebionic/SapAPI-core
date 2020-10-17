@@ -403,8 +403,8 @@ def addResPriceDict(req):
 		"ModifiedUId": ModifiedUId,
 		"GCRecord": GCRecord
 		}
-	if(ResPriceId != '' and ResPriceId != None):
-		res_price['ResPriceId'] = ResPriceId
+	# if(ResPriceId != '' and ResPriceId != None):
+	# 	res_price['ResPriceId'] = ResPriceId
 	res_price = configureNulls(res_price)
 	return res_price
 

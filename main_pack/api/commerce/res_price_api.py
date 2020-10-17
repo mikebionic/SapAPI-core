@@ -54,28 +54,30 @@ def api_res_prices():
 			for res_price_req in req:
 				res_price = addResPriceDict(res_price_req)
 				try:
-					# !!! Res price Id why not RegNO
-					if not 'ResPriceId' in res_price:
-						newResPrice = Res_price(**res_price)
-						db.session.add(newResPrice)
-						db.session.commit()
-						res_prices.append(res_price)
-					else:
-						ResPriceId = res_price['ResPriceId']
-						thisResPrice = Res_price.query.get(int(ResPriceId))
-						if thisResPrice is not None:
-							thisResPrice.update(**res_price)
-							db.session.commit()
-							res_prices.append(res_price)
+					ResRegNo = res_price_req['ResRegNo']
+					ResPriceRegNo = res_price_req['ResPriceRegNo']
+					if not ResRegNo or not ResPriceRegNo:
+						raise Exception
 
-						else:
-							newResPrice = Res_price(**res_price)
-							db.session.add(newResPrice)
-							db.session.commit()
-							res_prices.append(res_price)
+					resource = Resource.query\
+						.filter_by(GCRecord = None, ResRegNo = ResRegNo).first()
+					thisResPrice = Res_price.query\
+						.filter_by(GCRecord = None, ResPriceRegNo = ResPriceRegNo).first()
+
+					if thisResPrice:
+						thisResPrice.update(**res_price)
+					else:
+						thisResPrice = Res_price(**res_price)
+						db.session.add(thisResPrice)
+					thisResPrice = None
+					
+					res_price["WhGuid"] = WhGuid
+					res_price["ResRegNo"] = ResRegNo
+					res_prices.append(res_price)
+
 				except Exception as ex:
 					print(f"{datetime.now()} | Res_price Api Exception: {ex}")
-					failed_res_prices.append(res_price)
+					failed_res_prices.append(res_price_req)
 
 			status = checkApiResponseStatus(res_prices,failed_res_prices)
 			res = {
