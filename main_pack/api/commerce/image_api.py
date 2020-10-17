@@ -5,6 +5,7 @@ from main_pack.api.commerce import api
 from main_pack.base.apiMethods import checkApiResponseStatus
 from datetime import datetime, timedelta
 import dateutil.parser
+from sqlalchemy import and_
 
 from main_pack.models.base.models import Image,Sl_image
 from main_pack.models.commerce.models import Resource
@@ -45,9 +46,16 @@ def api_images():
 		images = Image.query.filter_by(GCRecord = None)
 
 		if DivId:
-			images = images.filter_by(DivId = DivId)
+			images = images\
+				.join(Resource, and_(
+					Resource.ResId == Image.ResId,
+					Resource.DivId == DivId))
 		if notDivId:
-			images = images.filter(Image.DivId != notDivId)
+			images = images\
+				.join(Resource, and_(
+					Resource.ResId == Image.ResId,
+					Resource.DivId != notDivId))
+
 		if synchDateTime:
 			if (type(synchDateTime) != datetime):
 				synchDateTime = dateutil.parser.parse(synchDateTime)
@@ -88,7 +96,6 @@ def api_images():
 						updatingDate = dateutil.parser.parse(imageDictData['ModifiedDate'])
 						if thisImage.ModifiedDate != updatingDate:
 							image_data = saveImageFile(image)
-							print("Image is gonna update")
 							image_data['ImgId'] = thisImage.ImgId
 							try:
 								# Delete last image
@@ -104,10 +111,7 @@ def api_images():
 							print(f"{datetime.now()} | Image dropped (Same ModifiedDate)")
 						images.append(imageDictData)
 					else:
-						# lastImage = Image.query.order_by(Image.ImgId.desc()).first()
-						# ImgId = lastImage.ImgId+1
 						image_data = saveImageFile(image)
-						image_data['ImgId'] = ImgId
 						newImage = Image(**image_data)
 						db.session.add(newImage)
 						print(f"{datetime.now()} | Image created")

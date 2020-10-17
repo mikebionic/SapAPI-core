@@ -126,7 +126,6 @@ def api_rp_accs():
 						rp_accs.append(rp_acc)
 					except Exception as ex:
 						print(f"{datetime.now()} | Rp_acc Api Rp_acc_total Exception: {ex}")
-						failed_rp_accs.append(rp_acc)
 				except Exception as ex:
 					print(f"{datetime.now()} | Rp_acc Api Exception: {ex}")
 					failed_rp_accs.append(rp_acc)
