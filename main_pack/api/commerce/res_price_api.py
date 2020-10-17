@@ -61,8 +61,16 @@ def api_res_prices():
 
 					resource = Resource.query\
 						.filter_by(GCRecord = None, ResRegNo = ResRegNo).first()
+					if not resource:
+						raise Exception
+
 					thisResPrice = Res_price.query\
-						.filter_by(GCRecord = None, ResPriceRegNo = ResPriceRegNo).first()
+						.filter_by(
+							GCRecord = None,
+							ResPriceRegNo = ResPriceRegNo)\
+						.first()
+
+					res_price['ResId'] = resource.ResId
 
 					if thisResPrice:
 						thisResPrice.update(**res_price)
@@ -71,8 +79,8 @@ def api_res_prices():
 						db.session.add(thisResPrice)
 					thisResPrice = None
 					
-					res_price["WhGuid"] = WhGuid
 					res_price["ResRegNo"] = ResRegNo
+					res_price["ResPriceRegNo"] = ResRegNo
 					res_prices.append(res_price)
 
 				except Exception as ex:

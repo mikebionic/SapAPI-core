@@ -73,10 +73,15 @@ def api_res_totals():
 						warehouse = Warehouse.query\
 							.filter_by(GCRecord = None, WhGuid = WhGuid).first()
 
-						if resource and warehouse:
-							thisResTotal = Res_total.query\
-								.filter_by(ResId = resource.ResId, WhId = warehouse.WhId)\
-								.first()
+						if not resource or not warehouse:
+							raise Exception
+
+						thisResTotal = Res_total.query\
+							.filter_by(ResId = resource.ResId, WhId = warehouse.WhId)\
+							.first()
+
+						res_total['ResId'] = resource.ResId
+						res_total['WhId'] = warehouse.WhId
 
 						if thisResTotal:
 							thisResTotal.update(**res_total)
@@ -84,7 +89,7 @@ def api_res_totals():
 						else:
 							newResTotal = Res_total(**res_total)
 							db.session.add(newResTotal)
-						
+							
 						res_total["WhGuid"] = WhGuid
 						res_total["ResRegNo"] = ResRegNo
 						res_totals.append(res_total)
