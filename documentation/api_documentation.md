@@ -166,7 +166,9 @@ Returns only if the **Rp_acc** is the **owner** of invoice
 > GET
 
 from latest to first (needs configurations for datetime order
-+ /api/v-resources/paginate/?offset=<lastId>&limit=<quantity>
+<!-- + /api/v-resources/paginate/?offset=<lastId>&limit=<quantity> -->
++ /api/v-resources/paginate/?filtering=&category=&brand=&per_page=&page=
++ /api/v-resources/search/?tag=
 
 > GET POST
 

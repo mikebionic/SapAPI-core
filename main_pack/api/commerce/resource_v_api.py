@@ -75,26 +75,6 @@ def api_category_v_resources(ResCatId):
 	return response
 
 
-@api.route("/v-resources/paginate/")
-def api_v_resources_paginate():
-	page = request.args.get("page",1,type=int)
-	filtration = request.args.get("filter","date",type=str)
-	category = request.args.get("category",None,type=str)
-	per_page = request.args.get("per_page",None,type=int)
-	brand = request.args.get("brand",None,type=str)
-	pagination_url = 'commerce.api_v_resources_paginate'
-	pagination_info = collect_resource_paginate_info(
-		pagination_url = pagination_url,
-		page = page,
-		per_page = per_page,
-		filtration = filtration,
-		category = category,
-		brand = brand)
-	status_code = 200
-	response = make_response(jsonify(res),status_code)
-	return response
-
-
 @api.route("/v-resources/search/")
 def api_v_resources_search():
 	DivId = request.args.get("DivId",None,type=int)
@@ -160,4 +140,24 @@ def api_v_resources_search():
 	}
 
 	response = make_response(jsonify(res),200)
+	return response
+
+
+@api.route("/v-resources/paginate/")
+def api_v_resources_paginate():
+	page = request.args.get("page",1,type=int)
+	filtration = request.args.get("filter","date",type=str)
+	category = request.args.get("category",None,type=str)
+	per_page = request.args.get("per_page",None,type=int)
+	brand = request.args.get("brand",None,type=str)
+	pagination_url = 'commerce_api.api_v_resources_paginate'
+	res = collect_resource_paginate_info(
+		pagination_url = pagination_url,
+		page = page,
+		per_page = per_page,
+		filtration = filtration,
+		category = category,
+		brand = brand)
+	status_code = 200
+	response = make_response(jsonify(res),status_code)
 	return response
