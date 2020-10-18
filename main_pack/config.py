@@ -88,7 +88,7 @@ class Config:
 	API_OBJECTS_PER_PAGE = 10
 
 	# REG_NO generator's random range
-	REG_NUM_RANDOM_RANGE = 10000
+	REG_NUM_RANDOM_RANGE = 1000000000
 
 	# # elasticsearch search engine's url
 	# ELASTICSEARCH_URL = environ.get('ELASTICSEARCH_URL')
