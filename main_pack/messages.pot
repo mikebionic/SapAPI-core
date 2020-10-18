@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-10-09 22:42+0500\n"
+"POT-Creation-Date: 2020-10-11 00:48+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -297,7 +297,7 @@ msgstr ""
 
 #: commerce/commerce/ui_cart.py:301
 #: templates/commerce/bee/commerce/cart.html:54
-#: templates/commerce/bee/commerce/layout.html:215
+#: templates/commerce/bee/commerce/layout.html:204
 msgid "Checkout"
 msgstr ""
 
@@ -373,7 +373,7 @@ msgstr ""
 #: templates/commerce/admin/sliderAppend.html:7
 #: templates/commerce/admin/slider_setup.html:87
 #: templates/commerce/admin/sliders.html:35
-#: templates/commerce/bee/users/profile_edit.html:56
+#: templates/commerce/bee/users/profile_edit.html:57
 msgid "Save"
 msgstr ""
 
@@ -616,7 +616,7 @@ msgstr ""
 #: templates/commerce/admin/brands_table.html:25
 #: templates/commerce/admin/category_table.html:26
 #: templates/commerce/admin/manage_brand.html:47
-#: templates/commerce/bee/commerce/commerce.html:154
+#: templates/commerce/bee/commerce/commerce.html:153
 msgid "Featured"
 msgstr ""
 
@@ -738,7 +738,7 @@ msgstr ""
 
 #: templates/commerce/admin/customer_details.html:20
 #: templates/commerce/admin/user_details.html:20
-msgid "Cusomer details"
+msgid "Customer details"
 msgstr ""
 
 #: templates/commerce/admin/customer_details.html:26
@@ -766,7 +766,7 @@ msgstr ""
 #: templates/commerce/admin/customer_details.html:44
 #: templates/commerce/admin/user_details.html:44
 #: templates/commerce/bee/users/profile.html:34
-#: templates/commerce/bee/users/profile_edit.html:53
+#: templates/commerce/bee/users/profile_edit.html:54
 msgid "Registered date"
 msgstr ""
 
@@ -942,7 +942,7 @@ msgid "Sale invoices"
 msgstr ""
 
 #: templates/commerce/admin/layout.html:126
-msgid "Cusomers"
+msgid "Customers"
 msgstr ""
 
 #: templates/commerce/admin/layout.html:130
@@ -1013,7 +1013,6 @@ msgstr ""
 #: templates/commerce/admin/register_customer.html:178
 #: templates/commerce/admin/register_user.html:89
 #: templates/commerce/admin/register_user.html:90
-#: templates/commerce/bee/auth/register_token.html:35
 #: templates/commerce/bee/auth/reset_token.html:26
 #: templates/commerce/bee/auth/reset_token.html:33
 #: templates/commerce/bee/auth/reset_token.html:34
@@ -1115,7 +1114,7 @@ msgid "E-mail address"
 msgstr ""
 
 #: templates/commerce/bee/commerce/cart.html:19
-#: templates/commerce/bee/commerce/layout.html:213
+#: templates/commerce/bee/commerce/layout.html:202
 msgid "Total"
 msgstr ""
 
@@ -1161,7 +1160,7 @@ msgid "New arrival"
 msgstr ""
 
 #: templates/commerce/bee/commerce/commerce.html:90
-#: templates/commerce/bee/commerce/commerce.html:190
+#: templates/commerce/bee/commerce/commerce.html:189
 #: templates/commerce/bee/commerce/v_grid.html:71
 #: templates/commerce/bee/commerce/v_grid.html:124
 #: templates/commerce/bee/commerce/v_search.html:18
@@ -1169,9 +1168,9 @@ msgstr ""
 msgid "New"
 msgstr ""
 
-#: templates/commerce/bee/commerce/commerce.html:111
-#: templates/commerce/bee/commerce/commerce.html:210
-#: templates/commerce/bee/commerce/layout.html:274
+#: templates/commerce/bee/commerce/commerce.html:110
+#: templates/commerce/bee/commerce/commerce.html:209
+#: templates/commerce/bee/commerce/layout.html:263
 #: templates/commerce/bee/commerce/product.html:73
 #: templates/commerce/bee/commerce/product.html:218
 #: templates/commerce/bee/commerce/v_grid.html:92
@@ -1183,7 +1182,7 @@ msgid "Add to cart"
 msgstr ""
 
 #: templates/commerce/bee/commerce/contact.html:11
-#: templates/commerce/bee/commerce/layout.html:168
+#: templates/commerce/bee/commerce/layout.html:157
 msgid "Contact"
 msgstr ""
 
@@ -1228,23 +1227,23 @@ msgstr ""
 msgid "All"
 msgstr ""
 
-#: templates/commerce/bee/commerce/layout.html:165
+#: templates/commerce/bee/commerce/layout.html:154
 msgid "Main"
 msgstr ""
 
-#: templates/commerce/bee/commerce/layout.html:166
+#: templates/commerce/bee/commerce/layout.html:155
 msgid "Products"
 msgstr ""
 
-#: templates/commerce/bee/commerce/layout.html:167
+#: templates/commerce/bee/commerce/layout.html:156
 msgid "About us"
 msgstr ""
 
-#: templates/commerce/bee/commerce/layout.html:205
+#: templates/commerce/bee/commerce/layout.html:194
 msgid "Close"
 msgstr ""
 
-#: templates/commerce/bee/commerce/layout.html:275
+#: templates/commerce/bee/commerce/layout.html:264
 #: templates/commerce/bee/users/wishlist.html:70
 msgid "Remove from cart"
 msgstr ""
@@ -1267,6 +1266,7 @@ msgstr ""
 #: templates/commerce/bee/users/order_lines.html:25
 #: templates/commerce/bee/users/orders.html:23
 #: templates/commerce/bee/users/profile.html:22
+#: templates/commerce/bee/users/profile_edit.html:24
 #: templates/commerce/bee/users/wishlist.html:15
 #: templates/commerce/bee/users/wishlist.html:22
 msgid "Wishlist"

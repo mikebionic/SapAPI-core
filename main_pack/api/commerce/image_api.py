@@ -5,6 +5,7 @@ from main_pack.api.commerce import api
 from main_pack.base.apiMethods import checkApiResponseStatus
 from datetime import datetime, timedelta
 import dateutil.parser
+from sqlalchemy import and_
 
 from main_pack.models.base.models import Image,Sl_image
 from main_pack.models.commerce.models import Resource
@@ -45,9 +46,16 @@ def api_images():
 		images = Image.query.filter_by(GCRecord = None)
 
 		if DivId:
-			images = images.filter_by(DivId = DivId)
+			images = images\
+				.join(Resource, and_(
+					Resource.ResId == Image.ResId,
+					Resource.DivId == DivId))
 		if notDivId:
-			images = images.filter(Image.DivId != notDivId)
+			images = images\
+				.join(Resource, and_(
+					Resource.ResId == Image.ResId,
+					Resource.DivId != notDivId))
+
 		if synchDateTime:
 			if (type(synchDateTime) != datetime):
 				synchDateTime = dateutil.parser.parse(synchDateTime)
@@ -79,16 +87,16 @@ def api_images():
 				imageDictData = addImageDict(image)
 				try:
 					resource = ResId_list.index(imageDictData['ResId'])
-					ImgRegNo = imageDictData['ImgRegNo']
+					ImgGuid = imageDictData['ImgGuid']
 					thisImage = Image.query\
-						.filter_by(ImgRegNo = ImgRegNo)\
+						.filter_by(ImgGuid = ImgGuid)\
 						.first()
 
 					if thisImage is not None:
 						updatingDate = dateutil.parser.parse(imageDictData['ModifiedDate'])
 						if thisImage.ModifiedDate != updatingDate:
-							image = saveImageFile(image)
-							
+							image_data = saveImageFile(image)
+							image_data['ImgId'] = thisImage.ImgId
 							try:
 								# Delete last image
 								file_type = "image"
@@ -97,14 +105,14 @@ def api_images():
 							except Exception as ex:
 								print(f"{datetime.now()} | Image Api Deletion Exception: {ex}")
 							
-							thisImage.update(**image)
-							# print(f"{datetime.now()} | Image updated (Different ModifiedDate)")
-						# else:
-						# 	print(f"{datetime.now()} | Image dropped (Same ModifiedDate)")
+							thisImage.update(**image_data)
+							print(f"{datetime.now()} | Image updated (Different ModifiedDate)")
+						else:
+							print(f"{datetime.now()} | Image dropped (Same ModifiedDate)")
 						images.append(imageDictData)
 					else:
-						image = saveImageFile(image)
-						newImage = Image(**image)
+						image_data = saveImageFile(image)
+						newImage = Image(**image_data)
 						db.session.add(newImage)
 						print(f"{datetime.now()} | Image created")
 						images.append(imageDictData)

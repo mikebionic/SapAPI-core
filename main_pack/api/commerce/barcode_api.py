@@ -49,8 +49,8 @@ def api_barcodes():
 			req = request.get_json()
 			barcodes = []
 			failed_barcodes = [] 
-			for barcode in req:
-				barcode = addBarcodeDict(barcode)
+			for barcode_req in req:
+				barcode = addBarcodeDict(barcode_req)
 				try:
 					ResId = barcode['ResId']
 					UnitId = barcode['UnitId']

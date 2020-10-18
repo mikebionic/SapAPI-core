@@ -100,8 +100,8 @@ def api_invoices():
 
 					inv_lines = []
 					failed_inv_lines = []
-					for inv_line in data['inv_lines']:
-						inv_line = addInvLineDict(inv_line)
+					for inv_line_req in data['inv_lines']:
+						inv_line = addInvLineDict(inv_line_req)
 						inv_line['InvId'] = thisInv.InvId
 						try:
 							InvLineRegNo = inv_line['InvLineRegNo']
@@ -110,13 +110,10 @@ def api_invoices():
 								.first()
 							if thisInvLine:
 								thisInvLine.update(**inv_line)
-								inv_lines.append(inv_line)
-								print('inv line updated')
 							else:
 								newInvLine = Inv_line(**inv_line)
 								db.session.add(newInvLine)
-								inv_lines.append(inv_line)
-								print('inv line created')
+							inv_lines.append(inv_line)
 						except Exception as ex:
 							print(f"{datetime.now()} | Inv Api Exception: {ex}")
 							failed_inv_lines.append(inv_line)

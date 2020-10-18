@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from flask import current_app
+import uuid
 import io
 import os
 import base64
@@ -9,6 +10,111 @@ from main_pack import Config
 from main_pack.base.imageMethods import save_image,dirHandler
 from main_pack.base.dataMethods import configureNulls,configureFloat,boolCheck,configureEmptyQuotesNulls
 
+def addCompanyDict(req):
+	CId = req.get('CId')
+	CName = req.get('CName')
+	CFullName = req.get('CFullName')
+	CDesc = req.get('CDesc')
+	CGuid = uuid.UUID(req.get('CGuid'))
+	AccInfId = req.get('AccInfId')
+	CAddress = req.get('CAddress')
+	CAddressLegal = req.get('CAddressLegal')
+	CLatitude = req.get('CLatitude')
+	CLongitude = req.get('CLongitude')
+	Phone1 = req.get('Phone1')
+	Phone2 = req.get('Phone2')
+	Phone3 = req.get('Phone3')
+	Phone4 = req.get('Phone4')
+	CPostalCode = req.get('CPostalCode')
+	WebAddress = req.get('WebAddress')
+	CEmail = req.get('CEmail')
+	AddInf1 = req.get('AddInf1')
+	AddInf2 = req.get('AddInf2')
+	AddInf3 = req.get('AddInf3')
+	AddInf4 = req.get('AddInf4')
+	AddInf5 = req.get('AddInf5')
+	AddInf6 = req.get('AddInf6')
+	CreatedDate = req.get('CreatedDate')
+	ModifiedDate = req.get('ModifiedDate')
+	CreatedUId = req.get('CreatedUId')
+	ModifiedUId = req.get('ModifiedUId')
+	GCRecord = req.get('GCRecord')
+
+	company = {
+		"CName": CName,
+		"CFullName": CFullName,
+		"CDesc": CDesc,
+		"CGuid": CGuid,
+		"AccInfId": AccInfId,
+		"CAddress": CAddress,
+		"CAddressLegal": CAddressLegal,
+		"CLatitude": CLatitude,
+		"CLongitude": CLongitude,
+		"Phone1": Phone1,
+		"Phone2": Phone2,
+		"Phone3": Phone3,
+		"Phone4": Phone4,
+		"CPostalCode": CPostalCode,
+		"WebAddress": WebAddress,
+		"CEmail": CEmail,
+		"AddInf1": AddInf1,
+		"AddInf2": AddInf2,
+		"AddInf3": AddInf3,
+		"AddInf4": AddInf4,
+		"AddInf5": AddInf5,
+		"AddInf6": AddInf6,
+		"CreatedDate": CreatedDate,
+		"ModifiedDate": ModifiedDate,
+		"CreatedUId": CreatedUId,
+		"ModifiedUId": ModifiedUId,
+		"GCRecord": GCRecord
+	}
+	# if(CId != '' and CId != None):
+	# 	company['CId'] = CId
+	company = configureNulls(company)
+	return company
+
+def addDivisionDict(req):
+	DivId = req.get('DivId')
+	CId = req.get('CId')
+	DivName = req.get('DivName')
+	DivDesc = req.get('DivDesc')
+	DivGuid = uuid.UUID(req.get('DivGuid'))
+	OwnerDivisionId = req.get('OwnerDivisionId')
+	AddInf1 = req.get('AddInf1')
+	AddInf2 = req.get('AddInf2')
+	AddInf3 = req.get('AddInf3')
+	AddInf4 = req.get('AddInf4')
+	AddInf5 = req.get('AddInf5')
+	AddInf6 = req.get('AddInf6')
+	CreatedDate = req.get('CreatedDate')
+	ModifiedDate = req.get('ModifiedDate')
+	CreatedUId = req.get('CreatedUId')
+	ModifiedUId = req.get('ModifiedUId')
+	GCRecord = req.get('GCRecord')
+
+	division = {
+		"CId": CId,
+		"DivName": DivName,
+		"DivDesc": DivDesc,
+		"DivGuid": DivGuid,
+		"OwnerDivisionId": OwnerDivisionId,
+		"AddInf1": AddInf1,
+		"AddInf2": AddInf2,
+		"AddInf3": AddInf3,
+		"AddInf4": AddInf4,
+		"AddInf5": AddInf5,
+		"AddInf6": AddInf6,
+		"CreatedDate": CreatedDate,
+		"ModifiedDate": ModifiedDate,
+		"CreatedUId": CreatedUId,
+		"ModifiedUId": ModifiedUId,
+		"GCRecord": GCRecord
+	}
+	# if(DivId != '' and DivId != None):
+	# 	division['DivId'] = DivId
+	division = configureNulls(division)
+	return division
 
 def addCategoryDict(req):
 	ResCatId = req.get('ResCatId')
@@ -117,8 +223,8 @@ def addResourceDict(req):
 		"ModifiedUId": ModifiedUId,
 		"GCRecord": GCRecord
 	}
-	if(ResId != '' and ResId != None):
-		resource['ResId'] = ResId
+	# if(ResId != '' and ResId != None):
+	# 	resource['ResId'] = ResId
 	resource = configureNulls(resource)
 	return resource
 
@@ -128,6 +234,7 @@ def addImageDict(req):
 	CId = req.get('CId')
 	RpAccId = req.get('RpAccId')
 	ResId = req.get('ResId')
+	ImgGuid = uuid.UUID(req.get('ImgGuid'))
 	FileName = req.get('FileName')
 	FilePath = req.get('FilePath')
 	FileHash = req.get('FileHash')
@@ -142,6 +249,7 @@ def addImageDict(req):
 		"CId": CId,
 		"RpAccId": RpAccId,
 		"ResId": ResId,
+		"ImgGuid": ImgGuid,
 		"FileName": FileName,
 		"FilePath": FilePath,
 		"FileHash": FileHash,
@@ -152,8 +260,8 @@ def addImageDict(req):
 		"ModifiedUId": ModifiedUId,
 		"GCRecord": GCRecord
 	}
-	if(ImgId != '' and ImgId != None):
-		image['ImgId'] = ImgId
+	# if(ImgId != '' and ImgId != None):
+	# 	image['ImgId'] = ImgId
 	image = configureNulls(image)
 	return image
 
@@ -163,6 +271,7 @@ def saveImageFile(req):
 	CId = req.get('CId')
 	RpAccId = req.get('RpAccId')
 	ResId = req.get('ResId')
+	ImgGuid = uuid.UUID(req.get('ImgGuid'))
 	FileName = req.get('FileName')
 	FilePath = req.get('FilePath')
 	FileHash = req.get('FileHash')
@@ -177,6 +286,7 @@ def saveImageFile(req):
 		"CId": CId,
 		"RpAccId": RpAccId,
 		"ResId": ResId,
+		"ImgGuid": ImgGuid,
 		"FileName": FileName,
 		"FilePath": FilePath,
 		"FileHash": FileHash,
@@ -187,8 +297,9 @@ def saveImageFile(req):
 		"ModifiedUId": ModifiedUId,
 		"GCRecord": GCRecord
 	}
-	if(ImgId != '' and ImgId != None):
-		image['ImgId'] = ImgId
+	# if(ImgId != '' and ImgId != None):
+	# 	image['ImgId'] = ImgId
+	
 	# if blob presents:
 	if Image:
 		imageBytes = Image
@@ -292,8 +403,8 @@ def addResPriceDict(req):
 		"ModifiedUId": ModifiedUId,
 		"GCRecord": GCRecord
 		}
-	if(ResPriceId != '' and ResPriceId != None):
-		res_price['ResPriceId'] = ResPriceId
+	# if(ResPriceId != '' and ResPriceId != None):
+	# 	res_price['ResPriceId'] = ResPriceId
 	res_price = configureNulls(res_price)
 	return res_price
 
@@ -335,8 +446,8 @@ def addResTotalDict(req):
 		"GCRecord": GCRecord
 	}
 
-	if(ResTotId != '' and ResTotId != None):
-		res_total['ResTotId'] = ResTotId
+	# if(ResTotId != '' and ResTotId != None):
+	# 	res_total['ResTotId'] = ResTotId
 	res_total = configureEmptyQuotesNulls(res_total)
 	return res_total
 
@@ -708,7 +819,8 @@ def addWarehouseDict(req):
 	DivId = req.get('DivId')
 	WhName = req.get('WhName')
 	WhDesc = req.get('WhDesc')
-	Guid = req.get('Guid')
+	UsageStatusId = req.get('UsageStatusId')
+	WhGuid = uuid.UUID(req.get('WhGuid'))
 	AddInf1 = req.get('AddInf1')
 	AddInf2 = req.get('AddInf2')
 	AddInf3 = req.get('AddInf3')
@@ -725,7 +837,8 @@ def addWarehouseDict(req):
 		"DivId": DivId,
 		"WhName": WhName,
 		"WhDesc": WhDesc,
-		"Guid": Guid,
+		"WhGuid": WhGuid,
+		"UsageStatusId": UsageStatusId,
 		"AddInf1": AddInf1,
 		"AddInf2": AddInf2,
 		"AddInf3": AddInf3,
@@ -738,8 +851,8 @@ def addWarehouseDict(req):
 		"ModifiedUId": ModifiedUId,
 		"GCRecord": GCRecord
 		}
-	if(WhId != '' and WhId != None):
-		warehouse['WhId'] = WhId
+	# if(WhId != '' and WhId != None):
+	# 	warehouse['WhId'] = WhId
 	warehouse = configureNulls(warehouse)
 	return warehouse
 

@@ -10,6 +10,7 @@ def addUsersDict(req):
 	UName = req.get('UName')
 	UEmail = req.get('UEmail')
 	UPass = req.get('UPass')
+	URegNo = req.get('URegNo')
 	UShortName = req.get('UShortName')
 	EmpId = req.get('EmpId')
 	UTypeId = req.get('UTypeId')
@@ -33,6 +34,7 @@ def addUsersDict(req):
 		"UName": UName,
 		"UEmail": UEmail,
 		"UPass": UPass,
+		"URegNo": URegNo,
 		"UShortName": UShortName,
 		"EmpId": EmpId,
 		"UTypeId": UTypeId,
@@ -86,6 +88,8 @@ def addRpAccDict(req):
 	RpAccLangSkills = req.get('RpAccLangSkills')
 	RpAccSaleBalanceLimit = req.get('RpAccSaleBalanceLimit')
 	RpAccPurchBalanceLimit = req.get('RpAccPurchBalanceLimit')
+	RpAccLatitude = req.get('RpAccLatitude')
+	RpAccLongitude = req.get('RpAccLongitude')
 	AddInf1 = req.get('AddInf1')
 	AddInf2 = req.get('AddInf2')
 	AddInf3 = req.get('AddInf3')
@@ -129,6 +133,8 @@ def addRpAccDict(req):
 		"RpAccLangSkills": RpAccLangSkills,
 		"RpAccSaleBalanceLimit": RpAccSaleBalanceLimit,
 		"RpAccPurchBalanceLimit": RpAccPurchBalanceLimit,
+		"RpAccLatitude": RpAccLatitude,
+		"RpAccLongitude": RpAccLongitude,
 		"AddInf1": AddInf1,
 		"AddInf2": AddInf2,
 		"AddInf3": AddInf3,

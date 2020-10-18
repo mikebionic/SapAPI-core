@@ -64,23 +64,19 @@ def api_users():
 			req = request.get_json()
 			users = []
 			failed_users = [] 
-			for user in req:
-				user = addUsersDict(user)
+			for user_req in req:
+				user = addUsersDict(user_req)
 				try:
-					if not 'UId' in user:
-						newUser = Users(**user)
-						db.session.add(newUser)
-						users.append(user)
-					else:
 						URegNo = user['URegNo']
 						thisUser = Users.query.filter_by(URegNo = URegNo).first()
 						if thisUser is not None:
 							thisUser.update(**user)
 							users.append(user)
 						else:
-							newUser = Users(**user)
-							db.session.add(newUser)
+							thisUser = Users(**user)
+							db.session.add(thisUser)
 							users.append(user)
+							thisUser = None
 				except Exception as ex:
 					print(f"{datetime.now()} | Users Api Exception: {ex}")
 					failed_users.append(user)

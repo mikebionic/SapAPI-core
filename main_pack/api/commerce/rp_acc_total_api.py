@@ -55,10 +55,10 @@ def api_rp_acc_trans_totals():
 			req = request.get_json()			
 			rp_acc_trans_totals = []
 			failed_rp_acc_trans_totals = []
-			for rp_acc_trans_total in req:
+			for rp_acc_trans_total_req in req:
 				try:
-					RpAccRegNo = rp_acc_trans_total['RpAccRegNo']
-					rp_acc_trans_total = addRpAccTrTotDict(rp_acc_trans_total)
+					RpAccRegNo = rp_acc_trans_total_req['RpAccRegNo']
+					rp_acc_trans_total = addRpAccTrTotDict(rp_acc_trans_total_req)
 					rp_acc_id = rp_acc_list[rp_acc_list_reg_no.index(RpAccRegNo)]
 					if rp_acc_id:
 						RpAccId = int(rp_acc_id)

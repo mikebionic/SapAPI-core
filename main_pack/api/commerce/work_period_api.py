@@ -48,8 +48,8 @@ def api_work_periods():
 			req = request.get_json()
 			work_periods = []
 			failed_work_periods = [] 
-			for work_period in req:
-				work_period = addWorkPeriodDict(work_period)
+			for work_period_req in req:
+				work_period = addWorkPeriodDict(work_period_req)
 				try:
 					if not 'WpId' in work_period:
 						newWorkPeriod = Work_period(**work_period)

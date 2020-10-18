@@ -60,7 +60,7 @@ def api_resources():
 		}
 		response = make_response(jsonify(res),200)
 
-	elif request.metod == 'POST':
+	elif request.method == 'POST':
 		if not request.json:
 			res = {
 				"status": 0,
@@ -107,18 +107,17 @@ def api_resources():
 						.first()
 					if thisResource is not None:
 						thisResource.update(**resource)
-						resources.append(resource)
 					else:
 						thisResource = Resource(**resource)
 						db.session.add(thisResource)
-						resources.append(resource)
-
+					
+					resources.append(resource)
 					db.session.commit()
 
 					barcodes = []
 					failed_barcodes = []
-					for barcode in data['Barcodes']:
-						barcode = addBarcodeDict(barcode)
+					for barcode_req in data['Barcodes']:
+						barcode = addBarcodeDict(barcode_req)
 						try:
 							UnitId = barcode['UnitId']
 							thisBarcode = Barcode.query\
@@ -187,8 +186,8 @@ def api_resources():
 # 			req = request.get_json()
 # 			resources = []
 # 			failed_resources = []
-# 			for resource in req:
-# 				resource = addResourceDict(resource)
+# 			for resource_req in req:
+# 				resource = addResourceDict(resource_req)
 # 				# special syncronizer method 
 # 				# category is resource's AddInf2
 # 				group = resource['AddInf2']

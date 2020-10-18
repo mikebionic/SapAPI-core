@@ -41,6 +41,7 @@ def api_checkout_sale_order_invoices(user):
 	if model_type == 'Rp_acc':
 		name = current_user.RpAccUName
 		RpAccId = current_user.RpAccId
+		DivId = current_user.DivId
 		# get the seller's user information of a specific rp_acc
 		user = Users.query\
 			.filter_by(GCRecord = None, UId = current_user.UId)\
@@ -82,6 +83,7 @@ def api_checkout_sale_order_invoices(user):
 		order_invoice['OInvTypeId'] = 2
 		order_invoice['WpId'] = work_period.WpId
 		order_invoice['WhId'] = 1
+		order_invoice['DivId'] = DivId
 		if InvStatId == 13:
 			order_invoice['InvStatId'] = InvStatId
 
@@ -102,7 +104,7 @@ def api_checkout_sale_order_invoices(user):
 				# in case of errors, the error_type is provided
 				error_type = 0
 				order_inv_line = addOrderInvLineDict(order_inv_line_req)
-				
+				print(order_inv_line)
 				# OInvLineRegNo generation
 				try:
 					reg_num = generate(UId=user.UId,RegNumTypeName='order_invoice_line_code')
@@ -112,6 +114,7 @@ def api_checkout_sale_order_invoices(user):
 					# use device model and other info
 					orderLineRegNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
 				order_inv_line['OInvLineRegNo'] = orderLineRegNo
+				orderLineRegNo = None
 
 				ResId = order_inv_line['ResId']
 				OInvLineAmount = int(order_inv_line['OInvLineAmount'])
@@ -125,7 +128,7 @@ def api_checkout_sale_order_invoices(user):
 					raise Exception
 				
 				res_price = Res_price.query\
-					.filter_by(GCRecord = None, ResId = resource.ResId, ResPriceTypeId = 2)\
+					.filter_by(GCRecord = None, ResId = ResId, ResPriceTypeId = 2)\
 					.first()
 				res_total = Res_total.query\
 					.filter_by(GCRecord = None, ResId = ResId, WhId = 1)\
@@ -173,8 +176,10 @@ def api_checkout_sale_order_invoices(user):
 				thisOInvLine = Order_inv_line(**order_inv_line)
 				db.session.add(thisOInvLine)
 				order_inv_lines.append(thisOInvLine.to_json_api())
+
+				order_inv_line = None
 			except Exception as ex:
-				print(f"{datetime.now()} | Checkout OInv Exception: {ex}")
+				print(f"{datetime.now()} | Checkout OInv Line Exception: {ex} | Error type {error_type}")
 				fail_info = {
 					"data": order_inv_line_req,
 					"error_type_id": error_type,

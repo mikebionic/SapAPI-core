@@ -103,8 +103,8 @@ def api_order_invoices():
 
 					order_inv_lines = []
 					failed_order_inv_lines = []
-					for order_inv_line in data['Order_inv_lines']:
-						order_inv_line = addOrderInvLineDict(order_inv_line)
+					for order_inv_line_req in data['Order_inv_lines']:
+						order_inv_line = addOrderInvLineDict(order_inv_line_req)
 						order_inv_line['OInvId'] = thisOrderInv.OInvId
 						try:
 							OInvLineRegNo = order_inv_line['OInvLineRegNo']
@@ -121,18 +121,17 @@ def api_order_invoices():
 												.first()
 											order_res_total.ResPendingTotalAmount += thisOrderInvLine.OInvLineAmount
 									except Exception as ex:
-										print(f"{datetime.now()} | OInv Api Exception: {ex}")
+										print(f"{datetime.now()} | OInv Api Res_total Exception: {ex}")
 								db.session.commit()
 								order_inv_lines.append(order_inv_line)
-								print('order inv line updated')
 							else:
 								newOrderInvLine = Order_inv_line(**order_inv_line)
 								db.session.add(newOrderInvLine)
 								db.session.commit()
 								order_inv_lines.append(order_inv_line)
-								print('order inv line created')
+								newOrderInvLine = None
 						except Exception as ex:
-							print(f"{datetime.now()} | OInv Api Exception: {ex}")
+							print(f"{datetime.now()} | OInv Api OInvLine Exception: {ex}")
 							failed_order_inv_lines.append(order_inv_line)
 
 					order_invoice['Order_inv_lines'] = order_inv_lines

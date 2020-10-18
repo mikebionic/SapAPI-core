@@ -9,6 +9,7 @@ from flask_babel import Babel,format_date,gettext,lazy_gettext
 from flask_bcrypt import Bcrypt
 from flask_mail import Mail
 from flask_wtf.csrf import CSRFProtect
+from flask_cors import CORS
 
 babel = Babel()
 db = SQLAlchemy()
@@ -45,6 +46,9 @@ def create_app(config_class=Config):
 	# !!! TODO: make import from config or unique config set
 	app = Flask(__name__, static_url_path='/ls/static')
 	app.config.from_object(Config)
+	
+	CORS(app)
+
 	db.init_app(app)
 	# # if db_bindings present:
 	# db_test.init_app(app)

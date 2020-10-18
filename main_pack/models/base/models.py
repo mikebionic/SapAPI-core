@@ -134,9 +134,9 @@ class Company(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_company"
 	CId = db.Column(db.Integer,primary_key=True)
 	CName = db.Column(db.String(100),nullable=False)
-	CKey = db.Column(db.String(100))
 	CFullName = db.Column(db.String(500))
 	CDesc = db.Column(db.String(500))
+	CGuid = db.Column(UUID(as_uuid=True),unique=True)
 	AccInfId = db.Column(db.Integer)
 	CAddress = db.Column(db.String(500))
 	CAddressLegal = db.Column(db.String(500))
@@ -181,9 +181,9 @@ class Company(AddInf,CreatedModifiedInfo,db.Model):
 		json_company = {
 			"CId": self.CId,
 			"CName": self.CName,
-			"CKey": self.CKey,
 			"CFullName": self.CFullName,
 			"CDesc": self.CDesc,
+			"CGuid": self.CGuid,
 			"AccInfId": self.AccInfId,
 			"CAddress": self.CAddress,
 			"CAddressLegal": self.CAddressLegal,
@@ -342,7 +342,7 @@ class Division(AddInf,CreatedModifiedInfo,db.Model):
 	CId = db.Column(db.Integer,db.ForeignKey("tbl_dk_company.CId"))
 	DivName = db.Column(db.String(100),nullable=False)
 	DivDesc = db.Column(db.String(500))
-	DivKey = db.Column(db.String(100))
+	DivGuid = db.Column(UUID(as_uuid=True),unique=True)
 	OwnerDivisionId = db.Column(db.Integer,default=0)
 	Users = db.relationship('Users',backref='division')
 	Department_detail = db.relationship('Department_detail',backref='division',lazy=True)
@@ -361,6 +361,12 @@ class Division(AddInf,CreatedModifiedInfo,db.Model):
 	Production = db.relationship('Production',backref='division',lazy=True)
 	Rating = db.relationship('Rating',backref='division',lazy=True)
 	Slider = db.relationship('Slider',backref='division',lazy=True)
+	
+	def update(self, **kwargs):
+		for key, value in kwargs.items():
+			if value is not None:
+				if hasattr(self, key):
+					setattr(self, key, value)
 
 	def to_json_api(self):
 		json_division = {
@@ -368,7 +374,7 @@ class Division(AddInf,CreatedModifiedInfo,db.Model):
 			"CId": self.CId,
 			"DivName": self.DivName,
 			"DivDesc": self.DivDesc,
-			"DivKey": self.DivKey,
+			"DivGuid": self.DivGuid,
 			"OwnerDivisionId": self.OwnerDivisionId,
 			"AddInf1": self.AddInf1,
 			"AddInf2": self.AddInf2,
@@ -400,6 +406,7 @@ class Gender(db.Model):
 class Image(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_image"
 	ImgId = db.Column(db.Integer,nullable=False,primary_key=True)
+	ImgGuid = db.Column(UUID(as_uuid=True),unique=True)
 	EmpId = db.Column(db.Integer,db.ForeignKey("tbl_dk_employee.EmpId"))
 	BrandId = db.Column(db.Integer,db.ForeignKey("tbl_dk_brand.BrandId"))
 	CId = db.Column(db.Integer,db.ForeignKey("tbl_dk_company.CId"))
@@ -410,7 +417,6 @@ class Image(CreatedModifiedInfo,db.Model):
 	FileHash = db.Column(db.String(100))
 	FilePath = db.Column(db.String(255))
 	Image = db.Column(db.LargeBinary)
-	ImgRegNo = db.Column(db.String(100),unique=True)
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -434,13 +440,13 @@ class Image(CreatedModifiedInfo,db.Model):
 	def to_json_api(self):
 		json_image = {
 			"ImgId": self.ImgId,
+			"ImgGuid": self.ImgGuid,
 			"EmpId": self.EmpId,
 			"BrandId": self.BrandId,
 			"CId": self.CId,
 			"UId": self.UId,
 			"RpAccId": self.RpAccId,
 			"ResId": self.ResId,
-			"ImgRegNo": self.ImgRegNo,
 			"FileName": self.FileName,
 			"FilePath": fileToURL(file_type='image',file_size='M',file_name=self.FileName),
 			"FilePathS": fileToURL(file_type='image',file_size='S',file_name=self.FileName),
@@ -716,9 +722,10 @@ class Warehouse(AddInf,CreatedModifiedInfo,db.Model):
 	WhId = db.Column(db.Integer,nullable=False,primary_key=True)
 	CId = db.Column(db.Integer,db.ForeignKey("tbl_dk_company.CId"))
 	DivId = db.Column(db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
+	UsageStatusId = db.Column(db.Integer,db.ForeignKey("tbl_dk_usage_status.UsageStatusId"))
 	WhName = db.Column(db.String(100),nullable=False)
 	WhDesc = db.Column(db.String(500))
-	Guid = db.Column(UUID(as_uuid=True))
+	WhGuid = db.Column(UUID(as_uuid=True),unique=True)
 	Res_transaction = db.relationship('Res_transaction',backref='warehouse',lazy=True)
 	Invoice = db.relationship('Invoice',backref='warehouse',lazy=True)
 	Order_inv = db.relationship('Order_inv',backref='warehouse',lazy=True)
@@ -739,9 +746,10 @@ class Warehouse(AddInf,CreatedModifiedInfo,db.Model):
 			"WhId": self.WhId,
 			"CId": self.CId,
 			"DivId": self.DivId,
+			"UsageStatusId": self.UsageStatusId,
 			"WhName": self.WhName,
 			"WhDesc": self.WhDesc,
-			"Guid": self.Guid,
+			"WhGuid": self.WhGuid,
 			"AddInf1": self.AddInf1,
 			"AddInf2": self.AddInf2,
 			"AddInf3": self.AddInf3,

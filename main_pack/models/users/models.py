@@ -154,6 +154,8 @@ class Rp_acc(AddInf,CreatedModifiedInfo,db.Model):
 	RpAccLangSkills = db.Column(db.String(100))
 	RpAccSaleBalanceLimit = db.Column(db.Float,default=0)
 	RpAccPurchBalanceLimit = db.Column(db.Float,default=0)
+	RpAccLatitude = db.Column(db.Float,default=0.0)
+	RpAccLongitude = db.Column(db.Float,default=0.0)
 	Representative = db.relationship('Representative',backref='rp_acc',foreign_keys='Representative.RpAccId',lazy='dynamic')
 	Accounting_info = db.relationship('Accounting_info',backref='rp_acc',lazy=True)
 	Contact = db.relationship('Contact',backref='rp_acc',lazy=True)
@@ -211,6 +213,8 @@ class Rp_acc(AddInf,CreatedModifiedInfo,db.Model):
 			"RpAccLangSkills": self.RpAccLangSkills,
 			"RpAccSaleBalanceLimit": self.RpAccSaleBalanceLimit,
 			"RpAccPurchBalanceLimit": self.RpAccPurchBalanceLimit,
+			"RpAccLatitude": self.RpAccLatitude,
+			"RpAccLongitude": self.RpAccLongitude,
 			"AddInf1": self.AddInf1,
 			"AddInf2": self.AddInf2,
 			"AddInf3": self.AddInf3,

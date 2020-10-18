@@ -39,8 +39,8 @@ def api_order_inv_types():
 			req = request.get_json()
 			order_inv_types = []
 			failed_order_inv_types = [] 
-			for order_inv_type in req:
-				order_inv_type = addOrderInvTypeDict(order_inv_type)
+			for order_inv_type_req in req:
+				order_inv_type = addOrderInvTypeDict(order_inv_type_req)
 				try:
 					if not 'OInvTypeId' in order_inv_type:
 						newOrderInv = Order_inv_type(**order_inv_type)

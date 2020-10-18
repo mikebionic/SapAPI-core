@@ -16,6 +16,7 @@ from main_pack.base.languageMethods import dataLangSelector
 
 # db models
 from main_pack.models.commerce.models import (Resource,
+																							Res_price,
 																							Res_total,
                                               Res_category,
 																							Wish,
@@ -64,6 +65,7 @@ def apiResourceInfo(resource_list = None,
 										showLatest = False,
 										showRated = False,
 										avoidQtyCheckup = False,
+										showNullPrice = False,
 										DivId = None,
 										notDivId = None):
 	categories = Res_category.query.filter_by(GCRecord = None).all()
@@ -94,6 +96,11 @@ def apiResourceInfo(resource_list = None,
 
 			resources = Resource.query\
 				.filter_by(**resource_filtering)
+
+			if showNullPrice == False:
+				resources = resources\
+					.join(Res_price, Res_price.ResId == Resource.ResId)\
+					.filter(Res_price.ResPriceValue > 0)
 			if avoidQtyCheckup == False:
 				if Config.SHOW_NEGATIVE_WH_QTY_RESOURCE == False:
 					resources = resources\
@@ -137,7 +144,12 @@ def apiResourceInfo(resource_list = None,
 
 				resource = Resource.query\
 					.filter_by(**resource_filtering)
-			
+				
+				if showNullPrice == False:
+					resources = resources\
+						.join(Res_price, Res_price.ResId == Resource.ResId)\
+						.filter(Res_price.ResPriceValue > 0)
+				
 				if avoidQtyCheckup == False:
 					if Config.SHOW_NEGATIVE_WH_QTY_RESOURCE == False:
 						resource = resource\
@@ -174,6 +186,7 @@ def apiResourceInfo(resource_list = None,
 			List_Images = [image.to_json_api() for image in resource.Image if image.GCRecord == None]
 			# Sorting list by Modified date
 			List_Images = (sorted(List_Images, key = lambda i: i['ModifiedDate']))
+			
 			if fullInfo == True:
 				List_Ratings = []
 				for rating in resource.Rating:
@@ -200,10 +213,10 @@ def apiResourceInfo(resource_list = None,
 
 			resource_info["BarcodeVal"] = List_Barcode[0]['BarcodeVal'] if List_Barcode else ''
 			resource_info["ResCatName"] = List_Res_category[0]['ResCatName'] if List_Res_category else ''
-			resource_info["ResPriceValue"] = List_Res_price[0]['ResPriceValue'] if List_Res_price else ''
+			resource_info["ResPriceValue"] = List_Res_price[0]['ResPriceValue'] if List_Res_price else 0
 			resource_info["CurrencyCode"] = List_Currencies[0]['CurrencyCode'] if List_Currencies else 'TMT'
-			resource_info["ResTotBalance"] = List_Res_total[0]['ResTotBalance'] if List_Res_total else ''
-			resource_info["ResPendingTotalAmount"] = List_Res_total[0]['ResPendingTotalAmount'] if List_Res_total else ''
+			resource_info["ResTotBalance"] = List_Res_total[0]['ResTotBalance'] if List_Res_total else 0
+			resource_info["ResPendingTotalAmount"] = List_Res_total[0]['ResPendingTotalAmount'] if List_Res_total else 0
 			resource_info["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=List_Images[-1]['FileName']) if List_Images else ''
 			resource_info["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=List_Images[-1]['FileName']) if List_Images else ''
 			resource_info["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_Images[-1]['FileName']) if List_Images else ''

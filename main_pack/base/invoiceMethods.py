@@ -139,13 +139,23 @@ invStatSelector = {
 		"percentage": 100,
 		"icon": "award",
 	},
+	13:{
+		"class": "warning",
+		"color_hash": "#eda514", 
+		"percentage": 20,
+		"icon": "dollar-sign",
+	},
+	14:{
+		"class": "danger",
+		"color_hash": "#FF7273", 
+		"percentage": 40,
+		"icon": "dollar-sign",
+	},
 }
 
 def getInvStatusUi(statusId):
-	try:
-		for status in invStatSelector:
-			if status == statusId:
-				invStatusUi = invStatSelector[status]				
-	except Exception as ex:
-		invStatusUi = invStatSelector[1]
+	invStatusUi = invStatSelector[1]
+	for status in invStatSelector:
+		if status == statusId:
+			invStatusUi = invStatSelector[status]				
 	return invStatusUi

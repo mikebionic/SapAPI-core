@@ -98,25 +98,23 @@ def api_rp_accs():
 					except:
 						rp_acc['UId'] = None
 					RpAccRegNo = rp_acc['RpAccRegNo']
-					RpAccName = rp_acc['RpAccName']
 					thisRpAcc = Rp_acc.query\
 						.filter_by(RpAccRegNo = RpAccRegNo)\
 						.first()
 					if thisRpAcc:
 						thisRpAcc.update(**rp_acc)
-						rp_accs.append(rp_acc)
 					else:
 						thisRpAcc = Rp_acc(**rp_acc)
 						db.session.add(thisRpAcc)
-						rp_accs.append(rp_acc)
 
 					db.session.commit()
 
-					rp_acc_trans_total = req['RpAccTransTotal']
+					rp_acc_trans_total = data['RpAccTransTotal']
 					try:
 						rp_acc_trans_total = addRpAccTrTotDict(rp_acc_trans_total)
 						rp_acc_trans_total['RpAccTrTotId'] = None
-						rp_acc_trans_total['RpAccId'] = thisRpAcc.RpAccId
+						RpAccId = thisRpAcc.RpAccId
+						rp_acc_trans_total['RpAccId'] = RpAccId
 						thisRpAccTrTotal = Rp_acc_trans_total.query\
 							.filter_by(RpAccId = RpAccId)\
 							.first()
@@ -125,6 +123,7 @@ def api_rp_accs():
 						else:
 							newRpAccTrTotal = Rp_acc_trans_total(**rp_acc_trans_total)
 							db.session.add(newRpAccTrTotal)
+						rp_accs.append(rp_acc)
 					except Exception as ex:
 						print(f"{datetime.now()} | Rp_acc Api Rp_acc_total Exception: {ex}")
 				except Exception as ex:
