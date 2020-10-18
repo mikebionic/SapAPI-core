@@ -12,11 +12,11 @@
 					<div class="col">
 						{% if category %}
 						<div class="col-12 mb-40">
-							<div class="section-title-one" style="text-transform:uppercase" data-title="{{_('Category')}}"><h1>{{ category }}</h1></div>
+							<div class="section-title-one" style="text-transform:uppercase"><h1>{{ category }}</h1></div>
 						</div>
 						{% elif brand %}
 						<div class="col-12 mb-40">
-							<div class="section-title-one" style="text-transform:uppercase" data-title="{{_('Brand')}}"><h1>{{ brand }}</h1></div>
+							<div class="section-title-one" style="text-transform:uppercase"><h1>{{ brand }}</h1></div>
 						</div>
 						{% endif %}
 						<!-- Shop Top Bar Start -->
@@ -64,123 +64,125 @@
 
 				<div class="shop-product-wrap grid row">
 					{% for resource in data %}
-					<div class="col-xl-3 col-lg-4 col-md-4 col-6 pb-30 pt-10">
-						<div class="ee-product">
-							<div class="image">
-									<span class="label new">New</span>
-								<!-- <span class="label sale">sale</span> -->
-								{% if resource.FilePathM %}
-									<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
-										<img loading="lazy" src="{{resource.FilePathM}}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
-									</a>
-								{% else %}
-									<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
-										<img loading="lazy" src="{{ url_for('static', filename='commerce/main/shop_icons/no_photo.png') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
-									</a>
-								{% endif %}
-								{% if current_user.is_authenticated %}
-									<div class="wishlist-compare">
-										<a href="#" data-tooltip="Wishlist" class="{{'added' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}">
-											<i class="ti-heart"></i>
+					<div class="p_slider">
+						<div class="col-xl-3 col-lg-4 col-md-4 col-6 pb-30 pt-10">
+							<div class="ee-product">
+								<div class="image">
+										<span class="label new">New</span>
+									<!-- <span class="label sale">sale</span> -->
+									{% if resource.FilePathM %}
+										<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
+											<img loading="lazy" src="{{resource.FilePathM}}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
 										</a>
-									</div>
-								{% endif %}	
-									<a href="#" class="add-to-cart" ownerId="{{ resource.ResId }}">
-										<i class="ti-shopping-cart"></i>
-										<span>{{_('Add to cart')}}</span>
-									</a>
-							</div>
-
-							<!-- Content -->
-							<div class="content">
-								<!-- Category & Title -->
-								<div class="category-title">
-									<a href="#" class="cat">{{ resource.ResCatName if resource.ResCatName else '' }}</a>
-									<h5 class="title">
-										<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}">
-											{{ resource.ResName if resource.ResName else '' }}
+									{% else %}
+										<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
+											<img loading="lazy" src="{{ url_for('static', filename='commerce/main/shop_icons/no_photo.png') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
 										</a>
-									</h5>
-								</div>
-								<!-- Price & Ratting -->
-								<div class="price-ratting">
-									<h5 class="price">
-										<!-- <span class="old">$350</span> -->
-										<div class="priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue }}</div>
-										<p>{{ resource.CurrencyCode }}</p>
-									</h5>
-									<input type="hidden" class="ratingValue" value="{{ resource.RtRatingValue }}" ownerId="{{ resource.ResId }}">
-									<div class="ratting ratingStars" ownerId="{{ resource.ResId }}"></div>
-								</div>
-							</div>
-						</div><!-- Product End -->
-
-						<!-- Product List Start -->
-						<div class="ee-product-list">
-							<div class="image">
-								{% if resource.New %}
-								<span class="label new">{{_('New')}}</span>
-								{% endif %}
-								<!-- <span class="label sale">sale</span> -->
-								{% if resource.FilePathM %}
-									<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
-										<img loading="lazy" src="{{resource.FilePathM}}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
-									</a>
-								{% else %}
-									<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
-										<img loading="lazy" src="{{ url_for('static', filename='commerce/main/shop_icons/no_photo.png') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
-									</a>
-								{% endif %}
-							</div>
-
-							<!-- Content -->
-							<div class="content">
-
-								<!-- Category & Title -->
-								<div class="head-content">
-
-									<div class="category-title">
-										<a href="#" class="cat">{{ resource.ResCatName }}</a>
-										<h5 class="title"><a href="{{ url_for('commerce.product',ResId=resource.ResId)}}">{{ resource.ResName }}</a></h5>
-									</div>
-
-									<h5 class="price">
-										<!-- <span class="old">$350</span> -->
-										<div class="priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue }}</div>
-										<p>{{ resource.CurrencyCode }}</p>
-									</h5>
-								</div>
-
-								<div class="left-content">
-									<div class="ratting ratingStars" ownerId="{{ resource.ResId }}"></div>
-<!-- 
-									<div class="desc">
-										<p class="descriptionText">{{ resource.ResFullDesc if resource.ResFullDesc else '' }}</p>
-									</div> -->
-									<div class="actions">
+									{% endif %}
+									{% if current_user.is_authenticated %}
+										<div class="wishlist-compare">
+											<a href="#" data-tooltip="Wishlist" class="{{'added' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}">
+												<i class="ti-heart"></i>
+											</a>
+										</div>
+									{% endif %}	
 										<a href="#" class="add-to-cart" ownerId="{{ resource.ResId }}">
 											<i class="ti-shopping-cart"></i>
 											<span>{{_('Add to cart')}}</span>
 										</a>
-										{% if current_user.is_authenticated %}
-											<div class="wishlist-compare">
-												<a href="#" data-tooltip="{{_('Wishlist')}}" class="{{'added' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}">
-													<i class="ti-heart"></i>
-												</a>
-											</div>
-										{% endif %}
+								</div>
+
+								<!-- Content -->
+								<div class="content">
+									<!-- Category & Title -->
+									<div class="category-title">
+										<a href="#" class="cat">{{ resource.ResCatName if resource.ResCatName else '' }}</a>
+										<h5 class="title">
+											<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}">
+												{{ resource.ResName if resource.ResName else '' }}
+											</a>
+										</h5>
+									</div>
+									<!-- Price & Ratting -->
+									<div class="price-ratting">
+										<h5 class="price">
+											<!-- <span class="old">$350</span> -->
+											<div class="priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue }}</div>
+											<p>{{ resource.CurrencyCode }}</p>
+										</h5>
+										<input type="hidden" class="ratingValue" value="{{ resource.RtRatingValue }}" ownerId="{{ resource.ResId }}">
+										<div class="ratting ratingStars" ownerId="{{ resource.ResId }}"></div>
+									</div>
+								</div>
+							</div><!-- Product End -->
+
+							<!-- Product List Start -->
+							<div class="ee-product-list">
+								<div class="image">
+									{% if resource.New %}
+									<span class="label new">{{_('New')}}</span>
+									{% endif %}
+									<!-- <span class="label sale">sale</span> -->
+									{% if resource.FilePathM %}
+										<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
+											<img loading="lazy" src="{{resource.FilePathM}}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
+										</a>
+									{% else %}
+										<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
+											<img loading="lazy" src="{{ url_for('static', filename='commerce/main/shop_icons/no_photo.png') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
+										</a>
+									{% endif %}
+								</div>
+
+								<!-- Content -->
+								<div class="content">
+
+									<!-- Category & Title -->
+									<div class="head-content">
+
+										<div class="category-title">
+											<a href="#" class="cat">{{ resource.ResCatName }}</a>
+											<h5 class="title"><a href="{{ url_for('commerce.product',ResId=resource.ResId)}}">{{ resource.ResName }}</a></h5>
+										</div>
+
+										<h5 class="price">
+											<!-- <span class="old">$350</span> -->
+											<div class="priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue }}</div>
+											<p>{{ resource.CurrencyCode }}</p>
+										</h5>
+									</div>
+
+									<div class="left-content">
+										<div class="ratting ratingStars" ownerId="{{ resource.ResId }}"></div>
+	<!-- 
+										<div class="desc">
+											<p class="descriptionText">{{ resource.ResFullDesc if resource.ResFullDesc else '' }}</p>
+										</div> -->
+										<div class="actions">
+											<a href="#" class="add-to-cart" ownerId="{{ resource.ResId }}">
+												<i class="ti-shopping-cart"></i>
+												<span>{{_('Add to cart')}}</span>
+											</a>
+											{% if current_user.is_authenticated %}
+												<div class="wishlist-compare">
+													<a href="#" data-tooltip="{{_('Wishlist')}}" class="{{'added' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}">
+														<i class="ti-heart"></i>
+													</a>
+												</div>
+											{% endif %}
+										</div>
+									</div>
+
+									<div class="right-content">
+										<div class="specification">
+											<h5>{{_('Specifications')}}</h5>
+											{{ resource.ResDesc if resource.ResDesc else '' }}
+										</div>
+										<span class="availability">{{_('Availability')}}: <span>{{_('In stock')}}</span></span>
 									</div>
 								</div>
 
-								<div class="right-content">
-									<div class="specification">
-										<h5>{{_('Specifications')}}</h5>
-										{{ resource.ResDesc if resource.ResDesc else '' }}
-									</div>
-									<span class="availability">{{_('Availability')}}: <span>{{_('In stock')}}</span></span>
-								</div>
 							</div>
-
 						</div>
 					</div>
 					{% endfor %}

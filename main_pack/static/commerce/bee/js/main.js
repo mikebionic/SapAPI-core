@@ -208,6 +208,27 @@ $('.product-slider-4').slick({
                 slidesToShow: 3,
             }
         },
+         {
+            breakpoint: 1300,
+
+            settings: {
+                slidesToShow: 4,
+            }
+        },
+        {
+            breakpoint: 1440,
+
+            settings: {
+                slidesToShow: 5,
+            }
+        },
+        {
+            breakpoint: 1600,
+
+            settings: {
+                slidesToShow: 5,
+            }
+        },
         {
             breakpoint: 991,
             settings: {

@@ -6787,8 +6787,13 @@ a {
 .footer-section{
     padding: 0;
 }
-@media only screen and (min-width: 320px) and (max-width: 396px) {
-    .footer-section{
-        width: 122%;
+.section{
+    padding: 0;
+}
+
+@media screen and (min-width: 1472px){
+ .container {
+    max-width: 100%;
+    width: 100%;
     }
 }

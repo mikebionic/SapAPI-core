@@ -18,14 +18,14 @@
 						{% if sl_image.SlImgMainImgFilePathM %}
 							<!-- Hero Item Start -->
 							<div class="slick-list draggable">  
-								<div class="slick-track" style="opacity: 1; width: 1820px;">
-									<div class="hero-item-two slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" tabindex="0" role="tabpanel" id="slick-slide00" aria-describedby="slick-slide-control00" style="width: 910px; position: relative; left: 0px; top: 0px; z-index: 999; opacity: 1;">
+								<div class="slick-track" style="opacity: 1; width: 100%;">
+									<div class="hero-item-two slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" tabindex="0" role="tabpanel" id="slick-slide00" aria-describedby="slick-slide-control00" style="width: 100%; position: relative; left: 0px; top: 0px; z-index: 999; opacity: 1;">
 										<div class="row align-items-center justify-content-between">
 											<div class="hero-content-two col-6">
 												<h1>{{sl_image.SlImgTitle if sl_image.SlImgTitle else ''}}</h1>
 												<h2>{{sl_image.SlImgDesc if sl_image.SlImgDesc else ''}}</h2>
 											</div>
-											<div class="hero-image-two col-6" style="width: 50%">
+											<div class="hero-image-two col-6">
 											<img src="{{ sl_image.SlImgMainImgFilePathM }}" alt="{{ sl_image.SlImgTitle if sl_image.SlImgTitle else 'sl_image.SlImgMainImgFileName' }}">
 											</div>
 										</div>     
@@ -77,63 +77,65 @@
 
 			<!-- Section Title Start -->
 			<div class="col-12 mb-40">
-				<div class="section-title-one" style="text-transform:uppercase" data-title="{{_('New arrival')}}"><h1>{{_('New arrival')}}</h1></div>
+				<div class="section-title-one" style="text-transform:uppercase"><h1>{{_('New arrival')}}</h1></div>
 			</div><!-- Section Title End -->
 
 			<div class="col-12">
-				<div class="row">
+				<div class="last_pr row">
 					{% for resource in Latest_resources %}
-						<div class="col-xl-3 col-lg-4 col-md-4 col-6 pb-30 pt-10">
-							<div class="ee-product">
-								<div class="image">
-									{% if resource.New %}
-										<span class="label new">{{_('New')}}</span>
-									{% endif %}
-									{% if resource.FilePathM %}
-										<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
-											<img loading="lazy" src="{{resource.FilePathM}}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
-										</a>
-									{% else %}
-										<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
-											<img loading="lazy" src="{{ url_for('static', filename='commerce/main/shop_icons/no_photo.png') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
-										</a>
-									{% endif %}
-									{% if current_user.is_authenticated %}
-										<div class="wishlist-compare">
-											<a href="#" data-tooltip="Wishlist" class="{{'added' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}">
-												<i class="ti-heart"></i>
+						<div class="p_slider">
+							<div class="col-xl-3 col-lg-4 col-md-4 col-6 pb-30 pt-10" >
+								<div class="ee-product">
+									<div class="image">
+										{% if resource.New %}
+											<span class="label new">{{_('New')}}</span>
+										{% endif %}
+										{% if resource.FilePathM %}
+											<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
+												<img loading="lazy" src="{{resource.FilePathM}}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
 											</a>
-										</div>
-									{% endif %}
-									<a href="#" class="add-to-cart" ownerId="{{ resource.ResId }}">
-										<i class="ti-shopping-cart" style="color: #000;"></i>
-										<span>{{_('Add to cart')}}</span>
-									</a>
-								</div>
+										{% else %}
+											<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
+												<img loading="lazy" src="{{ url_for('static', filename='commerce/main/shop_icons/no_photo.png') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
+											</a>
+										{% endif %}
+										{% if current_user.is_authenticated %}
+											<div class="wishlist-compare">
+												<a href="#" data-tooltip="Wishlist" class="{{'added' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}">
+													<i class="ti-heart"></i>
+												</a>
+											</div>
+										{% endif %}
+										<a href="#" class="add-to-cart" ownerId="{{ resource.ResId }}">
+											<i class="ti-shopping-cart" style="color: #000;"></i>
+											<span>{{_('Add to cart')}}</span>
+										</a>
+									</div>
 
-								<!-- Content -->
-								<div class="content">
-									<!-- Category & Title -->
-									<div class="category-title">
-										<a href="#" class="cat">{{ resource.ResCatName if resource.ResCatName else '' }}</a>
-										<h5 class="title">
-											<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}">
-												{{ resource.ResName if resource.ResName else '' }}
-											</a>
-										</h5>
+									<!-- Content -->
+									<div class="content">
+										<!-- Category & Title -->
+										<div class="category-title">
+											<a href="#" class="cat">{{ resource.ResCatName if resource.ResCatName else '' }}</a>
+											<h5 class="title">
+												<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}">
+													{{ resource.ResName if resource.ResName else '' }}
+												</a>
+											</h5>
+										</div>
+										<!-- Price & Ratting -->
+										<div class="price-ratting">
+											<h5 class="price">
+												<!-- <span class="old">$350</span> -->
+												<div class="priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue }}</div>
+												<p>{{ resource.CurrencyCode }}</p>
+											</h5>
+											<input type="hidden" class="ratingValue" value="{{ resource.RtRatingValue }}" ownerId="{{ resource.ResId }}">
+											<div class="ratting ratingStars" ownerId="{{ resource.ResId }}"></div>
+										</div>
 									</div>
-									<!-- Price & Ratting -->
-									<div class="price-ratting">
-										<h5 class="price">
-											<!-- <span class="old">$350</span> -->
-											<div class="priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue }}</div>
-											<p>{{ resource.CurrencyCode }}</p>
-										</h5>
-										<input type="hidden" class="ratingValue" value="{{ resource.RtRatingValue }}" ownerId="{{ resource.ResId }}">
-										<div class="ratting ratingStars" ownerId="{{ resource.ResId }}"></div>
-									</div>
-								</div>
-							</div><!-- Product End -->
+								</div><!-- Product End -->
+							</div>
 						</div>
 					{% endfor %}
 					</div>
@@ -150,7 +152,7 @@
 		<div class="row">
 			<!-- Section Title Start -->
 			<div class="col-12 mb-40">
-				<div class="section-title-one" style="text-transform:uppercase" data-title="{{_('Featured')}}"><h1>{{_('Featured')}}</h1></div>
+				<div class="section-title-one" style="text-transform:uppercase"><h1>{{_('Featured')}}</h1></div>
 			</div><!-- Section Title End -->
 			<!-- Product Tab Filter Start -->
 			<div class="col-12 mb-30">
