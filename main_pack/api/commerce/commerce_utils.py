@@ -100,7 +100,10 @@ def apiResourceInfo(resource_list = None,
 			if showNullPrice == False:
 				resources = resources\
 					.join(Res_price, Res_price.ResId == Resource.ResId)\
-					.filter(Res_price.ResPriceValue > 0)
+					.filter(and_(
+						Res_price.ResPriceTypeId == 2,
+						Res_price.ResPriceValue > 0))\
+
 			if avoidQtyCheckup == False:
 				if Config.SHOW_NEGATIVE_WH_QTY_RESOURCE == False:
 					resources = resources\
@@ -146,7 +149,7 @@ def apiResourceInfo(resource_list = None,
 					.filter_by(**resource_filtering)
 				
 				if showNullPrice == False:
-					resources = resources\
+					resource = resource\
 						.join(Res_price, Res_price.ResId == Resource.ResId)\
 						.filter(Res_price.ResPriceValue > 0)
 				

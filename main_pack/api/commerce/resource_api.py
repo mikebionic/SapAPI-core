@@ -127,11 +127,10 @@ def api_resources():
 							barcode['ResId'] = thisResource.ResId
 							if thisBarcode:
 								thisBarcode.update(**barcode)
-								barcodes.append(barcode)
 							else:
 								newBarcode = Barcode(**barcode)
 								db.session.add(newBarcode)
-								barcodes.append(barcode)
+							barcodes.append(barcode)
 						except Exception as ex:
 							print(f"{datetime.now()} | Barcode Api Exception: {ex}")
 							failed_barcodes.append(barcode)
