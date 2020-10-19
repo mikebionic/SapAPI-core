@@ -112,7 +112,6 @@ def api_images():
 						images.append(imageDictData)
 					else:
 						image_data = saveImageFile(image)
-						image_data["ImgId"] = ImgId
 						newImage = Image(**image_data)
 						db.session.add(newImage)
 						try:
@@ -153,6 +152,8 @@ def get_image(file_type,file_size,file_name,path_only=False):
 		path = sl_image.SlImgMainImgFilePath
 	if file_type == "image": 
 		image = Image.query.filter(Image.FileName == file_name).first()
+		if not image.FilePath:
+			raise FileNotFoundError
 		path = image.FilePath
 	if file_size != 'undefined':
 		path = path.replace("<FSize>",file_size)
