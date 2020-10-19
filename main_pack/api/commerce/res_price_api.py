@@ -70,9 +70,10 @@ def api_res_prices():
 							ResPriceRegNo = ResPriceRegNo)\
 						.first()
 
-					res_price['ResId'] = resource.ResId
+					res_price["ResId"] = resource.ResId
 
 					if thisResPrice:
+						res_price["ResPriceId"] = thisResPrice.ResPriceId
 						thisResPrice.update(**res_price)
 					else:
 						thisResPrice = Res_price(**res_price)

@@ -20,11 +20,17 @@ def dirHandler(path):
 
 def changeImageSize(imageFile,modulePath,FileName):
 	output_sizes = {
-		"R":None,
-		"M":(800,600),
-		"S":(320,240),
+		"R": None,
+		"M": (800,600),
+		"S": (320,240),
 	}
 	paths={}
+
+	watermark_image_path = os.path.join(
+		current_app.root_path,
+		Config.WEB_CONFIG_DIRECTORY,
+		'watermark.png')
+
 	for size in output_sizes:
 		image = imageFile
 		
@@ -38,21 +44,38 @@ def changeImageSize(imageFile,modulePath,FileName):
 
 		# join the fullPath with filename to save to
 		saving_path = os.path.join(sizeSpecificFullPath,FileName)
+
 		if not output_sizes[size]:
+			if Config.ADD_RESOURCE_WATERMARK == True:
+				watermark = Image.open(watermark_image_path).resize(image.size)
+				image.paste(watermark,(0,0),mask=watermark)
+			
 			image.save(saving_path,optimize=True,quality=65)
-			paths["FilePath"+size]=FilePath
+			paths[f"FilePath{size}"]=FilePath
+
 		else:
 			image.thumbnail(output_sizes[size])
-			image.save(saving_path)
-			paths["FilePath"+size]=FilePath
+			if Config.ADD_RESOURCE_WATERMARK == True:
+				if size != 'S':
+					print(f"adding watermark on size {size}")
+					watermark = Image.open(watermark_image_path).resize(image.size)
+					image.paste(watermark,(0,0),mask=watermark)
 
+			image.save(saving_path)
+			paths[f"FilePath{size}"]=FilePath
+
+		image = None
 	paths["FilePath"]=os.path.join(modulePath,"<FSize>",FileName)
 
 	return paths
 
 
-def save_image(imageForm=None,savedImage=None,module="undefined",id="undefined"):
-	random_hex = secrets.token_hex(14)
+def save_image(
+		imageForm = None,
+		savedImage = None,
+		module = "undefined",
+		id = "undefined"):
+	random_hex = secrets.token_hex(Config.IMAGE_RANDOM_HEX_LENGTH)
 	modulePath = os.path.join(str(module),str(id),'images')
 	
 	if not imageForm:
@@ -67,7 +90,7 @@ def save_image(imageForm=None,savedImage=None,module="undefined",id="undefined")
 		# need to save the file to proceed compression and resizing if imageForm
 		_, f_ext = os.path.splitext(imageForm.filename)
 		FileName = random_hex + f_ext
-		size = "R"
+		size = "dump"
 
 		sizeSpecificFullPath = os.path.join(current_app.root_path,'static',modulePath,size)
 		dirHandler(sizeSpecificFullPath)
@@ -83,14 +106,23 @@ def save_image(imageForm=None,savedImage=None,module="undefined",id="undefined")
 		"FileName":FileName
 	}
 	resizing = changeImageSize(imageFile=image,modulePath=modulePath,FileName=FileName)
+	try:
+		os.rmtree(sizeSpecificFullPath)
+	except Exception as ex:
+		print(ex)
 	for image in resizing:
 		response[image]=resizing[image]
 	return response
 
 # save_image(savedImage='IMG_5660.JPG',module="commerce/users",id=12)
 
-def save_icon(imageForm=None,savedImage=None,module="undefined",id=None,randomName=True):
-	random_hex = secrets.token_hex(14)
+def save_icon(
+	imageForm = None,
+	savedImage = None,
+	module = "undefined",
+	id = None,
+	randomName = True):
+	random_hex = secrets.token_hex(Config.IMAGE_RANDOM_HEX_LENGTH)
 
 	if id:
 		modulePath = os.path.join(str(module),str(id),'images')

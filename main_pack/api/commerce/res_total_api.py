@@ -80,10 +80,11 @@ def api_res_totals():
 							.filter_by(ResId = resource.ResId, WhId = warehouse.WhId)\
 							.first()
 
-						res_total['ResId'] = resource.ResId
-						res_total['WhId'] = warehouse.WhId
+						res_total["ResId"] = resource.ResId
+						res_total["WhId"] = warehouse.WhId
 
 						if thisResTotal:
+							res_total["ResTotId"] = thisResTotal.ResTotId
 							thisResTotal.update(**res_total)
 							thisResTotal = None
 						else:

@@ -161,3 +161,77 @@ def api_v_resources_paginate():
 	status_code = 200
 	response = make_response(jsonify(res),status_code)
 	return response
+
+
+###### pagination #######
+@api.route("/v-resources/paginated/",methods=['GET'])
+def api_paginate_resources():
+	offset = request.args.get("offset",None,type=int)
+	limit = request.args.get("limit",10,type=int)
+	# handles the latest resource
+	if offset is None:
+		latestResource = Resource.query\
+			.filter_by(GCRecord = None, UsageStatusId = 1)\
+			.join(Res_total, Res_total.ResId == Resource.ResId)\
+			.filter(and_(
+				Res_total.WhId == 1, 
+				Res_total.ResTotBalance > 0))\
+			.order_by(Resource.ResId.desc())\
+			.first()
+		offset = latestResource.ResId+1
+
+	pagination = Resource.query\
+		.filter_by(GCRecord = None, UsageStatusId = 1)\
+		.filter(Resource.ResId < offset)\
+		.join(Res_total, Res_total.ResId == Resource.ResId)\
+		.filter(and_(
+			Res_total.WhId == 1, 
+			Res_total.ResTotBalance > 0))\
+		.order_by(Resource.ResId.desc())\
+		.paginate(
+			per_page=limit,
+			error_out=False
+			)
+	resources = pagination.items
+
+	nextLast = Resource.query\
+		.filter_by(GCRecord = None, UsageStatusId = 1)\
+		.filter(Resource.ResId < (offset-limit+1))\
+		.join(Res_total, Res_total.ResId == Resource.ResId)\
+		.filter(and_(
+			Res_total.WhId == 1, 
+			Res_total.ResTotBalance > 0))\
+		.order_by(Resource.ResId.desc())\
+		.first()
+	prevLast = Resource.query\
+		.filter_by(GCRecord = None, UsageStatusId = 1)\
+		.filter(Resource.ResId < (offset+limit+1))\
+		.join(Res_total, Res_total.ResId == Resource.ResId)\
+		.filter(and_(
+			Res_total.WhId == 1, 
+			Res_total.ResTotBalance > 0))\
+		.order_by(Resource.ResId.desc())\
+		.first()
+
+	prev = None
+	if prevLast:
+		prev = url_for('commerce_api.api_paginate_resources',offset=prevLast.ResId,limit=limit)
+	next = None
+	if nextLast:
+		next = url_for('commerce_api.api_paginate_resources',offset=nextLast.ResId,limit=limit)
+	
+	resource_models = []
+	for resource in pagination.items:
+		resource_models.append(resource)
+	res = apiResourceInfo(resource_models=resource_models)
+
+	res = {
+		"status": 1,
+		"message": "Paginated resources",
+		"data": res['data'],
+		"total": len(resources),
+		"prev_url": prev,
+		"next_url": next,
+		"pages_total": pagination.total
+	}
+	return jsonify(res)

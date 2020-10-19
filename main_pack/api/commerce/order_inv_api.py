@@ -184,6 +184,21 @@ def api_v_order_invoices(user):
 	return response
 
 
+# @api.route("/v-order-invoices/paginate/",methods=['GET'])
+# @token_required
+# def api_v_order_invoices_paginate(user):
+# 	startDate = request.args.get("startDate",None,type=str)
+# 	endDate = request.args.get("endDate",datetime.now())
+# 	model_type = user['model_type']
+# 	current_user = user['current_user']
+# 	res = apiOrderInvInfo(startDate=startDate,
+# 												endDate=endDate,
+# 												rp_acc_user=current_user)
+# 	status_code = 200
+# 	response = make_response(jsonify(res),status_code)
+# 	return response
+
+
 @api.route("/v-order-invoices/<OInvRegNo>/",methods=['GET'])
 @token_required
 def api_v_order_invoice(user,OInvRegNo):
