@@ -112,8 +112,18 @@ def api_images():
 						images.append(imageDictData)
 					else:
 						image_data = saveImageFile(image)
+						image_data["ImgId"] = ImgId
 						newImage = Image(**image_data)
 						db.session.add(newImage)
+						try:
+							db.session.commit()
+						except Exception as ex:
+							print(f"{datetime.now()} | Couldn't commit: {ex}")
+							lastImage = Image.query.order_by(Image.ImgId.desc()).first()
+							ImgId = lastImage.ImgId+1
+							newImage.ImgId = ImgId
+							db.session.add(newImage)
+							db.session.commit()
 						print(f"{datetime.now()} | Image created")
 						images.append(imageDictData)
 

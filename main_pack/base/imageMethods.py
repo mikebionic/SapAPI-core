@@ -1,7 +1,6 @@
 from flask import current_app
 from main_pack.config import Config
-import os
-import sys
+import os, sys, shutil
 from PIL import Image
 import secrets
 
@@ -18,7 +17,12 @@ def dirHandler(path):
 		except Exception as ex:
 			print("error creating directory")
 
-def changeImageSize(imageFile,modulePath,FileName):
+def changeImageSize(
+	imageFile,
+	modulePath,
+	FileName,
+	watermark = False):
+
 	output_sizes = {
 		"R": None,
 		"M": (800,600),
@@ -30,9 +34,9 @@ def changeImageSize(imageFile,modulePath,FileName):
 		current_app.root_path,
 		Config.WEB_CONFIG_DIRECTORY,
 		'watermark.png')
-
+	base_image = imageFile
 	for size in output_sizes:
-		image = imageFile
+		image = base_image
 		
 		# create path according to a size abobe like "/images/M/blahblah.jpg"
 		sizeSpecificFullPath = os.path.join(current_app.root_path,'static',modulePath,size)
@@ -46,7 +50,7 @@ def changeImageSize(imageFile,modulePath,FileName):
 		saving_path = os.path.join(sizeSpecificFullPath,FileName)
 
 		if not output_sizes[size]:
-			if Config.ADD_RESOURCE_WATERMARK == True:
+			if (Config.ADD_RESOURCE_WATERMARK == True and watermark == True):
 				watermark = Image.open(watermark_image_path).resize(image.size)
 				image.paste(watermark,(0,0),mask=watermark)
 			
@@ -55,11 +59,10 @@ def changeImageSize(imageFile,modulePath,FileName):
 
 		else:
 			image.thumbnail(output_sizes[size])
-			if Config.ADD_RESOURCE_WATERMARK == True:
-				if size != 'S':
-					print(f"adding watermark on size {size}")
-					watermark = Image.open(watermark_image_path).resize(image.size)
-					image.paste(watermark,(0,0),mask=watermark)
+			# if Config.ADD_RESOURCE_WATERMARK == True:
+			# 	if size != 'S':
+			# 		watermark = Image.open(watermark_image_path).resize(image.size)
+			# 		image.paste(watermark,(0,0),mask=watermark)
 
 			image.save(saving_path)
 			paths[f"FilePath{size}"]=FilePath
@@ -74,7 +77,8 @@ def save_image(
 		imageForm = None,
 		savedImage = None,
 		module = "undefined",
-		id = "undefined"):
+		id = "undefined",
+		watermark = False):
 	random_hex = secrets.token_hex(Config.IMAGE_RANDOM_HEX_LENGTH)
 	modulePath = os.path.join(str(module),str(id),'images')
 	
@@ -105,9 +109,13 @@ def save_image(
 	response = {
 		"FileName":FileName
 	}
-	resizing = changeImageSize(imageFile=image,modulePath=modulePath,FileName=FileName)
+	resizing = changeImageSize(
+		imageFile = image,
+		modulePath = modulePath,
+		FileName = FileName,
+		watermark = watermark)
 	try:
-		os.rmtree(sizeSpecificFullPath)
+		shutil.rmtree(sizeSpecificFullPath)
 	except Exception as ex:
 		print(ex)
 	for image in resizing:

@@ -105,9 +105,14 @@ def api_resources():
 					thisResource = Resource.query\
 						.filter_by(ResRegNo = ResRegNo)\
 						.first()
-					if thisResource is not None:
+					if thisResource:
+						resource["ResId"] = thisResource.ResId
 						thisResource.update(**resource)
 					else:
+						lastResource = Resource.query.order_by(Resource.ResId.desc()).first()
+						ResId = lastResource.ResId+1
+						resource["ResId"] = ResId
+
 						thisResource = Resource(**resource)
 						db.session.add(thisResource)
 					

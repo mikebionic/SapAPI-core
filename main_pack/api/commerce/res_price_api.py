@@ -76,6 +76,10 @@ def api_res_prices():
 						res_price["ResPriceId"] = thisResPrice.ResPriceId
 						thisResPrice.update(**res_price)
 					else:
+						lastPrice = Res_price.query.order_by(Res_price.ResPriceId.desc()).first()
+						ResPriceId = lastPrice.ResPriceId+1
+						res_price["ResPriceId"] = ResPriceId
+
 						thisResPrice = Res_price(**res_price)
 						db.session.add(thisResPrice)
 					thisResPrice = None
@@ -88,6 +92,7 @@ def api_res_prices():
 					print(f"{datetime.now()} | Res_price Api Exception: {ex}")
 					failed_res_prices.append(res_price_req)
 
+			db.session.commit()
 			status = checkApiResponseStatus(res_prices,failed_res_prices)
 			res = {
 				"data": res_prices,

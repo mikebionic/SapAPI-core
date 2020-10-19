@@ -328,8 +328,16 @@ def saveImageFile(req):
 		outfile = open(dumpImagePath,"wb")
 		outfile.write(base64.decodebytes(imageBytes))
 		outfile.flush()
-		outfile.close()		
-		imageFile = save_image(savedImage=dumpImagePath,module=module,id=id)
+		outfile.close()
+		image_params = {
+			"savedImage": dumpImagePath,
+			"module": module,
+			"id": id,
+		}
+		if image['ResId']:
+			image_params["watermark"] = True
+		
+		imageFile = save_image(**image_params)
 		image['FilePath'] = imageFile['FilePath']
 		image['FileName'] = imageFile['FileName']
 		# for data in imageFile:

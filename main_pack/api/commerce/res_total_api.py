@@ -88,6 +88,10 @@ def api_res_totals():
 							thisResTotal.update(**res_total)
 							thisResTotal = None
 						else:
+							lastTotal = Res_total.query.order_by(Res_total.ResTotId.desc()).first()
+							ResTotId = lastTotal.ResTotId+1
+							res_total["ResTotId"] = ResTotId
+							
 							newResTotal = Res_total(**res_total)
 							db.session.add(newResTotal)
 							
