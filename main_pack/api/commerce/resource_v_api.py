@@ -146,16 +146,16 @@ def api_v_resources_search():
 @api.route("/v-resources/paginate/")
 def api_v_resources_paginate():
 	page = request.args.get("page",1,type=int)
-	filtration = request.args.get("filter","date",type=str)
-	category = request.args.get("category",None,type=str)
+	sort = request.args.get("sort","date_new",type=str)
 	per_page = request.args.get("per_page",None,type=int)
-	brand = request.args.get("brand",None,type=str)
+	category = request.args.get("category",None,type=int)
+	brand = request.args.get("brand",None,type=int)
 	pagination_url = 'commerce_api.api_v_resources_paginate'
 	res = collect_resource_paginate_info(
 		pagination_url = pagination_url,
 		page = page,
 		per_page = per_page,
-		filtration = filtration,
+		sort = sort,
 		category = category,
 		brand = brand)
 	status_code = 200

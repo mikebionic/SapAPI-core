@@ -381,64 +381,69 @@ def UiCartResourceData(product_list,fullInfo=False,showRelated=False):
 	}
 	return res
 
-def apiOrderInvInfo(startDate = None,
-										endDate = datetime.now(),
-										statusId = None,
-										single_object = False,
-										invoice_list = None,
-										rp_acc_user = None,
-										DivId = None,
-										notDivId = None):
+def apiOrderInvInfo(
+	startDate = None,
+	endDate = datetime.now(),
+	statusId = None,
+	single_object = False,
+	invoice_list = None,
+	invoice_models = None,
+	invoices_only = False,
+	rp_acc_user = None,
+	DivId = None,
+	notDivId = None):
 	inv_statuses = Inv_status.query\
 		.filter_by(GCRecord = None).all()
 
-	invoice_filtering = {
-		"GCRecord": None
-	}
-	if statusId:
-		invoice_filtering['InvStatId'] = statusId
-	if rp_acc_user:
-		invoice_filtering['RpAccId'] = rp_acc_user.RpAccId
 
-	order_inv_models = []
-	if invoice_list is None:
-		order_invoices = Order_inv.query\
-			.filter_by(**invoice_filtering)
-		if DivId:
-			order_invoices = order_invoices.filter_by(DivId = DivId)
-		if notDivId:
-			order_invoices = order_invoices.filter(Order_inv.DivId != notDivId)
+	if not invoice_models:
+		invoice_filtering = {
+			"GCRecord": None
+		}
+		if statusId:
+			invoice_filtering['InvStatId'] = statusId
+		if rp_acc_user:
+			invoice_filtering['RpAccId'] = rp_acc_user.RpAccId
+		
+		invoice_models = []
+		if invoice_list is None:
+			order_invoices = Order_inv.query\
+				.filter_by(**invoice_filtering)
+			if DivId:
+				order_invoices = order_invoices.filter_by(DivId = DivId)
+			if notDivId:
+				order_invoices = order_invoices.filter(Order_inv.DivId != notDivId)
 
-		if startDate:
-			# filtering by date
-			if (type(startDate) != datetime):
-				startDate = dateutil.parser.parse(startDate)
-				startDate = datetime.date(startDate)
-			if (type(endDate) != datetime):
-				endDate = dateutil.parser.parse(endDate)
-				endDate = datetime.date(endDate)
-			order_invoices = order_invoices\
-				.filter(and_(
-					extract('year',Order_inv.OInvDate).between(startDate.year,endDate.year),\
-					extract('month',Order_inv.OInvDate).between(startDate.month,endDate.month),\
-					extract('day',Order_inv.OInvDate).between(startDate.day,endDate.day)))
-			
-		order_invoices = order_invoices.order_by(Order_inv.OInvDate.desc()).all()
+			if startDate:
+				# filtering by date
+				if (type(startDate) != datetime):
+					startDate = dateutil.parser.parse(startDate)
+					startDate = datetime.date(startDate)
+				if (type(endDate) != datetime):
+					endDate = dateutil.parser.parse(endDate)
+					endDate = datetime.date(endDate)
+				order_invoices = order_invoices\
+					.filter(and_(
+						extract('year',Order_inv.OInvDate).between(startDate.year,endDate.year),\
+						extract('month',Order_inv.OInvDate).between(startDate.month,endDate.month),\
+						extract('day',Order_inv.OInvDate).between(startDate.day,endDate.day)))
+				
+			order_invoices = order_invoices.order_by(Order_inv.OInvDate.desc()).all()
 
-		for order_inv in order_invoices:
-			order_inv_models.append(order_inv)
-	else:
-		for invoice_index in invoice_list:
-			OInvRegNo = invoice_index["OInvRegNo"]
-			invoice_filtering["OInvRegNo"] = OInvRegNo
-			order_inv = Order_inv.query\
-				.filter_by(**invoice_filtering).first()
-			if order_inv:
-				order_inv_models.append(order_inv)
+			for order_inv in order_invoices:
+				invoice_models.append(order_inv)
+		elif invoice_list:
+			for invoice_index in invoice_list:
+				OInvRegNo = invoice_index["OInvRegNo"]
+				invoice_filtering["OInvRegNo"] = OInvRegNo
+				order_inv = Order_inv.query\
+					.filter_by(**invoice_filtering).first()
+				if order_inv:
+					invoice_models.append(order_inv)
 
 	data = []
 	fails = []
-	for order_inv in order_inv_models:
+	for order_inv in invoice_models:
 		try:
 			order_inv_info = order_inv.to_json_api()
 
@@ -446,33 +451,36 @@ def apiOrderInvInfo(startDate = None,
 			inv_status = dataLangSelector(inv_status_list[0])
 			order_inv_info['InvStatName'] = inv_status['InvStatName']
 
+			rp_acc_data = {}
 			if rp_acc_user:
 				rpAccData = apiRpAccData(dbModel=rp_acc_user)
-			else:
+				rp_acc_data = rpAccData['data']
+			elif order_inv.RpAccId:
 				rp_acc_user = Rp_acc.query\
 					.filter_by(GCRecord = None, RpAccId = order_inv.RpAccId)\
 					.first()
 				rpAccData = apiRpAccData(dbModel=rp_acc_user)
+				rp_acc_data = rpAccData['data']
+			order_inv_info['Rp_acc'] = rp_acc_data
 			rp_acc_user = None
-			order_inv_info['Rp_acc'] = rpAccData['data']
 
-			order_inv_lines = []
-			for order_inv_line in order_inv.Order_inv_line:
-				if order_inv_line.GCRecord == None:
-					this_order_inv_line = order_inv_line.to_json_api()
-					try:
-						resource = Resource.query\
-							.filter_by(GCRecord = None, ResId = order_inv_line.ResId)\
-							.first()
-						resource_json = apiResourceInfo(resource_models=[resource],single_object=True)
-						this_order_inv_line['Resource'] = resource_json['data']
-					except Exception as ex:
-						print(f"{datetime.now()} | Order_inv_line info utils Exception: {ex}")
-						this_order_inv_line['Resource'] = []
-					order_inv_lines.append(this_order_inv_line)
+			if invoices_only == False: 
+				order_inv_lines = []
+				for order_inv_line in order_inv.Order_inv_line:
+					if order_inv_line.GCRecord == None:
+						this_order_inv_line = order_inv_line.to_json_api()
+						try:
+							resource = Resource.query\
+								.filter_by(GCRecord = None, ResId = order_inv_line.ResId)\
+								.first()
+							resource_json = apiResourceInfo(resource_models=[resource],single_object=True)
+							this_order_inv_line['Resource'] = resource_json['data']
+						except Exception as ex:
+							print(f"{datetime.now()} | Order_inv_line info utils Exception: {ex}")
+							this_order_inv_line['Resource'] = []
+						order_inv_lines.append(this_order_inv_line)
 			
-			order_inv_info['Order_inv_lines'] = order_inv_lines
-			# order_inv_info['Order_inv_lines'] = [order_inv_line.to_json_api() for order_inv_line in order_inv.Order_inv_line if order_inv_line.GCRecord == None]
+				order_inv_info['Order_inv_lines'] = order_inv_lines
 			data.append(order_inv_info)
 		except Exception as ex:
 			print(f"{datetime.now()} | Order_inv info utils Exception: {ex}")
@@ -494,14 +502,15 @@ def apiOrderInvInfo(startDate = None,
 		res[e] = status[e]
 	return res
 
-def apiInvInfo(startDate = None,
-							endDate = datetime.now(),
-							statusId = None,
-							single_object = False,
-							invoice_list = None,
-							rp_acc_user = None,
-							DivId = None,
-							notDivId = None):
+def apiInvInfo(
+	startDate = None,
+	endDate = datetime.now(),
+	statusId = None,
+	single_object = False,
+	invoice_list = None,
+	rp_acc_user = None,
+	DivId = None,
+	notDivId = None):
 	inv_statuses = Inv_status.query\
 		.filter_by(GCRecord = None).all()
 

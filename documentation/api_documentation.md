@@ -114,6 +114,7 @@ returns **all orders** if **blank**
 ## Get all orders of a logged Rp_acc
 **@token_required** of **Rp_acc** login
 + /api/v-order-invoices/?startDate=<datetime>&endDate=<datetime>
++ /api/v-order-invoices/paginate/?page=&endDate=&invStatus=&per_page=&sort=&invoices_only=
 + /api/v-invoices/?startDate=<datetime>&endDate=<datetime>
 
 example:

@@ -335,7 +335,7 @@ def saveImageFile(req):
 			"id": id,
 		}
 		if image['ResId']:
-			image_params["watermark"] = True
+			image_params["apply_watermark"] = True
 		
 		imageFile = save_image(**image_params)
 		image['FilePath'] = imageFile['FilePath']

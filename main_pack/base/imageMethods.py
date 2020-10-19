@@ -77,7 +77,7 @@ def save_image(
 		savedImage = None,
 		module = "undefined",
 		id = "undefined",
-		watermark = False):
+		apply_watermark = False):
 	random_hex = secrets.token_hex(Config.IMAGE_RANDOM_HEX_LENGTH)
 	modulePath = os.path.join(str(module),str(id),'images')
 	sizeSpecificFullPath = None
@@ -87,6 +87,7 @@ def save_image(
 		image = image.convert('RGBA')
 		image.save(savedImage)
 		saving_path = savedImage
+		image = Image.open(savedImage)
 		_, f_ext = os.path.splitext(image.filename)
 		FileName = random_hex + f_ext
 
@@ -111,7 +112,7 @@ def save_image(
 		imageFile = saving_path,
 		modulePath = modulePath,
 		FileName = FileName,
-		apply_watermark = watermark)
+		apply_watermark = apply_watermark)
 	
 	if sizeSpecificFullPath:
 		try:

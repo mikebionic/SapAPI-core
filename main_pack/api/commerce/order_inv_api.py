@@ -35,7 +35,7 @@ from datetime import datetime
 # / datetime, date-parser /
 
 from main_pack.api.commerce.commerce_utils import apiOrderInvInfo
-
+from main_pack.api.commerce.pagination_utils import collect_order_inv_paginate_info
 
 @api.route("/tbl-dk-order-invoices/",methods=['GET','POST'])
 @sha_required
@@ -159,8 +159,9 @@ def api_order_invoices():
 @sha_required
 def api_order_invoice_info(OInvRegNo):
 	invoice_list = [{"OInvRegNo": OInvRegNo}]
-	res = apiOrderInvInfo(invoice_list=invoice_list,
-												single_object=True)
+	res = apiOrderInvInfo(
+		invoice_list = invoice_list,
+		single_object = True)
 	status_code = 200
 	response = make_response(jsonify(res),status_code)
 	return response
@@ -176,27 +177,47 @@ def api_v_order_invoices(user):
 	endDate = request.args.get("endDate",datetime.now())
 	model_type = user['model_type']
 	current_user = user['current_user']
-	res = apiOrderInvInfo(startDate=startDate,
-												endDate=endDate,
-												rp_acc_user=current_user)
+	res = apiOrderInvInfo(
+		startDate = startDate,
+		endDate = endDate,
+		rp_acc_user = current_user)
 	status_code = 200
 	response = make_response(jsonify(res),status_code)
 	return response
 
 
-# @api.route("/v-order-invoices/paginate/",methods=['GET'])
-# @token_required
-# def api_v_order_invoices_paginate(user):
-# 	startDate = request.args.get("startDate",None,type=str)
-# 	endDate = request.args.get("endDate",datetime.now())
-# 	model_type = user['model_type']
-# 	current_user = user['current_user']
-# 	res = apiOrderInvInfo(startDate=startDate,
-# 												endDate=endDate,
-# 												rp_acc_user=current_user)
-# 	status_code = 200
-# 	response = make_response(jsonify(res),status_code)
-# 	return response
+@api.route("/v-order-invoices/paginate/",methods=['GET'])
+@token_required
+def api_v_order_invoices_paginate(user):
+	model_type = user['model_type']
+	current_user = user['current_user']
+	startDate = request.args.get("startDate",None,type=str)
+	endDate = request.args.get("endDate",datetime.now())
+	DivId = request.args.get("DivId",None,type=int)
+	notDivId = request.args.get("notDivId",None,type=int)
+	page = request.args.get("page",1,type=int)
+	per_page = request.args.get("per_page",None,type=int)
+	sort = request.args.get("sort","date_new",type=str)
+	invoices_only = request.args.get("invoices_only",1,type=int)
+	invStatus = request.args.get("invStatus",1,type=int)
+	pagination_url = 'commerce_api.api_v_order_invoices_paginate'
+
+	res = collect_order_inv_paginate_info(
+		pagination_url,
+		startDate = startDate,
+		endDate = endDate,
+		invStatus = invStatus,
+		rp_acc_user = current_user,
+		DivId = DivId,
+		notDivId = notDivId,
+		page = page,
+		per_page = per_page,
+		sort = sort,
+		invoices_only = invoices_only)
+
+	status_code = 200
+	response = make_response(jsonify(res),status_code)
+	return response
 
 
 @api.route("/v-order-invoices/<OInvRegNo>/",methods=['GET'])
@@ -205,9 +226,10 @@ def api_v_order_invoice(user,OInvRegNo):
 	model_type = user['model_type']
 	current_user = user['current_user']
 	invoice_list = [{"OInvRegNo": OInvRegNo}]
-	res = apiOrderInvInfo(invoice_list=invoice_list,
-												single_object=True,
-												rp_acc_user=current_user)
+	res = apiOrderInvInfo(
+		invoice_list = invoice_list,
+		single_object = True,
+		rp_acc_user = current_user)
 	if res['status'] == 1:
 		status_code = 200
 	else:

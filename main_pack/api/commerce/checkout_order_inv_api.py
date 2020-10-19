@@ -104,7 +104,6 @@ def api_checkout_sale_order_invoices(user):
 				# in case of errors, the error_type is provided
 				error_type = 0
 				order_inv_line = addOrderInvLineDict(order_inv_line_req)
-				print(order_inv_line)
 				# OInvLineRegNo generation
 				try:
 					reg_num = generate(UId=user.UId,RegNumTypeName='order_invoice_line_code')

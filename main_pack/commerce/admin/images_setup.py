@@ -283,7 +283,7 @@ def resource_edit(ResId):
 				imageForm = resourceForm.resourceImage.data,
 				module = os.path.join("uploads","commerce","Resource"),
 				id = ResId,
-				watermark = True)
+				apply_watermark = True)
 
 			lastImage = Image.query.order_by(Image.ImgId.desc()).first()
 			ImgId = lastImage.ImgId + 1

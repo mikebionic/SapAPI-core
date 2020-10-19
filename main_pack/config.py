@@ -83,8 +83,9 @@ class Config:
 	# set to True if you want to use BCrypt hashing
 	HASHED_PASSWORDS = False
 
-	# # to give each api it's pagination: 
+	# # to give each api it's pagination:
 	RESOURCES_PER_PAGE = 30
+	INVOICES_PER_PAGE = 15
 	API_OBJECTS_PER_PAGE = 10
 
 	# REG_NO generator's random range
