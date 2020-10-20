@@ -83,8 +83,6 @@ def api_v_resources_search():
 	tag = request.args.get("tag","",type=str)
 	tag = tag.strip()
 	searching_tag = "%{}%".format(tag)
-
-	print(len(tag))
 	data = []
 	if len(tag) > 3:
 		barcodes = Barcode.query\

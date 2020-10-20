@@ -48,7 +48,8 @@ def api_warehouses():
 		else:
 			req = request.get_json()
 			warehouses = []
-			failed_warehouses = [] 
+			failed_warehouses = []
+			# !!! Todo: add DivGuid checkup
 			for warehouse_req in req:
 				try:
 					warehouse_info = addWarehouseDict(warehouse_req)

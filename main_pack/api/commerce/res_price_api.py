@@ -85,7 +85,7 @@ def api_res_prices():
 					thisResPrice = None
 					
 					res_price["ResRegNo"] = ResRegNo
-					res_price["ResPriceRegNo"] = ResRegNo
+					res_price["ResPriceRegNo"] = ResPriceRegNo
 					res_prices.append(res_price)
 
 				except Exception as ex:
