@@ -21,7 +21,7 @@ def changeImageSize(
 	imageFile,
 	modulePath,
 	FileName,
-	apply_watermark = False):
+	watermark = False):
 
 	output_sizes = {
 		"R": None,
@@ -34,50 +34,65 @@ def changeImageSize(
 		current_app.root_path,
 		Config.WEB_CONFIG_DIRECTORY,
 		'watermark.png')
-	for size in output_sizes:
-		image = Image.open(imageFile)
-		# create path according to a size abobe like "/images/M/blahblah.jpg"
-		sizeSpecificFullPath = os.path.join(current_app.root_path,'static',modulePath,size)
-		# check that it exists or create one
-		dirHandler(sizeSpecificFullPath)
 
-		# makes the "module/id/R/blahblah.jpg" (required for db path info)
-		FilePath = os.path.join(modulePath,size,FileName)
+	big_image = imageFile
+	size = "R"
+	
+	# create path according to a size abobe like "/images/M/blahblah.jpg"
+	sizeSpecificFullPath = os.path.join(current_app.root_path,'static',modulePath,size)
+	# check that it exisFileNamets or create one
+	dirHandler(sizeSpecificFullPath)
 
-		# join the fullPath with filename to save to
-		saving_path = os.path.join(sizeSpecificFullPath,FileName)
+	# makes the "module/id/R/blahblah.jpg" (required for db path info)
+	FilePath = os.path.join(modulePath,size,FileName)
 
-		if not output_sizes[size]:
-			if (Config.ADD_RESOURCE_WATERMARK == True and apply_watermark == True):
-				watermark = Image.open(watermark_image_path).resize(image.size)
-				image.paste(watermark,(0,0),mask=watermark)
-			
-			image.save(saving_path,optimize=True,quality=65)
-			paths[f"FilePath{size}"]=FilePath
+	# join the fullPath with filename to save to
+	saving_path = os.path.join(sizeSpecificFullPath,FileName)
+	if (Config.ADD_RESOURCE_WATERMARK == True and watermark == True):
+		watermark = Image.open(watermark_image_path).resize(big_image.size)
+		big_image.paste(watermark,(0,0),mask=watermark)
 
-		else:
-			image.thumbnail(output_sizes[size])
+	big_image.save(saving_path,optimize=True,quality=65)
+	paths[f"FilePath{size}"]=FilePath
 
-			if (Config.ADD_RESOURCE_WATERMARK == True and apply_watermark == True):
-				if size != 'S':
-					print("adding watermark")
-					watermark = Image.open(watermark_image_path).resize(image.size)
-					image.paste(watermark,(0,0),mask=watermark)
 
-			image.save(saving_path)
-			paths[f"FilePath{size}"]=FilePath
+
+	med_image = imageFile
+	size = "M"
+	sizeSpecificFullPath = os.path.join(current_app.root_path,'static',modulePath,size)
+	dirHandler(sizeSpecificFullPath)
+	FilePath = os.path.join(modulePath,size,FileName)
+	saving_path = os.path.join(sizeSpecificFullPath,FileName)
+
+	med_image.thumbnail(output_sizes[size])
+	if (Config.ADD_RESOURCE_WATERMARK == True and watermark == True):
+		watermark = Image.open(watermark_image_path).resize(med_image.size)
+		med_image.paste(watermark,(0,0),mask=watermark)
+
+	med_image.save(saving_path)
+	paths[f"FilePath{size}"]=FilePath
+
+
+
+	small_image = imageFile
+	size = "S"
+	sizeSpecificFullPath = os.path.join(current_app.root_path,'static',modulePath,size)
+	dirHandler(sizeSpecificFullPath)
+	FilePath = os.path.join(modulePath,size,FileName)
+	saving_path = os.path.join(sizeSpecificFullPath,FileName)
+	small_image.thumbnail(output_sizes[size])
+	small_image.save(saving_path)
+	paths[f"FilePath{size}"]=FilePath
 
 	paths["FilePath"]=os.path.join(modulePath,"<FSize>",FileName)
-
 	return paths
-
 
 def save_image(
 		imageForm = None,
 		savedImage = None,
 		module = "undefined",
 		id = "undefined",
-		apply_watermark = False):
+		watermark = False):
 	random_hex = secrets.token_hex(Config.IMAGE_RANDOM_HEX_LENGTH)
 	modulePath = os.path.join(str(module),str(id),'images')
 	sizeSpecificFullPath = None
@@ -86,7 +101,6 @@ def save_image(
 		image = Image.open(savedImage)
 		image = image.convert('RGBA')
 		image.save(savedImage)
-		saving_path = savedImage
 		image = Image.open(savedImage)
 		_, f_ext = os.path.splitext(image.filename)
 		FileName = random_hex + f_ext
@@ -105,14 +119,16 @@ def save_image(
 		print('it was a form now saved into:')
 		print(saving_path)
 
+		image = Image.open(imageForm)
+
 	response = {
 		"FileName":FileName
 	}
 	resizing = changeImageSize(
-		imageFile = saving_path,
+		imageFile = image,
 		modulePath = modulePath,
 		FileName = FileName,
-		apply_watermark = apply_watermark)
+		watermark = watermark)
 	
 	if sizeSpecificFullPath:
 		try:

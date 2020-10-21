@@ -8,6 +8,7 @@ from main_pack.base.apiMethods import fileToURL
 class CreatedModifiedInfo(object):
 	CreatedDate = db.Column(db.DateTime,default=datetime.now())
 	ModifiedDate = db.Column(db.DateTime,default=datetime.now(),onupdate=datetime.now())
+	SyncDateTime = db.Column(db.DateTime,default=datetime.now())
 	CreatedUId = db.Column(db.Integer)
 	ModifiedUId = db.Column(db.Integer)
 	GCRecord = db.Column(db.Integer)
@@ -204,6 +205,7 @@ class Company(AddInf,CreatedModifiedInfo,db.Model):
 			"AddInf6": self.AddInf6,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -304,6 +306,7 @@ class Currency(AddInf,CreatedModifiedInfo,db.Model):
 			"AddInf6": self.AddInf6,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -384,6 +387,7 @@ class Division(AddInf,CreatedModifiedInfo,db.Model):
 			"AddInf6": self.AddInf6,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -413,9 +417,17 @@ class Image(CreatedModifiedInfo,db.Model):
 	UId = db.Column(db.Integer,db.ForeignKey("tbl_dk_users.UId"))
 	RpAccId = db.Column(db.Integer,db.ForeignKey("tbl_dk_rp_acc.RpAccId"))
 	ResId = db.Column(db.Integer,db.ForeignKey("tbl_dk_resource.ResId"))
-	FileName = db.Column(db.String(100))
-	FileHash = db.Column(db.String(100))
+	FileName = db.Column(db.String(100),default="")
 	FilePath = db.Column(db.String(255))
+	FileHash = db.Column(db.String(100))
+	MinDarkFileName = db.Column(db.String(100),default="")
+	MinDarkFilePath = db.Column(db.String(255),default="")
+	MaxDarkFileName = db.Column(db.String(100),default="")
+	MaxDarkFilePath = db.Column(db.String(255),default="")
+	MinLightFileName = db.Column(db.String(100),default="")
+	MinLightFilePath = db.Column(db.String(255),default="")
+	MaxLightFileName = db.Column(db.String(100),default="")
+	MaxLightFilePath = db.Column(db.String(255),default="")
 	Image = db.Column(db.LargeBinary)
 
 	def update(self, **kwargs):
@@ -452,11 +464,20 @@ class Image(CreatedModifiedInfo,db.Model):
 			"FilePathS": fileToURL(file_type='image',file_size='S',file_name=self.FileName),
 			"FilePathM": fileToURL(file_type='image',file_size='M',file_name=self.FileName),
 			"FilePathR": fileToURL(file_type='image',file_size='R',file_name=self.FileName),
-			# "FileHash": self.FileHash,
+			"FileHash": self.FileHash,
+			"MinDarkFileName": self.MinDarkFileName,			
+			"MinDarkFilePath": self.MinDarkFilePath,
+			"MaxDarkFileName": self.MaxDarkFileName,
+			"MaxDarkFilePath": self.MaxDarkFilePath,
+			"MinLightFileName": self.MinLightFileName,
+			"MinLightFilePath": self.MinLightFilePath,
+			"MaxLightFileName": self.MaxLightFileName,
+			"MaxLightFilePath": self.MaxLightFilePath,
 			# # "Image": base64.encodebytes(self.Image).decode('ascii'),
 			# "Image": apiCheckImageByte(self.Image),
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -546,6 +567,7 @@ class Pred_regnum(CreatedModifiedInfo,db.Model):
 			"RegNum": self.RegNum,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -662,6 +684,7 @@ class Sl_image(AddInf,CreatedModifiedInfo,db.Model):
 			"AddInf6": self.AddInf6,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -699,6 +722,7 @@ class Slider(AddInf,CreatedModifiedInfo,db.Model):
 			"AddInf6": self.AddInf6,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -758,6 +782,7 @@ class Warehouse(AddInf,CreatedModifiedInfo,db.Model):
 			"AddInf6": self.AddInf6,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord

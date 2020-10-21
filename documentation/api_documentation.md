@@ -114,6 +114,7 @@ returns **all orders** if **blank**
 ## Get all orders of a logged Rp_acc
 **@token_required** of **Rp_acc** login
 + /api/v-order-invoices/?startDate=<datetime>&endDate=<datetime>
++ /api/v-order-invoices/paginate/?page=&endDate=&invStatus=&per_page=&sort=&invoices_only=
 + /api/v-invoices/?startDate=<datetime>&endDate=<datetime>
 
 example:
@@ -166,7 +167,9 @@ Returns only if the **Rp_acc** is the **owner** of invoice
 > GET
 
 from latest to first (needs configurations for datetime order
-+ /api/v-resources/paginate/?offset=<lastId>&limit=<quantity>
+<!-- + /api/v-resources/paginate/?offset=<lastId>&limit=<quantity> -->
++ /api/v-resources/paginate/?filtering=&category=&brand=&per_page=&page=
++ /api/v-resources/search/?tag=
 
 > GET POST
 

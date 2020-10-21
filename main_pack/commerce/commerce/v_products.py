@@ -105,6 +105,7 @@ def collect_resource_paginate_info(pagination_url,
 			.filter(Res_category.ResCatName.ilike(category))\
 			.first()
 		if category:
+			# # !!!TODO: Add "where in" method of filtering
 			# category = Res_category.query\
 			# 	.filter_by(GCRecord = None)\
 			# 	.filter(or_(

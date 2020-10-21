@@ -70,23 +70,29 @@ def api_res_prices():
 							ResPriceRegNo = ResPriceRegNo)\
 						.first()
 
-					res_price['ResId'] = resource.ResId
+					res_price["ResId"] = resource.ResId
 
 					if thisResPrice:
+						res_price["ResPriceId"] = thisResPrice.ResPriceId
 						thisResPrice.update(**res_price)
 					else:
+						lastPrice = Res_price.query.order_by(Res_price.ResPriceId.desc()).first()
+						ResPriceId = lastPrice.ResPriceId+1
+						res_price["ResPriceId"] = ResPriceId
+
 						thisResPrice = Res_price(**res_price)
 						db.session.add(thisResPrice)
 					thisResPrice = None
 					
 					res_price["ResRegNo"] = ResRegNo
-					res_price["ResPriceRegNo"] = ResRegNo
+					res_price["ResPriceRegNo"] = ResPriceRegNo
 					res_prices.append(res_price)
 
 				except Exception as ex:
 					print(f"{datetime.now()} | Res_price Api Exception: {ex}")
 					failed_res_prices.append(res_price_req)
 
+			db.session.commit()
 			status = checkApiResponseStatus(res_prices,failed_res_prices)
 			res = {
 				"data": res_prices,

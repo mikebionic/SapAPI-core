@@ -3,6 +3,7 @@ from main_pack.base.dataMethods import configureNulls,configureFloat,boolCheck
 
 def addUsersDict(req):
 	UId = req.get('UId')
+	UGuid = req.get('UGuid')
 	CId = req.get('CId')
 	DivId = req.get('DivId')
 	RpAccId = req.get('RpAccId')
@@ -22,11 +23,13 @@ def addUsersDict(req):
 	AddInf6 = req.get('AddInf6')
 	CreatedDate = req.get('CreatedDate')
 	ModifiedDate = req.get('ModifiedDate')
+	SyncDateTime = req.get('SyncDateTime')
 	CreatedUId = req.get('CreatedUId')
 	ModifiedUId = req.get('ModifiedUId')
 	GCRecord = req.get('GCRecord')
 
 	users = {
+		"UGuid": UGuid,
 		"CId": CId,
 		"DivId": DivId,
 		"RpAccId": RpAccId,
@@ -46,6 +49,7 @@ def addUsersDict(req):
 		"AddInf6": AddInf6,
 		"CreatedDate": CreatedDate,
 		"ModifiedDate": ModifiedDate,
+		"SyncDateTime": SyncDateTime,
 		"CreatedUId": CreatedUId,
 		"ModifiedUId": ModifiedUId,
 		"GCRecord": GCRecord
@@ -57,6 +61,7 @@ def addUsersDict(req):
 
 def addRpAccDict(req):
 	RpAccId = req.get('RpAccId')
+	UGuid = req.get('UGuid')
 	UId = req.get('UId')
 	CId = req.get('CId')
 	DivId = req.get('DivId')
@@ -98,10 +103,12 @@ def addRpAccDict(req):
 	AddInf6 = req.get('AddInf6')
 	CreatedDate = req.get('CreatedDate')
 	ModifiedDate = req.get('ModifiedDate')
+	SyncDateTime = req.get('SyncDateTime')	
 	CreatedUId = req.get('CreatedUId')
 	ModifiedUId = req.get('ModifiedUId')
 	GCRecord = req.get('GCRecord')
 	rp_acc = {
+		"UGuid": UGuid,
 		"UId": UId,
 		"CId": CId,
 		"DivId": DivId,
@@ -143,6 +150,7 @@ def addRpAccDict(req):
 		"AddInf6": AddInf6,
 		"CreatedDate": CreatedDate,
 		"ModifiedDate": ModifiedDate,
+		"SyncDateTime": SyncDateTime,
 		"CreatedUId": CreatedUId,
 		"ModifiedUId": ModifiedUId,
 		"GCRecord": GCRecord

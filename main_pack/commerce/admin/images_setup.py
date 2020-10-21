@@ -246,7 +246,13 @@ def resource_edit(ResId):
 		.filter_by(GCRecord = None, ResId = ResId)\
 		.first()
 	resource_models = [resource]
-	res = apiResourceInfo(resource_models=resource_models,single_object=True,showInactive=True,avoidQtyCheckup=True)
+	
+	res = apiResourceInfo(
+		resource_models=resource_models,
+		single_object=True,
+		showInactive=True,
+		avoidQtyCheckup=True)
+
 	resource_info = res['data']
 	resourceForm = ResourceEditForm()
 	
@@ -273,7 +279,12 @@ def resource_edit(ResId):
 		resource.BrandId = resourceForm.BrandId.data if resourceForm.BrandId.data > 0 else None
 
 		if resourceForm.resourceImage.data:
-			imageFile = save_image(imageForm=resourceForm.resourceImage.data,module=os.path.join("uploads","commerce","Resource"),id=ResId)
+			imageFile = save_image(
+				imageForm = resourceForm.resourceImage.data,
+				module = os.path.join("uploads","commerce","Resource"),
+				id = ResId,
+				apply_watermark = True)
+
 			lastImage = Image.query.order_by(Image.ImgId.desc()).first()
 			ImgId = lastImage.ImgId + 1
 			image = Image(ImgId=ImgId,FileName=imageFile['FileName'],FilePath=imageFile['FilePath'],ResId=ResId)

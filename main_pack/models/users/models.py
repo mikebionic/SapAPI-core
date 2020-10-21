@@ -1,6 +1,7 @@
 from main_pack import db, login_manager
 from main_pack.config import Config
 from datetime import datetime
+from sqlalchemy.dialects.postgresql import UUID
 from flask_login import UserMixin
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from main_pack.models.base.models import CreatedModifiedInfo, AddInf
@@ -14,6 +15,7 @@ def load_user(UId):
 class Users(AddInf,CreatedModifiedInfo,db.Model,UserMixin):
 	__tablename__="tbl_dk_users"
 	UId = db.Column(db.Integer,nullable=False,primary_key=True)
+	UGuid = db.Column(UUID(as_uuid=True),unique=True)
 	CId = db.Column(db.Integer,db.ForeignKey("tbl_dk_company.CId"))
 	DivId = db.Column(db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
 	RpAccId = db.Column(db.Integer)
@@ -65,6 +67,7 @@ class Users(AddInf,CreatedModifiedInfo,db.Model,UserMixin):
 	def to_json_api(self):
 		users = {
 			"UId": self.UId,
+			"UGuid": self.UGuid,
 			"CId": self.CId,
 			"DivId": self.DivId,
 			"RpAccId": self.RpAccId,
@@ -84,6 +87,7 @@ class Users(AddInf,CreatedModifiedInfo,db.Model,UserMixin):
 			"AddInf6": self.AddInf6,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -113,6 +117,7 @@ class User_type(CreatedModifiedInfo,db.Model):
 			"UTypeDesc_enUS": self.UTypeDesc_enUS,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -123,6 +128,7 @@ class User_type(CreatedModifiedInfo,db.Model):
 class Rp_acc(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_rp_acc"
 	RpAccId = db.Column(db.Integer,nullable=False,primary_key=True)
+	RpAccGuid = db.Column(UUID(as_uuid=True),unique=True)
 	CId = db.Column(db.Integer,db.ForeignKey("tbl_dk_company.CId"))
 	DivId = db.Column(db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
 	UId = db.Column(db.Integer,db.ForeignKey("tbl_dk_users.UId"))
@@ -183,6 +189,7 @@ class Rp_acc(AddInf,CreatedModifiedInfo,db.Model):
 	def to_json_api(self):
 		json_rp_acc = {
 			"RpAccId": self.RpAccId,
+			"RpAccGuid": self.RpAccGuid,
 			"CId": self.CId,
 			"DivId": self.DivId,
 			"EmpId": self.EmpId,
@@ -223,6 +230,7 @@ class Rp_acc(AddInf,CreatedModifiedInfo,db.Model):
 			"AddInf6": self.AddInf6,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -252,6 +260,7 @@ class Rp_acc_status(CreatedModifiedInfo,db.Model):
 			"RpAccStatusdesc_enUS": self.RpAccStatusdesc_enUS,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -281,6 +290,7 @@ class Rp_acc_type(CreatedModifiedInfo,db.Model):
 			"RpAccTypeDesc_enUS": self.RpAccTypeDesc_enUS,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord

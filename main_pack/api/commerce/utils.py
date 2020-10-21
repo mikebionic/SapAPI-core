@@ -36,6 +36,7 @@ def addCompanyDict(req):
 	AddInf6 = req.get('AddInf6')
 	CreatedDate = req.get('CreatedDate')
 	ModifiedDate = req.get('ModifiedDate')
+	SyncDateTime = req.get('SyncDateTime')
 	CreatedUId = req.get('CreatedUId')
 	ModifiedUId = req.get('ModifiedUId')
 	GCRecord = req.get('GCRecord')
@@ -65,6 +66,7 @@ def addCompanyDict(req):
 		"AddInf6": AddInf6,
 		"CreatedDate": CreatedDate,
 		"ModifiedDate": ModifiedDate,
+		"SyncDateTime": SyncDateTime,
 		"CreatedUId": CreatedUId,
 		"ModifiedUId": ModifiedUId,
 		"GCRecord": GCRecord
@@ -89,6 +91,7 @@ def addDivisionDict(req):
 	AddInf6 = req.get('AddInf6')
 	CreatedDate = req.get('CreatedDate')
 	ModifiedDate = req.get('ModifiedDate')
+	SyncDateTime = req.get('SyncDateTime')
 	CreatedUId = req.get('CreatedUId')
 	ModifiedUId = req.get('ModifiedUId')
 	GCRecord = req.get('GCRecord')
@@ -107,6 +110,7 @@ def addDivisionDict(req):
 		"AddInf6": AddInf6,
 		"CreatedDate": CreatedDate,
 		"ModifiedDate": ModifiedDate,
+		"SyncDateTime": SyncDateTime,
 		"CreatedUId": CreatedUId,
 		"ModifiedUId": ModifiedUId,
 		"GCRecord": GCRecord
@@ -124,6 +128,7 @@ def addCategoryDict(req):
 	ResCatIconName = req.get('ResCatIconName')
 	CreatedDate = req.get('CreatedDate')
 	ModifiedDate = req.get('ModifiedDate')
+	SyncDateTime = req.get('SyncDateTime')
 	CreatedUId = req.get('CreatedUId')
 	ModifiedUId = req.get('ModifiedUId')
 	GCRecord = req.get('GCRecord')
@@ -141,6 +146,7 @@ def addCategoryDict(req):
 		"AddInf6": AddInf6,
 		"CreatedDate": CreatedDate,
 		"ModifiedDate": ModifiedDate,
+		"SyncDateTime": SyncDateTime,
 		"CreatedUId": CreatedUId,
 		"ModifiedUId": ModifiedUId,
 		"GCRecord": GCRecord
@@ -152,6 +158,7 @@ def addCategoryDict(req):
 
 def addResourceDict(req):
 	ResId = req.get('ResId')
+	ResGuid = req.get('ResGuid')
 	CId = req.get('CId')
 	DivId = req.get('DivId')
 	ResCatId = req.get('ResCatId')
@@ -183,11 +190,13 @@ def addResourceDict(req):
 	AddInf6 = req.get('AddInf6')
 	CreatedDate = req.get('CreatedDate')
 	ModifiedDate = req.get('ModifiedDate')
+	SyncDateTime = req.get('SyncDateTime')
 	CreatedUId = req.get('CreatedUId')
 	ModifiedUId = req.get('ModifiedUId')
 	GCRecord = req.get('GCRecord')
 
 	resource = {
+		"ResGuid": ResGuid,
 		"CId": CId,
 		"DivId": DivId,
 		"ResCatId": ResCatId,
@@ -219,6 +228,7 @@ def addResourceDict(req):
 		"AddInf6": AddInf6,
 		"CreatedDate": CreatedDate,
 		"ModifiedDate": ModifiedDate,
+		"SyncDateTime": SyncDateTime,
 		"CreatedUId": CreatedUId,
 		"ModifiedUId": ModifiedUId,
 		"GCRecord": GCRecord
@@ -232,30 +242,50 @@ def addImageDict(req):
 	ImgId = req.get('ImgId')
 	EmpId = req.get('EmpId')
 	CId = req.get('CId')
+	UId = req.get('UId')
 	RpAccId = req.get('RpAccId')
 	ResId = req.get('ResId')
 	ImgGuid = uuid.UUID(req.get('ImgGuid'))
 	FileName = req.get('FileName')
 	FilePath = req.get('FilePath')
 	FileHash = req.get('FileHash')
+	MinDarkFileName = req.get('MinDarkFileName')
+	MinDarkFilePath = req.get('MinDarkFilePath')
+	MaxDarkFileName = req.get('MaxDarkFileName')
+	MaxDarkFilePath = req.get('MaxDarkFilePath')
+	MinLightFileName = req.get('MinLightFileName')
+	MinLightFilePath = req.get('MinLightFilePath')
+	MaxLightFileName = req.get('MaxLightFileName')
+	MaxLightFilePath = req.get('MaxLightFilePath')
 	# Image = str.encode(req.get('Image'))
 	CreatedDate = req.get('CreatedDate')
 	ModifiedDate = req.get('ModifiedDate')
+	SyncDateTime = req.get('SyncDateTime')
 	CreatedUId = req.get('CreatedUId')
 	ModifiedUId = req.get('ModifiedUId')
 	GCRecord = req.get('GCRecord')
 	image = {
 		"EmpId": EmpId,
 		"CId": CId,
+		"UId": UId,
 		"RpAccId": RpAccId,
 		"ResId": ResId,
 		"ImgGuid": ImgGuid,
 		"FileName": FileName,
 		"FilePath": FilePath,
 		"FileHash": FileHash,
+		"MinDarkFileName": MinDarkFileName,
+		"MinDarkFilePath": MinDarkFilePath,
+		"MaxDarkFileName": MaxDarkFileName,
+		"MaxDarkFilePath": MaxDarkFilePath,
+		"MinLightFileName": MinLightFileName,
+		"MinLightFilePath": MinLightFilePath,
+		"MaxLightFileName": MaxLightFileName,
+		"MaxLightFilePath": MaxLightFilePath,
 		# "Image": Image,
 		"CreatedDate": CreatedDate,
 		"ModifiedDate": ModifiedDate,
+		"SyncDateTime": SyncDateTime,
 		"CreatedUId": CreatedUId,
 		"ModifiedUId": ModifiedUId,
 		"GCRecord": GCRecord
@@ -269,30 +299,50 @@ def saveImageFile(req):
 	ImgId = req.get('ImgId')
 	EmpId = req.get('EmpId')
 	CId = req.get('CId')
+	UId = req.get('UId')
 	RpAccId = req.get('RpAccId')
 	ResId = req.get('ResId')
 	ImgGuid = uuid.UUID(req.get('ImgGuid'))
 	FileName = req.get('FileName')
 	FilePath = req.get('FilePath')
 	FileHash = req.get('FileHash')
+	MinDarkFileName = req.get('MinDarkFileName')
+	MinDarkFilePath = req.get('MinDarkFilePath')
+	MaxDarkFileName = req.get('MaxDarkFileName')
+	MaxDarkFilePath = req.get('MaxDarkFilePath')
+	MinLightFileName = req.get('MinLightFileName')
+	MinLightFilePath = req.get('MinLightFilePath')
+	MaxLightFileName = req.get('MaxLightFileName')
+	MaxLightFilePath = req.get('MaxLightFilePath')	
 	Image = str.encode(req.get('Image'))
 	CreatedDate = req.get('CreatedDate')
 	ModifiedDate = req.get('ModifiedDate')
+	SyncDateTime = req.get('SyncDateTime')
 	CreatedUId = req.get('CreatedUId')
 	ModifiedUId = req.get('ModifiedUId')
 	GCRecord = req.get('GCRecord')
 	image = {
 		"EmpId": EmpId,
 		"CId": CId,
+		"UId": UId,
 		"RpAccId": RpAccId,
 		"ResId": ResId,
 		"ImgGuid": ImgGuid,
 		"FileName": FileName,
 		"FilePath": FilePath,
 		"FileHash": FileHash,
+		"MinDarkFileName": MinDarkFileName,
+		"MinDarkFilePath": MinDarkFilePath,
+		"MaxDarkFileName": MaxDarkFileName,
+		"MaxDarkFilePath": MaxDarkFilePath,
+		"MinLightFileName": MinLightFileName,
+		"MinLightFilePath": MinLightFilePath,
+		"MaxLightFileName": MaxLightFileName,
+		"MaxLightFilePath": MaxLightFilePath,
 		# "Image": Image,
 		"CreatedDate": CreatedDate,
 		"ModifiedDate": ModifiedDate,
+		"SyncDateTime": SyncDateTime,
 		"CreatedUId": CreatedUId,
 		"ModifiedUId": ModifiedUId,
 		"GCRecord": GCRecord
@@ -328,8 +378,16 @@ def saveImageFile(req):
 		outfile = open(dumpImagePath,"wb")
 		outfile.write(base64.decodebytes(imageBytes))
 		outfile.flush()
-		outfile.close()		
-		imageFile = save_image(savedImage=dumpImagePath,module=module,id=id)
+		outfile.close()
+		image_params = {
+			"savedImage": dumpImagePath,
+			"module": module,
+			"id": id,
+		}
+		if image['ResId']:
+			image_params["apply_watermark"] = True
+		
+		imageFile = save_image(**image_params)
 		image['FilePath'] = imageFile['FilePath']
 		image['FileName'] = imageFile['FileName']
 		# for data in imageFile:
@@ -349,6 +407,7 @@ def addBarcodeDict(req):
 	BarcodeVal = req.get('BarcodeVal')
 	CreatedDate = req.get('CreatedDate')
 	ModifiedDate = req.get('ModifiedDate')
+	SyncDateTime = req.get('SyncDateTime')
 	CreatedUId = req.get('CreatedUId')
 	ModifiedUId = req.get('ModifiedUId')
 	GCRecord = req.get('GCRecord')
@@ -361,6 +420,7 @@ def addBarcodeDict(req):
 		"BarcodeVal": BarcodeVal,
 		"CreatedDate": CreatedDate,
 		"ModifiedDate": ModifiedDate,
+		"SyncDateTime": SyncDateTime,
 		"CreatedUId": CreatedUId,
 		"ModifiedUId": ModifiedUId,
 		"GCRecord": GCRecord
@@ -383,6 +443,7 @@ def addResPriceDict(req):
 	PriceEndDate = req.get('PriceEndDate')
 	CreatedDate = req.get('CreatedDate')
 	ModifiedDate = req.get('ModifiedDate')
+	SyncDateTime = req.get('SyncDateTime')
 	CreatedUId = req.get('CreatedUId')
 	ModifiedUId = req.get('ModifiedUId')
 	GCRecord = req.get('GCRecord')
@@ -399,6 +460,7 @@ def addResPriceDict(req):
 		"PriceEndDate": PriceEndDate,
 		"CreatedDate": CreatedDate,
 		"ModifiedDate": ModifiedDate,
+		"SyncDateTime": SyncDateTime,
 		"CreatedUId": CreatedUId,
 		"ModifiedUId": ModifiedUId,
 		"GCRecord": GCRecord
@@ -423,6 +485,7 @@ def addResTotalDict(req):
 	ResTotPurchAvgPrice = configureFloat(req.get('ResTotPurchAvgPrice'))
 	CreatedDate = req.get('CreatedDate')
 	ModifiedDate = req.get('ModifiedDate')
+	SyncDateTime = req.get('SyncDateTime')
 	CreatedUId = req.get('CreatedUId')
 	ModifiedUId = req.get('ModifiedUId')
 	GCRecord = req.get('GCRecord')
@@ -441,6 +504,7 @@ def addResTotalDict(req):
 		"ResTotPurchAvgPrice": ResTotPurchAvgPrice,
 		"CreatedDate": CreatedDate,
 		"ModifiedDate": ModifiedDate,
+		"SyncDateTime": SyncDateTime,
 		"CreatedUId": CreatedUId,
 		"ModifiedUId": ModifiedUId,
 		"GCRecord": GCRecord
@@ -462,6 +526,7 @@ def addRpAccTrTotDict(req):
 	RpAccTrTotLastTrDate = req.get('RpAccTrTotLastTrDate')
 	CreatedDate = req.get('CreatedDate')
 	ModifiedDate = req.get('ModifiedDate')
+	SyncDateTime = req.get('SyncDateTime')
 	CreatedUId = req.get('CreatedUId')
 	ModifiedUId = req.get('ModifiedUId')
 	GCRecord = req.get('GCRecord')
@@ -475,6 +540,7 @@ def addRpAccTrTotDict(req):
 		"RpAccTrTotLastTrDate": RpAccTrTotLastTrDate,
 		"CreatedDate": CreatedDate,
 		"ModifiedDate": ModifiedDate,
+		"SyncDateTime": SyncDateTime,
 		"CreatedUId": CreatedUId,
 		"ModifiedUId": ModifiedUId,
 		"GCRecord": GCRecord
@@ -488,6 +554,7 @@ def addRpAccTrTotDict(req):
 
 def addOrderInvDict(req):
 	OInvId = req.get('OInvId')
+	OInvGuid = req.get('OInvGuid')
 	OInvTypeId = req.get('OInvTypeId')
 	InvStatId = req.get('InvStatId')
 	CurrencyId = req.get('CurrencyId')
@@ -523,11 +590,13 @@ def addOrderInvDict(req):
 	AddInf6 = req.get('AddInf6')
 	CreatedDate = req.get('CreatedDate')
 	ModifiedDate = req.get('ModifiedDate')
+	SyncDateTime = req.get('SyncDateTime')
 	CreatedUId = req.get('CreatedUId')
 	ModifiedUId = req.get('ModifiedUId')
 	GCRecord = req.get('GCRecord')
 
 	order_inv = {
+		"OInvGuid": OInvGuid,
 		"OInvTypeId": OInvTypeId,
 		"InvStatId": InvStatId,
 		"CurrencyId": CurrencyId,
@@ -563,6 +632,7 @@ def addOrderInvDict(req):
 		"AddInf6": AddInf6,
 		"CreatedDate": CreatedDate,
 		"ModifiedDate": ModifiedDate,
+		"SyncDateTime": SyncDateTime,
 		"CreatedUId": CreatedUId,
 		"ModifiedUId": ModifiedUId,
 		"GCRecord": GCRecord
@@ -576,6 +646,7 @@ def addOrderInvDict(req):
 def addOrderInvLineDict(req):
 	OInvLineId = req.get('OInvLineId')
 	OInvId = req.get('OInvId')
+	OInvLineGuid = req.get('OInvLineGuid')
 	UnitId = req.get('UnitId')
 	CurrencyId = req.get('CurrencyId')
 	ResId = req.get('ResId')
@@ -598,12 +669,14 @@ def addOrderInvLineDict(req):
 	AddInf6 = req.get('AddInf6')
 	CreatedDate = req.get('CreatedDate')
 	ModifiedDate = req.get('ModifiedDate')
+	SyncDateTime = req.get('SyncDateTime')
 	CreatedUId = req.get('CreatedUId')
 	ModifiedUId = req.get('ModifiedUId')
 	GCRecord = req.get('GCRecord')
 
 	order_inv_line = {
 		#"OInvId": OInvId,
+		"OInvLineGuid": OInvLineGuid,
 		"UnitId": UnitId,
 		"CurrencyId": CurrencyId,
 		"ResId": ResId,
@@ -626,6 +699,7 @@ def addOrderInvLineDict(req):
 		"AddInf6": AddInf6,
 		"CreatedDate": CreatedDate,
 		"ModifiedDate": ModifiedDate,
+		"SyncDateTime": SyncDateTime,
 		"CreatedUId": CreatedUId,
 		"ModifiedUId": ModifiedUId,
 		"GCRecord": GCRecord
@@ -645,6 +719,7 @@ def addOrderInvTypeDict(req):
 	OInvTypeDesc_enUS = req.get('OInvTypeDesc_enUS')
 	CreatedDate = req.get('CreatedDate')
 	ModifiedDate = req.get('ModifiedDate')
+	SyncDateTime = req.get('SyncDateTime')
 	CreatedUId = req.get('CreatedUId')
 	ModifiedUId = req.get('ModifiedUId')
 	GCRecord = req.get('GCRecord')
@@ -658,6 +733,7 @@ def addOrderInvTypeDict(req):
 		"OInvTypeDesc_enUS": OInvTypeDesc_enUS,
 		"CreatedDate": CreatedDate,
 		"ModifiedDate": ModifiedDate,
+		"SyncDateTime": SyncDateTime,
 		"CreatedUId": CreatedUId,
 		"ModifiedUId": ModifiedUId,
 		"GCRecord": GCRecord
@@ -670,6 +746,7 @@ def addOrderInvTypeDict(req):
 
 def addInvDict(req):
 	InvId = req.get('InvId')
+	InvGuid = req.get('InvGuid')
 	InvTypeId = req.get('InvTypeId')
 	InvStatId = req.get('InvStatId')
 	CurrencyId = req.get('CurrencyId')
@@ -704,10 +781,12 @@ def addInvDict(req):
 	AddInf6 = req.get('AddInf6')
 	CreatedDate = req.get('CreatedDate')
 	ModifiedDate = req.get('ModifiedDate')
+	SyncDateTime = req.get('SyncDateTime')
 	CreatedUId = req.get('CreatedUId')
 	ModifiedUId = req.get('ModifiedUId')
 	GCRecord = req.get('GCRecord')	
 	inv = {
+		"InvGuid": InvGuid,
 		"InvTypeId": InvTypeId,
 		"InvStatId": InvStatId,
 		"CurrencyId": CurrencyId,
@@ -742,6 +821,7 @@ def addInvDict(req):
 		"AddInf6": AddInf6,
 		"CreatedDate": CreatedDate,
 		"ModifiedDate": ModifiedDate,
+		"SyncDateTime": SyncDateTime,
 		"CreatedUId": CreatedUId,
 		"ModifiedUId": ModifiedUId,
 		"GCRecord": GCRecord
@@ -754,6 +834,7 @@ def addInvDict(req):
 
 def addInvLineDict(req):
 	InvLineId = req.get('InvLineId')
+	InvGuid = req.get('InvGuid')
 	InvId = req.get('InvId')
 	UnitId = req.get('UnitId')
 	CurrencyId = req.get('CurrencyId')
@@ -776,11 +857,13 @@ def addInvLineDict(req):
 	AddInf6 = req.get('AddInf6')
 	CreatedDate = req.get('CreatedDate')
 	ModifiedDate = req.get('ModifiedDate')
+	SyncDateTime = req.get('SyncDateTime')
 	CreatedUId = req.get('CreatedUId')
 	ModifiedUId = req.get('ModifiedUId')
 	GCRecord = req.get('GCRecord')
 
 	inv_line = {
+		"InvGuid": InvGuid,
 		"InvId": InvId,
 		"UnitId": UnitId,
 		"CurrencyId": CurrencyId,
@@ -803,6 +886,7 @@ def addInvLineDict(req):
 		"AddInf6": AddInf6,
 		"CreatedDate": CreatedDate,
 		"ModifiedDate": ModifiedDate,
+		"SyncDateTime": SyncDateTime,
 		"CreatedUId": CreatedUId,
 		"ModifiedUId": ModifiedUId,
 		"GCRecord": GCRecord
@@ -829,6 +913,7 @@ def addWarehouseDict(req):
 	AddInf6 = req.get('AddInf6')
 	CreatedDate = req.get('CreatedDate')
 	ModifiedDate = req.get('ModifiedDate')
+	SyncDateTime = req.get('SyncDateTime')
 	CreatedUId = req.get('CreatedUId')
 	ModifiedUId = req.get('ModifiedUId')
 	GCRecord = req.get('GCRecord')
@@ -847,6 +932,7 @@ def addWarehouseDict(req):
 		"AddInf6": AddInf6,
 		"CreatedDate": CreatedDate,
 		"ModifiedDate": ModifiedDate,
+		"SyncDateTime": SyncDateTime,
 		"CreatedUId": CreatedUId,
 		"ModifiedUId": ModifiedUId,
 		"GCRecord": GCRecord
@@ -866,6 +952,7 @@ def addWorkPeriodDict(req):
 	WpIsDefault = req.get('WpIsDefault')
 	CreatedDate = req.get('CreatedDate')
 	ModifiedDate = req.get('ModifiedDate')
+	SyncDateTime = req.get('SyncDateTime')
 	CreatedUId = req.get('CreatedUId')
 	ModifiedUId = req.get('ModifiedUId')
 	GCRecord = req.get('GCRecord')
@@ -878,6 +965,7 @@ def addWorkPeriodDict(req):
 		"WpIsDefault": WpIsDefault,
 		"CreatedDate": CreatedDate,
 		"ModifiedDate": ModifiedDate,
+		"SyncDateTime": SyncDateTime,
 		"CreatedUId": CreatedUId,
 		"ModifiedUId": ModifiedUId,
 		"GCRecord": GCRecord

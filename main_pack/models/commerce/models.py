@@ -1,5 +1,6 @@
 from main_pack import db
 from sqlalchemy.ext.hybrid import hybrid_property
+from sqlalchemy.dialects.postgresql import UUID
 from datetime import datetime
 from flask_login import current_user
 from main_pack.models.base.models import CreatedModifiedInfo,AddInf
@@ -42,6 +43,7 @@ class Barcode(CreatedModifiedInfo,db.Model):
 			"BarcodeVal": self.BarcodeVal,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -97,6 +99,7 @@ class Brand(AddInf,CreatedModifiedInfo,db.Model):
 			"BrandLink5": self.BrandLink5,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -135,6 +138,7 @@ class Color(CreatedModifiedInfo,db.Model):
 			"ColorCode": self.ColorCode,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -172,6 +176,7 @@ class Size(AddInf,CreatedModifiedInfo,db.Model):
 			"SizeTypeId": self.SizeTypeId,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -206,6 +211,7 @@ class Size_type(CreatedModifiedInfo,db.Model):
 			"SizeTypeDesc": self.SizeTypeDesc,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -243,6 +249,7 @@ class Unit(CreatedModifiedInfo,db.Model):
 			"UnitDesc_enUS": self.UnitDesc_enUS,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -272,6 +279,7 @@ class Usage_status(CreatedModifiedInfo,db.Model):
 			"UsageStatusDesc_enUS": self.UsageStatusDesc_enUS,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -302,6 +310,7 @@ class Discount_type(CreatedModifiedInfo,db.Model):
 			"DiscTypeDesc": self.DiscTypeDesc,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -332,6 +341,7 @@ class Exc_rate(CreatedModifiedInfo,db.Model):
 			"ExcRateValue": self.ExcRateValue,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -355,6 +365,7 @@ class Exc_rate_type(CreatedModifiedInfo,db.Model):
 			"ExcRateTypeExp": self.ExcRateTypeExp,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -365,6 +376,7 @@ class Exc_rate_type(CreatedModifiedInfo,db.Model):
 class Inv_line(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_inv_line"
 	InvLineId = db.Column(db.Integer,nullable=False,primary_key=True)
+	InvLineGuid = db.Column(UUID(as_uuid=True),unique=True)
 	InvId = db.Column(db.Integer,db.ForeignKey("tbl_dk_invoice.InvId"))
 	UnitId = db.Column(db.Integer,db.ForeignKey("tbl_dk_unit.UnitId"))
 	CurrencyId = db.Column(db.Integer,db.ForeignKey("tbl_dk_currency.CurrencyId"))
@@ -393,6 +405,7 @@ class Inv_line(AddInf,CreatedModifiedInfo,db.Model):
 	def to_json_api(self):
 		inv_line = {
 			"InvLineId": self.InvLineId,
+			"InvLineGuid": self.InvLineGuid,
 			"InvId": self.InvId,
 			"UnitId": self.UnitId,
 			"CurrencyId": self.CurrencyId,
@@ -415,6 +428,7 @@ class Inv_line(AddInf,CreatedModifiedInfo,db.Model):
 			"AddInf6": self.AddInf6,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -453,6 +467,7 @@ class Inv_line_det(CreatedModifiedInfo,db.Model):
 			"InvLineDetAmountBalance": self.InvLineDetAmountBalance,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -482,6 +497,7 @@ class Inv_line_det_type(CreatedModifiedInfo,db.Model):
 			"InvLineDetTypeDesc_enUS": self.InvLineDetTypeDesc_enUS,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -512,6 +528,7 @@ class Inv_status(CreatedModifiedInfo,db.Model):
 			"InvStatDesc_enUS": self.InvStatDesc_enUS,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -541,6 +558,7 @@ class Inv_type(CreatedModifiedInfo,db.Model):
 			"InvTypeDesc_enUS": self.InvTypeDesc_enUS,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -551,6 +569,7 @@ class Inv_type(CreatedModifiedInfo,db.Model):
 class Invoice(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_invoice"
 	InvId = db.Column(db.Integer,nullable=False,primary_key=True)
+	InvGuid = db.Column(UUID(as_uuid=True),unique=True)
 	InvTypeId = db.Column(db.Integer,db.ForeignKey("tbl_dk_inv_type.InvTypeId"))
 	InvStatId = db.Column(db.Integer,db.ForeignKey("tbl_dk_inv_status.InvStatId"))
 	CurrencyId = db.Column(db.Integer,db.ForeignKey("tbl_dk_currency.CurrencyId"))
@@ -589,6 +608,7 @@ class Invoice(AddInf,CreatedModifiedInfo,db.Model):
 	def to_json_api(self):
 		invoice = {
 			"InvId": self.InvId,
+			"InvGuid": self.InvGuid,
 			"InvTypeId": self.InvTypeId,
 			"InvStatId": self.InvStatId,
 			"CurrencyId": self.CurrencyId,
@@ -623,6 +643,7 @@ class Invoice(AddInf,CreatedModifiedInfo,db.Model):
 			"AddInf6": self.AddInf6,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -633,6 +654,7 @@ class Invoice(AddInf,CreatedModifiedInfo,db.Model):
 class Order_inv(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_order_inv"
 	OInvId = db.Column(db.Integer,nullable=False,primary_key=True)
+	OInvGuid = db.Column(UUID(as_uuid=True),unique=True)
 	OInvTypeId = db.Column(db.Integer,db.ForeignKey("tbl_dk_order_inv_type.OInvTypeId"))
 	InvStatId = db.Column(db.Integer,db.ForeignKey("tbl_dk_inv_status.InvStatId"))
 	CurrencyId = db.Column(db.Integer,db.ForeignKey("tbl_dk_currency.CurrencyId"))
@@ -672,6 +694,7 @@ class Order_inv(AddInf,CreatedModifiedInfo,db.Model):
 	def to_json_api(self):
 		order_inv = {
 			"OInvId": self.OInvId,
+			"OInvGuid": self.OInvGuid,
 			"OInvTypeId": self.OInvTypeId,
 			"InvStatId": self.InvStatId,
 			"CurrencyId": self.CurrencyId,
@@ -708,6 +731,7 @@ class Order_inv(AddInf,CreatedModifiedInfo,db.Model):
 			"AddInf6": self.AddInf6,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -718,6 +742,7 @@ class Order_inv(AddInf,CreatedModifiedInfo,db.Model):
 class Order_inv_line(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_order_inv_line"
 	OInvLineId = db.Column(db.Integer,nullable=False,primary_key=True)
+	OInvLineGuid = db.Column(UUID(as_uuid=True),unique=True)
 	OInvId = db.Column(db.Integer,db.ForeignKey("tbl_dk_order_inv.OInvId"))
 	UnitId = db.Column(db.Integer,db.ForeignKey("tbl_dk_unit.UnitId"))
 	CurrencyId = db.Column(db.Integer,db.ForeignKey("tbl_dk_currency.CurrencyId"))
@@ -743,6 +768,7 @@ class Order_inv_line(AddInf,CreatedModifiedInfo,db.Model):
 	def to_json_api(self):
 		order_inv_line = {
 			"OInvLineId": self.OInvLineId,
+			"OInvLineGuid": self.OInvLineGuid,
 			"OInvId": self.OInvId,
 			"UnitId": self.UnitId,
 			"CurrencyId": self.CurrencyId,
@@ -766,6 +792,7 @@ class Order_inv_line(AddInf,CreatedModifiedInfo,db.Model):
 			"AddInf6": self.AddInf6,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -801,6 +828,7 @@ class Order_inv_type(CreatedModifiedInfo,db.Model):
 			"OInvTypeDesc_enUS": self.OInvTypeDesc_enUS,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -829,6 +857,7 @@ class Payment_status(CreatedModifiedInfo,db.Model):
 			"PaymStatusDesc_enUS": self.PaymStatusDesc_enUS,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -865,6 +894,7 @@ class Payment_method(AddInf,CreatedModifiedInfo,db.Model):
 			"AddInf6": self.AddInf6,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -901,6 +931,7 @@ class Payment_type(AddInf,CreatedModifiedInfo,db.Model):
 			"AddInf6": self.AddInf6,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -970,6 +1001,7 @@ class Representative(AddInf,CreatedModifiedInfo,db.Model):
 			"AddInf6": self.AddInf6,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -980,6 +1012,7 @@ class Representative(AddInf,CreatedModifiedInfo,db.Model):
 class Resource(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_resource"
 	ResId = db.Column(db.Integer,nullable=False,primary_key=True)
+	ResGuid = db.Column(UUID(as_uuid=True),unique=True)
 	CId = db.Column(db.Integer,db.ForeignKey("tbl_dk_company.CId"))
 	DivId = db.Column(db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
 	ResCatId = db.Column(db.Integer,db.ForeignKey("tbl_dk_res_category.ResCatId"))
@@ -1072,6 +1105,7 @@ class Resource(AddInf,CreatedModifiedInfo,db.Model):
 	def to_json_api(self):
 		json_resource = {
 			"ResId": self.ResId,
+			"ResGuid": self.ResGuid,
 			"CId": self.CId,
 			"DivId": self.DivId,
 			"ResCatId": self.ResCatId,
@@ -1103,6 +1137,7 @@ class Resource(AddInf,CreatedModifiedInfo,db.Model):
 			"AddInf6": self.AddInf6,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -1151,6 +1186,7 @@ class Res_category(CreatedModifiedInfo,db.Model):
 			"ResCatIconFilePath": self.ResCatIconFilePath,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -1192,6 +1228,7 @@ class Res_maker(AddInf,CreatedModifiedInfo,db.Model):
 			"AddInf6": self.AddInf6,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -1287,6 +1324,7 @@ class Res_discount(AddInf,CreatedModifiedInfo,db.Model):
 			"AddInf6": self.AddInf6,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -1342,6 +1380,7 @@ class Res_price(CreatedModifiedInfo,db.Model):
 			"PriceEndDate": apiDataFormat(self.PriceEndDate),
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -1382,6 +1421,7 @@ class Res_price_group(CreatedModifiedInfo,db.Model):
 			"RoundingType": self.RoundingType,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -1421,6 +1461,7 @@ class Res_price_type(AddInf,CreatedModifiedInfo,db.Model):
 			"AddInf6": self.AddInf6,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -1467,6 +1508,7 @@ class Res_total(CreatedModifiedInfo,db.Model):
 			"ResTotPurchAvgPrice": self.ResTotPurchAvgPrice,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -1531,6 +1573,7 @@ class Res_trans_inv(AddInf,CreatedModifiedInfo,db.Model):
 			"AddInf6": self.AddInf6,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -1586,6 +1629,7 @@ class Res_trans_inv_line(AddInf,CreatedModifiedInfo,db.Model):
 			"AddInf6": self.AddInf6,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -1615,6 +1659,7 @@ class Res_trans_inv_type(CreatedModifiedInfo,db.Model):
 			"ResTrInvDesc_enUS": self.ResTrInvDesc_enUS,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -1644,6 +1689,7 @@ class Res_trans_type(CreatedModifiedInfo,db.Model):
 			"ResTransTypeDesc_enUS": self.ResTransTypeDesc_enUS,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -1702,6 +1748,7 @@ class Res_transaction(AddInf,CreatedModifiedInfo,db.Model):
 			"AddInf6": self.AddInf6,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -1769,6 +1816,7 @@ class Res_type(CreatedModifiedInfo,db.Model):
 			"ResTypeDesc_enUS": self.ResTypeDesc_enUS,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -1830,6 +1878,7 @@ class Rp_acc_resource(CreatedModifiedInfo,db.Model):
 			"ResId": self.ResId,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -1864,6 +1913,7 @@ class Rp_acc_trans_total(CreatedModifiedInfo,db.Model):
 			"RpAccTrTotLastTrDate": apiDataFormat(self.RpAccTrTotLastTrDate),
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -1920,6 +1970,7 @@ class Rp_acc_transaction(AddInf,CreatedModifiedInfo,db.Model):
 			"AddInf6": self.AddInf6,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -1960,6 +2011,7 @@ class Sale_agr_res_price(CreatedModifiedInfo,db.Model):
 			"SAPriceEndDate": self.SAPriceEndDate,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -2008,6 +2060,7 @@ class Sale_agreement(AddInf,CreatedModifiedInfo,db.Model):
 			"AddInf6": self.AddInf6,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -2087,6 +2140,7 @@ class Sale_card(AddInf,CreatedModifiedInfo,db.Model):
 			"AddInf6": self.AddInf6,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -2116,6 +2170,7 @@ class Sale_card_status(CreatedModifiedInfo,db.Model):
 			"SaleCardStatusDesc_enUS": self.SaleCardStatusDesc_enUS,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -2164,6 +2219,7 @@ class Production(AddInf,CreatedModifiedInfo,db.Model):
 			"AddInf6": self.AddInf6,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -2204,6 +2260,7 @@ class Production_line(AddInf,CreatedModifiedInfo,db.Model):
 			"AddInf6": self.AddInf6,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -2248,6 +2305,7 @@ class Rating(AddInf,CreatedModifiedInfo,db.Model):
 			"AddInf6": self.AddInf6,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -2286,6 +2344,7 @@ class Wish(AddInf,CreatedModifiedInfo,db.Model):
 			"AddInf6": self.AddInf6,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -2313,6 +2372,7 @@ class Transaction_type(CreatedModifiedInfo,db.Model):
 			"TransTypeDesc": self.TransTypeDesc,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
@@ -2353,6 +2413,7 @@ class Work_period(CreatedModifiedInfo,db.Model):
 			"WpIsDefault": self.WpIsDefault,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
 			"CreatedUId": self.CreatedUId,
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord

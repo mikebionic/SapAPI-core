@@ -83,8 +83,9 @@ class Config:
 	# set to True if you want to use BCrypt hashing
 	HASHED_PASSWORDS = False
 
-	# # to give each api it's pagination: 
-	RESOURCES_PER_PAGE = 16
+	# # to give each api it's pagination:
+	RESOURCES_PER_PAGE = 30
+	INVOICES_PER_PAGE = 15
 	API_OBJECTS_PER_PAGE = 10
 
 	# REG_NO generator's random range
@@ -121,6 +122,8 @@ class Config:
 	ALLOWED_ICON_EXTENSIONS = set(['png','jpg','jpeg','svg'])
 	ALLOWED_IMAGE_EXTENSIONS = set(['png','jpg','jpeg'])
 	MAX_CONTENT_LENGTH = 16 * 1024 * 1024
+	IMAGE_RANDOM_HEX_LENGTH = 14
+	ADD_RESOURCE_WATERMARK = True
 
 	# Extention to be saved to while blob synch
 	BLOB_TO_IMAGE_SAVE_EXT = "png"
@@ -191,4 +194,4 @@ class Config:
 	SMALLEST_RATING_VALUE_SHOW = 3.5
 
 	# location of robots.txt and sitemap.xml
-	WEB_CONFIG_DIRECTORY = "static/web_config"
+	WEB_CONFIG_DIRECTORY = path.join("static", "web_config")

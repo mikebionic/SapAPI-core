@@ -1,12 +1,14 @@
 from flask import json
 from main_pack import db
 from datetime import datetime
+from sqlalchemy.dialects.postgresql import UUID
 from main_pack.models.base.models import CreatedModifiedInfo, AddInf
 
 
 class Employee(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_employee"
 	EmpId = db.Column(db.Integer,nullable=False,primary_key=True)
+	EmpGuid = db.Column(UUID(as_uuid=True),unique=True)
 	CId = db.Column(db.Integer,db.ForeignKey("tbl_dk_company.CId"))
 	ContractTypeId = db.Column(db.Integer,db.ForeignKey("tbl_dk_contract_type.ContractTypeId"))
 	DeptId = db.Column(db.Integer,db.ForeignKey("tbl_dk_department.DeptId"))
@@ -83,6 +85,50 @@ class Employee(AddInf,CreatedModifiedInfo,db.Model):
 			"email": self.EMail
 		}
 		return json_employee
+
+	def to_json_api(self):
+		employee = {
+			"EmpId": self.EmpId,
+			"EmpGuid": self.EmpGuid,
+			"CId": self.CId,
+			"ContractTypeId": self.ContractTypeId,
+			"DeptId": self.DeptId,
+			"ProfessionId": self.ProfessionId,
+			"EmpStatId": self.EmpStatId,
+			"EmpRegNo": self.EmpRegNo,
+			"EmpName": self.EmpName,
+			"EmpLastName": self.EmpLastName,
+			"EmpFirstName": self.EmpFirstName,
+			"EmpPatronymic": self.EmpPatronymic,
+			"GenderId": self.GenderId,
+			"EmpBirthDate": self.EmpBirthDate,
+			"EmpBirthPlace": self.EmpBirthPlace,
+			"EmpResidency": self.EmpResidency,
+			"NatId": self.NatId,
+			"EmpPassportNo": self.EmpPassportNo,
+			"EmpPaspIssuePlace": self.EmpPaspIssuePlace,
+			"EduLevelId": self.EduLevelId,
+			"EmpLangSkills": self.EmpLangSkills,
+			"MobilePhoneNumber": self.MobilePhoneNumber,
+			"HomePhoneNumber": self.HomePhoneNumber,
+			"WorkPhoneNumber": self.WorkPhoneNumber,
+			"WorkFaxNumber": self.WorkFaxNumber,
+			"ZipCode": self.ZipCode,
+			"EMail": self.EMail,
+			"AddInf1": self.AddInf1,
+			"AddInf2": self.AddInf2,
+			"AddInf3": self.AddInf3,
+			"AddInf4": self.AddInf4,
+			"AddInf5": self.AddInf5,
+			"AddInf6": self.AddInf6,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
+		}
+		return employee
 
 
 class Award(AddInf,CreatedModifiedInfo,db.Model):

@@ -80,13 +80,18 @@ def api_res_totals():
 							.filter_by(ResId = resource.ResId, WhId = warehouse.WhId)\
 							.first()
 
-						res_total['ResId'] = resource.ResId
-						res_total['WhId'] = warehouse.WhId
+						res_total["ResId"] = resource.ResId
+						res_total["WhId"] = warehouse.WhId
 
 						if thisResTotal:
+							res_total["ResTotId"] = thisResTotal.ResTotId
 							thisResTotal.update(**res_total)
 							thisResTotal = None
 						else:
+							lastTotal = Res_total.query.order_by(Res_total.ResTotId.desc()).first()
+							ResTotId = lastTotal.ResTotId+1
+							res_total["ResTotId"] = ResTotId
+							
 							newResTotal = Res_total(**res_total)
 							db.session.add(newResTotal)
 							
