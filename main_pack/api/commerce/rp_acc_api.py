@@ -101,6 +101,8 @@ def api_rp_accs():
 					thisRpAcc = Rp_acc.query\
 						.filter_by(RpAccRegNo = RpAccRegNo)\
 						.first()
+
+					# !!! Todo add rp_acc guid checkup and // order inv should check rp_accs rp_accId by guid
 					if thisRpAcc:
 						thisRpAcc.update(**rp_acc)
 					else:

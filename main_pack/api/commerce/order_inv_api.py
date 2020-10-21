@@ -4,7 +4,7 @@ from main_pack.api.commerce import api
 from main_pack import db
 
 # orders and db methods
-from main_pack.models.commerce.models import (Order_inv,
+from main_pack.models.commerce.models import (Order_inv,Resource,
 																							Order_inv_line,
 																							Inv_status,
 																							Res_total)
@@ -106,7 +106,11 @@ def api_order_invoices():
 					for order_inv_line_req in data['Order_inv_lines']:
 						order_inv_line = addOrderInvLineDict(order_inv_line_req)
 						order_inv_line['OInvId'] = thisOrderInv.OInvId
+						ResRegNo = order_inv_line_req['ResRegNo']
+						this_line_resource = Resources.query.filter_by(ResRegNo = ResRegNo).first() 
 						try:
+							ThisResId = this_line_resource.ResId
+							order_inv_line["ResId"] = ThisResId
 							OInvLineRegNo = order_inv_line['OInvLineRegNo']
 							thisOrderInvLine = Order_inv_line.query\
 								.filter_by(OInvLineRegNo = OInvLineRegNo)\

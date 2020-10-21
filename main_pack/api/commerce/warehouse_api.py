@@ -5,7 +5,7 @@ from main_pack.base.apiMethods import checkApiResponseStatus
 from datetime import datetime, timedelta
 import dateutil.parser
 
-from main_pack.models.base.models import Warehouse
+from main_pack.models.base.models import Warehouse,Division
 from main_pack.api.commerce.utils import addWarehouseDict
 from main_pack import db
 from flask import current_app
@@ -47,6 +47,10 @@ def api_warehouses():
 			
 		else:
 			req = request.get_json()
+			divisions = Division.query.filter_by(GCRecord = None).all()
+			division_DivId_list = [division.DivId for division in divisions]
+			division_DivGuid_list = [division.DivGuid for division in divisions]
+
 			warehouses = []
 			failed_warehouses = []
 			# !!! Todo: add DivGuid checkup

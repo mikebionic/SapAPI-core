@@ -475,6 +475,7 @@ def apiOrderInvInfo(
 								.first()
 							resource_json = apiResourceInfo(resource_models=[resource],single_object=True)
 							this_order_inv_line['Resource'] = resource_json['data']
+							this_order_inv_line['ResRegNo'] = resource.ResRegNo
 						except Exception as ex:
 							print(f"{datetime.now()} | Order_inv_line info utils Exception: {ex}")
 							this_order_inv_line['Resource'] = []

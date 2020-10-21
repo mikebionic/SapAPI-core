@@ -141,10 +141,16 @@ def api_division():
 
 		else:
 			req = request.get_json()
+			companies = Company.query.filter_by(GCRecord = None).all()
+			company_CId_list = [company.CId for company in companies]
+			company_CGuid_list = [company.CGuid for company in companies]
+
 			divisions = []
 			failed_divisions = []
 			for division_req in req:
 				try:
+					# !!! TODO GUID
+					CGuid = division_req['CGuid']
 					division_info = addDivisionDict(division_req)
 					division = Division.query\
 						.filter_by(

@@ -86,14 +86,15 @@ def api_images():
 			images = []
 			failed_images = []
 			for image in req:
-				imageDictData = addImageDict(image)
 				try:
-					ResRegNo = imageDictData['ResRegNo']
+					ResRegNo = image['ResRegNo']
 					indexed_res_id = resource_ResId_list[resource_RegNo_list.index(ResRegNo)]
 					if not indexed_res_id:
 						raise Exception
 					ResId = int(indexed_res_id)
-					print("trying image of {ResRegNo} of resourceId {RedId}")\
+					image['ResId'] = ResId
+					imageDictData = addImageDict(image)
+					print(f"trying image of {ResRegNo} of resourceId {ResId}")
 					ImgGuid = imageDictData['ImgGuid']
 					thisImage = Image.query\
 						.filter_by(ImgGuid = ImgGuid)\
@@ -102,9 +103,9 @@ def api_images():
 					if thisImage is not None:
 						updatingDate = dateutil.parser.parse(imageDictData['ModifiedDate'])
 						if thisImage.ModifiedDate != updatingDate:
+							image['ResId'] = ResId
 							image_data = saveImageFile(image)
 							image_data['ImgId'] = thisImage.ImgId
-							image_data['ResId'] = ResId
 							try:
 								# Delete last image
 								file_type = "image"
@@ -120,7 +121,6 @@ def api_images():
 						images.append(imageDictData)
 					else:
 						image_data = saveImageFile(image)
-						image_data['ResId'] = ResId
 						newImage = Image(**image_data)
 						db.session.add(newImage)
 						try:
