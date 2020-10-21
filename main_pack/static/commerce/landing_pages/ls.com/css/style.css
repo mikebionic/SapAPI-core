@@ -45,6 +45,9 @@ svg{
 	width: 15px;
 	height: 15px;
 }
+li{
+	list-style: none;
+}
 img.svg{
 	width: 15px;
 	height: 15px;
@@ -237,7 +240,7 @@ img.svg{
 	float: left;
 	position: relative;
 	left: -5px;
-	margin-bottom: 10px;
+	margin-bottom: 90px;
 	
 	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
 	   -moz-box-sizing: border-box; /* Firefox, other Gecko */
@@ -2597,6 +2600,6 @@ img.svg{
 	.arlo_tm_counter_list li{width: 100%;}
 	.arlo_tm_counter_list li .inner{padding: 0px 0px 35px 0px;}
 	.arlo_tm_portfolio_list{margin: 0px;}
-	.arlo_tm_portfolio_list > li{width: 100%;padding-left: 0px;}
+	.arlo_tm_portfolio_list > li{padding-left: 0px;}
 	.arlo_tm_counter_wrap{padding: 94px 0px 48px 0px;}
 }	
