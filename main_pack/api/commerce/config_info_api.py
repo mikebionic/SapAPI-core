@@ -52,10 +52,9 @@ def api_company_info():
 @sha_required
 def api_company():
 	if request.method == 'GET':
-		CName = request.args.get("CName","",type=str)
 		CGuid = request.args.get("CGuid","",type=str)
 		company = Company.query\
-			.filter_by(CName = CName, CGuid = uuid.UUID(CGuid))\
+			.filter_by(CGuid = uuid.UUID(CGuid))\
 			.first_or_404()
 
 		company_info = company.to_json_api()
@@ -89,6 +88,7 @@ def api_company():
 							CGuid = company_data['CGuid'])\
 						.first()
 					if company:
+						company_data['CId'] = company.CId
 						company.update(**company_data)
 					else:
 						company = Company(**company_data)
@@ -115,13 +115,14 @@ def api_company():
 @sha_required
 def api_division():
 	if request.method == 'GET':
-		DivName = request.args.get("DivName","",type=str)
 		DivGuid = request.args.get("DivGuid","",type=str)
-		division = Division.query\
-			.filter_by(DivName = DivName, DivGuid = uuid.UUID(DivGuid))\
+		division_query = db.session.query(Division, Company)\
+			.filter_by(DivGuid = DivGuid)\
+			.outerjoin(Company, Company.CId == Division.CId)\
 			.first_or_404()
 
-		division_info = division.to_json_api()
+		division_info = division_query.Division.to_json_api()
+		division_info['CGuid'] = division_query.Company.CGuid
 		status_code = 200
 		res = {
 			"status": 1,
@@ -149,19 +150,24 @@ def api_division():
 			failed_divisions = []
 			for division_req in req:
 				try:
-					# !!! TODO GUID
 					CGuid = division_req['CGuid']
+					indexed_c_id = company_CId_list[company_CGuid_list.index(CGuid)]
+					if not indexed_c_id:
+						raise Exception
+					CId = int(indexed_c_id)
 					division_info = addDivisionDict(division_req)
+					division_info['CId'] = CId
 					division = Division.query\
 						.filter_by(
 							DivGuid = division_info['DivGuid'])\
 						.first()
 					if division:
+						division['DivId'] = division.DivId
 						division.update(**division_info)
 					else:
 						division = Division(**division_info)
 						db.session.add(division)
-					divisions.append(division_info)
+					divisions.append(division_req)
 				except Exception as ex:
 					print(f"{datetime.now()} | Division Api Exception: {ex}")
 					failed_divisions.append(division_req)

@@ -19,22 +19,31 @@ def api_warehouses():
 		DivId = request.args.get("DivId",None,type=int)
 		notDivId = request.args.get("notDivId",None,type=int)
 		synchDateTime = request.args.get("synchDateTime",None,type=str)
-		warehouses = Warehouse.query.filter_by(GCRecord = None)
+		warehouse_query = db.session.query(Warehouse, Division).filter_by(GCRecord = None)
 		if DivId:
-			warehouses = warehouses.filter_by(DivId = DivId)
+			warehouse_query = warehouse_query.filter_by(DivId = DivId)
 		if notDivId:
-			warehouses = warehouses.filter(Warehouse.DivId != notDivId)
+			warehouse_query = warehouse_query.filter(Warehouse.DivId != notDivId)
 		if synchDateTime:
 			if (type(synchDateTime) != datetime):
 				synchDateTime = dateutil.parser.parse(synchDateTime)
-			warehouses = warehouses.filter(Warehouse.ModifiedDate > (synchDateTime - timedelta(minutes = 5)))
-		warehouses = warehouses.all()
+			warehouse_query = warehouse_query.filter(Warehouse.ModifiedDate > (synchDateTime - timedelta(minutes = 5)))
+		warehouse_query = warehouse_query\
+			.outerjoin(Division, Division.DivId == Warehouse.DivId)\
+			.all()
+
+		data = []
+		for query in warehouse_query:
+			warehouse_info = query.Warehouse.to_json_api()
+			warehouse_info["DivGuid"] = query.Division.DivGuid
+			data.append(warehouse_info)
 		res = {
 			"status": 1,
 			"message": "All warehouses",
-			"data": [warehouse.to_json_api() for warehouse in warehouses],
-			"total": len(warehouses)
+			"data": data,
+			"total": len(data)
 		}
+		print(res)
 		response = make_response(jsonify(res),200)
 
 	elif request.method == 'POST':
@@ -53,20 +62,27 @@ def api_warehouses():
 
 			warehouses = []
 			failed_warehouses = []
-			# !!! Todo: add DivGuid checkup
 			for warehouse_req in req:
 				try:
+					DivGuid = warehouse_req['DivGuid']
+					indexed_div_id = division_DivId_list[division_DivGuid_list.index(DivGuid)]
+					if not indexed_div_id:
+						raise Exception
+					DivId = int(indexed_div_id)
+
 					warehouse_info = addWarehouseDict(warehouse_req)
+					warehouse_info['DivId'] = DivId
 					warehouse = Warehouse.query\
 						.filter_by(
 							WhGuid = warehouse_info['WhGuid'])\
 						.first()
 					if warehouse:
+						warehouse_info['WhId'] = warehouse.WhId
 						warehouse.update(**warehouse_info)
 					else:
 						warehouse = Warehouse(**warehouse_info)
 						db.session.add(warehouse)
-					warehouses.append(warehouse_info)
+					warehouses.append(warehouse_req)
 				except Exception as ex:
 					print(f"{datetime.now()} | Warehouse Api Exception: {ex}")
 					failed_warehouses.append(warehouse_req)
