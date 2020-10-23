@@ -10,6 +10,7 @@ from main_pack.models.commerce.models import (Order_inv,Resource,
 																							Res_total)
 from main_pack.api.commerce.utils import (addOrderInvDict,
 																					addOrderInvLineDict)
+from main_pack.models.base.models import Warehouse, Division
 from main_pack.base.apiMethods import checkApiResponseStatus
 from sqlalchemy import and_, extract
 # / orders and db methods /
@@ -39,7 +40,7 @@ from main_pack.api.commerce.pagination_utils import collect_order_inv_paginate_i
 
 
 @api.route("/tbl-dk-order-invoices/",methods=['GET','POST'])
-@sha_required
+# @sha_required
 def api_order_invoices():
 	if request.method == 'GET':
 		DivId = request.args.get("DivId",None,type=int)

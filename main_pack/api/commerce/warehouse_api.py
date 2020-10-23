@@ -19,7 +19,7 @@ def api_warehouses():
 		DivId = request.args.get("DivId",None,type=int)
 		notDivId = request.args.get("notDivId",None,type=int)
 		synchDateTime = request.args.get("synchDateTime",None,type=str)
-		warehouse_query = db.session.query(Warehouse, Division).filter_by(GCRecord = None)
+		warehouse_query = Warehouse.query.filter_by(GCRecord = None)
 		if DivId:
 			warehouse_query = warehouse_query.filter_by(DivId = DivId)
 		if notDivId:
@@ -29,13 +29,13 @@ def api_warehouses():
 				synchDateTime = dateutil.parser.parse(synchDateTime)
 			warehouse_query = warehouse_query.filter(Warehouse.ModifiedDate > (synchDateTime - timedelta(minutes = 5)))
 		warehouse_query = warehouse_query\
-			.outerjoin(Division, Division.DivId == Warehouse.DivId)\
+			.join(Warehouse.division)\
 			.all()
 
 		data = []
-		for query in warehouse_query:
-			warehouse_info = query.Warehouse.to_json_api()
-			warehouse_info["DivGuid"] = query.Division.DivGuid
+		for warehouse in warehouse_query:
+			warehouse_info = warehouse.to_json_api()
+			warehouse_info["DivGuid"] = warehouse.division.DivGuid
 			data.append(warehouse_info)
 		res = {
 			"status": 1,

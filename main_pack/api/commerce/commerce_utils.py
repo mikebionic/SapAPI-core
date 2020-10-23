@@ -395,7 +395,6 @@ def apiOrderInvInfo(
 	inv_statuses = Inv_status.query\
 		.filter_by(GCRecord = None).all()
 
-
 	if not invoice_models:
 		invoice_filtering = {
 			"GCRecord": None

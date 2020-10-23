@@ -54,7 +54,7 @@ def api_company():
 	if request.method == 'GET':
 		CGuid = request.args.get("CGuid","",type=str)
 		company = Company.query\
-			.filter_by(CGuid = uuid.UUID(CGuid))\
+			.filter_by(CGuid = CGuid)\
 			.first_or_404()
 
 		company_info = company.to_json_api()
@@ -116,13 +116,13 @@ def api_company():
 def api_division():
 	if request.method == 'GET':
 		DivGuid = request.args.get("DivGuid","",type=str)
-		division_query = db.session.query(Division, Company)\
+		division = Division.query\
 			.filter_by(DivGuid = DivGuid)\
-			.outerjoin(Company, Company.CId == Division.CId)\
+			.join(Division.company)\
 			.first_or_404()
 
-		division_info = division_query.Division.to_json_api()
-		division_info['CGuid'] = division_query.Company.CGuid
+		division_info = division.to_json_api()
+		division_info['CGuid'] = division.company.CGuid
 		status_code = 200
 		res = {
 			"status": 1,

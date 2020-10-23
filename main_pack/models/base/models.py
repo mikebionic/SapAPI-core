@@ -361,6 +361,7 @@ class Division(AddInf,CreatedModifiedInfo,db.Model):
 	Representative = db.relationship('Representative',backref='division',lazy=True)
 	Res_total = db.relationship('Res_total',backref='division',lazy=True)
 	Wish = db.relationship('Wish',backref='division',lazy=True)
+	Warehouse = db.relationship('Warehouse',backref='division',lazy=True)
 	Production = db.relationship('Production',backref='division',lazy=True)
 	Rating = db.relationship('Rating',backref='division',lazy=True)
 	Slider = db.relationship('Slider',backref='division',lazy=True)
