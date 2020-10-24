@@ -5,9 +5,9 @@ from main_pack.base.apiMethods import checkApiResponseStatus
 from datetime import datetime, timedelta
 import dateutil.parser
 
-from main_pack.models.commerce.models import Res_category
-from main_pack.models.commerce.models import Resource,Barcode
-from main_pack.api.commerce.utils import addResourceDict,addBarcodeDict
+from main_pack.models.base.models import Company, Division
+from main_pack.models.commerce.models import Resource, Barcode, Res_category
+from main_pack.api.commerce.utils import addResourceDict, addBarcodeDict
 from main_pack import db
 from flask import current_app
 from main_pack.api.auth.api_login import sha_required
@@ -45,10 +45,17 @@ def api_resources():
 			if (type(synchDateTime) != datetime):
 				synchDateTime = dateutil.parser.parse(synchDateTime)
 			resources = resources.filter(Resource.ModifiedDate > (synchDateTime - timedelta(minutes = 5)))
-		resources = resources.all()
+		
+		resources = resources\
+			.outerjoin(Company, Company.GCRecord == None)\
+			.outerjoin(Division, Division.GCRecord == None)\
+			.all()
+		
 		data = []
 		for resource in resources:
 			resource_info = resource.to_json_api()
+			resource_info["CGuid"] = resource.company.CGuid
+			resource_info["DivGuid"] = resource.division.DivGuid
 			resource_info["Barcodes"] = [barcode.to_json_api() for barcode in resource.Barcode]
 			data.append(resource_info)
 
@@ -70,79 +77,99 @@ def api_resources():
 			
 		else:
 			req = request.get_json()
-			
+
+			companies = Company.query\
+				.filter_by(GCRecord = None)\
+				.filter(Company.CGuid != None).all()
+			divisions = Division.query\
+				.filter_by(GCRecord = None)\
+				.filter(Division.DivGuid != None).all()
+
+			division_DivId_list = [division.DivId for division in divisions]
+			division_DivGuid_list = [division.DivGuid for division in divisions]
+
+			company_CId_list = [company.CId for company in companies]
+			company_CGuid_list = [company.CGuid for company in companies]
+
 			resources = []
 			failed_resources = []
-			for data in req:
-				resource = addResourceDict(data)
+			for resource_req in req:
+				resource_info = addResourceDict(resource_req)
 
 				# special syncronizer method 
-				# category is resource's AddInf2
-				group = resource['AddInf2']
-				if group:
+				# ResCatName is resource's AddInf2
+				ResCatName = resource_info['AddInf2']
+				if ResCatName:
 					try:
-						category = Res_category.query\
-							.filter_by(GCRecord = None, ResCatName = group)\
+						thisCategory = Res_category.query\
+							.filter_by(GCRecord = None, ResCatName = ResCatName)\
 							.first()
-						if not category:
-							new_category = Res_category(ResCatName = group)
+						if not thisCategory:
+							thisCategory = Res_category(ResCatName = ResCatName)
 							db.session.add(new_category)
 							db.session.commit()
-							newCategoryId = new_category.ResCatId
-						else:
-							newCategoryId = category.ResCatId
-						resource['ResCatId'] = newCategoryId
+						
+						resource_info['ResCatId'] = thisCategory.ResCatId
 					except Exception as ex:
-						print(f"{datetime.now()} | Resource Api Exception: {ex}")
+						print(f"{datetime.now()} | Resource Api Res_cateogry creation Exception: {ex}")
 				# / special synchronizer method /
 
 				# check that UsageStatusId specified
-				if resource['UsageStatusId'] == None or resource['UsageStatusId'] == '':
-					resource['UsageStatusId'] = 2
+				if resource_info['UsageStatusId'] == None or resource_info['UsageStatusId'] == '':
+					resource_info['UsageStatusId'] = 2
 
 				try:
-					ResRegNo = resource['ResRegNo']
+					ResRegNo = resource_info['ResRegNo']
+					ResGuid = resource_info['ResGuid']
+
+					DivGuid = resource_req['DivGuid']
+					CGuid = resource_req['CGuid']
 					thisResource = Resource.query\
-						.filter_by(ResRegNo = ResRegNo)\
+						.filter_by(
+							ResRegNo = ResRegNo,
+							ResGuid = ResGuid,
+							CGuid = CGuid,
+							DivGuid = DivGuid)\
 						.first()
 					if thisResource:
-						resource["ResId"] = thisResource.ResId
+						resource_info["ResId"] = thisResource.ResId
 						thisResource.update(**resource)
 					else:
 						lastResource = Resource.query.order_by(Resource.ResId.desc()).first()
 						ResId = lastResource.ResId+1
-						resource["ResId"] = ResId
+						resource_info["ResId"] = ResId
 
 						thisResource = Resource(**resource)
 						db.session.add(thisResource)
 					
-					resources.append(resource)
+					resources.append(resource_req)
 					db.session.commit()
 
 					barcodes = []
 					failed_barcodes = []
-					for barcode_req in data['Barcodes']:
-						barcode = addBarcodeDict(barcode_req)
+					for barcode_req in data["Barcodes"]:
+						barcode_info = addBarcodeDict(barcode_req)
+						UnitId = barcode_info["UnitId"]
+						ResId = thisResource.ResId
+						barcode_info["ResId"] = ResId
 						try:
-							UnitId = barcode['UnitId']
 							thisBarcode = Barcode.query\
-								.filter_by(ResId = thisResource.ResId, UnitId = UnitId)\
+								.filter_by(ResId = ResId, UnitId = UnitId)\
 								.first()
-							barcode['BarcodeId'] = None
-							barcode['ResId'] = thisResource.ResId
 							if thisBarcode:
-								thisBarcode.update(**barcode)
+								barcode_info["BarcodeId"] = thisBarcode.BarcodeId
+								thisBarcode.update(**barcode_info)
 							else:
-								newBarcode = Barcode(**barcode)
-								db.session.add(newBarcode)
-							barcodes.append(barcode)
+								thisBarcode = Barcode(**barcode_info)
+								db.session.add(thisBarcode)
+							barcodes.append(barcode_req)
 						except Exception as ex:
 							print(f"{datetime.now()} | Barcode Api Exception: {ex}")
-							failed_barcodes.append(barcode)
+							failed_barcodes.append(barcode_req)
 
 				except Exception as ex:
 					print(f"{datetime.now()} | Resource Api Exception: {ex}")
-					failed_resources.append(resource)
+					failed_resources.append(resource_req)
 			db.session.commit()
 			status = checkApiResponseStatus(resources,failed_resources)
 			res = {
@@ -160,95 +187,3 @@ def api_resources():
 			response = make_response(jsonify(res),status_code)
 
 	return response
-
-# @api.route("/tbl-dk-resources-old/",methods=['GET','POST'])
-# @sha_required
-# def api_resources_old():
-# 	if request.method == 'GET':
-# 		DivId = request.args.get("DivId",None,type=int)
-# 		notDivId = request.args.get("notDivId",None,type=int)
-# 		res = apiResourceInfo(
-# 			isInactive = True,
-# 			fullInfo = True,
-# 			DivId = DivId,
-# 			notDivId = notDivId)
-# 		if res['status'] == 0:
-# 			status_code = 404
-# 		else:
-# 			status_code = 200
-# 		response = make_response(jsonify(res),status_code)
-
-# 	elif request.method == 'POST':
-# 		if not request.json:
-# 			res = {
-# 				"status": 0,
-# 				"message": "Error. Not a JSON data."
-# 			}
-# 			response = make_response(jsonify(res),400)
-			
-# 		else:
-# 			req = request.get_json()
-# 			resources = []
-# 			failed_resources = []
-# 			for resource_req in req:
-# 				resource = addResourceDict(resource_req)
-# 				# special syncronizer method 
-# 				# category is resource's AddInf2
-# 				group = resource['AddInf2']
-# 				if group:
-# 					try:
-# 						category = Res_category.query\
-# 							.filter_by(GCRecord = None, ResCatName = group)\
-# 							.first()
-# 						if not category:
-# 							new_category = Res_category(ResCatName = group)
-# 							db.session.add(new_category)
-# 							db.session.commit()
-# 							newCategoryId = new_category.ResCatId
-# 						else:
-# 							newCategoryId = category.ResCatId
-# 						resource['ResCatId'] = newCategoryId
-# 					except Exception as ex:
-# 						print(f"{datetime.now()} | Resource Api Exception: {ex}")
-# 				# / special synchronizer method /
-
-# 				# check that UsageStatusId specified
-# 				if resource['UsageStatusId'] == None or resource['UsageStatusId'] == '':
-# 					resource['UsageStatusId'] = 2
-
-# 				try:
-# 					ResRegNo = resource['ResRegNo']
-# 					thisResource = Resource.query\
-# 						.filter_by(ResRegNo = ResRegNo)\
-# 						.first()
-# 					if thisResource is not None:
-# 						thisResource.update(**resource)
-# 						# thisResource.modifiedInfo(UId=1)
-# 						resources.append(resource)
-# 					else:
-# 						# create new resource
-# 						newResource = Resource(**resource)
-# 						db.session.add(newResource)
-# 						resources.append(resource)
-# 						# check for presenting in database
-# 				except Exception as ex:
-# 					print(f"{datetime.now()} | Resource Api Exception: {ex}")
-# 					failed_resources.append(resource)
-# 			db.session.commit()
-# 			status = checkApiResponseStatus(resources,failed_resources)
-# 			res = {
-# 				"data": resources,
-# 				"fails": failed_resources,
-# 				"success_total": len(resources),
-# 				"fail_total": len(failed_resources)
-# 			}
-# 			for e in status:
-# 				res[e] = status[e]
-# 			if res['status'] == 0:
-# 				status_code = 200
-# 			else:
-# 				status_code = 201
-				
-# 			response = make_response(jsonify(res),status_code)
-
-# 	return response

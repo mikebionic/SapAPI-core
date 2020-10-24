@@ -40,7 +40,7 @@ from main_pack.api.commerce.pagination_utils import collect_order_inv_paginate_i
 
 
 @api.route("/tbl-dk-order-invoices/",methods=['GET','POST'])
-# @sha_required
+@sha_required
 def api_order_invoices():
 	if request.method == 'GET':
 		DivId = request.args.get("DivId",None,type=int)
@@ -73,26 +73,27 @@ def api_order_invoices():
 				order_invoice = addOrderInvDict(order_inv_req)
 				try:
 					DivGuid = order_invoice_req['DivGuid']
-					RpAccGuid = order_invoice_req['RpAccGuid']
+					# !!! check the type of request that is sent
+					RpAccGuid = order_invoice_req['Rp_acc']['RpAccGuid']
+					RpAccRegNo = order_invoice_req['Rp_acc']['RpAccRegNo']
 					WhGuid = order_invoice_req['WhGuid']
+
 					OInvGuid = order_invoice['OInvGuid']
 					OInvRegNo = order_invoice['OInvRegNo']
-					order_inv_query = db.session.query(Order_inv, Division, Warehouse, Rp_acc).query\
-						.filter_by(OInvGuid = OInvGuid)\
-						.outerjoin(Division, Division.DivGuid == DivGuid)\
-						.outerjoin(Warehouse, Warehouse.WhGuid == WhGuid)\
-						.outerjoin(Rp_acc, Rp_acc.RpAccGuid == RpAccGuid)\
+					thisOrderInv = Order_inv.query\
+						.filter_by(OInvGuid = OInvGuid, OInvRegNo = OInvRegNo)\
+						.join(Division)\
+						.join(Warehouse)\
+						.join(Rp_acc)\
 						.first()
-					order_invoice['DivId'] = order_inv_query.Division.DivId
-					order_invoice['WhId'] = order_inv_query.Warehouse.WhId
-					# ??? !!! add "or not Warehouse or not Division" ?
-					if not order_inv_query.Rp_acc:
-						raise Exception
-					order_invoice['RpAccId'] = order_inv_query.Rp_acc.RpAccId
 
 					thisInvStatus = None
-					thisOrderInv = order_inv_query.Order_inv
 					if thisOrderInv:
+						if not thisOrderInv.rp_acc:
+							raise Exception
+						order_invoice['RpAccId'] = thisOrderInv.rp_acc.RpAccId
+						order_invoice['DivId'] = thisOrderInv.division.DivId
+						order_invoice['WhId'] = thisOrderInv.warehouse.WhId
 						order_invoice['OInvId'] = thisOrderInv.OInvId
 						old_invoice_status = thisOrderInv.InvStatId
 						thisOrderInv.update(**order_invoice)
@@ -103,6 +104,19 @@ def api_order_invoices():
 						thisInvStatus = thisOrderInv.InvStatId
 
 					else:
+						datas_query = db.query(Division, Warehouse, Rp_acc)\
+							.filter(Division.DivGuid == DivGuid)\
+							.filter(Warehouse.WhGuid == WhGuid)\
+							.filter(and_(
+								Rp_acc.RpAccGuid == RpAccGuid,
+								Rp_acc.RpAccRegNo == RpAccRegNo))\
+							.first()
+
+						if not datas_query:
+							raise Exception
+						order_invoice['RpAccId'] = datas_query.Rp_acc.RpAccId
+						order_invoice['DivId'] = datas_query.Division.DivId
+						order_invoice['WhId'] = datas_query.Warehouse.WhId
 						thisOrderInv = Order_inv(**order_invoice)
 						db.session.add(thisOrderInv)
 						db.session.commit()

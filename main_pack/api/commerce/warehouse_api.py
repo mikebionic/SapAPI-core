@@ -29,7 +29,7 @@ def api_warehouses():
 				synchDateTime = dateutil.parser.parse(synchDateTime)
 			warehouse_query = warehouse_query.filter(Warehouse.ModifiedDate > (synchDateTime - timedelta(minutes = 5)))
 		warehouse_query = warehouse_query\
-			.join(Warehouse.division)\
+			.outerjoin(Division, Division.GCRecord == None)\
 			.all()
 
 		data = []
@@ -43,7 +43,6 @@ def api_warehouses():
 			"data": data,
 			"total": len(data)
 		}
-		print(res)
 		response = make_response(jsonify(res),200)
 
 	elif request.method == 'POST':

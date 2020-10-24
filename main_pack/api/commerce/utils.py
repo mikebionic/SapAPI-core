@@ -425,8 +425,8 @@ def addBarcodeDict(req):
 		"ModifiedUId": ModifiedUId,
 		"GCRecord": GCRecord
 		}
-	if(BarcodeId != '' and BarcodeId != None):
-		barcode['BarcodeId'] = BarcodeId
+	# if(BarcodeId != '' and BarcodeId != None):
+	# 	barcode['BarcodeId'] = BarcodeId
 	barcode = configureNulls(barcode)
 	return	barcode
 

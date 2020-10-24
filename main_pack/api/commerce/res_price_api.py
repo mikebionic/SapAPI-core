@@ -30,12 +30,21 @@ def api_res_prices():
 					Resource.ResId == Res_price.ResId,
 					Resource.DivId != notDivId))
 
-		res_prices = res_prices.all()
+		res_prices = res_prices\
+			.outerjoin(Resource, Resource.GCRecord == None)\
+			.all()
+
+		data = []
+		for res_price in res_prices:
+			res_price_info = res_price.to_json_api()
+			res_price_info["ResGuid"] = res_price.resource.ResGuid
+			data.append(res_price_info)
+
 		res = {
 			"status": 1,
 			"message": "All res prices",
-			"data": [res_price.to_json_api() for res_price in res_prices],
-			"total": len(res_prices)
+			"data": data,
+			"total": len(data)
 		}
 		response = make_response(jsonify(res),200)
 
@@ -49,20 +58,33 @@ def api_res_prices():
 			
 		else:
 			req = request.get_json()
+		
+			resources = Resource.query\
+				.filter_by(GCRecord = None)\
+				.filter(Resource.ResGuid != None).all()
+
+			resource_ResId_list = [resource.ResId for resource in resources]
+			resource_ResGuid_list = [resource.ResGuid for resource in resources]
+
 			res_prices = []
 			failed_res_prices = [] 
 			for res_price_req in req:
-				res_price = addResPriceDict(res_price_req)
+				res_price_info = addResPriceDict(res_price_req)
 				try:
 					ResRegNo = res_price_req['ResRegNo']
+					ResGuid = res_price_req['ResGuid']
 					ResPriceRegNo = res_price_req['ResPriceRegNo']
-					if not ResRegNo or not ResPriceRegNo:
+					
+					try:
+						indexed_res_id = resource_ResId_list[resource_ResGuid_list.index(ResGuid)]
+						ResId = int(indexed_res_id)
+					except:
+						ResId = None
+
+					if not ResId or not ResPriceRegNo:
 						raise Exception
 
-					resource = Resource.query\
-						.filter_by(GCRecord = None, ResRegNo = ResRegNo).first()
-					if not resource:
-						raise Exception
+					res_price_info["ResId"] = ResId
 
 					thisResPrice = Res_price.query\
 						.filter_by(
@@ -70,24 +92,18 @@ def api_res_prices():
 							ResPriceRegNo = ResPriceRegNo)\
 						.first()
 
-					res_price["ResId"] = resource.ResId
-
 					if thisResPrice:
-						res_price["ResPriceId"] = thisResPrice.ResPriceId
-						thisResPrice.update(**res_price)
+						res_price_info["ResPriceId"] = thisResPrice.ResPriceId
+						thisResPrice.update(**res_price_info)
 					else:
 						lastPrice = Res_price.query.order_by(Res_price.ResPriceId.desc()).first()
 						ResPriceId = lastPrice.ResPriceId+1
-						res_price["ResPriceId"] = ResPriceId
+						res_price_info["ResPriceId"] = ResPriceId
 
-						thisResPrice = Res_price(**res_price)
+						thisResPrice = Res_price(**res_price_info)
 						db.session.add(thisResPrice)
 					thisResPrice = None
-					
-					res_price["ResRegNo"] = ResRegNo
-					res_price["ResPriceRegNo"] = ResPriceRegNo
-					res_prices.append(res_price)
-
+					res_prices.append(res_price_req)
 				except Exception as ex:
 					print(f"{datetime.now()} | Res_price Api Exception: {ex}")
 					failed_res_prices.append(res_price_req)

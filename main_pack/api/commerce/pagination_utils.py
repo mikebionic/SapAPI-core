@@ -31,6 +31,8 @@ from main_pack.models.commerce.models import (
 	Order_inv,
 	Invoice)
 # / Invoice db Models /
+from main_pack.models.base.models import Company, Division, Warehouse
+from main_pack.models.users.models import Rp_acc,Users
 
 def collect_resource_paginate_info(
 	pagination_url,
@@ -274,7 +276,12 @@ def collect_order_inv_paginate_info(
 			if sort_type["sort"] == sort:
 				sort_type["status"] = 1
 
-	pagination_order_invoices = order_invoices.paginate(per_page=per_page if per_page else Config.INVOICES_PER_PAGE,page=page)
+	pagination_order_invoices = order_invoices\
+		.outerjoin(Company, Company.GCRecord == None)\
+		.outerjoin(Division, Division.GCRecord == None)\
+		.outerjoin(Warehouse, Warehouse.GCRecord == None)\
+		.outerjoin(Rp_acc, Rp_acc.GCRecord == None)\
+		.paginate(per_page=per_page if per_page else Config.INVOICES_PER_PAGE,page=page)
 	invoice_models = [order_inv for order_inv in pagination_order_invoices.items if pagination_order_invoices.items]
 
 	data = []

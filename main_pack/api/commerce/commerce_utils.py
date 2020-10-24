@@ -15,6 +15,7 @@ from main_pack.base.languageMethods import dataLangSelector
 # / functions and methods /
 
 # db models
+from main_pack.models.base.models import Company, Division, Warehouse
 from main_pack.models.commerce.models import (Resource,
 																							Res_price,
 																							Res_total,
@@ -182,13 +183,13 @@ def apiResourceInfo(resource_list = None,
 			List_Barcode = [barcode.to_json_api() for barcode in resource.Barcode if barcode.GCRecord == None]
 			List_Res_price = [res_price.to_json_api() for res_price in resource.Res_price if res_price.ResPriceTypeId == 2 and res_price.GCRecord == None]
 			try:
-				List_Currencies = [currency.to_json_api() for currency in currencies if currency.CurrencyId == List_Res_price[0]['CurrencyId']]
+				List_Currencies = [currency.to_json_api() for currency in currencies if currency.CurrencyId == List_Res_price[0]["CurrencyId"]]
 			except:
 				List_Currencies = []
 			List_Res_total = [res_total.to_json_api() for res_total in resource.Res_total if res_total.GCRecord == None and res_total.WhId == 1]
 			List_Images = [image.to_json_api() for image in resource.Image if image.GCRecord == None]
 			# Sorting list by Modified date
-			List_Images = (sorted(List_Images, key = lambda i: i['ModifiedDate']))
+			List_Images = (sorted(List_Images, key = lambda i: i["ModifiedDate"]))
 			
 			if fullInfo == True:
 				List_Ratings = []
@@ -199,13 +200,13 @@ def apiResourceInfo(resource_list = None,
 							.filter_by(GCRecord = None, UId = rating.UId)\
 							.first()
 						userData = apiUsersData(dbModel=rated_user)
-						Rating_info['User'] = userData['data']
+						Rating_info["User"] = userData["data"]
 					if rating.RpAccId:
 						rated_rp_acc = Rp_acc.query\
 							.filter_by(GCRecord = None, RpAccId = rating.RpAccId)\
 							.first()
 						rpAccData = apiRpAccData(dbModel=rated_rp_acc)
-						Rating_info['Rp_acc'] = rpAccData['data']
+						Rating_info["Rp_acc"] = rpAccData["data"]
 					List_Ratings.append(Rating_info)
 			else:
 				List_Ratings = [rating.to_json_api() for rating in resource.Rating if rating.GCRecord == None]
@@ -214,22 +215,22 @@ def apiResourceInfo(resource_list = None,
 			else:
 				List_Wish = []
 
-			resource_info["BarcodeVal"] = List_Barcode[0]['BarcodeVal'] if List_Barcode else ''
-			resource_info["ResCatName"] = List_Res_category[0]['ResCatName'] if List_Res_category else ''
-			resource_info["ResPriceValue"] = List_Res_price[0]['ResPriceValue'] if List_Res_price else 0
-			resource_info["CurrencyCode"] = List_Currencies[0]['CurrencyCode'] if List_Currencies else 'TMT'
-			resource_info["ResTotBalance"] = List_Res_total[0]['ResTotBalance'] if List_Res_total else 0
-			resource_info["ResPendingTotalAmount"] = List_Res_total[0]['ResPendingTotalAmount'] if List_Res_total else 0
-			resource_info["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=List_Images[-1]['FileName']) if List_Images else ''
-			resource_info["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=List_Images[-1]['FileName']) if List_Images else ''
-			resource_info["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_Images[-1]['FileName']) if List_Images else ''
+			resource_info["BarcodeVal"] = List_Barcode[0]["BarcodeVal"] if List_Barcode else ''
+			resource_info["ResCatName"] = List_Res_category[0]["ResCatName"] if List_Res_category else ''
+			resource_info["ResPriceValue"] = List_Res_price[0]["ResPriceValue"] if List_Res_price else 0
+			resource_info["CurrencyCode"] = List_Currencies[0]["CurrencyCode"] if List_Currencies else 'TMT'
+			resource_info["ResTotBalance"] = List_Res_total[0]["ResTotBalance"] if List_Res_total else 0
+			resource_info["ResPendingTotalAmount"] = List_Res_total[0]["ResPendingTotalAmount"] if List_Res_total else 0
+			resource_info["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=List_Images[-1]["FileName"]) if List_Images else ''
+			resource_info["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=List_Images[-1]["FileName"]) if List_Images else ''
+			resource_info["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_Images[-1]["FileName"]) if List_Images else ''
 			resource_info["Images"] = List_Images if List_Images else []
 			resource_info["Colors"] = List_Colors if List_Colors else []
 			resource_info["Sizes"] = List_Sizes if List_Sizes else []
 			resource_info["Brand"] = List_Brands[0] if List_Brands else []
 			resource_info["Unit"] = dataLangSelector(List_Units[0]) if List_Units else []
 			
-			rating_values = [rating['RtRatingValue'] for rating in List_Ratings if List_Ratings]
+			rating_values = [rating["RtRatingValue"] for rating in List_Ratings if List_Ratings]
 			try:
 				average_rating = sum(rating_values) / len(rating_values)
 				average_rating = round(average_rating,2)
@@ -256,20 +257,20 @@ def apiResourceInfo(resource_list = None,
 				for resource in related_resources:
 					related_resource_info = resource.to_json_api()
 					Related_resource_Images = [image.to_json_api() for image in resource.Image if image.GCRecord == None]
-					related_resource_info["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=Related_resource_Images[-1]['FileName']) if Related_resource_Images else ''
-					related_resource_info["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=Related_resource_Images[-1]['FileName']) if Related_resource_Images else ''
-					related_resource_info["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=Related_resource_Images[-1]['FileName']) if Related_resource_Images else ''
+					related_resource_info["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=Related_resource_Images[-1]["FileName"]) if Related_resource_Images else ''
+					related_resource_info["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=Related_resource_Images[-1]["FileName"]) if Related_resource_Images else ''
+					related_resource_info["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=Related_resource_Images[-1]["FileName"]) if Related_resource_Images else ''
 					
 
 					Related_resource_category = [category.to_json_api() for category in categories if category.ResCatId == resource.ResCatId]
 					Related_resource_price = [res_price.to_json_api() for res_price in resource.Res_price if res_price.ResPriceTypeId == 2 and res_price.GCRecord == None]
 					try:
-						Related_resource_currencies = [currency.to_json_api() for currency in currencies if currency.CurrencyId == Related_resource_price[0]['CurrencyId']]
+						Related_resource_currencies = [currency.to_json_api() for currency in currencies if currency.CurrencyId == Related_resource_price[0]["CurrencyId"]]
 					except:
 						Related_resource_currencies = []
-					related_resource_info["ResCatName"] = Related_resource_category[0]['ResCatName'] if Related_resource_category else ''
-					related_resource_info["ResPriceValue"] = Related_resource_price[0]['ResPriceValue'] if Related_resource_price else ''
-					related_resource_info["CurrencyCode"] = Related_resource_currencies[0]['CurrencyCode'] if Related_resource_currencies else 'TMT'
+					related_resource_info["ResCatName"] = Related_resource_category[0]["ResCatName"] if Related_resource_category else ''
+					related_resource_info["ResPriceValue"] = Related_resource_price[0]["ResPriceValue"] if Related_resource_price else ''
+					related_resource_info["CurrencyCode"] = Related_resource_currencies[0]["CurrencyCode"] if Related_resource_currencies else 'TMT'
 
 					if user:
 						Related_resource_Wish = [wish.to_json_api() for wish in wishes if wish.ResId == resource.ResId]
@@ -347,10 +348,10 @@ def apiFeaturedResCat_Resources():
 		for category in featured_categories:
 			featured_category = category.to_json_api()
 			resources_list = []
-			for resource in featured_resources['data']:
-				if resource['ResCatId'] == category.ResCatId:
+			for resource in featured_resources["data"]:
+				if resource["ResCatId"] == category.ResCatId:
 					resources_list.append(resource)
-			featured_category['Resources'] = resources_list
+			featured_category["Resources"] = resources_list
 			data.append(featured_category)
 
 	res = {
@@ -363,10 +364,10 @@ def apiFeaturedResCat_Resources():
 def UiCartResourceData(product_list,fullInfo=False,showRelated=False):
 	res = apiResourceInfo(product_list,fullInfo=fullInfo,showRelated=showRelated)
 	data = []
-	resources = res['data']
+	resources = res["data"]
 	for resource in resources:
 		for product in product_list:
-			if (int(resource['ResId'])==int(product['ResId'])):
+			if (int(resource["ResId"])==int(product["ResId"])):
 				try:
 					resource["productQty"] = product["productQty"]
 				except Exception as ex:
@@ -400,9 +401,9 @@ def apiOrderInvInfo(
 			"GCRecord": None
 		}
 		if statusId:
-			invoice_filtering['InvStatId'] = statusId
+			invoice_filtering["InvStatId"] = statusId
 		if rp_acc_user:
-			invoice_filtering['RpAccId'] = rp_acc_user.RpAccId
+			invoice_filtering["RpAccId"] = rp_acc_user.RpAccId
 		
 		invoice_models = []
 		if invoice_list is None:
@@ -427,7 +428,13 @@ def apiOrderInvInfo(
 						extract('month',Order_inv.OInvDate).between(startDate.month,endDate.month),\
 						extract('day',Order_inv.OInvDate).between(startDate.day,endDate.day)))
 				
-			order_invoices = order_invoices.order_by(Order_inv.OInvDate.desc()).all()
+			order_invoices = order_invoices\
+				.outerjoin(Company, Company.GCRecord == None)\
+				.outerjoin(Division, Division.GCRecord == None)\
+				.outerjoin(Warehouse, Warehouse.GCRecord == None)\
+				.outerjoin(Rp_acc, Rp_acc.GCRecord == None)\
+				.order_by(Order_inv.OInvDate.desc())\
+				.all()
 
 			for order_inv in order_invoices:
 				invoice_models.append(order_inv)
@@ -436,7 +443,12 @@ def apiOrderInvInfo(
 				OInvRegNo = invoice_index["OInvRegNo"]
 				invoice_filtering["OInvRegNo"] = OInvRegNo
 				order_inv = Order_inv.query\
-					.filter_by(**invoice_filtering).first()
+					.filter_by(**invoice_filtering)\
+					.outerjoin(Company, Company.GCRecord == None)\
+					.outerjoin(Division, Division.GCRecord == None)\
+					.outerjoin(Warehouse, Warehouse.GCRecord == None)\
+					.outerjoin(Rp_acc, Rp_acc.GCRecord == None)\
+					.first()
 				if order_inv:
 					invoice_models.append(order_inv)
 
@@ -448,19 +460,31 @@ def apiOrderInvInfo(
 
 			inv_status_list = [inv_status.to_json_api() for inv_status in inv_statuses if inv_status.InvStatId == order_inv.InvStatId]
 			inv_status = dataLangSelector(inv_status_list[0])
-			order_inv_info['InvStatName'] = inv_status['InvStatName']
+			order_inv_info["InvStatName"] = inv_status["InvStatName"]
 
 			rp_acc_data = {}
 			if rp_acc_user:
 				rpAccData = apiRpAccData(dbModel=rp_acc_user)
-				rp_acc_data = rpAccData['data']
-			elif order_inv.RpAccId:
-				rp_acc_user = Rp_acc.query\
-					.filter_by(GCRecord = None, RpAccId = order_inv.RpAccId)\
-					.first()
+				rp_acc_data = rpAccData["data"]
+			
+			# elif order_inv.RpAccId:
+			# 	rp_acc_user = Rp_acc.query\
+			# 		.filter_by(GCRecord = None, RpAccId = order_inv.RpAccId)\
+			# 		.first()
+
+			elif order_inv.rp_acc:
+				rp_acc_user = order_inv.rp_acc
 				rpAccData = apiRpAccData(dbModel=rp_acc_user)
-				rp_acc_data = rpAccData['data']
-			order_inv_info['Rp_acc'] = rp_acc_data
+				rp_acc_data = rpAccData["data"]
+			order_inv_info["Rp_acc"] = rp_acc_data
+			
+			# !!! TODO: Check for error throws and handle them
+			order_inv_info["CGuid"] = order_inv.company.CGuid
+			order_inv_info["WhGuid"] = order_inv.warehouse.WhGuid
+			order_inv_info["DivGuid"] = order_inv.division.DivGuid
+
+			# !!! Check the send and get type of these params (root or structured?)
+			# order_inv_info["RpAccGuid"] = rp_acc_data["RpAccGuid"]
 			rp_acc_user = None
 
 			if invoices_only == False: 
@@ -469,18 +493,20 @@ def apiOrderInvInfo(
 					if order_inv_line.GCRecord == None:
 						this_order_inv_line = order_inv_line.to_json_api()
 						try:
+							# !!! TODO: Check with outerjoining the joined order_inv_lines.Resources
 							resource = Resource.query\
 								.filter_by(GCRecord = None, ResId = order_inv_line.ResId)\
 								.first()
+							# !!! TODO: Probably will require new query with joins of other data
 							resource_json = apiResourceInfo(resource_models=[resource],single_object=True)
-							this_order_inv_line['Resource'] = resource_json['data']
-							this_order_inv_line['ResRegNo'] = resource.ResRegNo
+							this_order_inv_line["Resource"] = resource_json["data"]
+							this_order_inv_line["ResRegNo"] = resource.ResRegNo
 						except Exception as ex:
 							print(f"{datetime.now()} | Order_inv_line info utils Exception: {ex}")
-							this_order_inv_line['Resource'] = []
+							this_order_inv_line["Resource"] = []
 						order_inv_lines.append(this_order_inv_line)
 			
-				order_inv_info['Order_inv_lines'] = order_inv_lines
+				order_inv_info["Order_inv_lines"] = order_inv_lines
 			data.append(order_inv_info)
 		except Exception as ex:
 			print(f"{datetime.now()} | Order_inv info utils Exception: {ex}")
@@ -518,9 +544,9 @@ def apiInvInfo(
 		"GCRecord": None
 	}
 	if statusId:
-		invoice_filtering['InvStatId'] = statusId
+		invoice_filtering["InvStatId"] = statusId
 	if rp_acc_user:
-		invoice_filtering['RpAccId'] = rp_acc_user.RpAccId
+		invoice_filtering["RpAccId"] = rp_acc_user.RpAccId
 
 	inv_models = []
 	if invoice_list is None:
@@ -566,7 +592,7 @@ def apiInvInfo(
 
 			inv_status_list = [inv_status.to_json_api() for inv_status in inv_statuses if inv_status.InvStatId == invoice.InvStatId]
 			inv_status = dataLangSelector(inv_status_list[0])
-			inv_info['InvStatName'] = inv_status['InvStatName']
+			inv_info["InvStatName"] = inv_status["InvStatName"]
 
 			if rp_acc_user:
 				rpAccData = apiRpAccData(dbModel=rp_acc_user)
@@ -576,7 +602,7 @@ def apiInvInfo(
 					.first()
 				rpAccData = apiRpAccData(dbModel=rp_acc_user)
 			rp_acc_user = None
-			inv_info['Rp_acc'] = rpAccData['data']
+			inv_info["Rp_acc"] = rpAccData["data"]
 
 			inv_lines = []
 			for inv_line in invoice.Inv_line:
@@ -587,13 +613,13 @@ def apiInvInfo(
 							.filter_by(GCRecord = None, ResId = inv_line.ResId)\
 							.first()
 						resource_json = apiResourceInfo(resource_models=[resource],single_object=True)
-						this_inv_line['Resource'] = resource_json['data']
+						this_inv_line["Resource"] = resource_json["data"]
 					except Exception as ex:
 						print(f"{datetime.now()} | Invoice_line info utils Exception: {ex}")
-						this_inv_line['Resource'] = []
+						this_inv_line["Resource"] = []
 					inv_lines.append(this_inv_line)
 			
-			inv_info['Inv_lines'] = inv_lines
+			inv_info["Inv_lines"] = inv_lines
 			data.append(inv_info)
 		except Exception as ex:
 			print(f"{datetime.now()} | Invoice info utils Exception: {ex}")

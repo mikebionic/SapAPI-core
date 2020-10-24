@@ -3,6 +3,8 @@ from flask import render_template,url_for,jsonify,request,abort,make_response
 from flask import current_app
 from datetime import datetime, timedelta
 import dateutil.parser
+from sqlalchemy import and_
+
 from main_pack import db
 from main_pack.api.commerce import api
 
@@ -19,6 +21,8 @@ from main_pack.api.users.utils import addRpAccDict,apiRpAccData
 from main_pack.models.commerce.models import Rp_acc_trans_total
 from main_pack.api.commerce.utils import addRpAccTrTotDict
 # / Rp_acc_trans_total and functions /
+
+from main_pack.models.base.models import Company, Division
 
 
 @api.route("/tbl-dk-rp-accs/<RpAccRegNo>/",methods=['GET'])
@@ -52,11 +56,16 @@ def api_rp_accs():
 			if (type(synchDateTime) != datetime):
 				synchDateTime = dateutil.parser.parse(synchDateTime)
 			rp_accs = rp_accs.filter(Rp_acc.ModifiedDate > (synchDateTime - timedelta(minutes = 5)))
-		rp_accs = rp_accs.all()
+		rp_accs = rp_accs\
+			.outerjoin(Division, Division.GCRecord == None)\
+			.outerjoin(Company, Company.GCRecord == None)\
+			.all()
 
 		data = []
 		for rp_acc in rp_accs:
 			rp_acc_info = rp_acc.to_json_api()
+			rp_acc_info["DivGuid"] = rp_acc.division.DivGuid
+			rp_acc_info["CGuid"] = rp_acc.company.CGuid
 			trans_total = [rp_acc_trans_total.to_json_api() for rp_acc_trans_total in rp_acc.Rp_acc_trans_total]
 			
 			total_info = {}
@@ -85,52 +94,80 @@ def api_rp_accs():
 		else:
 			req = request.get_json()
 
-			users = Users.query.filter_by(GCRecord = None).all()
-			UId_list = [user.UId for user in users]
+			divisions = Division.query\
+				.filter_by(GCRecord = None)\
+				.filter(Division.DivGuid != None).all()
+			companies = Company.query\
+				.filter_by(GCRecord = None)\
+				.filter(Company.CGuid != None).all()
+
+			division_DivId_list = [division.DivId for division in divisions]
+			division_DivGuid_list = [division.DivGuid for division in divisions]
+
+			company_CId_list = [company.CId for company in companies]
+			company_CGuid_list = [company.CGuid for company in companies]
 
 			rp_accs = []
 			failed_rp_accs = [] 
-			for data in req:
-				rp_acc = addRpAccDict(data)
+			for rp_acc_req in req:
+				rp_acc_info = addRpAccDict(rp_acc_req)
 				try:
+					RpAccRegNo = rp_acc_info['RpAccRegNo']
+					RpAccGuid = rp_acc_info['RpAccGuid']
+					DivGuid = rp_acc_req['DivGuid']
+					CGuid = rp_acc_req['CGuid']
+
 					try:
-						user = UId_list.index(rp_acc['UId'])
+						indexed_div_id = division_DivId_list[division_DivGuid_list.index(DivGuid)]
+						DivId = int(indexed_div_id)
 					except:
-						rp_acc['UId'] = None
-					RpAccRegNo = rp_acc['RpAccRegNo']
+						DivId = None
+					rp_acc_info['DivId'] = DivId
+
+					try:
+						indexed_c_id = company_CId_list[company_CGuid_list.index(CGuid)]
+						CId = int(indexed_c_id)
+					except:
+						CId = None
+					rp_acc_info['CId'] = CId
+
 					thisRpAcc = Rp_acc.query\
-						.filter_by(RpAccRegNo = RpAccRegNo)\
+						.filter_by(
+							RpAccRegNo = RpAccRegNo,
+							RpAccGuid = RpAccGuid,
+							GCRecord = None)\
 						.first()
 
-					# !!! Todo add rp_acc guid checkup and // order inv should check rp_accs rp_accId by guid
 					if thisRpAcc:
-						thisRpAcc.update(**rp_acc)
+						rp_acc_info['RpAccId'] = thisRpAcc.RpAccId
+						thisRpAcc.update(**rp_acc_info)
 					else:
-						thisRpAcc = Rp_acc(**rp_acc)
+						thisRpAcc = Rp_acc(**rp_acc_info)
 						db.session.add(thisRpAcc)
-
 					db.session.commit()
 
-					rp_acc_trans_total = data['RpAccTransTotal']
+					rp_acc_trans_total_req = rp_acc_req['RpAccTransTotal']
 					try:
-						rp_acc_trans_total = addRpAccTrTotDict(rp_acc_trans_total)
-						rp_acc_trans_total['RpAccTrTotId'] = None
 						RpAccId = thisRpAcc.RpAccId
+
+						rp_acc_trans_total = addRpAccTrTotDict(rp_acc_trans_total_req)
+						rp_acc_trans_total['RpAccTrTotId'] = None
 						rp_acc_trans_total['RpAccId'] = RpAccId
 						thisRpAccTrTotal = Rp_acc_trans_total.query\
 							.filter_by(RpAccId = RpAccId)\
 							.first()
 						if thisRpAccTrTotal:
+							rp_acc_trans_total['RpAccTrTotId'] = thisRpAccTrTotal.RpAccTrTotId
 							thisRpAccTrTotal.update(**rp_acc_trans_total)
 						else:
-							newRpAccTrTotal = Rp_acc_trans_total(**rp_acc_trans_total)
-							db.session.add(newRpAccTrTotal)
-						rp_accs.append(rp_acc)
+							thisRpAccTrTotal = Rp_acc_trans_total(**rp_acc_trans_total)
+							db.session.add(thisRpAccTrTotal)
+						rp_accs.append(rp_acc_req)
 					except Exception as ex:
 						print(f"{datetime.now()} | Rp_acc Api Rp_acc_total Exception: {ex}")
 				except Exception as ex:
 					print(f"{datetime.now()} | Rp_acc Api Exception: {ex}")
-					failed_rp_accs.append(rp_acc)
+					failed_rp_accs.append(rp_acc_req)
 			db.session.commit()
 
 			status = checkApiResponseStatus(rp_accs,failed_rp_accs)
