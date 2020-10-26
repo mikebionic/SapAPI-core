@@ -28,14 +28,12 @@ def api_warehouses():
 			if (type(synchDateTime) != datetime):
 				synchDateTime = dateutil.parser.parse(synchDateTime)
 			warehouse_query = warehouse_query.filter(Warehouse.ModifiedDate > (synchDateTime - timedelta(minutes = 5)))
-		warehouse_query = warehouse_query\
-			.outerjoin(Division, Division.GCRecord == None)\
-			.all()
+		warehouse_query = warehouse_query.all()
 
 		data = []
 		for warehouse in warehouse_query:
 			warehouse_info = warehouse.to_json_api()
-			warehouse_info["DivGuid"] = warehouse.division.DivGuid
+			warehouse_info["DivGuid"] = warehouse.division.DivGuid if warehouse.division else None
 			data.append(warehouse_info)
 		res = {
 			"status": 1,
@@ -57,7 +55,7 @@ def api_warehouses():
 			req = request.get_json()
 			divisions = Division.query.filter_by(GCRecord = None).all()
 			division_DivId_list = [division.DivId for division in divisions]
-			division_DivGuid_list = [division.DivGuid for division in divisions]
+			division_DivGuid_list = [str(division.DivGuid) for division in divisions]
 
 			warehouses = []
 			failed_warehouses = []

@@ -169,6 +169,7 @@ class Company(AddInf,CreatedModifiedInfo,db.Model):
 	Rp_acc = db.relationship('Rp_acc',backref='company',lazy=True)
 	Wish = db.relationship('Wish',backref='company',lazy=True)
 	Production = db.relationship('Production',backref='company',lazy=True)
+	Resource = db.relationship('Resource',backref='company',lazy=True)
 	Rating = db.relationship('Rating',backref='company',lazy=True)
 	Slider = db.relationship('Slider',backref='company',lazy=True)
 
@@ -364,6 +365,7 @@ class Division(AddInf,CreatedModifiedInfo,db.Model):
 	Warehouse = db.relationship('Warehouse',backref='division',lazy=True)
 	Production = db.relationship('Production',backref='division',lazy=True)
 	Rating = db.relationship('Rating',backref='division',lazy=True)
+	Resource = db.relationship('Resource',backref='division',lazy=True)
 	Slider = db.relationship('Slider',backref='division',lazy=True)
 	
 	def update(self, **kwargs):

@@ -62,11 +62,20 @@ def api_images():
 			images = images.filter(Image.ModifiedDate > (synchDateTime - timedelta(minutes = 5)))
 
 		images = images.all()
+
+		data = []
+		for image in images:
+			image_info = image.to_json_api()
+			image_info["ResRegNo"] = image.resource.ResRegNo if image.resource else None
+			image_info["ResGuid"] = image.resource.ResGuid if image.resource else None
+			image_info["RpAccGuid"] = image.rp_acc.RpAccGuid if image.rp_acc else None
+			data.append(image_info)
+
 		res = {
 			"status": 1,
 			"message": "All images",
-			"data": [image.to_json_api() for image in images],
-			"total": len(images)
+			"data": data,
+			"total": len(data)
 		}
 		response = make_response(jsonify(res),200)
 
@@ -80,31 +89,36 @@ def api_images():
 		else:
 			req = request.get_json()
 			resources = Resource.query.filter_by(GCRecord = None).all()
+
 			resource_ResId_list = [resource.ResId for resource in resources]
-			resource_RegNo_list = [resource.ResRegNo for resource in resources]
+			resource_ResGuid_list = [str(resource.ResGuid) for resource in resources]
+			# resource_RegNo_list = [resource.ResRegNo for resource in resources]
 
 			images = []
 			failed_images = []
-			for image in req:
+			for image_req in req:
 				try:
-					ResRegNo = image['ResRegNo']
-					indexed_res_id = resource_ResId_list[resource_RegNo_list.index(ResRegNo)]
-					if not indexed_res_id:
-						raise Exception
+					ResRegNo = image_req["ResRegNo"]
+					ResGuid = image_req["ResGuid"]
+
+					indexed_res_id = resource_ResId_list[resource_ResGuid_list.index(ResGuid)]
 					ResId = int(indexed_res_id)
-					image['ResId'] = ResId
-					imageDictData = addImageDict(image)
+					image_req["ResId"] = ResId
+
+					imageDictData = addImageDict(image_req)
 					print(f"trying image of {ResRegNo} of resourceId {ResId}")
 					ImgGuid = imageDictData['ImgGuid']
 					thisImage = Image.query\
-						.filter_by(ImgGuid = ImgGuid)\
+						.filter_by(
+							ImgGuid = ImgGuid,
+							GCRecord = None)\
 						.first()
 
 					if thisImage is not None:
 						updatingDate = dateutil.parser.parse(imageDictData['ModifiedDate'])
 						if thisImage.ModifiedDate != updatingDate:
-							image['ResId'] = ResId
-							image_data = saveImageFile(image)
+							image_req["ResId"] = ResId
+							image_data = saveImageFile(image_req)
 							image_data['ImgId'] = thisImage.ImgId
 							try:
 								# Delete last image
@@ -120,15 +134,18 @@ def api_images():
 							print(f"{datetime.now()} | Image dropped (Same ModifiedDate)")
 						images.append(imageDictData)
 					else:
-						image_data = saveImageFile(image)
+						image_data = saveImageFile(image_req)
 						newImage = Image(**image_data)
 						db.session.add(newImage)
 						try:
 							db.session.commit()
 						except Exception as ex:
 							print(f"{datetime.now()} | Couldn't commit: {ex}")
-							lastImage = Image.query.order_by(Image.ImgId.desc()).first()
-							ImgId = lastImage.ImgId+1
+							try:
+								lastImage = Image.query.order_by(Image.ImgId.desc()).first()
+								ImgId = lastImage.ImgId+1
+							except:
+								ImgId = None
 							newImage.ImgId = ImgId
 							db.session.add(newImage)
 							db.session.commit()

@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 from main_pack.base.dataMethods import configureNulls,configureFloat,boolCheck
+import uuid
 
 def addUsersDict(req):
 	UId = req.get('UId')
-	UGuid = req.get('UGuid')
+	UGuid = uuid.UUID(req.get('UGuid'))
 	CId = req.get('CId')
 	DivId = req.get('DivId')
 	RpAccId = req.get('RpAccId')
@@ -61,7 +62,7 @@ def addUsersDict(req):
 
 def addRpAccDict(req):
 	RpAccId = req.get('RpAccId')
-	RpAccGuid = req.get('RpAccGuid')
+	RpAccGuid = uuid.UUID(req.get('RpAccGuid'))
 	UId = req.get('UId')
 	CId = req.get('CId')
 	DivId = req.get('DivId')

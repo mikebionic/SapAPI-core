@@ -429,10 +429,6 @@ def apiOrderInvInfo(
 						extract('day',Order_inv.OInvDate).between(startDate.day,endDate.day)))
 				
 			order_invoices = order_invoices\
-				.outerjoin(Company, Company.GCRecord == None)\
-				.outerjoin(Division, Division.GCRecord == None)\
-				.outerjoin(Warehouse, Warehouse.GCRecord == None)\
-				.outerjoin(Rp_acc, Rp_acc.GCRecord == None)\
 				.order_by(Order_inv.OInvDate.desc())\
 				.all()
 
@@ -443,12 +439,7 @@ def apiOrderInvInfo(
 				OInvRegNo = invoice_index["OInvRegNo"]
 				invoice_filtering["OInvRegNo"] = OInvRegNo
 				order_inv = Order_inv.query\
-					.filter_by(**invoice_filtering)\
-					.outerjoin(Company, Company.GCRecord == None)\
-					.outerjoin(Division, Division.GCRecord == None)\
-					.outerjoin(Warehouse, Warehouse.GCRecord == None)\
-					.outerjoin(Rp_acc, Rp_acc.GCRecord == None)\
-					.first()
+					.filter_by(**invoice_filtering).first()
 				if order_inv:
 					invoice_models.append(order_inv)
 
@@ -477,14 +468,14 @@ def apiOrderInvInfo(
 				rpAccData = apiRpAccData(dbModel=rp_acc_user)
 				rp_acc_data = rpAccData["data"]
 			order_inv_info["Rp_acc"] = rp_acc_data
-			
-			# !!! TODO: Check for error throws and handle them
-			order_inv_info["CGuid"] = order_inv.company.CGuid
-			order_inv_info["WhGuid"] = order_inv.warehouse.WhGuid
-			order_inv_info["DivGuid"] = order_inv.division.DivGuid
+
+			order_inv_info["CGuid"] = order_inv.company.CGuid if order_inv.company else None
+			order_inv_info["WhGuid"] = order_inv.warehouse.WhGuid if order_inv.warehouse else None
+			order_inv_info["DivGuid"] = order_inv.division.DivGuid if order_inv.division else None
+			order_inv_info["RpAccGuid"] = order_inv.rp_acc.RpAccGuid if order_inv.rp_acc else None
+			order_inv_info["RpAccRegNo"] = order_inv.rp_acc.RpAccRegNo if order_inv.rp_acc else None
 
 			# !!! Check the send and get type of these params (root or structured?)
-			# order_inv_info["RpAccGuid"] = rp_acc_data["RpAccGuid"]
 			rp_acc_user = None
 
 			if invoices_only == False: 
@@ -492,15 +483,13 @@ def apiOrderInvInfo(
 				for order_inv_line in order_inv.Order_inv_line:
 					if order_inv_line.GCRecord == None:
 						this_order_inv_line = order_inv_line.to_json_api()
+						this_order_inv_line["ResRegNo"] = order_inv_line.resource.ResRegNo if order_inv_line.resource else None
+						this_order_inv_line["ResGuid"] = order_inv_line.resource.ResGuid if order_inv_line.resource else None
 						try:
-							# !!! TODO: Check with outerjoining the joined order_inv_lines.Resources
-							resource = Resource.query\
-								.filter_by(GCRecord = None, ResId = order_inv_line.ResId)\
-								.first()
-							# !!! TODO: Probably will require new query with joins of other data
-							resource_json = apiResourceInfo(resource_models=[resource],single_object=True)
+							resource_json = apiResourceInfo(
+								resource_models = [order_inv_line.resource],
+								single_object = True)
 							this_order_inv_line["Resource"] = resource_json["data"]
-							this_order_inv_line["ResRegNo"] = resource.ResRegNo
 						except Exception as ex:
 							print(f"{datetime.now()} | Order_inv_line info utils Exception: {ex}")
 							this_order_inv_line["Resource"] = []

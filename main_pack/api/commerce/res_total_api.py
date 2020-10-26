@@ -33,18 +33,14 @@ def api_res_totals():
 			if (type(synchDateTime) != datetime):
 				synchDateTime = dateutil.parser.parse(synchDateTime)
 			res_totals = res_totals.filter(Res_total.ModifiedDate > (synchDateTime - timedelta(minutes = 5)))
-		res_totals = res_totals\
-			.outerjoin(Warehouse, Warehouse.GCRecord == None)\
-			.outerjoin(Division, Division.GCRecord == None)\
-			.outerjoin(Resource, Resource.GCRecord == None)\
-			.all()
+		res_totals = res_totals.all()
 
 		data = []
 		for res_total in res_totals:
 			res_total_info = res_total.to_json_api()
-			res_total_info["WhGuid"] = res_total.warehouse.WhGuid
-			res_total_info["DivGuid"] = res_total.division.DivGuid
-			res_total_info["ResGuid"] = res_total.resource.ResGuid
+			res_total_info["WhGuid"] = res_total.warehouse.WhGuid if res_total.warehouse else None
+			res_total_info["DivGuid"] = res_total.division.DivGuid if res_total.division else None
+			res_total_info["ResGuid"] = res_total.resource.ResGuid if res_total.resource else None
 			data.append(res_total_info)
 
 		res = {
@@ -77,33 +73,32 @@ def api_res_totals():
 				.filter(Division.DivGuid != None).all()
 
 			division_DivId_list = [division.DivId for division in divisions]
-			division_DivGuid_list = [division.DivGuid for division in divisions]
+			division_DivGuid_list = [str(division.DivGuid) for division in divisions]
 
 			warehouse_WhId_list = [warehouse.WhId for warehouse in warehouses]
-			warehouse_WhGuid_list = [warehouse.WhGuid for warehouse in warehouses]
+			warehouse_WhGuid_list = [str(warehouse.WhGuid) for warehouse in warehouses]
 
 			resource_ResId_list = [resource.ResId for resource in resources]
-			resource_ResGuid_list = [resource.ResGuid for resource in resources]
-
+			resource_ResGuid_list = [str(resource.ResGuid) for resource in resources]
 			res_totals = []
 			failed_res_totals = [] 
 			for res_total_req in req:
 				res_total_info = addResTotalDict(res_total_req)
 				
 				# sync the pending amount (used by synchronizer)
-				res_total_info['ResPendingTotalAmount'] = res_total_info['ResTotBalance']
+				res_total_info["ResPendingTotalAmount"] = res_total_info["ResTotBalance"]
 
 				try:
 					# handle AkHasap's database exceptions of -1 meaning "all"
-					if res_total_info['WhId'] > 0:
+					if res_total_info["WhId"] > 0:
 						# handling WhId existence exception
-						res_total_req['WhId'] = None
+						res_total_req["WhId"] = None
 
-						ResRegNo = res_total_req['ResRegNo']
-						ResGuid = res_total_req['ResGuid']
-						DivGuid = res_total_req['DivGuid']
-						WhGuid = res_total_req['WhGuid']
-						# WhGuid = uuid.UUID(res_total_req['WhGuid']) # used for fetching Wh and Resources
+						ResRegNo = res_total_req["ResRegNo"]
+						ResGuid = res_total_req["ResGuid"]
+						DivGuid = res_total_req["DivGuid"]
+						WhGuid = res_total_req["WhGuid"]
+						# WhGuid = uuid.UUID(res_total_req["WhGuid"]) # used for fetching Wh and Resources
 						if not ResRegNo or not WhGuid:
 							raise Exception
 
@@ -128,6 +123,7 @@ def api_res_totals():
 						res_total_info["WhId"] = WhId
 
 						if not ResId or not WhId or not DivId:
+							print(res_total_info)
 							raise Exception
 
 						thisResTotal = Res_total.query\
@@ -137,8 +133,11 @@ def api_res_totals():
 							res_total_info["ResTotId"] = thisResTotal.ResTotId
 							thisResTotal.update(**res_total_info)
 						else:
-							lastTotal = Res_total.query.order_by(Res_total.ResTotId.desc()).first()
-							ResTotId = lastTotal.ResTotId+1
+							try:
+								lastTotal = Res_total.query.order_by(Res_total.ResTotId.desc()).first()
+								ResTotId = lastTotal.ResTotId+1
+							except:
+								ResTotId = None
 							res_total_info["ResTotId"] = ResTotId
 							
 							thisResTotal = Res_total(**res_total_info)

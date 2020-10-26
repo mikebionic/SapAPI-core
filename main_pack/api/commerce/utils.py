@@ -158,7 +158,7 @@ def addCategoryDict(req):
 
 def addResourceDict(req):
 	ResId = req.get('ResId')
-	ResGuid = req.get('ResGuid')
+	ResGuid = uuid.UUID(req.get('ResGuid'))
 	CId = req.get('CId')
 	DivId = req.get('DivId')
 	ResCatId = req.get('ResCatId')
@@ -554,7 +554,7 @@ def addRpAccTrTotDict(req):
 
 def addOrderInvDict(req):
 	OInvId = req.get('OInvId')
-	OInvGuid = req.get('OInvGuid')
+	OInvGuid = uuid.UUID(req.get('OInvGuid'))
 	OInvTypeId = req.get('OInvTypeId')
 	InvStatId = req.get('InvStatId')
 	CurrencyId = req.get('CurrencyId')
@@ -646,7 +646,7 @@ def addOrderInvDict(req):
 def addOrderInvLineDict(req):
 	OInvLineId = req.get('OInvLineId')
 	OInvId = req.get('OInvId')
-	OInvLineGuid = req.get('OInvLineGuid')
+	OInvLineGuid = uuid.UUID(req.get('OInvLineGuid'))
 	UnitId = req.get('UnitId')
 	CurrencyId = req.get('CurrencyId')
 	ResId = req.get('ResId')
@@ -746,7 +746,7 @@ def addOrderInvTypeDict(req):
 
 def addInvDict(req):
 	InvId = req.get('InvId')
-	InvGuid = req.get('InvGuid')
+	InvGuid = uuid.UUID(req.get('InvGuid'))
 	InvTypeId = req.get('InvTypeId')
 	InvStatId = req.get('InvStatId')
 	CurrencyId = req.get('CurrencyId')
@@ -834,7 +834,7 @@ def addInvDict(req):
 
 def addInvLineDict(req):
 	InvLineId = req.get('InvLineId')
-	InvGuid = req.get('InvGuid')
+	InvGuid = uuid.UUID(req.get('InvGuid'))
 	InvId = req.get('InvId')
 	UnitId = req.get('UnitId')
 	CurrencyId = req.get('CurrencyId')

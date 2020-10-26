@@ -72,28 +72,67 @@ def api_order_invoices():
 			for order_inv_req in req:
 				order_invoice = addOrderInvDict(order_inv_req)
 				try:
-					DivGuid = order_invoice_req['DivGuid']
-					# !!! check the type of request that is sent
-					RpAccGuid = order_invoice_req['Rp_acc']['RpAccGuid']
-					RpAccRegNo = order_invoice_req['Rp_acc']['RpAccRegNo']
-					WhGuid = order_invoice_req['WhGuid']
+					DivGuid = order_inv_req['DivGuid']
+					WhGuid = order_inv_req['WhGuid']
+					RpAccGuid = order_inv_req['RpAccGuid']
+					RpAccRegNo = order_inv_req['RpAccRegNo']
 
 					OInvGuid = order_invoice['OInvGuid']
 					OInvRegNo = order_invoice['OInvRegNo']
-					thisOrderInv = Order_inv.query\
-						.filter_by(OInvGuid = OInvGuid, OInvRegNo = OInvRegNo)\
-						.join(Division)\
-						.join(Warehouse)\
-						.join(Rp_acc)\
-						.first()
 
+					divisions = Division.query\
+						.filter_by(GCRecord = None)\
+						.filter(Division.DivGuid != None).all()
+					warehouses = Warehouse.query\
+						.filter_by(GCRecord = None)\
+						.filter(Warehouse.WhGuid != None).all()
+					rp_accs = Rp_acc.query\
+						.filter_by(GCRecord = None)\
+						.filter(Rp_acc.RpAccGuid != None).all()
+
+					division_DivId_list = [division.DivId for division in divisions]
+					division_DivGuid_list = [str(division.DivGuid) for division in divisions]
+
+					warehouse_WhId_list = [warehouse.WhId for warehouse in warehouses]
+					warehouse_WhGuid_list = [str(warehouse.WhGuid) for warehouse in warehouses]
+
+					rp_acc_RpAccId_list = [rp_acc.RpAccId for rp_acc in rp_accs]
+					rp_acc_RpAccGuid_list = [str(rp_acc.RpAccGuid) for rp_acc in rp_accs]
+
+					try:
+						indexed_div_id = division_DivId_list[division_DivGuid_list.index(DivGuid)]
+						DivId = int(indexed_div_id)
+					except:
+						DivId = None
+					try:
+						indexed_wh_id = warehouse_WhId_list[warehouse_WhGuid_list.index(WhGuid)]
+						WhId = int(indexed_wh_id)
+					except:
+						WhId = None
+					try:
+						print(RpAccGuid)
+						indexed_rp_acc_id = rp_acc_RpAccId_list[rp_acc_RpAccGuid_list.index(RpAccGuid)]
+						RpAccId = int(indexed_rp_acc_id)
+					except:
+						RpAccId = None
+
+					order_invoice['DivId'] = DivId
+					order_invoice['WhId'] = WhId
+					order_invoice['RpAccId'] = RpAccId
+
+					thisOrderInv = Order_inv.query\
+						.filter_by(
+							OInvGuid = OInvGuid,
+							OInvRegNo = OInvRegNo,
+							GCRecord = None)\
+						.first()
 					thisInvStatus = None
+
+					if not RpAccId or not DivId or not WhId:
+						print(f"{RpAccId}, {DivId}, {WhId}")
+						raise Exception
+
 					if thisOrderInv:
-						if not thisOrderInv.rp_acc:
-							raise Exception
-						order_invoice['RpAccId'] = thisOrderInv.rp_acc.RpAccId
-						order_invoice['DivId'] = thisOrderInv.division.DivId
-						order_invoice['WhId'] = thisOrderInv.warehouse.WhId
 						order_invoice['OInvId'] = thisOrderInv.OInvId
 						old_invoice_status = thisOrderInv.InvStatId
 						thisOrderInv.update(**order_invoice)
@@ -104,19 +143,6 @@ def api_order_invoices():
 						thisInvStatus = thisOrderInv.InvStatId
 
 					else:
-						datas_query = db.query(Division, Warehouse, Rp_acc)\
-							.filter(Division.DivGuid == DivGuid)\
-							.filter(Warehouse.WhGuid == WhGuid)\
-							.filter(and_(
-								Rp_acc.RpAccGuid == RpAccGuid,
-								Rp_acc.RpAccRegNo == RpAccRegNo))\
-							.first()
-
-						if not datas_query:
-							raise Exception
-						order_invoice['RpAccId'] = datas_query.Rp_acc.RpAccId
-						order_invoice['DivId'] = datas_query.Division.DivId
-						order_invoice['WhId'] = datas_query.Warehouse.WhId
 						thisOrderInv = Order_inv(**order_invoice)
 						db.session.add(thisOrderInv)
 						db.session.commit()
@@ -127,14 +153,25 @@ def api_order_invoices():
 						order_inv_line = addOrderInvLineDict(order_inv_line_req)
 						order_inv_line['OInvId'] = thisOrderInv.OInvId
 						ResRegNo = order_inv_line_req['ResRegNo']
-						this_line_resource = Resources.query.filter_by(ResRegNo = ResRegNo).first() 
+						ResGuid = order_inv_line_req['ResGuid']
+						this_line_resource = Resources.query\
+							.filter_by(
+								ResRegNo = ResRegNo,
+								ResGuid = ResGuid,
+								GCRecord = None)\
+							.first() 
 						try:
 							order_inv_line["ResId"] = this_line_resource.ResId
+							OInvLineRegNo = order_inv_line['OInvLineRegNo']
 							OInvLineGuid = order_inv_line['OInvLineGuid']
 							thisOrderInvLine = Order_inv_line.query\
-								.filter_by(OInvLineGuid = OInvLineGuid)\
+								.filter_by(
+									OInvLineRegNo = OInvLineRegNo,
+									OInvLineGuid = OInvLineGuid,
+									GCRecord = None)\
 								.first()
 							if thisOrderInvLine:
+								order_inv_line["OInvLineId"] = thisOrderInvLine.OInvLineId
 								thisOrderInvLine.update(**order_inv_line)
 								if thisInvStatus == 9 or thisInvStatus == 5:
 									try:
@@ -148,11 +185,11 @@ def api_order_invoices():
 								db.session.commit()
 								order_inv_lines.append(order_inv_line)
 							else:
-								newOrderInvLine = Order_inv_line(**order_inv_line)
-								db.session.add(newOrderInvLine)
+								thisOrderInvLine = Order_inv_line(**order_inv_line)
+								db.session.add(thisOrderInvLine)
 								db.session.commit()
 								order_inv_lines.append(order_inv_line)
-								newOrderInvLine = None
+								thisOrderInvLine = None
 						except Exception as ex:
 							print(f"{datetime.now()} | OInv Api OInvLine Exception: {ex}")
 							failed_order_inv_lines.append(order_inv_line)

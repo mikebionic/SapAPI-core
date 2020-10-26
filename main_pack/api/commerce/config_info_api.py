@@ -54,7 +54,7 @@ def api_company():
 	if request.method == 'GET':
 		CGuid = request.args.get("CGuid","",type=str)
 		company = Company.query\
-			.filter_by(CGuid = CGuid)\
+			.filter_by(CGuid = CGuid, GCRecord = None)\
 			.first_or_404()
 
 		company_info = company.to_json_api()
@@ -85,7 +85,8 @@ def api_company():
 					company_data = addCompanyDict(company_req)
 					company = Company.query\
 						.filter_by(
-							CGuid = company_data['CGuid'])\
+							CGuid = company_data['CGuid'],
+							GCRecord = None)\
 						.first()
 					if company:
 						company_data['CId'] = company.CId
@@ -117,12 +118,11 @@ def api_division():
 	if request.method == 'GET':
 		DivGuid = request.args.get("DivGuid","",type=str)
 		division = Division.query\
-			.filter_by(DivGuid = DivGuid)\
-			.join(Division.company)\
+			.filter_by(DivGuid = DivGuid, GCRecord = None)\
 			.first_or_404()
 
 		division_info = division.to_json_api()
-		division_info['CGuid'] = division.company.CGuid
+		division_info['CGuid'] = division.company.CGuid if division.company else None
 		status_code = 200
 		res = {
 			"status": 1,
@@ -144,22 +144,20 @@ def api_division():
 			req = request.get_json()
 			companies = Company.query.filter_by(GCRecord = None).all()
 			company_CId_list = [company.CId for company in companies]
-			company_CGuid_list = [company.CGuid for company in companies]
-
+			company_CGuid_list = [str(company.CGuid) for company in companies]
 			divisions = []
 			failed_divisions = []
 			for division_req in req:
 				try:
 					CGuid = division_req['CGuid']
 					indexed_c_id = company_CId_list[company_CGuid_list.index(CGuid)]
-					if not indexed_c_id:
-						raise Exception
 					CId = int(indexed_c_id)
 					division_info = addDivisionDict(division_req)
 					division_info['CId'] = CId
 					division = Division.query\
 						.filter_by(
-							DivGuid = division_info['DivGuid'])\
+							DivGuid = division_info['DivGuid'],
+							GCRecord = None)\
 						.first()
 					if division:
 						division['DivId'] = division.DivId

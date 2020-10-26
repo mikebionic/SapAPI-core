@@ -41,7 +41,7 @@ def api_rp_accs_rp_acc(RpAccRegNo):
 
 
 @api.route("/tbl-dk-rp-accs/",methods=['GET','POST'])
-@sha_required
+# @sha_required
 def api_rp_accs():
 	if request.method == 'GET':
 		DivId = request.args.get("DivId",None,type=int)
@@ -56,16 +56,14 @@ def api_rp_accs():
 			if (type(synchDateTime) != datetime):
 				synchDateTime = dateutil.parser.parse(synchDateTime)
 			rp_accs = rp_accs.filter(Rp_acc.ModifiedDate > (synchDateTime - timedelta(minutes = 5)))
-		rp_accs = rp_accs\
-			.outerjoin(Division, Division.GCRecord == None)\
-			.outerjoin(Company, Company.GCRecord == None)\
-			.all()
+		rp_accs = rp_accs.all()
 
 		data = []
 		for rp_acc in rp_accs:
 			rp_acc_info = rp_acc.to_json_api()
-			rp_acc_info["DivGuid"] = rp_acc.division.DivGuid
-			rp_acc_info["CGuid"] = rp_acc.company.CGuid
+			rp_acc_info["DivGuid"] = rp_acc.division.DivGuid if rp_acc.division else None
+			rp_acc_info["CGuid"] = rp_acc.company.CGuid if rp_acc.company else None
+			rp_acc_info["UGuid"] = rp_acc.users.UGuid if rp_acc.users else None
 			trans_total = [rp_acc_trans_total.to_json_api() for rp_acc_trans_total in rp_acc.Rp_acc_trans_total]
 			
 			total_info = {}
@@ -100,12 +98,19 @@ def api_rp_accs():
 			companies = Company.query\
 				.filter_by(GCRecord = None)\
 				.filter(Company.CGuid != None).all()
+			users = Users.query\
+				.filter_by(GCRecord = None)\
+				.filter(Users.UGuid != None).all()
+
 
 			division_DivId_list = [division.DivId for division in divisions]
-			division_DivGuid_list = [division.DivGuid for division in divisions]
+			division_DivGuid_list = [str(division.DivGuid) for division in divisions]
 
 			company_CId_list = [company.CId for company in companies]
-			company_CGuid_list = [company.CGuid for company in companies]
+			company_CGuid_list = [str(company.CGuid) for company in companies]
+
+			users_UId_list = [user.UId for user in users]
+			users_UGuid_list = [str(user.UGuid) for user in users]
 
 			rp_accs = []
 			failed_rp_accs = [] 
@@ -116,20 +121,27 @@ def api_rp_accs():
 					RpAccGuid = rp_acc_info['RpAccGuid']
 					DivGuid = rp_acc_req['DivGuid']
 					CGuid = rp_acc_req['CGuid']
+					UGuid = rp_acc_req['UGuid']
 
 					try:
 						indexed_div_id = division_DivId_list[division_DivGuid_list.index(DivGuid)]
 						DivId = int(indexed_div_id)
 					except:
 						DivId = None
-					rp_acc_info['DivId'] = DivId
-
 					try:
 						indexed_c_id = company_CId_list[company_CGuid_list.index(CGuid)]
 						CId = int(indexed_c_id)
 					except:
 						CId = None
+					try:
+						indexed_u_id = users_UId_list[users_UGuid_list.index(UGuid)]
+						UId = int(indexed_u_id)
+					except:
+						UId = None
+
+					rp_acc_info['DivId'] = DivId
 					rp_acc_info['CId'] = CId
+					rp_acc_info['UId'] = UId
 
 					thisRpAcc = Rp_acc.query\
 						.filter_by(
@@ -149,12 +161,11 @@ def api_rp_accs():
 					rp_acc_trans_total_req = rp_acc_req['RpAccTransTotal']
 					try:
 						RpAccId = thisRpAcc.RpAccId
-
 						rp_acc_trans_total = addRpAccTrTotDict(rp_acc_trans_total_req)
 						rp_acc_trans_total['RpAccTrTotId'] = None
 						rp_acc_trans_total['RpAccId'] = RpAccId
 						thisRpAccTrTotal = Rp_acc_trans_total.query\
-							.filter_by(RpAccId = RpAccId)\
+							.filter_by(RpAccId = RpAccId, GCRecord = None)\
 							.first()
 						if thisRpAccTrTotal:
 							rp_acc_trans_total['RpAccTrTotId'] = thisRpAccTrTotal.RpAccTrTotId

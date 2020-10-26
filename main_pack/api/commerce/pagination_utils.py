@@ -277,10 +277,6 @@ def collect_order_inv_paginate_info(
 				sort_type["status"] = 1
 
 	pagination_order_invoices = order_invoices\
-		.outerjoin(Company, Company.GCRecord == None)\
-		.outerjoin(Division, Division.GCRecord == None)\
-		.outerjoin(Warehouse, Warehouse.GCRecord == None)\
-		.outerjoin(Rp_acc, Rp_acc.GCRecord == None)\
 		.paginate(per_page=per_page if per_page else Config.INVOICES_PER_PAGE,page=page)
 	invoice_models = [order_inv for order_inv in pagination_order_invoices.items if pagination_order_invoices.items]
 

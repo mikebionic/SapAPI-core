@@ -23,21 +23,21 @@ def api_res_prices():
 			res_prices = res_prices\
 				.join(Resource, and_(
 					Resource.ResId == Res_price.ResId,
-					Resource.DivId == DivId))
+					Resource.DivId == DivId,
+					Resource.GCRecord == None))
 		if notDivId:
 			res_prices = res_prices\
 				.join(Resource, and_(
 					Resource.ResId == Res_price.ResId,
-					Resource.DivId != notDivId))
+					Resource.DivId != notDivId,
+					Resource.GCRecord == None))
 
-		res_prices = res_prices\
-			.outerjoin(Resource, Resource.GCRecord == None)\
-			.all()
+		res_prices = res_prices.all()
 
 		data = []
 		for res_price in res_prices:
 			res_price_info = res_price.to_json_api()
-			res_price_info["ResGuid"] = res_price.resource.ResGuid
+			res_price_info["ResGuid"] = res_price.resource.ResGuid if res_price.resource else None
 			data.append(res_price_info)
 
 		res = {
@@ -64,7 +64,7 @@ def api_res_prices():
 				.filter(Resource.ResGuid != None).all()
 
 			resource_ResId_list = [resource.ResId for resource in resources]
-			resource_ResGuid_list = [resource.ResGuid for resource in resources]
+			resource_ResGuid_list = [str(resource.ResGuid) for resource in resources]
 
 			res_prices = []
 			failed_res_prices = [] 
@@ -96,8 +96,11 @@ def api_res_prices():
 						res_price_info["ResPriceId"] = thisResPrice.ResPriceId
 						thisResPrice.update(**res_price_info)
 					else:
-						lastPrice = Res_price.query.order_by(Res_price.ResPriceId.desc()).first()
-						ResPriceId = lastPrice.ResPriceId+1
+						try:
+							lastPrice = Res_price.query.order_by(Res_price.ResPriceId.desc()).first()
+							ResPriceId = lastPrice.ResPriceId+1
+						except:
+							ResPriceId = None
 						res_price_info["ResPriceId"] = ResPriceId
 
 						thisResPrice = Res_price(**res_price_info)
