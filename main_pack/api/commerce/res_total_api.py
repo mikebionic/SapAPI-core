@@ -139,7 +139,6 @@ def api_res_totals():
 							except:
 								ResTotId = None
 							res_total_info["ResTotId"] = ResTotId
-							
 							thisResTotal = Res_total(**res_total_info)
 							db.session.add(thisResTotal)
 							

@@ -5,6 +5,7 @@ from main_pack.base.apiMethods import checkApiResponseStatus
 from datetime import datetime, timedelta
 import dateutil.parser
 
+from main_pack.models.base.models import Division,Company
 from main_pack.models.users.models import Users
 from main_pack.api.users.utils import addUsersDict,apiUsersData
 from main_pack import db
@@ -19,7 +20,7 @@ def api_users_user(UId):
 	res = {
 		"status": 1,
 		"message": "Single user",
-		"data": user['data'],
+		"data": user["data"],
 		"total": 1
 	}
 	response = make_response(jsonify(res),200)
@@ -44,10 +45,17 @@ def api_users():
 				synchDateTime = dateutil.parser.parse(synchDateTime)
 			users = users.filter(Users.ModifiedDate > (synchDateTime - timedelta(minutes = 5)))
 		users = users.all()
+
+		data = []
+		for user in users:
+			user_info = user.to_json_api()
+			user_info["DivGuid"] = user.division.DivGuid if user.division else None
+			user_info["CGuid"] = user.company.CGuid if user.company else None
+	
 		res = {
 			"status": 1,
 			"message": "All users",
-			"data": [user.to_json_api() for user in users],
+			"data": data,
 			"total": len(users)
 		}
 		response = make_response(jsonify(res),200)
@@ -62,24 +70,61 @@ def api_users():
 			
 		else:
 			req = request.get_json()
+
+			divisions = Division.query\
+				.filter_by(GCRecord = None)\
+				.filter(Division.DivGuid != None).all()
+			companies = Company.query\
+				.filter_by(GCRecord = None)\
+				.filter(Company.CGuid != None).all()
+
+			division_DivId_list = [division.DivId for division in divisions]
+			division_DivGuid_list = [str(division.DivGuid) for division in divisions]
+			company_CId_list = [company.CId for company in companies]
+			company_CGuid_list = [str(company.CGuid) for company in companies]
+
 			users = []
 			failed_users = [] 
 			for user_req in req:
-				user = addUsersDict(user_req)
+				user_info = addUsersDict(user_req)
 				try:
-						URegNo = user['URegNo']
-						thisUser = Users.query.filter_by(URegNo = URegNo).first()
-						if thisUser is not None:
-							thisUser.update(**user)
-							users.append(user)
-						else:
-							thisUser = Users(**user)
-							db.session.add(thisUser)
-							users.append(user)
-							thisUser = None
+					URegNo = user_info["URegNo"]
+					UGuid = user_info["UGuid"]
+					CGuid = user_req["CGuid"]
+					DivGuid = user_req["DivGuid"]
+
+					try:
+						indexed_div_id = division_DivId_list[division_DivGuid_list.index(DivGuid)]
+						DivId = int(indexed_div_id)
+					except:
+						DivId = None
+					try:
+						indexed_c_id = company_CId_list[company_CGuid_list.index(CGuid)]
+						CId = int(indexed_c_id)
+					except:
+						CId = None
+
+					user_info["CId"] = CId
+					user_info["DivId"] = DivId
+
+					thisUser = Users.query\
+						.filter_by(
+							URegNo = URegNo,
+							UGuid = UGuid,
+							GCRecord = None)\
+						.first()
+					if thisUser:
+						user_info["UId"] = thisUser.UId
+						thisUser.update(**user_info)
+						users.append(user_req)
+					else:
+						thisUser = Users(**user_info)
+						db.session.add(thisUser)
+						users.append(user_req)
+						thisUser = None
 				except Exception as ex:
 					print(f"{datetime.now()} | Users Api Exception: {ex}")
-					failed_users.append(user)
+					failed_users.append(user_req)
 			db.session.commit()
 			status = checkApiResponseStatus(users,failed_users)
 			res = {

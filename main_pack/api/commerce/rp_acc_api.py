@@ -64,11 +64,11 @@ def api_rp_accs():
 			rp_acc_info["DivGuid"] = rp_acc.division.DivGuid if rp_acc.division else None
 			rp_acc_info["CGuid"] = rp_acc.company.CGuid if rp_acc.company else None
 			rp_acc_info["UGuid"] = rp_acc.users.UGuid if rp_acc.users else None
-			trans_total = [rp_acc_trans_total.to_json_api() for rp_acc_trans_total in rp_acc.Rp_acc_trans_total]
+			trans_total = [rp_acc_trans_total.to_json_api() 
+			for rp_acc_trans_total in rp_acc.Rp_acc_trans_total 
+			if rp_acc_trans_total.GCRecord == None]
 			
-			total_info = {}
-			if trans_total:
-				total_info = trans_total[0]
+			total_info = trans_total[0] if trans_total else {}
 			rp_acc_info["RpAccTransTotal"] = total_info
 			trans_total = None
 			data.append(rp_acc_info)
@@ -117,11 +117,11 @@ def api_rp_accs():
 			for rp_acc_req in req:
 				rp_acc_info = addRpAccDict(rp_acc_req)
 				try:
-					RpAccRegNo = rp_acc_info['RpAccRegNo']
-					RpAccGuid = rp_acc_info['RpAccGuid']
-					DivGuid = rp_acc_req['DivGuid']
-					CGuid = rp_acc_req['CGuid']
-					UGuid = rp_acc_req['UGuid']
+					RpAccRegNo = rp_acc_info["RpAccRegNo"]
+					RpAccGuid = rp_acc_info["RpAccGuid"]
+					DivGuid = rp_acc_req["DivGuid"]
+					CGuid = rp_acc_req["CGuid"]
+					UGuid = rp_acc_req["UGuid"]
 
 					try:
 						indexed_div_id = division_DivId_list[division_DivGuid_list.index(DivGuid)]
@@ -139,9 +139,9 @@ def api_rp_accs():
 					except:
 						UId = None
 
-					rp_acc_info['DivId'] = DivId
-					rp_acc_info['CId'] = CId
-					rp_acc_info['UId'] = UId
+					rp_acc_info["DivId"] = DivId
+					rp_acc_info["CId"] = CId
+					rp_acc_info["UId"] = UId
 
 					thisRpAcc = Rp_acc.query\
 						.filter_by(
@@ -151,14 +151,14 @@ def api_rp_accs():
 						.first()
 
 					if thisRpAcc:
-						rp_acc_info['RpAccId'] = thisRpAcc.RpAccId
+						rp_acc_info["RpAccId"] = thisRpAcc.RpAccId
 						thisRpAcc.update(**rp_acc_info)
 					else:
 						thisRpAcc = Rp_acc(**rp_acc_info)
 						db.session.add(thisRpAcc)
 					db.session.commit()
 
-					rp_acc_trans_total_req = rp_acc_req['RpAccTransTotal']
+					rp_acc_trans_total_req = rp_acc_req["RpAccTransTotal"]
 					try:
 						RpAccId = thisRpAcc.RpAccId
 						rp_acc_trans_total = addRpAccTrTotDict(rp_acc_trans_total_req)

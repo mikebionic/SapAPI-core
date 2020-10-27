@@ -139,7 +139,8 @@ def api_resources():
 					thisResource = Resource.query\
 						.filter_by(
 							ResRegNo = ResRegNo,
-							ResGuid = ResGuid)\
+							ResGuid = ResGuid,
+							GCRecord = None)\
 						.first()
 					if thisResource:
 						resource_info["ResId"] = thisResource.ResId

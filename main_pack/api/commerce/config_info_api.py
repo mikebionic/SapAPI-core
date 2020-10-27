@@ -122,7 +122,7 @@ def api_division():
 			.first_or_404()
 
 		division_info = division.to_json_api()
-		division_info['CGuid'] = division.company.CGuid if division.company else None
+		division_info["CGuid"] = division.company.CGuid if division.company else None
 		status_code = 200
 		res = {
 			"status": 1,
@@ -149,14 +149,14 @@ def api_division():
 			failed_divisions = []
 			for division_req in req:
 				try:
-					CGuid = division_req['CGuid']
+					CGuid = division_req["CGuid"]
 					indexed_c_id = company_CId_list[company_CGuid_list.index(CGuid)]
 					CId = int(indexed_c_id)
 					division_info = addDivisionDict(division_req)
-					division_info['CId'] = CId
+					division_info["CId"] = CId
 					division = Division.query\
 						.filter_by(
-							DivGuid = division_info['DivGuid'],
+							DivGuid = division_info["DivGuid"],
 							GCRecord = None)\
 						.first()
 					if division:

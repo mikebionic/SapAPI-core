@@ -81,10 +81,11 @@ def apiResourceInfo(resource_list = None,
 		user = current_user
 	if user:
 		RpAccId = user.RpAccId
+		# wishes = [wish for wish in user.Wish if wish.GCRecord == None]
 		wishes = Wish.query\
 			.filter_by(GCRecord = None, RpAccId = RpAccId)\
 			.all()
-	
+
 	if not resource_models:
 		resource_models = []
 		# if list with "ResId" is not provided, return all resources
@@ -280,7 +281,6 @@ def apiResourceInfo(resource_list = None,
 					related_resource_info["Wishlist"] = True if Related_resource_Wish else False
 					Related_resources.append(related_resource_info)
 				resource_info["Related_resources"] = Related_resources
-				# resource_info["Related_resources"] = [resource.to_json_api() for resource in related_resources]
 			if fullInfo == True:
 				resource_info["UsageStatus"] = dataLangSelector(List_UsageStatus[0]) if List_UsageStatus else []
 				resource_info["Barcode"] = List_Barcode if List_Barcode else []

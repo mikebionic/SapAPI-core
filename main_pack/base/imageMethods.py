@@ -73,11 +73,11 @@ def changeImageSize(
 
 
 def save_image(
-		imageForm = None,
-		savedImage = None,
-		module = "undefined",
-		id = "undefined",
-		apply_watermark = False):
+	imageForm = None,
+	savedImage = None,
+	module = "undefined",
+	id = "undefined",
+	apply_watermark = False):
 	random_hex = secrets.token_hex(Config.IMAGE_RANDOM_HEX_LENGTH)
 	modulePath = os.path.join(str(module),str(id),'images')
 	sizeSpecificFullPath = None

@@ -88,8 +88,8 @@ def api_images():
 			response = make_response(jsonify(res),400)
 		else:
 			req = request.get_json()
-			resources = Resource.query.filter_by(GCRecord = None).all()
 
+			resources = Resource.query.filter_by(GCRecord = None).all()
 			resource_ResId_list = [resource.ResId for resource in resources]
 			resource_ResGuid_list = [str(resource.ResGuid) for resource in resources]
 			# resource_RegNo_list = [resource.ResRegNo for resource in resources]
@@ -117,7 +117,6 @@ def api_images():
 					if thisImage is not None:
 						updatingDate = dateutil.parser.parse(imageDictData['ModifiedDate'])
 						if thisImage.ModifiedDate != updatingDate:
-							image_req["ResId"] = ResId
 							image_data = saveImageFile(image_req)
 							image_data['ImgId'] = thisImage.ImgId
 							try:
@@ -135,8 +134,8 @@ def api_images():
 						images.append(imageDictData)
 					else:
 						image_data = saveImageFile(image_req)
-						newImage = Image(**image_data)
-						db.session.add(newImage)
+						thisImage = Image(**image_data)
+						db.session.add(thisImage)
 						try:
 							db.session.commit()
 						except Exception as ex:
@@ -146,8 +145,8 @@ def api_images():
 								ImgId = lastImage.ImgId+1
 							except:
 								ImgId = None
-							newImage.ImgId = ImgId
-							db.session.add(newImage)
+							thisImage.ImgId = ImgId
+							db.session.add(thisImage)
 							db.session.commit()
 						print(f"{datetime.now()} | Image created")
 						images.append(imageDictData)

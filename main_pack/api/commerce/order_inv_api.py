@@ -67,11 +67,31 @@ def api_order_invoices():
 
 		else:
 			req = request.get_json()
+
+			divisions = Division.query\
+				.filter_by(GCRecord = None)\
+				.filter(Division.DivGuid != None).all()
+			warehouses = Warehouse.query\
+				.filter_by(GCRecord = None)\
+				.filter(Warehouse.WhGuid != None).all()
+			rp_accs = Rp_acc.query\
+				.filter_by(GCRecord = None)\
+				.filter(Rp_acc.RpAccGuid != None).all()
+
+			division_DivId_list = [division.DivId for division in divisions]
+			division_DivGuid_list = [str(division.DivGuid) for division in divisions]
+
+			warehouse_WhId_list = [warehouse.WhId for warehouse in warehouses]
+			warehouse_WhGuid_list = [str(warehouse.WhGuid) for warehouse in warehouses]
+
+			rp_acc_RpAccId_list = [rp_acc.RpAccId for rp_acc in rp_accs]
+			rp_acc_RpAccGuid_list = [str(rp_acc.RpAccGuid) for rp_acc in rp_accs]
+			
 			order_invoices = []
 			failed_order_invoices = [] 
 			for order_inv_req in req:
-				order_invoice = addOrderInvDict(order_inv_req)
 				try:
+					order_invoice = addOrderInvDict(order_inv_req)
 					DivGuid = order_inv_req['DivGuid']
 					WhGuid = order_inv_req['WhGuid']
 					RpAccGuid = order_inv_req['RpAccGuid']
@@ -79,25 +99,6 @@ def api_order_invoices():
 
 					OInvGuid = order_invoice['OInvGuid']
 					OInvRegNo = order_invoice['OInvRegNo']
-
-					divisions = Division.query\
-						.filter_by(GCRecord = None)\
-						.filter(Division.DivGuid != None).all()
-					warehouses = Warehouse.query\
-						.filter_by(GCRecord = None)\
-						.filter(Warehouse.WhGuid != None).all()
-					rp_accs = Rp_acc.query\
-						.filter_by(GCRecord = None)\
-						.filter(Rp_acc.RpAccGuid != None).all()
-
-					division_DivId_list = [division.DivId for division in divisions]
-					division_DivGuid_list = [str(division.DivGuid) for division in divisions]
-
-					warehouse_WhId_list = [warehouse.WhId for warehouse in warehouses]
-					warehouse_WhGuid_list = [str(warehouse.WhGuid) for warehouse in warehouses]
-
-					rp_acc_RpAccId_list = [rp_acc.RpAccId for rp_acc in rp_accs]
-					rp_acc_RpAccGuid_list = [str(rp_acc.RpAccGuid) for rp_acc in rp_accs]
 
 					try:
 						indexed_div_id = division_DivId_list[division_DivGuid_list.index(DivGuid)]
@@ -110,7 +111,6 @@ def api_order_invoices():
 					except:
 						WhId = None
 					try:
-						print(RpAccGuid)
 						indexed_rp_acc_id = rp_acc_RpAccId_list[rp_acc_RpAccGuid_list.index(RpAccGuid)]
 						RpAccId = int(indexed_rp_acc_id)
 					except:
@@ -177,22 +177,24 @@ def api_order_invoices():
 									try:
 										if (old_invoice_status != 5 or old_invoice_status != 9):
 											order_res_total = Res_total.query\
-												.filter_by(ResId = thisOrderInvLine.ResId)\
+												.filter_by(
+													ResId = thisOrderInvLine.ResId,
+													GCRecord = None)\
 												.first()
 											order_res_total.ResPendingTotalAmount += thisOrderInvLine.OInvLineAmount
 									except Exception as ex:
 										print(f"{datetime.now()} | OInv Api Res_total Exception: {ex}")
 								db.session.commit()
-								order_inv_lines.append(order_inv_line)
+								order_inv_lines.append(order_inv_line_req)
 							else:
 								thisOrderInvLine = Order_inv_line(**order_inv_line)
 								db.session.add(thisOrderInvLine)
 								db.session.commit()
-								order_inv_lines.append(order_inv_line)
+								order_inv_lines.append(order_inv_line_req)
 								thisOrderInvLine = None
 						except Exception as ex:
 							print(f"{datetime.now()} | OInv Api OInvLine Exception: {ex}")
-							failed_order_inv_lines.append(order_inv_line)
+							failed_order_inv_lines.append(order_inv_line_req)
 
 					order_invoice['Order_inv_lines'] = order_inv_lines
 					order_invoices.append(order_invoice)
