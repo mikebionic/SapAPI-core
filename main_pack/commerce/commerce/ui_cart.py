@@ -2,6 +2,7 @@ from flask import render_template,url_for,jsonify,session,flash,redirect,request
 from main_pack.commerce.commerce import bp
 from main_pack.config import Config
 import os
+import uuid
 
 # useful methods
 from main_pack import db,babel,gettext,lazy_gettext
@@ -209,6 +210,7 @@ def ui_cart_checkout():
 			OInvDesc = req.get('orderDesc')
 			orderInv = Order_inv(
 					OInvTypeId = 2,
+					OInvGuid = uuid.uuid4(),
 					InvStatId = 1,
 					CurrencyId = 1,
 					WhId = 1,
@@ -270,6 +272,7 @@ def ui_cart_checkout():
 						# use device model and other info
 						orderLineRegNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
 					order_inv_line['OInvLineRegNo'] = orderLineRegNo
+					order_inv_line['OInvLineGuid'] = uuid.uuid4()
 					
 					# increment of Main Order Inv Total Price
 					OInvTotal += OInvLineFTotal

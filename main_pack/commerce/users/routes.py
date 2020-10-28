@@ -2,6 +2,7 @@ from flask import render_template,url_for,jsonify,session,flash,redirect,request
 from main_pack.commerce.users import bp
 from main_pack.config import Config
 import os
+import uuid
 
 # useful methods
 from main_pack import db,babel,gettext,lazy_gettext
@@ -96,10 +97,18 @@ def profile_edit():
 		}
 		rpAcc.update(**rpAccData)
 		if form.picture.data:
-			imageFile = save_image(imageForm=form.picture.data,module=os.path.join("uploads","commerce","Rp_acc"),id=rpAcc.RpAccId)
+			imageFile = save_image(
+				imageForm = form.picture.data,
+				module = os.path.join("uploads","commerce","Rp_acc"),
+				id = rpAcc.RpAccId)
 			lastImage = Image.query.order_by(Image.ImgId.desc()).first()
 			ImgId = lastImage.ImgId+1
-			image = Image(ImgId=ImgId,FileName=imageFile['FileName'],FilePath=imageFile['FilePath'],RpAccId=rpAcc.RpAccId)
+			image = Image(
+				ImgId = ImgId,
+				ImgGuid = uuid.uuid4(),
+				FileName = imageFile['FileName'],
+				FilePath = imageFile['FilePath'],
+				RpAccId = rpAcc.RpAccId)
 			db.session.add(image)
 
 		db.session.commit()

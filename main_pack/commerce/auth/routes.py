@@ -4,6 +4,7 @@ from flask_login import login_user,current_user,logout_user
 from main_pack.config import Config
 from main_pack.commerce.auth import bp
 from main_pack import db,bcrypt,babel,gettext,lazy_gettext
+import uuid
 
 # forms
 from main_pack.commerce.auth.forms import (

@@ -35,7 +35,7 @@
             <br>
             {% for image in resource.Images %}
               <div class="gallery gallery-md" data-item-height="100" style="display: flex;">
-                <div class="gallery-item" data-toggle="popover" data-trigger="hover" title="{{image.FileName}}" data-image="{{ image.FilePathM }}"></div>
+                <div class="gallery-item" data-toggle="popover" data-trigger="hover" title="{{image.FileName}}" data-image="{{ image.FilePathS }}"></div>
                 <div class="carousel_icon">
                   <li>
                     <a href="{{ url_for('commerce_admin.remove_images',type='image',imgId=image.ImgId,prodId=resource.ResId) }}" class="btn btn-icon btn-light">

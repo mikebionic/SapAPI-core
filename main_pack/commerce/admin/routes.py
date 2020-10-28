@@ -2,6 +2,7 @@ from flask import render_template,url_for,session,flash,redirect,request,Respons
 from main_pack.commerce.admin import bp, url_prefix
 from main_pack.config import Config
 import os
+import uuid
 from flask import current_app
 
 # useful methods
@@ -247,6 +248,7 @@ def register_customer():
 			RpAccId = last_RpAccId.UId+1
 			rp_acc = Rp_acc(
 				RpAccId = RpAccId,
+				RpAccGuid = uuid.uuid4(),
 				RpAccUName=username,
 				RpAccUPass=password,
 				RpAccName=full_name,
@@ -270,7 +272,12 @@ def register_customer():
 				imageFile = save_image(imageForm=form.picture.data,module=os.path.join("uploads","commerce","Rp_acc"),id=rp_acc.RpAccId)
 				lastImage = Image.query.order_by(Image.ImgId.desc()).first()
 				ImgId = lastImage.ImgId+1
-				image = Image(ImgId=ImgId,FileName=imageFile['FileName'],FilePath=imageFile['FilePath'],RpAccId=rp_acc.RpAccId)
+				image = Image(
+					ImgId = ImgId,
+					ImgGuid = uuid.uuid4(),
+					FileName = imageFile['FileName'],
+					FilePath = imageFile['FilePath'],
+					RpAccId = rp_acc.RpAccId)
 				db.session.add(image)
 
 			db.session.commit()
@@ -350,6 +357,7 @@ def register_user():
 			UId = last_User.UId+1
 			user = Users(
 				UId = UId,
+				UGuid = uuid.uuid4(),
 				UName = username,
 				UEmail = email,
 				UShortName = UShortName,
@@ -363,10 +371,11 @@ def register_user():
 				lastImage = Image.query.order_by(Image.ImgId.desc()).first()
 				ImgId = lastImage.ImgId+1
 				image = Image(
-					ImgId=ImgId,
-					FileName=imageFile['FileName'],
-					FilePath=imageFile['FilePath'],
-					UId=user.UId)
+					ImgId = ImgId,
+					ImgGuid = uuid.uuid4(),
+					FileName = imageFile['FileName'],
+					FilePath = imageFile['FilePath'],
+					UId = user.UId)
 				db.session.add(image)
 
 			db.session.commit()
@@ -517,7 +526,12 @@ def manage_brand():
 				imageFile = save_icon(imageForm=form.Image.data,module=os.path.join("uploads","commerce","Brand"),id=brand.BrandId)
 				lastImage = Image.query.order_by(Image.ImgId.desc()).first()
 				ImgId = lastImage.ImgId+1
-				image = Image(ImgId=ImgId,FileName=imageFile['FileName'],FilePath=imageFile['FilePath'],BrandId=brand.BrandId)
+				image = Image(
+					ImgId = ImgId,
+					ImgGuid = uuid.uuid4(),
+					FileName = imageFile['FileName'],
+					FilePath = imageFile['FilePath'],
+					BrandId = brand.BrandId)
 				db.session.add(image)
 
 			db.session.commit()

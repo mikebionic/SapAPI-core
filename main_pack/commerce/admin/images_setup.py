@@ -21,6 +21,7 @@ from main_pack.models.base.models import Company,Sl_image,Slider,Image
 from main_pack.models.commerce.models import Resource, Brand
 from main_pack.api.commerce.commerce_utils import apiResourceInfo
 import os
+import uuid
 # / data and models /
 
 from main_pack.commerce.admin.forms import LogoImageForm,SliderImageForm,ResourceEditForm
@@ -42,7 +43,12 @@ def logo_setup():
 			
 			lastImage = Image.query.order_by(Image.ImgId.desc()).first()
 			ImgId = lastImage.ImgId+1
-			image = Image(ImgId=ImgId,FileName=imageFile['FileName'],FilePath=imageFile['FilePath'],CId=company.CId)
+			image = Image(
+				ImgId = ImgId,
+				ImgGuid = uuid.uuid4(),
+				FileName = imageFile['FileName'],
+				FilePath = imageFile['FilePath'],
+				CId = company.CId)
 			db.session.add(image)
 			db.session.commit()
 
@@ -285,7 +291,12 @@ def resource_edit(ResId):
 
 			lastImage = Image.query.order_by(Image.ImgId.desc()).first()
 			ImgId = lastImage.ImgId + 1
-			image = Image(ImgId=ImgId,FileName=imageFile['FileName'],FilePath=imageFile['FilePath'],ResId=ResId)
+			image = Image(
+				ImgId = ImgId,
+				ImgGuid = uuid.uuid4(),
+				FileName = imageFile['FileName'],
+				FilePath = imageFile['FilePath'],
+				ResId = ResId)
 			db.session.add(image)
 			db.session.commit()
 

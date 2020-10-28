@@ -13,6 +13,7 @@ from main_pack.commerce.admin.utils import addImageDict
 from main_pack.models.base.models import Image
 from main_pack.base.imageMethods import allowed_image
 import os, secrets
+import uuid
 from flask import current_app
 from PIL import Image as ImageOperation
 
@@ -79,9 +80,9 @@ def ui_images():
 		try:
 			for imgReq in req:
 				image = addImageDict(imgReq)
-				print(image)
 				imgId = imgReq.get('imgId')
 				if (imgId == '' or imgId == None):
+					image["ImgGuid"] = uuid.uuid4()
 					newImage = Image(**image)
 					db.session.add(newImage)
 					db.session.commit()
