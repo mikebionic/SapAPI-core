@@ -41,15 +41,19 @@ def api_rp_accs_rp_acc(RpAccRegNo):
 
 
 @api.route("/tbl-dk-rp-accs/",methods=['GET','POST'])
-# @sha_required
+@sha_required
 def api_rp_accs():
 	if request.method == 'GET':
 		DivId = request.args.get("DivId",None,type=int)
+		DivGuid = request.args.get("DivGuid",None,type=str)
 		notDivId = request.args.get("notDivId",None,type=int)
 		synchDateTime = request.args.get("synchDateTime",None,type=str)
 		rp_accs = Rp_acc.query.filter_by(GCRecord = None)
 		if DivId:
 			rp_accs = rp_accs.filter_by(DivId = DivId)
+		if DivGuid:
+			rp_accs = rp_accs\
+				.join(Division,Division.DivGuid == DivGuid)
 		if notDivId:
 			rp_accs = rp_accs.filter(Rp_acc.DivId != notDivId)
 		if synchDateTime:

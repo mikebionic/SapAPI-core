@@ -5,6 +5,7 @@ from main_pack.config import Config
 # useful methods
 from main_pack import db,babel,gettext,lazy_gettext
 from sqlalchemy import and_
+from sqlalchemy.orm import joinedload
 # / useful methods / 
 
 # auth and validation
@@ -120,6 +121,14 @@ def collect_resource_paginate_info(pagination_url,
 			# 	for category in categories:
 			# 		resources = resources.filter(Resource.ResCatId == category.ResCatId)
 
+	resources = resources.options(
+		joinedload(Resource.Image),
+		joinedload(Resource.Res_color),
+		joinedload(Resource.Res_size),
+		joinedload(Resource.res_category),
+		joinedload(Resource.unit),
+		joinedload(Resource.brand),
+		joinedload(Resource.usage_status))
 	pagination_resources = resources.paginate(per_page=per_page if per_page else Config.RESOURCES_PER_PAGE,page=page)
 
 	resource_models = [resource for resource in pagination_resources.items if pagination_resources.items]
@@ -275,35 +284,28 @@ def resources_grid_search():
 			Resource.UsageStatusId == 1))\
 		.order_by(Resource.ResId.desc())\
 		.all()
-
-	resource_list = []
+	
+	resource_ids = []
 	if barcodes:
 		for barcode in barcodes:
-			resource_list.append(barcode.ResId)
+			resource_ids.append(barcode.ResId)
 	for resource in resources:
-		resource_list.append(resource.ResId)
+		resource_ids.append(resource.ResId)
 
-	# removes dublicates
-	resource_list = list(set(resource_list))
-	resource_list = [{"ResId": resourceId} for resourceId in resource_list]
+	# removes duplicates
+	resource_ids = list(set(resource_ids))
+	resource_ids = [ResId for ResId in resource_ids]
 
-	resource_models = []
-	for resource in resource_list:
-		resource_model = Resource.query\
-			.filter_by(GCRecord = None, ResId = resource["ResId"], UsageStatusId = 1)\
-			.join(Res_total, Res_total.ResId == Resource.ResId)\
-			.filter(and_(
-				Res_total.WhId == 1, 
-				Res_total.ResTotBalance > 0))\
-			.first()
-		if resource_model:
-			resource_models.append(resource_model)
-	if resource_models:
-		res = apiResourceInfo(resource_models=resource_models)
-	else:
-		res = {
-			"data": []
-		}
+	resources = Resource.query\
+		.filter_by(GCRecord = None, UsageStatusId = 1)\
+		.filter(Resource.ResId.in_(resource_ids))\
+		.join(Res_total, Res_total.ResId == Resource.ResId)\
+		.filter(and_(
+			Res_total.WhId == 1,
+			Res_total.ResTotBalance > 0))
+
+	res = apiResourceInfo(resource_query=resources)
+
 	categoryData = UiCategoriesList()
 	sortingData = uiSortingData()
 

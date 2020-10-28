@@ -15,7 +15,7 @@ from main_pack.base.languageMethods import dataLangSelector
 # / functions and methods /
 
 # db models
-from main_pack.models.base.models import Company, Division, Warehouse
+from main_pack.models.base.models import Company, Division, Warehouse, Image
 from main_pack.models.commerce.models import (Resource,
 																							Res_price,
 																							Res_total,
@@ -37,6 +37,7 @@ from main_pack.models.commerce.models import (Order_inv,
 																							Inv_line,
 																							Inv_status)
 from sqlalchemy import and_, extract
+from sqlalchemy.orm import joinedload
 # / orders and db methods /
 
 # Rp_acc db Model and methods
@@ -62,6 +63,7 @@ def apiResourceInfo(resource_list = None,
 										fullInfo = False,
 										user = None,
 										resource_models = None,
+										resource_query = None,
 										showRelated = False,
 										showLatest = False,
 										showRated = False,
@@ -69,10 +71,6 @@ def apiResourceInfo(resource_list = None,
 										showNullPrice = False,
 										DivId = None,
 										notDivId = None):
-	categories = Res_category.query.filter_by(GCRecord = None).all()
-	usage_statuses = Usage_status.query.filter_by(GCRecord = None).all()
-	units = Unit.query.filter_by(GCRecord = None).all()
-	brands = Brand.query.filter_by(GCRecord = None).all()
 	colors = Color.query.filter_by(GCRecord = None).all()
 	sizes = Size.query.filter_by(GCRecord = None).all()
 	currencies = Currency.query.filter_by(GCRecord = None).all()
@@ -90,52 +88,61 @@ def apiResourceInfo(resource_list = None,
 		resource_models = []
 		# if list with "ResId" is not provided, return all resources
 		if resource_list is None:
-			resource_filtering = {
-				"GCRecord": None,
-			}
-			if showInactive == False:
-				resource_filtering["UsageStatusId"] = 1
+			if resource_query is None:
+				resource_filtering = {
+					"GCRecord": None,
+				}
+				if showInactive == False:
+					resource_filtering["UsageStatusId"] = 1
 
-			resources = Resource.query\
-				.filter_by(**resource_filtering)
+				resource_query = Resource.query\
+					.filter_by(**resource_filtering)
 
-			if showNullPrice == False:
-				resources = resources\
-					.join(Res_price, Res_price.ResId == Resource.ResId)\
-					.filter(and_(
-						Res_price.ResPriceTypeId == 2,
-						Res_price.ResPriceValue > 0))\
-
-			if avoidQtyCheckup == False:
-				if Config.SHOW_NEGATIVE_WH_QTY_RESOURCE == False:
-					resources = resources\
-						.join(Res_total, Res_total.ResId == Resource.ResId)\
+				if showNullPrice == False:
+					resource_query = resource_query\
+						.join(Res_price, Res_price.ResId == Resource.ResId)\
 						.filter(and_(
-							Res_total.WhId == 1, 
-							Res_total.ResTotBalance > 0))
+							Res_price.ResPriceTypeId == 2,
+							Res_price.ResPriceValue > 0))\
 
-			if showLatest == True:
-				resources = resources\
-					.order_by(Resource.CreatedDate.desc())\
-					.limit(Config.RESOURCE_MAIN_PAGE_SHOW_QTY)
+				if avoidQtyCheckup == False:
+					if Config.SHOW_NEGATIVE_WH_QTY_RESOURCE == False:
+						resource_query = resource_query\
+							.join(Res_total, Res_total.ResId == Resource.ResId)\
+							.filter(and_(
+								Res_total.WhId == 1, 
+								Res_total.ResTotBalance > 0))
 
-			if showRated == True:
-				resources = resources\
-					.join(Res_category, Res_category.ResCatId == Resource.ResCatId)\
-					.filter(Res_category.IsMain == True)\
-					.outerjoin(Rating, Rating.ResId == Resource.ResId)\
-					.filter(Rating.RtRatingValue >= Config.SMALLEST_RATING_VALUE_SHOW)\
-					.order_by(Rating.RtRatingValue.asc())\
-					.limit(Config.RESOURCE_MAIN_PAGE_SHOW_QTY + 1)
+				if showLatest == True:
+					resource_query = resource_query\
+						.order_by(Resource.CreatedDate.desc())\
+						.limit(Config.RESOURCE_MAIN_PAGE_SHOW_QTY)
+
+				if showRated == True:
+					resource_query = resource_query\
+						.join(Res_category, Res_category.ResCatId == Resource.ResCatId)\
+						.filter(Res_category.IsMain == True)\
+						.outerjoin(Rating, Rating.ResId == Resource.ResId)\
+						.filter(Rating.RtRatingValue >= Config.SMALLEST_RATING_VALUE_SHOW)\
+						.order_by(Rating.RtRatingValue.asc())\
+						.limit(Config.RESOURCE_MAIN_PAGE_SHOW_QTY + 1)
+				
+				if DivId:
+					resource_query = resource_query.filter(Resource.DivId == DivId)
+				if notDivId:
+					resource_query = resource_query.filter(Resource.DivId != notDivId)
+
+			resources = resource_query.options(
+				joinedload(Resource.Image),
+				joinedload(Resource.Res_color),
+				joinedload(Resource.Res_size),
+				joinedload(Resource.res_category),
+				joinedload(Resource.unit),
+				joinedload(Resource.brand),
+				joinedload(Resource.usage_status))
+
 			
-			if DivId:
-				resources = resources.filter(Resource.DivId == DivId)
-			if notDivId:
-				resources = resources.filter(Resource.DivId != notDivId)
-			resources = resources.all()
-
-			for resource in resources:
-				resource_models.append(resource)
+			resource_models = [resource for resource in resources if resources]
 
 		else:
 			for resource_index in resource_list:
@@ -163,6 +170,15 @@ def apiResourceInfo(resource_list = None,
 								Res_total.WhId == 1, 
 								Res_total.ResTotBalance > 0))
 				
+				resource = resource.options(
+					joinedload(Resource.Image),
+					joinedload(Resource.Res_color),
+					joinedload(Resource.Res_size),
+					joinedload(Resource.res_category),
+					joinedload(Resource.unit),
+					joinedload(Resource.brand),
+					joinedload(Resource.usage_status))
+
 				resource = resource.first()
 				
 				if resource:
@@ -173,14 +189,13 @@ def apiResourceInfo(resource_list = None,
 	for resource in resource_models:
 		try:
 			resource_info = resource.to_json_api()
-
-			List_Res_category = [category.to_json_api() for category in categories if category.ResCatId == resource.ResCatId]
-			List_Brands = [brand.to_json_api() for brand in brands if brand.BrandId == resource.BrandId]
-			List_UsageStatus = [usage_status.to_json_api() for usage_status in usage_statuses if usage_status.UsageStatusId == resource.UsageStatusId]
-			List_Units = [unit.to_json_api() for unit in units if unit.UnitId == resource.UnitId]
-			List_Colors = [color.to_json_api() for res_color in resource.Res_color if res_color.GCRecord == None for color in colors if color.ColorId == res_color.ColorId]
-			List_Sizes = [size.to_json_api() for res_size in resource.Res_size if res_size.GCRecord == None for size in sizes if size.SizeId == res_size.SizeId]
+			Brands_info = resource.brand.to_json_api() if resource.brand else None
+			UsageStatus_info = resource.usage_status.to_json_api() if resource.usage_status else None
+			Units_info = resource.unit.to_json_api() if resource.unit else None
+			Res_category_info = resource.res_category.to_json_api() if resource.res_category else None
 			
+			List_Colors = [color.to_json_api() for res_color in resource.Res_color if res_color.GCRecord == None for color in colors if color.ColorId == res_color.ColorId]
+			List_Sizes = [size.to_json_api() for res_size in resource.Res_size if res_size.GCRecord == None for size in sizes if size.SizeId == res_size.SizeId]			
 			List_Barcode = [barcode.to_json_api() for barcode in resource.Barcode if barcode.GCRecord == None]
 			List_Res_price = [res_price.to_json_api() for res_price in resource.Res_price if res_price.ResPriceTypeId == 2 and res_price.GCRecord == None]
 			try:
@@ -217,19 +232,19 @@ def apiResourceInfo(resource_list = None,
 				List_Wish = []
 
 			resource_info["BarcodeVal"] = List_Barcode[0]["BarcodeVal"] if List_Barcode else ''
-			resource_info["ResCatName"] = List_Res_category[0]["ResCatName"] if List_Res_category else ''
-			resource_info["ResPriceValue"] = List_Res_price[0]["ResPriceValue"] if List_Res_price else 0
+			resource_info["ResCatName"] = Res_category_info["ResCatName"] if Res_category_info else ''
+			resource_info["ResPriceValue"] = List_Res_price[0]["ResPriceValue"] if List_Res_price else 0.0
 			resource_info["CurrencyCode"] = List_Currencies[0]["CurrencyCode"] if List_Currencies else 'TMT'
-			resource_info["ResTotBalance"] = List_Res_total[0]["ResTotBalance"] if List_Res_total else 0
-			resource_info["ResPendingTotalAmount"] = List_Res_total[0]["ResPendingTotalAmount"] if List_Res_total else 0
+			resource_info["ResTotBalance"] = List_Res_total[0]["ResTotBalance"] if List_Res_total else 0.0
+			resource_info["ResPendingTotalAmount"] = List_Res_total[0]["ResPendingTotalAmount"] if List_Res_total else 0.0
 			resource_info["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=List_Images[-1]["FileName"]) if List_Images else ''
 			resource_info["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=List_Images[-1]["FileName"]) if List_Images else ''
 			resource_info["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_Images[-1]["FileName"]) if List_Images else ''
 			resource_info["Images"] = List_Images if List_Images else []
 			resource_info["Colors"] = List_Colors if List_Colors else []
 			resource_info["Sizes"] = List_Sizes if List_Sizes else []
-			resource_info["Brand"] = List_Brands[0] if List_Brands else []
-			resource_info["Unit"] = dataLangSelector(List_Units[0]) if List_Units else []
+			resource_info["Brand"] = Brands_info if Brands_info else None
+			resource_info["Unit"] = dataLangSelector(Units_info) if Units_info else None
 			
 			rating_values = [rating["RtRatingValue"] for rating in List_Ratings if List_Ratings]
 			try:
@@ -252,7 +267,11 @@ def apiResourceInfo(resource_list = None,
 					.outerjoin(Rating, Rating.ResId == Resource.ResId)\
 					.order_by(Rating.RtRatingValue.asc())\
 					.limit(Config.TOP_RATED_RESOURCES_AMOUNT+1)\
-					.all()
+				
+				related_resources = related_resources\
+					.options(
+						joinedload(Resource.res_category),
+						joinedload(Resource.Image))
 
 				Related_resources = []
 				for resource in related_resources:
@@ -262,14 +281,13 @@ def apiResourceInfo(resource_list = None,
 					related_resource_info["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=Related_resource_Images[-1]["FileName"]) if Related_resource_Images else ''
 					related_resource_info["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=Related_resource_Images[-1]["FileName"]) if Related_resource_Images else ''
 					
-
-					Related_resource_category = [category.to_json_api() for category in categories if category.ResCatId == resource.ResCatId]
+					Related_Res_category_info = resource.res_category.to_json_api() if resource.res_category else None
 					Related_resource_price = [res_price.to_json_api() for res_price in resource.Res_price if res_price.ResPriceTypeId == 2 and res_price.GCRecord == None]
 					try:
 						Related_resource_currencies = [currency.to_json_api() for currency in currencies if currency.CurrencyId == Related_resource_price[0]["CurrencyId"]]
 					except:
 						Related_resource_currencies = []
-					related_resource_info["ResCatName"] = Related_resource_category[0]["ResCatName"] if Related_resource_category else ''
+					related_resource_info["ResCatName"] = Related_Res_category_info["ResCatName"] if Related_Res_category_info else ''
 					related_resource_info["ResPriceValue"] = Related_resource_price[0]["ResPriceValue"] if Related_resource_price else ''
 					related_resource_info["CurrencyCode"] = Related_resource_currencies[0]["CurrencyCode"] if Related_resource_currencies else 'TMT'
 
@@ -282,12 +300,12 @@ def apiResourceInfo(resource_list = None,
 					Related_resources.append(related_resource_info)
 				resource_info["Related_resources"] = Related_resources
 			if fullInfo == True:
-				resource_info["UsageStatus"] = dataLangSelector(List_UsageStatus[0]) if List_UsageStatus else []
+				resource_info["UsageStatus"] = dataLangSelector(UsageStatus_info) if UsageStatus_info else None
 				resource_info["Barcode"] = List_Barcode if List_Barcode else []
-				resource_info["Res_category"] = List_Res_category[0] if List_Res_category else []
-				resource_info["Res_price"] = List_Res_price[0] if List_Res_price else []
-				resource_info["Currency"] = dataLangSelector(List_Currencies[0]) if List_Currencies else []
-				resource_info["Res_total"] = List_Res_total[0] if List_Res_total else []
+				resource_info["Res_category"] = Related_Res_category_info if Related_Res_category_info else None
+				resource_info["Res_price"] = List_Res_price[0] if List_Res_price else None
+				resource_info["Currency"] = dataLangSelector(List_Currencies[0]) if List_Currencies else None
+				resource_info["Res_total"] = List_Res_total[0] if List_Res_total else None
 				resource_info["Rating"] = List_Ratings if List_Ratings else []
 			data.append(resource_info)
 		except Exception as ex:

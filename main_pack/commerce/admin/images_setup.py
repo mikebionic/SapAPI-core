@@ -243,12 +243,10 @@ def brands():
 @ui_admin_required()
 def resource_edit(ResId):
 	resource = Resource.query\
-		.filter_by(GCRecord = None, ResId = ResId)\
-		.first()
-	resource_models = [resource]
+		.filter_by(GCRecord = None, ResId = ResId)
 	
 	res = apiResourceInfo(
-		resource_models=resource_models,
+		resource_query=resource,
 		single_object=True,
 		showInactive=True,
 		avoidQtyCheckup=True)

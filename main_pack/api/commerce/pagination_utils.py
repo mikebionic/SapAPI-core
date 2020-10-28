@@ -1,15 +1,17 @@
 # -*- coding: utf-8 -*-
 from flask import jsonify,request,abort,make_response,url_for
-from main_pack import db,babel,gettext,lazy_gettext
-from main_pack.api.commerce import api
-from main_pack.config import Config
 from sqlalchemy import and_
+from sqlalchemy.orm import joinedload
 
 # datetime, date-parser
 import dateutil.parser
 import datetime as dt
 from datetime import datetime,timedelta
 # / datetime, date-parser /
+
+from main_pack import db,babel,gettext,lazy_gettext
+from main_pack.api.commerce import api
+from main_pack.config import Config
 
 # functions
 from main_pack.api.commerce.commerce_utils import apiResourceInfo, apiOrderInvInfo
@@ -132,6 +134,15 @@ def collect_resource_paginate_info(
 			if sort_type["sort"] == sort:
 				sort_type["status"] = 1
 
+	resources = resources.options(
+		joinedload(Resource.Image),
+		joinedload(Resource.Res_color),
+		joinedload(Resource.Res_size),
+		joinedload(Resource.res_category),
+		joinedload(Resource.unit),
+		joinedload(Resource.brand),
+		joinedload(Resource.usage_status))
+
 	pagination_resources = resources.paginate(per_page=per_page if per_page else Config.RESOURCES_PER_PAGE,page=page)
 
 	resource_models = [resource for resource in pagination_resources.items if pagination_resources.items]
@@ -154,9 +165,6 @@ def collect_resource_paginate_info(
 	}
 
 	base_url_info = {
-		"startDate": startDate,
-		"endDate": endDate,
-		"invStatus": invStatus,
 		"per_page": pagination_resources.per_page,
 		"sort": pagination_info["current_sort"],
 		"category": pagination_info["category"],

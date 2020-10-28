@@ -1,19 +1,31 @@
 from flask import render_template,url_for,jsonify,session,flash,redirect,request,Response,abort
-from main_pack.commerce.auth import bp
-from main_pack.config import Config
-
-from main_pack.commerce.auth.forms import (LoginForm,RequestResetForm,ResetPasswordForm,
-								RequestRegistrationForm,PasswordRegistrationForm)
-from main_pack.models.users.models import Users,Rp_acc
 from flask_login import login_user,current_user,logout_user
+
+from main_pack.config import Config
+from main_pack.commerce.auth import bp
 from main_pack import db,bcrypt,babel,gettext,lazy_gettext
-from main_pack.commerce.auth.utils import (send_reset_email,get_register_token,
-								verify_register_token,send_register_email)
 
-from main_pack.commerce.commerce.utils import UiCategoriesList
+# forms
+from main_pack.commerce.auth.forms import (
+	LoginForm,
+	RequestResetForm,
+	ResetPasswordForm,
+	RequestRegistrationForm,
+	PasswordRegistrationForm)
 
+# db Models
+from main_pack.models.users.models import Users,Rp_acc
 from main_pack.models.base.models import Reg_num,Reg_num_type
+
+# utils
+from main_pack.commerce.auth.utils import (
+	send_reset_email,
+	get_register_token,
+	verify_register_token,
+	send_register_email)
+from main_pack.commerce.commerce.utils import UiCategoriesList
 from main_pack.key_generator.utils import makeRegNo,generate,validate
+
 
 @bp.route("/login",methods=['GET','POST'])
 def login():
@@ -32,10 +44,12 @@ def login():
 	categoryData = UiCategoriesList()
 	return render_template(Config.COMMERCE_TEMPLATES_FOLDER_PATH+"auth/login.html",**categoryData,title=gettext('Login'), form=form)
 
+
 @bp.route("/logout")
 def logout():
 	logout_user()
 	return redirect(url_for('commerce.commerce'))
+
 
 @bp.route("/resetPassword", methods=['GET','POST'])
 def reset_request():
@@ -50,6 +64,7 @@ def reset_request():
 	
 	categoryData = UiCategoriesList()
 	return render_template(Config.COMMERCE_TEMPLATES_FOLDER_PATH+"auth/reset_request.html",**categoryData,title=gettext('Reset Password'),form=form)
+
 
 @bp.route("/resetPassword/<token>",methods=['GET','POST'])
 def reset_token(token):
@@ -70,6 +85,7 @@ def reset_token(token):
 	categoryData = UiCategoriesList()
 	return render_template(Config.COMMERCE_TEMPLATES_FOLDER_PATH+"auth/reset_token.html",**categoryData,title=gettext('Reset Password'),form=form)
 
+
 @bp.route("/register",methods=['GET','POST'])
 def register():
 	if current_user.is_authenticated:
@@ -83,6 +99,7 @@ def register():
 	categoryData = UiCategoriesList()
 	return render_template(Config.COMMERCE_TEMPLATES_FOLDER_PATH+"auth/register_request.html",**categoryData,title=gettext('Register'),form=form)
 
+
 @bp.route("/register/<token>",methods=['GET','POST'])
 def register_token(token):
 	if current_user.is_authenticated:
@@ -94,7 +111,6 @@ def register_token(token):
 	form = PasswordRegistrationForm()
 	if form.validate_on_submit():
 		try:
-
 			UName = new_user['UName']
 			UEmail = new_user['UEmail']
 			UShortName = (UName[0]+UName[-1]).upper()
@@ -113,6 +129,7 @@ def register_token(token):
 			
 			user = Users(
 				UId = UId,
+				UGuid = uuid.uuid4(),
 				UName = UName,
 				UEmail = UEmail,
 				UShortName = UShortName,
@@ -136,6 +153,7 @@ def register_token(token):
 			RpAccId = lastRpAcc.RpAccId + 1
 			rp_acc = Rp_acc(
 				RpAccId = RpAccId,
+				RpAccGuid = uuid.uuid4(),
 				RpAccUName = UName,
 				RpAccUPass = hashed_password,
 				RpAccName = form.full_name.data,
