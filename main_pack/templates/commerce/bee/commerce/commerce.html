@@ -92,7 +92,7 @@
 										{% endif %}
 										{% if resource.FilePathM %}
 											<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
-												<img loading="lazy" src="{{resource.FilePathM}}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
+												<img loading="lazy" src="{{resource.FilePathS}}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
 											</a>
 										{% else %}
 											<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">

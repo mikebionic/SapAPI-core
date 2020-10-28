@@ -4808,13 +4808,15 @@ img.mfp-img {
         margin: 0; }
         .category-mega-menu > li.add a img {
           width: 100%; }
-
-/*---------------------------------------
-    04. Hero
------------------------------------------*/
+      
+          
+          
+          /*---------------------------------------
+          04. Hero
+          -----------------------------------------*/
 /*--
     04.1 Hero Slider One
------------------------------------------*/
+    -----------------------------------------*/
 /*-- Hero Slider --*/
 .hero-slider-one {
   /*-- Arrow --*/
@@ -4837,13 +4839,13 @@ img.mfp-img {
       font-size: 28px;
       line-height: 42px;
       display: block; }
-    .hero-slider-one .slick-arrow.slick-prev {
-      left: 30px; }
-    .hero-slider-one .slick-arrow.slick-next {
-      right: 30px; }
+      .hero-slider-one .slick-arrow.slick-prev {
+        left: 30px; }
+        .hero-slider-one .slick-arrow.slick-next {
+          right: 30px; }
     .hero-slider-one .slick-arrow:hover {
       border-color: #202020; }
-  .hero-slider-one .slick-dots {
+      .hero-slider-one .slick-dots {
     position: absolute;
     left: 100px;
     bottom: 50px; }
@@ -4854,8 +4856,8 @@ img.mfp-img {
       .hero-slider-one .slick-dots {
         left: 50px;
         bottom: 30px; } }
-    @media only screen and (max-width: 479px) {
-      .hero-slider-one .slick-dots {
+        @media only screen and (max-width: 479px) {
+          .hero-slider-one .slick-dots {
         left: 40px; } }
     .hero-slider-one .slick-dots li {
       float: left;
@@ -4871,38 +4873,38 @@ img.mfp-img {
         padding: 0; }
         .hero-slider-one .slick-dots li button:hover {
           border-color: #202020; }
-      .hero-slider-one .slick-dots li.slick-active button {
+          .hero-slider-one .slick-dots li.slick-active button {
         border-color: #202020; }
-  .hero-slider-one:hover .slick-arrow {
+        .hero-slider-one:hover .slick-arrow {
     opacity: 1; }
 
-/*-- Hero Item --*/
+    /*-- Hero Item --*/
 .hero-item {
   padding: 85px 150px 60px 100px;
   background-color: #fefcef; }
   @media only screen and (min-width: 992px) and (max-width: 1199px) {
     .hero-item {
       padding: 85px 100px 60px 100px; } }
-  @media only screen and (min-width: 768px) and (max-width: 991px) {
+      @media only screen and (min-width: 768px) and (max-width: 991px) {
     .hero-item {
       padding: 50px 50px 40px 50px; } }
   @media only screen and (max-width: 767px) {
     .hero-item {
       padding: 70px 50px; } }
-  @media only screen and (max-width: 479px) {
+      @media only screen and (max-width: 479px) {
     .hero-item {
       padding: 50px 40px; } }
-  .hero-item .col, .hero-item [class*="col-"] {
+      .hero-item .col, .hero-item [class*="col-"] {
     -webkit-box-flex: 0;
     -ms-flex: 0 0 auto;
     flex: 0 0 auto;
     width: auto; }
-
+    
 /*-- Hero Image --*/
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   .hero-image {
     max-width: 240px; } }
-
+    
 @media only screen and (max-width: 767px) {
   .hero-image {
     -webkit-box-ordinal-group: 2;
@@ -4911,7 +4913,7 @@ img.mfp-img {
     max-width: 200px;
     margin: auto; } }
 
-@media only screen and (max-width: 479px) {
+    @media only screen and (max-width: 479px) {
   .hero-image {
     max-width: 160px; } }
 
@@ -4923,7 +4925,7 @@ img.mfp-img {
   animation-fill-mode: both;
   -webkit-animation-name: fadeOutUp;
   animation-name: fadeOutUp; }
-
+  
 /*-- Hero Content --*/
 @media only screen and (max-width: 767px) {
   .hero-content {
@@ -4931,7 +4933,7 @@ img.mfp-img {
     -ms-flex-order: 2;
     order: 2;
     margin-top: 30px; } }
-
+    
 .hero-content > * {
   -webkit-animation-duration: 1s;
   animation-duration: 1s;
@@ -4940,8 +4942,8 @@ img.mfp-img {
   -webkit-animation-name: fadeOutUp;
   animation-name: fadeOutUp; }
 
-.hero-content h2 {
-  font-size: 32px;
+  .hero-content h2 {
+    font-size: 32px;
   line-height: 1;
   margin: 0; }
   @media only screen and (min-width: 768px) and (max-width: 991px) {
@@ -4950,11 +4952,11 @@ img.mfp-img {
   @media only screen and (max-width: 767px) {
     .hero-content h2 {
       font-size: 22px; } }
-  @media only screen and (max-width: 479px) {
+      @media only screen and (max-width: 479px) {
     .hero-content h2 {
       font-size: 18px; } }
 
-.hero-content h1 {
+      .hero-content h1 {
   font-size: 70px;
   font-weight: 400;
   line-height: 80px;
@@ -4972,29 +4974,29 @@ img.mfp-img {
       @media only screen and (max-width: 767px) {
         .hero-content h1 span.big {
           font-size: 55px; } }
-      @media only screen and (max-width: 479px) {
+          @media only screen and (max-width: 479px) {
         .hero-content h1 span.big {
           font-size: 36px; } }
-  @media only screen and (min-width: 992px) and (max-width: 1199px) {
+          @media only screen and (min-width: 992px) and (max-width: 1199px) {
     .hero-content h1 {
       font-size: 60px;
       line-height: 70px; } }
-  @media only screen and (min-width: 768px) and (max-width: 991px) {
-    .hero-content h1 {
-      font-size: 50px;
-      line-height: 60px; } }
-  @media only screen and (max-width: 767px) {
-    .hero-content h1 {
-      font-size: 44px;
-      line-height: 54px; } }
-  @media only screen and (max-width: 479px) {
-    .hero-content h1 {
-      font-size: 30px;
-      line-height: 40px; } }
-
-.hero-content a {
-  border: 1px solid #626262;
-  border-radius: 50px;
+      @media only screen and (min-width: 768px) and (max-width: 991px) {
+        .hero-content h1 {
+          font-size: 50px;
+          line-height: 60px; } }
+          @media only screen and (max-width: 767px) {
+            .hero-content h1 {
+              font-size: 44px;
+              line-height: 54px; } }
+              @media only screen and (max-width: 479px) {
+                .hero-content h1 {
+                  font-size: 30px;
+                  line-height: 40px; } }
+                  
+                  .hero-content a {
+                    border: 1px solid #626262;
+                    border-radius: 50px;
   line-height: 24px;
   padding: 10px 30px;
   font-size: 14px;
@@ -5021,22 +5023,22 @@ img.mfp-img {
     transform: translateX(-50%) translateY(-50%) rotate(-45deg);
     opacity: 0;
     z-index: -1; }
-  .hero-content a:hover {
+    .hero-content a:hover {
     color: #f5d730; }
     .hero-content a:hover::before {
       height: 300%;
       opacity: 1; }
-  @media only screen and (max-width: 767px) {
+      @media only screen and (max-width: 767px) {
     .hero-content a {
       font-size: 12px;
       padding: 7px 25px; } }
-  @media only screen and (max-width: 479px) {
+      @media only screen and (max-width: 479px) {
     .hero-content a {
       font-size: 11px;
       padding: 5px 20px;
       margin-top: 15px; } }
 
-/*-- Slide Content In Animation --*/
+      /*-- Slide Content In Animation --*/
 .slick-active {
   /*-- Hero Image --*/
   /*-- Hero Content --*/ }
@@ -5051,25 +5053,25 @@ img.mfp-img {
     .slick-active .hero-content > *:nth-child(1) {
       -webkit-animation-delay: 0.5s;
       animation-delay: 0.5s; }
-    .slick-active .hero-content > *:nth-child(2) {
+      .slick-active .hero-content > *:nth-child(2) {
       -webkit-animation-delay: 1s;
       animation-delay: 1s; }
-    .slick-active .hero-content > *:nth-child(3) {
+      .slick-active .hero-content > *:nth-child(3) {
       -webkit-animation-delay: 1.5s;
       animation-delay: 1.5s; }
-    .slick-active .hero-content > *:nth-child(4) {
+      .slick-active .hero-content > *:nth-child(4) {
       -webkit-animation-delay: 2s;
       animation-delay: 2s; }
-    .slick-active .hero-content > *:nth-child(5) {
+      .slick-active .hero-content > *:nth-child(5) {
       -webkit-animation-delay: 2.5s;
       animation-delay: 2.5s; }
-    .slick-active .hero-content > *:nth-child(6) {
+      .slick-active .hero-content > *:nth-child(6) {
       -webkit-animation-delay: 3s;
       animation-delay: 3s; }
 
-/*--
+      /*--
     04.2 Hero Slider Two
------------------------------------------*/
+    -----------------------------------------*/
 /*-- Hero Slider --*/
 .hero-slider-two {
   /*-- Arrow --*/
@@ -5077,7 +5079,7 @@ img.mfp-img {
   @media only screen and (min-width: 768px) and (max-width: 991px) {
     .hero-slider-two {
       width: 100%; } }
-  @media only screen and (max-width: 767px) {
+      @media only screen and (max-width: 767px) {
     .hero-slider-two {
       width: 100%; } }
   .hero-slider-two .slick-arrow {
@@ -5097,7 +5099,7 @@ img.mfp-img {
     @media only screen and (max-width: 767px) {
       .hero-slider-two .slick-arrow {
         display: none !important; } }
-    .hero-slider-two .slick-arrow i {
+        .hero-slider-two .slick-arrow i {
       font-size: 28px;
       line-height: 42px;
       display: block; }
@@ -5121,8 +5123,8 @@ img.mfp-img {
     @media only screen and (min-width: 768px) and (max-width: 991px) {
       .hero-slider-two .slick-dots {
         left: 50px; } }
-    @media only screen and (max-width: 767px) {
-      .hero-slider-two .slick-dots {
+        @media only screen and (max-width: 767px) {
+          .hero-slider-two .slick-dots {
         left: 50px;
         display: block !important; } }
     @media only screen and (max-width: 479px) {
@@ -5148,8 +5150,8 @@ img.mfp-img {
   .hero-slider-two:hover .slick-arrow {
     opacity: 1; }
 
-/*-- Hero Item --*/
-.hero-item-two {
+    /*-- Hero Item --*/
+    .hero-item-two {
   padding: 49px 85px;
   background-color: #eceded;
   background-repeat: no-repeat;
@@ -5158,7 +5160,7 @@ img.mfp-img {
   @media only screen and (min-width: 992px) and (max-width: 1199px) {
     .hero-item-two {
       padding: 78px 70px; } }
-  @media only screen and (min-width: 768px) and (max-width: 991px) {
+      @media only screen and (min-width: 768px) and (max-width: 991px) {
     .hero-item-two {
       padding: 78px 80px; } }
   @media only screen and (max-width: 767px) {
@@ -5167,41 +5169,42 @@ img.mfp-img {
   @media only screen and (max-width: 479px) {
     .hero-item-two {
       padding: 50px 40px; } }
-  .hero-item-two .col, .hero-item-two [class*="col-"] {
+      .hero-item-two .col, .hero-item-two [class*="col-"] {
     -webkit-box-flex: 0;
     -ms-flex: 0 0 auto;
     flex: 0 0 auto;
     width: auto; }
     .hero-image-two{
       width: 38%;
-    padding-right: 45px;
+      padding-right: 45px;
     }
-/*-- Hero Image --*/
+    /*-- Hero Image --*/
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
   .hero-image-two {
     margin-right: auto;
     max-width: 220px; } }
-
+    
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   .hero-image-two {
     max-width: 200px; 
     /* margin-right: 22%; */
   } }
-
-@media only screen and (max-width: 767px) {
-  .hero-image-two {
-    max-width: 200px;
-    margin: 0 75px;
-    -webkit-box-ordinal-group: 2;
-    -ms-flex-order: 1;
+  
+  
+  @media only screen and (max-width: 767px) {
+    .hero-image-two {
+      max-width: 200px;
+      margin: 0 75px;
+      -webkit-box-ordinal-group: 2;
+      -ms-flex-order: 1;
     order: 1; } }
 
-@media only screen and (max-width: 479px) {
+    @media only screen and (max-width: 479px) {
   .hero-image-two {
     margin-left: 33px;
     max-width: 150px; } }
-
-.hero-image-two img {
+    
+    .hero-image-two img {
   max-width: 100%;
   -webkit-animation-duration: 1s;
   animation-duration: 1s;
@@ -5209,7 +5212,7 @@ img.mfp-img {
   animation-fill-mode: both;
   -webkit-animation-name: fadeOutUp;
   animation-name: fadeOutUp; }
-
+  
 /*-- Hero Content --*/
 @media only screen and (max-width: 767px) {
   .hero-content-two {
@@ -5218,7 +5221,7 @@ img.mfp-img {
     order: 2;
     margin-right: 100%;
     margin-top: 30px; } }
-
+    
 .hero-content-two > * {
   -webkit-animation-duration: 1s;
   animation-duration: 1s;
@@ -5226,7 +5229,7 @@ img.mfp-img {
   animation-fill-mode: both;
   -webkit-animation-name: fadeOutUp;
   animation-name: fadeOutUp; }
-
+  
 .hero-content-two .offer {
   font-size: 40px;
   font-weight: 800;
@@ -5246,14 +5249,14 @@ img.mfp-img {
     font-size: 24px;
     font-weight: 700;
     display: block; }
-  @media only screen and (min-width: 1200px) and (max-width: 3000px) {
+    @media only screen and (min-width: 1200px) and (max-width: 3000px) {
     .hero-content-two .offer {
       font-size: 30px;
       padding: 18px 10px;
       width: 100px;
       height: 90px;
       margin-bottom: 30px; } }
-  @media only screen and (min-width: 992px) and (max-width: 1199px) {
+      @media only screen and (min-width: 992px) and (max-width: 1199px) {
     .hero-content-two .offer {
       font-size: 30px;
       padding: 18px 10px;
@@ -5267,7 +5270,7 @@ img.mfp-img {
       width: 100px;
       height: 90px;
       margin-bottom: 30px; } }
-  @media only screen and (max-width: 767px) {
+      @media only screen and (max-width: 767px) {
     .hero-content-two .offer {
       font-size: 30px;
       padding: 18px 10px;
@@ -5284,7 +5287,7 @@ img.mfp-img {
   @media only screen and (max-width: 479px) {
     .hero-content-two .offer span {
       font-size: 18px; } }
-
+      
 .hero-content-two h1 {
   font-size: 46px;
   font-weight: 800;
@@ -5295,7 +5298,7 @@ img.mfp-img {
     .hero-content-two h1 {
       font-size: 30px;
       line-height: 36px; } }
-  @media only screen and (min-width: 768px) and (max-width: 991px) {
+      @media only screen and (min-width: 768px) and (max-width: 991px) {
     .hero-content-two h1 {
       font-size: 30px;
       line-height: 36px; } }
@@ -5312,7 +5315,7 @@ img.mfp-img {
       font-size: 15px;
       line-height: 26px; } }
 
-.hero-content-two a {
+      .hero-content-two a {
   border: 1px solid #626262;
   border-radius: 50px;
   line-height: 24px;
@@ -5341,13 +5344,13 @@ img.mfp-img {
     transform: translateX(-50%) translateY(-50%) rotate(-45deg);
     opacity: 0;
     z-index: -1; }
-  .hero-content-two a:hover {
-    color: #f5d730; }
+    .hero-content-two a:hover {
+      color: #f5d730; }
     .hero-content-two a:hover::before {
       height: 300%;
       opacity: 1; }
-  @media only screen and (max-width: 767px) {
-    .hero-content-two a {
+      @media only screen and (max-width: 767px) {
+        .hero-content-two a {
       font-size: 12px;
       padding: 7px 25px; } }
   @media only screen and (max-width: 479px) {
@@ -5355,7 +5358,7 @@ img.mfp-img {
       font-size: 11px;
       padding: 5px 20px;
       margin-top: 15px; } }
-
+      
 /*-- Slide Content In Animation --*/
 .slick-active {
   /*-- Hero Image --*/
@@ -5365,16 +5368,16 @@ img.mfp-img {
     animation-name: fadeInUp;
     -webkit-animation-delay: 0.5s;
     animation-delay: 0.5s; }
-  .slick-active .hero-content-two > * {
+    .slick-active .hero-content-two > * {
     -webkit-animation-name: fadeInUp;
     animation-name: fadeInUp; }
     .slick-active .hero-content-two > *:nth-child(1) {
       -webkit-animation-delay: 0.5s;
       animation-delay: 0.5s; }
-    .slick-active .hero-content-two > *:nth-child(2) {
+      .slick-active .hero-content-two > *:nth-child(2) {
       -webkit-animation-delay: 1s;
       animation-delay: 1s; }
-    .slick-active .hero-content-two > *:nth-child(3) {
+      .slick-active .hero-content-two > *:nth-child(3) {
       -webkit-animation-delay: 1.5s;
       animation-delay: 1.5s; }
     .slick-active .hero-content-two > *:nth-child(4) {
@@ -5383,13 +5386,13 @@ img.mfp-img {
     .slick-active .hero-content-two > *:nth-child(5) {
       -webkit-animation-delay: 2.5s;
       animation-delay: 2.5s; }
-    .slick-active .hero-content-two > *:nth-child(6) {
-      -webkit-animation-delay: 3s;
-      animation-delay: 3s; }
+      .slick-active .hero-content-two > *:nth-child(6) {
+        -webkit-animation-delay: 3s;
+        animation-delay: 3s; }
 
-/*--
+        /*--
     04.3 Hero Slider Three
------------------------------------------*/
+    -----------------------------------------*/
 /*-- Hero Slider --*/
 .hero-slider-three {
   /*-- Arrow --*/
@@ -5421,12 +5424,12 @@ img.mfp-img {
       font-size: 28px;
       line-height: 42px;
       display: block; }
-    .hero-slider-three .slick-arrow.slick-prev {
+      .hero-slider-three .slick-arrow.slick-prev {
       left: 20px; }
       @media only screen and (min-width: 992px) and (max-width: 1199px) {
         .hero-slider-three .slick-arrow.slick-prev {
           left: 15px; } }
-    .hero-slider-three .slick-arrow.slick-next {
+          .hero-slider-three .slick-arrow.slick-next {
       right: 20px; }
       @media only screen and (min-width: 992px) and (max-width: 1199px) {
         .hero-slider-three .slick-arrow.slick-next {
@@ -5441,57 +5444,57 @@ img.mfp-img {
     @media only screen and (min-width: 768px) and (max-width: 991px) {
       .hero-slider-three .slick-dots {
         left: 50px; } }
-    @media only screen and (max-width: 767px) {
-      .hero-slider-three .slick-dots {
-        left: 50px;
-        display: block !important; } }
-    @media only screen and (max-width: 479px) {
-      .hero-slider-three .slick-dots {
-        left: 40px;
-        bottom: 20px; } }
-    .hero-slider-three .slick-dots li {
-      float: left;
-      margin-right: 5px; }
-      .hero-slider-three .slick-dots li button {
-        border: 1px solid #959595;
-        background-color: transparent;
-        text-indent: -99999px;
-        width: 12px;
-        height: 12px;
-        border-radius: 50px;
-        display: block;
-        padding: 0; }
-        .hero-slider-three .slick-dots li button:hover {
-          border-color: #202020; }
-      .hero-slider-three .slick-dots li.slick-active button {
-        border-color: #202020; }
-  .hero-slider-three:hover .slick-arrow {
-    opacity: 1; }
-
-/*-- Hero Item --*/
-.hero-item-three {
-  padding: 59px 85px;
+        @media only screen and (max-width: 767px) {
+          .hero-slider-three .slick-dots {
+            left: 50px;
+            display: block !important; } }
+            @media only screen and (max-width: 479px) {
+              .hero-slider-three .slick-dots {
+                left: 40px;
+                bottom: 20px; } }
+                .hero-slider-three .slick-dots li {
+                  float: left;
+                  margin-right: 5px; }
+                  .hero-slider-three .slick-dots li button {
+                    border: 1px solid #959595;
+                    background-color: transparent;
+                    text-indent: -99999px;
+                    width: 12px;
+                    height: 12px;
+                    border-radius: 50px;
+                    display: block;
+                    padding: 0; }
+                    .hero-slider-three .slick-dots li button:hover {
+                      border-color: #202020; }
+                      .hero-slider-three .slick-dots li.slick-active button {
+                        border-color: #202020; }
+                        .hero-slider-three:hover .slick-arrow {
+                          opacity: 1; }
+                          
+                          /*-- Hero Item --*/
+                          .hero-item-three {
+                            padding: 59px 85px;
   background-repeat: no-repeat;
   -webkit-background-size: cover;
   background-size: cover; }
   @media only screen and (min-width: 992px) and (max-width: 1199px) {
     .hero-item-three {
       padding: 85px 70px; } }
-  @media only screen and (min-width: 768px) and (max-width: 991px) {
+      @media only screen and (min-width: 768px) and (max-width: 991px) {
     .hero-item-three {
       padding: 75px 80px; } }
-  @media only screen and (max-width: 767px) {
+      @media only screen and (max-width: 767px) {
     .hero-item-three {
       padding: 70px 50px; } }
   @media only screen and (max-width: 479px) {
     .hero-item-three {
       padding: 50px 40px; } }
-  .hero-item-three .col, .hero-item-three [class*="col-"] {
+      .hero-item-three .col, .hero-item-three [class*="col-"] {
     -webkit-box-flex: 0;
     -ms-flex: 0 0 auto;
     flex: 0 0 auto;
     width: auto; }
-
+    
 /*-- Hero Image --*/
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
   .hero-image-three {
@@ -5515,15 +5518,15 @@ img.mfp-img {
   animation-fill-mode: both;
   -webkit-animation-name: fadeOutUp;
   animation-name: fadeOutUp; }
-
-/*-- Hero Content --*/
-@media only screen and (max-width: 767px) {
+  
+  /*-- Hero Content --*/
+  @media only screen and (max-width: 767px) {
   .hero-content-three {
     -webkit-box-ordinal-group: 3;
     -ms-flex-order: 2;
     order: 2;
     margin-top: 30px; } }
-
+    
 .hero-content-three > * {
   -webkit-animation-duration: 1s;
   animation-duration: 1s;
@@ -5531,7 +5534,7 @@ img.mfp-img {
   animation-fill-mode: both;
   -webkit-animation-name: fadeOutUp;
   animation-name: fadeOutUp; }
-
+  
 .hero-content-three .offer {
   font-size: 40px;
   font-weight: 800;
@@ -5554,14 +5557,14 @@ img.mfp-img {
     @media only screen and (max-width: 479px) {
       .hero-content-three .offer span {
         font-size: 18px; } }
-  @media only screen and (min-width: 992px) and (max-width: 1199px) {
-    .hero-content-three .offer {
-      font-size: 30px;
-      padding: 18px 10px;
-      width: 100px;
-      height: 90px;
+        @media only screen and (min-width: 992px) and (max-width: 1199px) {
+          .hero-content-three .offer {
+            font-size: 30px;
+            padding: 18px 10px;
+            width: 100px;
+            height: 90px;
       margin-bottom: 30px; } }
-  @media only screen and (min-width: 768px) and (max-width: 991px) {
+      @media only screen and (min-width: 768px) and (max-width: 991px) {
     .hero-content-three .offer {
       font-size: 30px;
       padding: 18px 10px;
@@ -5582,7 +5585,7 @@ img.mfp-img {
       width: 80px;
       height: 70px;
       margin-bottom: 20px; } }
-
+      
 .hero-content-three h1 {
   font-size: 46px;
   font-weight: 800;
@@ -5593,11 +5596,11 @@ img.mfp-img {
     .hero-content-three h1 {
       font-size: 36px;
       line-height: 46px; } }
-  @media only screen and (min-width: 768px) and (max-width: 991px) {
-    .hero-content-three h1 {
+      @media only screen and (min-width: 768px) and (max-width: 991px) {
+        .hero-content-three h1 {
       font-size: 36px;
       line-height: 46px; } }
-  @media only screen and (max-width: 767px) {
+      @media only screen and (max-width: 767px) {
     .hero-content-three h1 {
       font-size: 36px;
       line-height: 46px; } }
@@ -5640,17 +5643,18 @@ img.mfp-img {
     .hero-content-three a:hover::before {
       height: 300%;
       opacity: 1; }
-  @media only screen and (max-width: 767px) {
-    .hero-content-three a {
-      font-size: 12px;
-      padding: 7px 25px; } }
-  @media only screen and (max-width: 479px) {
-    .hero-content-three a {
-      font-size: 11px;
-      padding: 5px 20px;
-      margin-top: 15px; } }
+      @media only screen and (max-width: 767px) {
+        .hero-content-three a {
+          font-size: 12px;
+          padding: 7px 25px; } }
+          @media only screen and (max-width: 479px) {
+            .hero-content-three a {
+              font-size: 11px;
+              padding: 5px 20px;
+              margin-top: 15px; } }
+              
 
-/*-- Slide Content In Animation --*/
+              /*-- Slide Content In Animation --*/
 .slick-active {
   /*-- Hero Image --*/
   /*-- Hero Content --*/ }
@@ -7020,6 +7024,10 @@ img.mfp-img {
   .ee-product .image {
     position: relative; 
     height: 245px;
+    display: flex;
+    background: #f6f7f8;
+    align-items: center;
+    justify-content: center;
     }
     .ee-product .image .label {
       position: absolute;
@@ -7089,8 +7097,8 @@ img.mfp-img {
       background-color: #f6f7f8; }
       .ee-product .image .img img {
         display: block;
-        width: 100%; 
-        height: 100%;
+        max-width: 100%; 
+        max-height: 100%;
         }
     .ee-product .image .wishlist-compare {
       position: absolute;
@@ -7986,7 +7994,11 @@ img.mfp-img {
   .ee-product-list .image {
     position: relative;
     float: left;
-    width: 270px; }
+    width: 270px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
     @media only screen and (max-width: 767px) {
       .ee-product-list .image {
         width: 100%; } }
@@ -8003,8 +8015,8 @@ img.mfp-img {
         color: #202020; }
         .ee-product-list .image .label.new {
           position: absolute;
-          top: -5px;
-          left: -5px;
+          top: 2px;
+          left: -1px;
           display: inline-block;
           padding: 0 0.75em;
           border-radius: 5px 2px 2px 0;
@@ -8993,7 +9005,7 @@ img.mfp-img {
 /*-- Single Product Ratting --*/
 .product-ratting-wrap {
   padding: 50px 70px;
-  overflow: hidden; }
+  overflow: auto; }
   @media only screen and (max-width: 767px) {
     .product-ratting-wrap {
       padding: 50px; } }
@@ -11826,6 +11838,7 @@ img.mfp-img {
 .footer-widget.text-center .footer-logo {
   margin: auto auto 25px; }
 
+
 /*-- Footer Social --*/
 .footer-social {
   margin-top: 30px; }
@@ -12392,7 +12405,7 @@ ul.link-widget li {
   }
   .ee-product .image {
     height: 140px;
-} 
+} }
 @media ( max-width: 478px) {
   .single-product-content .single-product-description .actions .add-to-cart {
       width: 205px;
@@ -12466,27 +12479,6 @@ ul.link-widget li {
       .y_login .cart-summary-button button {
         width: 130px; } }
 
-.applyFiltersBtn{
-  border-radius: 50px;
-  height: 34px;
-  border: 1px solid #999999;
-  line-height: 24px;
-  padding: 5px 20px;
-  color: #444444;
-  background-color: transparent;
-  margin-left: 5px;
-}        
-.applyFiltersBtn{
-    clear: none;
-    border: 1px solid #999999;
-    background-color: transparent;
-    border-radius: 50px;
-    padding-left: 20px;
-    padding-right: 20px;
-    line-height: 32px;
-    height: 34px;
-}
-
 
 /****** Style Star Rating Widget *****/
 .rating {
@@ -12532,7 +12524,6 @@ ul.link-widget li {
 .rating > input:checked ~ label:hover ~ label {
   color: #FFED85;
 }
-
 
 
 /* Emoji */
@@ -12773,3 +12764,14 @@ ul.link-widget li {
       margin-left:20px;
     }
   }
+  .applyFiltersBtn{
+    clear: none;
+    border: 1px solid #999999;
+    background-color: transparent;
+    border-radius: 50px;
+    padding-left: 20px;
+    padding-right: 20px;
+    line-height: 32px;
+    height: 34px;
+  }
+  
