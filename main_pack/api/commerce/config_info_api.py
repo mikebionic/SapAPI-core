@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
-from flask import jsonify,make_response,request
+from flask import jsonify,make_response,request,abort
 from flask import current_app
 from datetime import datetime
 import uuid
+from sqlalchemy.orm import joinedload
 
 from main_pack.api.commerce import api
 from main_pack.config import Config
@@ -52,11 +53,10 @@ def api_company_info():
 @sha_required
 def api_company():
 	if request.method == 'GET':
-		CGuid = request.args.get("CGuid","",type=str)
+		CGuid = request.args.get("CGuid",None,type=str)
 		company = Company.query\
 			.filter_by(CGuid = CGuid, GCRecord = None)\
 			.first_or_404()
-
 		company_info = company.to_json_api()
 		status_code = 200
 
@@ -116,11 +116,11 @@ def api_company():
 @sha_required
 def api_division():
 	if request.method == 'GET':
-		DivGuid = request.args.get("DivGuid","",type=str)
+		DivGuid = request.args.get("DivGuid",None,type=str)
 		division = Division.query\
 			.filter_by(DivGuid = DivGuid, GCRecord = None)\
+			.options(joinedload(Division.company))\
 			.first_or_404()
-
 		division_info = division.to_json_api()
 		division_info["CGuid"] = division.company.CGuid if division.company else None
 		status_code = 200

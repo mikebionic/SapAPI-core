@@ -73,86 +73,31 @@ def api_category_v_resources(ResCatId):
 	return response
 
 
-@api.route("/v-resources/search/")
-def api_v_resources_search():
-	DivId = request.args.get("DivId",None,type=int)
-	notDivId = request.args.get("notDivId",None,type=int)
-
-	tag = request.args.get("tag","",type=str)
-	tag = tag.strip()
-	searching_tag = "%{}%".format(tag)
-	data = []
-	if len(tag) > 3:
-		barcodes = Barcode.query\
-			.filter(and_(
-				Barcode.GCRecord == None,\
-				Barcode.BarcodeVal.ilike(searching_tag)))\
-		
-		resources = Resource.query\
-			.filter(and_(
-				Resource.GCRecord == None,\
-				Resource.ResName.ilike(searching_tag),\
-				Resource.UsageStatusId == 1))\
-			.order_by(Resource.ResId.desc())\
-
-		if DivId:
-			barcodes = barcodes.filter_by(DivId = DivId)
-			resources = resources.filter_by(DivId = DivId)
-		if notDivId:
-			barcodes = barcodes.filter(Barcode.DivId != DivId)
-			resources = resources.filter(Resource.DivId != notDivId)
-
-		barcodes = barcodes.all()
-		resources = resources.all()
-
-		resource_ids = []
-		if barcodes:
-			for barcode in barcodes:
-				resource_ids.append(barcode.ResId)
-		for resource in resources:
-			resource_ids.append(resource.ResId)
-
-		# removes duplicates
-		resource_ids = list(set(resource_ids))
-		resource_ids = [ResId for ResId in resource_ids]
-
-		resources = Resource.query\
-			.filter_by(GCRecord = None, UsageStatusId = 1)\
-			.filter(Resource.ResId.in_(resource_ids))\
-			.join(Res_total, Res_total.ResId == Resource.ResId)\
-			.filter(and_(
-				Res_total.WhId == 1,
-				Res_total.ResTotBalance > 0))
-
-		res = apiResourceInfo(resource_query=resources)
-		data = res['data']
-
-	res = {
-		"status": 1,
-		"message": "Resource search results",
-		"data": data,
-		"total": len(data)
-	}
-
-	response = make_response(jsonify(res),200)
-	return response
-
-
-@api.route("/v-resources/paginate/")
-def api_v_resources_paginate():
+@api.route("/resources/")
+def api_resources():
 	page = request.args.get("page",1,type=int)
 	sort = request.args.get("sort","date_new",type=str)
 	per_page = request.args.get("per_page",None,type=int)
 	category = request.args.get("category",None,type=int)
 	brand = request.args.get("brand",None,type=int)
-	pagination_url = 'commerce_api.api_v_resources_paginate'
+	
+	DivId = request.args.get("DivId",None,type=int)
+	notDivId = request.args.get("notDivId",None,type=int)
+	
+	search = request.args.get("search",None,type=str)
+	search = search.strip() if search else None
+
+	pagination_url = 'commerce_api.api_resources'
 	res = collect_resource_paginate_info(
 		pagination_url = pagination_url,
 		page = page,
 		per_page = per_page,
 		sort = sort,
 		category = category,
-		brand = brand)
+		brand = brand,
+		search = search,
+		DivId = DivId,
+		notDivId = notDivId)
 	status_code = 200
 	response = make_response(jsonify(res),status_code)
 	return response

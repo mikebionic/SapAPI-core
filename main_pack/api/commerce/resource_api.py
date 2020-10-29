@@ -31,7 +31,7 @@ def api_resource(ResId):
 
 @api.route("/tbl-dk-resources/",methods=['GET','POST'])
 @sha_required
-def api_resources():
+def api_tbl_dk_resources():
 	if request.method == 'GET':
 		DivId = request.args.get("DivId",None,type=int)
 		notDivId = request.args.get("notDivId",None,type=int)

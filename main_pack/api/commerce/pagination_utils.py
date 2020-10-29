@@ -42,7 +42,10 @@ def collect_resource_paginate_info(
 	per_page = None,
 	sort = None,
 	category = None,
-	brand = None):
+	brand = None,
+	DivId = None,
+	notDivId = None,
+	search = None):
 	sort_types = [
 		{
 			"sort": "date_new",
@@ -133,6 +136,49 @@ def collect_resource_paginate_info(
 		for sort_type in sort_types:
 			if sort_type["sort"] == sort:
 				sort_type["status"] = 1
+	
+	if DivId:
+		resources = resources.filter_by(DivId = DivId)
+	if notDivId:
+		resources = resources.filter(Resource.DivId != notDivId)
+
+	if search:
+		search = search.strip()
+		searching_tag = "%{}%".format(search)
+		barcodes_search = Barcode.query\
+			.filter(and_(
+				Barcode.GCRecord == None,\
+				Barcode.BarcodeVal.ilike(searching_tag)))\
+		
+		resources_search = Resource.query\
+			.filter(and_(
+				Resource.GCRecord == None,\
+				Resource.ResName.ilike(searching_tag),\
+				Resource.UsageStatusId == 1))\
+			.order_by(Resource.ResId.desc())\
+
+		if DivId:
+			barcodes_search = barcodes_search.filter_by(DivId = DivId)
+			resources_search = resources_search.filter_by(DivId = DivId)
+		if notDivId:
+			barcodes_search = barcodes_search.filter(Barcode.DivId != DivId)
+			resources_search = resources_search.filter(Resource.DivId != notDivId)
+
+		barcodes_search = barcodes_search.all()
+		resources_search = resources_search.all()
+
+		resource_ids = []
+		if barcodes_search:
+			for barcode in barcodes_search:
+				resource_ids.append(barcode.ResId)
+		for resource in resources_search:
+			resource_ids.append(resource.ResId)
+
+		# removes duplicates
+		resource_ids = list(set(resource_ids))
+		resource_ids = [ResId for ResId in resource_ids]
+
+		resources = resources.filter(Resource.ResId.in_(resource_ids))
 
 	resources = resources.options(
 		joinedload(Resource.Image),
@@ -150,10 +196,13 @@ def collect_resource_paginate_info(
 	if resource_models:
 		res = apiResourceInfo(resource_models=resource_models)
 		data = res["data"]
+
 	pagination_info = {
 		"data": data,
 		"total": len(data),
 		"per_page": pagination_resources.per_page,
+		"DivId": DivId,
+		"notDivId": notDivId,
 		"page": pagination_resources.page,
 		"pages_total": pagination_resources.pages,
 		"next_url": None,
@@ -167,9 +216,18 @@ def collect_resource_paginate_info(
 	base_url_info = {
 		"per_page": pagination_resources.per_page,
 		"sort": pagination_info["current_sort"],
-		"category": pagination_info["category"],
-		"brand": pagination_info["brand"]
 	}
+
+	if pagination_info["category"]:
+		base_url_info["category"] = pagination_info["category"]
+	if pagination_info["brand"]:
+		base_url_info["brand"] = pagination_info["brand"]
+	if DivId:
+		base_url_info["DivId"] = DivId
+	if notDivId:
+		base_url_info["notDivId"] = notDivId
+	if search:
+		base_url_info["search"] = search
 
 	if pagination_resources.has_next:
 		pagination_info["next_url"] = url_for(
