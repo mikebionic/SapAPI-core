@@ -20,6 +20,7 @@
 
 <!-- WRAPPER ALL -->
 <div class="arlo_tm_wrapper_all">
+	
 
 	<div id="arlo_tm_popup_blog">
 		<div class="container">
@@ -40,18 +41,9 @@
 	<div class="arlo_tm_mobile_header_wrap">
 		<div class="main_wrap">
 			<div class="logo">
-				<img loading="lazy" src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/logo/ls_mini.svg') }}" alt="logo Lomay Sowda" style="height: 35%;">
+				<img loading="lazy" src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/logo/ls_mini.svg') }}" alt="logo Lomay Sowda" style="height: 35px;">
 			</div>
 
-			<div class="leftpart_bottom">
-				<div class="social_wrap">
-					<ul>
-						<li><a href="#">
-							<img loading="lazy" src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/svg/google-play.svg') }}" style="width:25px">
-						</a></li>
-					</ul>
-				</div>
-			</div>
 			<div class="arlo_tm_trigger">
 				<div class="hamburger hamburger--collapse-r">
 					<div class="hamburger-box">
@@ -87,16 +79,6 @@
 					<li><a href="#about">Biz barada</a></li>
 					<li><a href="#portfolio">Harytlarymyz</a></li>
 					</ul>
-				</div>
-
-				<div class="leftpart_bottom">
-					<div class="social_wrap">
-						<ul>
-							<li><a href="#">
-								<img loading="lazy" src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/svg/google-play.svg') }}" style="width:25px">
-							</a></li> 
-						</ul>
-					</div>
 				</div>
 				<a class="arlo_tm_resize" href="#"><i class="xcon-angle-left"></i></a>
 			</div>
@@ -205,10 +187,10 @@
 								</ul>
 								<ul class="arlo_tm_portfolio_list gallery_zoom">
 									{% for resource in resources %}
-										{% if resource.FilePathM %}
+										{% if resource.FilePathS %}
 											<li class="{{resource.ResCatId}}">
 												<div class="entry arlo_tm_portfolio_animation_wrap" data-title="{{resource.ResName}}" data-category="TMT {{resource.ResPriceValue}}">
-														<img loading="lazy" class="arlo_tm_portfolio_image_main" src="{{ resource.FilePathM }}" alt="Product {{resource.ResName}} of category {{resource.ResCatName}} Lomay sowda ls.com.tm" />
+														<img loading="lazy" class="arlo_tm_portfolio_image_main" src="{{ resource.FilePathS }}" alt="Product {{resource.ResName}} of category {{resource.ResCatName}} Lomay sowda ls.com.tm" />
 												</div>
 											</li>
 										{% endif %}
@@ -224,7 +206,9 @@
 				</div>
 		</div>
 		<!-- /RIGHTPART -->
-		
+		<a class="arlo_tm_totops opened" href="#">
+			<img class="totop_img" loading="lazy" src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/svg/google-play.svg') }}" style="width:25px">
+		</a> 
 		<a class="arlo_tm_totop" href="#"></a> 
 		
 	</div>
