@@ -6786,7 +6786,7 @@ a {
 }
 .footer-section{
     padding: 0;
-    position: fixed;
+    /* position: fixed; */
     left: 0;
     bottom: 0;
 }
