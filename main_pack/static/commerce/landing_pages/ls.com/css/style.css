@@ -1198,7 +1198,7 @@ img.svg{
 	   -moz-box-sizing: border-box; /* Firefox, other Gecko */
 			box-sizing: border-box; /* Opera/IE 8+ */
 }
-.arlo_tm_portfolio_list li img{min-width: 100%;}
+.arlo_tm_portfolio_list li img{max-width: 100%;}
 .arlo_tm_portfolio_titles {
   white-space: nowrap;
   background: #ffffff;

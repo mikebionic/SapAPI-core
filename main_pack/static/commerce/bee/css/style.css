@@ -2300,7 +2300,7 @@ img.mfp-img {
     overflow: hidden;
     opacity: 0; }
     .tab-content .tab-pane.active {
-      height: 400px;
+      height: auto;
       width: 100%;
       visibility: visible;
       opacity: 1;
@@ -9486,6 +9486,7 @@ img.mfp-img {
  }
   .cart-table td.pro-thumbnail a img {
     width: 100%;
+    height: 150px;
     background-color: #f6f7f8; }
 
 .cart-table td.pro-title a {
@@ -12741,7 +12742,7 @@ ul.link-widget li {
   }
   .big-image{
     margin-left: 100px;
-    padding: 0 60px;
+    padding: 0 109px;
   } 
   
 }
@@ -12761,7 +12762,7 @@ ul.link-widget li {
 
   @media only screen and (max-width: 1439px) and (min-width: 992px){
     .last_pr{
-      margin-left:20px;
+      margin-left:60px;
     }
   }
   .applyFiltersBtn{
