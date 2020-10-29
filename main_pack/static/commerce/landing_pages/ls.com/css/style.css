@@ -1980,6 +1980,37 @@ img.svg{
 .arlo_tm_totop.opened{
 	opacity: 1;
 	visibility: visible;
+	bottom: 6px;
+}
+
+
+
+.arlo_tm_totops{
+	position: fixed;
+	bottom: 40px;
+	right: 55px;
+	z-index: 100;
+	overflow: hidden;
+	outline: 1px solid rgba(255,255,255,.2);
+
+	background-color: #E3872D;
+    padding: 9px;
+    border-radius: 3px;
+    display: inline-block;
+	
+	opacity: 0;
+	visibility: hidden;
+	
+	-webkit-transition: all .5s ease;
+	   -moz-transition: all .5s ease;
+	    -ms-transition: all .5s ease;
+	     -o-transition: all .5s ease;
+	        transition: all .5s ease;
+}
+.arlo_tm_totops:hover:before{width: 290%;}
+.arlo_tm_totops.opened{
+	opacity: 1;
+	visibility: visible;
 	bottom: 55px;
 }
 
@@ -2588,6 +2619,8 @@ img.svg{
 	.arlo_tm_about_wrap .about_short_contact_wrap ul li{width: 100%;}
 	.arlo_tm_totop{right: 20px;bottom: 10px;}
 	.arlo_tm_totop.opened{bottom: 20px;}
+	.arlo_tm_totops{right: 20px;bottom: 10px;}
+	.arlo_tm_totops.opened{bottom: 75px;}
 	.arlo_tm_preloader{display: none;}
 	.arlo_tm_portfolio_single_wrap .title_holder h3{font-size: 45px;}
 }
