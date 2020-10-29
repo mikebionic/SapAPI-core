@@ -1179,13 +1179,16 @@ img.svg{
 
 .arlo_tm_portfolio_list{
 	list-style-type:none;
-	margin: 0px 0px 0px -30px;
+	margin: 0px 0px 0px 0;
 	
 	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
 	   -moz-box-sizing: border-box; /* Firefox, other Gecko */
 			box-sizing: border-box; /* Opera/IE 8+ */
 }
 .arlo_tm_portfolio_list > li{
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	width:24.3333%;
 	float:left;
 	height: 280px;
@@ -1198,7 +1201,7 @@ img.svg{
 	   -moz-box-sizing: border-box; /* Firefox, other Gecko */
 			box-sizing: border-box; /* Opera/IE 8+ */
 }
-.arlo_tm_portfolio_list li img{max-width: 100%;}
+.arlo_tm_portfolio_list li img{max-width: 100%;height: 100%;}
 .arlo_tm_portfolio_titles {
   white-space: nowrap;
   background: #ffffff;
@@ -1226,9 +1229,9 @@ img.svg{
   font-weight: 400;
   padding: 5px 15px;
 }
-.entry{position: relative;}
+.entry{position: relative;height: 100%;}
 .arlo_tm_portfolio_image_main{
-	position: absolute;
+	/* position: absolute; */
 	top: 0px;
 	bottom: 0px;
 	left: 0px;
@@ -2428,7 +2431,7 @@ img.svg{
 	height: auto;
 	clear: both;
 	float: left;
-	padding: 30px 20px;
+	padding: 15px 20px;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -2613,7 +2616,7 @@ img.svg{
 	.arlo_tm_services_wrap .list_wrap ul li{width: 100%;padding-left: 0px;}
 	.arlo_tm_counter_list li{width: 50%;}
 	.arlo_tm_counter_list li .inner{padding: 45px 15px 48px 15px;}
-	.arlo_tm_portfolio_list > li{width: 50%;}
+	.arlo_tm_portfolio_list > li{width: 33%;}
 	.arlo_tm_list_wrap > ul.total{margin: 0px;}
 	.arlo_tm_list_wrap > ul.total > li{width: 100%;padding-left: 0px;}
 	.arlo_tm_about_wrap .about_short_contact_wrap ul li{width: 100%;}
@@ -2624,6 +2627,9 @@ img.svg{
 	.arlo_tm_preloader{display: none;}
 	.arlo_tm_portfolio_single_wrap .title_holder h3{font-size: 45px;}
 }
+@media (max-width: 600px){
+	.arlo_tm_portfolio_list > li{min-width: 50%;}
+}
 @media (max-width: 480px) {
 	.arlo_tm_hero_header_wrap .name_holder h3{font-size: 30px;}
 	.arlo_tm_hero_header_wrap .text_typing p{font-size: 18px;}
@@ -2633,6 +2639,6 @@ img.svg{
 	.arlo_tm_counter_list li{width: 100%;}
 	.arlo_tm_counter_list li .inner{padding: 0px 0px 35px 0px;}
 	.arlo_tm_portfolio_list{margin: 0px;}
-	.arlo_tm_portfolio_list > li{padding-left: 0px;}
+	.arlo_tm_portfolio_list > li{padding: 5px; height: 188px;display: flex;justify-content: center;align-items: center;}
 	.arlo_tm_counter_wrap{padding: 94px 0px 48px 0px;}
 }	

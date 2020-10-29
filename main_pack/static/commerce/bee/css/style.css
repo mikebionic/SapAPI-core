@@ -5074,6 +5074,7 @@ img.mfp-img {
     -----------------------------------------*/
 /*-- Hero Slider --*/
 .hero-slider-two {
+  height: 500px;
   /*-- Arrow --*/
   /*-- Dots --*/ }
   @media only screen and (min-width: 768px) and (max-width: 991px) {
@@ -5206,6 +5207,7 @@ img.mfp-img {
     
     .hero-image-two img {
   max-width: 100%;
+  max-height: 400px;
   -webkit-animation-duration: 1s;
   animation-duration: 1s;
   -webkit-animation-fill-mode: both;
@@ -11966,7 +11968,12 @@ ul.link-widget li {
 -----------------------------------------*/
 .footer-bottom-section {
   border-top: 1px solid #eae9e9;
-  padding: 10px 0; }
+  padding: 10px 0;
+  background: #000;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+}
 
 /*-- Footer Copyright --*/
 .footer-copyright {
