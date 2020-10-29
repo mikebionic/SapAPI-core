@@ -162,14 +162,8 @@ Returns only if the **Rp_acc** is the **owner** of invoice
 + /api/v-full-resources/?DivId=<id>&notDivId=<id>
 + /api/v-resources/<int:ResId>/
 + /api/tbl-dk-categories/<int:ResCatId>/v-resources/?DivId=<id>&notDivId=<id>
-+ /api/v-resources/search/?tag=<BarcodeVal or ResName>&DivId=<id>&notDivId=<id>
-
-> GET
-
-from latest to first (needs configurations for datetime order
-<!-- + /api/v-resources/paginate/?offset=<lastId>&limit=<quantity> -->
-+ /api/v-resources/paginate/?filtering=&category=&brand=&per_page=&page=
-+ /api/v-resources/search/?tag=
+	**Pagination and search**
++ /api/resources/?sort=<sort>&category=<categoryId>&brand=<brandId>&per_page=<per_page>&page=<page>&search=<search>&DivId=<divId>&notDivId=<notDivId>
 
 > GET POST
 
