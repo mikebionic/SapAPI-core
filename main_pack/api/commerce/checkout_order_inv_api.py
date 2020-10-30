@@ -4,6 +4,7 @@ from main_pack import db,babel,gettext,lazy_gettext
 from main_pack.config import Config
 from main_pack.api.commerce import api
 import requests,json
+import uuid
 
 # Users and auth
 from main_pack.models.users.models import Users
@@ -78,20 +79,21 @@ def api_checkout_sale_order_invoices(user):
 				raise Exception
 
 		###### order inv setup ######
-		order_invoice['OInvRegNo'] = orderRegNo
-		order_invoice['InvStatId'] = 1
-		order_invoice['OInvTypeId'] = 2
-		order_invoice['WpId'] = work_period.WpId
-		order_invoice['WhId'] = 1
-		order_invoice['DivId'] = DivId
+		order_invoice["OInvRegNo"] = orderRegNo
+		order_invoice["InvStatId"] = 1
+		order_invoice["OInvTypeId"] = 2
+		order_invoice["WpId"] = work_period.WpId
+		order_invoice["WhId"] = 1
+		order_invoice["DivId"] = DivId
 		if InvStatId == 13:
-			order_invoice['InvStatId'] = InvStatId
+			order_invoice["InvStatId"] = InvStatId
 
 		# default currency is 1 TMT of not specified
-		if not order_invoice['CurrencyId']:
-			order_invoice['CurrencyId'] = 1
-		order_invoice['RpAccId'] = RpAccId
+		if not order_invoice["CurrencyId"]:
+			order_invoice["CurrencyId"] = 1
+		order_invoice["RpAccId"] = RpAccId
 
+		order_invoice["OInvGuid"] == uuid.uuid4()
 		newOrderInv = Order_inv(**order_invoice)
 		db.session.add(newOrderInv)
 
@@ -112,11 +114,11 @@ def api_checkout_sale_order_invoices(user):
 					print(f"{datetime.now()} | Checkout OInv Exception: {ex}. Couldn't generate RegNo using User's credentials")
 					# use device model and other info
 					orderLineRegNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
-				order_inv_line['OInvLineRegNo'] = orderLineRegNo
+				order_inv_line["OInvLineRegNo"] = orderLineRegNo
 				orderLineRegNo = None
 
-				ResId = order_inv_line['ResId']
-				OInvLineAmount = int(order_inv_line['OInvLineAmount'])
+				ResId = order_inv_line["ResId"]
+				OInvLineAmount = int(order_inv_line["OInvLineAmount"])
 				resource = Resource.query\
 					.filter_by(GCRecord = None, ResId = ResId)\
 					.first()
@@ -140,18 +142,18 @@ def api_checkout_sale_order_invoices(user):
 					error_type = 2
 					raise Exception
 				
-				if totalSubstitutionResult['status'] == 0:
+				if totalSubstitutionResult["status"] == 0:
 					# resource is empty or bad request with amount = -1
 					error_type = 3
 					raise Exception
 
-				if order_inv_line['OInvLinePrice'] != res_price.ResPriceValue:
+				if order_inv_line["OInvLinePrice"] != res_price.ResPriceValue:
 					error_type = 4
 					raise Exception
 
-				OInvLineAmount = totalSubstitutionResult['amount']
+				OInvLineAmount = totalSubstitutionResult["amount"]
 				# ResPendingTotalAmount is decreased but not ResTotBalance
-				res_total.ResPendingTotalAmount = totalSubstitutionResult['totalBalance']
+				res_total.ResPendingTotalAmount = totalSubstitutionResult["totalBalance"]
 				############
 				OInvLinePrice = float(res_price.ResPriceValue) if res_price else 0
 				OInvLineTotal = OInvLinePrice*OInvLineAmount
@@ -160,18 +162,18 @@ def api_checkout_sale_order_invoices(user):
 				OInvLineFTotal = OInvLineTotal
 				
 				###### inv line assignment ######
-				order_inv_line['OInvLineAmount'] = decimal.Decimal(OInvLineAmount)
-				order_inv_line['OInvLinePrice'] = decimal.Decimal(OInvLinePrice)
-				order_inv_line['OInvLineTotal'] = decimal.Decimal(OInvLineTotal)
-				order_inv_line['OInvLineFTotal'] = decimal.Decimal(OInvLineFTotal)
-				order_inv_line['OInvId'] = newOrderInv.OInvId
-				order_inv_line['UnitId'] = resource.UnitId
-				if not order_inv_line['CurrencyId']:
-					order_inv_line['CurrencyId'] = 1
+				order_inv_line["OInvLineAmount"] = decimal.Decimal(OInvLineAmount)
+				order_inv_line["OInvLinePrice"] = decimal.Decimal(OInvLinePrice)
+				order_inv_line["OInvLineTotal"] = decimal.Decimal(OInvLineTotal)
+				order_inv_line["OInvLineFTotal"] = decimal.Decimal(OInvLineFTotal)
+				order_inv_line["OInvId"] = newOrderInv.OInvId
+				order_inv_line["UnitId"] = resource.UnitId
+				if not order_inv_line["CurrencyId"]:
+					order_inv_line["CurrencyId"] = 1
 				
 				# increment of Main Order Inv Total Price
 				OInvTotal += OInvLineFTotal
-
+				order_inv_line["OInvLineGuid"] = uuid.uuid4()
 				thisOInvLine = Order_inv_line(**order_inv_line)
 				db.session.add(thisOInvLine)
 				order_inv_lines.append(thisOInvLine.to_json_api())

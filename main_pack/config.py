@@ -59,7 +59,7 @@ class Config:
 
 	# MAIL CONFIGURATION
 	### testing ##
-	# MAIL_SUPPRESS_SEND = False
+	MAIL_SUPPRESS_SEND = False
 	# MAIL_DEBUG = True
 	### / testing /
 	MAIL_SERVER = environ.get('MAIL_SERVER')
