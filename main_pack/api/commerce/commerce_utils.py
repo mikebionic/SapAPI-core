@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from flask import jsonify,request,abort,make_response
 from main_pack.config import Config
+from main_pack import db
 
 # functions and methods
 from main_pack.base.apiMethods import checkApiResponseStatus,fileToURL
@@ -95,8 +96,31 @@ def apiResourceInfo(resource_list = None,
 				if showInactive == False:
 					resource_filtering["UsageStatusId"] = 1
 
-				resource_query = Resource.query\
-					.filter_by(**resource_filtering)
+				# fetching total by division 
+				if DivId is None:
+					division = Division.query.filter_by(DivGuid = Config.C_MAIN_DIVGUID).first()
+					DivId = division.DivId if division else None
+
+				if DivId:
+					Res_Total_subquery = db.session.query(
+						Res_total.ResId,
+						db.func.sum(Res_total.ResTotBalance).label("ResTotBalance_sum"),
+						db.func.sum(Res_total.ResPendingTotalAmount).label("ResPendingTotalAmount_sum"))\
+					.filter(Res_total.DivId == DivId)\
+					.group_by(Res_total.ResId)\
+					.subquery()
+
+				resource_query = db.session.query(
+					Resource,
+					Res_Total_subquery.c.ResTotBalance_sum,
+					Res_Total_subquery.c.ResPendingTotalAmount_sum)\
+				.filter_by(**resource_filtering)\
+				.outerjoin(Res_Total_subquery, Resource.ResId == Res_Total_subquery.c.ResId)
+
+				if avoidQtyCheckup == False:
+					if Config.SHOW_NEGATIVE_WH_QTY_RESOURCE == False:
+						resource_query = resource_query\
+							.filter(Res_Total_subquery.c.ResTotBalance_sum > 0)
 
 				if showNullPrice == False:
 					resource_query = resource_query\
@@ -104,14 +128,7 @@ def apiResourceInfo(resource_list = None,
 						.filter(and_(
 							Res_price.ResPriceTypeId == 2,
 							Res_price.ResPriceValue > 0))\
-
-				if avoidQtyCheckup == False:
-					if Config.SHOW_NEGATIVE_WH_QTY_RESOURCE == False:
-						resource_query = resource_query\
-							.join(Res_total, Res_total.ResId == Resource.ResId)\
-							.filter(and_(
-								Res_total.WhId == 1, 
-								Res_total.ResTotBalance > 0))
+				
 
 				if showLatest == True:
 					resource_query = resource_query\
@@ -128,7 +145,7 @@ def apiResourceInfo(resource_list = None,
 						.limit(Config.RESOURCE_MAIN_PAGE_SHOW_QTY + 1)
 				
 				if DivId:
-					resource_query = resource_query.filter(Resource.DivId == DivId)
+					resource_query = resource_query.filter(Resource.DivId == DivId)	
 				if notDivId:
 					resource_query = resource_query.filter(Resource.DivId != notDivId)
 
@@ -154,23 +171,40 @@ def apiResourceInfo(resource_list = None,
 				if showInactive == False:
 					resource_filtering["UsageStatusId"] = 1
 
-				resource = Resource.query\
-					.filter_by(**resource_filtering)
-				
+				# fetching total by division 
+				if DivId is None:
+					division = Division.query.filter_by(DivGuid = Config.C_MAIN_DIVGUID).first()
+					DivId = division.DivId if division else None
+
+				if DivId:
+					Res_Total_subquery = db.session.query(
+						Res_total.ResId,
+						db.func.sum(Res_total.ResTotBalance).label("ResTotBalance_sum"),
+						db.func.sum(Res_total.ResPendingTotalAmount).label("ResPendingTotalAmount_sum"))\
+					.filter(Res_total.ResId == ResId)\
+					.filter(Res_total.DivId == DivId)\
+					.group_by(Res_total.ResId)\
+					.subquery()
+
+				resource_query = db.session.query(
+					Resource,
+					Res_Total_subquery.c.ResTotBalance_sum,
+					Res_Total_subquery.c.ResPendingTotalAmount_sum)\
+				.filter_by(**resource_filtering)\
+				.outerjoin(Res_Total_subquery, Resource.ResId == Res_Total_subquery.c.ResId)
+
+				if avoidQtyCheckup == False:
+					if Config.SHOW_NEGATIVE_WH_QTY_RESOURCE == False:
+						resource_query = resource_query\
+							.filter(Res_Total_subquery.c.ResTotBalance_sum > 0)
+
+
 				if showNullPrice == False:
-					resource = resource\
+					resource_query = resource_query\
 						.join(Res_price, Res_price.ResId == Resource.ResId)\
 						.filter(Res_price.ResPriceValue > 0)
 				
-				if avoidQtyCheckup == False:
-					if Config.SHOW_NEGATIVE_WH_QTY_RESOURCE == False:
-						resource = resource\
-							.join(Res_total, Res_total.ResId == Resource.ResId)\
-							.filter(and_(
-								Res_total.WhId == 1, 
-								Res_total.ResTotBalance > 0))
-				
-				resource = resource.options(
+				resource_query = resource_query.options(
 					joinedload(Resource.Image),
 					joinedload(Resource.Res_color),
 					joinedload(Resource.Res_size),
@@ -179,37 +213,37 @@ def apiResourceInfo(resource_list = None,
 					joinedload(Resource.brand),
 					joinedload(Resource.usage_status))
 
-				resource = resource.first()
+				resource_query = resource_query.first()
 				
-				if resource:
-					resource_models.append(resource)
+				if resource_query:
+					resource_models.append(resource_query)
 		
 	data = []
 	fails = []
-	for resource in resource_models:
+	for resource_query in resource_models:
 		try:
-			resource_info = resource.to_json_api()
-			Brands_info = resource.brand.to_json_api() if resource.brand else None
-			UsageStatus_info = resource.usage_status.to_json_api() if resource.usage_status else None
-			Units_info = resource.unit.to_json_api() if resource.unit else None
-			Res_category_info = resource.res_category.to_json_api() if resource.res_category else None
+			resource_info = resource_query.Resource.to_json_api()
+			Brands_info = resource_query.Resource.brand.to_json_api() if resource_query.Resource.brand else None
+			UsageStatus_info = resource_query.Resource.usage_status.to_json_api() if resource_query.Resource.usage_status else None
+			Units_info = resource_query.Resource.unit.to_json_api() if resource_query.Resource.unit else None
+			Res_category_info = resource_query.Resource.res_category.to_json_api() if resource_query.Resource.res_category else None
 			
-			List_Colors = [color.to_json_api() for res_color in resource.Res_color if res_color.GCRecord == None for color in colors if color.ColorId == res_color.ColorId]
-			List_Sizes = [size.to_json_api() for res_size in resource.Res_size if res_size.GCRecord == None for size in sizes if size.SizeId == res_size.SizeId]			
-			List_Barcode = [barcode.to_json_api() for barcode in resource.Barcode if barcode.GCRecord == None]
-			List_Res_price = [res_price.to_json_api() for res_price in resource.Res_price if res_price.ResPriceTypeId == 2 and res_price.GCRecord == None]
+			List_Colors = [color.to_json_api() for res_color in resource_query.Resource.Res_color if res_color.GCRecord == None for color in colors if color.ColorId == res_color.ColorId]
+			List_Sizes = [size.to_json_api() for res_size in resource_query.Resource.Res_size if res_size.GCRecord == None for size in sizes if size.SizeId == res_size.SizeId]			
+			List_Barcode = [barcode.to_json_api() for barcode in resource_query.Resource.Barcode if barcode.GCRecord == None]
+			List_Res_price = [res_price.to_json_api() for res_price in resource_query.Resource.Res_price if res_price.ResPriceTypeId == 2 and res_price.GCRecord == None]
 			try:
 				List_Currencies = [currency.to_json_api() for currency in currencies if currency.CurrencyId == List_Res_price[0]["CurrencyId"]]
 			except:
 				List_Currencies = []
-			List_Res_total = [res_total.to_json_api() for res_total in resource.Res_total if res_total.GCRecord == None and res_total.WhId == 1]
-			List_Images = [image.to_json_api() for image in resource.Image if image.GCRecord == None]
+			List_Res_total = [res_total.to_json_api() for res_total in resource_query.Resource.Res_total if res_total.GCRecord == None and res_total.WhId == 1]
+			List_Images = [image.to_json_api() for image in resource_query.Resource.Image if image.GCRecord == None]
 			# Sorting list by Modified date
 			List_Images = (sorted(List_Images, key = lambda i: i["ModifiedDate"]))
 			
 			if fullInfo == True:
 				List_Ratings = []
-				for rating in resource.Rating:
+				for rating in resource_query.Resource.Rating:
 					Rating_info = rating.to_json_api()
 					if rating.UId:
 						rated_user = Users.query\
@@ -225,9 +259,9 @@ def apiResourceInfo(resource_list = None,
 						Rating_info["Rp_acc"] = rpAccData["data"]
 					List_Ratings.append(Rating_info)
 			else:
-				List_Ratings = [rating.to_json_api() for rating in resource.Rating if rating.GCRecord == None]
+				List_Ratings = [rating.to_json_api() for rating in resource_query.Resource.Rating if rating.GCRecord == None]
 			if user:
-				List_Wish = [wish.to_json_api() for wish in wishes if wish.ResId == resource.ResId]
+				List_Wish = [wish.to_json_api() for wish in wishes if wish.ResId == resource_query.Resource.ResId]
 			else:
 				List_Wish = []
 
@@ -235,8 +269,10 @@ def apiResourceInfo(resource_list = None,
 			resource_info["ResCatName"] = Res_category_info["ResCatName"] if Res_category_info else ''
 			resource_info["ResPriceValue"] = List_Res_price[0]["ResPriceValue"] if List_Res_price else 0.0
 			resource_info["CurrencyCode"] = List_Currencies[0]["CurrencyCode"] if List_Currencies else 'TMT'
-			resource_info["ResTotBalance"] = List_Res_total[0]["ResTotBalance"] if List_Res_total else 0.0
-			resource_info["ResPendingTotalAmount"] = List_Res_total[0]["ResPendingTotalAmount"] if List_Res_total else 0.0
+			# resource_info["ResTotBalance"] = List_Res_total[0]["ResTotBalance"] if List_Res_total else 0.0
+			# resource_info["ResPendingTotalAmount"] = List_Res_total[0]["ResPendingTotalAmount"] if List_Res_total else 0.0
+			resource_info["ResTotBalance"] = resource_query.ResTotBalance_sum if resource_query.ResTotBalance_sum else 0.0
+			resource_info["ResPendingTotalAmount"] = resource_query.ResPendingTotalAmount_sum if resource_query.ResPendingTotalAmount_sum else 0.0
 			resource_info["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=List_Images[-1]["FileName"]) if List_Images else ''
 			resource_info["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=List_Images[-1]["FileName"]) if List_Images else ''
 			resource_info["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_Images[-1]["FileName"]) if List_Images else ''
@@ -255,11 +291,11 @@ def apiResourceInfo(resource_list = None,
 
 			resource_info["RtRatingValue"] = average_rating
 			resource_info["Wishlist"] = True if List_Wish else False
-			resource_info["New"] = True if resource.CreatedDate >= datetime.today() - timedelta(days=Config.COMMERCE_RESOURCE_NEWNESS_DAYS) else False
+			resource_info["New"] = True if resource_query.Resource.CreatedDate >= datetime.today() - timedelta(days=Config.COMMERCE_RESOURCE_NEWNESS_DAYS) else False
 			if showRelated == True:
 				related_resources = Resource.query\
-					.filter_by(GCRecord = None, ResCatId = resource.ResCatId)\
-					.filter(Resource.ResId != resource.ResId)\
+					.filter_by(GCRecord = None, ResCatId = resource_query.Resource.ResCatId)\
+					.filter(Resource.ResId != resource_query.Resource.ResId)\
 					.join(Res_total, Res_total.ResId == Resource.ResId)\
 					.filter(and_(
 						Res_total.WhId == 1, 
@@ -313,17 +349,21 @@ def apiResourceInfo(resource_list = None,
 			fails.append(resource.to_json_api())
 			
 	status = checkApiResponseStatus(data,fails)
+	total = len(data)
+	fail_total = len(fails)
 	if single_object == True:
 		if len(data) == 1:
 			data = data[0]
+			total = 1
 		if len(fails) == 1:
 			fails = fails[0]
+			fail_total = 1
 	res = {
 			"message": "Resources",
 			"data": data,
 			"fails": fails,
-			"total": len(data),
-			"fail_total": len(fails)
+			"total": total,
+			"fail_total": fail_total
 	}
 	for e in status:
 		res[e] = status[e]

@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 from flask import jsonify,request,abort,make_response,url_for
+from sqlalchemy import and_,or_
+
 from main_pack.api.commerce import api
 from main_pack import db
-from sqlalchemy import and_,or_
+from main_pack.config import Config
 
 # functions
 from main_pack.api.commerce.commerce_utils import apiResourceInfo
@@ -38,7 +40,7 @@ def api_v_resources():
 @api.route("/v-resources/<int:ResId>/")
 def api_v_resource_info(ResId):
 	resource_list = [{"ResId": ResId}]
-	res = apiResourceInfo(resource_list,single_object=True,showRelated=True)
+	res = apiResourceInfo(resource_list,single_object=True,showRelated=False)
 	if res['status'] == 1:
 		status_code = 200
 	else:
@@ -51,7 +53,27 @@ def api_v_resource_info(ResId):
 def api_category_v_resources(ResCatId):
 	DivId = request.args.get("DivId",None,type=int)
 	notDivId = request.args.get("notDivId",None,type=int)
-	resources = Resource.query.filter_by(GCRecord = None, UsageStatusId = 1, ResCatId = ResCatId)
+
+	# fetching total by division 
+	if DivId is None:
+		division = Division.query.filter_by(DivGuid = Config.C_MAIN_DIVGUID).first()
+		DivId = division.DivId if division else None
+
+	if DivId:
+		Res_Total_subquery = db.session.query(
+			Res_total.ResId,
+			db.func.sum(Res_total.ResTotBalance).label("ResTotBalance_sum"),
+			db.func.sum(Res_total.ResPendingTotalAmount).label("ResPendingTotalAmount_sum"))\
+		.filter(Res_total.DivId == DivId)\
+		.group_by(Res_total.ResId)\
+		.subquery()
+
+	resources = db.session.query(
+		Resource, 
+		Res_Total_subquery.c.ResTotBalance_sum,
+		Res_Total_subquery.c.ResPendingTotalAmount_sum)\
+	.filter_by(GCRecord = None, UsageStatusId = 1, ResCatId = ResCatId)
+
 	if DivId:
 		resources = resources.filter_by(DivId = DivId)
 	if notDivId:
@@ -61,11 +83,11 @@ def api_category_v_resources(ResCatId):
 		.join(Res_price, Res_price.ResId == Resource.ResId)\
 		.filter(and_(
 			Res_price.ResPriceTypeId == 2,
-			Res_price.ResPriceValue > 0))\
-		.join(Res_total, Res_total.ResId == Resource.ResId)\
-		.filter(and_(
-			Res_total.WhId == 1, 
-			Res_total.ResTotBalance > 0))
+			Res_price.ResPriceValue > 0))
+
+	resources = resources\
+		.outerjoin(Res_Total_subquery, Resource.ResId == Res_Total_subquery.c.ResId)\
+		.filter(Res_Total_subquery.c.ResTotBalance_sum > 0)
 
 	res = apiResourceInfo(resource_query=resources)
 	status_code = 200
