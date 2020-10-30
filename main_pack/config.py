@@ -8,7 +8,7 @@ load_dotenv(path.join(basedir, '.env'))
 class Config:
 	SECRET_KEY = environ.get('SECRET_KEY')
 	SYNCH_SHA = environ.get('SYNCH_SHA')
-
+	C_MAIN_DIVGUID = environ.get('C_MAIN_DIVGUID')
 	# set to production if Production
 	FLASK_ENV = 'development'
 	# set to false to turn off debugging

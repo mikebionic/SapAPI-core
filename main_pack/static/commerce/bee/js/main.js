@@ -864,3 +864,7 @@ function toggle(){
 	state = true;
      }
 }
+
+$("img.loader").load(function(){
+  $(this).removeClass("loader");
+});

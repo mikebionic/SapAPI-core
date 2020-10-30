@@ -197,9 +197,9 @@
 								<div class="ee-product">
 									<!-- Image -->
 									<div class="image">
-										{% if related_resource.FilePathM %}
+										{% if related_resource.FilePathS %}
 											<a href="{{ url_for('commerce.product',ResId=related_resource.ResId)}}" class="img">
-												<img loading="lazy" src="{{related_resource.FilePathM}}" alt="Product {{related_resource.ResName}} of category {{ related_resource.ResCatName if related_resource.ResCatName else '' }}">
+												<img loading="lazy" src="{{related_resource.FilePathS}}" alt="Product {{related_resource.ResName}} of category {{ related_resource.ResCatName if related_resource.ResCatName else '' }}">
 											</a>
 										{% else %}
 											<a href="{{ url_for('commerce.product',ResId=related_resource.ResId)}}" class="img">
