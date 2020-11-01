@@ -212,14 +212,14 @@ $('.product-slider-4').slick({
             breakpoint: 1300,
 
             settings: {
-                slidesToShow: 5,
+                slidesToShow: 4,
             }
         },
         {
             breakpoint: 1440,
 
             settings: {
-                slidesToShow: 5,
+                slidesToShow: 4,
             }
         },
         {

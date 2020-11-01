@@ -49,13 +49,13 @@
 				<div class="product-slider-wrap product-slider-arrow-one">
 					<!-- Product Slider Start -->
 					<div class="product-slider brands-slider">
-						{% for brand in Brands %}
+						{% for brand in Brands %}			
 							{% if brand.FilePath %}
-								<div class="col pb-20 pt-10" style="padding-top: 65px;">
+								<div class="col pb-20 pt-10" style="padding-top: 65px; width: 150px;">
 									<a href="{{url_for('commerce.v_grid',brand = brand.BrandName)}}" class="cat-block">
 										<figure>
 											<span>
-												<img loading="lazy" src="{{brand.FilePath if brand.FilePath}}" alt="Brand {{brand.BrandName}}">
+												<img loading="lazy" src="{{brand.FilePath if brand.FilePath}}" alt="Brand {{brand.BrandName}}" style="height: 100px; width: 100px;">
 											</span>
 										</figure>
 										<h3 class="cat-block-title">{{brand.BrandName}}</h3>
