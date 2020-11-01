@@ -205,7 +205,7 @@ $('.product-slider-4').slick({
             breakpoint: 1199,
 
             settings: {
-                slidesToShow: 4,
+                slidesToShow: 3,
             }
         },
          {
@@ -256,6 +256,13 @@ $('.brands-slider').slick({
     nextArrow: '<button type="button" class="slick-next"><i class="icofont icofont-long-arrow-right"></i></button>',
     responsive: [
         {
+            breakpoint: 1440,
+
+            settings: {
+                slidesToShow: 6,
+            }
+        },
+        {
             breakpoint: 1199,
 
             settings: {
@@ -272,7 +279,7 @@ $('.brands-slider').slick({
             breakpoint: 767,
             settings: {
                 autoplay: true,
-                slidesToShow: 1,
+                slidesToShow: 2,
                 arrows: false,
             }
         }
