@@ -1040,7 +1040,7 @@ class Resource(AddInf,CreatedModifiedInfo,db.Model):
 	Barcode = db.relationship('Barcode',backref='resource',lazy='joined')
 	Res_color = db.relationship('Res_color',backref='resource',lazy='joined')
 	Res_size = db.relationship('Res_size',backref='resource',lazy='joined')
-	Res_translations = db.relationship('Res_translations',backref='resource',lazy='joined')
+	Res_translations = db.relationship('Res_translations',backref='resource',lazy=True)
 	Res_unit = db.relationship('Res_unit',backref='resource',lazy='joined')
 	# sales and purchases
 	Inv_line = db.relationship('Inv_line',backref='resource',lazy=True)

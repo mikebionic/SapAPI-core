@@ -185,17 +185,7 @@
 										<li><a href="#" data-filter=".{{category.ResCatId}}">{{ category.ResCatName }}</a></li>
 									{% endfor %}
 								</ul>
-								<ul class="arlo_tm_portfolio_list gallery_zoom">
-									{% for resource in resources %}
-										{% if resource.FilePathS %}
-											<li class="{{resource.ResCatId}}">
-												<div class="entry arlo_tm_portfolio_animation_wrap" data-title="{{resource.ResName}}" data-category="TMT {{resource.ResPriceValue}}">
-														<img loading="lazy" class="arlo_tm_portfolio_image_main" src="{{ resource.FilePathS }}" alt="Product {{resource.ResName}} of category {{resource.ResCatName}} Lomay sowda ls.com.tm" />
-												</div>
-											</li>
-										{% endif %}
-									{% endfor %}
-								</ul>
+								<ul class="arlo_tm_portfolio_list gallery_zoom products_list"></ul>
 							</div>
 						</div>
 					</div>
@@ -217,6 +207,16 @@
 <script src="{{ url_for('static', filename='commerce/landing_pages/ls.com/js/jquery.js') }}"></script>
 <script src="{{ url_for('static', filename='commerce/landing_pages/ls.com/js/plugins.js') }}"></script>
 <script src="{{ url_for('static', filename='commerce/landing_pages/ls.com/js/init.js') }}"></script>
-
+<script type="text/javascript">
+	$(document).ready(function(){
+		$.ajax({
+		  type : 'GET',
+		  url : '/fetch_products',
+		  success: function(response){
+				$('.products_list').append(response.data);
+		  }
+		});
+	})
+</script>
 </body>
 </html>

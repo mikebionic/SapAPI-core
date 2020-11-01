@@ -12,10 +12,12 @@ from main_pack.api.commerce.pagination_utils import collect_resource_paginate_in
 # / functions /
 
 # db Models
-from main_pack.models.commerce.models import (Resource,
-																							Barcode,
-																							Res_price,
-																							Res_total)
+from main_pack.models.base.models import Division
+from main_pack.models.commerce.models import (
+	Resource,
+	Barcode,
+	Res_price,
+	Res_total)
 # / db Models /
 
 
@@ -32,7 +34,8 @@ def api_v_full_resources():
 def api_v_resources():
 	DivId = request.args.get("DivId",None,type=int)
 	notDivId = request.args.get("notDivId",None,type=int)
-	res = apiResourceInfo(DivId=DivId,notDivId=notDivId)
+	avoidQtyCheckup = request.args.get("avoidQtyCheckup",1,type=int)
+	res = apiResourceInfo(DivId=DivId,notDivId=notDivId,avoidQtyCheckup = avoidQtyCheckup)
 	response = make_response(jsonify(res),200)
 	return response
 
@@ -53,7 +56,7 @@ def api_v_resource_info(ResId):
 def api_category_v_resources(ResCatId):
 	DivId = request.args.get("DivId",None,type=int)
 	notDivId = request.args.get("notDivId",None,type=int)
-
+	avoidQtyCheckup = request.args.get("avoidQtyCheckup",1,type=int)
 	# fetching total by division 
 	if DivId is None:
 		division = Division.query.filter_by(DivGuid = Config.C_MAIN_DIVGUID).first()
@@ -74,8 +77,8 @@ def api_category_v_resources(ResCatId):
 		Res_Total_subquery.c.ResPendingTotalAmount_sum)\
 	.filter_by(GCRecord = None, UsageStatusId = 1, ResCatId = ResCatId)
 
-	if DivId:
-		resources = resources.filter_by(DivId = DivId)
+	#if DivId:
+	#	resources = resources.filter_by(DivId = DivId)
 	if notDivId:
 		resources = resources.filter(Resource.DivId != notDivId)
 
@@ -86,8 +89,11 @@ def api_category_v_resources(ResCatId):
 			Res_price.ResPriceValue > 0))
 
 	resources = resources\
-		.outerjoin(Res_Total_subquery, Resource.ResId == Res_Total_subquery.c.ResId)\
-		.filter(Res_Total_subquery.c.ResTotBalance_sum > 0)
+		.outerjoin(Res_Total_subquery, Resource.ResId == Res_Total_subquery.c.ResId)
+	if avoidQtyCheckup == 0:
+		if Config.SHOW_NEGATIVE_WH_QTY_RESOURCE == False:	
+			resources = resources\
+				.filter(Res_Total_subquery.c.ResTotBalance_sum > 0)
 
 	res = apiResourceInfo(resource_query=resources)
 	status_code = 200

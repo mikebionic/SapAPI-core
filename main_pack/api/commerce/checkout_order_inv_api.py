@@ -43,6 +43,7 @@ def api_checkout_sale_order_invoices(user):
 		name = current_user.RpAccUName
 		RpAccId = current_user.RpAccId
 		DivId = current_user.DivId
+		CId = current_user.CId
 		# get the seller's user information of a specific rp_acc
 		user = Users.query\
 			.filter_by(GCRecord = None, UId = current_user.UId)\
@@ -52,9 +53,11 @@ def api_checkout_sale_order_invoices(user):
 			user = Users.query\
 				.filter_by(GCRecord = None, RpAccId = RpAccId)\
 				.first()
+	
+	req = request.get_json()
+	req['orderInv']['OInvGuid'] = str(uuid.uuid4())
+	order_invoice = addOrderInvDict(req['orderInv'])
 	try:
-		req = request.get_json()
-		order_invoice = addOrderInvDict(req['orderInv'])
 		orderRegNo = req['orderInv']['OInvRegNo']
 		InvStatId = req['orderInv']['InvStatId']
 		reg_num_pred_exists = None
@@ -85,6 +88,7 @@ def api_checkout_sale_order_invoices(user):
 		order_invoice["WpId"] = work_period.WpId
 		order_invoice["WhId"] = 1
 		order_invoice["DivId"] = DivId
+		order_invoice["CId"] = CId
 		if InvStatId == 13:
 			order_invoice["InvStatId"] = InvStatId
 
@@ -93,7 +97,7 @@ def api_checkout_sale_order_invoices(user):
 			order_invoice["CurrencyId"] = 1
 		order_invoice["RpAccId"] = RpAccId
 
-		order_invoice["OInvGuid"] == uuid.uuid4()
+		# order_invoice["OInvGuid"] == uuid.uuid4()
 		newOrderInv = Order_inv(**order_invoice)
 		db.session.add(newOrderInv)
 
@@ -105,6 +109,7 @@ def api_checkout_sale_order_invoices(user):
 			try:
 				# in case of errors, the error_type is provided
 				error_type = 0
+				order_inv_line_req['OInvLineGuid'] = str(uuid.uuid4())
 				order_inv_line = addOrderInvLineDict(order_inv_line_req)
 				# OInvLineRegNo generation
 				try:
@@ -173,7 +178,6 @@ def api_checkout_sale_order_invoices(user):
 				
 				# increment of Main Order Inv Total Price
 				OInvTotal += OInvLineFTotal
-				order_inv_line["OInvLineGuid"] = uuid.uuid4()
 				thisOInvLine = Order_inv_line(**order_inv_line)
 				db.session.add(thisOInvLine)
 				order_inv_lines.append(thisOInvLine.to_json_api())

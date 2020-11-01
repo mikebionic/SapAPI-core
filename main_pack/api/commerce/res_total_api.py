@@ -99,7 +99,7 @@ def api_res_totals():
 						DivGuid = res_total_req["DivGuid"]
 						WhGuid = res_total_req["WhGuid"]
 						# WhGuid = uuid.UUID(res_total_req["WhGuid"]) # used for fetching Wh and Resources
-						if not ResRegNo or not WhGuid:
+						if not ResRegNo or not ResGuid or not WhGuid:
 							raise Exception
 
 						try:
@@ -123,7 +123,6 @@ def api_res_totals():
 						res_total_info["WhId"] = WhId
 
 						if not ResId or not WhId or not DivId:
-							print(res_total_info)
 							raise Exception
 
 						thisResTotal = Res_total.query\

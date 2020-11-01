@@ -38,6 +38,7 @@ def api_res_prices():
 		for res_price in res_prices:
 			res_price_info = res_price.to_json_api()
 			res_price_info["ResGuid"] = res_price.resource.ResGuid if res_price.resource else None
+			res_price_info["ResRegNo"] = res_price.resource.ResRegNo if res_price.resource else None
 			data.append(res_price_info)
 
 		res = {
@@ -85,10 +86,12 @@ def api_res_prices():
 						raise Exception
 
 					res_price_info["ResId"] = ResId
-
+					ResPriceTypeId = res_price_info["ResPriceTypeId"]
 					thisResPrice = Res_price.query\
 						.filter_by(
 							GCRecord = None,
+							ResPriceTypeId = ResPriceTypeId,
+							ResId = ResId,
 							ResPriceRegNo = ResPriceRegNo)\
 						.first()
 

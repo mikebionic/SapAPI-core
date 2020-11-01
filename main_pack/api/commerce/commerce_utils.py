@@ -17,26 +17,29 @@ from main_pack.base.languageMethods import dataLangSelector
 
 # db models
 from main_pack.models.base.models import Company, Division, Warehouse, Image
-from main_pack.models.commerce.models import (Resource,
-																							Res_price,
-																							Res_total,
-                                              Res_category,
-																							Wish,
-																							Rating)
-from main_pack.models.commerce.models import (Color,
-                                              Size,
-                                              Brand,
-                                              Unit,
-                                              Usage_status)
+from main_pack.models.commerce.models import (
+	Resource,
+	Res_price,
+	Res_total,
+	Res_category,
+	Wish,
+	Rating)
+from main_pack.models.commerce.models import (
+	Color,
+	Size,
+	Brand,
+	Unit,
+	Usage_status)
 from main_pack.models.base.models import Currency
 # / db models /
 
 # orders and db methods
-from main_pack.models.commerce.models import (Order_inv,
-																							Order_inv_line,
-																							Invoice,
-																							Inv_line,
-																							Inv_status)
+from main_pack.models.commerce.models import (
+	Order_inv,
+	Order_inv_line,
+	Invoice,
+	Inv_line,
+	Inv_status)
 from sqlalchemy import and_, extract
 from sqlalchemy.orm import joinedload
 # / orders and db methods /
@@ -68,7 +71,7 @@ def apiResourceInfo(resource_list = None,
 										showRelated = False,
 										showLatest = False,
 										showRated = False,
-										avoidQtyCheckup = False,
+										avoidQtyCheckup = 1,
 										showNullPrice = False,
 										DivId = None,
 										notDivId = None):
@@ -128,7 +131,6 @@ def apiResourceInfo(resource_list = None,
 						.filter(and_(
 							Res_price.ResPriceTypeId == 2,
 							Res_price.ResPriceValue > 0))\
-				
 
 				if showLatest == True:
 					resource_query = resource_query\
@@ -144,8 +146,8 @@ def apiResourceInfo(resource_list = None,
 						.order_by(Rating.RtRatingValue.asc())\
 						.limit(Config.RESOURCE_MAIN_PAGE_SHOW_QTY + 1)
 				
-				if DivId:
-					resource_query = resource_query.filter(Resource.DivId == DivId)	
+				#if DivId:
+				#	resource_query = resource_query.filter(Resource.DivId == DivId)	
 				if notDivId:
 					resource_query = resource_query.filter(Resource.DivId != notDivId)
 
@@ -158,7 +160,6 @@ def apiResourceInfo(resource_list = None,
 				joinedload(Resource.brand),
 				joinedload(Resource.usage_status))
 
-			
 			resource_models = [resource for resource in resources if resources]
 
 		else:
@@ -193,7 +194,7 @@ def apiResourceInfo(resource_list = None,
 				.filter_by(**resource_filtering)\
 				.outerjoin(Res_Total_subquery, Resource.ResId == Res_Total_subquery.c.ResId)
 
-				if avoidQtyCheckup == False:
+				if avoidQtyCheckup == 0:
 					if Config.SHOW_NEGATIVE_WH_QTY_RESOURCE == False:
 						resource_query = resource_query\
 							.filter(Res_Total_subquery.c.ResTotBalance_sum > 0)
@@ -543,14 +544,6 @@ def apiOrderInvInfo(
 						this_order_inv_line = order_inv_line.to_json_api()
 						this_order_inv_line["ResRegNo"] = order_inv_line.resource.ResRegNo if order_inv_line.resource else None
 						this_order_inv_line["ResGuid"] = order_inv_line.resource.ResGuid if order_inv_line.resource else None
-						try:
-							resource_json = apiResourceInfo(
-								resource_models = [order_inv_line.resource],
-								single_object = True)
-							this_order_inv_line["Resource"] = resource_json["data"]
-						except Exception as ex:
-							print(f"{datetime.now()} | Order_inv_line info utils Exception: {ex}")
-							this_order_inv_line["Resource"] = []
 						order_inv_lines.append(this_order_inv_line)
 			
 				order_inv_info["Order_inv_lines"] = order_inv_lines

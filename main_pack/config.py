@@ -9,6 +9,7 @@ class Config:
 	SECRET_KEY = environ.get('SECRET_KEY')
 	SYNCH_SHA = environ.get('SYNCH_SHA')
 	C_MAIN_DIVGUID = environ.get('C_MAIN_DIVGUID')
+	MAIN_CGUID = environ.get('MAIN_CGUID')
 	# set to production if Production
 	FLASK_ENV = 'development'
 	# set to false to turn off debugging
