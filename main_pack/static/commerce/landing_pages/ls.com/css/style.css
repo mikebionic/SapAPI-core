@@ -1191,7 +1191,7 @@ img.svg{
 	align-items: center;
 	width:24.3333%;
 	float:left;
-	height: 280px;
+	height: 250px;
 	overflow: hidden;
 	position:relative;
 	margin: 0px 0px 35px 0px;
@@ -1235,7 +1235,7 @@ img.svg{
 	top: 0px;
 	bottom: 0px;
 	left: 0px;
-	height: 279px;
+	max-height: 100%;
 	right: 0px;
 	background-repeat: no-repeat;
 	background-size: cover;
