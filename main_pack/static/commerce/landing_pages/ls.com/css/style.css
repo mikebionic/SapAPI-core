@@ -1201,7 +1201,7 @@ img.svg{
 	   -moz-box-sizing: border-box; /* Firefox, other Gecko */
 			box-sizing: border-box; /* Opera/IE 8+ */
 }
-.arlo_tm_portfolio_list li img{max-width: 100%;height: 100%;}
+.arlo_tm_portfolio_list li img{max-width: 100%;max-height: 100%;}
 .arlo_tm_portfolio_titles {
   white-space: nowrap;
   background: #ffffff;
@@ -1229,7 +1229,7 @@ img.svg{
   font-weight: 400;
   padding: 5px 15px;
 }
-.entry{position: relative;height: 100%;}
+.entry{position: relative;height: 100%;display: flex;justify-content: center;align-items: center;}
 .arlo_tm_portfolio_image_main{
 	/* position: absolute; */
 	top: 0px;
