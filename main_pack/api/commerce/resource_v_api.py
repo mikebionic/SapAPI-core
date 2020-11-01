@@ -35,7 +35,10 @@ def api_v_resources():
 	DivId = request.args.get("DivId",None,type=int)
 	notDivId = request.args.get("notDivId",None,type=int)
 	avoidQtyCheckup = request.args.get("avoidQtyCheckup",1,type=int)
-	res = apiResourceInfo(DivId=DivId,notDivId=notDivId,avoidQtyCheckup = avoidQtyCheckup)
+	res = apiResourceInfo(
+		DivId = DivId,
+		notDivId = notDivId,
+		avoidQtyCheckup = avoidQtyCheckup)
 	response = make_response(jsonify(res),200)
 	return response
 
@@ -60,7 +63,7 @@ def api_category_v_resources(ResCatId):
 	# fetching total by division 
 	if DivId is None:
 		division = Division.query.filter_by(DivGuid = Config.C_MAIN_DIVGUID).first()
-		DivId = division.DivId if division else None
+		DivId = division.DivId if division else 1
 
 	if DivId:
 		Res_Total_subquery = db.session.query(

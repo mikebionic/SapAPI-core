@@ -3,13 +3,15 @@ from flask import jsonify,request,abort,make_response
 from main_pack.api.commerce import api
 from main_pack.base.apiMethods import checkApiResponseStatus
 from datetime import datetime
+from sqlalchemy import and_
 
-from main_pack.models.commerce.models import Res_category,Resource,Res_total
-from main_pack.api.commerce.utils import addCategoryDict
 from main_pack import db
 from main_pack.config import Config
 from main_pack.api.auth.api_login import sha_required
-from sqlalchemy import and_
+
+from main_pack.models.base.models import Division
+from main_pack.models.commerce.models import Res_category,Resource,Res_total
+from main_pack.api.commerce.utils import addCategoryDict
 
 
 @api.route("/tbl-dk-categories/<int:ResCatId>/",methods=['GET'])
@@ -30,23 +32,37 @@ def api_categories():
 	if request.method == 'GET':
 		DivId = request.args.get("DivId",None,type=int)
 		notDivId = request.args.get("notDivId",None,type=int)
+		avoidQtyCheckup = request.args.get("avoidQtyCheckup",1,type=int)
+
+		if DivId is None:
+			division = Division.query.filter_by(DivGuid = Config.C_MAIN_DIVGUID, GCRecord = None).first()
+			DivId = division.DivId if division else 1
+
+		Res_Total_subquery = db.session.query(
+			Res_total.ResId,
+			db.func.sum(Res_total.ResTotBalance).label("ResTotBalance_sum"),
+			db.func.sum(Res_total.ResPendingTotalAmount).label("ResPendingTotalAmount_sum"))\
+		.filter(Res_total.DivId == DivId)\
+		.group_by(Res_total.ResId)\
+		.subquery()
+
 		categories = Res_category.query\
 			.filter_by(GCRecord = None)\
 			.join(Resource, Resource.ResCatId == Res_category.ResCatId)\
-			.filter(Resource.GCRecord == None)
+			.filter(Resource.GCRecord == None)\
+			.outerjoin(Res_Total_subquery, Res_Total_subquery.c.ResId == Resource.ResId)
 
-		if DivId:
-			categories = categories.filter(Resource.DivId == DivId)
+		if avoidQtyCheckup == 0:
+			if Config.SHOW_NEGATIVE_WH_QTY_RESOURCE == False:	
+				categories = categories\
+					.filter(Res_Total_subquery.c.ResTotBalance_sum > 0)
+
+		# if DivId:
+		# 	categories = categories.filter(Resource.DivId == DivId)
 		if notDivId:
 			categories = categories.filter(Resource.DivId != notDivId)
 
-		categories = categories\
-			.join(Res_total, Res_total.ResId == Resource.ResId)\
-			.filter(and_(
-				Res_total.WhId == 1, 
-				Res_total.ResTotBalance > 0))\
-			.order_by(Res_category.ResCatVisibleIndex.asc())\
-			.all()
+		categories = categories.order_by(Res_category.ResCatVisibleIndex.asc()).all()
 		res = {
 			"status": 1,
 			"message": "All categories",

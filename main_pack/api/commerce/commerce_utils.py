@@ -101,8 +101,8 @@ def apiResourceInfo(resource_list = None,
 
 				# fetching total by division 
 				if DivId is None:
-					division = Division.query.filter_by(DivGuid = Config.C_MAIN_DIVGUID).first()
-					DivId = division.DivId if division else None
+					division = Division.query.filter_by(DivGuid = Config.C_MAIN_DIVGUID, GCRecord = None).first()
+					DivId = division.DivId if division else 1
 
 				if DivId:
 					Res_Total_subquery = db.session.query(
@@ -153,6 +153,7 @@ def apiResourceInfo(resource_list = None,
 
 			resources = resource_query.options(
 				joinedload(Resource.Image),
+				joinedload(Resource.Barcode),
 				joinedload(Resource.Res_color),
 				joinedload(Resource.Res_size),
 				joinedload(Resource.res_category),
@@ -208,6 +209,7 @@ def apiResourceInfo(resource_list = None,
 				resource_query = resource_query.options(
 					joinedload(Resource.Image),
 					joinedload(Resource.Res_color),
+					joinedload(Resource.Barcode),
 					joinedload(Resource.Res_size),
 					joinedload(Resource.res_category),
 					joinedload(Resource.unit),

@@ -31,7 +31,7 @@ class Config:
 	}
 
 	SQLALCHEMY_DATABASE_URI = 'postgresql://%(user)s:%(pw)s@%(host)s:%(port)s/%(db)s' % POSTGRES_DB_URI
-	SQLALCHEMY_ECHO = False
+	SQLALCHEMY_ECHO = True
 	# # Database bindings
 	#
 	# POSTGRES_TEST_DB_URI = {

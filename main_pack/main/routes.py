@@ -2,12 +2,15 @@ from flask import render_template, url_for, jsonify, session, redirect
 from flask import send_from_directory, make_response
 from flask_login import current_user, login_required
 from sqlalchemy import and_
+from sqlalchemy.orm import joinedload
 
 from main_pack import db, babel, gettext
 from main_pack.main import bp
 from main_pack import Config
 
 from main_pack.api.commerce.commerce_utils import apiResourceInfo
+
+from main_pack.models.base.models import Division
 from main_pack.models.commerce.models import (
 	Res_category,
 	Res_total,
@@ -28,17 +31,31 @@ def set_theme(theme=None):
 
 @bp.route("/")
 def main():
-	# resources_info = apiResourceInfo()
-	# resources = resources_info['data']
+	division = Division.query.filter_by(DivGuid = Config.C_MAIN_DIVGUID, GCRecord = None).first()
+	DivId = division.DivId if division else 1
+	avoidQtyCheckup = 0
+
+	Res_Total_subquery = db.session.query(
+		Res_total.ResId,
+		db.func.sum(Res_total.ResTotBalance).label("ResTotBalance_sum"),
+		db.func.sum(Res_total.ResPendingTotalAmount).label("ResPendingTotalAmount_sum"))\
+	.filter(Res_total.DivId == DivId)\
+	.group_by(Res_total.ResId)\
+	.subquery()
+
 	categories = Res_category.query\
 		.filter_by(GCRecord = None)\
 		.join(Resource, Resource.ResCatId == Res_category.ResCatId)\
 		.filter(Resource.GCRecord == None)\
-		.join(Res_total, Res_total.ResId == Resource.ResId)\
-		.filter(and_(
-			Res_total.WhId == 1, 
-			Res_total.ResTotBalance > 0))\
-		.all()
+		.outerjoin(Res_Total_subquery, Res_Total_subquery.c.ResId == Resource.ResId)
+
+	if avoidQtyCheckup == 0:
+		if Config.SHOW_NEGATIVE_WH_QTY_RESOURCE == False:	
+			categories = categories\
+				.filter(Res_Total_subquery.c.ResTotBalance_sum > 0)
+
+	categories = categories.order_by(Res_category.ResCatVisibleIndex.asc()).all()
+
 	return render_template ("commerce/landing_pages/ls.com/index.html",title="Lomaý söwda",
 		categories=categories)
 

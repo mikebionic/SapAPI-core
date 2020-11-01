@@ -1037,7 +1037,7 @@ class Resource(AddInf,CreatedModifiedInfo,db.Model):
 	ResMinSalePrice = db.Column(db.Float,default=0.0)
 	ResMaxSalePrice = db.Column(db.Float,default=0.0)
 	Image = db.relationship('Image',backref='resource',lazy=True)
-	Barcode = db.relationship('Barcode',backref='resource',lazy='joined')
+	Barcode = db.relationship('Barcode',backref='resource',lazy=True)
 	Res_color = db.relationship('Res_color',backref='resource',lazy='joined')
 	Res_size = db.relationship('Res_size',backref='resource',lazy='joined')
 	Res_translations = db.relationship('Res_translations',backref='resource',lazy=True)
