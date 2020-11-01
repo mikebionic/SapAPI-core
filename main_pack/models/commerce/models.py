@@ -1038,17 +1038,17 @@ class Resource(AddInf,CreatedModifiedInfo,db.Model):
 	ResMaxSalePrice = db.Column(db.Float,default=0.0)
 	Image = db.relationship('Image',backref='resource',lazy=True)
 	Barcode = db.relationship('Barcode',backref='resource',lazy=True)
-	Res_color = db.relationship('Res_color',backref='resource',lazy='joined')
-	Res_size = db.relationship('Res_size',backref='resource',lazy='joined')
+	Res_color = db.relationship('Res_color',backref='resource',lazy=True)
+	Res_size = db.relationship('Res_size',backref='resource',lazy=True)
 	Res_translations = db.relationship('Res_translations',backref='resource',lazy=True)
-	Res_unit = db.relationship('Res_unit',backref='resource',lazy='joined')
+	Res_unit = db.relationship('Res_unit',backref='resource',lazy=True)
 	# sales and purchases
 	Inv_line = db.relationship('Inv_line',backref='resource',lazy=True)
 	Inv_line_det = db.relationship('Inv_line_det',backref='resource',lazy=True)	
 	Order_inv_line = db.relationship('Order_inv_line',backref='resource',lazy=True)
-	Res_price = db.relationship('Res_price',backref='resource',lazy='joined')
+	Res_price = db.relationship('Res_price',backref='resource',lazy=True)
 	# quantity of a resource
-	Res_total = db.relationship('Res_total',backref='resource',lazy='joined')
+	Res_total = db.relationship('Res_total',backref='resource',lazy=True)
 	Res_trans_inv_line = db.relationship('Res_trans_inv_line',backref='resource',lazy=True)
 	Res_transaction = db.relationship('Res_transaction',backref='resource',lazy=True)
 	Rp_acc_resource = db.relationship('Rp_acc_resource',backref='resource',lazy=True)
@@ -1056,10 +1056,10 @@ class Resource(AddInf,CreatedModifiedInfo,db.Model):
 	Res_discount = db.relationship('Res_discount',foreign_keys='Res_discount.SaleResId',backref='resource',lazy=True)
 	Res_discount = db.relationship('Res_discount',foreign_keys='Res_discount.GiftResId',backref='resource',lazy=True)
 	
-	Wish = db.relationship('Wish',backref='resource',lazy='joined')
+	Wish = db.relationship('Wish',backref='resource',lazy=True)
 	Production = db.relationship('Production',backref='resource',lazy=True)
 	Production_line = db.relationship('Production_line',backref='resource',lazy=True)
-	Rating = db.relationship('Rating',backref='resource',lazy='joined')
+	Rating = db.relationship('Rating',backref='resource',lazy=True)
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():

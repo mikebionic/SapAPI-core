@@ -61,20 +61,21 @@ from datetime import datetime,timedelta
 # single_object returns one resource in "data" instead of list
 # showRated gives you latest rated resources
 # showLatest gives you latest resources by datetime
-def apiResourceInfo(resource_list = None,
-										single_object = False,
-										showInactive = False,
-										fullInfo = False,
-										user = None,
-										resource_models = None,
-										resource_query = None,
-										showRelated = False,
-										showLatest = False,
-										showRated = False,
-										avoidQtyCheckup = 1,
-										showNullPrice = False,
-										DivId = None,
-										notDivId = None):
+def apiResourceInfo(
+	resource_list = None,
+	single_object = False,
+	showInactive = False,
+	fullInfo = False,
+	user = None,
+	resource_models = None,
+	resource_query = None,
+	showRelated = False,
+	showLatest = False,
+	showRated = False,
+	avoidQtyCheckup = 1,
+	showNullPrice = False,
+	DivId = None,
+	notDivId = None):
 	colors = Color.query.filter_by(GCRecord = None).all()
 	sizes = Size.query.filter_by(GCRecord = None).all()
 	currencies = Currency.query.filter_by(GCRecord = None).all()
@@ -151,15 +152,21 @@ def apiResourceInfo(resource_list = None,
 				if notDivId:
 					resource_query = resource_query.filter(Resource.DivId != notDivId)
 
-			resources = resource_query.options(
-				joinedload(Resource.Image),
-				joinedload(Resource.Barcode),
-				joinedload(Resource.Res_color),
-				joinedload(Resource.Res_size),
-				joinedload(Resource.res_category),
-				joinedload(Resource.unit),
-				joinedload(Resource.brand),
-				joinedload(Resource.usage_status))
+				resources = resource_query.options(
+					joinedload(Resource.Image),
+					joinedload(Resource.Barcode),
+					joinedload(Resource.Rating),
+					joinedload(Resource.Res_price),
+					joinedload(Resource.Res_total),
+					joinedload(Resource.res_category),
+					joinedload(Resource.unit),
+					joinedload(Resource.brand),
+					joinedload(Resource.usage_status))
+
+				if fullInfo == True:
+					resources = resources.options(	
+						joinedload(Resource.Res_color),
+						joinedload(Resource.Res_size))
 
 			resource_models = [resource for resource in resources if resources]
 
@@ -208,13 +215,19 @@ def apiResourceInfo(resource_list = None,
 				
 				resource_query = resource_query.options(
 					joinedload(Resource.Image),
-					joinedload(Resource.Res_color),
 					joinedload(Resource.Barcode),
-					joinedload(Resource.Res_size),
+					joinedload(Resource.Rating),
+					joinedload(Resource.Res_price),
+					joinedload(Resource.Res_total),
 					joinedload(Resource.res_category),
 					joinedload(Resource.unit),
 					joinedload(Resource.brand),
 					joinedload(Resource.usage_status))
+
+				if fullInfo == True:
+					resource_query = resource_query.options(	
+						joinedload(Resource.Res_color),
+						joinedload(Resource.Res_size))
 
 				resource_query = resource_query.first()
 				
@@ -231,8 +244,6 @@ def apiResourceInfo(resource_list = None,
 			Units_info = resource_query.Resource.unit.to_json_api() if resource_query.Resource.unit else None
 			Res_category_info = resource_query.Resource.res_category.to_json_api() if resource_query.Resource.res_category else None
 			
-			List_Colors = [color.to_json_api() for res_color in resource_query.Resource.Res_color if res_color.GCRecord == None for color in colors if color.ColorId == res_color.ColorId]
-			List_Sizes = [size.to_json_api() for res_size in resource_query.Resource.Res_size if res_size.GCRecord == None for size in sizes if size.SizeId == res_size.SizeId]			
 			List_Barcode = [barcode.to_json_api() for barcode in resource_query.Resource.Barcode if barcode.GCRecord == None]
 			List_Res_price = [res_price.to_json_api() for res_price in resource_query.Resource.Res_price if res_price.ResPriceTypeId == 2 and res_price.GCRecord == None]
 			try:
@@ -268,23 +279,23 @@ def apiResourceInfo(resource_list = None,
 			else:
 				List_Wish = []
 
-			resource_info["BarcodeVal"] = List_Barcode[0]["BarcodeVal"] if List_Barcode else ''
-			resource_info["ResCatName"] = Res_category_info["ResCatName"] if Res_category_info else ''
+			resource_info["BarcodeVal"] = List_Barcode[0]["BarcodeVal"] if List_Barcode else ""
+			resource_info["ResCatName"] = Res_category_info["ResCatName"] if Res_category_info else ""
 			resource_info["ResPriceValue"] = List_Res_price[0]["ResPriceValue"] if List_Res_price else 0.0
 			resource_info["CurrencyCode"] = List_Currencies[0]["CurrencyCode"] if List_Currencies else 'TMT'
 			# resource_info["ResTotBalance"] = List_Res_total[0]["ResTotBalance"] if List_Res_total else 0.0
 			# resource_info["ResPendingTotalAmount"] = List_Res_total[0]["ResPendingTotalAmount"] if List_Res_total else 0.0
 			resource_info["ResTotBalance"] = resource_query.ResTotBalance_sum if resource_query.ResTotBalance_sum else 0.0
 			resource_info["ResPendingTotalAmount"] = resource_query.ResPendingTotalAmount_sum if resource_query.ResPendingTotalAmount_sum else 0.0
-			resource_info["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=List_Images[-1]["FileName"]) if List_Images else ''
-			resource_info["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=List_Images[-1]["FileName"]) if List_Images else ''
-			resource_info["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_Images[-1]["FileName"]) if List_Images else ''
+			resource_info["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=List_Images[-1]["FileName"]) if List_Images else ""
+			resource_info["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=List_Images[-1]["FileName"]) if List_Images else ""
+			resource_info["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_Images[-1]["FileName"]) if List_Images else ""
 			resource_info["Images"] = List_Images if List_Images else []
-			resource_info["Colors"] = List_Colors if List_Colors else []
-			resource_info["Sizes"] = List_Sizes if List_Sizes else []
-			resource_info["Brand"] = Brands_info if Brands_info else None
-			resource_info["Unit"] = dataLangSelector(Units_info) if Units_info else None
-			
+
+			resource_info["BrandName"] = Brands_info["BrandName"] if Brands_info else ""
+			resource_info["UnitName"] = dataLangSelector(Units_info)["UnitName"] if Units_info else ""
+			resource_info["UsageStatusName"] = dataLangSelector(UsageStatus_info)["UsageStatusName"] if UsageStatus_info else ""
+
 			rating_values = [rating["RtRatingValue"] for rating in List_Ratings if List_Ratings]
 			try:
 				average_rating = sum(rating_values) / len(rating_values)
@@ -316,9 +327,9 @@ def apiResourceInfo(resource_list = None,
 				for resource in related_resources:
 					related_resource_info = resource.to_json_api()
 					Related_resource_Images = [image.to_json_api() for image in resource.Image if image.GCRecord == None]
-					related_resource_info["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=Related_resource_Images[-1]["FileName"]) if Related_resource_Images else ''
-					related_resource_info["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=Related_resource_Images[-1]["FileName"]) if Related_resource_Images else ''
-					related_resource_info["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=Related_resource_Images[-1]["FileName"]) if Related_resource_Images else ''
+					related_resource_info["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=Related_resource_Images[-1]["FileName"]) if Related_resource_Images else ""
+					related_resource_info["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=Related_resource_Images[-1]["FileName"]) if Related_resource_Images else ""
+					related_resource_info["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=Related_resource_Images[-1]["FileName"]) if Related_resource_Images else ""
 					
 					Related_Res_category_info = resource.res_category.to_json_api() if resource.res_category else None
 					Related_resource_price = [res_price.to_json_api() for res_price in resource.Res_price if res_price.ResPriceTypeId == 2 and res_price.GCRecord == None]
@@ -326,8 +337,8 @@ def apiResourceInfo(resource_list = None,
 						Related_resource_currencies = [currency.to_json_api() for currency in currencies if currency.CurrencyId == Related_resource_price[0]["CurrencyId"]]
 					except:
 						Related_resource_currencies = []
-					related_resource_info["ResCatName"] = Related_Res_category_info["ResCatName"] if Related_Res_category_info else ''
-					related_resource_info["ResPriceValue"] = Related_resource_price[0]["ResPriceValue"] if Related_resource_price else ''
+					related_resource_info["ResCatName"] = Related_Res_category_info["ResCatName"] if Related_Res_category_info else ""
+					related_resource_info["ResPriceValue"] = Related_resource_price[0]["ResPriceValue"] if Related_resource_price else ""
 					related_resource_info["CurrencyCode"] = Related_resource_currencies[0]["CurrencyCode"] if Related_resource_currencies else 'TMT'
 
 					if user:
@@ -339,13 +350,20 @@ def apiResourceInfo(resource_list = None,
 					Related_resources.append(related_resource_info)
 				resource_info["Related_resources"] = Related_resources
 			if fullInfo == True:
-				resource_info["UsageStatus"] = dataLangSelector(UsageStatus_info) if UsageStatus_info else None
+				List_Colors = [color.to_json_api() for res_color in resource_query.Resource.Res_color if res_color.GCRecord == None for color in colors if color.ColorId == res_color.ColorId]
+				List_Sizes = [size.to_json_api() for res_size in resource_query.Resource.Res_size if res_size.GCRecord == None for size in sizes if size.SizeId == res_size.SizeId]
+				
+				resource_info["Colors"] = List_Colors if List_Colors else []
+				resource_info["Sizes"] = List_Sizes if List_Sizes else []
 				resource_info["Barcode"] = List_Barcode if List_Barcode else []
+				resource_info["Brand"] = Brands_info if Brands_info else None
 				resource_info["Res_category"] = Related_Res_category_info if Related_Res_category_info else None
 				resource_info["Res_price"] = List_Res_price[0] if List_Res_price else None
-				resource_info["Currency"] = dataLangSelector(List_Currencies[0]) if List_Currencies else None
 				resource_info["Res_total"] = List_Res_total[0] if List_Res_total else None
 				resource_info["Rating"] = List_Ratings if List_Ratings else []
+				resource_info["UsageStatus"] = dataLangSelector(UsageStatus_info) if UsageStatus_info else None
+				resource_info["Currency"] = dataLangSelector(List_Currencies[0]) if List_Currencies else None
+				resource_info["Unit"] = dataLangSelector(Units_info) if Units_info else None
 			data.append(resource_info)
 		except Exception as ex:
 			print(f"{datetime.now()} | Resource info utils Exception: {ex}")
