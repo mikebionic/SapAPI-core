@@ -152,21 +152,21 @@ def apiResourceInfo(
 				if notDivId:
 					resource_query = resource_query.filter(Resource.DivId != notDivId)
 
-				resources = resource_query.options(
-					joinedload(Resource.Image),
-					joinedload(Resource.Barcode),
-					joinedload(Resource.Rating),
-					joinedload(Resource.Res_price),
-					joinedload(Resource.Res_total),
-					joinedload(Resource.res_category),
-					joinedload(Resource.unit),
-					joinedload(Resource.brand),
-					joinedload(Resource.usage_status))
+			resources = resource_query.options(
+				joinedload(Resource.Image),
+				joinedload(Resource.Barcode),
+				joinedload(Resource.Rating),
+				joinedload(Resource.Res_price),
+				joinedload(Resource.Res_total),
+				joinedload(Resource.res_category),
+				joinedload(Resource.unit),
+				joinedload(Resource.brand),
+				joinedload(Resource.usage_status))
 
-				if fullInfo == True:
-					resources = resources.options(	
-						joinedload(Resource.Res_color),
-						joinedload(Resource.Res_size))
+			if fullInfo == True:
+				resources = resources.options(	
+					joinedload(Resource.Res_color),
+					joinedload(Resource.Res_size))
 
 			resource_models = [resource for resource in resources if resources]
 
@@ -472,8 +472,6 @@ def apiOrderInvInfo(
 	rp_acc_user = None,
 	DivId = None,
 	notDivId = None):
-	inv_statuses = Inv_status.query\
-		.filter_by(GCRecord = None).all()
 
 	if not invoice_models:
 		invoice_filtering = {
@@ -509,8 +507,14 @@ def apiOrderInvInfo(
 				
 			order_invoices = order_invoices\
 				.order_by(Order_inv.OInvDate.desc())\
+				.options(
+					joinedload(Order_inv.rp_acc),
+					joinedload(Order_inv.inv_status),
+					joinedload(Order_inv.company),
+					joinedload(Order_inv.warehouse),
+					joinedload(Order_inv.division))\
 				.all()
-
+					
 			for order_inv in order_invoices:
 				invoice_models.append(order_inv)
 		elif invoice_list:
@@ -528,8 +532,8 @@ def apiOrderInvInfo(
 		try:
 			order_inv_info = order_inv.to_json_api()
 
-			inv_status_list = [inv_status.to_json_api() for inv_status in inv_statuses if inv_status.InvStatId == order_inv.InvStatId]
-			inv_status = dataLangSelector(inv_status_list[0])
+			inv_status = order_inv.inv_status.to_json_api() if order_inv.inv_status else None
+			inv_status = dataLangSelector(inv_status)
 			order_inv_info["InvStatName"] = inv_status["InvStatName"]
 
 			rp_acc_data = {}

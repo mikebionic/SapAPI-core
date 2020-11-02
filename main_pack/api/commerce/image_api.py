@@ -1,20 +1,24 @@
 # -*- coding: utf-8 -*-
 from flask import render_template,url_for,jsonify,request,abort,make_response
 from flask import current_app
-from main_pack.api.commerce import api
-from main_pack.base.apiMethods import checkApiResponseStatus
+
+from flask import send_from_directory
+import os
+
 from datetime import datetime, timedelta
 import dateutil.parser
 from sqlalchemy import and_
+from sqlalchemy.orm import joinedload
+
+from main_pack import db
+from main_pack.config import Config
+from main_pack.api.commerce import api
+from main_pack.api.commerce.utils import addImageDict,saveImageFile
+from main_pack.api.auth.api_login import sha_required
+from main_pack.base.apiMethods import checkApiResponseStatus
 
 from main_pack.models.base.models import Image,Sl_image
 from main_pack.models.commerce.models import Resource
-from main_pack.api.commerce.utils import addImageDict,saveImageFile
-from main_pack import db
-from main_pack.config import Config
-from flask import send_from_directory
-import os
-from main_pack.api.auth.api_login import sha_required
 
 
 def remove_image(file_type,file_name):
@@ -61,7 +65,10 @@ def api_images():
 				synchDateTime = dateutil.parser.parse(synchDateTime)
 			images = images.filter(Image.ModifiedDate > (synchDateTime - timedelta(minutes = 5)))
 
-		images = images.all()
+		images = images.options(
+			joinedload(Image.resource),
+			joinedload(Image.rp_acc))\
+		.all()
 
 		data = []
 		for image in images:
@@ -97,6 +104,8 @@ def api_images():
 			images = []
 			failed_images = []
 			for image_req in req:
+				image_info_to_return = image_req
+				image_info_to_return["Image"] = None
 				try:
 					ResRegNo = image_req["ResRegNo"]
 					ResGuid = image_req["ResGuid"]
@@ -131,7 +140,7 @@ def api_images():
 							print(f"{datetime.now()} | Image updated (Different ModifiedDate)")
 						else:
 							print(f"{datetime.now()} | Image dropped (Same ModifiedDate)")
-						images.append(imageDictData)
+						images.append(image_info_to_return)
 					else:
 						image_data = saveImageFile(image_req)
 						thisImage = Image(**image_data)
@@ -149,11 +158,11 @@ def api_images():
 							db.session.add(thisImage)
 							db.session.commit()
 						print(f"{datetime.now()} | Image created")
-						images.append(imageDictData)
+						images.append(image_info_to_return)
 
 				except Exception as ex:
 					print(f"{datetime.now()} | Image Api Exception: {ex}")
-					failed_images.append(imageDictData)
+					failed_images.append(image_info_to_return)
 
 			db.session.commit()
 			print(f"{datetime.now()} | Images were committed")
