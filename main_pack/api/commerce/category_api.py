@@ -32,9 +32,13 @@ def api_categories():
 	if request.method == 'GET':
 		DivId = request.args.get("DivId",None,type=int)
 		notDivId = request.args.get("notDivId",None,type=int)
-		avoidQtyCheckup = request.args.get("avoidQtyCheckup",1,type=int)
+		avoidQtyCheckup = request.args.get("avoidQtyCheckup",0,type=int)
+
 
 		if DivId is None:
+			# !!! TODO: This option will live for a while
+			avoidQtyCheckup = 1
+
 			division = Division.query.filter_by(DivGuid = Config.C_MAIN_DIVGUID, GCRecord = None).first()
 			DivId = division.DivId if division else 1
 

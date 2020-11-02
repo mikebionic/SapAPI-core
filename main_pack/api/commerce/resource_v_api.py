@@ -34,7 +34,7 @@ def api_v_full_resources():
 def api_v_resources():
 	DivId = request.args.get("DivId",None,type=int)
 	notDivId = request.args.get("notDivId",None,type=int)
-	avoidQtyCheckup = request.args.get("avoidQtyCheckup",1,type=int)
+	avoidQtyCheckup = request.args.get("avoidQtyCheckup",0,type=int)
 	res = apiResourceInfo(
 		DivId = DivId,
 		notDivId = notDivId,
@@ -59,9 +59,12 @@ def api_v_resource_info(ResId):
 def api_category_v_resources(ResCatId):
 	DivId = request.args.get("DivId",None,type=int)
 	notDivId = request.args.get("notDivId",None,type=int)
-	avoidQtyCheckup = request.args.get("avoidQtyCheckup",1,type=int)
+	avoidQtyCheckup = request.args.get("avoidQtyCheckup",0,type=int)
 	# fetching total by division 
 	if DivId is None:
+		# !!! TODO: This option will live for a while
+		avoidQtyCheckup = 1
+
 		division = Division.query.filter_by(DivGuid = Config.C_MAIN_DIVGUID).first()
 		DivId = division.DivId if division else 1
 

@@ -72,7 +72,7 @@ def apiResourceInfo(
 	showRelated = False,
 	showLatest = False,
 	showRated = False,
-	avoidQtyCheckup = 1,
+	avoidQtyCheckup = 0,
 	showNullPrice = False,
 	DivId = None,
 	notDivId = None):
@@ -102,6 +102,9 @@ def apiResourceInfo(
 
 				# fetching total by division 
 				if DivId is None:
+					# !!! TODO: This option will live for a while
+					avoidQtyCheckup = 1
+
 					division = Division.query.filter_by(DivGuid = Config.C_MAIN_DIVGUID, GCRecord = None).first()
 					DivId = division.DivId if division else 1
 
@@ -182,6 +185,9 @@ def apiResourceInfo(
 
 				# fetching total by division 
 				if DivId is None:
+					# !!! TODO: This option will live for a while
+					avoidQtyCheckup = 1
+					
 					division = Division.query.filter_by(DivGuid = Config.C_MAIN_DIVGUID).first()
 					DivId = division.DivId if division else None
 
