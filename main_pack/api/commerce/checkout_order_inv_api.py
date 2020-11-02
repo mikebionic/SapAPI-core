@@ -22,6 +22,7 @@ from datetime import datetime,timezone
 from main_pack.key_generator.utils import generate,makeRegNo,Pred_regnum
 
 # Resource models and operations
+from  main_pack.models.base.models import Warehouse
 from main_pack.models.commerce.models import Resource,Res_price,Res_total
 from main_pack.base.invoiceMethods import totalQtySubstitution
 from main_pack.base.num2text import num2text,price2text
@@ -44,6 +45,12 @@ def api_checkout_sale_order_invoices(user):
 		RpAccId = current_user.RpAccId
 		DivId = current_user.DivId
 		CId = current_user.CId
+
+		warehouse = Warehouse.query\
+			.filter_by(DivId = DivId, GCRecord = None)\
+			.order_by(Warehouse.WhId.asc())\
+			.first()
+		WhId = warehouse.WhId if warehouse else None
 		# get the seller's user information of a specific rp_acc
 		user = Users.query\
 			.filter_by(GCRecord = None, UId = current_user.UId)\
@@ -86,7 +93,7 @@ def api_checkout_sale_order_invoices(user):
 		order_invoice["InvStatId"] = 1
 		order_invoice["OInvTypeId"] = 2
 		order_invoice["WpId"] = work_period.WpId
-		order_invoice["WhId"] = 1
+		order_invoice["WhId"] = WhId
 		order_invoice["DivId"] = DivId
 		order_invoice["CId"] = CId
 		if InvStatId == 13:
@@ -137,7 +144,7 @@ def api_checkout_sale_order_invoices(user):
 					.filter_by(GCRecord = None, ResId = ResId, ResPriceTypeId = 2)\
 					.first()
 				res_total = Res_total.query\
-					.filter_by(GCRecord = None, ResId = ResId, WhId = 1)\
+					.filter_by(GCRecord = None, ResId = ResId, WhId = WhId)\
 					.first()
 				totalSubstitutionResult = totalQtySubstitution(res_total.ResPendingTotalAmount,OInvLineAmount)
 

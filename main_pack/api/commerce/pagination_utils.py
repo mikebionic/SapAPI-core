@@ -45,7 +45,10 @@ def collect_resource_paginate_info(
 	brand = None,
 	DivId = None,
 	notDivId = None,
-	search = None):
+	search = None,
+	avoidQtyCheckup = 0,
+	showNullPrice = False,
+	showInactive = False):
 	sort_types = [
 		{
 			"sort": "date_new",
@@ -94,53 +97,86 @@ def collect_resource_paginate_info(
 		}
 	]
 	sort_title = None
+	
+	resource_filtering = {
+		"GCRecord": None,
+	}
+	
+	if showInactive == False:
+		resource_filtering["UsageStatusId"] = 1
+	
+	if DivId is None:
+		# !!! TODO: This option will live for a while
+		avoidQtyCheckup = 1
 
-	resources = Resource.query\
-		.filter_by(GCRecord = None, UsageStatusId = 1)\
-		.join(Res_price, Res_price.ResId == Resource.ResId)\
-		.filter(and_(
-			Res_price.ResPriceTypeId == 2,
-			Res_price.ResPriceValue > 0))\
-		.join(Res_total, Res_total.ResId == Resource.ResId)\
-		.filter(and_(
-			Res_total.WhId == 1, 
-			Res_total.ResTotBalance > 0))
+		division = Division.query\
+			.filter_by(DivGuid = Config.C_MAIN_DIVGUID, GCRecord = None)\
+			.first()
+		DivId = division.DivId if division else 1
+
+	if DivId:
+		Res_Total_subquery = db.session.query(
+			Res_total.ResId,
+			db.func.sum(Res_total.ResTotBalance).label("ResTotBalance_sum"),
+			db.func.sum(Res_total.ResPendingTotalAmount).label("ResPendingTotalAmount_sum"))\
+		.filter(Res_total.DivId == DivId)\
+		.group_by(Res_total.ResId)\
+		.subquery()
+
+	resource_query = db.session.query(
+		Resource,
+		Res_Total_subquery.c.ResTotBalance_sum,
+		Res_Total_subquery.c.ResPendingTotalAmount_sum)\
+	.filter_by(**resource_filtering)\
+	.outerjoin(Res_Total_subquery, Resource.ResId == Res_Total_subquery.c.ResId)
+
+	if avoidQtyCheckup == 0:
+		if Config.SHOW_NEGATIVE_WH_QTY_RESOURCE == False:
+			resource_query = resource_query\
+				.filter(Res_Total_subquery.c.ResTotBalance_sum > 0)
+
+	if showNullPrice == False:
+		resource_query = resource_query\
+			.join(Res_price, Res_price.ResId == Resource.ResId)\
+			.filter(and_(
+				Res_price.ResPriceTypeId == 2,
+				Res_price.ResPriceValue > 0))\
 
 	if brand:
-		resources = resources.filter(Resource.BrandId == brand)
+		resource_query = resource_query.filter(Resource.BrandId == brand)
 	
 	if category:
-		resources = resources.filter(Resource.ResCatId == category)
+		resource_query = resource_query.filter(Resource.ResCatId == category)
 
 	if sort:
 		if sort == "date_new":
-			resources = resources.order_by(Resource.CreatedDate.desc())
+			resource_query = resource_query.order_by(Resource.CreatedDate.desc())
 		if sort == "date_old":
-			resources = resources.order_by(Resource.CreatedDate.asc())
+			resource_query = resource_query.order_by(Resource.CreatedDate.asc())
 		if sort == "brand_asc":
-			resources = resources.order_by(Resource.BrandId.asc())
+			resource_query = resource_query.order_by(Resource.BrandId.asc())
 		if sort == "brand_desc":
-			resources = resources.order_by(Resource.BrandId.desc())
+			resource_query = resource_query.order_by(Resource.BrandId.desc())
 		if sort == "category_asc":
-			resources = resources.order_by(Resource.ResCatId.asc())
+			resource_query = resource_query.order_by(Resource.ResCatId.asc())
 		if sort == "category_desc":
-			resources = resources.order_by(Resource.ResCatId.desc())
+			resource_query = resource_query.order_by(Resource.ResCatId.desc())
 		if sort == "price_high":
-			resources = resources.order_by(Res_price.ResPriceValue.desc())
+			resource_query = resource_query.order_by(Res_price.ResPriceValue.desc())
 		if sort == "price_low":
-			resources = resources.order_by(Res_price.ResPriceValue.asc())
+			resource_query = resource_query.order_by(Res_price.ResPriceValue.asc())
 		if sort == "rated":
-			resources = resources\
+			resource_query = resource_query\
 				.outerjoin(Rating, Rating.ResId == Resource.ResId)\
 				.order_by(Rating.RtRatingValue.asc())
 		for sort_type in sort_types:
 			if sort_type["sort"] == sort:
 				sort_type["status"] = 1
 	
-	if DivId:
-		resources = resources.filter_by(DivId = DivId)
+	# if DivId:
+	# 	resource_query = resource_query.filter_by(DivId = DivId)
 	if notDivId:
-		resources = resources.filter(Resource.DivId != notDivId)
+		resource_query = resource_query.filter(Resource.DivId != notDivId)
 
 	if search:
 		search = search.strip()
@@ -178,18 +214,20 @@ def collect_resource_paginate_info(
 		resource_ids = list(set(resource_ids))
 		resource_ids = [ResId for ResId in resource_ids]
 
-		resources = resources.filter(Resource.ResId.in_(resource_ids))
+		resource_query = resource_query.filter(Resource.ResId.in_(resource_ids))
 
-	resources = resources.options(
+	resource_query = resource_query.options(
 		joinedload(Resource.Image),
-		joinedload(Resource.Res_color),
-		joinedload(Resource.Res_size),
+		joinedload(Resource.Barcode),
+		joinedload(Resource.Rating),
+		joinedload(Resource.Res_price),
+		joinedload(Resource.Res_total),
 		joinedload(Resource.res_category),
 		joinedload(Resource.unit),
 		joinedload(Resource.brand),
 		joinedload(Resource.usage_status))
 
-	pagination_resources = resources.paginate(per_page=per_page if per_page else Config.RESOURCES_PER_PAGE,page=page)
+	pagination_resources = resource_query.paginate(per_page=per_page if per_page else Config.RESOURCES_PER_PAGE,page=page)
 
 	resource_models = [resource for resource in pagination_resources.items if pagination_resources.items]
 	data = []

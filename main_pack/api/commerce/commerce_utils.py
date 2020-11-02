@@ -105,7 +105,9 @@ def apiResourceInfo(
 					# !!! TODO: This option will live for a while
 					avoidQtyCheckup = 1
 
-					division = Division.query.filter_by(DivGuid = Config.C_MAIN_DIVGUID, GCRecord = None).first()
+					division = Division.query\
+						.filter_by(DivGuid = Config.C_MAIN_DIVGUID, GCRecord = None)\
+						.first()
 					DivId = division.DivId if division else 1
 
 				if DivId:
@@ -124,7 +126,7 @@ def apiResourceInfo(
 				.filter_by(**resource_filtering)\
 				.outerjoin(Res_Total_subquery, Resource.ResId == Res_Total_subquery.c.ResId)
 
-				if avoidQtyCheckup == False:
+				if avoidQtyCheckup == 0:
 					if Config.SHOW_NEGATIVE_WH_QTY_RESOURCE == False:
 						resource_query = resource_query\
 							.filter(Res_Total_subquery.c.ResTotBalance_sum > 0)
@@ -187,7 +189,7 @@ def apiResourceInfo(
 				if DivId is None:
 					# !!! TODO: This option will live for a while
 					avoidQtyCheckup = 1
-					
+
 					division = Division.query.filter_by(DivGuid = Config.C_MAIN_DIVGUID).first()
 					DivId = division.DivId if division else None
 
@@ -373,7 +375,7 @@ def apiResourceInfo(
 			data.append(resource_info)
 		except Exception as ex:
 			print(f"{datetime.now()} | Resource info utils Exception: {ex}")
-			fails.append(resource.to_json_api())
+			fails.append(resource_query.Resource.to_json_api())
 			
 	status = checkApiResponseStatus(data,fails)
 	total = len(data)

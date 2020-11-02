@@ -4,12 +4,14 @@ from main_pack.api.commerce import api
 from main_pack import db
 
 # orders and db methods
-from main_pack.models.commerce.models import (Order_inv,Resource,
-																							Order_inv_line,
-																							Inv_status,
-																							Res_total)
-from main_pack.api.commerce.utils import (addOrderInvDict,
-																					addOrderInvLineDict)
+from main_pack.models.commerce.models import (
+	Order_inv,Resource,
+	Order_inv_line,
+	Inv_status,
+	Res_total)
+from main_pack.api.commerce.utils import (
+	addOrderInvDict,
+	addOrderInvLineDict)
 from main_pack.models.base.models import Warehouse, Division
 from main_pack.base.apiMethods import checkApiResponseStatus
 from sqlalchemy import and_, extract

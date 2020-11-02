@@ -13,6 +13,7 @@ from main_pack.api.auth.utils import check_auth
 from main_pack.api.users.utils import apiUsersData,apiRpAccData
 from main_pack.base.dataMethods import apiDataFormat
 
+
 def token_required(f):
 	@wraps(f)
 	def decorated(*args,**kwargs):
@@ -22,7 +23,7 @@ def token_required(f):
 		if not token:
 			return jsonify({"message": "Token is missing!"}), 401
 		try:
-			data=jwt.decode(token, Config.SECRET_KEY)
+			data = jwt.decode(token, Config.SECRET_KEY)
 			if 'UId' in data:
 				model_type = 'Users'
 				current_user = Users.query\
@@ -43,20 +44,23 @@ def token_required(f):
 
 	return decorated
 
+
 @api.route('/login/users/',methods=['GET','POST'])
 def api_login_users():
 	auth = request.authorization
 	if not auth or not auth.username or not auth.password:
-		return make_response("Could not verify.",
-												401,
-												{"WWW-Authenticate": "basic realm"})
+		return make_response(
+			"Could not verify.",
+			401,
+			{"WWW-Authenticate": "basic realm"})
 	user = Users.query\
 		.filter_by(GCRecord = None, UName = auth.username)\
 		.first()
 	if not user:
-		return make_response("Could not verify.",
-												401,
-												{"WWW-Authenticate": "basic realm"})
+		return make_response(
+			"Could not verify.",
+			401,
+			{"WWW-Authenticate": "basic realm"})
 	if check_auth('Users',auth.username,auth.password):
 		exp = datetime.now()+dt.timedelta(minutes=30)
 		token = jwt.encode({"UId": user.UId,"exp": exp}, Config.SECRET_KEY)
@@ -66,9 +70,11 @@ def api_login_users():
 			"user": userData['data'],
 			"exp": apiDataFormat(exp)
 			})
-	return make_response("Could not verify.",
-											401,
-											{"WWW-Authenticate": "basic realm"})
+	return make_response(
+		"Could not verify.",
+		401,
+		{"WWW-Authenticate": "basic realm"})
+
 
 @api.route('/login/rp-accs/',methods=['GET','POST'])
 def api_login_rp_accs():
@@ -80,9 +86,10 @@ def api_login_rp_accs():
 		.filter_by(GCRecord = None, RpAccUName = auth.username)\
 		.first()
 	if not rp_acc:
-		return make_response("Could not verify.",
-												401,
-												{"WWW-Authenticate": "basic realm"})
+		return make_response(
+			"Could not verify.",
+			401,
+			{"WWW-Authenticate": "basic realm"})
 	if check_auth('Rp_acc',auth.username,auth.password):
 		exp = datetime.now()+dt.timedelta(minutes=30)
 		token = jwt.encode({"RpAccId": rp_acc.RpAccId,"exp": exp}, Config.SECRET_KEY)
@@ -92,9 +99,11 @@ def api_login_rp_accs():
 			"rp_acc": rpAccData['data'],
 			"exp": apiDataFormat(exp)
 			})
-	return make_response("Could not verify.",
-											401,
-											{"WWW-Authenticate": "basic realm"})
+	return make_response(
+		"Could not verify.",
+		401,
+		{"WWW-Authenticate": "basic realm"})
+
 
 def sha_required(f):
 	@wraps(f)
