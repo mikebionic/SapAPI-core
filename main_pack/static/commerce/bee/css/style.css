@@ -165,7 +165,7 @@ ul {
 
 @media only screen and (max-width: 479px) {
   .container {
-    width: 345px; } }
+    width: 306px; } }
 
 .bold {
   font-weight: 700; }
@@ -2301,7 +2301,7 @@ img.mfp-img {
     opacity: 0; }
     .tab-content .tab-pane.active {
       height: auto;
-      width: 100%;
+      /* width: 100%; */
       visibility: visible;
       opacity: 1;
       overflow: hidden; }
@@ -5167,7 +5167,7 @@ img.mfp-img {
   }
   @media only screen and (min-width: 1200px) and (max-width: 1600px) { 
     .slick-active .hero-image-two img{
-      height: 300px;
+      /* height: 300px; */
     }
     .tab-content .tab-pane.active{
       padding: 0 40px;
@@ -5183,8 +5183,8 @@ img.mfp-img {
       padding: 70px 50px; } }
   @media only screen and (max-width: 479px) {
     .hero-item-two {
-      padding: 50px 40px;
-      height: 300px;
+      padding: 25px 40px;
+      height: 333px;
     } }
       .hero-item-two .col, .hero-item-two [class*="col-"] {
     -webkit-box-flex: 0;
@@ -5210,7 +5210,7 @@ img.mfp-img {
   
   @media only screen and (max-width: 767px) {
     .hero-image-two {
-      max-width: 200px;
+      /* max-width: 200px; */
       margin: 0 75px;
       -webkit-box-ordinal-group: 2;
       -ms-flex-order: 1;
@@ -5219,11 +5219,12 @@ img.mfp-img {
     @media only screen and (max-width: 479px) {
   .hero-image-two {
     margin-left: 33px;
-    max-width: 150px; } }
+    /* max-width: 150px; */
+   } }
     
     .hero-image-two img {
   max-width: 100%;
-  max-height: 400px;
+  max-height: 160px;
   -webkit-animation-duration: 1s;
   animation-duration: 1s;
   -webkit-animation-fill-mode: both;
@@ -7030,6 +7031,9 @@ img.mfp-img {
   .p_slider .ee-product{
     width: 138px;
   }
+  .p_slider .col, .col-1, .col-10, .col-11, .col-12, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-auto, .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-auto, .col-md, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-auto, .col-sm, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-auto, .col-xl, .col-xl-1, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-auto{
+    padding-right: 5px;
+  }
 }
 
 
@@ -8461,7 +8465,8 @@ img.mfp-img {
   position: relative; 
 }
   .big-image-slider .big-image img {
-    width: 100%;
+    max-width: 100%;
+    max-height: 100%;
     background-color: #f6f7f8; }
   .big-image-slider .big-image .big-image-popup {
     position: absolute;
@@ -12028,7 +12033,9 @@ ul.link-widget li {
   font-size: 36px;
   font-weight: 700;
   font-family: "Oswald", sans-serif; }
-
+.contact-section{
+  height: -webkit-fill-available;
+}
 /*-- Contact Tab List --*/
 .contact-tab-list li {
   -webkit-box-flex: 1;
@@ -12715,7 +12722,8 @@ ul.link-widget li {
       width: 900px;
   }
   .shop-product-wrap.grid {
-    margin-left: 50px;
+    display: flex;
+    justify-content: center;
   }
   .big-image{
     padding: 0 80px;
@@ -12738,7 +12746,7 @@ ul.link-widget li {
     flex-grow: 0;
     -ms-flex-preferred-size: auto;
     flex-basis: auto;
-    width: 253px;
+    /* width: 253px; */
     padding-right: 10px;
     }
 }
@@ -12768,32 +12776,26 @@ ul.link-widget li {
 }
 @media (min-width: 1200px){
 .shop-product-wrap.grid {
-  margin-left: 45px;
+  display: flex;
+  justify-content: center;
   }
   .big-image{
     margin-left: 100px;
-    padding: 0 109px;
+    /* padding: 0 109px; */
   } 
   
 }
 @media (max-width: 767px){
   .hero-image-two{
-      width: 45%;
-      margin-left: 72px;
+      width: 45%;-ms-flex-order-ms-flex-order
     }
     .hero-content-two h1{
       width: 335px;
     }
     .hero-content-two h2{
-      width: 335px;
+      width: 200px;
     }
     
-  }
-
-  @media only screen and (max-width: 1439px) and (min-width: 1324px){
-    .last_pr{
-      margin:62px;
-    }
   }
   .applyFiltersBtn{
     clear: none;

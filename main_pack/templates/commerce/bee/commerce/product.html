@@ -13,8 +13,8 @@
 						<div class="tab-content">
 							<div id="single-image-1" class="tab-pane fade show active big-image-slider">
 								{% for image in resource.Images %}
-								<div class="big-image">
-									<img loading="lazy" src="{{image.FilePathM}}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}" style="height: 400px;">
+								<div class="big-image" style="display: flex;justify-content: center;">
+									<img loading="lazy" src="{{image.FilePathM}}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
 									<a href="{{image.FilePathR}}" class="big-image-popup">
 										<i class="fa fa-search-plus"></i>
 									</a>
@@ -26,7 +26,7 @@
 						<div class="tab-content">
 							<div id="single-image-1" class="tab-pane fade show active big-image-slider">
 								<div class="big-image">
-									<img loading="lazy" src="{{ url_for('static', filename='commerce/main/shop_icons/no_photo.png') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}" style="height: 400px;">
+									<img loading="lazy" src="{{ url_for('static', filename='commerce/main/shop_icons/no_photo.png') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
 								</div>
 							</div>
 						</div>

@@ -14,6 +14,9 @@
     z-index: 10;
     transition: all .3s
 }
+.shop-wrapper{
+    height: 100%;
+}
 
 .main-sidebar.is-pushed-mobile {
     -webkit-transform: translateX(-61px) !important;
@@ -1191,7 +1194,6 @@
     align-items: center;
     padding: 5px 0
 }
-
 .flat-card.is-list-item .product-abstract .view-more a {
     font-size: .75rem;
     font-weight: 500;
@@ -6315,6 +6317,7 @@ textarea.textarea.is-button+.textarea-button button {
     }
 
     .shop-wrapper {
+       
         width: calc(100% - 77px);
         /* margin-left: 60px */
     }
@@ -6787,7 +6790,7 @@ a {
 }
 .footer-section{
     padding: 0;
-    /* position: fixed; */
+    /* position: absolute; */
     left: 0;
     bottom: 0;
 }

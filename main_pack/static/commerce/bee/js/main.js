@@ -230,6 +230,13 @@ $('.product-slider-4').slick({
             }
         },
         {
+            breakpoint: 2600,
+
+            settings: {
+                slidesToShow: 5,
+            }
+        },
+        {
             breakpoint: 991,
             settings: {
                 slidesToShow: 3,
@@ -242,9 +249,18 @@ $('.product-slider-4').slick({
                 slidesToShow: 2,
                 arrows: false,
             }
+        },
+        {
+            breakpoint: 319,
+            settings: {
+                autoplay: true,
+                slidesToShow: 1,
+                arrows: false,
+            }
         }
     ]
 });
+
 
 $('.brands-slider').slick({
     arrows: true,
