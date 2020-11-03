@@ -24,18 +24,18 @@ from main_pack.commerce.admin.utils import resRelatedData
 # / Resource and view /
 
 # users and customers
-from main_pack.models.users.models import (Users,
-																					Rp_acc)
+from main_pack.models.users.models import Users, Rp_acc
 # / users and customers /
 
 # Invoices
 from main_pack.api.commerce.commerce_utils import UiCartResourceData
-from main_pack.models.commerce.models import (Resource,
-																							Order_inv,
-																							Order_inv_line,
-																							Work_period,
-																							Res_price,
-																							Res_total)
+from main_pack.models.commerce.models import (
+	Resource,
+	Order_inv,
+	Order_inv_line,
+	Work_period,
+	Res_price,
+	Res_total)
 from main_pack.commerce.commerce.order_utils import addOInvLineDict
 # / Invoices /
 
@@ -207,18 +207,32 @@ def ui_cart_checkout():
 				# use device model and other info
 				orderRegNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())			
 
+
+			DivId = current_user.DivId
+			CId = current_user.CId
+			warehouse = Warehouse.query\
+				.filter_by(DivId = DivId, GCRecord = None)\
+				.order_by(Warehouse.WhId.asc())\
+				.first()
+			WhId = warehouse.WhId if warehouse else None
+
 			OInvDesc = req.get('orderDesc')
-			orderInv = Order_inv(
-					OInvTypeId = 2,
-					OInvGuid = uuid.uuid4(),
-					InvStatId = 1,
-					CurrencyId = 1,
-					WhId = 1,
-					WpId = work_period.WpId,
-					RpAccId = rp_acc.RpAccId,
-					OInvRegNo = orderRegNo,
-					OInvDesc = OInvDesc,
-				)
+			
+			order_invoice = {
+				"OInvTypeId": 2,
+				"OInvGuid": uuid.uuid4(),
+				"InvStatId": 1,
+				"CurrencyId": 1,
+				"WhId": WhId,
+				"DivId": DivId,
+				"CId": CId,
+				"WpId": work_period.WpId,
+				"RpAccId": rp_acc.RpAccId,
+				"OInvRegNo": orderRegNo,
+				"OInvDesc": OInvDesc
+			}
+
+			orderInv = Order_inv(**order_invoice)
 			db.session.add(orderInv)
 			OInvTotal = 0
 			order_inv_lines = []

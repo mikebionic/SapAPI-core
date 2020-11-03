@@ -773,12 +773,12 @@ $(document).ready(function(){
   })
 
 
-$('body').delegate('.applyFiltersBtn','click',function(){
+$('body').delegate('.applySortingBtn','click',function(){
     var url = location.pathname;
     var per_page = $('.per_page option:selected').val();
-    var filtration = $('.filtration option:selected').val();
-    var category =  $('.category_filter').val();
-    url = url+"?per_page="+per_page+"&filter="+filtration+"&category="+category;
+    var sorting = $('.sorting option:selected').val();
+    var category =  $('.category_sort').val();
+    url = url+"?per_page="+per_page+"&sort="+sorting+"&category="+category;
     window.location.href = url;
 })
 

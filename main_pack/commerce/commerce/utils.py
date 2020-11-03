@@ -1,33 +1,42 @@
 from main_pack.config import Config
+from sqlalchemy import and_
+from sqlalchemy.orm import joinedload
+from datetime import datetime
+
 # auth and validation
 from flask_login import current_user,login_required
 # / auth and validation /
-# useful methods
-from main_pack import db,babel,gettext,lazy_gettext
-from sqlalchemy import and_
-from datetime import datetime
-from main_pack.base.apiMethods import fileToURL
-from main_pack.base.languageMethods import dataLangSelector
-# / useful methods / 
 
 # db Models
-from main_pack.models.commerce.models import (Res_category,
-																							Resource)
-from main_pack.models.base.models import (Company,
-																					Sl_image,
-																					Slider,
-																					Image)
+from main_pack.models.commerce.models import (
+	Res_category,
+	Resource)
+from main_pack.models.base.models import (
+	Company,
+	Sl_image,
+	Slider,
+	Image)
 # / db Models /
+
+# useful methods
+from main_pack import db,babel,gettext,lazy_gettext
+from main_pack.base.apiMethods import fileToURL
+from main_pack.base.languageMethods import dataLangSelector
 from main_pack.api.commerce.commerce_utils import UiCartResourceData
+from main_pack.api.commerce.commerce_utils import collect_categories_query
+# / useful methods / 
+
 
 def slidersData():
 	data = []
-	sliders = Slider.query.filter_by(GCRecord = None).all()
+	sliders = Slider.query\
+		.filter_by(GCRecord = None)\
+		.options(joinedload(Slider.Sl_image))\
+		.filter(Sl_image.GCRecord == None)\
+		.all()
 	for slider in sliders:
 		List_sliders = slider.to_json_api()
-		sl_images = Sl_image.query\
-			.filter_by(GCRecord = None, SlId = slider.SlId)\
-			.all()
+		sl_images = slider.Sl_image
 		List_sl_images = []
 		for sl_image in sl_images:
 			if sl_image.SlImgEndDate:
@@ -45,18 +54,7 @@ def slidersData():
 	return res
 
 def UiCategoriesList():
-	categories = Res_category.query.filter_by(GCRecord = None).all()
-
-	# categories = Res_category.query\
-	# 	.filter_by(GCRecord = None)\
-	# 	.join(Resource, Resource.ResCatId == Res_category.ResCatId)\
-	# 	.filter(Resource.GCRecord == None)\
-	# 	.join(Res_total, Res_total.ResId == Resource.ResId)\
-	# 	.filter(and_(
-	# 		Res_total.WhId == 1, 
-	# 		Res_total.ResTotBalance > 0))\
-	# 	.order_by(Res_category.ResCatVisibleIndex.asc())\
-	# 	.all()
+	categories = collect_categories_query()
 
 	category_info = [category.to_json_api() for category in categories if categories]
 	categories = [category_info[category_info.index(category_data)] for category_data in category_info if category_data["ResOwnerCatId"] == 0 or category_data["ResOwnerCatId"] == None]
@@ -67,14 +65,16 @@ def UiCategoriesList():
 			subcategory["Categories"] = subcategory_children
 		category["Categories"] = subcategories
 
-	company = Company.query.get(1)
-	logoIcon = {}
-	company_logo = Image.query\
-		.filter_by(GCRecord = None, CId = company.CId)\
+	company = Company.query\
+		.filter_by(GCRecord = None)\
+		.options(joinedload(Company.Image))\
+		.filter(Image.GCRecord == None)\
 		.order_by(Image.CreatedDate.desc())\
 		.first()
-	if company_logo:
-		logoIcon["FilePath"] = fileToURL(file_type='image',file_name=company_logo.FileName)
+	logoIcon = {}
+	company_logos = company.Image
+	if company_logos:
+		logoIcon["FilePath"] = fileToURL(file_type='image',file_name=company_logos[0].FileName)
 	res = {
 		"categories": categories,
 		"company": company,
@@ -83,13 +83,18 @@ def UiCategoriesList():
 	return res
 
 def UiBrandsList():
-	brands = Brand.query.filter_by(GCRecord = None).all() 
+	brands = Brand.query\
+		.filter_by(GCRecord = None)\
+		.options(joinedload(Brand.Image))\
+		.filter(Image.GCRecord == None)\
+		.order_by(Image.CreatedDate.desc())\
+		.all() 
 	data = []
 	for brand in brands:
 		brand_info = brand.to_json_api()
-		List_Images = [image.to_json_api() for image in brand.Image if image.GCRecord == None]
+		List_Images = [image.to_json_api() for image in brand.Image if brand.Image]
 		brand_info['Images'] = List_Images if List_Images else []
-		brand_info["FilePath"] = fileToURL(file_type='image',file_name=List_Images[-1]['FileName']) if List_Images else ''
+		brand_info["FilePath"] = fileToURL(file_type='image',file_name=List_Images[0]['FileName']) if List_Images else ''
 		data.append(brand_info)
 	res = {
 		"message": "Brands",
@@ -115,16 +120,11 @@ from main_pack.models.commerce.models import Resource
 
 def uiSortingData():
 	uiSortingData = {}
-	units = Unit.query\
-		.filter(Unit.GCRecord=='' or Unit.GCRecord==None).all()
-	brands = Brand.query\
-		.filter(Brand.GCRecord=='' or Brand.GCRecord==None).all()
-	colors = Color.query\
-		.filter(Color.GCRecord=='' or Color.GCRecord==None).all()
-	sizes = Size.query\
-		.filter(Size.GCRecord=='' or Size.GCRecord==None).all()
-	brands = Brand.query\
-		.filter(Brand.GCRecord=='' or Brand.GCRecord==None).all()
+	units = Unit.query.filter_by(GCRecord = None).all()
+	brands = Brand.query.filter_by(GCRecord = None).all()
+	colors = Color.query.filter_by(GCRecord = None).all()
+	sizes = Size.query.filter_by(GCRecord = None).all()
+	brands = Brand.query.filter_by(GCRecord = None).all()
 	uiSortingData = {
 		'units':units,
 		'colors':colors,

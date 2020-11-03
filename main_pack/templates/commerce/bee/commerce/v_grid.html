@@ -10,15 +10,6 @@
 
 				<div class="row mb-50">
 					<div class="col">
-						{% if category %}
-						<div class="col-12 mb-40">
-							<div class="section-title-one" style="text-transform:uppercase"><h1>{{ category }}</h1></div>
-						</div>
-						{% elif brand %}
-						<div class="col-12 mb-40">
-							<div class="section-title-one" style="text-transform:uppercase"><h1>{{ brand }}</h1></div>
-						</div>
-						{% endif %}
 						<!-- Shop Top Bar Start -->
 						<div class="shop-top-bar">
 
@@ -43,15 +34,15 @@
 							
 							<!-- Product Short -->
 							<div class="product-short">
-								<p>{{_('Filter')}}</p>
-								<select name="sortby" class="nice-select filtration">
-									{% for filtration in filtration_types %}
-										<option value="{{filtration.filtration}}" {{ 'selected' if filtration.status == 1 }}>{{filtration.filtration_title}}</option>
+								<p>{{_('Sort')}}</p>
+								<select name="sortby" class="nice-select sorting">
+									{% for sort in sort_types %}
+										<option value="{{sort.sort}}" {{ 'selected' if sort.status == 1 }}>{{sort.sort_title}}</option>
 									{% endfor %}
 								</select>
 							</div>
-							<input type="hidden" class="category_filter" value="{{category}}">
-							<button class="applyFiltersBtn">{{_('Filter')}}</button>
+							<input type="hidden" class="category_sort" value="{{category}}">
+							<button class="applySortingBtn">{{_('Sort')}}</button>
 
 
 							<!-- Product Pages -->

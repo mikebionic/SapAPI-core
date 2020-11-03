@@ -77,22 +77,22 @@ def collect_resource_paginate_info(
 		},
 		{
 			"sort": "brand_asc",
-			"sort_title": gettext("Brand"),
+			"sort_title": f'{gettext("Brand")} {gettext("ascending")}',
 			"status": 0
 		},
 		{
 			"sort": "brand_desc",
-			"sort_title": gettext("Brand"),
+			"sort_title": f'{gettext("Brand")} {gettext("descending")}',
 			"status": 0
 		},
 		{
 			"sort": "category_asc",
-			"sort_title": gettext("Category"),
+			"sort_title": f'{gettext("Category")} {gettext("ascending")}',
 			"status": 0
 		},
 		{
 			"sort": "category_desc",
-			"sort_title": gettext("Category"),
+			"sort_title": f'{gettext("Category")} {gettext("descending")}',
 			"status": 0
 		}
 	]

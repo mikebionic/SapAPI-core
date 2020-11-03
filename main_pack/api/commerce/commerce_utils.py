@@ -56,6 +56,126 @@ from datetime import datetime,timedelta
 # / datetime, date-parser /
 
 
+def collect_categories_query(
+	DivId = None,
+	notDivId = None,
+	avoidQtyCheckup = 0,
+	IsMain = False):
+
+	if DivId is None:
+		# !!! TODO: This option will live for a while
+		avoidQtyCheckup = 1
+
+		division = Division.query.filter_by(DivGuid = Config.C_MAIN_DIVGUID, GCRecord = None).first()
+		DivId = division.DivId if division else 1
+
+	Res_Total_subquery = db.session.query(
+		Res_total.ResId,
+		db.func.sum(Res_total.ResTotBalance).label("ResTotBalance_sum"),
+		db.func.sum(Res_total.ResPendingTotalAmount).label("ResPendingTotalAmount_sum"))\
+	.filter(Res_total.DivId == DivId)\
+	.group_by(Res_total.ResId)\
+	.subquery()
+
+	categories_query = Res_category.query\
+		.filter_by(GCRecord = None)\
+		.join(Resource, Resource.ResCatId == Res_category.ResCatId)\
+		.filter(Resource.GCRecord == None)\
+		.outerjoin(Res_Total_subquery, Res_Total_subquery.c.ResId == Resource.ResId)
+
+	if IsMain == True:
+		categories_query = categories_query\
+			.filter(Res_category.IsMain == True)
+
+	if avoidQtyCheckup == 0:
+		if Config.SHOW_NEGATIVE_WH_QTY_RESOURCE == False:	
+			categories_query = categories_query\
+				.filter(Res_Total_subquery.c.ResTotBalance_sum > 0)
+
+	# if DivId:
+	# 	categories_query = categories_query.filter(Resource.DivId == DivId)
+	if notDivId:
+		categories_query = categories_query.filter(Resource.DivId != notDivId)
+
+	categories_query = categories_query.order_by(Res_category.ResCatVisibleIndex.asc())
+	return categories_query
+
+
+def collect_resources_query(
+	showInactive = False,
+	showLatest = False,
+	showRated = False,
+	avoidQtyCheckup = 0,
+	showNullPrice = False,
+	DivId = None,
+	notDivId = None	
+	):
+	resource_filtering = {
+		"GCRecord": None,
+	}
+	if showInactive == False:
+		resource_filtering["UsageStatusId"] = 1
+
+	# fetching total by division 
+	if DivId is None:
+		# !!! TODO: This option will live for a while
+		avoidQtyCheckup = 1
+
+		division = Division.query\
+			.filter_by(DivGuid = Config.C_MAIN_DIVGUID, GCRecord = None)\
+			.first()
+		DivId = division.DivId if division else 1
+
+	if DivId:
+		Res_Total_subquery = db.session.query(
+			Res_total.ResId,
+			db.func.sum(Res_total.ResTotBalance).label("ResTotBalance_sum"),
+			db.func.sum(Res_total.ResPendingTotalAmount).label("ResPendingTotalAmount_sum"))\
+		.filter(Res_total.DivId == DivId)\
+		.group_by(Res_total.ResId)\
+		.subquery()
+
+	resource_query = db.session.query(
+		Resource,
+		Res_Total_subquery.c.ResTotBalance_sum,
+		Res_Total_subquery.c.ResPendingTotalAmount_sum)\
+	.filter_by(**resource_filtering)\
+	.outerjoin(Res_Total_subquery, Resource.ResId == Res_Total_subquery.c.ResId)
+
+	if avoidQtyCheckup == 0:
+		if Config.SHOW_NEGATIVE_WH_QTY_RESOURCE == False:
+			resource_query = resource_query\
+				.filter(Res_Total_subquery.c.ResTotBalance_sum > 0)
+
+	if showNullPrice == False:
+		resource_query = resource_query\
+			.join(Res_price, Res_price.ResId == Resource.ResId)\
+			.filter(and_(
+				Res_price.ResPriceTypeId == 2,
+				Res_price.ResPriceValue > 0))\
+
+	if showLatest == True:
+		resource_query = resource_query\
+			.order_by(Resource.CreatedDate.desc())\
+			.limit(Config.RESOURCE_MAIN_PAGE_SHOW_QTY)
+
+	if showRated == True:
+		resource_query = resource_query\
+			.join(Res_category, Res_category.ResCatId == Resource.ResCatId)\
+			.filter(Res_category.IsMain == True)\
+			.outerjoin(Rating, Rating.ResId == Resource.ResId)\
+			.filter(Rating.RtRatingValue >= Config.SMALLEST_RATING_VALUE_SHOW)\
+			.order_by(Rating.RtRatingValue.asc())\
+			.limit(Config.RESOURCE_MAIN_PAGE_SHOW_QTY + 1)
+
+	#if DivId:
+	#	resource_query = resource_query.filter(Resource.DivId == DivId)	
+	if notDivId:
+		resource_query = resource_query.filter(Resource.DivId != notDivId)
+
+	return resource_query 
+
+
 # showInactive shows active resources with UsageStatusId = 1
 # fullInfo shows microframework full info with Foreign tables
 # single_object returns one resource in "data" instead of list
@@ -94,68 +214,14 @@ def apiResourceInfo(
 		# if list with "ResId" is not provided, return all resources
 		if resource_list is None:
 			if resource_query is None:
-				resource_filtering = {
-					"GCRecord": None,
-				}
-				if showInactive == False:
-					resource_filtering["UsageStatusId"] = 1
-
-				# fetching total by division 
-				if DivId is None:
-					# !!! TODO: This option will live for a while
-					avoidQtyCheckup = 1
-
-					division = Division.query\
-						.filter_by(DivGuid = Config.C_MAIN_DIVGUID, GCRecord = None)\
-						.first()
-					DivId = division.DivId if division else 1
-
-				if DivId:
-					Res_Total_subquery = db.session.query(
-						Res_total.ResId,
-						db.func.sum(Res_total.ResTotBalance).label("ResTotBalance_sum"),
-						db.func.sum(Res_total.ResPendingTotalAmount).label("ResPendingTotalAmount_sum"))\
-					.filter(Res_total.DivId == DivId)\
-					.group_by(Res_total.ResId)\
-					.subquery()
-
-				resource_query = db.session.query(
-					Resource,
-					Res_Total_subquery.c.ResTotBalance_sum,
-					Res_Total_subquery.c.ResPendingTotalAmount_sum)\
-				.filter_by(**resource_filtering)\
-				.outerjoin(Res_Total_subquery, Resource.ResId == Res_Total_subquery.c.ResId)
-
-				if avoidQtyCheckup == 0:
-					if Config.SHOW_NEGATIVE_WH_QTY_RESOURCE == False:
-						resource_query = resource_query\
-							.filter(Res_Total_subquery.c.ResTotBalance_sum > 0)
-
-				if showNullPrice == False:
-					resource_query = resource_query\
-						.join(Res_price, Res_price.ResId == Resource.ResId)\
-						.filter(and_(
-							Res_price.ResPriceTypeId == 2,
-							Res_price.ResPriceValue > 0))\
-
-				if showLatest == True:
-					resource_query = resource_query\
-						.order_by(Resource.CreatedDate.desc())\
-						.limit(Config.RESOURCE_MAIN_PAGE_SHOW_QTY)
-
-				if showRated == True:
-					resource_query = resource_query\
-						.join(Res_category, Res_category.ResCatId == Resource.ResCatId)\
-						.filter(Res_category.IsMain == True)\
-						.outerjoin(Rating, Rating.ResId == Resource.ResId)\
-						.filter(Rating.RtRatingValue >= Config.SMALLEST_RATING_VALUE_SHOW)\
-						.order_by(Rating.RtRatingValue.asc())\
-						.limit(Config.RESOURCE_MAIN_PAGE_SHOW_QTY + 1)
-				
-				#if DivId:
-				#	resource_query = resource_query.filter(Resource.DivId == DivId)	
-				if notDivId:
-					resource_query = resource_query.filter(Resource.DivId != notDivId)
+				resource_query = collect_resources_query(
+					showInactive = showInactive,
+					showLatest = showLatest,
+					showRated = showRated,
+					avoidQtyCheckup = avoidQtyCheckup,
+					showNullPrice = showNullPrice,
+					DivId = DivId,
+					notDivId = notDivId)
 
 			resources = resource_query.options(
 				joinedload(Resource.Image),
@@ -398,46 +464,31 @@ def apiResourceInfo(
 		res[e] = status[e]
 	return res
 
+
 def apiFeaturedResCat_Resources():
-	featured_categories = Res_category.query\
-		.filter_by(GCRecord = None)\
-		.filter(Res_category.IsMain == True)\
-		.order_by(Res_category.ResCatVisibleIndex.asc())\
-		.all()
+	featured_categories = collect_categories_query(IsMain = True)
+	featured_categories = featured_categories.all()
 
 	resource_models = []
 	if featured_categories:
+		featured_resources_query = collect_resources_query()
+		featured_resources_list = []
 		for category in featured_categories:
-			featured_resources = Resource.query\
-				.filter_by(GCRecord = None)
-
-			if Config.SHOW_NEGATIVE_WH_QTY_RESOURCE == False:
-				featured_resources = featured_resources.join(Res_total, Res_total.ResId == Resource.ResId)\
-					.filter(and_(
-						Res_total.WhId == 1, 
-					Res_total.ResTotBalance > 0))
-
-			featured_resources = featured_resources\
+			resource_query = featured_resources_query\
 				.filter(Resource.ResCatId == category.ResCatId)\
 				.order_by(Resource.CreatedDate.desc())\
-				.limit(Config.FEATURED_RESOURCE_AMOUNT)\
-				.all()
+				.limit(Config.FEATURED_RESOURCE_AMOUNT)
 
-			for resource in featured_resources:
-				resource_models.append(resource)
-			featured_resources = None
-
-	if resource_models:
-		featured_resources = apiResourceInfo(resource_models = resource_models)
+			resources = apiResourceInfo(resource_query = resource_query)
+			if resources["data"]:
+				for resource in resources["data"]:
+					featured_resources_list.append(resource)
 
 	data = []
 	if featured_categories:
 		for category in featured_categories:
 			featured_category = category.to_json_api()
-			resources_list = []
-			for resource in featured_resources["data"]:
-				if resource["ResCatId"] == category.ResCatId:
-					resources_list.append(resource)
+			resources_list = [resource for resource in featured_resources_list if resource["ResCatId"] == category.ResCatId if resource]
 			featured_category["Resources"] = resources_list
 			data.append(featured_category)
 

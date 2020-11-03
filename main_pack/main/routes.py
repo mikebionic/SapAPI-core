@@ -33,7 +33,7 @@ def set_theme(theme=None):
 def main():
 	division = Division.query.filter_by(DivGuid = Config.C_MAIN_DIVGUID, GCRecord = None).first()
 	DivId = division.DivId if division else 1
-	avoidQtyCheckup = 0
+	avoidQtyCheckup = 1
 
 	Res_Total_subquery = db.session.query(
 		Res_total.ResId,

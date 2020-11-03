@@ -13,6 +13,8 @@ from main_pack.models.base.models import Division
 from main_pack.models.commerce.models import Res_category,Resource,Res_total
 from main_pack.api.commerce.utils import addCategoryDict
 
+from main_pack.api.commerce.commerce_utils import collect_categories_query
+
 
 @api.route("/tbl-dk-categories/<int:ResCatId>/",methods=['GET'])
 def api_category(ResCatId):
@@ -34,39 +36,13 @@ def api_categories():
 		notDivId = request.args.get("notDivId",None,type=int)
 		avoidQtyCheckup = request.args.get("avoidQtyCheckup",0,type=int)
 
+		categories = collect_categories_query(
+			DivId = DivId,
+			notDivId = notDivId,
+			avoidQtyCheckup = avoidQtyCheckup)
 
-		if DivId is None:
-			# !!! TODO: This option will live for a while
-			avoidQtyCheckup = 1
+		categories = categories.all()
 
-			division = Division.query.filter_by(DivGuid = Config.C_MAIN_DIVGUID, GCRecord = None).first()
-			DivId = division.DivId if division else 1
-
-		Res_Total_subquery = db.session.query(
-			Res_total.ResId,
-			db.func.sum(Res_total.ResTotBalance).label("ResTotBalance_sum"),
-			db.func.sum(Res_total.ResPendingTotalAmount).label("ResPendingTotalAmount_sum"))\
-		.filter(Res_total.DivId == DivId)\
-		.group_by(Res_total.ResId)\
-		.subquery()
-
-		categories = Res_category.query\
-			.filter_by(GCRecord = None)\
-			.join(Resource, Resource.ResCatId == Res_category.ResCatId)\
-			.filter(Resource.GCRecord == None)\
-			.outerjoin(Res_Total_subquery, Res_Total_subquery.c.ResId == Resource.ResId)
-
-		if avoidQtyCheckup == 0:
-			if Config.SHOW_NEGATIVE_WH_QTY_RESOURCE == False:	
-				categories = categories\
-					.filter(Res_Total_subquery.c.ResTotBalance_sum > 0)
-
-		# if DivId:
-		# 	categories = categories.filter(Resource.DivId == DivId)
-		if notDivId:
-			categories = categories.filter(Resource.DivId != notDivId)
-
-		categories = categories.order_by(Res_category.ResCatVisibleIndex.asc()).all()
 		res = {
 			"status": 1,
 			"message": "All categories",
