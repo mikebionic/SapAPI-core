@@ -58,6 +58,7 @@ def api_rp_accs():
 			rp_accs = rp_accs.filter_by(DivId = DivId)
 		if DivGuid:
 			rp_accs = rp_accs\
+				.join(Division, Division.DivId == Rp_acc.DivId)\
 				.filter(Division.DivGuid == DivGuid)
 		if notDivId:
 			rp_accs = rp_accs.filter(Rp_acc.DivId != notDivId)

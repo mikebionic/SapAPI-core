@@ -160,7 +160,7 @@ def api_division():
 							GCRecord = None)\
 						.first()
 					if division:
-						division['DivId'] = division.DivId
+						division_info['DivId'] = division.DivId
 						division.update(**division_info)
 					else:
 						division = Division(**division_info)
