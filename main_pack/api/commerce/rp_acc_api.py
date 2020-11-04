@@ -4,6 +4,7 @@ from flask import current_app
 from datetime import datetime, timedelta
 import dateutil.parser
 from sqlalchemy import and_
+from sqlalchemy.orm import joinedload
 
 from main_pack import db
 from main_pack.api.commerce import api
@@ -48,12 +49,16 @@ def api_rp_accs():
 		DivGuid = request.args.get("DivGuid",None,type=str)
 		notDivId = request.args.get("notDivId",None,type=int)
 		synchDateTime = request.args.get("synchDateTime",None,type=str)
-		rp_accs = Rp_acc.query.filter_by(GCRecord = None)
+		rp_accs = Rp_acc.query.filter_by(GCRecord = None)\
+			.options(
+				joinedload(Rp_acc.division),
+				joinedload(Rp_acc.company),
+				joinedload(Rp_acc.users))
 		if DivId:
 			rp_accs = rp_accs.filter_by(DivId = DivId)
 		if DivGuid:
 			rp_accs = rp_accs\
-				.join(Division,Division.DivGuid == DivGuid)
+				.filter(Division.DivGuid == DivGuid)
 		if notDivId:
 			rp_accs = rp_accs.filter(Rp_acc.DivId != notDivId)
 		if synchDateTime:
