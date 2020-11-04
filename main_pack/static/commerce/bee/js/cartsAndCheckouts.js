@@ -357,3 +357,15 @@ function addItemsToCart(formData,url,responseForm,listName){
 		}
 	})
 }
+
+
+$('body').delegate('.addToWishlist','click',function(){
+	$(this).hide();
+	ownerId = $(this).attr('ownerId');
+	addToWishlist(ownerId);
+})
+
+$('body').delegate('.removeFromWishlist','click',function(){
+	ownerId = $(this).attr('ownerId');
+	removeFromWishlist(ownerId);
+});

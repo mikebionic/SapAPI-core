@@ -42,7 +42,7 @@
 	</div>
 </div>
  
-<div class="product-section section mb-70">
+<div class="product-section section">
 	<div class="container">
 		<div class="row"> 
 			<div class="col-12">
@@ -55,7 +55,7 @@
 									<a href="{{url_for('commerce.v_grid',brand = brand.BrandId)}}" class="cat-block">
 										<figure>
 											<span>
-												<img loading="lazy" src="{{brand.FilePath if brand.FilePath}}" alt="Brand {{brand.BrandName}}" style="height: 100px; width: 100px;">
+												<img loading="lazy" src="{{brand.FilePath if brand.FilePath}}" alt="Brand {{brand.BrandName}}" style="height: 80%; width: 100px;">
 											</span>
 										</figure>
 										<h3 class="cat-block-title">{{brand.BrandName}}</h3>
@@ -185,7 +185,7 @@
 			</div><!-- Section Title End -->
 
 			<div class="col-12">
-				<div class="last_pr row">
+				<div class="last_pr row" style="display: flex;justify-content: center;">
 					{% for resource in Latest_resources %}
 						<div class="p_slider">
 							<div class="col-xl-3 col-lg-4 col-md-4 col-6 pb-30 pt-10" >
