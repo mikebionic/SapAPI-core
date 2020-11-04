@@ -171,7 +171,7 @@ class Config:
 	COMMERCE_LIST_VIEW_TITLE = "Category"
 	COMMERCE_GRID_VIEW_TITLE = "Category"
 	COMMERCE_SEARCH_VIEW_TITLE = "Search"
-	COMMERCE_SORT_VIEW_TITLE = "Filter"
+	COMMERCE_SORT_VIEW_TITLE = "Sort"
 
 	# set to False if you want to use unique COMMERCE_RESOURCE_VIEW_TITLE
 	RESOURCE_NAME_ON_TITLE = True
@@ -189,8 +189,8 @@ class Config:
 	# tag resources as new if they exist **amount** days
 	COMMERCE_RESOURCE_NEWNESS_DAYS = 10
 	# how many resources to show in rating view
-	TOP_RATED_RESOURCES_AMOUNT = 5
-	FEATURED_RESOURCE_AMOUNT = 5
+	TOP_RATED_RESOURCES_AMOUNT = 15
+	FEATURED_RESOURCE_AMOUNT = 15
 	RESOURCE_MAIN_PAGE_SHOW_QTY = 8
 	SMALLEST_RATING_VALUE_SHOW = 3.5
 
