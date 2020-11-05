@@ -12695,6 +12695,9 @@ ul.link-widget li {
     font-size: 20px;
     margin-right: 20px;
 }
+.cart-overlay{
+  height: -webkit-fill-available;
+}
 @media (min-width:1440px){
   .product-section .ee-product{
     width: 219px;
@@ -12897,3 +12900,8 @@ ul.link-widget li {
     transform: rotate(360deg);
   }
 }
+ @media only screen and (max-width: 2560px) {
+    .hero-item-two{
+      height: 435px;
+    }
+  }

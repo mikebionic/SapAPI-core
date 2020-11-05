@@ -293,6 +293,13 @@ $('.brands-slider').slick({
     nextArrow: '<button type="button" class="slick-next"><i class="icofont icofont-long-arrow-right"></i></button>',
     responsive: [
         {
+            breakpoint: 2700,
+
+            settings: {
+                slidesToShow: 8,
+            }
+        },
+        {
             breakpoint: 1600,
 
             settings: {

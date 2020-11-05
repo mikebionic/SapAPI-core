@@ -24,7 +24,7 @@
 }
 .footer-bottom-section{
     padding: 15px;
-    position: fixed;
+    /* position: fixed; */
     bottom: 0;
 }
 .main-sidebar .sidebar-brand {
@@ -1327,8 +1327,8 @@
 
 .profile-card .profile-image img {
     display: block;
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     margin: 0 auto
 }
@@ -6785,7 +6785,9 @@ textarea.textarea.is-button+.textarea-button button {
         padding: 40px 20px !important
     }
 }
-
+.section{
+    padding: 0 ;
+}
 a {
     color: #0023ff
 }
@@ -6794,7 +6796,7 @@ a {
 }
 .footer-section{
     padding: 0;
-    /* position: absolute; */
+    position: fixed;
     left: 0;
     bottom: 0;
 }
@@ -6803,4 +6805,7 @@ a {
     max-width: 100%;
     width: 100%;
     }
+}
+.shop-wrapper {
+    height: -webkit-fill-available;
 }
