@@ -62,7 +62,7 @@ def ui_cart():
 			response = jsonify({
 				"status": 'added',
 				"responseText": gettext('Product')+' '+gettext('successfully saved'),
-				"htmlData": render_template(Config.COMMERCE_TEMPLATES_FOLDER_PATH+"commerce/cartItemAppend.html",
+				"htmlData": render_template(f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/commerce/cartItemAppend.html",
 					**resData)
 				})
 		except Exception as ex:
@@ -87,7 +87,7 @@ def ui_cart():
 			response = jsonify({
 				"status": 'added',
 				"responseText": gettext('Product')+' '+gettext('successfully saved'),
-				"htmlData": render_template(Config.COMMERCE_TEMPLATES_FOLDER_PATH+"commerce/cartItemAppend.html",
+				"htmlData": render_template(f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/commerce/cartItemAppend.html",
 					**resData)
 				})
 		except Exception as ex:
@@ -116,7 +116,7 @@ def ui_cart_table():
 			response = jsonify({
 				"status": 'added',
 				"responseText": gettext('Product')+' '+gettext('successfully saved'),
-				"htmlData": render_template(Config.COMMERCE_TEMPLATES_FOLDER_PATH+"commerce/cartTableAppend.html",
+				"htmlData": render_template(f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/commerce/cartTableAppend.html",
 					**resData)
 				})
 		except Exception as ex:
@@ -142,7 +142,7 @@ def ui_cart_table():
 			response = jsonify({
 				"status": 'added',
 				"responseText": gettext('Product')+' '+gettext('successfully saved'),
-				"htmlData": render_template(Config.COMMERCE_TEMPLATES_FOLDER_PATH+"commerce/cartTableAppend.html",
+				"htmlData": render_template(f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/commerce/cartTableAppend.html",
 					**resData)
 				})
 		except Exception as ex:

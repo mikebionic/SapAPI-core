@@ -108,8 +108,7 @@ def collect_resources_query(
 	avoidQtyCheckup = 0,
 	showNullPrice = False,
 	DivId = None,
-	notDivId = None	
-	):
+	notDivId = None):
 	resource_filtering = {
 		"GCRecord": None,
 	}

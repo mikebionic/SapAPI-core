@@ -248,7 +248,8 @@ def collect_resource_paginate_info(
 		"current_sort": sort,
 		"sort_types": sort_types,
 		"category": category if category else None,
-		"brand": brand if brand else None
+		"brand": brand if brand else None,
+		"search": search if search else None
 	}
 
 	base_url_info = {

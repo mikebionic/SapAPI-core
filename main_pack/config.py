@@ -179,11 +179,10 @@ class Config:
 	# / view route titles configuration /
 
 	# templates file location configuration
-	# !!! Important to add forward slash "/"
-	COMMERCE_TEMPLATES_FOLDER_PATH = "/commerce/bee/"
-	# COMMERCE_TEMPLATES_FOLDER_PATH = "/commerce/main/"
+	COMMERCE_TEMPLATES_FOLDER_PATH = "/commerce/bee"
+	# COMMERCE_TEMPLATES_FOLDER_PATH = "/commerce/main"
 	
-	COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH = "/commerce/admin/"
+	COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH = "/commerce/admin"
 	# / templates file location configuration /
 
 	# tag resources as new if they exist **amount** days

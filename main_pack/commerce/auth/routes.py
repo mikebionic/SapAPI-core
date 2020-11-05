@@ -43,7 +43,7 @@ def login():
 			flash(lazy_gettext('Login Failed! Wrong email or password'),'danger')
 	
 	categoryData = UiCategoriesList()
-	return render_template(Config.COMMERCE_TEMPLATES_FOLDER_PATH+"auth/login.html",**categoryData,title=gettext('Login'), form=form)
+	return render_template(f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/auth/login.html",**categoryData,title=gettext('Login'), form=form)
 
 
 @bp.route("/logout")
@@ -64,7 +64,7 @@ def reset_request():
 		return redirect(url_for('commerce_auth.login'))
 	
 	categoryData = UiCategoriesList()
-	return render_template(Config.COMMERCE_TEMPLATES_FOLDER_PATH+"auth/reset_request.html",**categoryData,title=gettext('Reset Password'),form=form)
+	return render_template(f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/auth/reset_request.html",**categoryData,title=gettext('Reset Password'),form=form)
 
 
 @bp.route("/resetPassword/<token>",methods=['GET','POST'])
@@ -84,7 +84,7 @@ def reset_token(token):
 		return redirect(url_for('commerce_auth.login'))
 
 	categoryData = UiCategoriesList()
-	return render_template(Config.COMMERCE_TEMPLATES_FOLDER_PATH+"auth/reset_token.html",**categoryData,title=gettext('Reset Password'),form=form)
+	return render_template(f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/auth/reset_token.html",**categoryData,title=gettext('Reset Password'),form=form)
 
 
 @bp.route("/register",methods=['GET','POST'])
@@ -98,7 +98,7 @@ def register():
 		return redirect(url_for('commerce_auth.register'))
 
 	categoryData = UiCategoriesList()
-	return render_template(Config.COMMERCE_TEMPLATES_FOLDER_PATH+"auth/register_request.html",**categoryData,title=gettext('Register'),form=form)
+	return render_template(f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/auth/register_request.html",**categoryData,title=gettext('Register'),form=form)
 
 
 @bp.route("/register/<token>",methods=['GET','POST'])
@@ -178,4 +178,4 @@ def register_token(token):
 			return redirect(url_for('commerce_auth.register'))
 
 	categoryData = UiCategoriesList()
-	return render_template(Config.COMMERCE_TEMPLATES_FOLDER_PATH+"auth/register_token.html",**categoryData,title=gettext('Register'),form=form)
+	return render_template(f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/auth/register_token.html",**categoryData,title=gettext('Register'),form=form)

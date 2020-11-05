@@ -13,8 +13,7 @@ from main_pack.commerce.commerce.utils import (
 	UiBrandsList,
 	send_email_to_company)
 
-from main_pack.commerce.commerce.forms import SendEmailToCompanyForm																						
-# from main_pack.models.commerce.models import Resource
+from main_pack.commerce.commerce.forms import SendEmailToCompanyForm
 # / Resource and view /
 
 
@@ -33,21 +32,21 @@ def commerce():
 	}
 	sliders = slidersData()
 	categoriesData = UiCategoriesList()
-	return render_template(Config.COMMERCE_TEMPLATES_FOLDER_PATH+"commerce/commerce.html",
+	return render_template(f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/commerce/commerce.html",
 		**res,**categoriesData,**sliders,title=gettext(Config.COMMERCE_HOME_PAGE_TITLE))
 
 
 @bp.route(Config.COMMERCE_COLLECTION_VIEW)
 def collection():
 	categoriesData = UiCategoriesList()
-	return render_template(Config.COMMERCE_TEMPLATES_FOLDER_PATH+"commerce/collection.html",
+	return render_template(f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/commerce/collection.html",
 		**categoriesData,title=gettext(Config.COMMERCE_COLLECTION_VIEW_TITLE))
 
 
 @bp.route(Config.COMMERCE_ABOUT_PAGE)
 def about():
 	categoriesData = UiCategoriesList()
-	return render_template(Config.COMMERCE_TEMPLATES_FOLDER_PATH+"commerce/about.html",
+	return render_template(f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/commerce/about.html",
 		**categoriesData,title=gettext(Config.COMMERCE_ABOUT_PAGE_TITLE))
 
 
@@ -73,12 +72,12 @@ def contact():
 		'''
 		print(message)
 		send_email_to_company(message)
-	return render_template(Config.COMMERCE_TEMPLATES_FOLDER_PATH+"commerce/contact.html",
+	return render_template(f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/commerce/contact.html",
 		**categoriesData,form=form,title=gettext(Config.COMMERCE_CONTACTS_PAGE_TITLE))
 
 
 @bp.route(Config.COMMERCE_CART_VIEW)
 def cart():
 	categoriesData = UiCategoriesList()
-	return render_template(Config.COMMERCE_TEMPLATES_FOLDER_PATH+"commerce/cart.html",
+	return render_template(f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/commerce/cart.html",
 		**categoriesData,title=gettext(Config.COMMERCE_CART_VIEW_TITLE))

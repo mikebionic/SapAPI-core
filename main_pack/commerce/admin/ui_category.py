@@ -31,7 +31,7 @@ def ui_category_table():
 					"categoryId": newCategory.ResCatId,
 					"status": "created",
 					"responseText": gettext('Category')+' '+gettext('successfully saved'),
-					"htmlData":  render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"categoryAppend.html",category=newCategory)
+					"htmlData":  render_template(f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/categoryAppend.html",category=newCategory)
 					})
 			else:
 				thisCategory = Res_category.query.get(categoryId)
