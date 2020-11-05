@@ -3092,6 +3092,11 @@ img.mfp-img {
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   padding: 0 0.5px; }
+
+  @media only screen and (min-width: 1600px){
+  .tab-content .tab-pane.active {
+      padding: 0 22px;
+  }}
   @media only screen and (max-width: 767px) {
     .nav-tabs-seven {
       padding: 0; } }

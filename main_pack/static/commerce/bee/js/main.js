@@ -230,10 +230,31 @@ $('.product-slider-4').slick({
             }
         },
         {
-            breakpoint: 2600,
+            breakpoint: 1800,
 
             settings: {
-                slidesToShow: 5,
+                slidesToShow: 6,
+            }
+        },
+        {
+            breakpoint: 2700,
+
+            settings: {
+                slidesToShow: 9,
+            }
+        },
+        {
+            breakpoint: 2400,
+
+            settings: {
+                slidesToShow: 8,
+            }
+        },
+        {
+            breakpoint: 2000,
+
+            settings: {
+                slidesToShow: 7,
             }
         },
         {

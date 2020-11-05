@@ -14,15 +14,19 @@
     z-index: 10;
     transition: all .3s
 }
-.shop-wrapper{
-    height: 100%;
+.link-to-product{
+    height: 20vh;
+    width: 20vh;
 }
-
 .main-sidebar.is-pushed-mobile {
     -webkit-transform: translateX(-61px) !important;
     transform: translateX(-61px) !important
 }
-
+.footer-bottom-section{
+    padding: 15px;
+    position: fixed;
+    bottom: 0;
+}
 .main-sidebar .sidebar-brand {
     width: 80px;
     height: 80px;
@@ -1662,8 +1666,8 @@
 }
 
 .wishlist-card .wishlist .wishlist-item .item-wrapper img {
-    height: 20vh;
-    width: 20vh;
+    max-height: 100%;
+    max-width: 100%;
 }
 
 .wishlist-card .wishlist .wishlist-item .item-wrapper .product-info span:first-child {
@@ -6794,10 +6798,6 @@ a {
     left: 0;
     bottom: 0;
 }
-.section{
-    padding: 0;
-}
-
 @media screen and (min-width: 1472px){
  .container {
     max-width: 100%;
