@@ -61,11 +61,12 @@ class Config:
 	# MAIL CONFIGURATION
 	### testing ##
 	MAIL_SUPPRESS_SEND = False
-	# MAIL_DEBUG = True
+	MAIL_DEBUG = False
 	### / testing /
 	MAIL_SERVER = environ.get('MAIL_SERVER')
 	MAIL_PORT = environ.get('MAIL_PORT')
 	MAIL_USE_TLS = True
+	# MAIL_USE_SSL = False
 	MAIL_USERNAME = environ.get('MAIL_USERNAME')
 	MAIL_PASSWORD = environ.get('MAIL_PASSWORD')
 	# / MAIL CONFIGURATION /

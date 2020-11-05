@@ -37,7 +37,7 @@ from main_pack.base.apiMethods import fileToURL
 def profile():
 	categoryData = UiCategoriesList()
 	rpAcc = Rp_acc.query.filter_by(RpAccId = current_user.RpAccId).first()
-	avatar = url_for('static', filename=f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/shop_icons/no_photo.png") 
+	avatar = url_for('static', filename=f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/images/account-image-placeholder.png") 
 	if rpAcc:
 		image = Image.query\
 			.filter_by(RpAccId = rpAcc.RpAccId)\
@@ -130,7 +130,7 @@ def profile_edit():
 	if image:
 		avatar = fileToURL(file_type='image',file_size='S',file_name=image.FileName)
 	else:
-		avatar = url_for('static', filename=f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/shop_icons/no_photo.png") 
+		avatar = url_for('static', filename=f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/images/account-image-placeholder.png") 
 
 	categoryData = UiCategoriesList()
 	return render_template(f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/users/profile_edit.html",**categoryData,
