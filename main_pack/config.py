@@ -158,7 +158,7 @@ class Config:
 	# view route titles configuration
 	# Info to be displayed in html: <title>Home page</title>
 	# set to None if dont want to display anything 
-	COMMERCE_HOME_PAGE_TITLE = None
+	COMMERCE_HOME_PAGE_TITLE = environ.get('COMMERCE_HOME_PAGE_TITLE') if environ.get('COMMERCE_HOME_PAGE_TITLE') else "Main"
 	COMMERCE_ABOUT_PAGE_TITLE = "About us"
 	COMMERCE_COLLECTION_VIEW_TITLE = "Collection"
 	COMMERCE_CONTACTS_PAGE_TITLE = "Contact"

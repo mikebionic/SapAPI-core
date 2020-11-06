@@ -430,7 +430,7 @@ def apiResourceInfo(
 				resource_info["Sizes"] = List_Sizes if List_Sizes else []
 				resource_info["Barcode"] = List_Barcode if List_Barcode else []
 				resource_info["Brand"] = Brands_info if Brands_info else None
-				resource_info["Res_category"] = Related_Res_category_info if Related_Res_category_info else None
+				resource_info["Res_category"] = Res_category_info if Res_category_info else None
 				resource_info["Res_price"] = List_Res_price[0] if List_Res_price else None
 				resource_info["Res_total"] = List_Res_total[0] if List_Res_total else None
 				resource_info["Rating"] = List_Ratings if List_Ratings else []
