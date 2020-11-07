@@ -54,8 +54,18 @@ def logout():
 
 @bp.route("/resetPassword", methods=['GET','POST'])
 def reset_request():
+	categoryData = UiCategoriesList()
 	if current_user.is_authenticated:
-		return redirect(url_for('commerce.commerce'))
+		form = ResetPasswordForm()
+		if form.validate_on_submit():
+			hashed_password = bcrypt.generate_password_hash(form.password.data).decode()
+			current_user.UPass = hashed_password
+			db.session.commit()
+			flash(lazy_gettext('Your password has been updated!'),'success')
+			return redirect(url_for('commerce.commerce'))
+
+		return render_template(f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/auth/reset_token.html",**categoryData,title=gettext('Reset password'),form=form)
+
 	form = RequestResetForm()
 	if form.validate_on_submit():
 		user = Users.query.filter_by(UEmail=form.email.data).first()
@@ -63,14 +73,13 @@ def reset_request():
 		flash(lazy_gettext('An email has been sent with instructions to reset your password'),'info')
 		return redirect(url_for('commerce_auth.login'))
 	
-	categoryData = UiCategoriesList()
-	return render_template(f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/auth/reset_request.html",**categoryData,title=gettext('Reset Password'),form=form)
+	return render_template(f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/auth/reset_request.html",**categoryData,title=gettext('Reset password'),form=form)
 
 
 @bp.route("/resetPassword/<token>",methods=['GET','POST'])
 def reset_token(token):
-	if current_user.is_authenticated:
-		return redirect(url_for('commerce.commerce'))
+	# if current_user.is_authenticated:
+	# 	return redirect(url_for('commerce.commerce'))
 	user = Users.verify_reset_token(token)
 	if user is None:
 		flash(lazy_gettext('Token is invalid or expired'),'warning')
@@ -81,10 +90,11 @@ def reset_token(token):
 		user.UPass = hashed_password
 		db.session.commit()
 		flash(lazy_gettext('Your password has been updated!'),'success')
-		return redirect(url_for('commerce_auth.login'))
+		login_user(user)
+		return redirect(url_for('commerce.commerce'))
 
 	categoryData = UiCategoriesList()
-	return render_template(f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/auth/reset_token.html",**categoryData,title=gettext('Reset Password'),form=form)
+	return render_template(f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/auth/reset_token.html",**categoryData,title=gettext('Reset password'),form=form)
 
 
 @bp.route("/register",methods=['GET','POST'])
@@ -170,7 +180,8 @@ def register_token(token):
 			user.RpAccId = rp_acc.RpAccId
 			db.session.commit()
 			flash(f"{UName}, {lazy_gettext('your profile has been created!')}",'success')
-			return redirect(url_for('commerce_auth.login'))
+			login_user(user)
+			return redirect(url_for('commerce.commerce'))
 
 		except Exception as ex:
 			print(ex)
