@@ -166,6 +166,8 @@ def api_tbl_dk_resources():
 							UnitId = barcode_info["UnitId"]
 							ResId = thisResource.ResId
 							barcode_info["ResId"] = ResId
+							barcode_info["CId"] = CId
+							barcode_info["DivId"] = DivId
 							thisBarcode = Barcode.query\
 								.filter_by(
 									ResId = ResId,
