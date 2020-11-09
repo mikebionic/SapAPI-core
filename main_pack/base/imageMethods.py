@@ -1,8 +1,10 @@
+import os, sys, shutil
+import secrets
+from PIL import Image
+from datetime import datetime
+
 from flask import current_app
 from main_pack.config import Config
-import os, sys, shutil
-from PIL import Image
-import secrets
 
 def allowed_image(filename):
 	return '.' in filename and filename.rsplit('.', 1)[1].lower() in Config.ALLOWED_IMAGE_EXTENSIONS
@@ -77,8 +79,13 @@ def save_image(
 	savedImage = None,
 	module = "undefined",
 	id = "undefined",
-	apply_watermark = False):
-	random_hex = secrets.token_hex(Config.IMAGE_RANDOM_HEX_LENGTH)
+	apply_watermark = False,
+	image_name = None):
+	if (image_name and Config.USE_PROVIDED_IMAGE_FILENAME == True):
+		image_file_name = image_name
+	else:
+		image_file_name = secrets.token_hex(Config.IMAGE_RANDOM_HEX_LENGTH)
+
 	modulePath = os.path.join(str(module),str(id),'images')
 	sizeSpecificFullPath = None
 
@@ -89,12 +96,12 @@ def save_image(
 		saving_path = savedImage
 		image = Image.open(savedImage)
 		_, f_ext = os.path.splitext(image.filename)
-		FileName = random_hex + f_ext
+		FileName = image_file_name + f_ext
 
 	if imageForm:
 		# need to save the file to proceed compression and resizing if imageForm
 		_, f_ext = os.path.splitext(imageForm.filename)
-		FileName = random_hex + f_ext
+		FileName = image_file_name + f_ext
 		size = "dump"
 
 		sizeSpecificFullPath = os.path.join(current_app.root_path,'static',modulePath,size)
@@ -102,8 +109,8 @@ def save_image(
 		FilePath = os.path.join(modulePath,size,FileName)
 		saving_path = os.path.join(sizeSpecificFullPath,FileName)
 		imageForm.save(saving_path)
-		print('it was a form now saved into:')
-		print(saving_path)
+		# print('it was a form now saved into:')
+		# print(saving_path)
 
 	response = {
 		"FileName":FileName
@@ -118,8 +125,7 @@ def save_image(
 		try:
 			shutil.rmtree(sizeSpecificFullPath)
 		except Exception as ex:
-			print(ex)
-
+			print(f"{datetime.now()} | Image utils tree removing Exception: {ex}")
 	for image in resizing:
 		response[image]=resizing[image]
 	return response

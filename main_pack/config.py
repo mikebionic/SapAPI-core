@@ -120,22 +120,28 @@ class Config:
 	# PRICE_2_TEXT_CURRENCY = 'USD'
 	# PRICE_2_TEXT_CURRENCY = 'RUB'
 
+
+	# IMAGES CONFIGURATION 
 	# icon extentions and size
 	ALLOWED_ICON_EXTENSIONS = set(['png','jpg','jpeg','svg'])
 	ALLOWED_IMAGE_EXTENSIONS = set(['png','jpg','jpeg'])
 	MAX_CONTENT_LENGTH = 16 * 1024 * 1024
 	IMAGE_RANDOM_HEX_LENGTH = 14
 	ADD_RESOURCE_WATERMARK = True
+	USE_PROVIDED_IMAGE_FILENAME = False
 
 	# Extention to be saved to while blob synch
 	BLOB_TO_IMAGE_SAVE_EXT = "png"
+	# / IMAGES CONFIGURATION /
+
 
 	# cookies / security
 	# SESSION_COOKIE_SECURE=True,
 	# SESSION_COOKIE_HTTPONLY=True,
 	# SESSION_COOKIE_SAMESITE='Lax'
 
-	# view routes naming configuration
+
+	# VIEW AND ROUTES CONFIGURATION
 	# put the route names to be used to access the pages
 	COMMERCE_HOME_PAGE = "/commerce"
 	COMMERCE_ABOUT_PAGE = "/about"
@@ -153,7 +159,7 @@ class Config:
 	COMMERCE_GRID_VIEW = "/v-grid"
 	COMMERCE_SEARCH_VIEW = "/search"
 	COMMERCE_RESOURCE_VIEW = "/product"
-	# / view routes naming configuration /
+	# / VIEW AND ROUTES CONFIGURATION /
 
 	# view route titles configuration
 	# Info to be displayed in html: <title>Home page</title>
