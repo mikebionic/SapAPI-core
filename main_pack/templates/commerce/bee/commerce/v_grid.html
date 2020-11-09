@@ -67,7 +67,7 @@
 										<span class="label new">{{_('New')}}</span>
 									{% if resource.FilePathS %}
 										<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
-											<img loading="lazy" src="{{resource.FilePathS}}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
+											<img loading="lazy" src="{{resource.FilePathS}}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}" style="height: auto;">
 										</a>
 									{% else %}
 										<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img" style="height: auto;">
