@@ -12002,6 +12002,7 @@ ul.link-widget li {
   background: #000;
   left: 0;
     bottom: 0;
+    width: auto;
 }
 
 /*-- Footer Copyright --*/
@@ -12794,6 +12795,7 @@ ul.link-widget li {
   .big-image{
     margin-left: 100px;
     /* padding: 0 109px; */
+    height: 400px;
   } 
   
 }
@@ -12910,3 +12912,9 @@ ul.link-widget li {
     width: 52px;
   }
 }
+
+  @media only screen and (min-width: 10px) and (max-width: 319px){
+    .ee-product .image .add-to-cart {
+      left: 74%;
+    }
+  }
