@@ -109,13 +109,22 @@ def api_images():
 				try:
 					ResRegNo = image_req["ResRegNo"]
 					ResGuid = image_req["ResGuid"]
-
-					indexed_res_id = resource_ResId_list[resource_ResGuid_list.index(ResGuid)]
-					ResId = int(indexed_res_id)
+					if Config.USE_PROVIDED_IMAGE_FILENAME == True:
+						thisResource = Resource.query\
+							.filter_by(
+								ResGuid = ResGuid,
+								ResRegNo = ResRegNo,
+								GCRecord = None)\
+							.first()
+						image_req["FileName"] = thisResource.ResName
+						ResId = thisResource.ResId
+					else:
+						indexed_res_id = resource_ResId_list[resource_ResGuid_list.index(ResGuid)]
+						ResId = int(indexed_res_id)
 					image_req["ResId"] = ResId
 
 					imageDictData = addImageDict(image_req)
-					print(f"trying image of {ResRegNo} of resourceId {ResId}")
+					# print(f"trying image of {ResRegNo} of resourceId {ResId}")
 					ImgGuid = imageDictData['ImgGuid']
 					thisImage = Image.query\
 						.filter_by(
