@@ -127,11 +127,25 @@ class Config:
 	ALLOWED_IMAGE_EXTENSIONS = set(['png','jpg','jpeg'])
 	MAX_CONTENT_LENGTH = 16 * 1024 * 1024
 	IMAGE_RANDOM_HEX_LENGTH = 14
+
+	# Put a watermark layer on images
+	# (esure existence in '/web_config/watermark.png')
 	ADD_RESOURCE_WATERMARK = True
+
+	# Rename images to the data given in image_name
 	USE_PROVIDED_IMAGE_FILENAME = False
+	
+	# Types name of images to be written:
+	# 1 = ResName
+	# 2 = Barcode
+	PROVIDED_IMAGE_FILENAME_TYPE = 1
+
+	# Characters that are unable to use in FileName
+	FILENAME_INVALID_CHARACTERS = ['/', '\\', '"', ':', '*', '?', '<', '>', '|']
 
 	# Extention to be saved to while blob synch
 	BLOB_TO_IMAGE_SAVE_EXT = "png"
+
 	# / IMAGES CONFIGURATION /
 
 

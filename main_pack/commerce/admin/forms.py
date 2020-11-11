@@ -1,18 +1,20 @@
 from flask import flash
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField,FileAllowed
-from wtforms import (StringField,
-										PasswordField,
-										SubmitField,
-										BooleanField,
-										SelectField)
+from wtforms import (
+	StringField,
+	PasswordField,
+	SubmitField,
+	BooleanField,
+	SelectField)
 from wtforms.widgets import TextArea
-from wtforms.validators import (DataRequired,
-																Length,
-																Length,
-																Email,
-																EqualTo,
-																ValidationError)
+from wtforms.validators import (
+	DataRequired,
+	Length,
+	Length,
+	Email,
+	EqualTo,
+	ValidationError)
 from main_pack import babel,gettext,lazy_gettext
 
 from main_pack.models.users.models import Users,Rp_acc

@@ -7,12 +7,15 @@ from main_pack.models.users.models import Users
 from main_pack import babel,gettext,lazy_gettext
 
 class UpdateProfileForm(FlaskForm):
-	username = StringField(lazy_gettext('Username'),
-							validators=[DataRequired(),Length(min=2,max=40)])
-	fullname = StringField(lazy_gettext('Full name'),
-							validators=[DataRequired()])
-	picture = FileField(lazy_gettext('Update Profile Picture'),
-							validators=[FileAllowed(['jpg','png','img'])])
+	username = StringField(
+		lazy_gettext('Username'),
+		validators=[DataRequired(),Length(min=2,max=40)])
+	fullname = StringField(
+		lazy_gettext('Full name'),
+		validators=[DataRequired()])
+	picture = FileField(
+		lazy_gettext('Update Profile Picture'),
+		validators=[FileAllowed(['jpg','png','img'])])
 	submit = SubmitField(lazy_gettext('Update'))
 
 	def validate_username(self,username):
@@ -22,20 +25,27 @@ class UpdateProfileForm(FlaskForm):
 				raise ValidationError(lazy_gettext('That username is taken. Choose a different one!'))
 
 class UpdateRpAccForm(FlaskForm):
-	username = StringField(lazy_gettext('Username'),
-							validators=[DataRequired(),Length(min=2,max=60)])
-	fullname = StringField(lazy_gettext('Full name'),
-							validators=[DataRequired(),Length(min=2,max=100)])
-	address = StringField(lazy_gettext('Address'),
-							validators=[Length(max=255)])
-	mobilePhone = StringField(lazy_gettext('Mobile phone'),
-							validators=[DataRequired(),Length(min=2,max=100)])
-	homePhone = StringField(lazy_gettext('Home phone'),
-							validators=[Length(max=100)])
-	zipCode = StringField(lazy_gettext('Zip code'),
-							validators=[Length(max=100)])
-	picture = FileField(lazy_gettext('Update Profile Picture'),
-							validators=[FileAllowed(['jpg','png','img'])])
+	username = StringField(
+		lazy_gettext('Username'),
+		validators=[DataRequired(),Length(min=2,max=60)])
+	fullname = StringField(
+		lazy_gettext('Full name'),
+		validators=[DataRequired(),Length(min=2,max=100)])
+	address = StringField(
+		lazy_gettext('Address'),
+		validators=[Length(max=255)])
+	mobilePhone = StringField(
+		lazy_gettext('Mobile phone'),
+		validators=[DataRequired(),Length(min=2,max=100)])
+	homePhone = StringField(
+		lazy_gettext('Home phone'),
+		validators=[Length(max=100)])
+	zipCode = StringField(
+		lazy_gettext('Zip code'),
+		validators=[Length(max=100)])
+	picture = FileField(
+		lazy_gettext('Update Profile Picture'),
+		validators=[FileAllowed(['jpg','png','img'])])
 	submit = SubmitField(lazy_gettext('Update'))
 
 	def validate_username(self,username):

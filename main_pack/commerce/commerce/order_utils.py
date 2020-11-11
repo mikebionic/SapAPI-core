@@ -4,12 +4,32 @@ from main_pack.base.imageMethods import save_image,dirHandler
 from main_pack.models.commerce.models import Unit,Brand,Usage_status,Res_category,Res_type,Res_maker
 ####
 # used relationship
-from main_pack.models.commerce.models import (Barcode,Res_color,Res_size,Res_translations,Unit,Res_unit,
-	Res_price,Res_total,Res_trans_inv_line,Res_transaction,Rp_acc_resource,Sale_agr_res_price,Res_discount)
+from main_pack.models.commerce.models import (
+	Barcode,
+	Res_color,
+	Res_size,
+	Res_translations,
+	Unit,
+	Res_unit,
+	Res_price,
+	Res_total,
+	Res_trans_inv_line,
+	Res_transaction,
+	Rp_acc_resource,
+	Sale_agr_res_price,
+	Res_discount)
 
 # for invoices
-from main_pack.models.commerce.models import (Inv_line,Inv_line_det,Inv_line_det_type,
-	Inv_status,Inv_type,Invoice,Order_inv,Order_inv_line,Order_inv_type)
+from main_pack.models.commerce.models import (
+	Inv_line,
+	Inv_line_det,
+	Inv_line_det_type,
+	Inv_status,
+	Inv_type,
+	Invoice,
+	Order_inv,
+	Order_inv_line,
+	Order_inv_type)
 from main_pack.models.base.models import Currency
 from main_pack.models.commerce.models import Resource
 
