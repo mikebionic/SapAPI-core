@@ -75,14 +75,14 @@ def create_app(config_class=Config):
 	from main_pack.api.base import api as base_api
 	app.register_blueprint(base_api,url_prefix=api_url_prefix)
 
-	from main_pack.api.errors import api as errors_api
-	app.register_blueprint(errors_api,url_prefix=api_url_prefix)
-
 	from main_pack.api.commerce import api as commerce_api
 	app.register_blueprint(commerce_api,url_prefix=api_url_prefix)
 
 	from main_pack.api.users import api as users_api
 	app.register_blueprint(users_api,url_prefix=api_url_prefix)
+
+	from main_pack.errors import bp as errors_bp
+	app.register_blueprint(errors_bp)
 
 	csrf.exempt(auth_api)
 	csrf.exempt(base_api)
@@ -97,9 +97,6 @@ def create_app(config_class=Config):
 
 	from main_pack.commerce.commerce import bp as commerce_bp
 	app.register_blueprint(commerce_bp,url_prefix=commerce_url_prefix)
-
-	from main_pack.commerce.errors import bp as commerce_errors_bp
-	app.register_blueprint(commerce_errors_bp,url_prefix=commerce_url_prefix)
 
 	from main_pack.commerce.users import bp as commerce_users_bp
 	app.register_blueprint(commerce_users_bp,url_prefix=commerce_url_prefix)

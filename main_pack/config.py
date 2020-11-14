@@ -72,6 +72,7 @@ class Config:
 	# / MAIL CONFIGURATION /
 	
 	# #  Online Payment
+	# !!! Todo: Change order validation to payment validation
 	# URL for the service that will be used for payment check 
 	ORDER_VALIDATION_SERVICE_URL = environ.get('ORDER_VALIDATION_SERVICE_URL')
 	ORDER_VALIDATION_SERVICE_USERNAME = environ.get('ORDER_VALIDATION_SERVICE_USERNAME')
