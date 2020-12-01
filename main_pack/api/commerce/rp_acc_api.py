@@ -155,10 +155,10 @@ def api_rp_accs():
 
 					thisRpAcc = Rp_acc.query\
 						.filter_by(
-							RpAccRegNo = RpAccRegNo,
 							RpAccGuid = RpAccGuid,
 							GCRecord = None)\
 						.first()
+					# RpAccRegNo = RpAccRegNo,
 
 					if thisRpAcc:
 						rp_acc_info["RpAccId"] = thisRpAcc.RpAccId
