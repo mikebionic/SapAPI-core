@@ -6,16 +6,31 @@
 > JavaScript | jQuery | ReactJS
 
 ## Includes:
-+ Stable Web-Api
-+ Web Service for client applications
-+ Web-Admin UI
-+ Web-Client UI
-+ Modules support
-+ n18 language support
-+ File management and compression
-+ Security and crypting
-+ Relation database management
-+ Postgresql database support
+[x] Stable Web-Api
+[x] Web Service for client applications
+[x] Web-Admin UI
+[x] Web-Client UI
+[x] Modules support
+[x] n18 language support
+[x] File management and compression
+[x] Security and crypting
+[x] Relation database management
+[x] Postgresql database support
+[ ] Redis cache support
+[ ] Websockets support
+-----------------------------
+
+## TODO:
+
+[ ] Write admin client app
+[ ] Prevent 500 server errors
+[ ] Send Server errors by e-mail
+[ ] Reconfigure app and separate API with UI
+	[ ] Build separate Repo for API
+	[ ] Build separate Repo for UI
+	[ ] Rebuild a new repo for Flask-style app
+	[ ] Optimize app using NodeJs
+
 -----------------------------
 ## Installing
 **Install Python, Python-venv and pip3:**
