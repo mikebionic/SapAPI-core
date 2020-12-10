@@ -108,8 +108,7 @@ def collect_resources_query(
 	avoidQtyCheckup = 0,
 	showNullPrice = False,
 	DivId = None,
-	notDivId = None	
-	):
+	notDivId = None):
 	resource_filtering = {
 		"GCRecord": None,
 	}
@@ -431,7 +430,7 @@ def apiResourceInfo(
 				resource_info["Sizes"] = List_Sizes if List_Sizes else []
 				resource_info["Barcode"] = List_Barcode if List_Barcode else []
 				resource_info["Brand"] = Brands_info if Brands_info else None
-				resource_info["Res_category"] = Related_Res_category_info if Related_Res_category_info else None
+				resource_info["Res_category"] = Res_category_info if Res_category_info else None
 				resource_info["Res_price"] = List_Res_price[0] if List_Res_price else None
 				resource_info["Res_total"] = List_Res_total[0] if List_Res_total else None
 				resource_info["Rating"] = List_Ratings if List_Ratings else []
@@ -528,6 +527,7 @@ def apiOrderInvInfo(
 	invoice_list = None,
 	invoice_models = None,
 	invoices_only = False,
+	show_inv_line_resource = False,
 	rp_acc_user = None,
 	DivId = None,
 	notDivId = None):
@@ -627,6 +627,11 @@ def apiOrderInvInfo(
 						this_order_inv_line = order_inv_line.to_json_api()
 						this_order_inv_line["ResRegNo"] = order_inv_line.resource.ResRegNo if order_inv_line.resource else None
 						this_order_inv_line["ResGuid"] = order_inv_line.resource.ResGuid if order_inv_line.resource else None
+						if show_inv_line_resource:
+							resource_json = apiResourceInfo(
+								resource_list = [{"ResId": order_inv_line.resource.ResId}],
+								single_object = True)
+							this_order_inv_line["Resource"] = resource_json["data"]
 						order_inv_lines.append(this_order_inv_line)
 			
 				order_inv_info["Order_inv_lines"] = order_inv_lines

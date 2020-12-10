@@ -244,6 +244,7 @@ def api_v_order_invoices(user):
 	res = apiOrderInvInfo(
 		startDate = startDate,
 		endDate = endDate,
+		show_inv_line_resource = True,
 		rp_acc_user = current_user)
 	status_code = 200
 	response = make_response(jsonify(res),status_code)
@@ -293,6 +294,7 @@ def api_v_order_invoice(user,OInvRegNo):
 	res = apiOrderInvInfo(
 		invoice_list = invoice_list,
 		single_object = True,
+		show_inv_line_resource = True,
 		rp_acc_user = current_user)
 	if res['status'] == 1:
 		status_code = 200
