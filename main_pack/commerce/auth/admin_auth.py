@@ -36,7 +36,7 @@ def admin_login():
 				flash(lazy_gettext('Login Failed! Wrong username or password'),'danger')
 		else:
 			flash(lazy_gettext('Login Failed! Wrong username or password'),'danger')
-	return render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"admin_login.html",url_prefix=url_prefix,
+	return render_template(f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/admin_login.html",url_prefix=url_prefix,
 		title=gettext('Login'),form=form)
 
 @bp.route("/admin/logout")

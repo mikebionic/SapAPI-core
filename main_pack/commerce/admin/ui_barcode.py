@@ -30,7 +30,7 @@ def ui_barcode():
 				"barcodeId": newBarcode.BarcodeId,
 				"status": "created",
 				"responseText": gettext('Barcode')+' '+gettext('successfully saved'),
-				"htmlData":  render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"barcodeAppend.html",barcode=newBarcode)
+				"htmlData":  render_template(f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/barcodeAppend.html",barcode=newBarcode)
 				})
 		else:
 			try:
@@ -42,7 +42,7 @@ def ui_barcode():
 						"barcodeId": updateBarcode.BarcodeId,
 						"status": "updated",
 						"responseText": gettext('Barcode')+' '+gettext('successfully updated'),
-						"htmlData":  render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"barcodeAppend.html",barcode=updateBarcode)
+						"htmlData":  render_template(f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/barcodeAppend.html",barcode=updateBarcode)
 					})
 			except Exception as ex:
 				print(ex)

@@ -49,7 +49,7 @@ def ui_uploadImages():
 			filepath = image['filePath']
 			uploadedFiles.append({
 				"fileName": filename,
-				"htmlData": render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"imageAppend.html",
+				"htmlData": render_template(f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/imageAppend.html",
 					filename=filename,filepath=filepath),
 			})
 			success=True

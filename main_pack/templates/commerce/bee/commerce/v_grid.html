@@ -41,7 +41,9 @@
 									{% endfor %}
 								</select>
 							</div>
-							<input type="hidden" class="category_sort" value="{{category}}">
+							<input type="hidden" class="category_sort" value="{{ category if category else '' }}">
+							<input type="hidden" class="brand_sort" value="{{ brand if brand else '' }}">
+							<input type="hidden" class="search_sort" value="{{ search if search else '' }}">
 							<button class="applySortingBtn">{{_('Sort')}}</button>
 
 
@@ -54,16 +56,18 @@
 				</div>
 
 				<div class="shop-product-wrap grid row" style="display: flex; justify-content: center;">
+					{% if data == [] or data == null %}
+						{{_('Nothing found')}}
+					{% endif %}
 					{% for resource in data %}
 					<div class="p_slider">
 						<div class="col-xl-3 col-lg-4 col-md-4 col-6 pb-30 pt-10">
 							<div class="ee-product">
 								<div class="image">
-										<span class="label new">New</span>
-									<!-- <span class="label sale">sale</span> -->
+										<span class="label new">{{_('New')}}</span>
 									{% if resource.FilePathS %}
-										<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img" style="height: auto;">
-											<img loading="lazy" src="{{resource.FilePathS}}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
+										<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
+											<img loading="lazy" src="{{resource.FilePathS}}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}" style="height: auto;">
 										</a>
 									{% else %}
 										<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img" style="height: auto;">
@@ -127,15 +131,12 @@
 
 								<!-- Content -->
 								<div class="content">
-
 									<!-- Category & Title -->
 									<div class="head-content">
-
 										<div class="category-title">
 											<a href="#" class="cat">{{ resource.ResCatName }}</a>
 											<h5 class="title"><a href="{{ url_for('commerce.product',ResId=resource.ResId)}}">{{ resource.ResName }}</a></h5>
 										</div>
-
 										<h5 class="price">
 											<!-- <span class="old">$350</span> -->
 											<div class="priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue }}</div>
@@ -145,10 +146,7 @@
 
 									<div class="left-content">
 										<div class="ratting ratingStars" ownerId="{{ resource.ResId }}"></div>
-	<!-- 
-										<div class="desc">
-											<p class="descriptionText">{{ resource.ResFullDesc if resource.ResFullDesc else '' }}</p>
-										</div> -->
+
 										<div class="actions">
 											<a href="#" class="add-to-cart" ownerId="{{ resource.ResId }}">
 												<i class="ti-shopping-cart"></i>
@@ -207,6 +205,6 @@
 			</div>
 		</div>
 	</div>
-</div><!-- Feature Product Section End -->
+</div>
 
 {% endblock %}

@@ -35,7 +35,7 @@ def ui_res_translations():
 				"resTransId": newTranslation.ResTransId,
 				"status": "created",
 				"responseText": gettext('Translation')+' '+gettext('successfully saved'),
-				"htmlData":  render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"resTransAppend.html",**baseTemplate,resTrans=newTranslation)
+				"htmlData":  render_template(f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/resTransAppend.html",**baseTemplate,resTrans=newTranslation)
 				})
 		else:
 			try:
@@ -47,7 +47,7 @@ def ui_res_translations():
 						"resTransId": updateTranslation.ResTransId,
 						"status": "updated",
 						"responseText": gettext('Translation')+' '+gettext('successfully updated'),
-						"htmlData":  render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"resTransAppend.html",**baseTemplate,resTrans=updateTranslation)
+						"htmlData":  render_template(f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/resTransAppend.html",**baseTemplate,resTrans=updateTranslation)
 					})
 			except Exception as ex:
 				print(ex)

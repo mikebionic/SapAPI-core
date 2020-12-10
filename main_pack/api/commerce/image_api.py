@@ -18,7 +18,7 @@ from main_pack.api.auth.api_login import sha_required
 from main_pack.base.apiMethods import checkApiResponseStatus
 
 from main_pack.models.base.models import Image,Sl_image
-from main_pack.models.commerce.models import Resource
+from main_pack.models.commerce.models import Resource, Barcode
 
 
 def remove_image(file_type,file_name):
@@ -104,18 +104,35 @@ def api_images():
 			images = []
 			failed_images = []
 			for image_req in req:
-				image_info_to_return = image_req
-				image_info_to_return["Image"] = None
 				try:
 					ResRegNo = image_req["ResRegNo"]
 					ResGuid = image_req["ResGuid"]
+					if Config.USE_PROVIDED_IMAGE_FILENAME == True:
+						thisResource = Resource.query\
+							.filter_by(
+								ResGuid = ResGuid,
+								ResRegNo = ResRegNo,
+								GCRecord = None)\
+							.options(joinedload(Resource.Barcode))\
+							.first()
+						ResId = thisResource.ResId
+						barcode = thisResource.Barcode[0]
+						
+						if (Config.PROVIDED_IMAGE_FILENAME_TYPE == 1):
+							image_req["FileName"] = thisResource.ResName
+							if (len(list(filter(lambda n: n in image_req["FileName"], Config.FILENAME_INVALID_CHARACTERS))) > 0):
+								# barcode = Barcode.query.filter_by(ResId = ResId, GCRecord = None).first()
+								image_req["FileName"] = barcode.BarcodeVal
+						elif (Config.PROVIDED_IMAGE_FILENAME_TYPE == 2):
+							image_req["FileName"] = barcode.BarcodeVal
 
-					indexed_res_id = resource_ResId_list[resource_ResGuid_list.index(ResGuid)]
-					ResId = int(indexed_res_id)
+					else:
+						indexed_res_id = resource_ResId_list[resource_ResGuid_list.index(ResGuid)]
+						ResId = int(indexed_res_id)
 					image_req["ResId"] = ResId
 
 					imageDictData = addImageDict(image_req)
-					print(f"trying image of {ResRegNo} of resourceId {ResId}")
+					# print(f"trying image of {ResRegNo} of resourceId {ResId}")
 					ImgGuid = imageDictData['ImgGuid']
 					thisImage = Image.query\
 						.filter_by(
@@ -140,7 +157,8 @@ def api_images():
 							print(f"{datetime.now()} | Image updated (Different ModifiedDate)")
 						else:
 							print(f"{datetime.now()} | Image dropped (Same ModifiedDate)")
-						images.append(image_info_to_return)
+						image_req["Image"] = None
+						images.append(image_req)
 					else:
 						image_data = saveImageFile(image_req)
 						thisImage = Image(**image_data)
@@ -158,11 +176,13 @@ def api_images():
 							db.session.add(thisImage)
 							db.session.commit()
 						print(f"{datetime.now()} | Image created")
-						images.append(image_info_to_return)
+						image_req["Image"] = None
+						images.append(image_req)
 
 				except Exception as ex:
 					print(f"{datetime.now()} | Image Api Exception: {ex}")
-					failed_images.append(image_info_to_return)
+					image_req["Image"] = None
+					failed_images.append(image_req)
 
 			db.session.commit()
 			print(f"{datetime.now()} | Images were committed")

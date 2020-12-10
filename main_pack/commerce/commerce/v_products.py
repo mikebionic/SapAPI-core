@@ -47,9 +47,10 @@ def v_list():
 
 	categoryData = UiCategoriesList()
 	return render_template(
-		f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}commerce/v_list.html",
-		**categoryData,**pagination_info,
-		title=gettext(Config.COMMERCE_LIST_VIEW_TITLE))
+		f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/commerce/v_list.html",
+		**categoryData,
+		**pagination_info,
+		title = gettext(Config.COMMERCE_LIST_VIEW_TITLE))
 
 
 @bp.route(Config.COMMERCE_GRID_VIEW)
@@ -70,9 +71,10 @@ def v_grid():
 
 	categoryData = UiCategoriesList()
 	return render_template(
-		f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}commerce/v_grid.html",
-		**categoryData,**pagination_info,
-		title=gettext(Config.COMMERCE_GRID_VIEW_TITLE))
+		f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/commerce/v_grid.html",
+		**categoryData,
+		**pagination_info,
+		title = gettext(Config.COMMERCE_GRID_VIEW_TITLE))
 
 
 @bp.route(Config.COMMERCE_RESOURCE_VIEW+"/<int:ResId>")
@@ -95,57 +97,8 @@ def product(ResId):
 			title = resource["ResName"]	if resource["ResName"] else ''
 		except Exception as ex:
 			print(ex)
-	return render_template(Config.COMMERCE_TEMPLATES_FOLDER_PATH+"commerce/product.html",
-		**categoryData,resource=resource,
-		title=title)
-
-
-@bp.route(Config.COMMERCE_SEARCH_VIEW)
-def resources_grid_search():
-	tag = request.args.get("tag","",type=str)
-	# remove leading and trailing spaces
-	tag = tag.strip()
-	searching_tag = "%{}%".format(tag)
-	if tag == "" or len(tag) < 3:
-		return redirect(url_for('commerce.v_grid'))
-	barcodes = Barcode.query\
-		.filter(and_(
-			Barcode.GCRecord == None,\
-			Barcode.BarcodeVal.ilike(searching_tag)))\
-		.all()
-	
-	resources = Resource.query\
-		.filter(and_(
-			Resource.GCRecord == None,\
-			Resource.ResName.ilike(searching_tag),\
-			Resource.UsageStatusId == 1))\
-		.order_by(Resource.ResId.desc())\
-		.all()
-	
-	resource_ids = []
-	if barcodes:
-		for barcode in barcodes:
-			resource_ids.append(barcode.ResId)
-	for resource in resources:
-		resource_ids.append(resource.ResId)
-
-	# removes duplicates
-	resource_ids = list(set(resource_ids))
-	resource_ids = [ResId for ResId in resource_ids]
-
-	resources = Resource.query\
-		.filter_by(GCRecord = None, UsageStatusId = 1)\
-		.filter(Resource.ResId.in_(resource_ids))\
-		.join(Res_total, Res_total.ResId == Resource.ResId)\
-		.filter(and_(
-			Res_total.WhId == 1,
-			Res_total.ResTotBalance > 0))
-
-	res = apiResourceInfo(resource_query=resources)
-
-	categoryData = UiCategoriesList()
-	sortingData = uiSortingData()
-
-	return render_template(Config.COMMERCE_TEMPLATES_FOLDER_PATH+"commerce/v_search.html",
-		**categoryData,**sortingData,**res,searching_tag=tag,
-		title=gettext(Config.COMMERCE_SEARCH_VIEW_TITLE))
+	return render_template(
+		f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/commerce/product.html",
+		**categoryData,
+		resource = resource,
+		title = title)

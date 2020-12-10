@@ -42,7 +42,7 @@ def ui_sliders():
 					"sliderId": newSlider.SlId,
 					"status": "created",
 					"responseText": gettext('Slider')+' '+gettext('successfully saved'),
-					"htmlData":  render_template(Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH+"sliderAppend.html",slider=newSlider)
+					"htmlData":  render_template(f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/sliderAppend.html",slider=newSlider)
 				})
 			else:
 				print('updating')

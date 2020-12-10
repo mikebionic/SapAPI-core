@@ -290,10 +290,10 @@ def validate_order_inv_payment(user):
 					# if order isn't already paid
 					if order_inv.PaymStatusId != 2:
 						try:
-							r = requests.get(f"{Config.ORDER_VALIDATION_SERVICE_URL}?orderId={OrderId}&password={Config.ORDER_VALIDATION_SERVICE_PASSWORD}&userName={Config.ORDER_VALIDATION_SERVICE_USERNAME}")
+							r = requests.get(f"{Config.PAYMENT_VALIDATION_SERVICE_URL}?orderId={OrderId}&password={Config.PAYMENT_VALIDATION_SERVICE_PASSWORD}&userName={Config.PAYMENT_VALIDATION_SERVICE_USERNAME}")
 							response_json = json.loads(r.text)
 
-							if (str(response_json[Config.ORDER_VALIDATION_KEY]) == str(Config.ORDER_VALIDATION_VALUE)):
+							if (str(response_json[Config.PAYMENT_VALIDATION_KEY]) == str(Config.PAYMENT_VALIDATION_VALUE)):
 								PaymentAmount = int(response_json["Amount"])/100
 								order_inv.OInvPaymAmount = PaymentAmount
 								order_inv.InvStatId = 1
@@ -310,7 +310,7 @@ def validate_order_inv_payment(user):
 								order_inv.OInvPaymAmount = 0
 								order_inv.InvStatId = 14
 
-								message = f"Payment Validation: failed (OrderStatus = {response_json[Config.ORDER_VALIDATION_KEY]})"
+								message = f"Payment Validation: failed (OrderStatus = {response_json[Config.PAYMENT_VALIDATION_KEY]})"
 								print(f"{datetime.now()} | {message}")
 							
 							order_inv.AddInf5 = str(response_json)

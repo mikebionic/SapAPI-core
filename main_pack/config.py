@@ -61,22 +61,23 @@ class Config:
 	# MAIL CONFIGURATION
 	### testing ##
 	MAIL_SUPPRESS_SEND = False
-	# MAIL_DEBUG = True
+	MAIL_DEBUG = False
 	### / testing /
 	MAIL_SERVER = environ.get('MAIL_SERVER')
 	MAIL_PORT = environ.get('MAIL_PORT')
 	MAIL_USE_TLS = True
-	MAIL_USERNAME = environ.get('MAIL_USERNAME')
+	# MAIL_USE_SSL = False
+	MAIL_ADDRESS = environ.get('MAIL_ADDRESS')
 	MAIL_PASSWORD = environ.get('MAIL_PASSWORD')
 	# / MAIL CONFIGURATION /
 	
 	# #  Online Payment
 	# URL for the service that will be used for payment check 
-	ORDER_VALIDATION_SERVICE_URL = environ.get('ORDER_VALIDATION_SERVICE_URL')
-	ORDER_VALIDATION_SERVICE_USERNAME = environ.get('ORDER_VALIDATION_SERVICE_USERNAME')
-	ORDER_VALIDATION_SERVICE_PASSWORD = environ.get('ORDER_VALIDATION_SERVICE_PASSWORD')
-	ORDER_VALIDATION_KEY = environ.get('ORDER_VALIDATION_KEY')
-	ORDER_VALIDATION_VALUE = environ.get('ORDER_VALIDATION_VALUE')
+	PAYMENT_VALIDATION_SERVICE_URL = environ.get('PAYMENT_VALIDATION_SERVICE_URL')
+	PAYMENT_VALIDATION_SERVICE_USERNAME = environ.get('PAYMENT_VALIDATION_SERVICE_USERNAME')
+	PAYMENT_VALIDATION_SERVICE_PASSWORD = environ.get('PAYMENT_VALIDATION_SERVICE_PASSWORD')
+	PAYMENT_VALIDATION_KEY = environ.get('PAYMENT_VALIDATION_KEY')
+	PAYMENT_VALIDATION_VALUE = environ.get('PAYMENT_VALIDATION_VALUE')
 	
 	# # / Online Payment /
 
@@ -119,22 +120,42 @@ class Config:
 	# PRICE_2_TEXT_CURRENCY = 'USD'
 	# PRICE_2_TEXT_CURRENCY = 'RUB'
 
+
+	# IMAGES CONFIGURATION 
 	# icon extentions and size
 	ALLOWED_ICON_EXTENSIONS = set(['png','jpg','jpeg','svg'])
 	ALLOWED_IMAGE_EXTENSIONS = set(['png','jpg','jpeg'])
 	MAX_CONTENT_LENGTH = 16 * 1024 * 1024
 	IMAGE_RANDOM_HEX_LENGTH = 14
+
+	# Put a watermark layer on images
+	# (esure existence in '/web_config/watermark.png')
 	ADD_RESOURCE_WATERMARK = True
+
+	# Rename images to the data given in image_name
+	USE_PROVIDED_IMAGE_FILENAME = False
+	
+	# Types name of images to be written:
+	# 1 = ResName
+	# 2 = Barcode
+	PROVIDED_IMAGE_FILENAME_TYPE = 1
+
+	# Characters that are unable to use in FileName
+	FILENAME_INVALID_CHARACTERS = ['/', '\\', '"', ':', '*', '?', '<', '>', '|']
 
 	# Extention to be saved to while blob synch
 	BLOB_TO_IMAGE_SAVE_EXT = "png"
+
+	# / IMAGES CONFIGURATION /
+
 
 	# cookies / security
 	# SESSION_COOKIE_SECURE=True,
 	# SESSION_COOKIE_HTTPONLY=True,
 	# SESSION_COOKIE_SAMESITE='Lax'
 
-	# view routes naming configuration
+
+	# VIEW AND ROUTES CONFIGURATION
 	# put the route names to be used to access the pages
 	COMMERCE_HOME_PAGE = "/commerce"
 	COMMERCE_ABOUT_PAGE = "/about"
@@ -152,12 +173,12 @@ class Config:
 	COMMERCE_GRID_VIEW = "/v-grid"
 	COMMERCE_SEARCH_VIEW = "/search"
 	COMMERCE_RESOURCE_VIEW = "/product"
-	# / view routes naming configuration /
+	# / VIEW AND ROUTES CONFIGURATION /
 
 	# view route titles configuration
 	# Info to be displayed in html: <title>Home page</title>
 	# set to None if dont want to display anything 
-	COMMERCE_HOME_PAGE_TITLE = None
+	COMMERCE_HOME_PAGE_TITLE = environ.get('COMMERCE_HOME_PAGE_TITLE') if environ.get('COMMERCE_HOME_PAGE_TITLE') else "Main"
 	COMMERCE_ABOUT_PAGE_TITLE = "About us"
 	COMMERCE_COLLECTION_VIEW_TITLE = "Collection"
 	COMMERCE_CONTACTS_PAGE_TITLE = "Contact"
@@ -179,11 +200,10 @@ class Config:
 	# / view route titles configuration /
 
 	# templates file location configuration
-	# !!! Important to add forward slash "/"
-	COMMERCE_TEMPLATES_FOLDER_PATH = "/commerce/bee/"
-	# COMMERCE_TEMPLATES_FOLDER_PATH = "/commerce/main/"
+	COMMERCE_TEMPLATES_FOLDER_PATH = "/commerce/bee"
+	# COMMERCE_TEMPLATES_FOLDER_PATH = "/commerce/main"
 	
-	COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH = "/commerce/admin/"
+	COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH = "/commerce/admin"
 	# / templates file location configuration /
 
 	# tag resources as new if they exist **amount** days

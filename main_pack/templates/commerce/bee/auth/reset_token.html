@@ -1,46 +1,49 @@
 {% extends "commerce/bee/commerce/layout.html" %}
 
 {% block content %}
-	<div id="main-content" class="main-content">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-					<div class="signin-container">
-						<form action="#" name="frm-login" method="post">
-							{{ form.csrf_token() }}
-							<p class="form-row">
-								{% if form.password.errors %}
-									{{ form.password(class="txt-input is-invalid", placeholder=_('Password')) }}
-									<div class="invalid-feedback">
-										{% for error in form.password.errors %}
-										   <span>{{ error }}</span>
-										{% endfor %}
-									</div>
-								{% else %}
-									<label for="fid-name">{{_('Password')}}:<span class="requite">*</span></label>
-									{{ form.password(class="txt-input", placeholder=_('Password')) }}
-								{% endif %}
-							</p>
-							<p class="form-row">
-								{% if form.confirm_password.errors %}
-									{{ form.confirm_password(class="txt-input is-invalid", placeholder=_('Confirm password')) }}
-									<div class="invalid-feedback">
-										{% for error in form.confirm_password.errors %}
-										   <span>{{ error }}</span>
-										{% endfor %}
-									</div>
-								{% else %}
-									<label for="fid-name">{{_('Confirm password')}}:<span class="requite">*</span></label>
-									{{ form.confirm_password(class="txt-input", placeholder=_('Confirm password')) }}
-								{% endif %}
-							</p>
-							<p class="form-row wrap-btn">
-								{{ form.submit(class="btn btn-submit btn-bold") }}
-							</p>
-						</form>
-					</div>
+<div class="register-section section mt-90 mb-90">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-12 d-flex">
+				<div class="ee-register">
+					<h3>{{_('Reset password')}}</h3>
+					<form action="#" method="post">
+						{{ form.csrf_token() }}
+						<div class="row">
+							<div class="col-12 mb-30">
+								{{ form.password(class="txt-input", placeholder=_('Password')) }}
+								<span>
+									<i class="fa fa-eye" id="eye" onclick="toggle()"></i>
+								</span> 
+							</div>
+							{% if form.password.errors %}
+								<div class="col-12 mb-30">
+									{% for error in form.password.errors %}
+									   <span>{{ error }}</span>
+									{% endfor %}
+								</div>
+							{% endif %}
+							<div class="col-12 mb-30">
+								{{ form.confirm_password(class="txt-input", placeholder=_('Confirm password')) }}
+							</div>
+							{% if form.confirm_password.errors %}
+								<div class="col-12 mb-30">
+									{% for error in form.confirm_password.errors %}
+									   <span>{{ error }}</span>
+									{% endfor %}
+								</div>
+							{% endif %}
+							<div class="col-12">
+								<input type="submit">
+							</div>
+						</div>
+					</form>
 				</div>
+			</div>
+			<div class="col-md-1 col-12 d-flex">
+				<div class="login-reg-vertical-boder"></div>
 			</div>
 		</div>
 	</div>
+</div>
 {% endblock %}

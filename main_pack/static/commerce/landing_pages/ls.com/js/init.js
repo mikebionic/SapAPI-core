@@ -246,25 +246,24 @@ function arlo_tm_portfolio(){
 }
 
 function arlo_tm_projects() {
-	
 	"use strict";
-	
-	jQuery('.arlo_tm_portfolio_animation_wrap').each(function() {
-		jQuery(this).on('mouseenter', function() {
-			if (jQuery(this).data('title')) {
-				jQuery('.arlo_tm_portfolio_titles').html(jQuery(this).data('title') + '<span class="work__cat">' + jQuery(this).data('category') + '</span>');
-				jQuery('.arlo_tm_portfolio_titles').addClass('visible');
-			}
-
-			jQuery(document).on('mousemove', function(e) {
-				jQuery('.arlo_tm_portfolio_titles').css({
-					left: e.clientX - 10,
-					top: e.clientY + 25
-				});
-			});
-		}).on('mouseleave', function() {
-			jQuery('.arlo_tm_portfolio_titles').removeClass('visible');
+	$('body').delegate(
+		'.arlo_tm_portfolio_animation_wrap','mouseenter',function(){
+		if ($(this).data('title')) {
+			$('.arlo_tm_portfolio_titles').html($(this).data('title') + '<span class="work__cat">' + $(this).data('category') + '</span>');
+			$('.arlo_tm_portfolio_titles').addClass('visible');
+		}
+	});
+	$('body').delegate(
+		'.arlo_tm_portfolio_animation_wrap','mousemove',function(e){
+		$('.arlo_tm_portfolio_titles').css({
+			left: e.clientX - 10,
+			top: e.clientY + 25
 		});
+	});
+	$('body').delegate(
+		'.arlo_tm_portfolio_animation_wrap','mouseleave',function(){
+		$('.arlo_tm_portfolio_titles').removeClass('visible');
 	});
 }
 

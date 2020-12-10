@@ -56,6 +56,7 @@ def api_warehouses():
 			divisions = Division.query.filter_by(GCRecord = None).all()
 			division_DivId_list = [division.DivId for division in divisions]
 			division_DivGuid_list = [str(division.DivGuid) for division in divisions]
+			division_CId_list = [str(division.CId) for division in divisions]
 
 			warehouses = []
 			failed_warehouses = []
@@ -63,12 +64,14 @@ def api_warehouses():
 				try:
 					DivGuid = warehouse_req['DivGuid']
 					indexed_div_id = division_DivId_list[division_DivGuid_list.index(DivGuid)]
+					indexed_c_id = division_CId_list[division_DivGuid_list.index(DivGuid)]
 					if not indexed_div_id:
 						raise Exception
 					DivId = int(indexed_div_id)
 
 					warehouse_info = addWarehouseDict(warehouse_req)
 					warehouse_info['DivId'] = DivId
+					warehouse_info['CId'] = CId
 					warehouse = Warehouse.query\
 						.filter_by(
 							WhGuid = warehouse_info['WhGuid'])\

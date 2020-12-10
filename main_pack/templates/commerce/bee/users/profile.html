@@ -13,7 +13,7 @@
           <div class="column is-10 is-offset-1 is-tablet-landscape-padded">
             <div class="account-title">
               <h2>{{_('Profile')}}</h2>
-              <img class="brand-filigrane" src="{{ url_for('static', filename='commerce/main/images/logo/sap hasap grey.svg')}}" alt="">
+              <img class="brand-filigrane" src="{{ url_for('static', filename='commerce/main/images/logo/sap_cozgut_grey.svg')}}" alt="">
             </div>
             <div class="tabs account-tabs">
               <ul>
@@ -32,6 +32,9 @@
                     <div class="username has-text-centered">
                       <span>{{rpAcc.RpAccName}}</span>
                       <small>{{_('Registered date')}}: {{rpAcc.CreatedDate.strftime('%d-%m-%Y') if rpAcc.CreatedDate else ''}}</small>
+                    </div>
+                    <div class="has-text-centered">
+                      <a href="{{ url_for('commerce_auth.reset_request') }}" class="button">{{_('Reset password')}}</a>
                     </div>
                   </div>
                 </div>
@@ -76,7 +79,7 @@
                       </div>
                     </div>
                   </div>
-                  <img class="card-bg" src="{{ url_for('static', filename='commerce/main/images/logo/sap hasap grey.svg')}}">
+                  <img class="card-bg" src="{{ url_for('static', filename='commerce/main/images/logo/sap_cozgut_grey.svg')}}">
                 </div>
               </div>
             </div>

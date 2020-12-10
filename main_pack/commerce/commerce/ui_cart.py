@@ -29,6 +29,7 @@ from main_pack.models.users.models import Users, Rp_acc
 
 # Invoices
 from main_pack.api.commerce.commerce_utils import UiCartResourceData
+from main_pack.models.base.models import Warehouse
 from main_pack.models.commerce.models import (
 	Resource,
 	Order_inv,
@@ -62,7 +63,7 @@ def ui_cart():
 			response = jsonify({
 				"status": 'added',
 				"responseText": gettext('Product')+' '+gettext('successfully saved'),
-				"htmlData": render_template(Config.COMMERCE_TEMPLATES_FOLDER_PATH+"commerce/cartItemAppend.html",
+				"htmlData": render_template(f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/commerce/cartItemAppend.html",
 					**resData)
 				})
 		except Exception as ex:
@@ -87,7 +88,7 @@ def ui_cart():
 			response = jsonify({
 				"status": 'added',
 				"responseText": gettext('Product')+' '+gettext('successfully saved'),
-				"htmlData": render_template(Config.COMMERCE_TEMPLATES_FOLDER_PATH+"commerce/cartItemAppend.html",
+				"htmlData": render_template(f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/commerce/cartItemAppend.html",
 					**resData)
 				})
 		except Exception as ex:
@@ -116,7 +117,7 @@ def ui_cart_table():
 			response = jsonify({
 				"status": 'added',
 				"responseText": gettext('Product')+' '+gettext('successfully saved'),
-				"htmlData": render_template(Config.COMMERCE_TEMPLATES_FOLDER_PATH+"commerce/cartTableAppend.html",
+				"htmlData": render_template(f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/commerce/cartTableAppend.html",
 					**resData)
 				})
 		except Exception as ex:
@@ -142,7 +143,7 @@ def ui_cart_table():
 			response = jsonify({
 				"status": 'added',
 				"responseText": gettext('Product')+' '+gettext('successfully saved'),
-				"htmlData": render_template(Config.COMMERCE_TEMPLATES_FOLDER_PATH+"commerce/cartTableAppend.html",
+				"htmlData": render_template(f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/commerce/cartTableAppend.html",
 					**resData)
 				})
 		except Exception as ex:

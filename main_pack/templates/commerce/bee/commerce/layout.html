@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   {% if title %}
-  <title>{{_('Commerce')}} - {{title}}</title>
+  <title>{{title}}</title>
   {% else %}
   <title>{{_('Commerce')}}</title>
   {% endif %}
@@ -43,8 +43,8 @@
         <div class="col order-12 order-xs-12 order-lg-2 mt-10 mb-10">
           <!-- Header Advance Search Start -->
           <div class="header-advance-search">
-            <form action="{{ url_for('commerce.resources_grid_search') }}">
-              <div class="input"><input type="text" name="tag" placeholder="{{_('Search')}}"></div>
+            <form action="{{url_for('commerce.v_grid')}}">
+              <div class="input"><input type="text" name="search" placeholder="{{_('Search')}}"></div>
               <div class="submit"><button><i class="icofont icofont-search-alt-1"></i></button></div>
             </form>
 
@@ -153,7 +153,7 @@
               <ul>
                 <li><a href="{{ url_for('commerce.commerce')}}">{{_('Main')}}</a></li>
                 <li><a href="{{ url_for('commerce.v_grid') }}">{{_('Products')}}</a></li>
-                <li><a href="{{ url_for('commerce.about') }}">{{_('About us')}}</a></li>
+                <li><a href="#">{{_('About us')}}</a></li>
                 <li><a href="{{ url_for('commerce.contact') }}">{{_('Contact')}}</a></li>
               </ul>
             </nav>

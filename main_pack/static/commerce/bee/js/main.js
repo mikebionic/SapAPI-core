@@ -230,10 +230,31 @@ $('.product-slider-4').slick({
             }
         },
         {
-            breakpoint: 2600,
+            breakpoint: 1800,
 
             settings: {
-                slidesToShow: 5,
+                slidesToShow: 6,
+            }
+        },
+        {
+            breakpoint: 2700,
+
+            settings: {
+                slidesToShow: 9,
+            }
+        },
+        {
+            breakpoint: 2400,
+
+            settings: {
+                slidesToShow: 8,
+            }
+        },
+        {
+            breakpoint: 2000,
+
+            settings: {
+                slidesToShow: 7,
             }
         },
         {
@@ -271,6 +292,13 @@ $('.brands-slider').slick({
     prevArrow: '<button type="button" class="slick-prev"><i class="icofont icofont-long-arrow-left"></i></button>',
     nextArrow: '<button type="button" class="slick-next"><i class="icofont icofont-long-arrow-right"></i></button>',
     responsive: [
+        {
+            breakpoint: 2700,
+
+            settings: {
+                slidesToShow: 8,
+            }
+        },
         {
             breakpoint: 1600,
 
@@ -801,7 +829,12 @@ $('body').delegate('.applySortingBtn','click',function(){
     var per_page = $('.per_page option:selected').val();
     var sorting = $('.sorting option:selected').val();
     var category =  $('.category_sort').val();
-    url = url+"?per_page="+per_page+"&sort="+sorting+"&category="+category;
+    var brand =  $('.brand_sort').val();
+    var search =  $('.search_sort').val();
+    url = url+"?per_page="+per_page+"&sort="+sorting;
+    if (category > ""){ url += "&category="+category; }
+    if (brand > ""){ url += "&brand="+brand; }
+    if (search > ""){ url += "&search="+search; }
     window.location.href = url;
 })
 
