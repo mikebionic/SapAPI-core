@@ -313,7 +313,7 @@ def validate_order_inv_payment(user):
 								message = f"Payment Validation: failed (OrderStatus = {response_json[Config.PAYMENT_VALIDATION_KEY]})"
 								print(f"{datetime.now()} | {message}")
 							
-							order_inv.AddInf5 = str(response_json)
+							order_inv.PaymCode = str(response_json)
 							db.session.commit()
 							data = response_json
 							status = 1
@@ -323,7 +323,7 @@ def validate_order_inv_payment(user):
 							print(f"{datetime.now()} | Payment Validation Exception: {ex}")
 
 							req["message"] = message
-							order_inv.AddInf5 = str(req)
+							order_inv.PaymCode = str(req)
 							order_inv.InvStatId = 14
 							db.session.commit()
 

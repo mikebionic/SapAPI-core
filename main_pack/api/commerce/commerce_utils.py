@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import jsonify,request,abort,make_response
+from flask import jsonify,request,abort,make_response,session
 from main_pack.config import Config
 from main_pack import db
 
@@ -20,6 +20,7 @@ from main_pack.models.base.models import Company, Division, Warehouse, Image
 from main_pack.models.commerce.models import (
 	Resource,
 	Res_price,
+	Res_price_group,
 	Res_total,
 	Res_category,
 	Wish,
@@ -186,6 +187,7 @@ def apiResourceInfo(
 	showInactive = False,
 	fullInfo = False,
 	user = None,
+	ResPriceGroupId = None,
 	resource_models = None,
 	resource_query = None,
 	showRelated = False,
@@ -198,6 +200,7 @@ def apiResourceInfo(
 	colors = Color.query.filter_by(GCRecord = None).all()
 	sizes = Size.query.filter_by(GCRecord = None).all()
 	currencies = Currency.query.filter_by(GCRecord = None).all()
+	res_price_groups = Res_price_group.query.filter_by(GCRecord = None).all()
 	# return wishlist info for authenticated user
 	if current_user.is_authenticated:
 		user = current_user
@@ -207,6 +210,17 @@ def apiResourceInfo(
 		wishes = Wish.query\
 			.filter_by(GCRecord = None, RpAccId = RpAccId)\
 			.all()
+
+	# ResPriceGroupId assignment and validation
+	if not ResPriceGroupId:
+		session["ResPriceGroupId"] = 4
+		if "ResPriceGroupId" in session:
+			ResPriceGroupId = session["ResPriceGroupId"]
+			print("Found session")
+		elif current_user.is_authenticated:
+			ResPriceGroupId = current_user.ResPriceGroupId if current_user.ResPriceGroupId else None
+			print("found current user")
+
 
 	if not resource_models:
 		resource_models = []
@@ -318,7 +332,45 @@ def apiResourceInfo(
 			Res_category_info = resource_query.Resource.res_category.to_json_api() if resource_query.Resource.res_category else None
 			
 			List_Barcode = [barcode.to_json_api() for barcode in resource_query.Resource.Barcode if barcode.GCRecord == None]
-			List_Res_price = [res_price.to_json_api() for res_price in resource_query.Resource.Res_price if res_price.ResPriceTypeId == 2 and res_price.GCRecord == None]
+
+			List_Res_price = []
+			if not ResPriceGroupId:
+				print("no res price group")
+				List_Res_price = [res_price.to_json_api() 
+					for res_price in resource_query.Resource.Res_price
+					if res_price.ResPriceTypeId == 2
+					and res_price.GCRecord == None]
+
+			if ResPriceGroupId:
+				# find Res_price with provided ResPriceGroupId
+				List_Res_price = [res_price.to_json_api() 
+					for res_price in resource_query.Resource.Res_price 
+					if res_price.ResPriceTypeId == 2 
+					and res_price.ResPriceGroupId == ResPriceGroupId
+					and res_price.GCRecord == None]
+
+				if not List_Res_price:
+					thisPriceGroupList = [priceGroup for priceGroup in res_price_groups if priceGroup.ResPriceGroupId == ResPriceGroupId]
+					if thisPriceGroupList:
+						if not thisPriceGroupList[0].ResPriceGroupAMEnabled:
+							print("enabled false")
+							raise Exception
+
+						FromResPriceTypeId = thisPriceGroupList[0].FromResPriceTypeId
+						ResPriceGroupAMPerc = thisPriceGroupList[0].ResPriceGroupAMPerc
+
+						List_Res_price = [res_price.to_json_api() 
+							for res_price in resource_query.Resource.Res_price 
+							if res_price.ResPriceTypeId == FromResPriceTypeId
+							and res_price.GCRecord == None]
+
+						if not List_Res_price:
+							raise Exception
+
+						CalculatedPriceValue = float(List_Res_price[0]["ResPriceValue"]) + (float(List_Res_price[0]["ResPriceValue"]) * float(ResPriceGroupAMPerc) / 100)
+						List_Res_price[0]["ResPriceValue"] = CalculatedPriceValue
+
+
 			try:
 				List_Currencies = [currency.to_json_api() for currency in currencies if currency.CurrencyId == List_Res_price[0]["CurrencyId"]]
 			except:
