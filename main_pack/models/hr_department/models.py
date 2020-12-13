@@ -10,6 +10,7 @@ class Employee(AddInf,CreatedModifiedInfo,db.Model):
 	EmpId = db.Column(db.Integer,nullable=False,primary_key=True)
 	EmpGuid = db.Column(UUID(as_uuid=True),unique=True)
 	CId = db.Column(db.Integer,db.ForeignKey("tbl_dk_company.CId"))
+	DivId = db.Column(db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
 	ContractTypeId = db.Column(db.Integer,db.ForeignKey("tbl_dk_contract_type.ContractTypeId"))
 	DeptId = db.Column(db.Integer,db.ForeignKey("tbl_dk_department.DeptId"))
 	ProfessionId = db.Column(db.Integer,db.ForeignKey("tbl_dk_profession.ProfessionId"))
@@ -59,6 +60,7 @@ class Employee(AddInf,CreatedModifiedInfo,db.Model):
 		json_employee = {
 			"empId": self.EmpId,
 			"company": self.CId,
+			"DivId": self.DivId,
 			"contractType": self.ContractTypeId,
 			"department": self.DeptId,
 			"profession": self.ProfessionId,

@@ -18,6 +18,7 @@ class Users(AddInf,CreatedModifiedInfo,db.Model,UserMixin):
 	UGuid = db.Column(UUID(as_uuid=True),unique=True)
 	CId = db.Column(db.Integer,db.ForeignKey("tbl_dk_company.CId"))
 	DivId = db.Column(db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
+	ResPriceGroupId = db.Column(db.Integer,db.ForeignKey("tbl_dk_res_price_group.ResPriceGroupId"))
 	RpAccId = db.Column(db.Integer)
 	UFullName = db.Column(db.String(100))
 	UName = db.Column(db.String(60),nullable=False)
@@ -71,6 +72,7 @@ class Users(AddInf,CreatedModifiedInfo,db.Model,UserMixin):
 			"CId": self.CId,
 			"DivId": self.DivId,
 			"RpAccId": self.RpAccId,
+			"ResPriceGroupId": self.ResPriceGroupId,
 			"UFullName": self.UFullName,
 			"UName": self.UName,
 			"UEmail": self.UEmail,
@@ -137,6 +139,7 @@ class Rp_acc(AddInf,CreatedModifiedInfo,db.Model):
 	NatId = db.Column(db.Integer,db.ForeignKey("tbl_dk_nationality.NatId"))
 	RpAccStatusId = db.Column(db.Integer,db.ForeignKey("tbl_dk_rp_acc_status.RpAccStatusId"))
 	ReprId = db.Column(db.Integer,db.ForeignKey("tbl_dk_representative.ReprId"))
+	ResPriceGroupId = db.Column(db.Integer,db.ForeignKey("tbl_dk_res_price_group.ResPriceGroupId"))
 	RpAccTypeId = db.Column(db.Integer,db.ForeignKey("tbl_dk_rp_acc_type.RpAccTypeId"))
 	WpId = db.Column(db.Integer,db.ForeignKey("tbl_dk_work_period.WpId"))
 	RpAccRegNo = db.Column(db.String(100),nullable=False)
@@ -197,6 +200,7 @@ class Rp_acc(AddInf,CreatedModifiedInfo,db.Model):
 			"NatId": self.NatId,
 			"RpAccStatusId": self.RpAccStatusId,
 			"ReprId": self.ReprId,
+			"ResPriceGroupId": self.ResPriceGroupId,
 			"RpAccTypeId": self.RpAccTypeId,
 			"WpId": self.WpId,			
 			"RpAccRegNo": self.RpAccRegNo,

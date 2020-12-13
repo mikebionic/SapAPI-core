@@ -1,4 +1,5 @@
 import sys
+import redis
 from os import environ, path
 from dotenv import load_dotenv
 
@@ -49,6 +50,14 @@ class Config:
 	# }
 	#
 	# # / Database bindings /
+
+
+	# # Sessions, Redis, Cache, Cookies
+	SESSION_TYPE = environ.get('SESSION_TYPE')
+	SESSION_REDIS = redis.from_url(environ.get('SESSION_REDIS'))
+
+	# # / Sessions, Redis, Cache, Cookies /
+
 
 	# modules url prefixes
 	API_URL_PREFIX = '/ls/api/'

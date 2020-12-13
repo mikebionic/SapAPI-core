@@ -2,6 +2,7 @@
 from flask import Flask,session,request
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+from flask_session import Session
 from babel import numbers,dates
 from datetime import date,datetime,time
 from main_pack.config import Config
@@ -15,8 +16,9 @@ babel = Babel()
 db = SQLAlchemy()
 # # if db_bindings present:
 # db_test = SQLAlchemy()
-bcrypt = Bcrypt()
 login_manager = LoginManager()
+sess = Session()
+bcrypt = Bcrypt()
 mail = Mail()
 csrf = CSRFProtect()
 
@@ -56,6 +58,7 @@ def create_app(config_class=Config):
 	babel.init_app(app)
 	mail.init_app(app)
 	csrf.init_app(app)
+	sess.init_app(app)
 	
 	# all models are separated in the models folder
 	from main_pack.models import bp as models_bp

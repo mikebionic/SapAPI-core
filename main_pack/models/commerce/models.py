@@ -268,6 +268,7 @@ class Usage_status(CreatedModifiedInfo,db.Model):
 	UsageStatusDesc_enUS = db.Column(db.String(500))
 	Resource = db.relationship('Resource',backref='usage_status',lazy=True)
 	Res_price_group = db.relationship('Res_price_group',backref='usage_status',lazy=True)
+	Res_price_rule = db.relationship('Res_price_rule',backref='usage_status',lazy=True)
 
 	def to_json_api(self):
 		json_usage_status = {
@@ -667,6 +668,8 @@ class Order_inv(AddInf,CreatedModifiedInfo,db.Model):
 	PtId = db.Column(db.Integer,db.ForeignKey("tbl_dk_payment_type.PtId"))
 	PmId = db.Column(db.Integer,db.ForeignKey("tbl_dk_payment_method.PmId"))
 	PaymStatusId = db.Column(db.Integer,db.ForeignKey("tbl_dk_payment_status.PaymStatusId"))
+	PaymCode = db.Column(db.String(500))
+	PaymDesc = db.Column(db.String(500))
 	OInvLatitude = db.Column(db.Float,default=0.0)
 	OInvLongitude = db.Column(db.Float,default=0.0)
 	OInvRegNo = db.Column(db.String(100),nullable=False,unique=True)
@@ -707,6 +710,8 @@ class Order_inv(AddInf,CreatedModifiedInfo,db.Model):
 			"PtId": self.PtId,
 			"PmId": self.PmId,
 			"PaymStatusId": self.PaymStatusId,
+			"PaymCode": self.PaymCode,
+			"PaymDesc": self.PaymDesc,
 			"OInvLatitude": self.OInvLatitude,
 			"OInvLongitude": self.OInvLongitude,
 			"OInvRegNo": self.OInvRegNo,
@@ -1053,6 +1058,7 @@ class Resource(AddInf,CreatedModifiedInfo,db.Model):
 	Res_transaction = db.relationship('Res_transaction',backref='resource',lazy=True)
 	Rp_acc_resource = db.relationship('Rp_acc_resource',backref='resource',lazy=True)
 	Sale_agr_res_price = db.relationship('Sale_agr_res_price',backref='resource',lazy=True)
+	Res_price_rule = db.relationship('Res_price_rule',backref='resource',lazy=True)
 	Res_discount = db.relationship('Res_discount',foreign_keys='Res_discount.SaleResId',backref='resource',lazy=True)
 	Res_discount = db.relationship('Res_discount',foreign_keys='Res_discount.GiftResId',backref='resource',lazy=True)
 	
@@ -1154,7 +1160,9 @@ class Res_category(CreatedModifiedInfo,db.Model):
 	ResCatDesc = db.Column(db.String(500),default='')
 	ResCatIconName = db.Column(db.String(100))
 	ResCatIconFilePath = db.Column(db.String(255))
+	ResCatIconData = db.Column(db.String(100000))
 	Resource = db.relationship('Resource',backref='res_category',lazy=True)
+	Image = db.relationship('Image',backref='res_category',lazy=True)
 	Translations = db.relationship('Translations',backref='res_category',lazy=True)
 
 	def update(self, **kwargs):
@@ -1183,6 +1191,7 @@ class Res_category(CreatedModifiedInfo,db.Model):
 			"ResCatDesc": self.ResCatDesc,
 			"ResCatIconName": self.ResCatIconName,
 			"ResCatIconFilePath": self.ResCatIconFilePath,
+			"ResCatIconData": self.ResCatIconData,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
 			"SyncDateTime": apiDataFormat(self.SyncDateTime),
@@ -1400,6 +1409,9 @@ class Res_price_group(CreatedModifiedInfo,db.Model):
 	RoundingType = db.Column(db.Integer,default=1)
 	Res_price = db.relationship('Res_price',backref='res_price_group',lazy=True)
 	Sale_card = db.relationship('Sale_card',backref='res_price_group',lazy=True)
+	Res_price_rule = db.relationship('Res_price_rule',backref='res_price_group',lazy=True)
+	Users = db.relationship('Users',backref='res_price_group',lazy=True)
+	Rp_acc = db.relationship('Rp_acc',backref='res_price_group',lazy=True)
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -1466,6 +1478,45 @@ class Res_price_type(AddInf,CreatedModifiedInfo,db.Model):
 			"GCRecord": self.GCRecord
 		}
 		return json_res_price_type
+
+
+class Res_price_rule(AddInf,CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_res_price_rule"
+	RprId = db.Column(db.Integer,nullable=False,primary_key=True)
+	UsageStatusId = db.Column(db.Integer,db.ForeignKey("tbl_dk_usage_status.UsageStatusId"))
+	ResId = db.Column(db.Integer,db.ForeignKey("tbl_dk_resource.ResId"))
+	ResPriceGroupId = db.Column(db.Integer,db.ForeignKey("tbl_dk_res_price_group.ResPriceGroupId"))
+	ResMinAmount = db.Column(db.Float)
+	ResMaxAmount = db.Column(db.Float)
+
+	def update(self, **kwargs):
+		for key, value in kwargs.items():
+			if value is not None:
+				if hasattr(self, key):
+					setattr(self, key, value)
+
+	def to_json_api(self):
+		json_res_price_rule={
+			"RprId": self.RprId,
+			"UsageStatusId": self.UsageStatusId,
+			"ResId": self.ResId,
+			"ResPriceGroupId": self.ResPriceGroupId,
+			"ResMinAmount": self.ResMinAmount,
+			"ResMaxAmount": self.ResMaxAmount,
+			"AddInf1": self.AddInf1,
+			"AddInf2": self.AddInf2,
+			"AddInf3": self.AddInf3,
+			"AddInf4": self.AddInf4,
+			"AddInf5": self.AddInf5,
+			"AddInf6": self.AddInf6,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
+		}
+		return json_res_price_rule
 
 
 class Res_total(CreatedModifiedInfo,db.Model):
@@ -2190,6 +2241,7 @@ class Production(AddInf,CreatedModifiedInfo,db.Model):
 	ProdTime = db.Column(db.Float)
 	ProdCostPrice = db.Column(db.Float)
 	Production_line = db.relationship('Production_line',backref='production',lazy=True)
+	Image = db.relationship('Image',backref='production',lazy=True)
 	Translations = db.relationship('Translations',backref='production',lazy=True)
 
 	def update(self, **kwargs):
@@ -2278,6 +2330,7 @@ class Rating(AddInf,CreatedModifiedInfo,db.Model):
 	EmpId = db.Column(db.Integer,db.ForeignKey("tbl_dk_employee.EmpId"))
 	RtRemark = db.Column(db.String(500),default='')
 	RtRatingValue = db.Column(db.Float,nullable=False,default=0)
+	RtValidated = db.Column(db.Boolean,default=False)
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -2296,6 +2349,7 @@ class Rating(AddInf,CreatedModifiedInfo,db.Model):
 			"EmpId": self.EmpId,
 			"RtRemark": self.RtRemark,
 			"RtRatingValue": self.RtRatingValue,
+			"RtValidated": self.RtValidated,
 			"AddInf1": self.AddInf1,
 			"AddInf2": self.AddInf2,
 			"AddInf3": self.AddInf3,

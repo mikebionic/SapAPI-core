@@ -16,7 +16,7 @@
 - [x] Security and crypting
 - [x] Relation database management
 - [x] Postgresql database support
-- [ ] Redis session support
+- [x] Redis session support
 - [ ] Redis db-cache support
 - [ ] Websockets support
 -----------------------------

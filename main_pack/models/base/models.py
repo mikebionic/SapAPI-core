@@ -215,6 +215,79 @@ class Company(AddInf,CreatedModifiedInfo,db.Model):
 		return json_company
 
 
+class Config(AddInf,CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_config"
+	CfId = db.Column(db.Integer,primary_key=True)
+	MainCfId = db.Column(db.Integer)
+	CfTypeId = db.Column(db.Integer,db.ForeignKey("tbl_dk_config_type.CfTypeId"))
+	CfGuid = db.Column(UUID(as_uuid=True))
+	CfName = db.Column(db.String(100),nullable=False)
+	CfDesc = db.Column(db.String(500))
+	CfIntVal = db.Column(db.Integer)
+	CfStringVal = db.Column(db.String(500))
+	
+	def update(self, **kwargs):
+		for key, value in kwargs.items():
+			if value is not None:
+				if hasattr(self, key):
+					setattr(self, key, value)
+
+	def to_json(self):
+		json_config = {
+			"CfId": self.CfId,
+			"MainCfId": self.MainCfId,
+			"CfTypeId": self.CfTypeId,
+			"CfGuid": self.CfGuid,
+			"CfName": self.CfName,
+			"CfDesc": self.CfDesc,
+			"CfIntVal": self.CfIntVal,
+			"CfStringVal": self.CfStringVal,
+			"AddInf1": self.AddInf1,
+			"AddInf2": self.AddInf2,
+			"AddInf3": self.AddInf3,
+			"AddInf4": self.AddInf4,
+			"AddInf5": self.AddInf5,
+			"AddInf6": self.AddInf6,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
+		}
+		return json_config
+
+
+class Config_type(CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_config_type"
+	CfTypeId = db.Column(db.Integer,primary_key=True)
+	CfTypeName_tkTM = db.Column(db.String(100))
+	CfTypeDesc_tkTM = db.Column(db.String(500))
+	CfTypeName_ruRU = db.Column(db.String(100))
+	CfTypeDesc_ruRU = db.Column(db.String(500))
+	CfTypeName_enUS = db.Column(db.String(100))
+	CfTypeDesc_enUS = db.Column(db.String(500))
+	Config = db.relationship('Config',backref='config_type',lazy=True)
+
+	def to_json(self):
+		json_configType = {
+			"CfTypeId": self.CfTypeId,
+			"CfTypeName_tkTM": self.CfTypeName_tkTM,
+			"CfTypeDesc_tkTM": self.CfTypeDesc_tkTM,
+			"CfTypeName_ruRU": self.CfTypeName_ruRU,
+			"CfTypeDesc_ruRU": self.CfTypeDesc_ruRU,
+			"CfTypeName_enUS": self.CfTypeName_enUS,
+			"CfTypeDesc_enUS": self.CfTypeDesc_enUS,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
+		}
+		return json_configType
+
+
 class Contact(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_contact"
 	ContId = db.Column(db.Integer,nullable=False,primary_key=True)
@@ -246,7 +319,13 @@ class Contact_type(CreatedModifiedInfo,db.Model):
 			"ContactTypeName_ruRU": self.ContactTypeName_ruRU,
 			"ContactTypeDesc_ruRU": self.ContactTypeDesc_ruRU,
 			"ContactTypeName_enUS": self.ContactTypeName_enUS,
-			"ContactTypeDesc_enUS": self.ContactTypeDesc_enUS
+			"ContactTypeDesc_enUS": self.ContactTypeDesc_enUS,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
 		}
 		return json_contactType
 
@@ -368,6 +447,7 @@ class Division(AddInf,CreatedModifiedInfo,db.Model):
 	Rating = db.relationship('Rating',backref='division',lazy=True)
 	Resource = db.relationship('Resource',backref='division',lazy=True)
 	Slider = db.relationship('Slider',backref='division',lazy=True)
+	Employee = db.relationship('Employee',backref='division',lazy=True)
 	
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -421,6 +501,8 @@ class Image(CreatedModifiedInfo,db.Model):
 	UId = db.Column(db.Integer,db.ForeignKey("tbl_dk_users.UId"))
 	RpAccId = db.Column(db.Integer,db.ForeignKey("tbl_dk_rp_acc.RpAccId"))
 	ResId = db.Column(db.Integer,db.ForeignKey("tbl_dk_resource.ResId"))
+	ResCatId = db.Column(db.Integer,db.ForeignKey("tbl_dk_res_category.ResCatId"))
+	ProdId = db.Column(db.Integer,db.ForeignKey("tbl_dk_production.ProdId"))
 	FileName = db.Column(db.String(100),default="")
 	FilePath = db.Column(db.String(255))
 	FileHash = db.Column(db.String(100))
@@ -463,6 +545,8 @@ class Image(CreatedModifiedInfo,db.Model):
 			"UId": self.UId,
 			"RpAccId": self.RpAccId,
 			"ResId": self.ResId,
+			"ResCatId": self.ResCatId,
+			"ProdId": self.ProdId,
 			"FileName": self.FileName,
 			"FilePath": fileToURL(file_type='image',file_size='M',file_name=self.FileName),
 			"FilePathS": fileToURL(file_type='image',file_size='S',file_name=self.FileName),
