@@ -26,6 +26,7 @@
 - [ ] Write admin client app
 - [ ] Prevent 500 server errors
 - [ ] Send Server errors by e-mail
+- [ ] Configure BCrypt usage toggler
 - [ ] Reconfigure app and separate API with UI
 	- [ ] Build separate Repo for API
 	- [ ] Build separate Repo for UI

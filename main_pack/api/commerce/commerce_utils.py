@@ -213,13 +213,12 @@ def apiResourceInfo(
 
 	# ResPriceGroupId assignment and validation
 	if not ResPriceGroupId:
-		session["ResPriceGroupId"] = 4
 		if "ResPriceGroupId" in session:
 			ResPriceGroupId = session["ResPriceGroupId"]
-			print("Found session")
+			# print("Found session")
 		elif current_user.is_authenticated:
 			ResPriceGroupId = current_user.ResPriceGroupId if current_user.ResPriceGroupId else None
-			print("found current user")
+			# print("found current user")
 
 
 	if not resource_models:
@@ -335,7 +334,7 @@ def apiResourceInfo(
 
 			List_Res_price = []
 			if not ResPriceGroupId:
-				print("no res price group")
+				# print("no res price group")
 				List_Res_price = [res_price.to_json_api() 
 					for res_price in resource_query.Resource.Res_price
 					if res_price.ResPriceTypeId == 2
@@ -353,7 +352,7 @@ def apiResourceInfo(
 					thisPriceGroupList = [priceGroup for priceGroup in res_price_groups if priceGroup.ResPriceGroupId == ResPriceGroupId]
 					if thisPriceGroupList:
 						if not thisPriceGroupList[0].ResPriceGroupAMEnabled:
-							print("enabled false")
+							# print("enabled false")
 							raise Exception
 
 						FromResPriceTypeId = thisPriceGroupList[0].FromResPriceTypeId
