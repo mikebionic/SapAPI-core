@@ -71,7 +71,7 @@ def api_checkout_sale_order_invoices(user):
 	if "ResPriceGroupId" in session:
 		ResPriceGroupId = session["ResPriceGroupId"]
 	elif current_user:
-		ResPriceGroupId = current_user["ResPriceGroupId"] if current_user["ResPriceGroupId"] else None
+		ResPriceGroupId = current_user.ResPriceGroupId if current_user.ResPriceGroupId else None
 
 	req = request.get_json()
 	req['orderInv']['OInvGuid'] = str(uuid.uuid4())

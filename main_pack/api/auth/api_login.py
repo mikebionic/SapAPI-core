@@ -64,7 +64,7 @@ def api_login_users():
 		exp = datetime.now() + dt.timedelta(minutes = 30)
 		token = jwt.encode({"UId": user.UId,"exp": exp}, Config.SECRET_KEY)
 		userData = apiUsersData(user.UId)
-		session['ResPriceGroupId'] = user.ResPriceGroupId
+		session["ResPriceGroupId"] = user.ResPriceGroupId
 		return jsonify({
 			"token": token.decode('UTF-8'),
 			"user": userData['data'],
@@ -93,7 +93,7 @@ def api_login_rp_accs():
 		exp = datetime.now() + dt.timedelta(minutes = 30)
 		token = jwt.encode({"RpAccId": rp_acc.RpAccId,"exp": exp}, Config.SECRET_KEY)
 		rpAccData = apiRpAccData(rp_acc.RpAccRegNo)
-		session['ResPriceGroupId'] = rp_acc.ResPriceGroupId
+		session["ResPriceGroupId"] = rp_acc.ResPriceGroupId
 		return jsonify({
 			"token": token.decode('UTF-8'),
 			"rp_acc": rpAccData['data'],
