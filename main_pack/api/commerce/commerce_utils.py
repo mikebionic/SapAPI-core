@@ -2,6 +2,7 @@
 from flask import jsonify,request,abort,make_response,session
 from main_pack.config import Config
 from main_pack import db
+import decimal
 
 # functions and methods
 from main_pack.base.apiMethods import checkApiResponseStatus,fileToURL
@@ -211,6 +212,7 @@ def apiResourceInfo(
 			.filter_by(GCRecord = None, RpAccId = RpAccId)\
 			.all()
 
+	print(session)
 	# ResPriceGroupId assignment and validation
 	if not ResPriceGroupId:
 		if "ResPriceGroupId" in session:
