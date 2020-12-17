@@ -7,34 +7,34 @@ from main_pack.models.base.models import CreatedModifiedInfo, AddInf
 
 class Employee(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_employee"
-	EmpId = db.Column(db.Integer,nullable=False,primary_key=True)
-	EmpGuid = db.Column(UUID(as_uuid=True),unique=True)
-	CId = db.Column(db.Integer,db.ForeignKey("tbl_dk_company.CId"))
-	DivId = db.Column(db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
-	ContractTypeId = db.Column(db.Integer,db.ForeignKey("tbl_dk_contract_type.ContractTypeId"))
-	DeptId = db.Column(db.Integer,db.ForeignKey("tbl_dk_department.DeptId"))
-	ProfessionId = db.Column(db.Integer,db.ForeignKey("tbl_dk_profession.ProfessionId"))
-	EmpStatId = db.Column(db.Integer,db.ForeignKey("tbl_dk_emp_status.EmpStatId"))
-	EmpRegNo = db.Column(db.String(128),nullable=False)
-	EmpName = db.Column(db.String(255),nullable=False)
-	EmpLastName = db.Column(db.String(50))
-	EmpFirstName = db.Column(db.String(50))
-	EmpPatronymic = db.Column(db.String(50))
-	GenderId = db.Column(db.Integer,db.ForeignKey("tbl_dk_gender.GenderId"))
-	EmpBirthDate = db.Column(db.DateTime(50))
-	EmpBirthPlace = db.Column(db.String(500))
-	EmpResidency = db.Column(db.String(500))
-	NatId = db.Column(db.Integer,db.ForeignKey("tbl_dk_nationality.NatId"))
-	EmpPassportNo = db.Column(db.String(30))
-	EmpPaspIssuePlace = db.Column(db.String(255))
-	EduLevelId = db.Column(db.Integer,db.ForeignKey("tbl_dk_edu_level.EduLevelId"))
-	EmpLangSkills = db.Column(db.String(500))
-	MobilePhoneNumber = db.Column(db.String(100))
-	HomePhoneNumber = db.Column(db.String(100))
-	WorkPhoneNumber = db.Column(db.String(100))
-	WorkFaxNumber = db.Column(db.String(100))
-	ZipCode = db.Column(db.String(100))
-	EMail = db.Column(db.String(100))
+	EmpId = db.Column("EmpId",db.Integer,nullable=False,primary_key=True)
+	EmpGuid = db.Column("EmpGuid",UUID(as_uuid=True),unique=True)
+	CId = db.Column("CId",db.Integer,db.ForeignKey("tbl_dk_company.CId"))
+	DivId = db.Column("DivId",db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
+	ContractTypeId = db.Column("ContractTypeId",db.Integer,db.ForeignKey("tbl_dk_contract_type.ContractTypeId"))
+	DeptId = db.Column("DeptId",db.Integer,db.ForeignKey("tbl_dk_department.DeptId"))
+	ProfessionId = db.Column("ProfessionId",db.Integer,db.ForeignKey("tbl_dk_profession.ProfessionId"))
+	EmpStatId = db.Column("EmpStatId",db.Integer,db.ForeignKey("tbl_dk_emp_status.EmpStatId"))
+	EmpRegNo = db.Column("EmpRegNo",db.String(128),nullable=False)
+	EmpName = db.Column("EmpName",db.String(255),nullable=False)
+	EmpLastName = db.Column("EmpLastName",db.String(50))
+	EmpFirstName = db.Column("EmpFirstName",db.String(50))
+	EmpPatronymic = db.Column("EmpPatronymic",db.String(50))
+	GenderId = db.Column("GenderId",db.Integer,db.ForeignKey("tbl_dk_gender.GenderId"))
+	EmpBirthDate = db.Column("EmpBirthDate",db.DateTime(50))
+	EmpBirthPlace = db.Column("EmpBirthPlace",db.String(500))
+	EmpResidency = db.Column("EmpResidency",db.String(500))
+	NatId = db.Column("NatId",db.Integer,db.ForeignKey("tbl_dk_nationality.NatId"))
+	EmpPassportNo = db.Column("EmpPassportNo",db.String(30))
+	EmpPaspIssuePlace = db.Column("EmpPaspIssuePlace",db.String(255))
+	EduLevelId = db.Column("EduLevelId",db.Integer,db.ForeignKey("tbl_dk_edu_level.EduLevelId"))
+	EmpLangSkills = db.Column("EmpLangSkills",db.String(500))
+	MobilePhoneNumber = db.Column("MobilePhoneNumber",db.String(100))
+	HomePhoneNumber = db.Column("HomePhoneNumber",db.String(100))
+	WorkPhoneNumber = db.Column("WorkPhoneNumber",db.String(100))
+	WorkFaxNumber = db.Column("WorkFaxNumber",db.String(100))
+	ZipCode = db.Column("ZipCode",db.String(100))
+	EMail = db.Column("EMail",db.String(100))
 	Contact = db.relationship('Contact',backref='employee',lazy=True)
 	Location = db.relationship('Location',backref='employee',lazy=True)
 	Award = db.relationship('Award',backref='employee',lazy=True)
@@ -135,11 +135,11 @@ class Employee(AddInf,CreatedModifiedInfo,db.Model):
 
 class Award(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_award"
-	AwardId = db.Column(db.Integer,nullable=False,primary_key=True)
-	EmpId = db.Column(db.Integer,db.ForeignKey("tbl_dk_employee.EmpId"))
-	AwardName = db.Column(db.String(100),nullable=False)
-	AwardDesc = db.Column(db.String(500))
-	AwardRecievedDate = db.Column(db.DateTime)
+	AwardId = db.Column("AwardId",db.Integer,nullable=False,primary_key=True)
+	EmpId = db.Column("EmpId",db.Integer,db.ForeignKey("tbl_dk_employee.EmpId"))
+	AwardName = db.Column("AwardName",db.String(100),nullable=False)
+	AwardDesc = db.Column("AwardDesc",db.String(500))
+	AwardRecievedDate = db.Column("AwardRecievedDate",db.DateTime)
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
 			if value is not None:
@@ -158,13 +158,13 @@ class Award(AddInf,CreatedModifiedInfo,db.Model):
 
 class Contract_type(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_contract_type"
-	ContractTypeId = db.Column(db.Integer,nullable=False,primary_key=True)
-	ContractTypeName_tkTM = db.Column(db.String(100))
-	ContractTypeDesc_tkTM = db.Column(db.String(100))
-	ContractTypeName_ruRU = db.Column(db.String(100))
-	ContractTypeDesc_ruRU = db.Column(db.String(100))
-	ContractTypeName_enUS = db.Column(db.String(100))
-	ContractTypeDesc_enUS = db.Column(db.String(100))
+	ContractTypeId = db.Column("ContractTypeId",db.Integer,nullable=False,primary_key=True)
+	ContractTypeName_tkTM = db.Column("ContractTypeName_tkTM",db.String(100))
+	ContractTypeDesc_tkTM = db.Column("ContractTypeDesc_tkTM",db.String(100))
+	ContractTypeName_ruRU = db.Column("ContractTypeName_ruRU",db.String(100))
+	ContractTypeDesc_ruRU = db.Column("ContractTypeDesc_ruRU",db.String(100))
+	ContractTypeName_enUS = db.Column("ContractTypeName_enUS",db.String(100))
+	ContractTypeDesc_enUS = db.Column("ContractTypeDesc_enUS",db.String(100))
 	Employee = db.relationship('Employee',backref='contract_type',lazy=True)
 	
 	def to_json(self):
@@ -182,13 +182,13 @@ class Contract_type(CreatedModifiedInfo,db.Model):
 
 class Edu_level(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_edu_level"
-	EduLevelId = db.Column(db.Integer,nullable=False,primary_key=True)
-	EduLevelName_tkTM = db.Column(db.String(100))#nullable??
-	EduLevelDesc_tkTM = db.Column(db.String(500))
-	EduLevelName_ruRU = db.Column(db.String(100))#
-	EduLevelDesc_ruRU = db.Column(db.String(500))
-	EduLevelName_enUS = db.Column(db.String(100))#
-	EduLevelDesc_enUS = db.Column(db.String(500))
+	EduLevelId = db.Column("EduLevelId",db.Integer,nullable=False,primary_key=True)
+	EduLevelName_tkTM = db.Column("EduLevelName_tkTM",db.String(100))#nullable??
+	EduLevelDesc_tkTM = db.Column("EduLevelDesc_tkTM",db.String(500))
+	EduLevelName_ruRU = db.Column("EduLevelName_ruRU",db.String(100))#
+	EduLevelDesc_ruRU = db.Column("EduLevelDesc_ruRU",db.String(500))
+	EduLevelName_enUS = db.Column("EduLevelName_enUS",db.String(100))#
+	EduLevelDesc_enUS = db.Column("EduLevelDesc_enUS",db.String(500))
 	Employee = db.relationship('Employee',backref='edu_level',lazy=True)
 
 	def to_json(self):
@@ -206,13 +206,13 @@ class Edu_level(CreatedModifiedInfo,db.Model):
 
 class Emp_status(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_emp_status"
-	EmpStatId = db.Column(db.Integer,nullable=False,primary_key=True)
-	EmpStatName_tkTM = db.Column(db.String(100))#,nullable=False)
-	EmpStatDesc_tkTM = db.Column(db.String(500))
-	EmpStatName_ruRU = db.Column(db.String(100))#,nullable=False)
-	EmpStatDesc_ruRU = db.Column(db.String(500))
-	EmpStatName_enUS = db.Column(db.String(100))#,nullable=False)
-	EmpStatDesc_enUS = db.Column(db.String(500))
+	EmpStatId = db.Column("EmpStatId",db.Integer,nullable=False,primary_key=True)
+	EmpStatName_tkTM = db.Column("EmpStatName_tkTM",db.String(100))#,nullable=False)
+	EmpStatDesc_tkTM = db.Column("EmpStatDesc_tkTM",db.String(500))
+	EmpStatName_ruRU = db.Column("EmpStatName_ruRU",db.String(100))#,nullable=False)
+	EmpStatDesc_ruRU = db.Column("EmpStatDesc_ruRU",db.String(500))
+	EmpStatName_enUS = db.Column("EmpStatName_enUS",db.String(100))#,nullable=False)
+	EmpStatDesc_enUS = db.Column("EmpStatDesc_enUS",db.String(500))
 	Employee = db.relationship('Employee',backref='emp_status',lazy=True)
 
 	def to_json(self):
@@ -230,13 +230,13 @@ class Emp_status(CreatedModifiedInfo,db.Model):
 
 class Nationality(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_nationality"
-	NatId = db.Column(db.Integer,nullable=False,primary_key=True)
-	NatName_tkTM = db.Column(db.String(50))#,nullable=False)
-	NatDesc_tkTM = db.Column(db.String(500))
-	NatName_ruRU = db.Column(db.String(50))#,nullable=False)
-	NatDesc_ruRU = db.Column(db.String(500))
-	NatName_enUS = db.Column(db.String(50))#,nullable=False)
-	NatDesc_enUS = db.Column(db.String(500))
+	NatId = db.Column("NatId",db.Integer,nullable=False,primary_key=True)
+	NatName_tkTM = db.Column("NatName_tkTM",db.String(50))#,nullable=False)
+	NatDesc_tkTM = db.Column("NatDesc_tkTM",db.String(500))
+	NatName_ruRU = db.Column("NatName_ruRU",db.String(50))#,nullable=False)
+	NatDesc_ruRU = db.Column("NatDesc_ruRU",db.String(500))
+	NatName_enUS = db.Column("NatName_enUS",db.String(50))#,nullable=False)
+	NatDesc_enUS = db.Column("NatDesc_enUS",db.String(500))
 	Employee = db.relationship('Employee',backref='nationality',lazy=True)
 	Rp_acc = db.relationship('Rp_acc',backref='nationality',lazy=True)
 
@@ -255,13 +255,13 @@ class Nationality(CreatedModifiedInfo,db.Model):
 
 class Profession(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_profession"
-	ProfessionId = db.Column(db.Integer,nullable=False,primary_key=True)
-	ProfessionName_tkTM = db.Column(db.String(50))#,nullable=False)
-	ProfessionDesc_tkTM = db.Column(db.String(500))
-	ProfessionName_ruRU = db.Column(db.String(50))#,nullable=False)
-	ProfessionDesc_ruRU = db.Column(db.String(500))
-	ProfessionName_enUS = db.Column(db.String(50))#,nullable=False)
-	ProfessionDesc_enUS = db.Column(db.String(500))
+	ProfessionId = db.Column("ProfessionId",db.Integer,nullable=False,primary_key=True)
+	ProfessionName_tkTM = db.Column("ProfessionName_tkTM",db.String(50))#,nullable=False)
+	ProfessionDesc_tkTM = db.Column("ProfessionDesc_tkTM",db.String(500))
+	ProfessionName_ruRU = db.Column("ProfessionName_ruRU",db.String(50))#,nullable=False)
+	ProfessionDesc_ruRU = db.Column("ProfessionDesc_ruRU",db.String(500))
+	ProfessionName_enUS = db.Column("ProfessionName_enUS",db.String(50))#,nullable=False)
+	ProfessionDesc_enUS = db.Column("ProfessionDesc_enUS",db.String(500))
 	Employee = db.relationship('Employee',backref='profession',lazy=True)
 
 	def to_json(self):
@@ -279,13 +279,13 @@ class Profession(CreatedModifiedInfo,db.Model):
 
 class Rel_status(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_rel_status"
-	RelStatId = db.Column(db.Integer,nullable=False,primary_key=True)
-	RelStatName_tkTM = db.Column(db.String(50))#,nullable=False)
-	RelStatDesc_tkTM = db.Column(db.String(500))
-	RelStatName_ruRU = db.Column(db.String(50))#,nullable=False)
-	RelStatDesc_ruRU = db.Column(db.String(500))
-	RelStatName_enUS = db.Column(db.String(50))#,nullable=False)
-	RelStatDesc_enUS = db.Column(db.String(500))
+	RelStatId = db.Column("RelStatId",db.Integer,nullable=False,primary_key=True)
+	RelStatName_tkTM = db.Column("RelStatName_tkTM",db.String(50))#,nullable=False)
+	RelStatDesc_tkTM = db.Column("RelStatDesc_tkTM",db.String(500))
+	RelStatName_ruRU = db.Column("RelStatName_ruRU",db.String(50))#,nullable=False)
+	RelStatDesc_ruRU = db.Column("RelStatDesc_ruRU",db.String(500))
+	RelStatName_enUS = db.Column("RelStatName_enUS",db.String(50))#,nullable=False)
+	RelStatDesc_enUS = db.Column("RelStatDesc_enUS",db.String(500))
 	Relatives = db.relationship('Relatives',backref='rel_status',lazy=True)
 
 	def to_json(self):
@@ -303,16 +303,16 @@ class Rel_status(CreatedModifiedInfo,db.Model):
 
 class Relatives(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_relatives"
-	RelId = db.Column(db.Integer,nullable=False,primary_key=True)
-	EmpId = db.Column(db.Integer,db.ForeignKey("tbl_dk_employee.EmpId"))
-	RelStatId = db.Column(db.Integer,db.ForeignKey("tbl_dk_rel_status.RelStatId"))
-	RelPersonName = db.Column(db.String(100),nullable=False)
-	GenderId = db.Column(db.Integer,db.ForeignKey("tbl_dk_gender.GenderId"))
-	RelBirthDate = db.Column(db.DateTime)
-	RelBirthPlace = db.Column(db.String(255))
-	RelWorkPlace = db.Column(db.String(255))
-	RelWorkPosition = db.Column(db.String(255))
-	RelResidence = db.Column(db.String(255))
+	RelId = db.Column("RelId",db.Integer,nullable=False,primary_key=True)
+	EmpId = db.Column("EmpId",db.Integer,db.ForeignKey("tbl_dk_employee.EmpId"))
+	RelStatId = db.Column("RelStatId",db.Integer,db.ForeignKey("tbl_dk_rel_status.RelStatId"))
+	RelPersonName = db.Column("RelPersonName",db.String(100),nullable=False)
+	GenderId = db.Column("GenderId",db.Integer,db.ForeignKey("tbl_dk_gender.GenderId"))
+	RelBirthDate = db.Column("RelBirthDate",db.DateTime)
+	RelBirthPlace = db.Column("RelBirthPlace",db.String(255))
+	RelWorkPlace = db.Column("RelWorkPlace",db.String(255))
+	RelWorkPosition = db.Column("RelWorkPosition",db.String(255))
+	RelResidence = db.Column("RelResidence",db.String(255))
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
 			if value is not None:
@@ -336,16 +336,16 @@ class Relatives(AddInf,CreatedModifiedInfo,db.Model):
 
 class School(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_school"
-	SchoolId = db.Column(db.Integer,nullable=False,primary_key=True)
-	EmpId = db.Column(db.Integer,db.ForeignKey("tbl_dk_employee.EmpId"))
-	SchoolTypeId = db.Column(db.Integer,db.ForeignKey("tbl_dk_school_type.SchoolTypeId"))
-	SchoolName = db.Column(db.String(255),nullable=False)
-	SchoolDesc = db.Column(db.String(500))
-	SchoolPlace = db.Column(db.String(255))
-	SchoolEduStartDate = db.Column(db.DateTime)
-	SchoolEduEndDate = db.Column(db.DateTime)
-	SchoolProfession = db.Column(db.String(255))
-	SchoolIsGraduated = db.Column(db.Boolean,default=False)
+	SchoolId = db.Column("SchoolId",db.Integer,nullable=False,primary_key=True)
+	EmpId = db.Column("EmpId",db.Integer,db.ForeignKey("tbl_dk_employee.EmpId"))
+	SchoolTypeId = db.Column("SchoolTypeId",db.Integer,db.ForeignKey("tbl_dk_school_type.SchoolTypeId"))
+	SchoolName = db.Column("SchoolName",db.String(255),nullable=False)
+	SchoolDesc = db.Column("SchoolDesc",db.String(500))
+	SchoolPlace = db.Column("SchoolPlace",db.String(255))
+	SchoolEduStartDate = db.Column("SchoolEduStartDate",db.DateTime)
+	SchoolEduEndDate = db.Column("SchoolEduEndDate",db.DateTime)
+	SchoolProfession = db.Column("SchoolProfession",db.String(255))
+	SchoolIsGraduated = db.Column("SchoolIsGraduated",db.Boolean,default=False)
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
 			if value is not None:
@@ -369,25 +369,25 @@ class School(AddInf,CreatedModifiedInfo,db.Model):
 
 class School_type(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_school_type"
-	SchoolTypeId = db.Column(db.Integer,nullable=False,primary_key=True)
-	SchoolTypeName_tkTM = db.Column(db.String(50))#,nullable=False)
-	SchoolTypeDesc_tkTM = db.Column(db.String(500))
-	SchoolTypeName_ruRU = db.Column(db.String(50))#,nullable=False)
-	SchoolTypeDesc_ruRU = db.Column(db.String(500))
-	SchoolTypeName_enUS = db.Column(db.String(50))#,nullable=False)
-	SchoolTypeDesc_enUS = db.Column(db.String(500))	
+	SchoolTypeId = db.Column("SchoolTypeId",db.Integer,nullable=False,primary_key=True)
+	SchoolTypeName_tkTM = db.Column("SchoolTypeName_tkTM",db.String(50))#,nullable=False)
+	SchoolTypeDesc_tkTM = db.Column("SchoolTypeDesc_tkTM",db.String(500))
+	SchoolTypeName_ruRU = db.Column("SchoolTypeName_ruRU",db.String(50))#,nullable=False)
+	SchoolTypeDesc_ruRU = db.Column("SchoolTypeDesc_ruRU",db.String(500))
+	SchoolTypeName_enUS = db.Column("SchoolTypeName_enUS",db.String(50))#,nullable=False)
+	SchoolTypeDesc_enUS = db.Column("SchoolTypeDesc_enUS",db.String(500))	
 
 
 # !!! changed
 class Visited_countries(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_visited_countries"
-	VCId = db.Column(db.Integer,nullable=False,primary_key=True)
-	EmpId = db.Column(db.Integer,db.ForeignKey("tbl_dk_employee.EmpId"))
-	VCCountryName = db.Column(db.String(50),nullable=False)
-	VCCountryDesc = db.Column(db.String(500))
-	VCPurpose = db.Column(db.String(500))
-	VCStartDate = db.Column(db.DateTime)
-	VCEndDate = db.Column(db.DateTime)
+	VCId = db.Column("VCId",db.Integer,nullable=False,primary_key=True)
+	EmpId = db.Column("EmpId",db.Integer,db.ForeignKey("tbl_dk_employee.EmpId"))
+	VCCountryName = db.Column("VCCountryName",db.String(50),nullable=False)
+	VCCountryDesc = db.Column("VCCountryDesc",db.String(500))
+	VCPurpose = db.Column("VCPurpose",db.String(500))
+	VCStartDate = db.Column("VCStartDate",db.DateTime)
+	VCEndDate = db.Column("VCEndDate",db.DateTime)
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
 			if value is not None:
@@ -408,15 +408,15 @@ class Visited_countries(AddInf,CreatedModifiedInfo,db.Model):
 
 class Work_history(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_work_history"
-	WorkHistId = db.Column(db.Integer,nullable=False,primary_key=True)
-	EmpId = db.Column(db.Integer,db.ForeignKey("tbl_dk_employee.EmpId"))
-	WorkHistoryWorkPlace = db.Column(db.String(100),nullable=False)
-	WorkHistoryWorkDesc = db.Column(db.String(500))
-	WorkHistoryWorkDept = db.Column(db.String(255))
-	WorkHistoryWorkPos = db.Column(db.String(255))
-	WorkHistoryWorkStartDate = db.Column(db.DateTime)
-	WorkHistoryWorkEndDate = db.Column(db.DateTime)
-	WorkHistoryWorkEndReason = db.Column(db.String(500))
+	WorkHistId = db.Column("WorkHistId",db.Integer,nullable=False,primary_key=True)
+	EmpId = db.Column("EmpId",db.Integer,db.ForeignKey("tbl_dk_employee.EmpId"))
+	WorkHistoryWorkPlace = db.Column("WorkHistoryWorkPlace",db.String(100),nullable=False)
+	WorkHistoryWorkDesc = db.Column("WorkHistoryWorkDesc",db.String(500))
+	WorkHistoryWorkDept = db.Column("WorkHistoryWorkDept",db.String(255))
+	WorkHistoryWorkPos = db.Column("WorkHistoryWorkPos",db.String(255))
+	WorkHistoryWorkStartDate = db.Column("WorkHistoryWorkStartDate",db.DateTime)
+	WorkHistoryWorkEndDate = db.Column("WorkHistoryWorkEndDate",db.DateTime)
+	WorkHistoryWorkEndReason = db.Column("WorkHistoryWorkEndReason",db.String(500))
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
 			if value is not None:
