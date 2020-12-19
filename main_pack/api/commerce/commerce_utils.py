@@ -212,7 +212,7 @@ def apiResourceInfo(
 			.filter_by(GCRecord = None, RpAccId = RpAccId)\
 			.all()
 
-	print(session)
+
 	# ResPriceGroupId assignment and validation
 	if not ResPriceGroupId:
 		if "ResPriceGroupId" in session:
