@@ -5,7 +5,7 @@ from datetime import datetime
 
 from main_pack.models.base.models import Company,Sl_image,Slider
 from sqlalchemy import or_, and_
-# from main_pack.api.auth.api_login import sha_required
+from sqlalchemy.orm import joinedload
 
 
 @api.route("/tbl-dk-sliders/")
@@ -17,7 +17,9 @@ def api_sliders():
 		sliders = sliders.filter_by(DivId = DivId)
 	if notDivId:
 		sliders = sliders.filter(Slider.DivId != notDivId)
-	sliders = sliders.all()
+	sliders = sliders\
+		.options(joinedload(Slider.Sl_image))\
+		.all()
 	if request.method == 'GET':
 		data = []
 		for slider in sliders:
@@ -38,12 +40,12 @@ def api_sliders():
 def api_slider_info(SlName):
 	slider = Slider.query\
 		.filter_by(GCRecord = None, SlName = SlName)\
+		.options(joinedload(Slider.Sl_image))\
 		.first()
 	data = []
 	status_code = 404
 	if slider:
 		try:
-
 			data = slider.to_json_api()
 			data["Sl_images"] = [sl_image.to_json_api() for sl_image in slider.Sl_image if sl_image.GCRecord == None]
 			status_code = 200

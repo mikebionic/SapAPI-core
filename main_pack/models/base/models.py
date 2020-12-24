@@ -787,7 +787,7 @@ class Slider(AddInf,CreatedModifiedInfo,db.Model):
 	DivId = db.Column("DivId",db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
 	SlName = db.Column("SlName",db.String(100),nullable=False)
 	SlDesc = db.Column("SlDesc",db.String(500),default='')
-	Sl_image = db.relationship('Sl_image',backref='slider',lazy='joined')
+	Sl_image = db.relationship('Sl_image',backref='slider',lazy=True)
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():

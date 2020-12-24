@@ -14,6 +14,7 @@ from main_pack.base.imageMethods import save_image,save_icon,allowed_icon,allowe
 from main_pack.base.dataMethods import dateDataCheck
 from main_pack.api.commerce.image_api import remove_image
 from sqlalchemy import or_, and_
+from sqlalchemy.orm import joinedload
 # / data operations /
 
 # data and models
@@ -111,6 +112,7 @@ def sliders():
 	# handler for commerce view
 	header_slider = Slider.query\
 		.filter_by(GCRecord = None, SlName = 'commerce_header')\
+		.options(joinedload(Slider.Sl_image))\
 		.first()
 	if header_slider is None:
 		# create a commerce_header for header slider automatically
@@ -118,7 +120,10 @@ def sliders():
 		db.session.add(slider)
 		db.session.commit()
 
-	sliders = Slider.query.filter_by(GCRecord = None).all()
+	sliders = Slider.query\
+		.filter_by(GCRecord = None)\
+		.options(joinedload(Slider.Sl_image))\
+		.all()
 	slidersData = []
 	for slider in sliders:
 		sliderList = slider.to_json_api()
@@ -144,6 +149,7 @@ def sliders():
 def slider_images(SlId):
 	slider = Slider.query\
 		.filter_by(GCRecord = None, SlId = SlId)\
+		.options(joinedload(Slider.Sl_image))\
 		.first()
 	if slider:
 		sl_images = Sl_image.query\
