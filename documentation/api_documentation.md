@@ -109,6 +109,10 @@ returns **all orders** if **blank**
 + /api/tbl-dk-payment-methods/
 + /api/tbl-dk-payment-types/
 
+## Brands
++ /api/tbl-dk-brands/
++ /api/tbl-dk-brands/?id=<brandId>&name=<brandName>
+
 > GET 
 
 ## Get all orders of a logged Rp_acc

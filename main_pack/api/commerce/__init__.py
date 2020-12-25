@@ -22,4 +22,5 @@ from main_pack.api.commerce import (
 	users_api,
 	work_period_api,
 	config_info_api,
-	payment_api)
+	payment_api,
+	brand_api)

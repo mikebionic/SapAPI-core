@@ -1,4 +1,5 @@
 import sys
+import redis
 from os import environ, path
 from dotenv import load_dotenv
 
@@ -6,6 +7,10 @@ basedir = path.abspath(path.dirname(__file__))
 load_dotenv(path.join(basedir, '.env'))
 
 class Config:
+	# get OS Type to configure app for Windows or Linux
+	OS_TYPE = sys.platform
+
+	# basic app configs (required)
 	SECRET_KEY = environ.get('SECRET_KEY')
 	SYNCH_SHA = environ.get('SYNCH_SHA')
 	C_MAIN_DIVGUID = environ.get('C_MAIN_DIVGUID')
@@ -16,6 +21,7 @@ class Config:
 	DEBUG = True
 	TESTING = True
 
+	USE_FLASK_CORS = int(environ.get('USE_FLASK_CORS'))
 	# # these two didn't work
 	# STATIC_FOLDER = "/static"
 	# STATIC_URL_PATH="/ls/static/"
@@ -49,6 +55,15 @@ class Config:
 	# }
 	#
 	# # / Database bindings /
+
+
+	# # Sessions, Redis, Cache, Cookies
+	if OS_TYPE != 'win32':
+		SESSION_TYPE = environ.get('SESSION_TYPE')
+		SESSION_REDIS = redis.from_url(environ.get('SESSION_REDIS'))
+
+	# # / Sessions, Redis, Cache, Cookies /
+
 
 	# modules url prefixes
 	API_URL_PREFIX = '/ls/api/'
@@ -95,9 +110,6 @@ class Config:
 
 	# # elasticsearch search engine's url
 	# ELASTICSEARCH_URL = environ.get('ELASTICSEARCH_URL')
-
-	# get OS Type to configure app for Windows or Linux
-	OS_TYPE = sys.platform
 
 	# set to True if you want to sell resources
 	# if no left in Res_total.ResPendingTotalAmount

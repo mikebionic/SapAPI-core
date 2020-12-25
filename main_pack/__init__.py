@@ -2,8 +2,9 @@
 from flask import Flask,session,request
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+from flask_session import Session
 from babel import numbers,dates
-from datetime import date,datetime,time
+from datetime import date,datetime
 from main_pack.config import Config
 from flask_babel import Babel,format_date,gettext,lazy_gettext
 from flask_bcrypt import Bcrypt
@@ -13,10 +14,9 @@ from flask_cors import CORS
 
 babel = Babel()
 db = SQLAlchemy()
-# # if db_bindings present:
-# db_test = SQLAlchemy()
-bcrypt = Bcrypt()
 login_manager = LoginManager()
+sess = Session()
+bcrypt = Bcrypt()
 mail = Mail()
 csrf = CSRFProtect()
 
@@ -46,16 +46,17 @@ def create_app(config_class=Config):
 	# !!! TODO: make import from config or unique config set
 	app = Flask(__name__, static_url_path='/ls/static')
 	app.config.from_object(Config)
-	
-	CORS(app)
+
+	if Config.USE_FLASK_CORS:
+		CORS(app)
 
 	db.init_app(app)
-	# # if db_bindings present:
-	# db_test.init_app(app)
 	login_manager.init_app(app)
 	babel.init_app(app)
 	mail.init_app(app)
 	csrf.init_app(app)
+	if Config.OS_TYPE != 'win32':
+		sess.init_app(app)
 	
 	# all models are separated in the models folder
 	from main_pack.models import bp as models_bp

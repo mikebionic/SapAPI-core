@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
-from flask import render_template,url_for,jsonify,request,abort,make_response
+from flask import render_template,url_for,jsonify,request,abort,make_response,session
 from main_pack import db,babel,gettext,lazy_gettext
 from main_pack.config import Config
 from main_pack.api.commerce import api
 import requests,json
 import uuid
+from sqlalchemy.orm import joinedload
 
 # Users and auth
 from main_pack.models.users.models import Users
@@ -23,7 +24,11 @@ from main_pack.key_generator.utils import generate,makeRegNo,Pred_regnum
 
 # Resource models and operations
 from  main_pack.models.base.models import Warehouse
-from main_pack.models.commerce.models import Resource,Res_price,Res_total
+from main_pack.models.commerce.models import (
+	Resource,
+	Res_price,
+	Res_total,
+	Res_price_group)
 from main_pack.base.invoiceMethods import totalQtySubstitution
 from main_pack.base.num2text import num2text,price2text
 import decimal
@@ -36,6 +41,7 @@ def api_checkout_sale_order_invoices(user):
 	model_type = user['model_type']
 	current_user = user['current_user']
 
+	res_price_groups = Res_price_group.query.filter_by(GCRecord = None).all()
 	work_period = Work_period.query\
 		.filter_by(GCRecord = None, WpIsDefault = True)\
 		.first()
@@ -61,6 +67,12 @@ def api_checkout_sale_order_invoices(user):
 				.filter_by(GCRecord = None, RpAccId = RpAccId)\
 				.first()
 	
+	ResPriceGroupId = None
+	if current_user:
+		ResPriceGroupId = current_user.ResPriceGroupId if current_user.ResPriceGroupId else None
+	elif "ResPriceGroupId" in session:
+		ResPriceGroupId = session["ResPriceGroupId"]
+
 	req = request.get_json()
 	req['orderInv']['OInvGuid'] = str(uuid.uuid4())
 	order_invoice = addOrderInvDict(req['orderInv'])
@@ -133,16 +145,53 @@ def api_checkout_sale_order_invoices(user):
 				OInvLineAmount = int(order_inv_line["OInvLineAmount"])
 				resource = Resource.query\
 					.filter_by(GCRecord = None, ResId = ResId)\
+					.options(joinedload(Resource.Res_price))\
 					.first()
 				
 				if not resource:
 					# type deleted or none 
 					error_type = 1
 					raise Exception
-				
-				res_price = Res_price.query\
-					.filter_by(GCRecord = None, ResId = ResId, ResPriceTypeId = 2)\
-					.first()
+
+				List_Res_price = []
+				if not ResPriceGroupId:
+					List_Res_price = [res_price.to_json_api() 
+						for res_price in resource.Res_price
+						if res_price.ResPriceTypeId == 2
+						and res_price.GCRecord == None]
+
+				if ResPriceGroupId:
+					# find Res_price with provided ResPriceGroupId
+					List_Res_price = [res_price.to_json_api() 
+						for res_price in resource.Res_price 
+						if res_price.ResPriceTypeId == 2 
+						and res_price.ResPriceGroupId == ResPriceGroupId
+						and res_price.GCRecord == None]
+
+					if not List_Res_price:
+						thisPriceGroupList = [priceGroup for priceGroup in res_price_groups if priceGroup.ResPriceGroupId == ResPriceGroupId]
+						if thisPriceGroupList:
+							if not thisPriceGroupList[0].ResPriceGroupAMEnabled:
+								# print("enabled false")
+								raise Exception
+
+							FromResPriceTypeId = thisPriceGroupList[0].FromResPriceTypeId
+							ResPriceGroupAMPerc = thisPriceGroupList[0].ResPriceGroupAMPerc
+
+							List_Res_price = [res_price.to_json_api() 
+								for res_price in resource.Res_price 
+								if res_price.ResPriceTypeId == FromResPriceTypeId
+								and res_price.GCRecord == None]
+
+							if not List_Res_price:
+								raise Exception
+
+							CalculatedPriceValue = float(List_Res_price[0]["ResPriceValue"]) + (float(List_Res_price[0]["ResPriceValue"]) * float(ResPriceGroupAMPerc) / 100)
+							List_Res_price[0]["ResPriceValue"] = CalculatedPriceValue
+
+				# res_price = Res_price.query\
+				# 	.filter_by(GCRecord = None, ResId = ResId, ResPriceTypeId = 2)\
+				# 	.first()
 				res_total = Res_total.query\
 					.filter_by(GCRecord = None, ResId = ResId, WhId = WhId)\
 					.first()
@@ -159,7 +208,7 @@ def api_checkout_sale_order_invoices(user):
 					error_type = 3
 					raise Exception
 
-				if order_inv_line["OInvLinePrice"] != res_price.ResPriceValue:
+				if order_inv_line["OInvLinePrice"] != List_Res_price[0]["ResPriceValue"]:
 					error_type = 4
 					raise Exception
 
@@ -167,7 +216,7 @@ def api_checkout_sale_order_invoices(user):
 				# ResPendingTotalAmount is decreased but not ResTotBalance
 				res_total.ResPendingTotalAmount = totalSubstitutionResult["totalBalance"]
 				############
-				OInvLinePrice = float(res_price.ResPriceValue) if res_price else 0
+				OInvLinePrice = float(List_Res_price[0]["ResPriceValue"]) if List_Res_price else 0
 				OInvLineTotal = OInvLinePrice*OInvLineAmount
 
 				# add taxes and stuff later on
@@ -313,7 +362,7 @@ def validate_order_inv_payment(user):
 								message = f"Payment Validation: failed (OrderStatus = {response_json[Config.PAYMENT_VALIDATION_KEY]})"
 								print(f"{datetime.now()} | {message}")
 							
-							order_inv.AddInf5 = str(response_json)
+							order_inv.PaymCode = str(response_json)
 							db.session.commit()
 							data = response_json
 							status = 1
@@ -323,7 +372,7 @@ def validate_order_inv_payment(user):
 							print(f"{datetime.now()} | Payment Validation Exception: {ex}")
 
 							req["message"] = message
-							order_inv.AddInf5 = str(req)
+							order_inv.PaymCode = str(req)
 							order_inv.InvStatId = 14
 							db.session.commit()
 

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import json, jsonify, request, make_response, abort
+from flask import json,jsonify,request,make_response,abort,session
 from sqlalchemy import and_
 from datetime import datetime
 import datetime as dt
@@ -59,12 +59,12 @@ def api_login_users():
 	if not user:
 		return make_response(
 			"Could not verify.",
-			401,
-			{"WWW-Authenticate": "basic realm"})
+			401,{"WWW-Authenticate": "basic realm"})
 	if check_auth('Users',auth.username,auth.password):
-		exp = datetime.now()+dt.timedelta(minutes=30)
+		exp = datetime.now() + dt.timedelta(minutes = 30)
 		token = jwt.encode({"UId": user.UId,"exp": exp}, Config.SECRET_KEY)
 		userData = apiUsersData(user.UId)
+		session["ResPriceGroupId"] = user.ResPriceGroupId
 		return jsonify({
 			"token": token.decode('UTF-8'),
 			"user": userData['data'],
@@ -88,12 +88,12 @@ def api_login_rp_accs():
 	if not rp_acc:
 		return make_response(
 			"Could not verify.",
-			401,
-			{"WWW-Authenticate": "basic realm"})
+			401,{"WWW-Authenticate": "basic realm"})
 	if check_auth('Rp_acc',auth.username,auth.password):
-		exp = datetime.now()+dt.timedelta(minutes=30)
+		exp = datetime.now() + dt.timedelta(minutes = 30)
 		token = jwt.encode({"RpAccId": rp_acc.RpAccId,"exp": exp}, Config.SECRET_KEY)
 		rpAccData = apiRpAccData(rp_acc.RpAccRegNo)
+		session["ResPriceGroupId"] = rp_acc.ResPriceGroupId
 		return jsonify({
 			"token": token.decode('UTF-8'),
 			"rp_acc": rpAccData['data'],

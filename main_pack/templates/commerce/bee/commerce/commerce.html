@@ -11,8 +11,7 @@
 			<div class="col"><!-- Hero Slider Start -->
 				<div class="hero-side-category" style="margin-bottom: 0;"></div>
 				<div class="hero-slider hero-slider-two fix slick slick-slider slick-dotted">
-
-					{% for slider in sliders %}
+				{% for slider in sliders %}
 					{% if slider.SlName == "commerce_header" %}
 						{% for sl_image in slider.Sl_images %}
 						{% if sl_image.SlImgMainImgFilePathM %}
@@ -37,7 +36,7 @@
 						{% endfor %}
 					{% endif %}
 				{% endfor %}
-			</div>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -16,7 +16,8 @@
 - [x] Security and crypting
 - [x] Relation database management
 - [x] Postgresql database support
-- [ ] Redis cache support
+- [x] Redis session support
+- [ ] Redis db-cache support
 - [ ] Websockets support
 -----------------------------
 
@@ -25,6 +26,7 @@
 - [ ] Write admin client app
 - [ ] Prevent 500 server errors
 - [ ] Send Server errors by e-mail
+- [ ] Configure BCrypt usage toggler
 - [ ] Reconfigure app and separate API with UI
 	- [ ] Build separate Repo for API
 	- [ ] Build separate Repo for UI
@@ -40,6 +42,10 @@ sudo apt install python3-dev python3-venv python3-pip
 **Install Postgresql on linux by typing:**
 ```bash
 sudo apt install postgresql postgresql-contrib libpq-dev
+```
+**Install Redis by typing:**
+```bash
+sudo apt install redis
 ```
 **Create python virtual enviroment**
 ```bash
@@ -74,8 +80,8 @@ commerceDBTemplate.backup
 ## Info and logs
 **Rest-Api backend information:**
 
-+ [backend](/documentation/backend.md)
-+ [newBackend](/documentation/newBackend.md)
++ [API backend](/documentation/api_backend.md)
++ [API documentation](/documentation/api_documentation.md)
 + [sap_api_server_setup](/documentation/sap_api_server_setup.md)
 + [mail_setup](/documentation/mail_setup.md)
 

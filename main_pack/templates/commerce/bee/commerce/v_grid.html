@@ -64,7 +64,9 @@
 						<div class="col-xl-3 col-lg-4 col-md-4 col-6 pb-30 pt-10">
 							<div class="ee-product">
 								<div class="image">
+									{% if resource.New %}
 										<span class="label new">{{_('New')}}</span>
+									{% endif %}
 									{% if resource.FilePathS %}
 										<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
 											<img loading="lazy" src="{{resource.FilePathS}}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}" style="height: auto;">
@@ -115,7 +117,7 @@
 							<div class="ee-product-list">
 								<div class="image">
 									{% if resource.New %}
-									<span class="label new">{{_('New')}}</span>
+										<span class="label new">{{_('New')}}</span>
 									{% endif %}
 									<!-- <span class="label sale">sale</span> -->
 									{% if resource.FilePathS %}

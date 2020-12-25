@@ -19,7 +19,8 @@ from main_pack.api.commerce.commerce_utils import collect_categories_query
 @api.route("/tbl-dk-categories/<int:ResCatId>/",methods=['GET'])
 def api_category(ResCatId):
 	if request.method == 'GET':
-		category = Res_category.query.get(ResCatId)
+		category = Res_category.query\
+			.filter_by(ResCatId = ResCatId).first_or_404()
 		response = jsonify({'category':category.to_json_api()})
 		res = {
 			"status": 1,

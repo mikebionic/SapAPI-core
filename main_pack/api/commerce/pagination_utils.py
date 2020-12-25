@@ -140,7 +140,7 @@ def collect_resource_paginate_info(
 			.join(Res_price, Res_price.ResId == Resource.ResId)\
 			.filter(and_(
 				Res_price.ResPriceTypeId == 2,
-				Res_price.ResPriceValue > 0))\
+				Res_price.ResPriceValue > 0))
 
 	if brand:
 		resource_query = resource_query.filter(Resource.BrandId == brand)
