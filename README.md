@@ -8,6 +8,8 @@
 ## Includes:
 - [x] Stable Web-Api
 - [x] Web Service for client applications
+- [ ] Client Admin API
+- [ ] Full feature key activation
 - [x] Web-Admin UI
 - [x] Web-Client UI
 - [x] Modules support
