@@ -106,6 +106,9 @@ def api_users():
 
 					user_info["CId"] = CId
 					user_info["DivId"] = DivId
+					if not user_info["UPass"]:
+						print(f"{user_info["UName"]} has no password, skipping...")
+						raise Exception
 
 					thisUser = Users.query\
 						.filter_by(

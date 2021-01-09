@@ -339,7 +339,7 @@ def validate_order_inv_payment(user):
 					# if order isn't already paid
 					if order_inv.PaymStatusId != 2:
 						try:
-							r = requests.get(f"{Config.PAYMENT_VALIDATION_SERVICE_URL}?orderId={OrderId}&password={Config.PAYMENT_VALIDATION_SERVICE_PASSWORD}&userName={Config.PAYMENT_VALIDATION_SERVICE_USERNAME}")
+							r = requests.get(f"{Config.PAYMENT_VALIDATION_SERVICE_URL}?orderId={OrderId}&password={Config.PAYMENT_VALIDATION_SERVICE_PASSWORD}&userName={Config.PAYMENT_VALIDATION_SERVICE_USERNAME}", verify=False)
 							response_json = json.loads(r.text)
 
 							if (str(response_json[Config.PAYMENT_VALIDATION_KEY]) == str(Config.PAYMENT_VALIDATION_VALUE)):
