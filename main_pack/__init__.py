@@ -69,18 +69,18 @@ def create_app(config_class=Config):
 	app.register_blueprint(base_bp)
 
 	# api blueprints
-	api_url_prefix = app.config.get('API_URL_PREFIX')
+	api_url_prefix = Config.API_URL_PREFIX
 	from main_pack.api.auth import api as auth_api
-	app.register_blueprint(auth_api,url_prefix=api_url_prefix)
+	app.register_blueprint(auth_api, url_prefix=api_url_prefix)
 
 	from main_pack.api.base import api as base_api
-	app.register_blueprint(base_api,url_prefix=api_url_prefix)
+	app.register_blueprint(base_api, url_prefix=api_url_prefix)
 
 	from main_pack.api.commerce import api as commerce_api
-	app.register_blueprint(commerce_api,url_prefix=api_url_prefix)
+	app.register_blueprint(commerce_api, url_prefix=api_url_prefix)
 
 	from main_pack.api.users import api as users_api
-	app.register_blueprint(users_api,url_prefix=api_url_prefix)
+	app.register_blueprint(users_api, url_prefix=api_url_prefix)
 
 	from main_pack.errors import bp as errors_bp
 	app.register_blueprint(errors_bp)
@@ -92,18 +92,24 @@ def create_app(config_class=Config):
 	# /api blueprints
 
 	# commerce blueprints
-	commerce_url_prefix = app.config.get('COMMERCE_URL_PREFIX')
-	from main_pack.commerce.auth import bp as commerce_auth_bp
-	app.register_blueprint(commerce_auth_bp,url_prefix=commerce_url_prefix)
-
-	from main_pack.commerce.commerce import bp as commerce_bp
-	app.register_blueprint(commerce_bp,url_prefix=commerce_url_prefix)
-
-	from main_pack.commerce.users import bp as commerce_users_bp
-	app.register_blueprint(commerce_users_bp,url_prefix=commerce_url_prefix)
+	commerce_url_prefix = Config.COMMERCE_URL_PREFIX
 
 	from main_pack.commerce.admin import bp as commerce_admin_bp
-	app.register_blueprint(commerce_admin_bp,url_prefix=commerce_url_prefix)
+	app.register_blueprint(commerce_admin_bp, url_prefix=commerce_url_prefix)
+
+	from main_pack.commerce.auth import bp as commerce_auth_bp
+	app.register_blueprint(commerce_auth_bp, url_prefix=commerce_url_prefix)
+
+	if not Config.API_AND_ADMIN_ONLY:
+
+		from main_pack.commerce.commerce import bp as commerce_bp
+		app.register_blueprint(commerce_bp, url_prefix=commerce_url_prefix)
+
+		from main_pack.commerce.users import bp as commerce_users_bp
+		app.register_blueprint(commerce_users_bp, url_prefix=commerce_url_prefix)
+
+	else:
+		login_manager.login_view = 'commerce_auth.admin_login'
 	# /commerce blueprints
 
 	return app

@@ -22,6 +22,9 @@ class Config:
 	TESTING = True
 
 	USE_FLASK_CORS = int(environ.get('USE_FLASK_CORS'))
+
+	API_AND_ADMIN_ONLY = int(environ.get('API_AND_ADMIN_ONLY'))
+
 	# # these two didn't work
 	# STATIC_FOLDER = "/static"
 	# STATIC_URL_PATH="/ls/static/"
