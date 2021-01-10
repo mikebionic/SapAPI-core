@@ -1,5 +1,6 @@
 import sys
 import redis
+import json
 from os import environ, path
 from dotenv import load_dotenv
 
@@ -15,15 +16,20 @@ class Config:
 	SYNCH_SHA = environ.get('SYNCH_SHA')
 	C_MAIN_DIVGUID = environ.get('C_MAIN_DIVGUID')
 	MAIN_CGUID = environ.get('MAIN_CGUID')
+
 	# set to production if Production
 	FLASK_ENV = 'development'
+
 	# set to false to turn off debugging
-	DEBUG = True
-	TESTING = True
+	DEBUG = (int(environ.get('DEBUG')))
+	TESTING = (int(environ.get('TESTING')))
 
 	USE_FLASK_CORS = int(environ.get('USE_FLASK_CORS'))
 
 	API_AND_ADMIN_ONLY = int(environ.get('API_AND_ADMIN_ONLY'))
+
+	EMAIL_ERROR_REPORTS = int(environ.get('EMAIL_ERROR_REPORTS'))
+	EMAIL_ERROR_REPORTS_ADDRESSES = json.loads(environ.get('EMAIL_ERROR_REPORTS_ADDRESSES'))
 
 	# # these two didn't work
 	# STATIC_FOLDER = "/static"
@@ -82,7 +88,7 @@ class Config:
 	MAIL_DEBUG = False
 	### / testing /
 	MAIL_SERVER = environ.get('MAIL_SERVER')
-	MAIL_PORT = environ.get('MAIL_PORT')
+	MAIL_PORT = int(environ.get('MAIL_PORT'))
 	MAIL_USE_TLS = True
 	# MAIL_USE_SSL = False
 	MAIL_ADDRESS = environ.get('MAIL_ADDRESS')

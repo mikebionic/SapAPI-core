@@ -4,13 +4,17 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_session import Session
 from babel import numbers,dates
-from datetime import date,datetime
-from main_pack.config import Config
+from datetime import datetime
 from flask_babel import Babel,format_date,gettext,lazy_gettext
 from flask_bcrypt import Bcrypt
 from flask_mail import Mail
 from flask_wtf.csrf import CSRFProtect
 from flask_cors import CORS
+import logging
+from logging.handlers import SMTPHandler
+
+from main_pack.config import Config
+
 
 babel = Babel()
 db = SQLAlchemy()
@@ -43,7 +47,6 @@ LANGUAGES = {
 }
 
 def create_app(config_class=Config):
-	# !!! TODO: make import from config or unique config set
 	app = Flask(__name__, static_url_path='/ls/static')
 	app.config.from_object(Config)
 
@@ -57,7 +60,7 @@ def create_app(config_class=Config):
 	csrf.init_app(app)
 	if Config.OS_TYPE != 'win32':
 		sess.init_app(app)
-	
+
 	# all models are separated in the models folder
 	from main_pack.models import bp as models_bp
 	app.register_blueprint(models_bp)
@@ -70,6 +73,7 @@ def create_app(config_class=Config):
 
 	# api blueprints
 	api_url_prefix = Config.API_URL_PREFIX
+
 	from main_pack.api.auth import api as auth_api
 	app.register_blueprint(auth_api, url_prefix=api_url_prefix)
 
@@ -111,5 +115,24 @@ def create_app(config_class=Config):
 	else:
 		login_manager.login_view = 'commerce_auth.admin_login'
 	# /commerce blueprints
+
+	# logging
+	if not Config.DEBUG:
+		if (Config.EMAIL_ERROR_REPORTS and Config.MAIL_SERVER):
+			auth = None
+			if Config.MAIL_ADDRESS or Config.MAIL_PASSWORD:
+				auth = (Config.MAIL_ADDRESS, Config.MAIL_PASSWORD)
+			secure = None
+			if Config.MAIL_USE_TLS:
+				secure = ()
+			mail_handler = SMTPHandler(
+				mailhost = (Config.MAIL_SERVER, Config.MAIL_PORT),
+				fromaddr = 'no-reply@' + Config.MAIL_SERVER,
+				toaddrs = Config.EMAIL_ERROR_REPORTS_ADDRESSES, subject = f'App Error occured at {datetime.now()}',
+				credentials = auth,
+				secure = secure)
+			mail_handler.setLevel(logging.ERROR)
+			app.logger.addHandler(mail_handler)
+	# /logging
 
 	return app

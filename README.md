@@ -26,8 +26,8 @@
 ## TODO:
 
 - [ ] Write admin client app
-- [ ] Prevent 500 server errors
-- [ ] Send Server errors by e-mail
+- [x] Prevent 500 server errors
+- [x] Send Server errors by e-mail
 - [ ] Configure BCrypt usage toggler
 - [ ] Reconfigure app and separate API with UI
 	- [ ] Build separate Repo for API
@@ -67,7 +67,7 @@ or try with a [command](/documentation/pip_installation_command.md) in terminal
 ## Configuring
 
 Set configurations in "[config.py](/main_pack/config.py)" file
-Sensitive informations are loaded from "[.env](/.env)" file
+Sensitive informations are loaded from "[.env](/main_pack/.env.example.config)" file
 Sensitive informations never shared if added to "[.gitignore](/.gitignore)" file
 
 Initial Company and Division migrations (uncomment the lines first):
@@ -77,6 +77,11 @@ python3 migrate.py
 You can also use the ready to go backup db
 ```bash
 commerceDBTemplate.backup
+```
+
+In case if flask-mail is not working well, check this configuration:
+```url
+https://www.google.com/settings/security/lesssecureapps
 ```
 ------------
 ## Info and logs
