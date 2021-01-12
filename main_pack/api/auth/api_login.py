@@ -45,22 +45,65 @@ def token_required(f):
 	return decorated
 
 
+@api.route('/login/',methods=['GET','POST'])
+def api_login():
+	auth_type = request.args.get("type","user",type=str)
+	auth = request.authorization
+	error_response = [{"error": "Login failure, check credentials."}, 401, {"WWW-Authenticate": "basic realm"}]
+
+	if not auth or not auth.username or not auth.password:
+		return make_response(*error_response)
+
+	if auth_type == "user":
+		user_model = Users.query\
+			.filter_by(GCRecord = None, UName = auth.username)\
+			.first()
+
+	elif auth_type == "rp_acc":
+		user_model = Rp_acc.query\
+			.filter_by(GCRecord = None, RpAccUName = auth.username)\
+			.first()
+
+	if not user_model:
+		return make_response(*error_response)
+	
+	if check_auth(auth_type, auth.username, auth.password):
+		exp = datetime.now() + dt.timedelta(minutes = 30)
+		response_data = {"exp": apiDataFormat(exp)}
+
+		if auth_type == "user":
+			token = jwt.encode({"UId": user_model.UId, "exp": exp}, Config.SECRET_KEY)
+			loggedUserInfo = apiUsersData(user_model.UId)
+
+		elif auth_type == "rp_acc":
+			token = jwt.encode({"RpAccId": user_model.RpAccId, "exp": exp}, Config.SECRET_KEY)
+			loggedUserInfo = apiRpAccData(user_model.RpAccRegNo)
+		
+		response_data[auth_type] = loggedUserInfo['data']
+		response_data["token"] = token.decode('UTF-8')
+		session["ResPriceGroupId"] = user_model.ResPriceGroupId
+
+		return jsonify(response_data)
+	
+	return make_response(*error_response)
+
+
+# !!! route should be kept till update process complete
 @api.route('/login/users/',methods=['GET','POST'])
 def api_login_users():
+	error_response = [{"error": "Login failure, check credentials."}, 401, {"WWW-Authenticate": "basic realm"}]
 	auth = request.authorization
 	if not auth or not auth.username or not auth.password:
-		return make_response(
-			"Could not verify.",
-			401,
-			{"WWW-Authenticate": "basic realm"})
+		return make_response(*error_response)
+
 	user = Users.query\
 		.filter_by(GCRecord = None, UName = auth.username)\
 		.first()
+
 	if not user:
-		return make_response(
-			"Could not verify.",
-			401,{"WWW-Authenticate": "basic realm"})
-	if check_auth('Users',auth.username,auth.password):
+		return make_response(*error_response)
+
+	if check_auth("user", auth.username, auth.password):
 		exp = datetime.now() + dt.timedelta(minutes = 30)
 		token = jwt.encode({"UId": user.UId,"exp": exp}, Config.SECRET_KEY)
 		userData = apiUsersData(user.UId)
@@ -70,26 +113,26 @@ def api_login_users():
 			"user": userData['data'],
 			"exp": apiDataFormat(exp)
 			})
-	return make_response(
-		"Could not verify.",
-		401,
-		{"WWW-Authenticate": "basic realm"})
+
+	return make_response(*error_response)
 
 
+# !!! route should be kept till update process complete
 @api.route('/login/rp-accs/',methods=['GET','POST'])
 def api_login_rp_accs():
+	error_response = [{"error": "Login failure, check credentials."}, 401, {"WWW-Authenticate": "basic realm"}]
 	auth = request.authorization
 	if not auth or not auth.username or not auth.password:
-		return make_response("Could not verify.",
-			401, {"WWW-Authenticate": "basic realm"})
+		return make_response(*error_response)
+
 	rp_acc = Rp_acc.query\
 		.filter_by(GCRecord = None, RpAccUName = auth.username)\
 		.first()
+
 	if not rp_acc:
-		return make_response(
-			"Could not verify.",
-			401,{"WWW-Authenticate": "basic realm"})
-	if check_auth('Rp_acc',auth.username,auth.password):
+		return make_response(*error_response)
+
+	if check_auth("rp_acc", auth.username, auth.password):
 		exp = datetime.now() + dt.timedelta(minutes = 30)
 		token = jwt.encode({"RpAccId": rp_acc.RpAccId,"exp": exp}, Config.SECRET_KEY)
 		rpAccData = apiRpAccData(rp_acc.RpAccRegNo)
@@ -99,10 +142,8 @@ def api_login_rp_accs():
 			"rp_acc": rpAccData['data'],
 			"exp": apiDataFormat(exp)
 			})
-	return make_response(
-		"Could not verify.",
-		401,
-		{"WWW-Authenticate": "basic realm"})
+
+	return make_response(*error_response)
 
 
 def sha_required(f):

@@ -1,52 +1,71 @@
-from main_pack.base.dataMethods import configureNulls,configureFloat,boolCheck
-
-from main_pack.models.base.models import Image
-# from main_pack.models.commerce.models import Resource
-from main_pack.base.apiMethods import fileToURL
-from main_pack.models.users.models import (Users,User_type,
-																					Rp_acc,Rp_acc_type,Rp_acc_status)
 from sqlalchemy import and_
 
-from main_pack.models.commerce.models import Unit,Brand,Usage_status,Res_category,Res_type,Res_maker
-from main_pack.models.commerce.models import (Barcode,Res_color,Res_size,Res_translations,Unit,Res_unit,
-	Res_price,Res_total,Res_trans_inv_line,Res_transaction,Rp_acc_resource,Sale_agr_res_price,Res_discount)
-
+from main_pack.base.dataMethods import configureNulls,configureFloat,boolCheck
 from main_pack.base.languageMethods import dataLangSelector
+from main_pack.base.apiMethods import fileToURL
 
-def UiRpAccData(rp_acc_list=None,deleted=False):
+from main_pack.models.base.models import Image
+from main_pack.models.users.models import (
+	Users,
+	User_type,
+	Rp_acc,
+	Rp_acc_type,
+	Rp_acc_status
+)
+
+from main_pack.models.commerce.models import (
+	Unit,
+	Brand,
+	Usage_status,
+	Res_category,
+	Res_type,
+	Res_maker
+)
+
+from main_pack.models.commerce.models import (
+	Barcode,
+	Res_color,
+	Res_size,
+	Res_translations,
+	Unit,
+	Res_unit,
+	Res_price,
+	Res_total,
+	Res_trans_inv_line,
+	Res_transaction,
+	Rp_acc_resource,
+	Sale_agr_res_price,
+	Res_discount
+)
+
+
+def UiRpAccData(rp_acc_list=None, deleted=False):
 	data = []
 
-	rp_acc_statuses = Rp_acc_status.query\
-		.filter_by(GCRecord = None).all()
-	rp_acc_types = Rp_acc_type.query\
-		.filter_by(GCRecord = None).all()
-
+	rp_acc_statuses = Rp_acc_status.query.filter_by(GCRecord = None).all()
+	rp_acc_types = Rp_acc_type.query.filter_by(GCRecord = None).all()
 	images = Image.query\
 		.filter_by(GCRecord = None)\
 		.order_by(Image.CreatedDate.desc()).all()
 
 	rp_acc_models = []
 	
+	filtering = {}
+	if not deleted:
+		filtering["GCRecord"] = None
+	
 	if rp_acc_list is None:
-		if deleted==True:
-			rp_accs = Rp_acc.query.all()
-		else:
-			rp_accs = Rp_acc.query\
-				.filter_by(GCRecord = None).all()
+		rp_accs = Rp_acc.query.filter_by(**filtering).all()
 		for rp_acc in rp_accs:
 			rp_acc_models.append(rp_acc)
+	
 	else:
 		for rp_acc_index in rp_acc_list:
-			if deleted==True:
-				rp_acc = Rp_acc.query\
-					.filter_by(RpAccId = rp_acc_index["RpAccId"])\
-					.first()
-			else:
-				rp_acc = Rp_acc.query\
-					.filter_by(GCRecord = None, RpAccId = rp_acc_index["RpAccId"])\
-					.first()
+			rp_acc = Rp_acc.query\
+				.filter_by(**filtering, RpAccId = rp_acc_index["RpAccId"])\
+				.first()
 			rp_acc_models.append(rp_acc)
-		
+	
 	for rp_acc in rp_acc_models:
 		rpAccInfo = rp_acc.to_json_api()
 
@@ -77,7 +96,7 @@ def UiRpAccData(rp_acc_list=None,deleted=False):
 	}
 	return res
 
-def UiUsersData(users_list=None,deleted=False):
+def UiUsersData(users_list=None, deleted=False):
 	data = []
 
 	user_types = User_type.query\

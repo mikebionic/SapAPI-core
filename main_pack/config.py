@@ -31,12 +31,13 @@ class Config:
 	EMAIL_ERROR_REPORTS = int(environ.get('EMAIL_ERROR_REPORTS'))
 	EMAIL_ERROR_REPORTS_ADDRESSES = json.loads(environ.get('EMAIL_ERROR_REPORTS_ADDRESSES'))
 
+	COMPANY_NAME = environ.get('COMPANY_NAME')
+
 	# # these two didn't work
 	# STATIC_FOLDER = "/static"
 	# STATIC_URL_PATH="/ls/static/"
 
 	# SQLALCHEMY_DATABASE_URI = 'sqlite:///commerce.db'
-
 	POSTGRES_DB_URI = {
 	    'user': environ.get('POSTGRES_DB_USERNAME'),
 	    'pw': environ.get('POSTGRES_DB_PASSWORD'),
@@ -44,7 +45,6 @@ class Config:
 	    'host': environ.get('POSTGRES_DB_HOST'),
 	    'port': environ.get('POSTGRES_DB_PORT'),
 	}
-
 	SQLALCHEMY_DATABASE_URI = 'postgresql://%(user)s:%(pw)s@%(host)s:%(port)s/%(db)s' % POSTGRES_DB_URI
 	SQLALCHEMY_ECHO = False
 	# # Database bindings

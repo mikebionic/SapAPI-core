@@ -1,14 +1,15 @@
 from flask import render_template,url_for,session,flash,redirect,request,Response,abort
-from main_pack.commerce.admin import bp, url_prefix
-from main_pack.config import Config
 import os
 import uuid
 from flask import current_app
+from sqlalchemy import and_
+
+from main_pack.commerce.admin import bp, url_prefix
+from main_pack.config import Config
 
 # useful methods
 from main_pack import db,babel,gettext,lazy_gettext
 from main_pack.base.languageMethods import dataLangSelector
-from sqlalchemy import and_
 # / useful methods /
 
 # auth and validation
@@ -28,17 +29,37 @@ from main_pack.commerce.admin.utils import resRelatedData
 # / Resource and view /
 
 # Invoices
-from main_pack.models.commerce.models import (Inv_line,Inv_line_det,Inv_line_det_type,
-	Inv_status,Inv_type,Invoice,Order_inv,Order_inv_line,Order_inv_type)
+from main_pack.models.commerce.models import (
+	Inv_line,
+	Inv_line_det,
+	Inv_line_det_type,
+	Inv_status,
+	Inv_type,
+	Invoice,
+	Order_inv,
+	Order_inv_line,
+	Order_inv_type
+)
+
 from main_pack.commerce.commerce.order_utils import UiOInvData,UiOInvLineData
 from main_pack.models.commerce.models import Res_category
 # / Invoices /
 
 # users and customers
-from main_pack.models.users.models import (Users,User_type,
-																					Rp_acc,Rp_acc_type,Rp_acc_status)
-from main_pack.commerce.admin.users_utils import UiRpAccData,UiUsersData
-from main_pack.commerce.admin.forms import UserRegistrationForm,CustomerRegistrationForm,BrandForm
+from main_pack.models.users.models import (
+	Users,
+	User_type,
+	Rp_acc,
+	Rp_acc_type,
+	Rp_acc_status
+)
+
+from main_pack.commerce.admin.users_utils import UiRpAccData, UiUsersData
+from main_pack.commerce.admin.forms import (
+	UserRegistrationForm,
+	CustomerRegistrationForm,
+	BrandForm
+)
 # / users and customers /
 
 # RegNo
@@ -48,7 +69,7 @@ from datetime import datetime,timezone
 
 # Image operations
 from main_pack.models.base.models import Image
-from main_pack.base.imageMethods import save_image,save_icon
+from main_pack.base.imageMethods import save_image, save_icon
 from main_pack.base.imageMethods import allowed_icon
 # / Image operations /
 
@@ -64,8 +85,10 @@ def set_language(language=None):
 @login_required
 @ui_admin_required()
 def dashboard():
-	return render_template(f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/dashboard.html",url_prefix=url_prefix,
-		title=gettext('Dashboard'))
+	return render_template(
+		f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/dashboard.html",
+		url_prefix = url_prefix,
+		title = gettext('Dashboard'))
 
 
 @bp.route("/admin/company")
@@ -73,8 +96,11 @@ def dashboard():
 @ui_admin_required()
 def company():
 	company = Company.query.get(1)
-	return render_template(f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/company.html",url_prefix=url_prefix,
-		company = company,title=gettext('Company'))
+	return render_template(
+		f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/company.html",
+		url_prefix = url_prefix,
+		company = company,
+		title = gettext('Company'))
 
 
 @bp.route("/admin/category_table")
@@ -108,8 +134,11 @@ def category_table():
 
 	categoriesList = [category.to_json_api() for category in categories]
 	data['categories'] = categoriesList if categoriesList else []
-	return render_template(f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/category_table.html",url_prefix=url_prefix,
-		**data,title=gettext('Category table'))
+	return render_template(
+		f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/category_table.html",
+		url_prefix = url_prefix,
+		**data,
+		title = gettext('Category table'))
 ###################################
 
 
@@ -118,28 +147,28 @@ def category_table():
 @ui_admin_required()
 def resources_table():
 	resData=apiResourceInfo(showInactive=True,fullInfo=True,avoidQtyCheckup=True)
-	return render_template(f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/resources_table.html",url_prefix=url_prefix,
-		**resData,title=gettext('Product table'))
+	return render_template(
+		f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/resources_table.html",
+		url_prefix = url_prefix,
+		**resData,
+		title = gettext('Product table'))
 
 def rp_acc_types():
-	rp_acc_types = Rp_acc_type.query\
-			.filter(Rp_acc_type.GCRecord=='' or Rp_acc_type.GCRecord==None).all()
+	rp_acc_types = Rp_acc_type.query.filter_by(GCRecord = None).all()
 	rp_acc_types_list = []
 	for rp_acc_type in rp_acc_types:
 		rp_acc_types_list.append(dataLangSelector(rp_acc_type.to_json_api()))
 	return rp_acc_types_list
 
 def rp_acc_statuses():
-	rp_acc_statuses = Rp_acc_status.query\
-		.filter(Rp_acc_status.GCRecord=='' or Rp_acc_status.GCRecord==None).all()
+	rp_acc_statuses = Rp_acc_status.query.filter_by(GCRecord = None).all()
 	rp_acc_statuses_list = []
 	for rp_acc_status in rp_acc_statuses:
 		rp_acc_statuses_list.append(dataLangSelector(rp_acc_status.to_json_api()))
 	return rp_acc_statuses_list
 
 def user_types():
-	user_types = User_type.query\
-		.filter(User_type.GCRecord=='' or User_type.GCRecord==None).all()
+	user_types = User_type.query.filter_by(GCRecord = None).all()
 	user_types_list = []
 	for user_type in user_types:
 		user_types_list.append(dataLangSelector(user_type.to_json_api()))
@@ -154,8 +183,11 @@ def customers_table():
 	data = UiRpAccData()
 	data['rp_acc_statuses'] = rp_acc_statuses()
 	data['rp_acc_types'] = rp_acc_types()
-	return render_template(f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/customers_table.html",url_prefix=url_prefix,
-		**data,title=gettext('Customers'))
+	return render_template(
+		f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/customers_table.html",
+		url_prefix = url_prefix,
+		**data,
+		title = gettext('Customers'))
 
 
 @bp.route("/admin/customer_details/<RpAccRegNo>")
@@ -166,7 +198,7 @@ def customer_details(RpAccRegNo):
 		rp_acc = Rp_acc.query\
 			.filter_by(RpAccRegNo = RpAccRegNo).first()
 		RpAccId = rp_acc.RpAccId
-		data = UiRpAccData([{"RpAccId": RpAccId}],deleted=True)
+		data = UiRpAccData([{"RpAccId": RpAccId}])
 		data['rp_acc']=data['rp_accs'][0]
 
 		data['rp_acc_statuses'] = rp_acc_statuses()
@@ -184,8 +216,11 @@ def customer_details(RpAccRegNo):
 	except Exception as ex:
 		print(ex)
 		return redirect(url_for('commerce_admin.customers_table'))
-	return render_template(f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/customer_details.html",url_prefix=url_prefix,
-		**data,**orderInvRes,title=gettext('Customer details'))
+	return render_template(
+		f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/customer_details.html",
+		url_prefix = url_prefix,
+		**data,**orderInvRes,
+		title = gettext('Customer details'))
 
 
 @bp.route("/admin/register_customer",methods=['GET','POST'])
@@ -288,8 +323,11 @@ def register_customer():
 			print(ex)
 			flash(lazy_gettext('Error occured, please try again.'),'danger')
 			return redirect(url_for('commerce_admin.register_customer'))
-	return render_template(f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/register_customer.html",url_prefix=url_prefix,
-		form=form,title=gettext('Register'))
+	return render_template(
+		f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/register_customer.html",
+		url_prefix = url_prefix,
+		form=form,
+		title = gettext('Register'))
 
 ################################
 
@@ -301,8 +339,11 @@ def register_customer():
 def users_table():
 	data = UiUsersData()
 	data['user_types'] = user_types()
-	return render_template(f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/users_table.html",url_prefix=url_prefix,
-		**data,title=gettext('Users'))
+	return render_template(
+		f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/users_table.html",
+		url_prefix = url_prefix,
+		**data,
+		title = gettext('Users'))
 
 
 @bp.route("/admin/user_details/<UId>")
@@ -310,24 +351,26 @@ def users_table():
 @ui_admin_required()
 def user_details(UId):
 	try:
-		data = UiUsersData([{"UId": UId}],deleted=True)
+		data = UiUsersData([{"UId": UId}])
 		data['user']=data['users'][0]
 		data['user_types'] = user_types()
 		rp_accs = Rp_acc.query\
-			.filter(and_(Rp_acc.GCRecord=='' or Rp_acc.GCRecord==None),\
-				Rp_acc.UId==UId).all()
+			.filter_by(GCRecord = None, UId = UId).all()
 		rp_acc_list = []
 		for rp_acc in rp_accs:
 			obj={"RpAccId": rp_acc.RpAccId}
 			rp_acc_list.append(obj)
-		rp_accs = UiRpAccData(rp_acc_list,deleted=True)
+		rp_accs = UiRpAccData(rp_acc_list)
 		data['rp_acc_statuses'] = rp_acc_statuses()
 		data['rp_acc_types'] = rp_acc_types()
 	except Exception as ex:
 		print(ex)
 		return redirect(url_for('commerce_admin.users_table'))
-	return render_template(f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/user_details.html",url_prefix=url_prefix,
-		**data,**rp_accs,title=gettext('Customer details'))
+	return render_template(
+		f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/user_details.html",
+		url_prefix = url_prefix,
+		**data,**rp_accs,
+		title = gettext('Customer details'))
 
 
 @bp.route("/admin/register_user",methods=['GET','POST'])
@@ -386,8 +429,11 @@ def register_user():
 			print(ex)
 			flash(lazy_gettext('Error occured, please try again.'),'danger')
 			return redirect(url_for('commerce_admin.register_user'))
-	return render_template(f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/register_user.html",url_prefix=url_prefix,
-		form=form,title=gettext('Register'))
+	return render_template(
+		f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/register_user.html",
+		url_prefix = url_prefix,
+		form=form,
+		title = gettext('Register'))
 
 #################################
 
@@ -416,8 +462,11 @@ def order_invoices():
 		invoice_statuses.append(dataLangSelector(inv_stat.to_json_api()))
 	InvoiceStatuses = {"inv_statuses": invoice_statuses}
 
-	return render_template(f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/order_invoices.html",url_prefix=url_prefix,
-		**orderInvRes,**InvoiceStatuses,InvStatId=InvStatId,title=gettext('Order invoices'))
+	return render_template(
+		f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/order_invoices.html",
+		url_prefix = url_prefix,
+		**orderInvRes,**InvoiceStatuses,InvStatId=InvStatId,
+		title = gettext('Order invoices'))
 
 
 @bp.route("/admin/order_invoices/<OInvRegNo>",methods=['GET','POST'])
@@ -446,8 +495,11 @@ def order_inv_lines(OInvRegNo):
 	for inv_stat in inv_statuses:
 		invoice_statuses.append(dataLangSelector(inv_stat.to_json_api()))
 	InvoiceStatuses = {"inv_statuses": invoice_statuses}
-	return render_template(f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/order_inv_lines.html",url_prefix=url_prefix,
-		**orderInvLineRes,**InvoiceStatuses,**orderInvRes,title=gettext('Order invoices'))
+	return render_template(
+		f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/order_inv_lines.html",
+		url_prefix = url_prefix,
+		**orderInvLineRes,**InvoiceStatuses,**orderInvRes,
+		title = gettext('Order invoices'))
 #########################################
 
 
@@ -456,24 +508,31 @@ def order_inv_lines(OInvRegNo):
 @ui_admin_required()
 def add_product():
 	resData=resRelatedData()
-	return render_template(f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/add_product.html",url_prefix=url_prefix,
-		**resData,title=gettext('Add product'))
+	return render_template(
+		f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/add_product.html",
+		url_prefix = url_prefix,
+		**resData,
+		title = gettext('Add product'))
 
 
 @bp.route("/admin/sale_repots_table")
 @login_required
 @ui_admin_required()
 def sale_repots_table():
-	return render_template(f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/sale_repots_table.html",url_prefix=url_prefix,
-		title=gettext('Sale reports'))
+	return render_template(
+		f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/sale_repots_table.html",
+		url_prefix = url_prefix,
+		title = gettext('Sale reports'))
 
 
 @bp.route("/admin/sale_repots_table2")
 @login_required
 @ui_admin_required()
 def sale_repots_table2():
-	return render_template(f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/sale_repots_table2.html",url_prefix=url_prefix,
-		title=gettext('Sale reports'))
+	return render_template(
+		f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/sale_repots_table2.html",
+		url_prefix = url_prefix,
+		title = gettext('Sale reports'))
 
 
 @bp.route("/admin/brands_table")
@@ -481,8 +540,11 @@ def sale_repots_table2():
 @ui_admin_required()
 def brands_table():
 	res = UiBrandsList()
-	return render_template(f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/brands_table.html",url_prefix=url_prefix,
-		**res,title=gettext('Brands'))
+	return render_template(
+		f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/brands_table.html",
+		url_prefix = url_prefix,
+		**res,
+		title = gettext('Brands'))
 
 
 @bp.route("/admin/manage_brand",methods=['GET','POST'])
@@ -554,5 +616,8 @@ def manage_brand():
 		form.BrandLink4.data = brand.BrandLink4
 		form.BrandLink5.data = brand.BrandLink5
 
-	return render_template(f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/manage_brand.html",url_prefix=url_prefix,
-		form=form,title=gettext('Brand'))
+	return render_template(
+		f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/manage_brand.html",
+		url_prefix = url_prefix,
+		form=form,
+		title = gettext('Brand'))

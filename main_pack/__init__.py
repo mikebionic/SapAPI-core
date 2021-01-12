@@ -128,7 +128,7 @@ def create_app(config_class=Config):
 			mail_handler = SMTPHandler(
 				mailhost = (Config.MAIL_SERVER, Config.MAIL_PORT),
 				fromaddr = 'no-reply@' + Config.MAIL_SERVER,
-				toaddrs = Config.EMAIL_ERROR_REPORTS_ADDRESSES, subject = f'App Error occured at {datetime.now()}',
+				toaddrs = Config.EMAIL_ERROR_REPORTS_ADDRESSES, subject = f'[{Config.COMPANY_NAME}] App Error occured at {datetime.now()}',
 				credentials = auth,
 				secure = secure)
 			mail_handler.setLevel(logging.ERROR)

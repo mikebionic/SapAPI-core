@@ -35,6 +35,11 @@
 	- [ ] Rebuild a new repo for Flask-style app
 	- [ ] Optimize app using NodeJs
 
+- [ ] Database updates:
+	- [ ] User's last logged in, device, etc
+	- [ ] App Configs migrated to db
+
+
 -----------------------------
 ## Installing
 **Install Python, Python-venv and pip3:**
@@ -69,6 +74,10 @@ or try with a [command](/documentation/pip_installation_command.md) in terminal
 Set configurations in "[config.py](/main_pack/config.py)" file
 Sensitive informations are loaded from "[.env](/main_pack/.env.example.config)" file
 Sensitive informations never shared if added to "[.gitignore](/.gitignore)" file
+**Configure site settings** in main_pack/static/web_config:
+	- Add robots.txt
+	- Add sitemap.xml
+	- Add watermark.png
 
 Initial Company and Division migrations (uncomment the lines first):
 ```bash

@@ -29,14 +29,14 @@ def token_required(f):
 
 	return decorated
 
-def check_auth(modelName,username,password):
+def check_auth(auth_type,username,password):
 	auth_status = False
-	if(modelName == 'Users'):
+	if (auth_type == 'user'):
 		user = Users.query.filter_by(UName = username).first()
 		# if user and bcrypt.check_password_hash(user.UPass,password):
 		if user and user.UPass == password:
 			auth_status = True
-	elif(modelName == 'Rp_acc'):
+	elif (auth_type == 'rp_acc'):
 		rp_acc = Rp_acc.query.filter_by(RpAccUName = username).first()
 		# if user and bcrypt.check_password_hash(user.UPass,password):
 		if rp_acc and rp_acc.RpAccUPass == password:
@@ -44,6 +44,8 @@ def check_auth(modelName,username,password):
 	
 	return auth_status
 
+
+# Email validation functions
 
 def send_reset_email(user):
 	url = 'commerce_auth.reset_token'
