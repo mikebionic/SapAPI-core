@@ -27,7 +27,7 @@ from main_pack.models.base.models import Company, Division
 
 
 @api.route("/tbl-dk-rp-accs/<RpAccRegNo>/",methods=['GET'])
-@sha_required
+# @sha_required
 def api_rp_accs_rp_acc(RpAccRegNo):
 	rp_acc = apiRpAccData(RpAccRegNo)
 	res = {

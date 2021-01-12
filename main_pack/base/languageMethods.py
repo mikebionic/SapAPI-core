@@ -9,18 +9,28 @@ dbLanguages = {
 	"ru": 'ruRU',
 	"tk": 'tkTM'
 }
-def dataLangSelector(modelJSON):
+
+def dataLangSelector(DictObject):
 	try:
 		language = dbLanguages[session['language']]
 	except:
 		language = dbLanguages['tk']
 	convertedJSON = {}
-	for data in modelJSON:
-		splittedData = data.split('_')
-		if (len(splittedData)>1) and splittedData[1] == language:
-			convertedJSON[splittedData[0]]=modelJSON[data]
-		if not len(splittedData)>1:
-			convertedJSON[splittedData[0]]=modelJSON[data]
+
+	try:
+		if not DictObject:
+			raise Exception
+
+		for data in DictObject:
+			splittedData = data.split('_')
+			if (len(splittedData) > 1) and splittedData[1] == language:
+				convertedJSON[splittedData[0]] = DictObject[data]
+			if not len(splittedData) > 1:
+				convertedJSON[splittedData[0]] = DictObject[data]
+	
+	except Exception as ex:
+		return None
+	
 	return convertedJSON
 
 ## example usage:

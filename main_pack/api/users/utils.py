@@ -1,6 +1,11 @@
 # -*- coding: utf-8 -*-
-from main_pack.base.dataMethods import configureNulls,configureFloat,boolCheck
 import uuid
+from sqlalchemy.orm import joinedload
+
+from main_pack.base.languageMethods import dataLangSelector
+from main_pack.base.apiMethods import fileToURL
+from main_pack.base.dataMethods import configureNulls,configureFloat,boolCheck
+
 
 def addUsersDict(req):
 	UId = req.get('UId')
@@ -56,8 +61,8 @@ def addUsersDict(req):
 		"GCRecord": GCRecord
 		}
 	# if(UId != '' and UId != None):
-	# 	users['UId'] = UId
-	users=configureNulls(users)
+	# 	users["UId"] = UId
+	users = configureNulls(users)
 	return users
 
 def addRpAccDict(req):
@@ -158,7 +163,7 @@ def addRpAccDict(req):
 		}
 	# if(RpAccId != '' and RpAccId != None):
 	# 	print(RpAccId)
-	# 	rp_acc['RpAccId'] = RpAccId
+	# 	rp_acc["RpAccId"] = RpAccId
 	rp_acc = configureNulls(rp_acc)
 	return rp_acc
 
@@ -170,71 +175,70 @@ from main_pack.base.apiMethods import fileToURL
 from main_pack.models.users.models import Users,Rp_acc,User_type
 from sqlalchemy import and_
 
-def apiUsersData(UId=None,dbModel=None):
-	if dbModel:
-		user = dbModel
-	else:	
-		user = Users.query\
-			.filter_by(GCRecord = None, UId = UId)\
-			.first()
-	images = Image.query\
-		.filter_by(GCRecord = None)\
-		.order_by(Image.CreatedDate.desc())\
-		.all()
-	user_type = User_type.query\
-		.filter_by(GCRecord = None, UTypeId = user.UTypeId)\
-		.first()
-	rp_accs = Rp_acc.query\
-		.filter_by(GCRecord = None, UId = UId)\
-		.all()
-	List_RpAccs = [rp_acc.to_json_api() for rp_acc in rp_accs]
-	################
-	userInfo = user.to_json_api()
-	
-	List_Images = [image.to_json_api() for image in images if image.UId == user.UId]
-	userInfo["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=List_Images[0]['FileName']) if List_Images else ''
-	userInfo["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=List_Images[0]['FileName']) if List_Images else ''
-	userInfo["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_Images[0]['FileName']) if List_Images else ''
-	userInfo['Images'] = List_Images
-	userInfo["Rp_accs"] = List_RpAccs if List_RpAccs else ''
-	userInfo["User_type"] = user_type.to_json_api() if user_type else ''
-	#############
+def apiUsersData(UId=None, dbQuery=None):
+	if not dbQuery:
+		dbQuery = Users.query.filter_by(GCRecord = None, UId = UId)
+
+	dbQuery = dbQuery.options(
+		joinedload(Users.Image),
+		joinedload(Users.Rp_acc),
+		joinedload(Users.user_type))\
+	.first()
+
+	data = {}
+	if dbQuery:
+		data = dbQuery.to_json_api()
+
+		List_Images = [image.to_json_api() for image in dbQuery.Image if image.GCRecord == None]
+		List_Images = (sorted(List_Images, key = lambda i: i["ModifiedDate"]))
+
+		data["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=List_Images[-1]["FileName"]) if List_Images else ""
+		data["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=List_Images[-1]["FileName"]) if List_Images else ""
+		data["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_Images[-1]["FileName"]) if List_Images else ""
+		data["Images"] = List_Images if List_Images else []
+		data["Rp_accs"] = [rp_acc.to_json_api() for rp_acc in dbQuery.Rp_acc if rp_acc.GCRecord == None]
+		data["User_type"] = dataLangSelector(dbQuery.user_type.to_json_api()) if dbQuery.user_type else {}
+
 	res = {
 		"status":1,
-		"data":userInfo,
+		"data":data,
 		"total":1
 	}
 	return res
 
-def apiRpAccData(RpAccRegNo=None,dbModel=None):
+
+def apiRpAccData(RpAccRegNo=None, dbQuery=None, dbModel=None):
+	if not dbModel:
+		if not dbQuery:
+			dbQuery = Rp_acc.query.filter_by(GCRecord = None, RpAccRegNo = RpAccRegNo)
+
+		dbModel = dbQuery.options(
+			joinedload(Rp_acc.Image),
+			joinedload(Rp_acc.users),
+			joinedload(Rp_acc.rp_acc_type),
+			joinedload(Rp_acc.rp_acc_status))\
+		.first()
+
+	data = {}
 	if dbModel:
-		rp_acc = dbModel
-	else:
-		rp_acc = Rp_acc.query\
-			.filter_by(GCRecord = None, RpAccRegNo = RpAccRegNo)\
-			.first()
-	images = Image.query\
-		.filter_by(GCRecord = None)\
-		.order_by(Image.CreatedDate.desc()).all()
-	users = Users.query\
-		.filter_by(GCRecord = None, UId = rp_acc.UId)\
-		.all()
-	
-	rpAccInfo = rp_acc.to_json_api()
+		data = dbModel.to_json_api()
 
-	List_Users = [user.to_json_api() for user in users]
-	List_Images = [image.to_json_api() for image in images if image.RpAccId==rp_acc.RpAccId]
-	rpAccInfo["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=List_Images[0]['FileName']) if List_Images else ''
-	rpAccInfo["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=List_Images[0]['FileName']) if List_Images else ''
-	rpAccInfo["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_Images[0]['FileName']) if List_Images else ''
-	rpAccInfo['Images'] = List_Images
-	rpAccInfo["User"] = List_Users[0] if List_Users else ''
+		List_Images = [image.to_json_api() for image in dbModel.Image if image.GCRecord == None]
+		List_Images = (sorted(List_Images, key = lambda i: i["ModifiedDate"]))
 
-	# data.append(rpAccInfo)
-	#############
+		data["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=List_Images[-1]["FileName"]) if List_Images else ""
+		data["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=List_Images[-1]["FileName"]) if List_Images else ""
+		data["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_Images[-1]["FileName"]) if List_Images else ""
+		data["Images"] = List_Images if List_Images else []
+
+
+		data["User"] = dbModel.users.to_json_api() if dbModel.users and dbModel.users.GCRecord == None else {}
+		data["Rp_acc_type"] = dataLangSelector(dbModel.rp_acc_type.to_json_api()) if dbModel.rp_acc_type else {}
+		data["Rp_acc_status"] = dataLangSelector(dbModel.rp_acc_status.to_json_api()) if dbModel.rp_acc_status else {}
+
 	res = {
 		"status": 1,
-		"data": rpAccInfo,
+		"data": data,
 		"total": 1
 	}
 	return res

@@ -50,7 +50,7 @@ def get_order_error_type(error_type):
 		3: "Resource ended",
 		4: "False price"
 	}
-	print(fail_statuses[error_type])
+	# print(fail_statuses[error_type])
 	return fail_statuses[error_type]
 
 ###### invoice status UI styling ######

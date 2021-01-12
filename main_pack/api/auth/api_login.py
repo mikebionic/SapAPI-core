@@ -8,9 +8,9 @@ from functools import wraps
 from main_pack.config import Config
 
 from main_pack.api.auth import api
-from main_pack.models.users.models import Users,Rp_acc
+from main_pack.models.users.models import Users, Rp_acc
 from main_pack.api.auth.utils import check_auth
-from main_pack.api.users.utils import apiUsersData,apiRpAccData
+from main_pack.api.users.utils import apiUsersData, apiRpAccData
 from main_pack.base.dataMethods import apiDataFormat
 
 
@@ -55,14 +55,12 @@ def api_login():
 		return make_response(*error_response)
 
 	if auth_type == "user":
-		user_model = Users.query\
-			.filter_by(GCRecord = None, UName = auth.username)\
-			.first()
+		user_query = Users.query.filter_by(GCRecord = None, UName = auth.username)
+		user_model = user_query.first()
 
 	elif auth_type == "rp_acc":
-		user_model = Rp_acc.query\
-			.filter_by(GCRecord = None, RpAccUName = auth.username)\
-			.first()
+		user_query = Rp_acc.query.filter_by(GCRecord = None, RpAccUName = auth.username)
+		user_model = user_query.first()
 
 	if not user_model:
 		return make_response(*error_response)
@@ -73,11 +71,11 @@ def api_login():
 
 		if auth_type == "user":
 			token = jwt.encode({"UId": user_model.UId, "exp": exp}, Config.SECRET_KEY)
-			loggedUserInfo = apiUsersData(user_model.UId)
+			loggedUserInfo = apiUsersData(dbQuery = user_query)
 
 		elif auth_type == "rp_acc":
 			token = jwt.encode({"RpAccId": user_model.RpAccId, "exp": exp}, Config.SECRET_KEY)
-			loggedUserInfo = apiRpAccData(user_model.RpAccRegNo)
+			loggedUserInfo = apiRpAccData(dbQuery = user_query)
 		
 		response_data[auth_type] = loggedUserInfo['data']
 		response_data["token"] = token.decode('UTF-8')
@@ -96,17 +94,16 @@ def api_login_users():
 	if not auth or not auth.username or not auth.password:
 		return make_response(*error_response)
 
-	user = Users.query\
-		.filter_by(GCRecord = None, UName = auth.username)\
-		.first()
+	user_query = Users.query.filter_by(GCRecord = None, UName = auth.username)
+	user = user_query.first()
 
 	if not user:
 		return make_response(*error_response)
 
 	if check_auth("user", auth.username, auth.password):
 		exp = datetime.now() + dt.timedelta(minutes = 30)
-		token = jwt.encode({"UId": user.UId,"exp": exp}, Config.SECRET_KEY)
-		userData = apiUsersData(user.UId)
+		token = jwt.encode({"UId": user.UId, "exp": exp}, Config.SECRET_KEY)
+		userData = apiUsersData(dbQuery = user_query)
 		session["ResPriceGroupId"] = user.ResPriceGroupId
 		return jsonify({
 			"token": token.decode('UTF-8'),
@@ -125,17 +122,16 @@ def api_login_rp_accs():
 	if not auth or not auth.username or not auth.password:
 		return make_response(*error_response)
 
-	rp_acc = Rp_acc.query\
-		.filter_by(GCRecord = None, RpAccUName = auth.username)\
-		.first()
+	user_query = Rp_acc.query.filter_by(GCRecord = None, RpAccUName = auth.username)
+	rp_acc = user_query.first()
 
 	if not rp_acc:
 		return make_response(*error_response)
 
 	if check_auth("rp_acc", auth.username, auth.password):
 		exp = datetime.now() + dt.timedelta(minutes = 30)
-		token = jwt.encode({"RpAccId": rp_acc.RpAccId,"exp": exp}, Config.SECRET_KEY)
-		rpAccData = apiRpAccData(rp_acc.RpAccRegNo)
+		token = jwt.encode({"RpAccId": rp_acc.RpAccId, "exp": exp}, Config.SECRET_KEY)
+		rpAccData = apiRpAccData(dbQuery = user_query)
 		session["ResPriceGroupId"] = rp_acc.ResPriceGroupId
 		return jsonify({
 			"token": token.decode('UTF-8'),

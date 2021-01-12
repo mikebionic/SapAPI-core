@@ -383,19 +383,18 @@ def apiResourceInfo(
 			
 			if fullInfo == True:
 				List_Ratings = []
+				# !!! TODO: try to get deep in outerjoin
 				for rating in resource_query.Resource.Rating:
 					Rating_info = rating.to_json_api()
+
 					if rating.UId:
-						rated_user = Users.query\
-							.filter_by(GCRecord = None, UId = rating.UId)\
-							.first()
-						userData = apiUsersData(dbModel=rated_user)
+						rated_user = Users.query.filter_by(GCRecord = None, UId = rating.UId)
+						userData = apiUsersData(dbQuery = rated_user)
 						Rating_info["User"] = userData["data"]
+
 					if rating.RpAccId:
-						rated_rp_acc = Rp_acc.query\
-							.filter_by(GCRecord = None, RpAccId = rating.RpAccId)\
-							.first()
-						rpAccData = apiRpAccData(dbModel=rated_rp_acc)
+						rated_rp_acc = Rp_acc.query.filter_by(GCRecord = None, RpAccId = rating.RpAccId)
+						rpAccData = apiRpAccData(dbQuery = rated_rp_acc)
 						Rating_info["Rp_acc"] = rpAccData["data"]
 					List_Ratings.append(Rating_info)
 			else:
@@ -650,9 +649,10 @@ def apiOrderInvInfo(
 
 			rp_acc_data = {}
 			if rp_acc_user:
-				rpAccData = apiRpAccData(dbModel=rp_acc_user)
+				rpAccData = apiRpAccData(dbModel = rp_acc_user)
+				print(rpAccData)
 				rp_acc_data = rpAccData["data"]
-			
+
 			# elif order_inv.RpAccId:
 			# 	rp_acc_user = Rp_acc.query\
 			# 		.filter_by(GCRecord = None, RpAccId = order_inv.RpAccId)\
@@ -660,7 +660,7 @@ def apiOrderInvInfo(
 
 			elif order_inv.rp_acc:
 				rp_acc_user = order_inv.rp_acc
-				rpAccData = apiRpAccData(dbModel=rp_acc_user)
+				rpAccData = apiRpAccData(dbModel = rp_acc_user)
 				rp_acc_data = rpAccData["data"]
 			order_inv_info["Rp_acc"] = rp_acc_data
 
@@ -686,12 +686,14 @@ def apiOrderInvInfo(
 								single_object = True)
 							this_order_inv_line["Resource"] = resource_json["data"]
 						order_inv_lines.append(this_order_inv_line)
-			
+
 				order_inv_info["Order_inv_lines"] = order_inv_lines
 			data.append(order_inv_info)
+
 		except Exception as ex:
 			print(f"{datetime.now()} | Order_inv info utils Exception: {ex}")
 			fails.append(order_inv.to_json_api())
+
 	status = checkApiResponseStatus(data,fails)
 	if single_object == True:
 		if len(data) == 1:
@@ -776,12 +778,12 @@ def apiInvInfo(
 			inv_info["InvStatName"] = inv_status["InvStatName"]
 
 			if rp_acc_user:
-				rpAccData = apiRpAccData(dbModel=rp_acc_user)
+				rpAccData = apiRpAccData(dbModel = rp_acc_user)
 			else:
 				rp_acc_user = Rp_acc.query\
 					.filter_by(GCRecord = None, RpAccId = invoice.RpAccId)\
 					.first()
-				rpAccData = apiRpAccData(dbModel=rp_acc_user)
+				rpAccData = apiRpAccData(dbModel = rp_acc_user)
 			rp_acc_user = None
 			inv_info["Rp_acc"] = rpAccData["data"]
 
