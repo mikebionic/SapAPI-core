@@ -199,7 +199,7 @@ def customer_details(RpAccRegNo):
 			.filter_by(RpAccRegNo = RpAccRegNo).first()
 		RpAccId = rp_acc.RpAccId
 		data = UiRpAccData([{"RpAccId": RpAccId}])
-		data['rp_acc']=data['rp_accs'][0]
+		data['rp_acc'] = data['rp_accs'][0]
 
 		data['rp_acc_statuses'] = rp_acc_statuses()
 		data['rp_acc_types'] = rp_acc_types()

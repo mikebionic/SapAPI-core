@@ -28,10 +28,10 @@ class Users(AddInf,CreatedModifiedInfo,db.Model,UserMixin):
 	UShortName = db.Column("UShortName",db.String(10))
 	EmpId = db.Column("EmpId",db.Integer)
 	UTypeId = db.Column("UTypeId",db.Integer,db.ForeignKey("tbl_dk_user_type.UTypeId"))
-	Wish = db.relationship('Wish',backref='users',lazy=True)
-	Rating = db.relationship('Rating',backref='users',lazy=True)
-	Rp_acc = db.relationship('Rp_acc',backref='users',lazy=True)
-	Image = db.relationship('Image',backref='users',lazy=True)
+	Wish = db.relationship("Wish",backref='users',lazy=True)
+	Rating = db.relationship("Rating",backref='users',lazy=True)
+	Rp_acc = db.relationship("Rp_acc",backref='users',lazy=True)
+	Image = db.relationship("Image",backref='users',lazy=True)
 	
 	def is_admin(self):
 		return self.UTypeId == 1
@@ -106,7 +106,7 @@ class User_type(CreatedModifiedInfo,db.Model):
 	UTypeDesc_ruRU = db.Column("UTypeDesc_ruRU",db.String(500))
 	UTypeName_enUS = db.Column("UTypeName_enUS",db.String(50))#,nullable=False)
 	UTypeDesc_enUS = db.Column("UTypeDesc_enUS",db.String(500))
-	Users = db.relationship('Users',backref='user_type',lazy=True)
+	Users = db.relationship("Users",backref='user_type',lazy=True)
 
 	def to_json_api(self):
 		user_type = {
@@ -165,23 +165,23 @@ class Rp_acc(AddInf,CreatedModifiedInfo,db.Model):
 	RpAccPurchBalanceLimit = db.Column("RpAccPurchBalanceLimit",db.Float,default=0)
 	RpAccLatitude = db.Column("RpAccLatitude",db.Float,default=0.0)
 	RpAccLongitude = db.Column("RpAccLongitude",db.Float,default=0.0)
-	Representative = db.relationship('Representative',backref='rp_acc',foreign_keys='Representative.RpAccId',lazy='dynamic')
-	Accounting_info = db.relationship('Accounting_info',backref='rp_acc',lazy=True)
-	Contact = db.relationship('Contact',backref='rp_acc',lazy=True)
-	Image = db.relationship('Image',backref='rp_acc',lazy=True)
-	Location = db.relationship('Location',backref='rp_acc',lazy=True)
-	Resource = db.relationship('Resource',backref='last_vendor',lazy=True)
-	Inv_line = db.relationship('Inv_line',backref='last_vendor',lazy=True)
-	Order_inv_line = db.relationship('Order_inv_line',backref='last_vendor',lazy=True)
-	Res_trans_inv_line = db.relationship('Res_trans_inv_line',backref='last_vendor',lazy=True)
-	Rp_acc_price_list = db.relationship('Rp_acc_price_list',backref='rp_acc',lazy=True)
-	Rp_acc_resource = db.relationship('Rp_acc_resource',backref='rp_acc',lazy=True)
-	Rp_acc_trans_total = db.relationship('Rp_acc_trans_total',backref='rp_acc',lazy=True)
-	Rp_acc_transaction = db.relationship('Rp_acc_transaction',backref='rp_acc',lazy=True)
-	Sale_card = db.relationship('Sale_card',backref='rp_acc',lazy=True)
-	Invoice = db.relationship('Invoice',backref='rp_acc',lazy=True)
-	Order_inv = db.relationship('Order_inv',backref='rp_acc',lazy=True)
-	Rating = db.relationship('Rating',backref='rp_acc',lazy=True)
+	Representative = db.relationship("Representative",backref='rp_acc',foreign_keys='Representative.RpAccId',lazy=True)
+	Accounting_info = db.relationship("Accounting_info",backref='rp_acc',lazy=True)
+	Contact = db.relationship("Contact",backref='rp_acc',lazy=True)
+	Image = db.relationship("Image",backref='rp_acc',lazy=True)
+	Location = db.relationship("Location",backref='rp_acc',lazy=True)
+	Resource = db.relationship("Resource",backref='last_vendor',lazy=True)
+	Inv_line = db.relationship("Inv_line",backref='last_vendor',lazy=True)
+	Order_inv_line = db.relationship("Order_inv_line",backref='last_vendor',lazy=True)
+	Res_trans_inv_line = db.relationship("Res_trans_inv_line",backref='last_vendor',lazy=True)
+	Rp_acc_price_list = db.relationship("Rp_acc_price_list",backref='rp_acc',lazy=True)
+	Rp_acc_resource = db.relationship("Rp_acc_resource",backref='rp_acc',lazy=True)
+	Rp_acc_trans_total = db.relationship("Rp_acc_trans_total",backref='rp_acc',lazy=True)
+	Rp_acc_transaction = db.relationship("Rp_acc_transaction",backref='rp_acc',lazy=True)
+	Sale_card = db.relationship("Sale_card",backref='rp_acc',lazy=True)
+	Invoice = db.relationship("Invoice",backref='rp_acc',lazy=True)
+	Order_inv = db.relationship("Order_inv",backref='rp_acc',lazy=True)
+	Rating = db.relationship("Rating",backref='rp_acc',lazy=True)
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -251,7 +251,7 @@ class Rp_acc_status(CreatedModifiedInfo,db.Model):
 	RpAccStatusDesc_ruRU = db.Column("RpAccStatusDesc_ruRU",db.String(500))
 	RpAccStatusName_enUS = db.Column("RpAccStatusName_enUS",db.String(100))
 	RpAccStatusdesc_enUS = db.Column("RpAccStatusdesc_enUS",db.String(500))
-	Rp_acc = db.relationship('Rp_acc',backref='rp_acc_status',lazy=True)
+	Rp_acc = db.relationship("Rp_acc",backref='rp_acc_status',lazy=True)
 
 	def to_json_api(self):
 		json_rp_acc_status = {
@@ -281,7 +281,7 @@ class Rp_acc_type(CreatedModifiedInfo,db.Model):
 	RpAccTypeDesc_ruRU = db.Column("RpAccTypeDesc_ruRU",db.String(500))
 	RpAccTypeName_enUS = db.Column("RpAccTypeName_enUS",db.String(100))
 	RpAccTypeDesc_enUS = db.Column("RpAccTypeDesc_enUS",db.String(500))
-	Rp_acc = db.relationship('Rp_acc',backref='rp_acc_type',lazy=True)
+	Rp_acc = db.relationship("Rp_acc",backref='rp_acc_type',lazy=True)
 
 	def to_json_api(self):
 		json_rp_acc_type = {

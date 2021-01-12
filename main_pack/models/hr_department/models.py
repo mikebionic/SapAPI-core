@@ -35,20 +35,20 @@ class Employee(AddInf,CreatedModifiedInfo,db.Model):
 	WorkFaxNumber = db.Column("WorkFaxNumber",db.String(100))
 	ZipCode = db.Column("ZipCode",db.String(100))
 	EMail = db.Column("EMail",db.String(100))
-	Contact = db.relationship('Contact',backref='employee',lazy=True)
-	Location = db.relationship('Location',backref='employee',lazy=True)
-	Award = db.relationship('Award',backref='employee',lazy=True)
-	Relatives = db.relationship('Relatives',backref='employee',lazy=True)
-	School = db.relationship('School',backref='employee',lazy=True)
-	Visited_countries = db.relationship('Visited_countries',backref='employee',lazy=True)
-	Work_history = db.relationship('Work_history',backref='employee',lazy=True)
-	Department_detail = db.relationship('Department_detail',backref='employee',lazy=True)
-	Image = db.relationship('Image',backref='employee',lazy=True)
-	Rp_acc = db.relationship('Rp_acc',backref='employee',lazy=True)
-	Invoice = db.relationship('Invoice',backref='employee',lazy=True)
-	Order_inv = db.relationship('Order_inv',backref='employee',lazy=True)
-	Res_trans_inv = db.relationship('Res_trans_inv',backref='employee',lazy=True)
-	Rating = db.relationship('Rating',backref='employee',lazy=True)
+	Contact = db.relationship("Contact",backref='employee',lazy=True)
+	Location = db.relationship("Location",backref='employee',lazy=True)
+	Award = db.relationship("Award",backref='employee',lazy=True)
+	Relatives = db.relationship("Relatives",backref='employee',lazy=True)
+	School = db.relationship("School",backref='employee',lazy=True)
+	Visited_countries = db.relationship("Visited_countries",backref='employee',lazy=True)
+	Work_history = db.relationship("Work_history",backref='employee',lazy=True)
+	Department_detail = db.relationship("Department_detail",backref='employee',lazy=True)
+	Image = db.relationship("Image",backref='employee',lazy=True)
+	Rp_acc = db.relationship("Rp_acc",backref='employee',lazy=True)
+	Invoice = db.relationship("Invoice",backref='employee',lazy=True)
+	Order_inv = db.relationship("Order_inv",backref='employee',lazy=True)
+	Res_trans_inv = db.relationship("Res_trans_inv",backref='employee',lazy=True)
+	Rating = db.relationship("Rating",backref='employee',lazy=True)
 	# function updates db ignoring Null
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -165,7 +165,7 @@ class Contract_type(CreatedModifiedInfo,db.Model):
 	ContractTypeDesc_ruRU = db.Column("ContractTypeDesc_ruRU",db.String(100))
 	ContractTypeName_enUS = db.Column("ContractTypeName_enUS",db.String(100))
 	ContractTypeDesc_enUS = db.Column("ContractTypeDesc_enUS",db.String(100))
-	Employee = db.relationship('Employee',backref='contract_type',lazy=True)
+	Employee = db.relationship("Employee",backref='contract_type',lazy=True)
 	
 	def to_json(self):
 		json_contactType = {
@@ -189,7 +189,7 @@ class Edu_level(CreatedModifiedInfo,db.Model):
 	EduLevelDesc_ruRU = db.Column("EduLevelDesc_ruRU",db.String(500))
 	EduLevelName_enUS = db.Column("EduLevelName_enUS",db.String(100))#
 	EduLevelDesc_enUS = db.Column("EduLevelDesc_enUS",db.String(500))
-	Employee = db.relationship('Employee',backref='edu_level',lazy=True)
+	Employee = db.relationship("Employee",backref='edu_level',lazy=True)
 
 	def to_json(self):
 		json_eduLevel = {
@@ -213,7 +213,7 @@ class Emp_status(CreatedModifiedInfo,db.Model):
 	EmpStatDesc_ruRU = db.Column("EmpStatDesc_ruRU",db.String(500))
 	EmpStatName_enUS = db.Column("EmpStatName_enUS",db.String(100))#,nullable=False)
 	EmpStatDesc_enUS = db.Column("EmpStatDesc_enUS",db.String(500))
-	Employee = db.relationship('Employee',backref='emp_status',lazy=True)
+	Employee = db.relationship("Employee",backref='emp_status',lazy=True)
 
 	def to_json(self):
 		json_empStatus = {
@@ -237,8 +237,8 @@ class Nationality(CreatedModifiedInfo,db.Model):
 	NatDesc_ruRU = db.Column("NatDesc_ruRU",db.String(500))
 	NatName_enUS = db.Column("NatName_enUS",db.String(50))#,nullable=False)
 	NatDesc_enUS = db.Column("NatDesc_enUS",db.String(500))
-	Employee = db.relationship('Employee',backref='nationality',lazy=True)
-	Rp_acc = db.relationship('Rp_acc',backref='nationality',lazy=True)
+	Employee = db.relationship("Employee",backref='nationality',lazy=True)
+	Rp_acc = db.relationship("Rp_acc",backref='nationality',lazy=True)
 
 	def to_json(self):
 		json_nationality = {
@@ -262,7 +262,7 @@ class Profession(CreatedModifiedInfo,db.Model):
 	ProfessionDesc_ruRU = db.Column("ProfessionDesc_ruRU",db.String(500))
 	ProfessionName_enUS = db.Column("ProfessionName_enUS",db.String(50))#,nullable=False)
 	ProfessionDesc_enUS = db.Column("ProfessionDesc_enUS",db.String(500))
-	Employee = db.relationship('Employee',backref='profession',lazy=True)
+	Employee = db.relationship("Employee",backref='profession',lazy=True)
 
 	def to_json(self):
 		json_profession = {
@@ -286,7 +286,7 @@ class Rel_status(CreatedModifiedInfo,db.Model):
 	RelStatDesc_ruRU = db.Column("RelStatDesc_ruRU",db.String(500))
 	RelStatName_enUS = db.Column("RelStatName_enUS",db.String(50))#,nullable=False)
 	RelStatDesc_enUS = db.Column("RelStatDesc_enUS",db.String(500))
-	Relatives = db.relationship('Relatives',backref='rel_status',lazy=True)
+	Relatives = db.relationship("Relatives",backref='rel_status',lazy=True)
 
 	def to_json(self):
 		json_relStatus = {

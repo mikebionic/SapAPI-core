@@ -63,8 +63,8 @@ class Brand(AddInf,CreatedModifiedInfo,db.Model):
 	BrandLink3 = db.Column("BrandLink3",db.String(255))
 	BrandLink4 = db.Column("BrandLink4",db.String(255))
 	BrandLink5 = db.Column("BrandLink5",db.String(255))
-	Resource = db.relationship('Resource',backref='brand',lazy=True)
-	Image = db.relationship('Image',backref='brand',lazy=True)
+	Resource = db.relationship("Resource",backref='brand',lazy=True)
+	Image = db.relationship("Image",backref='brand',lazy=True)
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -113,8 +113,8 @@ class Color(CreatedModifiedInfo,db.Model):
 	ColorName = db.Column("ColorName",db.String(100),nullable=False)
 	ColorDesc = db.Column("ColorDesc",db.String(500))
 	ColorCode = db.Column("ColorCode",db.String(100))
-	Res_color = db.relationship('Res_color',backref='color',lazy=True)
-	Translations = db.relationship('Translations',backref='color',lazy=True)
+	Res_color = db.relationship("Res_color",backref='color',lazy=True)
+	Translations = db.relationship("Translations",backref='color',lazy=True)
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -152,7 +152,7 @@ class Size(AddInf,CreatedModifiedInfo,db.Model):
 	SizeName = db.Column("SizeName",db.String(100),nullable=False)
 	SizeDesc = db.Column("SizeDesc",db.String(500))
 	SizeTypeId = db.Column("SizeTypeId",db.Integer,db.ForeignKey("tbl_dk_size_type.SizeTypeId"))
-	Res_size = db.relationship('Res_size',backref='size',lazy=True)
+	Res_size = db.relationship("Res_size",backref='size',lazy=True)
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -189,7 +189,7 @@ class Size_type(CreatedModifiedInfo,db.Model):
 	SizeTypeId = db.Column("SizeTypeId",db.Integer,nullable=False,primary_key=True)
 	SizeTypeName = db.Column("SizeTypeName",db.String(100),nullable=False)
 	SizeTypeDesc = db.Column("SizeTypeDesc",db.String(500))
-	Size = db.relationship('Size',backref='size_type',lazy=True)
+	Size = db.relationship("Size",backref='size_type',lazy=True)
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -228,16 +228,16 @@ class Unit(CreatedModifiedInfo,db.Model):
 	UnitDesc_ruRU = db.Column("UnitDesc_ruRU",db.String(100))
 	UnitName_enUS = db.Column("UnitName_enUS",db.String(100))
 	UnitDesc_enUS = db.Column("UnitDesc_enUS",db.String(100))
-	Res_unit = db.relationship('Res_unit',backref='unit',lazy=True)
-	Barcode = db.relationship('Barcode',backref='unit',lazy=True)
-	Resource = db.relationship('Resource',backref='unit',lazy=True)
-	Inv_line = db.relationship('Inv_line',backref='unit',lazy=True)
-	Order_inv_line = db.relationship('Order_inv_line',backref='unit',lazy=True)
-	Res_price = db.relationship('Res_price',backref='unit',lazy=True)
-	Res_trans_inv_line = db.relationship('Res_trans_inv_line',backref='unit',lazy=True)
-	Res_transaction = db.relationship('Res_transaction',backref='unit',lazy=True)
-	Sale_agr_res_price = db.relationship('Sale_agr_res_price',backref='unit',lazy=True)
-	Production_line = db.relationship('Production_line',backref='unit',lazy=True)
+	Res_unit = db.relationship("Res_unit",backref='unit',lazy=True)
+	Barcode = db.relationship("Barcode",backref='unit',lazy=True)
+	Resource = db.relationship("Resource",backref='unit',lazy=True)
+	Inv_line = db.relationship("Inv_line",backref='unit',lazy=True)
+	Order_inv_line = db.relationship("Order_inv_line",backref='unit',lazy=True)
+	Res_price = db.relationship("Res_price",backref='unit',lazy=True)
+	Res_trans_inv_line = db.relationship("Res_trans_inv_line",backref='unit',lazy=True)
+	Res_transaction = db.relationship("Res_transaction",backref='unit',lazy=True)
+	Sale_agr_res_price = db.relationship("Sale_agr_res_price",backref='unit',lazy=True)
+	Production_line = db.relationship("Production_line",backref='unit',lazy=True)
 
 	def to_json_api(self):
 		json_unit = {
@@ -266,9 +266,9 @@ class Usage_status(CreatedModifiedInfo,db.Model):
 	UsageStatusDesc_ruRU = db.Column("UsageStatusDesc_ruRU",db.String(500))
 	UsageStatusName_enUS = db.Column("UsageStatusName_enUS",db.String(100))
 	UsageStatusDesc_enUS = db.Column("UsageStatusDesc_enUS",db.String(500))
-	Resource = db.relationship('Resource',backref='usage_status',lazy=True)
-	Res_price_group = db.relationship('Res_price_group',backref='usage_status',lazy=True)
-	Res_price_rule = db.relationship('Res_price_rule',backref='usage_status',lazy=True)
+	Resource = db.relationship("Resource",backref='usage_status',lazy=True)
+	Res_price_group = db.relationship("Res_price_group",backref='usage_status',lazy=True)
+	Res_price_rule = db.relationship("Res_price_rule",backref='usage_status',lazy=True)
 
 	def to_json_api(self):
 		json_usage_status = {
@@ -298,7 +298,7 @@ class Discount_type(CreatedModifiedInfo,db.Model):
 	DiscTypeDesc_ruRU = db.Column("DiscTypeDesc_ruRU",db.String(500))
 	DiscTypeName_enUS = db.Column("DiscTypeName_enUS",db.String(100))
 	DiscTypeDesc = db.Column("DiscTypeDesc",db.String(500))
-	Res_discount = db.relationship('Res_discount',backref='discount_type',lazy=True)
+	Res_discount = db.relationship("Res_discount",backref='discount_type',lazy=True)
 
 	def to_json_api(self):
 		json_sale_card_status={
@@ -356,7 +356,7 @@ class Exc_rate_type(CreatedModifiedInfo,db.Model):
 	ExcRateTypeName = db.Column("ExcRateTypeName",db.String(100),nullable=False)
 	ExcRateTypeDesc = db.Column("ExcRateTypeDesc",db.String(500))
 	ExcRateTypeExp = db.Column("ExcRateTypeExp",db.String(100),nullable=False)
-	Exc_rate = db.relationship('Exc_rate',backref='exc_rate_type',lazy=True)
+	Exc_rate = db.relationship("Exc_rate",backref='exc_rate_type',lazy=True)
 
 	def to_json_api(self):
 		json_sale_card_status={
@@ -393,9 +393,9 @@ class Inv_line(AddInf,CreatedModifiedInfo,db.Model):
 	InvLineDiscAmount = db.Column("InvLineDiscAmount",db.Float,default=0.0)
 	InvLineFTotal = db.Column("InvLineFTotal",db.Float,default=0.0)
 	InvLineDate = db.Column("InvLineDate",db.DateTime,default=datetime.now)
-	Inv_line_det = db.relationship('Inv_line_det',backref='inv_line',lazy=True)
-	Res_transaction = db.relationship('Res_transaction',backref='inv_line',lazy=True)
-	# Rp_acc_transaction = db.relationship('Rp_acc_transaction',backref='inv_line',lazy=True)
+	Inv_line_det = db.relationship("Inv_line_det",backref='inv_line',lazy=True)
+	Res_transaction = db.relationship("Res_transaction",backref='inv_line',lazy=True)
+	# Rp_acc_transaction = db.relationship("Rp_acc_transaction",backref='inv_line',lazy=True)
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -485,7 +485,7 @@ class Inv_line_det_type(CreatedModifiedInfo,db.Model):
 	InvLineDetTypeDesc_ruRU = db.Column("InvLineDetTypeDesc_ruRU",db.String(500))
 	InvLineDetTypeName_enUS = db.Column("InvLineDetTypeName_enUS",db.String(100))
 	InvLineDetTypeDesc_enUS = db.Column("InvLineDetTypeDesc_enUS",db.String(500))
-	Inv_line_det = db.relationship('Inv_line_det',backref='inv_line_det_type',lazy=True)
+	Inv_line_det = db.relationship("Inv_line_det",backref='inv_line_det_type',lazy=True)
 
 	def to_json_api(self):
 		inv_line_det_type = {
@@ -515,8 +515,8 @@ class Inv_status(CreatedModifiedInfo,db.Model):
 	InvStatDesc_ruRU = db.Column("InvStatDesc_ruRU",db.String(500))
 	InvStatName_enUS = db.Column("InvStatName_enUS",db.String(100))
 	InvStatDesc_enUS = db.Column("InvStatDesc_enUS",db.String(500))
-	Order_inv = db.relationship('Order_inv',backref='inv_status',lazy=True)
-	Invoice = db.relationship('Invoice',backref='inv_status',lazy=True)
+	Order_inv = db.relationship("Order_inv",backref='inv_status',lazy=True)
+	Invoice = db.relationship("Invoice",backref='inv_status',lazy=True)
 
 	def to_json_api(self):
 		inv_status = {
@@ -546,7 +546,7 @@ class Inv_type(CreatedModifiedInfo,db.Model):
 	InvTypeDesc_ruRU = db.Column("InvTypeDesc_ruRU",db.String(500))
 	InvTypeName_enUS = db.Column("InvTypeName_enUS",db.String(100))
 	InvTypeDesc_enUS = db.Column("InvTypeDesc_enUS",db.String(500))
-	Invoice = db.relationship('Invoice',backref='inv_type',lazy=True)
+	Invoice = db.relationship("Invoice",backref='inv_type',lazy=True)
 
 	def to_json_api(self):
 		inv_type = {
@@ -597,8 +597,8 @@ class Invoice(AddInf,CreatedModifiedInfo,db.Model):
 	InvPrintCount = db.Column("InvPrintCount",db.Integer,default=0)
 	InvCreditDays = db.Column("InvCreditDays",db.Integer,default=0)
 	InvCreditDesc = db.Column("InvCreditDesc",db.String(100))
-	Inv_line = db.relationship('Inv_line',backref='invoice',lazy=True)
-	Rp_acc_transaction = db.relationship('Rp_acc_transaction',backref='invoice',lazy=True)
+	Inv_line = db.relationship("Inv_line",backref='invoice',lazy=True)
+	Rp_acc_transaction = db.relationship("Rp_acc_transaction",backref='invoice',lazy=True)
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -686,7 +686,7 @@ class Order_inv(AddInf,CreatedModifiedInfo,db.Model):
 	OInvPrintCount = db.Column("OInvPrintCount",db.Integer,default=0)
 	OInvCreditDays = db.Column("OInvCreditDays",db.Integer,default=0)
 	OInvCreditDesc = db.Column("OInvCreditDesc",db.String(100))
-	Order_inv_line = db.relationship('Order_inv_line',backref='order_inv',lazy='joined')
+	Order_inv_line = db.relationship("Order_inv_line",backref='order_inv',lazy='joined')
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -814,7 +814,7 @@ class Order_inv_type(CreatedModifiedInfo,db.Model):
 	OInvTypeDesc_ruRU = db.Column("OInvTypeDesc_ruRU",db.String(500))
 	OInvTypeName_enUS = db.Column("OInvTypeName_enUS",db.String(100))
 	OInvTypeDesc_enUS = db.Column("OInvTypeDesc_enUS",db.String(500))
-	Order_inv = db.relationship('Order_inv',backref='order_inv_type',lazy=True)
+	Order_inv = db.relationship("Order_inv",backref='order_inv_type',lazy=True)
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -850,7 +850,7 @@ class Payment_status(CreatedModifiedInfo,db.Model):
 	PaymStatusDesc_ruRU = db.Column("PaymStatusDesc_ruRU",db.String(500))
 	PaymStatusName_enUS = db.Column("PaymStatusName_enUS",db.String(100))
 	PaymStatusDesc_enUS = db.Column("PaymStatusDesc_enUS",db.String(500))
-	Order_inv = db.relationship('Order_inv',backref='payment_status',lazy=True)
+	Order_inv = db.relationship("Order_inv",backref='payment_status',lazy=True)
 
 	def to_json_api(self):
 		json_payment_status = {
@@ -876,8 +876,8 @@ class Payment_method(AddInf,CreatedModifiedInfo,db.Model):
 	PmName = db.Column("PmName",db.String(100),nullable=False)
 	PmDesc = db.Column("PmDesc",db.String(500))
 	PmVisibleIndex = db.Column("PmVisibleIndex",db.Integer,default=0)
-	Order_inv = db.relationship('Order_inv',backref='payment_method',lazy=True)
-	Invoice = db.relationship('Invoice',backref='payment_method',lazy=True)
+	Order_inv = db.relationship("Order_inv",backref='payment_method',lazy=True)
+	Invoice = db.relationship("Invoice",backref='payment_method',lazy=True)
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -913,8 +913,8 @@ class Payment_type(AddInf,CreatedModifiedInfo,db.Model):
 	PtName = db.Column("PtName",db.String(100),nullable=False)
 	PtDesc = db.Column("PtDesc",db.String(500))
 	PtVisibleIndex = db.Column("PtVisibleIndex",db.Integer,default=0)
-	Order_inv = db.relationship('Order_inv',backref='payment_type',lazy=True)
-	Invoice = db.relationship('Invoice',backref='payment_type',lazy=True)
+	Order_inv = db.relationship("Order_inv",backref='payment_type',lazy=True)
+	Invoice = db.relationship("Invoice",backref='payment_type',lazy=True)
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -967,7 +967,7 @@ class Representative(AddInf,CreatedModifiedInfo,db.Model):
 	CreatedUId = db.Column("CreatedUId",db.Integer,default=0)
 	ModifiedUId = db.Column("ModifiedUId",db.Integer,default=0)
 	MyProperty = db.Column("MyProperty",db.Integer)
-	Rp_acc = db.relationship('Rp_acc',backref='representative',foreign_keys='Rp_acc.ReprId',lazy='joined')
+	Rp_acc = db.relationship("Rp_acc",backref='representative',foreign_keys='Rp_acc.ReprId',lazy='joined')
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -1041,31 +1041,31 @@ class Resource(AddInf,CreatedModifiedInfo,db.Model):
 	ResMaxSaleAmount = db.Column("ResMaxSaleAmount",db.Float,default=0.0)
 	ResMinSalePrice = db.Column("ResMinSalePrice",db.Float,default=0.0)
 	ResMaxSalePrice = db.Column("ResMaxSalePrice",db.Float,default=0.0)
-	Image = db.relationship('Image',backref='resource',lazy=True)
-	Barcode = db.relationship('Barcode',backref='resource',lazy=True)
-	Res_color = db.relationship('Res_color',backref='resource',lazy=True)
-	Res_size = db.relationship('Res_size',backref='resource',lazy=True)
-	Res_translations = db.relationship('Res_translations',backref='resource',lazy=True)
-	Res_unit = db.relationship('Res_unit',backref='resource',lazy=True)
+	Image = db.relationship("Image",backref='resource',lazy=True)
+	Barcode = db.relationship("Barcode",backref='resource',lazy=True)
+	Res_color = db.relationship("Res_color",backref='resource',lazy=True)
+	Res_size = db.relationship("Res_size",backref='resource',lazy=True)
+	Res_translations = db.relationship("Res_translations",backref='resource',lazy=True)
+	Res_unit = db.relationship("Res_unit",backref='resource',lazy=True)
 	# sales and purchases
-	Inv_line = db.relationship('Inv_line',backref='resource',lazy=True)
-	Inv_line_det = db.relationship('Inv_line_det',backref='resource',lazy=True)	
-	Order_inv_line = db.relationship('Order_inv_line',backref='resource',lazy=True)
-	Res_price = db.relationship('Res_price',backref='resource',lazy=True)
+	Inv_line = db.relationship("Inv_line",backref='resource',lazy=True)
+	Inv_line_det = db.relationship("Inv_line_det",backref='resource',lazy=True)	
+	Order_inv_line = db.relationship("Order_inv_line",backref='resource',lazy=True)
+	Res_price = db.relationship("Res_price",backref='resource',lazy=True)
 	# quantity of a resource
-	Res_total = db.relationship('Res_total',backref='resource',lazy=True)
-	Res_trans_inv_line = db.relationship('Res_trans_inv_line',backref='resource',lazy=True)
-	Res_transaction = db.relationship('Res_transaction',backref='resource',lazy=True)
-	Rp_acc_resource = db.relationship('Rp_acc_resource',backref='resource',lazy=True)
-	Sale_agr_res_price = db.relationship('Sale_agr_res_price',backref='resource',lazy=True)
-	Res_price_rule = db.relationship('Res_price_rule',backref='resource',lazy=True)
-	Res_discount = db.relationship('Res_discount',foreign_keys='Res_discount.SaleResId',backref='resource',lazy=True)
-	Res_discount = db.relationship('Res_discount',foreign_keys='Res_discount.GiftResId',backref='resource',lazy=True)
+	Res_total = db.relationship("Res_total",backref='resource',lazy=True)
+	Res_trans_inv_line = db.relationship("Res_trans_inv_line",backref='resource',lazy=True)
+	Res_transaction = db.relationship("Res_transaction",backref='resource',lazy=True)
+	Rp_acc_resource = db.relationship("Rp_acc_resource",backref='resource',lazy=True)
+	Sale_agr_res_price = db.relationship("Sale_agr_res_price",backref='resource',lazy=True)
+	Res_price_rule = db.relationship("Res_price_rule",backref='resource',lazy=True)
+	Res_discount = db.relationship("Res_discount",foreign_keys='Res_discount.SaleResId',backref='resource',lazy=True)
+	Res_discount = db.relationship("Res_discount",foreign_keys='Res_discount.GiftResId',backref='resource',lazy=True)
 	
-	Wish = db.relationship('Wish',backref='resource',lazy=True)
-	Production = db.relationship('Production',backref='resource',lazy=True)
-	Production_line = db.relationship('Production_line',backref='resource',lazy=True)
-	Rating = db.relationship('Rating',backref='resource',lazy=True)
+	Wish = db.relationship("Wish",backref='resource',lazy=True)
+	Production = db.relationship("Production",backref='resource',lazy=True)
+	Production_line = db.relationship("Production_line",backref='resource',lazy=True)
+	Rating = db.relationship("Rating",backref='resource',lazy=True)
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -1161,9 +1161,9 @@ class Res_category(CreatedModifiedInfo,db.Model):
 	ResCatIconName = db.Column("ResCatIconName",db.String(100))
 	ResCatIconFilePath = db.Column("ResCatIconFilePath",db.String(255))
 	ResCatIconData = db.Column("ResCatIconData",db.String(100000))
-	Resource = db.relationship('Resource',backref='res_category',lazy=True)
-	Image = db.relationship('Image',backref='res_category',lazy=True)
-	Translations = db.relationship('Translations',backref='res_category',lazy=True)
+	Resource = db.relationship("Resource",backref='res_category',lazy=True)
+	Image = db.relationship("Image",backref='res_category',lazy=True)
+	Translations = db.relationship("Translations",backref='res_category',lazy=True)
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -1211,7 +1211,7 @@ class Res_maker(AddInf,CreatedModifiedInfo,db.Model):
 	ResMakerMail = db.Column("ResMakerMail",db.String(100))
 	ResMakerPhone1 = db.Column("ResMakerPhone1",db.String(100))
 	ResMakerPhone2 = db.Column("ResMakerPhone2",db.String(100))
-	Resource = db.relationship('Resource',backref='res_maker',lazy=True)
+	Resource = db.relationship("Resource",backref='res_maker',lazy=True)
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -1300,7 +1300,7 @@ class Res_discount(AddInf,CreatedModifiedInfo,db.Model):
 	GiftResId = db.Column("GiftResId",db.Integer,db.ForeignKey("tbl_dk_resource.ResId"))
 	GiftResAmount = db.Column("GiftResAmount",db.Float,default=0.0)
 	GiftResDiscValue = db.Column("GiftResDiscValue",db.Float,default=0.0)
-	Sale_card = db.relationship('Sale_card',backref='res_discount',foreign_keys='Sale_card.ResDiscId',lazy=True)
+	Sale_card = db.relationship("Sale_card",backref='res_discount',foreign_keys='Sale_card.ResDiscId',lazy=True)
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -1407,11 +1407,11 @@ class Res_price_group(CreatedModifiedInfo,db.Model):
 	ToResPriceTypeId = db.Column("ToResPriceTypeId",db.Integer,db.ForeignKey("tbl_dk_res_price_type.ResPriceTypeId"))
 	ResPriceGroupAMPerc = db.Column("ResPriceGroupAMPerc",db.Float,default=0.0)
 	RoundingType = db.Column("RoundingType",db.Integer,default=1)
-	Res_price = db.relationship('Res_price',backref='res_price_group',lazy=True)
-	Sale_card = db.relationship('Sale_card',backref='res_price_group',lazy=True)
-	Res_price_rule = db.relationship('Res_price_rule',backref='res_price_group',lazy=True)
-	Users = db.relationship('Users',backref='res_price_group',lazy=True)
-	Rp_acc = db.relationship('Rp_acc',backref='res_price_group',lazy=True)
+	Res_price = db.relationship("Res_price",backref='res_price_group',lazy=True)
+	Sale_card = db.relationship("Sale_card",backref='res_price_group',lazy=True)
+	Res_price_rule = db.relationship("Res_price_rule",backref='res_price_group',lazy=True)
+	Users = db.relationship("Users",backref='res_price_group',lazy=True)
+	Rp_acc = db.relationship("Rp_acc",backref='res_price_group',lazy=True)
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -1449,11 +1449,11 @@ class Res_price_type(AddInf,CreatedModifiedInfo,db.Model):
 	ResPriceTypeDesc_ruRU = db.Column("ResPriceTypeDesc_ruRU",db.String(500))
 	ResPriceTypeName_enUS = db.Column("ResPriceTypeName_enUS",db.String(100))
 	ResPriceTypeDesc_enUS = db.Column("ResPriceTypeDesc_enUS",db.String(500))
-	Res_price = db.relationship('Res_price',backref='res_price_type',lazy=True)
+	Res_price = db.relationship("Res_price",backref='res_price_type',lazy=True)
 	# multiple relationship
-	Res_price_group = db.relationship('Res_price_group',foreign_keys='Res_price_group.FromResPriceTypeId',backref='res_price_type',lazy=True)
-	Res_price_group = db.relationship('Res_price_group',foreign_keys='Res_price_group.ToResPriceTypeId',backref='res_price_type',lazy=True)
-	Sale_agr_res_price = db.relationship('Sale_agr_res_price',backref='res_price_type',lazy=True)
+	Res_price_group = db.relationship("Res_price_group",foreign_keys='Res_price_group.FromResPriceTypeId',backref='res_price_type',lazy=True)
+	Res_price_group = db.relationship("Res_price_group",foreign_keys='Res_price_group.ToResPriceTypeId',backref='res_price_type',lazy=True)
+	Sale_agr_res_price = db.relationship("Sale_agr_res_price",backref='res_price_type',lazy=True)
 
 	def to_json_api(self):
 		json_res_price_type={
@@ -1586,8 +1586,8 @@ class Res_trans_inv(AddInf,CreatedModifiedInfo,db.Model):
 	ResTrInvFTotalInWrite = db.Column("ResTrInvFTotalInWrite",db.String(100))
 	ResTrInvModifyCount = db.Column("ResTrInvModifyCount",db.Integer,default=0)
 	ResTrInvPrintCount = db.Column("ResTrInvPrintCount",db.Integer,default=0)
-	Res_trans_inv_line = db.relationship('Res_trans_inv_line',backref='res_trans_inv',lazy=True)
-	Rp_acc_transaction = db.relationship('Rp_acc_transaction',backref='res_trans_inv',lazy=True)
+	Res_trans_inv_line = db.relationship("Res_trans_inv_line",backref='res_trans_inv',lazy=True)
+	Rp_acc_transaction = db.relationship("Rp_acc_transaction",backref='res_trans_inv',lazy=True)
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -1647,7 +1647,7 @@ class Res_trans_inv_line(AddInf,CreatedModifiedInfo,db.Model):
 	ResTrInvLineTaxAmount = db.Column("ResTrInvLineTaxAmount",db.Float,default=0.0)
 	ResTrInvLineFTotal = db.Column("ResTrInvLineFTotal",db.Float,default=0.0)
 	ResTrInvLineDate = db.Column("ResTrInvLineDate",db.DateTime)
-	Res_transaction = db.relationship('Res_transaction',backref='res_trans_inv_line',lazy=True)
+	Res_transaction = db.relationship("Res_transaction",backref='res_trans_inv_line',lazy=True)
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -1696,7 +1696,7 @@ class Res_trans_inv_type(CreatedModifiedInfo,db.Model):
 	ResTrInvDesc_ruRU = db.Column("ResTrInvDesc_ruRU",db.String(500))
 	ResTrInvName_enUS = db.Column("ResTrInvName_enUS",db.String(100))
 	ResTrInvDesc_enUS = db.Column("ResTrInvDesc_enUS",db.String(500))
-	Res_trans_inv = db.relationship('Res_trans_inv',backref='res_trans_inv_type',lazy=True)
+	Res_trans_inv = db.relationship("Res_trans_inv",backref='res_trans_inv_type',lazy=True)
 
 	def to_json_api(self):
 		json_res_trans_inv_type={
@@ -1726,7 +1726,7 @@ class Res_trans_type(CreatedModifiedInfo,db.Model):
 	ResTransTypeDesc_ruRU = db.Column("ResTransTypeDesc_ruRU",db.String(500))
 	ResTransTypeName_enUS = db.Column("ResTransTypeName_enUS",db.String(100))
 	ResTransTypeDesc_enUS = db.Column("ResTransTypeDesc_enUS",db.String(500))
-	Res_transaction = db.relationship('Res_transaction',backref='res_trans_type',lazy=True)
+	Res_transaction = db.relationship("Res_transaction",backref='res_trans_type',lazy=True)
 
 	def to_json_api(self):
 		json_res_trans_type={
@@ -1853,7 +1853,7 @@ class Res_type(CreatedModifiedInfo,db.Model):
 	ResTypeDesc_ruRU = db.Column("ResTypeDesc_ruRU",db.String(500))
 	ResTypeName_enUS = db.Column("ResTypeName_enUS",db.String(100))
 	ResTypeDesc_enUS = db.Column("ResTypeDesc_enUS",db.String(500))
-	Resource = db.relationship('Resource',backref='res_type',lazy=True)
+	Resource = db.relationship("Resource",backref='res_type',lazy=True)
 
 	def to_json_api(self):
 		json_res_type={
@@ -2081,8 +2081,8 @@ class Sale_agreement(AddInf,CreatedModifiedInfo,db.Model):
 	SaleAgrTaxPerc = db.Column("SaleAgrTaxPerc",db.Float,default=0.0)
 	SaleAgrTaxAmount = db.Column("SaleAgrTaxAmount",db.Float,default=0.0)
 	SaleAgrUseOwnPriceList = db.Column("SaleAgrUseOwnPriceList",db.Boolean,default=False)
-	Sale_card = db.relationship('Sale_card',backref='sale_agreement',lazy=True)
-	Sale_agr_res_price = db.relationship('Sale_agr_res_price',backref='sale_agreement',lazy=True)
+	Sale_card = db.relationship("Sale_card",backref='sale_agreement',lazy=True)
+	Sale_agr_res_price = db.relationship("Sale_agr_res_price",backref='sale_agreement',lazy=True)
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -2146,7 +2146,7 @@ class Sale_card(AddInf,CreatedModifiedInfo,db.Model):
 	SaleCardCustTel = db.Column("SaleCardCustTel",db.String(100))
 	SaleCardCustEmail = db.Column("SaleCardCustEmail",db.String(100))
 	SaleCardCustAddress = db.Column("SaleCardCustAddress",db.String(100))
-	Res_discount = db.relationship('Res_discount',backref='sale_card',foreign_keys='Res_discount.SaleCardId',lazy=True)
+	Res_discount = db.relationship("Res_discount",backref='sale_card',foreign_keys='Res_discount.SaleCardId',lazy=True)
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -2207,7 +2207,7 @@ class Sale_card_status(CreatedModifiedInfo,db.Model):
 	SaleCardStatusDesc_ruRU = db.Column("SaleCardStatusDesc_ruRU",db.String(500))
 	SaleCardStatusName_enUS = db.Column("SaleCardStatusName_enUS",db.String(100))
 	SaleCardStatusDesc_enUS = db.Column("SaleCardStatusDesc_enUS",db.String(500))
-	Sale_card = db.relationship('Sale_card',backref='sale_card_status',lazy=True)
+	Sale_card = db.relationship("Sale_card",backref='sale_card_status',lazy=True)
 
 	def to_json_api(self):
 		json_sale_card_status={
@@ -2240,9 +2240,9 @@ class Production(AddInf,CreatedModifiedInfo,db.Model):
 	ProdDesc = db.Column("ProdDesc",db.String(500),default='')
 	ProdTime = db.Column("ProdTime",db.Float)
 	ProdCostPrice = db.Column("ProdCostPrice",db.Float)
-	Production_line = db.relationship('Production_line',backref='production',lazy=True)
-	Image = db.relationship('Image',backref='production',lazy=True)
-	Translations = db.relationship('Translations',backref='production',lazy=True)
+	Production_line = db.relationship("Production_line",backref='production',lazy=True)
+	Image = db.relationship("Image",backref='production',lazy=True)
+	Translations = db.relationship("Translations",backref='production',lazy=True)
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -2410,7 +2410,7 @@ class Transaction_type(CreatedModifiedInfo,db.Model):
 	TransTypeId = db.Column("TransTypeId",db.Integer,nullable=False,primary_key=True)
 	TransTypeName = db.Column("TransTypeName",db.String(100),nullable=False)
 	TransTypeDesc = db.Column("TransTypeDesc",db.String(500))
-	Rp_acc_transaction = db.relationship('Rp_acc_transaction',backref='transaction_type',lazy=True)
+	Rp_acc_transaction = db.relationship("Rp_acc_transaction",backref='transaction_type',lazy=True)
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -2442,12 +2442,12 @@ class Work_period(CreatedModifiedInfo,db.Model):
 	WpStartDate = db.Column("WpStartDate",db.DateTime)
 	WpEndDate = db.Column("WpEndDate",db.DateTime)
 	WpIsDefault = db.Column("WpIsDefault",db.Boolean,default=False)
-	Rp_acc = db.relationship('Rp_acc',backref='work_period',lazy=True)
-	Invoice = db.relationship('Invoice',backref='work_period',lazy=True)
-	Order_inv = db.relationship('Order_inv',backref='work_period',lazy=True)
-	Res_total = db.relationship('Res_total',backref='work_period',lazy=True)
-	Rp_acc_transaction = db.relationship('Rp_acc_transaction',backref='work_period',lazy=True)
-	Sale_card = db.relationship('Sale_card',backref='work_period',lazy=True)
+	Rp_acc = db.relationship("Rp_acc",backref='work_period',lazy=True)
+	Invoice = db.relationship("Invoice",backref='work_period',lazy=True)
+	Order_inv = db.relationship("Order_inv",backref='work_period',lazy=True)
+	Res_total = db.relationship("Res_total",backref='work_period',lazy=True)
+	Rp_acc_transaction = db.relationship("Rp_acc_transaction",backref='work_period',lazy=True)
+	Sale_card = db.relationship("Sale_card",backref='work_period',lazy=True)
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():

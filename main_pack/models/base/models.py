@@ -39,7 +39,7 @@ class Acc_type(CreatedModifiedInfo,db.Model):
 	AccTypeDesc_ruRU = db.Column("AccTypeDesc_ruRU",db.String(500))
 	AccTypeName_enUS = db.Column("AccTypeName_enUS",db.String(100))
 	AccTypeDesc_enUS = db.Column("AccTypeDesc_enUS",db.String(500))
-	Accounting_info = db.relationship('Accounting_info',backref='acc_type',lazy=True)
+	Accounting_info = db.relationship("Accounting_info",backref='acc_type',lazy=True)
 
 
 class Accounting_info(AddInf,CreatedModifiedInfo,db.Model):
@@ -57,7 +57,7 @@ class Accounting_info(AddInf,CreatedModifiedInfo,db.Model):
 	AccInfActive = db.Column("AccInfActive",db.Boolean,default=False)
 	AccInfCreatedDate = db.Column("AccInfCreatedDate",db.DateTime)
 	AccInfClosedDate = db.Column("AccInfClosedDate",db.DateTime)
-	# Company = db.relationship('Company',backref='accounting_info',lazy=True)
+	# Company = db.relationship("Company",backref='accounting_info',lazy=True)
 
 
 class AdditionalInf1(CreatedModifiedInfo,db.Model):
@@ -117,9 +117,9 @@ class Bank(AddInf,CreatedModifiedInfo,db.Model):
 	BankDesc = db.Column("BankDesc",db.String(500))
 	BankCorAcc = db.Column("BankCorAcc",db.String(50))
 	BankAccBik = db.Column("BankAccBik",db.String(50))
-	Accounting_info = db.relationship('Accounting_info',backref='bank',lazy=True)
-	Contact = db.relationship('Contact',backref='bank',lazy=True)
-	Location = db.relationship('Location',backref='bank',lazy=True)
+	Accounting_info = db.relationship("Accounting_info",backref='bank',lazy=True)
+	Contact = db.relationship("Contact",backref='bank',lazy=True)
+	Location = db.relationship("Location",backref='bank',lazy=True)
 
 
 class City(AddInf,CreatedModifiedInfo,db.Model):
@@ -128,7 +128,7 @@ class City(AddInf,CreatedModifiedInfo,db.Model):
 	CountryId = db.Column("CountryId",db.Integer,db.ForeignKey("tbl_dk_country.CountryId"))
 	CityName = db.Column("CityName",db.String(50),nullable=False)
 	CityDesc = db.Column("CityDesc",db.String(500))
-	Location = db.relationship('Location',backref='city',lazy=True)
+	Location = db.relationship("Location",backref='city',lazy=True)
 
 
 class Company(AddInf,CreatedModifiedInfo,db.Model):
@@ -150,29 +150,29 @@ class Company(AddInf,CreatedModifiedInfo,db.Model):
 	CPostalCode = db.Column("CPostalCode",db.String(100))
 	WebAddress = db.Column("WebAddress",db.String(100))
 	CEmail = db.Column("CEmail",db.String(100))
-	Accounting_info = db.relationship('Accounting_info',backref='company',lazy=True)
-	Contact = db.relationship('Contact',backref='company',lazy=True)
-	Division = db.relationship('Division',backref='company',lazy=True)
-	Image = db.relationship('Image',backref='company',lazy=True)
-	Location = db.relationship('Location',backref='company',lazy=True)
-	Department_detail = db.relationship('Department_detail',backref='company',lazy=True)
-	Warehouse = db.relationship('Warehouse',backref='company',lazy=True)
-	Barcode = db.relationship('Barcode',backref='company',lazy=True)
-	Rp_acc_transaction = db.relationship('Rp_acc_transaction',backref='company',lazy=True)
-	Sale_card = db.relationship('Sale_card',backref='company',lazy=True)
-	Work_period = db.relationship('Work_period',backref='company',lazy=True)
-	Invoice = db.relationship('Invoice',backref='company',lazy=True)
-	Order_inv = db.relationship('Order_inv',backref='company',lazy=True)
-	Representative = db.relationship('Representative',backref='company',lazy=True)
-	Res_total = db.relationship('Res_total',backref='company',lazy=True)
-	Res_trans_inv = db.relationship('Res_trans_inv',backref='company',lazy=True)
-	Rp_acc = db.relationship('Rp_acc',backref='company',lazy=True)
-	Users = db.relationship('Users',backref='company',lazy=True)
-	Wish = db.relationship('Wish',backref='company',lazy=True)
-	Production = db.relationship('Production',backref='company',lazy=True)
-	Resource = db.relationship('Resource',backref='company',lazy=True)
-	Rating = db.relationship('Rating',backref='company',lazy=True)
-	Slider = db.relationship('Slider',backref='company',lazy=True)
+	Accounting_info = db.relationship("Accounting_info",backref='company',lazy=True)
+	Contact = db.relationship("Contact",backref='company',lazy=True)
+	Division = db.relationship("Division",backref='company',lazy=True)
+	Image = db.relationship("Image",backref='company',lazy=True)
+	Location = db.relationship("Location",backref='company',lazy=True)
+	Department_detail = db.relationship("Department_detail",backref='company',lazy=True)
+	Warehouse = db.relationship("Warehouse",backref='company',lazy=True)
+	Barcode = db.relationship("Barcode",backref='company',lazy=True)
+	Rp_acc_transaction = db.relationship("Rp_acc_transaction",backref='company',lazy=True)
+	Sale_card = db.relationship("Sale_card",backref='company',lazy=True)
+	Work_period = db.relationship("Work_period",backref='company',lazy=True)
+	Invoice = db.relationship("Invoice",backref='company',lazy=True)
+	Order_inv = db.relationship("Order_inv",backref='company',lazy=True)
+	Representative = db.relationship("Representative",backref='company',lazy=True)
+	Res_total = db.relationship("Res_total",backref='company',lazy=True)
+	Res_trans_inv = db.relationship("Res_trans_inv",backref='company',lazy=True)
+	Rp_acc = db.relationship("Rp_acc",backref='company',lazy=True)
+	Users = db.relationship("Users",backref='company',lazy=True)
+	Wish = db.relationship("Wish",backref='company',lazy=True)
+	Production = db.relationship("Production",backref='company',lazy=True)
+	Resource = db.relationship("Resource",backref='company',lazy=True)
+	Rating = db.relationship("Rating",backref='company',lazy=True)
+	Slider = db.relationship("Slider",backref='company',lazy=True)
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -267,7 +267,7 @@ class Config_type(CreatedModifiedInfo,db.Model):
 	CfTypeDesc_ruRU = db.Column("CfTypeDesc_ruRU",db.String(500))
 	CfTypeName_enUS = db.Column("CfTypeName_enUS",db.String(100))
 	CfTypeDesc_enUS = db.Column("CfTypeDesc_enUS",db.String(500))
-	Config = db.relationship('Config',backref='config_type',lazy=True)
+	Config = db.relationship("Config",backref='config_type',lazy=True)
 
 	def to_json(self):
 		json_configType = {
@@ -309,7 +309,7 @@ class Contact_type(CreatedModifiedInfo,db.Model):
 	ContTypeDesc_ruRU = db.Column("ContTypeDesc_ruRU",db.String(500))
 	ContTypeName_enUS = db.Column("ContTypeName_enUS",db.String(100))
 	ContTypeDesc_enUS = db.Column("ContTypeDesc_enUS",db.String(500))
-	Contact = db.relationship('Contact',backref='contact_type',lazy=True)
+	Contact = db.relationship("Contact",backref='contact_type',lazy=True)
 
 	def to_json(self):
 		json_contactType = {
@@ -335,8 +335,8 @@ class Country(AddInf,CreatedModifiedInfo,db.Model):
 	CountryId = db.Column("CountryId",db.Integer,nullable=False,primary_key=True)
 	CountryName = db.Column("CountryName",db.String(50),nullable=False)
 	CountryDesc = db.Column("CountryDesc",db.String(500))
-	City = db.relationship('City',backref='country',lazy=True)
-	Location = db.relationship('Location',backref='country',lazy=True)
+	City = db.relationship("City",backref='country',lazy=True)
+	Location = db.relationship("Location",backref='country',lazy=True)
 
 
 class Currency(AddInf,CreatedModifiedInfo,db.Model):
@@ -350,23 +350,23 @@ class Currency(AddInf,CreatedModifiedInfo,db.Model):
 	CurrencyDesc_enUS = db.Column("CurrencyDesc_enUS",db.String(500))
 	CurrencyCode = db.Column("CurrencyCode",db.String(100))
 	CurrencySymbol = db.Column("CurrencySymbol",db.String(100))
-	Accounting_info = db.relationship('Accounting_info',backref='currency',lazy=True)
-	Exc_rate = db.relationship('Exc_rate',backref='currency',lazy=True)
-	Inv_line = db.relationship('Inv_line',backref='currency',lazy=True)
-	Invoice = db.relationship('Invoice',backref='currency',lazy=True)
-	Order_inv = db.relationship('Order_inv',backref='currency',lazy=True)
-	Order_inv_line = db.relationship('Order_inv_line',backref='currency',lazy=True)
-	Res_price = db.relationship('Res_price',backref='currency',lazy=True)
-	Res_total = db.relationship('Res_total',backref='currency',lazy=True)
-	Res_trans_inv = db.relationship('Res_trans_inv',backref='currency',lazy=True)
-	Res_trans_inv_line = db.relationship('Res_trans_inv_line',backref='currency',lazy=True)
-	Res_transaction = db.relationship('Res_transaction',backref='currency',lazy=True)
-	Rp_acc_trans_total = db.relationship('Rp_acc_trans_total',backref='currency',lazy=True)
-	Rp_acc_transaction = db.relationship('Rp_acc_transaction',backref='currency',lazy=True)
-	Sale_agr_res_price = db.relationship('Sale_agr_res_price',backref='currency',lazy=True)
-	Sale_agreement = db.relationship('Sale_agreement',backref='currency',lazy=True)
-	Sale_card = db.relationship('Sale_card',backref='currency',lazy=True)
-	Work_period = db.relationship('Work_period',backref='currency',lazy=True)
+	Accounting_info = db.relationship("Accounting_info",backref='currency',lazy=True)
+	Exc_rate = db.relationship("Exc_rate",backref='currency',lazy=True)
+	Inv_line = db.relationship("Inv_line",backref='currency',lazy=True)
+	Invoice = db.relationship("Invoice",backref='currency',lazy=True)
+	Order_inv = db.relationship("Order_inv",backref='currency',lazy=True)
+	Order_inv_line = db.relationship("Order_inv_line",backref='currency',lazy=True)
+	Res_price = db.relationship("Res_price",backref='currency',lazy=True)
+	Res_total = db.relationship("Res_total",backref='currency',lazy=True)
+	Res_trans_inv = db.relationship("Res_trans_inv",backref='currency',lazy=True)
+	Res_trans_inv_line = db.relationship("Res_trans_inv_line",backref='currency',lazy=True)
+	Res_transaction = db.relationship("Res_transaction",backref='currency',lazy=True)
+	Rp_acc_trans_total = db.relationship("Rp_acc_trans_total",backref='currency',lazy=True)
+	Rp_acc_transaction = db.relationship("Rp_acc_transaction",backref='currency',lazy=True)
+	Sale_agr_res_price = db.relationship("Sale_agr_res_price",backref='currency',lazy=True)
+	Sale_agreement = db.relationship("Sale_agreement",backref='currency',lazy=True)
+	Sale_card = db.relationship("Sale_card",backref='currency',lazy=True)
+	Work_period = db.relationship("Work_period",backref='currency',lazy=True)
 
 	def to_json_api(self):
 		json_currency = {
@@ -407,8 +407,8 @@ class Department(AddInf,CreatedModifiedInfo,db.Model):
 	DeptId = db.Column("DeptId",db.Integer,nullable=False,primary_key=True)
 	DeptName = db.Column("DeptName",db.String(100),nullable=False)
 	DeptDesc = db.Column("DeptDesc",db.String(500))
-	Employee = db.relationship('Employee',backref='department',lazy=True)
-	Department_detail = db.relationship('Department_detail',backref='department',lazy=True)
+	Employee = db.relationship("Employee",backref='department',lazy=True)
+	Department_detail = db.relationship("Department_detail",backref='department',lazy=True)
 
 
 class Department_detail(db.Model):
@@ -428,26 +428,26 @@ class Division(AddInf,CreatedModifiedInfo,db.Model):
 	DivDesc = db.Column("DivDesc",db.String(500))
 	DivGuid = db.Column("DivGuid",UUID(as_uuid=True),unique=True)
 	OwnerDivisionId = db.Column("OwnerDivisionId",db.Integer,default=0)
-	Users = db.relationship('Users',backref='division')
-	Department_detail = db.relationship('Department_detail',backref='division',lazy=True)
-	Accounting_info = db.relationship('Accounting_info',backref='division',lazy=True)
-	Barcode = db.relationship('Barcode',backref='division',lazy=True)
-	Rp_acc = db.relationship('Rp_acc',backref='division',lazy=True)
-	Res_trans_inv = db.relationship('Res_trans_inv',backref='division',lazy=True)
-	Rp_acc_transaction = db.relationship('Rp_acc_transaction',backref='division',lazy=True)
-	Sale_card = db.relationship('Sale_card',backref='division',lazy=True)
-	Work_period = db.relationship('Work_period',backref='division',lazy=True)
-	Invoice = db.relationship('Invoice',backref='division',lazy=True)
-	Order_inv = db.relationship('Order_inv',backref='division',lazy=True)
-	Representative = db.relationship('Representative',backref='division',lazy=True)
-	Res_total = db.relationship('Res_total',backref='division',lazy=True)
-	Wish = db.relationship('Wish',backref='division',lazy=True)
-	Warehouse = db.relationship('Warehouse',backref='division',lazy=True)
-	Production = db.relationship('Production',backref='division',lazy=True)
-	Rating = db.relationship('Rating',backref='division',lazy=True)
-	Resource = db.relationship('Resource',backref='division',lazy=True)
-	Slider = db.relationship('Slider',backref='division',lazy=True)
-	Employee = db.relationship('Employee',backref='division',lazy=True)
+	Users = db.relationship("Users",backref='division')
+	Department_detail = db.relationship("Department_detail",backref='division',lazy=True)
+	Accounting_info = db.relationship("Accounting_info",backref='division',lazy=True)
+	Barcode = db.relationship("Barcode",backref='division',lazy=True)
+	Rp_acc = db.relationship("Rp_acc",backref='division',lazy=True)
+	Res_trans_inv = db.relationship("Res_trans_inv",backref='division',lazy=True)
+	Rp_acc_transaction = db.relationship("Rp_acc_transaction",backref='division',lazy=True)
+	Sale_card = db.relationship("Sale_card",backref='division',lazy=True)
+	Work_period = db.relationship("Work_period",backref='division',lazy=True)
+	Invoice = db.relationship("Invoice",backref='division',lazy=True)
+	Order_inv = db.relationship("Order_inv",backref='division',lazy=True)
+	Representative = db.relationship("Representative",backref='division',lazy=True)
+	Res_total = db.relationship("Res_total",backref='division',lazy=True)
+	Wish = db.relationship("Wish",backref='division',lazy=True)
+	Warehouse = db.relationship("Warehouse",backref='division',lazy=True)
+	Production = db.relationship("Production",backref='division',lazy=True)
+	Rating = db.relationship("Rating",backref='division',lazy=True)
+	Resource = db.relationship("Resource",backref='division',lazy=True)
+	Slider = db.relationship("Slider",backref='division',lazy=True)
+	Employee = db.relationship("Employee",backref='division',lazy=True)
 	
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -485,10 +485,10 @@ class Gender(db.Model):
 	GenderName_tkTM = db.Column("GenderName_tkTM",db.String(100))
 	GenderName_ruRU = db.Column("GenderName_ruRU",db.String(100))
 	GenderName_enUS = db.Column("GenderName_enUS",db.String(100))
-	Employee = db.relationship('Employee',backref='gender',lazy=True)
-	Relatives = db.relationship('Relatives',backref='gender',lazy=True)
-	Rp_acc = db.relationship('Rp_acc',backref='gender',lazy=True)
-	Representative = db.relationship('Representative',backref='gender',lazy=True)
+	Employee = db.relationship("Employee",backref='gender',lazy=True)
+	Relatives = db.relationship("Relatives",backref='gender',lazy=True)
+	Rp_acc = db.relationship("Rp_acc",backref='gender',lazy=True)
+	Representative = db.relationship("Representative",backref='gender',lazy=True)
 
 
 class Image(CreatedModifiedInfo,db.Model):
@@ -604,7 +604,7 @@ class Password_type(CreatedModifiedInfo,db.Model):
 	PsswTypeId = db.Column("PsswTypeId",db.Integer,nullable=False,primary_key=True)
 	PsswTypeName = db.Column("PsswTypeName",db.String(100),nullable=False)
 	PsswTypeDesc = db.Column("PsswTypeDesc",db.String(500))
-	Password = db.relationship('Password',backref='password_type',lazy=True)
+	Password = db.relationship("Password",backref='password_type',lazy=True)
 
 
 class Language(CreatedModifiedInfo,db.Model):
@@ -612,7 +612,7 @@ class Language(CreatedModifiedInfo,db.Model):
 	LangId = db.Column("LangId",db.Integer,nullable=False,primary_key=True)
 	LangName = db.Column("LangName",db.String(100),nullable=False)
 	LangDesc = db.Column("LangDesc",db.String(500))
-	Res_translations = db.relationship('Res_translations',backref='language',lazy=True)
+	Res_translations = db.relationship("Res_translations",backref='language',lazy=True)
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -685,8 +685,8 @@ class Reg_num_type(CreatedModifiedInfo,db.Model):
 	RegNumTypeDesc_ruRU = db.Column("RegNumTypeDesc_ruRU",db.String(500))
 	RegNumTypeName_enUS = db.Column("RegNumTypeName_enUS",db.String(50),nullable=False)
 	RegNumTypeDesc_enUS = db.Column("RegNumTypeDesc_enUS",db.String(500))
-	Reg_num = db.relationship('Reg_num',backref='reg_num_type',lazy='joined')
-	Pred_regnum = db.relationship('Pred_regnum',backref='reg_num_type',lazy='joined')
+	Reg_num = db.relationship("Reg_num",backref='reg_num_type',lazy='joined')
+	Pred_regnum = db.relationship("Pred_regnum",backref='reg_num_type',lazy='joined')
 
 
 class Report_file(CreatedModifiedInfo,db.Model):
@@ -734,7 +734,7 @@ class Sl_image(AddInf,CreatedModifiedInfo,db.Model):
 	SlImgSubImageFilePath5 = db.Column("SlImgSubImageFilePath5",db.String(255),default='')
 	SlImgStartDate = db.Column("SlImgStartDate",db.DateTime,default=datetime.now)
 	SlImgEndDate = db.Column("SlImgEndDate",db.DateTime)
-	Translations = db.relationship('Translations',backref='sl_image',lazy=True)
+	Translations = db.relationship("Translations",backref='sl_image',lazy=True)
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -787,7 +787,7 @@ class Slider(AddInf,CreatedModifiedInfo,db.Model):
 	DivId = db.Column("DivId",db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
 	SlName = db.Column("SlName",db.String(100),nullable=False)
 	SlDesc = db.Column("SlDesc",db.String(500),default='')
-	Sl_image = db.relationship('Sl_image',backref='slider',lazy=True)
+	Sl_image = db.relationship("Sl_image",backref='slider',lazy=True)
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -838,14 +838,14 @@ class Warehouse(AddInf,CreatedModifiedInfo,db.Model):
 	WhName = db.Column("WhName",db.String(100),nullable=False)
 	WhDesc = db.Column("WhDesc",db.String(500))
 	WhGuid = db.Column("WhGuid",UUID(as_uuid=True),unique=True)
-	Res_transaction = db.relationship('Res_transaction',backref='warehouse',lazy=True)
-	Invoice = db.relationship('Invoice',backref='warehouse',lazy=True)
-	Order_inv = db.relationship('Order_inv',backref='warehouse',lazy=True)
-	Res_total = db.relationship('Res_total',backref='warehouse',lazy=True)
-	Res_trans_inv = db.relationship('Res_trans_inv',foreign_keys='Res_trans_inv.WhIdIn',backref='warehouse',lazy=True)
-	Res_trans_inv = db.relationship('Res_trans_inv',foreign_keys='Res_trans_inv.WhIdOut',backref='warehouse',lazy=True)
-	Production = db.relationship('Production',foreign_keys='Production.WhIdIn',backref='warehouse',lazy=True)
-	Production = db.relationship('Production',foreign_keys='Production.WhIdOut',backref='warehouse',lazy=True)
+	Res_transaction = db.relationship("Res_transaction",backref='warehouse',lazy=True)
+	Invoice = db.relationship("Invoice",backref='warehouse',lazy=True)
+	Order_inv = db.relationship("Order_inv",backref='warehouse',lazy=True)
+	Res_total = db.relationship("Res_total",backref='warehouse',lazy=True)
+	Res_trans_inv = db.relationship("Res_trans_inv",foreign_keys='Res_trans_inv.WhIdIn',backref='warehouse',lazy=True)
+	Res_trans_inv = db.relationship("Res_trans_inv",foreign_keys='Res_trans_inv.WhIdOut',backref='warehouse',lazy=True)
+	Production = db.relationship("Production",foreign_keys='Production.WhIdIn',backref='warehouse',lazy=True)
+	Production = db.relationship("Production",foreign_keys='Production.WhIdOut',backref='warehouse',lazy=True)
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
