@@ -40,71 +40,67 @@ from main_pack.models.commerce.models import (
 )
 
 
-def UiRpAccData(rp_acc_list=None, deleted=False):
+# !!! TODO: These functions are similar to api/users/utils.py, merge them with respect to api
+def UiRpAccData(rp_acc_list=None, dbQuery=None, dbModels=None, deleted=False):
 	data = []
-
-	# rp_acc_statuses = Rp_acc_status.query.filter_by(GCRecord = None).all()
-	# rp_acc_types = Rp_acc_type.query.filter_by(GCRecord = None).all()
-	# images = Image.query\
-	# 	.filter_by(GCRecord = None)\
-	# 	.order_by(Image.CreatedDate.desc()).all()
-
-	rp_acc_models = []
-	
 	filtering = {}
-	if not deleted:
-		filtering["GCRecord"] = None
-	
-	if rp_acc_list is None:
-		rp_accs = Rp_acc.query.filter_by(**filtering)\
-			.options(
-				joinedload(Rp_acc.users),
-				joinedload(Rp_acc.rp_acc_status),
-				joinedload(Rp_acc.rp_acc_type),
-				joinedload(Rp_acc.Image))\
-			.all()
-		for rp_acc in rp_accs:
-			rp_acc_models.append(rp_acc)
-	
-	else:
-		for rp_acc_index in rp_acc_list:
-			rp_acc = Rp_acc.query\
-				.filter_by(**filtering, RpAccId = rp_acc_index["RpAccId"])\
+	if not dbModels:
+		dbModels = []	
+		if not deleted:
+			filtering["GCRecord"] = None
+		
+		if rp_acc_list is None:
+			rp_accs = Rp_acc.query.filter_by(**filtering)\
 				.options(
 					joinedload(Rp_acc.users),
 					joinedload(Rp_acc.rp_acc_status),
 					joinedload(Rp_acc.rp_acc_type),
 					joinedload(Rp_acc.Image))\
-				.first()
-			rp_acc_models.append(rp_acc)
+				.all()
+			for rp_acc in rp_accs:
+				dbModels.append(rp_acc)
+		
+		else:
+			for rp_acc_index in rp_acc_list:
+				rp_acc = Rp_acc.query\
+					.filter_by(**filtering, RpAccId = rp_acc_index["RpAccId"])\
+					.options(
+						joinedload(Rp_acc.users),
+						joinedload(Rp_acc.rp_acc_status),
+						joinedload(Rp_acc.rp_acc_type),
+						joinedload(Rp_acc.Image))\
+					.first()
+				dbModels.append(rp_acc)
 	
-	for rp_acc in rp_acc_models:
+	for rp_acc in dbModels:
 		rpAccInfo = rp_acc.to_json_api()
 
+		# !!! TODO: Check for joinedloading this if relationship
 		rp_acc_user = Users.query\
 			.filter_by(GCRecord = None, RpAccId = rp_acc.RpAccId)\
 			.first()
-		rp_acc_vendor = rp_acc.users
+		rp_acc_vendor = rp_acc.users if rp_acc.users and not rp_acc.users.GCRecord else {}
 
-
-		List_Images = [image.to_json_api() for image in rp_acc.Image if image.GCRecord == None]
+		List_Images = [image.to_json_api() for image in rp_acc.Image if not image.GCRecord]
 		List_Images = (sorted(List_Images, key = lambda i: i["ModifiedDate"]))
 
-		rpAccInfo["Rp_acc_status"] = dataLangSelector(rp_acc.rp_acc_status.to_json_api()) if rp_acc.rp_acc_status else {}
-		rpAccInfo["Rp_acc_type"] = dataLangSelector(rp_acc.rp_acc_type.to_json_api()) if rp_acc.rp_acc_type else {}
+		rpAccInfo["Rp_acc_status"] = dataLangSelector(rp_acc.rp_acc_status.to_json_api()) if rp_acc.rp_acc_status and not rp_acc.rp_acc_status.GCRecord else {}
+		rpAccInfo["Rp_acc_type"] = dataLangSelector(rp_acc.rp_acc_type.to_json_api()) if rp_acc.rp_acc_type and not rp_acc.rp_acc_type.GCRecord else {}
 		rpAccInfo["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=List_Images[-1]["FileName"]) if List_Images else ""
 		rpAccInfo["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=List_Images[-1]["FileName"]) if List_Images else ""
 		rpAccInfo["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_Images[-1]["FileName"]) if List_Images else ""
 		rpAccInfo["Images"] = List_Images if List_Images else []
 		
-		rpAccInfo["Rp_acc_user"] = rp_acc_user.to_json_api() if rp_acc_user else ""
-		rpAccInfo["Rp_acc_vendor"] = rp_acc_vendor.to_json_api() if rp_acc_vendor else ""
+		rpAccInfo["Rp_acc_user"] = rp_acc_user.to_json_api() if rp_acc_user else {}
+		rpAccInfo["Rp_acc_vendor"] = rp_acc_vendor.to_json_api() if rp_acc_vendor else {}
 
 		data.append(rpAccInfo)
+
 	res = {
 		"rp_accs":data,
 	}
 	return res
+
 
 def UiUsersData(users_list=None, deleted=False):
 	data = []

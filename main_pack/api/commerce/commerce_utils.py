@@ -332,7 +332,7 @@ def apiResourceInfo(
 			Units_info = resource_query.Resource.unit.to_json_api() if resource_query.Resource.unit else None
 			Res_category_info = resource_query.Resource.res_category.to_json_api() if resource_query.Resource.res_category else None
 			
-			List_Barcode = [barcode.to_json_api() for barcode in resource_query.Resource.Barcode if barcode.GCRecord == None]
+			List_Barcode = [barcode.to_json_api() for barcode in resource_query.Resource.Barcode if not barcode.GCRecord]
 
 			List_Res_price = []
 			if not ResPriceGroupId:
@@ -340,7 +340,7 @@ def apiResourceInfo(
 				List_Res_price = [res_price.to_json_api() 
 					for res_price in resource_query.Resource.Res_price
 					if res_price.ResPriceTypeId == 2
-					and res_price.GCRecord == None]
+					and not res_price.GCRecord]
 
 			if ResPriceGroupId:
 				# find Res_price with provided ResPriceGroupId
@@ -348,7 +348,7 @@ def apiResourceInfo(
 					for res_price in resource_query.Resource.Res_price 
 					if res_price.ResPriceTypeId == 2 
 					and res_price.ResPriceGroupId == ResPriceGroupId
-					and res_price.GCRecord == None]
+					and not res_price.GCRecord]
 
 				if not List_Res_price:
 					thisPriceGroupList = [priceGroup for priceGroup in res_price_groups if priceGroup.ResPriceGroupId == ResPriceGroupId]
@@ -363,7 +363,7 @@ def apiResourceInfo(
 						List_Res_price = [res_price.to_json_api() 
 							for res_price in resource_query.Resource.Res_price 
 							if res_price.ResPriceTypeId == FromResPriceTypeId
-							and res_price.GCRecord == None]
+							and not res_price.GCRecord]
 
 						if not List_Res_price:
 							raise Exception
@@ -376,8 +376,8 @@ def apiResourceInfo(
 				List_Currencies = [currency.to_json_api() for currency in currencies if currency.CurrencyId == List_Res_price[0]["CurrencyId"]]
 			except:
 				List_Currencies = []
-			List_Res_total = [res_total.to_json_api() for res_total in resource_query.Resource.Res_total if res_total.GCRecord == None and res_total.WhId == 1]
-			List_Images = [image.to_json_api() for image in resource_query.Resource.Image if image.GCRecord == None]
+			List_Res_total = [res_total.to_json_api() for res_total in resource_query.Resource.Res_total if not res_total.GCRecord and res_total.WhId == 1]
+			List_Images = [image.to_json_api() for image in resource_query.Resource.Image if not image.GCRecord]
 			# Sorting list by Modified date
 			List_Images = (sorted(List_Images, key = lambda i: i["ModifiedDate"]))
 			
@@ -398,7 +398,7 @@ def apiResourceInfo(
 						Rating_info["Rp_acc"] = rpAccData["data"]
 					List_Ratings.append(Rating_info)
 			else:
-				List_Ratings = [rating.to_json_api() for rating in resource_query.Resource.Rating if rating.GCRecord == None]
+				List_Ratings = [rating.to_json_api() for rating in resource_query.Resource.Rating if not rating.GCRecord]
 			if user:
 				List_Wish = [wish.to_json_api() for wish in wishes if wish.ResId == resource_query.Resource.ResId]
 			else:
@@ -451,13 +451,13 @@ def apiResourceInfo(
 				Related_resources = []
 				for resource in related_resources:
 					related_resource_info = resource.to_json_api()
-					Related_resource_Images = [image.to_json_api() for image in resource.Image if image.GCRecord == None]
+					Related_resource_Images = [image.to_json_api() for image in resource.Image if not image]
 					related_resource_info["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=Related_resource_Images[-1]["FileName"]) if Related_resource_Images else ""
 					related_resource_info["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=Related_resource_Images[-1]["FileName"]) if Related_resource_Images else ""
 					related_resource_info["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=Related_resource_Images[-1]["FileName"]) if Related_resource_Images else ""
 					
 					Related_Res_category_info = resource.res_category.to_json_api() if resource.res_category else None
-					Related_resource_price = [res_price.to_json_api() for res_price in resource.Res_price if res_price.ResPriceTypeId == 2 and res_price.GCRecord == None]
+					Related_resource_price = [res_price.to_json_api() for res_price in resource.Res_price if res_price.ResPriceTypeId == 2 and not res_price.GCRecord]
 					try:
 						Related_resource_currencies = [currency.to_json_api() for currency in currencies if currency.CurrencyId == Related_resource_price[0]["CurrencyId"]]
 					except:
@@ -475,8 +475,8 @@ def apiResourceInfo(
 					Related_resources.append(related_resource_info)
 				resource_info["Related_resources"] = Related_resources
 			if fullInfo == True:
-				List_Colors = [color.to_json_api() for res_color in resource_query.Resource.Res_color if res_color.GCRecord == None for color in colors if color.ColorId == res_color.ColorId]
-				List_Sizes = [size.to_json_api() for res_size in resource_query.Resource.Res_size if res_size.GCRecord == None for size in sizes if size.SizeId == res_size.SizeId]
+				List_Colors = [color.to_json_api() for res_color in resource_query.Resource.Res_color if not res_color.GCRecord for color in colors if color.ColorId == res_color.ColorId]
+				List_Sizes = [size.to_json_api() for res_size in resource_query.Resource.Res_size if not res_size.GCRecord for size in sizes if size.SizeId == res_size.SizeId]
 				
 				resource_info["Colors"] = List_Colors if List_Colors else []
 				resource_info["Sizes"] = List_Sizes if List_Sizes else []
@@ -643,14 +643,13 @@ def apiOrderInvInfo(
 		try:
 			order_inv_info = order_inv.to_json_api()
 
-			inv_status = order_inv.inv_status.to_json_api() if order_inv.inv_status else None
+			inv_status = order_inv.inv_status.to_json_api() if order_inv.inv_status and not order_inv.inv_status.GCRecord else None
 			inv_status = dataLangSelector(inv_status)
 			order_inv_info["InvStatName"] = inv_status["InvStatName"]
 
 			rp_acc_data = {}
 			if rp_acc_user:
 				rpAccData = apiRpAccData(dbModel = rp_acc_user)
-				print(rpAccData)
 				rp_acc_data = rpAccData["data"]
 
 			# elif order_inv.RpAccId:
@@ -662,13 +661,13 @@ def apiOrderInvInfo(
 				rp_acc_user = order_inv.rp_acc
 				rpAccData = apiRpAccData(dbModel = rp_acc_user)
 				rp_acc_data = rpAccData["data"]
-			order_inv_info["Rp_acc"] = rp_acc_data
 
-			order_inv_info["CGuid"] = order_inv.company.CGuid if order_inv.company else None
-			order_inv_info["WhGuid"] = order_inv.warehouse.WhGuid if order_inv.warehouse else None
-			order_inv_info["DivGuid"] = order_inv.division.DivGuid if order_inv.division else None
-			order_inv_info["RpAccGuid"] = order_inv.rp_acc.RpAccGuid if order_inv.rp_acc else None
-			order_inv_info["RpAccRegNo"] = order_inv.rp_acc.RpAccRegNo if order_inv.rp_acc else None
+			order_inv_info["Rp_acc"] = rp_acc_data
+			order_inv_info["CGuid"] = order_inv.company.CGuid if order_inv.company and not order_inv.company.GCRecord else None
+			order_inv_info["WhGuid"] = order_inv.warehouse.WhGuid if order_inv.warehouse and not order_inv.warehouse.GCRecord else None
+			order_inv_info["DivGuid"] = order_inv.division.DivGuid if order_inv.division and not order_inv.division.GCRecord else None
+			order_inv_info["RpAccGuid"] = order_inv.rp_acc.RpAccGuid if order_inv.rp_acc and not order_inv.rp_acc.GCRecord else None
+			order_inv_info["RpAccRegNo"] = order_inv.rp_acc.RpAccRegNo if order_inv.rp_acc and not order_inv.rp_acc.GCRecord else None
 
 			# !!! Check the send and get type of these params (root or structured?)
 			rp_acc_user = None
@@ -676,7 +675,7 @@ def apiOrderInvInfo(
 			if invoices_only == False: 
 				order_inv_lines = []
 				for order_inv_line in order_inv.Order_inv_line:
-					if order_inv_line.GCRecord == None:
+					if not order_inv_line.GCRecord:
 						this_order_inv_line = order_inv_line.to_json_api()
 						this_order_inv_line["ResRegNo"] = order_inv_line.resource.ResRegNo if order_inv_line.resource else None
 						this_order_inv_line["ResGuid"] = order_inv_line.resource.ResGuid if order_inv_line.resource else None
@@ -780,6 +779,7 @@ def apiInvInfo(
 			if rp_acc_user:
 				rpAccData = apiRpAccData(dbModel = rp_acc_user)
 			else:
+				# !!! TODO: optimize by adding joined query
 				rp_acc_user = Rp_acc.query\
 					.filter_by(GCRecord = None, RpAccId = invoice.RpAccId)\
 					.first()
@@ -789,14 +789,16 @@ def apiInvInfo(
 
 			inv_lines = []
 			for inv_line in invoice.Inv_line:
-				if inv_line.GCRecord == None:
+				if not inv_line.GCRecord:
 					this_inv_line = inv_line.to_json_api()
 					try:
+						# !!! TODO: optimize by adding joined query
 						resource = Resource.query\
 							.filter_by(GCRecord = None, ResId = inv_line.ResId)\
 							.first()
 						resource_json = apiResourceInfo(resource_models=[resource],single_object=True)
 						this_inv_line["Resource"] = resource_json["data"]
+
 					except Exception as ex:
 						print(f"{datetime.now()} | Invoice_line info utils Exception: {ex}")
 						this_inv_line["Resource"] = []
@@ -804,6 +806,7 @@ def apiInvInfo(
 			
 			inv_info["Inv_lines"] = inv_lines
 			data.append(inv_info)
+
 		except Exception as ex:
 			print(f"{datetime.now()} | Invoice info utils Exception: {ex}")
 			fails.append(invoice.to_json_api())

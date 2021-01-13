@@ -27,7 +27,7 @@ from main_pack.models.base.models import Company, Division
 
 
 @api.route("/tbl-dk-rp-accs/<RpAccRegNo>/",methods=['GET'])
-# @sha_required
+@sha_required
 def api_rp_accs_rp_acc(RpAccRegNo):
 	rp_acc = apiRpAccData(RpAccRegNo)
 	res = {
@@ -74,9 +74,9 @@ def api_rp_accs():
 			rp_acc_info["DivGuid"] = rp_acc.division.DivGuid if rp_acc.division else None
 			rp_acc_info["CGuid"] = rp_acc.company.CGuid if rp_acc.company else None
 			rp_acc_info["UGuid"] = rp_acc.users.UGuid if rp_acc.users else None
-			trans_total = [rp_acc_trans_total.to_json_api() 
-			for rp_acc_trans_total in rp_acc.Rp_acc_trans_total 
-			if rp_acc_trans_total.GCRecord == None]
+			trans_total = [rp_acc_trans_total.to_json_api()
+				for rp_acc_trans_total in rp_acc.Rp_acc_trans_total 
+				if not rp_acc_trans_total.GCRecord]
 			
 			total_info = trans_total[0] if trans_total else {}
 			rp_acc_info["RpAccTransTotal"] = total_info
@@ -158,7 +158,6 @@ def api_rp_accs():
 							RpAccGuid = RpAccGuid,
 							GCRecord = None)\
 						.first()
-					# RpAccRegNo = RpAccRegNo,
 
 					if thisRpAcc:
 						rp_acc_info["RpAccId"] = thisRpAcc.RpAccId
@@ -184,8 +183,10 @@ def api_rp_accs():
 							thisRpAccTrTotal = Rp_acc_trans_total(**rp_acc_trans_total)
 							db.session.add(thisRpAccTrTotal)
 						rp_accs.append(rp_acc_req)
+
 					except Exception as ex:
 						print(f"{datetime.now()} | Rp_acc Api Rp_acc_total Exception: {ex}")
+
 				except Exception as ex:
 					print(f"{datetime.now()} | Rp_acc Api Exception: {ex}")
 					failed_rp_accs.append(rp_acc_req)

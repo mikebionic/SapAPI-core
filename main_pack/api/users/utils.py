@@ -175,29 +175,31 @@ from main_pack.base.apiMethods import fileToURL
 from main_pack.models.users.models import Users,Rp_acc,User_type
 from sqlalchemy import and_
 
-def apiUsersData(UId=None, dbQuery=None):
-	if not dbQuery:
-		dbQuery = Users.query.filter_by(GCRecord = None, UId = UId)
 
-	dbQuery = dbQuery.options(
-		joinedload(Users.Image),
-		joinedload(Users.Rp_acc),
-		joinedload(Users.user_type))\
-	.first()
+def apiUsersData(UId=None, dbQuery=None, dbModel=None):
+	if not dbModel:
+		if not dbQuery:
+			dbQuery = Users.query.filter_by(GCRecord = None, UId = UId)
+
+		dbModel = dbQuery.options(
+			joinedload(Users.Image),
+			joinedload(Users.Rp_acc),
+			joinedload(Users.user_type))\
+		.first()
 
 	data = {}
-	if dbQuery:
-		data = dbQuery.to_json_api()
+	if dbModel:
+		data = dbModel.to_json_api()
 
-		List_Images = [image.to_json_api() for image in dbQuery.Image if image.GCRecord == None]
+		List_Images = [image.to_json_api() for image in dbModel.Image if not image.GCRecord]
 		List_Images = (sorted(List_Images, key = lambda i: i["ModifiedDate"]))
 
 		data["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=List_Images[-1]["FileName"]) if List_Images else ""
 		data["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=List_Images[-1]["FileName"]) if List_Images else ""
 		data["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_Images[-1]["FileName"]) if List_Images else ""
 		data["Images"] = List_Images if List_Images else []
-		data["Rp_accs"] = [rp_acc.to_json_api() for rp_acc in dbQuery.Rp_acc if rp_acc.GCRecord == None]
-		data["User_type"] = dataLangSelector(dbQuery.user_type.to_json_api()) if dbQuery.user_type else {}
+		data["Rp_accs"] = [rp_acc.to_json_api() for rp_acc in dbModel.Rp_acc if not rp_acc.GCRecord]
+		data["User_type"] = dataLangSelector(dbModel.user_type.to_json_api()) if dbModel.user_type else {}
 
 	res = {
 		"status":1,
@@ -223,7 +225,7 @@ def apiRpAccData(RpAccRegNo=None, dbQuery=None, dbModel=None):
 	if dbModel:
 		data = dbModel.to_json_api()
 
-		List_Images = [image.to_json_api() for image in dbModel.Image if image.GCRecord == None]
+		List_Images = [image.to_json_api() for image in dbModel.Image if not image.GCRecord]
 		List_Images = (sorted(List_Images, key = lambda i: i["ModifiedDate"]))
 
 		data["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=List_Images[-1]["FileName"]) if List_Images else ""
@@ -232,7 +234,7 @@ def apiRpAccData(RpAccRegNo=None, dbQuery=None, dbModel=None):
 		data["Images"] = List_Images if List_Images else []
 
 
-		data["User"] = dbModel.users.to_json_api() if dbModel.users and dbModel.users.GCRecord == None else {}
+		data["User"] = dbModel.users.to_json_api() if dbModel.users and not dbModel.users.GCRecord else {}
 		data["Rp_acc_type"] = dataLangSelector(dbModel.rp_acc_type.to_json_api()) if dbModel.rp_acc_type else {}
 		data["Rp_acc_status"] = dataLangSelector(dbModel.rp_acc_status.to_json_api()) if dbModel.rp_acc_status else {}
 

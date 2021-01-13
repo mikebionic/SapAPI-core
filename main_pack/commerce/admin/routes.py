@@ -3,6 +3,7 @@ import os
 import uuid
 from flask import current_app
 from sqlalchemy import and_
+from sqlalchemy.orm import joinedload
 
 from main_pack.commerce.admin import bp, url_prefix
 from main_pack.config import Config
@@ -190,8 +191,9 @@ def customers_table():
 		title = gettext('Customers'))
 
 
+## !!! WARNING: Testing code
 @bp.route("/admin/customers/")
-@login_required
+# @login_required
 @ui_admin_required()
 def customers_json():
 	data = UiRpAccData([{"RpAccId": 3}])
@@ -199,6 +201,7 @@ def customers_json():
 	data['rp_acc_types'] = rp_acc_types()
 
 	return data
+## !!! WARNING: Testing code
 
 
 @bp.route("/admin/customer_details/<RpAccRegNo>")
@@ -207,19 +210,24 @@ def customers_json():
 def customer_details(RpAccRegNo):
 	try:
 		rp_acc = Rp_acc.query\
-			.filter_by(RpAccRegNo = RpAccRegNo).first()
+			.filter_by(RpAccRegNo = RpAccRegNo, GCRecord = None)\
+			.options(
+				joinedload(Rp_acc.users),
+				joinedload(Rp_acc.rp_acc_status),
+				joinedload(Rp_acc.rp_acc_type),
+				joinedload(Rp_acc.Image),
+				joinedload(Rp_acc.Order_inv))\
+			.first()
 		RpAccId = rp_acc.RpAccId
-		data = UiRpAccData([{"RpAccId": RpAccId}])
+		data = UiRpAccData(dbModels = [rp_acc])
 		data['rp_acc'] = data['rp_accs'][0]
 
 		data['rp_acc_statuses'] = rp_acc_statuses()
 		data['rp_acc_types'] = rp_acc_types()
 
-		orderInvoices = Order_inv.query\
-			.filter_by(GCRecord = None, RpAccId = RpAccId)\
-			.order_by(Order_inv.CreatedDate.desc()).all()
+		# !!! TODO: this kinda functions UiOInvData sucks
 		orders_list = []
-		for orderInv in orderInvoices:
+		for orderInv in rp_acc.Order_inv:
 			order = {}
 			order['OInvId'] = orderInv.OInvId
 			orders_list.append(order)
@@ -227,6 +235,7 @@ def customer_details(RpAccRegNo):
 	except Exception as ex:
 		print(ex)
 		return redirect(url_for('commerce_admin.customers_table'))
+
 	return render_template(
 		f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/customer_details.html",
 		url_prefix = url_prefix,
@@ -365,6 +374,7 @@ def user_details(UId):
 		data = UiUsersData([{"UId": UId}])
 		data['user']=data['users'][0]
 		data['user_types'] = user_types()
+		# !!! TODO: Awful query... needs fix
 		rp_accs = Rp_acc.query\
 			.filter_by(GCRecord = None, UId = UId).all()
 		rp_acc_list = []
