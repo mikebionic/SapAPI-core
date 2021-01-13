@@ -399,6 +399,7 @@ class Db_inf(db.Model):
 	__tablename__="tbl_dk_db_inf"
 	DbInfId = db.Column("DbInfId",db.Integer,nullable=False,primary_key=True)
 	DbInfDbVer = db.Column("DbInfDbVer",db.String(100),nullable=False)
+	DbInfGuid = db.Column("DbInfGuid",UUID(as_uuid=True))
 	GCRecord = db.Column("GCRecord",db.Integer)
 
 
@@ -719,6 +720,7 @@ class Sl_image(AddInf,CreatedModifiedInfo,db.Model):
 	SlId = db.Column("SlId",db.Integer,db.ForeignKey("tbl_dk_slider.SlId"))
 	SlImgTitle = db.Column("SlImgTitle",db.String(100))
 	SlImgDesc = db.Column("SlImgDesc",db.String(500),default='')
+	SlImgLink = db.Column("SlImgLink",db.String(100))
 	# "SlImgMainImg" bytea,
 	SlImgMainImgFileName = db.Column("SlImgMainImgFileName",db.String(255),default='')
 	SlImgMainImgFilePath = db.Column("SlImgMainImgFilePath",db.String(255),default='')
@@ -748,6 +750,7 @@ class Sl_image(AddInf,CreatedModifiedInfo,db.Model):
 			"SlId": self.SlId,
 			"SlImgTitle": self.SlImgTitle,
 			"SlImgDesc": self.SlImgDesc,
+			"SlImgLink": self.SlImgLink,
 			"SlImgMainImgFileName": self.SlImgMainImgFileName,
 			"SlImgMainImgFilePathS": fileToURL(file_type="slider",file_size='S',file_name=self.SlImgMainImgFileName),
 			"SlImgMainImgFilePathM": fileToURL(file_type="slider",file_size='M',file_name=self.SlImgMainImgFileName),

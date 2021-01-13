@@ -28,6 +28,8 @@ class Users(AddInf,CreatedModifiedInfo,db.Model,UserMixin):
 	UShortName = db.Column("UShortName",db.String(10))
 	EmpId = db.Column("EmpId",db.Integer)
 	UTypeId = db.Column("UTypeId",db.Integer,db.ForeignKey("tbl_dk_user_type.UTypeId"))
+	ULastActivityDate = db.Column("ULastActivityDate",db.DateTime,default=datetime.now())
+	ULastActivityDevice = db.Column("ULastActivityDevice",db.String(100))
 	Wish = db.relationship("Wish",backref='users',lazy=True)
 	Rating = db.relationship("Rating",backref='users',lazy=True)
 	Rp_acc = db.relationship("Rp_acc",backref='users',lazy=True)
@@ -79,6 +81,8 @@ class Users(AddInf,CreatedModifiedInfo,db.Model,UserMixin):
 			# "UPass": self.UPass,
 			"UShortName": self.UShortName,
 			"URegNo": self.URegNo,
+			"ULastActivityDate": apiDataFormat(self.ULastActivityDate),
+			"ULastActivityDevice": self.ULastActivityDevice,
 			"EmpId": self.EmpId,
 			"UTypeId": self.UTypeId,
 			"AddInf1": self.AddInf1,
@@ -146,6 +150,9 @@ class Rp_acc(AddInf,CreatedModifiedInfo,db.Model):
 	RpAccUName = db.Column("RpAccUName",db.String(60))
 	RpAccUPass = db.Column("RpAccUPass",db.String(60))
 	RpAccName = db.Column("RpAccName",db.String(255))
+	DbGuid = db.Column("DbGuid",UUID(as_uuid=True))
+	DeviceQty = db.Column("DeviceQty",db.Integer)
+	UnusedDeviceQty = db.Column("UnusedDeviceQty",db.Integer)
 	RpAccAddress = db.Column("RpAccAddress",db.String(500))
 	RpAccMobilePhoneNumber = db.Column("RpAccMobilePhoneNumber",db.String(100))
 	RpAccHomePhoneNumber = db.Column("RpAccHomePhoneNumber",db.String(100))
@@ -163,6 +170,8 @@ class Rp_acc(AddInf,CreatedModifiedInfo,db.Model):
 	RpAccLangSkills = db.Column("RpAccLangSkills",db.String(100))
 	RpAccSaleBalanceLimit = db.Column("RpAccSaleBalanceLimit",db.Float,default=0)
 	RpAccPurchBalanceLimit = db.Column("RpAccPurchBalanceLimit",db.Float,default=0)
+	RpAccLastActivityDate = db.Column("RpAccLastActivityDate",db.DateTime,default=datetime.now())
+	RpAccLastActivityDevice = db.Column("RpAccLastActivityDevice",db.String(100))
 	RpAccLatitude = db.Column("RpAccLatitude",db.Float,default=0.0)
 	RpAccLongitude = db.Column("RpAccLongitude",db.Float,default=0.0)
 	Representative = db.relationship("Representative",backref='rp_acc',foreign_keys='Representative.RpAccId',lazy=True)
@@ -182,6 +191,7 @@ class Rp_acc(AddInf,CreatedModifiedInfo,db.Model):
 	Invoice = db.relationship("Invoice",backref='rp_acc',lazy=True)
 	Order_inv = db.relationship("Order_inv",backref='rp_acc',lazy=True)
 	Rating = db.relationship("Rating",backref='rp_acc',lazy=True)
+	Device = db.relationship("Device",backref='rp_acc',lazy=True)
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -208,6 +218,9 @@ class Rp_acc(AddInf,CreatedModifiedInfo,db.Model):
 			# "RpAccUPass": self.RpAccUPass,
 			"RpAccName": self.RpAccName,
 			"RpAccAddress": self.RpAccAddress,
+			"DbGuid": self.DbGuid,
+			"DeviceQty": self.DeviceQty,
+			"UnusedDeviceQty": self.UnusedDeviceQty,
 			"RpAccMobilePhoneNumber": self.RpAccMobilePhoneNumber,
 			"RpAccHomePhoneNumber": self.RpAccHomePhoneNumber,
 			"RpAccWorkPhoneNumber": self.RpAccWorkPhoneNumber,
@@ -224,6 +237,8 @@ class Rp_acc(AddInf,CreatedModifiedInfo,db.Model):
 			"RpAccLangSkills": self.RpAccLangSkills,
 			"RpAccSaleBalanceLimit": self.RpAccSaleBalanceLimit,
 			"RpAccPurchBalanceLimit": self.RpAccPurchBalanceLimit,
+			"RpAccLastActivityDate": apiDataFormat(self.RpAccLastActivityDate),
+			"RpAccLastActivityDevice": self.RpAccLastActivityDevice,
 			"RpAccLatitude": self.RpAccLatitude,
 			"RpAccLongitude": self.RpAccLongitude,
 			"AddInf1": self.AddInf1,
@@ -242,7 +257,7 @@ class Rp_acc(AddInf,CreatedModifiedInfo,db.Model):
 		return json_rp_acc
 
 
-class Rp_acc_status(CreatedModifiedInfo,db.Model):
+class Rp_acc_status(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_rp_acc_status"
 	RpAccStatusId = db.Column("RpAccStatusId",db.Integer,nullable=False,primary_key=True)
 	RpAccStatusName_tkTM = db.Column("RpAccStatusName_tkTM",db.String(100),nullable=False)
@@ -300,3 +315,42 @@ class Rp_acc_type(CreatedModifiedInfo,db.Model):
 			"GCRecord": self.GCRecord
 		}
 		return json_rp_acc_type
+
+
+class Device(AddInf,CreatedModifiedInfo,db.Model):
+	__tablename__="tbl_dk_device"
+	DevId = db.Column("DevId",db.Integer,nullable=False,primary_key=True)
+	DevGuid = db.Column("DevGuid",UUID(as_uuid=True),unique=True)
+	DevUniqueId = db.Column("DevUId",db.String(100),nullable=False)
+	RpAccId = db.Column("RpAccId",db.Integer,db.ForeignKey("tbl_dk_res_price_group.ResPriceGroupId"))
+	DevName = db.Column("DevName",db.String(200))
+	DevDesc = db.Column("DevDesc",db.String(500))
+	IsAllowed = db.Column("IsAllowed",db.Boolean,default=False)
+	DevVerifyDate = db.Column("DevVerifyDate",db.DateTime,default=datetime.now())
+	DevVerifyKey = db.Column("DevVerifyKey",db.String(255))
+
+	def to_json_api(self):
+		json_device = {
+			"DevId": self.DevId,
+			"DevGuid": self.DevGuid,
+			"DevUniqueId": self.DevUniqueId,
+			"RpAccId": self.RpAccId,
+			"DevName": self.DevName,
+			"DevDesc": self.DevDesc,
+			"IsAllowed": self.IsAllowed,
+			"DevVerifyDate": apiDataFormat(self.DevVerifyDate),
+			"DevVerifyKey": self.DevVerifyKey,
+			"AddInf1": self.AddInf1,
+			"AddInf2": self.AddInf2,
+			"AddInf3": self.AddInf3,
+			"AddInf4": self.AddInf4,
+			"AddInf5": self.AddInf5,
+			"AddInf6": self.AddInf6,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
+		}
+		return json_device
