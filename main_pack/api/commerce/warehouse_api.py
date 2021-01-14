@@ -36,7 +36,7 @@ def api_warehouses():
 			warehouse_info["DivGuid"] = warehouse.division.DivGuid if warehouse.division else None
 			data.append(warehouse_info)
 		res = {
-			"status": 1,
+			"status": 1 if len(data) > 0 else 0,
 			"message": "All warehouses",
 			"data": data,
 			"total": len(data)

@@ -44,11 +44,13 @@ def api_categories():
 
 		categories = categories.all()
 
+		data = [category.to_json_api() for category in categories]
+
 		res = {
-			"status": 1,
+			"status": 1 if len(data) > 0 else 0,
 			"message": "All categories",
-			"data": [category.to_json_api() for category in categories],
-			"total": len(categories)
+			"data": data,
+			"total": len(data)
 		}
 		response = make_response(jsonify(res),200)
 	return response
@@ -75,15 +77,19 @@ def api_post_categories():
 					category = Res_category.query\
 						.filter_by(ResCatName = new_category.ResCatName)\
 						.first()
+
 					if not category:
 						category = Res_category(**new_category)
 						db.session.add(category)
+
 					else:
 						category.update(**new_category)
 					categories.append(new_category)
+
 				except Exception as ex:
 					print(f"{datetime.now()} | Category Api Exception: {ex}")
 					failed_categories.append(new_category)
+
 			db.session.commit()
 			status = checkApiResponseStatus(categories,failed_categories)
 			res = {
@@ -106,21 +112,22 @@ def api_paginated_categories():
 		.order_by(Res_category.CreatedDate.desc())\
 		.paginate(
 			page,per_page = Config.API_OBJECTS_PER_PAGE,
-			error_out = False
-			)
-	categories = pagination.items
+			error_out = False)
+
+	data = [category.to_json_api() for category in pagination.items]
 	prev = None
+	next = None
+
 	if pagination.has_prev:
 		prev = url_for('commerce_api.api_paginated_categories',page=page-1)
-	next = None
 	if pagination.has_next:
 		next = url_for('commerce_api.api_paginated_categories',page=page+1)
 	
 	res = {
-		"status": 1,
+		"status": 1 if len(data) > 0 else 0,
 		"message": "Categories",
-		"data": [category.to_json_api() for category in categories],
-		"total": len(categories),
+		"data": data,
+		"total": len(data),
 		"prev_url": prev,
 		"next_url": next,
 		"pages_total": pagination.total

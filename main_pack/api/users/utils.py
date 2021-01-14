@@ -202,9 +202,9 @@ def apiUsersData(UId=None, dbQuery=None, dbModel=None):
 		data["User_type"] = dataLangSelector(dbModel.user_type.to_json_api()) if dbModel.user_type else {}
 
 	res = {
-		"status":1,
-		"data":data,
-		"total":1
+		"status": 1 if len(data) > 0 else 0,
+		"data": data,
+		"total": len(data)
 	}
 	return res
 
@@ -234,13 +234,15 @@ def apiRpAccData(RpAccRegNo=None, dbQuery=None, dbModel=None):
 		data["Images"] = List_Images if List_Images else []
 
 
+		# !!! TODO: add props to trigger adding this to data
+		# !!! TODO: ask dovlet if he is using this info in order_inv_request
 		data["User"] = dbModel.users.to_json_api() if dbModel.users and not dbModel.users.GCRecord else {}
 		data["Rp_acc_type"] = dataLangSelector(dbModel.rp_acc_type.to_json_api()) if dbModel.rp_acc_type else {}
 		data["Rp_acc_status"] = dataLangSelector(dbModel.rp_acc_status.to_json_api()) if dbModel.rp_acc_status else {}
 
 	res = {
-		"status": 1,
+		"status": 1 if len(data) > 0 else 0,
 		"data": data,
-		"total": 1
+		"total": len(data)
 	}
 	return res

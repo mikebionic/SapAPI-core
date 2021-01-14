@@ -15,7 +15,7 @@ from main_pack.api.auth.api_login import sha_required
 
 # Users, Rp_accs and functions
 from main_pack.models.users.models import Rp_acc,Users
-from main_pack.api.users.utils import addRpAccDict,apiRpAccData
+from main_pack.api.users.utils import addRpAccDict
 # / Users, Rp_accs and functions /
 
 # Rp_acc_trans_total and functions
@@ -26,21 +26,6 @@ from main_pack.api.commerce.utils import addRpAccTrTotDict
 from main_pack.models.base.models import Company, Division
 
 
-@api.route("/tbl-dk-rp-accs/<RpAccRegNo>/",methods=['GET'])
-@sha_required
-def api_rp_accs_rp_acc(RpAccRegNo):
-	rp_acc = apiRpAccData(RpAccRegNo)
-	res = {
-		"status": 1,
-		"message": "Single rp_acc",
-		"data": rp_acc['data'],
-		"total": 1
-	}
-	response = make_response(jsonify(res),200)
-
-	return response
-
-
 @api.route("/tbl-dk-rp-accs/",methods=['GET','POST'])
 @sha_required
 def api_rp_accs():
@@ -49,42 +34,62 @@ def api_rp_accs():
 		DivGuid = request.args.get("DivGuid",None,type=str)
 		notDivId = request.args.get("notDivId",None,type=int)
 		synchDateTime = request.args.get("synchDateTime",None,type=str)
-		rp_accs = Rp_acc.query.filter_by(GCRecord = None)\
-			.options(
-				joinedload(Rp_acc.division),
-				joinedload(Rp_acc.company),
-				joinedload(Rp_acc.users))
+		RpAccId = request.args.get("id",None,type=int)
+		RpAccRegNo = request.args.get("regNo","",type=str)
+		RpAccName = request.args.get("name","",type=str)
+
+		filtering = {"GCRecord": None}
+
+		if RpAccId:
+			filtering["RpAccId"] = RpAccId
+		if RpAccRegNo:
+			filtering["RpAccRegNo"] = RpAccRegNo
+		if RpAccName:
+			filtering["RpAccName"] = RpAccName
 		if DivId:
-			rp_accs = rp_accs.filter_by(DivId = DivId)
+			filtering["DivId"] = DivId
+
+		rp_accs = Rp_acc.query.filter_by(**filtering)\
+			.options(
+				joinedload(Rp_acc.company),
+				joinedload(Rp_acc.division),
+				joinedload(Rp_acc.users),
+				joinedload(Rp_acc.Rp_acc_trans_total))
+
 		if DivGuid:
 			rp_accs = rp_accs\
 				.join(Division, Division.DivId == Rp_acc.DivId)\
 				.filter(Division.DivGuid == DivGuid)
+
 		if notDivId:
 			rp_accs = rp_accs.filter(Rp_acc.DivId != notDivId)
+
 		if synchDateTime:
 			if (type(synchDateTime) != datetime):
 				synchDateTime = dateutil.parser.parse(synchDateTime)
 			rp_accs = rp_accs.filter(Rp_acc.ModifiedDate > (synchDateTime - timedelta(minutes = 5)))
+
 		rp_accs = rp_accs.all()
 
 		data = []
 		for rp_acc in rp_accs:
 			rp_acc_info = rp_acc.to_json_api()
-			rp_acc_info["DivGuid"] = rp_acc.division.DivGuid if rp_acc.division else None
-			rp_acc_info["CGuid"] = rp_acc.company.CGuid if rp_acc.company else None
-			rp_acc_info["UGuid"] = rp_acc.users.UGuid if rp_acc.users else None
+			rp_acc_info["DivGuid"] = rp_acc.division.DivGuid if rp_acc.division and not rp_acc.division.GCRecord else None
+			rp_acc_info["CGuid"] = rp_acc.company.CGuid if rp_acc.company and not rp_acc.company.GCRecord else None
+			rp_acc_info["UGuid"] = rp_acc.users.UGuid if rp_acc.users and not rp_acc.users.GCRecord else None
+
 			trans_total = [rp_acc_trans_total.to_json_api()
 				for rp_acc_trans_total in rp_acc.Rp_acc_trans_total 
 				if not rp_acc_trans_total.GCRecord]
-			
+
 			total_info = trans_total[0] if trans_total else {}
 			rp_acc_info["RpAccTransTotal"] = total_info
 			trans_total = None
+
 			data.append(rp_acc_info)
 
 		res = {
-			"status": 1,
+			"status": 1 if len(data) > 0 else 0,
 			"message": "Rp_acc",
 			"data": data,
 			"total": len(rp_accs)

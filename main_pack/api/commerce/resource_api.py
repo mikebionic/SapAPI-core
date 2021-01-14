@@ -1,32 +1,17 @@
 # -*- coding: utf-8 -*-
 from flask import render_template,url_for,jsonify,request,abort,make_response
-from main_pack.api.commerce import api
-from main_pack.base.apiMethods import checkApiResponseStatus
+from flask import current_app
 from datetime import datetime, timedelta
 import dateutil.parser
+from sqlalchemy.orm import joinedload
 
+from main_pack import db
+from main_pack.api.commerce import api
+from main_pack.base.apiMethods import checkApiResponseStatus
 from main_pack.models.base.models import Company, Division
 from main_pack.models.commerce.models import Resource, Barcode, Res_category
 from main_pack.api.commerce.utils import addResourceDict, addBarcodeDict
-from main_pack import db
-from flask import current_app
 from main_pack.api.auth.api_login import sha_required
-
-from main_pack.api.commerce.commerce_utils import apiResourceInfo
-
-
-@api.route("/tbl-dk-resources/<int:ResId>/")
-@sha_required
-def api_resource(ResId):
-	resource_list = [{'ResId':ResId}]
-	res = apiResourceInfo(resource_list,single_object=True,isInactive=True,fullInfo=True)
-	if res['status'] == 1:
-		status_code = 200
-	else:
-		status_code = 404
-	response = make_response(jsonify(res),status_code)
-
-	return response
 
 
 @api.route("/tbl-dk-resources/",methods=['GET','POST'])
@@ -37,29 +22,49 @@ def api_tbl_dk_resources():
 		notDivId = request.args.get("notDivId",None,type=int)
 		synchDateTime = request.args.get("synchDateTime",None,type=str)
 		resources = Resource.query.filter_by(GCRecord = None)
+		ResId = request.args.get("id",None,type=int)
+		ResRegNo = request.args.get("regNo","",type=str)
+		ResName = request.args.get("name","",type=str)
+
+		filtering = {"GCRecord": None}
+
+		if ResId:
+			filtering["ResId"] = ResId
+		if ResRegNo:
+			filtering["ResRegNo"] = ResRegNo
+		if ResName:
+			filtering["ResName"] = ResName
 		if DivId:
-			resources = resources.filter_by(DivId = DivId)
+			filtering["DivId"] = DivId
+
+		resources = Resource.query.filter_by(**filtering)\
+			.options(
+				joinedload(Resource.company),
+				joinedload(Resource.division),
+				joinedload(Resource.Barcode))
+
 		if notDivId:
-			resources = resources.filter(Resource.DivId != notDivId)		
+			resources = resources.filter(Resource.DivId != notDivId)
+
 		if synchDateTime:
 			if (type(synchDateTime) != datetime):
 				synchDateTime = dateutil.parser.parse(synchDateTime)
 			resources = resources.filter(Resource.ModifiedDate > (synchDateTime - timedelta(minutes = 5)))
-		
+
 		resources = resources.all()
 		
 		data = []
 		for resource in resources:
 			resource_info = resource.to_json_api()
-			resource_info["CGuid"] = resource.company.CGuid if resource.company else None
-			resource_info["DivGuid"] = resource.division.DivGuid if resource.division else None
-			resource_info["Barcodes"] = [barcode.to_json_api() for barcode in resource.Barcode]
+			resource_info["CGuid"] = resource.company.CGuid if resource.company and not resource.company.GCRecord else None
+			resource_info["DivGuid"] = resource.division.DivGuid if resource.division and not resource.division.GCRecord else None
+			resource_info["Barcodes"] = [barcode.to_json_api() for barcode in resource.Barcode if not barcode.GCRecord]
 			data.append(resource_info)
 
 		res = {
-			"status": 1,
+			"status": 1 if len(data) > 0 else 0,
 			"data": data,
-			"message": "Resources for syncronizer",
+			"message": "Resources",
 			"total": len(data)
 		}
 		response = make_response(jsonify(res),200)

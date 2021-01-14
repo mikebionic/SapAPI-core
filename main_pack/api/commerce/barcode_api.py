@@ -30,7 +30,7 @@ def api_barcodes():
 			barcodes = barcodes.filter(Barcode.ModifiedDate > (synchDateTime - timedelta(minutes = 5)))
 		barcodes = barcodes.all()
 		res = {
-			"status": 1,
+			"status": 1 if len(data) > 0 else 0,
 			"message": "All barcodes",
 			"data": [barcode.to_json_api() for barcode in barcodes],
 			"total": len(barcodes)

@@ -1,19 +1,18 @@
 # -*- coding: utf-8 -*-
 from flask import render_template,url_for,jsonify,request,abort,make_response
 from flask import current_app
-from main_pack.api.commerce import api
-from main_pack.base.apiMethods import checkApiResponseStatus
-from main_pack import db
-
 from datetime import datetime, timedelta
 import dateutil.parser
 from sqlalchemy import and_
+from sqlalchemy.orm import joinedload
 import uuid
 
+from main_pack import db
+from main_pack.api.commerce import api
 from main_pack.models.base.models import Warehouse, Division
-from main_pack.models.commerce.models import Res_total,Resource
+from main_pack.models.commerce.models import Res_total, Resource
+from main_pack.base.apiMethods import checkApiResponseStatus
 from main_pack.api.commerce.utils import addResTotalDict
-
 from main_pack.api.auth.api_login import sha_required
 
 
@@ -24,27 +23,35 @@ def api_res_totals():
 		DivId = request.args.get("DivId",None,type=int)
 		notDivId = request.args.get("notDivId",None,type=int)
 		synchDateTime = request.args.get("synchDateTime",None,type=str)
-		res_totals = Res_total.query.filter_by(GCRecord = None)
+		res_totals = Res_total.query.filter_by(GCRecord = None)\
+			.options(
+				joinedload(Res_total.division),
+				joinedload(Res_total.warehouse),
+				joinedload(Res_total.resource))
+
 		if DivId:
 			res_totals = res_totals.filter_by(DivId = DivId)
+
 		if notDivId:
 			res_totals = res_totals.filter(Res_total.DivId != notDivId)
+
 		if synchDateTime:
 			if (type(synchDateTime) != datetime):
 				synchDateTime = dateutil.parser.parse(synchDateTime)
 			res_totals = res_totals.filter(Res_total.ModifiedDate > (synchDateTime - timedelta(minutes = 5)))
+
 		res_totals = res_totals.all()
 
 		data = []
 		for res_total in res_totals:
 			res_total_info = res_total.to_json_api()
-			res_total_info["WhGuid"] = res_total.warehouse.WhGuid if res_total.warehouse else None
-			res_total_info["DivGuid"] = res_total.division.DivGuid if res_total.division else None
-			res_total_info["ResGuid"] = res_total.resource.ResGuid if res_total.resource else None
+			res_total_info["WhGuid"] = res_total.warehouse.WhGuid if res_total.warehouse and not res_total.warehouse.GCRecord else None
+			res_total_info["DivGuid"] = res_total.division.DivGuid if res_total.division and not res_total.division.GCRecord else None
+			res_total_info["ResGuid"] = res_total.resource.ResGuid if res_total.resource and not res_total.resource.GCRecord else None
 			data.append(res_total_info)
 
 		res = {
-			"status": 1,
+			"status": 1 if len(data) > 0 else 0,
 			"message": "All res totals",
 			"data": data,
 			"total": len(data)
@@ -80,6 +87,7 @@ def api_res_totals():
 
 			resource_ResId_list = [resource.ResId for resource in resources]
 			resource_ResGuid_list = [str(resource.ResGuid) for resource in resources]
+	
 			res_totals = []
 			failed_res_totals = [] 
 			for res_total_req in req:

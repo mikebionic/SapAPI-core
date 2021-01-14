@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
 from flask import render_template,url_for,jsonify,request,abort,make_response
-from flask import current_app
-
 from flask import send_from_directory
+from flask import current_app
 import os
-
 from datetime import datetime, timedelta
 import dateutil.parser
 from sqlalchemy import and_
@@ -47,6 +45,7 @@ def api_images():
 		DivId = request.args.get("DivId",None,type=int)
 		notDivId = request.args.get("notDivId",None,type=int)
 		synchDateTime = request.args.get("synchDateTime",None,type=str)
+
 		images = Image.query.filter_by(GCRecord = None)
 
 		if DivId:
@@ -73,13 +72,13 @@ def api_images():
 		data = []
 		for image in images:
 			image_info = image.to_json_api()
-			image_info["ResRegNo"] = image.resource.ResRegNo if image.resource else None
-			image_info["ResGuid"] = image.resource.ResGuid if image.resource else None
-			image_info["RpAccGuid"] = image.rp_acc.RpAccGuid if image.rp_acc else None
+			image_info["ResRegNo"] = image.resource.ResRegNo if image.resource and not image.resource.GCRecord else None
+			image_info["ResGuid"] = image.resource.ResGuid if image.resource and not image.resource.GCRecord else None
+			image_info["RpAccGuid"] = image.rp_acc.RpAccGuid if image.rp_acc and not image.rp_acc.GCRecord else None
 			data.append(image_info)
 
 		res = {
-			"status": 1,
+			"status": 1 if len(data) > 0 else 0,
 			"message": "All images",
 			"data": data,
 			"total": len(data)
@@ -150,31 +149,39 @@ def api_images():
 								file_type = "image"
 								file_name = thisImage.FileName
 								remove_image(file_type,file_name)
+
 							except Exception as ex:
 								print(f"{datetime.now()} | Image Api Deletion Exception: {ex}")
 							
 							thisImage.update(**image_data)
 							print(f"{datetime.now()} | Image updated (Different ModifiedDate)")
+
 						else:
 							print(f"{datetime.now()} | Image dropped (Same ModifiedDate)")
+
 						image_req["Image"] = None
 						images.append(image_req)
+
 					else:
 						image_data = saveImageFile(image_req)
 						thisImage = Image(**image_data)
 						db.session.add(thisImage)
+
 						try:
 							db.session.commit()
 						except Exception as ex:
 							print(f"{datetime.now()} | Couldn't commit: {ex}")
+
 							try:
 								lastImage = Image.query.order_by(Image.ImgId.desc()).first()
 								ImgId = lastImage.ImgId+1
 							except:
 								ImgId = None
+
 							thisImage.ImgId = ImgId
 							db.session.add(thisImage)
 							db.session.commit()
+
 						print(f"{datetime.now()} | Image created")
 						image_req["Image"] = None
 						images.append(image_req)

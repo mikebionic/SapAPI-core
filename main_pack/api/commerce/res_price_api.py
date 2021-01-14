@@ -1,30 +1,34 @@
 # -*- coding: utf-8 -*-
 from flask import render_template,url_for,jsonify,request,abort,make_response
 from main_pack.api.commerce import api
-from main_pack.base.apiMethods import checkApiResponseStatus
 from datetime import datetime
 from sqlalchemy import and_
+from sqlalchemy.orm import joinedload
 
+from main_pack import db
 from main_pack.models.commerce.models import Res_price, Resource
 from main_pack.api.commerce.utils import addResPriceDict
-from main_pack import db
-from flask import current_app
 from main_pack.api.auth.api_login import sha_required
+from main_pack.base.apiMethods import checkApiResponseStatus
 
 
-@api.route("/tbl-dk-res-prices/",methods=['GET','POST','PUT'])
+@api.route("/tbl-dk-res-prices/",methods=['GET','POST'])
 @sha_required
 def api_res_prices():
 	if request.method == 'GET':
 		DivId = request.args.get("DivId",None,type=int)
 		notDivId = request.args.get("notDivId",None,type=int)
-		res_prices = Res_price.query.filter_by(GCRecord = None)
+
+		res_prices = Res_price.query.filter_by(GCRecord = None)\
+			.options(joinedload(Res_price.resource))
+
 		if DivId:
 			res_prices = res_prices\
 				.join(Resource, and_(
 					Resource.ResId == Res_price.ResId,
 					Resource.DivId == DivId,
 					Resource.GCRecord == None))
+
 		if notDivId:
 			res_prices = res_prices\
 				.join(Resource, and_(
@@ -37,12 +41,12 @@ def api_res_prices():
 		data = []
 		for res_price in res_prices:
 			res_price_info = res_price.to_json_api()
-			res_price_info["ResGuid"] = res_price.resource.ResGuid if res_price.resource else None
-			res_price_info["ResRegNo"] = res_price.resource.ResRegNo if res_price.resource else None
+			res_price_info["ResGuid"] = res_price.resource.ResGuid if res_price.resource and not res_price.resource.GCRecord else None
+			res_price_info["ResRegNo"] = res_price.resource.ResRegNo if res_price.resource and not res_price.resource.GCRecord else None
 			data.append(res_price_info)
 
 		res = {
-			"status": 1,
+			"status": 1 if len(data) > 0 else 0,
 			"message": "All res prices",
 			"data": data,
 			"total": len(data)

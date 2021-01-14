@@ -1,20 +1,27 @@
+# Welcome to Sap Api documentation!
+This documentation provides an info about routes and their usage, use it for building client-side applications.
 
-# API authentication
+
+## API authentication
 Provide **username** and **password** in Authentication headers
++ /api/login/?type=['user', 'rp_acc']
+
+**!! Warning** old version routes, supported til major update and verification
 + /api/login/users/
 + /api/login/rp-accs/
 
-# API config information
+
+## API config information
 > GET
 
 + /api/api-config/
 
-# Company and Division information
+## Company and Division information
 > GET
 
 + /api/company-info/
 
-# Simple data queries and insertions
+## Simple data queries and insertions
 > GET POST
 
 **@sha_required** of **Synchronizer**
@@ -30,7 +37,7 @@ Provide **username** and **password** in Authentication headers
 + /api/tbl-dk-work-periods/?synchDateTime=<datetime>&DivId=<id>&notDivId=<id>
 
 
-# Order invoice api
+## Order invoice api
 > GET POST
 
 **@sha_required** of **Synchronizer**
@@ -134,7 +141,7 @@ Returns only if the **Rp_acc** is the **owner** of invoice
 + /api/v-order-invoices/<str:OInvRegNo>/
 
 
-# Resource category api
+## Resource category api
 > GET POST
 
 + /api/tbl-dk-categories/?synchDateTime=<datetime>&DivId=<id>&notDivId=<id>
@@ -147,16 +154,11 @@ Returns only if the **Rp_acc** is the **owner** of invoice
 
 + /api/tbl-dk-categories/paginate/
 
-# Resource api
+## Resource api
 > GET POST
 
 **@sha_required** of **Synchronizer**
-+ /api/tbl-dk-resources/?synchDateTime=<datetime>&DivId=<id>&notDivId=<id>
-
-> GET
-
-**@sha_required** of **Synchronizer**
-+ /api/tbl-dk-resources/<int:ResId>/
++ /api/tbl-dk-resources/?synchDateTime=<datetime>&DivId=<id>&notDivId=<id>&id=<id>&regNo=<regNo>&name=
 
 ## client view resource
 
@@ -165,19 +167,24 @@ Returns only if the **Rp_acc** is the **owner** of invoice
 + /api/v-resources/?DivId=<id>&notDivId=<id>
 + /api/v-full-resources/?DivId=<id>&notDivId=<id>
 + /api/v-resources/<int:ResId>/
+
+**!! Warning** old version routes, supported til major update and verification
+Use **/resources/** route with argument property **category**
 + /api/tbl-dk-categories/<int:ResCatId>/v-resources/?DivId=<id>&notDivId=<id>
+
 	**Pagination and search**
 + /api/resources/?sort=<sort>&category=<categoryId>&brand=<brandId>&per_page=<per_page>&page=<page>&search=<search>&DivId=<divId>&notDivId=<notDivId>
 
 > GET POST
 
 **@sha_required** of **Synchronizer**
-+ /api/tbl-dk-rp-accs/?synchDateTime=<datetime>&DivId=<id>&notDivId=<id>
-+ /api/tbl-dk-users/?synchDateTime=<datetime>&DivId=<id>&notDivId=<id>
++ /api/tbl-dk-rp-accs/?synchDateTime=<datetime>&DivId=<id>&notDivId=<id>&id=<id>&regNo=<regNo>&name=
++ /api/tbl-dk-users/?synchDateTime=<datetime>&DivId=<id>&notDivId=<id>&id=<id>&regNo=<regNo>&name=
 
 > GET
 
 **@sha_required** of **Synchronizer**
-+ /api/tbl-dk-rp-accs/<int:RpAccRegNo>/
-+ /api/tbl-dk-users/<int:UId>/
-+ /api/tbl-dk-sliders/?DivId=<id>&notDivId=<id>
++ /api/tbl-dk-sliders/?DivId=<id>&notDivId=<id>&name=<name>&id=<id>
+
+**!! Warning** old version routes, supported til major update and verification
++ /api/tbl-dk-sliders/<SlName>/

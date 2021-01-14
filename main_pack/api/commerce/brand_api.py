@@ -34,7 +34,7 @@ def api_brands():
 				brandList["Images"] = [image.to_json_api() for image in brand.Image if image.GCRecord == None]
 				data.append(brandList)
 			res = {
-				"status": 1,
+				"status": 1 if len(data) > 0 else 0,
 				"message": "All view brands",
 				"data": data,
 				"total": len(data)
@@ -54,7 +54,7 @@ def api_brands():
 					print(f"{datetime.now()} | brand Api Exception: {ex}")
 
 			res = {
-				"status": 1,
+				"status": 1 if len(data) > 0 else 0,
 				"message": "Brand",
 				"data": data,
 				"total": 1

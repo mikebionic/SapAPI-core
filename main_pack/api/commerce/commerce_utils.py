@@ -27,8 +27,8 @@ from main_pack.models.commerce.models import (
 	Wish,
 	Rating)
 from main_pack.models.commerce.models import (
-	Color,
-	Size,
+	Res_color,
+	Res_size,
 	Brand,
 	Unit,
 	Usage_status)
@@ -198,10 +198,10 @@ def apiResourceInfo(
 	showNullPrice = False,
 	DivId = None,
 	notDivId = None):
-	colors = Color.query.filter_by(GCRecord = None).all()
-	sizes = Size.query.filter_by(GCRecord = None).all()
+
 	currencies = Currency.query.filter_by(GCRecord = None).all()
 	res_price_groups = Res_price_group.query.filter_by(GCRecord = None).all()
+
 	# return wishlist info for authenticated user
 	if current_user.is_authenticated:
 		user = current_user
@@ -212,15 +212,13 @@ def apiResourceInfo(
 			.filter_by(GCRecord = None, RpAccId = RpAccId)\
 			.all()
 
-
 	# ResPriceGroupId assignment and validation
 	if not ResPriceGroupId:
 		if "ResPriceGroupId" in session:
 			ResPriceGroupId = session["ResPriceGroupId"]
-			# print("Found session")
+
 		elif current_user.is_authenticated:
 			ResPriceGroupId = current_user.ResPriceGroupId if current_user.ResPriceGroupId else None
-			# print("found current user")
 
 
 	if not resource_models:
@@ -249,9 +247,13 @@ def apiResourceInfo(
 				joinedload(Resource.usage_status))
 
 			if fullInfo == True:
+				# !!! TODO: Res_color and color joins could be implemented on class level
 				resources = resources.options(	
-					joinedload(Resource.Res_color),
-					joinedload(Resource.Res_size))
+					joinedload(Resource.Res_color)\
+						.options(joinedload(Res_color.color)),
+					joinedload(Resource.Res_size)\
+						.options(joinedload(Res_size.size))
+					)
 
 			resource_models = [resource for resource in resources if resources]
 
@@ -295,7 +297,6 @@ def apiResourceInfo(
 						resource_query = resource_query\
 							.filter(Res_Total_subquery.c.ResTotBalance_sum > 0)
 
-
 				if showNullPrice == False:
 					resource_query = resource_query\
 						.join(Res_price, Res_price.ResId == Resource.ResId)\
@@ -314,8 +315,11 @@ def apiResourceInfo(
 
 				if fullInfo == True:
 					resource_query = resource_query.options(	
-						joinedload(Resource.Res_color),
-						joinedload(Resource.Res_size))
+						joinedload(Resource.Res_color)\
+							.options(joinedload(Res_color.color)),
+						joinedload(Resource.Res_size)\
+							.options(joinedload(Res_size.size))
+						)
 
 				resource_query = resource_query.first()
 				
@@ -458,10 +462,12 @@ def apiResourceInfo(
 					
 					Related_Res_category_info = resource.res_category.to_json_api() if resource.res_category else None
 					Related_resource_price = [res_price.to_json_api() for res_price in resource.Res_price if res_price.ResPriceTypeId == 2 and not res_price.GCRecord]
+
 					try:
 						Related_resource_currencies = [currency.to_json_api() for currency in currencies if currency.CurrencyId == Related_resource_price[0]["CurrencyId"]]
 					except:
 						Related_resource_currencies = []
+
 					related_resource_info["ResCatName"] = Related_Res_category_info["ResCatName"] if Related_Res_category_info else ""
 					related_resource_info["ResPriceValue"] = Related_resource_price[0]["ResPriceValue"] if Related_resource_price else ""
 					related_resource_info["CurrencyCode"] = Related_resource_currencies[0]["CurrencyCode"] if Related_resource_currencies else 'TMT'
@@ -474,22 +480,26 @@ def apiResourceInfo(
 					related_resource_info["Wishlist"] = True if Related_resource_Wish else False
 					Related_resources.append(related_resource_info)
 				resource_info["Related_resources"] = Related_resources
+
 			if fullInfo == True:
-				List_Colors = [color.to_json_api() for res_color in resource_query.Resource.Res_color if not res_color.GCRecord for color in colors if color.ColorId == res_color.ColorId]
-				List_Sizes = [size.to_json_api() for res_size in resource_query.Resource.Res_size if not res_size.GCRecord for size in sizes if size.SizeId == res_size.SizeId]
-				
+				# List_Colors = [color.to_json_api() for res_color in resource_query.Resource.Res_color if not res_color.GCRecord for color in colors if color.ColorId == res_color.ColorId]
+				# List_Sizes = [size.to_json_api() for res_size in resource_query.Resource.Res_size if not res_size.GCRecord for size in sizes if size.SizeId == res_size.SizeId]
+				List_Colors = [res_color.color.to_json_api() for res_color in resource_query.Resource.Res_color if not res_color.GCRecord if not res_color.color.GCRecord]
+				List_Sizes = [res_size.size.to_json_api() for res_size in resource_query.Resource.Res_size if not res_size.GCRecord if not res_size.size.GCRecord]
 				resource_info["Colors"] = List_Colors if List_Colors else []
 				resource_info["Sizes"] = List_Sizes if List_Sizes else []
 				resource_info["Barcode"] = List_Barcode if List_Barcode else []
-				resource_info["Brand"] = Brands_info if Brands_info else None
-				resource_info["Res_category"] = Res_category_info if Res_category_info else None
-				resource_info["Res_price"] = List_Res_price[0] if List_Res_price else None
-				resource_info["Res_total"] = List_Res_total[0] if List_Res_total else None
+				resource_info["Brand"] = Brands_info if Brands_info else {}
+				resource_info["Res_category"] = Res_category_info if Res_category_info else {}
+				resource_info["Res_price"] = List_Res_price[0] if List_Res_price else {}
+				resource_info["Res_total"] = List_Res_total[0] if List_Res_total else {}
 				resource_info["Rating"] = List_Ratings if List_Ratings else []
-				resource_info["UsageStatus"] = dataLangSelector(UsageStatus_info) if UsageStatus_info else None
-				resource_info["Currency"] = dataLangSelector(List_Currencies[0]) if List_Currencies else None
-				resource_info["Unit"] = dataLangSelector(Units_info) if Units_info else None
+				resource_info["UsageStatus"] = dataLangSelector(UsageStatus_info) if UsageStatus_info else {}
+				resource_info["Currency"] = dataLangSelector(List_Currencies[0]) if List_Currencies else {}
+				resource_info["Unit"] = dataLangSelector(Units_info) if Units_info else {}
+
 			data.append(resource_info)
+
 		except Exception as ex:
 			print(f"{datetime.now()} | Resource info utils Exception: {ex}")
 			fails.append(resource_query.Resource.to_json_api())
@@ -544,7 +554,7 @@ def apiFeaturedResCat_Resources():
 			data.append(featured_category)
 
 	res = {
-		"status": 1,
+		"status": 1 if len(data) > 0 else 0,
 		"data": data,
 		"total": len(data)
 	}
@@ -565,12 +575,13 @@ def UiCartResourceData(product_list,fullInfo=False,showRelated=False):
 		resource["productTotal"]=int(resource["productQty"])*int(resource["ResPriceValue"])
 		data.append(resource)
 	res = {
-		"status": 1,
+		"status": 1 if len(data) > 0 else 0,
 		"data": data,
 		"total": len(data)
 	}
 	return res
 
+# !!! TODO: Should be optimized
 def apiOrderInvInfo(
 	startDate = None,
 	endDate = datetime.now(),
@@ -623,7 +634,11 @@ def apiOrderInvInfo(
 					joinedload(Order_inv.inv_status),
 					joinedload(Order_inv.company),
 					joinedload(Order_inv.warehouse),
-					joinedload(Order_inv.division))\
+					joinedload(Order_inv.division),
+					joinedload(Order_inv.Order_inv_line)\
+						.options(
+							joinedload(Order_inv_line.resource)
+						))\
 				.all()
 					
 			for order_inv in order_invoices:
@@ -677,13 +692,15 @@ def apiOrderInvInfo(
 				for order_inv_line in order_inv.Order_inv_line:
 					if not order_inv_line.GCRecord:
 						this_order_inv_line = order_inv_line.to_json_api()
-						this_order_inv_line["ResRegNo"] = order_inv_line.resource.ResRegNo if order_inv_line.resource else None
-						this_order_inv_line["ResGuid"] = order_inv_line.resource.ResGuid if order_inv_line.resource else None
+						this_order_inv_line["ResRegNo"] = order_inv_line.resource.ResRegNo if order_inv_line.resource and not order_inv_line.resource.GCRecord else None
+						this_order_inv_line["ResGuid"] = order_inv_line.resource.ResGuid if order_inv_line.resource and not order_inv_line.resource.GCRecord else None
+
 						if show_inv_line_resource:
 							resource_json = apiResourceInfo(
 								resource_list = [{"ResId": order_inv_line.resource.ResId}],
 								single_object = True)
 							this_order_inv_line["Resource"] = resource_json["data"]
+
 						order_inv_lines.append(this_order_inv_line)
 
 				order_inv_info["Order_inv_lines"] = order_inv_lines

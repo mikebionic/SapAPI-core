@@ -1,31 +1,17 @@
 # -*- coding: utf-8 -*-
 from flask import render_template,url_for,jsonify,request,abort,make_response
-from main_pack.api.users import api
-from main_pack.base.apiMethods import checkApiResponseStatus
+from flask import current_app
 from datetime import datetime, timedelta
 import dateutil.parser
+from sqlalchemy.orm import joinedload
 
+from main_pack.api.users import api
+from main_pack.base.apiMethods import checkApiResponseStatus
+from main_pack import db
 from main_pack.models.base.models import Division,Company
 from main_pack.models.users.models import Users
-from main_pack.api.users.utils import addUsersDict,apiUsersData
-from main_pack import db
-from flask import current_app
+from main_pack.api.users.utils import addUsersDict
 from main_pack.api.auth.api_login import sha_required
-
-
-@api.route("/tbl-dk-users/<UId>/",methods=['GET'])
-@sha_required
-def api_users_user(UId):
-	user = apiUsersData(UId)
-	res = {
-		"status": 1,
-		"message": "Single user",
-		"data": user["data"],
-		"total": 1
-	}
-	response = make_response(jsonify(res),200)
-
-	return response
 
 
 @api.route("/tbl-dk-users/",methods=['GET','POST'])
@@ -35,28 +21,48 @@ def api_users():
 		DivId = request.args.get("DivId",None,type=int)
 		notDivId = request.args.get("notDivId",None,type=int)
 		synchDateTime = request.args.get("synchDateTime",None,type=str)
-		users = Users.query.filter_by(GCRecord = None)
+		UId = request.args.get("id",None,type=int)
+		URegNo = request.args.get("regNo","",type=str)
+		UName = request.args.get("name","",type=str)
+
+		filtering = {"GCRecord": None}
+
+		if UId:
+			filtering["UId"] = UId
+		if URegNo:
+			filtering["URegNo"] = URegNo
+		if UName:
+			filtering["UName"] = UName
 		if DivId:
-			users = users.filter_by(DivId = DivId)
+			filtering["DivId"] = DivId
+
+		users = Users.query.filter_by(**filtering)\
+			.options(
+				joinedload(Users.company),
+				joinedload(Users.division))
+
 		if notDivId:
 			users = users.filter(Users.DivId != notDivId)
+
 		if synchDateTime:
 			if (type(synchDateTime) != datetime):
 				synchDateTime = dateutil.parser.parse(synchDateTime)
 			users = users.filter(Users.ModifiedDate > (synchDateTime - timedelta(minutes = 5)))
+
 		users = users.all()
 
 		data = []
 		for user in users:
 			user_info = user.to_json_api()
-			user_info["DivGuid"] = user.division.DivGuid if user.division else None
-			user_info["CGuid"] = user.company.CGuid if user.company else None
-	
+			user_info["DivGuid"] = user.division.DivGuid if user.division and not user.division.GCRecord else None
+			user_info["CGuid"] = user.company.CGuid if user.company and not user.company.GCRecord else None
+			data.append(user_info)
+
 		res = {
-			"status": 1,
-			"message": "All users",
+			"status": 1 if len(data) > 0 else 0,
+			"message": "Users",
 			"data": data,
-			"total": len(users)
+			"total": len(data)
 		}
 		response = make_response(jsonify(res),200)
 
