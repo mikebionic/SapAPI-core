@@ -257,7 +257,7 @@ class Rp_acc(AddInf,CreatedModifiedInfo,db.Model):
 		return json_rp_acc
 
 
-class Rp_acc_status(AddInf,CreatedModifiedInfo,db.Model):
+class Rp_acc_status(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_rp_acc_status"
 	RpAccStatusId = db.Column("RpAccStatusId",db.Integer,nullable=False,primary_key=True)
 	RpAccStatusName_tkTM = db.Column("RpAccStatusName_tkTM",db.String(100),nullable=False)
@@ -322,7 +322,7 @@ class Device(AddInf,CreatedModifiedInfo,db.Model):
 	DevId = db.Column("DevId",db.Integer,nullable=False,primary_key=True)
 	DevGuid = db.Column("DevGuid",UUID(as_uuid=True),unique=True)
 	DevUniqueId = db.Column("DevUId",db.String(100),nullable=False)
-	RpAccId = db.Column("RpAccId",db.Integer,db.ForeignKey("tbl_dk_res_price_group.ResPriceGroupId"))
+	RpAccId = db.Column("RpAccId",db.Integer,db.ForeignKey("tbl_dk_rp_acc.RpAccId"))
 	DevName = db.Column("DevName",db.String(200))
 	DevDesc = db.Column("DevDesc",db.String(500))
 	IsAllowed = db.Column("IsAllowed",db.Boolean,default=False)

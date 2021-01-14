@@ -194,7 +194,7 @@ def customers_table():
 ## !!! WARNING: Testing code
 @bp.route("/admin/customers/")
 # @login_required
-@ui_admin_required()
+# @ui_admin_required()
 def customers_json():
 	data = UiRpAccData([{"RpAccId": 3}])
 	data['rp_acc_statuses'] = rp_acc_statuses()
@@ -218,10 +218,9 @@ def customer_details(RpAccRegNo):
 				joinedload(Rp_acc.Image),
 				joinedload(Rp_acc.Order_inv))\
 			.first()
-		RpAccId = rp_acc.RpAccId
+
 		data = UiRpAccData(dbModels = [rp_acc])
 		data['rp_acc'] = data['rp_accs'][0]
-
 		data['rp_acc_statuses'] = rp_acc_statuses()
 		data['rp_acc_types'] = rp_acc_types()
 
