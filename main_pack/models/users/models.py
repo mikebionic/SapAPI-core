@@ -321,7 +321,7 @@ class Device(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_device"
 	DevId = db.Column("DevId",db.Integer,nullable=False,primary_key=True)
 	DevGuid = db.Column("DevGuid",UUID(as_uuid=True),unique=True)
-	DevUniqueId = db.Column("DevUId",db.String(100),nullable=False)
+	DevUniqueId = db.Column("DevUniqueId",db.String(100),nullable=False)
 	RpAccId = db.Column("RpAccId",db.Integer,db.ForeignKey("tbl_dk_rp_acc.RpAccId"))
 	DevName = db.Column("DevName",db.String(200))
 	DevDesc = db.Column("DevDesc",db.String(500))

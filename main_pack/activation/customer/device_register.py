@@ -1,4 +1,5 @@
 from flask import jsonify,request,make_response
+import json
 import requests
 
 from . import api
@@ -36,15 +37,15 @@ def register_device():
 				print("customer, starting request")
 				r = requests.post(
 					Config.SAP_SERVICE_URL,
-					data = req,
+					data = json.dumps(req),
 					headers = {
-						'Content-type': 'application/json',
+						'Content-Type': 'application/json',
 						'x-access-token': Config.SAP_SERVICE_KEY})
 
 				print(r.status_code)
-				print(r.text())
+				# print(r.text())
+				print(r.json())
 				try:
-					print(r.json())
 					server_response = r.json()
 				except:
 					print("errror json")
@@ -67,6 +68,8 @@ def register_device():
 				"message": "Device registration",
 				"total": 1 if data else 0
 			}
+			print('client response')
+			print(res)
 			response = make_response(jsonify(res),200)
 
 		return response

@@ -1,5 +1,4 @@
 from flask import jsonify,request,make_response
-import requests
 import uuid
 
 from . import api
@@ -10,17 +9,20 @@ from .utils import sap_key_required
 
 
 @api.route("/devices/register/",methods=["POST"])
-@sap_key_required
+# @sap_key_required
 def register_device():
 	if request.method == 'POST':
-		if not request.json:
-			res = {
-				"status": 0,
-				"message": "Error. Not a JSON data."
-			}
-			response = make_response(jsonify(res),400)
+		# if not request.json:
+		# 	res = {
+		# 		"status": 0,
+		# 		"message": "Error. Not a JSON data."
+		# 	}
+		# 	response = make_response(jsonify(res),400)
 			
-		else:
+		# else:
+		print("request handling")
+		try:
+
 			req = request.get_json()
 			
 			print("printing sap side")
@@ -52,6 +54,9 @@ def register_device():
 				"message": "Device registration",
 				"total": 1 if data else 0
 			}
+			print('sap response')
+			print(res)
 			response = make_response(jsonify(res),200)
-
+		except Exception as ex:
+			print(ex)
 		return response

@@ -1,3 +1,4 @@
+from flask import request
 import jwt
 from functools import wraps
 from main_pack.config import Config
