@@ -181,7 +181,7 @@ class Company(AddInf,CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		json_company = {
+		json_data = {
 			"CId": self.CId,
 			"CName": self.CName,
 			"CFullName": self.CFullName,
@@ -212,7 +212,7 @@ class Company(AddInf,CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_company
+		return json_data
 
 
 class Config(AddInf,CreatedModifiedInfo,db.Model):
@@ -233,7 +233,7 @@ class Config(AddInf,CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json(self):
-		json_config = {
+		json_data = {
 			"CfId": self.CfId,
 			"MainCfId": self.MainCfId,
 			"CfTypeId": self.CfTypeId,
@@ -255,7 +255,7 @@ class Config(AddInf,CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_config
+		return json_data
 
 
 class Config_type(CreatedModifiedInfo,db.Model):
@@ -270,7 +270,7 @@ class Config_type(CreatedModifiedInfo,db.Model):
 	Config = db.relationship("Config",backref='config_type',lazy=True)
 
 	def to_json(self):
-		json_configType = {
+		json_data = {
 			"CfTypeId": self.CfTypeId,
 			"CfTypeName_tkTM": self.CfTypeName_tkTM,
 			"CfTypeDesc_tkTM": self.CfTypeDesc_tkTM,
@@ -285,7 +285,7 @@ class Config_type(CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_configType
+		return json_data
 
 
 class Contact(AddInf,CreatedModifiedInfo,db.Model):
@@ -312,7 +312,7 @@ class Contact_type(CreatedModifiedInfo,db.Model):
 	Contact = db.relationship("Contact",backref='contact_type',lazy=True)
 
 	def to_json(self):
-		json_contactType = {
+		json_data = {
 			"ContactTypeId": self.ContactTypeId,
 			"ContactTypeName_tkTM": self.ContactTypeName_tkTM,
 			"ContactTypeDesc_tkTM": self.ContactTypeDesc_tkTM,
@@ -327,7 +327,7 @@ class Contact_type(CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_contactType
+		return json_data
 
 
 class Country(AddInf,CreatedModifiedInfo,db.Model):
@@ -369,7 +369,7 @@ class Currency(AddInf,CreatedModifiedInfo,db.Model):
 	Work_period = db.relationship("Work_period",backref='currency',lazy=True)
 
 	def to_json_api(self):
-		json_currency = {
+		json_data = {
 			"CurrencyId": self.CurrencyId,
 			"CurrencyName_tkTM": self.CurrencyName_tkTM,
 			"CurrencyDesc_tkTM": self.CurrencyDesc_tkTM,
@@ -392,7 +392,7 @@ class Currency(AddInf,CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_currency
+		return json_data
 
 
 class Db_inf(db.Model):
@@ -457,7 +457,7 @@ class Division(AddInf,CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		json_division = {
+		json_data = {
 			"DivId": self.DivId,
 			"CId": self.CId,
 			"DivName": self.DivName,
@@ -477,7 +477,7 @@ class Division(AddInf,CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_division
+		return json_data
 
 
 class Gender(db.Model):
@@ -524,7 +524,7 @@ class Image(CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json(self):
-		json_image = {
+		json_data = {
 			"imgId": self.ImgId,
 			"empId": self.EmpId,
 			"companyId": self.CId,
@@ -534,10 +534,10 @@ class Image(CreatedModifiedInfo,db.Model):
 			"fileHash": self.FileHash,
 			"image": self.Image,
 		}
-		return json_image
+		return json_data
 
 	def to_json_api(self):
-		json_image = {
+		json_data = {
 			"ImgId": self.ImgId,
 			"ImgGuid": self.ImgGuid,
 			"EmpId": self.EmpId,
@@ -571,7 +571,7 @@ class Image(CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_image
+		return json_data
 
 
 class Location(AddInf,CreatedModifiedInfo,db.Model):
@@ -622,12 +622,12 @@ class Language(CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json(self):
-		json_language = {
+		json_data = {
 			"langId": self.LangId,
 			"langName": self.LangName,
 			"langDesc": self.LangDesc
 		}
-		return json_language
+		return json_data
 
 
 class Prog_language(CreatedModifiedInfo,db.Model):
@@ -745,7 +745,7 @@ class Sl_image(AddInf,CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		json_sl_image = {
+		json_data = {
 			"SlImgId": self.SlImgId,
 			"SlId": self.SlId,
 			"SlImgTitle": self.SlImgTitle,
@@ -780,7 +780,7 @@ class Sl_image(AddInf,CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_sl_image
+		return json_data
 
 
 class Slider(AddInf,CreatedModifiedInfo,db.Model):
@@ -799,7 +799,7 @@ class Slider(AddInf,CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		json_slider = {
+		json_data = {
 			"SlId": self.SlId,
 			"CId": self.CId,
 			"DivId": self.DivId,
@@ -818,7 +818,7 @@ class Slider(AddInf,CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_slider
+		return json_data
 
 
 class Translations(AddInf,CreatedModifiedInfo,db.Model):
@@ -857,7 +857,7 @@ class Warehouse(AddInf,CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		json_warehouse = {
+		json_data = {
 			"WhId": self.WhId,
 			"CId": self.CId,
 			"DivId": self.DivId,
@@ -878,4 +878,4 @@ class Warehouse(AddInf,CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_warehouse
+		return json_data

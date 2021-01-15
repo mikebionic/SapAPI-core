@@ -2,45 +2,116 @@
 This documentation provides an info about routes and their usage, use it for building client-side applications.
 
 
-## API authentication
+## Legend
+Shortcut                    | Description
+----------------------------|------------ 
+**!!**                      | Warning sign
+**!! Out of support**       | Route might be updated to different route and will be deleted after a major update process and verification
+**@sha required**           | Requires api key of **Synchronizer** for **@sha required**
+**@token required**   			| **@token required** of **Rp acc** login
+---
+
+
+## Authentication API
 Provide **username** and **password** in Authentication headers
-+ /api/login/?type=['user', 'rp_acc']
 
-**!! Warning** old version routes, supported til major update and verification
-+ /api/login/users/
-+ /api/login/rp-accs/
+__Route__                      | __Methods__         | __Status__ | __Note__
+-------------------------------|---------------------|------------|---------
+/api/login/                    | **GET**             | Updated    |
+
+**Properties**
+__Name__             | __Type__    | __Description__ | __Example__
+---------------------|-------------|-----------------|------------
+user                 | **str**     | validates the User model
+rp_acc               | **int**     | validates the Rp_acc model
+
+---
+
+__Route__                      | __Methods__         | __Status__ | __Note__
+-------------------------------|---------------------|------------|--------
+/api/login/users/              | **GET**             | Active     | **!! Out of support**
+/api/login/rp-accs/            | **GET**             | Active     | **!! Out of support**
+
+---
 
 
-## API config information
-> GET
+## Fetch information API
 
-+ /api/api-config/
+__Route__                      | __Methods__         | __Status__ | __Note__
+-------------------------------|---------------------|------------|--------
+/api/api-config/               | **GET**             | Active     | API config information
+/api/company-info/             | **GET**             | Active     | Company and Division information
+/api/api-config/               | **GET**             | Active     | API config information
 
-## Company and Division information
-> GET
 
-+ /api/company-info/
+---
 
-## Simple data queries and insertions
+
+## Synchronizing, data queries and insertions API
+
+__Route__                      | __Methods__         | __Status__ | __Note__
+-------------------------------|---------------------|------------|--------
+/api/company/                  | **GET** **POST**    | Active     | **@sha required**
+
+**Properties**
+__Name__             | __Type__    | __Description__ | __Example__
+---------------------|-------------|-----------------|------------
+CGuid                | **str**     |
+
+---
+
+__Route__                      | __Methods__         | __Status__ | __Note__
+-------------------------------|---------------------|------------|--------
+/api/division/                  | **GET** **POST**    | Active     | **@sha required**
+
+**Properties**
+__Name__             | __Type__    | __Description__ | __Example__
+---------------------|-------------|-----------------|------------
+DivGuid              | **str**     |
+
+---
+
+__Route__                      | __Methods__         | __Status__ | __Note__
+-------------------------------|---------------------|------------|--------
+/api/tbl-dk-barcodes/          | **GET** **POST**    | Updated    | **@sha required**
+
+**Properties**
+__Name__             | __Type__         | __Description__ | __Example__
+---------------------|------------------|-----------------|------------
+id                   | **int**          |
+val                  | **str**          |
+synchDateTime        | **datetime**     |
+DivId                | **int**          |
+notDivId             | **int**          |
+
+
+---
+
+__Route__                      | __Methods__         | __Status__ | __Note__
+-------------------------------|---------------------|------------|--------
+/api/tbl-dk-res-prices/         | **GET** **POST**    | Active     | **@sha required**
+/api/tbl-dk-res-totals/         | **GET** **POST**    | Active     | **@sha required**
+/api/tbl-dk-images/             | **GET** **POST**    | Active     | **@sha required**
+/api/tbl-dk-rp-acc-trans-totals/| **GET** **POST**    | Active     | **@sha required**
+/api/tbl-dk-total-transactions/ | **GET** **POST**    | Active     | **@sha required**
+/api/tbl-dk-warehouses/         | **GET** **POST**    | Active     | **@sha required**
+/api/tbl-dk-work-periods/       | **GET** **POST**    | Active     | **@sha required**
+
+
+**Properties**
+__Name__             | __Type__         | __Description__ | __Example__
+---------------------|------------------|-----------------|------------
+synchDateTime        | **datetime**     |
+DivId                | **int**          |
+notDivId             | **int**          |
+
+---
+
+
+## Order Invoice API
 > GET POST
 
-**@sha_required** of **Synchronizer**
-+ /api/company/?CName=<CName>&CKey=<CKey>
-+ /api/division/?DivName=<DivName>&DivKey=<DivKey>
-+ /api/tbl-dk-barcodes/?synchDateTime=<datetime>&DivId=<id>&notDivId=<id>&val=&id=
-+ /api/tbl-dk-res-prices/
-+ /api/tbl-dk-res-totals/?synchDateTime=<datetime>&DivId=<id>&notDivId=<id>
-+ /api/tbl-dk-images/?synchDateTime=<datetime>&DivId=<id>&notDivId=<id>
-+ /api/tbl-dk-rp-acc-trans-totals/?synchDateTime=<datetime>&DivId=<id>&notDivId=<id>
-+ /api/tbl-dk-total-transactions/
-+ /api/tbl-dk-warehouses/?synchDateTime=<datetime>&DivId=<id>&notDivId=<id>
-+ /api/tbl-dk-work-periods/?synchDateTime=<datetime>&DivId=<id>&notDivId=<id>
-
-
-## Order invoice api
-> GET POST
-
-**@sha_required** of **Synchronizer**
+**@sha_required**
 + /api/tbl-dk-order-invoices/?startDate=<datetime>&endDate=<datetime>&DivId=<id>&notDivId=<id>
 + /api/tbl-dk-order-invoices/<OInvRegNo>/
 + /api/tbl-dk-order-inv-lines/?DivId=<id>&notDivId=<id>
@@ -64,7 +135,7 @@ returns **all orders** if **blank**
 ```
 > POST 
 
-**@token_required** of **Rp_acc** login
+**@token required** of **Rp_acc** login
 + /api/checkout-sale-order-inv/
 
 + /api/gen-reg-no/

@@ -45,11 +45,12 @@ def api_invoices():
 		notDivId = request.args.get("notDivId",None,type=int)
 		startDate = request.args.get("startDate",None,type=str)
 		endDate = request.args.get("endDate",datetime.now())
-		res = apiInvInfo(startDate = startDate,
-										endDate = endDate,
-										statusId = 1,
-										DivId = DivId,
-										notDivId = notDivId)
+		res = apiInvInfo(
+			startDate = startDate,
+			endDate = endDate,
+			statusId = 1,
+			DivId = DivId,
+			notDivId = notDivId)
 		status_code = 200
 		response = make_response(jsonify(res),status_code)
 		return response

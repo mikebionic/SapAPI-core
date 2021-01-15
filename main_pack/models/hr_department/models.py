@@ -57,7 +57,7 @@ class Employee(AddInf,CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json(self):
-		json_employee = {
+		json_data = {
 			"empId": self.EmpId,
 			"company": self.CId,
 			"DivId": self.DivId,
@@ -86,7 +86,7 @@ class Employee(AddInf,CreatedModifiedInfo,db.Model):
 			"zipCode": self.ZipCode,
 			"email": self.EMail
 		}
-		return json_employee
+		return json_data
 
 	def to_json_api(self):
 		employee = {
@@ -146,14 +146,14 @@ class Award(AddInf,CreatedModifiedInfo,db.Model):
 				if hasattr(self, key):
 					setattr(self, key, value)
 	def to_json(self):
-		json_award = {
+		json_data = {
 			"awardId": self.AwardId,
 			"empId": self.EmpId,
 			"awardName": self.AwardName,
 			"awardDesc": self.AwardDesc,
 			"awardRecievedDate": self.AwardRecievedDate
 		}
-		return json_award
+		return json_data
 
 
 class Contract_type(CreatedModifiedInfo,db.Model):
@@ -168,7 +168,7 @@ class Contract_type(CreatedModifiedInfo,db.Model):
 	Employee = db.relationship("Employee",backref='contract_type',lazy=True)
 	
 	def to_json(self):
-		json_contactType = {
+		json_data = {
 			"ContractTypeId": self.ContractTypeId,
 			"ContractTypeName_tkTM": self.ContractTypeName_tkTM,
 			"ContractTypeDesc_tkTM": self.ContractTypeDesc_tkTM,
@@ -177,7 +177,7 @@ class Contract_type(CreatedModifiedInfo,db.Model):
 			"ContractTypeName_enUS": self.ContractTypeName_enUS,
 			"ContractTypeDesc_enUS": self.ContractTypeDesc_enUS
 		}
-		return json_contactType
+		return json_data
 
 
 class Edu_level(CreatedModifiedInfo,db.Model):
@@ -192,7 +192,7 @@ class Edu_level(CreatedModifiedInfo,db.Model):
 	Employee = db.relationship("Employee",backref='edu_level',lazy=True)
 
 	def to_json(self):
-		json_eduLevel = {
+		json_data = {
 			"EduLevelId": self.EduLevelId,
 			"EduLevelName_tkTM": self.EduLevelName_tkTM,
 			"EduLevelDesc_tkTM": self.EduLevelDesc_tkTM,
@@ -201,7 +201,7 @@ class Edu_level(CreatedModifiedInfo,db.Model):
 			"EduLevelName_enUS": self.EduLevelName_enUS,
 			"EduLevelDesc_enUS": self.EduLevelDesc_enUS
 		}
-		return json_eduLevel
+		return json_data
 
 
 class Emp_status(CreatedModifiedInfo,db.Model):
@@ -216,7 +216,7 @@ class Emp_status(CreatedModifiedInfo,db.Model):
 	Employee = db.relationship("Employee",backref='emp_status',lazy=True)
 
 	def to_json(self):
-		json_empStatus = {
+		json_data = {
 			"EmpStatId": self.EmpStatId,
 			"EmpStatName_tkTM": self.EmpStatName_tkTM,
 			"EmpStatDesc_tkTM": self.EmpStatDesc_tkTM,
@@ -225,7 +225,7 @@ class Emp_status(CreatedModifiedInfo,db.Model):
 			"EmpStatName_enUS": self.EmpStatName_enUS,
 			"EmpStatDesc_enUS": self.EmpStatDesc_enUS
 		}
-		return json_empStatus
+		return json_data
 
 
 class Nationality(CreatedModifiedInfo,db.Model):
@@ -241,7 +241,7 @@ class Nationality(CreatedModifiedInfo,db.Model):
 	Rp_acc = db.relationship("Rp_acc",backref='nationality',lazy=True)
 
 	def to_json(self):
-		json_nationality = {
+		json_data = {
 			"NatId": self.NatId,
 			"NatName_tkTM": self.NatName_tkTM,
 			"NatDesc_tkTM": self.NatDesc_tkTM,
@@ -250,7 +250,7 @@ class Nationality(CreatedModifiedInfo,db.Model):
 			"NatName_enUS": self.NatName_enUS,
 			"NatDesc_enUS": self.NatDesc_enUS
 		}
-		return json_nationality
+		return json_data
 
 
 class Profession(CreatedModifiedInfo,db.Model):
@@ -265,7 +265,7 @@ class Profession(CreatedModifiedInfo,db.Model):
 	Employee = db.relationship("Employee",backref='profession',lazy=True)
 
 	def to_json(self):
-		json_profession = {
+		json_data = {
 			"ProfessionId": self.ProfessionId,
 			"ProfessionName_tkTM": self.ProfessionName_tkTM,
 			"ProfessionDesc_tkTM": self.ProfessionDesc_tkTM,
@@ -274,7 +274,7 @@ class Profession(CreatedModifiedInfo,db.Model):
 			"ProfessionName_enUS": self.ProfessionName_enUS,
 			"ProfessionDesc_enUS": self.ProfessionDesc_enUS
 		}
-		return json_profession
+		return json_data
 
 
 class Rel_status(CreatedModifiedInfo,db.Model):
@@ -289,7 +289,7 @@ class Rel_status(CreatedModifiedInfo,db.Model):
 	Relatives = db.relationship("Relatives",backref='rel_status',lazy=True)
 
 	def to_json(self):
-		json_relStatus = {
+		json_data = {
 			"RelStatId": self.RelStatId,
 			"RelStatName_tkTM": self.RelStatName_tkTM,
 			"RelStatDesc_tkTM": self.RelStatDesc_tkTM,
@@ -298,7 +298,7 @@ class Rel_status(CreatedModifiedInfo,db.Model):
 			"RelStatName_enUS": self.RelStatName_enUS,
 			"RelStatDesc_enUS": self.RelStatDesc_enUS
 		}
-		return json_relStatus
+		return json_data
 
 
 class Relatives(AddInf,CreatedModifiedInfo,db.Model):
@@ -319,7 +319,7 @@ class Relatives(AddInf,CreatedModifiedInfo,db.Model):
 				if hasattr(self, key):
 					setattr(self, key, value)
 	def to_json(self):
-		json_relatives = {
+		json_data = {
 			"relativesId": self.RelId,
 			"empId": self.EmpId,
 			"relativesStatus": self.RelStatId,
@@ -331,7 +331,7 @@ class Relatives(AddInf,CreatedModifiedInfo,db.Model):
 			"relativesWorkPosition": self.RelWorkPosition,
 			"relativesResidence": self.RelResidence
 		}
-		return json_relatives
+		return json_data
 
 
 class School(AddInf,CreatedModifiedInfo,db.Model):
@@ -352,7 +352,7 @@ class School(AddInf,CreatedModifiedInfo,db.Model):
 				if hasattr(self, key):
 					setattr(self, key, value)
 	def to_json(self):
-		json_school = {
+		json_data = {
 			"schoolId": self.SchoolId,
 			"empId": self.EmpId,
 			"schoolType": self.SchoolTypeId,
@@ -364,7 +364,7 @@ class School(AddInf,CreatedModifiedInfo,db.Model):
 			"schoolProfession": self.SchoolProfession,
 			"isGraduated": self.SchoolIsGraduated
 		}
-		return json_school
+		return json_data
 
 
 class School_type(CreatedModifiedInfo,db.Model):
@@ -394,7 +394,7 @@ class Visited_countries(AddInf,CreatedModifiedInfo,db.Model):
 				if hasattr(self, key):
 					setattr(self, key, value)
 	def to_json(self):
-		json_vc = {
+		json_data = {
 			"vcId": self.VCId,
 			"empId": self.EmpId,
 			"vcCountryName": self.VCCountryName,
@@ -403,7 +403,7 @@ class Visited_countries(AddInf,CreatedModifiedInfo,db.Model):
 			"vcStartDate": self.VCStartDate,
 			"vcEndDate": self.VCEndDate
 		}
-		return json_vc
+		return json_data
 
 
 class Work_history(AddInf,CreatedModifiedInfo,db.Model):
@@ -423,7 +423,7 @@ class Work_history(AddInf,CreatedModifiedInfo,db.Model):
 				if hasattr(self, key):
 					setattr(self, key, value)
 	def to_json(self):
-		json_workHistory = {
+		json_data = {
 			"workHistId": self.WorkHistId,
 			"empId": self.EmpId,
 			"whWorkPlace": self.WorkHistoryWorkPlace,
@@ -434,4 +434,4 @@ class Work_history(AddInf,CreatedModifiedInfo,db.Model):
 			"whWorkEndDate": self.WorkHistoryWorkEndDate,
 			"whWorkEndReason": self.WorkHistoryWorkEndReason,
 		}
-		return json_workHistory
+		return json_data

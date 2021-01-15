@@ -68,7 +68,7 @@ class Users(AddInf,CreatedModifiedInfo,db.Model,UserMixin):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		users = {
+		json_data = {
 			"UId": self.UId,
 			"UGuid": self.UGuid,
 			"CId": self.CId,
@@ -98,7 +98,7 @@ class Users(AddInf,CreatedModifiedInfo,db.Model,UserMixin):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return users
+		return json_data
 
 
 class User_type(CreatedModifiedInfo,db.Model):
@@ -113,7 +113,7 @@ class User_type(CreatedModifiedInfo,db.Model):
 	Users = db.relationship("Users",backref='user_type',lazy=True)
 
 	def to_json_api(self):
-		user_type = {
+		json_data = {
 			"UTypeId": self.UTypeId,
 			"UTypeName_tkTM": self.UTypeName_tkTM,
 			"UTypeDesc_tkTM": self.UTypeDesc_tkTM,
@@ -128,7 +128,7 @@ class User_type(CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return user_type
+		return json_data
 
 
 class Rp_acc(AddInf,CreatedModifiedInfo,db.Model):
@@ -200,7 +200,7 @@ class Rp_acc(AddInf,CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		json_rp_acc = {
+		json_data = {
 			"RpAccId": self.RpAccId,
 			"RpAccGuid": self.RpAccGuid,
 			"CId": self.CId,
@@ -254,7 +254,7 @@ class Rp_acc(AddInf,CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_rp_acc
+		return json_data
 
 
 class Rp_acc_status(CreatedModifiedInfo,db.Model):
@@ -269,7 +269,7 @@ class Rp_acc_status(CreatedModifiedInfo,db.Model):
 	Rp_acc = db.relationship("Rp_acc",backref='rp_acc_status',lazy=True)
 
 	def to_json_api(self):
-		json_rp_acc_status = {
+		json_data = {
 			"RpAccStatusId": self.RpAccStatusId,
 			"RpAccStatusName_tkTM": self.RpAccStatusName_tkTM,
 			"RpAccStatusDesc_tkTM": self.RpAccStatusDesc_tkTM,
@@ -284,7 +284,7 @@ class Rp_acc_status(CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_rp_acc_status
+		return json_data
 
 
 class Rp_acc_type(CreatedModifiedInfo,db.Model):
@@ -299,7 +299,7 @@ class Rp_acc_type(CreatedModifiedInfo,db.Model):
 	Rp_acc = db.relationship("Rp_acc",backref='rp_acc_type',lazy=True)
 
 	def to_json_api(self):
-		json_rp_acc_type = {
+		json_data = {
 			"RpAccTypeId": self.RpAccTypeId,
 			"RpAccTypeName_tkTM": self.RpAccTypeName_tkTM,
 			"RpAccTypeDesc_tkTM": self.RpAccTypeDesc_tkTM,
@@ -314,7 +314,7 @@ class Rp_acc_type(CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_rp_acc_type
+		return json_data
 
 
 class Device(AddInf,CreatedModifiedInfo,db.Model):
@@ -329,8 +329,14 @@ class Device(AddInf,CreatedModifiedInfo,db.Model):
 	DevVerifyDate = db.Column("DevVerifyDate",db.DateTime,default=datetime.now())
 	DevVerifyKey = db.Column("DevVerifyKey",db.String(255))
 
+	def update(self, **kwargs):
+		for key, value in kwargs.items():
+			if value is not None:
+				if hasattr(self, key):
+					setattr(self, key, value)
+
 	def to_json_api(self):
-		json_device = {
+		json_data = {
 			"DevId": self.DevId,
 			"DevGuid": self.DevGuid,
 			"DevUniqueId": self.DevUniqueId,
@@ -353,4 +359,4 @@ class Device(AddInf,CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_device
+		return json_data

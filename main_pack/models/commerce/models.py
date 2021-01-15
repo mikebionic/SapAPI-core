@@ -23,7 +23,7 @@ class Barcode(CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json(self):
-		json_barcode = {
+		json_data = {
 			"barcodeId": self.BarcodeId,
 			"companyId": self.CId,
 			"divisionId": self.DivId,
@@ -31,10 +31,10 @@ class Barcode(CreatedModifiedInfo,db.Model):
 			"unitId": self.UnitId,
 			"barcodeVal": self.BarcodeVal
 		}
-		return json_barcode
+		return json_data
 
 	def to_json_api(self):
-		json_barcode = {
+		json_data = {
 			"BarcodeId": self.BarcodeId,
 			"CId": self.CId,
 			"DivId": self.DivId,
@@ -48,7 +48,7 @@ class Barcode(CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_barcode
+		return json_data
 
 
 class Brand(AddInf,CreatedModifiedInfo,db.Model):
@@ -73,7 +73,7 @@ class Brand(AddInf,CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json(self):
-		json_brand = {
+		json_data = {
 			"brandId": self.BrandId,
 			"brandName": self.BrandName,
 			"brandDesc": self.BrandDesc,
@@ -83,10 +83,10 @@ class Brand(AddInf,CreatedModifiedInfo,db.Model):
 			"BrandLink4": self.BrandLink4,
 			"BrandLink5": self.BrandLink5
 		}
-		return json_brand
+		return json_data
 
 	def to_json_api(self):
-		json_brand = {
+		json_data = {
 			"BrandId": self.BrandId,
 			"BrandName": self.BrandName,
 			"BrandDesc": self.BrandDesc,
@@ -104,7 +104,7 @@ class Brand(AddInf,CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_brand
+		return json_data
 
 
 class Color(CreatedModifiedInfo,db.Model):
@@ -123,16 +123,16 @@ class Color(CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json(self):
-		json_color = {
+		json_data = {
 			"colorId": self.ColorId,
 			"colorName": self.ColorName,
 			"colorDesc": self.ColorDesc,
 			"colorCode": self.ColorCode
 		}
-		return json_color
+		return json_data
 
 	def to_json_api(self):
-		json_color = {
+		json_data = {
 			"ColorName": self.ColorName,
 			"ColorDesc": self.ColorDesc,
 			"ColorCode": self.ColorCode,
@@ -143,7 +143,7 @@ class Color(CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_color
+		return json_data
 
 
 class Size(AddInf,CreatedModifiedInfo,db.Model):
@@ -161,16 +161,16 @@ class Size(AddInf,CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json(self):
-		json_size = {
+		json_data = {
 			"sizeId": self.SizeId,
 			"sizeName": self.SizeName,
 			"sizeDesc": self.SizeDesc,
 			"sizeTypeId": self.SizeTypeId
 		}
-		return json_size
+		return json_data
 
 	def to_json_api(self):
-		json_size = {
+		json_data = {
 			"SizeName": self.SizeName,
 			"SizeDesc": self.SizeDesc,
 			"SizeTypeId": self.SizeTypeId,
@@ -181,7 +181,7 @@ class Size(AddInf,CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_size
+		return json_data
 
 
 class Size_type(CreatedModifiedInfo,db.Model):
@@ -198,15 +198,15 @@ class Size_type(CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json(self):
-		json_size_type = {
+		json_data = {
 			"sizeTypeId": self.SizeTypeId,
 			"sizeTypeName": self.SizeTypeName,
 			"sizeTypeDesc": self.SizeTypeDesc
 		}
-		return json_size_type
+		return json_data
 
 	def to_json_api(self):
-		json_size_type = {
+		json_data = {
 			"SizeTypeName": self.SizeTypeName,
 			"SizeTypeDesc": self.SizeTypeDesc,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
@@ -216,7 +216,7 @@ class Size_type(CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_size_type
+		return json_data
 
 
 class Unit(CreatedModifiedInfo,db.Model):
@@ -240,7 +240,7 @@ class Unit(CreatedModifiedInfo,db.Model):
 	Production_line = db.relationship("Production_line",backref='unit',lazy=True)
 
 	def to_json_api(self):
-		json_unit = {
+		json_data = {
 			"UnitName_tkTM": self.UnitName_tkTM,
 			"UnitDesc_tkTM": self.UnitDesc_tkTM,
 			"UnitName_ruRU": self.UnitName_ruRU,
@@ -254,7 +254,7 @@ class Unit(CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_unit
+		return json_data
 
 
 class Usage_status(CreatedModifiedInfo,db.Model):
@@ -271,7 +271,7 @@ class Usage_status(CreatedModifiedInfo,db.Model):
 	Res_price_rule = db.relationship("Res_price_rule",backref='usage_status',lazy=True)
 
 	def to_json_api(self):
-		json_usage_status = {
+		json_data = {
 			"UsageStatusName_tkTM": self.UsageStatusName_tkTM,
 			"UsageStatusDesc_tkTM": self.UsageStatusDesc_tkTM,
 			"UsageStatusName_ruRU": self.UsageStatusName_ruRU,
@@ -285,7 +285,7 @@ class Usage_status(CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_usage_status
+		return json_data
 
 ####### new models ###
 
@@ -301,7 +301,7 @@ class Discount_type(CreatedModifiedInfo,db.Model):
 	Res_discount = db.relationship("Res_discount",backref='discount_type',lazy=True)
 
 	def to_json_api(self):
-		json_sale_card_status={
+		json_data={
 			"DiscTypeId": self.DiscTypeId,
 			"DiscTypeName_tkTM": self.DiscTypeName_tkTM,
 			"DiscTypeDesc_tkTM": self.DiscTypeDesc_tkTM,
@@ -316,7 +316,7 @@ class Discount_type(CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_sale_card_status
+		return json_data
 
 
 class Exc_rate(CreatedModifiedInfo,db.Model):
@@ -334,7 +334,7 @@ class Exc_rate(CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		json_sale_card_status={
+		json_data={
 			"ExcRateId": self.ExcRateId,
 			"CurrencyId": self.CurrencyId,
 			"ExcRateTypeId": self.ExcRateTypeId,
@@ -347,7 +347,7 @@ class Exc_rate(CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_sale_card_status
+		return json_data
 
 
 class Exc_rate_type(CreatedModifiedInfo,db.Model):
@@ -359,7 +359,7 @@ class Exc_rate_type(CreatedModifiedInfo,db.Model):
 	Exc_rate = db.relationship("Exc_rate",backref='exc_rate_type',lazy=True)
 
 	def to_json_api(self):
-		json_sale_card_status={
+		json_data={
 			"ExcRateTypeId": self.ExcRateTypeId,
 			"ExcRateTypeName": self.ExcRateTypeName,
 			"ExcRateTypeDesc": self.ExcRateTypeDesc,
@@ -371,7 +371,7 @@ class Exc_rate_type(CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_sale_card_status
+		return json_data
 
 
 class Inv_line(AddInf,CreatedModifiedInfo,db.Model):
@@ -823,7 +823,7 @@ class Order_inv_type(CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		json_order_inv_type = {
+		json_data = {
 			"OInvTypeId": self.OInvTypeId,
 			"OInvTypeName_tkTM": self.OInvTypeName_tkTM,
 			"OInvTypeDesc_tkTM": self.OInvTypeDesc_tkTM,
@@ -838,7 +838,7 @@ class Order_inv_type(CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_order_inv_type
+		return json_data
 
 
 class Payment_status(CreatedModifiedInfo,db.Model):
@@ -853,7 +853,7 @@ class Payment_status(CreatedModifiedInfo,db.Model):
 	Order_inv = db.relationship("Order_inv",backref='payment_status',lazy=True)
 
 	def to_json_api(self):
-		json_payment_status = {
+		json_data = {
 			"PaymStatusName_tkTM": self.PaymStatusName_tkTM,			
 			"PaymStatusDesc_tkTM": self.PaymStatusDesc_tkTM,
 			"PaymStatusName_ruRU": self.PaymStatusName_ruRU,
@@ -867,7 +867,7 @@ class Payment_status(CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_payment_status
+		return json_data
 
 
 class Payment_method(AddInf,CreatedModifiedInfo,db.Model):
@@ -976,7 +976,7 @@ class Representative(AddInf,CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		json_representative={
+		json_data={
 			"ReprId": self.ReprId,
 			"ReprStatusId": self.ReprStatusId,
 			"CId": self.CId,
@@ -1011,7 +1011,7 @@ class Representative(AddInf,CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_representative
+		return json_data
 
 
 class Resource(AddInf,CreatedModifiedInfo,db.Model):
@@ -1075,11 +1075,11 @@ class Resource(AddInf,CreatedModifiedInfo,db.Model):
 	
 	@classmethod
 	def from_json(cls,json_string):
-		json_dict = json.loads(json_string)
+		json_data = json.loads(json_string)
 		return cls(**json_dict)
 	
 	def to_json(self):
-		json_resource = {
+		json_data = {
 			"resId": self.ResId,
 			"companyId": self.CId,
 			"divisionId": self.DivId,
@@ -1105,10 +1105,10 @@ class Resource(AddInf,CreatedModifiedInfo,db.Model):
 			"resourceMinSalePrice": self.ResMinSalePrice,
 			"resourceMaxSalePrice": self.ResMaxSalePrice
 		}
-		return json_resource
+		return json_data
 
 	def to_json_api(self):
-		json_resource = {
+		json_data = {
 			"ResId": self.ResId,
 			"ResGuid": self.ResGuid,
 			"CId": self.CId,
@@ -1147,7 +1147,7 @@ class Resource(AddInf,CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_resource
+		return json_data
 
 
 class Res_category(CreatedModifiedInfo,db.Model):
@@ -1171,7 +1171,7 @@ class Res_category(CreatedModifiedInfo,db.Model):
 				if hasattr(self, key):
 					setattr(self, key, value)
 	def to_json(self):
-		json_category = {
+		json_data = {
 			"ownerCategoryId": self.ResOwnerCatId,
 			"visibleIndex": self.ResCatVisibleIndex,
 			"isMain": self.IsMain,
@@ -1179,10 +1179,10 @@ class Res_category(CreatedModifiedInfo,db.Model):
 			"categoryDesc": self.ResCatDesc,
 			"categoryIcon": self.ResCatIconName
 		}
-		return json_category
+		return json_data
 
 	def to_json_api(self):
-		json_category = {
+		json_data = {
 			"ResCatId": self.ResCatId,
 			"ResOwnerCatId": self.ResOwnerCatId,
 			"ResCatVisibleIndex": self.ResCatVisibleIndex,
@@ -1199,7 +1199,7 @@ class Res_category(CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_category
+		return json_data
 
 
 class Res_maker(AddInf,CreatedModifiedInfo,db.Model):
@@ -1220,7 +1220,7 @@ class Res_maker(AddInf,CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		json_res_maker={
+		json_data={
 			"ResMakerId": self.ResMakerId,
 			"ResMakerName": self.ResMakerName,
 			"ResMakerDesc": self.ResMakerDesc,
@@ -1241,7 +1241,7 @@ class Res_maker(AddInf,CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_res_maker
+		return json_data
 
 
 class Res_color(CreatedModifiedInfo,db.Model):
@@ -1256,12 +1256,12 @@ class Res_color(CreatedModifiedInfo,db.Model):
 				if hasattr(self, key):
 					setattr(self, key, value)
 	def to_json(self):
-		json_res_color = {
+		json_data = {
 			"rcId": self.RcId,
 			"resId": self.ResId,
 			"colorId": self.ColorId
 		}
-		return json_res_color
+		return json_data
 
 
 class Res_size(CreatedModifiedInfo,db.Model):
@@ -1276,12 +1276,12 @@ class Res_size(CreatedModifiedInfo,db.Model):
 				if hasattr(self, key):
 					setattr(self, key, value)
 	def to_json(self):
-		json_res_size = {
+		json_data = {
 			"rsId": self.RsId,
 			"resId": self.ResId,
 			"sizeId": self.SizeId
 		}
-		return json_res_size
+		return json_data
 
 
 class Res_discount(AddInf,CreatedModifiedInfo,db.Model):
@@ -1309,7 +1309,7 @@ class Res_discount(AddInf,CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		json_res_discount={
+		json_data={
 			"ResDiscId": self.ResDiscId,
 			"SaleCardId": self.SaleCardId,
 			"ResDiscRegNo": self.ResDiscRegNo,
@@ -1337,7 +1337,7 @@ class Res_discount(AddInf,CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_res_discount
+		return json_data
 
 
 class Res_price(CreatedModifiedInfo,db.Model):
@@ -1360,7 +1360,7 @@ class Res_price(CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json(self):
-		json_res_price = {
+		json_data = {
 			"resPriceId": self.ResPriceId,
 			"resPriceTypeId": self.ResPriceTypeId,
 			"resPriceGroupId": self.ResPriceGroupId,
@@ -1372,10 +1372,10 @@ class Res_price(CreatedModifiedInfo,db.Model):
 			"priceStartDate": apiDataFormat(self.PriceStartDate),
 			"priceEndDate": self.PriceEndDate
 		}
-		return json_res_price
+		return json_data
 
 	def to_json_api(self):
-		json_res_price = {
+		json_data = {
 			"ResPriceId": self.ResPriceId,
 			"ResPriceTypeId": self.ResPriceTypeId,
 			"ResPriceGroupId": self.ResPriceGroupId,
@@ -1393,7 +1393,7 @@ class Res_price(CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_res_price
+		return json_data
 
 
 class Res_price_group(CreatedModifiedInfo,db.Model):
@@ -1420,7 +1420,7 @@ class Res_price_group(CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		json_res_price_group={
+		json_data={
 			"ResPriceGroupId": self.ResPriceGroupId,
 			"UsageStatusId": self.UsageStatusId,
 			"ResPriceGroupName": self.ResPriceGroupName,
@@ -1437,7 +1437,7 @@ class Res_price_group(CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_res_price_group
+		return json_data
 
 
 class Res_price_type(AddInf,CreatedModifiedInfo,db.Model):
@@ -1456,7 +1456,7 @@ class Res_price_type(AddInf,CreatedModifiedInfo,db.Model):
 	Sale_agr_res_price = db.relationship("Sale_agr_res_price",backref='res_price_type',lazy=True)
 
 	def to_json_api(self):
-		json_res_price_type={
+		json_data={
 			"ResPriceTypeId": self.ResPriceTypeId,
 			"ResPriceTypeName_tkTM": self.ResPriceTypeName_tkTM,
 			"ResPriceTypeDesc_tkTM": self.ResPriceTypeDesc_tkTM,
@@ -1477,7 +1477,7 @@ class Res_price_type(AddInf,CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_res_price_type
+		return json_data
 
 
 class Res_price_rule(AddInf,CreatedModifiedInfo,db.Model):
@@ -1496,7 +1496,7 @@ class Res_price_rule(AddInf,CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		json_res_price_rule={
+		json_data={
 			"RprId": self.RprId,
 			"UsageStatusId": self.UsageStatusId,
 			"ResId": self.ResId,
@@ -1516,7 +1516,7 @@ class Res_price_rule(AddInf,CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_res_price_rule
+		return json_data
 
 
 class Res_total(CreatedModifiedInfo,db.Model):
@@ -1542,7 +1542,7 @@ class Res_total(CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		json_res_total = {
+		json_data = {
 			"ResTotId": self.ResTotId,
 			"ResId": self.ResId,
 			"CurrencyId": self.CurrencyId,
@@ -1563,7 +1563,7 @@ class Res_total(CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_res_total
+		return json_data
 
 
 class Res_trans_inv(AddInf,CreatedModifiedInfo,db.Model):
@@ -1596,7 +1596,7 @@ class Res_trans_inv(AddInf,CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		json_res_trans_inv={
+		json_data={
 			"ResTrInvId": self.ResTrInvId,
 			"ResTrInvTypeId": self.ResTrInvTypeId,
 			"CurrencyId": self.CurrencyId,
@@ -1628,7 +1628,7 @@ class Res_trans_inv(AddInf,CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_res_trans_inv
+		return json_data
 
 
 class Res_trans_inv_line(AddInf,CreatedModifiedInfo,db.Model):
@@ -1656,7 +1656,7 @@ class Res_trans_inv_line(AddInf,CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		json_res_rans_inv_line={
+		json_data={
 			"ResTrInvLineId": self.ResTrInvLineId,
 			"ResTrInvId": self.ResTrInvId,
 			"UnitId": self.UnitId,
@@ -1684,7 +1684,7 @@ class Res_trans_inv_line(AddInf,CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_res_rans_inv_line
+		return json_data
 
 
 class Res_trans_inv_type(CreatedModifiedInfo,db.Model):
@@ -1699,7 +1699,7 @@ class Res_trans_inv_type(CreatedModifiedInfo,db.Model):
 	Res_trans_inv = db.relationship("Res_trans_inv",backref='res_trans_inv_type',lazy=True)
 
 	def to_json_api(self):
-		json_res_trans_inv_type={
+		json_data={
 			"ResTrInvTypeId": self.ResTrInvTypeId,
 			"ResTrInvName_tkTM": self.ResTrInvName_tkTM,
 			"ResTrInvDesc_tkTM": self.ResTrInvDesc_tkTM,
@@ -1714,7 +1714,7 @@ class Res_trans_inv_type(CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_res_trans_inv_type
+		return json_data
 
 
 class Res_trans_type(CreatedModifiedInfo,db.Model):
@@ -1729,7 +1729,7 @@ class Res_trans_type(CreatedModifiedInfo,db.Model):
 	Res_transaction = db.relationship("Res_transaction",backref='res_trans_type',lazy=True)
 
 	def to_json_api(self):
-		json_res_trans_type={
+		json_data={
 			"ResTransTypeId": self.ResTransTypeId,
 			"ResTransTypeName_tkTM": self.ResTransTypeName_tkTM,
 			"ResTransTypeDesc_tkTM": self.ResTransTypeDesc_tkTM,
@@ -1744,7 +1744,7 @@ class Res_trans_type(CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_res_trans_type
+		return json_data
 
 
 class Res_transaction(AddInf,CreatedModifiedInfo,db.Model):
@@ -1773,7 +1773,7 @@ class Res_transaction(AddInf,CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		json_res_transaction={
+		json_data={
 			"ResTransId": self.ResTransId,
 			"ResTransTypeId": self.ResTransTypeId,
 			"InvLineId": self.InvLineId,
@@ -1803,7 +1803,7 @@ class Res_transaction(AddInf,CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_res_transaction
+		return json_data
 
 
 class Res_translations(AddInf,CreatedModifiedInfo,db.Model):
@@ -1822,7 +1822,7 @@ class Res_translations(AddInf,CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json(self):
-		json_res_translations = {
+		json_data = {
 			"resTransId": self.ResTransId,
 			"resId": self.ResId,
 			"langId": self.LangId,
@@ -1830,10 +1830,10 @@ class Res_translations(AddInf,CreatedModifiedInfo,db.Model):
 			"resDescTrans": self.ResDesc,
 			"resFullDescTrans": self.ResFullDesc
 		}
-		return json_res_translations
+		return json_data
 
 	def to_json_api(self):
-		json_res_translations = {
+		json_data = {
 			"ResTransId": self.ResTransId,
 			"ResId": self.ResId,
 			"LangId": self.LangId,
@@ -1841,7 +1841,7 @@ class Res_translations(AddInf,CreatedModifiedInfo,db.Model):
 			"ResDesc": self.ResDesc,
 			"ResFullDesc": self.ResFullDesc
 		}
-		return json_res_translations
+		return json_data
 
 
 class Res_type(CreatedModifiedInfo,db.Model):
@@ -1856,7 +1856,7 @@ class Res_type(CreatedModifiedInfo,db.Model):
 	Resource = db.relationship("Resource",backref='res_type',lazy=True)
 
 	def to_json_api(self):
-		json_res_type={
+		json_data={
 			"ResTypeId": self.ResTypeId,
 			"ResTypeName_tkTM": self.ResTypeName_tkTM,
 			"ResTypeDesc_tkTM": self.ResTypeDesc_tkTM,
@@ -1871,7 +1871,7 @@ class Res_type(CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_res_type
+		return json_data
 
 
 class Res_unit(CreatedModifiedInfo,db.Model):
@@ -1889,24 +1889,24 @@ class Res_unit(CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json(self):
-		json_res_unit = {
+		json_data = {
 			"resUnitId": self.ResUnitId,
 			"resId": self.ResId,
 			"resUnitUnitId": self.ResUnitUnitId,
 			"resUnitConvAmount": self.ResUnitConvAmount,
 			"resUnitConvTypeId": self.ResUnitConvTypeId
 		}
-		return json_res_unit
+		return json_data
 
 	def to_json_api(self):
-		json_res_unit = {
+		json_data = {
 			"ResUnitId": self.ResUnitId,
 			"ResId": self.ResId,
 			"ResUnitUnitId": self.ResUnitUnitId,
 			"ResUnitConvAmount": self.ResUnitConvAmount,
 			"ResUnitConvTypeId": self.ResUnitConvTypeId
 		}
-		return json_res_unit
+		return json_data
 
 
 class Rp_acc_resource(CreatedModifiedInfo,db.Model):
@@ -1922,7 +1922,7 @@ class Rp_acc_resource(CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		json_rp_acc_resource={
+		json_data={
 			"RpAccResId": self.RpAccResId,
 			"RpAccId": self.RpAccId,
 			"ResId": self.ResId,
@@ -1933,7 +1933,7 @@ class Rp_acc_resource(CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_rp_acc_resource
+		return json_data
 
 
 class Rp_acc_trans_total(CreatedModifiedInfo,db.Model):
@@ -1953,7 +1953,7 @@ class Rp_acc_trans_total(CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		json_rp_acc_trans_total={
+		json_data={
 			"RpAccTrTotId": self.RpAccTrTotId,
 			"RpAccId": self.RpAccId,
 			"CurrencyId": self.CurrencyId,
@@ -1968,7 +1968,7 @@ class Rp_acc_trans_total(CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_rp_acc_trans_total
+		return json_data
 
 
 class Rp_acc_transaction(AddInf,CreatedModifiedInfo,db.Model):
@@ -1996,7 +1996,7 @@ class Rp_acc_transaction(AddInf,CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		json_rp_acc_transaction={
+		json_data={
 			"RpAccTransId": self.RpAccTransId,
 			"CId": self.CId,
 			"DivId": self.DivId,
@@ -2025,7 +2025,7 @@ class Rp_acc_transaction(AddInf,CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_rp_acc_transaction
+		return json_data
 
 
 class Sale_agr_res_price(CreatedModifiedInfo,db.Model):
@@ -2048,7 +2048,7 @@ class Sale_agr_res_price(CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		json_sale_agr_res_price={
+		json_data={
 			"SAResPriceId": self.SAResPriceId,
 			"SaleAgrId": self.SaleAgrId,
 			"ResPriceTypeId": self.ResPriceTypeId,
@@ -2066,7 +2066,7 @@ class Sale_agr_res_price(CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_sale_agr_res_price
+		return json_data
 
 
 class Sale_agreement(AddInf,CreatedModifiedInfo,db.Model):
@@ -2091,7 +2091,7 @@ class Sale_agreement(AddInf,CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		json_sale_agreement={
+		json_data={
 			"SaleAgrId": self.SaleAgrId,
 			"CurrencyId": self.CurrencyId,
 			"SaleAgrName": self.SaleAgrName,
@@ -2115,7 +2115,7 @@ class Sale_agreement(AddInf,CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_sale_agreement
+		return json_data
 
 
 class Sale_card(AddInf,CreatedModifiedInfo,db.Model):
@@ -2155,7 +2155,7 @@ class Sale_card(AddInf,CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		json_sale_card={
+		json_data={
 			"SaleCardId": self.SaleCardId,
 			"CId": self.CId,
 			"DivId": self.DivId,
@@ -2195,7 +2195,7 @@ class Sale_card(AddInf,CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_sale_card
+		return json_data
 
 
 class Sale_card_status(CreatedModifiedInfo,db.Model):
@@ -2210,7 +2210,7 @@ class Sale_card_status(CreatedModifiedInfo,db.Model):
 	Sale_card = db.relationship("Sale_card",backref='sale_card_status',lazy=True)
 
 	def to_json_api(self):
-		json_sale_card_status={
+		json_data={
 			"SaleCardStatusId": self.SaleCardStatusId,
 			"SaleCardStatusName_tkTM": self.SaleCardStatusName_tkTM,
 			"SaleCardStatusDesc_tkTM": self.SaleCardStatusDesc_tkTM,
@@ -2225,7 +2225,7 @@ class Sale_card_status(CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_sale_card_status
+		return json_data
 
 
 class Production(AddInf,CreatedModifiedInfo,db.Model):
@@ -2251,7 +2251,7 @@ class Production(AddInf,CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		json_production={
+		json_data={
 			"ProdId": self.ProdId,
 			"CId": self.CId,
 			"DivId": self.DivId,
@@ -2275,7 +2275,7 @@ class Production(AddInf,CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_production
+		return json_data
 
 
 class Production_line(AddInf,CreatedModifiedInfo,db.Model):
@@ -2295,7 +2295,7 @@ class Production_line(AddInf,CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		json_production_line={
+		json_data={
 			"ProdLineId": self.ProdLineId,
 			"ProdId": self.ProdId,
 			"UnitId": self.UnitId,
@@ -2316,7 +2316,7 @@ class Production_line(AddInf,CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_production_line
+		return json_data
 
 
 class Rating(AddInf,CreatedModifiedInfo,db.Model):
@@ -2339,7 +2339,7 @@ class Rating(AddInf,CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		json_rating={
+		json_data={
 			"RtId": self.RtId,
 			"CId": self.CId,
 			"DivId": self.DivId,
@@ -2363,7 +2363,7 @@ class Rating(AddInf,CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_rating
+		return json_data
 
 
 class Wish(AddInf,CreatedModifiedInfo,db.Model):
@@ -2382,7 +2382,7 @@ class Wish(AddInf,CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		json_wish={
+		json_data={
 			"WishId": self.WishId,
 			"CId": self.CId,
 			"DivId": self.DivId,
@@ -2402,7 +2402,7 @@ class Wish(AddInf,CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_wish
+		return json_data
 
 
 class Transaction_type(CreatedModifiedInfo,db.Model):
@@ -2419,7 +2419,7 @@ class Transaction_type(CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		json_transaction_type={
+		json_data={
 			"TransTypeId": self.TransTypeId,
 			"TransTypeName": self.TransTypeName,
 			"TransTypeDesc": self.TransTypeDesc,
@@ -2430,7 +2430,7 @@ class Transaction_type(CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_transaction_type
+		return json_data
 
 
 class Work_period(CreatedModifiedInfo,db.Model):
@@ -2456,7 +2456,7 @@ class Work_period(CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		json_work_period={
+		json_data={
 			"WpId": self.WpId,
 			"CId": self.CId,
 			"DivId": self.DivId,
@@ -2471,4 +2471,4 @@ class Work_period(CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_work_period
+		return json_data

@@ -17,6 +17,11 @@ class Config:
 	C_MAIN_DIVGUID = environ.get('C_MAIN_DIVGUID')
 	MAIN_CGUID = environ.get('MAIN_CGUID')
 
+	SAP_SERVICE_KEY = environ.get('SAP_SERVICE_KEY')
+	SAP_SERVICE_URL = environ.get('SAP_SERVICE_URL')
+	SAP_SERVICE_URL_PREFIX = environ.get('SAP_SERVICE_URL_PREFIX')
+	USE_ACTIVATION_SERVICE = int(environ.get('USE_ACTIVATION_SERVICE'))
+
 	# set to production if Production
 	FLASK_ENV = 'development'
 
