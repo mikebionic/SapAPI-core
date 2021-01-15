@@ -664,18 +664,14 @@ def apiOrderInvInfo(
 
 			rp_acc_data = {}
 			if rp_acc_user:
-				rpAccData = apiRpAccData(dbModel = rp_acc_user)
-				rp_acc_data = rpAccData["data"]
-
-			# elif order_inv.RpAccId:
-			# 	rp_acc_user = Rp_acc.query\
-			# 		.filter_by(GCRecord = None, RpAccId = order_inv.RpAccId)\
-			# 		.first()
+				rp_acc_data = rp_acc_user.to_json_api()
+				# rpAccData = apiRpAccData(dbModel = rp_acc_user)
+				# rp_acc_data = rpAccData["data"]
 
 			elif order_inv.rp_acc:
-				rp_acc_user = order_inv.rp_acc
-				rpAccData = apiRpAccData(dbModel = rp_acc_user)
-				rp_acc_data = rpAccData["data"]
+				rp_acc_data = order_inv.rp_acc.to_json_api()
+				# rpAccData = apiRpAccData(dbModel = rp_acc_user)
+				# rp_acc_data = rpAccData["data"]
 
 			order_inv_info["Rp_acc"] = rp_acc_data
 			order_inv_info["CGuid"] = order_inv.company.CGuid if order_inv.company and not order_inv.company.GCRecord else None

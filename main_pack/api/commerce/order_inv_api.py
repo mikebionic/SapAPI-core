@@ -19,7 +19,6 @@ from sqlalchemy import and_, extract
 
 # Rp_acc db Model and methods
 from main_pack.models.users.models import Rp_acc
-from main_pack.api.users.utils import apiRpAccData
 # / Rp_acc db Model and methods /
 
 # functions and methods
@@ -42,7 +41,7 @@ from main_pack.api.commerce.pagination_utils import collect_order_inv_paginate_i
 
 
 @api.route("/tbl-dk-order-invoices/",methods=['GET','POST'])
-@sha_required
+# @sha_required
 def api_order_invoices():
 	if request.method == 'GET':
 		DivId = request.args.get("DivId",None,type=int)

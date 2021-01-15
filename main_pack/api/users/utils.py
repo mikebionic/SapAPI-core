@@ -235,7 +235,6 @@ def apiRpAccData(RpAccRegNo=None, dbQuery=None, dbModel=None):
 
 
 		# !!! TODO: add props to trigger adding this to data
-		# !!! TODO: ask dovlet if he is using this info in order_inv_request
 		data["User"] = dbModel.users.to_json_api() if dbModel.users and not dbModel.users.GCRecord else {}
 		data["Rp_acc_type"] = dataLangSelector(dbModel.rp_acc_type.to_json_api()) if dbModel.rp_acc_type else {}
 		data["Rp_acc_status"] = dataLangSelector(dbModel.rp_acc_status.to_json_api()) if dbModel.rp_acc_status else {}

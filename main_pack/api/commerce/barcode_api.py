@@ -19,15 +19,28 @@ def api_barcodes():
 		DivId = request.args.get("DivId",None,type=int)
 		notDivId = request.args.get("notDivId",None,type=int)
 		synchDateTime = request.args.get("synchDateTime",None,type=str)
-		barcodes = Barcode.query.filter_by(GCRecord = None)
+		BarcodeId = request.args.get("id",None,type=int)
+		BarcodeVal = request.args.get("val","",type=str)
+
+		filtering = {"GCRecord": None}
+
 		if DivId:
-			barcodes = barcodes.filter_by(DivId = DivId)
+			filtering["DivId"] = DivId
+		if BarcodeId:
+			filtering["BarcodeId"] = BarcodeId
+		if BarcodeVal:
+			filtering["BarcodeVal"] = BarcodeVal
+
+		barcodes = Barcode.query.filter_by(**filtering)
+
 		if notDivId:
 			barcodes = barcodes.filter(Barcode.DivId != notDivId)
+
 		if synchDateTime:
 			if (type(synchDateTime) != datetime):
 				synchDateTime = dateutil.parser.parse(synchDateTime)
 			barcodes = barcodes.filter(Barcode.ModifiedDate > (synchDateTime - timedelta(minutes = 5)))
+
 		barcodes = barcodes.all()
 		res = {
 			"status": 1 if len(data) > 0 else 0,
@@ -52,11 +65,13 @@ def api_barcodes():
 			for barcode_req in req:
 				barcode = addBarcodeDict(barcode_req)
 				try:
-					ResId = barcode['ResId']
-					UnitId = barcode['UnitId']
+					filtering = {"GCRecord": None}
+					filtering["ResId"] = barcode['ResId']
+					filtering["UnitId"] = barcode['UnitId']
 					thisBarcode = Barcode.query\
-						.filter_by(ResId = ResId, UnitId = UnitId)\
+						.filter_by(**filtering)\
 						.first()
+
 					if thisBarcode:
 						thisBarcode.update(**barcode)
 						barcodes.append(barcode)
@@ -64,9 +79,11 @@ def api_barcodes():
 						newBarcode = Barcode(**barcode)
 						db.session.add(newBarcode)
 						barcodes.append(barcode)
+
 				except Exception as ex:
 					print(f"{datetime.now()} | Barcode Api Exception: {ex}")
 					failed_barcodes.append(barcode)
+
 			db.session.commit()
 			status = checkApiResponseStatus(barcodes,failed_barcodes)
 			res = {

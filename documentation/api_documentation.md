@@ -27,7 +27,7 @@ Provide **username** and **password** in Authentication headers
 **@sha_required** of **Synchronizer**
 + /api/company/?CName=<CName>&CKey=<CKey>
 + /api/division/?DivName=<DivName>&DivKey=<DivKey>
-+ /api/tbl-dk-barcodes/?synchDateTime=<datetime>&DivId=<id>&notDivId=<id>
++ /api/tbl-dk-barcodes/?synchDateTime=<datetime>&DivId=<id>&notDivId=<id>&val=&id=
 + /api/tbl-dk-res-prices/
 + /api/tbl-dk-res-totals/?synchDateTime=<datetime>&DivId=<id>&notDivId=<id>
 + /api/tbl-dk-images/?synchDateTime=<datetime>&DivId=<id>&notDivId=<id>
@@ -117,7 +117,6 @@ returns **all orders** if **blank**
 + /api/tbl-dk-payment-types/
 
 ## Brands
-+ /api/tbl-dk-brands/
 + /api/tbl-dk-brands/?id=<brandId>&name=<brandName>
 
 > GET 

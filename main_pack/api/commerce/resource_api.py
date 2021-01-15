@@ -21,7 +21,6 @@ def api_tbl_dk_resources():
 		DivId = request.args.get("DivId",None,type=int)
 		notDivId = request.args.get("notDivId",None,type=int)
 		synchDateTime = request.args.get("synchDateTime",None,type=str)
-		resources = Resource.query.filter_by(GCRecord = None)
 		ResId = request.args.get("id",None,type=int)
 		ResRegNo = request.args.get("regNo","",type=str)
 		ResName = request.args.get("name","",type=str)

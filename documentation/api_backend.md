@@ -259,3 +259,19 @@ GET: /api/just_resources/
   }
 ]
 ```
+
+
+# Client phone registration requests
+```json
+{
+    "DevUniqueId": "e4d788879fbe6635",
+    "DevName": "2021-01-14 23:44:26.778464",
+    "DevDesc": "",
+    "AddInf1": "",
+    "AddInf2": "",
+    "AddInf3": "",
+    "AddInf4": "",
+    "AddInf5": "",
+    "AddInf6": "id=QP1A.190711.020,androidId=e4d788879fbe6635,baseOS=,release=10,brand=samsung,device=a7y18lte,display=QP1A.190711.020.A750FXXU5CTK1,manufacturer=samsung,model=SM-A750F,isPhysicalDevice=true"
+}
+```

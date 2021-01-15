@@ -23,6 +23,7 @@ def api_res_totals():
 		DivId = request.args.get("DivId",None,type=int)
 		notDivId = request.args.get("notDivId",None,type=int)
 		synchDateTime = request.args.get("synchDateTime",None,type=str)
+
 		res_totals = Res_total.query.filter_by(GCRecord = None)\
 			.options(
 				joinedload(Res_total.division),
