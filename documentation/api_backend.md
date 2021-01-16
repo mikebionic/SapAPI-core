@@ -281,5 +281,5 @@ GET: /api/just_resources/
 curl --header "Content-Type: application/json" \
     --request POST \
     --data '{"DevUniqueId": "e4d788879fbe6635","DevName": "2021-01-14 23:44:26.778464","AddInf6": "id=QP1A.190711.020,androidId=e4d788879fbe6635,baseOS=,release=10,brand=samsung,device=a7y18lte,display=QP1A.190711.020.A750FXXU5CTK1,manufacturer=samsung,model=SM-A750F,isPhysicalDevice=true"}' \
-    http://127.0.0.1:5000/ls/api/
+    http://127.0.0.1:5000/ls/api/devices/register/
 ```

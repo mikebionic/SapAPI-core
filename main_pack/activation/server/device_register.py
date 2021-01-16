@@ -1,16 +1,17 @@
-from flask import jsonify,request,make_response
-import json
-import requests
+from flask import jsonify, request, make_response, abort
 from datetime import datetime
+import uuid
 
 from . import api
 from main_pack import db
 from main_pack.config import Config
 from main_pack.api.base.validators import request_is_json
 from main_pack.models.users.models import Device
+from .utils import sap_key_required
 
 
 @api.route("/devices/register/",methods=["POST"])
+@sap_key_required
 @request_is_json
 def register_device():
 	if request.method == 'POST':
@@ -28,30 +29,16 @@ def register_device():
 			data = thisDevice.to_json_api()
 
 		else:
-			r = requests.post(
-				Config.SAP_SERVICE_URL,
-				data = json.dumps(req),
-				headers = {
-					'Content-Type': 'application/json',
-					'x-access-token': Config.SAP_SERVICE_KEY})
-
 			try:
-				server_response = r.json()
+				req["DevGuid"] = uuid.uuid4()
+				thisDevice = Device(**req)
+				db.session.add(thisDevice)
+				db.session.commit()
+
+				data = thisDevice.to_json_api()
 
 			except Exception as ex:
-				print(f"{datetime.now()} | Device register response json Exception: {ex}")
-
-			if (r.status_code == 200 or r.status_code == 201):
-				if server_response["status"] != 0:
-					data = server_response["data"]
-
-					try:
-						thisDevice = Device(**data)
-						db.session.add(thisDevice)
-						db.session.commit()
-
-					except Exception as ex:
-						print(f"{datetime.now()} | Device register db insertion Exception: {ex}")
+				print(f"{datetime.now()} | Device register server Exception: {ex}")
 
 		res = {
 			"status": 1 if data else 0,
@@ -59,6 +46,7 @@ def register_device():
 			"message": "Device registration",
 			"total": 1 if data else 0
 		}
+
 		response = make_response(jsonify(res),200)
 
 		return response
