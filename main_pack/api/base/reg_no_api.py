@@ -7,7 +7,7 @@ from main_pack import db,babel,gettext,lazy_gettext
 from datetime import datetime,timezone
 
 from main_pack.models.users.models import Users
-from main_pack.api.auth.api_login import token_required
+from main_pack.api.auth.utils import token_required
 
 from main_pack.key_generator.utils import generate,makeRegNo
 from main_pack.models.base.models import Pred_regnum

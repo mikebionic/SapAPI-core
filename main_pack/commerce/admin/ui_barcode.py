@@ -16,7 +16,7 @@ from main_pack.models.commerce.models import Barcode
 
 @bp.route('/ui/barcode/', methods=['POST','DELETE'])
 @login_required
-@ui_admin_required()
+@ui_admin_required
 def ui_barcode():
 	if request.method == 'POST':
 		req = request.get_json()

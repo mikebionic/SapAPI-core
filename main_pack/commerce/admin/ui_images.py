@@ -31,7 +31,7 @@ def save_picture(form_picture, path):
 
 @bp.route('/ui/uploadImages/',methods=['POST'])
 @login_required
-@ui_admin_required()
+@ui_admin_required
 def ui_uploadImages():
 	if 'files[]' not in request.files:
 		resp = jsonify({"message": "No file part in the request"})
@@ -72,7 +72,7 @@ def ui_uploadImages():
 
 @bp.route('/ui/images/',methods=['POST','DELETE'])
 @login_required
-@ui_admin_required()
+@ui_admin_required
 def ui_images():
 	if request.method == 'POST':
 		req = request.get_json()

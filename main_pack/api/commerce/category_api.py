@@ -1,19 +1,19 @@
 # -*- coding: utf-8 -*-
-from flask import jsonify,request,abort,make_response
+from flask import jsonify, request, make_response
 from main_pack.api.commerce import api
-from main_pack.base.apiMethods import checkApiResponseStatus
 from datetime import datetime
 from sqlalchemy import and_
 
 from main_pack import db
 from main_pack.config import Config
-from main_pack.api.auth.api_login import sha_required
+from main_pack.api.auth.utils import sha_required
+from main_pack.api.base.validators import request_is_json
+from main_pack.api.commerce.utils import addCategoryDict
+from main_pack.api.commerce.commerce_utils import collect_categories_query
+from main_pack.base.apiMethods import checkApiResponseStatus
 
 from main_pack.models.base.models import Division
-from main_pack.models.commerce.models import Res_category,Resource,Res_total
-from main_pack.api.commerce.utils import addCategoryDict
-
-from main_pack.api.commerce.commerce_utils import collect_categories_query
+from main_pack.models.commerce.models import Res_category, Resource, Res_total
 
 
 @api.route("/tbl-dk-categories/<int:ResCatId>/",methods=['GET'])
@@ -26,7 +26,7 @@ def api_category(ResCatId):
 			"status": 1,
 			"data": category.to_json_api()
 		}
-		response = make_response(jsonify(res),200)
+		response = make_response(jsonify(res), 200)
 	return response
 
 
@@ -52,55 +52,51 @@ def api_categories():
 			"data": data,
 			"total": len(data)
 		}
-		response = make_response(jsonify(res),200)
+		response = make_response(jsonify(res), 200)
 	return response
 	
 	
 @api.route("/tbl-dk-categories/",methods=['POST'])
+@request_is_json
 @sha_required
 def api_post_categories():
 	if request.method == 'POST':
-		if not request.json:
-			res = {
-				"status": 0,
-				"message": "Error. Not a JSON data."
-			}
-			response = make_response(jsonify(res),400)
+		req = request.get_json()
 
-		else:
-			req = request.get_json()
-			categories = []
-			failed_categories = [] 
-			for category_req in req:
-				try:
-					new_category = addCategoryDict(category_req)
-					category = Res_category.query\
-						.filter_by(ResCatName = new_category.ResCatName)\
-						.first()
+		categories = []
+		failed_categories = [] 
 
-					if not category:
-						category = Res_category(**new_category)
-						db.session.add(category)
+		for category_req in req:
+			try:
+				new_category = addCategoryDict(category_req)
+				category = Res_category.query\
+					.filter_by(ResCatName = new_category.ResCatName)\
+					.first()
 
-					else:
-						category.update(**new_category)
-					categories.append(new_category)
+				if not category:
+					category = Res_category(**new_category)
+					db.session.add(category)
 
-				except Exception as ex:
-					print(f"{datetime.now()} | Category Api Exception: {ex}")
-					failed_categories.append(new_category)
+				else:
+					category.update(**new_category)
+				categories.append(new_category)
 
-			db.session.commit()
-			status = checkApiResponseStatus(categories,failed_categories)
-			res = {
-				"data": categories,
-				"fails": failed_categories,
-				"success_total": len(categories),
-				"fail_total": len(failed_categories)
-			}
-			for e in status:
-				res[e] = status[e]
-			response = make_response(jsonify(res),200)	
+			except Exception as ex:
+				print(f"{datetime.now()} | Category Api Exception: {ex}")
+				failed_categories.append(new_category)
+
+		db.session.commit()
+		status = checkApiResponseStatus(categories,failed_categories)
+
+		res = {
+			"data": categories,
+			"fails": failed_categories,
+			"success_total": len(categories),
+			"fail_total": len(failed_categories)
+		}
+		for e in status:
+			res[e] = status[e]
+		response = make_response(jsonify(res), 200)	
 	return response
 
 

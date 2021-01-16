@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import render_template,url_for,jsonify,request,abort,make_response
+from flask import jsonify, request, abort, make_response
 from flask import send_from_directory
 from flask import current_app
 import os
@@ -11,11 +11,12 @@ from sqlalchemy.orm import joinedload
 from main_pack import db
 from main_pack.config import Config
 from main_pack.api.commerce import api
-from main_pack.api.commerce.utils import addImageDict,saveImageFile
-from main_pack.api.auth.api_login import sha_required
+from main_pack.api.commerce.utils import addImageDict, saveImageFile
+from main_pack.api.auth.utils import sha_required
 from main_pack.base.apiMethods import checkApiResponseStatus
+from main_pack.api.base.validators import request_is_json
 
-from main_pack.models.base.models import Image,Sl_image
+from main_pack.models.base.models import Image, Sl_image
 from main_pack.models.commerce.models import Resource, Barcode
 
 
@@ -40,6 +41,7 @@ def remove_image(file_type,file_name):
 
 @api.route("/tbl-dk-images/",methods=['GET','POST'])
 @sha_required
+@request_is_json
 def api_images():
 	if request.method == 'GET':
 		DivId = request.args.get("DivId",None,type=int)
@@ -86,123 +88,119 @@ def api_images():
 		response = make_response(jsonify(res),200)
 
 	elif request.method == 'POST':
-		if not request.json:
-			res = {
-				"status": 0,
-				"message": "Error. Not a JSON data."
-			}
-			response = make_response(jsonify(res),400)
-		else:
-			req = request.get_json()
+		req = request.get_json()
 
-			resources = Resource.query.filter_by(GCRecord = None).all()
-			resource_ResId_list = [resource.ResId for resource in resources]
-			resource_ResGuid_list = [str(resource.ResGuid) for resource in resources]
-			# resource_RegNo_list = [resource.ResRegNo for resource in resources]
+		resources = Resource.query.filter_by(GCRecord = None).all()
+		resource_ResId_list = [resource.ResId for resource in resources]
+		resource_ResGuid_list = [str(resource.ResGuid) for resource in resources]
+		# resource_RegNo_list = [resource.ResRegNo for resource in resources]
 
-			images = []
-			failed_images = []
-			for image_req in req:
-				try:
-					ResRegNo = image_req["ResRegNo"]
-					ResGuid = image_req["ResGuid"]
-					if Config.USE_PROVIDED_IMAGE_FILENAME == True:
-						thisResource = Resource.query\
-							.filter_by(
-								ResGuid = ResGuid,
-								ResRegNo = ResRegNo,
-								GCRecord = None)\
-							.options(joinedload(Resource.Barcode))\
-							.first()
-						ResId = thisResource.ResId
-						barcode = thisResource.Barcode[0]
-						
-						if (Config.PROVIDED_IMAGE_FILENAME_TYPE == 1):
-							image_req["FileName"] = thisResource.ResName
-							if (len(list(filter(lambda n: n in image_req["FileName"], Config.FILENAME_INVALID_CHARACTERS))) > 0):
-								# barcode = Barcode.query.filter_by(ResId = ResId, GCRecord = None).first()
-								image_req["FileName"] = barcode.BarcodeVal
-						elif (Config.PROVIDED_IMAGE_FILENAME_TYPE == 2):
-							image_req["FileName"] = barcode.BarcodeVal
+		images = []
+		failed_images = []
 
-					else:
-						indexed_res_id = resource_ResId_list[resource_ResGuid_list.index(ResGuid)]
-						ResId = int(indexed_res_id)
-					image_req["ResId"] = ResId
+		for image_req in req:
+			try:
+				ResRegNo = image_req["ResRegNo"]
+				ResGuid = image_req["ResGuid"]
 
-					imageDictData = addImageDict(image_req)
-					# print(f"trying image of {ResRegNo} of resourceId {ResId}")
-					ImgGuid = imageDictData['ImgGuid']
-					thisImage = Image.query\
+				if Config.USE_PROVIDED_IMAGE_FILENAME == True:
+					thisResource = Resource.query\
 						.filter_by(
-							ImgGuid = ImgGuid,
+							ResGuid = ResGuid,
+							ResRegNo = ResRegNo,
 							GCRecord = None)\
+						.options(joinedload(Resource.Barcode))\
 						.first()
+					ResId = thisResource.ResId
+					barcode = thisResource.Barcode[0]
+					
+					if (Config.PROVIDED_IMAGE_FILENAME_TYPE == 1):
+						image_req["FileName"] = thisResource.ResName
+						if (len(list(filter(lambda n: n in image_req["FileName"], Config.FILENAME_INVALID_CHARACTERS))) > 0):
+							# barcode = Barcode.query.filter_by(ResId = ResId, GCRecord = None).first()
+							image_req["FileName"] = barcode.BarcodeVal
+					elif (Config.PROVIDED_IMAGE_FILENAME_TYPE == 2):
+						image_req["FileName"] = barcode.BarcodeVal
 
-					if thisImage is not None:
-						updatingDate = dateutil.parser.parse(imageDictData['ModifiedDate'])
-						if thisImage.ModifiedDate != updatingDate:
-							image_data = saveImageFile(image_req)
-							image_data['ImgId'] = thisImage.ImgId
-							try:
-								# Delete last image
-								file_type = "image"
-								file_name = thisImage.FileName
-								remove_image(file_type,file_name)
+				else:
+					indexed_res_id = resource_ResId_list[resource_ResGuid_list.index(ResGuid)]
+					ResId = int(indexed_res_id)
+				image_req["ResId"] = ResId
 
-							except Exception as ex:
-								print(f"{datetime.now()} | Image Api Deletion Exception: {ex}")
-							
-							thisImage.update(**image_data)
-							print(f"{datetime.now()} | Image updated (Different ModifiedDate)")
+				imageDictData = addImageDict(image_req)
+				# print(f"trying image of {ResRegNo} of resourceId {ResId}")
+				ImgGuid = imageDictData['ImgGuid']
+				thisImage = Image.query\
+					.filter_by(
+						ImgGuid = ImgGuid,
+						GCRecord = None)\
+					.first()
 
-						else:
-							print(f"{datetime.now()} | Image dropped (Same ModifiedDate)")
+				if thisImage is not None:
+					updatingDate = dateutil.parser.parse(imageDictData['ModifiedDate'])
+					if thisImage.ModifiedDate != updatingDate:
+						image_data = saveImageFile(image_req)
+						image_data['ImgId'] = thisImage.ImgId
+						try:
+							# Delete last image
+							file_type = "image"
+							file_name = thisImage.FileName
+							remove_image(file_type,file_name)
 
-						image_req["Image"] = None
-						images.append(image_req)
+						except Exception as ex:
+							print(f"{datetime.now()} | Image Api Deletion Exception: {ex}")
+						
+						thisImage.update(**image_data)
+						print(f"{datetime.now()} | Image updated (Different ModifiedDate)")
 
 					else:
-						image_data = saveImageFile(image_req)
-						thisImage = Image(**image_data)
-						db.session.add(thisImage)
+						print(f"{datetime.now()} | Image dropped (Same ModifiedDate)")
+
+					image_req["Image"] = None
+					images.append(image_req)
+
+				else:
+					image_data = saveImageFile(image_req)
+					thisImage = Image(**image_data)
+					db.session.add(thisImage)
+
+					try:
+						db.session.commit()
+					except Exception as ex:
+						print(f"{datetime.now()} | Couldn't commit: {ex}")
 
 						try:
-							db.session.commit()
-						except Exception as ex:
-							print(f"{datetime.now()} | Couldn't commit: {ex}")
+							lastImage = Image.query.order_by(Image.ImgId.desc()).first()
+							ImgId = lastImage.ImgId+1
+						except:
+							ImgId = None
 
-							try:
-								lastImage = Image.query.order_by(Image.ImgId.desc()).first()
-								ImgId = lastImage.ImgId+1
-							except:
-								ImgId = None
+						thisImage.ImgId = ImgId
+						db.session.add(thisImage)
+						db.session.commit()
 
-							thisImage.ImgId = ImgId
-							db.session.add(thisImage)
-							db.session.commit()
-
-						print(f"{datetime.now()} | Image created")
-						image_req["Image"] = None
-						images.append(image_req)
-
-				except Exception as ex:
-					print(f"{datetime.now()} | Image Api Exception: {ex}")
+					print(f"{datetime.now()} | Image created")
 					image_req["Image"] = None
-					failed_images.append(image_req)
+					images.append(image_req)
 
-			db.session.commit()
-			print(f"{datetime.now()} | Images were committed")
-			status = checkApiResponseStatus(images,failed_images)
-			res = {
-				"data": images,
-				"fails": failed_images,
-				"success_total": len(images),
-				"fail_total": len(failed_images)
-			}
-			for e in status:
-				res[e] = status[e]
-			response = make_response(jsonify(res),201)
+			except Exception as ex:
+				print(f"{datetime.now()} | Image Api Exception: {ex}")
+				image_req["Image"] = None
+				failed_images.append(image_req)
+
+		db.session.commit()
+		print(f"{datetime.now()} | Images were committed")
+		status = checkApiResponseStatus(images,failed_images)
+
+		res = {
+			"data": images,
+			"fails": failed_images,
+			"success_total": len(images),
+			"fail_total": len(failed_images)
+		}
+		for e in status:
+			res[e] = status[e]
+		response = make_response(jsonify(res),201)
 	return response
 
 

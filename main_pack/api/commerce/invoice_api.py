@@ -1,17 +1,27 @@
 # -*- coding: utf-8 -*-
-from flask import jsonify,request,abort,make_response
-from main_pack.api.commerce import api
+from flask import jsonify, request, abort, make_response
+from sqlalchemy import and_, extract
+
+# datetime, date-parser
+import dateutil.parser
+import datetime as dt
+from datetime import datetime
+# / datetime, date-parser /
+
 from main_pack import db
+from main_pack.api.commerce import api
 
 # orders and db methods
-from main_pack.models.commerce.models import (Invoice,
-																							Inv_line,
-																							Inv_status,
-																							Res_total)
-from main_pack.api.commerce.utils import (addInvDict,
-																					addInvLineDict)
+from main_pack.models.commerce.models import (
+	Invoice,
+	Inv_line,
+	Inv_status,
+	Res_total)
+from main_pack.api.commerce.utils import (
+	addInvDict,
+	addInvLineDict)
+from main_pack.api.commerce.commerce_utils import apiInvInfo
 from main_pack.base.apiMethods import checkApiResponseStatus
-from sqlalchemy import and_, extract
 # / orders and db methods /
 
 # Rp_acc db Model and methods
@@ -24,119 +34,112 @@ from main_pack.base.languageMethods import dataLangSelector
 # / functions and methods /
 
 # auth and validation
-from main_pack.api.auth.api_login import token_required
-from main_pack.api.auth.api_login import sha_required
+from main_pack.api.auth.utils import token_required
+from main_pack.api.auth.utils import sha_required
+from main_pack.api.base.validators import request_is_json
 # / auth and validation /
-
-# datetime, date-parser
-import dateutil.parser
-import datetime as dt
-from datetime import datetime
-# / datetime, date-parser /
-
-from main_pack.api.commerce.commerce_utils import apiInvInfo
 
 
 @api.route("/tbl-dk-invoices/",methods=['GET','POST'])
 @sha_required
+@request_is_json
 def api_invoices():
 	if request.method == 'GET':
 		DivId = request.args.get("DivId",None,type=int)
 		notDivId = request.args.get("notDivId",None,type=int)
 		startDate = request.args.get("startDate",None,type=str)
 		endDate = request.args.get("endDate",datetime.now())
+
 		res = apiInvInfo(
 			startDate = startDate,
 			endDate = endDate,
 			statusId = 1,
 			DivId = DivId,
 			notDivId = notDivId)
+
 		status_code = 200
-		response = make_response(jsonify(res),status_code)
+		response = make_response(jsonify(res), status_code)
 		return response
 
 	elif request.method == 'POST':
-		if not request.json:
-			res = {
-				"status": 0,
-				"message": "Error. Not a JSON data."
-			}
-			response = make_response(jsonify(res),400)
+		req = request.get_json()
 
-		else:
-			req = request.get_json()
-			invoices = []
-			failed_invoices = [] 
-			for data in req:
-				invoice = addInvDict(data)
+		invoices = []
+		failed_invoices = [] 
+
+		for data in req:
+			invoice = addInvDict(data)
+			try:
+				InvRegNo = invoice['InvRegNo']
+				thisInv = Invoice.query.filter_by(InvRegNo = InvRegNo).first()
+				# getting correct rp_acc of a database
+
 				try:
-					InvRegNo = invoice['InvRegNo']
-					thisInv = Invoice.query.filter_by(InvRegNo = InvRegNo).first()
-					# getting correct rp_acc of a database
-					try:
-						RpAccRegNo = data['Rp_acc']['RpAccRegNo']
-						RpAccName = data['Rp_acc']['RpAccName']
-						rp_acc = Rp_acc.query\
-							.filter_by(RpAccRegNo = RpAccRegNo, RpAccName = RpAccName)\
-							.first()
-						if rp_acc:
-							invoice['RpAccId'] = rp_acc.RpAccId
-					except Exception as ex:
-						print(f"{datetime.now()} | Inv Api Exception: {ex}")
-						print("Rp_acc not provided")
-						abort(400)
-
-					thisInvStatus = None
-
-					if thisInv:
-						old_invoice_status = thisInv.InvStatId
-						thisInv.update(**invoice)
-						db.session.commit()
-						thisInvStatus = thisInv.InvStatId
-
-					else:
-						thisInv = Invoice(**invoice)
-						db.session.add(thisInv)
-						db.session.commit()
-
-					inv_lines = []
-					failed_inv_lines = []
-					for inv_line_req in data['inv_lines']:
-						inv_line = addInvLineDict(inv_line_req)
-						inv_line['InvId'] = thisInv.InvId
-						try:
-							InvLineRegNo = inv_line['InvLineRegNo']
-							thisInvLine = Inv_line.query\
-								.filter_by(InvLineRegNo = InvLineRegNo)\
-								.first()
-							if thisInvLine:
-								thisInvLine.update(**inv_line)
-							else:
-								newInvLine = Inv_line(**inv_line)
-								db.session.add(newInvLine)
-							inv_lines.append(inv_line)
-						except Exception as ex:
-							print(f"{datetime.now()} | Inv Api Exception: {ex}")
-							failed_inv_lines.append(inv_line)
-						
-					db.session.commit()
-					invoice['inv_lines'] = inv_lines
-					invoices.append(invoice)
-
+					RpAccRegNo = data['Rp_acc']['RpAccRegNo']
+					RpAccName = data['Rp_acc']['RpAccName']
+					rp_acc = Rp_acc.query\
+						.filter_by(RpAccRegNo = RpAccRegNo, RpAccName = RpAccName)\
+						.first()
+					if rp_acc:
+						invoice['RpAccId'] = rp_acc.RpAccId
+	
 				except Exception as ex:
 					print(f"{datetime.now()} | Inv Api Exception: {ex}")
-					failed_invoices.append(invoice)
+					print("Rp_acc not provided")
+					abort(400)
 
-			status = checkApiResponseStatus(invoices,failed_invoices)
-			res = {
-				"data": invoices,
-				"fails": failed_invoices,
-				"success_total": len(invoices),
-				"fail_total": len(failed_invoices),
-			}
-			for e in status:
-				res[e] = status[e]
-			response = make_response(jsonify(res),200)
+				thisInvStatus = None
+
+				if thisInv:
+					old_invoice_status = thisInv.InvStatId
+					thisInv.update(**invoice)
+					db.session.commit()
+					thisInvStatus = thisInv.InvStatId
+
+				else:
+					thisInv = Invoice(**invoice)
+					db.session.add(thisInv)
+					db.session.commit()
+
+				inv_lines = []
+				failed_inv_lines = []
+				for inv_line_req in data['inv_lines']:
+					inv_line = addInvLineDict(inv_line_req)
+					inv_line['InvId'] = thisInv.InvId
+					try:
+						InvLineRegNo = inv_line['InvLineRegNo']
+						thisInvLine = Inv_line.query\
+							.filter_by(InvLineRegNo = InvLineRegNo)\
+							.first()
+						if thisInvLine:
+							thisInvLine.update(**inv_line)
+						else:
+							newInvLine = Inv_line(**inv_line)
+							db.session.add(newInvLine)
+						inv_lines.append(inv_line)
+					except Exception as ex:
+						print(f"{datetime.now()} | Inv Api Exception: {ex}")
+						failed_inv_lines.append(inv_line)
+					
+				db.session.commit()
+				invoice['inv_lines'] = inv_lines
+				invoices.append(invoice)
+
+			except Exception as ex:
+				print(f"{datetime.now()} | Inv Api Exception: {ex}")
+				failed_invoices.append(invoice)
+
+		status = checkApiResponseStatus(invoices,failed_invoices)
+
+		res = {
+			"data": invoices,
+			"fails": failed_invoices,
+			"success_total": len(invoices),
+			"fail_total": len(failed_invoices),
+		}
+		for e in status:
+			res[e] = status[e]
+		response = make_response(jsonify(res), 200)
 
 	return response
 
@@ -148,7 +151,7 @@ def api_invoice_info(InvRegNo):
 	res = apiInvInfo(invoice_list=invoice_list,
 									single_object=True)
 	status_code = 200
-	response = make_response(jsonify(res),status_code)
+	response = make_response(jsonify(res), status_code)
 	return response
 
 
@@ -165,7 +168,7 @@ def api_v_invoices(user):
 									endDate=endDate,
 									rp_acc_user=current_user)
 	status_code = 200
-	response = make_response(jsonify(res),status_code)
+	response = make_response(jsonify(res), status_code)
 	return response
 
 
@@ -182,5 +185,5 @@ def api_v_invoice(user,InvRegNo):
 		status_code = 200
 	else:
 		status_code = 404
-	response = make_response(jsonify(res),status_code)
+	response = make_response(jsonify(res), status_code)
 	return response

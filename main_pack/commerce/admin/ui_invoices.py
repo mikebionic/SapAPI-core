@@ -28,7 +28,7 @@ from main_pack.base.invoiceMethods import totalQtySubstitution
 
 @bp.route('/ui/inv_status/',methods=['POST'])
 @login_required
-@ui_admin_required()
+@ui_admin_required
 def ui_inv_status():
 	req = request.get_json()
 	InvRegNo = req.get("invRegNo")
@@ -61,7 +61,7 @@ def ui_inv_status():
 
 @bp.route('/ui/order_inv/',methods=['POST','DELETE'])
 @login_required
-@ui_admin_required()
+@ui_admin_required
 def ui_order_inv():
 	try:
 		if request.method == 'POST':

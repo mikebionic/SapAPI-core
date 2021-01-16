@@ -11,21 +11,25 @@ from flask_login import current_user,login_required
 import os
 from functools import wraps
 
-def ui_admin_required():
-	def decorator(f):
-		@wraps(f)
-		def decorated_function(*args, **kwargs):
-			if not current_user:
-				try:
-					return redirect(url_for('commerce_auth.login'))
-				except:
-					return redirect(url_for('commerce_auth.admin_login'))
-			elif not current_user.is_admin():
-				# flash(lazy_gettext('You do not have access to that page!'), 'danger')
-				return redirect(url_for('commerce.commerce'))
-			return f(*args, **kwargs)
-		return decorated_function
-	return decorator
+def ui_admin_required(f):
+	@wraps(f)
+	def decorated(*args, **kwargs):
+
+		if not current_user:
+			try:
+				return redirect(url_for('commerce_auth.login'))
+
+			except:
+				return redirect(url_for('commerce_auth.admin_login'))
+		
+		elif not current_user.is_admin():
+			# flash(lazy_gettext('You do not have access to that page!'), 'danger')
+			return redirect(url_for('commerce.commerce'))
+
+		return f(*args, **kwargs)
+
+	return decorated
+
 
 def send_reset_email(user):
 	url = 'commerce_auth.reset_token'

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import jsonify,request,abort,make_response,url_for
+from flask import jsonify, request, make_response, url_for
 from sqlalchemy import and_,or_
 
 from main_pack.api.commerce import api
@@ -26,7 +26,7 @@ def api_v_full_resources():
 	DivId = request.args.get("DivId",None,type=int)
 	notDivId = request.args.get("notDivId",None,type=int)
 	res = apiResourceInfo(fullInfo=True,DivId=DivId,notDivId=notDivId)
-	response = make_response(jsonify(res),200)
+	response = make_response(jsonify(res), 200)
 	return response
 
 
@@ -39,7 +39,7 @@ def api_v_resources():
 		DivId = DivId,
 		notDivId = notDivId,
 		avoidQtyCheckup = avoidQtyCheckup)
-	response = make_response(jsonify(res),200)
+	response = make_response(jsonify(res), 200)
 	return response
 
 
@@ -51,7 +51,7 @@ def api_v_resource_info(ResId):
 		status_code = 200
 	else:
 		status_code = 404
-	response = make_response(jsonify(res),status_code)
+	response = make_response(jsonify(res), status_code)
 	return response
 
 
@@ -103,7 +103,7 @@ def api_category_v_resources(ResCatId):
 
 	res = apiResourceInfo(resource_query=resources)
 	status_code = 200
-	response = make_response(jsonify(res),status_code)
+	response = make_response(jsonify(res), status_code)
 	return response
 
 
@@ -133,5 +133,5 @@ def api_resources():
 		DivId = DivId,
 		notDivId = notDivId)
 	status_code = 200
-	response = make_response(jsonify(res),status_code)
+	response = make_response(jsonify(res), status_code)
 	return response

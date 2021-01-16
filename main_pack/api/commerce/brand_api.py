@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-from flask import jsonify,request,abort,make_response
+from flask import jsonify, request, make_response
 from main_pack.api.commerce import api
 from datetime import datetime
+from sqlalchemy import or_, and_
+from sqlalchemy.orm import joinedload
 
 from main_pack.models.base.models import Company
 from main_pack.models.commerce.models import Brand
-from sqlalchemy import or_, and_
-from sqlalchemy.orm import joinedload
 
 
 @api.route("/tbl-dk-brands/")
@@ -26,39 +26,19 @@ def api_brands():
 			.filter_by(**filtering)\
 			.options(joinedload(Brand.Image))
 
-		if (not BrandId and not BrandName):
-			brands = brand_query.all()
-			data = []
-			for brand in brands:
-				brandList = brand.to_json_api()
-				brandList["Images"] = [image.to_json_api() for image in brand.Image if image.GCRecord == None]
-				data.append(brandList)
-			res = {
-				"status": 1 if len(data) > 0 else 0,
-				"message": "All view brands",
-				"data": data,
-				"total": len(data)
-			}
-			response = make_response(jsonify(res),200)
+		brands = brand_query.all()
+		data = []
+		for brand in brands:
+			brandList = brand.to_json_api()
+			brandList["Images"] = [image.to_json_api() for image in brand.Image if image.GCRecord == None]
+			data.append(brandList)
 
-		else:
-			brand = brand_query.first()
-			data = []
-			status_code = 404
-			if brand:
-				try:
-					data = brand.to_json_api()
-					data["Images"] = [image.to_json_api() for image in brand.Image if image.GCRecord == None]
-					status_code = 200
-				except Exception as ex:
-					print(f"{datetime.now()} | brand Api Exception: {ex}")
-
-			res = {
-				"status": 1 if len(data) > 0 else 0,
-				"message": "Brand",
-				"data": data,
-				"total": 1
-			}
-			response = make_response(jsonify(res),status_code)
+		res = {
+			"status": 1 if len(data) > 0 else 0,
+			"message": "Brands",
+			"data": data,
+			"total": len(data)
+		}
+		response = make_response(jsonify(res), 200)
 
 	return response

@@ -12,7 +12,7 @@ from main_pack.models.base.models import Company
 
 @bp.route("/admin/ui_company/", methods=['POST'])
 @login_required
-@ui_admin_required()
+@ui_admin_required
 def ui_company():
 	company = Company.query.get(1)
 	baseTemplate = {

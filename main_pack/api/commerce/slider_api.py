@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-from flask import jsonify,request,abort,make_response
-from main_pack.api.commerce import api
+from flask import jsonify, request, make_response
 from datetime import datetime
-
-from main_pack.models.base.models import Company,Sl_image,Slider
 from sqlalchemy import or_, and_
 from sqlalchemy.orm import joinedload
+
+from main_pack.api.commerce import api
+from main_pack.models.base.models import Company, Sl_image, Slider
 
 
 @api.route("/tbl-dk-sliders/")
@@ -41,14 +41,14 @@ def api_sliders():
 
 	status_code = 200 if len(data) > 0 else 404
 
-	# !!! TODO: Discuss this situation of returning a single {} inside data or [{}] as it is by default
+	# !!! TODO: this situation is discussed and we return [{}] instead of {} even on single response
 	res = {
 		"status": 1 if len(data) > 0 else 0,
 		"message": "All view sliders",
-		"data": data[0] if len(data) == 1 else data,
+		"data": data,
 		"total": len(data)
 	}
-	response = make_response(jsonify(res),200)
+	response = make_response(jsonify(res), 200)
 
 	return response
 
@@ -79,5 +79,5 @@ def api_slider_info(SlName):
 		"data": data,
 		"total": 1
 	}
-	response = make_response(jsonify(res),status_code)
+	response = make_response(jsonify(res), status_code)
 	return response

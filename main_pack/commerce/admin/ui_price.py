@@ -27,7 +27,7 @@ from main_pack.models.commerce.models import (Unit,Res_unit,Inv_line,Inv_line_de
 
 @bp.route("/ui/price/",methods=['GET','POST'])
 @login_required
-@ui_admin_required()
+@ui_admin_required
 def ui_price():
 	reg_num = generate(UId=current_user.UId,RegNumTypeName='price_code') # specify the generation prefix
 	if request.method == 'GET':

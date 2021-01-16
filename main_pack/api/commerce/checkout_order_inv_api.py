@@ -1,26 +1,28 @@
 # -*- coding: utf-8 -*-
-from flask import render_template,url_for,jsonify,request,abort,make_response,session
-from main_pack import db,babel,gettext,lazy_gettext
-from main_pack.config import Config
-from main_pack.api.commerce import api
-import requests,json
+from flask import jsonify, request, make_response
+import requests, json
 import uuid
 from sqlalchemy.orm import joinedload
+from datetime import datetime, timezone
+
+from main_pack import db, babel, gettext, lazy_gettext
+from main_pack.config import Config
+from main_pack.api.commerce import api
 
 # Users and auth
 from main_pack.models.users.models import Users
-from main_pack.api.auth.api_login import token_required
+from main_pack.api.auth.utils import token_required
 # / Users and auth /
 
 # Orders
-from main_pack.models.commerce.models import Order_inv,Order_inv_line,Work_period
-from main_pack.api.commerce.utils import addOrderInvDict,addOrderInvLineDict
+from main_pack.models.commerce.models import Order_inv, Order_inv_line, Work_period
+from main_pack.api.commerce.utils import addOrderInvDict, addOrderInvLineDict
 from main_pack.base.invoiceMethods import get_order_error_type
 from main_pack.base.apiMethods import checkApiResponseStatus
 # / Orders /
 
-from datetime import datetime,timezone
-from main_pack.key_generator.utils import generate,makeRegNo,Pred_regnum
+from main_pack.key_generator.utils import generate, makeRegNo, Pred_regnum
+from main_pack.api.base.validators import request_is_json
 
 # Resource models and operations
 from  main_pack.models.base.models import Warehouse
@@ -30,13 +32,14 @@ from main_pack.models.commerce.models import (
 	Res_total,
 	Res_price_group)
 from main_pack.base.invoiceMethods import totalQtySubstitution
-from main_pack.base.num2text import num2text,price2text
+from main_pack.base.num2text import num2text, price2text
 import decimal
 # / Resource models and operations /
 
 
 @api.route("/checkout-sale-order-inv/",methods=['POST'])
 @token_required
+@request_is_json
 def api_checkout_sale_order_invoices(user):
 	model_type = user['model_type']
 	current_user = user['current_user']
@@ -306,97 +309,90 @@ def api_checkout_sale_order_invoices(user):
 
 @api.route("/validate-order-inv-payment/",methods=['GET','POST'])
 @token_required
+@request_is_json
 def validate_order_inv_payment(user):
 	current_user = user['current_user']
 	RpAccId = current_user.RpAccId
 
 	if request.method == 'POST':
-		if not request.json:
-			res = {
-				"status": 0,
-				"message": "Error. Not a JSON data."
-			}
-			response = make_response(jsonify(res),400)
-			
-		else:
-			req = request.get_json()
-			OInvRegNo = req["OInvRegNo"]
-			OrderId = req["OrderId"]
-			
-			status = 0
-			message = ''
-			data = {}
+		req = request.get_json()
+		OInvRegNo = req["OInvRegNo"]
+		OrderId = req["OrderId"]
+		
+		status = 0
+		message = ''
+		data = {}
 
-			if OrderId:
-				order_inv = Order_inv.query\
-					.filter_by(
-						RpAccId = RpAccId,
-						OInvRegNo = OInvRegNo,
-						GCRecord = None)\
-					.first()
+		if OrderId:
+			order_inv = Order_inv.query\
+				.filter_by(
+					RpAccId = RpAccId,
+					OInvRegNo = OInvRegNo,
+					GCRecord = None)\
+				.first()
 
-				if order_inv:
-					# if order isn't already paid
-					if order_inv.PaymStatusId != 2:
-						try:
-							r = requests.get(f"{Config.PAYMENT_VALIDATION_SERVICE_URL}?orderId={OrderId}&password={Config.PAYMENT_VALIDATION_SERVICE_PASSWORD}&userName={Config.PAYMENT_VALIDATION_SERVICE_USERNAME}", verify=False)
-							response_json = json.loads(r.text)
+			if order_inv:
+				# if order isn't already paid
+				if order_inv.PaymStatusId != 2:
+					try:
+						r = requests.get(f"{Config.PAYMENT_VALIDATION_SERVICE_URL}?orderId={OrderId}&password={Config.PAYMENT_VALIDATION_SERVICE_PASSWORD}&userName={Config.PAYMENT_VALIDATION_SERVICE_USERNAME}", verify=False)
+						response_json = json.loads(r.text)
 
-							if (str(response_json[Config.PAYMENT_VALIDATION_KEY]) == str(Config.PAYMENT_VALIDATION_VALUE)):
-								PaymentAmount = int(response_json["Amount"])/100
-								order_inv.OInvPaymAmount = PaymentAmount
-								order_inv.InvStatId = 1
-								if (PaymentAmount >= order_inv.OInvFTotal):
-									order_inv.PaymStatusId = 2
-								elif (PaymentAmount < order_inv.OInvFTotal and PaymentAmount > 0):
-									order_inv.PaymStatusId = 3
-								message = "Payment Validation: success"
+						if (str(response_json[Config.PAYMENT_VALIDATION_KEY]) == str(Config.PAYMENT_VALIDATION_VALUE)):
+							PaymentAmount = int(response_json["Amount"])/100
+							order_inv.OInvPaymAmount = PaymentAmount
+							order_inv.InvStatId = 1
+							if (PaymentAmount >= order_inv.OInvFTotal):
+								order_inv.PaymStatusId = 2
+							elif (PaymentAmount < order_inv.OInvFTotal and PaymentAmount > 0):
+								order_inv.PaymStatusId = 3
+							message = "Payment Validation: success"
 
-							else:
-								# invoice status = "Payment fail"
-								# Payment status = "Not paid"
-								order_inv.PaymStatusId = 1
-								order_inv.OInvPaymAmount = 0
-								order_inv.InvStatId = 14
-
-								message = f"Payment Validation: failed (OrderStatus = {response_json[Config.PAYMENT_VALIDATION_KEY]})"
-								print(f"{datetime.now()} | {message}")
-							
-							order_inv.PaymCode = str(response_json)
-							db.session.commit()
-							data = response_json
-							status = 1
-						
-						except Exception as ex:
-							message = "Payment Validation: failed (Connection error)"
-							print(f"{datetime.now()} | Payment Validation Exception: {ex}")
-
-							req["message"] = message
-							order_inv.PaymCode = str(req)
+						else:
+							# invoice status = "Payment fail"
+							# Payment status = "Not paid"
+							order_inv.PaymStatusId = 1
+							order_inv.OInvPaymAmount = 0
 							order_inv.InvStatId = 14
-							db.session.commit()
 
-					else:
-						message = "Already paid"
+							message = f"Payment Validation: failed (OrderStatus = {response_json[Config.PAYMENT_VALIDATION_KEY]})"
+							print(f"{datetime.now()} | {message}")
+						
+						order_inv.PaymCode = str(response_json)
+						db.session.commit()
+						data = response_json
+						status = 1
+					
+					except Exception as ex:
+						message = "Payment Validation: failed (Connection error)"
+						print(f"{datetime.now()} | Payment Validation Exception: {ex}")
+
+						req["message"] = message
+						order_inv.PaymCode = str(req)
+						order_inv.InvStatId = 14
+						db.session.commit()
 
 				else:
-					message = "Payment Validation: failed (Order_inv is None)"
-					print(f"{datetime.now()} | {message}")
-					
+					message = "Already paid"
+
 			else:
-				message = "Payment Validation: failed (OrderId is None)"
+				message = "Payment Validation: failed (Order_inv is None)"
 				print(f"{datetime.now()} | {message}")
+				
+		else:
+			message = "Payment Validation: failed (OrderId is None)"
+			print(f"{datetime.now()} | {message}")
 
-			res = {
-				"data": data,
-				"message": message,
-				"status": status,
-				"total": len(data)
-			}
+		res = {
+			"data": data,
+			"message": message,
+			"status": status,
+			"total": len(data)
+		}
 
-			if res['status'] == 0:
-				status_code = 200
-			else:
-				status_code = 201
-			response = make_response(jsonify(res),status_code)
+		if res['status'] == 0:
+			status_code = 200
+		else:
+			status_code = 201
+		response = make_response(jsonify(res),status_code)
 	return response

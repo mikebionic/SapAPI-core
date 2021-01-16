@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import render_template,url_for,jsonify,request,abort,make_response
+from flask import jsonify, request, make_response
 from flask import current_app
 from datetime import datetime, timedelta
 import dateutil.parser
@@ -9,25 +9,23 @@ from sqlalchemy.orm import joinedload
 from main_pack import db
 from main_pack.api.commerce import api
 
-
 from main_pack.base.apiMethods import checkApiResponseStatus
-from main_pack.api.auth.api_login import sha_required
+from main_pack.api.auth.utils import sha_required
+from main_pack.api.base.validators import request_is_json
 
-# Users, Rp_accs and functions
-from main_pack.models.users.models import Rp_acc,Users
+from main_pack.models.base.models import Company, Division
+from main_pack.models.users.models import Rp_acc, Users
 from main_pack.api.users.utils import addRpAccDict
-# / Users, Rp_accs and functions /
 
 # Rp_acc_trans_total and functions
 from main_pack.models.commerce.models import Rp_acc_trans_total
 from main_pack.api.commerce.utils import addRpAccTrTotDict
 # / Rp_acc_trans_total and functions /
 
-from main_pack.models.base.models import Company, Division
-
 
 @api.route("/tbl-dk-rp-accs/",methods=['GET','POST'])
 @sha_required
+@request_is_json
 def api_rp_accs():
 	if request.method == 'GET':
 		DivId = request.args.get("DivId",None,type=int)
@@ -94,117 +92,114 @@ def api_rp_accs():
 			"data": data,
 			"total": len(rp_accs)
 		}
-		response = make_response(jsonify(res),200)
+		response = make_response(jsonify(res), 200)
 
 	elif request.method == 'POST':
-		if not request.json:
-			res = {
-				"status": 0,
-				"message": "Error. Not a JSON data."
-			}
-			response = make_response(jsonify(res),400)
-			
-		else:
-			req = request.get_json()
+		req = request.get_json()
 
-			divisions = Division.query\
-				.filter_by(GCRecord = None)\
-				.filter(Division.DivGuid != None).all()
-			companies = Company.query\
-				.filter_by(GCRecord = None)\
-				.filter(Company.CGuid != None).all()
-			users = Users.query\
-				.filter_by(GCRecord = None)\
-				.filter(Users.UGuid != None).all()
+		divisions = Division.query\
+			.filter_by(GCRecord = None)\
+			.filter(Division.DivGuid != None).all()
+		companies = Company.query\
+			.filter_by(GCRecord = None)\
+			.filter(Company.CGuid != None).all()
+		users = Users.query\
+			.filter_by(GCRecord = None)\
+			.filter(Users.UGuid != None).all()
 
 
-			division_DivId_list = [division.DivId for division in divisions]
-			division_DivGuid_list = [str(division.DivGuid) for division in divisions]
+		division_DivId_list = [division.DivId for division in divisions]
+		division_DivGuid_list = [str(division.DivGuid) for division in divisions]
 
-			company_CId_list = [company.CId for company in companies]
-			company_CGuid_list = [str(company.CGuid) for company in companies]
+		company_CId_list = [company.CId for company in companies]
+		company_CGuid_list = [str(company.CGuid) for company in companies]
 
-			users_UId_list = [user.UId for user in users]
-			users_UGuid_list = [str(user.UGuid) for user in users]
+		users_UId_list = [user.UId for user in users]
+		users_UGuid_list = [str(user.UGuid) for user in users]
 
-			rp_accs = []
-			failed_rp_accs = [] 
-			for rp_acc_req in req:
-				rp_acc_info = addRpAccDict(rp_acc_req)
+		rp_accs = []
+		failed_rp_accs = [] 
+		for rp_acc_req in req:
+			rp_acc_info = addRpAccDict(rp_acc_req)
+			try:
+				RpAccRegNo = rp_acc_info["RpAccRegNo"]
+				RpAccGuid = rp_acc_info["RpAccGuid"]
+				DivGuid = rp_acc_req["DivGuid"]
+				CGuid = rp_acc_req["CGuid"]
+				UGuid = rp_acc_req["UGuid"]
+
 				try:
-					RpAccRegNo = rp_acc_info["RpAccRegNo"]
-					RpAccGuid = rp_acc_info["RpAccGuid"]
-					DivGuid = rp_acc_req["DivGuid"]
-					CGuid = rp_acc_req["CGuid"]
-					UGuid = rp_acc_req["UGuid"]
+					indexed_div_id = division_DivId_list[division_DivGuid_list.index(DivGuid)]
+					DivId = int(indexed_div_id)
+				except:
+					DivId = None
+				try:
+					indexed_c_id = company_CId_list[company_CGuid_list.index(CGuid)]
+					CId = int(indexed_c_id)
+				except:
+					CId = None
+				try:
+					indexed_u_id = users_UId_list[users_UGuid_list.index(UGuid)]
+					UId = int(indexed_u_id)
+				except:
+					UId = None
 
-					try:
-						indexed_div_id = division_DivId_list[division_DivGuid_list.index(DivGuid)]
-						DivId = int(indexed_div_id)
-					except:
-						DivId = None
-					try:
-						indexed_c_id = company_CId_list[company_CGuid_list.index(CGuid)]
-						CId = int(indexed_c_id)
-					except:
-						CId = None
-					try:
-						indexed_u_id = users_UId_list[users_UGuid_list.index(UGuid)]
-						UId = int(indexed_u_id)
-					except:
-						UId = None
+				rp_acc_info["DivId"] = DivId
+				rp_acc_info["CId"] = CId
+				rp_acc_info["UId"] = UId
 
-					rp_acc_info["DivId"] = DivId
-					rp_acc_info["CId"] = CId
-					rp_acc_info["UId"] = UId
+				thisRpAcc = Rp_acc.query\
+					.filter_by(
+						RpAccGuid = RpAccGuid,
+						GCRecord = None)\
+					.first()
 
-					thisRpAcc = Rp_acc.query\
-						.filter_by(
-							RpAccGuid = RpAccGuid,
-							GCRecord = None)\
+				if thisRpAcc:
+					rp_acc_info["RpAccId"] = thisRpAcc.RpAccId
+					thisRpAcc.update(**rp_acc_info)
+				else:
+					thisRpAcc = Rp_acc(**rp_acc_info)
+					db.session.add(thisRpAcc)
+
+				db.session.commit()
+				rp_acc_trans_total_req = rp_acc_req["RpAccTransTotal"]
+
+				try:
+					RpAccId = thisRpAcc.RpAccId
+					rp_acc_trans_total = addRpAccTrTotDict(rp_acc_trans_total_req)
+					rp_acc_trans_total['RpAccTrTotId'] = None
+					rp_acc_trans_total['RpAccId'] = RpAccId
+
+					thisRpAccTrTotal = Rp_acc_trans_total.query\
+						.filter_by(RpAccId = RpAccId, GCRecord = None)\
 						.first()
-
-					if thisRpAcc:
-						rp_acc_info["RpAccId"] = thisRpAcc.RpAccId
-						thisRpAcc.update(**rp_acc_info)
+					if thisRpAccTrTotal:
+						rp_acc_trans_total['RpAccTrTotId'] = thisRpAccTrTotal.RpAccTrTotId
+						thisRpAccTrTotal.update(**rp_acc_trans_total)
 					else:
-						thisRpAcc = Rp_acc(**rp_acc_info)
-						db.session.add(thisRpAcc)
-					db.session.commit()
+						thisRpAccTrTotal = Rp_acc_trans_total(**rp_acc_trans_total)
+						db.session.add(thisRpAccTrTotal)
 
-					rp_acc_trans_total_req = rp_acc_req["RpAccTransTotal"]
-					try:
-						RpAccId = thisRpAcc.RpAccId
-						rp_acc_trans_total = addRpAccTrTotDict(rp_acc_trans_total_req)
-						rp_acc_trans_total['RpAccTrTotId'] = None
-						rp_acc_trans_total['RpAccId'] = RpAccId
-						thisRpAccTrTotal = Rp_acc_trans_total.query\
-							.filter_by(RpAccId = RpAccId, GCRecord = None)\
-							.first()
-						if thisRpAccTrTotal:
-							rp_acc_trans_total['RpAccTrTotId'] = thisRpAccTrTotal.RpAccTrTotId
-							thisRpAccTrTotal.update(**rp_acc_trans_total)
-						else:
-							thisRpAccTrTotal = Rp_acc_trans_total(**rp_acc_trans_total)
-							db.session.add(thisRpAccTrTotal)
-						rp_accs.append(rp_acc_req)
-
-					except Exception as ex:
-						print(f"{datetime.now()} | Rp_acc Api Rp_acc_total Exception: {ex}")
+					rp_accs.append(rp_acc_req)
 
 				except Exception as ex:
-					print(f"{datetime.now()} | Rp_acc Api Exception: {ex}")
-					failed_rp_accs.append(rp_acc_req)
-			db.session.commit()
+					print(f"{datetime.now()} | Rp_acc Api Rp_acc_total Exception: {ex}")
 
-			status = checkApiResponseStatus(rp_accs,failed_rp_accs)
-			res = {
-				"data": rp_accs,
-				"fails": failed_rp_accs,
-				"success_total": len(rp_accs),
-				"fail_total": len(failed_rp_accs)
-			}		
-			for e in status:
-				res[e] = status[e]
-			response = make_response(jsonify(res),201)
+			except Exception as ex:
+				print(f"{datetime.now()} | Rp_acc Api Exception: {ex}")
+				failed_rp_accs.append(rp_acc_req)
+
+		db.session.commit()
+		status = checkApiResponseStatus(rp_accs,failed_rp_accs)
+
+		res = {
+			"data": rp_accs,
+			"fails": failed_rp_accs,
+			"success_total": len(rp_accs),
+			"fail_total": len(failed_rp_accs)
+		}		
+		for e in status:
+			res[e] = status[e]
+		response = make_response(jsonify(res), 201)
+
 	return response

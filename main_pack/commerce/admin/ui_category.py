@@ -15,7 +15,7 @@ from main_pack.models.commerce.models import Res_category
 
 @bp.route('/ui/category_table/', methods=['POST','DELETE'])
 @login_required
-@ui_admin_required()
+@ui_admin_required
 def ui_category_table():
 	try:
 		if request.method == 'POST':

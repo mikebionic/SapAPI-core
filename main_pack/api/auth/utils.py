@@ -1,41 +1,82 @@
 # -*- coding: utf-8 -*-
-from flask import url_for
-from main_pack import db,bcrypt,mail #,babel,gettext,lazy_gettext
+from flask import url_for, jsonify, request
+import jwt
+from functools import wraps
 from flask_mail import Message
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
 from main_pack.config import Config
-from main_pack.models.users.models import Users,Rp_acc
+from main_pack import db, bcrypt, mail
+from main_pack.models.users.models import Users, Rp_acc
 
-from flask import jsonify,request
-import jwt
-from functools import wraps
-from main_pack.config import Config
 
 def token_required(f):
 	@wraps(f)
 	def decorated(*args,**kwargs):
 		token = None
+
 		if 'x-access-token' in request.headers:
 			token = request.headers['x-access-token']
+
 		if not token:
 			return jsonify({"message": "Token is missing!"}), 401
+
 		try:
-			data=jwt.decode(token, Config.SECRET_KEY)
-			current_user = Users.query.filter_by(UId = data['UId']).first()
+			data = jwt.decode(token, Config.SECRET_KEY)
+
+			if 'UId' in data:
+				model_type = 'Users'
+				current_user = Users.query\
+					.filter_by(GCRecord = None, UId = data['UId'])\
+					.first()
+
+			elif 'RpAccId' in data:
+				model_type = 'Rp_acc'
+				current_user = Rp_acc.query\
+					.filter_by(GCRecord = None, RpAccId = data['RpAccId'])\
+					.first()
+
+			user = {
+				"model_type": model_type,
+				"current_user": current_user
+			}
+
 		except Exception as ex:
 			return jsonify({"message": "Token is invalid!"}), 401
-		return f(current_user,*args,**kwargs)
+
+		return f(user,*args,**kwargs)
 
 	return decorated
 
+
+def sha_required(f):
+	@wraps(f)
+	def decorated(*args,**kwargs):
+		token = None
+
+		if 'x-access-token' in request.headers:
+			token = request.headers['x-access-token']
+
+		if not token:
+			return jsonify({"message": "Token is missing!"}), 401
+		
+		if token != Config.SYNCH_SHA:
+			return jsonify({"message": "Token is invalid!"}), 401
+
+		return f(*args,**kwargs)
+
+	return decorated
+
+
 def check_auth(auth_type,username,password):
 	auth_status = False
+
 	if (auth_type == 'user'):
 		user = Users.query.filter_by(UName = username).first()
 		# if user and bcrypt.check_password_hash(user.UPass,password):
 		if user and user.UPass == password:
 			auth_status = True
+
 	elif (auth_type == 'rp_acc'):
 		rp_acc = Rp_acc.query.filter_by(RpAccUName = username).first()
 		# if user and bcrypt.check_password_hash(user.UPass,password):
@@ -46,7 +87,6 @@ def check_auth(auth_type,username,password):
 
 
 # Email validation functions
-
 def send_reset_email(user):
 	url = 'commerce_auth.reset_token'
 	token = user.get_reset_token()

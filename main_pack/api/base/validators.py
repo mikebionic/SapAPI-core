@@ -5,8 +5,7 @@ from functools import wraps
 def request_is_json(f):
 	@wraps(f)
 	def decorated(*args,**kwargs):
-		print(request.method != 'GET')
-		print(request.method)
+
 		if (request.method != 'GET' and not request.json):
 			res = {
 				"status": 0,

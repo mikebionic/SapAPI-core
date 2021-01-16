@@ -30,7 +30,7 @@ from main_pack.commerce.admin.forms import LogoImageForm,SliderImageForm,Resourc
 
 @bp.route("/admin/logo_setup", methods=['GET', 'POST'])
 @login_required
-@ui_admin_required()
+@ui_admin_required
 def logo_setup():
 	company = Company.query.filter_by(GCRecord = None).first()
 	company_logo = Image.query\
@@ -61,7 +61,7 @@ def logo_setup():
 
 @bp.route("/remove_images")
 @login_required
-@ui_admin_required()
+@ui_admin_required
 def remove_images():
 	try:
 		ImgId = request.args.get("imgId")
@@ -107,7 +107,7 @@ def remove_images():
 
 @bp.route("/admin/sliders", methods=['GET', 'POST'])
 @login_required
-@ui_admin_required()
+@ui_admin_required
 def sliders():
 	# handler for commerce view
 	header_slider = Slider.query\
@@ -145,7 +145,7 @@ def sliders():
 
 @bp.route("/admin/sliders/<SlId>", methods=['GET', 'POST'])
 @login_required
-@ui_admin_required()
+@ui_admin_required
 def slider_images(SlId):
 	slider = Slider.query\
 		.filter_by(GCRecord = None, SlId = SlId)\
@@ -186,7 +186,7 @@ def slider_images(SlId):
 
 @bp.route('/ui/svg-icons/',methods=['POST'])
 @login_required
-@ui_admin_required()
+@ui_admin_required
 def ui_svg_icons():
 	if 'files[]' not in request.files:
 		resp = jsonify({'message' : 'No file part in the request'})
@@ -231,7 +231,7 @@ def ui_svg_icons():
 
 @bp.route("/remove_svg_icon")
 @login_required
-@ui_admin_required()
+@ui_admin_required
 def remove_svg_icon():
 	try:
 		name = request.args.get("name")
@@ -252,7 +252,7 @@ def brands():
 
 @bp.route("/admin/resource_edit/<ResId>", methods=['GET', 'POST'])
 @login_required
-@ui_admin_required()
+@ui_admin_required
 def resource_edit(ResId):
 	resource = Resource.query\
 		.filter_by(GCRecord = None, ResId = ResId)

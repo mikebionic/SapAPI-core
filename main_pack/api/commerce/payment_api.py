@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-from flask import jsonify,request,abort,make_response
+from flask import jsonify, request, make_response
+
 from main_pack.api.commerce import api
 from main_pack.config import Config
-
 from main_pack.models.commerce.models import Payment_type, Payment_method
 
 
@@ -13,13 +13,16 @@ def api_paynemt_types():
 		.filter(Payment_type.PtVisibleIndex != 0)\
 		.order_by(Payment_type.PtVisibleIndex.asc())\
 		.all()
+
+	data = [payment_type.to_json_api() for payment_type in payment_types if payment_type.PtVisibleIndex != 0]
+
 	res = {
-		"status": 1,
+		"status": 1 if len(data) > 0 else 0,
 		"message": "Payment types",
-		"data": [payment_type.to_json_api() for payment_type in payment_types if payment_type.PtVisibleIndex != 0],
-		"total": len(payment_types)
+		"data": data,
+		"total": len(data)
 	}
-	response = make_response(jsonify(res),200)
+	response = make_response(jsonify(res), 200)
 	return response
 
 
@@ -30,11 +33,14 @@ def api_payment_methods():
 		.filter(Payment_method.PmVisibleIndex != 0)\
 		.order_by(Payment_method.PmVisibleIndex.asc())\
 		.all()
+
+	data = [payment_method.to_json_api() for payment_method in payment_methods if payment_method.PmVisibleIndex != 0]
+
 	res = {
-		"status": 1,
+		"status": 1 if len(data) > 0 else 0,
 		"message": "Payment methods",
-		"data": [payment_method.to_json_api() for payment_method in payment_methods if payment_method.PmVisibleIndex != 0],
-		"total": len(payment_methods)
+		"data": data,
+		"total": len(data)
 	}
-	response = make_response(jsonify(res),200)
+	response = make_response(jsonify(res), 200)
 	return response

@@ -12,7 +12,7 @@ from sqlalchemy import and_
 
 @bp.route('/ui/customers_table/', methods=['POST','DELETE'])
 @login_required
-@ui_admin_required()
+@ui_admin_required
 def ui_customers_table():
 	try:
 		if request.method == 'POST':
@@ -90,7 +90,7 @@ def ui_customers_table():
 
 @bp.route('/ui/users_table/', methods=['POST','DELETE'])
 @login_required
-@ui_admin_required()
+@ui_admin_required
 def ui_users_table():
 	try:
 		if request.method == 'POST':

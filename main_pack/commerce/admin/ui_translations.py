@@ -17,7 +17,7 @@ from main_pack.models.base.models import Language
 
 @bp.route('/ui/res_translations/', methods=['POST','DELETE'])
 @login_required
-@ui_admin_required()
+@ui_admin_required
 def ui_res_translations():
 	languages = Language.query.all()
 	baseTemplate = {

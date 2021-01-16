@@ -17,7 +17,7 @@ from main_pack.models.commerce.models import Size_type,Res_color,Res_size,Res_un
 
 @bp.route('/ui/color/', methods=['POST'])
 @login_required
-@ui_admin_required()
+@ui_admin_required
 def ui_color():
 	if request.method == 'POST':
 		req = request.get_json()
@@ -45,7 +45,7 @@ def ui_color():
 
 @bp.route('/ui/size/', methods=['POST'])
 @login_required
-@ui_admin_required()
+@ui_admin_required
 def ui_size():
 	if request.method == 'POST':
 		req = request.get_json()
@@ -72,7 +72,7 @@ def ui_size():
 
 @bp.route('/ui/brand/', methods=['POST'])
 @login_required
-@ui_admin_required()
+@ui_admin_required
 def ui_brand():
 	if request.method == 'POST':
 		req = request.get_json()
@@ -100,7 +100,7 @@ def ui_brand():
 
 @bp.route('/ui/brands_table/', methods=['DELETE'])
 @login_required
-@ui_admin_required()
+@ui_admin_required
 def ui_brands_table():
 	if request.method == 'DELETE':
 		try:
@@ -124,7 +124,7 @@ def ui_brands_table():
 
 @bp.route('/ui/res_color/', methods=['POST','DELETE'])
 @login_required
-@ui_admin_required()
+@ui_admin_required
 def ui_res_color():
 	if request.method == 'POST':
 		req = request.get_json()
@@ -162,7 +162,7 @@ def ui_res_color():
 
 @bp.route('/ui/res_size/', methods=['POST','DELETE'])
 @login_required
-@ui_admin_required()
+@ui_admin_required
 def ui_res_size():
 	if request.method == 'POST':
 		req = request.get_json()

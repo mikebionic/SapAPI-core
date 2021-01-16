@@ -84,7 +84,7 @@ def set_language(language=None):
 
 @bp.route("/admin/dashboard")
 @login_required
-@ui_admin_required()
+@ui_admin_required
 def dashboard():
 	return render_template(
 		f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/dashboard.html",
@@ -94,7 +94,7 @@ def dashboard():
 
 @bp.route("/admin/company")
 @login_required
-@ui_admin_required()
+@ui_admin_required
 def company():
 	company = Company.query.get(1)
 	return render_template(
@@ -106,7 +106,7 @@ def company():
 
 @bp.route("/admin/category_table")
 @login_required
-@ui_admin_required()
+@ui_admin_required
 def category_table():
 	data = {}
 	icons_path = os.path.join("static","commerce","icons","categories")
@@ -145,7 +145,7 @@ def category_table():
 
 @bp.route("/admin/resources_table")
 @login_required
-@ui_admin_required()
+@ui_admin_required
 def resources_table():
 	resData=apiResourceInfo(showInactive=True,fullInfo=True,avoidQtyCheckup=True)
 	return render_template(
@@ -179,7 +179,7 @@ def user_types():
 
 @bp.route("/admin/customers_table")
 @login_required
-@ui_admin_required()
+@ui_admin_required
 def customers_table():
 	data = UiRpAccData()
 	data['rp_acc_statuses'] = rp_acc_statuses()
@@ -194,7 +194,7 @@ def customers_table():
 ## !!! WARNING: Testing code
 @bp.route("/admin/customers/")
 # @login_required
-# @ui_admin_required()
+# @ui_admin_required
 def customers_json():
 	data = UiRpAccData([{"RpAccId": 3}])
 	data['rp_acc_statuses'] = rp_acc_statuses()
@@ -206,7 +206,7 @@ def customers_json():
 
 @bp.route("/admin/customer_details/<RpAccRegNo>")
 @login_required
-@ui_admin_required()
+@ui_admin_required
 def customer_details(RpAccRegNo):
 	try:
 		rp_acc = Rp_acc.query\
@@ -244,7 +244,7 @@ def customer_details(RpAccRegNo):
 
 @bp.route("/admin/register_customer",methods=['GET','POST'])
 @login_required
-@ui_admin_required()
+@ui_admin_required
 def register_customer():
 	form = CustomerRegistrationForm()
 
@@ -354,7 +354,7 @@ def register_customer():
 
 @bp.route("/admin/users_table")
 @login_required
-@ui_admin_required()
+@ui_admin_required
 def users_table():
 	data = UiUsersData()
 	data['user_types'] = user_types()
@@ -367,7 +367,7 @@ def users_table():
 
 @bp.route("/admin/user_details/<UId>")
 @login_required
-@ui_admin_required()
+@ui_admin_required
 def user_details(UId):
 	try:
 		data = UiUsersData([{"UId": UId}])
@@ -395,7 +395,7 @@ def user_details(UId):
 
 @bp.route("/admin/register_user",methods=['GET','POST'])
 @login_required
-@ui_admin_required()
+@ui_admin_required
 def register_user():
 	form = UserRegistrationForm()
 	user_types_list = user_types()
@@ -461,7 +461,7 @@ def register_user():
 ###### orders and order information #######
 @bp.route("/admin/order_invoices")
 @login_required
-@ui_admin_required()
+@ui_admin_required
 def order_invoices():
 	InvStatId = request.args.get("statusId",1,type=int)
 	orderInvoices = Order_inv.query\
@@ -491,7 +491,7 @@ def order_invoices():
 
 @bp.route("/admin/order_invoices/<OInvRegNo>",methods=['GET','POST'])
 @login_required
-@ui_admin_required()
+@ui_admin_required
 def order_inv_lines(OInvRegNo):
 	orderInvoice = Order_inv.query\
 		.filter_by(GCRecord = None, OInvRegNo = OInvRegNo)\
@@ -525,7 +525,7 @@ def order_inv_lines(OInvRegNo):
 
 @bp.route("/admin/add_product")
 @login_required
-@ui_admin_required()
+@ui_admin_required
 def add_product():
 	resData=resRelatedData()
 	return render_template(
@@ -537,7 +537,7 @@ def add_product():
 
 @bp.route("/admin/sale_repots_table")
 @login_required
-@ui_admin_required()
+@ui_admin_required
 def sale_repots_table():
 	return render_template(
 		f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/sale_repots_table.html",
@@ -547,7 +547,7 @@ def sale_repots_table():
 
 @bp.route("/admin/sale_repots_table2")
 @login_required
-@ui_admin_required()
+@ui_admin_required
 def sale_repots_table2():
 	return render_template(
 		f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/sale_repots_table2.html",
@@ -557,7 +557,7 @@ def sale_repots_table2():
 
 @bp.route("/admin/brands_table")
 @login_required
-@ui_admin_required()
+@ui_admin_required
 def brands_table():
 	res = UiBrandsList()
 	return render_template(
@@ -569,7 +569,7 @@ def brands_table():
 
 @bp.route("/admin/manage_brand",methods=['GET','POST'])
 @login_required
-@ui_admin_required()
+@ui_admin_required
 def manage_brand():
 	BrandId = request.args.get('brandId')
 	manage_mode = "create"

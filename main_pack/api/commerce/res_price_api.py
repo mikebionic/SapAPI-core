@@ -1,19 +1,23 @@
 # -*- coding: utf-8 -*-
-from flask import render_template,url_for,jsonify,request,abort,make_response
-from main_pack.api.commerce import api
+from flask import jsonify, request, make_response
 from datetime import datetime
 from sqlalchemy import and_
 from sqlalchemy.orm import joinedload
 
 from main_pack import db
+from main_pack.api.commerce import api
+
 from main_pack.models.commerce.models import Res_price, Resource
 from main_pack.api.commerce.utils import addResPriceDict
-from main_pack.api.auth.api_login import sha_required
+
+from main_pack.api.auth.utils import sha_required
+from main_pack.api.base.validators import request_is_json
 from main_pack.base.apiMethods import checkApiResponseStatus
 
 
 @api.route("/tbl-dk-res-prices/",methods=['GET','POST'])
 @sha_required
+@request_is_json
 def api_res_prices():
 	if request.method == 'GET':
 		DivId = request.args.get("DivId",None,type=int)
@@ -51,82 +55,80 @@ def api_res_prices():
 			"data": data,
 			"total": len(data)
 		}
-		response = make_response(jsonify(res),200)
+		response = make_response(jsonify(res), 200)
 
 	elif request.method == 'POST':
-		if not request.json:
-			res = {
-				"status": 0,
-				"message": "Error. Not a JSON data."
-			}
-			response = make_response(jsonify(res),400)
-			
-		else:
-			req = request.get_json()
-		
-			resources = Resource.query\
-				.filter_by(GCRecord = None)\
-				.filter(Resource.ResGuid != None).all()
+		req = request.get_json()
+	
+		resources = Resource.query\
+			.filter_by(GCRecord = None)\
+			.filter(Resource.ResGuid != None).all()
 
-			resource_ResId_list = [resource.ResId for resource in resources]
-			resource_ResGuid_list = [str(resource.ResGuid) for resource in resources]
+		resource_ResId_list = [resource.ResId for resource in resources]
+		resource_ResGuid_list = [str(resource.ResGuid) for resource in resources]
 
-			res_prices = []
-			failed_res_prices = [] 
-			for res_price_req in req:
-				res_price_info = addResPriceDict(res_price_req)
+		res_prices = []
+		failed_res_prices = [] 
+
+		for res_price_req in req:
+			res_price_info = addResPriceDict(res_price_req)
+			try:
+				ResRegNo = res_price_req['ResRegNo']
+				ResGuid = res_price_req['ResGuid']
+				ResPriceRegNo = res_price_req['ResPriceRegNo']
+				
 				try:
-					ResRegNo = res_price_req['ResRegNo']
-					ResGuid = res_price_req['ResGuid']
-					ResPriceRegNo = res_price_req['ResPriceRegNo']
-					
+					indexed_res_id = resource_ResId_list[resource_ResGuid_list.index(ResGuid)]
+					ResId = int(indexed_res_id)
+				except:
+					ResId = None
+
+				if not ResId or not ResPriceRegNo:
+					raise Exception
+
+				res_price_info["ResId"] = ResId
+				ResPriceTypeId = res_price_info["ResPriceTypeId"]
+				thisResPrice = Res_price.query\
+					.filter_by(
+						GCRecord = None,
+						ResPriceTypeId = ResPriceTypeId,
+						ResId = ResId,
+						ResPriceRegNo = ResPriceRegNo)\
+					.first()
+
+				if thisResPrice:
+					res_price_info["ResPriceId"] = thisResPrice.ResPriceId
+					thisResPrice.update(**res_price_info)
+
+				else:
 					try:
-						indexed_res_id = resource_ResId_list[resource_ResGuid_list.index(ResGuid)]
-						ResId = int(indexed_res_id)
+						lastPrice = Res_price.query.order_by(Res_price.ResPriceId.desc()).first()
+						ResPriceId = lastPrice.ResPriceId+1
 					except:
-						ResId = None
+						ResPriceId = None
+					res_price_info["ResPriceId"] = ResPriceId
 
-					if not ResId or not ResPriceRegNo:
-						raise Exception
+					thisResPrice = Res_price(**res_price_info)
+					db.session.add(thisResPrice)
 
-					res_price_info["ResId"] = ResId
-					ResPriceTypeId = res_price_info["ResPriceTypeId"]
-					thisResPrice = Res_price.query\
-						.filter_by(
-							GCRecord = None,
-							ResPriceTypeId = ResPriceTypeId,
-							ResId = ResId,
-							ResPriceRegNo = ResPriceRegNo)\
-						.first()
+				thisResPrice = None
+				res_prices.append(res_price_req)
 
-					if thisResPrice:
-						res_price_info["ResPriceId"] = thisResPrice.ResPriceId
-						thisResPrice.update(**res_price_info)
-					else:
-						try:
-							lastPrice = Res_price.query.order_by(Res_price.ResPriceId.desc()).first()
-							ResPriceId = lastPrice.ResPriceId+1
-						except:
-							ResPriceId = None
-						res_price_info["ResPriceId"] = ResPriceId
+			except Exception as ex:
+				print(f"{datetime.now()} | Res_price Api Exception: {ex}")
+				failed_res_prices.append(res_price_req)
 
-						thisResPrice = Res_price(**res_price_info)
-						db.session.add(thisResPrice)
-					thisResPrice = None
-					res_prices.append(res_price_req)
-				except Exception as ex:
-					print(f"{datetime.now()} | Res_price Api Exception: {ex}")
-					failed_res_prices.append(res_price_req)
+		db.session.commit()
+		status = checkApiResponseStatus(res_prices,failed_res_prices)
 
-			db.session.commit()
-			status = checkApiResponseStatus(res_prices,failed_res_prices)
-			res = {
-				"data": res_prices,
-				"fails": failed_res_prices,
-				"success_total": len(res_prices),
-				"fail_total": len(failed_res_prices)
-			}
-			for e in status:
-				res[e] = status[e]
-			response = make_response(jsonify(res),200)
+		res = {
+			"data": res_prices,
+			"fails": failed_res_prices,
+			"success_total": len(res_prices),
+			"fail_total": len(failed_res_prices)
+		}
+		for e in status:
+			res[e] = status[e]
+		response = make_response(jsonify(res), 200)
+
 	return response

@@ -15,7 +15,7 @@ from main_pack.commerce.admin.utils import addSliderDict,addSliderImageDict
 
 @bp.route('/ui/slider/', methods=['POST','DELETE'])
 @login_required
-@ui_admin_required()
+@ui_admin_required
 def ui_sliders():
 	try:
 		if request.method == 'POST':

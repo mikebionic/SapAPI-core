@@ -28,7 +28,7 @@ from main_pack.models.base.models import Image
 
 @bp.route("/ui/resource/",methods=['GET','POST','PUT'])
 @login_required
-@ui_admin_required()
+@ui_admin_required
 def ui_resource():
 	units = Unit.query.all()
 	brands = Brand.query.all()
