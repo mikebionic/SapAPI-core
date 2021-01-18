@@ -59,7 +59,7 @@ def get_login_info(req):
 		platform = req.user_agent.platform
 		uas = req.user_agent.string
 		info = f"Browser: {browser}, Platform: {platform}, Details: {uas}"
-		login_info["info"] = info[:100]
+		login_info["info"] = info[:500]
 
 	except:
 		login_info["info"] = None

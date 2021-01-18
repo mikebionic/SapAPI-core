@@ -13,40 +13,41 @@ from wtforms.validators import (
 	EqualTo,
 	ValidationError)
 from main_pack import babel,gettext,lazy_gettext
-from main_pack.models.users.models import Users
+from main_pack.models.users.models import Rp_acc
 
 
 class RequestRegistrationForm(FlaskForm):
 	username = StringField('Username', 
-							validators=[DataRequired(),Length(min=2,max=60)])
-	email = StringField ('Email',
-						validators=[DataRequired(),Email(),Length(max=100)])
-	submit = SubmitField('Proceed')
+		validators=[DataRequired(), Length(min=2, max=60)])
+	email = StringField('Email', 
+		validators=[DataRequired(), Email(), Length(max=100)])
+	submit = SubmitField('Continue')
 
-	def validate_username(self,username):
-		user = Users.query.filter_by(UName=username.data).first()
+	def validate_username(self, username):
+		user = Rp_acc.query.filter_by(RpAccUName = username.data, GCRecord = None).first()
 		if user:
-			flash(lazy_gettext('That username is taken. Choose a different one!'),'warning')
+			flash(lazy_gettext('That username is taken. Choose a different one!'), 'warning')
 			raise ValidationError(lazy_gettext('That username is taken. Choose a different one!'))
-	def validate_email(self,email):
-		user = Users.query.filter_by(UEmail=email.data).first()
+
+	def validate_email(self, email):
+		user = Rp_acc.query.filter_by(RpAccUEmail = email.data, GCRecord = None).first()
 		if user:
-			flash(lazy_gettext('That email is taken. Choose a different one!'),'warning')
+			flash(lazy_gettext('That email is taken. Choose a different one!'), 'warning')
 			raise ValidationError(lazy_gettext('That email is taken. Choose a different one!'))
 
 
 class PasswordRegistrationForm(FlaskForm):
 	full_name = StringField(lazy_gettext('Full name'), 
-							validators=[DataRequired(),Length(min=2,max=100)])
+		validators=[DataRequired(),Length(min=2,max=100)])
 	phone_number = StringField(lazy_gettext('Phone number'), 
-							validators=[DataRequired(),Length(min=2,max=100)])
+		validators=[DataRequired(),Length(min=2,max=100)])
 	password = PasswordField(lazy_gettext('Password'),validators=[DataRequired()])
 	submit = SubmitField(lazy_gettext('Sign Up'))
 
 
 class AdminLoginForm(FlaskForm):
 	username = StringField (lazy_gettext('Username'),
-						validators=[DataRequired()])
+		validators=[DataRequired()])
 	password = PasswordField(lazy_gettext('Password'),validators=[DataRequired()])
 	remember = BooleanField(lazy_gettext('Remember Me'))
 	submit = SubmitField(lazy_gettext('Log In'))
@@ -54,7 +55,7 @@ class AdminLoginForm(FlaskForm):
 
 class LoginForm(FlaskForm):
 	email = StringField (lazy_gettext('Email'),
-						validators=[DataRequired(),Email()])
+		validators=[DataRequired(),Email()])
 	password = PasswordField(lazy_gettext('Password'),validators=[DataRequired()])
 	remember = BooleanField(lazy_gettext('Remember Me'))
 	submit = SubmitField(lazy_gettext('Log In'))
@@ -62,11 +63,11 @@ class LoginForm(FlaskForm):
 
 class RequestResetForm(FlaskForm):
 	email = StringField (lazy_gettext('Email'),
-						validators=[DataRequired(),Email()])
+		validators=[DataRequired(),Email()])
 	submit = SubmitField(lazy_gettext('Request Password Reset'))
 
 	def validate_email(self,email):
-		user = Users.query.filter_by(UEmail=email.data).first()
+		user = Rp_acc.query.filter_by(RpAccUEmail = email.data).first()
 		if user is None:
 			raise ValidationError(lazy_gettext('The profile of that email not found! Please register fist.'))
 
@@ -74,5 +75,5 @@ class RequestResetForm(FlaskForm):
 class ResetPasswordForm(FlaskForm):
 	password = PasswordField(lazy_gettext('Password'),validators=[DataRequired()])
 	confirm_password = PasswordField(lazy_gettext('Confirm password'),
-									validators=[DataRequired(),EqualTo('password')])
+		validators=[DataRequired(),EqualTo('password')])
 	submit = SubmitField(lazy_gettext('Reset password'))

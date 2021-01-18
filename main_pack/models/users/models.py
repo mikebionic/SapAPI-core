@@ -51,13 +51,6 @@ class Users(AddInf,CreatedModifiedInfo,db.Model,UserMixin):
 
 	def get_id(self):
 		return (self.UId)
-	
-	# @property
-	# def is_active(self):
-	# 	return True
-
-	# def is_authenticated(self):
-	# 	return True
 
 	def get_reset_token(self,expires_sec=1800):
 		s = Serializer(Config.SECRET_KEY,expires_sec)
@@ -203,6 +196,19 @@ class Rp_acc(AddInf,CreatedModifiedInfo,db.Model,UserMixin):
 	Order_inv = db.relationship("Order_inv",backref='rp_acc',lazy=True)
 	Rating = db.relationship("Rating",backref='rp_acc',lazy=True)
 	Device = db.relationship("Device",backref='rp_acc',lazy=True)
+
+	def get_reset_token(self,expires_sec=1800):
+		s = Serializer(Config.SECRET_KEY,expires_sec)
+		return s.dumps({"RpAccId": self.RpAccId}).decode('utf-8')
+
+	@staticmethod
+	def verify_reset_token(token):
+		s = Serializer(Config.SECRET_KEY)
+		try:
+			RpAccId = s.loads(token)['RpAccId']
+		except Exception as ex:
+			return None
+		return	Rp_acc.query.get(RpAccId)
 
 	def get_id(self):
 		return (self.RpAccId)

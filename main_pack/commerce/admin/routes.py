@@ -82,8 +82,8 @@ def set_language(language=None):
 	session['language'] = language
 	return redirect(url_for('commerce_admin.dashboard'))
 
-@bp.route("/admin")
 
+@bp.route("/admin")
 @bp.route("/admin/dashboard")
 @login_required
 @ui_admin_required
