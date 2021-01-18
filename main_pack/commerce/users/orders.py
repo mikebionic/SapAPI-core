@@ -1,15 +1,26 @@
-from flask import render_template,url_for,jsonify,session,flash,redirect,request,Response,abort
-from flask_login import current_user,login_required
-from main_pack import db,babel,gettext,lazy_gettext
+from flask import render_template, url_for, session, redirect
+from flask_login import current_user, login_required
+from sqlalchemy import and_
+
+from main_pack import db, gettext, lazy_gettext
 from main_pack.config import Config
 from main_pack.commerce.users import bp
 from main_pack.commerce.commerce.utils import UiCategoriesList
 # change this for something else
 
-from main_pack.models.commerce.models import (Inv_line,Inv_line_det,Inv_line_det_type,
-	Inv_status,Inv_type,Invoice,Order_inv,Order_inv_line,Order_inv_type)
-from main_pack.commerce.commerce.order_utils import UiOInvData,UiOInvLineData
-from sqlalchemy import and_
+from main_pack.models.commerce.models import (
+	Inv_line,
+	Inv_line_det,
+	Inv_line_det_type,
+	Inv_status,
+	Inv_type,
+	Invoice,
+	Order_inv,
+	Order_inv_line,
+	Order_inv_type)
+
+from main_pack.commerce.commerce.order_utils import UiOInvData, UiOInvLineData
+
 
 @bp.route(Config.COMMERCE_ORDERS_PAGE)
 @login_required
@@ -24,11 +35,16 @@ def orders():
 		order = {}
 		order['OInvId'] = orderInv.OInvId
 		orders_list.append(order)
+
 	res = UiOInvData(orders_list)
 
 	categoryData = UiCategoriesList()
-	return render_template(f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/users/orders.html",
-		**categoryData,**res,title=gettext(Config.COMMERCE_ORDERS_PAGE_TITLE))
+	return render_template(
+		f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/users/orders.html",
+		**categoryData,
+		**res,
+		title = gettext(Config.COMMERCE_ORDERS_PAGE_TITLE))
+
 
 @bp.route(Config.COMMERCE_ORDERS_PAGE+"/<OInvRegNo>")
 @login_required
@@ -53,8 +69,12 @@ def order_lines(OInvRegNo):
 		res = UiOInvLineData(order_lines_list)
 		
 		categoryData = UiCategoriesList()
-		return render_template(f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/users/order_lines.html",
-			**categoryData,**res,**orderInvRes,title=gettext(Config.COMMERCE_ORDERS_PAGE_TITLE))
+		return render_template(
+			f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/users/order_lines.html",
+			**categoryData,
+			**res,
+			**orderInvRes,
+			title = gettext(Config.COMMERCE_ORDERS_PAGE_TITLE))
 	
 	else:
 		return redirect(url_for('commerce_users.orders'))

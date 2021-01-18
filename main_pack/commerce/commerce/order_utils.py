@@ -41,6 +41,7 @@ from main_pack.base.invoiceMethods import getInvStatusUi
 
 from sqlalchemy import and_
 
+# !!! TODO: Update this to use single query and get rid of list iter query
 def UiOInvData(orders_list):
 	data = []
 

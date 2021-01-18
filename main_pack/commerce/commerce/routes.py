@@ -1,8 +1,8 @@
 from flask import render_template, url_for, jsonify
-from flask_login import current_user,login_required
+from flask_login import current_user, login_required
 
 from main_pack.config import Config
-from main_pack import db,babel,gettext,lazy_gettext
+from main_pack import db, gettext
 from main_pack.commerce.commerce import bp
 
 # Resource and view
@@ -62,7 +62,7 @@ def contact():
 			"Phone": form.Phone.data,
 			"Message": form.Message.data
 		}
-		# print(email_data)
+
 		message	= f'''Message from user.
 		Email: {email_data["Email"]},
 		First name: {email_data["FirstName"]},
@@ -70,7 +70,6 @@ def contact():
 		Phone: {email_data["Phone"]},
 		Message: {email_data["Message"]}
 		'''
-		print(message)
 		send_email_to_company(message)
 	return render_template(f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/commerce/contact.html",
 		**categoriesData,form=form,title=gettext(Config.COMMERCE_CONTACTS_PAGE_TITLE))
