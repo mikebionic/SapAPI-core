@@ -92,6 +92,31 @@ def dashboard():
 		title = gettext('Dashboard'))
 
 
+@bp.route("/admin/blank")
+# @login_required
+# @ui_admin_required
+def hello():
+
+	# browser = request.user_agent.browser
+	# version = request.user_agent.version and int(request.user_agent.version.split('.')[0])
+	# platform = request.user_agent.platform
+	# uas = request.user_agent.string
+	# print(request.user_agent)
+	# print('-------------')
+	# print(browser)
+	# print('-------------')
+	# print(version)
+	# print('-------------')
+	# print(platform)
+	# print('-------------')
+	# print(uas)
+	# print('-------------')
+
+
+	print(session)
+	return "Hekll world"
+
+
 @bp.route("/admin/company")
 @login_required
 @ui_admin_required

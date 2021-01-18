@@ -1,6 +1,6 @@
-from flask import url_for,redirect
+from flask import url_for, redirect, session
 from main_pack.config import Config
-from main_pack import db,bcrypt,mail,babel,gettext,lazy_gettext
+from main_pack import mail, gettext, lazy_gettext
 from flask_mail import Message
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
@@ -15,14 +15,14 @@ def ui_admin_required(f):
 	@wraps(f)
 	def decorated(*args, **kwargs):
 
-		if not current_user:
+		if (not current_user or not "user_type" in session):
 			try:
 				return redirect(url_for('commerce_auth.login'))
 
 			except:
 				return redirect(url_for('commerce_auth.admin_login'))
-		
-		elif not current_user.is_admin():
+
+		if (session["user_type"] != "user" or not current_user.is_admin()):
 			# flash(lazy_gettext('You do not have access to that page!'), 'danger')
 			return redirect(url_for('commerce.commerce'))
 

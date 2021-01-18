@@ -1,3 +1,4 @@
+from flask import session
 from main_pack import db, login_manager
 from main_pack.config import Config
 from datetime import datetime
@@ -7,9 +8,19 @@ from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from main_pack.models.base.models import CreatedModifiedInfo, AddInf
 from main_pack.base.dataMethods import apiDataFormat
 
+
 @login_manager.user_loader
-def load_user(UId):
-	return Users.query.get(int(UId))
+def load_user(id):
+	if (not "user_type" in session):
+		return None
+
+	if (session["user_type"] == "user"):
+		return Users.query.get(int(id))
+
+	elif (session["user_type"] == "rp_acc"):
+		return Rp_acc.query.get(int(id))
+
+	return None
 
 
 class Users(AddInf,CreatedModifiedInfo,db.Model,UserMixin):
@@ -131,7 +142,7 @@ class User_type(CreatedModifiedInfo,db.Model):
 		return json_data
 
 
-class Rp_acc(AddInf,CreatedModifiedInfo,db.Model):
+class Rp_acc(AddInf,CreatedModifiedInfo,db.Model,UserMixin):
 	__tablename__="tbl_dk_rp_acc"
 	RpAccId = db.Column("RpAccId",db.Integer,nullable=False,primary_key=True)
 	RpAccGuid = db.Column("RpAccGuid",UUID(as_uuid=True),unique=True)
@@ -193,6 +204,9 @@ class Rp_acc(AddInf,CreatedModifiedInfo,db.Model):
 	Rating = db.relationship("Rating",backref='rp_acc',lazy=True)
 	Device = db.relationship("Device",backref='rp_acc',lazy=True)
 
+	def get_id(self):
+		return (self.RpAccId)
+	
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
 			if value is not None:
