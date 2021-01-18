@@ -1,10 +1,11 @@
 from flask import render_template, url_for, jsonify, session, flash, redirect, request, Response, abort
 from flask_login import login_user, current_user, logout_user
+from datetime import datetime
+import uuid
 
 from main_pack.config import Config
 from main_pack.commerce.auth import bp
 from main_pack import db, bcrypt, babel, gettext, lazy_gettext
-import uuid
 
 # forms
 from main_pack.commerce.auth.forms import (
@@ -26,6 +27,7 @@ from main_pack.commerce.auth.utils import (
 	send_register_email)
 from main_pack.commerce.commerce.utils import UiCategoriesList
 from main_pack.key_generator.utils import makeRegNo, generate, validate
+from main_pack.base.apiMethods import get_login_info
 
 
 @bp.route("/login",methods=['GET','POST'])
@@ -37,7 +39,6 @@ def login():
 			user = Rp_acc.query.filter_by(GCRecord = None, RpAccEMail = form.email.data).first()
 
 			if not user:
-				print("not user")
 				raise Exception
 
 			if Config.HASHED_PASSWORDS == True:
@@ -46,9 +47,15 @@ def login():
 				password = (user.RpAccUPass == form.password.data)
 
 			if not password:
-
-				print("wrogng pass")
 				raise Exception
+
+			try:
+				login_info = get_login_info(request)
+				user.RpAccLastActivityDate = login_info["date"]
+				user.RpAccLastActivityDevice = login_info["info"]
+				db.session.commit()
+			except Exception as ex:
+				print(f"{datetime.now()} | Rp_acc activity info update Exception: {ex}")
 
 			session["user_type"] = "rp_acc"
 			login_user(user, remember=form.remember.data)

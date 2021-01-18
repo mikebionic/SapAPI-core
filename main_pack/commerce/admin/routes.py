@@ -74,6 +74,8 @@ from main_pack.base.imageMethods import save_image, save_icon
 from main_pack.base.imageMethods import allowed_icon
 # / Image operations /
 
+from main_pack.base.apiMethods import get_login_info
+
 
 @bp.route('/admin/language/<language>')
 def set_language(language=None):
@@ -96,23 +98,6 @@ def dashboard():
 # @login_required
 # @ui_admin_required
 def hello():
-
-	# browser = request.user_agent.browser
-	# version = request.user_agent.version and int(request.user_agent.version.split('.')[0])
-	# platform = request.user_agent.platform
-	# uas = request.user_agent.string
-	# print(request.user_agent)
-	# print('-------------')
-	# print(browser)
-	# print('-------------')
-	# print(version)
-	# print('-------------')
-	# print(platform)
-	# print('-------------')
-	# print(uas)
-	# print('-------------')
-
-
 	print(session)
 	return "Hekll world"
 

@@ -2,27 +2,36 @@
 from flask import url_for,send_file
 from flask import current_app
 import os
+from datetime import datetime
 
 def checkApiResponseStatus(success_list,fail_list):
-	if(len(success_list)>0 and len(fail_list)>0):
+	if(len(success_list) > 0 and len(fail_list) > 0):
 		return {
 			"status": 2,
 			"message": "Success and fail"
-			}
-	elif(len(success_list)==0 and len(fail_list)>0):
+		}
+
+	elif(len(success_list) == 0 and len(fail_list) > 0):
 		return {
 			"status": 0,
 			"message": "Fail"
-			}
+		}
+
 	else:
 		return {
 			"status": 1,
 			"message": "Success"
-			}
+		}
 
-def fileToURL(file_type=None,category=None,file_size='undefined',file_name='',url=None):
+
+def fileToURL(
+	file_type = None,
+	category = None,
+	file_size = 'undefined',
+	file_name = '',
+	url = None):
 	try:
-		if file_type=='icon':
+		if file_type == 'icon':
 			if url:
 				url = url
 			else:
@@ -34,6 +43,25 @@ def fileToURL(file_type=None,category=None,file_size='undefined',file_name='',ur
 			else:
 				url = 'commerce_api.get_image'
 			fileUrl = url_for(url,file_type=file_type,file_size=file_size,file_name=file_name)
+
 	except Exception as ex:
 		fileUrl = None
+
 	return fileUrl
+
+
+def get_login_info(req):
+	# required to provide 'request' property
+	login_info = {"date": datetime.now()}
+
+	try:
+		browser = req.user_agent.browser
+		platform = req.user_agent.platform
+		uas = req.user_agent.string
+		info = f"Browser: {browser}, Platform: {platform}, Details: {uas}"
+		login_info["info"] = info[:100]
+
+	except:
+		login_info["info"] = None
+
+	return login_info

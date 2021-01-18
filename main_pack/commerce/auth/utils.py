@@ -1,15 +1,13 @@
 from flask import url_for, redirect, session
-from main_pack.config import Config
-from main_pack import mail, gettext, lazy_gettext
 from flask_mail import Message
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
-
-# auth and validation
-from flask_login import current_user,login_required
-# / auth and validation /
-
 import os
 from functools import wraps
+from flask_login import current_user, login_required
+
+from main_pack.config import Config
+from main_pack import mail, gettext, lazy_gettext
+
 
 def ui_admin_required(f):
 	@wraps(f)

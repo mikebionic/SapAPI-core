@@ -455,7 +455,7 @@ def apiResourceInfo(
 				Related_resources = []
 				for resource in related_resources:
 					related_resource_info = resource.to_json_api()
-					Related_resource_Images = [image.to_json_api() for image in resource.Image if not image]
+					Related_resource_Images = [image.to_json_api() for image in resource.Image if not image.GCRecord]
 					related_resource_info["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=Related_resource_Images[-1]["FileName"]) if Related_resource_Images else ""
 					related_resource_info["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=Related_resource_Images[-1]["FileName"]) if Related_resource_Images else ""
 					related_resource_info["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=Related_resource_Images[-1]["FileName"]) if Related_resource_Images else ""
@@ -482,8 +482,6 @@ def apiResourceInfo(
 				resource_info["Related_resources"] = Related_resources
 
 			if fullInfo == True:
-				# List_Colors = [color.to_json_api() for res_color in resource_query.Resource.Res_color if not res_color.GCRecord for color in colors if color.ColorId == res_color.ColorId]
-				# List_Sizes = [size.to_json_api() for res_size in resource_query.Resource.Res_size if not res_size.GCRecord for size in sizes if size.SizeId == res_size.SizeId]
 				List_Colors = [res_color.color.to_json_api() for res_color in resource_query.Resource.Res_color if not res_color.GCRecord if not res_color.color.GCRecord]
 				List_Sizes = [res_size.size.to_json_api() for res_size in resource_query.Resource.Res_size if not res_size.GCRecord if not res_size.size.GCRecord]
 				resource_info["Colors"] = List_Colors if List_Colors else []

@@ -1,15 +1,11 @@
 from flask import render_template, url_for, flash, redirect, request, session
+from flask_login import current_user, login_user, logout_user
+from datetime import datetime
+
 from main_pack.commerce.auth import bp, url_prefix
 from main_pack.config import Config
-
-# useful methods
 from main_pack import db, gettext, lazy_gettext, bcrypt
-# / useful methods /
-
-# auth and validation
-from flask_login import current_user, login_user, logout_user
-# / auth and validation /
-
+from main_pack.base.apiMethods import get_login_info
 # users and customers
 from main_pack.models.users.models import Users
 from main_pack.commerce.auth.forms import AdminLoginForm
@@ -39,6 +35,14 @@ def admin_login():
 
 			if not password:
 				raise Exception
+
+			try:
+				login_info = get_login_info(request)
+				user.ULastActivityDate = login_info["date"]
+				user.ULastActivityDevice = login_info["info"]
+				db.session.commit()
+			except Exception as ex:
+				print(f"{datetime.now()} | User activity info update Exception: {ex}")
 
 			session["user_type"] = "user"
 			login_user(user, remember = form.remember.data)
