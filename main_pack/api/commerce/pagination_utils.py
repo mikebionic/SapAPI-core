@@ -146,7 +146,22 @@ def collect_resource_paginate_info(
 		resource_query = resource_query.filter(Resource.BrandId == brand)
 	
 	if category:
-		resource_query = resource_query.filter(Resource.ResCatId == category)
+		categories = Res_category.query\
+			.filter_by(ResCatId = category, GCRecord = None)\
+			.options(
+				joinedload(Res_category.subcategory)\
+				.options(joinedload(Res_category.subcategory)))\
+			.all()
+
+		category_ids = []
+		for res_category in categories:
+			category_ids.append(res_category.ResCatId)
+			for subcategory in res_category.subcategory:
+				category_ids.append(subcategory.ResCatId)
+				for category in subcategory.subcategory:
+					category_ids.append(category.ResCatId)
+
+		resource_query = resource_query.filter(Resource.ResCatId.in_(category_ids))
 
 	if sort:
 		if sort == "date_new":

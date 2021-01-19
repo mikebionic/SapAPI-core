@@ -81,6 +81,10 @@ def collect_categories_query(
 
 	categories_query = Res_category.query\
 		.filter_by(GCRecord = None)\
+		.options(
+			joinedload(Res_category.subcategory)\
+				.options(
+					joinedload(Res_category.subcategory)))\
 		.join(Resource, Resource.ResCatId == Res_category.ResCatId)\
 		.filter(Resource.GCRecord == None)\
 		.outerjoin(Res_Total_subquery, Res_Total_subquery.c.ResId == Resource.ResId)
@@ -532,6 +536,7 @@ def apiFeaturedResCat_Resources():
 	if featured_categories:
 		featured_resources_query = collect_resources_query()
 		featured_resources_list = []
+
 		for category in featured_categories:
 			resource_query = featured_resources_query\
 				.filter(Resource.ResCatId == category.ResCatId)\
@@ -557,6 +562,7 @@ def apiFeaturedResCat_Resources():
 		"total": len(data)
 	}
 	return res
+
 
 def UiCartResourceData(product_list,fullInfo=False,showRelated=False):
 	res = apiResourceInfo(product_list,fullInfo=fullInfo,showRelated=showRelated)

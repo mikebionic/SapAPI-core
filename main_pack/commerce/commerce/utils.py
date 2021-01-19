@@ -34,36 +34,49 @@ def slidersData():
 		.options(joinedload(Slider.Sl_image))\
 		.filter(Sl_image.GCRecord == None)\
 		.all()
+
 	for slider in sliders:
 		List_sliders = slider.to_json_api()
-		sl_images = slider.Sl_image
+
 		List_sl_images = []
-		for sl_image in sl_images:
+
+		for sl_image in slider.Sl_image:
+
 			if sl_image.SlImgEndDate:
 				if (sl_image.SlImgStartDate <= datetime.now()):
-					if (sl_image.SlImgEndDate and sl_image.SlImgEndDate>datetime.now()):
+					if (sl_image.SlImgEndDate and sl_image.SlImgEndDate > datetime.now()):
 						List_sl_images.append(sl_image.to_json_api())
+
 			else:
 				List_sl_images.append(sl_image.to_json_api())
+
 		List_sliders['Sl_images'] = List_sl_images
 
 		data.append(List_sliders)
-	res = {
-		'sliders':data
-	}
+
+	res = {'sliders': data}
 	return res
 
-def UiCategoriesList():
-	categories = collect_categories_query()
 
-	category_info = [category.to_json_api() for category in categories if categories]
-	categories = [category_info[category_info.index(category_data)] for category_data in category_info if category_data["ResOwnerCatId"] == 0 or category_data["ResOwnerCatId"] == None]
-	for category in categories:
-		subcategories = [category_info[category_info.index(category_data)] for category_data in category_info if category_data["ResOwnerCatId"] == category["ResCatId"]]
+def UiCategoriesList():
+	categories = collect_categories_query().all()
+
+	main_categories = [category for category in categories if not category.ResOwnerCatId]
+	categories_list = []
+
+	for main_category in main_categories:
+		subcategories = [category for category in main_category.subcategory if not category.GCRecord]
+
+		data = []
 		for subcategory in subcategories:
-			subcategory_children = [category_info[category_info.index(category_data)] for category_data in category_info if category_data["ResOwnerCatId"] == subcategory["ResCatId"]]
-			subcategory["Categories"] = subcategory_children
-		category["Categories"] = subcategories
+			category_data = subcategory.to_json_api()
+			subcategory_children = [category.to_json_api() for category in subcategory.subcategory if not category.GCRecord]
+			category_data["Categories"] = subcategory_children
+			data.append(category_data)
+
+		category_data = main_category.to_json_api()
+		category_data["Categories"] = data
+		categories_list.append(category_data)
 
 	company = Company.query\
 		.filter_by(GCRecord = None)\
@@ -71,16 +84,18 @@ def UiCategoriesList():
 		.filter(Image.GCRecord == None)\
 		.order_by(Image.CreatedDate.desc())\
 		.first()
+
 	logoIcon = {}
-	company_logos = company.Image
-	if company_logos:
-		logoIcon["FilePath"] = fileToURL(file_type='image',file_name=company_logos[0].FileName)
+	if company.Image:
+		logoIcon["FilePath"] = fileToURL(file_type='image',file_name=company.Image[0].FileName)
+
 	res = {
-		"categories": categories,
+		"categories": categories_list,
 		"company": company,
 		"company_logo": logoIcon
 	}
 	return res
+
 
 def UiBrandsList():
 	brands = Brand.query\
@@ -102,6 +117,7 @@ def UiBrandsList():
 		"total": len(data)
 	}
 	return res
+
 
 # used foreign keys
 from main_pack.models.commerce.models import Unit,Brand,Usage_status,Res_category,Res_type,Res_maker

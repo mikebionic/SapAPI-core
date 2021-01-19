@@ -17,6 +17,12 @@ from main_pack.commerce.commerce.forms import SendEmailToCompanyForm
 # / Resource and view /
 
 
+
+@bp.route("/test")
+def test():
+	latest_resources = apiFeaturedResCat_Resources()
+	return latest_resources
+
 @bp.route("/")
 @bp.route(Config.COMMERCE_HOME_PAGE)
 def commerce():

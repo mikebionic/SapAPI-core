@@ -1153,7 +1153,7 @@ class Resource(AddInf,CreatedModifiedInfo,db.Model):
 class Res_category(CreatedModifiedInfo,db.Model):
 	__tablename__="tbl_dk_res_category"
 	ResCatId = db.Column("ResCatId",db.Integer,nullable=False,primary_key=True)
-	ResOwnerCatId = db.Column("ResOwnerCatId",db.Integer,default=0)
+	ResOwnerCatId = db.Column("ResOwnerCatId",db.Integer,db.ForeignKey("tbl_dk_res_category.ResCatId"))
 	ResCatVisibleIndex = db.Column("ResCatVisibleIndex",db.Integer,default=0)
 	IsMain = db.Column("IsMain",db.Boolean,default=False)
 	ResCatName = db.Column("ResCatName",db.String(100),nullable=False)
@@ -1164,12 +1164,14 @@ class Res_category(CreatedModifiedInfo,db.Model):
 	Resource = db.relationship("Resource",backref='res_category',lazy=True)
 	Image = db.relationship("Image",backref='res_category',lazy=True)
 	Translations = db.relationship("Translations",backref='res_category',lazy=True)
+	Res_category = db.relationship("Res_category",remote_side=ResCatId,backref='subcategory',lazy=True)
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
 			if value is not None:
 				if hasattr(self, key):
 					setattr(self, key, value)
+
 	def to_json(self):
 		json_data = {
 			"ownerCategoryId": self.ResOwnerCatId,
