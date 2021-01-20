@@ -29,7 +29,7 @@ def register_device():
 
 		else:
 			r = requests.post(
-				Config.SAP_SERVICE_URL,
+				f"{Config.SAP_SERVICE_URL}/devices/register/",
 				data = json.dumps(req),
 				headers = {
 					'Content-Type': 'application/json',
@@ -59,6 +59,6 @@ def register_device():
 			"message": "Device registration",
 			"total": 1 if data else 0
 		}
-		response = make_response(jsonify(res),200)
+		response = make_response(jsonify(res), 200)
 
 		return response

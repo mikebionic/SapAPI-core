@@ -47,6 +47,6 @@ def register_device():
 			"total": 1 if data else 0
 		}
 
-		response = make_response(jsonify(res),200)
+		response = make_response(jsonify(res), 200)
 
 		return response
