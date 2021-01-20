@@ -1,15 +1,16 @@
 # -*- coding: utf-8 -*-
 from flask import jsonify, request, make_response, session
-from main_pack.config import Config
-from main_pack import db
 import decimal
 
+from main_pack.config import Config
+from main_pack import db, cache
+
 # functions and methods
-from main_pack.base.apiMethods import checkApiResponseStatus,fileToURL
+from main_pack.base.apiMethods import checkApiResponseStatus, fileToURL
 # functions and methods
 
 # auth and validation
-from flask_login import current_user,login_required
+from flask_login import current_user, login_required
 # / auth and validation /
 
 # functions and methods
@@ -528,6 +529,7 @@ def apiResourceInfo(
 	return res
 
 
+@cache.cached(100, key_prefix="featured_resources")
 def apiFeaturedResCat_Resources():
 	featured_categories = collect_categories_query(IsMain = True)
 	featured_categories = featured_categories.all()

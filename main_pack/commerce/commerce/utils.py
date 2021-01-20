@@ -1,11 +1,10 @@
-from main_pack.config import Config
 from sqlalchemy import and_
 from sqlalchemy.orm import joinedload
 from datetime import datetime
 
-# auth and validation
-from flask_login import current_user,login_required
-# / auth and validation /
+from flask_login import current_user, login_required
+from main_pack.config import Config
+from main_pack import cache
 
 # db Models
 from main_pack.models.commerce.models import (
@@ -27,6 +26,7 @@ from main_pack.api.commerce.commerce_utils import collect_categories_query
 # / useful methods / 
 
 
+@cache.cached(1200, key_prefix="ui_sliders")
 def slidersData():
 	data = []
 	sliders = Slider.query\
@@ -58,6 +58,7 @@ def slidersData():
 	return res
 
 
+@cache.cached(1200, key_prefix="ui_categories")
 def UiCategoriesList():
 	categories = collect_categories_query().all()
 
@@ -97,6 +98,7 @@ def UiCategoriesList():
 	return res
 
 
+@cache.cached(1200, key_prefix="ui_brands")
 def UiBrandsList():
 	brands = Brand.query\
 		.filter_by(GCRecord = None)\

@@ -30,6 +30,7 @@ class Config:
 	TESTING = (int(environ.get('TESTING')))
 
 	USE_FLASK_CORS = int(environ.get('USE_FLASK_CORS'))
+	USE_FLASK_COMPRESS = int(environ.get('USE_FLASK_COMPRESS'))
 
 	API_AND_ADMIN_ONLY = int(environ.get('API_AND_ADMIN_ONLY'))
 
@@ -51,7 +52,7 @@ class Config:
 	    'port': environ.get('POSTGRES_DB_PORT'),
 	}
 	SQLALCHEMY_DATABASE_URI = 'postgresql://%(user)s:%(pw)s@%(host)s:%(port)s/%(db)s' % POSTGRES_DB_URI
-	SQLALCHEMY_ECHO = False
+	SQLALCHEMY_ECHO = True
 	# # Database bindings
 	#
 	# POSTGRES_TEST_DB_URI = {
@@ -76,6 +77,10 @@ class Config:
 		SESSION_TYPE = environ.get('SESSION_TYPE')
 		SESSION_REDIS = redis.from_url(environ.get('SESSION_REDIS'))
 
+	CACHE_TYPE = environ.get('CACHE_TYPE')
+	CACHE_DEFAULT_TIMEOUT = 300
+	CACHE_REDIS_URL = environ.get('CACHE_REDIS_URL')
+	ASSETS_DEBUG = True
 	# # / Sessions, Redis, Cache, Cookies /
 
 

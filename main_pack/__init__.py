@@ -10,11 +10,13 @@ from flask_bcrypt import Bcrypt
 from flask_mail import Mail
 from flask_wtf.csrf import CSRFProtect
 from flask_cors import CORS
+from flask_caching import Cache
+from flask_compress import Compress
+from flask_assets import Environment
 import logging
 from logging.handlers import SMTPHandler
 
 from main_pack.config import Config
-
 
 babel = Babel()
 db = SQLAlchemy()
@@ -23,6 +25,10 @@ sess = Session()
 bcrypt = Bcrypt()
 mail = Mail()
 csrf = CSRFProtect()
+cache = Cache()
+compress = Compress()
+assets = Environment()
+
 
 login_manager.login_view = 'commerce_auth.login'
 login_manager.login_message = lazy_gettext('Login the system!')
@@ -58,6 +64,12 @@ def create_app(config_class=Config):
 	babel.init_app(app)
 	mail.init_app(app)
 	csrf.init_app(app)
+	cache.init_app(app)
+	assets.init_app(app)
+
+	if Config.USE_FLASK_COMPRESS:
+		compress.init_app(app)
+
 	if Config.OS_TYPE != 'win32':
 		sess.init_app(app)
 
