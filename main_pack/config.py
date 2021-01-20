@@ -80,7 +80,6 @@ class Config:
 	CACHE_TYPE = environ.get('CACHE_TYPE')
 	CACHE_DEFAULT_TIMEOUT = 300
 	CACHE_REDIS_URL = environ.get('CACHE_REDIS_URL')
-	ASSETS_DEBUG = True
 	# # / Sessions, Redis, Cache, Cookies /
 
 
