@@ -86,7 +86,7 @@ class Config:
 	COMMERCE_URL_PREFIX = environ.get('COMMERCE_URL_PREFIX')
 
 	API_AND_ADMIN_ONLY = int(environ.get('API_AND_ADMIN_ONLY'))
-	
+
 	# works if commerce_url_prefix is null
 	SHOW_LANDING_PAGE_ON_ROOT = int(environ.get('SHOW_LANDING_PAGE_ON_ROOT'))
 	# / module url prefixes /
@@ -103,7 +103,7 @@ class Config:
 	MAIL_PORT = int(environ.get('MAIL_PORT'))
 	MAIL_USE_TLS = True
 	# MAIL_USE_SSL = False
-	MAIL_ADDRESS = environ.get('MAIL_ADDRESS')
+	MAIL_USERNAME = environ.get('MAIL_USERNAME')
 	MAIL_PASSWORD = environ.get('MAIL_PASSWORD')
 	# / MAIL CONFIGURATION /
 	

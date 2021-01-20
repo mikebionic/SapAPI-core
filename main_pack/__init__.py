@@ -13,7 +13,7 @@ from flask_cors import CORS
 from flask_caching import Cache
 from flask_compress import Compress
 import logging
-from logging.handlers import SMTPHandler
+# from logging.handlers import SMTPHandler
 
 from main_pack.config import Config
 
@@ -138,8 +138,8 @@ def create_app(config_class=Config):
 	if not Config.DEBUG:
 		if (Config.EMAIL_ERROR_REPORTS and Config.MAIL_SERVER):
 			auth = None
-			if Config.MAIL_ADDRESS or Config.MAIL_PASSWORD:
-				auth = (Config.MAIL_ADDRESS, Config.MAIL_PASSWORD)
+			if (Config.MAIL_USERNAME and Config.MAIL_PASSWORD):
+				auth = (Config.MAIL_USERNAME, Config.MAIL_PASSWORD)
 			secure = None
 			if Config.MAIL_USE_TLS:
 				secure = ()
