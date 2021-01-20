@@ -222,7 +222,7 @@ def register_token(token):
 				"RpAccId": RpAccId,
 				"RpAccGuid": uuid.uuid4(),
 				"RpAccUName": username,
-				"RpAccEMail": RpAccEMail,
+				"RpAccEMail": email,
 				"RpAccUPass": password,
 				"RpAccName": form.full_name.data,
 				"RpAccRegNo": regNo,
