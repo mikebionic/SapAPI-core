@@ -32,8 +32,6 @@ class Config:
 	USE_FLASK_CORS = int(environ.get('USE_FLASK_CORS'))
 	USE_FLASK_COMPRESS = int(environ.get('USE_FLASK_COMPRESS'))
 
-	API_AND_ADMIN_ONLY = int(environ.get('API_AND_ADMIN_ONLY'))
-
 	EMAIL_ERROR_REPORTS = int(environ.get('EMAIL_ERROR_REPORTS'))
 	EMAIL_ERROR_REPORTS_ADDRESSES = json.loads(environ.get('EMAIL_ERROR_REPORTS_ADDRESSES'))
 
@@ -85,7 +83,12 @@ class Config:
 
 	# modules url prefixes
 	API_URL_PREFIX = '/ls/api/'
-	COMMERCE_URL_PREFIX = '/commerce'
+	COMMERCE_URL_PREFIX = environ.get('COMMERCE_URL_PREFIX')
+
+	API_AND_ADMIN_ONLY = int(environ.get('API_AND_ADMIN_ONLY'))
+	
+	# works if commerce_url_prefix is null
+	SHOW_LANDING_PAGE_ON_ROOT = int(environ.get('SHOW_LANDING_PAGE_ON_ROOT'))
 	# / module url prefixes /
 
 	# default language for session

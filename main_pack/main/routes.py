@@ -29,7 +29,7 @@ def set_theme(theme=None):
 	return jsonify({'respone':'theme changed'}),200
 
 
-@bp.route("/")
+@bp.route("/" if Config.SHOW_LANDING_PAGE_ON_ROOT and not Config.COMMERCE_URL_PREFIX else "/commercial")
 def main():
 	division = Division.query.filter_by(DivGuid = Config.C_MAIN_DIVGUID, GCRecord = None).first()
 	DivId = division.DivId if division else 1
