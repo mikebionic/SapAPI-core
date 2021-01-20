@@ -107,7 +107,7 @@ def reset_request():
 
 	form = RequestResetForm()
 	if form.validate_on_submit():
-		user = Rp_acc.query.filter_by(RpAccUEmail = form.email.data, GCRecord = None).first()
+		user = Rp_acc.query.filter_by(RpAccEMail = form.email.data, GCRecord = None).first()
 
 		send_reset_email(user, model_type="rp_acc")
 		flash(lazy_gettext('An email has been sent with instructions to reset your password'),'info')
@@ -197,7 +197,7 @@ def register_token(token):
 
 			check_registration = Rp_acc.query\
 				.filter_by(
-					RpAccUEmail = email,
+					RpAccEMail = email,
 					RpAccUName = username,
 					GCRecord = None)\
 				.first()
@@ -222,7 +222,7 @@ def register_token(token):
 				"RpAccId": RpAccId,
 				"RpAccGuid": uuid.uuid4(),
 				"RpAccUName": username,
-				"RpAccUEmail": RpAccUEmail,
+				"RpAccEMail": RpAccEMail,
 				"RpAccUPass": password,
 				"RpAccName": form.full_name.data,
 				"RpAccRegNo": regNo,

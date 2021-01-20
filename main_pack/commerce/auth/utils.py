@@ -32,10 +32,10 @@ def ui_admin_required(f):
 def send_reset_email(user, model_type="rp_acc"):
 	url = 'commerce_auth.reset_token'
 	token = user.get_reset_token()
-	email = user.RpAccUEmail if model_type == "rp_acc" else user.UEmail
+	email = user.RpAccEMail if model_type == "rp_acc" else user.UEmail
 	msg = Message(gettext('Password reset request'), sender='noterply@demo.com', recipients=[email])
 	msg.body = f'''{gettext('To reset your password, visit the following link')}:
-	{url_for(url,token=token,_external=True)}
+	{url_for(url, token=token, _external=True)}
 	{gettext('If you did not make this request then simply ignore this email')}. 
 	'''
 	mail.send(msg)

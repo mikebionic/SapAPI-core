@@ -30,7 +30,7 @@ class RequestRegistrationForm(FlaskForm):
 			raise ValidationError(lazy_gettext('That username is taken. Choose a different one!'))
 
 	def validate_email(self, email):
-		user = Rp_acc.query.filter_by(RpAccUEmail = email.data, GCRecord = None).first()
+		user = Rp_acc.query.filter_by(RpAccEMail = email.data, GCRecord = None).first()
 		if user:
 			flash(lazy_gettext('That email is taken. Choose a different one!'), 'warning')
 			raise ValidationError(lazy_gettext('That email is taken. Choose a different one!'))
@@ -67,7 +67,7 @@ class RequestResetForm(FlaskForm):
 	submit = SubmitField(lazy_gettext('Request Password Reset'))
 
 	def validate_email(self,email):
-		user = Rp_acc.query.filter_by(RpAccUEmail = email.data).first()
+		user = Rp_acc.query.filter_by(RpAccEMail = email.data).first()
 		if user is None:
 			raise ValidationError(lazy_gettext('The profile of that email not found! Please register fist.'))
 
