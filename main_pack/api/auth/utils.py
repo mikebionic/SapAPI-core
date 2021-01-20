@@ -25,13 +25,13 @@ def token_required(f):
 			data = jwt.decode(token, Config.SECRET_KEY)
 
 			if 'UId' in data:
-				model_type = 'Users'
+				model_type = 'user'
 				current_user = Users.query\
 					.filter_by(GCRecord = None, UId = data['UId'])\
 					.first()
 
 			elif 'RpAccId' in data:
-				model_type = 'Rp_acc'
+				model_type = 'rp_acc'
 				current_user = Rp_acc.query\
 					.filter_by(GCRecord = None, RpAccId = data['RpAccId'])\
 					.first()

@@ -14,8 +14,8 @@ from main_pack.commerce.auth.forms import AdminLoginForm
 
 @bp.route("/admin/login",methods=['GET','POST'])
 def admin_login():
-	if (current_user.is_authenticated and "user_type" in session):
-		if (session["user_type"] == "user" and current_user.is_admin):
+	if (current_user.is_authenticated and "model_type" in session):
+		if (session["model_type"] == "user" and current_user.is_admin):
 			return redirect(url_for('commerce_admin.dashboard'))
 
 	form = AdminLoginForm()
@@ -44,7 +44,7 @@ def admin_login():
 			except Exception as ex:
 				print(f"{datetime.now()} | User activity info update Exception: {ex}")
 
-			session["user_type"] = "user"
+			session["model_type"] = "user"
 			login_user(user, remember = form.remember.data)
 			next_page = request.args.get('next')
 			return redirect(next_page) if next_page else redirect(url_for('commerce_admin.dashboard'))

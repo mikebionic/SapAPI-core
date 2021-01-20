@@ -11,13 +11,13 @@ from main_pack.base.dataMethods import apiDataFormat
 
 @login_manager.user_loader
 def load_user(id):
-	if (not "user_type" in session):
+	if (not "model_type" in session):
 		return None
 
-	if (session["user_type"] == "user"):
+	if (session["model_type"] == "user"):
 		return Users.query.get(int(id))
 
-	elif (session["user_type"] == "rp_acc"):
+	elif (session["model_type"] == "rp_acc"):
 		return Rp_acc.query.get(int(id))
 
 	return None

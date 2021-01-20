@@ -13,14 +13,14 @@ def ui_admin_required(f):
 	@wraps(f)
 	def decorated(*args, **kwargs):
 
-		if (not current_user or not "user_type" in session):
+		if (not current_user or not "model_type" in session):
 			try:
 				return redirect(url_for('commerce_auth.login'))
 
 			except:
 				return redirect(url_for('commerce_auth.admin_login'))
 
-		if (session["user_type"] != "user" or not current_user.is_admin()):
+		if (session["model_type"] != "user" or not current_user.is_admin()):
 			# flash(lazy_gettext('You do not have access to that page!'), 'danger')
 			return redirect(url_for('commerce.commerce'))
 
@@ -29,10 +29,10 @@ def ui_admin_required(f):
 	return decorated
 
 
-def send_reset_email(user, user_type="rp_acc"):
+def send_reset_email(user, model_type="rp_acc"):
 	url = 'commerce_auth.reset_token'
 	token = user.get_reset_token()
-	email = user.RpAccUEmail if user_type == "rp_acc" else user.UEmail
+	email = user.RpAccUEmail if model_type == "rp_acc" else user.UEmail
 	msg = Message(gettext('Password reset request'), sender='noterply@demo.com', recipients=[email])
 	msg.body = f'''{gettext('To reset your password, visit the following link')}:
 	{url_for(url,token=token,_external=True)}

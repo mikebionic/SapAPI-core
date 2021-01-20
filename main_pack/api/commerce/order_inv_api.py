@@ -230,9 +230,11 @@ def api_order_invoices():
 @sha_required
 def api_order_invoice_info(OInvRegNo):
 	invoice_list = [{"OInvRegNo": OInvRegNo}]
+
 	res = apiOrderInvInfo(
 		invoice_list = invoice_list,
 		single_object = True)
+
 	status_code = 200
 	response = make_response(jsonify(res), status_code)
 	return response
@@ -246,13 +248,14 @@ def api_order_invoice_info(OInvRegNo):
 def api_v_order_invoices(user):
 	startDate = request.args.get("startDate",None,type=str)
 	endDate = request.args.get("endDate",datetime.now())
-	model_type = user['model_type']
 	current_user = user['current_user']
+
 	res = apiOrderInvInfo(
 		startDate = startDate,
 		endDate = endDate,
 		show_inv_line_resource = True,
 		rp_acc_user = current_user)
+
 	status_code = 200
 	response = make_response(jsonify(res), status_code)
 	return response
@@ -261,7 +264,6 @@ def api_v_order_invoices(user):
 @api.route("/v-order-invoices/paginate/",methods=['GET'])
 @token_required
 def api_v_order_invoices_paginate(user):
-	model_type = user['model_type']
 	current_user = user['current_user']
 	startDate = request.args.get("startDate",None,type=str)
 	endDate = request.args.get("endDate",datetime.now())
@@ -295,17 +297,19 @@ def api_v_order_invoices_paginate(user):
 @api.route("/v-order-invoices/<OInvRegNo>/",methods=['GET'])
 @token_required
 def api_v_order_invoice(user,OInvRegNo):
-	model_type = user['model_type']
 	current_user = user['current_user']
 	invoice_list = [{"OInvRegNo": OInvRegNo}]
+
 	res = apiOrderInvInfo(
 		invoice_list = invoice_list,
 		single_object = True,
 		show_inv_line_resource = True,
 		rp_acc_user = current_user)
+
 	if res['status'] == 1:
 		status_code = 200
 	else:
 		status_code = 404
+
 	response = make_response(jsonify(res), status_code)
 	return response

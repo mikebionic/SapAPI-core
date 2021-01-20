@@ -49,7 +49,7 @@ def api_checkout_sale_order_invoices(user):
 		.filter_by(GCRecord = None, WpIsDefault = True)\
 		.first()
 	# !!! current user is rp_acc if type is rp_acc
-	if model_type == 'Rp_acc':
+	if model_type == "rp_acc":
 		name = current_user.RpAccUName
 		RpAccId = current_user.RpAccId
 		DivId = current_user.DivId

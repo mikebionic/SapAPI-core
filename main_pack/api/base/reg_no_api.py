@@ -20,7 +20,7 @@ def api_gen_reg_no(user):
 	current_user = user['current_user']
 	try:
 		# !!! current user is rp_acc if type is rp_acc
-		if model_type=='Rp_acc':
+		if model_type == "rp_acc":
 			name = current_user.RpAccUName
 			RpAccId = current_user.RpAccId
 			# get the seller's user information of a specific rp_acc

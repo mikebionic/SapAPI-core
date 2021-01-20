@@ -4,7 +4,7 @@ from sqlalchemy.orm import joinedload
 
 from main_pack.base.languageMethods import dataLangSelector
 from main_pack.base.apiMethods import fileToURL
-from main_pack.base.dataMethods import configureNulls,configureFloat,boolCheck
+from main_pack.base.dataMethods import configureNulls, configureFloat, boolCheck
 
 
 def addUsersDict(req):
@@ -172,7 +172,7 @@ def addRpAccDict(req):
 from main_pack.models.base.models import Image
 from main_pack.models.commerce.models import Resource
 from main_pack.base.apiMethods import fileToURL
-from main_pack.models.users.models import Users,Rp_acc,User_type
+from main_pack.models.users.models import Users, Rp_acc, User_type
 from sqlalchemy import and_
 
 

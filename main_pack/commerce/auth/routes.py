@@ -57,7 +57,7 @@ def login():
 			except Exception as ex:
 				print(f"{datetime.now()} | Rp_acc activity info update Exception: {ex}")
 
-			session["user_type"] = "rp_acc"
+			session["model_type"] = "rp_acc"
 			login_user(user, remember=form.remember.data)
 			next_page = request.args.get("next")
 
@@ -84,8 +84,8 @@ def logout():
 @bp.route("/resetPassword", methods=['GET','POST'])
 def reset_request():
 	categoryData = UiCategoriesList()
-	if (current_user.is_authenticated and "user_type" in session):
-		if session["user_type"] == "rp_acc":
+	if (current_user.is_authenticated and "model_type" in session):
+		if session["model_type"] == "rp_acc":
 			form = ResetPasswordForm()
 
 			if form.validate_on_submit():
@@ -109,7 +109,7 @@ def reset_request():
 	if form.validate_on_submit():
 		user = Rp_acc.query.filter_by(RpAccUEmail = form.email.data, GCRecord = None).first()
 
-		send_reset_email(user, user_type="rp_acc")
+		send_reset_email(user, model_type="rp_acc")
 		flash(lazy_gettext('An email has been sent with instructions to reset your password'),'info')
 
 		return redirect(url_for('commerce_auth.login'))
@@ -153,8 +153,8 @@ def reset_token(token):
 
 @bp.route("/register",methods=['GET','POST'])
 def register():
-	if (current_user.is_authenticated and "user_type" in session):
-		if session["user_type"] == "rp_acc":
+	if (current_user.is_authenticated and "model_type" in session):
+		if session["model_type"] == "rp_acc":
 			return redirect(url_for('commerce.commerce'))
 
 	form = RequestRegistrationForm()
@@ -173,8 +173,8 @@ def register():
 
 @bp.route("/register/<token>",methods=['GET','POST'])
 def register_token(token):
-	if (current_user.is_authenticated and "user_type" in session):
-		if session["user_type"] == "rp_acc":
+	if (current_user.is_authenticated and "model_type" in session):
+		if session["model_type"] == "rp_acc":
 			return redirect(url_for('commerce.commerce'))
 
 	new_user = verify_register_token(token)
@@ -235,7 +235,7 @@ def register_token(token):
 			db.session.commit()
 
 			flash(f"{username}, {lazy_gettext('your profile has been created!')}",'success')
-			session["user_type"] = "rp_acc"
+			session["model_type"] = "rp_acc"
 			login_user(user)
 			return redirect(url_for('commerce.commerce'))
 

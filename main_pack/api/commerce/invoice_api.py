@@ -148,8 +148,10 @@ def api_invoices():
 @sha_required
 def api_invoice_info(InvRegNo):
 	invoice_list = [{"InvRegNo": InvRegNo}]
-	res = apiInvInfo(invoice_list=invoice_list,
-									single_object=True)
+	res = apiInvInfo(
+		invoice_list = invoice_list,
+		single_object = True)
+
 	status_code = 200
 	response = make_response(jsonify(res), status_code)
 	return response
@@ -162,12 +164,14 @@ def api_invoice_info(InvRegNo):
 def api_v_invoices(user):
 	startDate = request.args.get("startDate",None,type=str)
 	endDate = request.args.get("endDate",datetime.now())
-	model_type = user['model_type']
 	current_user = user['current_user']
-	res = apiInvInfo(startDate=startDate,
-									endDate=endDate,
-									rp_acc_user=current_user)
+	res = apiInvInfo(
+		startDate = startDate,
+		endDate = endDate,
+		rp_acc_user = current_user)
+
 	status_code = 200
+
 	response = make_response(jsonify(res), status_code)
 	return response
 
@@ -175,15 +179,17 @@ def api_v_invoices(user):
 @api.route("/v-invoices/<InvRegNo>/",methods=['GET'])
 @token_required
 def api_v_invoice(user,InvRegNo):
-	model_type = user['model_type']
 	current_user = user['current_user']
 	invoice_list = [{"InvRegNo": InvRegNo}]
-	res = apiInvInfo(invoice_list=invoice_list,
-									single_object=True,
-									rp_acc_user=current_user)
+	res = apiInvInfo(
+		invoice_list = invoice_list,
+		single_object = True,
+		rp_acc_user = current_user)
+
 	if res['status'] == 1:
 		status_code = 200
 	else:
 		status_code = 404
+
 	response = make_response(jsonify(res), status_code)
 	return response
