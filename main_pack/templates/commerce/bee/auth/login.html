@@ -3,12 +3,13 @@
 {% block content %}
 
 <!-- Login Section Start -->
+
 <div class="login-section section mt-90 mb-90">
 	<div class="container">
 		<div class="row">
 
 			<!-- Login -->
-			<div class="col-md-6 col-12 d-flex">
+			<div class="col-md-12 col-12 d-flex" style="justify-content: center;">
 				<div class="ee-login">
 
 					<h3>{{_('Login')}}</h3>
@@ -17,7 +18,7 @@
 					<!-- Login Form -->
 					<form action="#" method="post">
 						{{ form.csrf_token() }}
-						<div class="row">
+						<div class="row" >
 							<div class="col-12 mb-30">
 								{{ form.email(class="input", placeholder=_('Email address')) }}
 							</div>
@@ -28,17 +29,14 @@
 									</i>
 								</span> 
 							</div>
-							<div class="col-12"><input type="submit"></div>
+							<div class="col-6"><input type="submit"></div>
 						</div>
+						<h4>{{_('Don’t have account?')}} <a href="{{ url_for('commerce_auth.register') }}">{{_('Register')}}</a></h4>
+						<h4>{{_('Forgot your password?')}} <a href="{{ url_for('commerce_auth.reset_request') }}">{{_('Reset password')}}</a></h4>
 					</form>
-					<h4>{{_('Don’t have account?')}} <a href="{{ url_for('commerce_auth.register') }}">{{_('Register')}}</a></h4>
-					<h4>{{_('Forgot your password?')}} <a href="{{ url_for('commerce_auth.reset_request') }}">{{_('Reset password')}}</a></h4>
 				</div>
 			</div>
 
-			<div class="col-md-1 col-12 d-flex">
-				<div class="login-reg-vertical-boder"></div>
-			</div>
 
 		</div>
 	</div>

@@ -10728,13 +10728,22 @@ img.mfp-img {
   float: left; }
   .ee-login form input {
     width: 100%;
-    border: 1px solid #999999;
+    /* border: 1px solid #999999; */
     line-height: 28px;
-    border-radius: 50px;
+    border-left: none;
+    border-top: none;
+    border-right: none;
+    /* border-radius: 50px; */
+    border-bottom: 2px solid #dbdbdb;
     padding: 10px 30px;
     color: #444444;
     font-size: 14px;
-    background-color: transparent; }
+    background-color: white;
+  }
+  input:-internal-autofill-selected {
+    background-color: #fff;
+  }
+
     .ee-login form input[type="submit"] {
       font-size: 16px;
       line-height: 25px;
@@ -12909,4 +12918,7 @@ ul.link-widget li {
   .header-logo img {
     width: 52px;
   }
+}
+.fa-eye{
+  color: #999999
 }
