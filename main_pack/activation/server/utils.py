@@ -1,4 +1,4 @@
-from flask import request
+from flask import request, jsonify
 from functools import wraps
 
 from main_pack.config import Config

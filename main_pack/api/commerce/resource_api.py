@@ -9,8 +9,12 @@ from main_pack import db
 from main_pack.api.commerce import api
 
 from main_pack.models.base.models import Company, Division
-from main_pack.models.commerce.models import Resource, Barcode, Res_category
-
+from main_pack.models.commerce.models import (
+	Resource,
+	Barcode,
+	Res_category,
+	Brand
+)
 from main_pack.api.commerce.utils import addResourceDict, addBarcodeDict
 from main_pack.base.apiMethods import checkApiResponseStatus
 from main_pack.api.auth.utils import sha_required
@@ -94,6 +98,24 @@ def api_tbl_dk_resources():
 			resource_info = addResourceDict(resource_req)
 
 			# special syncronizer method 
+			# BrandName is resource's AddInf1
+			BrandName = resource_info["AddInf1"]
+			if BrandName:
+				try:
+					thisBrand = Brand.query\
+						.filter_by(GCRecord = None, BrandName = BrandName)\
+						.first()
+
+					if not thisBrand:
+						thisBrand = Brand(BrandName = BrandName)
+						db.session.add(thisBrand)
+						db.session.commit()
+
+					resource_info["BrandId"] = thisBrand.BrandId
+
+				except Exception as ex:
+					print(f"{datetime.now()} | Resource Api Brand creation Exception: {ex}")
+
 			# ResCatName is resource's AddInf2
 			ResCatName = resource_info["AddInf2"]
 			if ResCatName:
@@ -101,12 +123,14 @@ def api_tbl_dk_resources():
 					thisCategory = Res_category.query\
 						.filter_by(GCRecord = None, ResCatName = ResCatName)\
 						.first()
+
 					if not thisCategory:
 						thisCategory = Res_category(ResCatName = ResCatName)
 						db.session.add(thisCategory)
 						db.session.commit()
 					
 					resource_info["ResCatId"] = thisCategory.ResCatId
+
 				except Exception as ex:
 					print(f"{datetime.now()} | Resource Api Res_cateogry creation Exception: {ex}")
 			# / special synchronizer method /

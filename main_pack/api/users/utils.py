@@ -213,6 +213,9 @@ def addDeviceDict(req):
 		"ModifiedUId": ModifiedUId,
 		"GCRecord": GCRecord
 	}
+
+	# RpAccId shouldn't merge, but should be relatively taken
+	json_data["RpAccId"] = None
 	return json_data
 	
 

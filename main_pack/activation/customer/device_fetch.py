@@ -27,8 +27,6 @@ def fetch_device(user):
 
 	database = Db_inf.query.first()
 	db_guid = database.DbInfGuid
-	print("CLIENT CODE")
-	print(db_guid)
 
 	r = requests.get(
 		f"{Config.SAP_SERVICE_URL}/devices/fetch/?uuid={db_guid}",
@@ -62,14 +60,10 @@ def fetch_device(user):
 				current_server_device = current_server_device[0]
 				device_info = addDeviceDict(current_server_device)
 				device.update(**device_info)
-				service_devices.pop(current_server_device)
+				service_devices.pop(service_devices.index(current_server_device))
 
 			else:
 				device.IsAllowed = False
-				# db.session.commit()
-				print("!! check that a device now disallowed ")
-				print(device)
-				print('------------')
 				untracked_devices.append(device.to_json_api())
 				# # !!! TODO: sycnhronise untracked with main server
 				# r = requests.post(
@@ -82,8 +76,6 @@ def fetch_device(user):
 
 
 		if service_devices:
-			print("adding devices")
-			print(service_devices)
 			for device in service_devices:
 				device_info = addDeviceDict(device)
 				thisDevice = Device(**device_info)
@@ -106,4 +98,4 @@ def fetch_device(user):
 	}
 	response = make_response(jsonify(res), 200)
 
-	return responses
+	return response

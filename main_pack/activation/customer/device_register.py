@@ -6,6 +6,7 @@ from datetime import datetime
 from . import api
 from main_pack import db
 from main_pack.config import Config
+from main_pack.api.users.utils import addDeviceDict
 from main_pack.api.base.validators import request_is_json
 from main_pack.models.users.models import Device
 
@@ -43,7 +44,7 @@ def register_device():
 
 			if (r.status_code == 200 or r.status_code == 201):
 				if server_response["status"] != 0:
-					data = server_response["data"]
+					data = addDeviceDict(server_response["data"])
 
 					try:
 						thisDevice = Device(**data)

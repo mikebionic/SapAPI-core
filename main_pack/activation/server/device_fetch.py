@@ -27,27 +27,22 @@ def fetch_device():
 		allowed_device_qty = rp_acc.DeviceQty
 		unused_device_qty = rp_acc.UnusedDeviceQty
 
-		allowed_devices = [device for device in rp_acc.Device if rp_acc.Device.IsAllowed not rp_acc.Device.GCRecord]
-		print("server code!!!")
-		print(allowed_devices)
-
+		allowed_devices = [device for device in rp_acc.Device if device.IsAllowed and not device.GCRecord]
 		# !!! TODO: Add validation time and key update
 
 		while (len(allowed_devices) > allowed_device_qty):
 			forbidding_device = allowed_devices.pop()
-			print('forbidding_device')
-			print(forbidding_device.DevUniqueId)
 			forbidding_device.IsAllowed = False
 
 		db.session.commit()
 
-		print("prining devicesss")
-		devices = [device.to_json_api() for device in rp_acc.Device if not rp_acc.Device.GCRecord]
-		print(devices)
-		dev = Device.query.filter_by(GCRecord = None).all()
-		devs = [dev.to_json_api() for dev in devs]
-		print(devs)
+		# Careful with values, tests showed that updates values return
+		devices = [device.to_json_api() for device in rp_acc.Device if not device.GCRecord]
 		unused_device_qty = allowed_device_qty - len(allowed_devices)
+
+		if rp_acc.UnusedDeviceQty != unused_device_qty:
+			rp_acc.UnusedDeviceQty = unused_device_qty
+			db.session.commit()
 
 		data = {
 			"DbGuid": db_guid,
