@@ -13,7 +13,7 @@ from flask_cors import CORS
 from flask_caching import Cache
 from flask_compress import Compress
 import logging
-# from logging.handlers import SMTPHandler
+from logging.handlers import SMTPHandler
 
 from main_pack.config import Config
 

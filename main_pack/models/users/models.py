@@ -24,7 +24,7 @@ def load_user(id):
 
 
 class Users(AddInf,CreatedModifiedInfo,db.Model,UserMixin):
-	__tablename__="tbl_dk_users"
+	__tablename__ = "tbl_dk_users"
 	UId = db.Column("UId",db.Integer,nullable=False,primary_key=True)
 	UGuid = db.Column("UGuid",UUID(as_uuid=True),unique=True)
 	CId = db.Column("CId",db.Integer,db.ForeignKey("tbl_dk_company.CId"))
@@ -106,7 +106,7 @@ class Users(AddInf,CreatedModifiedInfo,db.Model,UserMixin):
 
 
 class User_type(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_user_type"
+	__tablename__ = "tbl_dk_user_type"
 	UTypeId = db.Column("UTypeId",db.Integer,nullable=False,primary_key=True)
 	UTypeName_tkTM = db.Column("UTypeName_tkTM",db.String(50))#,nullable=False)
 	UTypeDesc_tkTM = db.Column("UTypeDesc_tkTM",db.String(500))
@@ -136,7 +136,7 @@ class User_type(CreatedModifiedInfo,db.Model):
 
 
 class Rp_acc(AddInf,CreatedModifiedInfo,db.Model,UserMixin):
-	__tablename__="tbl_dk_rp_acc"
+	__tablename__ = "tbl_dk_rp_acc"
 	RpAccId = db.Column("RpAccId",db.Integer,nullable=False,primary_key=True)
 	RpAccGuid = db.Column("RpAccGuid",UUID(as_uuid=True),unique=True)
 	CId = db.Column("CId",db.Integer,db.ForeignKey("tbl_dk_company.CId"))
@@ -278,7 +278,7 @@ class Rp_acc(AddInf,CreatedModifiedInfo,db.Model,UserMixin):
 
 
 class Rp_acc_status(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_rp_acc_status"
+	__tablename__ = "tbl_dk_rp_acc_status"
 	RpAccStatusId = db.Column("RpAccStatusId",db.Integer,nullable=False,primary_key=True)
 	RpAccStatusName_tkTM = db.Column("RpAccStatusName_tkTM",db.String(100),nullable=False)
 	RpAccStatusDesc_tkTM = db.Column("RpAccStatusDesc_tkTM",db.String(500))
@@ -308,7 +308,7 @@ class Rp_acc_status(CreatedModifiedInfo,db.Model):
 
 
 class Rp_acc_type(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_rp_acc_type"
+	__tablename__ = "tbl_dk_rp_acc_type"
 	RpAccTypeId = db.Column("RpAccTypeId",db.Integer,nullable=False,primary_key=True)
 	RpAccTypeName_tkTM = db.Column("RpAccTypeName_tkTM",db.String(100),nullable=False)
 	RpAccTypeDesc_tkTM = db.Column("RpAccTypeDesc_tkTM",db.String(500))
@@ -338,7 +338,7 @@ class Rp_acc_type(CreatedModifiedInfo,db.Model):
 
 
 class Device(AddInf,CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_device"
+	__tablename__ = "tbl_dk_device"
 	DevId = db.Column("DevId",db.Integer,nullable=False,primary_key=True)
 	DevGuid = db.Column("DevGuid",UUID(as_uuid=True),unique=True)
 	DevUniqueId = db.Column("DevUniqueId",db.String(100),nullable=False)

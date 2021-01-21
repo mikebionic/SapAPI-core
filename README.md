@@ -19,7 +19,7 @@
 - [x] Relation database management
 - [x] Postgresql database support
 - [x] Redis session support
-- [ ] Redis db-cache support
+- [x] Redis db-cache support
 - [ ] Websockets support
 -----------------------------
 
@@ -28,7 +28,7 @@
 - [ ] Write admin client app
 - [x] Prevent 500 server errors
 - [x] Send Server errors by e-mail
-- [ ] Configure BCrypt usage toggler
+- [x] Configure BCrypt usage toggler
 - [ ] Reconfigure app and separate API with UI
 	- [ ] Build separate Repo for API
 	- [ ] Build separate Repo for UI
@@ -36,7 +36,7 @@
 	- [ ] Optimize app using NodeJs
 
 - [ ] Database updates:
-	- [ ] User's last logged in, device, etc
+	- [x] User's last logged in, device, etc
 	- [ ] App Configs migrated to db
 
 

@@ -6,7 +6,7 @@ from main_pack.models.base.models import CreatedModifiedInfo, AddInf
 
 
 class Employee(AddInf,CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_employee"
+	__tablename__ = "tbl_dk_employee"
 	EmpId = db.Column("EmpId",db.Integer,nullable=False,primary_key=True)
 	EmpGuid = db.Column("EmpGuid",UUID(as_uuid=True),unique=True)
 	CId = db.Column("CId",db.Integer,db.ForeignKey("tbl_dk_company.CId"))
@@ -134,7 +134,7 @@ class Employee(AddInf,CreatedModifiedInfo,db.Model):
 
 
 class Award(AddInf,CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_award"
+	__tablename__ = "tbl_dk_award"
 	AwardId = db.Column("AwardId",db.Integer,nullable=False,primary_key=True)
 	EmpId = db.Column("EmpId",db.Integer,db.ForeignKey("tbl_dk_employee.EmpId"))
 	AwardName = db.Column("AwardName",db.String(100),nullable=False)
@@ -157,7 +157,7 @@ class Award(AddInf,CreatedModifiedInfo,db.Model):
 
 
 class Contract_type(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_contract_type"
+	__tablename__ = "tbl_dk_contract_type"
 	ContractTypeId = db.Column("ContractTypeId",db.Integer,nullable=False,primary_key=True)
 	ContractTypeName_tkTM = db.Column("ContractTypeName_tkTM",db.String(100))
 	ContractTypeDesc_tkTM = db.Column("ContractTypeDesc_tkTM",db.String(100))
@@ -181,7 +181,7 @@ class Contract_type(CreatedModifiedInfo,db.Model):
 
 
 class Edu_level(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_edu_level"
+	__tablename__ = "tbl_dk_edu_level"
 	EduLevelId = db.Column("EduLevelId",db.Integer,nullable=False,primary_key=True)
 	EduLevelName_tkTM = db.Column("EduLevelName_tkTM",db.String(100))#nullable??
 	EduLevelDesc_tkTM = db.Column("EduLevelDesc_tkTM",db.String(500))
@@ -205,7 +205,7 @@ class Edu_level(CreatedModifiedInfo,db.Model):
 
 
 class Emp_status(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_emp_status"
+	__tablename__ = "tbl_dk_emp_status"
 	EmpStatId = db.Column("EmpStatId",db.Integer,nullable=False,primary_key=True)
 	EmpStatName_tkTM = db.Column("EmpStatName_tkTM",db.String(100))#,nullable=False)
 	EmpStatDesc_tkTM = db.Column("EmpStatDesc_tkTM",db.String(500))
@@ -229,7 +229,7 @@ class Emp_status(CreatedModifiedInfo,db.Model):
 
 
 class Nationality(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_nationality"
+	__tablename__ = "tbl_dk_nationality"
 	NatId = db.Column("NatId",db.Integer,nullable=False,primary_key=True)
 	NatName_tkTM = db.Column("NatName_tkTM",db.String(50))#,nullable=False)
 	NatDesc_tkTM = db.Column("NatDesc_tkTM",db.String(500))
@@ -254,7 +254,7 @@ class Nationality(CreatedModifiedInfo,db.Model):
 
 
 class Profession(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_profession"
+	__tablename__ = "tbl_dk_profession"
 	ProfessionId = db.Column("ProfessionId",db.Integer,nullable=False,primary_key=True)
 	ProfessionName_tkTM = db.Column("ProfessionName_tkTM",db.String(50))#,nullable=False)
 	ProfessionDesc_tkTM = db.Column("ProfessionDesc_tkTM",db.String(500))
@@ -278,7 +278,7 @@ class Profession(CreatedModifiedInfo,db.Model):
 
 
 class Rel_status(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_rel_status"
+	__tablename__ = "tbl_dk_rel_status"
 	RelStatId = db.Column("RelStatId",db.Integer,nullable=False,primary_key=True)
 	RelStatName_tkTM = db.Column("RelStatName_tkTM",db.String(50))#,nullable=False)
 	RelStatDesc_tkTM = db.Column("RelStatDesc_tkTM",db.String(500))
@@ -302,7 +302,7 @@ class Rel_status(CreatedModifiedInfo,db.Model):
 
 
 class Relatives(AddInf,CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_relatives"
+	__tablename__ = "tbl_dk_relatives"
 	RelId = db.Column("RelId",db.Integer,nullable=False,primary_key=True)
 	EmpId = db.Column("EmpId",db.Integer,db.ForeignKey("tbl_dk_employee.EmpId"))
 	RelStatId = db.Column("RelStatId",db.Integer,db.ForeignKey("tbl_dk_rel_status.RelStatId"))
@@ -335,7 +335,7 @@ class Relatives(AddInf,CreatedModifiedInfo,db.Model):
 
 
 class School(AddInf,CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_school"
+	__tablename__ = "tbl_dk_school"
 	SchoolId = db.Column("SchoolId",db.Integer,nullable=False,primary_key=True)
 	EmpId = db.Column("EmpId",db.Integer,db.ForeignKey("tbl_dk_employee.EmpId"))
 	SchoolTypeId = db.Column("SchoolTypeId",db.Integer,db.ForeignKey("tbl_dk_school_type.SchoolTypeId"))
@@ -368,7 +368,7 @@ class School(AddInf,CreatedModifiedInfo,db.Model):
 
 
 class School_type(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_school_type"
+	__tablename__ = "tbl_dk_school_type"
 	SchoolTypeId = db.Column("SchoolTypeId",db.Integer,nullable=False,primary_key=True)
 	SchoolTypeName_tkTM = db.Column("SchoolTypeName_tkTM",db.String(50))#,nullable=False)
 	SchoolTypeDesc_tkTM = db.Column("SchoolTypeDesc_tkTM",db.String(500))
@@ -380,7 +380,7 @@ class School_type(CreatedModifiedInfo,db.Model):
 
 # !!! changed
 class Visited_countries(AddInf,CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_visited_countries"
+	__tablename__ = "tbl_dk_visited_countries"
 	VCId = db.Column("VCId",db.Integer,nullable=False,primary_key=True)
 	EmpId = db.Column("EmpId",db.Integer,db.ForeignKey("tbl_dk_employee.EmpId"))
 	VCCountryName = db.Column("VCCountryName",db.String(50),nullable=False)
@@ -407,7 +407,7 @@ class Visited_countries(AddInf,CreatedModifiedInfo,db.Model):
 
 
 class Work_history(AddInf,CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_work_history"
+	__tablename__ = "tbl_dk_work_history"
 	WorkHistId = db.Column("WorkHistId",db.Integer,nullable=False,primary_key=True)
 	EmpId = db.Column("EmpId",db.Integer,db.ForeignKey("tbl_dk_employee.EmpId"))
 	WorkHistoryWorkPlace = db.Column("WorkHistoryWorkPlace",db.String(100),nullable=False)

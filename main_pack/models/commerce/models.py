@@ -147,7 +147,7 @@ class Color(CreatedModifiedInfo,db.Model):
 
 
 class Size(AddInf,CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_size"
+	__tablename__ = "tbl_dk_size"
 	SizeId = db.Column("SizeId",db.Integer,nullable=False,primary_key=True)
 	SizeName = db.Column("SizeName",db.String(100),nullable=False)
 	SizeDesc = db.Column("SizeDesc",db.String(500))
@@ -185,7 +185,7 @@ class Size(AddInf,CreatedModifiedInfo,db.Model):
 
 
 class Size_type(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_size_type"
+	__tablename__ = "tbl_dk_size_type"
 	SizeTypeId = db.Column("SizeTypeId",db.Integer,nullable=False,primary_key=True)
 	SizeTypeName = db.Column("SizeTypeName",db.String(100),nullable=False)
 	SizeTypeDesc = db.Column("SizeTypeDesc",db.String(500))
@@ -220,7 +220,7 @@ class Size_type(CreatedModifiedInfo,db.Model):
 
 
 class Unit(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_unit"
+	__tablename__ = "tbl_dk_unit"
 	UnitId = db.Column("UnitId",db.Integer,nullable=False,primary_key=True)
 	UnitName_tkTM = db.Column("UnitName_tkTM",db.String(100))
 	UnitDesc_tkTM = db.Column("UnitDesc_tkTM",db.String(100))
@@ -258,7 +258,7 @@ class Unit(CreatedModifiedInfo,db.Model):
 
 
 class Usage_status(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_usage_status"
+	__tablename__ = "tbl_dk_usage_status"
 	UsageStatusId = db.Column("UsageStatusId",db.Integer,nullable=False,primary_key=True)
 	UsageStatusName_tkTM = db.Column("UsageStatusName_tkTM",db.String(100))
 	UsageStatusDesc_tkTM = db.Column("UsageStatusDesc_tkTM",db.String(500))
@@ -290,7 +290,7 @@ class Usage_status(CreatedModifiedInfo,db.Model):
 ####### new models ###
 
 class Discount_type(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_discount_type"
+	__tablename__ = "tbl_dk_discount_type"
 	DiscTypeId = db.Column("DiscTypeId",db.Integer,nullable=False,primary_key=True)
 	DiscTypeName_tkTM = db.Column("DiscTypeName_tkTM",db.String(100),nullable=False)
 	DiscTypeDesc_tkTM = db.Column("DiscTypeDesc_tkTM",db.String(500))
@@ -301,7 +301,7 @@ class Discount_type(CreatedModifiedInfo,db.Model):
 	Res_discount = db.relationship("Res_discount",backref='discount_type',lazy=True)
 
 	def to_json_api(self):
-		json_data={
+		json_data = {
 			"DiscTypeId": self.DiscTypeId,
 			"DiscTypeName_tkTM": self.DiscTypeName_tkTM,
 			"DiscTypeDesc_tkTM": self.DiscTypeDesc_tkTM,
@@ -320,7 +320,7 @@ class Discount_type(CreatedModifiedInfo,db.Model):
 
 
 class Exc_rate(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_exc_rate"
+	__tablename__ = "tbl_dk_exc_rate"
 	ExcRateId = db.Column("ExcRateId",db.Integer,nullable=False,primary_key=True)
 	CurrencyId = db.Column("CurrencyId",db.Integer,db.ForeignKey("tbl_dk_currency.CurrencyId"))
 	ExcRateTypeId = db.Column("ExcRateTypeId",db.Integer,db.ForeignKey("tbl_dk_exc_rate_type.ExcRateTypeId"))
@@ -334,11 +334,11 @@ class Exc_rate(CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		json_data={
+		json_data = {
 			"ExcRateId": self.ExcRateId,
 			"CurrencyId": self.CurrencyId,
 			"ExcRateTypeId": self.ExcRateTypeId,
-			"ExcRateDate": self.ExcRateDate,
+			"ExcRateDate": apiDataFormat(self.ExcRateDate),
 			"ExcRateValue": self.ExcRateValue,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
@@ -351,7 +351,7 @@ class Exc_rate(CreatedModifiedInfo,db.Model):
 
 
 class Exc_rate_type(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_exc_rate_type"
+	__tablename__ = "tbl_dk_exc_rate_type"
 	ExcRateTypeId = db.Column("ExcRateTypeId",db.Integer,nullable=False,primary_key=True)
 	ExcRateTypeName = db.Column("ExcRateTypeName",db.String(100),nullable=False)
 	ExcRateTypeDesc = db.Column("ExcRateTypeDesc",db.String(500))
@@ -359,7 +359,7 @@ class Exc_rate_type(CreatedModifiedInfo,db.Model):
 	Exc_rate = db.relationship("Exc_rate",backref='exc_rate_type',lazy=True)
 
 	def to_json_api(self):
-		json_data={
+		json_data = {
 			"ExcRateTypeId": self.ExcRateTypeId,
 			"ExcRateTypeName": self.ExcRateTypeName,
 			"ExcRateTypeDesc": self.ExcRateTypeDesc,
@@ -375,7 +375,7 @@ class Exc_rate_type(CreatedModifiedInfo,db.Model):
 
 
 class Inv_line(AddInf,CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_inv_line"
+	__tablename__ = "tbl_dk_inv_line"
 	InvLineId = db.Column("InvLineId",db.Integer,nullable=False,primary_key=True)
 	InvLineGuid = db.Column("InvLineGuid",UUID(as_uuid=True),unique=True)
 	InvId = db.Column("InvId",db.Integer,db.ForeignKey("tbl_dk_invoice.InvId"))
@@ -438,7 +438,7 @@ class Inv_line(AddInf,CreatedModifiedInfo,db.Model):
 
 
 class Inv_line_det(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_inv_line_det"
+	__tablename__ = "tbl_dk_inv_line_det"
 	InvLineDetId = db.Column("InvLineDetId",db.Integer,nullable=False,primary_key=True)
 	InvLineId = db.Column("InvLineId",db.Integer,db.ForeignKey("tbl_dk_inv_line.InvLineId"))
 	InvLineDetTypeId = db.Column("InvLineDetTypeId",db.Integer,db.ForeignKey("tbl_dk_inv_line_det_type.InvLineDetTypeId"))
@@ -477,7 +477,7 @@ class Inv_line_det(CreatedModifiedInfo,db.Model):
 
 
 class Inv_line_det_type(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_inv_line_det_type"
+	__tablename__ = "tbl_dk_inv_line_det_type"
 	InvLineDetTypeId = db.Column("InvLineDetTypeId",db.Integer,nullable=False,primary_key=True)
 	InvLineDetTypeName_tkTM = db.Column("InvLineDetTypeName_tkTM",db.String(100),nullable=False)
 	InvLineDetTypeDesc_tkTM = db.Column("InvLineDetTypeDesc_tkTM",db.String(500))
@@ -507,7 +507,7 @@ class Inv_line_det_type(CreatedModifiedInfo,db.Model):
 
 
 class Inv_status(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_inv_status"
+	__tablename__ = "tbl_dk_inv_status"
 	InvStatId = db.Column("InvStatId",db.Integer,nullable=False,primary_key=True)
 	InvStatName_tkTM = db.Column("InvStatName_tkTM",db.String(100),nullable=False)
 	InvStatDesc_tkTM = db.Column("InvStatDesc_tkTM",db.String(500))
@@ -538,7 +538,7 @@ class Inv_status(CreatedModifiedInfo,db.Model):
 
 
 class Inv_type(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_inv_type"
+	__tablename__ = "tbl_dk_inv_type"
 	InvTypeId = db.Column("InvTypeId",db.Integer,nullable=False,primary_key=True)
 	InvTypeName_tkTM = db.Column("InvTypeName_tkTM",db.String(100),nullable=False)
 	InvTypeDesc_tkTM = db.Column("InvTypeDesc_tkTM",db.String(500))
@@ -568,7 +568,7 @@ class Inv_type(CreatedModifiedInfo,db.Model):
 
 
 class Invoice(AddInf,CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_invoice"
+	__tablename__ = "tbl_dk_invoice"
 	InvId = db.Column("InvId",db.Integer,nullable=False,primary_key=True)
 	InvGuid = db.Column("InvGuid",UUID(as_uuid=True),unique=True)
 	InvTypeId = db.Column("InvTypeId",db.Integer,db.ForeignKey("tbl_dk_inv_type.InvTypeId"))
@@ -653,7 +653,7 @@ class Invoice(AddInf,CreatedModifiedInfo,db.Model):
 
 
 class Order_inv(AddInf,CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_order_inv"
+	__tablename__ = "tbl_dk_order_inv"
 	OInvId = db.Column("OInvId",db.Integer,nullable=False,primary_key=True)
 	OInvGuid = db.Column("OInvGuid",UUID(as_uuid=True),unique=True)
 	OInvTypeId = db.Column("OInvTypeId",db.Integer,db.ForeignKey("tbl_dk_order_inv_type.OInvTypeId"))
@@ -745,7 +745,7 @@ class Order_inv(AddInf,CreatedModifiedInfo,db.Model):
 
 
 class Order_inv_line(AddInf,CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_order_inv_line"
+	__tablename__ = "tbl_dk_order_inv_line"
 	OInvLineId = db.Column("OInvLineId",db.Integer,nullable=False,primary_key=True)
 	OInvLineGuid = db.Column("OInvLineGuid",UUID(as_uuid=True),unique=True)
 	OInvId = db.Column("OInvId",db.Integer,db.ForeignKey("tbl_dk_order_inv.OInvId"))
@@ -806,7 +806,7 @@ class Order_inv_line(AddInf,CreatedModifiedInfo,db.Model):
 
 
 class Order_inv_type(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_order_inv_type"
+	__tablename__ = "tbl_dk_order_inv_type"
 	OInvTypeId = db.Column("OInvTypeId",db.Integer,nullable=False,primary_key=True)
 	OInvTypeName_tkTM = db.Column("OInvTypeName_tkTM",db.String(100),nullable=False)
 	OInvTypeDesc_tkTM = db.Column("OInvTypeDesc_tkTM",db.String(500))
@@ -842,7 +842,7 @@ class Order_inv_type(CreatedModifiedInfo,db.Model):
 
 
 class Payment_status(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_payment_status"
+	__tablename__ = "tbl_dk_payment_status"
 	PaymStatusId = db.Column("PaymStatusId",db.Integer,nullable=False,primary_key=True)
 	PaymStatusName_tkTM = db.Column("PaymStatusName_tkTM",db.String(100))
 	PaymStatusDesc_tkTM = db.Column("PaymStatusDesc_tkTM",db.String(500))
@@ -871,7 +871,7 @@ class Payment_status(CreatedModifiedInfo,db.Model):
 
 
 class Payment_method(AddInf,CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_payment_method"
+	__tablename__ = "tbl_dk_payment_method"
 	PmId = db.Column("PmId",db.Integer,nullable=False,primary_key=True)	
 	PmName = db.Column("PmName",db.String(100),nullable=False)
 	PmDesc = db.Column("PmDesc",db.String(500))
@@ -908,7 +908,7 @@ class Payment_method(AddInf,CreatedModifiedInfo,db.Model):
 
 
 class Payment_type(AddInf,CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_payment_type"
+	__tablename__ = "tbl_dk_payment_type"
 	PtId = db.Column("PtId",db.Integer,nullable=False,primary_key=True)
 	PtName = db.Column("PtName",db.String(100),nullable=False)
 	PtDesc = db.Column("PtDesc",db.String(500))
@@ -945,7 +945,7 @@ class Payment_type(AddInf,CreatedModifiedInfo,db.Model):
 
 
 class Representative(AddInf,CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_representative"
+	__tablename__ = "tbl_dk_representative"
 	ReprId = db.Column("ReprId",db.Integer,nullable=False,primary_key=True)
 	ReprStatusId = db.Column("ReprStatusId",db.Integer,nullable=False,default=1)
 	CId = db.Column("CId",db.Integer,db.ForeignKey("tbl_dk_company.CId"))
@@ -976,7 +976,7 @@ class Representative(AddInf,CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		json_data={
+		json_data = {
 			"ReprId": self.ReprId,
 			"ReprStatusId": self.ReprStatusId,
 			"CId": self.CId,
@@ -1015,7 +1015,7 @@ class Representative(AddInf,CreatedModifiedInfo,db.Model):
 
 
 class Resource(AddInf,CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_resource"
+	__tablename__ = "tbl_dk_resource"
 	ResId = db.Column("ResId",db.Integer,nullable=False,primary_key=True)
 	ResGuid = db.Column("ResGuid",UUID(as_uuid=True),unique=True)
 	CId = db.Column("CId",db.Integer,db.ForeignKey("tbl_dk_company.CId"))
@@ -1151,7 +1151,7 @@ class Resource(AddInf,CreatedModifiedInfo,db.Model):
 
 
 class Res_category(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_res_category"
+	__tablename__ = "tbl_dk_res_category"
 	ResCatId = db.Column("ResCatId",db.Integer,nullable=False,primary_key=True)
 	ResOwnerCatId = db.Column("ResOwnerCatId",db.Integer,db.ForeignKey("tbl_dk_res_category.ResCatId"))
 	ResCatVisibleIndex = db.Column("ResCatVisibleIndex",db.Integer,default=0)
@@ -1205,7 +1205,7 @@ class Res_category(CreatedModifiedInfo,db.Model):
 
 
 class Res_maker(AddInf,CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_res_maker"
+	__tablename__ = "tbl_dk_res_maker"
 	ResMakerId = db.Column("ResMakerId",db.Integer,nullable=False,primary_key=True)
 	ResMakerName = db.Column("ResMakerName",db.String(100),nullable=False)
 	ResMakerDesc = db.Column("ResMakerDesc",db.String(500))
@@ -1222,7 +1222,7 @@ class Res_maker(AddInf,CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		json_data={
+		json_data = {
 			"ResMakerId": self.ResMakerId,
 			"ResMakerName": self.ResMakerName,
 			"ResMakerDesc": self.ResMakerDesc,
@@ -1287,7 +1287,7 @@ class Res_size(CreatedModifiedInfo,db.Model):
 
 
 class Res_discount(AddInf,CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_res_discount"
+	__tablename__ = "tbl_dk_res_discount"
 	ResDiscId = db.Column("ResDiscId",db.Integer,nullable=False,primary_key=True)
 	SaleCardId = db.Column("SaleCardId",db.Integer,db.ForeignKey("tbl_dk_sale_card.SaleCardId"))
 	ResDiscRegNo = db.Column("ResDiscRegNo",db.String(100),nullable=False)
@@ -1311,7 +1311,7 @@ class Res_discount(AddInf,CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		json_data={
+		json_data = {
 			"ResDiscId": self.ResDiscId,
 			"SaleCardId": self.SaleCardId,
 			"ResDiscRegNo": self.ResDiscRegNo,
@@ -1343,7 +1343,7 @@ class Res_discount(AddInf,CreatedModifiedInfo,db.Model):
 
 
 class Res_price(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_res_price"
+	__tablename__ = "tbl_dk_res_price"
 	ResPriceId = db.Column("ResPriceId",db.Integer,nullable=False,primary_key=True)
 	ResPriceTypeId = db.Column("ResPriceTypeId",db.Integer,db.ForeignKey("tbl_dk_res_price_type.ResPriceTypeId"))
 	ResPriceGroupId = db.Column("ResPriceGroupId",db.Integer,db.ForeignKey("tbl_dk_res_price_group.ResPriceGroupId"))
@@ -1399,7 +1399,7 @@ class Res_price(CreatedModifiedInfo,db.Model):
 
 
 class Res_price_group(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_res_price_group"
+	__tablename__ = "tbl_dk_res_price_group"
 	ResPriceGroupId = db.Column("ResPriceGroupId",db.Integer,nullable=False,primary_key=True)
 	UsageStatusId = db.Column("UsageStatusId",db.Integer,db.ForeignKey("tbl_dk_usage_status.UsageStatusId"))
 	ResPriceGroupName = db.Column("ResPriceGroupName",db.String(100),nullable=False)
@@ -1422,7 +1422,7 @@ class Res_price_group(CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		json_data={
+		json_data = {
 			"ResPriceGroupId": self.ResPriceGroupId,
 			"UsageStatusId": self.UsageStatusId,
 			"ResPriceGroupName": self.ResPriceGroupName,
@@ -1443,7 +1443,7 @@ class Res_price_group(CreatedModifiedInfo,db.Model):
 
 
 class Res_price_type(AddInf,CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_res_price_type"
+	__tablename__ = "tbl_dk_res_price_type"
 	ResPriceTypeId = db.Column("ResPriceTypeId",db.Integer,nullable=False,primary_key=True)
 	ResPriceTypeName_tkTM = db.Column("ResPriceTypeName_tkTM",db.String(100),nullable=False)
 	ResPriceTypeDesc_tkTM = db.Column("ResPriceTypeDesc_tkTM",db.String(500))
@@ -1458,7 +1458,7 @@ class Res_price_type(AddInf,CreatedModifiedInfo,db.Model):
 	Sale_agr_res_price = db.relationship("Sale_agr_res_price",backref='res_price_type',lazy=True)
 
 	def to_json_api(self):
-		json_data={
+		json_data = {
 			"ResPriceTypeId": self.ResPriceTypeId,
 			"ResPriceTypeName_tkTM": self.ResPriceTypeName_tkTM,
 			"ResPriceTypeDesc_tkTM": self.ResPriceTypeDesc_tkTM,
@@ -1483,7 +1483,7 @@ class Res_price_type(AddInf,CreatedModifiedInfo,db.Model):
 
 
 class Res_price_rule(AddInf,CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_res_price_rule"
+	__tablename__ = "tbl_dk_res_price_rule"
 	RprId = db.Column("RprId",db.Integer,nullable=False,primary_key=True)
 	UsageStatusId = db.Column("UsageStatusId",db.Integer,db.ForeignKey("tbl_dk_usage_status.UsageStatusId"))
 	ResId = db.Column("ResId",db.Integer,db.ForeignKey("tbl_dk_resource.ResId"))
@@ -1498,7 +1498,7 @@ class Res_price_rule(AddInf,CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		json_data={
+		json_data = {
 			"RprId": self.RprId,
 			"UsageStatusId": self.UsageStatusId,
 			"ResId": self.ResId,
@@ -1522,7 +1522,7 @@ class Res_price_rule(AddInf,CreatedModifiedInfo,db.Model):
 
 
 class Res_total(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_res_total"
+	__tablename__ = "tbl_dk_res_total"
 	ResTotId = db.Column("ResTotId",db.Integer,nullable=False,primary_key=True)
 	ResId = db.Column("ResId",db.Integer,db.ForeignKey("tbl_dk_resource.ResId"))
 	CurrencyId = db.Column("CurrencyId",db.Integer,db.ForeignKey("tbl_dk_currency.CurrencyId"))
@@ -1569,7 +1569,7 @@ class Res_total(CreatedModifiedInfo,db.Model):
 
 
 class Res_trans_inv(AddInf,CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_res_trans_inv"
+	__tablename__ = "tbl_dk_res_trans_inv"
 	ResTrInvId = db.Column("ResTrInvId",db.Integer,nullable=False,primary_key=True)
 	ResTrInvTypeId = db.Column("ResTrInvTypeId",db.Integer,db.ForeignKey("tbl_dk_res_trans_inv_type.ResTrInvTypeId"))
 	CurrencyId = db.Column("CurrencyId",db.Integer,db.ForeignKey("tbl_dk_currency.CurrencyId"))
@@ -1598,7 +1598,7 @@ class Res_trans_inv(AddInf,CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		json_data={
+		json_data = {
 			"ResTrInvId": self.ResTrInvId,
 			"ResTrInvTypeId": self.ResTrInvTypeId,
 			"CurrencyId": self.CurrencyId,
@@ -1634,7 +1634,7 @@ class Res_trans_inv(AddInf,CreatedModifiedInfo,db.Model):
 
 
 class Res_trans_inv_line(AddInf,CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_res_trans_inv_line"
+	__tablename__ = "tbl_dk_res_trans_inv_line"
 	ResTrInvLineId = db.Column("ResTrInvLineId",db.Integer,nullable=False,primary_key=True)
 	ResTrInvId = db.Column("ResTrInvId",db.Integer,db.ForeignKey("tbl_dk_res_trans_inv.ResTrInvId"))
 	UnitId = db.Column("UnitId",db.Integer,db.ForeignKey("tbl_dk_unit.UnitId"))
@@ -1658,7 +1658,7 @@ class Res_trans_inv_line(AddInf,CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		json_data={
+		json_data = {
 			"ResTrInvLineId": self.ResTrInvLineId,
 			"ResTrInvId": self.ResTrInvId,
 			"UnitId": self.UnitId,
@@ -1690,7 +1690,7 @@ class Res_trans_inv_line(AddInf,CreatedModifiedInfo,db.Model):
 
 
 class Res_trans_inv_type(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_res_trans_inv_type"
+	__tablename__ = "tbl_dk_res_trans_inv_type"
 	ResTrInvTypeId = db.Column("ResTrInvTypeId",db.Integer,nullable=False,primary_key=True)
 	ResTrInvName_tkTM = db.Column("ResTrInvName_tkTM",db.String(100),nullable=False)
 	ResTrInvDesc_tkTM = db.Column("ResTrInvDesc_tkTM",db.String(500))
@@ -1701,7 +1701,7 @@ class Res_trans_inv_type(CreatedModifiedInfo,db.Model):
 	Res_trans_inv = db.relationship("Res_trans_inv",backref='res_trans_inv_type',lazy=True)
 
 	def to_json_api(self):
-		json_data={
+		json_data = {
 			"ResTrInvTypeId": self.ResTrInvTypeId,
 			"ResTrInvName_tkTM": self.ResTrInvName_tkTM,
 			"ResTrInvDesc_tkTM": self.ResTrInvDesc_tkTM,
@@ -1720,7 +1720,7 @@ class Res_trans_inv_type(CreatedModifiedInfo,db.Model):
 
 
 class Res_trans_type(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_res_trans_type"
+	__tablename__ = "tbl_dk_res_trans_type"
 	ResTransTypeId = db.Column("ResTransTypeId",db.Integer,nullable=False,primary_key=True)
 	ResTransTypeName_tkTM = db.Column("ResTransTypeName_tkTM",db.String(100),nullable=False)
 	ResTransTypeDesc_tkTM = db.Column("ResTransTypeDesc_tkTM",db.String(500))
@@ -1731,7 +1731,7 @@ class Res_trans_type(CreatedModifiedInfo,db.Model):
 	Res_transaction = db.relationship("Res_transaction",backref='res_trans_type',lazy=True)
 
 	def to_json_api(self):
-		json_data={
+		json_data = {
 			"ResTransTypeId": self.ResTransTypeId,
 			"ResTransTypeName_tkTM": self.ResTransTypeName_tkTM,
 			"ResTransTypeDesc_tkTM": self.ResTransTypeDesc_tkTM,
@@ -1750,7 +1750,7 @@ class Res_trans_type(CreatedModifiedInfo,db.Model):
 
 
 class Res_transaction(AddInf,CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_res_transaction"
+	__tablename__ = "tbl_dk_res_transaction"
 	ResTransId = db.Column("ResTransId",db.Integer,nullable=False,primary_key=True)
 	ResTransTypeId = db.Column("ResTransTypeId",db.Integer,db.ForeignKey("tbl_dk_res_trans_type.ResTransTypeId"))
 	InvLineId = db.Column("InvLineId",db.Integer,db.ForeignKey("tbl_dk_inv_line.InvLineId"))
@@ -1775,7 +1775,7 @@ class Res_transaction(AddInf,CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		json_data={
+		json_data = {
 			"ResTransId": self.ResTransId,
 			"ResTransTypeId": self.ResTransTypeId,
 			"InvLineId": self.InvLineId,
@@ -1809,7 +1809,7 @@ class Res_transaction(AddInf,CreatedModifiedInfo,db.Model):
 
 
 class Res_translations(AddInf,CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_res_translations"
+	__tablename__ = "tbl_dk_res_translations"
 	ResTransId = db.Column("ResTransId",db.Integer,nullable=False,primary_key=True)
 	ResId = db.Column("ResId",db.Integer,db.ForeignKey("tbl_dk_resource.ResId"))
 	LangId = db.Column("LangId",db.Integer,db.ForeignKey("tbl_dk_language.LangId"))
@@ -1847,7 +1847,7 @@ class Res_translations(AddInf,CreatedModifiedInfo,db.Model):
 
 
 class Res_type(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_res_type"
+	__tablename__ = "tbl_dk_res_type"
 	ResTypeId = db.Column("ResTypeId",db.Integer,nullable=False,primary_key=True)
 	ResTypeName_tkTM = db.Column("ResTypeName_tkTM",db.String(100))
 	ResTypeDesc_tkTM = db.Column("ResTypeDesc_tkTM",db.String(500))
@@ -1858,7 +1858,7 @@ class Res_type(CreatedModifiedInfo,db.Model):
 	Resource = db.relationship("Resource",backref='res_type',lazy=True)
 
 	def to_json_api(self):
-		json_data={
+		json_data = {
 			"ResTypeId": self.ResTypeId,
 			"ResTypeName_tkTM": self.ResTypeName_tkTM,
 			"ResTypeDesc_tkTM": self.ResTypeDesc_tkTM,
@@ -1877,7 +1877,7 @@ class Res_type(CreatedModifiedInfo,db.Model):
 
 
 class Res_unit(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_res_unit"
+	__tablename__ = "tbl_dk_res_unit"
 	ResUnitId = db.Column("ResUnitId",db.Integer,nullable=False,primary_key=True)
 	ResId = db.Column("ResId",db.Integer,db.ForeignKey("tbl_dk_resource.ResId"))
 	ResUnitUnitId = db.Column("ResUnitUnitId",db.Integer,db.ForeignKey("tbl_dk_unit.UnitId"))
@@ -1912,7 +1912,7 @@ class Res_unit(CreatedModifiedInfo,db.Model):
 
 
 class Rp_acc_resource(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_rp_acc_resource"
+	__tablename__ = "tbl_dk_rp_acc_resource"
 	RpAccResId = db.Column("RpAccResId",db.Integer,nullable=False,primary_key=True)
 	RpAccId = db.Column("RpAccId",db.Integer,db.ForeignKey("tbl_dk_rp_acc.RpAccId"))
 	ResId = db.Column("ResId",db.Integer,db.ForeignKey("tbl_dk_resource.ResId"))
@@ -1924,7 +1924,7 @@ class Rp_acc_resource(CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		json_data={
+		json_data = {
 			"RpAccResId": self.RpAccResId,
 			"RpAccId": self.RpAccId,
 			"ResId": self.ResId,
@@ -1939,7 +1939,7 @@ class Rp_acc_resource(CreatedModifiedInfo,db.Model):
 
 
 class Rp_acc_trans_total(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_rp_acc_trans_total"
+	__tablename__ = "tbl_dk_rp_acc_trans_total"
 	RpAccTrTotId = db.Column("RpAccTrTotId",db.Integer,nullable=False,primary_key=True)
 	RpAccId = db.Column("RpAccId",db.Integer,db.ForeignKey("tbl_dk_rp_acc.RpAccId"))
 	CurrencyId = db.Column("CurrencyId",db.Integer,db.ForeignKey("tbl_dk_currency.CurrencyId"))
@@ -1955,7 +1955,7 @@ class Rp_acc_trans_total(CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		json_data={
+		json_data = {
 			"RpAccTrTotId": self.RpAccTrTotId,
 			"RpAccId": self.RpAccId,
 			"CurrencyId": self.CurrencyId,
@@ -1974,7 +1974,7 @@ class Rp_acc_trans_total(CreatedModifiedInfo,db.Model):
 
 
 class Rp_acc_transaction(AddInf,CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_rp_acc_transaction"
+	__tablename__ = "tbl_dk_rp_acc_transaction"
 	RpAccTransId = db.Column("RpAccTransId",db.Integer,nullable=False,primary_key=True)
 	CId = db.Column("CId",db.Integer,db.ForeignKey("tbl_dk_company.CId"))
 	DivId = db.Column("DivId",db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
@@ -1998,7 +1998,7 @@ class Rp_acc_transaction(AddInf,CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		json_data={
+		json_data = {
 			"RpAccTransId": self.RpAccTransId,
 			"CId": self.CId,
 			"DivId": self.DivId,
@@ -2031,7 +2031,7 @@ class Rp_acc_transaction(AddInf,CreatedModifiedInfo,db.Model):
 
 
 class Sale_agr_res_price(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_sale_agr_res_price"
+	__tablename__ = "tbl_dk_sale_agr_res_price"
 	SAResPriceId = db.Column("SAResPriceId",db.Integer,nullable=False,primary_key=True)
 	SaleAgrId = db.Column("SaleAgrId",db.Integer,db.ForeignKey("tbl_dk_sale_agreement.SaleAgrId"))
 	ResPriceTypeId = db.Column("ResPriceTypeId",db.Integer,db.ForeignKey("tbl_dk_res_price_type.ResPriceTypeId"))
@@ -2050,7 +2050,7 @@ class Sale_agr_res_price(CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		json_data={
+		json_data = {
 			"SAResPriceId": self.SAResPriceId,
 			"SaleAgrId": self.SaleAgrId,
 			"ResPriceTypeId": self.ResPriceTypeId,
@@ -2072,7 +2072,7 @@ class Sale_agr_res_price(CreatedModifiedInfo,db.Model):
 
 
 class Sale_agreement(AddInf,CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_sale_agreement"
+	__tablename__ = "tbl_dk_sale_agreement"
 	SaleAgrId = db.Column("SaleAgrId",db.Integer,nullable=False,primary_key=True)
 	CurrencyId = db.Column("CurrencyId",db.Integer,db.ForeignKey("tbl_dk_currency.CurrencyId"))
 	SaleAgrName = db.Column("SaleAgrName",db.String(100),nullable=False)
@@ -2093,7 +2093,7 @@ class Sale_agreement(AddInf,CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		json_data={
+		json_data = {
 			"SaleAgrId": self.SaleAgrId,
 			"CurrencyId": self.CurrencyId,
 			"SaleAgrName": self.SaleAgrName,
@@ -2121,7 +2121,7 @@ class Sale_agreement(AddInf,CreatedModifiedInfo,db.Model):
 
 
 class Sale_card(AddInf,CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_sale_card"
+	__tablename__ = "tbl_dk_sale_card"
 	SaleCardId = db.Column("SaleCardId",db.Integer,nullable=False,primary_key=True)
 	CId = db.Column("CId",db.Integer,db.ForeignKey("tbl_dk_company.CId"))
 	DivId = db.Column("DivId",db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
@@ -2157,7 +2157,7 @@ class Sale_card(AddInf,CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		json_data={
+		json_data = {
 			"SaleCardId": self.SaleCardId,
 			"CId": self.CId,
 			"DivId": self.DivId,
@@ -2201,7 +2201,7 @@ class Sale_card(AddInf,CreatedModifiedInfo,db.Model):
 
 
 class Sale_card_status(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_sale_card_status"
+	__tablename__ = "tbl_dk_sale_card_status"
 	SaleCardStatusId = db.Column("SaleCardStatusId",db.Integer,nullable=False,primary_key=True)
 	SaleCardStatusName_tkTM = db.Column("SaleCardStatusName_tkTM",db.String(100))
 	SaleCardStatusDesc_tkTM = db.Column("SaleCardStatusDesc_tkTM",db.String(500))
@@ -2212,7 +2212,7 @@ class Sale_card_status(CreatedModifiedInfo,db.Model):
 	Sale_card = db.relationship("Sale_card",backref='sale_card_status',lazy=True)
 
 	def to_json_api(self):
-		json_data={
+		json_data = {
 			"SaleCardStatusId": self.SaleCardStatusId,
 			"SaleCardStatusName_tkTM": self.SaleCardStatusName_tkTM,
 			"SaleCardStatusDesc_tkTM": self.SaleCardStatusDesc_tkTM,
@@ -2231,7 +2231,7 @@ class Sale_card_status(CreatedModifiedInfo,db.Model):
 
 
 class Production(AddInf,CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_production"
+	__tablename__ = "tbl_dk_production"
 	ProdId = db.Column("ProdId",db.Integer,nullable=False,primary_key=True)
 	CId = db.Column("CId",db.Integer,db.ForeignKey("tbl_dk_company.CId"))
 	DivId = db.Column("DivId",db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
@@ -2253,7 +2253,7 @@ class Production(AddInf,CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		json_data={
+		json_data = {
 			"ProdId": self.ProdId,
 			"CId": self.CId,
 			"DivId": self.DivId,
@@ -2281,7 +2281,7 @@ class Production(AddInf,CreatedModifiedInfo,db.Model):
 
 
 class Production_line(AddInf,CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_production_line"
+	__tablename__ = "tbl_dk_production_line"
 	ProdLineId = db.Column("ProdLineId",db.Integer,nullable=False,primary_key=True)
 	ProdId = db.Column("ProdId",db.Integer,db.ForeignKey("tbl_dk_production.ProdId"))
 	UnitId = db.Column("UnitId",db.Integer,db.ForeignKey("tbl_dk_unit.UnitId"))
@@ -2297,7 +2297,7 @@ class Production_line(AddInf,CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		json_data={
+		json_data = {
 			"ProdLineId": self.ProdLineId,
 			"ProdId": self.ProdId,
 			"UnitId": self.UnitId,
@@ -2322,7 +2322,7 @@ class Production_line(AddInf,CreatedModifiedInfo,db.Model):
 
 
 class Rating(AddInf,CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_rating"
+	__tablename__ = "tbl_dk_rating"
 	RtId = db.Column("RtId",db.Integer,nullable=False,primary_key=True)
 	CId = db.Column("CId",db.Integer,db.ForeignKey("tbl_dk_company.CId"))
 	DivId = db.Column("DivId",db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
@@ -2341,7 +2341,7 @@ class Rating(AddInf,CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		json_data={
+		json_data = {
 			"RtId": self.RtId,
 			"CId": self.CId,
 			"DivId": self.DivId,
@@ -2369,7 +2369,7 @@ class Rating(AddInf,CreatedModifiedInfo,db.Model):
 
 
 class Wish(AddInf,CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_wish"
+	__tablename__ = "tbl_dk_wish"
 	WishId = db.Column("WishId",db.Integer,nullable=False,primary_key=True)
 	CId = db.Column("CId",db.Integer,db.ForeignKey("tbl_dk_company.CId"))
 	DivId = db.Column("DivId",db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
@@ -2384,7 +2384,7 @@ class Wish(AddInf,CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		json_data={
+		json_data = {
 			"WishId": self.WishId,
 			"CId": self.CId,
 			"DivId": self.DivId,
@@ -2408,7 +2408,7 @@ class Wish(AddInf,CreatedModifiedInfo,db.Model):
 
 
 class Transaction_type(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_transaction_type"
+	__tablename__ = "tbl_dk_transaction_type"
 	TransTypeId = db.Column("TransTypeId",db.Integer,nullable=False,primary_key=True)
 	TransTypeName = db.Column("TransTypeName",db.String(100),nullable=False)
 	TransTypeDesc = db.Column("TransTypeDesc",db.String(500))
@@ -2421,7 +2421,7 @@ class Transaction_type(CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		json_data={
+		json_data = {
 			"TransTypeId": self.TransTypeId,
 			"TransTypeName": self.TransTypeName,
 			"TransTypeDesc": self.TransTypeDesc,
@@ -2436,7 +2436,7 @@ class Transaction_type(CreatedModifiedInfo,db.Model):
 
 
 class Work_period(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_work_period"
+	__tablename__ = "tbl_dk_work_period"
 	WpId = db.Column("WpId",db.Integer,nullable=False,primary_key=True)
 	CId = db.Column("CId",db.Integer,db.ForeignKey("tbl_dk_company.CId"))
 	DivId = db.Column("DivId",db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
@@ -2458,7 +2458,7 @@ class Work_period(CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		json_data={
+		json_data = {
 			"WpId": self.WpId,
 			"CId": self.CId,
 			"DivId": self.DivId,

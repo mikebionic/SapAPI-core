@@ -31,7 +31,7 @@ class AddInf(object):
 
 
 class Acc_type(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_acc_type"
+	__tablename__ = "tbl_dk_acc_type"
 	AccTypeId = db.Column("AccTypeId",db.Integer,primary_key=True)
 	AccTypeName_tkTM = db.Column("AccTypeName_tkTM",db.String(100))
 	AccTypeDesc_tkTm = db.Column("AccTypeDesc_tkTm",db.String(500))
@@ -43,7 +43,7 @@ class Acc_type(CreatedModifiedInfo,db.Model):
 
 
 class Accounting_info(AddInf,CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_accounting_info"
+	__tablename__ = "tbl_dk_accounting_info"
 	AccInfId = db.Column("AccInfId",db.Integer,primary_key=True,nullable=False)
 	DivisionId = db.Column("DivisionId",db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
 	BankId = db.Column("BankId",db.Integer, db.ForeignKey("tbl_dk_bank.BankId"))
@@ -61,7 +61,7 @@ class Accounting_info(AddInf,CreatedModifiedInfo,db.Model):
 
 
 class AdditionalInf1(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_additional_inf1"
+	__tablename__ = "tbl_dk_additional_inf1"
 	AddInf1Id = db.Column("AddInf1Id",db.Integer,nullable=False,primary_key=True)
 	AddInf1Name = db.Column("AddInf1Name",db.String(100),nullable=False)
 	AddInf1Desc = db.Column("AddInf1Desc",db.String(500))
@@ -69,7 +69,7 @@ class AdditionalInf1(CreatedModifiedInfo,db.Model):
 
 
 class AdditionalInf2(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_additional_inf2"
+	__tablename__ = "tbl_dk_additional_inf2"
 	AddInf2Id = db.Column("AddInf2Id",db.Integer,nullable=False,primary_key=True)
 	AddInf2Name = db.Column("AddInf2Name",db.String(100),nullable=False)
 	AddInf2Desc = db.Column("AddInf2Desc",db.String(500))
@@ -77,7 +77,7 @@ class AdditionalInf2(CreatedModifiedInfo,db.Model):
 
 
 class AdditionalInf3(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_additional_inf3"
+	__tablename__ = "tbl_dk_additional_inf3"
 	AddInf3Id = db.Column("AddInf3Id",db.Integer,nullable=False,primary_key=True)
 	AddInf3Name = db.Column("AddInf3Name",db.String(100),nullable=False)
 	AddInf3Desc = db.Column("AddInf3Desc",db.String(500))
@@ -85,7 +85,7 @@ class AdditionalInf3(CreatedModifiedInfo,db.Model):
 
 
 class AdditionalInf4(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_additional_inf4"
+	__tablename__ = "tbl_dk_additional_inf4"
 	AddInf4Id = db.Column("AddInf4Id",db.Integer,nullable=False,primary_key=True)
 	AddInf4Name = db.Column("AddInf4Name",db.String(100),nullable=False)
 	AddInf4Desc = db.Column("AddInf4Desc",db.String(500))
@@ -93,7 +93,7 @@ class AdditionalInf4(CreatedModifiedInfo,db.Model):
 
 
 class AdditionalInf5(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_additional_inf5"
+	__tablename__ = "tbl_dk_additional_inf5"
 	AddInf5Id = db.Column("AddInf5Id",db.Integer,nullable=False,primary_key=True)
 	AddInf5Name = db.Column("AddInf5Name",db.String(100),nullable=False)
 	AddInf5Desc = db.Column("AddInf5Desc",db.String(500))
@@ -101,7 +101,7 @@ class AdditionalInf5(CreatedModifiedInfo,db.Model):
 
 
 class AdditionalInf6(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_additional_inf6"
+	__tablename__ = "tbl_dk_additional_inf6"
 	AddInf6Id = db.Column("AddInf6Id",db.Integer,nullable=False,primary_key=True)
 	AddInf6Name = db.Column("AddInf6Name",db.String(100),nullable=False)
 	AddInf6Desc = db.Column("AddInf6Desc",db.String(500))
@@ -109,7 +109,7 @@ class AdditionalInf6(CreatedModifiedInfo,db.Model):
 
 
 class Bank(AddInf,CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_bank"
+	__tablename__ = "tbl_dk_bank"
 	BankId = db.Column("BankId",db.Integer,nullable=False,primary_key=True)
 	MainContId = db.Column("MainContId",db.Integer,default=0)
 	MainLocId = db.Column("MainLocId",db.Integer,default=0)
@@ -123,7 +123,7 @@ class Bank(AddInf,CreatedModifiedInfo,db.Model):
 
 
 class City(AddInf,CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_city"
+	__tablename__ = "tbl_dk_city"
 	CityId = db.Column("CityId",db.Integer,nullable=False,primary_key=True)
 	CountryId = db.Column("CountryId",db.Integer,db.ForeignKey("tbl_dk_country.CountryId"))
 	CityName = db.Column("CityName",db.String(50),nullable=False)
@@ -132,7 +132,7 @@ class City(AddInf,CreatedModifiedInfo,db.Model):
 
 
 class Company(AddInf,CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_company"
+	__tablename__ = "tbl_dk_company"
 	CId = db.Column("CId",db.Integer,primary_key=True)
 	CName = db.Column("CName",db.String(100),nullable=False)
 	CFullName = db.Column("CFullName",db.String(500))
@@ -216,7 +216,7 @@ class Company(AddInf,CreatedModifiedInfo,db.Model):
 
 
 class Config(AddInf,CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_config"
+	__tablename__ = "tbl_dk_config"
 	CfId = db.Column("CfId",db.Integer,primary_key=True)
 	MainCfId = db.Column("MainCfId",db.Integer)
 	CfTypeId = db.Column("CfTypeId",db.Integer,db.ForeignKey("tbl_dk_config_type.CfTypeId"))
@@ -259,7 +259,7 @@ class Config(AddInf,CreatedModifiedInfo,db.Model):
 
 
 class Config_type(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_config_type"
+	__tablename__ = "tbl_dk_config_type"
 	CfTypeId = db.Column("CfTypeId",db.Integer,primary_key=True)
 	CfTypeName_tkTM = db.Column("CfTypeName_tkTM",db.String(100))
 	CfTypeDesc_tkTM = db.Column("CfTypeDesc_tkTM",db.String(500))
@@ -289,7 +289,7 @@ class Config_type(CreatedModifiedInfo,db.Model):
 
 
 class Contact(AddInf,CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_contact"
+	__tablename__ = "tbl_dk_contact"
 	ContId = db.Column("ContId",db.Integer,nullable=False,primary_key=True)
 	CId = db.Column("CId",db.Integer,db.ForeignKey("tbl_dk_company.CId"))
 	EmpId = db.Column("EmpId",db.Integer,db.ForeignKey("tbl_dk_employee.EmpId"))
@@ -301,7 +301,7 @@ class Contact(AddInf,CreatedModifiedInfo,db.Model):
 
 
 class Contact_type(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_contact_type"
+	__tablename__ = "tbl_dk_contact_type"
 	ContTypeId = db.Column("ContTypeId",db.Integer,nullable=False,primary_key=True)
 	ContTypeName_tkTM = db.Column("ContTypeName_tkTM",db.String(100))
 	ContTypeDesc_tkTM = db.Column("ContTypeDesc_tkTM",db.String(500))
@@ -331,7 +331,7 @@ class Contact_type(CreatedModifiedInfo,db.Model):
 
 
 class Country(AddInf,CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_country"
+	__tablename__ = "tbl_dk_country"
 	CountryId = db.Column("CountryId",db.Integer,nullable=False,primary_key=True)
 	CountryName = db.Column("CountryName",db.String(50),nullable=False)
 	CountryDesc = db.Column("CountryDesc",db.String(500))
@@ -340,7 +340,7 @@ class Country(AddInf,CreatedModifiedInfo,db.Model):
 
 
 class Currency(AddInf,CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_currency"
+	__tablename__ = "tbl_dk_currency"
 	CurrencyId = db.Column("CurrencyId",db.Integer,nullable=False,primary_key=True)
 	CurrencyName_tkTM = db.Column("CurrencyName_tkTM",db.String(100),nullable=False)
 	CurrencyDesc_tkTM = db.Column("CurrencyDesc_tkTM",db.String(500))
@@ -396,7 +396,7 @@ class Currency(AddInf,CreatedModifiedInfo,db.Model):
 
 
 class Db_inf(db.Model):
-	__tablename__="tbl_dk_db_inf"
+	__tablename__ = "tbl_dk_db_inf"
 	DbInfId = db.Column("DbInfId",db.Integer,nullable=False,primary_key=True)
 	DbInfDbVer = db.Column("DbInfDbVer",db.String(100),nullable=False)
 	DbInfGuid = db.Column("DbInfGuid",UUID(as_uuid=True))
@@ -404,7 +404,7 @@ class Db_inf(db.Model):
 
 
 class Department(AddInf,CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_department"
+	__tablename__ = "tbl_dk_department"
 	DeptId = db.Column("DeptId",db.Integer,nullable=False,primary_key=True)
 	DeptName = db.Column("DeptName",db.String(100),nullable=False)
 	DeptDesc = db.Column("DeptDesc",db.String(500))
@@ -413,7 +413,7 @@ class Department(AddInf,CreatedModifiedInfo,db.Model):
 
 
 class Department_detail(db.Model):
-	__tablename__="tbl_dk_department_detail"
+	__tablename__ = "tbl_dk_department_detail"
 	DeptDetId = db.Column("DeptDetId",db.Integer,nullable=False,primary_key=True)
 	DeptId = db.Column("DeptId",db.Integer,db.ForeignKey("tbl_dk_department.DeptId")) #???
 	CId = db.Column("CId",db.Integer,db.ForeignKey("tbl_dk_company.CId"))
@@ -422,7 +422,7 @@ class Department_detail(db.Model):
 
 
 class Division(AddInf,CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_division"
+	__tablename__ = "tbl_dk_division"
 	DivId = db.Column("DivId",db.Integer,nullable=False,primary_key=True)
 	CId = db.Column("CId",db.Integer,db.ForeignKey("tbl_dk_company.CId"))
 	DivName = db.Column("DivName",db.String(100),nullable=False)
@@ -481,7 +481,7 @@ class Division(AddInf,CreatedModifiedInfo,db.Model):
 
 
 class Gender(db.Model):
-	__tablename__="tbl_dk_gender"
+	__tablename__ = "tbl_dk_gender"
 	GenderId = db.Column("GenderId",db.Integer,nullable=False,primary_key=True)
 	GenderName_tkTM = db.Column("GenderName_tkTM",db.String(100))
 	GenderName_ruRU = db.Column("GenderName_ruRU",db.String(100))
@@ -493,7 +493,7 @@ class Gender(db.Model):
 
 
 class Image(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_image"
+	__tablename__ = "tbl_dk_image"
 	ImgId = db.Column("ImgId",db.Integer,nullable=False,primary_key=True)
 	ImgGuid = db.Column("ImgGuid",UUID(as_uuid=True),unique=True)
 	EmpId = db.Column("EmpId",db.Integer,db.ForeignKey("tbl_dk_employee.EmpId"))
@@ -575,7 +575,7 @@ class Image(CreatedModifiedInfo,db.Model):
 
 
 class Location(AddInf,CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_location"
+	__tablename__ = "tbl_dk_location"
 	LocId = db.Column("LocId",db.Integer,nullable=False,primary_key=True)
 	CId = db.Column("CId",db.Integer,db.ForeignKey("tbl_dk_company.CId"))
 	BankId = db.Column("BankId",db.Integer,db.ForeignKey("tbl_dk_bank.BankId"))
@@ -592,7 +592,7 @@ class Location(AddInf,CreatedModifiedInfo,db.Model):
 
 
 class Password(AddInf,CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_password"
+	__tablename__ = "tbl_dk_password"
 	PsswId = db.Column("PsswId",db.Integer,nullable=False,primary_key=True)
 	PsswUId = db.Column("PsswUId",db.Integer,db.ForeignKey("tbl_dk_users.UId"))
 	PsswTypeId = db.Column("PsswTypeId",db.Integer,db.ForeignKey("tbl_dk_password_type.PsswTypeId"))
@@ -601,7 +601,7 @@ class Password(AddInf,CreatedModifiedInfo,db.Model):
 
 
 class Password_type(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_password_type"
+	__tablename__ = "tbl_dk_password_type"
 	PsswTypeId = db.Column("PsswTypeId",db.Integer,nullable=False,primary_key=True)
 	PsswTypeName = db.Column("PsswTypeName",db.String(100),nullable=False)
 	PsswTypeDesc = db.Column("PsswTypeDesc",db.String(500))
@@ -609,7 +609,7 @@ class Password_type(CreatedModifiedInfo,db.Model):
 
 
 class Language(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_language"
+	__tablename__ = "tbl_dk_language"
 	LangId = db.Column("LangId",db.Integer,nullable=False,primary_key=True)
 	LangName = db.Column("LangName",db.String(100),nullable=False)
 	LangDesc = db.Column("LangDesc",db.String(500))
@@ -631,14 +631,14 @@ class Language(CreatedModifiedInfo,db.Model):
 
 
 class Prog_language(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_prog_language"
+	__tablename__ = "tbl_dk_prog_language"
 	LangId = db.Column("LangId",db.Integer,nullable=False,primary_key=True)
 	LangName = db.Column("LangName",db.String(50),nullable=False)
 	LangDesc = db.Column("LangDesc",db.String(200))
 
 
 class Pred_regnum(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_pred_regnum"
+	__tablename__ = "tbl_dk_pred_regnum"
 	PredRegNumId = db.Column("PredRegNumId",db.Integer,nullable=False,primary_key=True)
 	RegNumTypeId = db.Column("RegNumTypeId",db.Integer,db.ForeignKey("tbl_dk_reg_num_type.RegNumTypeId"))
 	RegNum = db.Column("RegNum",db.String(100),nullable=False)
@@ -665,7 +665,7 @@ class Pred_regnum(CreatedModifiedInfo,db.Model):
 
 
 class Reg_num(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_reg_num"
+	__tablename__ = "tbl_dk_reg_num"
 	RegNumId = db.Column("RegNumId",db.Integer,nullable=False,primary_key=True)
 	RegNumTypeId = db.Column("RegNumTypeId",db.Integer,db.ForeignKey("tbl_dk_reg_num_type.RegNumTypeId"))
 	UId = db.Column("UId",db.Integer,db.ForeignKey("tbl_dk_users.UId"))
@@ -678,7 +678,7 @@ class Reg_num(CreatedModifiedInfo,db.Model):
 
 
 class Reg_num_type(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_reg_num_type"
+	__tablename__ = "tbl_dk_reg_num_type"
 	RegNumTypeId = db.Column("RegNumTypeId",db.Integer,nullable=False,primary_key=True)
 	RegNumTypeName_tkTM = db.Column("RegNumTypeName_tkTM",db.String(50),nullable=False)
 	RegNumTypeDesc_tkTM = db.Column("RegNumTypeDesc_tkTM",db.String(500))
@@ -691,7 +691,7 @@ class Reg_num_type(CreatedModifiedInfo,db.Model):
 
 
 class Report_file(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_report_file"
+	__tablename__ = "tbl_dk_report_file"
 	RpFileId = db.Column("RpFileId",db.Integer,nullable=False,primary_key=True)
 	RpFileTypeId = db.Column("RpFileTypeId",db.Integer,nullable=False,default=0)
 	RpFileName = db.Column("RpFileName",db.String(100))
@@ -701,7 +701,7 @@ class Report_file(CreatedModifiedInfo,db.Model):
 
 
 class Rp_acc_price_list(CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_rp_acc_price_list"
+	__tablename__ = "tbl_dk_rp_acc_price_list"
 	RpAccPId = db.Column("RpAccPId",db.Integer,nullable=False,primary_key=True)
 	RpAccId = db.Column("RpAccId",db.Integer,db.ForeignKey("tbl_dk_rp_acc.RpAccId"))
 	UnitName = db.Column("UnitName",db.String(100))
@@ -715,7 +715,7 @@ class Rp_acc_price_list(CreatedModifiedInfo,db.Model):
 
 
 class Sl_image(AddInf,CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_sl_image"
+	__tablename__ = "tbl_dk_sl_image"
 	SlImgId = db.Column("SlImgId",db.Integer,nullable=False,primary_key=True)
 	SlId = db.Column("SlId",db.Integer,db.ForeignKey("tbl_dk_slider.SlId"))
 	SlImgTitle = db.Column("SlImgTitle",db.String(100))
@@ -784,7 +784,7 @@ class Sl_image(AddInf,CreatedModifiedInfo,db.Model):
 
 
 class Slider(AddInf,CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_slider"
+	__tablename__ = "tbl_dk_slider"
 	SlId = db.Column("SlId",db.Integer,nullable=False,primary_key=True)
 	CId = db.Column("CId",db.Integer,db.ForeignKey("tbl_dk_company.CId"))
 	DivId = db.Column("DivId",db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
@@ -822,7 +822,7 @@ class Slider(AddInf,CreatedModifiedInfo,db.Model):
 
 
 class Translations(AddInf,CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_translations"
+	__tablename__ = "tbl_dk_translations"
 	TranslId = db.Column("TranslId",db.Integer,nullable=False,primary_key=True)
 	ResCatId = db.Column("ResCatId",db.Integer,db.ForeignKey("tbl_dk_res_category.ResCatId"))
 	ColorId = db.Column("ColorId",db.Integer,db.ForeignKey("tbl_dk_color.ColorId"))
@@ -833,7 +833,7 @@ class Translations(AddInf,CreatedModifiedInfo,db.Model):
 
 
 class Warehouse(AddInf,CreatedModifiedInfo,db.Model):
-	__tablename__="tbl_dk_warehouse"
+	__tablename__ = "tbl_dk_warehouse"
 	WhId = db.Column("WhId",db.Integer,nullable=False,primary_key=True)
 	CId = db.Column("CId",db.Integer,db.ForeignKey("tbl_dk_company.CId"))
 	DivId = db.Column("DivId",db.Integer,db.ForeignKey("tbl_dk_division.DivId"))

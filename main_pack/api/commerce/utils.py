@@ -41,7 +41,7 @@ def addCompanyDict(req):
 	ModifiedUId = req.get('ModifiedUId')
 	GCRecord = req.get('GCRecord')
 
-	company = {
+	data = {
 		"CName": CName,
 		"CFullName": CFullName,
 		"CDesc": CDesc,
@@ -71,10 +71,11 @@ def addCompanyDict(req):
 		"ModifiedUId": ModifiedUId,
 		"GCRecord": GCRecord
 	}
+
 	# if(CId != '' and CId != None):
-	# 	company["CId"] = CId
-	company = configureNulls(company)
-	return company
+	# 	data["CId"] = CId
+	data = configureNulls(data)
+	return data
 
 def addDivisionDict(req):
 	DivId = req.get('DivId')
@@ -96,7 +97,7 @@ def addDivisionDict(req):
 	ModifiedUId = req.get('ModifiedUId')
 	GCRecord = req.get('GCRecord')
 
-	division = {
+	data = {
 		"CId": CId,
 		"DivName": DivName,
 		"DivDesc": DivDesc,
@@ -115,10 +116,11 @@ def addDivisionDict(req):
 		"ModifiedUId": ModifiedUId,
 		"GCRecord": GCRecord
 	}
+
 	# if(DivId != '' and DivId != None):
-	# 	division["DivId"] = DivId
-	division = configureNulls(division)
-	return division
+	# 	data["DivId"] = DivId
+	data = configureNulls(data)
+	return data
 
 def addCategoryDict(req):
 	ResCatId = req.get('ResCatId')
@@ -133,7 +135,7 @@ def addCategoryDict(req):
 	ModifiedUId = req.get('ModifiedUId')
 	GCRecord = req.get('GCRecord')
 
-	category = {
+	data = {
 		"ResOwnerCatId": ResOwnerCatId,
 		"ResCatName": ResCatName,
 		"ResCatDesc": ResCatDesc,
@@ -151,10 +153,11 @@ def addCategoryDict(req):
 		"ModifiedUId": ModifiedUId,
 		"GCRecord": GCRecord
 	}
+
 	if(ResCatId != '' and ResCatId != None):
-		category["ResCatId"] = ResCatId
-	category = configureNulls(category)
-	return category
+		data["ResCatId"] = ResCatId
+	data = configureNulls(data)
+	return data
 
 def addResourceDict(req):
 	ResId = req.get('ResId')
@@ -195,7 +198,7 @@ def addResourceDict(req):
 	ModifiedUId = req.get('ModifiedUId')
 	GCRecord = req.get('GCRecord')
 
-	resource = {
+	data = {
 		"ResGuid": ResGuid,
 		"CId": CId,
 		"DivId": DivId,
@@ -233,10 +236,11 @@ def addResourceDict(req):
 		"ModifiedUId": ModifiedUId,
 		"GCRecord": GCRecord
 	}
+
 	# if(ResId != '' and ResId != None):
-	# 	resource["ResId"] = ResId
-	resource = configureNulls(resource)
-	return resource
+	# 	data["ResId"] = ResId
+	data = configureNulls(data)
+	return data
 
 def addImageDict(req):
 	ImgId = req.get('ImgId')
@@ -264,7 +268,8 @@ def addImageDict(req):
 	CreatedUId = req.get('CreatedUId')
 	ModifiedUId = req.get('ModifiedUId')
 	GCRecord = req.get('GCRecord')
-	image = {
+
+	data = {
 		"EmpId": EmpId,
 		"CId": CId,
 		"UId": UId,
@@ -290,10 +295,11 @@ def addImageDict(req):
 		"ModifiedUId": ModifiedUId,
 		"GCRecord": GCRecord
 	}
+
 	# if(ImgId != '' and ImgId != None):
-	# 	image["ImgId"] = ImgId
-	image = configureNulls(image)
-	return image
+	# 	data["ImgId"] = ImgId
+	data = configureNulls(data)
+	return data
 
 def saveImageFile(req):
 	ImgId = req.get('ImgId')
@@ -414,7 +420,7 @@ def addBarcodeDict(req):
 	ModifiedUId = req.get('ModifiedUId')
 	GCRecord = req.get('GCRecord')
 
-	barcode = {
+	data = {
 		"CId": CId,
 		"DivId": DivId,
 		"ResId": ResId,
@@ -427,10 +433,11 @@ def addBarcodeDict(req):
 		"ModifiedUId": ModifiedUId,
 		"GCRecord": GCRecord
 		}
+
 	# if(BarcodeId != '' and BarcodeId != None):
-	# 	barcode["BarcodeId"] = BarcodeId
-	barcode = configureNulls(barcode)
-	return	barcode
+	# 	data["BarcodeId"] = BarcodeId
+	data = configureNulls(data)
+	return	data
 
 def addResPriceDict(req):
 	ResPriceId = req.get('ResPriceId')
@@ -450,7 +457,7 @@ def addResPriceDict(req):
 	ModifiedUId = req.get('ModifiedUId')
 	GCRecord = req.get('GCRecord')
 
-	res_price = {
+	data = {
 		"ResPriceTypeId": ResPriceTypeId,
 		"ResPriceGroupId": ResPriceGroupId,
 		"UnitId": UnitId,
@@ -467,10 +474,11 @@ def addResPriceDict(req):
 		"ModifiedUId": ModifiedUId,
 		"GCRecord": GCRecord
 		}
+
 	# if(ResPriceId != '' and ResPriceId != None):
-	# 	res_price["ResPriceId"] = ResPriceId
-	res_price = configureNulls(res_price)
-	return res_price
+	# 	data["ResPriceId"] = ResPriceId
+	data = configureNulls(data)
+	return data
 
 def addResTotalDict(req):
 	ResTotId = req.get('ResTotId')
@@ -492,7 +500,7 @@ def addResTotalDict(req):
 	ModifiedUId = req.get('ModifiedUId')
 	GCRecord = req.get('GCRecord')
 
-	res_total = {
+	data = {
 		"ResId": ResId,
 		"CurrencyId": CurrencyId,
 		"WhId": WhId,
@@ -513,9 +521,9 @@ def addResTotalDict(req):
 	}
 
 	# if(ResTotId != '' and ResTotId != None):
-	# 	res_total["ResTotId"] = ResTotId
-	res_total = configureEmptyQuotesNulls(res_total)
-	return res_total
+	# 	data["ResTotId"] = ResTotId
+	data = configureEmptyQuotesNulls(data)
+	return data
 
 
 def addRpAccTrTotDict(req):
@@ -533,7 +541,7 @@ def addRpAccTrTotDict(req):
 	ModifiedUId = req.get('ModifiedUId')
 	GCRecord = req.get('GCRecord')
 
-	rp_acc_trans_total={
+	data = {
 		"RpAccId": RpAccId,
 		"CurrencyId": CurrencyId,
 		"RpAccTrTotBalance": RpAccTrTotBalance,
@@ -549,9 +557,9 @@ def addRpAccTrTotDict(req):
 	}
 
 	if(RpAccTrTotId != '' and RpAccTrTotId != None):
-		rp_acc_trans_total["RpAccTrTotId"] = RpAccTrTotId
-	rp_acc_trans_total = configureNulls(rp_acc_trans_total)
-	return rp_acc_trans_total
+		data["RpAccTrTotId"] = RpAccTrTotId
+	data = configureNulls(data)
+	return data
 
 
 def addOrderInvDict(req):
@@ -597,7 +605,7 @@ def addOrderInvDict(req):
 	ModifiedUId = req.get('ModifiedUId')
 	GCRecord = req.get('GCRecord')
 
-	order_inv = {
+	data = {
 		"OInvGuid": OInvGuid,
 		"OInvTypeId": OInvTypeId,
 		"InvStatId": InvStatId,
@@ -639,10 +647,11 @@ def addOrderInvDict(req):
 		"ModifiedUId": ModifiedUId,
 		"GCRecord": GCRecord
 		}
+
 	#if(OInvId != '' and OInvId != None):
-	#	order_inv["OInvId"] = OInvId
-	order_inv = configureNulls(order_inv)
-	return order_inv
+	#	data["OInvId"] = OInvId
+	data = configureNulls(data)
+	return data
 
 
 def addOrderInvLineDict(req):
@@ -676,7 +685,7 @@ def addOrderInvLineDict(req):
 	ModifiedUId = req.get('ModifiedUId')
 	GCRecord = req.get('GCRecord')
 
-	order_inv_line = {
+	data = {
 		#"OInvId": OInvId,
 		"OInvLineGuid": OInvLineGuid,
 		"UnitId": UnitId,
@@ -706,10 +715,11 @@ def addOrderInvLineDict(req):
 		"ModifiedUId": ModifiedUId,
 		"GCRecord": GCRecord
 		}
+
 	# if(OInvLineId != '' and OInvLineId != None):
-	# 	order_inv_line["OInvLineId"] = OInvLineId
-	order_inv_line = configureNulls(order_inv_line)
-	return order_inv_line
+	# 	data["OInvLineId"] = OInvLineId
+	data = configureNulls(data)
+	return data
 
 def addOrderInvTypeDict(req):
 	OInvTypeId = req.get('OInvTypeId')
@@ -726,7 +736,7 @@ def addOrderInvTypeDict(req):
 	ModifiedUId = req.get('ModifiedUId')
 	GCRecord = req.get('GCRecord')
 
-	order_inv_type = {
+	data = {
 		"OInvTypeName_tkTM": OInvTypeName_tkTM,
 		"OInvTypeDesc_tkTM": OInvTypeDesc_tkTM,
 		"OInvTypeName_ruRU": OInvTypeName_ruRU,
@@ -740,10 +750,11 @@ def addOrderInvTypeDict(req):
 		"ModifiedUId": ModifiedUId,
 		"GCRecord": GCRecord
 		}
+
 	if(OInvTypeId != '' and OInvTypeId != None):
-		order_inv_type["OInvTypeId"] = OInvTypeId
-	order_inv_type = configureNulls(order_inv_type)
-	return order_inv_type
+		data["OInvTypeId"] = OInvTypeId
+	data = configureNulls(data)
+	return data
 
 
 def addInvDict(req):
@@ -787,7 +798,8 @@ def addInvDict(req):
 	CreatedUId = req.get('CreatedUId')
 	ModifiedUId = req.get('ModifiedUId')
 	GCRecord = req.get('GCRecord')	
-	inv = {
+
+	data = {
 		"InvGuid": InvGuid,
 		"InvTypeId": InvTypeId,
 		"InvStatId": InvStatId,
@@ -829,9 +841,9 @@ def addInvDict(req):
 		"GCRecord": GCRecord
 		}
 	#if(InvId != '' and InvId != None):
-	#	inv["InvId"] = InvId
-	inv = configureNulls(inv)
-	return inv
+	#	data["InvId"] = InvId
+	data = configureNulls(data)
+	return data
 
 
 def addInvLineDict(req):
@@ -864,7 +876,7 @@ def addInvLineDict(req):
 	ModifiedUId = req.get('ModifiedUId')
 	GCRecord = req.get('GCRecord')
 
-	inv_line = {
+	data = {
 		"InvGuid": InvGuid,
 		"InvId": InvId,
 		"UnitId": UnitId,
@@ -893,10 +905,11 @@ def addInvLineDict(req):
 		"ModifiedUId": ModifiedUId,
 		"GCRecord": GCRecord
 		}
+
 	# if(InvLineId != '' and InvLineId != None):
-	# 	inv_line["InvLineId"] = InvLineId
-	inv_line = configureNulls(inv_line)
-	return inv_line
+	# 	data["InvLineId"] = InvLineId
+	data = configureNulls(data)
+	return data
 
 
 def addWarehouseDict(req):
@@ -919,7 +932,8 @@ def addWarehouseDict(req):
 	CreatedUId = req.get('CreatedUId')
 	ModifiedUId = req.get('ModifiedUId')
 	GCRecord = req.get('GCRecord')
-	warehouse = {
+
+	data = {
 		"CId": CId,
 		"DivId": DivId,
 		"WhName": WhName,
@@ -939,10 +953,11 @@ def addWarehouseDict(req):
 		"ModifiedUId": ModifiedUId,
 		"GCRecord": GCRecord
 		}
+
 	# if(WhId != '' and WhId != None):
-	# 	warehouse["WhId"] = WhId
-	warehouse = configureNulls(warehouse)
-	return warehouse
+	# 	data["WhId"] = WhId
+	data = configureNulls(data)
+	return data
 
 def addWorkPeriodDict(req):
 	WpId = req.get('WpId')
@@ -958,7 +973,8 @@ def addWorkPeriodDict(req):
 	CreatedUId = req.get('CreatedUId')
 	ModifiedUId = req.get('ModifiedUId')
 	GCRecord = req.get('GCRecord')
-	work_period = {
+
+	data = {
 		"CId": CId,
 		"DivId": DivId,
 		"CurrencyId": CurrencyId,
@@ -972,7 +988,39 @@ def addWorkPeriodDict(req):
 		"ModifiedUId": ModifiedUId,
 		"GCRecord": GCRecord
 		}
+
 	if(WpId != '' and WpId != None):
-		work_period["WpId"] = WpId
-	work_period = configureNulls(work_period)
-	return work_period
+		data["WpId"] = WpId
+	data = configureNulls(data)
+	return data
+
+
+def addExcRateDict(req):
+	ExcRateId = req.get('ExcRateId')
+	CurrencyId = req.get('CurrencyId')
+	ExcRateTypeId = req.get('ExcRateTypeId')
+	ExcRateDate = req.get('ExcRateDate')
+	ExcRateValue = req.get('ExcRateValue')
+	CreatedDate = req.get('CreatedDate')
+	ModifiedDate = req.get('ModifiedDate')
+	SyncDateTime = req.get('SyncDateTime')
+	CreatedUId = req.get('CreatedUId')
+	ModifiedUId = req.get('ModifiedUId')
+	GCRecord = req.get('GCRecord')
+
+	data = {
+		# "ExcRateId": ExcRateId,
+		"CurrencyId": CurrencyId,
+		"ExcRateTypeId": ExcRateTypeId,
+		"ExcRateDate": ExcRateDate,
+		"ExcRateValue": ExcRateValue,
+		"CreatedDate": CreatedDate,
+		"ModifiedDate": ModifiedDate,
+		"SyncDateTime": SyncDateTime,
+		"CreatedUId": CreatedUId,
+		"ModifiedUId": ModifiedUId,
+		"GCRecord": GCRecord
+		}
+
+	data = configureNulls(data)
+	return data
