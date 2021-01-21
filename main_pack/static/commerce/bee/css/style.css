@@ -8474,8 +8474,8 @@ img.mfp-img {
   position: relative; 
 }
   .big-image-slider .big-image img {
-    max-width: 100%;
-    max-height: 100%;
+    width: 100%;
+    /* max-height: 100%; */
     background-color: #f6f7f8; }
   .big-image-slider .big-image .big-image-popup {
     position: absolute;
@@ -10709,6 +10709,16 @@ img.mfp-img {
     17. Login & Register
 -----------------------------------------*/
 /*-- Login --*/
+.ee-login{
+  width: 430px;
+  height: 100%;
+  padding: 60px 35px 35px 35px;
+  border-radius: 40px;
+  background-color: #ecf0f3;
+  box-shadow: 13px 13px 20px #cbced1,
+  -13px -13px 20px #fff;
+  
+}
 .ee-login h3 {
   font-size: 26px;
   font-weight: 600;
@@ -10719,105 +10729,9 @@ img.mfp-img {
   line-height: 23px;
   max-width: 500px; }
 
-.ee-login form {
-  max-width: 450px;
-  width: 100%;
-  margin-top: 50px;
-  margin-bottom: 60px;
-  clear: both;
-  float: left; }
-  .ee-login form input {
-    width: 100%;
-    /* border: 1px solid #999999; */
-    line-height: 28px;
-    border-left: none;
-    border-top: none;
-    border-right: none;
-    /* border-radius: 50px; */
-    border-bottom: 2px solid #dbdbdb;
-    padding: 10px 30px;
-    color: #444444;
-    font-size: 14px;
-    background-color: white;
-  }
   input:-internal-autofill-selected {
     background-color: #fff;
   }
-
-    .ee-login form input[type="submit"] {
-      font-size: 16px;
-      line-height: 25px;
-      padding: 10px 15px;
-      width: 150px;
-      text-align: center;
-      background-color: #f5d730;
-      border: none;
-      color: #202020;
-      text-transform: uppercase;
-      font-weight: 700; }
-  .ee-login form input[type="checkbox"] {
-    display: none; }
-    .ee-login form input[type="checkbox"] + label {
-      position: relative;
-      padding-left: 30px;
-      line-height: 20px;
-      font-size: 14px;
-      font-weight: 400;
-      color: #444444;
-      margin: 0 0 15px; }
-      .ee-login form input[type="checkbox"] + label::before {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 20px;
-        height: 20px;
-        display: block;
-        border: 2px solid #999999;
-        content: "";
-        -webkit-transition: all 0.3s ease 0s;
-        -o-transition: all 0.3s ease 0s;
-        transition: all 0.3s ease 0s; }
-      .ee-login form input[type="checkbox"] + label::after {
-        position: absolute;
-        left: 5px;
-        top: 5px;
-        display: block;
-        content: "";
-        opacity: 0;
-        background-color: #202020;
-        width: 10px;
-        text-align: center;
-        height: 10px;
-        -webkit-transition: all 0.3s ease 0s;
-        -o-transition: all 0.3s ease 0s;
-        transition: all 0.3s ease 0s; }
-    .ee-login form input[type="checkbox"]:checked + label::before {
-      border: 2px solid #202020; }
-    .ee-login form input[type="checkbox"]:checked + label::after {
-      opacity: 1; }
-  .ee-login form a {
-    float: right;
-    line-height: 20px;
-    font-size: 14px;
-    font-weight: 400;
-    color: #444444;
-    display: inline-block;
-    margin-bottom: 15px; }
-    .ee-login form a:hover {
-      color: #202020; }
-
-.ee-login h4 {
-  float: left;
-  font-size: 20px;
-  font-weight: 600;
-  color: #444444;
-  margin-bottom: 0; }
-  .ee-login h4 a {
-    text-transform: uppercase;
-    font-weight: 700;
-    color: #f5d730; }
-    .ee-login h4 a:hover {
-      text-decoration: underline; }
 
 /*-- Vertical Border --*/
 .login-reg-vertical-boder {
@@ -10900,6 +10814,15 @@ img.mfp-img {
       margin-bottom: 0; }
 
 /*-- Register --*/
+.ee-register{
+  width: 430px;
+  height: 100%;
+  padding: 60px 35px 35px 35px;
+  border-radius: 40px;
+  background-color: #ecf0f3;
+  box-shadow: 13px 13px 20px #cbced1,
+  -13px -13px 20px #fff; 
+}
 .ee-register h3 {
   font-size: 26px;
   font-weight: 600;
@@ -10909,33 +10832,6 @@ img.mfp-img {
   font-size: 14px;
   line-height: 23px;
   max-width: 500px; }
-
-.ee-register form {
-  max-width: 450px;
-  width: 100%;
-  margin-top: 50px;
-  clear: both;
-  float: left; }
-  .ee-register form input {
-    width: 100%;
-    border: 1px solid #999999;
-    line-height: 28px;
-    border-radius: 50px;
-    padding: 10px 30px;
-    color: #444444;
-    font-size: 14px;
-    background-color: transparent; }
-    .ee-register form input[type="submit"] {
-      font-size: 16px;
-      line-height: 25px;
-      padding: 10px 15px;
-      width: 150px;
-      text-align: center;
-      background-color: #f5d730;
-      border: none;
-      color: #202020;
-      text-transform: uppercase;
-      font-weight: 700; }
 
 /*-- Account Image --*/
 .ee-account-image {
@@ -12921,4 +12817,63 @@ ul.link-widget li {
 }
 .fa-eye{
   color: #999999
+}
+
+
+
+.input-field {
+  max-width: 380px;
+  width: 100%;
+  background-color: #f0f0f0;
+  margin: 10px 0 50px 0;
+  height: 55px;
+  border-radius: 55px;
+  display: grid;
+  grid-template-columns: 15% 85%;
+  padding: 0 0.4rem;
+  position: relative;
+  box-shadow: inset 8px 8px 8px #cbced1,
+  -8px -8px 8px #fff;
+}
+
+.input-field i {
+  text-align: center;
+  line-height: 55px;
+  color: #acacac;
+  transition: 0.5s;
+  font-size: 1.1rem;
+}
+
+.input-field input {
+  background: none;
+  outline: none;
+  border: none;
+  line-height: 1;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.input-field input::placeholder {
+  color: #aaa;
+  font-weight: 500;
+}
+
+.btn {
+  width: 150px;
+  background-color: #5995fd;
+  border: none;
+  outline: none;
+  height: 49px;
+  border-radius: 49px;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin: 10px 0;
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.btn:hover {
+  background-color: #4d84e2;
 }
