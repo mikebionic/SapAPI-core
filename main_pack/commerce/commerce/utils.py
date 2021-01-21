@@ -1,4 +1,5 @@
 from sqlalchemy import and_
+from sqlalchemy import func
 from sqlalchemy.orm import joinedload
 from datetime import datetime
 
@@ -60,7 +61,9 @@ def slidersData():
 
 @cache.cached(1200, key_prefix="ui_categories")
 def UiCategoriesList():
-	categories = collect_categories_query().all()
+	categories = collect_categories_query(showNullResourceCategory = 1)\
+		.options(joinedload(Res_category.Resource))\
+		.all()
 
 	main_categories = [category for category in categories if not category.ResOwnerCatId]
 	categories_list = []

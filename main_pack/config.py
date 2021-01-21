@@ -30,6 +30,7 @@ class Config:
 	TESTING = (int(environ.get('TESTING')))
 
 	USE_FLASK_CORS = int(environ.get('USE_FLASK_CORS'))
+	USE_FLASK_CACHE = int(environ.get('USE_FLASK_CACHE'))
 	USE_FLASK_COMPRESS = int(environ.get('USE_FLASK_COMPRESS'))
 
 	EMAIL_ERROR_REPORTS = int(environ.get('EMAIL_ERROR_REPORTS'))

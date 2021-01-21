@@ -63,6 +63,7 @@ def collect_categories_query(
 	DivId = None,
 	notDivId = None,
 	avoidQtyCheckup = 0,
+	showNullResourceCategory = 0,
 	IsMain = False):
 
 	if DivId is None:
@@ -85,8 +86,19 @@ def collect_categories_query(
 		.options(
 			joinedload(Res_category.subcategory)\
 				.options(
-					joinedload(Res_category.subcategory)))\
-		.join(Resource, Resource.ResCatId == Res_category.ResCatId)\
+					joinedload(Res_category.subcategory)\
+						.options(
+							joinedload(Res_category.Resource))))
+
+	if showNullResourceCategory:
+		categories_query = categories_query\
+			.outerjoin(Resource, Resource.ResCatId == Res_category.ResCatId)\
+
+	else:
+		categories_query = categories_query\
+			.join(Resource, Resource.ResCatId == Res_category.ResCatId)\
+
+	categories_query = categories_query\
 		.filter(Resource.GCRecord == None)\
 		.outerjoin(Res_Total_subquery, Res_Total_subquery.c.ResId == Resource.ResId)
 
@@ -95,7 +107,7 @@ def collect_categories_query(
 			.filter(Res_category.IsMain == True)
 
 	if avoidQtyCheckup == 0:
-		if Config.SHOW_NEGATIVE_WH_QTY_RESOURCE == False:	
+		if Config.SHOW_NEGATIVE_WH_QTY_RESOURCE == False:
 			categories_query = categories_query\
 				.filter(Res_Total_subquery.c.ResTotBalance_sum > 0)
 
