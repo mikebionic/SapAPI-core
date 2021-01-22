@@ -27,7 +27,7 @@ from main_pack.api.commerce.commerce_utils import collect_categories_query
 # / useful methods / 
 
 
-@cache.cached(1200, key_prefix="ui_sliders")
+@cache.cached(300, key_prefix="ui_sliders")
 def slidersData():
 	data = []
 	sliders = Slider.query\
@@ -59,7 +59,7 @@ def slidersData():
 	return res
 
 
-@cache.cached(1200, key_prefix="ui_categories")
+@cache.cached(300, key_prefix="ui_categories")
 def UiCategoriesList():
 	categories = collect_categories_query(showNullResourceCategory = 1)\
 		.options(joinedload(Res_category.Resource))\
@@ -101,7 +101,7 @@ def UiCategoriesList():
 	return res
 
 
-@cache.cached(1200, key_prefix="ui_brands")
+@cache.cached(300, key_prefix="ui_brands")
 def UiBrandsList():
 	brands = Brand.query\
 		.filter_by(GCRecord = None)\

@@ -85,6 +85,7 @@ def api_warehouses():
 					raise Exception
 
 				DivId = int(indexed_div_id)
+				CId = int(indexed_c_id)
 
 				warehouse_info = addWarehouseDict(warehouse_req)
 				warehouse_info['DivId'] = DivId
