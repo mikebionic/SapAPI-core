@@ -3,8 +3,8 @@ from flask_login import login_user, current_user, logout_user
 from datetime import datetime, timezone
 import uuid
 
+from . import bp, url_prefix
 from main_pack.config import Config
-from main_pack.commerce.auth import bp
 from main_pack import db, bcrypt, babel, gettext, lazy_gettext
 
 # forms
@@ -70,6 +70,7 @@ def login():
 	return render_template(
 		f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/auth/login.html",
 		**categoryData,
+		url_prefix = url_prefix,
 		title = gettext('Login'),
 		form = form)
 
@@ -102,6 +103,7 @@ def reset_request():
 			return render_template(
 				f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/auth/reset_token.html",
 				**categoryData,
+				url_prefix = url_prefix,
 				title = gettext('Reset password'),
 				form = form)
 
@@ -117,6 +119,7 @@ def reset_request():
 	return render_template(
 		f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/auth/reset_request.html",
 		**categoryData,
+		url_prefix = url_prefix,
 		title = gettext('Reset password'),
 		form = form)
 
@@ -147,6 +150,7 @@ def reset_token(token):
 	return render_template(
 		f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/auth/reset_token.html",
 		**categoryData,
+		url_prefix = url_prefix,
 		title = gettext('Reset password'),
 		form = form)
 
@@ -167,6 +171,7 @@ def register():
 	return render_template(
 		f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/auth/register_request.html",
 		**categoryData,
+		url_prefix = url_prefix,
 		title = gettext('Register'),
 		form = form)
 
@@ -248,5 +253,6 @@ def register_token(token):
 	return render_template(
 		f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/auth/register_token.html",
 		**categoryData,
+		url_prefix = url_prefix,
 		title = gettext('Register'),
 		form = form)

@@ -4,8 +4,8 @@ import uuid
 from flask_login import current_user,login_required
 from sqlalchemy import and_
 
+from . import bp, url_prefix
 from main_pack.config import Config
-from main_pack.commerce.users import bp
 from main_pack import db, gettext, lazy_gettext
 
 # Resource and view
@@ -44,6 +44,7 @@ def profile():
 		**categoryData,
 		rpAcc = rpAcc,
 		avatar = avatar,
+		url_prefix = url_prefix,
 		title = gettext(Config.COMMERCE_PROFILE_PAGE_TITLE))
 
 
@@ -72,6 +73,7 @@ def wishlist():
 		**res,
 		pagination_url = 'commerce_users.wishlist',
 		pagination_wishes = pagination_wishes,
+		url_prefix = url_prefix,
 		title = gettext(Config.COMMERCE_WISHLIST_PAGE_TITLE))
 
 
@@ -143,4 +145,5 @@ def profile_edit():
 		**categoryData,
 		form = form,
 		avatar = avatar,
+		url_prefix = url_prefix,
 		title = gettext(Config.COMMERCE_PROFILE_EDIT_PAGE_TITLE))

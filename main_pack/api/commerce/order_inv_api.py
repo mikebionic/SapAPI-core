@@ -224,7 +224,7 @@ def api_order_invoices():
 			res[e] = status[e]
 
 		status_code = 201 if len(data) > 0 else 200
-		response = make_response(jsonify(res), 200)
+		response = make_response(jsonify(res), status_code)
 
 	return response
 

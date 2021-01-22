@@ -5,7 +5,7 @@ from flask import current_app
 from sqlalchemy import and_
 from sqlalchemy.orm import joinedload
 
-from main_pack.commerce.admin import bp, url_prefix
+from . import bp, url_prefix
 from main_pack.config import Config
 
 # useful methods
@@ -92,14 +92,6 @@ def dashboard():
 		f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/dashboard.html",
 		url_prefix = url_prefix,
 		title = gettext('Dashboard'))
-
-
-@bp.route("/admin/blank")
-# @login_required
-# @ui_admin_required
-def hello():
-	print(session)
-	return "Hekll world"
 
 
 @bp.route("/admin/company")

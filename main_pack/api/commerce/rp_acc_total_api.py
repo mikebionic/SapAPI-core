@@ -92,8 +92,11 @@ def api_rp_acc_trans_totals():
 			"success_total": len(data),
 			"fail_total": len(failed_data)
 		}
+
 		for e in status:
 			res[e] = status[e]
-		response = make_response(jsonify(res), 200)
+
+		status_code = 201 if len(data) > 0 else 200
+		response = make_response(jsonify(res), status_code)
 
 	return response

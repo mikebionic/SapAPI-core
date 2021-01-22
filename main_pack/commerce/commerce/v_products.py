@@ -1,20 +1,13 @@
 from flask import render_template,url_for,jsonify,session,flash,redirect,request,Response,abort
-from main_pack.commerce.commerce import bp
-from main_pack.config import Config
-
-# useful methods
-from main_pack import db,babel,gettext,lazy_gettext
+from flask_login import current_user,login_required
 from sqlalchemy import and_
 from sqlalchemy.orm import joinedload
-# / useful methods / 
 
-# auth and validation
-from flask_login import current_user,login_required
-# / auth and validation /
+from . import bp, url_prefix
+from main_pack import db,babel,gettext,lazy_gettext
+from main_pack.config import Config
 
 # Resource and view
-from main_pack.base.invoiceMethods import resource_config_check
-from main_pack.api.commerce.commerce_utils import apiResourceInfo
 from main_pack.models.commerce.models import (
 	Resource,
 	Res_total,
@@ -22,8 +15,11 @@ from main_pack.models.commerce.models import (
 	Rating,
 	Res_category,
 	Brand,
-	Res_price)
+	Res_price
+)
 from main_pack.commerce.commerce.utils import UiCategoriesList,uiSortingData
+from main_pack.base.invoiceMethods import resource_config_check
+from main_pack.api.commerce.commerce_utils import apiResourceInfo
 from main_pack.api.commerce.commerce_utils import UiCartResourceData
 from main_pack.api.commerce.pagination_utils import collect_resource_paginate_info
 # / Resource and view /
@@ -50,6 +46,7 @@ def v_list():
 		f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/commerce/v_list.html",
 		**categoryData,
 		**pagination_info,
+		url_prefix = url_prefix,
 		title = gettext(Config.COMMERCE_LIST_VIEW_TITLE))
 
 
@@ -74,6 +71,7 @@ def v_grid():
 		f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/commerce/v_grid.html",
 		**categoryData,
 		**pagination_info,
+		url_prefix = url_prefix,
 		title = gettext(Config.COMMERCE_GRID_VIEW_TITLE))
 
 
@@ -84,21 +82,26 @@ def product(ResId):
 			"ResId": ResId,
 		}
 	]
+
 	try:
 		resData = UiCartResourceData(product_list,fullInfo=True,showRelated=True)
 		resource = resData["data"][0]
 	except:
 		abort(404)
+
 	categoryData = UiCategoriesList()
 
 	title =	gettext(Config.COMMERCE_RESOURCE_VIEW_TITLE)
+
 	if Config.RESOURCE_NAME_ON_TITLE == True:
 		try:
 			title = resource["ResName"]	if resource["ResName"] else ''
 		except Exception as ex:
 			print(ex)
+
 	return render_template(
 		f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/commerce/product.html",
 		**categoryData,
 		resource = resource,
+		url_prefix = url_prefix,
 		title = title)

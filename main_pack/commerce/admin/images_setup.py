@@ -255,13 +255,17 @@ def brands():
 @ui_admin_required
 def resource_edit(ResId):
 	resource = Resource.query\
-		.filter_by(GCRecord = None, ResId = ResId)
+		.filter_by(GCRecord = None, ResId = ResId)\
+		.first()
+
+	if not resource:
+		return redirect(url_for('commerce_admin.resources_table'))
 	
 	res = apiResourceInfo(
-		resource_query=resource,
-		single_object=True,
-		showInactive=True,
-		avoidQtyCheckup=True)
+		resource_list = [{"ResId": resource.ResId}],
+		single_object = True,
+		showInactive = True,
+		avoidQtyCheckup = True)
 
 	resource_info = res['data']
 	resourceForm = ResourceEditForm()
@@ -274,12 +278,13 @@ def resource_edit(ResId):
 		brandChoices.append(obj)
 	
 	if resource_info["BrandId"]:
-		try:
-			BrandId = resource_info["Brand"]["BrandId"]
-			BrandName = resource_info["Brand"]["BrandName"]
-			brandChoices.insert(0, brandChoices.pop(brandChoices.index((BrandId,BrandName))))
-		except Exception as ex:
-			print(ex)
+		# try:
+		BrandId = resource_info["BrandId"]
+		BrandName = resource_info["BrandName"]
+		brandChoices.insert(0, brandChoices.pop(brandChoices.index((BrandId,BrandName))))
+		# except Exception as ex:
+		# 	print(ex)
+
 	resourceForm.BrandId.choices = brandChoices
 
 	if "resourceForm" in request.form and resourceForm.validate_on_submit():

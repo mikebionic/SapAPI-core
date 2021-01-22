@@ -6,7 +6,8 @@ from wtforms.validators import (
 	Length,
 	Email,
 	EqualTo,
-	ValidationError)
+	ValidationError
+)
 
 class SendEmailToCompanyForm(FlaskForm):
 	FirstName = StringField(validators=[DataRequired()])

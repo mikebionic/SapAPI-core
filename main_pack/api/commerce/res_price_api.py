@@ -103,7 +103,7 @@ def api_res_prices():
 				else:
 					try:
 						lastPrice = Res_price.query.order_by(Res_price.ResPriceId.desc()).first()
-						ResPriceId = lastPrice.ResPriceId+1
+						ResPriceId = lastPrice.ResPriceId + 1
 					except:
 						ResPriceId = None
 					res_price_info["ResPriceId"] = ResPriceId
@@ -127,8 +127,11 @@ def api_res_prices():
 			"success_total": len(data),
 			"fail_total": len(failed_data)
 		}
+
 		for e in status:
 			res[e] = status[e]
-		response = make_response(jsonify(res), 200)
+
+		status_code = 201 if len(data) > 0 else 200
+		response = make_response(jsonify(res), status_code)
 
 	return response

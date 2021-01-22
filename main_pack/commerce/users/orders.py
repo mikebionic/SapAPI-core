@@ -2,9 +2,9 @@ from flask import render_template, url_for, session, redirect
 from flask_login import current_user, login_required
 from sqlalchemy import and_
 
+from . import bp, url_prefix
 from main_pack import db, gettext, lazy_gettext
 from main_pack.config import Config
-from main_pack.commerce.users import bp
 from main_pack.commerce.commerce.utils import UiCategoriesList
 # change this for something else
 
@@ -43,6 +43,7 @@ def orders():
 		f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/users/orders.html",
 		**categoryData,
 		**res,
+		url_prefix = url_prefix,
 		title = gettext(Config.COMMERCE_ORDERS_PAGE_TITLE))
 
 
@@ -74,6 +75,7 @@ def order_lines(OInvRegNo):
 			**categoryData,
 			**res,
 			**orderInvRes,
+			url_prefix = url_prefix,
 			title = gettext(Config.COMMERCE_ORDERS_PAGE_TITLE))
 	
 	else:

@@ -1,5 +1,11 @@
 from flask import Blueprint
 
-bp = Blueprint('commerce_users', __name__)
+from main_pack.config import Config
 
-from main_pack.commerce.users import routes, orders
+bp = Blueprint('commerce_users', __name__)
+url_prefix = Config.COMMERCE_URL_PREFIX
+
+from . import (
+	routes,
+	orders
+)

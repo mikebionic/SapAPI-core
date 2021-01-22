@@ -152,6 +152,7 @@ def api_tbl_dk_resources():
 					DivId = int(indexed_div_id)
 				except:
 					DivId = None
+
 				try:
 					indexed_c_id = company_CId_list[company_CGuid_list.index(CGuid)]
 					CId = int(indexed_c_id)
@@ -231,12 +232,11 @@ def api_tbl_dk_resources():
 			"success_total": len(data),
 			"fail_total": len(failed_data)
 		}
+
 		for e in status:
 			res[e] = status[e]
-		if res['status'] == 0:
-			status_code = 200
-		else:
-			status_code = 201
+
+		status_code = 201 if len(data) > 0 else 200
 		response = make_response(jsonify(res), status_code)
 
 	return response

@@ -191,7 +191,7 @@ class Config:
 
 	# VIEW AND ROUTES CONFIGURATION
 	# put the route names to be used to access the pages
-	COMMERCE_HOME_PAGE = "/commerce"
+	COMMERCE_HOME_PAGE = "/commerce/"
 	COMMERCE_ABOUT_PAGE = "/about"
 	COMMERCE_COLLECTION_VIEW = "/collection"
 	COMMERCE_CONTACTS_PAGE = "/contact"
