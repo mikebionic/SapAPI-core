@@ -67,8 +67,8 @@ def api_res_prices():
 		resource_ResId_list = [resource.ResId for resource in resources]
 		resource_ResGuid_list = [str(resource.ResGuid) for resource in resources]
 
-		res_prices = []
-		failed_res_prices = [] 
+		data = []
+		failed_data = [] 
 
 		for res_price_req in req:
 			res_price_info = addResPriceDict(res_price_req)
@@ -112,20 +112,20 @@ def api_res_prices():
 					db.session.add(thisResPrice)
 
 				thisResPrice = None
-				res_prices.append(res_price_req)
+				data.append(res_price_req)
 
 			except Exception as ex:
 				print(f"{datetime.now()} | Res_price Api Exception: {ex}")
-				failed_res_prices.append(res_price_req)
+				failed_data.append(res_price_req)
 
 		db.session.commit()
-		status = checkApiResponseStatus(res_prices,failed_res_prices)
+		status = checkApiResponseStatus(data, failed_data)
 
 		res = {
-			"data": res_prices,
-			"fails": failed_res_prices,
-			"success_total": len(res_prices),
-			"fail_total": len(failed_res_prices)
+			"data": data,
+			"fails": failed_data,
+			"success_total": len(data),
+			"fail_total": len(failed_data)
 		}
 		for e in status:
 			res[e] = status[e]

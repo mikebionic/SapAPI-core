@@ -107,7 +107,7 @@ def collect_categories_query(
 			.filter(Res_category.IsMain == True)
 
 	if avoidQtyCheckup == 0:
-		if Config.SHOW_NEGATIVE_WH_QTY_RESOURCE == False:
+		if (Config.SHOW_NEGATIVE_WH_QTY_RESOURCE == False and not showNullResourceCategory):
 			categories_query = categories_query\
 				.filter(Res_Total_subquery.c.ResTotBalance_sum > 0)
 

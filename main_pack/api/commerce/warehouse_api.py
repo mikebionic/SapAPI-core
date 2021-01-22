@@ -72,8 +72,9 @@ def api_warehouses():
 		division_DivGuid_list = [str(division.DivGuid) for division in divisions]
 		division_CId_list = [str(division.CId) for division in divisions]
 
-		warehouses = []
-		failed_warehouses = []
+		data = []
+		failed_data = []
+
 		for warehouse_req in req:
 			try:
 				DivGuid = warehouse_req['DivGuid']
@@ -82,6 +83,7 @@ def api_warehouses():
 
 				if not indexed_div_id:
 					raise Exception
+
 				DivId = int(indexed_div_id)
 
 				warehouse_info = addWarehouseDict(warehouse_req)
@@ -99,20 +101,21 @@ def api_warehouses():
 				else:
 					warehouse = Warehouse(**warehouse_info)
 					db.session.add(warehouse)
-				warehouses.append(warehouse_req)
+
+				data.append(warehouse_req)
 
 			except Exception as ex:
 				print(f"{datetime.now()} | Warehouse Api Exception: {ex}")
-				failed_warehouses.append(warehouse_req)
+				failed_data.append(warehouse_req)
 
 		db.session.commit()
-		status = checkApiResponseStatus(warehouses,failed_warehouses)
+		status = checkApiResponseStatus(data, failed_data)
 
 		res = {
-			"data": warehouses,
-			"fails": failed_warehouses,
-			"success_total": len(warehouses),
-			"fail_total": len(failed_warehouses)
+			"data": data,
+			"fails": failed_data,
+			"success_total": len(data),
+			"fail_total": len(failed_data)
 		}
 		for e in status:
 			res[e] = status[e]

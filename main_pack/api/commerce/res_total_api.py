@@ -86,8 +86,8 @@ def api_res_totals():
 		resource_ResId_list = [resource.ResId for resource in resources]
 		resource_ResGuid_list = [str(resource.ResGuid) for resource in resources]
 
-		res_totals = []
-		failed_res_totals = [] 
+		data = []
+		failed_data = [] 
 
 		for res_total_req in req:
 			res_total_info = addResTotalDict(res_total_req)
@@ -151,23 +151,23 @@ def api_res_totals():
 						db.session.add(thisResTotal)
 						
 					thisResTotal = None
-					res_totals.append(res_total_req)
+					data.append(res_total_req)
 
 				else:
 					raise Exception
 
 			except Exception as ex:
 				print(f"{datetime.now()} | Res_total Api Exception: {ex}")
-				failed_res_totals.append(res_total_req)
+				failed_data.append(res_total_req)
 
 		db.session.commit()
-		status = checkApiResponseStatus(res_totals,failed_res_totals)
+		status = checkApiResponseStatus(data, failed_data)
 
 		res = {
-			"data": res_totals,
-			"fails": failed_res_totals,
-			"success_total": len(res_totals),
-			"fail_total": len(failed_res_totals)
+			"data": data,
+			"fails": failed_data,
+			"success_total": len(data),
+			"fail_total": len(failed_data)
 		}
 		for e in status:
 			res[e] = status[e]

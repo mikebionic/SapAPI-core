@@ -85,8 +85,8 @@ def api_order_invoices():
 		rp_acc_RpAccId_list = [rp_acc.RpAccId for rp_acc in rp_accs]
 		rp_acc_RpAccGuid_list = [str(rp_acc.RpAccGuid) for rp_acc in rp_accs]
 		
-		order_invoices = []
-		failed_order_invoices = [] 
+		data = []
+		failed_data = [] 
 
 		for order_inv_req in req:
 			try:
@@ -205,22 +205,25 @@ def api_order_invoices():
 						failed_order_inv_lines.append(order_inv_line_req)
 
 				order_invoice['Order_inv_lines'] = order_inv_lines
-				order_invoices.append(order_invoice)
+				data.append(order_invoice)
 
 			except Exception as ex:
 				print(f"{datetime.now()} | OInv Api Exception: {ex}")
-				failed_order_invoices.append(order_invoice)
+				failed_data.append(order_invoice)
 
-		status = checkApiResponseStatus(order_invoices,failed_order_invoices)
+		status = checkApiResponseStatus(data, failed_data)
 
 		res = {
-			"data": order_invoices,
-			"fails": failed_order_invoices,
-			"success_total": len(order_invoices),
-			"fail_total": len(failed_order_invoices),
+			"data": data,
+			"fails": failed_data,
+			"success_total": len(data),
+			"fail_total": len(failed_data),
 		}
+
 		for e in status:
 			res[e] = status[e]
+
+		status_code = 201 if len(data) > 0 else 200
 		response = make_response(jsonify(res), 200)
 
 	return response

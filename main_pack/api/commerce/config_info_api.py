@@ -56,61 +56,71 @@ def api_company_info():
 def api_company():
 	if request.method == 'GET':
 		CGuid = request.args.get("CGuid",None,type=str)
-		company = Company.query\
-			.filter_by(CGuid = CGuid, GCRecord = None)\
-			.first_or_404()
-		company_info = company.to_json_api()
-		status_code = 200
+
+		filtering = {"GCRecord": None}
+
+		if CGuid:
+			filtering["CGuid"] = CGuid
+
+		company = Company.query.filter_by(**filtering).first_or_404()
+
+		data = company.to_json_api() if company else {}
 
 		res = {
-			"status": 1,
+			"status": 1 if data else 0,
 			"message": "Company information",
-			"data": company_info,
-			"total": 1
+			"data": data,
+			"total": 1 if data else 0
 		}
-		response = make_response(jsonify(res),status_code)
+
+		status_code = 200 if data else 404
+		response = make_response(jsonify(res), status_code)
 
 	if request.method == 'POST':
 		req = request.get_json()
 
-		companies = []
-		failed_companies = []
+		data = []
+		failed_data = []
 
 		for company_req in req:
 			try:
-				company_data = addCompanyDict(company_req)
+				company_info = addCompanyDict(company_req)
 				company = Company.query\
 					.filter_by(
-						CGuid = company_data['CGuid'],
+						CGuid = company_info["CGuid"],
 						GCRecord = None)\
 					.first()
 
 				if company:
-					company_data['CId'] = company.CId
-					company.update(**company_data)
+					company_info["CId"] = company.CId
+					company.update(**company_info)
 
 				else:
-					company = Company(**company_data)
+					company = Company(**company_info)
 					db.session.add(company)
 
-				companies.append(company_data)
+				data.append(company_info)
 
 			except Exception as ex:
 				print(f"{datetime.now()} | Company Api Exception: {ex}")
-				failed_companies.append(company_req)
+				failed_data.append(company_req)
 
 		db.session.commit()
-		status = checkApiResponseStatus(companies,failed_companies)
+		status = checkApiResponseStatus(data, failed_data)
 
 		res = {
-			"data": companies,
-			"fails": failed_companies,
-			"success_total": len(companies),
-			"fail_total": len(failed_companies)
+			"data": data,
+			"fails": failed_data,
+			"success_total": len(data),
+			"fail_total": len(failed_data)
 		}
+
 		for e in status:
 			res[e] = status[e]
-		response = make_response(jsonify(res), 200)	
+
+		status_code = 201 if len(data) > 0 else 200
+		response = make_response(jsonify(res), status_code)	
+
 	return response
 
 
@@ -120,20 +130,32 @@ def api_company():
 def api_division():
 	if request.method == 'GET':
 		DivGuid = request.args.get("DivGuid",None,type=str)
+
+		filtering = {"GCRecord": None}
+
+		if DivGuid:
+			filtering["DivGuid"] = DivGuid
+
 		division = Division.query\
-			.filter_by(DivGuid = DivGuid, GCRecord = None)\
+			.filter_by(**filtering)\
 			.options(joinedload(Division.company))\
-			.first_or_404()
-		division_info = division.to_json_api()
-		division_info["CGuid"] = division.company.CGuid if division.company else None
-		status_code = 200
+			.first()
+
+		data = {}
+
+		if division:
+			data = division.to_json_api()
+			data["CGuid"] = division.company.CGuid if division.company and not division.company.GCRecord else None
+
 		res = {
-			"status": 1,
-			"message": "Division information",
-			"data": division_info,
-			"total": 1
+			"status": 1 if data else 0,
+			"message": "Division",
+			"data": data,
+			"total": 1 if data else 0
 		}
-		response = make_response(jsonify(res),status_code)
+
+		status_code = 200 if data else 404
+		response = make_response(jsonify(res), status_code)
 	
 	if request.method == 'POST':
 		req = request.get_json()
@@ -142,16 +164,17 @@ def api_division():
 		company_CId_list = [company.CId for company in companies]
 		company_CGuid_list = [str(company.CGuid) for company in companies]
 
-		divisions = []
-		failed_divisions = []
+		data = []
+		failed_data = []
 
 		for division_req in req:
 			try:
 				CGuid = division_req["CGuid"]
-				indexed_c_id = company_CId_list[company_CGuid_list.index(CGuid)]
-				CId = int(indexed_c_id)
+				CId = int(company_CId_list[company_CGuid_list.index(CGuid)])
+
 				division_info = addDivisionDict(division_req)
 				division_info["CId"] = CId
+
 				division = Division.query\
 					.filter_by(
 						DivGuid = division_info["DivGuid"],
@@ -159,29 +182,33 @@ def api_division():
 					.first()
 
 				if division:
-					division_info['DivId'] = division.DivId
+					division_info["DivId"] = division.DivId
 					division.update(**division_info)
 
 				else:
 					division = Division(**division_info)
 					db.session.add(division)
 
-				divisions.append(division_req)
+				data.append(division_req)
 
 			except Exception as ex:
 				print(f"{datetime.now()} | Division Api Exception: {ex}")
-				failed_divisions.append(division_req)
+				failed_data.append(division_req)
 
 		db.session.commit()
-		status = checkApiResponseStatus(divisions,failed_divisions)
+		status = checkApiResponseStatus(data, failed_data)
 
 		res = {
-			"data": divisions,
-			"fails": failed_divisions,
-			"success_total": len(divisions),
-			"fail_total": len(failed_divisions)
+			"data": data,
+			"fails": failed_data,
+			"success_total": len(data),
+			"fail_total": len(failed_data)
 		}
+
 		for e in status:
 			res[e] = status[e]
-		response = make_response(jsonify(res), 200)	
+
+		status_code = 201 if len(data) > 0 else 200
+		response = make_response(jsonify(res), status_code)	
+
 	return response

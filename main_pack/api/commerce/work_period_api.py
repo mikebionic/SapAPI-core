@@ -54,42 +54,49 @@ def api_work_periods():
 	elif request.method == 'POST':
 		req = request.get_json()
 
-		work_periods = []
-		failed_work_periods = [] 
+		data = []
+		failed_data = []
+
+		currencies = Currency.query.filter_by(GCRecord = None).all()
 
 		for work_period_req in req:
 			work_period = addWorkPeriodDict(work_period_req)
+
+			CurrencyCode = work_period_req["CurrencyCode"]
+			thisCurrency = [currency.to_json_api() for currency in currencies if currency.CurrencyCode == CurrencyCode]
+			work_period["CurrencyId"] = thisCurrency[0]["CurrencyId"] if thisCurrency else None
+
 			try:
 				if not 'WpId' in work_period:
-					newWorkPeriod = Work_period(**work_period)
-					db.session.add(newWorkPeriod)
-					work_periods.append(work_period)
+					thisWorkPeriod = Work_period(**work_period)
+					db.session.add(thisWorkPeriod)
+					data.append(work_period)
 
 				else:
 					WpId = work_period['WpId']
 					thisWorkPeriod = Work_period.query.get(int(WpId))
 
-					if thisWorkPeriod is not None:
+					if thisWorkPeriod:
 						thisWorkPeriod.update(**work_period)
-						work_periods.append(work_period)
+						data.append(work_period)
 
 					else:
-						newWorkPeriod = Work_period(**work_period)
-						db.session.add(newWorkPeriod)
-						work_periods.append(work_period)
+						thisWorkPeriod = Work_period(**work_period)
+						db.session.add(thisWorkPeriod)
+						data.append(work_period)
 
 			except Exception as ex:
 				print(f"{datetime.now()} | Work_period Api Exception: {ex}")
-				failed_work_periods.append(work_period)
+				failed_data.append(work_period)
 
 		db.session.commit()
-		status = checkApiResponseStatus(work_periods,failed_work_periods)
+		status = checkApiResponseStatus(data, failed_data)
 
 		res = {
-			"data": work_periods,
-			"fails": failed_work_periods,
-			"success_total": len(work_periods),
-			"fail_total": len(failed_work_periods)
+			"data": data,
+			"fails": failed_data,
+			"success_total": len(data),
+			"fail_total": len(failed_data)
 		}
 		for e in status:
 			res[e] = status[e]

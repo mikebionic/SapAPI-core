@@ -68,7 +68,7 @@ def api_users():
 			"data": data,
 			"total": len(data)
 		}
-		response = make_response(jsonify(res),200)
+		response = make_response(jsonify(res), 200)
 
 	elif request.method == 'POST':
 		req = request.get_json()
@@ -85,8 +85,9 @@ def api_users():
 		company_CId_list = [company.CId for company in companies]
 		company_CGuid_list = [str(company.CGuid) for company in companies]
 
-		users = []
-		failed_users = [] 
+		data = []
+		failed_data = [] 
+
 		for user_req in req:
 			user_info = addUsersDict(user_req)
 			try:
@@ -122,29 +123,29 @@ def api_users():
 				if thisUser:
 					user_info["UId"] = thisUser.UId
 					thisUser.update(**user_info)
-					users.append(user_req)
+					data.append(user_req)
 
 				else:
 					thisUser = Users(**user_info)
 					db.session.add(thisUser)
-					users.append(user_req)
+					data.append(user_req)
 					thisUser = None
 
 			except Exception as ex:
 				print(f"{datetime.now()} | Users Api Exception: {ex}")
-				failed_users.append(user_req)
+				failed_data.append(user_req)
 
 		db.session.commit()
-		status = checkApiResponseStatus(users,failed_users)
+		status = checkApiResponseStatus(data, failed_data)
 
 		res = {
-			"data": users,
-			"fails": failed_users,
-			"success_total": len(users),
-			"fail_total": len(failed_users)
+			"data": data,
+			"fails": failed_data,
+			"success_total": len(data),
+			"fail_total": len(failed_data)
 		}
 		for e in status:
 			res[e] = status[e]
-		response = make_response(jsonify(res),201)
+		response = make_response(jsonify(res), 201)
 
 	return response

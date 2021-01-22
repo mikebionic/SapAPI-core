@@ -117,8 +117,9 @@ def api_rp_accs():
 		users_UId_list = [user.UId for user in users]
 		users_UGuid_list = [str(user.UGuid) for user in users]
 
-		rp_accs = []
-		failed_rp_accs = [] 
+		data = []
+		failed_data = [] 
+
 		for rp_acc_req in req:
 			rp_acc_info = addRpAccDict(rp_acc_req)
 			try:
@@ -167,36 +168,36 @@ def api_rp_accs():
 				try:
 					RpAccId = thisRpAcc.RpAccId
 					rp_acc_trans_total = addRpAccTrTotDict(rp_acc_trans_total_req)
-					rp_acc_trans_total['RpAccTrTotId'] = None
-					rp_acc_trans_total['RpAccId'] = RpAccId
+					rp_acc_trans_total["RpAccTrTotId"] = None
+					rp_acc_trans_total["RpAccId"] = RpAccId
 
 					thisRpAccTrTotal = Rp_acc_trans_total.query\
 						.filter_by(RpAccId = RpAccId, GCRecord = None)\
 						.first()
 					if thisRpAccTrTotal:
-						rp_acc_trans_total['RpAccTrTotId'] = thisRpAccTrTotal.RpAccTrTotId
+						rp_acc_trans_total["RpAccTrTotId"] = thisRpAccTrTotal.RpAccTrTotId
 						thisRpAccTrTotal.update(**rp_acc_trans_total)
 					else:
 						thisRpAccTrTotal = Rp_acc_trans_total(**rp_acc_trans_total)
 						db.session.add(thisRpAccTrTotal)
 
-					rp_accs.append(rp_acc_req)
+					data.append(rp_acc_req)
 
 				except Exception as ex:
 					print(f"{datetime.now()} | Rp_acc Api Rp_acc_total Exception: {ex}")
 
 			except Exception as ex:
 				print(f"{datetime.now()} | Rp_acc Api Exception: {ex}")
-				failed_rp_accs.append(rp_acc_req)
+				failed_data.append(rp_acc_req)
 
 		db.session.commit()
-		status = checkApiResponseStatus(rp_accs,failed_rp_accs)
+		status = checkApiResponseStatus(data, failed_data)
 
 		res = {
-			"data": rp_accs,
-			"fails": failed_rp_accs,
-			"success_total": len(rp_accs),
-			"fail_total": len(failed_rp_accs)
+			"data": data,
+			"fails": failed_data,
+			"success_total": len(data),
+			"fail_total": len(failed_data)
 		}		
 		for e in status:
 			res[e] = status[e]

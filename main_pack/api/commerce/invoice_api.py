@@ -64,8 +64,8 @@ def api_invoices():
 	elif request.method == 'POST':
 		req = request.get_json()
 
-		invoices = []
-		failed_invoices = [] 
+		data = []
+		failed_data = [] 
 
 		for data in req:
 			invoice = addInvDict(data)
@@ -103,6 +103,7 @@ def api_invoices():
 
 				inv_lines = []
 				failed_inv_lines = []
+
 				for inv_line_req in data['inv_lines']:
 					inv_line = addInvLineDict(inv_line_req)
 					inv_line['InvId'] = thisInv.InvId
@@ -123,23 +124,26 @@ def api_invoices():
 					
 				db.session.commit()
 				invoice['inv_lines'] = inv_lines
-				invoices.append(invoice)
+				data.append(invoice)
 
 			except Exception as ex:
 				print(f"{datetime.now()} | Inv Api Exception: {ex}")
-				failed_invoices.append(invoice)
+				failed_data.append(invoice)
 
-		status = checkApiResponseStatus(invoices,failed_invoices)
+		status = checkApiResponseStatus(data, failed_data)
 
 		res = {
-			"data": invoices,
-			"fails": failed_invoices,
-			"success_total": len(invoices),
-			"fail_total": len(failed_invoices),
+			"data": data,
+			"fails": failed_data,
+			"success_total": len(data),
+			"fail_total": len(failed_data),
 		}
+
 		for e in status:
 			res[e] = status[e]
-		response = make_response(jsonify(res), 200)
+
+		status_code = 201 if len(data) > 0 else 200
+		response = make_response(jsonify(res), status_code)
 
 	return response
 
@@ -152,7 +156,7 @@ def api_invoice_info(InvRegNo):
 		invoice_list = invoice_list,
 		single_object = True)
 
-	status_code = 200
+	status_code = 200 if res['status'] == 1 else 404
 	response = make_response(jsonify(res), status_code)
 	return response
 
@@ -171,7 +175,6 @@ def api_v_invoices(user):
 		rp_acc_user = current_user)
 
 	status_code = 200
-
 	response = make_response(jsonify(res), status_code)
 	return response
 
@@ -186,10 +189,6 @@ def api_v_invoice(user,InvRegNo):
 		single_object = True,
 		rp_acc_user = current_user)
 
-	if res['status'] == 1:
-		status_code = 200
-	else:
-		status_code = 404
-
+	status_code = 200 if res['status'] == 1 else 404
 	response = make_response(jsonify(res), status_code)
 	return response

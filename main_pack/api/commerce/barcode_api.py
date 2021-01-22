@@ -51,13 +51,14 @@ def api_barcodes():
 			"data": data,
 			"total": len(data)
 		}
+
 		response = make_response(jsonify(res), 200)
 
 	elif request.method == 'POST':
 		req = request.get_json()
 
-		barcodes = []
-		failed_barcodes = [] 
+		data = []
+		failed_data = [] 
 
 		for barcode_req in req:
 			barcode = addBarcodeDict(barcode_req)
@@ -71,27 +72,31 @@ def api_barcodes():
 
 				if thisBarcode:
 					thisBarcode.update(**barcode)
-					barcodes.append(barcode)
+					data.append(barcode)
+
 				else:
 					newBarcode = Barcode(**barcode)
 					db.session.add(newBarcode)
-					barcodes.append(barcode)
+					data.append(barcode)
 
 			except Exception as ex:
 				print(f"{datetime.now()} | Barcode Api Exception: {ex}")
-				failed_barcodes.append(barcode)
+				failed_data.append(barcode)
 
 		db.session.commit()
-		status = checkApiResponseStatus(barcodes,failed_barcodes)
+		status = checkApiResponseStatus(data, failed_data)
 
 		res = {
-			"data": barcodes,
-			"fails": failed_barcodes,
-			"success_total": len(barcodes),
-			"fail_total": len(failed_barcodes)
+			"data": data,
+			"fails": failed_data,
+			"success_total": len(data),
+			"fail_total": len(failed_data)
 		}
+
 		for e in status:
 			res[e] = status[e]
-		# !!! TODO: Make a proper response code validation
-		response = make_response(jsonify(res), 201)
+
+		status_code = 201 if len(data) > 0 else 200
+		response = make_response(jsonify(res), status_code)
+
 	return response

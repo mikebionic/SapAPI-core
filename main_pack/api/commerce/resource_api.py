@@ -92,8 +92,9 @@ def api_tbl_dk_resources():
 		company_CId_list = [company.CId for company in companies]
 		company_CGuid_list = [str(company.CGuid) for company in companies]
 
-		resources = []
-		failed_resources = []
+		data = []
+		failed_data = []
+
 		for resource_req in req:
 			resource_info = addResourceDict(resource_req)
 
@@ -182,7 +183,7 @@ def api_tbl_dk_resources():
 					thisResource = Resource(**resource_info)
 					db.session.add(thisResource)
 				
-				resources.append(resource_req)
+				data.append(resource_req)
 				db.session.commit()
 
 				barcodes = []
@@ -219,16 +220,16 @@ def api_tbl_dk_resources():
 
 			except Exception as ex:
 				print(f"{datetime.now()} | Resource Api Exception: {ex}")
-				failed_resources.append(resource_req)
+				failed_data.append(resource_req)
 
 		db.session.commit()
-		status = checkApiResponseStatus(resources,failed_resources)
+		status = checkApiResponseStatus(data, failed_data)
 
 		res = {
-			"data": resources,
-			"fails": failed_resources,
-			"success_total": len(resources),
-			"fail_total": len(failed_resources)
+			"data": data,
+			"fails": failed_data,
+			"success_total": len(data),
+			"fail_total": len(failed_data)
 		}
 		for e in status:
 			res[e] = status[e]

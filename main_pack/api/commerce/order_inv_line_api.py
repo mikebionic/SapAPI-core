@@ -42,8 +42,8 @@ def api_order_inv_lines():
 	elif request.method == 'POST':
 		req = request.get_json()
 
-		order_inv_lines = []
-		failed_order_inv_lines = [] 
+		data = []
+		failed_data = [] 
 
 		for order_inv_line_req in req:
 			order_inv_line = addOrderInvLineDict(order_inv_line_req)
@@ -53,25 +53,25 @@ def api_order_inv_lines():
 
 				if thisOrderInv:
 					thisOrderInv.update(**order_inv_line)
-					order_inv_lines.append(order_inv_line)
+					data.append(order_inv_line)
 
 				else:
 					newOrderInv = Order_inv_line(**order_inv_line)
 					db.session.add(newOrderInv)
-					order_inv_lines.append(order_inv_line)
+					data.append(order_inv_line)
 
 			except Exception as ex:
 				print(f"{datetime.now()} | OInvLine Exception: {ex}")
-				failed_order_inv_lines.append(order_inv_line)
+				failed_data.append(order_inv_line)
 
 		db.session.commit()
-		status = checkApiResponseStatus(order_inv_lines,failed_order_inv_lines)
+		status = checkApiResponseStatus(data, failed_data)
 
 		res = {
-			"data": order_inv_lines,
-			"fails": failed_order_inv_lines,
-			"success_total": len(order_inv_lines),
-			"fail_total": len(failed_order_inv_lines)
+			"data": data,
+			"fails": failed_data,
+			"success_total": len(data),
+			"fail_total": len(failed_data)
 		}
 		for e in status:
 			res[e] = status[e]

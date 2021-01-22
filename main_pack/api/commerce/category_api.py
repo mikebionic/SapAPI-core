@@ -16,20 +16,6 @@ from main_pack.models.base.models import Division
 from main_pack.models.commerce.models import Res_category, Resource, Res_total
 
 
-@api.route("/tbl-dk-categories/<int:ResCatId>/",methods=['GET'])
-def api_category(ResCatId):
-	if request.method == 'GET':
-		category = Res_category.query\
-			.filter_by(ResCatId = ResCatId).first_or_404()
-		response = jsonify({'category':category.to_json_api()})
-		res = {
-			"status": 1,
-			"data": category.to_json_api()
-		}
-		response = make_response(jsonify(res), 200)
-	return response
-
-
 @api.route("/tbl-dk-categories/",methods=['GET'])
 def api_categories():
 	if request.method == 'GET':
@@ -63,40 +49,46 @@ def api_post_categories():
 	if request.method == 'POST':
 		req = request.get_json()
 
-		categories = []
-		failed_categories = [] 
+		data = []
+		failed_data = [] 
 
 		for category_req in req:
 			try:
-				new_category = addCategoryDict(category_req)
-				category = Res_category.query\
-					.filter_by(ResCatName = new_category.ResCatName)\
+				category_info = addCategoryDict(category_req)
+
+				thisCategory = Res_category.query\
+					.filter_by(ResCatName = category_info["ResCatName"], GCRecord = None)\
 					.first()
 
-				if not category:
-					category = Res_category(**new_category)
-					db.session.add(category)
+				if thisCategory:
+					thisCategory.update(**category_info)
 
 				else:
-					category.update(**new_category)
-				categories.append(new_category)
+					thisCategory = Res_category(**category_info)
+					db.session.add(thisCategory)
+
+				data.append(category_info)
 
 			except Exception as ex:
 				print(f"{datetime.now()} | Category Api Exception: {ex}")
-				failed_categories.append(new_category)
+				failed_data.append(category_info)
 
 		db.session.commit()
-		status = checkApiResponseStatus(categories,failed_categories)
+		status = checkApiResponseStatus(data, failed_data)
 
 		res = {
-			"data": categories,
-			"fails": failed_categories,
-			"success_total": len(categories),
-			"fail_total": len(failed_categories)
+			"data": data,
+			"fails": failed_data,
+			"success_total": len(data),
+			"fail_total": len(failed_data)
 		}
+
 		for e in status:
 			res[e] = status[e]
-		response = make_response(jsonify(res), 200)	
+
+		status_code = 201 if len(data) > 0 else 200
+		response = make_response(jsonify(res), status_code)	
+
 	return response
 
 
@@ -118,7 +110,7 @@ def api_paginated_categories():
 		prev = url_for('commerce_api.api_paginated_categories',page=page-1)
 	if pagination.has_next:
 		next = url_for('commerce_api.api_paginated_categories',page=page+1)
-	
+
 	res = {
 		"status": 1 if len(data) > 0 else 0,
 		"message": "Categories",
@@ -128,5 +120,5 @@ def api_paginated_categories():
 		"next_url": next,
 		"pages_total": pagination.total
 	}
-	
+
 	return jsonify(res)

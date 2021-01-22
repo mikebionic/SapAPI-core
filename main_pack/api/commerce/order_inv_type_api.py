@@ -35,8 +35,8 @@ def api_order_inv_types():
 	elif request.method == 'POST':
 		req = request.get_json()
 
-		order_inv_types = []
-		failed_order_inv_types = [] 
+		data = []
+		failed_data = [] 
 
 		for order_inv_type_req in req:
 			order_inv_type = addOrderInvTypeDict(order_inv_type_req)
@@ -44,7 +44,7 @@ def api_order_inv_types():
 				if not 'OInvTypeId' in order_inv_type:
 					newOrderInv = Order_inv_type(**order_inv_type)
 					db.session.add(newOrderInv)
-					order_inv_types.append(order_inv_type)
+					data.append(order_inv_type)
 
 				else:
 					OInvTypeId = order_inv_type['OInvTypeId']
@@ -52,25 +52,25 @@ def api_order_inv_types():
 
 					if thisOrderInv is not None:
 						thisOrderInv.update(**order_inv_type)
-						order_inv_types.append(order_inv_type)
+						data.append(order_inv_type)
 
 					else:
 						newOrderInv = Order_inv_type(**order_inv_type)
 						db.session.add(newOrderInv)
-						order_inv_types.append(order_inv_type)
+						data.append(order_inv_type)
 
 			except Exception as ex:
 				print(f"{datetime.now()} | OInv_type Api Exception: {ex}")
-				failed_order_inv_types.append(order_inv_type)
+				failed_data.append(order_inv_type)
 
 		db.session.commit()
-		status = checkApiResponseStatus(order_inv_types,failed_order_inv_types)
+		status = checkApiResponseStatus(data, failed_data)
 
 		res = {
-			"data": order_inv_types,
-			"fails": failed_order_inv_types,
-			"success_total": len(order_inv_types),
-			"fail_total": len(failed_order_inv_types)
+			"data": data,
+			"fails": failed_data,
+			"success_total": len(data),
+			"fail_total": len(failed_data)
 		}
 		for e in status:
 			res[e] = status[e]

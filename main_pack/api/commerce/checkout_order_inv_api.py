@@ -30,7 +30,8 @@ from main_pack.models.commerce.models import (
 	Resource,
 	Res_price,
 	Res_total,
-	Res_price_group)
+	Res_price_group
+)
 from main_pack.base.invoiceMethods import totalQtySubstitution
 from main_pack.base.num2text import num2text, price2text
 import decimal
@@ -232,6 +233,7 @@ def api_checkout_sale_order_invoices(user):
 				order_inv_line["OInvLineFTotal"] = decimal.Decimal(OInvLineFTotal)
 				order_inv_line["OInvId"] = newOrderInv.OInvId
 				order_inv_line["UnitId"] = resource.UnitId
+
 				if not order_inv_line["CurrencyId"]:
 					order_inv_line["CurrencyId"] = 1
 				
@@ -242,6 +244,7 @@ def api_checkout_sale_order_invoices(user):
 				order_inv_lines.append(thisOInvLine.to_json_api())
 
 				order_inv_line = None
+
 			except Exception as ex:
 				print(f"{datetime.now()} | Checkout OInv Line Exception: {ex} | Error type {error_type}")
 				fail_info = {
@@ -282,7 +285,8 @@ def api_checkout_sale_order_invoices(user):
 
 			db.session.commit()
 
-			status = checkApiResponseStatus(order_inv_lines,failed_order_inv_lines)
+			status = checkApiResponseStatus(order_inv_lines, failed_order_inv_lines)
+
 			res = {
 				"data": newOrderInv.to_json_api(),
 				"successes": order_inv_lines,
@@ -291,18 +295,20 @@ def api_checkout_sale_order_invoices(user):
 				"fail_total": len(failed_order_inv_lines),
 				"total": len(OrderInvLines)
 			}
-			status_code = 200
+
+			status_code = 201 if len(data) > 0 else 200
 			for e in status:
 				res[e] = status[e]
 
 	except Exception as ex:
 		print(f"{datetime.now()} | Checkout OInv Exception: {ex}")
-		status_code = 400
 		res = {
 			"data": order_invoice,
 			"message": "Failed to checkout order"
-		}	
-	response = make_response(jsonify(res),status_code)
+		}
+		status_code = 400
+
+	response = make_response(jsonify(res), status_code)
 
 	return response
 
@@ -390,9 +396,7 @@ def validate_order_inv_payment(user):
 			"total": len(data)
 		}
 
-		if res['status'] == 0:
-			status_code = 200
-		else:
-			status_code = 201
-		response = make_response(jsonify(res),status_code)
+		status_code = 200 if res["status"] == 0 else 201
+		response = make_response(jsonify(res), status_code)
+
 	return response

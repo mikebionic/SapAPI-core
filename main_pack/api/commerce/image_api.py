@@ -95,8 +95,8 @@ def api_images():
 		resource_ResGuid_list = [str(resource.ResGuid) for resource in resources]
 		# resource_RegNo_list = [resource.ResRegNo for resource in resources]
 
-		images = []
-		failed_images = []
+		data = []
+		failed_data = []
 
 		for image_req in req:
 			try:
@@ -157,7 +157,7 @@ def api_images():
 						print(f"{datetime.now()} | Image dropped (Same ModifiedDate)")
 
 					image_req["Image"] = None
-					images.append(image_req)
+					data.append(image_req)
 
 				else:
 					image_data = saveImageFile(image_req)
@@ -181,26 +181,30 @@ def api_images():
 
 					print(f"{datetime.now()} | Image created")
 					image_req["Image"] = None
-					images.append(image_req)
+					data.append(image_req)
 
 			except Exception as ex:
 				print(f"{datetime.now()} | Image Api Exception: {ex}")
 				image_req["Image"] = None
-				failed_images.append(image_req)
+				failed_data.append(image_req)
 
 		db.session.commit()
 		print(f"{datetime.now()} | Images were committed")
-		status = checkApiResponseStatus(images,failed_images)
+		status = checkApiResponseStatus(data, failed_data)
 
 		res = {
-			"data": images,
-			"fails": failed_images,
-			"success_total": len(images),
-			"fail_total": len(failed_images)
+			"data": data,
+			"fails": failed_data,
+			"success_total": len(data),
+			"fail_total": len(failed_data)
 		}
+
 		for e in status:
 			res[e] = status[e]
-		response = make_response(jsonify(res),201)
+
+		status_code = 201 if len(data) > 0 else 200
+		response = make_response(jsonify(res), status_code)
+
 	return response
 
 

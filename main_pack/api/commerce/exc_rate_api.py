@@ -70,8 +70,8 @@ def api_exc_rate():
 	elif request.method == 'POST':
 		req = request.get_json()
 
-		exc_rates = []
-		failed_exc_rates = [] 
+		data = []
+		failed_data = [] 
 
 		exc_rate_types = Exc_rate_type.query.filter_by(GCRecord = None).all()
 		currencies = Currency.query.filter_by(GCRecord = None).all()
@@ -81,10 +81,10 @@ def api_exc_rate():
 			CurrencyCode = exc_rate_req["CurrencyCode"]
 			ExcRateTypeExp = exc_rate_req["ExcRateTypeExp"]
 
-			thisExcCurrency = [currency.to_json_api() for currency in currencies if currency.CurrencyCode == CurrencyCode]
+			thisCurrency = [currency.to_json_api() for currency in currencies if currency.CurrencyCode == CurrencyCode]
 			thisExcRateType = [exc_rate_type.to_json_api() for exc_rate_type in exc_rate_types if exc_rate_type.ExcRateTypeExp == ExcRateTypeExp]
 
-			exc_rate["CurrencyId"] = thisExcCurrency[0]["CurrencyId"] if thisExcCurrency else None
+			exc_rate["CurrencyId"] = thisCurrency[0]["CurrencyId"] if thisCurrency else None
 			exc_rate["ExcRateTypeId"] = thisExcRateType[0]["ExcRateTypeId"] if thisExcRateType else None
 
 			try:
@@ -96,27 +96,30 @@ def api_exc_rate():
 
 				if thisExcRate:
 					thisExcRate.update(**exc_rate)
-					exc_rates.append(exc_rate)
+					data.append(exc_rate)
 				else:
 					thisExcRate = Exc_rate(**exc_rate)
 					db.session.add(thisExcRate)
-					exc_rates.append(exc_rate)
+					data.append(exc_rate)
 
 			except Exception as ex:
 				print(f"{datetime.now()} | Exc_rate Api Exception: {ex}")
-				failed_exc_rates.append(exc_rate)
+				failed_data.append(exc_rate)
 
 		db.session.commit()
-		status = checkApiResponseStatus(exc_rates,failed_exc_rates)
+		status = checkApiResponseStatus(data, failed_data)
 
 		res = {
-			"data": exc_rates,
-			"fails": failed_exc_rates,
-			"success_total": len(exc_rates),
-			"fail_total": len(failed_exc_rates)
+			"data": data,
+			"fails": failed_data,
+			"success_total": len(data),
+			"fail_total": len(failed_data)
 		}
+
 		for e in status:
 			res[e] = status[e]
-		response = make_response(jsonify(res), 201)
+
+		status_code = 201 if len(data) > 0 else 200
+		response = make_response(jsonify(res), status_code)
 
 	return response

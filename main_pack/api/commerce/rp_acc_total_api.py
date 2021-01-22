@@ -54,8 +54,8 @@ def api_rp_acc_trans_totals():
 		rp_acc_list_reg_no = [rp_acc.RpAccRegNo for rp_acc in rp_accs]
 		rp_acc_list = [rp_acc.RpAccId for rp_acc in rp_accs]
 
-		rp_acc_trans_totals = []
-		failed_rp_acc_trans_totals = []
+		data = []
+		failed_data = []
 
 		for rp_acc_trans_total_req in req:
 			try:
@@ -71,26 +71,26 @@ def api_rp_acc_trans_totals():
 						.first()
 					if thisRpAccTrTotal is not None:
 						thisRpAccTrTotal.update(**rp_acc_trans_total)
-						rp_acc_trans_totals.append(rp_acc_trans_total)
+						data.append(rp_acc_trans_total)
 					else:
 						newRpAccTrTotal = Rp_acc_trans_total(**rp_acc_trans_total)
 						db.session.add(newRpAccTrTotal)
-						rp_acc_trans_totals.append(rp_acc_trans_total)
+						data.append(rp_acc_trans_total)
 				else:
 					raise Exception
 
 			except Exception as ex:
 				print(f"{datetime.now()} | Rp_acc_total Api Exception: {ex}")
-				failed_rp_acc_trans_totals.append(rp_acc_trans_total)
+				failed_data.append(rp_acc_trans_total)
 
 		db.session.commit()
-		status = checkApiResponseStatus(rp_acc_trans_totals,failed_rp_acc_trans_totals)
+		status = checkApiResponseStatus(data, failed_data)
 
 		res = {
-			"data": rp_acc_trans_totals,
-			"fails": failed_rp_acc_trans_totals,
-			"success_total": len(rp_acc_trans_totals),
-			"fail_total": len(failed_rp_acc_trans_totals)
+			"data": data,
+			"fails": failed_data,
+			"success_total": len(data),
+			"fail_total": len(failed_data)
 		}
 		for e in status:
 			res[e] = status[e]
