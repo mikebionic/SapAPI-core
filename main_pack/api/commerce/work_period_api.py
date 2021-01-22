@@ -6,6 +6,7 @@ import dateutil.parser
 from main_pack import db
 from main_pack.api.commerce import api
 
+from main_pack.models.base.models import Currency
 from main_pack.models.commerce.models import Work_period
 from main_pack.api.commerce.utils import addWorkPeriodDict
 
