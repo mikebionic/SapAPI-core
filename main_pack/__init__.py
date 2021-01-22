@@ -50,7 +50,7 @@ LANGUAGES = {
 }
 
 def create_app(config_class=Config):
-	app = Flask(__name__, static_url_path='/ls/static')
+	app = Flask(__name__, static_url_path='/app/static')
 	app.config.from_object(Config)
 
 	if Config.USE_FLASK_CORS:

@@ -51,7 +51,7 @@ class Config:
 	    'port': environ.get('POSTGRES_DB_PORT'),
 	}
 	SQLALCHEMY_DATABASE_URI = 'postgresql://%(user)s:%(pw)s@%(host)s:%(port)s/%(db)s' % POSTGRES_DB_URI
-	SQLALCHEMY_ECHO = False
+	SQLALCHEMY_ECHO = True
 	# # Database bindings
 	#
 	# POSTGRES_TEST_DB_URI = {
@@ -83,7 +83,7 @@ class Config:
 
 
 	# modules url prefixes
-	API_URL_PREFIX = '/ls/api/'
+	API_URL_PREFIX = environ.get('API_URL_PREFIX')
 	COMMERCE_URL_PREFIX = environ.get('COMMERCE_URL_PREFIX')
 
 	API_AND_ADMIN_ONLY = int(environ.get('API_AND_ADMIN_ONLY'))
