@@ -14,7 +14,7 @@
 				{% for slider in sliders %}
 					{% if slider.SlName == "commerce_header" %}
 						{% for sl_image in slider.Sl_images %}
-						{% if sl_image.SlImgMainImgFilePathM %}
+						{% if sl_image.SlImgMainImgFilePathS %}
 							<!-- Hero Item Start -->
 							<div class="slick-list draggable">  
 								<div class="slick-track" style="opacity: 1; width: 100%;">
@@ -25,7 +25,7 @@
 												<h2>{{sl_image.SlImgDesc if sl_image.SlImgDesc else ''}}</h2>
 											</div>
 											<div class="hero-image-two col-6">
-											<img loading="lazy" src="{{ sl_image.SlImgMainImgFilePathM }}"
+											<img loading="lazy" src="{{ sl_image.SlImgMainImgFilePathS }}"
 											 alt="{{ sl_image.SlImgTitle if sl_image.SlImgTitle else 'sl_image.SlImgMainImgFileName' }}">
 											</div>
 										</div>     
@@ -256,15 +256,15 @@
 	<div class="container">
 		<div class="row">
 			{% for sl_image in slider.Sl_images %}
-			{% if sl_image.SlImgMainImgFilePathM %}
+			{% if sl_image.SlImgMainImgFilePathS %}
 				<!-- Banner -->
 				<div class="col-12">
 					<div class="banner"><a href="#">
 						<picture>
 							<source srcset="{{ sl_image.SlImgMainImgFilePathL }}" media="(max-width: 1440px)">
-							<source srcset="{{ sl_image.SlImgMainImgFilePathM }}" media="(max-width: 640px)">
+							<source srcset="{{ sl_image.SlImgMainImgFilePathS }}" media="(max-width: 640px)">
 							<source srcset="{{ sl_image.SlImgMainImgFilePathS }}" media="(max-width: 320px)">
-							<img loading="lazy" src="{{ sl_image.SlImgMainImgFilePathM }}"
+							<img loading="lazy" src="{{ sl_image.SlImgMainImgFilePathS }}"
 							alt="banner {{ sl_image.SlImgMainImgFileName }}">
 						</picture>
 					</a></div>

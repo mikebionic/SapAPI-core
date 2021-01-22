@@ -3,7 +3,7 @@ res_color_forms = ['rcId','resId','resColorId']
 $("body").delegate('.saveResColorBtn','click',function(event){
 	resourceData = prepareFormData(res_forms,'');
 	resColorData = prepareResColorData();
-	console.log(resColorData);
+	// console.log(resColorData);
 	if($('.'+res_forms[0]).val()==''){
 		if (validateInput(required_res_fields)==true){
 			beforeCreated(resourceData,res_forms[0],url_prefix+"/ui/resource/",function(){

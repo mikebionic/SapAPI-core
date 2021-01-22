@@ -3,7 +3,7 @@ var required_category_fields = ['categoryName']
 
 $("body").delegate('.saveCategoryBtn','click',function(event){
 	ownerId = $(this).attr('ownerId');
-	console.log("savig category. owner is "+ownerId)
+	// console.log("savig category. owner is "+ownerId)
 	categoryData = prepareOwnerTableData(category_forms,ownerId);
 
 	thisIconName = $(".categoryIcon"+"[ownerId="+ownerId+"]").attr('name');
@@ -19,7 +19,7 @@ $("body").delegate('.saveCategoryBtn','click',function(event){
 	categoryData['categoryIcon'] = thisIconName;
 	categoryData['categoryIconPath'] = thisIconPath;
 
-	console.log(categoryData);
+	// console.log(categoryData);
 	postData(categoryData,url_prefix+"/ui/category_table/",'POST',category_forms[0],'categoryTable','htmlData');
 	if (!ownerId || ownerId == 'undefined'){
 		clearOwnerFields(category_forms,ownerId);

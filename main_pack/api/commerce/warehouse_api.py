@@ -84,6 +84,9 @@ def api_warehouses():
 				if not indexed_div_id:
 					raise Exception
 
+				if not indexed_c_id:
+					raise Exception
+
 				DivId = int(indexed_div_id)
 				CId = int(indexed_c_id)
 

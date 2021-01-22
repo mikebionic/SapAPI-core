@@ -114,10 +114,10 @@ def api_resources():
 	per_page = request.args.get("per_page",None,type=int)
 	category = request.args.get("category",None,type=int)
 	brand = request.args.get("brand",None,type=int)
-	
+
 	DivId = request.args.get("DivId",None,type=int)
 	notDivId = request.args.get("notDivId",None,type=int)
-	
+
 	search = request.args.get("search",None,type=str)
 	search = search.strip() if search else None
 
@@ -132,6 +132,7 @@ def api_resources():
 		search = search,
 		DivId = DivId,
 		notDivId = notDivId)
+
 	status_code = 200
 	response = make_response(jsonify(res), status_code)
 	return response

@@ -165,7 +165,7 @@
       </div>
     </div>
     <script>
-      var url_prefix = "{{url_prefix if url_prefix else '/commerce'}}";
+      var url_prefix = "{{url_prefix if url_prefix else ''}}";
     </script>
     <script src="{{ url_for('static', filename='commerce/admin/js/app.min.js') }}"></script>
     <script src="{{ url_for('static', filename='commerce/admin/bundles/jquery-ui/jquery-ui.min.js') }}"></script>

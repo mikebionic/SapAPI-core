@@ -103,10 +103,10 @@ var postImageData = function(formData,url,type){
 			if(response.status == 'created'){
 				successToaster(response.responseText);
 				resppp = response
-				console.log(response)
+				// console.log(response)
 				$('.imagesList .fileName').each(function(){
 					for(image in response.responses){
-						console.log(image)
+						// console.log(image)
 						fileName = response.responses[image]["fileName"];
 						imgId = response.responses[image]["imgId"];
 						if($(this).val()==fileName){
