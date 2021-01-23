@@ -119,11 +119,16 @@
               <!-- Category Menu -->
               <nav class="category-menu" style="position: absolute;z-index: 99; display: none;">
                 <ul>
-                  <li><a href="{{url_for('commerce.v_grid')}}">{{_('All')}}</a></li>
+                  <li>
+                    <a href="{{url_for('commerce.v_grid')}}">
+                      <img class="img-fluid" src="{{ url_for('static', filename='commerce/bee/images/icons/category.svg') }}" style="width: 25px; margin-right: 7px;">
+                      {{_('All')}}
+                    </a>
+                  </li>
                   {% for category in categories %}
                     <li class="{{ 'menu-item-has-children' if category.Categories }}">
                       <a href="{{'#' if category.Categories else url_for('commerce.v_grid',category = category.ResCatId)}}">
-                        {% if category.ResCatIconFilePath %}<img class="img-fluid" src="{{category.ResCatIconFilePath}}" style="width: 25px; margin-right: 7px;">{%endif%}
+                        <img class="img-fluid" src="{{ category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static', filename='commerce/bee/images/icons/category.svg') }}" style="width: 25px; margin-right: 7px;">
                         {{category.ResCatName}}
                       </a>
                       {% if category.Categories %}
@@ -234,7 +239,7 @@
         <div class="col-lg-6 col-12">
           <div class="footer-copyright">
             <a href="#">
-              <img src="{{ url_for('static', filename='commerce/icons/categories/sapcozgut without background.svg') }}" alt="Sap cozgut" style="width: 40px;">
+              <img src="{{ url_for('static', filename='commerce/main/images/logo/sap_cozgut.svg') }}" alt="Sap cozgut" style="width: 40px;">
             </a>  
           </div>
         </div>
