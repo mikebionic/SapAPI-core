@@ -90,8 +90,9 @@ def UiCategoriesList():
 		.first()
 
 	logoIcon = {}
-	if company.Image:
-		logoIcon["FilePath"] = fileToURL(file_type='image',file_name=company.Image[0].FileName)
+	if company:
+		if company.Image:
+			logoIcon["FilePath"] = fileToURL(file_type='image',file_name=company.Image[0].FileName)
 
 	res = {
 		"categories": categories_list,

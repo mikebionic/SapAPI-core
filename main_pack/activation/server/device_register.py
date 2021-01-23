@@ -5,8 +5,9 @@ import uuid
 from . import api
 from main_pack import db
 from main_pack.config import Config
+from main_pack.api.users.utils import addDeviceDict
 from main_pack.api.base.validators import request_is_json
-from main_pack.models.users.models import Device
+from main_pack.models.users.models import Device, Rp_acc
 from .utils import sap_key_required
 
 
@@ -17,9 +18,13 @@ def register_device():
 	if request.method == 'POST':
 		req = request.get_json()
 
+		rp_acc = Rp_acc.query.filter_by(DbGuid = "DbInfGuid", GCRecord = None).first()
+		RpAccId = rp_acc.RpAccId if rp_acc else None
+
 		filtering = {
 			"GCRecord": None,
-			"DevUniqueId": req["DevUniqueId"]
+			"DevUniqueId": req["DevUniqueId"],
+			"RpAccId": RpAccId
 		}
 
 		thisDevice = Device.query.filter_by(**filtering).first()
@@ -30,8 +35,10 @@ def register_device():
 
 		else:
 			try:
-				req["DevGuid"] = uuid.uuid4()
-				thisDevice = Device(**req)
+				device_info = addDeviceDict(req)
+				device_info["RpAccId"] = RpAccId
+				device_info["DevGuid"] = uuid.uuid4()
+				thisDevice = Device(**device_info)
 				db.session.add(thisDevice)
 				db.session.commit()
 

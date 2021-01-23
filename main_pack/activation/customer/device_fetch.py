@@ -26,7 +26,7 @@ def fetch_device(user):
 		abort(401)
 
 	database = Db_inf.query.first()
-	db_guid = database.DbInfGuid
+	db_guid = database.DbInfGuid if database else None
 
 	r = requests.get(
 		f"{Config.SAP_SERVICE_URL}/devices/fetch/?uuid={db_guid}",

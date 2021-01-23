@@ -9,6 +9,7 @@ from main_pack.config import Config
 from main_pack.api.users.utils import addDeviceDict
 from main_pack.api.base.validators import request_is_json
 from main_pack.models.users.models import Device
+from main_pack.models.base.models import Db_inf
 
 
 @api.route("/devices/register/",methods=["POST"])
@@ -29,6 +30,9 @@ def register_device():
 			data = thisDevice.to_json_api()
 
 		else:
+			database = Db_inf.query.first()
+			req["DbInfGuid"] = database.DbInfGuid if database else None
+
 			r = requests.post(
 				f"{Config.SAP_SERVICE_URL}/devices/register/",
 				data = json.dumps(req),
@@ -45,6 +49,7 @@ def register_device():
 			if (r.status_code == 200 or r.status_code == 201):
 				if server_response["status"] != 0:
 					data = addDeviceDict(server_response["data"])
+					data["RpAccId"] = None
 
 					try:
 						thisDevice = Device(**data)
