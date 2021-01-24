@@ -1,0 +1,80 @@
+{% extends "commerce/admin/layout.html" %}
+
+{% block styles %}
+	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/datatables/datatables.min.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css') }}">
+{% endblock %}
+
+{% block content %}
+	<div class="row">
+		<div class="col-12">
+			<div class="card">
+				<div class="card-header">
+					<h4>{{_('Rating table')}}</h4>
+				</div>
+				<div class="card-body">
+					<div class="table-responsive">
+						<button class="btn btn-primary newRatingBtn"><i data-feather="plus-square"></i></button>
+						<table class="table table-striped" id="mainTable">
+							<thead>
+								<tr>
+									<th class="text-center">№</th>
+									<th class="text-center">{{_('Product')}}</th>
+									<th class="text-center">{{_('Customer')}}</th>
+									<th class="text-center">{{_('Value')}}</th>
+									<th class="text-center">{{_('Remark')}}</th>
+									<th class="text-center">{{_('Validated')}}</th>
+									<th class="text-center">{{_('Action')}}</th>
+								</tr>
+								<tr class="newRatingForm" style="display: none;">
+									<td class="text-center ratingId" ownerId='undefined'></td>
+									<td class="text-center" ownerId='undefined'></td>
+									<td class="text-center" ownerId='undefined'></td>
+									<td class="text-center editable ratingValue" ownerId='undefined'></td>
+									<td class="text-center editable ratingRemark" ownerId='undefined'></td>
+									<td class="p-0 text-center">
+                    <div class="custom-checkbox custom-control">
+                      <input type="checkbox" class="custom-control-input ratingValidated" ownerId='undefined' id="checkbox-undefined">
+                      <label for="checkbox-undefined" class="custom-control-label">&nbsp;</label>
+                    </div>
+                  </td>
+									<td>
+										<button class="btn btn-icon btn-success saveRatingBtn" ownerId='undefined'><i class="fas fa-check"></i></button>
+									</td>
+								</tr>
+							</thead>
+							<tbody class="ratingTable">
+								{% for rating in data %}
+									<tr ownerId={{rating.RtId}}>
+										<td class="text-center ratingId" ownerId={{rating.RtId}}>{{rating.RtId}}</td>
+										<td class="text-center" ownerId={{rating.RtId}}>{{rating.resource.ResName if rating.resource else ''}}</td>
+										<td class="text-center" ownerId={{rating.RtId}}>{{rating.rp_acc.RpAccName if rating.rp_acc else ''}}</td>
+										<td class="text-center editable ratingValue" ownerId={{rating.RtId}}>{{rating.RtRatingValue if rating.RtRatingValue else ''}}</td>
+										<td class="text-center editable ratingRemark" ownerId={{rating.RtId}}>{{rating.RtRemart if rating.RtRemark else ''}}</td>
+										<td class="p-0 text-center">
+                      <div class="custom-checkbox custom-control">
+                        <input type="checkbox" class="custom-control-input ratingValidated" ownerId={{rating.RtId}} id="checkbox{{rating.RtId}}" {{ "checked" if rating.RtValidated }}>
+                        <label for="checkbox{{rating.RtId}}" class="custom-control-label">&nbsp;</label>
+                      </div>
+                    </td>
+										<td>
+											<button class="btn btn-icon btn-success saveRatingBtn" ownerId={{rating.RtId}}><i class="fas fa-check"></i></button>
+											<button class="btn btn-icon btn-danger deleteRatingBtn" ownerId={{rating.RtId}}><i class="fas fa-trash-alt"></i></button>
+										</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block scripts %}
+	<script src="{{ url_for('static', filename='commerce/admin/bundles/editable-table/mindmup-editabletable.js') }}"></script>
+	<script src="{{ url_for('static', filename='commerce/admin/js/page/editable-table.js') }}"></script>
+	<script src="{{ url_for('static', filename='commerce/admin/js/ui_dynamicals.js') }}"></script>
+{% endblock %}

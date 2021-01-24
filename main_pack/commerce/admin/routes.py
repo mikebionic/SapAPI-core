@@ -39,7 +39,8 @@ from main_pack.models.commerce.models import (
 	Invoice,
 	Order_inv,
 	Order_inv_line,
-	Order_inv_type
+	Order_inv_type,
+	Rating
 )
 
 from main_pack.commerce.commerce.order_utils import UiOInvData,UiOInvLineData
@@ -643,3 +644,37 @@ def manage_brand():
 		url_prefix = url_prefix,
 		form=form,
 		title = gettext('Brand'))
+
+
+
+
+@bp.route("/admin/rating_table")
+@login_required
+@ui_admin_required
+def rating_table():
+	RtValidated = request.args.get("validated",None,type=int)
+
+	filtering = {"GCRecord": None}
+	if RtValidated:
+		filtering["RtValidated"] = RtValidated
+
+	ratings = Rating.query\
+		.filter_by(**filtering)\
+		.options(
+			joinedload(Rating.resource),
+			joinedload(Rating.rp_acc))\
+		.all()
+
+	data = []
+	for rating in ratings:
+		rating_info = rating.to_json_api()
+		rating_info["resource"] = rating.resource.to_json_api()
+		rating_info["rp_acc"] = rating.rp_acc.to_json_api()
+		data.append(rating_info)
+
+	print(data)
+	return render_template(
+		f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/rating_table.html",
+		url_prefix = url_prefix,
+		data = data,
+		title = gettext('Rating'))
