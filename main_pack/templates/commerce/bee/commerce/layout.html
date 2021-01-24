@@ -118,7 +118,7 @@
       
               <!-- Category Menu -->
               <nav class="category-menu" style="position: absolute;z-index: 99; display: none;">
-                <ul>
+                <ul class="g_category">
                   <li>
                     <a href="{{url_for('commerce.v_grid')}}">
                       <img class="img-fluid" src="{{ url_for('static', filename='commerce/bee/images/icons/category.svg') }}" style="width: 25px; margin-right: 7px;">
@@ -134,8 +134,11 @@
                       {% if category.Categories %}
                         <ul class="category-menu" style="display: flex;">
                         {% for category in category.Categories %}
-                          <li>
+                          <li class="menu-item-has-children">
                             <a href="{{url_for('commerce.v_grid',category = category.ResCatId)}}">
+                              <i class="expand menu-expand"></i>
+                              <i class="expand menu-expand"></i>
+                              <i class="expand menu-expand"></i>
                               {{category.ResCatName}}
                             </a>
                           </li>
@@ -144,6 +147,31 @@
                       {% endif %}
                     </li>
                   {% endfor %}
+                  
+                  <li class="menu-item-has-children"><a href="#"><i class="expand menu-expand"></i><i class="expand menu-expand"></i><i class="expand menu-expand"></i>Phones &amp; Tablets</a>
+                                    
+                    <!-- Mega Category Menu Start -->
+                    <ul class="category-mega-menu" style="display: none;">
+                        <li class="menu-item-has-children">
+                            <a href="#"><i class="expand menu-expand"></i><i class="expand menu-expand"></i><i class="expand menu-expand"></i>Smartphone</a>
+                            <ul style="display: none;">
+                                <li><a href="#">Samsung</a></li>
+                            </ul>
+                        </li>
+                        <li class="menu-item-has-children">
+                            <a href="category-2.html"><i class="expand menu-expand"></i><i class="expand menu-expand"></i><i class="expand menu-expand"></i>headphone</a>
+                            <ul style="display: none;">
+                                <li><a href="#">Samsung</a></li>
+                            </ul>
+                        </li>
+                        <li class="menu-item-has-children">
+                            <a href="category-3.html"><i class="expand menu-expand"></i><i class="expand menu-expand"></i><i class="expand menu-expand"></i>accessories</a>
+                            <ul style="display: none;">
+                                <li><a href="#">Samsung</a></li>
+                            </ul>
+                        </li>
+                    </ul><!-- Mega Category Menu End -->
+                  </li>
                 </ul>
               </nav>
       

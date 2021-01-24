@@ -236,6 +236,7 @@ class Config:
 	# templates file location configuration
 	COMMERCE_TEMPLATES_FOLDER_PATH = "/commerce/bee"
 	# COMMERCE_TEMPLATES_FOLDER_PATH = "/commerce/main"
+	# COMMERCE_TEMPLATES_FOLDER_PATH = "/commerce/testing"
 	
 	COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH = "/commerce/admin"
 	# / templates file location configuration /
