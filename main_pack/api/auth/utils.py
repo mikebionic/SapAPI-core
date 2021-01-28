@@ -7,7 +7,7 @@ from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
 from main_pack.config import Config
 from main_pack import db, bcrypt, mail
-from main_pack.models.users.models import Users, Rp_acc
+from main_pack.models.users.models import Users, Rp_acc, Device
 
 
 def token_required(f):
@@ -24,16 +24,22 @@ def token_required(f):
 		try:
 			data = jwt.decode(token, Config.SECRET_KEY)
 
-			if 'UId' in data:
+			if "UId" in data:
 				model_type = 'user'
 				current_user = Users.query\
 					.filter_by(GCRecord = None, UId = data['UId'])\
 					.first()
 
-			elif 'RpAccId' in data:
+			elif "RpAccId" in data:
 				model_type = 'rp_acc'
 				current_user = Rp_acc.query\
 					.filter_by(GCRecord = None, RpAccId = data['RpAccId'])\
+					.first()
+
+			elif "DevId" in data:
+				model_type = 'device'
+				current_user = Device.query\
+					.filter_by(GCRecord = None, DevId = data['DevId'])\
 					.first()
 
 			user = {
@@ -68,21 +74,26 @@ def sha_required(f):
 	return decorated
 
 
-def check_auth(auth_type,username,password):
+def check_auth(auth_type, user_model, password):
 	auth_status = False
 
-	if (auth_type == 'user'):
-		user = Users.query.filter_by(UName = username).first()
-		# if user and bcrypt.check_password_hash(user.UPass,password):
-		if user and user.UPass == password:
-			auth_status = True
+	if (auth_type == "user"):
 
-	elif (auth_type == 'rp_acc'):
-		rp_acc = Rp_acc.query.filter_by(RpAccUName = username).first()
-		# if user and bcrypt.check_password_hash(user.UPass,password):
-		if rp_acc and rp_acc.RpAccUPass == password:
-			auth_status = True
-	
+		if Config.HASHED_PASSWORDS == True:
+			auth_status = bcrypt.check_password_hash(user_model.UPass, password)
+		else:
+			auth_status = (user_model.UPass == password)
+
+	elif (auth_type == "rp_acc"):
+
+		if Config.HASHED_PASSWORDS == True:
+			auth_status = bcrypt.check_password_hash(user_model.RpAccUPass, password)
+		else:
+			auth_status = (user_model.RpAccUPass == password)
+
+	elif (auth_type == "device"):
+		auth_status = True
+
 	return auth_status
 
 

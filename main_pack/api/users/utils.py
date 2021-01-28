@@ -296,3 +296,20 @@ def apiRpAccData(RpAccRegNo=None, dbQuery=None, dbModel=None):
 		"total": len(data)
 	}
 	return res
+
+
+def apiDeviceData(dbQuery=None, dbModel=None):
+	if not dbModel:
+		dbModel = dbQuery.first()
+
+	data = {}
+
+	if dbModel:
+		data = dbModel.to_json_api()
+
+	res = {
+		"status": 1 if len(data) > 0 else 0,
+		"data": data,
+		"total": len(data)
+	}
+	return res

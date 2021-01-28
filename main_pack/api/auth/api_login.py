@@ -7,9 +7,9 @@ import jwt
 from main_pack.api.auth import api
 from main_pack.config import Config
 
-from main_pack.models.users.models import Users, Rp_acc
+from main_pack.models.users.models import Users, Rp_acc, Device
 
-from main_pack.api.users.utils import apiUsersData, apiRpAccData
+from main_pack.api.users.utils import apiUsersData, apiRpAccData, apiDeviceData
 from main_pack.base.dataMethods import apiDataFormat
 from main_pack.api.auth.utils import check_auth
 
@@ -20,7 +20,7 @@ def api_login():
 	auth = request.authorization
 	error_response = [{"error": "Login failure, check credentials."}, 401, {"WWW-Authenticate": "basic realm"}]
 
-	if not auth or not auth.username or not auth.password:
+	if not auth or not auth.username:
 		return make_response(*error_response)
 
 	if auth_type == "user":
@@ -31,10 +31,14 @@ def api_login():
 		user_query = Rp_acc.query.filter_by(GCRecord = None, RpAccUName = auth.username)
 		user_model = user_query.first()
 
+	elif auth_type == "device":
+		user_query = Device.query.filter_by(GCRecord = None, DevUniqueId = auth.username)
+		user_model = user_query.first()
+
 	if not user_model:
 		return make_response(*error_response)
 	
-	if check_auth(auth_type, auth.username, auth.password):
+	if check_auth(auth_type, user_model, auth.password):
 		exp = datetime.now() + dt.timedelta(minutes = 30)
 		response_data = {"exp": apiDataFormat(exp)}
 
@@ -45,10 +49,16 @@ def api_login():
 		elif auth_type == "rp_acc":
 			token = jwt.encode({"RpAccId": user_model.RpAccId, "exp": exp}, Config.SECRET_KEY)
 			loggedUserInfo = apiRpAccData(dbQuery = user_query)
+
+		elif auth_type == "device":
+			token = jwt.encode({"DevId": user_model.DevId, "exp": exp}, Config.SECRET_KEY)
+			loggedUserInfo = apiDeviceData(dbQuery = user_query)
 		
 		response_data[auth_type] = loggedUserInfo['data']
 		response_data["token"] = token.decode('UTF-8')
-		session["ResPriceGroupId"] = user_model.ResPriceGroupId
+
+		if auth_type != "device":
+			session["ResPriceGroupId"] = user_model.ResPriceGroupId
 
 		return jsonify(response_data)
 	

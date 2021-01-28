@@ -24,5 +24,6 @@ from main_pack.api.commerce import (
 	config_info_api,
 	payment_api,
 	brand_api,
-	exc_rate_api
+	exc_rate_api,
+	res_price_group_api
 )

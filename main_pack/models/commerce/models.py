@@ -325,7 +325,8 @@ class Exc_rate(CreatedModifiedInfo,db.Model):
 	CurrencyId = db.Column("CurrencyId",db.Integer,db.ForeignKey("tbl_dk_currency.CurrencyId"))
 	ExcRateTypeId = db.Column("ExcRateTypeId",db.Integer,db.ForeignKey("tbl_dk_exc_rate_type.ExcRateTypeId"))
 	ExcRateDate = db.Column("ExcRateDate",db.DateTime)
-	ExcRateValue = db.Column("ExcRateValue",db.Float,default=0.0)
+	ExcRateInValue = db.Column("ExcRateInValue",db.Float,default=0.0)
+	ExcRateOutValue = db.Column("ExcRateOutValue",db.Float,default=0.0)
 	
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
