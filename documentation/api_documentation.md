@@ -3,45 +3,43 @@ This documentation provides an info about routes and their usage, use it for bui
 
 
 ## Legend
-Shortcut                    | Description
-----------------------------|------------ 
-**!!**                      | Warning sign
-**!! Out of support**       | Route might be updated to different route and will be deleted after a major update process and verification
-**@sha required**           | Requires api key of **Synchronizer** for **@sha required**
-**@token required**   			| **@token required** of **Rp acc** login
+| Shortcut              | Description                                                                                                 |
+| --------------------- | ----------------------------------------------------------------------------------------------------------- |
+| **!!**                | Warning sign                                                                                                |
+| **!! Out of support** | Route might be updated to different route and will be deleted after a major update process and verification |
+| **@sha required**     | Requires api key of **Synchronizer** for **@sha required**                                                  |
+| **@token required**   | **@token required** of **Rp acc** login                                                                     |
 ---
 
 
 ## Authentication API
 Provide **username** and **password** in Authentication headers
 
-__Route__                      | __Methods__         | __Status__ | __Note__
--------------------------------|---------------------|------------|---------
-/api/login/                    | **GET**             | Updated    |
+| __Route__   | __Methods__ | __Status__ | __Note__ |
+| ----------- | :---------: | :--------: | -------- |
+| /api/login/ |   **GET**   |  Updated   |
 
 **Properties**
-__Name__             | __Type__    | __Description__ | __Example__
----------------------|-------------|-----------------|------------
-user                 | **str**     | validates the User model
-rp_acc               | **int**     | validates the Rp_acc model
+| __Name__ | __Type__ | __Description__                                                      | __Example__          |
+| -------- | :------: | -------------------------------------------------------------------- | -------------------- |
+| type     | **str**  | validates the User model of tables depending on type (default: User) | user, rp_acc, device |
 
 ---
 
-__Route__                      | __Methods__         | __Status__ | __Note__
--------------------------------|---------------------|------------|--------
-/api/login/users/              | **GET**             | Active     | **!! Out of support**
-/api/login/rp-accs/            | **GET**             | Active     | **!! Out of support**
+| __Route__           | __Methods__ | __Status__ | __Note__              |
+| ------------------- | :---------: | :--------: | --------------------- |
+| /api/login/users/   |   **GET**   |   Active   | **!! Out of support** |
+| /api/login/rp-accs/ |   **GET**   |   Active   | **!! Out of support** |
 
 ---
 
 
 ## Fetch information API
 
-__Route__                      | __Methods__         | __Status__ | __Note__
--------------------------------|---------------------|------------|--------
-/api/api-config/               | **GET**             | Active     | API config information
-/api/company-info/             | **GET**             | Active     | Company and Division information
-/api/api-config/               | **GET**             | Active     | API config information
+| __Route__          | __Methods__ | __Status__ | __Note__                         |
+| ------------------ | :---------: | :--------: | -------------------------------- |
+| /api/api-config/   |   **GET**   |   Active   | API config information           |
+| /api/company-info/ |   **GET**   |   Active   | Company and Division information |
 
 
 ---
@@ -49,63 +47,389 @@ __Route__                      | __Methods__         | __Status__ | __Note__
 
 ## Synchronizing, data queries and insertions API
 
-__Route__                      | __Methods__         | __Status__ | __Note__
--------------------------------|---------------------|------------|--------
-/api/company/                  | **GET** **POST**    | Active     | **@sha required**
+
+
+| __Route__             |   __Methods__    | __Status__ | __Note__          |
+| --------------------- | :--------------: | :--------: | ----------------- |
+| /api/tbl-dk-barcodes/ | **GET** **POST** |  Updated   | **@sha required** |
 
 **Properties**
-__Name__             | __Type__    | __Description__ | __Example__
----------------------|-------------|-----------------|------------
-CGuid                | **str**     |
-
----
-
-__Route__                      | __Methods__         | __Status__ | __Note__
--------------------------------|---------------------|------------|--------
-/api/division/                  | **GET** **POST**    | Active     | **@sha required**
-
-**Properties**
-__Name__             | __Type__    | __Description__ | __Example__
----------------------|-------------|-----------------|------------
-DivGuid              | **str**     |
-
----
-
-__Route__                      | __Methods__         | __Status__ | __Note__
--------------------------------|---------------------|------------|--------
-/api/tbl-dk-barcodes/          | **GET** **POST**    | Updated    | **@sha required**
-
-**Properties**
-__Name__             | __Type__         | __Description__ | __Example__
----------------------|------------------|-----------------|------------
-id                   | **int**          |
-val                  | **str**          |
-synchDateTime        | **datetime**     |
-DivId                | **int**          |
-notDivId             | **int**          |
+| __Name__      |         __Type__         | __Description__ | __Example__ |
+| ------------- | :----------------------: | --------------- | ----------- |
+| id            |         **int**          |
+| val           |         **str**          |
+| synchDateTime | **str repr of datetime** |
+| DivId         |         **int**          |
+| notDivId      |         **int**          |
 
 
 ---
 
-__Route__                      | __Methods__         | __Status__ | __Note__
--------------------------------|---------------------|------------|--------
-/api/tbl-dk-res-prices/         | **GET** **POST**    | Active     | **@sha required**
-/api/tbl-dk-res-totals/         | **GET** **POST**    | Active     | **@sha required**
-/api/tbl-dk-images/             | **GET** **POST**    | Active     | **@sha required**
-/api/tbl-dk-rp-acc-trans-totals/| **GET** **POST**    | Active     | **@sha required**
-/api/tbl-dk-total-transactions/ | **GET** **POST**    | Active     | **@sha required**
-/api/tbl-dk-warehouses/         | **GET** **POST**    | Active     | **@sha required**
-/api/tbl-dk-work-periods/       | **GET** **POST**    | Active     | **@sha required**
+| __Route__       | __Methods__ | __Status__ | __Note__            |
+| --------------- | :---------: | :--------: | ------------------- |
+| /api/v-company/ |   **GET**   |   Active   | **@token required** |
 
+
+| __Route__     |   __Methods__    | __Status__ | __Note__          |
+| ------------- | :--------------: | :--------: | ----------------- |
+| /api/company/ | **GET** **POST** |   Active   | **@sha required** |
 
 **Properties**
-__Name__             | __Type__         | __Description__ | __Example__
----------------------|------------------|-----------------|------------
-synchDateTime        | **datetime**     |
-DivId                | **int**          |
-notDivId             | **int**          |
+| __Name__ | __Type__ | __Description__ | __Example__ |
+| -------- | :------: | --------------- | ----------- |
+| CGuid    | **str**  |
 
 ---
+
+| __Route__      |   __Methods__    | __Status__ | __Note__          |
+| -------------- | :--------------: | :--------: | ----------------- |
+| /api/division/ | **GET** **POST** |   Active   | **@sha required** |
+
+**Properties**
+| __Name__ | __Type__ | __Description__ | __Example__ |
+| -------- | :------: | --------------- | ----------- |
+| DivGuid  | **str**  |
+
+---
+
+| __Route__              |   __Methods__    | __Status__  | __Note__          |
+| ---------------------- | :--------------: | :---------: | ----------------- |
+| /api/tbl-dk-exc-rates/ | **GET** **POST** | Development | **@sha required** |
+
+**Properties**
+| __Name__      |         __Type__         | __Description__ | __Example__ |
+| ------------- | :----------------------: | --------------- | ----------- |
+| id            |         **int**          |
+| currencyId    |         **int**          |
+| excRateTypeId |         **int**          |
+| synchDateTime | **str repr of datetime** |
+| excRateDate   | **str repr of datetime** |
+
+
+---
+
+| __Route__           |   __Methods__    | __Status__ | __Note__            |
+| ------------------- | :--------------: | :--------: | ------------------- |
+| /api/tbl-dk-images/ | **GET** **POST** |   Active   | **@sha required**   |
+| /api/v-images/      |     **GET**      |   Active   | **@token required** |
+
+**Properties**
+| __Name__      |         __Type__         | __Description__ | __Example__ |
+| ------------- | :----------------------: | --------------- | ----------- |
+| DivId         |         **int**          |
+| notDivId      |         **int**          |
+| synchDateTime | **str repr of datetime** |
+
+
+---
+
+| __Route__                    | __Methods__ | __Status__ | __Note__ |
+| ---------------------------- | :---------: | :--------: | -------- |
+| /api/tbl-dk-payment-methods/ |   **GET**   |   Active   |
+| /api/tbl-dk-payment-types/   |   **GET**   |   Active   |
+
+
+---
+
+| __Route__               |   __Methods__    | __Status__ | __Note__          |
+| ----------------------- | :--------------: | :--------: | ----------------- |
+| /api/tbl-dk-res-prices/ | **GET** **POST** |   Active   | **@sha required** |
+
+**Properties**
+| __Name__   | __Type__ | __Description__ | __Example__ |
+| ---------- | :------: | --------------- | ----------- |
+| DivId      | **int**  |
+| notDivId   | **int**  |
+| priceType  | **int**  |
+| priceGroup | **int**  |
+
+
+---
+
+| __Route__          | __Methods__ | __Status__ | __Note__            |
+| ------------------ | :---------: | :--------: | ------------------- |
+| /api/v-res-prices/ |   **GET**   |   Active   | **@token required** |
+
+**Properties**
+| __Name__  | __Type__ | __Description__ | __Example__ |
+| --------- | :------: | --------------- | ----------- |
+| DivId     | **int**  |
+| notDivId  | **int**  |
+| priceType | **int**  |
+
+
+---
+
+| __Route__                | __Methods__ | __Status__ | __Note__            |
+| ------------------------ | :---------: | :--------: | ------------------- |
+| /api/v-res-price-groups/ |   **GET**   |   Active   | **@token required** |
+
+**Properties**
+| __Name__      | __Type__ | __Description__ | __Example__ |
+| ------------- | :------: | --------------- | ----------- |
+| id            | **int**  |
+| usageStatus   | **int**  |
+| name          | **str**  |
+| fromPriceType | **int**  |
+| toPriceType   | **int**  |
+
+
+---
+
+| __Route__               |   __Methods__    | __Status__ | __Note__            |
+| ----------------------- | :--------------: | :--------: | ------------------- |
+| /api/tbl-dk-res-totals/ | **GET** **POST** |   Active   | **@sha required**   |
+| /api/v-res-totals/      |     **GET**      |   Active   | **@token required** |
+
+**Properties**
+| __Name__      |         __Type__         | __Description__ | __Example__ |
+| ------------- | :----------------------: | --------------- | ----------- |
+| DivId         |         **int**          |
+| notDivId      |         **int**          |
+| synchDateTime | **str repr of datetime** |
+
+
+---
+
+
+| __Route__           | __Methods__ | __Status__ | __Note__ |
+| ------------------- | :---------: | :--------: | -------- |
+| /api/tbl-dk-brands/ |   **GET**   |   Active   |
+
+**Properties**
+| __Name__ | __Type__ | __Description__ | __Example__ |
+| -------- | :------: | --------------- | ----------- |
+| id       | **int**  |
+| name     | **str**  |
+
+
+---
+## Category API
+
+| __Route__               | __Methods__ | __Status__ | __Note__ |
+| ----------------------- | :---------: | :--------: | -------- |
+| /api/tbl-dk-categories/ |   **GET**   |   Active   |
+
+**Properties**
+| __Name__        | __Type__ | __Description__ | __Example__ |
+| --------------- | :------: | --------------- | ----------- |
+| DivId           | **int**  |
+| notDivId        | **int**  |
+| avoidQtyCheckup | **int**  |
+
+
+---
+
+| __Route__               | __Methods__ | __Status__ | __Note__ |
+| ----------------------- | :---------: | :--------: | -------- |
+| /api/tbl-dk-categories/ |  **POST**   |   Active   |
+
+
+---
+
+| __Route__                        | __Methods__ | __Status__  | __Note__ |
+| -------------------------------- | :---------: | :---------: | -------- |
+| /api/tbl-dk-categories/paginate/ |   **GET**   | Development |
+
+**Properties**
+| __Name__ | __Type__ | __Description__ | __Example__ |
+| -------- | :------: | --------------- | ----------- |
+| page     | **int**  |
+
+
+---
+
+## Resource API
+
+
+| __Route__              |   __Methods__    | __Status__ | __Note__          |
+| ---------------------- | :--------------: | :--------: | ----------------- |
+| /api/tbl-dk-resources/ | **GET** **POST** |   Active   | **@sha required** |
+
+**Properties**
+| __Name__      |         __Type__         | __Description__ | __Example__ |
+| ------------- | :----------------------: | --------------- | ----------- |
+| DivId         |         **int**          |
+| notDivId      |         **int**          |
+| synchDateTime | **str repr of datetime** |
+| id            |         **int**          |
+| regNo         |         **str**          |
+| name          |         **str**          |
+
+
+---
+
+| __Route__         | __Methods__ | __Status__ | __Note__ |
+| ----------------- | :---------: | :--------: | -------- |
+| /api/v-resources/ |   **GET**   |   Active   |
+
+**Properties**
+| __Name__        | __Type__ | __Description__ | __Example__ |
+| --------------- | :------: | --------------- | ----------- |
+| DivId           | **int**  |
+| notDivId        | **int**  |
+| avoidQtyCheckup | **int**  |
+
+
+---
+
+| __Route__             | __Methods__ | __Status__ | __Note__              |
+| --------------------- | :---------: | :--------: | --------------------- |
+| /api/v-resources/:id/ |   **GET**   |   Active   | **!! Out of support** |
+
+
+---
+
+| __Route__              | __Methods__ | __Status__ | __Note__              |
+| ---------------------- | :---------: | :--------: | --------------------- |
+| /api/v-full-resources/ |   **GET**   |  Old ver   | **!! Out of support** |
+
+**Properties**
+| __Name__ | __Type__ | __Description__ | __Example__ |
+| -------- | :------: | --------------- | ----------- |
+| DivId    | **int**  |
+| notDivId | **int**  |
+
+
+---
+
+| __Route__                               | __Methods__ | __Status__ | __Note__ |
+| --------------------------------------- | :---------: | :--------: | -------- |
+| /api/tbl-dk-categories/:id/v-resources/ |   **GET**   |  Old ver   |
+
+**Properties**
+| __Name__        | __Type__ | __Description__ | __Example__ |
+| --------------- | :------: | --------------- | ----------- |
+| DivId           | **int**  |
+| notDivId        | **int**  |
+| avoidQtyCheckup | **int**  |
+
+
+---
+
+| __Route__       | __Methods__ | __Status__ | __Note__ |
+| --------------- | :---------: | :--------: | -------- |
+| /api/resources/ |   **GET**   |   Active   |
+
+**Properties**
+| __Name__ | __Type__ | __Description__ | __Example__ |
+| -------- | :------: | --------------- | ----------- |
+| DivId    | **int**  |
+| notDivId | **int**  |
+| page     | **int**  |
+| per_page | **int**  |
+| sort     | **str**  |
+| category | **int**  |
+| brand    | **int**  |
+| search   | **str**  |
+
+
+---
+
+| __Route__            |   __Methods__    | __Status__ | __Note__            |
+| -------------------- | :--------------: | :--------: | ------------------- |
+| /api/v-rp-accs/      |     **GET**      |   Active   | **@token required** |
+| /api/tbl-dk-rp-accs/ | **GET** **POST** |   Active   | **@sha required**   |
+
+**Properties**
+| __Name__      |         __Type__         | __Description__ | __Example__ |
+| ------------- | :----------------------: | --------------- | ----------- |
+| id            |         **int**          |
+| regNo         |         **str**          |
+| name          |         **str**          |
+| DivId         |         **int**          |
+| notDivId      |         **int**          |
+| synchDateTime | **str repr of datetime** |
+| DivGuid       |         **str**          |
+
+
+---
+
+| __Route__                        |   __Methods__    | __Status__ | __Note__          |
+| -------------------------------- | :--------------: | :--------: | ----------------- |
+| /api/tbl-dk-rp-acc-trans-totals/ | **GET** **POST** |   Active   | **@sha required** |
+
+**Properties**
+| __Name__      |         __Type__         | __Description__ | __Example__ |
+| ------------- | :----------------------: | --------------- | ----------- |
+| DivId         |         **int**          |
+| notDivId      |         **int**          |
+| synchDateTime | **str repr of datetime** |
+
+
+---
+
+| __Route__            | __Methods__ | __Status__ | __Note__ |
+| -------------------- | :---------: | :--------: | -------- |
+| /api/tbl-dk-sliders/ |   **GET**   |   Active   |
+
+**Properties**
+| __Name__ | __Type__ | __Description__ | __Example__ |
+| -------- | :------: | --------------- | ----------- |
+| DivId    | **int**  |
+| notDivId | **int**  |
+| id       | **int**  |
+| name     | **str**  |
+
+
+---
+
+| __Route__                  | __Methods__ | __Status__ | __Note__              |
+| -------------------------- | :---------: | :--------: | --------------------- |
+| /api/tbl-dk-sliders/:name/ |   **GET**   |   Active   | **!! Out of support** |
+
+
+---
+
+| __Route__          |   __Methods__    | __Status__ | __Note__            |
+| ------------------ | :--------------: | :--------: | ------------------- |
+| /api/v-users/      |     **GET**      |   Active   | **@token required** |
+| /api/tbl-dk-users/ | **GET** **POST** |   Active   | **@sha required**   |
+
+**Properties**
+| __Name__      |         __Type__         | __Description__ | __Example__ |
+| ------------- | :----------------------: | --------------- | ----------- |
+| id            |         **int**          |
+| regNo         |         **str**          |
+| name          |         **str**          |
+| DivId         |         **int**          |
+| notDivId      |         **int**          |
+| synchDateTime | **str repr of datetime** |
+
+---
+
+
+| __Route__               |   __Methods__    | __Status__ | __Note__            |
+| ----------------------- | :--------------: | :--------: | ------------------- |
+| /api/v-warehouses/      |     **GET**      |   Active   | **@token required** |
+| /api/tbl-dk-warehouses/ | **GET** **POST** |   Active   | **@sha required**   |
+
+**Properties**
+| __Name__      |         __Type__         | __Description__ | __Example__ |
+| ------------- | :----------------------: | --------------- | ----------- |
+| id            |         **int**          |
+| name          |         **str**          |
+| DivId         |         **int**          |
+| notDivId      |         **int**          |
+| synchDateTime | **str repr of datetime** |
+
+---
+
+
+| __Route__                 |   __Methods__    | __Status__ | __Note__          |
+| ------------------------- | :--------------: | :--------: | ----------------- |
+| /api/tbl-dk-work-periods/ | **GET** **POST** |   Active   | **@sha required** |
+
+**Properties**
+| __Name__      |         __Type__         | __Description__ | __Example__ |
+| ------------- | :----------------------: | --------------- | ----------- |
+| id            |         **int**          |
+| DivId         |         **int**          |
+| notDivId      |         **int**          |
+| synchDateTime | **str repr of datetime** |
+
+---
+
 
 
 ## Order Invoice API
@@ -180,16 +504,6 @@ returns **all orders** if **blank**
 # URL, Key and Value should be set in Config and .env
 ```
 
-
-> GET
-
-## Payment info from database
-+ /api/tbl-dk-payment-methods/
-+ /api/tbl-dk-payment-types/
-
-## Brands
-+ /api/tbl-dk-brands/?id=<brandId>&name=<brandName>
-
 > GET 
 
 ## Get all orders of a logged Rp_acc
@@ -209,52 +523,3 @@ example:
 
 Returns only if the **Rp_acc** is the **owner** of invoice
 + /api/v-order-invoices/<str:OInvRegNo>/
-
-
-## Resource category api
-> GET POST
-
-+ /api/tbl-dk-categories/?synchDateTime=<datetime>&DivId=<id>&notDivId=<id>
-
-> GET
-
-+ /api/tbl-dk-categories/<int:ResCatId>/
-
-> GET
-
-+ /api/tbl-dk-categories/paginate/
-
-## Resource api
-> GET POST
-
-**@sha_required** of **Synchronizer**
-+ /api/tbl-dk-resources/?synchDateTime=<datetime>&DivId=<id>&notDivId=<id>&id=<id>&regNo=<regNo>&name=
-
-## client view resource
-
-> GET
-
-+ /api/v-resources/?DivId=<id>&notDivId=<id>
-+ /api/v-full-resources/?DivId=<id>&notDivId=<id>
-+ /api/v-resources/<int:ResId>/
-
-**!! Warning** old version routes, supported til major update and verification
-Use **/resources/** route with argument property **category**
-+ /api/tbl-dk-categories/<int:ResCatId>/v-resources/?DivId=<id>&notDivId=<id>
-
-	**Pagination and search**
-+ /api/resources/?sort=<sort>&category=<categoryId>&brand=<brandId>&per_page=<per_page>&page=<page>&search=<search>&DivId=<divId>&notDivId=<notDivId>
-
-> GET POST
-
-**@sha_required** of **Synchronizer**
-+ /api/tbl-dk-rp-accs/?synchDateTime=<datetime>&DivId=<id>&notDivId=<id>&id=<id>&regNo=<regNo>&name=
-+ /api/tbl-dk-users/?synchDateTime=<datetime>&DivId=<id>&notDivId=<id>&id=<id>&regNo=<regNo>&name=
-
-> GET
-
-**@sha_required** of **Synchronizer**
-+ /api/tbl-dk-sliders/?DivId=<id>&notDivId=<id>&name=<name>&id=<id>
-
-**!! Warning** old version routes, supported til major update and verification
-+ /api/tbl-dk-sliders/<SlName>/
