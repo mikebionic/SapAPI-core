@@ -355,43 +355,13 @@ def apiResourceInfo(
 			
 			List_Barcode = [barcode.to_json_api() for barcode in resource_query.Resource.Barcode if not barcode.GCRecord]
 
-			List_Res_price = []
-			if not ResPriceGroupId:
-				# print("no res price group")
-				List_Res_price = [res_price.to_json_api() 
-					for res_price in resource_query.Resource.Res_price
-					if res_price.ResPriceTypeId == 2
-					and not res_price.GCRecord]
+			List_Res_price = calculatePriceByGroup(
+				ResPriceGroupId = ResPriceGroupId,
+				Res_price_dbModels = resource_query.Resource.Res_price,
+				Res_pice_group_dbModels = res_price_groups)
 
-			if ResPriceGroupId:
-				# find Res_price with provided ResPriceGroupId
-				List_Res_price = [res_price.to_json_api() 
-					for res_price in resource_query.Resource.Res_price 
-					if res_price.ResPriceTypeId == 2 
-					and res_price.ResPriceGroupId == ResPriceGroupId
-					and not res_price.GCRecord]
-
-				if not List_Res_price:
-					thisPriceGroupList = [priceGroup for priceGroup in res_price_groups if priceGroup.ResPriceGroupId == ResPriceGroupId]
-					if thisPriceGroupList:
-						if not thisPriceGroupList[0].ResPriceGroupAMEnabled:
-							# print("enabled false")
-							raise Exception
-
-						FromResPriceTypeId = thisPriceGroupList[0].FromResPriceTypeId
-						ResPriceGroupAMPerc = thisPriceGroupList[0].ResPriceGroupAMPerc
-
-						List_Res_price = [res_price.to_json_api() 
-							for res_price in resource_query.Resource.Res_price 
-							if res_price.ResPriceTypeId == FromResPriceTypeId
-							and not res_price.GCRecord]
-
-						if not List_Res_price:
-							raise Exception
-
-						CalculatedPriceValue = float(List_Res_price[0]["ResPriceValue"]) + (float(List_Res_price[0]["ResPriceValue"]) * float(ResPriceGroupAMPerc) / 100)
-						List_Res_price[0]["ResPriceValue"] = CalculatedPriceValue
-
+			if not List_Res_price:
+				raise Exception
 
 			try:
 				List_Currencies = [currency.to_json_api() for currency in currencies if currency.CurrencyId == List_Res_price[0]["CurrencyId"]]
@@ -576,6 +546,48 @@ def apiFeaturedResCat_Resources():
 		"total": len(data)
 	}
 	return res
+
+
+def calculatePriceByGroup(ResPriceGroupId, Res_price_dbModels, Res_pice_group_dbModels):
+	data = []
+	try:
+		if not ResPriceGroupId:
+			data = [res_price.to_json_api() 
+				for res_price in Res_price_dbModels
+				if res_price.ResPriceTypeId == 2
+				and not res_price.GCRecord]
+
+		if ResPriceGroupId:
+			data = [res_price.to_json_api() 
+				for res_price in Res_price_dbModels 
+				if res_price.ResPriceTypeId == 2 
+				and res_price.ResPriceGroupId == ResPriceGroupId
+				and not res_price.GCRecord]
+
+			if not data:
+				thisPriceGroupList = [priceGroup for priceGroup in Res_pice_group_dbModels if priceGroup.ResPriceGroupId == ResPriceGroupId]
+				if thisPriceGroupList:
+					if not thisPriceGroupList[0].ResPriceGroupAMEnabled:
+						raise Exception
+
+					FromResPriceTypeId = thisPriceGroupList[0].FromResPriceTypeId
+					ResPriceGroupAMPerc = thisPriceGroupList[0].ResPriceGroupAMPerc
+
+					data = [res_price.to_json_api() 
+						for res_price in Res_price_dbModels 
+						if res_price.ResPriceTypeId == FromResPriceTypeId
+						and not res_price.GCRecord]
+
+					if not data:
+						raise Exception
+
+					CalculatedPriceValue = float(data[0]["ResPriceValue"]) + (float(data[0]["ResPriceValue"]) * float(ResPriceGroupAMPerc) / 100)
+					data[0]["ResPriceValue"] = CalculatedPriceValue
+
+	except Exception as ex:
+		print(f"{datetime.now()} | Res price calculation Exception: {ex}")
+
+	return data
 
 
 def UiCartResourceData(product_list,fullInfo=False,showRelated=False):

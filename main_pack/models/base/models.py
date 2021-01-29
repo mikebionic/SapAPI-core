@@ -45,7 +45,7 @@ class Acc_type(CreatedModifiedInfo,db.Model):
 class Accounting_info(AddInf,CreatedModifiedInfo,db.Model):
 	__tablename__ = "tbl_dk_accounting_info"
 	AccInfId = db.Column("AccInfId",db.Integer,primary_key=True,nullable=False)
-	DivisionId = db.Column("DivisionId",db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
+	DivId = db.Column("DivId",db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
 	BankId = db.Column("BankId",db.Integer, db.ForeignKey("tbl_dk_bank.BankId"))
 	CurrencyId = db.Column("CurrencyId",db.Integer, db.ForeignKey("tbl_dk_currency.CurrencyId"))
 	AccTypeId = db.Column("AccTypeId",db.Integer, db.ForeignKey("tbl_dk_acc_type.AccTypeId"))
@@ -58,6 +58,36 @@ class Accounting_info(AddInf,CreatedModifiedInfo,db.Model):
 	AccInfCreatedDate = db.Column("AccInfCreatedDate",db.DateTime)
 	AccInfClosedDate = db.Column("AccInfClosedDate",db.DateTime)
 	# Company = db.relationship("Company",backref='accounting_info',lazy=True)
+
+	def to_json_api(self):
+		json_data = {
+			"AccInfId": self.AccInfId,
+			"DivId": self.DivId,
+			"BankId": self.BankId,
+			"CurrencyId": self.CurrencyId,
+			"AccTypeId": self.AccTypeId,
+			"CId": self.CId,
+			"RpAccId": self.RpAccId,
+			"AccInfName": self.AccInfName,
+			"AccInfDesc": self.AccInfDesc,
+			"AccInfNo": self.AccInfNo,
+			"AccInfActive": self.AccInfActive,
+			"AccInfCreatedDate": self.AccInfCreatedDate,
+			"AccInfClosedDate": self.AccInfClosedDate,
+			"AddInf1": self.AddInf1,
+			"AddInf2": self.AddInf2,
+			"AddInf3": self.AddInf3,
+			"AddInf4": self.AddInf4,
+			"AddInf5": self.AddInf5,
+			"AddInf6": self.AddInf6,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
+		}
+		return json_data
 
 
 class AdditionalInf1(CreatedModifiedInfo,db.Model):
@@ -120,6 +150,30 @@ class Bank(AddInf,CreatedModifiedInfo,db.Model):
 	Accounting_info = db.relationship("Accounting_info",backref='bank',lazy=True)
 	Contact = db.relationship("Contact",backref='bank',lazy=True)
 	Location = db.relationship("Location",backref='bank',lazy=True)
+
+	def to_json_api(self):
+		json_data = {
+			"BankId": self.BankId,
+			"MainContId": self.MainContId,
+			"MainLocId": self.MainLocId,
+			"BankName": self.BankName,
+			"BankDesc": self.BankDesc,
+			"BankCorAcc": self.BankCorAcc,
+			"BankAccBik": self.BankAccBik,
+			"AddInf1": self.AddInf1,
+			"AddInf2": self.AddInf2,
+			"AddInf3": self.AddInf3,
+			"AddInf4": self.AddInf4,
+			"AddInf5": self.AddInf5,
+			"AddInf6": self.AddInf6,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
+		}
+		return json_data
 
 
 class City(AddInf,CreatedModifiedInfo,db.Model):

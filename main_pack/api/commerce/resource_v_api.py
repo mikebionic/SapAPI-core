@@ -2,23 +2,20 @@
 from flask import jsonify, request, make_response, url_for
 from sqlalchemy import and_,or_
 
-from main_pack.api.commerce import api
+from . import api
 from main_pack import db
 from main_pack.config import Config
 
-# functions
-from main_pack.api.commerce.commerce_utils import apiResourceInfo
-from main_pack.api.commerce.pagination_utils import collect_resource_paginate_info
-# / functions /
+from .commerce_utils import apiResourceInfo
+from .pagination_utils import collect_resource_paginate_info
 
-# db Models
 from main_pack.models.base.models import Division
 from main_pack.models.commerce.models import (
 	Resource,
 	Barcode,
 	Res_price,
-	Res_total)
-# / db Models /
+	Res_total
+)
 
 
 @api.route("/v-full-resources/")

@@ -7,23 +7,14 @@
   <title>{{ title if title else _('Commerce') }}</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Favicon -->
-  {% if company_logo %}
-  <link rel="shortcut icon" type="image/x-icon" href="{{ company_logo.FilePath }}">
-  {% else %}
-  <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='commerce/bee/images/favicon.ico') }}">
-  {% endif %}
-  <!-- Bootstrap CSS -->
+  <link rel="shortcut icon" type="image/x-icon" href="{{ company_logo.FilePath if company_logo else url_for('static', filename='commerce/bee/images/favicon.ico') }}">
+
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/bee/css/bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/bee/css/font-awesome.min.css') }}">
-  <!-- Icon Font CSS -->
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/bee/css/icon-font.min.css') }}">
-  <!-- Plugins CSS -->
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/bee/css/plugins.css') }}">
-  <!-- Main Style CSS -->
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/bee/css/style.css') }}">
   {% block styles %}{% endblock %}
-  <!-- Modernizer JS -->
   <script src="{{ url_for('static', filename='commerce/bee/js/vendor/modernizr-2.8.3.min.js') }}"></script>
 </head>
 
@@ -44,9 +35,8 @@
               <div class="submit"><button><i class="icofont icofont-search-alt-1"></i></button></div>
             </form>
 
-          </div><!-- Header Advance Search End -->
+          </div>
         </div>
-        <!-- Header Account Links Start -->
         <div class="header-account-links" style="display:flex;">
           <li class="dropdown" style="margin-top: -7px;list-style: none; position: inherit;">
             <a href="#" class="nav-link nav-link-lg message-toggle" data-toggle="dropdown">
@@ -83,7 +73,7 @@
             <a href="{{ url_for('commerce_auth.login') }}"><i class="icofont icofont-login d-none"></i> <span>{{_('Login')}}</span></a>
             <a href="{{ url_for('commerce_auth.register') }}"><i class="icofont icofont-user-alt-7 d-none"></i> <span>{{_('Register')}}</span></a>
           {% endif %}
-        </div><!-- Header Account Links End -->
+        </div>
         <div class="header-logo" >
           <a href="{{ url_for('commerce.commerce')}}">
             {% if company_logo %}
@@ -92,12 +82,11 @@
               <h4>{{company.CName}}</h4>
             {% endif %}
           </a>
-        </div><!-- Logo End -->
+        </div>
       </div>
     </div>
-  </div><!-- Header Top End -->
+  </div>
 
-  <!-- Header Bottom Start -->
   <div class="header-bottom header-bottom-one header-sticky">
     <div class="container">
       <div class="row align-items-center justify-content-between">
@@ -106,13 +95,10 @@
           <div class="hero-side-category">
             <div class="category">
     
-              <!-- Category Toggle Wrap -->
               <div class="category-toggle-wrap">
-                <!-- Category Toggle -->
                 <button class="category-toggle" style="font-size : 100%;letter-spacing: 2px;">{{_('Categories')}} <i class="ti-menu"></i></button>
               </div>
       
-              <!-- Category Menu -->
               <nav class="category-menu" style="position: absolute;z-index: 99; display: none;">
                 <ul class="g_category">
                   <li>

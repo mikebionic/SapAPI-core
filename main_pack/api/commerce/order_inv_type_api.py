@@ -4,11 +4,11 @@ from flask import current_app
 from datetime import datetime
 
 from main_pack import db
-from main_pack.api.commerce import api
+from . import api
 
 # orders and db methods
 from main_pack.models.commerce.models import Order_inv_type
-from main_pack.api.commerce.utils import addOrderInvTypeDict
+from .utils import addOrderInvTypeDict
 from main_pack.base.apiMethods import checkApiResponseStatus
 # / orders and db methods /
 

@@ -7,20 +7,103 @@ from sqlalchemy import and_
 from sqlalchemy.orm import joinedload
 
 from main_pack import db
-from main_pack.api.commerce import api
-
-from main_pack.base.apiMethods import checkApiResponseStatus
-from main_pack.api.auth.utils import sha_required
-from main_pack.api.base.validators import request_is_json
+from . import api
+from .utils import addRpAccTrTotDict
 
 from main_pack.models.base.models import Company, Division
 from main_pack.models.users.models import Rp_acc, Users
+from main_pack.models.commerce.models import Rp_acc_trans_total
+
+from main_pack.base.apiMethods import checkApiResponseStatus
+from main_pack.api.auth.utils import sha_required, token_required
+from main_pack.api.base.validators import request_is_json
 from main_pack.api.users.utils import addRpAccDict
 
-# Rp_acc_trans_total and functions
-from main_pack.models.commerce.models import Rp_acc_trans_total
-from main_pack.api.commerce.utils import addRpAccTrTotDict
-# / Rp_acc_trans_total and functions /
+
+def get_rp_accs(
+	DivId = None,
+	DivGuid = None,
+	notDivId = None,
+	synchDateTime = None,
+	RpAccId = None,
+	RpAccRegNo = None,
+	RpAccName = None):
+
+	filtering = {"GCRecord": None}
+
+	if RpAccId:
+		filtering["RpAccId"] = RpAccId
+	if RpAccRegNo:
+		filtering["RpAccRegNo"] = RpAccRegNo
+	if RpAccName:
+		filtering["RpAccName"] = RpAccName
+	if DivId:
+		filtering["DivId"] = DivId
+
+	rp_accs = Rp_acc.query.filter_by(**filtering)\
+		.options(
+			joinedload(Rp_acc.company),
+			joinedload(Rp_acc.division),
+			joinedload(Rp_acc.users),
+			joinedload(Rp_acc.Rp_acc_trans_total))
+
+	if DivGuid:
+		rp_accs = rp_accs\
+			.join(Division, Division.DivId == Rp_acc.DivId)\
+			.filter(Division.DivGuid == DivGuid)
+
+	if notDivId:
+		rp_accs = rp_accs.filter(Rp_acc.DivId != notDivId)
+
+	if synchDateTime:
+		if (type(synchDateTime) != datetime):
+			synchDateTime = dateutil.parser.parse(synchDateTime)
+		rp_accs = rp_accs.filter(Rp_acc.ModifiedDate > (synchDateTime - timedelta(minutes = 5)))
+
+	rp_accs = rp_accs.all()
+
+	data = []
+	for rp_acc in rp_accs:
+		rp_acc_info = rp_acc.to_json_api()
+		rp_acc_info["DivGuid"] = rp_acc.division.DivGuid if rp_acc.division and not rp_acc.division.GCRecord else None
+		rp_acc_info["CGuid"] = rp_acc.company.CGuid if rp_acc.company and not rp_acc.company.GCRecord else None
+		rp_acc_info["UGuid"] = rp_acc.users.UGuid if rp_acc.users and not rp_acc.users.GCRecord else None
+
+		trans_total = [rp_acc_trans_total.to_json_api()
+			for rp_acc_trans_total in rp_acc.Rp_acc_trans_total 
+			if not rp_acc_trans_total.GCRecord]
+
+		total_info = trans_total[0] if trans_total else {}
+		rp_acc_info["RpAccTransTotal"] = total_info
+		trans_total = None
+
+		data.append(rp_acc_info)
+
+	return data
+
+
+@api.route("/v-rp-accs/")
+@token_required
+def api_v_rp_accs():
+	arg_data = {
+		"DivId": request.args.get("DivId",None,type=int),
+		"DivGuid": request.args.get("DivGuid",None,type=str),
+		"notDivId": request.args.get("notDivId",None,type=int),
+		"synchDateTime": request.args.get("synchDateTime",None,type=str),
+		"RpAccId": request.args.get("id",None,type=int),
+		"RpAccRegNo": request.args.get("regNo","",type=str),
+		"RpAccName": request.args.get("name","",type=str)
+	}
+
+	data = get_rp_accs(**arg_data)
+
+	res = {
+		"status": 1 if len(data) > 0 else 0,
+		"message": "Rp_acc",
+		"data": data,
+		"total": len(rp_accs)
+	}
+	response = make_response(jsonify(res), 200)
 
 
 @api.route("/tbl-dk-rp-accs/",methods=['GET','POST'])
@@ -28,63 +111,17 @@ from main_pack.api.commerce.utils import addRpAccTrTotDict
 @request_is_json
 def api_rp_accs():
 	if request.method == 'GET':
-		DivId = request.args.get("DivId",None,type=int)
-		DivGuid = request.args.get("DivGuid",None,type=str)
-		notDivId = request.args.get("notDivId",None,type=int)
-		synchDateTime = request.args.get("synchDateTime",None,type=str)
-		RpAccId = request.args.get("id",None,type=int)
-		RpAccRegNo = request.args.get("regNo","",type=str)
-		RpAccName = request.args.get("name","",type=str)
+		arg_data = {
+			"DivId": request.args.get("DivId",None,type=int),
+			"DivGuid": request.args.get("DivGuid",None,type=str),
+			"notDivId": request.args.get("notDivId",None,type=int),
+			"synchDateTime": request.args.get("synchDateTime",None,type=str),
+			"RpAccId": request.args.get("id",None,type=int),
+			"RpAccRegNo": request.args.get("regNo","",type=str),
+			"RpAccName": request.args.get("name","",type=str)
+		}
 
-		filtering = {"GCRecord": None}
-
-		if RpAccId:
-			filtering["RpAccId"] = RpAccId
-		if RpAccRegNo:
-			filtering["RpAccRegNo"] = RpAccRegNo
-		if RpAccName:
-			filtering["RpAccName"] = RpAccName
-		if DivId:
-			filtering["DivId"] = DivId
-
-		rp_accs = Rp_acc.query.filter_by(**filtering)\
-			.options(
-				joinedload(Rp_acc.company),
-				joinedload(Rp_acc.division),
-				joinedload(Rp_acc.users),
-				joinedload(Rp_acc.Rp_acc_trans_total))
-
-		if DivGuid:
-			rp_accs = rp_accs\
-				.join(Division, Division.DivId == Rp_acc.DivId)\
-				.filter(Division.DivGuid == DivGuid)
-
-		if notDivId:
-			rp_accs = rp_accs.filter(Rp_acc.DivId != notDivId)
-
-		if synchDateTime:
-			if (type(synchDateTime) != datetime):
-				synchDateTime = dateutil.parser.parse(synchDateTime)
-			rp_accs = rp_accs.filter(Rp_acc.ModifiedDate > (synchDateTime - timedelta(minutes = 5)))
-
-		rp_accs = rp_accs.all()
-
-		data = []
-		for rp_acc in rp_accs:
-			rp_acc_info = rp_acc.to_json_api()
-			rp_acc_info["DivGuid"] = rp_acc.division.DivGuid if rp_acc.division and not rp_acc.division.GCRecord else None
-			rp_acc_info["CGuid"] = rp_acc.company.CGuid if rp_acc.company and not rp_acc.company.GCRecord else None
-			rp_acc_info["UGuid"] = rp_acc.users.UGuid if rp_acc.users and not rp_acc.users.GCRecord else None
-
-			trans_total = [rp_acc_trans_total.to_json_api()
-				for rp_acc_trans_total in rp_acc.Rp_acc_trans_total 
-				if not rp_acc_trans_total.GCRecord]
-
-			total_info = trans_total[0] if trans_total else {}
-			rp_acc_info["RpAccTransTotal"] = total_info
-			trans_total = None
-
-			data.append(rp_acc_info)
+		data = get_rp_accs(**arg_data)
 
 		res = {
 			"status": 1 if len(data) > 0 else 0,

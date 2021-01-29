@@ -6,13 +6,76 @@ import dateutil.parser
 from sqlalchemy.orm import joinedload
 
 from main_pack import db
-from main_pack.api.commerce import api
+from . import api
+from .utils import addWarehouseDict
+
 from main_pack.models.base.models import Warehouse, Division
 
+from main_pack.api.auth.utils import sha_required, token_required
 from main_pack.base.apiMethods import checkApiResponseStatus
-from main_pack.api.commerce.utils import addWarehouseDict
-from main_pack.api.auth.utils import sha_required
 from main_pack.api.base.validators import request_is_json
+
+
+def get_warehouses(
+	DivId = None,
+	notDivId = None,
+	synchDateTime = None,
+	WhId = None,
+	WhName = None):
+
+	filtering = {"GCRecord": None}
+
+	if WhId:
+		filtering["WhId"] = WhId
+	if WhName:
+		filtering["WhName"] = WhName
+	if DivId:
+		filtering["DivId"] = DivId
+
+	warehouse_query = Warehouse.query.filter_by(**filtering)\
+		.options(
+			joinedload(Warehouse.company),
+			joinedload(Warehouse.division))
+
+	if notDivId:
+		warehouse_query = warehouse_query.filter(Warehouse.DivId != notDivId)
+
+	if synchDateTime:
+		if (type(synchDateTime) != datetime):
+			synchDateTime = dateutil.parser.parse(synchDateTime)
+		warehouse_query = warehouse_query.filter(Warehouse.ModifiedDate > (synchDateTime - timedelta(minutes = 5)))
+
+	warehouses = warehouse_query.all()
+
+	data = []
+	for warehouse in warehouses:
+		warehouse_info = warehouse.to_json_api()
+		warehouse_info["DivGuid"] = warehouse.division.DivGuid if warehouse.division and not warehouse.division.GCRecord else None
+		data.append(warehouse_info)
+
+	return data
+
+
+@api.route("/v-warehouses/")
+@token_required
+def api_v_warehouses():
+	arg_data = {
+		"DivId": request.args.get("DivId",None,type=int),
+		"notDivId": request.args.get("notDivId",None,type=int),
+		"synchDateTime": request.args.get("synchDateTime",None,type=str),
+		"WhId": request.args.get("id",None,type=int),
+		"WhName": request.args.get("name","",type=str)
+	}
+
+	data = get_warehouses(**arg_data)
+
+	res = {
+		"status": 1 if len(data) > 0 else 0,
+		"message": "Warehouses",
+		"data": data,
+		"total": len(data)
+	}
+	response = make_response(jsonify(res), 200)
 
 
 @api.route("/tbl-dk-warehouses/",methods=['GET','POST'])
@@ -20,41 +83,15 @@ from main_pack.api.base.validators import request_is_json
 @request_is_json
 def api_warehouses():
 	if request.method == 'GET':
-		DivId = request.args.get("DivId",None,type=int)
-		notDivId = request.args.get("notDivId",None,type=int)
-		synchDateTime = request.args.get("synchDateTime",None,type=str)
-		WhId = request.args.get("id",None,type=int)
-		WhName = request.args.get("name","",type=str)
+		arg_data = {
+			"DivId": request.args.get("DivId",None,type=int),
+			"notDivId": request.args.get("notDivId",None,type=int),
+			"synchDateTime": request.args.get("synchDateTime",None,type=str),
+			"WhId": request.args.get("id",None,type=int),
+			"WhName": request.args.get("name","",type=str)
+		}
 
-		filtering = {"GCRecord": None}
-
-		if WhId:
-			filtering["WhId"] = WhId
-		if WhName:
-			filtering["WhName"] = WhName
-		if DivId:
-			filtering["DivId"] = DivId
-
-		warehouse_query = Warehouse.query.filter_by(**filtering)\
-			.options(
-				joinedload(Warehouse.company),
-				joinedload(Warehouse.division))
-
-		if notDivId:
-			warehouse_query = warehouse_query.filter(Warehouse.DivId != notDivId)
-
-		if synchDateTime:
-			if (type(synchDateTime) != datetime):
-				synchDateTime = dateutil.parser.parse(synchDateTime)
-			warehouse_query = warehouse_query.filter(Warehouse.ModifiedDate > (synchDateTime - timedelta(minutes = 5)))
-
-		warehouses = warehouse_query.all()
-
-		data = []
-		for warehouse in warehouses:
-			warehouse_info = warehouse.to_json_api()
-			warehouse_info["DivGuid"] = warehouse.division.DivGuid if warehouse.division and not warehouse.division.GCRecord else None
-			data.append(warehouse_info)
+		data = get_warehouses(**arg_data)
 
 		res = {
 			"status": 1 if len(data) > 0 else 0,

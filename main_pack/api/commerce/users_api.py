@@ -13,8 +13,75 @@ from main_pack.models.users.models import Users
 from main_pack.api.users.utils import addUsersDict
 
 from main_pack.base.apiMethods import checkApiResponseStatus
-from main_pack.api.auth.utils import sha_required
+from main_pack.api.auth.utils import sha_required, token_required
 from main_pack.api.base.validators import request_is_json
+
+
+def get_users(
+	DivId = None,
+	notDivId = None,
+	synchDateTime = None,
+	UId = None,
+	URegNo = None,
+	UName = None):
+
+	filtering = {"GCRecord": None}
+
+	if UId:
+		filtering["UId"] = UId
+	if URegNo:
+		filtering["URegNo"] = URegNo
+	if UName:
+		filtering["UName"] = UName
+	if DivId:
+		filtering["DivId"] = DivId
+
+	users = Users.query.filter_by(**filtering)\
+		.options(
+			joinedload(Users.company),
+			joinedload(Users.division))
+
+	if notDivId:
+		users = users.filter(Users.DivId != notDivId)
+
+	if synchDateTime:
+		if (type(synchDateTime) != datetime):
+			synchDateTime = dateutil.parser.parse(synchDateTime)
+		users = users.filter(Users.ModifiedDate > (synchDateTime - timedelta(minutes = 5)))
+
+	users = users.all()
+
+	data = []
+	for user in users:
+		user_info = user.to_json_api()
+		user_info["DivGuid"] = user.division.DivGuid if user.division and not user.division.GCRecord else None
+		user_info["CGuid"] = user.company.CGuid if user.company and not user.company.GCRecord else None
+		data.append(user_info)
+
+	return data
+
+
+@api.route("/v-users/")
+@token_required
+def api_v_users():
+	arg_data = {
+		"DivId": request.args.get("DivId",None,type=int),
+		"notDivId": request.args.get("notDivId",None,type=int),
+		"synchDateTime": request.args.get("synchDateTime",None,type=str),
+		"UId": request.args.get("id",None,type=int),
+		"URegNo": request.args.get("regNo","",type=str),
+		"UName": request.args.get("name","",type=str)
+	}
+
+	data = get_users(**arg_data)
+
+	res = {
+		"status": 1 if len(data) > 0 else 0,
+		"message": "Users",
+		"data": data,
+		"total": len(data)
+	}
+	response = make_response(jsonify(res), 200)
 
 
 @api.route("/tbl-dk-users/",methods=['GET','POST'])
@@ -22,45 +89,16 @@ from main_pack.api.base.validators import request_is_json
 @request_is_json
 def api_users():
 	if request.method == 'GET':
-		DivId = request.args.get("DivId",None,type=int)
-		notDivId = request.args.get("notDivId",None,type=int)
-		synchDateTime = request.args.get("synchDateTime",None,type=str)
-		UId = request.args.get("id",None,type=int)
-		URegNo = request.args.get("regNo","",type=str)
-		UName = request.args.get("name","",type=str)
+		arg_data = {
+			"DivId": request.args.get("DivId",None,type=int),
+			"notDivId": request.args.get("notDivId",None,type=int),
+			"synchDateTime": request.args.get("synchDateTime",None,type=str),
+			"UId": request.args.get("id",None,type=int),
+			"URegNo": request.args.get("regNo","",type=str),
+			"UName": request.args.get("name","",type=str)
+		}
 
-		filtering = {"GCRecord": None}
-
-		if UId:
-			filtering["UId"] = UId
-		if URegNo:
-			filtering["URegNo"] = URegNo
-		if UName:
-			filtering["UName"] = UName
-		if DivId:
-			filtering["DivId"] = DivId
-
-		users = Users.query.filter_by(**filtering)\
-			.options(
-				joinedload(Users.company),
-				joinedload(Users.division))
-
-		if notDivId:
-			users = users.filter(Users.DivId != notDivId)
-
-		if synchDateTime:
-			if (type(synchDateTime) != datetime):
-				synchDateTime = dateutil.parser.parse(synchDateTime)
-			users = users.filter(Users.ModifiedDate > (synchDateTime - timedelta(minutes = 5)))
-
-		users = users.all()
-
-		data = []
-		for user in users:
-			user_info = user.to_json_api()
-			user_info["DivGuid"] = user.division.DivGuid if user.division and not user.division.GCRecord else None
-			user_info["CGuid"] = user.company.CGuid if user.company and not user.company.GCRecord else None
-			data.append(user_info)
+		data = get_users(**arg_data)
 
 		res = {
 			"status": 1 if len(data) > 0 else 0,

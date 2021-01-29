@@ -2,7 +2,7 @@
 from flask import jsonify, request, make_response
 
 from main_pack import db
-from main_pack.api.commerce import api
+from . import api
 
 from main_pack.models.commerce.models import Res_price_group
 from main_pack.api.auth.utils import token_required

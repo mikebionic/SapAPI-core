@@ -1,15 +1,16 @@
 # -*- coding: utf-8 -*-
 from flask import jsonify, request, make_response
-from main_pack.api.commerce import api
 from datetime import datetime
 from sqlalchemy import and_
 
+from . import api
 from main_pack import db
 from main_pack.config import Config
+
+from .utils import addCategoryDict
+from .commerce_utils import collect_categories_query
 from main_pack.api.auth.utils import sha_required
 from main_pack.api.base.validators import request_is_json
-from main_pack.api.commerce.utils import addCategoryDict
-from main_pack.api.commerce.commerce_utils import collect_categories_query
 from main_pack.base.apiMethods import checkApiResponseStatus
 
 from main_pack.models.base.models import Division

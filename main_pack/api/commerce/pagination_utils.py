@@ -9,13 +9,10 @@ import datetime as dt
 from datetime import datetime, timedelta
 # / datetime, date-parser /
 
-from main_pack import db, babel, gettext, lazy_gettext
-from main_pack.api.commerce import api
+from . import api
+from main_pack import db, gettext
 from main_pack.config import Config
-
-# functions
-from main_pack.api.commerce.commerce_utils import apiResourceInfo, apiOrderInvInfo
-# / functions /
+from .commerce_utils import apiResourceInfo, apiOrderInvInfo
 
 # Resource db Models
 from main_pack.models.commerce.models import (

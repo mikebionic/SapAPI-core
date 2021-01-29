@@ -56,9 +56,7 @@ def api_login():
 		
 		response_data[auth_type] = loggedUserInfo['data']
 		response_data["token"] = token.decode('UTF-8')
-
-		if auth_type != "device":
-			session["ResPriceGroupId"] = user_model.ResPriceGroupId
+		session["ResPriceGroupId"] = user_model.ResPriceGroupId
 
 		return jsonify(response_data)
 	

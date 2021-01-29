@@ -7,7 +7,7 @@ from datetime import datetime, timezone
 
 from main_pack import db, babel, gettext, lazy_gettext
 from main_pack.config import Config
-from main_pack.api.commerce import api
+from . import api
 
 # Users and auth
 from main_pack.models.users.models import Users
@@ -16,7 +16,7 @@ from main_pack.api.auth.utils import token_required
 
 # Orders
 from main_pack.models.commerce.models import Order_inv, Order_inv_line, Work_period
-from main_pack.api.commerce.utils import addOrderInvDict, addOrderInvLineDict
+from .utils import addOrderInvDict, addOrderInvLineDict
 from main_pack.base.invoiceMethods import get_order_error_type
 from main_pack.base.apiMethods import checkApiResponseStatus
 # / Orders /

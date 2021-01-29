@@ -6,9 +6,9 @@ import dateutil.parser
 from sqlalchemy.orm import joinedload
 
 from main_pack import db
-from main_pack.api.commerce import api
+from . import api
+from .utils import addExcRateDict
 from main_pack.base.apiMethods import checkApiResponseStatus
-from main_pack.api.commerce.utils import addExcRateDict
 from main_pack.api.base.validators import request_is_json
 from main_pack.api.auth.utils import sha_required
 

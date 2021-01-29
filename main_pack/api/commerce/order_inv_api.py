@@ -8,7 +8,7 @@ import datetime as dt
 from datetime import datetime
 # / datetime, date-parser /
 
-from main_pack.api.commerce import api
+from . import api
 from main_pack import db
 
 # orders and db methods
@@ -16,10 +16,12 @@ from main_pack.models.commerce.models import (
 	Order_inv,Resource,
 	Order_inv_line,
 	Inv_status,
-	Res_total)
-from main_pack.api.commerce.utils import (
+	Res_total
+)
+from .utils import (
 	addOrderInvDict,
-	addOrderInvLineDict)
+	addOrderInvLineDict
+)
 from main_pack.models.base.models import Warehouse, Division
 from main_pack.base.apiMethods import checkApiResponseStatus
 # / orders and db methods /
@@ -38,8 +40,8 @@ from main_pack.api.auth.utils import sha_required
 from main_pack.api.base.validators import request_is_json
 # / auth and validation /
 
-from main_pack.api.commerce.commerce_utils import apiOrderInvInfo
-from main_pack.api.commerce.pagination_utils import collect_order_inv_paginate_info
+from .commerce_utils import apiOrderInvInfo
+from .pagination_utils import collect_order_inv_paginate_info
 
 
 @api.route("/tbl-dk-order-invoices/",methods=['GET','POST'])

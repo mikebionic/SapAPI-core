@@ -6,7 +6,7 @@ import dateutil.parser
 from sqlalchemy.orm import joinedload
 
 from main_pack import db
-from main_pack.api.commerce import api
+from . import api
 
 from main_pack.models.base.models import Company, Division
 from main_pack.models.commerce.models import (
@@ -15,7 +15,7 @@ from main_pack.models.commerce.models import (
 	Res_category,
 	Brand
 )
-from main_pack.api.commerce.utils import addResourceDict, addBarcodeDict
+from .utils import addResourceDict, addBarcodeDict
 from main_pack.base.apiMethods import checkApiResponseStatus
 from main_pack.api.auth.utils import sha_required
 from main_pack.api.base.validators import request_is_json

@@ -346,6 +346,7 @@ class Device(AddInf,CreatedModifiedInfo,db.Model,UserMixin):
 	DevGuid = db.Column("DevGuid",UUID(as_uuid=True),unique=True)
 	DevUniqueId = db.Column("DevUniqueId",db.String(100),nullable=False)
 	RpAccId = db.Column("RpAccId",db.Integer,db.ForeignKey("tbl_dk_rp_acc.RpAccId"))
+	ResPriceGroupId = db.Column("ResPriceGroupId",db.Integer,db.ForeignKey("tbl_dk_res_price_group.ResPriceGroupId"))
 	DevName = db.Column("DevName",db.String(200))
 	DevDesc = db.Column("DevDesc",db.String(500))
 	IsAllowed = db.Column("IsAllowed",db.Boolean,default=False)
@@ -364,6 +365,7 @@ class Device(AddInf,CreatedModifiedInfo,db.Model,UserMixin):
 			"DevGuid": self.DevGuid,
 			"DevUniqueId": self.DevUniqueId,
 			"RpAccId": self.RpAccId,
+			"ResPriceGroupId": self.ResPriceGroupId,
 			"DevName": self.DevName,
 			"DevDesc": self.DevDesc,
 			"IsAllowed": self.IsAllowed,

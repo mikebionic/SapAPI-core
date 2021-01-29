@@ -4,11 +4,11 @@ from datetime import datetime, timedelta
 import dateutil.parser
 
 from main_pack import db
-from main_pack.api.commerce import api
+from . import api
+from .utils import addWorkPeriodDict
 
 from main_pack.models.base.models import Currency
 from main_pack.models.commerce.models import Work_period
-from main_pack.api.commerce.utils import addWorkPeriodDict
 
 from main_pack.base.apiMethods import checkApiResponseStatus
 from main_pack.api.auth.utils import sha_required

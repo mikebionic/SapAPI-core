@@ -1415,6 +1415,7 @@ class Res_price_group(CreatedModifiedInfo,db.Model):
 	Res_price_rule = db.relationship("Res_price_rule",backref='res_price_group',lazy=True)
 	Users = db.relationship("Users",backref='res_price_group',lazy=True)
 	Rp_acc = db.relationship("Rp_acc",backref='res_price_group',lazy=True)
+	Device = db.relationship("Device",backref='res_price_group',lazy=True)
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
