@@ -87,13 +87,10 @@ def api_v_images():
 	arg_data = {
 		"DivId": request.args.get("DivId",None,type=int),
 		"notDivId": request.args.get("notDivId",None,type=int),
-		"synchDateTime": request.args.get("synchDateTime",None,type=str),
-		"UId": request.args.get("id",None,type=int),
-		"URegNo": request.args.get("regNo","",type=str),
-		"UName": request.args.get("name","",type=str)
+		"synchDateTime": request.args.get("synchDateTime",None,type=str)
 	}
 
-	data = get_users(**arg_data)
+	data = get_images(**arg_data)
 
 	res = {
 		"status": 1 if len(data) > 0 else 0,
@@ -115,6 +112,7 @@ def api_images():
 			"synchDateTime": request.args.get("synchDateTime",None,type=str)
 		}
 
+		data = get_images(**arg_data)
 
 		res = {
 			"status": 1 if len(data) > 0 else 0,

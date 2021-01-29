@@ -8,7 +8,7 @@ from main_pack.models.commerce.models import Res_price_group
 from main_pack.api.auth.utils import token_required
 
 
-@api.route("/tbl-dk-res-price-groups/",methods=['GET'])
+@api.route("/v-res-price-groups/")
 @token_required
 def api_res_price_groups():
 	ResPriceGroupId = request.args.get("id",None,type=int)

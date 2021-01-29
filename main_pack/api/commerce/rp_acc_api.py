@@ -27,7 +27,8 @@ def get_rp_accs(
 	synchDateTime = None,
 	RpAccId = None,
 	RpAccRegNo = None,
-	RpAccName = None):
+	RpAccName = None,
+	withPassword = 0):
 
 	filtering = {"GCRecord": None}
 
@@ -69,6 +70,9 @@ def get_rp_accs(
 		rp_acc_info["CGuid"] = rp_acc.company.CGuid if rp_acc.company and not rp_acc.company.GCRecord else None
 		rp_acc_info["UGuid"] = rp_acc.users.UGuid if rp_acc.users and not rp_acc.users.GCRecord else None
 
+		if withPassword:
+			rp_acc_info["RpAccUPass"] = rp_acc.RpAccUPass
+
 		trans_total = [rp_acc_trans_total.to_json_api()
 			for rp_acc_trans_total in rp_acc.Rp_acc_trans_total 
 			if not rp_acc_trans_total.GCRecord]
@@ -95,6 +99,7 @@ def api_v_rp_accs():
 		"RpAccName": request.args.get("name","",type=str)
 	}
 
+	arg_data["withPassword"] = 1
 	data = get_rp_accs(**arg_data)
 
 	res = {
