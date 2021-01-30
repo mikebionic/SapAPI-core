@@ -78,7 +78,7 @@ def api_v_res_totals():
 
 @api.route("/tbl-dk-res-totals/",methods=['GET','POST'])
 @sha_required
-@request_is_json
+@request_is_json(request)
 def api_res_totals():
 	if request.method == 'GET':
 		arg_data = {

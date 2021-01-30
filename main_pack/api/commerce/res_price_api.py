@@ -106,7 +106,7 @@ def api_v_res_prices(user):
 
 @api.route("/tbl-dk-res-prices/",methods=['GET','POST'])
 @sha_required
-@request_is_json
+@request_is_json(request)
 def api_res_prices():
 	if request.method == 'GET':
 		arg_data = {

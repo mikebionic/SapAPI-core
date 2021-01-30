@@ -287,7 +287,6 @@ class Usage_status(CreatedModifiedInfo,db.Model):
 		}
 		return json_data
 
-####### new models ###
 
 class Discount_type(CreatedModifiedInfo,db.Model):
 	__tablename__ = "tbl_dk_discount_type"
@@ -340,7 +339,8 @@ class Exc_rate(CreatedModifiedInfo,db.Model):
 			"CurrencyId": self.CurrencyId,
 			"ExcRateTypeId": self.ExcRateTypeId,
 			"ExcRateDate": apiDataFormat(self.ExcRateDate),
-			"ExcRateValue": self.ExcRateValue,
+			"ExcRateInValue": self.ExcRateInValue,
+			"ExcRateOutValue": self.ExcRateOutValue,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
 			"SyncDateTime": apiDataFormat(self.SyncDateTime),
@@ -1415,7 +1415,6 @@ class Res_price_group(CreatedModifiedInfo,db.Model):
 	Res_price_rule = db.relationship("Res_price_rule",backref='res_price_group',lazy=True)
 	Users = db.relationship("Users",backref='res_price_group',lazy=True)
 	Rp_acc = db.relationship("Rp_acc",backref='res_price_group',lazy=True)
-	Device = db.relationship("Device",backref='res_price_group',lazy=True)
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():

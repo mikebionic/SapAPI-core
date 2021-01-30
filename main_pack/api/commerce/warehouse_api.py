@@ -80,7 +80,7 @@ def api_v_warehouses():
 
 @api.route("/tbl-dk-warehouses/",methods=['GET','POST'])
 @sha_required
-@request_is_json
+@request_is_json(request)
 def api_warehouses():
 	if request.method == 'GET':
 		arg_data = {

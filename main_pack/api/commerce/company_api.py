@@ -69,7 +69,7 @@ def api_company_info():
 
 @api.route("/company/", methods=['GET','POST'])
 @sha_required
-@request_is_json
+@request_is_json(request)
 def api_company():
 	if request.method == 'GET':
 		CGuid = request.args.get("CGuid",None,type=str)

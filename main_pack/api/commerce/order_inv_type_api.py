@@ -18,7 +18,7 @@ from main_pack.api.base.validators import request_is_json
 
 @api.route("/tbl-dk-order-inv-types/",methods=['GET','POST'])
 @sha_required
-@request_is_json
+@request_is_json(request)
 def api_order_inv_types():
 	if request.method == 'GET':
 		order_inv_types = Order_inv_type.query.filter_by(GCRecord = None).all()

@@ -16,7 +16,7 @@ from .utils import addDivisionDict
 
 @api.route("/division/",methods=['GET','POST'])
 @sha_required
-@request_is_json
+@request_is_json(request)
 def api_division():
 	if request.method == 'GET':
 		DivGuid = request.args.get("DivGuid",None,type=str)

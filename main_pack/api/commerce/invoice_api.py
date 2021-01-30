@@ -44,7 +44,7 @@ from main_pack.api.base.validators import request_is_json
 
 @api.route("/tbl-dk-invoices/",methods=['GET','POST'])
 @sha_required
-@request_is_json
+@request_is_json(request)
 def api_invoices():
 	if request.method == 'GET':
 		DivId = request.args.get("DivId",None,type=int)

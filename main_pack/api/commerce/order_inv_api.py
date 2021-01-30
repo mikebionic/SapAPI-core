@@ -46,7 +46,7 @@ from .pagination_utils import collect_order_inv_paginate_info
 
 @api.route("/tbl-dk-order-invoices/",methods=['GET','POST'])
 @sha_required
-@request_is_json
+@request_is_json(request)
 def api_order_invoices():
 	if request.method == 'GET':
 		DivId = request.args.get("DivId",None,type=int)

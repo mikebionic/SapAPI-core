@@ -86,7 +86,7 @@ def api_v_users():
 
 @api.route("/tbl-dk-users/",methods=['GET','POST'])
 @sha_required
-@request_is_json
+@request_is_json(request)
 def api_users():
 	if request.method == 'GET':
 		arg_data = {

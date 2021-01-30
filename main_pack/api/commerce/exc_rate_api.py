@@ -18,7 +18,7 @@ from main_pack.models.base.models import Currency
 
 @api.route("/tbl-dk-exc-rates/",methods=['GET','POST'])
 @sha_required
-@request_is_json
+@request_is_json(request)
 def api_exc_rate():
 	if request.method == 'GET':
 		ExcRateId = request.args.get("id",None,type=int)

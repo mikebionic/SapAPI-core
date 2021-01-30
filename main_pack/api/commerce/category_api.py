@@ -44,7 +44,7 @@ def api_categories():
 	
 	
 @api.route("/tbl-dk-categories/",methods=['POST'])
-@request_is_json
+@request_is_json(request)
 @sha_required
 def api_post_categories():
 	if request.method == 'POST':

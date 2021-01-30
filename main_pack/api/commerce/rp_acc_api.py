@@ -106,14 +106,14 @@ def api_v_rp_accs():
 		"status": 1 if len(data) > 0 else 0,
 		"message": "Rp_acc",
 		"data": data,
-		"total": len(rp_accs)
+		"total": len(data)
 	}
 	response = make_response(jsonify(res), 200)
 
 
 @api.route("/tbl-dk-rp-accs/",methods=['GET','POST'])
 @sha_required
-@request_is_json
+@request_is_json(request)
 def api_rp_accs():
 	if request.method == 'GET':
 		arg_data = {
@@ -132,7 +132,7 @@ def api_rp_accs():
 			"status": 1 if len(data) > 0 else 0,
 			"message": "Rp_acc",
 			"data": data,
-			"total": len(rp_accs)
+			"total": len(data)
 		}
 		response = make_response(jsonify(res), 200)
 

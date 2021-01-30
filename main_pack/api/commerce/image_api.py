@@ -103,7 +103,7 @@ def api_v_images():
 
 @api.route("/tbl-dk-images/",methods=['GET','POST'])
 @sha_required
-@request_is_json
+@request_is_json(request)
 def api_images():
 	if request.method == 'GET':
 		arg_data = {

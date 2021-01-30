@@ -40,7 +40,7 @@ import decimal
 
 @api.route("/checkout-sale-order-inv/",methods=['POST'])
 @token_required
-@request_is_json
+@request_is_json(request)
 def api_checkout_sale_order_invoices(user):
 	model_type = user['model_type']
 	current_user = user['current_user']
@@ -315,7 +315,7 @@ def api_checkout_sale_order_invoices(user):
 
 @api.route("/validate-order-inv-payment/",methods=['GET','POST'])
 @token_required
-@request_is_json
+@request_is_json(request)
 def validate_order_inv_payment(user):
 	current_user = user['current_user']
 	RpAccId = current_user.RpAccId

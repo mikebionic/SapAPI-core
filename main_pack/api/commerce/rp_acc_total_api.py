@@ -18,7 +18,7 @@ from main_pack.base.apiMethods import checkApiResponseStatus
 
 @api.route("/tbl-dk-rp-acc-trans-totals/",methods=['GET','POST'])
 @sha_required
-@request_is_json
+@request_is_json(request)
 def api_rp_acc_trans_totals():
 	if request.method == 'GET':
 		DivId = request.args.get("DivId",None,type=int)
