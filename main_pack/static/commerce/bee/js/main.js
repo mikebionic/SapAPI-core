@@ -924,3 +924,11 @@ function toggle(){
 $("img.loader").load(function(){
   $(this).removeClass("loader");
 });
+
+$(".category-title .title a").each(function(){
+this.text = this.text.trim();
+  if (this.text.length > 20){
+      this.text = this.text.slice(0, 20);
+      this.text += "...";
+  }
+});
