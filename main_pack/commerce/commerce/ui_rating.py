@@ -25,24 +25,18 @@ def ui_rating():
 	RpAccId = current_user.RpAccId
 	try:
 		if request.method =="POST":
-			# # check for presense of rp_acc (optional step)
-			# rp_acc = Rp_acc.query\
-			# 	.filter(and_(Rp_acc.GCRecord=='' or Rp_acc.GCRecord==None),\
-			# 		Rp_acc.RpAccId==RpAccId).first()
-			# if rp_acc is None:
-			# 	raise Exception
 			RtRatingValue = req.get("ratingValue")
 			RtRemark = req.get("ratingRemark")
 			RtRemark = RtRemark.strip()
 			if RtRatingValue is None or len(RtRemark) <= 2:
 				raise Exception
-			# check for presense of rate
-			rating = Rating.query\
-				.filter_by(GCRecord = None, ResId = ResId, RpAccId = RpAccId)\
-				.first()
-			# avoid double insertion
-			if rating:
-				raise Exception
+			# # check for presense of rate
+			# rating = Rating.query\
+			# 	.filter_by(GCRecord = None, ResId = ResId, RpAccId = RpAccId)\
+			# 	.first()
+			# # avoid double insertion
+			# if rating:
+			# 	raise Exception
 
 			resource = Resource.query\
 				.filter_by(GCRecord = None, ResId = ResId)\
@@ -61,8 +55,8 @@ def ui_rating():
 			db.session.add(rating)
 			db.session.commit()
 			response = jsonify({
-				"status": 'added',
-				"responseText": gettext('Rating')+' '+gettext('successfully saved')
+				"status": 'updated',
+				"responseText": gettext('Rating') + ' ' + gettext('successfully sent') + '. ' + gettext('It will be shown after some time')
 			})
 		
 		if request.method=="DELETE":

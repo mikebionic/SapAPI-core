@@ -76,7 +76,8 @@ $('body').delegate('.checkoutCartBtn','click',function(){
 });
 
 
-$('body').delegate('.sendReviewBtn','click',function(){
+$('body').delegate('.sendReviewBtn','click',function(e){
+	e.preventDefault();
 	ownerId = $(this).attr('ownerId');
 	addRating(ownerId);
 });
@@ -96,7 +97,7 @@ function addRating(ownerId){
 		'ratingRemark':ratingRemark
 	};
 	if (ratingRemark != ""){
-		postData(formData=productData,url=url_prefix+"/product/ui_rating/",type="POST",formId=ownerId)
+		postData(formData=productData,url=url_prefix+"/product/ui_rating/",type="POST",formId=ownerId,listName=null,responseForm=null,alertStyle="swal")
 	}
 }
 
