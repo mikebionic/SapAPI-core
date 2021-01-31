@@ -172,40 +172,27 @@
 			</div>
 		</div>
 	</div>
-</div><!-- Single Product Section End -->
+</div>
 
-<!-- Related Product Section Start -->
 <div class="product-section section mb-70">
 	<div class="container">
 		<div class="row">
 
-			<!-- Section Title Start -->
 			<div class="col-12 mb-40">
 				<div class="section-title-one" style="text-transform:uppercase"><h1>{{_('Products from this category')}}</h1></div>
-			</div><!-- Section Title End -->
+			</div>
 
-			<!-- Product Tab Content Start -->
 			<div class="col-12">
-				<!-- Product Slider Wrap Start -->
 				<div class="product-slider-wrap product-slider-arrow-one">
-					<!-- Product Slider Start -->
 					<div class="product-slider product-slider-4">
 						{% if resource.Related_resources %}
 						{% for related_resource in resource.Related_resources %}
 							<div class="col pb-20 pt-10">
-								<!-- Product Start -->
 								<div class="ee-product">
-									<!-- Image -->
 									<div class="image">
-										{% if related_resource.FilePathS %}
-											<a href="{{ url_for('commerce.product',ResId=related_resource.ResId)}}" class="img">
-												<img loading="lazy" src="{{related_resource.FilePathS}}" alt="Product {{related_resource.ResName}} of category {{ related_resource.ResCatName if related_resource.ResCatName else '' }}">
-											</a>
-										{% else %}
-											<a href="{{ url_for('commerce.product',ResId=related_resource.ResId)}}" class="img">
-												<img loading="lazy" src="{{ url_for('static', filename='commerce/main/shop_icons/no_photo.png') }}" alt="Product {{related_resource.ResName}} of category {{ related_resource.ResCatName if related_resource.ResCatName else '' }}">
-											</a>
-										{% endif %}
+										<a href="{{ url_for('commerce.product',ResId=related_resource.ResId)}}" class="img">
+											<img loading="lazy" src="{{ related_resource.FilePathS if related_resource.FilePathS else url_for('static', filename='commerce/main/shop_icons/no_photo.png') }}" alt="Product {{related_resource.ResName}} of category {{ related_resource.ResCatName if related_resource.ResCatName else '' }}">
+										</a>
 										{% if current_user.is_authenticated %}
 											<div class="wishlist-compare">
 												<a href="#" data-tooltip="Wishlist" class="{{'added' if related_resource.Wishlist == true}}" ownerId="{{ related_resource.ResId }}">
@@ -219,15 +206,12 @@
 											</a>
 									</div>
 
-									<!-- Content -->
 									<div class="content">
-										<!-- Category & Title -->
 										<div class="category-title">
 											<a href="#" class="cat">{{ related_resource.ResCatName }}</a>
 											<h5 class="title"><a href="{{ url_for('static', filename='commerce/main/shop_icons/no_photo.png') }}">{{ related_resource.ResName }}</a></h5>
 										</div>
 
-										<!-- Price & Ratting -->
 										<div class="price-ratting">
 											<h5 class="price">
 												<p>{{ related_resource.CurrencyCode }}</p>
@@ -235,16 +219,16 @@
 											</h5>
 										</div>
 									</div>
-								</div><!-- Product End -->
+								</div>
 							</div>
 						{% endfor %}
 						{% endif %}
-					</div><!-- Product Slider End -->
-				</div><!-- Product Slider Wrap End -->
-			</div><!-- Product Tab Content End -->
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
-</div><!-- Related Product Section End -->
+</div>
 
 {% endblock %}
 

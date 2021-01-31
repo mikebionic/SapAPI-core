@@ -367,6 +367,7 @@ def apiResourceInfo(
 				List_Currencies = [currency.to_json_api() for currency in currencies if currency.CurrencyId == List_Res_price[0]["CurrencyId"]]
 			except:
 				List_Currencies = []
+
 			List_Res_total = [res_total.to_json_api() for res_total in resource_query.Resource.Res_total if not res_total.GCRecord and res_total.WhId == 1]
 			List_Images = [image.to_json_api() for image in resource_query.Resource.Image if not image.GCRecord]
 			# Sorting list by Modified date

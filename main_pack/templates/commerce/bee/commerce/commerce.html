@@ -8,14 +8,13 @@
 <div class="hero-section section mb-30">
 	<div class="container">
 		<div class="row">
-			<div class="col"><!-- Hero Slider Start -->
+			<div class="col">
 				<div class="hero-side-category" style="margin-bottom: 0;"></div>
 				<div class="hero-slider hero-slider-two fix slick slick-slider slick-dotted">
 				{% for slider in sliders %}
 					{% if slider.SlName == "commerce_header" %}
 						{% for sl_image in slider.Sl_images %}
 						{% if sl_image.SlImgMainImgFilePathS %}
-							<!-- Hero Item Start -->
 							<div class="slick-list draggable">  
 								<div class="slick-track" style="opacity: 1; width: 100%;">
 									<div class="hero-item-two slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" tabindex="0" role="tabpanel" id="slick-slide00" aria-describedby="slick-slide-control00" style="width: 100%; position: relative; left: 0px; top: 0px; z-index: 999; opacity: 1;">
@@ -63,41 +62,34 @@
 								</div>
 							{% endif %}
 						{% endfor %}
-					</div><!-- Product Slider End -->
-				</div><!-- Product Slider Wrap End -->
-			</div><!-- Product Tab Content End -->
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
-</div><!-- Feature Product Section End -->
+</div>
 
 {% if Featured_categories %}
-<!-- Feature Product Section Start -->
 <div class="product-section section mb-70">
 	<div class="container">
 		<div class="row">
-			<!-- Section Title Start -->
 			<div class="col-12 mb-40">
 				<div class="section-title-one" style="text-transform:uppercase"><h1>{{_('Featured')}}</h1></div>
-			</div><!-- Section Title End -->
-			<!-- Product Tab Filter Start -->
+			</div>
 			<div class="col-12 mb-30">
 				<div class="product-tab-filter">
-					<!-- Tab Filter Toggle -->
 					<button class="product-tab-filter-toggle">showing: <span></span><i class="icofont icofont-simple-down"></i></button>
 
-					<!-- Product Tab List -->
 					<ul class="nav product-tab-list">
 						{% for category in Featured_categories %}
 							<li><a data-toggle="tab" class="featrued-cat-btn" href="#tab-{{category.ResCatId}}">{{category.ResCatName}}</a></li>
 						{% endfor %}
 					</ul>
 				</div>
-			</div><!-- Product Tab Filter End -->
+			</div>
 
-			<!-- Product Tab Content Start -->
 			<div class="col-12">
 				<div class="tab-content">
-					<!-- Tab Pane Start -->
 					<div class="row">
 					 
 					{% for category in Featured_categories %}
@@ -137,9 +129,7 @@
 														</a>
 												</div>
 
-												<!-- Content -->
 												<div class="content">
-													<!-- Category & Title -->
 													<div class="category-title">
 														<a href="#" class="cat">{{ resource.ResCatName if resource.ResCatName else '' }}</a>
 														<h5 class="title">
@@ -194,15 +184,11 @@
 										{% if resource.New %}
 											<span class="label new">{{_('New')}}</span>
 										{% endif %}
-										{% if resource.FilePathS %}
+										{%  %}
 											<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
-												<img loading="lazy" src="{{resource.FilePathS}}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
+												<img loading="lazy"
+												src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/main/shop_icons/no_photo.png') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
 											</a>
-										{% else %}
-											<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
-												<img loading="lazy" src="{{ url_for('static', filename='commerce/main/shop_icons/no_photo.png') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
-											</a>
-										{% endif %}
 										{% if current_user.is_authenticated %}
 											<div class="wishlist-compare">
 												<a href="#" data-tooltip="Wishlist" class="{{'added' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}">
