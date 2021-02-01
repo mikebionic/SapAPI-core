@@ -227,16 +227,27 @@ from main_pack.models.users.models import Users, Rp_acc, User_type
 from sqlalchemy import and_
 
 
-def apiUsersData(UId=None, dbQuery=None, dbModel=None):
+def apiUsersData(
+	UId = None,
+	dbQuery = None,
+	dbModel = None,
+	rpAccInfo = True,
+	additionalInfo = True):
+
 	if not dbModel:
+
 		if not dbQuery:
 			dbQuery = Users.query.filter_by(GCRecord = None, UId = UId)
 
-		dbModel = dbQuery.options(
-			joinedload(Users.Image),
-			joinedload(Users.Rp_acc),
-			joinedload(Users.user_type))\
-		.first()
+		dbQuery = dbQuery.options(joinedload(Users.Image))
+
+		if rpAccInfo:
+			dbQuery = dbQuery.options(joinedload(Users.Rp_acc))
+
+		if additionalInfo:
+			dbQuery = dbQuery.options(joinedload(Users.user_type))
+
+		dbModel = dbQuery.first()
 
 	data = {}
 	if dbModel:
@@ -249,8 +260,12 @@ def apiUsersData(UId=None, dbQuery=None, dbModel=None):
 		data["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=List_Images[-1]["FileName"]) if List_Images else ""
 		data["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_Images[-1]["FileName"]) if List_Images else ""
 		data["Images"] = List_Images if List_Images else []
-		data["Rp_accs"] = [rp_acc.to_json_api() for rp_acc in dbModel.Rp_acc if not rp_acc.GCRecord]
-		data["User_type"] = dataLangSelector(dbModel.user_type.to_json_api()) if dbModel.user_type else {}
+
+		if rp_acc_info:
+			data["Rp_accs"] = [rp_acc.to_json_api() for rp_acc in dbModel.Rp_acc if not rp_acc.GCRecord]
+
+		if additionalInfo:
+			data["User_type"] = dataLangSelector(dbModel.user_type.to_json_api()) if dbModel.user_type else {}
 
 	res = {
 		"status": 1 if len(data) > 0 else 0,
@@ -260,17 +275,29 @@ def apiUsersData(UId=None, dbQuery=None, dbModel=None):
 	return res
 
 
-def apiRpAccData(RpAccRegNo=None, dbQuery=None, dbModel=None):
+def apiRpAccData(
+	RpAccRegNo = None,
+	dbQuery = None,
+	dbModel = None,
+	userInfo = True,
+	additionalInfo = True):
+
 	if not dbModel:
+
 		if not dbQuery:
 			dbQuery = Rp_acc.query.filter_by(GCRecord = None, RpAccRegNo = RpAccRegNo)
 
-		dbModel = dbQuery.options(
-			joinedload(Rp_acc.Image),
-			joinedload(Rp_acc.users),
-			joinedload(Rp_acc.rp_acc_type),
-			joinedload(Rp_acc.rp_acc_status))\
-		.first()
+		dbQuery = dbQuery.options(joinedload(Rp_acc.Image))
+
+		if userInfo:
+			dbQuery = dbQuery.options(joinedload(Rp_acc.users))
+
+		if additionalInfo:
+			dbQuery = dbQuery.options(
+				joinedload(Rp_acc.rp_acc_type),
+				joinedload(Rp_acc.rp_acc_status))
+
+		dbModel = dbQuery.first()
 
 	data = {}
 	if dbModel:
@@ -285,10 +312,12 @@ def apiRpAccData(RpAccRegNo=None, dbQuery=None, dbModel=None):
 		data["Images"] = List_Images if List_Images else []
 
 
-		# !!! TODO: add props to trigger adding this to data
-		data["User"] = dbModel.users.to_json_api() if dbModel.users and not dbModel.users.GCRecord else {}
-		data["Rp_acc_type"] = dataLangSelector(dbModel.rp_acc_type.to_json_api()) if dbModel.rp_acc_type else {}
-		data["Rp_acc_status"] = dataLangSelector(dbModel.rp_acc_status.to_json_api()) if dbModel.rp_acc_status else {}
+		if userInfo:
+			data["User"] = dbModel.users.to_json_api() if dbModel.users and not dbModel.users.GCRecord else {}
+	
+		if additionalInfo:
+			data["Rp_acc_type"] = dataLangSelector(dbModel.rp_acc_type.to_json_api()) if dbModel.rp_acc_type else {}
+			data["Rp_acc_status"] = dataLangSelector(dbModel.rp_acc_status.to_json_api()) if dbModel.rp_acc_status else {}
 
 	res = {
 		"status": 1 if len(data) > 0 else 0,

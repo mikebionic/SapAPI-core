@@ -146,6 +146,8 @@ class Config:
 	# if no left in Res_total.ResTotBalace
 	SHOW_NEGATIVE_WH_QTY_RESOURCE = int(environ.get('SHOW_NEGATIVE_WH_QTY_RESOURCE'))
 
+	SHOW_ONLY_VALIDATED_RATING = 0
+
 	MAIN_CURRENCY_CODE = environ.get('MAIN_CURRENCY_CODE')
 	DEFAULT_VIEW_CURRENCY_CODE = environ.get('DEFAULT_VIEW_CURRENCY_CODE')
 	# language and currency of price-to-text converter

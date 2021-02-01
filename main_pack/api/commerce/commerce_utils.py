@@ -322,7 +322,6 @@ def apiResourceInfo(
 				resource_query = resource_query.options(
 					joinedload(Resource.Image),
 					joinedload(Resource.Barcode),
-					joinedload(Resource.Rating),
 					joinedload(Resource.Res_price),
 					joinedload(Resource.Res_total),
 					joinedload(Resource.res_category),
@@ -330,19 +329,27 @@ def apiResourceInfo(
 					joinedload(Resource.brand),
 					joinedload(Resource.usage_status))
 
-				if fullInfo == True:
+				if fullInfo:
 					resource_query = resource_query.options(	
 						joinedload(Resource.Res_color)\
 							.options(joinedload(Res_color.color)),
 						joinedload(Resource.Res_size)\
-							.options(joinedload(Res_size.size))
+							.options(joinedload(Res_size.size)),
+						joinedload(Resource.Rating)\
+							.options(
+								joinedload(Rating.users).options(joinedload(Users.Image)),
+								joinedload(Rating.rp_acc).options(joinedload(Rp_acc.Image))
+							)
 						)
+
+				elif fullInfo == False:
+					resource_query = resource_query.options(joinedload(Resource.Rating))
 
 				resource_query = resource_query.first()
 				
 				if resource_query:
 					resource_models.append(resource_query)
-		
+
 	data = []
 	fails = []
 	for resource_query in resource_models:
@@ -375,20 +382,26 @@ def apiResourceInfo(
 			
 			if fullInfo == True:
 				List_Ratings = []
-				# !!! TODO: try to get deep in outerjoin
 				for rating in resource_query.Resource.Rating:
-					Rating_info = rating.to_json_api()
+					try:
+						if (Config.SHOW_ONLY_VALIDATED_RATING and not rating.RtValidated):
+							raise Exception
 
-					if rating.UId:
-						rated_user = Users.query.filter_by(GCRecord = None, UId = rating.UId)
-						userData = apiUsersData(dbQuery = rated_user)
-						Rating_info["User"] = userData["data"]
+						Rating_info = rating.to_json_api()
 
-					if rating.RpAccId:
-						rated_rp_acc = Rp_acc.query.filter_by(GCRecord = None, RpAccId = rating.RpAccId)
-						rpAccData = apiRpAccData(dbQuery = rated_rp_acc)
-						Rating_info["Rp_acc"] = rpAccData["data"]
-					List_Ratings.append(Rating_info)
+						if rating.UId:
+							userData = apiUsersData(dbModel = rating.user, rpAccInfo = False, additionalInfo = False) if not rating.user.GCRecord else None
+							Rating_info["User"] = userData["data"] if userData else {}
+
+						if rating.RpAccId:
+							rpAccData = apiRpAccData(dbModel = rating.rp_acc, userInfo = False, additionalInfo = False) if not rating.rp_acc.GCRecord else None
+							Rating_info["Rp_acc"] = rpAccData["data"] if rpAccData else {}
+
+						List_Ratings.append(Rating_info)
+
+					except:
+						pass
+
 			else:
 				List_Ratings = [rating.to_json_api() for rating in resource_query.Resource.Rating if not rating.GCRecord]
 			if user:

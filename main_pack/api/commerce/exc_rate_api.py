@@ -48,7 +48,7 @@ def api_exc_rate():
 
 		if ExcRateDate:
 			if (type(ExcRateDate) != datetime):
-				ExcRateDate = dateutil.parser.parse(ExcRateDate).date()
+				ExcRateDate = dateutil.parser.parse(ExcRateDate)
 			exc_rates = exc_rates.filter(Exc_rate.ExcRateDate == ExcRateDate)
 
 		data = []
