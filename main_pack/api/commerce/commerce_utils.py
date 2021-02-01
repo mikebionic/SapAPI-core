@@ -15,6 +15,7 @@ from flask_login import current_user, login_required
 
 # functions and methods
 from main_pack.base.languageMethods import dataLangSelector
+from main_pack.base.priceMethods import calculatePriceByGroup
 # / functions and methods /
 
 # db models
@@ -566,48 +567,6 @@ def apiFeaturedResCat_Resources():
 	return res
 
 
-def calculatePriceByGroup(ResPriceGroupId, Res_price_dbModels, Res_pice_group_dbModels):
-	data = []
-	try:
-		if not ResPriceGroupId:
-			data = [res_price.to_json_api() 
-				for res_price in Res_price_dbModels
-				if res_price.ResPriceTypeId == 2
-				and not res_price.GCRecord]
-
-		if ResPriceGroupId:
-			data = [res_price.to_json_api() 
-				for res_price in Res_price_dbModels 
-				if res_price.ResPriceTypeId == 2 
-				and res_price.ResPriceGroupId == ResPriceGroupId
-				and not res_price.GCRecord]
-
-			if not data:
-				thisPriceGroupList = [priceGroup for priceGroup in Res_pice_group_dbModels if priceGroup.ResPriceGroupId == ResPriceGroupId]
-				if thisPriceGroupList:
-					if not thisPriceGroupList[0].ResPriceGroupAMEnabled:
-						raise Exception
-
-					FromResPriceTypeId = thisPriceGroupList[0].FromResPriceTypeId
-					ResPriceGroupAMPerc = thisPriceGroupList[0].ResPriceGroupAMPerc
-
-					data = [res_price.to_json_api() 
-						for res_price in Res_price_dbModels 
-						if res_price.ResPriceTypeId == FromResPriceTypeId
-						and not res_price.GCRecord]
-
-					if not data:
-						raise Exception
-
-					CalculatedPriceValue = float(data[0]["ResPriceValue"]) + (float(data[0]["ResPriceValue"]) * float(ResPriceGroupAMPerc) / 100)
-					data[0]["ResPriceValue"] = CalculatedPriceValue
-
-	except Exception as ex:
-		print(f"{datetime.now()} | Res price calculation Exception: {ex}")
-
-	return data
-
-
 def UiCartResourceData(product_list,fullInfo=False,showRelated=False):
 	res = apiResourceInfo(product_list,fullInfo=fullInfo,showRelated=showRelated)
 	data = []
@@ -628,6 +587,7 @@ def UiCartResourceData(product_list,fullInfo=False,showRelated=False):
 		"total": len(data)
 	}
 	return res
+
 
 # !!! TODO: Should be optimized
 def apiOrderInvInfo(

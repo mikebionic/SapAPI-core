@@ -81,7 +81,6 @@ def logout():
 	return redirect(url_for('commerce.commerce'))
 
 
-# !!! TODO: Test this update
 @bp.route("/resetPassword", methods=['GET','POST'])
 def reset_request():
 	categoryData = UiCategoriesList()
@@ -193,7 +192,7 @@ def register_token(token):
 		try:
 			username = new_user['username']
 			email = new_user['email']
-			# UShortName = (username[0] + username[-1]).upper()
+
 
 			if Config.HASHED_PASSWORDS == True:
 				password = bcrypt.generate_password_hash(form.password.data).decode() 
@@ -212,16 +211,18 @@ def register_token(token):
 			lastUser = Rp_acc.query.order_by(Rp_acc.RpAccId.desc()).first()
 			RpAccId = lastUser.RpAccId + 1
 
-			# # !!! TODO: Update this reg no generato to a better func
-			# try:
-			# 	reg_num = generate(UId=user.UId, RegNumTypeName='rp_code')
-			# 	regNo = makeRegNo(user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'')
-			# except Exception as ex:
-			# 	print(f"{datetime.now()} | UI Register Reg Num generation Exception: {ex}")
-			# 	# flash(lazy_gettext('Error generating Registration number'),'warning')
-			# 	# return redirect(url_for('commerce_auth.register'))
-			
-			regNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
+			main_user = Users.query\
+				.filter_by(GCRecord = None, UTypeId = 1)\
+				.first()
+
+			try:
+				reg_num = generate(UId=main_user.UId, RegNumTypeName='rp_code')
+				regNo = makeRegNo(main_user.UShortName, reg_num.RegNumPrefix, reg_num.RegNumLastNum + 1, '')
+			except Exception as ex:
+				print(f"{datetime.now()} | UI Register Reg Num generation Exception: {ex}")
+				regNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
+				# flash(lazy_gettext('Error generating Registration number'),'warning')
+				# return redirect(url_for('commerce_auth.register'))
 
 			user_data = {
 				"RpAccId": RpAccId,

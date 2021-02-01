@@ -4,6 +4,7 @@ import requests, json
 import uuid
 from sqlalchemy.orm import joinedload
 from datetime import datetime, timezone
+import decimal
 
 from main_pack import db, babel, gettext, lazy_gettext
 from main_pack.config import Config
@@ -33,8 +34,8 @@ from main_pack.models.commerce.models import (
 	Res_price_group
 )
 from main_pack.base.invoiceMethods import totalQtySubstitution
+from main_pack.base.priceMethods import calculatePriceByGroup
 from main_pack.base.num2text import num2text, price2text
-import decimal
 # / Resource models and operations /
 
 
@@ -157,41 +158,13 @@ def api_checkout_sale_order_invoices(user):
 					error_type = 1
 					raise Exception
 
-				List_Res_price = []
-				if not ResPriceGroupId:
-					List_Res_price = [res_price.to_json_api() 
-						for res_price in resource.Res_price
-						if res_price.ResPriceTypeId == 2
-						and res_price.GCRecord == None]
+				List_Res_price = calculatePriceByGroup(
+					ResPriceGroupId = ResPriceGroupId,
+					Res_price_dbModels = resource.Res_price,
+					Res_pice_group_dbModels = res_price_groups)
 
-				if ResPriceGroupId:
-					# find Res_price with provided ResPriceGroupId
-					List_Res_price = [res_price.to_json_api() 
-						for res_price in resource.Res_price 
-						if res_price.ResPriceTypeId == 2 
-						and res_price.ResPriceGroupId == ResPriceGroupId
-						and res_price.GCRecord == None]
-
-					if not List_Res_price:
-						thisPriceGroupList = [priceGroup for priceGroup in res_price_groups if priceGroup.ResPriceGroupId == ResPriceGroupId]
-						if thisPriceGroupList:
-							if not thisPriceGroupList[0].ResPriceGroupAMEnabled:
-								# print("enabled false")
-								raise Exception
-
-							FromResPriceTypeId = thisPriceGroupList[0].FromResPriceTypeId
-							ResPriceGroupAMPerc = thisPriceGroupList[0].ResPriceGroupAMPerc
-
-							List_Res_price = [res_price.to_json_api() 
-								for res_price in resource.Res_price 
-								if res_price.ResPriceTypeId == FromResPriceTypeId
-								and res_price.GCRecord == None]
-
-							if not List_Res_price:
-								raise Exception
-
-							CalculatedPriceValue = float(List_Res_price[0]["ResPriceValue"]) + (float(List_Res_price[0]["ResPriceValue"]) * float(ResPriceGroupAMPerc) / 100)
-							List_Res_price[0]["ResPriceValue"] = CalculatedPriceValue
+				if not List_Res_price:
+					raise Exception
 
 				# res_price = Res_price.query\
 				# 	.filter_by(GCRecord = None, ResId = ResId, ResPriceTypeId = 2)\
