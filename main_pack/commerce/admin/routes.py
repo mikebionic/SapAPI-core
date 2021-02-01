@@ -655,11 +655,13 @@ def rating_table():
 	RtValidated = request.args.get("validated",None,type=int)
 
 	filtering = {"GCRecord": None}
-	if RtValidated:
-		filtering["RtValidated"] = RtValidated
+
+	if (RtValidated == 1 or RtValidated == 0):
+		filtering["RtValidated"] = bool(RtValidated)
 
 	ratings = Rating.query\
 		.filter_by(**filtering)\
+		.order_by(Rating.CreatedDate.desc())\
 		.options(
 			joinedload(Rating.resource),
 			joinedload(Rating.rp_acc))\
@@ -672,7 +674,6 @@ def rating_table():
 		rating_info["rp_acc"] = rating.rp_acc.to_json_api()
 		data.append(rating_info)
 
-	print(data)
 	return render_template(
 		f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/rating_table.html",
 		url_prefix = url_prefix,

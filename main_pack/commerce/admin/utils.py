@@ -154,6 +154,25 @@ def addCategoryDict(req):
 
 # category_fields = ['categoryOwner','categoryName','categoryDesc','categoryIcon']
 
+
+def addRatingDict(req):
+	RtId = req.get('ratingId')
+	RtRemark = req.get('ratingRemark')
+	RtRatingValue = req.get('ratingValue')
+	RtValidated = req.get('ratingValidated')
+	data = {
+		"RtId": RtId,
+		"RtRemark": RtRemark,
+		"RtRatingValue": RtRatingValue,
+		"RtValidated": RtValidated,
+	}
+
+	if(RtId != '' and RtId != None):
+		data['RtId']=RtId
+	data = configureNulls(data)
+	return data
+
+
 def addCompanyInfoDict(req):
 	CName = req.get('companyName')
 	CFullName = req.get('companyFullName')

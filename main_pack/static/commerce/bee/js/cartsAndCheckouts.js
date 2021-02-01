@@ -257,7 +257,7 @@ $('body').delegate('.cartItemQty','click',function(){
 	var ownerId = $(this).find('input').attr('ownerId');
 	var newVal = $(this).find('input').val();
 	// $(this).val(newVal);
-	 
+
 	qtyCheckout(ownerId,newVal);
 	totalPriceCheckout(ownerId);
 })

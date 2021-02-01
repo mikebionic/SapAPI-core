@@ -13,8 +13,18 @@
 					<h4>{{_('Rating table')}}</h4>
 				</div>
 				<div class="card-body">
+					<div class="buttons">
+						<a href="{{ url_for('commerce_admin.rating_table') }}" class="btn btn-icon icon-left btn-outline-primary">
+							{{_('All')}}
+            </a>
+            <a href="{{ url_for('commerce_admin.rating_table',validated=1) }}" class="btn btn-icon icon-left btn-outline-primary">
+            	{{_('Validated')}}
+            </a>
+            <a href="{{ url_for('commerce_admin.rating_table',validated=0) }}" class="btn btn-icon icon-left btn-outline-primary">
+            	{{_('Not validated')}}
+            </a>
+          </div>
 					<div class="table-responsive">
-						<button class="btn btn-primary newRatingBtn"><i data-feather="plus-square"></i></button>
 						<table class="table table-striped" id="mainTable">
 							<thead>
 								<tr>
@@ -25,22 +35,6 @@
 									<th class="text-center">{{_('Remark')}}</th>
 									<th class="text-center">{{_('Validated')}}</th>
 									<th class="text-center">{{_('Action')}}</th>
-								</tr>
-								<tr class="newRatingForm" style="display: none;">
-									<td class="text-center ratingId" ownerId='undefined'></td>
-									<td class="text-center" ownerId='undefined'></td>
-									<td class="text-center" ownerId='undefined'></td>
-									<td class="text-center editable ratingValue" ownerId='undefined'></td>
-									<td class="text-center editable ratingRemark" ownerId='undefined'></td>
-									<td class="p-0 text-center">
-                    <div class="custom-checkbox custom-control">
-                      <input type="checkbox" class="custom-control-input ratingValidated" ownerId='undefined' id="checkbox-undefined">
-                      <label for="checkbox-undefined" class="custom-control-label">&nbsp;</label>
-                    </div>
-                  </td>
-									<td>
-										<button class="btn btn-icon btn-success saveRatingBtn" ownerId='undefined'><i class="fas fa-check"></i></button>
-									</td>
 								</tr>
 							</thead>
 							<tbody class="ratingTable">
@@ -57,7 +51,7 @@
                         <label for="checkbox{{rating.RtId}}" class="custom-control-label">&nbsp;</label>
                       </div>
                     </td>
-										<td>
+										<td class="text-center">
 											<button class="btn btn-icon btn-success saveRatingBtn" ownerId={{rating.RtId}}><i class="fas fa-check"></i></button>
 											<button class="btn btn-icon btn-danger deleteRatingBtn" ownerId={{rating.RtId}}><i class="fas fa-trash-alt"></i></button>
 										</td>
@@ -77,4 +71,5 @@
 	<script src="{{ url_for('static', filename='commerce/admin/bundles/editable-table/mindmup-editabletable.js') }}"></script>
 	<script src="{{ url_for('static', filename='commerce/admin/js/page/editable-table.js') }}"></script>
 	<script src="{{ url_for('static', filename='commerce/admin/js/ui_dynamicals.js') }}"></script>
+	<script src="{{ url_for('static', filename='commerce/admin/js/rating_table.js') }}"></script>
 {% endblock %}
