@@ -61,7 +61,8 @@ def price_currency_conversion(
 
 		data = {
 			"ResPriceValue": priceValue,
-			"CurrencyCode": to_currency_data.CurrencyCode
+			"CurrencyCode": to_currency_data.CurrencyCode,
+			"CurrencyId": to_currency_data.CurrencyId
 		}
 
 	except Exception as ex:
