@@ -12,7 +12,7 @@ from main_pack.base.apiMethods import checkApiResponseStatus
 from main_pack.api.base.validators import request_is_json
 from main_pack.api.auth.utils import sha_required
 
-from main_pack.models.commerce.models import Exc_rate, Exc_rate_type
+from main_pack.models.commerce.models import Exc_rate
 from main_pack.models.base.models import Currency
 
 
@@ -23,7 +23,6 @@ def api_exc_rate():
 	if request.method == 'GET':
 		ExcRateId = request.args.get("id",None,type=int)
 		CurrencyId = request.args.get("currencyId",None,type=int)
-		ExcRateTypeId = request.args.get("excRateTypeId",None,type=int)
 		synchDateTime = request.args.get("synchDateTime",None,type=str)
 		ExcRateDate = request.args.get("excRateDate",None,type=str)
 
@@ -33,13 +32,9 @@ def api_exc_rate():
 			filtering["ExcRateId"] = ExcRateId
 		if CurrencyId:
 			filtering["CurrencyId"] = CurrencyId
-		if ExcRateTypeId:
-			filtering["ExcRateTypeId"] = ExcRateTypeId
 
 		exc_rates = Exc_rate.query.filter_by(**filtering)\
-			.options(
-				joinedload(Exc_rate.currency),
-				joinedload(Exc_rate.exc_rate_type))
+			.options(joinedload(Exc_rate.currency))
 
 		if synchDateTime:
 			if (type(synchDateTime) != datetime):
@@ -54,7 +49,6 @@ def api_exc_rate():
 		data = []
 		for exc_rate in exc_rates.all():
 			exc_rate_data = exc_rate.to_json_api()
-			exc_rate_data["ExcRateTypeExp"] = exc_rate.exc_rate_type.ExcRateTypeExp
 			exc_rate_data["CurrencyCode"] = exc_rate.currency.CurrencyCode
 
 			data.append(exc_rate_data)
@@ -78,14 +72,10 @@ def api_exc_rate():
 
 		for exc_rate_req in req:
 			exc_rate = addExcRateDict(exc_rate_req)
+
 			CurrencyCode = exc_rate_req["CurrencyCode"]
-			ExcRateTypeExp = exc_rate_req["ExcRateTypeExp"]
-
 			thisCurrency = [currency.to_json_api() for currency in currencies if currency.CurrencyCode == CurrencyCode]
-			thisExcRateType = [exc_rate_type.to_json_api() for exc_rate_type in exc_rate_types if exc_rate_type.ExcRateTypeExp == ExcRateTypeExp]
-
 			exc_rate["CurrencyId"] = thisCurrency[0]["CurrencyId"] if thisCurrency else None
-			exc_rate["ExcRateTypeId"] = thisExcRateType[0]["ExcRateTypeId"] if thisExcRateType else None
 
 			try:
 				filtering = {"GCRecord": None}

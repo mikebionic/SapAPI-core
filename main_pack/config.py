@@ -148,8 +148,8 @@ class Config:
 
 	SHOW_ONLY_VALIDATED_RATING = 1
 
-	MAIN_CURRENCY_CODE = environ.get('MAIN_CURRENCY_CODE')
-	DEFAULT_VIEW_CURRENCY_CODE = environ.get('DEFAULT_VIEW_CURRENCY_CODE')
+	MAIN_CURRENCY_CODE = environ.get('MAIN_CURRENCY_CODE') if environ.get('MAIN_CURRENCY_CODE') else 'TMT' 
+	DEFAULT_VIEW_CURRENCY_CODE = environ.get('DEFAULT_VIEW_CURRENCY_CODE') if environ.get('DEFAULT_VIEW_CURRENCY_CODE') else 'TMT' 
 	# language and currency of price-to-text converter
 	PRICE_2_TEXT_LANGUAGE = 'tk'
 	# PRICE_2_TEXT_LANGUAGE = 'en'

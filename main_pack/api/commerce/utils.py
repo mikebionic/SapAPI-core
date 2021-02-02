@@ -998,7 +998,6 @@ def addWorkPeriodDict(req):
 def addExcRateDict(req):
 	ExcRateId = req.get('ExcRateId')
 	CurrencyId = req.get('CurrencyId')
-	ExcRateTypeId = req.get('ExcRateTypeId')
 	ExcRateDate = req.get('ExcRateDate')
 	ExcRateInValue = req.get('ExcRateInValue')
 	ExcRateOutValue = req.get('ExcRateOutValue')
@@ -1012,7 +1011,6 @@ def addExcRateDict(req):
 	data = {
 		# "ExcRateId": ExcRateId,
 		"CurrencyId": CurrencyId,
-		"ExcRateTypeId": ExcRateTypeId,
 		"ExcRateDate": ExcRateDate,
 		"ExcRateInValue": ExcRateInValue,
 		"ExcRateOutValue": ExcRateOutValue,

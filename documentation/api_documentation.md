@@ -101,7 +101,6 @@ Provide **username** and **password** in Authentication headers
 | ------------- | :----------------------: | --------------- | ----------- |
 | id            |         **int**          |
 | currencyId    |         **int**          |
-| excRateTypeId |         **int**          |
 | synchDateTime | **str repr of datetime** |
 | excRateDate   | **str repr of datetime** |
 
