@@ -297,6 +297,7 @@ $('.brands-slider').slick({
 
             settings: {
                 slidesToShow: 8,
+                arrows: true,
             }
         },
         {
@@ -304,6 +305,7 @@ $('.brands-slider').slick({
 
             settings: {
                 slidesToShow: 6,
+                arrows: true,
             }
         },
         {
@@ -311,12 +313,14 @@ $('.brands-slider').slick({
 
             settings: {
                 slidesToShow: 4,
+                arrows: true,
             }
         },
         {
             breakpoint: 991,
             settings: {
                 slidesToShow: 3,
+                arrows: true,
             }
         },
         {
@@ -324,7 +328,7 @@ $('.brands-slider').slick({
             settings: {
                 autoplay: true,
                 slidesToShow: 2,
-                arrows: false,
+                arrows: true,
             }
         }
     ]
@@ -343,18 +347,21 @@ $('.product-slider-4-full').slick({
             breakpoint: 1499,
             settings: {
                 slidesToShow: 3,
+                arrows: true,
             }
         },
         {
             breakpoint: 1199,
             settings: {
                 slidesToShow: 2,
+                arrows: true,
             }
         },
         {
             breakpoint: 991,
             settings: {
                 slidesToShow: 2,
+                arrows: true,
             }
         },
         {
@@ -362,7 +369,7 @@ $('.product-slider-4-full').slick({
             settings: {
                 autoplay: true,
                 slidesToShow: 1,
-                arrows: false,
+                arrows: true,
             }
         }
     ]
