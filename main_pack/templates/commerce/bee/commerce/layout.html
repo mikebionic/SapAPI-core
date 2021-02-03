@@ -107,32 +107,30 @@
                   </li>
 
                   <li class="menu-item-has-children">
-                    <a href="category-2.html"><i class="expand menu-expand"></i><i class="expand menu-expand"></i><i class="expand menu-expand"></i>Phones &amp; Tablets</a>
+                    <a href="category-2.html">Phones &amp; Tablets</a>
                     <ul class="category-mega-menu" style="display: none;">
-                      <li class="menu-item-has-children">
-                        <a href="category-1.html"><i class="expand menu-expand"></i><i class="expand menu-expand"></i><i class="expand menu-expand"></i>Smartphone</a>
-                        <ul style="display: none;">
-                          <li><a href="category-1.html">Samsome</a></li>
-                          <li><a href="category-2.html">GL Stylus</a></li>
-                          <li><a href="category-1.html">Syphony</a></li>
-                          <li><a href="category-1.html">Samsome</a></li>
-                          <li><a href="category-2.html">GL Stylus</a></li>
-                          <li><a href="category-1.html">Syphony</a></li>
-                        </ul>
-                      </li>
+                      <li><a href="category-1.html">Samsome</a></li>
+                      <li><a href="category-2.html">GL Stylus</a></li>
+                      <li><a href="category-1.html">Syphony</a></li>
+                      <li><a href="category-1.html">Samsome</a></li>
+                      <li><a href="category-2.html">GL Stylus</a></li>
+                      <li><a href="category-1.html">Syphony</a></li>
                     </ul>
                   </li>
 
                   {% for category in categories %}
                     <li class="{{ 'menu-item-has-children' if category.Categories }}">
                       <a href="{{ url_for('commerce.v_grid',category = category.ResCatId) }}">
-                        <i class="expand menu-expand"></i><i class="expand menu-expand"></i><i class="expand menu-expand"></i>
                         <img class="img-fluid" src="{{ category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static', filename='commerce/bee/images/icons/category.svg') }}" style="width: 25px; margin-right: 7px;">
                         {{category.ResCatName}}
                       </a>
                       <ul class="category-mega-menu" style="display: none;">
                         <li class="menu-item-has-children">
-                          <a href="category-1.html"><i class="expand menu-expand"></i><i class="expand menu-expand"></i><i class="expand menu-expand"></i>Smartphone</a>
+                          <a href="category-1.html" class="arrow-icon">
+                            <span class="left-bar"></span>
+                            <span class="right-bar"></span>
+                            Smartphone
+                          </a>
                           {% if category.Categories %}
                             <ul style="display: none;">
                             {% for category in category.Categories %}
