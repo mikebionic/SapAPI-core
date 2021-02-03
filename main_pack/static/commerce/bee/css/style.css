@@ -12354,7 +12354,7 @@ ul.link-widget li {
 @media ( max-width: 763px) { 
   .ee-product .image .add-to-cart i{
     margin-top: -90px;
-    margin-left: 87px;
+    margin-left: 75px;
     /* box-shadow: none; */
     /* position: relative; */
     background: #fff;
@@ -12931,4 +12931,66 @@ ul.link-widget li {
 }
 .tm_currency{
   padding: 0 5px;
+}
+
+
+.left-bar {
+  position: absolute;
+  background-color: transparent;
+  top: 0;
+  left:0;
+  width: 40px;
+  height: 10px;
+  display: block;
+  transform: rotate(35deg);
+  float: right;
+  border-radius: 2px;
+  
+}
+.left-bar:after {
+  content:"";
+  background-color: white;
+  width: 40px;
+  height: 10px;
+  display: block;
+  float: right;
+  border-radius: 6px 10px 10px 6px;
+  transition: all $duration $easing;
+  z-index: -1;
+}
+
+.right-bar {
+  position: absolute;
+  background-color: transparent;
+  top: 0px;
+  left:26px;
+  width: 40px;
+  height: 10px;
+  display: block;
+  transform: rotate(-35deg);
+  float: right;
+  border-radius: 2px;
+  
+}
+.right-bar:after {
+  content:"";
+  background-color: white;
+  width: 40px;
+  height: 10px;
+  display: block;
+  float: right;
+  border-radius: 10px 6px 6px 10px;
+  z-index: -1;
+}
+
+.open {
+    .left-bar:after {
+    transform-origin: center center;
+    transform: rotate(-70deg);
+  }
+  .right-bar:after {
+    transform-origin: center center;
+    transform: rotate(70deg);
+  }
+
 }
