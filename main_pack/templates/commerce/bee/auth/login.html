@@ -1,41 +1,37 @@
 {% extends "commerce/bee/commerce/layout.html" %}
+
 {% block styles %}
 <style>
-.btn {
-	width: 150px;
-	background-color: #f5d730;
-	border: none;
-	outline: none;
-	height: 49px;
-	border-radius: 49px;
-	color: #000;
-	text-transform: uppercase;
-	font-weight: 600;
-	margin: 10px 0;
-	cursor: pointer;
-	transition: 0.5s;
-  }
-  
-  .btn:hover {
-	background-color: #f5d730;
-  }
+	.btn {
+		width: 150px;
+		background-color: #f5d730;
+		border: none;
+		outline: none;
+		height: 49px;
+		border-radius: 49px;
+		color: #000;
+		text-transform: uppercase;
+		font-weight: 600;
+		margin: 10px 0;
+		cursor: pointer;
+		transition: 0.5s;
+	}
+
+	.btn:hover {
+		background-color: #2b2b2b;
+	}
 </style>
 {% endblock %}
-{% block content %}
 
-<!-- Login Section Start -->
+{% block content %}
 
 <div class="login-section section mt-30 mb-90">
 	<div class="container">
 		<div class="row">
 
-			<!-- Login -->
 			<div class="col-md-12 col-12 d-flex" style="justify-content: center;">
 				<div class="ee-login">
-
 					<h3>{{_('Login')}}</h3>
-
-					<!-- Login Form -->
 					<form action="#" method="post">
 						{{ form.csrf_token() }}
 						<div class="row" >
@@ -43,12 +39,12 @@
 								<div class="input-field">
 									<i class="fa fa-user"></i>
 									{{ form.email(placeholder=_('Email address')) }}
-								  </div>
-								  <div class="input-field">
+								</div>
+								<div class="input-field">
 									<i class="fa fa-lock"></i>
 									{{ form.password(placeholder=_('Password')) }}
-								  </div>
-								  <input type="submit" value="Login" class="btn solid" />
+								</div>
+								<input type="submit" value="{{_('Login')}}" class="btn solid" />
 							</div>
 						</div>
 						<h4>{{_('Don’t have account?')}} <a href="{{ url_for('commerce_auth.register') }}" style="color: #5995fd;">{{_('Register')}}</a></h4>
@@ -57,9 +53,8 @@
 				</div>
 			</div>
 
-
 		</div>
 	</div>
-</div><!-- Login Section End -->
+</div>
 
 {% endblock %}

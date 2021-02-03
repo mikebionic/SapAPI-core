@@ -1,40 +1,37 @@
 {% extends "commerce/bee/commerce/layout.html" %}
+
 {% block styles %}
 <style>
-.btn {
-	width: 150px;
-	background-color: #5995fd;
-	border: none;
-	outline: none;
-	height: 49px;
-	border-radius: 49px;
-	color: #fff;
-	text-transform: uppercase;
-	font-weight: 600;
-	margin: 10px 0;
-	cursor: pointer;
-	transition: 0.5s;
-  }
-  
-  .btn:hover {
-	background-color: #4d84e2;
-  }
+	.btn {
+		width: 250px;
+		background-color: #5995fd;
+		border: none;
+		outline: none;
+		height: 49px;
+		border-radius: 49px;
+		color: #fff;
+		text-transform: uppercase;
+		font-weight: 600;
+		margin: 10px 0;
+		cursor: pointer;
+		transition: 0.5s;
+	}
+
+	.btn:hover {
+		background-color: #2b2b2b;
+	}
 </style>
 {% endblock %}
+
 {% block content %}
 
-<!-- Register Section Start -->
 <div class="register-section section mt-30 mb-90">
 	<div class="container">
 		<div class="row">
 
-			<!-- Register -->
 			<div class="col-md-12 col-12 d-flex"  style="justify-content: center;">
 				<div class="ee-register">
-
 					<h3>{{_('Register')}}</h3>
-
-					<!-- Register Form -->
 					<form action="#" method="post">
 						{{ form.csrf_token() }}
 						<div class="row">
@@ -44,19 +41,18 @@
 									{{ form.username(placeholder=_('Username')) }}
 								</div>
 								<div class="input-field">
-									<i class="fa fa-lock"></i>
+									<i class="fa fa-envelope"></i>
 									{{ form.email(placeholder=_('E-mail')) }}
 								</div>
-								<input type="submit" value="Register" class="btn solid" />
+								<input type="submit" value="{{_('Register')}}" class="btn solid" />
 							</div>
 						</div>
 					</form>
-
 				</div>
 			</div>
 
 		</div>
 	</div>
-</div><!-- Register Section End -->
+</div>
 
 {% endblock %}

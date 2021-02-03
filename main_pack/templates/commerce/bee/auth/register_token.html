@@ -1,49 +1,66 @@
 {% extends "commerce/bee/commerce/layout.html" %}
 
+{% block styles %}
+<style>
+	.btn {
+		width: 250px;
+		background-color: #f5d730;
+		border: none;
+		outline: none;
+		height: 49px;
+		border-radius: 49px;
+		color: #fff;
+		text-transform: uppercase;
+		font-weight: 600;
+		margin: 10px 0;
+		cursor: pointer;
+		transition: 0.5s;
+	}
+
+	.btn:hover {
+		background-color: #2b2b2b;
+	}
+</style>
+{% endblock %}
+
 {% block content %}
 
-<!-- Register Section Start -->
 <div class="register-section section mt-90 mb-90">
 	<div class="container">
 		<div class="row">
 
-			<!-- Register -->
 			<div class="col-md-6 col-12 d-flex">
 				<div class="ee-register">
-
 					<h3>{{_('Register')}}</h3>
 					<p>{{_('Please, proceed the registration')}}</p>
-					<!-- Register Form -->
 					<form action="#" method="post">
 						{{ form.csrf_token() }}
 						<div class="row">
 							<div class="col-12 mb-30">
-								{{ form.full_name(placeholder=_('Full name')) }}
-							</div>
-							<div class="col-12 mb-30">
-								{{ form.phone_number(placeholder=_('Phone number')) }}
-							</div>
-							<div class="col-12 mb-30">
-								{{ form.password(placeholder=_('Password')) }}
-								<span>
-									<i class="fa fa-eye" id="eye" onclick="toggle()">
-									</i>
-								</span> 
-							</div>
-							<div class="col-12">
-								<input type="submit" value="register">
+								<div class="input-field">
+									<i class="fa fa-lock"></i>
+									{{ form.full_name(placeholder=_('Full name')) }}
+								</div>
+								<div class="input-field">
+									<i class="fa fa-lock"></i>
+									{{ form.phone_number(placeholder=_('Phone number')) }}
+								</div>
+								<div class="input-field">
+									<i class="fa fa-lock"></i>
+									{{ form.password(placeholder=_('Password')) }}
+									<span>
+										<i class="fa fa-eye" id="eye" onclick="toggle()"></i>
+									</span>
+								</div>
+								<input type="submit" value="{{_('Register')}}" class="btn solid" />
 							</div>
 						</div>
 					</form>
 				</div>
 			</div>
 
-			<div class="col-md-1 col-12 d-flex">
-				<div class="login-reg-vertical-boder"></div>
-			</div>
-
 		</div>
 	</div>
-</div><!-- Register Section End -->
+</div>
 
 {% endblock %}
