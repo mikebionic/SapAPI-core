@@ -1,10 +1,10 @@
-from flask import render_template,url_for,jsonify,session,flash,redirect,request,Response,abort
+from flask import jsonify, request
 from main_pack.commerce.commerce import bp
 import os
 from flask import current_app
 
 # useful methods
-from main_pack import db,babel,gettext,lazy_gettext
+from main_pack import db, gettext, lazy_gettext
 from sqlalchemy import and_
 # / useful methods /
 
@@ -25,24 +25,24 @@ def ui_rating():
 	RpAccId = current_user.RpAccId
 	try:
 		if request.method =="POST":
-			# # check for presense of rp_acc (optional step)
-			# rp_acc = Rp_acc.query\
-			# 	.filter(and_(Rp_acc.GCRecord=='' or Rp_acc.GCRecord==None),\
-			# 		Rp_acc.RpAccId==RpAccId).first()
-			# if rp_acc is None:
-			# 	raise Exception
 			RtRatingValue = req.get("ratingValue")
 			RtRemark = req.get("ratingRemark")
 			RtRemark = RtRemark.strip()
+
 			if RtRatingValue is None or len(RtRemark) <= 2:
 				raise Exception
+
 			# check for presense of rate
 			rating = Rating.query\
 				.filter_by(GCRecord = None, ResId = ResId, RpAccId = RpAccId)\
 				.first()
-			# avoid double insertion
+
 			if rating:
-				raise Exception
+				response = jsonify({
+					"status": 'error',
+					"responseText": f"{gettext('Rating')} {gettext('already sent')}."
+				})
+				return response
 
 			resource = Resource.query\
 				.filter_by(GCRecord = None, ResId = ResId)\
@@ -60,9 +60,10 @@ def ui_rating():
 			rating = Rating(**rating)
 			db.session.add(rating)
 			db.session.commit()
+
 			response = jsonify({
-				"status": 'added',
-				"responseText": gettext('Rating')+' '+gettext('successfully saved')
+				"status": 'updated',
+				"responseText": f"{gettext('Rating')} {gettext('successfully sent')}. {gettext('It will be shown after some time')}"
 			})
 		
 		if request.method=="DELETE":
@@ -80,7 +81,6 @@ def ui_rating():
 			})
 
 	except Exception as ex:
-		print(ex)
 		response = jsonify({
 			"status": 'error',
 			"responseText": gettext('Unknown error!'),

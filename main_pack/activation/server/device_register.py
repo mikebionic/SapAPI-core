@@ -18,7 +18,7 @@ def register_device():
 	if request.method == 'POST':
 		req = request.get_json()
 
-		rp_acc = Rp_acc.query.filter_by(DbGuid = "DbInfGuid", GCRecord = None).first()
+		rp_acc = Rp_acc.query.filter_by(DbGuid = req["DbInfGuid"], GCRecord = None).first()
 		RpAccId = rp_acc.RpAccId if rp_acc else None
 
 		filtering = {

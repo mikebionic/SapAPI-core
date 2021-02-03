@@ -8,56 +8,90 @@ from sqlalchemy.orm import joinedload
 import uuid
 
 from main_pack import db
-from main_pack.api.commerce import api
+from . import api
+from .utils import addResTotalDict
 
 from main_pack.models.base.models import Warehouse, Division
 from main_pack.models.commerce.models import Res_total, Resource
 
+from main_pack.api.auth.utils import sha_required, token_required
 from main_pack.base.apiMethods import checkApiResponseStatus
-from main_pack.api.commerce.utils import addResTotalDict
-from main_pack.api.auth.utils import sha_required
 from main_pack.api.base.validators import request_is_json
+
+
+def get_res_totals(
+	DivId = None,
+	notDivId = None,
+	synchDateTime = None):
+
+	res_totals = Res_total.query.filter_by(GCRecord = None)\
+		.options(
+			joinedload(Res_total.division),
+			joinedload(Res_total.warehouse),
+			joinedload(Res_total.resource))
+
+	if DivId:
+		res_totals = res_totals.filter_by(DivId = DivId)
+
+	if notDivId:
+		res_totals = res_totals.filter(Res_total.DivId != notDivId)
+
+	if synchDateTime:
+		if (type(synchDateTime) != datetime):
+			synchDateTime = dateutil.parser.parse(synchDateTime)
+		res_totals = res_totals.filter(Res_total.ModifiedDate > (synchDateTime - timedelta(minutes = 5)))
+
+	res_totals = res_totals.all()
+
+	data = []
+	for res_total in res_totals:
+		res_total_info = res_total.to_json_api()
+		res_total_info["WhGuid"] = res_total.warehouse.WhGuid if res_total.warehouse and not res_total.warehouse.GCRecord else None
+		res_total_info["DivGuid"] = res_total.division.DivGuid if res_total.division and not res_total.division.GCRecord else None
+		res_total_info["ResGuid"] = res_total.resource.ResGuid if res_total.resource and not res_total.resource.GCRecord else None
+		data.append(res_total_info)
+
+	return data
+
+
+@api.route("/v-res-totals/")
+@token_required
+def api_v_res_totals():
+	arg_data = {
+		"DivId": request.args.get("DivId",None,type=int),
+		"notDivId": request.args.get("notDivId",None,type=int),
+		"synchDateTime": request.args.get("synchDateTime",None,type=str)
+	}
+
+	data = get_res_totals(**arg_data)
+
+	res = {
+		"status": 1 if len(data) > 0 else 0,
+		"message": "Res totals",
+		"data": data,
+		"total": len(data)
+	}
+	response = make_response(jsonify(res), 200)
+
+	return response
 
 
 @api.route("/tbl-dk-res-totals/",methods=['GET','POST'])
 @sha_required
-@request_is_json
+@request_is_json(request)
 def api_res_totals():
 	if request.method == 'GET':
-		DivId = request.args.get("DivId",None,type=int)
-		notDivId = request.args.get("notDivId",None,type=int)
-		synchDateTime = request.args.get("synchDateTime",None,type=str)
+		arg_data = {
+			"DivId": request.args.get("DivId",None,type=int),
+			"notDivId": request.args.get("notDivId",None,type=int),
+			"synchDateTime": request.args.get("synchDateTime",None,type=str)
+		}
 
-		res_totals = Res_total.query.filter_by(GCRecord = None)\
-			.options(
-				joinedload(Res_total.division),
-				joinedload(Res_total.warehouse),
-				joinedload(Res_total.resource))
-
-		if DivId:
-			res_totals = res_totals.filter_by(DivId = DivId)
-
-		if notDivId:
-			res_totals = res_totals.filter(Res_total.DivId != notDivId)
-
-		if synchDateTime:
-			if (type(synchDateTime) != datetime):
-				synchDateTime = dateutil.parser.parse(synchDateTime)
-			res_totals = res_totals.filter(Res_total.ModifiedDate > (synchDateTime - timedelta(minutes = 5)))
-
-		res_totals = res_totals.all()
-
-		data = []
-		for res_total in res_totals:
-			res_total_info = res_total.to_json_api()
-			res_total_info["WhGuid"] = res_total.warehouse.WhGuid if res_total.warehouse and not res_total.warehouse.GCRecord else None
-			res_total_info["DivGuid"] = res_total.division.DivGuid if res_total.division and not res_total.division.GCRecord else None
-			res_total_info["ResGuid"] = res_total.resource.ResGuid if res_total.resource and not res_total.resource.GCRecord else None
-			data.append(res_total_info)
+		data = get_res_totals(**arg_data)
 
 		res = {
 			"status": 1 if len(data) > 0 else 0,
-			"message": "All res totals",
+			"message": "Res totals",
 			"data": data,
 			"total": len(data)
 		}

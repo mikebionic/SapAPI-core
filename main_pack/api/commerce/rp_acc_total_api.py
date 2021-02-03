@@ -5,19 +5,20 @@ from datetime import datetime, timedelta
 import dateutil.parser
 
 from main_pack import db
-from main_pack.api.commerce import api
-from main_pack.base.apiMethods import checkApiResponseStatus
+from . import api
+from .utils import addRpAccTrTotDict
 
-from main_pack.api.commerce.utils import addRpAccTrTotDict
-from main_pack.api.auth.utils import sha_required
-from main_pack.api.base.validators import request_is_json
 from main_pack.models.commerce.models import Rp_acc_trans_total
 from main_pack.models.users.models import Rp_acc
+
+from main_pack.api.auth.utils import sha_required
+from main_pack.api.base.validators import request_is_json
+from main_pack.base.apiMethods import checkApiResponseStatus
 
 
 @api.route("/tbl-dk-rp-acc-trans-totals/",methods=['GET','POST'])
 @sha_required
-@request_is_json
+@request_is_json(request)
 def api_rp_acc_trans_totals():
 	if request.method == 'GET':
 		DivId = request.args.get("DivId",None,type=int)

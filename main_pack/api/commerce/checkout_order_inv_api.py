@@ -4,10 +4,11 @@ import requests, json
 import uuid
 from sqlalchemy.orm import joinedload
 from datetime import datetime, timezone
+import decimal
 
 from main_pack import db, babel, gettext, lazy_gettext
 from main_pack.config import Config
-from main_pack.api.commerce import api
+from . import api
 
 # Users and auth
 from main_pack.models.users.models import Users
@@ -16,7 +17,7 @@ from main_pack.api.auth.utils import token_required
 
 # Orders
 from main_pack.models.commerce.models import Order_inv, Order_inv_line, Work_period
-from main_pack.api.commerce.utils import addOrderInvDict, addOrderInvLineDict
+from .utils import addOrderInvDict, addOrderInvLineDict
 from main_pack.base.invoiceMethods import get_order_error_type
 from main_pack.base.apiMethods import checkApiResponseStatus
 # / Orders /
@@ -25,27 +26,31 @@ from main_pack.key_generator.utils import generate, makeRegNo, Pred_regnum
 from main_pack.api.base.validators import request_is_json
 
 # Resource models and operations
-from  main_pack.models.base.models import Warehouse
+from  main_pack.models.base.models import Warehouse, Currency
 from main_pack.models.commerce.models import (
 	Resource,
 	Res_price,
 	Res_total,
-	Res_price_group
+	Res_price_group,
+	Exc_rate
 )
 from main_pack.base.invoiceMethods import totalQtySubstitution
+from main_pack.base.priceMethods import calculatePriceByGroup, price_currency_conversion
 from main_pack.base.num2text import num2text, price2text
-import decimal
 # / Resource models and operations /
 
 
 @api.route("/checkout-sale-order-inv/",methods=['POST'])
 @token_required
-@request_is_json
+@request_is_json(request)
 def api_checkout_sale_order_invoices(user):
 	model_type = user['model_type']
 	current_user = user['current_user']
 
+	currencies = Currency.query.filter_by(GCRecord = None).all()
 	res_price_groups = Res_price_group.query.filter_by(GCRecord = None).all()
+	exc_rates = Exc_rate.query.filter_by(GCRecord = None).all()
+
 	work_period = Work_period.query\
 		.filter_by(GCRecord = None, WpIsDefault = True)\
 		.first()
@@ -61,7 +66,9 @@ def api_checkout_sale_order_invoices(user):
 			.order_by(Warehouse.WhId.asc())\
 			.first()
 		WhId = warehouse.WhId if warehouse else None
+
 		# get the seller's user information of a specific rp_acc
+		# !!! TODO: discuss the relationship deletion of user in rp_acc
 		user = Users.query\
 			.filter_by(GCRecord = None, UId = current_user.UId)\
 			.first()
@@ -85,12 +92,10 @@ def api_checkout_sale_order_invoices(user):
 		InvStatId = req['orderInv']['InvStatId']
 		reg_num_pred_exists = None
 
-		##### check if invoice is not empty #####
 		if not req['orderInv']['OrderInvLines']:
 			raise Exception
 
 		if not orderRegNo:
-			######## generate reg no ########
 			try:
 				reg_num = generate(UId=user.UId,RegNumTypeName='sale_order_invoice_code')
 				orderRegNo = makeRegNo(user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'',True)
@@ -98,6 +103,7 @@ def api_checkout_sale_order_invoices(user):
 				print(f"{datetime.now()} | Checkout OInv Exception: {ex}. Couldn't generate RegNo using User's credentials")
 				# use device model and other info
 				orderRegNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
+
 		else:
 			reg_num_pred_exists = Pred_regnum.query\
 				.filter_by(GCRecord = None, RegNum = orderRegNo).first()
@@ -116,11 +122,11 @@ def api_checkout_sale_order_invoices(user):
 			order_invoice["InvStatId"] = InvStatId
 
 		# default currency is 1 TMT of not specified
+		# !!! TODO: add currency validation for security
 		if not order_invoice["CurrencyId"]:
 			order_invoice["CurrencyId"] = 1
 		order_invoice["RpAccId"] = RpAccId
 
-		# order_invoice["OInvGuid"] == uuid.uuid4()
 		newOrderInv = Order_inv(**order_invoice)
 		db.session.add(newOrderInv)
 
@@ -147,6 +153,7 @@ def api_checkout_sale_order_invoices(user):
 
 				ResId = order_inv_line["ResId"]
 				OInvLineAmount = int(order_inv_line["OInvLineAmount"])
+
 				resource = Resource.query\
 					.filter_by(GCRecord = None, ResId = ResId)\
 					.options(joinedload(Resource.Res_price))\
@@ -157,50 +164,32 @@ def api_checkout_sale_order_invoices(user):
 					error_type = 1
 					raise Exception
 
-				List_Res_price = []
-				if not ResPriceGroupId:
-					List_Res_price = [res_price.to_json_api() 
-						for res_price in resource.Res_price
-						if res_price.ResPriceTypeId == 2
-						and res_price.GCRecord == None]
+				List_Res_price = calculatePriceByGroup(
+					ResPriceGroupId = ResPriceGroupId,
+					Res_price_dbModels = resource.Res_price,
+					Res_pice_group_dbModels = res_price_groups)
 
-				if ResPriceGroupId:
-					# find Res_price with provided ResPriceGroupId
-					List_Res_price = [res_price.to_json_api() 
-						for res_price in resource.Res_price 
-						if res_price.ResPriceTypeId == 2 
-						and res_price.ResPriceGroupId == ResPriceGroupId
-						and res_price.GCRecord == None]
+				if not List_Res_price:
+					raise Exception
 
-					if not List_Res_price:
-						thisPriceGroupList = [priceGroup for priceGroup in res_price_groups if priceGroup.ResPriceGroupId == ResPriceGroupId]
-						if thisPriceGroupList:
-							if not thisPriceGroupList[0].ResPriceGroupAMEnabled:
-								# print("enabled false")
-								raise Exception
+				try:
+					List_Currencies = [currency.to_json_api() for currency in currencies if currency.CurrencyId == List_Res_price[0]["CurrencyId"]]
+				except:
+					List_Currencies = []
 
-							FromResPriceTypeId = thisPriceGroupList[0].FromResPriceTypeId
-							ResPriceGroupAMPerc = thisPriceGroupList[0].ResPriceGroupAMPerc
+				this_priceValue = List_Res_price[0]["ResPriceValue"] if List_Res_price else 0.0
+				this_currencyCode = List_Currencies[0]["CurrencyCode"] if List_Currencies else Config.MAIN_CURRENCY_CODE
 
-							List_Res_price = [res_price.to_json_api() 
-								for res_price in resource.Res_price 
-								if res_price.ResPriceTypeId == FromResPriceTypeId
-								and res_price.GCRecord == None]
+				price_data = price_currency_conversion(
+					priceValue = this_priceValue,
+					from_currency = this_currencyCode,
+					currencies_dbModel = currencies,
+					exc_rates_dbModel = exc_rates)
 
-							if not List_Res_price:
-								raise Exception
-
-							CalculatedPriceValue = float(List_Res_price[0]["ResPriceValue"]) + (float(List_Res_price[0]["ResPriceValue"]) * float(ResPriceGroupAMPerc) / 100)
-							List_Res_price[0]["ResPriceValue"] = CalculatedPriceValue
-
-				# res_price = Res_price.query\
-				# 	.filter_by(GCRecord = None, ResId = ResId, ResPriceTypeId = 2)\
-				# 	.first()
 				res_total = Res_total.query\
 					.filter_by(GCRecord = None, ResId = ResId, WhId = WhId)\
 					.first()
 				totalSubstitutionResult = totalQtySubstitution(res_total.ResPendingTotalAmount,OInvLineAmount)
-
 
 				if resource.UsageStatusId == 2:
 					# resource unavailable or inactive
@@ -212,7 +201,7 @@ def api_checkout_sale_order_invoices(user):
 					error_type = 3
 					raise Exception
 
-				if order_inv_line["OInvLinePrice"] != List_Res_price[0]["ResPriceValue"]:
+				if order_inv_line["OInvLinePrice"] != price_data["ResPriceValue"]:
 					error_type = 4
 					raise Exception
 
@@ -220,8 +209,8 @@ def api_checkout_sale_order_invoices(user):
 				# ResPendingTotalAmount is decreased but not ResTotBalance
 				res_total.ResPendingTotalAmount = totalSubstitutionResult["totalBalance"]
 				############
-				OInvLinePrice = float(List_Res_price[0]["ResPriceValue"]) if List_Res_price else 0
-				OInvLineTotal = OInvLinePrice*OInvLineAmount
+				OInvLinePrice = float(price_data["ResPriceValue"])
+				OInvLineTotal = OInvLinePrice * OInvLineAmount
 
 				# add taxes and stuff later on
 				OInvLineFTotal = OInvLineTotal
@@ -233,9 +222,7 @@ def api_checkout_sale_order_invoices(user):
 				order_inv_line["OInvLineFTotal"] = decimal.Decimal(OInvLineFTotal)
 				order_inv_line["OInvId"] = newOrderInv.OInvId
 				order_inv_line["UnitId"] = resource.UnitId
-
-				if not order_inv_line["CurrencyId"]:
-					order_inv_line["CurrencyId"] = 1
+				order_inv_line["CurrencyId"] = price_data["CurrencyId"]
 				
 				# increment of Main Order Inv Total Price
 				OInvTotal += OInvLineFTotal
@@ -272,9 +259,10 @@ def api_checkout_sale_order_invoices(user):
 		
 		else:
 			OInvFTotal = OInvTotal
-			OInvFTotalInWrite = price2text(OInvFTotal,
+			OInvFTotalInWrite = price2text(
+				OInvFTotal,
 				Config.PRICE_2_TEXT_LANGUAGE,
-				Config.PRICE_2_TEXT_CURRENCY)
+				price_data["CurrencyCode"])
 
 			newOrderInv.OInvTotal = decimal.Decimal(OInvTotal)
 			newOrderInv.OInvFTotal = decimal.Decimal(OInvFTotal)
@@ -315,7 +303,7 @@ def api_checkout_sale_order_invoices(user):
 
 @api.route("/validate-order-inv-payment/",methods=['GET','POST'])
 @token_required
-@request_is_json
+@request_is_json(request)
 def validate_order_inv_payment(user):
 	current_user = user['current_user']
 	RpAccId = current_user.RpAccId

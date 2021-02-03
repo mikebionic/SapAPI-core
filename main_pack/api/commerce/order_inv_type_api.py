@@ -4,11 +4,11 @@ from flask import current_app
 from datetime import datetime
 
 from main_pack import db
-from main_pack.api.commerce import api
+from . import api
 
 # orders and db methods
 from main_pack.models.commerce.models import Order_inv_type
-from main_pack.api.commerce.utils import addOrderInvTypeDict
+from .utils import addOrderInvTypeDict
 from main_pack.base.apiMethods import checkApiResponseStatus
 # / orders and db methods /
 
@@ -18,7 +18,7 @@ from main_pack.api.base.validators import request_is_json
 
 @api.route("/tbl-dk-order-inv-types/",methods=['GET','POST'])
 @sha_required
-@request_is_json
+@request_is_json(request)
 def api_order_inv_types():
 	if request.method == 'GET':
 		order_inv_types = Order_inv_type.query.filter_by(GCRecord = None).all()

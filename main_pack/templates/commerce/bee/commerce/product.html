@@ -1,12 +1,10 @@
 {% extends "commerce/bee/commerce/layout.html" %}
 
 {% block content %}
-<!-- Single Product Section Start -->
 <div class="product-section section mt-90 mb-90">
 	<div class="container">
 		<div class="row mb-90">
 			<div class="col-lg-6 col-12 mb-50">
-				<!-- Image -->
 				<div class="single-product-image thumb-right">
 
 					{% if resource.Images %}
@@ -35,16 +33,14 @@
 			</div>
 
 			<div class="col-lg-6 col-12 mb-50">
-				<!-- Content -->
 				<div class="single-product-content">
-					<!-- Category & Title -->
 					<div class="head-content">
 						<div class="category-title">
 							<a href="#" class="cat">{{ resource.ResCatName }}</a>
 							<h5 class="title">{{ resource.ResName }}</h5>
 						</div>
 						<div>
-							<span class="price">TMT</span>
+							<span class="price">{{ resource.CurrencyCode }}</span>
 							<h5 class="price priceValue" ownerId="{{ resource.ResId }}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue }}</h5>
 						</div>	
 					</div>
@@ -114,11 +110,12 @@
 						<div class="product-ratting-wrap">
 							<div class="rattings-wrapper">
 								{% for rating in resource.Rating %}
+									{% set rating_count = resource.Rating.index(rating) %}
 									<div class="sin-rattings">
 										<div class="ratting-author">
 											<h3>{{ rating.User.UName if rating.User else rating.Rp_acc.RpAccName }}</h3>
-											<input type="hidden" class="ratingValue" value="{{ rating.RtRatingValue }}" ownerId="uz3R{{ rating.User.UId if rating.User else rating.Rp_acc.RpAccId }}">
-											<div class="ratting-star ratingStars" ownerId="uz3R{{ rating.User.UId if rating.User else rating.Rp_acc.RpAccId }}"></div>
+											<input type="hidden" class="ratingValue" value="{{ rating.RtRatingValue }}" ownerId="{{rating_count}}uz3R{{ rating.User.UId if rating.User else rating.Rp_acc.RpAccId }}">
+											<div class="ratting-star ratingStars" ownerId="{{rating_count}}uz3R{{ rating.User.UId if rating.User else rating.Rp_acc.RpAccId }}"></div>
 											<span>({{ rating.RtRatingValue }})</span>
 										</div>
 										<p>{{ rating.RtRemark if rating.RtRemark else '' }}</p>
@@ -133,16 +130,11 @@
 											<div class="col-12 mb-15">
 												<h5>{{_('Your rating')}}:</h5>
 												<fieldset class="rating rateButtons">
-													<input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
-													<input type="radio" id="star4half" name="rating" value="4.5" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
-													<input type="radio" id="star4" name="rating" value="4" checked /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
-													<input type="radio" id="star3half" name="rating" value="3.5" /><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
-													<input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
-													<input type="radio" id="star2half" name="rating" value="2.5" /><label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
-													<input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
-													<input type="radio" id="star1half" name="rating" value="1.5" /><label class="half" for="star1half" title="Meh - 1.5 stars"></label>
-													<input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
-													<input type="radio" id="starhalf" name="rating" value="half" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+													<input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5"></label>
+													<input type="radio" id="star4" name="rating" value="4" checked /><label class = "full" for="star4"></label>
+													<input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3"></label>
+													<input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2"></label>
+													<input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1"></label>
 												</fieldset>
 											</div>
 											<input type="hidden" class="reviewRatingValue" value="4">
@@ -172,40 +164,27 @@
 			</div>
 		</div>
 	</div>
-</div><!-- Single Product Section End -->
+</div>
 
-<!-- Related Product Section Start -->
 <div class="product-section section mb-70">
 	<div class="container">
 		<div class="row">
 
-			<!-- Section Title Start -->
 			<div class="col-12 mb-40">
 				<div class="section-title-one" style="text-transform:uppercase"><h1>{{_('Products from this category')}}</h1></div>
-			</div><!-- Section Title End -->
+			</div>
 
-			<!-- Product Tab Content Start -->
 			<div class="col-12">
-				<!-- Product Slider Wrap Start -->
 				<div class="product-slider-wrap product-slider-arrow-one">
-					<!-- Product Slider Start -->
 					<div class="product-slider product-slider-4">
 						{% if resource.Related_resources %}
 						{% for related_resource in resource.Related_resources %}
 							<div class="col pb-20 pt-10">
-								<!-- Product Start -->
 								<div class="ee-product">
-									<!-- Image -->
 									<div class="image">
-										{% if related_resource.FilePathS %}
-											<a href="{{ url_for('commerce.product',ResId=related_resource.ResId)}}" class="img">
-												<img loading="lazy" src="{{related_resource.FilePathS}}" alt="Product {{related_resource.ResName}} of category {{ related_resource.ResCatName if related_resource.ResCatName else '' }}">
-											</a>
-										{% else %}
-											<a href="{{ url_for('commerce.product',ResId=related_resource.ResId)}}" class="img">
-												<img loading="lazy" src="{{ url_for('static', filename='commerce/main/shop_icons/no_photo.png') }}" alt="Product {{related_resource.ResName}} of category {{ related_resource.ResCatName if related_resource.ResCatName else '' }}">
-											</a>
-										{% endif %}
+										<a href="{{ url_for('commerce.product',ResId=related_resource.ResId)}}" class="img">
+											<img loading="lazy" src="{{ related_resource.FilePathS if related_resource.FilePathS else url_for('static', filename='commerce/main/shop_icons/no_photo.png') }}" alt="Product {{related_resource.ResName}} of category {{ related_resource.ResCatName if related_resource.ResCatName else '' }}">
+										</a>
 										{% if current_user.is_authenticated %}
 											<div class="wishlist-compare">
 												<a href="#" data-tooltip="Wishlist" class="{{'added' if related_resource.Wishlist == true}}" ownerId="{{ related_resource.ResId }}">
@@ -219,15 +198,12 @@
 											</a>
 									</div>
 
-									<!-- Content -->
 									<div class="content">
-										<!-- Category & Title -->
 										<div class="category-title">
 											<a href="#" class="cat">{{ related_resource.ResCatName }}</a>
 											<h5 class="title"><a href="{{ url_for('static', filename='commerce/main/shop_icons/no_photo.png') }}">{{ related_resource.ResName }}</a></h5>
 										</div>
 
-										<!-- Price & Ratting -->
 										<div class="price-ratting">
 											<h5 class="price">
 												<div class="priceValue" ownerId="{{related_resource.ResId}}" value="{{related_resource.ResPriceValue}}">{{ related_resource.ResPriceValue }}</div>
@@ -235,21 +211,22 @@
 											</h5>
 										</div>
 									</div>
-								</div><!-- Product End -->
+								</div>
 							</div>
 						{% endfor %}
 						{% endif %}
-					</div><!-- Product Slider End -->
-				</div><!-- Product Slider Wrap End -->
-			</div><!-- Product Tab Content End -->
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
-</div><!-- Related Product Section End -->
+</div>
 
 {% endblock %}
 
 
 {% block scripts %}
+<script src="{{ url_for('static', filename='commerce/admin/bundles/sweetalert/sweetalert.min.js') }}"></script>
 <script>
 	function adjustRating(rating) {
 		document.getElementById("ratingvalue").innerHTML = rating;

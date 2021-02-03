@@ -4,10 +4,10 @@ from flask import current_app
 from datetime import datetime
 
 from main_pack import db
-from main_pack.api.commerce import api
+from . import api
+from .utils import addOrderInvLineDict
 
 from main_pack.models.commerce.models import Order_inv_line
-from main_pack.api.commerce.utils import addOrderInvLineDict
 
 from main_pack.api.auth.utils import sha_required
 from main_pack.api.base.validators import request_is_json
@@ -16,7 +16,7 @@ from main_pack.base.apiMethods import checkApiResponseStatus
 
 @api.route("/tbl-dk-order-inv-lines/",methods=['GET','POST'])
 @sha_required
-@request_is_json
+@request_is_json(request)
 def api_order_inv_lines():
 	if request.method == 'GET':
 		DivId = request.args.get("DivId",None,type=int)

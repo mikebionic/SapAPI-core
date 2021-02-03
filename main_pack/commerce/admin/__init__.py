@@ -18,5 +18,6 @@ from . import (
 	images_setup,
 	ui_sliders,
 	ui_invoices,
-	ui_users_customers
+	ui_users_customers,
+	ui_rating
 )

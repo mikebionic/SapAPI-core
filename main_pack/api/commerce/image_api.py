@@ -10,9 +10,9 @@ from sqlalchemy.orm import joinedload
 
 from main_pack import db
 from main_pack.config import Config
-from main_pack.api.commerce import api
-from main_pack.api.commerce.utils import addImageDict, saveImageFile
-from main_pack.api.auth.utils import sha_required
+from . import api
+from .utils import addImageDict, saveImageFile
+from main_pack.api.auth.utils import sha_required, token_required
 from main_pack.base.apiMethods import checkApiResponseStatus
 from main_pack.api.base.validators import request_is_json
 
@@ -39,45 +39,80 @@ def remove_image(file_type,file_name):
 		os.remove(FilePathR)
 
 
+def get_images(
+	DivId = None,
+	notDivId = None,
+	synchDateTime = None,
+	UId = None,
+	URegNo = None,
+	UName = None):
+
+	images = Image.query.filter_by(GCRecord = None)
+
+	if DivId:
+		images = images\
+			.join(Resource, and_(
+				Resource.ResId == Image.ResId,
+				Resource.DivId == DivId))
+	if notDivId:
+		images = images\
+			.join(Resource, and_(
+				Resource.ResId == Image.ResId,
+				Resource.DivId != notDivId))
+
+	if synchDateTime:
+		if (type(synchDateTime) != datetime):
+			synchDateTime = dateutil.parser.parse(synchDateTime)
+		images = images.filter(Image.ModifiedDate > (synchDateTime - timedelta(minutes = 5)))
+
+	images = images.options(
+		joinedload(Image.resource),
+		joinedload(Image.rp_acc))\
+	.all()
+
+	data = []
+	for image in images:
+		image_info = image.to_json_api()
+		image_info["ResRegNo"] = image.resource.ResRegNo if image.resource and not image.resource.GCRecord else None
+		image_info["ResGuid"] = image.resource.ResGuid if image.resource and not image.resource.GCRecord else None
+		image_info["RpAccGuid"] = image.rp_acc.RpAccGuid if image.rp_acc and not image.rp_acc.GCRecord else None
+		data.append(image_info)
+
+	return data
+
+
+@api.route("/v-images/")
+@token_required
+def api_v_images():
+	arg_data = {
+		"DivId": request.args.get("DivId",None,type=int),
+		"notDivId": request.args.get("notDivId",None,type=int),
+		"synchDateTime": request.args.get("synchDateTime",None,type=str)
+	}
+
+	data = get_images(**arg_data)
+
+	res = {
+		"status": 1 if len(data) > 0 else 0,
+		"message": "Images",
+		"data": data,
+		"total": len(data)
+	}
+	response = make_response(jsonify(res), 200)
+
+
 @api.route("/tbl-dk-images/",methods=['GET','POST'])
 @sha_required
-@request_is_json
+@request_is_json(request)
 def api_images():
 	if request.method == 'GET':
-		DivId = request.args.get("DivId",None,type=int)
-		notDivId = request.args.get("notDivId",None,type=int)
-		synchDateTime = request.args.get("synchDateTime",None,type=str)
+		arg_data = {
+			"DivId": request.args.get("DivId",None,type=int),
+			"notDivId": request.args.get("notDivId",None,type=int),
+			"synchDateTime": request.args.get("synchDateTime",None,type=str)
+		}
 
-		images = Image.query.filter_by(GCRecord = None)
-
-		if DivId:
-			images = images\
-				.join(Resource, and_(
-					Resource.ResId == Image.ResId,
-					Resource.DivId == DivId))
-		if notDivId:
-			images = images\
-				.join(Resource, and_(
-					Resource.ResId == Image.ResId,
-					Resource.DivId != notDivId))
-
-		if synchDateTime:
-			if (type(synchDateTime) != datetime):
-				synchDateTime = dateutil.parser.parse(synchDateTime)
-			images = images.filter(Image.ModifiedDate > (synchDateTime - timedelta(minutes = 5)))
-
-		images = images.options(
-			joinedload(Image.resource),
-			joinedload(Image.rp_acc))\
-		.all()
-
-		data = []
-		for image in images:
-			image_info = image.to_json_api()
-			image_info["ResRegNo"] = image.resource.ResRegNo if image.resource and not image.resource.GCRecord else None
-			image_info["ResGuid"] = image.resource.ResGuid if image.resource and not image.resource.GCRecord else None
-			image_info["RpAccGuid"] = image.rp_acc.RpAccGuid if image.rp_acc and not image.rp_acc.GCRecord else None
-			data.append(image_info)
+		data = get_images(**arg_data)
 
 		res = {
 			"status": 1 if len(data) > 0 else 0,
@@ -85,7 +120,7 @@ def api_images():
 			"data": data,
 			"total": len(data)
 		}
-		response = make_response(jsonify(res),200)
+		response = make_response(jsonify(res), 200)
 
 	elif request.method == 'POST':
 		req = request.get_json()

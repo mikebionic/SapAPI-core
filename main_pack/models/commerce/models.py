@@ -3,8 +3,8 @@ from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.dialects.postgresql import UUID
 from datetime import datetime
 from flask_login import current_user
-from main_pack.models.base.models import CreatedModifiedInfo,AddInf
 from main_pack.base.dataMethods import apiDataFormat,configureFloat
+from main_pack.models.base.models import CreatedModifiedInfo,AddInf
 
 
 class Barcode(CreatedModifiedInfo,db.Model):
@@ -287,7 +287,6 @@ class Usage_status(CreatedModifiedInfo,db.Model):
 		}
 		return json_data
 
-####### new models ###
 
 class Discount_type(CreatedModifiedInfo,db.Model):
 	__tablename__ = "tbl_dk_discount_type"
@@ -323,9 +322,9 @@ class Exc_rate(CreatedModifiedInfo,db.Model):
 	__tablename__ = "tbl_dk_exc_rate"
 	ExcRateId = db.Column("ExcRateId",db.Integer,nullable=False,primary_key=True)
 	CurrencyId = db.Column("CurrencyId",db.Integer,db.ForeignKey("tbl_dk_currency.CurrencyId"))
-	ExcRateTypeId = db.Column("ExcRateTypeId",db.Integer,db.ForeignKey("tbl_dk_exc_rate_type.ExcRateTypeId"))
 	ExcRateDate = db.Column("ExcRateDate",db.DateTime)
-	ExcRateValue = db.Column("ExcRateValue",db.Float,default=0.0)
+	ExcRateInValue = db.Column("ExcRateInValue",db.Float,default=0.0)
+	ExcRateOutValue = db.Column("ExcRateOutValue",db.Float,default=0.0)
 	
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -337,33 +336,9 @@ class Exc_rate(CreatedModifiedInfo,db.Model):
 		json_data = {
 			"ExcRateId": self.ExcRateId,
 			"CurrencyId": self.CurrencyId,
-			"ExcRateTypeId": self.ExcRateTypeId,
 			"ExcRateDate": apiDataFormat(self.ExcRateDate),
-			"ExcRateValue": self.ExcRateValue,
-			"CreatedDate": apiDataFormat(self.CreatedDate),
-			"ModifiedDate": apiDataFormat(self.ModifiedDate),
-			"SyncDateTime": apiDataFormat(self.SyncDateTime),
-			"CreatedUId": self.CreatedUId,
-			"ModifiedUId": self.ModifiedUId,
-			"GCRecord": self.GCRecord
-		}
-		return json_data
-
-
-class Exc_rate_type(CreatedModifiedInfo,db.Model):
-	__tablename__ = "tbl_dk_exc_rate_type"
-	ExcRateTypeId = db.Column("ExcRateTypeId",db.Integer,nullable=False,primary_key=True)
-	ExcRateTypeName = db.Column("ExcRateTypeName",db.String(100),nullable=False)
-	ExcRateTypeDesc = db.Column("ExcRateTypeDesc",db.String(500))
-	ExcRateTypeExp = db.Column("ExcRateTypeExp",db.String(100),nullable=False)
-	Exc_rate = db.relationship("Exc_rate",backref='exc_rate_type',lazy=True)
-
-	def to_json_api(self):
-		json_data = {
-			"ExcRateTypeId": self.ExcRateTypeId,
-			"ExcRateTypeName": self.ExcRateTypeName,
-			"ExcRateTypeDesc": self.ExcRateTypeDesc,
-			"ExcRateTypeExp": self.ExcRateTypeExp,
+			"ExcRateInValue": self.ExcRateInValue,
+			"ExcRateOutValue": self.ExcRateOutValue,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
 			"SyncDateTime": apiDataFormat(self.SyncDateTime),

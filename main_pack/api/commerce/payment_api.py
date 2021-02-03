@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from flask import jsonify, request, make_response
 
-from main_pack.api.commerce import api
+from . import api
 from main_pack.config import Config
 from main_pack.models.commerce.models import Payment_type, Payment_method
 

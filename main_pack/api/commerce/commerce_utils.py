@@ -15,6 +15,7 @@ from flask_login import current_user, login_required
 
 # functions and methods
 from main_pack.base.languageMethods import dataLangSelector
+from main_pack.base.priceMethods import calculatePriceByGroup, price_currency_conversion
 # / functions and methods /
 
 # db models
@@ -26,7 +27,8 @@ from main_pack.models.commerce.models import (
 	Res_total,
 	Res_category,
 	Wish,
-	Rating)
+	Rating,
+	Exc_rate)
 from main_pack.models.commerce.models import (
 	Res_color,
 	Res_size,
@@ -214,10 +216,12 @@ def apiResourceInfo(
 	avoidQtyCheckup = 0,
 	showNullPrice = False,
 	DivId = None,
-	notDivId = None):
+	notDivId = None,
+	viewCurrency = None):
 
 	currencies = Currency.query.filter_by(GCRecord = None).all()
 	res_price_groups = Res_price_group.query.filter_by(GCRecord = None).all()
+	exc_rates = Exc_rate.query.filter_by(GCRecord = None).all()
 
 	# return wishlist info for authenticated user
 	if current_user.is_authenticated:
@@ -322,7 +326,6 @@ def apiResourceInfo(
 				resource_query = resource_query.options(
 					joinedload(Resource.Image),
 					joinedload(Resource.Barcode),
-					joinedload(Resource.Rating),
 					joinedload(Resource.Res_price),
 					joinedload(Resource.Res_total),
 					joinedload(Resource.res_category),
@@ -330,19 +333,27 @@ def apiResourceInfo(
 					joinedload(Resource.brand),
 					joinedload(Resource.usage_status))
 
-				if fullInfo == True:
+				if fullInfo:
 					resource_query = resource_query.options(	
 						joinedload(Resource.Res_color)\
 							.options(joinedload(Res_color.color)),
 						joinedload(Resource.Res_size)\
-							.options(joinedload(Res_size.size))
+							.options(joinedload(Res_size.size)),
+						joinedload(Resource.Rating)\
+							.options(
+								joinedload(Rating.users).options(joinedload(Users.Image)),
+								joinedload(Rating.rp_acc).options(joinedload(Rp_acc.Image))
+							)
 						)
+
+				elif fullInfo == False:
+					resource_query = resource_query.options(joinedload(Resource.Rating))
 
 				resource_query = resource_query.first()
 				
 				if resource_query:
 					resource_models.append(resource_query)
-		
+
 	data = []
 	fails = []
 	for resource_query in resource_models:
@@ -355,48 +366,30 @@ def apiResourceInfo(
 			
 			List_Barcode = [barcode.to_json_api() for barcode in resource_query.Resource.Barcode if not barcode.GCRecord]
 
-			List_Res_price = []
-			if not ResPriceGroupId:
-				# print("no res price group")
-				List_Res_price = [res_price.to_json_api() 
-					for res_price in resource_query.Resource.Res_price
-					if res_price.ResPriceTypeId == 2
-					and not res_price.GCRecord]
+			List_Res_price = calculatePriceByGroup(
+				ResPriceGroupId = ResPriceGroupId,
+				Res_price_dbModels = resource_query.Resource.Res_price,
+				Res_pice_group_dbModels = res_price_groups)
 
-			if ResPriceGroupId:
-				# find Res_price with provided ResPriceGroupId
-				List_Res_price = [res_price.to_json_api() 
-					for res_price in resource_query.Resource.Res_price 
-					if res_price.ResPriceTypeId == 2 
-					and res_price.ResPriceGroupId == ResPriceGroupId
-					and not res_price.GCRecord]
-
-				if not List_Res_price:
-					thisPriceGroupList = [priceGroup for priceGroup in res_price_groups if priceGroup.ResPriceGroupId == ResPriceGroupId]
-					if thisPriceGroupList:
-						if not thisPriceGroupList[0].ResPriceGroupAMEnabled:
-							# print("enabled false")
-							raise Exception
-
-						FromResPriceTypeId = thisPriceGroupList[0].FromResPriceTypeId
-						ResPriceGroupAMPerc = thisPriceGroupList[0].ResPriceGroupAMPerc
-
-						List_Res_price = [res_price.to_json_api() 
-							for res_price in resource_query.Resource.Res_price 
-							if res_price.ResPriceTypeId == FromResPriceTypeId
-							and not res_price.GCRecord]
-
-						if not List_Res_price:
-							raise Exception
-
-						CalculatedPriceValue = float(List_Res_price[0]["ResPriceValue"]) + (float(List_Res_price[0]["ResPriceValue"]) * float(ResPriceGroupAMPerc) / 100)
-						List_Res_price[0]["ResPriceValue"] = CalculatedPriceValue
-
+			if not List_Res_price:
+				raise Exception
 
 			try:
 				List_Currencies = [currency.to_json_api() for currency in currencies if currency.CurrencyId == List_Res_price[0]["CurrencyId"]]
 			except:
 				List_Currencies = []
+
+			this_priceValue = List_Res_price[0]["ResPriceValue"] if List_Res_price else 0.0
+			this_currencyCode = List_Currencies[0]["CurrencyCode"] if List_Currencies else Config.MAIN_CURRENCY_CODE
+
+			price_data = price_currency_conversion(
+				priceValue = this_priceValue,
+				from_currency = this_currencyCode,
+				to_currency = viewCurrency,
+				currencies_dbModel = currencies,
+				exc_rates_dbModel = exc_rates)
+
+
 			List_Res_total = [res_total.to_json_api() for res_total in resource_query.Resource.Res_total if not res_total.GCRecord and res_total.WhId == 1]
 			List_Images = [image.to_json_api() for image in resource_query.Resource.Image if not image.GCRecord]
 			# Sorting list by Modified date
@@ -404,22 +397,32 @@ def apiResourceInfo(
 			
 			if fullInfo == True:
 				List_Ratings = []
-				# !!! TODO: try to get deep in outerjoin
 				for rating in resource_query.Resource.Rating:
-					Rating_info = rating.to_json_api()
+					try:
+						if (Config.SHOW_ONLY_VALIDATED_RATING and not rating.RtValidated):
+							raise Exception
 
-					if rating.UId:
-						rated_user = Users.query.filter_by(GCRecord = None, UId = rating.UId)
-						userData = apiUsersData(dbQuery = rated_user)
-						Rating_info["User"] = userData["data"]
+						Rating_info = rating.to_json_api()
 
-					if rating.RpAccId:
-						rated_rp_acc = Rp_acc.query.filter_by(GCRecord = None, RpAccId = rating.RpAccId)
-						rpAccData = apiRpAccData(dbQuery = rated_rp_acc)
-						Rating_info["Rp_acc"] = rpAccData["data"]
-					List_Ratings.append(Rating_info)
+						if rating.UId:
+							userData = apiUsersData(dbModel = rating.user, rpAccInfo = False, additionalInfo = False) if not rating.user.GCRecord else None
+							Rating_info["User"] = userData["data"] if userData else {}
+
+						if rating.RpAccId:
+							rpAccData = apiRpAccData(dbModel = rating.rp_acc, userInfo = False, additionalInfo = False) if not rating.rp_acc.GCRecord else None
+							Rating_info["Rp_acc"] = rpAccData["data"] if rpAccData else {}
+
+						List_Ratings.append(Rating_info)
+
+					except:
+						pass
+
 			else:
-				List_Ratings = [rating.to_json_api() for rating in resource_query.Resource.Rating if not rating.GCRecord]
+				if Config.SHOW_ONLY_VALIDATED_RATING:
+					List_Ratings = [rating.to_json_api() for rating in resource_query.Resource.Rating if not rating.GCRecord and rating.RtValidated]
+				else:
+					List_Ratings = [rating.to_json_api() for rating in resource_query.Resource.Rating if not rating.GCRecord]
+
 			if user:
 				List_Wish = [wish.to_json_api() for wish in wishes if wish.ResId == resource_query.Resource.ResId]
 			else:
@@ -427,8 +430,8 @@ def apiResourceInfo(
 
 			resource_info["BarcodeVal"] = List_Barcode[0]["BarcodeVal"] if List_Barcode else ""
 			resource_info["ResCatName"] = Res_category_info["ResCatName"] if Res_category_info else ""
-			resource_info["ResPriceValue"] = List_Res_price[0]["ResPriceValue"] if List_Res_price else 0.0
-			resource_info["CurrencyCode"] = List_Currencies[0]["CurrencyCode"] if List_Currencies else 'TMT'
+			resource_info["ResPriceValue"] = price_data["ResPriceValue"]
+			resource_info["CurrencyCode"] = price_data["CurrencyCode"]
 			# resource_info["ResTotBalance"] = List_Res_total[0]["ResTotBalance"] if List_Res_total else 0.0
 			# resource_info["ResPendingTotalAmount"] = List_Res_total[0]["ResPendingTotalAmount"] if List_Res_total else 0.0
 			resource_info["ResTotBalance"] = resource_query.ResTotBalance_sum if resource_query.ResTotBalance_sum else 0.0
@@ -480,14 +483,32 @@ def apiResourceInfo(
 					Related_Res_category_info = resource.res_category.to_json_api() if resource.res_category else None
 					Related_resource_price = [res_price.to_json_api() for res_price in resource.Res_price if res_price.ResPriceTypeId == 2 and not res_price.GCRecord]
 
+					Related_resource_price = calculatePriceByGroup(
+						ResPriceGroupId = ResPriceGroupId,
+						Res_price_dbModels = resource.Res_price,
+						Res_pice_group_dbModels = res_price_groups)
+
+					if not Related_resource_price:
+						raise Exception
+
 					try:
 						Related_resource_currencies = [currency.to_json_api() for currency in currencies if currency.CurrencyId == Related_resource_price[0]["CurrencyId"]]
 					except:
 						Related_resource_currencies = []
 
+					this_priceValue = Related_resource_price[0]["ResPriceValue"] if Related_resource_price else 0.0
+					this_currencyCode = Related_resource_currencies[0]["CurrencyCode"] if Related_resource_currencies else Config.MAIN_CURRENCY_CODE
+
+					Related_resource_price_data = price_currency_conversion(
+						priceValue = this_priceValue,
+						from_currency = this_currencyCode,
+						to_currency = viewCurrency,
+						currencies_dbModel = currencies,
+						exc_rates_dbModel = exc_rates)
+
 					related_resource_info["ResCatName"] = Related_Res_category_info["ResCatName"] if Related_Res_category_info else ""
-					related_resource_info["ResPriceValue"] = Related_resource_price[0]["ResPriceValue"] if Related_resource_price else ""
-					related_resource_info["CurrencyCode"] = Related_resource_currencies[0]["CurrencyCode"] if Related_resource_currencies else 'TMT'
+					related_resource_info["ResPriceValue"] = Related_resource_price_data["ResPriceValue"]
+					related_resource_info["CurrencyCode"] = Related_resource_price_data["CurrencyCode"]
 
 					if user:
 						Related_resource_Wish = [wish.to_json_api() for wish in wishes if wish.ResId == resource.ResId]
@@ -598,6 +619,7 @@ def UiCartResourceData(product_list,fullInfo=False,showRelated=False):
 		"total": len(data)
 	}
 	return res
+
 
 # !!! TODO: Should be optimized
 def apiOrderInvInfo(

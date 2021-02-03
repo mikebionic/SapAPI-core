@@ -1,21 +1,22 @@
 # -*- coding: utf-8 -*-
 from flask import jsonify, request, make_response
-from main_pack.api.commerce import api
-from main_pack.base.apiMethods import checkApiResponseStatus
+from flask import current_app
 from datetime import datetime, timedelta
 import dateutil.parser
 
-from main_pack.models.commerce.models import Barcode
-from main_pack.api.commerce.utils import addBarcodeDict
+from . import api
 from main_pack import db
-from flask import current_app
+
+from .utils import addBarcodeDict
+from main_pack.models.commerce.models import Barcode
 from main_pack.api.base.validators import request_is_json
 from main_pack.api.auth.utils import sha_required
+from main_pack.base.apiMethods import checkApiResponseStatus
 
 
 @api.route("/tbl-dk-barcodes/",methods=['GET','POST'])
 @sha_required
-@request_is_json
+@request_is_json(request)
 def api_barcodes():
 	if request.method == 'GET':
 		DivId = request.args.get("DivId",None,type=int)

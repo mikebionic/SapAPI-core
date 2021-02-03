@@ -1,21 +1,17 @@
 {% extends "commerce/bee/commerce/layout.html" %}
 
 {% block content %}
-<!-- Cart Overlay -->
 <div class="cart-overlay"></div>
-
-<!-- Hero Section Start -->
 <div class="hero-section section mb-30">
 	<div class="container">
 		<div class="row">
-			<div class="col"><!-- Hero Slider Start -->
+			<div class="col">
 				<div class="hero-side-category" style="margin-bottom: 0;"></div>
 				<div class="hero-slider hero-slider-two fix slick slick-slider slick-dotted">
 				{% for slider in sliders %}
 					{% if slider.SlName == "commerce_header" %}
 						{% for sl_image in slider.Sl_images %}
 						{% if sl_image.SlImgMainImgFilePathS %}
-							<!-- Hero Item Start -->
 							<div class="slick-list draggable">  
 								<div class="slick-track" style="opacity: 1; width: 100%;">
 									<div class="hero-item-two slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" tabindex="0" role="tabpanel" id="slick-slide00" aria-describedby="slick-slide-control00" style="width: 100%; position: relative; left: 0px; top: 0px; z-index: 999; opacity: 1;">
@@ -63,48 +59,39 @@
 								</div>
 							{% endif %}
 						{% endfor %}
-					</div><!-- Product Slider End -->
-				</div><!-- Product Slider Wrap End -->
-			</div><!-- Product Tab Content End -->
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
-</div><!-- Feature Product Section End -->
+</div>
 
 {% if Featured_categories %}
-<!-- Feature Product Section Start -->
 <div class="product-section section mb-70">
 	<div class="container">
 		<div class="row">
-			<!-- Section Title Start -->
 			<div class="col-12 mb-40">
 				<div class="section-title-one" style="text-transform:uppercase"><h1>{{_('Featured')}}</h1></div>
-			</div><!-- Section Title End -->
-			<!-- Product Tab Filter Start -->
+			</div>
 			<div class="col-12 mb-30">
 				<div class="product-tab-filter">
-					<!-- Tab Filter Toggle -->
 					<button class="product-tab-filter-toggle">showing: <span></span><i class="icofont icofont-simple-down"></i></button>
 
-					<!-- Product Tab List -->
 					<ul class="nav product-tab-list">
 						{% for category in Featured_categories %}
 							<li><a data-toggle="tab" class="featrued-cat-btn" href="#tab-{{category.ResCatId}}">{{category.ResCatName}}</a></li>
 						{% endfor %}
 					</ul>
 				</div>
-			</div><!-- Product Tab Filter End -->
+			</div>
 
-			<!-- Product Tab Content Start -->
 			<div class="col-12">
 				<div class="tab-content">
-					<!-- Tab Pane Start -->
 					<div class="row">
 					 
 					{% for category in Featured_categories %}
 						<div class="tab-pane featrued-cat-tab fade" id="tab-{{category.ResCatId}}">
-							<!-- Product Slider Wrap Start -->
 							<div class=" product-slider-arrow-one">
-								<!-- Product Slider Start -->
 								<div class="product-slider product-slider-4">
 									{% for resource in category.Resources %}
 										
@@ -137,9 +124,7 @@
 														</a>
 												</div>
 
-												<!-- Content -->
 												<div class="content">
-													<!-- Category & Title -->
 													<div class="category-title">
 														<a href="#" class="cat">{{ resource.ResCatName if resource.ResCatName else '' }}</a>
 														<h5 class="title">
@@ -148,7 +133,6 @@
 															</a>
 														</h5>
 													</div>
-													<!-- Price & Ratting -->
 													<div class="price-ratting">
 														<h5 class="price">
 															<div class="priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue }}</div>
@@ -156,33 +140,31 @@
 														</h5>
 													</div>
 												</div>
-											</div><!-- Product End -->
+											</div>
 											</div>
 										</div>
 									{% endfor %}
-								</div><!-- Product Slider End -->
-							</div><!-- Product Slider Wrap End -->
+								</div>
+							</div>
 
-						</div><!-- Tab Pane End -->
+						</div>
 					{% endfor %}
 					</div>
 				</div>
-			</div><!-- Product Tab Content End -->
+			</div>
 
 		</div>
 	</div>
-</div><!-- Feature Product Section End -->
+</div>
 {% endif %}
 
-<!-- New Arrival Product Section Start -->
 <div class="product-section section mb-60">
 	<div class="container">
 		<div class="row">
 
-			<!-- Section Title Start -->
 			<div class="col-12 mb-40">
 				<div class="section-title-one" style="text-transform:uppercase"><h1>{{_('New arrival')}}</h1></div>
-			</div><!-- Section Title End -->
+			</div>
 
 			<div class="col-12">
 				<div class="last_pr row" style="display: flex;justify-content: center;">
@@ -194,15 +176,10 @@
 										{% if resource.New %}
 											<span class="label new">{{_('New')}}</span>
 										{% endif %}
-										{% if resource.FilePathS %}
-											<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
-												<img loading="lazy" src="{{resource.FilePathS}}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
-											</a>
-										{% else %}
-											<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
-												<img loading="lazy" src="{{ url_for('static', filename='commerce/main/shop_icons/no_photo.png') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
-											</a>
-										{% endif %}
+										<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
+											<img loading="lazy"
+											src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/main/shop_icons/no_photo.png') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
+										</a>
 										{% if current_user.is_authenticated %}
 											<div class="wishlist-compare">
 												<a href="#" data-tooltip="Wishlist" class="{{'added' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}">
@@ -216,9 +193,7 @@
 										</a>
 									</div>
 
-									<!-- Content -->
 									<div class="content">
-										<!-- Category & Title -->
 										<div class="category-title">
 											<a href="#" class="cat">{{ resource.ResCatName if resource.ResCatName else '' }}</a>
 											<h5 class="title">
@@ -227,10 +202,8 @@
 												</a>
 											</h5>
 										</div>
-										<!-- Price & Ratting -->
 										<div class="price-ratting">
 											<h5 class="price">
-												<!-- <span class="old">$350</span> -->
 												<div class="priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue }}</div>
 												<p class="tm_currency">{{ resource.CurrencyCode }}</p>
 											</h5>
@@ -238,7 +211,7 @@
 											<div class="ratting ratingStars" ownerId="{{ resource.ResId }}"></div>
 										</div>
 									</div>
-								</div><!-- Product End -->
+								</div>
 							</div>
 						</div>
 					{% endfor %}
@@ -247,9 +220,8 @@
 			</div>
 		</div>
 	</div>
-</div><!-- New Arrival Product Section End -->
+</div>
 
-<!-- Banner Section Start -->
 {% for slider in sliders %}
 {% if slider.SlName == "commerce_footer" %}
 <div class="banner-section section mb-90">
@@ -257,14 +229,10 @@
 		<div class="row">
 			{% for sl_image in slider.Sl_images %}
 			{% if sl_image.SlImgMainImgFilePathS %}
-				<!-- Banner -->
 				<div class="col-12">
 					<div class="banner"><a href="#">
 						<picture>
-							<source srcset="{{ sl_image.SlImgMainImgFilePathL }}" media="(max-width: 1440px)">
-							<source srcset="{{ sl_image.SlImgMainImgFilePathS }}" media="(max-width: 640px)">
-							<source srcset="{{ sl_image.SlImgMainImgFilePathS }}" media="(max-width: 320px)">
-							<img loading="lazy" src="{{ sl_image.SlImgMainImgFilePathS }}"
+							<img loading="lazy" src="{{ sl_image.SlImgMainImgFilePathM }}"
 							alt="banner {{ sl_image.SlImgMainImgFileName }}">
 						</picture>
 					</a></div>
@@ -273,49 +241,45 @@
 			{% endfor %}
 		</div>
 	</div>
-</div><!-- Banner Section End -->
+</div>
 {% endif %}
 {% endfor %}
 
 
-<!-- Feature Section Start -->
 <div class="feature-section section mb-60">
 	<div class="container">
 		<div class="row">
 
 			<div class="col-lg-4 col-md-6 col-12 mb-30">
-				<!-- Feature Start -->
 				<div class="feature feature-shipping">
 					<div class="feature-wrap">
 						<div class="icon"><img loading="lazy" src="{{ url_for('static', filename='commerce/bee/images/icons/feature-van.png') }}"></div>
 						<h4>Eltip bermek hyzmaty</h4>
 					</div>
-				</div><!-- Feature End -->
+				</div>
 			</div>
 
 			<div class="col-lg-4 col-md-6 col-12 mb-30">
-				<!-- Feature Start -->
 				<div class="feature feature-guarantee">
 					<div class="feature-wrap">
 						<div class="icon"><img loading="lazy" src="{{ url_for('static', filename='commerce/bee/images/icons/feature-walet.png') }}"></div>
 						<h4>2 aý garantiýa</h4>
 					</div>
-				</div><!-- Feature End -->
+				</div>
 			</div>
 
 			<div class="col-lg-4 col-md-6 col-12 mb-30">
-				<!-- Feature Start -->
 				<div class="feature feature-security">
 					<div class="feature-wrap">
 						<div class="icon"><img loading="lazy" src="{{ url_for('static', filename='commerce/bee/images/icons/feature-shield.png') }}"></div>
 						<h4>Tiz Ýeňil Amatly</h4>
 					</div>
-				</div><!-- Feature End -->
+				</div>
 			</div>
 
 		</div>
 	</div>
-</div><!-- Feature Section End -->
+</div>
 
 {% endblock %}
 

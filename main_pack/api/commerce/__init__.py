@@ -1,8 +1,8 @@
 from flask import Blueprint
 
-api = Blueprint('commerce_api',__name__)
+api = Blueprint('commerce_api', __name__)
 
-from main_pack.api.commerce import (
+from . import (
 	category_api,
 	barcode_api,
 	image_api,
@@ -24,5 +24,8 @@ from main_pack.api.commerce import (
 	config_info_api,
 	payment_api,
 	brand_api,
-	exc_rate_api
+	exc_rate_api,
+	res_price_group_api,
+	company_api,
+	division_api
 )

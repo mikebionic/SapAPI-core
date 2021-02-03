@@ -4,30 +4,17 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  {% if title %}
-  <title>{{title}}</title>
-  {% else %}
-  <title>{{_('Commerce')}}</title>
-  {% endif %}
+  <title>{{ title if title else _('Commerce') }}</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Favicon -->
-  {% if company_logo %}
-  <link rel="shortcut icon" type="image/x-icon" href="{{ company_logo.FilePath }}">
-  {% else %}
-  <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='commerce/bee/images/favicon.ico') }}">
-  {% endif %}
-  <!-- Bootstrap CSS -->
+  <link rel="shortcut icon" type="image/x-icon" href="{{ company_logo.FilePath if company_logo else url_for('static', filename='commerce/bee/images/favicon.ico') }}">
+
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/bee/css/bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/bee/css/font-awesome.min.css') }}">
-  <!-- Icon Font CSS -->
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/bee/css/icon-font.min.css') }}">
-  <!-- Plugins CSS -->
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/bee/css/plugins.css') }}">
-  <!-- Main Style CSS -->
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/bee/css/style.css') }}">
   {% block styles %}{% endblock %}
-  <!-- Modernizer JS -->
   <script src="{{ url_for('static', filename='commerce/bee/js/vendor/modernizr-2.8.3.min.js') }}"></script>
 </head>
 
@@ -48,9 +35,8 @@
               <div class="submit"><button><i class="icofont icofont-search-alt-1"></i></button></div>
             </form>
 
-          </div><!-- Header Advance Search End -->
+          </div>
         </div>
-        <!-- Header Account Links Start -->
         <div class="header-account-links" style="display:flex;">
           <li class="dropdown" style="margin-top: -7px;list-style: none; position: inherit;">
             <a href="#" class="nav-link nav-link-lg message-toggle" data-toggle="dropdown">
@@ -87,7 +73,7 @@
             <a href="{{ url_for('commerce_auth.login') }}"><i class="icofont icofont-login d-none"></i> <span>{{_('Login')}}</span></a>
             <a href="{{ url_for('commerce_auth.register') }}"><i class="icofont icofont-user-alt-7 d-none"></i> <span>{{_('Register')}}</span></a>
           {% endif %}
-        </div><!-- Header Account Links End -->
+        </div>
         <div class="header-logo" >
           <a href="{{ url_for('commerce.commerce')}}">
             {% if company_logo %}
@@ -96,12 +82,11 @@
               <h4>{{company.CName}}</h4>
             {% endif %}
           </a>
-        </div><!-- Logo End -->
+        </div>
       </div>
     </div>
-  </div><!-- Header Top End -->
+  </div>
 
-  <!-- Header Bottom Start -->
   <div class="header-bottom header-bottom-one header-sticky">
     <div class="container">
       <div class="row align-items-center justify-content-between">
@@ -110,13 +95,10 @@
           <div class="hero-side-category">
             <div class="category">
     
-              <!-- Category Toggle Wrap -->
               <div class="category-toggle-wrap">
-                <!-- Category Toggle -->
                 <button class="category-toggle" style="font-size : 100%;letter-spacing: 2px;">{{_('Categories')}} <i class="ti-menu"></i></button>
               </div>
-      
-              <!-- Category Menu -->
+
               <nav class="category-menu" style="position: relative;z-index: 99; display: none;">
                 <ul class="g_category">
                   <li>
@@ -126,72 +108,42 @@
                     </a>
                   </li>
 
-
-                  <li class="menu-item-has-children"><a href="category-2.html"><span class="left-bar"></span><span class="right-bar"></span></i>Phones &amp; Tablets</a>
+                  <li class="menu-item-has-children">
+                    <a href="category-2.html">Phones &amp; Tablets</a>
                     <ul class="category-mega-menu" style="display: none;">
-                      <li class="menu-item-has-children">
-                        <a href="category-1.html"><span class="left-bar"></span><span class="right-bar"></span></i>Smartphone</a>
-                        <ul style="display: none;">
-                          <li><a href="category-1.html">Samsome</a></li>
-                          <li><a href="category-2.html">GL Stylus</a></li>
-                          <li><a href="category-1.html">Syphony</a></li>
-                          <li><a href="category-1.html">Samsome</a></li>
-                          <li><a href="category-2.html">GL Stylus</a></li>
-                          <li><a href="category-1.html">Syphony</a></li>
-                        </ul>
-                      </li>
+                      <li><a href="category-1.html">Samsome</a></li>
+                      <li><a href="category-2.html">GL Stylus</a></li>
+                      <li><a href="category-1.html">Syphony</a></li>
+                      <li><a href="category-1.html">Samsome</a></li>
+                      <li><a href="category-2.html">GL Stylus</a></li>
+                      <li><a href="category-1.html">Syphony</a></li>
                     </ul>
                   </li>
 
-
-                  
                   {% for category in categories %}
                     <li class="{{ 'menu-item-has-children' if category.Categories }}">
-                      <a href="{{'#' if category.Categories else url_for('commerce.v_grid',category = category.ResCatId)}}">
+                      <a href="{{ url_for('commerce.v_grid',category = category.ResCatId) }}">
                         <img class="img-fluid" src="{{ category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static', filename='commerce/bee/images/icons/category.svg') }}" style="width: 25px; margin-right: 7px;">
                         {{category.ResCatName}}
                       </a>
-                      {% if category.Categories %}
-                        <ul class="category-menu" style="display: flex;">
-                        {% for category in category.Categories %}
-                          <li class="menu-item-has-children">
-                            <a href="{{url_for('commerce.v_grid',category = category.ResCatId)}}">
-                              <i class="expand menu-expand"></i>
-                              <i class="expand menu-expand"></i>
-                              <i class="expand menu-expand"></i>
-                              {{category.ResCatName}}
-                            </a>
-                          </li>
-                        {% endfor %}
-                        </ul>
-                      {% endif %}
+                      <ul class="category-mega-menu" style="display: none;">
+                        <li class="menu-item-has-children">
+                          <a href="category-1.html" class="arrow-icon">
+                            <span class="left-bar"></span>
+                            <span class="right-bar"></span>
+                            Smartphone
+                          </a>
+                          {% if category.Categories %}
+                            <ul style="display: none;">
+                            {% for category in category.Categories %}
+                              <li><a href="{{url_for('commerce.v_grid',category = category.ResCatId)}}">{{category.ResCatName}}</a></li>
+                            {% endfor %}
+                            </ul>
+                          {% endif %}
+                        </li>
+                      </ul>
                     </li>
                   {% endfor %}
-                  
-                  <li class="menu-item-has-children"><a href="#"><span class="left-bar"></span><span class="right-bar"></span></i>Phones &amp; Tablets</a>
-                                    
-                    <!-- Mega Category Menu Start -->
-                    <ul class="category-mega-menu" style="display: none;">
-                        <li class="menu-item-has-children">
-                            <a href="#"><span class="left-bar"></span><span class="right-bar"></span></i>Smartphone</a>
-                            <ul style="display: none;">
-                                <li><a href="#">Samsung</a></li>
-                            </ul>
-                        </li>
-                        <li class="menu-item-has-children">
-                            <a href="category-2.html"><span class="left-bar"></span><span class="right-bar"></span></i>headphone</a>
-                            <ul style="display: none;">
-                                <li><a href="#">Samsung</a></li>
-                            </ul>
-                        </li>
-                        <li class="menu-item-has-children">
-                            <a href="category-3.html"><span class="left-bar"></span><span class="right-bar"></span></i>accessories</a>
-                            <ul style="display: none;">
-                                <li><a href="#">Samsung</a></li>
-                            </ul>
-                        </li>
-                    </ul><!-- Mega Category Menu End -->
-                  </li>
                 </ul>
               </nav>
       
@@ -200,7 +152,6 @@
         </div>
         
         <div class="col order-12 order-lg-2 order-xl-2 d-none d-lg-block">
-          <!-- Main Menu Start -->
           <div class="main-menu">
             <nav>
               <ul>
@@ -210,7 +161,7 @@
                 <li><a href="{{ url_for('commerce.contact') }}">{{_('Contact')}}</a></li>
               </ul>
             </nav>
-          </div><!-- Main Menu End -->
+          </div>
         </div>
 
         

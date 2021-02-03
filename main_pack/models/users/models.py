@@ -340,7 +340,7 @@ class Rp_acc_type(CreatedModifiedInfo,db.Model):
 		return json_data
 
 
-class Device(AddInf,CreatedModifiedInfo,db.Model):
+class Device(AddInf,CreatedModifiedInfo,db.Model,UserMixin):
 	__tablename__ = "tbl_dk_device"
 	DevId = db.Column("DevId",db.Integer,nullable=False,primary_key=True)
 	DevGuid = db.Column("DevGuid",UUID(as_uuid=True),unique=True)

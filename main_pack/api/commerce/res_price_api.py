@@ -5,49 +5,118 @@ from sqlalchemy import and_
 from sqlalchemy.orm import joinedload
 
 from main_pack import db
-from main_pack.api.commerce import api
+from . import api
+from .utils import addResPriceDict
 
-from main_pack.models.commerce.models import Res_price, Resource
-from main_pack.api.commerce.utils import addResPriceDict
+from main_pack.models.commerce.models import Res_price, Resource, Res_price_group
 
-from main_pack.api.auth.utils import sha_required
+from main_pack.api.auth.utils import sha_required, token_required
 from main_pack.api.base.validators import request_is_json
+from main_pack.base.priceMethods import calculatePriceByGroup
 from main_pack.base.apiMethods import checkApiResponseStatus
+
+
+def get_res_prices(
+	DivId = None,
+	notDivId = None,
+	ResPriceTypeId = None,
+	ResPriceGroupId = None):
+
+	res_price_groups = Res_price_group.query.filter_by(GCRecord = None).all()
+
+	filtering = {"GCRecord": None}
+
+	if ResPriceTypeId:
+		filtering["ResPriceTypeId"] = ResPriceTypeId
+
+	res_prices = Res_price.query\
+		.filter_by(**filtering)\
+		.options(joinedload(Res_price.resource))
+
+	if DivId:
+		res_prices = res_prices\
+			.join(Resource, and_(
+				Resource.ResId == Res_price.ResId,
+				Resource.DivId == DivId,
+				Resource.GCRecord == None))
+
+	if notDivId:
+		res_prices = res_prices\
+			.join(Resource, and_(
+				Resource.ResId == Res_price.ResId,
+				Resource.DivId != notDivId,
+				Resource.GCRecord == None))
+
+	res_prices = res_prices.all()
+
+
+	data = []
+	for res_price in res_prices:
+		try:
+			List_Res_price = calculatePriceByGroup(
+				ResPriceGroupId = ResPriceGroupId,
+				Res_price_dbModels = [res_price],
+				Res_pice_group_dbModels = res_price_groups)
+
+			if not List_Res_price:
+				raise Exception
+
+			res_price_info = List_Res_price[0]
+			res_price_info["ResGuid"] = res_price.resource.ResGuid if res_price.resource and not res_price.resource.GCRecord else None
+			res_price_info["ResRegNo"] = res_price.resource.ResRegNo if res_price.resource and not res_price.resource.GCRecord else None
+			data.append(res_price_info)
+
+		except Exception as ex:
+			print(f"{datetime.now()} | Res_price fetch function Exception: {ex}")
+
+	return data
+
+
+@api.route("/v-res-prices/")
+@token_required
+def api_v_res_prices(user):
+	current_user = user["current_user"]
+
+	arg_data = {
+		"DivId": request.args.get("DivId",None,type=int),
+		"notDivId": request.args.get("notDivId",None,type=int),
+		"ResPriceTypeId": request.args.get("priceType",2,type=int)
+	}
+
+	ResPriceGroupId = None
+	if current_user:
+		ResPriceGroupId = current_user.ResPriceGroupId if current_user.ResPriceGroupId else None
+	elif "ResPriceGroupId" in session:
+		ResPriceGroupId = session["ResPriceGroupId"]
+
+	arg_data["ResPriceGroupId"] = ResPriceGroupId
+
+	data = get_res_prices(**arg_data)
+
+	res = {
+		"status": 1 if len(data) > 0 else 0,
+		"message": "All res prices",
+		"data": data,
+		"total": len(data)
+	}
+	response = make_response(jsonify(res), 200)
+
+	return response
 
 
 @api.route("/tbl-dk-res-prices/",methods=['GET','POST'])
 @sha_required
-@request_is_json
+@request_is_json(request)
 def api_res_prices():
 	if request.method == 'GET':
-		DivId = request.args.get("DivId",None,type=int)
-		notDivId = request.args.get("notDivId",None,type=int)
+		arg_data = {
+			"DivId": request.args.get("DivId",None,type=int),
+			"notDivId": request.args.get("notDivId",None,type=int),
+			"ResPriceTypeId": request.args.get("priceType",None,type=int),
+			"ResPriceGroupId": request.args.get("priceGroup",None,type=int)
+		}
 
-		res_prices = Res_price.query.filter_by(GCRecord = None)\
-			.options(joinedload(Res_price.resource))
-
-		if DivId:
-			res_prices = res_prices\
-				.join(Resource, and_(
-					Resource.ResId == Res_price.ResId,
-					Resource.DivId == DivId,
-					Resource.GCRecord == None))
-
-		if notDivId:
-			res_prices = res_prices\
-				.join(Resource, and_(
-					Resource.ResId == Res_price.ResId,
-					Resource.DivId != notDivId,
-					Resource.GCRecord == None))
-
-		res_prices = res_prices.all()
-
-		data = []
-		for res_price in res_prices:
-			res_price_info = res_price.to_json_api()
-			res_price_info["ResGuid"] = res_price.resource.ResGuid if res_price.resource and not res_price.resource.GCRecord else None
-			res_price_info["ResRegNo"] = res_price.resource.ResRegNo if res_price.resource and not res_price.resource.GCRecord else None
-			data.append(res_price_info)
+		data = get_res_prices(**arg_data)
 
 		res = {
 			"status": 1 if len(data) > 0 else 0,

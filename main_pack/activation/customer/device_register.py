@@ -31,7 +31,7 @@ def register_device():
 
 		else:
 			database = Db_inf.query.first()
-			req["DbInfGuid"] = database.DbInfGuid if database else None
+			req["DbInfGuid"] = str(database.DbInfGuid) if database else None
 
 			r = requests.post(
 				f"{Config.SAP_SERVICE_URL}/devices/register/",

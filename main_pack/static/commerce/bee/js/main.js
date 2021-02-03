@@ -76,11 +76,11 @@ function categorySubMenuToggle() {
     if ( screenSize <= 991) {
         $('.category-menu .menu-item-has-children > a').prepend('<i class="expand menu-expand"></i>');
         $('.category-menu .menu-item-has-children ul').slideUp();
-//        $('.category-menu .menu-item-has-children i').on('click', function(e){
-//            e.preventDefault();
-//            $(this).toggleClass('expand');
-//            $(this).siblings('ul').css('transition', 'none').slideToggle();
-//        })
+       $('.category-menu .menu-item-has-children i').on('click', function(e){
+           e.preventDefault();
+           $(this).toggleClass('expand');
+           $(this).siblings('ul').css('transition', 'none').slideToggle();
+       })
     } else {
         $('.category-menu .menu-item-has-children > a i').remove();
         $('.category-menu .menu-item-has-children ul').slideDown();

@@ -9,18 +9,20 @@ from datetime import datetime
 # / datetime, date-parser /
 
 from main_pack import db
-from main_pack.api.commerce import api
+from . import api
 
 # orders and db methods
 from main_pack.models.commerce.models import (
 	Invoice,
 	Inv_line,
 	Inv_status,
-	Res_total)
-from main_pack.api.commerce.utils import (
+	Res_total
+)
+from .utils import (
 	addInvDict,
-	addInvLineDict)
-from main_pack.api.commerce.commerce_utils import apiInvInfo
+	addInvLineDict
+)
+from .commerce_utils import apiInvInfo
 from main_pack.base.apiMethods import checkApiResponseStatus
 # / orders and db methods /
 
@@ -42,7 +44,7 @@ from main_pack.api.base.validators import request_is_json
 
 @api.route("/tbl-dk-invoices/",methods=['GET','POST'])
 @sha_required
-@request_is_json
+@request_is_json(request)
 def api_invoices():
 	if request.method == 'GET':
 		DivId = request.args.get("DivId",None,type=int)
