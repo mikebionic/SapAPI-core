@@ -1,6 +1,6 @@
 from flask import flash
 from flask_wtf import FlaskForm
-from flask_wtf.file import FileField,FileAllowed
+from flask_wtf.file import FileField, FileAllowed
 from wtforms import (
 	StringField,
 	PasswordField,
@@ -15,30 +15,29 @@ from wtforms.validators import (
 	Email,
 	EqualTo,
 	ValidationError)
-from main_pack import babel,gettext,lazy_gettext
+from main_pack import lazy_gettext
 
 from main_pack.models.users.models import Users,Rp_acc
 
 
 class LogoImageForm(FlaskForm):
-	logoImage = FileField('Company logo',validators=[FileAllowed(['jpg','png','img','gif','svg'])])
+	logoImage = FileField(validators=[FileAllowed(['jpg','png','img','gif','svg'])])
 
 
 class SliderImageForm(FlaskForm):
 	sliderImageTitle = StringField()
 	sliderImageDesc = StringField()
-	sliderImage = FileField('Slider Image',validators=[
-		FileAllowed(['jpg','png','img','gif'])])
-	SlImgStartDate = StringField('Start date')
-	SlImgEndDate = StringField('End date')
+	sliderImage = FileField(validators=[FileAllowed(['jpg','png','img','gif'])])
+	SlImgStartDate = StringField()
+	SlImgEndDate = StringField()
 
 
 class ResourceEditForm(FlaskForm):
-	resourceImage = FileField('Image',validators=[FileAllowed(['jpg','png','img'])])
+	resourceImage = FileField(validators=[FileAllowed(['jpg','png','img'])])
 	ResName = StringField(validators=[DataRequired(),Length(min=2,max=255)])
 	ResDesc = StringField(validators=[Length(max=500)])
 	ResFullDesc = StringField(validators=[Length(max=1500)],widget=TextArea())
-	BrandId = SelectField('Brand',coerce=int)
+	BrandId = SelectField(coerce=int)
 
 
 class BrandForm(FlaskForm):
@@ -51,22 +50,17 @@ class BrandForm(FlaskForm):
 	BrandLink3 = StringField()
 	BrandLink4 = StringField()
 	BrandLink5 = StringField()
-	Image = FileField('Slider Image',validators=[
-		FileAllowed(['jpg','png','img','gif','svg'])])
+	Image = FileField(validators=[FileAllowed(['jpg','png','img','gif','svg'])])
 
 
 class UserRegistrationForm(FlaskForm):
-	username = StringField('Username', 
-							validators=[DataRequired(),Length(min=2,max=60)])
-	email = StringField('Email',
-						validators=[DataRequired(),Email(),Length(max=225)])
-	full_name = StringField(lazy_gettext('Full name'))
-	user_type = SelectField('User type',coerce=int)
-	picture = FileField(lazy_gettext('Avatar'),
-							validators=[FileAllowed(['jpg','png','img','svg','gif','bmp'])])
-	password = PasswordField(lazy_gettext('Password'),validators=[DataRequired()])
-	confirm_password = PasswordField (lazy_gettext('Confirm password'),
-									validators=[DataRequired(),EqualTo('password')])
+	username = StringField(validators=[DataRequired(),Length(min=2,max=60)])
+	email = StringField(validators=[DataRequired(),Email(),Length(max=225)])
+	full_name = StringField()
+	user_type = SelectField(coerce=int)
+	picture = FileField(validators=[FileAllowed(['jpg','png','img','svg','gif','bmp'])])
+	password = PasswordField(validators=[DataRequired()])
+	confirm_password = PasswordField(validators=[DataRequired(),EqualTo('password')])
 
 	def validate_username(self,username):
 		user = Users.query.filter_by(UName = username.data, GCRecord = None).first()
@@ -81,24 +75,18 @@ class UserRegistrationForm(FlaskForm):
 
 
 class CustomerRegistrationForm(FlaskForm):
-	username = StringField('Username', 
-							validators=[DataRequired(),Length(min=2,max=60)])
-	email = StringField('Email',
-						validators=[DataRequired(),Email(),Length(max=225)])
-	full_name = StringField(lazy_gettext('Full name'))	
-	customer_type = SelectField('Customer type',coerce=int)
-	vendor_user = SelectField('Vendor user',coerce=int)
-	address = StringField(lazy_gettext('Address'),
-							validators=[Length(max=255)])
-	mobilePhone = StringField(lazy_gettext('Mobile phone'))
-	homePhone = StringField(lazy_gettext('Home phone'))
-	zipCode = StringField(lazy_gettext('Zip code'),
-							validators=[Length(max=225)])
-	picture = FileField(lazy_gettext('Avatar'),
-							validators=[FileAllowed(['jpg','png','img','svg','gif','bmp'])])
-	password = PasswordField(lazy_gettext('Password'),validators=[DataRequired()])
-	confirm_password = PasswordField (lazy_gettext('Confirm password'),
-									validators=[DataRequired(),EqualTo('password')])
+	username = StringField(validators=[DataRequired(),Length(min=2,max=60)])
+	email = StringField(validators=[DataRequired(),Email(),Length(max=225)])
+	full_name = StringField()	
+	customer_type = SelectField(coerce=int)
+	user = SelectField(coerce=int)
+	address = StringField(validators=[Length(max=255)])
+	mobilePhone = StringField()
+	homePhone = StringField()
+	zipCode = StringField(validators=[Length(max=225)])
+	picture = FileField(validators=[FileAllowed(['jpg','png','img','svg','gif','bmp'])])
+	password = PasswordField(validators=[DataRequired()])
+	confirm_password = PasswordField(validators=[DataRequired(),EqualTo('password')])
 
 	def validate_username(self,username):
 		rp_acc = Rp_acc.query.filter_by(RpAccUName=username.data).first()

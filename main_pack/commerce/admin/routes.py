@@ -245,97 +245,77 @@ def register_customer():
 		customerTypeChoices.append(obj)
 	form.customer_type.choices = customerTypeChoices
 
-	vendor_users = Users.query\
-		.filter_by(GCRecord = None, RpAccId = None).all()
-	vendorUserChoices=[]
-	for vendor_user in vendor_users:
-		obj = (vendor_user.UId,vendor_user.UName)
-		vendorUserChoices.append(obj)
-	form.vendor_user.choices = vendorUserChoices
+	users = Users.query.filter_by(GCRecord = None).all()
+	userChoices = []
+	for user in users:
+		obj = (user.UId,user.UName)
+		userChoices.append(obj)
+	form.user.choices = userChoices
 
 	if form.validate_on_submit():
 		try:
-			username = form.username.data
-			email = form.email.data
-			full_name = form.full_name.data
-			UShortName = (username[0]+username[-1]).upper()
+			data = {
+				"RpAccGuid": uuid.uuid4(),
+				"RpAccUName": form.username.data,
+				"RpAccUPass": form.password.data,
+				"RpAccName": form.full_name.data,
+				"RpAccEMail": form.email.data,
+				"RpAccTypeId": form.customer_type.data,
+				"RpAccAddress": form.address.data,
+				"RpAccMobilePhoneNumber": form.mobilePhone.data,
+				"RpAccHomePhoneNumber": form.homePhone.data,
+				"RpAccZipCode": form.zipCode.data,
+				"UId": form.user.data			
+			}
+
 			if Config.HASHED_PASSWORDS == True:
-				password = bcrypt.generate_password_hash(form.password.data).decode() 
-			else:
-				password = form.password.data
+				password = bcrypt.generate_password_hash(data["RpAccUPass"]).decode()
+				data["RpAccUPass"] = password
 
-			last_User = Users.query.order_by(Users.UId.desc()).first()
-			UId = last_User.UId+1
-			user = Users(
-				UId = UId,
-				UName=username,
-				UEmail=email,
-				UShortName=UShortName,
-				UPass=password,
-				UFullName=full_name,
-				UTypeId=5)
-
-			# get the regNum for RpAccount registration
 			try:
-				vendor = Users.query.get(form.vendor_user.data)
-				if vendor.UShortName:
-					reg_num = generate(UId=vendor.UId,RegNumTypeName='rp_code')
-					regNo = makeRegNo(vendor.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'')
-				else:
-					reg_num = generate(UId=user.UId,RegNumTypeName='rp_code')
-					regNo = makeRegNo(user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'')
+				reg_num = generate(UId=current_user.UId,RegNumTypeName='rp_code')
+				regNo = makeRegNo(current_user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'')
 			except Exception as ex:
 				print(ex)
 				regNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
 
-			last_RpAccId = Rp_acc.query.order_by(Rp_acc.RpAccId.desc()).first()
-			RpAccId = last_RpAccId.UId+1
-			rp_acc = Rp_acc(
-				RpAccId = RpAccId,
-				RpAccGuid = uuid.uuid4(),
-				RpAccUName=username,
-				RpAccUPass=password,
-				RpAccName=full_name,
-				RpAccEMail=email,
-				RpAccRegNo=regNo,
-				RpAccTypeId=form.customer_type.data,
-				RpAccAddress=form.address.data,
-				RpAccMobilePhoneNumber=form.mobilePhone.data,
-				RpAccHomePhoneNumber=form.homePhone.data,
-				RpAccZipCode=form.zipCode.data,
-				UId=form.vendor_user.data
-				)
+			data["RpAccRegNo"] = regNo
+
+			last_RpAcc = Rp_acc.query.order_by(Rp_acc.RpAccId.desc()).first()
+			RpAccId = last_RpAcc.RpAccId + 1
+			data["RpAccId"] = RpAccId
+
+			rp_acc = Rp_acc(**data)
 			db.session.add(rp_acc)
 			db.session.commit()
-
-			# assign the RpAccId to a User model
-			user.RpAccId = rp_acc.RpAccId
-			db.session.add(user)
 
 			if form.picture.data:
 				imageFile = save_image(imageForm=form.picture.data,module=os.path.join("uploads","commerce","Rp_acc"),id=rp_acc.RpAccId)
 				lastImage = Image.query.order_by(Image.ImgId.desc()).first()
 				ImgId = lastImage.ImgId+1
-				image = Image(
-					ImgId = ImgId,
-					ImgGuid = uuid.uuid4(),
-					FileName = imageFile['FileName'],
-					FilePath = imageFile['FilePath'],
-					RpAccId = rp_acc.RpAccId)
+				image_data = {
+					"ImgId": ImgId,
+					"ImgGuid": uuid.uuid4(),
+					"FileName": imageFile['FileName'],
+					"FilePath": imageFile['FilePath'],
+					"RpAccId": rp_acc.RpAccId
+				}
+				image = Image(**image_data)
 				db.session.add(image)
 
 			db.session.commit()
 
-			flash('{} '.format(username)+lazy_gettext('successfully saved'),'success')
+			flash(f'{data["RpAccUName"]} {lazy_gettext("successfully saved")}', 'success')
 			return redirect(url_for('commerce_admin.customers_table'))
 		except Exception as ex:
 			print(ex)
 			flash(lazy_gettext('Error occured, please try again.'),'danger')
 			return redirect(url_for('commerce_admin.register_customer'))
+
 	return render_template(
 		f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/register_customer.html",
 		url_prefix = url_prefix,
-		form=form,
+		form = form,
 		title = gettext('Register'))
 
 ################################
