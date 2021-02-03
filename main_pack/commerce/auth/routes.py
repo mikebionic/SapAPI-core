@@ -35,6 +35,7 @@ def login():
 	form = LoginForm()
 
 	if form.validate_on_submit():
+		print("validated")
 		try:
 			user = Rp_acc.query.filter_by(RpAccEMail = form.email.data, GCRecord = None).first()
 
@@ -42,6 +43,7 @@ def login():
 				raise Exception
 
 			if Config.HASHED_PASSWORDS == True:
+				print("using hashed")
 				password = bcrypt.check_password_hash(user.RpAccUPass, form.password.data)
 			else:
 				password = (user.RpAccUPass == form.password.data)

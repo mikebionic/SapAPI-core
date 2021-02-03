@@ -194,19 +194,6 @@ def customers_table():
 		title = gettext('Customers'))
 
 
-## !!! WARNING: Testing code
-@bp.route("/admin/customers/")
-# @login_required
-# @ui_admin_required
-def customers_json():
-	data = UiRpAccData([{"RpAccId": 3}])
-	data['rp_acc_statuses'] = rp_acc_statuses()
-	data['rp_acc_types'] = rp_acc_types()
-
-	return data
-## !!! WARNING: Testing code
-
-
 @bp.route("/admin/customer_details/<RpAccRegNo>")
 @login_required
 @ui_admin_required

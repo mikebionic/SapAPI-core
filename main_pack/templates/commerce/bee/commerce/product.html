@@ -1,12 +1,10 @@
 {% extends "commerce/bee/commerce/layout.html" %}
 
 {% block content %}
-<!-- Single Product Section Start -->
 <div class="product-section section mt-90 mb-90">
 	<div class="container">
 		<div class="row mb-90">
 			<div class="col-lg-6 col-12 mb-50">
-				<!-- Image -->
 				<div class="single-product-image thumb-right">
 
 					{% if resource.Images %}
@@ -35,9 +33,7 @@
 			</div>
 
 			<div class="col-lg-6 col-12 mb-50">
-				<!-- Content -->
 				<div class="single-product-content">
-					<!-- Category & Title -->
 					<div class="head-content">
 						<div class="category-title">
 							<a href="#" class="cat">{{ resource.ResCatName }}</a>
@@ -211,7 +207,7 @@
 										<div class="price-ratting">
 											<h5 class="price">
 												<div class="priceValue" ownerId="{{related_resource.ResId}}" value="{{related_resource.ResPriceValue}}">{{ related_resource.ResPriceValue }}</div>
-												<p>{{ related_resource.CurrencyCode }}</p>
+												<p class="tm_currency">{{ related_resource.CurrencyCode }}</p>
 											</h5>
 										</div>
 									</div>
