@@ -242,7 +242,7 @@ def register_token(token):
 			db.session.add(user)
 			db.session.commit()
 
-			flash(f"{username}, {lazy_gettext('your profile has been created!')}",'success')
+			flash("{}, {}".format(username, lazy_gettext('your profile has been created!')),'success')
 			session["model_type"] = "rp_acc"
 			login_user(user)
 			return redirect(url_for('commerce.commerce'))

@@ -319,7 +319,7 @@ def manage_rp():
 
 			db.session.commit()
 
-			flash(f'{data["RpAccUName"]} {lazy_gettext("successfully saved")}', 'success')
+			flash('{} {}'.format(data["RpAccUName"], lazy_gettext("successfully saved")), 'success')
 			return redirect(url_for('commerce_admin.rp_table'))
 		except Exception as ex:
 			print(f"{datetime.now()} | Admin rp_acc_manage Exception: {ex}")

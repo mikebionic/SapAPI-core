@@ -40,7 +40,7 @@ def ui_rating():
 			if rating:
 				response = jsonify({
 					"status": 'error',
-					"responseText": f"{gettext('Rating')} {gettext('already sent')}."
+					"responseText": "{} {}.".format(gettext('Rating'), gettext('already sent'))
 				})
 				return response
 
@@ -63,7 +63,7 @@ def ui_rating():
 
 			response = jsonify({
 				"status": 'updated',
-				"responseText": f"{gettext('Rating')} {gettext('successfully sent')}. {gettext('It will be shown after some time')}"
+				"responseText": "{} {}. {}".format(gettext('Rating'), gettext('successfully sent'), gettext('It will be shown after some time'))
 			})
 		
 		if request.method=="DELETE":
