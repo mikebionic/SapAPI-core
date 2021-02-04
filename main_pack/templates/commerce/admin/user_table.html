@@ -13,7 +13,7 @@
     <div class="card">
       <div class="card-header">
         <h4>{{_('Users')}}</h4>
-        <a href="{{ url_for('commerce_admin.register_user') }}" class="btn btn-outline-primary">
+        <a href="{{ url_for('commerce_admin.manage_user') }}" class="btn btn-outline-primary">
           <i data-feather="user-plus"></i> {{_("Add")}}
         </a>
       </div>
@@ -75,6 +75,7 @@
                     {{ user.UEmail if user.UEmail else '' }}
                   </td>
                   <td class="text-center">
+                    <a href="{{ url_for('commerce_admin.manage_user',id=user.UId) }}" class="btn btn-icon btn-info"><i class="fas fa-edit"></i></a>
                     <button class="btn btn-icon btn-danger deleteUserBtn" ownerId="{{ user.UId }}">
                       <i class="fas fa-trash-alt"></i>
                     </button>

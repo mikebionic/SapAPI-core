@@ -88,9 +88,7 @@ def collect_categories_query(
 		.options(
 			joinedload(Res_category.subcategory)\
 				.options(
-					joinedload(Res_category.subcategory)\
-						.options(
-							joinedload(Res_category.Resource))))
+					joinedload(Res_category.Resource)))
 
 	if showNullResourceCategory:
 		categories_query = categories_query\
@@ -564,32 +562,42 @@ def apiResourceInfo(
 
 @cache.cached(100, key_prefix="featured_resources")
 def apiFeaturedResCat_Resources():
-	featured_categories = collect_categories_query(IsMain = True)
+	featured_categories = collect_categories_query(
+		IsMain = True,
+		showNullResourceCategory = True)
+
 	featured_categories = featured_categories.all()
 
-	resource_models = []
 	if featured_categories:
 		featured_resources_query = collect_resources_query()
 		featured_resources_list = []
 
+		categories_data = {}
+		for category in featured_categories:
+			this_cat_categories = []
+			this_cat_categories.append(category.ResCatId)
+			if category.subcategory:
+				for subcategory in category.subcategory:
+					this_cat_categories.append(subcategory.ResCatId)
+
+			this_cat_categories = list(set(this_cat_categories))
+			this_cat_categories = [ResCatId for ResCatId in this_cat_categories]
+			categories_data[str(category.ResCatId)] = {}
+			categories_data[str(category.ResCatId)]["category_ids"] = this_cat_categories
+			categories_data[str(category.ResCatId)]["data"] = category.to_json_api()
+
 		for category in featured_categories:
 			resource_query = featured_resources_query\
-				.filter(Resource.ResCatId == category.ResCatId)\
+				.filter(Resource.ResCatId.in_(categories_data[str(category.ResCatId)]["category_ids"]))\
 				.order_by(Resource.CreatedDate.desc())\
 				.limit(Config.FEATURED_RESOURCE_AMOUNT)
 
 			resources = apiResourceInfo(resource_query = resource_query)
-			if resources["data"]:
-				for resource in resources["data"]:
-					featured_resources_list.append(resource)
+			categories_data[str(category.ResCatId)]["data"]["Resources"] = resources["data"]
 
 	data = []
-	if featured_categories:
-		for category in featured_categories:
-			featured_category = category.to_json_api()
-			resources_list = [resource for resource in featured_resources_list if resource["ResCatId"] == category.ResCatId if resource]
-			featured_category["Resources"] = resources_list
-			data.append(featured_category)
+	for category in featured_categories:
+		data.append(categories_data[str(category.ResCatId)]["data"])
 
 	res = {
 		"status": 1 if len(data) > 0 else 0,
