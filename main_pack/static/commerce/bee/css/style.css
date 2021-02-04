@@ -4526,7 +4526,7 @@ img.mfp-img {
      } }
   @media only screen and (max-width: 767px) {
     .hero-side-category {
-      width: 100%;
+      width: 180px;
       z-index: 9;
       margin-left: 0;
       /* position: relative; */
@@ -4557,7 +4557,8 @@ img.mfp-img {
         position: absolute; } }
     @media only screen and (max-width: 767px) {
       .hero-side-category nav.category-menu {
-        position: absolute !important; } }
+      width: auto;
+       } }
     @media only screen and (max-width: 767px) {
       .hero-side-category nav.category-menu > ul {
         max-height: 356px;
@@ -12220,7 +12221,7 @@ ul.link-widget li {
 @media ( min-width: 466px) and (max-width: 480px) {
   .mobile-menu .mean-bar .meanmenu-reveal span {
       /* position: absolute; */
-      top:10px
+      top:-14px
   }
 } 
 
