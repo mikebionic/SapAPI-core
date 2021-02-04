@@ -4557,7 +4557,7 @@ img.mfp-img {
         position: absolute; } }
     @media only screen and (max-width: 767px) {
       .hero-side-category nav.category-menu {
-      width: auto;
+      /* width: auto; */
        } }
     @media only screen and (max-width: 767px) {
       .hero-side-category nav.category-menu > ul {
@@ -12981,6 +12981,9 @@ ul.link-widget li {
   .ee-product .image .img{
     height: 100%;
   }
+  .menu-item-has-children{
+    display: block;
+  }
 }
 
 @media (max-width: 425px){
@@ -12989,7 +12992,7 @@ ul.link-widget li {
   }
 }
 @media (min-width: 426px) and (max-width: 768px){
-  .slick-initialized .slick-slide{
+  .big-image{
     height: 350px;
   }
 }
