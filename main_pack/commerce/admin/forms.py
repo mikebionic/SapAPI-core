@@ -53,7 +53,7 @@ class BrandForm(FlaskForm):
 	Image = FileField(validators=[FileAllowed(['jpg','png','img','gif','svg'])])
 
 
-class UserRegistrationForm(FlaskForm):
+class UserForm(FlaskForm):
 	username = StringField(validators=[DataRequired(),Length(min=2,max=60)])
 	email = StringField(validators=[DataRequired(),Email(),Length(max=225)])
 	full_name = StringField()
@@ -74,28 +74,26 @@ class UserRegistrationForm(FlaskForm):
 			raise ValidationError(lazy_gettext('That email is taken. Choose a different one!'))
 
 
-class CustomerRegistrationForm(FlaskForm):
+class RpAccForm(FlaskForm):
 	username = StringField(validators=[DataRequired(),Length(min=2,max=60)])
 	email = StringField(validators=[DataRequired(),Email(),Length(max=225)])
 	full_name = StringField()	
-	customer_type = SelectField(coerce=int)
+	rp_acc_type = SelectField(coerce=int)
 	user = SelectField(coerce=int)
 	address = StringField(validators=[Length(max=255)])
 	mobilePhone = StringField()
 	homePhone = StringField()
 	zipCode = StringField(validators=[Length(max=225)])
 	picture = FileField(validators=[FileAllowed(['jpg','png','img','svg','gif','bmp'])])
-	password = PasswordField(validators=[DataRequired()])
-	confirm_password = PasswordField(validators=[DataRequired(),EqualTo('password')])
+	password = StringField(validators=[DataRequired()])
+	confirm_password = StringField(validators=[DataRequired(),EqualTo('password')])
 
-	def validate_username(self,username):
-		rp_acc = Rp_acc.query.filter_by(RpAccUName=username.data).first()
-		user = Users.query.filter_by(UName=username.data).first()
-		if rp_acc or user:
-			raise ValidationError(lazy_gettext('That username is taken. Choose a different one!'))
+	# def validate_username(self,username):
+	# 	rp_acc = Rp_acc.query.filter_by(RpAccUName=username.data).first()
+	# 	if rp_acc:
+	# 		raise ValidationError(lazy_gettext('That username is taken. Choose a different one!'))
 		
-	def validate_email(self,email):
-		rp_acc = Rp_acc.query.filter_by(RpAccEMail=email.data).first()
-		user = Users.query.filter_by(UEmail=email.data).first()
-		if rp_acc or user:
-			raise ValidationError(lazy_gettext('That email is taken. Choose a different one!'))
+	# def validate_email(self,email):
+	# 	rp_acc = Rp_acc.query.filter_by(RpAccEMail=email.data).first()
+	# 	if rp_acc:
+	# 		raise ValidationError(lazy_gettext('That email is taken. Choose a different one!'))

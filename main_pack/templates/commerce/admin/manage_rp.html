@@ -6,10 +6,10 @@
       <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
         <div class="card card-primary">
           <div class="card-header">
-            <a href="{{ url_for('commerce_admin.customers_table') }}" class="btn btn-outline-primary">
+            <a href="{{ url_for('commerce_admin.rp_table') }}" class="btn btn-outline-primary">
               <i data-feather="chevron-left"></i>
             </a>
-            <h4>{{_('Register')}}</h4>
+            <h4>{{_('Customer')}}</h4>
           </div>
           <div class="card-body">
             <form action='' method="POST" enctype="multipart/form-data">
@@ -42,7 +42,7 @@
                 <div class="form-group col-6">
                   <label>{{_('Type')}}</label>
                   <div class="input-group">
-                    {{ form.customer_type(class="custom-select") }}
+                    {{ form.rp_acc_type(class="custom-select") }}
                   </div>
                 </div>
                 <div class="form-group col-6">
@@ -164,7 +164,7 @@
               <div class="row">
                 <div class="form-group col-6">
                   <label>{{_('Password')}}</label>
-                  {{ form.password(class="form-control",placeholder=_('Password')) }} 
+                  {{ form.password(class="form-control",placeholder=_('Password'),type="password") }} 
                   {% if form.password.errors %}
                     <div class="invalid-feedback">
                       {% for error in form.password.errors %}
@@ -175,7 +175,7 @@
                 </div>
                 <div class="form-group col-6">
                   <label>{{_('Confirm password')}}</label>
-                  {{ form.confirm_password(class="form-control",placeholder=_('Confirm password')) }} 
+                  {{ form.confirm_password(class="form-control",placeholder=_('Confirm password'),type="password") }} 
                   {% if form.confirm_password.errors %}
                     <div class="invalid-feedback">
                       {% for error in form.confirm_password.errors %}

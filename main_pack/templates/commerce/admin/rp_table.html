@@ -4,7 +4,6 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/prism/prism.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/datatables/datatables.min.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css') }}">
-
 {% endblock %}
 
 {% block content %}
@@ -13,7 +12,7 @@
     <div class="card">
       <div class="card-header">
         <h4>{{_('Customers')}}</h4>
-        <a href="{{ url_for('commerce_admin.register_customer') }}" class="btn btn-outline-primary">
+        <a href="{{ url_for('commerce_admin.manage_rp') }}" class="btn btn-outline-primary">
           <i data-feather="user-plus"></i> {{_("Add")}}
         </a>
       </div>
@@ -26,6 +25,7 @@
                 <th class="text-center">{{_('Reg No')}}</th>
                 <th class="text-center">{{_('Image')}}</th>
                 <th class="text-center">{{_('Name')}}</th>
+                <th class="text-center">{{_('Full name')}}</th>
                 <th class="text-center">{{_('Status')}}</th>
                 <th class="text-center">{{_('Type')}}</th>
                 <th class="text-center">{{_('Action')}}</th>
@@ -40,10 +40,11 @@
                     <img loading="lazy" src="{{ rp_acc.FilePathS if rp_acc.FilePathS else url_for('static', filename='commerce/admin/img/no_avatar.jpg') }}" width="40">
                   </td>
                   <td class="text-center">
-                    <a href="{{ url_for('commerce_admin.customer_details',RpAccRegNo=rp_acc.RpAccRegNo)}}" class="btn btn-outline-primary">
-                      {{ rp_acc.RpAccName if rp_acc.RpAccName else rp_acc.RpAccUName }}
+                    <a href="{{ url_for('commerce_admin.rp_details',RpAccRegNo=rp_acc.RpAccRegNo)}}" class="btn btn-outline-primary">
+                      {{ rp_acc.RpAccUName if rp_acc.RpAccUName }}
                     </a>
                   </td>
+                  <td class="text-center">{{ rp_acc.RpAccName if rp_acc.RpAccName else '' }}</td>
                   <td class="text-center">
                     <div class="form-group">
                       <div class="input-group">
@@ -88,6 +89,7 @@
                     </div>
                   </td>
                   <td class="text-center">
+                    <a href="{{ url_for('commerce_admin.manage_rp',id=rp_acc.RpAccId) }}" class="btn btn-icon btn-info"><i class="fas fa-edit"></i></a>
                     <button class="btn btn-icon btn-danger deleteCustomerBtn" ownerId="{{ rp_acc.RpAccId }}">
                       <i class="fas fa-trash-alt"></i>
                     </button>

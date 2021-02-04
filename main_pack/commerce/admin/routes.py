@@ -58,8 +58,8 @@ from main_pack.models.users.models import (
 
 from main_pack.commerce.admin.users_utils import UiRpAccData, UiUsersData
 from main_pack.commerce.admin.forms import (
-	UserRegistrationForm,
-	CustomerRegistrationForm,
+	UserForm,
+	RpAccForm,
 	BrandForm
 )
 # / users and customers /
@@ -130,8 +130,7 @@ def category_table():
 					icons.append(iconInfo)
 			category_icons[folder]=icons
 		except Exception as ex:
-			print(ex)
-			print("Err: not a folder")
+			print(f"{datetime.now()} | Admin category_table Exception: {ex}")
 
 	data['category_icons']=category_icons
 	categories = Res_category.query.filter_by(GCRecord = None).all()
@@ -180,24 +179,24 @@ def user_types():
 
 ##### customers table and customers information ######
 
-@bp.route("/admin/customers_table")
+@bp.route("/admin/rp_table")
 @login_required
 @ui_admin_required
-def customers_table():
+def rp_table():
 	data = UiRpAccData()
 	data['rp_acc_statuses'] = rp_acc_statuses()
 	data['rp_acc_types'] = rp_acc_types()
 	return render_template(
-		f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/customers_table.html",
+		f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/rp_table.html",
 		url_prefix = url_prefix,
 		**data,
 		title = gettext('Customers'))
 
 
-@bp.route("/admin/customer_details/<RpAccRegNo>")
+@bp.route("/admin/rp_details/<RpAccRegNo>")
 @login_required
 @ui_admin_required
-def customer_details(RpAccRegNo):
+def rp_details(RpAccRegNo):
 	try:
 		rp_acc = Rp_acc.query\
 			.filter_by(RpAccRegNo = RpAccRegNo, GCRecord = None)\
@@ -222,28 +221,39 @@ def customer_details(RpAccRegNo):
 			orders_list.append(order)
 		orderInvRes = UiOInvData(orders_list)
 	except Exception as ex:
-		print(ex)
-		return redirect(url_for('commerce_admin.customers_table'))
+		print(f"{datetime.now()} | Admin rp_acc_details Exception: {ex}")
+		return redirect(url_for('commerce_admin.rp_table'))
 
 	return render_template(
-		f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/customer_details.html",
+		f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/rp_details.html",
 		url_prefix = url_prefix,
 		**data,**orderInvRes,
 		title = gettext('Customer details'))
 
 
-@bp.route("/admin/register_customer",methods=['GET','POST'])
+@bp.route("/admin/manage_rp",methods=['GET','POST'])
 @login_required
 @ui_admin_required
-def register_customer():
-	form = CustomerRegistrationForm()
+def manage_rp():
 
-	customer_types_list = rp_acc_types()
+	RpAccId = request.args.get('id')
+	manage_mode = "create"
+	form = RpAccForm()
+	rp_acc = None
+
+	if RpAccId:
+		rp_acc = Rp_acc.query\
+			.filter_by(GCRecord = None, RpAccId = RpAccId)\
+			.first()
+		if rp_acc:
+			manage_mode = "update"
+
+	rp_acc_types_list = rp_acc_types()
 	customerTypeChoices=[]
-	for customer_type in customer_types_list:
-		obj = (customer_type['RpAccTypeId'],customer_type['RpAccTypeName'])
+	for rp_acc_type in rp_acc_types_list:
+		obj = (rp_acc_type['RpAccTypeId'],rp_acc_type['RpAccTypeName'])
 		customerTypeChoices.append(obj)
-	form.customer_type.choices = customerTypeChoices
+	form.rp_acc_type.choices = customerTypeChoices
 
 	users = Users.query.filter_by(GCRecord = None).all()
 	userChoices = []
@@ -255,12 +265,11 @@ def register_customer():
 	if form.validate_on_submit():
 		try:
 			data = {
-				"RpAccGuid": uuid.uuid4(),
 				"RpAccUName": form.username.data,
 				"RpAccUPass": form.password.data,
 				"RpAccName": form.full_name.data,
 				"RpAccEMail": form.email.data,
-				"RpAccTypeId": form.customer_type.data,
+				"RpAccTypeId": form.rp_acc_type.data,
 				"RpAccAddress": form.address.data,
 				"RpAccMobilePhoneNumber": form.mobilePhone.data,
 				"RpAccHomePhoneNumber": form.homePhone.data,
@@ -272,21 +281,27 @@ def register_customer():
 				password = bcrypt.generate_password_hash(data["RpAccUPass"]).decode()
 				data["RpAccUPass"] = password
 
-			try:
-				reg_num = generate(UId=current_user.UId,RegNumTypeName='rp_code')
-				regNo = makeRegNo(current_user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'')
-			except Exception as ex:
-				print(ex)
-				regNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
+			if manage_mode == "update":
+				rp_acc.update(**data)
 
-			data["RpAccRegNo"] = regNo
+			else:
+				try:
+					reg_num = generate(UId=current_user.UId,RegNumTypeName='rp_code')
+					regNo = makeRegNo(current_user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'')
+				except Exception as ex:
+					print(f"{datetime.now()} | Admin rp_acc_manage regNo gen Exception: {ex}")
+					regNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
 
-			last_RpAcc = Rp_acc.query.order_by(Rp_acc.RpAccId.desc()).first()
-			RpAccId = last_RpAcc.RpAccId + 1
-			data["RpAccId"] = RpAccId
+				data["RpAccRegNo"] = regNo
+				data["RpAccGuid"] = uuid.uuid4()
 
-			rp_acc = Rp_acc(**data)
-			db.session.add(rp_acc)
+				last_RpAcc = Rp_acc.query.order_by(Rp_acc.RpAccId.desc()).first()
+				RpAccId = last_RpAcc.RpAccId + 1
+				data["RpAccId"] = RpAccId
+
+				rp_acc = Rp_acc(**data)
+				db.session.add(rp_acc)
+
 			db.session.commit()
 
 			if form.picture.data:
@@ -306,30 +321,43 @@ def register_customer():
 			db.session.commit()
 
 			flash(f'{data["RpAccUName"]} {lazy_gettext("successfully saved")}', 'success')
-			return redirect(url_for('commerce_admin.customers_table'))
+			return redirect(url_for('commerce_admin.rp_table'))
 		except Exception as ex:
-			print(ex)
+			print(f"{datetime.now()} | Admin rp_acc_manage Exception: {ex}")
 			flash(lazy_gettext('Error occured, please try again.'),'danger')
-			return redirect(url_for('commerce_admin.register_customer'))
+			return redirect(url_for('commerce_admin.manage_rp'))
+
+	if rp_acc:
+		form.username.data = rp_acc.RpAccUName
+		form.password.data = rp_acc.RpAccUPass
+		form.confirm_password.data = rp_acc.RpAccUPass
+		form.full_name.data = rp_acc.RpAccName
+		form.email.data = rp_acc.RpAccEMail
+		form.rp_acc_type.data = rp_acc.RpAccTypeId
+		form.address.data = rp_acc.RpAccAddress
+		form.mobilePhone.data = rp_acc.RpAccMobilePhoneNumber
+		form.homePhone.data = rp_acc.RpAccHomePhoneNumber
+		form.zipCode.data = rp_acc.RpAccZipCode
+		form.user.data = rp_acc.UId
 
 	return render_template(
-		f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/register_customer.html",
+		f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/manage_rp.html",
 		url_prefix = url_prefix,
 		form = form,
-		title = gettext('Register'))
+		title = gettext('Customer'))
 
 ################################
 
 ###### users and user information #####
 
-@bp.route("/admin/users_table")
+@bp.route("/admin/user_table")
 @login_required
 @ui_admin_required
-def users_table():
+def user_table():
 	data = UiUsersData()
 	data['user_types'] = user_types()
 	return render_template(
-		f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/users_table.html",
+		f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/user_table.html",
 		url_prefix = url_prefix,
 		**data,
 		title = gettext('Users'))
@@ -354,8 +382,8 @@ def user_details(UId):
 		data['rp_acc_statuses'] = rp_acc_statuses()
 		data['rp_acc_types'] = rp_acc_types()
 	except Exception as ex:
-		print(ex)
-		return redirect(url_for('commerce_admin.users_table'))
+		print(f"{datetime.now()} | Admin user_details Exception: {ex}")
+		return redirect(url_for('commerce_admin.user_table'))
 	return render_template(
 		f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/user_details.html",
 		url_prefix = url_prefix,
@@ -363,11 +391,11 @@ def user_details(UId):
 		title = gettext('Customer details'))
 
 
-@bp.route("/admin/register_user",methods=['GET','POST'])
+@bp.route("/admin/manage_user",methods=['GET','POST'])
 @login_required
 @ui_admin_required
-def register_user():
-	form = UserRegistrationForm()
+def manage_user():
+	form = UserForm()
 	user_types_list = user_types()
 	userTypeChoices=[]
 	for user_type in user_types_list:
@@ -414,13 +442,13 @@ def register_user():
 			db.session.commit()
 
 			flash('{} '.format(username)+lazy_gettext('successfully saved'),'success')
-			return redirect(url_for('commerce_admin.users_table'))
+			return redirect(url_for('commerce_admin.user_table'))
 		except Exception as ex:
-			print(ex)
+			print(f"{datetime.now()} | Admin user_manage Exception: {ex}")
 			flash(lazy_gettext('Error occured, please try again.'),'danger')
-			return redirect(url_for('commerce_admin.register_user'))
+			return redirect(url_for('commerce_admin.manage_user'))
 	return render_template(
-		f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/register_user.html",
+		f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/manage_user.html",
 		url_prefix = url_prefix,
 		form=form,
 		title = gettext('Register'))
@@ -541,7 +569,7 @@ def brands_table():
 @login_required
 @ui_admin_required
 def manage_brand():
-	BrandId = request.args.get('brandId')
+	BrandId = request.args.get('id')
 	manage_mode = "create"
 	form = BrandForm()
 	brand = None
@@ -591,7 +619,7 @@ def manage_brand():
 			flash('{} '.format(brand.BrandName)+lazy_gettext('successfully saved'),'success')
 			return redirect(url_for('commerce_admin.brands_table'))
 		except Exception as ex:
-			print(ex)
+			print(f"{datetime.now()} | Admin manage_brand Exception: {ex}")
 			flash(lazy_gettext('Error occured, please try again.'),'danger')
 			return redirect(url_for('commerce_admin.manage_brand'))
 
@@ -611,8 +639,6 @@ def manage_brand():
 		url_prefix = url_prefix,
 		form=form,
 		title = gettext('Brand'))
-
-
 
 
 @bp.route("/admin/rating_table")

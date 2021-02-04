@@ -25,14 +25,6 @@ def ui_wishlist():
 	RpAccId = current_user.RpAccId
 	try:
 		if request.method =="POST":
-			# # check for presense of rp_acc (optional step)
-			# rp_acc = Rp_acc.query\
-			# 	.filter(and_(Rp_acc.GCRecord=='' or Rp_acc.GCRecord==None),\
-			# 		Rp_acc.RpAccId==RpAccId).first()
-			# if rp_acc is None:
-			# 	raise Exception
-
-			# check for presense of wish
 			wish = Wish.query\
 				.filter_by(GCRecord = None, ResId = ResId, RpAccId = RpAccId)\
 				.first()
@@ -43,7 +35,6 @@ def ui_wishlist():
 			resource = Resource.query\
 				.filter_by(GCRecord = None, ResId = ResId)\
 				.first()
-			# avoid insertion of Deleted or null resource
 			if resource is None:
 				raise Exception
 			

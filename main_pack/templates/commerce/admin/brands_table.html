@@ -49,7 +49,7 @@
 											<img loading="lazy" class="img-fluid" src="{{brand.FilePath if brand.FilePath else url_for('static', filename='commerce/admin/ICONS/surface1.svg') }}" data-toggle="modal" data-target="#catIconsModal">
 										</td>
 										<td>
-											<a href="{{ url_for('commerce_admin.manage_brand',brandId=brand.BrandId) }}" class="btn btn-icon btn-info"><i class="fas fa-edit"></i></a>
+											<a href="{{ url_for('commerce_admin.manage_brand',id=brand.BrandId) }}" class="btn btn-icon btn-info"><i class="fas fa-edit"></i></a>
 											<button class="btn btn-icon btn-danger deleteBrandBtn" ownerId="{{ brand.BrandId }}"><i class="fas fa-trash-alt"></i></button>
 										</td>
 										<td class="text-center">{{brand.BrandLink1}}</td>

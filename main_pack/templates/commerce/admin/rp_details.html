@@ -14,7 +14,7 @@
   <div>
     <div class="card">
       <div class="card-header">
-        <a href="{{ url_for('commerce_admin.customers_table') }}" class="btn btn-outline-primary">
+        <a href="{{ url_for('commerce_admin.rp_table') }}" class="btn btn-outline-primary">
           <i data-feather="chevron-left"></i>
         </a>
         <h4>{{_('Customer details')}}</h4>
@@ -44,15 +44,15 @@
                       <small>{{_('Registered date')}}: {{rp_acc.CreatedDate if rp_acc.CreatedDate else ''}}</small>
                     </div>
                     <div class="columns">
-                      <div class="column is-12">
-                        <h3 style="text-align: center;">{{_('Vendor')}}</h3>
-                        <div class="info-block" style="text-align: center;">
+                      <div class="column is-12" style="text-align: left;">
+                        <h6>{{_('Related user')}}</h6>
+                        <div class="info-block">
                           <span>{{_('Email')}}: {{rp_acc.Rp_acc_vendor.UEmail if rp_acc.Rp_acc_vendor.UEmail else ''}}</span>
                         </div>
-                        <div class="info-block" style="text-align: center;">
+                        <div class="info-block">
                           <span class="label-value">{{_('Name')}}: {{rp_acc.Rp_acc_vendor.UName}}</span>
                         </div>
-                        <div class="info-block" style="text-align: center;">
+                        <div class="info-block">
                           <span class="label-value">{{_('Full name')}}: {{rp_acc.Rp_acc_vendor.UFullName if rp_acc.Rp_acc_vendor.UFullName else ''}}</span>
                         </div>
                       </div>

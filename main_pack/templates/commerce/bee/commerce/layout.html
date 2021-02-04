@@ -106,18 +106,6 @@
                     </a>
                   </li>
 
-            <!--       <li class="menu-item-has-children">
-                    <a href="category-2.html">Phones &amp; Tablets</a>
-                    <ul class="category-mega-menu" style="display: none;">
-                      <li><a href="category-1.html">Samsome</a></li>
-                      <li><a href="category-2.html">GL Stylus</a></li>
-                      <li><a href="category-1.html">Syphony</a></li>
-                      <li><a href="category-1.html">Samsome</a></li>
-                      <li><a href="category-2.html">GL Stylus</a></li>
-                      <li><a href="category-1.html">Syphony</a></li>
-                    </ul>
-                  </li>
- -->
                   {% for category in categories %}
                     <li class="{{ 'menu-item-has-children' if category.Categories }}">
                       <a href="{{ url_for('commerce.v_grid',category = category.ResCatId) }}">
