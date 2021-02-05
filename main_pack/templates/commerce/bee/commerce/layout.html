@@ -115,7 +115,7 @@
                       {% if category.Categories %}
                       <ul class="category-mega-menu" style="display: none;">
                         {% for category in category.Categories %}
-                          <li><a href="{{url_for('commerce.v_grid',category = category.ResCatId)}}">{{category.ResCatName}}</a></li>
+                          <li><a href="{{url_for('commerce.v_grid',category = category.ResCatId)}}"><img class="img-fluid" src="{{ category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static', filename='commerce/bee/images/icons/category.svg') }}" style="width: 25px; margin-right: 7px;">{{category.ResCatName}}</a></li>
                         {% endfor %}
                       </ul>
                       {% endif %}
