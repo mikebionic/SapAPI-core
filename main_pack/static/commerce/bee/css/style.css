@@ -4526,7 +4526,7 @@ img.mfp-img {
      } }
   @media only screen and (max-width: 767px) {
     .hero-side-category {
-      width: 190px;
+      width: 230px;
       z-index: 9;
       margin-left: 0;
       /* position: relative; */
@@ -4562,7 +4562,9 @@ img.mfp-img {
     @media only screen and (max-width: 767px) {
       .hero-side-category nav.category-menu > ul {
         max-height: 356px;
-        overflow-y: auto; } }
+        overflow-y: auto; 
+        overflow-x: hidden;
+      } }
     @media only screen and (max-width: 479px) {
       .hero-side-category nav.category-menu > ul {
         max-height: 356px;
