@@ -1,104 +1,198 @@
 # Translations template for PROJECT.
-# Copyright (C) 2020 ORGANIZATION
+# Copyright (C) 2021 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-10-11 00:48+0500\n"
+"POT-Creation-Date: 2021-02-04 19:25+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.8.0\n"
+"Generated-By: Babel 2.9.0\n"
 
-#: commerce/admin/images_setup.py:52 templates/commerce/admin/layout.html:101
+#: __init__.py:31
+msgid "Login the system!"
+msgstr ""
+
+#: api/auth/utils.py:104 api/auth/utils.py:126 commerce/auth/utils.py:36
+msgid "Password reset request"
+msgstr ""
+
+#: api/commerce/pagination_utils.py:52 api/commerce/pagination_utils.py:331
+msgid "Newest"
+msgstr ""
+
+#: api/commerce/pagination_utils.py:57 api/commerce/pagination_utils.py:336
+msgid "Oldest"
+msgstr ""
+
+#: api/commerce/pagination_utils.py:62 api/commerce/pagination_utils.py:341
+msgid "Price: high to low"
+msgstr ""
+
+#: api/commerce/pagination_utils.py:67 api/commerce/pagination_utils.py:346
+msgid "Price: low to high"
+msgstr ""
+
+#: api/commerce/pagination_utils.py:72
+msgid "Rated"
+msgstr ""
+
+#: api/commerce/pagination_utils.py:77 api/commerce/pagination_utils.py:82
+#: commerce/admin/routes.py:670 commerce/admin/ui_properties.py:89
+#: templates/commerce/admin/manage_brand.html:12
+#: templates/commerce/admin/resource_edit.html:25
+msgid "Brand"
+msgstr ""
+
+#: api/commerce/pagination_utils.py:77 api/commerce/pagination_utils.py:87
+msgid "ascending"
+msgstr ""
+
+#: api/commerce/pagination_utils.py:82 api/commerce/pagination_utils.py:92
+msgid "descending"
+msgstr ""
+
+#: api/commerce/pagination_utils.py:87 api/commerce/pagination_utils.py:92
+#: commerce/admin/ui_category.py:33 commerce/admin/ui_category.py:42
+#: commerce/admin/ui_category.py:62
+#: templates/commerce/admin/add_product.html:68
+#: templates/commerce/admin/resources_table.html:31
+#: templates/commerce/bee/users/wishlist.html:45
+msgid "Category"
+msgstr ""
+
+#: commerce/admin/images_setup.py:56
+msgid "Company logo successfully uploaded!"
+msgstr ""
+
+#: commerce/admin/images_setup.py:59 templates/commerce/admin/layout.html:102
 #: templates/commerce/admin/logo_setup.html:14
 msgid "Company logo"
 msgstr ""
 
-#: commerce/admin/images_setup.py:132 commerce/admin/images_setup.py:172
-#: templates/commerce/admin/layout.html:102
+#: commerce/admin/images_setup.py:143 commerce/admin/images_setup.py:184
+#: templates/commerce/admin/layout.html:103
 msgid "Sliders"
 msgstr ""
 
-#: commerce/admin/routes.py:67 templates/commerce/admin/layout.html:79
+#: commerce/admin/images_setup.py:179
+msgid "Slider picture successfully uploaded!"
+msgstr ""
+
+#: commerce/admin/images_setup.py:314
+msgid "Resource picture"
+msgstr ""
+
+#: commerce/admin/images_setup.py:314
+msgid "successfully uploaded!"
+msgstr ""
+
+#: commerce/admin/routes.py:95 templates/commerce/admin/layout.html:79
 msgid "Dashboard"
 msgstr ""
 
-#: commerce/admin/routes.py:76 commerce/admin/ui_company.py:30
+#: commerce/admin/routes.py:107 commerce/admin/ui_company.py:30
 #: templates/commerce/admin/company.html:13
 #: templates/commerce/admin/layout.html:87
 msgid "Company"
 msgstr ""
 
-#: commerce/admin/routes.py:111 templates/commerce/admin/category_table.html:13
+#: commerce/admin/routes.py:144 templates/commerce/admin/category_table.html:13
 #: templates/commerce/admin/layout.html:88
 msgid "Category table"
 msgstr ""
 
-#: commerce/admin/routes.py:121
+#: commerce/admin/routes.py:157
 #: templates/commerce/admin/resources_table.html:18
 msgid "Product table"
 msgstr ""
 
-#: commerce/admin/routes.py:157
-#: templates/commerce/admin/customers_table.html:15
+#: commerce/admin/routes.py:193 templates/commerce/admin/layout.html:127
+#: templates/commerce/admin/rp_table.html:14
 #: templates/commerce/admin/user_details.html:30
 msgid "Customers"
 msgstr ""
 
-#: commerce/admin/routes.py:187 commerce/admin/routes.py:323
-#: templates/commerce/admin/customer_details.html:66
+#: commerce/admin/routes.py:231 commerce/admin/routes.py:388
+#: templates/commerce/admin/rp_details.html:20
+#: templates/commerce/admin/rp_details.html:66
+#: templates/commerce/admin/user_details.html:20
 #: templates/commerce/admin/user_details.html:52
 msgid "Customer details"
 msgstr ""
 
-#: commerce/admin/routes.py:285 commerce/admin/routes.py:381
-#: commerce/auth/routes.py:84 commerce/auth/routes.py:162
-#: templates/commerce/admin/register_customer.html:12
-#: templates/commerce/admin/register_user.html:12
-#: templates/commerce/bee/auth/login.html:34
-#: templates/commerce/bee/auth/register_request.html:14
-#: templates/commerce/bee/auth/register_token.html:14
-#: templates/commerce/bee/commerce/layout.html:88
-msgid "Register"
+#: commerce/admin/routes.py:322 commerce/admin/routes.py:466
+#: commerce/admin/routes.py:648 commerce/admin/ui_barcode.py:32
+#: commerce/admin/ui_category.py:33 commerce/admin/ui_images.py:97
+#: commerce/admin/ui_price.py:67 commerce/admin/ui_properties.py:35
+#: commerce/admin/ui_properties.py:62 commerce/admin/ui_properties.py:89
+#: commerce/admin/ui_properties.py:141 commerce/admin/ui_properties.py:179
+#: commerce/admin/ui_resource.py:86 commerce/admin/ui_sliders.py:44
+#: commerce/admin/ui_translations.py:37 commerce/commerce/ui_cart.py:69
+#: commerce/commerce/ui_cart.py:94 commerce/commerce/ui_cart.py:123
+#: commerce/commerce/ui_cart.py:149 commerce/commerce/ui_wishlist.py:50
+msgid "successfully saved"
 msgstr ""
 
-#: commerce/admin/routes.py:298 templates/commerce/admin/users_table.html:15
+#: commerce/admin/routes.py:326 commerce/admin/routes.py:470
+#: commerce/admin/routes.py:652 commerce/auth/routes.py:252
+msgid "Error occured, please try again."
+msgstr ""
+
+#: commerce/admin/routes.py:346 templates/commerce/admin/manage_rp.html:12
+#: templates/commerce/admin/order_inv_lines.html:95
+#: templates/commerce/admin/order_invoices.html:38
+#: templates/commerce/admin/rating_table.html:33
+#: templates/commerce/admin/rp_details.html:170
+msgid "Customer"
+msgstr ""
+
+#: commerce/admin/routes.py:360 templates/commerce/admin/user_table.html:15
 msgid "Users"
 msgstr ""
 
-#: commerce/admin/routes.py:403 commerce/admin/routes.py:433
-#: templates/commerce/admin/layout.html:113
+#: commerce/admin/routes.py:485 commerce/auth/routes.py:176
+#: commerce/auth/routes.py:260 templates/commerce/bee/auth/login.html:50
+#: templates/commerce/bee/auth/register_request.html:34
+#: templates/commerce/bee/auth/register_request.html:47
+#: templates/commerce/bee/auth/register_token.html:34
+#: templates/commerce/bee/auth/register_token.html:55
+#: templates/commerce/bee/commerce/layout.html:72
+msgid "Register"
+msgstr ""
+
+#: commerce/admin/routes.py:516 commerce/admin/routes.py:549
+#: templates/commerce/admin/layout.html:114
 msgid "Order invoices"
 msgstr ""
 
-#: commerce/admin/routes.py:443
+#: commerce/admin/routes.py:562
 msgid "Add product"
 msgstr ""
 
-#: commerce/admin/routes.py:451 commerce/admin/routes.py:459
-#: templates/commerce/admin/layout.html:106
-#: templates/commerce/admin/layout.html:109
+#: commerce/admin/routes.py:572 commerce/admin/routes.py:582
+#: templates/commerce/admin/layout.html:107
+#: templates/commerce/admin/layout.html:110
 msgid "Sale reports"
 msgstr ""
 
-#: commerce/admin/routes.py:468 templates/commerce/admin/add_product.html:201
+#: commerce/admin/routes.py:594 templates/commerce/admin/add_product.html:201
 #: templates/commerce/admin/layout.html:89
 msgid "Brands"
 msgstr ""
 
-#: commerce/admin/routes.py:536 commerce/admin/ui_properties.py:89
-#: templates/commerce/admin/manage_brand.html:12
-#: templates/commerce/admin/resource_edit.html:25
-#: templates/commerce/bee/commerce/v_grid.html:19
-msgid "Brand"
+#: commerce/admin/routes.py:703 commerce/admin/ui_rating.py:31
+#: commerce/admin/ui_rating.py:44 commerce/commerce/ui_rating.py:43
+#: commerce/commerce/ui_rating.py:66 commerce/commerce/ui_rating.py:80
+msgid "Rating"
 msgstr ""
 
 #: commerce/admin/ui_barcode.py:32 commerce/admin/ui_barcode.py:44
@@ -109,59 +203,40 @@ msgstr ""
 msgid "Barcode"
 msgstr ""
 
-#: commerce/admin/ui_barcode.py:32 commerce/admin/ui_category.py:33
-#: commerce/admin/ui_images.py:96 commerce/admin/ui_price.py:67
-#: commerce/admin/ui_properties.py:35 commerce/admin/ui_properties.py:62
-#: commerce/admin/ui_properties.py:89 commerce/admin/ui_properties.py:141
-#: commerce/admin/ui_properties.py:179 commerce/admin/ui_resource.py:86
-#: commerce/admin/ui_sliders.py:44 commerce/admin/ui_translations.py:37
-#: commerce/commerce/ui_cart.py:63 commerce/commerce/ui_cart.py:88
-#: commerce/commerce/ui_cart.py:117 commerce/commerce/ui_cart.py:143
-#: commerce/commerce/ui_rating.py:65 commerce/commerce/ui_wishlist.py:59
-msgid "successfully saved"
-msgstr ""
-
 #: commerce/admin/ui_barcode.py:44 commerce/admin/ui_category.py:42
-#: commerce/admin/ui_invoices.py:50 commerce/admin/ui_invoices.py:147
-#: commerce/admin/ui_sliders.py:54 commerce/admin/ui_translations.py:49
-#: commerce/admin/ui_users_customers.py:35
+#: commerce/admin/ui_invoices.py:51 commerce/admin/ui_invoices.py:148
+#: commerce/admin/ui_rating.py:31 commerce/admin/ui_sliders.py:54
+#: commerce/admin/ui_translations.py:49 commerce/admin/ui_users_customers.py:35
 #: commerce/admin/ui_users_customers.py:109
 msgid "successfully updated"
 msgstr ""
 
 #: commerce/admin/ui_barcode.py:51 commerce/admin/ui_category.py:68
-#: commerce/admin/ui_company.py:36 commerce/admin/ui_images.py:104
-#: commerce/admin/ui_invoices.py:56 commerce/admin/ui_invoices.py:153
-#: commerce/admin/ui_invoices.py:186 commerce/admin/ui_price.py:101
+#: commerce/admin/ui_company.py:36 commerce/admin/ui_images.py:105
+#: commerce/admin/ui_invoices.py:57 commerce/admin/ui_invoices.py:154
+#: commerce/admin/ui_invoices.py:187 commerce/admin/ui_price.py:101
 #: commerce/admin/ui_properties.py:42 commerce/admin/ui_properties.py:69
 #: commerce/admin/ui_properties.py:96 commerce/admin/ui_properties.py:120
 #: commerce/admin/ui_properties.py:147 commerce/admin/ui_properties.py:185
-#: commerce/admin/ui_resource.py:122 commerce/admin/ui_sliders.py:70
-#: commerce/admin/ui_translations.py:56 commerce/admin/ui_users_customers.py:87
-#: commerce/admin/ui_users_customers.py:145 commerce/commerce/ui_cart.py:70
-#: commerce/commerce/ui_cart.py:96 commerce/commerce/ui_cart.py:125
-#: commerce/commerce/ui_cart.py:151 commerce/commerce/ui_cart.py:308
-#: commerce/commerce/ui_rating.py:86 commerce/commerce/ui_wishlist.py:80
+#: commerce/admin/ui_rating.py:50 commerce/admin/ui_resource.py:122
+#: commerce/admin/ui_sliders.py:70 commerce/admin/ui_translations.py:56
+#: commerce/admin/ui_users_customers.py:87
+#: commerce/admin/ui_users_customers.py:145 commerce/commerce/ui_cart.py:76
+#: commerce/commerce/ui_cart.py:102 commerce/commerce/ui_cart.py:131
+#: commerce/commerce/ui_cart.py:157 commerce/commerce/ui_cart.py:360
+#: commerce/commerce/ui_rating.py:86 commerce/commerce/ui_wishlist.py:71
 msgid "Unknown error!"
 msgstr ""
 
 #: commerce/admin/ui_barcode.py:61 commerce/admin/ui_category.py:62
-#: commerce/admin/ui_images.py:115 commerce/admin/ui_invoices.py:178
+#: commerce/admin/ui_images.py:116 commerce/admin/ui_invoices.py:179
 #: commerce/admin/ui_properties.py:114 commerce/admin/ui_properties.py:158
-#: commerce/admin/ui_properties.py:196 commerce/admin/ui_sliders.py:64
-#: commerce/admin/ui_translations.py:66 commerce/admin/ui_users_customers.py:81
-#: commerce/admin/ui_users_customers.py:139 commerce/commerce/ui_rating.py:79
-#: commerce/commerce/ui_wishlist.py:73
+#: commerce/admin/ui_properties.py:196 commerce/admin/ui_rating.py:44
+#: commerce/admin/ui_sliders.py:64 commerce/admin/ui_translations.py:66
+#: commerce/admin/ui_users_customers.py:81
+#: commerce/admin/ui_users_customers.py:139 commerce/commerce/ui_rating.py:80
+#: commerce/commerce/ui_wishlist.py:64
 msgid "successfully deleted"
-msgstr ""
-
-#: commerce/admin/ui_category.py:33 commerce/admin/ui_category.py:42
-#: commerce/admin/ui_category.py:62
-#: templates/commerce/admin/add_product.html:68
-#: templates/commerce/admin/resources_table.html:31
-#: templates/commerce/bee/commerce/v_grid.html:15
-#: templates/commerce/bee/users/wishlist.html:45
-msgid "Category"
 msgstr ""
 
 #: commerce/admin/ui_category.py:54
@@ -177,16 +252,16 @@ msgstr ""
 msgid "successfully updated!"
 msgstr ""
 
-#: commerce/admin/ui_images.py:96 commerce/admin/ui_images.py:115
-#: templates/commerce/admin/customers_table.html:27
+#: commerce/admin/ui_images.py:97 commerce/admin/ui_images.py:116
 #: templates/commerce/admin/resources_table.html:28
+#: templates/commerce/admin/rp_table.html:26
 #: templates/commerce/admin/user_details.html:120
-#: templates/commerce/admin/users_table.html:27
+#: templates/commerce/admin/user_table.html:27
 #: templates/commerce/bee/commerce/cart.html:15
 msgid "Image"
 msgstr ""
 
-#: commerce/admin/ui_invoices.py:50
+#: commerce/admin/ui_invoices.py:51
 msgid "Invoice status"
 msgstr ""
 
@@ -196,11 +271,11 @@ msgstr ""
 
 #: commerce/admin/ui_price.py:67 commerce/admin/ui_price.py:95
 #: templates/commerce/admin/add_product.html:101
-#: templates/commerce/admin/order_inv_lines.html:46
+#: templates/commerce/admin/order_inv_lines.html:49
 #: templates/commerce/admin/resources_table.html:32
 #: templates/commerce/bee/commerce/cart.html:17
 #: templates/commerce/bee/commerce/cartItemAppend.html:15
-#: templates/commerce/bee/users/order_lines.html:61
+#: templates/commerce/bee/users/order_lines.html:60
 msgid "Price"
 msgstr ""
 
@@ -228,7 +303,16 @@ msgstr ""
 msgid "Product sizes"
 msgstr ""
 
-#: commerce/admin/ui_resource.py:86 commerce/admin/ui_resource.py:116
+#: commerce/admin/ui_resource.py:86 commerce/commerce/ui_cart.py:69
+#: commerce/commerce/ui_cart.py:94 commerce/commerce/ui_cart.py:123
+#: commerce/commerce/ui_cart.py:149 commerce/commerce/ui_wishlist.py:50
+#: commerce/commerce/ui_wishlist.py:64
+#: templates/commerce/admin/rating_table.html:32
+#: templates/commerce/bee/commerce/cart.html:16
+msgid "Product"
+msgstr ""
+
+#: commerce/admin/ui_resource.py:116
 msgid "Resource"
 msgstr ""
 
@@ -252,85 +336,182 @@ msgstr ""
 msgid "Failed"
 msgstr ""
 
-#: commerce/auth/admin_auth.py:40 commerce/auth/routes.py:33
+#: commerce/auth/admin_auth.py:53
+msgid "Login Failed! Wrong username or password"
+msgstr ""
+
+#: commerce/auth/admin_auth.py:58 commerce/auth/routes.py:76
 #: templates/commerce/admin/admin_login.html:6
 #: templates/commerce/admin/admin_login.html:31
 #: templates/commerce/admin/admin_login.html:70
-#: templates/commerce/bee/auth/login.html:14
-#: templates/commerce/bee/commerce/layout.html:87
-#: templates/commerce/bee/commerce/product.html:162
+#: templates/commerce/bee/auth/login.html:34
+#: templates/commerce/bee/auth/login.html:47
+#: templates/commerce/bee/commerce/layout.html:71
+#: templates/commerce/bee/commerce/product.html:154
 msgid "Login"
 msgstr ""
 
-#: commerce/auth/routes.py:52 commerce/auth/routes.py:71
-msgid "Reset Password"
+#: commerce/auth/forms.py:29 commerce/auth/forms.py:30
+#: commerce/users/forms.py:39
+msgid "That username is taken. Choose a different one!"
 msgstr ""
 
-#: commerce/auth/utils.py:33
-msgid "Password reset request"
+#: commerce/auth/forms.py:35 commerce/auth/forms.py:36
+msgid "That email is taken. Choose a different one!"
 msgstr ""
 
-#: commerce/auth/utils.py:55
+#: commerce/auth/forms.py:67
+msgid "The profile of that email not found! Please register fist."
+msgstr ""
+
+#: commerce/auth/routes.py:69
+msgid "Login Failed! Wrong email or password"
+msgstr ""
+
+#: commerce/auth/routes.py:101 commerce/auth/routes.py:146
+msgid "Your password has been updated!"
+msgstr ""
+
+#: commerce/auth/routes.py:108 commerce/auth/routes.py:124
+#: commerce/auth/routes.py:155 templates/commerce/bee/auth/login.html:51
+#: templates/commerce/bee/auth/reset_request.html:33
+#: templates/commerce/bee/auth/reset_request.html:42
+#: templates/commerce/bee/auth/reset_token.html:33
+#: templates/commerce/bee/auth/reset_token.html:64
+#: templates/commerce/bee/users/profile.html:37
+msgid "Reset password"
+msgstr ""
+
+#: commerce/auth/routes.py:116
+msgid "An email has been sent with instructions to reset your password"
+msgstr ""
+
+#: commerce/auth/routes.py:133 commerce/auth/routes.py:189
+msgid "Token is invalid or expired"
+msgstr ""
+
+#: commerce/auth/routes.py:168
+msgid "An email has been sent with instructions to register your profile"
+msgstr ""
+
+#: commerce/auth/routes.py:245
+msgid "your profile has been created!"
+msgstr ""
+
+#: commerce/auth/utils.py:63
 msgid "Registration request"
 msgstr ""
 
-#: commerce/auth/utils.py:56
+#: commerce/auth/utils.py:64
 msgid "Dear"
 msgstr ""
 
-#: commerce/auth/utils.py:57
+#: commerce/auth/utils.py:65
 msgid ""
 "You have requested the registration on ecommerce. Please follow the link "
 "to verify your email"
 msgstr ""
 
-#: commerce/auth/utils.py:58
+#: commerce/auth/utils.py:66
 msgid "If you did not make this request then simply ignore this email"
 msgstr ""
 
-#: commerce/commerce/ui_cart.py:63 commerce/commerce/ui_cart.py:88
-#: commerce/commerce/ui_cart.py:117 commerce/commerce/ui_cart.py:143
-#: commerce/commerce/ui_wishlist.py:59 commerce/commerce/ui_wishlist.py:73
-#: templates/commerce/bee/commerce/cart.html:16
-msgid "Product"
-msgstr ""
-
-#: commerce/commerce/ui_cart.py:301
+#: commerce/commerce/ui_cart.py:353
 #: templates/commerce/bee/commerce/cart.html:54
-#: templates/commerce/bee/commerce/layout.html:204
+#: templates/commerce/bee/commerce/layout.html:185
 msgid "Checkout"
 msgstr ""
 
-#: commerce/commerce/ui_cart.py:301
+#: commerce/commerce/ui_cart.py:353
 msgid "successfully done"
 msgstr ""
 
-#: commerce/commerce/ui_cart.py:301
+#: commerce/commerce/ui_cart.py:353
 msgid "View orders in profile page."
 msgstr ""
 
-#: commerce/commerce/ui_rating.py:65 commerce/commerce/ui_rating.py:79
-msgid "Rating"
+#: commerce/commerce/ui_rating.py:43
+msgid "already sent"
 msgstr ""
 
-#: commerce/commerce/v_products.py:38
-msgid "Newest"
+#: commerce/commerce/ui_rating.py:66
+msgid "successfully sent"
 msgstr ""
 
-#: commerce/commerce/v_products.py:43
-msgid "Oldest"
+#: commerce/commerce/ui_rating.py:66
+msgid "It will be shown after some time"
 msgstr ""
 
-#: commerce/commerce/v_products.py:48
-msgid "Price: high to low"
+#: commerce/users/forms.py:13 templates/commerce/admin/admin_login.html:37
+#: templates/commerce/admin/admin_login.html:38
+#: templates/commerce/admin/manage_rp.html:19
+#: templates/commerce/admin/manage_rp.html:20
+#: templates/commerce/admin/manage_user.html:19
+#: templates/commerce/admin/manage_user.html:20
+#: templates/commerce/admin/user_table.html:26
+#: templates/commerce/bee/auth/register_request.html:41
+msgid "Username"
 msgstr ""
 
-#: commerce/commerce/v_products.py:53
-msgid "Price: low to high"
+#: commerce/users/forms.py:16 templates/commerce/admin/company.html:17
+#: templates/commerce/admin/company.html:18
+#: templates/commerce/admin/manage_rp.html:30
+#: templates/commerce/admin/manage_rp.html:31
+#: templates/commerce/admin/manage_user.html:30
+#: templates/commerce/admin/manage_user.html:31
+#: templates/commerce/admin/rp_details.html:56
+#: templates/commerce/admin/rp_details.html:76
+#: templates/commerce/admin/rp_table.html:28
+#: templates/commerce/admin/user_details.html:62
+#: templates/commerce/admin/user_table.html:29
+#: templates/commerce/bee/auth/register_token.html:42
+#: templates/commerce/bee/users/profile.html:58
+msgid "Full name"
 msgstr ""
 
-#: commerce/commerce/v_products.py:58
-msgid "Rated"
+#: commerce/users/forms.py:19 templates/commerce/admin/company.html:45
+#: templates/commerce/admin/manage_rp.html:78
+#: templates/commerce/admin/manage_rp.html:85
+#: templates/commerce/admin/rp_details.html:80
+#: templates/commerce/bee/commerce/contact.html:42
+#: templates/commerce/bee/users/profile.html:62
+msgid "Address"
+msgstr ""
+
+#: commerce/users/forms.py:22 templates/commerce/admin/manage_rp.html:99
+#: templates/commerce/admin/manage_rp.html:106
+#: templates/commerce/admin/order_inv_lines.html:102
+#: templates/commerce/admin/rp_details.html:86
+#: templates/commerce/bee/users/profile.html:68
+msgid "Mobile phone"
+msgstr ""
+
+#: commerce/users/forms.py:25 templates/commerce/admin/manage_rp.html:118
+#: templates/commerce/admin/manage_rp.html:125
+#: templates/commerce/admin/order_inv_lines.html:104
+#: templates/commerce/admin/rp_details.html:90
+#: templates/commerce/bee/users/profile.html:72
+msgid "Home phone"
+msgstr ""
+
+#: commerce/users/forms.py:28 templates/commerce/admin/manage_rp.html:140
+#: templates/commerce/admin/manage_rp.html:147
+#: templates/commerce/admin/order_inv_lines.html:106
+#: templates/commerce/admin/rp_details.html:94
+#: templates/commerce/bee/users/profile.html:76
+msgid "Zip code"
+msgstr ""
+
+#: commerce/users/forms.py:31
+msgid "Update Profile Picture"
+msgstr ""
+
+#: commerce/users/forms.py:33
+msgid "Update"
+msgstr ""
+
+#: commerce/users/routes.py:121
+msgid "Profile successfully updated!"
 msgstr ""
 
 #: templates/commerce/admin/add_product.html:26
@@ -366,9 +547,9 @@ msgstr ""
 #: templates/commerce/admin/company.html:8
 #: templates/commerce/admin/company.html:66
 #: templates/commerce/admin/manage_brand.html:113
-#: templates/commerce/admin/order_inv_lines.html:107
-#: templates/commerce/admin/register_customer.html:190
-#: templates/commerce/admin/register_user.html:102
+#: templates/commerce/admin/manage_rp.html:190
+#: templates/commerce/admin/manage_user.html:102
+#: templates/commerce/admin/order_inv_lines.html:120
 #: templates/commerce/admin/resource_edit.html:60
 #: templates/commerce/admin/sliderAppend.html:7
 #: templates/commerce/admin/slider_setup.html:87
@@ -384,8 +565,8 @@ msgstr ""
 #: templates/commerce/admin/add_product.html:57
 #: templates/commerce/admin/add_product.html:283
 #: templates/commerce/admin/add_product.html:285
-#: templates/commerce/admin/order_inv_lines.html:44
-#: templates/commerce/bee/users/order_lines.html:59
+#: templates/commerce/admin/order_inv_lines.html:47
+#: templates/commerce/bee/users/order_lines.html:58
 msgid "Product name"
 msgstr ""
 
@@ -397,7 +578,7 @@ msgstr ""
 #: templates/commerce/admin/company.html:22
 #: templates/commerce/admin/manage_brand.html:30
 #: templates/commerce/admin/manage_brand.html:31
-#: templates/commerce/admin/order_inv_lines.html:111
+#: templates/commerce/admin/order_inv_lines.html:124
 #: templates/commerce/admin/resource_edit.html:21
 #: templates/commerce/admin/sliderAppend.html:13
 #: templates/commerce/admin/slider_setup.html:20
@@ -408,14 +589,14 @@ msgstr ""
 #: templates/commerce/admin/sliders.html:41
 #: templates/commerce/admin/sliders.html:49
 #: templates/commerce/bee/commerce/cart.html:36
-#: templates/commerce/bee/commerce/product.html:89
-#: templates/commerce/bee/users/order_lines.html:83
+#: templates/commerce/bee/commerce/product.html:85
+#: templates/commerce/bee/users/order_lines.html:82
 msgid "Description"
 msgstr ""
 
 #: templates/commerce/admin/add_product.html:79
 #: templates/commerce/bee/commerce/cart.html:18
-#: templates/commerce/bee/commerce/product.html:65
+#: templates/commerce/bee/commerce/product.html:61
 msgid "Quantity"
 msgstr ""
 
@@ -487,9 +668,9 @@ msgstr ""
 #: templates/commerce/admin/add_product.html:196
 #: templates/commerce/admin/add_product.html:216
 #: templates/commerce/admin/add_product.html:300
-#: templates/commerce/admin/customers_table.html:17
+#: templates/commerce/admin/rp_table.html:16
 #: templates/commerce/admin/sliders.html:23
-#: templates/commerce/admin/users_table.html:17
+#: templates/commerce/admin/user_table.html:17
 msgid "Add"
 msgstr ""
 
@@ -528,11 +709,11 @@ msgid "Language"
 msgstr ""
 
 #: templates/commerce/admin/add_product.html:235
-#: templates/commerce/admin/customer_details.html:53
-#: templates/commerce/admin/customers_table.html:28
 #: templates/commerce/admin/manage_brand.html:19
 #: templates/commerce/admin/manage_brand.html:20
 #: templates/commerce/admin/resources_table.html:29
+#: templates/commerce/admin/rp_details.html:53
+#: templates/commerce/admin/rp_table.html:27
 #: templates/commerce/admin/sliders.html:20
 #: templates/commerce/admin/user_details.html:58
 #: templates/commerce/admin/user_details.html:121
@@ -546,13 +727,14 @@ msgstr ""
 #: templates/commerce/admin/add_product.html:238
 #: templates/commerce/admin/brands_table.html:27
 #: templates/commerce/admin/category_table.html:28
-#: templates/commerce/admin/customer_details.html:164
-#: templates/commerce/admin/customers_table.html:31
-#: templates/commerce/admin/order_inv_lines.html:49
-#: templates/commerce/admin/order_invoices.html:27
+#: templates/commerce/admin/order_inv_lines.html:52
+#: templates/commerce/admin/order_invoices.html:32
+#: templates/commerce/admin/rating_table.html:37
 #: templates/commerce/admin/resources_table.html:35
+#: templates/commerce/admin/rp_details.html:164
+#: templates/commerce/admin/rp_table.html:31
 #: templates/commerce/admin/user_details.html:124
-#: templates/commerce/admin/users_table.html:32
+#: templates/commerce/admin/user_table.html:32
 msgid "Action"
 msgstr ""
 
@@ -574,28 +756,15 @@ msgstr ""
 msgid "Product full description"
 msgstr ""
 
-#: templates/commerce/admin/admin_login.html:37
-#: templates/commerce/admin/admin_login.html:38
-#: templates/commerce/admin/register_customer.html:19
-#: templates/commerce/admin/register_customer.html:20
-#: templates/commerce/admin/register_user.html:19
-#: templates/commerce/admin/register_user.html:20
-#: templates/commerce/admin/users_table.html:26
-#: templates/commerce/bee/auth/register_request.html:21
-msgid "Username"
-msgstr ""
-
 #: templates/commerce/admin/admin_login.html:49
 #: templates/commerce/admin/admin_login.html:50
-#: templates/commerce/admin/register_customer.html:166
-#: templates/commerce/admin/register_customer.html:167
-#: templates/commerce/admin/register_user.html:78
-#: templates/commerce/admin/register_user.html:79
-#: templates/commerce/bee/auth/login.html:25
-#: templates/commerce/bee/auth/register_token.html:27
-#: templates/commerce/bee/auth/reset_token.html:13
-#: templates/commerce/bee/auth/reset_token.html:20
-#: templates/commerce/bee/auth/reset_token.html:21
+#: templates/commerce/admin/manage_rp.html:166
+#: templates/commerce/admin/manage_rp.html:167
+#: templates/commerce/admin/manage_user.html:78
+#: templates/commerce/admin/manage_user.html:79
+#: templates/commerce/bee/auth/login.html:45
+#: templates/commerce/bee/auth/register_token.html:50
+#: templates/commerce/bee/auth/reset_token.html:40
 msgid "Password"
 msgstr ""
 
@@ -616,7 +785,7 @@ msgstr ""
 #: templates/commerce/admin/brands_table.html:25
 #: templates/commerce/admin/category_table.html:26
 #: templates/commerce/admin/manage_brand.html:47
-#: templates/commerce/bee/commerce/commerce.html:153
+#: templates/commerce/bee/commerce/commerce.html:73
 msgid "Featured"
 msgstr ""
 
@@ -657,13 +826,13 @@ msgstr ""
 
 #: templates/commerce/admin/category_table.html:92
 #: templates/commerce/admin/sale_repots_table.html:80
-#: templates/commerce/admin/sale_repots_table.html:204
-#: templates/commerce/admin/sale_repots_table.html:237
-#: templates/commerce/admin/sale_repots_table.html:331
-#: templates/commerce/admin/sale_repots_table.html:425
-#: templates/commerce/admin/sale_repots_table.html:518
-#: templates/commerce/admin/sale_repots_table.html:612
-#: templates/commerce/bee/commerce/layout.html:47
+#: templates/commerce/admin/sale_repots_table.html:159
+#: templates/commerce/admin/sale_repots_table.html:192
+#: templates/commerce/admin/sale_repots_table.html:254
+#: templates/commerce/admin/sale_repots_table.html:316
+#: templates/commerce/admin/sale_repots_table.html:377
+#: templates/commerce/admin/sale_repots_table.html:439
+#: templates/commerce/bee/commerce/layout.html:32
 msgid "Search"
 msgstr ""
 
@@ -675,39 +844,15 @@ msgstr ""
 msgid "Company name"
 msgstr ""
 
-#: templates/commerce/admin/company.html:17
-#: templates/commerce/admin/company.html:18
-#: templates/commerce/admin/customer_details.html:56
-#: templates/commerce/admin/customer_details.html:76
-#: templates/commerce/admin/register_customer.html:30
-#: templates/commerce/admin/register_customer.html:31
-#: templates/commerce/admin/register_user.html:30
-#: templates/commerce/admin/register_user.html:31
-#: templates/commerce/admin/user_details.html:62
-#: templates/commerce/admin/users_table.html:29
-#: templates/commerce/bee/auth/register_token.html:21
-#: templates/commerce/bee/users/profile.html:55
-msgid "Full name"
-msgstr ""
-
 #: templates/commerce/admin/company.html:27
 #: templates/commerce/admin/company.html:31
 #: templates/commerce/admin/company.html:35
 #: templates/commerce/admin/company.html:39
-#: templates/commerce/admin/customer_details.html:171
-#: templates/commerce/admin/order_invoices.html:34
+#: templates/commerce/admin/order_invoices.html:39
+#: templates/commerce/admin/rp_details.html:171
 #: templates/commerce/bee/commerce/contact.html:51
 #: templates/commerce/bee/commerce/contact.html:117
 msgid "Phone"
-msgstr ""
-
-#: templates/commerce/admin/company.html:45
-#: templates/commerce/admin/customer_details.html:80
-#: templates/commerce/admin/register_customer.html:78
-#: templates/commerce/admin/register_customer.html:85
-#: templates/commerce/bee/commerce/contact.html:42
-#: templates/commerce/bee/users/profile.html:59
-msgid "Address"
 msgstr ""
 
 #: templates/commerce/admin/company.html:49
@@ -717,12 +862,12 @@ msgid "Postal code"
 msgstr ""
 
 #: templates/commerce/admin/company.html:53
-#: templates/commerce/admin/customer_details.html:50
-#: templates/commerce/admin/customer_details.html:72
-#: templates/commerce/admin/order_inv_lines.html:117
+#: templates/commerce/admin/order_inv_lines.html:100
+#: templates/commerce/admin/rp_details.html:50
+#: templates/commerce/admin/rp_details.html:72
 #: templates/commerce/bee/commerce/contact.html:63
 #: templates/commerce/bee/commerce/contact.html:113
-#: templates/commerce/bee/users/profile.html:51
+#: templates/commerce/bee/users/profile.html:54
 msgid "Email"
 msgstr ""
 
@@ -736,174 +881,9 @@ msgstr ""
 msgid "Working time"
 msgstr ""
 
-#: templates/commerce/admin/customer_details.html:20
-#: templates/commerce/admin/user_details.html:20
-msgid "Customer details"
-msgstr ""
-
-#: templates/commerce/admin/customer_details.html:26
-#: templates/commerce/admin/user_details.html:26
-#: templates/commerce/bee/users/order_lines.html:23
-#: templates/commerce/bee/users/orders.html:21
-#: templates/commerce/bee/users/profile.html:15
-#: templates/commerce/bee/users/profile.html:20
-#: templates/commerce/bee/users/profile_edit.html:22
-#: templates/commerce/bee/users/wishlist.html:20
-msgid "Profile"
-msgstr ""
-
-#: templates/commerce/admin/customer_details.html:30
-#: templates/commerce/bee/users/order_lines.html:18
-#: templates/commerce/bee/users/order_lines.html:24
-#: templates/commerce/bee/users/orders.html:16
-#: templates/commerce/bee/users/orders.html:22
-#: templates/commerce/bee/users/profile.html:21
-#: templates/commerce/bee/users/profile_edit.html:23
-#: templates/commerce/bee/users/wishlist.html:21
-msgid "Orders"
-msgstr ""
-
-#: templates/commerce/admin/customer_details.html:44
-#: templates/commerce/admin/user_details.html:44
-#: templates/commerce/bee/users/profile.html:34
-#: templates/commerce/bee/users/profile_edit.html:54
-msgid "Registered date"
-msgstr ""
-
-#: templates/commerce/admin/customer_details.html:48
-#: templates/commerce/admin/register_customer.html:158
-msgid "Vendor"
-msgstr ""
-
-#: templates/commerce/admin/customer_details.html:86
-#: templates/commerce/admin/order_inv_lines.html:119
-#: templates/commerce/admin/register_customer.html:99
-#: templates/commerce/admin/register_customer.html:106
-#: templates/commerce/bee/users/profile.html:65
-msgid "Mobile phone"
-msgstr ""
-
-#: templates/commerce/admin/customer_details.html:90
-#: templates/commerce/admin/order_inv_lines.html:121
-#: templates/commerce/admin/register_customer.html:118
-#: templates/commerce/admin/register_customer.html:125
-#: templates/commerce/bee/users/profile.html:69
-msgid "Home phone"
-msgstr ""
-
-#: templates/commerce/admin/customer_details.html:94
-#: templates/commerce/admin/order_inv_lines.html:123
-#: templates/commerce/admin/register_customer.html:140
-#: templates/commerce/admin/register_customer.html:147
-#: templates/commerce/bee/users/profile.html:73
-msgid "Zip code"
-msgstr ""
-
-#: templates/commerce/admin/customer_details.html:104
-#: templates/commerce/admin/customer_details.html:169
-#: templates/commerce/admin/customers_table.html:29
-#: templates/commerce/admin/manage_brand.html:49
-#: templates/commerce/admin/order_invoices.html:32
-#: templates/commerce/admin/resources_table.html:34
-#: templates/commerce/admin/user_details.html:122
-#: templates/commerce/bee/users/order_lines.html:37
-#: templates/commerce/bee/users/orders.html:74
-msgid "Status"
-msgstr ""
-
-#: templates/commerce/admin/customer_details.html:110
-#: templates/commerce/admin/customer_details.html:132
-#: templates/commerce/admin/customers_table.html:53
-#: templates/commerce/admin/customers_table.html:74
-#: templates/commerce/admin/user_details.html:82
-#: templates/commerce/admin/user_details.html:146
-#: templates/commerce/admin/user_details.html:167
-#: templates/commerce/admin/users_table.html:59
-msgid "Select"
-msgstr ""
-
-#: templates/commerce/admin/customer_details.html:126
-#: templates/commerce/admin/customers_table.html:30
-#: templates/commerce/admin/register_customer.html:43
-#: templates/commerce/admin/register_user.html:59
-#: templates/commerce/admin/user_details.html:76
-#: templates/commerce/admin/user_details.html:123
-#: templates/commerce/admin/users_table.html:30
-msgid "Type"
-msgstr ""
-
-#: templates/commerce/admin/customer_details.html:150
-#: templates/commerce/admin/user_details.html:106
-msgid "Delete"
-msgstr ""
-
-#: templates/commerce/admin/customer_details.html:163
-#: templates/commerce/admin/customers_table.html:26
-#: templates/commerce/admin/order_invoices.html:26
-#: templates/commerce/admin/resources_table.html:27
-#: templates/commerce/admin/user_details.html:119
-msgid "Reg No"
-msgstr ""
-
-#: templates/commerce/admin/customer_details.html:165
-#: templates/commerce/admin/order_invoices.html:28
-msgid "Progress"
-msgstr ""
-
-#: templates/commerce/admin/customer_details.html:166
-#: templates/commerce/admin/order_inv_lines.html:47
-#: templates/commerce/admin/order_inv_lines.html:100
-#: templates/commerce/admin/order_invoices.html:29
-#: templates/commerce/bee/commerce/cart.html:48
-#: templates/commerce/bee/users/order_lines.html:51
-#: templates/commerce/bee/users/order_lines.html:62
-msgid "Total price"
-msgstr ""
-
-#: templates/commerce/admin/customer_details.html:167
-#: templates/commerce/admin/order_inv_lines.html:48
-#: templates/commerce/admin/order_invoices.html:30
-#: templates/commerce/bee/users/order_lines.html:63
-msgid "Currency"
-msgstr ""
-
-#: templates/commerce/admin/customer_details.html:168
-#: templates/commerce/admin/order_invoices.html:31
-#: templates/commerce/admin/slider_setup.html:28
-#: templates/commerce/admin/sliders.html:49
-msgid "Date"
-msgstr ""
-
-#: templates/commerce/admin/customer_details.html:170
-#: templates/commerce/admin/order_inv_lines.html:92
-#: templates/commerce/admin/order_invoices.html:33
-msgid "Customer"
-msgstr ""
-
-#: templates/commerce/admin/customer_details.html:172
-#: templates/commerce/admin/order_invoices.html:35
-#: templates/commerce/bee/auth/register_request.html:24
-#: templates/commerce/bee/auth/reset_request.html:13
-#: templates/commerce/bee/auth/reset_request.html:21
-msgid "E-mail"
-msgstr ""
-
-#: templates/commerce/admin/customer_details.html:180
-#: templates/commerce/admin/order_invoices.html:43
-#: templates/commerce/admin/sale_repots_table.html:644
-#: templates/commerce/admin/sale_repots_table.html:652
-#: templates/commerce/admin/sale_repots_table.html:660
-#: templates/commerce/admin/sale_repots_table.html:668
-msgid "Detail"
-msgstr ""
-
 #: templates/commerce/admin/layout.html:7
 #: templates/commerce/admin/layout.html:9
 msgid "Admin panel"
-msgstr ""
-
-#: templates/commerce/admin/layout.html:74
-msgid "Admin"
 msgstr ""
 
 #: templates/commerce/admin/layout.html:82
@@ -914,38 +894,39 @@ msgstr ""
 msgid "Navigation"
 msgstr ""
 
-#: templates/commerce/admin/layout.html:93
+#: templates/commerce/admin/layout.html:90
+#: templates/commerce/admin/rating_table.html:13
+msgid "Rating table"
+msgstr ""
+
+#: templates/commerce/admin/layout.html:94
 msgid "Add Product"
 msgstr ""
 
-#: templates/commerce/admin/layout.html:96
+#: templates/commerce/admin/layout.html:97
 msgid "Users table"
 msgstr ""
 
-#: templates/commerce/admin/layout.html:99
+#: templates/commerce/admin/layout.html:100
 msgid "Pictures"
 msgstr ""
 
-#: templates/commerce/admin/layout.html:111
-#: templates/commerce/admin/layout.html:119
+#: templates/commerce/admin/layout.html:112
+#: templates/commerce/admin/layout.html:120
 msgid "Invoices"
 msgstr ""
 
-#: templates/commerce/admin/layout.html:115
+#: templates/commerce/admin/layout.html:116
 #: templates/commerce/admin/order_inv_lines.html:18
 #: templates/commerce/admin/order_invoices.html:18
 msgid "Sale order invoices"
 msgstr ""
 
-#: templates/commerce/admin/layout.html:121
+#: templates/commerce/admin/layout.html:122
 msgid "Sale invoices"
 msgstr ""
 
-#: templates/commerce/admin/layout.html:126
-msgid "Customers"
-msgstr ""
-
-#: templates/commerce/admin/layout.html:130
+#: templates/commerce/admin/layout.html:131
 msgid "Customers table"
 msgstr ""
 
@@ -953,8 +934,58 @@ msgstr ""
 msgid "Save logo"
 msgstr ""
 
+#: templates/commerce/admin/manage_brand.html:49
+#: templates/commerce/admin/order_invoices.html:37
+#: templates/commerce/admin/resources_table.html:34
+#: templates/commerce/admin/rp_details.html:104
+#: templates/commerce/admin/rp_details.html:169
+#: templates/commerce/admin/rp_table.html:29
+#: templates/commerce/admin/user_details.html:122
+#: templates/commerce/bee/users/order_lines.html:36
+#: templates/commerce/bee/users/orders.html:74
+msgid "Status"
+msgstr ""
+
 #: templates/commerce/admin/manage_brand.html:53
 msgid "Logo"
+msgstr ""
+
+#: templates/commerce/admin/manage_rp.html:43
+#: templates/commerce/admin/manage_user.html:59
+#: templates/commerce/admin/rp_details.html:126
+#: templates/commerce/admin/rp_table.html:30
+#: templates/commerce/admin/user_details.html:76
+#: templates/commerce/admin/user_details.html:123
+#: templates/commerce/admin/user_table.html:30
+msgid "Type"
+msgstr ""
+
+#: templates/commerce/admin/manage_rp.html:49
+#: templates/commerce/admin/manage_user.html:66
+msgid "Avatar"
+msgstr ""
+
+#: templates/commerce/admin/manage_rp.html:62
+#: templates/commerce/admin/manage_rp.html:67
+#: templates/commerce/admin/manage_user.html:43
+#: templates/commerce/admin/manage_user.html:48
+#: templates/commerce/admin/user_details.html:72
+#: templates/commerce/admin/user_table.html:31
+#: templates/commerce/bee/auth/login.html:41
+msgid "Email address"
+msgstr ""
+
+#: templates/commerce/admin/manage_rp.html:158
+#: templates/commerce/admin/manage_user.html:12
+msgid "User"
+msgstr ""
+
+#: templates/commerce/admin/manage_rp.html:177
+#: templates/commerce/admin/manage_rp.html:178
+#: templates/commerce/admin/manage_user.html:89
+#: templates/commerce/admin/manage_user.html:90
+#: templates/commerce/bee/auth/reset_token.html:55
+msgid "Confirm password"
 msgstr ""
 
 #: templates/commerce/admin/order_inv_lines.html:20
@@ -965,93 +996,189 @@ msgstr ""
 msgid "This customer's orders"
 msgstr ""
 
-#: templates/commerce/admin/order_inv_lines.html:28
-#: templates/commerce/admin/order_inv_lines.html:94
+#: templates/commerce/admin/order_inv_lines.html:30
+#: templates/commerce/admin/order_inv_lines.html:97
 msgid "Reg №"
 msgstr ""
 
-#: templates/commerce/admin/order_inv_lines.html:34
-#: templates/commerce/bee/users/order_lines.html:44
+#: templates/commerce/admin/order_inv_lines.html:36
+#: templates/commerce/bee/users/order_lines.html:43
 #: templates/commerce/bee/users/orders.html:56
 msgid "Ordered date"
 msgstr ""
 
-#: templates/commerce/admin/order_inv_lines.html:45
+#: templates/commerce/admin/order_inv_lines.html:48
 #: templates/commerce/admin/resources_table.html:33
-#: templates/commerce/bee/users/order_lines.html:60
+#: templates/commerce/bee/users/order_lines.html:59
 msgid "Amount"
 msgstr ""
 
-#: templates/commerce/admin/order_inv_lines.html:76
+#: templates/commerce/admin/order_inv_lines.html:50
+#: templates/commerce/admin/order_inv_lines.html:113
+#: templates/commerce/admin/order_invoices.html:34
+#: templates/commerce/admin/rp_details.html:166
+#: templates/commerce/bee/commerce/cart.html:48
+#: templates/commerce/bee/users/order_lines.html:50
+#: templates/commerce/bee/users/order_lines.html:61
+msgid "Total price"
+msgstr ""
+
+#: templates/commerce/admin/order_inv_lines.html:51
+#: templates/commerce/admin/order_invoices.html:35
+#: templates/commerce/admin/rp_details.html:167
+#: templates/commerce/bee/users/order_lines.html:62
+msgid "Currency"
+msgstr ""
+
+#: templates/commerce/admin/order_inv_lines.html:79
 msgid "Set Status"
 msgstr ""
 
-#: templates/commerce/admin/order_inv_lines.html:87
+#: templates/commerce/admin/order_inv_lines.html:90
 msgid "Set"
 msgstr ""
 
-#: templates/commerce/admin/order_inv_lines.html:108
+#: templates/commerce/admin/order_inv_lines.html:121
 msgid "Invoice"
 msgstr ""
 
-#: templates/commerce/admin/register_customer.html:49
-#: templates/commerce/admin/register_user.html:66
-msgid "Avatar"
+#: templates/commerce/admin/order_invoices.html:31
+#: templates/commerce/admin/resources_table.html:27
+#: templates/commerce/admin/rp_details.html:163
+#: templates/commerce/admin/rp_table.html:25
+#: templates/commerce/admin/user_details.html:119
+msgid "Reg No"
 msgstr ""
 
-#: templates/commerce/admin/register_customer.html:62
-#: templates/commerce/admin/register_customer.html:67
-#: templates/commerce/admin/register_user.html:43
-#: templates/commerce/admin/register_user.html:48
-#: templates/commerce/admin/user_details.html:72
-#: templates/commerce/admin/users_table.html:31
-#: templates/commerce/bee/auth/login.html:22
-msgid "Email address"
+#: templates/commerce/admin/order_invoices.html:33
+#: templates/commerce/admin/rp_details.html:165
+msgid "Progress"
 msgstr ""
 
-#: templates/commerce/admin/register_customer.html:177
-#: templates/commerce/admin/register_customer.html:178
-#: templates/commerce/admin/register_user.html:89
-#: templates/commerce/admin/register_user.html:90
-#: templates/commerce/bee/auth/reset_token.html:26
-#: templates/commerce/bee/auth/reset_token.html:33
-#: templates/commerce/bee/auth/reset_token.html:34
-msgid "Confirm password"
+#: templates/commerce/admin/order_invoices.html:36
+#: templates/commerce/admin/rp_details.html:168
+#: templates/commerce/admin/slider_setup.html:28
+#: templates/commerce/admin/sliders.html:49
+msgid "Date"
+msgstr ""
+
+#: templates/commerce/admin/order_invoices.html:40
+#: templates/commerce/admin/rp_details.html:172
+#: templates/commerce/bee/auth/register_request.html:45
+#: templates/commerce/bee/auth/reset_request.html:40
+msgid "E-mail"
+msgstr ""
+
+#: templates/commerce/admin/order_invoices.html:48
+#: templates/commerce/admin/rp_details.html:180
+#: templates/commerce/admin/sale_repots_table.html:471
+msgid "Detail"
+msgstr ""
+
+#: templates/commerce/admin/rating_table.html:18
+#: templates/commerce/bee/commerce/layout.html:105
+msgid "All"
+msgstr ""
+
+#: templates/commerce/admin/rating_table.html:21
+#: templates/commerce/admin/rating_table.html:36
+msgid "Validated"
+msgstr ""
+
+#: templates/commerce/admin/rating_table.html:24
+msgid "Not validated"
+msgstr ""
+
+#: templates/commerce/admin/rating_table.html:34
+msgid "Value"
+msgstr ""
+
+#: templates/commerce/admin/rating_table.html:35
+msgid "Remark"
 msgstr ""
 
 #: templates/commerce/admin/resource_edit.html:32
 msgid "Full description"
 msgstr ""
 
+#: templates/commerce/admin/rp_details.html:26
+#: templates/commerce/admin/user_details.html:26
+#: templates/commerce/bee/users/order_lines.html:21
+#: templates/commerce/bee/users/orders.html:21
+#: templates/commerce/bee/users/profile.html:15
+#: templates/commerce/bee/users/profile.html:20
+#: templates/commerce/bee/users/profile_edit.html:22
+#: templates/commerce/bee/users/wishlist.html:20
+msgid "Profile"
+msgstr ""
+
+#: templates/commerce/admin/rp_details.html:30
+#: templates/commerce/bee/users/order_lines.html:16
+#: templates/commerce/bee/users/order_lines.html:22
+#: templates/commerce/bee/users/orders.html:16
+#: templates/commerce/bee/users/orders.html:22
+#: templates/commerce/bee/users/profile.html:21
+#: templates/commerce/bee/users/profile_edit.html:23
+#: templates/commerce/bee/users/wishlist.html:21
+msgid "Orders"
+msgstr ""
+
+#: templates/commerce/admin/rp_details.html:44
+#: templates/commerce/admin/user_details.html:44
+#: templates/commerce/bee/users/profile.html:34
+#: templates/commerce/bee/users/profile_edit.html:54
+msgid "Registered date"
+msgstr ""
+
+#: templates/commerce/admin/rp_details.html:48
+msgid "Related user"
+msgstr ""
+
+#: templates/commerce/admin/rp_details.html:110
+#: templates/commerce/admin/rp_details.html:132
+#: templates/commerce/admin/rp_table.html:54
+#: templates/commerce/admin/rp_table.html:75
+#: templates/commerce/admin/user_details.html:82
+#: templates/commerce/admin/user_details.html:146
+#: templates/commerce/admin/user_details.html:167
+#: templates/commerce/admin/user_table.html:59
+msgid "Select"
+msgstr ""
+
+#: templates/commerce/admin/rp_details.html:150
+#: templates/commerce/admin/user_details.html:106
+msgid "Delete"
+msgstr ""
+
 #: templates/commerce/admin/sale_repots_table.html:77
 msgid "Rated products table"
 msgstr ""
 
-#: templates/commerce/admin/sale_repots_table.html:201
+#: templates/commerce/admin/sale_repots_table.html:156
 msgid "Reýtingli harytlaryň tablisasy"
 msgstr ""
 
-#: templates/commerce/admin/sale_repots_table.html:217
-#: templates/commerce/admin/sale_repots_table.html:234
+#: templates/commerce/admin/sale_repots_table.html:172
+#: templates/commerce/admin/sale_repots_table.html:189
 msgid "Sold in last hour"
 msgstr ""
 
-#: templates/commerce/admin/sale_repots_table.html:218
-#: templates/commerce/admin/sale_repots_table.html:328
+#: templates/commerce/admin/sale_repots_table.html:173
+#: templates/commerce/admin/sale_repots_table.html:251
 msgid "Sold in last day"
 msgstr ""
 
-#: templates/commerce/admin/sale_repots_table.html:220
-#: templates/commerce/admin/sale_repots_table.html:422
+#: templates/commerce/admin/sale_repots_table.html:175
+#: templates/commerce/admin/sale_repots_table.html:313
 msgid "Sold in last week"
 msgstr ""
 
-#: templates/commerce/admin/sale_repots_table.html:222
-#: templates/commerce/admin/sale_repots_table.html:515
+#: templates/commerce/admin/sale_repots_table.html:177
+#: templates/commerce/admin/sale_repots_table.html:374
 msgid "Sold in last month"
 msgstr ""
 
-#: templates/commerce/admin/sale_repots_table.html:609
+#: templates/commerce/admin/sale_repots_table.html:436
 msgid "Top sold products"
 msgstr ""
 
@@ -1089,32 +1216,28 @@ msgid "New Slider"
 msgstr ""
 
 #: templates/commerce/admin/user_details.html:66
-#: templates/commerce/admin/users_table.html:28
+#: templates/commerce/admin/user_table.html:28
 msgid "Short name"
 msgstr ""
 
-#: templates/commerce/bee/auth/login.html:15
-msgid "Welcome"
-msgstr ""
-
-#: templates/commerce/bee/auth/login.html:34
+#: templates/commerce/bee/auth/login.html:50
 msgid "Don’t have account?"
 msgstr ""
 
-#: templates/commerce/bee/auth/register_token.html:15
+#: templates/commerce/bee/auth/login.html:51
+msgid "Forgot your password?"
+msgstr ""
+
+#: templates/commerce/bee/auth/register_token.html:35
 msgid "Please, proceed the registration"
 msgstr ""
 
-#: templates/commerce/bee/auth/register_token.html:24
+#: templates/commerce/bee/auth/register_token.html:46
 msgid "Phone number"
 msgstr ""
 
-#: templates/commerce/bee/auth/reset_request.html:20
-msgid "E-mail address"
-msgstr ""
-
 #: templates/commerce/bee/commerce/cart.html:19
-#: templates/commerce/bee/commerce/layout.html:202
+#: templates/commerce/bee/commerce/layout.html:183
 msgid "Total"
 msgstr ""
 
@@ -1155,34 +1278,30 @@ msgstr ""
 msgid "You should login if you want to checkout an order"
 msgstr ""
 
-#: templates/commerce/bee/commerce/commerce.html:80
-msgid "New arrival"
-msgstr ""
-
-#: templates/commerce/bee/commerce/commerce.html:90
-#: templates/commerce/bee/commerce/commerce.html:189
-#: templates/commerce/bee/commerce/v_grid.html:71
-#: templates/commerce/bee/commerce/v_grid.html:124
-#: templates/commerce/bee/commerce/v_search.html:18
-#: templates/commerce/bee/commerce/v_search.html:70
+#: templates/commerce/bee/commerce/commerce.html:102
+#: templates/commerce/bee/commerce/commerce.html:176
+#: templates/commerce/bee/commerce/v_grid.html:61
+#: templates/commerce/bee/commerce/v_grid.html:102
 msgid "New"
 msgstr ""
 
-#: templates/commerce/bee/commerce/commerce.html:110
-#: templates/commerce/bee/commerce/commerce.html:209
-#: templates/commerce/bee/commerce/layout.html:263
-#: templates/commerce/bee/commerce/product.html:73
-#: templates/commerce/bee/commerce/product.html:218
-#: templates/commerce/bee/commerce/v_grid.html:92
-#: templates/commerce/bee/commerce/v_grid.html:165
-#: templates/commerce/bee/commerce/v_search.html:38
-#: templates/commerce/bee/commerce/v_search.html:111
+#: templates/commerce/bee/commerce/commerce.html:122
+#: templates/commerce/bee/commerce/commerce.html:191
+#: templates/commerce/bee/commerce/layout.html:244
+#: templates/commerce/bee/commerce/product.html:69
+#: templates/commerce/bee/commerce/product.html:197
+#: templates/commerce/bee/commerce/v_grid.html:75
+#: templates/commerce/bee/commerce/v_grid.html:127
 #: templates/commerce/bee/users/wishlist.html:66
 msgid "Add to cart"
 msgstr ""
 
+#: templates/commerce/bee/commerce/commerce.html:165
+msgid "New arrival"
+msgstr ""
+
 #: templates/commerce/bee/commerce/contact.html:11
-#: templates/commerce/bee/commerce/layout.html:157
+#: templates/commerce/bee/commerce/layout.html:138
 msgid "Contact"
 msgstr ""
 
@@ -1206,64 +1325,56 @@ msgstr ""
 msgid "Message"
 msgstr ""
 
-#: templates/commerce/bee/commerce/layout.html:8
-#: templates/commerce/bee/commerce/layout.html:10
+#: templates/commerce/bee/commerce/layout.html:7
 msgid "Commerce"
 msgstr ""
 
-#: templates/commerce/bee/commerce/layout.html:84
+#: templates/commerce/bee/commerce/layout.html:68
 msgid "My profile"
 msgstr ""
 
-#: templates/commerce/bee/commerce/layout.html:85
+#: templates/commerce/bee/commerce/layout.html:69
 msgid "Log out"
 msgstr ""
 
-#: templates/commerce/bee/commerce/layout.html:116
+#: templates/commerce/bee/commerce/layout.html:97
 msgid "Categories"
 msgstr ""
 
-#: templates/commerce/bee/commerce/layout.html:122
-msgid "All"
-msgstr ""
-
-#: templates/commerce/bee/commerce/layout.html:154
+#: templates/commerce/bee/commerce/layout.html:135
 msgid "Main"
 msgstr ""
 
-#: templates/commerce/bee/commerce/layout.html:155
+#: templates/commerce/bee/commerce/layout.html:136
 msgid "Products"
 msgstr ""
 
-#: templates/commerce/bee/commerce/layout.html:156
+#: templates/commerce/bee/commerce/layout.html:137
 msgid "About us"
 msgstr ""
 
-#: templates/commerce/bee/commerce/layout.html:194
+#: templates/commerce/bee/commerce/layout.html:175
 msgid "Close"
 msgstr ""
 
-#: templates/commerce/bee/commerce/layout.html:264
+#: templates/commerce/bee/commerce/layout.html:245
 #: templates/commerce/bee/users/wishlist.html:70
 msgid "Remove from cart"
 msgstr ""
 
-#: templates/commerce/bee/commerce/product.html:60
-#: templates/commerce/bee/commerce/v_grid.html:182
-#: templates/commerce/bee/commerce/v_search.html:133
+#: templates/commerce/bee/commerce/product.html:56
+#: templates/commerce/bee/commerce/v_grid.html:144
 msgid "Availability"
 msgstr ""
 
-#: templates/commerce/bee/commerce/product.html:60
-#: templates/commerce/bee/commerce/v_grid.html:182
-#: templates/commerce/bee/commerce/v_search.html:133
+#: templates/commerce/bee/commerce/product.html:56
+#: templates/commerce/bee/commerce/v_grid.html:144
 msgid "In stock"
 msgstr ""
 
-#: templates/commerce/bee/commerce/product.html:76
-#: templates/commerce/bee/commerce/v_grid.html:169
-#: templates/commerce/bee/commerce/v_search.html:115
-#: templates/commerce/bee/users/order_lines.html:25
+#: templates/commerce/bee/commerce/product.html:72
+#: templates/commerce/bee/commerce/v_grid.html:131
+#: templates/commerce/bee/users/order_lines.html:23
 #: templates/commerce/bee/users/orders.html:23
 #: templates/commerce/bee/users/profile.html:22
 #: templates/commerce/bee/users/profile_edit.html:24
@@ -1272,58 +1383,57 @@ msgstr ""
 msgid "Wishlist"
 msgstr ""
 
-#: templates/commerce/bee/commerce/product.html:90
+#: templates/commerce/bee/commerce/product.html:86
 msgid "Customers reviews"
 msgstr ""
 
-#: templates/commerce/bee/commerce/product.html:98
+#: templates/commerce/bee/commerce/product.html:94
 msgid "No description provided for this product"
 msgstr ""
 
-#: templates/commerce/bee/commerce/product.html:130
+#: templates/commerce/bee/commerce/product.html:127
 msgid "Submit your review"
 msgstr ""
 
-#: templates/commerce/bee/commerce/product.html:134
+#: templates/commerce/bee/commerce/product.html:131
 msgid "Your rating"
 msgstr ""
 
-#: templates/commerce/bee/commerce/product.html:150
+#: templates/commerce/bee/commerce/product.html:142
 msgid "Write your review"
 msgstr ""
 
-#: templates/commerce/bee/commerce/product.html:153
+#: templates/commerce/bee/commerce/product.html:145
 msgid "Send"
 msgstr ""
 
-#: templates/commerce/bee/commerce/product.html:160
+#: templates/commerce/bee/commerce/product.html:152
 msgid "You should login to add a review"
 msgstr ""
 
-#: templates/commerce/bee/commerce/product.html:184
+#: templates/commerce/bee/commerce/product.html:174
 msgid "Products from this category"
 msgstr ""
 
-#: templates/commerce/bee/commerce/v_grid.html:33
+#: templates/commerce/bee/commerce/v_grid.html:20
 msgid "Showing"
 msgstr ""
 
-#: templates/commerce/bee/commerce/v_grid.html:46
-#: templates/commerce/bee/commerce/v_grid.html:54
-msgid "Filter"
+#: templates/commerce/bee/commerce/v_grid.html:32
+#: templates/commerce/bee/commerce/v_grid.html:42
+msgid "View"
 msgstr ""
 
-#: templates/commerce/bee/commerce/v_grid.html:59
+#: templates/commerce/bee/commerce/v_grid.html:45
 msgid "Page"
 msgstr ""
 
-#: templates/commerce/bee/commerce/v_grid.html:179
-#: templates/commerce/bee/commerce/v_search.html:125
-msgid "Specifications"
+#: templates/commerce/bee/commerce/v_grid.html:53
+msgid "Nothing found"
 msgstr ""
 
-#: templates/commerce/bee/commerce/v_search.html:11
-msgid "Search results"
+#: templates/commerce/bee/commerce/v_grid.html:141
+msgid "Specifications"
 msgstr ""
 
 #: templates/commerce/bee/users/orders.html:33
@@ -1334,7 +1444,7 @@ msgstr ""
 msgid "Order Total"
 msgstr ""
 
-#: templates/commerce/bee/users/profile.html:42
+#: templates/commerce/bee/users/profile.html:45
 msgid "Profile details"
 msgstr ""
 

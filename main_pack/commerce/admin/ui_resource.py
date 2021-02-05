@@ -83,7 +83,7 @@ def ui_resource():
 				response = jsonify({
 					"resId": newResource.ResId,
 					"status": "created",
-					"responseText": gettext('Resource')+' '+gettext('successfully saved'),
+					"responseText": gettext('Product')+' '+gettext('successfully saved'),
 					# "data":  render_template('/hr_department/tableEmpAppend.html',**baseTemplate,employee=newResource)
 					})
 			

@@ -3,7 +3,6 @@ from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from wtforms import (
 	StringField,
-	PasswordField,
 	SubmitField,
 	BooleanField,
 	SelectField)
@@ -59,19 +58,19 @@ class UserForm(FlaskForm):
 	full_name = StringField()
 	user_type = SelectField(coerce=int)
 	picture = FileField(validators=[FileAllowed(['jpg','png','img','svg','gif','bmp'])])
-	password = PasswordField(validators=[DataRequired()])
-	confirm_password = PasswordField(validators=[DataRequired(),EqualTo('password')])
+	password = StringField(validators=[DataRequired()])
+	confirm_password = StringField(validators=[DataRequired(),EqualTo('password')])
 
-	def validate_username(self,username):
-		user = Users.query.filter_by(UName = username.data, GCRecord = None).first()
-		if user:
-			# flash(lazy_gettext('That username is taken. Choose a different one!'),'warning')
-			raise ValidationError(lazy_gettext('That username is taken. Choose a different one!'))
-	def validate_email(self,email):
-		user = Users.query.filter_by(UEmail = email.data, GCRecord = None).first()
-		if user:
-			# flash(lazy_gettext('That email is taken. Choose a different one!'),'warning')
-			raise ValidationError(lazy_gettext('That email is taken. Choose a different one!'))
+	# def validate_username(self,username):
+	# 	user = Users.query.filter_by(UName = username.data, GCRecord = None).first()
+	# 	if user:
+	# 		# flash(lazy_gettext('That username is taken. Choose a different one!'),'warning')
+	# 		raise ValidationError(lazy_gettext('That username is taken. Choose a different one!'))
+	# def validate_email(self,email):
+	# 	user = Users.query.filter_by(UEmail = email.data, GCRecord = None).first()
+	# 	if user:
+	# 		# flash(lazy_gettext('That email is taken. Choose a different one!'),'warning')
+	# 		raise ValidationError(lazy_gettext('That email is taken. Choose a different one!'))
 
 
 class RpAccForm(FlaskForm):

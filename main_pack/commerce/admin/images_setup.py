@@ -311,7 +311,7 @@ def resource_edit(ResId):
 			db.session.add(image)
 			db.session.commit()
 
-			flash(f"{lazy_gettext('Resource picture')} {lazy_gettext('successfully uploaded!')}",'success')
+			flash("{} {}".format(lazy_gettext('Resource picture'), lazy_gettext('successfully uploaded!')),'success')
 		db.session.commit()
 		return redirect(url_for('commerce_admin.resource_edit',ResId=ResId))
 

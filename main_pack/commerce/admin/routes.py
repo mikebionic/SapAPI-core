@@ -278,8 +278,7 @@ def manage_rp():
 			}
 
 			if Config.HASHED_PASSWORDS == True:
-				password = bcrypt.generate_password_hash(data["RpAccUPass"]).decode()
-				data["RpAccUPass"] = password
+				data["RpAccUPass"] = bcrypt.generate_password_hash(data["RpAccUPass"]).decode()
 
 			if manage_mode == "update":
 				rp_acc.update(**data)
@@ -320,12 +319,12 @@ def manage_rp():
 
 			db.session.commit()
 
-			flash(f'{data["RpAccUName"]} {lazy_gettext("successfully saved")}', 'success')
+			flash('{} {}'.format(data["RpAccUName"], lazy_gettext("successfully saved")), 'success')
 			return redirect(url_for('commerce_admin.rp_table'))
 		except Exception as ex:
 			print(f"{datetime.now()} | Admin rp_acc_manage Exception: {ex}")
 			flash(lazy_gettext('Error occured, please try again.'),'danger')
-			return redirect(url_for('commerce_admin.manage_rp'))
+			return redirect(request.url)
 
 	if rp_acc:
 		form.username.data = rp_acc.RpAccUName
@@ -346,10 +345,8 @@ def manage_rp():
 		form = form,
 		title = gettext('Customer'))
 
-################################
 
 ###### users and user information #####
-
 @bp.route("/admin/user_table")
 @login_required
 @ui_admin_required
@@ -395,7 +392,18 @@ def user_details(UId):
 @login_required
 @ui_admin_required
 def manage_user():
+	UId = request.args.get('id')
+	manage_mode = "create"
 	form = UserForm()
+	user = None
+
+	if UId:
+		user = Users.query\
+			.filter_by(GCRecord = None, UId = UId)\
+			.first()
+		if user:
+			manage_mode = "update"
+
 	user_types_list = user_types()
 	userTypeChoices=[]
 	for user_type in user_types_list:
@@ -405,27 +413,41 @@ def manage_user():
 
 	if form.validate_on_submit():
 		try:
-			username = form.username.data
-			email = form.email.data
-			full_name = form.full_name.data
-			user_type = form.user_type.data
-			UShortName = (username[0]+username[-1]).upper()
+			data = {
+				"UName": form.username.data,
+				"UEmail": form.email.data,
+				"UFullName": form.full_name.data,
+				"UPass": form.password.data,
+				"UTypeId": form.user_type.data,
+			}
+
 			if Config.HASHED_PASSWORDS == True:
-				password = bcrypt.generate_password_hash(form.password.data).decode() 
+				data["UPass"] = bcrypt.generate_password_hash(form.password.data).decode()
+
+			if manage_mode == "update":
+				user.update(**data)
+
 			else:
-				password = form.password.data
-			last_User = Users.query.order_by(Users.UId.desc()).first()
-			UId = last_User.UId+1
-			user = Users(
-				UId = UId,
-				UGuid = uuid.uuid4(),
-				UName = username,
-				UEmail = email,
-				UShortName = UShortName,
-				UPass = password,
-				UFullName = full_name,
-				UTypeId = user_type)
-			db.session.add(user)
+				data["UShortName"] = (data["UName"][0] + data["UName"][-1]).upper()
+				try:
+					reg_num = generate(UId=current_user.UId,RegNumTypeName='user_code')
+					regNo = makeRegNo(current_user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'')
+				except Exception as ex:
+					print(f"{datetime.now()} | Admin user_manage regNo gen Exception: {ex}")
+					regNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
+
+				data["URegNo"] = regNo
+	
+				last_User = Users.query.order_by(Users.UId.desc()).first()
+				UId = last_User.UId+1
+
+				data["UId"] = UId
+				data["UGuid"] = uuid.uuid4()
+
+				user = Users(**data)
+				db.session.add(user)
+
+			db.session.commit()
 
 			if form.picture.data:
 				imageFile = save_image(imageForm=form.picture.data,module=os.path.join("uploads","commerce","Users"),id=user.UId)
@@ -441,19 +463,26 @@ def manage_user():
 
 			db.session.commit()
 
-			flash('{} '.format(username)+lazy_gettext('successfully saved'),'success')
+			flash('{} '.format(data["UName"])+lazy_gettext('successfully saved'),'success')
 			return redirect(url_for('commerce_admin.user_table'))
 		except Exception as ex:
 			print(f"{datetime.now()} | Admin user_manage Exception: {ex}")
 			flash(lazy_gettext('Error occured, please try again.'),'danger')
-			return redirect(url_for('commerce_admin.manage_user'))
+			return redirect(request.url)
+
+	if user:
+		form.username.data = user.UName
+		form.email.data = user.UEmail
+		form.full_name.data = user.UFullName
+		form.password.data = user.UPass
+		form.confirm_password.data = user.UPass
+		form.user_type.data = user.UTypeId
+
 	return render_template(
 		f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/manage_user.html",
 		url_prefix = url_prefix,
 		form=form,
 		title = gettext('Register'))
-
-#################################
 
 
 ###### orders and order information #######
