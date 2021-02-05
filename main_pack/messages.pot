@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-02-04 19:25+0500\n"
+"POT-Creation-Date: 2021-02-05 13:20+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -303,17 +303,13 @@ msgstr ""
 msgid "Product sizes"
 msgstr ""
 
-#: commerce/admin/ui_resource.py:86 commerce/commerce/ui_cart.py:69
-#: commerce/commerce/ui_cart.py:94 commerce/commerce/ui_cart.py:123
-#: commerce/commerce/ui_cart.py:149 commerce/commerce/ui_wishlist.py:50
-#: commerce/commerce/ui_wishlist.py:64
+#: commerce/admin/ui_resource.py:86 commerce/admin/ui_resource.py:116
+#: commerce/commerce/ui_cart.py:69 commerce/commerce/ui_cart.py:94
+#: commerce/commerce/ui_cart.py:123 commerce/commerce/ui_cart.py:149
+#: commerce/commerce/ui_wishlist.py:50 commerce/commerce/ui_wishlist.py:64
 #: templates/commerce/admin/rating_table.html:32
 #: templates/commerce/bee/commerce/cart.html:16
 msgid "Product"
-msgstr ""
-
-#: commerce/admin/ui_resource.py:116
-msgid "Resource"
 msgstr ""
 
 #: commerce/admin/ui_sliders.py:33 commerce/admin/ui_sliders.py:44

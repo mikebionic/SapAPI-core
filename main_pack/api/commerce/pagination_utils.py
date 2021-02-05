@@ -74,22 +74,22 @@ def collect_resource_paginate_info(
 		},
 		{
 			"sort": "brand_asc",
-			"sort_title": '{} {}'.format(gettext("Brand"),gettext("ascending")),
+			"sort_title": '{} {}'.format(gettext("Brand"), gettext("ascending")),
 			"status": 0
 		},
 		{
 			"sort": "brand_desc",
-			"sort_title": '{} {}'.format(gettext("Brand"),gettext("descending")),
+			"sort_title": '{} {}'.format(gettext("Brand"), gettext("descending")),
 			"status": 0
 		},
 		{
 			"sort": "category_asc",
-			"sort_title": '{} {}'.format(gettext("Category"),gettext("ascending")),
+			"sort_title": '{} {}'.format(gettext("Category"), gettext("ascending")),
 			"status": 0
 		},
 		{
 			"sort": "category_desc",
-			"sort_title": '{} {}'.format(gettext("Category"),gettext("descending")),
+			"sort_title": '{} {}'.format(gettext("Category"), gettext("descending")),
 			"status": 0
 		}
 	]

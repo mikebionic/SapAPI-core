@@ -846,6 +846,24 @@ $('body').delegate('.applySortingBtn','click',function(){
 })
 
 
+var screenSize = $(window).width();
+if (screenSize >= 1440){
+    $('.big-image img').each(function(){
+        data_m_img = $(this).attr('data-src-m')
+        $(this).attr('src', data_m_img)
+    })
+    $('.hero-image-two img').each(function(){
+        data_m_img = $(this).attr('data-src-m')
+        $(this).attr('src', data_m_img)
+    })
+}
+
+if (screenSize >= 768){
+    $('.banner img').each(function(){
+        data_m_img = $(this).attr('data-src-m')
+        $(this).attr('src', data_m_img)
+    })
+}
 
 // //Input min
 // var selectMin = document.getElementById('input-min');
