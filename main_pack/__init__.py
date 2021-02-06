@@ -61,9 +61,7 @@ def create_app(config_class=Config):
 	babel.init_app(app)
 	mail.init_app(app)
 	csrf.init_app(app)
-
-	if Config.USE_FLASK_CACHE:
-		cache.init_app(app)
+	cache.init_app(app)
 
 	if Config.USE_FLASK_COMPRESS:
 		compress.init_app(app)

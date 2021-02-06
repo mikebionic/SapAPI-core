@@ -30,7 +30,6 @@ class Config:
 	TESTING = (int(environ.get('TESTING')))
 
 	USE_FLASK_CORS = int(environ.get('USE_FLASK_CORS'))
-	USE_FLASK_CACHE = int(environ.get('USE_FLASK_CACHE'))
 	USE_FLASK_COMPRESS = int(environ.get('USE_FLASK_COMPRESS'))
 
 	EMAIL_ERROR_REPORTS = int(environ.get('EMAIL_ERROR_REPORTS'))
@@ -78,6 +77,7 @@ class Config:
 
 	CACHE_TYPE = environ.get('CACHE_TYPE')
 	CACHE_DEFAULT_TIMEOUT = 300
+	DB_CACHE_TIME = int(environ.get('DB_CACHE_TIME'))
 	CACHE_REDIS_URL = environ.get('CACHE_REDIS_URL')
 	# # / Sessions, Redis, Cache, Cookies /
 

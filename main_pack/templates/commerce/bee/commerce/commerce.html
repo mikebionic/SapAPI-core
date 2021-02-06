@@ -45,7 +45,7 @@
 				<div class="product-slider-wrap product-slider-arrow-one">
 					<div class="product-slider brands-slider">
 						{% for brand in Brands %}			
-							{% if brand.FilePath %}
+							{% if brand.FilePath and brand.IsMain %}
 								<div class="col pb-20 pt-10" style="padding-top: 65px; width: 150px;">
 									<a href="{{url_for('commerce.v_grid',brand = brand.BrandId)}}" class="cat-block">
 										<figure>

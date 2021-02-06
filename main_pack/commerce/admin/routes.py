@@ -9,7 +9,7 @@ from . import bp, url_prefix
 from main_pack.config import Config
 
 # useful methods
-from main_pack import db,babel,gettext,lazy_gettext
+from main_pack import db, gettext, lazy_gettext, cache
 from main_pack.base.languageMethods import dataLangSelector
 # / useful methods /
 
@@ -318,6 +318,7 @@ def manage_rp():
 				db.session.add(image)
 
 			db.session.commit()
+			cache.clear()
 
 			flash('{} {}'.format(data["RpAccUName"], lazy_gettext("successfully saved")), 'success')
 			return redirect(url_for('commerce_admin.rp_table'))
@@ -462,6 +463,7 @@ def manage_user():
 				db.session.add(image)
 
 			db.session.commit()
+			cache.clear()
 
 			flash('{} '.format(data["UName"])+lazy_gettext('successfully saved'),'success')
 			return redirect(url_for('commerce_admin.user_table'))
@@ -644,6 +646,7 @@ def manage_brand():
 				db.session.add(image)
 
 			db.session.commit()
+			cache.clear()
 
 			flash('{} '.format(brand.BrandName)+lazy_gettext('successfully saved'),'success')
 			return redirect(url_for('commerce_admin.brands_table'))

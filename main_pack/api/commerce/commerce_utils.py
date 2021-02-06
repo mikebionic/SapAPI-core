@@ -560,7 +560,7 @@ def apiResourceInfo(
 	return res
 
 
-@cache.cached(100, key_prefix="featured_resources")
+@cache.cached(Config.DB_CACHE_TIME, key_prefix="featured_resources")
 def apiFeaturedResCat_Resources():
 	featured_categories = collect_categories_query(
 		IsMain = True,

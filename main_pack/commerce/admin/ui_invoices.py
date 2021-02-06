@@ -1,5 +1,5 @@
 from flask import render_template,url_for,jsonify,session,flash,redirect,request,Response, abort
-from main_pack import db,babel,gettext
+from main_pack import db, gettext
 
 # auth and validation
 from flask_login import current_user,login_required

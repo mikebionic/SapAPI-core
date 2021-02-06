@@ -1,5 +1,5 @@
 from flask import render_template,url_for,jsonify,session,flash,redirect,request,Response, abort
-from main_pack import db,babel,gettext
+from main_pack import db, gettext, cache
 from main_pack.config import Config
 
 # auth and validation
@@ -36,35 +36,42 @@ def ui_sliders():
 			if (sliderId == '' or sliderId == None):
 				print('committing')
 				newSlider = Slider(**slider)
+
 				db.session.add(newSlider)
 				db.session.commit()
+				cache.clear()
+
 				response = jsonify({
 					"sliderId": newSlider.SlId,
 					"status": "created",
 					"responseText": gettext('Slider')+' '+gettext('successfully saved'),
 					"htmlData":  render_template(f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/sliderAppend.html",slider=newSlider)
 				})
+
 			else:
 				print('updating')
 				thisSlider = Slider.query.get(sliderId)
 				thisSlider.update(**slider)
 				db.session.commit()
+				cache.clear()
 				response = jsonify({
 					"status": "updated",
 					"responseText": gettext('Slider')+' '+gettext('successfully updated'),
 				})			
+
 		elif request.method == 'DELETE': 
 			req = request.get_json()
 			sliderId = req.get('sliderId')
 			thisSlider = Slider.query.get(sliderId)
 			thisSlider.GCRecord = 1
 			db.session.commit()
+			cache.clear()
 			response = jsonify({
 				"status": "deleted",
 				"responseText": gettext('Slider')+' '+gettext('successfully deleted'),
 			})
+
 	except Exception as ex:
-		print(ex)
 		response = jsonify({
 			"status": "error",
 			"responseText": gettext('Unknown error!'),

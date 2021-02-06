@@ -1,7 +1,7 @@
 from flask import render_template,url_for,jsonify,session,flash,redirect,request,Response
 from main_pack.config import Config
 from main_pack.commerce.admin import bp, url_prefix
-from main_pack import db,babel,gettext,lazy_gettext
+from main_pack import db, gettext, lazy_gettext, cache
 from flask import current_app
 
 # auth and validation
@@ -52,6 +52,7 @@ def logo_setup():
 				CId = company.CId)
 			db.session.add(image)
 			db.session.commit()
+			cache.clear()
 
 		flash(lazy_gettext('Company logo successfully uploaded!'), 'success')
 		return redirect(url_for('commerce_admin.logo_setup'))
@@ -80,9 +81,12 @@ def remove_images():
 				image.GCRecord = 1
 
 			db.session.commit()
+			cache.clear()
+
 			url = url_for('commerce_admin.logo_setup')
 			if ResId:
 				url = url_for('commerce_admin.resource_edit',ResId=ResId)
+
 		elif imgType == 'slider':
 			sl_image = Sl_image.query.get(ImgId)
 			
@@ -91,17 +95,19 @@ def remove_images():
 				file_name = Sl_image.SlImgMainImgFileName
 				remove_image(file_type,file_name)
 				db.session.delete(sl_image)
+
 			except Exception as ex:
 				sl_image.GCRecord = 1
-				print(ex)
 
 			db.session.commit()
+			cache.clear()
+
 			url = url_for('commerce_admin.sliders')
 
 		flash("Image successfully deleted!",'success')
 	except Exception as ex:
-		print(ex)
 		flash("Error, unable to execute this",'warning')
+
 	return redirect(url)
 
 
@@ -119,6 +125,7 @@ def sliders():
 		slider = Slider(SlName="commerce_header")
 		db.session.add(slider)
 		db.session.commit()
+		cache.clear()
 
 	sliders = Slider.query\
 		.filter_by(GCRecord = None)\
@@ -176,10 +183,15 @@ def slider_images(SlId):
 
 				db.session.add(image)
 				db.session.commit()
+				cache.clear()
+
 				flash(lazy_gettext('Slider picture successfully uploaded!'),'success')
+
 			return redirect(url_for('commerce_admin.slider_images',SlId=slider.SlId))
+
 	else:
 		return redirect(url_for('commerce_admin.sliders'))
+
 	return render_template(f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/slider_setup.html",url_prefix=url_prefix,
 		title=gettext('Sliders'),sliderForm=sliderForm,slider=slider,sl_images=sl_images)
 
@@ -312,7 +324,10 @@ def resource_edit(ResId):
 			db.session.commit()
 
 			flash("{} {}".format(lazy_gettext('Resource picture'), lazy_gettext('successfully uploaded!')),'success')
+
 		db.session.commit()
+		cache.clear()
+
 		return redirect(url_for('commerce_admin.resource_edit',ResId=ResId))
 
 	resourceForm.ResName.data = resource_info["ResName"]

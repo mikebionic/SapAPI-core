@@ -1,5 +1,5 @@
 from flask import render_template,url_for,jsonify,session,flash,redirect,request,Response,abort
-from main_pack import db,babel,gettext
+from main_pack import db, gettext, cache
 from main_pack.config import Config
 
 # auth and validation
@@ -84,8 +84,11 @@ def ui_images():
 				if (imgId == '' or imgId == None):
 					image["ImgGuid"] = uuid.uuid4()
 					newImage = Image(**image)
+
 					db.session.add(newImage)
 					db.session.commit()
+					cache.clear()
+
 					response = {
 						"imgId": newImage.ImgId,
 						"fileName": newImage.FileName,
