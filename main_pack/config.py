@@ -14,6 +14,8 @@ class Config:
 	# basic app configs (required)
 	SECRET_KEY = environ.get('SECRET_KEY')
 	SYNCH_SHA = environ.get('SYNCH_SHA')
+	APP_WEB_KEY = environ.get('APP_WEB_KEY')
+
 	C_MAIN_DIVGUID = environ.get('C_MAIN_DIVGUID')
 	MAIN_CGUID = environ.get('MAIN_CGUID')
 
@@ -21,6 +23,8 @@ class Config:
 	SAP_SERVICE_URL = environ.get('SAP_SERVICE_URL')
 	SAP_SERVICE_URL_PREFIX = environ.get('SAP_SERVICE_URL_PREFIX')
 	USE_ACTIVATION_SERVICE = int(environ.get('USE_ACTIVATION_SERVICE'))
+	BASE_32_FERNET_KEY = environ.get('BASE_32_FERNET_KEY').encode()
+	DEVICE_ACTIVE_TIMEOUT_DAYS = int(environ.get('DEVICE_ACTIVE_TIMEOUT_DAYS'))
 
 	# set to production if Production
 	FLASK_ENV = 'development'

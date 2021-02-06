@@ -1,5 +1,5 @@
 from flask import jsonify, request, make_response, abort
-from datetime import datetime
+from datetime import datetime, timezone
 import uuid
 
 from . import api
@@ -9,6 +9,7 @@ from main_pack.api.users.utils import addDeviceDict
 from main_pack.api.base.validators import request_is_json
 from main_pack.models.users.models import Device, Rp_acc
 from .utils import sap_key_required
+from main_pack.base.cryptographyMethods import encrypt_data
 
 
 @api.route("/devices/register/",methods=["POST"])
@@ -17,8 +18,11 @@ from .utils import sap_key_required
 def register_device():
 	if request.method == 'POST':
 		req = request.get_json()
-
 		rp_acc = Rp_acc.query.filter_by(DbGuid = req["DbInfGuid"], GCRecord = None).first()
+
+		if not rp_acc:
+			abort(400)
+
 		RpAccId = rp_acc.RpAccId if rp_acc else None
 
 		filtering = {
@@ -38,6 +42,24 @@ def register_device():
 				device_info = addDeviceDict(req)
 				device_info["RpAccId"] = RpAccId
 				device_info["DevGuid"] = uuid.uuid4()
+
+				DevVerifyDate = datetime.now()
+				device_info["DevVerifyDate"] = DevVerifyDate
+
+				verify_date_data = str(DevVerifyDate.replace(tzinfo=timezone.utc).timestamp())
+
+				DevVerifyKey = encrypt_data(
+					data = verify_date_data,
+					server_key = Config.BASE_32_FERNET_KEY,
+					db_guid = rp_acc.DbGuid,
+					client_key = rp_acc.RpAccWebKey
+				)
+
+				if not DevVerifyKey:
+					raise Exception
+
+				device_info["DevVerifyKey"] = DevVerifyKey
+
 				thisDevice = Device(**device_info)
 				db.session.add(thisDevice)
 				db.session.commit()
