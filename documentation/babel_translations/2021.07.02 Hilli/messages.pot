@@ -1,0 +1,812 @@
+msgid "Login the system!"
+msgstr "Login the system!"
+
+msgid "Password reset request"
+msgstr "Password reset request"
+
+msgid "Newest"
+msgstr "Newest"
+
+msgid "Oldest"
+msgstr "Oldest"
+
+msgid "Price: high to low"
+msgstr "Price: high to low"
+
+msgid "Price: low to high"
+msgstr "Price: low to high"
+
+msgid "Rated"
+msgstr "Rated"
+
+msgid "Brand"
+msgstr "Brand"
+
+msgid "ascending"
+msgstr "ascending"
+
+msgid "descending"
+msgstr "descending"
+
+msgid "Category"
+msgstr "Category"
+
+msgid "Company logo successfully uploaded!"
+msgstr "Company logo successfully uploaded!"
+
+msgid "Company logo"
+msgstr "Company logo"
+
+msgid "Sliders"
+msgstr "Sliders"
+
+msgid "Slider picture successfully uploaded!"
+msgstr "Slider picture successfully uploaded!"
+
+msgid "Resource picture"
+msgstr "Resource picture"
+
+msgid "successfully uploaded!"
+msgstr "successfully uploaded!"
+
+msgid "Dashboard"
+msgstr "Dashboard"
+
+msgid "Company"
+msgstr "Company"
+
+msgid "Category table"
+msgstr "Category table"
+
+msgid "Product table"
+msgstr "Product table"
+
+msgid "Customers"
+msgstr "Customers"
+
+msgid "Customer details"
+msgstr "Customer details"
+
+msgid "successfully saved"
+msgstr "successfully saved"
+
+msgid "Error occured, please try again."
+msgstr "Error occured, please try again."
+
+msgid "Customer"
+msgstr "Customer"
+
+msgid "Users"
+msgstr "Users"
+
+msgid "Register"
+msgstr "Register"
+
+msgid "Order invoices"
+msgstr "Order invoices"
+
+msgid "Add product"
+msgstr "Add product"
+
+msgid "Sale reports"
+msgstr "Sale reports"
+
+msgid "Brands"
+msgstr "Brands"
+
+msgid "Rating"
+msgstr "Rating"
+
+msgid "Barcode"
+msgstr "Barcode"
+
+msgid "successfully updated"
+msgstr "successfully updated"
+
+msgid "Unknown error!"
+msgstr "Unknown error!"
+
+msgid "successfully deleted"
+msgstr "successfully deleted"
+
+msgid "Error"
+msgstr "Error"
+
+msgid "category has resources, delete related resources first and try again."
+msgstr "category has resources, delete related resources first and try again."
+
+msgid "successfully updated!"
+msgstr "successfully updated!"
+
+msgid "Image"
+msgstr "Image"
+
+msgid "Invoice status"
+msgstr "Invoice status"
+
+msgid "Error generating Registration number"
+msgstr "Error generating Registration number"
+
+msgid "Price"
+msgstr "Price"
+
+msgid "That registration number already presents"
+msgstr "That registration number already presents"
+
+msgid "It changed to "
+msgstr "It changed to "
+
+msgid "Color"
+msgstr "Color"
+
+msgid "Size"
+msgstr "Size"
+
+msgid "Product colors"
+msgstr "Product colors"
+
+msgid "Product sizes"
+msgstr "Product sizes"
+
+msgid "Product"
+msgstr "Product"
+
+msgid "Slider"
+msgstr "Slider"
+
+msgid "already present"
+msgstr "already present"
+
+msgid "Translation"
+msgstr "Translation"
+
+msgid "Failed"
+msgstr "Failed"
+
+msgid "Login Failed! Wrong username or password"
+msgstr "Login Failed! Wrong username or password"
+
+msgid "Login"
+msgstr "Login"
+
+msgid "That username is taken. Choose a different one!"
+msgstr "That username is taken. Choose a different one!"
+
+msgid "That email is taken. Choose a different one!"
+msgstr "That email is taken. Choose a different one!"
+
+msgid "The profile of that email not found! Please register fist."
+msgstr "The profile of that email not found! Please register fist."
+
+msgid "Login Failed! Wrong email or password"
+msgstr "Login Failed! Wrong email or password"
+
+msgid "Your password has been updated!"
+msgstr "Your password has been updated!"
+
+msgid "Reset password"
+msgstr "Reset password"
+
+msgid "An email has been sent with instructions to reset your password"
+msgstr "An email has been sent with instructions to reset your password"
+
+msgid "Token is invalid or expired"
+msgstr "Token is invalid or expired"
+
+msgid "An email has been sent with instructions to register your profile"
+msgstr "An email has been sent with instructions to register your profile"
+
+msgid "your profile has been created!"
+msgstr "your profile has been created!"
+
+msgid "Registration request"
+msgstr "Registration request"
+
+msgid "Dear"
+msgstr "Dear"
+
+msgid "You have requested the registration on ecommerce. Please follow the link to verify your email"
+msgstr "You have requested the registration on ecommerce. Please follow the link to verify your email"
+
+msgid "If you did not make this request then simply ignore this email"
+msgstr "If you did not make this request then simply ignore this email"
+
+msgid "Checkout"
+msgstr "Checkout"
+
+msgid "successfully done"
+msgstr "successfully done"
+
+msgid "View orders in profile page."
+msgstr "View orders in profile page."
+
+msgid "already sent"
+msgstr "already sent"
+
+msgid "successfully sent"
+msgstr "successfully sent"
+
+msgid "It will be shown after some time"
+msgstr "It will be shown after some time"
+
+msgid "Username"
+msgstr "Username"
+
+msgid "Full name"
+msgstr "Full name"
+
+msgid "Address"
+msgstr "Address"
+
+msgid "Mobile phone"
+msgstr "Mobile phone"
+
+msgid "Home phone"
+msgstr "Home phone"
+
+msgid "Zip code"
+msgstr "Zip code"
+
+msgid "Update Profile Picture"
+msgstr "Update Profile Picture"
+
+msgid "Update"
+msgstr "Update"
+
+msgid "Profile successfully updated!"
+msgstr "Profile successfully updated!"
+
+msgid "Upload images"
+msgstr "Upload images"
+
+msgid "Choose file"
+msgstr "Choose file"
+
+msgid "Upload"
+msgstr "Upload"
+
+msgid "Images"
+msgstr "Images"
+
+msgid "Choose the main image"
+msgstr "Choose the main image"
+
+msgid "Save"
+msgstr "Save"
+
+msgid "Registration Number"
+msgstr "Registration Number"
+
+msgid "Product name"
+msgstr "Product name"
+
+msgid "Description"
+msgstr "Description"
+
+msgid "Quantity"
+msgstr "Quantity"
+
+msgid "Unit"
+msgstr "Unit"
+
+msgid "Usage status"
+msgstr "Usage status"
+
+msgid "Products descriptions"
+msgstr "Products descriptions"
+
+msgid "Additional information"
+msgstr "Additional information"
+
+msgid "Translations"
+msgstr "Translations"
+
+msgid "Size and form"
+msgstr "Size and form"
+
+msgid "Width"
+msgstr "Width"
+
+msgid "Height"
+msgstr "Height"
+
+msgid "Length"
+msgstr "Length"
+
+msgid "Weight"
+msgstr "Weight"
+
+msgid "Producer, location, properties, outlines, etc"
+msgstr "Producer, location, properties, outlines, etc"
+
+msgid "Properties"
+msgstr "Properties"
+
+msgid "Select colors"
+msgstr "Select colors"
+
+msgid "Add color"
+msgstr "Add color"
+
+msgid "Color name"
+msgstr "Color name"
+
+msgid "Color description"
+msgstr "Color description"
+
+msgid "Add"
+msgstr "Add"
+
+msgid "Sizes"
+msgstr "Sizes"
+
+msgid "Add size"
+msgstr "Add size"
+
+msgid "Size name"
+msgstr "Size name"
+
+msgid "Size description"
+msgstr "Size description"
+
+msgid "Add Brand"
+msgstr "Add Brand"
+
+msgid "Brand name"
+msgstr "Brand name"
+
+msgid "Brand description"
+msgstr "Brand description"
+
+msgid "Language"
+msgstr "Language"
+
+msgid "Name"
+msgstr "Name"
+
+msgid "Full Description"
+msgstr "Full Description"
+
+msgid "Action"
+msgstr "Action"
+
+msgid "Add new product"
+msgstr "Add new product"
+
+msgid "Add translation"
+msgstr "Add translation"
+
+msgid "Product description"
+msgstr "Product description"
+
+msgid "Product full description"
+msgstr "Product full description"
+
+msgid "Password"
+msgstr "Password"
+
+msgid "Remember me"
+msgstr "Remember me"
+
+msgid "Brands table"
+msgstr "Brands table"
+
+msgid "Visible index"
+msgstr "Visible index"
+
+msgid "Featured"
+msgstr "Featured"
+
+msgid "Icon"
+msgstr "Icon"
+
+msgid "Link"
+msgstr "Link"
+
+msgid "Category name"
+msgstr "Category name"
+
+msgid "Main category"
+msgstr "Main category"
+
+msgid "Icons"
+msgstr "Icons"
+
+msgid "Search"
+msgstr "Search"
+
+msgid "Company configuration"
+msgstr "Company configuration"
+
+msgid "Company name"
+msgstr "Company name"
+
+msgid "Phone"
+msgstr "Phone"
+
+msgid "Postal code"
+msgstr "Postal code"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Web address"
+msgstr "Web address"
+
+msgid "Working time"
+msgstr "Working time"
+
+msgid "Admin panel"
+msgstr "Admin panel"
+
+msgid "Product Table"
+msgstr "Product Table"
+
+msgid "Navigation"
+msgstr "Navigation"
+
+msgid "Rating table"
+msgstr "Rating table"
+
+msgid "Add Product"
+msgstr "Add Product"
+
+msgid "Users table"
+msgstr "Users table"
+
+msgid "Pictures"
+msgstr "Pictures"
+
+msgid "Invoices"
+msgstr "Invoices"
+
+msgid "Sale order invoices"
+msgstr "Sale order invoices"
+
+msgid "Sale invoices"
+msgstr "Sale invoices"
+
+msgid "Customers table"
+msgstr "Customers table"
+
+msgid "Save logo"
+msgstr "Save logo"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Logo"
+msgstr "Logo"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Avatar"
+msgstr "Avatar"
+
+msgid "Email address"
+msgstr "Email address"
+
+msgid "User"
+msgstr "User"
+
+msgid "Confirm password"
+msgstr "Confirm password"
+
+msgid "All orders"
+msgstr "All orders"
+
+msgid "This customer's orders"
+msgstr "This customer's orders"
+
+msgid "Reg №"
+msgstr "Reg №"
+
+msgid "Ordered date"
+msgstr "Ordered date"
+
+msgid "Amount"
+msgstr "Amount"
+
+msgid "Total price"
+msgstr "Total price"
+
+msgid "Currency"
+msgstr "Currency"
+
+msgid "Set Status"
+msgstr "Set Status"
+
+msgid "Set"
+msgstr "Set"
+
+msgid "Invoice"
+msgstr "Invoice"
+
+msgid "Reg No"
+msgstr "Reg No"
+
+msgid "Progress"
+msgstr "Progress"
+
+msgid "Date"
+msgstr "Date"
+
+msgid "E-mail"
+msgstr "E-mail"
+
+msgid "Detail"
+msgstr "Detail"
+
+msgid "All"
+msgstr "All"
+
+msgid "Validated"
+msgstr "Validated"
+
+msgid "Not validated"
+msgstr "Not validated"
+
+msgid "Value"
+msgstr "Value"
+
+msgid "Remark"
+msgstr "Remark"
+
+msgid "Full description"
+msgstr "Full description"
+
+msgid "Profile"
+msgstr "Profile"
+
+msgid "Orders"
+msgstr "Orders"
+
+msgid "Registered date"
+msgstr "Registered date"
+
+msgid "Related user"
+msgstr "Related user"
+
+msgid "Select"
+msgstr "Select"
+
+msgid "Delete"
+msgstr "Delete"
+
+msgid "Rated products table"
+msgstr "Rated products table"
+
+msgid "Reýtingli harytlaryň tablisasy"
+msgstr "Reýtingli harytlaryň tablisasy"
+
+msgid "Sold in last hour"
+msgstr "Sold in last hour"
+
+msgid "Sold in last day"
+msgstr "Sold in last day"
+
+msgid "Sold in last week"
+msgstr "Sold in last week"
+
+msgid "Sold in last month"
+msgstr "Sold in last month"
+
+msgid "Top sold products"
+msgstr "Top sold products"
+
+msgid "Edit"
+msgstr "Edit"
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "Add slider image"
+msgstr "Add slider image"
+
+msgid "Title"
+msgstr "Title"
+
+msgid "Start date"
+msgstr "Start date"
+
+msgid "End date"
+msgstr "End date"
+
+msgid "New Slider"
+msgstr "New Slider"
+
+msgid "Short name"
+msgstr "Short name"
+
+msgid "Don’t have profile?"
+msgstr "Don’t have profile?"
+
+msgid "Forgot your password?"
+msgstr "Forgot your password?"
+
+msgid "Please, proceed the registration"
+msgstr "Please, proceed the registration"
+
+msgid "Phone number"
+msgstr "Phone number"
+
+msgid "Total"
+msgstr "Total"
+
+msgid "Remove"
+msgstr "Remove"
+
+msgid "Note"
+msgstr "Note"
+
+msgid "City"
+msgstr "City"
+
+msgid "Av."
+msgstr "Av."
+
+msgid "Street"
+msgstr "Street"
+
+msgid "House"
+msgstr "House"
+
+msgid "Flat"
+msgstr "Flat"
+
+msgid "Summary"
+msgstr "Summary"
+
+msgid "You should login if you want to checkout an order"
+msgstr "You should login if you want to checkout an order"
+
+msgid "New"
+msgstr "New"
+
+msgid "Add to cart"
+msgstr "Add to cart"
+
+msgid "New arrival"
+msgstr "New arrival"
+
+msgid "Contact"
+msgstr "Contact"
+
+msgid "Contact us"
+msgstr "Contact us"
+
+msgid "Leave us a message"
+msgstr "Leave us a message"
+
+msgid "First name"
+msgstr "First name"
+
+msgid "Last name"
+msgstr "Last name"
+
+msgid "Message"
+msgstr "Message"
+
+msgid "Commerce"
+msgstr "Commerce"
+
+msgid "My profile"
+msgstr "My profile"
+
+msgid "Log out"
+msgstr "Log out"
+
+msgid "Categories"
+msgstr "Categories"
+
+msgid "Main"
+msgstr "Main"
+
+msgid "Products"
+msgstr "Products"
+
+msgid "About us"
+msgstr "About us"
+
+msgid "Close"
+msgstr "Close"
+
+msgid "Remove from cart"
+msgstr "Remove from cart"
+
+msgid "Availability"
+msgstr "Availability"
+
+msgid "In stock"
+msgstr "In stock"
+
+msgid "Wishlist"
+msgstr "Wishlist"
+
+msgid "Customers reviews"
+msgstr "Customers reviews"
+
+msgid "No description provided for this product"
+msgstr "No description provided for this product"
+
+msgid "Submit your review"
+msgstr "Submit your review"
+
+msgid "Your rating"
+msgstr "Your rating"
+
+msgid "Write your review"
+msgstr "Write your review"
+
+msgid "Send"
+msgstr "Send"
+
+msgid "You should login to add a review"
+msgstr "You should login to add a review"
+
+msgid "Products from this category"
+msgstr "Products from this category"
+
+msgid "Showing"
+msgstr "Showing"
+
+msgid "View"
+msgstr "View"
+
+msgid "Page"
+msgstr "Page"
+
+msgid "Nothing found"
+msgstr "Nothing found"
+
+msgid "Specifications"
+msgstr "Specifications"
+
+msgid "Order"
+msgstr "Order"
+
+msgid "Order Total"
+msgstr "Order Total"
+
+msgid "Profile details"
+msgstr "Profile details"
+
+msgid "Edit profile"
+msgstr "Edit profile"
+
+msgid "View product"
+msgstr "View product"
+
+msgid "Bread and confectionery"
+msgstr "Bread and confectionery"
+
+msgid "Cleansers"
+msgstr "Cleansers"
+
+msgid "Foodstuffs"
+msgstr "Foodstuffs"
+
+msgid "Drinks"
+msgstr "Drinks"
+
+msgid "Packaged products"
+msgstr "Packaged products"
+
+msgid "Fruits and vegetables"
+msgstr "Fruits and vegetables"
+
+msgid "Dairy products"
+msgstr "Dairy products"
+
+msgid "Meat products"
+msgstr "Meat products"
+
+msgid "Electronics"
+msgstr "Electronics"
+
+msgid "Beauty and health"
+msgstr "Beauty and health"
+
+msgid "Others"
+msgstr "Others"
