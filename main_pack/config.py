@@ -24,7 +24,7 @@ class Config:
 	SAP_SERVICE_URL_PREFIX = environ.get('SAP_SERVICE_URL_PREFIX')
 	USE_ACTIVATION_SERVICE = int(environ.get('USE_ACTIVATION_SERVICE'))
 	BASE_32_FERNET_KEY = environ.get('BASE_32_FERNET_KEY').encode()
-	DEVICE_ACTIVE_TIMEOUT_DAYS = int(environ.get('DEVICE_ACTIVE_TIMEOUT_DAYS'))
+	DEVICE_ALLOWED_TIMEOUT_DAYS = int(environ.get('DEVICE_ALLOWED_TIMEOUT_DAYS'))
 
 	# set to production if Production
 	FLASK_ENV = 'development'

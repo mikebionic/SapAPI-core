@@ -33,8 +33,12 @@ def check_device_activation(device_model):
 		do_fetch = True
 
 	if decrypt_data:
-		if (DevVerifyDate == decrypt_data):
-			state = True
+		if (str(DevVerifyDate.replace(tzinfo=timezone.utc).timestamp()) == decrypt_data):
+			if (DevVerifyDate > datetime.today() - timedelta(days = Config.DEVICE_ALLOWED_TIMEOUT_DAYS)):
+				state = True
+
+			else:
+				do_fetch = True
 
 		else:
 			do_fetch = True

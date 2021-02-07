@@ -62,16 +62,24 @@
                   </div>
                 </div>
               </div>
-              <div class="form-group">
-                <label>{{_('Avatar')}}</label>
-                <div class="custom-file">
-                  {{ form.picture(class="custom-file-input") }}
-                  {% if form.picture.errors %}
-                    {% for error in form.picture.errors %}
-                      <span class="text-danger">{{ error }}</span>
-                    {% endfor %}
-                  {% endif %}
+              <div class="row">
+                <div class="form-group col-6">
+                  <label>{{_('Price group')}}</label>
+                  <div class="input-group">
+                    {{ form.res_price_group(class="custom-select") }}
+                  </div>
                 </div>
+                <div class="form-group col-6">
+                  <label>{{_('Avatar')}}</label>
+                  <div class="custom-file">
+                    {{ form.picture(class="custom-file-input") }}
+                    {% if form.picture.errors %}
+                      {% for error in form.picture.errors %}
+                        <span class="text-danger">{{ error }}</span>
+                      {% endfor %}
+                    {% endif %}
+                  </div>
+                </div>                
               </div>
               <div class="row">
                 <div class="form-group col-6">

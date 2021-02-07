@@ -39,13 +39,19 @@
                 </div>
               </div>
               <div class="row">
-                <div class="form-group col-6">
+                <div class="form-group col-4">
                   <label>{{_('Type')}}</label>
                   <div class="input-group">
                     {{ form.rp_acc_type(class="custom-select") }}
                   </div>
                 </div>
-                <div class="form-group col-6">
+                <div class="form-group col-4">
+                  <label>{{_('Price group')}}</label>
+                  <div class="input-group">
+                    {{ form.res_price_group(class="custom-select") }}
+                  </div>
+                </div>
+                <div class="form-group col-4">
                   <label>{{_('Avatar')}}</label>
                   <div class="custom-file">
                     {{ form.picture(class="custom-file-input") }}

@@ -103,8 +103,10 @@ def create_app(config_class=Config):
 		csrf.exempt(activation_customer_api)
 
 	sap_service_url_prefix = Config.SAP_SERVICE_URL_PREFIX
+
 	from main_pack.activation.server import api as activation_server_api
 	app.register_blueprint(activation_server_api, url_prefix=sap_service_url_prefix)
+
 	csrf.exempt(activation_server_api)
 
 	csrf.exempt(auth_api)

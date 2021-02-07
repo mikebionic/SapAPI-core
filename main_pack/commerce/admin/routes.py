@@ -40,7 +40,8 @@ from main_pack.models.commerce.models import (
 	Order_inv,
 	Order_inv_line,
 	Order_inv_type,
-	Rating
+	Rating,
+	Res_price_group
 )
 
 from main_pack.commerce.commerce.order_utils import UiOInvData,UiOInvLineData
@@ -156,29 +157,28 @@ def resources_table():
 		**resData,
 		title = gettext('Product table'))
 
+def res_price_groups():
+	res_price_groups = Res_price_group.query.filter_by(GCRecord = None).all()
+	res_price_groups_list = [res_price_group.to_json_api() for res_price_group in res_price_groups]
+	return res_price_groups_list
+
 def rp_acc_types():
 	rp_acc_types = Rp_acc_type.query.filter_by(GCRecord = None).all()
-	rp_acc_types_list = []
-	for rp_acc_type in rp_acc_types:
-		rp_acc_types_list.append(dataLangSelector(rp_acc_type.to_json_api()))
+	rp_acc_types_list = [dataLangSelector(rp_acc_type.to_json_api()) for rp_acc_type in rp_acc_types]
 	return rp_acc_types_list
 
 def rp_acc_statuses():
 	rp_acc_statuses = Rp_acc_status.query.filter_by(GCRecord = None).all()
-	rp_acc_statuses_list = []
-	for rp_acc_status in rp_acc_statuses:
-		rp_acc_statuses_list.append(dataLangSelector(rp_acc_status.to_json_api()))
+	rp_acc_statuses_list = [dataLangSelector(rp_acc_status.to_json_api()) for rp_acc_status in rp_acc_statuses]
 	return rp_acc_statuses_list
 
 def user_types():
 	user_types = User_type.query.filter_by(GCRecord = None).all()
-	user_types_list = []
-	for user_type in user_types:
-		user_types_list.append(dataLangSelector(user_type.to_json_api()))
+	user_types_list = [dataLangSelector(user_type.to_json_api()) for user_type in user_types]
 	return user_types_list
 
-##### customers table and customers information ######
 
+##### customers table and customers information ######
 @bp.route("/admin/rp_table")
 @login_required
 @ui_admin_required
@@ -248,15 +248,22 @@ def manage_rp():
 		if rp_acc:
 			manage_mode = "update"
 
+	res_price_groups_list = res_price_groups()
+	res_price_group_choices=[(0, gettext("Select"))]
+	for res_price_group in res_price_groups_list:
+		obj = (res_price_group['ResPriceGroupId'],res_price_group['ResPriceGroupName'])
+		res_price_group_choices.append(obj)
+	form.res_price_group.choices = res_price_group_choices
+
 	rp_acc_types_list = rp_acc_types()
-	customerTypeChoices=[]
+	rp_acc_type_choices=[(0, gettext("Select"))]
 	for rp_acc_type in rp_acc_types_list:
 		obj = (rp_acc_type['RpAccTypeId'],rp_acc_type['RpAccTypeName'])
-		customerTypeChoices.append(obj)
-	form.rp_acc_type.choices = customerTypeChoices
+		rp_acc_type_choices.append(obj)
+	form.rp_acc_type.choices = rp_acc_type_choices
 
 	users = Users.query.filter_by(GCRecord = None).all()
-	userChoices = []
+	userChoices = [(0, gettext("Select"))]
 	for user in users:
 		obj = (user.UId,user.UName)
 		userChoices.append(obj)
@@ -269,12 +276,13 @@ def manage_rp():
 				"RpAccUPass": form.password.data,
 				"RpAccName": form.full_name.data,
 				"RpAccEMail": form.email.data,
-				"RpAccTypeId": form.rp_acc_type.data,
+				"RpAccTypeId": form.rp_acc_type.data if form.rp_acc_type.data != 0 else None,
 				"RpAccAddress": form.address.data,
 				"RpAccMobilePhoneNumber": form.mobilePhone.data,
 				"RpAccHomePhoneNumber": form.homePhone.data,
 				"RpAccZipCode": form.zipCode.data,
-				"UId": form.user.data			
+				"UId": form.user.data if form.user.data != 0 else None,
+				"ResPriceGroupId": form.res_price_group.data if form.res_price_group.data != 0 else None
 			}
 
 			if Config.HASHED_PASSWORDS == True:
@@ -339,6 +347,7 @@ def manage_rp():
 		form.homePhone.data = rp_acc.RpAccHomePhoneNumber
 		form.zipCode.data = rp_acc.RpAccZipCode
 		form.user.data = rp_acc.UId
+		form.res_price_group.data = rp_acc.ResPriceGroupId
 
 	return render_template(
 		f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/manage_rp.html",
@@ -405,8 +414,15 @@ def manage_user():
 		if user:
 			manage_mode = "update"
 
+	res_price_groups_list = res_price_groups()
+	res_price_group_choices=[(0, gettext("Select"))]
+	for res_price_group in res_price_groups_list:
+		obj = (res_price_group['ResPriceGroupId'],res_price_group['ResPriceGroupName'])
+		res_price_group_choices.append(obj)
+	form.res_price_group.choices = res_price_group_choices
+
 	user_types_list = user_types()
-	userTypeChoices=[]
+	userTypeChoices=[(0, gettext("Select"))]
 	for user_type in user_types_list:
 		obj=(user_type['UTypeId'],user_type['UTypeName'])
 		userTypeChoices.append(obj)
@@ -419,7 +435,8 @@ def manage_user():
 				"UEmail": form.email.data,
 				"UFullName": form.full_name.data,
 				"UPass": form.password.data,
-				"UTypeId": form.user_type.data,
+				"UTypeId": form.user_type.data if form.user_type.data != 0 else None,
+				"ResPriceGroupId": form.res_price_group.data if form.res_price_group.data != 0 else None
 			}
 
 			if Config.HASHED_PASSWORDS == True:
@@ -479,6 +496,7 @@ def manage_user():
 		form.password.data = user.UPass
 		form.confirm_password.data = user.UPass
 		form.user_type.data = user.UTypeId
+		form.res_price_group.data = user.ResPriceGroupId
 
 	return render_template(
 		f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/manage_user.html",
