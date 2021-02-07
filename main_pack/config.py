@@ -35,6 +35,7 @@ class Config:
 
 	USE_FLASK_CORS = int(environ.get('USE_FLASK_CORS'))
 	USE_FLASK_COMPRESS = int(environ.get('USE_FLASK_COMPRESS'))
+	MINIFY_HTML_RESPONSE = int(environ.get('MINIFY_HTML_RESPONSE')) if environ.get('MINIFY_HTML_RESPONSE') else 1
 
 	EMAIL_ERROR_REPORTS = int(environ.get('EMAIL_ERROR_REPORTS'))
 	EMAIL_ERROR_REPORTS_ADDRESSES = json.loads(environ.get('EMAIL_ERROR_REPORTS_ADDRESSES'))

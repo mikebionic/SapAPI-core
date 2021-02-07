@@ -14,6 +14,7 @@ from flask_caching import Cache
 from flask_compress import Compress
 import logging
 from logging.handlers import SMTPHandler
+from htmlmin.main import minify
 
 from main_pack.config import Config
 
@@ -154,5 +155,13 @@ def create_app(config_class=Config):
 			mail_handler.setLevel(logging.ERROR)
 			app.logger.addHandler(mail_handler)
 	# /logging
+
+	if Config.MINIFY_HTML_RESPONSE:
+		@app.after_request
+		def response_minify(response):
+			if response.content_type == u'text/html; charset=utf-8':
+				response.set_data(minify(response.get_data(as_text=True)))
+				return response
+			return response
 
 	return app
