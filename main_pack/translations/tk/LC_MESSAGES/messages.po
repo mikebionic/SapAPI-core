@@ -196,7 +196,7 @@ msgid "That email is taken. Choose a different one!"
 msgstr "Şol e-poçta alyndy. Başga birini saýlaň!"
 
 msgid "The profile of that email not found! Please register fist."
-msgstr "Şol e-poçta profil tapylmady! Ilki bilen ýazyň."
+msgstr "Şol e-poçta profil tapylmady! Ilki hasaba alyň."
 
 msgid "Login Failed! Wrong email or password"
 msgstr "Giriş şowsuz! e-poçta ýa-da parol nädogry"
@@ -208,13 +208,13 @@ msgid "Reset password"
 msgstr "Paroly täzeden düzmek"
 
 msgid "An email has been sent with instructions to reset your password"
-msgstr "Parolyňyzy täzeden düzmek üçin görkezmeler bilen e-poçta iberildi"
+msgstr "Parolyňyzy täzeden düzmek üçin görkezmeler e-poçta iberildi"
 
 msgid "Token is invalid or expired"
 msgstr "Token nädogry ýa-da möhleti gutardy"
 
 msgid "An email has been sent with instructions to register your profile"
-msgstr "Profiliňizi hasaba almak üçin görkezmeler bilen e-poçta iberildi"
+msgstr "Profiliňizi hasaba almak üçin görkezmeler e-poçta iberildi"
 
 msgid "your profile has been created!"
 msgstr "profiliňiz döredildi!"

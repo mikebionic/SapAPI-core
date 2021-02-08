@@ -17,7 +17,12 @@ from main_pack.commerce.auth.forms import (
 
 # db Models
 from main_pack.models.users.models import Users, Rp_acc
-from main_pack.models.base.models import Reg_num, Reg_num_type
+from main_pack.models.base.models import (
+	Company,
+	Division,
+	Reg_num,
+	Reg_num_type
+)
 
 # utils
 from main_pack.commerce.auth.utils import (
@@ -195,7 +200,6 @@ def register_token(token):
 			username = new_user['username']
 			email = new_user['email']
 
-
 			if Config.HASHED_PASSWORDS == True:
 				password = bcrypt.generate_password_hash(form.password.data).decode() 
 			else:
@@ -226,6 +230,9 @@ def register_token(token):
 				# flash(lazy_gettext('Error generating Registration number'),'warning')
 				# return redirect(url_for('commerce_auth.register'))
 
+			company = Company.query.first()
+			division = Division.query.first()
+
 			user_data = {
 				"RpAccId": RpAccId,
 				"RpAccGuid": uuid.uuid4(),
@@ -236,6 +243,9 @@ def register_token(token):
 				"RpAccRegNo": regNo,
 				"RpAccTypeId": 1,
 				"RpAccMobilePhoneNumber": form.phone_number.data,
+				"CId": company.CId,
+				"DivId": division.DivId,
+				"RpAccStatusId": 1
 			}
 
 			user = Rp_acc(**user_data)

@@ -19,7 +19,7 @@ from main_pack.commerce.auth.utils import ui_admin_required
 # / auth and validation /
 
 # Company and Brand
-from main_pack.models.base.models import Company
+from main_pack.models.base.models import Company, Division
 from main_pack.commerce.commerce.utils import UiBrandsList
 from main_pack.models.commerce.models import Brand
 # / Company and Brand /
@@ -100,7 +100,7 @@ def dashboard():
 @login_required
 @ui_admin_required
 def company():
-	company = Company.query.get(1)
+	company = Company.query.first()
 	return render_template(
 		f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/company.html",
 		url_prefix = url_prefix,
@@ -302,6 +302,12 @@ def manage_rp():
 				data["RpAccRegNo"] = regNo
 				data["RpAccGuid"] = uuid.uuid4()
 
+				company = Company.query.first()
+				division = Division.query.first()
+
+				data["CId"] = company.CId
+				data["DivId"] = division.DivId
+
 				last_RpAcc = Rp_acc.query.order_by(Rp_acc.RpAccId.desc()).first()
 				RpAccId = last_RpAcc.RpAccId + 1
 				data["RpAccId"] = RpAccId
@@ -455,7 +461,13 @@ def manage_user():
 					regNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
 
 				data["URegNo"] = regNo
-	
+
+				company = Company.query.first()
+				division = Division.query.first()
+
+				data["CId"] = company.CId
+				data["DivId"] = division.DivId
+
 				last_User = Users.query.order_by(Users.UId.desc()).first()
 				UId = last_User.UId+1
 
