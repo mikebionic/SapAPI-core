@@ -14,6 +14,8 @@ class Config:
 	# basic app configs (required)
 	SECRET_KEY = environ.get('SECRET_KEY')
 	SYNCH_SHA = environ.get('SYNCH_SHA')
+	APP_WEB_KEY = environ.get('APP_WEB_KEY')
+
 	C_MAIN_DIVGUID = environ.get('C_MAIN_DIVGUID')
 	MAIN_CGUID = environ.get('MAIN_CGUID')
 
@@ -21,6 +23,8 @@ class Config:
 	SAP_SERVICE_URL = environ.get('SAP_SERVICE_URL')
 	SAP_SERVICE_URL_PREFIX = environ.get('SAP_SERVICE_URL_PREFIX')
 	USE_ACTIVATION_SERVICE = int(environ.get('USE_ACTIVATION_SERVICE'))
+	BASE_32_FERNET_KEY = environ.get('BASE_32_FERNET_KEY').encode()
+	DEVICE_ALLOWED_TIMEOUT_DAYS = int(environ.get('DEVICE_ALLOWED_TIMEOUT_DAYS'))
 
 	# set to production if Production
 	FLASK_ENV = 'development'
@@ -30,8 +34,8 @@ class Config:
 	TESTING = (int(environ.get('TESTING')))
 
 	USE_FLASK_CORS = int(environ.get('USE_FLASK_CORS'))
-	USE_FLASK_CACHE = int(environ.get('USE_FLASK_CACHE'))
 	USE_FLASK_COMPRESS = int(environ.get('USE_FLASK_COMPRESS'))
+	MINIFY_HTML_RESPONSE = int(environ.get('MINIFY_HTML_RESPONSE')) if environ.get('MINIFY_HTML_RESPONSE') else 1
 
 	EMAIL_ERROR_REPORTS = int(environ.get('EMAIL_ERROR_REPORTS'))
 	EMAIL_ERROR_REPORTS_ADDRESSES = json.loads(environ.get('EMAIL_ERROR_REPORTS_ADDRESSES'))
@@ -78,6 +82,7 @@ class Config:
 
 	CACHE_TYPE = environ.get('CACHE_TYPE')
 	CACHE_DEFAULT_TIMEOUT = 300
+	DB_CACHE_TIME = int(environ.get('DB_CACHE_TIME'))
 	CACHE_REDIS_URL = environ.get('CACHE_REDIS_URL')
 	# # / Sessions, Redis, Cache, Cookies /
 

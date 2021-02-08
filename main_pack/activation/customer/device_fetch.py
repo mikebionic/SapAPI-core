@@ -15,7 +15,7 @@ from main_pack.models.base.models import Db_inf
 
 @api.route("/devices/fetch/",methods=["GET"])
 @token_required
-def fetch_device(user):
+def device_fetch_request(user):
 	model_type = user["model_type"]
 	current_user = user["current_user"]
 
@@ -25,6 +25,10 @@ def fetch_device(user):
 	if not current_user.is_admin():
 		abort(401)
 
+	return fetch_device()
+
+
+def fetch_device():
 	database = Db_inf.query.first()
 	db_guid = database.DbInfGuid if database else None
 

@@ -113,7 +113,7 @@ def ui_resource():
 				response = jsonify({
 					"resId": updateResource.ResId,
 					"status": "updated",
-					"responseText": gettext('Resource')+' '+gettext('successfully updated!'),
+					"responseText": gettext('Product')+' '+gettext('successfully updated!'),
 					})
 			except Exception as ex:
 				print(ex)

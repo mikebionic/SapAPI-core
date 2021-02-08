@@ -37,8 +37,8 @@
 						<div class="row" >
 							<div class="col-12 mb-30">
 								<div class="input-field">
-									<i class="fa fa-user"></i>
-									{{ form.email(placeholder=_('Email address')) }}
+									<i class="fa fa-envelope"></i>
+									{{ form.email(placeholder=_('Email address'), type="email") }}
 								</div>
 								<div class="input-field">
 									<i class="fa fa-lock"></i>
@@ -47,7 +47,7 @@
 								<input type="submit" value="{{_('Login')}}" class="btn solid" />
 							</div>
 						</div>
-						<h4>{{_('Don’t have account?')}} <a href="{{ url_for('commerce_auth.register') }}" style="color: #5995fd;">{{_('Register')}}</a></h4>
+						<h4>{{_('Don’t have profile?')}} <a href="{{ url_for('commerce_auth.register') }}" style="color: #5995fd;">{{_('Register')}}</a></h4>
 						<h4>{{_('Forgot your password?')}} <a href="{{ url_for('commerce_auth.reset_request') }}" style="color: #5995fd;">{{_('Reset password')}}</a></h4>
 					</form>
 				</div>

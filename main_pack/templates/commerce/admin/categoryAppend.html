@@ -2,7 +2,7 @@
   <td class="text-center editable categoryId" ownerId={{category.ResCatId}}>{{category.ResCatId}}</td>
   <td class="text-center editable categoryName" ownerId={{category.ResCatId}}>{{category.ResCatName if category.ResCatName else ''}}</td>
   <td class="text-center editable categoryDesc" ownerId={{category.ResCatId}}>{{category.ResCatDesc if category.ResCatDesc else ''}}</td>
-  <td class="text-center editable categoryOwner" ownerId={{category.ResCatId}}>{{category.ResOwnerCatId}}</td>
+  <td class="text-center editable categoryOwner" ownerId={{category.ResCatId}}>{{category.ResOwnerCatId if category.ResOwnerCatId else ''}}</td>
   <td class="text-center editable visibleIndex" ownerId={{category.ResCatId}}>{{category.ResCatVisibleIndex}}</td>
   <td class="p-0 text-center">
     <div class="custom-checkbox custom-control">

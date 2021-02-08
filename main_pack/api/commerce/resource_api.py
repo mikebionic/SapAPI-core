@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 import dateutil.parser
 from sqlalchemy.orm import joinedload
 
-from main_pack import db
+from main_pack import db, cache
 from . import api
 
 from main_pack.models.base.models import Company, Division
@@ -224,6 +224,7 @@ def api_tbl_dk_resources():
 				failed_data.append(resource_req)
 
 		db.session.commit()
+		cache.clear()
 		status = checkApiResponseStatus(data, failed_data)
 
 		res = {

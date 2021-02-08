@@ -54,9 +54,10 @@ class BrandForm(FlaskForm):
 
 class UserForm(FlaskForm):
 	username = StringField(validators=[DataRequired(),Length(min=2,max=60)])
-	email = StringField(validators=[DataRequired(),Email(),Length(max=225)])
+	email = StringField(validators=[Email(),Length(max=225)])
 	full_name = StringField()
 	user_type = SelectField(coerce=int)
+	res_price_group = SelectField(coerce=int)
 	picture = FileField(validators=[FileAllowed(['jpg','png','img','svg','gif','bmp'])])
 	password = StringField(validators=[DataRequired()])
 	confirm_password = StringField(validators=[DataRequired(),EqualTo('password')])
@@ -75,9 +76,10 @@ class UserForm(FlaskForm):
 
 class RpAccForm(FlaskForm):
 	username = StringField(validators=[DataRequired(),Length(min=2,max=60)])
-	email = StringField(validators=[DataRequired(),Email(),Length(max=225)])
+	email = StringField(validators=[Email(),Length(max=225)])
 	full_name = StringField()	
 	rp_acc_type = SelectField(coerce=int)
+	res_price_group = SelectField(coerce=int)
 	user = SelectField(coerce=int)
 	address = StringField(validators=[Length(max=255)])
 	mobilePhone = StringField()

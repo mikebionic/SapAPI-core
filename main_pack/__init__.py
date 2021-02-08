@@ -14,6 +14,7 @@ from flask_caching import Cache
 from flask_compress import Compress
 import logging
 from logging.handlers import SMTPHandler
+from htmlmin.main import minify
 
 from main_pack.config import Config
 
@@ -61,9 +62,7 @@ def create_app(config_class=Config):
 	babel.init_app(app)
 	mail.init_app(app)
 	csrf.init_app(app)
-
-	if Config.USE_FLASK_CACHE:
-		cache.init_app(app)
+	cache.init_app(app)
 
 	if Config.USE_FLASK_COMPRESS:
 		compress.init_app(app)
@@ -105,8 +104,10 @@ def create_app(config_class=Config):
 		csrf.exempt(activation_customer_api)
 
 	sap_service_url_prefix = Config.SAP_SERVICE_URL_PREFIX
+
 	from main_pack.activation.server import api as activation_server_api
 	app.register_blueprint(activation_server_api, url_prefix=sap_service_url_prefix)
+
 	csrf.exempt(activation_server_api)
 
 	csrf.exempt(auth_api)
@@ -154,5 +155,13 @@ def create_app(config_class=Config):
 			mail_handler.setLevel(logging.ERROR)
 			app.logger.addHandler(mail_handler)
 	# /logging
+
+	if Config.MINIFY_HTML_RESPONSE:
+		@app.after_request
+		def response_minify(response):
+			if response.content_type == u'text/html; charset=utf-8':
+				response.set_data(minify(response.get_data(as_text=True)))
+				return response
+			return response
 
 	return app

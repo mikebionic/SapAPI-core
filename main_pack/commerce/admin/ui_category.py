@@ -1,6 +1,6 @@
 from flask import render_template,url_for,jsonify,session,flash,redirect,request,Response,abort
 from flask_login import current_user,login_required
-from main_pack import db,babel,gettext
+from main_pack import db, gettext, cache
 from main_pack.config import Config
 
 # auth and validation
@@ -25,22 +25,29 @@ def ui_category_table():
 
 			if (categoryId == '' or categoryId == None):
 				newCategory = Res_category(**category)
+
 				db.session.add(newCategory)
 				db.session.commit()
+				cache.clear()
+
 				response = jsonify({
 					"categoryId": newCategory.ResCatId,
 					"status": "created",
 					"responseText": gettext('Category')+' '+gettext('successfully saved'),
 					"htmlData":  render_template(f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/categoryAppend.html",category=newCategory)
 					})
+
 			else:
 				thisCategory = Res_category.query.get(categoryId)
 				thisCategory.update(**category)
 				db.session.commit()
+				cache.clear()
+
 				response = jsonify({
 					"status": "updated",
 					"responseText": gettext('Category')+' '+gettext('successfully updated'),
 					})			
+
 		elif request.method == 'DELETE': 
 			req = request.get_json()
 			categoryId = req.get('categoryId')
@@ -57,12 +64,14 @@ def ui_category_table():
 
 			thisCategory.GCRecord = 1
 			db.session.commit()
+			cache.clear()
+
 			response = jsonify({
 				"status": "deleted",
 				"responseText": gettext('Category')+' '+gettext('successfully deleted'),
 				})
+
 	except Exception as ex:
-		print(ex)
 		response = jsonify({
 			"status": "error",
 			"responseText": gettext('Unknown error!'),

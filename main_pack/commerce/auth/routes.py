@@ -17,7 +17,12 @@ from main_pack.commerce.auth.forms import (
 
 # db Models
 from main_pack.models.users.models import Users, Rp_acc
-from main_pack.models.base.models import Reg_num, Reg_num_type
+from main_pack.models.base.models import (
+	Company,
+	Division,
+	Reg_num,
+	Reg_num_type
+)
 
 # utils
 from main_pack.commerce.auth.utils import (
@@ -35,7 +40,6 @@ def login():
 	form = LoginForm()
 
 	if form.validate_on_submit():
-		print("validated")
 		try:
 			user = Rp_acc.query.filter_by(RpAccEMail = form.email.data, GCRecord = None).first()
 
@@ -43,7 +47,6 @@ def login():
 				raise Exception
 
 			if Config.HASHED_PASSWORDS == True:
-				print("using hashed")
 				password = bcrypt.check_password_hash(user.RpAccUPass, form.password.data)
 			else:
 				password = (user.RpAccUPass == form.password.data)
@@ -195,7 +198,6 @@ def register_token(token):
 			username = new_user['username']
 			email = new_user['email']
 
-
 			if Config.HASHED_PASSWORDS == True:
 				password = bcrypt.generate_password_hash(form.password.data).decode() 
 			else:
@@ -226,6 +228,9 @@ def register_token(token):
 				# flash(lazy_gettext('Error generating Registration number'),'warning')
 				# return redirect(url_for('commerce_auth.register'))
 
+			company = Company.query.first()
+			division = Division.query.first()
+
 			user_data = {
 				"RpAccId": RpAccId,
 				"RpAccGuid": uuid.uuid4(),
@@ -236,10 +241,21 @@ def register_token(token):
 				"RpAccRegNo": regNo,
 				"RpAccTypeId": 1,
 				"RpAccMobilePhoneNumber": form.phone_number.data,
+				"CId": company.CId,
+				"DivId": division.DivId,
+				"RpAccStatusId": 1
 			}
 
 			user = Rp_acc(**user_data)
 			db.session.add(user)
+
+			try:
+				login_info = get_login_info(request)
+				user.RpAccLastActivityDate = login_info["date"]
+				user.RpAccLastActivityDevice = login_info["info"]
+			except Exception as ex:
+				print(f"{datetime.now()} | Rp_acc activity info update Exception: {ex}")
+
 			db.session.commit()
 
 			flash("{}, {}".format(username, lazy_gettext('your profile has been created!')),'success')
@@ -252,6 +268,7 @@ def register_token(token):
 			flash(lazy_gettext('Error occured, please try again.'), 'danger')
 			return redirect(url_for('commerce_auth.register'))
 
+	flash(lazy_gettext("Please, proceed the registration"), "warning")
 	categoryData = UiCategoriesList()
 	return render_template(
 		f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/auth/register_token.html",

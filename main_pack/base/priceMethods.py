@@ -44,17 +44,20 @@ def price_currency_conversion(
 		to_currency_data = [currency for currency in currencies_dbModel if currency.CurrencyCode == to_currency]
 		to_currency_data = to_currency_data[0] if to_currency_data else view_currency_data[0]
 
-		from_exchange_rate = [exc_rate for exc_rate in exc_rates_dbModel if exc_rate.CurrencyId == from_currency_data.CurrencyId and not exc_rate.GCRecord]
-		to_exchange_rate = [exc_rate for exc_rate in exc_rates_dbModel if exc_rate.CurrencyId == to_currency_data.CurrencyId and not exc_rate.GCRecord]
+		from_exchange_rate = [exc_rate.to_json_api() for exc_rate in exc_rates_dbModel if exc_rate.CurrencyId == from_currency_data.CurrencyId and not exc_rate.GCRecord]
+		from_exchange_rate = (sorted(from_exchange_rate, key = lambda i: i["ExcRateDate"]))
+
+		to_exchange_rate = [exc_rate.to_json_api() for exc_rate in exc_rates_dbModel if exc_rate.CurrencyId == to_currency_data.CurrencyId and not exc_rate.GCRecord]
+		to_exchange_rate = (sorted(to_exchange_rate, key = lambda i: i["ExcRateDate"]))
 
 		from_rate_value = 1
 		if from_exchange_rate:
-			from_rate_value = from_exchange_rate[0].ExcRateOutValue if value_type == "out" else from_exchange_rate[0].ExcRateIn
+			from_rate_value = from_exchange_rate[-1]["ExcRateOutValue"] if value_type == "out" else from_exchange_rate[-1]["ExcRateInValue"]
 			from_rate_value = from_rate_value if from_rate_value else 1
 
 		to_rate_value = 1
 		if to_exchange_rate:
-			to_rate_value = to_exchange_rate[0].ExcRateOutValue if value_type == "out" else to_exchange_rate[0].ExcRateInValue
+			to_rate_value = to_exchange_rate[-1]["ExcRateOutValue"] if value_type == "out" else to_exchange_rate[-1]["ExcRateInValue"]
 			to_rate_value = to_rate_value if to_rate_value else 1
 
 		priceValue = float(configureDecimal(priceValue / from_rate_value * to_rate_value))

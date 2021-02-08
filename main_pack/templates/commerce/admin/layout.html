@@ -103,12 +103,6 @@
                   <li><a class="nav-link" href="{{ url_for('commerce_admin.sliders') }}">{{_('Sliders')}}</a></li>
                 </ul>
               </li>
-              <!-- <li class="dropdown">
-                <a href="{{ url_for('commerce_admin.sale_repots_table') }}" class="nav-link"><i data-feather="grid"></i><span>{{_('Sale reports')}} - Chart</span></a>
-              </li>
-              <li class="dropdown">
-                <a href="{{ url_for('commerce_admin.sale_repots_table2') }}" class="nav-link"><i data-feather="grid"></i><span>{{_('Sale reports')}}</span></a>
-              </li> -->
               <li class="menu-header">{{_('Invoices')}}</li>
               <li class="dropdown">
                 <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="shopping-cart"></i><span>{{_('Order invoices')}}</span></a>
@@ -170,11 +164,9 @@
     </script>
     <script src="{{ url_for('static', filename='commerce/admin/js/app.min.js') }}"></script>
     <script src="{{ url_for('static', filename='commerce/admin/bundles/jquery-ui/jquery-ui.min.js') }}"></script>
-      <!-- Required for tables -->
     <script src="{{ url_for('static', filename='commerce/admin/bundles/datatables/datatables.min.js') }}"></script>
     <script src="{{ url_for('static', filename='commerce/admin/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ url_for('static', filename='commerce/admin/js/page/datatables.js') }}"></script>
-      <!-- Required for tables -->
     <script src="{{ url_for('static', filename='commerce/admin/commerce_styles/js/jquery-3.4.1.min.js') }}"></script>
     <script src="{{ url_for('static', filename='commerce/admin/commerce_styles/js/jquery.nicescroll.min.js') }}"></script>
     <script src="{{ url_for('static', filename='commerce/admin/js/ui_dynamicals.js') }}"></script>

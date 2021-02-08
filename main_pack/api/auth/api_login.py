@@ -11,7 +11,7 @@ from main_pack.models.users.models import Users, Rp_acc, Device
 
 from main_pack.api.users.utils import apiUsersData, apiRpAccData, apiDeviceData
 from main_pack.base.dataMethods import apiDataFormat
-from main_pack.api.auth.utils import check_auth
+from main_pack.api.auth.auth_utils import check_auth
 
 
 @api.route('/login/',methods=['GET','POST'])

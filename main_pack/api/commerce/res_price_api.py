@@ -4,7 +4,7 @@ from datetime import datetime
 from sqlalchemy import and_
 from sqlalchemy.orm import joinedload
 
-from main_pack import db
+from main_pack import db, cache
 from . import api
 from .utils import addResPriceDict
 
@@ -188,6 +188,7 @@ def api_res_prices():
 				failed_data.append(res_price_req)
 
 		db.session.commit()
+		cache.clear()
 		status = checkApiResponseStatus(data, failed_data)
 
 		res = {

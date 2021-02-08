@@ -9,7 +9,7 @@
 		outline: none;
 		height: 49px;
 		border-radius: 49px;
-		color: #fff;
+		color: #000;
 		text-transform: uppercase;
 		font-weight: 600;
 		margin: 10px 0;
@@ -38,11 +38,11 @@
 						<div class="row">
 							<div class="col-12 mb-30">
 								<div class="input-field">
-									<i class="fa fa-lock"></i>
+									<i class="fa fa-user"></i>
 									{{ form.full_name(placeholder=_('Full name')) }}
 								</div>
 								<div class="input-field">
-									<i class="fa fa-lock"></i>
+									<i class="fa fa-phone"></i>
 									{{ form.phone_number(placeholder=_('Phone number')) }}
 								</div>
 								<div class="input-field">
@@ -52,6 +52,17 @@
 										<i class="fa fa-eye" id="eye" onclick="toggle()"></i>
 									</span>
 								</div>
+								<div class="input-field">
+									<i class="fa fa-lock"></i>
+									{{ form.confirm_password(placeholder=_('Confirm password')) }}
+								</div>
+								{% if form.confirm_password.errors %}
+									<div class="col-12 mb-30">
+										{% for error in form.confirm_password.errors %}
+										   <span style="color: red">{{ error }}</span>
+										{% endfor %}
+									</div>
+								{% endif %}						
 								<input type="submit" value="{{_('Register')}}" class="btn solid" />
 							</div>
 						</div>

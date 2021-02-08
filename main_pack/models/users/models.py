@@ -248,6 +248,8 @@ class Rp_acc(AddInf,CreatedModifiedInfo,db.Model,UserMixin):
 			"RpAccHomePhoneNumber": self.RpAccHomePhoneNumber,
 			"RpAccWorkPhoneNumber": self.RpAccWorkPhoneNumber,
 			"RpAccWorkFaxNumber": self.RpAccWorkFaxNumber,
+			"RpAccWebAddress": self.RpAccWebAddress,
+			# "RpAccWebKey": self.RpAccWebKey,
 			"RpAccZipCode": self.RpAccZipCode,
 			"RpAccEMail": self.RpAccEMail,
 			"RpAccFirstName": self.RpAccFirstName,
