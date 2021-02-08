@@ -211,6 +211,7 @@ class Config:
 	COMMERCE_GRID_VIEW = "/v-grid"
 	COMMERCE_SEARCH_VIEW = "/search"
 	COMMERCE_RESOURCE_VIEW = "/product"
+	COMMERCE_BRAND_PAGE = "/brand"
 	# / VIEW AND ROUTES CONFIGURATION /
 
 	# view route titles configuration
@@ -220,6 +221,7 @@ class Config:
 	COMMERCE_ABOUT_PAGE_TITLE = "About us"
 	COMMERCE_COLLECTION_VIEW_TITLE = "Collection"
 	COMMERCE_CONTACTS_PAGE_TITLE = "Contact"
+	COMMERCE_BRAND_PAGE_TITLE = "Brand"
 
 	COMMERCE_PROFILE_PAGE_TITLE = "Profile"
 	COMMERCE_PROFILE_EDIT_PAGE_TITLE = "Edit profile"
