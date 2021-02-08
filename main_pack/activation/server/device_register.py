@@ -50,7 +50,7 @@ def register_device():
 
 				DevVerifyKey = encrypt_data(
 					data = verify_date_data,
-					server_key = Config.BASE_32_FERNET_KEY,
+					server_key = Config.BASE_32_FERNET_KEY.encode(),
 					db_guid = rp_acc.DbGuid,
 					client_key = rp_acc.RpAccWebKey
 				)

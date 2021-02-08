@@ -108,13 +108,11 @@ def cart():
 @bp.route(Config.COMMERCE_BRAND_PAGE)
 def brand():
 	categoriesData = UiCategoriesList()
+	brands = UiBrandsList()
 
 	return render_template(
 		f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/commerce/brand.html",
 		**categoriesData,
+		brands = brands,
 		url_prefix = url_prefix,
 		title = gettext(Config.COMMERCE_BRAND_PAGE_TITLE))
-
-
-
-

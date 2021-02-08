@@ -19,14 +19,11 @@ def check_device_activation(device_model):
 	DevVerifyDate = device_model.DevVerifyDate
 	DevVerifyDate = str(DevVerifyDate.replace(tzinfo=timezone.utc).timestamp())
 
-	server_key = Config.BASE_32_FERNET_KEY
-	client_key = Config.APP_WEB_KEY
-
 	decrypted_data = decrypt_data(
 		data = DevVerifyKey,
-		server_key = server_key,
+		server_key = Config.BASE_32_FERNET_KEY.encode(),
 		db_guid = DbInfGuid,
-		client_key = client_key
+		client_key = Config.APP_WEB_KEY
 	)
 
 	if not decrypt_data:
