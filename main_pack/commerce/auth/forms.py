@@ -40,6 +40,7 @@ class PasswordRegistrationForm(FlaskForm):
 	full_name = StringField(validators=[DataRequired(),Length(min=2,max=100)])
 	phone_number = StringField(validators=[DataRequired(),Length(min=2,max=100)])
 	password = PasswordField(validators=[DataRequired()])
+	confirm_password = PasswordField(validators=[DataRequired(),EqualTo('password')])
 	submit = SubmitField()
 
 

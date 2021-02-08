@@ -40,7 +40,6 @@ def login():
 	form = LoginForm()
 
 	if form.validate_on_submit():
-		print("validated")
 		try:
 			user = Rp_acc.query.filter_by(RpAccEMail = form.email.data, GCRecord = None).first()
 
@@ -48,7 +47,6 @@ def login():
 				raise Exception
 
 			if Config.HASHED_PASSWORDS == True:
-				print("using hashed")
 				password = bcrypt.check_password_hash(user.RpAccUPass, form.password.data)
 			else:
 				password = (user.RpAccUPass == form.password.data)
@@ -250,6 +248,14 @@ def register_token(token):
 
 			user = Rp_acc(**user_data)
 			db.session.add(user)
+
+			try:
+				login_info = get_login_info(request)
+				user.RpAccLastActivityDate = login_info["date"]
+				user.RpAccLastActivityDevice = login_info["info"]
+			except Exception as ex:
+				print(f"{datetime.now()} | Rp_acc activity info update Exception: {ex}")
+
 			db.session.commit()
 
 			flash("{}, {}".format(username, lazy_gettext('your profile has been created!')),'success')
@@ -262,6 +268,7 @@ def register_token(token):
 			flash(lazy_gettext('Error occured, please try again.'), 'danger')
 			return redirect(url_for('commerce_auth.register'))
 
+	flash(lazy_gettext("Please, proceed the registration"), "warning")
 	categoryData = UiCategoriesList()
 	return render_template(
 		f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/auth/register_token.html",
