@@ -216,7 +216,7 @@ class Config:
 	COMMERCE_GRID_VIEW = "/v-grid"
 	COMMERCE_SEARCH_VIEW = "/search"
 	COMMERCE_RESOURCE_VIEW = "/product"
-	COMMERCE_BRAND_PAGE = "/brand"
+	COMMERCE_BRANDS_PAGE = "/brands"
 	# / VIEW AND ROUTES CONFIGURATION /
 
 	# view route titles configuration
@@ -226,7 +226,7 @@ class Config:
 	COMMERCE_ABOUT_PAGE_TITLE = "About us"
 	COMMERCE_COLLECTION_VIEW_TITLE = "Collection"
 	COMMERCE_CONTACTS_PAGE_TITLE = "Contact"
-	COMMERCE_BRAND_PAGE_TITLE = "Brand"
+	COMMERCE_BRANDS_PAGE_TITLE = "Brands"
 
 	COMMERCE_PROFILE_PAGE_TITLE = "Profile"
 	COMMERCE_PROFILE_EDIT_PAGE_TITLE = "Edit profile"
@@ -245,7 +245,8 @@ class Config:
 	# / view route titles configuration /
 
 	# templates file location configuration
-	COMMERCE_TEMPLATES_FOLDER_PATH = "/commerce/bee"
+	COMMERCE_TEMPLATES_FOLDER_PATH = environ.get("COMMERCE_TEMPLATES_FOLDER_PATH") if environ.get("COMMERCE_TEMPLATES_FOLDER_PATH") else "/commerce/bee"
+	# COMMERCE_TEMPLATES_FOLDER_PATH = "/commerce/bee"
 	# COMMERCE_TEMPLATES_FOLDER_PATH = "/commerce/main"
 	# COMMERCE_TEMPLATES_FOLDER_PATH = "/commerce/testing"
 	
