@@ -113,6 +113,6 @@ def brand():
 	return render_template(
 		f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/commerce/brand.html",
 		**categoriesData,
-		brands = brands,
+		brands = brands["data"],
 		url_prefix = url_prefix,
 		title = gettext(Config.COMMERCE_BRAND_PAGE_TITLE))

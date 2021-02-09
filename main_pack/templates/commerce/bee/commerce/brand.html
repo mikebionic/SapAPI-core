@@ -11,11 +11,14 @@
 					<div class="col">
 						
 						<ul class="logogrid">
+							{% for brand in brands %}
 							<li class="logogrid__item">
-								<a href="#">
-									<img loading="lazy" src="{{ url_for('static', filename='commerce/main/shop_icons/no_photo.png') }}" alt="Brand" class="logogrid__img">
+								<a href="{{url_for('commerce.v_grid',brand = brand.BrandId)}}" class="cat-block">
+									<img  loading="lazy" src="{{brand.FilePath if brand.FilePath}}" alt="Brand {{brand.BrandName}}" class="logogrid__img">
+									{{brand.BrandName}}
 								</a>
 							</li>
+							{% endfor %}
 						</ul>
 					</div>
 				</div>

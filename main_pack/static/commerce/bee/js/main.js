@@ -847,7 +847,7 @@ $('body').delegate('.applySortingBtn','click',function(){
 
 
 var screenSize = $(window).width();
-if (screenSize >= 1440){
+if (screenSize >= 1200){
     $('.big-image img').each(function(){
         data_m_img = $(this).attr('data-src-m')
         $(this).attr('src', data_m_img)

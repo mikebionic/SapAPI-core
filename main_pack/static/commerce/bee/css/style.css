@@ -135,7 +135,9 @@ a:focus {
   text-decoration: none; }
 
 a:hover {
-  text-decoration: none; }
+  text-decoration: none; 
+  color: #000;
+}
 
 button, input[type="submit"] {
   cursor: pointer; }
@@ -7244,7 +7246,7 @@ img.mfp-img {
         right: auto;
         top: 0; }
       .ee-product .image .add-to-cart span {
-        font-size: 13px;
+        font-size: 11px;
         text-transform: uppercase;
         font-weight: 700;
         line-height: 21px;
@@ -12986,6 +12988,9 @@ ul.link-widget li {
   .menu-item-has-children{
     display: block;
   }
+  .logogrid{
+    grid-gap: 1rem;
+  }
 }
 
 @media (max-width: 425px){
@@ -13049,8 +13054,9 @@ ul.link-widget li {
   flex-direction: column;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  grid-auto-rows: 75px;
-  grid-gap: 4rem;
+  grid-auto-rows: 100px;
+  grid-gap: 2rem;
+}
 }
 .logogrid__item {
   display: flex;
@@ -13061,10 +13067,6 @@ ul.link-widget li {
   -o-object-fit: cover;
      object-fit: cover;
   max-width: 120px;
-  max-height: 60px;
-  filter: grayscale(100%) contrast(25%);
+  max-height: 90px;
   transition: filter 0.3s ease;
-}
-.logogrid__img:hover {
-  filter: grayscale(0) contrast(100%);
 }
