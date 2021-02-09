@@ -10581,6 +10581,10 @@ a#variations_clear:before {
     .yamm .yamm-content .bg-yamm-content .kc-col-container {
       display: block; }
 
+.kc-col-container a {
+  display: flex;
+}
+
 .yamm h1, .yamm h2, .yamm h3, .yamm h4, .yamm h5, .yamm h6, .yamm .nav-title {
   font-weight: 500;
   font-size: 1em;

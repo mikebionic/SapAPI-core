@@ -9934,7 +9934,8 @@ a#variations_clear:before {
       .departments-menu > .dropdown-menu .menu-item-has-children > .dropdown-menu li > a {
         font-size: 0.933em;
         line-height: 1.6em;
-        display: block; }
+        /*display: block;*/
+      }
         .departments-menu > .dropdown-menu .menu-item-has-children > .dropdown-menu li > a:focus, .departments-menu > .dropdown-menu .menu-item-has-children > .dropdown-menu li > a:hover {
           color: #000; }
       .departments-menu > .dropdown-menu .menu-item-has-children > .dropdown-menu > li.menu-item:not(.menu-item-object-static_block) {
@@ -10585,6 +10586,10 @@ a#variations_clear:before {
     .yamm .yamm-content .bg-yamm-content .kc-col-container {
       display: block; }
 
+.kc-col-container a {
+  display: flex;
+}
+
 .yamm h1, .yamm h2, .yamm h3, .yamm h4, .yamm h5, .yamm h6, .yamm .nav-title {
   font-weight: 500;
   font-size: 1em;
@@ -10690,7 +10695,7 @@ a#variations_clear:before {
 .navbar-primary .nav-inline .dropdown-menu .yamm-content ul > li > a,
 .departments-menu .dropdown-menu .yamm-content ul > li > a {
   padding: 0.35em 1.429em;
-  display: block;
+  /*display: block;*/
   padding-left: 0;
   color: #444;
   text-decoration: none; }
