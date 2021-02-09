@@ -4552,7 +4552,6 @@ img.mfp-img {
     float: left;
     width: 100%;
     left: 0;
-    overflow-x: hidden;
     width: 100%;
     top: 128%; }
     @media only screen and (min-width: 768px) and (max-width: 991px) {
