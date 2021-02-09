@@ -116,43 +116,47 @@
 				</ul>
 			</header>
 
-
+			<!-- !!! Mike: Needs js fixes -->
 			{% for category in Featured_categories %}
-				<div role="tabpanel" id="tab-{{category.ResCatId}}" class="tab-pane featrued-cat-tab">
-					<div class="tab-product-carousel-with-featured-product">
-						<div class="products-carousel" data-ride="tm-slick-carousel" data-wrap=".products" data-slick="{&quot;rows&quot;:2,&quot;slidesPerRow&quot;:6,&quot;slidesToShow&quot;:1,&quot;slidesToScroll&quot;:1,&quot;dots&quot;:true,&quot;arrows&quot;:false,&quot;responsive&quot;:[{&quot;breakpoint&quot;:1200,&quot;settings&quot;:{&quot;slidesPerRow&quot;:2,&quot;slidesToScroll&quot;:1}},{&quot;breakpoint&quot;:1400,&quot;settings&quot;:{&quot;slidesPerRow&quot;:3,&quot;slidesToScroll&quot;:1}},{&quot;breakpoint&quot;:1599,&quot;settings&quot;:{&quot;slidesPerRow&quot;:4,&quot;slidesToScroll&quot;:1}}]}">
-							<div class="container-fluid">
-								<div class="products">
-									{% for resource in category.Resources %}
+				<div class="tab-content">
+					<div role="tabpanel" id="tab-{{category.ResCatId}}" class="tab-pane featrued-cat-tab">
+						<div class="tab-product-carousel-with-featured-product">
+							<div class="tab-carousel-products">
+								<div class="products-carousel" data-ride="tm-slick-carousel" data-wrap=".products" data-slick="{&quot;rows&quot;:2,&quot;slidesPerRow&quot;:6,&quot;slidesToShow&quot;:1,&quot;slidesToScroll&quot;:1,&quot;dots&quot;:true,&quot;arrows&quot;:false,&quot;responsive&quot;:[{&quot;breakpoint&quot;:1200,&quot;settings&quot;:{&quot;slidesPerRow&quot;:2,&quot;slidesToScroll&quot;:1}},{&quot;breakpoint&quot;:1400,&quot;settings&quot;:{&quot;slidesPerRow&quot;:3,&quot;slidesToScroll&quot;:1}},{&quot;breakpoint&quot;:1599,&quot;settings&quot;:{&quot;slidesPerRow&quot;:4,&quot;slidesToScroll&quot;:1}}]}">
+									<div class="container-fluid">
+										<div class="products">
+											{% for resource in category.Resources %}
 
-									<div class="product">
-										{% if current_user.is_authenticated %}
-											<div class="yith-wcwl-add-to-wishlist">
-												<a href="#" rel="nofollow" class="like">
-													<i class="fa fa-heart" aria-hidden="true"></i>
+											<div class="product">
+												{% if current_user.is_authenticated %}
+													<div class="yith-wcwl-add-to-wishlist">
+														<a href="#" rel="nofollow" class="like">
+															<i class="fa fa-heart" aria-hidden="true"></i>
+														</a>
+													</div>
+												{% endif %}
+												<a href="single-product-fullwidth.html" class="woocommerce-LoopProduct-link">
+													<img loading="lazy"
+													src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/main/shop_icons/no_photo.png')}}"
+													alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}"
+													width="224" height="197" class="wp-post-image" alt="">
+													<span class="price">
+														<ins>
+															<span class="amount"></span>
+														</ins>
+														<span class="amount">{{ resource.ResPriceValue }}</span>
+														<span class="woocommerce-Price-currencySymbol">{{ resource.CurrencyCode }}</span>
+													</span>
+													<h2 class="woocommerce-loop-product__title">{{ resource.ResName }}</h2>
 												</a>
+												<div class="hover-area">
+													<a class="button add_to_cart_button" href="#" rel="nofollow">{{_('Add to cart')}}</a>
+												</div>
 											</div>
-										{% endif %}
-										<a href="single-product-fullwidth.html" class="woocommerce-LoopProduct-link">
-											<img loading="lazy"
-											src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/main/shop_icons/no_photo.png')}}"
-											alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}"
-											width="224" height="197" class="wp-post-image" alt="">
-											<span class="price">
-												<ins>
-													<span class="amount"></span>
-												</ins>
-												<span class="amount">{{ resource.ResPriceValue }}</span>
-												<span class="woocommerce-Price-currencySymbol">{{ resource.CurrencyCode }}</span>
-											</span>
-											<h2 class="woocommerce-loop-product__title">{{ resource.ResName }}</h2>
-										</a>
-										<div class="hover-area">
-											<a class="button add_to_cart_button" href="#" rel="nofollow">{{_('Add to cart')}}</a>
+
+											{% endfor %}
 										</div>
 									</div>
-
-									{% endfor %}
 								</div>
 							</div>
 						</div>
@@ -187,9 +191,9 @@
 		{% endif %}
 		{% endfor %}
 
-
+	{% if Brands %}
 		<section class="brands-carousel">
-			<h2 class="sr-only">Brands Carousel</h2>
+			<h2 class="sr-only">{{_('Brands')}}</h2>
 			<div class="col-full" data-ride="tm-slick-carousel" data-wrap=".brands" data-slick="{&quot;slidesToShow&quot;:6,&quot;slidesToScroll&quot;:1,&quot;dots&quot;:false,&quot;arrows&quot;:true,&quot;responsive&quot;:[{&quot;breakpoint&quot;:400,&quot;settings&quot;:{&quot;slidesToShow&quot;:1,&quot;slidesToScroll&quot;:1}},{&quot;breakpoint&quot;:800,&quot;settings&quot;:{&quot;slidesToShow&quot;:3,&quot;slidesToScroll&quot;:3}},{&quot;breakpoint&quot;:992,&quot;settings&quot;:{&quot;slidesToShow&quot;:3,&quot;slidesToScroll&quot;:3}},{&quot;breakpoint&quot;:1200,&quot;settings&quot;:{&quot;slidesToShow&quot;:4,&quot;slidesToScroll&quot;:4}},{&quot;breakpoint&quot;:1400,&quot;settings&quot;:{&quot;slidesToShow&quot;:5,&quot;slidesToScroll&quot;:5}}]}">
 				<div class="brands">
 					{% for brand in Brands %}
@@ -212,6 +216,8 @@
 				</div>
 			</div>
 		</section>
+	{% endif %}
+
 	</main>
 </div>
 

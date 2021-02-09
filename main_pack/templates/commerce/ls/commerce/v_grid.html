@@ -3,7 +3,6 @@
 {% block content %}
 <div id="primary" class="content-area">
 	<main id="main" class="site-main">
-		<!-- .shop-archive-header -->
 		<div class="shop-control-bar">
 			<div class="handheld-sidebar-toggle">
 				<button type="button" class="btn sidebar-toggler">
@@ -11,7 +10,6 @@
 					<span>Filters</span>
 				</button>
 			</div>
-			<!-- .handheld-sidebar-toggle -->
 			<h1 class="woocommerce-products-header__title page-title">Shop</h1>
 			<ul role="tablist" class="shop-view-switcher nav nav-tabs">
 				<li class="nav-item">
@@ -25,7 +23,6 @@
 					</a>
 				</li>
 			</ul>
-			<!-- .shop-view-switcher -->
 			<form class="form-techmarket-wc-ppp" method="POST">
 				<select class="techmarket-wc-wppp-select c-select" onchange="this.form.submit()" name="ppp">
 					<option value="20">Show 20</option>
@@ -36,7 +33,6 @@
 				<input type="hidden" value="15" name="shop_per_page">
 				<input type="hidden" value="right-sidebar" name="shop_layout">
 			</form>
-			<!-- .form-techmarket-wc-ppp -->
 			<form method="get" class="woocommerce-ordering">
 				<select class="orderby" name="orderby">
 					<option value="popularity">Sort by popularity</option>
@@ -49,15 +45,12 @@
 				<input type="hidden" value="15" name="shop_per_page">
 				<input type="hidden" value="right-sidebar" name="shop_layout">
 			</form>
-			<!-- .woocommerce-ordering -->
 			<nav class="techmarket-advanced-pagination">
 				<form class="form-adv-pagination" method="post">
 					<input type="number" value="1" class="form-control" step="1" max="5" min="1" size="2" id="goto-page">
 				</form> of 5<a href="#" class="next page-numbers">→</a>
 			</nav>
-			<!-- .techmarket-advanced-pagination -->
 		</div>
-		<!-- .shop-control-bar -->
 		<div class="tab-content">
 			<div id="grid" class="tab-pane" role="tabpanel">
 				<div class="woocommerce columns-4">
@@ -70,7 +63,6 @@
 									<i class="fa fa-heart" aria-hidden="true"></i>
 								</a>
 							</div>
-							<!-- .yith-wcwl-add-to-wishlist -->
 							<a class="woocommerce-LoopProduct-link woocommerce-loop-product__link" href="single-product-fullwidth.html">
 								<img width="220" height="250" alt="" class="attachment-shop_catalog size-shop_catalog wp-post-image" src="{{ url_for('static', filename='commerce/ls/images/products/1.jpg') }}">
 								<span class="price">
@@ -79,21 +71,14 @@
 								</span>
 								<h2 class="woocommerce-loop-product__title">XONE Wireless Controller</h2>
 							</a>
-							<!-- .woocommerce-LoopProduct-link -->
 							<div class="hover-area">
 								<a class="button" href="cart.html">Add to cart</a>
 								<a class="add-to-compare-link" href="compare.html">Add to compare</a>
 							</div>
-							<!-- .hover-area -->
 						</div>
-
-
 					</div>
-					<!-- .products -->
 				</div>
-				<!-- .woocommerce -->
 			</div>
-			<!-- .tab-pane -->
 
 			<div id="grid-extended" class="tab-pane active" role="tabpanel">
 				<div class="woocommerce columns-4">
@@ -106,14 +91,15 @@
 							<div class="product">
 								{% if current_user.is_authenticated %}
 									<div class="yith-wcwl-add-to-wishlist">
-											<a href="#/" rel="nofollow" class="like">
+											<a href="#" rel="nofollow" class="like">
 											<i class="fa fa-heart" aria-hidden="true"></i>
 										</a>
 									</div>
 								{% endif %}
 								<a class="woocommerce-LoopProduct-link woocommerce-loop-product__link" href="{{ url_for('commerce.product',ResId=resource.ResId)}}">
 									<img width="220" height="250" class="attachment-shop_catalog size-shop_catalog wp-post-image"
-									loading="lazy" src="{{resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/main/shop_icons/no_photo.png')}}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
+									loading="lazy" src="{{resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/main/shop_icons/no_photo.png')}}"
+									alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
 									<span class="price">
 										<span class="woocommerce-Price-amount amount">
 											{{ resource.ResPriceValue }}
@@ -122,11 +108,10 @@
 									</span>
 									<h2 class="woocommerce-loop-product__title">{{ resource.ResName }}</h2>
 								</a>
-								<!-- .woocommerce-LoopProduct-link -->
 								<div class="techmarket-product-rating">
-									<div title="Rated 5.00 out of 5" class="star-rating">
+									<div class="star-rating">
 										<span style="width:100%">
-											<strong class="rating">5.00</strong> out of 5</span>
+											<strong class="rating">3.00</strong> out of 5</span>
 									</div>
 								</div>
 								<div class="woocommerce-product-details__short-description">
@@ -168,185 +153,33 @@
 			</ul>
 		</nav>
 	</div>
-	<!-- .woocommerce -->
-</div>
-<!-- .container-fluid -->
-</div>
-<!-- .products-carousel -->
 </section>
-<!-- .section-landscape-products-carousel -->
-<section class="brands-carousel">
-<h2 class="sr-only">Brands Carousel</h2>
-<div class="col-full" data-ride="tm-slick-carousel" data-wrap=".brands" data-slick="{&quot;slidesToShow&quot;:6,&quot;slidesToScroll&quot;:1,&quot;dots&quot;:false,&quot;arrows&quot;:true,&quot;responsive&quot;:[{&quot;breakpoint&quot;:400,&quot;settings&quot;:{&quot;slidesToShow&quot;:1,&quot;slidesToScroll&quot;:1}},{&quot;breakpoint&quot;:800,&quot;settings&quot;:{&quot;slidesToShow&quot;:3,&quot;slidesToScroll&quot;:3}},{&quot;breakpoint&quot;:992,&quot;settings&quot;:{&quot;slidesToShow&quot;:3,&quot;slidesToScroll&quot;:3}},{&quot;breakpoint&quot;:1200,&quot;settings&quot;:{&quot;slidesToShow&quot;:4,&quot;slidesToScroll&quot;:4}},{&quot;breakpoint&quot;:1400,&quot;settings&quot;:{&quot;slidesToShow&quot;:5,&quot;slidesToScroll&quot;:5}}]}">
-<div class="brands">
-	<div class="item">
-		<a href="shop.html">
-			<figure>
-				<figcaption class="text-overlay">
-					<div class="info">
-						<h4>apple</h4>
+
+	{% if Brands %}
+	<section class="brands-carousel">
+		<h2 class="sr-only">{{_('Brands')}}</h2>
+		<div class="col-full" data-ride="tm-slick-carousel" data-wrap=".brands" data-slick="{&quot;slidesToShow&quot;:6,&quot;slidesToScroll&quot;:1,&quot;dots&quot;:false,&quot;arrows&quot;:true,&quot;responsive&quot;:[{&quot;breakpoint&quot;:400,&quot;settings&quot;:{&quot;slidesToShow&quot;:1,&quot;slidesToScroll&quot;:1}},{&quot;breakpoint&quot;:800,&quot;settings&quot;:{&quot;slidesToShow&quot;:3,&quot;slidesToScroll&quot;:3}},{&quot;breakpoint&quot;:992,&quot;settings&quot;:{&quot;slidesToShow&quot;:3,&quot;slidesToScroll&quot;:3}},{&quot;breakpoint&quot;:1200,&quot;settings&quot;:{&quot;slidesToShow&quot;:4,&quot;slidesToScroll&quot;:4}},{&quot;breakpoint&quot;:1400,&quot;settings&quot;:{&quot;slidesToShow&quot;:5,&quot;slidesToScroll&quot;:5}}]}">
+			<div class="brands">
+				{% for brand in Brands %}
+				{% if brand.FilePath and brand.IsMain %}
+					<div class="item">
+						<a href="{{url_for('commerce.v_grid',brand = brand.BrandId)}}">
+							<figure>
+								<figcaption class="text-overlay">
+									<div class="info">
+										<h4>{{brand.BrandName}}</h4>
+									</div>
+								</figcaption>
+								<img width="145" height="50" class="img-responsive desaturate"
+									loading="lazy" src="{{brand.FilePath if brand.FilePath}}" alt="Brand {{brand.BrandName}}">
+							</figure>
+						</a>
 					</div>
-					<!-- /.info -->
-				</figcaption>
-				<img width="145" height="50" class="img-responsive desaturate" alt="apple" src="{{ url_for('static', filename='commerce/ls/images/brands/1.png') }}">
-			</figure>
-		</a>
-	</div>
-	<!-- .item -->
-	<div class="item">
-		<a href="shop.html">
-			<figure>
-				<figcaption class="text-overlay">
-					<div class="info">
-						<h4>bosch</h4>
-					</div>
-					<!-- /.info -->
-				</figcaption>
-				<img width="145" height="50" class="img-responsive desaturate" alt="bosch" src="{{ url_for('static', filename='commerce/ls/images/brands/2.png') }}">
-			</figure>
-		</a>
-	</div>
-	<!-- .item -->
-	<div class="item">
-		<a href="shop.html">
-			<figure>
-				<figcaption class="text-overlay">
-					<div class="info">
-						<h4>cannon</h4>
-					</div>
-					<!-- /.info -->
-				</figcaption>
-				<img width="145" height="50" class="img-responsive desaturate" alt="cannon" src="{{ url_for('static', filename='commerce/ls/images/brands/3.png') }}">
-			</figure>
-		</a>
-	</div>
-	<!-- .item -->
-	<div class="item">
-		<a href="shop.html">
-			<figure>
-				<figcaption class="text-overlay">
-					<div class="info">
-						<h4>connect</h4>
-					</div>
-					<!-- /.info -->
-				</figcaption>
-				<img width="145" height="50" class="img-responsive desaturate" alt="connect" src="{{ url_for('static', filename='commerce/ls/images/brands/4.png') }}">
-			</figure>
-		</a>
-	</div>
-	<!-- .item -->
-	<div class="item">
-		<a href="shop.html">
-			<figure>
-				<figcaption class="text-overlay">
-					<div class="info">
-						<h4>galaxy</h4>
-					</div>
-					<!-- /.info -->
-				</figcaption>
-				<img width="145" height="50" class="img-responsive desaturate" alt="galaxy" src="{{ url_for('static', filename='commerce/ls/images/brands/5.png') }}">
-			</figure>
-		</a>
-	</div>
-	<!-- .item -->
-	<div class="item">
-		<a href="shop.html">
-			<figure>
-				<figcaption class="text-overlay">
-					<div class="info">
-						<h4>gopro</h4>
-					</div>
-					<!-- /.info -->
-				</figcaption>
-				<img width="145" height="50" class="img-responsive desaturate" alt="gopro" src="{{ url_for('static', filename='commerce/ls/images/brands/6.png') }}">
-			</figure>
-		</a>
-	</div>
-	<!-- .item -->
-	<div class="item">
-		<a href="shop.html">
-			<figure>
-				<figcaption class="text-overlay">
-					<div class="info">
-						<h4>handspot</h4>
-					</div>
-					<!-- /.info -->
-				</figcaption>
-				<img width="145" height="50" class="img-responsive desaturate" alt="handspot" src="{{ url_for('static', filename='commerce/ls/images/brands/7.png') }}">
-			</figure>
-		</a>
-	</div>
-	<!-- .item -->
-	<div class="item">
-		<a href="shop.html">
-			<figure>
-				<figcaption class="text-overlay">
-					<div class="info">
-						<h4>kinova</h4>
-					</div>
-					<!-- /.info -->
-				</figcaption>
-				<img width="145" height="50" class="img-responsive desaturate" alt="kinova" src="{{ url_for('static', filename='commerce/ls/images/brands/8.png') }}">
-			</figure>
-		</a>
-	</div>
-	<!-- .item -->
-	<div class="item">
-		<a href="shop.html">
-			<figure>
-				<figcaption class="text-overlay">
-					<div class="info">
-						<h4>nespresso</h4>
-					</div>
-					<!-- /.info -->
-				</figcaption>
-				<img width="145" height="50" class="img-responsive desaturate" alt="nespresso" src="{{ url_for('static', filename='commerce/ls/images/brands/9.png') }}">
-			</figure>
-		</a>
-	</div>
-	<!-- .item -->
-	<div class="item">
-		<a href="shop.html">
-			<figure>
-				<figcaption class="text-overlay">
-					<div class="info">
-						<h4>samsung</h4>
-					</div>
-					<!-- /.info -->
-				</figcaption>
-				<img width="145" height="50" class="img-responsive desaturate" alt="samsung" src="{{ url_for('static', filename='commerce/ls/images/brands/10.png') }}">
-			</figure>
-		</a>
-	</div>
-	<!-- .item -->
-	<div class="item">
-		<a href="shop.html">
-			<figure>
-				<figcaption class="text-overlay">
-					<div class="info">
-						<h4>speedway</h4>
-					</div>
-					<!-- /.info -->
-				</figcaption>
-				<img width="145" height="50" class="img-responsive desaturate" alt="speedway" src="{{ url_for('static', filename='commerce/ls/images/brands/11.png') }}">
-			</figure>
-		</a>
-	</div>
-	<!-- .item -->
-	<div class="item">
-		<a href="shop.html">
-			<figure>
-				<figcaption class="text-overlay">
-					<div class="info">
-						<h4>yoko</h4>
-					</div>
-					<!-- /.info -->
-				</figcaption>
-				<img width="145" height="50" class="img-responsive desaturate" alt="yoko" src="{{ url_for('static', filename='commerce/ls/images/brands/12.png') }}">
-			</figure>
-		</a>
-	</div>
-	<!-- .item -->
-</div>
+				{% endif %}
+				{% endfor %}
+			</div>
+		</div>
+	</section>
+	{% endif %}
 
 {% endblock %}

@@ -244,6 +244,8 @@ class Config:
 	COMMERCE_RESOURCE_VIEW_TITLE = "Product"
 	# / view route titles configuration /
 
+	COMMERCE_SHOW_BRANDS_ON_RESOURCES_PAGE = int(environ.get('COMMERCE_SHOW_BRANDS_ON_RESOURCES_PAGE')) if environ.get('COMMERCE_SHOW_BRANDS_ON_RESOURCES_PAGE') else 1
+
 	# templates file location configuration
 	COMMERCE_TEMPLATES_FOLDER_PATH = environ.get("COMMERCE_TEMPLATES_FOLDER_PATH") if environ.get("COMMERCE_TEMPLATES_FOLDER_PATH") else "/commerce/bee"
 	# COMMERCE_TEMPLATES_FOLDER_PATH = "/commerce/bee"

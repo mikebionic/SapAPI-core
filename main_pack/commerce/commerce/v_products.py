@@ -17,7 +17,7 @@ from main_pack.models.commerce.models import (
 	Brand,
 	Res_price
 )
-from main_pack.commerce.commerce.utils import UiCategoriesList,uiSortingData
+from main_pack.commerce.commerce.utils import UiCategoriesList, uiSortingData, UiBrandsList
 from main_pack.base.invoiceMethods import resource_config_check
 from main_pack.api.commerce.commerce_utils import apiResourceInfo
 from main_pack.api.commerce.commerce_utils import UiCartResourceData
@@ -42,11 +42,19 @@ def v_list():
 	args_data["search"] = search.strip() if search else None
 	pagination_info = collect_resource_paginate_info(**args_data)
 
+	res = {}
+
+	if Config.COMMERCE_SHOW_BRANDS_ON_RESOURCES_PAGE:
+		brands = UiBrandsList()
+		res["Brands"] = brands["data"]
+
+
 	categoryData = UiCategoriesList()
 	return render_template(
 		f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/commerce/v_list.html",
 		**categoryData,
 		**pagination_info,
+		**res,
 		url_prefix = url_prefix,
 		title = gettext(Config.COMMERCE_LIST_VIEW_TITLE))
 
@@ -67,11 +75,18 @@ def v_grid():
 	args_data["search"] = search.strip() if search else None
 	pagination_info = collect_resource_paginate_info(**args_data)
 
+	res = {}
+
+	if Config.COMMERCE_SHOW_BRANDS_ON_RESOURCES_PAGE:
+		brands = UiBrandsList()
+		res["Brands"] = brands["data"]
+
 	categoryData = UiCategoriesList()
 	return render_template(
 		f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/commerce/v_grid.html",
 		**categoryData,
 		**pagination_info,
+		**res,
 		url_prefix = url_prefix,
 		title = gettext(Config.COMMERCE_GRID_VIEW_TITLE))
 
