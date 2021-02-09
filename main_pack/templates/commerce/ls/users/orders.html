@@ -1,0 +1,54 @@
+{% extends "commerce/ls/commerce/layout.html" %}
+
+{% block content %}
+<div class="col-lg-12 col-md-5 col-sm-8 col-xs-9 bhoechie-tab-container">
+	<div class="col-lg-2 col-md-3 col-sm-3 col-xs-3 bhoechie-tab-menu">
+		<div class="list-group">
+			<a href="{{ url_for('commerce_users.profile') }}" class="list-group-item text-center">
+			<h4 class="fonticon"><i class="fa fa-user"></i></h4>{{_('Profile')}}
+			</a>
+			<a href="{{ url_for('commerce.cart') }}" class="list-group-item text-center">
+			<h4 class="fonticon"><i class="fa fa-credit-card"></i></h4>{{_('Cart')}}
+			</a>
+			<a href="{{ url_for('commerce_users.wishlist') }}" class="list-group-item text-center">
+			<h4 class="fonticon"><i class="fa fa-heart"></i></h4>{{_('Wishlist')}}
+			</a>
+			<a href="{{ url_for('commerce_users.orders') }}" class="list-group-item active text-center">
+			<h4 class="fonticon"><i class="fa fa-truck"></i></h4>{{_('Orders')}}
+			</a>
+		</div>
+	</div>
+	<div class="col-lg-10 col-md-9 col-sm-9 col-xs-9 bhoechie-tab">
+		<div class="bhoechie-tab-content active">
+			<main id="main" class="site-main" style="display: flex;">
+				{% for orderInv in orderInvoices %}
+					<div class="col-4" onclick="location.href='{{ url_for('commerce_users.order_lines',OInvRegNo=orderInv.OInvRegNo) }}';" style="cursor:pointer;">
+						<div class="flat-card order-card has-popover-top">
+							<a class="card-link" href="{{ url_for('commerce_users.order_lines',OInvRegNo=orderInv.OInvRegNo) }}"></a>
+							<div class="order-info">
+								<span><a href="{{ url_for('commerce_users.order_lines',OInvRegNo=orderInv.OInvRegNo) }}" onclick="return true">{{_('Order')}} - {{ orderInv.OInvRegNo }}</a></span>
+								<span class="tag is-{{orderInv.StatusUI.class}}">{{orderInv.InvStatus.InvStatName}}</span>
+							</div>
+							<!-- Progress Circle -->
+							<div class="circle-chart-wrapper">
+								<svg class="circle-chart" viewbox="0 0 33.83098862 33.83098862" width="140" height="140" xmlns="http://www.w3.org/2000/svg">
+									<circle class="circle-chart-background" stroke="#efefef" stroke-width="2" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
+									<circle class="circle-chart-circle" stroke="{{orderInv.StatusUI.color_hash}}" stroke-width="2" stroke-dasharray="{{orderInv.StatusUI.percentage}},100" stroke-linecap="round" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
+								</svg>
+								<div class="chart-icon">
+									<i data-feather="{{orderInv.StatusUI.icon}}"></i>
+								</div>
+								<div class="ring-title has-text-centered">
+									<span>{{orderInv.StatusUI.percentage}}%</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+				<!-- .hentry -->
+			</main>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
