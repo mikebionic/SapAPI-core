@@ -82,7 +82,7 @@ class Config:
 
 	CACHE_TYPE = environ.get('CACHE_TYPE')
 	CACHE_DEFAULT_TIMEOUT = 300
-	DB_CACHE_TIME = int(environ.get('DB_CACHE_TIME'))
+	DB_CACHE_TIME = int(environ.get('DB_CACHE_TIME')) if environ.get('DB_CACHE_TIME') else 600
 	CACHE_REDIS_URL = environ.get('CACHE_REDIS_URL')
 	# # / Sessions, Redis, Cache, Cookies /
 
