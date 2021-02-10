@@ -23625,7 +23625,9 @@ dl.variation {
         border-radius: 0px 0px 5px 5px;
         transition: all 0.25s ease 0s; } }
     .products .product .woocommerce-LoopProduct-link {
-      display: block; }
+      display: block;
+      height: 100%;
+      width: 100%; }
       @media (max-width: 1199px) {
         .products .product .woocommerce-LoopProduct-link {
           margin-bottom: 14px; } }
@@ -23661,7 +23663,10 @@ dl.variation {
       margin-right: 0.375em; }
     .products .product img {
       display: block;
-      margin: 0 auto 6px; }
+      margin: 0 auto 6px;
+      max-height: 100%;
+      max-width: 100%;
+     }
     .products .product .price {
       display: block;
       margin-bottom: 0.286em; }
@@ -24423,7 +24428,9 @@ dl.variation {
 .products .product-category, .product-loop-categories .product-category {
   background-color: #f9f9f9; }
   .products .product-category:focus, .products .product-category:hover, .product-loop-categories .product-category:focus, .product-loop-categories .product-category:hover {
-    border-color: transparent; }
+    border-color: transparent;
+    width: 30%;
+   }
   .products .product-category a, .product-loop-categories .product-category a {
     display: block;
     width: 100%; }
@@ -24446,7 +24453,9 @@ dl.variation {
     .product-loop-categories .product-category .woocommerce-loop-category__title mark {
       display: none; }
   .products .product-category img, .product-loop-categories .product-category img {
-    margin-bottom: 0.786em; }
+    margin-bottom: 0.786em; 
+    width: 50%;
+}
 
 .product-categories-carousel .products .product-category:nth-child(odd) {
   background-color: #fff; }
@@ -25972,7 +25981,7 @@ form.track_order {
     max-width: 37.5%; } }
   .section-product-carousel-with-featured-product.full-width .tab-carousel-products {
     flex: 0 0 75%;
-    max-width: 75%; }
+    max-width: 100%; }
 
 @media (min-width: 768px) and (max-width: 1199px) {
   .section-product-carousel-with-featured-product.full-width .tab-carousel-products {
@@ -28220,3 +28229,10 @@ section{
   font-size: 25px;
   color: #737272;
 } 
+
+
+/* Product_size */
+.new_pr{
+  width: 150px;
+  height: 200px
+}

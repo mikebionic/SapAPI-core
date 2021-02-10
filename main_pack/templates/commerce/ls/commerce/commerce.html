@@ -4,23 +4,22 @@
 <div id="primary" class="content-area">
 	<main id="main" class="site-main">
 		<div class="home-v1-slider home-slider">
-		{% for slider in sliders %}
+			{% for slider in sliders %}
 			{% if slider.SlName == "commerce_header" %}
-				{% for sl_image in slider.Sl_images %}
-				{% if sl_image.SlImgMainImgFilePathS %}
-				<div class="slider-1">
-					<img loading="lazy" src="{{ sl_image.SlImgMainImgFilePathS }}"
-						data-src-m="{{ sl_image.SlImgMainImgFilePathM }}"
-						alt="{{ sl_image.SlImgTitle if sl_image.SlImgTitle else 'sl_image.SlImgMainImgFileName' }}">
-					<div class="caption">
-						<div class="title">{{sl_image.SlImgTitle if sl_image.SlImgTitle else ''}}</div>
-						<div class="sub-title">{{sl_image.SlImgDesc if sl_image.SlImgDesc else ''}}</div>
-					</div>
+			{% for sl_image in slider.Sl_images %}
+			{% if sl_image.SlImgMainImgFilePathS %}
+			<div class="slider-1">
+				<img loading="lazy" src="{{ sl_image.SlImgMainImgFilePathS }}" data-src-m="{{ sl_image.SlImgMainImgFilePathM }}"
+				 alt="{{ sl_image.SlImgTitle if sl_image.SlImgTitle else 'sl_image.SlImgMainImgFileName' }}">
+				<div class="caption">
+					<div class="title">{{sl_image.SlImgTitle if sl_image.SlImgTitle else ''}}</div>
+					<div class="sub-title">{{sl_image.SlImgDesc if sl_image.SlImgDesc else ''}}</div>
 				</div>
-				{% endif %}
-				{% endfor %}
+			</div>
 			{% endif %}
-		{% endfor %}
+			{% endfor %}
+			{% endif %}
+			{% endfor %}
 		</div>
 
 		<div class="features-list">
@@ -80,19 +79,52 @@
 
 				<nav class="custom-slick-nav"></nav>
 			</header>
-			<div class="product-categories-1 product-categories-carousel" data-ride="tm-slick-carousel" data-wrap=".products" data-slick="{&quot;slidesToShow&quot;:5,&quot;slidesToScroll&quot;:1,&quot;dots&quot;:false,&quot;arrows&quot;:true,&quot;prevArrow&quot;:&quot;&lt;a href=\&quot;#\&quot;&gt;&lt;i class=\&quot;tm tm-arrow-left\&quot;&gt;&lt;\/i&gt;&lt;\/a&gt;&quot;,&quot;nextArrow&quot;:&quot;&lt;a href=\&quot;#\&quot;&gt;&lt;i class=\&quot;tm tm-arrow-right\&quot;&gt;&lt;\/i&gt;&lt;\/a&gt;&quot;,&quot;appendArrows&quot;:&quot;#categories-carousel-1 .custom-slick-nav&quot;,&quot;responsive&quot;:[{&quot;breakpoint&quot;:1200,&quot;settings&quot;:{&quot;slidesToShow&quot;:2,&quot;slidesToScroll&quot;:2}},{&quot;breakpoint&quot;:1400,&quot;settings&quot;:{&quot;slidesToShow&quot;:4,&quot;slidesToScroll&quot;:4}}]}">
+			<div class="product-categories-1 product-categories-carousel" data-ride="tm-slick-carousel" data-wrap=".products"
+			 data-slick="{&quot;slidesToShow&quot;:5,&quot;slidesToScroll&quot;:1,&quot;dots&quot;:false,&quot;arrows&quot;:true,&quot;prevArrow&quot;:&quot;&lt;a href=\&quot;#\&quot;&gt;&lt;i class=\&quot;tm tm-arrow-left\&quot;&gt;&lt;\/i&gt;&lt;\/a&gt;&quot;,&quot;nextArrow&quot;:&quot;&lt;a href=\&quot;#\&quot;&gt;&lt;i class=\&quot;tm tm-arrow-right\&quot;&gt;&lt;\/i&gt;&lt;\/a&gt;&quot;,&quot;appendArrows&quot;:&quot;#categories-carousel-1 .custom-slick-nav&quot;,&quot;responsive&quot;:[{&quot;breakpoint&quot;:1200,&quot;settings&quot;:{&quot;slidesToShow&quot;:2,&quot;slidesToScroll&quot;:2}},{&quot;breakpoint&quot;:1400,&quot;settings&quot;:{&quot;slidesToShow&quot;:4,&quot;slidesToScroll&quot;:4}}]}">
 				<div class="woocommerce columns-5">
 					<div class="products">
 						{% for category in Featured_categories %}
 						<div class="product-category product">
 							<a href="{{ url_for('commerce.v_grid', category = category.ResCatId) }}">
-								<img
-									src="{{ category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static', 
+								<img src="{{ category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static', 
 									filename='commerce/ls/images/icons/category.svg') }}">
+								<h2 class="woocommerce-loop-category__title">
+									{{ category.ResCatName }}
+								</h2>
 							</a>
-							<h2 class="woocommerce-loop-category__title">
-								{{ category.ResCatname }}
-							</h2>
+						</div>
+						{% endfor %}
+						{% for category in Featured_categories %}
+						<div class="product-category product">
+							<a href="{{ url_for('commerce.v_grid', category = category.ResCatId) }}">
+								<img src="{{ category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static', 
+									filename='commerce/ls/images/icons/category.svg') }}">
+								<h2 class="woocommerce-loop-category__title">
+									{{ category.ResCatName }}
+								</h2>
+							</a>
+						</div>
+						{% endfor %}
+						{% for category in Featured_categories %}
+						<div class="product-category product">
+							<a href="{{ url_for('commerce.v_grid', category = category.ResCatId) }}">
+								<img src="{{ category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static', 
+									filename='commerce/ls/images/icons/category.svg') }}">
+								<h2 class="woocommerce-loop-category__title">
+									{{ category.ResCatName }}
+								</h2>
+							</a>
+						</div>
+						{% endfor %}
+						{% for category in Featured_categories %}
+						<div class="product-category product">
+							<a href="{{ url_for('commerce.v_grid', category = category.ResCatId) }}">
+								<img src="{{ category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static', 
+									filename='commerce/ls/images/icons/category.svg') }}">
+								<h2 class="woocommerce-loop-category__title">
+									{{ category.ResCatName }}
+								</h2>
+							</a>
 						</div>
 						{% endfor %}
 					</div>
@@ -109,7 +141,7 @@
 					{% for category in Featured_categories %}
 					<li class="nav-item featrued-cat-btn">
 						<a class="nav-link" href="#tab-{{category.ResCatId}}" data-toggle="tab">
-						{{category.ResCatName}}
+							{{category.ResCatName}}
 						</a>
 					</li>
 					{% endfor %}
@@ -118,28 +150,28 @@
 
 			<!-- !!! Mike: Needs js fixes -->
 			{% for category in Featured_categories %}
-				<div class="tab-content">
-					<div role="tabpanel" id="tab-{{category.ResCatId}}" class="tab-pane featrued-cat-tab">
-						<div class="tab-product-carousel-with-featured-product">
-							<div class="tab-carousel-products">
-								<div class="products-carousel" data-ride="tm-slick-carousel" data-wrap=".products" data-slick="{&quot;rows&quot;:2,&quot;slidesPerRow&quot;:6,&quot;slidesToShow&quot;:1,&quot;slidesToScroll&quot;:1,&quot;dots&quot;:true,&quot;arrows&quot;:false,&quot;responsive&quot;:[{&quot;breakpoint&quot;:1200,&quot;settings&quot;:{&quot;slidesPerRow&quot;:2,&quot;slidesToScroll&quot;:1}},{&quot;breakpoint&quot;:1400,&quot;settings&quot;:{&quot;slidesPerRow&quot;:3,&quot;slidesToScroll&quot;:1}},{&quot;breakpoint&quot;:1599,&quot;settings&quot;:{&quot;slidesPerRow&quot;:4,&quot;slidesToScroll&quot;:1}}]}">
-									<div class="container-fluid">
-										<div class="products">
-											{% for resource in category.Resources %}
+			<div class="tab-content">
+				<div role="tabpanel" id="tab-{{category.ResCatId}}" class="tab-pane featrued-cat-tab">
+					<div class="tab-product-carousel-with-featured-product">
+						<div class="tab-carousel-products">
+							<div class="products-carousel" data-ride="tm-slick-carousel" data-wrap=".products" data-slick="{&quot;rows&quot;:2,&quot;slidesPerRow&quot;:6,&quot;slidesToShow&quot;:1,&quot;slidesToScroll&quot;:1,&quot;dots&quot;:true,&quot;arrows&quot;:false,&quot;responsive&quot;:[{&quot;breakpoint&quot;:1200,&quot;settings&quot;:{&quot;slidesPerRow&quot;:2,&quot;slidesToScroll&quot;:1}},{&quot;breakpoint&quot;:1400,&quot;settings&quot;:{&quot;slidesPerRow&quot;:3,&quot;slidesToScroll&quot;:1}},{&quot;breakpoint&quot;:1599,&quot;settings&quot;:{&quot;slidesPerRow&quot;:4,&quot;slidesToScroll&quot;:1}}]}">
+								<div class="container-fluid">
+									<div class="products">
+										{% for resource in category.Resources %}
 
-											<div class="product">
-												{% if current_user.is_authenticated %}
-													<div class="yith-wcwl-add-to-wishlist">
-														<a href="#" rel="nofollow" class="like">
-															<i class="fa fa-heart" aria-hidden="true"></i>
-														</a>
-													</div>
-												{% endif %}
+										<div class="product">
+											{% if current_user.is_authenticated %}
+											<div class="yith-wcwl-add-to-wishlist">
+												<a href="#" rel="nofollow" class="like">
+													<i class="fa fa-heart" aria-hidden="true"></i>
+												</a>
+											</div>
+											{% endif %}
+											<div class="new_pr">
 												<a href="single-product-fullwidth.html" class="woocommerce-LoopProduct-link">
-													<img loading="lazy"
-													src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/main/shop_icons/no_photo.png')}}"
-													alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}"
-													width="224" height="197" class="wp-post-image" alt="">
+													<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/main/shop_icons/no_photo.png')}}"
+													 alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}"
+													 width="224" height="197" class="wp-post-image" alt="">
 													<span class="price">
 														<ins>
 															<span class="amount"></span>
@@ -149,74 +181,74 @@
 													</span>
 													<h2 class="woocommerce-loop-product__title">{{ resource.ResName }}</h2>
 												</a>
-												<div class="hover-area">
-													<a class="button add_to_cart_button" href="#" rel="nofollow">{{_('Add to cart')}}</a>
-												</div>
 											</div>
-
-											{% endfor %}
+											<div class="hover-area">
+												<a class="button add_to_cart_button" href="#" rel="nofollow">{{_('Add to cart')}}</a>
+											</div>
 										</div>
+
+										{% endfor %}
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+			</div>
 			{% endfor %}
 
 		</section>
 
 		{% for slider in sliders %}
 		{% if slider.SlName == "commerce_footer" %}
-			{% for sl_image in slider.Sl_images %}
-			{% if sl_image.SlImgMainImgFilePathS %}
-			<div class="banner full-width-banner">
-				<a>
-					<div>
-						<div class="caption">
-							<img loading="lazy" src="{{ sl_image.SlImgMainImgFilePathS }}"
-								data-src-m="{{ sl_image.SlImgMainImgFilePathM }}"
-								alt="banner {{ sl_image.SlImgMainImgFileName }}">
-							<div class="banner-info">
-								<h3 class="title">
-									<strong>{{sl_image.SlImgTitle if sl_image.SlImgTitle else ''}}</strong>
+		{% for sl_image in slider.Sl_images %}
+		{% if sl_image.SlImgMainImgFilePathS %}
+		<div class="banner full-width-banner">
+			<a>
+				<div>
+					<div class="caption">
+						<img loading="lazy" src="{{ sl_image.SlImgMainImgFilePathS }}" data-src-m="{{ sl_image.SlImgMainImgFilePathM }}"
+						 alt="banner {{ sl_image.SlImgMainImgFileName }}">
+						<div class="banner-info">
+							<h3 class="title">
+								<strong>{{sl_image.SlImgTitle if sl_image.SlImgTitle else ''}}</strong>
 								<h4 class="subtitle">{{sl_image.SlImgDesc if sl_image.SlImgDesc else ''}}</h4>
-							</div>
 						</div>
 					</div>
-				</a>
-			</div>
-			{% endif %}
-			{% endfor %}
+				</div>
+			</a>
+		</div>
+		{% endif %}
+		{% endfor %}
 		{% endif %}
 		{% endfor %}
 
-	{% if Brands %}
+		{% if Brands %}
 		<section class="brands-carousel">
 			<h2 class="sr-only">{{_('Brands')}}</h2>
 			<div class="col-full" data-ride="tm-slick-carousel" data-wrap=".brands" data-slick="{&quot;slidesToShow&quot;:6,&quot;slidesToScroll&quot;:1,&quot;dots&quot;:false,&quot;arrows&quot;:true,&quot;responsive&quot;:[{&quot;breakpoint&quot;:400,&quot;settings&quot;:{&quot;slidesToShow&quot;:1,&quot;slidesToScroll&quot;:1}},{&quot;breakpoint&quot;:800,&quot;settings&quot;:{&quot;slidesToShow&quot;:3,&quot;slidesToScroll&quot;:3}},{&quot;breakpoint&quot;:992,&quot;settings&quot;:{&quot;slidesToShow&quot;:3,&quot;slidesToScroll&quot;:3}},{&quot;breakpoint&quot;:1200,&quot;settings&quot;:{&quot;slidesToShow&quot;:4,&quot;slidesToScroll&quot;:4}},{&quot;breakpoint&quot;:1400,&quot;settings&quot;:{&quot;slidesToShow&quot;:5,&quot;slidesToScroll&quot;:5}}]}">
 				<div class="brands">
 					{% for brand in Brands %}
 					{% if brand.FilePath and brand.IsMain %}
-						<div class="item">
-							<a href="{{url_for('commerce.v_grid',brand = brand.BrandId)}}">
-								<figure>
-									<figcaption class="text-overlay">
-										<div class="info">
-											<h4>{{brand.BrandName}}</h4>
-										</div>
-									</figcaption>
-									<img width="145" height="50" class="img-responsive desaturate"
-										loading="lazy" src="{{brand.FilePath if brand.FilePath}}" alt="Brand {{brand.BrandName}}">
-								</figure>
-							</a>
-						</div>
+					<div class="item">
+						<a href="{{url_for('commerce.v_grid',brand = brand.BrandId)}}">
+							<figure>
+								<figcaption class="text-overlay">
+									<div class="info">
+										<h4>{{brand.BrandName}}</h4>
+									</div>
+								</figcaption>
+								<img width="145" height="50" class="img-responsive desaturate" loading="lazy" src="{{brand.FilePath if brand.FilePath}}"
+								 alt="Brand {{brand.BrandName}}">
+							</figure>
+						</a>
+					</div>
 					{% endif %}
 					{% endfor %}
 				</div>
 			</div>
 		</section>
-	{% endif %}
+		{% endif %}
 
 	</main>
 </div>
@@ -226,7 +258,7 @@
 
 {% block scripts %}
 <script type="text/javascript">
-	$(document).ready(function(){
+	$(document).ready(function () {
 		$('.featrued-cat-btn a:first').addClass('active show');
 		$('.featrued-cat-tab:first').addClass('active show');
 	});
