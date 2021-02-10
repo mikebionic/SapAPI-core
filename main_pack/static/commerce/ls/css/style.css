@@ -9835,13 +9835,17 @@ a#variations_clear:before {
           .navbar-search .twitter-typeahead .tt-menu .tt-dataset-search a p {
             margin-bottom: 0; }
 
+
+ /*!!! Gulbahar, here's media*/
 .departments-menu {
   max-height: 5.067em;
   max-width: 16.250em; }
   @media (min-width: 1025px) {
     .departments-menu .dropdown-backdrop {
-      z-index: -1;
-      display: none; } }
+      /*z-index: -1;*/
+      /*display: none;*/
+    }
+  }
   .departments-menu button {
     background-color: transparent;
     font-size: 1em;

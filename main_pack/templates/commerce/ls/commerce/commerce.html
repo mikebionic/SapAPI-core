@@ -80,42 +80,9 @@
 				<nav class="custom-slick-nav"></nav>
 			</header>
 			<div class="product-categories-1 product-categories-carousel" data-ride="tm-slick-carousel" data-wrap=".products"
-			 data-slick="{&quot;slidesToShow&quot;:5,&quot;slidesToScroll&quot;:1,&quot;dots&quot;:false,&quot;arrows&quot;:true,&quot;prevArrow&quot;:&quot;&lt;a href=\&quot;#\&quot;&gt;&lt;i class=\&quot;tm tm-arrow-left\&quot;&gt;&lt;\/i&gt;&lt;\/a&gt;&quot;,&quot;nextArrow&quot;:&quot;&lt;a href=\&quot;#\&quot;&gt;&lt;i class=\&quot;tm tm-arrow-right\&quot;&gt;&lt;\/i&gt;&lt;\/a&gt;&quot;,&quot;appendArrows&quot;:&quot;#categories-carousel-1 .custom-slick-nav&quot;,&quot;responsive&quot;:[{&quot;breakpoint&quot;:1200,&quot;settings&quot;:{&quot;slidesToShow&quot;:2,&quot;slidesToScroll&quot;:2}},{&quot;breakpoint&quot;:1400,&quot;settings&quot;:{&quot;slidesToShow&quot;:4,&quot;slidesToScroll&quot;:4}}]}">
+			 data-slick="{&quot;slidesToShow&quot;:6,&quot;slidesToScroll&quot;:1,&quot;dots&quot;:false,&quot;arrows&quot;:true,&quot;prevArrow&quot;:&quot;&lt;a href=\&quot;#\&quot;&gt;&lt;i class=\&quot;tm tm-arrow-left\&quot;&gt;&lt;\/i&gt;&lt;\/a&gt;&quot;,&quot;nextArrow&quot;:&quot;&lt;a href=\&quot;#\&quot;&gt;&lt;i class=\&quot;tm tm-arrow-right\&quot;&gt;&lt;\/i&gt;&lt;\/a&gt;&quot;,&quot;appendArrows&quot;:&quot;#categories-carousel-1 .custom-slick-nav&quot;,&quot;responsive&quot;:[{&quot;breakpoint&quot;:1200,&quot;settings&quot;:{&quot;slidesToShow&quot;:2,&quot;slidesToScroll&quot;:2}},{&quot;breakpoint&quot;:1400,&quot;settings&quot;:{&quot;slidesToShow&quot;:4,&quot;slidesToScroll&quot;:4}}]}">
 				<div class="woocommerce columns-5">
 					<div class="products">
-						{% for category in Featured_categories %}
-						<div class="product-category product">
-							<a href="{{ url_for('commerce.v_grid', category = category.ResCatId) }}">
-								<img src="{{ category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static', 
-									filename='commerce/ls/images/icons/category.svg') }}">
-								<h2 class="woocommerce-loop-category__title">
-									{{ category.ResCatName }}
-								</h2>
-							</a>
-						</div>
-						{% endfor %}
-						{% for category in Featured_categories %}
-						<div class="product-category product">
-							<a href="{{ url_for('commerce.v_grid', category = category.ResCatId) }}">
-								<img src="{{ category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static', 
-									filename='commerce/ls/images/icons/category.svg') }}">
-								<h2 class="woocommerce-loop-category__title">
-									{{ category.ResCatName }}
-								</h2>
-							</a>
-						</div>
-						{% endfor %}
-						{% for category in Featured_categories %}
-						<div class="product-category product">
-							<a href="{{ url_for('commerce.v_grid', category = category.ResCatId) }}">
-								<img src="{{ category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static', 
-									filename='commerce/ls/images/icons/category.svg') }}">
-								<h2 class="woocommerce-loop-category__title">
-									{{ category.ResCatName }}
-								</h2>
-							</a>
-						</div>
-						{% endfor %}
 						{% for category in Featured_categories %}
 						<div class="product-category product">
 							<a href="{{ url_for('commerce.v_grid', category = category.ResCatId) }}">
@@ -154,7 +121,7 @@
 				<div role="tabpanel" id="tab-{{category.ResCatId}}" class="tab-pane featrued-cat-tab">
 					<div class="tab-product-carousel-with-featured-product">
 						<div class="tab-carousel-products">
-							<div class="products-carousel" data-ride="tm-slick-carousel" data-wrap=".products" data-slick="{&quot;rows&quot;:2,&quot;slidesPerRow&quot;:6,&quot;slidesToShow&quot;:1,&quot;slidesToScroll&quot;:1,&quot;dots&quot;:true,&quot;arrows&quot;:false,&quot;responsive&quot;:[{&quot;breakpoint&quot;:1200,&quot;settings&quot;:{&quot;slidesPerRow&quot;:2,&quot;slidesToScroll&quot;:1}},{&quot;breakpoint&quot;:1400,&quot;settings&quot;:{&quot;slidesPerRow&quot;:3,&quot;slidesToScroll&quot;:1}},{&quot;breakpoint&quot;:1599,&quot;settings&quot;:{&quot;slidesPerRow&quot;:4,&quot;slidesToScroll&quot;:1}}]}">
+							<div class="products-carousel" data-ride="tm-slick-carousel" data-wrap=".products" data-slick="{&quot;rows&quot;:2,&quot;slidesPerRow&quot;:6,&quot;slidesToShow&quot;:1,&quot;slidesToScroll&quot;:3,&quot;dots&quot;:true,&quot;arrows&quot;:false,&quot;responsive&quot;:[{&quot;breakpoint&quot;:1200,&quot;settings&quot;:{&quot;slidesPerRow&quot;:2,&quot;slidesToScroll&quot;:1}},{&quot;breakpoint&quot;:1400,&quot;settings&quot;:{&quot;slidesPerRow&quot;:3,&quot;slidesToScroll&quot;:1}},{&quot;breakpoint&quot;:1599,&quot;settings&quot;:{&quot;slidesPerRow&quot;:4,&quot;slidesToScroll&quot;:1}}]}">
 								<div class="container-fluid">
 									<div class="products">
 										{% for resource in category.Resources %}
