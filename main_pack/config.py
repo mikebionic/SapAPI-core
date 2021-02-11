@@ -173,7 +173,7 @@ class Config:
 
 	# Put a watermark layer on images
 	# (esure existence in '/web_config/watermark.png')
-	ADD_RESOURCE_WATERMARK = True
+	ADD_RESOURCE_WATERMARK = int(environ.get('ADD_RESOURCE_WATERMARK')) if environ.get('ADD_RESOURCE_WATERMARK') else 0
 
 	# Rename images to the data given in image_name
 	USE_PROVIDED_IMAGE_FILENAME = False

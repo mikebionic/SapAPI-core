@@ -67,7 +67,6 @@ def api_exc_rate():
 		data = []
 		failed_data = [] 
 
-		exc_rate_types = Exc_rate_type.query.filter_by(GCRecord = None).all()
 		currencies = Currency.query.filter_by(GCRecord = None).all()
 
 		for exc_rate_req in req:
