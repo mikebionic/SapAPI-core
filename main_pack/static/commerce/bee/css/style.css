@@ -13071,3 +13071,7 @@ ul.link-widget li {
   max-height: 90px;
   transition: filter 0.3s ease;
 }
+
+.removeFromCart i {
+  color: #4b4b4b;
+}

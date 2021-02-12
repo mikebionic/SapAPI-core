@@ -607,19 +607,19 @@ def apiFeaturedResCat_Resources():
 	return res
 
 
-def UiCartResourceData(product_list,fullInfo=False,showRelated=False):
-	res = apiResourceInfo(product_list,fullInfo=fullInfo,showRelated=showRelated)
+def UiCartResourceData(product_list, fullInfo=False, showRelated=False):
+	res = apiResourceInfo(product_list, fullInfo=fullInfo, showRelated=showRelated)
 	data = []
 	resources = res["data"]
 	for resource in resources:
 		for product in product_list:
-			if (int(resource["ResId"])==int(product["ResId"])):
+			if (int(resource["ResId"]) == int(product["ResId"])):
 				try:
 					resource["productQty"] = product["productQty"]
 				except Exception as ex:
 					print(f"{datetime.now()} | Cart Resource Data utils Exception: {ex}")
 					resource["productQty"] = 1
-		resource["productTotal"]=int(resource["productQty"])*int(resource["ResPriceValue"])
+		resource["productTotal"] = float(resource["productQty"]) * float(resource["ResPriceValue"])
 		data.append(resource)
 	res = {
 		"status": 1 if len(data) > 0 else 0,
