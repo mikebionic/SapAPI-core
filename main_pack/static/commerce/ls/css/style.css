@@ -6612,7 +6612,8 @@ button.menu-toggle {
     display: none; }
   .brands-carousel img {
     margin: 0 auto;
-    opacity: 0.5; }
+    /* opacity: 0.5;  */
+  }
     .brands-carousel img:hover {
       opacity: 1; }
   @media (max-width: 1399px) {
