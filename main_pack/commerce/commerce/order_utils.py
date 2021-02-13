@@ -1,3 +1,6 @@
+from sqlalchemy import and_
+
+from main_pack.config import Config
 from main_pack.base.dataMethods import configureNulls,configureFloat,boolCheck
 from main_pack.base.imageMethods import save_image,dirHandler
 # used foreign keys
@@ -31,58 +34,73 @@ from main_pack.models.commerce.models import (
 	Order_inv_line,
 	Order_inv_type)
 from main_pack.models.base.models import Currency
-from main_pack.models.commerce.models import Resource
+from main_pack.models.commerce.models import Resource, Exc_rate
 
 from main_pack.models.base.models import Company,Division
 from main_pack.models.users.models import Rp_acc
 from main_pack.base.languageMethods import dataLangSelector
+from main_pack.base.priceMethods import price_currency_conversion
+
 # colorful bootstrap status configurations library
 from main_pack.base.invoiceMethods import getInvStatusUi
 
-from sqlalchemy import and_
 
 # !!! TODO: Update this to use single query and get rid of list iter query
 def UiOInvData(orders_list):
 	data = []
 
-	currencies = Currency.query\
-		.filter_by(GCRecord = None).all()
-	inv_statuses = Inv_status.query\
-		.filter_by(GCRecord = None).all()
-	orderInvTypes = Order_inv_type.query\
-		.filter_by(GCRecord = None).all()
-	rpAccs = Rp_acc.query.all()
+	currencies = Currency.query.filter_by(GCRecord = None).all()
+	exc_rates = Exc_rate.query.filter_by(GCRecord = None).all()
+	inv_statuses = Inv_status.query.filter_by(GCRecord = None).all()
+	orderInvTypes = Order_inv_type.query.filter_by(GCRecord = None).all()
+	rpAccs = Rp_acc.query.filter_by(GCRecord = None).all()
 
 	for order in orders_list:
 		orderInv = Order_inv.query.get(order["OInvId"])
 		orderInvList = orderInv.to_json_api()
 		
-		List_RpAccs = [rpAcc.to_json_api() for rpAcc in rpAccs if rpAcc.RpAccId==orderInv.RpAccId]
-		List_InvStatuses = [inv_status.to_json_api() for inv_status in inv_statuses if inv_status.InvStatId==orderInv.InvStatId]
-		List_OInvTypes = [orderInvType.to_json_api() for orderInvType in orderInvTypes if orderInvType.OInvTypeId==orderInv.OInvTypeId]
-		List_Currencies = [currency.to_json_api() for currency in currencies if currency.CurrencyId==orderInv.CurrencyId]
+		List_RpAccs = [rpAcc.to_json_api() for rpAcc in rpAccs if rpAcc.RpAccId == orderInv.RpAccId]
+		List_InvStatuses = [inv_status.to_json_api() for inv_status in inv_statuses if inv_status.InvStatId == orderInv.InvStatId]
+		List_OInvTypes = [orderInvType.to_json_api() for orderInvType in orderInvTypes if orderInvType.OInvTypeId == orderInv.OInvTypeId]
+		List_Currencies = [currency.to_json_api() for currency in currencies if currency.CurrencyId == orderInv.CurrencyId]
+
+		this_priceValue = orderInvList["OInvFTotal"]
+		this_currencyCode = List_Currencies[0]["CurrencyCode"] if List_Currencies else None
+
+		# !!! TODO: configure filtering and getting right data
+		price_data = price_currency_conversion(
+			priceValue = this_priceValue,
+			from_currency = this_currencyCode,
+			to_currency = Config.DEFAULT_VIEW_CURRENCY_CODE,
+			currencies_dbModel = currencies,
+			exc_rates_dbModel = exc_rates)
+
+		orderInvList["OInvFTotal"] = price_data["ResPriceValue"]
+		orderInvList["CurrencyId"] = price_data["CurrencyId"]
+		orderInvList["CurrencyCode"] = Config.DEFAULT_VIEW_CURRENCY_CODE
 
 		orderInvList["Rp_acc"] = List_RpAccs[0] if List_RpAccs else ''
 		orderInvList["InvStatus"] = dataLangSelector(List_InvStatuses[0]) if List_InvStatuses else ''
 		orderInvList["OInvType"] = dataLangSelector(List_OInvTypes[0]) if List_OInvTypes else ''
 		orderInvList["Currency"] = dataLangSelector(List_Currencies[0]) if List_Currencies else ''
 		orderInvList["StatusUI"] = getInvStatusUi(orderInv.InvStatId)
+
 		data.append(orderInvList)
+
 	res = {
 		"orderInvoices":data,
 	}
+
 	return res
 
 
 def UiOInvLineData(order_lines_list):
 	data = []
 
-	units = Unit.query\
-		.filter_by(GCRecord = None).all()
-	currencies = Currency.query\
-		.filter_by(GCRecord = None).all()
-	orderInvTypes = Order_inv_type.query\
-		.filter_by(GCRecord = None).all()
+	# units = Unit.query.filter_by(GCRecord = None).all()
+	currencies = Currency.query.filter_by(GCRecord = None).all()
+	exc_rates = Exc_rate.query.filter_by(GCRecord = None).all()
+	orderInvTypes = Order_inv_type.query.filter_by(GCRecord = None).all()
 
 	for order_line in order_lines_list:
 		orderInvLine = Order_inv_line.query.get(order_line["OInvLineId"])
@@ -92,10 +110,33 @@ def UiOInvLineData(order_lines_list):
 			.filter_by(GCRecord = None, ResId = orderInvLine.ResId)\
 			.first()
 		
-		List_Units = [unit.to_json_api() for unit in units if unit.UnitId==orderInvLine.UnitId]
-		List_Currencies = [currency.to_json_api() for currency in currencies if currency.CurrencyId==orderInvLine.CurrencyId]
+		# List_Units = [unit.to_json_api() for unit in units if unit.UnitId == orderInvLine.UnitId]
+		List_Currencies = [currency.to_json_api() for currency in currencies if currency.CurrencyId == orderInvLine.CurrencyId]
 
-		orderInvLineList["Unit"] = dataLangSelector(List_Units[0]) if List_Units else ''
+		this_priceValue = orderInvLineList["OInvLinePrice"]
+		this_totalValue = orderInvLineList["OInvLineFTotal"]
+		this_currencyCode = List_Currencies[0]["CurrencyCode"] if List_Currencies else None
+
+		price_data = price_currency_conversion(
+			priceValue = this_priceValue,
+			from_currency = this_currencyCode,
+			to_currency = Config.DEFAULT_VIEW_CURRENCY_CODE,
+			currencies_dbModel = currencies,
+			exc_rates_dbModel = exc_rates)
+
+		total_price_data = price_currency_conversion(
+			priceValue = this_totalValue,
+			from_currency = this_currencyCode,
+			to_currency = Config.DEFAULT_VIEW_CURRENCY_CODE,
+			currencies_dbModel = currencies,
+			exc_rates_dbModel = exc_rates)
+
+		orderInvLineList["OInvLinePrice"] = price_data["ResPriceValue"]
+		orderInvLineList["OInvLineFTotal"] = total_price_data["ResPriceValue"]
+		orderInvLineList["CurrencyId"] = price_data["CurrencyId"]
+		orderInvLineList["CurrencyCode"] = Config.DEFAULT_VIEW_CURRENCY_CODE
+
+		# orderInvLineList["Unit"] = dataLangSelector(List_Units[0]) if List_Units else ''
 		orderInvLineList["Currency"] = dataLangSelector(List_Currencies[0]) if List_Currencies else ''
 		orderInvLineList["Resource"] = resource.to_json_api() if resource else ''
 

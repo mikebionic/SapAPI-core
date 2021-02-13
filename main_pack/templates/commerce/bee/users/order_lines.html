@@ -48,7 +48,7 @@
 											</div>
 											<div class="total">
 												<div>{{_('Total price')}}</div>
-												<div class="tag">{{ orderInvoices[0].Currency.CurrencyCode }} {{ orderInvoices[0].OInvFTotal }}</div>
+												<div class="tag">{{ orderInvoices[0].CurrencyCode }} {{ orderInvoices[0].OInvFTotal }}</div>
 											</div>
 										</div>
 										<div class="table-block">
@@ -72,8 +72,8 @@
 				                    </td>
 				                    <td>{{ orderInvLine.OInvLineAmount }}</td>
 				                    <td>{{ orderInvLine.OInvLinePrice }}</td>
-				                    <td>{{ orderInvLine.OInvLineTotal }}</td>
-				                    <td>{{ orderInvLine.Currency.CurrencyCode }}</td>
+				                    <td>{{ orderInvLine.OInvLineFTotal }}</td>
+				                    <td>{{ orderInvLine.CurrencyCode }}</td>
 				                  </tr>
 				                {% endfor %}
 												</tbody>

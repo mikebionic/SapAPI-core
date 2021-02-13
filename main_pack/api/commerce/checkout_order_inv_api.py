@@ -183,6 +183,7 @@ def api_checkout_sale_order_invoices(user):
 				price_data = price_currency_conversion(
 					priceValue = this_priceValue,
 					from_currency = this_currencyCode,
+					to_currency = Config.MAIN_CURRENCY_CODE,
 					currencies_dbModel = currencies,
 					exc_rates_dbModel = exc_rates)
 

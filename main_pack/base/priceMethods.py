@@ -54,11 +54,13 @@ def price_currency_conversion(
 		if from_exchange_rate:
 			from_rate_value = from_exchange_rate[-1]["ExcRateOutValue"] if value_type == "out" else from_exchange_rate[-1]["ExcRateInValue"]
 			from_rate_value = from_rate_value if from_rate_value else 1
+		from_rate_value = from_rate_value if from_currency != main_currency else 1
 
 		to_rate_value = 1
 		if to_exchange_rate:
 			to_rate_value = to_exchange_rate[-1]["ExcRateOutValue"] if value_type == "out" else to_exchange_rate[-1]["ExcRateInValue"]
 			to_rate_value = to_rate_value if to_rate_value else 1
+		to_rate_value = to_rate_value if to_currency != main_currency else 1
 
 		priceValue = float(configureDecimal(priceValue / from_rate_value * to_rate_value))
 

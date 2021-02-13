@@ -1,4 +1,14 @@
-from flask import render_template,url_for,jsonify,session,flash,redirect,request,Response,abort
+from flask import (
+	render_template,
+	url_for,
+	jsonify,
+	session,
+	flash,
+	redirect,
+	request,
+	Response,
+	abort
+)
 from flask_login import current_user, login_required
 import os
 import uuid
@@ -181,6 +191,9 @@ def ui_cart_checkout():
 	if request.method == 'POST':
 		req = request.get_json()
 		try:
+			if (session["model_type"] == "user"):
+				raise Exception
+
 			if not req['cartData']:
 				# no products in cart
 				raise Exception
@@ -222,12 +235,15 @@ def ui_cart_checkout():
 
 			WhId = warehouse.WhId if warehouse else None
 			OInvDesc = req.get('orderDesc')
-			
+
+			inv_currency = [currency.to_json_api() for currency in currencies if not currency.GCRecord and currency.CurrencyCode == Config.MAIN_CURRENCY_CODE]
+			inv_currency_id = inv_currency[0]["CurrencyId"] if inv_currency else 1
+
 			order_invoice = {
 				"OInvTypeId": 2,
 				"OInvGuid": uuid.uuid4(),
 				"InvStatId": 1,
-				"CurrencyId": 1,
+				"CurrencyId": inv_currency_id,
 				"WhId": WhId,
 				"DivId": DivId,
 				"CId": CId,
@@ -275,6 +291,7 @@ def ui_cart_checkout():
 				price_data = price_currency_conversion(
 					priceValue = this_priceValue,
 					from_currency = this_currencyCode,
+					to_currency = Config.MAIN_CURRENCY_CODE,
 					currencies_dbModel = currencies,
 					exc_rates_dbModel = exc_rates)
 

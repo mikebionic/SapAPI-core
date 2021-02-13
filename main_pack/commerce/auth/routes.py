@@ -239,7 +239,7 @@ def register_token(token):
 				"RpAccUPass": password,
 				"RpAccName": form.full_name.data,
 				"RpAccRegNo": regNo,
-				"RpAccTypeId": 1,
+				"RpAccTypeId": 2,
 				"RpAccMobilePhoneNumber": form.phone_number.data,
 				"CId": company.CId,
 				"DivId": division.DivId,
