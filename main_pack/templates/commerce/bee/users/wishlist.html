@@ -31,15 +31,10 @@
 									{% for resource in data %}
 										<li class="wishlist-item" onclick="return true">
 											<div class="item-wrapper">
-												{% if resource.FilePathS %}
-													<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}"class="link-to-product">
-														<img loading="lazy" src="{{resource.FilePathS}}" width="270" height="270" class="product-thumnail"/>
-													</a>
-												{% else %}
-													<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}"class="link-to-product">
-														<img loading="lazy" src="{{ url_for('static', filename='commerce/main/shop_icons/no_photo.png') }}" width="270" height="270" class="product-thumnail"/>
-													</a>
-												{% endif %}
+												<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
+													<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/bee/images/no_photo.svg') }}" 
+													alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
+												</a>
 												<span class="product-info">
 													<span>{{ resource.ResName if resource.ResName else '' }}</span>
 													<span>{{_('Category')}}: {{ resource.ResCatName if resource.ResCatName else '' }}</span>

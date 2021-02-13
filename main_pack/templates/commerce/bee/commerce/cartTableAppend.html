@@ -1,15 +1,10 @@
 {% for resource in data %}
   <tr class="cartTableObject{{resource.ResId}}">
     <td class="pro-thumbnail">
-      {% if resource.FilePathS %}
-        <a href="{{ url_for('commerce.product',ResId=resource.ResId)}}">
-          <img loading="lazy" src="{{resource.FilePathS}}">
-        </a>
-      {% else %}
-        <a href="{{ url_for('commerce.product',ResId=resource.ResId)}}">
-          <img loading="lazy" src="{{ url_for('static', filename='commerce/main/shop_icons/no_photo.png') }}">
-        </a>
-      {% endif %}
+      <a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
+        <img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/bee/images/no_photo.svg') }}" 
+        alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
+      </a>
     </td>
     <td class="pro-title">
       <a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="resName">{{ resource.ResName if resource.ResName else '' }}</a>

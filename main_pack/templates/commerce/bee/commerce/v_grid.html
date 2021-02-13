@@ -61,7 +61,8 @@
 										<span class="label new">{{_('New')}}</span>
 									{% endif %}
 									<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
-										<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/main/shop_icons/no_photo.png') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}" style="height: auto;">
+										<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/bee/images/no_photo.svg') }}"
+										alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}" style="height: auto;">
 									</a>
 									{% if current_user.is_authenticated %}
 										<div class="wishlist-compare">
@@ -69,7 +70,7 @@
 												<i class="ti-heart"></i>
 											</a>
 										</div>
-									{% endif %}	
+									{% endif %}
 										<a href="#" class="add-to-cart" ownerId="{{ resource.ResId }}">
 											<i class="ti-shopping-cart"></i>
 											<span>{{_('Add to cart')}}</span>
@@ -102,7 +103,8 @@
 										<span class="label new">{{_('New')}}</span>
 									{% endif %}
 									<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
-										<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/main/shop_icons/no_photo.png') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
+										<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/bee/images/no_photo.svg') }}"
+										alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
 									</a>
 								</div>
 
