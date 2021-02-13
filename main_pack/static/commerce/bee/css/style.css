@@ -4656,7 +4656,7 @@ img.mfp-img {
       background-color: #f6f7f8;
       border-radius: 8px;
       transition-property: opacity,visibility;
-      transition: .3s step-end;
+      transition: 0s step-end;
       box-shadow: 0 1px 2px #ededed;
     }
     .hero-side-category nav.category-menu > ul > li .banner {
@@ -4679,7 +4679,7 @@ img.mfp-img {
   flex-wrap: wrap;
   z-index: 99;
   background-color: #eaeaea;
-  padding: 15px 0 0;
+  /* padding: 15px 0 0; */
   opacity: 0;
   z-index: -9;
   visibility: hidden;
@@ -11915,7 +11915,7 @@ ul.link-widget li {
   background: #000;
   left: 0;
   bottom: 0;
-  position: fixed;
+  /* position: fixed; */
 }
 
 /*-- Footer Copyright --*/
