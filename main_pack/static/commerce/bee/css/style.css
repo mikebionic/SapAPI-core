@@ -69,7 +69,7 @@ html, body {
   height: 100%; }
 
 body {
-  background-color: #ffffff;
+  background-color: #fbf9f9cf;
   line-height: 24px;
   font-size: 14px;
   font-style: normal;
@@ -4637,6 +4637,7 @@ img.mfp-img {
       display: block;
       padding: 10px 25px;
       line-height: 30px;
+      text-transform: capitalize;
       font-size: 14px;
       color: #606060;
       font-weight: 600;
@@ -4788,7 +4789,7 @@ img.mfp-img {
             position: relative; } }
         @media only screen and (max-width: 767px) {
           .category-mega-menu > li a {
-            padding: 5px 25px 5px 45px;
+            padding: 5px 5px 5px 30px;
             line-height: 30px;
             font-size: 10px;
             color: #606060;
@@ -11914,7 +11915,7 @@ ul.link-widget li {
 .footer-bottom-section {
   border-top: 1px solid #eae9e9;
   padding: 10px 0;
-  background: #000;
+  background: #fbfafa;
   left: 0;
   bottom: 0;
   /* position: fixed; */
@@ -12759,7 +12760,7 @@ ul.link-widget li {
   }
   .big-image{
     margin-left: 100px;
-    /* padding: 0 109px; */
+    padding: 0 1%;
   } 
   
 }
@@ -13027,7 +13028,7 @@ ul.link-widget li {
 }
 @media (min-width:1801px) and (max-width:2560px){
   .big-image{
-    padding: 0 10%;
+    padding: 0 3%;
     height: 550px;
     margin-left: 217px;
   }
@@ -13037,21 +13038,21 @@ ul.link-widget li {
 }
 @media (min-width:1801px) and (max-width:2100px){
   .big-image{
-    padding: 0 10%;
+    padding: 0 3%;
     height: 455px;
     margin-left: 217px;
   }
 }
 @media (min-width:2101px) and (max-width:2560px){
   .big-image{
-    padding: 0 10%;
+    padding: 0 3%;
     height: 500px;
     margin-left: 217px;
   }
 }
 @media (min-width:1440px) and (max-width:1800px){
   .big-image{
-    padding: 0 10%;
+    padding: 0 1%;
     height: 380px;
     margin-left: 217px;
   }
