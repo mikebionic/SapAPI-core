@@ -88,7 +88,7 @@ def get_rp_accs(
 
 @api.route("/v-rp-accs/")
 @token_required
-def api_v_rp_accs():
+def api_v_rp_accs(user):
 	arg_data = {
 		"DivId": request.args.get("DivId",None,type=int),
 		"DivGuid": request.args.get("DivGuid",None,type=str),

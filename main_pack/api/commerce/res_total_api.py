@@ -56,7 +56,7 @@ def get_res_totals(
 
 @api.route("/v-res-totals/")
 @token_required
-def api_v_res_totals():
+def api_v_res_totals(user):
 	arg_data = {
 		"DivId": request.args.get("DivId",None,type=int),
 		"notDivId": request.args.get("notDivId",None,type=int),

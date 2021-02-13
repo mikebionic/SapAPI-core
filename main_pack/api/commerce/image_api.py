@@ -82,7 +82,7 @@ def get_images(
 
 
 @api.route("/v-images/")
-@token_required
+# @token_required
 def api_v_images():
 	arg_data = {
 		"DivId": request.args.get("DivId",None,type=int),

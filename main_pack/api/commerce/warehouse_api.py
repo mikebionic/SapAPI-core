@@ -58,7 +58,7 @@ def get_warehouses(
 
 @api.route("/v-warehouses/")
 @token_required
-def api_v_warehouses():
+def api_v_warehouses(user):
 	arg_data = {
 		"DivId": request.args.get("DivId",None,type=int),
 		"notDivId": request.args.get("notDivId",None,type=int),
