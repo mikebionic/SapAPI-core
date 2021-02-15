@@ -164,7 +164,7 @@ class Rp_acc(AddInf,CreatedModifiedInfo,db.Model,UserMixin):
 	RpAccWorkFaxNumber = db.Column("RpAccWorkFaxNumber",db.String(100))
 	RpAccWorkFaxNumber = db.Column("RpAccWorkFaxNumber",db.String(100))
 	RpAccWebAddress = db.Column("RpAccWebAddress",db.String(255))
-	RpAccWebKey = db.Column("RpAccWebKey",db.String(1000))
+	RpAccWebKey = db.Column("RpAccWebKey")
 	RpAccZipCode = db.Column("RpAccZipCode",db.String(100))
 	RpAccEMail = db.Column("RpAccEMail",db.String(100))
 	RpAccFirstName = db.Column("RpAccFirstName",db.String(100))
@@ -352,7 +352,7 @@ class Device(AddInf,CreatedModifiedInfo,db.Model,UserMixin):
 	DevDesc = db.Column("DevDesc",db.String(500))
 	IsAllowed = db.Column("IsAllowed",db.Boolean,default=False)
 	DevVerifyDate = db.Column("DevVerifyDate",db.DateTime,default=datetime.now())
-	DevVerifyKey = db.Column("DevVerifyKey",db.String(255))
+	DevVerifyKey = db.Column("DevVerifyKey")
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():

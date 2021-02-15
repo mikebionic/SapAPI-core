@@ -34,7 +34,7 @@ def register_device():
 			req["DbInfGuid"] = str(database.DbInfGuid) if database else None
 
 			r = requests.post(
-				f"{Config.SAP_SERVICE_URL}/devices/register/",
+				f"{Config.SAP_SERVICE_URL}{Config.SAP_SERVICE_URL_PREFIX}/devices/register/",
 				data = json.dumps(req),
 				headers = {
 					'Content-Type': 'application/json',

@@ -33,7 +33,7 @@ def fetch_device():
 	db_guid = database.DbInfGuid if database else None
 
 	r = requests.get(
-		f"{Config.SAP_SERVICE_URL}/devices/fetch/?uuid={db_guid}",
+		f"{Config.SAP_SERVICE_URL}{Config.SAP_SERVICE_URL_PREFIX}/devices/fetch/?uuid={db_guid}",
 		headers = {
 			'Content-Type': 'application/json',
 			'x-access-token': Config.SAP_SERVICE_KEY,
@@ -71,7 +71,7 @@ def fetch_device():
 				untracked_devices.append(device.to_json_api())
 				# # !!! TODO: sycnhronise untracked with main server
 				# r = requests.post(
-				# 	f"{Config.SAP_SERVICE_URL}/devices/synch/",
+				# 	f"{Config.SAP_SERVICE_URL}{Config.SAP_SERVICE_URL_PREFIX}/devices/synch/",
 				# 	data = json.dumps({"Devices": untracked_devices}),
 				# 	headers = {
 				# 		'Content-Type': 'application/json',

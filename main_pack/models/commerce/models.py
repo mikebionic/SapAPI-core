@@ -368,6 +368,7 @@ class Inv_line(AddInf,CreatedModifiedInfo,db.Model):
 	InvLineDiscAmount = db.Column("InvLineDiscAmount",db.Float,default=0.0)
 	InvLineFTotal = db.Column("InvLineFTotal",db.Float,default=0.0)
 	InvLineDate = db.Column("InvLineDate",db.DateTime,default=datetime.now)
+	ExcRateValue = db.Column("ExcRateValue",db.Float,default=0.0)
 	Inv_line_det = db.relationship("Inv_line_det",backref='inv_line',lazy=True)
 	Res_transaction = db.relationship("Res_transaction",backref='inv_line',lazy=True)
 	# Rp_acc_transaction = db.relationship("Rp_acc_transaction",backref='inv_line',lazy=True)
@@ -738,6 +739,7 @@ class Order_inv_line(AddInf,CreatedModifiedInfo,db.Model):
 	OInvLineDiscAmount = db.Column("OInvLineDiscAmount",db.Float,default=0.0)
 	OInvLineFTotal = db.Column("OInvLineFTotal",db.Float,default=0.0)
 	OInvLineDate = db.Column("OInvLineDate",db.DateTime,default=datetime.now)
+	ExcRateValue = db.Column("ExcRateValue",db.Float,default=0.0)
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
