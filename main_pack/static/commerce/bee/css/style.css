@@ -7253,7 +7253,7 @@ img.mfp-img {
       -ms-transform: translateX(-50%);
       transform: translateX(-50%);
       background-color: #f5d730;
-      color: #fff;
+      color: #202020;
       border-radius: 50px;
       display: block;
       width: 100%;
@@ -12382,6 +12382,7 @@ ul.link-widget li {
     opacity: 1;
     visibility: visible;
     bottom: 20px;
+    color: #fff;
   }
   .ee-product .image .add-to-cart.added i{
     color: #202020;
