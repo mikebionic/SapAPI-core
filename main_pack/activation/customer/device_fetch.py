@@ -25,7 +25,8 @@ def device_fetch_request(user):
 	if not current_user.is_admin():
 		abort(401)
 
-	return fetch_device()
+	res = fetch_device()
+	return make_response(jsonify(res), 200)
 
 
 def fetch_device():
@@ -100,6 +101,5 @@ def fetch_device():
 		"message": "Device registration",
 		"total": 1 if data else 0
 	}
-	response = make_response(jsonify(res), 200)
 
-	return response
+	return res

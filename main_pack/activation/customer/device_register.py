@@ -13,7 +13,7 @@ from main_pack.models.base.models import Db_inf
 
 
 @api.route("/devices/register/",methods=["POST"])
-@request_is_json
+@request_is_json(request)
 def register_device():
 	if request.method == 'POST':
 		req = request.get_json()

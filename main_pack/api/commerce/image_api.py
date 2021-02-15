@@ -82,8 +82,8 @@ def get_images(
 
 
 @api.route("/v-images/")
-# @token_required
-def api_v_images():
+@token_required
+def api_v_images(user):
 	arg_data = {
 		"DivId": request.args.get("DivId",None,type=int),
 		"notDivId": request.args.get("notDivId",None,type=int),
@@ -99,6 +99,8 @@ def api_v_images():
 		"total": len(data)
 	}
 	response = make_response(jsonify(res), 200)
+
+	return response
 
 
 @api.route("/tbl-dk-images/",methods=['GET','POST'])

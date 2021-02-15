@@ -85,7 +85,11 @@ def api_v_res_prices(user):
 
 	ResPriceGroupId = None
 	if current_user:
-		ResPriceGroupId = current_user.ResPriceGroupId if current_user.ResPriceGroupId else None
+		if (model_type != "device"):
+			ResPriceGroupId = current_user.ResPriceGroupId if current_user.ResPriceGroupId else None
+		else:
+			ResPriceGroupId = current_user.users.ResPriceGroupId if current_user.users else None
+
 	elif "ResPriceGroupId" in session:
 		ResPriceGroupId = session["ResPriceGroupId"]
 
