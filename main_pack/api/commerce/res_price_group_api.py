@@ -10,7 +10,7 @@ from main_pack.api.auth.utils import token_required
 
 @api.route("/v-res-price-groups/")
 @token_required
-def api_res_price_groups():
+def api_res_price_groups(user):
 	ResPriceGroupId = request.args.get("id",None,type=int)
 	UsageStatusId = request.args.get("usageStatus",None,type=int)
 	ResPriceGroupName = request.args.get("name",None,type=str)

@@ -19,7 +19,7 @@ from .utils import addCompanyDict
 
 @api.route("/v-company/",methods=['GET'])
 @token_required
-def api_v_company():
+def api_v_company(user):
 
 	company = Company.query\
 		.filter_by(GCRecord = None)\
