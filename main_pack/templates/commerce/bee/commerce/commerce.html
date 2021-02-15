@@ -66,7 +66,7 @@
 </div>
 
 {% if Featured_categories %}
-<div class="product-section section mb-70">
+<div class="product-section cat_t section mb-70">
 	<div class="container">
 		<div class="row">
 			<div class="col-12 mb-40">
@@ -94,47 +94,47 @@
 								<div class="product-slider product-slider-4">
 									{% for resource in category.Resources %}
 										
-											<div class="p_slider">
-												<div class="col-xl-3 col-lg-4 col-md-4 col-6 pb-30 pt-10">
-											<div class="ee-product">
-												<div class="image">
-													{% if resource.New %}
-														<span class="label new">{{_('New')}}</span>
-													{% endif %}
-													<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
-														<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/bee/images/no_photo.svg') }}" 
-														alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
-													</a>
-													{% if current_user.is_authenticated %}
-														<div class="wishlist-compare">
-															<a href="#" data-tooltip="Wishlist" class="{{'added' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}">
-																<i class="ti-heart"></i>
-															</a>
-														</div>
-													{% endif %}	
-														<a href="#" class="add-to-cart" ownerId="{{ resource.ResId }}">
-															<i class="ti-shopping-cart" style="color: #000;"></i>
-															<span>{{_('Add to cart')}}</span>
+										<div class="p_slider">
+											<div class="col-xl-3 col-lg-4 col-md-4 col-6 pb-30 pt-10">
+												<div class="ee-product">
+													<div class="image">
+														{% if resource.New %}
+															<span class="label new">{{_('New')}}</span>
+														{% endif %}
+														<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
+															<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/bee/images/no_photo.svg') }}" 
+															alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
 														</a>
-												</div>
-
-												<div class="content">
-													<div class="category-title">
-														<a href="#" class="cat">{{ resource.ResCatName if resource.ResCatName else '' }}</a>
-														<h5 class="title">
-															<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}">
-																{{ resource.ResName }}
+														{% if current_user.is_authenticated %}
+															<div class="wishlist-compare">
+																<a href="#" data-tooltip="Wishlist" class="{{'added' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}">
+																	<i class="ti-heart"></i>
+																</a>
+															</div>
+														{% endif %}	
+															<a href="#" class="add-to-cart" ownerId="{{ resource.ResId }}">
+																<i class="ti-shopping-cart" style="color: #fff;"></i>
+																<span>{{_('Add to cart')}}</span>
 															</a>
-														</h5>
 													</div>
-													<div class="price-ratting">
-														<h5 class="price">
-															<div class="priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue }}</div>
-															<p class="tm_currency">{{ resource.CurrencyCode }}</p>
-														</h5>
+
+													<div class="content">
+														<div class="category-title">
+															<a href="#" class="cat">{{ resource.ResCatName if resource.ResCatName else '' }}</a>
+															<h5 class="title">
+																<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}">
+																	{{ resource.ResName }}
+																</a>
+															</h5>
+														</div>
+														<div class="price-ratting">
+															<h5 class="price">
+																<div class="priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue }}</div>
+																<p class="tm_currency">{{ resource.CurrencyCode }}</p>
+															</h5>
+														</div>
 													</div>
 												</div>
-											</div>
 											</div>
 										</div>
 									{% endfor %}
@@ -182,7 +182,7 @@
 											</div>
 										{% endif %}
 										<a href="#" class="add-to-cart" ownerId="{{ resource.ResId }}">
-											<i class="ti-shopping-cart" style="color: #000;"></i>
+											<i class="ti-shopping-cart" style="color: #fff;"></i>
 											<span>{{_('Add to cart')}}</span>
 										</a>
 									</div>
