@@ -3557,11 +3557,11 @@ img.mfp-img {
       float: left;
       width: 100%;
       margin-bottom: 25px; }
-      .mini-cart-wrap .mini-cart-products li .image {
+      .mini-cart-wrap .mini-cart-products li .img {
         width: 90px;
         float: left;
         margin-right: 20px; }
-        .mini-cart-wrap .mini-cart-products li .image img {
+        .mini-cart-wrap .mini-cart-products li .img img {
           width: 100%;
           background-color: #f6f7f8; }
       .mini-cart-wrap .mini-cart-products li .content {
@@ -4102,7 +4102,7 @@ img.mfp-img {
     float: right; }
   .main-menu nav > ul > li.active > a, .main-menu nav > ul > li:hover > a {
     color: #202020; }
-  .main-menu nav > ul > li:hover > .sub-menu, .main-menu nav > ul > li:hover > .mega-menu {
+  .main-menu nav > ul > li:hover > .category-mega-menu, .main-menu nav > ul > li:hover > .mega-menu {
     opacity: 1;
     visibility: visible;
     margin-top: 0;
@@ -4125,56 +4125,56 @@ img.mfp-img {
   left: -20px; }
 
 /*-- Sub Menu --*/
-.sub-menu {
+.category-mega-menu {
   position: absolute;
-  left: -20px;
-  top: 100%;
+  left: 264px;
+  top: 0;
+  height: 100%;
   background-color: #ffffff;
-  -webkit-box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
-  border-top: 3px solid #f5d730;
-  z-index: -999;
+  /* border-top: 3px solid #f5d730; */
+  z-index: 999;
   width: 250px;
   padding: 15px 0;
-  margin-top: 30px;
-  opacity: 0;
-  visibility: hidden;
+  /* margin-top: 30px; */
+  /* opacity: 0; */
+  visibility: visible;
   -webkit-transition: all 0.5s ease 0s;
   -o-transition: all 0.5s ease 0s;
-  transition: all 0.5s ease 0s; }
-  .sub-menu li {
+  transition: all 0.5s ease 0s;  
+ }
+  .category-mega-menu li {
     position: relative; }
-    .sub-menu li a {
+    .category-mega-menu li a {
       line-height: 24px;
       padding: 6px 20px;
       display: block;
       font-weight: 400;
       color: #444444;
       text-transform: capitalize; }
-    .sub-menu li.menu-item-has-children > a::after {
+    .category-mega-menu li.menu-item-has-children > a::after {
       font-family: Fontawesome;
       content: "\f105";
       margin-left: 5px;
       float: right; }
-    .sub-menu li.active > a, .sub-menu li:hover > a {
+    .category-mega-menu li.active > a, .category-mega-menu li:hover > a {
       color: #202020;
       font-weight: 600; }
-    .sub-menu li:hover > .sub-menu {
+    .category-mega-menu li:hover > .category-mega-menu {
       opacity: 1;
       visibility: visible;
       margin-top: 0;
       z-index: 999; }
-  .sub-menu .sub-menu {
+  .category-mega-menu .category-mega-menu {
     left: 100%;
     right: auto;
     top: 0; }
-    .sub-menu .sub-menu .sub-menu {
+    .category-mega-menu .category-mega-menu .category-mega-menu {
       left: auto;
       right: 100%; }
-      .sub-menu .sub-menu .sub-menu .sub-menu {
+      .category-mega-menu .category-mega-menu .category-mega-menu .category-mega-menu {
         left: 100%;
         right: auto; }
-      .sub-menu .sub-menu .sub-menu .sub-menu {
+      .category-mega-menu .category-mega-menu .category-mega-menu .category-mega-menu {
         left: auto;
         right: 100%; }
 
@@ -4341,7 +4341,7 @@ img.mfp-img {
               padding: 0; }
               .mobile-menu .mean-bar .mean-nav > ul li a.mean-expand.mean-clicked {
                 line-height: 40px; }
-          .mobile-menu .mean-bar .mean-nav > ul li .sub-menu, .mobile-menu .mean-bar .mean-nav > ul li .mega-menu, .mobile-menu .mean-bar .mean-nav > ul li ul {
+          .mobile-menu .mean-bar .mean-nav > ul li .category-mega-menu, .mobile-menu .mean-bar .mean-nav > ul li .mega-menu, .mobile-menu .mean-bar .mean-nav > ul li ul {
             position: static;
             background-color: rgba(0, 0, 0, 0.03);
             margin: 0;
@@ -4359,7 +4359,7 @@ img.mfp-img {
             -webkit-transition: none;
             -o-transition: none;
             transition: none; }
-            .mobile-menu .mean-bar .mean-nav > ul li .sub-menu li, .mobile-menu .mean-bar .mean-nav > ul li .mega-menu li, .mobile-menu .mean-bar .mean-nav > ul li ul li {
+            .mobile-menu .mean-bar .mean-nav > ul li .category-mega-menu li, .mobile-menu .mean-bar .mean-nav > ul li .mega-menu li, .mobile-menu .mean-bar .mean-nav > ul li ul li {
               padding: 0;
               margin: 0;
               -webkit-box-flex: 0;
@@ -4370,22 +4370,22 @@ img.mfp-img {
               display: block !important;
               float: left;
               width: 100%; }
-              .mobile-menu .mean-bar .mean-nav > ul li .sub-menu li a, .mobile-menu .mean-bar .mean-nav > ul li .mega-menu li a, .mobile-menu .mean-bar .mean-nav > ul li ul li a {
+              .mobile-menu .mean-bar .mean-nav > ul li .category-mega-menu li a, .mobile-menu .mean-bar .mean-nav > ul li .mega-menu li a, .mobile-menu .mean-bar .mean-nav > ul li ul li a {
                 font-size: 12px;
                 display: block !important; }
-                .mobile-menu .mean-bar .mean-nav > ul li .sub-menu li a::before, .mobile-menu .mean-bar .mean-nav > ul li .mega-menu li a::before, .mobile-menu .mean-bar .mean-nav > ul li ul li a::before {
+                .mobile-menu .mean-bar .mean-nav > ul li .category-mega-menu li a::before, .mobile-menu .mean-bar .mean-nav > ul li .mega-menu li a::before, .mobile-menu .mean-bar .mean-nav > ul li ul li a::before {
                   display: none; }
-              .mobile-menu .mean-bar .mean-nav > ul li .sub-menu li .sub-menu, .mobile-menu .mean-bar .mean-nav > ul li .sub-menu li ul, .mobile-menu .mean-bar .mean-nav > ul li .mega-menu li .sub-menu, .mobile-menu .mean-bar .mean-nav > ul li .mega-menu li ul, .mobile-menu .mean-bar .mean-nav > ul li ul li .sub-menu, .mobile-menu .mean-bar .mean-nav > ul li ul li ul {
+              .mobile-menu .mean-bar .mean-nav > ul li .category-mega-menu li .category-mega-menu, .mobile-menu .mean-bar .mean-nav > ul li .category-mega-menu li ul, .mobile-menu .mean-bar .mean-nav > ul li .mega-menu li .category-mega-menu, .mobile-menu .mean-bar .mean-nav > ul li .mega-menu li ul, .mobile-menu .mean-bar .mean-nav > ul li ul li .category-mega-menu, .mobile-menu .mean-bar .mean-nav > ul li ul li ul {
                 background-color: rgba(0, 0, 0, 0.04); }
-                .mobile-menu .mean-bar .mean-nav > ul li .sub-menu li .sub-menu li a, .mobile-menu .mean-bar .mean-nav > ul li .sub-menu li ul li a, .mobile-menu .mean-bar .mean-nav > ul li .mega-menu li .sub-menu li a, .mobile-menu .mean-bar .mean-nav > ul li .mega-menu li ul li a, .mobile-menu .mean-bar .mean-nav > ul li ul li .sub-menu li a, .mobile-menu .mean-bar .mean-nav > ul li ul li ul li a {
+                .mobile-menu .mean-bar .mean-nav > ul li .category-mega-menu li .category-mega-menu li a, .mobile-menu .mean-bar .mean-nav > ul li .category-mega-menu li ul li a, .mobile-menu .mean-bar .mean-nav > ul li .mega-menu li .category-mega-menu li a, .mobile-menu .mean-bar .mean-nav > ul li .mega-menu li ul li a, .mobile-menu .mean-bar .mean-nav > ul li ul li .category-mega-menu li a, .mobile-menu .mean-bar .mean-nav > ul li ul li ul li a {
                   border-top: 1px solid #dddddd; }
-                  .mobile-menu .mean-bar .mean-nav > ul li .sub-menu li .sub-menu li a.mean-expand, .mobile-menu .mean-bar .mean-nav > ul li .sub-menu li ul li a.mean-expand, .mobile-menu .mean-bar .mean-nav > ul li .mega-menu li .sub-menu li a.mean-expand, .mobile-menu .mean-bar .mean-nav > ul li .mega-menu li ul li a.mean-expand, .mobile-menu .mean-bar .mean-nav > ul li ul li .sub-menu li a.mean-expand, .mobile-menu .mean-bar .mean-nav > ul li ul li ul li a.mean-expand {
+                  .mobile-menu .mean-bar .mean-nav > ul li .category-mega-menu li .category-mega-menu li a.mean-expand, .mobile-menu .mean-bar .mean-nav > ul li .category-mega-menu li ul li a.mean-expand, .mobile-menu .mean-bar .mean-nav > ul li .mega-menu li .category-mega-menu li a.mean-expand, .mobile-menu .mean-bar .mean-nav > ul li .mega-menu li ul li a.mean-expand, .mobile-menu .mean-bar .mean-nav > ul li ul li .category-mega-menu li a.mean-expand, .mobile-menu .mean-bar .mean-nav > ul li ul li ul li a.mean-expand {
                     border: 1px solid #dddddd; }
-                .mobile-menu .mean-bar .mean-nav > ul li .sub-menu li .sub-menu .sub-menu, .mobile-menu .mean-bar .mean-nav > ul li .sub-menu li .sub-menu ul, .mobile-menu .mean-bar .mean-nav > ul li .sub-menu li ul .sub-menu, .mobile-menu .mean-bar .mean-nav > ul li .sub-menu li ul ul, .mobile-menu .mean-bar .mean-nav > ul li .mega-menu li .sub-menu .sub-menu, .mobile-menu .mean-bar .mean-nav > ul li .mega-menu li .sub-menu ul, .mobile-menu .mean-bar .mean-nav > ul li .mega-menu li ul .sub-menu, .mobile-menu .mean-bar .mean-nav > ul li .mega-menu li ul ul, .mobile-menu .mean-bar .mean-nav > ul li ul li .sub-menu .sub-menu, .mobile-menu .mean-bar .mean-nav > ul li ul li .sub-menu ul, .mobile-menu .mean-bar .mean-nav > ul li ul li ul .sub-menu, .mobile-menu .mean-bar .mean-nav > ul li ul li ul ul {
+                .mobile-menu .mean-bar .mean-nav > ul li .category-mega-menu li .category-mega-menu .category-mega-menu, .mobile-menu .mean-bar .mean-nav > ul li .category-mega-menu li .category-mega-menu ul, .mobile-menu .mean-bar .mean-nav > ul li .category-mega-menu li ul .category-mega-menu, .mobile-menu .mean-bar .mean-nav > ul li .category-mega-menu li ul ul, .mobile-menu .mean-bar .mean-nav > ul li .mega-menu li .category-mega-menu .category-mega-menu, .mobile-menu .mean-bar .mean-nav > ul li .mega-menu li .category-mega-menu ul, .mobile-menu .mean-bar .mean-nav > ul li .mega-menu li ul .category-mega-menu, .mobile-menu .mean-bar .mean-nav > ul li .mega-menu li ul ul, .mobile-menu .mean-bar .mean-nav > ul li ul li .category-mega-menu .category-mega-menu, .mobile-menu .mean-bar .mean-nav > ul li ul li .category-mega-menu ul, .mobile-menu .mean-bar .mean-nav > ul li ul li ul .category-mega-menu, .mobile-menu .mean-bar .mean-nav > ul li ul li ul ul {
                   background-color: rgba(0, 0, 0, 0.05); }
-                  .mobile-menu .mean-bar .mean-nav > ul li .sub-menu li .sub-menu .sub-menu li a, .mobile-menu .mean-bar .mean-nav > ul li .sub-menu li .sub-menu ul li a, .mobile-menu .mean-bar .mean-nav > ul li .sub-menu li ul .sub-menu li a, .mobile-menu .mean-bar .mean-nav > ul li .sub-menu li ul ul li a, .mobile-menu .mean-bar .mean-nav > ul li .mega-menu li .sub-menu .sub-menu li a, .mobile-menu .mean-bar .mean-nav > ul li .mega-menu li .sub-menu ul li a, .mobile-menu .mean-bar .mean-nav > ul li .mega-menu li ul .sub-menu li a, .mobile-menu .mean-bar .mean-nav > ul li .mega-menu li ul ul li a, .mobile-menu .mean-bar .mean-nav > ul li ul li .sub-menu .sub-menu li a, .mobile-menu .mean-bar .mean-nav > ul li ul li .sub-menu ul li a, .mobile-menu .mean-bar .mean-nav > ul li ul li ul .sub-menu li a, .mobile-menu .mean-bar .mean-nav > ul li ul li ul ul li a {
+                  .mobile-menu .mean-bar .mean-nav > ul li .category-mega-menu li .category-mega-menu .category-mega-menu li a, .mobile-menu .mean-bar .mean-nav > ul li .category-mega-menu li .category-mega-menu ul li a, .mobile-menu .mean-bar .mean-nav > ul li .category-mega-menu li ul .category-mega-menu li a, .mobile-menu .mean-bar .mean-nav > ul li .category-mega-menu li ul ul li a, .mobile-menu .mean-bar .mean-nav > ul li .mega-menu li .category-mega-menu .category-mega-menu li a, .mobile-menu .mean-bar .mean-nav > ul li .mega-menu li .category-mega-menu ul li a, .mobile-menu .mean-bar .mean-nav > ul li .mega-menu li ul .category-mega-menu li a, .mobile-menu .mean-bar .mean-nav > ul li .mega-menu li ul ul li a, .mobile-menu .mean-bar .mean-nav > ul li ul li .category-mega-menu .category-mega-menu li a, .mobile-menu .mean-bar .mean-nav > ul li ul li .category-mega-menu ul li a, .mobile-menu .mean-bar .mean-nav > ul li ul li ul .category-mega-menu li a, .mobile-menu .mean-bar .mean-nav > ul li ul li ul ul li a {
                     border-top: 1px solid #eeeeee; }
-                    .mobile-menu .mean-bar .mean-nav > ul li .sub-menu li .sub-menu .sub-menu li a.mean-expand, .mobile-menu .mean-bar .mean-nav > ul li .sub-menu li .sub-menu ul li a.mean-expand, .mobile-menu .mean-bar .mean-nav > ul li .sub-menu li ul .sub-menu li a.mean-expand, .mobile-menu .mean-bar .mean-nav > ul li .sub-menu li ul ul li a.mean-expand, .mobile-menu .mean-bar .mean-nav > ul li .mega-menu li .sub-menu .sub-menu li a.mean-expand, .mobile-menu .mean-bar .mean-nav > ul li .mega-menu li .sub-menu ul li a.mean-expand, .mobile-menu .mean-bar .mean-nav > ul li .mega-menu li ul .sub-menu li a.mean-expand, .mobile-menu .mean-bar .mean-nav > ul li .mega-menu li ul ul li a.mean-expand, .mobile-menu .mean-bar .mean-nav > ul li ul li .sub-menu .sub-menu li a.mean-expand, .mobile-menu .mean-bar .mean-nav > ul li ul li .sub-menu ul li a.mean-expand, .mobile-menu .mean-bar .mean-nav > ul li ul li ul .sub-menu li a.mean-expand, .mobile-menu .mean-bar .mean-nav > ul li ul li ul ul li a.mean-expand {
+                    .mobile-menu .mean-bar .mean-nav > ul li .category-mega-menu li .category-mega-menu .category-mega-menu li a.mean-expand, .mobile-menu .mean-bar .mean-nav > ul li .category-mega-menu li .category-mega-menu ul li a.mean-expand, .mobile-menu .mean-bar .mean-nav > ul li .category-mega-menu li ul .category-mega-menu li a.mean-expand, .mobile-menu .mean-bar .mean-nav > ul li .category-mega-menu li ul ul li a.mean-expand, .mobile-menu .mean-bar .mean-nav > ul li .mega-menu li .category-mega-menu .category-mega-menu li a.mean-expand, .mobile-menu .mean-bar .mean-nav > ul li .mega-menu li .category-mega-menu ul li a.mean-expand, .mobile-menu .mean-bar .mean-nav > ul li .mega-menu li ul .category-mega-menu li a.mean-expand, .mobile-menu .mean-bar .mean-nav > ul li .mega-menu li ul ul li a.mean-expand, .mobile-menu .mean-bar .mean-nav > ul li ul li .category-mega-menu .category-mega-menu li a.mean-expand, .mobile-menu .mean-bar .mean-nav > ul li ul li .category-mega-menu ul li a.mean-expand, .mobile-menu .mean-bar .mean-nav > ul li ul li ul .category-mega-menu li a.mean-expand, .mobile-menu .mean-bar .mean-nav > ul li ul li ul ul li a.mean-expand {
                       border: 1px solid #eeeeee; }
 
 /*---------------------------------------
@@ -4684,20 +4684,20 @@ img.mfp-img {
 .category-mega-menu {
   position: absolute;
   left: 285px;
-  /* top: 0; */
+  top: 0;
   /* width: calc(100% - 290px); */
   max-width: 910px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  /* display: -webkit-box;
+  display: -ms-flexbox; */
+  /* display: flex; */
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   z-index: 99;
-  background-color: #eaeaea;
+  background-color: #f6f7f8;
   /* padding: 15px 0 0; */
   opacity: 0;
   z-index: -9;
-  visibility: hidden;
+  /* visibility: hidden; */
   -webkit-transition: all 0.3s ease 0s;
   -o-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s; }
@@ -7055,18 +7055,33 @@ img.mfp-img {
   }
   .product-slider-4 .p_slider .ee-product{
     width: 195px;
-    margin: 0 5px;
+    margin: 0 43px;
+  }
+}
+@media only screen and (min-width: 653px) and (max-width: 768px) {
+  .product-slider-4 .p_slider .ee-product{
+    width: 195px;
+    margin: 0 8px;
   }
 }
 @media only screen and (min-width: 320px) and (max-width: 479px) {
   .p_slider .ee-product{
     width: 138px;
   }
+  .product-slider-4 .p_slider .ee-product{
+    width: 180px;
+    margin: 0 13px;
+  }
   .p_slider .col, .col-1, .col-10, .col-11, .col-12, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-auto, .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-auto, .col-md, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-auto, .col-sm, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-auto, .col-xl, .col-xl-1, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-auto{
     padding-right: 5px;
   }
 }
-
+@media only screen and (min-width: 320px) and (max-width: 342px) {
+  .product-slider-4 .p_slider .ee-product{
+    width: 138px;
+    margin: 0 13px;
+  }
+}
 
 .ee-product {
   -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.38);
@@ -12405,7 +12420,15 @@ ul.link-widget li {
   .ee-product .image {
     height: 140px;
 } }
-
+@media (max-width: 476px){
+  .product-slider-4 .p_slider .ee-product .image .add-to-cart i {
+    margin-top: -50px;
+    margin-left: 68px;
+    background: #ce0808ab;
+    width: 33px;
+    height: 33px;
+    line-height: 32px;
+}}
 @media ( max-width: 478px) {
   .ee-product-list .content .left-content .actions .add-to-cart {
       width: 205px;
@@ -12755,10 +12778,11 @@ ul.link-widget li {
   }
 }
 @media (min-width: 1400px) and (max-width: 2560px){
-  .hero-side-category nav.category-menu > ul > li:hover .category-mega-menu {
-   
-    left: 396px;
-}
+  
+.category-mega-menu {
+  position: absolute;
+  left: 398px!important;
+  top: 0;
 }
 ::-webkit-scrollbar-track
 {
