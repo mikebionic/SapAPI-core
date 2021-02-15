@@ -4130,6 +4130,7 @@ img.mfp-img {
   left: 264px;
   top: 0;
   height: 100%;
+  overflow: auto;
   background-color: #ffffff;
   /* border-top: 3px solid #f5d730; */
   z-index: 999;
@@ -7252,7 +7253,7 @@ img.mfp-img {
       -ms-transform: translateX(-50%);
       transform: translateX(-50%);
       background-color: #f5d730;
-      color: #202020;
+      color: #fff;
       border-radius: 50px;
       display: block;
       width: 100%;
