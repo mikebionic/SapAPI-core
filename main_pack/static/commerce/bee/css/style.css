@@ -7484,6 +7484,30 @@ img.mfp-img {
       .ee-product-two .wrap .img img {
         display: block;
         width: 100%; }
+
+.logogrid {
+  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-auto-rows: 100px;
+  grid-gap: 2rem;
+}
+.logogrid__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.logogrid__img {
+  -o-object-fit: cover;
+     object-fit: cover;
+  max-width: 120px;
+  max-height: 90px;
+  transition: filter 0.3s ease;
+}
+
+.removeFromCart i {
+  color: #4b4b4b;
+}
     .ee-product-two .wrap .add-to-cart {
       position: absolute;
       bottom: 140px;
@@ -13125,28 +13149,4 @@ ul.link-widget li {
   .hero-image-two img{
     width: 310px;
   }
-}
-
-.logogrid {
-  flex-direction: column;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  grid-auto-rows: 100px;
-  grid-gap: 2rem;
-}
-.logogrid__item {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.logogrid__img {
-  -o-object-fit: cover;
-     object-fit: cover;
-  max-width: 120px;
-  max-height: 90px;
-  transition: filter 0.3s ease;
-}
-
-.removeFromCart i {
-  color: #4b4b4b;
 }
