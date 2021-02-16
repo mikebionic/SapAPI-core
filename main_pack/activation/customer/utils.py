@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 
 from main_pack.config import Config
 from main_pack.models.base.models import Db_inf
 from main_pack.base.cryptographyMethods import decrypt_data
 from main_pack.activation.customer.device_fetch import fetch_device
+
 
 def check_device_activation(device_model):
 
@@ -15,9 +16,7 @@ def check_device_activation(device_model):
 	DbInfGuid = database_inf.DbInfGuid
 
 	DevVerifyKey = device_model.DevVerifyKey
-
 	DevVerifyDate = device_model.DevVerifyDate
-	DevVerifyDate = str(DevVerifyDate.replace(tzinfo=timezone.utc).timestamp())
 
 	decrypted_data = decrypt_data(
 		data = DevVerifyKey,
@@ -26,11 +25,11 @@ def check_device_activation(device_model):
 		client_key = Config.APP_WEB_KEY
 	)
 
-	if not decrypt_data:
+	if not decrypted_data:
 		do_fetch = True
 
-	if decrypt_data:
-		if (str(DevVerifyDate.replace(tzinfo=timezone.utc).timestamp()) == decrypt_data):
+	if decrypted_data:
+		if (str(DevVerifyDate.replace(tzinfo=timezone.utc).timestamp()) == decrypted_data):
 			if (DevVerifyDate > datetime.today() - timedelta(days = Config.DEVICE_ALLOWED_TIMEOUT_DAYS)):
 				state = True
 
@@ -43,6 +42,7 @@ def check_device_activation(device_model):
 	if do_fetch:
 		try:
 			data = fetch_device()
+
 			for device in data["data"]["Devices"]:
 				if (device["DevUniqueId"] == device_model.DevUniqueId):
 					current_device = device

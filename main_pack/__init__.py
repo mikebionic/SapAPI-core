@@ -98,17 +98,16 @@ def create_app(config_class=Config):
 	from main_pack.api.users import api as users_api
 	app.register_blueprint(users_api, url_prefix=api_url_prefix)
 
-	if Config.USE_ACTIVATION_SERVICE:
+	if Config.USE_ACTIVATION_CUSTOMER:
 		from main_pack.activation.customer import api as activation_customer_api
 		app.register_blueprint(activation_customer_api, url_prefix=api_url_prefix)
 		csrf.exempt(activation_customer_api)
 
-	sap_service_url_prefix = Config.SAP_SERVICE_URL_PREFIX
-
-	from main_pack.activation.server import api as activation_server_api
-	app.register_blueprint(activation_server_api, url_prefix=sap_service_url_prefix)
-
-	csrf.exempt(activation_server_api)
+	if Config.USE_ACTIVATION_SERVER:
+		sap_service_url_prefix = Config.SAP_SERVICE_URL_PREFIX
+		from main_pack.activation.server import api as activation_server_api
+		app.register_blueprint(activation_server_api, url_prefix=sap_service_url_prefix)
+		csrf.exempt(activation_server_api)
 
 	csrf.exempt(auth_api)
 	csrf.exempt(base_api)

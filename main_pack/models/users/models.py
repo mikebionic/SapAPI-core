@@ -45,6 +45,7 @@ class Users(AddInf,CreatedModifiedInfo,db.Model,UserMixin):
 	Rating = db.relationship("Rating",backref='users',lazy=True)
 	Rp_acc = db.relationship("Rp_acc",backref='users',lazy=True)
 	Image = db.relationship("Image",backref='users',lazy=True)
+	Device = db.relationship("Device",backref='users',lazy=True)
 	
 	def is_admin(self):
 		return self.UTypeId == 1
@@ -164,7 +165,7 @@ class Rp_acc(AddInf,CreatedModifiedInfo,db.Model,UserMixin):
 	RpAccWorkFaxNumber = db.Column("RpAccWorkFaxNumber",db.String(100))
 	RpAccWorkFaxNumber = db.Column("RpAccWorkFaxNumber",db.String(100))
 	RpAccWebAddress = db.Column("RpAccWebAddress",db.String(255))
-	RpAccWebKey = db.Column("RpAccWebKey",db.String(1000))
+	RpAccWebKey = db.Column("RpAccWebKey")
 	RpAccZipCode = db.Column("RpAccZipCode",db.String(100))
 	RpAccEMail = db.Column("RpAccEMail",db.String(100))
 	RpAccFirstName = db.Column("RpAccFirstName",db.String(100))
@@ -347,12 +348,15 @@ class Device(AddInf,CreatedModifiedInfo,db.Model,UserMixin):
 	DevId = db.Column("DevId",db.Integer,nullable=False,primary_key=True)
 	DevGuid = db.Column("DevGuid",UUID(as_uuid=True),unique=True)
 	DevUniqueId = db.Column("DevUniqueId",db.String(100),nullable=False)
+	UId = db.Column("UId",db.Integer,db.ForeignKey("tbl_dk_users.UId"))
 	RpAccId = db.Column("RpAccId",db.Integer,db.ForeignKey("tbl_dk_rp_acc.RpAccId"))
 	DevName = db.Column("DevName",db.String(200))
 	DevDesc = db.Column("DevDesc",db.String(500))
+	AllowedDate = db.Column("AllowedDate",db.DateTime)
+	DisallowedDate = db.Column("DisallowedDate",db.DateTime)
 	IsAllowed = db.Column("IsAllowed",db.Boolean,default=False)
 	DevVerifyDate = db.Column("DevVerifyDate",db.DateTime,default=datetime.now())
-	DevVerifyKey = db.Column("DevVerifyKey",db.String(255))
+	DevVerifyKey = db.Column("DevVerifyKey")
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -368,6 +372,8 @@ class Device(AddInf,CreatedModifiedInfo,db.Model,UserMixin):
 			"RpAccId": self.RpAccId,
 			"DevName": self.DevName,
 			"DevDesc": self.DevDesc,
+			"AllowedDate": self.AllowedDate,
+			"DisallowedDate": self.DisallowedDate,
 			"IsAllowed": self.IsAllowed,
 			"DevVerifyDate": apiDataFormat(self.DevVerifyDate),
 			"DevVerifyKey": self.DevVerifyKey,

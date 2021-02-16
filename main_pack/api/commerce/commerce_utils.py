@@ -215,7 +215,7 @@ def apiResourceInfo(
 	showNullPrice = False,
 	DivId = None,
 	notDivId = None,
-	viewCurrency = None):
+	currency_code = None):
 
 	currencies = Currency.query.filter_by(GCRecord = None).all()
 	res_price_groups = Res_price_group.query.filter_by(GCRecord = None).all()
@@ -233,12 +233,14 @@ def apiResourceInfo(
 
 	# ResPriceGroupId assignment and validation
 	if not ResPriceGroupId:
-		if "ResPriceGroupId" in session:
-			ResPriceGroupId = session["ResPriceGroupId"]
+		try:
+			if "ResPriceGroupId" in session:
+				ResPriceGroupId = session["ResPriceGroupId"]
 
-		elif current_user.is_authenticated:
-			ResPriceGroupId = current_user.ResPriceGroupId if current_user.ResPriceGroupId else None
-
+			elif current_user.is_authenticated:
+				ResPriceGroupId = current_user.ResPriceGroupId if current_user.ResPriceGroupId else None
+		except Exception as ex:
+			print(f"{datetime.now()} | resource_info api ResPriceGroupId exception: {ex}")
 
 	if not resource_models:
 		resource_models = []
@@ -383,7 +385,7 @@ def apiResourceInfo(
 			price_data = price_currency_conversion(
 				priceValue = this_priceValue,
 				from_currency = this_currencyCode,
-				to_currency = viewCurrency,
+				to_currency = currency_code,
 				currencies_dbModel = currencies,
 				exc_rates_dbModel = exc_rates)
 
@@ -500,7 +502,7 @@ def apiResourceInfo(
 					Related_resource_price_data = price_currency_conversion(
 						priceValue = this_priceValue,
 						from_currency = this_currencyCode,
-						to_currency = viewCurrency,
+						to_currency = currency_code,
 						currencies_dbModel = currencies,
 						exc_rates_dbModel = exc_rates)
 
@@ -641,7 +643,12 @@ def apiOrderInvInfo(
 	show_inv_line_resource = False,
 	rp_acc_user = None,
 	DivId = None,
-	notDivId = None):
+	notDivId = None,
+	currency_code = Config.DEFAULT_VIEW_CURRENCY_CODE
+):
+
+	currencies = Currency.query.filter_by(GCRecord = None).all()
+	exc_rates = Exc_rate.query.filter_by(GCRecord = None).all()
 
 	if not invoice_models:
 		invoice_filtering = {
@@ -710,6 +717,36 @@ def apiOrderInvInfo(
 			inv_status = dataLangSelector(inv_status)
 			order_inv_info["InvStatName"] = inv_status["InvStatName"]
 
+			currency_data = [currency.to_json_api() for currency in currencies if currency.CurrencyId == order_inv.CurrencyId]
+
+			if not currency_data:
+				print("order_inv_api exception: no currency specified")
+				raise Exception
+
+			this_Total = order_inv_info["OInvTotal"]
+			this_FTotal = order_inv_info["OInvFTotal"]
+			this_currencyCode = currency_data[0]["CurrencyCode"] if currency_data else None
+
+			price_data = price_currency_conversion(
+				priceValue = this_Total,
+				from_currency = this_currencyCode,
+				to_currency = currency_code,
+				currencies_dbModel = currencies,
+				exc_rates_dbModel = exc_rates)
+
+			FTotal_price_data = price_currency_conversion(
+				priceValue = this_FTotal,
+				from_currency = this_currencyCode,
+				to_currency = currency_code,
+				currencies_dbModel = currencies,
+				exc_rates_dbModel = exc_rates)
+
+			order_inv_info["OInvTotal"] = price_data["ResPriceValue"]
+			order_inv_info["OInvFTotal"] = FTotal_price_data["ResPriceValue"]
+			order_inv_info["CurrencyId"] = price_data["CurrencyId"]
+			order_inv_info["CurrencyCode"] = price_data["CurrencyCode"]
+
+
 			rp_acc_data = {}
 			if rp_acc_user:
 				rp_acc_data = rp_acc_user.to_json_api()
@@ -738,6 +775,49 @@ def apiOrderInvInfo(
 						this_order_inv_line = order_inv_line.to_json_api()
 						this_order_inv_line["ResRegNo"] = order_inv_line.resource.ResRegNo if order_inv_line.resource and not order_inv_line.resource.GCRecord else None
 						this_order_inv_line["ResGuid"] = order_inv_line.resource.ResGuid if order_inv_line.resource and not order_inv_line.resource.GCRecord else None
+
+						currency_data = [currency.to_json_api() for currency in currencies if currency.CurrencyId == order_inv_line.CurrencyId]
+
+						if not currency_data:
+							print("order_inv_api line exception: no currency specified")
+							raise Exception
+
+						this_line_Price = this_order_inv_line["OInvLinePrice"]
+						this_line_Total = this_order_inv_line["OInvLineTotal"]
+						this_line_FTotal = this_order_inv_line["OInvLineFTotal"]
+						this_line_currencyCode = currency_data[0]["CurrencyCode"] if currency_data else None
+						ExcRateValue = this_order_inv_line["ExcRateValue"]
+
+						price_data = price_currency_conversion(
+							priceValue = this_line_Price,
+							from_currency = this_line_currencyCode,
+							to_currency = currency_code,
+							currencies_dbModel = currencies,
+							exc_rates_dbModel = exc_rates,
+							exc_rate_value = ExcRateValue)
+
+						Total_price_data = price_currency_conversion(
+							priceValue = this_line_Total,
+							from_currency = this_line_currencyCode,
+							to_currency = currency_code,
+							currencies_dbModel = currencies,
+							exc_rates_dbModel = exc_rates,
+							exc_rate_value = ExcRateValue)
+
+						FTotal_price_data = price_currency_conversion(
+							priceValue = this_line_FTotal,
+							from_currency = this_line_currencyCode,
+							to_currency = currency_code,
+							currencies_dbModel = currencies,
+							exc_rates_dbModel = exc_rates,
+							exc_rate_value = ExcRateValue)
+
+						this_order_inv_line["OInvLinePrice"] = price_data["ResPriceValue"]
+						this_order_inv_line["CurrencyId"] = price_data["CurrencyId"]
+						this_order_inv_line["CurrencyCode"] = price_data["CurrencyCode"]
+						this_order_inv_line["OInvLineTotal"] = Total_price_data["ResPriceValue"]
+						this_order_inv_line["OInvLineFTotal"] = FTotal_price_data["ResPriceValue"]
+
 
 						if show_inv_line_resource:
 							resource_json = apiResourceInfo(

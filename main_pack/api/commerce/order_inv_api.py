@@ -10,6 +10,7 @@ from datetime import datetime
 
 from . import api
 from main_pack import db
+from main_pack.config import Config
 
 # orders and db methods
 from main_pack.models.commerce.models import (
@@ -59,7 +60,8 @@ def api_order_invoices():
 			endDate = endDate,
 			statusId = 1,
 			DivId = DivId,
-			notDivId = notDivId)
+			notDivId = notDivId,
+			currency_code = Config.MAIN_CURRENCY_CODE)
 	
 		status_code = 200
 		response = make_response(jsonify(res), status_code)

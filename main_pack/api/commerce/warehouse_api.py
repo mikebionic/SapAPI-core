@@ -77,6 +77,8 @@ def api_v_warehouses(user):
 	}
 	response = make_response(jsonify(res), 200)
 
+	return response
+
 
 @api.route("/tbl-dk-warehouses/",methods=['GET','POST'])
 @sha_required

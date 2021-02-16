@@ -80,7 +80,11 @@ def api_checkout_sale_order_invoices(user):
 	
 	ResPriceGroupId = None
 	if current_user:
-		ResPriceGroupId = current_user.ResPriceGroupId if current_user.ResPriceGroupId else None
+		if (model_type != "device"):
+			ResPriceGroupId = current_user.ResPriceGroupId if current_user.ResPriceGroupId else None
+		else:
+			ResPriceGroupId = current_user.users.ResPriceGroupId if current_user.users else None
+
 	elif "ResPriceGroupId" in session:
 		ResPriceGroupId = session["ResPriceGroupId"]
 

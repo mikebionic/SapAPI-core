@@ -14,7 +14,7 @@ from main_pack.base.cryptographyMethods import encrypt_data
 
 @api.route("/devices/register/",methods=["POST"])
 @sap_key_required
-@request_is_json
+@request_is_json(request)
 def register_device():
 	if request.method == 'POST':
 		req = request.get_json()
@@ -43,7 +43,7 @@ def register_device():
 				device_info["RpAccId"] = RpAccId
 				device_info["DevGuid"] = uuid.uuid4()
 
-				DevVerifyDate = datetime.now()
+				DevVerifyDate = datetime.now().replace(microsecond = 0)
 				device_info["DevVerifyDate"] = DevVerifyDate
 
 				verify_date_data = str(DevVerifyDate.replace(tzinfo=timezone.utc).timestamp())

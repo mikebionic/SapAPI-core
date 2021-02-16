@@ -38,7 +38,7 @@ def fetch_device():
 
 		for device in rp_acc.Device:
 			if not device.GCRecord:
-				DevVerifyDate = datetime.now()
+				DevVerifyDate = datetime.now().replace(microsecond = 0)
 				device.DevVerifyDate = DevVerifyDate
 
 				verify_date_data = str(DevVerifyDate.replace(tzinfo=timezone.utc).timestamp())

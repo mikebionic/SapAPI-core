@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from flask import jsonify, request, make_response, session
+from sqlalchemy.orm import joinedload
 from datetime import datetime
 import datetime as dt
 import jwt
@@ -32,7 +33,9 @@ def api_login():
 		user_model = user_query.first()
 
 	elif auth_type == "device":
-		user_query = Device.query.filter_by(GCRecord = None, DevUniqueId = auth.username)
+		user_query = Device.query\
+			.filter_by(GCRecord = None, DevUniqueId = auth.username)\
+			.options(joinedload(Device.users))
 		user_model = user_query.first()
 
 	if not user_model:
@@ -58,6 +61,8 @@ def api_login():
 		response_data["token"] = token.decode('UTF-8')
 
 		session["ResPriceGroupId"] = user_model.ResPriceGroupId if auth_type != "device" else None
+		if (auth_type == "device"):
+			session["ResPriceGroupId"] = user_model.users.ResPriceGroupId if user_model.users else None
 
 		return jsonify(response_data)
 	

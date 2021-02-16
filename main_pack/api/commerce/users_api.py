@@ -83,6 +83,8 @@ def api_v_users():
 	}
 	response = make_response(jsonify(res), 200)
 
+	return response
+
 
 @api.route("/tbl-dk-users/",methods=['GET','POST'])
 @sha_required

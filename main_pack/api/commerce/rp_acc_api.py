@@ -110,6 +110,8 @@ def api_v_rp_accs(user):
 	}
 	response = make_response(jsonify(res), 200)
 
+	return response
+
 
 @api.route("/tbl-dk-rp-accs/",methods=['GET','POST'])
 @sha_required
