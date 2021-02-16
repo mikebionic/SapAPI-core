@@ -112,6 +112,7 @@ class Config:
 	# MAIL_USE_SSL = False
 	MAIL_USERNAME = environ.get('MAIL_USERNAME')
 	MAIL_PASSWORD = environ.get('MAIL_PASSWORD')
+	COMPANY_MAIL = environ.get('COMPANY_MAIL') if environ.get('COMPANY_MAIL') else environ.get('MAIL_USERNAME')
 	# / MAIL CONFIGURATION /
 	
 	# #  Online Payment
