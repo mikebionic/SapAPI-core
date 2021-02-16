@@ -1893,7 +1893,16 @@ ul {
     padding-right: 195px; }
   .pr-sm-200 {
     padding-right: 200px; } }
-
+    .applySortingBtn{
+      clear: none;
+      border: 1px solid #999999;
+      background-color: transparent;
+      border-radius: 50px;
+      padding-left: 20px;
+      padding-right: 20px;
+      line-height: 32px;
+      height: 34px;
+    }
 /*-- 
     - Input Placeholder
 -----------------------------------------*/
@@ -12862,16 +12871,7 @@ ul.link-widget li {
     }
     
   }
-  .applySortingBtn{
-    clear: none;
-    border: 1px solid #999999;
-    background-color: transparent;
-    border-radius: 50px;
-    padding-left: 20px;
-    padding-right: 20px;
-    line-height: 32px;
-    height: 34px;
-  }
+  
   
 .loader {
   color: #f4ff3c;
