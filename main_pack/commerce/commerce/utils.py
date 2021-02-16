@@ -161,7 +161,7 @@ from main_pack import mail
 from flask_mail import Message
 
 def send_email_to_company(message):
-	recipient = Config.MAIL_USERNAME
+	recipient = Config.COMPANY_MAIL
 	msg = Message('Message from users',
 		sender = "noterply@mail.io",
 		recipients = [recipient])
