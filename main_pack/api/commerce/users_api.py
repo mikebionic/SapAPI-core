@@ -61,9 +61,26 @@ def get_users(
 	return data
 
 
+@api.route("/device-user/")
+@token_required
+def api_device_user(user):
+	current_user = user["current_user"]
+
+	data = current_user.users.to_json_api() if current_user.users else {}
+
+	res = {
+		"status": 1 if data > 0 else 0,
+		"message": "Device user",
+		"data": data,
+		"total": 1 if data > 0 else 0
+	}
+	response = make_response(jsonify(res), 200)
+
+	return response
+
 @api.route("/v-users/")
 @token_required
-def api_v_users():
+def api_v_users(user):
 	arg_data = {
 		"DivId": request.args.get("DivId",None,type=int),
 		"notDivId": request.args.get("notDivId",None,type=int),
