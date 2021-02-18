@@ -24,6 +24,8 @@ def api_login():
 	if not auth or not auth.username:
 		return make_response(*error_response)
 
+	user_model = None
+
 	if auth_type == "user":
 		user_query = Users.query.filter_by(GCRecord = None, UName = auth.username)
 		user_model = user_query.first()

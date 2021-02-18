@@ -380,6 +380,15 @@ Provide **username** and **password** in Authentication headers
 
 ---
 
+
+| __Route__          |   __Methods__    | __Status__ | __Note__            |
+| ------------------ | :--------------: | :--------: | ------------------- |
+| /api/device-user/  |     **GET**      |   Active   | **@token required** |
+
+
+---
+
+
 | __Route__          |   __Methods__    | __Status__ | __Note__            |
 | ------------------ | :--------------: | :--------: | ------------------- |
 | /api/v-users/      |     **GET**      |   Active   | **@token required** |
