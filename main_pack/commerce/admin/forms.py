@@ -26,6 +26,7 @@ class LogoImageForm(FlaskForm):
 class SliderImageForm(FlaskForm):
 	sliderImageTitle = StringField()
 	sliderImageDesc = StringField()
+	sliderLink = StringField()
 	sliderImage = FileField(validators=[FileAllowed(['jpg','png','img','gif'])])
 	SlImgStartDate = StringField()
 	SlImgEndDate = StringField()
