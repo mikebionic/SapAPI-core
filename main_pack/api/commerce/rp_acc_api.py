@@ -28,6 +28,8 @@ def get_rp_accs(
 	RpAccId = None,
 	RpAccRegNo = None,
 	RpAccName = None,
+	UId = None,
+	EmpId = None,
 	withPassword = 0):
 
 	filtering = {"GCRecord": None}
@@ -40,6 +42,10 @@ def get_rp_accs(
 		filtering["RpAccName"] = RpAccName
 	if DivId:
 		filtering["DivId"] = DivId
+	if UId:
+		filtering["UId"] = UId
+	if EmpId:
+		filtering["EmpId"] = EmpId
 
 	rp_accs = Rp_acc.query.filter_by(**filtering)\
 		.options(
@@ -100,7 +106,9 @@ def api_v_rp_accs():
 		"synchDateTime": request.args.get("synchDateTime",None,type=str),
 		"RpAccId": request.args.get("id",None,type=int),
 		"RpAccRegNo": request.args.get("regNo","",type=str),
-		"RpAccName": request.args.get("name","",type=str)
+		"RpAccName": request.args.get("name","",type=str),
+		"UId": request.args.get("userId",None,type=int),
+		"EmpId": request.args.get("empId",None,type=int)
 	}
 
 	arg_data["withPassword"] = 1
@@ -129,7 +137,9 @@ def api_rp_accs():
 			"synchDateTime": request.args.get("synchDateTime",None,type=str),
 			"RpAccId": request.args.get("id",None,type=int),
 			"RpAccRegNo": request.args.get("regNo","",type=str),
-			"RpAccName": request.args.get("name","",type=str)
+			"RpAccName": request.args.get("name","",type=str),
+			"UId": request.args.get("userId",None,type=int),
+			"EmpId": request.args.get("empId",None,type=int)
 		}
 
 		data = get_rp_accs(**arg_data)
