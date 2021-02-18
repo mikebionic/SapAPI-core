@@ -14,7 +14,7 @@ from main_pack.models.base.models import Company, Division
 from main_pack.models.users.models import Rp_acc, Users
 from main_pack.models.commerce.models import Rp_acc_trans_total
 
-from main_pack.base.apiMethods import checkApiResponseStatus
+from main_pack.base.apiMethods import checkApiResponseStatus, fileToURL
 from main_pack.api.auth.utils import sha_required, token_required
 from main_pack.api.base.validators import request_is_json
 from main_pack.api.users.utils import addRpAccDict
@@ -46,7 +46,8 @@ def get_rp_accs(
 			joinedload(Rp_acc.company),
 			joinedload(Rp_acc.division),
 			joinedload(Rp_acc.users),
-			joinedload(Rp_acc.Rp_acc_trans_total))
+			joinedload(Rp_acc.Rp_acc_trans_total),
+			joinedload(Rp_acc.Image))
 
 	if DivGuid:
 		rp_accs = rp_accs\
@@ -69,6 +70,9 @@ def get_rp_accs(
 		rp_acc_info["DivGuid"] = rp_acc.division.DivGuid if rp_acc.division and not rp_acc.division.GCRecord else None
 		rp_acc_info["CGuid"] = rp_acc.company.CGuid if rp_acc.company and not rp_acc.company.GCRecord else None
 		rp_acc_info["UGuid"] = rp_acc.users.UGuid if rp_acc.users and not rp_acc.users.GCRecord else None
+		rp_acc_info["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=rp_acc.Image[-1].FileName) if rp_acc.Image else ""
+		rp_acc_info["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=rp_acc.Image[-1].FileName) if rp_acc.Image else ""
+		rp_acc_info["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=rp_acc.Image[-1].FileName) if rp_acc.Image else ""
 
 		if withPassword:
 			rp_acc_info["RpAccUPass"] = rp_acc.RpAccUPass
@@ -87,8 +91,8 @@ def get_rp_accs(
 
 
 @api.route("/v-rp-accs/")
-@token_required
-def api_v_rp_accs(user):
+# @token_required
+def api_v_rp_accs():
 	arg_data = {
 		"DivId": request.args.get("DivId",None,type=int),
 		"DivGuid": request.args.get("DivGuid",None,type=str),
