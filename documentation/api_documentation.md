@@ -340,7 +340,8 @@ Provide **username** and **password** in Authentication headers
 | notDivId      |         **int**          |
 | synchDateTime | **str repr of datetime** |
 | DivGuid       |         **str**          |
-
+| userId        |         **int**          |
+| empId         |         **int**          |
 
 ---
 

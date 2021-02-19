@@ -176,6 +176,7 @@ def slider_images(SlId):
 					SlImgMainImgFileName = imageFile['FileName'],
 					SlImgTitle = sliderForm.sliderImageTitle.data,
 					SlImgDesc = sliderForm.sliderImageDesc.data,
+					SlImgLink = sliderForm.sliderLink.data,
 					SlImgStartDate = dateDataCheck(sliderForm.SlImgStartDate.data),
 					SlImgEndDate = dateDataCheck(sliderForm.SlImgEndDate.data),
 					SlImgMainImgFilePath = imageFile['FilePath'],				
