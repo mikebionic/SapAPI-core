@@ -186,7 +186,7 @@
 							<div class="col pb-20 pt-10">
 								<div class="ee-product">
 									<div class="image">
-										<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
+										<a href="{{ url_for('commerce.product',ResId=related_resource.ResId)}}" class="img">
 											<img loading="lazy" src="{{ related_resource.FilePathS if related_resource.FilePathS else url_for('static', filename='commerce/bee/images/no_photo.svg') }}" 
 											alt="Product {{related_resource.ResName}} of category {{ related_resource.ResCatName if related_resource.ResCatName else '' }}">
 										</a>
