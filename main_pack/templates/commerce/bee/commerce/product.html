@@ -184,38 +184,42 @@
 						{% if resource.Related_resources %}
 						{% for related_resource in resource.Related_resources %}
 							<div class="col pb-20 pt-10">
-								<div class="ee-product">
-									<div class="image">
-										<a href="{{ url_for('commerce.product',ResId=related_resource.ResId)}}" class="img">
-											<img loading="lazy" src="{{ related_resource.FilePathS if related_resource.FilePathS else url_for('static', filename='commerce/bee/images/no_photo.svg') }}" 
-											alt="Product {{related_resource.ResName}} of category {{ related_resource.ResCatName if related_resource.ResCatName else '' }}">
-										</a>
-										{% if current_user.is_authenticated %}
-											<div class="wishlist-compare">
-												<a href="#" data-tooltip="Wishlist" class="{{'added' if related_resource.Wishlist == true}}" ownerId="{{ related_resource.ResId }}">
-													<i class="ti-heart"></i>
-												</a>
-											</div>
-										{% endif %}
-											<a href="#" class="add-to-cart" ownerId="{{ related_resource.ResId }}">
-												<i class="ti-shopping-cart"></i>
-												<span>{{_('Add to cart')}}</span>
+								<div class="pr_bag">
+									<div class="ee-product">
+										<div class="image">
+											<a href="{{ url_for('commerce.product',ResId=related_resource.ResId)}}" class="img">
+												<img loading="lazy" src="{{ related_resource.FilePathS if related_resource.FilePathS else url_for('static', filename='commerce/bee/images/no_photo.svg') }}" 
+												alt="Product {{related_resource.ResName}} of category {{ related_resource.ResCatName if related_resource.ResCatName else '' }}">
 											</a>
-									</div>
-
-									<div class="content">
-										<div class="category-title">
-											<a href="#" class="cat">{{ related_resource.ResCatName }}</a>
-											<h5 class="title">
-												<a href="{{ url_for('commerce.product',ResId=related_resource.ResId)}}">{{ related_resource.ResName }}</a>
-											</h5>
+											{% if current_user.is_authenticated %}
+												<div class="wishlist-compare">
+													<a href="#" data-tooltip="Wishlist" class="{{'added' if related_resource.Wishlist == true}}" ownerId="{{ related_resource.ResId }}">
+														<i class="ti-heart"></i>
+													</a>
+												</div>
+											{% endif %}
+											
+												<a href="#" class="add-to-cart" ownerId="{{ related_resource.ResId }}">
+													<i class="ti-shopping-cart"></i>
+													<span>{{_('Add to cart')}}</span>
+												</a>
+												
 										</div>
 
-										<div class="price-ratting">
-											<h5 class="price">
-												<div class="priceValue" ownerId="{{related_resource.ResId}}" value="{{related_resource.ResPriceValue}}">{{ related_resource.ResPriceValue }}</div>
-												<p class="tm_currency">{{ related_resource.CurrencyCode }}</p>
-											</h5>
+										<div class="content">
+											<div class="category-title">
+												<a href="#" class="cat">{{ related_resource.ResCatName }}</a>
+												<h5 class="title">
+													<a href="{{ url_for('commerce.product',ResId=related_resource.ResId)}}">{{ related_resource.ResName }}</a>
+												</h5>
+											</div>
+
+											<div class="price-ratting">
+												<h5 class="price">
+													<div class="priceValue" ownerId="{{related_resource.ResId}}" value="{{related_resource.ResPriceValue}}">{{ related_resource.ResPriceValue }}</div>
+													<p class="tm_currency">{{ related_resource.CurrencyCode }}</p>
+												</h5>
+											</div>
 										</div>
 									</div>
 								</div>

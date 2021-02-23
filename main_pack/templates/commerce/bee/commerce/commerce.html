@@ -15,18 +15,9 @@
 							<div class="slick-list draggable">
 								<div class="slick-track" style="opacity: 1; width: 100%;">
 									<div class="hero-item-two slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" tabindex="0" role="tabpanel" id="slick-slide00" aria-describedby="slick-slide-control00" style="width: 100%; position: relative; left: 0px; top: 0px; z-index: 999; opacity: 1;">
-										<a href="{{ sl_image.SlImgLink if sl_image.SlImgLink else '#' }}">
-										<div class="row align-items-center justify-content-between">
-											<div class="hero-content-two col-6">
-												<h1>{{sl_image.SlImgTitle if sl_image.SlImgTitle else ''}}</h1>
-												<h2>{{sl_image.SlImgDesc if sl_image.SlImgDesc else ''}}</h2>
-											</div>
-											<div class="hero-image-two col-6">
-											<img loading="lazy" src="{{ sl_image.SlImgMainImgFilePathS }}" data-src-m="{{ sl_image.SlImgMainImgFilePathM }}"
+										<img loading="lazy" src="{{ sl_image.SlImgMainImgFilePathM }}" data-src-m="{{ sl_image.SlImgMainImgFilePathM }}"
 											 alt="{{ sl_image.SlImgTitle if sl_image.SlImgTitle else 'sl_image.SlImgMainImgFileName' }}">
-											</div>
-										</div>
-										</a>
+										<a href="{{ sl_image.SlImgLink if sl_image.SlImgLink else '#' }}"></a>
 									</div>
 								</div>
 							</div>
