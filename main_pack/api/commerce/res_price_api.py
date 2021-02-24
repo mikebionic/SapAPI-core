@@ -76,6 +76,7 @@ def get_res_prices(
 @token_required
 def api_v_res_prices(user):
 	current_user = user["current_user"]
+	model_type = user["model_type"]
 
 	arg_data = {
 		"DivId": request.args.get("DivId",None,type=int),

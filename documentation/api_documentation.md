@@ -118,6 +118,14 @@ Provide **username** and **password** in Authentication headers
 | DivId         |         **int**          |
 | notDivId      |         **int**          |
 | synchDateTime | **str repr of datetime** |
+| empId         |         **int**          |
+| brandId       |         **int**          |
+| companyId     |         **int**          |
+| userId        |         **int**          |
+| rpAccId       |         **int**          |
+| resId         |         **int**          |
+| categoryId    |         **int**          |
+| prodId        |         **int**          |
 
 
 ---

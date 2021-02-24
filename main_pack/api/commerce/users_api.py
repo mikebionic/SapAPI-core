@@ -69,10 +69,10 @@ def api_device_user(user):
 	data = current_user.users.to_json_api() if current_user.users else {}
 
 	res = {
-		"status": 1 if data > 0 else 0,
+		"status": 1 if data else 0,
 		"message": "Device user",
 		"data": data,
-		"total": 1 if data > 0 else 0
+		"total": 1 if data else 0
 	}
 	response = make_response(jsonify(res), 200)
 

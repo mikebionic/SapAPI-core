@@ -44,8 +44,14 @@ def get_images(
 	notDivId = None,
 	synchDateTime = None,
 	UId = None,
-	URegNo = None,
-	UName = None):
+	EmpId = None,
+	BrandId = None,
+	CId = None,
+	RpAccId = None,
+	ResId = None,
+	ResCatId = None,
+	ProdId = None
+):
 
 	images = Image.query.filter_by(GCRecord = None)
 
@@ -87,7 +93,15 @@ def api_v_images(user):
 	arg_data = {
 		"DivId": request.args.get("DivId",None,type=int),
 		"notDivId": request.args.get("notDivId",None,type=int),
-		"synchDateTime": request.args.get("synchDateTime",None,type=str)
+		"synchDateTime": request.args.get("synchDateTime",None,type=str),
+		"EmpId": request.args.get("empId",None,type=int),
+		"BrandId": request.args.get("brandId",None,type=int),
+		"CId": request.args.get("companyId",None,type=int),
+		"UId": request.args.get("userId",None,type=int),
+		"RpAccId": request.args.get("rpAccId",None,type=int),
+		"ResId": request.args.get("resId",None,type=int),
+		"ResCatId": request.args.get("categoryId",None,type=int),
+		"ProdId": request.args.get("prodId",None,type=int),
 	}
 
 	data = get_images(**arg_data)
@@ -111,7 +125,15 @@ def api_images():
 		arg_data = {
 			"DivId": request.args.get("DivId",None,type=int),
 			"notDivId": request.args.get("notDivId",None,type=int),
-			"synchDateTime": request.args.get("synchDateTime",None,type=str)
+			"synchDateTime": request.args.get("synchDateTime",None,type=str),
+			"EmpId": request.args.get("empId",None,type=int),
+			"BrandId": request.args.get("brandId",None,type=int),
+			"CId": request.args.get("companyId",None,type=int),
+			"UId": request.args.get("userId",None,type=int),
+			"RpAccId": request.args.get("rpAccId",None,type=int),
+			"ResId": request.args.get("resId",None,type=int),
+			"ResCatId": request.args.get("categoryId",None,type=int),
+			"ProdId": request.args.get("prodId",None,type=int),
 		}
 
 		data = get_images(**arg_data)
