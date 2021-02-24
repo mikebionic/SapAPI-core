@@ -5,7 +5,7 @@ from flask import current_app
 import os
 from datetime import datetime, timedelta
 import dateutil.parser
-from sqlalchemy import and_
+from sqlalchemy import and_, or_
 from sqlalchemy.orm import joinedload
 
 from main_pack import db
@@ -50,10 +50,37 @@ def get_images(
 	RpAccId = None,
 	ResId = None,
 	ResCatId = None,
-	ProdId = None
+	ProdId = None,
+	users = None,
+	brands = None,
+	resources = None,
+	rp_accs = None,
+	prods = None,
+	employees = None,
+	categories = None,
+	companies = None
 ):
 
-	images = Image.query.filter_by(GCRecord = None)
+	filtering = {"GCRecord": None}
+
+	if UId:
+		filtering["UId"] = UId
+	if EmpId:
+		filtering["EmpId"] = EmpId
+	if BrandId:
+		filtering["BrandId"] = BrandId
+	if CId:
+		filtering["CId"] = CId
+	if RpAccId:
+		filtering["RpAccId"] = RpAccId
+	if ResId:
+		filtering["ResId"] = ResId
+	if ResCatId:
+		filtering["ResCatId"] = ResCatId
+	if ProdId:
+		filtering["ProdId"] = ProdId
+
+	images = Image.query.filter_by(**filtering)
 
 	if DivId:
 		images = images\
@@ -70,6 +97,19 @@ def get_images(
 		if (type(synchDateTime) != datetime):
 			synchDateTime = dateutil.parser.parse(synchDateTime)
 		images = images.filter(Image.ModifiedDate > (synchDateTime - timedelta(minutes = 5)))
+
+	if (resources or brands or rp_accs or categories or users or employees or companies or prods):
+		images = images.filter(
+			or_(
+				Image.ResId != None if resources else Image.ResId == 0,
+				Image.RpAccId != None if rp_accs else Image.RpAccId == 0,
+				Image.BrandId != None if brands else Image.BrandId == 0,
+				Image.ResCatId != None if categories else Image.ResCatId == 0,
+				Image.EmpId != None if employees else Image.EmpId == 0,
+				Image.UId != None if users else Image.UId == 0,
+				Image.CId != None if companies else Image.CId == 0,
+				Image.ProdId != None if prods else Image.ProdId == 0,
+			))
 
 	images = images.options(
 		joinedload(Image.resource),
@@ -102,6 +142,14 @@ def api_v_images(user):
 		"ResId": request.args.get("resId",None,type=int),
 		"ResCatId": request.args.get("categoryId",None,type=int),
 		"ProdId": request.args.get("prodId",None,type=int),
+		"users": request.args.get("users",None,type=int),
+		"brands": request.args.get("brands",None,type=int),
+		"resources": request.args.get("resources",None,type=int),
+		"rp_accs": request.args.get("rp_accs",None,type=int),
+		"prods": request.args.get("prods",None,type=int),
+		"employees": request.args.get("employees",None,type=int),
+		"categories": request.args.get("categories",None,type=int),
+		"companies": request.args.get("companies",None,type=int)
 	}
 
 	data = get_images(**arg_data)
@@ -134,6 +182,14 @@ def api_images():
 			"ResId": request.args.get("resId",None,type=int),
 			"ResCatId": request.args.get("categoryId",None,type=int),
 			"ProdId": request.args.get("prodId",None,type=int),
+			"users": request.args.get("users",0,type=int),
+			"brands": request.args.get("brands",0,type=int),
+			"resources": request.args.get("resources",0,type=int),
+			"rp_accs": request.args.get("rp_accs",0,type=int),
+			"prods": request.args.get("prods",0,type=int),
+			"employees": request.args.get("employees",0,type=int),
+			"categories": request.args.get("categories",0,type=int),
+			"companies": request.args.get("companies",0,type=int)
 		}
 
 		data = get_images(**arg_data)

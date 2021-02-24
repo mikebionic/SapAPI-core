@@ -126,6 +126,14 @@ Provide **username** and **password** in Authentication headers
 | resId         |         **int**          |
 | categoryId    |         **int**          |
 | prodId        |         **int**          |
+| users         |         **int**          |
+| brands        |         **int**          |
+| resources     |         **int**          |
+| rp_accs       |         **int**          |
+| prods         |         **int**          |
+| employees     |         **int**          |
+| categories    |         **int**          |
+| companies     |         **int**          |
 
 
 ---
