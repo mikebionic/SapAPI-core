@@ -5162,12 +5162,16 @@ img.mfp-img {
 
     /*-- Hero Item --*/
     .hero-item-two {
-  padding: 49px 85px;
+  /* padding: 49px 85px; */
   /* height: 435px; */
-  background-color: #eceded;
+  background-color: #fbfafa;
   background-repeat: no-repeat;
   -webkit-background-size: cover;
   background-size: cover; }
+  .hero-item-two img{
+    width: 100%;
+    height: 100%;
+  }
   @media only screen and (min-width: 992px) and (max-width: 1199px) {
     .hero-item-two {
       padding: 78px 70px; 
@@ -5186,15 +5190,15 @@ img.mfp-img {
     .hero-item-two {
       height: 435px; 
   }}
-      @media only screen and (min-width: 768px) and (max-width: 991px) {
+      /* @media only screen and (min-width: 768px) and (max-width: 991px) {
     .hero-item-two {
-      padding: 78px 80px; } }
-  @media only screen and (max-width: 767px) {
+      padding: 78px 80px; } } */
+  /* @media only screen and (max-width: 767px) {
     .hero-item-two {
-      padding: 70px 50px; } }
+      padding: 70px 50px; } } */
   @media only screen and (max-width: 479px) {
     .hero-item-two {
-      padding: 25px 40px;
+      /* padding: 25px 40px; */
       height: 333px;
     } }
       .hero-item-two .col, .hero-item-two [class*="col-"] {
@@ -5250,7 +5254,7 @@ img.mfp-img {
     -webkit-box-ordinal-group: 3;
     -ms-flex-order: 2;
     order: 2;
-    margin-right: 100%;
+    /* margin-right: 100%; */
     margin-top: 30px; 
     max-width: 100% !important;
   }
@@ -12416,18 +12420,97 @@ ul.link-widget li {
     height: 33px;
     line-height: 32px;
   }
-}     
-
+  .pr_bag .ee-product .image .add-to-cart i{
+    margin-top: -90px;
+    margin-left: 81px;
+  }
+  
+}   
+@media (max-width: 653px){
+  .pr_bag .ee-product .image .add-to-cart i{
+    margin-top: -90px;
+    margin-left: 127px;
+  }
+}  
+@media (max-width: 643px){
+  .pr_bag .ee-product .image .add-to-cart i{
+    margin-top: -90px;
+    margin-left: 124px;
+  }
+} 
+@media (max-width: 630px){
+  .pr_bag .ee-product .image .add-to-cart i{
+    margin-top: -90px;
+    margin-left: 120px;
+  }
+} 
+@media (max-width: 620px){
+  .pr_bag .ee-product .image .add-to-cart i{
+    margin-top: -90px;
+    margin-left: 117px;
+  }
+} 
+@media (max-width: 600px){
+  .pr_bag .ee-product .image .add-to-cart i{
+    margin-top: -90px;
+    margin-left: 110px;
+  }
+} 
+@media (max-width: 572px){
+  .pr_bag .ee-product .image .add-to-cart i{
+    margin-top: -90px;
+    margin-left: 104px;
+  }
+} 
+@media (max-width: 550px){
+  .pr_bag .ee-product .image .add-to-cart i{
+    margin-top: -90px;
+    margin-left: 98px;
+  }
+} 
+@media (max-width: 525px){
+  .pr_bag .ee-product .image .add-to-cart i{
+    margin-top: -90px;
+    margin-left: 93px;
+  }
+} 
+@media (max-width: 500px){
+  .pr_bag .ee-product .image .add-to-cart i{
+    margin-top: -90px;
+    margin-left: 87px;
+  }
+}
+@media (max-width: 480px){
+  .pr_bag .ee-product .image .add-to-cart i{
+    margin-top: -90px;
+    margin-left: 80px;
+  }
+}  
+@media (max-width: 476px){
+  .pr_bag .ee-product .image .add-to-cart i{
+    margin-top: -90px;
+    margin-left: 46px;
+  }
+} 
 @media ( max-width: 479px) {
   .ee-product .image .add-to-cart i{
     margin-top: -90px;
-    margin-left: 45px;
+    margin-left: 77px;
     background: #ce0808ab;
     width: 33px;
     height: 33px;
     line-height: 32px;
   }
 } 
+@media (max-width: 479px){
+  .product-slider-4 .p_slider .ee-product .image .add-to-cart i {
+    /* margin-top: -50px; */
+    margin-left: 68px;
+    background: #ce0808ab;
+    width: 33px;
+    height: 33px;
+    line-height: 32px;
+}}
 
 @media ( max-width: 476px) {
   .ee-product .image .add-to-cart i{
@@ -12499,15 +12582,6 @@ ul.link-widget li {
       width: 145px;
   }
 }
-@media (max-width: 476px){
-  .product-slider-4 .p_slider .ee-product .image .add-to-cart i {
-    margin-top: -50px;
-    margin-left: 68px;
-    background: #ce0808ab;
-    width: 33px;
-    height: 33px;
-    line-height: 32px;
-}}
 @media ( max-width: 478px) {
   .ee-product-list .content .left-content .actions .add-to-cart {
       width: 205px;
@@ -12731,6 +12805,10 @@ ul.link-widget li {
       margin-top: -156px;
       margin-left: 75px;
     }  
+    .pr_bag .ee-product .image .add-to-cart i{
+      margin-top: -156px;
+      margin-left: 90px;
+    }
   }
 
 
