@@ -34,10 +34,14 @@ def send_reset_email(user, model_type="rp_acc"):
 	token = user.get_reset_token()
 	email = user.RpAccEMail if model_type == "rp_acc" else user.UEmail
 	msg = Message(gettext('Password reset request'), sender='noterply@demo.com', recipients=[email])
-	msg.body = f'''{gettext('To reset your password, visit the following link')}:
-	{url_for(url, token=token, _external=True)}
-	{gettext('If you did not make this request then simply ignore this email')}. 
-	'''
+	msg.body = '''{}:
+	{}
+	{}. 
+	'''.formt(
+		gettext('To reset your password, visit the following link'),
+		url_for(url, token=token, _external=True),
+		gettext('If you did not make this request then simply ignore this email')
+	)
 	mail.send(msg)
 
 
