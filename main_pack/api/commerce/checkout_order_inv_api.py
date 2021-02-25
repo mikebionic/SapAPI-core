@@ -78,7 +78,7 @@ def api_checkout_sale_order_invoices(user):
 				.filter_by(GCRecord = None, RpAccId = RpAccId)\
 				.first()
 	
-	ResPriceGroupId = None
+	ResPriceGroupId = Config.DEFAULT_RES_PRICE_GROUP_ID if DEFAULT_RES_PRICE_GROUP_ID > 0 else None
 	if current_user:
 		if (model_type != "device"):
 			ResPriceGroupId = current_user.ResPriceGroupId if current_user.ResPriceGroupId else None

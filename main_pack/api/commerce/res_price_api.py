@@ -84,7 +84,7 @@ def api_v_res_prices(user):
 		"ResPriceTypeId": request.args.get("priceType",2,type=int)
 	}
 
-	ResPriceGroupId = None
+	ResPriceGroupId = Config.DEFAULT_RES_PRICE_GROUP_ID if DEFAULT_RES_PRICE_GROUP_ID > 0 else None
 	if current_user:
 		if (model_type != "device"):
 			ResPriceGroupId = current_user.ResPriceGroupId if current_user.ResPriceGroupId else None

@@ -31,17 +31,17 @@ class Config:
 	FLASK_ENV = 'development'
 
 	# set to false to turn off debugging
-	DEBUG = (int(environ.get('DEBUG')))
-	TESTING = (int(environ.get('TESTING')))
+	DEBUG = int(environ.get('DEBUG')) if environ.get('DEBUG') else 1
+	TESTING = int(environ.get('TESTING')) if environ.get('TESTING') else 1
 
-	USE_FLASK_CORS = int(environ.get('USE_FLASK_CORS'))
-	USE_FLASK_COMPRESS = int(environ.get('USE_FLASK_COMPRESS'))
+	USE_FLASK_CORS = int(environ.get('USE_FLASK_CORS')) if environ.get('USE_FLASK_CORS') else 1
+	USE_FLASK_COMPRESS = int(environ.get('USE_FLASK_COMPRESS')) if environ.get('USE_FLASK_COMPRESS') else 1
 	MINIFY_HTML_RESPONSE = int(environ.get('MINIFY_HTML_RESPONSE')) if environ.get('MINIFY_HTML_RESPONSE') else 1
 
-	EMAIL_ERROR_REPORTS = int(environ.get('EMAIL_ERROR_REPORTS'))
+	EMAIL_ERROR_REPORTS = int(environ.get('EMAIL_ERROR_REPORTS')) if environ.get('EMAIL_ERROR_REPORTS') else 0
 	EMAIL_ERROR_REPORTS_ADDRESSES = json.loads(environ.get('EMAIL_ERROR_REPORTS_ADDRESSES'))
 
-	COMPANY_NAME = environ.get('COMPANY_NAME')
+	COMPANY_NAME = environ.get('COMPANY_NAME') or 'Company'
 
 	# # these two didn't work
 	# STATIC_FOLDER = "/static"
@@ -81,7 +81,7 @@ class Config:
 		SESSION_TYPE = environ.get('SESSION_TYPE')
 		SESSION_REDIS = redis.from_url(environ.get('SESSION_REDIS'))
 
-	CACHE_TYPE = environ.get('CACHE_TYPE')
+	CACHE_TYPE = environ.get('CACHE_TYPE') or ''
 	CACHE_DEFAULT_TIMEOUT = 300
 	DB_CACHE_TIME = int(environ.get('DB_CACHE_TIME')) if environ.get('DB_CACHE_TIME') else 600
 	CACHE_REDIS_URL = environ.get('CACHE_REDIS_URL')
@@ -89,13 +89,13 @@ class Config:
 
 
 	# modules url prefixes
-	API_URL_PREFIX = environ.get('API_URL_PREFIX')
-	COMMERCE_URL_PREFIX = environ.get('COMMERCE_URL_PREFIX')
+	API_URL_PREFIX = environ.get('API_URL_PREFIX') or '/api'
+	COMMERCE_URL_PREFIX = environ.get('COMMERCE_URL_PREFIX') or ''
 
-	API_AND_ADMIN_ONLY = int(environ.get('API_AND_ADMIN_ONLY'))
+	API_AND_ADMIN_ONLY = int(environ.get('API_AND_ADMIN_ONLY')) if environ.get('API_AND_ADMIN_ONLY') else 0
 
 	# works if commerce_url_prefix is null
-	SHOW_LANDING_PAGE_ON_ROOT = int(environ.get('SHOW_LANDING_PAGE_ON_ROOT'))
+	SHOW_LANDING_PAGE_ON_ROOT = int(environ.get('SHOW_LANDING_PAGE_ON_ROOT')) if environ.get('SHOW_LANDING_PAGE_ON_ROOT') else 0
 	# / module url prefixes /
 
 	# default language for session
@@ -112,7 +112,7 @@ class Config:
 	# MAIL_USE_SSL = False
 	MAIL_USERNAME = environ.get('MAIL_USERNAME')
 	MAIL_PASSWORD = environ.get('MAIL_PASSWORD')
-	COMPANY_MAIL = environ.get('COMPANY_MAIL') if environ.get('COMPANY_MAIL') else environ.get('MAIL_USERNAME')
+	COMPANY_MAIL = environ.get('COMPANY_MAIL') or environ.get('MAIL_USERNAME')
 	# / MAIL CONFIGURATION /
 	
 	# #  Online Payment
@@ -151,12 +151,13 @@ class Config:
 
 	# set to True to show resources
 	# if no left in Res_total.ResTotBalace
-	SHOW_NEGATIVE_WH_QTY_RESOURCE = int(environ.get('SHOW_NEGATIVE_WH_QTY_RESOURCE'))
+	SHOW_NEGATIVE_WH_QTY_RESOURCE = int(environ.get('SHOW_NEGATIVE_WH_QTY_RESOURCE')) if environ.get('SHOW_NEGATIVE_WH_QTY_RESOURCE') else 0
 
 	SHOW_ONLY_VALIDATED_RATING = 1
 
-	MAIN_CURRENCY_CODE = environ.get('MAIN_CURRENCY_CODE') if environ.get('MAIN_CURRENCY_CODE') else 'TMT' 
-	DEFAULT_VIEW_CURRENCY_CODE = environ.get('DEFAULT_VIEW_CURRENCY_CODE') if environ.get('DEFAULT_VIEW_CURRENCY_CODE') else 'TMT' 
+	MAIN_CURRENCY_CODE = environ.get('MAIN_CURRENCY_CODE') or 'TMT' 
+	DEFAULT_VIEW_CURRENCY_CODE = environ.get('DEFAULT_VIEW_CURRENCY_CODE') or 'TMT' 
+	DEFAULT_RES_PRICE_GROUP_ID = int(environ.get('DEFAULT_RES_PRICE_GROUP_ID')) if environ.get('DEFAULT_RES_PRICE_GROUP_ID') else 0
 	# language and currency of price-to-text converter
 	PRICE_2_TEXT_LANGUAGE = 'tk'
 	# PRICE_2_TEXT_LANGUAGE = 'en'
@@ -224,7 +225,7 @@ class Config:
 	# view route titles configuration
 	# Info to be displayed in html: <title>Home page</title>
 	# set to None if dont want to display anything 
-	COMMERCE_HOME_PAGE_TITLE = environ.get('COMMERCE_HOME_PAGE_TITLE') if environ.get('COMMERCE_HOME_PAGE_TITLE') else "Main"
+	COMMERCE_HOME_PAGE_TITLE = environ.get('COMMERCE_HOME_PAGE_TITLE') or "Main"
 	COMMERCE_ABOUT_PAGE_TITLE = "About us"
 	COMMERCE_COLLECTION_VIEW_TITLE = "Collection"
 	COMMERCE_CONTACTS_PAGE_TITLE = "Contact"
@@ -246,10 +247,10 @@ class Config:
 	COMMERCE_RESOURCE_VIEW_TITLE = "Product"
 	# / view route titles configuration /
 
-	COMMERCE_SHOW_BRANDS_ON_RESOURCES_PAGE = int(environ.get('COMMERCE_SHOW_BRANDS_ON_RESOURCES_PAGE')) if environ.get('COMMERCE_SHOW_BRANDS_ON_RESOURCES_PAGE') else 1
+	COMMERCE_SHOW_BRANDS_ON_RESOURCES_PAGE = int(environ.get('COMMERCE_SHOW_BRANDS_ON_RESOURCES_PAGE')) if environ.get('COMMERCE_SHOW_BRANDS_ON_RESOURCES_PAGE') else 0
 
 	# templates file location configuration
-	COMMERCE_TEMPLATES_FOLDER_PATH = environ.get("COMMERCE_TEMPLATES_FOLDER_PATH") if environ.get("COMMERCE_TEMPLATES_FOLDER_PATH") else "/commerce/bee"
+	COMMERCE_TEMPLATES_FOLDER_PATH = environ.get("COMMERCE_TEMPLATES_FOLDER_PATH") or "/commerce/bee"
 	# COMMERCE_TEMPLATES_FOLDER_PATH = "/commerce/bee"
 	# COMMERCE_TEMPLATES_FOLDER_PATH = "/commerce/main"
 	# COMMERCE_TEMPLATES_FOLDER_PATH = "/commerce/testing"

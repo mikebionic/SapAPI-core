@@ -114,6 +114,7 @@ def create_app(config_class=Config):
 	csrf.exempt(commerce_api)
 	csrf.exempt(users_api)
 	# /api blueprints
+	print(Config.MAIN_CURRENCY_CODE)
 
 	# commerce blueprints
 	commerce_url_prefix = Config.COMMERCE_URL_PREFIX
