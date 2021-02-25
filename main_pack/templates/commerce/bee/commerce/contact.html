@@ -106,12 +106,19 @@
 										{{form.FirstName}}
 									</div>
 									<div class="col-md-6 col-12 mb-25">
-										<label for="last_name">{{_('Last name')}}*</label>
+										<label for="last_name">{{_('Last name')}}</label>
 										{{form.LastName}}
 									</div>
 									<div class="col-md-6 col-12 mb-25">
 										<label for="email_address">{{_('Email')}}*</label>
 										{{form.Email}}
+										{% if form.Email.errors %}
+											<div class="col-12 mb-30">
+												{% for error in form.Email.errors %}
+												   <span style="color: red">{{ error }}</span>
+												{% endfor %}
+											</div>
+										{% endif %}
 									</div>
 									<div class="col-md-6 col-12 mb-25">
 										<label for="phone_number">{{_('Phone')}}</label>

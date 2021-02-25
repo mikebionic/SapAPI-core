@@ -167,3 +167,5 @@ def send_email_to_company(message):
 		recipients = [recipient])
 	msg.body = message
 	mail.send(msg)
+	# !!! TODO: catch errors here
+	return True

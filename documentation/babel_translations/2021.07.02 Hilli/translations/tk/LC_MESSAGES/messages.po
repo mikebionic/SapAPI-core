@@ -88,7 +88,7 @@ msgid "Customer details"
 msgstr "Müşderi maglumatlary"
 
 msgid "successfully saved"
-msgstr "üstünlikli halas edildi"
+msgstr "üstünlikli ýatda saklanyldy"
 
 msgid "Error occured, please try again."
 msgstr "Ýalňyşlyk ýüze çykdy, gaýtadan synanyşyň."

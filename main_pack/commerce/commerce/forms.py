@@ -11,7 +11,7 @@ from wtforms.validators import (
 
 class SendEmailToCompanyForm(FlaskForm):
 	FirstName = StringField(validators=[DataRequired()])
-	LastName = StringField(validators=[DataRequired()])
+	LastName = StringField()
 	Email = StringField(validators=[DataRequired(),Email()])
 	Phone = StringField()
 	Message = StringField(validators=[DataRequired()],widget=TextArea())

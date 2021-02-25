@@ -1,5 +1,6 @@
-from flask import render_template, url_for, jsonify
+from flask import render_template, url_for, jsonify, flash, session
 from flask_login import current_user, login_required
+from datetime import datetime
 
 from . import bp, url_prefix
 from main_pack.config import Config
@@ -68,6 +69,11 @@ def about():
 def contact():
 	categoriesData = UiCategoriesList()
 	form = SendEmailToCompanyForm()
+
+	flashing_message = ("{}".format(gettext("Error occured, please try again.")))
+	message_style = 'warning'
+	extra_data = ''
+
 	if form.validate_on_submit():
 		email_data = {
 			"FirstName": form.FirstName.data,
@@ -77,14 +83,35 @@ def contact():
 			"Message": form.Message.data
 		}
 
+		if (current_user.is_authenticated and "model_type" in session):
+			if session["model_type"] == "rp_acc":
+				try:
+					extra_data = f'''
+					------
+					Logged user
+					Username: {current_user.RpAccUName}
+					Full name: {current_user.RpAccName}
+					Phone: {current_user.RpAccMobilePhoneNumber}
+					Email: {current_user.RpAccEMail}
+					'''
+				except Exception as ex:
+					print(f"{datetime.now()} | Email to company extra user data Exception: {ex}")
+
 		message	= f'''Message from user.
 		Email: {email_data["Email"]},
 		First name: {email_data["FirstName"]},
 		Last name: {email_data["LastName"]},
 		Phone: {email_data["Phone"]},
 		Message: {email_data["Message"]}
+		{extra_data}
 		'''
-		send_email_to_company(message)
+		state = send_email_to_company(message)
+		if state:
+			flashing_message = ("{} {}!".format(gettext("Message"), gettext("successfully sent")))
+			message_style = 'success'
+
+	print(flashing_message)
+	flash(flashing_message, message_style)
 
 	return render_template(
 		f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/commerce/contact.html",
