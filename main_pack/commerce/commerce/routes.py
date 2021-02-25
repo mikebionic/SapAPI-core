@@ -110,8 +110,7 @@ def contact():
 			flashing_message = ("{} {}!".format(gettext("Message"), gettext("successfully sent")))
 			message_style = 'success'
 
-	print(flashing_message)
-	flash(flashing_message, message_style)
+		flash(flashing_message, message_style)
 
 	return render_template(
 		f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/commerce/contact.html",
