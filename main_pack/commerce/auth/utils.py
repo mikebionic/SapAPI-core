@@ -33,11 +33,11 @@ def send_reset_email(user, model_type="rp_acc"):
 	url = 'commerce_auth.reset_token'
 	token = user.get_reset_token()
 	email = user.RpAccEMail if model_type == "rp_acc" else user.UEmail
-	msg = Message(gettext('Password reset request'), sender='noterply@demo.com', recipients=[email])
+	msg = Message(gettext('Password reset request'), sender=Config.MAIL_USERNAME, recipients=[email])
 	msg.body = '''{}:
 	{}
 	{}. 
-	'''.formt(
+	'''.format(
 		gettext('To reset your password, visit the following link'),
 		url_for(url, token=token, _external=True),
 		gettext('If you did not make this request then simply ignore this email')
@@ -64,7 +64,7 @@ def verify_register_token(token):
 
 def send_register_email(username, email):
 	token = get_register_token(username, email)
-	msg = Message(gettext('Registration request'), sender="noterply@mail.io", recipients=[email])
+	msg = Message(gettext('Registration request'), sender=Config.MAIL_USERNAME, recipients=[email])
 	msg_dear = gettext('Dear')
 	msg_bodyText = gettext('You have requested the registration on ecommerce. Please follow the link to verify your email')
 	msg_ending = gettext('If you did not make this request then simply ignore this email') 

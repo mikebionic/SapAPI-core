@@ -78,7 +78,7 @@ def sha_required(f):
 def send_reset_email(user):
 	url = 'commerce_auth.reset_token'
 	token = user.get_reset_token()
-	msg = Message(lazy_gettext('Password reset request'), sender='noterply@demo.com',recipients=[user.UEmail])
+	msg = Message(lazy_gettext('Password reset request'), sender=Config.MAIL_USERNAME,recipients=[user.UEmail])
 	msg.body = f'''{lazy_gettext('To reset your password, visit the following link')}:
 	{url_for(url,token=token,_external=True)}
 	{lazy_gettext('If you did not make this request then simply ignore this email')}. 
@@ -100,7 +100,7 @@ def verify_register_token(token):
 
 def send_register_email(UName,UEmail):
 	token = get_register_token(UName=UName,UEmail=UEmail)
-	msg = Message(lazy_gettext('Password reset request'), sender='noterply@demo.com',recipients=[UEmail])
+	msg = Message(lazy_gettext('Password reset request'), sender=Config.MAIL_USERNAME,recipients=[UEmail])
 	msg.body = f'''{lazy_gettext('Dear')}, {UName}
 	{lazy_gettext('You have requested the registration on ecommerce')}.
 	{lazy_gettext('Please follow the link to verify your email')}!

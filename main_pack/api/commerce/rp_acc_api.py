@@ -97,7 +97,7 @@ def get_rp_accs(
 
 
 @api.route("/v-rp-accs/")
-# @token_required
+@token_required
 def api_v_rp_accs():
 	arg_data = {
 		"DivId": request.args.get("DivId",None,type=int),
@@ -142,6 +142,7 @@ def api_rp_accs():
 			"EmpId": request.args.get("empId",None,type=int)
 		}
 
+		arg_data["withPassword"] = 1
 		data = get_rp_accs(**arg_data)
 
 		res = {

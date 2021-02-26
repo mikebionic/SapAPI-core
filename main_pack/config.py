@@ -107,9 +107,9 @@ class Config:
 	MAIL_DEBUG = False
 	### / testing /
 	MAIL_SERVER = environ.get('MAIL_SERVER')
-	MAIL_PORT = int(environ.get('MAIL_PORT'))
-	MAIL_USE_TLS = True
-	# MAIL_USE_SSL = False
+	MAIL_PORT = int(environ.get('MAIL_PORT')) if environ.get('MAIL_PORT') else 587
+	MAIL_USE_TLS = int(environ.get('MAIL_USE_TLS')) if environ.get('MAIL_USE_TLS') else 0
+	MAIL_USE_SSL = int(environ.get('MAIL_USE_SSL')) if environ.get('MAIL_USE_SSL') else 0
 	MAIL_USERNAME = environ.get('MAIL_USERNAME')
 	MAIL_PASSWORD = environ.get('MAIL_PASSWORD')
 	COMPANY_MAIL = environ.get('COMPANY_MAIL') or environ.get('MAIL_USERNAME')

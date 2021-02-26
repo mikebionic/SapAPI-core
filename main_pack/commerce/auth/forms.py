@@ -65,6 +65,7 @@ class RequestResetForm(FlaskForm):
 	def validate_email(self,email):
 		user = Rp_acc.query.filter_by(RpAccEMail = email.data).first()
 		if user is None:
+			flash(lazy_gettext('The profile of that email not found! Please register fist.'), 'warning')
 			raise ValidationError(lazy_gettext('The profile of that email not found! Please register fist.'))
 
 
