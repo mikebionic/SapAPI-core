@@ -6,7 +6,7 @@ This documentation provides an info about routes and their usage, use it for bui
 | Shortcut              | Description                                                                                                 |
 | --------------------- | ----------------------------------------------------------------------------------------------------------- |
 | **!!**                | Warning sign                                                                                                |
-| **!! Out of support** | Route might be updated to different route and will be deleted after a major update process and verification |
+| **!!deprecated** | Route might be updated to different route and will be deleted after a major update process and verification |
 | **@sha required**     | Requires api key of **Synchronizer** for **@sha required**                                                  |
 | **@token required**   | **@token required** of **Rp acc** login                                                                     |
 ---
@@ -28,8 +28,8 @@ Provide **username** and **password** in Authentication headers
 
 | __Route__           | __Methods__ | __Status__ | __Note__              |
 | ------------------- | :---------: | :--------: | --------------------- |
-| /api/login/users/   |   **GET**   |   Active   | **!! Out of support** |
-| /api/login/rp-accs/ |   **GET**   |   Active   | **!! Out of support** |
+| /api/login/users/   |   **GET**   |   Active   | **!!deprecated** |
+| /api/login/rp-accs/ |   **GET**   |   Active   | **!!deprecated** |
 
 ---
 
@@ -290,14 +290,14 @@ Provide **username** and **password** in Authentication headers
 
 | __Route__             | __Methods__ | __Status__ | __Note__              |
 | --------------------- | :---------: | :--------: | --------------------- |
-| /api/v-resources/:id/ |   **GET**   |   Active   | **!! Out of support** |
+| /api/v-resources/:id/ |   **GET**   |   Active   | **!!deprecated** |
 
 
 ---
 
 | __Route__              | __Methods__ | __Status__ | __Note__              |
 | ---------------------- | :---------: | :--------: | --------------------- |
-| /api/v-full-resources/ |   **GET**   |  Old ver   | **!! Out of support** |
+| /api/v-full-resources/ |   **GET**   |  Old ver   | **!!deprecated** |
 
 **Properties**
 | __Name__ | __Type__ | __Description__ | __Example__ |
@@ -392,7 +392,7 @@ Provide **username** and **password** in Authentication headers
 
 | __Route__                  | __Methods__ | __Status__ | __Note__              |
 | -------------------------- | :---------: | :--------: | --------------------- |
-| /api/tbl-dk-sliders/:name/ |   **GET**   |   Active   | **!! Out of support** |
+| /api/tbl-dk-sliders/:name/ |   **GET**   |   Active   | **!!deprecated** |
 
 
 ---
