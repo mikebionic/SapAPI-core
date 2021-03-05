@@ -1,6 +1,7 @@
 from flask import render_template, url_for, session, flash, redirect, request 
 import os
 import uuid
+from datetime import datetime
 from flask_login import current_user,login_required
 from sqlalchemy import and_
 
@@ -97,28 +98,34 @@ def profile_edit():
 			# 'RpAccEMail':form.email.data
 		}
 
-		current_user.update(**rpAccData)
+		try:
+			current_user.update(**rpAccData)
 
-		if form.picture.data:
-			imageFile = save_image(
-				imageForm = form.picture.data,
-				module = os.path.join("uploads","commerce","Rp_acc"),
-				id = rpAcc.RpAccId)
+			if form.picture.data:
+				imageFile = save_image(
+					imageForm = form.picture.data,
+					module = os.path.join("uploads","commerce","Rp_acc"),
+					id = rpAcc.RpAccId)
 
-			lastImage = Image.query.order_by(Image.ImgId.desc()).first()
-			ImgId = lastImage.ImgId+1
+				lastImage = Image.query.order_by(Image.ImgId.desc()).first()
+				ImgId = lastImage.ImgId+1
 
-			image = Image(
-				ImgId = ImgId,
-				ImgGuid = uuid.uuid4(),
-				FileName = imageFile['FileName'],
-				FilePath = imageFile['FilePath'],
-				RpAccId = rpAcc.RpAccId)
+				image = Image(
+					ImgId = ImgId,
+					ImgGuid = uuid.uuid4(),
+					FileName = imageFile['FileName'],
+					FilePath = imageFile['FilePath'],
+					RpAccId = rpAcc.RpAccId)
 
-			db.session.add(image)
+				db.session.add(image)
 
-		db.session.commit()
-		flash(lazy_gettext('Profile successfully updated!'), 'success')
+			db.session.commit()
+			flash(lazy_gettext('Profile successfully updated!'), 'success')
+
+		except Exception as ex:
+			print(f"{datetime.now()} | Profile edit error {ex}")
+			flash(lazy_gettext('Unknown error!'), 'warning')
+
 		return redirect(url_for('commerce_users.profile'))
 	
 	
