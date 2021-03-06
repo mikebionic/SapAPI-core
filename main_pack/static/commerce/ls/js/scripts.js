@@ -1,3 +1,69 @@
+$(document).ready(function($) {
+	
+	$('.slider-container__tab-item').click(function(){
+		$(this).parent().find('.active').removeClass('active');
+		$(this).addClass('active');
+		
+		var tab = $(this).data('tab');
+		var tabSlider = $(this).closest('.slider-container');
+		var tabSliderClass = tabSlider.data('tab-slider');
+		
+		$('.menu-item__link').removeClass('active');
+		$('.dropdown-list__link').removeClass('active');
+		$('.dropdown-list__link').each(function(){
+			var item = $(this);
+			
+			if ( item.data('tab') == tab && item.data('tab-slider') == tabSliderClass ) {
+				item.addClass('active');
+			}
+		});
+		
+		tabSlider.find('.slider-content').find('.active').removeClass('active');
+		tabSlider.find(tab).addClass('active');
+    
+		// строка ниже делает апдейт после смены таба иначе при переходе будет не корректно работать slider
+    $('.slider-container__slider').slick('setPosition');
+	  $('.slider-container__slider2').slick('setPosition');
+	});
+	
+	$('.dropdown-list__link').click(function(){
+		$('.menu-list').find('.active').removeClass('active');
+		$(this).addClass('active');
+		
+		var tab = $(this).data('tab');
+		var tabSliderClass = $(this).data('tab-slider');
+		var tabSlider = $(tabSliderClass);
+		
+		tabSlider.find('.slider-container__tab-item').removeClass('active');
+		tabSlider.find('.slider-container__tab-item[data-tab="'+tab+'"]').addClass('active');
+		
+		tabSlider.find('.slider-content').find('.active').removeClass('active');
+		tabSlider.find(tab).addClass('active');
+    
+    // строка ниже делает апдейт после смены таба иначе при переходе будет не корректно работать slider
+    $('.slider-container__slider').slick('setPosition');
+	  $('.slider-container__slider2').slick('setPosition');
+	});
+
+
+	$('.slider-container__slider').slick({
+		slidesToScroll: 5,
+		slidesToShow: 5,
+		dots: true
+	});
+  
+	$('.slider-container__slider2').slick({
+		slidesToScroll: 2,
+		slidesToShow: 5,
+		dots: true
+	});
+
+}); 
+
+
+
+
+
 (function($, window){
 	'use strict';
 
@@ -755,9 +821,66 @@
 
 
 })(jQuery);
-
 $(document).ready(function(){
-	$(".like").click(function(){
-		$(this).toggleClass("heart");
+	$('.customer-logos').slick({
+		slidesToShow: 6,
+		slidesToScroll: 1,
+		autoplay: true,
+		autoplaySpeed: 1500,
+		arrows: false,
+		dots: false,
+		pauseOnHover:false,
+		responsive: [{
+			breakpoint: 768,
+			setting: {
+				slidesToShow:4
+			}
+		}, {
+			breakpoint: 520,
+			setting: {
+				slidesToShow: 3
+			}
+		}]
 	});
 });
+console.clear();
+// V-Grid
+jQuery(document).ready(function($) {
+	$('#list').click(function(event) {
+		event.preventDefault();
+		$('#products').addClass('list-group-wrapper').removeClass('grid-group-wrapper');
+});
+	$('#grid').click(function(event) {
+		event.preventDefault();
+		$('#products').removeClass('list-group-wrapper').addClass('grid-group-wrapper');
+	});
+});
+
+var li_links = document.querySelectorAll(".links ul li");
+var view_wraps = document.querySelectorAll(".view_wrap");
+var list_view = document.querySelector(".list-view");
+var grid_view = document.querySelector(".grid-view");
+
+li_links.forEach(function(link){
+	link.addEventListener("click", function(){
+		li_links.forEach(function(link){
+			link.classList.remove("active");
+		})
+
+		link.classList.add("active");
+
+		var li_view = link.getAttribute("data-view");
+
+		view_wraps.forEach(function(view){
+			view.style.display = "none";
+		})
+
+		if(li_view == "list-view"){
+			list_view.style.display = "block";
+		}
+		else{
+			grid_view.style.display = "block";
+		}
+	})
+})
+

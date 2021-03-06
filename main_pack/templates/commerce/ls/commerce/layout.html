@@ -1,295 +1,439 @@
 <!DOCTYPE html>
-<html lang="en-US" itemscope="itemscope" itemtype="http://schema.org/WebPage">
+<html lang="en">
 	<head>
 		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
-
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>{{ title if title else _('Commerce') }}</title>
-
-		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='commerce/ls/css/bootstrap.min.css') }}" media="all" />
-		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='commerce/ls/css/font-awesome.min.css') }}" media="all" />
-		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='commerce/ls/css/bootstrap-grid.min.css') }}" media="all" />
-		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='commerce/ls/css/bootstrap-reboot.min.css') }}" media="all" />
-		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='commerce/ls/css/font-techmarket.css') }}" media="all" />
-		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='commerce/ls/css/slick.css') }}" media="all" />
-		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='commerce/ls/css/techmarket-font-awesome.css') }}" media="all" />
-		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='commerce/ls/css/slick-style.css') }}" media="all" />
-		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='commerce/ls/css/animate.min.css') }}" media="all" />
-		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='commerce/ls/css/style.css') }}" media="all" />
-		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='commerce/ls/css/colors/orange.css') }}" media="all" />
-		<link rel="shortcut icon" href="{{ url_for('static', filename='commerce/ls/images/fav-icon.png') }}">
+		<link rel="stylesheet"  href="{{ url_for('static', filename='commerce/ls/css/bootstrap.min.css') }}">
+		<link rel="stylesheet"  href="{{ url_for('static', filename='commerce/ls/css/style.css') }}">
+		<link rel="stylesheet"  href="{{ url_for('static', filename='commerce/ls/css/orange.css') }}">
+		<link rel="stylesheet"  href="{{ url_for('static', filename='commerce/ls/css/techmarket-font-awesome.css') }}">
+		<link rel='stylesheet'  href="{{ url_for('static', filename='commerce/ls/css/slick.css') }}"> 
+		<link rel='stylesheet'  href="{{ url_for('static', filename='commerce/ls/css/slick-theme.css') }}"> 
+		<link rel="stylesheet"  href="{{ url_for('static', filename='commerce/ls/css/font-techmarket.min.css') }}">
+		<link rel="shortcut icon" href="{{ url_for('static', filename='commerce/ls/img/ls_logo.svg') }}">
 		{% block styles %}{% endblock %}
 	</head>
-	<body class="page home page-template-default single-product full-width normal">
+	<body class="garden-market page-template-template-homepage-v6 woocommerce-active">
 		<div id="page" class="hfeed site">
 			<div class="top-bar top-bar-v4">
 				<div class="col-full">
-					<!-- .nav -->
-					<ul id="menu-top-bar-right" class="nav menu-top-bar-right">
-						<li class="hidden-sm-down menu-item animate-dropdown">
+
+					<ul id="menu-top-bar-left" class="nav menu-top-bar-left">
+						<li class="menu-item animate-dropdown">
 							<a href="{{ url_for('commerce.commerce') }}">
-							{{_('Main')}}
+								{{_('Main')}}
 							</a>
 						</li>
-						<li class="menu-item menu-item-has-children animate-dropdown">
+						<li class="menu-item animate-dropdown">
 							<a href="{{ url_for('commerce.about') }}">
 								{{_('About us')}}
 							</a>
 						</li>
-						<li class="menu-item menu-item-has-children animate-dropdown">
+						<li class="menu-item animate-dropdown">
 							<a href="{{ url_for('commerce.contact') }}">
 								{{_('Contact')}}
 							</a>
 						</li>
 						{% if current_user.is_authenticated %}
-							<li class="menu-item">
+							<li class="menu-item animate-dropdown">
 								<a href="{{ url_for('commerce_users.profile') }}">
 									<i class="tm tm-login-register"></i>
 									{{_('Profile')}}
 								</a>
 							</li>
-							<li class="menu-item">
+							<li class="menu-item animate-dropdown">
 								<a href="{{ url_for('commerce_auth.logout') }}">
 									{{_('Log out')}}
 								</a>
 							</li>
 						{% else %}
-							<li class="menu-item">
+							<li class="menu-item animate-dropdown">
 								<a href="{{ url_for('commerce_auth.register') }}">
 									<i class="tm tm-login-register"></i>
 									{{_('Register')}}
 								</a>
 							</li>
-							<li class="menu-item">
+							<li class="menu-item animate-dropdown">
 								<a href="{{ url_for('commerce_auth.login') }}">
 									{{_('Login')}}
 								</a>
 							</li>
 						{% endif %}
 					</ul>
+					
 				</div>
-			</div>
-			<header id="masthead" class="site-header header-v4" style="background-image: none; ">
-				<div class="col-full desktop-only">
-					<div class="techmarket-sticky-wrap">
-						<div class="row">
-							<div class="site-branding">
-								<a href="{{ url_for('commerce.commerce') }}">
-									<img src="{{ url_for('static', filename='commerce/ls/images/ls_mini.svg') }}" alt="">
-								</a>
-							</div>
-							<div id="departments-menu" class="dropdown departments-menu">
-								<button class="btn dropdown-toggle btn-block" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									<i class="tm tm-departments-thin"></i>
-									<span>{{_('Categories')}}</span>
-								</button>
-								<ul id="menu-departments-menu" class="dropdown-menu yamm departments-menu-dropdown">
-									<li class="highlight menu-item animate-dropdown">
-										<a title="{{_('All')}}" href="{{url_for('commerce.v_grid')}}" style="display: flex">
-											<img class="img-fluid" src="{{ url_for('static', filename='commerce/ls/images/icons/category.svg') }}" style="width: 25px; margin-right: 7px;">
-											{{_('All')}}
-										</a>
-									</li>
+		</div>
 
-									{% for category in categories %}
-										<li class="menu-item animate-dropdown {{ 'yamm-tfw menu-item-has-children dropdown-submenu' if category.Categories else 'highlight' }}">
-											<a title="{{ category.ResCatName }}" href="{{url_for('commerce.v_grid', category = category.ResCatId)}}" style="display: flex"
-												{% if category.Categories %} data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true" {% endif %}
-											>
-												<img class="img-fluid" src="{{ category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static', filename='commerce/ls/images/icons/category.svg') }}" style="width: 25px; margin-right: 7px;">
-												{{ category.ResCatName }}
+		<header id="masthead" class="site-header header-v4" style="background-image: none; ">
+			<div class="col-full desktop-only">
+				<div class="techmarket-sticky-wrap">
+					<div class="row">
+						<div class="site-branding">
+							<a href="{{ url_for('commerce.commerce') }}" class="custom-logo-link" rel="home">
+								<img src="{{ url_for('static', filename='commerce/ls/img/ls_mini.svg') }}" alt="Lomay Sowda logo wholesale">
+							</a>
+						</div>
+						<div id="departments-menu" class="dropdown departments-menu">
+							<button class="btn dropdown-toggle btn-block" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<i class="tm tm-departments-thin"></i>
+								<span>{{_('Categories')}}</span>
+							</button>
+							<ul id="menu-departments-menu" class="dropdown-menu yamm departments-menu-dropdown">
+								<li class="highlight menu-item animate-dropdown">
+									<a title="{{_('All')}}" href="{{url_for('commerce.v_grid')}}" style="display: flex">
+										<img class="img-fluid" src="{{ url_for('static', filename='commerce/ls/img/icons/category.svg') }}" style="width: 25px; margin-right: 7px;">
+										{{_('All')}}
+									</a>
+								</li>
 
-											{% if not category.Categories %}
-												</a>
-											{% elif category.Categories %}
-												<span class="caret"></span>
-												</a>
-												<ul role="menu" class=" dropdown-menu">
-													<li class="menu-item menu-item-object-static_block animate-dropdown">
-														<div class="yamm-content">
-															{% if category.FilePathS %}
-															<div class="bg-yamm-content bg-yamm-content-bottom bg-yamm-content-right">
-																<div class="kc-col-container">
-																	<div class="kc_single_image">
-																			<img src="{{ category.FilePathS }}" alt="Category section image" />
-																	</div>
+								{% for category in categories %}
+									<li class="menu-item animate-dropdown {{ 'yamm-tfw menu-item-has-children dropdown-submenu' if category.Categories else 'highlight' }}">
+										<a title="{{ category.ResCatName }}" href="{{url_for('commerce.v_grid', category = category.ResCatId)}}" style="display: flex"
+											{% if category.Categories %} data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true" {% endif %}
+										>
+											<img class="img-fluid" src="{{ category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static', filename='commerce/ls/img/icons/category.svg') }}" style="width: 25px; margin-right: 7px;">
+											{{ category.ResCatName }}
+
+										{% if not category.Categories %}
+											</a>
+										{% elif category.Categories %}
+											<span class="caret"></span>
+											</a>
+											<ul role="menu" class=" dropdown-menu">
+												<li class="menu-item menu-item-object-static_block animate-dropdown">
+													<div class="yamm-content">
+														{% if category.FilePathS %}
+														<div class="bg-yamm-content bg-yamm-content-bottom bg-yamm-content-right">
+															<div class="kc-col-container">
+																<div class="kc_single_image">
+																		<img src="{{ category.FilePathS }}" alt="Category section image" />
 																</div>
 															</div>
-															{% endif %}
+														</div>
+														{% endif %}
 
-															<div class="row yamm-content-row">
-																<div class="col-md-6 col-sm-12">
-																	<div class="kc-col-container">
-																		<div class="kc_text_block">
-																			<ul>
-																				{% for category in category.Categories %}
-																					<li>
-																						<a href="{{url_for('commerce.v_grid', category = category.ResCatId)}}">
-																							<img class="img-fluid" src="{{ category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static', filename='commerce/ls/images/icons/category.svg') }}" style="width: 25px; margin-right: 7px;">
-																							{{ category.ResCatName }}
-																						</a>
-																					</li>
-																				{% endfor %}
-																			</ul>
-																		</div>
+														<div class="row yamm-content-row">
+															<div class="col-md-6 col-sm-12">
+																<div class="kc-col-container">
+																	<div class="kc_text_block">
+																		<ul>
+																			{% for category in category.Categories %}
+																				<li>
+																					<a href="{{url_for('commerce.v_grid', category = category.ResCatId)}}">
+																						<img class="img-fluid" src="{{ category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static', filename='commerce/ls/img/icons/category.svg') }}" style="width: 25px; margin-right: 7px;">
+																						{{ category.ResCatName }}
+																					</a>
+																				</li>
+																			{% endfor %}
+																		</ul>
 																	</div>
 																</div>
 															</div>
 														</div>
-													</li>
-												</ul>
-											{% endif %}
-										</li>
-									{% endfor %}
+													</div>
+												</li>
+											</ul>
+										{% endif %}
+									</li>
+								{% endfor %}
 
-								</ul>
-							</div>
-
-							<form class="navbar-search" method="get" action="{{ url_for('commerce.commerce') }}">
-								<label class="sr-only screen-reader-text" for="search">Search for:</label>
-								<div class="input-group">
-									<input type="text" id="search" class="form-control search-field product-search-field" dir="ltr" value="" name="s" placeholder="Search for products" />
-									<div class="input-group-addon search-categories popover-header">
-										<select name='product_cat' id='product_cat' class='postform resizeselect'>
-											<option value='0' selected='selected'>{{_('All')}}</option>
-											{% for category in categories %}
-												<option class="level-0" value="{{category.ResCatId}}">{{ category.ResCatName }}</option>
-											{% endfor %}
-										</select>
-									</div>
-									<div class="input-group-btn input-group-append">
-										<input type="hidden" id="search-param" name="post_type" value="product" />
-										<button type="submit" class="btn btn-primary">
-											<i class="fa fa-search"></i>
-											<span class="search-btn">{{_('Search')}}</span>
-										</button>
-									</div>
-								</div>
-							</form>
-							<ul class="header-compare nav navbar-nav">
-								<li class="nav-item">
-									<a href="compare.html" class="nav-link">
-										<i class="tm tm-compare"></i>
-										<span id="top-cart-compare-count" class="value">3</span>
-									</a>
-								</li>
-							</ul>
-							<ul class="header-wishlist nav navbar-nav">
-								<li class="nav-item">
-									<a href="wishlist.html" class="nav-link">
-										<i class="tm tm-favorites"></i>
-										<span id="top-cart-wishlist-count" class="value">3</span>
-									</a>
-								</li>
-							</ul>
-
-
-							<ul id="site-header-cart" class="site-header-cart menu">
-								<li class="animate-dropdown dropdown ">
-									<a class="cart-contents" href="cart.html" data-toggle="dropdown" title="View your shopping cart">
-										<i class="tm tm-shopping-bag"></i>
-										<span class="count">2</span>
-										<span class="amount">
-											<span class="price-label">Your Cart</span>136.99 TMT</span>
-									</a>
-									<ul class="dropdown-menu dropdown-menu-mini-cart">
-										<li>
-											<div class="widget woocommerce widget_shopping_cart">
-												<div class="widget_shopping_cart_content">
-													<ul class="woocommerce-mini-cart cart_list product_list_widget ">
-														<li class="woocommerce-mini-cart-item mini_cart_item">
-															<a href="#" class="remove" aria-label="Remove this item" data-product_id="65" data-product_sku="">×</a>
-															<a href="single-product-sidebar.html">
-																<img src="{{ url_for('static', filename='commerce/ls/images/products/mini-cart1.jpg') }}" class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" alt="">XONE Wireless Controller&nbsp;
-															</a>
-															<span class="quantity">1 ×
-																<span class="woocommerce-Price-amount amount">
-																	64.99<span class="woocommerce-Price-currencySymbol">TMT</span>
-																</span>
-															</span>
-														</li>
-														<li class="woocommerce-mini-cart-item mini_cart_item">
-															<a href="#" class="remove" aria-label="Remove this item" data-product_id="27" data-product_sku="">×</a>
-															<a href="single-product-sidebar.html">
-																<img src="{{ url_for('static', filename='commerce/ls/images/products/mini-cart2.jpg') }}" class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" alt="">Gear Virtual Reality 3D with Bluetooth Glasses&nbsp;
-															</a>
-															<span class="quantity">1 ×
-																<span class="woocommerce-Price-amount amount">
-																	72.00<span class="woocommerce-Price-currencySymbol">TMT</span>
-																</span>
-															</span>
-														</li>
-													</ul>
-													<p class="woocommerce-mini-cart__total total">
-														<strong>Subtotal:</strong>
-														<span class="woocommerce-Price-amount amount">
-															136.99<span class="woocommerce-Price-currencySymbol">$</span></span>
-													</p>
-													<p class="woocommerce-mini-cart__buttons buttons">
-														<a href="cart.html" class="button wc-forward">{{_('Checkout')}}</a>
-													</p>
-												</div>
-											</div>
-										</li>
-									</ul>
-								</li>
 							</ul>
 						</div>
-					</div>
-				</div>
-			</header>
+
+						
 
 
-			<div id="content" class="site-content">
-				<div class="col-full">
-					<div class="row">
-						{% with messages = get_flashed_messages(with_categories=true) %}
-						{% if messages %}
-							{% for category, message in messages %}
-							<div class="alert alert-{{ category }} alert-dismissible show fade" style="margin: auto; height: 10%; opacity: 1; width: 95%; overflow: auto; text-align: center;">
-								<div class="alert-body" style="padding-top: 5px;">
-									<button class="close" data-dismiss="alert">
-										<span>×</span>
+						<form class="navbar-search" method="get" action="{{ url_for('commerce.commerce') }}">
+							<label class="sr-only screen-reader-text" for="search">Search for:</label>
+							<div class="input-group">
+								<input type="text" id="search" class="form-control search-field product-search-field" dir="ltr" value="" name="s" placeholder="Search for products" />
+								<div class="input-group-addon search-categories popover-header">
+									<select name='product_cat' id='product_cat' class='postform resizeselect'>
+										<option value='0' selected='selected'>{{_('All')}}</option>
+										{% for category in categories %}
+											<option class="level-0" value="{{category.ResCatId}}">{{ category.ResCatName }}</option>
+										{% endfor %}
+									</select>
+								</div>
+								<div class="input-group-btn input-group-append">
+									<input type="hidden" id="search-param" name="post_type" value="product" />
+									<button type="submit" class="btn btn-primary">
+										<i class="fa fa-search"></i>
+										<span class="search-btn">{{_('Search')}}</span>
 									</button>
-									{{ message }}
 								</div>
 							</div>
-							{% endfor %}
-						{% endif %}
-						{% endwith %}
+						</form>
 
-						{% block content %}{% endblock %}
+						<ul class="header-compare nav navbar-nav">
+								<li class="nav-item">
+										<a href="compare.html" class="nav-link">
+												<i class="tm tm-compare"></i>
+												<span id="top-cart-compare-count" class="value">3</span>
+										</a>
+								</li>
+						</ul>
+						<ul class="header-wishlist nav navbar-nav">
+								<li class="nav-item">
+										<a href="wishlist.html" class="nav-link">
+												<i class="tm tm-favorites"></i>
+												<span id="top-cart-wishlist-count" class="value">3</span>
+										</a>
+								</li>
+						</ul>
+
+						<ul id="site-header-cart" class="site-header-cart menu">
+								<li class="animate-dropdown dropdown ">
+										<a class="cart-contents" href="cart.html" data-toggle="dropdown" title="View your shopping cart">
+												<i class="tm tm-shopping-bag"></i>
+												<span class="count">2</span>
+												<span class="amount">
+												<span class="price-label">Your Cart</span>&#036;136.99</span>
+										</a>
+										<ul class="dropdown-menu dropdown-menu-mini-cart">
+												<li>
+														<div class="widget woocommerce widget_shopping_cart">
+																<div class="widget_shopping_cart_content">
+																		<ul class="woocommerce-mini-cart cart_list product_list_widget ">
+																				<li class="woocommerce-mini-cart-item mini_cart_item">
+																						<a href="#" class="remove" aria-label="Remove this item" data-product_id="65" data-product_sku="">×</a>
+																						<a href="single-product-sidebar.html">
+																								<img src="{{ url_for('static', filename='commerce/ls/img/products/mini-cart1.jpg') }}" class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" alt="">XONE Wireless Controller&nbsp;
+																						</a>
+																						<span class="quantity">1 ×
+																								<span class="woocommerce-Price-amount amount">
+																								<span class="woocommerce-Price-currencySymbol">$</span>64.99</span>
+																						</span>
+																				</li>
+																				<li class="woocommerce-mini-cart-item mini_cart_item">
+																						<a href="#" class="remove" aria-label="Remove this item" data-product_id="27" data-product_sku="">×</a>
+																						<a href="single-product-sidebar.html">
+																								<img src="{{ url_for('static', filename='commerce/ls/img/products/mini-cart2.jpg') }}" class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" alt="">Gear Virtual Reality 3D with Bluetooth Glasses&nbsp;
+																						</a>
+																						<span class="quantity">1 ×
+																								<span class="woocommerce-Price-amount amount">
+																								<span class="woocommerce-Price-currencySymbol">$</span>72.00</span>
+																						</span>
+																				</li>
+																		</ul>
+																		<!-- .cart_list -->
+																		<p class="woocommerce-mini-cart__total total">
+																				<strong>Subtotal:</strong>
+																				<span class="woocommerce-Price-amount amount">
+																						<span class="woocommerce-Price-currencySymbol">$</span>136.99</span>
+																		</p>
+																		<p class="woocommerce-mini-cart__buttons buttons">
+																				<a href="cart.html" class="button wc-forward">View cart</a>
+																				<a href="checkout.html" class="button checkout wc-forward">Checkout</a>
+																		</p>
+																</div>
+														</div>
+												</li>
+										</ul>
+								</li>
+						</ul>
 					</div>
 				</div>
 			</div>
 
+		</header>
 
-			<footer class="site-footer footer-v1">
-				<div class="col-full">
-					<div class="site-info">
-						<div class="col-full">
-							<div class="copyright">Sap Chozgut</div>
-							<div class="credit">Made with
-								<i class="fa fa-heart"></i> by gulbahar.</div>
+
+		<div id="content" class="site-content">
+			<div class="col-full">
+				<div class="row">
+					{% with messages = get_flashed_messages(with_categories=true) %}
+					{% if messages %}
+						{% for category, message in messages %}
+						<div class="alert alert-{{ category }} alert-dismissible show fade" style="margin: auto; height: 10%; opacity: 1; width: 95%; overflow: auto; text-align: center;">
+							<div class="alert-body" style="padding-top: 5px;">
+								<button class="close" data-dismiss="alert">
+									<span>×</span>
+								</button>
+								{{ message }}
+							</div>
+						</div>
+						{% endfor %}
+					{% endif %}
+					{% endwith %}
+
+					{% block content %}{% endblock %}
+				</div>
+			</div>
+		</div>
+
+
+		<footer class="site-footer footer-v1">
+			<div class="col-full">
+				<div class="footer-widgets-block">
+					<div class="row">
+						<div class="footer-contact">
+							<div class="footer-logo">
+								<a href="{{ url_for('commerce.commerce') }}" class="custom-logo-link" rel="home">
+									<img style="max-width: 6%;" src="{{ url_for('static', filename='commerce/ls/img/ls_logo_dark.svg') }}" alt="Lomay Sowda logo wholesale">
+								</a>
+							</div>
+							<div class="contact-payment-wrap">
+								<div class="footer-contact-info">
+									<div class="media">
+										<span class="media-left icon media-middle">
+											<i class="tm tm-call-us-footer"></i>
+										</span>
+										<div class="media-body">
+											<span class="call-us-title">Got Questions ? Call us 24/7!</span>
+											<span class="call-us-text">(800) 8001-8588, (0600) 874 548</span>
+											<address class="footer-contact-address">17 Princess Road, London, Greater London NW1 8JR, UK</address>
+											<a href="#" class="footer-address-map-link">
+												<i class="tm tm-map-marker"></i>Find us on map</a>
+										</div>
+									</div>
+								</div>
+								<div class="footer-payment-info">
+									<div class="media">
+										<span class="media-left icon media-middle">
+											<i class="tm tm-safe-payments"></i>
+										</span>
+										<div class="media-body">
+											<h5 class="footer-payment-info-title">We are using safe payments</h5>
+											<div class="footer-payment-icons">
+												<ul class="list-payment-icons nav">
+													<li class="nav-item">
+														<img class="payment-icon-image" src="{{ url_for('static', filename='commerce/ls/img/credit-cards/mastercard.svg') }}" alt="mastercard" />
+													</li>
+													<li class="nav-item">
+														<img class="payment-icon-image" src="{{ url_for('static', filename='commerce/ls/img/credit-cards/visa.svg') }}" alt="visa" />
+													</li>
+													<li class="nav-item">
+														<img class="payment-icon-image" src="{{ url_for('static', filename='commerce/ls/img/credit-cards/paypal.svg') }}" alt="paypal" />
+													</li>
+													<li class="nav-item">
+														<img class="payment-icon-image" src="{{ url_for('static', filename='commerce/ls/img/credit-cards/maestro.svg') }}" alt="maestro" />
+													</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="footer-widgets">
+							<div class="columns">
+								<aside class="widget clearfix">
+									<div class="body">
+										<h4 class="widget-title">Find it Fast</h4>
+										<div class="menu-footer-menu-1-container">
+											<ul id="menu-footer-menu-1" class="menu">
+												<li class="menu-item">
+													<a href="{{ url_for('commerce.v_grid') }}">Computers &#038; Laptops</a>
+												</li>
+												<li class="menu-item">
+													<a href="{{ url_for('commerce.v_grid') }}">Cameras &#038; Photography</a>
+												</li>
+												<li class="menu-item">
+													<a href="{{ url_for('commerce.v_grid') }}">Smart Phones &#038; Tablets</a>
+												</li>
+												<li class="menu-item">
+													<a href="{{ url_for('commerce.v_grid') }}">Video Games &#038; Consoles</a>
+												</li>
+												<li class="menu-item">
+													<a href="{{ url_for('commerce.v_grid') }}">TV</a>
+												</li>
+												<li class="menu-item">
+													<a href="{{ url_for('commerce.v_grid') }}">Car Electronic &#038; GPS</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</aside>
+							</div>
+							<div class="columns">
+								<aside class="widget clearfix">
+									<div class="body">
+										<h4 class="widget-title">&nbsp;</h4>
+										<div class="menu-footer-menu-2-container">
+											<ul id="menu-footer-menu-2" class="menu">
+												<li class="menu-item">
+													<a href="{{ url_for('commerce.v_grid') }}">Printers &#038; Ink</a>
+												</li>
+												<li class="menu-item">
+													<a href="{{ url_for('commerce.v_grid') }}">Audio &amp; Music</a>
+												</li>
+												<li class="menu-item">
+													<a href="{{ url_for('commerce.v_grid') }}">Home Theaters</a>
+												</li>
+												<li class="menu-item">
+													<a href="{{ url_for('commerce.v_grid') }}">PC Components</a>
+												</li>
+												<li class="menu-item">
+													<a href="{{ url_for('commerce.v_grid') }}">Ultrabooks</a>
+												</li>
+												<li class="menu-item">
+													<a href="{{ url_for('commerce.v_grid') }}">Smartwatches</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</aside>
+							</div>
+							<div class="columns">
+								<aside class="widget clearfix">
+									<div class="body">
+										<h4 class="widget-title">Customer Care</h4>
+										<div class="menu-footer-menu-3-container">
+											<ul id="menu-footer-menu-3" class="menu">
+												<li class="menu-item">
+													<a href="login-and-register.html">My Account</a>
+												</li>
+												<li class="menu-item">
+													<a href="track-your-order.html">Track Order</a>
+												</li>
+												<li class="menu-item">
+													<a href="{{ url_for('commerce.v_grid') }}">Shop</a>
+												</li>
+												<li class="menu-item">
+													<a href="wishlist.html">Wishlist</a>
+												</li>
+												<li class="menu-item">
+													<a href="about.html">About Us</a>
+												</li>
+												<li class="menu-item">
+													<a href="terms-and-conditions.html">Returns/Exchange</a>
+												</li>
+												<li class="menu-item">
+													<a href="faq.html">FAQs</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</aside>
+							</div>
 						</div>
 					</div>
 				</div>
-			</footer>
-		</div>
+
+				<div class="site-info">
+					<div class="col-full">
+						<div class="copyright">E-commerce <a href="https://saphasap.com">Sap Çözgüt</a></div>
+						<div class="credit">Made with
+							<i class="fa fa-heart"></i> by sap chozgut.
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</footer>
+
 
 		<script type="text/javascript" src="{{ url_for('static', filename='commerce/ls/js/jquery.min.js') }}"></script>
-		<script type="text/javascript" src="{{ url_for('static', filename='commerce/ls/js/tether.min.js') }}"></script>
 		<script type="text/javascript" src="{{ url_for('static', filename='commerce/ls/js/bootstrap.min.js') }}"></script>
-		<script type="text/javascript" src="{{ url_for('static', filename='commerce/ls/js/jquery-migrate.min.js') }}"></script>
 		<script type="text/javascript" src="{{ url_for('static', filename='commerce/ls/js/hidemaxlistitem.min.js') }}"></script>
-		<script type="text/javascript" src="{{ url_for('static', filename='commerce/ls/js/jquery-ui.min.js') }}"></script>
-		<script type="text/javascript" src="{{ url_for('static', filename='commerce/ls/js/jquery.easing.min.js') }}"></script>
-		<script type="text/javascript" src="{{ url_for('static', filename='commerce/ls/js/scrollup.min.js') }}"></script>
 		<script type="text/javascript" src="{{ url_for('static', filename='commerce/ls/js/jquery.waypoints.min.js') }}"></script>
 		<script type="text/javascript" src="{{ url_for('static', filename='commerce/ls/js/waypoints-sticky.min.js') }}"></script>
-		<script type="text/javascript" src="{{ url_for('static', filename='commerce/ls/js/pace.min.js') }}"></script>
 		<script type="text/javascript" src="{{ url_for('static', filename='commerce/ls/js/slick.min.js') }}"></script>
 		<script type="text/javascript" src="{{ url_for('static', filename='commerce/ls/js/scripts.js') }}"></script>
+
 		<script type="text/javascript">
 			var url_prefix = "{{url_prefix if url_prefix else ''}}";
 			var add_to_cart_text = "{{_('Add to cart')}}";
