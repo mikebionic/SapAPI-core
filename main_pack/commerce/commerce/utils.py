@@ -33,7 +33,6 @@ def slidersData():
 	sliders = Slider.query\
 		.filter_by(GCRecord = None)\
 		.options(joinedload(Slider.Sl_image))\
-		.filter(Sl_image.GCRecord == None)\
 		.all()
 
 	for slider in sliders:
@@ -42,14 +41,15 @@ def slidersData():
 		List_sl_images = []
 
 		for sl_image in slider.Sl_image:
+			if not sl_image.GCRecord:
 
-			if sl_image.SlImgEndDate:
-				if (sl_image.SlImgStartDate <= datetime.now()):
-					if (sl_image.SlImgEndDate and sl_image.SlImgEndDate > datetime.now()):
-						List_sl_images.append(sl_image.to_json_api())
+				if sl_image.SlImgEndDate:
+					if (sl_image.SlImgStartDate <= datetime.now()):
+						if (sl_image.SlImgEndDate and sl_image.SlImgEndDate > datetime.now()):
+							List_sl_images.append(sl_image.to_json_api())
 
-			else:
-				List_sl_images.append(sl_image.to_json_api())
+				else:
+					List_sl_images.append(sl_image.to_json_api())
 
 		List_sliders['Sl_images'] = List_sl_images
 
