@@ -1,4 +1,5 @@
 from flask import render_template, url_for, jsonify, json, session, flash, redirect , request, Response, abort
+from datetime import datetime
 
 # auth and validation
 from flask_login import current_user,login_required
@@ -33,6 +34,7 @@ def ui_company():
 				})
 
 		except Exception as ex:
+			print(f"{datetime.now()} | UI Company error {ex}")
 			response = jsonify({
 				"status": "error",
 				"responseText": gettext('Unknown error!'),
