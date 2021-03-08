@@ -282,40 +282,21 @@
 											<i class="tm tm-call-us-footer"></i>
 										</span>
 										<div class="media-body">
-											<span class="call-us-title">Got Questions ? Call us 24/7!</span>
-											<span class="call-us-text">(800) 8001-8588, (0600) 874 548</span>
-											<address class="footer-contact-address">17 Princess Road, London, Greater London NW1 8JR, UK</address>
-											<a href="#" class="footer-address-map-link">
-												<i class="tm tm-map-marker"></i>Find us on map</a>
+											<span class="call-us-title">{{_('Contact us')}}</span>
+											<span class="call-us-text">
+												{{ company.Phone1 if company.Phone1 else '' }}
+												{{ company.Phone2 if company.Phone2 else '' }}
+												{{ company.Phone3 if company.Phone3 else '' }}
+											</span>
+											<address class="footer-contact-address">{{ company.CAddress if company.CAddress else '' }}</address>
+											{% if company.AddInf1 %}
+												<span>{{_('Working time')}}</span>
+												<p>{{company.AddInf1}}</p>
+											{% endif %}
 										</div>
 									</div>
 								</div>
-								<div class="footer-payment-info">
-									<div class="media">
-										<span class="media-left icon media-middle">
-											<i class="tm tm-safe-payments"></i>
-										</span>
-										<div class="media-body">
-											<h5 class="footer-payment-info-title">We are using safe payments</h5>
-											<div class="footer-payment-icons">
-												<ul class="list-payment-icons nav">
-													<li class="nav-item">
-														<img class="payment-icon-image" src="{{ url_for('static', filename='commerce/ls/img/credit-cards/mastercard.svg') }}" alt="mastercard" />
-													</li>
-													<li class="nav-item">
-														<img class="payment-icon-image" src="{{ url_for('static', filename='commerce/ls/img/credit-cards/visa.svg') }}" alt="visa" />
-													</li>
-													<li class="nav-item">
-														<img class="payment-icon-image" src="{{ url_for('static', filename='commerce/ls/img/credit-cards/paypal.svg') }}" alt="paypal" />
-													</li>
-													<li class="nav-item">
-														<img class="payment-icon-image" src="{{ url_for('static', filename='commerce/ls/img/credit-cards/maestro.svg') }}" alt="maestro" />
-													</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-								</div>
+
 							</div>
 						</div>
 						<div class="footer-widgets">

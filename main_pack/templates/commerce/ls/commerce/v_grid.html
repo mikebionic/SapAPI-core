@@ -1,185 +1,91 @@
 {% extends "commerce/ls/commerce/layout.html" %}
 
 {% block content %}
-<div id="primary" class="content-area">
-	<main id="main" class="site-main">
-		<div class="shop-control-bar">
-			<div class="handheld-sidebar-toggle">
-				<button type="button" class="btn sidebar-toggler">
-					<i class="fa fa-sliders"></i>
-					<span>Filters</span>
-				</button>
-			</div>
-			<h1 class="woocommerce-products-header__title page-title">Shop</h1>
-			<ul role="tablist" class="shop-view-switcher nav nav-tabs">
-				<li class="nav-item">
-					<a href="#grid-extended" title="Grid Extended View" data-toggle="tab" class="nav-link active">
-						<i class="tm tm-grid"></i>
-					</a>
-				</li>
-				<li class="nav-item">
-					<a href="#list-view-large" title="List View Large" data-toggle="tab" class="nav-link ">
-						<i class="tm tm-listing-large"></i>
-					</a>
-				</li>
-			</ul>
-			<form class="form-techmarket-wc-ppp" method="POST">
-				<select class="techmarket-wc-wppp-select c-select" onchange="this.form.submit()" name="ppp">
-					<option value="20">Show 20</option>
-					<option value="40">Show 40</option>
-					<option value="-1">Show All</option>
-				</select>
-				<input type="hidden" value="5" name="shop_columns">
-				<input type="hidden" value="15" name="shop_per_page">
-				<input type="hidden" value="right-sidebar" name="shop_layout">
-			</form>
-			<form method="get" class="woocommerce-ordering">
-				<select class="orderby" name="orderby">
-					<option value="popularity">Sort by popularity</option>
-					<option value="rating">Sort by average rating</option>
-					<option selected="selected" value="date">Sort by newness</option>
-					<option value="price">Sort by price: low to high</option>
-					<option value="price-desc">Sort by price: high to low</option>
-				</select>
-				<input type="hidden" value="5" name="shop_columns">
-				<input type="hidden" value="15" name="shop_per_page">
-				<input type="hidden" value="right-sidebar" name="shop_layout">
-			</form>
-			<nav class="techmarket-advanced-pagination">
-				<form class="form-adv-pagination" method="post">
-					<input type="number" value="1" class="form-control" step="1" max="5" min="1" size="2" id="goto-page">
-				</form> of 5<a href="#" class="next page-numbers">→</a>
-			</nav>
+<div class="container list-grid-demo">
+	<div class="well well-sm">
+		<div class="btn-group" style="float: right;">
+			<!-- <a href="#" id="list" class="btn btn-default btn-sm">
+				<span class="glyphicon glyphicon-th-list">
+				</span>
+				<i class="fa fa-fw fa-list"></i>
+			</a> -->
+			<a href="#" id="grid" class="btn btn-default btn-sm">
+				<span class="glyphicon glyphicon-th"></span>
+				<i class="fa fa-fw fa-th"></i>
+			</a>
 		</div>
-		<div class="tab-content">
-			<div id="grid" class="tab-pane" role="tabpanel">
-				<div class="woocommerce columns-4">
-					<div class="products">
-
-
-						<div class="product">
-							<div class="yith-wcwl-add-to-wishlist">
-									<a href="#/" rel="nofollow" class="like">
-									<i class="fa fa-heart" aria-hidden="true"></i>
-								</a>
-							</div>
-							<a class="woocommerce-LoopProduct-link woocommerce-loop-product__link" href="single-product-fullwidth.html">
-								<img width="220" height="250" alt="" class="attachment-shop_catalog size-shop_catalog wp-post-image" src="{{ url_for('static', filename='commerce/ls/images/products/1.jpg') }}">
-								<span class="price">
-									<span class="woocommerce-Price-amount amount">
-										<span class="woocommerce-Price-currencySymbol">$</span>800.00</span>
-								</span>
-								<h2 class="woocommerce-loop-product__title">XONE Wireless Controller</h2>
-							</a>
-							<div class="hover-area">
-								<a class="button" href="cart.html">Add to cart</a>
-								<a class="add-to-compare-link" href="compare.html">Add to compare</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div id="grid-extended" class="tab-pane active" role="tabpanel">
-				<div class="woocommerce columns-4">
-					{% if data == [] or data == null %}
-						{{_('Nothing found')}}
-					{% endif %}
-
-					<div class="products">
-						{% for resource in data %}
-							<div class="product">
-								{% if current_user.is_authenticated %}
-									<div class="yith-wcwl-add-to-wishlist">
-											<a href="#" rel="nofollow" class="like">
-											<i class="fa fa-heart" aria-hidden="true"></i>
-										</a>
-									</div>
-								{% endif %}
-								<a class="woocommerce-LoopProduct-link woocommerce-loop-product__link" href="{{ url_for('commerce.product',ResId=resource.ResId)}}">
-									<img width="220" height="250" class="attachment-shop_catalog size-shop_catalog wp-post-image"
-									loading="lazy" src="{{resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/main/shop_icons/no_photo.png')}}"
-									alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
-									<span class="price">
-										<span class="woocommerce-Price-amount amount">
-											{{ resource.ResPriceValue }}
-										</span>
-										<span class="woocommerce-Price-currencySymbol">{{ resource.CurrencyCode }}</span>
-									</span>
-									<h2 class="woocommerce-loop-product__title">{{ resource.ResName }}</h2>
-								</a>
-								<div class="techmarket-product-rating">
-									<div class="star-rating">
-										<span style="width:100%">
-											<strong class="rating">3.00</strong> out of 5</span>
-									</div>
-								</div>
-								<div class="woocommerce-product-details__short-description">
-									{{ resource.ResDesc if resource.ResDesc else '' }}
-								</div>
-								<a class="button product_type_simple add_to_cart_button" href="cart.html">Add to cart</a>
-								<a class="add-to-compare-link" href="compare.html">Add to compare</a>
-							</div>
-							{% endfor %}
-						</div>
-
-				</div>
-			</div>
-		</div>
-
-		<nav class="woocommerce-pagination">
-			<ul class="page-numbers">
-				{% if prev_url %}
-					<li>
-							<a href="{{ prev_url }}">
-								<span class="page-numbers current">1</span>
-							</a>
-					</li>
-				{% endif %}
-				{% for page_num in page_num_list %}
-					{% if page_num %}
-					<li><a href="#" class="page-numbers">{{ page_num.page }}</a></li>
-					{% if page_num.status == "active" %}
-						{% elif page_num.status == None %}
-						<li> - - - - </li>
-						{% else %}
-						<li class="page-numbers"><a href="{{ page_num.url }}">{{ page_num.page }}</a></li>
-						{% endif %}
-					{% endif %}
-				{% endfor %}
-				{% if next_url %}
-					<li><a href="{{ next_url }}" class="next page-numbers">→</a></li>
-					{% endif %}
-			</ul>
-		</nav>
 	</div>
-</section>
+	<div class="container" style="margin: 5% auto;">
+		<section class="cards">
 
-	{% if Brands %}
-	<section class="brands-carousel">
-		<h2 class="sr-only">{{_('Brands')}}</h2>
-		<div class="col-full" data-ride="tm-slick-carousel" data-wrap=".brands" data-slick="{&quot;slidesToShow&quot;:6,&quot;slidesToScroll&quot;:1,&quot;dots&quot;:false,&quot;arrows&quot;:true,&quot;responsive&quot;:[{&quot;breakpoint&quot;:400,&quot;settings&quot;:{&quot;slidesToShow&quot;:1,&quot;slidesToScroll&quot;:1}},{&quot;breakpoint&quot;:800,&quot;settings&quot;:{&quot;slidesToShow&quot;:3,&quot;slidesToScroll&quot;:3}},{&quot;breakpoint&quot;:992,&quot;settings&quot;:{&quot;slidesToShow&quot;:3,&quot;slidesToScroll&quot;:3}},{&quot;breakpoint&quot;:1200,&quot;settings&quot;:{&quot;slidesToShow&quot;:4,&quot;slidesToScroll&quot;:4}},{&quot;breakpoint&quot;:1400,&quot;settings&quot;:{&quot;slidesToShow&quot;:5,&quot;slidesToScroll&quot;:5}}]}">
-			<div class="brands">
-				{% for brand in Brands %}
-				{% if brand.FilePath and brand.IsMain %}
-					<div class="item">
-						<a href="{{url_for('commerce.v_grid',brand = brand.BrandId)}}">
-							<figure>
-								<figcaption class="text-overlay">
-									<div class="info">
-										<h4>{{brand.BrandName}}</h4>
-									</div>
-								</figcaption>
-								<img width="145" height="50" class="img-responsive desaturate"
-									loading="lazy" src="{{brand.FilePath if brand.FilePath}}" alt="Brand {{brand.BrandName}}">
-							</figure>
+			{% if data == [] or data == null %}
+				{{_('Nothing found')}}
+			{% endif %}
+
+			{% for resource in data %}
+				<div class="card">
+
+					<div class="imgBox">
+						<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}">
+							<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/ls/img/icons/no_photo.svg') }}"
+							alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
 						</a>
 					</div>
-				{% endif %}
-				{% endfor %}
-			</div>
-		</div>
-	</section>
-	{% endif %}
+
+					<div class="details">
+						<span class="price">
+							<ins>
+								<span class="amount"> </span>
+							</ins>
+							<span class="amount">{{ resource.ResPriceValue }}</span>
+							<p class="tm_currency">{{ resource.CurrencyCode }}</p>
+						</span>
+						<div class="textContent">
+							<h3>{{ resource.ResName }}</h3>
+						</div>
+						<button>{{_('Add to cart')}}</button>
+					</div>
+
+					<div class="description">
+						<div class="">
+								<span class="icon"><i class="fa fa-fw fa-info"></i></span>
+						</div>
+						<div class="contents">
+							<p>{{ resource.ResDesc }}</p>
+						</div>
+					</div>
+
+				</div>
+			{% endfor %}
+
+
+			<nav class="woocommerce-pagination">
+				<ul class="page-numbers">
+					{% if prev_url %}
+						<li><a href="{{ next_url }}" class="next page-numbers"><-</a></li>
+					{% endif %}
+
+					{% for page_num in page_num_list %}
+						{% if page_num %}
+						{% if page_num.status == "active" %}
+							<li><a href="" class="page-numbers current">{{ page_num.page }}</a></li>
+							{% elif page_num.status == None %}
+							<li> - - -  </li>
+							{% else %}
+							<li class="page-numbers"><a href="{{ page_num.url }}">{{ page_num.page }}</a></li>
+							{% endif %}
+						{% endif %}
+					{% endfor %}
+
+					{% if next_url %}
+						<li><a href="{{ next_url }}" class="next page-numbers">→</a></li>
+					{% endif %}
+				</ul>
+			</nav>
+
+		</section>	
+	</div>
+</div>
+
 
 {% endblock %}
