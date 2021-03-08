@@ -4700,7 +4700,8 @@ body.can-uppercase .section-categories-carousel.section-top-categories .readmore
 
 .site-header.header-v4 {
   padding: 1em 0;
-  margin-bottom: 2em; }
+  /* margin-bottom: 2em;  */
+}
   @media (max-width: 767px) {
     .site-header.header-v4 {
       margin-bottom: 0; } }
@@ -17624,7 +17625,7 @@ form.woocommerce-checkout.checkout .col2-set .woocommerce-shipping-fields .wooco
   .page-template-template-homepage-v5 #content #primary,
   .page-template-template-homepage-v6 #content #primary {
     flex: 0 0 76.6666666667%;
-    max-width: 76.6666666667%; }
+    max-width: 100%; }
   .page-template-template-homepage-v5 #content #secondary,
   .page-template-template-homepage-v6 #content #secondary {
     flex: 0 0 23.3333333333%;
@@ -22295,7 +22296,10 @@ form.checkout {
  */
 .price {
   font-weight: 500;
+  display: flex;
+  justify-content: center;
   letter-spacing: -0.01em;
+  height: 25px;
   font-size: 1.143em; }
   .price del {
     font-weight: 400;
@@ -22306,6 +22310,9 @@ form.checkout {
     .price ins + del {
       margin-left: 0.214em; }
 
+
+      /* IMG */
+      
 /**
  * My Account
  */
@@ -26815,18 +26822,25 @@ form.track_order {
 }
 .imgBox{
 	width: 100%;
-	height: 80%;
+	height: 70%;
 	overflow: hidden;
 }
-img{
+/* img{
 	width: 100%;
 	height: 100%;
+} */
+.imgBox img{
+  max-width: 100%;
+  max-height: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
 }
 .details{
 	position: absolute;
 	width: 100%;
 	height: 62%;
-	background: #f4f4f4be;
+	background: #afb5c5b5;
 	padding: 10px 20px;
 	bottom: -30%;
 	transition: .5s;
@@ -26839,6 +26853,7 @@ img{
 	position: relative;
 	/* margin-top: 10px; */
 	color: #555;
+  margin-bottom: 31px;
 }
 h3{
 	font-size: 19px;
@@ -27747,7 +27762,7 @@ button:hover{
 }
 .description:hover{
 	width: 100%;
-	height: 80%;
+	height: 68%;
 	right: 0;
 	top: 0;
 	border-radius: 0;
@@ -27769,6 +27784,9 @@ button:hover{
 	transform: scale(1);
 	opacity: 1;
 	transform: translateY(0);
+  text-align: center;
+  width: 100%;
+  font-size: 15px;
 }
 .description h2{
 	margin: 20px 0;
@@ -27782,4 +27800,14 @@ button:hover{
   width: 100%;
   background: #e6e6e6;
   border-radius: 10px;
+}
+.slider-container__tab-item img{
+  width: 20%;
+  margin: 0 auto;
+}
+/* .customer-logos .slide{
+  width: 70%!important;
+} */
+.banner-image img{
+  width: 100%;
 }
