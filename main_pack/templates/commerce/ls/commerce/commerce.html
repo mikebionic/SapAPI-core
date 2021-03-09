@@ -2,29 +2,38 @@
 
 {% block content %}
 
-	<div id="primary" class="content-area">
-		<main id="main" class="site-main">
-
-			<!-- Slider -->
-			<div class="homev6-slider-with-banners row">
-				<div class="slider-block column-1">
-					<div class="home-v6-slider home-slider">
-					{% for slider in sliders %}
-					{% if slider.SlName == "commerce_header" %}
-						{% for sl_image in slider.Sl_images %}
-						{% if sl_image.SlImgMainImgFilePathS %}
-							<div class="slider-1">
-								<img loading="lazy" src="{{ sl_image.SlImgMainImgFilePathM }}" data-src-m="{{ sl_image.SlImgMainImgFilePathM }}"
-									alt="{{ sl_image.SlImgTitle if sl_image.SlImgTitle else 'sl_image.SlImgMainImgFileName' }}">
-								<a href="{{ sl_image.SlImgLink if sl_image.SlImgLink else '#' }}"></a>
-							</div>
-						{% endif %}
-						{% endfor %}
-					{% endif %}
-					{% endfor %}
+			<div id="content" class="site-content" tabindex="-1">
+				<div class="col-full">
+					<div class="row" style="flex-wrap:nowrap">
+						<div id="primary" class="content-area">
+							<main id="main" class="site-main">
+									<div class="homev6-slider-with-banners row">
+											<div class="slider-block column-1">
+												<div class="home-v6-slider home-slider">
+													{% for slider in sliders %}
+													{% if slider.SlName == "commerce_header" %}
+														{% for sl_image in slider.Sl_images %}
+														{% if sl_image.SlImgMainImgFilePathS %}
+															<div class="slider-1">
+																<img loading="lazy" src="{{ sl_image.SlImgMainImgFilePathM }}" data-src-m="{{ sl_image.SlImgMainImgFilePathM }}"
+																	alt="{{ sl_image.SlImgTitle if sl_image.SlImgTitle else 'sl_image.SlImgMainImgFileName' }}">
+																<a href="{{ sl_image.SlImgLink if sl_image.SlImgLink else '#' }}"></a>
+															</div>
+														{% endif %}
+														{% endfor %}
+													{% endif %}
+													{% endfor %}
+												</div>
+											</div>
+									</div>
+							</main>
+						</div>
+						<div id="secondary" class="widget-area" role="complementary" style="margin-top: 0px!important;">
+						</div>
 					</div>
 				</div>
 			</div>
+			
 
 
 			<!-- Featured -->
@@ -144,7 +153,7 @@
 					{% for sl_image in slider.Sl_images %}
 					{% if sl_image.SlImgMainImgFilePathS %}
 	
-						<div class="col-xs-12 col-sm-8 banner-container">
+						<div class="col-xs-12 col-sm-12 banner-container">
 							<div class="banner-item">
 								<div class="banner-image">
 									<img loading="lazy" src="{{ sl_image.SlImgMainImgFilePathS }}"
@@ -158,23 +167,6 @@
 					{% endfor %}
 				{% endif %}
 	
-				{% if slider.SlName == "commerce_footer_right" %}
-					{% for sl_image in slider.Sl_images %}
-					{% if sl_image.SlImgMainImgFilePathS %}
-	
-					<div class="col-xs-12 col-sm-4 banner-container">
-						<div class="banner-item">
-							<div class="banner-image">
-								<img loading="lazy" src="{{ sl_image.SlImgMainImgFilePathS }}"
-									data-src-m="{{ sl_image.SlImgMainImgFilePathM }}"
-									alt="banner {{ sl_image.SlImgMainImgFileName }}"/>
-							</div>
-						</div>
-					</div>
-	
-					{% endif %}
-					{% endfor %}
-				{% endif %}
 	
 			{% endfor %}
 			</div>

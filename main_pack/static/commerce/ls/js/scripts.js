@@ -55,7 +55,95 @@ $(document).ready(function($) {
 	$('.slider-container__slider2').slick({
 		slidesToScroll: 2,
 		slidesToShow: 5,
-		dots: true
+		dots: true,
+		responsive: [
+			{
+					breakpoint: 1199,
+
+					settings: {
+							slidesToShow: 3,
+					}
+			},
+			 {
+					breakpoint: 1300,
+
+					settings: {
+							slidesToShow: 5,
+					}
+			},
+			{
+					breakpoint: 1440,
+
+					settings: {
+							slidesToShow: 5,
+					}
+			},
+			{
+					breakpoint: 1600,
+
+					settings: {
+							slidesToShow: 5,
+					}
+			},
+			{
+					breakpoint: 1800,
+
+					settings: {
+							slidesToShow: 6,
+					}
+			},
+			{
+					breakpoint: 2700,
+
+					settings: {
+							slidesToShow: 9,
+					}
+			},
+			{
+					breakpoint: 2400,
+
+					settings: {
+							slidesToShow: 8,
+					}
+			},
+			{
+					breakpoint: 2000,
+
+					settings: {
+							slidesToShow: 7,
+					}
+			},
+			{
+					breakpoint: 991,
+					settings: {
+							slidesToShow: 3,
+					}
+			},
+			{
+					breakpoint: 767,
+					settings: {
+							autoplay: true,
+							slidesToShow: 3,
+							arrows: false,
+					}
+			},
+			{
+					breakpoint: 654,
+					settings: {
+							autoplay: true,
+							slidesToShow: 2,
+							arrows: false,
+					}
+			},
+			{
+					breakpoint: 319,
+					settings: {
+							autoplay: true,
+							slidesToShow: 1,
+							arrows: false,
+					}
+			}
+	]
 	});
 
 }); 

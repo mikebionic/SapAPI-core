@@ -10155,27 +10155,6 @@ a#variations_clear:before {
 .page-template-template-homepage-v6 .header-v4 .stuck .departments-menu button::after {
   display: none; }
 
-.page-template-template-homepage-v5 .header-v3 .stuck .departments-menu.show button::after,
-.page-template-template-homepage-v6 .header-v4 .stuck .departments-menu.show button::after {
-  right: 38px; }
-
-@media (min-width: 1200px) {
-  .page-template-template-homepage-v5 .header-v3 .departments-menu button::before,
-  .page-template-template-homepage-v5 .header-v3 .departments-menu.show button::before,
-  .page-template-template-homepage-v6 .header-v4 .departments-menu button::before,
-  .page-template-template-homepage-v6 .header-v4 .departments-menu.show button::before {
-    content: '';
-    transform: rotate(45deg);
-    width: 44px;
-    height: 44px;
-    border: 2px solid #eee;
-    background-color: #f8f8f8;
-    position: absolute;
-    left: 5px;
-    border-radius: 4px;
-    top: 34px;
-    z-index: -1; } }
-
 .page-template-template-homepage-v5 .header-v3 .departments-menu.show button::after,
 .page-template-template-homepage-v5 .header-v3 .departments-menu button::after,
 .page-template-template-homepage-v6 .header-v4 .departments-menu.show button::after,
@@ -10198,26 +10177,6 @@ a#variations_clear:before {
     left: 37%;
     transform: translate(-78%); } }
 
-@media (max-width: 1199px) {
-  .header-v4 .departments-menu.show button::before {
-    top: 41px;
-    border-color: transparent; } }
-
-@media (min-width: 992px) {
-  .page-template-template-homepage-v5 .header-v3 .departments-menu button::before,
-  .page-template-template-homepage-v5 .header-v3 .departments-menu.show button::before,
-  .header-v3 .departments-menu button::before,
-  .header-v3 .departments-menu.show button::before {
-    background-color: #f8f8f8; } }
-
-@media (min-width: 1200px) {
-  .header-v4 .departments-menu button::before,
-  .header-v4 .departments-menu.show button::before,
-  .page-template-template-homepage-v6 .header-v4 .departments-menu button::before,
-  .page-template-template-homepage-v6 .header-v4 .departments-menu.show button::before {
-    top: 42px;
-    border: 2px solid #fff;
-    background-color: #fff; } }
 
 .header-v3 .departments-menu > .dropdown-menu {
   border: none; }
@@ -12778,8 +12737,8 @@ article.post {
   .site-content .home-v6-slider .slider-1 {
     height: 360px; }
     .site-content .home-v6-slider .slider-1 img {
-      right: -100px;
-      width: 300px; }
+      /* right: -100px; */
+      width: 100%; }
     .site-content .home-v6-slider .slider-1 .caption {
       flex: 0 0 46.6666666667%;
       max-width: 46.6666666667%;
@@ -12839,7 +12798,10 @@ article.post {
     height: 428px; }
     .site-content .home-v6-slider .slider-1 img {
       right: 0;
-      width: 100%; }
+      max-width: 100%;
+      width: 100%;
+      max-height: 100%; 
+      }
     .site-content .home-v6-slider .slider-1 .caption {
       flex: 0 0 39.1666666667%;
       max-width: 39.1666666667%;
@@ -17625,7 +17587,9 @@ form.woocommerce-checkout.checkout .col2-set .woocommerce-shipping-fields .wooco
   .page-template-template-homepage-v5 #content #primary,
   .page-template-template-homepage-v6 #content #primary {
     flex: 0 0 76.6666666667%;
-    max-width: 100%; }
+    /* max-width: 100%; */
+  
+  }
   .page-template-template-homepage-v5 #content #secondary,
   .page-template-template-homepage-v6 #content #secondary {
     flex: 0 0 23.3333333333%;
@@ -27258,7 +27222,7 @@ button:hover{
   }
 
   .slider-container .slider-container__tab-item {
-    min-width: 100%;
+    min-width: 0;
   }
 
   .surprise-guests .slider-container .slider-container__tab-list {
@@ -27810,4 +27774,12 @@ button:hover{
 } */
 .banner-image img{
   width: 100%;
+}
+
+.customer-logos .slick-track{
+  width: 100%!important;
+}
+
+.customer-logos .slide{
+  width: 100px!important;
 }

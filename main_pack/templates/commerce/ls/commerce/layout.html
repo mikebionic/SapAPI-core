@@ -241,9 +241,6 @@
 		</header>
 
 
-		<div id="content" class="site-content">
-			<div class="col-full">
-				<div class="row">
 					{% with messages = get_flashed_messages(with_categories=true) %}
 					{% if messages %}
 						{% for category, message in messages %}
@@ -259,11 +256,8 @@
 					{% endif %}
 					{% endwith %}
 
-					{% block content %}{% endblock %}
-				</div>
-			</div>
-		</div>
 
+		{% block content %}{% endblock %}
 
 		<footer class="site-footer footer-v1">
 			<div class="col-full">
@@ -409,7 +403,9 @@
 
 			</div>
 		</footer>
+		
 
+		
 
 		<script type="text/javascript" src="{{ url_for('static', filename='commerce/ls/js/jquery.min.js') }}"></script>
 		<script type="text/javascript" src="{{ url_for('static', filename='commerce/ls/js/bootstrap.min.js') }}"></script>
