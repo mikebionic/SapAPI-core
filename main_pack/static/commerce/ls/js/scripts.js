@@ -267,19 +267,19 @@ $(document).ready(function($) {
 			if( $selectedKey !== '' || $selectedKey !== 0 || $selectedKey !== '0' ) {
 				$shortcode_atts['category'] = $selectedKey;
 			}
-			$.ajax({
-				url : techmarket_options.ajax_url,
-				type : 'post',
-				data : {
-					action : 'product_categories_filter',
-					shortcode_atts : $shortcode_atts
-				},
-				success : function( response ) {
-					$this.find( '.categories-filter-products' ).html( response );
-					$this.find( '.products > div[class*="post-"]' ).addClass( "product" );
-					$this.unblock();
-				}
-			});
+			// $.ajax({
+			// 	url : techmarket_options.ajax_url,
+			// 	type : 'post',
+			// 	data : {
+			// 		action : 'product_categories_filter',
+			// 		shortcode_atts : $shortcode_atts
+			// 	},
+			// 	success : function( response ) {
+			// 		$this.find( '.categories-filter-products' ).html( response );
+			// 		$this.find( '.products > div[class*="post-"]' ).addClass( "product" );
+			// 		$this.unblock();
+			// 	}
+			// });
 			return false;
 		});
 	});
@@ -701,19 +701,19 @@ $(document).ready(function($) {
 	/*===================================================================================*/
     /*  Price Filter
     /*===================================================================================*/
-	  $( function() {
-	    $( "#slider-range" ).slider({
-	      range: true,
-	      min: 0,
-	      max: 500,
-	      values: [ 0, 500 ],
-	      slide: function( event, ui ) {
-	        $( "#amount" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
-	      }
-	    });
-	    $( "#amount" ).val(  $( "#slider-range" ).slider( "values", 0 ) +
-	      " - " + $( "#slider-range" ).slider( "values", 1 ) );
-	  } );
+	  // $( function() {
+	  //   $( "#slider-range" ).slider({
+	  //     range: true,
+	  //     min: 0,
+	  //     max: 500,
+	  //     values: [ 0, 500 ],
+	  //     slide: function( event, ui ) {
+	  //       $( "#amount" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+	  //     }
+	  //   });
+	  //   $( "#amount" ).val(  $( "#slider-range" ).slider( "values", 0 ) +
+	  //     " - " + $( "#slider-range" ).slider( "values", 1 ) );
+	  // } );
 
 	$(document).ready(function() {
 	    $('.maxlist-more ul').hideMaxListItems({
@@ -884,3 +884,34 @@ li_links.forEach(function(link){
 	})
 })
 
+// Mike's js
+
+var categoryMenu = $('.departments-menu-dropdown');
+function slideCategoryByPathname() {
+	var pathnames = ['/commerce','/commerce/','/commerce/commerce','/commerce/commerce/','/main','/commerce/main','/main/','/commerce/main/','/','/index']
+	var current_path = location.pathname;
+	var stateDropped = false
+	pathnames.forEach(function (item, index) {
+		if (item == current_path){
+			stateDropped = true
+		}
+	});
+	if (stateDropped == false){
+		categoryMenu.css({'visibility': 'hidden'});
+	}
+}
+
+
+function categoryMenuToggle() {
+	var screenSize = $(window).width();
+	if (screenSize <= 991) {
+		categoryMenu.slideUp();
+	}
+	else{
+		slideCategoryByPathname();
+	}
+}
+
+slideCategoryByPathname()
+// categoryMenuToggle();
+// $(window).resize(categoryMenuToggle);

@@ -142,13 +142,15 @@
 							</ul>
 						</div>
 
+						<!-- <form action="{{url_for('commerce.v_grid')}}">
+              <div class="input"><input type="text" name="search" placeholder="{{_('Search')}}"></div>
+              <div class="submit"><button><i class="icofont icofont-search-alt-1"></i></button></div>
+						</form> -->
 						
-
-
-						<form class="navbar-search" method="get" action="{{ url_for('commerce.commerce') }}">
-							<label class="sr-only screen-reader-text" for="search">Search for:</label>
+						<form class="navbar-search" method="get" action="{{url_for('commerce.v_grid')}}">
+							<label class="sr-only screen-reader-text" for="search">{{_('Search')}}</label>
 							<div class="input-group">
-								<input type="text" id="search" class="form-control search-field product-search-field" dir="ltr" value="" name="s" placeholder="Search for products" />
+								<input type="text" id="search" class="form-control search-field product-search-field" dir="ltr" value="" name="s" placeholder="{{_('Search')}}" />
 								<div class="input-group-addon search-categories popover-header">
 									<select name='product_cat' id='product_cat' class='postform resizeselect'>
 										<option value='0' selected='selected'>{{_('All')}}</option>
@@ -303,88 +305,41 @@
 							<div class="columns">
 								<aside class="widget clearfix">
 									<div class="body">
-										<h4 class="widget-title">Find it Fast</h4>
-										<div class="menu-footer-menu-1-container">
-											<ul id="menu-footer-menu-1" class="menu">
-												<li class="menu-item">
-													<a href="{{ url_for('commerce.v_grid') }}">Computers &#038; Laptops</a>
-												</li>
-												<li class="menu-item">
-													<a href="{{ url_for('commerce.v_grid') }}">Cameras &#038; Photography</a>
-												</li>
-												<li class="menu-item">
-													<a href="{{ url_for('commerce.v_grid') }}">Smart Phones &#038; Tablets</a>
-												</li>
-												<li class="menu-item">
-													<a href="{{ url_for('commerce.v_grid') }}">Video Games &#038; Consoles</a>
-												</li>
-												<li class="menu-item">
-													<a href="{{ url_for('commerce.v_grid') }}">TV</a>
-												</li>
-												<li class="menu-item">
-													<a href="{{ url_for('commerce.v_grid') }}">Car Electronic &#038; GPS</a>
-												</li>
-											</ul>
-										</div>
-									</div>
-								</aside>
-							</div>
-							<div class="columns">
-								<aside class="widget clearfix">
-									<div class="body">
-										<h4 class="widget-title">&nbsp;</h4>
-										<div class="menu-footer-menu-2-container">
-											<ul id="menu-footer-menu-2" class="menu">
-												<li class="menu-item">
-													<a href="{{ url_for('commerce.v_grid') }}">Printers &#038; Ink</a>
-												</li>
-												<li class="menu-item">
-													<a href="{{ url_for('commerce.v_grid') }}">Audio &amp; Music</a>
-												</li>
-												<li class="menu-item">
-													<a href="{{ url_for('commerce.v_grid') }}">Home Theaters</a>
-												</li>
-												<li class="menu-item">
-													<a href="{{ url_for('commerce.v_grid') }}">PC Components</a>
-												</li>
-												<li class="menu-item">
-													<a href="{{ url_for('commerce.v_grid') }}">Ultrabooks</a>
-												</li>
-												<li class="menu-item">
-													<a href="{{ url_for('commerce.v_grid') }}">Smartwatches</a>
-												</li>
-											</ul>
-										</div>
-									</div>
-								</aside>
-							</div>
-							<div class="columns">
-								<aside class="widget clearfix">
-									<div class="body">
-										<h4 class="widget-title">Customer Care</h4>
+										<h4 class="widget-title">{{ company.CName }}</h4>
 										<div class="menu-footer-menu-3-container">
 											<ul id="menu-footer-menu-3" class="menu">
 												<li class="menu-item">
-													<a href="login-and-register.html">My Account</a>
+													<a href="{{ url_for('commerce.v_grid') }}">
+														{{_('Commerce')}}
+													</a>
 												</li>
 												<li class="menu-item">
-													<a href="track-your-order.html">Track Order</a>
+													<a href="{{ url_for('commerce.about') }}">
+														{{_('About us')}}
+													</a>
 												</li>
 												<li class="menu-item">
-													<a href="{{ url_for('commerce.v_grid') }}">Shop</a>
+													<a href="{{ url_for('commerce.contact') }}">
+														{{_('Contact')}}
+													</a>
 												</li>
-												<li class="menu-item">
-													<a href="wishlist.html">Wishlist</a>
-												</li>
-												<li class="menu-item">
-													<a href="about.html">About Us</a>
-												</li>
-												<li class="menu-item">
-													<a href="terms-and-conditions.html">Returns/Exchange</a>
-												</li>
-												<li class="menu-item">
-													<a href="faq.html">FAQs</a>
-												</li>
+												{% if current_user.is_authenticated %}
+													<li class="menu-item animate-dropdown">
+														<a href="{{ url_for('commerce_users.profile') }}">
+															{{_('Profile')}}
+														</a>
+													</li>
+													<li class="menu-item animate-dropdown">
+														<a href="{{ url_for('commerce_users.orders') }}">
+															{{_('Orders')}}
+														</a>
+													</li>
+													<li class="menu-item animate-dropdown">
+														<a href="{{ url_for('commerce_users.wishlist') }}">
+															{{_('Wishlist')}}
+														</a>
+													</li>
+												{% endif %}
 											</ul>
 										</div>
 									</div>
