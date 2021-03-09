@@ -325,42 +325,51 @@ def api_images():
 
 @api.route("/get-image/<file_type>/<file_size>/<file_name>")
 def get_image(file_type,file_size,file_name,path_only=False):
-	if file_type == "slider": 
-		sl_image = Sl_image.query.filter(Sl_image.SlImgMainImgFileName == file_name).first()
-		path = sl_image.SlImgMainImgFilePath
-	if file_type == "image": 
-		image = Image.query.filter(Image.FileName == file_name).first()
-		if not image.FilePath:
-			raise FileNotFoundError
-		path = image.FilePath
-	if file_size != 'undefined':
-		path = path.replace("<FSize>",file_size)
 	try:
-		if Config.OS_TYPE == 'win32':
-			full_path = path.replace("\\","/")
-		else:
-			full_path = path.replace("<FSize>",file_size)
-		
-		response = send_from_directory('static',full_path,as_attachment=True)
-		if path_only:
-			return full_path
-		return response
-	except FileNotFoundError:
+		if file_type == "slider": 
+			sl_image = Sl_image.query.filter(Sl_image.SlImgMainImgFileName == file_name).first()
+			path = sl_image.SlImgMainImgFilePath
+		if file_type == "image": 
+			image = Image.query.filter(Image.FileName == file_name).first()
+			if not image.FilePath:
+				raise FileNotFoundError
+			path = image.FilePath
+		if file_size != 'undefined':
+			path = path.replace("<FSize>",file_size)
+
+		try:
+			if Config.OS_TYPE == 'win32':
+				full_path = path.replace("\\","/")
+			else:
+				full_path = path.replace("<FSize>",file_size)
+			
+			response = send_from_directory('static',full_path,as_attachment=True)
+			if path_only:
+				return full_path
+			return response
+
+		except FileNotFoundError:
+			abort(404)
+
+	except:
 		abort(404)
 
 
 @api.route("/get-file/<file_type>/<file_name>")
 def get_file(file_type,file_name):
-	if file_type == "slider": 
-		sl_image = Sl_image.query.filter(Sl_image.SlImgMainImgFileName == file_name).first()
-		path = sl_image.SlImgMainImgFilePath
 	try:
-		if Config.OS_TYPE == 'win32':
-			response = send_from_directory('static',filename=path.replace("\\","/"),as_attachment=True)
-		else:
-			response = send_from_directory('static',filename=path,as_attachment=True)
-		return response
-	except FileNotFoundError:
+		if file_type == "slider": 
+			sl_image = Sl_image.query.filter(Sl_image.SlImgMainImgFileName == file_name).first()
+			path = sl_image.SlImgMainImgFilePath
+		try:
+			if Config.OS_TYPE == 'win32':
+				response = send_from_directory('static',filename=path.replace("\\","/"),as_attachment=True)
+			else:
+				response = send_from_directory('static',filename=path,as_attachment=True)
+			return response
+		except FileNotFoundError:
+			abort(404)
+	except:
 		abort(404)
 
 
