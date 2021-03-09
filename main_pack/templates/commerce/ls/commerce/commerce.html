@@ -33,7 +33,7 @@
 					</div>
 				</div>
 			</div>
-			
+
 
 
 			<!-- Featured -->
@@ -47,7 +47,7 @@
 							{% for category in Featured_categories %}
 								<li class="slider-container__tab-item button type2 featrued-cat-btn" data-tab=".tab-{{ category.ResCatId }}">
 									<img loading="lazy"
-									src="{{ category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static',filename='commerce/ls/images/icons/category.svg') }}">
+									src="{{ category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static',filename='commerce/ls/img/icons/category.svg') }}">
 									{{ category.ResCatName }}
 								</li>
 							{% endfor %}
@@ -55,7 +55,7 @@
 
 						<div class="slider-content">
 							{% for category in Featured_categories %}
-								<div class="slider-container__slider2 .tab-{{ category.ResCatId }} featrued-cat-tab">
+								<div class="slider-container__slider2 tab-{{ category.ResCatId }} featrued-cat-tab">
 
 									{% for resource in category.Resources %}
 									<div>
@@ -107,7 +107,7 @@
 			<!-- Newest -->
 			<div class="container" style="margin: 5% auto;">
 				<h1>{{_('New arrival')}}</h1>
-				<section class="cards">	
+				<section class="cards">
 
 					{% for resource in Latest_resources %}
 						<div class="card">
@@ -141,18 +141,18 @@
 						</div>
 					{% endfor %}
 
-				</section>	
+				</section>
 			</div>
-					
-			
+
+
 			<!-- Banners -->
 			<div class="banner">
 			{% for slider in sliders %}
-	
+
 				{% if slider.SlName == "commerce_footer" %}
 					{% for sl_image in slider.Sl_images %}
 					{% if sl_image.SlImgMainImgFilePathS %}
-	
+
 						<div class="col-xs-12 col-sm-12 banner-container">
 							<div class="banner-item">
 								<div class="banner-image">
@@ -162,30 +162,30 @@
 								</div>
 							</div>
 						</div>
-	
+
 					{% endif %}
 					{% endfor %}
 				{% endif %}
-	
-	
+
+
 			{% endfor %}
 			</div>
-	
-	
-	
+
+
+
 			<!-- Brands -->
 			{% if Brands %}
 			<div class="container">
 				<section class="customer-logos slider">
 					{% for brand in Brands %}
 					{% if brand.FilePath and brand.IsMain %}
-	
+
 						<div class="slide">
 							<a href="{{url_for('commerce.v_grid',brand = brand.BrandId)}}">
 								<img loading="lazy" src="{{brand.FilePath if brand.FilePath}}" alt="Brand {{brand.BrandName}} Lomay sowda wholesale ls">
 							</a>
 						</div>
-	
+
 					{% endif %}
 					{% endfor %}
 				</section>
@@ -193,8 +193,8 @@
 			{% endif %}
 
 
-		</main>	
-	</div>		
+		</main>
+	</div>
 
 {% endblock %}
 
