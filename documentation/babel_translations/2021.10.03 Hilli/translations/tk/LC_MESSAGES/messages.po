@@ -31,10 +31,10 @@ msgid "Oldest"
 msgstr "Iň köne"
 
 msgid "Price: high to low"
-msgstr "Baha: ýokarydan pes"
+msgstr "Baha: ulydan kiçä"
 
 msgid "Price: low to high"
-msgstr "Baha: pesden ýokary"
+msgstr "Baha: kiçiden ula"
 
 msgid "Rated"
 msgstr "Bahalandyryldy"

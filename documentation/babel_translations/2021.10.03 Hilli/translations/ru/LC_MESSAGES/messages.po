@@ -35,7 +35,7 @@ msgid "Price: high to low"
 msgstr "Цена: по убыванию"
 
 msgid "Price: low to high"
-msgstr "Цена: по убыванию"
+msgstr "Цена: по возрастанию"
 
 msgid "Rated"
 msgstr "Оценка"

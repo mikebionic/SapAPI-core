@@ -24,7 +24,7 @@ from main_pack.base.apiMethods import fileToURL
 from main_pack.base.languageMethods import dataLangSelector
 from main_pack.api.commerce.commerce_utils import UiCartResourceData
 from main_pack.api.commerce.commerce_utils import collect_categories_query
-# / useful methods / 
+# / useful methods /
 
 
 @cache.cached(Config.DB_CACHE_TIME, key_prefix="ui_sliders")
@@ -65,7 +65,19 @@ def UiCategoriesList():
 		.options(joinedload(Res_category.Resource))\
 		.all()
 
-	main_categories = [category for category in categories if not category.ResOwnerCatId]
+	main_categories = []
+	last_categories = []
+	for category in categories:
+		if not category.ResOwnerCatId:
+			if (category.ResCatVisibleIndex > 0):
+				main_categories.append(category)
+			else:
+				last_categories.append(category)
+
+	if last_categories:
+		for category in last_categories:
+			main_categories.append(category)
+
 	categories_list = []
 
 	for main_category in main_categories:
@@ -110,7 +122,7 @@ def UiBrandsList():
 		.options(joinedload(Brand.Image))\
 		.filter(Image.GCRecord == None)\
 		.order_by(Image.CreatedDate.desc())\
-		.all() 
+		.all()
 	data = []
 	for brand in brands:
 		brand_info = brand.to_json_api()
