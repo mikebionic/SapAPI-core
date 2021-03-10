@@ -28264,3 +28264,7 @@ height: 100%;
 .no-csspointerevents .nice-select.open .list {
     display: block
 }
+.cat-icon {
+  filter: sepia(1) saturate(150) brightness(27%) hue-rotate(241deg);
+}
+

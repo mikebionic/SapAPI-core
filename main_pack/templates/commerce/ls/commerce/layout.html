@@ -80,21 +80,21 @@
 								<i class="tm tm-departments-thin"></i>
 								<span>{{_('Categories')}}</span>
 							</button>
-								<ul id="menu-departments-menu" class="dropdown-menu yamm departments-menu-dropdown">
-									<li class="highlight menu-item animate-dropdown">
-										<a title="{{_('All')}}" href="{{url_for('commerce.v_grid')}}" style="display: flex">
-											<img class="img-fluid" src="{{ url_for('static', filename='commerce/ls/img/icons/category.svg') }}" style="width: 25px; margin-right: 7px;">
-											{{_('All')}}
-										</a>
-									</li>
+							<ul id="menu-departments-menu" class="dropdown-menu yamm departments-menu-dropdown">
+								<li class="highlight menu-item animate-dropdown">
+									<a title="{{_('All')}}" href="{{url_for('commerce.v_grid')}}" style="display: flex">
+										<img class="img-fluid cat-icon" src="{{ url_for('static', filename='commerce/ls/img/icons/category.svg') }}" style="width: 25px; margin-right: 7px;">
+										{{_('All')}}
+									</a>
+								</li>
 
-									{% for category in categories %}
-										<li class="menu-item animate-dropdown {{ 'yamm-tfw menu-item-has-children dropdown-submenu' if category.Categories else 'highlight' }}">
-											<a title="{{ category.ResCatName }}" href="{{url_for('commerce.v_grid', category = category.ResCatId)}}" style="display: flex"
-												{% if category.Categories %} data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true" {% endif %}
-											>
-												<img class="img-fluid" src="{{ category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static', filename='commerce/ls/img/icons/category.svg') }}" style="width: 25px; margin-right: 7px;">
-												{{ category.ResCatName }}
+								{% for category in categories %}
+									<li class="menu-item animate-dropdown {{ 'yamm-tfw menu-item-has-children dropdown-submenu' if category.Categories else 'highlight' }}">
+										<a title="{{ category.ResCatName }}" href="{{url_for('commerce.v_grid', category = category.ResCatId)}}" style="display: flex"
+											{% if category.Categories %} data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true" {% endif %}
+										>
+											<img class="img-fluid cat-icon" src="{{ category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static', filename='commerce/ls/img/icons/category.svg') }}" style="width: 25px; margin-right: 7px;">
+											{{ category.ResCatName }}
 
 											{% if not category.Categories %}
 												</a>
@@ -114,6 +114,7 @@
 															</div>
 															{% endif %}
 
+<<<<<<< HEAD
 															<div class="row yamm-content-row">
 																<div class="col-md-6 col-sm-12">
 																	<div class="kc-col-container">
@@ -129,6 +130,22 @@
 																				{% endfor %}
 																			</ul>
 																		</div>
+=======
+														<div class="row yamm-content-row">
+															<div class="col-md-6 col-sm-12">
+																<div class="kc-col-container">
+																	<div class="kc_text_block">
+																		<ul>
+																			{% for category in category.Categories %}
+																				<li>
+																					<a href="{{url_for('commerce.v_grid', category = category.ResCatId)}}" style="display: flex">
+																						<img class="img-fluid cat-icon" src="{{ category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static', filename='commerce/ls/img/icons/category.svg') }}" style="width: 25px; margin-right: 7px;">
+																						{{ category.ResCatName }}
+																					</a>
+																				</li>
+																			{% endfor %}
+																		</ul>
+>>>>>>> 057bcaa17a8e7f684d40af759bf660fa12e8c07e
 																	</div>
 																</div>
 															</div>
@@ -142,6 +159,7 @@
 								</ul>
 						</div>
 
+						<!-- Navbar search -->
 						<form class="navbar-search" method="get" action="{{url_for('commerce.v_grid')}}">
 							<label class="sr-only screen-reader-text" for="search">{{_('Search')}}</label>
 							<div class="input-group">
@@ -163,6 +181,7 @@
 							</div>
 						</form>
 
+						<!-- Wishlist -->
 						<ul class="header-wishlist nav navbar-nav">
 							<li class="nav-item">
 								<a href="wishlist.html" class="nav-link">
@@ -208,20 +227,20 @@
 		</header>
 
 
-					{% with messages = get_flashed_messages(with_categories=true) %}
-					{% if messages %}
-						{% for category, message in messages %}
-						<div class="alert alert-{{ category }} alert-dismissible show fade" style="margin: auto; height: 10%; opacity: 1; width: 95%; overflow: auto; text-align: center;">
-							<div class="alert-body" style="padding-top: 5px;">
-								<button class="close" data-dismiss="alert">
-									<span>×</span>
-								</button>
-								{{ message }}
-							</div>
-						</div>
-						{% endfor %}
-					{% endif %}
-					{% endwith %}
+		{% with messages = get_flashed_messages(with_categories=true) %}
+		{% if messages %}
+			{% for category, message in messages %}
+			<div class="alert alert-{{ category }} alert-dismissible show fade" style="margin: auto; height: 10%; opacity: 1; width: 95%; overflow: auto; text-align: center;">
+				<div class="alert-body" style="padding-top: 5px;">
+					<button class="close" data-dismiss="alert">
+						<span>×</span>
+					</button>
+					{{ message }}
+				</div>
+			</div>
+			{% endfor %}
+		{% endif %}
+		{% endwith %}
 
 
 		{% block content %}{% endblock %}
