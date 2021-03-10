@@ -61,8 +61,35 @@
 								</a>
 							</li>
 						{% endif %}
+						<li class="menu-item animate-dropdown dropdown language_" style="margin-top: auto;">
+							<a href="javascript:void(0);"  title="Language" data-toggle="dropdown" role="button"><i class="fa fa-fw fa-globe"></i>
+								<div class="notify"><span class="heartbit"></span><span class="point"></span></div>
+							</a>
+							<ul class="dropdown-menu slideUp2">
+								<li class="body">
+									<ul class="menu list-unstyled">
+										<li>
+											<a href="{{ url_for('commerce_admin.set_language',language='en') }}" class="dropdown-item">
+												<img src="{{ url_for('static', filename='commerce/main/images/us.svg') }}" style="width: 30px">
+												English language
+											</a>
+											<div class="dropdown-divider"></div>
+											<a href="{{ url_for('commerce_admin.set_language',language='tk') }}" class="dropdown-item">
+												<img loading="lazy" src="{{ url_for('static', filename='commerce/main/images/tm.svg') }}" style="width: 30px">
+												Türkmen dili
+											</a>
+											<div class="dropdown-divider"></div>
+											<a href="{{ url_for('commerce_admin.set_language',language='ru') }}" class="dropdown-item">
+												<img loading="lazy" src="{{ url_for('static', filename='commerce/main/images/ru.svg') }}" style="width: 30px">
+												Русский язык
+											</a>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
 					</ul>
-
+						
 				</div>
 		</div>
 
@@ -113,24 +140,13 @@
 																</div>
 															</div>
 															{% endif %}
-
-<<<<<<< HEAD
-															<div class="row yamm-content-row">
-																<div class="col-md-6 col-sm-12">
-																	<div class="kc-col-container">
-																		<div class="kc_text_block">
-																			<ul>
-																				{% for category in category.Categories %}
-																					<li>
-																						<a href="{{url_for('commerce.v_grid', category = category.ResCatId)}}" style="display: flex">
-																							<img class="img-fluid" src="{{ category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static', filename='commerce/ls/img/icons/category.svg') }}" style="width: 25px; margin-right: 7px;">
-																							{{ category.ResCatName }}
-																						</a>
-																					</li>
-																				{% endfor %}
-																			</ul>
-																		</div>
-=======
+														<div class="bg-yamm-content bg-yamm-content-bottom bg-yamm-content-right">
+															<div class="kc-col-container">
+																<div class="kc_single_image">
+																		<img src="{{ url_for('static', filename='commerce/ls/img/megamenu.jpg') }}" alt="Category section image" />
+																</div>
+															</div>
+														</div>
 														<div class="row yamm-content-row">
 															<div class="col-md-6 col-sm-12">
 																<div class="kc-col-container">
@@ -145,7 +161,6 @@
 																				</li>
 																			{% endfor %}
 																		</ul>
->>>>>>> 057bcaa17a8e7f684d40af759bf660fa12e8c07e
 																	</div>
 																</div>
 															</div>
@@ -249,6 +264,7 @@
 			<div class="col-full">
 				<div class="footer-widgets-block">
 					<div class="row">
+						
 						<div class="footer-contact">
 							<div class="footer-logo">
 								<a href="{{ url_for('commerce.commerce') }}" class="custom-logo-link" rel="home">
@@ -324,6 +340,7 @@
 								</aside>
 							</div>
 						</div>
+
 					</div>
 				</div>
 

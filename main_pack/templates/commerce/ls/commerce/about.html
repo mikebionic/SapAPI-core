@@ -1,51 +1,93 @@
 {% extends "commerce/ls/commerce/layout.html" %}
 
 {% block content %}
-<div id="content" class="site-content">
-	<div class="col-full">
-		<div class="row">
-			<div id="primary" class="content-area">
-				<main id="main" class="site-main">
-					<div class="type-page hentry">
-						<header class="entry-header">
-							<div class="page-featured-image">
-								<img loading="lazy" width="1920" height="1391" alt="" class="attachment-full size-full wp-post-image" src="{{ url_for('static', filename='commerce/ls/img/about/header.jpg') }}">
-							</div>
-							<div class="page-header-caption">
-								<h2 class="align-top">{{_('About us')}}</h2>
-								<p>
-									2011-nji ýylyň iýul aýynyň 26-na lomaý we bölekleýin Aluw we Satuw işlerine başladyk.
-									2015-nji ýylyň awgust aýynyň 28-ne Türkmenistanyň senagatçylar we telekeçiler birleşmesine 
-									agza bolup, ol ýerde agza bolan başgada bir naçe türkmen täjirleri bilen tejribeleri-pikirleri
-									paýlaşyp, TÜRKMENISTANDA ÖNDÜRILÝÄN harytlary-hyzmatlary Öndürijiden-SARPEDIJÄ amatly bahadan, 
-									durnukly ýagdaýda, ygtybarly edip ýetirmegi maksat edindik. Ýagny ýurdumyzyň çägindäki dürli 
-									welaýatlardaky dürli önümleri öndürýän zawodlardan harytlaryny dillerçilikli-lomaý bahadan 
-									satyn alyp olary ýurdumyzyň çägindäki dükanlara eltip berýäris.
-								</p>
-							</div>
-							<div class="single-image">
-								<img loading="lazy" alt="mobile lomay sowda shop app" src="{{ url_for('static', filename='commerce/ls/img/about/mobileshop.jpg') }}">
-							</div>
-						</header>
-						<div class="entry-content">
-							<div class="about-features row">
-								<div class="col-md-4">
-									<div class="text-block">
-										<p>
-											Biziň salgymyz: Aşgabat şäheri Parahat 7/4, 18
-											Tel:+993 61 70 33 39
-											Tel:+993 65 71 52 81
-											E-mail:wholesaleintm@gmail.comSkype:live:timur.gusew2016
-										</p>
-									</div>
+<div class="arlo_tm_content">
+	<div class="arlo_tm_section" id="home">
+		<div class="arlo_tm_hero_header_wrap">
+			<div class="arlo_tm_universal_box_wrap particle" data-speed="0.1">
+				<div id="particles-js"></div> 
+				<div class="particle_overlay"></div>
+				<div class="inner_content">
+					<div class="name_holder">
+						<h3>Lomaý <span>Söwda</span></h3>
+					</div>
+					<div class="text_typing">
+						<p>Lomaý söwda <span class="arlo_tm_animation_text_word"></span></p>
+					</div>
+				</div>
+				<div class="arlo_tm_arrow_wrap bounce anchor">
+					<a href="#about"><i class="xcon-angle-double-down"></i></a>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- ABOUT -->
+	<div class="arlo_tm_section relative" id="about">
+		<div class="arlo_tm_about_wrapper_all">
+			<div class="container">
+				<div class="arlo_tm_title_holder">
+					<h3>Biz barada</h3>
+					<span>Gysgaça maglumat</span>
+				</div>
+				<div class="arlo_tm_about_wrap">
+					<div class="author_wrap">
+						<div class="leftbox">
+							<div class="about_image_wrap parallax" data-relative-input="true">
+								<div class="image layer" data-depth="0.1">
+									<img loading="lazy" src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/about/1.jpg') }}" alt="Lomay Sowda" />
+									<div class="inner" data-img-url="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/about/1.jpg') }}"></div>
+								</div>
+								<div class="border layer" data-depth="0.2">
+									<img loading="lazy" src="{{ url_for('static', filename='commerce/landing_pages/ls.com/img/about/1.jpg') }}" alt="Lomay Sowda" />
+									<div class="inner"></div>
 								</div>
 							</div>
 						</div>
+						<div class="rightbox">
+							<div class="arlo_tm_mini_title_holder">
+								<h4>Lomaý söwda....... <span class="arlo_tm_animation_text_word"></span></h4>
+							</div>
+							<div class="definition">
+								<p>2011-nji ýylyň iýul aýynyň 26-na lomaý we bölekleýin Aluw we Satuw işlerine başladyk.
+									2015-nji ýylyň awgust aýynyň 28-ne Türkmenistanyň senagatçylar 
+									we telekeçiler birleşmesine agza bolup, ol ýerde agza bolan başgada 
+									bir naçe türkmen täjirleri bilen tejribeleri-pikirleri paýlaşyp, 
+									TÜRKMENISTANDA ÖNDÜRILÝÄN harytlary-hyzmatlary Öndürijiden-SARPEDIJÄ amatly 
+									bahadan, durnukly ýagdaýda, ygtybarly edip ýetirmegi maksat 
+									edindik. Ýagny ýurdumyzyň çägindäki dürli welaýatlardaky dürli önümleri 
+									öndürýän zawodlardan harytlaryny dillerçilikli-lomaý bahadan satyn alyp 
+									olary ýurdumyzyň çägindäki dükanlara eltip berýäris.</p>
+							</div>
+							<div class="about_short_contact_wrap">
+								<ul>
+									<li>
+										<span><label>Biziň salgymyz:</label> Aşgabat şäheri Parahat 7/4, 18</span>
+									</li>
+									<li></li>
+									<li>
+										<span><label>Tel:</label>+993 61 70 33 39</span>
+									</li>
+									<li></li>
+									<li>
+										<span><label>Tel:</label>+993 65 71 52 81</span>
+									</li>
+									<li></li>
+									<li>
+										<span><label>E-mail:</label>gucevTimur@yandex.ua</span>
+									</li>
+									<li>
+										<span><label>Skype:</label>live:timur.gusew2016</span>
+									</li>
+								</ul>
+							</div>
+						</div>
 					</div>
-				</main>
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
+<!-- /ABOUT -->
 
 {% endblock %}
