@@ -6680,9 +6680,6 @@ button.menu-toggle {
 @media (min-width: 1200px) and (max-width: 1399px) {
   .top-bar {
     font-size: .8em; } }
-  @media (max-width: 1024px) {
-    .top-bar {
-      display: none; } }
   .top-bar .col-full, .top-bar .section-top-categories.section-categories-carousel.section-categories-carousel-v1, .top-bar .section-product-cards-carousel-tabs .section-products-carousel-tabs-wrap, .section-product-cards-carousel-tabs .top-bar .section-products-carousel-tabs-wrap {
     display: flex;
     justify-content: center; }
@@ -6702,7 +6699,9 @@ button.menu-toggle {
       .top-bar .nav {
         flex-direction: column;
         align-items: center;
-        text-align: center; }
+        display: inline-block;
+        text-align: center; 
+      }
         .top-bar .nav + .nav {
           padding-top: 20px;
           width: 100%; } }
@@ -6740,10 +6739,35 @@ button.menu-toggle {
       line-height: 2.74em; }
       @media (max-width: 767px) {
         .top-bar .nav > li {
-          padding-bottom: 20px; } }
+          padding-bottom: 20px;
+        display:inline-block } }
       .top-bar .nav > li > a {
         display: flex;
         align-items: center; }
+@media (max-width: 768px){
+  .top-bar .nav-item + .nav-item .nav-link::before, .top-bar .nav-item + .nav-item > a::before, .top-bar .nav > .menu-item + .menu-item .nav-link::before, .top-bar .nav > .menu-item + .menu-item > a::before {
+    content: '|';
+    color: #dedede;
+    display: inline-block;
+    margin: 0 1.133em;
+  }
+}
+@media (max-width: 520px){
+  .top-bar .nav-item + .nav-item .nav-link::before, .top-bar .nav-item + .nav-item > a::before, .top-bar .nav > .menu-item + .menu-item .nav-link::before, .top-bar .nav > .menu-item + .menu-item > a::before {
+    content: '|';
+    color: #dedede;
+    display: inline-block;
+    margin: 0 0.533em;
+  }
+}
+@media (max-width: 436px){
+  .top-bar .nav-item + .nav-item .nav-link::before, .top-bar .nav-item + .nav-item > a::before, .top-bar .nav > .menu-item + .menu-item .nav-link::before, .top-bar .nav > .menu-item + .menu-item > a::before {
+    content: '|';
+    color: #dedede;
+    display: inline-block;
+    margin: 0 0.133em;
+  }
+}
         @media (max-width: 767px) {
           .top-bar .nav > li > a {
             line-height: 1.4; } }
@@ -29250,3 +29274,4 @@ height: 100%;
 	height: 100%;
 	z-index: 2;
 }
+@media screen
