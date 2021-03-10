@@ -104,7 +104,7 @@
 									{% endif %}
 									<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
 										<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/bee/images/no_photo.svg') }}"
-										alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
+										alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }} {{ company.CName }}">
 									</a>
 								</div>
 

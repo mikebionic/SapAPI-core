@@ -46,7 +46,7 @@
 						<ul class="slider-container__tab-list">
 							{% for category in Featured_categories %}
 								<li class="slider-container__tab-item button type2 featrued-cat-btn" data-tab=".tab-{{ category.ResCatId }}">
-									<img loading="lazy"
+									<img loading="lazy" class="cat-icon"
 									src="{{ category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static',filename='commerce/ls/img/icons/category.svg') }}">
 									{{ category.ResCatName }}
 								</li>

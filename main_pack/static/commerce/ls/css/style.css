@@ -27825,3 +27825,8 @@ button:hover{
 width: 100%;
 height: 100%;
 }
+
+.cat-icon {
+  filter: sepia(1) saturate(150) brightness(27%) hue-rotate(241deg);
+}
+
