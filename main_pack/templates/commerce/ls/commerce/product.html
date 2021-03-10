@@ -2,14 +2,13 @@
 
 {% block content %}
 
-
 <div class="pd-wrap">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6">
 				<div id="slider" class="owl-carousel product-slider">
 					<div class="item">
-						<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/bee/images/no_photo.svg') }}" 
+						<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/bee/images/no_photo.svg') }}"
 							alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }} {{company.CName}}">
 					</div>
 				</div>
@@ -25,13 +24,14 @@
 							<span>{{ resource.CurrencyCode }}</span>
 						</div>
 					</div>
-					<p>{{ resource.ResDesc if resource.ResDesc else '' }}</p>
-					<div class="product-count display-flex">
+					<p class="descriptionText">{{ resource.ResDesc if resource.ResDesc else '' }}</p>
+
+					<!-- <div class="product-count display-flex">
 						<div class="qtyminus">-</div>
 						<input type="text" name="quantity" value="1" class="qty">
 						<div class="qtyplus">+</div>
 					</div>
-					<a href="#" class="round-black-btn">{{_('Add to cart')}}</a>
+					<a href="#" class="round-black-btn">{{_('Add to cart')}}</a> -->
 
 				</div>
 			</div>
@@ -43,19 +43,19 @@
 					{{_('Description')}}
 				</a>
 			</li>
-			<li class="nav-item">
+			<!-- <li class="nav-item">
 				<a class="nav-link" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review" aria-selected="false">
 					{{_('Customers reviews')}}
 				</a>
-			</li>
+			</li> -->
 		</ul>
 		<div class="tab-content" id="myTabContent">
 
-			<div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+			<div class="tab-pane fade show active descriptionText" id="description" role="tabpanel" aria-labelledby="description-tab">
 				{{ resource.ResFullDesc if resource.ResFullDesc else _('No description provided for this product') }}
 			</div>
 
-			<div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
+			<!-- <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
 				<div class="review-heading">{{_('Customers reviews')}}</div>
 				{% if current_user.is_authenticated %}
 					<form class="review-form">
@@ -86,11 +86,11 @@
 					<div class="col-lg-12 col-12 mb-40 d-flex">
 						<div class="y_login">
 							<h4>{{_('You should login to add a review')}}</h4>
-							<a href="{{ url_for('commerce_auth.login') }}"><button class="round-black-btn">{{_('Login')}}</button></a>	
+							<a href="{{ url_for('commerce_auth.login') }}"><button class="round-black-btn">{{_('Login')}}</button></a>
 						</div>
 					</div>
 				{% endif %}
-			</div>
+			</div> -->
 
 		</div>
 	</div>
