@@ -26,15 +26,13 @@
 						</div>
 					</div>
 					<p>{{ resource.ResDesc if resource.ResDesc else '' }}</p>
-					<div class="product-count">
-						<label for="size">{{_('Quantity')}}</label>
-						<form action="#" class="display-flex">
+					<div class="product-count display-flex">
 						<div class="qtyminus">-</div>
 						<input type="text" name="quantity" value="1" class="qty">
 						<div class="qtyplus">+</div>
-				</form>
-				<a href="#" class="round-black-btn">{{_('Add to cart')}}</a>
 					</div>
+					<a href="#" class="round-black-btn">{{_('Add to cart')}}</a>
+
 				</div>
 			</div>
 		</div>

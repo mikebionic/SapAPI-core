@@ -27442,24 +27442,27 @@ button:hover{
 	box-shadow: none;
 }
 .product-count {
-	margin-top: 15px; 
+  margin-top: 15px;
+  transition: all 0.2s ease-in-out 0s;
 }
 .product-count .qtyminus,
 .product-count .qtyplus {
-	width: 34px;
-    height: 34px;
-    background: #283d86;
-    text-align: center;
-    font-size: 19px;
-    line-height: 36px;
-    color: #fff;
-    cursor: pointer;
+  width: 34px;
+  border: solid 2px #283d86;
+  height: 34px;
+  background: #283d86;
+  text-align: center;
+  font-size: 19px;
+  line-height: 36px;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out 0s;
 }
 .product-count .qtyminus {
-	border-radius: 3px 0 0 3px; 
+  border-radius: 3px 0 0 3px;
 }
 .product-count .qtyplus {
-	border-radius: 0 3px 3px 0; 
+  border-radius: 0 3px 3px 0;
 }
 .product-count .qty {
 	width: 60px;
@@ -27469,18 +27472,18 @@ button:hover{
 	border-radius: 4px;
     background: #283d86;
     color: #fff;
-    padding: 7px 45px;
+    padding: 4px 21px;
     display: inline-block;
     margin-top: 20px;
-    border: solid 2px #283d86; 
-    transition: all 0.5s ease-in-out 0s;
+    border: solid 2px #283d86;
+    transition: all 0.2s ease-in-out 0s;
 }
-.round-black-btn:hover,
+/* .round-black-btn:hover, .qtyminus:hover, .qtyplus:hover,
 .round-black-btn:focus {
 	background: transparent;
 	color: #283d86;
 	text-decoration: none;
-}
+} */
 
 .product-info-tabs {
 	margin-top: 25px; 
@@ -27534,15 +27537,19 @@ button:hover{
 }
 .review-form input.form-control {
 	height: 40px;
-}
+}round-black-btn
 .review-form textarea.form-control {
 	resize: none;
 }
 .review-form .round-black-btn {
 	text-transform: uppercase;
-	cursor: pointer;
+  cursor: pointer;
+  color: #fff;
 }
 
+.round-black-btn:hover {
+  color: #fff;
+}
 
 /* v-grid */
 /* Checkbox css */

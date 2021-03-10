@@ -1148,3 +1148,17 @@ particlesJS('particles-js',
 
 );
 	
+$('body').delegate('.applySortingBtn','click',function(){
+	var url = location.pathname;
+	var per_page = $('.per_page option:selected').val();
+	var sorting = $('.sorting option:selected').val();
+	var category =  $('.category_sort').val();
+	var brand =  $('.brand_sort').val();
+	var search =  $('.search_sort').val();
+	url = url+"?per_page="+per_page+"&sort="+sorting;
+	if (category > ""){ url += "&category="+category; }
+	if (brand > ""){ url += "&brand="+brand; }
+	if (search > ""){ url += "&search="+search; }
+	window.location.href = url;
+})
+
