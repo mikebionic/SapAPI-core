@@ -4,7 +4,7 @@
 <div id="content" class="site-content">
 	<div class="col-full">
 		<div class="row">
-			<div id="primary" class="content-area">
+			<div id="primary" class="content-area" style="margin: 0 auto;">
 				<main id="main" class="site-main">
 					<div class="type-page hentry">
 						<header class="entry-header">
@@ -70,21 +70,23 @@
 															{{form.Phone(class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required input-text", size="40")}}
 														</span>
 													</div>
-
-													<div class="form-group">
-														<label>
-															{{_('Message')}}
-														</label>
-														<br>
-														<span class="wpcf7-form-control-wrap last-name">
-															{{form.Message(class="wpcf7-form-control wpcf7-textarea", rows="10", cols="40")}}
-														</span>
+													<div class="col-xs-12 col-md-12">
+														<div class="form-group">
+															<label>
+																{{_('Message')}}
+															</label>
+															<br>
+															<span class="wpcf7-form-control-wrap last-name">
+																{{form.Message(class="wpcf7-form-control wpcf7-textarea", rows="10", cols="40")}}
+															</span>
+														</div>
 													</div>
-
-													<div class="form-group clearfix">
-														<p>
-															<input type="submit" value="{{_('Send')}}" class="wpcf7-form-control wpcf7-submit" />
-														</p>
+													<div class="col-xs-12 col-md-12">
+														<div class="form-group clearfix">
+															<p>
+																<input type="submit" value="{{_('Send')}}" class="wpcf7-form-control wpcf7-submit" />
+															</p>
+														</div>
 													</div>
 												</div>
 											</form>
@@ -100,40 +102,48 @@
 										<h2 class="contact-page-title">{{company.CName}}</h2>
 										<p>{{company.CFullName if company.CFullName else ''}}</p>
 										<p>{{company.CDesc if company.CDesc else ''}}</p>
-									
-										{% if company.CAddress %}
-											<h3>{{_('Address')}}</h3>
-											<p>{{company.CAddress}}</p>
-										{% endif %}
-
-
-										{% if company.CEmail %}
-											<h3>{{_('Email')}}</h3>
-											<a href="mailto:{{company.CEmail}}">{{company.CEmail}}</a>
-										{% endif %}
-
-										{% if company.WebAddress %}
-											<h3>{{_('Web address')}}</h3>
-											<p>{{company.WebAddress}}</p>
-										{% endif %}
-
+											{% if company.CAddress %}
+											<div class="cont_info">
+												<h3>{{_('Address')}}</h3>
+												<p>{{company.CAddress}}</p>
+											</div>
+											{% endif %}
+											{% if company.CEmail %}
+											<div class="cont_info">
+												<h3>{{_('Email')}}</h3>
+												<a href="mailto:{{company.CEmail}}">{{company.CEmail}}</a>
+											</div>
+											{% endif %}	
+											{% if company.WebAddress %}
+											<div class="cont_info">
+												<h3>{{_('Web address')}}</h3>
+												<p>{{company.WebAddress}}</p>
+											</div>
+											{% endif %}
 										{% if company.CPostalCode %}
+										<div class="cont_info">
 											<h3>{{_('Postal code')}}</h3>
 											<p>{{company.CPostalCode}}</p>
+										</div>
 										{% endif %}
 
 										{% if company.AddInf1 %}
+										<div class="cont_info">
 											<h3>{{_('Working time')}}</h3>
 											<p>{{company.AddInf1}}</p>
+										</div>
 										{% endif %}
 
 										{% if company.Phone1 or company.Phone2 or company.Phone3 or company.Phone4 %}
+										<div class="cont_info">
 											<h3>{{_('Phone')}}</h3>
 											{% if company.Phone1 %}<p>{{company.Phone1}}</p>{% endif %}
 											{% if company.Phone2 %}<p>{{company.Phone2}}</p>{% endif %}
 											{% if company.Phone3 %}<p>{{company.Phone3}}</p>{% endif %}
 											{% if company.Phone4 %}<p>{{company.Phone4}}</p>{% endif %}
+										</div>
 										{% endif %}
+										
 
 									</div>
 								</div>
