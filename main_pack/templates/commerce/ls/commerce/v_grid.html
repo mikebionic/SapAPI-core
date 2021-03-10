@@ -65,7 +65,9 @@
 						<div class="textContent">
 							<h3>{{ resource.ResName }}</h3>
 						</div>
-						<button>{{_('Add to cart')}}</button>
+						<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}">
+							<button>{{_('View')}}</button>
+						</a>
 					</div>
 
 					<div class="description">
@@ -73,7 +75,7 @@
 								<span class="icon"><i class="fa fa-fw fa-info"></i></span>
 						</div>
 						<div class="contents">
-							<p>{{ resource.ResDesc }}</p>
+							<p class="descriptionText">{{ resource.ResDesc }}</p>
 						</div>
 					</div>
 

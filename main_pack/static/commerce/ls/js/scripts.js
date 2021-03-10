@@ -990,38 +990,6 @@ li_links.forEach(function(link){
 	})
 })
 
-// Mike's js
-
-var categoryMenu = $('.departments-menu-dropdown');
-function slideCategoryByPathname() {
-	var pathnames = ['/commerce','/commerce/','/commerce/commerce','/commerce/commerce/','/main','/commerce/main','/main/','/commerce/main/','/','/index']
-	var current_path = location.pathname;
-	var stateDropped = false
-	pathnames.forEach(function (item, index) {
-		if (item == current_path){
-			stateDropped = true
-		}
-	});
-	if (stateDropped == false){
-		categoryMenu.css({'visibility': 'hidden'});
-	}
-}
-
-
-function categoryMenuToggle() {
-	var screenSize = $(window).width();
-	if (screenSize <= 991) {
-		categoryMenu.slideUp();
-	}
-	else{
-		slideCategoryByPathname();
-	}
-}
-
-// slideCategoryByPathname()
-// categoryMenuToggle();
-// $(window).resize(categoryMenuToggle);
-
 $('.nice-select').niceSelect()
 
 try {
@@ -1469,6 +1437,41 @@ try {
 
 } catch {}
 
+
+
+
+//////// Mike's js
+
+var categoryMenu = $('.departments-menu-dropdown');
+function slideCategoryByPathname() {
+	var pathnames = ['/commerce','/commerce/','/commerce/commerce','/commerce/commerce/','/main','/commerce/main','/main/','/commerce/main/','/','/index']
+	var current_path = location.pathname;
+	var stateDropped = false
+	pathnames.forEach(function (item, index) {
+		if (item == current_path){
+			stateDropped = true
+		}
+	});
+	if (stateDropped == false){
+		categoryMenu.css({'visibility': 'hidden'});
+	}
+}
+
+
+function categoryMenuToggle() {
+	var screenSize = $(window).width();
+	if (screenSize <= 991) {
+		categoryMenu.slideUp();
+	}
+	else{
+		slideCategoryByPathname();
+	}
+}
+
+// slideCategoryByPathname()
+// categoryMenuToggle();
+// $(window).resize(categoryMenuToggle);
+
 $('body').delegate('.applySortingBtn','click',function(){
 	var url = location.pathname;
 	var per_page = $('.per_page option:selected').val();
@@ -1483,3 +1486,8 @@ $('body').delegate('.applySortingBtn','click',function(){
 	window.location.href = url;
 })
 
+$('.descriptionText').each(function(){
+	$(this).html($(this).text()); 
+});
+
+/////////////
