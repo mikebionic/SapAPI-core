@@ -1,0 +1,36 @@
+{% for resource in data %}
+  <tr class="cartTableObject{{resource.ResId}}">
+    <td class="pro-thumbnail">
+      <a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
+        <img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/bee/images/no_photo.svg') }}" 
+        alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
+      </a>
+    </td>
+    <td class="pro-title">
+      <a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="resName">{{ resource.ResName if resource.ResName else '' }}</a>
+    </td>
+    <td class="pro-price">
+      <div class="t_price">
+        <span class="priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue }}</span>
+        <span class="price currencySymbol">{{ resource.CurrencyCode }} </span>
+      </div>
+    </td>
+    <td class="pro-quantity">
+      <div class="pro-qty cartItemQty">
+
+        <span class="dec qtybtn">-</span>
+        <input class="cartItemQty productQty" ownerId="{{ resource.ResId }}" type="text" value="{{resource.productQty}}">
+        <span class="inc qtybtn">+</span>
+      </div>
+    </td>
+    <td class="pro-subtotal">
+      <div class="t_price">
+        <span class="productTotalPrice" ownerId="{{resource.ResId}}" value="{{resource.productTotal}}">{{ resource.productTotal }}</span>
+        <span class="price currencySymbol">{{ resource.CurrencyCode }} </span>
+      </div>
+    </td>
+    <td class="pro-remove">
+      <a href="#" class="removeFromCart" ownerId="{{resource.ResId}}"><i class="fa fa-trash-o"></i></a>
+    </td>
+  </tr>
+{% endfor %}

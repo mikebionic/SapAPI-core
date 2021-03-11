@@ -2922,13 +2922,13 @@ select {
   @media (min-width: 1700px) {
     #content #primary {
       flex: 0 0 83.3333333333%;
-      max-width: 83.3333333333%;
+      /* max-width: 83.3333333333%; */
       order: 2; } }
 
 @media (min-width: 1200px) and (max-width: 1699px) {
   #content #primary {
     flex: 0 0 78.3333333333%;
-    max-width: 78.3333333333%;
+    /* max-width: 78.3333333333%; */
     order: 2; } }
 
 #content #secondary {
@@ -2989,7 +2989,8 @@ select {
   .left-sidebar #content #primary,
   .right-sidebar #content #primary {
     flex: 0 0 70.8333333333%;
-    max-width: 70.8333333333%; } }
+    max-width: 70.8333333333%;
+   } }
 
 @media (min-width: 1200px) and (max-width: 1589px) {
   .left-sidebar #content #secondary,
@@ -17491,7 +17492,8 @@ form.woocommerce-checkout.checkout .col2-set .woocommerce-shipping-fields .wooco
   .page-template-template-homepage-v5 #content #primary,
   .page-template-template-homepage-v6 #content #primary {
     flex: 0 0 78.3333333333%;
-    max-width: 78.3333333333%; }
+    /* max-width: 78.3333333333%;  */
+  }
   .page-template-template-homepage-v5 #content #secondary,
   .page-template-template-homepage-v6 #content #secondary {
     flex: 0 0 21.6666666667%;
@@ -21246,10 +21248,8 @@ table.cart {
   padding: 1.250em;
   background-color: #f9f9f9;
   border-radius: 3px; }
-  @media (min-width: 992px) {
-    .cart-collaterals .cart_totals {
-      padding: 2.5em; } }
-  .cart-collaterals .cart_totals > h2 {
+
+  .cart-collaterals .cart_totals > h3 {
     font-size: 1.5em;
     line-height: 1.5em;
     font-weight: 500;
@@ -29307,5 +29307,177 @@ height: 100%;
 
 .sticky-wrapper .techmarket-sticky-wrap.stuck .departments-menu nav > .dropdown-menu {
   height: 100vh; }
-
 }
+
+
+/* -------- Cart page css --------- */
+/*-- Contact Form --*/
+.contact-form label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 16px;
+  margin-bottom: 17px; }
+
+.contact-form input {
+  width: 100%;
+  border: 1px solid #999999;
+  line-height: 23px;
+  padding: 10px 20px;
+  border-radius: 50px;
+  background-color: transparent; }
+  .contact-form input[type="submit"] {
+    width: auto;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 10px 30px;
+    background-color: transparent; }
+    .contact-form input[type="submit"]:hover {
+      background-color: #202020;
+      border-color: #202020;
+      color: #f5d730; }
+
+.contact-form textarea {
+  width: 100%;
+  border: 1px solid #999999;
+  line-height: 23px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  height: 120px;
+  resize: none;
+  background-color: transparent; }
+
+
+/*---------------------------------------
+    11. Cart
+-----------------------------------------*/
+/*-- Cart Table --*/
+.cart-table .table {
+  border-bottom: 8px solid #f9f9f9;
+  margin: 0; }
+  @media only screen and (max-width: 767px) {
+    .cart-table .table {
+      border-top: 8px solid #f9f9f9; } }
+  .cart-table .table thead {
+    background-color: #f9f9f9;
+  }
+    @media only screen and (max-width: 767px) {
+      .cart-table .table thead {
+        display: none; } }
+    .cart-table .table thead tr th {
+      text-align: center;
+      border: none;
+      font-size: 16px;
+      text-transform: uppercase;
+      font-weight: 300;
+      color: #202020;
+      padding: 12px 20px;
+    }
+  .cart-table .table tbody tr td {
+    text-align: center;
+    border: none;
+    padding: 25px 20px;
+    vertical-align: middle;
+    border-bottom: 1px solid #f9f9f9; }
+    @media only screen and (max-width: 767px) {
+      .cart-table .table tbody tr td {
+        display: block;
+        width: 100%;
+        max-width: none;
+        padding: 15px;
+        text-align: center; } }
+
+.cart-table th.pro-thumbnail, .cart-table td.pro-thumbnail {
+  max-width: 160px;
+  min-width: 120px;
+  width: 160px; }
+  @media only screen and (max-width: 767px) {
+    .cart-table th.pro-thumbnail a, .cart-table td.pro-thumbnail a {
+      width: 160px; } }
+
+.cart-table th.pro-title, .cart-table td.pro-title {
+  min-width: 200px; }
+
+.cart-table td.pro-thumbnail a {
+  /* display: block; */
+ }
+  .cart-table td.pro-thumbnail a img {
+    max-width: 100%;
+    max-height: 100%;
+    background-color: #f9f9f9; }
+
+.cart-table td.pro-title a {
+  font-size: 16px;
+  font-weight: 600;
+  color: #444444; }
+
+.cart-table td.pro-price span {
+  /* display: block; */
+  font-size: 15px;
+  font-weight: 600;
+  color: #444444; }
+
+.cart-table td.pro-quantity .pro-qty {
+  width: 91px;
+  height: 35px;
+  border: 1px solid #999999;
+  border-radius: 50px;
+  padding: 0 15px;
+  display: block;
+  margin: auto; }
+  .cart-table td.pro-quantity .pro-qty .qtybtn {
+    width: 15px;
+    display: block;
+    float: left;
+    line-height: 31px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 700;
+    color: #444444; }
+  .cart-table td.pro-quantity .pro-qty input {
+    width: 28px;
+    float: left;
+    border: none;
+    height: 33px;
+    line-height: 33px;
+    padding: 0;
+    text-align: center;
+    background-color: transparent; }
+  @media only screen and (max-width: 767px) {
+    .cart-table td.pro-quantity .pro-qty {
+      /* margin-left: 32%;  */
+    } }
+
+.cart-table td.pro-subtotal span {
+  /* display: block; */
+  font-size: 15px;
+  font-weight: 600;
+  color: #444444; }
+
+.cart-table td.pro-addtocart button {
+  width: 140px;
+  border-radius: 50px;
+  height: 36px;
+  border: 1px solid #f5d730;
+  line-height: 24px;
+  padding: 5px 20px;
+  font-weight: 700;
+  text-transform: capitalize;
+  color: #202020;
+  background-color: #f5d730; }
+
+.cart-table td.pro-remove a {
+  display: block;
+  font-weight: 600;
+  color: #444444; }
+  .cart-table td.pro-remove a i {
+    font-size: 15px; }
+  .cart-table td.pro-remove a:hover {
+    color: #ff0000; }
+  @media only screen and (max-width: 767px) {
+    .cart-table td.pro-remove a {
+      /* width: 60px; */
+      text-align: center; } }
+/* -------- Cart page css --------- */

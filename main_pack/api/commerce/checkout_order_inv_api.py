@@ -77,7 +77,7 @@ def api_checkout_sale_order_invoices(user):
 			user = Users.query\
 				.filter_by(GCRecord = None, RpAccId = RpAccId)\
 				.first()
-	
+
 	ResPriceGroupId = Config.DEFAULT_RES_PRICE_GROUP_ID if Config.DEFAULT_RES_PRICE_GROUP_ID > 0 else None
 	if current_user:
 		if (model_type != "device"):
@@ -162,9 +162,9 @@ def api_checkout_sale_order_invoices(user):
 					.filter_by(GCRecord = None, ResId = ResId)\
 					.options(joinedload(Resource.Res_price))\
 					.first()
-				
+
 				if not resource:
-					# type deleted or none 
+					# type deleted or none
 					error_type = 1
 					raise Exception
 
@@ -199,7 +199,7 @@ def api_checkout_sale_order_invoices(user):
 					# resource unavailable or inactive
 					error_type = 2
 					raise Exception
-				
+
 				if totalSubstitutionResult["status"] == 0:
 					# resource is empty or bad request with amount = -1
 					error_type = 3
@@ -218,7 +218,7 @@ def api_checkout_sale_order_invoices(user):
 
 				# add taxes and stuff later on
 				OInvLineFTotal = OInvLineTotal
-				
+
 				###### inv line assignment ######
 				order_inv_line["OInvLineAmount"] = decimal.Decimal(OInvLineAmount)
 				order_inv_line["OInvLinePrice"] = decimal.Decimal(OInvLinePrice)
@@ -227,7 +227,7 @@ def api_checkout_sale_order_invoices(user):
 				order_inv_line["OInvId"] = newOrderInv.OInvId
 				order_inv_line["UnitId"] = resource.UnitId
 				order_inv_line["CurrencyId"] = price_data["CurrencyId"]
-				
+
 				# increment of Main Order Inv Total Price
 				OInvTotal += OInvLineFTotal
 				thisOInvLine = Order_inv_line(**order_inv_line)
@@ -260,7 +260,7 @@ def api_checkout_sale_order_invoices(user):
 			status_code = 400
 			for e in status:
 				res[e] = status[e]
-		
+
 		else:
 			OInvFTotal = OInvTotal
 			OInvFTotalInWrite = price2text(
@@ -284,11 +284,12 @@ def api_checkout_sale_order_invoices(user):
 				"successes": order_inv_lines,
 				"fails": failed_order_inv_lines,
 				"success_total": len(order_inv_lines),
-				"fail_total": len(failed_order_inv_lines),
+				"fail_total": len(failed_order_inv_lines) or 0,
 				"total": len(OrderInvLines)
 			}
 
-			status_code = 201 if len(data) > 0 else 200
+			# status_code = 201 if len(order_invoice) > 0 else 200
+			status_code = 200
 			for e in status:
 				res[e] = status[e]
 
@@ -316,7 +317,7 @@ def validate_order_inv_payment(user):
 		req = request.get_json()
 		OInvRegNo = req["OInvRegNo"]
 		OrderId = req["OrderId"]
-		
+
 		status = 0
 		message = ''
 		data = {}
@@ -355,12 +356,12 @@ def validate_order_inv_payment(user):
 
 							message = f"Payment Validation: failed (OrderStatus = {response_json[Config.PAYMENT_VALIDATION_KEY]})"
 							print(f"{datetime.now()} | {message}")
-						
+
 						order_inv.PaymCode = str(response_json)
 						db.session.commit()
 						data = response_json
 						status = 1
-					
+
 					except Exception as ex:
 						message = "Payment Validation: failed (Connection error)"
 						print(f"{datetime.now()} | Payment Validation Exception: {ex}")
@@ -376,7 +377,7 @@ def validate_order_inv_payment(user):
 			else:
 				message = "Payment Validation: failed (Order_inv is None)"
 				print(f"{datetime.now()} | {message}")
-				
+
 		else:
 			message = "Payment Validation: failed (OrderId is None)"
 			print(f"{datetime.now()} | {message}")

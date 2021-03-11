@@ -3,206 +3,95 @@
 {% block content %}
 <div id="content" class="site-content">
 	<div class="col-full">
-		<div class="row">
+		<div>
 			<div id="primary" class="content-area">
 				<main id="main" class="site-main">
 					<div class="type-page hentry">
 						<div class="entry-content">
 							<div class="woocommerce">
-								<div class="cart-wrapper">
-									<form method="post" action="#" class="woocommerce-cart-form">
-										<table class="shop_table shop_table_responsive cart">
-											<thead>
-												<tr>
-													<th class="product-thumbnail">{{_('Image')}}</th>
-													<th class="product-name">{{_('Product')}}</th>
-													<th class="product-price">{{_('Price')}}</th>
-													<th class="product-quantity">{{_('Quantity')}}</th>
-													<th class="product-subtotal">{{_('Total')}}</th>
-													<th class="product-remove">{{_('Remove')}}</th>
 
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td class="product-thumbnail">
-														<a href="single-product-fullwidth.html">
-															<img width="180" height="180" alt="" class="wp-post-image" src="single-product-fullwidth.html">
-														</a>
-													</td>
-													<td data-title="Product" class="product-name">
-														<div class="media cart-item-product-detail">
-															<a href="single-product-fullwidth.html">
-																<img width="180" height="180" alt="" class="wp-post-image" src="img/products/cart-1.jpg">
-															</a>
-															<div class="media-body align-self-center">
-																<a href="single-product-fullwidth.html">55" KU6470 6 Series UHD  Crystal Colour HDR Smart TV</a>
-															</div>
-														</div>
-													</td>
-													<td data-title="Price" class="product-price">
-														<span class="woocommerce-Price-amount amount">
-															<span class="woocommerce-Price-currencySymbol">£</span>627.99
-														</span>
-													</td>
-													<td class="product-quantity" data-title="Quantity">
-														<div class="quantity">
-															<label for="quantity-input-1">Quantity</label>
-															<input id="quantity-input-1" type="number" name="cart[e2230b853516e7b05d79744fbd4c9c13][qty]" value="1" title="Qty" class="input-text qty text" size="4">
-														</div>
-													</td>
-													<td data-title="Total" class="product-subtotal">
-														<span class="woocommerce-Price-amount amount">
-															<span class="woocommerce-Price-currencySymbol">£</span>627.99
-														</span>
-														<a title="Remove this item" class="remove" href="#">×</a>
-													</td>
+									<div class="row">
 
-													<td class="product-remove">
-														<a class="remove" href="#">×</a>
-													</td>
+										<div class="col-9" style="max-width: 100%;">
 
-												</tr>
 
-											</tbody>
-										</table>
-										<!-- .shop_table shop_table_responsive -->
-									</form>
-									<!-- .woocommerce-cart-form -->
-									<div class="cart-collaterals">
-										<div class="cart_totals">
-											<h2>Cart totals</h2>
-											<table class="shop_table shop_table_responsive">
-												<tbody>
-													<tr class="cart-subtotal">
-														<th>Subtotal</th>
-														<td data-title="Subtotal">
-															<span class="woocommerce-Price-amount amount">
-																<span class="woocommerce-Price-currencySymbol">£</span>963.94</span>
-														</td>
-													</tr>
-													<tr class="shipping">
-														<th>Shipping</th>
-														<td data-title="Shipping">Flat rate</td>
-													</tr>
-													<tr class="order-total">
-														<th>Total</th>
-														<td data-title="Total">
-															<strong>
-																<span class="woocommerce-Price-amount amount">
-																	<span class="woocommerce-Price-currencySymbol">£</span>963.94</span>
-															</strong>
-														</td>
-													</tr>
-												</tbody>
-											</table>
-											<!-- .shop_table shop_table_responsive -->
-											<div class="wc-proceed-to-checkout">
-												<form class="woocommerce-shipping-calculator" method="post" action="#">
-													<p>
-														<a class="shipping-calculator-button" data-toggle="collapse" href="#shipping-form" aria-expanded="false" aria-controls="shipping-form">Calculate shipping</a>
-													</p>
-													<div class="collapse" id="shipping-form">
-														<div class="shipping-calculator-form">
-															<p id="calc_shipping_country_field" class="form-row form-row-wide">
-																<select rel="calc_shipping_state" class="country_to_state" id="calc_shipping_country" name="calc_shipping_country">
-																	<option value="">Select a country…</option>
-																	<option value="AX">Åland Islands</option>
-																	<option value="AF">Afghanistan</option>
-																	<option value="AL">Albania</option>
-																	<option value="DZ">Algeria</option>
-																	<option value="AS">American Samoa</option>
-																	<option value="AD">Andorra</option>
-																	<option value="AO">Angola</option>
-																	<option value="AI">Anguilla</option>
-																	<option value="AQ">Antarctica</option>
-																	<option value="AG">Antigua and Barbuda</option>
-																	<option value="AR">Argentina</option>
-																	<option value="AM">Armenia</option>
-																	<option value="AW">Aruba</option>
-																	<option value="AU">Australia</option>
-																	<option value="AT">Austria</option>
-																	<option value="AZ">Azerbaijan</option>
-																</select>
-															</p>
-															<p id="calc_shipping_state_field" class="form-row form-row-wide validate-required">
-																<span>
-																	<select id="calc_shipping_state" name="calc_shipping_state">
-																		<option value="">Select an option…</option>
-																		<option value="AP">Andhra Pradesh</option>
-																		<option value="AR">Arunachal Pradesh</option>
-																		<option value="AS">Assam</option>
-																		<option value="BR">Bihar</option>
-																		<option value="CT">Chhattisgarh</option>
-																		<option value="GA">Goa</option>
-																		<option value="GJ">Gujarat</option>
-																		<option value="HR">Haryana</option>
-																		<option value="HP">Himachal Pradesh</option>
-																		<option value="JK">Jammu and Kashmir</option>
-																		<option value="JH">Jharkhand</option>
-																		<option value="KA">Karnataka</option>
-																		<option value="KL">Kerala</option>
-																		<option value="MP">Madhya Pradesh</option>
-																		<option value="MH">Maharashtra</option>
-																		<option value="MN">Manipur</option>
-																		<option value="ML">Meghalaya</option>
-																		<option value="MZ">Mizoram</option>
-																		<option value="NL">Nagaland</option>
-																		<option value="OR">Orissa</option>
-																		<option value="PB">Punjab</option>
-																		<option value="RJ">Rajasthan</option>
-																		<option value="SK">Sikkim</option>
-																		<option value="TN">Tamil Nadu</option>
-																		<option value="TS">Telangana</option>
-																		<option value="TR">Tripura</option>
-																		<option value="UK">Uttarakhand</option>
-																		<option value="UP">Uttar Pradesh</option>
-																		<option value="WB">West Bengal</option>
-																		<option value="AN">Andaman and Nicobar Islands</option>
-																		<option value="CH">Chandigarh</option>
-																		<option value="DN">Dadra and Nagar Haveli</option>
-																		<option value="DD">Daman and Diu</option>
-																		<option value="DL">Delhi</option>
-																		<option value="LD">Lakshadeep</option>
-																		<option value="PY">Pondicherry (Puducherry)</option>
-																	</select>
-																</span>
-															</p>
-															<p id="calc_shipping_postcode_field" class="form-row form-row-wide validate-required">
-																<input type="text" id="calc_shipping_postcode" name="calc_shipping_postcode" placeholder="Postcode / ZIP" value="" class="input-text">
-															</p>
-															<p>
-																<button class="button" value="1" name="calc_shipping" type="submit">Update totals</button>
-															</p>
-														</div>
-													</div>
-												</form>
-												<!-- .wc-proceed-to-checkout -->
-												<a class="checkout-button button alt wc-forward" href="checkout.html">
-Proceed to checkout</a>
-												<a class="back-to-shopping" href="shop.html">Back to Shopping</a>
-											</div>
-											<!-- .wc-proceed-to-checkout -->
+											<form action="#">
+												<div class="cart-table table-responsive mb-40">
+													<table class="table">
+														<thead>
+															<tr>
+																<th class="pro-thumbnail">{{_('Image')}}</th>
+																<th class="pro-title">{{_('Product')}}</th>
+																<th class="pro-price">{{_('Price')}}</th>
+																<th class="pro-quantity">{{_('Quantity')}}</th>
+																<th class="pro-subtotal">{{_('Total')}}</th>
+																<th class="pro-remove">{{_('Remove')}}</th>
+															</tr>
+														</thead>
+														<tbody class="cartItemsTable"></tbody>
+													</table>
+												</div>
+											</form>
 										</div>
-										<!-- .cart_totals -->
+
+
+										<div class="cart-collaterals">
+											<div class="cart_totals">
+												{% if current_user.is_authenticated %}
+												<h3>{{_('Summary')}}</h3>
+												<div class="contact-form">
+													<label for="message">{{_('Note')}}</label>
+													<textarea id="message" type="text" placeholder="{{_('Description')}} ({{_('City')}}, {{_('Av.')}}, {{_('Street')}}, {{_('House')}}, {{_('Flat')}})"></textarea>
+												</div>
+												<table class="shop_table shop_table_responsive">
+													<tbody>
+														<tr class="order-total">
+															<th>{{_('Total price')}}</th>
+															<td data-title="Total">
+																<strong>
+																	<span class="woocommerce-Price-amount amount cartTotalPrice">
+																		0.00
+																	</span>
+																	<span class="woocommerce-Price-currencySymbol currencySymbol">TMT</span>
+																</strong>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+												<a class="checkout-button button alt wc-forward checkoutCartBtn" href="checkout.html">
+													{{_('Checkout')}}
+												</a>
+
+											{% else %}
+												<h5 style="max-width: 12rem;">{{_('You should login if you want to checkout an order')}}!</h5>
+												<a class="checkout-button button alt wc-forward checkoutCartBtn" href="{{ url_for('commerce_auth.login') }}">
+													{{_('Login')}}
+												</a>
+											{% endif %}
+												<div class="wc-proceed-to-checkout">
+													<a class="back-to-shopping" href="{{ url_for('commerce.v_grid') }}">{{_('Products')}}</a>
+												</div>
+											</div>
+										</div>
+
 									</div>
-									<!-- .cart-collaterals -->
-								</div>
-								<!-- .cart-wrapper -->
+
+
+
+
+
+
+
+
+
+
 							</div>
-							<!-- .woocommerce -->
 						</div>
-						<!-- .entry-content -->
 					</div>
-					<!-- .hentry -->
 				</main>
-				<!-- #main -->
 			</div>
-			<!-- #primary -->
 		</div>
-		<!-- .row -->
 	</div>
-	<!-- .col-full -->
 </div>
 
 {% endblock %}
