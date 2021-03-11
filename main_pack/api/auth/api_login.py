@@ -85,7 +85,7 @@ def api_login_users():
 	if not user:
 		return make_response(*error_response)
 
-	if check_auth("user", auth.username, auth.password):
+	if check_auth("user", user, auth.password):
 		exp = datetime.now() + dt.timedelta(minutes = 30)
 		token = jwt.encode({"UId": user.UId, "exp": exp}, Config.SECRET_KEY)
 		userData = apiUsersData(dbQuery = user_query)
@@ -113,7 +113,7 @@ def api_login_rp_accs():
 	if not rp_acc:
 		return make_response(*error_response)
 
-	if check_auth("rp_acc", auth.username, auth.password):
+	if check_auth("rp_acc", rp_acc, auth.password):
 		exp = datetime.now() + dt.timedelta(minutes = 30)
 		token = jwt.encode({"RpAccId": rp_acc.RpAccId, "exp": exp}, Config.SECRET_KEY)
 		rpAccData = apiRpAccData(dbQuery = user_query)

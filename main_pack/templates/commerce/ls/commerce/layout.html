@@ -304,7 +304,7 @@
 											<ul id="menu-footer-menu-3" class="menu">
 												<li class="menu-item">
 													<a href="{{ url_for('commerce.v_grid') }}">
-														{{_('Commerce')}}
+														{{_('Products')}}
 													</a>
 												</li>
 												<li class="menu-item">
@@ -317,7 +317,7 @@
 														{{_('Contact')}}
 													</a>
 												</li>
-												{% if current_user.is_authenticated %}
+												<!-- {% if current_user.is_authenticated %}
 													<li class="menu-item animate-dropdown">
 														<a href="{{ url_for('commerce_users.profile') }}">
 															{{_('Profile')}}
@@ -333,7 +333,7 @@
 															{{_('Wishlist')}}
 														</a>
 													</li>
-												{% endif %}
+												{% endif %} -->
 											</ul>
 										</div>
 									</div>
