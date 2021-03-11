@@ -79,7 +79,7 @@ $(document).ready(function($) {
 					breakpoint: 1440,
 
 					settings: {
-							slidesToShow: 5,
+							slidesToShow: 6,
 					}
 			},
 			{

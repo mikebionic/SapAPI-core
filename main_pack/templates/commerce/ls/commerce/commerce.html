@@ -29,6 +29,8 @@
 									</div>
 							</main>
 						</div>
+						<div id="secondary" class="widget-area" role="complementary" style="height:0">
+						</div>
 					</div>
 				</div>
 			</div>
@@ -62,7 +64,7 @@
 
 											<div class="imgBox">
 												<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}">
-													<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/ls/img/icons/no_photo.svg') }}"
+													<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/ls/img/icons/no_axhoto.svg') }}"
 													alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
 												</a>
 											</div>
