@@ -1171,8 +1171,8 @@ class Res_category(CreatedModifiedInfo,db.Model):
 	def to_json_api(self):
 		json_data = {
 			"ResCatId": self.ResCatId,
-			"ResOwnerCatId": self.ResOwnerCatId,
-			"ResCatVisibleIndex": self.ResCatVisibleIndex,
+			"ResOwnerCatId": self.ResOwnerCatId or 0,
+			"ResCatVisibleIndex": self.ResCatVisibleIndex or 0,
 			"IsMain": self.IsMain,
 			"ResCatName": self.ResCatName,
 			"ResCatDesc": self.ResCatDesc,
