@@ -346,3 +346,10 @@ input[type="submit"].dokan-btn-theme:focus, a.dokan-btn-theme:focus, .dokan-btn-
 @media (max-width: 1023px) {
   .shop-control-bar {
     background-color: #fd6602; } }
+@media (max-width:800px){
+
+.header-v4 .departments-menu nav > .dropdown-menu > li,
+.header-v4 .departments-menu nav > .dropdown-menu .menu-item-has-children > .dropdown-menu {
+  border-color: transparent; }
+
+}
