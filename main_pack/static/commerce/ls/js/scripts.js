@@ -1491,3 +1491,43 @@ $('.descriptionText').each(function(){
 });
 
 /////////////
+
+// category
+
+$(document).ready(main);
+var condator = 1;
+
+function main () {
+	$('.dropdown-toggle').click(function(){
+		if (condator == 1){
+			$('nav').animate({
+				left: '0'
+			});
+			condator = 0;
+		} else{
+			condator = 1;
+			$('nav').animate({
+				left: '-100%'
+			});
+		}
+ 	});
+
+
+	$('.submenu').click(function(){
+		$(this).children('.children').slideToggle();
+	});
+}
+
+
+window.onscroll = function() {myFunction()};
+
+var navbar = document.getElementById("nav");
+var sticky = navbar.offsetTop;
+
+function myFunction() {
+  if (window.pageYOffset >= sticky) {
+    navbar.classList.add("sticky")
+  } else {
+    navbar.classList.remove("sticky");
+  }
+}
