@@ -1521,13 +1521,13 @@ function main () {
 
 window.onscroll = function() {myFunction()};
 
-var navbar = document.getElementById("nav");
+var navbar = $("nav");
 var sticky = navbar.offsetTop;
 
 function myFunction() {
   if (window.pageYOffset >= sticky) {
-    navbar.classList.add("sticky")
+    navbar.addClass("sticky")
   } else {
-    navbar.classList.remove("sticky");
+    navbar.removeClass("sticky");
   }
 }
