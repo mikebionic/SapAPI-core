@@ -263,7 +263,7 @@ class Config:
 	# how many resources to show in rating view
 	TOP_RATED_RESOURCES_AMOUNT = 15
 	FEATURED_RESOURCE_AMOUNT = 15
-	RESOURCE_MAIN_PAGE_SHOW_QTY = 8
+	RESOURCE_MAIN_PAGE_SHOW_QTY = 25
 	SMALLEST_RATING_VALUE_SHOW = 3.5
 
 	# location of robots.txt and sitemap.xml

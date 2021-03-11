@@ -1,0 +1,25 @@
+{% for resource in data %}
+
+<li class="woocommerce-mini-cart-item mini_cart_item cartObject{{resource.ResId}}">
+	<a class="removeFromCart" ownerId="{{resource.ResId}}">×</a>
+	<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}">
+		<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/bee/images/no_photo.svg') }}" 
+		alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}"
+		class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image">
+		<span class="resName">{{ resource.ResName if resource.ResName else '' }}</span>
+	</a>
+	{{_('Price')}}
+	<span class="woocommerce-Price-amount amount">{{resource.ResPriceValue}}</span>
+	<span class="woocommerce-Price-currencySymbol">{{ resource.CurrencyCode }}</span>
+	<div class="quantity-colors">
+		<div class="quantity">
+			<div class="pro-qty cartItemQty">
+				<span class="dec qtybtn">-</span>
+				<input class="cartItemQty productQty" ownerId="{{ resource.ResId }}" type="text" value="{{resource.productQty}}">
+				<span class="inc qtybtn">+</span>
+			</div>
+		</div>
+	</div>
+</li>
+
+{% endfor %}
