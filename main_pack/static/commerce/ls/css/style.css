@@ -22150,6 +22150,8 @@ form.checkout {
  * Price
  */
 .price {
+  color: #283d86!important;
+  font-weight: bold;
   font-weight: 500;
   display: flex;
   justify-content: center;
@@ -26580,7 +26582,9 @@ form.track_order {
   left: -147px!important ; }
 
 .header-v4 .departments-menu nav > .dropdown-menu {
-  top: 25px !important; }
+  top: 25px !important;
+  overflow: auto;
+  height: 50vw; }
 
 .site-header.header-v5 .navbar-primary .nav > .menu-item-has-children > .dropdown-menu,
 .site-header.header-v5 .primary-navigation .nav > .menu-item-has-children > .dropdown-menu {
@@ -26712,7 +26716,7 @@ form.track_order {
   margin-bottom: 31px;
 }
 h3{
-	font-size: 19px;
+	font-size: 15px;
 	padding: 5px 0;
 }
 
