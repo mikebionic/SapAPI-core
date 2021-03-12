@@ -39,6 +39,7 @@
 	</div>
 	<div class="container" style="margin: 5% auto;">
 		<section class="cards">
+			<div class="row">
 
 			{% if data == [] or data == null %}
 				{{_('Nothing found')}}
@@ -78,10 +79,10 @@
 							<p class="descriptionText">{{ resource.ResDesc }}</p>
 						</div>
 					</div>
-
+					
 				</div>
 			{% endfor %}
-
+		</div>
 
 			
 
