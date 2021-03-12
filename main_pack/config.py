@@ -56,7 +56,7 @@ class Config:
 	    'port': environ.get('POSTGRES_DB_PORT'),
 	}
 	SQLALCHEMY_DATABASE_URI = 'postgresql://%(user)s:%(pw)s@%(host)s:%(port)s/%(db)s' % POSTGRES_DB_URI
-	SQLALCHEMY_ECHO = False
+	SQLALCHEMY_ECHO = int(environ.get('SQLALCHEMY_ECHO')) if environ.get('SQLALCHEMY_ECHO') else 0
 	# # Database bindings
 	#
 	# POSTGRES_TEST_DB_URI = {
@@ -91,6 +91,7 @@ class Config:
 	# modules url prefixes
 	API_URL_PREFIX = environ.get('API_URL_PREFIX') or '/api'
 	COMMERCE_URL_PREFIX = environ.get('COMMERCE_URL_PREFIX') or ''
+	COMMERCE_ADMIN_URL_PREFIX = environ.get('COMMERCE_ADMIN_URL_PREFIX') or ''
 
 	API_AND_ADMIN_ONLY = int(environ.get('API_AND_ADMIN_ONLY')) if environ.get('API_AND_ADMIN_ONLY') else 0
 
@@ -127,23 +128,23 @@ class Config:
 
 
 	# set to True if you want to use BCrypt hashing
-	HASHED_PASSWORDS = False
+	HASHED_PASSWORDS = int(environ.get('HASHED_PASSWORDS')) if environ.get('HASHED_PASSWORDS') else 0
 
 	# # to give each api it's pagination:
-	RESOURCES_PER_PAGE = 30
-	INVOICES_PER_PAGE = 15
-	API_OBJECTS_PER_PAGE = 10
+	RESOURCES_PER_PAGE = int(environ.get('RESOURCES_PER_PAGE')) if environ.get('RESOURCES_PER_PAGE') else 30
+	INVOICES_PER_PAGE = int(environ.get('INVOICES_PER_PAGE')) if environ.get('INVOICES_PER_PAGE') else 15
+	API_OBJECTS_PER_PAGE = int(environ.get('API_OBJECTS_PER_PAGE')) if environ.get('API_OBJECTS_PER_PAGE') else 10
 
 	# REG_NO generator's random range
-	REG_NUM_RANDOM_RANGE = 1000000000
+	REG_NUM_RANDOM_RANGE = int(environ.get('REG_NUM_RANDOM_RANGE')) if environ.get('REG_NUM_RANDOM_RANGE') else 1000000000
 
 	# # elasticsearch search engine's url
 	# ELASTICSEARCH_URL = environ.get('ELASTICSEARCH_URL')
 
 	# set to True if you want to sell resources
 	# if no left in Res_total.ResPendingTotalAmount
-	NEGATIVE_WH_QTY_SALE = False
-	NEGATIVE_WH_QTY_ORDER = True
+	NEGATIVE_WH_QTY_SALE = int(environ.get('NEGATIVE_WH_QTY_SALE')) if environ.get('NEGATIVE_WH_QTY_SALE') else 0
+	NEGATIVE_WH_QTY_ORDER = int(environ.get('NEGATIVE_WH_QTY_ORDER')) if environ.get('NEGATIVE_WH_QTY_ORDER') else 1
 
 	# # ability to make an order if qty of resoruce
 	# # is greater than Res_total in warehouse
@@ -179,7 +180,7 @@ class Config:
 	ADD_RESOURCE_WATERMARK = int(environ.get('ADD_RESOURCE_WATERMARK')) if environ.get('ADD_RESOURCE_WATERMARK') else 0
 
 	# Rename images to the data given in image_name
-	USE_PROVIDED_IMAGE_FILENAME = False
+	USE_PROVIDED_IMAGE_FILENAME = int(environ.get('USE_PROVIDED_IMAGE_FILENAME')) if environ.get('USE_PROVIDED_IMAGE_FILENAME') else 0
 	
 	# Types name of images to be written:
 	# 1 = ResName
@@ -203,48 +204,48 @@ class Config:
 
 	# VIEW AND ROUTES CONFIGURATION
 	# put the route names to be used to access the pages
-	COMMERCE_HOME_PAGE = "/commerce/"
-	COMMERCE_ABOUT_PAGE = "/about"
-	COMMERCE_COLLECTION_VIEW = "/collection"
-	COMMERCE_CONTACTS_PAGE = "/contact"
+	COMMERCE_HOME_PAGE = environ.get('COMMERCE_HOME_PAGE') or "/commerce/"
+	COMMERCE_ABOUT_PAGE = environ.get('COMMERCE_ABOUT_PAGE') or "/about"
+	COMMERCE_COLLECTION_VIEW = environ.get('COMMERCE_COLLECTION_VIEW') or "/collection"
+	COMMERCE_CONTACTS_PAGE = environ.get('COMMERCE_CONTACTS_PAGE') or "/contact"
 
-	COMMERCE_PROFILE_PAGE = "/profile"
-	COMMERCE_PROFILE_EDIT_PAGE = "/profile_edit"
-	COMMERCE_WISHLIST_PAGE = "/wishlist"
-	COMMERCE_ORDERS_PAGE = "/orders"
+	COMMERCE_PROFILE_PAGE = environ.get('COMMERCE_PROFILE_PAGE') or "/profile"
+	COMMERCE_PROFILE_EDIT_PAGE = environ.get('COMMERCE_PROFILE_EDIT_PAGE') or "/profile_edit"
+	COMMERCE_WISHLIST_PAGE = environ.get('COMMERCE_WISHLIST_PAGE') or "/wishlist"
+	COMMERCE_ORDERS_PAGE = environ.get('COMMERCE_ORDERS_PAGE') or "/orders"
 
 
-	COMMERCE_CART_VIEW = "/cart"
-	COMMERCE_LIST_VIEW = "/v-list"
-	COMMERCE_GRID_VIEW = "/v-grid"
-	COMMERCE_SEARCH_VIEW = "/search"
-	COMMERCE_RESOURCE_VIEW = "/product"
-	COMMERCE_BRANDS_PAGE = "/brands"
+	COMMERCE_CART_VIEW = environ.get('COMMERCE_CART_VIEW') or "/cart"
+	COMMERCE_LIST_VIEW = environ.get('COMMERCE_LIST_VIEW') or "/v-list"
+	COMMERCE_GRID_VIEW = environ.get('COMMERCE_GRID_VIEW') or "/v-grid"
+	COMMERCE_SEARCH_VIEW = environ.get('COMMERCE_SEARCH_VIEW') or "/search"
+	COMMERCE_RESOURCE_VIEW = environ.get('COMMERCE_RESOURCE_VIEW') or "/product"
+	COMMERCE_BRANDS_PAGE = environ.get('COMMERCE_BRANDS_PAGE') or "/brands"
 	# / VIEW AND ROUTES CONFIGURATION /
 
 	# view route titles configuration
 	# Info to be displayed in html: <title>Home page</title>
 	# set to None if dont want to display anything 
 	COMMERCE_HOME_PAGE_TITLE = environ.get('COMMERCE_HOME_PAGE_TITLE') or "Main"
-	COMMERCE_ABOUT_PAGE_TITLE = "About us"
-	COMMERCE_COLLECTION_VIEW_TITLE = "Collection"
-	COMMERCE_CONTACTS_PAGE_TITLE = "Contact"
-	COMMERCE_BRANDS_PAGE_TITLE = "Brands"
+	COMMERCE_ABOUT_PAGE_TITLE = environ.get('COMMERCE_ABOUT_PAGE_TITLE') or "About us"
+	COMMERCE_COLLECTION_VIEW_TITLE = environ.get('COMMERCE_COLLECTION_VIEW_TITLE') or "Collection"
+	COMMERCE_CONTACTS_PAGE_TITLE = environ.get('COMMERCE_CONTACTS_PAGE_TITLE') or "Contact"
+	COMMERCE_BRANDS_PAGE_TITLE = environ.get('COMMERCE_BRANDS_PAGE_TITLE') or "Brands"
 
-	COMMERCE_PROFILE_PAGE_TITLE = "Profile"
-	COMMERCE_PROFILE_EDIT_PAGE_TITLE = "Edit profile"
-	COMMERCE_WISHLIST_PAGE_TITLE = "Wishlist"
-	COMMERCE_ORDERS_PAGE_TITLE = "Orders"
+	COMMERCE_PROFILE_PAGE_TITLE = environ.get('COMMERCE_PROFILE_PAGE_TITLE') or "Profile"
+	COMMERCE_PROFILE_EDIT_PAGE_TITLE = environ.get('COMMERCE_PROFILE_EDIT_PAGE_TITLE') or "Edit profile"
+	COMMERCE_WISHLIST_PAGE_TITLE = environ.get('COMMERCE_WISHLIST_PAGE_TITLE') or "Wishlist"
+	COMMERCE_ORDERS_PAGE_TITLE = environ.get('COMMERCE_ORDERS_PAGE_TITLE') or "Orders"
 
-	COMMERCE_CART_VIEW_TITLE = "Cart"
-	COMMERCE_LIST_VIEW_TITLE = "Category"
-	COMMERCE_GRID_VIEW_TITLE = "Category"
-	COMMERCE_SEARCH_VIEW_TITLE = "Search"
-	COMMERCE_SORT_VIEW_TITLE = "Sort"
+	COMMERCE_CART_VIEW_TITLE = environ.get('COMMERCE_CART_VIEW_TITLE') or "Cart"
+	COMMERCE_LIST_VIEW_TITLE = environ.get('COMMERCE_LIST_VIEW_TITLE') or "Category"
+	COMMERCE_GRID_VIEW_TITLE = environ.get('COMMERCE_GRID_VIEW_TITLE') or "Category"
+	COMMERCE_SEARCH_VIEW_TITLE = environ.get('COMMERCE_SEARCH_VIEW_TITLE') or "Search"
+	COMMERCE_SORT_VIEW_TITLE = environ.get('COMMERCE_SORT_VIEW_TITLE') or "Sort"
 
 	# set to False if you want to use unique COMMERCE_RESOURCE_VIEW_TITLE
-	RESOURCE_NAME_ON_TITLE = True
-	COMMERCE_RESOURCE_VIEW_TITLE = "Product"
+	RESOURCE_NAME_ON_TITLE = int(environ.get('RESOURCE_NAME_ON_TITLE')) if environ.get('RESOURCE_NAME_ON_TITLE') else 1
+	COMMERCE_RESOURCE_VIEW_TITLE = environ.get('COMMERCE_RESOURCE_VIEW_TITLE') or "Product"
 	# / view route titles configuration /
 
 	COMMERCE_SHOW_BRANDS_ON_RESOURCES_PAGE = int(environ.get('COMMERCE_SHOW_BRANDS_ON_RESOURCES_PAGE')) if environ.get('COMMERCE_SHOW_BRANDS_ON_RESOURCES_PAGE') else 0
@@ -255,16 +256,16 @@ class Config:
 	# COMMERCE_TEMPLATES_FOLDER_PATH = "/commerce/main"
 	# COMMERCE_TEMPLATES_FOLDER_PATH = "/commerce/testing"
 	
-	COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH = "/commerce/admin"
+	COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH = environ.get("COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH") or "/commerce/admin"
 	# / templates file location configuration /
 
 	# tag resources as new if they exist **amount** days
-	COMMERCE_RESOURCE_NEWNESS_DAYS = 10
+	COMMERCE_RESOURCE_NEWNESS_DAYS = int(environ.get('COMMERCE_RESOURCE_NEWNESS_DAYS')) if environ.get('COMMERCE_RESOURCE_NEWNESS_DAYS') else 10
 	# how many resources to show in rating view
-	TOP_RATED_RESOURCES_AMOUNT = 15
-	FEATURED_RESOURCE_AMOUNT = 15
-	RESOURCE_MAIN_PAGE_SHOW_QTY = 25
-	SMALLEST_RATING_VALUE_SHOW = 3.5
+	TOP_RATED_RESOURCES_AMOUNT = int(environ.get('TOP_RATED_RESOURCES_AMOUNT')) if environ.get('TOP_RATED_RESOURCES_AMOUNT') else 15
+	FEATURED_RESOURCE_AMOUNT = int(environ.get('FEATURED_RESOURCE_AMOUNT')) if environ.get('FEATURED_RESOURCE_AMOUNT') else 15
+	RESOURCE_MAIN_PAGE_SHOW_QTY = int(environ.get('RESOURCE_MAIN_PAGE_SHOW_QTY')) if environ.get('RESOURCE_MAIN_PAGE_SHOW_QTY') else 25
+	SMALLEST_RATING_VALUE_SHOW = int(environ.get('SMALLEST_RATING_VALUE_SHOW')) if environ.get('SMALLEST_RATING_VALUE_SHOW') else 3.5
 
 	# location of robots.txt and sitemap.xml
 	WEB_CONFIG_DIRECTORY = path.join("static", "web_config")

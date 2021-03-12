@@ -119,12 +119,12 @@ def create_app(config_class=Config):
 	commerce_url_prefix = Config.COMMERCE_URL_PREFIX
 
 	from main_pack.commerce.admin import bp as commerce_admin_bp
-	app.register_blueprint(commerce_admin_bp, url_prefix=commerce_url_prefix)
-
-	from main_pack.commerce.auth import bp as commerce_auth_bp
-	app.register_blueprint(commerce_auth_bp, url_prefix=commerce_url_prefix)
+	app.register_blueprint(commerce_admin_bp, url_prefix=Config.COMMERCE_ADMIN_URL_PREFIX)
 
 	if not Config.API_AND_ADMIN_ONLY:
+
+		from main_pack.commerce.auth import bp as commerce_auth_bp
+		app.register_blueprint(commerce_auth_bp, url_prefix=commerce_url_prefix)
 
 		from main_pack.commerce.commerce import bp as commerce_bp
 		app.register_blueprint(commerce_bp, url_prefix=commerce_url_prefix)
@@ -133,7 +133,7 @@ def create_app(config_class=Config):
 		app.register_blueprint(commerce_users_bp, url_prefix=commerce_url_prefix)
 
 	else:
-		login_manager.login_view = 'commerce_auth.admin_login'
+		login_manager.login_view = 'commerce_admin.login'
 	# /commerce blueprints
 
 	# logging
