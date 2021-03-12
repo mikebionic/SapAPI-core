@@ -2,7 +2,7 @@ from flask import render_template, url_for, flash, redirect, request, session
 from flask_login import current_user, login_user, logout_user
 from datetime import datetime
 
-from main_pack.commerce.auth import bp, url_prefix
+from . import bp, url_prefix
 from main_pack.config import Config
 from main_pack import db, gettext, lazy_gettext, bcrypt
 from main_pack.base.apiMethods import get_login_info
@@ -13,7 +13,7 @@ from main_pack.commerce.auth.forms import AdminLoginForm
 
 
 @bp.route("/admin/login",methods=['GET','POST'])
-def admin_login():
+def login():
 	if (current_user.is_authenticated and "model_type" in session):
 		if (session["model_type"] == "user" and current_user.is_admin):
 			return redirect(url_for('commerce_admin.dashboard'))
@@ -60,6 +60,6 @@ def admin_login():
 
 
 @bp.route("/admin/logout")
-def admin_logout():
+def logout():
 	logout_user()
-	return redirect(url_for('commerce_auth.admin_login'))
+	return redirect(url_for('commerce_admin.login'))

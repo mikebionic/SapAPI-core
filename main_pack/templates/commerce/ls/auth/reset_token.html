@@ -1,0 +1,38 @@
+{% extends "commerce/ls/commerce/layout.html" %}
+
+{% block content %}
+<div id="primary" class="content-area">
+	<main id="main" class="site-main">
+		<div style="margin: 0 auto; max-width: 70%">
+			
+			<h4 style="padding: 1rem;">{{_('Reset password')}} | {{ company.CName }}</h4>
+
+			<form action="" method="post" class="woocommerce-form-login login">
+				{{ form.csrf_token() }}
+
+				<p class="form-row form-row-wide">
+					<label>{{_('Password')}}</label>
+					{{ form.password(class='input-text') }}
+				</p>
+
+				<p class="form-row form-row-wide">
+					<label>{{_('Confirm password')}}</label>
+					<i class="fa fa-lock"></i>
+					{{ form.confirm_password(class='input-text') }}
+				</p>
+				{% if form.confirm_password.errors %}
+					<p>
+						{% for error in form.confirm_password.errors %}
+						  <span style="color: red">{{ error }}</span>
+						{% endfor %}
+					</p>
+				{% endif %}
+				<p class="form-row">
+					<input type="submit" class="woocommerce-Button button" value="{{_('Reset password')}}" />
+				</p>
+			</form>
+
+		</div>
+	</main>
+</div>
+{% endblock %}
