@@ -855,12 +855,8 @@ $('body').delegate('.applySortingBtn','click',function(){
 
 
 var screenSize = $(window).width();
-if (screenSize >= 1200){
+if (screenSize >= 768){
     $('.big-image img').each(function(){
-        data_m_img = $(this).attr('data-src-m')
-        $(this).attr('src', data_m_img)
-    })
-    $('.hero-image-two img').each(function(){
         data_m_img = $(this).attr('data-src-m')
         $(this).attr('src', data_m_img)
     })
@@ -868,6 +864,10 @@ if (screenSize >= 1200){
 
 if (screenSize >= 768){
     $('.banner img').each(function(){
+        data_m_img = $(this).attr('data-src-m')
+        $(this).attr('src', data_m_img)
+    })
+    $('.slider-image img').each(function(){
         data_m_img = $(this).attr('data-src-m')
         $(this).attr('src', data_m_img)
     })

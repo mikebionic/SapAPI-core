@@ -14,8 +14,8 @@
 						{% if sl_image.SlImgMainImgFilePathS %}
 							<div class="slick-list draggable">
 								<div class="slick-track" style="opacity: 1; width: 100%;">
-									<div class="hero-item-two slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" tabindex="0" role="tabpanel" id="slick-slide00" aria-describedby="slick-slide-control00" style="width: 100%; position: relative; left: 0px; top: 0px; z-index: 999; opacity: 1;">
-										<a href="{{ sl_image.SlImgLink if sl_image.SlImgLink else '#' }}" style="width:100%;">
+									<div class="hero-item-two slider-image slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" tabindex="0" role="tabpanel" id="slick-slide00" aria-describedby="slick-slide-control00" style="width: 100%; position: relative; left: 0px; top: 0px; z-index: 999; opacity: 1;">
+										<a href="{{ sl_image.SlImgLink if sl_image.SlImgLink else '#' }}">
 											<img loading="lazy" src="{{ sl_image.SlImgMainImgFilePathM }}" data-src-m="{{ sl_image.SlImgMainImgFilePathR }}"
 											 alt="{{ sl_image.SlImgTitle if sl_image.SlImgTitle else 'sl_image.SlImgMainImgFileName' }} {{ company.CName }}">
 										</a>

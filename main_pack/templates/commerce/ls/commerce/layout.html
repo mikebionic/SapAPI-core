@@ -211,18 +211,20 @@
 							<li class="animate-dropdown dropdown">
 								<a class="cart-contents" data-toggle="dropdown" title="View your shopping cart">
 									<i class="tm tm-shopping-bag"></i>
-									<span class="count">0</span>
+									<span class="count cartItemsFullQty">0</span>
 									<span class="amount">
-									<span class="price-label">{{_('Cart')}}</span>0.00</span>
+										<span class="cartTotalPrice">0.00</span>
+										<span class="woocommerce-Price-currencySymbol">TMT</span>
+									</span>
 								</a>
 								<ul class="dropdown-menu dropdown-menu-mini-cart">
 									<li>
 										<div class="widget woocommerce widget_shopping_cart">
 											<div class="widget_shopping_cart_content">
-												<ul class="woocommerce-mini-cart cart_list product_list_widget "></ul>
+												<ul class="woocommerce-mini-cart cart_list product_list_widget cartItemsList"></ul>
 												<p class="woocommerce-mini-cart__total total">
 													<strong>{{_('Total')}}:</strong>
-													<span class="woocommerce-Price-amount amount">
+													<span class="woocommerce-Price-amount amount cartTotalPrice">
 														0.00
 													</span>
 													<span class="woocommerce-Price-currencySymbol">TMT</span>
@@ -350,7 +352,7 @@
 						<div class="copyright"><a href="https://saphasap.com">Lomaý söwda | Sap Çözgüt</a></div>
 						<div class="credit">
 							<div class="col-lg-12 col-12">
-								<a href="http://saphasap.com/">
+								<a href="https://saphasap.com">
 									<img src="{{ url_for('static', filename='commerce/main/images/logo/sap_cozgut_grey.svg') }}" alt="Sap cozgut" style="width: 40px;">
 								</a>
 							</div>
@@ -364,13 +366,14 @@
 
 
 
-		<script type="text/javascript" src="{{ url_for('static', filename='commerce/ls/js/jquery.min.js') }}"></script>
-		<script type="text/javascript" src="{{ url_for('static', filename='commerce/ls/js/bootstrap.min.js') }}"></script>
-		<script type="text/javascript" src="{{ url_for('static', filename='commerce/ls/js/hidemaxlistitem.min.js') }}"></script>
-		<script type="text/javascript" src="{{ url_for('static', filename='commerce/ls/js/jquery.waypoints.min.js') }}"></script>
-		<script type="text/javascript" src="{{ url_for('static', filename='commerce/ls/js/waypoints-sticky.min.js') }}"></script>
-		<script type="text/javascript" src="{{ url_for('static', filename='commerce/ls/js/slick.min.js') }}"></script>
-		<script type="text/javascript" src="{{ url_for('static', filename='commerce/ls/js/scripts.js') }}"></script>
+		<script src="{{ url_for('static', filename='commerce/ls/js/jquery.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='commerce/ls/js/bootstrap.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='commerce/ls/js/hidemaxlistitem.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='commerce/ls/js/jquery.waypoints.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='commerce/ls/js/waypoints-sticky.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='commerce/ls/js/slick.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='commerce/ls/js/js.cookie.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='commerce/ls/js/scripts.js') }}"></script>
 
 		<script type="text/javascript">
 			var url_prefix = "{{url_prefix if url_prefix else ''}}";

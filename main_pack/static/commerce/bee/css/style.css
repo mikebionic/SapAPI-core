@@ -5172,6 +5172,9 @@ img.mfp-img {
     width: 100%;
     height: 100%;
   }
+  .hero-item-two a{
+    width: 100%;
+  }
   @media only screen and (min-width: 992px) and (max-width: 1199px) {
     .hero-item-two {
       padding: 78px 70px; 

@@ -26,13 +26,11 @@
     <div class="container">
       <div class="row align-items-center justify-content-between" style="margin: 0 auto;">
         <div class="col order-12 order-xs-12 order-lg-2 mt-10 mb-10">
-          <!-- Header Advance Search Start -->
           <div class="header-advance-search">
             <form action="{{url_for('commerce.v_grid')}}">
               <div class="input"><input type="text" name="search" placeholder="{{_('Search')}}"></div>
               <div class="submit"><button><i class="icofont icofont-search-alt-1"></i></button></div>
             </form>
-
           </div>
         </div>
         <div class="header-account-links" style="display:flex;">
@@ -142,9 +140,7 @@
           </div>
         </div>
 
-        
         <div class="col order-2 order-lg-12 order-xl-12">
-          <!-- Header Shop Links Start -->
           <div class="header-shop-links">
 
             <!-- Wishlist -->
@@ -157,38 +153,31 @@
               <span class="number cartItemsFullQty"></span>
             </a>
 
-          </div><!-- Header Shop Links End -->
+          </div>
         </div>
-        <!-- Mobile Menu -->
         <div class="mobile-menu order-12 d-block d-lg-none col"></div>
 
       </div>
     </div>
-  </div><!-- Header Bottom End -->
+  </div>
 
-</div><!-- Header Section End -->
+</div>
 
 <!-- Mini Cart Wrap Start -->
 <div class="mini-cart-wrap">
-
-  <!-- Mini Cart Top -->
   <div class="mini-cart-top">
     <button class="close-cart">{{_('Close')}}<i class="icofont icofont-close"></i></button>
   </div>
 
   <!-- Mini Cart Products -->
-  <ul class="mini-cart-products cartItemsList"></ul>ory
-
-  <!-- Mini Cart Bottom -->
+  <ul class="mini-cart-products cartItemsList"></ul>
   <div class="mini-cart-bottom">
     <h4 class="sub-total">{{_('Total')}}: <span class="cartTotalPrice">0.0</span></h4>
     <div class="button">
       <a href="{{url_for('commerce.cart')}}">{{_('Checkout')}}</a>
     </div>
   </div>
-
-</div><!-- Mini Cart Wrap End -->
-<!-- Cart Overlay -->
+</div>
 <div class="cart-overlay"></div>
 
 {% with messages = get_flashed_messages(with_categories=true) %}
@@ -208,7 +197,6 @@
 
 {% block content %}{% endblock %}
 
-<!-- Footer Section Start -->
 <div class="footer-section section bg-ivory">
   <div class="footer-bottom-section section">
     <div class="container">
@@ -224,15 +212,10 @@
     </div>
   </div>
 </div>
-<!-- jQuery JS -->
 <script src="{{ url_for('static', filename='commerce/bee/js/vendor/jquery-1.12.4.min.js') }}"></script>
-<!-- Popper JS -->
 <script src="{{ url_for('static', filename='commerce/bee/js/popper.min.js') }}"></script>
-<!-- Bootstrap JS -->
 <script src="{{ url_for('static', filename='commerce/bee/js/bootstrap.min.js') }}"></script>
-<!-- Plugins JS -->
 <script src="{{ url_for('static', filename='commerce/bee/js/plugins.js') }}"></script>
-<!-- Main JS -->
 
 <script src="{{ url_for('static', filename='commerce/bee/js/main.js') }}"></script>
 <script src="{{ url_for('static', filename='commerce/bee/js/rating.js') }}"></script>

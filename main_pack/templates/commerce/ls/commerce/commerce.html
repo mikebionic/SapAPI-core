@@ -7,32 +7,29 @@
 					<div class="row" style="flex-wrap:nowrap">
 						<div id="primary" class="content-area">
 							<main id="main" class="site-main">
-									<div class="homev6-slider-with-banners row">
-											<div class="slider-block column-1">
-												<div class="home-v6-slider home-slider">
-													{% for slider in sliders %}
-													{% if slider.SlName == "HomePageTop" %}
-														{% for sl_image in slider.Sl_images %}
-														{% if sl_image.SlImgMainImgFilePathS %}
-															<div class="slider-1">
-																<a href="{{ sl_image.SlImgLink if sl_image.SlImgLink else '#' }}">
-																	<img loading="lazy" src="{{ sl_image.SlImgMainImgFilePathM }}" data-src-m="{{ sl_image.SlImgMainImgFilePathM }}"
-																	alt="{{ sl_image.SlImgTitle if sl_image.SlImgTitle else 'sl_image.SlImgMainImgFileName' }}">
-																</a>
-															</div>
-														{% endif %}
-														{% endfor %}
-													{% endif %}
-													{% endfor %}
-												</div>
-											</div>
+								<div class="homev6-slider-with-banners row">
+									<div class="slider-block column-1">
+										<div class="home-v6-slider home-slider">
+											{% for slider in sliders %}
+											{% if slider.SlName == "HomePageTop" %}
+												{% for sl_image in slider.Sl_images %}
+												{% if sl_image.SlImgMainImgFilePathM %}
+													<div class="slider-1 slider-image">
+														<a href="{{ sl_image.SlImgLink if sl_image.SlImgLink else '#' }}">
+															<img loading="lazy" src="{{ sl_image.SlImgMainImgFilePathM }}" data-src-m="{{ sl_image.SlImgMainImgFilePathR }}"
+															alt="{{ sl_image.SlImgTitle if sl_image.SlImgTitle else 'sl_image.SlImgMainImgFileName' }} ecommerce ls {{ company.CName }} ">
+														</a>
+													</div>
+												{% endif %}
+												{% endfor %}
+											{% endif %}
+											{% endfor %}
+										</div>
 									</div>
+								</div>
 							</main>
 						</div>
-						<div id="secondary" class="widget-area" role="complementary" style="height:0
-						
-						
-						">
+						<div id="secondary" class="widget-area" role="complementary" style="height:0">
 						</div>
 					</div>
 				</div>
@@ -61,45 +58,43 @@
 							{% for category in Featured_categories %}
 								<div class="slider-container__slider2 tab-{{ category.ResCatId }} featrued-cat-tab">
 
-									{% for resource in category.Resources %}
+								{% for resource in category.Resources %}
 									<div>
 										<div class="card">
-
 											<div class="imgBox">
 												<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}">
-													<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/ls/img/icons/no_axhoto.svg') }}"
+													<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/ls/img/icons/no_photo.svg') }}"
 													alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
 												</a>
 											</div>
-
 											<div class="details">
 												<span class="price">
-													<ins>
-														<span class="amount"> </span>
-													</ins>
-													<span class="amount">{{ resource.ResPriceValue }}</span>
-													<p class="tm_currency">{{ resource.CurrencyCode }}</p>
+													<span class="amount">
+														<span class="amount priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">
+															{{ resource.ResPriceValue }}
+														</span>
+														<span class="woocommerce-Price-currencySymbol">{{ resource.CurrencyCode }}</span>
+													</span>
 												</span>
 												<div class="textContent">
 													<h3>{{ resource.ResName }}</h3>
 												</div>
-												<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}">
+												<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}"
+													class="add-to-cart" ownerId="{{ resource.ResId }}">
 													<button>{{_('View')}}</button>
 												</a>
 											</div>
-
 											<div class="description">
 												<div class="">
-														<span class="icon"><i class="fa fa-fw fa-info"></i></span>
+													<span class="icon"><i class="fa fa-fw fa-info"></i></span>
 												</div>
 												<div class="contents">
 													<p class="descriptionText">{{ resource.ResDesc }}</p>
 												</div>
 											</div>
-
 										</div>
 									</div>
-									{% endfor %}
+								{% endfor %}
 
 								</div>
 							{% endfor %}
@@ -159,14 +154,14 @@
 
 				{% if slider.SlName == "commerce_footer" %}
 					{% for sl_image in slider.Sl_images %}
-					{% if sl_image.SlImgMainImgFilePathS %}
+					{% if sl_image.SlImgMainImgFilePathM %}
 
 						<div class="col-xs-12 col-sm-12 banner-container">
 							<div class="banner-item">
 								<div class="banner-image">
-									<img loading="lazy" src="{{ sl_image.SlImgMainImgFilePathS }}"
-										data-src-m="{{ sl_image.SlImgMainImgFilePathM }}"
-										alt="banner {{ sl_image.SlImgMainImgFileName }}"/>
+									<img loading="lazy" src="{{ sl_image.SlImgMainImgFilePathM }}"
+										data-src-m="{{ sl_image.SlImgMainImgFilePathR }}"
+										alt="banner {{ sl_image.SlImgMainImgFileName }} ecommerce ls {{ company.CName }}"/>
 								</div>
 							</div>
 						</div>
