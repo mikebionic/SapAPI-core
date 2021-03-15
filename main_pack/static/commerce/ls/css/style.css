@@ -2922,13 +2922,13 @@ select {
   @media (min-width: 1700px) {
     #content #primary {
       flex: 0 0 83.3333333333%;
-      /* max-width: 83.3333333333%; */
+      max-width: 83.3333333333%;
       order: 2; } }
 
 @media (min-width: 1200px) and (max-width: 1699px) {
   #content #primary {
     flex: 0 0 78.3333333333%;
-    /* max-width: 78.3333333333%; */
+    max-width: 78.3333333333%;
     order: 2; } }
 
 #content #secondary {
@@ -29501,7 +29501,6 @@ height: 100%;
 .what-do-we-do{
   margin-top:3vw;
 }
-
 
 .details, .cart-details {
   text-align: center;
