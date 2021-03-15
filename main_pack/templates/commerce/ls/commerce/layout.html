@@ -230,7 +230,8 @@
 													<span class="woocommerce-Price-currencySymbol">TMT</span>
 												</p>
 												<p class="woocommerce-mini-cart__buttons buttons">
-													<a href="{{ url_for('commerce.cart') }}" class="button wc-forward">{{_('View cart')}}</a>
+													<a href="{{ url_for('commerce.cart') }}" class="button wc-forward">{{_('Checkout')}}</a>
+													<a class="button wc-forward clearCartBtn">{{_('Remove')}}</a>
 												</p>
 											</div>
 										</div>
@@ -283,9 +284,15 @@
 										<div class="media-body">
 											<span class="call-us-title">{{_('Contact us')}}</span>
 											<span class="call-us-text">
-												{{ company.Phone1 if company.Phone1 else '' }}
-												{{ company.Phone2 if company.Phone2 else '' }}
-												{{ company.Phone3 if company.Phone3 else '' }}
+												{% if company.Phone1 %}
+													<a href="tel:{{company.Phone1}}">{{company.Phone1}}</a>
+												{% endif %}
+												{% if company.Phone2 %}
+													<a href="tel:{{company.Phone2}}">{{company.Phone2}}</a>
+												{% endif %}
+												{% if company.Phone3 %}
+													<a href="tel:{{company.Phone3}}">{{company.Phone3}}</a>
+												{% endif %}
 											</span>
 											<address class="footer-contact-address">{{ company.CAddress if company.CAddress else '' }}</address>
 											{% if company.AddInf1 %}
@@ -374,6 +381,7 @@
 		<script src="{{ url_for('static', filename='commerce/ls/js/slick.min.js') }}"></script>
 		<script src="{{ url_for('static', filename='commerce/ls/js/js.cookie.min.js') }}"></script>
 		<script src="{{ url_for('static', filename='commerce/ls/js/scripts.js') }}"></script>
+		<script src="{{ url_for('static', filename='commerce/ls/js/cartsAndCheckouts.js') }}"></script>
 
 		<script type="text/javascript">
 			var url_prefix = "{{url_prefix if url_prefix else ''}}";

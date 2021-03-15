@@ -27306,7 +27306,8 @@ button:hover{
 	box-shadow: none;
 }
 .product-count {
-  margin-top: 15px;
+  justify-content: center;
+  display: flex;
   transition: all 0.2s ease-in-out 0s;
 }
 .product-count .qtyminus,
@@ -27334,13 +27335,12 @@ button:hover{
 }
 .round-black-btn {
 	border-radius: 4px;
-    background: #283d86;
-    color: #fff;
-    padding: 4px 21px;
-    display: inline-block;
-    margin-top: 20px;
-    border: solid 2px #283d86;
-    transition: all 0.2s ease-in-out 0s;
+  background: #283d86;
+  color: #fff;
+  padding: 4px 21px;
+  display: inline-block;
+  border: solid 2px #283d86;
+  transition: all 0.2s ease-in-out 0s;
 }
 /* .round-black-btn:hover, .qtyminus:hover, .qtyplus:hover,
 .round-black-btn:focus {
@@ -29500,4 +29500,22 @@ height: 100%;
 /* -------- Cart page css --------- */
 .what-do-we-do{
   margin-top:3vw;
+}
+
+
+.details, .cart-details {
+  text-align: center;
+}
+
+.details a, .cart-details a, {
+  color: #fff;
+  cursor: pointer;
+}
+
+.cart-details .qty {
+  max-height: 50%;
+}
+
+.clearCartBtn {
+  background-color: #858585!important;
 }
