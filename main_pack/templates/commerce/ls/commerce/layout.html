@@ -294,7 +294,16 @@
 													<a href="tel:{{company.Phone3}}">{{company.Phone3}}</a>
 												{% endif %}
 											</span>
-											<address class="footer-contact-address">{{ company.CAddress if company.CAddress else '' }}</address>
+											{% if company.CEmail %}
+												<span>{{_('Email')}}</span>
+												<a href="mailto:{{company.CEmail}}"><p>{{company.CEmail}}</p></a>
+											{% endif %}
+											{% if company.CAddress %}
+												<address class="footer-contact-address">
+													<span>{{_('Address')}}</span>
+													<p>{{ company.CAddress }}</p>
+												</address>
+											{% endif %}
 											{% if company.AddInf1 %}
 												<span>{{_('Working time')}}</span>
 												<p>{{company.AddInf1}}</p>

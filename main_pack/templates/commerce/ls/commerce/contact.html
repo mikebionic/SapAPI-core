@@ -30,7 +30,6 @@
 															{{_('First name')}}
 															<abbr title="required" class="required">*</abbr>
 														</label>
-														<br>
 														<span class="wpcf7-form-control-wrap first-name">
 															{{form.FirstName(class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required input-text", size="40")}}
 														</span>
@@ -39,7 +38,6 @@
 														<label>
 															{{_('Last name')}}
 														</label>
-														<br>
 														<span class="wpcf7-form-control-wrap last-name">
 															{{form.LastName(class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required input-text", size="40")}}
 														</span>
@@ -49,7 +47,6 @@
 															{{_('Email')}}
 															<abbr title="required" class="required">*</abbr>
 														</label>
-														<br>
 														<span class="wpcf7-form-control-wrap last-name">
 															{{form.Email(class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required input-text", size="40")}}
 														</span>
@@ -65,7 +62,6 @@
 														<label>
 															{{_('Phone')}}
 														</label>
-														<br>
 														<span class="wpcf7-form-control-wrap last-name">
 															{{form.Phone(class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required input-text", size="40")}}
 														</span>
@@ -75,7 +71,6 @@
 															<label>
 																{{_('Message')}}
 															</label>
-															<br>
 															<span class="wpcf7-form-control-wrap last-name">
 																{{form.Message(class="wpcf7-form-control wpcf7-textarea", rows="10", cols="40")}}
 															</span>
@@ -137,10 +132,18 @@
 										{% if company.Phone1 or company.Phone2 or company.Phone3 or company.Phone4 %}
 										<div class="cont_info">
 											<h3>{{_('Phone')}}</h3>
-											{% if company.Phone1 %}<p>{{company.Phone1}}</p>{% endif %}
-											{% if company.Phone2 %}<p>{{company.Phone2}}</p>{% endif %}
-											{% if company.Phone3 %}<p>{{company.Phone3}}</p>{% endif %}
-											{% if company.Phone4 %}<p>{{company.Phone4}}</p>{% endif %}
+											{% if company.Phone1 %}
+												<a href="tel:{{company.Phone1}}"><p>{{company.Phone1}}</p></a>
+											{% endif %}
+											{% if company.Phone2 %}
+												<a href="tel:{{company.Phone2}}"><p>{{company.Phone2}}</p></a>
+											{% endif %}
+											{% if company.Phone3 %}
+												<a href="tel:{{company.Phone3}}"><p>{{company.Phone3}}</p></a>
+											{% endif %}
+											{% if company.Phone4 %}
+												<a href="tel:{{company.Phone4}}"><p>{{company.Phone4}}</p></a>
+											{% endif %}
 										</div>
 										{% endif %}
 										

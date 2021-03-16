@@ -2928,7 +2928,7 @@ select {
 @media (min-width: 1200px) and (max-width: 1699px) {
   #content #primary {
     flex: 0 0 78.3333333333%;
-    max-width: 78.3333333333%;
+    /* max-width: 78.3333333333%; */
     order: 2; } }
 
 #content #secondary {
@@ -18238,7 +18238,7 @@ h3.faq-title {
   font-size: 1.125em;
   font-weight: 500;
   color: #555353;
-  padding-top: 1.7em;
+  padding-top: 0.5em;
   padding-bottom: 0.5em;
   margin-top: 0; }
 
@@ -18276,7 +18276,9 @@ h3.faq-title {
     font-weight: 400;
     letter-spacing: -0.01em;
     line-height: 1.5em;
-    margin-bottom: 0.5em; }
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+  }
   .contact-form .form-group .required {
     text-decoration: none; }
   .contact-form .form-group .input-text,
@@ -27761,10 +27763,13 @@ height: 100%;
 }
 .cont_info .store-info h3{
   padding-top: 0;
-    padding-bottom: 0;
+  padding-bottom: 0;
 }
 .cont_info{
-  margin: 10% auto;
+  margin: 0% auto;
+}
+.cont_info a {
+  text-decoration: none;
 }
 
 
@@ -29506,7 +29511,7 @@ height: 100%;
   text-align: center;
 }
 
-.details a, .cart-details a, {
+.details a, .cart-details a {
   color: #fff;
   cursor: pointer;
 }

@@ -155,7 +155,6 @@ $(document).ready(function($) {
 try{
 	const button = document.querySelector("#menu-departments-menu ul");
 	const done = document.querySelector("#menu-departments-menu ul li");
-	console.log(button);
 	let added = false;
 	button.addEventListener('click', () => {
 		if (added) {
@@ -1179,7 +1178,6 @@ try {
 				if (this.stringsElement) {
 					this.strings = [];
 					this.stringsElement.hide();
-					console.log(this.stringsElement.children());
 					var strings = this.stringsElement.children();
 					$.each(strings, function(key, value){
 						self.strings.push($(value).html());

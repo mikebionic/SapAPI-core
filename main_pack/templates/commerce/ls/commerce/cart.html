@@ -11,7 +11,7 @@
 							<div class="woocommerce">
 									<div class="row">
 
-										<div class="col-9" style="max-width: 100%;">
+										<div class="col-8" style="max-width: 100%; margin: 0 auto;">
 
 											<form action="#">
 												<div class="cart-table table-responsive mb-40">
@@ -27,15 +27,6 @@
 															</tr>
 														</thead>
 														<tbody class="cartItemsTable">
-															<td></td>
-															<td></td>
-															<td>
-																Sahypa gurluşygy dowam edilýär..
-																<br>
-																Page is still in development..
-																<br>
-																В процессе разработки..
-															</td>
 														</tbody>
 													</table>
 												</div>
@@ -43,7 +34,7 @@
 										</div>
 
 
-										<div class="cart-collaterals">
+										<div class="cart-collaterals" style="margin: 0 auto;">
 											<div class="cart_totals">
 												{% if current_user.is_authenticated %}
 												<h3>{{_('Summary')}}</h3>
@@ -55,7 +46,7 @@
 													<tbody>
 														<tr class="order-total">
 															<th>{{_('Total price')}}</th>
-															<td data-title="Total">
+															<td data-title="{{_('Total price')}}">
 																<strong>
 																	<span class="woocommerce-Price-amount amount cartTotalPrice">
 																		0.00
@@ -95,4 +86,8 @@
 	</div>
 </div>
 
+{% endblock %}
+
+{% block scripts %}
+	<script src="{{ url_for('static', filename='commerce/ls/js/cart.js') }}"></script>
 {% endblock %}

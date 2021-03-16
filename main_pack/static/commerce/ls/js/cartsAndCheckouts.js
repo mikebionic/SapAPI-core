@@ -41,8 +41,7 @@ $('.wishlist-compare a').on('click', function(e){
 
 $('body').delegate('.removeFromCart','click',function(){
 	ownerId = $(this).attr('ownerId');
-	removeFromCart(ownerId);
-	$('.add-to-cart'+'[ownerId='+ownerId+']').removeClass('added').find('i').removeClass('ti-check').addClass('ti-shopping-cart').siblings('span').text(add_to_cart_text); 
+	removeFromCart(ownerId, table_object=true);
 });
 
 
@@ -113,12 +112,12 @@ function addToCart(ownerId){
 	totalPriceCheckout(ownerId)
 }
 
-function removeFromCart(ownerId){
+function removeFromCart(ownerId, table_object = false){
 	if(ownerId > 0){
 		$('.cartObject'+ownerId).remove();
-		$('.cartTableObject'+ownerId).remove();
-		// $('.removeFromCart'+'[ownerId='+ownerId+']').hide();
-		// $('.addToCart'+'[ownerId='+ownerId+']').show();
+		if (table_object === true){
+			$('.cartTableObject'+ownerId).remove();
+		}
 		delete cartData['product'+ownerId];
 		Cookies.set('cart',JSON.stringify(cartData));
 		countCartItems();
@@ -201,8 +200,6 @@ function totalPriceCheckout(ownerId){
 $('body').delegate('.cartItemQty','click',function(){
 	var ownerId = $(this).find('input').attr('ownerId');
 	var newVal = $(this).find('input').val();
-	console.log('quantity chechout before')
-	console.log(newVal)
 	qtyCheckout(ownerId,newVal);
 	totalPriceCheckout(ownerId);
 })
@@ -320,11 +317,9 @@ $('body').delegate('.removeFromWishlist','click',function(){
 /*-- Quantity  -*/
 $('body').delegate('.qtybtn','click', function() {
 	$button = $(this);
-	console.log('qtybutton clicked')
 
 	var ownerId =  $(this).parent().find('input').attr('ownerId');
 	var addToCartButton = $('.add-to-cart'+'[ownerId='+ownerId+']')
-
 	var qtySelectWrapper = addToCartButton.parent().find('.cartItemQty')
 
 	var current_qty_wrapper = $button.parent()
@@ -366,12 +361,12 @@ $('body').delegate('.add-to-cart', 'click', function() {
 
 
 $('body').delegate('.productQty', 'keyup', function() {
-	var ownerId = $(this).attr('ownerId');
+	var ownerId = $(this).attr('ownerid');
 	var all_this = $('.productQty'+'[ownerId='+ownerId+']')
 	var qtySelectWrapper = all_this.parent()
-	var this_quantity = parseInt(qtySelectWrapper.find('input').val());
+	
+	var this_quantity = parseInt($(this).val());
 	var addToCartButton = qtySelectWrapper.parent().find('.add-to-cart')
-	var ownerId = addToCartButton.attr('ownerId');
 	if (this_quantity >= 1) {}
 	else {
 		this_quantity = 1;
