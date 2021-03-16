@@ -51,7 +51,7 @@ $('body').delegate('.checkoutCartBtn','click',function(){
 	cartData=JSON.parse(cartCookie);
 	data['cartData']=cartData;
 	data['orderDesc']=$('.orderDesc').val();
-	checkoutCart(data,url_prefix+'/product/ui_cart_checkout/','POST');
+	// checkoutCart(data,url_prefix+'/product/ui_cart_checkout/','POST');
 });
 
 
