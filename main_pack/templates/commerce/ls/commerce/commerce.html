@@ -115,7 +115,6 @@
 				<section class="cards">
 					<div class="row">
 					{% for resource in Latest_resources %}
-						<div>
 							<div class="card">
 								<div class="imgBox">
 									<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}">
@@ -153,7 +152,6 @@
 									</div>
 								</div>
 							</div>
-						</div>
 					{% endfor %}
 					</div>
 				</section>
