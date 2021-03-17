@@ -556,7 +556,7 @@ msgid "E-mail"
 msgstr "E-poçta"
 
 msgid "Detail"
-msgstr "Jikme-jiklik"
+msgstr "Jikme-jik"
 
 msgid "All"
 msgstr "Hemmesi"

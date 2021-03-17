@@ -752,53 +752,6 @@ try{
 				}
 			}
 		});
-
-		/*===================================================================================*/
-		/*  Products LIVE Search
-		/*===================================================================================*/
-
-		// if( techmarket_options.enable_live_search == '1' ) {
-
-		// 	if ( techmarket_options.ajax_url.indexOf( '?' ) > 1 ) {
-		// 		var prefetch_url    = techmarket_options.ajax_url + '&action=products_live_search&fn=get_ajax_search';
-		// 		var remote_url      = techmarket_options.ajax_url + '&action=products_live_search&fn=get_ajax_search&terms=%QUERY';
-		// 	} else {
-		// 		var prefetch_url    = techmarket_options.ajax_url + '?action=products_live_search&fn=get_ajax_search';
-		// 		var remote_url      = techmarket_options.ajax_url + '?action=products_live_search&fn=get_ajax_search&terms=%QUERY';
-		// 	}
-
-		// 	var searchProducts = new Bloodhound({
-		// 		datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
-		// 		queryTokenizer: Bloodhound.tokenizers.whitespace,
-		// 		prefetch: prefetch_url,
-		// 		remote: {
-		// 			url: remote_url,
-		// 			wildcard: '%QUERY',
-		// 		},
-		// 		identify: function(obj) {
-		// 			return obj.id;
-		// 		}
-		// 	});
-
-		// 	searchProducts.initialize();
-
-		// 	$( '.navbar-search .product-search-field' ).typeahead( techmarket_options.typeahead_options,
-		// 		{
-		// 			name: 'search',
-		// 			source: searchProducts.ttAdapter(),
-		// 			displayKey: 'value',
-		// 			limit: techmarket_options.live_search_limit,
-		// 			templates: {
-		// 				empty : [
-		// 					'<div class="empty-message">',
-		// 					techmarket_options.live_search_empty_msg,
-		// 					'</div>'
-		// 				].join('\n'),
-		// 				suggestion: Handlebars.compile( techmarket_options.live_search_template )
-		// 			}
-		// 		}
-		// 	);
-		// }
 	});
 
 

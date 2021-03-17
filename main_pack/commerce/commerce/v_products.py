@@ -17,9 +17,10 @@ from main_pack.models.commerce.models import (
 	Brand,
 	Res_price
 )
+
+from main_pack.models.base.models import Division
+
 from main_pack.commerce.commerce.utils import UiCategoriesList, uiSortingData, UiBrandsList
-from main_pack.base.invoiceMethods import resource_config_check
-from main_pack.api.commerce.commerce_utils import apiResourceInfo
 from main_pack.api.commerce.commerce_utils import UiCartResourceData
 from main_pack.api.commerce.pagination_utils import collect_resource_paginate_info
 # / Resource and view /
@@ -40,6 +41,13 @@ def v_list():
 	}
 	search = request.args.get("search",None,type=str)
 	args_data["search"] = search.strip() if search else None
+
+	division = Division.query\
+		.filter_by(DivGuid = Config.C_MAIN_DIVGUID, GCRecord = None)\
+		.first()
+	DivId = division.DivId if division else 1
+	args_data["DivId"] = DivId
+
 	pagination_info = collect_resource_paginate_info(**args_data)
 
 	res = {}
@@ -73,6 +81,13 @@ def v_grid():
 	}
 	search = request.args.get("search",None,type=str)
 	args_data["search"] = search.strip() if search else None
+
+	division = Division.query\
+		.filter_by(DivGuid = Config.C_MAIN_DIVGUID, GCRecord = None)\
+		.first()
+	DivId = division.DivId if division else 1
+	args_data["DivId"] = DivId
+
 	pagination_info = collect_resource_paginate_info(**args_data)
 
 	res = {}
@@ -99,8 +114,18 @@ def product(ResId):
 		}
 	]
 
+
+	division = Division.query\
+		.filter_by(DivGuid = Config.C_MAIN_DIVGUID, GCRecord = None)\
+		.first()
+	DivId = division.DivId if division else 1
+
 	try:
-		resData = UiCartResourceData(product_list,fullInfo=True,showRelated=True)
+		resData = UiCartResourceData(
+			product_list,
+			fullInfo = True,
+			showRelated = True,
+			DivId = DivId)
 		resource = resData["data"][0]
 	except:
 		abort(404)

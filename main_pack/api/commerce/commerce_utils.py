@@ -107,7 +107,7 @@ def collect_categories_query(
 			.filter(Res_category.IsMain == True)
 
 	if avoidQtyCheckup == 0:
-		if (Config.SHOW_NEGATIVE_WH_QTY_RESOURCE == False and not showNullResourceCategory):
+		if (not Config.SHOW_NEGATIVE_WH_QTY_RESOURCE and not showNullResourceCategory):
 			categories_query = categories_query\
 				.filter(Res_Total_subquery.c.ResTotBalance_sum > 0)
 
@@ -161,7 +161,7 @@ def collect_resources_query(
 	.outerjoin(Res_Total_subquery, Resource.ResId == Res_Total_subquery.c.ResId)
 
 	if avoidQtyCheckup == 0:
-		if Config.SHOW_NEGATIVE_WH_QTY_RESOURCE == False:
+		if not Config.SHOW_NEGATIVE_WH_QTY_RESOURCE:
 			resource_query = resource_query\
 				.filter(Res_Total_subquery.c.ResTotBalance_sum > 0)
 
@@ -314,7 +314,7 @@ def apiResourceInfo(
 				.outerjoin(Res_Total_subquery, Resource.ResId == Res_Total_subquery.c.ResId)
 
 				if avoidQtyCheckup == 0:
-					if Config.SHOW_NEGATIVE_WH_QTY_RESOURCE == False:
+					if not Config.SHOW_NEGATIVE_WH_QTY_RESOURCE:
 						resource_query = resource_query\
 							.filter(Res_Total_subquery.c.ResTotBalance_sum > 0)
 
@@ -609,8 +609,17 @@ def apiFeaturedResCat_Resources():
 	return res
 
 
-def UiCartResourceData(product_list, fullInfo=False, showRelated=False):
-	res = apiResourceInfo(product_list, fullInfo=fullInfo, showRelated=showRelated)
+def UiCartResourceData(
+	product_list,
+	fullInfo = False,
+	showRelated = False,
+	DivId = None
+):
+	res = apiResourceInfo(
+		product_list,
+		fullInfo = fullInfo,
+		showRelated = showRelated,
+		DivId = DivId)
 	data = []
 	resources = res["data"]
 	for resource in resources:

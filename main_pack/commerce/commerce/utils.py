@@ -13,6 +13,7 @@ from main_pack.models.commerce.models import (
 	Resource)
 from main_pack.models.base.models import (
 	Company,
+	Division,
 	Sl_image,
 	Slider,
 	Image)
@@ -61,7 +62,16 @@ def slidersData():
 
 @cache.cached(Config.DB_CACHE_TIME, key_prefix="ui_categories")
 def UiCategoriesList():
-	categories = collect_categories_query(showNullResourceCategory = 1)\
+
+	division = Division.query\
+		.filter_by(DivGuid = Config.C_MAIN_DIVGUID, GCRecord = None)\
+		.first()
+	DivId = division.DivId if division else 1
+
+	categories = collect_categories_query(
+		showNullResourceCategory = Config.SHOW_NULL_RESOURCE_CATEGORY,
+		DivId = DivId
+		)\
 		.options(joinedload(Res_category.Resource))\
 		.all()
 
