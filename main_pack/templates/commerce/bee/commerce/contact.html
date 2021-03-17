@@ -43,10 +43,10 @@
 							<div class="col-lg-4 col-md-6 col-12 mb-50">
 								<div class="contact-information">
 									<h4>{{_('Phone')}}</h4>
-									{% if company.Phone1 %}<p>{{company.Phone1}}</p>{% endif %}
-									{% if company.Phone2 %}<p>{{company.Phone2}}</p>{% endif %}
-									{% if company.Phone3 %}<p>{{company.Phone3}}</p>{% endif %}
-									{% if company.Phone4 %}<p>{{company.Phone4}}</p>{% endif %}
+									{% if company.Phone1 %}<a href="tel:{{company.Phone1}}"><p>{{company.Phone1}}</p></a>{% endif %}
+									{% if company.Phone2 %<a href="tel:{{company.Phone2}}"><p>{{company.Phone2}}</p></a>{% endif %}
+									{% if company.Phone3 %<a href="tel:{{company.Phone3}}"><p>{{company.Phone3}}</p></a>{% endif %}
+									{% if company.Phone4 %<a href="tel:{{company.Phone4}}"><p>{{company.Phone4}}</p></a>{% endif %}
 								</div>
 							</div>
 						{% endif %}
@@ -55,7 +55,7 @@
 							<div class="col-lg-4 col-md-6 col-12 mb-50">
 								<div class="contact-information">
 									<h4>{{_('Email')}}</h4>
-									<p>{{company.CEmail}}</p>
+									<a href="mailto:{{company.CEmail}}"><p>{{company.CEmail}}</p></a>
 								</div>
 							</div>
 						{% endif %}
