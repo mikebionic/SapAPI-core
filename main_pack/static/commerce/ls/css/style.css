@@ -29537,10 +29537,6 @@ height: 100%;
   cursor: pointer;
 }
 
-.cart-details .qty {
-  max-height: 80%;
-}
-
 .clearCartBtn {
   background-color: #858585!important;
 }

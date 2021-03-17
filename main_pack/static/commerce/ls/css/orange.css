@@ -101,7 +101,9 @@ input[type="submit"].dokan-btn-theme:focus, a.dokan-btn-theme:focus, .dokan-btn-
 .site-content .landing-v1-slider .slider-1 .button:hover,
 .site-content .landing-v2-slider .slider-1 .button:hover,
 .about-accordion .card .card-header h5 > a:not(.collapsed) i {
-  background-color: #fd6602; }
+  /* background-color: #fd6602; */
+  background-color: #fd6602db
+}
 
 .primary-navigation .nav .dropdown-menu,
 .secondary-navigation .nav .dropdown-menu,
