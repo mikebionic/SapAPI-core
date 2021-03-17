@@ -9,8 +9,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="shortcut icon" type="image/x-icon" href="{{ company_logo.FilePath if company_logo else url_for('static', filename='commerce/bee/images/favicon.ico') }}">
 
-  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/bee/css/app.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/bee/css/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/bee/css/font-awesome.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/bee/css/icon-font.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/bee/css/plugins.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/bee/css/style.css') }}">
   {% block styles %}{% endblock %}
+  <script src="{{ url_for('static', filename='commerce/bee/js/vendor/modernizr-2.8.3.min.js') }}"></script>
 </head>
 
 <body>
@@ -207,7 +212,16 @@
     </div>
   </div>
 </div>
-<script src="{{ url_for('static', filename='commerce/bee/js/app.js') }}"></script>
+<script src="{{ url_for('static', filename='commerce/bee/js/vendor/jquery-1.12.4.min.js') }}"></script>
+<script src="{{ url_for('static', filename='commerce/bee/js/popper.min.js') }}"></script>
+<script src="{{ url_for('static', filename='commerce/bee/js/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static', filename='commerce/bee/js/plugins.js') }}"></script>
+
+<script src="{{ url_for('static', filename='commerce/bee/js/main.js') }}"></script>
+<script src="{{ url_for('static', filename='commerce/bee/js/rating.js') }}"></script>
+<script src="{{ url_for('static', filename='commerce/bee/js/js.cookie.min.js') }}"></script>
+<script src="{{ url_for('static', filename='commerce/bee/js/cartsAndCheckouts.js') }}"></script>
+<script src="{{ url_for('static', filename='commerce/bee/js/ui_dynamicals.js') }}"></script>
 
 <script type="text/javascript">
   var url_prefix = "{{url_prefix if url_prefix else ''}}";

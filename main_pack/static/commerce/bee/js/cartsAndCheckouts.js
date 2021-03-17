@@ -218,41 +218,6 @@ function totalPriceCheckout(ownerId){
 	$('.productTotalPrice'+'[ownerId='+ownerId+']').text(productTotalPrice);
 }
 
-// $('body').delegate('.nextQtyVal','click',function(){
-// 	ownerId = $(this).attr('ownerId');
-// 	console.log('nextQtyVal')
-// 	var currentVal = $(this).attr('value');
-// 	console.log(currentVal)
-// 	newVal = parseInt(currentVal)+1;
-// 	if (newVal<=0){
-// 		newVal=1;
-// 	}
-// 	$(this).attr('value',newVal);
-// 	qtyCheckout(ownerId,newVal);
-// 	totalPriceCheckout(ownerId);
-// })
-
-// $('body').delegate('.prevQtyVal','click',function(){
-// 	ownerId = $(this).attr('ownerId');
-// 	var currentVal = $(this).attr('value');
-// 	newVal = parseInt(currentVal)-1;
-// 	if (newVal<=0){
-// 		newVal=1;
-// 	}
-// 	$(this).attr('value',newVal);
-// 	qtyCheckout(ownerId,newVal);
-// 	totalPriceCheckout(ownerId);
-// })
-// $('body').delegate('.cartItemQty','click',function(){
-// 	ownerId = $(this).attr('ownerId');
-// 	var newVal = $(this).val();
-// 	// console.log(newVal)
-// 	$(this).val(newVal);
-	 
-// 	qtyCheckout(ownerId,newVal);
-// 	totalPriceCheckout(ownerId);
-// })
-
 $('body').delegate('.cartItemQty','click',function(){
 	var ownerId = $(this).find('input').attr('ownerId');
 	var newVal = $(this).find('input').val();
