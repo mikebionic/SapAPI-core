@@ -272,7 +272,7 @@
 						<div class="footer-contact">
 							<div class="footer-logo">
 								<a href="{{ url_for('commerce.commerce') }}" class="custom-logo-link" rel="home">
-									<img style="max-width: 6%;" src="{{ url_for('static', filename='commerce/ls/img/ls_logo_dark.svg') }}" alt="Lomay Sowda logo wholesale">
+									<img style="max-width: 6%;" src="{{ url_for('static', filename='commerce/ls/img/ls_logo_dark.svg') }}" alt="Lomay Sowda LS logo wholesale">
 								</a>
 							</div>
 							<div class="contact-payment-wrap">
@@ -284,12 +284,12 @@
 										<div class="media-body">
 											<span class="call-us-title">{{_('Contact us')}}</span>
 											<span class="call-us-text">
-												<div class="pulse">
-													<a href="tel:{{company.Phone1}}">
-														<i class="fa fa-fw fa-phone"></i>
-													</a>
-												</div>
 												{% if company.Phone1 %}
+													<div class="pulse">
+														<a href="tel:{{company.Phone1}}">
+															<i class="fa fa-fw fa-phone"></i>
+														</a>
+													</div>
 													<a href="tel:{{company.Phone1}}">{{company.Phone1}}</a>
 												{% endif %}
 												{% if company.Phone2 %}
@@ -325,10 +325,8 @@
 								</div>
 								<div class="col-xl-6 col-lg-6 col-md-4 col-12 pb-30 pt-10">
 									<div class="footer-social-icons">
-										<h2>Lomay sowda</h2>
-										<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae necessitatibus vitae dolor 
-											facilis totam magni debitis rerum mollitia quisquam,
-												explicabo, consequuntur qui error quaerat facere expedita, dolores ipsa distinctio tempora.</p>
+										<h2>{{ company.CFullName if company.CFullName else company.CName }}</h2>
+										<p>{{ company.CDesc }}</p>
 									</div>
 								</div>
 								<div class="footer-widgets">
