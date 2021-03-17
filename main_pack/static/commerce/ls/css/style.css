@@ -26592,6 +26592,7 @@ form.track_order {
 .header-v4 .departments-menu nav > .dropdown-menu {
   top: 25px !important;
   overflow: auto;
+  border-bottom: 2px solid #fd6602;
   height: 35vw; }
 
 .site-header.header-v5 .navbar-primary .nav > .menu-item-has-children > .dropdown-menu,
