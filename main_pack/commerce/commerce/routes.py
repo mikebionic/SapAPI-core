@@ -13,6 +13,7 @@ from main_pack.commerce.commerce.utils import (
 	UiCategoriesList,
 	UiBrandsList,
 	send_email_to_company)
+from main_pack.models.base.models import Division
 
 from main_pack.commerce.commerce.forms import SendEmailToCompanyForm
 # / Resource and view /
@@ -21,9 +22,15 @@ from main_pack.commerce.commerce.forms import SendEmailToCompanyForm
 @bp.route("/")
 @bp.route(Config.COMMERCE_HOME_PAGE)
 def commerce():
-	latest_resources = apiResourceInfo(showLatest = True)
+
+	division = Division.query\
+		.filter_by(DivGuid = Config.C_MAIN_DIVGUID, GCRecord = None)\
+		.first()
+	DivId = division.DivId if division else 1
+
+	latest_resources = apiResourceInfo(showLatest = True, DivId = DivId)
 	# rated_resources = apiResourceInfo(showRated = True)
-	featured_categories = apiFeaturedResCat_Resources()
+	featured_categories = apiFeaturedResCat_Resources(DivId = DivId)
 	brands = UiBrandsList()
 	# "Rated_resources": rated_resources['data'],
 	res = {
