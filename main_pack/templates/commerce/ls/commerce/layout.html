@@ -9,8 +9,8 @@
 		<link rel="stylesheet"  href="{{ url_for('static', filename='commerce/ls/css/style.css') }}">
 		<link rel="stylesheet"  href="{{ url_for('static', filename='commerce/ls/css/orange.css') }}">
 		<link rel="stylesheet"  href="{{ url_for('static', filename='commerce/ls/css/techmarket-font-awesome.css') }}">
-		<!-- <link rel='stylesheet'  href="{{ url_for('static', filename='commerce/ls/css/slick.css') }}">
-		<link rel='stylesheet'  href="{{ url_for('static', filename='commerce/ls/css/slick-theme.css') }}"> -->
+		<link rel='stylesheet'  href="{{ url_for('static', filename='commerce/ls/css/slick.css') }}">
+		<link rel='stylesheet'  href="{{ url_for('static', filename='commerce/ls/css/slick-theme.css') }}">
 		<link rel="stylesheet"  href="{{ url_for('static', filename='commerce/ls/css/font-techmarket.min.css') }}">
 		<link rel="shortcut icon" href="{{ url_for('static', filename='commerce/ls/img/ls_logo.svg') }}">
 		{% block styles %}{% endblock %}
@@ -279,11 +279,16 @@
 								<div class="footer-contact-info">
 									<div class="media">
 										<span class="media-left icon media-middle">
-											<i class="tm tm-call-us-footer"></i>
-										</span>
+											<i class="tm tm-call-us-footer" style="color: transparent;"></i>
+										</span><br>
 										<div class="media-body">
 											<span class="call-us-title">{{_('Contact us')}}</span>
 											<span class="call-us-text">
+												<div class="pulse">
+													<a href="tel:{{company.Phone1}}">
+														<i class="fa fa-fw fa-phone"></i>
+													</a>
+												</div>
 												{% if company.Phone1 %}
 													<a href="tel:{{company.Phone1}}">{{company.Phone1}}</a>
 												{% endif %}
@@ -293,16 +298,23 @@
 												{% if company.Phone3 %}
 													<a href="tel:{{company.Phone3}}">{{company.Phone3}}</a>
 												{% endif %}
+												
 											</span>
-											{% if company.CEmail %}
-												<span>{{_('Email')}}</span>
-												<a href="mailto:{{company.CEmail}}"><p>{{company.CEmail}}</p></a>
-											{% endif %}
+											
 											{% if company.CAddress %}
 												<address class="footer-contact-address">
 													<span>{{_('Address')}}</span>
 													<p>{{ company.CAddress }}</p>
 												</address>
+											{% endif %}
+											{% if company.CEmail %}
+												<div class="pulse">
+													<a href="mailto:{{company.CEmail}}">
+														<i class="fa fa-fw fa-envelope-o"></i>
+													</a>
+												</div>
+												<span>{{_('Email')}}</span>
+												<a href="mailto:{{company.CEmail}}"><p>{{company.CEmail}}</p></a>
 											{% endif %}
 											{% if company.AddInf1 %}
 												<span>{{_('Working time')}}</span>
@@ -311,52 +323,58 @@
 										</div>
 									</div>
 								</div>
-
-							</div>
-						</div>
-						<div class="footer-widgets">
-							<div class="columns">
-								<aside class="widget clearfix">
-									<div class="body">
-										<h4 class="widget-title">{{ company.CName }}</h4>
-										<div class="menu-footer-menu-3-container">
-											<ul id="menu-footer-menu-3" class="menu">
-												<li class="menu-item">
-													<a href="{{ url_for('commerce.v_grid') }}">
-														{{_('Products')}}
-													</a>
-												</li>
-												<li class="menu-item">
-													<a href="{{ url_for('commerce.about') }}">
-														{{_('About us')}}
-													</a>
-												</li>
-												<li class="menu-item">
-													<a href="{{ url_for('commerce.contact') }}">
-														{{_('Contact')}}
-													</a>
-												</li>
-												<!-- {% if current_user.is_authenticated %}
-													<li class="menu-item animate-dropdown">
-														<a href="{{ url_for('commerce_users.profile') }}">
-															{{_('Profile')}}
-														</a>
-													</li>
-													<li class="menu-item animate-dropdown">
-														<a href="{{ url_for('commerce_users.orders') }}">
-															{{_('Orders')}}
-														</a>
-													</li>
-													<li class="menu-item animate-dropdown">
-														<a href="{{ url_for('commerce_users.wishlist') }}">
-															{{_('Wishlist')}}
-														</a>
-													</li>
-												{% endif %} -->
-											</ul>
-										</div>
+								<div class="col-xl-6 col-lg-6 col-md-4 col-12 pb-30 pt-10">
+									<div class="footer-social-icons">
+										<h2>Lomay sowda</h2>
+										<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae necessitatibus vitae dolor 
+											facilis totam magni debitis rerum mollitia quisquam,
+												explicabo, consequuntur qui error quaerat facere expedita, dolores ipsa distinctio tempora.</p>
 									</div>
-								</aside>
+								</div>
+								<div class="footer-widgets">
+						
+									<aside class="widget clearfix">
+										<div class="body">
+											<h4 class="widget-title">{{ company.CName }}</h4>
+											<div class="menu-footer-menu-3-container">
+												<ul id="menu-footer-menu-3" class="menu">
+													<li class="menu-item">
+														<a href="{{ url_for('commerce.v_grid') }}">
+															{{_('Products')}}
+														</a>
+													</li>
+													<li class="menu-item">
+														<a href="{{ url_for('commerce.about') }}">
+															{{_('About us')}}
+														</a>
+													</li>
+													<li class="menu-item">
+														<a href="{{ url_for('commerce.contact') }}">
+															{{_('Contact')}}
+														</a>
+													</li>
+													<!-- {% if current_user.is_authenticated %}
+														<li class="menu-item animate-dropdown">
+															<a href="{{ url_for('commerce_users.profile') }}">
+																{{_('Profile')}}
+															</a>
+														</li>
+														<li class="menu-item animate-dropdown">
+															<a href="{{ url_for('commerce_users.orders') }}">
+																{{_('Orders')}}
+															</a>
+														</li>
+														<li class="menu-item animate-dropdown">
+															<a href="{{ url_for('commerce_users.wishlist') }}">
+																{{_('Wishlist')}}
+															</a>
+														</li>
+													{% endif %} -->
+												</ul>
+											</div>
+										</div>
+									</aside>
+								</div>
 							</div>
 						</div>
 					</div>
