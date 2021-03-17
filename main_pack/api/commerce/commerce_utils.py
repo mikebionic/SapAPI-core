@@ -566,11 +566,13 @@ def apiResourceInfo(
 def apiFeaturedResCat_Resources(DivId = None):
 	featured_categories = collect_categories_query(
 		IsMain = True,
-		showNullResourceCategory = True,
+		showNullResourceCategory = Config.SHOW_NULL_RESOURCE_CATEGORY,
 		DivId = DivId
 	)
 
-	featured_categories = featured_categories.all()
+	featured_categories = featured_categories\
+		.order_by(Res_category.ResCatVisibleIndex.asc())\
+		.all()
 
 	if featured_categories:
 		featured_resources_query = collect_resources_query(DivId = DivId)
