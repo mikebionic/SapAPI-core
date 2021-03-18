@@ -4174,6 +4174,7 @@ body.can-uppercase .section-categories-carousel.section-top-categories .readmore
     margin-bottom: 3em;
     padding-top: 3.133em; }
     .site-footer .footer-widgets-block .footer-contact, .site-footer .footer-widgets-block .footer-widgets .columns {
+      width: -webkit-fill-available;
       padding-top: 1.667em; }
     @media (max-width: 1199px) {
       .site-footer .footer-widgets-block .footer-contact {
@@ -27668,7 +27669,7 @@ button:hover{
 
     
 .description{
-	background: #283d86c7;
+	background: #283d86e8;
 	position: absolute;
 	width: 140px;
 	height: 140px;
