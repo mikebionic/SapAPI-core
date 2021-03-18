@@ -23,14 +23,19 @@ from main_pack.commerce.commerce.forms import SendEmailToCompanyForm
 @bp.route(Config.COMMERCE_HOME_PAGE)
 def commerce():
 
-	division = Division.query\
-		.filter_by(DivGuid = Config.C_MAIN_DIVGUID, GCRecord = None)\
-		.first()
-	DivId = division.DivId if division else 1
+	# division = Division.query\
+	# 	.filter_by(DivGuid = Config.C_MAIN_DIVGUID, GCRecord = None)\
+	# 	.first()
+	# DivId = division.DivId if division else 1
 
-	latest_resources = apiResourceInfo(showLatest = True, DivId = DivId)
+	latest_resources = apiResourceInfo(
+		showLatest = True,
+		# DivId = DivId
+	)
 	# rated_resources = apiResourceInfo(showRated = True)
-	featured_categories = apiFeaturedResCat_Resources(DivId = DivId)
+	featured_categories = apiFeaturedResCat_Resources(
+		# DivId = DivId
+	)
 	brands = UiBrandsList()
 	# "Rated_resources": rated_resources['data'],
 	res = {
