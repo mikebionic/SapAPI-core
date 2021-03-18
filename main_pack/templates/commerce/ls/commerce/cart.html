@@ -4,85 +4,83 @@
 <div id="content" class="site-content">
 	<div class="col-full">
 		<div>
-			<div id="primary" class="content-area">
-				<main id="main" class="site-main">
-					<div class="type-page hentry">
-						<div class="entry-content">
-							<div class="woocommerce">
-									<div class="row">
+			<main id="main" class="site-main">
+				<div class="type-page hentry">
+					<div class="entry-content">
+						<div class="woocommerce">
+								<div class="row">
 
-										<div class="col-8" style="max-width: 100%; margin: 0 auto;">
+									<div class="col-8" style="max-width: 100%; margin: 0 auto;">
 
-											<form action="#">
-												<div class="cart-table table-responsive mb-40">
-													<table class="table">
-														<thead>
-															<tr>
-																<th class="pro-thumbnail">{{_('Image')}}</th>
-																<th class="pro-title">{{_('Product')}}</th>
-																<th class="pro-price">{{_('Price')}}</th>
-																<th class="pro-quantity">{{_('Quantity')}}</th>
-																<th class="pro-subtotal">{{_('Total')}}</th>
-																<th class="pro-remove">{{_('Remove')}}</th>
-															</tr>
-														</thead>
-														<tbody class="cartItemsTable">
-														</tbody>
-													</table>
-												</div>
-											</form>
-										</div>
-
-
-										<div class="cart-collaterals" style="margin: 0 auto;">
-											<div class="cart_totals">
-												{% if current_user.is_authenticated %}
-												<h3>{{_('Summary')}}</h3>
-												<div class="contact-form">
-													<label for="message">{{_('Note')}}</label>
-													<textarea id="message" type="text" placeholder="{{_('Description')}} ({{_('City')}}, {{_('Av.')}}, {{_('Street')}}, {{_('House')}}, {{_('Flat')}})"></textarea>
-												</div>
-												<table class="shop_table shop_table_responsive">
-													<tbody>
-														<tr class="order-total">
-															<th>{{_('Total price')}}</th>
-															<td data-title="{{_('Total price')}}">
-																<strong>
-																	<span class="woocommerce-Price-amount amount cartTotalPrice">
-																		0.00
-																	</span>
-																	<span class="woocommerce-Price-currencySymbol currencySymbol">TMT</span>
-																</strong>
-															</td>
+										<form action="#">
+											<div class="cart-table table-responsive mb-40">
+												<table class="table">
+													<thead>
+														<tr>
+															<th class="pro-thumbnail">{{_('Image')}}</th>
+															<th class="pro-title">{{_('Product')}}</th>
+															<th class="pro-price">{{_('Price')}}</th>
+															<th class="pro-quantity">{{_('Quantity')}}</th>
+															<th class="pro-subtotal">{{_('Total')}}</th>
+															<th class="pro-remove">{{_('Remove')}}</th>
 														</tr>
+													</thead>
+													<tbody class="cartItemsTable">
 													</tbody>
 												</table>
-												<a class="checkout-button button alt wc-forward checkoutCartBtn">
-													<!-- {{_('Checkout')}} -->
-													Mümkinçilik entäk gurulýar
-												</a>
-
-											{% else %}
-												<h5 style="max-width: 12rem;">{{_('You should login if you want to checkout an order')}}!</h5>
-												<a class="checkout-button button alt wc-forward checkoutCartBtn" href="{{ url_for('commerce_auth.login') }}">
-													{{_('Login')}}
-												</a>
-											{% endif %}
-												<div class="wc-proceed-to-checkout">
-													<a class="back-to-shopping" href="{{ url_for('commerce.v_grid') }}">{{_('Products')}}</a>
-												</div>
 											</div>
-										</div>
-
+										</form>
 									</div>
 
 
+									<div class="cart-collaterals" style="margin: 0 auto;">
+										<div class="cart_totals">
+											{% if current_user.is_authenticated %}
+											<h3>{{_('Summary')}}</h3>
+											<div class="contact-form">
+												<label for="message">{{_('Note')}}</label>
+												<textarea id="message" type="text" placeholder="{{_('Description')}} ({{_('City')}}, {{_('Av.')}}, {{_('Street')}}, {{_('House')}}, {{_('Flat')}})"></textarea>
+											</div>
+											<table class="shop_table shop_table_responsive">
+												<tbody>
+													<tr class="order-total">
+														<th>{{_('Total price')}}</th>
+														<td data-title="{{_('Total price')}}">
+															<strong>
+																<span class="woocommerce-Price-amount amount cartTotalPrice">
+																	0.00
+																</span>
+																<span class="woocommerce-Price-currencySymbol currencySymbol">TMT</span>
+															</strong>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+											<a class="checkout-button button alt wc-forward checkoutCartBtn">
+												<!-- {{_('Checkout')}} -->
+												Mümkinçilik entäk gurulýar
+											</a>
 
-							</div>
+										{% else %}
+											<h5 style="max-width: 12rem;">{{_('You should login if you want to checkout an order')}}!</h5>
+											<a class="checkout-button button alt wc-forward checkoutCartBtn" href="{{ url_for('commerce_auth.login') }}">
+												{{_('Login')}}
+											</a>
+										{% endif %}
+											<div class="wc-proceed-to-checkout">
+												<a class="back-to-shopping" href="{{ url_for('commerce.v_grid') }}">{{_('Products')}}</a>
+											</div>
+										</div>
+									</div>
+
+								</div>
+
+
+
 						</div>
 					</div>
-				</main>
-			</div>
+				</div>
+			</main>
 		</div>
 	</div>
 </div>
