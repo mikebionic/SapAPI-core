@@ -65,14 +65,14 @@ $(document).ready(function($) {
 					breakpoint: 1199,
 
 					settings: {
-							slidesToShow: 4,
+							slidesToShow: 5,
 					}
 			},
 			 {
 					breakpoint: 1300,
 
 					settings: {
-							slidesToShow: 5,
+							slidesToShow:6,
 					}
 			},
 			{
@@ -86,14 +86,14 @@ $(document).ready(function($) {
 					breakpoint: 1600,
 
 					settings: {
-							slidesToShow: 5,
+							slidesToShow: 7,
 					}
 			},
 			{
 					breakpoint: 1800,
 
 					settings: {
-							slidesToShow: 6,
+							slidesToShow: 8,
 					}
 			},
 			{
@@ -107,14 +107,14 @@ $(document).ready(function($) {
 					breakpoint: 2400,
 
 					settings: {
-							slidesToShow: 8,
+							slidesToShow: 9,
 					}
 			},
 			{
 					breakpoint: 2000,
 
 					settings: {
-							slidesToShow: 7,
+							slidesToShow: 8,
 					}
 			},
 			{

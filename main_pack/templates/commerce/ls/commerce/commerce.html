@@ -4,11 +4,11 @@
 
 			<div id="content" class="site-content" tabindex="-1">
 				<div class="col-full">
-					<div class="row" style="flex-wrap:nowrap">
+					<div class="row">
 						<div id="primary" class="content-area">
 							<main id="main" class="site-main">
 								<div class="homev6-slider-with-banners row">
-									<div class="slider-block column-1">
+									<div class="slider-block col-12">
 										<div class="home-v6-slider home-slider">
 											{% for slider in sliders %}
 											{% if slider.SlName == "HomePageTop" %}
@@ -29,11 +29,12 @@
 								</div>
 							</main>
 						</div>
-						<div id="secondary" class="widget-area" role="complementary" style="height:0">
+						<div id="secondary" class="widget-area" role="complementary">
 						</div>
-					</div>
-				</div>
-			</div>
+
+		</div>
+	</div>
+</div>
 
 
 
@@ -206,8 +207,6 @@
 			{% endif %}
 
 
-		</main>
-	</div>
 
 {% endblock %}
 
