@@ -102,21 +102,25 @@ def collect_resource_paginate_info(
 	if showInactive == False:
 		resource_filtering["UsageStatusId"] = 1
 	
-	if DivId is None:
-		# !!! TODO: This option will live for a while
-		avoidQtyCheckup = 1
+	# if DivId is None:
+	# 	# !!! TODO: This option will live for a while
+	# 	avoidQtyCheckup = 1
 
-		division = Division.query\
-			.filter_by(DivGuid = Config.C_MAIN_DIVGUID, GCRecord = None)\
-			.first()
-		DivId = division.DivId if division else 1
+	# 	division = Division.query\
+	# 		.filter_by(DivGuid = Config.C_MAIN_DIVGUID, GCRecord = None)\
+	# 		.first()
+	# 	DivId = division.DivId if division else 1
 
+	Res_Total_subquery = db.session.query(
+		Res_total.ResId,
+		db.func.sum(Res_total.ResTotBalance).label("ResTotBalance_sum"),
+		db.func.sum(Res_total.ResPendingTotalAmount).label("ResPendingTotalAmount_sum"))
+	
 	if DivId:
-		Res_Total_subquery = db.session.query(
-			Res_total.ResId,
-			db.func.sum(Res_total.ResTotBalance).label("ResTotBalance_sum"),
-			db.func.sum(Res_total.ResPendingTotalAmount).label("ResPendingTotalAmount_sum"))\
-		.filter(Res_total.DivId == DivId)\
+		Res_Total_subquery = Res_Total_subquery\
+			.filter(Res_total.DivId == DivId)
+	
+	Res_Total_subquery = Res_Total_subquery\
 		.group_by(Res_total.ResId)\
 		.subquery()
 
