@@ -132,8 +132,8 @@ class Config:
 
 	# # to give each api it's pagination:
 	RESOURCES_PER_PAGE = int(environ.get('RESOURCES_PER_PAGE')) if environ.get('RESOURCES_PER_PAGE') else 30
-	INVOICES_PER_PAGE = int(environ.get('INVOICES_PER_PAGE')) if environ.get('INVOICES_PER_PAGE') else 15
-	API_OBJECTS_PER_PAGE = int(environ.get('API_OBJECTS_PER_PAGE')) if environ.get('API_OBJECTS_PER_PAGE') else 10
+	INVOICES_PER_PAGE = int(environ.get('INVOICES_PER_PAGE')) if environ.get('INVOICES_PER_PAGE') else 30
+	API_OBJECTS_PER_PAGE = int(environ.get('API_OBJECTS_PER_PAGE')) if environ.get('API_OBJECTS_PER_PAGE') else 20
 
 	# REG_NO generator's random range
 	REG_NUM_RANDOM_RANGE = int(environ.get('REG_NUM_RANDOM_RANGE')) if environ.get('REG_NUM_RANDOM_RANGE') else 1000000000
@@ -261,11 +261,11 @@ class Config:
 	# / templates file location configuration /
 
 	# tag resources as new if they exist **amount** days
-	COMMERCE_RESOURCE_NEWNESS_DAYS = int(environ.get('COMMERCE_RESOURCE_NEWNESS_DAYS')) if environ.get('COMMERCE_RESOURCE_NEWNESS_DAYS') else 10
+	COMMERCE_RESOURCE_NEWNESS_DAYS = int(environ.get('COMMERCE_RESOURCE_NEWNESS_DAYS')) if environ.get('COMMERCE_RESOURCE_NEWNESS_DAYS') else 15
 	# how many resources to show in rating view
-	TOP_RATED_RESOURCES_AMOUNT = int(environ.get('TOP_RATED_RESOURCES_AMOUNT')) if environ.get('TOP_RATED_RESOURCES_AMOUNT') else 15
-	FEATURED_RESOURCE_AMOUNT = int(environ.get('FEATURED_RESOURCE_AMOUNT')) if environ.get('FEATURED_RESOURCE_AMOUNT') else 15
-	RESOURCE_MAIN_PAGE_SHOW_QTY = int(environ.get('RESOURCE_MAIN_PAGE_SHOW_QTY')) if environ.get('RESOURCE_MAIN_PAGE_SHOW_QTY') else 25
+	TOP_RATED_RESOURCES_AMOUNT = int(environ.get('TOP_RATED_RESOURCES_AMOUNT')) if environ.get('TOP_RATED_RESOURCES_AMOUNT') else 14
+	FEATURED_RESOURCE_AMOUNT = int(environ.get('FEATURED_RESOURCE_AMOUNT')) if environ.get('FEATURED_RESOURCE_AMOUNT') else 14
+	RESOURCE_MAIN_PAGE_SHOW_QTY = int(environ.get('RESOURCE_MAIN_PAGE_SHOW_QTY')) if environ.get('RESOURCE_MAIN_PAGE_SHOW_QTY') else 24
 	SMALLEST_RATING_VALUE_SHOW = int(environ.get('SMALLEST_RATING_VALUE_SHOW')) if environ.get('SMALLEST_RATING_VALUE_SHOW') else 3.5
 
 	# location of robots.txt and sitemap.xml
