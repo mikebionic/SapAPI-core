@@ -1079,7 +1079,6 @@ document.addEventListener('error', function (event) {
 
 $(document).ready(function(){
 	$('img').each(function() {
-		console.log($(this).attr('src'))
 		if ($(this).attr('src') == no_photo){
 			$(this).css({'padding': '25px'})
 		}
