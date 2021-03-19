@@ -230,7 +230,7 @@
 													<span class="woocommerce-Price-currencySymbol">TMT</span>
 												</p>
 												<p class="woocommerce-mini-cart__buttons buttons">
-													<a href="{{ url_for('commerce.cart') }}" class="button wc-forward">{{_('Checkout')}}</a>
+													<a href="{{ url_for('commerce.cart') }}" class="button wc-forward">{{_('View cart')}}</a>
 													<a class="button wc-forward clearCartBtn">{{_('Remove')}}</a>
 												</p>
 											</div>
@@ -245,12 +245,8 @@
 
 		</header>
 
-		<nav class="woocommerce-breadcrumb">
-			<a href="home-v1.html">Home</a>
-			<span class="delimiter">
-					<i class="tm tm-breadcrumbs-arrow-right"></i>
-			</span>Shop
-		</nav>
+		{% block breadcrumbs %}{% endblock %}
+
 		{% with messages = get_flashed_messages(with_categories=true) %}
 		{% if messages %}
 			{% for category, message in messages %}

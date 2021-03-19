@@ -1,5 +1,15 @@
 {% extends "commerce/bee/commerce/layout.html" %}
 
+{% block breadcrumbs %}
+<nav class="woocommerce-breadcrumb">
+	<a href="{{ url_for('commerce.commerce') }}">{{_('Main')}}</a>
+	<span class="delimiter">
+		<i class="fa fa-angle-right"></i>
+	</span>
+	{{_('Cart')}}
+</nav>
+{% endblock %}
+
 {% block content %}
 <div class="page-section section pt-90 pb-50">
 	<div class="container">
@@ -71,8 +81,6 @@
 		</div>
 	</div>
 </div>
-<!-- Cart Page End -->
-
 {% endblock %}
 
 {% block scripts %}
