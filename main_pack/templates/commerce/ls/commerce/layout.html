@@ -245,7 +245,12 @@
 
 		</header>
 
-
+		<nav class="woocommerce-breadcrumb">
+			<a href="home-v1.html">Home</a>
+			<span class="delimiter">
+					<i class="tm tm-breadcrumbs-arrow-right"></i>
+			</span>Shop
+		</nav>
 		{% with messages = get_flashed_messages(with_categories=true) %}
 		{% if messages %}
 			{% for category, message in messages %}

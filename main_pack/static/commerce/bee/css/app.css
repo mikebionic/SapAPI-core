@@ -13363,3 +13363,23 @@ ul.link-widget li {
 .banner a{
   height: 250px;
 }
+
+/*===================================================================================*/
+/*  WC-BREADCRUMB
+/*===================================================================================*/
+.woocommerce-breadcrumb {
+  padding: 0 20px; }
+  .woocommerce-breadcrumb a {
+    color: #333e48;
+    display: inline-block; }
+    .woocommerce-breadcrumb a:focus, .woocommerce-breadcrumb a:hover {
+      color: #333e48;
+      text-decoration: none; }
+  .woocommerce-breadcrumb span.delimiter {
+    margin: 0 1.429em; }
+    .woocommerce-breadcrumb span.delimiter + a {
+      padding: 0.465em 0.929em;
+      background-color: #f5f5f5;
+      border-radius: 0.357em; }
+      .woocommerce-breadcrumb span.delimiter + a:focus, .woocommerce-breadcrumb span.delimiter + a:hover {
+        background-color: #e8e8e8; }
