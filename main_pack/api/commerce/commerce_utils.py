@@ -787,6 +787,9 @@ def apiOrderInvInfo(
 				# rpAccData = apiRpAccData(dbModel = rp_acc_user)
 				# rp_acc_data = rpAccData["data"]
 
+			# !!! Deprecated
+			rp_acc_data["Images"] = []
+
 			order_inv_info["Rp_acc"] = rp_acc_data
 			order_inv_info["CGuid"] = order_inv.company.CGuid if order_inv.company and not order_inv.company.GCRecord else None
 			order_inv_info["WhGuid"] = order_inv.warehouse.WhGuid if order_inv.warehouse and not order_inv.warehouse.GCRecord else None

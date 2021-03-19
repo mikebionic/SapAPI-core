@@ -687,6 +687,12 @@ msgstr "Täze"
 msgid "Add to cart"
 msgstr "Sebede goş"
 
+msgid "Cart"
+msgstr "Sebet"
+
+msgid "View cart"
+msgstr "Sebedi gör"
+
 msgid "New arrival"
 msgstr "Soňky gelenler"
 

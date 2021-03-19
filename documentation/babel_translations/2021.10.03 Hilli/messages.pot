@@ -667,6 +667,12 @@ msgstr "New"
 msgid "Add to cart"
 msgstr "Add to cart"
 
+msgid "Cart"
+msgstr "Cart"
+
+msgid "View cart"
+msgstr "View cart"
+
 msgid "New arrival"
 msgstr "New arrival"
 

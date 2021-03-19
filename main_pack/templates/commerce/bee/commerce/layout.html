@@ -174,7 +174,9 @@
   </div>
 </div>
 <div class="cart-overlay"></div>
-<nav class="woocommerce-breadcrumb"><a href="{{ url_for('commerce.commerce')}}">Home</a><span class="delimiter"><i class="fa fa-angle-right"></i></span>Smart Phones &amp; Tablets</nav>
+
+{% block breadcrumbs %}{% endblock %}
+
 {% with messages = get_flashed_messages(with_categories=true) %}
 {% if messages %}
   {% for category, message in messages %}

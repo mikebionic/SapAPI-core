@@ -1,13 +1,21 @@
 {% extends "commerce/bee/commerce/layout.html" %}
 
+{% block breadcrumbs %}
+<nav class="woocommerce-breadcrumb">
+	<a href="{{ url_for('commerce.commerce') }}">{{_('Main')}}</a>
+	<span class="delimiter">
+		<i class="fa fa-angle-right"></i>
+	</span>
+	{{_('About us')}}
+</nav>
+{% endblock %}
+
 {% block content %}
-<!-- About Section Start -->
 <div class="about-section section mt-90 mb-30">
 	<div class="container">
 
 		<div class="row row-30 mb-40">
 
-			<!-- About Image -->
 			<div class="about-image col-lg-6 mb-50">
 				<img loading="lazy" src="{{ url_for('static', filename='commerce/bee/images/about-1.png') }}">
 			</div>
@@ -36,7 +44,7 @@
 		</div>
 
 	</div>
-</div><!-- About Section End -->
+</div>
 
 
 {% endblock %}

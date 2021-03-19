@@ -1,5 +1,19 @@
 {% extends "commerce/ls/commerce/layout.html" %}
 
+{% block breadcrumbs %}
+<nav class="woocommerce-breadcrumb">
+	<a href="{{ url_for('commerce.commerce') }}">{{_('Main')}}</a>
+	<span class="delimiter">
+		<i class="tm tm-breadcrumbs-arrow-right"></i>
+	</span>
+	<a href="{{ url_for('commerce.v_grid', category=resource.ResCatId) }}">{{ resource.ResCatName }}</a>
+	<span class="delimiter">
+		<i class="tm tm-breadcrumbs-arrow-right"></i>
+	</span>
+	{{ resource.ResName }}
+</nav>
+{% endblock %}
+
 {% block content %}
 
 <div class="pd-wrap">

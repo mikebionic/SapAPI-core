@@ -688,6 +688,12 @@ msgstr "Новый"
 msgid "Add to cart"
 msgstr "В корзину"
 
+msgid "Cart"
+msgstr "Корзина"
+
+msgid "View cart"
+msgstr "Показать корзину"
+
 msgid "New arrival"
 msgstr "Новое поступление"
 
