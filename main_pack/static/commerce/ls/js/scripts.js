@@ -1495,18 +1495,21 @@ function main () {
 
 
 // // navbar nav category
-window.onscroll = function() {navScrollHandler()};
+// window.onscroll = function() {navScrollHandler()};
 
-var navbar = $("nav");
-var sticky = navbar.offsetTop;
+// var navbar = $("nav");
+// var sticky = navbar.offsetTop;
 
-function navScrollHandler() {
-  if (window.pageYOffset >= sticky) {
-    navbar.addClass("sticky")
-  } else {
-    navbar.removeClass("sticky");
-  }
-}
+// function navScrollHandler() {
+// 	console.log("scrolling")
+//   if (window.pageYOffset >= sticky) {
+//     navbar.addClass("sticky")
+// 		console.log("sticky mode")
+//   } else {
+//     navbar.removeClass("sticky");
+// 		console.log("not sticky mode")
+//   }
+// }
 
 
 document.addEventListener('error', function (event) {
@@ -1514,3 +1517,77 @@ document.addEventListener('error', function (event) {
 	event.target.src = no_photo;
 	event.target.className = 'full-width'
 }, true);
+
+
+
+/*--
+    Category Menu
+------------------------*/
+var windows = $(window);
+var screenSize = windows.width();
+var sticky = $('.header-sticky');
+
+windows.on('scroll', function() {
+	var scroll = windows.scrollTop();
+	if (scroll < 300) {
+		categoryMenuToggle();
+	}else{
+		slideCategoryUp()
+	}
+});
+
+var categoryToggle = $('.dropdown-toggle');
+var categoryMenu = $('.g-menu');
+var depMenu = $('.departments-menu');
+
+function slideCategoryDown() {
+	if (depMenu.hasClass('show')) {}
+	else {
+		depMenu.addClass('show')
+	}
+	if (categoryMenu.hasClass('show')) {}
+	else {
+		categoryMenu.addClass('show')
+	}
+}
+
+function slideCategoryUp() {
+	if (depMenu.hasClass('show')) {
+		depMenu.removeClass('show')
+	}
+	if (categoryMenu.hasClass('show')) {
+		categoryMenu.removeClass('show')
+	}
+}
+
+function categoryMenuToggle() {
+	var screenSize = windows.width();
+	// if (screenSize <= 991) {
+	// 	slideCategoryUp();
+	// }
+	// else{
+	// }
+	slideCategoryByPathname();
+}
+
+function slideCategoryByPathname() {
+	var pathnames = ['/commerce','/commerce/','/commerce/commerce','/commerce/commerce/','/main','/commerce/main','/main/','/commerce/main/','/','/index']
+	var current_path = location.pathname;
+	pathnames.forEach(function (item, index) {
+		if (item == current_path){
+			slideCategoryDown()
+		}
+	});
+}
+
+categoryMenuToggle();
+windows.resize(categoryMenuToggle);
+
+categoryToggle.on('click', function(){
+	if (categoryMenu.hasClass('show')) {
+		slideCategoryDown()
+	}
+	else {
+		slideCategoryUp()
+	}
+});

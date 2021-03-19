@@ -4904,7 +4904,7 @@ body.can-uppercase .section-categories-carousel.section-top-categories .readmore
       .site-header.header-v5 .navbar-search button:focus, .site-header.header-v5 .navbar-search button:hover {
         border: transparent; }
 
-.header-v3 .sticky-wrapper .techmarket-sticky-wrap.stuck .departments-menu nav > .dropdown-menu,
+/* .header-v3 .sticky-wrapper .techmarket-sticky-wrap.stuck .departments-menu nav > .dropdown-menu,
 .header-v3 .sticky-wrapper .techmarket-sticky-wrap.stuck .departments-menu button::before,
 .header-v4 .sticky-wrapper .techmarket-sticky-wrap.stuck .departments-menu nav > .dropdown-menu,
 .header-v4 .sticky-wrapper .techmarket-sticky-wrap.stuck .departments-menu button::before {
@@ -4918,7 +4918,7 @@ body.can-uppercase .section-categories-carousel.section-top-categories .readmore
 .header-v4 .sticky-wrapper .techmarket-sticky-wrap.stuck .departments-menu.show button::before {
   transition: all 0.25s ease 0s;
   opacity: 1;
-  visibility: visible; }
+  visibility: visible; } */
 
 .site-header.header-v7 {
   padding: 1em 0; }
@@ -26589,11 +26589,39 @@ form.track_order {
 .header-v10 .departments-menu nav > .dropdown-menu {
   left: -147px!important ; }
 
-.header-v4 .departments-menu nav > .dropdown-menu {
+
+
+  .header-v4 .departments-menu nav > .g-menu {
+    transition: all 0.25s ease 0s;
+    opacity: 0;
+    visibility: hidden;
+  }
+  
+  .header-v4 .departments-menu nav > .g-menu.show {
+    transition: all 0.25s ease 0s;
+    opacity: 1;
+    visibility: visible;
+  }
+  .header-v4 .departments-menu nav > .g-menu::before {
+    transition: all 0.25s ease 0s;
+    opacity: 0;
+    visibility: hidden;
+  }
+  
+  .header-v4 .departments-menu nav > .g-menu.show::before {
+    transition: all 0.25s ease 0s;
+    opacity: 1;
+    visibility: visible;
+  }
+  /* .header-v4 .departments-menu nav > .dropdown-menu {
   top: 25px !important;
   overflow: auto;
   height: 35vw; 
-}
+} */
+
+
+
+
 
 .site-header.header-v5 .navbar-primary .nav > .menu-item-has-children > .dropdown-menu,
 .site-header.header-v5 .primary-navigation .nav > .menu-item-has-children > .dropdown-menu {
@@ -29148,14 +29176,20 @@ height: 100%;
 	z-index: 2;
 }
 
+/* .header-v4 .sticky-wrapper .techmarket-sticky-wrap.stuck .departments-menu > .dropdown-menu, .header-v4 .sticky-wrapper .techmarket-sticky-wrap.stuck .departments-menu button::before{
+  transition: all 0.25s ease 0s;
+  opacity: 0;
+  visibility: hidden;
+}
+.header-v3 .sticky-wrapper .techmarket-sticky-wrap.stuck .departments-menu nav > .dropdown-menu, .header-v3 .sticky-wrapper .techmarket-sticky-wrap.stuck .departments-menu button::before, .header-v4 .sticky-wrapper .techmarket-sticky-wrap.stuck .departments-menu nav > .dropdown-menu, .header-v4 .sticky-wrapper .techmarket-sticky-wrap.stuck .departments-menu button::before {
+  transition: all 0.25s ease 0s;
+  opacity: 1;
+  visibility: visible;
+} */
 
 
 @media screen and (max-width:800px){
-  .header-v3 .sticky-wrapper .techmarket-sticky-wrap.stuck .departments-menu nav > .dropdown-menu, .header-v3 .sticky-wrapper .techmarket-sticky-wrap.stuck .departments-menu button::before, .header-v4 .sticky-wrapper .techmarket-sticky-wrap.stuck .departments-menu nav > .dropdown-menu, .header-v4 .sticky-wrapper .techmarket-sticky-wrap.stuck .departments-menu button::before {
-    transition: all 0.25s ease 0s;
-    opacity: 1;
-    visibility: visible;
-}
+  
   .departments-menu nav{
     /* background-color: #fff;
     position: absolute; */
@@ -29596,3 +29630,5 @@ height: 100%;
       opacity: 0;
   }
 }
+
+
