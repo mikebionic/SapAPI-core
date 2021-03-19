@@ -1071,7 +1071,19 @@ if (this.text.length > 20){
 }
 });
 
+document.addEventListener('error', function (event) {
+	if (event.target.tagName.toLowerCase() !== 'img') return;
+	event.target.src = no_photo;
+	event.target.className = 'full-width'
+}, true);
 
+$(document).ready(function(){
+	$('img').each(function() {
+		if ($(this).attr('src') == no_photo){
+			$(this).css({'padding': '25px'})
+		}
+	})
+})
 // Rating js
 
 
