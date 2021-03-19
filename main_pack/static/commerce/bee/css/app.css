@@ -11545,7 +11545,7 @@ img.mfp-img {
   text-transform: uppercase;
   margin-bottom: 23px; }
   .about-content h1 span {
-    color: #f5d730; }
+    color: #0010ff; }
   @media only screen and (max-width: 767px) {
     .about-content h1 {
       font-size: 24px;
@@ -11557,8 +11557,10 @@ img.mfp-img {
   margin-bottom: 14px; }
 
 .about-content p {
-  font-size: 14px;
-  line-height: 23px; }
+  font-size: 16px;
+  font-weight: lighter;
+  line-height: 26px;
+ }
 
 /*-- About Mission Vission Goal --*/
 .about-mission-vission-goal h3 {
@@ -12095,9 +12097,7 @@ ul.link-widget li {
   font-size: 36px;
   font-weight: 700;
   font-family: "Oswald", sans-serif; }
-.contact-section{
-  height: -webkit-fill-available;
-}
+
 /*-- Contact Tab List --*/
 .contact-tab-list li {
   -webkit-box-flex: 1;
@@ -12105,7 +12105,11 @@ ul.link-widget li {
   flex: 1 0 100%;
   margin-bottom: 12px; }
   .contact-tab-list li:last-child {
+    padding-top: 15px;
     margin-bottom: 0; }
+    .contact-tab-list li a i{
+      font-size:25px
+    }
   .contact-tab-list li a {
     font-size: 18px;
     line-height: 24px;
@@ -13383,3 +13387,9 @@ ul.link-widget li {
       border-radius: 0.357em; }
       .woocommerce-breadcrumb span.delimiter + a:focus, .woocommerce-breadcrumb span.delimiter + a:hover {
         background-color: #e8e8e8; }
+
+@media (max-width:1440px){
+  .slick-initialized .slick-slide{
+    width: 100%;
+  }
+}
