@@ -549,7 +549,7 @@ def apiResourceInfo(
 				resource_info["UsageStatus"] = dataLangSelector(UsageStatus_info) if UsageStatus_info else {}
 				resource_info["Currency"] = dataLangSelector(List_Currencies[0]) if List_Currencies else {}
 				resource_info["Unit"] = dataLangSelector(Units_info) if Units_info else {}
-
+			
 			data.append(resource_info)
 
 		except Exception as ex:
@@ -562,10 +562,16 @@ def apiResourceInfo(
 	if single_object == True:
 		if len(data) == 1:
 			data = data[0]
-			total = 1
+		else:
+			data = {}
+		total = 1 if data else 0
+
 		if len(fails) == 1:
 			fails = fails[0]
-			fail_total = 1
+		else:
+			data = {}
+		fail_total = 1 if data else 0
+
 	res = {
 			"message": "Resources",
 			"data": data,
@@ -586,7 +592,7 @@ def apiFeaturedResCat_Resources(DivId = None):
 		DivId = DivId
 	)
 
-	featured_categories = featured_categories\
+	featured_categories 			= featured_categories\
 		.order_by(Res_category.ResCatVisibleIndex.asc())\
 		.all()
 
@@ -631,7 +637,7 @@ def apiFeaturedResCat_Resources(DivId = None):
 
 def UiCartResourceData(
 	product_list,
-	fullInfo = False,
+	fullInfo = False,			
 	showRelated = False,
 	DivId = None
 ):
@@ -787,9 +793,6 @@ def apiOrderInvInfo(
 				# rpAccData = apiRpAccData(dbModel = rp_acc_user)
 				# rp_acc_data = rpAccData["data"]
 
-			# !!! Deprecated
-			rp_acc_data["Images"] = []
-
 			order_inv_info["Rp_acc"] = rp_acc_data
 			order_inv_info["CGuid"] = order_inv.company.CGuid if order_inv.company and not order_inv.company.GCRecord else None
 			order_inv_info["WhGuid"] = order_inv.warehouse.WhGuid if order_inv.warehouse and not order_inv.warehouse.GCRecord else None
@@ -870,8 +873,14 @@ def apiOrderInvInfo(
 	if single_object == True:
 		if len(data) == 1:
 			data = data[0]
+		else:
+			data = {}
+
 		if len(fails) == 1:
 			fails = fails[0]
+		else:
+			fails = {}
+
 	res = {
 			"message": "Order invoice",
 			"data": data,
