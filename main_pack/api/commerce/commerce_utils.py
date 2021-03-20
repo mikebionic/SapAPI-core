@@ -79,11 +79,11 @@ def collect_categories_query(
 		Res_total.ResId,
 		db.func.sum(Res_total.ResTotBalance).label("ResTotBalance_sum"),
 		db.func.sum(Res_total.ResPendingTotalAmount).label("ResPendingTotalAmount_sum"))
-	
+
 	if DivId:
 		Res_Total_subquery = Res_Total_subquery\
 			.filter(Res_total.DivId == DivId)
-	
+
 	Res_Total_subquery = Res_Total_subquery\
 		.group_by(Res_total.ResId)\
 		.subquery()
@@ -139,7 +139,7 @@ def collect_resources_query(
 	if showInactive == False:
 		resource_filtering["UsageStatusId"] = 1
 
-	# # fetching total by division 
+	# # fetching total by division
 	# if DivId is None:
 	# 	# !!! TODO: This option will live for a while
 	# 	avoidQtyCheckup = 1
@@ -153,7 +153,7 @@ def collect_resources_query(
 		Res_total.ResId,
 		db.func.sum(Res_total.ResTotBalance).label("ResTotBalance_sum"),
 		db.func.sum(Res_total.ResPendingTotalAmount).label("ResPendingTotalAmount_sum"))
-		
+
 	if DivId:
 		Res_Total_subquery = Res_Total_subquery\
 			.filter(Res_total.DivId == DivId)
@@ -197,11 +197,11 @@ def collect_resources_query(
 			.limit(Config.RESOURCE_MAIN_PAGE_SHOW_QTY + 1)
 
 	#if DivId:
-	#	resource_query = resource_query.filter(Resource.DivId == DivId)	
+	#	resource_query = resource_query.filter(Resource.DivId == DivId)
 	if notDivId:
 		resource_query = resource_query.filter(Resource.DivId != notDivId)
 
-	return resource_query 
+	return resource_query
 
 
 # showInactive shows active resources with UsageStatusId = 1
@@ -279,7 +279,7 @@ def apiResourceInfo(
 
 			if fullInfo == True:
 				# !!! TODO: Res_color and color joins could be implemented on class level
-				resources = resources.options(	
+				resources = resources.options(
 					joinedload(Resource.Res_color)\
 						.options(joinedload(Res_color.color)),
 					joinedload(Resource.Res_size)\
@@ -298,7 +298,7 @@ def apiResourceInfo(
 				if showInactive == False:
 					resource_filtering["UsageStatusId"] = 1
 
-				# # fetching total by division 
+				# # fetching total by division
 				# if DivId is None:
 				# 	# !!! TODO: This option will live for a while
 				# 	avoidQtyCheckup = 1
@@ -338,7 +338,7 @@ def apiResourceInfo(
 					resource_query = resource_query\
 						.join(Res_price, Res_price.ResId == Resource.ResId)\
 						.filter(Res_price.ResPriceValue > 0)
-				
+
 				resource_query = resource_query.options(
 					joinedload(Resource.Image),
 					joinedload(Resource.Barcode),
@@ -350,7 +350,7 @@ def apiResourceInfo(
 					joinedload(Resource.usage_status))
 
 				if fullInfo:
-					resource_query = resource_query.options(	
+					resource_query = resource_query.options(
 						joinedload(Resource.Res_color)\
 							.options(joinedload(Res_color.color)),
 						joinedload(Resource.Res_size)\
@@ -366,7 +366,7 @@ def apiResourceInfo(
 					resource_query = resource_query.options(joinedload(Resource.Rating))
 
 				resource_query = resource_query.first()
-				
+
 				if resource_query:
 					resource_models.append(resource_query)
 
@@ -379,7 +379,7 @@ def apiResourceInfo(
 			UsageStatus_info = resource_query.Resource.usage_status.to_json_api() if resource_query.Resource.usage_status else None
 			Units_info = resource_query.Resource.unit.to_json_api() if resource_query.Resource.unit else None
 			Res_category_info = resource_query.Resource.res_category.to_json_api() if resource_query.Resource.res_category else None
-			
+
 			List_Barcode = [barcode.to_json_api() for barcode in resource_query.Resource.Barcode if not barcode.GCRecord]
 
 			List_Res_price = calculatePriceByGroup(
@@ -410,7 +410,7 @@ def apiResourceInfo(
 			List_Images = [image.to_json_api() for image in resource_query.Resource.Image if not image.GCRecord]
 			# Sorting list by Modified date
 			List_Images = (sorted(List_Images, key = lambda i: i["ModifiedDate"]))
-			
+
 			if fullInfo == True:
 				List_Ratings = []
 				for rating in resource_query.Resource.Rating:
@@ -477,12 +477,12 @@ def apiResourceInfo(
 					.filter(Resource.ResId != resource_query.Resource.ResId)\
 					.join(Res_total, Res_total.ResId == Resource.ResId)\
 					.filter(and_(
-						Res_total.WhId == 1, 
+						Res_total.WhId == 1,
 						Res_total.ResTotBalance > 0))\
 					.outerjoin(Rating, Rating.ResId == Resource.ResId)\
 					.order_by(Rating.RtRatingValue.asc())\
 					.limit(Config.TOP_RATED_RESOURCES_AMOUNT+1)\
-				
+
 				related_resources = related_resources\
 					.options(
 						joinedload(Resource.res_category),
@@ -495,7 +495,7 @@ def apiResourceInfo(
 					related_resource_info["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=Related_resource_Images[-1]["FileName"]) if Related_resource_Images else ""
 					related_resource_info["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=Related_resource_Images[-1]["FileName"]) if Related_resource_Images else ""
 					related_resource_info["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=Related_resource_Images[-1]["FileName"]) if Related_resource_Images else ""
-					
+
 					Related_Res_category_info = resource.res_category.to_json_api() if resource.res_category else None
 					Related_resource_price = [res_price.to_json_api() for res_price in resource.Res_price if res_price.ResPriceTypeId == 2 and not res_price.GCRecord]
 
@@ -549,26 +549,26 @@ def apiResourceInfo(
 				resource_info["UsageStatus"] = dataLangSelector(UsageStatus_info) if UsageStatus_info else {}
 				resource_info["Currency"] = dataLangSelector(List_Currencies[0]) if List_Currencies else {}
 				resource_info["Unit"] = dataLangSelector(Units_info) if Units_info else {}
-			
+
 			data.append(resource_info)
 
 		except Exception as ex:
 			print(f"{datetime.now()} | Resource info utils Exception: {ex}")
 			fails.append(resource_query.Resource.to_json_api())
-			
+
 	status = checkApiResponseStatus(data,fails)
 	total = len(data)
 	fail_total = len(fails)
 	if single_object == True:
 		if len(data) == 1:
 			data = data[0]
-		else:
+		elif not data:
 			data = {}
 		total = 1 if data else 0
 
 		if len(fails) == 1:
 			fails = fails[0]
-		else:
+		elif not data:
 			data = {}
 		fail_total = 1 if data else 0
 
@@ -637,7 +637,7 @@ def apiFeaturedResCat_Resources(DivId = None):
 
 def UiCartResourceData(
 	product_list,
-	fullInfo = False,			
+	fullInfo = False,
 	showRelated = False,
 	DivId = None
 ):
@@ -693,7 +693,7 @@ def apiOrderInvInfo(
 			invoice_filtering["InvStatId"] = statusId
 		if rp_acc_user:
 			invoice_filtering["RpAccId"] = rp_acc_user.RpAccId
-		
+
 		invoice_models = []
 		if invoice_list is None:
 			order_invoices = Order_inv.query\
@@ -716,7 +716,7 @@ def apiOrderInvInfo(
 						extract('year',Order_inv.OInvDate).between(startDate.year,endDate.year),\
 						extract('month',Order_inv.OInvDate).between(startDate.month,endDate.month),\
 						extract('day',Order_inv.OInvDate).between(startDate.day,endDate.day)))
-				
+
 			order_invoices = order_invoices\
 				.order_by(Order_inv.OInvDate.desc())\
 				.options(
@@ -730,7 +730,7 @@ def apiOrderInvInfo(
 							joinedload(Order_inv_line.resource)
 						))\
 				.all()
-					
+
 			for order_inv in order_invoices:
 				invoice_models.append(order_inv)
 		elif invoice_list:
@@ -793,6 +793,9 @@ def apiOrderInvInfo(
 				# rpAccData = apiRpAccData(dbModel = rp_acc_user)
 				# rp_acc_data = rpAccData["data"]
 
+			# !!! Deprecated
+			rp_acc_data["Images"] = []
+
 			order_inv_info["Rp_acc"] = rp_acc_data
 			order_inv_info["CGuid"] = order_inv.company.CGuid if order_inv.company and not order_inv.company.GCRecord else None
 			order_inv_info["WhGuid"] = order_inv.warehouse.WhGuid if order_inv.warehouse and not order_inv.warehouse.GCRecord else None
@@ -803,7 +806,7 @@ def apiOrderInvInfo(
 			# !!! Check the send and get type of these params (root or structured?)
 			rp_acc_user = None
 
-			if invoices_only == False: 
+			if invoices_only == False:
 				order_inv_lines = []
 				for order_inv_line in order_inv.Order_inv_line:
 					if not order_inv_line.GCRecord:
@@ -856,7 +859,8 @@ def apiOrderInvInfo(
 
 						if show_inv_line_resource:
 							resource_json = apiResourceInfo(
-								resource_list = [{"ResId": order_inv_line.resource.ResId}],
+								resource_list = [{"ResId": order_inv_line.ResId}],
+								avoidQtyCheckup = 1,
 								single_object = True)
 							this_order_inv_line["Resource"] = resource_json["data"]
 
@@ -934,7 +938,7 @@ def apiInvInfo(
 					extract('year',Invoice.InvDate).between(startDate.year,endDate.year),\
 					extract('month',Invoice.InvDate).between(startDate.month,endDate.month),\
 					extract('day',Invoice.InvDate).between(startDate.day,endDate.day)))
-			
+
 		invoices = invoices.order_by(Invoice.InvDate.desc()).all()
 
 		for invoice in invoices:
@@ -985,14 +989,14 @@ def apiInvInfo(
 						print(f"{datetime.now()} | Invoice_line info utils Exception: {ex}")
 						this_inv_line["Resource"] = []
 					inv_lines.append(this_inv_line)
-			
+
 			inv_info["Inv_lines"] = inv_lines
 			data.append(inv_info)
 
 		except Exception as ex:
 			print(f"{datetime.now()} | Invoice info utils Exception: {ex}")
 			fails.append(invoice.to_json_api())
-	
+
 	status = checkApiResponseStatus(data,fails)
 	if single_object == True:
 		if len(data) == 1:
