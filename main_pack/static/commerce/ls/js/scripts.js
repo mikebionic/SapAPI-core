@@ -140,7 +140,7 @@ $(document).ready(function($) {
 					}
 			},
 			{
-					breakpoint: 319,
+					breakpoint: 371,
 					settings: {
 							autoplay: true,
 							slidesToShow: 1,
@@ -1591,3 +1591,17 @@ categoryToggle.on('click', function(){
 		slideCategoryUp()
 	}
 });
+
+
+var mini_cart_dropdown = $('.dropdown-menu-mini-cart')
+var cart_dropdown = $('.cart-dropdown')
+cart_dropdown.on('click', function() {
+	setTimeout(() => {
+		if (mini_cart_dropdown.hasClass('show')){
+			mini_cart_dropdown.css({'display':'block'});
+		}
+		else {
+			mini_cart_dropdown.css({'display':'none'})
+		}
+	}, 100);
+})

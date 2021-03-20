@@ -2865,33 +2865,13 @@ select {
   margin-right: auto;
   padding-right: 15px;
   padding-left: 15px; }
-  @media (min-width: 576px) {
-    .col-full, .section-top-categories.section-categories-carousel.section-categories-carousel-v1, .section-product-cards-carousel-tabs .section-products-carousel-tabs-wrap {
-      padding-right: 15px;
-      padding-left: 15px; } }
-  @media (min-width: 768px) {
-    .col-full, .section-top-categories.section-categories-carousel.section-categories-carousel-v1, .section-product-cards-carousel-tabs .section-products-carousel-tabs-wrap {
-      padding-right: 15px;
-      padding-left: 15px; } }
-  @media (min-width: 992px) {
-    .col-full, .section-top-categories.section-categories-carousel.section-categories-carousel-v1, .section-product-cards-carousel-tabs .section-products-carousel-tabs-wrap {
-      padding-right: 15px;
-      padding-left: 15px; } }
-  @media (min-width: 1200px) {
-    .col-full, .section-top-categories.section-categories-carousel.section-categories-carousel-v1, .section-product-cards-carousel-tabs .section-products-carousel-tabs-wrap {
-      padding-right: 15px;
-      padding-left: 15px; } }
-
-@media (min-width: 1200px) {
-  .col-full, .section-top-categories.section-categories-carousel.section-categories-carousel-v1, .section-product-cards-carousel-tabs .section-products-carousel-tabs-wrap {
-    padding-left: 4.6875% !important;
-    padding-right: 4.6875% !important; } }
-
 @media (min-width: 2000px) {
   .col-full, .section-top-categories.section-categories-carousel.section-categories-carousel-v1, .section-product-cards-carousel-tabs .section-products-carousel-tabs-wrap {
     /* width: 1920px; */
    } }
-
+   .animate-dropdown.show > .dropdown-menu .show{
+     display: block
+   }
 .stretch-full-width, .site-header.header-v10 .stretched-row, .deals-carousel-v3, .section-top-categories.section-categories-carousel.section-categories-carousel-v1 {
   width: 100vw;
   position: relative;
@@ -4575,7 +4555,8 @@ body.can-uppercase .section-categories-carousel.section-top-categories .readmore
       .site-header .site-logo-anchor img,
       .site-header .site-logo-link img,
       .site-header .custom-logo-link img {
-        max-width: 200px; } }
+        max-height: 50px; 
+      } }
     .site-header .site-logo-anchor svg,
     .site-header .site-logo-link svg,
     .site-header .custom-logo-link svg {
@@ -26618,7 +26599,23 @@ form.track_order {
   overflow: auto;
   height: 35vw; 
 }
+@media only screen and (max-width:422px){
+  .card{
+    width: 177px!important;
+  }
+}
 
+@media (min-width: 370px) and (max-width:384px){
+  .card{
+    width: 170px!important;
+    margin: 0!important ;
+  }
+}
+@media (max-width: 370px){
+  .card{
+    width: 196px!important;
+  }
+}
 
 
 
@@ -29632,3 +29629,23 @@ height: 100%;
 }
 
 
+h3 i{
+  font-size: 25px;
+  color: #283d86;
+}
+
+.g_contact i{
+  padding-top: 20px;
+  font-size: 25px;
+}
+.cont_info{
+  display: flex;
+}
+.cont_info span{
+  font-size: 20px;
+  font-weight: bold;
+}
+.cont_info p{
+  width: 100%;
+    padding-left: 15px;
+}

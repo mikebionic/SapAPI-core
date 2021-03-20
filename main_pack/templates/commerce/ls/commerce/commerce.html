@@ -36,6 +36,25 @@
 	</div>
 </div>
 
+			<!-- Brands -->
+			{% if Brands %}
+			<div class="container">
+				<section class="customer-logos slider">
+					{% for brand in Brands %}
+					{% if brand.FilePath and brand.IsMain %}
+
+						<div class="slide">
+							<a href="{{url_for('commerce.v_grid',brand = brand.BrandId)}}">
+								<img loading="lazy" src="{{brand.FilePath if brand.FilePath}}" alt="Brand {{brand.BrandName}} Lomay sowda wholesale ls">
+							</a>
+						</div>
+
+					{% endif %}
+					{% endfor %}
+				</section>
+			</div>
+			{% endif %}
+
 
 
 			<!-- Featured -->
@@ -184,28 +203,6 @@
 
 			{% endfor %}
 			</div>
-
-
-
-			<!-- Brands -->
-			{% if Brands %}
-			<div class="container">
-				<section class="customer-logos slider">
-					{% for brand in Brands %}
-					{% if brand.FilePath and brand.IsMain %}
-
-						<div class="slide">
-							<a href="{{url_for('commerce.v_grid',brand = brand.BrandId)}}">
-								<img loading="lazy" src="{{brand.FilePath if brand.FilePath}}" alt="Brand {{brand.BrandName}} Lomay sowda wholesale ls">
-							</a>
-						</div>
-
-					{% endif %}
-					{% endfor %}
-				</section>
-			</div>
-			{% endif %}
-
 
 
 {% endblock %}

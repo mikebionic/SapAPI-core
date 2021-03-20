@@ -102,21 +102,22 @@
 
 
 								<div class="col-md-6 store-info store-info-v2">
-									<div class="kc-elm kc-css-773435 kc_text_block">
+									<div class="kc-elm kc-css-773435 kc_text_block g_contact">
 
 										<h2 class="contact-page-title">{{company.CName}}</h2>
-										<p>{{company.CFullName if company.CFullName else ''}}</p>
 										<p>{{company.CDesc if company.CDesc else ''}}</p>
 											{% if company.CAddress %}
-											<div class="cont_info">
-												<h3>{{_('Address')}}</h3>
-												<p>{{company.CAddress}}</p>
+											<div class="cont_info" >
+												<i class="fa fa-fw fa-location-arrow"></i>
+													<p><span>{{_('Address')}}</span><br>
+													{{company.CAddress}}</p>
 											</div>
 											{% endif %}
 											{% if company.CEmail %}
 											<div class="cont_info">
-												<h3>{{_('Email')}}</h3>
-												<a href="mailto:{{company.CEmail}}">{{company.CEmail}}</a>
+												<i class="fa fa-fw fa-envelope-o"></i>
+												<p><span>{{_('Email')}}</span><br>
+													<a href="mailto:{{company.CEmail}}">{{company.CEmail}}</a></p>
 											</div>
 											{% endif %}	
 											{% if company.WebAddress %}
@@ -134,16 +135,18 @@
 
 										{% if company.AddInf1 %}
 										<div class="cont_info">
-											<h3>{{_('Working time')}}</h3>
-											<p>{{company.AddInf1}}</p>
+											<i class="fa fa-fw fa-clock-o"></i>
+											<p><span>{{_('Working time')}}</span><br>
+												{{company.AddInf1}}</p>
 										</div>
 										{% endif %}
 
 										{% if company.Phone1 or company.Phone2 or company.Phone3 or company.Phone4 %}
-										<div class="cont_info">
-											<h3>{{_('Phone')}}</h3>
+										<div class="cont_info" style="display: block;">
+											
+											<p style="padding: 0;"><i class="fa fa-fw fa-phone" style="padding: 0;"></i><span>{{_('Phone')}}</span></p>
 											{% if company.Phone1 %}
-												<a href="tel:{{company.Phone1}}"><p>{{company.Phone1}}</p></a>
+											<a href="tel:{{company.Phone1}}"><p>{{company.Phone1}}</p></a>
 											{% endif %}
 											{% if company.Phone2 %}
 												<a href="tel:{{company.Phone2}}"><p>{{company.Phone2}}</p></a>
