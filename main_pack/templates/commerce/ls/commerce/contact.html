@@ -122,14 +122,16 @@
 											{% endif %}	
 											{% if company.WebAddress %}
 											<div class="cont_info">
-												<h3>{{_('Web address')}}</h3>
-												<p>{{company.WebAddress}}</p>
+												<i class="fa fa-fw fa-globe"></i>
+												<p><span>{{_('Web address')}}</span><br>
+												{{company.WebAddress}}</p>
 											</div>
 											{% endif %}
 										{% if company.CPostalCode %}
 										<div class="cont_info">
-											<h3>{{_('Postal code')}}</h3>
-											<p>{{company.CPostalCode}}</p>
+											<i class="fa fa-fw fa-dropbox"></i>
+											<p><span>{{_('Postal code')}}</span><br>
+												{{company.CPostalCode}}</p>
 										</div>
 										{% endif %}
 

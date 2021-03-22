@@ -35,99 +35,98 @@
 		</div>
 	</div>
 </div>
-
-			<!-- Brands -->
-			{% if Brands %}
-			<div class="container">
-				<section class="customer-logos slider">
-					{% for brand in Brands %}
-					{% if brand.FilePath and brand.IsMain %}
-
-						<div class="slide">
+{% if Brands %}
+<section class="brands-carousel">
+	<div class="col-full" data-ride="tm-slick-carousel" data-wrap=".brands" data-slick="{&quot;slidesToShow&quot;:6,&quot;slidesToScroll&quot;:1,&quot;dots&quot;:false,&quot;arrows&quot;:true,&quot;responsive&quot;:[{&quot;breakpoint&quot;:400,&quot;settings&quot;:{&quot;slidesToShow&quot;:1,&quot;slidesToScroll&quot;:1}},{&quot;breakpoint&quot;:800,&quot;settings&quot;:{&quot;slidesToShow&quot;:3,&quot;slidesToScroll&quot;:3}},{&quot;breakpoint&quot;:992,&quot;settings&quot;:{&quot;slidesToShow&quot;:3,&quot;slidesToScroll&quot;:3}},{&quot;breakpoint&quot;:1200,&quot;settings&quot;:{&quot;slidesToShow&quot;:4,&quot;slidesToScroll&quot;:4}},{&quot;breakpoint&quot;:1400,&quot;settings&quot;:{&quot;slidesToShow&quot;:5,&quot;slidesToScroll&quot;:5}}]}">
+			<div class="brands">
+				{% for brand in Brands %}
+				{% if brand.FilePath and brand.IsMain %}
+					<div class="item">
 							<a href="{{url_for('commerce.v_grid',brand = brand.BrandId)}}">
-								<img loading="lazy" src="{{brand.FilePath if brand.FilePath}}" alt="Brand {{brand.BrandName}} Lomay sowda wholesale ls">
+									<figure>
+											<img width="145" height="50" class="img-responsive desaturate" loading="lazy" src="{{brand.FilePath if brand.FilePath}}" alt="Brand {{brand.BrandName}} Lomay sowda wholesale ls">
+									</figure>
 							</a>
-						</div>
-
-					{% endif %}
-					{% endfor %}
-				</section>
+					</div>
+				{% endif %}
+				{% endfor %}
+					<!-- .item -->
 			</div>
-			{% endif %}
-
-
-
+	</div>
+	<!-- .col-full -->
+</section>
+{% endif %}
 			<!-- Featured -->
-			{% if Featured_categories %}
-			<section class="what-do-we-do">
-				<div class="container">
-					<h1>{{_('Featured')}}</h1>
-					<div class="slider-container tab-slider-2" data-tab-slider=".tab-slider-2">
+{% if Featured_categories %}
+<section class="what-do-we-do">
+	<div class="container">
+		<h1>{{_('Featured')}}</h1>
+		<div class="slider-container tab-slider-2" data-tab-slider=".tab-slider-2">
 
-						<ul class="slider-container__tab-list">
-							{% for category in Featured_categories %}
-								<li class="slider-container__tab-item button type2 featrued-cat-btn" data-tab=".tab-{{ category.ResCatId }}">
-									<img loading="lazy" class="cat-icon"
-									src="{{ category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static',filename='commerce/ls/img/icons/category.svg') }}">
-									{{ category.ResCatName }}
-								</li>
-							{% endfor %}
-						</ul>
+			<ul class="slider-container__tab-list">
+				{% for category in Featured_categories %}
+					<li class="slider-container__tab-item button type2 featrued-cat-btn" data-tab=".tab-{{ category.ResCatId }}">
+						<img loading="lazy" class="cat-icon"
+						src="{{ category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static',filename='commerce/ls/img/icons/category.svg') }}">
+						{{ category.ResCatName }}
+					</li>
+				{% endfor %}
+			</ul>
 
-						<div class="slider-content">
-							{% for category in Featured_categories %}
-								<div class="slider-container__slider2 tab-{{ category.ResCatId }} featrued-cat-tab">
+			<div class="slider-content">
+				{% for category in Featured_categories %}
+					<div class="slider-container__slider2 tab-{{ category.ResCatId }} featrued-cat-tab">
 
-								{% for resource in category.Resources %}
-									<div>
-										<div class="card">
-											<div class="imgBox">
-												<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}">
-													<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/ls/img/icons/no_photo.svg') }}"
-													alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
-												</a>
-											</div>
-											<div class="details">
-												<span class="price">
-													<span class="amount">
-														<span class="amount priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">
-															{{ resource.ResPriceValue }}
-														</span>
-														<span class="woocommerce-Price-currencySymbol">{{ resource.CurrencyCode }}</span>
-													</span>
-												</span>
-												<div class="textContent">
-													<h3>{{ resource.ResName }}</h3>
-												</div>
-
-												<div class="product-count cartItemQty" style="display: none;">
-													<div class="qtyminus qtybtn">-</div>
-													<input type="text" class="qty productQty" value="{{resource.productQty}}" ownerId="{{ resource.ResId }}">
-													<div class="qtyplus qtybtn">+</div>
-												</div>
-												<a class="round-black-btn add-to-cart" ownerId="{{ resource.ResId }}">{{_('Add to cart')}}</a>
-
-											</div>
-											<div class="description">
-												<div class="">
-													<span class="icon"><i class="fa fa-fw fa-info"></i></span>
-												</div>
-												<div class="contents">
-													<p class="descriptionText">{{ resource.ResDesc }}</p>
-												</div>
-											</div>
-										</div>
+					{% for resource in category.Resources %}
+						<div>
+							<div class="card">
+								<div class="imgBox">
+									<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}">
+										<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/ls/img/icons/no_photo.svg') }}"
+										alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
+									</a>
+								</div>
+								<div class="details">
+									<span class="price">
+										<span class="amount">
+											<span class="amount priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">
+												{{ resource.ResPriceValue }}
+											</span>
+											<span class="woocommerce-Price-currencySymbol">{{ resource.CurrencyCode }}</span>
+										</span>
+									</span>
+									<div class="textContent">
+										<h3>{{ resource.ResName }}</h3>
 									</div>
-								{% endfor %}
+
+									<div class="product-count cartItemQty" style="display: none;">
+										<div class="qtyminus qtybtn">-</div>
+										<input type="text" class="qty productQty" value="{{resource.productQty}}" ownerId="{{ resource.ResId }}">
+										<div class="qtyplus qtybtn">+</div>
+									</div>
+									<a class="round-black-btn add-to-cart" ownerId="{{ resource.ResId }}">{{_('Add to cart')}}</a>
 
 								</div>
-							{% endfor %}
+								<div class="description">
+									<div class="">
+										<span class="icon"><i class="fa fa-fw fa-info"></i></span>
+									</div>
+									<div class="contents">
+										<p class="descriptionText">{{ resource.ResDesc }}</p>
+									</div>
+								</div>
+							</div>
 						</div>
+					{% endfor %}
 
 					</div>
-				</div>
-			</section>
-			{% endif %}
+				{% endfor %}
+			</div>
+
+		</div>
+	</div>
+</section>
+{% endif %}
 
 			<!-- Newest -->
 			<div class="container" style="margin: 5% auto;">
