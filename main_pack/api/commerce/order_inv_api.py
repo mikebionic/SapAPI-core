@@ -240,6 +240,7 @@ def api_order_invoice_info(OInvRegNo):
 
 	res = apiOrderInvInfo(
 		invoice_list = invoice_list,
+		show_inv_line_resource = True,
 		single_object = True)
 
 	status_code = 200
