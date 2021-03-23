@@ -111,8 +111,8 @@
 							</button>
 							<nav >
 								
+								
 								<ul id="menu-departments-menu" class="dropdown-menu yamm departments-menu-dropdown g-menu">
-									<a class="remove removeFromCart" ownerid="14">×</a>
 									<li class="highlight menu-item animate-dropdown">
 										<a title="{{_('All')}}" href="{{url_for('commerce.v_grid')}}" style="display: flex">
 											<img class="img-fluid cat-icon" src="{{ url_for('static', filename='commerce/ls/img/icons/category.svg') }}" style="width: 25px; margin-right: 7px;">
@@ -178,6 +178,7 @@
 										{% endfor %}
 
 								</ul>
+								<div class="cart-overlay"></div>
 							</nav>
 						</div>
 

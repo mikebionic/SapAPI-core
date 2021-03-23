@@ -8615,8 +8615,8 @@ img.mfp-img {
   position: relative; 
 }
   .big-image-slider .big-image img {
-    width: 100%;
-    /* max-height: 100%; */
+    max-width: 100%;
+    max-height: 100%;
     background-color: #f6f7f8; }
   .big-image-slider .big-image .big-image-popup {
     position: absolute;
@@ -13391,5 +13391,9 @@ ul.link-widget li {
 @media (max-width:1440px){
   .slick-initialized .slick-slide{
     width: 100%;
+  }
+  .slick-initialized .big-image{
+    width: 500px!important;
+    height: 500px;
   }
 }
