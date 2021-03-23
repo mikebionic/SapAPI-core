@@ -8,8 +8,9 @@ import datetime as dt
 from datetime import datetime
 # / datetime, date-parser /
 
-from main_pack import db
 from . import api
+from main_pack import db
+from main_pack.config import Config
 
 # orders and db methods
 from main_pack.models.commerce.models import (
@@ -22,7 +23,7 @@ from .utils import (
 	addInvDict,
 	addInvLineDict
 )
-from .commerce_utils import apiInvInfo
+from .invoices import collect_invoice_info
 from main_pack.base.apiMethods import checkApiResponseStatus
 # / orders and db methods /
 
@@ -52,16 +53,16 @@ def api_invoices():
 		startDate = request.args.get("startDate",None,type=str)
 		endDate = request.args.get("endDate",datetime.now())
 
-		res = apiInvInfo(
+		res = collect_invoice_info(
 			startDate = startDate,
 			endDate = endDate,
 			statusId = 1,
 			DivId = DivId,
-			notDivId = notDivId)
+			notDivId = notDivId,
+			currency_code = Config.MAIN_CURRENCY_CODE)
 
 		status_code = 200
 		response = make_response(jsonify(res), status_code)
-		return response
 
 	elif request.method == 'POST':
 		req = request.get_json()
@@ -154,13 +155,12 @@ def api_invoices():
 @sha_required
 def api_invoice_info(InvRegNo):
 	invoice_list = [{"InvRegNo": InvRegNo}]
-	res = apiInvInfo(
+	res = collect_invoice_info(
 		invoice_list = invoice_list,
 		single_object = True)
 
 	status_code = 200 if res['status'] == 1 else 404
-	response = make_response(jsonify(res), status_code)
-	return response
+	return make_response(jsonify(res), status_code)
 
 
 # example request:
@@ -171,14 +171,13 @@ def api_v_invoices(user):
 	startDate = request.args.get("startDate",None,type=str)
 	endDate = request.args.get("endDate",datetime.now())
 	current_user = user['current_user']
-	res = apiInvInfo(
+	res = collect_invoice_info(
 		startDate = startDate,
 		endDate = endDate,
 		rp_acc_user = current_user)
 
 	status_code = 200
-	response = make_response(jsonify(res), status_code)
-	return response
+	return make_response(jsonify(res), status_code)
 
 
 @api.route("/v-invoices/<InvRegNo>/",methods=['GET'])
@@ -186,11 +185,10 @@ def api_v_invoices(user):
 def api_v_invoice(user,InvRegNo):
 	current_user = user['current_user']
 	invoice_list = [{"InvRegNo": InvRegNo}]
-	res = apiInvInfo(
+	res = collect_invoice_info(
 		invoice_list = invoice_list,
 		single_object = True,
 		rp_acc_user = current_user)
 
 	status_code = 200 if res['status'] == 1 else 404
-	response = make_response(jsonify(res), status_code)
-	return response
+	return make_response(jsonify(res), status_code)
