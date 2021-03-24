@@ -29379,7 +29379,7 @@ height: 100%;
   top: inherit; }
 
 .sticky-wrapper .techmarket-sticky-wrap.stuck .departments-menu nav > .dropdown-menu {
-  height: 100vh; }
+  height: 100%; }
 }
 ::-webkit-scrollbar {
   width: 4px;
@@ -29662,3 +29662,25 @@ h3 i{
     margin: 1em 0;
   }
 }
+.cart-overlay{
+  height: -webkit-fill-available;
+}
+
+/*-- Cart Overlay --*/
+.cart-overlay {
+  display: block;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 98;
+  background-color: rgb(0 0 0 / 64%);
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: all 0.3s ease 0s;
+  -o-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s; }
+  .cart-overlay.visible {
+    visibility: visible;
+    opacity: 1; }
