@@ -1,46 +1,16 @@
 # -*- coding: utf-8 -*-
-from flask import jsonify, request, abort, make_response
-from sqlalchemy import and_, extract
-
-# datetime, date-parser
-import dateutil.parser
-import datetime as dt
+from flask import jsonify, request, make_response
 from datetime import datetime
-# / datetime, date-parser /
 
 from . import api
-from main_pack import db
 from main_pack.config import Config
-
-# orders and db methods
-from main_pack.models.commerce.models import (
-	Invoice,
-	Inv_line,
-	Inv_status,
-	Res_total
-)
-from .utils import (
-	addInvDict,
-	addInvLineDict
-)
-from .invoices import collect_invoice_info
 from main_pack.base.apiMethods import checkApiResponseStatus
-# / orders and db methods /
 
-# Rp_acc db Model and methods
-from main_pack.models.users.models import Rp_acc
-from main_pack.api.users.utils import apiRpAccData
-# / Rp_acc db Model and methods /
-
-# functions and methods
-from main_pack.base.languageMethods import dataLangSelector
-# / functions and methods /
-
-# auth and validation
 from main_pack.api.auth.utils import token_required
 from main_pack.api.auth.utils import sha_required
 from main_pack.api.base.validators import request_is_json
-# / auth and validation /
+
+from .invoices import save_invoice_request_data, collect_invoice_info
 
 
 @api.route("/tbl-dk-invoices/",methods=['GET','POST'])
@@ -67,79 +37,14 @@ def api_invoices():
 	elif request.method == 'POST':
 		req = request.get_json()
 
-		data = []
-		failed_data = [] 
-
-		for data in req:
-			invoice = addInvDict(data)
-			try:
-				InvRegNo = invoice['InvRegNo']
-				thisInv = Invoice.query.filter_by(InvRegNo = InvRegNo).first()
-				# getting correct rp_acc of a database
-
-				try:
-					RpAccRegNo = data['Rp_acc']['RpAccRegNo']
-					RpAccName = data['Rp_acc']['RpAccName']
-					rp_acc = Rp_acc.query\
-						.filter_by(RpAccRegNo = RpAccRegNo, RpAccName = RpAccName)\
-						.first()
-					if rp_acc:
-						invoice['RpAccId'] = rp_acc.RpAccId
-	
-				except Exception as ex:
-					print(f"{datetime.now()} | Inv Api Exception: {ex}")
-					print("Rp_acc not provided")
-					abort(400)
-
-				thisInvStatus = None
-
-				if thisInv:
-					old_invoice_status = thisInv.InvStatId
-					thisInv.update(**invoice)
-					db.session.commit()
-					thisInvStatus = thisInv.InvStatId
-
-				else:
-					thisInv = Invoice(**invoice)
-					db.session.add(thisInv)
-					db.session.commit()
-
-				inv_lines = []
-				failed_inv_lines = []
-
-				for inv_line_req in data['inv_lines']:
-					inv_line = addInvLineDict(inv_line_req)
-					inv_line['InvId'] = thisInv.InvId
-					try:
-						InvLineRegNo = inv_line['InvLineRegNo']
-						thisInvLine = Inv_line.query\
-							.filter_by(InvLineRegNo = InvLineRegNo)\
-							.first()
-						if thisInvLine:
-							thisInvLine.update(**inv_line)
-						else:
-							newInvLine = Inv_line(**inv_line)
-							db.session.add(newInvLine)
-						inv_lines.append(inv_line)
-					except Exception as ex:
-						print(f"{datetime.now()} | Inv Api Exception: {ex}")
-						failed_inv_lines.append(inv_line)
-					
-				db.session.commit()
-				invoice['inv_lines'] = inv_lines
-				data.append(invoice)
-
-			except Exception as ex:
-				print(f"{datetime.now()} | Inv Api Exception: {ex}")
-				failed_data.append(invoice)
-
-		status = checkApiResponseStatus(data, failed_data)
+		data, fails = save_invoice_request_data(req)
+		status = checkApiResponseStatus(data, fails)
 
 		res = {
 			"data": data,
-			"fails": failed_data,
+			"fails": fails,
 			"success_total": len(data),
-			"fail_total": len(failed_data),
+			"fail_total": len(fails),
 		}
 
 		for e in status:
@@ -163,7 +68,6 @@ def api_invoice_info(InvRegNo):
 	return make_response(jsonify(res), status_code)
 
 
-# example request:
 # api/v-invoices/?startDate=2020-07-13 13:12:32.141562&endDate=2020-07-25 13:53:50.141948
 @api.route("/v-invoices/",methods=['GET'])
 @token_required

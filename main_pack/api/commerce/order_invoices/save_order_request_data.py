@@ -26,7 +26,7 @@ def save_order_request_data(req):
 
 	for order_inv_req in req:
 		try:
-			order_invoice = addOrderInvDict(order_inv_req)
+			order_invoice = add_OInv_dict(order_inv_req)
 			DivGuid = order_inv_req['DivGuid']
 			WhGuid = order_inv_req['WhGuid']
 			RpAccGuid = order_inv_req['RpAccGuid']
@@ -72,8 +72,9 @@ def save_order_request_data(req):
 			order_inv_lines, failed_order_inv_lines = [], []
 
 			for order_inv_line_req in order_inv_req['Order_inv_lines']:
-				order_inv_line = addOrderInvLineDict(order_inv_line_req)
+				order_inv_line = add_OInvLine_dict(order_inv_line_req)
 				order_inv_line['OInvId'] = thisOrderInv.OInvId
+
 				ResRegNo = order_inv_line_req['ResRegNo']
 				ResGuid = order_inv_line_req['ResGuid']
 

@@ -215,8 +215,9 @@ def api_rp_accs():
 					.first()
 
 				if thisRpAcc:
-					rp_acc_info["RpAccId"] = thisRpAcc.RpAccId
-					thisRpAcc.update(**rp_acc_info)
+					if (thisRpAcc.ModifiedDate < dateutil.parser.parse(rp_acc_info["ModifiedDate"])):
+						rp_acc_info["RpAccId"] = thisRpAcc.RpAccId
+						thisRpAcc.update(**rp_acc_info)
 				else:
 					thisRpAcc = Rp_acc(**rp_acc_info)
 					db.session.add(thisRpAcc)
