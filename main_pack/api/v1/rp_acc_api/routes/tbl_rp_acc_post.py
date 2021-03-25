@@ -9,10 +9,10 @@ from main_pack.api.v1.rp_acc_api import api
 from main_pack.api.v1.rp_acc_api.utils import save_rp_acc_synch_data
 
 
-@api.route("/tbl-dk-rp-accs/",methods=['POST'])
+@api.route("/tbl-rp-accs/",methods=['POST'])
 @sha_required
 @request_is_json(request)
-def tbl_rp_accs_post():
+def tbl_rp_acc_post():
 
 	req = request.get_json()
 	data, fails = save_rp_acc_synch_data(req)
@@ -29,6 +29,4 @@ def tbl_rp_accs_post():
 		res[e] = status[e]
 
 	status_code = 201 if len(data) > 0 else 200
-	response = make_response(jsonify(res), status_code)
-
-	return response
+	return make_response(jsonify(res), status_code)

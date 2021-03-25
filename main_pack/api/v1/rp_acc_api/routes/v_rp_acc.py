@@ -8,7 +8,7 @@ from main_pack.api.v1.rp_acc_api.utils import collect_rp_acc_data
 
 @api.route("/v-rp-accs/")
 @token_required
-def v_rp_accs():
+def v_rp_acc():
 	arg_data = {
 		"DivId": request.args.get("DivId",None,type=int),
 		"DivGuid": request.args.get("DivGuid",None,type=str),

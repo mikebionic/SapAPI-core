@@ -7,8 +7,8 @@ from main_pack.api.v1.rp_acc_api.utils import collect_rp_acc_data
 
 
 @api.route("/tbl-rp-accs/", methods = ['GET'])
-# @sha_required
-def tbl_rp_accs_get():
+@sha_required
+def tbl_rp_acc_get():
 	if request.method == 'GET':
 		arg_data = {
 			"DivId": request.args.get("DivId",None,type=int),
