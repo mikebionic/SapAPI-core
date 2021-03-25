@@ -3,12 +3,12 @@ This documentation provides an info about routes and their usage, use it for bui
 
 
 ## Legend
-| Shortcut              | Description                                                                                                 |
-| --------------------- | ----------------------------------------------------------------------------------------------------------- |
-| **!!**                | Warning sign                                                                                                |
-| **!!deprecated** | Route might be updated to different route and will be deleted after a major update process and verification |
-| **@sha required**     | Requires api key of **Synchronizer** for **@sha required**                                                  |
-| **@token required**   | **@token required** of **Rp acc** login                                                                     |
+| Shortcut            | Description                                                                                                 |
+| ------------------- | ----------------------------------------------------------------------------------------------------------- |
+| **!!**              | Warning sign                                                                                                |
+| **!!deprecated**    | Route might be updated to different route and will be deleted after a major update process and verification |
+| **@sha required**   | Requires api key of **Synchronizer** for **@sha required**                                                  |
+| **@token required** | **@token required** of **Rp acc** login                                                                     |
 ---
 
 
@@ -26,8 +26,8 @@ Provide **username** and **password** in Authentication headers
 
 ---
 
-| __Route__           | __Methods__ | __Status__ | __Note__              |
-| ------------------- | :---------: | :--------: | --------------------- |
+| __Route__           | __Methods__ | __Status__ | __Note__         |
+| ------------------- | :---------: | :--------: | ---------------- |
 | /api/login/users/   |   **GET**   |   Active   | **!!deprecated** |
 | /api/login/rp-accs/ |   **GET**   |   Active   | **!!deprecated** |
 
@@ -288,15 +288,15 @@ Provide **username** and **password** in Authentication headers
 
 ---
 
-| __Route__             | __Methods__ | __Status__ | __Note__              |
-| --------------------- | :---------: | :--------: | --------------------- |
+| __Route__             | __Methods__ | __Status__ | __Note__         |
+| --------------------- | :---------: | :--------: | ---------------- |
 | /api/v-resources/:id/ |   **GET**   |   Active   | **!!deprecated** |
 
 
 ---
 
-| __Route__              | __Methods__ | __Status__ | __Note__              |
-| ---------------------- | :---------: | :--------: | --------------------- |
+| __Route__              | __Methods__ | __Status__ | __Note__         |
+| ---------------------- | :---------: | :--------: | ---------------- |
 | /api/v-full-resources/ |   **GET**   |  Old ver   | **!!deprecated** |
 
 **Properties**
@@ -341,10 +341,10 @@ Provide **username** and **password** in Authentication headers
 
 ---
 
-| __Route__            |   __Methods__    | __Status__ | __Note__            |
-| -------------------- | :--------------: | :--------: | ------------------- |
-| /api/v-rp-accs/      |     **GET**      |   Active   | **@token required** |
-| /api/tbl-dk-rp-accs/ | **GET** **POST** |   Active   | **@sha required**   |
+| __Route__            |   __Methods__    |           __Status__           | __Note__            |
+| -------------------- | :--------------: | :----------------------------: | ------------------- |
+| /api/v-rp-accs/      |     **GET**      | **!!deprecated** (use v1 api)  | **@token required** |
+| /api/tbl-dk-rp-accs/ | **GET** **POST** | **!!deprecated**  (use v1 api) | **@sha required**   |
 
 **Properties**
 | __Name__      |         __Type__         | __Description__ | __Example__ |
@@ -390,17 +390,17 @@ Provide **username** and **password** in Authentication headers
 
 ---
 
-| __Route__                  | __Methods__ | __Status__ | __Note__              |
-| -------------------------- | :---------: | :--------: | --------------------- |
+| __Route__                  | __Methods__ | __Status__ | __Note__         |
+| -------------------------- | :---------: | :--------: | ---------------- |
 | /api/tbl-dk-sliders/:name/ |   **GET**   |   Active   | **!!deprecated** |
 
 
 ---
 
 
-| __Route__          |   __Methods__    | __Status__ | __Note__            |
-| ------------------ | :--------------: | :--------: | ------------------- |
-| /api/device-user/  |     **GET**      |   Active   | **@token required** |
+| __Route__         | __Methods__ | __Status__ | __Note__            |
+| ----------------- | :---------: | :--------: | ------------------- |
+| /api/device-user/ |   **GET**   |   Active   | **@token required** |
 
 
 ---
@@ -548,3 +548,21 @@ example:
 
 Returns only if the **Rp_acc** is the **owner** of invoice
 + /api/v-order-invoices/<str:OInvRegNo>/
+
+
+---
+
+# v1 api
+
+Optimized and updated code
+
+URL prefix: **/api/v1**
+
+---
+
+| __Route__     |   __Methods__    | __Status__ | __Note__            |
+| ------------- | :--------------: | :--------: | ------------------- |
+| /v-rp-accs/   |     **GET**      | **Active** | **@token required** |
+| /tbl-rp-accs/ | **GET** **POST** | **Active** | **@sha required**   |
+
+---

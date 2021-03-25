@@ -5,7 +5,7 @@ from sqlalchemy import and_
 from sqlalchemy.orm import joinedload
 
 from main_pack import db, babel, gettext
-from main_pack.main import bp
+from . import bp
 from main_pack import Config
 
 from main_pack.api.commerce.commerce_utils import apiResourceInfo
