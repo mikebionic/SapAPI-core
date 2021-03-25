@@ -4,7 +4,7 @@ from flask import jsonify, request, make_response
 from main_pack.api.auth.utils import token_required
 
 from main_pack.api.v1.order_inv_api import api
-from main_pack.api.v1.order_inv_api.utils import collect_order_invoice_data
+from main_pack.api.v1.order_inv_api.utils import collect_order_inv_data
 
 
 @api.route("/v-order-invoices/<OInvRegNo>/",methods=['GET'])
@@ -13,7 +13,7 @@ def v_order_inv_RegNo(user,OInvRegNo):
 	current_user = user['current_user']
 	invoice_list = [{"OInvRegNo": OInvRegNo}]
 
-	res = collect_order_invoice_data(
+	res = collect_order_inv_data(
 		invoice_list = invoice_list,
 		single_object = True,
 		show_inv_line_resource = True,

@@ -5,9 +5,9 @@ from main_pack.models.base.models import Currency
 from main_pack.models.commerce.models import Exc_rate
 from main_pack.base.languageMethods import dataLangSelector
 from main_pack.base.priceMethods import price_currency_conversion
-from .generate_order_invoice_line_json import generate_order_invoice_line_json
+from .generate_order_inv_line_json import generate_order_inv_line_json
 
-def generate_order_invoice_json(
+def generate_order_inv_json(
 	rp_acc_user,
 	invoices_only,
 	invoice_models,
@@ -79,7 +79,7 @@ def generate_order_invoice_json(
 			rp_acc_user = None
 
 			if not invoices_only:
-				order_inv_info["Order_inv_lines"] = generate_order_invoice_line_json(
+				order_inv_info["Order_inv_lines"] = generate_order_inv_line_json(
 					order_inv,
 					currencies,
 					exc_rates,

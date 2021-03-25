@@ -7,7 +7,7 @@ from main_pack.api.auth.utils import sha_required
 from main_pack.api.base.validators import request_is_json
 
 from main_pack.api.v1.order_inv_api import api
-from main_pack.api.v1.order_inv_api.utils import collect_order_invoice_data
+from main_pack.api.v1.order_inv_api.utils import collect_order_inv_data
 
 
 @api.route("/tbl-order-invoices/", methods=['GET'])
@@ -19,7 +19,7 @@ def tbl_order_inv():
 	startDate = request.args.get("startDate",None,type=str)
 	endDate = request.args.get("endDate",datetime.now())
 
-	res = collect_order_invoice_data(
+	res = collect_order_inv_data(
 		startDate = startDate,
 		endDate = endDate,
 		statusId = 1,

@@ -5,10 +5,10 @@ from main_pack import Config
 from main_pack.base.apiMethods import checkApiResponseStatus
 from main_pack.base import get_first_from_list
 
-from .collect_order_invoice_models import collect_order_invoice_models
-from .generate_order_invoice_json import generate_order_invoice_json
+from .collect_order_inv_models import collect_order_inv_models
+from .generate_order_inv_json import generate_order_inv_json
 
-def collect_order_invoice_info(
+def collect_order_inv_data(
 	single_object = False,
 	invoices_only = False,
 	show_inv_line_resource = False,
@@ -24,12 +24,12 @@ def collect_order_invoice_info(
 	# notDivId = None,
 ):
 
-	invoice_models = collect_order_invoice_models(
+	invoice_models = collect_order_inv_models(
 		rp_acc_user = rp_acc_user,
 		**kwargs
 	)
 
-	data, fails = generate_order_invoice_json(
+	data, fails = generate_order_inv_json(
 		invoice_models = invoice_models,
 		rp_acc_user = rp_acc_user,
 		invoices_only = invoices_only,

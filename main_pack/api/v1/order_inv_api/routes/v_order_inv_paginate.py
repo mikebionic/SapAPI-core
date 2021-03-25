@@ -5,7 +5,7 @@ from datetime import datetime
 from main_pack.api.auth.utils import token_required
 
 from main_pack.api.v1.order_inv_api import api
-from main_pack.api.v1.order_inv_api.utils import collect_order_invoice_data
+from main_pack.api.v1.order_inv_api.utils import collect_order_inv_paginate_data
 
 @api.route("/v-order-invoices/paginate/")
 @token_required
@@ -22,7 +22,7 @@ def v_order_inv_paginate(user):
 	invStatus = request.args.get("invStatus",1,type=int)
 	pagination_url = 'commerce_api.api_v_order_invoices_paginate'
 
-	res = collect_order_invoice_data(
+	res = collect_order_inv_paginate_data(
 		pagination_url,
 		startDate = startDate,
 		endDate = endDate,

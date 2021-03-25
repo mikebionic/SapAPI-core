@@ -6,7 +6,7 @@ from main_pack.api.base.validators import request_is_json
 from main_pack.base.apiMethods import checkApiResponseStatus
 
 from main_pack.api.v1.order_inv_api import api
-from main_pack.api.v1.order_inv_api.utils import save_order_synch_data
+from main_pack.api.v1.order_inv_api.utils import save_order_inv_synch_data
 
 
 @api.route("/tbl-order-invoices/", methods=['POST'])
@@ -15,7 +15,7 @@ from main_pack.api.v1.order_inv_api.utils import save_order_synch_data
 def tbl_order_inv_post():
 	req = request.get_json()
 
-	data, fails = save_order_synch_data(req)
+	data, fails = save_order_inv_synch_data(req)
 	status = checkApiResponseStatus(data, fails)
 
 	res = {

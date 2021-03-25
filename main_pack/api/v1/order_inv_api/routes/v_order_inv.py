@@ -5,7 +5,7 @@ from datetime import datetime
 from main_pack.api.auth.utils import token_required
 
 from main_pack.api.v1.order_inv_api import api
-from main_pack.api.v1.order_inv_api.utils import collect_order_invoice_data
+from main_pack.api.v1.order_inv_api.utils import collect_order_inv_data
 
 
 @api.route("/v-order-invoices/")
@@ -15,7 +15,7 @@ def v_order_inv(user):
 	endDate = request.args.get("endDate",datetime.now())
 	current_user = user['current_user']
 
-	res = collect_order_invoice_data(
+	res = collect_order_inv_data(
 		startDate = startDate,
 		endDate = endDate,
 		show_inv_line_resource = True,

@@ -2,7 +2,7 @@
 from main_pack.base.priceMethods import price_currency_conversion
 from main_pack.api.commerce.commerce_utils import apiResourceInfo
 
-def generate_order_invoice_line_json(
+def generate_order_inv_line_json(
 	order_inv,
 	currencies,
 	exc_rates,

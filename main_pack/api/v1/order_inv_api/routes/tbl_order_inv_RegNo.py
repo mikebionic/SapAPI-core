@@ -4,7 +4,7 @@ from flask import jsonify, request, make_response
 from main_pack.api.auth.utils import sha_required
 
 from main_pack.api.v1.order_inv_api import api
-from main_pack.api.v1.order_inv_api.utils import collect_order_invoice_data
+from main_pack.api.v1.order_inv_api.utils import collect_order_inv_data
 
 
 @api.route("/tbl-order-invoices/<OInvRegNo>/")
@@ -12,7 +12,7 @@ from main_pack.api.v1.order_inv_api.utils import collect_order_invoice_data
 def tbl_order_inv_RegNo(OInvRegNo):
 	invoice_list = [{"OInvRegNo": OInvRegNo}]
 
-	res = collect_order_invoice_data(
+	res = collect_order_inv_data(
 		invoice_list = invoice_list,
 		show_inv_line_resource = True,
 		single_object = True

@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
-
 import dateutil.parser
 from sqlalchemy import and_, extract
 from sqlalchemy.orm import joinedload
 
-from main_pack.models.commerce.models import Invoice, Inv_line
+from main_pack.models.commerce.models import Order_inv,	Order_inv_line
 
-def collect_invoice_models(
+def collect_order_inv_models(
 	startDate = None,
 	endDate = datetime.now(),
 	statusId = None,
@@ -17,7 +16,6 @@ def collect_invoice_models(
 	notDivId = None,
 	invoice_models = None,
 ):
-
 	if not invoice_models:
 		invoice_filtering = {
 			"GCRecord": None
@@ -28,13 +26,13 @@ def collect_invoice_models(
 			invoice_filtering["RpAccId"] = rp_acc_user.RpAccId
 
 		invoice_models = []
-		if invoice_list is None:
-			invoices_query = Invoice.query\
+		if not invoice_list:
+			order_invoices = Order_inv.query\
 				.filter_by(**invoice_filtering)
 			if DivId:
-				invoices_query = invoices_query.filter_by(DivId = DivId)
+				order_invoices = order_invoices.filter_by(DivId = DivId)
 			if notDivId:
-				invoices_query = invoices_query.filter(Invoice.DivId != notDivId)
+				order_invoices = order_invoices.filter(Order_inv.DivId != notDivId)
 
 			if startDate:
 				if (type(startDate) != datetime):
@@ -43,36 +41,36 @@ def collect_invoice_models(
 				if (type(endDate) != datetime):
 					endDate = dateutil.parser.parse(endDate)
 					endDate = datetime.date(endDate)
-				invoices_query = invoices_query\
+				order_invoices = order_invoices\
 					.filter(and_(
-						extract('year',Invoice.InvDate).between(startDate.year,endDate.year),\
-						extract('month',Invoice.InvDate).between(startDate.month,endDate.month),\
-						extract('day',Invoice.InvDate).between(startDate.day,endDate.day)))
+						extract('year',Order_inv.OInvDate).between(startDate.year,endDate.year),\
+						extract('month',Order_inv.OInvDate).between(startDate.month,endDate.month),\
+						extract('day',Order_inv.OInvDate).between(startDate.day,endDate.day)))
 
-			invoices_query = invoices_query\
-				.order_by(Invoice.InvDate.desc())\
+			order_invoices = order_invoices\
+				.order_by(Order_inv.OInvDate.desc())\
 				.options(
-					joinedload(Invoice.rp_acc),
-					joinedload(Invoice.inv_status),
-					joinedload(Invoice.company),
-					joinedload(Invoice.warehouse),
-					joinedload(Invoice.division),
-					joinedload(Invoice.Inv_line)\
+					joinedload(Order_inv.rp_acc),
+					joinedload(Order_inv.inv_status),
+					joinedload(Order_inv.company),
+					joinedload(Order_inv.warehouse),
+					joinedload(Order_inv.division),
+					joinedload(Order_inv.Order_inv_line)\
 						.options(
-							joinedload(Inv_line.resource)
+							joinedload(Order_inv_line.resource)
 						))\
 				.all()
 
-			for invoice_object in invoices_query:
-				invoice_models.append(invoice_object)
+			for order_inv in order_invoices:
+				invoice_models.append(order_inv)
 
 		elif invoice_list:
 			for invoice_index in invoice_list:
 				OInvRegNo = invoice_index["OInvRegNo"]
 				invoice_filtering["OInvRegNo"] = OInvRegNo
-				invoice_object = Invoice.query\
+				order_inv = Order_inv.query\
 					.filter_by(**invoice_filtering).first()
-				if invoice_object:
-					invoice_models.append(invoice_object)
+				if order_inv:
+					invoice_models.append(order_inv)
 
 	return invoice_models

@@ -17,7 +17,7 @@ from .add_Order_inv_dict import add_Order_inv_dict
 from .add_Order_inv_line_dict import add_Order_inv_line_dict
 from main_pack.base import get_id_from_list_indexing
 
-def save_order_synch_data(req):
+def save_order_inv_synch_data(req):
 	DivId_list, DivGuid_list = get_division_id_guid_list()
 	WhId_list, WhGuid_list = get_warehouse_id_guid_list()
 	RpAccId_list, RpAccGuid_list = get_rp_acc_id_guid_list()
