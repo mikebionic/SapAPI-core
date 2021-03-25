@@ -13,11 +13,11 @@ from main_pack.api.common import (
 	get_warehouse_id_guid_list,
 	get_rp_acc_id_guid_list,
 )
-from .add_OInv_dict import add_OInv_dict
-from .add_OInvLine_dict import add_OInvLine_dict
+from .add_Order_inv_dict import add_Order_inv_dict
+from .add_Order_inv_line_dict import add_Order_inv_line_dict
 from main_pack.base import get_id_from_list_indexing
 
-def save_order_request_data(req):
+def save_order_synch_data(req):
 	DivId_list, DivGuid_list = get_division_id_guid_list()
 	WhId_list, WhGuid_list = get_warehouse_id_guid_list()
 	RpAccId_list, RpAccGuid_list = get_rp_acc_id_guid_list()
@@ -26,7 +26,7 @@ def save_order_request_data(req):
 
 	for order_inv_req in req:
 		try:
-			order_invoice = add_OInv_dict(order_inv_req)
+			order_invoice = add_Order_inv_dict(order_inv_req)
 			DivGuid = order_inv_req['DivGuid']
 			WhGuid = order_inv_req['WhGuid']
 			RpAccGuid = order_inv_req['RpAccGuid']
@@ -72,7 +72,7 @@ def save_order_request_data(req):
 			order_inv_lines, failed_order_inv_lines = [], []
 
 			for order_inv_line_req in order_inv_req['Order_inv_lines']:
-				order_inv_line = add_OInvLine_dict(order_inv_line_req)
+				order_inv_line = add_Order_inv_line_dict(order_inv_line_req)
 				order_inv_line['OInvId'] = thisOrderInv.OInvId
 
 				ResRegNo = order_inv_line_req['ResRegNo']

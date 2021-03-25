@@ -2,7 +2,7 @@
 import uuid
 from main_pack.base.dataMethods import configureNulls, configureFloat
 
-def add_OInv_dict(req):
+def add_Order_inv_dict(req):
 	OInvId = req.get('OInvId')
 	OInvGuid = uuid.UUID(req.get('OInvGuid'))
 	OInvTypeId = req.get('OInvTypeId')

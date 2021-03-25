@@ -2,7 +2,7 @@
 import uuid
 from main_pack.base.dataMethods import configureNulls, configureFloat
 
-def add_OInvLine_dict(req):
+def add_Order_inv_line_dict(req):
 	OInvLineId = req.get('OInvLineId')
 	OInvId = req.get('OInvId')
 	OInvLineGuid = uuid.UUID(req.get('OInvLineGuid'))

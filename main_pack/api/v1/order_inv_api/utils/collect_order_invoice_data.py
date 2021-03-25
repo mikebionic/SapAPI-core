@@ -8,7 +8,7 @@ from main_pack.base import get_first_from_list
 from .collect_order_invoice_models import collect_order_invoice_models
 from .generate_order_invoice_json import generate_order_invoice_json
 
-def collect_order_invoice_info(
+def collect_order_invoice_data(
 	single_object = False,
 	invoices_only = False,
 	show_inv_line_resource = False,

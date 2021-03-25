@@ -104,7 +104,10 @@ def create_app(config_class=Config):
 
 	from main_pack.api.v1.invoice_api import api as v1_invoice_api
 	app.register_blueprint(v1_invoice_api, url_prefix=f"{api_url_prefix}/v1/")
-	
+
+	from main_pack.api.v1.order_inv_api import api as v1_order_inv_api
+	app.register_blueprint(v1_order_inv_api, url_prefix=f"{api_url_prefix}/v1/")
+
 
 	if Config.USE_ACTIVATION_CUSTOMER:
 		from main_pack.activation.customer import api as activation_customer_api
