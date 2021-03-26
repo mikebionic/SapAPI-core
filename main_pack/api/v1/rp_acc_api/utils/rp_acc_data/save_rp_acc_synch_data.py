@@ -33,6 +33,9 @@ def save_rp_acc_synch_data(req):
 			UId = get_id_from_list_indexing(UId_list, UGuid_list, rp_acc_req["UGuid"])
 			CId = get_id_from_list_indexing(CId_list, CGuid_list, rp_acc_req["CGuid"])
 
+			if not DivId or not UId or not CId:
+				raise Exception
+
 			rp_acc_info["DivId"] = DivId
 			rp_acc_info["CId"] = CId
 			rp_acc_info["UId"] = UId
