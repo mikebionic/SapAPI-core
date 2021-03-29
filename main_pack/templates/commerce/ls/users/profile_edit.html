@@ -28,7 +28,7 @@
 				<div class="username has-text-centered">
 					<span>{{rpAcc.RpAccName}}</span>
 					<small>{{_('Registered date')}}: {{rpAcc.CreatedDate.strftime('%d-%m-%Y') if rpAcc.CreatedDate else ''}}</small>
-				</div>
+				</div> 
 				<div class="has-text-centered">
 					<a href="{{ url_for('commerce_auth.reset_request') }}" class="button">{{_('Reset password')}}</a>
 				</div>

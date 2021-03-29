@@ -143,9 +143,17 @@ $(document).ready(function($) {
 					breakpoint: 384,
 					settings: {
 							autoplay: true,
-							slidesToShow: 1,
+							slidesToShow: 2,
 							arrows: false,
 					}
+			},
+			{
+				breakpoint: 354,
+				settings: {
+						autoplay: true,
+						slidesToShow: 1,
+						arrows: false,
+				}
 			}
 	]
 	});

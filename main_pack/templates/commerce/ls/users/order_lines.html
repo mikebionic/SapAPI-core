@@ -1,94 +1,318 @@
 {% extends "commerce/ls/commerce/layout.html" %}
-
+{% block styles %}
+	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/bulma.css')}}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/core.css')}}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/ls/css/bootstrap.css') }}">
+{% endblock %}
 {% block content %}
-<div class="col-lg-12 col-md-5 col-sm-8 col-xs-9 bhoechie-tab-container">
-	<div class="col-lg-2 col-md-3 col-sm-3 col-xs-3 bhoechie-tab-menu">
-		<div class="list-group">
-			<a href="{{ url_for('commerce_users.profile') }}" class="list-group-item text-center">
-			<h4 class="fonticon"><i class="fa fa-user"></i></h4>{{_('Profile')}}
-			</a>
-			<a href="{{ url_for('commerce.cart') }}" class="list-group-item text-center">
-			<h4 class="fonticon"><i class="fa fa-credit-card"></i></h4>{{_('Cart')}}
-			</a>
-			<a href="{{ url_for('commerce_users.wishlist') }}" class="list-group-item text-center">
-			<h4 class="fonticon"><i class="fa fa-heart"></i></h4>{{_('Wishlist')}}
-			</a>
-			<a href="{{ url_for('commerce_users.orders') }}" class="list-group-item active text-center">
-			<h4 class="fonticon"><i class="fa fa-truck"></i></h4>{{_('Orders')}}
-			</a>
-		</div>
-	</div>
-	<div class="col-lg-10 col-md-9 col-sm-9 col-xs-9 bhoechie-tab">
-		<div class="bhoechie-tab-content active">
-			<main id="main" class="site-main" style="display: flex;">
-				{% for orderInv in orderInvoices %}
-				<div class="listing-controls">
-					<div class="columns is-account-grid is-multiline">
-						<div class="column is-12">
+<div class="container bootstrap snippet" style="margin-top: 1%;">
+	<div class="row">
+		<div class="col-sm-3">
+			<div class="text-center">
+				<img loading="lazy" src="{{ url_for('static', filename='commerce/ls/img/icons/no_photo.svg') }}" class="avatar img-thumbnail" alt="avatar">
+				<div class="username has-text-centered">
+					<span>{{rpAcc.RpAccName}}</span><br>
+					<small>{{_('Registered date')}}: {{rpAcc.CreatedDate.strftime('%d-%m-%Y') if rpAcc.CreatedDate else ''}}</small>
+				</div>
+				<input type="file" class="text-center center-block file-upload">
+			</div>
+		</div><!--/col-3-->
+		<div class="col-sm-9">
+			<ul class="nav nav-tabs"> 
+				<li class="active"><a data-toggle="tab" href="#profile">{{_('Profile')}}</a></li>
+				<li><a data-toggle="tab" href="#orders">{{_('Orders')}}</a></li>
+				<li><a data-toggle="tab" href="#wishlist">{{_('Wishlist')}}</a></li>
+				<li style="float: right;"><a data-toggle="tab" href="#edit_profile"><i class="fa fa-fw fa-gears" style="font-size: 30px;"></i></a></li>
+			</ul>
 
-							<div id="46895" class="flat-card is-auto order-list-card animated preFadeInUp fadeInUp">
-								<div class="order-block">
-									<div class="order-icon">
-										<i data-feather="{{ orderInvoices[0].StatusUI.icon }}"></i>
-									</div>
-									<div class="status">
-										<div>{{_('Status')}}</div>
-										<div><span class="tag {{orderInvoices[0].StatusUI.class}}-tag">{{orderInvoices[0].InvStatus.InvStatName}}</span></div>
-									</div>
-									<div class="order-icon">
-										<i data-feather="clock"></i>
-									</div>
-									<div class="date">
-										<div>{{_('Ordered date')}}</div>
-										<div class="is-date">{{orderInvoices[0].CreatedDate}}</div>
-									</div>
-									<div class="order-icon">
-										<i data-feather="dollar-sign"></i>
-									</div>
-									<div class="total">
-										<div>{{_('Total price')}}</div>
-										<div class="tag">{{ orderInvoices[0].Currency.CurrencyCode }} {{ orderInvoices[0].OInvFTotal }}</div>
-									</div>
-								</div>
-								<div class="table-block">
-									<table>
-										<thead>
-											<tr>
-												<th scope="col">{{_('Product name')}}</th>
-												<th scope="col">{{_('Amount')}}</th>
-												<th scope="col">{{_('Price')}}</th>
-												<th scope="col">{{_('Total price')}}</th>
-												<th scope="col">{{_('Currency')}}</th>
-											</tr>
-										</thead>
-										<tbody>
-										{% for orderInvLine in orderInvLines %}
-											<tr>
-												<td class="text-center">
-													<a href="{{ url_for('commerce.product',ResId=orderInvLine.Resource.ResId)}}">
-														{{ orderInvLine.Resource.ResName }}
-													</a>
-												</td>
-												<td>{{ orderInvLine.OInvLineAmount }}</td>
-												<td>{{ orderInvLine.OInvLinePrice }}</td>
-												<td>{{ orderInvLine.OInvLineTotal }}</td>
-												<td>{{ orderInvLine.Currency.CurrencyCode }}</td>
-											</tr>
-										{% endfor %}
-										</tbody>
-									</table>
-								</div>
-								<p><b>{{_('Description')}}</b></p>
-								<p>{{ orderInvoices[0].OInvDesc if orderInvoices[0].OInvDesc else '' }}</p>
+						
+			<div class="tab-content">
+				<div class="tab-pane wishlist_p active" id="profile">
+					<form class="form" action="##" method="post" id="registrationForm">
+						<div class="col-xs-6">
+							<div class="info-block">
+								<span class="label-text">{{_('Email')}}</span>
+								<span class="label-value">{{rpAcc.RpAccEMail}}</span>
 							</div>
 						</div>
+						<div class="col-xs-6">
+							<div class="info-block">
+								<span class="label-text">{{_('Home phone')}}</span>
+								<span class="label-value">{{rpAcc.RpAccHomePhoneNumber if rpAcc.RpAccHomePhoneNumber else ''}}</span>
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<div class="info-block">
+								<span class="label-text">{{_('Address')}}</span>
+								<span class="label-value">{{rpAcc.RpAccAddress if rpAcc.RpAccAddress else ''}}</span>
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<div class="info-block">
+								<span class="label-text">{{_('Zip code')}}</span>
+								<span class="label-value">{{rpAcc.RpAccZipCode if rpAcc.RpAccZipCode else ''}}</span>
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<div class="info-block">
+								<span class="label-text">{{_('Full name')}}</span>
+								<span class="label-value">{{rpAcc.RpAccName}}</span>
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<div class="info-block">
+								<span class="label-text">{{_('Mobile phone')}}</span>
+								<span class="label-value">{{rpAcc.RpAccMobilePhoneNumber if rpAcc.RpAccMobilePhoneNumber else ''}}</span>
+							</div>
+						</div>
+				</form>
+				</div><!--/tab-pane-->
+					<div class="tab-pane wishlist_p" id="wishlist">
+					
+					<form class="woocommerce" method="post" action="#">
+					<table class="shop_table cart wishlist_table">
+							<tbody>
+									<tr>
+											<td class="product-thumbnail">
+													<a href="single-product-fullwidth.html">
+															<img width="90" height="90" alt="" class="wp-post-image" loading="lazy" src="{{ url_for('static', filename='commerce/ls/img/icons/no_photo.svg') }}">
+													</a>
+											</td>
+											<td class="product-name">
+													<a href="single-product-fullwidth.html">4K Action Cam with  Wi-Fi &amp; GPS</a>
+											</td>
+											<td class="product-price">
+													<ins>
+															<span class="woocommerce-Price-amount amount">
+																	<span class="woocommerce-Price-currencySymbol">£</span>199.95</span>
+													</ins>
+													
+											</td>
+											<td class="product-add-to-cart">
+													<a class="profile_button add_to_cart_button alt" href="cart.html"><i class="fa fa-fw fa-shopping-cart"></i></a>
+											</td>
+													<td class="product-remove">
+														<a title="Remove this product" class="profile_button" href="#"><i class="fa fa-fw fa-trash"></i></a>
+											</td>	
+									</tr>
+									<tr>
+											<td class="product-thumbnail">
+													<a href="single-product-fullwidth.html">
+															<img width="90" height="90" alt="" class="wp-post-image" loading="lazy" src="{{ url_for('static', filename='commerce/ls/img/icons/no_photo.svg') }}">
+													</a>
+											</td>
+											<td class="product-name">
+													<a href="single-product-fullwidth.html">55EG9600 - 55-Inch 2160p Smart Curved Ultra HD 3D</a>
+											</td>
+											<td class="product-price">
+													<ins>
+															<span class="woocommerce-Price-amount amount">
+																	<span class="woocommerce-Price-currencySymbol">£</span>199.95</span>
+													</ins>
+													
+											</td>
+											<td class="product-add-to-cart">
+													<a class="profile_button add_to_cart_button alt" href="cart.html"><i class="fa fa-fw fa-shopping-cart"></i></a>
+											</td>
+													<td class="product-remove">
+														<a title="Remove this product" class="profile_button" href="#"><i class="fa fa-fw fa-trash"></i></a>
+											</td>	
+									</tr>
+									<tr>
+											<td class="product-thumbnail">
+													<a href="single-product-fullwidth.html">
+															<img width="90" height="90" alt="" class="wp-post-image" loading="lazy" src="{{ url_for('static', filename='commerce/ls/img/icons/no_photo.svg') }}">
+													</a>
+											</td>
+											<td class="product-name">
+													<a href="single-product-fullwidth.html">360° Viewing Immersive VR Headset</a>
+											</td>
+											<td class="product-price">
+													<ins>
+															<span class="woocommerce-Price-amount amount">
+																	<span class="woocommerce-Price-currencySymbol">£</span>199.95</span>
+													</ins>
+													
+											</td>
+											<td class="product-add-to-cart">
+													<a class="profile_button add_to_cart_button alt" href="cart.html"><i class="fa fa-fw fa-shopping-cart"></i></a>
+											</td>
+													<td class="product-remove">
+														<a title="Remove this product" class="profile_button" href="#"><i class="fa fa-fw fa-trash"></i></a>
+											</td>	
+									</tr>
+							</tbody>
+					</table>
+					<!-- .wishlist_table -->
+			</form>
+					
+					</div><!--/tab-pane-->
+					<div class="tab-pane wishlist_p" id="orders">
+						<div class="columns is-account-grid is-multiline">
+							<!-- Order card -->
+							<div class="column is-12">
+        
+								<!-- Order 46895 panel -->
+								<div id="46895" class="flat-card is-auto order-list-card animated preFadeInUp fadeInUp">
+										<div class="progress-block">
+												<!-- Title -->
+												<h3>ORDER 46895</h3>
+												<!-- Progress bar -->
+												<progress class="progress primary-progress is-small has-simple-popover" value="66" max="100" data-content="66% Complete" data-placement="top">66%</progress>
+										</div>
+										<!-- Orders team member -->
+										<div class="order-block">
+												<img src="assets/images/avatars/janet.jpg" alt="">
+												<div class="handled-by">
+														<div>Handled by</div>
+														<div>Janet Smith</div>
+												</div>
+										</div>
+										<div class="order_status">	
+											<!-- Order status -->
+											<div class="order-block">
+													<div class="order-icon">
+															<i data-feather="info"></i>
+													</div>
+													<div class="status">
+															<div>Status</div>
+															<div><span class="tag primary-tag">Shipping</span></div>
+													</div>
+											</div>
+											<!-- Order date -->
+											<div class="order-block">
+													<div class="order-icon">
+															<i data-feather="clock"></i>
+													</div>
+													<div class="date">
+															<div>Date</div>
+															<div class="is-date">mar 23 2018</div>
+													</div>
+											</div>
+											<!-- Order total -->
+											<div class="order-block">
+													<div class="order-icon">
+															<i data-feather="dollar-sign"></i>
+													</div>
+													<div class="total">
+															<div>Order total</div>
+															<div class="is-price">683,99 <span class="tag success-tag">Paid</span></div>
+													</div>
+											</div>
+										</div>
+											<!-- Order details -->
+										<div class="table-block">
+												<table>
+														<thead>
+																<tr>
+																		<th scope="col">Product</th>
+																		<th scope="col">SKU</th>
+																		<th scope="col">Quantity</th>
+																		<th scope="col">Total</th>
+																</tr>
+														</thead>
+														<tbody>
+																<tr>
+																		<td data-label="Product">Shipping A1</td>
+																		<td data-label="SKU">-</td>
+																		<td data-label="Quantity">1</td>
+																		<td data-label="Total">$39,00</td>
+																</tr>
+																<tr>
+																		<td data-label="Product">Conqueror</td>
+																		<td data-label="SKU">587</td>
+																		<td data-label="Quantity">1</td>
+																		<td data-label="Total">$295,00</td>
+																</tr>
+																<tr>
+																		<td data-label="Product">Gentleman</td>
+																		<td data-label="SKU">029</td>
+																		<td data-label="Quantity">1</td>
+																		<td data-label="Total">$349,99</td>
+																</tr>
+														</tbody>
+												</table>
+										</div>
+										<!-- View Invoice -->
+										<div class="button-block has-text-right">
+												<a href="invoice.html" class="button feather-button is-small primary-button is-bold raised">invoice</a>
+										</div>
+								</div>
+								<!-- /Order 38246 -->
+						</div>
+						</div>
 					</div>
-				</div>
-				{% endfor %}
-				<!-- .hentry -->
-			</main>
-		</div>
-	</div>
-</div>
+					<div class="tab-pane wishlist_p" id="edit_profile">
+							
+						<form class="form" action="##" method="post" id="registrationForm">
+							<div class="form-group">			
+								<div class="col-xs-6">
+									<label for="first_name"><h4>First name</h4></label>
+									<input type="text" class="form-control" name="first_name" id="first_name" placeholder="first name" title="enter your first name if any.">
+								</div>
+							</div>
+							<div class="form-group">			
+								<div class="col-xs-6">
+									<label for="last_name"><h4>Last name</h4></label>
+									<input type="text" class="form-control" name="last_name" id="last_name" placeholder="last name" title="enter your last name if any.">
+								</div>
+							</div>
 
+							<div class="form-group">			
+								<div class="col-xs-6">
+									<label for="phone"><h4>Phone</h4></label>
+									<input type="text" class="form-control" name="phone" id="phone" placeholder="enter phone" title="enter your phone number if any.">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="col-xs-6">
+									<label for="mobile"><h4>Mobile</h4></label>
+									<input type="text" class="form-control" name="mobile" id="mobile" placeholder="enter mobile number" title="enter your mobile number if any.">
+								</div>
+							</div>
+							<div class="form-group">			
+								<div class="col-xs-6">
+									<label for="email"><h4>Email</h4></label>
+									<input type="email" class="form-control" name="email" id="email" placeholder="you@email.com" title="enter your email.">
+								</div>
+							</div>
+							<div class="form-group">			
+								<div class="col-xs-6">
+									<label for="email"><h4>Location</h4></label>
+									<input type="email" class="form-control" id="location" placeholder="somewhere" title="enter a location">
+								</div>
+							</div>
+							<div class="form-group">			
+								<div class="col-xs-6">
+									<label for="password"><h4>Password</h4></label>
+									<input type="password" class="form-control" name="password" id="password" placeholder="password" title="enter your password.">
+								</div>
+							</div>
+							<div class="form-group">			
+								<div class="col-xs-6">
+									<label for="password2"><h4>Verify</h4></label>
+									<input type="password" class="form-control" name="password2" id="password2" placeholder="password2" title="enter your password2.">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-xs-12">
+									<br>
+									<button class="btn btn-lg btn-success" type="submit"> Save</button>
+									<button class="btn btn-lg" type="reset"> Reset</button>
+								</div>
+							</div>
+						</form>
+							
+					
+				</div><!--/tab-pane-->
+			</div><!--/tab-pane-->
+		</div><!--/tab-content-->
+	</div><!--/col-9-->
+</div><!--/row-->
+
+{% endblock %}
+{% block scripts %}
+	<script src="{{ url_for('static', filename='commerce/main/js/app.js')}}"></script>
+	<script src="{{ url_for('static', filename='commerce/main/js/nephos.js')}}"></script>
 {% endblock %}
