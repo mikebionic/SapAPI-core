@@ -1,0 +1,16 @@
+Sitemap: https://ls.com.tm/sitemap.xml
+Host: www.ls.com.tm
+
+User-agent: *
+Allow: /
+Allow: /login
+Allow: /register
+Allow: /v-grid
+Allow: /cart
+Allow: /brands
+Allow: /commerce/
+Allow: /contact
+Allow: /about
+Allow: /v-grid?search=*
+Disallow: /profile
+Disallow: */api/*

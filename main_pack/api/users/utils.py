@@ -261,7 +261,7 @@ def apiUsersData(
 		data["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_Images[-1]["FileName"]) if List_Images else ""
 		data["Images"] = List_Images if List_Images else []
 
-		if rp_acc_info:
+		if rpAccInfo:
 			data["Rp_accs"] = [rp_acc.to_json_api() for rp_acc in dbModel.Rp_acc if not rp_acc.GCRecord]
 
 		if additionalInfo:

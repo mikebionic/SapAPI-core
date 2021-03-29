@@ -1,18 +1,23 @@
 {% extends "commerce/bee/commerce/layout.html" %}
+
+{% block styles %}
+	<meta name="robots" content="noindex" />
+{% endblock %}
+
 {% block content %}
 
   <div class="page-contain page-404" style="height: 100%;">
-      <div id="main-content" class="main-content">
-          <div class="container">
-              <div class="col">
-                  <div class="content-404">
-                      <h1 class="heading">500</h1>
-                      <h2 class="title">Internal server error!</h2>
-                      <p>Contact the administrators or try again later</p>
-                  </div>
-              </div>
-          </div>
-      </div>
+	  <div id="main-content" class="main-content">
+		  <div class="container">
+			  <div class="col">
+				  <div class="content-404">
+					  <h1 class="heading">500</h1>
+					  <h2 class="title">Internal server error!</h2>
+					  <p>Contact the administrators or try again later</p>
+				  </div>
+			  </div>
+		  </div>
+	  </div>
   </div>
 
 {% endblock content %}

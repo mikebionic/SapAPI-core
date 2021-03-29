@@ -1,14 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    {% if title %}
-      <title>{{_('Admin panel')}} - {{title}}</title>
-    {% else %}
-      <title>{{_('Admin panel')}}</title>
-    {% endif %}
-
+  <meta name="robots" content="noindex" />
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+  <title>{{ title if title else _('Admin panel') }}</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/css/bulma.css')}}">
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/css/core.css')}}">
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/admin/css/app.min.css') }}">
