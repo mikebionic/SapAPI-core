@@ -3,7 +3,7 @@ from datetime import datetime
 from main_pack.base.dataMethods import apiDataFormat,apiCheckImageByte
 from sqlalchemy.dialects.postgresql import UUID
 from main_pack.base.apiMethods import fileToURL
-
+from main_pack.models import AddInf
 
 class CreatedModifiedInfo(object):
 	CreatedDate = db.Column("CreatedDate",db.DateTime,default=datetime.now())
@@ -13,21 +13,31 @@ class CreatedModifiedInfo(object):
 	ModifiedUId = db.Column("ModifiedUId",db.Integer)
 	GCRecord = db.Column("GCRecord",db.Integer)
 
-	def createdInfo(self,UId):
+	def createdInfo(self, UId):
 		self.CreatedUId = UId
 
-	def modifiedInfo(self,UId):
+	def modifiedInfo(self, UId):
 		self.ModifiedDate = datetime.now()
 		self.ModifiedUId = UId
+	
+	@property
+	def is_deleted(self):
+		return 1 if self.GCRecord else 0
+
+	def update(self, **kwargs):
+		for key, value in kwargs.items():
+			if value is not None:
+				if hasattr(self, key):
+					setattr(self, key, value)
 
 
-class AddInf(object):
-	AddInf1 = db.Column("AddInf1",db.String(500))
-	AddInf2 = db.Column("AddInf2",db.String(500))
-	AddInf3 = db.Column("AddInf3",db.String(500))
-	AddInf4 = db.Column("AddInf4",db.String(500))
-	AddInf5 = db.Column("AddInf5",db.String(500))
-	AddInf6 = db.Column("AddInf6",db.String(500))
+# class AddInf(object):
+# 	AddInf1 = db.Column("AddInf1",db.String(500))
+# 	AddInf2 = db.Column("AddInf2",db.String(500))
+# 	AddInf3 = db.Column("AddInf3",db.String(500))
+# 	AddInf4 = db.Column("AddInf4",db.String(500))
+# 	AddInf5 = db.Column("AddInf5",db.String(500))
+# 	AddInf6 = db.Column("AddInf6",db.String(500))
 
 
 class Acc_type(CreatedModifiedInfo,db.Model):

@@ -7,6 +7,7 @@ from flask_login import UserMixin
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from main_pack.models.base.models import CreatedModifiedInfo, AddInf
 from main_pack.base.dataMethods import apiDataFormat
+from main_pack.models import AddInf
 
 
 @login_manager.user_loader
@@ -62,9 +63,9 @@ class Users(AddInf,CreatedModifiedInfo,db.Model,UserMixin):
 		s = Serializer(Config.SECRET_KEY)
 		try:
 			UId = s.loads(token)['UId']
-		except Exception as ex:
+		except Exception:
 			return None
-		return	Users.query.get(UId)
+		return Users.query.get(UId)
 
 	def update(self, **kwargs):
 		for key, value in kwargs.items():
@@ -73,7 +74,7 @@ class Users(AddInf,CreatedModifiedInfo,db.Model,UserMixin):
 					setattr(self, key, value)
 
 	def to_json_api(self):
-		json_data = {
+		data = {
 			"UId": self.UId,
 			"UGuid": self.UGuid,
 			"CId": self.CId,
@@ -103,7 +104,7 @@ class Users(AddInf,CreatedModifiedInfo,db.Model,UserMixin):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		return json_data
+		return data
 
 
 class User_type(CreatedModifiedInfo,db.Model):
@@ -210,7 +211,7 @@ class Rp_acc(AddInf,CreatedModifiedInfo,db.Model,UserMixin):
 		s = Serializer(Config.SECRET_KEY)
 		try:
 			RpAccId = s.loads(token)['RpAccId']
-		except Exception as ex:
+		except Exception:
 			return None
 		return	Rp_acc.query.get(RpAccId)
 

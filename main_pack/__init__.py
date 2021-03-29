@@ -70,10 +70,6 @@ def create_app(config_class=Config):
 	if Config.OS_TYPE != 'win32':
 		sess.init_app(app)
 
-	# all models are separated in the models folder
-	from main_pack.models import bp as models_bp
-	app.register_blueprint(models_bp)
-
 	from main_pack.main import bp as main_bp
 	app.register_blueprint(main_bp)
 
@@ -101,15 +97,19 @@ def create_app(config_class=Config):
 
 	from main_pack.api.v1.rp_acc_api import api as v1_rp_acc_api
 	app.register_blueprint(v1_rp_acc_api, url_prefix=f"{api_url_prefix}/v1/")
+	csrf.exempt(v1_rp_acc_api)
 
 	from main_pack.api.v1.invoice_api import api as v1_invoice_api
 	app.register_blueprint(v1_invoice_api, url_prefix=f"{api_url_prefix}/v1/")
+	csrf.exempt(v1_invoice_api)
 
 	from main_pack.api.v1.order_inv_api import api as v1_order_inv_api
 	app.register_blueprint(v1_order_inv_api, url_prefix=f"{api_url_prefix}/v1/")
+	csrf.exempt(v1_order_inv_api)
 
 	from main_pack.api.v1.warehouse_api import api as v1_warehouse_api
 	app.register_blueprint(v1_warehouse_api, url_prefix=f"{api_url_prefix}/v1/")
+	csrf.exempt(v1_warehouse_api)
 
 
 	if Config.USE_ACTIVATION_CUSTOMER:

@@ -3,6 +3,7 @@ from main_pack import db
 from datetime import datetime
 from sqlalchemy.dialects.postgresql import UUID
 from main_pack.models.base.models import CreatedModifiedInfo, AddInf
+from main_pack.models import AddInf
 
 
 class Employee(AddInf,CreatedModifiedInfo,db.Model):
