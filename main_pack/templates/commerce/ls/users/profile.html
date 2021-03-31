@@ -6,7 +6,7 @@
 	<meta name="robots" content="noindex" />
 {% endblock %}
 {% block content %}
-<div class="container bootstrap snippet" style="margin-top: 1%;">
+<div class="container bootstrap snippet" style="margin: 2% 0;">
 	<div class="row">
 		<div class="col-sm-3">
 			<div class="text-center">
@@ -15,7 +15,6 @@
 					<span>{{rpAcc.RpAccName}}</span><br>
 					<small>{{_('Registered date')}}: {{rpAcc.CreatedDate.strftime('%d-%m-%Y') if rpAcc.CreatedDate else ''}}</small>
 				</div>
-				<input type="file" class="text-center center-block file-upload">
 			</div>
 		</div><!--/col-3-->
 		<div class="col-sm-9">
@@ -30,7 +29,7 @@
 						
 			<div class="tab-content">
 				<div class="tab-pane wishlist_p active" id="profile">
-					<form class="form" action="##" method="post" id="registrationForm">
+					<form class="form" action="##" method="post" id="registrationForm" style="text-align: center;">
 						<div class="col-xs-6">
 							<div class="info-block">
 								<span class="label-text">{{_('Email')}}</span>
@@ -152,128 +151,213 @@
 					<div class="tab-pane wishlist_p" id="orders">
 						
 						<div class="columns is-account-grid is-multiline">
-							<div class="column is-4">
+							<div class="column is-6">
 									<div class="flat-card order-card has-popover-top">
 											<div class="order-info">
-													<span><a href="order_lines.html" onclick="return true">ORDER-46895</a></span>
-													<span class="tag is-primary">Shipping</span>
+												<span><a href="order_lines.html">ORDER-38246</a></span>
 											</div>
-											<div class="circle-chart-wrapper">
-													<svg class="circle-chart" viewbox="0 0 33.83098862 33.83098862" width="140" height="140" xmlns="http://www.w3.org/2000/svg">
-															<circle class="circle-chart-background" stroke="#efefef" stroke-width="2" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
-															<circle class="circle-chart-circle" stroke="#0023ff" stroke-width="2" stroke-dasharray="66,100" stroke-linecap="round" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
-													</svg>
-													<div class="chart-icon" style="top: 42%;">
-															<i data-feather="package"></i>
+											<div class="order_status" style="justify-content:end">
+												<div class="order-block">
+														<div class="order-icon">
+																<i data-feather="info"></i>
+														</div>
+														<div class="status">
+																<div>Status</div>
+																<div><span class="tag primary-tag">Shipping</span></div>
+														</div>
+												</div>
+												<div class="order-block">
+													<div class="order-icon">
+															<i data-feather="dollar-sign"></i>
 													</div>
-													<div class="ring-title has-text-centered">
-															<span>66% Complete</span>
+													<div class="total">
+															<div>Order total</div>
+															<div class="is-price">219,22</div>
 													</div>
+												</div>
+											</div>
+											<div id="46895" class="order-list-card animated preFadeInUp fadeInUp">
+												<div class="progress-block">
+														<progress class="progress primary-progress is-small has-simple-popover" value="66" max="100" data-content="66% Complete" data-placement="top">66%</progress>
+															<div class="chart-icon">
+																	<i data-feather="package"></i>
+															</div>
+												</div>
 											</div>
 									</div>
 							</div>
-							<div class="column is-4">
+							<div class="column is-6">
 									<div class="flat-card order-card has-popover-top">
 											<div class="order-info">
-													<span><a href="order_lines.html">ORDER-46878</a></span>
-													<span class="tag is-success">Preparing</span>
+												<span><a href="order_lines.html">ORDER-38246</a></span>
 											</div>
-											<div class="circle-chart-wrapper">
-													<svg class="circle-chart" viewbox="0 0 33.83098862 33.83098862" width="140" height="140" xmlns="http://www.w3.org/2000/svg">
-															<circle class="circle-chart-background" stroke="#efefef" stroke-width="2" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
-															<circle class="circle-chart-circle" stroke="#00b289" stroke-width="2" stroke-dasharray="33,100" stroke-linecap="round" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
-													</svg>
-													
-													<div class="chart-icon" style="top: 42%;">
-															<i data-feather="package"></i>
+											<div class="order_status" style="justify-content:end">
+												<div class="order-block">
+														<div class="order-icon">
+																<i data-feather="info"></i>
+														</div>
+														<div class="status">
+																<div>Status</div>
+																<div><span class="tag success-tag">Preparing</span></div>
+														</div>
+												</div>
+												<div class="order-block">
+													<div class="order-icon">
+															<i data-feather="dollar-sign"></i>
 													</div>
-													<div class="ring-title has-text-centered">
-															<span>33% Complete</span>
+													<div class="total">
+															<div>Order total</div>
+															<div class="is-price">219,22</div>
 													</div>
+												</div>
+											</div>
+											<div id="46895" class="order-list-card animated preFadeInUp fadeInUp">
+												<div class="progress-block">
+														<progress class="progress success-progress is-small has-simple-popover" value="66" max="100" data-content="66% Complete" data-placement="top">66%</progress>
+															<div class="chart-icon">
+																	<i data-feather="package"></i>
+															</div>
+												</div>
 											</div>
 									</div>
 							</div>
-							<div class="column is-4">
+							<div class="column is-6">
 									<div class="flat-card order-card has-popover-top">
 											<div class="order-info">
-													<span><a href="order_lines.html" class="is-disabled">ORDER-42135</a></span>
-													<span class="tag is-warning">Pending</span>
+												<span><a href="order_lines.html">ORDER-38246</a></span>
 											</div>
-											<div class="circle-chart-wrapper">
-													<svg class="circle-chart" viewbox="0 0 33.83098862 33.83098862" width="140" height="140" xmlns="http://www.w3.org/2000/svg">
-															<circle class="circle-chart-background" stroke="#efefef" stroke-width="2" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
-															<circle class="circle-chart-circle" stroke="#eda514" stroke-width="2" stroke-dasharray="10,100" stroke-linecap="round" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
-													</svg>
-													
-													<div class="chart-icon" style="top: 42%;">
-															<i data-feather="package"></i>
+											<div class="order_status" style="justify-content:end">
+												<div class="order-block">
+														<div class="order-icon">
+																<i data-feather="info"></i>
+														</div>
+														<div class="status">
+																<div>Status</div>
+																<div><span class="tag warning-tag">Pending</span></div>
+														</div>
+												</div>
+												<div class="order-block">
+													<div class="order-icon">
+															<i data-feather="dollar-sign"></i>
 													</div>
-													<div class="ring-title has-text-centered">
-															<span>10% Complete</span>
+													<div class="total">
+															<div>Order total</div>
+															<div class="is-price">219,22</div>
 													</div>
+												</div>
+											</div>
+											<div id="46895" class="order-list-card animated preFadeInUp fadeInUp">
+												<div class="progress-block">
+														<progress class="progress warning-progress is-small has-simple-popover" value="66" max="100" data-content="66% Complete" data-placement="top">66%</progress>
+															<div class="chart-icon">
+																	<i data-feather="package"></i>
+															</div>
+												</div>
 											</div>
 									</div>
 							</div>
-							<div class="column is-4">
-									<div class="flat-card order-card has-popover-top">
-											<div class="order-info">
-													<span><a href="order_lines.html">ORDER-39456</a></span>
-													<span class="tag is-danger">Has issue</span>
-											</div>
-											<div class="circle-chart-wrapper">
-													<svg class="circle-chart" viewbox="0 0 33.83098862 33.83098862" width="140" height="140" xmlns="http://www.w3.org/2000/svg">
-															<circle class="circle-chart-background" stroke="#efefef" stroke-width="2" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
-															<circle class="circle-chart-circle" stroke="#FF7273" stroke-width="2" stroke-dasharray="40,100" stroke-linecap="round" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
-													</svg>
-													
-													<div class="chart-icon" style="top: 42%;">
-															<i data-feather="package"></i>
-													</div>
-													<div class="ring-title has-text-centered">
-															<span>40% Complete</span>
-													</div>
-											</div>
-									</div>
-							</div>
-							<div class="column is-4">
+							<div class="column is-6">
 									<div class="flat-card order-card has-popover-top">
 											<div class="order-info">
 													<span><a href="order_lines.html">ORDER-38246</a></span>
-													<span class="tag is-primary">Complete</span>
 											</div>
-											<div class="circle-chart-wrapper">
-													<svg class="circle-chart" viewbox="0 0 33.83098862 33.83098862" width="140" height="140" xmlns="http://www.w3.org/2000/svg">
-															<circle class="circle-chart-background" stroke="#efefef" stroke-width="2" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
-															<circle class="circle-chart-circle" stroke="#0023ff" stroke-width="2" stroke-dasharray="100,100" stroke-linecap="round" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
-													</svg>
-													
-													<div class="chart-icon" style="top: 42%;">
-															<i data-feather="package"></i>
+											<div class="order_status" style="justify-content:end">
+												<div class="order-block">
+														<div class="order-icon">
+																<i data-feather="info"></i>
+														</div>
+														<div class="status">
+																<div>Status</div>
+																<div><span class="tag danger-tag">Has issue</span></div>
+														</div>
+												</div>
+												<div class="order-block">
+													<div class="order-icon">
+															<i data-feather="dollar-sign"></i>
 													</div>
-													<div class="ring-title has-text-centered">
-															<span>100% Complete</span>
+													<div class="total">
+															<div>Order total</div>
+															<div class="is-price">219,22</div>
 													</div>
+												</div>
+											</div>
+											<div id="46895" class="order-list-card animated preFadeInUp fadeInUp">
+												<div class="progress-block">
+														<progress class="progress danger-progress is-small has-simple-popover" value="66" max="100" data-content="66% Complete" data-placement="top">66%</progress>
+															<div class="chart-icon">
+																	<i data-feather="package"></i>
+															</div>
+												</div>
 											</div>
 									</div>
 							</div>
-							<div class="column is-4">
+							<div class="column is-6">
+									<div class="flat-card order-card has-popover-top">
+											<div class="order-info">
+													<span><a href="order_lines.html">ORDER-38246</a></span>
+											</div>
+											<div class="order_status" style="justify-content:end">
+												<div class="order-block">
+														<div class="order-icon">
+																<i data-feather="info"></i>
+														</div>
+														<div class="status">
+																<div>Status</div>
+																<div><span class="tag primary-tag">Complete</span></div>
+														</div>
+												</div>
+												<div class="order-block">
+													<div class="order-icon">
+															<i data-feather="dollar-sign"></i>
+													</div>
+													<div class="total">
+															<div>Order total</div>
+															<div class="is-price">219,22</div>
+													</div>
+												</div>
+											</div>
+											<div id="46895" class="order-list-card animated preFadeInUp fadeInUp">
+												<div class="progress-block">
+														<progress class="progress primary-progress is-small has-simple-popover" value="66" max="100" data-content="66% Complete" data-placement="top">66%</progress>
+															<div class="chart-icon">
+																	<i data-feather="package"></i>
+															</div>
+												</div>
+											</div>
+									</div>
+							</div>
+							<div class="column is-6">
 									<div class="flat-card order-card has-popover-top">
 											<div class="order-info">
 													<span><a href="order_lines.html">ORDER-46878</a></span>
-													<span class="tag is-success">Preparing</span>
 											</div>
-											<div class="circle-chart-wrapper">
-													<svg class="circle-chart" viewbox="0 0 33.83098862 33.83098862" width="140" height="140" xmlns="http://www.w3.org/2000/svg">
-															<circle class="circle-chart-background" stroke="#efefef" stroke-width="2" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
-															<circle class="circle-chart-circle" stroke="#00b289" stroke-width="2" stroke-dasharray="33,100" stroke-linecap="round" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
-													</svg>
-													
-													<div class="chart-icon" style="top: 42%;">
-															<i data-feather="package"></i>
+											<div class="order_status" style="justify-content:end">
+												<div class="order-block">
+														<div class="order-icon">
+																<i data-feather="info"></i>
+														</div>
+														<div class="status">
+																<div>Status</div>
+																<div><span class="tag success-tag">Preparing</span></div>
+														</div>
+												</div>
+												<div class="order-block">
+													<div class="order-icon">
+															<i data-feather="dollar-sign"></i>
 													</div>
-													<div class="ring-title has-text-centered">
-															<span>33% Complete</span>
+													<div class="total">
+															<div>Order total</div>
+															<div class="is-price">219,22</div>
 													</div>
+												</div>
+											</div>
+											<div id="46895" class="order-list-card animated preFadeInUp fadeInUp">
+												<div class="progress-block">
+														<progress class="progress success-progress is-small has-simple-popover" value="66" max="100" data-content="66% Complete" data-placement="top">66%</progress>
+															<div class="chart-icon">
+																	<i data-feather="package"></i>
+															</div>
+												</div>
 											</div>
 									</div>
 							</div>
@@ -287,12 +371,12 @@
         
 								<!-- Order 46895 panel -->
 								<div id="46895" class="flat-card is-auto order-list-card animated preFadeInUp fadeInUp">
-										<div class="progress-block">
-												<!-- Title -->
-												<h3>ORDER 46895</h3>
-												<!-- Progress bar -->
-												<progress class="progress primary-progress is-small has-simple-popover" value="66" max="100" data-content="66% Complete" data-placement="top">66%</progress>
-										</div>
+									<div class="progress-block">
+										<!-- Title -->
+										<h3>ORDER 46895</h3>
+										<!-- Progress bar -->
+										<progress class="progress primary-progress is-small has-simple-popover" value="66" max="100" data-content="66% Complete" data-placement="top" style="margin: 0; max-width: 142px;">66%</progress>
+									</div>
 										<!-- Orders team member -->
 										<div class="order-block">
 												<img src="{{ url_for('static', filename='commerce/ls/img/icons/no_photo.svg') }}" alt="">
@@ -425,7 +509,7 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<div class="col-xs-12" style="display: flex;">
+								<div class="col-xs-12" style="display: flex;margin: 15px 0;">
 									<button class="btn_save" type="submit"> Save</button>
 									<button class="btn_reset" type="reset"> Reset</button>
 								</div>
