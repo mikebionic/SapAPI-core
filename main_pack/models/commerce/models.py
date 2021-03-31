@@ -5,7 +5,6 @@ from datetime import datetime
 from flask_login import current_user
 from main_pack.base.dataMethods import apiDataFormat,configureFloat
 from main_pack.models.base.models import CreatedModifiedInfo, AddInf
-from main_pack.models import AddInf
 
 
 class Barcode(CreatedModifiedInfo,db.Model):
@@ -1116,6 +1115,12 @@ class Resource(AddInf,CreatedModifiedInfo,db.Model):
 			"ResMaxSaleAmount": configureFloat(self.ResMaxSaleAmount),
 			"ResMinSalePrice": configureFloat(self.ResMinSalePrice),
 			"ResMaxSalePrice": configureFloat(self.ResMaxSalePrice),
+			"AddInf1": self.AddInf1,
+			"AddInf2": self.AddInf2,
+			"AddInf3": self.AddInf3,
+			"AddInf4": self.AddInf4,
+			"AddInf5": self.AddInf5,
+			"AddInf6": self.AddInf6,
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),
 			"SyncDateTime": apiDataFormat(self.SyncDateTime),
@@ -1123,8 +1128,6 @@ class Resource(AddInf,CreatedModifiedInfo,db.Model):
 			"ModifiedUId": self.ModifiedUId,
 			"GCRecord": self.GCRecord
 		}
-		for key, value in AddInf.to_json(self).items():
-			data[key] = value
 		return data
 
 

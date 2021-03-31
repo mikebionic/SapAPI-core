@@ -1,0 +1,30 @@
+
+class Inv_status(CreatedModifiedInfo,db.Model):
+	__tablename__ = "tbl_dk_inv_status"
+	InvStatId = db.Column("InvStatId",db.Integer,nullable=False,primary_key=True)
+	InvStatName_tkTM = db.Column("InvStatName_tkTM",db.String(100),nullable=False)
+	InvStatDesc_tkTM = db.Column("InvStatDesc_tkTM",db.String(500))
+	InvStatName_ruRU = db.Column("InvStatName_ruRU",db.String(100))
+	InvStatDesc_ruRU = db.Column("InvStatDesc_ruRU",db.String(500))
+	InvStatName_enUS = db.Column("InvStatName_enUS",db.String(100))
+	InvStatDesc_enUS = db.Column("InvStatDesc_enUS",db.String(500))
+	Order_inv = db.relationship("Order_inv",backref='inv_status',lazy=True)
+	Invoice = db.relationship("Invoice",backref='inv_status',lazy=True)
+
+	def to_json_api(self):
+		inv_status = {
+			"InvStatId": self.InvStatId,
+			"InvStatName_tkTM": self.InvStatName_tkTM,
+			"InvStatDesc_tkTM": self.InvStatDesc_tkTM,
+			"InvStatName_ruRU": self.InvStatName_ruRU,
+			"InvStatDesc_ruRU": self.InvStatDesc_ruRU,
+			"InvStatName_enUS": self.InvStatName_enUS,
+			"InvStatDesc_enUS": self.InvStatDesc_enUS,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
+		}
+		return inv_status

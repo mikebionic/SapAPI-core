@@ -18,4 +18,3 @@ class AddInf(object):
 			"AddInf5": self.AddInf5,
 			"AddInf6": self.AddInf6,
 		}
-

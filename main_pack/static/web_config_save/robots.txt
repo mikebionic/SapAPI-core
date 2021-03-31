@@ -12,5 +12,9 @@ Allow: /commerce/
 Allow: /contact
 Allow: /about
 Allow: /v-grid?search=*
+Allow: /product/*
+Disallow: */admin/*
+Disallow: admin/
+Disallow: /admin
 Disallow: /profile
 Disallow: */api/*

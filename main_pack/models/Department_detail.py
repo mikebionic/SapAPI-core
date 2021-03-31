@@ -1,0 +1,10 @@
+
+
+class Department_detail(db.Model):
+	__tablename__ = "tbl_dk_department_detail"
+	DeptDetId = db.Column("DeptDetId",db.Integer,nullable=False,primary_key=True)
+	DeptId = db.Column("DeptId",db.Integer,db.ForeignKey("tbl_dk_department.DeptId")) #???
+	CId = db.Column("CId",db.Integer,db.ForeignKey("tbl_dk_company.CId"))
+	DivId = db.Column("DivId",db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
+	DeptHeadEmpId = db.Column("DeptHeadEmpId",db.Integer,db.ForeignKey("tbl_dk_employee.EmpId"))
+
