@@ -1,0 +1,30 @@
+
+class Inv_type(CreatedModifiedInfo,db.Model):
+	__tablename__ = "tbl_dk_inv_type"
+	InvTypeId = db.Column("InvTypeId",db.Integer,nullable=False,primary_key=True)
+	InvTypeName_tkTM = db.Column("InvTypeName_tkTM",db.String(100),nullable=False)
+	InvTypeDesc_tkTM = db.Column("InvTypeDesc_tkTM",db.String(500))
+	InvTypeName_ruRU = db.Column("InvTypeName_ruRU",db.String(100))
+	InvTypeDesc_ruRU = db.Column("InvTypeDesc_ruRU",db.String(500))
+	InvTypeName_enUS = db.Column("InvTypeName_enUS",db.String(100))
+	InvTypeDesc_enUS = db.Column("InvTypeDesc_enUS",db.String(500))
+	Invoice = db.relationship("Invoice",backref='inv_type',lazy=True)
+
+	def to_json_api(self):
+		inv_type = {
+			"InvTypeId": self.InvTypeId,
+			"InvTypeName_tkTM": self.InvTypeName_tkTM,
+			"InvTypeDesc_tkTM": self.InvTypeDesc_tkTM,
+			"InvTypeName_ruRU": self.InvTypeName_ruRU,
+			"InvTypeDesc_ruRU": self.InvTypeDesc_ruRU,
+			"InvTypeName_enUS": self.InvTypeName_enUS,
+			"InvTypeDesc_enUS": self.InvTypeDesc_enUS,
+			"CreatedDate": apiDataFormat(self.CreatedDate),
+			"ModifiedDate": apiDataFormat(self.ModifiedDate),
+			"SyncDateTime": apiDataFormat(self.SyncDateTime),
+			"CreatedUId": self.CreatedUId,
+			"ModifiedUId": self.ModifiedUId,
+			"GCRecord": self.GCRecord
+		}
+		return inv_type
+
