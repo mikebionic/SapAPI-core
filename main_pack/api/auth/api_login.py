@@ -8,7 +8,7 @@ import jwt
 from main_pack.api.auth import api
 from main_pack.config import Config
 
-from main_pack.models.users.models import Users, Rp_acc, Device
+from main_pack.models import User, Rp_acc, Device
 
 from main_pack.api.users.utils import apiUsersData, apiRpAccData, apiDeviceData
 from main_pack.base.dataMethods import apiDataFormat
@@ -27,7 +27,7 @@ def api_login():
 	user_model = None
 
 	if auth_type == "user":
-		user_query = Users.query.filter_by(GCRecord = None, UName = auth.username)
+		user_query = User.query.filter_by(GCRecord = None, UName = auth.username)
 		user_model = user_query.first()
 
 	elif auth_type == "rp_acc":
@@ -37,7 +37,7 @@ def api_login():
 	elif auth_type == "device":
 		user_query = Device.query\
 			.filter_by(GCRecord = None, DevUniqueId = auth.username)\
-			.options(joinedload(Device.users))
+			.options(joinedload(Device.user))
 		user_model = user_query.first()
 
 	if not user_model:
@@ -64,7 +64,7 @@ def api_login():
 
 		session["ResPriceGroupId"] = user_model.ResPriceGroupId if auth_type != "device" else None
 		if (auth_type == "device"):
-			session["ResPriceGroupId"] = user_model.users.ResPriceGroupId if user_model.users else None
+			session["ResPriceGroupId"] = user_model.user.ResPriceGroupId if user_model.user else None
 
 		return jsonify(response_data)
 	
@@ -79,7 +79,7 @@ def api_login_users():
 	if not auth or not auth.username or not auth.password:
 		return make_response(*error_response)
 
-	user_query = Users.query.filter_by(GCRecord = None, UName = auth.username)
+	user_query = User.query.filter_by(GCRecord = None, UName = auth.username)
 	user = user_query.first()
 
 	if not user:

@@ -8,7 +8,7 @@ from main_pack import db
 from main_pack.config import Config
 from main_pack.api.users.utils import addDeviceDict
 from main_pack.api.base.validators import request_is_json
-from main_pack.models.users.models import Device
+from main_pack.models import Device
 from main_pack.models.base.models import Db_inf
 
 

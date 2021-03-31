@@ -31,7 +31,7 @@ from main_pack.models.commerce.models import (
 	Invoice)
 # / Invoice db Models /
 from main_pack.models.base.models import Company, Division, Warehouse
-from main_pack.models.users.models import Rp_acc, Users
+from main_pack.models import Rp_acc, User
 
 def collect_resource_paginate_info(
 	pagination_url,

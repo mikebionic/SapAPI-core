@@ -5,7 +5,7 @@ from sqlalchemy.orm import joinedload
 from . import api
 from main_pack import db
 from main_pack.config import Config
-from main_pack.models.users.models import Device, Rp_acc
+from main_pack.models import Device, Rp_acc
 from main_pack.models.base.models import Db_inf
 
 from .utils import sap_key_required

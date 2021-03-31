@@ -13,7 +13,7 @@ class Rp_acc_status(BaseModel, db.Model):
 	RpAccStatusdesc_enUS = db.Column("RpAccStatusdesc_enUS",db.String(500))
 	Rp_acc = db.relationship("Rp_acc",backref='rp_acc_status',lazy=True)
 
-	def to_json(self):
+	def to_json_api(self):
 		data = {
 			"RpAccStatusId": self.RpAccStatusId,
 			"RpAccStatusName_tkTM": self.RpAccStatusName_tkTM,
@@ -24,7 +24,7 @@ class Rp_acc_status(BaseModel, db.Model):
 			"RpAccStatusdesc_enUS": self.RpAccStatusdesc_enUS
 		}
 
-		for key, value in BaseModel.to_json(self).items():
+		for key, value in BaseModel.to_json_api(self).items():
 			data[key] = value
 
 		return data

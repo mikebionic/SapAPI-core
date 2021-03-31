@@ -18,7 +18,7 @@ from main_pack.commerce.admin.utils import addResPriceDict
 # used foreign keys
 from main_pack.models.commerce.models import Unit,Brand,Usage_status,Res_category,Res_type,Res_maker
 from main_pack.models.base.models import Company,Division
-from main_pack.models.users.models import Rp_acc
+from main_pack.models import Rp_acc
 ####
 # used relationship
 from main_pack.models.commerce.models import (Unit,Res_unit,Inv_line,Inv_line_det,Order_inv_line,

@@ -10,7 +10,7 @@ class Edu_level(CreatedModifiedInfo,db.Model):
 	EduLevelDesc_enUS = db.Column("EduLevelDesc_enUS",db.String(500))
 	Employee = db.relationship("Employee",backref='edu_level',lazy=True)
 
-	def to_json(self):
+	def to_json_api(self):
 		json_data = {
 			"EduLevelId": self.EduLevelId,
 			"EduLevelName_tkTM": self.EduLevelName_tkTM,

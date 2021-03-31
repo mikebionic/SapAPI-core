@@ -10,7 +10,7 @@ class Config(AddInf,CreatedModifiedInfo,db.Model):
 	CfIntVal = db.Column("CfIntVal",db.Integer)
 	CfStringVal = db.Column("CfStringVal",db.String(500))
 
-	def to_json(self):
+	def to_json_api(self):
 		json_data = {
 			"CfId": self.CfId,
 			"MainCfId": self.MainCfId,

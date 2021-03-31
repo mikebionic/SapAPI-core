@@ -17,7 +17,7 @@ from main_pack.commerce.admin.utils import addResourceDict
 # used foreign keys
 from main_pack.models.commerce.models import Unit,Brand,Usage_status,Res_category,Res_type,Res_maker
 from main_pack.models.base.models import Company,Division
-from main_pack.models.users.models import Rp_acc
+from main_pack.models import Rp_acc
 ####
 # used relationship
 from main_pack.models.commerce.models import (Barcode,Res_color,Res_size,Res_translations,Unit,Res_unit,

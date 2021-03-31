@@ -9,7 +9,7 @@ from main_pack import db
 from main_pack.api.users import api
 
 from main_pack.models.base.models import Division,Company
-from main_pack.models.users.models import Users
+from main_pack.models import User
 from main_pack.api.users.utils import addUsersDict
 
 from main_pack.base.apiMethods import checkApiResponseStatus
@@ -36,18 +36,18 @@ def get_users(
 	if DivId:
 		filtering["DivId"] = DivId
 
-	users = Users.query.filter_by(**filtering)\
+	users = User.query.filter_by(**filtering)\
 		.options(
-			joinedload(Users.company),
-			joinedload(Users.division))
+			joinedload(User.company),
+			joinedload(User.division))
 
 	if notDivId:
-		users = users.filter(Users.DivId != notDivId)
+		users = users.filter(User.DivId != notDivId)
 
 	if synchDateTime:
 		if (type(synchDateTime) != datetime):
 			synchDateTime = dateutil.parser.parse(synchDateTime)
-		users = users.filter(Users.ModifiedDate > (synchDateTime - timedelta(minutes = 5)))
+		users = users.filter(User.ModifiedDate > (synchDateTime - timedelta(minutes = 5)))
 
 	users = users.all()
 
@@ -66,7 +66,7 @@ def get_users(
 def api_device_user(user):
 	current_user = user["current_user"]
 
-	data = current_user.users.to_json_api() if current_user.users else {}
+	data = current_user.user.to_json_api() if current_user.user else {}
 
 	res = {
 		"status": 1 if data else 0,
@@ -94,7 +94,7 @@ def api_v_users(user):
 
 	res = {
 		"status": 1 if len(data) > 0 else 0,
-		"message": "Users",
+		"message": "User",
 		"data": data,
 		"total": len(data)
 	}
@@ -121,7 +121,7 @@ def api_users():
 
 		res = {
 			"status": 1 if len(data) > 0 else 0,
-			"message": "Users",
+			"message": "User",
 			"data": data,
 			"total": len(data)
 		}
@@ -170,7 +170,7 @@ def api_users():
 					print(f'{user_info["UName"]} has no password, skipping...')
 					raise Exception
 
-				thisUser = Users.query\
+				thisUser = User.query\
 					.filter_by(
 						URegNo = URegNo,
 						UGuid = UGuid,
@@ -183,13 +183,13 @@ def api_users():
 					data.append(user_req)
 
 				else:
-					thisUser = Users(**user_info)
+					thisUser = User(**user_info)
 					db.session.add(thisUser)
 					data.append(user_req)
 					thisUser = None
 
 			except Exception as ex:
-				print(f"{datetime.now()} | Users Api Exception: {ex}")
+				print(f"{datetime.now()} | User Api Exception: {ex}")
 				failed_data.append(user_req)
 
 		db.session.commit()

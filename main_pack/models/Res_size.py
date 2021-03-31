@@ -5,7 +5,7 @@ class Res_size(CreatedModifiedInfo,db.Model):
 	ResId = db.Column("ResId",db.Integer,db.ForeignKey("tbl_dk_resource.ResId"))
 	SizeId = db.Column("SizeId",db.Integer,db.ForeignKey("tbl_dk_size.SizeId"))
 
-	def to_json(self):
+	def to_json_api(self):
 		json_data = {
 			"RsId": self.RsId,
 			"ResId": self.ResId,

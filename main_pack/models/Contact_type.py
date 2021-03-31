@@ -10,7 +10,7 @@ class Contact_type(CreatedModifiedInfo,db.Model):
 	ContTypeDesc_enUS = db.Column("ContTypeDesc_enUS",db.String(500))
 	Contact = db.relationship("Contact",backref='contact_type',lazy=True)
 
-	def to_json(self):
+	def to_json_api(self):
 		json_data = {
 			"ContactTypeId": self.ContactTypeId,
 			"ContactTypeName_tkTM": self.ContactTypeName_tkTM,

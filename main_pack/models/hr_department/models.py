@@ -50,44 +50,6 @@ class Employee(AddInf,CreatedModifiedInfo,db.Model):
 	Order_inv = db.relationship("Order_inv",backref='employee',lazy=True)
 	Res_trans_inv = db.relationship("Res_trans_inv",backref='employee',lazy=True)
 	Rating = db.relationship("Rating",backref='employee',lazy=True)
-	# function updates db ignoring Null
-	def update(self, **kwargs):
-		for key, value in kwargs.items():
-			if value is not None:
-				if hasattr(self, key):
-					setattr(self, key, value)
-
-	def to_json(self):
-		json_data = {
-			"empId": self.EmpId,
-			"company": self.CId,
-			"DivId": self.DivId,
-			"contractType": self.ContractTypeId,
-			"department": self.DeptId,
-			"profession": self.ProfessionId,
-			"workStatus": self.EmpStatId,
-			"regNo": self.EmpRegNo,
-			"name": self.EmpName,
-			"lastName": self.EmpLastName,
-			"firstName": self.EmpFirstName,
-			"patronymicName": self.EmpPatronymic,
-			"gender": self.GenderId,
-			"birthDate": self.EmpBirthDate,
-			"birthPlace": self.EmpBirthPlace,
-			"residency": self.EmpResidency,
-			"nationality": self.NatId,
-			"passportNo": self.EmpPassportNo,
-			"paspIssuePlace": self.EmpPaspIssuePlace,
-			"educationLevel": self.EduLevelId,
-			"languageSkills": self.EmpLangSkills,
-			"mobilePhone": self.MobilePhoneNumber,
-			"homePhone": self.HomePhoneNumber,
-			"workPhone": self.WorkPhoneNumber,
-			"fax": self.WorkFaxNumber,
-			"zipCode": self.ZipCode,
-			"email": self.EMail
-		}
-		return json_data
 
 	def to_json_api(self):
 		employee = {
@@ -146,7 +108,7 @@ class Award(AddInf,CreatedModifiedInfo,db.Model):
 			if value is not None:
 				if hasattr(self, key):
 					setattr(self, key, value)
-	def to_json(self):
+	def to_json_api(self):
 		json_data = {
 			"awardId": self.AwardId,
 			"empId": self.EmpId,
@@ -168,7 +130,7 @@ class Contract_type(CreatedModifiedInfo,db.Model):
 	ContractTypeDesc_enUS = db.Column("ContractTypeDesc_enUS",db.String(100))
 	Employee = db.relationship("Employee",backref='contract_type',lazy=True)
 	
-	def to_json(self):
+	def to_json_api(self):
 		json_data = {
 			"ContractTypeId": self.ContractTypeId,
 			"ContractTypeName_tkTM": self.ContractTypeName_tkTM,
@@ -192,7 +154,7 @@ class Edu_level(CreatedModifiedInfo,db.Model):
 	EduLevelDesc_enUS = db.Column("EduLevelDesc_enUS",db.String(500))
 	Employee = db.relationship("Employee",backref='edu_level',lazy=True)
 
-	def to_json(self):
+	def to_json_api(self):
 		json_data = {
 			"EduLevelId": self.EduLevelId,
 			"EduLevelName_tkTM": self.EduLevelName_tkTM,
@@ -216,7 +178,7 @@ class Emp_status(CreatedModifiedInfo,db.Model):
 	EmpStatDesc_enUS = db.Column("EmpStatDesc_enUS",db.String(500))
 	Employee = db.relationship("Employee",backref='emp_status',lazy=True)
 
-	def to_json(self):
+	def to_json_api(self):
 		json_data = {
 			"EmpStatId": self.EmpStatId,
 			"EmpStatName_tkTM": self.EmpStatName_tkTM,
@@ -241,7 +203,7 @@ class Nationality(CreatedModifiedInfo,db.Model):
 	Employee = db.relationship("Employee",backref='nationality',lazy=True)
 	Rp_acc = db.relationship("Rp_acc",backref='nationality',lazy=True)
 
-	def to_json(self):
+	def to_json_api(self):
 		json_data = {
 			"NatId": self.NatId,
 			"NatName_tkTM": self.NatName_tkTM,
@@ -265,7 +227,7 @@ class Profession(CreatedModifiedInfo,db.Model):
 	ProfessionDesc_enUS = db.Column("ProfessionDesc_enUS",db.String(500))
 	Employee = db.relationship("Employee",backref='profession',lazy=True)
 
-	def to_json(self):
+	def to_json_api(self):
 		json_data = {
 			"ProfessionId": self.ProfessionId,
 			"ProfessionName_tkTM": self.ProfessionName_tkTM,
@@ -289,7 +251,7 @@ class Rel_status(CreatedModifiedInfo,db.Model):
 	RelStatDesc_enUS = db.Column("RelStatDesc_enUS",db.String(500))
 	Relatives = db.relationship("Relatives",backref='rel_status',lazy=True)
 
-	def to_json(self):
+	def to_json_api(self):
 		json_data = {
 			"RelStatId": self.RelStatId,
 			"RelStatName_tkTM": self.RelStatName_tkTM,
@@ -319,7 +281,7 @@ class Relatives(AddInf,CreatedModifiedInfo,db.Model):
 			if value is not None:
 				if hasattr(self, key):
 					setattr(self, key, value)
-	def to_json(self):
+	def to_json_api(self):
 		json_data = {
 			"relativesId": self.RelId,
 			"empId": self.EmpId,
@@ -352,7 +314,7 @@ class School(AddInf,CreatedModifiedInfo,db.Model):
 			if value is not None:
 				if hasattr(self, key):
 					setattr(self, key, value)
-	def to_json(self):
+	def to_json_api(self):
 		json_data = {
 			"schoolId": self.SchoolId,
 			"empId": self.EmpId,
@@ -394,7 +356,7 @@ class Visited_countries(AddInf,CreatedModifiedInfo,db.Model):
 			if value is not None:
 				if hasattr(self, key):
 					setattr(self, key, value)
-	def to_json(self):
+	def to_json_api(self):
 		json_data = {
 			"vcId": self.VCId,
 			"empId": self.EmpId,
@@ -423,7 +385,7 @@ class Work_history(AddInf,CreatedModifiedInfo,db.Model):
 			if value is not None:
 				if hasattr(self, key):
 					setattr(self, key, value)
-	def to_json(self):
+	def to_json_api(self):
 		json_data = {
 			"workHistId": self.WorkHistId,
 			"empId": self.EmpId,

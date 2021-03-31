@@ -16,7 +16,7 @@ from main_pack.models.commerce.models import Resource,Wish
 # / Resource and view /
 
 # users and customers
-from main_pack.models.users.models import Rp_acc
+from main_pack.models import Rp_acc
 from main_pack.commerce.users.forms import UpdateRpAccForm
 # / users and customers /
 

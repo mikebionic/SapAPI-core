@@ -6,7 +6,7 @@ from main_pack.config import Config
 from main_pack import db,babel,gettext,lazy_gettext
 from datetime import datetime,timezone
 
-from main_pack.models.users.models import Users
+from main_pack.models import User
 from main_pack.api.auth.utils import token_required
 
 from main_pack.key_generator.utils import generate,makeRegNo
@@ -24,12 +24,12 @@ def api_gen_reg_no(user):
 			name = current_user.RpAccUName
 			RpAccId = current_user.RpAccId
 			# get the seller's user information of a specific rp_acc
-			user = Users.query\
+			user = User.query\
 				.filter_by(GCRecord = None, UId = current_user.UId)\
 				.first()
 			if user is None:
 				# try to find the rp_acc registered user if no seller specified
-				user = Users.query\
+				user = User.query\
 					.filter_by(GCRecord = None, RpAccId = RpAccId)\
 					.first()
 

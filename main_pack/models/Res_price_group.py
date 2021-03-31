@@ -13,7 +13,7 @@ class Res_price_group(CreatedModifiedInfo,db.Model):
 	Res_price = db.relationship("Res_price",backref='res_price_group',lazy=True)
 	Sale_card = db.relationship("Sale_card",backref='res_price_group',lazy=True)
 	Res_price_rule = db.relationship("Res_price_rule",backref='res_price_group',lazy=True)
-	Users = db.relationship("Users",backref='res_price_group',lazy=True)
+	User = db.relationship("User",backref='res_price_group',lazy=True)
 	Rp_acc = db.relationship("Rp_acc",backref='res_price_group',lazy=True)
 
 	def to_json_api(self):

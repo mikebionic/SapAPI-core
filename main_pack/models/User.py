@@ -27,11 +27,11 @@ class User(AddInf, BaseModel, db.Model, UserMixin):
 	UTypeId = db.Column("UTypeId",db.Integer,db.ForeignKey("tbl_dk_user_type.UTypeId"))
 	ULastActivityDate = db.Column("ULastActivityDate",db.DateTime,default=datetime.now())
 	ULastActivityDevice = db.Column("ULastActivityDevice",db.String(100))
-	Wish = db.relationship("Wish",backref='users',lazy=True)
-	Rating = db.relationship("Rating",backref='users',lazy=True)
-	Rp_acc = db.relationship("Rp_acc",backref='users',lazy=True)
-	Image = db.relationship("Image",backref='users',lazy=True)
-	Device = db.relationship("Device",backref='users',lazy=True)
+	Wish = db.relationship("Wish",backref='user',lazy=True)
+	Rating = db.relationship("Rating",backref='user',lazy=True)
+	Rp_acc = db.relationship("Rp_acc",backref='user',lazy=True)
+	Image = db.relationship("Image",backref='user',lazy=True)
+	Device = db.relationship("Device",backref='user',lazy=True)
 	
 	def is_admin(self):
 		return self.UTypeId == 1
@@ -72,10 +72,10 @@ class User(AddInf, BaseModel, db.Model, UserMixin):
 			"UTypeId": self.UTypeId
 		}
 
-		for key, value in AddInf.to_json(self).items():
+		for key, value in AddInf.to_json_api(self).items():
 			data[key] = value
 
-		for key, value in BaseModel.to_json(self).items():
+		for key, value in BaseModel.to_json_api(self).items():
 			data[key] = value
 
 		return data

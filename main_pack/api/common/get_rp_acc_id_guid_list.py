@@ -1,4 +1,4 @@
-from main_pack.models.users.models import Rp_acc
+from main_pack.models import Rp_acc
 
 def get_rp_acc_id_guid_list():
 	rp_accs = Rp_acc.query\

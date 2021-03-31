@@ -10,7 +10,7 @@ class Emp_status(CreatedModifiedInfo,db.Model):
 	EmpStatDesc_enUS = db.Column("EmpStatDesc_enUS",db.String(500))
 	Employee = db.relationship("Employee",backref='emp_status',lazy=True)
 
-	def to_json(self):
+	def to_json_api(self):
 		json_data = {
 			"EmpStatId": self.EmpStatId,
 			"EmpStatName_tkTM": self.EmpStatName_tkTM,

@@ -9,7 +9,7 @@ class AddInf(object):
 	AddInf5 = db.Column("AddInf5",db.String(500))
 	AddInf6 = db.Column("AddInf6",db.String(500))
 
-	def to_json(self):
+	def to_json_api(self):
 		return {
 			"AddInf1": self.AddInf1,
 			"AddInf2": self.AddInf2,

@@ -12,7 +12,7 @@ class Award(AddInf,CreatedModifiedInfo,db.Model):
 			if value is not None:
 				if hasattr(self, key):
 					setattr(self, key, value)
-	def to_json(self):
+	def to_json_api(self):
 		json_data = {
 			"awardId": self.AwardId,
 			"empId": self.EmpId,

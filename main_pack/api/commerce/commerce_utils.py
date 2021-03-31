@@ -50,7 +50,7 @@ from sqlalchemy.orm import joinedload
 # / orders and db methods /
 
 # Rp_acc db Model and methods
-from main_pack.models.users.models import Rp_acc, Users
+from main_pack.models import Rp_acc, User
 from main_pack.api.users.utils import apiRpAccData, apiUsersData
 # / Rp_acc db Model and methods /
 
@@ -357,7 +357,7 @@ def apiResourceInfo(
 							.options(joinedload(Res_size.size)),
 						joinedload(Resource.Rating)\
 							.options(
-								joinedload(Rating.users).options(joinedload(Users.Image)),
+								joinedload(Rating.user).options(joinedload(User.Image)),
 								joinedload(Rating.rp_acc).options(joinedload(Rp_acc.Image))
 							)
 						)

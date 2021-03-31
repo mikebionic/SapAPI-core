@@ -22,7 +22,7 @@ class Barcode(CreatedModifiedInfo,db.Model):
 				if hasattr(self, key):
 					setattr(self, key, value)
 
-	def to_json(self):
+	def to_json_api(self):
 		json_data = {
 			"barcodeId": self.BarcodeId,
 			"companyId": self.CId,
@@ -72,7 +72,7 @@ class Brand(AddInf,CreatedModifiedInfo,db.Model):
 				if hasattr(self, key):
 					setattr(self, key, value)
 
-	def to_json(self):
+	def to_json_api(self):
 		json_data = {
 			"brandId": self.BrandId,
 			"brandName": self.BrandName,
@@ -128,7 +128,7 @@ class Color(CreatedModifiedInfo,db.Model):
 				if hasattr(self, key):
 					setattr(self, key, value)
 
-	def to_json(self):
+	def to_json_api(self):
 		json_data = {
 			"colorId": self.ColorId,
 			"colorName": self.ColorName,
@@ -166,7 +166,7 @@ class Size(AddInf,CreatedModifiedInfo,db.Model):
 				if hasattr(self, key):
 					setattr(self, key, value)
 
-	def to_json(self):
+	def to_json_api(self):
 		json_data = {
 			"sizeId": self.SizeId,
 			"sizeName": self.SizeName,
@@ -203,7 +203,7 @@ class Size_type(CreatedModifiedInfo,db.Model):
 				if hasattr(self, key):
 					setattr(self, key, value)
 
-	def to_json(self):
+	def to_json_api(self):
 		json_data = {
 			"sizeTypeId": self.SizeTypeId,
 			"sizeTypeName": self.SizeTypeName,
@@ -1059,7 +1059,7 @@ class Resource(AddInf,CreatedModifiedInfo,db.Model):
 					setattr(self, key, value)
 
 	
-	def to_json(self):
+	def to_json_api(self):
 		json_data = {
 			"resId": self.ResId,
 			"companyId": self.CId,
@@ -1153,7 +1153,7 @@ class Res_category(CreatedModifiedInfo,db.Model):
 				if hasattr(self, key):
 					setattr(self, key, value)
 
-	def to_json(self):
+	def to_json_api(self):
 		json_data = {
 			"ownerCategoryId": self.ResOwnerCatId,
 			"visibleIndex": self.ResCatVisibleIndex,
@@ -1238,7 +1238,7 @@ class Res_color(CreatedModifiedInfo,db.Model):
 			if value is not None:
 				if hasattr(self, key):
 					setattr(self, key, value)
-	def to_json(self):
+	def to_json_api(self):
 		json_data = {
 			"rcId": self.RcId,
 			"resId": self.ResId,
@@ -1258,7 +1258,7 @@ class Res_size(CreatedModifiedInfo,db.Model):
 			if value is not None:
 				if hasattr(self, key):
 					setattr(self, key, value)
-	def to_json(self):
+	def to_json_api(self):
 		json_data = {
 			"rsId": self.RsId,
 			"resId": self.ResId,
@@ -1342,7 +1342,7 @@ class Res_price(CreatedModifiedInfo,db.Model):
 				if hasattr(self, key):
 					setattr(self, key, value)
 
-	def to_json(self):
+	def to_json_api(self):
 		json_data = {
 			"resPriceId": self.ResPriceId,
 			"resPriceTypeId": self.ResPriceTypeId,
@@ -1393,7 +1393,7 @@ class Res_price_group(CreatedModifiedInfo,db.Model):
 	Res_price = db.relationship("Res_price",backref='res_price_group',lazy=True)
 	Sale_card = db.relationship("Sale_card",backref='res_price_group',lazy=True)
 	Res_price_rule = db.relationship("Res_price_rule",backref='res_price_group',lazy=True)
-	Users = db.relationship("Users",backref='res_price_group',lazy=True)
+	User = db.relationship("User",backref='res_price_group',lazy=True)
 	Rp_acc = db.relationship("Rp_acc",backref='res_price_group',lazy=True)
 
 	def update(self, **kwargs):
@@ -1804,7 +1804,7 @@ class Res_translations(AddInf,CreatedModifiedInfo,db.Model):
 				if hasattr(self, key):
 					setattr(self, key, value)
 
-	def to_json(self):
+	def to_json_api(self):
 		json_data = {
 			"resTransId": self.ResTransId,
 			"resId": self.ResId,
@@ -1871,7 +1871,7 @@ class Res_unit(CreatedModifiedInfo,db.Model):
 				if hasattr(self, key):
 					setattr(self, key, value)
 
-	def to_json(self):
+	def to_json_api(self):
 		json_data = {
 			"resUnitId": self.ResUnitId,
 			"resId": self.ResId,

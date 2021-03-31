@@ -15,7 +15,7 @@ from main_pack.models.base.models import (Company,Department,Department_detail,D
 
 from main_pack.models.commerce.models import Color,Size
 
-from main_pack.models.users.models import Users,Rp_acc
+from main_pack.models import User,Rp_acc
 from main_pack.models.base.models import Reg_num
 
 from main_pack import db, create_app
@@ -35,7 +35,7 @@ app.app_context().push()
 # db.session.add(dep)
 ##########################
 
-lastUser = Users.query.order_by(Users.UId.desc()).first()
+lastUser = User.query.order_by(User.UId.desc()).first()
 lastRpAcc = Rp_acc.query.order_by(Rp_acc.RpAccId.desc()).first()
 if lastUser:
 	newUId = lastUser.UId+1
@@ -46,7 +46,7 @@ email = "muhammedjepbarov@gmail.com"
 # # UPass is "123" hashed
 password = "$2b$12$ZltRSL4D1LpcJuoFEzW7PO/rEio8LKxhK9vPEG3Jv7Zg9S07f4Q1G"
 
-user = Users(UId=newUId,UName="administrator",UEmail=email,
+user = User(UId=newUId,UName="administrator",UEmail=email,
 	UPass=password,UShortName="AR",UFullName="Mike Bionic",UTypeId=1)
 db.session.add(user)
 db.session.commit()

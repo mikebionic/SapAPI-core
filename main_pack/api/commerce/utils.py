@@ -378,7 +378,7 @@ def saveImageFile(req):
 			module = os.path.join("uploads","Company")
 			id = image["CId"]
 		elif image["UId"]:
-			module = os.path.join("uploads","Users")
+			module = os.path.join("uploads","User")
 			id = image["UId"]
 		else:
 			module = None

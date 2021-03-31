@@ -30,7 +30,7 @@ class Image(CreatedModifiedInfo,db.Model):
 				if hasattr(self, key):
 					setattr(self, key, value)
 
-	def to_json(self):
+	def to_json_api(self):
 		json_data = {
 			"imgId": self.ImgId,
 			"empId": self.EmpId,

@@ -35,7 +35,7 @@ class Company(AddInf,CreatedModifiedInfo,db.Model):
 	Res_total = db.relationship("Res_total",backref='company',lazy=True)
 	Res_trans_inv = db.relationship("Res_trans_inv",backref='company',lazy=True)
 	Rp_acc = db.relationship("Rp_acc",backref='company',lazy=True)
-	Users = db.relationship("Users",backref='company',lazy=True)
+	User = db.relationship("User",backref='company',lazy=True)
 	Wish = db.relationship("Wish",backref='company',lazy=True)
 	Production = db.relationship("Production",backref='company',lazy=True)
 	Resource = db.relationship("Resource",backref='company',lazy=True)

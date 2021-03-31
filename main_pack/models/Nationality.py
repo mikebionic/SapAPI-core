@@ -11,7 +11,7 @@ class Nationality(CreatedModifiedInfo,db.Model):
 	Employee = db.relationship("Employee",backref='nationality',lazy=True)
 	Rp_acc = db.relationship("Rp_acc",backref='nationality',lazy=True)
 
-	def to_json(self):
+	def to_json_api(self):
 		json_data = {
 			"NatId": self.NatId,
 			"NatName_tkTM": self.NatName_tkTM,

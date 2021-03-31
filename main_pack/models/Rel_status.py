@@ -10,7 +10,7 @@ class Rel_status(CreatedModifiedInfo,db.Model):
 	RelStatDesc_enUS = db.Column("RelStatDesc_enUS",db.String(500))
 	Relatives = db.relationship("Relatives",backref='rel_status',lazy=True)
 
-	def to_json(self):
+	def to_json_api(self):
 		json_data = {
 			"RelStatId": self.RelStatId,
 			"RelStatName_tkTM": self.RelStatName_tkTM,

@@ -9,7 +9,7 @@ from . import api
 from .utils import addRpAccTrTotDict
 
 from main_pack.models.commerce.models import Rp_acc_trans_total
-from main_pack.models.users.models import Rp_acc
+from main_pack.models import Rp_acc
 
 from main_pack.api.auth.utils import sha_required
 from main_pack.api.base.validators import request_is_json

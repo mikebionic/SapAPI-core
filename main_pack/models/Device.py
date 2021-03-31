@@ -22,7 +22,7 @@ class Device(AddInf, BaseModel, db.Model, UserMixin):
 	DevVerifyDate = db.Column("DevVerifyDate",db.DateTime,default=datetime.now())
 	DevVerifyKey = db.Column("DevVerifyKey")
 
-	def to_json(self):
+	def to_json_api(self):
 		data = {
 			"DevId": self.DevId,
 			"DevGuid": self.DevGuid,
@@ -37,10 +37,10 @@ class Device(AddInf, BaseModel, db.Model, UserMixin):
 			"DevVerifyKey": self.DevVerifyKey
 		}
 
-		for key, value in AddInf.to_json(self).items():
+		for key, value in AddInf.to_json_api(self).items():
 			data[key] = value
 
-		for key, value in BaseModel.to_json(self).items():
+		for key, value in BaseModel.to_json_api(self).items():
 			data[key] = value
 
 		return data

@@ -35,7 +35,7 @@ from main_pack.commerce.admin.utils import resRelatedData
 # / Resource and view /
 
 # users and customers
-from main_pack.models.users.models import Users, Rp_acc
+from main_pack.models import User, Rp_acc
 # / users and customers /
 
 # Invoices
@@ -210,7 +210,7 @@ def ui_cart_checkout():
 				.filter_by(GCRecord = None, WpIsDefault = True)\
 				.first()
 
-			user = Users.query\
+			user = User.query\
 				.filter_by(GCRecord = None, RpAccId = RpAccId)\
 				.first()
 

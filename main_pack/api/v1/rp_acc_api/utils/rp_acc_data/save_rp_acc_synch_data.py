@@ -9,7 +9,7 @@ from main_pack.api.common import (
 	get_company_id_guid_list,
 )
 from main_pack.base import get_id_from_list_indexing
-from main_pack.models.users.models import Rp_acc
+from main_pack.models import Rp_acc
 from main_pack.models.commerce.models import Rp_acc_trans_total
 from .add_Rp_acc_dict import add_Rp_acc_dict
 from .add_Rp_acc_tr_tot_dict import add_Rp_acc_tr_tot_dict

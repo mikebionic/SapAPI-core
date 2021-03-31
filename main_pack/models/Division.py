@@ -8,7 +8,7 @@ class Division(AddInf,CreatedModifiedInfo,db.Model):
 	DivDesc = db.Column("DivDesc",db.String(500))
 	DivGuid = db.Column("DivGuid",UUID(as_uuid=True),unique=True)
 	OwnerDivisionId = db.Column("OwnerDivisionId",db.Integer,default=0)
-	Users = db.relationship("Users",backref='division')
+	User = db.relationship("User",backref='division')
 	Department_detail = db.relationship("Department_detail",backref='division',lazy=True)
 	Accounting_info = db.relationship("Accounting_info",backref='division',lazy=True)
 	Barcode = db.relationship("Barcode",backref='division',lazy=True)

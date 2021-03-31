@@ -12,7 +12,7 @@ class School(AddInf,CreatedModifiedInfo,db.Model):
 	SchoolProfession = db.Column("SchoolProfession",db.String(255))
 	SchoolIsGraduated = db.Column("SchoolIsGraduated",db.Boolean,default=False)
 
-	def to_json(self):
+	def to_json_api(self):
 		json_data = {
 			"schoolId": self.SchoolId,
 			"empId": self.EmpId,

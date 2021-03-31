@@ -8,7 +8,7 @@ class Visited_country(AddInf,CreatedModifiedInfo,db.Model):
 	VCStartDate = db.Column("VCStartDate",db.DateTime)
 	VCEndDate = db.Column("VCEndDate",db.DateTime)
 
-	def to_json(self):
+	def to_json_api(self):
 		json_data = {
 			"vcId": self.VCId,
 			"empId": self.EmpId,

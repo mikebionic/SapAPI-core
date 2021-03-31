@@ -12,7 +12,7 @@ class Relatives(AddInf,CreatedModifiedInfo,db.Model):
 	RelWorkPosition = db.Column("RelWorkPosition",db.String(255))
 	RelResidence = db.Column("RelResidence",db.String(255))
 
-	def to_json(self):
+	def to_json_api(self):
 		json_data = {
 			"relativesId": self.RelId,
 			"empId": self.EmpId,

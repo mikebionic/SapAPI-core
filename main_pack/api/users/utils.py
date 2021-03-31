@@ -223,7 +223,7 @@ def addDeviceDict(req):
 from main_pack.models.base.models import Image
 from main_pack.models.commerce.models import Resource
 from main_pack.base.apiMethods import fileToURL
-from main_pack.models.users.models import Users, Rp_acc, User_type
+from main_pack.models import User, Rp_acc, User_type
 from sqlalchemy import and_
 
 
@@ -237,15 +237,15 @@ def apiUsersData(
 	if not dbModel:
 
 		if not dbQuery:
-			dbQuery = Users.query.filter_by(GCRecord = None, UId = UId)
+			dbQuery = User.query.filter_by(GCRecord = None, UId = UId)
 
-		dbQuery = dbQuery.options(joinedload(Users.Image))
+		dbQuery = dbQuery.options(joinedload(User.Image))
 
 		if rpAccInfo:
-			dbQuery = dbQuery.options(joinedload(Users.Rp_acc))
+			dbQuery = dbQuery.options(joinedload(User.Rp_acc))
 
 		if additionalInfo:
-			dbQuery = dbQuery.options(joinedload(Users.user_type))
+			dbQuery = dbQuery.options(joinedload(User.user_type))
 
 		dbModel = dbQuery.first()
 
@@ -290,7 +290,7 @@ def apiRpAccData(
 		dbQuery = dbQuery.options(joinedload(Rp_acc.Image))
 
 		if userInfo:
-			dbQuery = dbQuery.options(joinedload(Rp_acc.users))
+			dbQuery = dbQuery.options(joinedload(Rp_acc.user))
 
 		if additionalInfo:
 			dbQuery = dbQuery.options(
@@ -313,7 +313,7 @@ def apiRpAccData(
 
 
 		if userInfo:
-			data["User"] = dbModel.users.to_json_api() if dbModel.users and not dbModel.users.GCRecord else {}
+			data["User"] = dbModel.user.to_json_api() if dbModel.user and not dbModel.user.GCRecord else {}
 	
 		if additionalInfo:
 			data["Rp_acc_type"] = dataLangSelector(dbModel.rp_acc_type.to_json_api()) if dbModel.rp_acc_type else {}

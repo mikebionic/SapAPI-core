@@ -11,7 +11,7 @@ class Config_type(CreatedModifiedInfo,db.Model):
 	CfTypeDesc_enUS = db.Column("CfTypeDesc_enUS",db.String(500))
 	Config = db.relationship("Config",backref='config_type',lazy=True)
 
-	def to_json(self):
+	def to_json_api(self):
 		json_data = {
 			"CfTypeId": self.CfTypeId,
 			"CfTypeName_tkTM": self.CfTypeName_tkTM,

@@ -10,7 +10,7 @@ class Contract_type(CreatedModifiedInfo,db.Model):
 	ContractTypeDesc_enUS = db.Column("ContractTypeDesc_enUS",db.String(100))
 	Employee = db.relationship("Employee",backref='contract_type',lazy=True)
 	
-	def to_json(self):
+	def to_json_api(self):
 		json_data = {
 			"ContractTypeId": self.ContractTypeId,
 			"ContractTypeName_tkTM": self.ContractTypeName_tkTM,

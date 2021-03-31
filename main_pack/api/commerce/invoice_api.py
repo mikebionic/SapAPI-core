@@ -27,7 +27,7 @@ from main_pack.base.apiMethods import checkApiResponseStatus
 # / orders and db methods /
 
 # Rp_acc db Model and methods
-from main_pack.models.users.models import Rp_acc
+from main_pack.models import Rp_acc
 from main_pack.api.users.utils import apiRpAccData
 # / Rp_acc db Model and methods /
 

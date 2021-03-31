@@ -10,7 +10,7 @@ class Profession(CreatedModifiedInfo,db.Model):
 	ProfessionDesc_enUS = db.Column("ProfessionDesc_enUS",db.String(500))
 	Employee = db.relationship("Employee",backref='profession',lazy=True)
 
-	def to_json(self):
+	def to_json_api(self):
 		json_data = {
 			"ProfessionId": self.ProfessionId,
 			"ProfessionName_tkTM": self.ProfessionName_tkTM,

@@ -7,7 +7,7 @@ from main_pack.commerce.auth.utils import ui_admin_required
 
 from main_pack import db,babel,gettext,lazy_gettext
 from main_pack.commerce.admin import bp
-from main_pack.models.users.models import Users,Rp_acc
+from main_pack.models import User, Rp_acc
 from sqlalchemy import and_
 
 @bp.route('/ui/customers_table/', methods=['POST','DELETE'])
@@ -69,7 +69,7 @@ def ui_customers_table():
 				return response
 
 			thisRpAcc.GCRecord = 1
-			user = Users.query\
+			user = User.query\
 				.filter_by(GCRecord = None, RpAccId = RpAccId)\
 				.first()
 			if user:
@@ -97,7 +97,7 @@ def ui_users_table():
 			req = request.get_json()
 			UId = req.get('userId')
 			UTypeId = req.get('userTypeId')
-			user = Users.query\
+			user = User.query\
 				.filter_by(GCRecord = None, UId = UId)\
 				.first()
 			if user:
@@ -111,7 +111,7 @@ def ui_users_table():
 		elif request.method == 'DELETE':
 			req = request.get_json()
 			UId = req.get('userId')
-			thisUser = Users.query.get(UId)
+			thisUser = User.query.get(UId)
 
 			# handling the deletion if invoice exists
 			errors = []
