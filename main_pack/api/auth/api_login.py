@@ -42,7 +42,7 @@ def api_login():
 
 	if not user_model:
 		return make_response(*error_response)
-	print(auth)
+
 	if check_auth(auth_type, user_model, auth.password):
 		exp = datetime.now() + dt.timedelta(minutes = 30)
 		response_data = {"exp": apiDataFormat(exp)}
