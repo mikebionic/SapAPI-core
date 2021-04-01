@@ -1,6 +1,6 @@
 
 
-class Config_type(CreatedModifiedInfo,db.Model):
+class Config_type(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_config_type"
 	CfTypeId = db.Column("CfTypeId",db.Integer,primary_key=True)
 	CfTypeName_tkTM = db.Column("CfTypeName_tkTM",db.String(100))

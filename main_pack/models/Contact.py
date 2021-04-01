@@ -1,6 +1,6 @@
 
 
-class Contact(AddInf,CreatedModifiedInfo,db.Model):
+class Contact(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_contact"
 	ContId = db.Column("ContId",db.Integer,nullable=False,primary_key=True)
 	CId = db.Column("CId",db.Integer,db.ForeignKey("tbl_dk_company.CId"))

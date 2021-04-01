@@ -86,7 +86,7 @@ class Resource(AddInf, BaseModel, db.Model):
 
 		for key, value in AddInf.to_json_api(self).items():
 			data[key] = value
-		
+
 		for key, value in BaseModel.to_json_api(self).items():
 			data[key] = value
 

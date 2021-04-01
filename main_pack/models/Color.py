@@ -1,5 +1,5 @@
 
-class Color(CreatedModifiedInfo,db.Model):
+class Color(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_color"
 	ColorId = db.Column("ColorId",db.Integer,nullable=False,primary_key=True)
 	ColorName = db.Column("ColorName",db.String(100),nullable=False)

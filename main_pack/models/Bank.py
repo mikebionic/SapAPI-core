@@ -1,5 +1,9 @@
+from main_pack import db
+from main_pack.models import AddInf, BaseModel
+from main_pack.base.dataMethods import apiDataFormat
 
-class Bank(AddInf,CreatedModifiedInfo,db.Model):
+
+class Bank(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_bank"
 	BankId = db.Column("BankId",db.Integer,nullable=False,primary_key=True)
 	MainContId = db.Column("MainContId",db.Integer,default=0)

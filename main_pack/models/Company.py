@@ -1,5 +1,5 @@
 
-class Company(AddInf,CreatedModifiedInfo,db.Model):
+class Company(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_company"
 	CId = db.Column("CId",db.Integer,primary_key=True)
 	CName = db.Column("CName",db.String(100),nullable=False)

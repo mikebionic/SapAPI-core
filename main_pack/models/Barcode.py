@@ -1,5 +1,5 @@
 
-class Barcode(CreatedModifiedInfo,db.Model):
+class Barcode(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_barcode"
 	BarcodeId = db.Column("BarcodeId",db.Integer,nullable=False,primary_key=True)
 	CId = db.Column("CId",db.Integer,db.ForeignKey("tbl_dk_company.CId"))

@@ -1,5 +1,5 @@
 
-class Contract_type(CreatedModifiedInfo,db.Model):
+class Contract_type(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_contract_type"
 	ContractTypeId = db.Column("ContractTypeId",db.Integer,nullable=False,primary_key=True)
 	ContractTypeName_tkTM = db.Column("ContractTypeName_tkTM",db.String(100))

@@ -1,5 +1,5 @@
 
-class Config(AddInf,CreatedModifiedInfo,db.Model):
+class Config(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_config"
 	CfId = db.Column("CfId",db.Integer,primary_key=True)
 	MainCfId = db.Column("MainCfId",db.Integer)

@@ -1,5 +1,5 @@
 
-class Department(AddInf,CreatedModifiedInfo,db.Model):
+class Department(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_department"
 	DeptId = db.Column("DeptId",db.Integer,nullable=False,primary_key=True)
 	DeptName = db.Column("DeptName",db.String(100),nullable=False)

@@ -1,5 +1,5 @@
 
-class Currency(AddInf,CreatedModifiedInfo,db.Model):
+class Currency(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_currency"
 	CurrencyId = db.Column("CurrencyId",db.Integer,nullable=False,primary_key=True)
 	CurrencyName_tkTM = db.Column("CurrencyName_tkTM",db.String(100),nullable=False)

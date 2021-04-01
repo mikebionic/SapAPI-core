@@ -1,6 +1,6 @@
 
 
-class Country(AddInf,CreatedModifiedInfo,db.Model):
+class Country(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_country"
 	CountryId = db.Column("CountryId",db.Integer,nullable=False,primary_key=True)
 	CountryName = db.Column("CountryName",db.String(50),nullable=False)

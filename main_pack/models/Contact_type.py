@@ -1,5 +1,5 @@
 
-class Contact_type(CreatedModifiedInfo,db.Model):
+class Contact_type(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_contact_type"
 	ContTypeId = db.Column("ContTypeId",db.Integer,nullable=False,primary_key=True)
 	ContTypeName_tkTM = db.Column("ContTypeName_tkTM",db.String(100))

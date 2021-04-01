@@ -1,5 +1,9 @@
+from main_pack import db
+from main_pack.models import AddInf, BaseModel
+from main_pack.base.dataMethods import apiDataFormat
 
-class Accounting_info(AddInf,CreatedModifiedInfo,db.Model):
+
+class Accounting_info(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_accounting_info"
 	AccInfId = db.Column("AccInfId",db.Integer,primary_key=True,nullable=False)
 	DivId = db.Column("DivId",db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
@@ -16,7 +20,7 @@ class Accounting_info(AddInf,CreatedModifiedInfo,db.Model):
 	AccInfClosedDate = db.Column("AccInfClosedDate",db.DateTime)
 
 	def to_json_api(self):
-		json_data = {
+		data = {
 			"AccInfId": self.AccInfId,
 			"DivId": self.DivId,
 			"BankId": self.BankId,
@@ -31,4 +35,11 @@ class Accounting_info(AddInf,CreatedModifiedInfo,db.Model):
 			"AccInfCreatedDate": apiDataFormat(self.AccInfCreatedDate),
 			"AccInfClosedDate": apiDataFormat(self.AccInfClosedDate)
 		}
-		return json_data
+
+		for key, value in AddInf.to_json_api(self).items():
+			data[key] = value
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data
