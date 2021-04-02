@@ -33,6 +33,9 @@ Images License: GNU General Public License v2 or later
  */
 /* FONT PATH
  * -------------------------- */
+ html{
+   background: #222
+ }
 @font-face {
   font-family: 'FontAwesome';
   src: url("../fonts/fontawesome-webfont.eot?v=4.7.0");
@@ -4236,7 +4239,7 @@ body.can-uppercase .section-categories-carousel.section-top-categories .readmore
 
 .contact-payment-wrap {
   display: flex;
-  /* flex-wrap: wrap; */
+  flex-wrap: wrap;
   margin-right: -15px;
   justify-content: center;
   margin-left: -15px; }
@@ -4602,6 +4605,7 @@ body.can-uppercase .section-categories-carousel.section-top-categories .readmore
   .site-header.header-v4 .row,
   .site-header.header-v9 .row,
   .site-header.header-v10 .row {
+    justify-content: center;
     align-items: center; }
 
 @media (min-width: 768px) and (max-width: 1199px) {
@@ -20778,19 +20782,22 @@ p.available-on-backorder {
   border-top: 1px solid #dadada; }
 
 .widget_shopping_cart_content .buttons, .widget_shopping_cart .buttons {
-  display: flex;
+  display: block;
+  text-align:center;
   flex-direction: column; }
   .widget_shopping_cart_content .buttons .button, .widget_shopping_cart_content .buttons article .more-link, article .widget_shopping_cart_content .buttons .more-link, .widget_shopping_cart .buttons .button, .widget_shopping_cart .buttons article .more-link, article .widget_shopping_cart .buttons .more-link {
     border-radius: 32px;
     font-weight: 500;
     border: none;
+    margin:11px 0;
+    height:40px;
     padding: 8px;
     width:40px;
     font-size: 15px;
     color: #fff; }
     .widget_shopping_cart_content .buttons .button:nth-child(odd), .widget_shopping_cart_content .buttons article .more-link:nth-child(odd), article .widget_shopping_cart_content .buttons .more-link:nth-child(odd), .widget_shopping_cart .buttons .button:nth-child(odd), .widget_shopping_cart .buttons article .more-link:nth-child(odd), article .widget_shopping_cart .buttons .more-link:nth-child(odd) {
       margin-bottom: .8em;
-      width: 75%; }
+      width: 70%; }
   .widget_shopping_cart_content .buttons .checkout, .widget_shopping_cart .buttons .checkout {
     background-color: #858585; }
     .widget_shopping_cart_content .buttons .checkout:hover, .widget_shopping_cart .buttons .checkout:hover {
@@ -28409,8 +28416,6 @@ height: 100%;
 	height: auto;
 	clear: both;
 	float: left;
-	margin-bottom: 100px;
-	
 	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
 	   -moz-box-sizing: border-box; /* Firefox, other Gecko */
 			box-sizing: border-box; /* Opera/IE 8+ */
@@ -28589,7 +28594,6 @@ height: 100%;
 	clear: both;
 	float: left;
 	text-align: left;
-	padding-bottom: 100px;
 	position: relative;
 	
 	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
