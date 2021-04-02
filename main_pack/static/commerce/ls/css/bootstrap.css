@@ -1097,13 +1097,8 @@ textarea {
   line-height: inherit;
 }
 a {
-  color: #337ab7;
+  color: #000;
   text-decoration: none;
-}
-a:hover,
-a:focus {
-  color: #23527c;
-  text-decoration: underline;
 }
 a:focus {
   outline: 5px auto -webkit-focus-ring-color;
@@ -1589,17 +1584,17 @@ pre code {
 }
 @media (min-width: 768px) {
   .container {
-    width: 750px;
+    width: 100%;
   }
 }
 @media (min-width: 992px) {
   .container {
-    width: 970px;
+    width: 100%;
   }
 }
 @media (min-width: 1200px) {
   .container {
-    width: 1170px;
+    width: 100%;
   }
 }
 .container-fluid {
@@ -1609,8 +1604,16 @@ pre code {
   margin-left: auto;
 }
 .row {
+  /* width: 100%; */
   margin-right: -15px;
   margin-left: -15px;
+}
+@media (min-width: 575px) and (max-width: 2560px){
+  .row {
+    width: 100%;
+    margin-right: -15px;
+    margin-left: -15px;
+  } 
 }
 .row-no-gutters {
   margin-right: 0;
@@ -4045,6 +4048,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .input-group-btn:last-child > .btn,
 .input-group-btn:last-child > .btn-group {
+  height: 42px;
   z-index: 2;
   margin-left: -1px;
 }
@@ -4060,7 +4064,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav > li > a {
   position: relative;
   display: block;
-  padding: 10px 15px;
+  padding: 10px 8px;
 }
 .nav > li.disabled > a {
   color: #777777;
