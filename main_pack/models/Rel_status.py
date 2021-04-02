@@ -1,5 +1,8 @@
+from main_pack import db
+from main_pack.models import BaseModel
 
-class Rel_status(CreatedModifiedInfo,db.Model):
+
+class Rel_status(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_rel_status"
 	RelStatId = db.Column("RelStatId",db.Integer,nullable=False,primary_key=True)
 	RelStatName_tkTM = db.Column("RelStatName_tkTM",db.String(50))#,nullable=False)
@@ -11,7 +14,7 @@ class Rel_status(CreatedModifiedInfo,db.Model):
 	Relatives = db.relationship("Relatives",backref='rel_status',lazy=True)
 
 	def to_json_api(self):
-		json_data = {
+		data = {
 			"RelStatId": self.RelStatId,
 			"RelStatName_tkTM": self.RelStatName_tkTM,
 			"RelStatDesc_tkTM": self.RelStatDesc_tkTM,
@@ -20,4 +23,8 @@ class Rel_status(CreatedModifiedInfo,db.Model):
 			"RelStatName_enUS": self.RelStatName_enUS,
 			"RelStatDesc_enUS": self.RelStatDesc_enUS
 		}
-		return json_data
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

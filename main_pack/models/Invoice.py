@@ -1,6 +1,12 @@
+from sqlalchemy.dialects.postgresql import UUID
+from datetime import datetime
+
+from main_pack import db
+from main_pack.models import AddInf, BaseModel
+from main_pack.base.dataMethods import configureFloat
 
 
-class Invoice(AddInf,CreatedModifiedInfo,db.Model):
+class Invoice(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_invoice"
 	InvId = db.Column("InvId",db.Integer,nullable=False,primary_key=True)
 	InvGuid = db.Column("InvGuid",UUID(as_uuid=True),unique=True)
@@ -34,7 +40,7 @@ class Invoice(AddInf,CreatedModifiedInfo,db.Model):
 	Rp_acc_transaction = db.relationship("Rp_acc_transaction",backref='invoice',lazy=True)
 
 	def to_json_api(self):
-		invoice = {
+		data = {
 			"InvId": self.InvId,
 			"InvGuid": self.InvGuid,
 			"InvTypeId": self.InvTypeId,
@@ -64,4 +70,11 @@ class Invoice(AddInf,CreatedModifiedInfo,db.Model):
 			"InvCreditDays": self.InvCreditDays,
 			"InvCreditDesc": self.InvCreditDesc,
 		}
-		return invoice
+
+		for key, value in AddInf.to_json_api(self).items():
+			data[key] = value
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

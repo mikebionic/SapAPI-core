@@ -1,5 +1,9 @@
+from main_pack import db
+from datetime import datetime
+from main_pack.models import BaseModel
 
-class Res_total(CreatedModifiedInfo,db.Model):
+
+class Res_total(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_res_total"
 	ResTotId = db.Column("ResTotId",db.Integer,nullable=False,primary_key=True)
 	ResId = db.Column("ResId",db.Integer,db.ForeignKey("tbl_dk_resource.ResId"))
@@ -15,14 +19,8 @@ class Res_total(CreatedModifiedInfo,db.Model):
 	ResTotLastTrDate = db.Column("ResTotLastTrDate",db.DateTime,default=datetime.now)
 	ResTotPurchAvgPrice = db.Column("ResTotPurchAvgPrice",db.Float,default=0.0)
 
-	def update(self, **kwargs):
-		for key, value in kwargs.items():
-			if value is not None:
-				if hasattr(self, key):
-					setattr(self, key, value)
-
 	def to_json_api(self):
-		json_data = {
+		data = {
 			"ResTotId": self.ResTotId,
 			"ResId": self.ResId,
 			"CurrencyId": self.CurrencyId,
@@ -37,4 +35,8 @@ class Res_total(CreatedModifiedInfo,db.Model):
 			"ResTotLastTrDate": apiDataFormat(self.ResTotLastTrDate),
 			"ResTotPurchAvgPrice": self.ResTotPurchAvgPrice,
 		}
-		return json_data
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

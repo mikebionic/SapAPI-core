@@ -1,6 +1,8 @@
+from main_pack import db
+from main_pack.models import BaseModel
 
 
-class Report_file(CreatedModifiedInfo,db.Model):
+class Report_file(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_report_file"
 	RpFileId = db.Column("RpFileId",db.Integer,nullable=False,primary_key=True)
 	RpFileTypeId = db.Column("RpFileTypeId",db.Integer,nullable=False,default=0)
@@ -8,3 +10,18 @@ class Report_file(CreatedModifiedInfo,db.Model):
 	RpFileDesc = db.Column("RpFileDesc",db.String(100))
 	RpFileFileName = db.Column("RpFileFileName",db.String(100))
 	RpIsDefault = db.Column("RpIsDefault",db.Boolean,default=False)
+
+	def to_json_api(self):
+		data = {
+			"RpFileId": self.RpFileId,
+			"RpFileTypeId": self.RpFileTypeId,
+			"RpFileName": self.RpFileName,
+			"RpFileDesc": self.RpFileDesc,
+			"RpFileFileName": self.RpFileFileName,
+			"RpIsDefault": self.RpIsDefault
+		}
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

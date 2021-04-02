@@ -1,5 +1,8 @@
+from main_pack import db
+from main_pack.models import AddInf, BaseModel
 
-class Rp_acc_transaction(AddInf,CreatedModifiedInfo,db.Model):
+
+class Rp_acc_transaction(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_rp_acc_transaction"
 	RpAccTransId = db.Column("RpAccTransId",db.Integer,nullable=False,primary_key=True)
 	CId = db.Column("CId",db.Integer,db.ForeignKey("tbl_dk_company.CId"))
@@ -18,7 +21,7 @@ class Rp_acc_transaction(AddInf,CreatedModifiedInfo,db.Model):
 	RpAccTransTotal = db.Column("RpAccTransTotal",db.Float,default=0.0)
 
 	def to_json_api(self):
-		json_data = {
+		data = {
 			"RpAccTransId": self.RpAccTransId,
 			"CId": self.CId,
 			"DivId": self.DivId,
@@ -35,4 +38,11 @@ class Rp_acc_transaction(AddInf,CreatedModifiedInfo,db.Model):
 			"RpAccTransCredit": self.RpAccTransCredit,
 			"RpAccTransTotal": self.RpAccTransTotal
 		}
-		return json_data
+
+		for key, value in AddInf.to_json_api(self).items():
+			data[key] = value
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

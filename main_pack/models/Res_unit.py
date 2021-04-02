@@ -1,5 +1,8 @@
+from main_pack import db
+from main_pack.models import BaseModel
 
-class Res_unit(CreatedModifiedInfo,db.Model):
+
+class Res_unit(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_res_unit"
 	ResUnitId = db.Column("ResUnitId",db.Integer,nullable=False,primary_key=True)
 	ResId = db.Column("ResId",db.Integer,db.ForeignKey("tbl_dk_resource.ResId"))
@@ -8,11 +11,15 @@ class Res_unit(CreatedModifiedInfo,db.Model):
 	ResUnitConvTypeId = db.Column("ResUnitConvTypeId",db.Integer,nullable=False)
 
 	def to_json_api(self):
-		json_data = {
+		data = {
 			"ResUnitId": self.ResUnitId,
 			"ResId": self.ResId,
 			"ResUnitUnitId": self.ResUnitUnitId,
 			"ResUnitConvAmount": self.ResUnitConvAmount,
 			"ResUnitConvTypeId": self.ResUnitConvTypeId
 		}
-		return json_data
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

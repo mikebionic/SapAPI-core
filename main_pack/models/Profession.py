@@ -1,17 +1,20 @@
+from main_pack import db
+from main_pack.models import BaseModel
 
-class Profession(CreatedModifiedInfo,db.Model):
+
+class Profession(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_profession"
 	ProfessionId = db.Column("ProfessionId",db.Integer,nullable=False,primary_key=True)
-	ProfessionName_tkTM = db.Column("ProfessionName_tkTM",db.String(50))#,nullable=False)
+	ProfessionName_tkTM = db.Column("ProfessionName_tkTM",db.String(50))
 	ProfessionDesc_tkTM = db.Column("ProfessionDesc_tkTM",db.String(500))
-	ProfessionName_ruRU = db.Column("ProfessionName_ruRU",db.String(50))#,nullable=False)
+	ProfessionName_ruRU = db.Column("ProfessionName_ruRU",db.String(50))
 	ProfessionDesc_ruRU = db.Column("ProfessionDesc_ruRU",db.String(500))
-	ProfessionName_enUS = db.Column("ProfessionName_enUS",db.String(50))#,nullable=False)
+	ProfessionName_enUS = db.Column("ProfessionName_enUS",db.String(50))
 	ProfessionDesc_enUS = db.Column("ProfessionDesc_enUS",db.String(500))
 	Employee = db.relationship("Employee",backref='profession',lazy=True)
 
 	def to_json_api(self):
-		json_data = {
+		data = {
 			"ProfessionId": self.ProfessionId,
 			"ProfessionName_tkTM": self.ProfessionName_tkTM,
 			"ProfessionDesc_tkTM": self.ProfessionDesc_tkTM,
@@ -20,4 +23,8 @@ class Profession(CreatedModifiedInfo,db.Model):
 			"ProfessionName_enUS": self.ProfessionName_enUS,
 			"ProfessionDesc_enUS": self.ProfessionDesc_enUS
 		}
-		return json_data
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

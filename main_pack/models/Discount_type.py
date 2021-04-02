@@ -1,5 +1,8 @@
+from main_pack import db
+from main_pack.models import BaseModel
 
-class Discount_type(CreatedModifiedInfo,db.Model):
+
+class Discount_type(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_discount_type"
 	DiscTypeId = db.Column("DiscTypeId",db.Integer,nullable=False,primary_key=True)
 	DiscTypeName_tkTM = db.Column("DiscTypeName_tkTM",db.String(100),nullable=False)
@@ -11,19 +14,17 @@ class Discount_type(CreatedModifiedInfo,db.Model):
 	Res_discount = db.relationship("Res_discount",backref='discount_type',lazy=True)
 
 	def to_json_api(self):
-		json_data = {
+		data = {
 			"DiscTypeId": self.DiscTypeId,
 			"DiscTypeName_tkTM": self.DiscTypeName_tkTM,
 			"DiscTypeDesc_tkTM": self.DiscTypeDesc_tkTM,
 			"DiscTypeName_ruRU": self.DiscTypeName_ruRU,
 			"DiscTypeDesc_ruRU": self.DiscTypeDesc_ruRU,
 			"DiscTypeName_enUS": self.DiscTypeName_enUS,
-			"DiscTypeDesc": self.DiscTypeDesc,
-			"CreatedDate": apiDataFormat(self.CreatedDate),
-			"ModifiedDate": apiDataFormat(self.ModifiedDate),
-			"SyncDateTime": apiDataFormat(self.SyncDateTime),
-			"CreatedUId": self.CreatedUId,
-			"ModifiedUId": self.ModifiedUId,
-			"GCRecord": self.GCRecord
+			"DiscTypeDesc": self.DiscTypeDesc
 		}
-		return json_data
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

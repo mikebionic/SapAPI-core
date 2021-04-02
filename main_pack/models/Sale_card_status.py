@@ -1,5 +1,8 @@
+from main_pack import db
+from main_pack.models import BaseModel
 
-class Sale_card_status(CreatedModifiedInfo,db.Model):
+
+class Sale_card_status(BaseModel,db.Model):
 	__tablename__ = "tbl_dk_sale_card_status"
 	SaleCardStatusId = db.Column("SaleCardStatusId",db.Integer,nullable=False,primary_key=True)
 	SaleCardStatusName_tkTM = db.Column("SaleCardStatusName_tkTM",db.String(100))
@@ -11,7 +14,7 @@ class Sale_card_status(CreatedModifiedInfo,db.Model):
 	Sale_card = db.relationship("Sale_card",backref='sale_card_status',lazy=True)
 
 	def to_json_api(self):
-		json_data = {
+		data = {
 			"SaleCardStatusId": self.SaleCardStatusId,
 			"SaleCardStatusName_tkTM": self.SaleCardStatusName_tkTM,
 			"SaleCardStatusDesc_tkTM": self.SaleCardStatusDesc_tkTM,
@@ -20,4 +23,8 @@ class Sale_card_status(CreatedModifiedInfo,db.Model):
 			"SaleCardStatusName_enUS": self.SaleCardStatusName_enUS,
 			"SaleCardStatusDesc_enUS": self.SaleCardStatusDesc_enUS
 		}
-		return json_data
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

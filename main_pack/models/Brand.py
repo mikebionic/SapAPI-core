@@ -1,5 +1,8 @@
+from main_pack import db
+from main_pack.models import AddInf, BaseModel
 
-class Brand(AddInf,CreatedModifiedInfo,db.Model):
+
+class Brand(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_brand"
 	BrandId = db.Column("BrandId",db.Integer,nullable=False,primary_key=True)
 	BrandName = db.Column("BrandName",db.String(100),nullable=False)
@@ -15,7 +18,7 @@ class Brand(AddInf,CreatedModifiedInfo,db.Model):
 	Image = db.relationship("Image",backref='brand',lazy=True)
 
 	def to_json_api(self):
-		json_data = {
+		data = {
 			"BrandId": self.BrandId,
 			"BrandName": self.BrandName,
 			"BrandDesc": self.BrandDesc,
@@ -25,18 +28,13 @@ class Brand(AddInf,CreatedModifiedInfo,db.Model):
 			"BrandLink2": self.BrandLink2,
 			"BrandLink3": self.BrandLink3,
 			"BrandLink4": self.BrandLink4,
-			"BrandLink5": self.BrandLink5,			
-			"AddInf1": self.AddInf1,
-			"AddInf2": self.AddInf2,
-			"AddInf3": self.AddInf3,
-			"AddInf4": self.AddInf4,
-			"AddInf5": self.AddInf5,
-			"AddInf6": self.AddInf6,
-			"CreatedDate": apiDataFormat(self.CreatedDate),
-			"ModifiedDate": apiDataFormat(self.ModifiedDate),
-			"SyncDateTime": apiDataFormat(self.SyncDateTime),
-			"CreatedUId": self.CreatedUId,
-			"ModifiedUId": self.ModifiedUId,
-			"GCRecord": self.GCRecord
+			"BrandLink5": self.BrandLink5
 		}
-		return json_data
+
+		for key, value in AddInf.to_json_api(self).items():
+			data[key] = value
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

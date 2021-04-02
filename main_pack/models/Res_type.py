@@ -1,5 +1,8 @@
+from main_pack import db
+from main_pack.models import BaseModel
 
-class Res_type(CreatedModifiedInfo,db.Model):
+
+class Res_type(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_res_type"
 	ResTypeId = db.Column("ResTypeId",db.Integer,nullable=False,primary_key=True)
 	ResTypeName_tkTM = db.Column("ResTypeName_tkTM",db.String(100))
@@ -11,7 +14,7 @@ class Res_type(CreatedModifiedInfo,db.Model):
 	Resource = db.relationship("Resource",backref='res_type',lazy=True)
 
 	def to_json_api(self):
-		json_data = {
+		data = {
 			"ResTypeId": self.ResTypeId,
 			"ResTypeName_tkTM": self.ResTypeName_tkTM,
 			"ResTypeDesc_tkTM": self.ResTypeDesc_tkTM,
@@ -20,4 +23,8 @@ class Res_type(CreatedModifiedInfo,db.Model):
 			"ResTypeName_enUS": self.ResTypeName_enUS,
 			"ResTypeDesc_enUS": self.ResTypeDesc_enUS
 		}
-		return json_data
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

@@ -1,5 +1,8 @@
+from main_pack import db
+from main_pack.models import AddInf, BaseModel
 
-class Res_translations(AddInf,CreatedModifiedInfo,db.Model):
+
+class Res_translations(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_res_translations"
 	ResTransId = db.Column("ResTransId",db.Integer,nullable=False,primary_key=True)
 	ResId = db.Column("ResId",db.Integer,db.ForeignKey("tbl_dk_resource.ResId"))
@@ -9,7 +12,7 @@ class Res_translations(AddInf,CreatedModifiedInfo,db.Model):
 	ResFullDesc = db.Column("ResFullDesc",db.String(1500))
 
 	def to_json_api(self):
-		json_data = {
+		data = {
 			"ResTransId": self.ResTransId,
 			"ResId": self.ResId,
 			"LangId": self.LangId,
@@ -17,4 +20,11 @@ class Res_translations(AddInf,CreatedModifiedInfo,db.Model):
 			"ResDesc": self.ResDesc,
 			"ResFullDesc": self.ResFullDesc
 		}
-		return json_data
+
+		for key, value in AddInf.to_json_api(self).items():
+			data[key] = value
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

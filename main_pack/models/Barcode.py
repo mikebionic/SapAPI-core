@@ -1,3 +1,6 @@
+from main_pack import db
+from main_pack.models import BaseModel
+
 
 class Barcode(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_barcode"
@@ -9,18 +12,16 @@ class Barcode(BaseModel, db.Model):
 	BarcodeVal = db.Column("BarcodeVal",db.String(100),nullable=False)
 
 	def to_json_api(self):
-		json_data = {
+		data = {
 			"BarcodeId": self.BarcodeId,
 			"CId": self.CId,
 			"DivId": self.DivId,
 			"ResId": self.ResId,
 			"UnitId": self.UnitId,
-			"BarcodeVal": self.BarcodeVal,
-			"CreatedDate": apiDataFormat(self.CreatedDate),
-			"ModifiedDate": apiDataFormat(self.ModifiedDate),
-			"SyncDateTime": apiDataFormat(self.SyncDateTime),
-			"CreatedUId": self.CreatedUId,
-			"ModifiedUId": self.ModifiedUId,
-			"GCRecord": self.GCRecord
+			"BarcodeVal": self.BarcodeVal
 		}
-		return json_data
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

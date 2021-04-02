@@ -1,3 +1,6 @@
+from main_pack import db
+from main_pack.models import AddInf, BaseModel
+
 
 class Company(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_company"
@@ -43,7 +46,7 @@ class Company(AddInf, BaseModel, db.Model):
 	Slider = db.relationship("Slider",backref='company',lazy=True)
 
 	def to_json_api(self):
-		json_data = {
+		data = {
 			"CId": self.CId,
 			"CName": self.CName,
 			"CFullName": self.CFullName,
@@ -60,18 +63,13 @@ class Company(AddInf, BaseModel, db.Model):
 			"Phone4": self.Phone4,
 			"CPostalCode": self.CPostalCode,
 			"WebAddress": self.WebAddress,
-			"CEmail": self.CEmail,
-			"AddInf1": self.AddInf1,
-			"AddInf2": self.AddInf2,
-			"AddInf3": self.AddInf3,
-			"AddInf4": self.AddInf4,
-			"AddInf5": self.AddInf5,
-			"AddInf6": self.AddInf6,
-			"CreatedDate": apiDataFormat(self.CreatedDate),
-			"ModifiedDate": apiDataFormat(self.ModifiedDate),
-			"SyncDateTime": apiDataFormat(self.SyncDateTime),
-			"CreatedUId": self.CreatedUId,
-			"ModifiedUId": self.ModifiedUId,
-			"GCRecord": self.GCRecord
+			"CEmail": self.CEmail
 		}
-		return json_data
+
+		for key, value in AddInf.to_json_api(self).items():
+			data[key] = value
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

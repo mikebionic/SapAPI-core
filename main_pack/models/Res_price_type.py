@@ -1,5 +1,8 @@
+from main_pack import db
+from main_pack.models import AddInf, BaseModel
 
-class Res_price_type(AddInf,CreatedModifiedInfo,db.Model):
+
+class Res_price_type(AddInf,BaseModel,db.Model):
 	__tablename__ = "tbl_dk_res_price_type"
 	ResPriceTypeId = db.Column("ResPriceTypeId",db.Integer,nullable=False,primary_key=True)
 	ResPriceTypeName_tkTM = db.Column("ResPriceTypeName_tkTM",db.String(100),nullable=False)
@@ -15,25 +18,20 @@ class Res_price_type(AddInf,CreatedModifiedInfo,db.Model):
 	Sale_agr_res_price = db.relationship("Sale_agr_res_price",backref='res_price_type',lazy=True)
 
 	def to_json_api(self):
-		json_data = {
+		data = {
 			"ResPriceTypeId": self.ResPriceTypeId,
 			"ResPriceTypeName_tkTM": self.ResPriceTypeName_tkTM,
 			"ResPriceTypeDesc_tkTM": self.ResPriceTypeDesc_tkTM,
 			"ResPriceTypeName_ruRU": self.ResPriceTypeName_ruRU,
 			"ResPriceTypeDesc_ruRU": self.ResPriceTypeDesc_ruRU,
 			"ResPriceTypeName_enUS": self.ResPriceTypeName_enUS,
-			"ResPriceTypeDesc_enUS": self.ResPriceTypeDesc_enUS,
-			"AddInf1": self.AddInf1,
-			"AddInf2": self.AddInf2,
-			"AddInf3": self.AddInf3,
-			"AddInf4": self.AddInf4,
-			"AddInf5": self.AddInf5,
-			"AddInf6": self.AddInf6,
-			"CreatedDate": apiDataFormat(self.CreatedDate),
-			"ModifiedDate": apiDataFormat(self.ModifiedDate),
-			"SyncDateTime": apiDataFormat(self.SyncDateTime),
-			"CreatedUId": self.CreatedUId,
-			"ModifiedUId": self.ModifiedUId,
-			"GCRecord": self.GCRecord
+			"ResPriceTypeDesc_enUS": self.ResPriceTypeDesc_enUS
 		}
-		return json_data
+
+		for key, value in AddInf.to_json_api(self).items():
+			data[key] = value
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

@@ -1,5 +1,8 @@
+from main_pack import db
+from main_pack.models import AddInf, BaseModel
 
-class Production(AddInf,CreatedModifiedInfo,db.Model):
+
+class Production(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_production"
 	ProdId = db.Column("ProdId",db.Integer,nullable=False,primary_key=True)
 	CId = db.Column("CId",db.Integer,db.ForeignKey("tbl_dk_company.CId"))
@@ -16,7 +19,7 @@ class Production(AddInf,CreatedModifiedInfo,db.Model):
 	Translations = db.relationship("Translations",backref='production',lazy=True)
 
 	def to_json_api(self):
-		json_data = {
+		data = {
 			"ProdId": self.ProdId,
 			"CId": self.CId,
 			"DivId": self.DivId,
@@ -28,4 +31,11 @@ class Production(AddInf,CreatedModifiedInfo,db.Model):
 			"ProdTime": self.ProdTime,
 			"ProdCostPrice": self.ProdCostPrice
 		}
-		return json_data
+
+		for key, value in AddInf.to_json_api(self).items():
+			data[key] = value
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

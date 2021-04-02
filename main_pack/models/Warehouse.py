@@ -1,5 +1,10 @@
+from sqlalchemy.dialects.postgresql import UUID
 
-class Warehouse(AddInf,CreatedModifiedInfo,db.Model):
+from main_pack import db
+from main_pack.models import AddInf, BaseModel
+
+
+class Warehouse(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_warehouse"
 	WhId = db.Column("WhId",db.Integer,nullable=False,primary_key=True)
 	CId = db.Column("CId",db.Integer,db.ForeignKey("tbl_dk_company.CId"))
@@ -17,32 +22,21 @@ class Warehouse(AddInf,CreatedModifiedInfo,db.Model):
 	Production = db.relationship("Production",foreign_keys='Production.WhIdIn',backref='warehouse',lazy=True)
 	Production = db.relationship("Production",foreign_keys='Production.WhIdOut',backref='warehouse',lazy=True)
 
-	def update(self, **kwargs):
-		for key, value in kwargs.items():
-			if value is not None:
-				if hasattr(self, key):
-					setattr(self, key, value)
-
 	def to_json_api(self):
-		json_data = {
+		data = {
 			"WhId": self.WhId,
 			"CId": self.CId,
 			"DivId": self.DivId,
 			"UsageStatusId": self.UsageStatusId,
 			"WhName": self.WhName,
 			"WhDesc": self.WhDesc,
-			"WhGuid": self.WhGuid,
-			"AddInf1": self.AddInf1,
-			"AddInf2": self.AddInf2,
-			"AddInf3": self.AddInf3,
-			"AddInf4": self.AddInf4,
-			"AddInf5": self.AddInf5,
-			"AddInf6": self.AddInf6,
-			"CreatedDate": apiDataFormat(self.CreatedDate),
-			"ModifiedDate": apiDataFormat(self.ModifiedDate),
-			"SyncDateTime": apiDataFormat(self.SyncDateTime),
-			"CreatedUId": self.CreatedUId,
-			"ModifiedUId": self.ModifiedUId,
-			"GCRecord": self.GCRecord
+			"WhGuid": self.WhGuid
 		}
-		return json_data
+
+		for key, value in AddInf.to_json_api(self).items():
+			data[key] = value
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

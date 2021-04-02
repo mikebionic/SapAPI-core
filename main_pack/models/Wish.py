@@ -1,5 +1,8 @@
+from main_pack import db
+from main_pack.models import AddInf, BaseModel
 
-class Wish(AddInf,CreatedModifiedInfo,db.Model):
+
+class Wish(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_wish"
 	WishId = db.Column("WishId",db.Integer,nullable=False,primary_key=True)
 	CId = db.Column("CId",db.Integer,db.ForeignKey("tbl_dk_company.CId"))
@@ -9,11 +12,18 @@ class Wish(AddInf,CreatedModifiedInfo,db.Model):
 	RpAccId = db.Column("RpAccId",db.Integer,db.ForeignKey("tbl_dk_rp_acc.RpAccId"))
 
 	def to_json_api(self):
-		json_data = {
+		data = {
 			"WishId": self.WishId,
 			"CId": self.CId,
 			"DivId": self.DivId,
 			"UId": self.UId,
 			"ResId": self.ResId
 		}
-		return json_data
+
+		for key, value in AddInf.to_json_api(self).items():
+			data[key] = value
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

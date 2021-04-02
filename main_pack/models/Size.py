@@ -1,6 +1,8 @@
+from main_pack import db
+from main_pack.models import AddInf, BaseModel
 
 
-class Size(AddInf,CreatedModifiedInfo,db.Model):
+class Size(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_size"
 	SizeId = db.Column("SizeId",db.Integer,nullable=False,primary_key=True)
 	SizeName = db.Column("SizeName",db.String(100),nullable=False)
@@ -12,12 +14,13 @@ class Size(AddInf,CreatedModifiedInfo,db.Model):
 		json_data = {
 			"SizeName": self.SizeName,
 			"SizeDesc": self.SizeDesc,
-			"SizeTypeId": self.SizeTypeId,
-			"CreatedDate": apiDataFormat(self.CreatedDate),
-			"ModifiedDate": apiDataFormat(self.ModifiedDate),
-			"SyncDateTime": apiDataFormat(self.SyncDateTime),
-			"CreatedUId": self.CreatedUId,
-			"ModifiedUId": self.ModifiedUId,
-			"GCRecord": self.GCRecord
+			"SizeTypeId": self.SizeTypeId
 		}
-		return json_data
+
+		for key, value in AddInf.to_json_api(self).items():
+			data[key] = value
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

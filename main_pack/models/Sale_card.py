@@ -1,5 +1,10 @@
+from datetime import datetime
 
-class Sale_card(AddInf,CreatedModifiedInfo,db.Model):
+from main_pack import db
+from main_pack.models import AddInf, BaseModel
+
+
+class Sale_card(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_sale_card"
 	SaleCardId = db.Column("SaleCardId",db.Integer,nullable=False,primary_key=True)
 	CId = db.Column("CId",db.Integer,db.ForeignKey("tbl_dk_company.CId"))
@@ -30,7 +35,7 @@ class Sale_card(AddInf,CreatedModifiedInfo,db.Model):
 	Res_discount = db.relationship("Res_discount",backref='sale_card',foreign_keys='Res_discount.SaleCardId',lazy=True)
 
 	def to_json_api(self):
-		json_data = {
+		data = {
 			"SaleCardId": self.SaleCardId,
 			"CId": self.CId,
 			"DivId": self.DivId,
@@ -58,5 +63,11 @@ class Sale_card(AddInf,CreatedModifiedInfo,db.Model):
 			"SaleCardCustEmail": self.SaleCardCustEmail,
 			"SaleCardCustAddress": self.SaleCardCustAddress
 		}
-		return json_data
 
+		for key, value in AddInf.to_json_api(self).items():
+			data[key] = value
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

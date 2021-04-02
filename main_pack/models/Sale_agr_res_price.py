@@ -1,5 +1,8 @@
+from main_pack import db
+from main_pack.models import BaseModel
 
-class Sale_agr_res_price(CreatedModifiedInfo,db.Model):
+
+class Sale_agr_res_price(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_sale_agr_res_price"
 	SAResPriceId = db.Column("SAResPriceId",db.Integer,nullable=False,primary_key=True)
 	SaleAgrId = db.Column("SaleAgrId",db.Integer,db.ForeignKey("tbl_dk_sale_agreement.SaleAgrId"))
@@ -13,7 +16,7 @@ class Sale_agr_res_price(CreatedModifiedInfo,db.Model):
 	SAPriceEndDate = db.Column("SAPriceEndDate",db.DateTime)
 
 	def to_json_api(self):
-		json_data = {
+		data = {
 			"SAResPriceId": self.SAResPriceId,
 			"SaleAgrId": self.SaleAgrId,
 			"ResPriceTypeId": self.ResPriceTypeId,
@@ -25,4 +28,8 @@ class Sale_agr_res_price(CreatedModifiedInfo,db.Model):
 			"SAPriceStartDate": self.SAPriceStartDate,
 			"SAPriceEndDate": self.SAPriceEndDate
 		}
-		return json_data
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

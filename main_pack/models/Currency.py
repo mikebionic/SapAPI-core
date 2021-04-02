@@ -1,3 +1,6 @@
+from main_pack import db
+from main_pack.models import AddInf, BaseModel
+
 
 class Currency(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_currency"
@@ -29,7 +32,7 @@ class Currency(AddInf, BaseModel, db.Model):
 	Work_period = db.relationship("Work_period",backref='currency',lazy=True)
 
 	def to_json_api(self):
-		json_data = {
+		data = {
 			"CurrencyId": self.CurrencyId,
 			"CurrencyName_tkTM": self.CurrencyName_tkTM,
 			"CurrencyDesc_tkTM": self.CurrencyDesc_tkTM,
@@ -38,18 +41,13 @@ class Currency(AddInf, BaseModel, db.Model):
 			"CurrencyName_enUS": self.CurrencyName_enUS,
 			"CurrencyDesc_enUS": self.CurrencyDesc_enUS,
 			"CurrencyCode": self.CurrencyCode,
-			"CurrencySymbol": self.CurrencySymbol,
-			"AddInf1": self.AddInf1,
-			"AddInf2": self.AddInf2,
-			"AddInf3": self.AddInf3,
-			"AddInf4": self.AddInf4,
-			"AddInf5": self.AddInf5,
-			"AddInf6": self.AddInf6,
-			"CreatedDate": apiDataFormat(self.CreatedDate),
-			"ModifiedDate": apiDataFormat(self.ModifiedDate),
-			"SyncDateTime": apiDataFormat(self.SyncDateTime),
-			"CreatedUId": self.CreatedUId,
-			"ModifiedUId": self.ModifiedUId,
-			"GCRecord": self.GCRecord
+			"CurrencySymbol": self.CurrencySymbol
 		}
-		return json_data
+
+		for key, value in AddInf.to_json_api(self).items():
+			data[key] = value
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

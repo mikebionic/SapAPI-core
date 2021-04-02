@@ -1,3 +1,6 @@
+from main_pack import db
+from main_pack.models import BaseModel
+
 
 class Contract_type(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_contract_type"
@@ -9,9 +12,9 @@ class Contract_type(BaseModel, db.Model):
 	ContractTypeName_enUS = db.Column("ContractTypeName_enUS",db.String(100))
 	ContractTypeDesc_enUS = db.Column("ContractTypeDesc_enUS",db.String(100))
 	Employee = db.relationship("Employee",backref='contract_type',lazy=True)
-	
+
 	def to_json_api(self):
-		json_data = {
+		data = {
 			"ContractTypeId": self.ContractTypeId,
 			"ContractTypeName_tkTM": self.ContractTypeName_tkTM,
 			"ContractTypeDesc_tkTM": self.ContractTypeDesc_tkTM,
@@ -20,4 +23,8 @@ class Contract_type(BaseModel, db.Model):
 			"ContractTypeName_enUS": self.ContractTypeName_enUS,
 			"ContractTypeDesc_enUS": self.ContractTypeDesc_enUS
 		}
-		return json_data
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

@@ -1,18 +1,21 @@
+from main_pack import db
+from main_pack.models import BaseModel
 
-class Nationality(CreatedModifiedInfo,db.Model):
+
+class Nationality(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_nationality"
 	NatId = db.Column("NatId",db.Integer,nullable=False,primary_key=True)
-	NatName_tkTM = db.Column("NatName_tkTM",db.String(50))#,nullable=False)
+	NatName_tkTM = db.Column("NatName_tkTM",db.String(50))
 	NatDesc_tkTM = db.Column("NatDesc_tkTM",db.String(500))
-	NatName_ruRU = db.Column("NatName_ruRU",db.String(50))#,nullable=False)
+	NatName_ruRU = db.Column("NatName_ruRU",db.String(50))
 	NatDesc_ruRU = db.Column("NatDesc_ruRU",db.String(500))
-	NatName_enUS = db.Column("NatName_enUS",db.String(50))#,nullable=False)
+	NatName_enUS = db.Column("NatName_enUS",db.String(50))
 	NatDesc_enUS = db.Column("NatDesc_enUS",db.String(500))
 	Employee = db.relationship("Employee",backref='nationality',lazy=True)
 	Rp_acc = db.relationship("Rp_acc",backref='nationality',lazy=True)
 
 	def to_json_api(self):
-		json_data = {
+		data = {
 			"NatId": self.NatId,
 			"NatName_tkTM": self.NatName_tkTM,
 			"NatDesc_tkTM": self.NatDesc_tkTM,
@@ -21,4 +24,8 @@ class Nationality(CreatedModifiedInfo,db.Model):
 			"NatName_enUS": self.NatName_enUS,
 			"NatDesc_enUS": self.NatDesc_enUS
 		}
-		return json_data
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

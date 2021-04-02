@@ -1,6 +1,8 @@
+from main_pack import db
+from main_pack.models import BaseModel
 
 
-class Res_trans_type(CreatedModifiedInfo,db.Model):
+class Res_trans_type(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_res_trans_type"
 	ResTransTypeId = db.Column("ResTransTypeId",db.Integer,nullable=False,primary_key=True)
 	ResTransTypeName_tkTM = db.Column("ResTransTypeName_tkTM",db.String(100),nullable=False)
@@ -12,7 +14,7 @@ class Res_trans_type(CreatedModifiedInfo,db.Model):
 	Res_transaction = db.relationship("Res_transaction",backref='res_trans_type',lazy=True)
 
 	def to_json_api(self):
-		json_data = {
+		data = {
 			"ResTransTypeId": self.ResTransTypeId,
 			"ResTransTypeName_tkTM": self.ResTransTypeName_tkTM,
 			"ResTransTypeDesc_tkTM": self.ResTransTypeDesc_tkTM,
@@ -21,4 +23,8 @@ class Res_trans_type(CreatedModifiedInfo,db.Model):
 			"ResTransTypeName_enUS": self.ResTransTypeName_enUS,
 			"ResTransTypeDesc_enUS": self.ResTransTypeDesc_enUS
 		}
-		return json_data
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data
