@@ -12,7 +12,7 @@ from main_pack import db
 from . import api
 
 # orders and db methods
-from main_pack.models.commerce.models import (
+from main_pack.models import (
 	Invoice,
 	Inv_line,
 	Inv_status,

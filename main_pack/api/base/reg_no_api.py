@@ -10,7 +10,7 @@ from main_pack.models import User
 from main_pack.api.auth.utils import token_required
 
 from main_pack.key_generator.utils import generate,makeRegNo
-from main_pack.models.base.models import Pred_regnum
+from main_pack.models import Pred_reg_num
 
 
 @api.route("/gen-reg-no/",methods=['POST'])
@@ -52,7 +52,7 @@ def api_gen_reg_no(user):
 			print(f"{datetime.now()} | Reg_no Api Exception: {ex}")
 			currentRegNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
 
-		New_Pred_regnum = Pred_regnum(RegNum = currentRegNo, RegNumTypeId = RegNumTypeId)
+		New_Pred_regnum = Pred_reg_num(RegNum = currentRegNo, RegNumTypeId = RegNumTypeId)
 		db.session.add(New_Pred_regnum)
 		db.session.commit()
 

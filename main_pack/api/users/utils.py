@@ -220,8 +220,8 @@ def addDeviceDict(req):
 	
 
 ###### returning info for single user after api auth success #####
-from main_pack.models.base.models import Image
-from main_pack.models.commerce.models import Resource
+from main_pack.models import Image
+from main_pack.models import Resource
 from main_pack.base.apiMethods import fileToURL
 from main_pack.models import User, Rp_acc, User_type
 from sqlalchemy import and_

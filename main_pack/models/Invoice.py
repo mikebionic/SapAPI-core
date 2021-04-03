@@ -3,7 +3,7 @@ from datetime import datetime
 
 from main_pack import db
 from main_pack.models import AddInf, BaseModel
-from main_pack.base.dataMethods import configureFloat
+from main_pack.base.dataMethods import configureFloat, apiDataFormat
 
 
 class Invoice(AddInf, BaseModel, db.Model):

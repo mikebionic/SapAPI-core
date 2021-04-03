@@ -19,9 +19,9 @@ from main_pack.commerce.auth.utils import ui_admin_required
 # / auth and validation /
 
 # Company and Brand
-from main_pack.models.base.models import Company, Division
+from main_pack.models import Company, Division
 from main_pack.commerce.commerce.utils import UiBrandsList
-from main_pack.models.commerce.models import Brand
+from main_pack.models import Brand
 # / Company and Brand /
 
 # Resource and view
@@ -30,7 +30,7 @@ from main_pack.commerce.admin.utils import resRelatedData
 # / Resource and view /
 
 # Invoices
-from main_pack.models.commerce.models import (
+from main_pack.models import (
 	Inv_line,
 	Inv_line_det,
 	Inv_line_det_type,
@@ -45,7 +45,7 @@ from main_pack.models.commerce.models import (
 )
 
 from main_pack.commerce.commerce.order_utils import UiOInvData,UiOInvLineData
-from main_pack.models.commerce.models import Res_category
+from main_pack.models import Res_category
 # / Invoices /
 
 # users and customers
@@ -71,7 +71,7 @@ from datetime import datetime,timezone
 # / RegNo /
 
 # Image operations
-from main_pack.models.base.models import Image
+from main_pack.models import Image
 from main_pack.base.imageMethods import save_image, save_icon
 from main_pack.base.imageMethods import allowed_icon
 # / Image operations /

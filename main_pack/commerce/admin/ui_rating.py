@@ -6,7 +6,7 @@ from .utils import addRatingDict
 from main_pack import db, gettext
 from main_pack.config import Config
 from main_pack.commerce.auth.utils import ui_admin_required
-from main_pack.models.commerce.models import Rating
+from main_pack.models import Rating
 
 
 @bp.route('/ui/rating_table/', methods=['POST','DELETE'])

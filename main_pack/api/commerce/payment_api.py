@@ -3,7 +3,7 @@ from flask import jsonify, request, make_response
 
 from . import api
 from main_pack.config import Config
-from main_pack.models.commerce.models import Payment_type, Payment_method
+from main_pack.models import Payment_type, Payment_method
 
 
 @api.route("/tbl-dk-payment-types/")

@@ -10,9 +10,9 @@ from main_pack import db,babel,gettext,lazy_gettext
 from main_pack.commerce.admin import bp
 
 from main_pack.commerce.admin.utils import addColorDict,addSizeDict,addBrandDict,addResColorDict,addResSizeDict
-from main_pack.models.commerce.models import Color,Size,Size_type,Unit,Brand,Barcode
+from main_pack.models import Color,Size,Size_type,Unit,Brand,Barcode
 
-from main_pack.models.commerce.models import Size_type,Res_color,Res_size,Res_unit,Usage_status
+from main_pack.models import Size_type,Res_color,Res_size,Res_unit,Usage_status
 
 
 @bp.route('/ui/color/', methods=['POST'])

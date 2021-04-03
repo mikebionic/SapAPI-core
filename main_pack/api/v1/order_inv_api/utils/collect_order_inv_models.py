@@ -4,7 +4,7 @@ import dateutil.parser
 from sqlalchemy import and_, extract
 from sqlalchemy.orm import joinedload
 
-from main_pack.models.commerce.models import Order_inv,	Order_inv_line
+from main_pack.models import Order_inv,	Order_inv_line
 
 def collect_order_inv_models(
 	startDate = None,

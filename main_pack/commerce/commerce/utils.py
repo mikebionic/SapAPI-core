@@ -8,10 +8,10 @@ from main_pack.config import Config
 from main_pack import cache
 
 # db Models
-from main_pack.models.commerce.models import (
+from main_pack.models import (
 	Res_category,
 	Resource)
-from main_pack.models.base.models import (
+from main_pack.models import (
 	Company,
 	Division,
 	Sl_image,
@@ -143,19 +143,19 @@ def UiBrandsList():
 
 
 # used foreign keys
-from main_pack.models.commerce.models import Unit,Brand,Usage_status,Res_category,Res_type,Res_maker
-from main_pack.models.base.models import Company,Division
+from main_pack.models import Unit,Brand,Usage_status,Res_category,Res_type,Res_maker
+from main_pack.models import Company,Division
 from main_pack.models import Rp_acc
 ####
 # used relationship
-from main_pack.models.commerce.models import (Barcode,Res_color,Res_size,Res_translations,Unit,Res_unit,
+from main_pack.models import (Barcode,Res_color,Res_size,Res_translation,Unit,Res_unit,
 	Inv_line,Inv_line_det,Order_inv_line,Res_price,Res_total,Res_trans_inv_line,Res_transaction,Rp_acc_resource,
 	Sale_agr_res_price,Res_discount)
-from main_pack.models.base.models import Image
+from main_pack.models import Image
 #####
-from main_pack.models.base.models import Language
-from main_pack.models.commerce.models import Color,Size,Brand
-from main_pack.models.commerce.models import Resource
+from main_pack.models import Language
+from main_pack.models import Color,Size,Brand
+from main_pack.models import Resource
 
 def uiSortingData():
 	uiSortingData = {}

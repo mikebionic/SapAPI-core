@@ -31,7 +31,7 @@ class Image(BaseModel, db.Model):
 	Image = db.Column("Image",db.LargeBinary)
 
 	def to_json_api(self):
-		json_data = {
+		data = {
 			"ImgId": self.ImgId,
 			"ImgGuid": self.ImgGuid,
 			"EmpId": self.EmpId,
@@ -59,4 +59,8 @@ class Image(BaseModel, db.Model):
 			# # "Image": base64.encodebytes(self.Image).decode('ascii'),
 			# "Image": apiCheckImageByte(self.Image)
 		}
-		return json_data
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

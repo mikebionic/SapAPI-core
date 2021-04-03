@@ -1,7 +1,8 @@
-from main_pack import db
 from datetime import datetime
-from main_pack.models import BaseModel
 
+from main_pack import db
+from main_pack.models import BaseModel
+from main_pack.base.dataMethods import apiDataFormat
 
 class Res_total(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_res_total"

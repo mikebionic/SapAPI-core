@@ -13,7 +13,7 @@ from main_pack.commerce.commerce.utils import (
 	UiCategoriesList,
 	UiBrandsList,
 	send_email_to_company)
-from main_pack.models.base.models import Division
+from main_pack.models import Division
 
 from main_pack.commerce.commerce.forms import SendEmailToCompanyForm
 # / Resource and view /

@@ -9,7 +9,7 @@ class Color(AddInf, BaseModel, db.Model):
 	ColorDesc = db.Column("ColorDesc",db.String(500))
 	ColorCode = db.Column("ColorCode",db.String(100))
 	Res_color = db.relationship("Res_color",backref='color',lazy=True)
-	Translations = db.relationship("Translations",backref='color',lazy=True)
+	Translation = db.relationship("Translation",backref='color',lazy=True)
 
 	def to_json_api(self):
 		data = {

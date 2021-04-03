@@ -4,7 +4,7 @@ from sqlalchemy.dialects.postgresql import UUID
 from datetime import datetime
 from flask_login import current_user
 from main_pack.base.dataMethods import apiDataFormat,configureFloat
-from main_pack.models.base.models import CreatedModifiedInfo, AddInf
+from main_pack.models import CreatedModifiedInfo, AddInf
 
 
 class Barcode(CreatedModifiedInfo,db.Model):

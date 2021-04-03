@@ -16,8 +16,8 @@ from main_pack.api.auth.utils import sha_required, token_required
 from main_pack.base.apiMethods import checkApiResponseStatus
 from main_pack.api.base.validators import request_is_json
 
-from main_pack.models.base.models import Image, Sl_image
-from main_pack.models.commerce.models import Resource, Barcode
+from main_pack.models import Image, Sl_image
+from main_pack.models import Resource, Barcode
 
 
 def remove_image(file_type,file_name):

@@ -39,7 +39,7 @@ class Employee(AddInf, BaseModel, db.Model):
 	Award = db.relationship("Award",backref='employee',lazy=True)
 	Relatives = db.relationship("Relatives",backref='employee',lazy=True)
 	School = db.relationship("School",backref='employee',lazy=True)
-	Visited_countries = db.relationship("Visited_countries",backref='employee',lazy=True)
+	Visited_country = db.relationship("Visited_country",backref='employee',lazy=True)
 	Work_history = db.relationship("Work_history",backref='employee',lazy=True)
 	Department_detail = db.relationship("Department_detail",backref='employee',lazy=True)
 	Image = db.relationship("Image",backref='employee',lazy=True)

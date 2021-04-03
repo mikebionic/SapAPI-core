@@ -3,7 +3,7 @@ import dateutil.parser
 from datetime import datetime
 from sqlalchemy.orm import joinedload
 
-from main_pack.models.base.models import Warehouse
+from main_pack.models import Warehouse
 
 
 def collect_warehouse_data(

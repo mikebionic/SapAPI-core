@@ -2,7 +2,7 @@ from sqlalchemy.orm import joinedload
 from datetime import datetime, timedelta
 import dateutil.parser
 
-from main_pack.models.base.models import Division
+from main_pack.models import Division
 from main_pack.models import Rp_acc
 from main_pack.base.apiMethods import fileToURL
 

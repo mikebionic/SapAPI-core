@@ -4,14 +4,14 @@ from main_pack.config import Config
 from main_pack.base.dataMethods import configureNulls,configureFloat,boolCheck
 from main_pack.base.imageMethods import save_image,dirHandler
 # used foreign keys
-from main_pack.models.commerce.models import Unit,Brand,Usage_status,Res_category,Res_type,Res_maker
+from main_pack.models import Unit,Brand,Usage_status,Res_category,Res_type,Res_maker
 ####
 # used relationship
-from main_pack.models.commerce.models import (
+from main_pack.models import (
 	Barcode,
 	Res_color,
 	Res_size,
-	Res_translations,
+	Res_translation,
 	Unit,
 	Res_unit,
 	Res_price,
@@ -23,7 +23,7 @@ from main_pack.models.commerce.models import (
 	Res_discount)
 
 # for invoices
-from main_pack.models.commerce.models import (
+from main_pack.models import (
 	Inv_line,
 	Inv_line_det,
 	Inv_line_det_type,
@@ -33,10 +33,10 @@ from main_pack.models.commerce.models import (
 	Order_inv,
 	Order_inv_line,
 	Order_inv_type)
-from main_pack.models.base.models import Currency
-from main_pack.models.commerce.models import Resource
+from main_pack.models import Currency
+from main_pack.models import Resource
 
-from main_pack.models.base.models import Company,Division
+from main_pack.models import Company,Division
 from main_pack.models import Rp_acc
 from main_pack.base.languageMethods import dataLangSelector
 

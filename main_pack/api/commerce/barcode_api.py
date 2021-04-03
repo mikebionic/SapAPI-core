@@ -8,7 +8,7 @@ from . import api
 from main_pack import db
 
 from .utils import addBarcodeDict
-from main_pack.models.commerce.models import Barcode
+from main_pack.models import Barcode
 from main_pack.api.base.validators import request_is_json
 from main_pack.api.auth.utils import sha_required
 from main_pack.base.apiMethods import checkApiResponseStatus

@@ -2,9 +2,9 @@ from main_pack.config import Config
 from flask_login import current_user
 from main_pack import db, babel, gettext
 from main_pack.key_generator import bp
-from main_pack.models.base.models import Reg_num, Reg_num_type, Pred_regnum
+from main_pack.models import Reg_num, Reg_num_type, Pred_reg_num
 
-from main_pack.models.hr_department.models import Employee
+from main_pack.models import Employee
 from main_pack.models import User
 
 from datetime import datetime
@@ -119,7 +119,7 @@ def checkPredExistence(RegNum,RegNumTypeId=None):
 	}
 	if RegNumTypeId:
 		filtering["RegNumTypeId"] = RegNumTypeId
-	registeredRegNo = Pred_regnum.query\
+	registeredRegNo = Pred_reg_num.query\
 		.filter_by(**filtering)\
 		.first()
 	return registeredRegNo

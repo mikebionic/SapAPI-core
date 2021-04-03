@@ -36,7 +36,7 @@ class Resource(AddInf, BaseModel, db.Model):
 	Barcode = db.relationship("Barcode",backref='resource',lazy=True)
 	Res_color = db.relationship("Res_color",backref='resource',lazy=True)
 	Res_size = db.relationship("Res_size",backref='resource',lazy=True)
-	Res_translations = db.relationship("Res_translations",backref='resource',lazy=True)
+	Res_translation = db.relationship("Res_translation",backref='resource',lazy=True)
 	Res_unit = db.relationship("Res_unit",backref='resource',lazy=True)
 	Inv_line = db.relationship("Inv_line",backref='resource',lazy=True)
 	Inv_line_det = db.relationship("Inv_line_det",backref='resource',lazy=True)	

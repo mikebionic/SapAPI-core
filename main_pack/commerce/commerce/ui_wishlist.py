@@ -13,7 +13,7 @@ from flask_login import current_user,login_required
 # / auth and validation /
 
 # Resource and view
-from main_pack.models.commerce.models import Resource,Wish
+from main_pack.models import Resource,Wish
 from main_pack.models import Rp_acc
 # / Resource and view /
 

@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 from main_pack import db
 from main_pack.api.users import api
 
-from main_pack.models.base.models import Division,Company
+from main_pack.models import Division,Company
 from main_pack.models import User
 from main_pack.api.users.utils import addUsersDict
 

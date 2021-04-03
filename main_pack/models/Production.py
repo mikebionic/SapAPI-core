@@ -16,7 +16,7 @@ class Production(AddInf, BaseModel, db.Model):
 	ProdCostPrice = db.Column("ProdCostPrice",db.Float)
 	Production_line = db.relationship("Production_line",backref='production',lazy=True)
 	Image = db.relationship("Image",backref='production',lazy=True)
-	Translations = db.relationship("Translations",backref='production',lazy=True)
+	Translation = db.relationship("Translation",backref='production',lazy=True)
 
 	def to_json_api(self):
 		data = {

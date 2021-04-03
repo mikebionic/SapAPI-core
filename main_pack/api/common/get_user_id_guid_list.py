@@ -1,4 +1,4 @@
-from main_pack.models.base.models import Company
+from main_pack.models import Company
 
 def get_user_id_guid_list():
 	companies = Company.query\

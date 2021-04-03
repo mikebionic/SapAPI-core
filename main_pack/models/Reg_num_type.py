@@ -12,7 +12,7 @@ class Reg_num_type(BaseModel, db.Model):
 	RegNumTypeName_enUS = db.Column("RegNumTypeName_enUS",db.String(50),nullable=False)
 	RegNumTypeDesc_enUS = db.Column("RegNumTypeDesc_enUS",db.String(500))
 	Reg_num = db.relationship("Reg_num",backref='reg_num_type',lazy=True)
-	Pred_regnum = db.relationship("Pred_regnum",backref='reg_num_type',lazy=True)
+	Pred_reg_num = db.relationship("Pred_reg_num",backref='reg_num_type',lazy=True)
 
 	def to_json_api(self):
 		data = {

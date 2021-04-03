@@ -10,7 +10,7 @@ from main_pack.api.auth.utils import sha_required
 from main_pack.base.apiMethods import checkApiResponseStatus
 from main_pack.api.base.validators import request_is_json
 
-from main_pack.models.base.models import Company, Division
+from main_pack.models import Company, Division
 from .utils import addDivisionDict
 
 

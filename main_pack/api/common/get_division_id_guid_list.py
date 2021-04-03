@@ -1,4 +1,4 @@
-from main_pack.models.base.models import Division
+from main_pack.models import Division
 
 def get_division_id_guid_list():
 	divisions = Division.query\

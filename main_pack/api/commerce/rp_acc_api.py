@@ -10,9 +10,9 @@ from main_pack import db
 from . import api
 from .utils import addRpAccTrTotDict
 
-from main_pack.models.base.models import Company, Division
+from main_pack.models import Company, Division
 from main_pack.models import Rp_acc, User
-from main_pack.models.commerce.models import Rp_acc_trans_total
+from main_pack.models import Rp_acc_trans_total
 
 from main_pack.base.apiMethods import checkApiResponseStatus, fileToURL
 from main_pack.api.auth.utils import sha_required, token_required

@@ -2,7 +2,7 @@
 from datetime import datetime
 
 from main_pack import db
-from main_pack.models.commerce.models import (
+from main_pack.models import (
 	Invoice,
 	Inv_line,
 	Resource

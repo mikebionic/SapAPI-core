@@ -1,14 +1,14 @@
 # used foreign keys
-from main_pack.models.commerce.models import Unit,Brand,Usage_status,Res_category,Res_type,Res_maker
-from main_pack.models.base.models import Company,Division
+from main_pack.models import Unit,Brand,Usage_status,Res_category,Res_type,Res_maker
+from main_pack.models import Company,Division
 from main_pack.models import Rp_acc
 ####
 # used relationship
-from main_pack.models.commerce.models import (
+from main_pack.models import (
 	Barcode,
 	Res_color,
 	Res_size,
-	Res_translations,
+	Res_translation,
 	Unit,
 	Res_unit,
 	Inv_line,
@@ -22,10 +22,10 @@ from main_pack.models.commerce.models import (
 	Sale_agr_res_price,
 	Res_discount)
 
-from main_pack.models.base.models import Image
+from main_pack.models import Image
 #####
-from main_pack.models.base.models import Language
-from main_pack.models.commerce.models import Color,Size,Brand
+from main_pack.models import Language
+from main_pack.models import Color,Size,Brand
 
 def resRelatedData():
 	resRelatedData = {}

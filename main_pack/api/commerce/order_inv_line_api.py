@@ -7,7 +7,7 @@ from main_pack import db
 from . import api
 from .utils import addOrderInvLineDict
 
-from main_pack.models.commerce.models import Order_inv_line
+from main_pack.models import Order_inv_line
 
 from main_pack.api.auth.utils import sha_required
 from main_pack.api.base.validators import request_is_json

@@ -2,7 +2,8 @@ from datetime import datetime
 
 from main_pack import db
 from main_pack.models import AddInf, BaseModel
-from main_pack.base.apiMethods import fileToURL, apiDataFormat
+from main_pack.base.apiMethods import fileToURL
+from main_pack.base.dataMethods import apiDataFormat
 
 
 class Sl_image(AddInf, BaseModel, db.Model):
@@ -27,7 +28,7 @@ class Sl_image(AddInf, BaseModel, db.Model):
 	SlImgSubImageFilePath5 = db.Column("SlImgSubImageFilePath5",db.String(255),default='')
 	SlImgStartDate = db.Column("SlImgStartDate",db.DateTime,default=datetime.now)
 	SlImgEndDate = db.Column("SlImgEndDate",db.DateTime)
-	Translations = db.relationship("Translations",backref='sl_image',lazy=True)
+	Translation = db.relationship("Translation",backref='sl_image',lazy=True)
 
 	def to_json_api(self):
 		data = {

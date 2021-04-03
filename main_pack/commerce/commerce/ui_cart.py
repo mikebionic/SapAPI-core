@@ -40,8 +40,8 @@ from main_pack.models import User, Rp_acc
 
 # Invoices
 from main_pack.api.commerce.commerce_utils import UiCartResourceData
-from main_pack.models.base.models import Warehouse, Currency
-from main_pack.models.commerce.models import (
+from main_pack.models import Warehouse, Currency
+from main_pack.models import (
 	Resource,
 	Order_inv,
 	Order_inv_line,

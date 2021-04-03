@@ -10,7 +10,7 @@ from main_pack.api.auth.utils import token_required
 from main_pack.api.users.utils import addDeviceDict
 
 from main_pack.models import Device
-from main_pack.models.base.models import Db_inf
+from main_pack.models import Db_inf
 
 
 @api.route("/devices/fetch/",methods=["GET"])

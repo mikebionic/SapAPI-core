@@ -10,7 +10,7 @@ from main_pack.commerce.auth.utils import ui_admin_required
 from main_pack.commerce.admin import bp
 
 from main_pack.commerce.admin.utils import addImageDict
-from main_pack.models.base.models import Image
+from main_pack.models import Image
 from main_pack.base.imageMethods import allowed_image
 import os, secrets
 import uuid

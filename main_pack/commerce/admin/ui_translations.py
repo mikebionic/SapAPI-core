@@ -11,8 +11,8 @@ from datetime import datetime
 from main_pack.commerce.admin import bp
 
 from main_pack.commerce.admin.utils import addResTransDict,addLanguageDict
-from main_pack.models.commerce.models import Res_translations
-from main_pack.models.base.models import Language
+from main_pack.models import Res_translation
+from main_pack.models import Language
 
 
 @bp.route('/ui/res_translations/', methods=['POST','DELETE'])
@@ -28,7 +28,7 @@ def ui_res_translations():
 		resTrans = addResTransDict(req)
 		resTransId = req.get('resTransId')
 		if (resTransId == '' or resTransId == None):
-			newTranslation = Res_translations(**resTrans)
+			newTranslation = Res_translation(**resTrans)
 			db.session.add(newTranslation)
 			db.session.commit()
 			response = jsonify({
@@ -39,7 +39,7 @@ def ui_res_translations():
 				})
 		else:
 			try:
-				updateTranslation = Res_translations.query.get(int(resTransId))
+				updateTranslation = Res_translation.query.get(int(resTransId))
 				updateTranslation.update(**resTrans)
 				updateTranslation.modifiedInfo(UId=current_user.UId)
 				db.session.commit()
@@ -58,7 +58,7 @@ def ui_res_translations():
 	if request.method == 'DELETE':
 		req = request.get_json()
 		resTransId = req.get('resTransId')
-		thisTranslation = Res_translations.query.get(resTransId)
+		thisTranslation = Res_translation.query.get(resTransId)
 		thisTranslation.GCRecord == 1
 		response = jsonify({
 			"resTransId": thisTranslation.ResTransId,

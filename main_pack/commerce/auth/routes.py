@@ -17,7 +17,7 @@ from main_pack.commerce.auth.forms import (
 
 # db Models
 from main_pack.models import User, Rp_acc
-from main_pack.models.base.models import (
+from main_pack.models import (
 	Company,
 	Division,
 	Reg_num,

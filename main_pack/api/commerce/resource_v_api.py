@@ -9,8 +9,8 @@ from main_pack.config import Config
 from .commerce_utils import apiResourceInfo
 from .pagination_utils import collect_resource_paginate_info
 
-from main_pack.models.base.models import Division
-from main_pack.models.commerce.models import (
+from main_pack.models import Division
+from main_pack.models import (
 	Resource,
 	Barcode,
 	Res_price,

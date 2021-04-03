@@ -2,7 +2,7 @@
 from datetime import datetime
 
 from main_pack import db
-from main_pack.models.commerce.models import (
+from main_pack.models import (
 	Order_inv,
 	Order_inv_line,
 	Res_total,

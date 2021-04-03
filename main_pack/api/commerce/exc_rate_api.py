@@ -12,8 +12,8 @@ from main_pack.base.apiMethods import checkApiResponseStatus
 from main_pack.api.base.validators import request_is_json
 from main_pack.api.auth.utils import sha_required
 
-from main_pack.models.commerce.models import Exc_rate
-from main_pack.models.base.models import Currency
+from main_pack.models import Exc_rate
+from main_pack.models import Currency
 
 
 @api.route("/tbl-dk-exc-rates/",methods=['GET','POST'])

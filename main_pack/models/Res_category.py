@@ -15,7 +15,7 @@ class Res_category(BaseModel, db.Model):
 	ResCatIconData = db.Column("ResCatIconData",db.String(100000))
 	Resource = db.relationship("Resource",backref='res_category',lazy=True)
 	Image = db.relationship("Image",backref='res_category',lazy=True)
-	Translations = db.relationship("Translations",backref='res_category',lazy=True)
+	Translation = db.relationship("Translation",backref='res_category',lazy=True)
 	Res_category = db.relationship("Res_category",remote_side=ResCatId,backref='subcategory',lazy=True)
 
 	def to_json_api(self):

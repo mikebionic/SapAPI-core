@@ -2,7 +2,7 @@ from main_pack import db
 from main_pack.models import AddInf, BaseModel
 
 
-class Res_translations(AddInf, BaseModel, db.Model):
+class Res_translation(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_res_translations"
 	ResTransId = db.Column("ResTransId",db.Integer,nullable=False,primary_key=True)
 	ResId = db.Column("ResId",db.Integer,db.ForeignKey("tbl_dk_resource.ResId"))

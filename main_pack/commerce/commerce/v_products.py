@@ -8,7 +8,7 @@ from main_pack import db,babel,gettext,lazy_gettext
 from main_pack.config import Config
 
 # Resource and view
-from main_pack.models.commerce.models import (
+from main_pack.models import (
 	Resource,
 	Res_total,
 	Barcode,
@@ -18,7 +18,7 @@ from main_pack.models.commerce.models import (
 	Res_price
 )
 
-from main_pack.models.base.models import Division
+from main_pack.models import Division
 
 from main_pack.commerce.commerce.utils import UiCategoriesList, uiSortingData, UiBrandsList
 from main_pack.api.commerce.commerce_utils import UiCartResourceData

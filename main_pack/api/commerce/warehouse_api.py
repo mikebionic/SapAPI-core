@@ -9,7 +9,7 @@ from main_pack import db
 from . import api
 from .utils import addWarehouseDict
 
-from main_pack.models.base.models import Warehouse, Division
+from main_pack.models import Warehouse, Division
 
 from main_pack.api.auth.utils import sha_required, token_required
 from main_pack.base.apiMethods import checkApiResponseStatus
