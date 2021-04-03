@@ -8,16 +8,8 @@
 {% block content %}
 <div class="container bootstrap snippet" style="margin: 2% 0;">
 	<div class="row">
-		<div class="col-sm-3">
-			<div class="text-center">
-				<img loading="lazy" src="{{ url_for('static', filename='commerce/ls/img/icons/no_photo.svg') }}" class="avatar img-thumbnail" alt="avatar">
-				<div class="username has-text-centered">
-					<span>{{rpAcc.RpAccName}}</span><br>
-					<small>{{_('Registered date')}}: {{rpAcc.CreatedDate.strftime('%d-%m-%Y') if rpAcc.CreatedDate else ''}}</small>
-				</div>
-			</div>
-		</div><!--/col-3-->
-		<div class="col-sm-9">
+
+		<div class="col-sm-12">
 			<ul class="nav nav-tabs"> 
 				<li class="active"><a data-toggle="tab" href="#profile">{{_('Profile')}}</a></li>
 				<li><a data-toggle="tab" href="#orders">{{_('Orders')}}</a></li>
@@ -28,46 +20,54 @@
 
 						
 			<div class="tab-content">
-				<div class="tab-pane wishlist_p active" id="profile">
-					<form class="form" action="##" method="post" id="registrationForm" style="text-align: center;">
-						<div class="col-xs-6">
-							<div class="info-block">
-								<span class="label-text">{{_('Email')}}</span>
-								<span class="label-value">{{rpAcc.RpAccEMail}}</span>
+				<div class="tab-pane wishlist_p active " styles="display:flex;justify-content:center" id="profile">
+
+					<div>
+						<div class="text-center">
+							<img loading="lazy" src="{{ url_for('static', filename='commerce/ls/img/icons/no_photo.svg') }}" class="avatar img-thumbnail" alt="avatar">
+							<div class="username has-text-centered">
+								<span>{{rpAcc.RpAccName}}</span><br>
+								<small>{{_('Registered date')}}: {{rpAcc.CreatedDate.strftime('%d-%m-%Y') if rpAcc.CreatedDate else ''}}</small>
 							</div>
 						</div>
-						<div class="col-xs-6">
-							<div class="info-block">
-								<span class="label-text">{{_('Home phone')}}</span>
-								<span class="label-value">{{rpAcc.RpAccHomePhoneNumber if rpAcc.RpAccHomePhoneNumber else ''}}</span>
-							</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="info-block">
+							<span class="label-text">{{_('Email')}}</span>
+							<span class="label-value">{{rpAcc.RpAccEMail}}</span>
 						</div>
-						<div class="col-xs-6">
-							<div class="info-block">
-								<span class="label-text">{{_('Address')}}</span>
-								<span class="label-value">{{rpAcc.RpAccAddress if rpAcc.RpAccAddress else ''}}</span>
-							</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="info-block">
+							<span class="label-text">{{_('Home phone')}}</span>
+							<span class="label-value">{{rpAcc.RpAccHomePhoneNumber if rpAcc.RpAccHomePhoneNumber else ''}}</span>
 						</div>
-						<div class="col-xs-6">
-							<div class="info-block">
-								<span class="label-text">{{_('Zip code')}}</span>
-								<span class="label-value">{{rpAcc.RpAccZipCode if rpAcc.RpAccZipCode else ''}}</span>
-							</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="info-block">
+							<span class="label-text">{{_('Address')}}</span>
+							<span class="label-value">{{rpAcc.RpAccAddress if rpAcc.RpAccAddress else ''}}</span>
 						</div>
-						<div class="col-xs-6">
-							<div class="info-block">
-								<span class="label-text">{{_('Full name')}}</span>
-								<span class="label-value">{{rpAcc.RpAccName}}</span>
-							</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="info-block">
+							<span class="label-text">{{_('Zip code')}}</span>
+							<span class="label-value">{{rpAcc.RpAccZipCode if rpAcc.RpAccZipCode else ''}}</span>
 						</div>
-						<div class="col-xs-6">
-							<div class="info-block">
-								<span class="label-text">{{_('Mobile phone')}}</span>
-								<span class="label-value">{{rpAcc.RpAccMobilePhoneNumber if rpAcc.RpAccMobilePhoneNumber else ''}}</span>
-							</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="info-block">
+							<span class="label-text">{{_('Full name')}}</span>
+							<span class="label-value">{{rpAcc.RpAccName}}</span>
 						</div>
-				</form>
-				</div><!--/tab-pane-->
+					</div>
+					<div class="col-xs-6">
+						<div class="info-block">
+							<span class="label-text">{{_('Mobile phone')}}</span>
+							<span class="label-value">{{rpAcc.RpAccMobilePhoneNumber if rpAcc.RpAccMobilePhoneNumber else ''}}</span>
+						</div>
+					</div>
+				</div>
 					<div class="tab-pane wishlist_p" id="wishlist">
 					
 					<form class="woocommerce" method="post" action="#">

@@ -530,7 +530,8 @@ table th {
 }
 
 .has-text-centered {
-    text-align: center !important
+    text-align: center !important;
+    margin:0 0 15px 0;
 }
 
 .has-text-justified {
