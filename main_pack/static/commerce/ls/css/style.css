@@ -2782,7 +2782,7 @@ input[type="password"],
 input[type="search"],
 textarea,
 .input-text {
-  /* padding: 9px; */
+  padding: 9px;
   background-color: #fff;
   color: #444;
   outline: none;
@@ -2792,7 +2792,7 @@ textarea,
   box-sizing: border-box;
   font-weight: normal;
   font-size: 1em;
-  border: 1px solid #ebebeb; }
+  border: 1px solid #bfbfbf; }
   input[type="text"]:focus,
   input[type="email"]:focus,
   input[type="url"]:focus,
@@ -2879,8 +2879,7 @@ select {
 .stretch-full-width, .site-header.header-v10 .stretched-row, .deals-carousel-v3, .section-top-categories.section-categories-carousel.section-categories-carousel-v1 {
   width: 100vw;
   position: relative;
-  margin-left: -50vw;
-  left: 50%; }
+}
 
 #content #primary {
   position: relative;
@@ -3626,8 +3625,7 @@ body.can-uppercase .section-categories-carousel.section-top-categories .readmore
   .page .hentry.type-page .entry-header .page-featured-image {
     width: 100vw;
     position: relative;
-    margin-left: -50vw;
-    left: 50%; }
+  }
   .page .hentry.type-page .entry-header .page-featured-image + .page-header-caption {
     position: absolute;
     top: 50%;
@@ -4099,8 +4097,6 @@ body.can-uppercase .section-categories-carousel.section-top-categories .readmore
   .site-footer .before-footer-wrap {
     width: 100vw;
     position: relative;
-    margin-left: -50vw;
-    left: 50%;
     padding-top: 3.001em;
     padding-bottom: 2.331em;
     border-bottom: 1px solid #bebebe; }
@@ -4210,8 +4206,6 @@ body.can-uppercase .section-categories-carousel.section-top-categories .readmore
 .site-info {
   width: 100vw;
   position: relative;
-  margin-left: -50vw;
-  left: 50%;
   background-color: #222;
   color: #bababa;
   font-size: 0.933em;
@@ -6641,8 +6635,6 @@ button.menu-toggle {
     .brands-carousel {
       width: 100vw;
       position: relative;
-      margin-left: -50vw;
-      left: 50%;
       border-left: 0;
       border-right: 0;
       border-radius: 0; } }
@@ -6654,8 +6646,6 @@ button.menu-toggle {
 .top-bar {
   width: 100vw;
   position: relative;
-  /* margin-left: -50vw;
-  left: 50%; */
   background-color: #f9f9f9;
   font-size: 0.875em;
   line-height: 2.714em;
@@ -9390,8 +9380,6 @@ a#variations_clear:before {
     .shop-control-bar {
       width: 100vw;
       position: relative;
-      margin-left: -50vw;
-      left: 50%;
       background-color: #fe830a; } }
   @media (max-width: 767px) {
     .shop-control-bar {
@@ -10080,7 +10068,7 @@ a#variations_clear:before {
     border: none;
     justify-content: inherit;
     width: 20px;
-    margin-left: 20px; }
+    margin-left: 5px; }
     .header-v2 .departments-menu button.dropdown-toggle::after,
     .header-v3 .departments-menu button.dropdown-toggle::after,
     .header-v4 .departments-menu button.dropdown-toggle::after,
@@ -12087,8 +12075,6 @@ article.post {
 .site-content .landing-v2-slider {
   width: 100vw;
   position: relative;
-  margin-left: -50vw;
-  left: 50%;
   overflow: hidden; }
 
 .site-content .home-v1-slider .slider-1 .button, .site-content .home-v1-slider .slider-1 article .more-link, article .site-content .home-v1-slider .slider-1 .more-link,
@@ -15253,9 +15239,7 @@ form.woocommerce-checkout.checkout .col2-set .woocommerce-shipping-fields .wooco
 
 .section-landscape-full-product-cards-carousel {
   background-color: #f6f6f6;
-  left: 50%;
   margin-bottom: 4.25em;
-  margin-left: -50vw;
   padding-top: 3.875em;
   position: relative;
   width: 100vw; }
@@ -18136,8 +18120,7 @@ h3.faq-title {
   padding: 5.625em 0;
   position: relative;
   width: 100vw !important;
-  margin-left: -50vw !important;
-  left: 50%; }
+}
   .team-member-wrapper .container {
     padding-left: 0 !important;
     padding-right: 0 !important; }
@@ -18291,8 +18274,6 @@ h3.faq-title {
 .stretch-full-width-map {
   position: relative;
   width: 100vw !important;
-  margin-left: -50vw !important;
-  left: 50%;
   margin-bottom: 2.750em; }
   .stretch-full-width-map .kc_column_inner {
     padding: 0; }
@@ -18504,8 +18485,6 @@ h3.faq-title {
 .section-products-with-image .section-header {
   width: 100vw;
   position: relative;
-  margin-left: -50vw;
-  left: 50%;
   background: #eff5f5;
   margin-bottom: 7em; }
   .section-products-with-image .section-header::after {
@@ -20086,8 +20065,6 @@ p.available-on-backorder {
 .full-width.single-product .techmarket-tabs .wc-tabs,
 .full-width.single-product .techmarket-tabs .tm-tabs {
   width: 100vw;
-  margin-left: -50vw;
-  left: 50%;
   z-index: 99; }
   @media (min-width: 2000px) {
     .full-width.single-product .woocommerce-tabs .wc-tabs,
@@ -27275,7 +27252,7 @@ button:hover{
 .product-price-discount {
 	font-size: 22px;
     font-weight: 400;
-    padding: 10px 0;
+    /* padding: 10px 0; */
     clear: both;
     color:#283d86;
 }
@@ -29756,7 +29733,7 @@ h3 i{
   background: #12263a;
 }
 .product-price{
-  margin: 1rem 0;
+  margin: 1rem 0 8px 0;
   font-size: 1rem;
   font-weight: 700;
 }
@@ -29878,4 +29855,7 @@ h3 i{
 }
 .btn_save:hover, .btn_reset:hover{
   color:#000
+}
+.dropdown-menu.show{
+  display:block;
 }
