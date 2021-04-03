@@ -24,134 +24,85 @@
 
 					<div>
 						<div class="text-center">
-							<img loading="lazy" src="{{ url_for('static', filename='commerce/ls/img/icons/no_photo.svg') }}" class="avatar img-thumbnail" alt="avatar">
+							<img loading="lazy" src="{{ url_for('static', filename='commerce/ls/img/account-image-placeholder.png') }}" class="avatar img-thumbnail" alt="avatar">
 							<div class="username has-text-centered">
 								<span>{{rpAcc.RpAccName}}</span><br>
 								<small>{{_('Registered date')}}: {{rpAcc.CreatedDate.strftime('%d-%m-%Y') if rpAcc.CreatedDate else ''}}</small>
 							</div>
+							<div class="has-text-centered"> <a href="/resetPassword" class="button">Paroly täzeden düzmek</a> </div>
+							<div class="col-xs-6">
+								<div class="info-block">
+									<span class="label-text">{{_('Email')}}</span>
+									<span class="label-value">{{rpAcc.RpAccEMail}}</span>
+								</div>
+							</div> 
+							<div class="col-xs-6">
+								<div class="info-block">
+									<span class="label-text">{{_('Home phone')}}</span>
+									<span class="label-value">{{rpAcc.RpAccHomePhoneNumber if rpAcc.RpAccHomePhoneNumber else ''}}</span>
+								</div>
+							</div>
+							<div class="col-xs-6">
+								<div class="info-block">
+									<span class="label-text">{{_('Address')}}</span>
+									<span class="label-value">{{rpAcc.RpAccAddress if rpAcc.RpAccAddress else ''}}</span>
+								</div>
+							</div>
+							<div class="col-xs-6">
+								<div class="info-block">
+									<span class="label-text">{{_('Zip code')}}</span>
+									<span class="label-value">{{rpAcc.RpAccZipCode if rpAcc.RpAccZipCode else ''}}</span>
+								</div>
+							</div>
+							<div class="col-xs-6">
+								<div class="info-block">
+									<span class="label-text">{{_('Full name')}}</span>
+									<span class="label-value">{{rpAcc.RpAccName}}</span>
+								</div>
+							</div>
+							<div class="col-xs-6">
+								<div class="info-block">
+									<span class="label-text">{{_('Mobile phone')}}</span>
+									<span class="label-value">{{rpAcc.RpAccMobilePhoneNumber if rpAcc.RpAccMobilePhoneNumber else ''}}</span>
+								</div>
+							</div>
 						</div>
 					</div>
-					<div class="col-xs-6">
-						<div class="info-block">
-							<span class="label-text">{{_('Email')}}</span>
-							<span class="label-value">{{rpAcc.RpAccEMail}}</span>
-						</div>
-					</div>
-					<div class="col-xs-6">
-						<div class="info-block">
-							<span class="label-text">{{_('Home phone')}}</span>
-							<span class="label-value">{{rpAcc.RpAccHomePhoneNumber if rpAcc.RpAccHomePhoneNumber else ''}}</span>
-						</div>
-					</div>
-					<div class="col-xs-6">
-						<div class="info-block">
-							<span class="label-text">{{_('Address')}}</span>
-							<span class="label-value">{{rpAcc.RpAccAddress if rpAcc.RpAccAddress else ''}}</span>
-						</div>
-					</div>
-					<div class="col-xs-6">
-						<div class="info-block">
-							<span class="label-text">{{_('Zip code')}}</span>
-							<span class="label-value">{{rpAcc.RpAccZipCode if rpAcc.RpAccZipCode else ''}}</span>
-						</div>
-					</div>
-					<div class="col-xs-6">
-						<div class="info-block">
-							<span class="label-text">{{_('Full name')}}</span>
-							<span class="label-value">{{rpAcc.RpAccName}}</span>
-						</div>
-					</div>
-					<div class="col-xs-6">
-						<div class="info-block">
-							<span class="label-text">{{_('Mobile phone')}}</span>
-							<span class="label-value">{{rpAcc.RpAccMobilePhoneNumber if rpAcc.RpAccMobilePhoneNumber else ''}}</span>
-						</div>
-					</div>
+					
 				</div>
 					<div class="tab-pane wishlist_p" id="wishlist">
 					
-					<form class="woocommerce" method="post" action="#">
 					<table class="shop_table cart wishlist_table">
 							<tbody>
-									<tr>
-											<td class="product-thumbnail">
-													<a href="single-product-fullwidth.html">
-															<img width="90" height="90" alt="" class="wp-post-image" loading="lazy" src="{{ url_for('static', filename='commerce/ls/img/icons/no_photo.svg') }}">
-													</a>
-											</td>
-											<td class="product-name">
-													<a href="single-product-fullwidth.html">4K Action Cam with  Wi-Fi &amp; GPS</a>
-											</td>
-											<td class="product-price">
-													<ins>
-															<span class="woocommerce-Price-amount amount">
-																	<span class="woocommerce-Price-currencySymbol">£</span>199.95</span>
-													</ins>
-													
-											</td>
-											<td class="product-add-to-cart">
-													<a class="profile_button add_to_cart_button alt" href="cart.html"><i class="fa fa-fw fa-shopping-cart"></i></a>
-											</td>
-													<td class="product-remove">
-														<a title="Remove this product" class="profile_button" href="#"><i class="fa fa-fw fa-trash"></i></a>
-											</td>	
-									</tr>
-									<tr>
-											<td class="product-thumbnail">
-													<a href="single-product-fullwidth.html">
-															<img width="90" height="90" alt="" class="wp-post-image" loading="lazy" src="{{ url_for('static', filename='commerce/ls/img/icons/no_photo.svg') }}">
-													</a>
-											</td>
-											<td class="product-name">
-													<a href="single-product-fullwidth.html">55EG9600 - 55-Inch 2160p Smart Curved Ultra HD 3D</a>
-											</td>
-											<td class="product-price">
-													<ins>
-															<span class="woocommerce-Price-amount amount">
-																	<span class="woocommerce-Price-currencySymbol">£</span>199.95</span>
-													</ins>
-													
-											</td>
-											<td class="product-add-to-cart">
-													<a class="profile_button add_to_cart_button alt" href="cart.html"><i class="fa fa-fw fa-shopping-cart"></i></a>
-											</td>
-													<td class="product-remove">
-														<a title="Remove this product" class="profile_button" href="#"><i class="fa fa-fw fa-trash"></i></a>
-											</td>	
-									</tr>
-									<tr>
-											<td class="product-thumbnail">
-													<a href="single-product-fullwidth.html">
-															<img width="90" height="90" alt="" class="wp-post-image" loading="lazy" src="{{ url_for('static', filename='commerce/ls/img/icons/no_photo.svg') }}">
-													</a>
-											</td>
-											<td class="product-name">
-													<a href="single-product-fullwidth.html">360° Viewing Immersive VR Headset</a>
-											</td>
-											<td class="product-price">
-													<ins>
-															<span class="woocommerce-Price-amount amount">
-																	<span class="woocommerce-Price-currencySymbol">£</span>199.95</span>
-													</ins>
-													
-											</td>
-											<td class="product-add-to-cart">
-													<a class="profile_button add_to_cart_button alt" href="cart.html"><i class="fa fa-fw fa-shopping-cart"></i></a>
-											</td>
-													<td class="product-remove">
-														<a title="Remove this product" class="profile_button" href="#"><i class="fa fa-fw fa-trash"></i></a>
-											</td>	
-									</tr>
-							</tbody>
+								<tr>
+									<td class="product-thumbnail">
+										<a href="single-product-fullwidth.html">
+											<img width="90" height="90" alt="" class="wp-post-image" loading="lazy" src="{{ url_for('static', filename='commerce/ls/img/icons/no_photo.svg') }}">
+										</a>
+									</td>
+									<td class="product-name">
+										<a href="single-product-fullwidth.html">4K Action Cam with  Wi-Fi &amp; GPS</a>
+									</td>
+									<td class="product-price">
+										<ins>
+											<span class="woocommerce-Price-amount amount">
+											<span class="woocommerce-Price-currencySymbol">£</span>199.95</span>
+										</ins>
+									</td>
+									<td class="product-add-to-cart">
+										<a class="profile_button add_to_cart_button alt" href="cart.html"><i class="fa fa-fw fa-shopping-cart"></i></a>
+										<a title="Remove this product" class="profile_button" href="#"><i class="fa fa-fw fa-trash"></i></a>
+									</td>
+								</tr>
+								</tbody>
 					</table>
 					<!-- .wishlist_table -->
-			</form>
 					
 					</div><!--/tab-pane-->
 					<div class="tab-pane wishlist_p" id="orders">
 						
 						<div class="columns is-account-grid is-multiline">
-							<div class="column is-6">
+							<div class="column is-4">
 									<div class="flat-card order-card has-popover-top">
 											<div class="order-info">
 												<span><a href="order_lines.html">ORDER-38246</a></span>
@@ -186,181 +137,6 @@
 											</div>
 									</div>
 							</div>
-							<div class="column is-6">
-									<div class="flat-card order-card has-popover-top">
-											<div class="order-info">
-												<span><a href="order_lines.html">ORDER-38246</a></span>
-											</div>
-											<div class="order_status" style="justify-content:end">
-												<div class="order-block">
-														<div class="order-icon">
-																<i data-feather="info"></i>
-														</div>
-														<div class="status">
-																<div>Status</div>
-																<div><span class="tag success-tag">Preparing</span></div>
-														</div>
-												</div>
-												<div class="order-block">
-													<div class="order-icon">
-															<i data-feather="dollar-sign"></i>
-													</div>
-													<div class="total">
-															<div>Order total</div>
-															<div class="is-price">219,22</div>
-													</div>
-												</div>
-											</div>
-											<div id="46895" class="order-list-card animated preFadeInUp fadeInUp">
-												<div class="progress-block">
-														<progress class="progress success-progress is-small has-simple-popover" value="66" max="100" data-content="66% Complete" data-placement="top">66%</progress>
-															<div class="chart-icon">
-																	<i data-feather="package"></i>
-															</div>
-												</div>
-											</div>
-									</div>
-							</div>
-							<div class="column is-6">
-									<div class="flat-card order-card has-popover-top">
-											<div class="order-info">
-												<span><a href="order_lines.html">ORDER-38246</a></span>
-											</div>
-											<div class="order_status" style="justify-content:end">
-												<div class="order-block">
-														<div class="order-icon">
-																<i data-feather="info"></i>
-														</div>
-														<div class="status">
-																<div>Status</div>
-																<div><span class="tag warning-tag">Pending</span></div>
-														</div>
-												</div>
-												<div class="order-block">
-													<div class="order-icon">
-															<i data-feather="dollar-sign"></i>
-													</div>
-													<div class="total">
-															<div>Order total</div>
-															<div class="is-price">219,22</div>
-													</div>
-												</div>
-											</div>
-											<div id="46895" class="order-list-card animated preFadeInUp fadeInUp">
-												<div class="progress-block">
-														<progress class="progress warning-progress is-small has-simple-popover" value="66" max="100" data-content="66% Complete" data-placement="top">66%</progress>
-															<div class="chart-icon">
-																	<i data-feather="package"></i>
-															</div>
-												</div>
-											</div>
-									</div>
-							</div>
-							<div class="column is-6">
-									<div class="flat-card order-card has-popover-top">
-											<div class="order-info">
-													<span><a href="order_lines.html">ORDER-38246</a></span>
-											</div>
-											<div class="order_status" style="justify-content:end">
-												<div class="order-block">
-														<div class="order-icon">
-																<i data-feather="info"></i>
-														</div>
-														<div class="status">
-																<div>Status</div>
-																<div><span class="tag danger-tag">Has issue</span></div>
-														</div>
-												</div>
-												<div class="order-block">
-													<div class="order-icon">
-															<i data-feather="dollar-sign"></i>
-													</div>
-													<div class="total">
-															<div>Order total</div>
-															<div class="is-price">219,22</div>
-													</div>
-												</div>
-											</div>
-											<div id="46895" class="order-list-card animated preFadeInUp fadeInUp">
-												<div class="progress-block">
-														<progress class="progress danger-progress is-small has-simple-popover" value="66" max="100" data-content="66% Complete" data-placement="top">66%</progress>
-															<div class="chart-icon">
-																	<i data-feather="package"></i>
-															</div>
-												</div>
-											</div>
-									</div>
-							</div>
-							<div class="column is-6">
-									<div class="flat-card order-card has-popover-top">
-											<div class="order-info">
-													<span><a href="order_lines.html">ORDER-38246</a></span>
-											</div>
-											<div class="order_status" style="justify-content:end">
-												<div class="order-block">
-														<div class="order-icon">
-																<i data-feather="info"></i>
-														</div>
-														<div class="status">
-																<div>Status</div>
-																<div><span class="tag primary-tag">Complete</span></div>
-														</div>
-												</div>
-												<div class="order-block">
-													<div class="order-icon">
-															<i data-feather="dollar-sign"></i>
-													</div>
-													<div class="total">
-															<div>Order total</div>
-															<div class="is-price">219,22</div>
-													</div>
-												</div>
-											</div>
-											<div id="46895" class="order-list-card animated preFadeInUp fadeInUp">
-												<div class="progress-block">
-														<progress class="progress primary-progress is-small has-simple-popover" value="66" max="100" data-content="66% Complete" data-placement="top">66%</progress>
-															<div class="chart-icon">
-																	<i data-feather="package"></i>
-															</div>
-												</div>
-											</div>
-									</div>
-							</div>
-							<div class="column is-6">
-									<div class="flat-card order-card has-popover-top">
-											<div class="order-info">
-													<span><a href="order_lines.html">ORDER-46878</a></span>
-											</div>
-											<div class="order_status" style="justify-content:end">
-												<div class="order-block">
-														<div class="order-icon">
-																<i data-feather="info"></i>
-														</div>
-														<div class="status">
-																<div>Status</div>
-																<div><span class="tag success-tag">Preparing</span></div>
-														</div>
-												</div>
-												<div class="order-block">
-													<div class="order-icon">
-															<i data-feather="dollar-sign"></i>
-													</div>
-													<div class="total">
-															<div>Order total</div>
-															<div class="is-price">219,22</div>
-													</div>
-												</div>
-											</div>
-											<div id="46895" class="order-list-card animated preFadeInUp fadeInUp">
-												<div class="progress-block">
-														<progress class="progress success-progress is-small has-simple-popover" value="66" max="100" data-content="66% Complete" data-placement="top">66%</progress>
-															<div class="chart-icon">
-																	<i data-feather="package"></i>
-															</div>
-												</div>
-											</div>
-									</div>
-							</div>
 						</div> 
 						
 					</div>
@@ -370,21 +146,13 @@
 							<div class="column is-12">
         
 								<!-- Order 46895 panel -->
-								<div id="46895" class="flat-card is-auto order-list-card animated preFadeInUp fadeInUp">
+								<div id="46895" onclick="location.href=''" class="flat-card is-auto order-list-card animated preFadeInUp fadeInUp">
 									<div class="progress-block">
 										<!-- Title -->
 										<h3>ORDER 46895</h3>
 										<!-- Progress bar -->
 										<progress class="progress primary-progress is-small has-simple-popover" value="66" max="100" data-content="66% Complete" data-placement="top" style="margin: 0; max-width: 142px;">66%</progress>
 									</div>
-										<!-- Orders team member -->
-										<div class="order-block">
-												<img src="{{ url_for('static', filename='commerce/ls/img/icons/no_photo.svg') }}" alt="">
-												<div class="handled-by">
-														<div>Handled by</div>
-														<div>Janet Smith</div>
-												</div>
-										</div>
 										<div class="order_status">	
 											<!-- Order status -->
 											<div class="order-block">
@@ -413,7 +181,14 @@
 													</div>
 													<div class="total">
 															<div>Order total</div>
-															<div class="is-price">683,99 <span class="tag success-tag">Paid</span></div>
+															<span class="price">
+																<span class="amount">
+																	<span class="amount priceValue" ownerId="2" value="155">
+																		155
+																	</span>
+																	<span class="woocommerce-Price-currencySymbol">TMT</span>
+																</span>
+															</span>
 													</div>
 											</div>
 										</div>

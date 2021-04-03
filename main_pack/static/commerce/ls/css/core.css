@@ -1005,6 +1005,7 @@
 }
 
 .flat-card.is-auto {
+    padding: 10px;
     height: auto !important;
     width: 100% !important;
     min-height: 0 !important;
@@ -1501,13 +1502,13 @@
     display: block
 }
 
-.profile-info-card .card-body .info-block span.label-text,.menu-card .card-body .info-block span.label-text {
+span.label-text,span.label-text {
     color: #4a4a4a;
-    font-weight: 500;
+    font-weight: 900;
     
 }
 
-.profile-info-card .card-body .info-block span.label-value,.menu-card .card-body .info-block span.label-value {
+ span.label-value,span.label-value {
     color: #828282
 }
 
