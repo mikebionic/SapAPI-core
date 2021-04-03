@@ -3,26 +3,56 @@
 {% block content %}
 <div id="primary" class="content-area">
 	<main id="main" class="site-main">
-		<div style="margin: 0 auto; max-width: 70%">
-			
-			<h4 style="padding: 1rem;">{{_('Register')}} | {{ company.CName }}</h4>
-
-			<form action="" method="post" class="woocommerce-form-login login">
-				{{ form.csrf_token() }}
-				<p class="form-row form-row-wide">
-					<label>{{_('Username')}}</label>
-					{{ form.username(class='input-text') }}
-				</p>
-				<p class="form-row form-row-wide">
-					<label>{{_('Email address')}}</label>
-					{{ form.email(type="email") }}
-				</p>
-				<p class="form-row">
-					<input type="submit" class="woocommerce-Button button" value="{{_('Register')}}" />
-				</p>
-			</form>
-
+		<div class="type-page hentry">
+			<div class="entry-content">
+				<div class="woocommerce">
+					<div class="customer-login-form">
+						<span class="or-text">or</span>
+						<div id="customer_login" class="u-columns col2-set">
+							<div class="u-column1 col-1">
+								<h2>{{_('Register')}} | {{ company.CName }}</h2>
+									<form class="register" method="post">
+										{{ form.csrf_token() }}
+										<p class="before-register-text">
+												Create new account today to reap the benefits of a personalized shopping experience. Praesent placerat, est sed aliquet finibus.
+										</p>
+										<p class="form-row form-row-wide">
+											<label for="reg_email">{{_('Username')}}
+													<span class="required">*</span>
+											</label>
+											{{ form.username(class='woocommerce-Input woocommerce-Input--text input-text') }}
+										</p>
+										<p class="form-row form-row-wide">
+											<label for="reg_password">{{_('Email address')}}
+													<span class="required">*</span>
+											</label>
+											{{ form.email(class="woocommerce-Input woocommerce-Input--text input-text", type="email") }}
+										</p>
+										<p class="form-row">
+											<input type="submit" class="woocommerce-Button button" name="register" value="{{_('Register')}}" />
+										</p>
+									</form>
+								<!-- .woocommerce-form-login -->
+							</div>
+							<div class="u-column2 col-2">
+								<form class="register" method="post">
+									<div class="register-benefits">
+										<h3>Sign up today and you will be able to :</h3>
+										<ul>
+											<li>Speed your way through checkout</li>
+											<li>Track your orders easily</li>
+											<li>Keep a record of all your purchases</li>
+										</ul>
+									</div>
+									<input class="woocommerce-Button button" type="submit" value="{{_('Login')}}" name="register">
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</main>
 </div>
+
 {% endblock %}
