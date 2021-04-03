@@ -33,9 +33,9 @@ Images License: GNU General Public License v2 or later
  */
 /* FONT PATH
  * -------------------------- */
- html{
+ /* html{
    background: #222
- }
+ } */
 @font-face {
   font-family: 'FontAwesome';
   src: url("../fonts/fontawesome-webfont.eot?v=4.7.0");
@@ -22387,6 +22387,7 @@ ul.order_details {
       margin-left: -15px; } }
 
 .customer-login-form #customer_login {
+  margin: 0 auto;
   position: relative;
   width: 100%;
   min-height: 1px;
@@ -29869,4 +29870,17 @@ h3 i{
 }
 .dropdown-menu.show{
   display:block;
+}
+
+form .woocommerce-Button{
+  border-radius: 35px;
+}
+.customer_login .col2-set .col-1, .col2-set .col-2{
+  padding: 0 35px;
+}
+.customer-login-form .woocommerce-Button{
+  border-radius: 35px;
+}
+.avatar{
+  box-shadow:0px 5px 43px rgb(0 0 0 / 18%) !important;
 }
