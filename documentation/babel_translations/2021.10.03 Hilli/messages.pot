@@ -816,3 +816,6 @@ msgstr "Beauty and health"
 
 msgid "Others"
 msgstr "Others"
+
+msgid "About this item"
+msgstr "About this item"
