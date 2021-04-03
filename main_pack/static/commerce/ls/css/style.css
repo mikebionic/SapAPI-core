@@ -27347,6 +27347,9 @@ button:hover{
   display: flex;
   transition: all 0.2s ease-in-out 0s;
 }
+.product-count input{
+  padding:0!important
+}
 .product-count .qtyminus,
 .product-count .qtyplus {
   width: 34px;
@@ -29698,6 +29701,13 @@ h3 i{
 .img-showcase img{
   min-width: 100%;
 }
+@media (max-width:500px){
+
+.img-showcase{
+  width: 300px;
+  height: 330px;
+}
+}
 .img-select{
   display: flex;
 }
@@ -29716,7 +29726,7 @@ h3 i{
   padding: 2rem 1rem;
 }
 .product-title{
-  font-size: 3rem;
+  font-size: 2rem;
   text-transform: capitalize;
   font-weight: 700;
   position: relative;
@@ -29751,6 +29761,7 @@ h3 i{
   text-transform: capitalize;
   color: #12263a;
   padding-bottom: 0.6rem;
+  font-size: 20px;
 }
 .product-detail p{
   font-size: 0.9rem;
