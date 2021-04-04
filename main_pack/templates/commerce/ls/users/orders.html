@@ -1,58 +1,77 @@
 {% extends "commerce/ls/commerce/layout.html" %}
 
 {% block styles %}
+	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/ls/css/bulma.css')}}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/ls/css/core.css')}}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/ls/css/bootstrap.css') }}">
 	<meta name="robots" content="noindex" />
 {% endblock %}
 
 {% block content %}
-<div class="col-lg-12 col-md-5 col-sm-8 col-xs-9 bhoechie-tab-container">
-	<div class="col-lg-2 col-md-3 col-sm-3 col-xs-3 bhoechie-tab-menu">
-		<div class="list-group">
-			<a href="{{ url_for('commerce_users.profile') }}" class="list-group-item text-center">
-			<h4 class="fonticon"><i class="fa fa-user"></i></h4>{{_('Profile')}}
-			</a>
-			<a href="{{ url_for('commerce.cart') }}" class="list-group-item text-center">
-			<h4 class="fonticon"><i class="fa fa-credit-card"></i></h4>{{_('Cart')}}
-			</a>
-			<a href="{{ url_for('commerce_users.wishlist') }}" class="list-group-item text-center">
-			<h4 class="fonticon"><i class="fa fa-heart"></i></h4>{{_('Wishlist')}}
-			</a>
-			<a href="{{ url_for('commerce_users.orders') }}" class="list-group-item active text-center">
-			<h4 class="fonticon"><i class="fa fa-truck"></i></h4>{{_('Orders')}}
-			</a>
-		</div>
-	</div>
-	<div class="col-lg-10 col-md-9 col-sm-9 col-xs-9 bhoechie-tab">
-		<div class="bhoechie-tab-content active">
-			<main id="main" class="site-main" style="display: flex;">
-				{% for orderInv in orderInvoices %}
-					<div class="col-4" onclick="location.href='{{ url_for('commerce_users.order_lines',OInvRegNo=orderInv.OInvRegNo) }}';" style="cursor:pointer;">
-						<div class="flat-card order-card has-popover-top">
-							<a class="card-link" href="{{ url_for('commerce_users.order_lines',OInvRegNo=orderInv.OInvRegNo) }}"></a>
-							<div class="order-info">
-								<span><a href="{{ url_for('commerce_users.order_lines',OInvRegNo=orderInv.OInvRegNo) }}" onclick="return true">{{_('Order')}} - {{ orderInv.OInvRegNo }}</a></span>
-								<span class="tag is-{{orderInv.StatusUI.class}}">{{orderInv.InvStatus.InvStatName}}</span>
-							</div>
-							<!-- Progress Circle -->
-							<div class="circle-chart-wrapper">
-								<svg class="circle-chart" viewbox="0 0 33.83098862 33.83098862" width="140" height="140" xmlns="http://www.w3.org/2000/svg">
-									<circle class="circle-chart-background" stroke="#efefef" stroke-width="2" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
-									<circle class="circle-chart-circle" stroke="{{orderInv.StatusUI.color_hash}}" stroke-width="2" stroke-dasharray="{{orderInv.StatusUI.percentage}},100" stroke-linecap="round" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
-								</svg>
-								<div class="chart-icon">
-									<i data-feather="{{orderInv.StatusUI.icon}}"></i>
+<div class="container bootstrap snippet" style="margin: 2% 0;">
+	<div class="row">
+
+		<div class="col-sm-12">
+			<ul class="nav nav-tabs"> 
+				<li><a href="{{ url_for('commerce_users.profile') }}">{{_('Profile')}}</a></li>
+				<li class="active"><a href="{{ url_for('commerce_users.orders') }}">{{_('Orders')}}</a></li>
+				<li><a href="{{ url_for('commerce_users.wishlist') }}">{{_('Wishlist')}}</a></li>
+				<li style="float: right;"><a href="{{ url_for('commerce_users.profile_edit') }}"><i class="fa fa-fw fa-gears" style="font-size: 30px;"></i></a></li>
+			</ul>
+
+			<div class="tab-content">
+				<div class="tab-pane wishlist_p active" id="orders">
+					<div class="columns is-account-grid is-multiline">
+						{% for orderInv in orderInvoices %}
+							<div class="column is-4" onclick="location.href='{{ url_for('commerce_users.order_lines',OInvRegNo=orderInv.OInvRegNo) }}';" style="cursor:pointer;">
+								<div class="flat-card order-card has-popover-top">
+									<div class="order-info">
+										<span><a href="{{ url_for('commerce_users.order_lines',OInvRegNo=orderInv.OInvRegNo) }}">{{_('Order')}}-{{ orderInv.OInvRegNo }}</a></span>
+									</div>
+									<div class="order_status" style="justify-content:end">
+										<div class="order-block">
+											<div class="order-icon">
+												<i data-feather="info"></i>
+											</div>
+											<div class="status">
+												<div>{{_('Status')}}</div>
+												<div><span class="tag {{orderInv.StatusUI.class}}-tag">{{orderInv.InvStatus.InvStatName}}</span></div>
+											</div>
+										</div>
+										<div class="order-block">
+											<div class="order-icon">
+												<i data-feather="dollar-sign"></i>
+											</div>
+											<div class="total">
+												<div>{{_('Order Total')}}</div>
+												<div class="is-price">{{ orderInv.OInvFTotal }} {{ orderInv.CurrencyCode }}</div>
+											</div>
+										</div>
+									</div>
+									<div id="46895" class="order-list-card animated preFadeInUp fadeInUp">
+										<div class="progress-block">
+											<progress class="progress {{orderInv.StatusUI.class}}-progress is-small has-simple-popover" value="{{orderInv.StatusUI.percentage}}" max="100" data-content="{{orderInv.StatusUI.percentage}}% Complete" data-placement="top">
+												{{orderInv.StatusUI.percentage}}%
+											</progress>
+											<div class="chart-icon">
+												<i data-feather="{{orderInv.StatusUI.icon}}"></i>
+											</div>
+										</div>
+									</div>
 								</div>
-								<div class="ring-title has-text-centered">
-									<span>{{orderInv.StatusUI.percentage}}%</span>
-								</div>
 							</div>
-						</div>
-					</div>
-				{% endfor %}
-				<!-- .hentry -->
-			</main>
+						{% endfor %}
+					</div> 
+				</div>
+			</div>
+
 		</div>
+
 	</div>
 </div>
+{% endblock %}
 
+{% block scripts %}
+	<script src="{{ url_for('static', filename='commerce/main/js/app.js')}}"></script>
+	<script src="{{ url_for('static', filename='commerce/main/js/nephos.js')}}"></script>
 {% endblock %}

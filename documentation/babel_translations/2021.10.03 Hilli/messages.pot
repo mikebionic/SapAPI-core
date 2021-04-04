@@ -819,3 +819,6 @@ msgstr "Others"
 
 msgid "About this item"
 msgstr "About this item"
+
+msgid "No note is written"
+msgstr "No note is written"
