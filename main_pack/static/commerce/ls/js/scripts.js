@@ -1538,7 +1538,6 @@ var sticky = $('.header-sticky');
 windows.on('scroll', function() {
 	var scroll = windows.scrollTop();
 	if (windows.width() > 991) {
-		console.log("sdddd")
 		if (scroll < 300) {
 			categoryMenuToggle();
 		}else{

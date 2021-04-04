@@ -1,143 +1,99 @@
 {% extends "commerce/ls/commerce/layout.html" %}
 
 {% block styles %}
+	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/ls/css/bulma.css')}}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/ls/css/core.css')}}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/ls/css/bootstrap.css') }}">
 	<meta name="robots" content="noindex" />
 {% endblock %}
 
 {% block content %}
-<div class="col-lg-12 col-md-5 col-sm-8 col-xs-9 bhoechie-tab-container">
-	<div class="col-lg-2 col-md-3 col-sm-3 col-xs-3 bhoechie-tab-menu">
-		<div class="list-group">
-			<a href="{{ url_for('commerce_users.profile') }}" class="list-group-item active text-center">
-			<h4 class="fonticon"><i class="fa fa-user"></i></h4>{{_('Profile')}}
-			</a>
-			<a href="{{ url_for('commerce.cart') }}" class="list-group-item text-center">
-			<h4 class="fonticon"><i class="fa fa-credit-card"></i></h4>{{_('Cart')}}
-			</a>
-			<a href="{{ url_for('commerce_users.wishlist') }}" class="list-group-item text-center">
-			<h4 class="fonticon"><i class="fa fa-heart"></i></h4>{{_('Wishlist')}}
-			</a>
-			<a href="{{ url_for('commerce_users.orders') }}" class="list-group-item text-center">
-			<h4 class="fonticon"><i class="fa fa-truck"></i></h4>{{_('Orders')}}
-			</a>
-		</div>
-	</div>
-	<div class="col-lg-10 col-md-9 col-sm-9 col-xs-9 bhoechie-tab">
-		<!-- flight section -->
-		<div class="bhoechie-tab-content active">
-			<div style="display: flex;">
-				<div class="profile_img">
-					<img src="{{ url_for('static', filename='commerce/ls/images/blog/sm-4.jpg') }}" alt="">
+<div class="container bootstrap snippet" style="margin: 2% 0;">
+	<div class="row">
+
+		<div class="col-sm-12">
+			<ul class="nav nav-tabs"> 
+				<li><a href="{{ url_for('commerce_users.profile') }}">{{_('Profile')}}</a></li>
+				<li><a href="{{ url_for('commerce_users.orders') }}">{{_('Orders')}}</a></li>
+				<li><a href="{{ url_for('commerce_users.wishlist') }}">{{_('Wishlist')}}</a></li>
+				<li class="active" style="float: right;"><a href="{{ url_for('commerce_users.profile_edit') }}"><i class="fa fa-fw fa-gears" style="font-size: 30px;"></i></a></li>
+			</ul>
+
+			<div class="tab-content">
+
+				<div class="tab-pane wishlist_p active" id="edit_profile">
+							
+					<form class="form" action="" enctype="multipart/form-data" method="post" id="registrationForm">
+						{{ form.hidden_tag() }}
+						<div class="form-group">			
+							<div class="col-xs-6">
+								<label><h4>{{ form.username.label }}</h4></label>
+								{{ form.username(class="form-control") }}
+								{% if form.username.errors %}
+									<div class="invalid-feedback">
+										{% for error in form.username.errors %}
+											<span>{{ error }}</span>
+										{% endfor %}
+									</div>
+								{% endif %}
+							</div>
+						</div>
+						<div class="form-group">			
+							<div class="col-xs-6">
+								<label><h4>{{ form.fullname.label }}</h4></label>
+								{{ form.fullname(class="form-control") }}
+								{% if form.fullname.errors %}
+									<div class="invalid-feedback">
+										{% for error in form.fullname.errors %}
+											<span>{{ error }}</span>
+										{% endfor %}
+									</div>
+								{% endif %}
+							</div>
+						</div>
+
+						<div class="form-group">			
+							<div class="col-xs-6">
+								<label><h4>{{ form.address.label }}</h4></label>
+								{{ form.address(class="form-control") }}
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="col-xs-6">
+								<label><h4>{{ form.mobilePhone.label }}</h4></label>
+								{{ form.mobilePhone(class="form-control") }}
+							</div>
+						</div>
+						<div class="form-group">			
+							<div class="col-xs-6">
+								<label><h4>{{ form.homePhone.label }}</h4></label>
+								{{ form.homePhone(class="form-control") }}
+							</div>
+						</div>
+						<div class="form-group">			
+							<div class="col-xs-6">
+								<label><h4>{{ form.zipCode.label }}</h4></label>
+								{{ form.zipCode(class="form-control") }}
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-xs-12" style="display: flex;margin: 15px 0;">
+								<button class="btn_save" type="submit">{{_('Save')}}</button>
+							</div>
+						</div>
+					</form>
 				</div>
-				<div class="username has-text-centered">
-					<span>{{rpAcc.RpAccName}}</span>
-					<small>{{_('Registered date')}}: {{rpAcc.CreatedDate.strftime('%d-%m-%Y') if rpAcc.CreatedDate else ''}}</small>
-				</div> 
-				<div class="has-text-centered">
-					<a href="{{ url_for('commerce_auth.reset_request') }}" class="button">{{_('Reset password')}}</a>
-				</div>
+
 			</div>
-			<div class="row" style="margin: auto;"> 
-				<div class="column is-6">
-					<div class="info-block">
-						{{ form.username.label(class="label-text") }}
-						<div class="control">
-							{% if form.username.errors %}
-								{{ form.username(class="input is-default  is-invalid") }}
-								<div class="invalid-feedback">
-									{% for error in form.username.errors %}
-										<span>{{ error }}</span>
-									{% endfor %}
-								</div>
-							{% else %}
-								{{ form.username(class="input is-default") }}
-							{% endif %}
-						</div>
-					</div>
-					<div class="info-block">
-						{{ form.fullname.label(class="label-text") }}
-						<div class="control">
-							{% if form.fullname.errors %}
-								{{ form.fullname(class="input is-default  is-invalid") }}
-								<div class="invalid-feedback">
-									{% for error in form.fullname.errors %}
-										<span>{{ error }}</span>
-									{% endfor %}
-								</div>
-							{% else %}
-								{{ form.fullname(class="input is-default") }}
-							{% endif %}
-						</div>
-					</div>
-					<div class="info-block">
-						{{ form.address.label(class="label-text") }}
-						<div class="control">
-							{% if form.address.errors %}
-								{{ form.address(class="input is-default  is-invalid") }}
-								<div class="invalid-feedback">
-									{% for error in form.address.errors %}
-										<span>{{ error }}</span>
-									{% endfor %}
-								</div>
-							{% else %}
-								{{ form.address(class="input is-default") }}
-							{% endif %}
-						</div>
-					</div>
-				</div>
 
-				<div class="column is-6">
-					<div class="info-block">
-						{{ form.mobilePhone.label(class="label-text") }}
-						<div class="control">
-							{% if form.mobilePhone.errors %}
-								{{ form.mobilePhone(class="input is-default  is-invalid") }}
-								<div class="invalid-feedback">
-									{% for error in form.mobilePhone.errors %}
-										<span>{{ error }}</span>
-									{% endfor %}
-								</div>
-							{% else %}
-								{{ form.mobilePhone(class="input is-default") }}
-							{% endif %}
-						</div>
-					</div>
-
-					<div class="info-block">
-						{{ form.homePhone.label(class="label-text") }}
-						<div class="control">
-							{% if form.homePhone.errors %}
-								{{ form.homePhone(class="input is-default  is-invalid") }}
-								<div class="invalid-feedback">
-									{% for error in form.homePhone.errors %}
-										<span>{{ error }}</span>
-									{% endfor %}
-								</div>
-							{% else %}
-								{{ form.homePhone(class="input is-default") }}
-							{% endif %}
-						</div>
-					</div>
-
-					<div class="info-block">
-						{{ form.zipCode.label(class="label-text") }}
-						<div class="control">
-							{% if form.zipCode.errors %}
-								{{ form.zipCode(class="input is-default  is-invalid") }}
-								<div class="invalid-feedback">
-									{% for error in form.zipCode.errors %}
-										<span>{{ error }}</span>
-									{% endfor %}
-								</div>
-							{% else %}
-								{{ form.zipCode(class="input is-default") }}
-							{% endif %}
-						</div>
-					</div>
-				</div>
-			</div>
 		</div>
+
 	</div>
 </div>
+{% endblock %}
 
+{% block scripts %}
+	<script src="{{ url_for('static', filename='commerce/main/js/app.js')}}"></script>
+	<script src="{{ url_for('static', filename='commerce/main/js/nephos.js')}}"></script>
 {% endblock %}

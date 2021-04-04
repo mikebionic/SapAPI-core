@@ -1,152 +1,69 @@
 {% extends "commerce/ls/commerce/layout.html" %}
 
 {% block styles %}
+	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/ls/css/bulma.css')}}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/ls/css/core.css')}}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/ls/css/bootstrap.css') }}">
 	<meta name="robots" content="noindex" />
 {% endblock %}
 
 {% block content %}
-<div class="col-lg-12 col-md-5 col-sm-8 col-xs-9 bhoechie-tab-container">
-	<div class="col-lg-2 col-md-3 col-sm-3 col-xs-3 bhoechie-tab-menu">
-		<div class="list-group">
-			<a href="{{ url_for('commerce_users.profile') }}" class="list-group-item text-center">
-			<h4 class="fonticon"><i class="fa fa-user"></i></h4>{{_('Profile')}}
-			</a>
-			<a href="{{ url_for('commerce.cart') }}" class="list-group-item text-center">
-			<h4 class="fonticon"><i class="fa fa-credit-card"></i></h4>{{_('Cart')}}
-			</a>
-			<a href="{{ url_for('commerce_users.wishlist') }}" class="list-group-item active text-center">
-			<h4 class="fonticon"><i class="fa fa-heart"></i></h4>{{_('Wishlist')}}
-			</a>
-			<a href="{{ url_for('commerce_users.orders') }}" class="list-group-item text-center">
-			<h4 class="fonticon"><i class="fa fa-truck"></i></h4>{{_('Orders')}}
-			</a>
-		</div>
-	</div>
-	<div class="col-lg-10 col-md-9 col-sm-9 col-xs-9 bhoechie-tab">
-		<div class="bhoechie-tab-content active">
-			<main id="main" class="site-main">
-				<div class="type-page hentry">
-					<div class="entry-content">
-						<form class="woocommerce" method="post" action="#">
-							<table class="shop_table cart wishlist_table">
-								<thead>
-									<tr>
-										<th class="product-remove"></th>
-										<th class="product-thumbnail"></th>
-										<th class="product-name">
-											<span class="nobr">Product Name</span>
-										</th>
-										<th class="product-price">
-											<span class="nobr">
-												Unit Price
+<div class="container bootstrap snippet" style="margin: 2% 0;">
+	<div class="row">
+
+		<div class="col-sm-12">
+			<ul class="nav nav-tabs"> 
+				<li><a href="{{ url_for('commerce_users.profile') }}">{{_('Profile')}}</a></li>
+				<li><a href="{{ url_for('commerce_users.orders') }}">{{_('Orders')}}</a></li>
+				<li class="active"><a href="{{ url_for('commerce_users.wishlist') }}">{{_('Wishlist')}}</a></li>
+				<li style="float: right;"><a href="{{ url_for('commerce_users.profile_edit') }}"><i class="fa fa-fw fa-gears" style="font-size: 30px;"></i></a></li>
+			</ul>
+
+			<div class="tab-content">
+				<div class="tab-pane wishlist_p active" id="wishlist">
+					<table class="shop_table cart wishlist_table">
+						<tbody>
+							{% for resource in data %}
+								<tr>
+									<td class="product-thumbnail">
+										<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}">
+											<img width="90" height="90" class="wp-post-image" loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/bee/images/no_photo.svg') }}" 
+											alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
+										</a>
+									</td>
+									<td class="product-name">
+										<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}">
+											{{ resource.ResName if resource.ResName else '' }}
+											<p>{{_('Category')}}: {{ resource.ResCatName if resource.ResCatName else '' }}</p>
+											<p>{{_('Barcode')}}: {{ resource.BarcodeVal if resource.BarcodeVal else '' }}</p>
+										</a>
+									</td>
+									<td class="product-price">
+										<ins>
+											<span class="woocommerce-Price-amount amount priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">
+												{{ resource.ResPriceValue if resource.ResPriceValue else '' }} {{ resource.CurrencyCode }}
 											</span>
-										</th>
-										<th class="product-add-to-cart"></th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td class="product-remove">
-											<div>
-												<a title="Remove this product" class="remove remove_from_wishlist" href="#">×</a>
-											</div>
-										</td>
-										<td class="product-thumbnail">
-											<a href="single-product-fullwidth.html">
-												<img width="180" height="180" alt="" class="wp-post-image" src="{{ url_for('static', filename='commerce/ls/images/products/cart-1.jpg') }}">
-											</a>
-										</td>
-										<td class="product-name">
-											<a href="single-product-fullwidth.html">4K Action Cam with  Wi-Fi &amp; GPS</a>
-										</td>
-										<td class="product-price">
-											<ins>
-												<span class="woocommerce-Price-amount amount">
-													<span class="woocommerce-Price-currencySymbol">£</span>199.95</span>
-											</ins>
-											<del>
-												<span class="woocommerce-Price-amount amount">
-													<span class="woocommerce-Price-currencySymbol">£</span>229.99</span>
-											</del>
-										</td>
-										
-										<td class="product-add-to-cart">
-											<a class="button add_to_cart_button button alt" href="cart.html"> Add to Cart</a>
-											<a href="#" class="w_icon"><i class="fa fa-trash"></i></a>
-										</td>
-									</tr>
-									<tr>
-										<td class="product-remove">
-											<div>
-												<a title="Remove this product" class="remove remove_from_wishlist" href="#">×</a>
-											</div>
-										</td>
-										<td class="product-thumbnail">
-											<a href="single-product-fullwidth.html">
-												<img width="180" height="180" alt="" class="wp-post-image" src="{{ url_for('static', filename='commerce/ls/images/products/cart-2.jpg') }}">
-											</a>
-										</td>
-										<td class="product-name">
-											<a href="single-product-fullwidth.html">55EG9600 - 55-Inch 2160p Smart Curved Ultra HD 3D</a>
-										</td>
-										<td class="product-price">
-											<ins>
-												<span class="woocommerce-Price-amount amount">
-													<span class="woocommerce-Price-currencySymbol">£</span>199.95</span>
-											</ins>
-											<del>
-												<span class="woocommerce-Price-amount amount">
-													<span class="woocommerce-Price-currencySymbol">£</span>229.99</span>
-											</del>
-										</td>
-										
-										<td class="product-add-to-cart">
-											<a class="button add_to_cart_button button alt" href="cart.html"> Add to Cart</a>
-												<a href="#" class="w_icon"><i class="fa fa-trash"></i></a>
-										</td>
-									</tr>
-									<tr>
-										<td class="product-remove">
-											<div>
-												<a title="Remove this product" class="remove remove_from_wishlist" href="#">×</a>
-											</div>
-										</td>
-										<td class="product-thumbnail">
-											<a href="single-product-fullwidth.html">
-												<img width="180" height="180" alt="" class="wp-post-image" src="{{ url_for('static', filename='commerce/ls/images/products/cart-3.jpg') }}">
-											</a>
-										</td>
-										<td class="product-name">
-											<a href="single-product-fullwidth.html">360° Viewing Immersive VR Headset</a>
-										</td>
-										<td class="product-price">
-											<ins>
-												<span class="woocommerce-Price-amount amount">
-													<span class="woocommerce-Price-currencySymbol">£</span>199.95</span>
-											</ins>
-											<del>
-												<span class="woocommerce-Price-amount amount">
-													<span class="woocommerce-Price-currencySymbol">£</span>229.99</span>
-											</del>
-										</td>
-										
-										<td class="product-add-to-cart">
-											<a class="button add_to_cart_button button alt" href="cart.html"> Add to Cart</a>
-												<a href="#" class="w_icon"><i class="fa fa-trash"></i></a>
-										</td>
-									</tr>
-								</tbody>
-							</table>
-							<!-- .wishlist_table -->
-						</form>
-						<!-- .woocommerce -->
-					</div>
-					<!-- .entry-content -->
+										</ins>
+									</td>
+									<td class="product-add-to-cart">
+										<a class="profile_button removeFromWishlist" ownerId="{{resource.ResId}}">
+											<i class="fa fa-fw fa-trash"></i>
+										</a>
+									</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>					
 				</div>
-				<!-- .hentry -->
-			</main>
+			</div>
+
 		</div>
+
 	</div>
 </div>
+{% endblock %}
 
+{% block scripts %}
+	<script src="{{ url_for('static', filename='commerce/main/js/app.js')}}"></script>
+	<script src="{{ url_for('static', filename='commerce/main/js/nephos.js')}}"></script>
 {% endblock %}

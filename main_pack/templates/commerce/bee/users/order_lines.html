@@ -15,7 +15,7 @@
 					<div class="col-lg-12 col-12 is-tablet-landscape-padded" style="margin-bottom: 20px;">
 						<div class="account-title">
 							<h2>{{_('Orders')}}</h2>
-							<img class="brand-filigrane" src="{{ url_for('static', filename='commerce/main/images/logo/sap_cozgut_grey.svg')}}" alt="">
+							<img class="brand-filigrane" src="{{ url_for('static', filename='commerce/bee/images/hilli_grey.svg')}}" alt="Hilli electronics grey logo">
 						</div> 
 						<div class="tabs account-tabs has-controls">
 							<ul>
@@ -80,7 +80,7 @@
 												</tbody>
 											</table>
 										</div>
-										<p><b>{{_('Description')}}</b></p>
+										<p><b>{{_('Note')}}:</b></p>
 										<p>{{ orderInvoices[0].OInvDesc if orderInvoices[0].OInvDesc else '' }}</p>
 									</div>
 								</div>

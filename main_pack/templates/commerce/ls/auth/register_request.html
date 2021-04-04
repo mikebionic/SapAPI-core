@@ -24,28 +24,26 @@
 										</p>
 										<p class="form-row form-row-wide">
 											<label for="reg_password">{{_('Email address')}}
-													<span class="required">*</span>
+													<span class="required">*</span> 
 											</label>
 											{{ form.email(class="woocommerce-Input woocommerce-Input--text input-text", type="email") }}
 										</p>
 										<p class="form-row">
-											<input type="submit" class="woocommerce-Button button" name="register" value="{{_('Register')}}" />
+											<a href="#" class="woocommerce-Button button">{{_('Register')}}</a>
 										</p>
 									</form>
 								<!-- .woocommerce-form-login -->
 							</div>
 							<div class="u-column2 col-2">
-								<form class="register" method="post">
-									<div class="register-benefits">
-										<h3>Sign up today and you will be able to :</h3>
-										<ul>
-											<li>Speed your way through checkout</li>
-											<li>Track your orders easily</li>
-											<li>Keep a record of all your purchases</li>
-										</ul>
-									</div>
-									<input class="woocommerce-Button button" type="submit" value="{{_('Login')}}" name="register">
-								</form>
+								<!-- <div class="register-benefits">
+									<h3>Sign up today and you will be able to :</h3>
+									<ul>
+										<li>Speed your way through checkout</li>
+										<li>Track your orders easily</li>
+										<li>Keep a record of all your purchases</li>
+									</ul>
+								</div> -->
+								<a href="{{ url_for('commerce_auth.login') }}" class="woocommerce-Button button">{{_('Login')}}</a>
 							</div>
 						</div>
 					</div>

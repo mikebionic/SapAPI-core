@@ -40,7 +40,7 @@
 								{{_('Contact')}}
 							</a>
 						</li>
-						<!-- {% if current_user.is_authenticated %}
+						{% if current_user.is_authenticated %}
 							<li class="menu-item animate-dropdown">
 								<a href="{{ url_for('commerce_users.profile') }}">
 									<i class="tm tm-login-register"></i>
@@ -64,7 +64,7 @@
 									{{_('Login')}}
 								</a>
 							</li>
-						{% endif %} -->
+						{% endif %}
 						<li class="menu-item animate-dropdown dropdown language_" style="margin-top: auto;">
 							<a href="javascript:void(0);"  title="Language" data-toggle="dropdown" role="button"><i class="fa fa-fw fa-globe"></i>
 								<div class="notify"><span class="heartbit"></span><span class="point"></span></div>
@@ -261,7 +261,7 @@
 			<div class="alert alert-{{ category }} alert-dismissible show fade" style="margin: auto; height: 10%; opacity: 1; width: 95%; overflow: auto; text-align: center;">
 				<div class="alert-body" style="padding-top: 5px;">
 					<button class="close" data-dismiss="alert">
-						<span>×</span>
+						<span style="float: right;">×</span>
 					</button>
 					{{ message }}
 				</div>
@@ -364,7 +364,7 @@
 																{{_('Contact')}}
 															</a>
 														</li>
-														<!-- {% if current_user.is_authenticated %}
+														{% if current_user.is_authenticated %}
 															<li class="menu-item animate-dropdown">
 																<a href="{{ url_for('commerce_users.profile') }}">
 																	{{_('Profile')}}
@@ -380,7 +380,7 @@
 																	{{_('Wishlist')}}
 																</a>
 															</li>
-														{% endif %} -->
+														{% endif %}
 													</ul>
 												</div>
 											</div>

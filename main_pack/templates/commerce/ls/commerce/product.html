@@ -39,7 +39,7 @@
 		<!-- card right -->
 		<div class = "product-content">
 			<h2 class = "product-title">{{ resource.ResName }}</h2>
-			<div class="reviews-counter">
+			<!-- <div class="reviews-counter">
 				<div class="rate">
 					<input type="radio" id="star5" name="rate" value="5" checked />
 					<label for="star5" title="text">5 stars</label>
@@ -53,7 +53,7 @@
 					<label for="star1" title="text">1 star</label>
 				</div>
 				<span>3 Reviews</span>
-				</div>
+			</div> -->
 			<div class = "product-price">
 				<div class="product-price-discount">
 					<span class="priceValue" ownerId="{{ resource.ResId }}" value="{{resource.ResPriceValue}}">
@@ -64,7 +64,7 @@
 			</div>
 
 			<div class = "product-detail">
-				<h2>about this item: </h2>
+				<h4>{{_('About this item')}}: </h4>
 				<p>{{ resource.ResDesc if resource.ResDesc else '' }}</p>
 			</div>
 

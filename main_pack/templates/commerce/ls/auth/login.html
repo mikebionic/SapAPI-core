@@ -14,7 +14,7 @@
 								<form method="post" class="woocomerce-form woocommerce-form-login login">
 									{{ form.csrf_token() }}
 									<p class="before-login-text">
-											Vestibulum lacus magna, faucibus vitae dui eget, aliquam fringilla. In et commodo elit. Class aptent taciti sociosqu ad litora.
+										Hasabyňyza girmek üçin aşakdaky talap edilýän maglumatlary grizmek bilen, "Giriş" düwmesine basyň.
 									</p>
 									<p class="form-row form-row-wide">
 											<label for="username">{{_('Email address')}}
@@ -39,19 +39,13 @@
 									</p>
 									
 								</form>
-								<!-- .woocommerce-form-login -->
 							</div>
 							<div class="u-column2 col-2">
 								<form class="register" method="post">
 									<div class="register-benefits">
-										<h3>Sign up today and you will be able to :</h3>
-										<ul>
-											<li>Speed your way through checkout</li>
-											<li>Track your orders easily</li>
-											<li>Keep a record of all your purchases</li>
-										</ul>
+										<h3>Eger-de hasaba alynmadyk bolsaňyz, "Hasaba al" düwmä basyň we hasap döretmek üçin görkezmelere eýeriň.</h3>
 									</div>
-									<input class="woocommerce-Button button" type="submit" value="{{_('Register')}}" name="register">
+									<a href="{{ url_for('commerce_auth.register') }}" class="woocommerce-Button button">{{_('Register')}}</a>
 								</form>
 							</div>
 						</div>

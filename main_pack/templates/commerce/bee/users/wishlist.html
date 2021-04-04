@@ -14,7 +14,7 @@
 				<div class="column is-10 is-offset-1 is-tablet-landscape-padded">
 					<div class="account-title">
 						<h2>{{_('Wishlist')}}</h2>
-						<img class="brand-filigrane" src="{{ url_for('static', filename='commerce/main/images/logo/sap_cozgut_grey.svg')}}" alt="">
+						<img class="brand-filigrane"  src="{{ url_for('static', filename='commerce/bee/images/hilli_grey.svg')}}" alt="Hilli electronics grey logo">
 					</div>
 					<div class="tabs account-tabs">
 						<ul>
@@ -41,7 +41,7 @@
 													<span>{{_('Category')}}: {{ resource.ResCatName if resource.ResCatName else '' }}</span>
 													<span>{{_('Barcode')}}: {{ resource.BarcodeVal if resource.BarcodeVal else '' }}</span>
 													<span class="priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">
-														{{ resource.CurrencyCode }}{{ resource.ResPriceValue if resource.ResPriceValue else '' }}
+														{{ resource.ResPriceValue if resource.ResPriceValue else '' }} {{ resource.CurrencyCode }}
 													</span>
 												</span>
 												<div class="action">
