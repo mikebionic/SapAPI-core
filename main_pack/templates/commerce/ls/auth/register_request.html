@@ -11,38 +11,32 @@
 						<div id="customer_login" class="u-columns col2-set">
 							<div class="u-column1 col-1">
 								<h2>{{_('Register')}} | {{ company.CName }}</h2>
-									<form class="register" method="post">
-										{{ form.csrf_token() }}
-										<p class="before-register-text">
-												Create new account today to reap the benefits of a personalized shopping experience. Praesent placerat, est sed aliquet finibus.
-										</p>
-										<p class="form-row form-row-wide">
-											<label for="reg_email">{{_('Username')}}
-													<span class="required">*</span>
-											</label>
-											{{ form.username(class='woocommerce-Input woocommerce-Input--text input-text') }}
-										</p>
-										<p class="form-row form-row-wide">
-											<label for="reg_password">{{_('Email address')}}
-													<span class="required">*</span> 
-											</label>
-											{{ form.email(class="woocommerce-Input woocommerce-Input--text input-text", type="email") }}
-										</p>
-										<p class="form-row">
-											<a href="#" class="woocommerce-Button button">{{_('Register')}}</a>
-										</p>
-									</form>
-								<!-- .woocommerce-form-login -->
+								<form class="register" action="" method="post">
+									{{ form.csrf_token() }}
+									<p class="before-register-text">
+										Söwda-ň doly mümkinçiliklerni peýdalanmak üçin Hasaba alyň.
+									</p>
+									<p class="form-row form-row-wide">
+										<label for="reg_email">{{_('Username')}}
+												<span class="required">*</span>
+										</label>
+										{{ form.username(class='woocommerce-Input woocommerce-Input--text input-text') }}
+									</p>
+									<p class="form-row form-row-wide">
+										<label for="reg_password">{{_('Email address')}}
+												<span class="required">*</span> 
+										</label>
+										{{ form.email(class="woocommerce-Input woocommerce-Input--text input-text", type="email") }}
+									</p>
+									<p class="form-row">
+										<input type="submit" class="woocommerce-Button button" value="{{_('Register')}}" />
+									</p>
+								</form>
 							</div>
 							<div class="u-column2 col-2">
-								<!-- <div class="register-benefits">
-									<h3>Sign up today and you will be able to :</h3>
-									<ul>
-										<li>Speed your way through checkout</li>
-										<li>Track your orders easily</li>
-										<li>Keep a record of all your purchases</li>
-									</ul>
-								</div> -->
+								<div class="register-benefits">
+									Hasabyňyz bar bolsa, "Giriş" düwmä basyň we hasabyňyza giriň.
+								</div>
 								<a href="{{ url_for('commerce_auth.login') }}" class="woocommerce-Button button">{{_('Login')}}</a>
 							</div>
 						</div>

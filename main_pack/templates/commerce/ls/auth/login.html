@@ -11,28 +11,28 @@
 						<div id="customer_login" class="u-columns col2-set">
 							<div class="u-column1 col-1">
 								<h2>{{_('Login')}} | {{ company.CName }}</h2>
-								<form method="post" class="woocomerce-form woocommerce-form-login login">
+								<form method="post" action="" class="woocomerce-form woocommerce-form-login login">
 									{{ form.csrf_token() }}
 									<p class="before-login-text">
 										Hasabyňyza girmek üçin aşakdaky talap edilýän maglumatlary grizmek bilen, "Giriş" düwmesine basyň.
 									</p>
 									<p class="form-row form-row-wide">
-											<label for="username">{{_('Email address')}}
-													<span class="required">*</span>
-											</label>
-											{{ form.email(class="input-text") }}
+										<label for="username">{{_('Email address')}}
+											<span class="required">*</span>
+										</label>
+										{{ form.email(class="input-text") }}
 									</p>
 									<p class="form-row form-row-wide">
-											<label for="password">{{_('Password')}}
-													<span class="required">*</span>
-											</label>
-											{{ form.password(class="input-text") }}
+										<label for="password">{{_('Password')}}
+											<span class="required">*</span>
+										</label>
+										{{ form.password(class="input-text") }}
 									</p>
 									<p class="form-row">
-											<input class="woocommerce-Button button" type="submit" value="Login" name="login">
-											<label for="rememberme" class="woocommerce-form__label woocommerce-form__label-for-checkbox inline">
-													<input class="woocommerce-form__input woocommerce-form__input-checkbox" name="rememberme" type="checkbox" id="rememberme" value="forever" /> Remember me
-											</label>
+										<input class="woocommerce-Button button" type="submit" value="{{_('Login')}}" name="login">
+										<label for="rememberme" class="woocommerce-form__label woocommerce-form__label-for-checkbox inline">
+											<input class="woocommerce-form__input woocommerce-form__input-checkbox" name="rememberme" type="checkbox" id="rememberme" value="forever" /> {{_('Remember me')}}
+										</label>
 									</p>
 									<p class="woocommerce-LostPassword lost_password">
 										<a href="{{ url_for('commerce_auth.reset_request') }}">{{_('Forgot your password?')}}</a>
