@@ -1,0 +1,33 @@
+{% extends "commerce/ls/commerce/layout.html" %}
+
+{% block styles %}
+	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/ls/css/bulma.css')}}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/ls/css/core.css')}}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/ls/css/bootstrap.css') }}">
+	<meta name="robots" content="noindex" />
+{% endblock %}
+
+{% block content %}
+<div class="container bootstrap snippet" style="margin: 2% 0;">
+	<div class="row">
+
+		<div class="col-sm-12">
+			<ul class="nav nav-tabs"> 
+				<li class="active"><a href="{{ url_for('commerce_users.profile') }}">{{_('Profile')}}</a></li>
+				<li><a href="{{ url_for('commerce_users.orders') }}">{{_('Orders')}}</a></li>
+				<li><a href="{{ url_for('commerce_users.wishlist') }}">{{_('Wishlist')}}</a></li>
+				<li style="float: right;"><a href="{{ url_for('commerce_users.profile_edit') }}"><i class="fa fa-fw fa-gears" style="font-size: 30px;"></i></a></li>
+			</ul>
+
+			<div class="tab-content"></div>
+
+		</div>
+
+	</div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+	<script src="{{ url_for('static', filename='commerce/main/js/app.js')}}"></script>
+	<script src="{{ url_for('static', filename='commerce/main/js/nephos.js')}}"></script>
+{% endblock %}
