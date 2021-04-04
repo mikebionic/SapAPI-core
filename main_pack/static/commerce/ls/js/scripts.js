@@ -1671,3 +1671,9 @@ function slideImage(){
 }
 
 window.addEventListener('resize', slideImage);
+
+$(document).ready(function(){
+	$(".like").click(function(){
+		$(this).toggleClass("heart");
+	});
+});

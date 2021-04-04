@@ -26717,6 +26717,7 @@ form.track_order {
 .imgBox a{
   display: flex;
   align-items: center;
+  float: left;
 }
 /* img{
 	width: 100%;
@@ -29884,3 +29885,59 @@ form .woocommerce-Button{
 .avatar{
   box-shadow:0px 5px 43px rgb(0 0 0 / 18%) !important;
 }
+.like{
+  color: #9e9c9c;
+  float: right;
+  font-size: 25px;
+}
+.heart i.fa-heart{
+  color: #f44336;
+}
+.heart{
+  animation: heart 0.5s linear;
+}
+@keyframes heart{
+  0%{
+    transform: rotate(0deg) scale(1.7);
+  }
+  40%{
+    transform: rotate(0deg) scale(1);
+  }
+  41%{
+    transform: rotate(360deg) scale(1);
+  }
+  100%{
+    transform: rotate(0deg) scale(1);
+  }
+}
+.yith-wcwl-add-to-wishlist {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1; }
+.yith-wcwl-add-to-wishlist .add_to_wishlist {
+  text-indent: -99999px;
+  display: block; }
+.yith-wcwl-add-to-wishlist .add_to_wishlist::before {
+  content: "\6b";
+  font-family: 'techmarket-icons';
+  position: absolute;
+  top: 8px;
+  right: 14px;
+  text-indent: 0;
+  color: #444;
+  font-size: 1.429em; }
+@media (max-width: 1169px) {
+.yith-wcwl-add-to-wishlist .add_to_wishlist::before {
+  left: 14px;
+  right: auto; } }
+
+.yith-wcwl-add-to-wishlist {
+  display: block;
+  padding: 10px;
+ }
+ #customer_login .col-2{
+   display: flex;
+   align-items:center;
+ }

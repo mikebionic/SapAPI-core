@@ -81,6 +81,11 @@
 						<div>
 							<div class="card">
 								<div class="imgBox">
+									<div class="yith-wcwl-add-to-wishlist">
+										<a href="#/" rel="nofollow" class="like">
+											<i class="fa fa-heart" aria-hidden="true"></i>
+										</a>
+									</div>
 									<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}">
 										<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/ls/img/icons/no_photo.svg') }}"
 										alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
@@ -136,6 +141,11 @@
 					{% for resource in Latest_resources %}
 							<div class="card">
 								<div class="imgBox">
+									<div class="yith-wcwl-add-to-wishlist">
+										<a href="#/" rel="nofollow" class="like">
+											<i class="fa fa-heart" aria-hidden="true"></i>
+										</a>
+									</div>
 									<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}">
 										<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/ls/img/icons/no_photo.svg') }}"
 										alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
