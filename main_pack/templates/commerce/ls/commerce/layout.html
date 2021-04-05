@@ -17,7 +17,7 @@
 		<link rel="shortcut icon" href="{{ url_for('static', filename='commerce/ls/img/ls_logo.svg') }}">
 		{% block styles %}{% endblock %}
 	</head>
-	<body class="garden-market page-template-template-homepage-v6 woocommerce-active">
+	<body class="garden-market page-template-template-homepage-v6 woocommerce-active single-product">
 		<div id="page" class="hfeed site">
 			<div class="top-bar top-bar-v4">
 				<div class="col-full">
@@ -311,19 +311,25 @@
 												{% endif %}
 												
 											</span>
-											
 											{% if company.CAddress %}
+											<div class="pulse">
+												<a href="tel:{{company.Phone1}}">
+													<img src="{{ url_for('static', filename='commerce/ls/img/play.svg') }}" alt="LS" style="width: 35px;">
+												</a>
+											</div>
 												<address class="footer-contact-address">
 													<span>{{_('Address')}}</span>
 													<p>{{ company.CAddress }}</p>
 												</address>
 											{% endif %}
+											
 											{% if company.CEmail %}
-												<div class="pulse">
-													<a href="mailto:{{company.CEmail}}">
-														<i class="fa fa-fw fa-envelope-o"></i>
-													</a>
-												</div>
+												
+											<div class="pulse">
+												<a href="mailto:{{company.CEmail}}">
+													<i class="fa fa-fw fa-envelope-o"></i>
+												</a>
+											</div>
 												<span>{{_('Email')}}</span>
 												<a href="mailto:{{company.CEmail}}"><p>{{company.CEmail}}</p></a>
 											{% endif %}
@@ -383,7 +389,7 @@
 															</li>
 														{% endif %}
 													</ul>
-												</div>
+												</div> 
 											</div>
 										</aside>
 									</div>
@@ -398,7 +404,7 @@
 						<div class="copyright"><a href="https://saphasap.com">Lomaý söwda | Sap Çözgüt</a></div>
 						<div class="credit">
 							<div class="col-lg-12 col-12">
-								<a href="https://saphasap.com">
+								<a href="https://saphasap.com/lomaysowda">
 									<img src="{{ url_for('static', filename='commerce/main/images/logo/sap_cozgut_grey.svg') }}" alt="Sap cozgut" style="width: 40px;">
 								</a>
 							</div>

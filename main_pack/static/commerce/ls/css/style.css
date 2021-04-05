@@ -19753,7 +19753,7 @@ table.shop_table_responsive.my_account_orders .order-actions {
           border: 1px solid #4c4c4c; }
 
 .single-product .product_title {
-  font-size: 1.438em;
+  font-size: 2em;
   letter-spacing: -0.01em;
   color: #444;
   font-weight: 500;
@@ -19770,25 +19770,27 @@ table.shop_table_responsive.my_account_orders .order-actions {
 .single-product .single-product-header {
   padding-bottom: 0.870em;
   border-bottom: 1px solid #ebebeb;
-  margin-bottom: 1.875em; }
+ }
 
 .single-product .single-product-meta {
   border-bottom: 1px solid #ebebeb;
-  padding-bottom: 1.625em;
   margin-bottom: 1.625em;
   display: flex;
-  justify-content: space-between;
   align-items: center; }
   @media (max-width: 767px) {
     .single-product .single-product-meta {
-      flex-direction: column; }
+      display: flex; 
+    }
       .single-product .single-product-meta .brand, .single-product .single-product-meta .cat-and-sku {
         margin-bottom: 26px; } }
   @media (min-width: 768px) {
     .single-product .single-product-meta .brand + .cat-and-sku {
       margin-left: 2.286em; } }
   .single-product .single-product-meta .brand img {
-    max-width: 150px; }
+    max-width: 150px;
+    width: 50px;
+    margin: 5px;
+  }
   .single-product .single-product-meta .ribbon {
     height: 32px;
     max-width: 76px; }
@@ -19799,6 +19801,7 @@ table.shop_table_responsive.my_account_orders .order-actions {
       border-bottom: 16px solid transparent; }
   .single-product .single-product-meta .cat-and-sku {
     font-size: 0.875em;
+    margin: 0 30px;
     letter-spacing: -0.01em;
     line-height: 1.643em; }
     .single-product .single-product-meta .cat-and-sku > span {
@@ -19824,6 +19827,7 @@ table.shop_table_responsive.my_account_orders .order-actions {
 .single-product div[itemprop="description"],
 .single-product .woocommerce-product-details__short-description {
   color: #626060;
+  margin-bottom: 5%;
   font-size: 1em;
   line-height: 1.563em;
   font-weight: 400;
@@ -19879,7 +19883,7 @@ table.shop_table_responsive.my_account_orders .order-actions {
 
 .single-product .rating-and-sharing-wrapper {
   display: flex;
-  margin-bottom: 25px; }
+  margin: 0 15px; }
   .single-product .rating-and-sharing-wrapper > div + div {
     margin-left: 35px; }
   .single-product .rating-and-sharing-wrapper .sd-content ul {
@@ -26717,6 +26721,7 @@ form.track_order {
 .imgBox a{
   display: flex;
   align-items: center;
+  float: left;
 }
 /* img{
 	width: 100%;
@@ -27696,6 +27701,7 @@ button:hover{
 	height: 140px;
 	top: -70px;
 	right: -70px;
+  z-index: 99;
 	border-radius: 0 0 200px 200px;
 	transition: all .5s, border-radius 1s, top 1s;
 }
@@ -29883,4 +29889,97 @@ form .woocommerce-Button{
 }
 .avatar{
   box-shadow:0px 5px 43px rgb(0 0 0 / 18%) !important;
+}
+.like{
+  color: #4b4b4b;
+  float: right;
+  line-height: 31px;
+  font-size: 15px;
+  border: 1px solid #4b4b4b;
+  padding: 5px;
+  border-radius: 50px;
+}
+.like:hover{
+  color: #f44336
+}
+.heart i.fa-heart{
+  color: #f44336;
+}
+.heart{
+  animation: heart 0.5s linear;
+}
+@keyframes heart{
+  0%{
+    transform: rotate(0deg) scale(1.7);
+  }
+  40%{
+    transform: rotate(0deg) scale(1);
+  }
+  41%{
+    transform: rotate(360deg) scale(1);
+  }
+  100%{
+    transform: rotate(0deg) scale(1);
+  }
+}
+.yith-wcwl-add-to-wishlist {
+  cursor:pointer;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1; }
+.yith-wcwl-add-to-wishlist .add_to_wishlist {
+  text-indent: -99999px;
+  display: block; }
+.yith-wcwl-add-to-wishlist .add_to_wishlist::before {
+  content: "\6b";
+  font-family: 'techmarket-icons';
+  position: absolute;
+  top: 8px;
+  right: 14px;
+  text-indent: 0;
+  color: #444;
+  font-size: 1.429em; }
+@media (max-width: 1169px) {
+.yith-wcwl-add-to-wishlist .add_to_wishlist::before {
+  left: 14px;
+  right: auto; } }
+
+.yith-wcwl-add-to-wishlist {
+  display: block;
+  padding: 10px;
+ }
+ #customer_login .col-2{
+   display: flex;
+   align-items:center;
+ }
+
+ .product_wishlist{
+   margin: 0 5px;
+   font-size:20px;
+   cursor:pointer
+ }
+ 
+.product_wishlist{
+  font-size:20px
+}
+.product_price .price{
+  font-size: 2em;
+  justify-content: flex-start;
+}
+.product_category{
+  color: #969393
+}
+.product_wishlist .yith-wcwl-add-to-wishlist{
+  position: inherit;
+  padding: 0;
+}
+.product_wishlist .yith-wcwl-add-to-wishlist .like{
+  padding: 0 7px;
+}
+.brand img{
+  max-width: 150px;
+  width: 50px;
+  margin: 5px;
 }

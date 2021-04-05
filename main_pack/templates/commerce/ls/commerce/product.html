@@ -37,49 +37,94 @@
 			</div> -->
 		</div>
 		<!-- card right -->
-		<div class = "product-content">
-			<h2 class = "product-title">{{ resource.ResName }}</h2>
-			<!-- <div class="reviews-counter">
-				<div class="rate">
-					<input type="radio" id="star5" name="rate" value="5" checked />
-					<label for="star5" title="text">5 stars</label>
-					<input type="radio" id="star4" name="rate" value="4" checked />
-					<label for="star4" title="text">4 stars</label>
-					<input type="radio" id="star3" name="rate" value="3" checked />
-					<label for="star3" title="text">3 stars</label>
-					<input type="radio" id="star2" name="rate" value="2" />
-					<label for="star2" title="text">2 stars</label>
-					<input type="radio" id="star1" name="rate" value="1" />
-					<label for="star1" title="text">1 star</label>
-				</div>
-				<span>3 Reviews</span>
+
+		<div class="summary entry-summary">
+			<div class="single-product-header">
+				<span class="product_category">{{ resource.ResCatName }}</span>
+
+					<h1 class="product_title entry-title">{{ resource.ResName }}</h1>
+			</div>
+			<!-- .single-product-header -->
+			<div class="single-product-meta">
+
+					<div class="brand">
+							<a href="#">
+									<img alt="galaxy" src="{{ url_for('static', filename='commerce/ls/img/icons/category.svg') }}">
+							</a>
+					</div>
+
+					<!-- <div class="rating-and-sharing-wrapper">
+						<div class="woocommerce-product-rating">
+							<div class="star-rating">
+								<span style="width:100%">Rated
+								<strong class="rating">5.00</strong> out of 5 based on
+								<span class="rating">1</span> customer rating</span>
+							</div>
+						</div>
+					</div> -->
+					<div class="product_wishlist">
+						<div class="yith-wcwl-add-to-wishlist">
+							<a rel="nofollow" class="like">
+								<i class="fa fa-heart" aria-hidden="true"></i>
+							</a>
+						</div>
+					</div>
+
+					<div class="product_share">
+						<a class="add-to-wishlist" href="wishlist.html"><i class="fa fa-fw fa-share-alt"></i></a>
+					</div>
+			</div>
+
+
+			<!--
+			<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+				--------------------Brand okay :)---------------------
+			<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+		 	-->
+
+			<!-- <div class="brand">
+				<a href="#">
+						<img alt="galaxy" src="{{ url_for('static', filename='commerce/ls/img/icons/no_photo.svg') }}">
+				</a>
 			</div> -->
-			<div class = "product-price">
-				<div class="product-price-discount">
-					<span class="priceValue" ownerId="{{ resource.ResId }}" value="{{resource.ResPriceValue}}">
-						{{ resource.ResPriceValue }}
-					</span>
-					<span>{{ resource.CurrencyCode }}</span>
-				</div>
+
+			<!--
+			<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+				--------------------Brand End okay :)---------------------
+			<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+		 	-->
+
+
+
+			<div class="product_price">
+				<p class="price" ownerId="{{ resource.ResId }}" value="{{resource.ResPriceValue}}">
+					<ins>
+						<span class="woocommerce-Price-amount amount">	{{ resource.ResPriceValue }}
+						<span class="woocommerce-Price-currencySymbol">{{ resource.CurrencyCode }}</span></span>
+					</ins>
+				</p>
 			</div>
-
-			<div class = "product-detail">
-				<h4>{{_('About this item')}}: </h4>
-				<p>{{ resource.ResDesc if resource.ResDesc else '' }}</p>
+			<div class="woocommerce-product-details__short-description">
+				{{ resource.ResDesc if resource.ResDesc else '' }}
 			</div>
-
-			<div class="cart-details" style="display: flex;">
-				<div class="product-count cartItemQty" style="display: none;">
-					<div class="qtyminus qtybtn">-</div>
-					<input type="text" class="qty productQty" pending_amount="{{resource.ResPendingTotalAmount}}" value="{{resource.productQty}}" ownerId="{{ resource.ResId }}">
-					<div class="qtyplus qtybtn">+</div>
+			<div class="product-actions-wrapper">
+				<div class="product-actions">
+					<div class="cart-details" style="display: flex;">
+						<div class="product-count cartItemQty" style="display: none;">
+							<div class="qtyminus qtybtn">-</div>
+							<input type="text" class="qty productQty" pending_amount="{{resource.ResPendingTotalAmount}}" value="{{resource.productQty}}" ownerId="{{ resource.ResId }}">
+							<div class="qtyplus qtybtn">+</div>
+						</div>
+						<a class="round-black-btn add-to-cart" ownerId="{{ resource.ResId }}" style="color: #fff">{{_('Add to cart')}}</a>
+					</div>
 				</div>
-				<a class="round-black-btn add-to-cart" ownerId="{{ resource.ResId }}" style="color: #fff">{{_('Add to cart')}}</a>
-
 			</div>
 		</div>
 	</div>
 </div>
+
+
+
 <div class="pd-wrap">
 	<div class="container">
 		<div class="product-info-tabs">
