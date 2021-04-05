@@ -40,9 +40,9 @@
 
 		<div class="summary entry-summary">
 			<div class="single-product-header">
-				<span class="product_category">60UH6150 60-Inch 4K Ultra HD Smart LED TV</span>
-					<h1 class="product_title entry-title">{{ resource.ResName }}</h1>
+				<span class="product_category">{{ resource.ResCatName }}</span>
 					
+					<h1 class="product_title entry-title">{{ resource.ResName }}</h1>
 			</div>
 			<!-- .single-product-header -->
 			<div class="single-product-meta">
@@ -55,7 +55,7 @@
 							</a>
 					</div>
 
-					<div class="rating-and-sharing-wrapper">
+					<!-- <div class="rating-and-sharing-wrapper">
 						<div class="woocommerce-product-rating">
 							<div class="star-rating">
 								<span style="width:100%">Rated
@@ -63,19 +63,42 @@
 								<span class="rating">1</span> customer rating</span>
 							</div>
 						</div>
-					</div>
+					</div> -->
 					<div class="product_wishlist">
-						<a class="add-to-wishlist" href="wishlist.html"><i class="tm tm-compare"></i></a>
-					</div>
-
-					<div class="product_wishlist">
-						<a class="add-to-wishlist" href="wishlist.html"><i class="tm tm-favorites"></i></a>
+						<div class="yith-wcwl-add-to-wishlist">
+							<a rel="nofollow" class="like">
+								<i class="fa fa-heart" aria-hidden="true"></i>
+							</a>
+						</div>
 					</div>
 
 					<div class="product_share">
 						<a class="add-to-wishlist" href="wishlist.html"><i class="fa fa-fw fa-share-alt"></i></a>
 					</div>
 			</div>
+
+
+
+			<!-- 
+			<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+				--------------------Brand okay :)---------------------
+			<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+		 	-->
+
+			<!-- <div class="brand">
+				<a href="#">
+						<img alt="galaxy" src="{{ url_for('static', filename='commerce/ls/img/icons/no_photo.svg') }}">
+				</a>
+			</div> -->
+
+			<!-- 
+			<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+				--------------------Brand End okay :)---------------------
+			<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+		 	-->
+
+
+
 			<div class="product_price">
 				<p class="price" ownerId="{{ resource.ResId }}" value="{{resource.ResPriceValue}}">
 					<ins>
