@@ -18,11 +18,28 @@
 				<li><a href="{{ url_for('commerce_users.wishlist') }}">{{_('Wishlist')}}</a></li>
 				<li class="active" style="float: right;"><a href="{{ url_for('commerce_users.profile_edit') }}"><i class="fa fa-fw fa-gears" style="font-size: 30px;"></i></a></li>
 			</ul>
-
+			
 			<div class="tab-content">
 
 				<div class="tab-pane wishlist_p active" id="edit_profile">
-							
+					<div id="avatar-upload" class="avatar-wrapper has-simple-popover" data-content="Change profile picture" data-placement="top">
+						<img class="profile-pic" src="{{avatar}}" alt="">
+						<div class="upload-button">
+						 <i class="upload-icon" data-feather="plus" aria-hidden="true"></i>
+					 </div>
+					 {{ form.picture.label() }}
+					 {{ form.picture(class="file-upload") }}
+					 {% if form.picture.errors %}
+						 {% for error in form.picture.errors %}
+							 <span class="text-danger">{{ error }}</span>
+						 {% endfor %}
+					 {% endif %}
+					 </div>
+					 <div class="username has-text-centered">
+						<span>{{current_user.UFullName}}</span>
+						<small>{{_('Registered date')}}: {{current_user.CreatedDate.strftime('%d-%m-%Y') }}</small>
+					</div>
+					<div class="has-text-centered"> <a href="{{ url_for('commerce_auth.reset_request') }}" class="button sec_btn">{{_('Save')}}</a> </div>
 					<form class="form" action="" enctype="multipart/form-data" method="post" id="registrationForm">
 						{{ form.hidden_tag() }}
 						<div class="form-group">			

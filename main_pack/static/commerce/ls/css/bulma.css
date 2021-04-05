@@ -531,7 +531,7 @@ table th {
 
 .has-text-centered {
     text-align: center !important;
-    margin:0 0 15px 0;
+    margin:15px 0;
 }
 
 .has-text-justified {

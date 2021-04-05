@@ -1829,7 +1829,7 @@ span.label-text,span.label-text {
     position: relative;
     height: 100px;
     width: 100px;
-    margin: 0 auto;
+    margin: 20px auto;
     border-radius: 50%;
     overflow: hidden;
     box-shadow: 1px 1px 15px -5px black;
@@ -1840,7 +1840,7 @@ span.label-text,span.label-text {
     cursor: pointer
 }
 
-.avatar-wrapper:hover .profile-pic {
+.avatar-wrapper .profile-pic {
     opacity: .5
 }
 
@@ -1890,7 +1890,7 @@ span.label-text,span.label-text {
     stroke: #0023ff
 }
 
-.avatar-wrapper .upload-button:hover .upload-icon {
+.avatar-wrapper .upload-button .upload-icon {
     opacity: .9
 }
 
@@ -4080,7 +4080,16 @@ button[type=submit],.will-upload {
 .button.primary-button:focus {
     border-color: #0023ff
 }
-
+.sec_btn{
+    outline: none;
+    border-color: #555555;
+    background-color: #283d86;
+    color: #fff;
+    transition: all 0.5s
+}
+.sec_btn:hover{
+    color: #fff;
+}
 .button.secondary-button {
     outline: none;
     border-color: #00D1B2;

@@ -10773,7 +10773,8 @@ a#variations_clear:before {
 
 @media (min-width: 1200px) {
   .site-header .site-header-cart {
-    margin-bottom: 0; } }
+    margin-bottom: 0;
+    cursor:pointer } }
 
 .site-header .site-header-cart .dropdown-menu-mini-cart {
   min-width: 260px;
@@ -29856,7 +29857,6 @@ h3 i{
 .btn_save, .btn_reset{
   border: 1px solid #626262;
     line-height: 24px;
-    padding: 10px 30px;
     font-size: 14px;
     font-weight: 700;
     text-transform: uppercase;
