@@ -1,6 +1,8 @@
+from main_pack import db
+from main_pack.models import AddInf, BaseModel
 
 
-class Translation(AddInf,CreatedModifiedInfo,db.Model):
+class Translation(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_translations"
 	TranslId = db.Column("TranslId",db.Integer,nullable=False,primary_key=True)
 	ResCatId = db.Column("ResCatId",db.Integer,db.ForeignKey("tbl_dk_res_category.ResCatId"))
@@ -9,3 +11,22 @@ class Translation(AddInf,CreatedModifiedInfo,db.Model):
 	SlImgId = db.Column("SlImgId",db.Integer,db.ForeignKey("tbl_dk_sl_image.SlImgId"))
 	TransMain = db.Column("TransMain",db.String(500))
 	TransDesc = db.Column("TransDesc",db.String(1000))
+
+	def to_json_api(self):
+		data = {
+			"TranslId": self.TranslId,
+			"ResCatId": self.ResCatId,
+			"ColorId": self.ColorId,
+			"ProdId": self.ProdId,
+			"SlImgId": self.SlImgId,
+			"TransMain": self.TransMain,
+			"TransDesc": self.TransDesc
+		}
+
+		for key, value in AddInf.to_json_api(self).items():
+			data[key] = value
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

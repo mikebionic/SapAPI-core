@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
 
-from main_pack.models.base.models import Currency
-from main_pack.models.commerce.models import Exc_rate
+from main_pack.models import Currency
+from main_pack.models import Exc_rate
 from main_pack.base.languageMethods import dataLangSelector
 from main_pack.base.priceMethods import price_currency_conversion
 from .generate_invoice_line_json import generate_invoice_line_json

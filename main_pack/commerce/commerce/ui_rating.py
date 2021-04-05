@@ -13,8 +13,8 @@ from flask_login import current_user,login_required
 # / auth and validation /
 
 # db Models
-from main_pack.models.commerce.models import Resource,Rating
-from main_pack.models.users.models import Rp_acc
+from main_pack.models import Resource,Rating
+from main_pack.models import Rp_acc
 # / db Models /
 
 @bp.route('/product/ui_rating/',methods=['POST','DELETE'])

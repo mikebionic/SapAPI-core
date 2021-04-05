@@ -5,16 +5,16 @@ from main_pack.base.dataMethods import configureNulls,configureFloat,boolCheck
 from main_pack.base.languageMethods import dataLangSelector
 from main_pack.base.apiMethods import fileToURL
 
-from main_pack.models.base.models import Image
-from main_pack.models.users.models import (
-	Users,
+from main_pack.models import Image
+from main_pack.models import (
+	User,
 	User_type,
 	Rp_acc,
 	Rp_acc_type,
 	Rp_acc_status
 )
 
-from main_pack.models.commerce.models import (
+from main_pack.models import (
 	Unit,
 	Brand,
 	Usage_status,
@@ -23,11 +23,11 @@ from main_pack.models.commerce.models import (
 	Res_maker
 )
 
-from main_pack.models.commerce.models import (
+from main_pack.models import (
 	Barcode,
 	Res_color,
 	Res_size,
-	Res_translations,
+	Res_translation,
 	Unit,
 	Res_unit,
 	Res_price,
@@ -52,7 +52,7 @@ def UiRpAccData(rp_acc_list=None, dbQuery=None, dbModels=None, deleted=False):
 		if rp_acc_list is None:
 			rp_accs = Rp_acc.query.filter_by(**filtering)\
 				.options(
-					joinedload(Rp_acc.users),
+					joinedload(Rp_acc.user),
 					joinedload(Rp_acc.rp_acc_status),
 					joinedload(Rp_acc.rp_acc_type),
 					joinedload(Rp_acc.Image))\
@@ -65,7 +65,7 @@ def UiRpAccData(rp_acc_list=None, dbQuery=None, dbModels=None, deleted=False):
 				rp_acc = Rp_acc.query\
 					.filter_by(**filtering, RpAccId = rp_acc_index["RpAccId"])\
 					.options(
-						joinedload(Rp_acc.users),
+						joinedload(Rp_acc.user),
 						joinedload(Rp_acc.rp_acc_status),
 						joinedload(Rp_acc.rp_acc_type),
 						joinedload(Rp_acc.Image))\
@@ -76,10 +76,10 @@ def UiRpAccData(rp_acc_list=None, dbQuery=None, dbModels=None, deleted=False):
 		rpAccInfo = rp_acc.to_json_api()
 
 		# !!! TODO: Check for joinedloading this if relationship
-		rp_acc_user = Users.query\
+		rp_acc_user = User.query\
 			.filter_by(GCRecord = None, RpAccId = rp_acc.RpAccId)\
 			.first()
-		rp_acc_vendor = rp_acc.users if rp_acc.users and not rp_acc.users.GCRecord else {}
+		rp_acc_vendor = rp_acc.user if rp_acc.user and not rp_acc.user.GCRecord else {}
 
 		List_Images = [image.to_json_api() for image in rp_acc.Image if not image.GCRecord]
 		List_Images = (sorted(List_Images, key = lambda i: i["ModifiedDate"]))
@@ -118,10 +118,10 @@ def UiUsersData(users_list=None, deleted=False):
 	
 	if users_list is None:
 		if deleted==True:
-			users = Users.query\
+			users = User.query\
 				.filter_by(RpAccId = None).all()
 		else:
-			users = Users.query\
+			users = User.query\
 				.filter_by(GCRecord = None, RpAccId = None)\
 				.all()
 		for user in users:
@@ -129,10 +129,10 @@ def UiUsersData(users_list=None, deleted=False):
 	else:
 		for users_index in users_list:
 			if deleted==True:
-				user = Users.query\
+				user = User.query\
 					.filter_by(UId = users_index["UId"]).first()
 			else:
-				user = Users.query\
+				user = User.query\
 					.filter_by(GCRecord = None, UId = users_index["UId"])\
 					.first()
 			users_models.append(user)

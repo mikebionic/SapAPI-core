@@ -1,6 +1,11 @@
+from datetime import datetime
+
+from main_pack import db
+from main_pack.models import BaseModel
+from main_pack.base.dataMethods import apiDataFormat
 
 
-class Rp_acc_trans_total(CreatedModifiedInfo,db.Model):
+class Rp_acc_trans_total(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_rp_acc_trans_total"
 	RpAccTrTotId = db.Column("RpAccTrTotId",db.Integer,nullable=False,primary_key=True)
 	RpAccId = db.Column("RpAccId",db.Integer,db.ForeignKey("tbl_dk_rp_acc.RpAccId"))
@@ -11,7 +16,7 @@ class Rp_acc_trans_total(CreatedModifiedInfo,db.Model):
 	RpAccTrTotLastTrDate = db.Column("RpAccTrTotLastTrDate",db.DateTime,default=datetime.now)
 
 	def to_json_api(self):
-		json_data = {
+		data = {
 			"RpAccTrTotId": self.RpAccTrTotId,
 			"RpAccId": self.RpAccId,
 			"CurrencyId": self.CurrencyId,
@@ -20,4 +25,8 @@ class Rp_acc_trans_total(CreatedModifiedInfo,db.Model):
 			"RpAccTrTotCredit": self.RpAccTrTotCredit,
 			"RpAccTrTotLastTrDate": apiDataFormat(self.RpAccTrTotLastTrDate)
 		}
-		return json_data
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

@@ -1,5 +1,8 @@
+from main_pack import db
+from main_pack.models import AddInf, BaseModel
 
-class School(AddInf,CreatedModifiedInfo,db.Model):
+
+class School(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_school"
 	SchoolId = db.Column("SchoolId",db.Integer,nullable=False,primary_key=True)
 	EmpId = db.Column("EmpId",db.Integer,db.ForeignKey("tbl_dk_employee.EmpId"))
@@ -12,8 +15,8 @@ class School(AddInf,CreatedModifiedInfo,db.Model):
 	SchoolProfession = db.Column("SchoolProfession",db.String(255))
 	SchoolIsGraduated = db.Column("SchoolIsGraduated",db.Boolean,default=False)
 
-	def to_json(self):
-		json_data = {
+	def to_json_api(self):
+		data = {
 			"schoolId": self.SchoolId,
 			"empId": self.EmpId,
 			"schoolType": self.SchoolTypeId,
@@ -25,4 +28,11 @@ class School(AddInf,CreatedModifiedInfo,db.Model):
 			"schoolProfession": self.SchoolProfession,
 			"isGraduated": self.SchoolIsGraduated
 		}
-		return json_data
+
+		for key, value in AddInf.to_json_api(self).items():
+			data[key] = value
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

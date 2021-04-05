@@ -1,5 +1,10 @@
+from sqlalchemy.dialects.postgresql import UUID
 
-class Employee(AddInf,CreatedModifiedInfo,db.Model):
+from main_pack import db
+from main_pack.models import AddInf, BaseModel
+
+
+class Employee(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_employee"
 	EmpId = db.Column("EmpId",db.Integer,nullable=False,primary_key=True)
 	EmpGuid = db.Column("EmpGuid",UUID(as_uuid=True),unique=True)
@@ -34,7 +39,7 @@ class Employee(AddInf,CreatedModifiedInfo,db.Model):
 	Award = db.relationship("Award",backref='employee',lazy=True)
 	Relatives = db.relationship("Relatives",backref='employee',lazy=True)
 	School = db.relationship("School",backref='employee',lazy=True)
-	Visited_countries = db.relationship("Visited_countries",backref='employee',lazy=True)
+	Visited_country = db.relationship("Visited_country",backref='employee',lazy=True)
 	Work_history = db.relationship("Work_history",backref='employee',lazy=True)
 	Department_detail = db.relationship("Department_detail",backref='employee',lazy=True)
 	Image = db.relationship("Image",backref='employee',lazy=True)
@@ -45,7 +50,7 @@ class Employee(AddInf,CreatedModifiedInfo,db.Model):
 	Rating = db.relationship("Rating",backref='employee',lazy=True)
 
 	def to_json_api(self):
-		employee = {
+		data = {
 			"EmpId": self.EmpId,
 			"EmpGuid": self.EmpGuid,
 			"CId": self.CId,
@@ -72,19 +77,13 @@ class Employee(AddInf,CreatedModifiedInfo,db.Model):
 			"WorkPhoneNumber": self.WorkPhoneNumber,
 			"WorkFaxNumber": self.WorkFaxNumber,
 			"ZipCode": self.ZipCode,
-			"EMail": self.EMail,
-			"AddInf1": self.AddInf1,
-			"AddInf2": self.AddInf2,
-			"AddInf3": self.AddInf3,
-			"AddInf4": self.AddInf4,
-			"AddInf5": self.AddInf5,
-			"AddInf6": self.AddInf6,
-			"CreatedDate": apiDataFormat(self.CreatedDate),
-			"ModifiedDate": apiDataFormat(self.ModifiedDate),
-			"SyncDateTime": apiDataFormat(self.SyncDateTime),
-			"CreatedUId": self.CreatedUId,
-			"ModifiedUId": self.ModifiedUId,
-			"GCRecord": self.GCRecord
+			"EMail": self.EMail
 		}
-		return employee
 
+		for key, value in AddInf.to_json_api(self).items():
+			data[key] = value
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

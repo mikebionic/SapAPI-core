@@ -1,5 +1,8 @@
+from main_pack import db
+from main_pack.models import AddInf, BaseModel
 
-class Payment_type(AddInf,CreatedModifiedInfo,db.Model):
+
+class Payment_type(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_payment_type"
 	PtId = db.Column("PtId",db.Integer,nullable=False,primary_key=True)
 	PtName = db.Column("PtName",db.String(100),nullable=False)
@@ -9,23 +12,14 @@ class Payment_type(AddInf,CreatedModifiedInfo,db.Model):
 	Invoice = db.relationship("Invoice",backref='payment_type',lazy=True)
 
 	def to_json_api(self):
-		payment_type = {
+		data = {
 			"PtId": self.PtId,
 			"PtName": self.PtName,
 			"PtDesc": self.PtDesc,
-			"PtVisibleIndex": self.PtVisibleIndex,
-			"AddInf1": self.AddInf1,
-			"AddInf2": self.AddInf2,
-			"AddInf3": self.AddInf3,
-			"AddInf4": self.AddInf4,
-			"AddInf5": self.AddInf5,
-			"AddInf6": self.AddInf6,
-			"CreatedDate": apiDataFormat(self.CreatedDate),
-			"ModifiedDate": apiDataFormat(self.ModifiedDate),
-			"SyncDateTime": apiDataFormat(self.SyncDateTime),
-			"CreatedUId": self.CreatedUId,
-			"ModifiedUId": self.ModifiedUId,
-			"GCRecord": self.GCRecord
+			"PtVisibleIndex": self.PtVisibleIndex
 		}
-		return payment_type
 
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

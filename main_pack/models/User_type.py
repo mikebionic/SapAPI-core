@@ -13,7 +13,7 @@ class User_type(BaseModel, db.Model):
 	UTypeDesc_enUS = db.Column("UTypeDesc_enUS",db.String(500))
 	User = db.relationship("User",backref='user_type',lazy=True)
 
-	def to_json(self):
+	def to_json_api(self):
 		data = {
 			"UTypeId": self.UTypeId,
 			"UTypeName_tkTM": self.UTypeName_tkTM,
@@ -24,7 +24,7 @@ class User_type(BaseModel, db.Model):
 			"UTypeDesc_enUS": self.UTypeDesc_enUS
 		}
 
-		for key, value in BaseModel.to_json(self).items():
+		for key, value in BaseModel.to_json_api(self).items():
 			data[key] = value
 
 		return data

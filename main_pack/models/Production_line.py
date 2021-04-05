@@ -1,5 +1,8 @@
+from main_pack import db
+from main_pack.models import AddInf, BaseModel
 
-class Production_line(AddInf,CreatedModifiedInfo,db.Model):
+
+class Production_line(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_production_line"
 	ProdLineId = db.Column("ProdLineId",db.Integer,nullable=False,primary_key=True)
 	ProdId = db.Column("ProdId",db.Integer,db.ForeignKey("tbl_dk_production.ProdId"))
@@ -10,7 +13,7 @@ class Production_line(AddInf,CreatedModifiedInfo,db.Model):
 	ProdLineDesc = db.Column("ProdLineDesc",db.String(500),default='')
 
 	def to_json_api(self):
-		json_data = {
+		data = {
 			"ProdLineId": self.ProdLineId,
 			"ProdId": self.ProdId,
 			"UnitId": self.UnitId,
@@ -19,4 +22,11 @@ class Production_line(AddInf,CreatedModifiedInfo,db.Model):
 			"ProdLinePrice": self.ProdLinePrice,
 			"ProdLineDesc": self.ProdLineDesc
 		}
-		return json_data
+
+		for key, value in AddInf.to_json_api(self).items():
+			data[key] = value
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

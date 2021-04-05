@@ -28,7 +28,7 @@ class BaseModel(object):
 				if hasattr(self, key):
 					setattr(self, key, value)
 	
-	def to_json(self):
+	def to_json_api(self):
 		return {
 			"CreatedDate": apiDataFormat(self.CreatedDate),
 			"ModifiedDate": apiDataFormat(self.ModifiedDate),

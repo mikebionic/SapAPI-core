@@ -38,6 +38,15 @@ class AddInf(object):
 	AddInf5 = db.Column("AddInf5",db.String(500))
 	AddInf6 = db.Column("AddInf6",db.String(500))
 
+	def to_json_api(self):
+		return {
+			"AddInf1": self.AddInf1,
+			"AddInf2": self.AddInf2,
+			"AddInf3": self.AddInf3,
+			"AddInf4": self.AddInf4,
+			"AddInf5": self.AddInf5,
+			"AddInf6": self.AddInf6,
+		}
 
 class Acc_type(CreatedModifiedInfo,db.Model):
 	__tablename__ = "tbl_dk_acc_type"
@@ -230,7 +239,7 @@ class Company(AddInf,CreatedModifiedInfo,db.Model):
 	Res_total = db.relationship("Res_total",backref='company',lazy=True)
 	Res_trans_inv = db.relationship("Res_trans_inv",backref='company',lazy=True)
 	Rp_acc = db.relationship("Rp_acc",backref='company',lazy=True)
-	Users = db.relationship("Users",backref='company',lazy=True)
+	User = db.relationship("User",backref='company',lazy=True)
 	Wish = db.relationship("Wish",backref='company',lazy=True)
 	Production = db.relationship("Production",backref='company',lazy=True)
 	Resource = db.relationship("Resource",backref='company',lazy=True)
@@ -295,7 +304,7 @@ class Config(AddInf,CreatedModifiedInfo,db.Model):
 				if hasattr(self, key):
 					setattr(self, key, value)
 
-	def to_json(self):
+	def to_json_api(self):
 		json_data = {
 			"CfId": self.CfId,
 			"MainCfId": self.MainCfId,
@@ -332,7 +341,7 @@ class Config_type(CreatedModifiedInfo,db.Model):
 	CfTypeDesc_enUS = db.Column("CfTypeDesc_enUS",db.String(500))
 	Config = db.relationship("Config",backref='config_type',lazy=True)
 
-	def to_json(self):
+	def to_json_api(self):
 		json_data = {
 			"CfTypeId": self.CfTypeId,
 			"CfTypeName_tkTM": self.CfTypeName_tkTM,
@@ -374,7 +383,7 @@ class Contact_type(CreatedModifiedInfo,db.Model):
 	ContTypeDesc_enUS = db.Column("ContTypeDesc_enUS",db.String(500))
 	Contact = db.relationship("Contact",backref='contact_type',lazy=True)
 
-	def to_json(self):
+	def to_json_api(self):
 		json_data = {
 			"ContactTypeId": self.ContactTypeId,
 			"ContactTypeName_tkTM": self.ContactTypeName_tkTM,
@@ -492,7 +501,7 @@ class Division(AddInf,CreatedModifiedInfo,db.Model):
 	DivDesc = db.Column("DivDesc",db.String(500))
 	DivGuid = db.Column("DivGuid",UUID(as_uuid=True),unique=True)
 	OwnerDivisionId = db.Column("OwnerDivisionId",db.Integer,default=0)
-	Users = db.relationship("Users",backref='division')
+	User = db.relationship("User",backref='division')
 	Department_detail = db.relationship("Department_detail",backref='division',lazy=True)
 	Accounting_info = db.relationship("Accounting_info",backref='division',lazy=True)
 	Barcode = db.relationship("Barcode",backref='division',lazy=True)
@@ -586,7 +595,7 @@ class Image(CreatedModifiedInfo,db.Model):
 				if hasattr(self, key):
 					setattr(self, key, value)
 
-	def to_json(self):
+	def to_json_api(self):
 		json_data = {
 			"imgId": self.ImgId,
 			"empId": self.EmpId,
@@ -684,7 +693,7 @@ class Language(CreatedModifiedInfo,db.Model):
 				if hasattr(self, key):
 					setattr(self, key, value)
 
-	def to_json(self):
+	def to_json_api(self):
 		json_data = {
 			"langId": self.LangId,
 			"langName": self.LangName,

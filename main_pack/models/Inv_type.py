@@ -1,5 +1,8 @@
+from main_pack import db
+from main_pack.models import BaseModel
 
-class Inv_type(CreatedModifiedInfo,db.Model):
+
+class Inv_type(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_inv_type"
 	InvTypeId = db.Column("InvTypeId",db.Integer,nullable=False,primary_key=True)
 	InvTypeName_tkTM = db.Column("InvTypeName_tkTM",db.String(100),nullable=False)
@@ -11,20 +14,17 @@ class Inv_type(CreatedModifiedInfo,db.Model):
 	Invoice = db.relationship("Invoice",backref='inv_type',lazy=True)
 
 	def to_json_api(self):
-		inv_type = {
+		data = {
 			"InvTypeId": self.InvTypeId,
 			"InvTypeName_tkTM": self.InvTypeName_tkTM,
 			"InvTypeDesc_tkTM": self.InvTypeDesc_tkTM,
 			"InvTypeName_ruRU": self.InvTypeName_ruRU,
 			"InvTypeDesc_ruRU": self.InvTypeDesc_ruRU,
 			"InvTypeName_enUS": self.InvTypeName_enUS,
-			"InvTypeDesc_enUS": self.InvTypeDesc_enUS,
-			"CreatedDate": apiDataFormat(self.CreatedDate),
-			"ModifiedDate": apiDataFormat(self.ModifiedDate),
-			"SyncDateTime": apiDataFormat(self.SyncDateTime),
-			"CreatedUId": self.CreatedUId,
-			"ModifiedUId": self.ModifiedUId,
-			"GCRecord": self.GCRecord
+			"InvTypeDesc_enUS": self.InvTypeDesc_enUS
 		}
-		return inv_type
 
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

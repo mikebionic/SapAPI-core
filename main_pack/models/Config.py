@@ -1,5 +1,10 @@
+from sqlalchemy.dialects.postgresql import UUID
 
-class Config(AddInf,CreatedModifiedInfo,db.Model):
+from main_pack import db
+from main_pack.models import AddInf, BaseModel
+
+
+class Config(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_config"
 	CfId = db.Column("CfId",db.Integer,primary_key=True)
 	MainCfId = db.Column("MainCfId",db.Integer)
@@ -10,8 +15,8 @@ class Config(AddInf,CreatedModifiedInfo,db.Model):
 	CfIntVal = db.Column("CfIntVal",db.Integer)
 	CfStringVal = db.Column("CfStringVal",db.String(500))
 
-	def to_json(self):
-		json_data = {
+	def to_json_api(self):
+		data = {
 			"CfId": self.CfId,
 			"MainCfId": self.MainCfId,
 			"CfTypeId": self.CfTypeId,
@@ -19,18 +24,13 @@ class Config(AddInf,CreatedModifiedInfo,db.Model):
 			"CfName": self.CfName,
 			"CfDesc": self.CfDesc,
 			"CfIntVal": self.CfIntVal,
-			"CfStringVal": self.CfStringVal,
-			"AddInf1": self.AddInf1,
-			"AddInf2": self.AddInf2,
-			"AddInf3": self.AddInf3,
-			"AddInf4": self.AddInf4,
-			"AddInf5": self.AddInf5,
-			"AddInf6": self.AddInf6,
-			"CreatedDate": apiDataFormat(self.CreatedDate),
-			"ModifiedDate": apiDataFormat(self.ModifiedDate),
-			"SyncDateTime": apiDataFormat(self.SyncDateTime),
-			"CreatedUId": self.CreatedUId,
-			"ModifiedUId": self.ModifiedUId,
-			"GCRecord": self.GCRecord
+			"CfStringVal": self.CfStringVal
 		}
-		return json_data
+
+		for key, value in AddInf.to_json_api(self).items():
+			data[key] = value
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

@@ -15,7 +15,7 @@ from wtforms.validators import (
 	ValidationError
 )
 from main_pack import lazy_gettext
-from main_pack.models.users.models import Rp_acc
+from main_pack.models import Rp_acc
 
 
 class RequestRegistrationForm(FlaskForm):

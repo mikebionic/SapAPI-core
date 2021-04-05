@@ -1,6 +1,8 @@
+from main_pack import db
+from main_pack.models import AddInf, BaseModel
 
 
-class Contact(AddInf,CreatedModifiedInfo,db.Model):
+class Contact(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_contact"
 	ContId = db.Column("ContId",db.Integer,nullable=False,primary_key=True)
 	CId = db.Column("CId",db.Integer,db.ForeignKey("tbl_dk_company.CId"))
@@ -10,3 +12,23 @@ class Contact(AddInf,CreatedModifiedInfo,db.Model):
 	ContTypeId = db.Column("ContTypeId",db.Integer,db.ForeignKey("tbl_dk_contact_type.ContTypeId"))
 	ContValue = db.Column("ContValue",db.String(200),nullable=False)
 	ContDesc = db.Column("ContDesc",db.String(500))
+
+	def to_json_api(self):
+		data = {
+			"ContId": self.ContId,
+			"CId": self.CId,
+			"EmpId": self.EmpId,
+			"RpAccId": self.RpAccId,
+			"BankId": self.BankId,
+			"ContTypeId": self.ContTypeId,
+			"ContValue": self.ContValue,
+			"ContDesc": self.ContDesc
+		}
+
+		for key, value in AddInf.to_json_api(self).items():
+			data[key] = value
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

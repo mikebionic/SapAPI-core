@@ -1,9 +1,9 @@
 from datetime import datetime
 
 from main_pack import Config
-from main_pack.models.commerce.models import Res_price_group
-from main_pack.models.commerce.models import Exc_rate
-from main_pack.models.base.models import Currency
+from main_pack.models import Res_price_group
+from main_pack.models import Exc_rate
+from main_pack.models import Currency
 from .dataMethods import configureDecimal
 
 # main_currency = "USD"

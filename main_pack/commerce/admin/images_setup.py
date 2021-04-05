@@ -18,8 +18,8 @@ from sqlalchemy.orm import joinedload
 # / data operations /
 
 # data and models
-from main_pack.models.base.models import Company,Sl_image,Slider,Image
-from main_pack.models.commerce.models import Resource, Brand
+from main_pack.models import Company,Sl_image,Slider,Image
+from main_pack.models import Resource, Brand
 from main_pack.api.commerce.commerce_utils import apiResourceInfo
 import os
 import uuid

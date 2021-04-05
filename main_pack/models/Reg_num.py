@@ -1,5 +1,8 @@
+from main_pack import db
+from main_pack.models import BaseModel
 
-class Reg_num(CreatedModifiedInfo,db.Model):
+
+class Reg_num(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_reg_num"
 	RegNumId = db.Column("RegNumId",db.Integer,nullable=False,primary_key=True)
 	RegNumTypeId = db.Column("RegNumTypeId",db.Integer,db.ForeignKey("tbl_dk_reg_num_type.RegNumTypeId"))
@@ -10,3 +13,18 @@ class Reg_num(CreatedModifiedInfo,db.Model):
 
 	def registerLastNum(self,RegNumLastNum):
 		self.RegNumLastNum+=1
+
+	def to_json_api(self):
+		data = {
+			"RegNumId": self.RegNumId,
+			"RegNumTypeId": self.RegNumTypeId,
+			"UId": self.UId,
+			"RegNumPrefix": self.RegNumPrefix,
+			"RegNumLastNum": self.RegNumLastNum,
+			"RegNumSuffix": self.RegNumSuffix
+		}
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

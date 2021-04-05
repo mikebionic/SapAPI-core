@@ -1,6 +1,8 @@
+from main_pack import db
+from main_pack.models import AddInf, BaseModel
 
 
-class Location(AddInf,CreatedModifiedInfo,db.Model):
+class Location(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_location"
 	LocId = db.Column("LocId",db.Integer,nullable=False,primary_key=True)
 	CId = db.Column("CId",db.Integer,db.ForeignKey("tbl_dk_company.CId"))
@@ -15,3 +17,28 @@ class Location(AddInf,CreatedModifiedInfo,db.Model):
 	LocPostCode = db.Column("LocPostCode",db.String(25))
 	LocLatitude = db.Column("LocLatitude",db.Integer)
 	LocLongitude = db.Column("LocLongitude",db.Integer)
+
+	def to_json_api(self):
+		data = {
+			"LocId": self.LocId,
+			"CId": self.CId,
+			"BankId": self.BankId,
+			"EmpId": self.EmpId,
+			"RpAccId": self.RpAccId,
+			"CountryId": self.CountryId,
+			"CityId": self.CityId,
+			"LocAddress": self.LocAddress,
+			"LocAddressOffical": self.LocAddressOffical,
+			"LocAddressReal": self.LocAddressReal,
+			"LocPostCode": self.LocPostCode,
+			"LocLatitude": self.LocLatitude,
+			"LocLongitude": self.LocLongitude
+		}
+
+		for key, value in AddInf.to_json_api(self).items():
+			data[key] = value
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

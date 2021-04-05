@@ -5,7 +5,7 @@ from sqlalchemy import or_, and_
 from sqlalchemy.orm import joinedload
 
 from . import api
-from main_pack.models.base.models import Company, Sl_image, Slider
+from main_pack.models import Company, Sl_image, Slider
 
 
 @api.route("/tbl-dk-sliders/")

@@ -7,8 +7,8 @@ from main_pack import db
 from . import api
 from .utils import addWorkPeriodDict
 
-from main_pack.models.base.models import Currency
-from main_pack.models.commerce.models import Work_period
+from main_pack.models import Currency
+from main_pack.models import Work_period
 
 from main_pack.base.apiMethods import checkApiResponseStatus
 from main_pack.api.auth.utils import sha_required

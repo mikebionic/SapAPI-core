@@ -7,7 +7,7 @@ from main_pack import db
 from . import api
 
 # orders and db methods
-from main_pack.models.commerce.models import Order_inv_type
+from main_pack.models import Order_inv_type
 from .utils import addOrderInvTypeDict
 from main_pack.base.apiMethods import checkApiResponseStatus
 # / orders and db methods /

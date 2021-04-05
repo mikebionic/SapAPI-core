@@ -9,7 +9,7 @@ from main_pack.commerce.auth.utils import ui_admin_required
 from datetime import datetime
 from main_pack.commerce.admin import bp
 
-from main_pack.models.commerce.models import (
+from main_pack.models import (
 	Inv_line,
 	Inv_line_det,
 	Inv_line_det_type,
@@ -23,7 +23,7 @@ from sqlalchemy import and_
 from main_pack.base.num2text import num2text, price2text
 import decimal
 from main_pack.config import Config
-from main_pack.models.commerce.models import Res_total
+from main_pack.models import Res_total
 from main_pack.base.invoiceMethods import totalQtySubstitution
 
 @bp.route('/ui/inv_status/',methods=['POST'])

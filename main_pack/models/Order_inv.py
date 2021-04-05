@@ -1,5 +1,12 @@
+from sqlalchemy.dialects.postgresql import UUID
+from datetime import datetime
 
-class Order_inv(AddInf,CreatedModifiedInfo,db.Model):
+from main_pack import db
+from main_pack.models import AddInf, BaseModel
+from main_pack.base.dataMethods import configureFloat, apiDataFormat
+
+
+class Order_inv(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_order_inv"
 	OInvId = db.Column("OInvId",db.Integer,nullable=False,primary_key=True)
 	OInvGuid = db.Column("OInvGuid",UUID(as_uuid=True),unique=True)
@@ -36,7 +43,7 @@ class Order_inv(AddInf,CreatedModifiedInfo,db.Model):
 	Order_inv_line = db.relationship("Order_inv_line",backref='order_inv',lazy='joined')
 
 	def to_json_api(self):
-		order_inv = {
+		data = {
 			"OInvId": self.OInvId,
 			"OInvGuid": self.OInvGuid,
 			"OInvTypeId": self.OInvTypeId,
@@ -70,4 +77,11 @@ class Order_inv(AddInf,CreatedModifiedInfo,db.Model):
 			"OInvCreditDays": self.OInvCreditDays,
 			"OInvCreditDesc": self.OInvCreditDesc,
 		}
-		return order_inv
+
+		for key, value in AddInf.to_json_api(self).items():
+			data[key] = value
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

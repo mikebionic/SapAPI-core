@@ -1,5 +1,8 @@
+from main_pack import db
+from main_pack.models import BaseModel
 
-class Transaction_type(CreatedModifiedInfo,db.Model):
+
+class Transaction_type(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_transaction_type"
 	TransTypeId = db.Column("TransTypeId",db.Integer,nullable=False,primary_key=True)
 	TransTypeName = db.Column("TransTypeName",db.String(100),nullable=False)
@@ -12,4 +15,8 @@ class Transaction_type(CreatedModifiedInfo,db.Model):
 			"TransTypeName": self.TransTypeName,
 			"TransTypeDesc": self.TransTypeDesc
 		}
-		return json_data
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

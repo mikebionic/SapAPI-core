@@ -7,7 +7,7 @@ from main_pack import db
 from main_pack.config import Config
 from main_pack.api.users.utils import addDeviceDict
 from main_pack.api.base.validators import request_is_json
-from main_pack.models.users.models import Device, Rp_acc
+from main_pack.models import Device, Rp_acc
 from .utils import sap_key_required
 from main_pack.base.cryptographyMethods import encrypt_data
 

@@ -1,5 +1,8 @@
+from main_pack import db
+from main_pack.models import AddInf, BaseModel
 
-class Res_transaction(AddInf,CreatedModifiedInfo,db.Model):
+
+class Res_transaction(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_res_transaction"
 	ResTransId = db.Column("ResTransId",db.Integer,nullable=False,primary_key=True)
 	ResTransTypeId = db.Column("ResTransTypeId",db.Integer,db.ForeignKey("tbl_dk_res_trans_type.ResTransTypeId"))
@@ -19,7 +22,7 @@ class Res_transaction(AddInf,CreatedModifiedInfo,db.Model):
 	ResTransPurchAvgPrice = db.Column("ResTransPurchAvgPrice",db.Float,default=0.0)
 
 	def to_json_api(self):
-		json_data = {
+		data = {
 			"ResTransId": self.ResTransId,
 			"ResTransTypeId": self.ResTransTypeId,
 			"InvLineId": self.InvLineId,
@@ -37,4 +40,11 @@ class Res_transaction(AddInf,CreatedModifiedInfo,db.Model):
 			"ResTransDate": self.ResTransDate,
 			"ResTransPurchAvgPrice": self.ResTransPurchAvgPrice
 		}
-		return json_data
+
+		for key, value in AddInf.to_json_api(self).items():
+			data[key] = value
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

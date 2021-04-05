@@ -6,8 +6,8 @@ from sqlalchemy.orm import joinedload
 
 from . import api
 
-from main_pack.models.base.models import Company
-from main_pack.models.commerce.models import Brand
+from main_pack.models import Company
+from main_pack.models import Brand
 
 
 @api.route("/tbl-dk-brands/")

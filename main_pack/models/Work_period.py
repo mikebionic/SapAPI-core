@@ -1,5 +1,8 @@
+from main_pack import db
+from main_pack.models import BaseModel
 
-class Work_period(CreatedModifiedInfo,db.Model):
+
+class Work_period(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_work_period"
 	WpId = db.Column("WpId",db.Integer,nullable=False,primary_key=True)
 	CId = db.Column("CId",db.Integer,db.ForeignKey("tbl_dk_company.CId"))
@@ -16,7 +19,7 @@ class Work_period(CreatedModifiedInfo,db.Model):
 	Sale_card = db.relationship("Sale_card",backref='work_period',lazy=True)
 
 	def to_json_api(self):
-		json_data = {
+		data = {
 			"WpId": self.WpId,
 			"CId": self.CId,
 			"DivId": self.DivId,
@@ -25,4 +28,8 @@ class Work_period(CreatedModifiedInfo,db.Model):
 			"WpEndDate": self.WpEndDate,
 			"WpIsDefault": self.WpIsDefault
 		}
-		return json_data
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

@@ -13,7 +13,7 @@ from main_pack import db
 from main_pack.config import Config
 
 # orders and db methods
-from main_pack.models.commerce.models import (
+from main_pack.models import (
 	Order_inv,Resource,
 	Order_inv_line,
 	Inv_status,
@@ -23,12 +23,12 @@ from .utils import (
 	addOrderInvDict,
 	addOrderInvLineDict
 )
-from main_pack.models.base.models import Warehouse, Division
+from main_pack.models import Warehouse, Division
 from main_pack.base.apiMethods import checkApiResponseStatus
 # / orders and db methods /
 
 # Rp_acc db Model and methods
-from main_pack.models.users.models import Rp_acc
+from main_pack.models import Rp_acc
 # / Rp_acc db Model and methods /
 
 # functions and methods

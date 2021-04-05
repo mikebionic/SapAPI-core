@@ -1,5 +1,8 @@
+from main_pack import db
+from main_pack.models import BaseModel
 
-class Res_price_group(CreatedModifiedInfo,db.Model):
+
+class Res_price_group(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_res_price_group"
 	ResPriceGroupId = db.Column("ResPriceGroupId",db.Integer,nullable=False,primary_key=True)
 	UsageStatusId = db.Column("UsageStatusId",db.Integer,db.ForeignKey("tbl_dk_usage_status.UsageStatusId"))
@@ -13,11 +16,11 @@ class Res_price_group(CreatedModifiedInfo,db.Model):
 	Res_price = db.relationship("Res_price",backref='res_price_group',lazy=True)
 	Sale_card = db.relationship("Sale_card",backref='res_price_group',lazy=True)
 	Res_price_rule = db.relationship("Res_price_rule",backref='res_price_group',lazy=True)
-	Users = db.relationship("Users",backref='res_price_group',lazy=True)
+	User = db.relationship("User",backref='res_price_group',lazy=True)
 	Rp_acc = db.relationship("Rp_acc",backref='res_price_group',lazy=True)
 
 	def to_json_api(self):
-		json_data = {
+		data = {
 			"ResPriceGroupId": self.ResPriceGroupId,
 			"UsageStatusId": self.UsageStatusId,
 			"ResPriceGroupName": self.ResPriceGroupName,
@@ -26,12 +29,10 @@ class Res_price_group(CreatedModifiedInfo,db.Model):
 			"FromResPriceTypeId": self.FromResPriceTypeId,
 			"ToResPriceTypeId": self.ToResPriceTypeId,
 			"ResPriceGroupAMPerc": self.ResPriceGroupAMPerc,
-			"RoundingType": self.RoundingType,
-			"CreatedDate": apiDataFormat(self.CreatedDate),
-			"ModifiedDate": apiDataFormat(self.ModifiedDate),
-			"SyncDateTime": apiDataFormat(self.SyncDateTime),
-			"CreatedUId": self.CreatedUId,
-			"ModifiedUId": self.ModifiedUId,
-			"GCRecord": self.GCRecord
+			"RoundingType": self.RoundingType
 		}
-		return json_data
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

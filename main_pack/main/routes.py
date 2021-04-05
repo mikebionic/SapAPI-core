@@ -10,8 +10,8 @@ from main_pack import Config
 
 from main_pack.api.commerce.commerce_utils import apiResourceInfo
 
-from main_pack.models.base.models import Division
-from main_pack.models.commerce.models import (
+from main_pack.models import Division
+from main_pack.models import (
 	Res_category,
 	Res_total,
 	Resource)

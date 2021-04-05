@@ -9,7 +9,7 @@ from main_pack.commerce.auth.utils import ui_admin_required
 from main_pack import db, gettext, lazy_gettext, cache
 from main_pack.commerce.admin import bp
 from main_pack.commerce.admin.utils import addCompanyInfoDict
-from main_pack.models.base.models import Company
+from main_pack.models import Company
 
 @bp.route("/admin/ui_company/", methods=['POST'])
 @login_required

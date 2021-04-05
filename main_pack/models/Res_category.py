@@ -1,5 +1,8 @@
+from main_pack import db
+from main_pack.models import BaseModel
 
-class Res_category(CreatedModifiedInfo,db.Model):
+
+class Res_category(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_res_category"
 	ResCatId = db.Column("ResCatId",db.Integer,nullable=False,primary_key=True)
 	ResOwnerCatId = db.Column("ResOwnerCatId",db.Integer,db.ForeignKey("tbl_dk_res_category.ResCatId"))
@@ -12,11 +15,11 @@ class Res_category(CreatedModifiedInfo,db.Model):
 	ResCatIconData = db.Column("ResCatIconData",db.String(100000))
 	Resource = db.relationship("Resource",backref='res_category',lazy=True)
 	Image = db.relationship("Image",backref='res_category',lazy=True)
-	Translations = db.relationship("Translations",backref='res_category',lazy=True)
+	Translation = db.relationship("Translation",backref='res_category',lazy=True)
 	Res_category = db.relationship("Res_category",remote_side=ResCatId,backref='subcategory',lazy=True)
 
 	def to_json_api(self):
-		json_data = {
+		data = {
 			"ResCatId": self.ResCatId,
 			"ResOwnerCatId": self.ResOwnerCatId or 0,
 			"ResCatVisibleIndex": self.ResCatVisibleIndex or 0,
@@ -25,12 +28,10 @@ class Res_category(CreatedModifiedInfo,db.Model):
 			"ResCatDesc": self.ResCatDesc,
 			"ResCatIconName": self.ResCatIconName,
 			"ResCatIconFilePath": self.ResCatIconFilePath,
-			"ResCatIconData": self.ResCatIconData,
-			"CreatedDate": apiDataFormat(self.CreatedDate),
-			"ModifiedDate": apiDataFormat(self.ModifiedDate),
-			"SyncDateTime": apiDataFormat(self.SyncDateTime),
-			"CreatedUId": self.CreatedUId,
-			"ModifiedUId": self.ModifiedUId,
-			"GCRecord": self.GCRecord
+			"ResCatIconData": self.ResCatIconData
 		}
-		return json_data
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

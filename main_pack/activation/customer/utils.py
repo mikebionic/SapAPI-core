@@ -2,7 +2,7 @@
 from datetime import datetime, timezone, timedelta
 
 from main_pack.config import Config
-from main_pack.models.base.models import Db_inf
+from main_pack.models import Db_inf
 from main_pack.base.cryptographyMethods import decrypt_data
 from main_pack.activation.customer.device_fetch import fetch_device
 

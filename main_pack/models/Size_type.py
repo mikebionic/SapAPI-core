@@ -1,5 +1,8 @@
+from main_pack import db
+from main_pack.models import BaseModel
 
-class Size_type(CreatedModifiedInfo,db.Model):
+
+class Size_type(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_size_type"
 	SizeTypeId = db.Column("SizeTypeId",db.Integer,nullable=False,primary_key=True)
 	SizeTypeName = db.Column("SizeTypeName",db.String(100),nullable=False)
@@ -7,14 +10,12 @@ class Size_type(CreatedModifiedInfo,db.Model):
 	Size = db.relationship("Size",backref='size_type',lazy=True)
 
 	def to_json_api(self):
-		json_data = {
+		data = {
 			"SizeTypeName": self.SizeTypeName,
 			"SizeTypeDesc": self.SizeTypeDesc,
-			"CreatedDate": apiDataFormat(self.CreatedDate),
-			"ModifiedDate": apiDataFormat(self.ModifiedDate),
-			"SyncDateTime": apiDataFormat(self.SyncDateTime),
-			"CreatedUId": self.CreatedUId,
-			"ModifiedUId": self.ModifiedUId,
-			"GCRecord": self.GCRecord
 		}
-		return json_data
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

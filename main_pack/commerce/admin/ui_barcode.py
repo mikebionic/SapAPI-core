@@ -11,7 +11,7 @@ from datetime import datetime
 from main_pack.commerce.admin import bp
 
 from main_pack.commerce.admin.utils import addBarcodeDict
-from main_pack.models.commerce.models import Barcode
+from main_pack.models import Barcode
 
 
 @bp.route('/ui/barcode/', methods=['POST','DELETE'])

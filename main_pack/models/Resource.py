@@ -36,7 +36,7 @@ class Resource(AddInf, BaseModel, db.Model):
 	Barcode = db.relationship("Barcode",backref='resource',lazy=True)
 	Res_color = db.relationship("Res_color",backref='resource',lazy=True)
 	Res_size = db.relationship("Res_size",backref='resource',lazy=True)
-	Res_translations = db.relationship("Res_translations",backref='resource',lazy=True)
+	Res_translation = db.relationship("Res_translation",backref='resource',lazy=True)
 	Res_unit = db.relationship("Res_unit",backref='resource',lazy=True)
 	Inv_line = db.relationship("Inv_line",backref='resource',lazy=True)
 	Inv_line_det = db.relationship("Inv_line_det",backref='resource',lazy=True)	
@@ -55,7 +55,7 @@ class Resource(AddInf, BaseModel, db.Model):
 	Production_line = db.relationship("Production_line",backref='resource',lazy=True)
 	Rating = db.relationship("Rating",backref='resource',lazy=True)
 
-	def to_json(self):
+	def to_json_api(self):
 		data = {
 			"ResId": self.ResId,
 			"ResGuid": self.ResGuid,
@@ -84,10 +84,10 @@ class Resource(AddInf, BaseModel, db.Model):
 			"ResMaxSalePrice": configureFloat(self.ResMaxSalePrice),
 		}
 
-		for key, value in AddInf.to_json(self).items():
+		for key, value in AddInf.to_json_api(self).items():
 			data[key] = value
-		
-		for key, value in BaseModel.to_json(self).items():
+
+		for key, value in BaseModel.to_json_api(self).items():
 			data[key] = value
 
 		return data

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import jsonify, request, make_response
+from flask import jsonify, request, make_response, session
 import requests, json
 import uuid
 from sqlalchemy.orm import joinedload
@@ -10,24 +10,22 @@ from main_pack import db, babel, gettext, lazy_gettext
 from main_pack.config import Config
 from . import api
 
-# Users and auth
-from main_pack.models.users.models import Users
+from main_pack.models import User
 from main_pack.api.auth.utils import token_required
-# / Users and auth /
 
 # Orders
-from main_pack.models.commerce.models import Order_inv, Order_inv_line, Work_period
+from main_pack.models import Order_inv, Order_inv_line, Work_period
 from .utils import addOrderInvDict, addOrderInvLineDict
 from main_pack.base.invoiceMethods import get_order_error_type
 from main_pack.base.apiMethods import checkApiResponseStatus
 # / Orders /
 
-from main_pack.key_generator.utils import generate, makeRegNo, Pred_regnum
+from main_pack.key_generator.utils import generate, makeRegNo, Pred_reg_num
 from main_pack.api.base.validators import request_is_json
 
 # Resource models and operations
-from  main_pack.models.base.models import Warehouse, Currency
-from main_pack.models.commerce.models import (
+from  main_pack.models import Warehouse, Currency
+from main_pack.models import (
 	Resource,
 	Res_price,
 	Res_total,
@@ -68,13 +66,12 @@ def api_checkout_sale_order_invoices(user):
 		WhId = warehouse.WhId if warehouse else None
 
 		# get the seller's user information of a specific rp_acc
-		# !!! TODO: discuss the relationship deletion of user in rp_acc
-		user = Users.query\
+		user = User.query\
 			.filter_by(GCRecord = None, UId = current_user.UId)\
 			.first()
 		if user is None:
 			# try to find the rp_acc registered user if no seller specified
-			user = Users.query\
+			user = User.query\
 				.filter_by(GCRecord = None, RpAccId = RpAccId)\
 				.first()
 
@@ -83,7 +80,7 @@ def api_checkout_sale_order_invoices(user):
 		if (model_type != "device"):
 			ResPriceGroupId = current_user.ResPriceGroupId if current_user.ResPriceGroupId else None
 		else:
-			ResPriceGroupId = current_user.users.ResPriceGroupId if current_user.users else None
+			ResPriceGroupId = current_user.user.ResPriceGroupId if current_user.user else None
 
 	elif "ResPriceGroupId" in session:
 		ResPriceGroupId = session["ResPriceGroupId"]
@@ -109,7 +106,7 @@ def api_checkout_sale_order_invoices(user):
 				orderRegNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
 
 		else:
-			reg_num_pred_exists = Pred_regnum.query\
+			reg_num_pred_exists = Pred_reg_num.query\
 				.filter_by(GCRecord = None, RegNum = orderRegNo).first()
 			if not reg_num_pred_exists:
 				raise Exception

@@ -1,5 +1,8 @@
+from main_pack import db
+from main_pack.models import BaseModel
 
-class Order_inv_type(CreatedModifiedInfo,db.Model):
+
+class Order_inv_type(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_order_inv_type"
 	OInvTypeId = db.Column("OInvTypeId",db.Integer,nullable=False,primary_key=True)
 	OInvTypeName_tkTM = db.Column("OInvTypeName_tkTM",db.String(100),nullable=False)
@@ -11,19 +14,17 @@ class Order_inv_type(CreatedModifiedInfo,db.Model):
 	Order_inv = db.relationship("Order_inv",backref='order_inv_type',lazy=True)
 
 	def to_json_api(self):
-		json_data = {
+		data = {
 			"OInvTypeId": self.OInvTypeId,
 			"OInvTypeName_tkTM": self.OInvTypeName_tkTM,
 			"OInvTypeDesc_tkTM": self.OInvTypeDesc_tkTM,
 			"OInvTypeName_ruRU": self.OInvTypeName_ruRU,
 			"OInvTypeDesc_ruRU": self.OInvTypeDesc_ruRU,
 			"OInvTypeName_enUS": self.OInvTypeName_enUS,
-			"OInvTypeDesc_enUS": self.OInvTypeDesc_enUS,
-			"CreatedDate": apiDataFormat(self.CreatedDate),
-			"ModifiedDate": apiDataFormat(self.ModifiedDate),
-			"SyncDateTime": apiDataFormat(self.SyncDateTime),
-			"CreatedUId": self.CreatedUId,
-			"ModifiedUId": self.ModifiedUId,
-			"GCRecord": self.GCRecord
+			"OInvTypeDesc_enUS": self.OInvTypeDesc_enUS
 		}
-		return json_data
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

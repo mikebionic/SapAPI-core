@@ -1,4 +1,4 @@
-from main_pack.models.base.models import Division
+from main_pack.models import Division
 
 def get_CId_WhGuid_list():
 	divisions = Division.query\

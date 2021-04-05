@@ -1,5 +1,8 @@
+from main_pack import db
+from main_pack.models import AddInf, BaseModel
 
-class Res_price_rule(AddInf,CreatedModifiedInfo,db.Model):
+
+class Res_price_rule(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_res_price_rule"
 	RprId = db.Column("RprId",db.Integer,nullable=False,primary_key=True)
 	UsageStatusId = db.Column("UsageStatusId",db.Integer,db.ForeignKey("tbl_dk_usage_status.UsageStatusId"))
@@ -9,7 +12,7 @@ class Res_price_rule(AddInf,CreatedModifiedInfo,db.Model):
 	ResMaxAmount = db.Column("ResMaxAmount",db.Float)
 
 	def to_json_api(self):
-		json_data = {
+		data = {
 			"RprId": self.RprId,
 			"UsageStatusId": self.UsageStatusId,
 			"ResId": self.ResId,
@@ -17,4 +20,8 @@ class Res_price_rule(AddInf,CreatedModifiedInfo,db.Model):
 			"ResMinAmount": self.ResMinAmount,
 			"ResMaxAmount": self.ResMaxAmount
 		}
-		return json_data
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

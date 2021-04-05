@@ -1,5 +1,8 @@
+from main_pack import db
+from main_pack.models import AddInf, BaseModel
 
-class Work_history(AddInf,CreatedModifiedInfo,db.Model):
+
+class Work_history(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_work_history"
 	WorkHistId = db.Column("WorkHistId",db.Integer,nullable=False,primary_key=True)
 	EmpId = db.Column("EmpId",db.Integer,db.ForeignKey("tbl_dk_employee.EmpId"))
@@ -11,16 +14,23 @@ class Work_history(AddInf,CreatedModifiedInfo,db.Model):
 	WorkHistoryWorkEndDate = db.Column("WorkHistoryWorkEndDate",db.DateTime)
 	WorkHistoryWorkEndReason = db.Column("WorkHistoryWorkEndReason",db.String(500))
 
-	def to_json(self):
-		json_data = {
-			"workHistId": self.WorkHistId,
-			"empId": self.EmpId,
-			"whWorkPlace": self.WorkHistoryWorkPlace,
-			"whWorkDesc": self.WorkHistoryWorkDesc,
-			"whWorkDept": self.WorkHistoryWorkDept,
-			"whWorkPos": self.WorkHistoryWorkPos,
-			"whWorkStartDate": self.WorkHistoryWorkStartDate,
-			"whWorkEndDate": self.WorkHistoryWorkEndDate,
-			"whWorkEndReason": self.WorkHistoryWorkEndReason,
+	def to_json_api(self):
+		data = {
+			"WorkHistId": self.WorkHistId,
+			"EmpId": self.EmpId,
+			"WorkHistoryWorkPlace": self.WorkHistoryWorkPlace,
+			"WorkHistoryWorkDesc": self.WorkHistoryWorkDesc,
+			"WorkHistoryWorkDept": self.WorkHistoryWorkDept,
+			"WorkHistoryWorkPos": self.WorkHistoryWorkPos,
+			"WorkHistoryWorkStartDate": self.WorkHistoryWorkStartDate,
+			"WorkHistoryWorkEndDate": self.WorkHistoryWorkEndDate,
+			"WorkHistoryWorkEndReason": self.WorkHistoryWorkEndReason,
 		}
-		return json_data
+
+		for key, value in AddInf.to_json_api(self).items():
+			data[key] = value
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

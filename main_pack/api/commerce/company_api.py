@@ -6,7 +6,7 @@ from sqlalchemy.orm import joinedload
 from . import api
 from main_pack import db
 
-from main_pack.models.base.models import (
+from main_pack.models import (
 	Company,
 	Bank,
 	Accounting_info

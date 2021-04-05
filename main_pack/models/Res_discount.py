@@ -1,5 +1,8 @@
+from main_pack import db
+from main_pack.models import AddInf, BaseModel
 
-class Res_discount(AddInf,CreatedModifiedInfo,db.Model):
+
+class Res_discount(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_res_discount"
 	ResDiscId = db.Column("ResDiscId",db.Integer,nullable=False,primary_key=True)
 	SaleCardId = db.Column("SaleCardId",db.Integer,db.ForeignKey("tbl_dk_sale_card.SaleCardId"))
@@ -18,7 +21,7 @@ class Res_discount(AddInf,CreatedModifiedInfo,db.Model):
 	Sale_card = db.relationship("Sale_card",backref='res_discount',foreign_keys='Sale_card.ResDiscId',lazy=True)
 
 	def to_json_api(self):
-		json_data = {
+		data = {
 			"ResDiscId": self.ResDiscId,
 			"SaleCardId": self.SaleCardId,
 			"ResDiscRegNo": self.ResDiscRegNo,
@@ -32,6 +35,13 @@ class Res_discount(AddInf,CreatedModifiedInfo,db.Model):
 			"ResDiscIsActive": self.ResDiscIsActive,
 			"GiftResId": self.GiftResId,
 			"GiftResAmount": self.GiftResAmount,
-			"GiftResDiscValue": self.GiftResDiscValue,
+			"GiftResDiscValue": self.GiftResDiscValue
 		}
-		return json_data
+
+		for key, value in AddInf.to_json_api(self).items():
+			data[key] = value
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

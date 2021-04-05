@@ -7,7 +7,7 @@ from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
 from main_pack.config import Config
 from main_pack import mail
-from main_pack.models.users.models import Users, Rp_acc, Device
+from main_pack.models import User, Rp_acc, Device
 
 
 def token_required(f):
@@ -26,7 +26,7 @@ def token_required(f):
 
 			if "UId" in data:
 				model_type = 'user'
-				current_user = Users.query\
+				current_user = User.query\
 					.filter_by(GCRecord = None, UId = data['UId'])\
 					.first()
 

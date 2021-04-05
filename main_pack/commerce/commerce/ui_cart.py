@@ -35,13 +35,13 @@ from main_pack.commerce.admin.utils import resRelatedData
 # / Resource and view /
 
 # users and customers
-from main_pack.models.users.models import Users, Rp_acc
+from main_pack.models import User, Rp_acc
 # / users and customers /
 
 # Invoices
 from main_pack.api.commerce.commerce_utils import UiCartResourceData
-from main_pack.models.base.models import Warehouse, Currency
-from main_pack.models.commerce.models import (
+from main_pack.models import Warehouse, Currency
+from main_pack.models import (
 	Resource,
 	Order_inv,
 	Order_inv_line,
@@ -210,7 +210,7 @@ def ui_cart_checkout():
 				.filter_by(GCRecord = None, WpIsDefault = True)\
 				.first()
 
-			user = Users.query\
+			user = User.query\
 				.filter_by(GCRecord = None, RpAccId = RpAccId)\
 				.first()
 

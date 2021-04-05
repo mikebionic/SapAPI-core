@@ -1,5 +1,8 @@
+from main_pack import db
+from main_pack.models import AddInf, BaseModel
 
-class Sale_agreement(AddInf,CreatedModifiedInfo,db.Model):
+
+class Sale_agreement(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_sale_agreement"
 	SaleAgrId = db.Column("SaleAgrId",db.Integer,nullable=False,primary_key=True)
 	CurrencyId = db.Column("CurrencyId",db.Integer,db.ForeignKey("tbl_dk_currency.CurrencyId"))
@@ -15,7 +18,7 @@ class Sale_agreement(AddInf,CreatedModifiedInfo,db.Model):
 	Sale_agr_res_price = db.relationship("Sale_agr_res_price",backref='sale_agreement',lazy=True)
 
 	def to_json_api(self):
-		json_data = {
+		data = {
 			"SaleAgrId": self.SaleAgrId,
 			"CurrencyId": self.CurrencyId,
 			"SaleAgrName": self.SaleAgrName,
@@ -27,4 +30,11 @@ class Sale_agreement(AddInf,CreatedModifiedInfo,db.Model):
 			"SaleAgrTaxAmount": self.SaleAgrTaxAmount,
 			"SaleAgrUseOwnPriceList": self.SaleAgrUseOwnPriceList
 		}
-		return json_data
+
+		for key, value in AddInf.to_json_api(self).items():
+			data[key] = value
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

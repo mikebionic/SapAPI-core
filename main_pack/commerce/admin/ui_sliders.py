@@ -10,7 +10,7 @@ from main_pack.commerce.auth.utils import ui_admin_required
 from datetime import datetime
 from main_pack.commerce.admin import bp
 
-from main_pack.models.base.models import Slider,Sl_image
+from main_pack.models import Slider,Sl_image
 from main_pack.commerce.admin.utils import addSliderDict,addSliderImageDict
 
 @bp.route('/ui/slider/', methods=['POST','DELETE'])

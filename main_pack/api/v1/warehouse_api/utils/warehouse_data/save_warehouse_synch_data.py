@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
 
-from main_pack.models.base.models import Warehouse
+from main_pack.models import Warehouse
 from main_pack import db
 from main_pack.base import get_id_from_list_indexing
 from main_pack.api.common import (

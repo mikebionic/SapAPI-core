@@ -1,5 +1,8 @@
+from main_pack import db
+from main_pack.models import BaseModel
 
-class Payment_status(CreatedModifiedInfo,db.Model):
+
+class Payment_status(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_payment_status"
 	PaymStatusId = db.Column("PaymStatusId",db.Integer,nullable=False,primary_key=True)
 	PaymStatusName_tkTM = db.Column("PaymStatusName_tkTM",db.String(100))
@@ -11,18 +14,16 @@ class Payment_status(CreatedModifiedInfo,db.Model):
 	Order_inv = db.relationship("Order_inv",backref='payment_status',lazy=True)
 
 	def to_json_api(self):
-		json_data = {
+		data = {
 			"PaymStatusName_tkTM": self.PaymStatusName_tkTM,			
 			"PaymStatusDesc_tkTM": self.PaymStatusDesc_tkTM,
 			"PaymStatusName_ruRU": self.PaymStatusName_ruRU,
 			"PaymStatusDesc_ruRU": self.PaymStatusDesc_ruRU,
 			"PaymStatusName_enUS": self.PaymStatusName_enUS,
-			"PaymStatusDesc_enUS": self.PaymStatusDesc_enUS,
-			"CreatedDate": apiDataFormat(self.CreatedDate),
-			"ModifiedDate": apiDataFormat(self.ModifiedDate),
-			"SyncDateTime": apiDataFormat(self.SyncDateTime),
-			"CreatedUId": self.CreatedUId,
-			"ModifiedUId": self.ModifiedUId,
-			"GCRecord": self.GCRecord
+			"PaymStatusDesc_enUS": self.PaymStatusDesc_enUS
 		}
-		return json_data
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

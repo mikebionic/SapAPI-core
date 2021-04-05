@@ -8,8 +8,8 @@ from sqlalchemy.orm import joinedload
 from main_pack import db, cache
 from . import api
 
-from main_pack.models.base.models import Company, Division
-from main_pack.models.commerce.models import (
+from main_pack.models import Company, Division
+from main_pack.models import (
 	Resource,
 	Barcode,
 	Res_category,

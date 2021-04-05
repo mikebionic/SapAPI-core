@@ -8,7 +8,7 @@ from main_pack.config import Config
 from main_pack.commerce.commerce.utils import UiCategoriesList
 # change this for something else
 
-from main_pack.models.commerce.models import (
+from main_pack.models import (
 	Inv_line,
 	Inv_line_det,
 	Inv_line_det_type,

@@ -10,7 +10,7 @@ from main_pack.commerce.auth.utils import ui_admin_required
 
 from main_pack.commerce.admin import bp
 from main_pack.commerce.admin.utils import addCategoryDict
-from main_pack.models.commerce.models import Res_category
+from main_pack.models import Res_category
 
 
 @bp.route('/ui/category_table/', methods=['POST','DELETE'])

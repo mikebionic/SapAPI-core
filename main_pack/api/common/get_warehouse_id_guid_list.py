@@ -1,4 +1,4 @@
-from main_pack.models.base.models import Warehouse
+from main_pack.models import Warehouse
 
 def get_warehouse_id_guid_list():
 	warehouses = Warehouse.query\

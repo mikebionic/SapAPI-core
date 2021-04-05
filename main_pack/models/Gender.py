@@ -1,3 +1,4 @@
+from main_pack import db
 
 
 class Gender(db.Model):
@@ -10,3 +11,12 @@ class Gender(db.Model):
 	Relatives = db.relationship("Relatives",backref='gender',lazy=True)
 	Rp_acc = db.relationship("Rp_acc",backref='gender',lazy=True)
 	Representative = db.relationship("Representative",backref='gender',lazy=True)
+
+	def to_json_api(self):
+		data = {
+			"GenderId": self.GenderId,
+			"GenderName_tkTM": self.GenderName_tkTM,
+			"GenderName_ruRU": self.GenderName_ruRU,
+			"GenderName_enUS": self.GenderName_enUS
+		}
+		return data

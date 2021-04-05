@@ -1,24 +1,27 @@
+from main_pack import db
+from main_pack.models import AddInf, BaseModel
 
-class Color(CreatedModifiedInfo,db.Model):
+
+class Color(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_color"
 	ColorId = db.Column("ColorId",db.Integer,nullable=False,primary_key=True)
 	ColorName = db.Column("ColorName",db.String(100),nullable=False)
 	ColorDesc = db.Column("ColorDesc",db.String(500))
 	ColorCode = db.Column("ColorCode",db.String(100))
 	Res_color = db.relationship("Res_color",backref='color',lazy=True)
-	Translations = db.relationship("Translations",backref='color',lazy=True)
-
+	Translation = db.relationship("Translation",backref='color',lazy=True)
 
 	def to_json_api(self):
-		json_data = {
+		data = {
 			"ColorName": self.ColorName,
 			"ColorDesc": self.ColorDesc,
-			"ColorCode": self.ColorCode,
-			"CreatedDate": apiDataFormat(self.CreatedDate),
-			"ModifiedDate": apiDataFormat(self.ModifiedDate),
-			"SyncDateTime": apiDataFormat(self.SyncDateTime),
-			"CreatedUId": self.CreatedUId,
-			"ModifiedUId": self.ModifiedUId,
-			"GCRecord": self.GCRecord
+			"ColorCode": self.ColorCode
 		}
-		return json_data
+
+		for key, value in AddInf.to_json_api(self).items():
+			data[key] = value
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

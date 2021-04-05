@@ -1,5 +1,8 @@
+from main_pack import db
+from main_pack.models import AddInf, BaseModel
 
-class Rating(AddInf,CreatedModifiedInfo,db.Model):
+
+class Rating(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_rating"
 	RtId = db.Column("RtId",db.Integer,nullable=False,primary_key=True)
 	CId = db.Column("CId",db.Integer,db.ForeignKey("tbl_dk_company.CId"))
@@ -13,7 +16,7 @@ class Rating(AddInf,CreatedModifiedInfo,db.Model):
 	RtValidated = db.Column("RtValidated",db.Boolean,default=False)
 
 	def to_json_api(self):
-		json_data = {
+		data = {
 			"RtId": self.RtId,
 			"CId": self.CId,
 			"DivId": self.DivId,
@@ -25,4 +28,11 @@ class Rating(AddInf,CreatedModifiedInfo,db.Model):
 			"RtRatingValue": self.RtRatingValue,
 			"RtValidated": self.RtValidated
 		}
-		return json_data
+
+		for key, value in AddInf.to_json_api(self).items():
+			data[key] = value
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

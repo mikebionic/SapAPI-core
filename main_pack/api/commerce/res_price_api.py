@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-from flask import jsonify, request, make_response
+from flask import jsonify, request, make_response, session
+
+from main_pack.config import Config
 from datetime import datetime
 from sqlalchemy import and_
 from sqlalchemy.orm import joinedload
@@ -8,7 +10,7 @@ from main_pack import db, cache
 from . import api
 from .utils import addResPriceDict
 
-from main_pack.models.commerce.models import Res_price, Resource, Res_price_group
+from main_pack.models import Res_price, Resource, Res_price_group
 
 from main_pack.api.auth.utils import sha_required, token_required
 from main_pack.api.base.validators import request_is_json
@@ -84,12 +86,12 @@ def api_v_res_prices(user):
 		"ResPriceTypeId": request.args.get("priceType",2,type=int)
 	}
 
-	ResPriceGroupId = Config.DEFAULT_RES_PRICE_GROUP_ID if DEFAULT_RES_PRICE_GROUP_ID > 0 else None
+	ResPriceGroupId = Config.DEFAULT_RES_PRICE_GROUP_ID if Config.DEFAULT_RES_PRICE_GROUP_ID > 0 else None
 	if current_user:
 		if (model_type != "device"):
 			ResPriceGroupId = current_user.ResPriceGroupId if current_user.ResPriceGroupId else None
 		else:
-			ResPriceGroupId = current_user.users.ResPriceGroupId if current_user.users else None
+			ResPriceGroupId = current_user.user.ResPriceGroupId if current_user.user else None
 
 	elif "ResPriceGroupId" in session:
 		ResPriceGroupId = session["ResPriceGroupId"]

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
+from main_pack import bcrypt
 from main_pack.config import Config
-from main_pack.models.users.models import Users, Rp_acc, Device
+from main_pack.models import User, Rp_acc, Device
 from main_pack.activation.customer.utils import check_device_activation
 
 

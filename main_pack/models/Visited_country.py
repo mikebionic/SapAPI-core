@@ -1,4 +1,8 @@
-class Visited_country(AddInf,CreatedModifiedInfo,db.Model):
+from main_pack import db
+from main_pack.models import AddInf, BaseModel
+
+
+class Visited_country(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_visited_countries"
 	VCId = db.Column("VCId",db.Integer,nullable=False,primary_key=True)
 	EmpId = db.Column("EmpId",db.Integer,db.ForeignKey("tbl_dk_employee.EmpId"))
@@ -8,14 +12,21 @@ class Visited_country(AddInf,CreatedModifiedInfo,db.Model):
 	VCStartDate = db.Column("VCStartDate",db.DateTime)
 	VCEndDate = db.Column("VCEndDate",db.DateTime)
 
-	def to_json(self):
+	def to_json_api(self):
 		json_data = {
-			"vcId": self.VCId,
-			"empId": self.EmpId,
-			"vcCountryName": self.VCCountryName,
-			"vcCountryDesc": self.VCCountryDesc,
-			"vcPurpose": self.VCPurpose,
-			"vcStartDate": self.VCStartDate,
-			"vcEndDate": self.VCEndDate
+			"VCId": self.VCId,
+			"EmpId": self.EmpId,
+			"VCCountryName": self.VCCountryName,
+			"VCCountryDesc": self.VCCountryDesc,
+			"VCPurpose": self.VCPurpose,
+			"VCStartDate": self.VCStartDate,
+			"VCEndDate": self.VCEndDate
 		}
-		return json_data
+
+		for key, value in AddInf.to_json_api(self).items():
+			data[key] = value
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

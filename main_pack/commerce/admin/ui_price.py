@@ -9,19 +9,19 @@ from main_pack.commerce.auth.utils import ui_admin_required
 from datetime import datetime
 from main_pack.commerce.admin import bp
 
-from main_pack.models.base.models import Reg_num,Reg_num_type
+from main_pack.models import Reg_num,Reg_num_type
 from main_pack.key_generator.utils import makeRegNo,generate,validate
 
-from main_pack.models.commerce.models import Res_price
+from main_pack.models import Res_price
 from main_pack.commerce.admin.utils import addResPriceDict
 
 # used foreign keys
-from main_pack.models.commerce.models import Unit,Brand,Usage_status,Res_category,Res_type,Res_maker
-from main_pack.models.base.models import Company,Division
-from main_pack.models.users.models import Rp_acc
+from main_pack.models import Unit,Brand,Usage_status,Res_category,Res_type,Res_maker
+from main_pack.models import Company,Division
+from main_pack.models import Rp_acc
 ####
 # used relationship
-from main_pack.models.commerce.models import (Unit,Res_unit,Inv_line,Inv_line_det,Order_inv_line,
+from main_pack.models import (Unit,Res_unit,Inv_line,Inv_line_det,Order_inv_line,
 	Res_total,Res_trans_inv_line,Res_transaction,Rp_acc_resource,Sale_agr_res_price,Res_discount)
 #####
 

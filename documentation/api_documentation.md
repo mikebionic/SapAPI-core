@@ -495,7 +495,7 @@ returns **all orders** if **blank**
 	"random_mode": 1
 }
 
-# this will create a special RegNum and save in Pred_regnum
+# this will create a special RegNum and save in Pred_reg_num
 ```
 
 + /api/validate-order-inv-payment/

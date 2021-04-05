@@ -4,7 +4,7 @@ from flask_login import current_user
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Length, ValidationError
 
-from main_pack.models.users.models import Rp_acc
+from main_pack.models import Rp_acc
 from main_pack import gettext, lazy_gettext
 
 

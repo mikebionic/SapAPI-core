@@ -1,6 +1,12 @@
+from datetime import datetime
+
+from main_pack import db
+from main_pack.models import AddInf, BaseModel
+from main_pack.base.apiMethods import fileToURL
+from main_pack.base.dataMethods import apiDataFormat
 
 
-class Sl_image(AddInf,CreatedModifiedInfo,db.Model):
+class Sl_image(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_sl_image"
 	SlImgId = db.Column("SlImgId",db.Integer,nullable=False,primary_key=True)
 	SlId = db.Column("SlId",db.Integer,db.ForeignKey("tbl_dk_slider.SlId"))
@@ -22,16 +28,10 @@ class Sl_image(AddInf,CreatedModifiedInfo,db.Model):
 	SlImgSubImageFilePath5 = db.Column("SlImgSubImageFilePath5",db.String(255),default='')
 	SlImgStartDate = db.Column("SlImgStartDate",db.DateTime,default=datetime.now)
 	SlImgEndDate = db.Column("SlImgEndDate",db.DateTime)
-	Translations = db.relationship("Translations",backref='sl_image',lazy=True)
-
-	def update(self, **kwargs):
-		for key, value in kwargs.items():
-			if value is not None:
-				if hasattr(self, key):
-					setattr(self, key, value)
+	Translation = db.relationship("Translation",backref='sl_image',lazy=True)
 
 	def to_json_api(self):
-		json_data = {
+		data = {
 			"SlImgId": self.SlImgId,
 			"SlId": self.SlId,
 			"SlImgTitle": self.SlImgTitle,
@@ -52,18 +52,13 @@ class Sl_image(AddInf,CreatedModifiedInfo,db.Model):
 			"SlImgSubImageFileName5": self.SlImgSubImageFileName5,
 			"SlImgSubImageFilePath5": self.SlImgSubImageFilePath5,
 			"SlImgStartDate": apiDataFormat(self.SlImgStartDate),
-			"SlImgEndDate": apiDataFormat(self.SlImgEndDate),
-			"AddInf1": self.AddInf1,
-			"AddInf2": self.AddInf2,
-			"AddInf3": self.AddInf3,
-			"AddInf4": self.AddInf4,
-			"AddInf5": self.AddInf5,
-			"AddInf6": self.AddInf6,
-			"CreatedDate": apiDataFormat(self.CreatedDate),
-			"ModifiedDate": apiDataFormat(self.ModifiedDate),
-			"SyncDateTime": apiDataFormat(self.SyncDateTime),
-			"CreatedUId": self.CreatedUId,
-			"ModifiedUId": self.ModifiedUId,
-			"GCRecord": self.GCRecord
+			"SlImgEndDate": apiDataFormat(self.SlImgEndDate)
 		}
-		return json_data
+
+		for key, value in AddInf.to_json_api(self).items():
+			data[key] = value
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

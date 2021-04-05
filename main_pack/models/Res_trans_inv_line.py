@@ -1,5 +1,8 @@
+from main_pack import db
+from main_pack.models import AddInf, BaseModel
 
-class Res_trans_inv_line(AddInf,CreatedModifiedInfo,db.Model):
+
+class Res_trans_inv_line(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_res_trans_inv_line"
 	ResTrInvLineId = db.Column("ResTrInvLineId",db.Integer,nullable=False,primary_key=True)
 	ResTrInvId = db.Column("ResTrInvId",db.Integer,db.ForeignKey("tbl_dk_res_trans_inv.ResTrInvId"))
@@ -18,7 +21,7 @@ class Res_trans_inv_line(AddInf,CreatedModifiedInfo,db.Model):
 	Res_transaction = db.relationship("Res_transaction",backref='res_trans_inv_line',lazy=True)
 
 	def to_json_api(self):
-		json_data = {
+		data = {
 			"ResTrInvLineId": self.ResTrInvLineId,
 			"ResTrInvId": self.ResTrInvId,
 			"UnitId": self.UnitId,
@@ -34,4 +37,11 @@ class Res_trans_inv_line(AddInf,CreatedModifiedInfo,db.Model):
 			"ResTrInvLineFTotal": self.ResTrInvLineFTotal,
 			"ResTrInvLineDate": self.ResTrInvLineDate
 		}
-		return json_data
+
+		for key, value in AddInf.to_json_api(self).items():
+			data[key] = value
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

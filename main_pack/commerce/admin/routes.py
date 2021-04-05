@@ -19,9 +19,9 @@ from main_pack.commerce.auth.utils import ui_admin_required
 # / auth and validation /
 
 # Company and Brand
-from main_pack.models.base.models import Company, Division
+from main_pack.models import Company, Division
 from main_pack.commerce.commerce.utils import UiBrandsList
-from main_pack.models.commerce.models import Brand
+from main_pack.models import Brand
 # / Company and Brand /
 
 # Resource and view
@@ -30,7 +30,7 @@ from main_pack.commerce.admin.utils import resRelatedData
 # / Resource and view /
 
 # Invoices
-from main_pack.models.commerce.models import (
+from main_pack.models import (
 	Inv_line,
 	Inv_line_det,
 	Inv_line_det_type,
@@ -45,12 +45,12 @@ from main_pack.models.commerce.models import (
 )
 
 from main_pack.commerce.commerce.order_utils import UiOInvData,UiOInvLineData
-from main_pack.models.commerce.models import Res_category
+from main_pack.models import Res_category
 # / Invoices /
 
 # users and customers
-from main_pack.models.users.models import (
-	Users,
+from main_pack.models import (
+	User,
 	User_type,
 	Rp_acc,
 	Rp_acc_type,
@@ -71,7 +71,7 @@ from datetime import datetime,timezone
 # / RegNo /
 
 # Image operations
-from main_pack.models.base.models import Image
+from main_pack.models import Image
 from main_pack.base.imageMethods import save_image, save_icon
 from main_pack.base.imageMethods import allowed_icon
 # / Image operations /
@@ -201,7 +201,7 @@ def rp_details(RpAccRegNo):
 		rp_acc = Rp_acc.query\
 			.filter_by(RpAccRegNo = RpAccRegNo, GCRecord = None)\
 			.options(
-				joinedload(Rp_acc.users),
+				joinedload(Rp_acc.user),
 				joinedload(Rp_acc.rp_acc_status),
 				joinedload(Rp_acc.rp_acc_type),
 				joinedload(Rp_acc.Image),
@@ -262,7 +262,7 @@ def manage_rp():
 		rp_acc_type_choices.append(obj)
 	form.rp_acc_type.choices = rp_acc_type_choices
 
-	users = Users.query.filter_by(GCRecord = None).all()
+	users = User.query.filter_by(GCRecord = None).all()
 	userChoices = [(0, gettext("Select"))]
 	for user in users:
 		obj = (user.UId,user.UName)
@@ -414,7 +414,7 @@ def manage_user():
 	user = None
 
 	if UId:
-		user = Users.query\
+		user = User.query\
 			.filter_by(GCRecord = None, UId = UId)\
 			.first()
 		if user:
@@ -468,19 +468,22 @@ def manage_user():
 				data["CId"] = company.CId
 				data["DivId"] = division.DivId
 
-				last_User = Users.query.order_by(Users.UId.desc()).first()
+				last_User = User.query.order_by(User.UId.desc()).first()
 				UId = last_User.UId+1
 
 				data["UId"] = UId
 				data["UGuid"] = uuid.uuid4()
 
-				user = Users(**data)
+				user = User(**data)
 				db.session.add(user)
 
 			db.session.commit()
 
 			if form.picture.data:
-				imageFile = save_image(imageForm=form.picture.data,module=os.path.join("uploads","commerce","Users"),id=user.UId)
+				imageFile = save_image(
+					imageForm = form.picture.data,
+					module = os.path.join("uploads","commerce","User"),
+					id = user.UId)
 				lastImage = Image.query.order_by(Image.ImgId.desc()).first()
 				ImgId = lastImage.ImgId+1
 				image = Image(

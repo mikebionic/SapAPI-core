@@ -16,7 +16,7 @@ from wtforms.validators import (
 	ValidationError)
 from main_pack import lazy_gettext
 
-from main_pack.models.users.models import Users,Rp_acc
+from main_pack.models import User, Rp_acc
 
 
 class LogoImageForm(FlaskForm):
@@ -63,17 +63,6 @@ class UserForm(FlaskForm):
 	password = StringField(validators=[DataRequired()])
 	confirm_password = StringField(validators=[DataRequired(),EqualTo('password')])
 
-	# def validate_username(self,username):
-	# 	user = Users.query.filter_by(UName = username.data, GCRecord = None).first()
-	# 	if user:
-	# 		# flash(lazy_gettext('That username is taken. Choose a different one!'),'warning')
-	# 		raise ValidationError(lazy_gettext('That username is taken. Choose a different one!'))
-	# def validate_email(self,email):
-	# 	user = Users.query.filter_by(UEmail = email.data, GCRecord = None).first()
-	# 	if user:
-	# 		# flash(lazy_gettext('That email is taken. Choose a different one!'),'warning')
-	# 		raise ValidationError(lazy_gettext('That email is taken. Choose a different one!'))
-
 
 class RpAccForm(FlaskForm):
 	username = StringField(validators=[DataRequired(),Length(min=2,max=60)])
@@ -89,13 +78,3 @@ class RpAccForm(FlaskForm):
 	picture = FileField(validators=[FileAllowed(['jpg','png','img','svg','gif','bmp'])])
 	password = StringField(validators=[DataRequired()])
 	confirm_password = StringField(validators=[DataRequired(),EqualTo('password')])
-
-	# def validate_username(self,username):
-	# 	rp_acc = Rp_acc.query.filter_by(RpAccUName=username.data).first()
-	# 	if rp_acc:
-	# 		raise ValidationError(lazy_gettext('That username is taken. Choose a different one!'))
-		
-	# def validate_email(self,email):
-	# 	rp_acc = Rp_acc.query.filter_by(RpAccEMail=email.data).first()
-	# 	if rp_acc:
-	# 		raise ValidationError(lazy_gettext('That email is taken. Choose a different one!'))

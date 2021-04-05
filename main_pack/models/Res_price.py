@@ -1,5 +1,9 @@
+from main_pack import db
+from main_pack.models import BaseModel
+from main_pack.base.dataMethods import apiDataFormat
 
-class Res_price(CreatedModifiedInfo,db.Model):
+
+class Res_price(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_res_price"
 	ResPriceId = db.Column("ResPriceId",db.Integer,nullable=False,primary_key=True)
 	ResPriceTypeId = db.Column("ResPriceTypeId",db.Integer,db.ForeignKey("tbl_dk_res_price_type.ResPriceTypeId"))
@@ -13,7 +17,7 @@ class Res_price(CreatedModifiedInfo,db.Model):
 	PriceEndDate = db.Column("PriceEndDate",db.DateTime)
 
 	def to_json_api(self):
-		json_data = {
+		data = {
 			"ResPriceId": self.ResPriceId,
 			"ResPriceTypeId": self.ResPriceTypeId,
 			"ResPriceGroupId": self.ResPriceGroupId,
@@ -23,12 +27,10 @@ class Res_price(CreatedModifiedInfo,db.Model):
 			"ResPriceRegNo": self.ResPriceRegNo,
 			"ResPriceValue": self.ResPriceValue,
 			"PriceStartDate": apiDataFormat(self.PriceStartDate),
-			"PriceEndDate": apiDataFormat(self.PriceEndDate),
-			"CreatedDate": apiDataFormat(self.CreatedDate),
-			"ModifiedDate": apiDataFormat(self.ModifiedDate),
-			"SyncDateTime": apiDataFormat(self.SyncDateTime),
-			"CreatedUId": self.CreatedUId,
-			"ModifiedUId": self.ModifiedUId,
-			"GCRecord": self.GCRecord
+			"PriceEndDate": apiDataFormat(self.PriceEndDate)
 		}
-		return json_data
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

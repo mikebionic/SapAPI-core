@@ -1,5 +1,5 @@
-from main_pack.models.base.models import Image
-from main_pack.models.users.models import Rp_acc
+from main_pack.models import Image
+from main_pack.models import Rp_acc
 from main_pack.base.imageMethods import save_image,dirHandler
 from main_pack import db, create_app
 

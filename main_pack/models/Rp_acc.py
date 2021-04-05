@@ -90,7 +90,7 @@ class Rp_acc(AddInf, BaseModel, db.Model, UserMixin):
 	def get_id(self):
 		return (self.RpAccId)
 
-	def to_json(self):
+	def to_json_api(self):
 		data = {
 			"RpAccId": self.RpAccId,
 			"RpAccGuid": self.RpAccGuid,
@@ -136,10 +136,10 @@ class Rp_acc(AddInf, BaseModel, db.Model, UserMixin):
 			"RpAccLongitude": self.RpAccLongitude
 		}
 
-		for key, value in AddInf.to_json(self).items():
+		for key, value in AddInf.to_json_api(self).items():
 			data[key] = value
 
-		for key, value in BaseModel.to_json(self).items():
+		for key, value in BaseModel.to_json_api(self).items():
 			data[key] = value
 
 		return data

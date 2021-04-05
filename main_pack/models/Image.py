@@ -1,5 +1,11 @@
+from sqlalchemy.dialects.postgresql import UUID
 
-class Image(CreatedModifiedInfo,db.Model):
+from main_pack import db
+from main_pack.models import BaseModel
+from main_pack.base.apiMethods import fileToURL
+
+
+class Image(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_image"
 	ImgId = db.Column("ImgId",db.Integer,nullable=False,primary_key=True)
 	ImgGuid = db.Column("ImgGuid",UUID(as_uuid=True),unique=True)
@@ -24,27 +30,8 @@ class Image(CreatedModifiedInfo,db.Model):
 	MaxLightFilePath = db.Column("MaxLightFilePath",db.String(255),default="")
 	Image = db.Column("Image",db.LargeBinary)
 
-	def update(self, **kwargs):
-		for key, value in kwargs.items():
-			if value is not None:
-				if hasattr(self, key):
-					setattr(self, key, value)
-
-	def to_json(self):
-		json_data = {
-			"imgId": self.ImgId,
-			"empId": self.EmpId,
-			"companyId": self.CId,
-			"rpAccId": self.RpAccId,
-			"resId": self.ResId,
-			"fileName": self.FileName,
-			"fileHash": self.FileHash,
-			"image": self.Image,
-		}
-		return json_data
-
 	def to_json_api(self):
-		json_data = {
+		data = {
 			"ImgId": self.ImgId,
 			"ImgGuid": self.ImgGuid,
 			"EmpId": self.EmpId,
@@ -70,12 +57,10 @@ class Image(CreatedModifiedInfo,db.Model):
 			"MaxLightFileName": self.MaxLightFileName,
 			"MaxLightFilePath": self.MaxLightFilePath,
 			# # "Image": base64.encodebytes(self.Image).decode('ascii'),
-			# "Image": apiCheckImageByte(self.Image),
-			"CreatedDate": apiDataFormat(self.CreatedDate),
-			"ModifiedDate": apiDataFormat(self.ModifiedDate),
-			"SyncDateTime": apiDataFormat(self.SyncDateTime),
-			"CreatedUId": self.CreatedUId,
-			"ModifiedUId": self.ModifiedUId,
-			"GCRecord": self.GCRecord
+			# "Image": apiCheckImageByte(self.Image)
 		}
-		return json_data
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

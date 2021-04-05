@@ -12,16 +12,16 @@ from main_pack import db, gettext, lazy_gettext
 # Resource and view
 from main_pack.api.commerce.commerce_utils import apiResourceInfo
 from main_pack.commerce.commerce.utils import UiCategoriesList
-from main_pack.models.commerce.models import Resource,Wish
+from main_pack.models import Resource,Wish
 # / Resource and view /
 
 # users and customers
-from main_pack.models.users.models import Rp_acc
+from main_pack.models import Rp_acc
 from main_pack.commerce.users.forms import UpdateRpAccForm
 # / users and customers /
 
 # Image operations
-from main_pack.models.base.models import Image
+from main_pack.models import Image
 from main_pack.base.imageMethods import save_image
 from main_pack.base.apiMethods import fileToURL
 # / Image operations /

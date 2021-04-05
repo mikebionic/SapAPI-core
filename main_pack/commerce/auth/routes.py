@@ -16,8 +16,8 @@ from main_pack.commerce.auth.forms import (
 	PasswordRegistrationForm)
 
 # db Models
-from main_pack.models.users.models import Users, Rp_acc
-from main_pack.models.base.models import (
+from main_pack.models import User, Rp_acc
+from main_pack.models import (
 	Company,
 	Division,
 	Reg_num,
@@ -215,7 +215,7 @@ def register_token(token):
 			lastUser = Rp_acc.query.order_by(Rp_acc.RpAccId.desc()).first()
 			RpAccId = lastUser.RpAccId + 1
 
-			main_user = Users.query\
+			main_user = User.query\
 				.filter_by(GCRecord = None, UTypeId = 1)\
 				.first()
 

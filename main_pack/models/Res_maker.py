@@ -1,6 +1,8 @@
+from main_pack import db
+from main_pack.models import AddInf, BaseModel
 
 
-class Res_maker(AddInf,CreatedModifiedInfo,db.Model):
+class Res_maker(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_res_maker"
 	ResMakerId = db.Column("ResMakerId",db.Integer,nullable=False,primary_key=True)
 	ResMakerName = db.Column("ResMakerName",db.String(100),nullable=False)
@@ -12,26 +14,20 @@ class Res_maker(AddInf,CreatedModifiedInfo,db.Model):
 	Resource = db.relationship("Resource",backref='res_maker',lazy=True)
 
 	def to_json_api(self):
-		json_data = {
+		data = {
 			"ResMakerId": self.ResMakerId,
 			"ResMakerName": self.ResMakerName,
 			"ResMakerDesc": self.ResMakerDesc,
 			"ResMakerSite": self.ResMakerSite,
 			"ResMakerMail": self.ResMakerMail,
 			"ResMakerPhone1": self.ResMakerPhone1,
-			"ResMakerPhone2": self.ResMakerPhone2,
-			"AddInf1": self.AddInf1,
-			"AddInf2": self.AddInf2,
-			"AddInf3": self.AddInf3,
-			"AddInf4": self.AddInf4,
-			"AddInf5": self.AddInf5,
-			"AddInf6": self.AddInf6,
-			"CreatedDate": apiDataFormat(self.CreatedDate),
-			"ModifiedDate": apiDataFormat(self.ModifiedDate),
-			"SyncDateTime": apiDataFormat(self.SyncDateTime),
-			"CreatedUId": self.CreatedUId,
-			"ModifiedUId": self.ModifiedUId,
-			"GCRecord": self.GCRecord
+			"ResMakerPhone2": self.ResMakerPhone2
 		}
-		return json_data
 
+		for key, value in AddInf.to_json_api(self).items():
+			data[key] = value
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

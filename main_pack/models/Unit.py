@@ -1,6 +1,8 @@
+from main_pack import db
+from main_pack.models import BaseModel
 
 
-class Unit(CreatedModifiedInfo,db.Model):
+class Unit(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_unit"
 	UnitId = db.Column("UnitId",db.Integer,nullable=False,primary_key=True)
 	UnitName_tkTM = db.Column("UnitName_tkTM",db.String(100))
@@ -21,18 +23,16 @@ class Unit(CreatedModifiedInfo,db.Model):
 	Production_line = db.relationship("Production_line",backref='unit',lazy=True)
 
 	def to_json_api(self):
-		json_data = {
+		data = {
 			"UnitName_tkTM": self.UnitName_tkTM,
 			"UnitDesc_tkTM": self.UnitDesc_tkTM,
 			"UnitName_ruRU": self.UnitName_ruRU,
 			"UnitDesc_ruRU": self.UnitDesc_ruRU,
 			"UnitName_enUS": self.UnitName_enUS,
-			"UnitDesc_enUS": self.UnitDesc_enUS,
-			"CreatedDate": apiDataFormat(self.CreatedDate),
-			"ModifiedDate": apiDataFormat(self.ModifiedDate),
-			"SyncDateTime": apiDataFormat(self.SyncDateTime),
-			"CreatedUId": self.CreatedUId,
-			"ModifiedUId": self.ModifiedUId,
-			"GCRecord": self.GCRecord
+			"UnitDesc_enUS": self.UnitDesc_enUS
 		}
-		return json_data
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

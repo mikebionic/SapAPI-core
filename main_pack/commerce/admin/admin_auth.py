@@ -7,7 +7,7 @@ from main_pack.config import Config
 from main_pack import db, gettext, lazy_gettext, bcrypt
 from main_pack.base.apiMethods import get_login_info
 # users and customers
-from main_pack.models.users.models import Users
+from main_pack.models import User
 from main_pack.commerce.auth.forms import AdminLoginForm
 # / users and customers /
 
@@ -21,7 +21,7 @@ def login():
 	form = AdminLoginForm()
 	if form.validate_on_submit():
 		try:
-			user = Users.query.filter_by(GCRecord = None, UName = form.username.data).first()
+			user = User.query.filter_by(GCRecord = None, UName = form.username.data).first()
 
 			if not user:
 				raise Exception

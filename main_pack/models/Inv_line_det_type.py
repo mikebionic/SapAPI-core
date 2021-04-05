@@ -1,5 +1,8 @@
+from main_pack import db
+from main_pack.models import BaseModel
 
-class Inv_line_det_type(CreatedModifiedInfo,db.Model):
+
+class Inv_line_det_type(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_inv_line_det_type"
 	InvLineDetTypeId = db.Column("InvLineDetTypeId",db.Integer,nullable=False,primary_key=True)
 	InvLineDetTypeName_tkTM = db.Column("InvLineDetTypeName_tkTM",db.String(100),nullable=False)
@@ -11,19 +14,17 @@ class Inv_line_det_type(CreatedModifiedInfo,db.Model):
 	Inv_line_det = db.relationship("Inv_line_det",backref='inv_line_det_type',lazy=True)
 
 	def to_json_api(self):
-		inv_line_det_type = {
+		data = {
 			"InvLineDetTypeId": self.InvLineDetTypeId,
 			"InvLineDetTypeName_tkTM": self.InvLineDetTypeName_tkTM,
 			"InvLineDetTypeDesc_tkTM": self.InvLineDetTypeDesc_tkTM,
 			"InvLineDetTypeName_ruRU": self.InvLineDetTypeName_ruRU,
 			"InvLineDetTypeDesc_ruRU": self.InvLineDetTypeDesc_ruRU,
 			"InvLineDetTypeName_enUS": self.InvLineDetTypeName_enUS,
-			"InvLineDetTypeDesc_enUS": self.InvLineDetTypeDesc_enUS,
-			"CreatedDate": apiDataFormat(self.CreatedDate),
-			"ModifiedDate": apiDataFormat(self.ModifiedDate),
-			"SyncDateTime": apiDataFormat(self.SyncDateTime),
-			"CreatedUId": self.CreatedUId,
-			"ModifiedUId": self.ModifiedUId,
-			"GCRecord": self.GCRecord
+			"InvLineDetTypeDesc_enUS": self.InvLineDetTypeDesc_enUS
 		}
-		return inv_line_det_type
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data

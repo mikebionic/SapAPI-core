@@ -19,8 +19,8 @@ from main_pack.base.priceMethods import calculatePriceByGroup, price_currency_co
 # / functions and methods /
 
 # db models
-from main_pack.models.base.models import Company, Division, Warehouse, Image
-from main_pack.models.commerce.models import (
+from main_pack.models import Company, Division, Warehouse, Image
+from main_pack.models import (
 	Resource,
 	Res_price,
 	Res_price_group,
@@ -29,17 +29,17 @@ from main_pack.models.commerce.models import (
 	Wish,
 	Rating,
 	Exc_rate)
-from main_pack.models.commerce.models import (
+from main_pack.models import (
 	Res_color,
 	Res_size,
 	Brand,
 	Unit,
 	Usage_status)
-from main_pack.models.base.models import Currency
+from main_pack.models import Currency
 # / db models /
 
 # orders and db methods
-from main_pack.models.commerce.models import (
+from main_pack.models import (
 	Order_inv,
 	Order_inv_line,
 	Invoice,
@@ -50,7 +50,7 @@ from sqlalchemy.orm import joinedload
 # / orders and db methods /
 
 # Rp_acc db Model and methods
-from main_pack.models.users.models import Rp_acc, Users
+from main_pack.models import Rp_acc, User
 from main_pack.api.users.utils import apiRpAccData, apiUsersData
 # / Rp_acc db Model and methods /
 
@@ -357,7 +357,7 @@ def apiResourceInfo(
 							.options(joinedload(Res_size.size)),
 						joinedload(Resource.Rating)\
 							.options(
-								joinedload(Rating.users).options(joinedload(Users.Image)),
+								joinedload(Rating.user).options(joinedload(User.Image)),
 								joinedload(Rating.rp_acc).options(joinedload(Rp_acc.Image))
 							)
 						)

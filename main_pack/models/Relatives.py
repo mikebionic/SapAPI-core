@@ -1,5 +1,7 @@
+from main_pack import db
+from main_pack.models import AddInf, BaseModel
 
-class Relatives(AddInf,CreatedModifiedInfo,db.Model):
+class Relatives(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_relatives"
 	RelId = db.Column("RelId",db.Integer,nullable=False,primary_key=True)
 	EmpId = db.Column("EmpId",db.Integer,db.ForeignKey("tbl_dk_employee.EmpId"))
@@ -12,18 +14,24 @@ class Relatives(AddInf,CreatedModifiedInfo,db.Model):
 	RelWorkPosition = db.Column("RelWorkPosition",db.String(255))
 	RelResidence = db.Column("RelResidence",db.String(255))
 
-	def to_json(self):
-		json_data = {
-			"relativesId": self.RelId,
-			"empId": self.EmpId,
-			"relativesStatus": self.RelStatId,
-			"relativesName": self.RelPersonName,
-			"relativesGender": self.GenderId,
-			"relativesBirthDate": self.RelBirthDate,
-			"relativesBirthPlace": self.RelBirthPlace,
-			"relativesWorkPlace": self.RelWorkPlace,
-			"relativesWorkPosition": self.RelWorkPosition,
-			"relativesResidence": self.RelResidence
+	def to_json_api(self):
+		data = {
+			"RelId": self.RelId,
+			"EmpId": self.EmpId,
+			"RelStatId": self.RelStatId,
+			"RelPersonName": self.RelPersonName,
+			"GenderId": self.GenderId,
+			"RelBirthDate": self.RelBirthDate,
+			"RelBirthPlace": self.RelBirthPlace,
+			"RelWorkPlace": self.RelWorkPlace,
+			"RelWorkPosition": self.RelWorkPosition,
+			"RelResidence": self.RelResidence
 		}
-		return json_data
 
+		for key, value in AddInf.to_json_api(self).items():
+			data[key] = value
+
+		for key, value in BaseModel.to_json_api(self).items():
+			data[key] = value
+
+		return data
