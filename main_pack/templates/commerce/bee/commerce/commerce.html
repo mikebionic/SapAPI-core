@@ -106,6 +106,7 @@
 																</a>
 															</div>
 														{% endif %}	
+															<input type="hidden" class="qty productQty" pending_amount="{{resource.ResPendingTotalAmount}}" value="{{resource.productQty}}" ownerId="{{ resource.ResId }}">
 															<a href="#" class="add-to-cart" ownerId="{{ resource.ResId }}">
 																<i class="ti-shopping-cart"></i>
 																<span>{{_('Add to cart')}}</span>
@@ -175,6 +176,7 @@
 												</a>
 											</div>
 										{% endif %}
+										<input type="hidden" class="qty productQty" pending_amount="{{resource.ResPendingTotalAmount}}" value="{{resource.productQty}}" ownerId="{{ resource.ResId }}">
 										<a href="#" class="add-to-cart" ownerId="{{ resource.ResId }}">
 											<i class="ti-shopping-cart"></i>
 											<span>{{_('Add to cart')}}</span>

@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/bee/css/bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/bee/css/font-awesome.min.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/bee/css/icon-font.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/bee/js/izitoast/css/iziToast.min.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/bee/css/plugins.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/bee/css/style.css') }}">
   {% block styles %}{% endblock %}
@@ -42,7 +43,7 @@
             <ul class="dropdown-menu slideUp2">
               <li class="body">
                 <ul class="menu list-unstyled">
-                  <li> 
+                  <li>
                     <a href="{{ url_for('main.set_language',language='en') }}" class="dropdown-item">
                       <img src="{{ url_for('static', filename='commerce/main/images/us.svg') }}" style="width: 30px">
                       English
@@ -90,7 +91,7 @@
         <div class="col mb-15" style="display: flex;">
           <div class="hero-side-category">
             <div class="category">
-    
+
               <div class="category-toggle-wrap">
                 <button class="category-toggle" style="font-size : 100%;letter-spacing: 2px;">{{_('Categories')}} <i class="ti-menu"></i></button>
               </div>
@@ -121,11 +122,11 @@
                   {% endfor %}
                 </ul>
               </nav>
-      
+
             </div>
           </div>
         </div>
-        
+
         <div class="col order-12 order-lg-2 order-xl-2 d-none d-lg-block">
           <div class="main-menu">
             <nav>
@@ -207,7 +208,7 @@
           <div class="footer-copyright">
             <a href="http://saphasap.com/">
               <img src="{{ url_for('static', filename='commerce/main/images/logo/sap_cozgut_black.svg') }}" alt="Sap cozgut" style="width: 40px;">
-            </a>  
+            </a>
           </div>
         </div>
       </div>
@@ -219,6 +220,7 @@
 <script src="{{ url_for('static', filename='commerce/bee/js/bootstrap.min.js') }}"></script>
 <script src="{{ url_for('static', filename='commerce/bee/js/plugins.js') }}"></script>
 <script src="{{ url_for('static', filename='commerce/bee/js/sweetalert.min.js') }}"></script>
+<script src="{{ url_for('static', filename='commerce/bee/js/izitoast/js/iziToast.min.js') }}"></script>
 <script src="{{ url_for('static', filename='commerce/bee/js/main.js') }}"></script>
 <script src="{{ url_for('static', filename='commerce/bee/js/rating.js') }}"></script>
 <script src="{{ url_for('static', filename='commerce/bee/js/js.cookie.min.js') }}"></script>
@@ -228,6 +230,7 @@
 <script type="text/javascript">
   var url_prefix = "{{url_prefix if url_prefix else ''}}";
   var add_to_cart_text = "{{_('Add to cart')}}";
+	var qty_error_text = "{{_('Cannot get more')}}";
   var remove_from_cart_text = "{{_('Remove from cart')}}";
   var no_photo = "{{ url_for('static', filename='commerce/bee/images/no_photo.svg') }}";
 </script>
@@ -247,7 +250,7 @@
     }
   });
   $('.descriptionText').each(function(){
-    $(this).html($(this).text()); 
+    $(this).html($(this).text());
   });
 </script>
 

@@ -108,7 +108,6 @@ function addToCart(ownerId){
 	cartData['product'+ownerId]=productData;
 	Cookies.set('cart',JSON.stringify(cartData));
 	// sending request
-	console.log(pending_amount)
 	if (pending_amount > 0){
 		cartOperations(productData,url_prefix+'/product/ui_cart/','POST','htmlData','cartItemsList');
 		qtyCheckout(ownerId,productQty,pending_amount);

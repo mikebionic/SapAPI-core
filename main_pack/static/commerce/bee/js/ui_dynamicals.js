@@ -17,7 +17,7 @@ var warningToaster = function(message){
 	iziToast.warning({
 	title: 'Warning!',
 	message: message,
-	position: 'topCenter'
+	position: 'bottomRight'
   });
 }
 

@@ -120,6 +120,7 @@ function addToCart(ownerId){
 	$('.removeFromCart'+'[ownerId='+ownerId+']').show();
 	priceValue=$('.priceValue'+'[ownerId='+ownerId+']').attr('value');
 	productQty=$('.productQty'+'[ownerId='+ownerId+']').val();
+	pending_amount = $('.productQty'+'[ownerId='+ownerId+']').attr('pending_amount');
 	if(productQty > 1){} else {
 		productQty = 1;
 	}
@@ -128,9 +129,18 @@ function addToCart(ownerId){
 	cartData['product'+ownerId]=productData;
 	Cookies.set('cart',JSON.stringify(cartData));
 	// sending request
-	cartOperations(productData,url_prefix+'/product/ui_cart/','POST','htmlData','cartItemsList');
-	qtyCheckout(ownerId,productQty);
-	totalPriceCheckout(ownerId)
+	if (pending_amount > 0){
+		cartOperations(productData,url_prefix+'/product/ui_cart/','POST','htmlData','cartItemsList');
+		qtyCheckout(ownerId,productQty,pending_amount);
+		totalPriceCheckout(ownerId)
+	}
+	else {
+		qtyCheckout(ownerId,productQty,pending_amount);
+		totalPriceCheckout(ownerId)
+		setTimeout(() => {
+			$('.add-to-cart'+'[ownerId='+ownerId+']').removeClass('added').find('i').removeClass('ti-check').addClass('ti-shopping-cart').siblings('span').text(add_to_cart_text);
+		}, 100);
+	}
 }
 
 function removeFromCart(ownerId){
@@ -187,10 +197,29 @@ function countCartItems(){
 	$('.cartTotalPrice').text(parseFloat(totalPrice).toFixed(2));
 }
 
-function qtyCheckout(ownerId,newQtyValue){
+function qtyCheckout(ownerId,newQtyValue,pending_amount = 0){
 	if(newQtyValue <= 0){
 		newQtyValue = 1;
 	}
+
+	if (pending_amount > 0){
+		if (newQtyValue >= 1){
+			if (newQtyValue > pending_amount){
+				if(pending_amount >= 1){
+					newQtyValue = pending_amount;
+					warningToaster(message = qty_error_text);
+				}
+				else {
+					newQtyValue = 1;
+				}
+			}
+		}
+	}
+	else {
+		removeFromCart(ownerId)
+		warningToaster(message = qty_error_text);
+	}
+
 	$('.productQty'+'[ownerId='+ownerId+']').attr('value',newQtyValue);
 	$('.productQty'+'[ownerId='+ownerId+']').text(newQtyValue);
 	$('.cartItemQty'+'[ownerId='+ownerId+']').val(newQtyValue);
@@ -222,8 +251,8 @@ $('body').delegate('.cartItemQty','click',function(){
 	var ownerId = $(this).find('input').attr('ownerId');
 	var newVal = $(this).find('input').val();
 	// $(this).val(newVal);
-
-	qtyCheckout(ownerId,newVal);
+	var pending_amount = parseInt($(this).find('input').attr('pending_amount'))
+	qtyCheckout(ownerId,newVal,pending_amount);
 	totalPriceCheckout(ownerId);
 })
 
