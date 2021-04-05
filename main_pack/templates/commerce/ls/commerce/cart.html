@@ -48,7 +48,7 @@
 										<h3>{{_('Summary')}}</h3>
 										<div class="contact-form">
 											<label for="message">{{_('Note')}}</label>
-											<textarea id="message" type="text" placeholder="{{_('Description')}} ({{_('City')}}, {{_('Av.')}}, {{_('Street')}}, {{_('House')}}, {{_('Flat')}})"></textarea>
+											<textarea id="message" class="orderDesc" type="text" placeholder="{{_('Description')}} ({{_('City')}}, {{_('Av.')}}, {{_('Street')}}, {{_('House')}}, {{_('Flat')}})"></textarea>
 										</div>
 										<table class="shop_table shop_table_responsive">
 											<tbody>
@@ -66,8 +66,7 @@
 											</tbody>
 										</table>
 										<a class="checkout-button button alt wc-forward checkoutCartBtn">
-											<!-- {{_('Checkout')}} -->
-											Mümkinçilik entäk gurulýar
+											{{_('Checkout')}}
 										</a>
 
 									{% else %}

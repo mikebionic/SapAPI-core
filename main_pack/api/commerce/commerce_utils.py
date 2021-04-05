@@ -446,6 +446,7 @@ def apiResourceInfo(
 
 			resource_info["BarcodeVal"] = List_Barcode[0]["BarcodeVal"] if List_Barcode else ""
 			resource_info["ResCatName"] = Res_category_info["ResCatName"] if Res_category_info else ""
+			resource_info["CategoryIcon"] = Res_category_info["ResCatIconFilePath"] if Res_category_info else ""
 			resource_info["ResPriceValue"] = price_data["ResPriceValue"]
 			resource_info["CurrencyCode"] = price_data["CurrencyCode"]
 			# resource_info["ResTotBalance"] = List_Res_total[0]["ResTotBalance"] if List_Res_total else 0.0
@@ -458,6 +459,7 @@ def apiResourceInfo(
 			resource_info["Images"] = List_Images if List_Images else []
 
 			resource_info["BrandName"] = Brands_info["BrandName"] if Brands_info else ""
+			resource_info["BrandIcon"] = Brands_info["FilePath"] if Brands_info else ""
 			resource_info["UnitName"] = dataLangSelector(Units_info)["UnitName"] if Units_info else ""
 			resource_info["UsageStatusName"] = dataLangSelector(UsageStatus_info)["UsageStatusName"] if UsageStatus_info else ""
 
