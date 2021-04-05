@@ -25,16 +25,18 @@ $(document).ready(function(){
 	}
 });
 
-$('.wishlist-compare a').on('click', function(e){
+$('.wishlist-button a').on('click', function(e){
 	e.preventDefault();
+	console.log("wishlist handled")
 	ownerId = $(this).attr('ownerId');
 
-	if($(this).hasClass('added')){
+	if($(this).hasClass('heart')){
+		console.log('removing')
 		removeFromWishlist(ownerId);
-		$('.wishlist-compare a'+'[ownerId='+ownerId+']').removeClass('added');
+		$('.wishlist-button av'+'[ownerId='+ownerId+']').removeClass('heart');
 	} else{
 		addToWishlist(ownerId);
-		$('.wishlist-compare a'+'[ownerId='+ownerId+']').addClass('added');
+		$('.wishlist-button av'+'[ownerId='+ownerId+']').addClass('heart');
 	}
 });
 

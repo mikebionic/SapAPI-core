@@ -17,26 +17,16 @@
 {% block content %}
 <div class = "card-wrapper">
 	<div class = "cardd">
-		<!-- card left -->
 		<div class = "product-imgs">
 			<div class = "img-display">
 				<div class = "img-showcase">
 					<img loading="lazy"
-							src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/bee/images/no_photo.svg') }}"
-							data-src-m="{{resource.FilePathM}}"
-							alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }} {{company.CName}}">
+						src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/bee/images/no_photo.svg') }}"
+						data-src-m="{{resource.FilePathM}}"
+						alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }} {{company.CName}}">
 				</div>
 			</div>
-			<!-- <div class = "img-select">
-				<div class = "img-item">
-					<a href = "#" data-id = "1">
-						<img loading="lazy"
-						src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/bee/images/no_photo.svg') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }} {{company.CName}}">
-					</a>
-				</div>
-			</div> -->
 		</div>
-		<!-- card right -->
 
 		<div class="summary entry-summary">
 			<div class="single-product-header">
@@ -44,57 +34,45 @@
 
 					<h1 class="product_title entry-title">{{ resource.ResName }}</h1>
 			</div>
-			<!-- .single-product-header -->
 			<div class="single-product-meta">
 
-					<div class="brand">
-							<a href="#">
-									<img alt="galaxy" src="{{ url_for('static', filename='commerce/ls/img/icons/category.svg') }}">
-							</a>
-					</div>
+				<div class="brand">
+					<a href="{{url_for('commerce.v_grid', category = resource.ResCatId)}}">
+						<img alt="galaxy" src="{{ resource.CategoryIcon if resource.CategoryIcon else url_for('static', filename='commerce/ls/img/icons/category.svg') }}" alt="{{ company.CName }} category {{ resource.ResCatName }}">
+					</a>
+				</div>
 
-					<!-- <div class="rating-and-sharing-wrapper">
-						<div class="woocommerce-product-rating">
-							<div class="star-rating">
-								<span style="width:100%">Rated
-								<strong class="rating">5.00</strong> out of 5 based on
-								<span class="rating">1</span> customer rating</span>
-							</div>
+				<!-- <div class="rating-and-sharing-wrapper">
+					<div class="woocommerce-product-rating">
+						<div class="star-rating">
+							<span style="width:100%">Rated
+							<strong class="rating">5.00</strong> out of 5 based on
+							<span class="rating">1</span> customer rating</span>
 						</div>
-					</div> -->
-					<div class="product_wishlist">
-						<div class="yith-wcwl-add-to-wishlist">
-							<a rel="nofollow" class="like">
+					</div>
+				</div> -->
+				<div class="product_wishlist">
+					{% if current_user.is_authenticated %}
+						<div class="yith-wcwl-add-to-wishlist wishlist-button">
+							<a rel="nofollow" class="like {{'heart' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}">
 								<i class="fa fa-heart" aria-hidden="true"></i>
 							</a>
 						</div>
-					</div>
-
-					<div class="product_share">
-						<a class="add-to-wishlist" href="wishlist.html"><i class="fa fa-fw fa-share-alt"></i></a>
-					</div>
+					{% endif %}
+				</div>
+				<!-- <div class="product_share">
+					<a class="add-to-wishlist"><i class="fa fa-fw fa-share-alt"></i></a>
+				</div> -->
 			</div>
 
-
-			<!--
-			<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-				--------------------Brand okay :)---------------------
-			<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-		 	-->
-
-			<!-- <div class="brand">
-				<a href="#">
-						<img alt="galaxy" src="{{ url_for('static', filename='commerce/ls/img/icons/no_photo.svg') }}">
+			{% if resource.BrandIcon %}
+			<div class="brand">
+				<a href="{{url_for('commerce.v_grid',brand = resource.BrandId)}}" style="display: flex; align-items: center;">
+					<img alt="galaxy" src="{{ resource.BrandIcon }}">
+					<span>{{ resource.BrandName }}</span>
 				</a>
-			</div> -->
-
-			<!--
-			<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-				--------------------Brand End okay :)---------------------
-			<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-		 	-->
-
-
+			</div>
+			{% endif %}
 
 			<div class="product_price">
 				<p class="price" ownerId="{{ resource.ResId }}" value="{{resource.ResPriceValue}}">
