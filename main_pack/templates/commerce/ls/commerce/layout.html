@@ -6,13 +6,14 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Lomaý Söwda | {{ title if title else _('Commerce') }}</title>
 		<meta name="description" content="Ecommerce {{ company.CName }} {{ company.CDesc }}">
-		<link rel="stylesheet"  href="{{ url_for('static', filename='commerce/ls/css/bootstrap.min.css') }}">
-		<link rel="stylesheet"  href="{{ url_for('static', filename='commerce/ls/css/style.css') }}">
-		<link rel="stylesheet"  href="{{ url_for('static', filename='commerce/ls/css/orange.css') }}">
-		<link rel="stylesheet"  href="{{ url_for('static', filename='commerce/ls/css/techmarket-font-awesome.css') }}">
-		<link rel='stylesheet'  href="{{ url_for('static', filename='commerce/ls/css/slick.css') }}">
+		<link rel="stylesheet" href="{{ url_for('static', filename='commerce/ls/css/bootstrap.min.css') }}">
+		<link rel="stylesheet" href="{{ url_for('static', filename='commerce/ls/css/style.css') }}">
+		<link rel="stylesheet" href="{{ url_for('static', filename='commerce/ls/css/orange.css') }}">
+		<link rel="stylesheet" href="{{ url_for('static', filename='commerce/ls/css/techmarket-font-awesome.css') }}">
+		<link rel='stylesheet' href="{{ url_for('static', filename='commerce/ls/css/slick.css') }}">
 		<link rel="stylesheet" href="{{ url_for('static', filename='commerce/ls/css/slick-theme.css') }}">
-		<link rel="stylesheet"  href="{{ url_for('static', filename='commerce/ls/css/font-techmarket.min.css') }}">
+		<link rel="stylesheet" href="{{ url_for('static', filename='commerce/ls/css/font-techmarket.min.css') }}">
+		<link rel="stylesheet" href="{{ url_for('static', filename='commerce/ls/js/izitoast/css/iziToast.min.css') }}">
 		<link rel="shortcut icon" href="{{ url_for('static', filename='commerce/ls/img/ls_logo.svg') }}">
 		{% block styles %}{% endblock %}
 	</head>
@@ -408,12 +409,12 @@
 			</div>
 		</footer>
 
-
-
-
 		<script src="{{ url_for('static', filename='commerce/ls/js/jquery.min.js') }}"></script>
 		<script src="{{ url_for('static', filename='commerce/ls/js/bootstrap.min.js') }}"></script>
 		<script src="{{ url_for('static', filename='commerce/ls/js/hidemaxlistitem.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='commerce/ls/js/sweetalert.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='commerce/ls/js/izitoast/js/iziToast.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='commerce/ls/js/ui_dynamicals.js') }}"></script>
 		<script src="{{ url_for('static', filename='commerce/ls/js/jquery.waypoints.min.js') }}"></script>
 		<script src="{{ url_for('static', filename='commerce/ls/js/waypoints-sticky.min.js') }}"></script>
 		<script src="{{ url_for('static', filename='commerce/ls/js/slick.min.js') }}"></script>
@@ -424,6 +425,7 @@
 		<script type="text/javascript">
 			var url_prefix = "{{url_prefix if url_prefix else ''}}";
 			var add_to_cart_text = "{{_('Add to cart')}}";
+			var qty_error_text = "{{_('Cannot get more')}}";
 			var remove_from_cart_text = "{{_('Remove from cart')}}";
 			var no_photo = "{{ url_for('static', filename='commerce/ls/img/icons/no_photo.svg') }}"
 		</script>

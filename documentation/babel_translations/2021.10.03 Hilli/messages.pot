@@ -822,3 +822,6 @@ msgstr "About this item"
 
 msgid "No note is written"
 msgstr "No note is written"
+
+msgid "Cannot get more"
+msgstr "Cannot get more"
