@@ -30,7 +30,7 @@ def api_brands():
 	data = []
 	for brand in brands:
 		brandList = brand.to_json_api()
-		brandList["Images"] = [image.to_json_api() for image in brand.Image if image.GCRecord == None]
+		brandList["Images"] = [image.to_json_api() for image in brand.Image if not image.GCRecord]
 		data.append(brandList)
 
 	res = {

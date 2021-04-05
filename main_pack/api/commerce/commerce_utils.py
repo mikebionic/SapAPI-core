@@ -346,7 +346,7 @@ def apiResourceInfo(
 					joinedload(Resource.Res_total),
 					joinedload(Resource.res_category),
 					joinedload(Resource.unit),
-					joinedload(Resource.brand),
+					joinedload(Resource.brand).options(joinedload(Brand.Image)),
 					joinedload(Resource.usage_status))
 
 				if fullInfo:
@@ -375,7 +375,10 @@ def apiResourceInfo(
 	for resource_query in resource_models:
 		try:
 			resource_info = resource_query.Resource.to_json_api()
-			Brands_info = resource_query.Resource.brand.to_json_api() if resource_query.Resource.brand else None
+			Brands_info = {}
+			if resource_query.Resource.brand:
+				Brands_info = resource_query.Resource.brand.to_json_api()
+				Brands_info["Images"] = [image.to_json_api() for image in resource_query.Resource.brand.Image if not image.GCRecord]
 			UsageStatus_info = resource_query.Resource.usage_status.to_json_api() if resource_query.Resource.usage_status else None
 			Units_info = resource_query.Resource.unit.to_json_api() if resource_query.Resource.unit else None
 			Res_category_info = resource_query.Resource.res_category.to_json_api() if resource_query.Resource.res_category else None
@@ -458,8 +461,10 @@ def apiResourceInfo(
 			resource_info["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_Images[-1]["FileName"]) if List_Images else ""
 			resource_info["Images"] = List_Images if List_Images else []
 
-			resource_info["BrandName"] = Brands_info["BrandName"] if Brands_info else ""
-			resource_info["BrandIcon"] = Brands_info["FilePath"] if Brands_info else ""
+			if Brands_info:
+				resource_info["BrandName"] = Brands_info["BrandName"] if Brands_info else ""
+				resource_info["BrandIcon"] = Brands_info["Images"][0]["FilePath"] if Brands_info["Images"] else ""
+
 			resource_info["UnitName"] = dataLangSelector(Units_info)["UnitName"] if Units_info else ""
 			resource_info["UsageStatusName"] = dataLangSelector(UsageStatus_info)["UsageStatusName"] if UsageStatus_info else ""
 

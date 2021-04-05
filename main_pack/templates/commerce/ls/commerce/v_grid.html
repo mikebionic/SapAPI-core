@@ -58,6 +58,13 @@
 			{% for resource in data %}
 				<div class="card">
 					<div class="imgBox">
+						{% if current_user.is_authenticated %}
+							<div class="yith-wcwl-add-to-wishlist wishlist-button">
+								<a rel="nofollow" class="like {{'heart' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}">
+									<i class="fa fa-heart" aria-hidden="true"></i>
+								</a>
+							</div>
+						{% endif %}
 						<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}">
 							<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/ls/img/icons/no_photo.svg') }}"
 							alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">

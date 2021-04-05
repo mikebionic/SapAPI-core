@@ -46,7 +46,7 @@ def ui_wishlist():
 			db.session.add(wish)
 			db.session.commit()
 			response = jsonify({
-				"status": 'added',
+				"status": 'created',
 				"responseText": gettext('Product')+' '+gettext('successfully saved')
 			})
 		
