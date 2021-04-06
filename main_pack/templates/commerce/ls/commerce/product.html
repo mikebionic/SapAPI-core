@@ -42,8 +42,6 @@
 					</a>
 				</div>
 
-				<input type="hidden" class="ratingValue" value="{{ resource.RtRatingValue }}" ownerId="{{ resource.ResId }}">
-				<div class="ratting ratingStars" style="color: #fac538" ownerId="{{ resource.ResId }}"></div>
 
 				<div class="product_wishlist">
 				{% if current_user.is_authenticated %}
@@ -57,6 +55,10 @@
 				<!-- <div class="product_share">
 					<a class="add-to-wishlist"><i class="fa fa-fw fa-share-alt"></i></a>
 				</div> -->
+
+
+				<input type="hidden" class="ratingValue" value="{{ resource.RtRatingValue }}" ownerId="{{ resource.ResId }}">
+				<div class="ratting ratingStars" style="color: #fac538" ownerId="{{ resource.ResId }}"></div>
 			</div>
 
 			{% if resource.BrandIcon %}
