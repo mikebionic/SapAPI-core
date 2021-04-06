@@ -27,32 +27,42 @@
 							
 							<a href="{{ url_for('commerce.commerce') }}">
 								<i class="fa fa-fw fa-home"></i>
-								{{_('Main')}}
+								<span>
+									{{_('Main')}}
+								</span>
 							</a>
 						</li>
 						<li class="menu-item animate-dropdown">
 							<a href="{{ url_for('commerce.about') }}">
 								<i class="fa fa-fw fa-building-o"></i>
-								{{_('About us')}}
+								<span>
+									{{_('About us')}}
+								</span>
 							</a>
 						</li>
 						<li class="menu-item animate-dropdown">
 							<a href="{{ url_for('commerce.contact') }}">
 								<i class="fa fa-fw fa-phone"></i>
-								{{_('Contact')}}
+								<span>
+									{{_('Contact')}}
+								</span>
 							</a>
 						</li>
 						{% if current_user.is_authenticated %}
 							<li class="menu-item animate-dropdown">
 								<a href="{{ url_for('commerce_users.profile') }}">
 									<i class="tm tm-login-register"></i>
-									{{_('Profile')}}
+									<span>
+										{{_('Profile')}}
+									</span>
 								</a>
 							</li>
 							<li class="menu-item animate-dropdown">
 								<a href="{{ url_for('commerce_auth.logout') }}">
 									<i class="fa fa-fw fa-sign-out"></i>
-									{{_('Log out')}}
+									<span>
+										{{_('Log out')}}
+									</span>
 								</a>
 							</li>
 						{% else %}
