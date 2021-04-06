@@ -34,7 +34,6 @@ def ui_rating_table():
 		elif request.method == 'DELETE': 
 			req = request.get_json()
 			ratingId = req.get('ratingId')
-
 			thisRating = Rating.query.get(ratingId)
 			thisRating.GCRecord = 1
 			db.session.commit()

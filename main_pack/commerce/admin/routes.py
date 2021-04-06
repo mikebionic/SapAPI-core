@@ -722,14 +722,16 @@ def rating_table():
 		.order_by(Rating.CreatedDate.desc())\
 		.options(
 			joinedload(Rating.resource),
-			joinedload(Rating.rp_acc))\
+			joinedload(Rating.rp_acc),
+			joinedload(Rating.user))\
 		.all()
 
 	data = []
 	for rating in ratings:
 		rating_info = rating.to_json_api()
 		rating_info["resource"] = rating.resource.to_json_api()
-		rating_info["rp_acc"] = rating.rp_acc.to_json_api()
+		rating_info["rp_acc"] = rating.rp_acc.to_json_api() if rating.rp_acc else {}
+		rating_info["user"] = rating.user.to_json_api() if rating.user else {}
 		data.append(rating_info)
 
 	return render_template(

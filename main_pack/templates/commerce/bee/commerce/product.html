@@ -130,7 +130,7 @@
 								{% for rating in resource.Rating %}
 									{% set rating_count = resource.Rating.index(rating) %}
 									<div class="sin-rattings">
-										<div class="ratting-author">
+										<div class="ratting-author" style="align-items: center; display: flex;">
 											<h3>{{ rating.User.UName if rating.User else rating.Rp_acc.RpAccName }}</h3>
 											<input type="hidden" class="ratingValue" value="{{ rating.RtRatingValue }}" ownerId="{{rating_count}}uz3R{{ rating.User.UId if rating.User else rating.Rp_acc.RpAccId }}">
 											<div class="ratting-star ratingStars" ownerId="{{rating_count}}uz3R{{ rating.User.UId if rating.User else rating.Rp_acc.RpAccId }}"></div>
@@ -247,14 +247,4 @@
 	</div>
 </div>
 
-{% endblock %}
-
-
-{% block scripts %}
-<script src="{{ url_for('static', filename='commerce/admin/bundles/sweetalert/sweetalert.min.js') }}"></script>
-<script>
-	function adjustRating(rating) {
-		document.getElementById("ratingvalue").innerHTML = rating;
-	}
-</script>
 {% endblock %}

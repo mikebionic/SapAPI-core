@@ -36,6 +36,6 @@ function prepareOwnerTableData(formFields,formId=null){
 
 $('body').delegate('.deleteRatingBtn','click',function(){
 	ownerId = $(this).attr('ownerId');
-	data = {"categoryId":ownerId};
+	data = {"ratingId":ownerId};
 	postData(formData=data,url=url_prefix+"/ui/rating_table/",type="DELETE",formId=ownerId);
 })

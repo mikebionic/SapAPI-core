@@ -42,23 +42,17 @@
 					</a>
 				</div>
 
-				<!-- <div class="rating-and-sharing-wrapper">
-					<div class="woocommerce-product-rating">
-						<div class="star-rating">
-							<span style="width:100%">Rated
-							<strong class="rating">5.00</strong> out of 5 based on
-							<span class="rating">1</span> customer rating</span>
-						</div>
-					</div>
-				</div> -->
+				<input type="hidden" class="ratingValue" value="{{ resource.RtRatingValue }}" ownerId="{{ resource.ResId }}">
+				<div class="ratting ratingStars" style="color: #fac538" ownerId="{{ resource.ResId }}"></div>
+
 				<div class="product_wishlist">
-					{% if current_user.is_authenticated %}
-						<div class="yith-wcwl-add-to-wishlist wishlist-button">
-							<a rel="nofollow" class="like {{'heart' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}">
-								<i class="fa fa-heart" aria-hidden="true"></i>
-							</a>
-						</div>
-					{% endif %}
+				{% if current_user.is_authenticated %}
+					<div class="yith-wcwl-add-to-wishlist wishlist-button">
+						<a rel="nofollow" class="like {{'heart' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}">
+							<i class="fa fa-heart" aria-hidden="true"></i>
+						</a>
+					</div>
+				{% endif %}
 				</div>
 				<!-- <div class="product_share">
 					<a class="add-to-wishlist"><i class="fa fa-fw fa-share-alt"></i></a>
@@ -101,8 +95,6 @@
 	</div>
 </div>
 
-
-
 <div class="pd-wrap">
 	<div class="container">
 		<div class="product-info-tabs">
@@ -112,11 +104,11 @@
 					{{_('Description')}}
 				</a>
 			</li>
-			<!-- <li class="nav-item">
+			<li class="nav-item">
 				<a class="nav-link" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review" aria-selected="false">
 					{{_('Customers reviews')}}
 				</a>
-			</li> -->
+			</li>
 		</ul>
 		<div class="tab-content" id="myTabContent">
 
@@ -124,32 +116,41 @@
 				{{ resource.ResFullDesc if resource.ResFullDesc else _('No description provided for this product') }}
 			</div>
 
-			<!-- <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
+			<div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
 				<div class="review-heading">{{_('Customers reviews')}}</div>
+				{% for rating in resource.Rating %}
+					{% set rating_count = resource.Rating.index(rating) %}
+					<div class="sin-rattings">
+						<div class="ratting-author" style="display:flex;">
+							<h3 style="font-weight: 700;">{{ rating.User.UName if rating.User else rating.Rp_acc.RpAccName }}</h3>
+							<input type="hidden" class="ratingValue" value="{{ rating.RtRatingValue }}" ownerId="{{rating_count}}uz3R{{ rating.User.UId if rating.User else rating.Rp_acc.RpAccId }}">
+							<div class="ratting-star ratingStars" ownerId="{{rating_count}}uz3R{{ rating.User.UId if rating.User else rating.Rp_acc.RpAccId }}"></div>
+							<span>({{ rating.RtRatingValue }})</span>
+						</div>
+						<p>{{ rating.RtRemark if rating.RtRemark else '' }}</p>
+					</div>
+				{% endfor %}
+
 				{% if current_user.is_authenticated %}
 					<form class="review-form">
 						<div class="form-group">
 							<label>{{_('Your rating')}}:</label>
 							<div class="reviews-counter">
-								<div class="rate">
-									<input type="radio" id="star5" name="rate" value="5" />
-									<label for="star5">5 stars</label>
-									<input type="radio" id="star4" name="rate" value="4" checked />
-									<label for="star4">4 stars</label>
-									<input type="radio" id="star3" name="rate" value="3" />
-									<label for="star3">3 stars</label>
-									<input type="radio" id="star2" name="rate" value="2" />
-									<label for="star2">2 stars</label>
-									<input type="radio" id="star1" name="rate" value="1" />
-									<label for="star1">1 star</label>
+								<div class="rate rateButtons">
+									<input type="radio" id="star5" name="rate" value="5" /><label for="star5"></label>
+									<input type="radio" id="star4" name="rate" value="4" checked /><label for="star4"></label>
+									<input type="radio" id="star3" name="rate" value="3" /><label for="star3"></label>
+									<input type="radio" id="star2" name="rate" value="2" /><label for="star2"></label>
+									<input type="radio" id="star1" name="rate" value="1" /><label for="star1"></label>
 								</div>
 							</div>
 						</div>
+						<input type="hidden" class="reviewRatingValue" value="4">
 						<div class="form-group">
 							<label>{{_('Message')}}</label>
-							<textarea class="form-control" rows="6" placeholder="{{_('Write your review')}}..." required></textarea>
+							<textarea class="form-control reviewRatingText" ownerId="{{ resource.ResId }}" rows="6" placeholder="{{_('Write your review')}}..." required></textarea>
 						</div>
-						<button class="round-black-btn" type="submit">{{_('Send')}}</button>
+						<button class="round-black-btn sendReviewBtn" type="submit" ownerId="{{ resource.ResId }}">{{_('Send')}}</button>
 					</form>
 				{% else %}
 					<div class="col-lg-12 col-12 mb-40 d-flex">
@@ -159,7 +160,7 @@
 						</div>
 					</div>
 				{% endif %}
-			</div> -->
+			</div>
 
 		</div>
 	</div>

@@ -1,4 +1,4 @@
-from flask import jsonify, request
+from flask import jsonify, request, session
 from main_pack.commerce.commerce import bp
 import os
 from flask import current_app
@@ -22,8 +22,15 @@ from main_pack.models import Rp_acc
 def ui_rating():
 	req = request.get_json()
 	ResId = req.get("resId")
-	RpAccId = current_user.RpAccId
+	rating_filtering = {"GCRecord": None, "ResId": ResId}
+
 	try:
+		if(current_user.is_authenticated and "model_type" in session):
+			if session["model_type"] == "rp_acc":
+				rating_filtering["RpAccId"] = current_user.RpAccId
+			elif session["model_type"] == "user":
+				rating_filtering["UId"] == current_user.UId
+
 		if request.method =="POST":
 			RtRatingValue = req.get("ratingValue")
 			RtRemark = req.get("ratingRemark")
@@ -34,7 +41,7 @@ def ui_rating():
 
 			# check for presense of rate
 			rating = Rating.query\
-				.filter_by(GCRecord = None, ResId = ResId, RpAccId = RpAccId)\
+				.filter_by(**rating_filtering)\
 				.first()
 
 			if rating:
@@ -52,8 +59,7 @@ def ui_rating():
 				raise Exception
 			
 			rating = {
-				"RpAccId": RpAccId,
-				"ResId": ResId,
+				**rating_filtering,
 				"RtRatingValue": RtRatingValue,
 				"RtRemark": RtRemark
 			}
@@ -68,7 +74,7 @@ def ui_rating():
 		
 		if request.method=="DELETE":
 			rating = Rating.query\
-				.filter_by(GCRecord = None, ResId = ResId, RpAccId = RpAccId)\
+				.filter_by(**rating_filtering)\
 				.first()
 			if Rating is None:
 				raise Exception
@@ -81,6 +87,7 @@ def ui_rating():
 			})
 
 	except Exception as ex:
+		print(ex)
 		response = jsonify({
 			"status": 'error',
 			"responseText": gettext('Unknown error!'),

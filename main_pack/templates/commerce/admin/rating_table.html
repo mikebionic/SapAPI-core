@@ -42,9 +42,9 @@
 									<tr ownerId={{rating.RtId}}>
 										<td class="text-center ratingId" ownerId={{rating.RtId}}>{{rating.RtId}}</td>
 										<td class="text-center" ownerId={{rating.RtId}}>{{rating.resource.ResName if rating.resource else ''}}</td>
-										<td class="text-center" ownerId={{rating.RtId}}>{{rating.rp_acc.RpAccName if rating.rp_acc else ''}}</td>
+										<td class="text-center" ownerId={{rating.RtId}}>{{rating.rp_acc.RpAccName if rating.rp_acc else rating.user.UName }}</td>
 										<td class="text-center editable ratingValue" ownerId={{rating.RtId}}>{{rating.RtRatingValue if rating.RtRatingValue else ''}}</td>
-										<td class="text-center editable ratingRemark" ownerId={{rating.RtId}}>{{rating.RtRemart if rating.RtRemark else ''}}</td>
+										<td class="text-center editable ratingRemark" ownerId={{rating.RtId}}>{{rating.RtRemark if rating.RtRemark else ''}}</td>
 										<td class="p-0 text-center">
                       <div class="custom-checkbox custom-control">
                         <input type="checkbox" class="custom-control-input ratingValidated" ownerId={{rating.RtId}} id="checkbox{{rating.RtId}}" {{ "checked" if rating.RtValidated }}>

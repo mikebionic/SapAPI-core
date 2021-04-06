@@ -441,7 +441,6 @@ def apiResourceInfo(
 					List_Ratings = [rating.to_json_api() for rating in resource_query.Resource.Rating if not rating.GCRecord and rating.RtValidated]
 				else:
 					List_Ratings = [rating.to_json_api() for rating in resource_query.Resource.Rating if not rating.GCRecord]
-
 			if user:
 				List_Wish = [wish.to_json_api() for wish in wishes if wish.ResId == resource_query.Resource.ResId]
 			else:
