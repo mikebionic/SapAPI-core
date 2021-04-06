@@ -69,6 +69,11 @@
 							<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/ls/img/icons/no_photo.svg') }}"
 							alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
 						</a>
+						{% if resource.New %}
+							<span class="onsale">
+								<span class="woocommerce-Price-amount amount">{{_('New')}}</span>
+							</span>
+						{% endif %}
 					</div>
 					<div class="details">
 						<span class="price">

@@ -2610,7 +2610,7 @@ ul.nav {
 @media (max-width: 767px) {
   ul:not(.slick-dots)[role="tablist"] {
     flex-direction: row;
-    overflow: scroll;
+    overflow: auto;
     justify-content: unset !important;
     width: 100%;
     padding-bottom: 0; }
@@ -19319,19 +19319,21 @@ table.shop_table_responsive.my_account_orders .order-actions {
   @media (max-width: 767px) {
     .single-product .single-product-wrapper .product-images-wrapper {
       margin-bottom: 1.250em; } }
-  .single-product .single-product-wrapper .product-images-wrapper .onsale {
-    background-color: #62ab00;
+  .onsale {
+    background-color: #3a4d8f;
     border-radius: 4px;
     color: #fff;
     font-size: 0.857em;
     line-height: 1.833em;
     padding: 0 0.667em;
     position: absolute;
-    right: 15px;
-    z-index: 99; }
+    right: 0;
+    bottom: 10px;
+    z-index: 99;
+   }
     @media (max-width: 767px) {
-      .single-product .single-product-wrapper .product-images-wrapper .onsale {
-        right: 15px; } }
+      .onsale {
+        right: 0; } }
   .single-product .single-product-wrapper .product-images-wrapper .techmarket-single-product-gallery {
     display: flex;
     overflow: hidden; }
@@ -29705,9 +29707,10 @@ h3 i{
   height: 400px;
   transition: all 0.5s ease;
   margin: 15px auto;
+  justify-content: center;
 }
 .img-showcase img{
-  min-width: 100%;
+  max-width: 100%;
 }
 @media (max-width:500px){
 
@@ -29982,4 +29985,27 @@ form .woocommerce-Button{
   max-width: 150px;
   width: 50px;
   margin: 5px;
+}
+.summary{
+  margin:0 15px;
+}
+
+@media (max-width: 991px){
+  .single-product .single-product-meta{
+    border-bottom: none;
+  }
+  .single-product .single-product-header{
+    border-bottom: none;
+  }
+}
+@media (max-width: 500px){
+  .garden-market .top-bar.top-bar-v4 .nav > li > a > span{
+    display: none;
+  }
+  .top-bar i{
+    font-size:15px
+  }
+  .top-bar .tm-login-register{
+    font-size: 15px;
+  }
 }
