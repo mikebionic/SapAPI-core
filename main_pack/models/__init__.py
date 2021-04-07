@@ -1,10 +1,5 @@
-# from .BaseModel import *
 from .AddInf import *
 from .BaseModel import *
-
-# from .base.models import *
-# from .commerce.models import *
-# from .hr_department.models import *
 
 from .User import *
 from .User_type import *
