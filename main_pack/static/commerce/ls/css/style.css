@@ -2573,7 +2573,6 @@ ul.nav {
 @media (max-width: 767px) {
   ul:not(.slick-dots)[role="tablist"] {
     flex-direction: row;
-    overflow: auto;
     justify-content: unset !important;
     width: 100%;
     padding-bottom: 0; }
@@ -11597,7 +11596,7 @@ article.post {
   .sticky-wrapper .techmarket-sticky-wrap.stuck .secondary-navigation {
     margin-bottom: 0; } }
   .sticky-wrapper .techmarket-sticky-wrap.stuck > .row {
-    padding: 20px 15px; }
+    padding: 10px 15px; }
     @media (min-width: 1025px) {
       .sticky-wrapper .techmarket-sticky-wrap.stuck > .row {
         padding: 20px 0 15px; } }
@@ -24996,9 +24995,10 @@ dl.variation {
     .section-header {
       flex-direction: column;
       align-items: center; }
-    .nav {
-      padding-top: 20px; } }
-
+    /* .nav {
+      padding-top: 20px; 
+    }  */
+  }
 .product-carousel-with-banners .section-products-carousel-tabs .columns-6::after,
 .product-carousel-with-banners .section-products-carousel-tabs .columns-6::before {
   display: none; }
@@ -27405,7 +27405,6 @@ button:hover{
 	font-size: 24px;
   font-weight: 500;
   text-align: center;
-  letter-spacing: 5px;
   line-height: 24px;
   margin-bottom: 25px;
   text-transform: uppercase;
@@ -27769,7 +27768,6 @@ height: 100%;
 
 
 #menu-departments-menu ul
-{
   background:transparent;
   position:absolute;
   width:100%;
@@ -27781,7 +27779,7 @@ height: 100%;
 }
 #menu-departments-menu ul li
 {
-  background:#be2edd;
+  background:transparent;
 }
 }
 .cont_info .store-info h3{

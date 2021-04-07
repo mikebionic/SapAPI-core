@@ -71,11 +71,15 @@
 									<i class="fa fa-fw fa-newspaper-o"></i>
 									<span>
 									{{_('Register')}}
+									</span>
 								</a>
 							</li>
 							<li class="menu-item animate-dropdown">
-								<a href="fa fa-fw fa-sign-in">
+								<a href="{{ url_for('commerce_auth.login') }}">
+									<i class="fa fa-fw fa-sign-in"></i>
+									<span>
 									{{_('Login')}}
+									</span>
 								</a>
 							</li>
 						{% endif %}

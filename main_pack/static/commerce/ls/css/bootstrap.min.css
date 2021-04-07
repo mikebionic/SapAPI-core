@@ -516,9 +516,9 @@ pre code {
 
 .container {
   width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
+  /* padding-right: 15px;
+  padding-left: 15px; */
+  margin-right: a0uto;
   margin-left: auto
 }
 
@@ -3772,10 +3772,10 @@ input[type=button].btn-block,input[type=reset].btn-block,input[type=submit].btn-
 .nav-link.disabled {
   color: #6c757d
 }
-
+/* 
 .nav-tabs {
   border-bottom: 1px solid #dee2e6
-}
+} */
 
 .nav-tabs .nav-item {
   margin-bottom: -1px

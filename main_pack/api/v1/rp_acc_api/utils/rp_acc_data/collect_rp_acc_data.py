@@ -3,7 +3,12 @@ from datetime import datetime, timedelta
 import dateutil.parser
 
 from main_pack.models import Division
-from main_pack.models import Rp_acc
+from main_pack.models import Rp_accinfo["DivGuid"] = rp_acc.division.DivGuid if rp_acc.division and not rp_acc.division.GCRecord else None
+		rp_acc_info["CGuid"] = rp_acc.company.CGuid if rp_acc.company and not rp_acc.company.GCRecord else None
+		rp_acc_info["UGuid"] = rp_acc.user.UGuid if rp_acc.user and not rp_acc.user.GCRecord else None
+		rp_acc_info["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=rp_acc.Image[-1].FileName) if rp_acc.Image else ""
+		rp_acc_info["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=rp_acc.Image[-1].FileName) if rp_acc.Image else ""
+		rp_acc_info["FilePathR"] =
 from main_pack.base.apiMethods import fileToURL
 
 
