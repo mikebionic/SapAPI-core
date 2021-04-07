@@ -303,7 +303,7 @@ def api_images():
 				image_req["Image"] = None
 				failed_data.append(image_req)
 
-		db.session.commit()
+		# db.session.commit()
 		print(f"{datetime.now()} | Images were committed")
 		status = checkApiResponseStatus(data, failed_data)
 

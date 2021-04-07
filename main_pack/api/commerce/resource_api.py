@@ -219,11 +219,12 @@ def api_tbl_dk_resources():
 						print(f"{datetime.now()} | Barcode Api Exception: {ex}")
 						failed_barcodes.append(barcode_req)
 
+				db.session.commit()
+
 			except Exception as ex:
 				print(f"{datetime.now()} | Resource Api Exception: {ex}")
 				failed_data.append(resource_req)
 
-		db.session.commit()
 		cache.clear()
 		status = checkApiResponseStatus(data, failed_data)
 
