@@ -22,26 +22,28 @@
 			<div class="tab-content">
 
 				<div class="tab-pane wishlist_p active" id="edit_profile">
-					<div id="avatar-upload" class="avatar-wrapper has-simple-popover" data-content="Change profile picture" data-placement="top">
-						<img class="profile-pic" src="{{avatar}}" alt="">
-						<div class="upload-button">
-						 <i class="upload-icon" data-feather="plus" aria-hidden="true"></i>
-					 </div>
-					 {{ form.picture.label() }}
-					 {{ form.picture(class="file-upload") }}
-					 {% if form.picture.errors %}
-						 {% for error in form.picture.errors %}
-							 <span class="text-danger">{{ error }}</span>
-						 {% endfor %}
-					 {% endif %}
-					 </div>
-					 <div class="username has-text-centered">
-						<span>{{current_user.UFullName}}</span>
-						<small>{{_('Registered date')}}: {{current_user.CreatedDate.strftime('%d-%m-%Y') }}</small>
-					</div>
-					<div class="has-text-centered"> <a href="{{ url_for('commerce_auth.reset_request') }}" class="button sec_btn">{{_('Save')}}</a> </div>
 					<form class="form" action="" enctype="multipart/form-data" method="post" id="registrationForm">
 						{{ form.hidden_tag() }}
+						<div id="avatar-upload" class="avatar-wrapper has-simple-popover" data-content="Change profile picture" data-placement="top">
+							<img class="profile-pic" src="{{avatar}}" alt="">
+							<div class="upload-button">
+								<i class="upload-icon" data-feather="plus" aria-hidden="true"></i>
+							</div>
+							{{ form.picture.label() }}
+							{{ form.picture(class="file-upload") }}
+							{% if form.picture.errors %}
+								{% for error in form.picture.errors %}
+									<span class="text-danger">{{ error }}</span>
+								{% endfor %}
+							{% endif %}
+							</div>
+							<div class="username has-text-centered">
+							<span>{{current_user.UFullName}}</span>
+							<small>{{_('Registered date')}}: {{current_user.CreatedDate.strftime('%d-%m-%Y') }}</small>
+						</div>
+						<div class="has-text-centered" style="display:flex; justify-content:center;">
+							<button type="submit" class="button sec_btn" style="width: 150px;">{{_('Save')}}</button>
+						</div>
 						<div class="form-group">			
 							<div class="col-xs-6">
 								<label><h4>{{ form.username.label }}</h4></label>
