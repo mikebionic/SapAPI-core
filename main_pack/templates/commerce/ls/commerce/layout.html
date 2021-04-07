@@ -87,7 +87,7 @@
 							<a href="javascript:void(0);"  title="Language" data-toggle="dropdown" role="button"><i class="fa fa-fw fa-globe"></i>
 								<div class="notify"><span class="heartbit"></span><span class="point"></span></div>
 							</a>
-							<ul class="dropdown-menu slideUp2" style="z-index: 9999999;"> 
+							<ul class="dropdown-menu slideUp2" style="z-index: 9999999; left: -57px;"> 
 								<li class="body">
 									<ul class="menu list-unstyled">
 										<li>
@@ -329,12 +329,13 @@
 												
 											</span>
 											{% if company.CAddress %}
-											<div class="pulse">
-												<a href="tel:{{company.Phone1}}">
-													<img src="{{ url_for('static', filename='commerce/ls/img/play.svg') }}" alt="LS" style="width: 35px;">
-												</a>
-											</div>
+											
 												<address class="footer-contact-address">
+													<div class="pulse">
+														<a href="tel:{{company.Phone1}}">
+															<img src="{{ url_for('static', filename='commerce/ls/img/play.svg') }}" alt="LS" style="width: 35px;">
+														</a>
+													</div>
 													<span>{{_('Address')}}</span>
 													<p>{{ company.CAddress }}</p>
 												</address>

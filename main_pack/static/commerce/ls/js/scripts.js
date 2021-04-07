@@ -1619,15 +1619,15 @@ categoryToggle.on('click', function(){
 /*--
     Header Cart
 ------------------------*/
-var headerCart = $('.departments-menu');
-var closeCart = $('.cart-overlay');
-var miniCartWrap = $('.menu-departments-menu');
+// var headerCart = $('.departments-menu');
+// var closeCart = $('.cart-overlay');
+// var miniCartWrap = $('.menu-departments-menu');
 
-headerCart.on('click', function(e){
-    e.preventDefault();
-    $('.cart-overlay').addClass('visible');
-    miniCartWrap.addClass('show');
-});
+// headerCart.on('click', function(e){
+//     e.preventDefault();
+//     $('.cart-overlay').addClass('visible');
+//     miniCartWrap.addClass('show');
+// });
 // closeCart.on('click', function(e){
 //     e.preventDefault();
 //     $('.cart-overlay').removeClass('visible');

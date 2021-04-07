@@ -201,31 +201,6 @@
 			</div>
 
 
-			<!-- Banners -->
-			<div class="banner">
-			{% for slider in sliders %}
-
-				{% if slider.SlName == "commerce_footer" %}
-					{% for sl_image in slider.Sl_images %}
-					{% if sl_image.SlImgMainImgFilePathM %}
-
-						<div class="col-xs-12 col-sm-12 banner-container">
-							<div class="banner-item">
-								<div class="banner-image">
-									<img loading="lazy" src="{{ sl_image.SlImgMainImgFilePathM }}"
-										data-src-m="{{ sl_image.SlImgMainImgFilePathR }}"
-										alt="banner {{ sl_image.SlImgMainImgFileName }} ecommerce ls {{ company.CName }}"/>
-								</div>
-							</div>
-						</div>
-
-					{% endif %}
-					{% endfor %}
-				{% endif %}
-
-
-			{% endfor %}
-			</div>
 
 
 {% endblock %}

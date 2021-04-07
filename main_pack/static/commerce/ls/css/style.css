@@ -3066,6 +3066,10 @@ select {
   }
 }
 @media (max-width:768px){
+
+.top-bar .nav .show > .dropdown-menu {
+  left: -95px !important; }
+
   .site-header.header-v2 .site-branding, .site-header.header-v3 .site-branding, .site-header.header-v4 .site-branding, .site-header.header-v9 .site-branding, .site-header.header-v10 .site-branding{
     display: none;
   }
@@ -14170,7 +14174,7 @@ form.woocommerce-checkout.checkout .col2-set .woocommerce-shipping-fields .wooco
   line-height: 1em;
   font-weight: 500;
   letter-spacing: -0.015em;
-  margin-bottom: 1.067em; }
+  margin-bottom:2em; }
 
 .footer-contact .footer-contact-info .footer-contact-address {
   line-height: 1.400em;
@@ -26515,7 +26519,7 @@ form.track_order {
   transform: translate(0px, 24px) rotate(0deg) skew(0deg, 0deg) scale(1, 1) !important; }
 
 .top-bar .nav .show > .dropdown-menu {
-  left: 38px !important; }
+  left: -57px !important; }
 
 .header-v2 .departments-menu nav > .dropdown-menu,
 .header-v3 .departments-menu nav > .dropdown-menu,
@@ -29961,7 +29965,7 @@ form .woocommerce-Button{
     border-bottom: none;
   }
 }
-@media (max-width: 500px){
+@media (max-width: 600px){
   .garden-market .top-bar.top-bar-v4 .nav > li > a > span{
     display: none;
   }
@@ -30001,3 +30005,5 @@ form .woocommerce-Button{
   .review-form{
     margin-top:5rem
   }
+
+  
