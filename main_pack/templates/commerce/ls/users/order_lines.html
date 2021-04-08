@@ -16,85 +16,89 @@
 				<li><a href="{{ url_for('commerce_users.profile') }}">{{_('Profile')}}</a></li>
 				<li class="active"><a href="{{ url_for('commerce_users.orders') }}">{{_('Orders')}}</a></li>
 				<li><a href="{{ url_for('commerce_users.wishlist') }}">{{_('Wishlist')}}</a></li>
-				<li style="float: right;"><a href="{{ url_for('commerce_users.profile_edit') }}"><i class="fa fa-fw fa-gears" style="font-size: 30px;"></i></a></li>
+				<li style="float: right;"><a href="{{ url_for('commerce_users.profile_edit') }}"><i class="fa fa-fw fa-gears"></i></a></li>
 			</ul>
 
 			<div class="tab-content">
 				<div class="tab-pane wishlist_p active" id="lines">
-					<div class="columns is-account-grid is-multiline">
-						<div class="column is-12">
-							<div id="46895" class="flat-card is-auto order-list-card animated preFadeInUp fadeInUp">
-								<div class="progress-block">
-									<h3>{{_('Order')}}-{{orderInvoices[0].OInvRegNo}}</h3>
-									<progress class="progress {{orderInvoices[0].StatusUI.class}}-progress is-small has-simple-popover" value="{{orderInvoices[0].StatusUI.percentage}}" max="100" data-content="{{orderInvoices[0].StatusUI.percentage}}% Complete" data-placement="top" style="margin: 0; max-width: 142px;">{{orderInvoices[0].StatusUI.percentage}}%</progress>
-								</div>
-									<div class="order_status">
-										<div class="order-block">
-											<div class="order-icon">
-												<i data-feather="{{ orderInvoices[0].StatusUI.icon }}"></i>
-											</div>
-											<div class="status">
-												<div>{{_('Status')}}</div>
-												<div><span class="tag {{orderInvoices[0].StatusUI.class}}-tag">{{orderInvoices[0].InvStatus.InvStatName}}</span></div>
-											</div>
+					<div class="columns account-header">
+						<div class="column is-10 is-offset-1 is-tablet-landscape-padded">
+							<div class="columns is-account-grid is-multiline">
+								<div class="column is-12">
+									<div id="46895" class="flat-card is-auto order-list-card animated preFadeInUp fadeInUp">
+										<div class="progress-block">
+											<h3>{{_('Order')}}-{{orderInvoices[0].OInvRegNo}}</h3>
+											<progress class="progress {{orderInvoices[0].StatusUI.class}}-progress is-small has-simple-popover" value="{{orderInvoices[0].StatusUI.percentage}}" max="100" data-content="{{orderInvoices[0].StatusUI.percentage}}% Complete" data-placement="top" style="margin: 0; max-width: 142px;">{{orderInvoices[0].StatusUI.percentage}}%</progress>
 										</div>
-										<div class="order-block">
-											<div class="order-icon">
-												<i data-feather="clock"></i>
-											</div>
-											<div class="date">
-												<div>{{_('Ordered date')}}</div>
-												<div class="is-date">{{orderInvoices[0].CreatedDate}}</div>
-											</div>
-										</div>
-										<div class="order-block">
-											<div class="order-icon">
-												<i data-feather="dollar-sign"></i>
-											</div>
-											<div class="total">
-												<div>{{_('Order Total')}}</div>
-												<span class="price">
-													<span class="amount">
-														<span class="amount">
-															{{ orderInvoices[0].OInvFTotal }}
+											<div class="order_status">
+												<div class="order-block">
+													<div class="order-icon">
+														<i data-feather="{{ orderInvoices[0].StatusUI.icon }}"></i>
+													</div>
+													<div class="status">
+														<div>{{_('Status')}}</div>
+														<div><span class="tag {{orderInvoices[0].StatusUI.class}}-tag">{{orderInvoices[0].InvStatus.InvStatName}}</span></div>
+													</div>
+												</div>
+												<div class="order-block">
+													<div class="order-icon">
+														<i data-feather="clock"></i>
+													</div>
+													<div class="date">
+														<div>{{_('Ordered date')}}</div>
+														<div class="is-date">{{orderInvoices[0].CreatedDate}}</div>
+													</div>
+												</div>
+												<div class="order-block">
+													<div class="order-icon">
+														<i data-feather="dollar-sign"></i>
+													</div>
+													<div class="total">
+														<div>{{_('Order Total')}}</div>
+														<span class="price">
+															<span class="amount">
+																<span class="amount">
+																	{{ orderInvoices[0].OInvFTotal }}
+																</span>
+																<span class="woocommerce-Price-currencySymbol">{{ orderInvoices[0].CurrencyCode }}</span>
+															</span>
 														</span>
-														<span class="woocommerce-Price-currencySymbol">{{ orderInvoices[0].CurrencyCode }}</span>
-													</span>
-												</span>
+													</div>
+												</div>
 											</div>
-										</div>
-									</div>
 
-									<div class="table-block">
-										<table>
-											<thead>
-												<tr>
-													<th scope="col">{{_('Product name')}}</th>
-													<th scope="col">{{_('Amount')}}</th>
-													<th scope="col">{{_('Price')}}</th>
-													<th scope="col">{{_('Total price')}}</th>
-													<th scope="col">{{_('Currency')}}</th>
-												</tr>
-											</thead>
-											<tbody>
-												{% for orderInvLine in orderInvLines %}
-				                  <tr>
-				                    <td class="text-center">
-				                    	<a href="{{ url_for('commerce.product',ResId=orderInvLine.Resource.ResId)}}">
-				                    		{{ orderInvLine.Resource.ResName }}
-				                    	</a>
-				                    </td>
-				                    <td>{{ orderInvLine.OInvLineAmount }}</td>
-				                    <td>{{ orderInvLine.OInvLinePrice }}</td>
-				                    <td>{{ orderInvLine.OInvLineFTotal }}</td>
-				                    <td>{{ orderInvLine.CurrencyCode }}</td>
-				                  </tr>
-				                {% endfor %}
-											</tbody>
-										</table>
+											<div class="table-block">
+												<table>
+													<thead>
+														<tr>
+															<th scope="col">{{_('Product name')}}</th>
+															<th scope="col">{{_('Amount')}}</th>
+															<th scope="col">{{_('Price')}}</th>
+															<th scope="col">{{_('Total price')}}</th>
+															<th scope="col">{{_('Currency')}}</th>
+														</tr>
+													</thead>
+													<tbody>
+														{% for orderInvLine in orderInvLines %}
+															<tr>
+																<td class="text-center">
+																	<a href="{{ url_for('commerce.product',ResId=orderInvLine.Resource.ResId)}}">
+																		{{ orderInvLine.Resource.ResName }}
+																	</a>
+																</td>
+																<td>{{ orderInvLine.OInvLineAmount }}</td>
+																<td>{{ orderInvLine.OInvLinePrice }}</td>
+																<td>{{ orderInvLine.OInvLineFTotal }}</td>
+																<td>{{ orderInvLine.CurrencyCode }}</td>
+															</tr>
+														{% endfor %}
+													</tbody>
+												</table>
+											</div>
+										<p><b>{{_('Note')}}:</b></p>
+										<p>{{ orderInvoices[0].OInvDesc if orderInvoices[0].OInvDesc else _('No note is written') }}</p>
 									</div>
-								<p><b>{{_('Note')}}:</b></p>
-								<p>{{ orderInvoices[0].OInvDesc if orderInvoices[0].OInvDesc else _('No note is written') }}</p>
+								</div>
 							</div>
 						</div>
 					</div>

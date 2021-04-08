@@ -2574,7 +2574,7 @@ span.label-text,span.label-text {
 }
 
 .order-list-card .table-block table th,.order-list-card .table-block table td {
-    padding: .625em;
+    padding: .125em;
     text-align: center
 }
 
@@ -2587,7 +2587,7 @@ span.label-text,span.label-text {
 @media screen and (max-width: 479px) {
     .flat-card.is-auto {
         height: auto !important;
-        width: 359px !important;
+        width: 100% !important;
         min-height: 0 !important;
         max-height: none !important;
     }
@@ -6722,4 +6722,19 @@ a {
 }
 .shop-wrapper {
     height: -webkit-fill-available;
+}
+
+@media (max-width: 768px){
+    .order-list-card .table-block table th{
+        font-size: 10px;
+    }
+    .text-center{
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 500px){
+    .order-list-card .order-block .handled-by div:first-child, .order-list-card .order-block .status div:first-child, .order-list-card .order-block .date div:first-child, .order-list-card .order-block .total div:first-child{
+        font-size: 10px;
+    }
 }

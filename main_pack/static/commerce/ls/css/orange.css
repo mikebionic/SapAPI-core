@@ -352,6 +352,10 @@ input[type="submit"].dokan-btn-theme:focus, a.dokan-btn-theme:focus, .dokan-btn-
 
 .header-v4 .departments-menu nav > .dropdown-menu > li,
 .header-v4 .departments-menu nav > .dropdown-menu .menu-item-has-children > .dropdown-menu {
+  background: #eaeaea;
   border-color: transparent; }
+.header-v4 .departments-menu nav > .dropdown-menu > li:nth-child(1){
+  background: #eaeaea;
+}
 
 }
