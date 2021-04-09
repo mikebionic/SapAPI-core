@@ -5,5 +5,5 @@ from .get_company_id_guid_list import get_company_id_guid_list
 from .get_user_id_guid_list import get_user_id_guid_list
 from .fetch_and_generate_RegNo import fetch_and_generate_RegNo
 from .get_ResPriceGroupId import get_ResPriceGroupId
-from .get_Work_period import get_Work_period
+from .get_last_Work_period import get_last_Work_period
 from .get_last_Warehouse_by_DivId import get_last_Warehouse_by_DivId
