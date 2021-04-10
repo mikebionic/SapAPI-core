@@ -45,10 +45,19 @@
 											</span>
 										</ins>
 									</td>
+ 
 									<td class="product-add-to-cart">
-										<a class="profile_button removeFromWishlist" ownerId="{{resource.ResId}}">
-											<i class="fa fa-fw fa-trash"></i>
-										</a>
+
+										<div class="action"> 
+											<!-- Dropdown button -->
+											<a style="padding: 0 10px;" class="addToCart" ownerId="{{resource.ResId}}">
+												<i class="feather-icons" data-feather="shopping-cart" ></i>
+											</a>
+											<!-- Dropdown item -->
+											<a class=" removeFromWishlist" ownerId="{{resource.ResId}}">
+												<i class="feather-icons" data-feather="x"></i>
+											</a>
+										</div>
 									</td>
 								</tr>
 							{% endfor %}
