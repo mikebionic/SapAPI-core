@@ -241,6 +241,7 @@ def register_token(token):
 				"RpAccRegNo": regNo,
 				"RpAccTypeId": 2,
 				"RpAccMobilePhoneNumber": form.phone_number.data,
+				"RpAccAddress": form.address.data,
 				"CId": company.CId,
 				"DivId": division.DivId,
 				"RpAccStatusId": 1
