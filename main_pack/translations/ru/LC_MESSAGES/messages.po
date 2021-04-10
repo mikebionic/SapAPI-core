@@ -29,7 +29,7 @@ msgid "Newest"
 msgstr "Новые"
 
 msgid "Oldest"
-msgstr "Самый старый"
+msgstr "Старые"
 
 msgid "Price: high to low"
 msgstr "Цена: по убыванию"

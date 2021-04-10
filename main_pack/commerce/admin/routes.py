@@ -7,6 +7,7 @@ from sqlalchemy.orm import joinedload
 
 from . import bp, url_prefix
 from main_pack.config import Config
+from main_pack import bcrypt
 
 # useful methods
 from main_pack import db, gettext, lazy_gettext, cache
@@ -295,6 +296,8 @@ def manage_rp():
 				try:
 					reg_num = generate(UId=current_user.UId,RegNumTypeName='rp_code')
 					regNo = makeRegNo(current_user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'')
+					reg_num.RegNumLastNum = reg_num.RegNumLastNum + 1
+					db.session.commit()
 				except Exception as ex:
 					print(f"{datetime.now()} | Admin rp_acc_manage regNo gen Exception: {ex}")
 					regNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
@@ -456,6 +459,8 @@ def manage_user():
 				try:
 					reg_num = generate(UId=current_user.UId,RegNumTypeName='user_code')
 					regNo = makeRegNo(current_user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'')
+					reg_num.RegNumLastNum = reg_num.RegNumLastNum + 1
+					db.session.commit()
 				except Exception as ex:
 					print(f"{datetime.now()} | Admin user_manage regNo gen Exception: {ex}")
 					regNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())

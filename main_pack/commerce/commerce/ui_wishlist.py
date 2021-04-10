@@ -47,7 +47,7 @@ def ui_wishlist():
 			db.session.commit()
 			response = jsonify({
 				"status": 'created',
-				"responseText": gettext('Product')+' '+gettext('successfully saved')
+				"responseText": gettext('Product')+' '+gettext('added to wishlist')
 			})
 		
 		if request.method=="DELETE":
@@ -61,7 +61,7 @@ def ui_wishlist():
 			db.session.commit()
 			response = jsonify({
 				"status": 'deleted',
-				"responseText": gettext('Product')+' '+gettext('successfully deleted')
+				"responseText": gettext('Product')+' '+gettext('removed from wishlist')
 			})
 
 	except Exception as ex:

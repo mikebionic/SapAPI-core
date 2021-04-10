@@ -21,7 +21,7 @@ class Resource(AddInf, BaseModel, db.Model):
 	ResLastVendorId = db.Column("ResLastVendorId",db.Integer,db.ForeignKey("tbl_dk_rp_acc.RpAccId"))
 	ResRegNo = db.Column("ResRegNo",db.String(50),nullable=False,unique=True)
 	ResName = db.Column("ResName",db.String(255),nullable=False)
-	ResDesc = db.Column("ResDesc",db.String(500))
+	ResDesc = db.Column("ResDesc",db.String(1000))
 	ResFullDesc = db.Column("ResFullDesc",db.String(50000))
 	ResWidth = db.Column("ResWidth",db.Float,default=0.0)
 	ResHeight = db.Column("ResHeight",db.Float,default=0.0)

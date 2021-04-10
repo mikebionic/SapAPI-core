@@ -20,6 +20,7 @@ from main_pack.models import (
 # / db Models /
 
 # useful methods
+from main_pack.config import Config
 from main_pack import db,babel,gettext,lazy_gettext
 from main_pack.base.apiMethods import fileToURL
 from main_pack.base.languageMethods import dataLangSelector
@@ -110,10 +111,15 @@ def UiCategoriesList():
 		if company.Image:
 			logoIcon["FilePath"] = fileToURL(file_type='image',file_name=company.Image[0].FileName)
 
+	config = {
+		"GOOGLE_ANALYTICS_TAG": Config.GOOGLE_ANALYTICS_TAG if Config. GOOGLE_ANALYTICS_TAG else ''
+	}
+
 	res = {
 		"categories": categories_list,
 		"company": company,
-		"company_logo": logoIcon
+		"company_logo": logoIcon,
+		"Config": config,
 	}
 	return res
 

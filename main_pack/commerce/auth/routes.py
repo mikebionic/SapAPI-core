@@ -222,17 +222,20 @@ def register_token(token):
 			try:
 				reg_num = generate(UId=main_user.UId, RegNumTypeName='rp_code')
 				regNo = makeRegNo(main_user.UShortName, reg_num.RegNumPrefix, reg_num.RegNumLastNum + 1, '')
+				reg_num.RegNumLastNum = reg_num.RegNumLastNum + 1
+				db.session.commit()
 			except Exception as ex:
 				print(f"{datetime.now()} | UI Register Reg Num generation Exception: {ex}")
 				regNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
 				# flash(lazy_gettext('Error generating Registration number'),'warning')
 				# return redirect(url_for('commerce_auth.register'))
 
-			company = Company.query.first()
-			division = Division.query.first()
+			company = Company.query.filter_by(CGuid = Config.MAIN_CGUID).first()
+			division = Division.query.filter_by(DivGuid = Config.C_REGISTRATION_DIVGUID).first()
 
 			user_data = {
 				"RpAccId": RpAccId,
+				"UId": main_user.UId,
 				"RpAccGuid": uuid.uuid4(),
 				"RpAccUName": username,
 				"RpAccEMail": email,
@@ -241,7 +244,7 @@ def register_token(token):
 				"RpAccRegNo": regNo,
 				"RpAccTypeId": 2,
 				"RpAccMobilePhoneNumber": form.phone_number.data,
-				"RpAccAddress": form.address.data,
+				"RpAccAddress": form.address.data if form.address.data else None,
 				"CId": company.CId,
 				"DivId": division.DivId,
 				"RpAccStatusId": 1
