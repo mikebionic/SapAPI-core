@@ -1090,13 +1090,14 @@ if (this.text.length > 20){
 document.addEventListener('error', function (event) {
 	if (event.target.tagName.toLowerCase() !== 'img') return;
 	event.target.src = no_photo;
-	event.target.className = 'full-width'
+	event.target.className = 'full-width';
+	event.target.style = "padding: 45px";
 }, true);
 
 $(document).ready(function(){
 	$('img').each(function() {
 		if ($(this).attr('src') == no_photo){
-			$(this).css({'padding': '25px'})
+			$(this).css({'padding': '45px'})
 		}
 	})
 })

@@ -27,7 +27,7 @@
 								<tr>
 									<td class="product-thumbnail">
 										<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}">
-											<img width="90" height="90" class="wp-post-image" loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/bee/images/no_photo.svg') }}" 
+											<img width="90" height="90" class="wp-post-image" loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/ls/img/icons/no_photo.svg') }}" 
 											alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
 										</a>
 									</td>

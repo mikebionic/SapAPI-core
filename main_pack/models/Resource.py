@@ -22,7 +22,7 @@ class Resource(AddInf, BaseModel, db.Model):
 	ResRegNo = db.Column("ResRegNo",db.String(50),nullable=False,unique=True)
 	ResName = db.Column("ResName",db.String(255),nullable=False)
 	ResDesc = db.Column("ResDesc",db.String(500))
-	ResFullDesc = db.Column("ResFullDesc",db.String(1500))
+	ResFullDesc = db.Column("ResFullDesc",db.String(50000))
 	ResWidth = db.Column("ResWidth",db.Float,default=0.0)
 	ResHeight = db.Column("ResHeight",db.Float,default=0.0)
 	ResLength = db.Column("ResLength",db.Float,default=0.0)
