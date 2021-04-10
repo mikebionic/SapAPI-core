@@ -1,21 +1,22 @@
 # -*- coding: utf-8 -*-
 from flask import request, make_response, jsonify
 
-from main_pack.api.auth.utils import sha_required
+from main_pack.api.auth.utils import token_required
 from main_pack.api.base.validators import request_is_json
 from main_pack.base.apiMethods import checkApiResponseStatus
 
-from main_pack.api.v1.rp_acc_api import api
-from main_pack.api.v1.rp_acc_api.utils import save_rp_acc_synch_data
+from main_pack.api.v1.checkout_salesman_order_inv_api import api
+from main_pack.api.v1.checkout_salesman_order_inv_api.utils import save_order_checkout_data
 
 
-@api.route("/tbl-rp-accs/", methods=['POST'])
-@sha_required
+@api.route("/checkout-salesman-sale-order-inv/", methods=['POST'])
+@token_required
 @request_is_json(request)
-def tbl_rp_acc_post():
-
+def checkout_salesman_sale_order_inv(user):
+	model_type = user['model_type']
+	current_user = user['current_user']
 	req = request.get_json()
-	data, fails = save_rp_acc_synch_data(req)
+	data, fails = save_order_checkout_data(req, model_type, current_user)
 	status = checkApiResponseStatus(data, fails)
 
 	res = {
