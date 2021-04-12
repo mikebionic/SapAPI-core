@@ -12,7 +12,7 @@
 	<div class="row">
 
 		<div class="col-sm-12">
-			<ul class="nav nav-tabs"> 
+			<ul class="nav nav-tabs">
 				<li><a href="{{ url_for('commerce_users.profile') }}">{{_('Profile')}}</a></li>
 				<li><a href="{{ url_for('commerce_users.orders') }}">{{_('Orders')}}</a></li>
 				<li class="active"><a href="{{ url_for('commerce_users.wishlist') }}">{{_('Wishlist')}}</a></li>
@@ -27,7 +27,7 @@
 								<tr>
 									<td class="product-thumbnail">
 										<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}">
-											<img width="90" height="90" class="wp-post-image" loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/ls/img/icons/no_photo.svg') }}" 
+											<img width="90" height="90" class="wp-post-image" loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/ls/img/icons/no_photo.svg') }}"
 											alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
 										</a>
 									</td>
@@ -45,24 +45,39 @@
 											</span>
 										</ins>
 									</td>
- 
+
 									<td class="product-add-to-cart">
 
-										<div class="action"> 
-											<!-- Dropdown button -->
-											<a style="padding: 0 10px;" class="addToCart" ownerId="{{resource.ResId}}">
+										<div class="action">
+											<div style="display: flex; justify-content: center;">
+												<div class="cart-details" style="display: flex;">
+													<div class="product-count cartItemQty" style="display: none;">
+														<div class="qtyminus qtybtn">-</div>
+														<input type="text" class="qty productQty" pending_amount="{{resource.ResPendingTotalAmount}}" value="{{resource.productQty}}" ownerId="{{ resource.ResId }}">
+														<div class="qtyplus qtybtn">+</div>
+													</div>
+													<a class="round-black-btn add-to-cart" ownerId="{{ resource.ResId }}" style="color: #fff">{{_('Add to cart')}}</a>
+												</div>
+												<div class="product_wishlist">
+													<div class="yith-wcwl-add-to-wishlist wishlist-button">
+														<a rel="nofollow" class="like {{'heart' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}">
+															<i class="fa fa-heart" aria-hidden="true"></i>
+														</a>
+													</div>
+												</div>
+											</div>
+											<!-- <a style="padding: 0 10px;" class="addToCart" ownerId="{{resource.ResId}}">
 												<i class="feather-icons" data-feather="shopping-cart" ></i>
-											</a>
-											<!-- Dropdown item -->
-											<a class=" removeFromWishlist" ownerId="{{resource.ResId}}">
+											</a> -->
+											<!-- <a class="removeFromWishlist" ownerId="{{resource.ResId}}">
 												<i class="feather-icons" data-feather="x"></i>
-											</a>
+											</a> -->
 										</div>
 									</td>
 								</tr>
 							{% endfor %}
 						</tbody>
-					</table>					
+					</table>
 				</div>
 			</div>
 

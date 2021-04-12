@@ -96,7 +96,15 @@ function addRating(ownerId){
 		'ratingValue':ratingValue,
 		'ratingRemark':ratingRemark
 	};
-	if (ratingRemark != ""){
+	if (ratingRemark == "" || ratingValue == 0){
+		try {
+			warningToaster(message = rating_message);
+		}
+		catch {
+			warningToaster(message = "You should put your rating and write a review");
+		}
+	}
+	else if (ratingRemark != ""){
 		postData(formData=productData,url=url_prefix+"/product/ui_rating/",type="POST",formId=ownerId,listName=null,responseForm=null,alertStyle="swal")
 	}
 }

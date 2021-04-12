@@ -831,3 +831,6 @@ msgstr "added to wishlist"
 
 msgid "removed from wishlist"
 msgstr "removed from wishlist"
+
+msgid "You should put your rating and write a review"
+msgstr "You should put your rating and write a review"
