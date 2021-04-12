@@ -206,7 +206,10 @@ function countCartItems(){
 }
 
 function qtyCheckout(ownerId,newQtyValue,pending_amount = 0){
-	if(newQtyValue <= 0){
+	if(newQtyValue == 0){
+		removeFromCart(ownerId)
+	}
+	if(newQtyValue < 0){
 		newQtyValue = 1;
 	}
 
