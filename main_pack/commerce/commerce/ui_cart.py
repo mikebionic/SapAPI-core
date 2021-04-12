@@ -21,6 +21,7 @@ from main_pack.config import Config
 
 # useful methods
 from main_pack import db, gettext, lazy_gettext
+from main_pack.base.apiMethods import get_login_info
 from main_pack.base.languageMethods import dataLangSelector
 from main_pack.base.num2text import num2text,price2text
 from main_pack.base.invoiceMethods import totalQtySubstitution
@@ -250,7 +251,8 @@ def ui_cart_checkout():
 				"WpId": work_period.WpId,
 				"RpAccId": RpAccId,
 				"OInvRegNo": orderRegNo,
-				"OInvDesc": OInvDesc
+				"OInvDesc": OInvDesc,
+				"PaymCode": str(get_login_info(request))
 			}
 
 			orderInv = Order_inv(**order_invoice)
