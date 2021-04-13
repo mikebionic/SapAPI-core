@@ -46,7 +46,7 @@ class Order_inv_line(AddInf, BaseModel, db.Model):
 			"OInvLineDiscAmount": configureFloat(self.OInvLineDiscAmount),
 			"OInvLineFTotal": configureFloat(self.OInvLineFTotal),
 			"OInvLineDate": apiDataFormat(self.OInvLineDate),
-			"ExcRateValue": self.ExcRateValue
+			"ExcRateValue": configureFloat(self.ExcRateValue)
 		}
 
 		for key, value in AddInf.to_json_api(self).items():

@@ -4,4 +4,4 @@ from .tbl_order_inv_RegNo import tbl_order_inv_RegNo
 from .v_order_inv import v_order_inv
 from .v_order_inv_RegNo import v_order_inv_RegNo
 from .v_order_inv_paginate import v_order_inv_paginate
-# from .checkout_salesman_sale_order_inv import checkout_salesman_sale_order_inv
+from .checkout_sale_order_inv import checkout_sale_order_inv
