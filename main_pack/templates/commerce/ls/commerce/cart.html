@@ -20,7 +20,6 @@
 						<div class="woocommerce">
 							<div class="row">
 								<div class="col-8" style="max-width: 100%; margin: 0 auto;">
-
 									<form action="#">
 										<div class="cart-table table-responsive mb-40">
 											<table class="table">
@@ -41,46 +40,91 @@
 									</form>
 								</div>
 
+								<div class="col-4" style="max-width: 100%; margin: 0 auto;">
+									<div class="cart-collaterals" style="margin: 0 auto;">
+										<div class="cart_totals">
+											{% if current_user.is_authenticated %}
+											<ul class="nav nav-tabs">
+												<li class="active"><a data-toggle="tab" href="#harytlar">Harytlar</a></li>
+												<li><a data-toggle="tab" href="#sap_toleg">Online toleg</a></li>
+											</ul>
+											<div class="tab-content">
+												<div class="tab-pane active" id="harytlar">
+													<h3>{{_('Summary')}}</h3>
+												<div class="contact-form">
+													<label for="message">{{_('Note')}}</label>
+													<textarea id="message" class="orderDesc" type="text" placeholder="{{_('Description')}} ({{_('City')}}, {{_('Av.')}}, {{_('Street')}}, {{_('House')}}, {{_('Flat')}})"></textarea>
+												</div>
+												<table class="shop_table shop_table_responsive">
+													<tbody>
+														<tr class="order-total">
+															<th>{{_('Total price')}}</th>
+															<td data-title="{{_('Total price')}}">
+																<strong>
+																	<span class="woocommerce-Price-amount amount cartTotalPrice">
+																		0.00
+																	</span>
+																	<span class="woocommerce-Price-currencySymbol currencySymbol">TMT</span>
+																</strong>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+												<a class="checkout-button button alt wc-forward checkoutCartBtn">
+													{{_('Checkout')}}
+												</a>
+												</div>
+												<div class="tab-pane " id="sap_toleg">
+													<div class="row">
+														<div class="col-md-6 mb-3" style="margin: 0 5px; max-width: 45%;">
+															<label for="cc-name">Name on card</label>
+															<input type="text" class="form-control" id="cc-name" placeholder="" required>
+															<div class="invalid-feedback">
+																Name on card is required
+															</div>
+														</div>
+														<div class="col-md-6 mb-3" style="margin: 0 5px; max-width: 45%;">
+															<label for="cc-number">Credit card number</label>
+															<input type="text" class="form-control" id="cc-number" placeholder="" required>
+															<div class="invalid-feedback">
+																Credit card number is required
+															</div>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-md-6 mb-3" style="margin: 0 5px; max-width: 45%;">
+															<label for="cc-expiration">Expiration</label>
+															<input type="text" class="form-control" id="cc-expiration" placeholder="" required>
+															<div class="invalid-feedback">
+																Expiration date required
+															</div>
+														</div>
+														<div class="col-md-6 mb-3" style="margin: 0 5px; max-width: 45%;">
+															<label for="cc-expiration">CVV</label>
+															<input type="text" class="form-control" id="cc-cvv" placeholder="" required>
+															<div class="invalid-feedback">
+																Security code required
+															</div>
+														</div>
+													</div>
+													<a class="checkout-button button alt wc-forward checkoutCartBtn">
+														{{_('Checkout')}}
+													</a>
+												</div>
+											</div>
 
-								<div class="cart-collaterals" style="margin: 0 auto;">
-									<div class="cart_totals">
-										{% if current_user.is_authenticated %}
-										<h3>{{_('Summary')}}</h3>
-										<div class="contact-form">
-											<label for="message">{{_('Note')}}</label>
-											<textarea id="message" class="orderDesc" type="text" placeholder="{{_('Description')}} ({{_('City')}}, {{_('Av.')}}, {{_('Street')}}, {{_('House')}}, {{_('Flat')}})"></textarea>
-										</div>
-										<table class="shop_table shop_table_responsive">
-											<tbody>
-												<tr class="order-total">
-													<th>{{_('Total price')}}</th>
-													<td data-title="{{_('Total price')}}">
-														<strong>
-															<span class="woocommerce-Price-amount amount cartTotalPrice">
-																0.00
-															</span>
-															<span class="woocommerce-Price-currencySymbol currencySymbol">TMT</span>
-														</strong>
-													</td>
-												</tr>
-											</tbody>
-										</table>
-										<a class="checkout-button button alt wc-forward checkoutCartBtn">
-											{{_('Checkout')}}
-										</a>
-
-									{% else %}
-										<h5 style="max-width: 12rem;">{{_('You should login if you want to checkout an order')}}!</h5>
-										<a class="checkout-button button alt wc-forward checkoutCartBtn" href="{{ url_for('commerce_auth.login') }}">
-											{{_('Login')}}
-										</a>
-									{% endif %}
-										<div class="wc-proceed-to-checkout">
-											<a class="back-to-shopping" href="{{ url_for('commerce.v_grid') }}">{{_('Products')}}</a>
+										{% else %}
+											<h5 style="max-width: 12rem;">{{_('You should login if you want to checkout an order')}}!</h5>
+											<a class="checkout-button button alt wc-forward checkoutCartBtn" href="{{ url_for('commerce_auth.login') }}">
+												{{_('Login')}}
+											</a>
+										{% endif %}
+											<div class="wc-proceed-to-checkout">
+												<a class="back-to-shopping" href="{{ url_for('commerce.v_grid') }}">{{_('Products')}}</a>
+											</div>
 										</div>
 									</div>
 								</div>
-
 							</div>
 						</div>
 					</div>

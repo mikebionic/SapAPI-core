@@ -13402,7 +13402,9 @@ ul.link-widget li {
     width: 100%;
   }
   .slick-initialized .big-image{
-    width: 500px!important;
     height: 500px;
   }
+}
+.footer-top-section{
+  background: #f6f7f8;
 }
