@@ -216,9 +216,11 @@ function qtyCheckout(
 				warningToaster(message = qty_error_text);
 			}
 		}
-		if (pending_amount > 0 && qtyValue > pending_amount && pending_amount < max_amount){
-			qtyValue = pending_amount;
-			warningToaster(message = qty_error_text);
+		if (pending_amount > 0 && qtyValue > pending_amount){
+			if(pending_amount < max_amount && max_amount > 0 || max_amount == 0){
+				qtyValue = pending_amount;
+				warningToaster(message = qty_error_text);
+			}
 		}
 	}
 
