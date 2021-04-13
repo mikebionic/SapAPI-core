@@ -90,7 +90,11 @@
 
 						<div class="product-count cartItemQty" style="display: none;">
 							<div class="qtyminus qtybtn">-</div>
-							<input type="text" class="qty productQty" pending_amount="{{resource.ResPendingTotalAmount}}" value="{{resource.productQty}}" ownerId="{{ resource.ResId }}">
+							<input type="text" class="qty productQty"
+								pending_amount="{{resource.ResPendingTotalAmount}}"
+								min_amount="{{resource.ResMinSaleAmount}}"
+								max_amount="{{resource.ResMaxSaleAmount}}"
+								value="{{resource.productQty}}" ownerId="{{ resource.ResId }}">
 							<div class="qtyplus qtybtn">+</div>
 						</div>
 						<a class="round-black-btn add-to-cart" ownerId="{{ resource.ResId }}" style="color: #fff">{{_('Add to cart')}}</a>
