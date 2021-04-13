@@ -118,6 +118,7 @@
 									<a class="round-black-btn add-to-cart" ownerId="{{ resource.ResId }}">{{_('Add to cart')}}</a>
 
 								</div>
+								{% if resource.ResDesc %}
 								<div class="description">
 									<div class="">
 										<span class="icon"><i class="fa fa-fw fa-info"></i></span>
@@ -126,6 +127,7 @@
 										<p class="descriptionText">{{ resource.ResDesc }}</p>
 									</div>
 								</div>
+								{% endif %}
 							</div>
 						</div>
 					{% endfor %}
@@ -186,6 +188,7 @@
 					<a class="round-black-btn add-to-cart" ownerId="{{ resource.ResId }}" style="color: #fff">{{_('Add to cart')}}</a>
 
 				</div>
+				{% if resource.ResDesc %}
 				<div class="description">
 					<div class="">
 						<span class="icon"><i class="fa fa-fw fa-info"></i></span>
@@ -194,6 +197,7 @@
 						<p class="descriptionText">{{ resource.ResDesc }}</p>
 					</div>
 				</div>
+				{% endif %}
 			</div>
 		{% endfor %}
 		</div>

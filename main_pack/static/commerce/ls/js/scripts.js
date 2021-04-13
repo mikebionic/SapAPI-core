@@ -1417,17 +1417,6 @@ function slideCategoryByPathname() {
 }
 
 
-function categoryMenuToggle() {
-	var screenSize = $(window).width();
-	if (screenSize <= 991) {
-		categoryMenu.slideUp();
-	}
-	else{
-		slideCategoryByPathname();
-	}
-}
-
-
 // // images resize quality
 var screenSize = $(window).width();
 if (screenSize >= 768){
@@ -1568,17 +1557,18 @@ function slideCategoryUp() {
 	if (categoryMenu.hasClass('show')) {
 		categoryMenu.removeClass('show')
 	}
+	// $('.cart-overlay').removeClass('visible')
 }
 
-function categoryMenuToggle() {
-	var screenSize = windows.width();
-	if (screenSize <= 991) {
-		slideCategoryUp();
-	}
-	else{
-		slideCategoryByPathname();
-	}
-}
+// function categoryMenuToggle() {
+// 	var screenSize = windows.width();
+// 	if (screenSize <= 991) {
+// 		slideCategoryUp();
+// 	}
+// 	else{
+// 		slideCategoryByPathname();
+// 	}
+// }
 
 function slideCategoryByPathname() {
 	var pathnames = ['/commerce','/commerce/','/commerce/commerce','/commerce/commerce/','/main','/commerce/main','/main/','/commerce/main/','/','/index']
@@ -1590,9 +1580,6 @@ function slideCategoryByPathname() {
 	});
 }
 
-categoryMenuToggle();
-windows.resize(categoryMenuToggle);
-
 categoryToggle.on('click', function(){
 	if (categoryMenu.hasClass('show')) {
 		slideCategoryDown()
@@ -1603,43 +1590,13 @@ categoryToggle.on('click', function(){
 });
 
 
-// var mini_cart_dropdown = $('.dropdown-menu-mini-cart')
-// var cart_dropdown = $('.cart-dropdown')
-// cart_dropdown.on('click', function() {
-// 	setTimeout(() => {
-// 		if (mini_cart_dropdown.hasClass('show')){
-// 			mini_cart_dropdown.css({'display':'block'});
-// 		}
-// 		else {
-// 			mini_cart_dropdown.css({'display':'none'})
-// 		}
-// 	}, 100);
-// })
-
-/*--
-    Header Cart
-------------------------*/
-// var headerCart = $('.departments-menu');
-// var closeCart = $('.cart-overlay');
-// var miniCartWrap = $('.menu-departments-menu');
-
-// headerCart.on('click', function(e){
-//     e.preventDefault();
-//     $('.cart-overlay').addClass('visible');
-//     miniCartWrap.addClass('show');
-// });
-// closeCart.on('click', function(e){
-//     e.preventDefault();
-//     $('.cart-overlay').removeClass('visible');
-//     miniCartWrap.removeClass('show');
-// });
-
-
 function categoryMenuToggle() {
-	var screenSize = windows.width();
-	if (screenSize <= 799) {
+	if ($(window).width() <= 799) {
+		slideCategoryUp();
 		$('.dropdown-toggle').on('click', () =>{
-			$('.cart-overlay').addClass('visible')
+			if ($(window).width() <= 799) {
+				$('.cart-overlay').addClass('visible')
+			}
 		});
 		$('.cart-overlay').on('click', () =>{
 			$('.cart-overlay').removeClass('visible')
@@ -1647,10 +1604,14 @@ function categoryMenuToggle() {
 	}
 	else{
 		slideCategoryByPathname();
+		$('.cart-overlay').removeClass('visible')
 	}
 }
 
-
+categoryMenuToggle();
+$(window).on("resize", function(){
+	(categoryMenuToggle())
+});
 
 const imgs = document.querySelectorAll('.img-select a');
 const imgBtns = [...imgs];

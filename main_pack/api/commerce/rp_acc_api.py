@@ -246,11 +246,12 @@ def api_rp_accs():
 				except Exception as ex:
 					print(f"{datetime.now()} | Rp_acc Api Rp_acc_total Exception: {ex}")
 
+				db.session.commit()
+
 			except Exception as ex:
 				print(f"{datetime.now()} | Rp_acc Api Exception: {ex}")
 				failed_data.append(rp_acc_req)
 
-		db.session.commit()
 		status = checkApiResponseStatus(data, failed_data)
 
 		res = {

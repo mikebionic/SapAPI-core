@@ -44,6 +44,7 @@ $('.wishlist-button a').on('click', function(e){
 $('body').delegate('.removeFromCart','click',function(){
 	ownerId = $(this).attr('ownerId');
 	removeFromCart(ownerId, table_object=true);
+	qtyCheckout(ownerId,newQtyValue = 0)
 });
 
 
@@ -77,7 +78,15 @@ function addRating(ownerId){
 		'ratingValue':ratingValue,
 		'ratingRemark':ratingRemark
 	};
-	if (ratingRemark != ""){
+	if (ratingRemark == "" || ratingValue == 0){
+		try {
+			warningToaster(message = rating_message);
+		}
+		catch {
+			warningToaster(message = "You should put your rating and write a review");
+		}
+	}
+	else if (ratingRemark != ""){
 		postData(formData=productData,url=url_prefix+"/product/ui_rating/",type="POST",formId=ownerId,listName=null,responseForm=null,alertStyle="swal")
 	}
 }
@@ -153,6 +162,7 @@ function clearCart(){
 			ownerId = cartData[i]["resId"];
 			$('.cartObject'+ownerId).remove();
 			$('.cartTableObject'+ownerId).remove();
+			qtyCheckout(ownerId,newQtyValue = 0)
 			delete cartData['product'+ownerId];
 			Cookies.set('cart',JSON.stringify(cartData));
 			countCartItems();
@@ -198,7 +208,7 @@ function qtyCheckout(ownerId,newQtyValue,pending_amount = 0){
 		removeFromCart(ownerId)
 		qtySelectWrapper.hide()
 		addToCartButton.show()
-		warningToaster(message = qty_error_text);
+		// warningToaster(message = qty_error_text);
 	}
 
 	$('.productQty'+'[ownerId='+ownerId+']').attr('value',newQtyValue);

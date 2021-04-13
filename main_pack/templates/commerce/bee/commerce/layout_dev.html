@@ -15,8 +15,12 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/bee/js/izitoast/css/iziToast.min.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/bee/css/plugins.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/bee/css/style.css') }}">
-  {% block styles %}{% endblock %}
   <script src="{{ url_for('static', filename='commerce/bee/js/vendor/modernizr-2.8.3.min.js') }}"></script>
+  {% block styles %}{% endblock %}
+  {% if Config.GOOGLE_ANALYTICS_TAG %}
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{Config.GOOGLE_ANALYTICS_TAG}}"></script>
+    <script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', '{{Config.GOOGLE_ANALYTICS_TAG}}');</script>
+  {% endif %}
 </head>
 
 <body>

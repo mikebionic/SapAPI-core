@@ -16,6 +16,10 @@
 		<link rel="stylesheet" href="{{ url_for('static', filename='commerce/ls/js/izitoast/css/iziToast.min.css') }}">
 		<link rel="shortcut icon" href="{{ url_for('static', filename='commerce/ls/img/ls_logo.svg') }}">
 		{% block styles %}{% endblock %}
+		{% if Config.GOOGLE_ANALYTICS_TAG %}
+			<script async src="https://www.googletagmanager.com/gtag/js?id={{Config.GOOGLE_ANALYTICS_TAG}}"></script>
+			<script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', '{{Config.GOOGLE_ANALYTICS_TAG}}');</script>
+		{% endif %}
 	</head>
 	<body class="garden-market page-template-template-homepage-v6 woocommerce-active single-product">
 		<div id="page" class="hfeed site">
@@ -473,7 +477,8 @@
 			var add_to_cart_text = "{{_('Add to cart')}}";
 			var qty_error_text = "{{_('Cannot get more')}}";
 			var remove_from_cart_text = "{{_('Remove from cart')}}";
-			var no_photo = "{{ url_for('static', filename='commerce/ls/img/icons/no_photo.svg') }}"
+			var no_photo = "{{ url_for('static', filename='commerce/ls/img/icons/no_photo.svg') }}";
+			var rating_message = "{{_('You should put your rating and write a review')}}";
 		</script>
 		{% block scripts %}{% endblock %}
 		<script type="text/javascript">

@@ -2,6 +2,7 @@
 
 import uuid
 
+from main_pack import 
 from main_pack.models import (
 	Rp_acc,
 	Order_inv,

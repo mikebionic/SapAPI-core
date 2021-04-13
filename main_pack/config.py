@@ -16,8 +16,9 @@ class Config:
 	SYNCH_SHA = environ.get('SYNCH_SHA')
 	APP_WEB_KEY = environ.get('APP_WEB_KEY')
 
-	C_MAIN_DIVGUID = environ.get('C_MAIN_DIVGUID')
 	MAIN_CGUID = environ.get('MAIN_CGUID')
+	C_MAIN_DIVGUID = environ.get('C_MAIN_DIVGUID')
+	C_REGISTRATION_DIVGUID = environ.get('C_REGISTRATION_DIVGUID')
 
 	SAP_SERVICE_KEY = environ.get('SAP_SERVICE_KEY')
 	SAP_SERVICE_URL = environ.get('SAP_SERVICE_URL')
@@ -270,4 +271,4 @@ class Config:
 
 	# location of robots.txt and sitemap.xml
 	WEB_CONFIG_DIRECTORY = path.join("static", "web_config")
-	GOOGLE_ANALYTICS_HTML_HEADER_TAG = environ.get('GOOGLE_ANALYTICS_HTML_HEADER_TAG') or ''
+	GOOGLE_ANALYTICS_TAG = environ.get('GOOGLE_ANALYTICS_TAG') or '' 

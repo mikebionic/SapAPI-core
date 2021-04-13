@@ -67,7 +67,7 @@
 						<input type="hidden" class="ratingValue" value="{{ resource.RtRatingValue }}" ownerId="{{ resource.ResId }}">
 						<div class="ratting ratingStars" ownerId="{{ resource.ResId }}"></div>
 
-						<div class="desc">
+						<div class="desc descriptionText">
 							<p>{{ resource.ResDesc if resource.ResDesc else '' }}</p>
 						</div>
 
@@ -149,13 +149,13 @@
 												<h5>{{_('Your rating')}}:</h5>
 												<fieldset class="rating rateButtons">
 													<input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5"></label>
-													<input type="radio" id="star4" name="rating" value="4" checked /><label class = "full" for="star4"></label>
+													<input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4"></label>
 													<input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3"></label>
 													<input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2"></label>
 													<input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1"></label>
 												</fieldset>
 											</div>
-											<input type="hidden" class="reviewRatingValue" value="4">
+											<input type="hidden" class="reviewRatingValue" value="0">
 											<div class="col-12 mb-15">
 												<textarea name="review" class="reviewRatingText" ownerId="{{ resource.ResId }}" id="your-review" placeholder="{{_('Write your review')}}..." required></textarea>
 											</div>

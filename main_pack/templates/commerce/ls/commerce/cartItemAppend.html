@@ -3,7 +3,7 @@
 <li class="woocommerce-mini-cart-item mini_cart_item cartObject{{resource.ResId}}">
 	<a class="remove removeFromCart" ownerId="{{resource.ResId}}">×</a>
 	<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}">
-		<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/bee/images/no_photo.svg') }}" 
+		<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/ls/img/icons/no_photo.svg') }}" 
 		alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}"
 		class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image">
 		<span class="resName">{{ resource.ResName if resource.ResName else '' }}</span>

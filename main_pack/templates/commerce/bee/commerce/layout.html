@@ -5,11 +5,15 @@
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <title>{{ title if title else _('Commerce') }}</title>
-  <meta name="description" content="Ecommerce {{ company.CName }} {{ company.CDesc }}">
+  <meta name="description" content="Ecommerce {{ company.CName }} {{ company.CDesc if company.CDesc else '' }}">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="shortcut icon" type="image/x-icon" href="{{ company_logo.FilePath if company_logo else url_for('static', filename='commerce/bee/images/favicon.ico') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/bee/css/app.css') }}">
   {% block styles %}{% endblock %}
+  {% if Config.GOOGLE_ANALYTICS_TAG %}
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{Config.GOOGLE_ANALYTICS_TAG}}"></script>
+    <script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', '{{Config.GOOGLE_ANALYTICS_TAG}}');</script>
+  {% endif %}
 </head>
 
 <body>
@@ -144,7 +148,7 @@
             <!-- Cart -->
             <a href="{{ url_for('commerce.cart') }}" class="header-cart">
               <i class="ti-shopping-cart"></i>
-              <span class="number cartItemsFullQty"></span>
+              <span class="number cartItemsFullQty">0</span>
             </a>
 
           </div>
@@ -332,6 +336,7 @@
 	var qty_error_text = "{{_('Cannot get more')}}";
   var remove_from_cart_text = "{{_('Remove from cart')}}";
   var no_photo = "{{ url_for('static', filename='commerce/bee/images/no_photo.svg') }}";
+  var rating_message = "{{_('You should put your rating and write a review')}}";
 </script>
 {% block scripts %}{% endblock %}
 <script type="text/javascript">
