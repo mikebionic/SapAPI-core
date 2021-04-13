@@ -56,8 +56,10 @@ def main():
 
 	categories = categories.order_by(Res_category.ResCatVisibleIndex.asc()).all()
 
-	return render_template ("commerce/landing_pages/ls.com/index.html",title="Lomaý söwda",
-		categories=categories)
+	return render_template (
+		"commerce/landing_pages/ls.com/index.html",
+		title = Config.COMMERCE_HOME_PAGE_TITLE,
+		categories = categories)
 
 
 @bp.route("/fetch_products")

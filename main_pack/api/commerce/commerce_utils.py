@@ -251,6 +251,12 @@ def apiResourceInfo(
 				ResPriceGroupId = current_user.ResPriceGroupId if current_user.ResPriceGroupId else None
 		except Exception as ex:
 			print(f"{datetime.now()} | resource_info api ResPriceGroupId exception: {ex}")
+		
+	if not currency_code:
+		if "currency_code" in session:
+			print("using session currency code")
+			currency_code = session["currency_code"] if session["currency_code"] else None
+
 
 	if not resource_models:
 		resource_models = []
