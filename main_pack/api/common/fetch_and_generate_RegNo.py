@@ -8,6 +8,7 @@ from main_pack.key_generator.utils import (
 )
 
 def fetch_and_generate_RegNo(user_id, user_short_name, reg_no_type, RegNo = None):
+	pred_reg_num = None
 	if not RegNo:
 		try:
 			reg_num = generate(
@@ -30,4 +31,4 @@ def fetch_and_generate_RegNo(user_id, user_short_name, reg_no_type, RegNo = None
 			.filter_by(GCRecord = None, RegNum = RegNo).first()
 		RegNo = RegNo if pred_reg_num else None
 
-	return RegNo
+	return RegNo, pred_reg_num
