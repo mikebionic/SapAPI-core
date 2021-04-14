@@ -11846,8 +11846,8 @@ img.mfp-img {
 .footer-widget p {
   max-width: 430px;
   font-size: 14px;
-  line-height: 24px;
-  margin: auto; }
+  line-height: 24px; 
+}
 
 .footer-widget.text-center .footer-logo {
   margin: auto auto 25px; }
