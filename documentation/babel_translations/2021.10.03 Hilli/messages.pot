@@ -834,3 +834,9 @@ msgstr "removed from wishlist"
 
 msgid "You should put your rating and write a review"
 msgstr "You should put your rating and write a review"
+
+msgid "Work phone"
+msgstr "Work phone"
+
+msgid "Fax"
+msgstr "Fax"

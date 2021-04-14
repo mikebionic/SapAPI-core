@@ -36,7 +36,6 @@ class Rp_acc(AddInf, BaseModel, db.Model, UserMixin):
 	RpAccHomePhoneNumber = db.Column("RpAccHomePhoneNumber",db.String(100))
 	RpAccWorkPhoneNumber = db.Column("RpAccWorkPhoneNumber",db.String(100))
 	RpAccWorkFaxNumber = db.Column("RpAccWorkFaxNumber",db.String(100))
-	RpAccWorkFaxNumber = db.Column("RpAccWorkFaxNumber",db.String(100))
 	RpAccWebAddress = db.Column("RpAccWebAddress",db.String(255))
 	RpAccWebKey = db.Column("RpAccWebKey")
 	RpAccZipCode = db.Column("RpAccZipCode",db.String(100))

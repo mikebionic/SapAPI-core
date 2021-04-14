@@ -16,7 +16,6 @@
 							<h2>{{_('Edit profile')}}</h2>
 							<img class="brand-filigrane" src="{{ url_for('static', filename='commerce/bee/images/hilli_grey.svg')}}" alt="Hilli electronics grey logo">
 						</div>
-						<!-- Account tabs -->
 						<div class="tabs account-tabs">
 							<ul>
 								<li class="is-active"><a href="{{ url_for('commerce_users.profile') }}">{{_('Profile')}}</a></li>
@@ -24,21 +23,18 @@
 								<li><a href="{{ url_for('commerce_users.wishlist') }}">{{_('Wishlist')}}</a></li>
 							</ul>
 						</div>
-						<!-- Edit Account Layout -->
 						<form method="POST" action="" enctype="multipart/form-data">
 							<div class="columns is-account-grid is-multiline">
 							{{ form.hidden_tag() }}
 								<div class="column is-4">
-									<!-- Upload Avatar -->
 									<div class="flat-card upload-card is-auto">
 										<div class="card-body">
-											<!-- Avatar form -->
 											<div id="avatar-upload" class="avatar-wrapper has-simple-popover" data-content="Change profile picture" data-placement="top">
 	 											<img class="profile-pic" src="{{avatar}}" alt="">
 	 											<div class="upload-button">
 													<i class="upload-icon" data-feather="plus" aria-hidden="true"></i>
 												</div>
-												{{ form.picture.label() }}
+												<div>{{_('Update Profile Picture')}}</div>
 												{{ form.picture(class="file-upload") }}
 												{% if form.picture.errors %}
 													{% for error in form.picture.errors %}
@@ -46,9 +42,6 @@
 													{% endfor %}
 												{% endif %}
 											</div>
-											<!-- /Avatar form -->
-
-											<!-- User -->
 											<div class="username has-text-centered">
 												<span>{{current_user.UFullName}}</span>
 												<small>{{_('Registered date')}}: {{current_user.CreatedDate.strftime('%d-%m-%Y') }}</small>
@@ -58,10 +51,8 @@
 											</div>
 										</div>
 									</div>
-									<!-- /Upload Avatar -->
 								</div>
 								<div class="column is-8">
-									<!-- Edit contact Info -->
 									<div class="flat-card profile-info-card is-auto">
 										<div class="card-title">
 											<h3>{{('Contact info')}}</h3>
@@ -72,8 +63,9 @@
 										<div class="card-body">
 											<div class="columns">
 												<div class="column is-6">
+
 													<div class="info-block">
-														{{ form.username.label(class="label-text") }}
+														<div class="label-text">{{_('Username')}}</div>
 														<div class="control">
 															{% if form.username.errors %}
 																{{ form.username(class="input is-default  is-invalid") }}
@@ -87,8 +79,9 @@
 															{% endif %}
 														</div>
 													</div>
+
 													<div class="info-block">
-														{{ form.fullname.label(class="label-text") }}
+														<div class="label-text">{{_('Full name')}}</div>
 														<div class="control">
 															{% if form.fullname.errors %}
 																{{ form.fullname(class="input is-default  is-invalid") }}
@@ -102,8 +95,9 @@
 															{% endif %}
 														</div>
 													</div>
+
 													<div class="info-block">
-														{{ form.address.label(class="label-text") }}
+														<div class="label-text">{{_('Address')}}</div>
 														<div class="control">
 															{% if form.address.errors %}
 																{{ form.address(class="input is-default  is-invalid") }}
@@ -117,11 +111,44 @@
 															{% endif %}
 														</div>
 													</div>
-												</div>
 
-												<div class="column is-6">
 													<div class="info-block">
-														{{ form.mobilePhone.label(class="label-text") }}
+														<div class="label-text">{{_('Web address')}}</div>
+														<div class="control">
+															{% if form.webAddress.errors %}
+																{{ form.webAddress(class="input is-default  is-invalid") }}
+																<div class="invalid-feedback">
+																	{% for error in form.webAddress.errors %}
+																		<span>{{ error }}</span>
+																	{% endfor %}
+																</div>
+															{% else %}
+																{{ form.webAddress(class="input is-default") }}
+															{% endif %}
+														</div>
+													</div>
+	
+													<div class="info-block">
+														<div class="label-text">{{_('Zip code')}}</div>
+														<div class="control">
+															{% if form.zipCode.errors %}
+																{{ form.zipCode(class="input is-default  is-invalid") }}
+																<div class="invalid-feedback">
+																	{% for error in form.zipCode.errors %}
+																		<span>{{ error }}</span>
+																	{% endfor %}
+																</div>
+															{% else %}
+																{{ form.zipCode(class="input is-default") }}
+															{% endif %}
+														</div>
+													</div>
+
+												</div>
+												<div class="column is-6">
+
+													<div class="info-block">
+														<div class="label-text">{{_('Mobile phone')}}</div>
 														<div class="control">
 															{% if form.mobilePhone.errors %}
 																{{ form.mobilePhone(class="input is-default  is-invalid") }}
@@ -137,7 +164,7 @@
 													</div>
 
 													<div class="info-block">
-														{{ form.homePhone.label(class="label-text") }}
+														<div class="label-text">{{_('Home phone')}}</div>
 														<div class="control">
 															{% if form.homePhone.errors %}
 																{{ form.homePhone(class="input is-default  is-invalid") }}
@@ -153,20 +180,37 @@
 													</div>
 
 													<div class="info-block">
-														{{ form.zipCode.label(class="label-text") }}
+														<div class="label-text">{{_('Work phone')}}</div>
 														<div class="control">
-															{% if form.zipCode.errors %}
-																{{ form.zipCode(class="input is-default  is-invalid") }}
+															{% if form.workPhone.errors %}
+																{{ form.workPhone(class="input is-default  is-invalid") }}
 																<div class="invalid-feedback">
-																	{% for error in form.zipCode.errors %}
+																	{% for error in form.workPhone.errors %}
 																		<span>{{ error }}</span>
 																	{% endfor %}
 																</div>
 															{% else %}
-																{{ form.zipCode(class="input is-default") }}
+																{{ form.workPhone(class="input is-default") }}
 															{% endif %}
 														</div>
 													</div>
+
+													<div class="info-block">
+														<div class="label-text">{{_('Fax')}}</div>
+														<div class="control">
+															{% if form.workFax.errors %}
+																{{ form.workFax(class="input is-default  is-invalid") }}
+																<div class="invalid-feedback">
+																	{% for error in form.workFax.errors %}
+																		<span>{{ error }}</span>
+																	{% endfor %}
+																</div>
+															{% else %}
+																{{ form.workFax(class="input is-default") }}
+															{% endif %}
+														</div>
+													</div>
+
 												</div>
 											</div>
 										</div>
