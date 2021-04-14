@@ -19,7 +19,7 @@
 					<div class="entry-content">
 						<div class="woocommerce">
 							<div class="row">
-								<div class="col-8" style="max-width: 100%; margin: 0 auto;">
+								<div class="col-xl-3 col-lg-4 col-md-4 col-6 pb-30 pt-10" style="max-width: 100%; margin: 0 auto;">
 									<form action="#">
 										<div class="cart-table table-responsive mb-40">
 											<table class="table">
@@ -40,7 +40,7 @@
 									</form>
 								</div>
 
-								<div class="col-4" style="max-width: 100%; margin: 0 auto;">
+								<div class="col-xl-3 col-lg-4 col-md-4 col-6 pb-30 pt-10" style="max-width: 100%; margin: 0 auto;">
 									<div class="cart-collaterals" style="margin: 0 auto;">
 										<div class="cart_totals">
 											{% if current_user.is_authenticated %}
@@ -48,6 +48,7 @@
 												<li class="active"><a data-toggle="tab" href="#harytlar">Harytlar</a></li>
 												<li><a data-toggle="tab" href="#sap_toleg">Online toleg</a></li>
 											</ul>
+											<div class="slider"><div class="indicator"></div></div>
 											<div class="tab-content">
 												<div class="tab-pane active" id="harytlar">
 													<h3>{{_('Summary')}}</h3>
