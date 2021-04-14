@@ -1,4 +1,4 @@
-from flask import render_template, url_for, session, flash, redirect, request 
+from flask import render_template, url_for, session, flash, redirect, request
 import os
 import uuid
 from datetime import datetime
@@ -32,7 +32,7 @@ from main_pack.base.apiMethods import fileToURL
 def profile():
 	categoryData = UiCategoriesList()
 	rpAcc = Rp_acc.query.filter_by(RpAccId = current_user.RpAccId).first()
-	avatar = url_for('static', filename=f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/images/account-image-placeholder.png") 
+	avatar = url_for('static', filename=f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/images/account-image-placeholder.png")
 	if rpAcc:
 		image = Image.query\
 			.filter_by(RpAccId = rpAcc.RpAccId)\
@@ -86,7 +86,7 @@ def profile_edit():
 	rpAcc = Rp_acc.query\
 		.filter_by(RpAccId = current_user.RpAccId)\
 		.first()
-	
+
 	if form.validate_on_submit():
 		rpAccData = {
 			"RpAccUName": form.username.data,
@@ -95,6 +95,9 @@ def profile_edit():
 			"RpAccMobilePhoneNumber": form.mobilePhone.data,
 			"RpAccHomePhoneNumber": form.homePhone.data,
 			"RpAccZipCode": form.zipCode.data,
+			"RpAccWorkPhoneNumber": form.workPhone.data,
+			"RpAccWorkFaxNumber": form.workFax.data,
+			"RpAccWebAddress": form.webAddress.data,
 			# 'RpAccEMail':form.email.data
 		}
 
@@ -127,14 +130,16 @@ def profile_edit():
 			flash(lazy_gettext('Unknown error!'), 'warning')
 
 		return redirect(url_for('commerce_users.profile'))
-	
-	
+
 	form.username.data = current_user.RpAccUName
 	form.fullname.data = current_user.RpAccName
 	form.address.data = current_user.RpAccAddress
 	form.mobilePhone.data = current_user.RpAccMobilePhoneNumber
 	form.homePhone.data = current_user.RpAccHomePhoneNumber
 	form.zipCode.data = current_user.RpAccZipCode
+	form.workPhone.data = current_user.RpAccWorkPhoneNumber
+	form.workFax.data = current_user.RpAccWorkFaxNumber
+	form.webAddress.data = current_user.RpAccWebAddress
 
 	image = Image.query\
 		.filter_by(RpAccId = current_user.RpAccId, GCRecord = None)\
@@ -144,7 +149,7 @@ def profile_edit():
 	if image:
 		avatar = fileToURL(file_type='image', file_size='S', file_name=image.FileName)
 	else:
-		avatar = url_for('static', filename=f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/images/account-image-placeholder.png") 
+		avatar = url_for('static', filename=f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/images/account-image-placeholder.png")
 
 	categoryData = UiCategoriesList()
 	return render_template(

@@ -9,28 +9,17 @@ from main_pack import gettext, lazy_gettext
 
 
 class UpdateRpAccForm(FlaskForm):
-	username = StringField(
-		lazy_gettext('Username'),
-		validators=[DataRequired(),Length(min=2,max=60)])
-	fullname = StringField(
-		lazy_gettext('Full name'),
-		validators=[DataRequired(),Length(min=2,max=100)])
-	address = StringField(
-		lazy_gettext('Address'),
-		validators=[Length(max=255)])
-	mobilePhone = StringField(
-		lazy_gettext('Mobile phone'),
-		validators=[DataRequired(),Length(min=2,max=100)])
-	homePhone = StringField(
-		lazy_gettext('Home phone'),
-		validators=[Length(max=100)])
-	zipCode = StringField(
-		lazy_gettext('Zip code'),
-		validators=[Length(max=100)])
-	picture = FileField(
-		lazy_gettext('Update Profile Picture'),
-		validators=[FileAllowed(['jpg','png','img'])])
-	submit = SubmitField(lazy_gettext('Update'))
+	username = StringField(validators=[DataRequired(),Length(min=2,max=60)])
+	fullname = StringField(validators=[DataRequired(),Length(min=2,max=100)])
+	address = StringField(validators=[Length(max=500)])
+	mobilePhone = StringField(validators=[DataRequired(),Length(min=2,max=100)])
+	homePhone = StringField(validators=[Length(max=100)])
+	workPhone = StringField(validators=[Length(max=100)])
+	workFax = StringField(validators=[Length(max=100)])
+	zipCode = StringField(validators=[Length(max=100)])
+	webAddress = StringField(validators=[Length(max=255)])
+	picture = FileField(validators=[FileAllowed(['jpg','png','img'])])
+	submit = SubmitField()
 
 	def validate_username(self,username):
 		if username.data != current_user.RpAccUName:

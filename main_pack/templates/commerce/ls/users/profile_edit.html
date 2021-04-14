@@ -12,13 +12,13 @@
 	<div class="row">
 
 		<div class="col-sm-12">
-			<ul class="nav nav-tabs"> 
+			<ul class="nav nav-tabs">
 				<li><a href="{{ url_for('commerce_users.profile') }}">{{_('Profile')}}</a></li>
 				<li><a href="{{ url_for('commerce_users.orders') }}">{{_('Orders')}}</a></li>
 				<li><a href="{{ url_for('commerce_users.wishlist') }}">{{_('Wishlist')}}</a></li>
 				<li class="active" style="float: right;"><a href="{{ url_for('commerce_users.profile_edit') }}"><i class="fa fa-fw fa-gears" ></i></a></li>
 			</ul>
-			
+
 			<div class="tab-content">
 
 				<div class="tab-pane wishlist_p active" id="edit_profile">
@@ -29,7 +29,8 @@
 							<div class="upload-button">
 								<i class="upload-icon" data-feather="plus" aria-hidden="true"></i>
 							</div>
-							{{ form.picture.label() }}
+
+							<div>{{_('Update Profile Picture')}}</div>
 							{{ form.picture(class="file-upload") }}
 							{% if form.picture.errors %}
 								{% for error in form.picture.errors %}
@@ -44,9 +45,9 @@
 						<div class="has-text-centered" style="display:flex; justify-content:center;">
 							<button type="submit" class="button sec_btn" style="width: 150px;">{{_('Save')}}</button>
 						</div>
-						<div class="form-group">			
+						<div class="form-group">
 							<div class="col-xs-6">
-								<label><h4>{{ form.username.label }}</h4></label>
+								<label><h4>{{_('Username')}}</h4></label>
 								{{ form.username(class="form-control") }}
 								{% if form.username.errors %}
 									<div class="invalid-feedback">
@@ -57,9 +58,9 @@
 								{% endif %}
 							</div>
 						</div>
-						<div class="form-group">			
+						<div class="form-group">
 							<div class="col-xs-6">
-								<label><h4>{{ form.fullname.label }}</h4></label>
+								<label><h4>{{_('Full name')}}</h4></label>
 								{{ form.fullname(class="form-control") }}
 								{% if form.fullname.errors %}
 									<div class="invalid-feedback">
@@ -70,29 +71,45 @@
 								{% endif %}
 							</div>
 						</div>
-
-						<div class="form-group">			
+						<div class="form-group">
 							<div class="col-xs-6">
-								<label><h4>{{ form.address.label }}</h4></label>
+								<label><h4>{{_('Address')}}</h4></label>
 								{{ form.address(class="form-control") }}
 							</div>
 						</div>
-
 						<div class="form-group">
 							<div class="col-xs-6">
-								<label><h4>{{ form.mobilePhone.label }}</h4></label>
+								<label><h4>{{_('Mobile phone')}}</h4></label>
 								{{ form.mobilePhone(class="form-control") }}
 							</div>
 						</div>
-						<div class="form-group">			
+						<div class="form-group">
 							<div class="col-xs-6">
-								<label><h4>{{ form.homePhone.label }}</h4></label>
+								<label><h4>{{_('Home phone')}}</h4></label>
 								{{ form.homePhone(class="form-control") }}
 							</div>
 						</div>
-						<div class="form-group">			
+						<div class="form-group">
 							<div class="col-xs-6">
-								<label><h4>{{ form.zipCode.label }}</h4></label>
+								<label><h4>{{_('Work phone')}}</h4></label>
+								{{ form.homePhone(class="form-control") }}
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-xs-6">
+								<label><h4>{{_('Fax')}}</h4></label>
+								{{ form.homePhone(class="form-control") }}
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-xs-6">
+								<label><h4>{{_('Web address')}}</h4></label>
+								{{ form.homePhone(class="form-control") }}
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-xs-6">
+								<label><h4>{{_('Zip code')}}</h4></label>
 								{{ form.zipCode(class="form-control") }}
 							</div>
 						</div>
@@ -101,13 +118,11 @@
 								<button class="btn_save" type="submit">{{_('Save')}}</button>
 							</div>
 						</div>
+
 					</form>
 				</div>
-
 			</div>
-
 		</div>
-
 	</div>
 </div>
 {% endblock %}

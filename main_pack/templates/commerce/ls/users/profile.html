@@ -12,7 +12,7 @@
 	<div class="row">
 
 		<div class="col-sm-12">
-			<ul class="nav nav-tabs"> 
+			<ul class="nav nav-tabs">
 				<li class="active"><a href="{{ url_for('commerce_users.profile') }}">{{_('Profile')}}</a></li>
 				<li><a href="{{ url_for('commerce_users.orders') }}">{{_('Orders')}}</a></li>
 				<li><a href="{{ url_for('commerce_users.wishlist') }}">{{_('Wishlist')}}</a></li>
@@ -31,10 +31,16 @@
 							<div class="has-text-centered"> <a href="{{ url_for('commerce_auth.reset_request') }}" class="button">{{_('Reset password')}}</a> </div>
 							<div class="col-xs-6">
 								<div class="info-block">
+									<span class="label-text">{{_('Username')}}</span>
+									<span class="label-value">{{rpAcc.RpAccUName}}</span>
+								</div>
+							</div>
+							<div class="col-xs-6">
+								<div class="info-block">
 									<span class="label-text">{{_('Email')}}</span>
 									<span class="label-value">{{rpAcc.RpAccEMail}}</span>
 								</div>
-							</div> 
+							</div>
 							<div class="col-xs-6">
 								<div class="info-block">
 									<span class="label-text">{{_('Home phone')}}</span>
@@ -65,13 +71,29 @@
 									<span class="label-value">{{rpAcc.RpAccMobilePhoneNumber if rpAcc.RpAccMobilePhoneNumber else ''}}</span>
 								</div>
 							</div>
+							<div class="col-xs-6">
+								<div class="info-block">
+									<span class="label-text">{{_('Work phone')}}</span>
+									<span class="label-value">{{rpAcc.RpAccWorkPhoneNumber if rpAcc.RpAccWorkPhoneNumber else ''}}</span>
+								</div>
+							</div>
+							<div class="col-xs-6">
+								<div class="info-block">
+									<span class="label-text">{{_('Web address')}}</span>
+									<span class="label-value">{{rpAcc.RpAccWebAddress if rpAcc.RpAccWebAddress else ''}}</span>
+								</div>
+							</div>
+							<div class="col-xs-6">
+								<div class="info-block">
+									<span class="label-text">{{_('Fax')}}</span>
+									<span class="label-value">{{rpAcc.RpAccWorkFaxNumber if rpAcc.RpAccWorkFaxNumber else ''}}</span>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-
 		</div>
-
 	</div>
 </div>
 {% endblock %}

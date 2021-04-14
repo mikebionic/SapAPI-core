@@ -52,6 +52,10 @@
                     <div class="columns">
                       <div class="column is-6">
                         <div class="info-block">
+                          <span class="label-text">{{_('Username')}}</span>
+                          <span class="label-value">{{rpAcc.RpAccUName}}</span>
+                        </div>
+                        <div class="info-block">
                           <span class="label-text">{{_('Email')}}</span>
                           <span class="label-value">{{rpAcc.RpAccEMail}}</span>
                         </div>
@@ -63,6 +67,10 @@
                           <span class="label-text">{{_('Address')}}</span>
                           <span class="label-value">{{rpAcc.RpAccAddress if rpAcc.RpAccAddress else ''}}</span>
                         </div>
+                        <div class="info-block">
+                          <span class="label-text">{{_('Web address')}}</span>
+                          <span class="label-value">{{rpAcc.RpAccWebAddress if rpAcc.RpAccWebAddress else ''}}</span>
+                        </div>
                       </div>
                       <div class="column is-6"> 
                         <div class="info-block">
@@ -72,6 +80,18 @@
                         <div class="info-block">
                           <span class="label-text">{{_('Home phone')}}</span>
                           <span class="label-value">{{rpAcc.RpAccHomePhoneNumber if rpAcc.RpAccHomePhoneNumber else ''}}</span>
+                        </div>
+                        <div class="info-block">
+                          <span class="label-text">{{_('Work phone')}}</span>
+                          <span class="label-value">{{rpAcc.RpAccHomePhoneNumber if rpAcc.RpAccHomePhoneNumber else ''}}</span>
+                        </div>
+                        <div class="info-block">
+                          <span class="label-text">{{_('Work phone')}}</span>
+                          <span class="label-value">{{rpAcc.RpAccWorkPhoneNumber if rpAcc.RpAccWorkPhoneNumber else ''}}</span>
+                        </div>
+                        <div class="info-block">
+                          <span class="label-text">{{_('Fax')}}</span>
+                          <span class="label-value">{{rpAcc.RpAccWorkFaxNumber if rpAcc.RpAccWorkFaxNumber else ''}}</span>
                         </div>
                         <div class="info-block">
                           <span class="label-text">{{_('Zip code')}}</span>
