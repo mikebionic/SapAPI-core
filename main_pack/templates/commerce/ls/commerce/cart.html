@@ -49,13 +49,36 @@
 												<input type="radio" id="tab1" name="tab-control" checked>
 												<input type="radio" id="tab2" name="tab-control">
 												<ul>
-													<li title="Nagt toleg"><label for="tab1" role="button"> <br><span>Nagt toleg</span></label></li>
-													<li title="Online toleg"><label for="tab2" role="button"><br><span>Online toleg</span></label></li>
+													<li title="Nagt toleg"><label for="tab1" role="button"><span>Nagt toleg</span></label></li>
+													<li title="Online toleg"><label for="tab2" role="button"><span>Online toleg</span></label></li>
 												</ul>
 												<div class="slider"><div class="indicator"></div></div>
 												<div class="content">
 													<section>
+
 														<h2>Nagt toleg</h2>
+														<div class="tab-content">
+															<div class="d-block my-3">
+																<div class="custom-control custom-radio">
+																	<input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
+																	<label class="custom-control-label" for="credit">Nagt
+																		<p>Description</p>
+																	</label>
+																</div>
+																<div class="custom-control custom-radio">
+																	<input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
+																	<label class="custom-control-label" for="debit">Online
+																		<p>Description</p>
+																	</label>
+																</div>
+																<div class="custom-control custom-radio">
+																	<input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
+																	<label class="custom-control-label" for="paypal">Nagt
+																		<p>Description</p>
+																	</label>
+																</div>
+															</div>
+														</div>
 														<h3>{{_('Summary')}}</h3>
 														<div class="contact-form">
 															<label for="message">{{_('Note')}}</label>
@@ -80,44 +103,33 @@
 															{{_('Checkout')}}
 														</a>
 													</section>
-													<section>
+													<!-- <section>
 														<h2>Online toleg</h2>
-														<div class="row">
-															<div class="col-md-6 mb-3" style="margin: 0 5px; max-width: 45%;">
-																<label for="cc-name">Name on card</label>
-																<input type="text" class="form-control" id="cc-name" placeholder="" required>
-																<div class="invalid-feedback">
-																	Name on card is required
+														<div class="tabss">
+															<div class="tabb">
+																<input type="checkbox" id="chck1">
+																<label for="chck1" class="tab-label">Online sowda</label>
+																<div class="tab-content">
+																	<label><input type="radio">Nagt</label>
+																	<label><input type="radio">Online</label>
+																	<label><input type="radio">Nagt</label>
 																</div>
 															</div>
-															<div class="col-md-6 mb-3" style="margin: 0 5px; max-width: 45%;">
-																<label for="cc-number">Credit card number</label>
-																<input type="text" class="form-control" id="cc-number" placeholder="" required>
-																<div class="invalid-feedback">
-																	Credit card number is required
-																</div>
-															</div>
-														</div>
-														<div class="row">
-															<div class="col-md-6 mb-3" style="margin: 0 5px; max-width: 45%;">
-																<label for="cc-expiration">Expiration</label>
-																<input type="text" class="form-control" id="cc-expiration" placeholder="" required>
-																<div class="invalid-feedback">
-																	Expiration date required
-																</div>
-															</div>
-															<div class="col-md-6 mb-3" style="margin: 0 5px; max-width: 45%;">
-																<label for="cc-expiration">CVV</label>
-																<input type="text" class="form-control" id="cc-cvv" placeholder="" required>
-																<div class="invalid-feedback">
-																	Security code required
+														
+															<div class="tabb">
+																<input type="checkbox" id="chck2">
+																<label for="chck2" class="tab-label active">Online sowda</label>
+																<div class="tab-content">
+																	<label><input type="radio">Nagt</label>
+																	<label><input type="radio">Online</label>
+																	<label><input type="radio">Nagt</label>
 																</div>
 															</div>
 														</div>
 														<a class="checkout-button button alt wc-forward checkoutCartBtn">
 															{{_('Checkout')}}
 														</a>
-													</section>
+													</section> -->
 												</div>
 											</div>
 											
