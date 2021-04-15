@@ -45,94 +45,53 @@
 										<div class="cart_totals">
 											{% if current_user.is_authenticated %}
 											<div class="tabs">
-  
-												<input type="radio" id="tab1" name="tab-control" checked>
-												<input type="radio" id="tab2" name="tab-control">
-												<ul>
-													<li title="Nagt toleg"><label for="tab1" role="button"><span>Nagt toleg</span></label></li>
-													<li title="Online toleg"><label for="tab2" role="button"><span>Online toleg</span></label></li>
-												</ul>
-												<div class="slider"><div class="indicator"></div></div>
-												<div class="content">
-													<section>
-
-														<h2>Nagt toleg</h2>
-														<div class="tab-content">
-															<div class="d-block my-3">
-																<div class="custom-control custom-radio">
-																	<input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
-																	<label class="custom-control-label" for="credit">Nagt
-																		<p>Description</p>
-																	</label>
-																</div>
-																<div class="custom-control custom-radio">
-																	<input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
-																	<label class="custom-control-label" for="debit">Online
-																		<p>Description</p>
-																	</label>
-																</div>
-																<div class="custom-control custom-radio">
-																	<input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
-																	<label class="custom-control-label" for="paypal">Nagt
-																		<p>Description</p>
-																	</label>
-																</div>
-															</div>
+												<!-- <div class="tab-content">
+													<div class="d-block my-3">
+														<div class="custom-control custom-radio">
+															<input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
+															<label class="custom-control-label" for="credit">Nagt
+																<p>Description</p>
+															</label>
 														</div>
-														<h3>{{_('Summary')}}</h3>
-														<div class="contact-form">
-															<label for="message">{{_('Note')}}</label>
-															<textarea id="message" class="orderDesc" type="text" placeholder="{{_('Description')}} ({{_('City')}}, {{_('Av.')}}, {{_('Street')}}, {{_('House')}}, {{_('Flat')}})"></textarea>
+														<div class="custom-control custom-radio">
+															<input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
+															<label class="custom-control-label" for="debit">Online
+																<p>Description</p>
+															</label>
 														</div>
-														<table class="shop_table shop_table_responsive">
-															<tbody>
-																<tr class="order-total">
-																	<th>{{_('Total price')}}</th>
-																	<td data-title="{{_('Total price')}}">
-																		<strong>
-																			<span class="woocommerce-Price-amount amount cartTotalPrice">
-																				0.00
-																			</span>
-																			<span class="woocommerce-Price-currencySymbol currencySymbol">TMT</span>
-																		</strong>
-																	</td>
-																</tr>
-															</tbody>
-														</table>
-														<a class="checkout-button button alt wc-forward checkoutCartBtn">
-															{{_('Checkout')}}
-														</a>
-													</section>
-													<!-- <section>
-														<h2>Online toleg</h2>
-														<div class="tabss">
-															<div class="tabb">
-																<input type="checkbox" id="chck1">
-																<label for="chck1" class="tab-label">Online sowda</label>
-																<div class="tab-content">
-																	<label><input type="radio">Nagt</label>
-																	<label><input type="radio">Online</label>
-																	<label><input type="radio">Nagt</label>
-																</div>
-															</div>
-														
-															<div class="tabb">
-																<input type="checkbox" id="chck2">
-																<label for="chck2" class="tab-label active">Online sowda</label>
-																<div class="tab-content">
-																	<label><input type="radio">Nagt</label>
-																	<label><input type="radio">Online</label>
-																	<label><input type="radio">Nagt</label>
-																</div>
-															</div>
+														<div class="custom-control custom-radio">
+															<input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
+															<label class="custom-control-label" for="paypal">Nagt
+																<p>Description</p>
+															</label>
 														</div>
-														<a class="checkout-button button alt wc-forward checkoutCartBtn">
-															{{_('Checkout')}}
-														</a>
-													</section> -->
+													</div>
+												</div> -->
+												<h3>{{_('Summary')}}</h3>
+												<div class="contact-form">
+													<label for="message">{{_('Note')}}</label>
+													<textarea id="message" class="orderDesc" type="text" placeholder="{{_('Description')}} ({{_('City')}}, {{_('Av.')}}, {{_('Street')}}, {{_('House')}}, {{_('Flat')}})"></textarea>
 												</div>
+												<table class="shop_table shop_table_responsive">
+													<tbody>
+														<tr class="order-total">
+															<th>{{_('Total price')}}</th>
+															<td data-title="{{_('Total price')}}">
+																<strong>
+																	<span class="woocommerce-Price-amount amount cartTotalPrice">
+																		0.00
+																	</span>
+																	<span class="woocommerce-Price-currencySymbol currencySymbol">TMT</span>
+																</strong>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+												<a class="checkout-button button alt wc-forward checkoutCartBtn">
+													{{_('Checkout')}}
+												</a>
 											</div>
-											
+										
 
 										{% else %}
 											<h5 style="max-width: 12rem;">{{_('You should login if you want to checkout an order')}}!</h5>
