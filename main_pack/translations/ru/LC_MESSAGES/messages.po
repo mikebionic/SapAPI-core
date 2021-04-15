@@ -837,3 +837,33 @@ msgstr "Красота и здоровье"
 
 msgid "Others"
 msgstr "Другое"
+
+msgid "About this item"
+msgstr "О товаре"
+
+msgid "No note is written"
+msgstr "Примечание не написано"
+
+msgid "Cannot get more"
+msgstr "Нельзя взять больше"
+
+msgid "added to wishlist"
+msgstr "добавлено в список желаний"
+
+msgid "removed from wishlist"
+msgstr "удалено с списка желаний"
+
+msgid "You should put your rating and write a review"
+msgstr "Нужно выбрать рейтинг и написать отзыв"
+
+msgid "Work phone"
+msgstr "Рабочий телефон"
+
+msgid "Fax"
+msgstr "Факс"
+
+msgid "To login you account, fill the required fields and click 'Login' button"
+msgstr "Чтобы войти в аккаунт, заполните необходимые поля и кликните Войти"
+
+msgid "If you already have an account, press 'Login' button and proceed to login process"
+msgstr "Если у вас уже есть аккаунт, нажмите Логин и пройдите процесс авторизации"

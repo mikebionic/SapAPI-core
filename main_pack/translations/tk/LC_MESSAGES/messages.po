@@ -836,3 +836,33 @@ msgstr "Gözellik we saglyk"
 
 msgid "Others"
 msgstr "Beýlekiler"
+
+msgid "About this item"
+msgstr "Haryt barada"
+
+msgid "No note is written"
+msgstr "Bellik yazylmady"
+
+msgid "Cannot get more"
+msgstr "Mundan köp alyp bolanok"
+
+msgid "added to wishlist"
+msgstr "isleg sanawa goşuldy"
+
+msgid "removed from wishlist"
+msgstr "isleg sanawdan aýyryldy"
+
+msgid "You should put your rating and write a review"
+msgstr "Siz reýting belläp teswir ýazmaly"
+
+msgid "Work phone"
+msgstr "Iş telefony"
+
+msgid "Fax"
+msgstr "Faks"
+
+msgid "To login you account, fill the required fields and click 'Login' button"
+msgstr "Hasabyňyza girmek üçin aşakdaky talap edilýän maglumatlary grizmek bilen, 'Giriş' düwmesine basyň"
+
+msgid "If you already have an account, press 'Login' button and proceed to login process"
+msgstr "Hasabyňyz bar bolsa, 'Giriş' düwmä basyň we hasabyňyza giriň"
