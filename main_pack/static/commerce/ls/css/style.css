@@ -21081,6 +21081,7 @@ table.cart {
         letter-spacing: -.01em;
         color: #444;
         display: flex;
+        text-align:center;
         justify-content: center } }
     table.cart td.product-name .cart-item-product-detail {
       font-size: .875em;
@@ -29849,7 +29850,7 @@ h3 i{
     -webkit-transition: all 0.3s ease 0s;
     -o-transition: all 0.3s ease 0s;
     transition: all 0.3s ease 0s;
-    margin: 0 15px;
+    margin: 0 50px;
     width: 125px;
     background: #fff;
 }
@@ -30135,32 +30136,14 @@ justify-content: center;
 .header-wishlist .nav-item{
   margin-top: 6px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.tab-content{
+  padding:15px;
+}
 
 .tabs {
   position: relative;
   background: white;
-  padding: 35px;
+  padding: 15px;
   box-shadow: 0 4px 8px rgb(0 0 0 / 25%), 0 10px 10px rgb(0 0 0 / 22%);
   border-radius: 5px;
   min-width: 240px;
@@ -30184,6 +30167,7 @@ justify-content: center;
   justify-content: space-between;
   align-items: flex-end;
   flex-wrap: wrap;
+  margin:0;
 }
 .tabs ul li {
   box-sizing: border-box;
@@ -30283,7 +30267,7 @@ justify-content: center;
   }
 }
 .tabs input[name=tab-control]:nth-of-type(1):checked ~ .slider {
-  transform: translateX(20%);
+  transform: translateX(0%);
 }
 .tabs input[name=tab-control]:nth-of-type(1):checked ~ .content > section:nth-child(1) {
   display: block;
@@ -30390,5 +30374,78 @@ justify-content: center;
   .tabs .content section h2 {
     display: block;
   }
+}
+
+.tabss{
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.tabb{
+  width: 100%;
+  color: white;
+  overflow: hidden;
+}
+.tab-label{
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+  color: #2c3e50;
+  font-weight: bold;
+  cursor: pointer;
+}
+.tab-label::after{
+  content: ">";
+  width: 1em;
+  height: 1em;
+  text-align: center;
+  transition: all 0.35s;
+}
+.tab-content{
+  max-height: 100%;
+  padding: 0 1em;
+  color: #2c3e50;
+  transition: all 0.35s;
+}
+.tab-close{
+  display: flex;
+  justify-content: flex-end;
+  padding: 1em;
+  font-size: 0.75em;
+  background: #2c3e50;
+  cursor: pointer;
+}
+.tabb input{
+  display: none;
+}
+.tab-content input{
+  display:inherit;
+  margin: 4px 10px;
+}
+input:checked + .tab-label{
+  background: #fff;
+}
+input:checked + .tab-label::after{
+  transform: rotate(90deg);
+}
+input:checked ~ .tab-content{
+  max-height: 100vh;
+  padding: 5px;
+}
+.tab-content label{
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  color: #2c3e50;
+  cursor: pointer;
+}
+.tab-content label span{
+  display:flex;
+}
+.tab-content label p{
+  display: block;
+  font-size: 14px;
+  margin-bottom: 15px;
+  color: #929daf;
 }
 
