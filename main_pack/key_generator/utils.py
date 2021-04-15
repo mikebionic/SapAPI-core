@@ -31,26 +31,23 @@ RegNumTypeNamesDict = {
 def generate(UId,RegNumTypeName=None,RegNumTypeId=None):
 	if RegNumTypeId is None:
 		RegNumTypeId = RegNumTypeNamesDict[RegNumTypeName]
-	try:
-		reg_num = Reg_num.query\
-			.filter_by(UId = UId, RegNumTypeId = RegNumTypeId)\
-			.first()
-		if not reg_num:
-			regNumType = Reg_num_type.query.filter_by(RegNumTypeId = RegNumTypeId).first()
-			RegNumPrefix = makeShortType(regNumType.RegNumTypeName_tkTM)
-			reg_num = Reg_num(
-				UId = UId,
-				RegNumTypeId = regNumType.RegNumTypeId,
-				RegNumPrefix = RegNumPrefix,
-				RegNumLastNum = 0
-			)
-			db.session.add(reg_num)
-			db.session.commit()
-		response = reg_num
 
-	except Exception as ex:
-		print(ex)
-		response = jsonify({"error": "Error generating regNo"})
+	reg_num = Reg_num.query\
+		.filter_by(UId = UId, RegNumTypeId = RegNumTypeId)\
+		.first()
+	if not reg_num:
+		regNumType = Reg_num_type.query.filter_by(RegNumTypeId = RegNumTypeId).first()
+		RegNumPrefix = makeShortType(regNumType.RegNumTypeName_tkTM)
+		reg_num = Reg_num(
+			UId = UId,
+			RegNumTypeId = regNumType.RegNumTypeId,
+			RegNumPrefix = RegNumPrefix,
+			RegNumLastNum = 0
+		)
+		db.session.add(reg_num)
+		db.session.commit()
+	response = reg_num
+
 	return response
 
 def validate(

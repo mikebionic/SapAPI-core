@@ -15,6 +15,7 @@ from .add_Order_inv_dict import add_Order_inv_dict
 from .save_order_line_checkout_data import save_order_line_checkout_data
 
 from main_pack.base.apiMethods import checkApiResponseStatus
+from main_pack.base.num2text import price2text
 from main_pack.api.common import (
 	fetch_and_generate_RegNo,
 	get_last_Work_period,
@@ -24,7 +25,6 @@ from main_pack.api.common import (
 
 
 def save_order_checkout_data(req, model_type, current_user, session = None):
-	order_info, lines_info = {}, []
 	req['orderInv']['OInvGuid'] = str(uuid.uuid4())
 	try:
 		order_invoice_info = add_Order_inv_dict(req['orderInv'])
@@ -34,6 +34,15 @@ def save_order_checkout_data(req, model_type, current_user, session = None):
 		if not req['orderInv']['OrderInvLines']:
 			raise Exception
 		order_inv_lines_req = req['orderInv']['OrderInvLines']
+
+		if model_type == "rp_acc":
+			user_id = current_user.user.UId
+			user_short_name = current_user.user.UShortName
+			RpAccId = current_user.RpAccId
+		
+		if model_type == "device":
+			current_user = current_user.user
+			model_type = "user"
 
 		if model_type == "user":
 			user_id = current_user.UId
@@ -45,11 +54,6 @@ def save_order_checkout_data(req, model_type, current_user, session = None):
 			if not RpAccId:
 				print("v1 checkout | no such rp acc")
 				raise Exception
-
-		elif model_type == "rp_acc":
-			user_id = current_user.user.UId
-			user_short_name = current_user.user.UShortName
-			RpAccId = current_user.RpAccId
 
 		DivId = current_user.DivId
 		CId = current_user.CId
@@ -88,6 +92,7 @@ def save_order_checkout_data(req, model_type, current_user, session = None):
 
 		this_Order_inv = Order_inv(**order_invoice_info)
 		db.session.add(this_Order_inv)
+		db.session.commit()
 
 		ResPriceGroupId = get_ResPriceGroupId(model_type, current_user, session)
 

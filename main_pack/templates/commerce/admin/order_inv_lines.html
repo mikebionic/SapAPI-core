@@ -57,7 +57,7 @@
                   <tr ownerId="{{ orderInvLine.OInvLineId }}">
                     <td class="text-center">{{ orderInvLine.OInvLineId }}</td>
                     <td class="text-center">{{ orderInvLine.Resource.ResName }}</td>
-                    <td class="text-center editable productQty" pending_amount="{{resource.ResPendingTotalAmount}}" ownerId="{{ orderInvLine.OInvLineId }}">
+                    <td class="text-center editable productQty" ownerId="{{ orderInvLine.OInvLineId }}">
                       {{ orderInvLine.OInvLineAmount }}
                     </td>
                     <td class="text-center editable productPrice" ownerId="{{ orderInvLine.OInvLineId }}">
