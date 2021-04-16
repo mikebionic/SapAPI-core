@@ -867,3 +867,12 @@ msgstr "Чтобы войти в аккаунт, заполните необхо
 
 msgid "If you already have an account, press 'Login' button and proceed to login process"
 msgstr "Если у вас уже есть аккаунт, нажмите Логин и пройдите процесс авторизации"
+
+msgid "Register to use all the features and posibilities of ecommerce"
+msgstr "Чтобы воспользоваться всеми функциями, зарегистрируйтесь"
+
+msgid "If you don't have an account, click the 'Register' button and proceed the registration"
+msgstr "Если у вас нет аккаунта, нажмите на кнопку 'Регистрация' и перейдите к регистрации"
+
+msgid "Specify the payment method"
+msgstr "Укажите метод оплаты"
