@@ -332,6 +332,7 @@
 										</span>
 										<div class="media-body">
 											<span class="call-us-title">{{_('Contact us')}}</span>
+
 											<span class="call-us-text">
 												{% if company.Phone1 %}
 													<div class="pulse">
@@ -347,13 +348,12 @@
 												{% if company.Phone3 %}
 													<a href="tel:{{company.Phone3}}">{{company.Phone3}}</a>
 												{% endif %}
-												
 											</span>
+
 											{% if company.CAddress %}
-											
 												<address class="footer-contact-address">
 													<div class="pulse">
-														<a href="tel:{{company.Phone1}}">
+														<a href="https://play.google.com/store/apps/details?id=com.dowlpack.lomaysowda">
 															<img src="{{ url_for('static', filename='commerce/ls/img/play.svg') }}" alt="LS" style="width: 35px;">
 														</a>
 													</div>
@@ -363,19 +363,20 @@
 											{% endif %}
 											
 											{% if company.CEmail %}
-												
-											<div class="pulse">
-												<a href="mailto:{{company.CEmail}}">
-													<i class="fa fa-fw fa-envelope-o"></i>
-												</a>
-											</div>
+												<div class="pulse">
+													<a href="mailto:{{company.CEmail}}">
+														<i class="fa fa-fw fa-envelope-o"></i>
+													</a>
+												</div>
 												<span>{{_('Email')}}</span>
 												<a href="mailto:{{company.CEmail}}"><p>{{company.CEmail}}</p></a>
 											{% endif %}
+
 											{% if company.AddInf1 %}
 												<span>{{_('Working time')}}</span>
 												<p>{{company.AddInf1}}</p>
 											{% endif %}
+
 										</div>
 									</div>
 								</div>

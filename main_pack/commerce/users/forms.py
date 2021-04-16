@@ -26,4 +26,3 @@ class UpdateRpAccForm(FlaskForm):
 			user = Rp_acc.query.filter_by(RpAccUName = username.data).first()
 			if user:
 				raise ValidationError(lazy_gettext('That username is taken. Choose a different one!'))
-
