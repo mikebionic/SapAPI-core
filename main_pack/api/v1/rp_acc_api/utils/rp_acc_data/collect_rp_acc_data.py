@@ -18,6 +18,7 @@ def collect_rp_acc_data(
 	UId = None,
 	EmpId = None,
 	withPassword = 0,
+	withImage = 1,
 ):
 
 	filtering = {"GCRecord": None}
@@ -64,9 +65,11 @@ def collect_rp_acc_data(
 		rp_acc_info["DivGuid"] = rp_acc.division.DivGuid if rp_acc.division and not rp_acc.division.GCRecord else None
 		rp_acc_info["CGuid"] = rp_acc.company.CGuid if rp_acc.company and not rp_acc.company.GCRecord else None
 		rp_acc_info["UGuid"] = rp_acc.user.UGuid if rp_acc.user and not rp_acc.user.GCRecord else None
-		rp_acc_info["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=rp_acc.Image[-1].FileName) if rp_acc.Image else ""
-		rp_acc_info["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=rp_acc.Image[-1].FileName) if rp_acc.Image else ""
-		rp_acc_info["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=rp_acc.Image[-1].FileName) if rp_acc.Image else ""
+
+		if withImage:
+			rp_acc_info["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=rp_acc.Image[-1].FileName) if rp_acc.Image else ""
+			rp_acc_info["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=rp_acc.Image[-1].FileName) if rp_acc.Image else ""
+			rp_acc_info["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=rp_acc.Image[-1].FileName) if rp_acc.Image else ""
 
 		if withPassword:
 			rp_acc_info["RpAccUPass"] = rp_acc.RpAccUPass
@@ -82,4 +85,3 @@ def collect_rp_acc_data(
 		data.append(rp_acc_info)
 
 	return data
-

@@ -99,6 +99,10 @@ def create_app(config_class=Config):
 	app.register_blueprint(v1_rp_acc_api, url_prefix=f"{api_url_prefix}/v1/")
 	csrf.exempt(v1_rp_acc_api)
 
+	from main_pack.api.v1.user_api import api as v1_user_api
+	app.register_blueprint(v1_user_api, url_prefix=f"{api_url_prefix}/v1/")
+	csrf.exempt(v1_user_api)
+
 	from main_pack.api.v1.invoice_api import api as v1_invoice_api
 	app.register_blueprint(v1_invoice_api, url_prefix=f"{api_url_prefix}/v1/")
 	csrf.exempt(v1_invoice_api)
