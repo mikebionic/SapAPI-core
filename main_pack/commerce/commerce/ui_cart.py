@@ -36,7 +36,7 @@ from main_pack.commerce.admin.utils import resRelatedData
 # / Resource and view /
 
 # users and customers
-from main_pack.models import User, Rp_acc
+from main_pack.models import User, Rp_acc, Payment_method
 # / users and customers /
 
 # Invoices
@@ -199,6 +199,25 @@ def ui_cart_checkout():
 				# no products in cart
 				raise Exception
 
+			try:
+				if 'PmId' not in req:
+					raise Exception
+
+				PmId = req['PmId']
+				payment_method = Payment_method.query\
+					.filter_by(GCRecord = None, PmId = PmId)\
+					.filter(Payment_method.PmVisibleIndex != 0)\
+					.first()
+				if not payment_method:
+					raise Exception
+			
+			except:
+				response = jsonify({
+					"status": 'error',
+					"responseText": gettext('Specify the payment method')
+				})
+				return response
+
 			DivId = current_user.DivId
 			CId = current_user.CId
 			RpAccId = current_user.RpAccId
@@ -252,7 +271,8 @@ def ui_cart_checkout():
 				"RpAccId": RpAccId,
 				"OInvRegNo": orderRegNo,
 				"OInvDesc": OInvDesc,
-				"PaymCode": str(get_login_info(request))
+				"PaymCode": str(get_login_info(request)),
+				"PmId": PmId
 			}
 
 			orderInv = Order_inv(**order_invoice)

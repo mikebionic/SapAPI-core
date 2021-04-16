@@ -1,0 +1,11 @@
+from main_pack.config import Config
+
+def get_payment_validation_info():
+	data = {}
+	if Config.ALLOW_PAYMENT_INFO_API:
+		data = {
+			"PAYMENT_VALIDATION_SERVICE_URL": Config.PAYMENT_VALIDATION_SERVICE_URL,
+			"PAYMENT_VALIDATION_SERVICE_USERNAME": Config.PAYMENT_VALIDATION_SERVICE_USERNAME,
+			"PAYMENT_VALIDATION_SERVICE_PASSWORD": Config.PAYMENT_VALIDATION_SERVICE_PASSWORD,
+		}
+	return data

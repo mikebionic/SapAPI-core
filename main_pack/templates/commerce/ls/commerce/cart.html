@@ -45,51 +45,47 @@
 										<div class="cart_totals">
 											{% if current_user.is_authenticated %}
 											<div class="tabs">
-												<!-- <div class="tab-content">
-													<div class="d-block my-3">
+												<div class="tab-content">
+													<div class="d-block my-3 paymentMethods">
+
+														{% for payment_method in payment_methods %}
 														<div class="custom-control custom-radio">
-															<input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
-															<label class="custom-control-label" for="credit">Nagt
-																<p>Description</p>
+															<input id="{{ payment_method.PmName }}" name="paymentMethod" type="radio" class="custom-control-input" value="{{ payment_method.PmId }}" required>
+															<label class="custom-control-label" for="{{ payment_method.PmName }}">
+																{{ payment_method.PmName }}
+																<p>{{ payment_method.PmDesc }}</p>
 															</label>
 														</div>
-														<div class="custom-control custom-radio">
-															<input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
-															<label class="custom-control-label" for="debit">Online
-																<p>Description</p>
-															</label>
-														</div>
-														<div class="custom-control custom-radio">
-															<input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
-															<label class="custom-control-label" for="paypal">Nagt
-																<p>Description</p>
-															</label>
-														</div>
+														{% endfor %}
+
 													</div>
-												</div> -->
-												<h3>{{_('Summary')}}</h3>
-												<div class="contact-form">
-													<label for="message">{{_('Note')}}</label>
-													<textarea id="message" class="orderDesc" type="text" placeholder="{{_('Description')}} ({{_('City')}}, {{_('Av.')}}, {{_('Street')}}, {{_('House')}}, {{_('Flat')}})"></textarea>
 												</div>
-												<table class="shop_table shop_table_responsive">
-													<tbody>
-														<tr class="order-total">
-															<th>{{_('Total price')}}</th>
-															<td data-title="{{_('Total price')}}">
-																<strong>
-																	<span class="woocommerce-Price-amount amount cartTotalPrice">
-																		0.00
-																	</span>
-																	<span class="woocommerce-Price-currencySymbol currencySymbol">TMT</span>
-																</strong>
-															</td>
-														</tr>
-													</tbody>
-												</table>
-												<a class="checkout-button button alt wc-forward checkoutCartBtn">
-													{{_('Checkout')}}
-												</a>
+												
+												<div class="checkoutForm" style="display: none;">
+													<h3>{{_('Summary')}}</h3>
+													<div class="contact-form">
+														<label for="message">{{_('Note')}}</label>
+														<textarea id="message" class="orderDesc" type="text" placeholder="{{_('Description')}} ({{_('City')}}, {{_('Av.')}}, {{_('Street')}}, {{_('House')}}, {{_('Flat')}})"></textarea>
+													</div>
+													<table class="shop_table shop_table_responsive">
+														<tbody>
+															<tr class="order-total">
+																<th>{{_('Total price')}}</th>
+																<td data-title="{{_('Total price')}}">
+																	<strong>
+																		<span class="woocommerce-Price-amount amount cartTotalPrice">
+																			0.00
+																		</span>
+																		<span class="woocommerce-Price-currencySymbol currencySymbol">TMT</span>
+																	</strong>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+													<a class="checkout-button button alt wc-forward checkoutCartBtn">
+														{{_('Checkout')}}
+													</a>
+												</div>
 											</div>
 										
 

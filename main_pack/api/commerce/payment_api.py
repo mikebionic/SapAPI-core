@@ -2,19 +2,14 @@
 from flask import jsonify, request, make_response
 
 from . import api
-from main_pack.config import Config
-from main_pack.models import Payment_type, Payment_method
+from main_pack.models import Payment_type
+from main_pack.api.common import get_payment_types, get_payment_methods
 
 
 @api.route("/tbl-dk-payment-types/")
 def api_paynemt_types():
-	payment_types = Payment_type.query\
-		.filter_by(GCRecord = None)\
-		.filter(Payment_type.PtVisibleIndex != 0)\
-		.order_by(Payment_type.PtVisibleIndex.asc())\
-		.all()
 
-	data = [payment_type.to_json_api() for payment_type in payment_types if payment_type.PtVisibleIndex != 0]
+	data = get_payment_types()
 
 	res = {
 		"status": 1 if len(data) > 0 else 0,
@@ -28,13 +23,8 @@ def api_paynemt_types():
 
 @api.route("/tbl-dk-payment-methods/")
 def api_payment_methods():
-	payment_methods = Payment_method.query\
-		.filter_by(GCRecord = None)\
-		.filter(Payment_method.PmVisibleIndex != 0)\
-		.order_by(Payment_method.PmVisibleIndex.asc())\
-		.all()
 
-	data = [payment_method.to_json_api() for payment_method in payment_methods if payment_method.PmVisibleIndex != 0]
+	data = get_payment_methods()
 
 	res = {
 		"status": 1 if len(data) > 0 else 0,

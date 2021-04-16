@@ -39,7 +39,7 @@ def save_order_checkout_data(req, model_type, current_user, session = None):
 			user_id = current_user.user.UId
 			user_short_name = current_user.user.UShortName
 			RpAccId = current_user.RpAccId
-		
+
 		if model_type == "device":
 			current_user = current_user.user
 			model_type = "user"
@@ -48,7 +48,7 @@ def save_order_checkout_data(req, model_type, current_user, session = None):
 			user_id = current_user.UId
 			user_short_name = current_user.UShortName
 
-			RpAccGuid = req['RpAccGuid']
+			RpAccGuid = req['orderInv']['RpAccGuid']
 			rp_acc = Rp_acc.query.filter_by(RpAccGuid = RpAccGuid).first()
 			RpAccId = rp_acc.RpAccId if rp_acc else None
 			if not RpAccId:
@@ -123,8 +123,8 @@ def save_order_checkout_data(req, model_type, current_user, session = None):
 				Config.PRICE_2_TEXT_LANGUAGE,
 				CurrencyCode)
 
-			this_Order_inv.OInvTotal = decimal.Decimal(OInvTotal)
-			this_Order_inv.OInvFTotal = decimal.Decimal(OInvFTotal)
+			this_Order_inv.OInvTotal = float(decimal.Decimal(OInvTotal))
+			this_Order_inv.OInvFTotal = float(decimal.Decimal(OInvFTotal))
 			this_Order_inv.OInvFTotalInWrite = OInvFTotalInWrite
 
 			if pred_reg_num:

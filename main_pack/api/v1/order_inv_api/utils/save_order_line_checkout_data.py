@@ -124,10 +124,10 @@ def save_order_line_checkout_data(
 			# add taxes and stuff later on
 			OInvLineFTotal = OInvLineTotal
 
-			order_inv_line["OInvLineAmount"] = decimal.Decimal(OInvLineAmount)
-			order_inv_line["OInvLinePrice"] = decimal.Decimal(OInvLinePrice)
-			order_inv_line["OInvLineTotal"] = decimal.Decimal(OInvLineTotal)
-			order_inv_line["OInvLineFTotal"] = decimal.Decimal(OInvLineFTotal)
+			order_inv_line["OInvLineAmount"] = float(decimal.Decimal(OInvLineAmount))
+			order_inv_line["OInvLinePrice"] = float(decimal.Decimal(OInvLinePrice))
+			order_inv_line["OInvLineTotal"] = float(decimal.Decimal(OInvLineTotal))
+			order_inv_line["OInvLineFTotal"] = float(decimal.Decimal(OInvLineFTotal))
 			order_inv_line["OInvId"] = OInvId
 			order_inv_line["UnitId"] = resource.UnitId
 			order_inv_line["CurrencyId"] = CurrencyId
