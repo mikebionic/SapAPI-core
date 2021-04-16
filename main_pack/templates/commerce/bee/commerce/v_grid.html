@@ -17,7 +17,7 @@
 
 			<div class="col-12">
 
-				<div class="row mb-50">
+				<div class="row mb-5">
 					<div class="col">
 						<div class="shop-top-bar">
 
@@ -72,7 +72,7 @@
 									{% endif %}
 									<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
 										<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/bee/images/no_photo.svg') }}"
-										alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}" style="height: auto;width: 100%;">
+										alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}" style="height: auto;">
 									</a>
 									{% if current_user.is_authenticated %}
 										<div class="wishlist-compare">

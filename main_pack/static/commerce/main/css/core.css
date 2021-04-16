@@ -1439,7 +1439,7 @@
     transform: rotate(90deg)
 }
 
-.profile-info-card .card-title .confirm-button,.menu-card .card-title .confirm-button {
+/* .profile-info-card .card-title .confirm-button,.menu-card .card-title .confirm-button {
     color: grey;
     height: 40px;
     width: 40px;
@@ -1453,7 +1453,7 @@
     border-radius: 50%;
     max-height: 40px;
     transition: all .5s
-}
+} */
 
 .profile-info-card .card-title .confirm-button svg,.menu-card .card-title .confirm-button svg {
     transition: all .3s;
@@ -6810,4 +6810,40 @@ a {
 }
 .shop-wrapper {
     height: -webkit-fill-available;
+}
+
+@media (max-width: 991px){
+	.profile_email{
+			font-size: 13px;
+	}
+}
+.button, .input, .textarea, .select select, .file-cta, .file-name, .pagination-previous, .pagination-next, .pagination-link, .pagination-ellipsis{
+	border: 1px solid #dbdbdb;
+}
+.profile-info-card .card-title .confirm-button a:hover svg, .menu-card .card-title .confirm-button a:hover svg {
+	stroke: #00b289;
+	-webkit-transform: rotate(
+360deg
+);
+	transform: rotate(
+360deg
+);
+}
+.profile-info-card .card-title .confirm-button a:hover, .menu-card .card-title .confirm-button a:hover {
+	border: 1.8px solid #00b289;
+}
+.profile-info-card .card-title .confirm-button a, .menu-card .card-title .confirm-button a {
+	color: grey;
+	height: 40px;
+	width: 40px;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-pack: center;
+	justify-content: center;
+	-ms-flex-align: center;
+	align-items: center;
+	border: 1.8px dashed #999;
+	border-radius: 50%;
+	max-height: 40px;
+	transition: all .5s;
 }
