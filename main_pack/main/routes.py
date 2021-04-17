@@ -14,12 +14,21 @@ from main_pack.models import Division
 from main_pack.models import (
 	Res_category,
 	Res_total,
-	Resource)
+	Resource,
+	Currency,
+)
 
 
 @bp.route('/language/<language>')
 def set_language(language=None):
 	session['language'] = language
+	return redirect(url_for('commerce.commerce'))
+
+
+@bp.route('/currency/<currency_code>')
+def set_currency(currency_code=None):
+	currency = Currency.query.filter_by(CurrencyCode = currency_code).first()
+	session['currency_code'] = currency_code if currency_code else Config.DEFAULT_VIEW_CURRENCY_CODE
 	return redirect(url_for('commerce.commerce'))
 
 

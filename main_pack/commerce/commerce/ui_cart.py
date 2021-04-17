@@ -240,6 +240,10 @@ def ui_cart_checkout():
 			elif "ResPriceGroupId" in session:
 				ResPriceGroupId = session["ResPriceGroupId"]
 
+			currency_code = Config.DEFAULT_VIEW_CURRENCY_CODE
+			if "currency_code" in session:
+				currency_code = session["currency_code"] if session["currency_code"] else Config.DEFAULT_VIEW_CURRENCY_CODE
+
 			try:
 				reg_num = generate(UId = user.UId, RegNumTypeName = 'sale_order_invoice_code')
 				orderRegNo = makeRegNo(user.UShortName, reg_num.RegNumPrefix, reg_num.RegNumLastNum + 1, '' , True)
@@ -256,7 +260,7 @@ def ui_cart_checkout():
 			WhId = warehouse.WhId if warehouse else None
 			OInvDesc = req.get('orderDesc')
 
-			inv_currency = [currency.to_json_api() for currency in currencies if not currency.GCRecord and currency.CurrencyCode == Config.DEFAULT_VIEW_CURRENCY_CODE]
+			inv_currency = [currency.to_json_api() for currency in currencies if not currency.GCRecord and currency.CurrencyCode == currency_code]
 			inv_currency_id = inv_currency[0]["CurrencyId"] if inv_currency else 1
 
 			order_invoice = {
@@ -313,6 +317,7 @@ def ui_cart_checkout():
 				price_data = price_currency_conversion(
 					priceValue = this_priceValue,
 					from_currency = this_currencyCode,
+					to_currency=currency_code,
 					currencies_dbModel = currencies,
 					exc_rates_dbModel = exc_rates)
 

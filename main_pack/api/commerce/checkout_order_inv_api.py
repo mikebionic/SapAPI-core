@@ -355,6 +355,7 @@ def validate_order_inv_payment(user):
 							print(f"{datetime.now()} | {message}")
 
 						order_inv.PaymCode = str(response_json)
+						order_inv.PaymDesc = OrderId
 						db.session.commit()
 						data = response_json
 						status = 1

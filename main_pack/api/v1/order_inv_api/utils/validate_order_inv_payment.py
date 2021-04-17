@@ -48,7 +48,6 @@ def validate_order_inv_payment(req, model_type, current_user):
 			# if order isn't already paid
 			if order_inv.PaymStatusId != 2:
 				try:
-					# ??? TODO: Consult about the orderId that I should use, db taken or req provided one?
 					r = requests.get(f"{Config.PAYMENT_VALIDATION_SERVICE_URL}?orderId={OrderId}&password={Config.PAYMENT_VALIDATION_SERVICE_PASSWORD}&userName={Config.PAYMENT_VALIDATION_SERVICE_USERNAME}", verify=False)
 					response_json = json.loads(r.text)
 
@@ -73,6 +72,7 @@ def validate_order_inv_payment(req, model_type, current_user):
 						print(f"{datetime.now()} | {message}")
 
 					order_inv.PaymCode = str(response_json)
+					order_inv.PaymDesc = OrderId
 					db.session.commit()
 					data = response_json
 					status = 1

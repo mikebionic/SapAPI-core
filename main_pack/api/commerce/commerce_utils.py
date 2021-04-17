@@ -251,10 +251,9 @@ def apiResourceInfo(
 				ResPriceGroupId = current_user.ResPriceGroupId if current_user.ResPriceGroupId else None
 		except Exception as ex:
 			print(f"{datetime.now()} | resource_info api ResPriceGroupId exception: {ex}")
-		
+
 	if not currency_code:
 		if "currency_code" in session:
-			print("using session currency code")
 			currency_code = session["currency_code"] if session["currency_code"] else None
 
 
@@ -951,7 +950,7 @@ def apiInvInfo(
 					extract('year',Invoice.InvDate).between(startDate.year,endDate.year),\
 					extract('month',Invoice.InvDate).between(startDate.month,endDate.month),\
 					extract('day',Invoice.InvDate).between(startDate.day,endDate.day)))
-			
+
 		invoices = invoices.order_by(Invoice.InvDate.desc()).all()
 
 		for invoice in invoices:
@@ -1002,14 +1001,14 @@ def apiInvInfo(
 						print(f"{datetime.now()} | Invoice_line info utils Exception: {ex}")
 						this_inv_line["Resource"] = []
 					inv_lines.append(this_inv_line)
-			
+
 			inv_info["Inv_lines"] = inv_lines
 			data.append(inv_info)
 
 		except Exception as ex:
 			print(f"{datetime.now()} | Invoice info utils Exception: {ex}")
 			fails.append(invoice.to_json_api())
-	
+
 	status = checkApiResponseStatus(data,fails)
 	if single_object == True:
 		if len(data) == 1:

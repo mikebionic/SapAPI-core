@@ -87,26 +87,27 @@
 								</a>
 							</li>
 						{% endif %}
-						<!-- <li class="menu-item animate-dropdown dropdown language_" style="margin-top: auto;">
-							<a title="Dollar (US)" data-toggle="dropdown" href="javascript:void(0);" role="button">USD
+						<li class="menu-item animate-dropdown dropdown language_" style="margin-top: auto;">
+							<a title="Dollar (US)" data-toggle="dropdown" href="javascript:void(0);" role="button">
+								{{ session.currency_code if session.currency_code else 'TMT' }}
 								<div class="notify"><span class="heartbit"></span><span class="point"></span></div>
 							</a>
 							<ul class="dropdown-menu slideUp2" style="z-index: 9999999; left: -57px;"> 
 								<li class="body">
 									<ul class="menu list-unstyled">
 										<li>
-											<a href="#" class="dropdown-item">
+											<a href="{{url_for('main.set_currency', currency_code='TMT')}}" class="dropdown-item">
 												TMT
 											</a>
 											<div class="dropdown-divider"></div>
-											<a href="#" class="dropdown-item">
+											<a href="{{url_for('main.set_currency', currency_code='USD')}}" class="dropdown-item">
 												USD
 											</a>
 										</li>
 									</ul>
 								</li>
 							</ul>
-						</li> -->
+						</li>
 						<li class="menu-item animate-dropdown dropdown language_" style="margin-top: auto;">
 							<a href="javascript:void(0);"  title="Language" data-toggle="dropdown" role="button"><i class="fa fa-fw fa-globe"></i>
 								<div class="notify"><span class="heartbit"></span><span class="point"></span></div>
