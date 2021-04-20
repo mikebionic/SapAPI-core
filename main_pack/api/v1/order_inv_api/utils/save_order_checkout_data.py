@@ -21,6 +21,7 @@ from main_pack.api.common import (
 	get_last_Work_period,
 	get_last_Warehouse_by_DivId,
 	get_ResPriceGroupId,
+	get_payment_method_by_id,
 )
 
 
@@ -28,8 +29,16 @@ def save_order_checkout_data(req, model_type, current_user, session = None):
 	req['orderInv']['OInvGuid'] = str(uuid.uuid4())
 	try:
 		order_invoice_info = add_Order_inv_dict(req['orderInv'])
-		orderRegNo = req['orderInv']['OInvRegNo']
-		InvStatId = int(req['orderInv']['InvStatId'])
+		orderRegNo = req['orderInv']['OInvRegNo'] if "OInvRegNo" in req['orderInv'] else None
+		InvStatId = int(req['orderInv']['InvStatId']) if "InvStatId" in req['orderInv'] else None
+
+		PmId = req['orderInv']['PmId']
+		if not PmId:
+			raise Exception
+
+		payment_method = get_payment_method_by_id(PmId)
+		if not payment_method:
+			raise Exception
 
 		if not req['orderInv']['OrderInvLines']:
 			raise Exception
@@ -77,15 +86,15 @@ def save_order_checkout_data(req, model_type, current_user, session = None):
 		WhId = warehouse.WhId
 
 		order_invoice_info["OInvRegNo"] = RegNo
-		order_invoice_info["InvStatId"] = 1
+		order_invoice_info["InvStatId"] = InvStatId if InvStatId == 13 else 1
 		order_invoice_info["OInvTypeId"] = 2
 		order_invoice_info["WpId"] = work_period.WpId
 		order_invoice_info["WhId"] = WhId
 		order_invoice_info["DivId"] = DivId
 		order_invoice_info["CId"] = CId
-		if InvStatId == 13:
-			order_invoice_info["InvStatId"] = InvStatId
 
+
+		# !!! TODO configure this grep method
 		if not order_invoice_info["CurrencyId"]:
 			order_invoice_info["CurrencyId"] = 1
 		order_invoice_info["RpAccId"] = RpAccId
@@ -115,6 +124,8 @@ def save_order_checkout_data(req, model_type, current_user, session = None):
 				"fail_total": len(fails),
 				"total": len(order_inv_lines_req)
 			}
+			db.session.delete(this_Order_inv)
+			db.session.commit()
 
 		else:
 			OInvFTotal = OInvTotal

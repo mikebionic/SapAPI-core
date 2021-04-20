@@ -113,6 +113,8 @@ def save_order_line_checkout_data(
 			ExcRateValue = price_data["ExcRateValue"]
 
 			if order_inv_line["OInvLinePrice"] != PriceValue:
+				print(order_inv_line["OInvLinePrice"])
+				print(PriceValue)
 				error_type = 4
 				raise Exception
 
@@ -133,7 +135,6 @@ def save_order_line_checkout_data(
 			order_inv_line["CurrencyId"] = CurrencyId
 			order_inv_line["ExcRateValue"] = ExcRateValue
 
-			# increment of Main Order Inv Total Price
 			OInvTotal += OInvLineFTotal
 			thisOInvLine = Order_inv_line(**order_inv_line)
 			db.session.add(thisOInvLine)

@@ -52,12 +52,21 @@ $('.paymentMethods input').click(function () {
 
 $('body').delegate('.checkoutCartBtn','click',function(){
 	cartCookie = Cookies.get('cart');
-	data={}
+	var data={}
+	var order_inv_lines = []
 	cartData=JSON.parse(cartCookie);
-	var PmId = null;
-	data['cartData']=cartData;
-	data['orderDesc']=$('.orderDesc').val();
+	for (i in cartData){
+		var orderInvLine = {}
+		orderInvLine["ResId"] = cartData[i]["resId"]
+		orderInvLine["OInvLineAmount"] = cartData[i]["productQty"]
+		orderInvLine["OInvLinePrice"] = cartData[i]["priceValue"]
+		order_inv_lines.push(orderInvLine)
+	}
 
+	data['OrderInvLines'] = order_inv_lines;
+	data['OInvDesc'] = $('.orderDesc').val();
+
+	var PmId = null;
 	try {
 		var payment_method = $('.paymentMethods input:checked')
 		if (parseInt(payment_method[0].value) > 0){
@@ -67,8 +76,9 @@ $('body').delegate('.checkoutCartBtn','click',function(){
 		PmId = null;
 	}
 	data['PmId'] = PmId
-	checkoutCart(data,url_prefix+'/product/ui_cart_checkout/','POST');
-
+	data['PtId'] = 1
+	console.log(data)
+	checkoutCart({"orderInv": data} ,url_prefix+'/commerce/checkout_cart_v1/','POST');
 });
 
 
@@ -119,10 +129,10 @@ function removeFromWishlist(ownerId){
 	$('.addToWishlist'+'[ownerId='+ownerId+']').show();
 }
 
-function addToCart(ownerId){	
+function addToCart(ownerId){
 	// $('.addToCart'+'[ownerId='+ownerId+']').hide();
 	// $('.removeFromCart'+'[ownerId='+ownerId+']').show();
-	priceValue = parseInt($('.priceValue'+'[ownerId='+ownerId+']').attr('value'));
+	priceValue = parseFloat($('.priceValue'+'[ownerId='+ownerId+']').attr('value'));
 	productQty = parseInt($('.productQty'+'[ownerId='+ownerId+']').val());
 	pending_amount = parseInt($('.productQty'+'[ownerId='+ownerId+']').attr('pending_amount'));
 	min_amount = parseInt($('.productQty'+'[ownerId='+ownerId+']').attr('min_amount'));
@@ -244,9 +254,9 @@ function qtyCheckout(
 		UI_cart_removal(ownerId)
 		removeFromCart(ownerId)
 	}
-	
+
 	qtyValue = parseInt(qtyValue)
-		
+
 	$('.productQty'+'[ownerId='+ownerId+']').attr('value',qtyValue);
 	$('.productQty'+'[ownerId='+ownerId+']').text(qtyValue);
 	$('.productQty'+'[ownerId='+ownerId+']').val(qtyValue);
@@ -455,7 +465,7 @@ $('body').delegate('.productQty', 'keyup', function() {
 	var ownerId = $(this).attr('ownerid');
 	var all_this = $('.productQty'+'[ownerId='+ownerId+']')
 	var qtySelectWrapper = all_this.parent()
-	
+
 	var this_quantity = parseInt($(this).val());
 	var pending_amount = parseInt($(this).attr('pending_amount'))
 	var min_amount = parseInt($(this).attr('min_amount'))

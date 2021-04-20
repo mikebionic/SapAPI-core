@@ -60,6 +60,9 @@ from main_pack.key_generator.utils import makeRegNo, generate, validate
 from datetime import datetime, timezone
 # / RegNo /
 
+from main_pack.api.common import (get_ResPriceGroupId)
+
+
 @bp.route("/product/ui_cart/", methods=['POST','PUT'])
 def ui_cart():
 	product_list = []
@@ -234,11 +237,10 @@ def ui_cart_checkout():
 				.filter_by(GCRecord = None, RpAccId = RpAccId)\
 				.first()
 
-			ResPriceGroupId = Config.DEFAULT_RES_PRICE_GROUP_ID if Config.DEFAULT_RES_PRICE_GROUP_ID > 0 else None
-			if current_user:
-				ResPriceGroupId = current_user.ResPriceGroupId if current_user.ResPriceGroupId else None
-			elif "ResPriceGroupId" in session:
-				ResPriceGroupId = session["ResPriceGroupId"]
+			ResPriceGroupId = get_ResPriceGroupId(
+				current_user= current_user,
+				session = session
+			)
 
 			currency_code = Config.DEFAULT_VIEW_CURRENCY_CODE
 			if "currency_code" in session:

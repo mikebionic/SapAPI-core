@@ -2,7 +2,7 @@
 from main_pack.config import Config
 from main_pack.models import Currency
 
-def get_currency_from_code(
+def get_currency_model_from_code(
 	currency_code = Config.DEFAULT_VIEW_CURRENCY_CODE,
 	session = None,
 	Currency_dbModel = None,
