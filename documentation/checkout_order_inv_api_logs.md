@@ -1,3 +1,38 @@
+# current json (update)
+```json
+{
+	"BaseOs": "",
+	"Release": "10",
+	"Brand": "samsung",
+	"Device": "a7y18lte",
+	"Display": "QP1A.190711.020.A750FXXU5CUA3",
+	"Id": "QP1A.190711.020",
+	"Manufacturer": "samsung",
+	"Model": "SM-A750F",
+	"IsPhysicalDevice": true,
+	"AndroidId": "e4d788879fbe6635",
+	"orderInv": {
+			"OInvTypeId": 2,
+			"InvStatId": 1,
+			"RpAccGuid": "0f547807-c691-40f1-af0d-4837f1075ddf",
+			"PtId": 1,
+			"PmId": 1,
+			"PaymStatusId": 1,
+			"OInvRegNo": "",
+			"OInvDesc": "",
+			"OrderInvLines": [
+					{
+							"UnitId": 1,
+							"ResId": 36,
+							"OInvLineAmount": 3.0,
+							"OInvLinePrice": 35.0
+					}
+			]
+	}
+}
+```
+
+
 # request json data
 ```JSON
 {

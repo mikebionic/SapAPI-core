@@ -77,7 +77,7 @@ def validate(
 				"RegNumLastNum": RegNumLastNum
 			}
 	except Exception as ex:
-		print(ex)
+		print(f"Reg Num validation exception: {ex}")
 		response = {
 			"status": "error",
 			"responseText": "Wrong prefix type or missing in database"
@@ -97,7 +97,7 @@ def makeRegNo(
 		if RegNumTypeId is None:
 			RegNumTypeId = RegNumTypeNamesDict[RegNumTypeName]
 	except Exception as ex:
-		print(ex)
+		print(f"Reg num creation exception: {ex}")
 	
 	if random_mode == True:
 		lastNum = randint(1,Config.REG_NUM_RANDOM_RANGE)

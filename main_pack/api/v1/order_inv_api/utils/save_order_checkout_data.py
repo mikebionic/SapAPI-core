@@ -22,6 +22,7 @@ from main_pack.api.common import (
 	get_last_Warehouse_by_DivId,
 	get_ResPriceGroupId,
 	get_payment_method_by_id,
+	get_currency_from_code,
 )
 
 
@@ -92,12 +93,20 @@ def save_order_checkout_data(req, model_type, current_user, session = None):
 		order_invoice_info["WhId"] = WhId
 		order_invoice_info["DivId"] = DivId
 		order_invoice_info["CId"] = CId
-
-
-		# !!! TODO configure this grep method
-		if not order_invoice_info["CurrencyId"]:
-			order_invoice_info["CurrencyId"] = 1
 		order_invoice_info["RpAccId"] = RpAccId
+
+		currency_code = Config.DEFAULT_VIEW_CURRENCY_CODE
+		if "CurrencyCode" in req["orderInv"]:
+			currency_code = req["orderInv"]["CurrencyCode"] if req["orderInv"]["CurrencyCode"] else currency_code
+		
+		inv_currency = get_currency_from_code(
+			currency_code = currency_code,
+			session = session,
+		)
+		if not inv_currency:
+			raise Exception
+
+		order_invoice_info["CurrencyId"] = inv_currency.CurrencyId
 
 		this_Order_inv = Order_inv(**order_invoice_info)
 		db.session.add(this_Order_inv)
@@ -105,14 +114,15 @@ def save_order_checkout_data(req, model_type, current_user, session = None):
 
 		ResPriceGroupId = get_ResPriceGroupId(model_type, current_user, session)
 
-		data, fails, OInvTotal, CurrencyCode = save_order_line_checkout_data(
+		data, fails, OInvTotal = save_order_line_checkout_data(
 			req = order_inv_lines_req,
 			OInvId = this_Order_inv.OInvId,
 			user_id = user_id,
 			user_short_name = user_short_name,
 			WhId = WhId,
 			ResPriceGroupId = ResPriceGroupId,
-			check_price_value = 1 if model_type != "user" else 0
+			check_price_value = 1 if model_type != "user" else 0,
+			inv_currency = inv_currency,
 		)
 
 		if fails:
@@ -132,7 +142,8 @@ def save_order_checkout_data(req, model_type, current_user, session = None):
 			OInvFTotalInWrite = price2text(
 				OInvFTotal,
 				Config.PRICE_2_TEXT_LANGUAGE,
-				CurrencyCode)
+				inv_currency.CurrencyCode,
+			)
 
 			this_Order_inv.OInvTotal = float(decimal.Decimal(OInvTotal))
 			this_Order_inv.OInvFTotal = float(decimal.Decimal(OInvFTotal))
