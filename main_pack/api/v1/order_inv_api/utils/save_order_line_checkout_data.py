@@ -86,7 +86,7 @@ def save_order_line_checkout_data(
 					List_Currencies = [currency.to_json_api() for currency in currencies if currency.CurrencyId == List_Res_price[0]["CurrencyId"]]
 				except:
 					List_Currencies = []
-				this_currencyCode = List_Currencies[0]["CurrencyCode"] if List_Currencies else Config.
+				this_currencyCode = List_Currencies[0]["CurrencyCode"] if List_Currencies else Config.DEFAULT_VIEW_CURRENCY_CODE
 
 			else:
 				this_currencyCode = inv_currency.CurrencyCode

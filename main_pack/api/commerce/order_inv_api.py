@@ -17,7 +17,8 @@ from main_pack.models import (
 	Order_inv,Resource,
 	Order_inv_line,
 	Inv_status,
-	Res_total
+	Res_total,
+	Resource,
 )
 from .utils import (
 	addOrderInvDict,

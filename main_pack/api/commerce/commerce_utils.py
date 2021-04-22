@@ -243,12 +243,13 @@ def apiResourceInfo(
 
 	# ResPriceGroupId assignment and validation
 	if not ResPriceGroupId:
+		ResPriceGroupId = Config.DEFAULT_RES_PRICE_GROUP_ID
 		try:
 			if "ResPriceGroupId" in session:
 				ResPriceGroupId = session["ResPriceGroupId"]
 
 			elif current_user.is_authenticated:
-				ResPriceGroupId = current_user.ResPriceGroupId if current_user.ResPriceGroupId else None
+				ResPriceGroupId = current_user.ResPriceGroupId if current_user.ResPriceGroupId else Config.DEFAULT_RES_PRICE_GROUP_ID
 		except Exception as ex:
 			print(f"{datetime.now()} | resource_info api ResPriceGroupId exception: {ex}")
 
@@ -300,7 +301,7 @@ def apiResourceInfo(
 					"ResId": ResId,
 					"GCRecord": None,
 				}
-				if showInactive == False:
+				if not showInactive:
 					resource_filtering["UsageStatusId"] = 1
 
 				# # fetching total by division
