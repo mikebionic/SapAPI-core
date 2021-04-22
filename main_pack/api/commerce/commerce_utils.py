@@ -68,13 +68,6 @@ def collect_categories_query(
 	showNullResourceCategory = 0,
 	IsMain = False):
 
-	# if DivId is None:
-	# 	# !!! TODO: This option will live for a while
-	# 	avoidQtyCheckup = 1
-
-	# 	division = Division.query.filter_by(DivGuid = Config.C_MAIN_DIVGUID, GCRecord = None).first()
-	# 	DivId = division.DivId if division else 1
-
 	Res_Total_subquery = db.session.query(
 		Res_total.ResId,
 		db.func.sum(Res_total.ResTotBalance).label("ResTotBalance_sum"),
@@ -139,16 +132,6 @@ def collect_resources_query(
 	if showInactive == False:
 		resource_filtering["UsageStatusId"] = 1
 
-	# # fetching total by division
-	# if DivId is None:
-	# 	# !!! TODO: This option will live for a while
-	# 	avoidQtyCheckup = 1
-
-	# 	division = Division.query\
-	# 		.filter_by(DivGuid = Config.C_MAIN_DIVGUID, GCRecord = None)\
-	# 		.first()
-	# 	DivId = division.DivId if division else 1
-
 	Res_Total_subquery = db.session.query(
 		Res_total.ResId,
 		db.func.sum(Res_total.ResTotBalance).label("ResTotBalance_sum"),
@@ -161,7 +144,6 @@ def collect_resources_query(
 	Res_Total_subquery = Res_Total_subquery\
 		.group_by(Res_total.ResId)\
 		.subquery()
-
 
 	resource_query = db.session.query(
 		Resource,
@@ -196,8 +178,6 @@ def collect_resources_query(
 			.order_by(Rating.RtRatingValue.asc())\
 			.limit(Config.RESOURCE_MAIN_PAGE_SHOW_QTY + 1)
 
-	#if DivId:
-	#	resource_query = resource_query.filter(Resource.DivId == DivId)
 	if notDivId:
 		resource_query = resource_query.filter(Resource.DivId != notDivId)
 
@@ -304,14 +284,6 @@ def apiResourceInfo(
 				if not showInactive:
 					resource_filtering["UsageStatusId"] = 1
 
-				# # fetching total by division
-				# if DivId is None:
-				# 	# !!! TODO: This option will live for a while
-				# 	avoidQtyCheckup = 1
-
-				# 	division = Division.query.filter_by(DivGuid = Config.C_MAIN_DIVGUID).first()
-				# 	DivId = division.DivId if division else None
-
 				Res_Total_subquery = db.session.query(
 					Res_total.ResId,
 					db.func.sum(Res_total.ResTotBalance).label("ResTotBalance_sum"),
@@ -325,8 +297,6 @@ def apiResourceInfo(
 				Res_Total_subquery = Res_Total_subquery\
 					.group_by(Res_total.ResId)\
 					.subquery()
-
-
 
 				resource_query = db.session.query(
 					Resource,
@@ -610,7 +580,6 @@ def apiFeaturedResCat_Resources(DivId = None):
 
 	if featured_categories:
 		featured_resources_query = collect_resources_query(DivId = DivId)
-		featured_resources_list = []
 
 		categories_data = {}
 		for category in featured_categories:
@@ -767,8 +736,9 @@ def apiOrderInvInfo(
 			currency_data = [currency.to_json_api() for currency in currencies if currency.CurrencyId == order_inv.CurrencyId]
 
 			if not currency_data:
-				print("order_inv_api exception: no currency specified")
-				raise Exception
+				currency_data = [{"CurrencyCode": Config.DEFAULT_VIEW_CURRENCY_CODE}]
+				# print("order_inv_api exception: no currency specified")
+				# raise Exception
 
 			this_Total = order_inv_info["OInvTotal"]
 			this_FTotal = order_inv_info["OInvFTotal"]
@@ -797,13 +767,9 @@ def apiOrderInvInfo(
 			rp_acc_data = {}
 			if rp_acc_user:
 				rp_acc_data = rp_acc_user.to_json_api()
-				# rpAccData = apiRpAccData(dbModel = rp_acc_user)
-				# rp_acc_data = rpAccData["data"]
 
 			elif order_inv.rp_acc:
 				rp_acc_data = order_inv.rp_acc.to_json_api()
-				# rpAccData = apiRpAccData(dbModel = rp_acc_user)
-				# rp_acc_data = rpAccData["data"]
 
 			# !!! Deprecated
 			rp_acc_data["Images"] = []
@@ -829,8 +795,9 @@ def apiOrderInvInfo(
 						currency_data = [currency.to_json_api() for currency in currencies if currency.CurrencyId == order_inv_line.CurrencyId]
 
 						if not currency_data:
-							print("order_inv_api line exception: no currency specified")
-							raise Exception
+							currency_data = [{"CurrencyCode": Config.DEFAULT_VIEW_CURRENCY_CODE}]
+							# print("order_inv_api line exception: no currency specified")
+							# raise Exception
 
 						this_line_Price = this_order_inv_line["OInvLinePrice"]
 						this_line_Total = this_order_inv_line["OInvLineTotal"]

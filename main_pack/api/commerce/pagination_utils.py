@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from flask import jsonify, request, make_response, url_for
-from sqlalchemy import and_
+from sqlalchemy import and_, extract
 from sqlalchemy.orm import joinedload
 
 # datetime, date-parser
@@ -93,23 +93,13 @@ def collect_resource_paginate_info(
 			"status": 0
 		}
 	]
-	sort_title = None
-	
+
 	resource_filtering = {
 		"GCRecord": None,
 	}
 	
 	if showInactive == False:
 		resource_filtering["UsageStatusId"] = 1
-	
-	# if DivId is None:
-	# 	# !!! TODO: This option will live for a while
-	# 	avoidQtyCheckup = 1
-
-	# 	division = Division.query\
-	# 		.filter_by(DivGuid = Config.C_MAIN_DIVGUID, GCRecord = None)\
-	# 		.first()
-	# 	DivId = division.DivId if division else 1
 
 	Res_Total_subquery = db.session.query(
 		Res_total.ResId,
@@ -188,9 +178,7 @@ def collect_resource_paginate_info(
 		for sort_type in sort_types:
 			if sort_type["sort"] == sort:
 				sort_type["status"] = 1
-	
-	# if DivId:
-	# 	resource_query = resource_query.filter_by(DivId = DivId)
+
 	if notDivId:
 		resource_query = resource_query.filter(Resource.DivId != notDivId)
 
@@ -351,7 +339,6 @@ def collect_order_inv_paginate_info(
 			"status": 0
 		}
 	]
-	sort_title = None
 
 	order_invoices = Order_inv.query\
 		.filter_by(GCRecord = None)
