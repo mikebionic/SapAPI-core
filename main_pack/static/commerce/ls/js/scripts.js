@@ -135,10 +135,18 @@ $(document).ready(function($) {
 					breakpoint: 654,
 					settings: {
 							autoplay: true,
-							slidesToShow: 2,
+							slidesToShow: 3,
 							arrows: false,
 					}
 			},
+			{
+				breakpoint: 588,
+				settings: {
+						autoplay: true,
+						slidesToShow: 2,
+						arrows: false,
+				}
+		},
 			{
 					breakpoint: 384,
 					settings: {

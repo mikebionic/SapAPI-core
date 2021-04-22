@@ -316,8 +316,9 @@ Product Slider
 $('.product-slider-4').slick({
 	arrows: true,
 	dots: false,
-	autoplay: false,
+	autoplay: true,
 	infinite: true,
+	slidesToScroll: 3,
 	slidesToShow: 4,
 	prevArrow: '<button type="button" class="slick-prev"><i class="icofont icofont-long-arrow-left"></i></button>',
 	nextArrow: '<button type="button" class="slick-next"><i class="icofont icofont-long-arrow-right"></i></button>',
@@ -326,6 +327,7 @@ $('.product-slider-4').slick({
 					breakpoint: 1199,
 
 					settings: {
+							autoplay: true,
 							slidesToShow: 4,
 					}
 			},
@@ -333,6 +335,7 @@ $('.product-slider-4').slick({
 					breakpoint: 1300,
 
 					settings: {
+							autoplay: true,
 							slidesToShow: 5,
 					}
 			},
@@ -340,6 +343,7 @@ $('.product-slider-4').slick({
 					breakpoint: 1440,
 
 					settings: {
+							autoplay: true,
 							slidesToShow: 5,
 					}
 			},
@@ -347,6 +351,7 @@ $('.product-slider-4').slick({
 					breakpoint: 1600,
 
 					settings: {
+							autoplay: true,
 							slidesToShow: 5,
 					}
 			},
@@ -354,6 +359,7 @@ $('.product-slider-4').slick({
 					breakpoint: 1800,
 
 					settings: {
+							autoplay: true,
 							slidesToShow: 6,
 					}
 			},
@@ -361,6 +367,7 @@ $('.product-slider-4').slick({
 					breakpoint: 2700,
 
 					settings: {
+							autoplay: true,
 							slidesToShow: 9,
 					}
 			},
@@ -368,6 +375,7 @@ $('.product-slider-4').slick({
 					breakpoint: 2400,
 
 					settings: {
+							autoplay: true,
 							slidesToShow: 8,
 					}
 			},
@@ -375,12 +383,14 @@ $('.product-slider-4').slick({
 					breakpoint: 2000,
 
 					settings: {
+							autoplay: true,
 							slidesToShow: 7,
 					}
 			},
 			{
 					breakpoint: 992,
 					settings: {
+							autoplay: true,
 							slidesToShow: 3,
 					}
 			},
@@ -395,6 +405,7 @@ $('.product-slider-4').slick({
 			{
 					breakpoint: 654,
 					settings: {
+							// slidesToScroll: 2,
 							autoplay: true,
 							slidesToShow: 2,
 							arrows: false,
