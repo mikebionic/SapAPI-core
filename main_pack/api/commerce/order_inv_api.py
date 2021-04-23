@@ -102,7 +102,6 @@ def api_order_invoices():
 				DivGuid = order_inv_req['DivGuid']
 				WhGuid = order_inv_req['WhGuid']
 				RpAccGuid = order_inv_req['RpAccGuid']
-				RpAccRegNo = order_inv_req['RpAccRegNo']
 
 				OInvGuid = order_invoice['OInvGuid']
 				OInvRegNo = order_invoice['OInvRegNo']

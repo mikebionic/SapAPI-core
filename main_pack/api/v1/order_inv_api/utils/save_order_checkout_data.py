@@ -104,6 +104,7 @@ def save_order_checkout_data(req, model_type, current_user, session = None):
 			session = session,
 		)
 		if not inv_currency:
+			print(f"{datetime.now()} | v1 Order Checkout exception: No currency found")
 			raise Exception
 
 		order_invoice_info["CurrencyId"] = inv_currency.CurrencyId
