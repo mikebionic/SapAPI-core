@@ -106,3 +106,16 @@ def sitemap():
 		directory = Config.WEB_CONFIG_DIRECTORY,
 		filename="sitemap.xml",
 		as_attachment=False)
+
+# from main_pack import client
+
+
+# @bp.route("/queue/<message>")
+# def queue(message):
+# 	print(message)
+# 	queued_function.apply_async(args = [message], countdown = 5)
+# 	return "queue received"
+
+# @client.task
+# def queued_function(message):
+# 	print(f"Queued returns : {message}")

@@ -40,7 +40,7 @@ class Config:
 	MINIFY_HTML_RESPONSE = int(environ.get('MINIFY_HTML_RESPONSE')) if environ.get('MINIFY_HTML_RESPONSE') else 1
 
 	EMAIL_ERROR_REPORTS = int(environ.get('EMAIL_ERROR_REPORTS')) if environ.get('EMAIL_ERROR_REPORTS') else 0
-	EMAIL_ERROR_REPORTS_ADDRESSES = json.loads(environ.get('EMAIL_ERROR_REPORTS_ADDRESSES'))
+	EMAIL_ERROR_REPORTS_ADDRESSES = json.loads(environ.get('EMAIL_ERROR_REPORTS_ADDRESSES')) or []
 
 	COMPANY_NAME = environ.get('COMPANY_NAME') or 'Company'
 
@@ -80,14 +80,16 @@ class Config:
 	# # Sessions, Redis, Cache, Cookies
 	if OS_TYPE != 'win32':
 		SESSION_TYPE = environ.get('SESSION_TYPE')
-		SESSION_REDIS = redis.from_url(environ.get('SESSION_REDIS'))
+		SESSION_REDIS = redis.from_url(environ.get('SESSION_REDIS')) if environ.get('SESSION_REDIS') else redis.from_url('redis://:@127.0.0.1:6379/1')
 
 	CACHE_TYPE = environ.get('CACHE_TYPE') or ''
 	CACHE_DEFAULT_TIMEOUT = 300
 	DB_CACHE_TIME = int(environ.get('DB_CACHE_TIME')) if environ.get('DB_CACHE_TIME') else 600
-	CACHE_REDIS_URL = environ.get('CACHE_REDIS_URL')
+	CACHE_REDIS_URL = environ.get('CACHE_REDIS_URL') or 'redis://:@127.0.0.1:6379/2'
 	# # / Sessions, Redis, Cache, Cookies /
 
+	CELERY_BROKER_URL = environ.get('CELERY_BROKER_URL') or 'redis://:@127.0.0.1:6379/3'
+	CELERY_RESULT_BACKEND = environ.get('CELERY_RESULT_BACKEND') or 'redis://:@127.0.0.1:6379/3'
 
 	# modules url prefixes
 	API_URL_PREFIX = environ.get('API_URL_PREFIX') or '/api'

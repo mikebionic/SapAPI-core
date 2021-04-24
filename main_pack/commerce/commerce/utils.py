@@ -183,11 +183,11 @@ from main_pack import mail
 from flask_mail import Message
 
 def send_email_to_company(message):
-	recipient = Config.COMPANY_MAIL
+	addresses = Config.EMAIL_ERROR_REPORTS_ADDRESSES
+	addresses.append(Config.COMPANY_MAIL)
 	msg = Message('Message from users',
 		sender = Config.MAIL_USERNAME,
-		recipients = [recipient])
+		recipients = addresses)
 	msg.body = message
 	mail.send(msg)
-	# !!! TODO: catch errors here
 	return True
