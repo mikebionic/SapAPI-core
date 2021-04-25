@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
 from flask import request, make_response, jsonify
 
-from main_pack.api.v1.rp_acc_api import api
 from main_pack.api.auth.utils import token_required
+
+from main_pack.api.v1.rp_acc_api import api
 from main_pack.api.v1.rp_acc_api.utils import collect_rp_acc_data
 
 
 @api.route("/v-rp-accs/")
 @token_required
-def v_rp_acc():
+def v_rp_acc(user):
 	arg_data = {
 		"DivId": request.args.get("DivId",None,type=int),
 		"DivGuid": request.args.get("DivGuid",None,type=str),
@@ -18,7 +19,8 @@ def v_rp_acc():
 		"RpAccRegNo": request.args.get("regNo","",type=str),
 		"RpAccName": request.args.get("name","",type=str),
 		"UId": request.args.get("userId",None,type=int),
-		"EmpId": request.args.get("empId",None,type=int)
+		"EmpId": request.args.get("empId",None,type=int),
+		"withImage": request.args.get("withImage",0,type=int),
 	}
 
 	arg_data["withPassword"] = 1
@@ -30,6 +32,4 @@ def v_rp_acc():
 		"data": data,
 		"total": len(data)
 	}
-	response = make_response(jsonify(res), 200)
-
-	return response
+	return make_response(jsonify(res), 200)

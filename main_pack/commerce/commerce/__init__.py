@@ -10,5 +10,6 @@ from main_pack.commerce.commerce import (
 	ui_cart,
 	v_products,
 	ui_wishlist,
-	ui_rating
+	ui_rating,
+	checkout_cart_v1,
 )

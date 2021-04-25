@@ -2,27 +2,30 @@
 from datetime import datetime
 
 from main_pack import db
+from main_pack.config import Config
 from main_pack.models import (
 	Order_inv,
 	Order_inv_line,
 	Res_total,
-	Resource
+	Resource,
+	Currency,
 )
 from main_pack.api.common import (
 	get_division_id_guid_list,
 	get_warehouse_id_guid_list,
 	get_rp_acc_id_guid_list,
+	get_currency_from_code,
 )
 from .add_Order_inv_dict import add_Order_inv_dict
 from .add_Order_inv_line_dict import add_Order_inv_line_dict
 from main_pack.base import get_id_from_list_indexing
 
+
 def save_order_inv_synch_data(req):
-	DivId_list, DivGuid_list = get_division_id_guid_list()
-	WhId_list, WhGuid_list = get_warehouse_id_guid_list()
-	RpAccId_list, RpAccGuid_list = get_rp_acc_id_guid_list()
 
 	data, fails = [], []
+
+	currencies = Currency.query.filter_by(GCRecord = None).all()
 
 	for order_inv_req in req:
 		try:
@@ -34,25 +37,43 @@ def save_order_inv_synch_data(req):
 			OInvGuid = order_invoice['OInvGuid']
 			OInvRegNo = order_invoice['OInvRegNo']
 
+			DivId_list, DivGuid_list = get_division_id_guid_list()
+			WhId_list, WhGuid_list = get_warehouse_id_guid_list()
+			RpAccId_list, RpAccGuid_list = get_rp_acc_id_guid_list()
+
 			DivId = get_id_from_list_indexing(DivId_list, DivGuid_list, DivGuid)
 			WhId = get_id_from_list_indexing(WhId_list, WhGuid_list, WhGuid)
 			RpAccId = get_id_from_list_indexing(RpAccId_list, RpAccGuid_list, RpAccGuid)
+
+			if not RpAccId or not DivId or not WhId:
+				print(f"{RpAccId}, {DivId}, {WhId}")
+				raise Exception
 
 			order_invoice['DivId'] = DivId
 			order_invoice['WhId'] = WhId
 			order_invoice['RpAccId'] = RpAccId
 
+			currency_code = Config.DEFAULT_VIEW_CURRENCY_CODE
+			if "CurrencyCode" in req["orderInv"]:
+				currency_code = req["orderInv"]["CurrencyCode"] if req["orderInv"]["CurrencyCode"] else currency_code
+
+			inv_currency = get_currency_from_code(
+				currency_code = currency_code,
+				Currency_dbModel = currencies,
+			)
+			if not inv_currency:
+				print(f"{datetime.now()} | v1 Order Checkout exception: No currency found")
+				raise Exception
+
+			order_invoice["CurrencyId"] = inv_currency.CurrencyId
+			
 			thisOrderInv = Order_inv.query\
 				.filter_by(
 					OInvGuid = OInvGuid,
-					OInvRegNo = OInvRegNo,
+					# OInvRegNo = OInvRegNo,
 					GCRecord = None)\
 				.first()
 			thisInvStatus = None
-
-			if not RpAccId or not DivId or not WhId:
-				print(f"{RpAccId}, {DivId}, {WhId}")
-				raise Exception
 
 			if thisOrderInv:
 				order_invoice['OInvId'] = thisOrderInv.OInvId
@@ -78,6 +99,20 @@ def save_order_inv_synch_data(req):
 				ResRegNo = order_inv_line_req['ResRegNo']
 				ResGuid = order_inv_line_req['ResGuid']
 
+				currency_code = Config.DEFAULT_VIEW_CURRENCY_CODE
+				if "CurrencyCode" in order_inv_line_req:
+					currency_code = order_inv_line_req["CurrencyCode"] if order_inv_line_req["CurrencyCode"] else currency_code
+
+				inv_line_currency = get_currency_from_code(
+					currency_code = currency_code,
+					Currency_dbModel = currencies,
+				)
+				if not inv_line_currency:
+					print(f"{datetime.now()} | v1 Order Checkout exception: No currency found")
+					raise Exception
+
+				order_inv_line["CurrencyId"] = inv_line_currency.CurrencyId
+
 				this_line_resource = Resource.query\
 					.filter_by(
 						ResRegNo = ResRegNo,
@@ -92,8 +127,8 @@ def save_order_inv_synch_data(req):
 
 					thisOrderInvLine = Order_inv_line.query\
 						.filter_by(
-							OInvLineRegNo = OInvLineRegNo,
 							OInvLineGuid = OInvLineGuid,
+							# OInvLineRegNo = OInvLineRegNo,
 							GCRecord = None)\
 						.first()
 

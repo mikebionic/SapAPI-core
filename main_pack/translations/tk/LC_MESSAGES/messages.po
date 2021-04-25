@@ -866,3 +866,12 @@ msgstr "Hasabyňyza girmek üçin aşakdaky talap edilýän maglumatlary grizmek
 
 msgid "If you already have an account, press 'Login' button and proceed to login process"
 msgstr "Hasabyňyz bar bolsa, 'Giriş' düwmä basyň we hasabyňyza giriň"
+
+msgid "Register to use all the features and posibilities of ecommerce"
+msgstr "Söwdanyň doly mümkinçiliklerni peýdalanmak üçin Hasaba alyň"
+
+msgid "If you don't have an account, click the 'Register' button and proceed the registration"
+msgstr "Eger-de hasaba alynmadyk bolsaňyz, 'Hasaba al' düwmä basyň we hasap döretmek üçin görkezmelere eýeriň"
+
+msgid "Specify the payment method"
+msgstr "Töleg usulyny görkeziň"

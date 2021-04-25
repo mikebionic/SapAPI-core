@@ -6,7 +6,6 @@ from . import bp, url_prefix
 from main_pack.config import Config
 from main_pack import db, gettext
 
-# Resource and view
 from main_pack.api.commerce.commerce_utils import apiResourceInfo, apiFeaturedResCat_Resources
 from main_pack.commerce.commerce.utils import (
 	slidersData,
@@ -16,26 +15,16 @@ from main_pack.commerce.commerce.utils import (
 from main_pack.models import Division
 
 from main_pack.commerce.commerce.forms import SendEmailToCompanyForm
-# / Resource and view /
+from main_pack.api.common import get_payment_methods
 
 
 @bp.route("/")
 @bp.route(Config.COMMERCE_HOME_PAGE)
 def commerce():
-
-	# division = Division.query\
-	# 	.filter_by(DivGuid = Config.C_MAIN_DIVGUID, GCRecord = None)\
-	# 	.first()
-	# DivId = division.DivId if division else 1
-
 	latest_resources = apiResourceInfo(
 		showLatest = True,
-		# DivId = DivId
 	)
-	# rated_resources = apiResourceInfo(showRated = True)
-	featured_categories = apiFeaturedResCat_Resources(
-		# DivId = DivId
-	)
+	featured_categories = apiFeaturedResCat_Resources()
 	brands = UiBrandsList()
 	# "Rated_resources": rated_resources['data'],
 	res = {
@@ -135,10 +124,12 @@ def contact():
 @bp.route(Config.COMMERCE_CART_VIEW)
 def cart():
 	categoriesData = UiCategoriesList()
+	payment_methods = get_payment_methods()
 
 	return render_template(
 		f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/commerce/cart.html",
 		**categoriesData,
+		payment_methods = payment_methods,
 		url_prefix = url_prefix,
 		title = gettext(Config.COMMERCE_CART_VIEW_TITLE))
 

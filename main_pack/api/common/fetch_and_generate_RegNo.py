@@ -23,7 +23,7 @@ def fetch_and_generate_RegNo(user_id, user_short_name, reg_no_type, RegNo = None
 				True
 			)
 		except Exception as ex:
-			print(f"{datetime.now()} | OInv RegNum Exception: {ex}. Couldn't generate RegNo using User's credentials")
+			print(f"{datetime.now()} | RegNum Exception: {ex}. Couldn't generate RegNo using User's credentials")
 			RegNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
 
 	else:

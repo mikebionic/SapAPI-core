@@ -32,6 +32,7 @@ def save_order_line_checkout_data(
 	WhId = None,
 	ResPriceGroupId = None,
 	check_price_value = 1,
+	inv_currency = None,
 ):
 
 	currencies = Currency.query.filter_by(GCRecord = None).all()
@@ -73,18 +74,22 @@ def save_order_line_checkout_data(
 			List_Res_price = calculatePriceByGroup(
 				ResPriceGroupId = ResPriceGroupId,
 				Res_price_dbModels = resource.Res_price,
-				Res_pice_group_dbModels = res_price_groups)
-
+				Res_pice_group_dbModels = res_price_groups
+			)
 			if not List_Res_price:
 				raise Exception
 
-			try:
-				List_Currencies = [currency.to_json_api() for currency in currencies if currency.CurrencyId == List_Res_price[0]["CurrencyId"]]
-			except:
-				List_Currencies = []
-
 			this_priceValue = List_Res_price[0]["ResPriceValue"] if List_Res_price else 0.0
-			this_currencyCode = List_Currencies[0]["CurrencyCode"] if List_Currencies else Config.MAIN_CURRENCY_CODE
+
+			if not inv_currency:
+				try:
+					List_Currencies = [currency.to_json_api() for currency in currencies if currency.CurrencyId == List_Res_price[0]["CurrencyId"]]
+				except:
+					List_Currencies = []
+				this_currencyCode = List_Currencies[0]["CurrencyCode"] if List_Currencies else Config.DEFAULT_VIEW_CURRENCY_CODE
+
+			else:
+				this_currencyCode = inv_currency.CurrencyCode
 
 			price_data = price_currency_conversion(
 				priceValue = this_priceValue,
@@ -124,16 +129,15 @@ def save_order_line_checkout_data(
 			# add taxes and stuff later on
 			OInvLineFTotal = OInvLineTotal
 
-			order_inv_line["OInvLineAmount"] = decimal.Decimal(OInvLineAmount)
-			order_inv_line["OInvLinePrice"] = decimal.Decimal(OInvLinePrice)
-			order_inv_line["OInvLineTotal"] = decimal.Decimal(OInvLineTotal)
-			order_inv_line["OInvLineFTotal"] = decimal.Decimal(OInvLineFTotal)
+			order_inv_line["OInvLineAmount"] = float(decimal.Decimal(OInvLineAmount))
+			order_inv_line["OInvLinePrice"] = float(decimal.Decimal(OInvLinePrice))
+			order_inv_line["OInvLineTotal"] = float(decimal.Decimal(OInvLineTotal))
+			order_inv_line["OInvLineFTotal"] = float(decimal.Decimal(OInvLineFTotal))
 			order_inv_line["OInvId"] = OInvId
 			order_inv_line["UnitId"] = resource.UnitId
 			order_inv_line["CurrencyId"] = CurrencyId
 			order_inv_line["ExcRateValue"] = ExcRateValue
 
-			# increment of Main Order Inv Total Price
 			OInvTotal += OInvLineFTotal
 			thisOInvLine = Order_inv_line(**order_inv_line)
 			db.session.add(thisOInvLine)
@@ -151,4 +155,4 @@ def save_order_line_checkout_data(
 			fails.append(fail_info)
 
 
-	return data, fails, OInvTotal, CurrencyCode
+	return data, fails, OInvTotal

@@ -21,6 +21,8 @@ from main_pack.api.common import (
 	get_last_Work_period,
 	get_last_Warehouse_by_DivId,
 	get_ResPriceGroupId,
+	get_payment_method_by_id,
+	get_currency_from_code,
 )
 
 
@@ -28,8 +30,16 @@ def save_order_checkout_data(req, model_type, current_user, session = None):
 	req['orderInv']['OInvGuid'] = str(uuid.uuid4())
 	try:
 		order_invoice_info = add_Order_inv_dict(req['orderInv'])
-		orderRegNo = req['orderInv']['OInvRegNo']
-		InvStatId = int(req['orderInv']['InvStatId'])
+		orderRegNo = req['orderInv']['OInvRegNo'] if "OInvRegNo" in req['orderInv'] else None
+		InvStatId = int(req['orderInv']['InvStatId']) if "InvStatId" in req['orderInv'] else None
+
+		PmId = req['orderInv']['PmId']
+		if not PmId:
+			raise Exception
+
+		payment_method = get_payment_method_by_id(PmId)
+		if not payment_method:
+			raise Exception
 
 		if not req['orderInv']['OrderInvLines']:
 			raise Exception
@@ -39,7 +49,7 @@ def save_order_checkout_data(req, model_type, current_user, session = None):
 			user_id = current_user.user.UId
 			user_short_name = current_user.user.UShortName
 			RpAccId = current_user.RpAccId
-		
+
 		if model_type == "device":
 			current_user = current_user.user
 			model_type = "user"
@@ -48,7 +58,7 @@ def save_order_checkout_data(req, model_type, current_user, session = None):
 			user_id = current_user.UId
 			user_short_name = current_user.UShortName
 
-			RpAccGuid = req['RpAccGuid']
+			RpAccGuid = req['orderInv']['RpAccGuid']
 			rp_acc = Rp_acc.query.filter_by(RpAccGuid = RpAccGuid).first()
 			RpAccId = rp_acc.RpAccId if rp_acc else None
 			if not RpAccId:
@@ -77,18 +87,27 @@ def save_order_checkout_data(req, model_type, current_user, session = None):
 		WhId = warehouse.WhId
 
 		order_invoice_info["OInvRegNo"] = RegNo
-		order_invoice_info["InvStatId"] = 1
+		order_invoice_info["InvStatId"] = InvStatId if InvStatId == 13 else 1
 		order_invoice_info["OInvTypeId"] = 2
 		order_invoice_info["WpId"] = work_period.WpId
 		order_invoice_info["WhId"] = WhId
 		order_invoice_info["DivId"] = DivId
 		order_invoice_info["CId"] = CId
-		if InvStatId == 13:
-			order_invoice_info["InvStatId"] = InvStatId
-
-		if not order_invoice_info["CurrencyId"]:
-			order_invoice_info["CurrencyId"] = 1
 		order_invoice_info["RpAccId"] = RpAccId
+
+		currency_code = Config.DEFAULT_VIEW_CURRENCY_CODE
+		if "CurrencyCode" in req["orderInv"]:
+			currency_code = req["orderInv"]["CurrencyCode"] if req["orderInv"]["CurrencyCode"] else currency_code
+		
+		inv_currency = get_currency_from_code(
+			currency_code = currency_code,
+			session = session,
+		)
+		if not inv_currency:
+			print(f"{datetime.now()} | v1 Order Checkout exception: No currency found")
+			raise Exception
+
+		order_invoice_info["CurrencyId"] = inv_currency.CurrencyId
 
 		this_Order_inv = Order_inv(**order_invoice_info)
 		db.session.add(this_Order_inv)
@@ -96,14 +115,15 @@ def save_order_checkout_data(req, model_type, current_user, session = None):
 
 		ResPriceGroupId = get_ResPriceGroupId(model_type, current_user, session)
 
-		data, fails, OInvTotal, CurrencyCode = save_order_line_checkout_data(
+		data, fails, OInvTotal = save_order_line_checkout_data(
 			req = order_inv_lines_req,
 			OInvId = this_Order_inv.OInvId,
 			user_id = user_id,
 			user_short_name = user_short_name,
 			WhId = WhId,
 			ResPriceGroupId = ResPriceGroupId,
-			check_price_value = 1 if model_type != "user" else 0
+			check_price_value = 1 if model_type != "user" else 0,
+			inv_currency = inv_currency,
 		)
 
 		if fails:
@@ -115,16 +135,19 @@ def save_order_checkout_data(req, model_type, current_user, session = None):
 				"fail_total": len(fails),
 				"total": len(order_inv_lines_req)
 			}
+			db.session.delete(this_Order_inv)
+			db.session.commit()
 
 		else:
 			OInvFTotal = OInvTotal
 			OInvFTotalInWrite = price2text(
 				OInvFTotal,
 				Config.PRICE_2_TEXT_LANGUAGE,
-				CurrencyCode)
+				inv_currency.CurrencyCode,
+			)
 
-			this_Order_inv.OInvTotal = decimal.Decimal(OInvTotal)
-			this_Order_inv.OInvFTotal = decimal.Decimal(OInvFTotal)
+			this_Order_inv.OInvTotal = float(decimal.Decimal(OInvTotal))
+			this_Order_inv.OInvFTotal = float(decimal.Decimal(OInvFTotal))
 			this_Order_inv.OInvFTotalInWrite = OInvFTotalInWrite
 
 			if pred_reg_num:

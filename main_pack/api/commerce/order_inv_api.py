@@ -14,10 +14,12 @@ from main_pack.config import Config
 
 # orders and db methods
 from main_pack.models import (
-	Order_inv,Resource,
+	Order_inv,
 	Order_inv_line,
 	Inv_status,
-	Res_total
+	Res_total,
+	Resource,
+	Currency,
 )
 from .utils import (
 	addOrderInvDict,
@@ -88,7 +90,9 @@ def api_order_invoices():
 
 		rp_acc_RpAccId_list = [rp_acc.RpAccId for rp_acc in rp_accs]
 		rp_acc_RpAccGuid_list = [str(rp_acc.RpAccGuid) for rp_acc in rp_accs]
-		
+
+		currencies = Currency.query.filter_by(GCRecord = None).all()
+
 		data = []
 		failed_data = [] 
 
@@ -98,7 +102,6 @@ def api_order_invoices():
 				DivGuid = order_inv_req['DivGuid']
 				WhGuid = order_inv_req['WhGuid']
 				RpAccGuid = order_inv_req['RpAccGuid']
-				RpAccRegNo = order_inv_req['RpAccRegNo']
 
 				OInvGuid = order_invoice['OInvGuid']
 				OInvRegNo = order_invoice['OInvRegNo']
@@ -123,10 +126,13 @@ def api_order_invoices():
 				order_invoice['WhId'] = WhId
 				order_invoice['RpAccId'] = RpAccId
 
+				CurrencyCode = order_inv_req["CurrencyCode"] if order_inv_req["CurrencyCode"] else Config.MAIN_CURRENCY_CODE
+				thisCurrency = [currency.to_json_api() for currency in currencies if currency.CurrencyCode == CurrencyCode]
+				order_invoice["CurrencyId"] = thisCurrency[0]["CurrencyId"] if thisCurrency else None
+
 				thisOrderInv = Order_inv.query\
 					.filter_by(
 						OInvGuid = OInvGuid,
-						OInvRegNo = OInvRegNo,
 						GCRecord = None)\
 					.first()
 				thisInvStatus = None
@@ -159,7 +165,7 @@ def api_order_invoices():
 					ResRegNo = order_inv_line_req['ResRegNo']
 					ResGuid = order_inv_line_req['ResGuid']
 
-					this_line_resource = Resources.query\
+					this_line_resource = Resource.query\
 						.filter_by(
 							ResRegNo = ResRegNo,
 							ResGuid = ResGuid,
@@ -171,9 +177,12 @@ def api_order_invoices():
 						OInvLineRegNo = order_inv_line['OInvLineRegNo']
 						OInvLineGuid = order_inv_line['OInvLineGuid']
 
+						CurrencyCode = order_inv_line_req["CurrencyCode"] if order_inv_line_req["CurrencyCode"] else Config.MAIN_CURRENCY_CODE
+						thisCurrency = [currency.to_json_api() for currency in currencies if currency.CurrencyCode == CurrencyCode]
+						order_inv_line["CurrencyId"] = thisCurrency[0]["CurrencyId"] if thisCurrency else None
+
 						thisOrderInvLine = Order_inv_line.query\
 							.filter_by(
-								OInvLineRegNo = OInvLineRegNo,
 								OInvLineGuid = OInvLineGuid,
 								GCRecord = None)\
 							.first()

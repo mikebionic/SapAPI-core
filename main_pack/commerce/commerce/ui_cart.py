@@ -36,7 +36,7 @@ from main_pack.commerce.admin.utils import resRelatedData
 # / Resource and view /
 
 # users and customers
-from main_pack.models import User, Rp_acc
+from main_pack.models import User, Rp_acc, Payment_method
 # / users and customers /
 
 # Invoices
@@ -59,6 +59,9 @@ from main_pack.commerce.commerce.order_utils import addOInvLineDict
 from main_pack.key_generator.utils import makeRegNo, generate, validate
 from datetime import datetime, timezone
 # / RegNo /
+
+from main_pack.api.common import (get_ResPriceGroupId)
+
 
 @bp.route("/product/ui_cart/", methods=['POST','PUT'])
 def ui_cart():
@@ -199,6 +202,25 @@ def ui_cart_checkout():
 				# no products in cart
 				raise Exception
 
+			try:
+				if 'PmId' not in req:
+					raise Exception
+
+				PmId = req['PmId']
+				payment_method = Payment_method.query\
+					.filter_by(GCRecord = None, PmId = PmId)\
+					.filter(Payment_method.PmVisibleIndex != 0)\
+					.first()
+				if not payment_method:
+					raise Exception
+			
+			except:
+				response = jsonify({
+					"status": 'error',
+					"responseText": gettext('Specify the payment method')
+				})
+				return response
+
 			DivId = current_user.DivId
 			CId = current_user.CId
 			RpAccId = current_user.RpAccId
@@ -215,11 +237,14 @@ def ui_cart_checkout():
 				.filter_by(GCRecord = None, RpAccId = RpAccId)\
 				.first()
 
-			ResPriceGroupId = Config.DEFAULT_RES_PRICE_GROUP_ID if Config.DEFAULT_RES_PRICE_GROUP_ID > 0 else None
-			if current_user:
-				ResPriceGroupId = current_user.ResPriceGroupId if current_user.ResPriceGroupId else None
-			elif "ResPriceGroupId" in session:
-				ResPriceGroupId = session["ResPriceGroupId"]
+			ResPriceGroupId = get_ResPriceGroupId(
+				current_user= current_user,
+				session = session
+			)
+
+			currency_code = Config.DEFAULT_VIEW_CURRENCY_CODE
+			if "currency_code" in session:
+				currency_code = session["currency_code"] if session["currency_code"] else Config.DEFAULT_VIEW_CURRENCY_CODE
 
 			try:
 				reg_num = generate(UId = user.UId, RegNumTypeName = 'sale_order_invoice_code')
@@ -237,7 +262,7 @@ def ui_cart_checkout():
 			WhId = warehouse.WhId if warehouse else None
 			OInvDesc = req.get('orderDesc')
 
-			inv_currency = [currency.to_json_api() for currency in currencies if not currency.GCRecord and currency.CurrencyCode == Config.DEFAULT_VIEW_CURRENCY_CODE]
+			inv_currency = [currency.to_json_api() for currency in currencies if not currency.GCRecord and currency.CurrencyCode == currency_code]
 			inv_currency_id = inv_currency[0]["CurrencyId"] if inv_currency else 1
 
 			order_invoice = {
@@ -252,7 +277,8 @@ def ui_cart_checkout():
 				"RpAccId": RpAccId,
 				"OInvRegNo": orderRegNo,
 				"OInvDesc": OInvDesc,
-				"PaymCode": str(get_login_info(request))
+				"PaymCode": str(get_login_info(request)),
+				"PmId": PmId
 			}
 
 			orderInv = Order_inv(**order_invoice)
@@ -293,6 +319,7 @@ def ui_cart_checkout():
 				price_data = price_currency_conversion(
 					priceValue = this_priceValue,
 					from_currency = this_currencyCode,
+					to_currency=currency_code,
 					currencies_dbModel = currencies,
 					exc_rates_dbModel = exc_rates)
 

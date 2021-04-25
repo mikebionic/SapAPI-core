@@ -15,6 +15,8 @@ from flask_compress import Compress
 import logging
 from logging.handlers import SMTPHandler
 from htmlmin.main import minify
+from celery import Celery
+
 
 from main_pack.config import Config
 
@@ -27,6 +29,7 @@ mail = Mail()
 csrf = CSRFProtect()
 cache = Cache()
 compress = Compress()
+
 
 login_manager.login_view = 'commerce_auth.login'
 login_manager.login_message = lazy_gettext('Login the system!')
@@ -64,6 +67,9 @@ def create_app(config_class=Config):
 	csrf.init_app(app)
 	cache.init_app(app)
 
+	client = Celery(app.name, broker=Config.CELERY_BROKER_URL)
+	client.conf.update(app.config)
+
 	if Config.USE_FLASK_COMPRESS:
 		compress.init_app(app)
 
@@ -98,6 +104,10 @@ def create_app(config_class=Config):
 	from main_pack.api.v1.rp_acc_api import api as v1_rp_acc_api
 	app.register_blueprint(v1_rp_acc_api, url_prefix=f"{api_url_prefix}/v1/")
 	csrf.exempt(v1_rp_acc_api)
+
+	from main_pack.api.v1.user_api import api as v1_user_api
+	app.register_blueprint(v1_user_api, url_prefix=f"{api_url_prefix}/v1/")
+	csrf.exempt(v1_user_api)
 
 	from main_pack.api.v1.invoice_api import api as v1_invoice_api
 	app.register_blueprint(v1_invoice_api, url_prefix=f"{api_url_prefix}/v1/")

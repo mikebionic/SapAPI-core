@@ -88,26 +88,27 @@
 								</a>
 							</li>
 						{% endif %}
-						<!-- <li class="menu-item animate-dropdown dropdown language_" style="margin-top: auto;">
-							<a title="Dollar (US)" data-toggle="dropdown" href="javascript:void(0);" role="button">USD
+						<li class="menu-item animate-dropdown dropdown language_" style="margin-top: auto;">
+							<a title="Dollar (US)" data-toggle="dropdown" href="javascript:void(0);" role="button">
+								{{ session.currency_code if session.currency_code else 'TMT' }}
 								<div class="notify"><span class="heartbit"></span><span class="point"></span></div>
 							</a>
 							<ul class="dropdown-menu slideUp2" style="z-index: 9999999; left: -57px;"> 
 								<li class="body">
 									<ul class="menu list-unstyled">
 										<li>
-											<a href="#" class="dropdown-item">
+											<a href="{{url_for('main.set_currency', currency_code='TMT')}}" class="dropdown-item">
 												TMT
 											</a>
 											<div class="dropdown-divider"></div>
-											<a href="#" class="dropdown-item">
+											<a href="{{url_for('main.set_currency', currency_code='USD')}}" class="dropdown-item">
 												USD
 											</a>
 										</li>
 									</ul>
 								</li>
 							</ul>
-						</li> -->
+						</li>
 						<li class="menu-item animate-dropdown dropdown language_" style="margin-top: auto;">
 							<a href="javascript:void(0);"  title="Language" data-toggle="dropdown" role="button"><i class="fa fa-fw fa-globe"></i>
 								<div class="notify"><span class="heartbit"></span><span class="point"></span></div>
@@ -155,8 +156,6 @@
 								<span>{{_('Categories')}}</span>
 							</button>
 							<nav >
-								
-								
 								<ul id="menu-departments-menu" class="dropdown-menu yamm departments-menu-dropdown g-menu">
 									<li class="highlight menu-item animate-dropdown">
 										<a title="{{_('All')}}" href="{{url_for('commerce.v_grid')}}" style="display: flex">
@@ -221,7 +220,6 @@
 											</li>
 											
 										{% endfor %}
-
 								</ul>
 								<div class="cart-overlay"></div>
 							</nav>
@@ -336,6 +334,7 @@
 										</span>
 										<div class="media-body">
 											<span class="call-us-title">{{_('Contact us')}}</span>
+
 											<span class="call-us-text">
 												{% if company.Phone1 %}
 													<div class="pulse">
@@ -351,13 +350,12 @@
 												{% if company.Phone3 %}
 													<a href="tel:{{company.Phone3}}">{{company.Phone3}}</a>
 												{% endif %}
-												
 											</span>
+
 											{% if company.CAddress %}
-											
 												<address class="footer-contact-address">
 													<div class="pulse">
-														<a href="tel:{{company.Phone1}}">
+														<a href="https://play.google.com/store/apps/details?id=com.dowlpack.lomaysowda">
 															<img src="{{ url_for('static', filename='commerce/ls/img/play.svg') }}" alt="LS" style="width: 35px;">
 														</a>
 													</div>
@@ -367,19 +365,20 @@
 											{% endif %}
 											
 											{% if company.CEmail %}
-												
-											<div class="pulse">
-												<a href="mailto:{{company.CEmail}}">
-													<i class="fa fa-fw fa-envelope-o"></i>
-												</a>
-											</div>
+												<div class="pulse">
+													<a href="mailto:{{company.CEmail}}">
+														<i class="fa fa-fw fa-envelope-o"></i>
+													</a>
+												</div>
 												<span>{{_('Email')}}</span>
 												<a href="mailto:{{company.CEmail}}"><p>{{company.CEmail}}</p></a>
 											{% endif %}
+
 											{% if company.AddInf1 %}
 												<span>{{_('Working time')}}</span>
 												<p>{{company.AddInf1}}</p>
 											{% endif %}
+
 										</div>
 									</div>
 								</div>
