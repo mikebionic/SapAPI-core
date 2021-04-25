@@ -1,5 +1,5 @@
 @charset "UTF-8";
-
+/* Font Icons */
 @font-face {
   font-family: 'FontAwesome';
   src: url("../fonts/fontawesome-webfont.eot?v=4.7.0");
@@ -30116,4 +30116,7 @@ input:checked ~ .tab-content{
   h1, .alpha {
     font-size: 1.617924em;
   }
+}
+.what-do-we-do h1{
+  padding: 0 15px;
 }
