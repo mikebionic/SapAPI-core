@@ -7,6 +7,7 @@ from main_pack.models import AddInf, BaseModel
 class Visited_country(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_visited_countries"
 	VCId = db.Column("VCId",db.Integer,nullable=False,primary_key=True)
+	VCGuid = db.Column("VCGuid",UUID(as_uuid=True),unique=True)
 	EmpId = db.Column("EmpId",db.Integer,db.ForeignKey("tbl_dk_employee.EmpId"))
 	VCCountryName = db.Column("VCCountryName",db.String(50),nullable=False)
 	VCCountryDesc = db.Column("VCCountryDesc",db.String(500))
