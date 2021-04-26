@@ -57,7 +57,7 @@ $(document).ready(function($) {
 	});
   
 	$('.slider-container__slider2').slick({
-		slidesToScroll: 2,
+		slidesToScroll: 4,
 		slidesToShow: 5,
 		dots: true,
 		responsive: [
@@ -150,6 +150,7 @@ $(document).ready(function($) {
 			{
 					breakpoint: 384,
 					settings: {
+							slidesToScroll: 2,	
 							autoplay: true,
 							slidesToShow: 2,
 							arrows: false,
@@ -158,6 +159,7 @@ $(document).ready(function($) {
 			{
 				breakpoint: 354,
 				settings: {
+						slidesToScroll: 1,
 						autoplay: true,
 						slidesToShow: 1,
 						arrows: false,
