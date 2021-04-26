@@ -1,3 +1,5 @@
+from sqlalchemy.dialects.postgresql import UUID
+
 from main_pack import db
 from main_pack.models import AddInf, BaseModel
 
@@ -5,6 +7,7 @@ from main_pack.models import AddInf, BaseModel
 class Res_discount(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_res_discount"
 	ResDiscId = db.Column("ResDiscId",db.Integer,nullable=False,primary_key=True)
+	ResDiscGuid = db.Column("ResDiscGuid",UUID(as_uuid=True),unique=True)
 	SaleCardId = db.Column("SaleCardId",db.Integer,db.ForeignKey("tbl_dk_sale_card.SaleCardId"))
 	ResDiscRegNo = db.Column("ResDiscRegNo",db.String(100),nullable=False)
 	SaleResId = db.Column("SaleResId",db.Integer,db.ForeignKey("tbl_dk_resource.ResId"))
@@ -23,6 +26,7 @@ class Res_discount(AddInf, BaseModel, db.Model):
 	def to_json_api(self):
 		data = {
 			"ResDiscId": self.ResDiscId,
+			"ResDiscGuid": self.ResDiscGuid,
 			"SaleCardId": self.SaleCardId,
 			"ResDiscRegNo": self.ResDiscRegNo,
 			"SaleResId": self.SaleResId,

@@ -1,3 +1,5 @@
+from sqlalchemy.dialects.postgresql import UUID
+
 from main_pack import db
 from main_pack.models import BaseModel
 
@@ -5,6 +7,7 @@ from main_pack.models import BaseModel
 class Report_file(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_report_file"
 	RpFileId = db.Column("RpFileId",db.Integer,nullable=False,primary_key=True)
+	RpFileGuid = db.Column("RpFileGuid",UUID(as_uuid=True),unique=True)
 	RpFileTypeId = db.Column("RpFileTypeId",db.Integer,nullable=False,default=0)
 	RpFileName = db.Column("RpFileName",db.String(100))
 	RpFileDesc = db.Column("RpFileDesc",db.String(100))
@@ -14,6 +17,7 @@ class Report_file(BaseModel, db.Model):
 	def to_json_api(self):
 		data = {
 			"RpFileId": self.RpFileId,
+			"RpFileGuid": self.RpFileGuid,
 			"RpFileTypeId": self.RpFileTypeId,
 			"RpFileName": self.RpFileName,
 			"RpFileDesc": self.RpFileDesc,

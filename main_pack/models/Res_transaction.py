@@ -1,3 +1,5 @@
+from sqlalchemy.dialects.postgresql import UUID
+
 from main_pack import db
 from main_pack.models import AddInf, BaseModel
 
@@ -5,6 +7,7 @@ from main_pack.models import AddInf, BaseModel
 class Res_transaction(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_res_transaction"
 	ResTransId = db.Column("ResTransId",db.Integer,nullable=False,primary_key=True)
+	ResTransGuid = db.Column("ResTransGuid",UUID(as_uuid=True),unique=True)
 	ResTransTypeId = db.Column("ResTransTypeId",db.Integer,db.ForeignKey("tbl_dk_res_trans_type.ResTransTypeId"))
 	InvLineId = db.Column("InvLineId",db.Integer,db.ForeignKey("tbl_dk_inv_line.InvLineId"))
 	ResTrInvLineId = db.Column("ResTrInvLineId",db.Integer,db.ForeignKey("tbl_dk_res_trans_inv_line.ResTrInvLineId"))
@@ -24,6 +27,7 @@ class Res_transaction(AddInf, BaseModel, db.Model):
 	def to_json_api(self):
 		data = {
 			"ResTransId": self.ResTransId,
+			"ResTransGuid": self.ResTransGuid,
 			"ResTransTypeId": self.ResTransTypeId,
 			"InvLineId": self.InvLineId,
 			"ResTrInvLineId": self.ResTrInvLineId,

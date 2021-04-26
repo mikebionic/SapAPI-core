@@ -1,3 +1,5 @@
+from sqlalchemy.dialects.postgresql import UUID
+
 from main_pack import db
 from main_pack.models import BaseModel
 
@@ -5,6 +7,7 @@ from main_pack.models import BaseModel
 class Res_price_group(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_res_price_group"
 	ResPriceGroupId = db.Column("ResPriceGroupId",db.Integer,nullable=False,primary_key=True)
+	ResPriceGroupGuid = db.Column("ResPriceGroupGuid",UUID(as_uuid=True),unique=True)
 	UsageStatusId = db.Column("UsageStatusId",db.Integer,db.ForeignKey("tbl_dk_usage_status.UsageStatusId"))
 	ResPriceGroupName = db.Column("ResPriceGroupName",db.String(100),nullable=False)
 	ResPriceGroupDesc = db.Column("ResPriceGroupDesc",db.String(500))
@@ -22,6 +25,7 @@ class Res_price_group(BaseModel, db.Model):
 	def to_json_api(self):
 		data = {
 			"ResPriceGroupId": self.ResPriceGroupId,
+			"ResPriceGroupGuid": self.ResPriceGroupGuid,
 			"UsageStatusId": self.UsageStatusId,
 			"ResPriceGroupName": self.ResPriceGroupName,
 			"ResPriceGroupDesc": self.ResPriceGroupDesc,

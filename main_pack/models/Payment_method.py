@@ -1,10 +1,13 @@
+from sqlalchemy.dialects.postgresql import UUID
+
 from main_pack import db
 from main_pack.models import AddInf, BaseModel
 
 
 class Payment_method(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_payment_method"
-	PmId = db.Column("PmId",db.Integer,nullable=False,primary_key=True)	
+	PmId = db.Column("PmId",db.Integer,nullable=False,primary_key=True)
+	PmGuid = db.Column("PmGuid",UUID(as_uuid=True),unique=True)
 	PmName = db.Column("PmName",db.String(100),nullable=False)
 	PmDesc = db.Column("PmDesc",db.String(500))
 	PmVisibleIndex = db.Column("PmVisibleIndex",db.Integer,default=0)
@@ -13,7 +16,8 @@ class Payment_method(AddInf, BaseModel, db.Model):
 
 	def to_json_api(self):
 		data = {
-			"PmId": self.PmId,			
+			"PmId": self.PmId,
+			"PmGuid": self.PmGuid,
 			"PmName": self.PmName,
 			"PmDesc": self.PmDesc,
 			"PmVisibleIndex": self.PmVisibleIndex

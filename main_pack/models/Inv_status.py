@@ -1,3 +1,5 @@
+from sqlalchemy.dialects.postgresql import UUID
+
 from main_pack import db
 from main_pack.models import BaseModel
 
@@ -5,6 +7,7 @@ from main_pack.models import BaseModel
 class Inv_status(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_inv_status"
 	InvStatId = db.Column("InvStatId",db.Integer,nullable=False,primary_key=True)
+	InvStatGuid = db.Column("InvStatGuid",UUID(as_uuid=True),unique=True)
 	InvStatName_tkTM = db.Column("InvStatName_tkTM",db.String(100),nullable=False)
 	InvStatDesc_tkTM = db.Column("InvStatDesc_tkTM",db.String(500))
 	InvStatName_ruRU = db.Column("InvStatName_ruRU",db.String(100))
@@ -17,6 +20,7 @@ class Inv_status(BaseModel, db.Model):
 	def to_json_api(self):
 		data = {
 			"InvStatId": self.InvStatId,
+			"InvStatGuid": self.InvStatGuid,
 			"InvStatName_tkTM": self.InvStatName_tkTM,
 			"InvStatDesc_tkTM": self.InvStatDesc_tkTM,
 			"InvStatName_ruRU": self.InvStatName_ruRU,

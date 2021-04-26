@@ -1,3 +1,5 @@
+from sqlalchemy.dialects.postgresql import UUID
+
 from main_pack import db
 from main_pack.models import BaseModel
 
@@ -5,6 +7,7 @@ from main_pack.models import BaseModel
 class Emp_status(BaseModel,db.Model):
 	__tablename__ = "tbl_dk_emp_status"
 	EmpStatId = db.Column("EmpStatId",db.Integer,nullable=False,primary_key=True)
+	EmpStatGuid = db.Column("EmpStatGuid",UUID(as_uuid=True),unique=True)
 	EmpStatName_tkTM = db.Column("EmpStatName_tkTM",db.String(100))
 	EmpStatDesc_tkTM = db.Column("EmpStatDesc_tkTM",db.String(500))
 	EmpStatName_ruRU = db.Column("EmpStatName_ruRU",db.String(100))
@@ -16,6 +19,7 @@ class Emp_status(BaseModel,db.Model):
 	def to_json_api(self):
 		data = {
 			"EmpStatId": self.EmpStatId,
+			"EmpStatGuid": self.EmpStatGuid,
 			"EmpStatName_tkTM": self.EmpStatName_tkTM,
 			"EmpStatDesc_tkTM": self.EmpStatDesc_tkTM,
 			"EmpStatName_ruRU": self.EmpStatName_ruRU,

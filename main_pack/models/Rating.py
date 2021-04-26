@@ -1,3 +1,5 @@
+from sqlalchemy.dialects.postgresql import UUID
+
 from main_pack import db
 from main_pack.models import AddInf, BaseModel
 
@@ -5,6 +7,7 @@ from main_pack.models import AddInf, BaseModel
 class Rating(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_rating"
 	RtId = db.Column("RtId",db.Integer,nullable=False,primary_key=True)
+	RtGuid = db.Column("RtGuid",UUID(as_uuid=True),unique=True)
 	CId = db.Column("CId",db.Integer,db.ForeignKey("tbl_dk_company.CId"))
 	DivId = db.Column("DivId",db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
 	UId = db.Column("UId",db.Integer,db.ForeignKey("tbl_dk_users.UId"))
@@ -18,6 +21,7 @@ class Rating(AddInf, BaseModel, db.Model):
 	def to_json_api(self):
 		data = {
 			"RtId": self.RtId,
+			"RtGuid": self.RtGuid,
 			"CId": self.CId,
 			"DivId": self.DivId,
 			"UId": self.UId,

@@ -1,3 +1,4 @@
+from sqlalchemy.dialects.postgresql import UUID
 from datetime import datetime
 
 from main_pack import db
@@ -7,6 +8,7 @@ from main_pack.models import AddInf, BaseModel
 class Representative(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_representative"
 	ReprId = db.Column("ReprId",db.Integer,nullable=False,primary_key=True)
+	ReprGuid = db.Column("ReprGuid",UUID(as_uuid=True),unique=True)
 	ReprStatusId = db.Column("ReprStatusId",db.Integer,nullable=False,default=1)
 	CId = db.Column("CId",db.Integer,db.ForeignKey("tbl_dk_company.CId"))
 	DivId = db.Column("DivId",db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
@@ -32,6 +34,7 @@ class Representative(AddInf, BaseModel, db.Model):
 	def to_json_api(self):
 		data = {
 			"ReprId": self.ReprId,
+			"ReprGuid": self.ReprGuid,
 			"ReprStatusId": self.ReprStatusId,
 			"CId": self.CId,
 			"DivId": self.DivId,

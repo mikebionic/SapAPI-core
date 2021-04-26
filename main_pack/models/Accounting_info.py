@@ -1,3 +1,5 @@
+from sqlalchemy.dialects.postgresql import UUID
+
 from main_pack import db
 from main_pack.models import AddInf, BaseModel
 from main_pack.base.dataMethods import apiDataFormat
@@ -6,6 +8,7 @@ from main_pack.base.dataMethods import apiDataFormat
 class Accounting_info(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_accounting_info"
 	AccInfId = db.Column("AccInfId",db.Integer,primary_key=True,nullable=False)
+	AccInfGuid = db.Column("AccInfGuid",UUID(as_uuid=True),unique=True)
 	DivId = db.Column("DivId",db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
 	BankId = db.Column("BankId",db.Integer, db.ForeignKey("tbl_dk_bank.BankId"))
 	CurrencyId = db.Column("CurrencyId",db.Integer,db.ForeignKey("tbl_dk_currency.CurrencyId"))
@@ -22,6 +25,7 @@ class Accounting_info(AddInf, BaseModel, db.Model):
 	def to_json_api(self):
 		data = {
 			"AccInfId": self.AccInfId,
+			"AccInfGuid": self.AccInfGuid,
 			"DivId": self.DivId,
 			"BankId": self.BankId,
 			"CurrencyId": self.CurrencyId,

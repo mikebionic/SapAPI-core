@@ -1,3 +1,5 @@
+from sqlalchemy.dialects.postgresql import UUID
+
 from main_pack import db
 from main_pack.models import AddInf, BaseModel
 
@@ -5,6 +7,7 @@ from main_pack.models import AddInf, BaseModel
 class Location(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_location"
 	LocId = db.Column("LocId",db.Integer,nullable=False,primary_key=True)
+	LocGuid = db.Column("LocGuid",UUID(as_uuid=True),unique=True)
 	CId = db.Column("CId",db.Integer,db.ForeignKey("tbl_dk_company.CId"))
 	BankId = db.Column("BankId",db.Integer,db.ForeignKey("tbl_dk_bank.BankId"))
 	EmpId = db.Column("EmpId",db.Integer,db.ForeignKey("tbl_dk_employee.EmpId"))
@@ -21,6 +24,7 @@ class Location(AddInf, BaseModel, db.Model):
 	def to_json_api(self):
 		data = {
 			"LocId": self.LocId,
+			"LocGuid": self.LocGuid,
 			"CId": self.CId,
 			"BankId": self.BankId,
 			"EmpId": self.EmpId,

@@ -1,3 +1,4 @@
+from sqlalchemy.dialects.postgresql import UUID
 from datetime import datetime
 
 from main_pack import db
@@ -7,6 +8,7 @@ from main_pack.base.dataMethods import apiDataFormat
 class Res_total(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_res_total"
 	ResTotId = db.Column("ResTotId",db.Integer,nullable=False,primary_key=True)
+	ResTotGuid = db.Column("ResTotGuid",UUID(as_uuid=True),unique=True)
 	ResId = db.Column("ResId",db.Integer,db.ForeignKey("tbl_dk_resource.ResId"))
 	CurrencyId = db.Column("CurrencyId",db.Integer,db.ForeignKey("tbl_dk_currency.CurrencyId"))
 	WhId = db.Column("WhId",db.Integer,db.ForeignKey("tbl_dk_warehouse.WhId"))
@@ -23,6 +25,7 @@ class Res_total(BaseModel, db.Model):
 	def to_json_api(self):
 		data = {
 			"ResTotId": self.ResTotId,
+			"ResTotGuid": self.ResTotGuid,
 			"ResId": self.ResId,
 			"CurrencyId": self.CurrencyId,
 			"WhId": self.WhId,

@@ -1,3 +1,5 @@
+from sqlalchemy.dialects.postgresql import UUID
+
 from main_pack import db
 from main_pack.models import AddInf, BaseModel
 
@@ -5,6 +7,7 @@ from main_pack.models import AddInf, BaseModel
 class Brand(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_brand"
 	BrandId = db.Column("BrandId",db.Integer,nullable=False,primary_key=True)
+	BrandGuid = db.Column("BrandGuid",UUID(as_uuid=True),unique=True)
 	BrandName = db.Column("BrandName",db.String(100),nullable=False)
 	BrandDesc = db.Column("BrandDesc",db.String(100),default="")
 	BrandVisibleIndex = db.Column("BrandVisibleIndex",db.Integer,default=0)
@@ -20,6 +23,7 @@ class Brand(AddInf, BaseModel, db.Model):
 	def to_json_api(self):
 		data = {
 			"BrandId": self.BrandId,
+			"BrandGuid": self.BrandGuid,
 			"BrandName": self.BrandName,
 			"BrandDesc": self.BrandDesc,
 			"BrandVisibleIndex": self.BrandVisibleIndex,

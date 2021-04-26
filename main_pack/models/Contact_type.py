@@ -1,3 +1,5 @@
+from sqlalchemy.dialects.postgresql import UUID
+
 from main_pack import db
 from main_pack.models import BaseModel
 
@@ -5,6 +7,7 @@ from main_pack.models import BaseModel
 class Contact_type(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_contact_type"
 	ContTypeId = db.Column("ContTypeId",db.Integer,nullable=False,primary_key=True)
+	ContTypeGuid = db.Column("ContTypeGuid",UUID(as_uuid=True),unique=True)
 	ContTypeName_tkTM = db.Column("ContTypeName_tkTM",db.String(100))
 	ContTypeDesc_tkTM = db.Column("ContTypeDesc_tkTM",db.String(500))
 	ContTypeName_ruRU = db.Column("ContTypeName_ruRU",db.String(100))
@@ -16,6 +19,7 @@ class Contact_type(BaseModel, db.Model):
 	def to_json_api(self):
 		data = {
 			"ContactTypeId": self.ContactTypeId,
+			"ContactTypeGuid": self.ContactTypeGuid,
 			"ContactTypeName_tkTM": self.ContactTypeName_tkTM,
 			"ContactTypeDesc_tkTM": self.ContactTypeDesc_tkTM,
 			"ContactTypeName_ruRU": self.ContactTypeName_ruRU,

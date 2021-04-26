@@ -1,3 +1,5 @@
+from sqlalchemy.dialects.postgresql import UUID
+
 from main_pack import db
 from main_pack.models import BaseModel
 
@@ -5,6 +7,7 @@ from main_pack.models import BaseModel
 class Barcode(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_barcode"
 	BarcodeId = db.Column("BarcodeId",db.Integer,nullable=False,primary_key=True)
+	BarcodeGuid = db.Column("BarcodeGuid",UUID(as_uuid=True),unique=True)
 	CId = db.Column("CId",db.Integer,db.ForeignKey("tbl_dk_company.CId"))
 	DivId = db.Column("DivId",db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
 	ResId = db.Column("ResId",db.Integer,db.ForeignKey("tbl_dk_resource.ResId"))
@@ -14,6 +17,7 @@ class Barcode(BaseModel, db.Model):
 	def to_json_api(self):
 		data = {
 			"BarcodeId": self.BarcodeId,
+			"BarcodeGuid": self.BarcodeGuid,
 			"CId": self.CId,
 			"DivId": self.DivId,
 			"ResId": self.ResId,

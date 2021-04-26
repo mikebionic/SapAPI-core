@@ -1,3 +1,5 @@
+from sqlalchemy.dialects.postgresql import UUID
+
 from main_pack import db
 from main_pack.models import BaseModel
 
@@ -5,6 +7,7 @@ from main_pack.models import BaseModel
 class Res_category(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_res_category"
 	ResCatId = db.Column("ResCatId",db.Integer,nullable=False,primary_key=True)
+	ResCatGuid = db.Column("ResCatGuid",UUID(as_uuid=True),unique=True)
 	ResOwnerCatId = db.Column("ResOwnerCatId",db.Integer,db.ForeignKey("tbl_dk_res_category.ResCatId"))
 	ResCatVisibleIndex = db.Column("ResCatVisibleIndex",db.Integer,default=0)
 	IsMain = db.Column("IsMain",db.Boolean,default=False)
@@ -21,6 +24,7 @@ class Res_category(BaseModel, db.Model):
 	def to_json_api(self):
 		data = {
 			"ResCatId": self.ResCatId,
+			"ResCatGuid": self.ResCatGuid,
 			"ResOwnerCatId": self.ResOwnerCatId or 0,
 			"ResCatVisibleIndex": self.ResCatVisibleIndex or 0,
 			"IsMain": self.IsMain,

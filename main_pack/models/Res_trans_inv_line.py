@@ -1,3 +1,5 @@
+from sqlalchemy.dialects.postgresql import UUID
+
 from main_pack import db
 from main_pack.models import AddInf, BaseModel
 
@@ -5,6 +7,7 @@ from main_pack.models import AddInf, BaseModel
 class Res_trans_inv_line(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_res_trans_inv_line"
 	ResTrInvLineId = db.Column("ResTrInvLineId",db.Integer,nullable=False,primary_key=True)
+	ResTrInvLineGuid = db.Column("ResTrInvLineGuid",UUID(as_uuid=True),unique=True)
 	ResTrInvId = db.Column("ResTrInvId",db.Integer,db.ForeignKey("tbl_dk_res_trans_inv.ResTrInvId"))
 	UnitId = db.Column("UnitId",db.Integer,db.ForeignKey("tbl_dk_unit.UnitId"))
 	CurrencyId = db.Column("CurrencyId",db.Integer,db.ForeignKey("tbl_dk_currency.CurrencyId"))
@@ -23,6 +26,7 @@ class Res_trans_inv_line(AddInf, BaseModel, db.Model):
 	def to_json_api(self):
 		data = {
 			"ResTrInvLineId": self.ResTrInvLineId,
+			"ResTrInvLineGuid": self.ResTrInvLineGuid,
 			"ResTrInvId": self.ResTrInvId,
 			"UnitId": self.UnitId,
 			"CurrencyId": self.CurrencyId,

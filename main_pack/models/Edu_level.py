@@ -1,3 +1,5 @@
+from sqlalchemy.dialects.postgresql import UUID
+
 from main_pack import db
 from main_pack.models import BaseModel
 
@@ -5,6 +7,7 @@ from main_pack.models import BaseModel
 class Edu_level(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_edu_level"
 	EduLevelId = db.Column("EduLevelId",db.Integer,nullable=False,primary_key=True)
+	EduLevelGuid = db.Column("EduLevelGuid",UUID(as_uuid=True),unique=True)
 	EduLevelName_tkTM = db.Column("EduLevelName_tkTM",db.String(100))
 	EduLevelDesc_tkTM = db.Column("EduLevelDesc_tkTM",db.String(500))
 	EduLevelName_ruRU = db.Column("EduLevelName_ruRU",db.String(100))
@@ -16,6 +19,7 @@ class Edu_level(BaseModel, db.Model):
 	def to_json_api(self):
 		data = {
 			"EduLevelId": self.EduLevelId,
+			"EduLevelGuid": self.EduLevelGuid,
 			"EduLevelName_tkTM": self.EduLevelName_tkTM,
 			"EduLevelDesc_tkTM": self.EduLevelDesc_tkTM,
 			"EduLevelName_ruRU": self.EduLevelName_ruRU,

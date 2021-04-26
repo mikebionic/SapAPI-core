@@ -1,3 +1,5 @@
+from sqlalchemy.dialects.postgresql import UUID
+
 from main_pack import db
 from main_pack.models import BaseModel
 
@@ -5,6 +7,7 @@ from main_pack.models import BaseModel
 class Order_inv_type(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_order_inv_type"
 	OInvTypeId = db.Column("OInvTypeId",db.Integer,nullable=False,primary_key=True)
+	OInvTypeGuid = db.Column("OInvTypeGuid",UUID(as_uuid=True),unique=True)
 	OInvTypeName_tkTM = db.Column("OInvTypeName_tkTM",db.String(100),nullable=False)
 	OInvTypeDesc_tkTM = db.Column("OInvTypeDesc_tkTM",db.String(500))
 	OInvTypeName_ruRU = db.Column("OInvTypeName_ruRU",db.String(100))
@@ -16,6 +19,7 @@ class Order_inv_type(BaseModel, db.Model):
 	def to_json_api(self):
 		data = {
 			"OInvTypeId": self.OInvTypeId,
+			"OInvTypeGuid": self.OInvTypeGuid,
 			"OInvTypeName_tkTM": self.OInvTypeName_tkTM,
 			"OInvTypeDesc_tkTM": self.OInvTypeDesc_tkTM,
 			"OInvTypeName_ruRU": self.OInvTypeName_ruRU,

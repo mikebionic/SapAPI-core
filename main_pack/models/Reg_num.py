@@ -1,3 +1,5 @@
+from sqlalchemy.dialects.postgresql import UUID
+
 from main_pack import db
 from main_pack.models import BaseModel
 
@@ -5,6 +7,7 @@ from main_pack.models import BaseModel
 class Reg_num(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_reg_num"
 	RegNumId = db.Column("RegNumId",db.Integer,nullable=False,primary_key=True)
+	RegNumGuid = db.Column("RegNumGuid",UUID(as_uuid=True),unique=True)
 	RegNumTypeId = db.Column("RegNumTypeId",db.Integer,db.ForeignKey("tbl_dk_reg_num_type.RegNumTypeId"))
 	UId = db.Column("UId",db.Integer,db.ForeignKey("tbl_dk_users.UId"))
 	RegNumPrefix = db.Column("RegNumPrefix",db.String(100))
@@ -17,6 +20,7 @@ class Reg_num(BaseModel, db.Model):
 	def to_json_api(self):
 		data = {
 			"RegNumId": self.RegNumId,
+			"RegNumGuid": self.RegNumGuid,
 			"RegNumTypeId": self.RegNumTypeId,
 			"UId": self.UId,
 			"RegNumPrefix": self.RegNumPrefix,

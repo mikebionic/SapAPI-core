@@ -1,3 +1,5 @@
+from sqlalchemy.dialects.postgresql import UUID
+
 from main_pack import db
 from main_pack.models import BaseModel
 
@@ -5,6 +7,7 @@ from main_pack.models import BaseModel
 class Payment_status(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_payment_status"
 	PaymStatusId = db.Column("PaymStatusId",db.Integer,nullable=False,primary_key=True)
+	PaymStatusGuid = db.Column("PaymStatusGuid",UUID(as_uuid=True),unique=True)
 	PaymStatusName_tkTM = db.Column("PaymStatusName_tkTM",db.String(100))
 	PaymStatusDesc_tkTM = db.Column("PaymStatusDesc_tkTM",db.String(500))
 	PaymStatusName_ruRU = db.Column("PaymStatusName_ruRU",db.String(100))
@@ -15,12 +18,14 @@ class Payment_status(BaseModel, db.Model):
 
 	def to_json_api(self):
 		data = {
-			"PaymStatusName_tkTM": self.PaymStatusName_tkTM,			
+			"PaymStatusId": self.PaymStatusId,
+			"PaymStatusGuid": self.PaymStatusGuid,
+			"PaymStatusName_tkTM": self.PaymStatusName_tkTM,
 			"PaymStatusDesc_tkTM": self.PaymStatusDesc_tkTM,
 			"PaymStatusName_ruRU": self.PaymStatusName_ruRU,
 			"PaymStatusDesc_ruRU": self.PaymStatusDesc_ruRU,
 			"PaymStatusName_enUS": self.PaymStatusName_enUS,
-			"PaymStatusDesc_enUS": self.PaymStatusDesc_enUS
+			"PaymStatusDesc_enUS": self.PaymStatusDesc_enUS,
 		}
 
 		for key, value in BaseModel.to_json_api(self).items():

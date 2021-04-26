@@ -1,3 +1,5 @@
+from sqlalchemy.dialects.postgresql import UUID
+
 from main_pack import db
 from main_pack.models import BaseModel
 
@@ -5,6 +7,7 @@ from main_pack.models import BaseModel
 class Inv_line_det(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_inv_line_det"
 	InvLineDetId = db.Column("InvLineDetId",db.Integer,nullable=False,primary_key=True)
+	InvLineDetGuid = db.Column("InvLineDetGuid",UUID(as_uuid=True),unique=True)
 	InvLineId = db.Column("InvLineId",db.Integer,db.ForeignKey("tbl_dk_inv_line.InvLineId"))
 	InvLineDetTypeId = db.Column("InvLineDetTypeId",db.Integer,db.ForeignKey("tbl_dk_inv_line_det_type.InvLineDetTypeId"))
 	ResId = db.Column("ResId",db.Integer,db.ForeignKey("tbl_dk_resource.ResId"))
@@ -17,6 +20,7 @@ class Inv_line_det(BaseModel, db.Model):
 	def to_json_api(self):
 		data = {
 			"InvLineDetId": self.InvLineDetId,
+			"InvLineDetGuid": self.InvLineDetGuid,
 			"InvLineId": self.InvLineId,
 			"InvLineDetTypeId": self.InvLineDetTypeId,
 			"ResId": self.ResId,

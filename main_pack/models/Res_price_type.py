@@ -1,3 +1,5 @@
+from sqlalchemy.dialects.postgresql import UUID
+
 from main_pack import db
 from main_pack.models import AddInf, BaseModel
 
@@ -5,6 +7,7 @@ from main_pack.models import AddInf, BaseModel
 class Res_price_type(AddInf,BaseModel,db.Model):
 	__tablename__ = "tbl_dk_res_price_type"
 	ResPriceTypeId = db.Column("ResPriceTypeId",db.Integer,nullable=False,primary_key=True)
+	RespriceTypeGuid = db.Column("RespriceTypeGuid",UUID(as_uuid=True),unique=True)
 	ResPriceTypeName_tkTM = db.Column("ResPriceTypeName_tkTM",db.String(100),nullable=False)
 	ResPriceTypeDesc_tkTM = db.Column("ResPriceTypeDesc_tkTM",db.String(500))
 	ResPriceTypeName_ruRU = db.Column("ResPriceTypeName_ruRU",db.String(100))
@@ -20,6 +23,7 @@ class Res_price_type(AddInf,BaseModel,db.Model):
 	def to_json_api(self):
 		data = {
 			"ResPriceTypeId": self.ResPriceTypeId,
+			"ResPriceTypeGuid": self.ResPriceTypeGuid,
 			"ResPriceTypeName_tkTM": self.ResPriceTypeName_tkTM,
 			"ResPriceTypeDesc_tkTM": self.ResPriceTypeDesc_tkTM,
 			"ResPriceTypeName_ruRU": self.ResPriceTypeName_ruRU,

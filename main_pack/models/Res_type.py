@@ -1,3 +1,5 @@
+from sqlalchemy.dialects.postgresql import UUID
+
 from main_pack import db
 from main_pack.models import BaseModel
 
@@ -5,6 +7,7 @@ from main_pack.models import BaseModel
 class Res_type(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_res_type"
 	ResTypeId = db.Column("ResTypeId",db.Integer,nullable=False,primary_key=True)
+	ResTypeGuid = db.Column("ResTypeGuid",UUID(as_uuid=True),unique=True)
 	ResTypeName_tkTM = db.Column("ResTypeName_tkTM",db.String(100))
 	ResTypeDesc_tkTM = db.Column("ResTypeDesc_tkTM",db.String(500))
 	ResTypeName_ruRU = db.Column("ResTypeName_ruRU",db.String(100))
@@ -16,6 +19,7 @@ class Res_type(BaseModel, db.Model):
 	def to_json_api(self):
 		data = {
 			"ResTypeId": self.ResTypeId,
+			"ResTypeGuid": self.ResTypeGuid,
 			"ResTypeName_tkTM": self.ResTypeName_tkTM,
 			"ResTypeDesc_tkTM": self.ResTypeDesc_tkTM,
 			"ResTypeName_ruRU": self.ResTypeName_ruRU,

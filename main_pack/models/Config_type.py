@@ -1,3 +1,5 @@
+from sqlalchemy.dialects.postgresql import UUID
+
 from main_pack import db
 from main_pack.models import BaseModel
 
@@ -5,6 +7,7 @@ from main_pack.models import BaseModel
 class Config_type(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_config_type"
 	CfTypeId = db.Column("CfTypeId",db.Integer,primary_key=True)
+	CfTypeGuid = db.Column("CfTypeGuid",UUID(as_uuid=True),unique=True)
 	CfTypeName_tkTM = db.Column("CfTypeName_tkTM",db.String(100))
 	CfTypeDesc_tkTM = db.Column("CfTypeDesc_tkTM",db.String(500))
 	CfTypeName_ruRU = db.Column("CfTypeName_ruRU",db.String(100))
@@ -16,6 +19,7 @@ class Config_type(BaseModel, db.Model):
 	def to_json_api(self):
 		data = {
 			"CfTypeId": self.CfTypeId,
+			"CfTypeGuid": self.CfTypeGuid,
 			"CfTypeName_tkTM": self.CfTypeName_tkTM,
 			"CfTypeDesc_tkTM": self.CfTypeDesc_tkTM,
 			"CfTypeName_ruRU": self.CfTypeName_ruRU,

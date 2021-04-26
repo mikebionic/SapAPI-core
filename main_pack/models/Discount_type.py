@@ -1,3 +1,5 @@
+from sqlalchemy.dialects.postgresql import UUID
+
 from main_pack import db
 from main_pack.models import BaseModel
 
@@ -5,6 +7,7 @@ from main_pack.models import BaseModel
 class Discount_type(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_discount_type"
 	DiscTypeId = db.Column("DiscTypeId",db.Integer,nullable=False,primary_key=True)
+	DiscTypeGuid = db.Column("DiscTypeGuid",UUID(as_uuid=True),unique=True)
 	DiscTypeName_tkTM = db.Column("DiscTypeName_tkTM",db.String(100),nullable=False)
 	DiscTypeDesc_tkTM = db.Column("DiscTypeDesc_tkTM",db.String(500))
 	DiscTypeName_ruRU = db.Column("DiscTypeName_ruRU",db.String(100))
@@ -16,6 +19,7 @@ class Discount_type(BaseModel, db.Model):
 	def to_json_api(self):
 		data = {
 			"DiscTypeId": self.DiscTypeId,
+			"DiscTypeGuid": self.DiscTypeGuid,
 			"DiscTypeName_tkTM": self.DiscTypeName_tkTM,
 			"DiscTypeDesc_tkTM": self.DiscTypeDesc_tkTM,
 			"DiscTypeName_ruRU": self.DiscTypeName_ruRU,

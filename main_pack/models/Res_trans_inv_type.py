@@ -1,3 +1,5 @@
+from sqlalchemy.dialects.postgresql import UUID
+
 from main_pack import db
 from main_pack.models import BaseModel
 
@@ -5,6 +7,7 @@ from main_pack.models import BaseModel
 class Res_trans_inv_type(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_res_trans_inv_type"
 	ResTrInvTypeId = db.Column("ResTrInvTypeId",db.Integer,nullable=False,primary_key=True)
+	ResTrInvTypeGuid = db.Column("ResTrInvTypeGuid",UUID(as_uuid=True),unique=True)
 	ResTrInvName_tkTM = db.Column("ResTrInvName_tkTM",db.String(100),nullable=False)
 	ResTrInvDesc_tkTM = db.Column("ResTrInvDesc_tkTM",db.String(500))
 	ResTrInvName_ruRU = db.Column("ResTrInvName_ruRU",db.String(100))
@@ -16,6 +19,7 @@ class Res_trans_inv_type(BaseModel, db.Model):
 	def to_json_api(self):
 		data = {
 			"ResTrInvTypeId": self.ResTrInvTypeId,
+			"ResTrInvTypeGuid": self.ResTrInvTypeGuid,
 			"ResTrInvName_tkTM": self.ResTrInvName_tkTM,
 			"ResTrInvDesc_tkTM": self.ResTrInvDesc_tkTM,
 			"ResTrInvName_ruRU": self.ResTrInvName_ruRU,

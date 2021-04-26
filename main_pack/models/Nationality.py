@@ -1,3 +1,5 @@
+from sqlalchemy.dialects.postgresql import UUID
+
 from main_pack import db
 from main_pack.models import BaseModel
 
@@ -5,6 +7,7 @@ from main_pack.models import BaseModel
 class Nationality(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_nationality"
 	NatId = db.Column("NatId",db.Integer,nullable=False,primary_key=True)
+	NatGuid = db.Column("NatGuid",UUID(as_uuid=True),unique=True)
 	NatName_tkTM = db.Column("NatName_tkTM",db.String(50))
 	NatDesc_tkTM = db.Column("NatDesc_tkTM",db.String(500))
 	NatName_ruRU = db.Column("NatName_ruRU",db.String(50))
@@ -17,6 +20,7 @@ class Nationality(BaseModel, db.Model):
 	def to_json_api(self):
 		data = {
 			"NatId": self.NatId,
+			"NatGuid": self.NatGuid,
 			"NatName_tkTM": self.NatName_tkTM,
 			"NatDesc_tkTM": self.NatDesc_tkTM,
 			"NatName_ruRU": self.NatName_ruRU,

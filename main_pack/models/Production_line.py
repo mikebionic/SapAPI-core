@@ -1,3 +1,5 @@
+from sqlalchemy.dialects.postgresql import UUID
+
 from main_pack import db
 from main_pack.models import AddInf, BaseModel
 
@@ -5,6 +7,7 @@ from main_pack.models import AddInf, BaseModel
 class Production_line(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_production_line"
 	ProdLineId = db.Column("ProdLineId",db.Integer,nullable=False,primary_key=True)
+	ProdLineGuid = db.Column("ProdLineGuid",UUID(as_uuid=True),unique=True)
 	ProdId = db.Column("ProdId",db.Integer,db.ForeignKey("tbl_dk_production.ProdId"))
 	UnitId = db.Column("UnitId",db.Integer,db.ForeignKey("tbl_dk_unit.UnitId"))
 	ResId = db.Column("ResId",db.Integer,db.ForeignKey("tbl_dk_resource.ResId"))
@@ -15,6 +18,7 @@ class Production_line(AddInf, BaseModel, db.Model):
 	def to_json_api(self):
 		data = {
 			"ProdLineId": self.ProdLineId,
+			"ProdLineGuid": self.ProdLineGuid,
 			"ProdId": self.ProdId,
 			"UnitId": self.UnitId,
 			"ResId": self.ResId,
