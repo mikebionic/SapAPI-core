@@ -1,3 +1,5 @@
+from sqlalchemy.dialects.postgresql import UUID
+
 from main_pack import db
 from main_pack.models import AddInf, BaseModel
 
@@ -15,6 +17,7 @@ class Visited_country(AddInf, BaseModel, db.Model):
 	def to_json_api(self):
 		json_data = {
 			"VCId": self.VCId,
+			"VCGuid": self.VCGuid,
 			"EmpId": self.EmpId,
 			"VCCountryName": self.VCCountryName,
 			"VCCountryDesc": self.VCCountryDesc,

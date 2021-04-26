@@ -1,3 +1,5 @@
+from sqlalchemy.dialects.postgresql import UUID
+
 from main_pack import db
 from main_pack.models import BaseModel
 
@@ -5,6 +7,7 @@ from main_pack.models import BaseModel
 class Work_period(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_work_period"
 	WpId = db.Column("WpId",db.Integer,nullable=False,primary_key=True)
+	WpGuid = db.Column("WpGuid",UUID(as_uuid=True),unique=True)
 	CId = db.Column("CId",db.Integer,db.ForeignKey("tbl_dk_company.CId"))
 	DivId = db.Column("DivId",db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
 	CurrencyId = db.Column("CurrencyId",db.Integer,db.ForeignKey("tbl_dk_currency.CurrencyId"))
@@ -21,6 +24,7 @@ class Work_period(BaseModel, db.Model):
 	def to_json_api(self):
 		data = {
 			"WpId": self.WpId,
+			"WpGuid": self.WpGuid,
 			"CId": self.CId,
 			"DivId": self.DivId,
 			"CurrencyId": self.CurrencyId,

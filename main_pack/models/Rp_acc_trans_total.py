@@ -1,3 +1,4 @@
+from sqlalchemy.dialects.postgresql import UUID
 from datetime import datetime
 
 from main_pack import db
@@ -8,6 +9,7 @@ from main_pack.base.dataMethods import apiDataFormat
 class Rp_acc_trans_total(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_rp_acc_trans_total"
 	RpAccTrTotId = db.Column("RpAccTrTotId",db.Integer,nullable=False,primary_key=True)
+	RpAccTrTotGuid = db.Column("RpAccTrTotGuid",UUID(as_uuid=True),unique=True)
 	RpAccId = db.Column("RpAccId",db.Integer,db.ForeignKey("tbl_dk_rp_acc.RpAccId"))
 	CurrencyId = db.Column("CurrencyId",db.Integer,db.ForeignKey("tbl_dk_currency.CurrencyId"))
 	RpAccTrTotBalance = db.Column("RpAccTrTotBalance",db.Float,default=0.0)
@@ -18,6 +20,7 @@ class Rp_acc_trans_total(BaseModel, db.Model):
 	def to_json_api(self):
 		data = {
 			"RpAccTrTotId": self.RpAccTrTotId,
+			"RpAccTrTotGuid": self.RpAccTrTotGuid,
 			"RpAccId": self.RpAccId,
 			"CurrencyId": self.CurrencyId,
 			"RpAccTrTotBalance": self.RpAccTrTotBalance,

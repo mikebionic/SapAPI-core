@@ -1,3 +1,5 @@
+from sqlalchemy.dialects.postgresql import UUID
+
 from main_pack import db
 from main_pack.models import BaseModel
 
@@ -5,7 +7,8 @@ from main_pack.models import BaseModel
 class Rp_acc_status(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_rp_acc_status"
 	RpAccStatusId = db.Column("RpAccStatusId",db.Integer,nullable=False,primary_key=True)
-	RpAccStatusName_tkTM = db.Column("RpAccStatusName_tkTM",db.String(100),nullable=False)
+	RpAccStatusGuid = db.Column("RpAccStatusGuid",UUID(as_uuid=True),unique=True)
+	RpAccStatusName_tkTM = db.Column("RpAccStatusName_tkTM",db.String(100))
 	RpAccStatusDesc_tkTM = db.Column("RpAccStatusDesc_tkTM",db.String(500))
 	RpAccStatusName_ruRU = db.Column("RpAccStatusName_ruRU",db.String(100))
 	RpAccStatusDesc_ruRU = db.Column("RpAccStatusDesc_ruRU",db.String(500))
@@ -16,6 +19,7 @@ class Rp_acc_status(BaseModel, db.Model):
 	def to_json_api(self):
 		data = {
 			"RpAccStatusId": self.RpAccStatusId,
+			"RpAccStatusGuid": self.RpAccStatusGuid,
 			"RpAccStatusName_tkTM": self.RpAccStatusName_tkTM,
 			"RpAccStatusDesc_tkTM": self.RpAccStatusDesc_tkTM,
 			"RpAccStatusName_ruRU": self.RpAccStatusName_ruRU,

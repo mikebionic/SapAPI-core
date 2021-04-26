@@ -1,3 +1,5 @@
+from sqlalchemy.dialects.postgresql import UUID
+
 from main_pack import db
 from main_pack.models import BaseModel
 
@@ -5,6 +7,7 @@ from main_pack.models import BaseModel
 class Sale_agr_res_price(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_sale_agr_res_price"
 	SAResPriceId = db.Column("SAResPriceId",db.Integer,nullable=False,primary_key=True)
+	SaResPriceGuid = db.Column("SaResPriceGuid",UUID(as_uuid=True),unique=True)
 	SaleAgrId = db.Column("SaleAgrId",db.Integer,db.ForeignKey("tbl_dk_sale_agreement.SaleAgrId"))
 	ResPriceTypeId = db.Column("ResPriceTypeId",db.Integer,db.ForeignKey("tbl_dk_res_price_type.ResPriceTypeId"))
 	UnitId = db.Column("UnitId",db.Integer,db.ForeignKey("tbl_dk_unit.UnitId"))
@@ -18,6 +21,7 @@ class Sale_agr_res_price(BaseModel, db.Model):
 	def to_json_api(self):
 		data = {
 			"SAResPriceId": self.SAResPriceId,
+			"SaResPriceId": self.SaResPriceId,
 			"SaleAgrId": self.SaleAgrId,
 			"ResPriceTypeId": self.ResPriceTypeId,
 			"UnitId": self.UnitId,

@@ -1,3 +1,5 @@
+from sqlalchemy.dialects.postgresql import UUID
+
 from main_pack import db
 from main_pack.models import AddInf, BaseModel
 
@@ -5,6 +7,7 @@ from main_pack.models import AddInf, BaseModel
 class Rp_acc_transaction(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_rp_acc_transaction"
 	RpAccTransId = db.Column("RpAccTransId",db.Integer,nullable=False,primary_key=True)
+	RpAccTransGuid = db.Column("RpAccTransGuid",UUID(as_uuid=True),unique=True)
 	CId = db.Column("CId",db.Integer,db.ForeignKey("tbl_dk_company.CId"))
 	DivId = db.Column("DivId",db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
 	WpId = db.Column("WpId",db.Integer,db.ForeignKey("tbl_dk_work_period.WpId"))
@@ -23,6 +26,7 @@ class Rp_acc_transaction(AddInf, BaseModel, db.Model):
 	def to_json_api(self):
 		data = {
 			"RpAccTransId": self.RpAccTransId,
+			"RpAccTransGuid": self.RpAccTransGuid,
 			"CId": self.CId,
 			"DivId": self.DivId,
 			"WpId": self.WpId,

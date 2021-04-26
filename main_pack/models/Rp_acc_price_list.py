@@ -1,3 +1,5 @@
+from sqlalchemy.dialects.postgresql import UUID
+
 from main_pack import db
 from main_pack.models import BaseModel
 
@@ -5,6 +7,7 @@ from main_pack.models import BaseModel
 class Rp_acc_price_list(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_rp_acc_price_list"
 	RpAccPId = db.Column("RpAccPId",db.Integer,nullable=False,primary_key=True)
+	RpAccPGuid = db.Column("RpAccPGuid",UUID(as_uuid=True),unique=True)
 	RpAccId = db.Column("RpAccId",db.Integer,db.ForeignKey("tbl_dk_rp_acc.RpAccId"))
 	UnitName = db.Column("UnitName",db.String(100))
 	ResBarcode = db.Column("ResBarcode",db.String(100),nullable=False)
@@ -18,6 +21,7 @@ class Rp_acc_price_list(BaseModel, db.Model):
 	def to_json_api(self):
 		data = {
 			"RpAccPId": self.RpAccPId,
+			"RpAccPGuid": self.RpAccPGuid,
 			"RpAccId": self.RpAccId,
 			"UnitName": self.UnitName,
 			"ResBarcode": self.ResBarcode,

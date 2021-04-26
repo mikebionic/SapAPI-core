@@ -1,3 +1,4 @@
+from sqlalchemy.dialects.postgresql import UUID
 from datetime import datetime
 
 from main_pack import db
@@ -9,6 +10,7 @@ from main_pack.base.dataMethods import apiDataFormat
 class Sl_image(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_sl_image"
 	SlImgId = db.Column("SlImgId",db.Integer,nullable=False,primary_key=True)
+	SlImgGuid = db.Column("SlImgGuid",UUID(as_uuid=True),unique=True)
 	SlId = db.Column("SlId",db.Integer,db.ForeignKey("tbl_dk_slider.SlId"))
 	SlImgTitle = db.Column("SlImgTitle",db.String(100))
 	SlImgDesc = db.Column("SlImgDesc",db.String(500),default='')
@@ -33,6 +35,7 @@ class Sl_image(AddInf, BaseModel, db.Model):
 	def to_json_api(self):
 		data = {
 			"SlImgId": self.SlImgId,
+			"SlImgGuid": self.SlImgGuid,
 			"SlId": self.SlId,
 			"SlImgTitle": self.SlImgTitle,
 			"SlImgDesc": self.SlImgDesc,

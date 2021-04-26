@@ -1,3 +1,5 @@
+from sqlalchemy.dialects.postgresql import UUID
+
 from main_pack import db
 from main_pack.models import AddInf, BaseModel
 
@@ -5,6 +7,7 @@ from main_pack.models import AddInf, BaseModel
 class Translation(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_translations"
 	TranslId = db.Column("TranslId",db.Integer,nullable=False,primary_key=True)
+	TranslGuid = db.Column("TranslGuid",UUID(as_uuid=True),unique=True)
 	ResCatId = db.Column("ResCatId",db.Integer,db.ForeignKey("tbl_dk_res_category.ResCatId"))
 	ColorId = db.Column("ColorId",db.Integer,db.ForeignKey("tbl_dk_color.ColorId"))
 	ProdId = db.Column("ProdId",db.Integer,db.ForeignKey("tbl_dk_production.ProdId"))
@@ -15,6 +18,7 @@ class Translation(AddInf, BaseModel, db.Model):
 	def to_json_api(self):
 		data = {
 			"TranslId": self.TranslId,
+			"TranslGuid": self.TranslGuid,
 			"ResCatId": self.ResCatId,
 			"ColorId": self.ColorId,
 			"ProdId": self.ProdId,

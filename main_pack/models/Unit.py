@@ -1,3 +1,5 @@
+from sqlalchemy.dialects.postgresql import UUID
+
 from main_pack import db
 from main_pack.models import BaseModel
 
@@ -5,6 +7,7 @@ from main_pack.models import BaseModel
 class Unit(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_unit"
 	UnitId = db.Column("UnitId",db.Integer,nullable=False,primary_key=True)
+	UnitGuid = db.Column("UnitGuid",UUID(as_uuid=True),unique=True)
 	UnitName_tkTM = db.Column("UnitName_tkTM",db.String(100))
 	UnitDesc_tkTM = db.Column("UnitDesc_tkTM",db.String(100))
 	UnitName_ruRU = db.Column("UnitName_ruRU",db.String(100))
@@ -24,6 +27,8 @@ class Unit(BaseModel, db.Model):
 
 	def to_json_api(self):
 		data = {
+			"UnitId": self.UnitId,
+			"UnitGuid": self.UnitGuid,
 			"UnitName_tkTM": self.UnitName_tkTM,
 			"UnitDesc_tkTM": self.UnitDesc_tkTM,
 			"UnitName_ruRU": self.UnitName_ruRU,

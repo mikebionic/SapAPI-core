@@ -1,3 +1,5 @@
+from sqlalchemy.dialects.postgresql import UUID
+
 from main_pack import db
 from main_pack.models import AddInf, BaseModel
 
@@ -5,6 +7,7 @@ from main_pack.models import AddInf, BaseModel
 class School(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_school"
 	SchoolId = db.Column("SchoolId",db.Integer,nullable=False,primary_key=True)
+	SchoolGuid = db.Column("SchoolGuid",UUID(as_uuid=True),unique=True)
 	EmpId = db.Column("EmpId",db.Integer,db.ForeignKey("tbl_dk_employee.EmpId"))
 	SchoolTypeId = db.Column("SchoolTypeId",db.Integer,db.ForeignKey("tbl_dk_school_type.SchoolTypeId"))
 	SchoolName = db.Column("SchoolName",db.String(255),nullable=False)
@@ -17,16 +20,17 @@ class School(AddInf, BaseModel, db.Model):
 
 	def to_json_api(self):
 		data = {
-			"schoolId": self.SchoolId,
-			"empId": self.EmpId,
-			"schoolType": self.SchoolTypeId,
-			"schoolName": self.SchoolName,
-			"schoolDesc": self.SchoolDesc,
-			"schoolPlace": self.SchoolPlace,
-			"eduStartDate": self.SchoolEduStartDate,
-			"eduEndDate": self.SchoolEduEndDate,
-			"schoolProfession": self.SchoolProfession,
-			"isGraduated": self.SchoolIsGraduated
+			"SchoolId": self.SchoolId,
+			"SchoolGuid": self.SchoolGuid,
+			"EmpId": self.EmpId,
+			"SchoolTypeId": self.SchoolTypeId,
+			"SchoolName": self.SchoolName,
+			"SchoolDesc": self.SchoolDesc,
+			"SchoolPlace": self.SchoolPlace,
+			"SchoolEduStartDate": self.SchoolEduStartDate,
+			"SchoolEduEndDate": self.SchoolEduEndDate,
+			"SchoolProfession": self.SchoolProfession,
+			"SchoolIsGraduated": self.SchoolIsGraduated
 		}
 
 		for key, value in AddInf.to_json_api(self).items():

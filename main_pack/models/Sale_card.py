@@ -1,3 +1,4 @@
+from sqlalchemy.dialects.postgresql import UUID
 from datetime import datetime
 
 from main_pack import db
@@ -7,6 +8,7 @@ from main_pack.models import AddInf, BaseModel
 class Sale_card(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_sale_card"
 	SaleCardId = db.Column("SaleCardId",db.Integer,nullable=False,primary_key=True)
+	SaleCardGuid = db.Column("SaleCardGuid",UUID(as_uuid=True),unique=True)
 	CId = db.Column("CId",db.Integer,db.ForeignKey("tbl_dk_company.CId"))
 	DivId = db.Column("DivId",db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
 	WpId = db.Column("WpId",db.Integer,db.ForeignKey("tbl_dk_work_period.WpId"))
@@ -37,6 +39,7 @@ class Sale_card(AddInf, BaseModel, db.Model):
 	def to_json_api(self):
 		data = {
 			"SaleCardId": self.SaleCardId,
+			"SaleCardGuid": self.SaleCardGuid,
 			"CId": self.CId,
 			"DivId": self.DivId,
 			"WpId": self.WpId,
