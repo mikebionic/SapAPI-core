@@ -405,7 +405,7 @@ $('.product-slider-4').slick({
 			{
 					breakpoint: 654,
 					settings: {
-							// slidesToScroll: 2,
+							slidesToScroll: 2,
 							autoplay: true,
 							slidesToShow: 2,
 							arrows: false,
