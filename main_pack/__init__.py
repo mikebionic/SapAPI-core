@@ -15,7 +15,6 @@ from flask_compress import Compress
 import logging
 from logging.handlers import SMTPHandler
 from htmlmin.main import minify
-from celery import Celery
 
 
 from main_pack.config import Config
@@ -66,9 +65,6 @@ def create_app(config_class=Config):
 	mail.init_app(app)
 	csrf.init_app(app)
 	cache.init_app(app)
-
-	client = Celery(app.name, broker=Config.CELERY_BROKER_URL)
-	client.conf.update(app.config)
 
 	if Config.USE_FLASK_COMPRESS:
 		compress.init_app(app)
