@@ -3984,7 +3984,6 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   color: #555555;
   text-align: center;
   background-color: #eeeeee;
-  border: 1px solid #ccc;
   border-radius: 4px;
 }
 .input-group-addon.input-sm {
@@ -5282,6 +5281,7 @@ a.thumbnail.active {
   zoom: 1;
 }
 .media-body {
+  margin-left: 20px;
   width: 10000px;
 }
 .media-object {
