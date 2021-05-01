@@ -79,17 +79,20 @@ def save_order_line_checkout_data(
 			if not List_Res_price:
 				raise Exception
 
-			this_priceValue = List_Res_price[0]["ResPriceValue"] if List_Res_price else 0.0
+			this_priceValue = List_Res_price[0]["ResPriceValue"] if List_Res_price[0]["ResPriceValue"] else 0.0
 
 			if not inv_currency:
-				try:
-					List_Currencies = [currency.to_json_api() for currency in currencies if currency.CurrencyId == List_Res_price[0]["CurrencyId"]]
-				except:
-					List_Currencies = []
-				this_currencyCode = List_Currencies[0]["CurrencyCode"] if List_Currencies else Config.DEFAULT_VIEW_CURRENCY_CODE
+				List_Currencies = [currency.to_json_api() for currency in currencies if currency.CurrencyId == List_Res_price[0]["CurrencyId"]]
+				if not List_Currencies:
+					print("Save Order Line checkout | Currency not found or empty")
+					raise Exception
+
+				this_currencyCode = List_Currencies[0]["CurrencyCode"]
+				this_currencyId = List_Currencies[0]["CurrencyId"]
 
 			else:
 				this_currencyCode = inv_currency.CurrencyCode
+				this_currencyId = inv_currency.CurrencyId
 
 			price_data = price_currency_conversion(
 				priceValue = this_priceValue,
@@ -113,11 +116,13 @@ def save_order_line_checkout_data(
 				raise Exception
 
 			PriceValue = float(price_data["ResPriceValue"]) if check_price_value else float(order_inv_line["OInvLinePrice"])
-			CurrencyId = price_data["CurrencyId"]
-			CurrencyCode = price_data["CurrencyCode"]
+			# PriceValue = float(this_priceValue) if check_price_value else float(order_inv_line["OInvLinePrice"])
+			CurrencyId = price_data["CurrencyId"] # this_currencyId
+			CurrencyCode = price_data["CurrencyCode"] # this_currencyCode
 			ExcRateValue = price_data["ExcRateValue"]
 
 			if order_inv_line["OInvLinePrice"] != PriceValue:
+				print(f"{PriceValue} given,order inv line is {order_inv_line['OInvLinePrice']}")
 				error_type = 4
 				raise Exception
 

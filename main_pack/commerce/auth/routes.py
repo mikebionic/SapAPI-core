@@ -63,6 +63,7 @@ def login():
 				print(f"{datetime.now()} | Rp_acc activity info update Exception: {ex}")
 
 			session["model_type"] = "rp_acc"
+			session["ResPriceGroupId"] = user.ResPriceGroupId
 			login_user(user, remember=form.remember.data)
 			next_page = request.args.get("next")
 
@@ -264,6 +265,7 @@ def register_token(token):
 
 			flash("{}, {}".format(username, lazy_gettext('your profile has been created!')),'success')
 			session["model_type"] = "rp_acc"
+			session["ResPriceGroupId"] = user.ResPriceGroupId
 			login_user(user)
 			return redirect(url_for('commerce.commerce'))
 

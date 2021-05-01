@@ -8,9 +8,9 @@ def get_ResPriceGroupId(
 	ResPriceGroupId = Config.DEFAULT_RES_PRICE_GROUP_ID if Config.DEFAULT_RES_PRICE_GROUP_ID > 0 else None
 	if current_user:
 		if (model_type == "device"):
-			ResPriceGroupId = current_user.user.ResPriceGroupId if current_user.user else None
+			ResPriceGroupId = current_user.user.ResPriceGroupId if current_user.user else ResPriceGroupId
 		else:
-			ResPriceGroupId = current_user.ResPriceGroupId if current_user.ResPriceGroupId else None
+			ResPriceGroupId = current_user.ResPriceGroupId if current_user.ResPriceGroupId else ResPriceGroupId
 
 	elif "ResPriceGroupId" in session:
 		ResPriceGroupId = session["ResPriceGroupId"]

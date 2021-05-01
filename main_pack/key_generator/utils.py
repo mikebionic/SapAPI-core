@@ -93,12 +93,9 @@ def makeRegNo(
 	RegNumTypeId = None,
 	RegNumTypeName = None
 ):
-	try:
-		if RegNumTypeId is None:
-			RegNumTypeId = RegNumTypeNamesDict[RegNumTypeName]
-	except Exception as ex:
-		print(f"Reg num creation exception: {ex}")
-	
+	if RegNumTypeId is None:
+		RegNumTypeId = RegNumTypeNamesDict[RegNumTypeName]
+
 	if random_mode == True:
 		lastNum = randint(1,Config.REG_NUM_RANDOM_RANGE)
 	

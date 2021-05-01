@@ -22,7 +22,7 @@ from main_pack.api.common import (
 	get_last_Warehouse_by_DivId,
 	get_ResPriceGroupId,
 	get_payment_method_by_id,
-	get_currency_from_code,
+	get_currency_model_from_code,
 )
 
 
@@ -98,8 +98,8 @@ def save_order_checkout_data(req, model_type, current_user, session = None):
 		currency_code = Config.DEFAULT_VIEW_CURRENCY_CODE
 		if "CurrencyCode" in req["orderInv"]:
 			currency_code = req["orderInv"]["CurrencyCode"] if req["orderInv"]["CurrencyCode"] else currency_code
-		
-		inv_currency = get_currency_from_code(
+
+		inv_currency = get_currency_model_from_code(
 			currency_code = currency_code,
 			session = session,
 		)
@@ -175,5 +175,5 @@ def save_order_checkout_data(req, model_type, current_user, session = None):
 			"message": "Failed to checkout order",
 			"status": 0,
 		}
-	
+
 	return res

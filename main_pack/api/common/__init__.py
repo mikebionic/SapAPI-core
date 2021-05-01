@@ -1,6 +1,7 @@
 from .fetch_and_generate_RegNo import fetch_and_generate_RegNo
 from .get_CId_WhGuid_list import get_CId_WhGuid_list
 from .get_company_id_guid_list import get_company_id_guid_list
+from .get_currency_model_from_code import get_currency_model_from_code
 from .get_division_id_guid_list import get_division_id_guid_list
 from .get_last_Warehouse_by_DivId import get_last_Warehouse_by_DivId
 from .get_last_Work_period import get_last_Work_period
