@@ -34,7 +34,6 @@ def checkout_cart_v1():
 		req['orderInv']['AddInf5'] = str(get_login_info(request))
 		res = save_order_checkout_data(req, session["model_type"], current_user, session)
 
-		print(res)
 		if res["status"] == 1:
 			response = jsonify({
 				"status": 'added',
