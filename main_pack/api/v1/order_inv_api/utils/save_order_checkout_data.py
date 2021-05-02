@@ -135,6 +135,7 @@ def save_order_checkout_data(req, model_type, current_user, session = None):
 				"fail_total": len(fails),
 				"total": len(order_inv_lines_req)
 			}
+
 			db.session.delete(this_Order_inv)
 			db.session.commit()
 

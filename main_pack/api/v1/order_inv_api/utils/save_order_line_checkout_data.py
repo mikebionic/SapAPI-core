@@ -39,7 +39,7 @@ def save_order_line_checkout_data(
 	res_price_groups = Res_price_group.query.filter_by(GCRecord = None).all()
 	exc_rates = Exc_rate.query.filter_by(GCRecord = None).all()
 
-	data, fails = [], []
+	data, fails, data_models = [], [], []
 	OInvTotal = 0
 	for order_inv_line_req in req:
 		try:
@@ -147,6 +147,7 @@ def save_order_line_checkout_data(
 			thisOInvLine = Order_inv_line(**order_inv_line)
 			db.session.add(thisOInvLine)
 			data.append(thisOInvLine.to_json_api())
+			data_models.append(thisOInvLine)
 
 			order_inv_line = None
 
@@ -158,6 +159,9 @@ def save_order_line_checkout_data(
 				"error_type_message": get_order_error_type(error_type)
 			}
 			fails.append(fail_info)
-
+	
+	if data_models:
+		for model in data_models:
+			db.session.expunge(model)
 
 	return data, fails, OInvTotal
