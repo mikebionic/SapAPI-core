@@ -6,8 +6,8 @@ def generate_order_inv_line_json(
 	order_inv,
 	currencies,
 	exc_rates,
-	currency_code,
 	show_inv_line_resource,
+	currency_code = None,
 ):
 	order_inv_lines = []
 	for order_inv_line in order_inv.Order_inv_line:
@@ -28,12 +28,13 @@ def generate_order_inv_line_json(
 			this_line_currencyCode = currency_data[0]["CurrencyCode"] if currency_data else None
 			ExcRateValue = this_order_inv_line["ExcRateValue"]
 
+			# print(f"requested code: {currency_code} of line with code {this_line_currencyCode} | Inv rate is {ExcRateValue}")
 			price_conversion_args = {
 				"from_currency": this_line_currencyCode,
-				"to_currency": currency_code,
+				"to_currency": currency_code if currency_code else this_line_currencyCode,
 				"currencies_dbModel": currencies,
 				"exc_rates_dbModel": exc_rates,
-				"exc_rate_value": ExcRateValue,
+				"from_exc_rate_value": ExcRateValue,
 			}
 
 			price_data = price_currency_conversion(
@@ -50,10 +51,11 @@ def generate_order_inv_line_json(
 				priceValue = this_line_FTotal,
 				**price_conversion_args
 			)
-
+			# print(f"converted from {this_line_Price} to {price_data['ResPriceValue']} with rate {price_data['ExcRateValue']}")
 			this_order_inv_line["OInvLinePrice"] = price_data["ResPriceValue"]
 			this_order_inv_line["CurrencyId"] = price_data["CurrencyId"]
 			this_order_inv_line["CurrencyCode"] = price_data["CurrencyCode"]
+			this_order_inv_line["ExcRateValue"] = price_data["ExcRateValue"]
 			this_order_inv_line["OInvLineTotal"] = Total_price_data["ResPriceValue"]
 			this_order_inv_line["OInvLineFTotal"] = FTotal_price_data["ResPriceValue"]
 

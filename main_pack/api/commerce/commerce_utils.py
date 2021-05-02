@@ -810,24 +810,21 @@ def apiOrderInvInfo(
 							from_currency = this_line_currencyCode,
 							to_currency = currency_code,
 							currencies_dbModel = currencies,
-							exc_rates_dbModel = exc_rates,
-							exc_rate_value = ExcRateValue)
+							exc_rates_dbModel = exc_rates)
 
 						Total_price_data = price_currency_conversion(
 							priceValue = this_line_Total,
 							from_currency = this_line_currencyCode,
 							to_currency = currency_code,
 							currencies_dbModel = currencies,
-							exc_rates_dbModel = exc_rates,
-							exc_rate_value = ExcRateValue)
+							exc_rates_dbModel = exc_rates)
 
 						FTotal_price_data = price_currency_conversion(
 							priceValue = this_line_FTotal,
 							from_currency = this_line_currencyCode,
 							to_currency = currency_code,
 							currencies_dbModel = currencies,
-							exc_rates_dbModel = exc_rates,
-							exc_rate_value = ExcRateValue)
+							exc_rates_dbModel = exc_rates)
 
 						this_order_inv_line["OInvLinePrice"] = price_data["ResPriceValue"]
 						this_order_inv_line["CurrencyId"] = price_data["CurrencyId"]

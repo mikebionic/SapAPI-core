@@ -17,6 +17,7 @@ def tbl_order_inv():
 	DivId = request.args.get("DivId",None,type=int)
 	notDivId = request.args.get("notDivId",None,type=int)
 	startDate = request.args.get("startDate",None,type=str)
+	currency_code = request.args.get("currency",None,type=str)
 	endDate = request.args.get("endDate",datetime.now())
 
 	res = collect_order_inv_data(
@@ -25,7 +26,7 @@ def tbl_order_inv():
 		statusId = 1,
 		DivId = DivId,
 		notDivId = notDivId,
-		currency_code = Config.MAIN_CURRENCY_CODE
+		currency_code = currency_code.upper() if currency_code else None,
 	)
 
 	status_code = 200

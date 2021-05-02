@@ -16,7 +16,9 @@ def price_currency_conversion(
 	currencies_dbModel = None,
 	exc_rates_dbModel = None,
 	value_type = "out",
-	exc_rate_value = None):
+	from_exc_rate_value = None,
+	to_exc_rate_value = None,
+):
 
 	data = {}
 
@@ -63,8 +65,11 @@ def price_currency_conversion(
 			to_rate_value = to_rate_value if to_rate_value else 1
 		to_rate_value = to_rate_value if to_currency != main_currency else 1
 
-		if exc_rate_value:
-			to_rate_value = exc_rate_value
+		if from_exc_rate_value:
+			from_rate_value = from_exc_rate_value
+
+		if to_exc_rate_value:
+			to_rate_value = to_exc_rate_value
 
 		priceValue = float(configureDecimal(priceValue / from_rate_value * to_rate_value))
 
