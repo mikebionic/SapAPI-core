@@ -554,9 +554,9 @@ Returns only if the **Rp_acc** is the **owner** of invoice
 
 # v1 api
 
-Optimized and updated code
+## Optimized and updated code
 
-URL prefix: **/api/v1**
+### URL prefix: **/api/v1**
 
 ---
 
@@ -580,7 +580,7 @@ URL prefix: **/api/v1**
 
 ---
 
-## Order checkout
+## Order inv api
 
 | __Route__                 | __Methods__ | __Status__ | __Note__            |
 | ------------------------- | :---------: | :--------: | ------------------- |
@@ -588,7 +588,56 @@ URL prefix: **/api/v1**
 
 [example request](./examples/checkout_order_inv_api.md)
 
+---
+
+| __Route__            | __Methods__ | __Status__ | __Note__            |
+| -------------------- | :---------: | :--------: | ------------------- |
+| /tbl-order-invoices/ |   **GET**   | **Active** | **@sha required** |
+
+**Properties**
+| __Name__  |         __Type__         | __Description__ | __Example__ |
+| --------- | :----------------------: | --------------- | ----------- |
+| DivId     |         **int**          |
+| notDivId  |         **int**          |
+| stausId   |         **int**          |
+| startDate | **str repr of datetime** |
+| endDate   | **str repr of datetime** |
+| currency  |         **str**          |
+
+---
+
+| __Route__            | __Methods__ | __Status__ | __Note__            |
+| -------------------- | :---------: | :--------: | ------------------- |
+| /v-order-invoices/ |   **GET**   | **Active** | **@token required** |
+
+**Properties**
+| __Name__  |         __Type__         | __Description__ | __Example__ |
+| --------- | :----------------------: | --------------- | ----------- |
+| stausId   |         **int**          |
+| startDate | **str repr of datetime** |
+| endDate   | **str repr of datetime** |
+| currency  |         **str**          |
+
+---
 
 
-/set-session-currency/<currency_code>/
-/set-session-language/<language>/
+| __Route__            | __Methods__ | __Status__ | __Note__            |
+| -------------------- | :---------: | :--------: | ------------------- |
+| /v-order-invoices/<Order_RegNo>/ |   **GET**   | **Active** | **@token required** |
+| /tbl-order-invoices/<Order_RegNo>/ |   **GET**   | **Active** | **@sha required** |
+
+**Properties**
+| __Name__  |         __Type__         | __Description__ | __Example__ |
+| --------- | :----------------------: | --------------- | ----------- |
+| currency  |         **str**          |
+
+---
+
+## Session api
+
+| __Route__                              | __Methods__ | __Status__ | __Note__ |
+| -------------------------------------- | :---------: | :--------: | -------- |
+| /set-session-currency/<currency_code>/ |   **GET**   | **Active** |
+| /set-session-language/<language_code>/ |   **GET**   | **Active** |
+
+---
