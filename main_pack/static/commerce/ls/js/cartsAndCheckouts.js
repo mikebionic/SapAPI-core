@@ -52,7 +52,7 @@ $('.paymentMethods input').click(function () {
 
 $('body').delegate('.checkoutCartBtn','click',function(){
 	cartCookie = Cookies.get('cart');
-	var data={}
+	var data = {}
 	var order_inv_lines = []
 	cartData=JSON.parse(cartCookie);
 	for (i in cartData){
@@ -77,7 +77,6 @@ $('body').delegate('.checkoutCartBtn','click',function(){
 	}
 	data['PmId'] = PmId
 	data['PtId'] = 1
-	console.log(data)
 	checkoutCart({"orderInv": data} ,url_prefix+'/commerce/checkout_cart_v1/','POST');
 });
 

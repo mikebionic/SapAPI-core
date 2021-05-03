@@ -565,4 +565,30 @@ URL prefix: **/api/v1**
 | /v-rp-accs/   |     **GET**      | **Active** | **@token required** |
 | /tbl-rp-accs/ | **GET** **POST** | **Active** | **@sha required**   |
 
+**Properties**
+| __Name__      |         __Type__         | __Description__ | __Example__ |
+| ------------- | :----------------------: | --------------- | ----------- |
+| id            |         **int**          |
+| regNo         |         **str**          |
+| name          |         **str**          |
+| DivId         |         **int**          |
+| notDivId      |         **int**          |
+| synchDateTime | **str repr of datetime** |
+| DivGuid       |         **str**          |
+| userId        |         **int**          |
+| empId         |         **int**          |
+
 ---
+
+## Order checkout
+
+| __Route__                 | __Methods__ | __Status__ | __Note__            |
+| ------------------------- | :---------: | :--------: | ------------------- |
+| /checkout-sale-order-inv/ |  **POST**   | **Active** | **@token required** |
+
+[example request](./examples/checkout_order_inv_api.md)
+
+
+
+/set-session-currency/<currency_code>/
+/set-session-language/<language>/

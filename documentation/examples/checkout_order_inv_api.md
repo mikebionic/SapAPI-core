@@ -1,4 +1,4 @@
-# current json (update)
+# v1 checkout request | current json (update)
 ```json
 {
 	"BaseOs": "",
@@ -14,18 +14,19 @@
 	"orderInv": {
 			"OInvTypeId": 2,
 			"InvStatId": 1,
-			"RpAccGuid": "0f547807-c691-40f1-af0d-4837f1075ddf",
+			"RpAccGuid": "0f547807-c691-40f1-af0d-4837f1075ddf", # !! required on User or Device checkout
 			"PtId": 1,
 			"PmId": 1,
-			"PaymStatusId": 1,
-			"OInvRegNo": "",
-			"OInvDesc": "",
+			"PaymStatusId": 1, # !! not required
+			"OInvRegNo": "", # !! not required
+			"OInvDesc": "",	# !! not required
+			"CurrencyCode": "TMT", # !! not required, could be provided in session header
 			"OrderInvLines": [
 					{
-							"UnitId": 1,
+							"UnitId": 1, # !! not required
 							"ResId": 36,
 							"OInvLineAmount": 3.0,
-							"OInvLinePrice": 35.0
+							"OInvLinePrice": 35.0,
 					}
 			]
 	}
