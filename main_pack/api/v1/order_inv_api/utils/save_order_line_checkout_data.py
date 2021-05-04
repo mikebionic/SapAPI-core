@@ -95,13 +95,18 @@ def save_order_line_checkout_data(
 			)
 			if not List_Res_price:
 				raise Exception
+			
+			# print(List_Res_price)
+			# print("------------")
+			# print(resource.Res_price[0].to_json_api())
+			# print("------------")
 
 			this_Resource_PriceValue = List_Res_price[0]["ResPriceValue"] if List_Res_price[0]["ResPriceValue"] else 0.0
 			List_Currencies = [currency.to_json_api() for currency in currencies if currency.CurrencyId == List_Res_price[0]["CurrencyId"]]
 
 			if not List_Currencies:
 				List_Currencies = [currency.to_json_api() for currency in currencies if currency.CurrencyCode == Config.MAIN_CURRENCY_CODE]
-				print("Save Order Line checkout | Currency not found or empty")
+				# print("Save Order Line checkout | Currency not found or empty")
 				# raise Exception
 
 			this_Resource_CurrencyCode = List_Currencies[0]["CurrencyCode"]
