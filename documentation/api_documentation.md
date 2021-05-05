@@ -560,10 +560,9 @@ Returns only if the **Rp_acc** is the **owner** of invoice
 
 ---
 
-| __Route__     |   __Methods__    | __Status__ | __Note__            |
-| ------------- | :--------------: | :--------: | ------------------- |
-| /v-rp-accs/   |     **GET**      | **Active** | **@token required** |
-| /tbl-rp-accs/ | **GET** **POST** | **Active** | **@sha required**   |
+| __Route__   | __Methods__ | __Status__ | __Note__            |
+| ----------- | :---------: | :--------: | ------------------- |
+| /v-rp-accs/ |   **GET**   | **Active** | **@token required** |
 
 **Properties**
 | __Name__      |         __Type__         | __Description__ | __Example__ |
@@ -580,6 +579,15 @@ Returns only if the **Rp_acc** is the **owner** of invoice
 
 ---
 
+| __Route__                |   __Methods__    | __Status__ | __Note__                                                   |
+| ------------------------ | :--------------: | :--------: | ---------------------------------------------------------- |
+| /v-rp-accs/              |     **POST**     | **Active** | **@token required**                                        |
+| /tbl-rp-accs/            | **GET** **POST** | **Active** | **@sha required**                                          |
+| /check-rp-acc-existence/ |     **POST**     | **Active** | gives info of rp_acc by provided json of data if it exists |
+
+---
+
+
 ## Order inv api
 
 | __Route__                 | __Methods__ | __Status__ | __Note__            |
@@ -590,8 +598,8 @@ Returns only if the **Rp_acc** is the **owner** of invoice
 
 ---
 
-| __Route__            | __Methods__ | __Status__ | __Note__            |
-| -------------------- | :---------: | :--------: | ------------------- |
+| __Route__            | __Methods__ | __Status__ | __Note__          |
+| -------------------- | :---------: | :--------: | ----------------- |
 | /tbl-order-invoices/ |   **GET**   | **Active** | **@sha required** |
 
 **Properties**
@@ -606,8 +614,8 @@ Returns only if the **Rp_acc** is the **owner** of invoice
 
 ---
 
-| __Route__            | __Methods__ | __Status__ | __Note__            |
-| -------------------- | :---------: | :--------: | ------------------- |
+| __Route__          | __Methods__ | __Status__ | __Note__            |
+| ------------------ | :---------: | :--------: | ------------------- |
 | /v-order-invoices/ |   **GET**   | **Active** | **@token required** |
 
 **Properties**
@@ -621,15 +629,15 @@ Returns only if the **Rp_acc** is the **owner** of invoice
 ---
 
 
-| __Route__            | __Methods__ | __Status__ | __Note__            |
-| -------------------- | :---------: | :--------: | ------------------- |
-| /v-order-invoices/<Order_RegNo>/ |   **GET**   | **Active** | **@token required** |
-| /tbl-order-invoices/<Order_RegNo>/ |   **GET**   | **Active** | **@sha required** |
+| __Route__                          | __Methods__ | __Status__ | __Note__            |
+| ---------------------------------- | :---------: | :--------: | ------------------- |
+| /v-order-invoices/<Order_RegNo>/   |   **GET**   | **Active** | **@token required** |
+| /tbl-order-invoices/<Order_RegNo>/ |   **GET**   | **Active** | **@sha required**   |
 
 **Properties**
-| __Name__  |         __Type__         | __Description__ | __Example__ |
-| --------- | :----------------------: | --------------- | ----------- |
-| currency  |         **str**          |
+| __Name__ | __Type__ | __Description__ | __Example__ |
+| -------- | :------: | --------------- | ----------- |
+| currency | **str**  |
 
 ---
 
