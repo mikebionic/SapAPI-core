@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import uuid
 from datetime import datetime
 from time import time
 import dateutil.parser
@@ -16,11 +17,29 @@ from .add_Rp_acc_dict import add_Rp_acc_dict
 from .add_Rp_acc_tr_tot_dict import add_Rp_acc_tr_tot_dict
 
 
-def save_rp_acc_synch_data(req):
+def save_rp_acc_req_data(req, model_type, current_user, session = None):
+	RpAccGuid = str(uuid.uuid4())
 
 	CId_list, CGuid_list = get_company_id_guid_list()
 	DivId_list, DivGuid_list = get_division_id_guid_list()
 	UId_list, UGuid_list = get_user_id_guid_list()
+
+
+
+	if model_type == "rp_acc":
+		user_id = current_user.user.UId
+		user_short_name = current_user.user.UShortName
+
+	if model_type == "device":
+		current_user = current_user.user
+		model_type = "user"
+
+	if model_type == "user":
+		user_id = current_user.UId
+		user_short_name = current_user.UShortName
+
+	DivId = current_user.DivId
+	CId = current_user.CId
 
 	data, fails = [], []
 	for rp_acc_req in req:
