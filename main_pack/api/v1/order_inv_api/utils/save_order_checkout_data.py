@@ -67,7 +67,7 @@ def save_order_checkout_data(req, model_type, current_user, session = None):
 
 		DivId = current_user.DivId
 		CId = current_user.CId
-		
+
 		RegNo, pred_reg_num = fetch_and_generate_RegNo(
 			user_id,
 			user_short_name,

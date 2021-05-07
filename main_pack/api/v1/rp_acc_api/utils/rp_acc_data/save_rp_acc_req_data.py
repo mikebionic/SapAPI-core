@@ -1,34 +1,15 @@
 # -*- coding: utf-8 -*-
 import uuid
-from datetime import datetime
-from time import time
-import dateutil.parser
+from datetime import datetime, timezone
 
-from main_pack import db
-from main_pack.api.common import (
-	get_company_id_guid_list,
-	get_division_id_guid_list,
-	get_user_id_guid_list,
-)
-from main_pack.base import get_id_from_list_indexing
+from main_pack import db, bcrypt
+
 from main_pack.models import Rp_acc
-from main_pack.models import Rp_acc_trans_total
 from .add_Rp_acc_dict import add_Rp_acc_dict
-from .add_Rp_acc_tr_tot_dict import add_Rp_acc_tr_tot_dict
+from main_pack.key_generator.utils import makeRegNo, generate
 
 
 def save_rp_acc_req_data(req, model_type, current_user, session = None):
-	RpAccGuid = str(uuid.uuid4())
-
-	CId_list, CGuid_list = get_company_id_guid_list()
-	DivId_list, DivGuid_list = get_division_id_guid_list()
-	UId_list, UGuid_list = get_user_id_guid_list()
-
-
-
-	if model_type == "rp_acc":
-		user_id = current_user.user.UId
-		user_short_name = current_user.user.UShortName
 
 	if model_type == "device":
 		current_user = current_user.user
@@ -40,25 +21,22 @@ def save_rp_acc_req_data(req, model_type, current_user, session = None):
 
 	DivId = current_user.DivId
 	CId = current_user.CId
+	UId = current_user.UId
 
 	data, fails = [], []
 	for rp_acc_req in req:
 		try:
 			rp_acc_info = add_Rp_acc_dict(rp_acc_req)
-			
-			RpAccRegNo = rp_acc_info["RpAccRegNo"]
-			RpAccGuid = rp_acc_info["RpAccGuid"]
-
-			CId = get_id_from_list_indexing(CId_list, CGuid_list, rp_acc_req["CGuid"])
-			DivId = get_id_from_list_indexing(DivId_list, DivGuid_list, rp_acc_req["DivGuid"])
-			UId = get_id_from_list_indexing(UId_list, UGuid_list, rp_acc_req["UGuid"])
-
-			if not DivId or not UId or not CId:
-				raise Exception
 
 			rp_acc_info["DivId"] = DivId
 			rp_acc_info["CId"] = CId
 			rp_acc_info["UId"] = UId
+
+			RpAccRegNo = rp_acc_info["RpAccRegNo"]
+			RpAccGuid = rp_acc_info["RpAccGuid"]
+
+			if Config.HASHED_PASSWORDS == True:
+				rp_acc_info["RpAccUPass"] = bcrypt.generate_password_hash(rp_acc_info["RpAccUPass"]).decode()
 
 			thisRpAcc = Rp_acc.query\
 				.filter_by(
@@ -67,51 +45,34 @@ def save_rp_acc_req_data(req, model_type, current_user, session = None):
 				.first()
 
 			if thisRpAcc:
-				if (thisRpAcc.ModifiedDate < dateutil.parser.parse(rp_acc_info["ModifiedDate"])):
-					rp_acc_info["RpAccId"] = thisRpAcc.RpAccId
-					thisRpAcc.update(**rp_acc_info)
+				rp_acc_info["RpAccId"] = thisRpAcc.RpAccId
+				thisRpAcc.update(**rp_acc_info)
 
 			else:
+				try:
+					reg_num = generate(UId=current_user.UId,RegNumTypeName='rp_code')
+					regNo = makeRegNo(current_user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'')
+					reg_num.RegNumLastNum = reg_num.RegNumLastNum + 1
+					db.session.commit()
+				except Exception as ex:
+					print(f"{datetime.now()} | Rp_acc_req save regNo gen Exception: {ex}")
+					regNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
+
+				rp_acc_info["RpAccRegNo"] = regNo
+				rp_acc_info["RpAccGuid"] = uuid.uuid4()
+				
 				if not rp_acc_info["RpAccUName"]:
-					rp_acc_info["RpAccUName"] = f"RpAccUName{str(time())}"
+					rp_acc_info["RpAccUName"] = f"RpAccUName{datetime.now().replace(tzinfo=timezone.utc).timestamp()}"
 				if not rp_acc_info["RpAccUPass"]:
-					rp_acc_info["RpAccUPass"] = f"RpAccUPass{str(time())}"
+					rp_acc_info["RpAccUPass"] = f"RpAccUPass{datetime.now().replace(tzinfo=timezone.utc).timestamp()}"
 
 				thisRpAcc = Rp_acc(**rp_acc_info)
 				db.session.add(thisRpAcc)
 
 			db.session.commit()
 
-			if "RpAccTransTotal" in rp_acc_info:
-				try:
-					rp_acc_trans_total_req = rp_acc_req["RpAccTransTotal"]
-					RpAccId = thisRpAcc.RpAccId
-					rp_acc_trans_total = add_Rp_acc_tr_tot_dict(rp_acc_trans_total_req)
-					rp_acc_trans_total["RpAccTrTotId"] = None
-					rp_acc_trans_total["RpAccId"] = RpAccId
-
-					thisRpAccTrTotal = Rp_acc_trans_total.query\
-						.filter_by(RpAccId = RpAccId, GCRecord = None)\
-						.first()
-					if thisRpAccTrTotal:
-						rp_acc_trans_total["RpAccTrTotId"] = thisRpAccTrTotal.RpAccTrTotId
-						thisRpAccTrTotal.update(**rp_acc_trans_total)
-					else:
-						thisRpAccTrTotal = Rp_acc_trans_total(**rp_acc_trans_total)
-						db.session.add(thisRpAccTrTotal)
-
-					data.append(rp_acc_req)
-
-				except Exception as ex:
-					print(f"{datetime.now()} | v1 Rp_acc Api sych Rp_acc_total Exception: {ex}")
-
 		except Exception as ex:
 			print(f"{datetime.now()} | v1 Rp_acc Api sych Exception: {ex}")
 			fails.append(rp_acc_req)
-
-	try:
-		db.session.commit()
-	except Exception as ex:
-		print(f"{datetime.now()} | v1 Rp_acc Api sych Exception: {ex}")
 
 	return data, fails
