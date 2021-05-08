@@ -112,7 +112,7 @@ def UiCategoriesList():
 			logoIcon["FilePath"] = fileToURL(file_type='image',file_name=company.Image[0].FileName)
 
 	config = {
-		"GOOGLE_ANALYTICS_TAG": Config.GOOGLE_ANALYTICS_TAG if Config. GOOGLE_ANALYTICS_TAG else ''
+		"GOOGLE_ANALYTICS_TAG": Config.GOOGLE_ANALYTICS_TAG if Config.GOOGLE_ANALYTICS_TAG else ''
 	}
 
 	res = {

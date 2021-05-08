@@ -1209,7 +1209,7 @@ $('body').delegate('.addToCart','click',function(){
 $('body').delegate('.removeFromCart','click',function(){
 	ownerId = $(this).attr('ownerId');
 	removeFromCart(ownerId);
-	$('.add-to-cart'+'[ownerId='+ownerId+']').removeClass('added').find('i').removeClass('ti-check').addClass('ti-shopping-cart').siblings('span').text(add_to_cart_text);
+	$('.add-to-cart'+'[ownerId='+ownerId+']').removeClass('added').find('i').removeClass('ti-check').addClass('ti-shopping-cart').siblings('span').text(add_to_cart_text); 
 });
 
 $('.add-to-cart').on('click', function(e){
@@ -1218,7 +1218,7 @@ $('.add-to-cart').on('click', function(e){
 
 	if($(this).hasClass('added')){
 		removeFromCart(ownerId);
-		$('.add-to-cart'+'[ownerId='+ownerId+']').removeClass('added').find('i').removeClass('ti-check').addClass('ti-shopping-cart').siblings('span').text(add_to_cart_text);
+		$('.add-to-cart'+'[ownerId='+ownerId+']').removeClass('added').find('i').removeClass('ti-check').addClass('ti-shopping-cart').siblings('span').text(add_to_cart_text); 
 	} else{
 		addToCart(ownerId);
 		$('.add-to-cart'+'[ownerId='+ownerId+']').addClass('added').find('i').addClass('ti-check').removeClass('ti-shopping-cart').siblings('span').text(remove_from_cart_text);
@@ -1228,11 +1228,32 @@ $('.add-to-cart').on('click', function(e){
 
 $('body').delegate('.checkoutCartBtn','click',function(){
 	cartCookie = Cookies.get('cart');
-	data={}
+	var data = {}
+	var order_inv_lines = []
 	cartData=JSON.parse(cartCookie);
-	data['cartData']=cartData;
-	data['orderDesc']=$('.orderDesc').val();
-	checkoutCart(data,url_prefix+'/product/ui_cart_checkout/','POST');
+	for (i in cartData){
+		var orderInvLine = {}
+		orderInvLine["ResId"] = cartData[i]["resId"]
+		orderInvLine["OInvLineAmount"] = cartData[i]["productQty"]
+		orderInvLine["OInvLinePrice"] = cartData[i]["priceValue"]
+		order_inv_lines.push(orderInvLine)
+	}
+
+	data['OrderInvLines'] = order_inv_lines;
+	data['OInvDesc'] = $('.orderDesc').val();
+
+	var PmId = 1;
+	// try {
+	//	var payment_method = $('.paymentMethods input:checked')
+	//	if (parseInt(payment_method[0].value) > 0){
+	//		PmId = parseInt(payment_method[0].value)
+	//	}
+	// } catch {
+	//	PmId = null;
+	// }
+	data['PmId'] = PmId
+	data['PtId'] = 1
+	checkoutCart({"orderInv": data} ,url_prefix+'/commerce/checkout_cart_v1/','POST');
 });
 
 
@@ -1283,16 +1304,14 @@ function removeFromWishlist(ownerId){
 	$('.addToWishlist'+'[ownerId='+ownerId+']').show();
 }
 
-function addToCart(ownerId){
+function addToCart(ownerId){	
 	$('.addToCart'+'[ownerId='+ownerId+']').hide();
 	$('.removeFromCart'+'[ownerId='+ownerId+']').show();
-	priceValue=$('.priceValue'+'[ownerId='+ownerId+']').attr('value');
-	productQty=$('.productQty'+'[ownerId='+ownerId+']').val();
-	pending_amount = $('.productQty'+'[ownerId='+ownerId+']').attr('pending_amount');
-	if(productQty > 1){} else {
-		productQty = 1;
-	}
-	// saving cookie
+	priceValue = parseFloat($('.priceValue'+'[ownerId='+ownerId+']').attr('value'));
+	productQty = parseInt($('.productQty'+'[ownerId='+ownerId+']').val());
+	pending_amount = parseInt($('.productQty'+'[ownerId='+ownerId+']').attr('pending_amount'));
+	if(productQty > 1){} else {productQty = 1;}
+
 	productData={'resId':ownerId,'priceValue':priceValue,'productQty':productQty};
 	cartData['product'+ownerId]=productData;
 	Cookies.set('cart',JSON.stringify(cartData));
@@ -1343,6 +1362,7 @@ function clearCart(){
 			ownerId = cartData[i]["resId"];
 			$('.cartObject'+ownerId).remove();
 			$('.cartTableObject'+ownerId).remove();
+			qtyCheckout(ownerId, newQtyValue = 0)
 			delete cartData['product'+ownerId];
 			Cookies.set('cart',JSON.stringify(cartData));
 			countCartItems();
@@ -1366,7 +1386,10 @@ function countCartItems(){
 }
 
 function qtyCheckout(ownerId,newQtyValue,pending_amount = 0){
-	if(newQtyValue <= 0){
+	if(newQtyValue == 0){
+		removeFromCart(ownerId)
+	}
+	if(newQtyValue < 0){
 		newQtyValue = 1;
 	}
 
@@ -1443,8 +1466,8 @@ function checkoutCart(formData,url,type){
 		contentType:"application/json",
 		dataType:"json",
 		data:JSON.stringify(formData),
-		type : type,
-		url : url,
+		type: type,
+		url: url,
 		success: function(response){
 			if(response.status == 'added'){
 				sweetAlert(title='',message=response.responseText,style='success');
@@ -1480,7 +1503,7 @@ function sendReview(formData,url,type,formId){
 }
 
 function sweetAlert(title,message,style){
-	swal(title,message,style);
+  swal(title,message,style);
 }
 
 function cartOperations(formData,url,type,responseForm,listName){
@@ -1532,6 +1555,7 @@ $('body').delegate('.removeFromWishlist','click',function(){
 	ownerId = $(this).attr('ownerId');
 	removeFromWishlist(ownerId);
 });
+
 
 
 

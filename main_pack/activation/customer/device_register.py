@@ -48,13 +48,14 @@ def register_device():
 
 			if (r.status_code == 200 or r.status_code == 201):
 				if server_response["status"] != 0:
-					data = addDeviceDict(server_response["data"])
-					data["RpAccId"] = None
+					response_data = addDeviceDict(server_response["data"])
+					response_data["RpAccId"] = None
 
 					try:
-						thisDevice = Device(**data)
+						thisDevice = Device(**response_data)
 						db.session.add(thisDevice)
 						db.session.commit()
+						data = thisDevice.to_json_api()
 
 					except Exception as ex:
 						print(f"{datetime.now()} | Device register db insertion Exception: {ex}")

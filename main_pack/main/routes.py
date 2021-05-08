@@ -28,7 +28,7 @@ def set_language(language=None):
 @bp.route('/currency/<currency_code>')
 def set_currency(currency_code=None):
 	currency = Currency.query.filter_by(CurrencyCode = currency_code).first()
-	session['currency_code'] = currency_code if currency_code else Config.DEFAULT_VIEW_CURRENCY_CODE
+	session['currency_code'] = currency.CurrencyCode if currency else Config.DEFAULT_VIEW_CURRENCY_CODE
 	return redirect(url_for('commerce.commerce'))
 
 

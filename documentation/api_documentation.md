@@ -554,15 +554,98 @@ Returns only if the **Rp_acc** is the **owner** of invoice
 
 # v1 api
 
-Optimized and updated code
+## Optimized and updated code
 
-URL prefix: **/api/v1**
+### URL prefix: **/api/v1**
 
 ---
 
-| __Route__     |   __Methods__    | __Status__ | __Note__            |
-| ------------- | :--------------: | :--------: | ------------------- |
-| /v-rp-accs/   |     **GET**      | **Active** | **@token required** |
-| /tbl-rp-accs/ | **GET** **POST** | **Active** | **@sha required**   |
+| __Route__   | __Methods__ | __Status__ | __Note__            |
+| ----------- | :---------: | :--------: | ------------------- |
+| /v-rp-accs/ |   **GET**   | **Active** | **@token required** |
+
+**Properties**
+| __Name__      |         __Type__         | __Description__ | __Example__ |
+| ------------- | :----------------------: | --------------- | ----------- |
+| id            |         **int**          |
+| regNo         |         **str**          |
+| name          |         **str**          |
+| DivId         |         **int**          |
+| notDivId      |         **int**          |
+| synchDateTime | **str repr of datetime** |
+| DivGuid       |         **str**          |
+| userId        |         **int**          |
+| empId         |         **int**          |
+
+---
+
+| __Route__                |   __Methods__    | __Status__ | __Note__                                                   |
+| ------------------------ | :--------------: | :--------: | ---------------------------------------------------------- |
+| /v-rp-accs/              |     **POST**     | **Active** | **@token required**                                        |
+| /tbl-rp-accs/            | **GET** **POST** | **Active** | **@sha required**                                          |
+| /check-rp-acc-existence/ |     **POST**     | **Active** | gives info of rp_acc by provided json of data if it exists |
+
+---
+
+
+## Order inv api
+
+| __Route__                 | __Methods__ | __Status__ | __Note__            |
+| ------------------------- | :---------: | :--------: | ------------------- |
+| /checkout-sale-order-inv/ |  **POST**   | **Active** | **@token required** |
+
+[example request](./examples/checkout_order_inv_api.md)
+
+---
+
+| __Route__            | __Methods__ | __Status__ | __Note__          |
+| -------------------- | :---------: | :--------: | ----------------- |
+| /tbl-order-invoices/ |   **GET**   | **Active** | **@sha required** |
+
+**Properties**
+| __Name__  |         __Type__         | __Description__ | __Example__ |
+| --------- | :----------------------: | --------------- | ----------- |
+| DivId     |         **int**          |
+| notDivId  |         **int**          |
+| stausId   |         **int**          |
+| startDate | **str repr of datetime** |
+| endDate   | **str repr of datetime** |
+| currency  |         **str**          |
+
+---
+
+| __Route__          | __Methods__ | __Status__ | __Note__            |
+| ------------------ | :---------: | :--------: | ------------------- |
+| /v-order-invoices/ |   **GET**   | **Active** | **@token required** |
+
+**Properties**
+| __Name__  |         __Type__         | __Description__ | __Example__ |
+| --------- | :----------------------: | --------------- | ----------- |
+| stausId   |         **int**          |
+| startDate | **str repr of datetime** |
+| endDate   | **str repr of datetime** |
+| currency  |         **str**          |
+
+---
+
+
+| __Route__                          | __Methods__ | __Status__ | __Note__            |
+| ---------------------------------- | :---------: | :--------: | ------------------- |
+| /v-order-invoices/<Order_RegNo>/   |   **GET**   | **Active** | **@token required** |
+| /tbl-order-invoices/<Order_RegNo>/ |   **GET**   | **Active** | **@sha required**   |
+
+**Properties**
+| __Name__ | __Type__ | __Description__ | __Example__ |
+| -------- | :------: | --------------- | ----------- |
+| currency | **str**  |
+
+---
+
+## Session api
+
+| __Route__                              | __Methods__ | __Status__ | __Note__ |
+| -------------------------------------- | :---------: | :--------: | -------- |
+| /set-session-currency/<currency_code>/ |   **GET**   | **Active** |
+| /set-session-language/<language_code>/ |   **GET**   | **Active** |
 
 ---

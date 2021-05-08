@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
+from time import time
 import dateutil.parser
 
 from main_pack import db
@@ -50,33 +51,40 @@ def save_rp_acc_synch_data(req):
 				if (thisRpAcc.ModifiedDate < dateutil.parser.parse(rp_acc_info["ModifiedDate"])):
 					rp_acc_info["RpAccId"] = thisRpAcc.RpAccId
 					thisRpAcc.update(**rp_acc_info)
+
 			else:
+				if not rp_acc_info["RpAccUName"]:
+					rp_acc_info["RpAccUName"] = f"RpAccUName{str(time())}"
+				if not rp_acc_info["RpAccUPass"]:
+					rp_acc_info["RpAccUPass"] = f"RpAccUPass{str(time())}"
+
 				thisRpAcc = Rp_acc(**rp_acc_info)
 				db.session.add(thisRpAcc)
 
 			db.session.commit()
-			rp_acc_trans_total_req = rp_acc_req["RpAccTransTotal"]
 
-			try:
-				RpAccId = thisRpAcc.RpAccId
-				rp_acc_trans_total = add_Rp_acc_tr_tot_dict(rp_acc_trans_total_req)
-				rp_acc_trans_total["RpAccTrTotId"] = None
-				rp_acc_trans_total["RpAccId"] = RpAccId
+			if "RpAccTransTotal" in rp_acc_info:
+				try:
+					rp_acc_trans_total_req = rp_acc_req["RpAccTransTotal"]
+					RpAccId = thisRpAcc.RpAccId
+					rp_acc_trans_total = add_Rp_acc_tr_tot_dict(rp_acc_trans_total_req)
+					rp_acc_trans_total["RpAccTrTotId"] = None
+					rp_acc_trans_total["RpAccId"] = RpAccId
 
-				thisRpAccTrTotal = Rp_acc_trans_total.query\
-					.filter_by(RpAccId = RpAccId, GCRecord = None)\
-					.first()
-				if thisRpAccTrTotal:
-					rp_acc_trans_total["RpAccTrTotId"] = thisRpAccTrTotal.RpAccTrTotId
-					thisRpAccTrTotal.update(**rp_acc_trans_total)
-				else:
-					thisRpAccTrTotal = Rp_acc_trans_total(**rp_acc_trans_total)
-					db.session.add(thisRpAccTrTotal)
+					thisRpAccTrTotal = Rp_acc_trans_total.query\
+						.filter_by(RpAccId = RpAccId, GCRecord = None)\
+						.first()
+					if thisRpAccTrTotal:
+						rp_acc_trans_total["RpAccTrTotId"] = thisRpAccTrTotal.RpAccTrTotId
+						thisRpAccTrTotal.update(**rp_acc_trans_total)
+					else:
+						thisRpAccTrTotal = Rp_acc_trans_total(**rp_acc_trans_total)
+						db.session.add(thisRpAccTrTotal)
 
-				data.append(rp_acc_req)
+					data.append(rp_acc_req)
 
-			except Exception as ex:
-				print(f"{datetime.now()} | v1 Rp_acc Api sych Rp_acc_total Exception: {ex}")
+				except Exception as ex:
+					print(f"{datetime.now()} | v1 Rp_acc Api sych Rp_acc_total Exception: {ex}")
 
 		except Exception as ex:
 			print(f"{datetime.now()} | v1 Rp_acc Api sych Exception: {ex}")

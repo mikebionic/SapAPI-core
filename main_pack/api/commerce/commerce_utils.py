@@ -226,10 +226,13 @@ def apiResourceInfo(
 		ResPriceGroupId = Config.DEFAULT_RES_PRICE_GROUP_ID
 		try:
 			if "ResPriceGroupId" in session:
-				ResPriceGroupId = session["ResPriceGroupId"]
+				if session["ResPriceGroupId"]:
+					ResPriceGroupId = session["ResPriceGroupId"]
 
 			elif current_user.is_authenticated:
-				ResPriceGroupId = current_user.ResPriceGroupId if current_user.ResPriceGroupId else Config.DEFAULT_RES_PRICE_GROUP_ID
+				if current_user.ResPriceGroupId:
+					ResPriceGroupId = current_user.ResPriceGroupId
+
 		except Exception as ex:
 			print(f"{datetime.now()} | resource_info api ResPriceGroupId exception: {ex}")
 
@@ -810,24 +813,21 @@ def apiOrderInvInfo(
 							from_currency = this_line_currencyCode,
 							to_currency = currency_code,
 							currencies_dbModel = currencies,
-							exc_rates_dbModel = exc_rates,
-							exc_rate_value = ExcRateValue)
+							exc_rates_dbModel = exc_rates)
 
 						Total_price_data = price_currency_conversion(
 							priceValue = this_line_Total,
 							from_currency = this_line_currencyCode,
 							to_currency = currency_code,
 							currencies_dbModel = currencies,
-							exc_rates_dbModel = exc_rates,
-							exc_rate_value = ExcRateValue)
+							exc_rates_dbModel = exc_rates)
 
 						FTotal_price_data = price_currency_conversion(
 							priceValue = this_line_FTotal,
 							from_currency = this_line_currencyCode,
 							to_currency = currency_code,
 							currencies_dbModel = currencies,
-							exc_rates_dbModel = exc_rates,
-							exc_rate_value = ExcRateValue)
+							exc_rates_dbModel = exc_rates)
 
 						this_order_inv_line["OInvLinePrice"] = price_data["ResPriceValue"]
 						this_order_inv_line["CurrencyId"] = price_data["CurrencyId"]

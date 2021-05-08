@@ -16,16 +16,18 @@ from main_pack.api.v1.order_inv_api.utils import collect_order_inv_data
 def tbl_order_inv():
 	DivId = request.args.get("DivId",None,type=int)
 	notDivId = request.args.get("notDivId",None,type=int)
+	statusId = request.args.get("statusId",None,type=int)
 	startDate = request.args.get("startDate",None,type=str)
 	endDate = request.args.get("endDate",datetime.now())
+	currency_code = request.args.get("currency",None,type=str)
 
 	res = collect_order_inv_data(
 		startDate = startDate,
 		endDate = endDate,
-		statusId = 1,
+		statusId = statusId,
 		DivId = DivId,
 		notDivId = notDivId,
-		currency_code = Config.MAIN_CURRENCY_CODE
+		currency_code = currency_code.upper() if currency_code else None,
 	)
 
 	status_code = 200

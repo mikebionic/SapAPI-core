@@ -11,8 +11,8 @@ def generate_order_inv_json(
 	rp_acc_user,
 	invoices_only,
 	invoice_models,
-	currency_code,
-	show_inv_line_resource
+	show_inv_line_resource,
+	currency_code = None,
 ):
 
 	currencies = Currency.query.filter_by(GCRecord = None).all()
@@ -35,11 +35,11 @@ def generate_order_inv_json(
 
 			this_Total = order_inv_info["OInvTotal"]
 			this_FTotal = order_inv_info["OInvFTotal"]
-			this_currencyCode = currency_data[0]["CurrencyCode"] if currency_data else None
+			this_Inv_currencyCode = currency_data[0]["CurrencyCode"] if currency_data else None
 
 			price_conversion_args = {
-				"from_currency": this_currencyCode,
-				"to_currency": currency_code,
+				"from_currency": this_Inv_currencyCode,
+				"to_currency": currency_code if currency_code else this_Inv_currencyCode,
 				"currencies_dbModel": currencies,
 				"exc_rates_dbModel": exc_rates
 			}
@@ -83,8 +83,8 @@ def generate_order_inv_json(
 					order_inv,
 					currencies,
 					exc_rates,
-					currency_code,
 					show_inv_line_resource,
+					currency_code = currency_code,
 				)
 
 			data.append(order_inv_info)

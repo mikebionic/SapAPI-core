@@ -16,66 +16,65 @@ from main_pack.base.cryptographyMethods import encrypt_data
 @sap_key_required
 @request_is_json(request)
 def register_device():
-	if request.method == 'POST':
-		req = request.get_json()
-		rp_acc = Rp_acc.query.filter_by(DbGuid = req["DbInfGuid"], GCRecord = None).first()
+	req = request.get_json()
+	rp_acc = Rp_acc.query.filter_by(DbGuid = req["DbInfGuid"], GCRecord = None).first()
 
-		if not rp_acc:
-			abort(400)
+	if not rp_acc:
+		abort(400)
 
-		RpAccId = rp_acc.RpAccId if rp_acc else None
+	RpAccId = rp_acc.RpAccId
 
-		filtering = {
-			"GCRecord": None,
-			"DevUniqueId": req["DevUniqueId"],
-			"RpAccId": RpAccId
-		}
+	filtering = {
+		"GCRecord": None,
+		"DevUniqueId": req["DevUniqueId"],
+		"RpAccId": RpAccId
+	}
 
-		thisDevice = Device.query.filter_by(**filtering).first()
+	thisDevice = Device.query.filter_by(**filtering).first()
 
-		data = {}
-		if thisDevice:
+	data = {}
+	if thisDevice:
+		data = thisDevice.to_json_api()
+
+	else:
+		try:
+			device_info = addDeviceDict(req)
+			device_info["RpAccId"] = RpAccId
+			device_info["DevGuid"] = uuid.uuid4()
+
+			# DevVerifyDate = datetime.now().replace(microsecond = 0)
+			# device_info["DevVerifyDate"] = DevVerifyDate
+
+			# verify_date_data = str(DevVerifyDate.replace(tzinfo=timezone.utc).timestamp())
+
+			# DevVerifyKey = encrypt_data(
+			# 	data = verify_date_data,
+			# 	server_key = Config.BASE_32_FERNET_KEY.encode(),
+			# 	db_guid = rp_acc.DbGuid,
+			# 	client_key = rp_acc.RpAccWebKey
+			# )
+
+			# if not DevVerifyKey:
+			# 	raise Exception
+
+			# device_info["DevVerifyKey"] = DevVerifyKey
+
+			thisDevice = Device(**device_info)
+			db.session.add(thisDevice)
+			db.session.commit()
+
 			data = thisDevice.to_json_api()
 
-		else:
-			try:
-				device_info = addDeviceDict(req)
-				device_info["RpAccId"] = RpAccId
-				device_info["DevGuid"] = uuid.uuid4()
+		except Exception as ex:
+			print(f"{datetime.now()} | Device register server Exception: {ex}")
 
-				DevVerifyDate = datetime.now().replace(microsecond = 0)
-				device_info["DevVerifyDate"] = DevVerifyDate
+	res = {
+		"status": 1 if data else 0,
+		"data": data,
+		"message": "Device registration",
+		"total": 1 if data else 0
+	}
 
-				verify_date_data = str(DevVerifyDate.replace(tzinfo=timezone.utc).timestamp())
+	response = make_response(jsonify(res), 200)
 
-				DevVerifyKey = encrypt_data(
-					data = verify_date_data,
-					server_key = Config.BASE_32_FERNET_KEY.encode(),
-					db_guid = rp_acc.DbGuid,
-					client_key = rp_acc.RpAccWebKey
-				)
-
-				if not DevVerifyKey:
-					raise Exception
-
-				device_info["DevVerifyKey"] = DevVerifyKey
-
-				thisDevice = Device(**device_info)
-				db.session.add(thisDevice)
-				db.session.commit()
-
-				data = thisDevice.to_json_api()
-
-			except Exception as ex:
-				print(f"{datetime.now()} | Device register server Exception: {ex}")
-
-		res = {
-			"status": 1 if data else 0,
-			"data": data,
-			"message": "Device registration",
-			"total": 1 if data else 0
-		}
-
-		response = make_response(jsonify(res), 200)
-
-		return response
+	return response

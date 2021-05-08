@@ -13,7 +13,7 @@ def collect_order_inv_data(
 	invoices_only = False,
 	show_inv_line_resource = False,
 	rp_acc_user = None,
-	currency_code = Config.DEFAULT_VIEW_CURRENCY_CODE,
+	currency_code = None,
 	**kwargs,
 	# startDate = None,
 	# endDate = datetime.now(),

@@ -31,7 +31,7 @@ from main_pack.commerce.auth.utils import (
 	verify_register_token,
 	send_register_email)
 from main_pack.commerce.commerce.utils import UiCategoriesList
-from main_pack.key_generator.utils import makeRegNo, generate, validate
+from main_pack.key_generator.utils import makeRegNo, generate
 from main_pack.base.apiMethods import get_login_info
 
 
@@ -63,6 +63,7 @@ def login():
 				print(f"{datetime.now()} | Rp_acc activity info update Exception: {ex}")
 
 			session["model_type"] = "rp_acc"
+			session["ResPriceGroupId"] = user.ResPriceGroupId
 			login_user(user, remember=form.remember.data)
 			next_page = request.args.get("next")
 
@@ -70,7 +71,7 @@ def login():
 
 		except Exception as ex:
 			flash(lazy_gettext('Login Failed! Wrong email or password'),'danger')
-	
+
 	categoryData = UiCategoriesList()
 	return render_template(
 		f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/auth/login.html",
@@ -119,7 +120,7 @@ def reset_request():
 		flash(lazy_gettext('An email has been sent with instructions to reset your password'),'info')
 
 		return redirect(url_for('commerce_auth.login'))
-	
+
 	return render_template(
 		f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/auth/reset_request.html",
 		**categoryData,
@@ -199,7 +200,7 @@ def register_token(token):
 			email = new_user['email']
 
 			if Config.HASHED_PASSWORDS == True:
-				password = bcrypt.generate_password_hash(form.password.data).decode() 
+				password = bcrypt.generate_password_hash(form.password.data).decode()
 			else:
 				password = form.password.data
 
@@ -211,7 +212,7 @@ def register_token(token):
 				.first()
 			if check_registration:
 				raise Exception
-			
+
 			lastUser = Rp_acc.query.order_by(Rp_acc.RpAccId.desc()).first()
 			RpAccId = lastUser.RpAccId + 1
 
@@ -264,6 +265,7 @@ def register_token(token):
 
 			flash("{}, {}".format(username, lazy_gettext('your profile has been created!')),'success')
 			session["model_type"] = "rp_acc"
+			session["ResPriceGroupId"] = user.ResPriceGroupId
 			login_user(user)
 			return redirect(url_for('commerce.commerce'))
 

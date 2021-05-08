@@ -11,6 +11,7 @@ def check_device_activation(device_model):
 
 	state = False
 	do_fetch = False
+	current_device = None
 
 	database_inf = Db_inf.query.first()
 	DbInfGuid = database_inf.DbInfGuid
@@ -53,7 +54,8 @@ def check_device_activation(device_model):
 	else:
 		current_device = device_model.to_json_api()
 
-	if current_device["IsAllowed"]:
-		state = True
+	if current_device:
+		if current_device["IsAllowed"]:
+			state = True
 
 	return state

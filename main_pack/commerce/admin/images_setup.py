@@ -68,6 +68,9 @@ def remove_images():
 		ImgId = request.args.get("imgId")
 		ResId = request.args.get("prodId",None)
 		imgType = request.args.get("type")
+
+		url = url_for('commerce_admin.dashboard')
+
 		if imgType == 'image' or imgType == 'icon':
 			image = Image.query.get(ImgId)
 
@@ -89,7 +92,7 @@ def remove_images():
 
 		elif imgType == 'slider':
 			sl_image = Sl_image.query.get(ImgId)
-			
+
 			try:
 				file_type = imgType
 				file_name = Sl_image.SlImgMainImgFileName

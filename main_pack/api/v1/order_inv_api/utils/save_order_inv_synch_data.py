@@ -14,7 +14,7 @@ from main_pack.api.common import (
 	get_division_id_guid_list,
 	get_warehouse_id_guid_list,
 	get_rp_acc_id_guid_list,
-	get_currency_from_code,
+	get_currency_model_from_code,
 )
 from .add_Order_inv_dict import add_Order_inv_dict
 from .add_Order_inv_line_dict import add_Order_inv_line_dict
@@ -57,7 +57,7 @@ def save_order_inv_synch_data(req):
 			if "CurrencyCode" in req["orderInv"]:
 				currency_code = req["orderInv"]["CurrencyCode"] if req["orderInv"]["CurrencyCode"] else currency_code
 
-			inv_currency = get_currency_from_code(
+			inv_currency = get_currency_model_from_code(
 				currency_code = currency_code,
 				Currency_dbModel = currencies,
 			)
@@ -103,7 +103,7 @@ def save_order_inv_synch_data(req):
 				if "CurrencyCode" in order_inv_line_req:
 					currency_code = order_inv_line_req["CurrencyCode"] if order_inv_line_req["CurrencyCode"] else currency_code
 
-				inv_line_currency = get_currency_from_code(
+				inv_line_currency = get_currency_model_from_code(
 					currency_code = currency_code,
 					Currency_dbModel = currencies,
 				)

@@ -33,7 +33,7 @@ def generate_invoice_line_json(
 				"to_currency": currency_code,
 				"currencies_dbModel": currencies,
 				"exc_rates_dbModel": exc_rates,
-				"exc_rate_value": ExcRateValue,
+				"from_exc_rate_value": ExcRateValue,
 			}
 
 			price_data = price_currency_conversion(
@@ -56,7 +56,6 @@ def generate_invoice_line_json(
 			this_invoice_object_line["CurrencyCode"] = price_data["CurrencyCode"]
 			this_invoice_object_line["InvLineTotal"] = Total_price_data["ResPriceValue"]
 			this_invoice_object_line["InvLineFTotal"] = FTotal_price_data["ResPriceValue"]
-
 
 			if show_inv_line_resource:
 				resource_json = apiResourceInfo(
