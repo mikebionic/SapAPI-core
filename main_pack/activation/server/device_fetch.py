@@ -36,8 +36,8 @@ def fetch_device():
 
 		unused_device_qty = allowed_device_qty - len(allowed_devices)
 
-		if device.IsAllowed
-			for device in rp_acc.Device:
+		for device in rp_acc.Device:
+			if device.IsAllowed:
 				if not device.GCRecord:
 					DevVerifyDate = datetime.now().replace(microsecond = 0)
 					device.DevVerifyDate = DevVerifyDate
@@ -51,7 +51,7 @@ def fetch_device():
 						client_key = rp_acc.RpAccWebKey
 					)
 					device.DevVerifyKey = updated_key
-			db.session.commit()
+		db.session.commit()
 
 		devices = [device.to_json_api() for device in rp_acc.Device if not device.GCRecord]
 
