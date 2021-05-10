@@ -78,7 +78,9 @@
 																		<span class="woocommerce-Price-amount amount cartTotalPrice">
 																			0.00
 																		</span>
-																		<span class="woocommerce-Price-currencySymbol currencySymbol">TMT</span>
+																		<span class="woocommerce-Price-currencySymbol currencySymbol">
+																			{{ session.currency_code if session.currency_code else 'TMT' }}
+																		</span>
 																	</strong>
 																</td>
 															</tr>

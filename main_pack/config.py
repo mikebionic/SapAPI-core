@@ -77,6 +77,7 @@ class Config:
 	#
 	# # / Database bindings /
 
+	# # MSSQL binding
 	# SQLALCHEMY_DATABASE_URI = 'mssql+pyodbc://sa:123456@192.168.31.77:1433/dbSapHasap?driver=ODBC+Driver+17+for+SQL+Server?TrustedConnection=yes'
 
 
