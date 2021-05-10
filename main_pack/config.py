@@ -1,6 +1,7 @@
 import sys
 import redis
 import json
+import urllib
 from os import environ, path
 from dotenv import load_dotenv
 
@@ -75,6 +76,8 @@ class Config:
 	# }
 	#
 	# # / Database bindings /
+
+	# SQLALCHEMY_DATABASE_URI = 'mssql+pyodbc://sa:123456@192.168.31.77:1433/dbSapHasap?driver=ODBC+Driver+17+for+SQL+Server?TrustedConnection=yes'
 
 
 	# # Sessions, Redis, Cache, Cookies
