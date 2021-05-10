@@ -51,7 +51,7 @@ def save_rp_acc_req_data(req, model_type, current_user, session = None):
 			else:
 				try:
 					reg_num = generate(UId=current_user.UId,RegNumTypeName='rp_code')
-					regNo = makeRegNo(current_user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'')
+					regNo = makeRegNo(current_user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'',RegNumTypeName='rp_code')
 					reg_num.RegNumLastNum = reg_num.RegNumLastNum + 1
 					db.session.commit()
 				except Exception as ex:
@@ -68,6 +68,7 @@ def save_rp_acc_req_data(req, model_type, current_user, session = None):
 
 				thisRpAcc = Rp_acc(**rp_acc_info)
 				db.session.add(thisRpAcc)
+				data.append(thisRpAcc.to_json_api())
 
 			db.session.commit()
 

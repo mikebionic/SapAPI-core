@@ -9,7 +9,7 @@ from datetime import datetime,timezone
 from main_pack.models import User
 from main_pack.api.auth.utils import token_required
 
-from main_pack.key_generator.utils import generate,makeRegNo
+from main_pack.key_generator.utils import generate, makeRegNo
 from main_pack.models import Pred_reg_num
 
 
