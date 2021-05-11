@@ -4,7 +4,7 @@ from main_pack.base.dataMethods import configureNulls
 
 def add_Rp_acc_dict(req):
 	RpAccId = req.get('RpAccId')
-	RpAccGuid = uuid.UUID(req.get('RpAccGuid'))
+	RpAccGuid = uuid.UUID(req.get('RpAccGuid')) if req.get('RpAccGuid') else None
 	UId = req.get('UId')
 	CId = req.get('CId')
 	DivId = req.get('DivId')
