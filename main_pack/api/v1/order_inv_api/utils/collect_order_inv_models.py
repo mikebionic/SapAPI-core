@@ -51,6 +51,7 @@ def collect_order_inv_models(
 				.order_by(Order_inv.OInvDate.desc())\
 				.options(
 					joinedload(Order_inv.rp_acc),
+					joinedload(Order_inv.user),
 					joinedload(Order_inv.inv_status),
 					joinedload(Order_inv.company),
 					joinedload(Order_inv.warehouse),
