@@ -31,7 +31,7 @@
 						<li class="menu-item animate-dropdown">
 							
 							<a href="{{ url_for('commerce.commerce') }}">
-								<div class="menu_icon icon-home-1"></div>
+								<div class="menu_icon fa fa-fw fa-home"></div>
 								<span>
 									{{_('Main')}}
 								</span>
@@ -260,7 +260,7 @@
 
 						<ul id="site-header-cart" class="site-header-cart menu">
 							<li class="animate-dropdown dropdown cart-dropdown">
-								<a class="cart-contents" data-toggle="dropdown" title="View your shopping cart">
+								<a class="cart-contents" id="cart" data-toggle="dropdown" title="View your shopping cart">
 									<i class="tm tm-shopping-bag"></i>
 									<span class="count cartItemsFullQty">0</span>
 									<span class="amount">
@@ -268,8 +268,9 @@
 										<span class="woocommerce-Price-currencySymbol">TMT</span>
 									</span>
 								</a>
-								<ul class="dropdown-menu dropdown-menu-mini-cart">
+								<ul class="shopping-cart dropdown-menu dropdown-menu-mini-cart">
 									<li>
+										
 										<div class="widget woocommerce widget_shopping_cart">
 											<div class="widget_shopping_cart_content">
 												<ul class="woocommerce-mini-cart cart_list product_list_widget cartItemsList"></ul>

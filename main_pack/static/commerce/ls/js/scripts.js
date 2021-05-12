@@ -1648,3 +1648,10 @@ $(document).ready(function(){
 		$(this).toggleClass("heart");
 	});
 });
+(function(){
+ 
+  $("#cart").on("click", function() {
+    $(".shopping-cart").toggle();
+  });
+  
+})();
