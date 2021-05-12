@@ -94,6 +94,7 @@ def save_order_checkout_data(req, model_type, current_user, session = None):
 		order_invoice_info["DivId"] = DivId
 		order_invoice_info["CId"] = CId
 		order_invoice_info["RpAccId"] = RpAccId
+		order_invoice_info["UId"] = user_id
 
 		currency_code = Config.DEFAULT_VIEW_CURRENCY_CODE
 		if "CurrencyCode" in req["orderInv"]:

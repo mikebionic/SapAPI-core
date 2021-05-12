@@ -15,7 +15,7 @@ from main_pack.api.v1.rp_acc_api.utils import save_rp_acc_req_data
 def v_rp_acc_post(user):
 	model_type = user['model_type']
 	current_user = user['current_user']
-	if (model_type != "user" or model_type != "device"):
+	if (model_type == "rp_acc"):
 		abort(400)
 
 	req = request.get_json()

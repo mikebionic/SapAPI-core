@@ -3,11 +3,12 @@ resource_forms = ['resId','resName','resDesc','resPrice','resColor','resSize']
 /// getting the cookie data
 $(document).ready(function(){
 	cartCookie = Cookies.get('cart');
-	if(cartCookie==undefined){
-		cartData={};
+	cartCurrency = Cookies.get('currency_code');
+	if(cartCookie == undefined || cartCurrency != currency){
+		cartData = {};
 	}
 	else{
-		cartData=JSON.parse(cartCookie);
+		cartData = JSON.parse(cartCookie);
 		for (i in cartData){
 			ownerId = cartData[i]["resId"];
 			$('.add-to-cart'+'[ownerId='+ownerId+']').hide();
@@ -19,10 +20,11 @@ $(document).ready(function(){
 				var do_request = true;
 			}
 		}
-		if (do_request==true){
+		if (do_request == true){
 			cartOperations(cartData,url_prefix+'/product/ui_cart/','PUT','htmlData','cartItemsList');
 		}
 	}
+	Cookies.set('currency_code', currency);
 });
 
 $('.wishlist-button a').on('click', function(e){
