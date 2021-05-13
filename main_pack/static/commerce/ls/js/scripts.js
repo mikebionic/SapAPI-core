@@ -1428,23 +1428,28 @@ function slideCategoryByPathname() {
 
 
 // // images resize quality
-var screenSize = $(window).width();
-if (screenSize >= 768){
-	$('.product-big-image img').each(function(){
-		data_m_img = $(this).attr('data-src-m')
-		$(this).attr('src', data_m_img)
-	})
-}
-	
-if (screenSize >= 768){
-	$('.banner-image img').each(function(){
-		data_m_img = $(this).attr('data-src-m')
-		$(this).attr('src', data_m_img)
-	})
-	$('.slider-image img').each(function(){
-		data_m_img = $(this).attr('data-src-m')
-		$(this).attr('src', data_m_img)
-	})
+$(document).ready(function(){
+	configureImageSizeByScreen();
+})
+function configureImageSizeByScreen(){
+	var screenSize = $(window).width();
+	if (screenSize >= 768){
+		$('.product-big-image img').each(function(){
+			data_m_img = $(this).attr('data-src-m')
+			$(this).attr('src', data_m_img)
+		})
+	}
+		
+	if (screenSize >= 768){
+		$('.banner-image img').each(function(){
+			data_m_img = $(this).attr('data-src-m')
+			$(this).attr('src', data_m_img)
+		})
+		$('.slider-image img').each(function(){
+			data_m_img = $(this).attr('data-src-m')
+			$(this).attr('src', data_m_img)
+		})
+	}
 }
 
 /////////////
