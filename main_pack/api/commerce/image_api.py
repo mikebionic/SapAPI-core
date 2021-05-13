@@ -251,7 +251,7 @@ def api_images():
 						GCRecord = None)\
 					.first()
 
-				if thisImage is not None:
+				if thisImage:
 					updatingDate = dateutil.parser.parse(imageDictData['ModifiedDate'])
 					if thisImage.ModifiedDate != updatingDate:
 						image_data = saveImageFile(image_req)
@@ -272,6 +272,7 @@ def api_images():
 						print(f"{datetime.now()} | Image dropped (Same ModifiedDate)")
 
 					image_req["Image"] = None
+					db.session.commit()
 					data.append(image_req)
 
 				else:
@@ -302,6 +303,8 @@ def api_images():
 				print(f"{datetime.now()} | Image Api Exception: {ex}")
 				image_req["Image"] = None
 				failed_data.append(image_req)
+			
+			this_image = None
 
 		# db.session.commit()
 		print(f"{datetime.now()} | Images were committed")
