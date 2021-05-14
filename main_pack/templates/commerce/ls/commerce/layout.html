@@ -15,7 +15,6 @@
 		<link rel="stylesheet" href="{{ url_for('static', filename='commerce/ls/css/font-techmarket.min.css') }}"\>
 		<link rel="stylesheet" href="{{ url_for('static', filename='commerce/ls/js/izitoast/css/iziToast.min.css') }}">
 		<link rel="shortcut icon" href="{{ url_for('static', filename='commerce/ls/img/ls_logo.svg') }}">
-		<link rel="stylesheet" href="{{ url_for('static', filename='commerce/ls/css/font-awesome/css/font-awesome.css') }}">
 		{% block styles %}{% endblock %}
 		{% if Config.GOOGLE_ANALYTICS_TAG %}
 			<script async src="https://www.googletagmanager.com/gtag/js?id={{Config.GOOGLE_ANALYTICS_TAG}}"></script>
@@ -272,7 +271,6 @@
 								</a>
 								<ul class="shopping-cart dropdown-menu dropdown-menu-mini-cart">
 									<li>
-										
 										<div class="widget woocommerce widget_shopping_cart">
 											<div class="widget_shopping_cart_content">
 												<ul class="woocommerce-mini-cart cart_list product_list_widget cartItemsList"></ul>
@@ -295,6 +293,7 @@
 								</ul>
 							</li>
 						</ul>
+						<div class="shopping-cart-overlay"></div>
 					</div>
 				</div>
 			</div>

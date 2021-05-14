@@ -28713,6 +28713,26 @@ h3 i{
       padding: 0 20px;
     }
 
+/*-- Cart Overlay --*/
+.shopping-cart-overlay {
+  display: block;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 98;
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: all 0.3s ease 0s;
+  -o-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s; }
+  .shopping-cart-overlay.visible {
+    visibility: visible;
+    opacity: 1; }
+    .copyright{
+      padding: 0 20px;
+    }
 
 
 /* product */
