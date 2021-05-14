@@ -1657,6 +1657,14 @@ $(document).ready(function(){
  
   $("#cart").on("click", function() {
     $(".shopping-cart").toggle();
+		if(!$(".shopping-cart").hasClass('show')){
+			$(".shopping-cart-overlay").addClass('visible');
+		}
   });
+
+	$(".shopping-cart-overlay").click(function(){
+		$(".shopping-cart").toggle();
+		$(".shopping-cart-overlay").removeClass('visible');
+	})
   
 })();

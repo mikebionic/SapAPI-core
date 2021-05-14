@@ -32,6 +32,7 @@ class User(AddInf, BaseModel, db.Model, UserMixin):
 	Rp_acc = db.relationship("Rp_acc",backref='user',lazy=True)
 	Image = db.relationship("Image",backref='user',lazy=True)
 	Device = db.relationship("Device",backref='user',lazy=True)
+	Order_inv = db.relationship("Order_inv",backref='user',lazy=True)
 	
 	def is_admin(self):
 		return self.UTypeId == 1

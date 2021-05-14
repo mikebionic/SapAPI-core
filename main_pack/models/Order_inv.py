@@ -15,6 +15,7 @@ class Order_inv(AddInf, BaseModel, db.Model):
 	CurrencyId = db.Column("CurrencyId",db.Integer,db.ForeignKey("tbl_dk_currency.CurrencyId"))
 	RpAccId = db.Column("RpAccId",db.Integer,db.ForeignKey("tbl_dk_rp_acc.RpAccId"))
 	CId = db.Column("CId",db.Integer,db.ForeignKey("tbl_dk_company.CId"))
+	UId = db.Column("UId",db.Integer,db.ForeignKey("tbl_dk_users.UId"))
 	DivId = db.Column("DivId",db.Integer,db.ForeignKey("tbl_dk_division.DivId"))
 	WhId = db.Column("WhId",db.Integer,db.ForeignKey("tbl_dk_warehouse.WhId"))
 	WpId = db.Column("WpId",db.Integer,db.ForeignKey("tbl_dk_work_period.WpId"))
@@ -51,6 +52,7 @@ class Order_inv(AddInf, BaseModel, db.Model):
 			"CurrencyId": self.CurrencyId,
 			"RpAccId": self.RpAccId,
 			"CId": self.CId,
+			"UId": self.UId,
 			"DivId": self.DivId,
 			"WhId": self.WhId,
 			"WpId": self.WpId,
