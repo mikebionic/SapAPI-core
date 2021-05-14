@@ -26776,6 +26776,7 @@ button{
   top: -70px;
   right: -70px;
   border-radius: 0 0 200px 200px;
+  cursor:pointer;
 }
 .description .contents{
 	color: #fff;
@@ -34823,3 +34824,6 @@ input:checked ~ .tab-content{
   border-width: 8px;
   margin-left: -8px;
 } */
+.y_login{
+  margin: 0 auto;
+}

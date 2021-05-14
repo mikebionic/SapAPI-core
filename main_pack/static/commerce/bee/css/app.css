@@ -12214,7 +12214,7 @@ ul.link-widget li {
   justify-content: flex-end;
   align-items: center;
   text-align: center;
-  margin-bottom: 3rem
+  /* margin-bottom: 3rem */
 }
 
 .cat-block figure {

@@ -85,7 +85,9 @@
 							</span>
 						</span>
 						<div class="textContent">
-							<h3>{{ resource.ResName }}</h3>
+							<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}">
+								<h3>{{ resource.ResName }}</h3>
+							</a>
 						</div>
 
 						<div class="product-count cartItemQty" style="display: none;">
@@ -106,7 +108,7 @@
 							<span class="icon"><i class="fa fa-fw fa-info"></i></span>
 						</div>
 						<div class="contents">
-							<p class="descriptionText">{{ resource.ResDesc }}</p>
+								<p class="descriptionText">{{ resource.ResDesc }}</p>
 						</div>
 					</div>
 					{% endif %}
