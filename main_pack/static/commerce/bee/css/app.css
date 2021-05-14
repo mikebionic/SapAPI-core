@@ -7432,13 +7432,13 @@ img.mfp-img {
       }
       .ee-product .content .category-title .cat {
         display: inline-block;
-        /* line-height: 15px; */
+        line-height: 15px;
         text-transform: capitalize;
         font-size: 13px;
         color: #444444;
         letter-spacing: 0.5px;
-        /* height: 0; */
-        /* margin-bottom: 4px; */
+        height: 0;
+        margin-bottom: 4px;
        }
         .ee-product .content .category-title .cat:hover {
           color: #202020; }
