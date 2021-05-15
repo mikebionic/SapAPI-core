@@ -1,6 +1,8 @@
 # # Methods used in api building  
 from flask import url_for
 from datetime import datetime
+from main_pack.base.dataMethods import apiDataFormat
+
 
 def checkApiResponseStatus(success_list,fail_list):
 	if(len(success_list) > 0 and len(fail_list) > 0):
@@ -50,7 +52,7 @@ def fileToURL(
 
 def get_login_info(req):
 	# required to provide 'request' property
-	login_info = {"date": datetime.now()}
+	login_info = {"date": apiDataFormat(datetime.now())}
 
 	try:
 		browser = req.user_agent.browser
