@@ -18,7 +18,7 @@ def checkout_sale_order_inv(user):
 	req = request.get_json()
 
 	request_info = get_login_info(request)
-	device_info_from_req = request_info
+	device_info_from_req = req
 	device_info_from_req['orderInv'] = {}
 	req['orderInv']['AddInf5'] = f"{str(device_info_from_req)} | {str(request_info)}"
 
