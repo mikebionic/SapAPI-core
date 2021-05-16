@@ -1,7 +1,7 @@
 from flask import jsonify, request, make_response
 import json
 import requests
-from datetime import datetime
+from datetime import datetime, timezone
 
 from . import api
 from main_pack import db
@@ -32,6 +32,7 @@ def register_device():
 		else:
 			database = Db_inf.query.first()
 			req["DbInfGuid"] = str(database.DbInfGuid) if database else None
+			req["DevName"] = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
 
 			r = requests.post(
 				f"{Config.SAP_SERVICE_URL}{Config.SAP_SERVICE_URL_PREFIX}/devices/register/",

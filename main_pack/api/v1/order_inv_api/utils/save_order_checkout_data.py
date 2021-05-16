@@ -30,7 +30,10 @@ def save_order_checkout_data(req, model_type, current_user, session = None):
 	req['orderInv']['OInvGuid'] = str(uuid.uuid4())
 	try:
 		order_invoice_info = add_Order_inv_dict(req['orderInv'])
-		orderRegNo = req['orderInv']['OInvRegNo'] if "OInvRegNo" in req['orderInv'] else None
+		
+		orderRegNo = None
+		if "OInvRegNo" in req['orderInv']:
+			orderRegNo = req['orderInv']['OInvRegNo'] if req['orderInv']['OInvRegNo'] else None
 		InvStatId = int(req['orderInv']['InvStatId']) if "InvStatId" in req['orderInv'] else None
 
 		PmId = req['orderInv']['PmId']
