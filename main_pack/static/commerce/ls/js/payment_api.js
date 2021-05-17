@@ -2,8 +2,8 @@
 gen_reg_no_data = {
 	"RegNumTypeId": "sale_order_invoice_code"
 }
-// res = service_post(gen_reg_no_data, '/ls/api/gen-reg-no', 'POST')
-// console.log(res)
+res = service_post(gen_reg_no_data, '/ls/api/gen-reg-no/', 'POST')
+console.log(res)
 
 
 function service_post(formData, url, type){
@@ -18,6 +18,7 @@ function service_post(formData, url, type){
 		console.log(response.responseText);
 		return response;
 	})
+	return null;
 }
 
 // do_post = async () => {
@@ -52,11 +53,11 @@ function service_post(formData, url, type){
 
 
 
-const apiUrl = "http://127.0.0.1:5000/ls/api/resources/"
-async function fetchResources() {
-    const response =  await fetch(apiUrl)
-    const json = await response.json()
-		await console.log(json)
-		// .catch(error => console.error(error))
-}
-fetchResources()
+// const apiUrl = "http://127.0.0.1:5000/ls/api/resources/"
+// async function fetchResources() {
+//     const response =  await fetch(apiUrl)
+//     const json = await response.json()
+// 		await console.log(json)
+// 		// .catch(error => console.error(error))
+// }
+// fetchResources()

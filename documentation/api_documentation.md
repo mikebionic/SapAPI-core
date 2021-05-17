@@ -654,7 +654,7 @@ Returns only if the **Rp_acc** is the **owner** of invoice
 
 | __Route__           |   __Methods__    | __Status__ | __Note__            |
 | ------------------- | :--------------: | :--------: | ------------------- |
-| /api/v-images/      |     **GET**      |   Active   |
+| /v-images/          |     **GET**      |   Active   |
 
 **Properties**
 | __Name__      |         __Type__         | __Description__ | __Example__ |
@@ -680,8 +680,49 @@ Returns only if the **Rp_acc** is the **owner** of invoice
 | companies     |         **int**          |
 
 **Headers example filtering** for excluding images by FileName and ImgGuid
+**!! Warning !!** Payload can't be larger that 4Kb
 ```bash
 curl 127.0.0.1:5000/ls/api/v1/v-images/ --header 'images-to-exclude: [{"FileName": "a6b8d0f70f31a320ded6937865d9.png", "ImgGuid": "d37ce4ba-45a6-49cb-838c-8ee6fd5b6815"}]'
 ```
 
 ---
+
+
+| __Route__           |   __Methods__    | __Status__ | __Note__            |
+| ------------------- | :--------------: | :--------: | ------------------- |
+| /v-images-by-excluded-list/ |    **POST**      |   Active   | returns data without those that are provided in body json as on example below
+
+**Properties**
+| __Name__      |         __Type__         | __Description__ | __Example__ |
+| ------------- | :----------------------: | --------------- | ----------- |
+| DivId         |         **int**          |
+| notDivId      |         **int**          |
+| synchDateTime | **str repr of datetime** |
+| empId         |         **int**          |
+| brandId       |         **int**          |
+| companyId     |         **int**          |
+| userId        |         **int**          |
+| rpAccId       |         **int**          |
+| resId         |         **int**          |
+| categoryId    |         **int**          |
+| prodId        |         **int**          |
+| users         |         **int**          |
+| brands        |         **int**          |
+| resources     |         **int**          |
+| rp_accs       |         **int**          |
+| prods         |         **int**          |
+| employees     |         **int**          |
+| categories    |         **int**          |
+| companies     |         **int**          |
+
+**Payload request data Example**
+```json
+{
+	"images_to_exclude": [
+		{
+			"FileName": "a6b8d0f70f31a320ded6937865d9.png",
+			"ImgGuid": "d37ce4ba-45a6-49cb-838c-8ee6fd5b6815"
+		}
+	]
+}
+```
