@@ -649,3 +649,39 @@ Returns only if the **Rp_acc** is the **owner** of invoice
 | /set-session-language/<language_code>/ |   **GET**   | **Active** |
 
 ---
+
+## Image api
+
+| __Route__           |   __Methods__    | __Status__ | __Note__            |
+| ------------------- | :--------------: | :--------: | ------------------- |
+| /api/v-images/      |     **GET**      |   Active   |
+
+**Properties**
+| __Name__      |         __Type__         | __Description__ | __Example__ |
+| ------------- | :----------------------: | --------------- | ----------- |
+| DivId         |         **int**          |
+| notDivId      |         **int**          |
+| synchDateTime | **str repr of datetime** |
+| empId         |         **int**          |
+| brandId       |         **int**          |
+| companyId     |         **int**          |
+| userId        |         **int**          |
+| rpAccId       |         **int**          |
+| resId         |         **int**          |
+| categoryId    |         **int**          |
+| prodId        |         **int**          |
+| users         |         **int**          |
+| brands        |         **int**          |
+| resources     |         **int**          |
+| rp_accs       |         **int**          |
+| prods         |         **int**          |
+| employees     |         **int**          |
+| categories    |         **int**          |
+| companies     |         **int**          |
+
+**Headers example filtering** for excluding images by FileName and ImgGuid
+```bash
+curl 127.0.0.1:5000/ls/api/v1/v-images/ --header 'images-to-exclude: [{"FileName": "a6b8d0f70f31a320ded6937865d9.png", "ImgGuid": "d37ce4ba-45a6-49cb-838c-8ee6fd5b6815"}]'
+```
+
+---
