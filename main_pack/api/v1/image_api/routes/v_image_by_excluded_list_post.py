@@ -33,14 +33,12 @@ def v_image_by_excluded_list_post():
 
 	data = []
 	req = request.get_json()
-	if "images_to_exclude" in req:
-		try:
-			arg_data["images_to_exclude"] = req["images_to_exclude"]
+	try:
+		arg_data["images_to_exclude"] = req if req else None
+		data = get_images(**arg_data)
 
-		except Exception as ex:
-			print(f"{datetime.now()} | v-image by excluded list Exception: {ex}")
-
-	data = get_images(**arg_data)
+	except Exception as ex:
+		print(f"{datetime.now()} | v-image by excluded list Exception: {ex}")
 
 	res = {
 		"status": 1 if len(data) > 0 else 0,

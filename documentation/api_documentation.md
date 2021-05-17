@@ -717,12 +717,10 @@ curl 127.0.0.1:5000/ls/api/v1/v-images/ --header 'images-to-exclude: [{"FileName
 
 **Payload request data Example**
 ```json
-{
-	"images_to_exclude": [
-		{
-			"FileName": "a6b8d0f70f31a320ded6937865d9.png",
-			"ImgGuid": "d37ce4ba-45a6-49cb-838c-8ee6fd5b6815"
-		}
-	]
-}
+[
+	{
+		"FileName": "a6b8d0f70f31a320ded6937865d9.png",
+		"ImgGuid": "d37ce4ba-45a6-49cb-838c-8ee6fd5b6815"
+	}
+]
 ```
