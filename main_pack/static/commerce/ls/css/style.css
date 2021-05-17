@@ -34818,6 +34818,8 @@ input:checked ~ .tab-content{
 .menu_icon{
   font-size: 15px;
   padding: 0 5px;
+  display: flex;
+  align-items:center;
 }
 
 
@@ -34847,3 +34849,4 @@ input:checked ~ .tab-content{
 .y_login{
   margin: 0 auto;
 }
+
