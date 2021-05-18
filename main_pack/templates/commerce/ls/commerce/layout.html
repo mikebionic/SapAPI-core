@@ -563,7 +563,6 @@
 			var no_photo = "{{ url_for('static', filename='commerce/ls/img/icons/no_photo.svg') }}";
 			var rating_message = "{{_('You should put your rating and write a review')}}";
 		</script>
-		{% block scripts %}{% endblock %}
 		<script type="text/javascript">
 			var csrf_token = "{{ csrf_token() }}";
 			$.ajaxSetup({
@@ -578,6 +577,7 @@
 					}
 				}
 			});
-		</script>
+			</script>
+			{% block scripts %}{% endblock %}
 	</body>
 </html>
