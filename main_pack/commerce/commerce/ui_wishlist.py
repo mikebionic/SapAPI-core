@@ -1,21 +1,10 @@
-from flask import render_template,url_for,jsonify,session,flash,redirect,request,Response,abort
+from flask import jsonify, request
+from flask_login import current_user, login_required
+
+from main_pack import db, gettext
 from main_pack.commerce.commerce import bp
-import os
-from flask import current_app
+from main_pack.models import Resource, Wish
 
-# useful methods
-from main_pack import db,babel,gettext,lazy_gettext
-from sqlalchemy import and_
-# / useful methods /
-
-# auth and validation
-from flask_login import current_user,login_required
-# / auth and validation /
-
-# Resource and view
-from main_pack.models import Resource,Wish
-from main_pack.models import Rp_acc
-# / Resource and view /
 
 @bp.route('/product/ui_wishlist/',methods=['POST','DELETE'])
 @login_required

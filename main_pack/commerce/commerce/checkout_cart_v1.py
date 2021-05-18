@@ -13,7 +13,7 @@ from main_pack.base.apiMethods import get_login_info
 from main_pack.api.v1.order_inv_api.utils import save_order_checkout_data
 
 
-@bp.route("/commerce/checkout_cart_v1/",methods=['POST'])
+@bp.route("/checkout_cart_v1/",methods=['POST'])
 @login_required
 def checkout_cart_v1():
 	req = request.get_json()

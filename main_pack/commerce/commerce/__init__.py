@@ -12,4 +12,5 @@ from main_pack.commerce.commerce import (
 	ui_wishlist,
 	ui_rating,
 	checkout_cart_v1,
+	ui_gen_reg_no,
 )

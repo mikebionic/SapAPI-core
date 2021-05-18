@@ -2,8 +2,8 @@
 gen_reg_no_data = {
 	"RegNumTypeId": "sale_order_invoice_code"
 }
-res = service_post(gen_reg_no_data, '/ls/api/gen-reg-no/', 'POST')
-console.log(res)
+service_post(gen_reg_no_data, url_prefix+'/ui-gen-reg-no/', 'POST')
+// console.log(res)
 
 
 function service_post(formData, url, type){
@@ -17,6 +17,9 @@ function service_post(formData, url, type){
 	.done(function(response){
 		console.log(response.responseText);
 		return response;
+	})
+	.error(function(response){
+		console.log(response)
 	})
 	return null;
 }

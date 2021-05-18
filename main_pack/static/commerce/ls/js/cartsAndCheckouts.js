@@ -79,7 +79,7 @@ $('body').delegate('.checkoutCartBtn','click',function(){
 	}
 	data['PmId'] = PmId
 	data['PtId'] = 1
-	checkoutCart({"orderInv": data} ,url_prefix+'/commerce/checkout_cart_v1/','POST');
+	checkoutCart({"orderInv": data} ,url_prefix+'/checkout_cart_v1/','POST');
 });
 
 
