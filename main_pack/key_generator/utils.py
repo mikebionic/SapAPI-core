@@ -1,14 +1,7 @@
 from main_pack.config import Config
-from flask_login import current_user
-from main_pack import db, babel, gettext
-from main_pack.key_generator import bp
+from main_pack import db
 from main_pack.models import Reg_num, Reg_num_type, Pred_reg_num
 
-from main_pack.models import Employee
-from main_pack.models import User
-
-from datetime import datetime
-from sqlalchemy import or_, and_
 from random import randint
 
 RegNumTypeNamesDict = {
@@ -28,8 +21,8 @@ RegNumTypeNamesDict = {
 	"invoice_line_code": 14
 }
 
-def generate(UId,RegNumTypeName=None,RegNumTypeId=None):
-	if RegNumTypeId is None:
+def generate(UId, RegNumTypeName=None, RegNumTypeId=None):
+	if not RegNumTypeId:
 		RegNumTypeId = RegNumTypeNamesDict[RegNumTypeName]
 
 	reg_num = Reg_num.query\
@@ -58,7 +51,7 @@ def validate(
 	RegNumTypeId = None
 ):
 	try:
-		if RegNumTypeId is None:
+		if not RegNumTypeId:
 			RegNumTypeId = RegNumTypeNamesDict[RegNumTypeName]
 		reg_num = Reg_num.query\
 			.filter_by(UId = UId, RegNumTypeId = RegNumTypeId)\
@@ -93,10 +86,10 @@ def makeRegNo(
 	RegNumTypeId = None,
 	RegNumTypeName = None
 ):
-	if RegNumTypeId is None:
+	if not RegNumTypeId:
 		RegNumTypeId = RegNumTypeNamesDict[RegNumTypeName]
 
-	if random_mode == True:
+	if random_mode:
 		lastNum = randint(1,Config.REG_NUM_RANDOM_RANGE)
 	
 	while True:

@@ -44,7 +44,7 @@ def api_login():
 		return make_response(*error_response)
 
 	if check_auth(auth_type, user_model, auth.password):
-		exp = datetime.now() + dt.timedelta(minutes = 30)
+		exp = datetime.now() + dt.timedelta(minutes = Config.TOKEN_EXP_TIME_MINUTES)
 		response_data = {"exp": apiDataFormat(exp)}
 
 		if auth_type == "user":

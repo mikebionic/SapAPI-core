@@ -1,6 +1,6 @@
 
 gen_reg_no_data = {
-	"RegNumTypeId": "sale_order_invoice_code",
+	"RegNumTypeName": "sale_order_invoice_code",
 	"random_mode": 1,
 }
 service_post(gen_reg_no_data, url_prefix+'/ui-gen-reg-no/', 'POST')
@@ -15,6 +15,8 @@ function service_post(formData, url, type){
 		type: type,
 		url: url,
 		success: function(response){
+			console.log("done")
+			console.log(response)
 			console.log(response.responseText);
 			return response;
 		},
