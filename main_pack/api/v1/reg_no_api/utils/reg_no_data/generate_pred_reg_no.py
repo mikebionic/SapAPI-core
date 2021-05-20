@@ -26,8 +26,6 @@ def generate_pred_reg_no(req, model_type, current_user):
 		random_mode = req['random_mode'] if 'random_mode' in req else None
 		RegNumTypeName = req['RegNumTypeName'] if 'RegNumTypeName' in req else None
 
-		print(f"{user_id} | {RegNumTypeId} | {RegNumTypeName}")
-
 		try:
 			reg_num = generate(
 				UId = user_id,

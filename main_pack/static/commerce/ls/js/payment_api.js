@@ -1,69 +1,45 @@
 
+
 gen_reg_no_data = {
 	"RegNumTypeName": "sale_order_invoice_code",
 	"random_mode": 1,
 }
-service_post(gen_reg_no_data, url_prefix+'/ui-gen-reg-no/', 'POST')
-// console.log(res)
 
 
-function service_post(formData, url, type){
+function service_post(payload_data, url, type){
 	$.ajax({
 		contentType: "application/json",
 		dataType: "json",
-		data: JSON.stringify(formData),
+		data: JSON.stringify(payload_data),
 		type: type,
 		url: url,
 		success: function(response){
-			console.log("done")
-			console.log(response)
-			console.log(response.responseText);
-			return response;
+			if (response.status == 1){
+				var RegNum = response.data;
+				open_payment_window(reg_no = RegNum)
+			}
 		},
 		error: function(response){
 			console.log(response)
 		}
 	})
-	return null;
 }
 
-// do_post = async () => {
-// 	const location = window.location.hostname;
-// 	const response = await fetch(
-// 		`http://${location}:9000/api/sensors/`
-// 	);
-// }
-
-// do_post = async () => {
-// 	const location = window.location.hostname;
-// 	const settings = {
-// 		method: 'POST',
-// 		headers: {
-// 			Accept: 'application/json',
-// 			'Content-Type': 'application/json',
-// 		}
-// 	};
-// 	fetch(`http://${location}:9000/api/sensors/`, settings)
-// 		.then(response => response.json())
-// 		.then(data => console.log(data))
-// }
+function open_payment_window(reg_no){
+	var url = "https://mpi.gov.tm/payment/rest/register.do?";
+	var orderNumber = reg_no;
+	var amount = $('.cartTotalPrice').val() * 100;
+	console.log(amount);
+	var currency = 934;
+	var language = "ru";
+	var password = "e235erHw4784fwf";
+	var orderDesc = $('.orderDesc').text();
+	console.log(orderDesc);
+	var returnUrl = `https://mpi.gov.tm/payment/finish.html%3Flogin%3D103122512345%26password%3De235erHw4784fwf&userName=103122512345&pageView=DESKTOP&description=${orderDesc}`
 
 
-// 	try {
-// 		const fetchResponse = await do_post()
-// 		const data = await fetchResponse.json();
-// 		return data;
-// 	} catch (e) {
-// 		return e;
-// 	}
+	payment_order_check_req_url = `${url}orderNumber=${orderNumber}&currency=${currency}&amount=${amount}&language=${language}&password=${password}&returnUrl=${returnUrl}`
+	console.log(payment_order_check_req_url);
 
+}
 
-
-// const apiUrl = "http://127.0.0.1:5000/ls/api/resources/"
-// async function fetchResources() {
-//     const response =  await fetch(apiUrl)
-//     const json = await response.json()
-// 		await console.log(json)
-// 		// .catch(error => console.error(error))
-// }
-// fetchResources()

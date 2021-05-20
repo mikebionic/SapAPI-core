@@ -86,7 +86,7 @@ def api_login_users():
 		return make_response(*error_response)
 
 	if check_auth("user", user, auth.password):
-		exp = datetime.now() + dt.timedelta(minutes = 30)
+		exp = datetime.now() + dt.timedelta(minutes = Config.TOKEN_EXP_TIME_MINUTES)
 		token = jwt.encode({"UId": user.UId, "exp": exp}, Config.SECRET_KEY)
 		userData = apiUsersData(dbQuery = user_query)
 		session["ResPriceGroupId"] = user.ResPriceGroupId
@@ -114,7 +114,7 @@ def api_login_rp_accs():
 		return make_response(*error_response)
 
 	if check_auth("rp_acc", rp_acc, auth.password):
-		exp = datetime.now() + dt.timedelta(minutes = 30)
+		exp = datetime.now() + dt.timedelta(minutes = Config.TOKEN_EXP_TIME_MINUTES)
 		token = jwt.encode({"RpAccId": rp_acc.RpAccId, "exp": exp}, Config.SECRET_KEY)
 		rpAccData = apiRpAccData(dbQuery = user_query)
 		session["ResPriceGroupId"] = rp_acc.ResPriceGroupId
