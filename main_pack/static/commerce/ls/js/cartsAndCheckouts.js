@@ -79,7 +79,7 @@ $('body').delegate('.checkoutCartBtn','click',function(){
 	}
 	data['PmId'] = PmId
 	data['PtId'] = 1
-	if (PmId == 3){
+	if (PmId == 2){
 		service_post(gen_reg_no_data, `${url_prefix}/ui-gen-reg-no/`, 'POST');
 	}
 	else {
@@ -225,6 +225,7 @@ function countCartItems(){
 	}
 	$('.cartItemsFullQty').text(num);
 	$('.cartTotalPrice').text(parseFloat(totalPrice).toFixed(2));
+	$('.cartTotalPrice').val(parseFloat(totalPrice).toFixed(2));
 }
 
 function qtyCheckout(
