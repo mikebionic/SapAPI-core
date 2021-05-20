@@ -138,6 +138,8 @@ class Config:
 	# set to True if you want to use BCrypt hashing
 	HASHED_PASSWORDS = int(environ.get('HASHED_PASSWORDS')) if environ.get('HASHED_PASSWORDS') else 0
 
+	TOKEN_EXP_TIME_MINUTES = int(environ.get('TOKEN_EXP_TIME_MINUTES')) if environ.get('TOKEN_EXP_TIME_MINUTES') else 30
+
 	# # to give each api it's pagination:
 	RESOURCES_PER_PAGE = int(environ.get('RESOURCES_PER_PAGE')) if environ.get('RESOURCES_PER_PAGE') else 30
 	INVOICES_PER_PAGE = int(environ.get('INVOICES_PER_PAGE')) if environ.get('INVOICES_PER_PAGE') else 30

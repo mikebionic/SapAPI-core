@@ -22,17 +22,25 @@ def generate_pred_reg_no(req, model_type, current_user):
 			user_id = current_user.UId
 			user_short_name = current_user.UShortName
 
-		RegNumTypeId = req['RegNumTypeId']
-		random_mode = req['random_mode']
+		RegNumTypeId = req['RegNumTypeId'] if 'RegNumTypeId' in req else None
+		random_mode = req['random_mode'] if 'random_mode' in req else None
+		RegNumTypeName = req['RegNumTypeName'] if 'RegNumTypeName' in req else None
+
+		print(f"{user_id} | {RegNumTypeId} | {RegNumTypeName}")
 
 		try:
-			reg_num = generate(UId=user_id, RegNumTypeId=RegNumTypeId)
+			reg_num = generate(
+				UId = user_id,
+				RegNumTypeId = RegNumTypeId,
+				RegNumTypeName = RegNumTypeName,
+			)
 			generation_params = {
 				"shortName": user_short_name,
 				"prefix": reg_num.RegNumPrefix,
 				"lastNum": reg_num.RegNumLastNum + 1,
 				"RegNumTypeId": RegNumTypeId,
-				"random_mode": random_mode
+				"RegNumTypeName": RegNumTypeName,
+				"random_mode": random_mode,
 			}
 			currentRegNo = makeRegNo(**generation_params)
 

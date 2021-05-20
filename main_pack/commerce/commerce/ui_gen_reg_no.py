@@ -11,7 +11,7 @@ from main_pack.commerce.commerce import bp
 from main_pack.api.v1.reg_no_api.utils import generate_pred_reg_no
 
 
-@bp.route("/commerce/ui-gen-reg-no/", methods=['POST'])
+@bp.route("/ui-gen-reg-no/", methods=['POST'])
 @login_required
 def ui_gen_reg_no():
 	req = request.get_json()
