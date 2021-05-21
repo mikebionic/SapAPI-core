@@ -26711,6 +26711,8 @@ form.track_order {
   display: flex;
   align-items: center;
   float: left;
+  width:100%;
+  justify-content:center;
 }
 /* img{
 	width: 100%;
