@@ -295,7 +295,7 @@ def manage_rp():
 			else:
 				try:
 					reg_num = generate(UId=current_user.UId,RegNumTypeName='rp_code')
-					regNo = makeRegNo(current_user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'')
+					regNo = makeRegNo(current_user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'',RegNumTypeName='rp_code')
 					reg_num.RegNumLastNum = reg_num.RegNumLastNum + 1
 					db.session.commit()
 				except Exception as ex:
@@ -458,7 +458,7 @@ def manage_user():
 				data["UShortName"] = (data["UName"][0] + data["UName"][-1]).upper()
 				try:
 					reg_num = generate(UId=current_user.UId,RegNumTypeName='user_code')
-					regNo = makeRegNo(current_user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'')
+					regNo = makeRegNo(current_user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'',RegNumTypeName='user_code')
 					reg_num.RegNumLastNum = reg_num.RegNumLastNum + 1
 					db.session.commit()
 				except Exception as ex:

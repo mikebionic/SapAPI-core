@@ -20,7 +20,8 @@ def fetch_and_generate_RegNo(user_id, user_short_name, reg_no_type, RegNo = None
 				reg_num.RegNumPrefix,
 				reg_num.RegNumLastNum+1,
 				'',
-				True
+				True,
+				RegNumTypeName = reg_no_type,
 			)
 		except Exception as ex:
 			print(f"{datetime.now()} | RegNum Exception: {ex}. Couldn't generate RegNo using User's credentials")

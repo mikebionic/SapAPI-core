@@ -6,6 +6,7 @@ from datetime import datetime
 from main_pack.models import (
 	Rp_acc,
 	Order_inv,
+	User,
 )
 
 from main_pack import db
@@ -67,6 +68,13 @@ def save_order_checkout_data(req, model_type, current_user, session = None):
 			if not RpAccId:
 				print("v1 checkout | no such rp acc")
 				raise Exception
+		
+		if not user_id:
+			main_first_user = User.query\
+				.filter_by(GCRecord = None, UTypeId = 1)\
+				.first()
+			user_id = main_first_user.UId
+			user_short_name = main_first_user.UShortName
 
 		DivId = current_user.DivId
 		CId = current_user.CId

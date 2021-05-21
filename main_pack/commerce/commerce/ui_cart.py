@@ -248,7 +248,7 @@ def ui_cart_checkout():
 
 			try:
 				reg_num = generate(UId = user.UId, RegNumTypeName = 'sale_order_invoice_code')
-				orderRegNo = makeRegNo(user.UShortName, reg_num.RegNumPrefix, reg_num.RegNumLastNum + 1, '' , True)
+				orderRegNo = makeRegNo(user.UShortName, reg_num.RegNumPrefix, reg_num.RegNumLastNum + 1, '' , True,RegNumTypeName='sale_order_invoice_code')
 
 			except Exception as ex:
 				print(f"{datetime.now()} | UI_checkout - Reg Num gen exception  {ex}")
@@ -357,7 +357,7 @@ def ui_cart_checkout():
 
 					try:
 						reg_num = generate(UId = user.UId, RegNumTypeName = 'order_invoice_line_code')
-						orderLineRegNo = makeRegNo(user.UShortName, reg_num.RegNumPrefix, reg_num.RegNumLastNum + 1, '', True)
+						orderLineRegNo = makeRegNo(user.UShortName, reg_num.RegNumPrefix, reg_num.RegNumLastNum + 1, '', True,RegNumTypeName='order_invoice_line_code')
 
 					except Exception as ex:
 						print(f"{datetime.now()} | UI_checkout reg_num generation Exception: {ex}")

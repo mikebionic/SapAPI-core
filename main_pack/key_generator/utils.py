@@ -91,7 +91,7 @@ def makeRegNo(
 
 	if random_mode:
 		lastNum = randint(1,Config.REG_NUM_RANDOM_RANGE)
-	
+
 	while True:
 		regNo = shortName+prefix+str(lastNum)+suffix
 		existingObj = checkPredExistence(RegNum=regNo,RegNumTypeId=RegNumTypeId)
