@@ -43,6 +43,23 @@
 								<div class="col-xl-4 col-lg-12 col-md-12 col-12 pb-30 pt-10" style="max-width: 100%; margin: 0 auto;">
 									<div class="cart-collaterals" style="margin: 0 auto;">
 										<div class="cart_totals">
+											<table class="shop_table shop_table_responsive">
+												<tbody>
+													<tr class="order-total">
+														<th>{{_('Total price')}}</th>
+														<td data-title="{{_('Total price')}}">
+															<strong style="color:#d25706">
+																<span class="woocommerce-Price-amount amount cartTotalPrice">
+																	0.00
+																</span>
+																<span class="woocommerce-Price-currencySymbol currencySymbol">
+																	{{ session.currency_code if session.currency_code else 'TMT' }}
+																</span>
+															</strong>
+														</td>
+													</tr>
+												</tbody>
+											</table>
 											{% if current_user.is_authenticated %}
 											<div class="tabs">
 												<div class="tab-content">
@@ -69,23 +86,6 @@
 														<label for="message">{{_('Note')}}</label>
 														<textarea id="message" class="orderDesc" type="text" placeholder="{{_('Description')}} ({{_('City')}}, {{_('Av.')}}, {{_('Street')}}, {{_('House')}}, {{_('Flat')}})"></textarea>
 													</div>
-													<table class="shop_table shop_table_responsive">
-														<tbody>
-															<tr class="order-total">
-																<th>{{_('Total price')}}</th>
-																<td data-title="{{_('Total price')}}">
-																	<strong>
-																		<span class="woocommerce-Price-amount amount cartTotalPrice">
-																			0.00
-																		</span>
-																		<span class="woocommerce-Price-currencySymbol currencySymbol">
-																			{{ session.currency_code if session.currency_code else 'TMT' }}
-																		</span>
-																	</strong>
-																</td>
-															</tr>
-														</tbody>
-													</table>
 													<a class="checkout-button button alt wc-forward checkoutCartBtn">
 														{{_('Checkout')}}
 													</a>

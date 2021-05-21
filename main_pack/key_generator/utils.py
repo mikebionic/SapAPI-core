@@ -93,7 +93,7 @@ def makeRegNo(
 		lastNum = randint(1,Config.REG_NUM_RANDOM_RANGE)
 
 	while True:
-		regNo = shortName+prefix+str(lastNum)+suffix
+		regNo = f"{shortName.upper()}{prefix}{str(lastNum)}{suffix}"
 		existingObj = checkPredExistence(RegNum=regNo,RegNumTypeId=RegNumTypeId)
 		if not existingObj:
 			break
