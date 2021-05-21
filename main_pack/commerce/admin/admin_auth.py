@@ -21,7 +21,10 @@ def login():
 	form = AdminLoginForm()
 	if form.validate_on_submit():
 		try:
-			user = User.query.filter_by(GCRecord = None, UName = form.username.data).first()
+			user = User.query.filter_by(
+				GCRecord = None,
+				UName = form.username.data,
+				UTypeId = 1).first()
 
 			if not user:
 				raise Exception

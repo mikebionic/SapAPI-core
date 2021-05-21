@@ -66,13 +66,11 @@ def api_checkout_sale_order_invoices(user):
 		WhId = warehouse.WhId if warehouse else None
 
 		# get the seller's user information of a specific rp_acc
-		user = User.query\
-			.filter_by(GCRecord = None, UId = current_user.UId)\
-			.first()
+		user = current_user.user
 		if user is None:
 			# try to find the rp_acc registered user if no seller specified
 			user = User.query\
-				.filter_by(GCRecord = None, RpAccId = RpAccId)\
+				.filter_by(GCRecord = None, UTypeId = 1)\
 				.first()
 
 	ResPriceGroupId = Config.DEFAULT_RES_PRICE_GROUP_ID if Config.DEFAULT_RES_PRICE_GROUP_ID > 0 else None
@@ -99,7 +97,14 @@ def api_checkout_sale_order_invoices(user):
 		if not orderRegNo:
 			try:
 				reg_num = generate(UId=user.UId,RegNumTypeName='sale_order_invoice_code')
-				orderRegNo = makeRegNo(user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'',True)
+				orderRegNo = makeRegNo(
+					user.UShortName,
+					reg_num.RegNumPrefix,
+					reg_num.RegNumLastNum+1,
+					'',
+					True,
+					RegNumTypeName='sale_order_invoice_code',
+				)
 			except Exception as ex:
 				print(f"{datetime.now()} | Checkout OInv Exception: {ex}. Couldn't generate RegNo using User's credentials")
 				# use device model and other info
@@ -119,6 +124,7 @@ def api_checkout_sale_order_invoices(user):
 		order_invoice["WhId"] = WhId
 		order_invoice["DivId"] = DivId
 		order_invoice["CId"] = CId
+		order_invoice["UId"] = user.UId
 		if InvStatId == 13:
 			order_invoice["InvStatId"] = InvStatId
 
@@ -144,7 +150,14 @@ def api_checkout_sale_order_invoices(user):
 				# OInvLineRegNo generation
 				try:
 					reg_num = generate(UId=user.UId,RegNumTypeName='order_invoice_line_code')
-					orderLineRegNo = makeRegNo(user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'',True)
+					orderLineRegNo = makeRegNo(
+						user.UShortName,
+						reg_num.RegNumPrefix,
+						reg_num.RegNumLastNum+1,
+						'',
+						True,
+						RegNumTypeName='order_invoice_line_code',
+					)
 				except Exception as ex:
 					print(f"{datetime.now()} | Checkout OInv Exception: {ex}. Couldn't generate RegNo using User's credentials")
 					# use device model and other info

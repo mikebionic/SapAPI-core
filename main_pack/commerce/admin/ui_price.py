@@ -32,7 +32,7 @@ def ui_price():
 	reg_num = generate(UId=current_user.UId,RegNumTypeName='price_code') # specify the generation prefix
 	if request.method == 'GET':
 		try:
-			regNo = makeRegNo(current_user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'')
+			regNo = makeRegNo(current_user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'',RegNumTypeName='price_code')
 			response = jsonify({
 				"regNoForm": "resPriceRegNo",
 				"regNo": regNo

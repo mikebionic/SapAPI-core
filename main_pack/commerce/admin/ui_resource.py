@@ -49,7 +49,7 @@ def ui_resource():
 	reg_num = generate(UId=current_user.UId,RegNumTypeName='goods_code') # specify the generation prefix
 	if request.method == 'GET':
 		try:
-			regNo = makeRegNo(current_user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'')
+			regNo = makeRegNo(current_user.UShortName,reg_num.RegNumPrefix,reg_num.RegNumLastNum+1,'',RegNumTypeName='goods_code')
 			response = jsonify({
 				"regNoForm": 'resRegNo',
 				"regNo": regNo
@@ -90,7 +90,8 @@ def ui_resource():
 			elif validation['status']==False:
 				regNo = makeRegNo(current_user.UShortName,
 													reg_num.RegNumPrefix,
-													validation['RegNumLastNum'],'')
+													validation['RegNumLastNum'],'',
+													RegNumTypeName='goods_code')
 				resource['ResRegNo']=regNo
 				reg_num.RegNumLastNum=validation['RegNumLastNum']
 				newResource = Resource(**resource)
