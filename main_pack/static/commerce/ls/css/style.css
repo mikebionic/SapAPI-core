@@ -26707,6 +26707,13 @@ form.track_order {
   justify-content: center;
   display: flex;
 }
+.imgBox .like{
+  display: flex;
+  align-items: center;
+  float: left;
+  width:30px!important;
+  justify-content:center;
+}
 .imgBox a{
   display: flex;
   align-items: center;
