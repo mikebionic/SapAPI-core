@@ -79,7 +79,12 @@ $('body').delegate('.checkoutCartBtn','click',function(){
 	}
 	data['PmId'] = PmId
 	data['PtId'] = 1
-	checkoutCart({"orderInv": data} ,url_prefix+'/checkout_cart_v1/','POST');
+	if (PmId == 2){
+		service_post(gen_reg_no_data, `${url_prefix}/ui-gen-reg-no/`, 'POST');
+	}
+	else {
+		checkoutCart({"orderInv": data} ,url_prefix+'/checkout_cart_v1/','POST');
+	}
 });
 
 
@@ -220,6 +225,7 @@ function countCartItems(){
 	}
 	$('.cartItemsFullQty').text(num);
 	$('.cartTotalPrice').text(parseFloat(totalPrice).toFixed(2));
+	$('.cartTotalPrice').val(parseFloat(totalPrice).toFixed(2));
 }
 
 function qtyCheckout(

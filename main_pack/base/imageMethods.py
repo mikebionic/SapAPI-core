@@ -23,6 +23,7 @@ def changeImageSize(
 	imageFile,
 	modulePath,
 	FileName,
+	image_file_opened = None,
 	apply_watermark = False):
 
 	output_sizes = {
@@ -36,8 +37,12 @@ def changeImageSize(
 		current_app.root_path,
 		Config.WEB_CONFIG_DIRECTORY,
 		'watermark.png')
+
 	for size in output_sizes:
+		# image = image_file_opened if image_file_opened else Image.open(imageFile)
+
 		image = Image.open(imageFile)
+
 		# create path according to a size abobe like "/images/M/blahblah.jpg"
 		sizeSpecificFullPath = os.path.join(current_app.root_path,'static',modulePath,size)
 		# check that it exists or create one
@@ -81,6 +86,8 @@ def save_image(
 	id = "undefined",
 	apply_watermark = False,
 	image_name = None):
+	image = None
+	saving_path = None
 	if (image_name and Config.USE_PROVIDED_IMAGE_FILENAME == True):
 		image_file_name = image_name
 	else:
@@ -119,6 +126,7 @@ def save_image(
 		imageFile = saving_path,
 		modulePath = modulePath,
 		FileName = FileName,
+		# image_file_opened = image,
 		apply_watermark = apply_watermark)
 	
 	if sizeSpecificFullPath:

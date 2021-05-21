@@ -218,7 +218,7 @@ def api_images():
 				ResRegNo = image_req["ResRegNo"]
 				ResGuid = image_req["ResGuid"]
 
-				if Config.USE_PROVIDED_IMAGE_FILENAME == True:
+				if Config.USE_PROVIDED_IMAGE_FILENAME:
 					thisResource = Resource.query\
 						.filter_by(
 							ResGuid = ResGuid,
@@ -304,7 +304,7 @@ def api_images():
 				image_req["Image"] = None
 				failed_data.append(image_req)
 			
-			this_image = None
+			thisImage = None
 
 		# db.session.commit()
 		print(f"{datetime.now()} | Images were committed")
