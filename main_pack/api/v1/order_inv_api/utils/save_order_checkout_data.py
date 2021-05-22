@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import uuid
-import decimal
 from datetime import datetime
 
 from main_pack.models import (
@@ -159,8 +158,8 @@ def save_order_checkout_data(req, model_type, current_user, session = None):
 				inv_currency.CurrencyCode,
 			)
 
-			this_Order_inv.OInvTotal = float(decimal.Decimal(OInvTotal))
-			this_Order_inv.OInvFTotal = float(decimal.Decimal(OInvFTotal))
+			this_Order_inv.OInvTotal = round(float(OInvTotal), 2)
+			this_Order_inv.OInvFTotal = round(float(OInvFTotal), 2)
 			this_Order_inv.OInvFTotalInWrite = OInvFTotalInWrite
 
 			if pred_reg_num:

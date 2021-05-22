@@ -1,5 +1,37 @@
 
 
+// var window_properties = "width=600,height=400,resizable=yes,location=no"
+// var newWin = window.open('http://127.0.0.1:5000/login', 'Payment', window_properties)
+
+
+///// okayyy
+// const win_location = setInterval(() => {
+// 	try {
+// 		console.log(newWin.location.href)
+// 		if (newWin.location.origin === '/') {
+// 			clearInterval(win_location);
+// 		}
+// 		if (!newWin.location.href){
+// 			console.log("errrrrrrr")
+// 			clearInterval(win_location)
+// 		}
+// 	} catch (e) {
+// 		console.log('error occured');
+// 		clearInterval(win_location);
+// 	}
+// }, 100);
+
+
+
+/////// also okayyy but works once
+// newWin.addEventListener('unload', function(event) {
+// 	console.log('Navigation occuring');
+// 	console.log("loaded")
+// 	console.log(newWin.location.href)
+// 	console.log(newWin.location.innerText)
+// });
+
+
 gen_reg_no_data = {
 	"RegNumTypeName": "sale_order_invoice_code",
 	"random_mode": 1,

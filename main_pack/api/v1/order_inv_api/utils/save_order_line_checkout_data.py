@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import uuid
-import decimal
 from datetime import datetime
 from sqlalchemy.orm import joinedload
 
@@ -141,10 +140,10 @@ def save_order_line_checkout_data(
 			# add taxes and stuff later on
 			OInvLineFTotal = OInvLineTotal
 
-			order_inv_line["OInvLineAmount"] = float(decimal.Decimal(OInvLineAmount))
-			order_inv_line["OInvLinePrice"] = float(decimal.Decimal(OInvLinePrice))
-			order_inv_line["OInvLineTotal"] = float(decimal.Decimal(OInvLineTotal))
-			order_inv_line["OInvLineFTotal"] = float(decimal.Decimal(OInvLineFTotal))
+			order_inv_line["OInvLineAmount"] = round(float(OInvLineAmount), 2)
+			order_inv_line["OInvLinePrice"] = round(float(OInvLinePrice), 2)
+			order_inv_line["OInvLineTotal"] = round(float(OInvLineTotal), 2)
+			order_inv_line["OInvLineFTotal"] = round(float(OInvLineFTotal), 2)
 			order_inv_line["OInvId"] = OInvId
 			order_inv_line["UnitId"] = resource.UnitId
 			order_inv_line["CurrencyId"] = CurrencyId

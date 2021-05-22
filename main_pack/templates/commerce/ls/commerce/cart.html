@@ -81,7 +81,6 @@
 												</div>
 												
 												<div class="checkoutForm" style="display: none;">
-													<h3>{{_('Summary')}}</h3>
 													<div class="contact-form">
 														<label for="message">{{_('Note')}}</label>
 														<textarea id="message" class="orderDesc" type="text" placeholder="{{_('Description')}} ({{_('City')}}, {{_('Av.')}}, {{_('Street')}}, {{_('House')}}, {{_('Flat')}})"></textarea>
@@ -115,5 +114,4 @@
 
 {% block scripts %}
 	<script src="{{ url_for('static', filename='commerce/ls/js/cart.js') }}"></script>
-	<script src="{{ url_for('static', filename='commerce/ls/js/payment_api.js') }}"></script>
 {% endblock %}

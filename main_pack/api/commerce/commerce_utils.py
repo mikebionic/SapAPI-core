@@ -640,7 +640,7 @@ def UiCartResourceData(
 				except Exception as ex:
 					print(f"{datetime.now()} | Cart Resource Data utils Exception: {ex}")
 					resource["productQty"] = 1
-		resource["productTotal"] = float(resource["productQty"]) * float(resource["ResPriceValue"])
+		resource["productTotal"] = round((float(resource["productQty"]) * float(resource["ResPriceValue"])), 2)
 		data.append(resource)
 	res = {
 		"status": 1 if len(data) > 0 else 0,
