@@ -3,7 +3,10 @@ from datetime import datetime, timedelta
 import dateutil.parser
 from sqlalchemy import and_, or_
 
-from main_pack.models import Image
+from main_pack.models import (
+	Image,
+	Resource,
+)
 
 
 def get_images(

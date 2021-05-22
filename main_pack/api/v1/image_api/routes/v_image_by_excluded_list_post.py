@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from flask import request, make_response, jsonify
-import json
 from datetime import datetime
 
 from main_pack.api.v1.image_api import api
