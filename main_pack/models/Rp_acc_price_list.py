@@ -6,31 +6,31 @@ from main_pack.models import BaseModel
 
 class Rp_acc_price_list(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_rp_acc_price_list"
-	RpAccPId = db.Column("RpAccPId",db.Integer,nullable=False,primary_key=True)
-	RpAccPGuid = db.Column("RpAccPGuid",UUID(as_uuid=True),unique=True)
+	RpAccPLId = db.Column("RpAccPLId",db.Integer,nullable=False,primary_key=True)
+	RpAccPLGuid = db.Column("RpAccPLGuid",UUID(as_uuid=True),unique=True)
 	RpAccId = db.Column("RpAccId",db.Integer,db.ForeignKey("tbl_dk_rp_acc.RpAccId"))
 	UnitName = db.Column("UnitName",db.String(100))
 	ResBarcode = db.Column("ResBarcode",db.String(100),nullable=False)
 	ResName = db.Column("ResName",db.String(100),nullable=False)
 	ResDesc = db.Column("ResDesc",db.String(500))
-	RpAccPValue = db.Column("RpAccPValue",db.Float,default=0)
-	RpAccPDesc = db.Column("RpAccPDesc",db.String(500))
-	RpAccPStartDate = db.Column("RpAccPStartDate",db.DateTime)
-	RpAccPEndDate = db.Column("RpAccPEndDate",db.DateTime)
+	RpAccPLValue = db.Column("RpAccPLValue",db.Float,default=0)
+	RpAccPLDesc = db.Column("RpAccPLDesc",db.String(500))
+	RpAccPLStartDate = db.Column("RpAccPLStartDate",db.DateTime)
+	RpAccPLEndDate = db.Column("RpAccPLEndDate",db.DateTime)
 
 	def to_json_api(self):
 		data = {
-			"RpAccPId": self.RpAccPId,
-			"RpAccPGuid": self.RpAccPGuid,
+			"RpAccPLId": self.RpAccPLId,
+			"RpAccPLGuid": self.RpAccPLGuid,
 			"RpAccId": self.RpAccId,
 			"UnitName": self.UnitName,
 			"ResBarcode": self.ResBarcode,
 			"ResName": self.ResName,
 			"ResDesc": self.ResDesc,
-			"RpAccPValue": self.RpAccPValue,
-			"RpAccPDesc": self.RpAccPDesc,
-			"RpAccPStartDate": self.RpAccPStartDate,
-			"RpAccPEndDate": self.RpAccPEndDate
+			"RpAccPLValue": self.RpAccPLValue,
+			"RpAccPLDesc": self.RpAccPLDesc,
+			"RpAccPLStartDate": self.RpAccPLStartDate,
+			"RpAccPLEndDate": self.RpAccPLEndDate
 		}
 
 		for key, value in BaseModel.to_json_api(self).items():
