@@ -3,7 +3,7 @@
 // 	"TotalPrice": "45.3",
 // 	"OrderDesc": "Testing the service"
 // }
-const payment_req_url = '127.0.0.1:5000/ls/api/order-payment-register-request/'
+const payment_req_url = 'ls/api/order-payment-register-request/'
 function gen_Reg_no_and_open_payment(payload_data, url, type){
 	$.ajax({
 		contentType: "application/json",
@@ -14,7 +14,7 @@ function gen_Reg_no_and_open_payment(payload_data, url, type){
 		success: function(response){
 			if (response.status == 1){
 				var RegNum = response.data;
-				open_payment_window(RegNum);
+				req_payment_url_prepare(RegNum);
 			}
 		},
 		error: function(response){
@@ -23,9 +23,9 @@ function gen_Reg_no_and_open_payment(payload_data, url, type){
 	})
 }
 
-function open_payment_window(reg_no){
+function req_payment_url_prepare(reg_no){
 	payload = {
-		"RegNo": reg_no,
+		"RegNo": "reg_no13",
 		"TotalPrice": $('.cartTotalPrice').val(),
 		"OrderDesc": $('.orderDesc').val()
 	}
@@ -43,11 +43,11 @@ function req_payment_request(payload, url){
 		url: url,
 		success: function(response){
 			console.log(response)
-			console.log(response.responseText)
-			console.log(response.formUrl)
-			console.log(response.orderId)
-			var formUrl = response.formUrl
-			var orderId = response.orderId
+			console.log(response.data.responseText)
+			console.log(response.data.formUrl)
+			console.log(response.data.orderId)
+			var formUrl = response.data.formUrl
+			var orderId = response.data.orderId
 			open_payment_window(formUrl)
 		},
 		error: function(response){
@@ -58,12 +58,12 @@ function req_payment_request(payload, url){
 
 function open_payment_window(url){
 	var window_properties = "width=600,height=400,resizable=yes,location=no"
-	var newWin = window.open(url, 'Payment', window_properties)
-	newWin.addEventListener('unload', function() {
+	var paymentWin = window.open(url, 'Payment', window_properties)
+	paymentWin.addEventListener('unload', function() {
 		console.log('Navigation occuring');
 		console.log("loaded")
-		console.log(newWin.location.href)
-		console.log(newWin.location.innerText)
+		console.log(paymentWin.location.href)
+		console.log(paymentWin.location.innerText)
 	});
 }
 

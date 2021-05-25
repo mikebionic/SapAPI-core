@@ -66,7 +66,6 @@
 													<div class="d-block my-3 paymentMethods">
 
 														{% for payment_method in payment_methods %}
-															{% if payment_method.PmId != 2 %}
 															<div class="custom-control custom-radio">
 																<input id="{{ payment_method.PmName }}" name="paymentMethod" type="radio" class="custom-control-input" value="{{ payment_method.PmId }}" required>
 																<label class="custom-control-label" for="{{ payment_method.PmName }}">
@@ -74,7 +73,6 @@
 																	<p>{{ payment_method.PmDesc }}</p>
 																</label>
 															</div>
-															{% endif %}
 														{% endfor %}
 
 													</div>
@@ -114,4 +112,5 @@
 
 {% block scripts %}
 	<script src="{{ url_for('static', filename='commerce/ls/js/cart.js') }}"></script>
+	<script src="{{ url_for('static', filename='commerce/ls/js/payment_reg_api.js') }}"></script>
 {% endblock %}
