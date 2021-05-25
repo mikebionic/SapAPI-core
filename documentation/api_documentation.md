@@ -652,9 +652,9 @@ Returns only if the **Rp_acc** is the **owner** of invoice
 
 ## Image api
 
-| __Route__           |   __Methods__    | __Status__ | __Note__            |
-| ------------------- | :--------------: | :--------: | ------------------- |
-| /v-images/          |     **GET**      |   Active   |
+| __Route__  | __Methods__ | __Status__ | __Note__ |
+| ---------- | :---------: | :--------: | -------- |
+| /v-images/ |   **GET**   |   Active   |
 
 **Properties**
 | __Name__      |         __Type__         | __Description__ | __Example__ |
@@ -688,9 +688,9 @@ curl 127.0.0.1:5000/ls/api/v1/v-images/ --header 'images-to-exclude: [{"FileName
 ---
 
 
-| __Route__           |   __Methods__    | __Status__ | __Note__            |
-| ------------------- | :--------------: | :--------: | ------------------- |
-| /v-images-by-excluded-list/ |    **POST**      |   Active   | returns data without those that are provided in body json as on example below
+| __Route__                   | __Methods__ | __Status__ | __Note__                                                                      |
+| --------------------------- | :---------: | :--------: | ----------------------------------------------------------------------------- |
+| /v-images-by-excluded-list/ |   **GET**   |   Active   | returns data without those that are provided in body json as on example below |
 
 **Properties**
 | __Name__      |         __Type__         | __Description__ | __Example__ |

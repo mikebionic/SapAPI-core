@@ -6,7 +6,7 @@ from main_pack.api.v1.image_api import api
 from main_pack.api.v1.image_api.utils import get_images
 
 
-@api.route("/v-images-by-excluded-list/", methods=['POST'])
+@api.route("/v-images-by-excluded-list/", methods=['GET','POST'])
 def v_image_by_excluded_list_post():
 	arg_data = {
 		"DivId": request.args.get("DivId",None,type=int),
