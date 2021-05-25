@@ -38,7 +38,7 @@ gen_reg_no_data = {
 }
 
 
-function service_post(payload_data, url, type){
+function gen_Reg_no_and_open_payment(payload_data, url, type){
 	$.ajax({
 		contentType: "application/json",
 		dataType: "json",

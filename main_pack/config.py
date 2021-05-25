@@ -122,16 +122,17 @@ class Config:
 	MAIL_PASSWORD = environ.get('MAIL_PASSWORD')
 	COMPANY_MAIL = environ.get('COMPANY_MAIL') or environ.get('MAIL_USERNAME')
 	# / MAIL CONFIGURATION /
-	
+
 	# #  Online Payment
-	# URL for the service that will be used for payment check 
+	# URL for the service that will be used for payment check
 	ALLOW_PAYMENT_INFO_API = int(environ.get('ALLOW_PAYMENT_INFO_API')) if environ.get('ALLOW_PAYMENT_INFO_API') else 1
 	PAYMENT_VALIDATION_SERVICE_URL = environ.get('PAYMENT_VALIDATION_SERVICE_URL')
+	PAYMENT_VALIDATION_REGISTER_URL = environ.get('PAYMENT_VALIDATION_REGISTER_URL')
 	PAYMENT_VALIDATION_SERVICE_USERNAME = environ.get('PAYMENT_VALIDATION_SERVICE_USERNAME')
 	PAYMENT_VALIDATION_SERVICE_PASSWORD = environ.get('PAYMENT_VALIDATION_SERVICE_PASSWORD')
 	PAYMENT_VALIDATION_KEY = environ.get('PAYMENT_VALIDATION_KEY')
 	PAYMENT_VALIDATION_VALUE = environ.get('PAYMENT_VALIDATION_VALUE')
-	
+
 	# # / Online Payment /
 
 
@@ -167,8 +168,8 @@ class Config:
 
 	SHOW_ONLY_VALIDATED_RATING = 1
 
-	MAIN_CURRENCY_CODE = environ.get('MAIN_CURRENCY_CODE') or 'TMT' 
-	DEFAULT_VIEW_CURRENCY_CODE = environ.get('DEFAULT_VIEW_CURRENCY_CODE') or 'TMT' 
+	MAIN_CURRENCY_CODE = environ.get('MAIN_CURRENCY_CODE') or 'TMT'
+	DEFAULT_VIEW_CURRENCY_CODE = environ.get('DEFAULT_VIEW_CURRENCY_CODE') or 'TMT'
 	DEFAULT_RES_PRICE_GROUP_ID = int(environ.get('DEFAULT_RES_PRICE_GROUP_ID')) if environ.get('DEFAULT_RES_PRICE_GROUP_ID') else 0
 	# language and currency of price-to-text converter
 	PRICE_2_TEXT_LANGUAGE = 'tk'
@@ -179,7 +180,7 @@ class Config:
 	# PRICE_2_TEXT_CURRENCY = 'RUB'
 
 
-	# IMAGES CONFIGURATION 
+	# IMAGES CONFIGURATION
 	# icon extentions and size
 	ALLOWED_ICON_EXTENSIONS = set(['png','jpg','jpeg','svg'])
 	ALLOWED_IMAGE_EXTENSIONS = set(['png','jpg','jpeg'])
@@ -192,7 +193,7 @@ class Config:
 
 	# Rename images to the data given in image_name
 	USE_PROVIDED_IMAGE_FILENAME = int(environ.get('USE_PROVIDED_IMAGE_FILENAME')) if environ.get('USE_PROVIDED_IMAGE_FILENAME') else 0
-	
+
 	# Types name of images to be written:
 	# 1 = ResName
 	# 2 = Barcode
@@ -236,7 +237,7 @@ class Config:
 
 	# view route titles configuration
 	# Info to be displayed in html: <title>Home page</title>
-	# set to None if dont want to display anything 
+	# set to None if dont want to display anything
 	COMMERCE_HOME_PAGE_TITLE = environ.get('COMMERCE_HOME_PAGE_TITLE') or "Main"
 	COMMERCE_ABOUT_PAGE_TITLE = environ.get('COMMERCE_ABOUT_PAGE_TITLE') or "About us"
 	COMMERCE_COLLECTION_VIEW_TITLE = environ.get('COMMERCE_COLLECTION_VIEW_TITLE') or "Collection"
@@ -266,7 +267,7 @@ class Config:
 	# COMMERCE_TEMPLATES_FOLDER_PATH = "/commerce/bee"
 	# COMMERCE_TEMPLATES_FOLDER_PATH = "/commerce/main"
 	# COMMERCE_TEMPLATES_FOLDER_PATH = "/commerce/testing"
-	
+
 	COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH = environ.get("COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH") or "/commerce/admin"
 	# / templates file location configuration /
 
@@ -280,4 +281,4 @@ class Config:
 
 	# location of robots.txt and sitemap.xml
 	WEB_CONFIG_DIRECTORY = path.join("static", "web_config")
-	GOOGLE_ANALYTICS_TAG = environ.get('GOOGLE_ANALYTICS_TAG') or '' 
+	GOOGLE_ANALYTICS_TAG = environ.get('GOOGLE_ANALYTICS_TAG') or ''
