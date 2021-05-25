@@ -569,18 +569,23 @@ def apiResourceInfo(
 	return res
 
 
-@cache.cached(Config.DB_CACHE_TIME, key_prefix="featured_resources")
-def apiFeaturedResCat_Resources(DivId = None):
+@cache.cached(Config.DB_CACHE_TIME, key_prefix="featured_categories")
+def get_FeaturedResCategory_list(DivId = None):
 	featured_categories = collect_categories_query(
 		IsMain = True,
 		showNullResourceCategory = Config.SHOW_NULL_RESOURCE_CATEGORY,
 		DivId = DivId
 	)
 
-	featured_categories 			= featured_categories\
+	featured_categories = featured_categories\
 		.order_by(Res_category.ResCatVisibleIndex.asc())\
 		.all()
+	
+	return featured_categories
 
+
+def apiFeaturedResCat_Resources(DivId = None):
+	featured_categories = get_FeaturedResCategory_list(DivId)
 	if featured_categories:
 		featured_resources_query = collect_resources_query(DivId = DivId)
 
