@@ -69,20 +69,24 @@ def get_images(
 			synchDateTime = dateutil.parser.parse(synchDateTime)
 		images = images.filter(Image.ModifiedDate > (synchDateTime - timedelta(minutes = 5)))
 
+	images = images.options(
+		joinedload(Image.resource),
+		joinedload(Image.rp_acc))
 
+	guid_not_synched_images = None
 	if images_to_exclude:
 		try:
 			filenames_to_exclude = [img["FileName"] for img in images_to_exclude]
 			guids_to_exclude = [img["ImgGuid"] for img in images_to_exclude]
 
-			# # faseter method but not validating both, validates separate..
-			# images = images.filter(Image.FileName.notin_(filenames_to_exclude) and Image.ImgGuid.notin_(guids_to_exclude))
+			guid_not_synched_images = images.filter(Image.ImgGuid.notin_(guids_to_exclude)).all()
 
-			# # I do an each filtering for guid filename info to validate both values
-			for filename in filenames_to_exclude:
-				order = filenames_to_exclude.index(filename)
-				image_guid = guids_to_exclude[order]
-				images = images.filter(Image.FileName != filename and Image.ImgGuid != image_guid)
+			guid_subquery = Image.query.filter(Image.ImgGuid.in_(guids_to_exclude)).subquery()
+			images = images.join(guid_subquery, guid_subquery.c.ImgId == Image.ImgId)
+			images = images.filter(Image.FileName.notin_(filenames_to_exclude))
+
+			# # faster method but not validating both, validates separate..
+			# images = images.filter(Image.FileName.notin_(filenames_to_exclude) and Image.ImgGuid.notin_(guids_to_exclude))
 
 		except:
 			pass
@@ -100,10 +104,10 @@ def get_images(
 				Image.ProdId != None if prods else Image.ProdId == 0,
 			))
 
-	images = images.options(
-		joinedload(Image.resource),
-		joinedload(Image.rp_acc))\
-	.all()
+	images = images.all()
+
+	if guid_not_synched_images:
+		images.extend(guid_not_synched_images)
 
 	data = []
 	for image in images:
