@@ -106,6 +106,12 @@ msgstr "successfully updated"
 msgid "Unknown error!"
 msgstr "Unknown error!"
 
+msgid "Unknown error"
+msgstr "Unknown error"
+
+msgid "Success"
+msgstr "Success"
+
 msgid "successfully deleted"
 msgstr "successfully deleted"
 
