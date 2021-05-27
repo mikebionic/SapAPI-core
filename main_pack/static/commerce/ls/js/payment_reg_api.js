@@ -1,9 +1,9 @@
 // payload = {
 // 	"RegNo": "ff3f3f333",
 // 	"TotalPrice": "45.3",
-// 	"OrderDesc": "Testing the service"
+//	"OrderDesc": "Testing the service"
 // }
-const payment_req_url = 'ls/api/order-payment-register-request/'
+const payment_req_url = `${url_prefix}/order-payment-register-request/`
 function gen_Reg_no_and_open_payment(payload_data, url, type){
 	$.ajax({
 		contentType: "application/json",
@@ -33,7 +33,6 @@ function req_payment_url_prepare(reg_no){
 		"TotalPrice": $('.cartTotalPrice').val(),
 		"OrderDesc": $('.orderDesc').val()
 	}
-	console.log(payload)
 	req_payment_request(payload, payment_req_url)
 }
 
@@ -66,13 +65,19 @@ function open_payment_window(url){
 	// // example url
 	// https://mpi.gov.tm/payment/merchants/online/payment_ru.html?mdOrder=ae8b6f3a-cc4d-406a-a5cd-931e1d1f124e
 	
-	
+	// // changed to example
+	// https://mpi.gov.tm/payment/merchants/online/errors_ru.html?error=payment.errors.order_already_processed
+
+	var index_url = "mpi.gov.tm/payment/merchants/online/payment_ru.html?mdOrder"
 	var window_properties = "width=600,height=400,resizable=yes,location=no"
 	var paymentWin = window.open(url, 'Payment', window_properties)
 	paymentWin.addEventListener('unload', function() {
 		console.log('Navigation occuring');
 		console.log("loaded")
 		console.log(paymentWin.location.href)
+		if (window.location.href.indexOf(index_url) > 0){
+			// located
+		}
 		console.log(paymentWin.location.innerText)
 	});
 }

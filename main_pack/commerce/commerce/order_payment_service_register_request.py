@@ -4,16 +4,16 @@ from flask import (
 	request,
 )
 
-from main_pack.api.auth.utils import token_required
+from flask_login import login_required
 from main_pack.api.base.validators import request_is_json
 
-from main_pack.api.v1.order_inv_api import api
+from main_pack.commerce.commerce import bp
 from main_pack.api.v1.order_inv_api.utils import do_mpi_gov_tm_payment_service_register_request
 
-@api.route("/order-payment-register-request/", methods=['POST'])
-@token_required
+@bp.route("/order-payment-register-request/", methods=['POST'])
+@login_required
 @request_is_json(request)
-def order_payment_service_register_request_post(user):
+def order_payment_service_register_request():
 	req = request.get_json()
 	data = do_mpi_gov_tm_payment_service_register_request(req)
 

@@ -36,4 +36,4 @@ def order_inv_validation_v1():
 			"responseText": gettext('Unknown error!')
 		})
 
-	return response
+	return make_response(response)

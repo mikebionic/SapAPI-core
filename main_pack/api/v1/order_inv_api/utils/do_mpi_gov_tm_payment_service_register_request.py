@@ -20,10 +20,12 @@ def do_mpi_gov_tm_payment_service_register_request(req):
 
 	returnUrl = f"https://mpi.gov.tm/payment/finish.html%3Flogin%3D{service_username}%26password%3D{service_password}&userName={service_username}&pageView=DESKTOP&description={OrderDesc}"
 	payment_order_check_req_url = f"{register_url}orderNumber={RegNo}&currency={currency}&amount={TotalPrice}&language={language}&password={service_password}&returnUrl={returnUrl}"
+	print(payment_order_check_req_url)
 
 	try:
 		r = requests.get(payment_order_check_req_url, verify=False)
 		response_json = json.loads(r.text)
+		print(response_json)
 		if int(response_json["errorCode"]) != 0:
 			raise Exception
 

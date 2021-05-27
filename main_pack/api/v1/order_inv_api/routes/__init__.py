@@ -1,4 +1,4 @@
-from .checkout_sale_order_inv import checkout_sale_order_inv
+from .checkout_sale_order_inv_post import checkout_sale_order_inv_post
 from .order_inv_validation_post import order_inv_validation_post
 from .tbl_order_inv_post import tbl_order_inv_post
 from .tbl_order_inv_RegNo import tbl_order_inv_RegNo
