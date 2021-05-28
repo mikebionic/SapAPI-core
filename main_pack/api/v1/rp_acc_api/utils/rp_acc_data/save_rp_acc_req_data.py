@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import uuid
-from datetime import datetime, timezone
+from datetime import datetime
 
 from main_pack import db, bcrypt
 
@@ -56,15 +56,15 @@ def save_rp_acc_req_data(req, model_type, current_user, session = None):
 					db.session.commit()
 				except Exception as ex:
 					print(f"{datetime.now()} | Rp_acc_req save regNo gen Exception: {ex}")
-					regNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
+					regNo = str(datetime.now().timestamp())
 
 				rp_acc_info["RpAccRegNo"] = regNo
 				rp_acc_info["RpAccGuid"] = uuid.uuid4()
 				
 				if not rp_acc_info["RpAccUName"]:
-					rp_acc_info["RpAccUName"] = f"RpAccUName{datetime.now().replace(tzinfo=timezone.utc).timestamp()}"
+					rp_acc_info["RpAccUName"] = f"RpAccUName{datetime.now().timestamp()}"
 				if not rp_acc_info["RpAccUPass"]:
-					rp_acc_info["RpAccUPass"] = f"RpAccUPass{datetime.now().replace(tzinfo=timezone.utc).timestamp()}"
+					rp_acc_info["RpAccUPass"] = f"RpAccUPass{datetime.now().timestamp()}"
 
 				thisRpAcc = Rp_acc(**rp_acc_info)
 				db.session.add(thisRpAcc)

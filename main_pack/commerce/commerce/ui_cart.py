@@ -1,18 +1,11 @@
 from flask import (
 	render_template,
-	url_for,
 	jsonify,
 	session,
-	flash,
-	redirect,
 	request,
-	Response,
-	abort
 )
 from flask_login import current_user, login_required
-import os
 import uuid
-from sqlalchemy import and_
 from sqlalchemy.orm import joinedload
 import decimal
 
@@ -20,7 +13,7 @@ from main_pack.commerce.commerce import bp
 from main_pack.config import Config
 
 # useful methods
-from main_pack import db, gettext, lazy_gettext
+from main_pack import db, gettext
 from main_pack.base.apiMethods import get_login_info
 from main_pack.base.languageMethods import dataLangSelector
 from main_pack.base.num2text import num2text,price2text
@@ -56,8 +49,8 @@ from main_pack.commerce.commerce.order_utils import addOInvLineDict
 # / Invoices /
 
 # RegNo
-from main_pack.key_generator.utils import makeRegNo, generate, validate
-from datetime import datetime, timezone
+from main_pack.key_generator.utils import makeRegNo, generate
+from datetime import datetime
 # / RegNo /
 
 from main_pack.api.common import (get_ResPriceGroupId)
@@ -252,7 +245,7 @@ def ui_cart_checkout():
 
 			except Exception as ex:
 				print(f"{datetime.now()} | UI_checkout - Reg Num gen exception  {ex}")
-				orderRegNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())			
+				orderRegNo = str(datetime.now().timestamp())			
 
 			warehouse = Warehouse.query\
 				.filter_by(DivId = DivId, GCRecord = None)\
@@ -361,7 +354,7 @@ def ui_cart_checkout():
 
 					except Exception as ex:
 						print(f"{datetime.now()} | UI_checkout reg_num generation Exception: {ex}")
-						orderLineRegNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
+						orderLineRegNo = str(datetime.now().timestamp())
 
 					order_inv_line['OInvLineRegNo'] = orderLineRegNo
 					order_inv_line['OInvLineGuid'] = uuid.uuid4()

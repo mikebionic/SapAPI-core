@@ -1,5 +1,5 @@
 from flask import jsonify, request, make_response, abort
-from datetime import datetime, timezone
+from datetime import datetime
 from sqlalchemy.orm import joinedload
 
 from . import api
@@ -42,7 +42,7 @@ def fetch_device():
 					DevVerifyDate = datetime.now().replace(microsecond = 0)
 					device.DevVerifyDate = DevVerifyDate
 
-					verify_date_data = str(DevVerifyDate.replace(tzinfo=timezone.utc).timestamp())
+					verify_date_data = str(DevVerifyDate.timestamp())
 
 					updated_key = encrypt_data(
 						data = verify_date_data,

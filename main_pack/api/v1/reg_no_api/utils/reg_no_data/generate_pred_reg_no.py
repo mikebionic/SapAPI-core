@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from datetime import datetime,timezone
+from datetime import datetime
 
 from main_pack import db
 from main_pack.models import Pred_reg_num
@@ -44,7 +44,7 @@ def generate_pred_reg_no(req, model_type, current_user):
 
 		except Exception as ex:
 			print(f"{datetime.now()} | Pred Reg_no gen function Exception: {ex}")
-			currentRegNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
+			currentRegNo = str(datetime.now().timestamp())
 
 		New_Pred_regnum = Pred_reg_num(RegNum = currentRegNo, RegNumTypeId = RegNumTypeId)
 		db.session.add(New_Pred_regnum)

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from datetime import datetime, timezone, timedelta
+from datetime import datetime, timedelta
 
 from main_pack.config import Config
 from main_pack.models import Db_inf
@@ -30,7 +30,7 @@ def check_device_activation(device_model):
 		do_fetch = True
 
 	if decrypted_data:
-		if (str(DevVerifyDate.replace(tzinfo=timezone.utc).timestamp()) == decrypted_data):
+		if (str(DevVerifyDate.timestamp()) == decrypted_data):
 			if (DevVerifyDate > datetime.today() - timedelta(days = Config.DEVICE_ALLOWED_TIMEOUT_DAYS)):
 				state = True
 
