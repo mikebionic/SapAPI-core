@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
-from flask import render_template,url_for,jsonify,request,abort,make_response
+from flask import jsonify, request, make_response
 from main_pack.api.base import api
-from main_pack.config import Config
 
-from main_pack import db,babel,gettext,lazy_gettext
-from datetime import datetime,timezone
+from main_pack import db
+from datetime import datetime
 
 from main_pack.models import User
 from main_pack.api.auth.utils import token_required
@@ -50,7 +49,7 @@ def api_gen_reg_no(user):
 			currentRegNo = makeRegNo(**generation_params)
 		except Exception as ex:
 			print(f"{datetime.now()} | Reg_no Api Exception: {ex}")
-			currentRegNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
+			currentRegNo = str(datetime.now().timestamp())
 
 		New_Pred_regnum = Pred_reg_num(RegNum = currentRegNo, RegNumTypeId = RegNumTypeId)
 		db.session.add(New_Pred_regnum)

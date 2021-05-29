@@ -1,11 +1,11 @@
 from flask import render_template, url_for, jsonify, session, flash, redirect, request, Response, abort
 from flask_login import login_user, current_user, logout_user
-from datetime import datetime, timezone
+from datetime import datetime
 import uuid
 
 from . import bp, url_prefix
 from main_pack.config import Config
-from main_pack import db, bcrypt, babel, gettext, lazy_gettext
+from main_pack import db, bcrypt, gettext, lazy_gettext
 
 # forms
 from main_pack.commerce.auth.forms import (
@@ -227,7 +227,7 @@ def register_token(token):
 				db.session.commit()
 			except Exception as ex:
 				print(f"{datetime.now()} | UI Register Reg Num generation Exception: {ex}")
-				regNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
+				regNo = str(datetime.now().timestamp())
 				# flash(lazy_gettext('Error generating Registration number'),'warning')
 				# return redirect(url_for('commerce_auth.register'))
 

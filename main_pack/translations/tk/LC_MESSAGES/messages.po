@@ -126,6 +126,12 @@ msgstr "üstünlikli täzelendi"
 msgid "Unknown error!"
 msgstr "Näbelli ýalňyşlyk!"
 
+msgid "Unknown error"
+msgstr "Näbelli ýalňyşlyk"
+
+msgid "Success"
+msgstr "Üstünlik"
+
 msgid "successfully deleted"
 msgstr "üstünlikli pozuldy"
 

@@ -127,6 +127,12 @@ msgstr "успешно обновлено"
 msgid "Unknown error!"
 msgstr "Неизвестная ошибка!"
 
+msgid "Unknown error"
+msgstr "Неизвестная ошибка"
+
+msgid "Success"
+msgstr "Успех"
+
 msgid "successfully deleted"
 msgstr "успешно удалено"
 

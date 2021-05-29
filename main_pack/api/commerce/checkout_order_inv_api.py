@@ -3,10 +3,10 @@ from flask import jsonify, request, make_response, session
 import requests, json
 import uuid
 from sqlalchemy.orm import joinedload
-from datetime import datetime, timezone
+from datetime import datetime
 import decimal
 
-from main_pack import db, babel, gettext, lazy_gettext
+from main_pack import db
 from main_pack.config import Config
 from . import api
 
@@ -108,7 +108,7 @@ def api_checkout_sale_order_invoices(user):
 			except Exception as ex:
 				print(f"{datetime.now()} | Checkout OInv Exception: {ex}. Couldn't generate RegNo using User's credentials")
 				# use device model and other info
-				orderRegNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
+				orderRegNo = str(datetime.now().timestamp())
 
 		else:
 			reg_num_pred_exists = Pred_reg_num.query\
@@ -161,7 +161,7 @@ def api_checkout_sale_order_invoices(user):
 				except Exception as ex:
 					print(f"{datetime.now()} | Checkout OInv Exception: {ex}. Couldn't generate RegNo using User's credentials")
 					# use device model and other info
-					orderLineRegNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
+					orderLineRegNo = str(datetime.now().timestamp())
 				order_inv_line["OInvLineRegNo"] = orderLineRegNo
 				orderLineRegNo = None
 

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import request, make_response, jsonify, session
+from flask import request, make_response, jsonify
 
 from main_pack.api.auth.utils import token_required
 from main_pack.api.base.validators import request_is_json
@@ -11,7 +11,7 @@ from main_pack.api.v1.order_inv_api.utils import validate_order_inv_payment
 @api.route("/order-inv-validation/", methods=['POST'])
 @token_required
 @request_is_json(request)
-def order_inv_validation(user):
+def order_inv_validation_post(user):
 	current_user = user['current_user']
 	model_type = user['model_type']
 	req = request.get_json()

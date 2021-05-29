@@ -1,5 +1,5 @@
 from flask import jsonify, request, make_response, abort
-from datetime import datetime, timezone
+from datetime import datetime
 import uuid
 
 from . import api
@@ -45,7 +45,7 @@ def register_device():
 			# DevVerifyDate = datetime.now().replace(microsecond = 0)
 			# device_info["DevVerifyDate"] = DevVerifyDate
 
-			# verify_date_data = str(DevVerifyDate.replace(tzinfo=timezone.utc).timestamp())
+			# verify_date_data = str(DevVerifyDate.timestamp())
 
 			# DevVerifyKey = encrypt_data(
 			# 	data = verify_date_data,

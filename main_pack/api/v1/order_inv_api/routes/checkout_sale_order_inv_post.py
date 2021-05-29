@@ -12,7 +12,7 @@ from main_pack.api.v1.order_inv_api.utils import save_order_checkout_data
 @api.route("/checkout-sale-order-inv/", methods=['POST'])
 @token_required
 @request_is_json(request)
-def checkout_sale_order_inv(user):
+def checkout_sale_order_inv_post(user):
 	model_type = user['model_type']
 	current_user = user['current_user']
 	req = request.get_json()

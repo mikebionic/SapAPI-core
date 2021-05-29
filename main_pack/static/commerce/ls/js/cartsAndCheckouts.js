@@ -80,7 +80,11 @@ $('body').delegate('.checkoutCartBtn','click',function(){
 	data['PmId'] = PmId
 	data['PtId'] = 1
 	if (PmId == 2){
-		service_post(gen_reg_no_data, `${url_prefix}/ui-gen-reg-no/`, 'POST');
+		gen_reg_no_data = {
+			"RegNumTypeName": "sale_order_invoice_code",
+			"random_mode": 1,
+		}
+		gen_Reg_no_and_open_payment(gen_reg_no_data, `${url_prefix}/ui-gen-reg-no/`, 'POST');
 	}
 	else {
 		checkoutCart({"orderInv": data} ,url_prefix+'/checkout_cart_v1/','POST');

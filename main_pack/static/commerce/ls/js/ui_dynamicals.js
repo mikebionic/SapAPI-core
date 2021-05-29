@@ -138,7 +138,7 @@ var postData = function(formData,url,type,formId,listName,responseForm,alertStyl
 			if (response.status == 'created'){
 				$('.'+listName).prepend(response[responseForm]);
 				if (alertStyle == 'swal'){
-					swal(title="Success",desc=response.responseText,style="success");
+					swal(title=success_title,desc=response.responseText,style="success");
 				}
 				else{
 					successToaster(response.responseText);
@@ -146,7 +146,7 @@ var postData = function(formData,url,type,formId,listName,responseForm,alertStyl
 			}
 			else if (response.status == 'updated'){
 				if (alertStyle == 'swal'){
-					swal(title="Success",desc=response.responseText,style="success");
+					swal(title=success_title,desc=response.responseText,style="success");
 				}
 				else{
 					successToaster(response.responseText);
@@ -154,7 +154,7 @@ var postData = function(formData,url,type,formId,listName,responseForm,alertStyl
 			}
 			else if (response.status == 'deleted'){
 				if (alertStyle == 'swal'){
-					swal(title="Success",desc=response.responseText,style="success");
+					swal(title=success_title,desc=response.responseText,style="success");
 				}
 				else{
 					successToaster(response.responseText);
@@ -163,7 +163,7 @@ var postData = function(formData,url,type,formId,listName,responseForm,alertStyl
 			}
 			else{
 				if (alertStyle == 'swal'){
-					swal(title="Error",desc=response.responseText,style="warning");
+					swal(title=error_title,desc=response.responseText,style="warning");
 				}
 				else{
 					errorToaster(response.responseText);

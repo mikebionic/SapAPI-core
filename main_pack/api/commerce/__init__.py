@@ -27,5 +27,6 @@ from . import (
 	exc_rate_api,
 	res_price_group_api,
 	company_api,
-	division_api
+	division_api,
+	order_payment_register_request_post,
 )

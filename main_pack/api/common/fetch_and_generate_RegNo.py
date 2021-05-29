@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from datetime import datetime, timezone
+from datetime import datetime
 
 from main_pack.key_generator.utils import (
 	generate,
@@ -25,7 +25,7 @@ def fetch_and_generate_RegNo(user_id, user_short_name, reg_no_type, RegNo = None
 			)
 		except Exception as ex:
 			print(f"{datetime.now()} | RegNum Exception: {ex}. Couldn't generate RegNo using User's credentials")
-			RegNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
+			RegNo = str(datetime.now().timestamp())
 
 	else:
 		pred_reg_num = Pred_reg_num.query\

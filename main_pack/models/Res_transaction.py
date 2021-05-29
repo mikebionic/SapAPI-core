@@ -8,7 +8,7 @@ class Res_transaction(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_res_transaction"
 	ResTransId = db.Column("ResTransId",db.Integer,nullable=False,primary_key=True)
 	ResTransGuid = db.Column("ResTransGuid",UUID(as_uuid=True),unique=True)
-	ResTransTypeId = db.Column("ResTransTypeId",db.Integer,db.ForeignKey("tbl_dk_res_trans_type.ResTransTypeId"))
+	ResTrTypeId = db.Column("ResTrTypeId",db.Integer,db.ForeignKey("tbl_dk_res_trans_type.ResTrTypeId"))
 	InvLineId = db.Column("InvLineId",db.Integer,db.ForeignKey("tbl_dk_inv_line.InvLineId"))
 	ResTrInvLineId = db.Column("ResTrInvLineId",db.Integer,db.ForeignKey("tbl_dk_res_trans_inv_line.ResTrInvLineId"))
 	CurrencyId = db.Column("CurrencyId",db.Integer,db.ForeignKey("tbl_dk_currency.CurrencyId"))
@@ -28,7 +28,7 @@ class Res_transaction(AddInf, BaseModel, db.Model):
 		data = {
 			"ResTransId": self.ResTransId,
 			"ResTransGuid": self.ResTransGuid,
-			"ResTransTypeId": self.ResTransTypeId,
+			"ResTrTypeId": self.ResTrTypeId,
 			"InvLineId": self.InvLineId,
 			"ResTrInvLineId": self.ResTrInvLineId,
 			"CurrencyId": self.CurrencyId,

@@ -2,7 +2,6 @@ from flask import render_template,url_for,session,flash,redirect,request,Respons
 import os
 import uuid
 from flask import current_app
-from sqlalchemy import and_
 from sqlalchemy.orm import joinedload
 
 from . import bp, url_prefix
@@ -32,15 +31,9 @@ from main_pack.commerce.admin.utils import resRelatedData
 
 # Invoices
 from main_pack.models import (
-	Inv_line,
-	Inv_line_det,
-	Inv_line_det_type,
 	Inv_status,
-	Inv_type,
-	Invoice,
 	Order_inv,
 	Order_inv_line,
-	Order_inv_type,
 	Rating,
 	Res_price_group
 )
@@ -67,8 +60,8 @@ from main_pack.commerce.admin.forms import (
 # / users and customers /
 
 # RegNo
-from main_pack.key_generator.utils import makeRegNo,generate,validate
-from datetime import datetime,timezone
+from main_pack.key_generator.utils import makeRegNo,generate
+from datetime import datetime
 # / RegNo /
 
 # Image operations
@@ -76,8 +69,6 @@ from main_pack.models import Image
 from main_pack.base.imageMethods import save_image, save_icon
 from main_pack.base.imageMethods import allowed_icon
 # / Image operations /
-
-from main_pack.base.apiMethods import get_login_info
 
 
 @bp.route('/admin/language/<language>')
@@ -300,7 +291,7 @@ def manage_rp():
 					db.session.commit()
 				except Exception as ex:
 					print(f"{datetime.now()} | Admin rp_acc_manage regNo gen Exception: {ex}")
-					regNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
+					regNo = str(datetime.now().timestamp())
 
 				data["RpAccRegNo"] = regNo
 				data["RpAccGuid"] = uuid.uuid4()
@@ -463,7 +454,7 @@ def manage_user():
 					db.session.commit()
 				except Exception as ex:
 					print(f"{datetime.now()} | Admin user_manage regNo gen Exception: {ex}")
-					regNo = str(datetime.now().replace(tzinfo=timezone.utc).timestamp())
+					regNo = str(datetime.now().timestamp())
 
 				data["URegNo"] = regNo
 

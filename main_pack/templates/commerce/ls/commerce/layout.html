@@ -561,6 +561,9 @@
 			var currency = "{{ session.currency_code if session.currency_code else 'TMT' }}"
 			var qty_error_text = "{{_('Cannot get more')}}";
 			var remove_from_cart_text = "{{_('Remove from cart')}}";
+			var error_title = "{{_('Error')}}";
+			var success_title = "{{_('Success')}}";
+			var unknown_error_text = "{{_('Unknown error')}}"
 			var no_photo = "{{ url_for('static', filename='commerce/ls/img/icons/no_photo.svg') }}";
 			var rating_message = "{{_('You should put your rating and write a review')}}";
 		</script>
@@ -571,11 +574,15 @@
 					if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain){
 						xhr.setRequestHeader("X-CSRFToken", csrf_token);
 					}
+					$('#cover-spin').show()
 				},
 				error: function(jqXHR, textStatus, errorThrown) {
 					if (jqXHR.status == 401 || jqXHR.status == 400) {
 						location.reload();
 					}
+				},
+				complete: function(){
+					$('#cover-spin').hide()
 				}
 			});
 			</script>
