@@ -12419,11 +12419,11 @@ ul.link-widget li {
       font-size: 13px;
   }
 } 
-@media ( max-width: 476px) {
+/* @media ( max-width: 476px) {
   .ee-product {
       width: 138px;
   }
-} 
+}  */
 @media ( max-width: 476px) {
   .ee-product .content .category-title {
       height: 65px;
