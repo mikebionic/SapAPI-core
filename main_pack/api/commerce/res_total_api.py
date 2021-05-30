@@ -98,7 +98,7 @@ def api_res_totals():
 		response = make_response(jsonify(res), 200)
 
 	elif request.method == 'POST':
-	
+
 		req = request.get_json()
 
 		resources = Resource.query\
@@ -121,11 +121,11 @@ def api_res_totals():
 		resource_ResGuid_list = [str(resource.ResGuid) for resource in resources]
 
 		data = []
-		failed_data = [] 
+		failed_data = []
 
 		for res_total_req in req:
 			res_total_info = addResTotalDict(res_total_req)
-			
+
 			# sync the pending amount (used by synchronizer)
 			res_total_info["ResPendingTotalAmount"] = res_total_info["ResTotBalance"]
 
@@ -183,7 +183,7 @@ def api_res_totals():
 						res_total_info["ResTotId"] = ResTotId
 						thisResTotal = Res_total(**res_total_info)
 						db.session.add(thisResTotal)
-						
+
 					thisResTotal = None
 					data.append(res_total_req)
 

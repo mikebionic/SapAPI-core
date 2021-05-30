@@ -232,7 +232,15 @@ def register_token(token):
 				# return redirect(url_for('commerce_auth.register'))
 
 			company = Company.query.filter_by(CGuid = Config.MAIN_CGUID).first()
+			if not company:
+				company = Company.query.first()
+
 			division = Division.query.filter_by(DivGuid = Config.C_REGISTRATION_DIVGUID).first()
+			if not division:
+				division = Division.query.first()
+
+			CId = company.CId if company else None
+			DivId = division.DivId if division else None
 
 			user_data = {
 				"RpAccId": RpAccId,
@@ -246,8 +254,8 @@ def register_token(token):
 				"RpAccTypeId": 2,
 				"RpAccMobilePhoneNumber": form.phone_number.data,
 				"RpAccAddress": form.address.data if form.address.data else None,
-				"CId": company.CId,
-				"DivId": division.DivId,
+				"CId": CId,
+				"DivId": DivId,
 				"RpAccStatusId": 1
 			}
 
