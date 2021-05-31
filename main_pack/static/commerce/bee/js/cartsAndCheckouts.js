@@ -93,7 +93,7 @@ $('body').delegate('.checkoutCartBtn','click',function(){
 	// }
 	data['PmId'] = PmId
 	data['PtId'] = 1
-	checkoutCart({"orderInv": data} ,url_prefix+'/commerce/checkout_cart_v1/','POST');
+	checkoutCart({"orderInv": data} ,url_prefix+'/commerce/checkout-cart-v1/','POST');
 });
 
 
@@ -309,7 +309,7 @@ function checkoutCart(formData,url,type){
 		type: type,
 		url: url,
 		success: function(response){
-			if(response.status == 'added'){
+			if(response.status == 1){
 				sweetAlert(title='',message=response.responseText,style='success');
 				clearCart();
 				setTimeout(function(){

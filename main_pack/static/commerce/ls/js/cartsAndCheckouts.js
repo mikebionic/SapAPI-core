@@ -86,6 +86,10 @@ $('body').delegate('.checkoutCartBtn','click',function(){
 	}
 	data['PmId'] = PmId
 	data['PtId'] = 1
+
+	var order_data = {"orderInv": data, "validated": false}
+	localStorage.setItem("orderInv", JSON.stringify(order_data))
+
 	if (PmId == 2){
 		gen_reg_no_data = {
 			"RegNumTypeName": "sale_order_invoice_code",
@@ -94,7 +98,7 @@ $('body').delegate('.checkoutCartBtn','click',function(){
 		gen_Reg_no_and_open_payment(gen_reg_no_data, `${url_prefix}/ui-gen-reg-no/`, 'POST');
 	}
 	else {
-		checkoutCart({"orderInv": data} ,url_prefix+'/checkout_cart_v1/','POST');
+		checkoutCart(order_data ,url_prefix+'/checkout-cart-v1/','POST');
 	}
 });
 
@@ -190,7 +194,7 @@ function addToCart(ownerId){
 function get_local_data_by_name(data_name = 'cart'){
 	var local_data = localStorage.getItem(data_name);
 	if(local_data == undefined){
-		data ={};
+		data = {};
 	}
 	else{
 		data =JSON.parse(local_data);
@@ -367,7 +371,7 @@ function checkoutCart(formData,url,type){
 		type: type,
 		url: url,
 		success: function(response){
-			if(response.status == 'added'){
+			if(response.status == 1){
 				sweetAlert(title='',message=response.responseText,style='success');
 				clearCart();
 				setTimeout(function(){

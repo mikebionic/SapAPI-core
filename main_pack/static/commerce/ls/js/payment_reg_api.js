@@ -4,6 +4,8 @@
 //	"OrderDesc": "Testing the service"
 // }
 const payment_req_url = `${url_prefix}/order-payment-register-request/`
+const checkout_oinv_url = `${url_prefix}/checkout-cart-v1/`
+
 function gen_Reg_no_and_open_payment(payload_data, url, type){
 	$.ajax({
 		contentType: "application/json",
@@ -16,7 +18,11 @@ function gen_Reg_no_and_open_payment(payload_data, url, type){
 			if (response.status == 1){
 				var RegNum = response.data;
 				// console.log("generated, continue")
-				req_payment_url_prepare(RegNum);
+				var order_data = get_local_data_by_name("orderInv");
+				order_data["orderInv"]["InvStatId"] = 13;
+				order_data["orderInv"]["OInvRegNo"] = RegNum;
+				localStorage.setItem("orderInv", JSON.stringify(order_data));
+				checkoutOrder(order_data, checkout_oinv_url);
 			}
 			else{
 				swal(title=error_title,desc=unknown_error_text,style="warning");
@@ -28,6 +34,32 @@ function gen_Reg_no_and_open_payment(payload_data, url, type){
 		}
 	})
 }
+
+
+function checkoutOrder(payload_data,url){
+	$.ajax({
+		contentType:"application/json",
+		dataType:"json",
+		data:JSON.stringify(payload_data),
+		type: 'POST',
+		url: url,
+		success: function(response){
+			if(response.status == 1){
+				var RegNum = response.data.OInvRegNo
+				var order_data = get_local_data_by_name("orderInv");
+				console.log(order_data)
+				order_data["orderInv"] = response.data
+				console.log(order_data)
+				localStorage.setItem("orderInv", JSON.stringify(order_data))
+				req_payment_url_prepare(RegNum);
+			}
+			else{
+				sweetAlert(title='',message=response.responseText,style='warning');
+			}
+		}
+	})
+}
+
 
 function req_payment_url_prepare(reg_no){
 	payload = {

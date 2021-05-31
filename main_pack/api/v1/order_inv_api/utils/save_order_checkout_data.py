@@ -27,16 +27,19 @@ from main_pack.api.common import (
 
 
 def save_order_checkout_data(req, model_type, current_user, session = None):
-	req['orderInv']['OInvGuid'] = str(uuid.uuid4())
+	req["orderInv"]["OInvGuid"] = str(uuid.uuid4())
 	try:
-		order_invoice_info = add_Order_inv_dict(req['orderInv'])
+		order_invoice_info = add_Order_inv_dict(req["orderInv"])
 		
 		orderRegNo = None
-		if "OInvRegNo" in req['orderInv']:
-			orderRegNo = req['orderInv']['OInvRegNo'] if req['orderInv']['OInvRegNo'] else None
-		InvStatId = int(req['orderInv']['InvStatId']) if "InvStatId" in req['orderInv'] else None
+		if "OInvRegNo" in req["orderInv"]:
+			orderRegNo = req["orderInv"]["OInvRegNo"] if req["orderInv"]["OInvRegNo"] else None
 
-		PmId = req['orderInv']['PmId']
+		InvStatId = None
+		if "InvStatId" in req["orderInv"]:
+			InvStatId = int(req["orderInv"]["InvStatId"]) if req["orderInv"]["InvStatId"] else None
+
+		PmId = req["orderInv"]["PmId"]
 		if not PmId:
 			raise Exception
 
@@ -44,9 +47,9 @@ def save_order_checkout_data(req, model_type, current_user, session = None):
 		if not payment_method:
 			raise Exception
 
-		if not req['orderInv']['OrderInvLines']:
+		if not req["orderInv"]["OrderInvLines"]:
 			raise Exception
-		order_inv_lines_req = req['orderInv']['OrderInvLines']
+		order_inv_lines_req = req["orderInv"]["OrderInvLines"]
 
 		if model_type == "rp_acc":
 			user_id = current_user.user.UId
@@ -61,7 +64,7 @@ def save_order_checkout_data(req, model_type, current_user, session = None):
 			user_id = current_user.UId
 			user_short_name = current_user.UShortName
 
-			RpAccGuid = req['orderInv']['RpAccGuid']
+			RpAccGuid = req["orderInv"]["RpAccGuid"]
 			rp_acc = Rp_acc.query.filter_by(RpAccGuid = RpAccGuid).first()
 			RpAccId = rp_acc.RpAccId if rp_acc else None
 			if not RpAccId:
