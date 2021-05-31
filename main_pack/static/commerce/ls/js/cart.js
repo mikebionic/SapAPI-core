@@ -1,10 +1,8 @@
 $(document).ready(function(){
-	cartCookie = Cookies.get('cart');
-	if(cartCookie==undefined){
-		cartData={};
-	}
-	else{
-		cartData=JSON.parse(cartCookie);
+	// cartCookie = Cookies.get('cart');
+	cartData = get_local_data_by_name();
+	// console.log(cartData)
+	if (cartData){
 		for (i in cartData){
 			ownerId = cartData[i]["resId"];
 			$('.addToCart'+'[ownerId='+ownerId+']').hide();

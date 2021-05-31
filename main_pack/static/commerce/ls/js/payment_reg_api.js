@@ -12,8 +12,10 @@ function gen_Reg_no_and_open_payment(payload_data, url, type){
 		type: type,
 		url: url,
 		success: function(response){
+			// console.log(response)
 			if (response.status == 1){
 				var RegNum = response.data;
+				// console.log("generated, continue")
 				req_payment_url_prepare(RegNum);
 			}
 			else{
@@ -45,10 +47,10 @@ function req_payment_request(payload, url){
 		type: 'POST',
 		url: url,
 		success: function(response){
-			console.log(response)
-			console.log(response.data.responseText)
-			console.log(response.data.formUrl)
-			console.log(response.data.orderId)
+			// console.log(response)
+			// console.log(response.data.responseText)
+			// console.log(response.data.formUrl)
+			// console.log(response.data.orderId)
 			var formUrl = response.data.formUrl
 			var orderId = response.data.orderId
 			open_payment_window(formUrl)
@@ -69,32 +71,36 @@ function open_payment_window(url){
 	// https://mpi.gov.tm/payment/merchants/online/errors_ru.html?error=payment.errors.order_already_processed
 
 	var index_url = "mpi.gov.tm/payment/merchants/online/payment_ru.html?mdOrder"
+	// var url = "http://127.0.0.1:5000/v-grid"
+	// var index_url = "127.0.0.1:5000/v-grid"
 	var window_properties = "width=600,height=400,resizable=yes,location=no"
 	var paymentWin = window.open(url, 'Payment', window_properties)
 	paymentWin.addEventListener('unload', function() {
-		console.log('Navigation occuring');
-		console.log("loaded")
-		console.log(paymentWin.location.href)
-		if (window.location.href.indexOf(index_url) > 0){
-			// located
-		}
-		console.log(paymentWin.location.innerText)
+		setTimeout(() => {
+			if (paymentWin.location.href.indexOf(index_url) > 0){
+				detect_url_change(paymentWin)
+			}
+		}, 2000);
 	});
 }
 
+function detect_url_change(current_window){
+	var current_location = current_window.location.href
+	const win_location = setInterval(() => {
+		try {
+			console.log(current_window.location.href)
+			if (current_window.location.href !== current_location) {
+				console.log("url changed")
+				clearInterval(win_location);
+			}
+			if (!current_window.location.href){
+				clearInterval(win_location)
+			}
+		} catch (e) {
+			clearInterval(win_location);
+		}
+	}, 100);
+}
 
-// const win_location = setInterval(() => {
-// 	try {
-// 		console.log(newWin.location.href)
-// 		if (newWin.location.origin === '/') {
-// 			clearInterval(win_location);
-// 		}
-// 		if (!newWin.location.href){
-// 			console.log("errrrrrrr")
-// 			clearInterval(win_location)
-// 		}
-// 	} catch (e) {
-// 		console.log('error occured');
-// 		clearInterval(win_location);
-// 	}
-// }, 100);
+
+// function validate_oinv_payment()
