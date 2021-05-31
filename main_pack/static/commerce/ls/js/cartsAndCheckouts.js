@@ -49,7 +49,10 @@ $('body').delegate('.removeFromCart','click',function(){
 
 
 $('.paymentMethods input').click(function () {
-	$('.checkoutForm').show();
+	data2 = $('.cartItemsTable')[0]
+	if (data2.innerText != ""){
+		$('.checkoutForm').show();
+	}
 })
 
 $('body').delegate('.checkoutCartBtn','click',function(){

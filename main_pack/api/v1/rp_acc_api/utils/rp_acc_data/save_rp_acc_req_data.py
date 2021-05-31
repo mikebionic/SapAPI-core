@@ -74,7 +74,7 @@ def save_rp_acc_req_data(req, model_type, current_user, session = None):
 			db.session.commit()
 
 		except Exception as ex:
-			print(f"{datetime.now()} | v1 Rp_acc Api sych Exception: {ex}")
+			print(f"{datetime.now()} | v1 Rp_acc Api synch Exception: {ex}")
 			fails.append(rp_acc_req)
 
 	return data, fails
