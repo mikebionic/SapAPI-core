@@ -4,6 +4,7 @@ from datetime import datetime
 
 from main_pack import db, bcrypt
 
+from main_pack.config import Config
 from main_pack.models import Rp_acc
 from .add_Rp_acc_dict import add_Rp_acc_dict
 from main_pack.key_generator.utils import makeRegNo, generate
