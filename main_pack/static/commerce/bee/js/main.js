@@ -974,14 +974,14 @@ this.text = this.text.trim();
 
 document.addEventListener('error', function (event) {
 	if (event.target.tagName.toLowerCase() !== 'img') return;
-	event.target.src = no_photo;
+	event.target.src = no_photo_errorhandler_image;
 	event.target.className = 'full-width'
 	event.target.style = "padding: 45px";
 }, true);
 
 $(document).ready(function(){
 	$('img').each(function() {
-		if ($(this).attr('src') == no_photo){
+		if ($(this).attr('src') == no_photo_errorhandler_image){
 			$(this).css({'padding': '45px'})
 		}
 	})
