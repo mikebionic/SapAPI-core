@@ -54,7 +54,7 @@ function checkoutOrder(payload_data,url){
 				req_payment_url_prepare(RegNum);
 			}
 			else{
-				sweetAlert(title='',message=response.responseText,style='warning');
+				swal='',message=response.responseText,style='warning');
 			}
 		}
 	})

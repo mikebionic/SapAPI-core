@@ -372,14 +372,14 @@ function checkoutCart(formData,url,type){
 		url: url,
 		success: function(response){
 			if(response.status == 1){
-				sweetAlert(title='',message=response.responseText,style='success');
+				swal(title='',message=response.responseText,style='success');
 				clearCart();
 				setTimeout(function(){
 					window.location.href = url_prefix+'/orders';
 				}, 5000);
 			}
 			else{
-				sweetAlert(title='',message=response.responseText,style='warning');
+				swal(title='',message=response.responseText,style='warning');
 			}
 		}
 	})
@@ -394,11 +394,11 @@ function sendReview(formData,url,type,formId){
 		url : url,
 		success: function(response){
 			if(response.status == 'added'){
-				sweetAlert(title='',message=response.responseText,style='success');
+				swal(title='',message=response.responseText,style='success');
 				$('[ownerId='+formId+']').remove();
 			}
 			else{
-				sweetAlert(title='',message=response.responseText,style='warning');
+				swal(title='',message=response.responseText,style='warning');
 			}
 		}
 	})

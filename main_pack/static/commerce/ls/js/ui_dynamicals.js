@@ -127,16 +127,16 @@ function validateOwnerInput(requiredFields,formId=null){
 	else {return true;}
 }
 
-var postData = function(formData,url,type,formId,listName,responseForm,alertStyle){
+var postData = function(payload_data,url,type,formId,listName,responseForm,alertStyle){
 	$.ajax({
 		contentType:"application/json",
 		dataType:"json",
-		data:JSON.stringify(formData),
+		data:JSON.stringify(payload_data),
 		type:type,
 		url:url,
 		success:function(response){
 			if (response.status == 'created'){
-				$('.'+listName).prepend(response[responseForm]);
+				$(`.${listName}`).prepend(response[responseForm]);
 				if (alertStyle == 'swal'){
 					swal(title=success_title,desc=response.responseText,style="success");
 				}
@@ -159,7 +159,7 @@ var postData = function(formData,url,type,formId,listName,responseForm,alertStyl
 				else{
 					successToaster(response.responseText);
 				}
-				$('[ownerId='+formId+']').remove();
+				$(`[ownerId=${formId}]`).remove();
 			}
 			else{
 				if (alertStyle == 'swal'){
