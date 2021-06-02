@@ -54,7 +54,7 @@ function checkoutOrder(payload_data,url){
 				req_payment_url_prepare(RegNum);
 			}
 			else{
-				swal='',message=response.responseText,style='warning');
+				swal(title='',message=response.responseText,style='warning');
 			}
 		}
 	})
@@ -62,9 +62,10 @@ function checkoutOrder(payload_data,url){
 
 
 function req_payment_url_prepare(reg_no){
+	cart_totals_data = configure_cart_item_count()
 	payload = {
 		"RegNo": "reg_no1113",
-		"TotalPrice": $('.cartTotalPrice').val(),
+		"TotalPrice": cart_totals_data["totalPrice"],
 		"OrderDesc": $('.orderDesc').val()
 	}
 	req_payment_request(payload, payment_req_url)

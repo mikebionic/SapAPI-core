@@ -1,7 +1,5 @@
 $(document).ready(function(){
-	// cartCookie = Cookies.get('cart');
-	local_cart_data = get_local_data_by_name();
-	// console.log(local_cart_data)
+	local_cart_data = get_local_data_by_name('cart');
 	if (local_cart_data){
 		for (i in local_cart_data){
 			ownerId = local_cart_data[i]["resId"];

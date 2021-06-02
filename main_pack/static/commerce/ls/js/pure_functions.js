@@ -204,6 +204,7 @@ $(document).ready(function(){
 
 	if(local_cart_data == undefined || local_currency_data != session_currency_code){
 		local_cart_data = {};
+		set_local_data_by_name('cart', local_cart_data)
 	}
 	if (local_cart_data){
 		configure_UI_CartStates(local_cart_data);
