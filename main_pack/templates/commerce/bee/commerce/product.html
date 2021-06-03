@@ -26,7 +26,7 @@
 							<div id="single-image-1" class="tab-pane fade show active big-image-slider">
 								{% for image in resource.Images %}
 								<div class="big-image" style="display: flex;justify-content: center;">
-									<img loading="lazy" src="{{image.FilePathS}}" data-src-m="{{image.FilePathM}}" 
+									<img loading="lazy" src="{{image.FilePathS}}" data-src-m="{{image.FilePathM}}"
 									alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
 									<a href="{{image.FilePathR}}" class="big-image-popup">
 										<i class="fa fa-search-plus"></i>
@@ -40,7 +40,7 @@
 							<div id="single-image-1" class="tab-pane fade show active big-image-slider">
 								<div class="big-image">
 									<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
-										<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/bee/images/no_photo.svg') }}" 
+										<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/bee/images/no_photo.svg') }}"
 										alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
 									</a>
 								</div>
@@ -78,13 +78,17 @@
 							<div class="quantity">
 								<h5>{{_('Quantity')}}</h5>
 								<div class="pro-qty cartItemQty">
-									<input class="cartItemQty productQty" pending_amount="{{resource.ResPendingTotalAmount}}" ownerId="{{ resource.ResId }}" type="text" value="{{resource.productQty}}">
+									<input class="cartItemQty productQty"
+										pending_amount="{{resource.ResPendingTotalAmount}}"
+										min_amount="{{resource.ResMinSaleAmount}}"
+										max_amount="{{resource.ResMaxSaleAmount}}"
+										value="{{resource.productQty}}" ownerId="{{ resource.ResId }}">
 								</div>
 							</div>
 						</div>
 
 						<div class="actions">
-							<a href="#" class="add-to-cart" ownerId="{{ resource.ResId }}"><i class="ti-shopping-cart"></i><span>{{_('Add to cart')}}</span></a>
+							<a class="add-to-cart" ownerId="{{ resource.ResId }}"><i class="ti-shopping-cart"></i><span>{{_('Add to cart')}}</span></a>
 							{% if current_user.is_authenticated %}
 								<div class="wishlist-compare">
 									<a href="#" data-tooltip="{{_('Wishlist')}}" class="{{'added' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}"><i class="ti-heart"></i></a>
@@ -202,7 +206,7 @@
 									<div class="ee-product">
 										<div class="image">
 											<a href="{{ url_for('commerce.product',ResId=related_resource.ResId)}}" class="img">
-												<img loading="lazy" src="{{ related_resource.FilePathS if related_resource.FilePathS else url_for('static', filename='commerce/bee/images/no_photo.svg') }}" 
+												<img loading="lazy" src="{{ related_resource.FilePathS if related_resource.FilePathS else url_for('static', filename='commerce/bee/images/no_photo.svg') }}"
 												alt="Product {{related_resource.ResName}} of category {{ related_resource.ResCatName if related_resource.ResCatName else '' }}">
 											</a>
 											{% if current_user.is_authenticated %}
@@ -212,12 +216,12 @@
 													</a>
 												</div>
 											{% endif %}
-											
-												<a href="#" class="add-to-cart" ownerId="{{ related_resource.ResId }}">
+
+												<a class="add-to-cart" ownerId="{{ related_resource.ResId }}">
 													<i class="ti-shopping-cart"></i>
 													<span>{{_('Add to cart')}}</span>
 												</a>
-												
+
 										</div>
 
 										<div class="content">

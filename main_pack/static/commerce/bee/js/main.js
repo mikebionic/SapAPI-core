@@ -776,19 +776,28 @@ Quantity
 $('.pro-qty').prepend('<span class="dec qtybtn">-</span>');
 $('.pro-qty').append('<span class="inc qtybtn">+</span>');
 $('body').delegate('.qtybtn','click', function() {
-var $button = $(this);
-var oldValue = $button.parent().find('input').val();
-if ($button.hasClass('inc')) {
-	var newVal = parseFloat(oldValue) + 1;
-} else {
-	 // Don't allow decrementing below zero
-	if (oldValue > 1) {
-	var newVal = parseFloat(oldValue) - 1;
+	var $button = $(this);
+	var oldValue = $button.parent().find('input').val();
+	if ($button.hasClass('inc')) {
+		var newVal = parseFloat(oldValue) + 1;
 	} else {
-	newVal = 1;
+		// Don't allow decrementing below zero
+		if (oldValue > 1) {
+			var newVal = parseFloat(oldValue) - 1;
+		} else {
+			newVal = 1;
+		}
 	}
-	}
-$button.parent().find('input').val(newVal);
+	console.log(`adding value ${newVal}`)
+	$('.qtybtn').parent().find('input').val(newVal);
+	$('.qtybtn').parent().find('input').text(newVal);
+	$('.qtybtn').parent().find('input').attr('value', newVal);
+	$('.cartItemQty input').attr('value', newVal);
+	$('.cartItemQty input').val(newVal);
+	$('.cartItemQty input').text(newVal);
+	// $button.parent().find('input').val(newVal);
+	// $button.parent().find('input').text(newVal);
+	// $button.parent().find('input').attr('value', newVal);
 });
 
 /*-----
@@ -984,7 +993,7 @@ if (this.text.length > 20){
 });
 
 
-document.addEventListener('error', function (event) {
+document.addEventListener('error', function(event){
 	if (event.target.tagName.toLowerCase() !== 'img') return;
 	event.target.src = no_photo_errorhandler_image;
 	event.target.className = 'full-width';

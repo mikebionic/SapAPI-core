@@ -290,7 +290,7 @@ function configure_qty_checkout(
 	max_amount = 0,
 	pending_amount = 0
 ){
-	if (pending_amount > 0 || max_amount > 0){
+	if (pending_amount > 0){
 		if (min_amount > 0){
 			if (qtyValue < min_amount){
 				qtyValue = min_amount;

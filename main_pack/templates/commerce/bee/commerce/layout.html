@@ -322,17 +322,33 @@
     </div>
   </div>
 </div>
-<script src="{{ url_for('static', filename='commerce/bee/js/app.js') }}"></script>
 
+
+<script src="{{ url_for('static', filename='commerce/bee/js/vendor/jquery-1.12.4.min.js') }}"></script>
+<script src="{{ url_for('static', filename='commerce/bee/js/popper.min.js') }}"></script>
+<script src="{{ url_for('static', filename='commerce/bee/js/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static', filename='commerce/bee/js/plugins.js') }}"></script>
+<script src="{{ url_for('static', filename='commerce/bee/js/sweetalert.min.js') }}"></script>
+<script src="{{ url_for('static', filename='commerce/bee/js/izitoast/js/iziToast.min.js') }}"></script>
+<script src="{{ url_for('static', filename='commerce/bee/js/main.js') }}"></script>
+<script src="{{ url_for('static', filename='commerce/bee/js/rating.js') }}"></script>
+<!-- <script src="{{ url_for('static', filename='commerce/bee/js/js.cookie.min.js') }}"></script> -->
+<!-- <script src="{{ url_for('static', filename='commerce/bee/js/cartsAndCheckouts.js') }}"></script> -->
+<script src="{{ url_for('static', filename='commerce/bee/js/ui_dynamicals.js') }}"></script>
+<script src="{{ url_for('static', filename='commerce/bee/js/pure_functions.js') }}"></script>
+<script src="{{ url_for('static', filename='commerce/bee/js/ux_actions.js') }}"></script>
 <script type="text/javascript">
   var url_prefix = "{{url_prefix if url_prefix else ''}}";
+  var session_currency_code = "{{ session.currency_code if session.currency_code else 'TMT' }}"
+  var error_title = "{{_('Error')}}";
+  var success_title = "{{_('Success')}}";
+  var unknown_error_text = "{{_('Unknown error')}}"
   var add_to_cart_text = "{{_('Add to cart')}}";
-	var qty_error_text = "{{_('Cannot get more')}}";
+  var qty_error_text = "{{_('Cannot get more')}}";
   var remove_from_cart_text = "{{_('Remove from cart')}}";
   var no_photo_errorhandler_image = "{{ url_for('static', filename='commerce/bee/images/no_photo.svg') }}";
   var rating_message = "{{_('You should put your rating and write a review')}}";
 </script>
-{% block scripts %}{% endblock %}
 <script type="text/javascript">
   var csrf_token = "{{ csrf_token() }}";
   $.ajaxSetup({
@@ -351,7 +367,6 @@
     $(this).html($(this).text());
   });
 </script>
-
+{% block scripts %}{% endblock %}
 </body>
-
 </html>

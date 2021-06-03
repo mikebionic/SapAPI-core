@@ -12384,7 +12384,7 @@ ul.link-widget li {
 @media ( max-width: 364px) {
   .mobile-menu .mean-bar .meanmenu-reveal span {
       /* position: absolute; */
-      top: -24px;
+      /* top: -24px; */
   }
 }
 

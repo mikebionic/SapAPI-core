@@ -3,7 +3,7 @@ resource_forms = ['resId','resName','resDesc','resPrice','resColor','resSize']
 // !!! TODO: change to use of formatting
 function configure_UI_CartStates(data){
 	for (i in data){
-		ownerId = data[i]["resId"];
+		var ownerId = data[i]["resId"];
 		$('.add-to-cart'+'[ownerId='+ownerId+']').hide();
 		$('.add-to-cart'+'[ownerId='+ownerId+']').parent().find('.cartItemQty').show();
 		$('.productQty'+'[ownerId='+ownerId+']').val(data[i]["productQty"]);
@@ -167,13 +167,11 @@ $('body').delegate('.productQty', 'keyup', function() {
 
 
 function addToCart(ownerId){
-	// $('.addToCart'+'[ownerId='+ownerId+']').hide();
-	// $('.removeFromCart'+'[ownerId='+ownerId+']').show();
-	priceValue = parseFloat($('.priceValue'+'[ownerId='+ownerId+']').attr('value'));
-	productQty = parseInt($('.productQty'+'[ownerId='+ownerId+']').val());
-	pending_amount = parseInt($('.productQty'+'[ownerId='+ownerId+']').attr('pending_amount'));
-	min_amount = parseInt($('.productQty'+'[ownerId='+ownerId+']').attr('min_amount'));
-	max_amount = parseInt($('.productQty'+'[ownerId='+ownerId+']').attr('max_amount'));
+	var priceValue = parseFloat($('.priceValue'+'[ownerId='+ownerId+']').attr('value'));
+	var productQty = parseInt($('.productQty'+'[ownerId='+ownerId+']').val());
+	var pending_amount = parseInt($('.productQty'+'[ownerId='+ownerId+']').attr('pending_amount'));
+	var min_amount = parseInt($('.productQty'+'[ownerId='+ownerId+']').attr('min_amount'));
+	var max_amount = parseInt($('.productQty'+'[ownerId='+ownerId+']').attr('max_amount'));
 
 	configure_adding_to_cart(
 		ownerId,
@@ -192,12 +190,12 @@ function UI_cart_removal(ownerId){
 }
 
 function totalPriceCheckout(ownerId){
-	priceValue = $('.priceValue'+'[ownerId='+ownerId+']').attr('value');
-	productQty = $('.productQty'+'[ownerId='+ownerId+']').attr('value');
+	var priceValue = $('.priceValue'+'[ownerId='+ownerId+']').attr('value');
+	var productQty = $('.productQty'+'[ownerId='+ownerId+']').attr('value');
 	if(productQty <= 0){
 		productQty = 1;
 	}
-	productTotalPrice = parseFloat(parseFloat(priceValue)*parseInt(productQty)).toFixed(2);
+	var productTotalPrice = parseFloat(parseFloat(priceValue)*parseInt(productQty)).toFixed(2);
 	$('.productTotalPrice'+'[ownerId='+ownerId+']').text(productTotalPrice);
 }
 
