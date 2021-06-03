@@ -1,6 +1,6 @@
 (function ($) {
 	"use strict";
-	
+
 /*--
 	Menu Sticky
 -----------------------------------*/
@@ -11,11 +11,11 @@ var sticky = $('.header-sticky');
 windows.on('scroll', function() {
 	var scroll = windows.scrollTop();
 	if (scroll < 300) {
-		sticky.removeClass('is-sticky');
-		categoryMenuToggle();
+			sticky.removeClass('is-sticky');
+			categoryMenuToggle();
 	}else{
-		sticky.addClass('is-sticky');
-		categoryMenu.slideUp();
+			sticky.addClass('is-sticky');
+			categoryMenu.slideUp();
 	}
 });
 
@@ -35,7 +35,7 @@ mainMenuNav.meanmenu({
 /*--
 	Category Menu
 ------------------------*/
-	
+
 /*-- Variables --*/
 var categoryToggleWrap = $('.category-toggle-wrap');
 var categoryToggle = $('.category-toggle');
@@ -50,14 +50,14 @@ var categoryMenu = $('.category-menu');
 function categoryMenuToggle() {
 	var screenSize = windows.width();
 	if (screenSize <= 991) {
-		categoryMenu.slideUp();
+			categoryMenu.slideUp();
 	}
 	else{
-		slideCategoryByPathname();
-		
-		// if (document.body.scrollTop > 13) {
-		//     categoryMenu.slideUp();
-		// }
+			slideCategoryByPathname();
+
+			// if (document.body.scrollTop > 13) {
+			//     categoryMenu.slideUp();
+			// }
 	}
 }
 
@@ -65,9 +65,9 @@ function slideCategoryByPathname() {
 	var pathnames = ['/commerce','/commerce/','/commerce/commerce','/commerce/commerce/','/main','/commerce/main','/main/','/commerce/main/','/','/index']
 	var current_path = location.pathname;
 	pathnames.forEach(function (item, index) {
-		if (item == current_path){
-			categoryMenu.slideDown();
-		}
+			if (item == current_path){
+					categoryMenu.slideDown();
+			}
 	});
 }
 /*-- Category Menu Toggles --*/
@@ -76,11 +76,11 @@ function categorySubMenuToggle() {
 	if ( screenSize <= 991) {
 		$('.category-menu .menu-item-has-children > a').prepend('<i class="expand menu-expand"></i>');
 		$('.category-menu .menu-item-has-children ul').slideUp();
-	   $('.category-menu .menu-item-has-children i').on('click', function(e){
-		   e.preventDefault();
-		   $(this).toggleClass('expand');
-		   $(this).siblings('ul').css('transition', 'none').slideToggle();
-	   })
+		$('.category-menu .menu-item-has-children i').on('click', function(e){
+				 e.preventDefault();
+				 $(this).toggleClass('expand');
+				 $(this).siblings('ul').css('transition', 'none').slideToggle();
+		 })
 	} else {
 		$('.category-menu .menu-item-has-children > a i').remove();
 		$('.category-menu .menu-item-has-children ul').slideDown();
@@ -94,43 +94,43 @@ windows.resize(categorySubMenuToggle);
 categoryToggle.on('click', function(){
 	categoryMenu.slideToggle();
 });
-	
+
 /*-- Category Sub Menu --*/
 $('.category-menu').on('click', 'li a, li a .menu-expand', function(e) {
 	var $a = $(this).hasClass('menu-expand') ? $(this).parent() : $(this);
 	if ($a.parent().hasClass('menu-item-has-children')) {
-		if ($a.attr('href') === '#' || $(this).hasClass('menu-expand')) {
-			if ($a.siblings('ul:visible').length > 0) $a.siblings('ul').slideUp();
-			else {
-				$(this).parents('li').siblings('li').find('ul:visible').slideUp();
-				$a.siblings('ul').slideDown();
+			if ($a.attr('href') === '#' || $(this).hasClass('menu-expand')) {
+					if ($a.siblings('ul:visible').length > 0) $a.siblings('ul').slideUp();
+					else {
+							$(this).parents('li').siblings('li').find('ul:visible').slideUp();
+							$a.siblings('ul').slideDown();
+					}
 			}
-		}
 	}
 	if ($(this).hasClass('menu-expand') || $a.attr('href') === '#') {
-		e.preventDefault();
-		return false;
+			e.preventDefault();
+			return false;
 	}
 });
 
 /*-- Sidebar Category --*/
 var categoryChildren = $('.sidebar-category li .children');
-	
+
 	categoryChildren.slideUp();
 	categoryChildren.parents('li').addClass('has-children');
-	
+
 $('.sidebar-category').on('click', 'li.has-children > a', function(e) {
-	
+
 	if ($(this).parent().hasClass('has-children')) {
-		if ($(this).siblings('ul:visible').length > 0) $(this).siblings('ul').slideUp();
-		else {
-			$(this).parents('li').siblings('li').find('ul:visible').slideUp();
-			$(this).siblings('ul').slideDown();
-		}
+			if ($(this).siblings('ul:visible').length > 0) $(this).siblings('ul').slideUp();
+			else {
+					$(this).parents('li').siblings('li').find('ul:visible').slideUp();
+					$(this).siblings('ul').slideDown();
+			}
 	}
 	if ($(this).attr('href') === '#') {
-		e.preventDefault();
-		return false;
+			e.preventDefault();
+			return false;
 	}
 });
 
@@ -141,15 +141,15 @@ var searchToggle = $('.search-toggle');
 var searchContainer = $('.header-search-container');
 
 searchToggle.on('click', function(){
-	
+
 	if( !$(this).hasClass('active') ) {
-		$(this).addClass('active').find('i').removeClass('icofont-search-alt-1').addClass('icofont-close');
-		searchContainer.slideDown();
+			$(this).addClass('active').find('i').removeClass('icofont-search-alt-1').addClass('icofont-close');
+			searchContainer.slideDown();
 	} else {
-		$(this).removeClass('active').find('i').removeClass('icofont-close').addClass('icofont-search-alt-1');
-		searchContainer.slideUp();
+			$(this).removeClass('active').find('i').removeClass('icofont-close').addClass('icofont-search-alt-1');
+			searchContainer.slideUp();
 	}
-	
+
 });
 /*--
 	Header Cart
@@ -170,7 +170,7 @@ closeCart.on('click', function(e){
 });
 
 
-	
+
 /*--
 	Hero Slider
 --------------------------------------------*/
@@ -188,105 +188,116 @@ heroSlider.slick({
 	prevArrow: '<button type="button" class="slick-prev"><i class="icofont icofont-long-arrow-left"></i></button>',
 	nextArrow: '<button type="button" class="slick-next"><i class="icofont icofont-long-arrow-right"></i></button>',
 });
-	
+
 /*--
-	Product Slider
+Product Slider
 -----------------------------------*/
 $('.product-slider-4').slick({
 	arrows: true,
 	dots: false,
-	autoplay: false,
+	autoplay: true,
 	infinite: true,
+	slidesToScroll: 3,
 	slidesToShow: 4,
 	prevArrow: '<button type="button" class="slick-prev"><i class="icofont icofont-long-arrow-left"></i></button>',
 	nextArrow: '<button type="button" class="slick-next"><i class="icofont icofont-long-arrow-right"></i></button>',
 	responsive: [
-		{
-			breakpoint: 1199,
+			{
+					breakpoint: 1199,
 
-			settings: {
-				slidesToShow: 3,
-			}
-		},
-		 {
-			breakpoint: 1300,
+					settings: {
+							autoplay: true,
+							slidesToShow: 4,
+					}
+			},
+			 {
+					breakpoint: 1300,
 
-			settings: {
-				slidesToShow: 4,
-			}
-		},
-		{
-			breakpoint: 1440,
+					settings: {
+							autoplay: true,
+							slidesToShow: 5,
+					}
+			},
+			{
+					breakpoint: 1440,
 
-			settings: {
-				slidesToShow: 4,
-			}
-		},
-		{
-			breakpoint: 1600,
+					settings: {
+							autoplay: true,
+							slidesToShow: 5,
+					}
+			},
+			{
+					breakpoint: 1600,
 
-			settings: {
-				slidesToShow: 5,
-			}
-		},
-		{
-			breakpoint: 1800,
+					settings: {
+							autoplay: true,
+							slidesToShow: 5,
+					}
+			},
+			{
+					breakpoint: 1800,
 
-			settings: {
-				slidesToShow: 6,
-			}
-		},
-		{
-			breakpoint: 2700,
+					settings: {
+							autoplay: true,
+							slidesToShow: 6,
+					}
+			},
+			{
+					breakpoint: 2700,
 
-			settings: {
-				slidesToShow: 9,
-			}
-		},
-		{
-			breakpoint: 2400,
+					settings: {
+							autoplay: true,
+							slidesToShow: 9,
+					}
+			},
+			{
+					breakpoint: 2400,
 
-			settings: {
-				slidesToShow: 8,
-			}
-		},
-		{
-			breakpoint: 2000,
+					settings: {
+							autoplay: true,
+							slidesToShow: 8,
+					}
+			},
+			{
+					breakpoint: 2000,
 
-			settings: {
-				slidesToShow: 7,
+					settings: {
+							autoplay: true,
+							slidesToShow: 7,
+					}
+			},
+			{
+					breakpoint: 992,
+					settings: {
+							autoplay: true,
+							slidesToShow: 3,
+					}
+			},
+			{
+					breakpoint: 767,
+					settings: {
+							autoplay: true,
+							slidesToShow: 3,
+							arrows: false,
+					}
+			},
+			{
+					breakpoint: 654,
+					settings: {
+							slidesToScroll: 2,
+							autoplay: true,
+							slidesToShow: 2,
+							arrows: false,
+					}
+			},
+			{
+					breakpoint: 319,
+					settings: {
+							autoplay: true,
+							slidesToShow: 1,
+							arrows: false,
+					}
 			}
-		},
-		{
-			breakpoint: 991,
-			settings: {
-				slidesToShow: 3,
-			}
-		},
-		{
-			breakpoint: 767,
-			settings: {
-				autoplay: true,
-				slidesToShow: 3,
-				arrows: false,
-			}
-		},
-		{
-			breakpoint: 654,
-			settings: {
-				autoplay: true,
-				slidesToShow: 2,
-				arrows: false,
-			}
-		},
-		{
-			breakpoint: 319,
-			settings: {
-				autoplay: true,
-				slidesToShow: 1,
-				arrows: false,
-			}
-		}
 	]
 });
 
@@ -294,54 +305,56 @@ $('.product-slider-4').slick({
 $('.brands-slider').slick({
 	arrows: true,
 	dots: false,
-	autoplay: false,
+	autoplay: true,
 	infinite: true,
 	slidesToShow: 4,
+	slidesToScroll: 3,
 	prevArrow: '<button type="button" class="slick-prev"><i class="icofont icofont-long-arrow-left"></i></button>',
 	nextArrow: '<button type="button" class="slick-next"><i class="icofont icofont-long-arrow-right"></i></button>',
 	responsive: [
-		{
-			breakpoint: 2700,
+			{
+					breakpoint: 2700,
 
-			settings: {
-				slidesToShow: 8,
-				arrows: true,
-			}
-		},
-		{
-			breakpoint: 1600,
+					settings: {
+						slidesToShow: 8,
+						arrows: true,
+					}
+			},
+			{
+					breakpoint: 1600,
 
-			settings: {
-				slidesToShow: 6,
-				arrows: true,
-			}
-		},
-		{
-			breakpoint: 1199,
+					settings: {
+							slidesToShow: 6,
+							arrows: true,
+					}
+			},
+			{
+					breakpoint: 1199,
 
-			settings: {
-				slidesToShow: 4,
-				arrows: true,
+					settings: {
+							slidesToShow: 4,
+							arrows: true,
+					}
+			},
+			{
+					breakpoint: 991,
+					settings: {
+							slidesToShow: 3,
+							arrows: true,
+					}
+			},
+			{
+					breakpoint: 767,
+					settings: {
+							slidesToScroll: 2,	
+							autoplay: true,
+							slidesToShow: 2,
+							arrows: true,
+					}
 			}
-		},
-		{
-			breakpoint: 991,
-			settings: {
-				slidesToShow: 3,
-				arrows: true,
-			}
-		},
-		{
-			breakpoint: 767,
-			settings: {
-				autoplay: true,
-				slidesToShow: 2,
-				arrows: true,
-			}
-		}
 	]
 });
-	
+
 $('.product-slider-4-full').slick({
 	arrows: true,
 	dots: false,
@@ -351,38 +364,38 @@ $('.product-slider-4-full').slick({
 	prevArrow: '<button type="button" class="slick-prev"><i class="icofont icofont-long-arrow-left"></i></button>',
 	nextArrow: '<button type="button" class="slick-next"><i class="icofont icofont-long-arrow-right"></i></button>',
 	responsive: [
-		{
-			breakpoint: 1499,
-			settings: {
-				slidesToShow: 3,
-				arrows: true,
+			{
+					breakpoint: 1499,
+					settings: {
+							slidesToShow: 3,
+							arrows: true,
+					}
+			},
+			{
+					breakpoint: 1199,
+					settings: {
+							slidesToShow: 2,
+							arrows: true,
+					}
+			},
+			{
+					breakpoint: 991,
+					settings: {
+							slidesToShow: 2,
+							arrows: true,
+					}
+			},
+			{
+					breakpoint: 767,
+					settings: {
+							autoplay: true,
+							slidesToShow: 1,
+							arrows: true,
+					}
 			}
-		},
-		{
-			breakpoint: 1199,
-			settings: {
-				slidesToShow: 2,
-				arrows: true,
-			}
-		},
-		{
-			breakpoint: 991,
-			settings: {
-				slidesToShow: 2,
-				arrows: true,
-			}
-		},
-		{
-			breakpoint: 767,
-			settings: {
-				autoplay: true,
-				slidesToShow: 1,
-				arrows: true,
-			}
-		}
 	]
 });
-	
+
 $('.product-slider-3').slick({
 	arrows: true,
 	dots: false,
@@ -392,38 +405,38 @@ $('.product-slider-3').slick({
 	prevArrow: '<button type="button" class="slick-prev"><i class="icofont icofont-long-arrow-left"></i></button>',
 	nextArrow: '<button type="button" class="slick-next"><i class="icofont icofont-long-arrow-right"></i></button>',
 	responsive: [
-		{
-			breakpoint: 1199,
-			settings: {
-				slidesToShow: 2,
+			{
+					breakpoint: 1199,
+					settings: {
+							slidesToShow: 2,
+					}
+			},
+			{
+					breakpoint: 991,
+					settings: {
+							slidesToShow: 2,
+					}
+			},
+			{
+					breakpoint: 767,
+					settings: {
+							autoplay: true,
+							slidesToShow: 1,
+							arrows: false,
+					}
 			}
-		},
-		{
-			breakpoint: 991,
-			settings: {
-				slidesToShow: 2,
-			}
-		},
-		{
-			breakpoint: 767,
-			settings: {
-				autoplay: true,
-				slidesToShow: 1,
-				arrows: false,
-			}
-		}
 	]
 });
-	
+
 /*-- Single Product Big Image Slider --*/
 $('.big-image-slider').slick({
 	arrows: false,
 	dots: true,
 	slidesToShow: 1,
 });
-	
-/*----- 
-	Team Slider
+
+/*-----
+Team Slider
 --------------------------------*/
 $('.team-slider-5').slick({
 	arrows: false,
@@ -434,37 +447,37 @@ $('.team-slider-5').slick({
 	prevArrow: '<button type="button" class="slick-prev"><i class="icofont icofont-long-arrow-left"></i></button>',
 	nextArrow: '<button type="button" class="slick-next"><i class="icofont icofont-long-arrow-right"></i></button>',
 	responsive: [
-		{
-			breakpoint: 1199,
-			settings: {
-				slidesToShow: 4,
+			{
+					breakpoint: 1199,
+					settings: {
+							slidesToShow: 4,
+					}
+			},
+			{
+					breakpoint: 991,
+					settings: {
+							slidesToShow: 3,
+					}
+			},
+			{
+					breakpoint: 767,
+					settings: {
+							autoplay: true,
+							slidesToShow: 2,
+					}
+			},
+			{
+					breakpoint: 479,
+					settings: {
+							autoplay: true,
+							slidesToShow: 1,
+					}
 			}
-		},
-		{
-			breakpoint: 991,
-			settings: {
-				slidesToShow: 3,
-			}
-		},
-		{
-			breakpoint: 767,
-			settings: {
-				autoplay: true,
-				slidesToShow: 2,
-			}
-		},
-		{
-			breakpoint: 479,
-			settings: {
-				autoplay: true,
-				slidesToShow: 1,
-			}
-		}
 	]
 });
-	
-/*----- 
-	Testimonial Slider
+
+/*-----
+Testimonial Slider
 --------------------------------*/
 $('.testimonial-slider').slick({
 	arrows: true,
@@ -485,22 +498,22 @@ $('.testimonial-slider-2').slick({
 	prevArrow: '<button type="button" class="slick-prev"><i class="fa fa-angle-left"></i></button>',
 	nextArrow: '<button type="button" class="slick-next"><i class="fa fa-angle-right"></i></button>',
 	responsive: [
-		{
-			breakpoint: 991,
-			settings: {
-				slidesToShow: 1,
+			{
+					breakpoint: 991,
+					settings: {
+							slidesToShow: 1,
+					}
+			},
+			{
+					breakpoint: 767,
+					settings: {
+							autoplay: true,
+							slidesToShow: 1,
+					}
 			}
-		},
-		{
-			breakpoint: 767,
-			settings: {
-				autoplay: true,
-				slidesToShow: 1,
-			}
-		}
 	]
 });
-	
+
 /*-- Image Slider For Sync with Content Slider --*/
 $('.testimonial-image-slider').slick({
 	arrows: false,
@@ -529,7 +542,7 @@ $('.testimonial-content-slider').slick({
 });
 
 /*--
-	Brand Slider
+Brand Slider
 -----------------------------------*/
 $('.brand-slider').slick({
 	arrows: false,
@@ -540,42 +553,42 @@ $('.brand-slider').slick({
 	prevArrow: '<button type="button" class="slick-prev"><i class="icofont icofont-rounded-left"></i></button>',
 	nextArrow: '<button type="button" class="slick-next"><i class="icofont icofont-rounded-right"></i></button>',
 	responsive: [
-		{
-			breakpoint: 1199,
-			settings: {
-				slidesToShow: 5,
+			{
+					breakpoint: 1199,
+					settings: {
+							slidesToShow: 5,
+					}
+			},
+			{
+					breakpoint: 991,
+					settings: {
+							slidesToShow: 4,
+					}
+			},
+			{
+					breakpoint: 767,
+					settings: {
+							slidesToShow: 3,
+					}
+			},
+			{
+					breakpoint: 479,
+					settings: {
+							slidesToShow: 2,
+					}
 			}
-		},
-		{
-			breakpoint: 991,
-			settings: {
-				slidesToShow: 4,
-			}
-		},
-		{
-			breakpoint: 767,
-			settings: {
-				slidesToShow: 3,
-			}
-		},
-		{
-			breakpoint: 479,
-			settings: {
-				slidesToShow: 2,
-			}
-		}
 	]
 });
-	
+
 /*--
 	Product View Mode
 ------------------------*/
 $('.product-view-mode a').on('click', function(e){
 	e.preventDefault();
-	
+
 	var shopProductWrap = $('.shop-product-wrap');
 	var viewMode = $(this).data('target');
-	
+
 	$('.product-view-mode a').removeClass('active');
 	$(this).addClass('active');
 	shopProductWrap.removeClass('grid list').addClass(viewMode);
@@ -586,71 +599,71 @@ $('.product-view-mode a').on('click', function(e){
 --------------------------------------------*/
 function productTabFilterInit() {
 	var productTabFilter = $('.product-tab-filter');
-	
+
 	productTabFilter.each(function(){
-		var filterToggle = $(this).find('.product-tab-filter-toggle');
-		var filterToggleCatElement = $(this).find('.product-tab-filter-toggle span');
-		var filterList = $(this).find('.product-tab-list');
-		var filterListItem = $(this).find('.product-tab-list li a');
-		
-		var filterCatText =  filterList.find('.active').text();
-		
-		filterToggleCatElement.text(filterCatText);
-		
-		/*-- Open Filter Tab List --*/
-		filterToggle.on('click', function(){
-			$(this).siblings('.product-tab-list').slideToggle();
-		});
-		
-		/*-- Close Filter Tab List On Select a Category --*/
-		filterListItem.on('click', function(){
-			var screenSize = windows.width();
-			var filterCatText= $(this).text();
+			var filterToggle = $(this).find('.product-tab-filter-toggle');
+			var filterToggleCatElement = $(this).find('.product-tab-filter-toggle span');
+			var filterList = $(this).find('.product-tab-list');
+			var filterListItem = $(this).find('.product-tab-list li a');
+
+			var filterCatText =  filterList.find('.active').text();
+
 			filterToggleCatElement.text(filterCatText);
-			
-			if ( screenSize < 767) {
-				filterList.slideToggle();
-			}
-			
-		});
-		
+
+			/*-- Open Filter Tab List --*/
+			filterToggle.on('click', function(){
+					$(this).siblings('.product-tab-list').slideToggle();
+			});
+
+			/*-- Close Filter Tab List On Select a Category --*/
+			filterListItem.on('click', function(){
+					var screenSize = windows.width();
+					var filterCatText= $(this).text();
+					filterToggleCatElement.text(filterCatText);
+
+					if ( screenSize < 767) {
+							filterList.slideToggle();
+					}
+
+			});
+
 	});
-	
+
 }
 productTabFilterInit();
-	
+
 /*-- Product Tab Filter Show Hide For Mobile & Desktop --*/
 function productTabFilterScreen() {
 	var screenSize = windows.width();
 	var filterList = $('.product-tab-list');
-	
+
 	if ( screenSize < 767) {
-		filterList.slideUp();
+			filterList.slideUp();
 	} else {
-		filterList.slideDown();
+			filterList.slideDown();
 	}
 }
 productTabFilterScreen();
 windows.resize(productTabFilterScreen);
-	
+
 /*--
-	Add To Cart Animation
+Add To Cart Animation
 ------------------------*/
 // $('.add-to-cart').on('click', function(e){
 //     e.preventDefault();
-	
+
 //     if($(this).hasClass('added')){
-//        $(this).removeClass('added').find('i').removeClass('ti-check').addClass('ti-shopping-cart').siblings('span').text('add to cart'); 
+//        $(this).removeClass('added').find('i').removeClass('ti-check').addClass('ti-shopping-cart').siblings('span').text('add to cart');
 //     } else{
-//         $(this).addClass('added').find('i').addClass('ti-check').removeClass('ti-shopping-cart').siblings('span').text('added'); 
+//         $(this).addClass('added').find('i').addClass('ti-check').removeClass('ti-shopping-cart').siblings('span').text('added');
 //     }
 // });
 /*--
-	Wishlist & Compare
+Wishlist & Compare
 ------------------------*/
 // $('.wishlist-compare a').on('click', function(e){
 //     e.preventDefault();
-	
+
 //     if($(this).hasClass('added')){
 //        $(this).removeClass('added');
 //     } else{
@@ -659,24 +672,24 @@ windows.resize(productTabFilterScreen);
 // });
 
 /*--
-	Count Down Timer
+Count Down Timer
 ------------------------*/
 $('[data-countdown]').each(function() {
-	var $this = $(this), finalDate = $(this).data('countdown');
-	$this.countdown(finalDate, function(event) {
-		$this.html(event.strftime('<span class="cdown day"><span class="time-count">%-D</span> <p>Days</p></span> <span class="cdown hour"><span class="time-count">%-H</span> <p>Hours</p></span> <span class="cdown minutes"><span class="time-count">%M</span> <p>Minute</p></span> <span class="cdown second"><span class="time-count">%S</span> <p>Second</p></span>'));
-	});
+var $this = $(this), finalDate = $(this).data('countdown');
+$this.countdown(finalDate, function(event) {
+	$this.html(event.strftime('<span class="cdown day"><span class="time-count">%-D</span> <p>Days</p></span> <span class="cdown hour"><span class="time-count">%-H</span> <p>Hours</p></span> <span class="cdown minutes"><span class="time-count">%M</span> <p>Minute</p></span> <span class="cdown second"><span class="time-count">%S</span> <p>Second</p></span>'));
+});
 });
 
 /*--
-	CLose Popup
+CLose Popup
 -----------------------------------*/
 $('.close-popup').on('click', function(){
 	$('[data-modal="popup-modal"]').fadeOut('slow');
 });
 
 /*--
-	Video Popup
+Video Popup
 -----------------------------------*/
 var videoPopup = $('.video-popup');
 videoPopup.magnificPopup({
@@ -687,30 +700,30 @@ videoPopup.magnificPopup({
 	preloader: false,
 	fixedContentPos: false
 });
-	
+
 /*--
-	Image Popup
+Image Popup
 -----------------------------------*/
 var imagePopup = $('.image-popup, .big-image-popup');
 imagePopup.magnificPopup({
 	type: 'image',
 	mainClass: 'mfp-fade',
 });
-	
+
 /*--
-	Gallery Popup
+Gallery Popup
 -----------------------------------*/
 var galleryPopup = $('.gallery-popup');
 galleryPopup.magnificPopup({
 	type: 'image',
 	mainClass: 'mfp-fade',
 	gallery: {
-		enabled: true,
+			enabled: true,
 	},
 });
 
 /*--
-	Counter UP
+Counter UP
 -----------------------------------*/
 var counter = $('.counter');
 counter.counterUp({
@@ -736,107 +749,107 @@ $.scrollUp({
 	animation: 'fade',
 	scrollText: '<i class="icofont icofont-swoosh-up"></i>',
 });
-	
+
 /*--
 	Nice Select
 ------------------------*/
 $('.nice-select').niceSelect()
-	
+
 /*--
-	Price Range Slider
+Price Range Slider
 ------------------------*/
 $('#price-range').slider({
-   range: true,
-   min: 0,
-   max: 2000,
-   values: [ 25, 970 ],
-   slide: function( event, ui ) {
-	$('#price-amount').val( '$' + ui.values[ 0 ] + ' TO $' + ui.values[ 1 ] );
-   }
-  });
+ range: true,
+ min: 0,
+ max: 2000,
+ values: [ 25, 970 ],
+ slide: function( event, ui ) {
+$('#price-amount').val( '$' + ui.values[ 0 ] + ' TO $' + ui.values[ 1 ] );
+ }
+});
 $('#price-amount').val( '$' + $('#price-range').slider( 'values', 0 ) +
-   ' TO $' + $('#price-range').slider('values', 1 ) ); 
-	
-/*----- 
-	Quantity
+ ' TO $' + $('#price-range').slider('values', 1 ) );
+
+/*-----
+Quantity
 --------------------------------*/
 $('.pro-qty').prepend('<span class="dec qtybtn">-</span>');
 $('.pro-qty').append('<span class="inc qtybtn">+</span>');
 $('body').delegate('.qtybtn','click', function() {
-	var $button = $(this);
-	var oldValue = $button.parent().find('input').val();
-	if ($button.hasClass('inc')) {
-	  var newVal = parseFloat(oldValue) + 1;
+var $button = $(this);
+var oldValue = $button.parent().find('input').val();
+if ($button.hasClass('inc')) {
+	var newVal = parseFloat(oldValue) + 1;
+} else {
+	 // Don't allow decrementing below zero
+	if (oldValue > 1) {
+	var newVal = parseFloat(oldValue) - 1;
 	} else {
-	   // Don't allow decrementing below zero
-	  if (oldValue > 1) {
-		var newVal = parseFloat(oldValue) - 1;
-		} else {
-		newVal = 1;
-	  }
-	  }
-	$button.parent().find('input').val(newVal);
-});  
-	
-/*----- 
-	Shipping Form Toggle
---------------------------------*/ 
+	newVal = 1;
+	}
+	}
+$button.parent().find('input').val(newVal);
+});
+
+/*-----
+Shipping Form Toggle
+--------------------------------*/
 $('[data-shipping]').on('click', function(){
 	if( $('[data-shipping]:checked').length > 0 ) {
-		$('#shipping-form').slideDown();
+			$('#shipping-form').slideDown();
 	} else {
-		$('#shipping-form').slideUp();
+			$('#shipping-form').slideUp();
 	}
 })
-	
-/*----- 
-	Payment Method Select
+
+/*-----
+Payment Method Select
 --------------------------------*/
 $('[name="payment-method"]').on('click', function(){
-	
+
 	var $value = $(this).attr('value');
 
 	$('.single-method p').slideUp();
 	$('[data-method="'+$value+'"]').slideDown();
-	
+
 })
-	
-/*----- 
-	Account Image Upload
+
+/*-----
+Account Image Upload
 --------------------------------*/
 $('#account-image-upload').on('change', function () {
-  var filename = $(this).val();
-  if (/^\s*$/.test(filename)) {
-	$(".account-image-label").text("Choose your image"); 
-  }
-  else {
+var filename = $(this).val();
+if (/^\s*$/.test(filename)) {
+	$(".account-image-label").text("Choose your image");
+}
+else {
 	$(".account-image-label").text(filename.replace("C:\\fakepath\\", ""));
-  }
+}
 });
-	
-	
-})(jQuery);	
+
+
+})(jQuery);
 
 
 $(document).ready(function(){
-  
+
 	$(".Modern-Slider").slick({
-	  autoplay:true,
-	  autoplaySpeed:10000,
-	  speed:600,
-	  slidesToShow:1,
-	  slidesToScroll:1,
-	  pauseOnHover:false,
-	  dots:true,
-	  pauseOnDotsHover:true,
-	  cssEase:'linear',
+		autoplay:true,
+		autoplaySpeed:10000,
+		speed:600,
+		slidesToShow:1,
+		slidesToScroll:1,
+		pauseOnHover:false,
+		dots:true,
+		pauseOnDotsHover:true,
+		cssEase:'linear',
 	 // fade:true,
-	  draggable:false,
-	  prevArrow:'<button class="PrevArrow"></button>',
-	  nextArrow:'<button class="NextArrow"></button>', 
+		draggable:false,
+		prevArrow:'<button class="PrevArrow"></button>',
+		nextArrow:'<button class="NextArrow"></button>',
 	});
-	
-  })
+
+})
 
 
 $('body').delegate('.applySortingBtn','click',function(){
@@ -853,7 +866,6 @@ $('body').delegate('.applySortingBtn','click',function(){
 	window.location.href = url;
 })
 
-
 $(document).ready(function(){
 	configureImageSizeByScreen();
 })
@@ -861,19 +873,19 @@ function configureImageSizeByScreen(){
 	var screenSize = $(window).width();
 	if (screenSize >= 768){
 		$('.big-image img').each(function(){
-			data_m_img = $(this).attr('data-src-m')
-			$(this).attr('src', data_m_img)
+				data_m_img = $(this).attr('data-src-m')
+				$(this).attr('src', data_m_img)
 		})
 	}
 
 	if (screenSize >= 768){
 		$('.banner img').each(function(){
-			data_m_img = $(this).attr('data-src-m')
-			$(this).attr('src', data_m_img)
+				data_m_img = $(this).attr('data-src-m')
+				$(this).attr('src', data_m_img)
 		})
 		$('.slider-image img').each(function(){
-			data_m_img = $(this).attr('data-src-m')
-			$(this).attr('src', data_m_img)
+				data_m_img = $(this).attr('data-src-m')
+				$(this).attr('src', data_m_img)
 		})
 	}
 }
@@ -943,39 +955,39 @@ function configureImageSizeByScreen(){
 
 //   setTimeout("html5Slider.noUiSlider.set([null, selectMax.value]);", 100);
 
-// });  
+// });
 
 var state= false;
 function toggle(){
 	if(state){
-	document.getElementById("password").setAttribute("type","password");
-	document.getElementById("eye").style.color='#7a797e';
-	state = false;
+document.getElementById("password").setAttribute("type","password");
+document.getElementById("eye").style.color='#7a797e';
+state = false;
 	 }
 	 else{
-	document.getElementById("password").setAttribute("type","text");
-	document.getElementById("eye").style.color='#5887ef';
-	state = true;
+document.getElementById("password").setAttribute("type","text");
+document.getElementById("eye").style.color='#5887ef';
+state = true;
 	 }
 }
 
 $("img.loader").load(function(){
-  $(this).removeClass("loader");
+$(this).removeClass("loader");
 });
 
 $(".category-title .title a").each(function(){
 this.text = this.text.trim();
-  if (this.text.length > 20){
-	  this.text = this.text.slice(0, 20);
-	  this.text += "...";
-  }
+if (this.text.length > 20){
+		this.text = this.text.slice(0, 20);
+		this.text += "...";
+}
 });
 
 
 document.addEventListener('error', function (event) {
 	if (event.target.tagName.toLowerCase() !== 'img') return;
 	event.target.src = no_photo_errorhandler_image;
-	event.target.className = 'full-width'
+	event.target.className = 'full-width';
 	event.target.style = "padding: 45px";
 }, true);
 

@@ -7,12 +7,18 @@ $(document).ready(function(){
 		cartData=JSON.parse(cartCookie);
 		for (i in cartData){
 			ownerId = cartData[i]["resId"];
-			$('.addToCart'+'[ownerId='+ownerId+']').hide();
-			$('.removeFromCart'+'[ownerId='+ownerId+']').show();
+			$('.add-to-cart'+'[ownerId='+ownerId+']').addClass('added').find('i').addClass('ti-check').removeClass('ti-shopping-cart').siblings('span').text(remove_from_cart_text);
 			$('.productQty'+'[ownerId='+ownerId+']').val(cartData[i]["productQty"]);
-			$('.uiQtyText'+'[ownerId='+ownerId+']').text(cartData[i]["productQty"]);
-			totalPriceCheckout(ownerId);
+			// $('.cartItemQty'+'[ownerId='+ownerId+']').val(cartData[i]["productQty"]);
+			// $('.uiQtyText'+'[ownerId='+ownerId+']').text(cartData[i]["productQty"]);
 		}
-		cartOperations(cartData,url_prefix+'/product/ui_cart_table/','PUT','htmlData','cartItemsTable');
+		for (i in cartData){
+			if (i){
+				var do_request = true;
+			}
+		}
+		if (do_request==true){
+			cartOperations(cartData,url_prefix+'/product/ui_cart/','PUT','htmlData','cartItemsList');
+		}
 	}
 });

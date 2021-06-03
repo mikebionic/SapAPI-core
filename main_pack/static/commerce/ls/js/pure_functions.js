@@ -105,6 +105,9 @@ function checkoutCart(payload_data, url, type){
 			else{
 				swal(title='', message=response.responseText, style='warning');
 			}
+		},
+		error: function(){
+			swal(title='', message=unknown_error_text, style='warning');
 		}
 	})
 }
