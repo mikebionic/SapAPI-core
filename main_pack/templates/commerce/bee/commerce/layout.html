@@ -4,8 +4,8 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>{{ title if title else _('Commerce') }}</title>
-  <meta name="description" content="Ecommerce {{ company.CName }} {{ company.CDesc if company.CDesc else '' }}">
+  <title>Hilli | {{ title if title else _('Commerce') }}</title>
+  <meta name="description" content="{% if Config.Desc %}{{ Config.Desc }}{% else %} Online commerce {{ company.CName }} {{ company.CDesc if company.CDesc}}{% endif %}">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="shortcut icon" type="image/x-icon" href="{{ company_logo.FilePath if company_logo else url_for('static', filename='commerce/bee/images/favicon.ico') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/bee/css/app.css') }}">

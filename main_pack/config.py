@@ -282,3 +282,5 @@ class Config:
 	# location of robots.txt and sitemap.xml
 	WEB_CONFIG_DIRECTORY = path.join("static", "web_config")
 	GOOGLE_ANALYTICS_TAG = environ.get('GOOGLE_ANALYTICS_TAG') or ''
+
+	COMMERCE_ABOUT_DESCRIPTION = environ.get('COMMERCE_ABOUT_DESCRIPTION') or ''

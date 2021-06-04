@@ -61,7 +61,7 @@ def slidersData():
 	return res
 
 
-@cache.cached(Config.DB_CACHE_TIME, key_prefix="ui_categories")
+# @cache.cached(Config.DB_CACHE_TIME, key_prefix="ui_categories")
 def UiCategoriesList():
 
 	categories = collect_categories_query(
@@ -112,7 +112,8 @@ def UiCategoriesList():
 			logoIcon["FilePath"] = fileToURL(file_type='image',file_name=company.Image[0].FileName)
 
 	config = {
-		"GOOGLE_ANALYTICS_TAG": Config.GOOGLE_ANALYTICS_TAG if Config.GOOGLE_ANALYTICS_TAG else ''
+		"GOOGLE_ANALYTICS_TAG": Config.GOOGLE_ANALYTICS_TAG if Config.GOOGLE_ANALYTICS_TAG else '',
+		"COMMERCE_ABOUT_DESCRIPTION": Config.COMMERCE_ABOUT_DESCRIPTION if Config.COMMERCE_ABOUT_DESCRIPTION else '',
 	}
 
 	res = {
