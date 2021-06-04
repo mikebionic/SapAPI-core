@@ -3,8 +3,9 @@
 // 	"TotalPrice": "45.3",
 //	"OrderDesc": "Testing the service"
 // }
-const payment_req_url = `${url_prefix}/order-payment-register-request/`
-const checkout_oinv_url = `${url_prefix}/checkout-cart-v1/`
+const payment_req_url = `${url_prefix}/order-payment-register-request/`;
+const checkout_oinv_url = `${url_prefix}/checkout-cart-v1/`;
+const oinv_validation_url = `${url_prefix}/order-inv-validation/`;
 
 function gen_Reg_no_and_open_payment(payload_data, url, type){
 	var order_data = get_local_data_by_name("orderInv");
@@ -54,7 +55,9 @@ function checkoutOrder(payload_data,url){
 			if(response.status == 1){
 				var RegNum = response.data.OInvRegNo
 				var order_data = get_local_data_by_name("orderInv");
-				order_data["orderInv"] = response.data
+				var order_lines = order_data["orderInv"]["OrderInvLines"]
+				order_data["orderInv"] = response.data;
+				order_data["orderInv"]["OrderInvLines"] = order_lines; 
 				set_local_data_by_name("orderInv", order_data)
 				req_payment_url_prepare(RegNum);
 			}
@@ -69,7 +72,8 @@ function checkoutOrder(payload_data,url){
 function req_payment_url_prepare(reg_no){
 	cart_totals_data = configure_cart_item_count()
 	payload = {
-		"RegNo": "reg_no1113",
+		// "RegNo": "reg_no1113",
+		"RegNo": reg_no,
 		"TotalPrice": cart_totals_data["totalPrice"],
 		"OrderDesc": $('.orderDesc').val()
 	}
@@ -85,13 +89,12 @@ function req_payment_request(payload, url){
 		type: 'POST',
 		url: url,
 		success: function(response){
-			// console.log(response)
-			// console.log(response.data.responseText)
-			// console.log(response.data.formUrl)
-			// console.log(response.data.orderId)
-			var formUrl = response.data.formUrl
-			var orderId = response.data.orderId
-			open_payment_window(formUrl)
+			var formUrl = response.data.formUrl;
+			var order_data = get_local_data_by_name("orderInv");
+			order_data["orderInv"]["OrderId"] = response.data.orderId;
+			set_local_data_by_name("orderInv", order_data);
+			validate_oinv_payment();
+			// open_payment_window(formUrl)
 		},
 		error: function(response){
 			console.log(response)
@@ -109,8 +112,6 @@ function open_payment_window(url){
 	// https://mpi.gov.tm/payment/merchants/online/errors_ru.html?error=payment.errors.order_already_processed
 
 	var index_url = "mpi.gov.tm/payment/merchants/online/payment_ru.html?mdOrder"
-	// var url = "http://127.0.0.1:5000/v-grid"
-	// var index_url = "127.0.0.1:5000/v-grid"
 	var window_properties = "width=600,height=400,resizable=yes,location=no"
 	var paymentWin = window.open(url, 'Payment', window_properties)
 	paymentWin.addEventListener('unload', function() {
@@ -142,4 +143,9 @@ function detect_url_change(current_window){
 }
 
 
-// function validate_oinv_payment()
+
+function validate_oinv_payment(){
+	var order_data = get_local_data_by_name("orderInv");
+	var payload_data = order_data['orderInv']
+	checkoutCart(payload_data, oinv_validation_url, "POST")
+}

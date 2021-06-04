@@ -96,18 +96,18 @@ function checkoutCart(payload_data, url, type){
 		url: url,
 		success: function(response){
 			if(response.status == 1){
-				swal(title='', message=response.responseText, style='success');
+				swal(title=success_title, message=response.responseText, style='success');
 				clearCart();
 				setTimeout(function(){
 					window.location.href = `${url_prefix}/orders`;
 				}, 5000);
 			}
 			else{
-				swal(title='', message=response.responseText, style='warning');
+				swal(title=unknown_error_text, message=response.responseText, style='warning');
 			}
 		},
 		error: function(){
-			swal(title='', message=unknown_error_text, style='warning');
+			swal(title=unknown_error_text, message=unknown_error_text, style='warning');
 		}
 	})
 }
@@ -122,7 +122,7 @@ function sendReview(payload_data, url, type, formId){
 		url:url,
 		success: function(response){
 			if(response.status == 'added'){
-				swal(title='', message=response.responseText, style='success');
+				swal(title=success_title, message=response.responseText, style='success');
 				$('[ownerId='+formId+']').remove();
 			}
 			else{

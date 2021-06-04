@@ -35,6 +35,7 @@ def save_order_checkout_data(req, model_type, current_user, session = None):
 		if "OInvRegNo" in req["orderInv"]:
 			orderRegNo = req["orderInv"]["OInvRegNo"] if req["orderInv"]["OInvRegNo"] else None
 
+		print(orderRegNo)
 		InvStatId = None
 		if "InvStatId" in req["orderInv"]:
 			InvStatId = int(req["orderInv"]["InvStatId"]) if req["orderInv"]["InvStatId"] else None
@@ -88,14 +89,17 @@ def save_order_checkout_data(req, model_type, current_user, session = None):
 			orderRegNo
 		)
 		if not RegNo:
+			print("no reg no")
 			raise Exception
 
 		work_period = get_last_Work_period()
 		if not work_period:
+			print("no work period")
 			raise Exception
 
 		warehouse = get_last_Warehouse_by_DivId(DivId)
 		if not warehouse:
+			print("no warehous")
 			raise Exception
 		WhId = warehouse.WhId
 

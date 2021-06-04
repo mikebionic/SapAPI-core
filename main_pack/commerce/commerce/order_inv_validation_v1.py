@@ -18,9 +18,6 @@ def order_inv_validation_v1():
 		if session["model_type"] == "user":
 			raise Exception
 
-		if not req['orderInv']:
-			raise Exception
-
 		data, status, message = validate_order_inv_payment(req, session["model_type"], current_user)
 
 		if status == 1:
