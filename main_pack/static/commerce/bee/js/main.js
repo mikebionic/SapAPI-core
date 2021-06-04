@@ -985,12 +985,22 @@ $(this).removeClass("loader");
 });
 
 $(".category-title .title a").each(function(){
-this.text = this.text.trim();
-if (this.text.length > 20){
-		this.text = this.text.slice(0, 20);
-		this.text += "...";
-}
+	this.text = this.text.trim();
+	if (this.text.length > 20){
+			this.text = this.text.slice(0, 20);
+			this.text += "...";
+	}
 });
+
+
+$(".order-info a").each(function(){
+	this.text = this.text.trim();
+	if (this.text.length > 15){
+			this.text = this.text.slice(0, 15);
+			this.text += "...";
+	}
+});
+
 
 
 document.addEventListener('error', function(event){

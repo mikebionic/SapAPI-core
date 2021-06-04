@@ -1,9 +1,6 @@
-from sqlalchemy import and_
-from sqlalchemy import func
 from sqlalchemy.orm import joinedload
 from datetime import datetime
 
-from flask_login import current_user, login_required
 from main_pack.config import Config
 from main_pack import cache
 
@@ -13,18 +10,13 @@ from main_pack.models import (
 	Resource)
 from main_pack.models import (
 	Company,
-	Division,
-	Sl_image,
 	Slider,
 	Image)
 # / db Models /
 
 # useful methods
 from main_pack.config import Config
-from main_pack import db,babel,gettext,lazy_gettext
 from main_pack.base.apiMethods import fileToURL
-from main_pack.base.languageMethods import dataLangSelector
-from main_pack.api.commerce.commerce_utils import UiCartResourceData
 from main_pack.api.commerce.commerce_utils import collect_categories_query
 # / useful methods /
 

@@ -3485,7 +3485,7 @@ img.mfp-img {
         margin-right: 15px; } }
     @media only screen and (min-width: 768px) and (max-width: 991px) {
       .header-account-links a {
-        margin-right: 20px; } }
+        margin-right: 6px; } }
     @media only screen and (max-width: 767px) {
       .header-account-links a {
         margin-right: 15px;
@@ -3500,7 +3500,7 @@ img.mfp-img {
       border-radius: 50px;
       text-align: center;
       line-height: 30px;
-      /* margin-right: 10px; */
+      margin-right: 1px;
       -webkit-transition: all 0.3s ease 0s;
       -o-transition: all 0.3s ease 0s;
       transition: all 0.3s ease 0s; }
