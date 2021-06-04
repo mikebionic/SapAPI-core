@@ -61,7 +61,7 @@ def slidersData():
 	return res
 
 
-# @cache.cached(Config.DB_CACHE_TIME, key_prefix="ui_categories")
+@cache.cached(Config.DB_CACHE_TIME, key_prefix="ui_categories")
 def UiCategoriesList():
 
 	categories = collect_categories_query(
