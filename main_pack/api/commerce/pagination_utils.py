@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
-from flask import jsonify, request, make_response, url_for
-from sqlalchemy import and_, extract
+from flask import url_for
+from sqlalchemy import and_, or_, extract
 from sqlalchemy.orm import joinedload
 
 # datetime, date-parser
 import dateutil.parser
-import datetime as dt
-from datetime import datetime, timedelta
+from datetime import datetime
 # / datetime, date-parser /
 
 from . import api
@@ -24,14 +23,8 @@ from main_pack.models import (
 	Brand,
 	Res_price)
 # / Resource db Models /
+from main_pack.models import Order_inv
 
-# Invoice db Models
-from main_pack.models import (
-	Order_inv,
-	Invoice)
-# / Invoice db Models /
-from main_pack.models import Company, Division, Warehouse
-from main_pack.models import Rp_acc, User
 
 def collect_resource_paginate_info(
 	pagination_url,
@@ -97,7 +90,7 @@ def collect_resource_paginate_info(
 	resource_filtering = {
 		"GCRecord": None,
 	}
-	
+
 	if showInactive == False:
 		resource_filtering["UsageStatusId"] = 1
 
@@ -105,11 +98,11 @@ def collect_resource_paginate_info(
 		Res_total.ResId,
 		db.func.sum(Res_total.ResTotBalance).label("ResTotBalance_sum"),
 		db.func.sum(Res_total.ResPendingTotalAmount).label("ResPendingTotalAmount_sum"))
-	
+
 	if DivId:
 		Res_Total_subquery = Res_Total_subquery\
 			.filter(Res_total.DivId == DivId)
-	
+
 	Res_Total_subquery = Res_Total_subquery\
 		.group_by(Res_total.ResId)\
 		.subquery()
@@ -135,7 +128,7 @@ def collect_resource_paginate_info(
 
 	if brand:
 		resource_query = resource_query.filter(Resource.BrandId == brand)
-	
+
 	if category:
 		categories = Res_category.query\
 			.filter_by(ResCatId = category, GCRecord = None)\
@@ -188,14 +181,26 @@ def collect_resource_paginate_info(
 		barcodes_search = Barcode.query\
 			.filter(and_(
 				Barcode.GCRecord == None,\
-				Barcode.BarcodeVal.ilike(searching_tag)))\
-		
-		resources_search = Resource.query\
-			.filter(and_(
-				Resource.GCRecord == None,\
-				Resource.ResName.ilike(searching_tag),\
-				Resource.UsageStatusId == 1))\
-			.order_by(Resource.ResId.desc())\
+				Barcode.BarcodeVal.ilike(searching_tag)))
+
+		if Config.SEARCH_BY_RESOURCE_DESCRIPTION:
+			resources_search = Resource.query\
+				.filter(and_(
+					Resource.GCRecord == None,\
+					or_(
+						Resource.ResName.ilike(searching_tag),
+						Resource.ResDesc.ilike(searching_tag)
+					),\
+					Resource.UsageStatusId == 1))\
+				.order_by(Resource.ResId.desc())
+
+		else:
+			resources_search = Res_category.query\
+				.filter(and_(
+					Res_category.GCRecord == None,\
+					Res_category.ResName.ilike(searching_tag),\
+					Res_category.UsageStatusId == 1))\
+				.order_by(Res_category.ResId.desc())
 
 		if DivId:
 			barcodes_search = barcodes_search.filter_by(DivId = DivId)
@@ -301,7 +306,7 @@ def collect_resource_paginate_info(
 			page_num_info["url"] = None
 		page_num_list.append(page_num_info)
 	pagination_info["page_num_list"] = page_num_list
-	
+
 	return pagination_info
 
 def collect_order_inv_paginate_info(
@@ -450,5 +455,5 @@ def collect_order_inv_paginate_info(
 			page_num_info["url"] = None
 		page_num_list.append(page_num_info)
 	pagination_info["page_num_list"] = page_num_list
-	
+
 	return pagination_info

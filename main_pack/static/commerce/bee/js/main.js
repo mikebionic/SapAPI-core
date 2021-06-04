@@ -789,15 +789,15 @@ $('body').delegate('.qtybtn','click', function() {
 		}
 	}
 	console.log(`adding value ${newVal}`)
-	$('.qtybtn').parent().find('input').val(newVal);
-	$('.qtybtn').parent().find('input').text(newVal);
-	$('.qtybtn').parent().find('input').attr('value', newVal);
-	$('.cartItemQty input').attr('value', newVal);
-	$('.cartItemQty input').val(newVal);
-	$('.cartItemQty input').text(newVal);
-	// $button.parent().find('input').val(newVal);
-	// $button.parent().find('input').text(newVal);
-	// $button.parent().find('input').attr('value', newVal);
+	// $('.qtybtn').parent().find('input').val(newVal);
+	// $('.qtybtn').parent().find('input').text(newVal);
+	// $('.qtybtn').parent().find('input').attr('value', newVal);
+	// $('.cartItemQty input').attr('value', newVal);
+	// $('.cartItemQty input').val(newVal);
+	// $('.cartItemQty input').text(newVal);
+	$button.parent().find('input').val(newVal);
+	$button.parent().find('input').text(newVal);
+	$button.parent().find('input').attr('value', newVal);
 });
 
 /*-----

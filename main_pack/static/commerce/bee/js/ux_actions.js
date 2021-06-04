@@ -161,9 +161,9 @@ $('body').delegate('.productQty', 'keyup', function() {
 //// ????????????
 function addToCart(ownerId){
 	var priceValue = parseFloat($('.priceValue'+'[ownerId='+ownerId+']').attr('value'));
-	var productQty = parseInt($('.productQty'+'[ownerId='+ownerId+']').val());
-	var pending_amount = parseInt($('.productQty'+'[ownerId='+ownerId+']').attr('pending_amount'));
-	var min_amount = parseInt($('.productQty'+'[ownerId='+ownerId+']').attr('min_amount'));
+	var productQty = parseInt($('.productQty'+'[ownerId='+ownerId+']').val()) || 1;
+	var pending_amount = parseInt($('.productQty'+'[ownerId='+ownerId+']').attr('pending_amount')) || 1;
+	var min_amount = parseInt($('.productQty'+'[ownerId='+ownerId+']').attr('min_amount')) || 1;
 	var max_amount = parseInt($('.productQty'+'[ownerId='+ownerId+']').attr('max_amount'));
 
 	configure_adding_to_cart(

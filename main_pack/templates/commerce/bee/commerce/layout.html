@@ -34,7 +34,7 @@
         <div class="header-account-links" style="display:flex;">
           <li class="dropdown" style="margin-top: -7px;list-style: none; position: inherit;">
             <a href="#" class="nav-link nav-link-lg message-toggle" data-toggle="dropdown">
-              <i class="fa fa-globe" style="font-size: 25px; color: #a6a6a6;"></i>
+              <i class="fa fa-globe" style="font-size: 20px;"></i>
               <span class="badge headerBadge1" style="background: #f5d730; border-radius: 50px;">{{ session['language'] }}</span>
             </a>
             <ul class="dropdown-menu slideUp2">
@@ -62,7 +62,7 @@
           </li>
           {% if current_user.is_authenticated %}
             <a href="{{ url_for('commerce_users.profile') }}"><i class="icofont icofont-user-alt-7"></i> <span style="margin-left: 3px;">{{_('My profile')}}</span></a>
-            <a href="{{ url_for('commerce_auth.logout') }}"><i class="gg-log-off"></i><span>{{_('Log out')}}</span></a>
+            <a href="{{ url_for('commerce_auth.logout') }}"><i class="icofont icofont-logout d-none"></i><span>{{_('Log out')}}</span></a>
           {% else %}
             <a href="{{ url_for('commerce_auth.login') }}"><i class="icofont icofont-login d-none"></i> <span>{{_('Login')}}</span></a>
             <a href="{{ url_for('commerce_auth.register') }}"><i class="icofont icofont-user-alt-7 d-none"></i> <span>{{_('Register')}}</span></a>

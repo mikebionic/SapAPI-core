@@ -216,6 +216,11 @@
 													</a>
 												</div>
 											{% endif %}
+												<input type="hidden" class="productQty"
+													pending_amount="{{related_resource.ResPendingTotalAmount}}"
+													min_amount="{{related_resource.ResMinSaleAmount}}"
+													max_amount="{{related_resource.ResMaxSaleAmount}}"
+													value="{{related_resource.productQty}}" ownerId="{{ related_resource.ResId }}">
 
 												<a class="add-to-cart" ownerId="{{ related_resource.ResId }}">
 													<i class="ti-shopping-cart"></i>
