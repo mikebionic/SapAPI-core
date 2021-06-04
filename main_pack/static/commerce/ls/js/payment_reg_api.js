@@ -7,32 +7,39 @@ const payment_req_url = `${url_prefix}/order-payment-register-request/`
 const checkout_oinv_url = `${url_prefix}/checkout-cart-v1/`
 
 function gen_Reg_no_and_open_payment(payload_data, url, type){
-	$.ajax({
-		contentType: "application/json",
-		dataType: "json",
-		data: JSON.stringify(payload_data),
-		type: type,
-		url: url,
-		success: function(response){
-			// console.log(response)
-			if (response.status == 1){
-				var RegNum = response.data;
-				// console.log("generated, continue")
-				var order_data = get_local_data_by_name("orderInv");
-				order_data["orderInv"]["InvStatId"] = 13;
-				order_data["orderInv"]["OInvRegNo"] = RegNum;
-				localStorage.setItem("orderInv", JSON.stringify(order_data));
-				checkoutOrder(order_data, checkout_oinv_url);
-			}
-			else{
+	var order_data = get_local_data_by_name("orderInv");
+	var RegNum = order_data["orderInv"]["OInvRegNo"];
+	if (RegNum){
+		order_data["orderInv"]["InvStatId"] = 13;
+		set_local_data_by_name("orderInv", order_data)
+		checkoutOrder(order_data, checkout_oinv_url);
+	}
+	else {
+		$.ajax({
+			contentType: "application/json",
+			dataType: "json",
+			data: JSON.stringify(payload_data),
+			type: type,
+			url: url,
+			success: function(response){
+				if (response.status == 1){
+					var RegNum = response.data;
+					var order_data = get_local_data_by_name("orderInv");
+					order_data["orderInv"]["InvStatId"] = 13;
+					order_data["orderInv"]["OInvRegNo"] = RegNum;
+					set_local_data_by_name("orderInv", order_data)
+					checkoutOrder(order_data, checkout_oinv_url);
+				}
+				else{
+					swal(title=error_title,desc=unknown_error_text,style="warning");
+				}
+			},
+			error: function(response){
+				console.log(response)
 				swal(title=error_title,desc=unknown_error_text,style="warning");
 			}
-		},
-		error: function(response){
-			console.log(response)
-			swal(title=error_title,desc=unknown_error_text,style="warning");
-		}
-	})
+		})
+	}
 }
 
 
@@ -47,10 +54,8 @@ function checkoutOrder(payload_data,url){
 			if(response.status == 1){
 				var RegNum = response.data.OInvRegNo
 				var order_data = get_local_data_by_name("orderInv");
-				console.log(order_data)
 				order_data["orderInv"] = response.data
-				console.log(order_data)
-				localStorage.setItem("orderInv", JSON.stringify(order_data))
+				set_local_data_by_name("orderInv", order_data)
 				req_payment_url_prepare(RegNum);
 			}
 			else{
@@ -113,7 +118,7 @@ function open_payment_window(url){
 			if (paymentWin.location.href.indexOf(index_url) > 0){
 				detect_url_change(paymentWin)
 			}
-		}, 2000);
+		}, 5000);
 	});
 }
 
@@ -123,8 +128,9 @@ function detect_url_change(current_window){
 		try {
 			console.log(current_window.location.href)
 			if (current_window.location.href !== current_location) {
-				console.log("url changed")
+				console.log("url changed");
 				clearInterval(win_location);
+				// send validation request
 			}
 			if (!current_window.location.href){
 				clearInterval(win_location)

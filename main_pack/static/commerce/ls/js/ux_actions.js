@@ -273,6 +273,9 @@ $('.paymentMethods input').click(function () {
 	}
 })
 
+$(document).ready(function(){
+	set_local_data_by_name('orderInv', {});
+})
 
 $('body').delegate('.checkoutCartBtn','click',function(){
 	var data = collectOrderData()
@@ -290,8 +293,20 @@ $('body').delegate('.checkoutCartBtn','click',function(){
 	data['PmId'] = PmId
 	data['PtId'] = 1
 
-	var order_data = {"orderInv": data, "validated": false}
-	set_local_data_by_name('orderInv', order_data)
+	var order_data = get_local_data_by_name("orderInv");
+	if (order_data["orderInv"]){
+		if (!order_data["validated"]){
+			console.log("found order not validated, skipping reset")
+			order_data["orderInv"]["PmId"] = data["PmId"];
+			order_data["orderInv"]["PtId"] = data["PtId"];
+			order_data["orderInv"]["OInvDesc"] = data["OInvDesc"];
+			set_local_data_by_name('orderInv', order_data);
+		}
+	}
+	else{
+		var order_data = {"orderInv": data, "validated": false}
+		set_local_data_by_name('orderInv', order_data)
+	}
 
 	if (PmId == 2){
 		gen_reg_no_data = {

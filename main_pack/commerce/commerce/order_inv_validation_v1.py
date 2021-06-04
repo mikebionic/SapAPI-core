@@ -25,15 +25,16 @@ def order_inv_validation_v1():
 
 		if status == 1:
 			response = jsonify({
-				"status": 'added',
-				"responseText": gettext('Checkout')+' '+gettext('successfully done')+'! '+gettext('View orders in profile page.')
+				"status": 1,
+				"responseText": gettext('Checkout')+' '+gettext('successfully done')+'! '+gettext('View orders in profile page.'),
+				"data": data,
 			})
 
 	except Exception as ex:
 		print(f"{datetime.now()} | UI_payment_validation Exception: {ex}")
 		response = jsonify({
-			"status": 'error',
-			"responseText": gettext('Unknown error!')
+			"status": 0,
+			"responseText": gettext('Unknown error!'),
 		})
 
 	return make_response(response)
