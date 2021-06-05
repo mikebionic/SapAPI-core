@@ -19,7 +19,7 @@ class Device(AddInf, BaseModel, db.Model, UserMixin):
 	AllowedDate = db.Column("AllowedDate",db.DateTime)
 	DisallowedDate = db.Column("DisallowedDate",db.DateTime)
 	IsAllowed = db.Column("IsAllowed",db.Boolean,default=False)
-	DevVerifyDate = db.Column("DevVerifyDate",db.DateTime,default=datetime.now())
+	DevVerifyDate = db.Column("DevVerifyDate",db.DateTime)
 	DevVerifyKey = db.Column("DevVerifyKey")
 
 	def to_json_api(self):
