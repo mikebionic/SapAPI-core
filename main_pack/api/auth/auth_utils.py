@@ -23,7 +23,11 @@ def check_auth(auth_type, user_model, password):
 			auth_status = (user_model.RpAccUPass == password)
 
 	elif (auth_type == "device"):
-		if check_device_activation(device_model = user_model):
+		if not Config.USE_SERVERLESS_ACTIVATION:
+			if check_device_activation(device_model = user_model):
+				auth_status = True
+
+		elif user_model.IsAllowed:
 			auth_status = True
 
 	return auth_status

@@ -25,6 +25,8 @@ def do_mpi_gov_tm_payment_service_register_request(req):
 	payment_order_check_req_url = f"{register_url}orderNumber={RegNo}&currency={currency}&amount={TotalPrice}&language={language}&password={service_password}&returnUrl={returnUrl}"
 
 	try:
+		print("trying payment")
+		print(payment_order_check_req_url)
 		r = requests.get(payment_order_check_req_url, verify=False)
 		response_json = json.loads(r.text)
 

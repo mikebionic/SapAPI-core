@@ -84,15 +84,15 @@ def save_rp_acc_synch_data(req):
 					data.append(rp_acc_req)
 
 				except Exception as ex:
-					print(f"{datetime.now()} | v1 Rp_acc Api sych Rp_acc_total Exception: {ex}")
+					print(f"{datetime.now()} | v1 Rp_acc Api synch Rp_acc_total Exception: {ex}")
 
 		except Exception as ex:
-			print(f"{datetime.now()} | v1 Rp_acc Api sych Exception: {ex}")
+			print(f"{datetime.now()} | v1 Rp_acc Api synch Exception: {ex}")
 			fails.append(rp_acc_req)
 
 	try:
 		db.session.commit()
 	except Exception as ex:
-		print(f"{datetime.now()} | v1 Rp_acc Api sych Exception: {ex}")
+		print(f"{datetime.now()} | v1 Rp_acc Api synch Exception: {ex}")
 
 	return data, fails

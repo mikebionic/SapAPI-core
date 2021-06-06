@@ -4,8 +4,8 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>{{ title if title else _('Commerce') }}</title>
-  <meta name="description" content="Ecommerce {{ company.CName }} {{ company.CDesc if company.CDesc else '' }}">
+  <title>Hilli | {{ title if title else _('Commerce') }}</title>
+  <meta name="description" content="{% if Config.Desc %}{{ Config.Desc }}{% else %} Online commerce {{ company.CName }} {{ company.CDesc if company.CDesc}}{% endif %}">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="shortcut icon" type="image/x-icon" href="{{ company_logo.FilePath if company_logo else url_for('static', filename='commerce/bee/images/favicon.ico') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/bee/css/app.css') }}">
@@ -34,7 +34,7 @@
         <div class="header-account-links" style="display:flex;">
           <li class="dropdown" style="margin-top: -7px;list-style: none; position: inherit;">
             <a href="#" class="nav-link nav-link-lg message-toggle" data-toggle="dropdown">
-              <i class="fa fa-globe" style="font-size: 25px; color: #a6a6a6;"></i>
+              <i class="fa fa-globe" style="font-size: 20px;"></i>
               <span class="badge headerBadge1" style="background: #f5d730; border-radius: 50px;">{{ session['language'] }}</span>
             </a>
             <ul class="dropdown-menu slideUp2">
@@ -62,7 +62,11 @@
           </li>
           {% if current_user.is_authenticated %}
             <a href="{{ url_for('commerce_users.profile') }}"><i class="icofont icofont-user-alt-7"></i> <span style="margin-left: 3px;">{{_('My profile')}}</span></a>
+<<<<<<< HEAD
             <a href="{{ url_for('commerce_auth.logout') }}"><i class="icofont icofont-logout"></i><span>{{_('Log out')}}</span></a>
+=======
+            <a href="{{ url_for('commerce_auth.logout') }}"><i class="icofont icofont-logout d-none"></i><span>{{_('Log out')}}</span></a>
+>>>>>>> bc8d1bc6f4e3bcc535440fe7e60f088a3d819398
           {% else %}
             <a href="{{ url_for('commerce_auth.login') }}"><i class="icofont icofont-login d-none"></i> <span>{{_('Login')}}</span></a>
             <a href="{{ url_for('commerce_auth.register') }}"><i class="icofont icofont-user-alt-7 d-none"></i> <span>{{_('Register')}}</span></a>
@@ -322,17 +326,33 @@
     </div>
   </div>
 </div>
-<script src="{{ url_for('static', filename='commerce/bee/js/app.js') }}"></script>
 
+
+<script src="{{ url_for('static', filename='commerce/bee/js/vendor/jquery-1.12.4.min.js') }}"></script>
+<script src="{{ url_for('static', filename='commerce/bee/js/popper.min.js') }}"></script>
+<script src="{{ url_for('static', filename='commerce/bee/js/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static', filename='commerce/bee/js/plugins.js') }}"></script>
+<script src="{{ url_for('static', filename='commerce/bee/js/sweetalert.min.js') }}"></script>
+<script src="{{ url_for('static', filename='commerce/bee/js/izitoast/js/iziToast.min.js') }}"></script>
+<script src="{{ url_for('static', filename='commerce/bee/js/main.js') }}"></script>
+<script src="{{ url_for('static', filename='commerce/bee/js/rating.js') }}"></script>
+<!-- <script src="{{ url_for('static', filename='commerce/bee/js/js.cookie.min.js') }}"></script> -->
+<!-- <script src="{{ url_for('static', filename='commerce/bee/js/cartsAndCheckouts.js') }}"></script> -->
+<script src="{{ url_for('static', filename='commerce/bee/js/ui_dynamicals.js') }}"></script>
+<script src="{{ url_for('static', filename='commerce/bee/js/pure_functions.js') }}"></script>
+<script src="{{ url_for('static', filename='commerce/bee/js/ux_actions.js') }}"></script>
 <script type="text/javascript">
   var url_prefix = "{{url_prefix if url_prefix else ''}}";
+  var session_currency_code = "{{ session.currency_code if session.currency_code else 'TMT' }}"
+  var error_title = "{{_('Error')}}";
+  var success_title = "{{_('Success')}}";
+  var unknown_error_text = "{{_('Unknown error')}}"
   var add_to_cart_text = "{{_('Add to cart')}}";
-	var qty_error_text = "{{_('Cannot get more')}}";
+  var qty_error_text = "{{_('Cannot get more')}}";
   var remove_from_cart_text = "{{_('Remove from cart')}}";
-  var no_photo = "{{ url_for('static', filename='commerce/bee/images/no_photo.svg') }}";
+  var no_photo_errorhandler_image = "{{ url_for('static', filename='commerce/bee/images/no_photo.svg') }}";
   var rating_message = "{{_('You should put your rating and write a review')}}";
 </script>
-{% block scripts %}{% endblock %}
 <script type="text/javascript">
   var csrf_token = "{{ csrf_token() }}";
   $.ajaxSetup({
@@ -351,7 +371,6 @@
     $(this).html($(this).text());
   });
 </script>
-
+{% block scripts %}{% endblock %}
 </body>
-
 </html>

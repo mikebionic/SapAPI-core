@@ -31,14 +31,14 @@
 		</div>
 	</div>
 </div>
- 
+
 <div class="product-section section">
 	<div class="container">
-		<div class="row"> 
+		<div class="row">
 			<div class="col-12">
 				<div class="product-slider-wrap product-slider-arrow-one">
 					<div class="product-slider brands-slider">
-						{% for brand in Brands %}			
+						{% for brand in Brands %}
 							{% if brand.FilePath and brand.IsMain %}
 								<div class="col pb-20 pt-10" style="padding-top: 65px; width: 150px;">
 									<a href="{{url_for('commerce.v_grid',brand = brand.BrandId)}}" class="cat-block">
@@ -81,13 +81,13 @@
 			<div class="col-12">
 				<div class="tab-content">
 					<div class="row">
-					 
+
 					{% for category in Featured_categories %}
 						<div class="tab-pane featrued-cat-tab fade" id="tab-{{category.ResCatId}}">
 							<div class=" product-slider-arrow-one">
 								<div class="product-slider product-slider-4">
 									{% for resource in category.Resources %}
-										
+
 										<div class="p_slider">
 											<div class="col-xl-3 col-lg-4 col-md-4 col-6 pb-30 pt-10">
 												<div class="ee-product">
@@ -96,7 +96,7 @@
 															<span class="label new">{{_('New')}}</span>
 														{% endif %}
 														<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
-															<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/bee/images/no_photo.svg') }}" 
+															<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/bee/images/no_photo.svg') }}"
 															alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }} {{ company.CName }}">
 														</a>
 														{% if current_user.is_authenticated %}
@@ -105,9 +105,13 @@
 																	<i class="ti-heart"></i>
 																</a>
 															</div>
-														{% endif %}	
-															<input type="hidden" class="qty productQty" pending_amount="{{resource.ResPendingTotalAmount}}" value="{{resource.productQty}}" ownerId="{{ resource.ResId }}">
-															<a href="#" class="add-to-cart" ownerId="{{ resource.ResId }}">
+														{% endif %}
+															<input type="hidden" class="qty productQty"
+																pending_amount="{{resource.ResPendingTotalAmount}}"
+																min_amount="{{resource.ResMinSaleAmount}}"
+																max_amount="{{resource.ResMaxSaleAmount}}"
+																value="{{resource.productQty}}" ownerId="{{ resource.ResId }}">
+															<a class="add-to-cart" ownerId="{{ resource.ResId }}">
 																<i class="ti-shopping-cart"></i>
 																<span>{{_('Add to cart')}}</span>
 															</a>
@@ -166,7 +170,7 @@
 											<span class="label new">{{_('New')}}</span>
 										{% endif %}
 										<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
-											<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/bee/images/no_photo.svg') }}" 
+											<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/bee/images/no_photo.svg') }}"
 											alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }} {{ company.CName }}">
 										</a>
 										{% if current_user.is_authenticated %}
@@ -176,8 +180,12 @@
 												</a>
 											</div>
 										{% endif %}
-										<input type="hidden" class="qty productQty" pending_amount="{{resource.ResPendingTotalAmount}}" value="{{resource.productQty}}" ownerId="{{ resource.ResId }}">
-										<a href="#" class="add-to-cart" ownerId="{{ resource.ResId }}">
+										<input type="hidden" class="qty productQty"
+											pending_amount="{{resource.ResPendingTotalAmount}}"
+											min_amount="{{resource.ResMinSaleAmount}}"
+											max_amount="{{resource.ResMaxSaleAmount}}"
+											value="{{resource.productQty}}" ownerId="{{ resource.ResId }}">
+										<a class="add-to-cart" ownerId="{{ resource.ResId }}">
 											<i class="ti-shopping-cart"></i>
 											<span>{{_('Add to cart')}}</span>
 										</a>

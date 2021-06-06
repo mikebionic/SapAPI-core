@@ -4,25 +4,21 @@ var successToaster = function(message){
 	title: 'Success!',
 	message: message,
 	position: 'topRight'
-  });
+	});
 }
 var errorToaster = function(message){
 	iziToast.error({
 	title: 'Error!',
 	message: message,
 	position: 'topRight'
-  });
+	});
 }
 var warningToaster = function(message){
 	iziToast.warning({
 	title: 'Warning!',
 	message: message,
 	position: 'bottomRight'
-  });
-}
-
-function sweetAlert(title,desc,style){
-  swal(title,desc,style);
+	});
 }
 
 //////// working with forms ///////
@@ -44,12 +40,12 @@ function clearOwnerFields(formFields,formId){
 
 function getRegNo(url){
 	$.ajax({
-	  type : 'GET',
-	  url : url,
-	  success: function(response){
-	  	// regForm returns a special area to place the data
+		type : 'GET',
+		url : url,
+		success: function(response){
+			// regForm returns a special area to place the data
 		$('.'+response.regNoForm).val(response.regNo);
-	  }
+		}
 	});
 }
 
@@ -127,18 +123,19 @@ function validateOwnerInput(requiredFields,formId=null){
 	else {return true;}
 }
 
-var postData = function(formData,url,type,formId,listName,responseForm,alertStyle){
+
+var postData = function(payload_data,url,type,formId,listName,responseForm,alertStyle){
 	$.ajax({
 		contentType:"application/json",
 		dataType:"json",
-		data:JSON.stringify(formData),
+		data:JSON.stringify(payload_data),
 		type:type,
 		url:url,
 		success:function(response){
 			if (response.status == 'created'){
-				$('.'+listName).prepend(response[responseForm]);
+				$(`.${listName}`).prepend(response[responseForm]);
 				if (alertStyle == 'swal'){
-					swal(title="Success",desc=response.responseText,style="success");
+					swal(title=success_title,desc=response.responseText,style="success");
 				}
 				else{
 					successToaster(response.responseText);
@@ -146,7 +143,7 @@ var postData = function(formData,url,type,formId,listName,responseForm,alertStyl
 			}
 			else if (response.status == 'updated'){
 				if (alertStyle == 'swal'){
-					swal(title="Success",desc=response.responseText,style="success");
+					swal(title=success_title,desc=response.responseText,style="success");
 				}
 				else{
 					successToaster(response.responseText);
@@ -154,16 +151,16 @@ var postData = function(formData,url,type,formId,listName,responseForm,alertStyl
 			}
 			else if (response.status == 'deleted'){
 				if (alertStyle == 'swal'){
-					swal(title="Success",desc=response.responseText,style="success");
+					swal(title=success_title,desc=response.responseText,style="success");
 				}
 				else{
 					successToaster(response.responseText);
 				}
-				$('[ownerId='+formId+']').remove();
+				$(`[ownerId=${formId}]`).remove();
 			}
 			else{
 				if (alertStyle == 'swal'){
-					swal(title="Error",desc=response.responseText,style="warning");
+					swal(title=error_title,desc=response.responseText,style="warning");
 				}
 				else{
 					errorToaster(response.responseText);

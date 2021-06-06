@@ -12,6 +12,7 @@ from .User_login_manager import *
 from .Acc_type import *
 from .Accounting_info import *
 from .AdditionalInf import *
+from .App_release import *
 from .Award import *
 from .Bank import *
 from .Barcode import *
@@ -45,6 +46,8 @@ from .Inv_type import *
 from .Invoice import *
 from .Language import *
 from .Location import *
+from .Media_category import *
+from .Media import *
 from .Nationality import *
 from .Order_inv_line import *
 from .Order_inv_type import *

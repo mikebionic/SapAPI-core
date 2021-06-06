@@ -4,6 +4,7 @@ from datetime import datetime
 
 from main_pack import db, bcrypt
 
+from main_pack.config import Config
 from main_pack.models import Rp_acc
 from .add_Rp_acc_dict import add_Rp_acc_dict
 from main_pack.key_generator.utils import makeRegNo, generate
@@ -73,7 +74,7 @@ def save_rp_acc_req_data(req, model_type, current_user, session = None):
 			db.session.commit()
 
 		except Exception as ex:
-			print(f"{datetime.now()} | v1 Rp_acc Api sych Exception: {ex}")
+			print(f"{datetime.now()} | v1 Rp_acc Api synch Exception: {ex}")
 			fails.append(rp_acc_req)
 
 	return data, fails

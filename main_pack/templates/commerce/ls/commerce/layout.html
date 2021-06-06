@@ -5,7 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Lomaý Söwda | {{ title if title else _('Commerce') }}</title>
-		<meta name="description" content="Ecommerce {{ company.CName }} {{ company.CDesc }}">
+		<meta name="description" content="{% if Config.Desc %}{{ Config.Desc }}{% else %} Online commerce {{ company.CName }} {{ company.CDesc if company.CDesc}}{% endif %}">
 		<link rel="stylesheet" href="{{ url_for('static', filename='commerce/ls/css/bootstrap.min.css') }}">
 		<link rel="stylesheet" href="{{ url_for('static', filename='commerce/ls/css/style.css') }}">
 		<link rel="stylesheet" href="{{ url_for('static', filename='commerce/ls/css/orange.css') }}">
@@ -550,21 +550,23 @@
 		<script src="{{ url_for('static', filename='commerce/ls/js/jquery.waypoints.min.js') }}"></script>
 		<script src="{{ url_for('static', filename='commerce/ls/js/waypoints-sticky.min.js') }}"></script>
 		<script src="{{ url_for('static', filename='commerce/ls/js/slick.min.js') }}"></script>
-		<script src="{{ url_for('static', filename='commerce/ls/js/js.cookie.min.js') }}"></script>
 		<script src="{{ url_for('static', filename='commerce/ls/js/scripts.js') }}"></script>
-		<script src="{{ url_for('static', filename='commerce/ls/js/cartsAndCheckouts.js') }}"></script>
+		<!-- <script src="{{ url_for('static', filename='commerce/ls/js/cartsAndCheckouts.js') }}"></script> -->
 		<script src="{{ url_for('static', filename='commerce/ls/js/rating.js') }}"></script>
+
+		<script src="{{ url_for('static', filename='commerce/ls/js/pure_functions.js') }}"></script>
+		<script src="{{ url_for('static', filename='commerce/ls/js/ux_actions.js') }}"></script>
 
 		<script type="text/javascript">
 			var url_prefix = "{{url_prefix if url_prefix else ''}}";
 			var add_to_cart_text = "{{_('Add to cart')}}";
-			var currency = "{{ session.currency_code if session.currency_code else 'TMT' }}"
+			var session_currency_code = "{{ session.currency_code if session.currency_code else 'TMT' }}"
 			var qty_error_text = "{{_('Cannot get more')}}";
 			var remove_from_cart_text = "{{_('Remove from cart')}}";
 			var error_title = "{{_('Error')}}";
 			var success_title = "{{_('Success')}}";
 			var unknown_error_text = "{{_('Unknown error')}}"
-			var no_photo = "{{ url_for('static', filename='commerce/ls/img/icons/no_photo.svg') }}";
+			var no_photo_errorhandler_image = "{{ url_for('static', filename='commerce/ls/img/icons/no_photo.svg') }}";
 			var rating_message = "{{_('You should put your rating and write a review')}}";
 		</script>
 		<script type="text/javascript">

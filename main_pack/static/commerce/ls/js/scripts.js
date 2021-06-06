@@ -1526,7 +1526,7 @@ function main () {
 
 document.addEventListener('error', function (event) {
 	if (event.target.tagName.toLowerCase() !== 'img') return;
-	event.target.src = no_photo;
+	event.target.src = no_photo_errorhandler_image;
 	event.target.className = 'full-width'
 }, true);
 

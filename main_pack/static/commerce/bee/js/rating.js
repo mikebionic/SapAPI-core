@@ -1,4 +1,3 @@
-
 // append .ratingStars list of specified ownerId with <i> icons "fa fa-star-half-o"
 function renderStarIconTemplate(iconClassName) {
   return `<i class="`+iconClassName+`"></i>`;
@@ -34,4 +33,3 @@ $(document).ready(function(e){
 		renderRatingStars(ratingValue,ownerId);
 	})
 })
-

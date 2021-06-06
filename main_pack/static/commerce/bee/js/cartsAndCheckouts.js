@@ -49,7 +49,7 @@ $('body').delegate('.addToCart','click',function(){
 $('body').delegate('.removeFromCart','click',function(){
 	ownerId = $(this).attr('ownerId');
 	removeFromCart(ownerId);
-	$('.add-to-cart'+'[ownerId='+ownerId+']').removeClass('added').find('i').removeClass('ti-check').addClass('ti-shopping-cart').siblings('span').text(add_to_cart_text); 
+	$('.add-to-cart'+'[ownerId='+ownerId+']').removeClass('added').find('i').removeClass('ti-check').addClass('ti-shopping-cart').siblings('span').text(add_to_cart_text);
 });
 
 $('.add-to-cart').on('click', function(e){
@@ -58,7 +58,7 @@ $('.add-to-cart').on('click', function(e){
 
 	if($(this).hasClass('added')){
 		removeFromCart(ownerId);
-		$('.add-to-cart'+'[ownerId='+ownerId+']').removeClass('added').find('i').removeClass('ti-check').addClass('ti-shopping-cart').siblings('span').text(add_to_cart_text); 
+		$('.add-to-cart'+'[ownerId='+ownerId+']').removeClass('added').find('i').removeClass('ti-check').addClass('ti-shopping-cart').siblings('span').text(add_to_cart_text);
 	} else{
 		addToCart(ownerId);
 		$('.add-to-cart'+'[ownerId='+ownerId+']').addClass('added').find('i').addClass('ti-check').removeClass('ti-shopping-cart').siblings('span').text(remove_from_cart_text);
@@ -93,7 +93,7 @@ $('body').delegate('.checkoutCartBtn','click',function(){
 	// }
 	data['PmId'] = PmId
 	data['PtId'] = 1
-	checkoutCart({"orderInv": data} ,url_prefix+'/commerce/checkout_cart_v1/','POST');
+	checkoutCart({"orderInv": data} ,url_prefix+'/commerce/checkout-cart-v1/','POST');
 });
 
 
@@ -144,7 +144,7 @@ function removeFromWishlist(ownerId){
 	$('.addToWishlist'+'[ownerId='+ownerId+']').show();
 }
 
-function addToCart(ownerId){	
+function addToCart(ownerId){
 	$('.addToCart'+'[ownerId='+ownerId+']').hide();
 	$('.removeFromCart'+'[ownerId='+ownerId+']').show();
 	priceValue = parseFloat($('.priceValue'+'[ownerId='+ownerId+']').attr('value'));
@@ -309,15 +309,15 @@ function checkoutCart(formData,url,type){
 		type: type,
 		url: url,
 		success: function(response){
-			if(response.status == 'added'){
-				sweetAlert(title='',message=response.responseText,style='success');
+			if(response.status == 1){
+				swal(title='',message=response.responseText,style='success');
 				clearCart();
 				setTimeout(function(){
 					window.location.href = url_prefix+'/orders';
 				}, 5000);
 			}
 			else{
-				sweetAlert(title='',message=response.responseText,style='warning');
+				swal(title='',message=response.responseText,style='warning');
 			}
 		}
 	})
@@ -332,19 +332,16 @@ function sendReview(formData,url,type,formId){
 		url : url,
 		success: function(response){
 			if(response.status == 'added'){
-				sweetAlert(title='',message=response.responseText,style='success');
+				swal(title='',message=response.responseText,style='success');
 				$('[ownerId='+formId+']').remove();
 			}
 			else{
-				sweetAlert(title='',message=response.responseText,style='warning');
+				swal(title='',message=response.responseText,style='warning');
 			}
 		}
 	})
 }
 
-function sweetAlert(title,message,style){
-  swal(title,message,style);
-}
 
 function cartOperations(formData,url,type,responseForm,listName){
 	$.ajax({

@@ -1,18 +1,18 @@
-from flask import render_template, url_for, jsonify, flash, session
-from flask_login import current_user, login_required
+from flask import render_template, flash, session
+from flask_login import current_user
 from datetime import datetime
 
 from . import bp, url_prefix
 from main_pack.config import Config
-from main_pack import db, gettext
+from main_pack import gettext
 
 from main_pack.api.commerce.commerce_utils import apiResourceInfo, apiFeaturedResCat_Resources
 from main_pack.commerce.commerce.utils import (
 	slidersData,
 	UiCategoriesList,
 	UiBrandsList,
-	send_email_to_company)
-from main_pack.models import Division
+	send_email_to_company,
+)
 
 from main_pack.commerce.commerce.forms import SendEmailToCompanyForm
 from main_pack.api.common import get_payment_methods
@@ -125,6 +125,9 @@ def contact():
 def cart():
 	categoriesData = UiCategoriesList()
 	payment_methods = get_payment_methods()
+
+	if "currency_code" not in session:
+		session["currency_code"] = "TMT"
 
 	return render_template(
 		f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/commerce/cart.html",

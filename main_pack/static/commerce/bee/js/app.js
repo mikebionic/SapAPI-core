@@ -1011,8 +1011,6 @@ function configureImageSizeByScreen(){
 	}
 }
 
-
-
 // //Input min
 // var selectMin = document.getElementById('input-min');
 
@@ -1108,14 +1106,14 @@ if (this.text.length > 20){
 
 document.addEventListener('error', function (event) {
 	if (event.target.tagName.toLowerCase() !== 'img') return;
-	event.target.src = no_photo;
+	event.target.src = no_photo_errorhandler_image;
 	event.target.className = 'full-width';
 	event.target.style = "padding: 45px";
 }, true);
 
 $(document).ready(function(){
 	$('img').each(function() {
-		if ($(this).attr('src') == no_photo){
+		if ($(this).attr('src') == no_photo_errorhandler_image){
 			$(this).css({'padding': '45px'})
 		}
 	})
@@ -1261,7 +1259,7 @@ $('body').delegate('.checkoutCartBtn','click',function(){
 	// }
 	data['PmId'] = PmId
 	data['PtId'] = 1
-	checkoutCart({"orderInv": data} ,url_prefix+'/commerce/checkout_cart_v1/','POST');
+	checkoutCart({"orderInv": data} ,url_prefix+'/commerce/checkout-cart-v1/','POST');
 });
 
 
@@ -1477,15 +1475,15 @@ function checkoutCart(formData,url,type){
 		type: type,
 		url: url,
 		success: function(response){
-			if(response.status == 'added'){
-				sweetAlert(title='',message=response.responseText,style='success');
+			if(response.status == 1){
+				swal(title='',message=response.responseText,style='success');
 				clearCart();
 				setTimeout(function(){
 					window.location.href = url_prefix+'/orders';
 				}, 5000);
 			}
 			else{
-				sweetAlert(title='',message=response.responseText,style='warning');
+				swal(title='',message=response.responseText,style='warning');
 			}
 		}
 	})
@@ -1500,19 +1498,16 @@ function sendReview(formData,url,type,formId){
 		url : url,
 		success: function(response){
 			if(response.status == 'added'){
-				sweetAlert(title='',message=response.responseText,style='success');
+				swal(title='',message=response.responseText,style='success');
 				$('[ownerId='+formId+']').remove();
 			}
 			else{
-				sweetAlert(title='',message=response.responseText,style='warning');
+				swal(title='',message=response.responseText,style='warning');
 			}
 		}
 	})
 }
 
-function sweetAlert(title,message,style){
-	swal(title,message,style);
-}
 
 function cartOperations(formData,url,type,responseForm,listName){
 	$.ajax({
@@ -1590,7 +1585,7 @@ var warningToaster = function(message){
 	});
 }
 
-function sweetAlert(title,desc,style){
+function swal(title,desc,style){
 	swal(title,desc,style);
 }
 
@@ -1696,18 +1691,19 @@ function validateOwnerInput(requiredFields,formId=null){
 	else {return true;}
 }
 
-var postData = function(formData,url,type,formId,listName,responseForm,alertStyle){
+
+var postData = function(payload_data,url,type,formId,listName,responseForm,alertStyle){
 	$.ajax({
 		contentType:"application/json",
 		dataType:"json",
-		data:JSON.stringify(formData),
+		data:JSON.stringify(payload_data),
 		type:type,
 		url:url,
 		success:function(response){
 			if (response.status == 'created'){
-				$('.'+listName).prepend(response[responseForm]);
+				$(`.${listName}`).prepend(response[responseForm]);
 				if (alertStyle == 'swal'){
-					swal(title="Success",desc=response.responseText,style="success");
+					swal(title=success_title,desc=response.responseText,style="success");
 				}
 				else{
 					successToaster(response.responseText);
@@ -1715,7 +1711,7 @@ var postData = function(formData,url,type,formId,listName,responseForm,alertStyl
 			}
 			else if (response.status == 'updated'){
 				if (alertStyle == 'swal'){
-					swal(title="Success",desc=response.responseText,style="success");
+					swal(title=success_title,desc=response.responseText,style="success");
 				}
 				else{
 					successToaster(response.responseText);
@@ -1723,16 +1719,16 @@ var postData = function(formData,url,type,formId,listName,responseForm,alertStyl
 			}
 			else if (response.status == 'deleted'){
 				if (alertStyle == 'swal'){
-					swal(title="Success",desc=response.responseText,style="success");
+					swal(title=success_title,desc=response.responseText,style="success");
 				}
 				else{
 					successToaster(response.responseText);
 				}
-				$('[ownerId='+formId+']').remove();
+				$(`[ownerId=${formId}]`).remove();
 			}
 			else{
 				if (alertStyle == 'swal'){
-					swal(title="Error",desc=response.responseText,style="warning");
+					swal(title=error_title,desc=response.responseText,style="warning");
 				}
 				else{
 					errorToaster(response.responseText);

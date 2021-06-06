@@ -26,6 +26,7 @@ class Config:
 	SAP_SERVICE_URL_PREFIX = environ.get('SAP_SERVICE_URL_PREFIX')
 	USE_ACTIVATION_CUSTOMER = int(environ.get('USE_ACTIVATION_CUSTOMER')) if environ.get('USE_ACTIVATION_CUSTOMER') else 0
 	USE_ACTIVATION_SERVER = int(environ.get('USE_ACTIVATION_SERVER')) if environ.get('USE_ACTIVATION_SERVER') else 0
+	USE_SERVERLESS_ACTIVATION = int(environ.get('USE_SERVERLESS_ACTIVATION')) if environ.get('USE_SERVERLESS_ACTIVATION') else 0
 	BASE_32_FERNET_KEY = environ.get('BASE_32_FERNET_KEY')
 	DEVICE_ALLOWED_TIMEOUT_DAYS = int(environ.get('DEVICE_ALLOWED_TIMEOUT_DAYS')) if environ.get('DEVICE_ALLOWED_TIMEOUT_DAYS') else 0
 
@@ -165,7 +166,7 @@ class Config:
 	# if no left in Res_total.ResTotBalace
 	SHOW_NEGATIVE_WH_QTY_RESOURCE = int(environ.get('SHOW_NEGATIVE_WH_QTY_RESOURCE')) if environ.get('SHOW_NEGATIVE_WH_QTY_RESOURCE') else 0
 	SHOW_NULL_RESOURCE_CATEGORY = int(environ.get('SHOW_NULL_RESOURCE_CATEGORY')) if environ.get('SHOW_NULL_RESOURCE_CATEGORY') else 1
-
+	SEARCH_BY_RESOURCE_DESCRIPTION = int(environ.get('SEARCH_BY_RESOURCE_DESCRIPTION')) if environ.get('SEARCH_BY_RESOURCE_DESCRIPTION') else 1
 	SHOW_ONLY_VALIDATED_RATING = 1
 
 	MAIN_CURRENCY_CODE = environ.get('MAIN_CURRENCY_CODE') or 'TMT'
@@ -282,3 +283,5 @@ class Config:
 	# location of robots.txt and sitemap.xml
 	WEB_CONFIG_DIRECTORY = path.join("static", "web_config")
 	GOOGLE_ANALYTICS_TAG = environ.get('GOOGLE_ANALYTICS_TAG') or ''
+
+	COMMERCE_ABOUT_DESCRIPTION = environ.get('COMMERCE_ABOUT_DESCRIPTION') or ''

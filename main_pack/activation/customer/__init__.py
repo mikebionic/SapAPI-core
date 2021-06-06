@@ -4,5 +4,6 @@ api = Blueprint('activation_customer_api',__name__)
 
 from . import (
 	device_register,
-	device_fetch
+	device_fetch,
+	make_register_request,
 )

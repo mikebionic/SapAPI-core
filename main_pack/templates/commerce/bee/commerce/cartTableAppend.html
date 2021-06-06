@@ -18,7 +18,11 @@
     <td class="pro-quantity">
       <div class="pro-qty cartItemQty">
         <span class="dec qtybtn">-</span>
-        <input class="cartItemQty productQty" pending_amount="{{resource.ResPendingTotalAmount}}" ownerId="{{ resource.ResId }}" type="text" value="{{resource.productQty}}">
+        <input class="cartItemQty productQty"
+          pending_amount="{{resource.ResPendingTotalAmount}}"
+          min_amount="{{resource.ResMinSaleAmount}}"
+          max_amount="{{resource.ResMaxSaleAmount}}"
+          value="{{resource.productQty}}" ownerId="{{ resource.ResId }}">
         <span class="inc qtybtn">+</span>
       </div>
     </td>

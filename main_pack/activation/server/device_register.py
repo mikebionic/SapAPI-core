@@ -40,7 +40,8 @@ def register_device():
 		try:
 			device_info = addDeviceDict(req)
 			device_info["RpAccId"] = RpAccId
-			device_info["DevGuid"] = uuid.uuid4()
+			if not device_info["DevGuid"]:
+				device_info["DevGuid"] = uuid.uuid4()
 
 			# DevVerifyDate = datetime.now().replace(microsecond = 0)
 			# device_info["DevVerifyDate"] = DevVerifyDate

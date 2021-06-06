@@ -3,8 +3,7 @@ from datetime import datetime
 
 from main_pack import db
 from main_pack.models import Pred_reg_num
-from main_pack.key_generator.utils import generate, makeRegNo
-
+from main_pack.key_generator.utils import generate, makeRegNo, RegNumTypeNamesDict
 
 def generate_pred_reg_no(req, model_type, current_user):
 	data = None
@@ -25,6 +24,9 @@ def generate_pred_reg_no(req, model_type, current_user):
 		RegNumTypeId = req['RegNumTypeId'] if 'RegNumTypeId' in req else None
 		random_mode = req['random_mode'] if 'random_mode' in req else None
 		RegNumTypeName = req['RegNumTypeName'] if 'RegNumTypeName' in req else None
+
+		if not RegNumTypeId:
+			RegNumTypeId = RegNumTypeNamesDict[RegNumTypeName]
 
 		try:
 			reg_num = generate(
@@ -49,7 +51,6 @@ def generate_pred_reg_no(req, model_type, current_user):
 		New_Pred_regnum = Pred_reg_num(RegNum = currentRegNo, RegNumTypeId = RegNumTypeId)
 		db.session.add(New_Pred_regnum)
 		db.session.commit()
-
 		data = currentRegNo
 
 	except Exception as ex:
