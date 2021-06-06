@@ -21,8 +21,10 @@ def register_device():
 
 	data = {}
 
-	if not Config.ACTIVATION_SERVERLESS_REGISTRATION:
-		req = make_register_request(req)
+	if not Config.USE_SERVERLESS_ACTIVATION:
+		registered_req = make_register_request(req)
+		if registered_req:
+			req = registered_req
 
 	filtering = {
 		"GCRecord": None,

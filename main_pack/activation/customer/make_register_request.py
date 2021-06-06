@@ -21,12 +21,12 @@ def make_register_request(payload):
 
 		server_response = r.json()
 
+		if (r.status_code == 200 or r.status_code == 201):
+			if server_response["status"] != 0:
+				data = server_response["data"]
+
 	except Exception as ex:
 		print(f"{datetime.now()} | Device register response json Exception: {ex}")
 
-	# if Config.ACTIVATION_SERVERLESS_DEVICE_REGISTER:
-	if (r.status_code == 200 or r.status_code == 201):
-		if server_response["status"] != 0:
-			data = server_response["data"]
 	
 	return data
