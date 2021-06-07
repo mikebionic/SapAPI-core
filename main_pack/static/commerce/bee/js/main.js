@@ -788,7 +788,6 @@ $('body').delegate('.qtybtn','click', function() {
 			newVal = 1;
 		}
 	}
-	console.log(`adding value ${newVal}`)
 	// $('.qtybtn').parent().find('input').val(newVal);
 	// $('.qtybtn').parent().find('input').text(newVal);
 	// $('.qtybtn').parent().find('input').attr('value', newVal);

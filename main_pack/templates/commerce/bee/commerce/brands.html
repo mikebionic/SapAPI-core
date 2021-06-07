@@ -1,5 +1,10 @@
 {% extends "commerce/bee/commerce/layout.html" %}
 
+
+{% block head %}
+<meta name="description" content="{% for brand in brands %} {{_('Brand')}} {{brand.BrandName}} {% endfor %}">
+{% endblock %}
+
 {% block breadcrumbs %}
 <nav class="woocommerce-breadcrumb">
 	<a href="{{ url_for('commerce.commerce') }}">{{_('Main')}}</a>

@@ -1,5 +1,13 @@
 {% extends "commerce/bee/commerce/layout.html" %}
 
+
+{% block head %}
+<meta name="description" content="
+	{{_('Showing')}} | {% for sort in sort_types %}{{ sort.sort_title if sort.status == 1 }}{% endfor %}
+	{{_('Products')}}: {% for resource in data %} {{ resource.ResName }}, {% endfor %} 
+">
+{% endblock %}
+
 {% block breadcrumbs %}
 <nav class="woocommerce-breadcrumb">
 	<a href="{{ url_for('commerce.commerce') }}">{{_('Main')}}</a>

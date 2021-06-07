@@ -5,6 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Lomaý Söwda | {{ title if title else _('Commerce') }}</title>
+		{% block head %}{% endblock %}
 		<meta name="description" content="{% if Config.Desc %}{{ Config.Desc }}{% else %} Online commerce {{ company.CName }} {{ company.CDesc if company.CDesc}}{% endif %}">
 		<link rel="stylesheet" href="{{ url_for('static', filename='commerce/ls/css/bootstrap.min.css') }}">
 		<link rel="stylesheet" href="{{ url_for('static', filename='commerce/ls/css/style.css') }}">

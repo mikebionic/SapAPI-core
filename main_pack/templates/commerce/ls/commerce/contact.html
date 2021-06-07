@@ -1,5 +1,19 @@
 {% extends "commerce/ls/commerce/layout.html" %}
 
+
+{% block head %}
+<meta name="description" content="
+	{{company.CName}} | {{company.CFullName if company.CFullName else ''}}
+	{{company.CDesc if company.CDesc else ''}}
+	{% if company.CEmail %} {{_('Email')}}: {{company.CEmail}} {% endif %}
+	{% if company.CAddress %} {{_('Address')}}: {{company.CAddress}} {% endif %}
+	{% if company.Phone1 %} {{company.Phone1}} {% endif %}
+	{% if company.Phone2 %} {{company.Phone2}} {% endif %}
+	{% if company.Phone3 %} {{company.Phone3}} {% endif %}
+	{% if company.Phone4 %} {{company.Phone4}} {% endif %}
+">
+{% endblock %}
+
 {% block breadcrumbs %}
 	<nav class="woocommerce-breadcrumb">
 		<a href="{{ url_for('commerce.commerce') }}">{{_('Main')}}</a>

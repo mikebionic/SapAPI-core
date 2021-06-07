@@ -1,5 +1,10 @@
 {% extends "commerce/ls/commerce/layout.html" %}
 
+
+{% block head %}
+<meta name="description" content="{{ resource.ResName }} | {{ resource.ResDesc if resource.ResDesc }}">
+{% endblock %}
+
 {% block breadcrumbs %}
 <nav class="woocommerce-breadcrumb">
 	<a href="{{ url_for('commerce.commerce') }}">{{_('Main')}}</a>

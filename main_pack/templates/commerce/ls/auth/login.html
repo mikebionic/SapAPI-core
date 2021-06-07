@@ -1,5 +1,13 @@
 {% extends "commerce/ls/commerce/layout.html" %}
 
+
+{% block head %}
+<meta name="description" content="
+	{{_("To login you account, fill the required fields and click 'Login' button")}}.
+	{{_("If you don't have an account, click the 'Register' button and proceed the registration")}}
+">
+{% endblock %}
+
 {% block content %}
 <div id="primary" class="content-area">
 	<main id="main" class="site-main">
