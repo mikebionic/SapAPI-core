@@ -12,6 +12,26 @@
 	{% if company.Phone3 %} {{company.Phone3}} {% endif %}
 	{% if company.Phone4 %} {{company.Phone4}} {% endif %}
 ">
+<meta property="og:description" content="
+	{{company.CName}} | {{company.CFullName if company.CFullName else ''}}
+	{{company.CDesc if company.CDesc else ''}}
+	{% if company.CEmail %} {{_('Email')}}: {{company.CEmail}} {% endif %}
+	{% if company.CAddress %} {{_('Address')}}: {{company.CAddress}} {% endif %}
+	{% if company.Phone1 %} {{company.Phone1}} {% endif %}
+	{% if company.Phone2 %} {{company.Phone2}} {% endif %}
+	{% if company.Phone3 %} {{company.Phone3}} {% endif %}
+	{% if company.Phone4 %} {{company.Phone4}} {% endif %}" />
+<meta property="og:image" content="{{ request.host_url }}{{ url_for('static', filename='commerce/landing_pages/ls.com/img/hero/2.jpg') }}" />
+<meta name="twitter:description" content="
+	{{company.CName}} | {{company.CFullName if company.CFullName else ''}}
+	{{company.CDesc if company.CDesc else ''}}
+	{% if company.CEmail %} {{_('Email')}}: {{company.CEmail}} {% endif %}
+	{% if company.CAddress %} {{_('Address')}}: {{company.CAddress}} {% endif %}
+	{% if company.Phone1 %} {{company.Phone1}} {% endif %}
+	{% if company.Phone2 %} {{company.Phone2}} {% endif %}
+	{% if company.Phone3 %} {{company.Phone3}} {% endif %}
+	{% if company.Phone4 %} {{company.Phone4}} {% endif %}" />
+<meta name="twitter:image" content="{{ request.host_url }}{{ url_for('static', filename='commerce/landing_pages/ls.com/img/hero/2.jpg') }}" />
 {% endblock %}
 
 {% block breadcrumbs %}

@@ -6,6 +6,16 @@
 	{{_("Register to use all the features and posibilities of ecommerce")}}.
 	{{_("If you already have an account, press 'Login' button and proceed to login process")}}.
 ">
+<meta name="og:description" content="
+{{_("Register to use all the features and posibilities of ecommerce")}}.
+	{{_("If you already have an account, press 'Login' button and proceed to login process")}}.
+" />
+<meta property="og:image" content="{{ request.host_url }}{{ url_for('static', filename='commerce/ls/img/ls_logo.svg') }}" />
+<meta name="twitter:description" content="
+{{_("Register to use all the features and posibilities of ecommerce")}}.
+	{{_("If you already have an account, press 'Login' button and proceed to login process")}}.
+" />
+<meta name="twitter:image" content="{{ request.host_url }}{{ url_for('static', filename='commerce/ls/img/ls_logo.svg') }}" />
 {% endblock %}
 
 {% block content %}

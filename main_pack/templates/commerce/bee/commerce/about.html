@@ -1,5 +1,14 @@
 {% extends "commerce/bee/commerce/layout.html" %}
 
+
+{% block head %}
+<meta property="og:description" content="{{ company.CName }} {{ company.CDesc if company.CDesc}}" />
+<meta property="og:image" content="{{ request.host_url }}{{ company_logo.FilePath if company_logo else url_for('static', filename='commerce/bee/images/favicon.svg') }}" />
+<meta name="twitter:description" content="{{ company.CName }} {{ company.CDesc if company.CDesc}}" />
+<meta name="twitter:image" content="{{ request.host_url }}{{ company_logo.FilePath if company_logo else url_for('static', filename='commerce/bee/images/favicon.svg') }}" />
+{% endblock %}
+
+
 {% block breadcrumbs %}
 <nav class="woocommerce-breadcrumb">
 	<a href="{{ url_for('commerce.commerce') }}">{{_('Main')}}</a>
@@ -25,7 +34,7 @@
 				<div class="row">
 					<div class="col-12 mb-50">
 						<h1 style="animation: pulse 20s infinite;">Welcome to <span>Hilli.</span></h1>
-						<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente voluptatibus iste adipisci dolor quasi corporis maxime explicabo deleniti molestias assumenda nulla labore ut ipsum, cumque fugit. Voluptas quos dignissimos nulla?</p>
+						<p>Hilli - electronic and computer devices shop</p>
 					</div>
 
 					<div class="col-12 mb-50">

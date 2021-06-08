@@ -6,6 +6,16 @@
 	{{_("To login you account, fill the required fields and click 'Login' button")}}.
 	{{_("If you don't have an account, click the 'Register' button and proceed the registration")}}
 ">
+<meta property="og:description" content="
+{{_("To login you account, fill the required fields and click 'Login' button")}}.
+{{_("If you don't have an account, click the 'Register' button and proceed the registration")}}
+" />
+<meta property="og:image" content="{{ request.host_url }}{{ url_for('static', filename='commerce/ls/img/ls_logo.svg') }}" />
+<meta name="twitter:description" content="
+{{_("To login you account, fill the required fields and click 'Login' button")}}.
+{{_("If you don't have an account, click the 'Register' button and proceed the registration")}}
+" />
+<meta name="twitter:image" content="{{ request.host_url }}{{ url_for('static', filename='commerce/ls/img/ls_logo.svg') }}" />
 {% endblock %}
 
 {% block content %}

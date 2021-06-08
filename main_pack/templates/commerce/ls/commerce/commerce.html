@@ -1,36 +1,62 @@
 {% extends "commerce/ls/commerce/layout.html" %}
 
+
+{% block head %}
+<meta property="og:description" content="
+2011-nji ýylyň iýul aýynyň 26-na lomaý we bölekleýin Aluw we Satuw işlerine başladyk.
+2015-nji ýylyň awgust aýynyň 28-ne Türkmenistanyň senagatçylar 
+we telekeçiler birleşmesine agza bolup, ol ýerde agza bolan başgada 
+bir naçe türkmen täjirleri bilen tejribeleri-pikirleri paýlaşyp, 
+TÜRKMENISTANDA ÖNDÜRILÝÄN harytlary-hyzmatlary Öndürijiden-SARPEDIJÄ amatly 
+bahadan, durnukly ýagdaýda, ygtybarly edip ýetirmegi maksat 
+edindik. Ýagny ýurdumyzyň çägindäki dürli welaýatlardaky dürli önümleri 
+öndürýän zawodlardan harytlaryny dillerçilikli-lomaý bahadan satyn alyp 
+olary ýurdumyzyň çägindäki dükanlara eltip berýäris." />
+<meta property="og:image" content="{{ request.host_url }}{{ url_for('static', filename='commerce/landing_pages/ls.com/img/hero/2.jpg') }}" />
+<meta name="twitter:description" content="
+2011-nji ýylyň iýul aýynyň 26-na lomaý we bölekleýin Aluw we Satuw işlerine başladyk.
+2015-nji ýylyň awgust aýynyň 28-ne Türkmenistanyň senagatçylar 
+we telekeçiler birleşmesine agza bolup, ol ýerde agza bolan başgada 
+bir naçe türkmen täjirleri bilen tejribeleri-pikirleri paýlaşyp, 
+TÜRKMENISTANDA ÖNDÜRILÝÄN harytlary-hyzmatlary Öndürijiden-SARPEDIJÄ amatly 
+bahadan, durnukly ýagdaýda, ygtybarly edip ýetirmegi maksat 
+edindik. Ýagny ýurdumyzyň çägindäki dürli welaýatlardaky dürli önümleri 
+öndürýän zawodlardan harytlaryny dillerçilikli-lomaý bahadan satyn alyp 
+olary ýurdumyzyň çägindäki dükanlara eltip berýäris." />
+<meta name="twitter:image" content="{{ request.host_url }}{{ url_for('static', filename='commerce/landing_pages/ls.com/img/hero/2.jpg') }}" />
+{% endblock %}
+
 {% block content %}
 
-			<div id="content" class="site-content" tabindex="-1">
-				<div class="col-full">
-					<div class="row">
-						<div id="primary" class="content-area">
-							<main id="main" class="site-main">
-								<div class="homev6-slider-with-banners row">
-									<div class="slider-block col-12">
-										<div class="home-v6-slider home-slider">
-											{% for slider in sliders %}
-											{% if slider.SlName == "HomePageTop" %}
-												{% for sl_image in slider.Sl_images %}
-												{% if sl_image.SlImgMainImgFilePathM %}
-													<div class="slider-1 slider-image">
-														<a href="{{ sl_image.SlImgLink if sl_image.SlImgLink else '#' }}">
-															<img loading="lazy" src="{{ sl_image.SlImgMainImgFilePathM }}" data-src-m="{{ sl_image.SlImgMainImgFilePathR }}"
-															alt="{{ sl_image.SlImgTitle if sl_image.SlImgTitle else 'sl_image.SlImgMainImgFileName' }} ecommerce ls {{ company.CName }} ">
-														</a>
-													</div>
-												{% endif %}
-												{% endfor %}
-											{% endif %}
-											{% endfor %}
+<div id="content" class="site-content" tabindex="-1">
+	<div class="col-full">
+		<div class="row">
+			<div id="primary" class="content-area">
+				<main id="main" class="site-main">
+					<div class="homev6-slider-with-banners row">
+						<div class="slider-block col-12">
+							<div class="home-v6-slider home-slider">
+								{% for slider in sliders %}
+								{% if slider.SlName == "HomePageTop" %}
+									{% for sl_image in slider.Sl_images %}
+									{% if sl_image.SlImgMainImgFilePathM %}
+										<div class="slider-1 slider-image">
+											<a href="{{ sl_image.SlImgLink if sl_image.SlImgLink else '#' }}">
+												<img loading="lazy" src="{{ sl_image.SlImgMainImgFilePathM }}" data-src-m="{{ sl_image.SlImgMainImgFilePathR }}"
+												alt="{{ sl_image.SlImgTitle if sl_image.SlImgTitle else 'sl_image.SlImgMainImgFileName' }} ecommerce ls {{ company.CName }} ">
+											</a>
 										</div>
-									</div>
-								</div>
-							</main>
+									{% endif %}
+									{% endfor %}
+								{% endif %}
+								{% endfor %}
+							</div>
 						</div>
-						<div id="secondary" class="widget-area" role="complementary">
-						</div>
+					</div>
+				</main>
+			</div>
+			<div id="secondary" class="widget-area" role="complementary">
+			</div>
 
 		</div>
 	</div>

@@ -5,12 +5,19 @@
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <title>Hilli | {{ title if title else _('Commerce') }}</title>
+  <meta property="og:site_name" content="Hilli | E-commerce" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="{{ title if title else _('Commerce') }} | Hilli" />
+  <meta property="og:url" content="{{ request.url }}" />
+  <meta name="twitter:url" content="{{ request.url }}" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{{ title if title else _('Commerce') }} | Hilli" />
   {% block head %}{% endblock %}
   <meta name="description" content="{% if Config.Desc %}{{ Config.Desc }}{% else %} Online commerce {{ company.CName }} {{ company.CDesc if company.CDesc}}{% endif %}">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="shortcut icon" type="image/x-icon" href="{{ company_logo.FilePath if company_logo else url_for('static', filename='commerce/bee/images/favicon.ico') }}">
+  <link rel="shortcut icon" type="image/x-icon" href="{{ company_logo.FilePath if company_logo else url_for('static', filename='commerce/bee/images/favicon.svg') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/bee/css/app.css') }}">
-  {% block styles %}{% endblock %}
+	{% block styles %}{% endblock %}
   {% if Config.GOOGLE_ANALYTICS_TAG %}
     <script async src="https://www.googletagmanager.com/gtag/js?id={{Config.GOOGLE_ANALYTICS_TAG}}"></script>
     <script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', '{{Config.GOOGLE_ANALYTICS_TAG}}');</script>

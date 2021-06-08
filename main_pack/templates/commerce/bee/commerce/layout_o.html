@@ -7,7 +7,7 @@
   <title>{{ title if title else _('Commerce') }}</title>
   <meta name="description" content="Ecommerce {{ company.CName }} {{ company.CDesc if company.CDesc else '' }}">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="shortcut icon" type="image/x-icon" href="{{ company_logo.FilePath if company_logo else url_for('static', filename='commerce/bee/images/favicon.ico') }}">
+  <link rel="shortcut icon" type="image/x-icon" href="{{ company_logo.FilePath if company_logo else url_for('static', filename='commerce/bee/images/favicon.svg') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/bee/css/app.css') }}">
   {% block styles %}{% endblock %}
   {% if Config.GOOGLE_ANALYTICS_TAG %}

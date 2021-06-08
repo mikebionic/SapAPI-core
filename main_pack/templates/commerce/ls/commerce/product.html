@@ -3,6 +3,10 @@
 
 {% block head %}
 <meta name="description" content="{{ resource.ResName }} | {{ resource.ResDesc if resource.ResDesc }}">
+<meta property="og:description" content="{{ resource.ResName }} | {{ resource.ResDesc if resource.ResDesc }}" />
+<meta property="og:image" content="{{ request.host_url }}{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/ls/img/ls_logo.svg') }}" />
+<meta name="twitter:description" content="{{ resource.ResName }} | {{ resource.ResDesc if resource.ResDesc }}" />
+<meta name="twitter:image" content="{{ request.host_url }}{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/ls/img/ls_logo.svg') }}" />
 {% endblock %}
 
 {% block breadcrumbs %}
