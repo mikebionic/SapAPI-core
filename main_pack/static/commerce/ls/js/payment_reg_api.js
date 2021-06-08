@@ -100,11 +100,16 @@ function req_payment_request(payload, url){
 function open_payment_window(url){
 	var window_properties = "width=600,height=400,resizable=yes,location=no"
 	var paymentWin = window.open(url, 'Payment', window_properties)
-	paymentWin.addEventListener('unload', function() {
-		setTimeout(() => {
-			detect_window_close(paymentWin);
-		}, 5000);
-	});
+	try {
+		paymentWin.addEventListener('unload', function() {
+			setTimeout(() => {
+				detect_window_close(paymentWin);
+			}, 5000);
+		});
+	}
+	catch {
+		swal(title=unknown_error_text, message=unknown_error_text, style='warning');
+	}
 }
 
 function detect_window_close(current_window){
@@ -112,13 +117,14 @@ function detect_window_close(current_window){
 		try {
 			if (current_window.closed){
 				clearInterval(win_closed_interval);
+				console.log('payment closed')
 				validate_oinv_payment();
 				}
 			}
 		catch {
 			clearInterval(win_closed_interval);
 		}
-	}, 100);
+	}, 500);
 }
 
 function detect_url_change(current_window){
