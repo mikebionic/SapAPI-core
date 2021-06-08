@@ -25,8 +25,6 @@ def do_mpi_gov_tm_payment_service_register_request(req):
 	payment_order_check_req_url = f"{register_url}orderNumber={RegNo}&currency={currency}&amount={TotalPrice}&language={language}&password={service_password}&returnUrl={returnUrl}"
 
 	try:
-		print("trying payment")
-		print(payment_order_check_req_url)
 		r = requests.get(payment_order_check_req_url, verify=False)
 		response_json = json.loads(r.text)
 
@@ -37,7 +35,9 @@ def do_mpi_gov_tm_payment_service_register_request(req):
 		# if last regNo request already registered
 		if int(response_json['errorCode']) == 1:
 			new_RegNo = str(datetime.now().timestamp())
-			payment_order_check_req_url = f"{register_url}orderNumber={new_RegNo}&currency={currency}&amount={TotalPrice}&language={language}&password={service_password}&returnUrl={returnUrl}"
+			RegNo = update_order_RegNo(RegNo, new_RegNo)
+
+			payment_order_check_req_url = f"{register_url}orderNumber={RegNo}&currency={currency}&amount={TotalPrice}&language={language}&password={service_password}&returnUrl={returnUrl}"
 
 			r = requests.get(payment_order_check_req_url, verify=False)
 			response_json = json.loads(r.text)
@@ -45,8 +45,6 @@ def do_mpi_gov_tm_payment_service_register_request(req):
 			if int(response_json["errorCode"]) != 0:
 				raise Exception
 
-			# update_order_RegNo(RegNo, new_RegNo)
-			RegNo = new_RegNo
 
 		data = response_json
 		data["RegNo"] = RegNo
@@ -58,11 +56,16 @@ def do_mpi_gov_tm_payment_service_register_request(req):
 
 	return data
 
+
 def update_order_RegNo(RegNo, new_RegNo):
 	try:
 		order = Order_inv.query.filter_by(OInvRegNo = RegNo).first()
 		if order:
 			order.OInvRegNo = new_RegNo
 			db.session.commit()
-	except:
-		pass
+			RegNo = order.OInvRegNo
+
+	except Exception as ex:
+		print(f"{datetime.now()} | order RegNo update Exception: {ex}")
+	
+	return RegNo

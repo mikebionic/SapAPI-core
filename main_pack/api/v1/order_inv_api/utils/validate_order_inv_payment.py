@@ -60,6 +60,7 @@ def validate_order_inv_payment(req, model_type, current_user):
 						elif (PaymentAmount < order_inv.OInvFTotal and PaymentAmount > 0):
 							order_inv.PaymStatusId = 3
 						message = "Payment Validation: success"
+						status = 1
 
 					else:
 						# invoice status = "Payment fail"
@@ -75,7 +76,6 @@ def validate_order_inv_payment(req, model_type, current_user):
 					order_inv.PaymDesc = OrderId
 					db.session.commit()
 					data = response_json
-					status = 1
 
 				except Exception as ex:
 					message = "Payment Validation: failed (Connection error)"

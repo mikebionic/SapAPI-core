@@ -35,7 +35,6 @@ def save_order_checkout_data(req, model_type, current_user, session = None):
 		if "OInvRegNo" in req["orderInv"]:
 			orderRegNo = req["orderInv"]["OInvRegNo"] if req["orderInv"]["OInvRegNo"] else None
 
-		print(orderRegNo)
 		InvStatId = None
 		if "InvStatId" in req["orderInv"]:
 			InvStatId = int(req["orderInv"]["InvStatId"]) if req["orderInv"]["InvStatId"] else None
@@ -169,7 +168,7 @@ def save_order_checkout_data(req, model_type, current_user, session = None):
 			this_Order_inv.OInvFTotal = round(float(OInvFTotal), 2)
 			this_Order_inv.OInvFTotalInWrite = OInvFTotalInWrite
 
-			if pred_reg_num:
+			if pred_reg_num and InvStatId == 1:
 				db.session.delete(pred_reg_num)
 
 			db.session.commit()

@@ -10,37 +10,34 @@ const oinv_validation_url = `${url_prefix}/order-inv-validation/`;
 function gen_Reg_no_and_open_payment(payload_data, url, type){
 	var order_data = get_local_data_by_name("orderInv");
 	var RegNum = order_data["orderInv"]["OInvRegNo"];
-	if (RegNum){
-		order_data["orderInv"]["InvStatId"] = 13;
-		set_local_data_by_name("orderInv", order_data)
-		checkoutOrder(order_data, checkout_oinv_url);
-	}
-	else {
-		$.ajax({
-			contentType: "application/json",
-			dataType: "json",
-			data: JSON.stringify(payload_data),
-			type: type,
-			url: url,
-			success: function(response){
-				if (response.status == 1){
-					var RegNum = response.data;
-					var order_data = get_local_data_by_name("orderInv");
-					order_data["orderInv"]["InvStatId"] = 13;
-					order_data["orderInv"]["OInvRegNo"] = RegNum;
-					set_local_data_by_name("orderInv", order_data)
-					checkoutOrder(order_data, checkout_oinv_url);
-				}
-				else{
-					swal(title=error_title,desc=unknown_error_text,style="warning");
-				}
-			},
-			error: function(response){
-				console.log(response)
+	// if (RegNum){
+	// 	order_data["orderInv"]["InvStatId"] = 13;
+	// 	set_local_data_by_name("orderInv", order_data)
+	// 	checkoutOrder(order_data, checkout_oinv_url);
+	// }
+	$.ajax({
+		contentType: "application/json",
+		dataType: "json",
+		data: JSON.stringify(payload_data),
+		type: type,
+		url: url,
+		success: function(response){
+			if (response.status == 1){
+				var RegNum = response.data;
+				var order_data = get_local_data_by_name("orderInv");
+				order_data["orderInv"]["InvStatId"] = 13;
+				order_data["orderInv"]["OInvRegNo"] = RegNum;
+				set_local_data_by_name("orderInv", order_data)
+				checkoutOrder(order_data, checkout_oinv_url);
+			}
+			else{
 				swal(title=error_title,desc=unknown_error_text,style="warning");
 			}
-		})
-	}
+		},
+		error: function(response){
+			swal(title=error_title,desc=unknown_error_text,style="warning");
+		}
+	})
 }
 
 
@@ -72,7 +69,6 @@ function checkoutOrder(payload_data,url){
 function req_payment_url_prepare(reg_no){
 	cart_totals_data = configure_cart_item_count()
 	payload = {
-		// "RegNo": "reg_no1113",
 		"RegNo": reg_no,
 		"TotalPrice": cart_totals_data["totalPrice"],
 		"OrderDesc": $('.orderDesc').val()
@@ -93,45 +89,45 @@ function req_payment_request(payload, url){
 			var order_data = get_local_data_by_name("orderInv");
 			order_data["orderInv"]["OrderId"] = response.data.orderId;
 			set_local_data_by_name("orderInv", order_data);
-			validate_oinv_payment();
-			// open_payment_window(formUrl)
+			open_payment_window(formUrl)
 		},
 		error: function(response){
-			console.log(response)
 			swal(title=error_title,desc=unknown_error_text,style="warning");
 		}
 	})
 }
 
 function open_payment_window(url){
-
-	// // example url
-	// https://mpi.gov.tm/payment/merchants/online/payment_ru.html?mdOrder=ae8b6f3a-cc4d-406a-a5cd-931e1d1f124e
-	
-	// // changed to example
-	// https://mpi.gov.tm/payment/merchants/online/errors_ru.html?error=payment.errors.order_already_processed
-
-	var index_url = "mpi.gov.tm/payment/merchants/online/payment_ru.html?mdOrder"
 	var window_properties = "width=600,height=400,resizable=yes,location=no"
 	var paymentWin = window.open(url, 'Payment', window_properties)
 	paymentWin.addEventListener('unload', function() {
 		setTimeout(() => {
-			if (paymentWin.location.href.indexOf(index_url) > 0){
-				detect_url_change(paymentWin)
-			}
+			detect_window_close(paymentWin);
 		}, 5000);
 	});
+}
+
+function detect_window_close(current_window){
+	win_closed_interval = setInterval(() => {
+		try {
+			if (current_window.closed){
+				clearInterval(win_closed_interval);
+				validate_oinv_payment();
+				}
+			}
+		catch {
+			clearInterval(win_closed_interval);
+		}
+	}, 100);
 }
 
 function detect_url_change(current_window){
 	var current_location = current_window.location.href
 	const win_location = setInterval(() => {
 		try {
-			console.log(current_window.location.href)
 			if (current_window.location.href !== current_location) {
-				console.log("url changed");
 				clearInterval(win_location);
-				// send validation request
+				validate_oinv_payment();
 			}
 			if (!current_window.location.href){
 				clearInterval(win_location)
@@ -146,6 +142,31 @@ function detect_url_change(current_window){
 
 function validate_oinv_payment(){
 	var order_data = get_local_data_by_name("orderInv");
-	var payload_data = order_data['orderInv']
-	checkoutCart(payload_data, oinv_validation_url, "POST")
+	var payload_data = order_data['orderInv'];
+	validateRequest(payload_data, oinv_validation_url);
+}
+
+function validateRequest(payload_data, url){
+	$.ajax({
+		contentType:"application/json",
+		dataType:"json",
+		data: JSON.stringify(payload_data),
+		type: "POST",
+		url: url,
+		success: function(response){
+			if(response.status == 1){
+				swal(title=success_title, message=response.responseText, style='success');
+				clearCart();
+				setTimeout(function(){
+					window.location.href = `${url_prefix}/orders`;
+				}, 5000);
+			}
+			else{
+				swal(title=unknown_error_text, message=response.responseText, style='warning');
+			}
+		},
+		error: function(){
+			swal(title=unknown_error_text, message=unknown_error_text, style='warning');
+		}
+	})
 }

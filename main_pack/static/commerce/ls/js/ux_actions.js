@@ -296,7 +296,6 @@ $('body').delegate('.checkoutCartBtn','click',function(){
 	var order_data = get_local_data_by_name("orderInv");
 	if (order_data["orderInv"]){
 		if (!order_data["validated"]){
-			console.log("found order not validated, skipping reset")
 			order_data["orderInv"]["PmId"] = data["PmId"];
 			order_data["orderInv"]["PtId"] = data["PtId"];
 			order_data["orderInv"]["OInvDesc"] = data["OInvDesc"];

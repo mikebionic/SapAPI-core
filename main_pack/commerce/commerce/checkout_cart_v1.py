@@ -24,7 +24,6 @@ def checkout_cart_v1():
 		"data": {},
 	}
 
-	print(req)
 	try:
 		if session["model_type"] == "user":
 			raise Exception
