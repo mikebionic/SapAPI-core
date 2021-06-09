@@ -45,7 +45,6 @@ def do_mpi_gov_tm_payment_service_register_request(req):
 			if int(response_json["errorCode"]) != 0:
 				raise Exception
 
-
 		data = response_json
 		data["RegNo"] = RegNo
 		data["TotalPrice"] = TotalPrice
