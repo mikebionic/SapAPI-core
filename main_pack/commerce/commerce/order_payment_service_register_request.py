@@ -16,6 +16,7 @@ from main_pack.api.v1.order_inv_api.utils import do_mpi_gov_tm_payment_service_r
 @request_is_json(request)
 def order_payment_service_register_request():
 	req = request.get_json()
+	req["OInvRegNo"] = req["RegNo"] 
 	data = do_mpi_gov_tm_payment_service_register_request(req)
 
 	res = {

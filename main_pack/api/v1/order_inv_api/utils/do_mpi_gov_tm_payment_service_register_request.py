@@ -10,7 +10,7 @@ from main_pack.models import Order_inv
 def do_mpi_gov_tm_payment_service_register_request(req):
 	data = {}
 
-	RegNo = req['RegNo']
+	RegNo = req['OInvRegNo']
 	TotalPrice = int(round(float(req['TotalPrice']), 2) * 100)
 	OrderDesc = req['OrderDesc']
 
@@ -47,6 +47,7 @@ def do_mpi_gov_tm_payment_service_register_request(req):
 
 		data = response_json
 		data["RegNo"] = RegNo
+		data["OInvRegNo"] = RegNo
 		data["TotalPrice"] = TotalPrice
 		data["OrderDesc"] = OrderDesc
 

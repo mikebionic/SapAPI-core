@@ -562,7 +562,7 @@ Returns only if the **Rp_acc** is the **owner** of invoice
 
 | __Route__   | __Methods__ | __Status__ | __Note__            |
 | ----------- | :---------: | :--------: | ------------------- |
-| /v-rp-accs/ |   **GET**   | **Active** | **@token required** |
+| /v-rp-accs/ |   **GET**   |   Active   | **@token required** |
 
 **Properties**
 | __Name__      |         __Type__         | __Description__ | __Example__ |
@@ -581,26 +581,30 @@ Returns only if the **Rp_acc** is the **owner** of invoice
 
 | __Route__                |   __Methods__    | __Status__ | __Note__                                                   |
 | ------------------------ | :--------------: | :--------: | ---------------------------------------------------------- |
-| /v-rp-accs/              |     **POST**     | **Active** | **@token required**                                        |
-| /tbl-rp-accs/            | **GET** **POST** | **Active** | **@sha required**                                          |
-| /check-rp-acc-existence/ |     **POST**     | **Active** | gives info of rp_acc by provided json of data if it exists |
+| /v-rp-accs/              |     **POST**     |   Active   | **@token required**                                        |
+| /tbl-rp-accs/            | **GET** **POST** |   Active   | **@sha required**                                          |
+| /check-rp-acc-existence/ |     **POST**     |   Active   | gives info of rp_acc by provided json of data if it exists |
 
 ---
 
 
 ## Order inv api
 
+> Checkout order invoice
+
 | __Route__                 | __Methods__ | __Status__ | __Note__            |
 | ------------------------- | :---------: | :--------: | ------------------- |
-| /checkout-sale-order-inv/ |  **POST**   | **Active** | **@token required** |
+| /checkout-sale-order-inv/ |  **POST**   |   Active   | **@token required** |
 
 [example request](./examples/checkout_order_inv_api.md)
 
 ---
 
+> Get orders data
+
 | __Route__            | __Methods__ | __Status__ | __Note__          |
 | -------------------- | :---------: | :--------: | ----------------- |
-| /tbl-order-invoices/ |   **GET**   | **Active** | **@sha required** |
+| /tbl-order-invoices/ |   **GET**   |   Active   | **@sha required** |
 
 **Properties**
 | __Name__  |         __Type__         | __Description__ | __Example__ |
@@ -614,9 +618,19 @@ Returns only if the **Rp_acc** is the **owner** of invoice
 
 ---
 
+> Post orders from synchronizer
+
+| __Route__            | __Methods__ | __Status__ | __Note__          |
+| -------------------- | :---------: | :--------: | ----------------- |
+| /tbl-order-invoices/ |   **POST**   |   Active   | **@sha required** |
+
+---
+
+> Get rp_acc's orders data
+
 | __Route__          | __Methods__ | __Status__ | __Note__            |
 | ------------------ | :---------: | :--------: | ------------------- |
-| /v-order-invoices/ |   **GET**   | **Active** | **@token required** |
+| /v-order-invoices/ |   **GET**   |   Active   | **@token required** |
 
 **Properties**
 | __Name__  |         __Type__         | __Description__ | __Example__ |
@@ -628,11 +642,12 @@ Returns only if the **Rp_acc** is the **owner** of invoice
 
 ---
 
+> Get orders by reg no
 
 | __Route__                          | __Methods__ | __Status__ | __Note__            |
 | ---------------------------------- | :---------: | :--------: | ------------------- |
-| /v-order-invoices/<Order_RegNo>/   |   **GET**   | **Active** | **@token required** |
-| /tbl-order-invoices/<Order_RegNo>/ |   **GET**   | **Active** | **@sha required**   |
+| /v-order-invoices/<Order_RegNo>/   |   **GET**   |   Active   | **@token required** |
+| /tbl-order-invoices/<Order_RegNo>/ |   **GET**   |   Active   | **@sha required**   |
 
 **Properties**
 | __Name__ | __Type__ | __Description__ | __Example__ |
@@ -641,12 +656,55 @@ Returns only if the **Rp_acc** is the **owner** of invoice
 
 ---
 
+> Request for order payment register
+> This will return registered orderId and url that could be used for further payment
+
+| __Route__              | __Methods__ | __Status__ | __Note__            |
+| ---------------------- | :---------: | :--------: | ------------------- |
+| /order-payment-register-request/ |  **POST**   |   Active   | **@token required** |
+
+[Example](./examples/order_payment_register_request.md)
+
+---
+
+
+> Validate order
+
+| __Route__              | __Methods__ | __Status__ | __Note__            |
+| ---------------------- | :---------: | :--------: | ------------------- |
+| /order-inv-validation/ |  **POST**   |   Active   | **@token required** |
+
+[Example](./examples/order_inv_validation.md)
+
+---
+
+> Paginate order invoices
+
+| __Route__                   | __Methods__ | __Status__  | __Note__            |
+| --------------------------- | :---------: | :---------: | ------------------- |
+| /v-order-invoices/paginate/ |   **GET**   | Development | **@token required** |
+
+
+
+---
+
+## Payment info api
+
+
+| __Route__                         | __Methods__ | __Status__ | __Note__                               |
+| --------------------------------- | :---------: | :--------: | -------------------------------------- |
+| /payment-validation-service-info/ |   **GET**   |   Active   | Gets info about online payment configs |
+
+[Example](./examples/payment_api.md)
+
+---
+
 ## Session api
 
 | __Route__                              | __Methods__ | __Status__ | __Note__ |
 | -------------------------------------- | :---------: | :--------: | -------- |
-| /set-session-currency/<currency_code>/ |   **GET**   | **Active** |
-| /set-session-language/<language_code>/ |   **GET**   | **Active** |
+| /set-session-currency/<currency_code>/ |   **GET**   |   Active   |
+| /set-session-language/<language_code>/ |   **GET**   |   Active   |
 
 ---
 
@@ -727,11 +785,11 @@ curl 127.0.0.1:5000/ls/api/v1/v-images/ --header 'images-to-exclude: [{"FileName
 
 ---
 
-# Media api
+## Media api
 
 | __Route__   | __Methods__ | __Status__ | __Note__ |
 | ----------- | :---------: | :--------: | -------- |
-| /tbl-media/ |   **GET**   | **Active** |
+| /tbl-media/ |   **GET**   |   Active   |
 
 **Properties**
 | __Name__   |         __Type__         | __Description__ | __Example__     |
