@@ -7,6 +7,7 @@ from main_pack.base.dataMethods import apiDataFormat
 
 
 # !!! TODO: Link with UId, Attachments, Tags (hashtags)
+# Add IsAllowed or IsHidden (true false)
 class Media(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_me_media"
 	MediaId = db.Column("MediaId",db.Integer,nullable=False,primary_key=True)

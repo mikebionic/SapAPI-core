@@ -466,7 +466,7 @@ Provide **username** and **password** in Authentication headers
 + /api/tbl-dk-order-inv-lines/?DivId=<id>&notDivId=<id>
 + /api/tbl-dk-order-inv-types/
 
-> GET 
+> GET
 
 ## Filtering order invoices and invoices by datetime
 
@@ -482,7 +482,7 @@ returns **all orders** if **blank**
 ```url
 /api/tbl-dk-order-invoices/?startDate=2020-07-13 13:12:32.141562&endDate=2020-07-25 13:53:50.141948
 ```
-> POST 
+> POST
 
 **@token required** of **Rp_acc** login
 + /api/checkout-sale-order-inv/
@@ -529,7 +529,7 @@ returns **all orders** if **blank**
 # URL, Key and Value should be set in Config and .env
 ```
 
-> GET 
+> GET
 
 ## Get all orders of a logged Rp_acc
 **@token_required** of **Rp_acc** login
@@ -542,7 +542,7 @@ example:
 
 
 ## Get all order lines of a specific OInvRegNo if it's owner is Rp_acc
-> GET 
+> GET
 
 **@token_required** of **Rp_acc** login
 
@@ -724,3 +724,29 @@ curl 127.0.0.1:5000/ls/api/v1/v-images/ --header 'images-to-exclude: [{"FileName
 	}
 ]
 ```
+
+---
+
+# Media api
+
+| __Route__   | __Methods__ | __Status__ | __Note__ |
+| ----------- | :---------: | :--------: | -------- |
+| /tbl-media/ |   **GET**   | **Active** |
+
+**Properties**
+| __Name__   |         __Type__         | __Description__ | __Example__     |
+| ---------- | :----------------------: | --------------- | --------------- |
+| id         |         **int**          |
+| title      |         **str**          |
+| name       |         **str**          |
+| body       |         **str**          |
+| author     |         **str**          |
+| isFeatured |         **int**          |
+| categoryId |         **int**          |
+| language   |         **str**          |                 | "tk_TM" "en_US" |
+| startDate  | **str repr of datetime** |
+| endDate    | **str repr of datetime** |
+
+[Example](./examples/media_api.md)
+
+---

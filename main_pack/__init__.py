@@ -129,6 +129,10 @@ def create_app(config_class=Config):
 	app.register_blueprint(v1_image_api, url_prefix=f"{api_url_prefix}/v1/")
 	csrf.exempt(v1_image_api)
 
+	from main_pack.api.v1.media_api import api as v1_media_api
+	app.register_blueprint(v1_media_api, url_prefix=f"{api_url_prefix}/v1/")
+	csrf.exempt(v1_media_api)
+
 	if Config.USE_ACTIVATION_CUSTOMER:
 		from main_pack.activation.customer import api as activation_customer_api
 		app.register_blueprint(activation_customer_api, url_prefix=api_url_prefix)
