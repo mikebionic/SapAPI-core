@@ -5,7 +5,6 @@ from main_pack.api.auth.utils import sha_required
 from main_pack.base.apiMethods import checkApiResponseStatus
 from main_pack.api.base.validators import request_is_json
 
-from main_pack import db
 from main_pack.api.v1.warehouse_api import api
 from main_pack.api.v1.warehouse_api.utils import save_warehouse_synch_data
 

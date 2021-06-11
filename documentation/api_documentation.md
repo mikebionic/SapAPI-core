@@ -622,7 +622,7 @@ Returns only if the **Rp_acc** is the **owner** of invoice
 
 | __Route__            | __Methods__ | __Status__ | __Note__          |
 | -------------------- | :---------: | :--------: | ----------------- |
-| /tbl-order-invoices/ |   **POST**   |   Active   | **@sha required** |
+| /tbl-order-invoices/ |  **POST**   |   Active   | **@sha required** |
 
 ---
 
@@ -659,8 +659,8 @@ Returns only if the **Rp_acc** is the **owner** of invoice
 > Request for order payment register
 > This will return registered orderId and url that could be used for further payment
 
-| __Route__              | __Methods__ | __Status__ | __Note__            |
-| ---------------------- | :---------: | :--------: | ------------------- |
+| __Route__                        | __Methods__ | __Status__ | __Note__            |
+| -------------------------------- | :---------: | :--------: | ------------------- |
 | /order-payment-register-request/ |  **POST**   |   Active   | **@token required** |
 
 [Example](./examples/order_payment_register_request.md)
@@ -696,6 +696,20 @@ Returns only if the **Rp_acc** is the **owner** of invoice
 | /payment-validation-service-info/ |   **GET**   |   Active   | Gets info about online payment configs |
 
 [Example](./examples/payment_api.md)
+
+---
+
+## RegNo api
+
+> Generate pred reg no by provided json configs
+
+| __Route__    | __Methods__ | __Status__ | __Note__            |
+| ------------ | :---------: | :--------: | ------------------- |
+| /gen-reg-no/ |  **POST**   |   Active   | **@token required** |
+
+[Example](./examples/reg_no_api.md)
+
+
 
 ---
 
