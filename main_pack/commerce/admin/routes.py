@@ -431,7 +431,7 @@ def manage_user():
 	if form.validate_on_submit():
 		try:
 			data = {
-				"UName": form.username.data,
+				"UName": form.username.data.strip(),
 				"UEmail": form.email.data,
 				"UFullName": form.full_name.data,
 				"UPass": form.password.data,
