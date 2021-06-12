@@ -46,6 +46,9 @@ class Company(AddInf, BaseModel, db.Model):
 	Resource = db.relationship("Resource",backref='company',lazy=True)
 	Rating = db.relationship("Rating",backref='company',lazy=True)
 	Slider = db.relationship("Slider",backref='company',lazy=True)
+	Emp_recruitment = db.relationship("Emp_recruitment",backref='company',lazy=True)
+	Staffing_table = db.relationship("Staffing_table",backref='company',lazy=True)
+	Contract = db.relationship("Contract",backref='company',lazy=True)
 
 	def to_json_api(self):
 		data = {

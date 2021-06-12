@@ -15,6 +15,7 @@ class Contract_type(BaseModel, db.Model):
 	ContractTypeName_enUS = db.Column("ContractTypeName_enUS",db.String(100))
 	ContractTypeDesc_enUS = db.Column("ContractTypeDesc_enUS",db.String(100))
 	Employee = db.relationship("Employee",backref='contract_type',lazy=True)
+	Contract = db.relationship("Contract",backref='contract_type',lazy=True)
 
 	def to_json_api(self):
 		data = {

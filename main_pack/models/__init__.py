@@ -23,6 +23,7 @@ from .Company import *
 from .Config_type import *
 from .Config import *
 from .Contact_type import *
+from .Contract import *
 from .Contact import *
 from .Contract_type import *
 from .Country import *
@@ -33,6 +34,8 @@ from .Department import *
 from .Discount_type import *
 from .Division import *
 from .Edu_level import *
+from .Emp_recr_line import *
+from .Emp_recruitment import *
 from .Emp_status import *
 from .Employee import *
 from .Exc_rate import *
@@ -102,6 +105,8 @@ from .Size_type import *
 from .Size import *
 from .Sl_image import *
 from .Slider import *
+from .Staffing_table import *
+from .Tag import *
 from .Transaction_type import *
 from .Translation import *
 from .Unit import *

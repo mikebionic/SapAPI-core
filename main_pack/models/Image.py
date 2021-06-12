@@ -29,6 +29,7 @@ class Image(BaseModel, db.Model):
 	MaxLightFileName = db.Column("MaxLightFileName",db.String(100),default="")
 	MaxLightFilePath = db.Column("MaxLightFilePath",db.String(255),default="")
 	Image = db.Column("Image",db.LargeBinary)
+	Tag = db.relationship("Tag",backref='image',lazy=True)
 
 	def to_json_api(self):
 		data = {

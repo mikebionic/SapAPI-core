@@ -15,6 +15,8 @@ class Profession(BaseModel, db.Model):
 	ProfessionName_enUS = db.Column("ProfessionName_enUS",db.String(50))
 	ProfessionDesc_enUS = db.Column("ProfessionDesc_enUS",db.String(500))
 	Employee = db.relationship("Employee",backref='profession',lazy=True)
+	Emp_recr_line = db.relationship("Emp_recr_line",backref='profession',lazy=True)
+	Staffing_table = db.relationship("Staffing_table",backref='profession',lazy=True)
 
 	def to_json_api(self):
 		data = {

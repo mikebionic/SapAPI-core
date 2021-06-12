@@ -72,6 +72,7 @@ class Rp_acc(AddInf, BaseModel, db.Model, UserMixin):
 	Order_inv = db.relationship("Order_inv",backref='rp_acc',lazy=True)
 	Rating = db.relationship("Rating",backref='rp_acc',lazy=True)
 	Device = db.relationship("Device",backref='rp_acc',lazy=True)
+	Contract = db.relationship("Contract",backref='rp_acc',lazy=True)
 
 	def get_reset_token(self, expires_sec=1800):
 		s = Serializer(Config.SECRET_KEY,expires_sec)
