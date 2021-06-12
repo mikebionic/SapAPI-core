@@ -1,9 +1,9 @@
-# from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.dialects.postgresql import UUID
 
 from main_pack import db
 from main_pack.models import BaseModel
 
-# !!! TODO: TagGuid | Many to many MediaId
+
 class Tag(BaseModel, db.Model):
 	__tablename__ = "tbl_me_tag"
 	TagId = db.Column("TagId",db.Integer,nullable=False,primary_key=True)
