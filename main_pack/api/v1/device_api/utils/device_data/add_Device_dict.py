@@ -2,20 +2,19 @@
 import uuid
 from main_pack.base.dataMethods import configureNulls
 
-def add_User_dict(req):
+def add_Device_dict(req):
+	DevId = req.get('DevId')
+	DevGuid = uuid.UUID(req.get('DevGuid'))
+	DevUniqueId = req.get('DevUniqueId')
 	UId = req.get('UId')
-	UGuid = uuid.UUID(req.get('UGuid'))
-	CId = req.get('CId')
-	DivId = req.get('DivId')
 	RpAccId = req.get('RpAccId')
-	UFullName = req.get('UFullName')
-	UName = req.get('UName')
-	UEmail = req.get('UEmail')
-	UPass = req.get('UPass')
-	URegNo = req.get('URegNo')
-	UShortName = req.get('UShortName')
-	EmpId = req.get('EmpId')
-	UTypeId = req.get('UTypeId')
+	DevName = req.get('DevName')
+	DevDesc = req.get('DevDesc')
+	AllowedDate = req.get('AllowedDate')
+	DisallowedDate = req.get('DisallowedDate')
+	IsAllowed = req.get('IsAllowed')
+	DevVerifyDate = req.get('DevVerifyDate')
+	DevVerifyKey = req.get('DevVerifyKey')
 	AddInf1 = req.get('AddInf1')
 	AddInf2 = req.get('AddInf2')
 	AddInf3 = req.get('AddInf3')
@@ -30,18 +29,17 @@ def add_User_dict(req):
 	GCRecord = req.get('GCRecord')
 
 	users = {
-		"UGuid": UGuid,
-		"CId": CId,
-		"DivId": DivId,
+		"DevGuid": DevGuid,
+		"DevUniqueId": DevUniqueId,
+		"UId": UId,
 		"RpAccId": RpAccId,
-		"UFullName": UFullName,
-		"UName": UName,
-		"UEmail": UEmail,
-		"UPass": UPass,
-		"URegNo": URegNo,
-		"UShortName": UShortName,
-		"EmpId": EmpId,
-		"UTypeId": UTypeId,
+		"DevName": DevName,
+		"DevDesc": DevDesc,
+		"AllowedDate": AllowedDate,
+		"DisallowedDate": DisallowedDate,
+		"IsAllowed": IsAllowed,
+		"DevVerifyDate": DevVerifyDate,
+		"DevVerifyKey": DevVerifyKey,
 		"AddInf1": AddInf1,
 		"AddInf2": AddInf2,
 		"AddInf3": AddInf3,
@@ -55,7 +53,7 @@ def add_User_dict(req):
 		"ModifiedUId": ModifiedUId,
 		"GCRecord": GCRecord
 	}
-	# if(UId != '' and UId != None):
-	# 	users["UId"] = UId
+	# if(DevId != '' and DevId != None):
+	# 	users["DevId"] = DevId
 	users = configureNulls(users)
 	return users

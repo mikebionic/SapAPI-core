@@ -7,7 +7,7 @@ from main_pack.models import BaseModel
 class Tag(BaseModel, db.Model):
 	__tablename__ = "tbl_me_tag"
 	TagId = db.Column("TagId",db.Integer,nullable=False,primary_key=True)
-	# TagGuid = db.Column("TagGuid",UUID(as_uuid=True),unique=True)
+	TagGuid = db.Column("TagGuid",UUID(as_uuid=True),unique=True)
 	ResId = db.Column("ResId",db.Integer,db.ForeignKey("tbl_dk_resource.ResId"))
 	# MediaId = db.Column("MediaId",db.Integer,db.ForeignKey("tbl_me_media.MediaId"))
 	ImgId = db.Column("ImgId",db.Integer,db.ForeignKey("tbl_dk_image.ImgId"))
@@ -24,7 +24,7 @@ class Tag(BaseModel, db.Model):
 	def to_json_api(self):
 		data = {
 			"TagId": self.TagId,
-			# "TagGuid": self.TagGuid,
+			"TagGuid": self.TagGuid,
 			"ResId": self.ResId,
 			"ImgId": self.ImgId,
 			"IsMain": self.IsMain,
