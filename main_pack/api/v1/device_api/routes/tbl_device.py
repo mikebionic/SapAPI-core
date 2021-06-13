@@ -20,7 +20,6 @@ def tbl_device_get():
 		"DevName": request.args.get("name","",type=str),
 	}
 
-	arg_data["withPassword"] = 1
 	data = collect_device_data(**arg_data)
 
 	res = {

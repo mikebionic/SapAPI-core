@@ -1,10 +1,10 @@
 from sqlalchemy.dialects.postgresql import UUID
 
 from main_pack import db
-from main_pack.models import AddInf, BaseModel
+from main_pack.models import BaseModel
 
 
-class Salary_type(AddInf, BaseModel, db.Model):
+class Salary_type(BaseModel, db.Model):
 	__tablename__ = "tbl_dk_salary_type"
 	SalaryTypeId = db.Column("SalaryTypeId",db.Integer,nullable=False,primary_key=True)
 	SalaryTypeGuid = db.Column("SalaryTypeGuid",UUID(as_uuid=True),unique=True)
@@ -26,9 +26,6 @@ class Salary_type(AddInf, BaseModel, db.Model):
 			"SalaryTypeName_enUS": self.SalaryTypeName_enUS,
 			"SalaryTypeDesc_enUS": self.SalaryTypeDesc_enUS
 		}
-
-		for key, value in AddInf.to_json_api(self).items():
-			data[key] = value
 
 		for key, value in BaseModel.to_json_api(self).items():
 			data[key] = value
