@@ -17,7 +17,7 @@ def register_device():
 	req = request.get_json()
 
 	req["DevName"] = str(datetime.now().timestamp())
-	req["DevGuid"] = uuid.uuid4()
+	req["DevGuid"] = str(uuid.uuid4())
 
 	data = {}
 
