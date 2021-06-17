@@ -25,6 +25,7 @@ from main_pack.api.common import (
 	get_currency_model_from_code,
 )
 
+from .send_order_to_server import send_order_to_server
 
 def save_order_checkout_data(req, model_type, current_user, session = None):
 	req["orderInv"]["OInvGuid"] = str(uuid.uuid4())
@@ -186,6 +187,8 @@ def save_order_checkout_data(req, model_type, current_user, session = None):
 		for e in status:
 			res[e] = status[e]
 
+		# send_order_to_server(res, dbModel = this_Order_inv)
+
 	except Exception as ex:
 		print(f"{datetime.now()} | Checkout OInv Exception: {ex}")
 		res = {
@@ -193,5 +196,6 @@ def save_order_checkout_data(req, model_type, current_user, session = None):
 			"message": "Failed to checkout order",
 			"status": 0,
 		}
+
 
 	return res

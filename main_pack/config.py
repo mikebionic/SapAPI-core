@@ -11,6 +11,9 @@ class Config:
 	# get OS Type to configure app for Windows or Linux
 	OS_TYPE = sys.platform
 
+	APP_PORT = int(environ.get('APP_PORT')) if environ.get('APP_PORT') else 5000
+	APP_HOST = environ.get('APP_HOST') or "0.0.0.0"
+
 	# basic app configs (required)
 	SECRET_KEY = environ.get('SECRET_KEY')
 	SYNCH_SHA = environ.get('SYNCH_SHA')

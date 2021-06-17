@@ -61,6 +61,8 @@ def collect_media_data(
 				extract('month',Media.MediaDate).between(startDate.month,endDate.month),\
 				extract('day',Media.MediaDate).between(startDate.day,endDate.day)))
 
+	medias = medias.order_by(Media.MediaDate.desc())
+
 	medias = medias.all()
 
 	data = [media.to_json_api() for media in medias]
