@@ -549,22 +549,6 @@
 			</div>
 		</footer>
 
-		<script src="{{ url_for('static', filename='commerce/ls/js/jquery.min.js') }}"></script>
- 		<script src="{{ url_for('static', filename='commerce/ls/js/bootstrap.min.js') }}"></script>
-		<script src="{{ url_for('static', filename='commerce/ls/js/hidemaxlistitem.min.js') }}"></script>
-		<script src="{{ url_for('static', filename='commerce/ls/js/sweetalert.min.js') }}"></script>
-		<script src="{{ url_for('static', filename='commerce/ls/js/izitoast/js/iziToast.min.js') }}"></script>
-		<script src="{{ url_for('static', filename='commerce/ls/js/ui_dynamicals.js') }}"></script>
-		<script src="{{ url_for('static', filename='commerce/ls/js/jquery.waypoints.min.js') }}"></script>
-		<script src="{{ url_for('static', filename='commerce/ls/js/waypoints-sticky.min.js') }}"></script>
-		<script src="{{ url_for('static', filename='commerce/ls/js/slick.min.js') }}"></script>
-		<script src="{{ url_for('static', filename='commerce/ls/js/scripts.js') }}"></script>
-		<!-- <script src="{{ url_for('static', filename='commerce/ls/js/cartsAndCheckouts.js') }}"></script> -->
-		<script src="{{ url_for('static', filename='commerce/ls/js/rating.js') }}"></script>
-
-		<script src="{{ url_for('static', filename='commerce/ls/js/pure_functions.js') }}"></script>
-		<script src="{{ url_for('static', filename='commerce/ls/js/ux_actions.js') }}"></script>
-
 		<script type="text/javascript">
 			var url_prefix = "{{url_prefix if url_prefix else ''}}";
 			var add_to_cart_text = "{{_('Add to cart')}}";
@@ -576,26 +560,21 @@
 			var unknown_error_text = "{{_('Unknown error')}}"
 			var no_photo_errorhandler_image = "{{ url_for('static', filename='commerce/ls/img/icons/no_photo.svg') }}";
 			var rating_message = "{{_('You should put your rating and write a review')}}";
-		</script>
-		<script type="text/javascript">
 			var csrf_token = "{{ csrf_token() }}";
-			$.ajaxSetup({
-				beforeSend: function(xhr, settings){
-					if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain){
-						xhr.setRequestHeader("X-CSRFToken", csrf_token);
-					}
-					$('#cover-spin').show()
-				},
-				error: function(jqXHR, textStatus, errorThrown) {
-					if (jqXHR.status == 401 || jqXHR.status == 400) {
-						location.reload();
-					}
-				},
-				complete: function(){
-					$('#cover-spin').hide()
-				}
-			});
-			</script>
-			{% block scripts %}{% endblock %}
+		</script>
+		<script src="{{ url_for('static', filename='commerce/ls/js/jquery.min.js') }}"></script>
+ 		<script src="{{ url_for('static', filename='commerce/ls/js/bootstrap.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='commerce/ls/js/hidemaxlistitem.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='commerce/ls/js/sweetalert.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='commerce/ls/js/izitoast/js/iziToast.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='commerce/ls/js/ui_dynamicals.js') }}"></script>
+		<script src="{{ url_for('static', filename='commerce/ls/js/jquery.waypoints.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='commerce/ls/js/waypoints-sticky.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='commerce/ls/js/slick.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='commerce/ls/js/scripts.js') }}"></script>
+		<script src="{{ url_for('static', filename='commerce/ls/js/rating.js') }}"></script>
+		<script src="{{ url_for('static', filename='commerce/ls/js/pure_functions.js') }}"></script>
+		<script src="{{ url_for('static', filename='commerce/ls/js/ux_actions.js') }}"></script>
+		{% block scripts %}{% endblock %}
 	</body>
 </html>

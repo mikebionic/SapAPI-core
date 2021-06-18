@@ -1,3 +1,18 @@
+$(document).ready(function(){
+	$.ajaxSetup({
+		beforeSend: function(xhr, settings){
+			if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain){
+				xhr.setRequestHeader("X-CSRFToken", csrf_token);
+			}
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			if (jqXHR.status == 401 || jqXHR.status == 400) {
+				location.reload();
+			}
+		}
+	});
+})
+
 
 function get_local_data_by_name(data_name = 'cart', parse_json = true){
 	var local_data = localStorage.getItem(data_name);

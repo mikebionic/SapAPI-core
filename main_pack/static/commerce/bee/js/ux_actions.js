@@ -96,6 +96,22 @@ $('body').delegate('.cartItemQty','click',function(){
 	totalPriceCheckout(ownerId);
 })
 
+$('body').delegate('.addToCart','click',function(){
+	$(this).hide();
+	ownerId = $(this).attr('ownerId');
+	addToCart(ownerId);
+	$('.addToCart'+'[ownerId='+ownerId+']').hide();
+	$('.removeFromCart'+'[ownerId='+ownerId+']').show();
+	$('.add-to-cart'+'[ownerId='+ownerId+']').addClass('added').find('i').addClass('ti-check').removeClass('ti-shopping-cart').siblings('span').text(remove_from_cart_text);
+})
+
+$('body').delegate('.removeFromCart','click',function(){
+	ownerId = $(this).attr('ownerId');
+	removeFromCart(ownerId);
+	$('.addToCart'+'[ownerId='+ownerId+']').show();
+	$('.removeFromCart'+'[ownerId='+ownerId+']').hide();
+	$('.add-to-cart'+'[ownerId='+ownerId+']').removeClass('added').find('i').removeClass('ti-check').addClass('ti-shopping-cart').siblings('span').text(add_to_cart_text);
+});
 
 // /*-- Quantity  -*/     //???????????
 // $('body').delegate('.qtybtn','click', function() {

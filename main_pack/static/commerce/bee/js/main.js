@@ -1015,4 +1015,8 @@ $(document).ready(function(){
 			$(this).css({'padding': '45px'})
 		}
 	})
+	
+	$('.descriptionText').each(function(){
+		$(this).html($(this).text());
+	});
 })

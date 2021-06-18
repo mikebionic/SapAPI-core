@@ -1,3 +1,21 @@
+$(document).ready(function(){
+	$.ajaxSetup({
+		beforeSend: function(xhr, settings){
+			if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain){
+				xhr.setRequestHeader("X-CSRFToken", csrf_token);
+			}
+			$('#cover-spin').show()
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			if (jqXHR.status == 401 || jqXHR.status == 400) {
+				location.reload();
+			}
+		},
+		complete: function(){
+			$('#cover-spin').hide()
+		}
+	});
+})
 
 function get_local_data_by_name(data_name = 'cart', parse_json = true){
 	var local_data = localStorage.getItem(data_name);
@@ -180,7 +198,7 @@ function configure_adding_to_cart(
 	}
 
 	productQty = parseInt(productQty)
-	productData={'resId':ownerId,'priceValue':priceValue,'productQty':productQty};
+	var productData={'resId':ownerId,'priceValue':priceValue,'productQty':productQty};
 
 
 	local_cart_data = get_local_data_by_name();
