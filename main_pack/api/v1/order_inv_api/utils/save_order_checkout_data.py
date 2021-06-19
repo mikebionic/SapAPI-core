@@ -187,7 +187,10 @@ def save_order_checkout_data(req, model_type, current_user, session = None):
 		for e in status:
 			res[e] = status[e]
 
-		# send_order_to_server(res, dbModel = this_Order_inv)
+		if Config.SEND_ORDER_TO_HASAP_SYNC:
+			send_order_to_server(
+				res,
+				dbModel = this_Order_inv)
 
 	except Exception as ex:
 		print(f"{datetime.now()} | Checkout OInv Exception: {ex}")

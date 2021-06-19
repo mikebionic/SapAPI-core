@@ -35,6 +35,12 @@ class Config:
 	# set to production if Production
 	FLASK_ENV = 'development'
 
+	SEND_ORDER_TO_HASAP_SYNC = int(environ.get('SEND_ORDER_TO_HASAP_SYNC')) if environ.get('SEND_ORDER_TO_HASAP_SYNC') else 0
+	HASAP_SYNC_HOST = environ.get('HASAP_SYNC_HOST') or "127.0.0.1"
+	HASAP_SYNC_PORT = int(environ.get('HASAP_SYNC_PORT')) if environ.get('HASAP_SYNC_PORT') else 8000
+	HASAP_SYNC_URL_PATH = environ.get('HASAP_SYNC_URL_PATH') or ''
+	HASAP_SYNC_SHA_KEY = environ.get('HASAP_SYNC_SHA_KEY') or ''
+
 	# set to false to turn off debugging
 	DEBUG = int(environ.get('DEBUG')) if environ.get('DEBUG') else 1
 	TESTING = int(environ.get('TESTING')) if environ.get('TESTING') else 1

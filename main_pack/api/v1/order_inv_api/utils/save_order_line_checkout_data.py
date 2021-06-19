@@ -94,7 +94,7 @@ def save_order_line_checkout_data(
 			)
 			if not List_Res_price:
 				raise Exception
-			
+
 			# print(List_Res_price)
 			# print("------------")
 			# print(resource.Res_price[0].to_json_api())
@@ -165,7 +165,7 @@ def save_order_line_checkout_data(
 				"error_type_message": get_order_error_type(error_type)
 			}
 			fails.append(fail_info)
-	
+
 	if fails:
 		for model in data_models:
 			db.session.expunge(model)
