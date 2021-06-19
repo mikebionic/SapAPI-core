@@ -475,50 +475,55 @@ def apiResourceInfo(
 
 				Related_resources = []
 				for resource in related_resources:
-					related_resource_info = resource.to_json_api()
-					Related_resource_Images = [image.to_json_api() for image in resource.Image if not image.GCRecord]
-					related_resource_info["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=Related_resource_Images[-1]["FileName"]) if Related_resource_Images else ""
-					related_resource_info["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=Related_resource_Images[-1]["FileName"]) if Related_resource_Images else ""
-					related_resource_info["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=Related_resource_Images[-1]["FileName"]) if Related_resource_Images else ""
-
-					Related_Res_category_info = resource.res_category.to_json_api() if resource.res_category else None
-					Related_resource_price = [res_price.to_json_api() for res_price in resource.Res_price if res_price.ResPriceTypeId == 2 and not res_price.GCRecord]
-
-					Related_resource_price = calculatePriceByGroup(
-						ResPriceGroupId = ResPriceGroupId,
-						Res_price_dbModels = resource.Res_price,
-						Res_pice_group_dbModels = res_price_groups)
-
-					if not Related_resource_price:
-						raise Exception
-
 					try:
-						Related_resource_currencies = [currency.to_json_api() for currency in currencies if currency.CurrencyId == Related_resource_price[0]["CurrencyId"]]
-					except:
-						Related_resource_currencies = []
+						related_resource_info = resource.to_json_api()
+						Related_resource_Images = [image.to_json_api() for image in resource.Image if not image.GCRecord]
+						related_resource_info["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=Related_resource_Images[-1]["FileName"]) if Related_resource_Images else ""
+						related_resource_info["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=Related_resource_Images[-1]["FileName"]) if Related_resource_Images else ""
+						related_resource_info["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=Related_resource_Images[-1]["FileName"]) if Related_resource_Images else ""
 
-					this_priceValue = Related_resource_price[0]["ResPriceValue"] if Related_resource_price else 0.0
-					this_currencyCode = Related_resource_currencies[0]["CurrencyCode"] if Related_resource_currencies else Config.MAIN_CURRENCY_CODE
+						Related_Res_category_info = resource.res_category.to_json_api() if resource.res_category else None
+						Related_resource_price = [res_price.to_json_api() for res_price in resource.Res_price if res_price.ResPriceTypeId == 2 and not res_price.GCRecord]
 
-					Related_resource_price_data = price_currency_conversion(
-						priceValue = this_priceValue,
-						from_currency = this_currencyCode,
-						to_currency = currency_code,
-						currencies_dbModel = currencies,
-						exc_rates_dbModel = exc_rates)
+						Related_resource_price = calculatePriceByGroup(
+							ResPriceGroupId = ResPriceGroupId,
+							Res_price_dbModels = resource.Res_price,
+							Res_pice_group_dbModels = res_price_groups)
 
-					related_resource_info["ResCatName"] = Related_Res_category_info["ResCatName"] if Related_Res_category_info else ""
-					related_resource_info["ResPriceValue"] = Related_resource_price_data["ResPriceValue"]
-					related_resource_info["CurrencyCode"] = Related_resource_price_data["CurrencyCode"]
+						if not Related_resource_price:
+							raise Exception
 
-					if user:
-						Related_resource_Wish = [wish.to_json_api() for wish in wishes if wish.ResId == resource.ResId]
-					else:
-						Related_resource_Wish = []
+						try:
+							Related_resource_currencies = [currency.to_json_api() for currency in currencies if currency.CurrencyId == Related_resource_price[0]["CurrencyId"]]
+						except:
+							Related_resource_currencies = []
 
-					related_resource_info["Wishlist"] = True if Related_resource_Wish else False
-					Related_resources.append(related_resource_info)
-				resource_info["Related_resources"] = Related_resources
+						this_priceValue = Related_resource_price[0]["ResPriceValue"] if Related_resource_price else 0.0
+						this_currencyCode = Related_resource_currencies[0]["CurrencyCode"] if Related_resource_currencies else Config.MAIN_CURRENCY_CODE
+
+						Related_resource_price_data = price_currency_conversion(
+							priceValue = this_priceValue,
+							from_currency = this_currencyCode,
+							to_currency = currency_code,
+							currencies_dbModel = currencies,
+							exc_rates_dbModel = exc_rates)
+
+						related_resource_info["ResCatName"] = Related_Res_category_info["ResCatName"] if Related_Res_category_info else ""
+						related_resource_info["ResPriceValue"] = Related_resource_price_data["ResPriceValue"]
+						related_resource_info["CurrencyCode"] = Related_resource_price_data["CurrencyCode"]
+
+						if user:
+							Related_resource_Wish = [wish.to_json_api() for wish in wishes if wish.ResId == resource.ResId]
+						else:
+							Related_resource_Wish = []
+
+						related_resource_info["Wishlist"] = True if Related_resource_Wish else False
+						Related_resources.append(related_resource_info)
+
+					except Exception as ex:
+						print(f"{datetime.now()} | Related resource info utils Exception: {ex}")
+
+					resource_info["Related_resources"] = Related_resources
 
 			if fullInfo == True:
 				List_Colors = [res_color.color.to_json_api() for res_color in resource_query.Resource.Res_color if not res_color.GCRecord if not res_color.color.GCRecord]
