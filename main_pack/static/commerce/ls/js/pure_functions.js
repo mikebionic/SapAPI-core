@@ -189,7 +189,7 @@ function configure_adding_to_cart(
 		}
 	}
 	if (min_amount > 0){
-		if (productQty > max_amount){
+		if (productQty > max_amount && max_amount > 0){
 			productQty = max_amount;
 		}
 	}

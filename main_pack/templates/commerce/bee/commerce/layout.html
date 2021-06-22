@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>Hilli | {{ title if title else _('Commerce') }}</title>
+  <title>{{ title if title else _('Commerce') }}</title>
   <meta property="og:site_name" content="Hilli | E-commerce" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="{{ title if title else _('Commerce') }} | Hilli" />
@@ -112,14 +112,14 @@
 
                   {% for category in categories %}
                     <li class="{{ 'menu-item-has-children' if category.Categories }}">
-                      <a href="{{ url_for('commerce.v_grid',category = category.ResCatId) if not category.Categories else '#' }}">
+                      <a href="{{ url_for('commerce.v_grid',ResCatId=category.ResCatId,ResCatName=category.ResCatName) if not category.Categories else '#' }}">
                         <img class="img-fluid" src="{{ category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static', filename='commerce/bee/images/icons/category.svg') }}" style="width: 25px; margin-right: 7px;">
                         {{category.ResCatName}}
                       </a>
                       {% if category.Categories %}
                       <ul class="category-mega-menu" >
                         {% for category in category.Categories %}
-                          <li><a href="{{url_for('commerce.v_grid',category = category.ResCatId)}}"><img class="img-fluid" src="{{ category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static', filename='commerce/bee/images/icons/category.svg') }}" style="width: 25px; margin-right: 7px;">{{category.ResCatName}}</a></li>
+                          <li><a href="{{url_for('commerce.v_grid',ResCatId=category.ResCatId,ResCatName=category.ResCatName)}}"><img class="img-fluid" src="{{ category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static', filename='commerce/bee/images/icons/category.svg') }}" style="width: 25px; margin-right: 7px;">{{category.ResCatName}}</a></li>
                         {% endfor %}
                       </ul>
                       {% endif %}

@@ -28,13 +28,20 @@ from main_pack.base.priceMethods import calculatePriceByGroup, price_currency_co
 
 
 @bp.route(Config.COMMERCE_LIST_VIEW)
-def v_list():
+@bp.route(f"{Config.COMMERCE_LIST_VIEW}/category-<int:ResCatId>/<ResCatName>")
+@bp.route(f"{Config.COMMERCE_LIST_VIEW}/brand-<int:BrandId>/<BrandName>")
+def v_list(
+	ResCatId = None,
+	ResCatName = None,
+	BrandId = None,
+	BrandName = None,
+):
 	args_data = {
 		"page": request.args.get("page",1,type=int),
 		"sort": request.args.get("sort","date_new",type=str),
 		"per_page": request.args.get("per_page",None,type=int),
-		"category": request.args.get("category",None,type=int),
-		"brand": request.args.get("brand",None,type=int),
+		"category": ResCatId if ResCatId else request.args.get("category",None,type=int),
+		"brand": BrandId if BrandId else request.args.get("brand",None,type=int),
 		"DivId": request.args.get("DivId",None,type=int),
 		"notDivId": request.args.get("notDivId",None,type=int),
 		"pagination_url": 'commerce.v_list'
@@ -50,25 +57,40 @@ def v_list():
 		brands = UiBrandsList()
 		res["Brands"] = brands["data"]
 
-
 	categoryData = UiCategoriesList()
+
+	title = None
+	if ResCatName:
+		title = ResCatName
+	if BrandName:
+		title = BrandName
+	if search:
+		title = f"Search: {search.strip()}"
+
 	return render_template(
 		f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/commerce/v_list.html",
 		**categoryData,
 		**pagination_info,
 		**res,
 		url_prefix = url_prefix,
-		title = gettext(Config.COMMERCE_LIST_VIEW_TITLE))
+		title = title if title else gettext(Config.COMMERCE_LIST_VIEW_TITLE))
 
 
 @bp.route(Config.COMMERCE_GRID_VIEW)
-def v_grid():
+@bp.route(f"{Config.COMMERCE_GRID_VIEW}/category-<int:ResCatId>/<ResCatName>")
+@bp.route(f"{Config.COMMERCE_GRID_VIEW}/brand-<int:BrandId>/<BrandName>")
+def v_grid(
+	ResCatId = None,
+	ResCatName = None,
+	BrandId = None,
+	BrandName = None,
+):
 	args_data = {
 		"page": request.args.get("page",1,type=int),
 		"sort": request.args.get("sort","date_new",type=str),
 		"per_page": request.args.get("per_page",None,type=int),
-		"category": request.args.get("category",None,type=int),
-		"brand": request.args.get("brand",None,type=int),
+		"category": ResCatId if ResCatId else request.args.get("category",None,type=int),
+		"brand": BrandId if BrandId else request.args.get("brand",None,type=int),
 		"DivId": request.args.get("DivId",None,type=int),
 		"notDivId": request.args.get("notDivId",None,type=int),
 		"pagination_url": 'commerce.v_grid'
@@ -85,17 +107,27 @@ def v_grid():
 		res["Brands"] = brands["data"]
 
 	categoryData = UiCategoriesList()
+
+	title = None
+	if ResCatName:
+		title = ResCatName
+	if BrandName:
+		title = BrandName
+	if search:
+		title = f"Search: {search.strip()}"
+
 	return render_template(
 		f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/commerce/v_grid.html",
 		**categoryData,
 		**pagination_info,
 		**res,
 		url_prefix = url_prefix,
-		title = gettext(Config.COMMERCE_GRID_VIEW_TITLE))
+		title = title if title else gettext(Config.COMMERCE_GRID_VIEW_TITLE))
 
 
 @bp.route(Config.COMMERCE_RESOURCE_VIEW+"/<int:ResId>")
-def product(ResId):
+@bp.route(Config.COMMERCE_RESOURCE_VIEW+"/<int:ResId>/<ResName>")
+def product(ResId, ResName = None):
 	product_list=[
 		{
 			"ResId": ResId,
