@@ -68,7 +68,7 @@ olary ýurdumyzyň çägindäki dükanlara eltip berýäris." />
 			{% for brand in Brands %}
 			{% if brand.FilePath and brand.IsMain %}
 				<div class="item">
-					<a href="{{url_for('commerce.v_grid',BrandId=brand.BrandId,BrandName=brand.BrandName)}}">
+					<a href="{{url_for('commerce.v_grid',BrandId=brand.BrandId,BrandName=brand.BrandName.replace('/','-').replace(' ','-'))}}">
 						<figure>
 							<img width="115" height="10" class="img-responsive desaturate" loading="lazy" src="{{brand.FilePath if brand.FilePath}}" alt="Brand {{brand.BrandName}} Lomay sowda wholesale ls">
 						</figure>
@@ -112,7 +112,7 @@ olary ýurdumyzyň çägindäki dükanlara eltip berýäris." />
 										</a>
 									</div>
 									{% endif %}
-									<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName)}}">
+									<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">
 										
 										<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/ls/img/icons/no_photo.svg') }}"
 										alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
@@ -133,7 +133,7 @@ olary ýurdumyzyň çägindäki dükanlara eltip berýäris." />
 										</span>
 									</span>
 									<div class="textContent">
-										<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName)}}">
+										<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">
 											<h3>{{ resource.ResName }}</h3>
 										</a>
 									</div>
@@ -187,7 +187,7 @@ olary ýurdumyzyň çägindäki dükanlara eltip berýäris." />
 							</a>
 						</div>
 					{% endif %}
-					<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName)}}">
+					<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">
 						<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/ls/img/icons/no_photo.svg') }}"
 						alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
 					</a>
@@ -208,7 +208,7 @@ olary ýurdumyzyň çägindäki dükanlara eltip berýäris." />
 						</span>
 					</span>
 					<div class="textContent">
-						<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName)}}">
+						<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">
 							<h3>{{ resource.ResName }}</h3>
 						</a>
 					</div>

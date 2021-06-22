@@ -31,7 +31,7 @@
 							{% for brand in brands %}
 								{% if brand.FilePath %}
 								<li class="logogrid__item">
-									<a href="{{url_for('commerce.v_grid',BrandId=brand.BrandId,BrandName=brand.BrandName)}}" class="cat-block">
+									<a href="{{url_for('commerce.v_grid',BrandId=brand.BrandId,BrandName=brand.BrandName.replace('/','-').replace(' ','-'))}}" class="cat-block">
 										<img loading="lazy" src="{{brand.FilePath if brand.FilePath}}" alt="{{brand.BrandName}} | Hilli" class="logogrid__img">
 										{{brand.BrandName}}
 									</a>

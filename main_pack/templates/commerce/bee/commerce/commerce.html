@@ -48,7 +48,7 @@
 						{% for brand in Brands %}
 							{% if brand.FilePath and brand.IsMain %}
 								<div class="col pb-20 pt-10" style="padding-top: 65px; width: 150px;">
-									<a href="{{url_for('commerce.v_grid',BrandId=brand.BrandId,BrandName=brand.BrandName)}}" class="cat-block">
+									<a href="{{url_for('commerce.v_grid',BrandId=brand.BrandId,BrandName=brand.BrandName.replace('/','-').replace(' ','-'))}}" class="cat-block">
 										<figure>
 											<span>
 												<img loading="lazy" src="{{brand.FilePath if brand.FilePath}}" alt="Brand {{brand.BrandName}} {{ company.CName }}" style="height: 80%; width: 100px;">
@@ -102,7 +102,7 @@
 														{% if resource.New %}
 															<span class="label new">{{_('New')}}</span>
 														{% endif %}
-														<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName)}}" class="img">
+														<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}" class="img">
 															<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/bee/images/no_photo.svg') }}"
 															alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }} {{ company.CName }}">
 														</a>
@@ -128,7 +128,7 @@
 														<div class="category-title">
 															<a href="#" class="cat">{{ resource.ResCatName if resource.ResCatName else '' }}</a>
 															<h5 class="title">
-																<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName)}}">
+																<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">
 																	{{ resource.ResName }}
 																</a>
 															</h5>
@@ -176,7 +176,7 @@
 										{% if resource.New %}
 											<span class="label new">{{_('New')}}</span>
 										{% endif %}
-										<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName)}}" class="img">
+										<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}" class="img">
 											<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/bee/images/no_photo.svg') }}"
 											alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }} {{ company.CName }}">
 										</a>
@@ -202,7 +202,7 @@
 										<div class="category-title">
 											<a href="#" class="cat">{{ resource.ResCatName if resource.ResCatName else '' }}</a>
 											<h5 class="title">
-												<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName)}}">
+												<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">
 													{{ resource.ResName if resource.ResName else '' }}
 												</a>
 											</h5>

@@ -15,7 +15,7 @@
 	<span class="delimiter">
 		<i class="tm tm-breadcrumbs-arrow-right"></i>
 	</span>
-	<a href="{{url_for('commerce.v_grid',ResCatId=resource.ResCatId,ResCatName=resource.ResCatName)}}">{{ resource.ResCatName }}</a>
+	<a href="{{url_for('commerce.v_grid',ResCatId=resource.ResCatId,ResCatName=resource.ResCatName.replace('/','-').replace(' ','-'))}}">{{ resource.ResCatName }}</a>
 	<span class="delimiter">
 		<i class="tm tm-breadcrumbs-arrow-right"></i>
 	</span>
@@ -46,7 +46,7 @@
 			<div class="single-product-meta">
 
 				<div class="brand">
-					<a href="{{url_for('commerce.v_grid',ResCatId=resource.ResCatId,ResCatName=resource.ResCatName)}}">
+					<a href="{{url_for('commerce.v_grid',ResCatId=resource.ResCatId,ResCatName=resource.ResCatName.replace('/','-').replace(' ','-'))}}">
 						<img alt="{{resource.ResCatName}}" src="{{ resource.CategoryIcon if resource.CategoryIcon else url_for('static', filename='commerce/ls/img/icons/category.svg') }}" alt="{{ company.CName }} category {{ resource.ResCatName }}">
 					</a>
 				</div>
@@ -70,7 +70,7 @@
 
 			{% if resource.BrandIcon %}
 			<div class="brand">
-				<a href="{{url_for('commerce.v_grid',BrandId=resource.BrandId,BrandName=resource.BrandName)}}" style="display: flex; align-items: center;">
+				<a href="{{url_for('commerce.v_grid',BrandId=resource.BrandId,BrandName=resource.BrandName.replace('/','-').replace(' ','-'))}}" style="display: flex; align-items: center;">
 					<img alt="{{resource.BrandName}}" src="{{ resource.BrandIcon }}">
 					<span>{{ resource.BrandName }}</span>
 				</a>

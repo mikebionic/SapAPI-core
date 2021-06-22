@@ -15,7 +15,7 @@
 	<span class="delimiter">
 		<i class="fa fa-angle-right"></i>
 	</span>
-	<a href="{{ url_for('commerce.v_grid',ResCatId=resource.ResCatId,ResCatName=resource.ResCatName) }}">{{ resource.ResCatName }}</a>
+	<a href="{{ url_for('commerce.v_grid',ResCatId=resource.ResCatId,ResCatName=resource.ResCatName.replace('/','-').replace(' ','-')) }}">{{ resource.ResCatName }}</a>
 	<span class="delimiter">
 		<i class="fa fa-angle-right"></i>
 	</span>
@@ -48,7 +48,7 @@
 						<div class="tab-content">
 							<div id="single-image-1" class="tab-pane fade show active big-image-slider">
 								<div class="big-image">
-									<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName)}}" class="img">
+									<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}" class="img">
 										<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/bee/images/no_photo.svg') }}"
 										alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
 									</a>
@@ -214,7 +214,7 @@
 								<div class="pr_bag">
 									<div class="ee-product">
 										<div class="image">
-											<a href="{{url_for('commerce.product',ResId=related_resource.ResId,ResName=related_resource.ResName)}}" class="img">
+											<a href="{{url_for('commerce.product',ResId=related_resource.ResId,ResName=related_resource.ResName.replace('/','-').replace(' ','-'))}}" class="img">
 												<img loading="lazy" src="{{ related_resource.FilePathS if related_resource.FilePathS else url_for('static', filename='commerce/bee/images/no_photo.svg') }}"
 												alt="Product {{related_resource.ResName}} of category {{ related_resource.ResCatName if related_resource.ResCatName else '' }}">
 											</a>
@@ -242,7 +242,7 @@
 											<div class="category-title">
 												<a href="#" class="cat">{{ related_resource.ResCatName }}</a>
 												<h5 class="title">
-													<a href="{{url_for('commerce.product',ResId=related_resource.ResId,ResName=related_resource.ResName)}}">{{ related_resource.ResName }}</a>
+													<a href="{{url_for('commerce.product',ResId=related_resource.ResId,ResName=related_resource.ResName.replace('/','-').replace(' ','-'))}}">{{ related_resource.ResName }}</a>
 												</h5>
 											</div>
 

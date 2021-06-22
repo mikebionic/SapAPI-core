@@ -4,7 +4,7 @@
 		<meta charset="UTF-8"> 
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>LS | {{ title if title else _('Commerce') }}</title>
+		<title>{{ title if title else _('Commerce') }}</title>
 		<meta property="og:site_name" content="LS | Lomaý Söwda" />
 		<meta property="og:type" content="website" />
 		<meta property="og:title" content="{{ title if title else _('Commerce') }} | Lomaý Söwda" />
@@ -253,7 +253,7 @@
 
 									{% for category in categories %}
 										<li class="menu-item animate-dropdown {{ 'yamm-tfw menu-item-has-children dropdown-submenu' if category.Categories else 'highlight' }}">
-											<a title="{{ category.ResCatName }}" href="{{url_for('commerce.v_grid',ResCatId=category.ResCatId,ResCatName=category.ResCatName)}}" style="display: flex"
+											<a title="{{ category.ResCatName }}" href="{{url_for('commerce.v_grid',ResCatId=category.ResCatId,ResCatName=category.ResCatName.replace('/','-').replace(' ','-'))}}" style="display: flex"
 												{% if category.Categories %} data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true" {% endif %}
 											>
 												<img class="img-fluid cat-icon" src="{{ category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static', filename='commerce/ls/img/icons/category.svg') }}" style="width: 25px; margin-right: 7px;">
@@ -290,7 +290,7 @@
 																			<ul>
 																				{% for category in category.Categories %}
 																					<li>
-																						<a href="{{url_for('commerce.v_grid',ResCatId=category.ResCatId,ResCatName=category.ResCatName)}}" style="display: flex">
+																						<a href="{{url_for('commerce.v_grid',ResCatId=category.ResCatId,ResCatName=category.ResCatName.replace('/','-').replace(' ','-'))}}" style="display: flex">
 																							<img class="img-fluid cat-icon" src="{{ category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static', filename='commerce/ls/img/icons/category.svg') }}" style="width: 25px; margin-right: 7px;">
 																							{{ category.ResCatName }}
 																						</a>
