@@ -59,36 +59,42 @@ class Config:
 	# STATIC_URL_PATH="/ls/static/"
 
 	# SQLALCHEMY_DATABASE_URI = 'sqlite:///commerce.db'
-	POSTGRES_DB_URI = {
-	    'user': environ.get('POSTGRES_DB_USERNAME'),
-	    'pw': environ.get('POSTGRES_DB_PASSWORD'),
-	    'db': environ.get('POSTGRES_DB_DATABASE'),
-	    'host': environ.get('POSTGRES_DB_HOST'),
-	    'port': environ.get('POSTGRES_DB_PORT'),
+
+	DB_TYPE = environ.get('DB_TYPE') or 'postgres'
+	DB_URI_DATA = {
+			'user': environ.get('DB_USERNAME'),
+			'pw': environ.get('DB_PASSWORD'),
+			'db': environ.get('DB_DATABASE'),
+			'host': environ.get('DB_HOST'),
+			'port': environ.get('DB_PORT'),
+			'driver': environ.get('DB_DRIVER') or '',
+			'additionalFields': environ.get('DB_ADDITIONAL_FIELDS') or ''
 	}
-	SQLALCHEMY_DATABASE_URI = 'postgresql://%(user)s:%(pw)s@%(host)s:%(port)s/%(db)s' % POSTGRES_DB_URI
+	if DB_TYPE.lower() == "mssql":
+		SQLALCHEMY_DATABASE_URI = "mssql+pyodbc://%(user)s:%(pw)s@%(host)s:%(port)s/%(db)s?driver=%(driver)s%(additionalFields)s" % DB_URI_DATA
+
+	if DB_TYPE.lower() == "postgres":
+		SQLALCHEMY_DATABASE_URI = 'postgresql://%(user)s:%(pw)s@%(host)s:%(port)s/%(db)s%(additionalFields)s' % DB_URI_DATA
+	
 	SQLALCHEMY_ECHO = int(environ.get('SQLALCHEMY_ECHO')) if environ.get('SQLALCHEMY_ECHO') else 0
+
 	# # Database bindings
 	#
-	# POSTGRES_TEST_DB_URI = {
-	#     'user': environ.get('POSTGRES_TEST_DB_USERNAME'),
-	#     'pw': environ.get('POSTGRES_TEST_DB_PASSWORD'),
-	#     'db': environ.get('POSTGRES_TEST_DB_DATABASE'),
-	#     'host': environ.get('POSTGRES_TEST_DB_HOST'),
-	#     'port': environ.get('POSTGRES_TEST_DB_PORT'),
+	# TEST_DB_URI = {
+	#     'user': environ.get('TEST_DB_USERNAME'),
+	#     'pw': environ.get('TEST_DB_PASSWORD'),
+	#     'db': environ.get('TEST_DB_DATABASE'),
+	#     'host': environ.get('TEST_DB_HOST'),
+	#     'port': environ.get('TEST_DB_PORT'),
 	# }
 	#
-	# SQLALCHEMY_TEST_DATABASE_URI = 'postgresql://%(user)s:%(pw)s@%(host)s:%(port)s/%(db)s' % POSTGRES_TEST_DB_URI
+	# SQLALCHEMY_TEST_DATABASE_URI = 'postgresql://%(user)s:%(pw)s@%(host)s:%(port)s/%(db)s' % TEST_DB_URI
 	#
 	# SQLALCHEMY_BINDS = {
-	# 	'postgres_test': SQLALCHEMY_TEST_DATABASE_URI
+	# 	'test_db': SQLALCHEMY_TEST_DATABASE_URI
 	# }
 	#
 	# # / Database bindings /
-
-	# # MSSQL binding
-	# SQLALCHEMY_DATABASE_URI = 'mssql+pyodbc://sa:123456@192.168.31.77:1433/dbSapHasap?driver=ODBC+Driver+17+for+SQL+Server?TrustedConnection=yes'
-
 
 	# # Sessions, Redis, Cache, Cookies
 	if OS_TYPE != 'win32':
