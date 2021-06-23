@@ -80,7 +80,7 @@ def addRpAccDict(req):
 	WpId = req.get('WpId')
 	RpAccRegNo = req.get('RpAccRegNo')
 	RpAccName = req.get('RpAccName')
-	DbGuid = uuid.UUID('DbGuid')
+	DbGuid = uuid.UUID(req.get('DbGuid')) if req.get('DbGuid') else None
 	RpAccUName = req.get('RpAccUName')
 	RpAccUPass = req.get('RpAccUPass')
 	RpAccAddress = req.get('RpAccAddress')

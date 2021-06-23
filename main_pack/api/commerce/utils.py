@@ -124,7 +124,7 @@ def addDivisionDict(req):
 
 def addCategoryDict(req):
 	ResCatId = req.get('ResCatId')
-	ResCatGuid = uuid.UUID(req.get('ResCatGuid'))
+	ResCatGuid = uuid.UUID(req.get('ResCatGuid')) if req.get('ResCatGuid') else None
 	ResOwnerCatId = req.get('ResOwnerCatId')
 	ResCatVisibleIndex = req.get('ResCatVisibleIndex')
 	IsMain = req.get('IsMain')
@@ -424,7 +424,7 @@ def saveImageFile(req):
 
 def addBarcodeDict(req):
 	BarcodeId = req.get('BarcodeId')
-	BarcodeGuid = uuid.UUID(req.get('BarcodeGuid'))
+	BarcodeGuid = uuid.UUID(req.get('BarcodeGuid')) if req.get('BarcodeGuid') else None
 	CId = req.get('CId')
 	DivId = req.get('DivId')
 	ResId = req.get('ResId')
@@ -459,7 +459,7 @@ def addBarcodeDict(req):
 
 def addResPriceDict(req):
 	ResPriceId = req.get('ResPriceId')
-	ResPriceGuid = uuid.UUID('ResPriceGuid')
+	ResPriceGuid = uuid.UUID(req.get('ResPriceGuid')) if req.get('ResPriceGuid') else None
 	ResPriceTypeId = req.get('ResPriceTypeId')
 	ResPriceGroupId = req.get('ResPriceGroupId')
 	UnitId = req.get('UnitId')
@@ -502,7 +502,7 @@ def addResPriceDict(req):
 
 def addResTotalDict(req):
 	ResTotId = req.get('ResTotId')
-	ResTotGuid = uuid.UUID('ResTotGuid')
+	ResTotGuid = uuid.UUID(req.get('ResTotGuid')) if req.get('ResTotGuid') else None
 	ResId = req.get('ResId')
 	CurrencyId = req.get('CurrencyId')
 	WhId = req.get('WhId')
@@ -550,7 +550,7 @@ def addResTotalDict(req):
 
 def addRpAccTrTotDict(req):
 	RpAccTrTotId = req.get('RpAccTrTotId')
-	RpAccTrTotGuid = uuid.UUID('RpAccTrTotGuid')
+	RpAccTrTotGuid = uuid.UUID(req.get('RpAccTrTotGuid')) if req.get('RpAccTrTotGuid') else None
 	RpAccId = req.get('RpAccId')
 	CurrencyId = req.get('CurrencyId')
 	RpAccTrTotBalance = req.get('RpAccTrTotBalance')
@@ -747,7 +747,7 @@ def addOrderInvLineDict(req):
 
 def addOrderInvTypeDict(req):
 	OInvTypeId = req.get('OInvTypeId')
-	OInvTypeGuid = uuid.UUID('OInvTypeGuid')
+	OInvTypeGuid = uuid.UUID(req.get('OInvTypeGuid')) if req.get('OInvTypeGuid') else None
 	OInvTypeName_tkTM = req.get('OInvTypeName_tkTM')
 	OInvTypeDesc_tkTM = req.get('OInvTypeDesc_tkTM')
 	OInvTypeName_ruRU = req.get('OInvTypeName_ruRU')
@@ -940,13 +940,12 @@ def addInvLineDict(req):
 
 def addWarehouseDict(req):
 	WhId = req.get('WhId')
-	WhGuid = uuid.UUID('WhGuid')
+	WhGuid = uuid.UUID(req.get('WhGuid'))
 	CId = req.get('CId')
 	DivId = req.get('DivId')
 	WhName = req.get('WhName')
 	WhDesc = req.get('WhDesc')
 	UsageStatusId = req.get('UsageStatusId')
-	WhGuid = uuid.UUID(req.get('WhGuid'))
 	AddInf1 = req.get('AddInf1')
 	AddInf2 = req.get('AddInf2')
 	AddInf3 = req.get('AddInf3')
@@ -961,7 +960,6 @@ def addWarehouseDict(req):
 	GCRecord = req.get('GCRecord')
 
 	data = {
-		"WhGuid": WhGuid,
 		"CId": CId,
 		"DivId": DivId,
 		"WhName": WhName,
@@ -989,7 +987,7 @@ def addWarehouseDict(req):
 
 def addWorkPeriodDict(req):
 	WpId = req.get('WpId')
-	WpGuid = uuid.UUID('WpGuid')
+	WpGuid = uuid.UUID(req.get('WpGuid')) if req.get('WpGuid') else None
 	CId = req.get('CId')
 	DivId = req.get('DivId')
 	CurrencyId = req.get('CurrencyId')
@@ -1027,7 +1025,7 @@ def addWorkPeriodDict(req):
 
 def addExcRateDict(req):
 	ExcRateId = req.get('ExcRateId')
-	ExcRateGuid = req.get('ExcRateGuid')
+	ExcRateGuid = req.get(req.get('ExcRateGuid')) if req.get('ExcRateGuid') else None
 	CurrencyId = req.get('CurrencyId')
 	ExcRateDate = req.get('ExcRateDate')
 	ExcRateInValue = req.get('ExcRateInValue')
