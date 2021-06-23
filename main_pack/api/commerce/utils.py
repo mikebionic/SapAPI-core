@@ -124,10 +124,15 @@ def addDivisionDict(req):
 
 def addCategoryDict(req):
 	ResCatId = req.get('ResCatId')
+	ResCatGuid = uuid.UUID(req.get('ResCatGuid'))
 	ResOwnerCatId = req.get('ResOwnerCatId')
+	ResCatVisibleIndex = req.get('ResCatVisibleIndex')
+	IsMain = req.get('IsMain')
 	ResCatName = req.get('ResCatName')
 	ResCatDesc = req.get('ResCatDesc')
 	ResCatIconName = req.get('ResCatIconName')
+	ResCatIconFilePath = req.get('ResCatIconFilePath')
+	ResCatIconData = req.get('ResCatIconData')
 	AddInf1 = req.get('AddInf1')
 	AddInf2 = req.get('AddInf2')
 	AddInf3 = req.get('AddInf3')
@@ -142,10 +147,15 @@ def addCategoryDict(req):
 	GCRecord = req.get('GCRecord')
 
 	data = {
+		"ResCatGuid": ResCatGuid,
 		"ResOwnerCatId": ResOwnerCatId,
+		"ResCatVisibleIndex": ResCatVisibleIndex,
+		"IsMain": IsMain,
 		"ResCatName": ResCatName,
 		"ResCatDesc": ResCatDesc,
 		"ResCatIconName": ResCatIconName,
+		"ResCatIconFilePath": ResCatIconFilePath,
+		"ResCatIconData": ResCatIconData,
 		"AddInf1": AddInf1,
 		"AddInf2": AddInf2,
 		"AddInf3": AddInf3,
@@ -157,7 +167,7 @@ def addCategoryDict(req):
 		"SyncDateTime": SyncDateTime,
 		"CreatedUId": CreatedUId,
 		"ModifiedUId": ModifiedUId,
-		"GCRecord": GCRecord
+		"GCRecord": GCRecord,
 	}
 
 	if(ResCatId != '' and ResCatId != None):
@@ -414,6 +424,7 @@ def saveImageFile(req):
 
 def addBarcodeDict(req):
 	BarcodeId = req.get('BarcodeId')
+	BarcodeGuid = uuid.UUID(req.get('BarcodeGuid'))
 	CId = req.get('CId')
 	DivId = req.get('DivId')
 	ResId = req.get('ResId')
@@ -427,6 +438,7 @@ def addBarcodeDict(req):
 	GCRecord = req.get('GCRecord')
 
 	data = {
+		"BarcodeGuid": BarcodeGuid,
 		"CId": CId,
 		"DivId": DivId,
 		"ResId": ResId,
@@ -447,6 +459,7 @@ def addBarcodeDict(req):
 
 def addResPriceDict(req):
 	ResPriceId = req.get('ResPriceId')
+	ResPriceGuid = uuid.UUID('ResPriceGuid')
 	ResPriceTypeId = req.get('ResPriceTypeId')
 	ResPriceGroupId = req.get('ResPriceGroupId')
 	UnitId = req.get('UnitId')
@@ -464,6 +477,7 @@ def addResPriceDict(req):
 	GCRecord = req.get('GCRecord')
 
 	data = {
+		"ResPriceGuid": ResPriceGuid,
 		"ResPriceTypeId": ResPriceTypeId,
 		"ResPriceGroupId": ResPriceGroupId,
 		"UnitId": UnitId,
@@ -488,6 +502,7 @@ def addResPriceDict(req):
 
 def addResTotalDict(req):
 	ResTotId = req.get('ResTotId')
+	ResTotGuid = uuid.UUID('ResTotGuid')
 	ResId = req.get('ResId')
 	CurrencyId = req.get('CurrencyId')
 	WhId = req.get('WhId')
@@ -507,6 +522,7 @@ def addResTotalDict(req):
 	GCRecord = req.get('GCRecord')
 
 	data = {
+		"ResTotGuid": ResTotGuid,
 		"ResId": ResId,
 		"CurrencyId": CurrencyId,
 		"WhId": WhId,
@@ -534,6 +550,7 @@ def addResTotalDict(req):
 
 def addRpAccTrTotDict(req):
 	RpAccTrTotId = req.get('RpAccTrTotId')
+	RpAccTrTotGuid = uuid.UUID('RpAccTrTotGuid')
 	RpAccId = req.get('RpAccId')
 	CurrencyId = req.get('CurrencyId')
 	RpAccTrTotBalance = req.get('RpAccTrTotBalance')
@@ -548,6 +565,7 @@ def addRpAccTrTotDict(req):
 	GCRecord = req.get('GCRecord')
 
 	data = {
+		"RpAccTrTotGuid": RpAccTrTotGuid,
 		"RpAccId": RpAccId,
 		"CurrencyId": CurrencyId,
 		"RpAccTrTotBalance": RpAccTrTotBalance,
@@ -729,6 +747,7 @@ def addOrderInvLineDict(req):
 
 def addOrderInvTypeDict(req):
 	OInvTypeId = req.get('OInvTypeId')
+	OInvTypeGuid = uuid.UUID('OInvTypeGuid')
 	OInvTypeName_tkTM = req.get('OInvTypeName_tkTM')
 	OInvTypeDesc_tkTM = req.get('OInvTypeDesc_tkTM')
 	OInvTypeName_ruRU = req.get('OInvTypeName_ruRU')
@@ -743,6 +762,7 @@ def addOrderInvTypeDict(req):
 	GCRecord = req.get('GCRecord')
 
 	data = {
+		"OInvTypeGuid": OInvTypeGuid,
 		"OInvTypeName_tkTM": OInvTypeName_tkTM,
 		"OInvTypeDesc_tkTM": OInvTypeDesc_tkTM,
 		"OInvTypeName_ruRU": OInvTypeName_ruRU,
@@ -920,6 +940,7 @@ def addInvLineDict(req):
 
 def addWarehouseDict(req):
 	WhId = req.get('WhId')
+	WhGuid = uuid.UUID('WhGuid')
 	CId = req.get('CId')
 	DivId = req.get('DivId')
 	WhName = req.get('WhName')
@@ -940,6 +961,7 @@ def addWarehouseDict(req):
 	GCRecord = req.get('GCRecord')
 
 	data = {
+		"WhGuid": WhGuid,
 		"CId": CId,
 		"DivId": DivId,
 		"WhName": WhName,
@@ -967,6 +989,7 @@ def addWarehouseDict(req):
 
 def addWorkPeriodDict(req):
 	WpId = req.get('WpId')
+	WpGuid = uuid.UUID('WpGuid')
 	CId = req.get('CId')
 	DivId = req.get('DivId')
 	CurrencyId = req.get('CurrencyId')
@@ -981,6 +1004,7 @@ def addWorkPeriodDict(req):
 	GCRecord = req.get('GCRecord')
 
 	data = {
+		"WpGuid": WpGuid,
 		"CId": CId,
 		"DivId": DivId,
 		"CurrencyId": CurrencyId,
@@ -1003,6 +1027,7 @@ def addWorkPeriodDict(req):
 
 def addExcRateDict(req):
 	ExcRateId = req.get('ExcRateId')
+	ExcRateGuid = req.get('ExcRateGuid')
 	CurrencyId = req.get('CurrencyId')
 	ExcRateDate = req.get('ExcRateDate')
 	ExcRateInValue = req.get('ExcRateInValue')
@@ -1016,6 +1041,7 @@ def addExcRateDict(req):
 
 	data = {
 		# "ExcRateId": ExcRateId,
+		"ExcRateGuid": ExcRateGuid,
 		"CurrencyId": CurrencyId,
 		"ExcRateDate": ExcRateDate,
 		"ExcRateInValue": ExcRateInValue,

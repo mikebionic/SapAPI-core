@@ -149,6 +149,9 @@ def api_users():
 			user_info = addUsersDict(user_req)
 			try:
 				URegNo = user_info["URegNo"]
+				if not user_info["URegNo"]:
+					URegNo = str(datetime.now().timestamp())
+					user_info["URegNo"] = URegNo
 				UGuid = user_info["UGuid"]
 				CGuid = user_req["CGuid"]
 				DivGuid = user_req["DivGuid"]
@@ -172,7 +175,6 @@ def api_users():
 
 				thisUser = User.query\
 					.filter_by(
-						URegNo = URegNo,
 						UGuid = UGuid,
 						GCRecord = None)\
 					.first()

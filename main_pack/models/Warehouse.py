@@ -13,7 +13,6 @@ class Warehouse(AddInf, BaseModel, db.Model):
 	UsageStatusId = db.Column("UsageStatusId",db.Integer,db.ForeignKey("tbl_dk_usage_status.UsageStatusId"))
 	WhName = db.Column("WhName",db.String(100),nullable=False)
 	WhDesc = db.Column("WhDesc",db.String(500))
-	WhGuid = db.Column("WhGuid",UUID(as_uuid=True),unique=True)
 	Res_transaction = db.relationship("Res_transaction",backref='warehouse',lazy=True)
 	Invoice = db.relationship("Invoice",backref='warehouse',lazy=True)
 	Order_inv = db.relationship("Order_inv",backref='warehouse',lazy=True)
@@ -32,7 +31,6 @@ class Warehouse(AddInf, BaseModel, db.Model):
 			"UsageStatusId": self.UsageStatusId,
 			"WhName": self.WhName,
 			"WhDesc": self.WhDesc,
-			"WhGuid": self.WhGuid
 		}
 
 		for key, value in AddInf.to_json_api(self).items():
