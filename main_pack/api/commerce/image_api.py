@@ -345,7 +345,6 @@ def get_image(file_type,file_size,file_name,path_only=False):
 				full_path = path.replace("\\","/")
 			else:
 				full_path = path.replace("<FSize>",file_size)
-			print('getting')
 			response = send_from_directory(Config.STATIC_FOLDER_LOCATION, full_path, as_attachment=True)
 			if path_only:
 				return full_path
