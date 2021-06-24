@@ -17,7 +17,6 @@ from logging.handlers import SMTPHandler
 from htmlmin.main import minify
 import pyodbc
 
-
 from main_pack.config import Config
 
 babel = Babel()
@@ -54,9 +53,9 @@ LANGUAGES = {
 }
 
 def create_app(config_class=Config):
-	app = Flask(__name__, static_url_path='/app/static')
+	app = Flask(__name__, static_url_path=Config.STATIC_URL_PATH)
 	app.config.from_object(Config)
-
+	app.static_folder = Config.STATIC_FOLDER_LOCATION
 	if Config.USE_FLASK_CORS:
 		CORS(app)
 

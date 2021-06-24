@@ -106,7 +106,7 @@ def company():
 def category_table():
 	data = {}
 	icons_path = os.path.join("static","commerce","icons","categories")
-	full_icons_path = os.path.join(current_app.root_path,icons_path)
+	full_icons_path = os.path.join(Config.APP_BASEDIR,icons_path)
 	folders = os.listdir(full_icons_path)
 	category_icons = {}
 	for folder in folders:

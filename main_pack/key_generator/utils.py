@@ -1,6 +1,7 @@
 from main_pack.config import Config
 from main_pack import db
 from main_pack.models import Reg_num, Reg_num_type, Pred_reg_num
+import uuid
 
 from random import randint
 
@@ -35,7 +36,8 @@ def generate(UId, RegNumTypeName=None, RegNumTypeId=None):
 			UId = UId,
 			RegNumTypeId = regNumType.RegNumTypeId,
 			RegNumPrefix = RegNumPrefix,
-			RegNumLastNum = 0
+			RegNumLastNum = 0,
+			RegNumGuid = uuid.uuid4()
 		)
 		db.session.add(reg_num)
 		db.session.commit()

@@ -10,6 +10,7 @@ load_dotenv(path.join(basedir, '.env'))
 class Config:
 	# get OS Type to configure app for Windows or Linux
 	OS_TYPE = sys.platform
+	APP_BASEDIR = path.abspath('.')
 
 	APP_PORT = int(environ.get('APP_PORT')) if environ.get('APP_PORT') else 5000
 	APP_HOST = environ.get('APP_HOST') or "0.0.0.0"
@@ -50,13 +51,14 @@ class Config:
 	MINIFY_HTML_RESPONSE = int(environ.get('MINIFY_HTML_RESPONSE')) if environ.get('MINIFY_HTML_RESPONSE') else 1
 
 	EMAIL_ERROR_REPORTS = int(environ.get('EMAIL_ERROR_REPORTS')) if environ.get('EMAIL_ERROR_REPORTS') else 0
-	EMAIL_ERROR_REPORTS_ADDRESSES = json.loads(environ.get('EMAIL_ERROR_REPORTS_ADDRESSES')) or []
+	EMAIL_ERROR_REPORTS_ADDRESSES = json.loads(environ.get('EMAIL_ERROR_REPORTS_ADDRESSES')) if environ.get('EMAIL_ERROR_REPORTS_ADDRESSES') else []
 
 	COMPANY_NAME = environ.get('COMPANY_NAME') or 'Company'
 
 	# # these two didn't work
-	# STATIC_FOLDER = "/static"
-	# STATIC_URL_PATH="/ls/static/"
+	STATIC_FOLDER_PATH = path.join(*json.loads(environ.get('STATIC_FOLDER_PATH'))) if environ.get('STATIC_FOLDER_PATH') else path.join('main_pack','static')
+	STATIC_FOLDER_LOCATION = path.join(APP_BASEDIR, STATIC_FOLDER_PATH)
+	STATIC_URL_PATH = environ.get('STATIC_URL_PATH') if environ.get('STATIC_URL_PATH') else '/app/static'
 
 	# SQLALCHEMY_DATABASE_URI = 'sqlite:///commerce.db'
 
@@ -295,7 +297,7 @@ class Config:
 	SMALLEST_RATING_VALUE_SHOW = int(environ.get('SMALLEST_RATING_VALUE_SHOW')) if environ.get('SMALLEST_RATING_VALUE_SHOW') else 3.5
 
 	# location of robots.txt and sitemap.xml
-	WEB_CONFIG_DIRECTORY = path.join("static", "web_config")
+	WEB_CONFIG_DIRECTORY = path.join("web_config")
 	GOOGLE_ANALYTICS_TAG = environ.get('GOOGLE_ANALYTICS_TAG') or ''
 
 	COMMERCE_ABOUT_DESCRIPTION = environ.get('COMMERCE_ABOUT_DESCRIPTION') or ''

@@ -252,7 +252,7 @@ def remove_svg_icon():
 	try:
 		name = request.args.get("name")
 		icon_category = request.args.get("icon_category")
-		path=os.path.join(current_app.root_path,'static',"commerce","icons","categories",icon_category,name)
+		path=os.path.join(Config.STATIC_FOLDER_LOCATION,"commerce","icons","categories",icon_category,name)
 		os.remove(path)
 		flash("Image successfully deleted!",'success')
 	except Exception as ex:

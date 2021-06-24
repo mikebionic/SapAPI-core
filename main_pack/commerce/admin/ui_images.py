@@ -14,14 +14,13 @@ from main_pack.models import Image
 from main_pack.base.imageMethods import allowed_image
 import os, secrets
 import uuid
-from flask import current_app
 from PIL import Image as ImageOperation
 
 def save_picture(form_picture, path):
 	random_hex = secrets.token_hex(8)
 	_, f_ext = os.path.splitext(form_picture.filename)
 	picture_fn = random_hex + f_ext
-	picture_path = os.path.join(current_app.root_path, 'static/'+path, picture_fn)
+	picture_path = os.path.join(Config.STATIC_FOLDER_LOCATION, path, picture_fn)
 	form_picture.save(picture_path)
 	output_size = (600,600)
 	i = ImageOperation.open(form_picture)

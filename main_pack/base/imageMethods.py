@@ -34,7 +34,7 @@ def changeImageSize(
 	paths={}
 
 	watermark_image_path = os.path.join(
-		current_app.root_path,
+		Config.STATIC_FOLDER_LOCATION,
 		Config.WEB_CONFIG_DIRECTORY,
 		'watermark.png')
 
@@ -44,7 +44,7 @@ def changeImageSize(
 		image = Image.open(imageFile)
 
 		# create path according to a size abobe like "/images/M/blahblah.jpg"
-		sizeSpecificFullPath = os.path.join(current_app.root_path,'static',modulePath,size)
+		sizeSpecificFullPath = os.path.join(Config.STATIC_FOLDER_LOCATION, modulePath, size)
 		# check that it exists or create one
 		dirHandler(sizeSpecificFullPath)
 
@@ -111,7 +111,7 @@ def save_image(
 		FileName = image_file_name + f_ext
 		size = "dump"
 
-		sizeSpecificFullPath = os.path.join(current_app.root_path,'static',modulePath,size)
+		sizeSpecificFullPath = os.path.join(Config.STATIC_FOLDER_LOCATION, modulePath, size)
 		dirHandler(sizeSpecificFullPath)
 		FilePath = os.path.join(modulePath,size,FileName)
 		saving_path = os.path.join(sizeSpecificFullPath,FileName)
@@ -165,7 +165,7 @@ def save_icon(
 		if randomName == False:
 			FileName = imageForm.filename
 
-		sizeSpecificFullPath = os.path.join(current_app.root_path,'static',modulePath)
+		sizeSpecificFullPath = os.path.join(Config.STATIC_FOLDER_LOCATION, modulePath)
 		dirHandler(sizeSpecificFullPath)
 		FilePath = os.path.join(modulePath,FileName)
 		saving_path = os.path.join(sizeSpecificFullPath,FileName)

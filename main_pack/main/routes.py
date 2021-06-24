@@ -1,8 +1,6 @@
 from flask import render_template, url_for, jsonify, session, redirect
 from flask import send_from_directory, make_response
-from flask_login import current_user, login_required
-from sqlalchemy import and_
-from sqlalchemy.orm import joinedload
+from os import path
 
 from main_pack import db, babel, gettext
 from . import bp
@@ -95,17 +93,17 @@ def prepare_data(dropdown,page,title):
 @bp.route('/robots.txt')
 def robots():
 	return send_from_directory(
-		directory = Config.WEB_CONFIG_DIRECTORY,
-		filename="robots.txt",
-		as_attachment=False)
+		directory = path.join(Config.STATIC_FOLDER_LOCATION, Config.WEB_CONFIG_DIRECTORY),
+		filename = "robots.txt",
+		as_attachment = False)
 
 
 @bp.route('/sitemap.xml')
 def sitemap():
 	return send_from_directory(
-		directory = Config.WEB_CONFIG_DIRECTORY,
-		filename="sitemap.xml",
-		as_attachment=False)
+		directory = path.join(Config.STATIC_FOLDER_LOCATION, Config.WEB_CONFIG_DIRECTORY),
+		filename = "sitemap.xml",
+		as_attachment = False)
 
 # from main_pack import client
 

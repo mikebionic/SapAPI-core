@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from flask import jsonify, request, abort, make_response
 from flask import send_from_directory
-from flask import current_app
+
 import os
 from datetime import datetime, timedelta
 import dateutil.parser
@@ -25,15 +25,15 @@ def remove_image(file_type,file_name):
 		file_type = "image"
 		file_size = "undefined"
 		file = get_image(file_type=file_type,file_size=file_size,file_name=file_name,path_only=True)
-		FilePath = os.path.join(current_app.root_path,"static",file)
+		FilePath = os.path.join(Config.STATIC_FOLDER_LOCATION, file)
 		os.remove(FilePath)
 	else:
 		file = get_image(file_type=file_type,file_size='S',file_name=file_name,path_only=True)
-		FilePathS = os.path.join(current_app.root_path,"static",file)
+		FilePathS = os.path.join(Config.STATIC_FOLDER_LOCATION, file)
 		file = get_image(file_type=file_type,file_size='M',file_name=file_name,path_only=True)
-		FilePathM = os.path.join(current_app.root_path,"static",file)
+		FilePathM = os.path.join(Config.STATIC_FOLDER_LOCATION, file)
 		file = get_image(file_type=file_type,file_size='R',file_name=file_name,path_only=True)
-		FilePathR = os.path.join(current_app.root_path,"static",file)
+		FilePathR = os.path.join(Config.STATIC_FOLDER_LOCATION, file)
 		os.remove(FilePathS)
 		os.remove(FilePathM)
 		os.remove(FilePathR)
@@ -345,8 +345,8 @@ def get_image(file_type,file_size,file_name,path_only=False):
 				full_path = path.replace("\\","/")
 			else:
 				full_path = path.replace("<FSize>",file_size)
-			
-			response = send_from_directory('static',full_path,as_attachment=True)
+			print('getting')
+			response = send_from_directory(Config.STATIC_FOLDER_LOCATION, full_path, as_attachment=True)
 			if path_only:
 				return full_path
 			return response
@@ -366,9 +366,9 @@ def get_file(file_type,file_name):
 			path = sl_image.SlImgMainImgFilePath
 		try:
 			if Config.OS_TYPE == 'win32':
-				response = send_from_directory('static',filename=path.replace("\\","/"),as_attachment=True)
+				response = send_from_directory(Config.STATIC_FOLDER_LOCATION,filename=path.replace("\\","/"),as_attachment=True)
 			else:
-				response = send_from_directory('static',filename=path,as_attachment=True)
+				response = send_from_directory(Config.STATIC_FOLDER_LOCATION,filename=path,as_attachment=True)
 			return response
 		except FileNotFoundError:
 			abort(404)
@@ -382,9 +382,9 @@ def get_icon(category,file_name):
 	full_icon_path = os.path.join(icons_path,category,file_name)
 	try:
 		if Config.OS_TYPE == 'win32':
-			response = send_from_directory('static',filename=full_icon_path.replace("\\","/"),as_attachment=True)
+			response = send_from_directory(Config.STATIC_FOLDER_LOCATION,filename=full_icon_path.replace("\\","/"),as_attachment=True)
 		else:
-			response = send_from_directory('static',filename=full_icon_path,as_attachment=True)
+			response = send_from_directory(Config.STATIC_FOLDER_LOCATION,filename=full_icon_path,as_attachment=True)
 		return response
 	except FileNotFoundError:
 		abort(404)

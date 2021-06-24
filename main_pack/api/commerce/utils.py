@@ -394,7 +394,7 @@ def saveImageFile(req):
 			module = None
 			id = None
 
-		dumpFolderPath = os.path.join(current_app.root_path,'static','imageDumps')
+		dumpFolderPath = os.path.join(Config.STATIC_FOLDER_LOCATION, 'imageDumps')
 		dirHandler(dumpFolderPath)
 		dumpImagePath = os.path.join(dumpFolderPath,f"dump.{Config.BLOB_TO_IMAGE_SAVE_EXT}")
 		outfile = open(dumpImagePath,"wb")
