@@ -255,7 +255,7 @@ def api_images():
 					updatingDate = dateutil.parser.parse(imageDictData['ModifiedDate'])
 					if thisImage.ModifiedDate != updatingDate:
 						image_data = saveImageFile(image_req)
-						image_data['ImgId'] = thisImage.ImgId
+						# image_data['ImgId'] = thisImage.ImgId
 						try:
 							# Delete last image
 							file_type = "image"

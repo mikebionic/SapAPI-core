@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 import uuid
+import dateutil.parser
+
 from main_pack.base.dataMethods import configureNulls, configureFloat
 
 def add_Order_inv_line_dict(req):
@@ -19,16 +21,16 @@ def add_Order_inv_line_dict(req):
 	OInvLineTaxAmount = configureFloat(req.get('OInvLineTaxAmount'))
 	OInvLineDiscAmount = configureFloat(req.get('OInvLineDiscAmount'))
 	OInvLineFTotal = configureFloat(req.get('OInvLineFTotal'))
-	OInvLineDate = req.get('OInvLineDate')
+	OInvLineDate = dateutil.parser.parse(req.get('OInvLineDate')) if req.get('OInvLineDate') else None
 	AddInf1 = req.get('AddInf1')
 	AddInf2 = req.get('AddInf2')
 	AddInf3 = req.get('AddInf3')
 	AddInf4 = req.get('AddInf4')
 	AddInf5 = req.get('AddInf5')
 	AddInf6 = req.get('AddInf6')
-	CreatedDate = req.get('CreatedDate')
-	ModifiedDate = req.get('ModifiedDate')
-	SyncDateTime = req.get('SyncDateTime')
+	CreatedDate = dateutil.parser.parse(req.get('CreatedDate')) if req.get('CreatedDate') else None
+	ModifiedDate = dateutil.parser.parse(req.get('ModifiedDate')) if req.get('ModifiedDate') else None
+	SyncDateTime = dateutil.parser.parse(req.get('SyncDateTime')) if req.get('SyncDateTime') else None
 	CreatedUId = req.get('CreatedUId')
 	ModifiedUId = req.get('ModifiedUId')
 	GCRecord = req.get('GCRecord')

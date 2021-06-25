@@ -55,7 +55,6 @@ def save_order_line_checkout_data(
 				raise Exception
 
 			order_inv_line["OInvLineRegNo"] = RegNo
-			print(RegNo)
 			RegNo = None
 
 			ResId = order_inv_line["ResId"]

@@ -583,7 +583,6 @@ def get_FeaturedResCategory_list(DivId = None):
 	)
 
 	featured_categories = featured_categories\
-		.order_by(Res_category.ResCatVisibleIndex.asc())\
 		.all()
 	
 	return featured_categories

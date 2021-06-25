@@ -423,7 +423,6 @@ def saveImageFile(req):
 	return image
 
 def addBarcodeDict(req):
-	BarcodeId = req.get('BarcodeId')
 	BarcodeGuid = uuid.UUID(req.get('BarcodeGuid')) if req.get('BarcodeGuid') else None
 	CId = req.get('CId')
 	DivId = req.get('DivId')
@@ -452,13 +451,10 @@ def addBarcodeDict(req):
 		"GCRecord": GCRecord
 		}
 
-	# if(BarcodeId != '' and BarcodeId != None):
-	# 	data["BarcodeId"] = BarcodeId
 	data = configureNulls(data)
 	return	data
 
 def addResPriceDict(req):
-	ResPriceId = req.get('ResPriceId')
 	ResPriceGuid = uuid.UUID(req.get('ResPriceGuid')) if req.get('ResPriceGuid') else None
 	ResPriceTypeId = req.get('ResPriceTypeId')
 	ResPriceGroupId = req.get('ResPriceGroupId')
@@ -495,13 +491,10 @@ def addResPriceDict(req):
 		"GCRecord": GCRecord
 		}
 
-	# if(ResPriceId != '' and ResPriceId != None):
-	# 	data["ResPriceId"] = ResPriceId
 	data = configureNulls(data)
 	return data
 
 def addResTotalDict(req):
-	ResTotId = req.get('ResTotId')
 	ResTotGuid = uuid.UUID(req.get('ResTotGuid')) if req.get('ResTotGuid') else None
 	ResId = req.get('ResId')
 	CurrencyId = req.get('CurrencyId')
@@ -542,8 +535,6 @@ def addResTotalDict(req):
 		"GCRecord": GCRecord
 	}
 
-	# if(ResTotId != '' and ResTotId != None):
-	# 	data["ResTotId"] = ResTotId
 	data = configureEmptyQuotesNulls(data)
 	return data
 
