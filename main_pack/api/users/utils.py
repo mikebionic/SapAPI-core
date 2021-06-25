@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import uuid
 from sqlalchemy.orm import joinedload
+from datetime import datetime
 
 from main_pack.base.languageMethods import dataLangSelector
 from main_pack.base.apiMethods import fileToURL
@@ -9,12 +10,12 @@ from main_pack.base.dataMethods import configureNulls, configureFloat, boolCheck
 
 def addUsersDict(req):
 	UId = req.get('UId')
-	UGuid = uuid.UUID(req.get('UGuid'))
+	UGuid = uuid.UUID(req.get('UGuid')) if req.get('UGuid') else None
 	CId = req.get('CId')
 	DivId = req.get('DivId')
 	RpAccId = req.get('RpAccId')
 	UFullName = req.get('UFullName')
-	UName = req.get('UName')
+	UName = req.get('UName').strip() if req.get('UName') else str(datetime.now().timestamp())
 	UEmail = req.get('UEmail')
 	UPass = req.get('UPass')
 	URegNo = req.get('URegNo')
@@ -67,7 +68,7 @@ def addUsersDict(req):
 
 def addRpAccDict(req):
 	RpAccId = req.get('RpAccId')
-	RpAccGuid = uuid.UUID(req.get('RpAccGuid'))
+	RpAccGuid = uuid.UUID(req.get('RpAccGuid')) if req.get('RpAccGuid') else None
 	UId = req.get('UId')
 	CId = req.get('CId')
 	DivId = req.get('DivId')
@@ -222,11 +223,8 @@ def addDeviceDict(req):
 	
 
 ###### returning info for single user after api auth success #####
-from main_pack.models import Image
-from main_pack.models import Resource
 from main_pack.base.apiMethods import fileToURL
-from main_pack.models import User, Rp_acc, User_type
-from sqlalchemy import and_
+from main_pack.models import User, Rp_acc
 
 
 def apiUsersData(

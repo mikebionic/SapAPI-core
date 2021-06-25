@@ -46,7 +46,7 @@ def save_order_line_checkout_data(
 			order_inv_line_req['OInvLineGuid'] = str(uuid.uuid4())
 			order_inv_line = add_Order_inv_line_dict(order_inv_line_req)
 
-			RegNo = fetch_and_generate_RegNo(
+			RegNo, _ = fetch_and_generate_RegNo(
 				user_id,
 				user_short_name,
 				'order_invoice_line_code',
@@ -55,6 +55,7 @@ def save_order_line_checkout_data(
 				raise Exception
 
 			order_inv_line["OInvLineRegNo"] = RegNo
+			print(RegNo)
 			RegNo = None
 
 			ResId = order_inv_line["ResId"]

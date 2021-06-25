@@ -152,6 +152,8 @@ def api_users():
 				if not user_info["URegNo"]:
 					URegNo = str(datetime.now().timestamp())
 					user_info["URegNo"] = URegNo
+
+				user_info["UShortName"] = f'{user_info["UName"][0]}{user_info["UName"][-1]}'.upper()
 				UGuid = user_info["UGuid"]
 				CGuid = user_req["CGuid"]
 				DivGuid = user_req["DivGuid"]

@@ -1,15 +1,17 @@
 # -*- coding: utf-8 -*-
 import uuid
+from datetime import datetime
+
 from main_pack.base.dataMethods import configureNulls
 
 def add_User_dict(req):
 	UId = req.get('UId')
-	UGuid = uuid.UUID(req.get('UGuid'))
+	UGuid = uuid.UUID(req.get('UGuid')) if req.get('UGuid') else None
 	CId = req.get('CId')
 	DivId = req.get('DivId')
 	RpAccId = req.get('RpAccId')
 	UFullName = req.get('UFullName')
-	UName = req.get('UName')
+	UName = req.get('UName').strip() if req.get('UName') else str(datetime.now().timestamp())
 	UEmail = req.get('UEmail')
 	UPass = req.get('UPass')
 	URegNo = req.get('URegNo')

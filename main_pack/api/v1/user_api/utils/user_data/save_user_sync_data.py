@@ -22,6 +22,11 @@ def save_user_sync_data(req):
 			user_info = add_User_dict(user_req)
 
 			URegNo = user_info["URegNo"]
+			if not user_info["URegNo"]:
+				URegNo = str(datetime.now().timestamp())
+				user_info["URegNo"] = URegNo
+
+			user_info["UShortName"] = f'{user_info["UName"][0]}{user_info["UName"][-1]}'.upper()
 			UGuid = user_info["UGuid"]
 
 			CId = get_id_from_list_indexing(CId_list, CGuid_list, user_req["CGuid"])

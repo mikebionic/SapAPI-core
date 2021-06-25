@@ -99,7 +99,7 @@ def save_order_checkout_data(req, model_type, current_user, session = None):
 
 		warehouse = get_last_Warehouse_by_DivId(DivId)
 		if not warehouse:
-			print("no warehous")
+			print("no warehouse")
 			raise Exception
 		WhId = warehouse.WhId
 
