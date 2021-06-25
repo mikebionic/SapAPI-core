@@ -1,10 +1,11 @@
-from flask import render_template,url_for,jsonify,session,flash,redirect,request,Response,abort
-from flask_login import current_user,login_required
+from flask import render_template,jsonify,request
+from datetime import datetime
+
 from main_pack import db, gettext, cache
 from main_pack.config import Config
 
 # auth and validation
-from flask_login import current_user,login_required
+from flask_login import login_required
 from main_pack.commerce.auth.utils import ui_admin_required
 # / auth and validation /
 
@@ -72,6 +73,7 @@ def ui_category_table():
 				})
 
 	except Exception as ex:
+		print(f"{datetime.now()} | UI Category Admin exception {ex}")
 		response = jsonify({
 			"status": "error",
 			"responseText": gettext('Unknown error!'),

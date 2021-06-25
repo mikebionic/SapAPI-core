@@ -1,4 +1,6 @@
-from flask import render_template,url_for,jsonify,session,flash,redirect,request,Response, abort
+from flask import render_template,jsonify,request
+from datetime import datetime
+
 from main_pack import db,babel,gettext
 from main_pack.config import Config
 
@@ -45,7 +47,7 @@ def ui_barcode():
 						"htmlData":  render_template(f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/barcodeAppend.html",barcode=updateBarcode)
 					})
 			except Exception as ex:
-				print(ex)
+				print(f"{datetime.now()} | UI Category Admin exception {ex}")
 				response = jsonify({
 					"status": "error",
 					"responseText": gettext('Unknown error!'),

@@ -105,8 +105,8 @@ def company():
 @ui_admin_required
 def category_table():
 	data = {}
-	icons_path = os.path.join("static","commerce","icons","categories")
-	full_icons_path = os.path.join(Config.APP_BASEDIR,icons_path)
+	icons_path = os.path.join("commerce","icons","categories")
+	full_icons_path = os.path.join(Config.STATIC_FOLDER_LOCATION,icons_path)
 	folders = os.listdir(full_icons_path)
 	category_icons = {}
 	for folder in folders:

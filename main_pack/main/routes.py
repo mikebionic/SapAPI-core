@@ -93,16 +93,16 @@ def prepare_data(dropdown,page,title):
 @bp.route('/robots.txt')
 def robots():
 	return send_from_directory(
-		directory = path.join(Config.STATIC_FOLDER_LOCATION, Config.WEB_CONFIG_DIRECTORY),
-		filename = "robots.txt",
+		path.join(Config.STATIC_FOLDER_LOCATION, Config.WEB_CONFIG_DIRECTORY),
+		"robots.txt",
 		as_attachment = False)
 
 
 @bp.route('/sitemap.xml')
 def sitemap():
 	return send_from_directory(
-		directory = path.join(Config.STATIC_FOLDER_LOCATION, Config.WEB_CONFIG_DIRECTORY),
-		filename = "sitemap.xml",
+		path.join(Config.STATIC_FOLDER_LOCATION, Config.WEB_CONFIG_DIRECTORY),
+		"sitemap.xml",
 		as_attachment = False)
 
 # from main_pack import client

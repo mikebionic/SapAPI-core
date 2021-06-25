@@ -365,9 +365,9 @@ def get_file(file_type,file_name):
 			path = sl_image.SlImgMainImgFilePath
 		try:
 			if Config.OS_TYPE == 'win32':
-				response = send_from_directory(Config.STATIC_FOLDER_LOCATION,filename=path.replace("\\","/"),as_attachment=True)
+				response = send_from_directory(Config.STATIC_FOLDER_LOCATION,path.replace("\\","/"),as_attachment=True)
 			else:
-				response = send_from_directory(Config.STATIC_FOLDER_LOCATION,filename=path,as_attachment=True)
+				response = send_from_directory(Config.STATIC_FOLDER_LOCATION,path,as_attachment=True)
 			return response
 		except FileNotFoundError:
 			abort(404)
@@ -381,9 +381,9 @@ def get_icon(category,file_name):
 	full_icon_path = os.path.join(icons_path,category,file_name)
 	try:
 		if Config.OS_TYPE == 'win32':
-			response = send_from_directory(Config.STATIC_FOLDER_LOCATION,filename=full_icon_path.replace("\\","/"),as_attachment=True)
+			response = send_from_directory(Config.STATIC_FOLDER_LOCATION,full_icon_path.replace("\\","/"),as_attachment=True)
 		else:
-			response = send_from_directory(Config.STATIC_FOLDER_LOCATION,filename=full_icon_path,as_attachment=True)
+			response = send_from_directory(Config.STATIC_FOLDER_LOCATION,full_icon_path,as_attachment=True)
 		return response
 	except FileNotFoundError:
 		abort(404)
