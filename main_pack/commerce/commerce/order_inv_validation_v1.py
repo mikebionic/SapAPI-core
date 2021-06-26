@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import request, make_response, jsonify, session
+from flask import request, make_response, jsonify, session, render_template
 from datetime import datetime
 from flask_login import login_required, current_user
 from main_pack.api.base.validators import request_is_json
@@ -13,6 +13,8 @@ from main_pack.api.v1.order_inv_api.utils import validate_order_inv_payment
 @login_required
 @request_is_json(request)
 def order_inv_validation_v1():
+	# OrderId = request.args.get("orderId",None,type=str)
+	# OInvRegNo = request.args.get("OInvRegNo",None,type=str)
 	req = request.get_json()
 	response = {
 		"status": 0,
@@ -36,3 +38,10 @@ def order_inv_validation_v1():
 		print(f"{datetime.now()} | UI_payment_validation Exception: {ex}")
 
 	return make_response(jsonify(response))
+
+
+# @bp.route("/order-inv-validation/")
+# @login_required
+# def render_order_inv_validation_view_v1():
+	
+# 	return render_template()

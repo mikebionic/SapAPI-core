@@ -1,3 +1,4 @@
+from flask.helpers import url_for
 import requests
 import json
 from datetime import datetime
@@ -7,7 +8,7 @@ from main_pack.config import Config
 from main_pack.models import Order_inv
 
 
-def do_mpi_gov_tm_payment_service_register_request(req):
+def do_mpi_gov_tm_payment_service_register_request(req, return_url=None):
 	data = {}
 
 	RegNo = req['OInvRegNo']
@@ -21,8 +22,11 @@ def do_mpi_gov_tm_payment_service_register_request(req):
 	service_username = Config.PAYMENT_VALIDATION_SERVICE_USERNAME
 	service_password = Config.PAYMENT_VALIDATION_SERVICE_PASSWORD
 
-	returnUrl = f"https://mpi.gov.tm/payment/finish.html%3Flogin%3D{service_username}%26password%3D{service_password}&userName={service_username}&pageView=DESKTOP&description={OrderDesc}"
-	payment_order_check_req_url = f"{register_url}orderNumber={RegNo}&currency={currency}&amount={TotalPrice}&language={language}&password={service_password}&returnUrl={returnUrl}"
+	# return url is buggy now, need to have request origin with other data.. got /cart 
+	return_url = None
+	default_return_url = f"https://mpi.gov.tm/payment/finish.html%3Flogin%3D{service_username}%26password%3D{service_password}&userName={service_username}&pageView=DESKTOP&description={OrderDesc}"
+	payment_return_url = return_url if return_url else default_return_url
+	payment_order_check_req_url = f"{register_url}orderNumber={RegNo}&currency={currency}&amount={TotalPrice}&language={language}&password={service_password}&returnUrl={payment_return_url}&failUrl={payment_return_url}"
 
 	try:
 		r = requests.get(payment_order_check_req_url, verify=False)
@@ -30,6 +34,7 @@ def do_mpi_gov_tm_payment_service_register_request(req):
 
 		errorCode = int(response_json["errorCode"])
 		if not (errorCode == 0 or errorCode == 1):
+			print("errorcode")
 			raise Exception
 
 		# if last regNo request already registered
@@ -37,7 +42,7 @@ def do_mpi_gov_tm_payment_service_register_request(req):
 			new_RegNo = str(datetime.now().timestamp())
 			RegNo = update_order_RegNo(RegNo, new_RegNo)
 
-			payment_order_check_req_url = f"{register_url}orderNumber={RegNo}&currency={currency}&amount={TotalPrice}&language={language}&password={service_password}&returnUrl={returnUrl}"
+			payment_order_check_req_url = f"{register_url}orderNumber={RegNo}&currency={currency}&amount={TotalPrice}&language={language}&password={service_password}&returnUrl={payment_return_url}&failUrl={payment_return_url}"
 
 			r = requests.get(payment_order_check_req_url, verify=False)
 			response_json = json.loads(r.text)

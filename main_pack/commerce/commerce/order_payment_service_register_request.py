@@ -2,6 +2,7 @@ from flask import (
 	make_response,
 	jsonify,
 	request,
+	url_for
 )
 
 from flask_login import login_required
@@ -15,9 +16,16 @@ from main_pack.api.v1.order_inv_api.utils import do_mpi_gov_tm_payment_service_r
 @login_required
 @request_is_json(request)
 def order_payment_service_register_request():
+	online_payment_type = request.args.get("online_payment_type", 1, type=int)
+	# online_payment_type = 1 # local state
+	# online_payment_type = 2 # interActiv
+
 	req = request.get_json()
-	req["OInvRegNo"] = req["RegNo"] 
-	data = do_mpi_gov_tm_payment_service_register_request(req)
+	req["OInvRegNo"] = req["RegNo"]
+	return_url = url_for('commerce.cart') # make redirect to payment validation page
+
+	if online_payment_type == 1:
+		data = do_mpi_gov_tm_payment_service_register_request(req, return_url)
 
 	res = {
 		"status": 1 if data else 0,

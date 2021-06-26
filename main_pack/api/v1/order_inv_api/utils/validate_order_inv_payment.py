@@ -33,7 +33,7 @@ def validate_order_inv_payment(req, model_type, current_user):
 		OrderId = req["OrderId"]
 
 		if not OInvRegNo or not OrderId:
-			message = "Payment Validation: failed (OrderId is None)"
+			message = "Payment Validation: failed (Reg no or OrderId is None)"
 			print(f"{datetime.now()} | {message}")
 			raise Exception
 
@@ -87,7 +87,7 @@ def validate_order_inv_payment(req, model_type, current_user):
 					db.session.commit()
 
 			else:
-				message = "Already paid"
+				message = "Payment successfully done!"
 
 		else:
 			message = "Payment Validation: failed (Order_inv is None)"

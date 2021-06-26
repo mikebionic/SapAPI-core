@@ -1,5 +1,15 @@
 # InterActiv Payment usage
 
+> Currency info
+
+| Code  | Number |
+| :---: | :----: |
+|  EUR  |  978   |
+|  TMT  |  934   |
+|  USD  |  840   |
+
+
+
 ## 1. Authentication
 
 | url                                 | type  |
@@ -230,9 +240,9 @@ App should do another request to get the state of order from response["_links"][
 | https://ecomt.tfeb.gov.tm/v1/Orders/d794539b-824c-4373-9acc-f3c479e6be15 |  GET  |
 
 **Header**
-| key           | value                |
-| ------------- | -------------------- |
-| Authorization | Bearer ...           |
+| key           | value      |
+| ------------- | ---------- |
+| Authorization | Bearer ... |
 
 
 **Response**
