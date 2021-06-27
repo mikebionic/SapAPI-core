@@ -22,7 +22,9 @@ def order_payment_service_register_request():
 
 	req = request.get_json()
 	req["OInvRegNo"] = req["RegNo"]
-	return_url = url_for('commerce.cart') # make redirect to payment validation page
+
+	cart_view_route = url_for('commerce.cart')[1:] if url_for('commerce.cart')[0] == "/" else url_for('commerce.cart')
+	return_url = f"{request.url_root}{cart_view_route}"
 
 	if online_payment_type == 1:
 		data = do_mpi_gov_tm_payment_service_register_request(req, return_url)

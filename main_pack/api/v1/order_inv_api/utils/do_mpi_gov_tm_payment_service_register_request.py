@@ -34,7 +34,7 @@ def do_mpi_gov_tm_payment_service_register_request(req, return_url=None):
 
 		errorCode = int(response_json["errorCode"])
 		if not (errorCode == 0 or errorCode == 1):
-			print("errorcode")
+			print(f"errorcode {errorCode}")
 			raise Exception
 
 		# if last regNo request already registered
