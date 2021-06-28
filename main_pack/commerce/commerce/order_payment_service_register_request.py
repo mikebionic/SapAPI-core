@@ -16,9 +16,10 @@ from main_pack.api.v1.order_inv_api.utils import do_mpi_gov_tm_payment_service_r
 @login_required
 @request_is_json(request)
 def order_payment_service_register_request():
-	online_payment_type = request.args.get("online_payment_type", 1, type=int)
-	# online_payment_type = 1 # local state
-	# online_payment_type = 2 # interActiv
+	online_payment_type = request.args.get("online_payment_type", "halkbank", type=str).strip()
+
+	# online_payment_type = "halkbank" # local state
+	# online_payment_type = "foreign_affairs_bank" # interActiv
 
 	req = request.get_json()
 	req["OInvRegNo"] = req["RegNo"]
@@ -26,7 +27,8 @@ def order_payment_service_register_request():
 	paym_validation_view = url_for('commerce.render_payment_validation_view')[1:] if url_for('commerce.render_payment_validation_view')[0] == "/" else url_for('commerce.render_payment_validation_view')
 	return_url = f"{request.url_root}{paym_validation_view}"
 
-	if online_payment_type == 1:
+	data = {}
+	if online_payment_type == "halkbank":
 		data = do_mpi_gov_tm_payment_service_register_request(req, return_url)
 
 	res = {

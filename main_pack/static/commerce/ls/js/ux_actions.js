@@ -265,12 +265,42 @@ function countCartItems(){
 }
 //////////////////////////////
 
+function get_radiobutton_value(classname){
+	var current_button = $(`${classname} input:checked`)
+	var value = null;
+	console.log("tryna get VALUE")
+	try{
+		if (current_button[0].value){
+			value = current_button[0].value
+		}
+	}	catch{}
+	console.log('got value')
+	console.log(value)	
+	return value;
+}
+
 /// payment stuff
 $('.paymentMethods input').click(function () {
 	data2 = $('.cartItemsTable')[0]
 	if (data2.innerText != ""){
 		$('.checkoutForm').show();
 	}
+
+	var payment_method = parseInt(get_radiobutton_value('.paymentMethods'))
+	if (payment_method){
+		if (payment_method > 0){
+			if (payment_method == 2){
+				$('.online_payment_types').show()
+			}
+			else {
+				$('.online_payment_types').hide()
+			}
+		}
+	}
+	else{
+		$('.online_payment_types').hide()
+	}
+
 })
 
 // $(document).ready(function(){
@@ -282,16 +312,21 @@ $('body').delegate('.checkoutCartBtn','click',function(){
 	data['OInvDesc'] = $('.orderDesc').val();
 
 	var PmId = null;
+	var online_payment_type = null;
 	try {
-		var payment_method = $('.paymentMethods input:checked')
-		if (parseInt(payment_method[0].value) > 0){
-			PmId = parseInt(payment_method[0].value)
+		var payment_method = parseInt(get_radiobutton_value('.paymentMethods'))
+		if (payment_method && payment_method > 0){
+			PmId = payment_method;
+			if (payment_method == 2){
+				online_payment_type = get_radiobutton_value('.online_payment_types')
+				console.log(online_payment_type)
+			}
 		}
 	} catch {
 		PmId = null;
 	}
-	data['PmId'] = PmId
-	data['PtId'] = 1
+	data['PmId'] = PmId;
+	data['PtId'] = 1;
 
 	var order_data = get_local_data_by_name("orderInv");
 	if (order_data["orderInv"]){
@@ -299,11 +334,13 @@ $('body').delegate('.checkoutCartBtn','click',function(){
 			order_data["orderInv"]["PmId"] = data["PmId"];
 			order_data["orderInv"]["PtId"] = data["PtId"];
 			order_data["orderInv"]["OInvDesc"] = data["OInvDesc"];
+			order_data["online_payment_type"] = online_payment_type;
 			set_local_data_by_name('orderInv', order_data);
 		}
 	}
 	else{
 		var order_data = {"orderInv": data, "validated": false}
+		order_data["online_payment_type"] = online_payment_type;
 		set_local_data_by_name('orderInv', order_data)
 	}
 

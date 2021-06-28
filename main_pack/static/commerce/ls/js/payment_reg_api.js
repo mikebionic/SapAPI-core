@@ -73,7 +73,9 @@ function req_payment_url_prepare(reg_no){
 		"TotalPrice": cart_totals_data["totalPrice"],
 		"OrderDesc": $('.orderDesc').val()
 	}
-	req_payment_request(payload, payment_req_url)
+	var order_data = get_local_data_by_name("orderInv");
+	var online_payment_type = order_data["online_payment_type"]
+	req_payment_request(payload, `${payment_req_url}?online_payment_type=${online_payment_type}`)
 }
 
 

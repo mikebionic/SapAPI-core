@@ -16,6 +16,7 @@ class Currency(AddInf, BaseModel, db.Model):
 	CurrencyDesc_enUS = db.Column("CurrencyDesc_enUS",db.String(500))
 	CurrencyCode = db.Column("CurrencyCode",db.String(100))
 	CurrencySymbol = db.Column("CurrencySymbol",db.String(100))
+	CurrencyNumCode = db.Column("CurrencyNumCode",db.Integer)
 	Accounting_info = db.relationship("Accounting_info",backref='currency',lazy=True)
 	Exc_rate = db.relationship("Exc_rate",backref='currency',lazy=True)
 	Inv_line = db.relationship("Inv_line",backref='currency',lazy=True)
@@ -45,7 +46,8 @@ class Currency(AddInf, BaseModel, db.Model):
 			"CurrencyName_enUS": self.CurrencyName_enUS,
 			"CurrencyDesc_enUS": self.CurrencyDesc_enUS,
 			"CurrencyCode": self.CurrencyCode,
-			"CurrencySymbol": self.CurrencySymbol
+			"CurrencySymbol": self.CurrencySymbol,
+			"CurrencyNumCode": self.CurrencyNumCode
 		}
 
 		for key, value in AddInf.to_json_api(self).items():
