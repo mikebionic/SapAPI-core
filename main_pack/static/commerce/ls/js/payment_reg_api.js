@@ -89,6 +89,7 @@ function req_payment_request(payload, url){
 			var order_data = get_local_data_by_name("orderInv");
 			order_data["orderInv"]["OrderId"] = response.data.orderId;
 			set_local_data_by_name("orderInv", order_data);
+			console.log(order_data)
 			open_payment_window(formUrl)
 		},
 		error: function(response){
@@ -145,14 +146,13 @@ function detect_url_change(current_window){
 }
 
 
-
-function validate_oinv_payment(){
+function validate_oinv_payment(callback_func=null){
 	var order_data = get_local_data_by_name("orderInv");
 	var payload_data = order_data['orderInv'];
-	validateRequest(payload_data, oinv_validation_url);
+	validateRequest(payload_data, oinv_validation_url, callback_func);
 }
 
-function validateRequest(payload_data, url){
+function validateRequest(payload_data, url, callback_func=null){
 	$.ajax({
 		contentType:"application/json",
 		dataType:"json",
@@ -160,19 +160,29 @@ function validateRequest(payload_data, url){
 		type: "POST",
 		url: url,
 		success: function(response){
-			if(response.status == 1){
-				swal(title=success_title, message=response.responseText, style='success');
-				clearCart();
-				setTimeout(function(){
-					window.location.href = `${url_prefix}/orders`;
-				}, 5000);
+			if (callback_func){
+				callback_func()
 			}
 			else{
-				swal(title=unknown_error_text, message=response.responseText, style='warning');
+				if(response.status == 1){
+					swal(title=success_title, message=response.responseText, style='success');
+					clearCart();
+					setTimeout(function(){
+						window.location.href = `${url_prefix}/orders`;
+					}, 5000);
+				}
+				else{
+					swal(title=unknown_error_text, message=response.responseText, style='warning');
+				}
 			}
 		},
 		error: function(){
-			swal(title=unknown_error_text, message=unknown_error_text, style='warning');
+			if (callback_func){
+				callback_func()
+			}
+			else{
+				swal(title=unknown_error_text, message=unknown_error_text, style='warning');
+			}
 		}
 	})
 }

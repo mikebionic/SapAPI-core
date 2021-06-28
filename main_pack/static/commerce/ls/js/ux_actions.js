@@ -273,9 +273,9 @@ $('.paymentMethods input').click(function () {
 	}
 })
 
-$(document).ready(function(){
-	set_local_data_by_name('orderInv', {});
-})
+// $(document).ready(function(){
+// 	set_local_data_by_name('orderInv', {});
+// })
 
 $('body').delegate('.checkoutCartBtn','click',function(){
 	var data = collectOrderData()

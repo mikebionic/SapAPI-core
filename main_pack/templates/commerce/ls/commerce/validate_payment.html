@@ -1,0 +1,28 @@
+{% extends "commerce/ls/commerce/layout.html" %}
+
+{% block breadcrumbs %}
+	<nav class="woocommerce-breadcrumb">
+		<a href="{{ url_for('commerce.commerce') }}">{{_('Main')}}</a>
+		<span class="delimiter">
+			<i class="tm tm-breadcrumbs-arrow-right"></i>
+		</span>
+		{{_('Cart')}}
+	</nav>
+{% endblock %}
+
+{% block content %}
+<div id="cover-spin"></div>
+{% endblock %}
+
+{% block scripts %}
+	<script src="{{ url_for('static', filename='commerce/ls/js/payment_reg_api.js') }}"></script>
+	<script>
+		function validation_callback(){window.close()}
+		$(document).ready(function(){
+			try {
+				// validate_oinv_payment(validation_callback)
+			}	catch {validation_callback()}
+		})
+		validation_callback()
+	</script>
+{% endblock %}

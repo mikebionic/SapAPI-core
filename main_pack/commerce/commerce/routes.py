@@ -1,5 +1,5 @@
 from flask import render_template, flash, session
-from flask_login import current_user
+from flask_login import current_user, login_required
 from datetime import datetime
 
 from . import bp, url_prefix
@@ -133,6 +133,21 @@ def cart():
 		f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/commerce/cart.html",
 		**categoriesData,
 		payment_methods = payment_methods,
+		url_prefix = url_prefix,
+		title = gettext(Config.COMMERCE_CART_VIEW_TITLE))
+
+
+@bp.route("/payment-validation/")
+@login_required
+def render_payment_validation_view():
+	categoriesData = UiCategoriesList()
+
+	if "currency_code" not in session:
+		session["currency_code"] = "TMT"
+
+	return render_template(
+		f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/commerce/validate_payment.html",
+		**categoriesData,
 		url_prefix = url_prefix,
 		title = gettext(Config.COMMERCE_CART_VIEW_TITLE))
 

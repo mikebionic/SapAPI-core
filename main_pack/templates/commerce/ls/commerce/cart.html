@@ -68,6 +68,7 @@
 
 														{% for payment_method in payment_methods %}
 															{% if session.currency_code != "TMT" and payment_method.PmId == 2 %}{% else %}
+															{% endif %}
 															<div class="custom-control custom-radio">
 																<input id="{{ payment_method.PmName }}" name="paymentMethod" type="radio" class="custom-control-input" value="{{ payment_method.PmId }}" required>
 																<label class="custom-control-label" for="{{ payment_method.PmName }}">
@@ -75,8 +76,27 @@
 																	<p>{{ payment_method.PmDesc }}</p>
 																</label>
 															</div>
-															{% endif %}
 														{% endfor %}
+
+														<div class="custom-control custom-radio online-payment-radio">
+															<input id="online1" name="paymentMethod" type="radio" class="custom-control-input" value="online1" required>
+															<label class="custom-control-label" for="online1">
+																{{_('Halkbank - Joint Stock Commercial Bank of Turkmenistan')}}
+															</label>
+															<img loading="lazy"
+																src="{{ url_for('static', filename='commerce/ls/img/halkbank_logo.jpg') }}">
+														</div>
+														<div class="custom-control custom-radio online-payment-radio">
+															<input id="online2" name="paymentMethod" type="radio" class="custom-control-input" value="online2" required>
+															<label class="custom-control-label" for="online2">
+																{{_('The State Bank for Foreign Economic Affairs of Turkmenistan')}}
+															</label>
+															<img loading="lazy"
+																src="{{ url_for('static', filename='commerce/ls/img/foreign_affairs_bank_logo.png') }}">
+														</div>
+
+													</div>
+													<div class="d-block my-3 paymentMethods">
 
 													</div>
 												</div>

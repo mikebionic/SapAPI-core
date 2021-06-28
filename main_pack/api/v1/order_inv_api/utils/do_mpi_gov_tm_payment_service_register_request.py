@@ -22,10 +22,8 @@ def do_mpi_gov_tm_payment_service_register_request(req, return_url=None):
 	service_username = Config.PAYMENT_VALIDATION_SERVICE_USERNAME
 	service_password = Config.PAYMENT_VALIDATION_SERVICE_PASSWORD
 
-	# return url is buggy now, need to have request origin with other data.. got /cart 
-	return_url = None
 	default_return_url = f"https://mpi.gov.tm/payment/finish.html%3Flogin%3D{service_username}%26password%3D{service_password}&userName={service_username}&pageView=DESKTOP&description={OrderDesc}"
-	payment_return_url = return_url if return_url else default_return_url
+	payment_return_url = f"{return_url}%3Flogin%3D{service_username}%26password%3D{service_password}&userName={service_username}&pageView=DESKTOP&description={OrderDesc}" if return_url else default_return_url
 	payment_order_check_req_url = f"{register_url}orderNumber={RegNo}&currency={currency}&amount={TotalPrice}&language={language}&password={service_password}&returnUrl={payment_return_url}&failUrl={payment_return_url}"
 
 	try:

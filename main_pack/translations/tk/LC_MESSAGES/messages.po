@@ -881,3 +881,9 @@ msgstr "Eger-de hasaba alynmadyk bolsaňyz, 'Hasaba al' düwmä basyň we hasap 
 
 msgid "Specify the payment method"
 msgstr "Töleg usulyny görkeziň"
+
+msgid "The State Bank for Foreign Economic Affairs of Turkmenistan"
+msgstr "Türkmenistanyň Döwlet Daşary Ykdysady Iş Banky"
+
+msgid "Halkbank - Joint Stock Commercial Bank of Turkmenistan"
+msgstr "Halkbank - Türkmenistanyň paýdarlar täjirçilik banky"

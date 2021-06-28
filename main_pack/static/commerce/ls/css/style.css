@@ -34897,3 +34897,13 @@ input:checked ~ .tab-content{
   -webkit-animation: spin .8s linear infinite;
   animation: spin .8s linear infinite;
 }
+
+.online-payment-radio {
+  display: flex;
+  margin-top: 10px;
+  margin-left: 32px;
+}
+
+.online-payment-radio img {
+  max-height: 40px;
+}

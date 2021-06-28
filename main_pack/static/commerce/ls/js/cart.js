@@ -18,3 +18,7 @@ $(document).ready(function(){
 		);
 	}
 });
+
+$(document).ready(function(){
+	set_local_data_by_name('orderInv', {});
+})

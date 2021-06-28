@@ -861,3 +861,9 @@ msgid "If you don't have an account, click the 'Register' button and proceed the
 
 msgid "Specify the payment method"
 msgstr "Specify the payment method"
+
+msgid "The State Bank for Foreign Economic Affairs of Turkmenistan"
+msgstr "The State Bank for Foreign Economic Affairs of Turkmenistan"
+
+msgid "Halkbank - Joint Stock Commercial Bank of Turkmenistan"
+msgstr "Halkbank - Joint Stock Commercial Bank of Turkmenistan"

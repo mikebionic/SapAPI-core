@@ -882,3 +882,9 @@ msgstr "Если у вас нет аккаунта, нажмите на кноп
 
 msgid "Specify the payment method"
 msgstr "Укажите метод оплаты"
+
+msgid "The State Bank for Foreign Economic Affairs of Turkmenistan"
+msgstr "Государственный Банк Внешнеэкономической Деятельности Туркменистана"
+
+msgid "Halkbank - Joint Stock Commercial Bank of Turkmenistan"
+msgstr "Halkbank - Акционерно-коммерческий банк Туркменистана"
