@@ -195,12 +195,12 @@ def collect_resource_paginate_info(
 				.order_by(Resource.ResId.desc())
 
 		else:
-			resources_search = Res_category.query\
+			resources_search = Resource.query\
 				.filter(and_(
-					Res_category.GCRecord == None,\
-					Res_category.ResName.ilike(searching_tag),\
-					Res_category.UsageStatusId == 1))\
-				.order_by(Res_category.ResId.desc())
+					Resource.GCRecord == None,\
+					Resource.ResName.ilike(searching_tag),\
+					Resource.UsageStatusId == 1))\
+				.order_by(Resource.ResId.desc())
 
 		if DivId:
 			barcodes_search = barcodes_search.filter_by(DivId = DivId)
