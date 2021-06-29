@@ -27,6 +27,9 @@ def order_payment_service_register_request():
 	paym_validation_view = url_for('commerce.render_payment_validation_view')[1:] if url_for('commerce.render_payment_validation_view')[0] == "/" else url_for('commerce.render_payment_validation_view')
 	return_url = f"{request.url_root}{paym_validation_view}"
 
+	print(request.user_agent)
+	print(request.remote_addr)
+
 	data = {}
 	if online_payment_type == "halkbank":
 		data = do_halkbank_payment_service_register_request(req, return_url)

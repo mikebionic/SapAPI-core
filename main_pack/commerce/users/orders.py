@@ -1,23 +1,16 @@
-from flask import render_template, url_for, session, redirect
+from flask import render_template, url_for, redirect
 from flask_login import current_user, login_required
-from sqlalchemy import and_
 
 from . import bp, url_prefix
-from main_pack import db, gettext, lazy_gettext
+from main_pack import gettext
 from main_pack.config import Config
 from main_pack.commerce.commerce.utils import UiCategoriesList
 # change this for something else
 
 from main_pack.models import (
-	Inv_line,
-	Inv_line_det,
-	Inv_line_det_type,
-	Inv_status,
-	Inv_type,
-	Invoice,
 	Order_inv,
-	Order_inv_line,
-	Order_inv_type)
+	Order_inv_line
+)
 
 from main_pack.commerce.commerce.order_utils import UiOInvData, UiOInvLineData
 

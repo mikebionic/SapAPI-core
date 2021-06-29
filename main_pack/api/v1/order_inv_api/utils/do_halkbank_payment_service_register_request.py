@@ -18,9 +18,9 @@ def do_halkbank_payment_service_register_request(req, return_url=None):
 	currency = 934
 	language = "ru"
 
-	register_url = Config.PAYMENT_VALIDATION_REGISTER_URL
-	service_username = Config.PAYMENT_VALIDATION_SERVICE_USERNAME
-	service_password = Config.PAYMENT_VALIDATION_SERVICE_PASSWORD
+	register_url = Config.HALKBANK_PAYMENT_REGISTER_URL
+	service_username = Config.HALKBANK_PAYMENT_SERVICE_USERNAME
+	service_password = Config.HALKBANK_PAYMENT_SERVICE_PASSWORD
 
 	default_return_url = f"https://mpi.gov.tm/payment/finish.html%3Flogin%3D{service_username}%26password%3D{service_password}&userName={service_username}&pageView=DESKTOP&description={OrderDesc}"
 	payment_return_url = f"{return_url}%3Flogin%3D{service_username}%26password%3D{service_password}&userName={service_username}&pageView=DESKTOP&description={OrderDesc}" if return_url else default_return_url
