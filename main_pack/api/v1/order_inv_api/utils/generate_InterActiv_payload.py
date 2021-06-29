@@ -1,7 +1,11 @@
 
-def generate_payload_request(
+def generate_InterActiv_payload(
 	MerchantId,
 	TerminalId,
+	TotalPrice,
+	OInvRegNo,
+	OrderDesc = None,
+	return_url = None,
 	CurrencyNumCode = 840,
 	CustomerName = 'Plan Planyev',
 	CustomerEmail = None,
@@ -46,8 +50,8 @@ def generate_payload_request(
 				"MobileApp": None
 			},
 			"Transport": {
-				"MerchantFinalResponseUrl": "http://127.0.0.1:5000/cart/confirm_order",
-				"ChallengeResponseUrl": "http://127.0.0.1:5000/cart",
+				"MerchantFinalResponseUrl": return_url,
+				"ChallengeResponseUrl": return_url,
 				"ChallengeWindowSize": 3,
 				"ChallengeResponseData": None,
 				"ThreeDSMethodNotificationUrl": "",
@@ -63,12 +67,12 @@ def generate_payload_request(
 			"Type": "CRDP",
 			"AdditionalService": None,
 			"TransactionText": None,
-			"TotalAmount": 1.5,
+			"TotalAmount": TotalPrice,
 			"Currency": CurrencyNumCode,
 			"CurrencyConversion": None,
 			"DetailedAmount": None,
 			"AirlineItems": None,
-			"MerchantOrderId": "29",
+			"MerchantOrderId": OInvRegNo,
 			"AutoComplete": True,
 			"AntiMoneyLaundering": {
 				"SenderName": CustomerName,
@@ -77,7 +81,7 @@ def generate_payload_request(
 				"NationalIdentifier": None,
 				"NationalIdentifierCountry": None,
 				"NationalIdentifierExpiry": None,
-				"PassportNumber": "123-456",
+				"PassportNumber": None,
 				"PassportIssuingCountry": None,
 				"PassportExpiry": None
 			},

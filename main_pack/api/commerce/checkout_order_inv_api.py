@@ -347,7 +347,7 @@ def validate_order_inv_payment(user):
 						r = requests.get(f"{Config.HALKBANK_PAYMENT_SERVICE_URL}?orderId={OrderId}&password={Config.HALKBANK_PAYMENT_SERVICE_PASSWORD}&userName={Config.HALKBANK_PAYMENT_SERVICE_USERNAME}", verify=False)
 						response_json = json.loads(r.text)
 
-						if (str(response_json[Config.HALKBANK_PAYMENT_KEY]) == str(Config.HALKBANK_PAYMENT_VALUE)):
+						if (str(response_json[Config.HALKBANK_PAYMENT_VALIDATION_KEY]) == str(Config.HALKBANK_PAYMENT_VALIDATION_VALUE)):
 							PaymentAmount = int(response_json["Amount"])/100
 							order_inv.OInvPaymAmount = PaymentAmount
 							order_inv.InvStatId = 1
@@ -364,7 +364,7 @@ def validate_order_inv_payment(user):
 							order_inv.OInvPaymAmount = 0
 							order_inv.InvStatId = 14
 
-							message = f"Payment Validation: failed (OrderStatus = {response_json[Config.HALKBANK_PAYMENT_KEY]})"
+							message = f"Payment Validation: failed (OrderStatus = {response_json[Config.HALKBANK_PAYMENT_VALIDATION_KEY]})"
 							print(f"{datetime.now()} | {message}")
 
 						order_inv.PaymCode = str(response_json)
