@@ -8,7 +8,7 @@ from main_pack.config import Config
 from main_pack.models import Order_inv
 
 
-def do_mpi_gov_tm_payment_service_register_request(req, return_url=None):
+def do_halkbank_payment_service_register_request(req, return_url=None):
 	data = {}
 
 	RegNo = req['OInvRegNo']
