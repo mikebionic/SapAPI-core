@@ -53,6 +53,9 @@ def do_halkbank_payment_service_register_request(req, return_url=None):
 		data["OInvRegNo"] = RegNo
 		data["TotalPrice"] = TotalPrice
 		data["OrderDesc"] = OrderDesc
+		data["checkout_url"] = data["formUrl"]
+		data["OrderId"] = data["orderId"]
+		data["online_payment_type"] = req["online_payment_type"] if "online_payment_type" in req else "halkbank"
 
 	except Exception as ex:
 		print(f"{datetime.now()} | mpi.gov.tm payment register Exception: {ex}")

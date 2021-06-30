@@ -34,6 +34,7 @@ def order_payment_service_register_request():
 
 	req = request.get_json()
 	req["OInvRegNo"] = req["RegNo"]
+	req["online_payment_type"] = online_payment_type
 
 	paym_validation_view = url_for('commerce.render_payment_validation_view')[1:] if url_for('commerce.render_payment_validation_view')[0] == "/" else url_for('commerce.render_payment_validation_view')
 	return_url = f"{request.url_root}{paym_validation_view}"

@@ -63,17 +63,16 @@ def do_InterActiv_payment_service_register_request(
 			if not data:
 				raise Exception
 
-			if (data["response"][Config.INTERACTIV_PAYMENT_VALIDATION_KEY] != Config.INTERACTIV_PAYMENT_VALIDATION_VALUE):
-				raise Exception
+			# if (data["response"][Config.INTERACTIV_PAYMENT_VALIDATION_KEY] != "OPG-00100"):
+			# 	raise Exception
 
 			data["RegNo"] = OInvRegNo
 			data["OInvRegNo"] = OInvRegNo
 			data["TotalPrice"] = TotalPrice
 			data["OrderDesc"] = OrderDesc
-			data["orderId"] = data["response"]["orderId"]
-			data["url"] = data["_links"]["redirectToCheckout"]["href"]
-			print("--------------")
-			print(data)
+			data["OrderId"] = data["response"]["orderId"]
+			data["checkout_url"] = data["_links"]["redirectToCheckout"]["href"]
+			data["online_payment_type"] = req["online_payment_type"] if "online_payment_type" in req else "halkbank"
 
 	except Exception as ex:
 		print(f"{datetime.now()} InterActiv payment register exception: {ex}")

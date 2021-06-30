@@ -10,4 +10,6 @@ from .generate_order_inv_line_json import generate_order_inv_line_json
 from .save_order_checkout_data import save_order_checkout_data
 from .save_order_inv_synch_data import save_order_inv_synch_data
 from .save_order_line_checkout_data import save_order_line_checkout_data
+from .validate_halkbank_payment import validate_halkbank_payment
+from .validate_InterActiv_payment import validate_InterActiv_payment
 from .validate_order_inv_payment import validate_order_inv_payment

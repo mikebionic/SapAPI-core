@@ -138,8 +138,9 @@ def cart():
 
 
 @bp.route("/payment-validation/")
+@bp.route("/payment-validation//<OrderId>")
 @login_required
-def render_payment_validation_view():
+def render_payment_validation_view(OrderId = None):
 	categoriesData = UiCategoriesList()
 
 	if "currency_code" not in session:

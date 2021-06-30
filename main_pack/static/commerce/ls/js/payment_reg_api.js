@@ -87,11 +87,13 @@ function req_payment_request(payload, url){
 		type: 'POST',
 		url: url,
 		success: function(response){
-			var formUrl = response.data.formUrl;
+			$('#cover-spin').show()
+			var checkout_url = response.data.checkout_url;
 			var order_data = get_local_data_by_name("orderInv");
-			order_data["orderInv"]["OrderId"] = response.data.orderId;
+			order_data["orderInv"]["OrderId"] = response.data.OrderId;
+			order_data["orderInv"]["online_payment_type"] = response.data.online_payment_type;
 			set_local_data_by_name("orderInv", order_data);
-			open_payment_window(formUrl)
+			open_payment_window(checkout_url)
 		},
 		error: function(response){
 			swal(title=error_title,desc=unknown_error_text,style="warning");
@@ -115,12 +117,16 @@ function open_payment_window(url){
 }
 
 function detect_window_close(current_window){
+	$('#cover-spin').show()
 	win_closed_interval = setInterval(() => {
 		try {
 			if (current_window.closed){
 				clearInterval(win_closed_interval);
 				console.log('payment closed')
-				validate_oinv_payment();
+				setTimeout(() => {
+					$('#cover-spin').hide()
+					validate_oinv_payment();
+				}, 300);
 				}
 			}
 		catch {
