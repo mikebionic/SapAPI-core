@@ -116,6 +116,7 @@ function open_payment_window(url){
 	}
 }
 
+var payment_validated_times = 0
 function detect_window_close(current_window){
 	$('#cover-spin').show()
 	win_closed_interval = setInterval(() => {
@@ -125,10 +126,16 @@ function detect_window_close(current_window){
 				console.log('payment closed')
 				setTimeout(() => {
 					$('#cover-spin').hide()
-					validate_oinv_payment();
+					if (payment_validated_times < 1){
+						validate_oinv_payment();
+						payment_validated_times++;
+					}
+					else {
+						clearInterval(win_closed_interval)
+					}
 				}, 300);
-				}
 			}
+		}
 		catch {
 			clearInterval(win_closed_interval);
 		}
@@ -141,7 +148,13 @@ function detect_url_change(current_window){
 		try {
 			if (current_window.location.href !== current_location) {
 				clearInterval(win_location);
-				validate_oinv_payment();
+				if (payment_validated_times < 1){
+					validate_oinv_payment();
+				}
+				else {
+					clearInterval(win_location)
+				}
+
 			}
 			if (!current_window.location.href){
 				clearInterval(win_location)
@@ -156,7 +169,9 @@ function detect_url_change(current_window){
 function validate_oinv_payment(callback_func=null){
 	var order_data = get_local_data_by_name("orderInv");
 	var payload_data = order_data['orderInv'];
-	validateRequest(payload_data, oinv_validation_url, callback_func);
+	if (payment_validated_times < 1){
+		validateRequest(payload_data, oinv_validation_url, callback_func);
+	}
 }
 
 function validateRequest(payload_data, url, callback_func=null){
