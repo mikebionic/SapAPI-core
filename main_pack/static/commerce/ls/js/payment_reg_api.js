@@ -91,7 +91,6 @@ function req_payment_request(payload, url){
 			var order_data = get_local_data_by_name("orderInv");
 			order_data["orderInv"]["OrderId"] = response.data.orderId;
 			set_local_data_by_name("orderInv", order_data);
-			console.log(order_data)
 			open_payment_window(formUrl)
 		},
 		error: function(response){

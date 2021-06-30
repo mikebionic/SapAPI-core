@@ -1,3 +1,6 @@
+import uuid
+
+from main_pack.api.common import configurePhoneNumber
 
 def generate_InterActiv_payload(
 	MerchantId,
@@ -17,7 +20,7 @@ def generate_InterActiv_payload(
 	ScreenWidth = 1900,
 ):
 	data = {
-		"RequestId": "99",
+		"RequestId": str(uuid.uuid4()),
 		"Environment": {
 			"Merchant": {
 				"Id": MerchantId
@@ -66,7 +69,7 @@ def generate_InterActiv_payload(
 			"InvoiceNumber": "Acquirer",
 			"Type": "CRDP",
 			"AdditionalService": None,
-			"TransactionText": None,
+			"TransactionText": OrderDesc[:100] if OrderDesc else None,
 			"TotalAmount": TotalPrice,
 			"Currency": CurrencyNumCode,
 			"CurrencyConversion": None,
@@ -92,23 +95,18 @@ def generate_InterActiv_payload(
 
 	if CustomerMobilePhone:
 		CustomerMobilePhone = configurePhoneNumber(CustomerMobilePhone)
-		data["Customer"]["Environment"]["MobilePhone"] = {
-			"cc": CustomerMobilePhone[:3],
-			"subscriber": CustomerMobilePhone[3:]
-		}
+		if CustomerMobilePhone:
+			data["Environment"]["Customer"]["MobilePhone"] = {
+				"cc": CustomerMobilePhone[:3],
+				"subscriber": CustomerMobilePhone[3:]
+			}
 
 	if CustomerHomePhone:
 		CustomerHomePhone = configurePhoneNumber(CustomerHomePhone)
-		data["Customer"]["Environment"]["HomePhone"] = {
-			"cc": CustomerHomePhone[:3],
-			"subscriber": CustomerHomePhone[3:]
-		}
+		if CustomerHomePhone:
+			data["Environment"]["Customer"]["HomePhone"] = {
+				"cc": CustomerHomePhone[:3],
+				"subscriber": CustomerHomePhone[3:]
+			}
 
-
-def configurePhoneNumber(number, with_plus_sign=False):
-	number = number.strip().replace(' ','').replace('-','').replace('(','').replace(')','')
-
-	number = f"+{number}" if with_plus_sign and number[0] != "+" else number
-	number = number[1:] if not with_plus_sign and number[0] == "+" else number
-
-	return number
+	return data

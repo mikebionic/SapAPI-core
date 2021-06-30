@@ -1,4 +1,3 @@
-import requests
 from datetime import datetime
 
 from main_pack.config import Config
@@ -20,6 +19,11 @@ def do_InterActiv_payment_service_register_request(
 	ScreenHeight = None,
 	ScreenWidth = None,
 ):
+	data = {}
+
+	OInvRegNo = req['OInvRegNo']
+	TotalPrice = float(req['TotalPrice'])
+	OrderDesc = req['OrderDesc']
 
 	try:
 		auth_token = authorize_InterActiv(
@@ -28,26 +32,50 @@ def do_InterActiv_payment_service_register_request(
 			ClientSecret = Config.INTERACTIV_PAYMENT_CLIENTSECRET
 		)
 		if auth_token:
-			payload_data = generate_InterActiv_payload(
-				MerchantId = Config.INTERACTIV_PAYMENT_MERCHANTID,
-				TerminalId = Config.INTERACTIV_PAYMENT_TERMINALID,
-				return_url = return_url,
-				CurrencyNumCode = CurrencyNumCode,
-				CustomerName = CustomerName,
-				CustomerEmail = CustomerEmail,
-				CustomerHomePhone = CustomerHomePhone,
-				CustomerMobilePhone = CustomerMobilePhone,
-				UserAgent = UserAgent,
-				RemoteAddress = RemoteAddress,
-				ScreenHeight = ScreenHeight,
-				ScreenWidth = ScreenWidth,
-			)
+			InterActiv_args = {
+				"MerchantId": Config.INTERACTIV_PAYMENT_MERCHANTID,
+				"TerminalId": Config.INTERACTIV_PAYMENT_TERMINALID,
+				"TotalPrice": TotalPrice,
+				"OInvRegNo": OInvRegNo,
+				"OrderDesc": OrderDesc,
+				"return_url": return_url,
+				"CurrencyNumCode": CurrencyNumCode,
+				"CustomerName": CustomerName,
+				"CustomerEmail": CustomerEmail,
+				"CustomerHomePhone": CustomerHomePhone,
+				"CustomerMobilePhone": CustomerMobilePhone,
+				"UserAgent": str(UserAgent)[:2000],
+				"RemoteAddress": str(RemoteAddress)
+			}
 
-			result = initiate_order_InterActiv(
+			if ScreenHeight:
+				InterActiv_args["ScreenHeight"] = ScreenHeight
+			if ScreenWidth:
+				InterActiv_args["ScreenWidth"] = ScreenWidth
+
+			payload_data = generate_InterActiv_payload(**InterActiv_args)
+			data = initiate_order_InterActiv(
 				Config.INTERACTIV_PAYMENT_SERVICE_URL,
 				auth_token,
 				payload_data
 			)
 
+			if not data:
+				raise Exception
+
+			if (data["response"][Config.INTERACTIV_PAYMENT_VALIDATION_KEY] != Config.INTERACTIV_PAYMENT_VALIDATION_VALUE):
+				raise Exception
+
+			data["RegNo"] = OInvRegNo
+			data["OInvRegNo"] = OInvRegNo
+			data["TotalPrice"] = TotalPrice
+			data["OrderDesc"] = OrderDesc
+			data["orderId"] = data["response"]["orderId"]
+			data["url"] = data["_links"]["redirectToCheckout"]["href"]
+			print("--------------")
+			print(data)
+
 	except Exception as ex:
 		print(f"{datetime.now()} InterActiv payment register exception: {ex}")
+
+	return data

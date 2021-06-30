@@ -59,7 +59,7 @@ def save_order_inv_synch_data(req):
 
 			inv_currency = get_currency_model_from_code(
 				currency_code = currency_code,
-				Currency_dbModel = currencies,
+				Currency_dbModels = currencies,
 			)
 			if not inv_currency:
 				print(f"{datetime.now()} | v1 Order Checkout exception: No currency found")
@@ -105,7 +105,7 @@ def save_order_inv_synch_data(req):
 
 				inv_line_currency = get_currency_model_from_code(
 					currency_code = currency_code,
-					Currency_dbModel = currencies,
+					Currency_dbModels = currencies,
 				)
 				if not inv_line_currency:
 					print(f"{datetime.now()} | v1 Order Checkout exception: No currency found")

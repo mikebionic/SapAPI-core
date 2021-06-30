@@ -77,16 +77,18 @@
 													</div>
 
 													<div class="online_payment_types" style="display: none">
-														<div class="custom-control custom-radio online-payment-radio">
-															<input id="online1" name="online_payment_type" type="radio" class="custom-control-input" value="halkbank" checked required>
+														<div class="custom-control custom-radio online-payment-radio halkbank">
+															<input id="online1" name="online_payment_type" type="radio" class="custom-control-input" value="halkbank"
+																{{'checked' if session.currency_code=="TMT" else '' }} required>
 															<label class="custom-control-label" for="online1">
 																{{_('Halkbank - Joint Stock Commercial Bank of Turkmenistan')}}
 															</label>
 															<img loading="lazy"
 																src="{{ url_for('static', filename='commerce/ls/img/halkbank_logo.jpg') }}">
 														</div>
-														<div class="custom-control custom-radio online-payment-radio">
-															<input id="online2" name="online_payment_type" type="radio" class="custom-control-input" value="foreign_affairs_bank" required>
+														<div class="custom-control custom-radio online-payment-radio foreign_affairs_bank">
+															<input id="online2" name="online_payment_type" type="radio" class="custom-control-input" value="foreign_affairs_bank"
+																{{'checked' if session.currency_code!="TMT" else '' }} required>
 															<label class="custom-control-label" for="online2">
 																{{_('The State Bank for Foreign Economic Affairs of Turkmenistan')}}
 															</label>

@@ -3,7 +3,6 @@ import uuid
 from datetime import datetime
 
 from main_pack.models import (
-	Rp_acc,
 	Order_inv,
 	User,
 )
@@ -23,6 +22,8 @@ from main_pack.api.common import (
 	get_ResPriceGroupId,
 	get_payment_method_by_id,
 	get_currency_model_from_code,
+	get_UserId_and_RpAccId_from_login_and_uuid_info,
+	get_CurrencyCode_from_req_or_session,
 )
 
 from .send_order_to_server import send_order_to_server
@@ -31,7 +32,7 @@ def save_order_checkout_data(req, model_type, current_user, session = None):
 	req["orderInv"]["OInvGuid"] = str(uuid.uuid4())
 	try:
 		order_invoice_info = add_Order_inv_dict(req["orderInv"])
-		
+
 		orderRegNo = None
 		if "OInvRegNo" in req["orderInv"]:
 			orderRegNo = req["orderInv"]["OInvRegNo"] if req["orderInv"]["OInvRegNo"] else None
@@ -52,26 +53,16 @@ def save_order_checkout_data(req, model_type, current_user, session = None):
 			raise Exception
 		order_inv_lines_req = req["orderInv"]["OrderInvLines"]
 
-		if model_type == "rp_acc":
-			user_id = current_user.user.UId
-			user_short_name = current_user.user.UShortName
-			RpAccId = current_user.RpAccId
+		user_id, user_short_name, RpAccId, _ = get_UserId_and_RpAccId_from_login_and_uuid_info(
+			model_type,
+			current_user,
+			req["orderInv"]["RpAccGuid"] if "RpAccGuid" in req["orderInv"] else None
+		)
 
-		if model_type == "device":
-			current_user = current_user.user
-			model_type = "user"
+		if not RpAccId:
+			print("v1 checkout | no such rp acc")
+			raise Exception
 
-		if model_type == "user":
-			user_id = current_user.UId
-			user_short_name = current_user.UShortName
-
-			RpAccGuid = req["orderInv"]["RpAccGuid"]
-			rp_acc = Rp_acc.query.filter_by(RpAccGuid = RpAccGuid).first()
-			RpAccId = rp_acc.RpAccId if rp_acc else None
-			if not RpAccId:
-				print("v1 checkout | no such rp acc")
-				raise Exception
-		
 		if not user_id:
 			main_first_user = User.query\
 				.filter_by(GCRecord = None, UTypeId = 1)\
@@ -113,9 +104,7 @@ def save_order_checkout_data(req, model_type, current_user, session = None):
 		order_invoice_info["RpAccId"] = RpAccId
 		order_invoice_info["UId"] = user_id
 
-		currency_code = Config.DEFAULT_VIEW_CURRENCY_CODE
-		if "CurrencyCode" in req["orderInv"]:
-			currency_code = req["orderInv"]["CurrencyCode"] if req["orderInv"]["CurrencyCode"] else currency_code
+		currency_code = get_CurrencyCode_from_req_or_session(req["orderInv"], session)
 
 		inv_currency = get_currency_model_from_code(
 			currency_code = currency_code,

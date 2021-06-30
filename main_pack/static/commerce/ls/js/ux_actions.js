@@ -268,29 +268,26 @@ function countCartItems(){
 function get_radiobutton_value(classname){
 	var current_button = $(`${classname} input:checked`)
 	var value = null;
-	console.log("tryna get VALUE")
 	try{
 		if (current_button[0].value){
 			value = current_button[0].value
 		}
 	}	catch{}
-	console.log('got value')
-	console.log(value)	
 	return value;
 }
 
 /// payment stuff
-$('.paymentMethods input').click(function () {
-	data2 = $('.cartItemsTable')[0]
-	if (data2.innerText != ""){
-		$('.checkoutForm').show();
-	}
-
+function configurePaymentMethod(){
 	var payment_method = parseInt(get_radiobutton_value('.paymentMethods'))
 	if (payment_method){
 		if (payment_method > 0){
 			if (payment_method == 2){
 				$('.online_payment_types').show()
+				online_payment_type = get_radiobutton_value('.online_payment_types')
+				if (session_currency_code !== 'TMT' && online_payment_type == "halkbank"){
+					$('.online_payment_types .foreign_affairs_bank input')[0].checked = true
+					errorToaster(message = `Can't checkout it it with currency ${session_currency_code}`);
+				}
 			}
 			else {
 				$('.online_payment_types').hide()
@@ -300,7 +297,19 @@ $('.paymentMethods input').click(function () {
 	else{
 		$('.online_payment_types').hide()
 	}
+}
 
+$('.paymentMethods input').click(function () {
+	data2 = $('.cartItemsTable')[0]
+	if (data2.innerText != ""){
+		$('.checkoutForm').show();
+	}
+
+	configurePaymentMethod();
+})
+
+$('.online_payment_types').click(function(){
+	configurePaymentMethod();
 })
 
 // $(document).ready(function(){
@@ -319,7 +328,10 @@ $('body').delegate('.checkoutCartBtn','click',function(){
 			PmId = payment_method;
 			if (payment_method == 2){
 				online_payment_type = get_radiobutton_value('.online_payment_types')
-				console.log(online_payment_type)
+				if (session_currency_code !== 'TMT' && online_payment_type == "halkbank"){
+					online_payment_type == "foreign_affairs_bank";
+					errorToaster(message = `Can't checkout it with currency ${session_currency_code}`);
+				}
 			}
 		}
 	} catch {
@@ -334,12 +346,14 @@ $('body').delegate('.checkoutCartBtn','click',function(){
 			order_data["orderInv"]["PmId"] = data["PmId"];
 			order_data["orderInv"]["PtId"] = data["PtId"];
 			order_data["orderInv"]["OInvDesc"] = data["OInvDesc"];
+			order_data["orderInv"]["CurrencyCode"] = session_currency_code;
 			order_data["online_payment_type"] = online_payment_type;
 			set_local_data_by_name('orderInv', order_data);
 		}
 	}
 	else{
 		var order_data = {"orderInv": data, "validated": false}
+		order_data["orderInv"]["CurrencyCode"] = session_currency_code;
 		order_data["online_payment_type"] = online_payment_type;
 		set_local_data_by_name('orderInv', order_data)
 	}
