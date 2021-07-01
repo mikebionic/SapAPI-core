@@ -40,7 +40,7 @@ def orders():
 		title = gettext(Config.COMMERCE_ORDERS_PAGE_TITLE))
 
 
-@bp.route(Config.COMMERCE_ORDERS_PAGE+"/<OInvRegNo>")
+@bp.route(f"{Config.COMMERCE_ORDERS_PAGE}/<OInvRegNo>")
 @login_required
 def order_lines(OInvRegNo):
 	orderInvoice = Order_inv.query\
@@ -69,6 +69,38 @@ def order_lines(OInvRegNo):
 			**res,
 			**orderInvRes,
 			url_prefix = url_prefix,
+			title = gettext(Config.COMMERCE_ORDERS_PAGE_TITLE))
+	
+	else:
+		return redirect(url_for('commerce_users.orders'))
+
+
+@bp.route(f"{Config.COMMERCE_ORDERS_PAGE}/pdf/<OInvRegNo>")
+@login_required
+def order_lines_pdf(OInvRegNo):
+	orderInvoice = Order_inv.query\
+		.filter_by(GCRecord = None, OInvRegNo = OInvRegNo)\
+		.first()
+
+	if orderInvoice.RpAccId == current_user.RpAccId:
+		orderInvRes = UiOInvData([{'OInvId':orderInvoice.OInvId}])
+		
+		orderInvLines = Order_inv_line.query\
+			.filter_by(GCRecord = None, OInvId = orderInvoice.OInvId)\
+			.order_by(Order_inv_line.CreatedDate.desc())\
+			.all()
+
+		order_lines_list = []
+		for orderInvLine in orderInvLines:
+			order_inv_line = {}
+			order_inv_line['OInvLineId'] = orderInvLine.OInvLineId
+			order_lines_list.append(order_inv_line)
+		res = UiOInvLineData(order_lines_list)
+
+		return render_template(
+			f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/users/order_lines_pdf.html",
+			**res,
+			**orderInvRes,
 			title = gettext(Config.COMMERCE_ORDERS_PAGE_TITLE))
 	
 	else:
