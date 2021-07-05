@@ -15,7 +15,6 @@ from flask_compress import Compress
 import logging
 from logging.handlers import SMTPHandler
 from htmlmin.main import minify
-import pyodbc
 
 from main_pack.config import Config
 

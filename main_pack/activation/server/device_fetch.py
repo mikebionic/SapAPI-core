@@ -46,9 +46,8 @@ def fetch_device():
 
 					updated_key = encrypt_data(
 						data = verify_date_data,
-						server_key = Config.BASE_32_FERNET_KEY.encode(),
+						fernet_key = rp_acc.RpAccWebKey.encode() if rp_acc.RpAccWebKey else None,
 						db_guid = rp_acc.DbGuid,
-						client_key = rp_acc.RpAccWebKey
 					)
 					device.DevVerifyKey = updated_key
 		db.session.commit()

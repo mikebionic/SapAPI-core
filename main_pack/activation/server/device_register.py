@@ -4,13 +4,10 @@ import uuid
 
 from . import api
 from main_pack import db
-from main_pack.config import Config
 from main_pack.api.users.utils import addDeviceDict
 from main_pack.api.base.validators import request_is_json
 from main_pack.models import Device, Rp_acc
 from .utils import sap_key_required
-from main_pack.base.cryptographyMethods import encrypt_data
-
 
 @api.route("/devices/register/",methods=["POST"])
 @sap_key_required
@@ -42,23 +39,6 @@ def register_device():
 			device_info["RpAccId"] = RpAccId
 			if not device_info["DevGuid"]:
 				device_info["DevGuid"] = uuid.uuid4()
-
-			# DevVerifyDate = datetime.now().replace(microsecond = 0)
-			# device_info["DevVerifyDate"] = DevVerifyDate
-
-			# verify_date_data = str(DevVerifyDate.timestamp())
-
-			# DevVerifyKey = encrypt_data(
-			# 	data = verify_date_data,
-			# 	server_key = Config.BASE_32_FERNET_KEY.encode(),
-			# 	db_guid = rp_acc.DbGuid,
-			# 	client_key = rp_acc.RpAccWebKey
-			# )
-
-			# if not DevVerifyKey:
-			# 	raise Exception
-
-			# device_info["DevVerifyKey"] = DevVerifyKey
 
 			thisDevice = Device(**device_info)
 			db.session.add(thisDevice)

@@ -21,9 +21,8 @@ def check_device_activation(device_model):
 
 	decrypted_data = decrypt_data(
 		data = DevVerifyKey,
-		server_key = Config.BASE_32_FERNET_KEY.encode(),
+		fernet_key = Config.APP_WEB_KEY.encode() if Config.APP_WEB_KEY else None,
 		db_guid = DbInfGuid,
-		client_key = Config.APP_WEB_KEY
 	)
 
 	if not decrypted_data:

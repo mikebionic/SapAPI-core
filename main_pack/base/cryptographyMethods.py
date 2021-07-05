@@ -1,18 +1,15 @@
-from cryptography.fernet import Fernet, InvalidToken
+from cryptography.fernet import Fernet
 
 
-def encrypt_data(data, server_key, db_guid, client_key):
+def encrypt_data(data, fernet_key, db_guid):
 	try:
-		if not data:
+		if not data or not db_guid:
+			print("cryptography exception: no data or guid")
 			raise Exception
 
-		# TODO: make server key to use Config.AppWebKey, update RpAccWebKey 
-		# TODO: before inserting to db or any return actions, generate fernet key
-		# and encrypt it with app key with bcrypt or jwt, then save to db
-		# TODO: check that any other generated fernet keys cant decrypt others
-		f = Fernet(server_key)
+		f = Fernet(fernet_key)
 		enc = f.encrypt(str(data).encode()).decode()
-		more = f"{str(db_guid)}{enc}{str(client_key)[::-1]}".encode()
+		more = f"{str(db_guid)}{enc}{str(fernet_key)[::-1]}".encode()
 		enc = f.encrypt(more)
 		return enc.decode()
 
@@ -20,16 +17,18 @@ def encrypt_data(data, server_key, db_guid, client_key):
 		return None
 
 
-def decrypt_data(data, server_key, db_guid, client_key):
+def decrypt_data(data, fernet_key, db_guid):
 	try:
-		if not data:
+		if not data or not db_guid:
+			print("cryptography exception: no data or guid")
 			raise Exception
 
-		f = Fernet(server_key)
+		f = Fernet(fernet_key)
 		dec = f.decrypt(data.encode()).decode()
-		# TODO: add validator of existence of both guid and client key
+		dec.index(str(db_guid))
 		dec = dec.replace(str(db_guid), '')
-		dec = dec.replace(str(client_key)[::-1], '')
+		dec.index(str(fernet_key)[::-1])
+		dec = dec.replace(str(fernet_key)[::-1], '')
 		dec = f.decrypt(str(dec).encode())
 		return dec.decode()
 
