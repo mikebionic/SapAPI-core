@@ -52,7 +52,7 @@ def order_payment_service_register_request():
 				print("no currency column found during search")
 				raise Exception
 
-			_, _, _, rp_acc = get_UserId_and_RpAccId_from_login_and_uuid_info(session["model_type"], current_user)
+			_, _, _, rp_acc, _ = get_UserId_and_RpAccId_from_login_and_uuid_info(session["model_type"], current_user)
 
 			data = do_InterActiv_payment_service_register_request(
 				req,

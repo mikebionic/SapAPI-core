@@ -53,7 +53,7 @@ def save_order_checkout_data(req, model_type, current_user, session = None):
 			raise Exception
 		order_inv_lines_req = req["orderInv"]["OrderInvLines"]
 
-		user_id, user_short_name, RpAccId, _ = get_UserId_and_RpAccId_from_login_and_uuid_info(
+		user_id, user_short_name, RpAccId, _, current_user = get_UserId_and_RpAccId_from_login_and_uuid_info(
 			model_type,
 			current_user,
 			req["orderInv"]["RpAccGuid"] if "RpAccGuid" in req["orderInv"] else None

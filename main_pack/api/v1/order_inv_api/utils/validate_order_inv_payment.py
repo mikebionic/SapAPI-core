@@ -15,7 +15,7 @@ def validate_order_inv_payment(req, model_type, current_user):
 	message = ''
 
 	try:
-		_, _, RpAccId, _ = get_UserId_and_RpAccId_from_login_and_uuid_info(
+		_, _, RpAccId, _, _ = get_UserId_and_RpAccId_from_login_and_uuid_info(
 			model_type,
 			current_user,
 			req["RpAccGuid"] if "RpAccGuid" in req else None
