@@ -120,7 +120,12 @@ def save_order_checkout_data(req, model_type, current_user, session = None):
 		db.session.add(this_Order_inv)
 		db.session.commit()
 
-		ResPriceGroupId = get_ResPriceGroupId(model_type, current_user, session)
+		ResPriceGroupId = get_ResPriceGroupId(
+			model_type,
+			current_user,
+			session,
+			get_from_current_user = True
+		)
 
 		data, fails, OInvTotal = save_order_line_checkout_data(
 			req = order_inv_lines_req,
