@@ -19,7 +19,7 @@ from main_pack.base.priceMethods import calculatePriceByGroup, price_currency_co
 # / functions and methods /
 
 # db models
-from main_pack.models import Company, Division, Warehouse, Image
+# from main_pack.models import Company, Division, Warehouse, Image, Res_translation
 from main_pack.models import (
 	Resource,
 	Res_price,
@@ -265,6 +265,9 @@ def apiResourceInfo(
 				joinedload(Resource.unit),
 				joinedload(Resource.brand),
 				joinedload(Resource.usage_status))
+			
+			if Config.SHOW_RES_TRANSLATIONS:
+				resources.options(joinedload(Resource.Res_translation))
 
 			if fullInfo == True:
 				# !!! TODO: Res_color and color joins could be implemented on class level
@@ -391,6 +394,9 @@ def apiResourceInfo(
 			List_Images = [image.to_json_api() for image in resource_query.Resource.Image if not image.GCRecord]
 			# Sorting list by Modified date
 			List_Images = (sorted(List_Images, key = lambda i: i["ModifiedDate"]))
+
+			if Config.SHOW_RES_TRANSLATIONS:
+				List_Res_transl = [res_transl.to_json_api() for res_transl in resource_query.Resource.Res_translation]
 
 			if fullInfo == True:
 				List_Ratings = []

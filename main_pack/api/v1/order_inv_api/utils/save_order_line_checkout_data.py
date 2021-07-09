@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import uuid
 from datetime import datetime
-from sqlalchemy.orm import joinedload
+from sqlalchemy.orm import joinedload	
 
 from main_pack.models import (
 	Order_inv_line,
