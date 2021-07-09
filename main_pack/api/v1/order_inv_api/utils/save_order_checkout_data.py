@@ -53,11 +53,15 @@ def save_order_checkout_data(req, model_type, current_user, session = None):
 			raise Exception
 		order_inv_lines_req = req["orderInv"]["OrderInvLines"]
 
-		user_id, user_short_name, RpAccId, _, current_user = get_UserId_and_RpAccId_from_login_and_uuid_info(
+		user_id, user_short_name, RpAccId, RpAccModel, UserModel = get_UserId_and_RpAccId_from_login_and_uuid_info(
 			model_type,
 			current_user,
 			req["orderInv"]["RpAccGuid"] if "RpAccGuid" in req["orderInv"] else None
 		)
+		if model_type == "rp_acc":
+			current_user = RpAccModel
+		else:
+			current_user = UserModel
 
 		if not RpAccId:
 			print("v1 checkout | no such rp acc")
@@ -181,7 +185,7 @@ def save_order_checkout_data(req, model_type, current_user, session = None):
 		for e in status:
 			res[e] = status[e]
 
-		if Config.SEND_ORDER_TO_HASAP_SYNC:
+		if Config.SEND_ORDER_TO_HASAP_SYNC and not fails:
 			send_order_to_server(
 				res,
 				dbModel = this_Order_inv)
@@ -193,6 +197,5 @@ def save_order_checkout_data(req, model_type, current_user, session = None):
 			"message": "Failed to checkout order",
 			"status": 0,
 		}
-
 
 	return res

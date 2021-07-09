@@ -95,11 +95,6 @@ def save_order_line_checkout_data(
 			if not List_Res_price:
 				raise Exception
 
-			# print(List_Res_price)
-			# print("------------")
-			# print(resource.Res_price[0].to_json_api())
-			# print("------------")
-
 			this_Resource_PriceValue = List_Res_price[0]["ResPriceValue"] if List_Res_price[0]["ResPriceValue"] else 0.0
 			List_Currencies = [currency.to_json_api() for currency in currencies if currency.CurrencyId == List_Res_price[0]["CurrencyId"]]
 
@@ -126,10 +121,6 @@ def save_order_line_checkout_data(
 			CurrencyCode = Resource_price_data["CurrencyCode"]
 			ExcRateValue = Resource_price_data["ExcRateValue"]
 
-			# print("--------------------------")
-			# print(Resource_price_data)
-			# print(order_inv_line["OInvLinePrice"])
-			# print("--------------------------")
 			if order_inv_line["OInvLinePrice"] != PriceValue:
 				print(f"{PriceValue} given,order inv line is {order_inv_line['OInvLinePrice']}")
 				error_type = 4
@@ -167,7 +158,8 @@ def save_order_line_checkout_data(
 			fails.append(fail_info)
 
 	if fails:
-		for model in data_models:
-			db.session.expunge(model)
+		db.session.rollback()
+		# for model in data_models:
+		# 	db.session.expunge(model)
 
 	return data, fails, OInvTotal
