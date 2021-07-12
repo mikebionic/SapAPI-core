@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from flask import jsonify, request, make_response, session
-import decimal
+from main_pack.models.Res_translation import Res_translation
+from flask import session
 
 from main_pack.config import Config
 from main_pack import db, cache
@@ -10,7 +10,7 @@ from main_pack.base.apiMethods import checkApiResponseStatus, fileToURL
 # functions and methods
 
 # auth and validation
-from flask_login import current_user, login_required
+from flask_login import current_user
 # / auth and validation /
 
 # functions and methods
@@ -34,7 +34,9 @@ from main_pack.models import (
 	Res_size,
 	Brand,
 	Unit,
-	Usage_status)
+	Usage_status,
+	Language,
+)
 from main_pack.models import Currency
 # / db models /
 
@@ -211,6 +213,9 @@ def apiResourceInfo(
 	res_price_groups = Res_price_group.query.filter_by(GCRecord = None).all()
 	exc_rates = Exc_rate.query.filter_by(GCRecord = None).all()
 
+	if Config.SHOW_RES_TRANSLATIONS:
+		language_models = Language.query.all()
+
 	# return wishlist info for authenticated user
 	if current_user.is_authenticated:
 		user = current_user
@@ -356,20 +361,21 @@ def apiResourceInfo(
 	fails = []
 	for resource_query in resource_models:
 		try:
-			resource_info = resource_query.Resource.to_json_api()
+			query_resource = resource_query.Resource
+			resource_info = query_resource.to_json_api()
 			Brands_info = {}
-			if resource_query.Resource.brand:
-				Brands_info = resource_query.Resource.brand.to_json_api()
-				Brands_info["Images"] = [image.to_json_api() for image in resource_query.Resource.brand.Image if not image.GCRecord]
-			UsageStatus_info = resource_query.Resource.usage_status.to_json_api() if resource_query.Resource.usage_status else None
-			Units_info = resource_query.Resource.unit.to_json_api() if resource_query.Resource.unit else None
-			Res_category_info = resource_query.Resource.res_category.to_json_api() if resource_query.Resource.res_category else None
+			if query_resource.brand:
+				Brands_info = query_resource.brand.to_json_api()
+				Brands_info["Images"] = [image.to_json_api() for image in query_resource.brand.Image if not image.GCRecord]
+			UsageStatus_info = query_resource.usage_status.to_json_api() if query_resource.usage_status else None
+			Units_info = query_resource.unit.to_json_api() if query_resource.unit else None
+			Res_category_info = query_resource.res_category.to_json_api() if query_resource.res_category else None
 
-			List_Barcode = [barcode.to_json_api() for barcode in resource_query.Resource.Barcode if not barcode.GCRecord]
+			List_Barcode = [barcode.to_json_api() for barcode in query_resource.Barcode if not barcode.GCRecord]
 
 			List_Res_price = calculatePriceByGroup(
 				ResPriceGroupId = ResPriceGroupId,
-				Res_price_dbModels = resource_query.Resource.Res_price,
+				Res_price_dbModels = query_resource.Res_price,
 				Res_pice_group_dbModels = res_price_groups)
 
 			if not List_Res_price:
@@ -390,17 +396,14 @@ def apiResourceInfo(
 				currencies_dbModel = currencies,
 				exc_rates_dbModel = exc_rates)
 
-			List_Res_total = [res_total.to_json_api() for res_total in resource_query.Resource.Res_total if not res_total.GCRecord and res_total.WhId == 1]
-			List_Images = [image.to_json_api() for image in resource_query.Resource.Image if not image.GCRecord]
+			List_Res_total = [res_total.to_json_api() for res_total in query_resource.Res_total if not res_total.GCRecord and res_total.WhId == 1]
+			List_Images = [image.to_json_api() for image in query_resource.Image if not image.GCRecord]
 			# Sorting list by Modified date
 			List_Images = (sorted(List_Images, key = lambda i: i["ModifiedDate"]))
 
-			if Config.SHOW_RES_TRANSLATIONS:
-				List_Res_transl = [res_transl.to_json_api() for res_transl in resource_query.Resource.Res_translation]
-
 			if fullInfo == True:
 				List_Ratings = []
-				for rating in resource_query.Resource.Rating:
+				for rating in query_resource.Rating:
 					try:
 						if (Config.SHOW_ONLY_VALIDATED_RATING and not rating.RtValidated):
 							raise Exception
@@ -422,11 +425,11 @@ def apiResourceInfo(
 
 			else:
 				if Config.SHOW_ONLY_VALIDATED_RATING:
-					List_Ratings = [rating.to_json_api() for rating in resource_query.Resource.Rating if not rating.GCRecord and rating.RtValidated]
+					List_Ratings = [rating.to_json_api() for rating in query_resource.Rating if not rating.GCRecord and rating.RtValidated]
 				else:
-					List_Ratings = [rating.to_json_api() for rating in resource_query.Resource.Rating if not rating.GCRecord]
+					List_Ratings = [rating.to_json_api() for rating in query_resource.Rating if not rating.GCRecord]
 			if user:
-				List_Wish = [wish.to_json_api() for wish in wishes if wish.ResId == resource_query.Resource.ResId]
+				List_Wish = [wish.to_json_api() for wish in wishes if wish.ResId == query_resource.ResId]
 			else:
 				List_Wish = []
 
@@ -444,6 +447,15 @@ def apiResourceInfo(
 			resource_info["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_Images[-1]["FileName"]) if List_Images else ""
 			resource_info["Images"] = List_Images if List_Images else []
 
+			if Config.SHOW_RES_TRANSLATIONS:
+				for language in language_models:
+						resource_info[f"ResName_{language.LangName}"] = query_resource.ResName
+						resource_info[f"ResDesc_{language.LangName}"] = query_resource.ResDesc
+					
+				for res_transl in query_resource.Res_translation:
+					resource_info[f"ResName_{res_transl.language.LangName}"] = res_transl.ResName
+					resource_info[f"ResDesc_{res_transl.language.LangName}"] = res_transl.ResDesc
+
 			if Brands_info:
 				resource_info["BrandName"] = Brands_info["BrandName"] if Brands_info else ""
 				resource_info["BrandIcon"] = Brands_info["Images"][0]["FilePath"] if Brands_info["Images"] else ""
@@ -460,11 +472,11 @@ def apiResourceInfo(
 
 			resource_info["RtRatingValue"] = average_rating
 			resource_info["Wishlist"] = True if List_Wish else False
-			resource_info["New"] = True if resource_query.Resource.CreatedDate >= datetime.today() - timedelta(days=Config.COMMERCE_RESOURCE_NEWNESS_DAYS) else False
+			resource_info["New"] = True if query_resource.CreatedDate >= datetime.today() - timedelta(days=Config.COMMERCE_RESOURCE_NEWNESS_DAYS) else False
 			if showRelated == True:
 				related_resources = Resource.query\
-					.filter_by(GCRecord = None, ResCatId = resource_query.Resource.ResCatId)\
-					.filter(Resource.ResId != resource_query.Resource.ResId)\
+					.filter_by(GCRecord = None, ResCatId = query_resource.ResCatId)\
+					.filter(Resource.ResId != query_resource.ResId)\
 					.join(Res_total, Res_total.ResId == Resource.ResId)\
 					.filter(and_(
 						Res_total.WhId == 1,
@@ -531,8 +543,8 @@ def apiResourceInfo(
 					resource_info["Related_resources"] = Related_resources
 
 			if fullInfo == True:
-				List_Colors = [res_color.color.to_json_api() for res_color in resource_query.Resource.Res_color if not res_color.GCRecord if not res_color.color.GCRecord]
-				List_Sizes = [res_size.size.to_json_api() for res_size in resource_query.Resource.Res_size if not res_size.GCRecord if not res_size.size.GCRecord]
+				List_Colors = [res_color.color.to_json_api() for res_color in query_resource.Res_color if not res_color.GCRecord if not res_color.color.GCRecord]
+				List_Sizes = [res_size.size.to_json_api() for res_size in query_resource.Res_size if not res_size.GCRecord if not res_size.size.GCRecord]
 				resource_info["Colors"] = List_Colors if List_Colors else []
 				resource_info["Sizes"] = List_Sizes if List_Sizes else []
 				resource_info["Barcode"] = List_Barcode if List_Barcode else []
@@ -549,7 +561,7 @@ def apiResourceInfo(
 
 		except Exception as ex:
 			print(f"{datetime.now()} | Resource info utils Exception: {ex}")
-			fails.append(resource_query.Resource.to_json_api())
+			fails.append(query_resource.to_json_api())
 
 	status = checkApiResponseStatus(data,fails)
 	total = len(data)
