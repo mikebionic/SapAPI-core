@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from main_pack.models.Res_translation import Res_translation
 from flask import session
 
 from main_pack.config import Config
@@ -33,9 +32,6 @@ from main_pack.models import (
 	Res_color,
 	Res_size,
 	Brand,
-	Unit,
-	Usage_status,
-	Language,
 )
 from main_pack.models import Currency
 # / db models /
@@ -45,7 +41,6 @@ from main_pack.models import (
 	Order_inv,
 	Order_inv_line,
 	Invoice,
-	Inv_line,
 	Inv_status)
 from sqlalchemy import and_, extract
 from sqlalchemy.orm import joinedload
@@ -58,7 +53,6 @@ from main_pack.api.users.utils import apiRpAccData, apiUsersData
 
 # datetime, date-parser
 import dateutil.parser
-import datetime as dt
 from datetime import datetime, timedelta
 # / datetime, date-parser /
 
@@ -207,14 +201,13 @@ def apiResourceInfo(
 	showNullPrice = False,
 	DivId = None,
 	notDivId = None,
-	currency_code = None):
+	currency_code = None,
+	language_code = None,
+):
 
 	currencies = Currency.query.filter_by(GCRecord = None).all()
 	res_price_groups = Res_price_group.query.filter_by(GCRecord = None).all()
 	exc_rates = Exc_rate.query.filter_by(GCRecord = None).all()
-
-	if Config.SHOW_RES_TRANSLATIONS:
-		language_models = Language.query.all()
 
 	# return wishlist info for authenticated user
 	if current_user.is_authenticated:
@@ -244,6 +237,10 @@ def apiResourceInfo(
 	if not currency_code:
 		if "currency_code" in session:
 			currency_code = session["currency_code"] if session["currency_code"] else None
+
+	if not language_code:
+		if "language" in session:
+			language_code = session["language"] if session["language"] else None
 
 
 	if not resource_models:
@@ -448,13 +445,11 @@ def apiResourceInfo(
 			resource_info["Images"] = List_Images if List_Images else []
 
 			if Config.SHOW_RES_TRANSLATIONS:
-				for language in language_models:
-						resource_info[f"ResName_{language.LangName}"] = query_resource.ResName
-						resource_info[f"ResDesc_{language.LangName}"] = query_resource.ResDesc
-					
-				for res_transl in query_resource.Res_translation:
-					resource_info[f"ResName_{res_transl.language.LangName}"] = res_transl.ResName
-					resource_info[f"ResDesc_{res_transl.language.LangName}"] = res_transl.ResDesc
+				if query_resource.Res_translation and language_code:
+					for res_transl in query_resource.Res_translation:
+						if language_code in res_transl.language.LangName:
+							resource_info["ResName"] = res_transl.ResName
+							resource_info["ResDesc"] = res_transl.ResDesc
 
 			if Brands_info:
 				resource_info["BrandName"] = Brands_info["BrandName"] if Brands_info else ""
