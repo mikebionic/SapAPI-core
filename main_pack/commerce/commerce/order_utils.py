@@ -1,43 +1,14 @@
-from sqlalchemy import and_
-
 from main_pack.config import Config
-from main_pack.base.dataMethods import configureNulls,configureFloat,boolCheck
-from main_pack.base.imageMethods import save_image,dirHandler
-# used foreign keys
-from main_pack.models import Unit,Brand,Usage_status,Res_category,Res_type,Res_maker
-####
-# used relationship
-from main_pack.models import (
-	Barcode,
-	Res_color,
-	Res_size,
-	Res_translation,
-	Unit,
-	Res_unit,
-	Res_price,
-	Res_total,
-	Res_trans_inv_line,
-	Res_transaction,
-	Rp_acc_resource,
-	Sale_agr_res_price,
-	Res_discount)
+from sqlalchemy.orm import joinedload
 
-# for invoices
 from main_pack.models import (
-	Inv_line,
-	Inv_line_det,
-	Inv_line_det_type,
 	Inv_status,
-	Inv_type,
-	Invoice,
 	Order_inv,
 	Order_inv_line,
 	Order_inv_type)
 from main_pack.models import Currency
 from main_pack.models import Resource
 
-from main_pack.models import Company,Division
-from main_pack.models import Rp_acc
 from main_pack.base.languageMethods import dataLangSelector
 
 # colorful bootstrap status configurations library
@@ -48,31 +19,28 @@ from main_pack.base.invoiceMethods import getInvStatusUi
 def UiOInvData(orders_list):
 	data = []
 
-	currencies = Currency.query.filter_by(GCRecord = None).all()
-	inv_statuses = Inv_status.query.filter_by(GCRecord = None).all()
-	orderInvTypes = Order_inv_type.query.filter_by(GCRecord = None).all()
-	rpAccs = Rp_acc.query.filter_by(GCRecord = None).all()
-
 	for order in orders_list:
-		orderInv = Order_inv.query.get(order["OInvId"])
-		orderInvList = orderInv.to_json_api()
+		orderInv = Order_inv.query\
+			.options(
+				joinedload(Order_inv.rp_acc),
+				joinedload(Order_inv.user),
+				joinedload(Order_inv.order_inv_type),
+				joinedload(Order_inv.inv_status),
+				joinedload(Order_inv.currency)
+			)\
+			.get(order["OInvId"])
 		
-		List_RpAccs = [rpAcc.to_json_api() for rpAcc in rpAccs if rpAcc.RpAccId == orderInv.RpAccId]
-		List_InvStatuses = [inv_status.to_json_api() for inv_status in inv_statuses if inv_status.InvStatId == orderInv.InvStatId]
-		List_OInvTypes = [orderInvType.to_json_api() for orderInvType in orderInvTypes if orderInvType.OInvTypeId == orderInv.OInvTypeId]
-		List_Currencies = [currency.to_json_api() for currency in currencies if currency.CurrencyId == orderInv.CurrencyId]
+		order_inv_data = orderInv.to_json_api()
 
-		this_currencyCode = List_Currencies[0]["CurrencyCode"] if List_Currencies else None
+		order_inv_data["Rp_acc"] = orderInv.rp_acc.to_json_api() if orderInv.rp_acc else {}
+		order_inv_data["User"] = orderInv.user.to_json_api() if orderInv.user else {}
+		order_inv_data["InvStatus"] = dataLangSelector(orderInv.inv_status.to_json_api()) if orderInv.inv_status else {}
+		order_inv_data["OInvType"] = dataLangSelector(orderInv.order_inv_type.to_json_api()) if orderInv.order_inv_type else {}
+		order_inv_data["Currency"] = dataLangSelector(orderInv.currency.to_json_api()) if orderInv.currency else {}
+		order_inv_data["CurrencyCode"] = orderInv.currency.CurrencyCode if orderInv.currency else Config.MAIN_CURRENCY_CODE
+		order_inv_data["StatusUI"] = getInvStatusUi(orderInv.InvStatId)
 
-		orderInvList["CurrencyCode"] = List_Currencies[0]["CurrencyCode"] if List_Currencies else None
-
-		orderInvList["Rp_acc"] = List_RpAccs[0] if List_RpAccs else ''
-		orderInvList["InvStatus"] = dataLangSelector(List_InvStatuses[0]) if List_InvStatuses else ''
-		orderInvList["OInvType"] = dataLangSelector(List_OInvTypes[0]) if List_OInvTypes else ''
-		orderInvList["Currency"] = dataLangSelector(List_Currencies[0]) if List_Currencies else ''
-		orderInvList["StatusUI"] = getInvStatusUi(orderInv.InvStatId)
-
-		data.append(orderInvList)
+		data.append(order_inv_data)
 
 	res = {
 		"orderInvoices":data,
