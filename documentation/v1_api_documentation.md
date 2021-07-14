@@ -6,6 +6,29 @@
 
 ---
 
+## Barcode api
+
+
+| __Route__      | __Methods__ | __Status__ | __Note__            |
+| -------------- | :---------: | :--------: | ------------------- |
+| /v-barcodes/   |   **GET**   |   Active   | **@token required** |
+| /tbl-barcodes/ |   **GET**   |   Active   | **@sha required**   |
+
+**Properties**
+| __Name__    | __Type__ | __Description__ | __Example__ |
+| ----------- | :------: | --------------- | ----------- |
+| id          | **int**  |
+| barcodeGuid | **str**  |
+| companyId   | **int**  |
+| DivId       | **int**  |
+| resourceId  | **int**  |
+| unitId      | **int**  |
+| barcodeVal  | **str**  |
+
+
+---
+
+
 ## Rp_acc api
 
 

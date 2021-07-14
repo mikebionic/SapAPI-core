@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 from flask import jsonify, request, make_response
-from flask import current_app
 from datetime import datetime, timedelta
 import dateutil.parser
-from sqlalchemy import and_
 from sqlalchemy.orm import joinedload
 
 from main_pack import db

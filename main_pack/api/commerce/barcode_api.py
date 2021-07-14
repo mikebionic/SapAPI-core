@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from flask import jsonify, request, make_response
-from flask import current_app
 from datetime import datetime, timedelta
 import dateutil.parser
 
