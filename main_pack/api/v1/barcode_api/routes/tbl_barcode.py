@@ -13,9 +13,9 @@ def tbl_barcode_get():
 	arg_data = {
 		"BarcodeId": request.args.get("id",None,type=int),
 		"BarcodeGuid": request.args.get("barcodeGuid","",type=str),
-		"CId": request.args.get("companyId","",type=int),
-		"DivId": request.args.get("DivId","",type=int),
-		"ResId": request.args.get("resourceId","",type=int),
+		"CId": request.args.get("companyId",None,type=int),
+		"DivId": request.args.get("DivId",None,type=int),
+		"ResId": request.args.get("resourceId",None,type=int),
 		"UnitId": request.args.get("unitId",None,type=int),
 		"BarcodeVal": request.args.get("barcodeVal","",type=str),
 	}

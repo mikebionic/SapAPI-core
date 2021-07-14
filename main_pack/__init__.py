@@ -133,6 +133,10 @@ def create_app(config_class=Config):
 	app.register_blueprint(v1_media_api, url_prefix=f"{api_url_prefix}/v1/")
 	csrf.exempt(v1_media_api)
 
+	from main_pack.api.v1.barcode_api import api as v1_barcode_api
+	app.register_blueprint(v1_barcode_api, url_prefix=f"{api_url_prefix}/v1/")
+	csrf.exempt(v1_barcode_api)
+
 	from main_pack.api.v1.device_api import api as v1_device_api
 	app.register_blueprint(v1_device_api, url_prefix=f"{api_url_prefix}/v1/")
 	csrf.exempt(v1_device_api)
