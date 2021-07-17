@@ -203,6 +203,7 @@ def api_tbl_dk_resources():
 							.filter_by(
 								ResId = ResId,
 								UnitId = UnitId,
+								BarcodeVal = barcode_info["BarcodeVal"],
 								GCRecord = None)\
 							.first()
 

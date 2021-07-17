@@ -22,7 +22,7 @@ def orders():
 		.filter_by(GCRecord = None, RpAccId = current_user.RpAccId)\
 		.order_by(Order_inv.CreatedDate.desc())\
 		.all()
-	
+
 	orders_list = []
 	for orderInv in orderInvoices:
 		order = {}
@@ -49,7 +49,7 @@ def order_lines(OInvRegNo):
 
 	if orderInvoice.RpAccId == current_user.RpAccId:
 		orderInvRes = UiOInvData([{'OInvId':orderInvoice.OInvId}])
-		
+
 		orderInvLines = Order_inv_line.query\
 			.filter_by(GCRecord = None, OInvId = orderInvoice.OInvId)\
 			.order_by(Order_inv_line.CreatedDate.desc())\
@@ -60,9 +60,10 @@ def order_lines(OInvRegNo):
 			order_inv_line = {}
 			order_inv_line['OInvLineId'] = orderInvLine.OInvLineId
 			order_lines_list.append(order_inv_line)
+
 		res = UiOInvLineData(order_lines_list)
-		
 		categoryData = UiCategoriesList()
+
 		return render_template(
 			f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/users/order_lines.html",
 			**categoryData,
@@ -70,7 +71,7 @@ def order_lines(OInvRegNo):
 			**orderInvRes,
 			url_prefix = url_prefix,
 			title = gettext(Config.COMMERCE_ORDERS_PAGE_TITLE))
-	
+
 	else:
 		return redirect(url_for('commerce_users.orders'))
 
@@ -84,7 +85,7 @@ def order_lines_pdf(OInvRegNo):
 
 	if orderInvoice.RpAccId == current_user.RpAccId:
 		orderInvRes = UiOInvData([{'OInvId':orderInvoice.OInvId}])
-		
+
 		orderInvLines = Order_inv_line.query\
 			.filter_by(GCRecord = None, OInvId = orderInvoice.OInvId)\
 			.order_by(Order_inv_line.CreatedDate.desc())\
@@ -95,13 +96,16 @@ def order_lines_pdf(OInvRegNo):
 			order_inv_line = {}
 			order_inv_line['OInvLineId'] = orderInvLine.OInvLineId
 			order_lines_list.append(order_inv_line)
+
+		categoryData = UiCategoriesList()
 		res = UiOInvLineData(order_lines_list)
 
 		return render_template(
 			f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/users/order_lines_pdf.html",
+			**categoryData,
 			**res,
 			**orderInvRes,
 			title = gettext(Config.COMMERCE_ORDERS_PAGE_TITLE))
-	
+
 	else:
 		return redirect(url_for('commerce_users.orders'))
