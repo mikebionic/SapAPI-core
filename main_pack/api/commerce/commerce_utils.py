@@ -356,6 +356,7 @@ def apiResourceInfo(
 
 	data = []
 	fails = []
+
 	for resource_query in resource_models:
 		try:
 			query_resource = resource_query.Resource

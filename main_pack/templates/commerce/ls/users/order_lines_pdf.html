@@ -103,7 +103,7 @@
             <tr>
               <td>
                 <div class="media">
-                  <img src="{{ url_for('static', filename='commerce/ls/img/halkbank_logo.jpg') }}" class="mr-3 img-fluid">
+                  <img loading="lazy" src="{{ orderInvLine.Resource.FilePathS if orderInvLine.Resource.FilePathS else url_for('static', filename='commerce/ls/img/icons/no_photo.svg') }}" class="mr-3 img-fluid">
                   <div class="media-body">
                     <p class="mt-0 title">{{ orderInvLine.Resource.ResName }}</p>
                     {{ orderInvLine.Resource.ResDesc[:30] }}

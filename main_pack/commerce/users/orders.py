@@ -98,7 +98,7 @@ def order_lines_pdf(OInvRegNo):
 			order_lines_list.append(order_inv_line)
 
 		categoryData = UiCategoriesList()
-		res = UiOInvLineData(order_lines_list)
+		res = UiOInvLineData(order_lines_list, detailed_resource=True)
 
 		return render_template(
 			f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/users/order_lines_pdf.html",

@@ -2,12 +2,11 @@ from main_pack.config import Config
 from sqlalchemy.orm import joinedload
 
 from main_pack.models import (
-	Inv_status,
 	Order_inv,
 	Order_inv_line,
-	Order_inv_type)
-from main_pack.models import Currency
-from main_pack.models import Resource
+)
+
+from main_pack.api.commerce.commerce_utils import apiResourceInfo
 
 from main_pack.base.languageMethods import dataLangSelector
 
@@ -49,34 +48,45 @@ def UiOInvData(orders_list):
 	return res
 
 
-def UiOInvLineData(order_lines_list):
+def UiOInvLineData(
+	order_lines_list,
+	detailed_resource = False
+):
 	data = []
 
-	# units = Unit.query.filter_by(GCRecord = None).all()
-	currencies = Currency.query.filter_by(GCRecord = None).all()
-	orderInvTypes = Order_inv_type.query.filter_by(GCRecord = None).all()
-
 	for order_line in order_lines_list:
-		orderInvLine = Order_inv_line.query.get(order_line["OInvLineId"])
-		orderInvLineList = orderInvLine.to_json_api()
-		
-		resource = Resource.query\
-			.filter_by(GCRecord = None, ResId = orderInvLine.ResId)\
-			.first()
-		
-		# List_Units = [unit.to_json_api() for unit in units if unit.UnitId == orderInvLine.UnitId]
-		List_Currencies = [currency.to_json_api() for currency in currencies if currency.CurrencyId == orderInvLine.CurrencyId]
+		orderInvLine = Order_inv_line.query\
+			.options(
+				joinedload(Order_inv_line.resource),	
+				joinedload(Order_inv_line.currency)
+			)\
+			.get(order_line["OInvLineId"])
 
-		orderInvLineList["CurrencyCode"] = List_Currencies[0]["CurrencyCode"] if List_Currencies else None
-		# orderInvLineList["Unit"] = dataLangSelector(List_Units[0]) if List_Units else ''
-		orderInvLineList["Currency"] = dataLangSelector(List_Currencies[0]) if List_Currencies else ''
-		orderInvLineList["Resource"] = resource.to_json_api() if resource else ''
+		orderInvLineList = orderInvLine.to_json_api()
+		resource_model = orderInvLine.resource
+
+		orderInvLineList["CurrencyCode"] = orderInvLine.currency.CurrencyCode if orderInvLine.currency else Config.MAIN_CURRENCY_CODE
+		orderInvLineList["Currency"] = dataLangSelector(orderInvLine.currency.to_json_api()) if orderInvLine.currency else {}
+
+		if detailed_resource:
+			orderInvLineList["Resource"] = apiResourceInfo(
+				single_object = 1,
+				showInactive = 1,
+				resource_list = [{"ResId": resource_model.ResId}],
+				avoidQtyCheckup = 1,
+				showNullPrice = 1
+			)["data"]
+
+		else:
+			orderInvLineList["Resource"] = resource_model.to_json_api() if resource_model else ''
 
 		data.append(orderInvLineList)
+
 	res = {
 		"orderInvLines":data,
 	}
 	return res
+
 
 def addOInvLineDict(req):
 	OInvId = req.get('OInvId')
