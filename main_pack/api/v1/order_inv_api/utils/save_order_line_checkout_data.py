@@ -87,6 +87,10 @@ def save_order_line_checkout_data(
 				error_type = 3
 				raise Exception
 
+			if not ResPriceGroupId:
+				if ResPriceGroupId in order_inv_line_req["ResPriceGroupId"]:
+					ResPriceGroupId = order_inv_line_req["ResPriceGroupId"] if order_inv_line_req["ResPriceGroupId"] else None
+
 			List_Res_price = calculatePriceByGroup(
 				ResPriceGroupId = ResPriceGroupId,
 				Res_price_dbModels = resource.Res_price,
