@@ -88,7 +88,7 @@ def save_order_line_checkout_data(
 				raise Exception
 
 			if not ResPriceGroupId:
-				if ResPriceGroupId in order_inv_line_req["ResPriceGroupId"]:
+				if "ResPriceGroupId" in order_inv_line_req:
 					ResPriceGroupId = order_inv_line_req["ResPriceGroupId"] if order_inv_line_req["ResPriceGroupId"] else None
 
 			List_Res_price = calculatePriceByGroup(
