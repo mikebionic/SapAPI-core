@@ -75,6 +75,18 @@
 
 			{% for resource in data %}
 				<div class="card">
+
+					<div class="product-count cardplacement cartItemQty" style="display: none;">
+						<div class="qtyminus qtybtn">-</div>
+						<input type="text" class="qty productQty"
+							pending_amount="{{resource.ResPendingTotalAmount}}"
+							min_amount="{{resource.ResMinSaleAmount}}"
+							max_amount="{{resource.ResMaxSaleAmount}}"
+							value="{{resource.productQty}}" ownerId="{{ resource.ResId }}">
+						<div class="qtyplus qtybtn">+</div>
+					</div>
+					<a class="round-black-btn cardplacement add-to-cart" ownerId="{{ resource.ResId }}" style="color: #fff">{{_('Add to cart')}}</a>
+
 					<div class="imgBox">
 						{% if current_user.is_authenticated %}
 							<div class="yith-wcwl-add-to-wishlist wishlist-button">
@@ -107,17 +119,6 @@
 								<h3>{{ resource.ResName }}</h3>
 							</a>
 						</div>
-
-						<div class="product-count cartItemQty" style="display: none;">
-							<div class="qtyminus qtybtn">-</div>
-							<input type="text" class="qty productQty"
-								pending_amount="{{resource.ResPendingTotalAmount}}"
-								min_amount="{{resource.ResMinSaleAmount}}"
-								max_amount="{{resource.ResMaxSaleAmount}}"
-								value="{{resource.productQty}}" ownerId="{{ resource.ResId }}">
-							<div class="qtyplus qtybtn">+</div>
-						</div>
-						<a class="round-black-btn add-to-cart" ownerId="{{ resource.ResId }}" style="color: #fff">{{_('Add to cart')}}</a>
 
 					</div>
 					{% if resource.ResDesc %}

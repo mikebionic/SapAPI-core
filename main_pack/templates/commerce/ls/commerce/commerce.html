@@ -99,11 +99,23 @@ olary ýurdumyzyň çägindäki dükanlara eltip berýäris." />
 
 			<div class="slider-content">
 				{% for category in Featured_categories %}
-					<div class="slider-container__slider2 tab-{{ category.ResCatId }} featrued-cat-tab">
-
+				<div class="slider-container__slider2 tab-{{ category.ResCatId }} featrued-cat-tab">
+					
 					{% for resource in category.Resources %}
 						<div>
 							<div class="card">
+
+								<div class="product-count cardplacement cartItemQty" style="display: none;">
+									<div class="qtyminus qtybtn">-</div>
+									<input type="text" class="qty productQty"
+										pending_amount="{{resource.ResPendingTotalAmount}}"
+										min_amount="{{resource.ResMinSaleAmount}}"
+										max_amount="{{resource.ResMaxSaleAmount}}"
+										value="{{resource.productQty}}" ownerId="{{ resource.ResId }}">
+									<div class="qtyplus qtybtn">+</div>
+								</div>
+								<a class="round-black-btn cardplacement add-to-cart" ownerId="{{ resource.ResId }}">{{_('Add to cart')}}</a>
+
 								<div class="imgBox">
 									{% if current_user.is_authenticated %}
 									<div class="yith-wcwl-add-to-wishlist wishlist-button">
@@ -118,7 +130,7 @@ olary ýurdumyzyň çägindäki dükanlara eltip berýäris." />
 										alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
 									</a>
 									{% if resource.New %}
-										<span class="onsale">
+									<span class="onsale">
 											<span class="woocommerce-Price-amount amount">{{_('New')}}</span>
 										</span>
 									{% endif %}
@@ -137,17 +149,6 @@ olary ýurdumyzyň çägindäki dükanlara eltip berýäris." />
 											<h3>{{ resource.ResName }}</h3>
 										</a>
 									</div>
-
-									<div class="product-count cartItemQty" style="display: none;">
-										<div class="qtyminus qtybtn">-</div>
-										<input type="text" class="qty productQty"
-											pending_amount="{{resource.ResPendingTotalAmount}}"
-											min_amount="{{resource.ResMinSaleAmount}}"
-											max_amount="{{resource.ResMaxSaleAmount}}"
-											value="{{resource.productQty}}" ownerId="{{ resource.ResId }}">
-										<div class="qtyplus qtybtn">+</div>
-									</div>
-									<a class="round-black-btn add-to-cart" ownerId="{{ resource.ResId }}">{{_('Add to cart')}}</a>
 
 								</div>
 								{% if resource.ResDesc %}
@@ -179,6 +180,18 @@ olary ýurdumyzyň çägindäki dükanlara eltip berýäris." />
 		<div class="row">
 		{% for resource in Latest_resources %}
 			<div class="card">
+
+				<div class="product-count cardplacement cartItemQty" style="display: none;">
+					<div class="qtyminus qtybtn">-</div>
+					<input type="text" class="qty productQty"
+						pending_amount="{{resource.ResPendingTotalAmount}}"
+						min_amount="{{resource.ResMinSaleAmount}}"
+						max_amount="{{resource.ResMaxSaleAmount}}"
+						value="{{resource.productQty}}" ownerId="{{ resource.ResId }}">
+					<div class="qtyplus qtybtn">+</div>
+				</div>
+				<a class="round-black-btn cardplacement add-to-cart" ownerId="{{ resource.ResId }}" style="color: #fff">{{_('Add to cart')}}</a>
+
 				<div class="imgBox">
 					{% if current_user.is_authenticated %}
 						<div class="yith-wcwl-add-to-wishlist wishlist-button">
@@ -212,17 +225,6 @@ olary ýurdumyzyň çägindäki dükanlara eltip berýäris." />
 							<h3>{{ resource.ResName }}</h3>
 						</a>
 					</div>
-
-					<div class="product-count cartItemQty" style="display: none;">
-						<div class="qtyminus qtybtn">-</div>
-						<input type="text" class="qty productQty"
-							pending_amount="{{resource.ResPendingTotalAmount}}"
-							min_amount="{{resource.ResMinSaleAmount}}"
-							max_amount="{{resource.ResMaxSaleAmount}}"
-							value="{{resource.productQty}}" ownerId="{{ resource.ResId }}">
-						<div class="qtyplus qtybtn">+</div>
-					</div>
-					<a class="round-black-btn add-to-cart" ownerId="{{ resource.ResId }}" style="color: #fff">{{_('Add to cart')}}</a>
 
 				</div>
 				{% if resource.ResDesc %}
