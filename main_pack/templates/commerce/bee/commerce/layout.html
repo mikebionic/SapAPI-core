@@ -15,7 +15,7 @@
   {% block head %}{% endblock %}
   <meta name="description" content="{% if Config.Desc %}{{ Config.Desc }}{% else %} Online commerce {{ company.CName }} {{ company.CDesc if company.CDesc}}{% endif %}">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="shortcut icon" type="image/x-icon" href="{{ company_logo.FilePath if company_logo else url_for('static', filename='commerce/bee/images/favicon.svg') }}">
+  <link rel="shortcut icon" type="image/x-icon" href="{{ company_logo.FilePath if company_logo else url_for('static', filename='commerce/bee/images/favicon.ico') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='commerce/bee/css/app.css') }}">
 	{% block styles %}{% endblock %}
   {% if Config.GOOGLE_ANALYTICS_TAG %}
@@ -78,11 +78,9 @@
         </div>
         <div class="header-logo" >
           <a href="{{ url_for('commerce.commerce')}}">
-            {% if company_logo %}
-              <img loading="lazy" src="{{ company_logo.FilePath }}" alt="{{company.CName}}" style=" margin-right: 15px;" >
-            {% else %}
-              <h4>{{company.CName}}</h4>
-            {% endif %}
+            <img loading="lazy" 
+              src="{{ company_logo.FilePath if company_logo else url_for('static', filename='commerce/bee/images/favicon.svg') }}" 
+              alt="{{company.CName}}" style=" margin-right: 15px;" >
           </a>
         </div>
       </div>

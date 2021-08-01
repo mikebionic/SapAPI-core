@@ -1,0 +1,5 @@
+# https://www.robotstxt.org/robotstxt.html
+user-agent: *
+Disallow: /hilli/api
+
+Sitemap: https://www.hillitm.com/sitemap.xml
