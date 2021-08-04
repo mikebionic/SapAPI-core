@@ -1,8 +1,8 @@
-from flask import render_template,url_for,jsonify,session,flash,redirect,request,Response
+from flask import render_template,url_for,jsonify,flash,redirect,request
+from datetime import datetime
 from main_pack.config import Config
 from main_pack.commerce.admin import bp, url_prefix
 from main_pack import db, gettext, lazy_gettext, cache
-from flask import current_app
 
 # auth and validation
 from flask_login import current_user,login_required
@@ -13,7 +13,6 @@ from main_pack.commerce.auth.utils import ui_admin_required
 from main_pack.base.imageMethods import save_image,save_icon,allowed_icon,allowed_image
 from main_pack.base.dataMethods import dateDataCheck
 from main_pack.api.commerce.image_api import remove_image
-from sqlalchemy import or_, and_
 from sqlalchemy.orm import joinedload
 # / data operations /
 
@@ -80,7 +79,7 @@ def remove_images():
 				remove_image(file_type,file_name)
 				db.session.delete(image)
 			except Exception as ex:
-				print(ex)
+				print(f"{datetime.now()} | Admin image removal exception: {ex}")
 				image.GCRecord = 1
 
 			db.session.commit()

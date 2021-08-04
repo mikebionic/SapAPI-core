@@ -2,20 +2,16 @@
 
 
 {% block head %}
-<meta name="description" content="
-	{{_('Showing')}} | {% for sort in sort_types %}{{ sort.sort_title if sort.status == 1 }}{% endfor %}
-	{{_('Products')}}: {% for resource in data %} {{ resource.ResName }}, {% endfor %} 
-">
-<meta property="og:description" content="
-{{_('Showing')}} | {% for sort in sort_types %}{{ sort.sort_title if sort.status == 1 }}{% endfor %}
-{{_('Products')}}: {% for resource in data %} {{ resource.ResName }}, {% endfor %}
-" />
-<meta property="og:image" content="{{ request.host_url }}{{ url_for('static', filename='commercels/img/ls_logo.svg') }}" />
-<meta name="twitter:description" content="
-{{_('Showing')}} | {% for sort in sort_types %}{{ sort.sort_title if sort.status == 1 }}{% endfor %}
-{{_('Products')}}: {% for resource in data %} {{ resource.ResName }}, {% endfor %}
-" />
-<meta name="twitter:image" content="{{ request.host_url }}{{ url_for('static', filename='commerce/ls/img/ls_logo.svg') }}" />
+<meta name="description" 
+	content="{% for sort in sort_types %}{{ sort.sort_title if sort.status == 1 }}{% endfor %} {{_('Products')}}: {% for resource in data %} {{ resource.ResName }}, {% endfor %}">
+<meta property="og:description" 
+	content="{% for sort in sort_types %}{{ sort.sort_title if sort.status == 1 }}{% endfor %} {{_('Products')}}: {% for resource in data %} {{ resource.ResName }}, {% endfor %}" />
+<meta property="og:image" 
+	content="{{ request.host_url }}{{ url_for('static', filename='commercels/img/ls_logo.svg') }}" />
+<meta name="twitter:description" 
+	content="{% for sort in sort_types %}{{ sort.sort_title if sort.status == 1 }}{% endfor %} {{_('Products')}}: {% for resource in data %} {{ resource.ResName }}, {% endfor %}" />
+<meta name="twitter:image" 
+	content="{{ request.host_url }}{{ url_for('static', filename='commerce/ls/img/ls_logo.svg') }}" />
 {% endblock %}
 
 {% block breadcrumbs %}
