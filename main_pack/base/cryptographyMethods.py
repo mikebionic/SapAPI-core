@@ -4,7 +4,7 @@ from cryptography.fernet import Fernet
 def encrypt_data(data, fernet_key, db_guid):
 	try:
 		if not data or not db_guid:
-			print("cryptography exception: no data or guid")
+			print(f"cryptography encrypt exception: no data or guid: {str(data)}, {str(db_guid)}")
 			raise Exception
 
 		f = Fernet(fernet_key)
@@ -20,7 +20,7 @@ def encrypt_data(data, fernet_key, db_guid):
 def decrypt_data(data, fernet_key, db_guid):
 	try:
 		if not data or not db_guid:
-			print("cryptography exception: no data or guid")
+			print(f"cryptography decrypt exception: no data or guid: {str(data)}, {str(db_guid)}")
 			raise Exception
 
 		f = Fernet(fernet_key)
