@@ -1,0 +1,21 @@
+{% for resource in data %}
+<li class="single-shopping-cart cartObject{{resource.ResId}}">
+	<div class="shopping-cart-img">
+			<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}">
+				<img alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}"
+				 src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/ls/img/icons/no_photo.svg') }}">
+			</a>
+			<div class="item-close">
+					<a href="#"><i class="sli sli-close"></i></a>
+			</div>
+	</div>
+	<div class="shopping-cart-title">
+			<h4><a href="#">{{ resource.ResName if resource.ResName else '' }}</a></h4>
+			<span class="woocommerce-Price-amount amount priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{resource.ResPriceValue}}</span>
+			<span class="woocommerce-Price-currencySymbol">{{ resource.CurrencyCode }}</span>
+	</div>
+	<div class="shopping-cart-delete removeFromCart" ownerId="{{resource.ResId}}">
+			<a href="#"><i class="la la-trash"></i></a>
+	</div>
+</li>
+{% endfor %}

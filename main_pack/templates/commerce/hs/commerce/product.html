@@ -1,0 +1,239 @@
+{% extends "commerce/hs/commerce/layout.html" %}
+
+{% block head %}
+<meta name="description" content="{{ resource.ResName }} | {{ resource.ResDesc.replace('<b>','').replace('</b>','').replace('<br/>',', ') if resource.ResDesc }}">
+<meta property="og:description" content="{{ resource.ResName }} | {{ resource.ResDesc.replace('<b>','').replace('</b>','').replace('<br/>',', ') if resource.ResDesc }}" />
+<meta property="og:image" content="{{ request.host_url }}{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/bee/images/favicon.svg') }}" />
+<meta name="twitter:description" content="{{ resource.ResName }} | {{ resource.ResDesc.replace('<b>','').replace('</b>','').replace('<br/>',', ') if resource.ResDesc }}" />
+<meta name="twitter:image" content="{{ request.host_url }}{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/bee/images/favicon.svg') }}" />
+{% endblock %}
+
+{% block content %}
+
+		<div class="breadcrumb-area bg-img" style="background-image:url(../../static/images/bg/breadcrumb.jpg);">
+			<div class="container">
+				<div class="breadcrumb-content text-center">
+					<h2>{{ resource.ResName }}</h2>
+					<ul>
+						<li>
+							<a href="{{ url_for('commerce.commerce') }}">{{_('Main')}}</a>
+						</li>
+						<li class="active">
+							<a href="{{ url_for('commerce.v_grid',ResCatId=resource.ResCatId,ResCatName=resource.ResCatName.replace('/','-').replace(' ','-')) }}">{{ resource.ResCatName }}</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="product-details-area pt-90 pb-90">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-6 col-md-7">
+						<div class="product-details-img">
+
+							{% if resource.Images %}
+							<div class="zoompro-wrap product-zoom-right pr-20">
+								{% for image in resource.Images %}
+								<div class="zoompro-span">
+									<img class="zoompro" src="{{image.FilePathS}}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}" />
+									<span>-29%</span>
+								</div>
+								{% endfor %}
+							</div>
+							{% endif %}
+							<!-- <div id="gallery" class="product-dec-slider-2">
+								<a data-image="../../static/images/product-details/product-detalis-l6.jpg">
+									<img src="../../static/images/product-details/product-detalis-s6.jpg" alt="">
+								</a>
+							</div> -->
+						</div>
+					</div>
+					<div class="col-lg-6 col-md-5">
+						<div class="product-details-content pro-details-content-modify">
+							<span>{{ resource.ResCatName }}</span>
+							<h2>{{ resource.ResName }}</h2>
+							<div class="product-ratting-review" value="{{ resource.RtRatingValue }}" ownerId="{{ resource.ResId }}">
+								<div class="product-ratting" ownerId="{{ resource.ResId }}">
+									<i class="la la-star"></i>
+									<i class="la la-star"></i>
+									<i class="la la-star"></i>
+									<i class="la la-star"></i>
+									<i class="la la-star-half-o"></i>
+								</div>
+								<div class="product-review">
+									<span>40+ Reviews</span>
+								</div>
+							</div>
+							<div class="pro-details-color-wrap">
+								<p>{{ resource.ResDesc if resource.ResDesc else '' }}</p>
+							</div>
+							<div class="pro-details-price-wrap">
+								<div class="product-price">
+									<span class="price priceValue" ownerId="{{ resource.ResId }}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue }}</span>
+									<span>{{ resource.CurrencyCode }}</span>
+								</div>
+								<!-- <div class="dec-rang"><span>- 30%</span></div> -->
+							</div>
+							<div class="pro-details-quality">
+								<h5>{{_('Quantity')}}</h5>
+								<div class="cart-plus-minus">
+									<input class="cart-plus-minus-box"
+										type="text" name="qtybutton"
+										pending_amount="{{resource.ResPendingTotalAmount}}"
+										min_amount="{{resource.ResMinSaleAmount}}"
+										max_amount="{{resource.ResMaxSaleAmount}}"
+										value="{{resource.productQty}}" ownerId="{{ resource.ResId }}">
+								</div>
+								<div class="pro-details-buy-now btn-hover btn-hover-radious">
+									<a ownerId="{{ resource.ResId }}"><i class="ti-shopping-cart"></i><span>{{_('Add to cart')}}</span></a>
+									{% if current_user.is_authenticated %}
+										<div class="wishlist-compare">
+											<a href="#" data-tooltip="{{_('Wishlist')}}" class="{{'added' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}"><i class="ti-heart"></i></a>
+										</div>
+									{% endif %}
+								</div>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="description-review-wrapper pb-90">
+			<div class="container">
+				<div class="row">
+					<div class="ml-auto mr-auto col-lg-10">
+						<div class="dec-review-topbar nav mb-40">
+							<a data-toggle="tab" href="#des-details1">Description</a>
+							<a data-toggle="tab" href="#des-details3">Reviews</a>
+						</div>
+						<div class="tab-content dec-review-bottom">
+							<div id="des-details1" class="tab-pane">
+								<div class="description-wrap">
+									{% if resource.ResFullDesc %}
+									<p>{{ resource.ResFullDesc }}</p>
+									{% else %}
+									<p>{{ _('No description provided for this product') }}</p>
+									{% endif %}
+								</div>
+							</div>
+
+							<div id="des-details3" class="tab-pane">
+								<div class="dec-review-wrap mb-50">
+									<div class="row">
+										{% for rating in resource.Rating %}
+										<div class="col-xl-3 col-lg-4 col-md-5">
+											<div class="dec-review-img-wrap">
+												{% set rating_count = resource.Rating.index(rating) %}
+												<div class="dec-client-name">
+													<h4>{{ rating.User.UName if rating.User else rating.Rp_acc.RpAccName }}</h4>
+													<div class="dec-client-rating">
+														<i class="la la-star"></i>
+														<i class="la la-star"></i>
+														<i class="la la-star"></i>
+														<i class="la la-star"></i>
+														<i class="la la-star-half-o"></i>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-xl-9 col-lg-8 col-md-7">
+											<div class="dec-review-content">
+												<p>{{ rating.RtRemark if rating.RtRemark else '' }}</p>
+												<div class="review-content-bottom">
+													<div class="review-like">
+													</div>
+													<div class="review-date">
+														<span>25 Jun 2019</span>
+													</div>
+												</div>
+											</div>
+										</div>
+										{% endfor %}
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="product-ratting-wrap">
+			<div class="ratting-form-wrapper fix" ng-app>
+				{% if current_user.is_authenticated %}
+					<h3>{{_('Submit your review')}}</h3>
+					<form>
+						<div class="ratting-form row">
+							<div class="col-12 mb-15">
+								<h5>{{_('Your rating')}}:</h5>
+								<fieldset class="rating rateButtons">
+									<input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5"></label>
+									<input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4"></label>
+									<input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3"></label>
+									<input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2"></label>
+									<input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1"></label>
+								</fieldset>
+							</div>
+							<input type="hidden" class="reviewRatingValue" value="0">
+							<div class="col-12 mb-15">
+								<textarea name="review" class="reviewRatingText" ownerId="{{ resource.ResId }}" id="your-review" placeholder="{{_('Write your review')}}..." required></textarea>
+							</div>
+							<div class="col-12">
+								<input value="{{_('Send')}}" class="sendReviewBtn" ownerId="{{ resource.ResId }}" type="submit">
+							</div>
+						</div>
+					</form>
+				{% else %}
+				<div class="col-lg-12 col-12 mb-40 d-flex">
+					<div class="y_login">
+						<h2>{{_('You should login to add a review')}}</h2>
+						<div class="cart-summary-button">
+							<a href="{{ url_for('commerce_auth.login') }}"><button class="checkout-btn checkoutCartBtn" style="width: auto;float: none;">{{_('Login')}}</button></a>
+						</div>
+					</div>
+				</div>
+				{% endif %}
+			</div>
+		</div>
+
+		<div class="product-area pb-85">
+			<div class="container">
+				<div class="section-title-6 mb-50 text-center">
+					<h2>{{_('Products from this category')}}</h2>
+				</div>
+				<div class="product-slider-active owl-carousel">
+					{% if resource.Related_resources %}
+					{% for related_resource in resource.Related_resources %}
+					<div class="product-wrap">
+						<div class="product-img mb-15">
+							<a href="{{url_for('commerce.product',ResId=related_resource.ResId,ResName=related_resource.ResName.replace('/','-').replace(' ','-'))}}">
+								<img src="{{ related_resource.FilePathS if related_resource.FilePathS else url_for('static', filename='commerce/bee/images/no_photo.svg') }}" 
+								alt="Product {{related_resource.ResName}} of category {{ related_resource.ResCatName if related_resource.ResCatName else '' }}" loading="lazy">
+							</a>
+							{% if current_user.is_authenticated %}
+							<div class="product-action">
+								<a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class="la la-plus"></i></a>
+								<a title="Wishlist" href="#"><i class="la la-heart-o"></i></a>
+							</div>
+							{% endif %}
+						</div>
+						<div class="product-content">
+							<span>{{ related_resource.ResCatName }}</span>
+							<h4><a href="{{url_for('commerce.product',ResId=related_resource.ResId,ResName=related_resource.ResName.replace('/','-').replace(' ','-'))}}">{{ related_resource.ResName }}</a></h4>
+							<div class="price-addtocart">
+								<div class="product-price" ownerId="{{related_resource.ResId}}" value="{{related_resource.ResPriceValue}}">
+									{{ related_resource.ResPriceValue }}
+									<span>{{ related_resource.CurrencyCode }}</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+					{% endif %}
+				</div>
+			</div>
+		</div>
+
+{% endblock %}

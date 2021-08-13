@@ -1,0 +1,338 @@
+/* ---------------  27 New our styles ------------------  */
+/* New slider  */
+
+.comment-box {
+  padding: 5px
+}
+
+.comment-area textarea {
+  resize: none;
+  border: 1px solid #ad9f9f;
+  width: 100%;
+}
+
+.form-control:focus {
+  color: #495057;
+  background-color: #fff;
+  border-color: #ffffff;
+  outline: 0;
+  box-shadow: 0 0 0 1px rgb(255, 0, 0) !important
+}
+
+.send {
+  color: #fff;
+  background-color: #ff0000;
+  border-color: #ff0000
+}
+
+.send:hover {
+  color: #fff;
+  background-color: #f50202;
+  border-color: #f50202
+}
+
+.rating {
+  display: flex;
+  margin-top: -10px;
+  flex-direction: row-reverse;
+  margin-left: -4px;
+  float: left
+}
+
+.rating>input {
+  display: none
+}
+
+.rating>label {
+  position: relative;
+  width: 19px;
+  font-size: 25px;
+  color: #ffb8b8;
+  cursor: pointer
+}
+
+.rating>label::before {
+  content: "\2605";
+  position: absolute;
+  opacity: 0
+}
+
+.rating>label:hover:before,
+.rating>label:hover~label:before {
+  opacity: 1 !important
+}
+
+.rating>input:checked~label:before {
+  opacity: 1
+}
+
+.rating:hover>input:checked~label:before {
+  opacity: 0.4
+}
+.comment{
+  width: 100%;
+  margin: 20px auto;
+}
+
+
+
+/* Footer number */
+
+.content-center {
+  /* height: 100vh; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #eee;
+}
+
+.pulse i {
+  color: #fff
+}
+
+.pulse {
+  height: 50px;
+  width: 50px;
+  background-color: $pulse-color;
+  // background-color: #ff5151;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.pulse::before {
+  content: "";
+  position: absolute;
+  border: 1px solid #f17070;
+  width: calc(100% + 40px);
+  height: calc(100% + 40px);
+  border-radius: 50%;
+  animation: pulse 1s linear infinite;
+}
+
+.pulse::after {
+  content: "";
+  position: absolute;
+  border: 1px solid #ff5151;
+  width: calc(100% + 40px);
+  height: calc(100% + 40px);
+  border-radius: 50%;
+  animation: pulse 1s linear infinite;
+  animation-delay: 0.3s;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  
+  50% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  
+  100% {
+    transform: scale(1.3);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 991px){
+  .header-contact-2{
+    display: none;
+  }
+}
+@media (max-width:705px){
+  .search-style-4{
+    display: none;
+  }
+}
+@media (min-width:635px){
+  nav ul li a .la{
+    display: none;
+  }
+}
+@media (max-width:635px){
+  nav ul li a span{
+    display: none;
+  }
+  nav ul li a .la{
+    font-size: 25px;
+  }
+  .category-menu-wrap h3 a span{
+    display: none;
+  }
+}
+
+.cat-style {
+  color: #333745;
+  padding: 0 40px;
+  display: block;
+  font-size: medium;
+  font-weight: bold;
+  &:hover {
+    color: $theme-color!important;
+    border-left: 3px solid $theme-color;
+    background-color: $bg-cat-hover;
+    transition: 0s!important;
+  }
+}
+
+// Single Product Ratting
+
+.product-ratting-wrap {
+  padding: 50px 70px;
+  overflow: auto;
+    .pro-avg-ratting {
+      margin-bottom: 20px;
+      float: left;
+      width: 100%;
+        h4 {
+          font-size: 18px;
+          font-weight: 700;
+          line-height: 14px;
+          margin: 0 0 7px;
+            span {
+              color: #444444;
+              font-size: 12px;
+              font-weight: 400;
+              line-height: 10px;
+            }
+        }
+      span {
+        display: block;
+        font-size: 12px;
+        line-height: 10px;
+      }
+    }
+}
+
+@media only screen and (max-width: 767px) {
+  .product-ratting-wrap {
+    padding: 50px; } }
+@media only screen and (max-width: 479px) {
+  .product-ratting-wrap {
+    padding: 30px 45px; } }
+
+
+.rattings-wrapper {
+  margin-bottom: 40px;
+  float: left;
+  width: 100%; }
+
+.sin-rattings {
+  margin-bottom: 40px; }
+  .sin-rattings:last-child {
+    margin-bottom: 0; }
+  .sin-rattings .ratting-author {
+    float: left;
+    width: 100%;
+    margin-bottom: 10px; }
+    .sin-rattings .ratting-author h3 {
+      float: left;
+      font-size: 16px;
+      font-weight: 700;
+      margin: 0;
+      line-height: 18px;
+      margin-right: 15px; }
+    @media only screen and (max-width: 479px) {
+      .sin-rattings .ratting-author .ratting-star {
+        float: left;
+        width: 100%;
+        margin-top: 5px; } }
+    .sin-rattings .ratting-author .ratting-star i, .sin-rattings .ratting-author .ratting-star span {
+      color: #444444;
+      font-size: 12px;
+      line-height: 18px;
+      float: left; }
+    .sin-rattings .ratting-author .ratting-star span {
+      margin-left: 5px; }
+  .sin-rattings p {
+    color: #444444;
+    font-size: 14px;
+    line-height: 24px; }
+
+/*-- Ratting Form Wrap --*/
+.ratting-form-wrapper {
+  float: left;
+  }
+  .rating_l{
+    border: 2px solid #f5d730;
+    width: 50%;
+    margin: 0 50;
+    margin: 0px 30%;
+    padding: 33px 5px 5px 55px;
+
+  }
+  .ratting-form-wrapper h3 {
+    font-size: 16px;
+    margin: 0 0 30px;
+    text-transform: uppercase;
+    font-weight: 500;
+    line-height: 16px; }
+
+/*-- Ratting Form --*/
+.ratting-form h5 {
+  float: left;
+  font-size: 14px;
+  line-height: 18px;
+  margin-right: 10px; }
+
+.ratting-form .ratting-star i {
+  font-size: 14px;
+  float: left;
+  line-height: 18px;
+  display: block;
+  margin-right: 3px; }
+  .ratting-form .ratting-star i:last-child {
+    margin: 0; }
+
+.ratting-form label {
+  display: block;
+  font-size: 25px;
+  color: #666666;
+  margin-bottom: 3px; }
+
+.ratting-form input {
+  /* width: 100%; */
+  background-color: transparent;
+  border: 1px solid #dddddd;
+  font-size: 13px;
+  line-height: 24px;
+  /* padding: 8px 15px; */
+  color: #666666; }
+  .ratting-form input[type="submit"] {
+    width: auto;
+    padding: 8px 30px;
+    border-color: #202020;
+    background-color: #202020;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: #ffffff; }
+    .ratting-form input[type="submit"]:hover {
+      border-color: #f5d730;
+      background-color: #f5d730;
+      color: #202020; }
+
+.ratting-form textarea {
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid #dddddd;
+  font-size: 13px;
+  line-height: 24px;
+  padding: 8px 15px;
+  color: #666666;
+  height: 80px;
+  resize: none;
+}
+
+.y_login .cart-summary-button button.checkout-btn {
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #202020;
+  background-color: #f5d730;
+  border-color: #f5d730;
+}

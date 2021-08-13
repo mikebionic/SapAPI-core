@@ -1,0 +1,83 @@
+
+{% extends "commerce/hs/commerce/layout.html" %}
+
+
+{% block head %}
+<meta name="description" 
+	content="{{_("To login you account, fill the required fields and click 'Login' button")}}.
+	{{_("If you don't have an account, click the 'Register' button and proceed the registration")}}" />
+<meta property="og:description" 
+	content="{{_("To login you account, fill the required fields and click 'Login' button")}}.
+	{{_("If you don't have an account, click the 'Register' button and proceed the registration")}}" />
+<meta property="og:image" 
+	content="{{ request.host_url }}{{ url_for('static', filename='commerce/ls/img/ls_logo.svg') }}" />
+<meta name="twitter:description" 
+	content="{{_("To login you account, fill the required fields and click 'Login' button")}}.
+	{{_("If you don't have an account, click the 'Register' button and proceed the registration")}}" />
+<meta name="twitter:image" 
+	content="{{ request.host_url }}{{ url_for('static', filename='commerce/ls/img/ls_logo.svg') }}" />
+{% endblock %}
+
+{% block breadcrumbs %}
+<nav class="woocommerce-breadcrumb">
+	<a href="{{ url_for('commerce.commerce') }}">{{_('Main')}}</a>
+	<span class="delimiter">
+		<i class="fa fa-angle-right"></i>
+	</span>
+	{{_('Products')}}
+</nav>
+{% endblock %}
+
+{% block content %}
+
+
+<div class="login-register-area pt-85 pb-90">
+	<div class="container">
+			<div class="row">
+					<div class="col-lg-7 col-md-12 ml-auto mr-auto">
+							<div class="login-register-wrapper">
+									<div class="login-register-tab-list nav">
+											<a class="active" data-toggle="tab" href="#">
+													<h4> {{_('Login')}} </h4>
+											</a>
+											<a href="{{ url_for('commerce_auth.register') }}">{{_('Register')}}</a>
+									</div>
+									<div class="tab-content">
+											<div id="lg1" class="tab-pane active">
+													<div class="login-form-container">
+															<div class="login-register-form">
+																	<form action="#" method="post">
+																		{{ form.csrf_token() }}
+																		<p class="before-login-text">
+																			{{_("To login you account, fill the required fields and click 'Login' button")}}.
+																		</p>
+																		{{ form.email(class="input-text") }}
+																		{% if form.email.errors %}
+																			<div class="col-12 mb-30">
+																				{% for error in form.email.errors %}
+																					<span style="color: red">{{ error }}</span>
+																				{% endfor %}
+																			</div>
+																		{% endif %}
+																		{{ form.password(class="input-text") }}
+																			<div class="button-box">
+																					<div class="login-toggle-btn">
+																							<input type="checkbox">
+																							<label>{{_('Remember me')}}</label>
+																							<a href="{{ url_for('commerce_auth.reset_request') }}">{{_('Forgot your password?')}}</a>
+																					</div>
+																					<button type="submit">{{_(' Login ')}}</button>
+																			</div>
+																	</form>
+															</div>
+													</div>
+											</div>
+									</div>
+							</div>
+					</div>
+			</div>
+	</div>
+</div>
+
+
+{% endblock %}
