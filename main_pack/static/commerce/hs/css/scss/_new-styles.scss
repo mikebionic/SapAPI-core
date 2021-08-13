@@ -186,6 +186,8 @@
 .product-ratting-wrap {
   padding: 50px 70px;
   overflow: auto;
+  display: flex;
+  justify-content: center;
     .pro-avg-ratting {
       margin-bottom: 20px;
       float: left;
