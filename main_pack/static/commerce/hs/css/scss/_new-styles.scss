@@ -338,3 +338,19 @@
   background-color: #f5d730;
   border-color: #f5d730;
 }
+
+
+.info-block {
+  margin-bottom: 20px;
+  span {
+    display: block;
+    .label-text {
+      color: #4a4a4a;
+      font-weight: 500;
+      font-size: 0.85rem;
+    .label-value {
+      color: #828282;
+    }
+    }
+  }
+}
