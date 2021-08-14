@@ -132,6 +132,7 @@ h3.cart-page-title {
             td {
                 font-size: 15px;
                 padding: 30px 0;
+                width: 20%;
                 @media #{$xs-layout} {
                     padding: 30px 0 30px 10px;
                 }

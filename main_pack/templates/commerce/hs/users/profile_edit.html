@@ -1,0 +1,183 @@
+{% extends "commerce/hs/commerce/layout.html" %}
+
+
+{% block content %}
+		
+		
+<div class="my-account-wrapper pt-100 pb-100">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<!-- My Account Page Start -->
+				<div class="myaccount-page-wrapper">
+					<!-- My Account Tab Menu Start -->
+					<div class="row">
+						<div class="col-lg-3 col-md-4">
+							<div class="myaccount-tab-menu nav" role="tablist">
+								<a href="{{ url_for('commerce_users.profile') }}"><i class="fa fa-dashboard"></i>{{_('Profile')}}</a>
+								<a href="{{ url_for('commerce_users.orders') }}"><i class="fa fa-cart-arrow-down"></i> {{_('Orders')}}</a>
+								<a href="{{ url_for('commerce_users.wishlist') }}"><i class="fa fa-credit-card"></i>{{_('Wishlist')}}</a>
+								<a href="{{ url_for('commerce_users.profile_edit') }}" class="active"><i class="fa fa-user"></i> {{_('Edit profile')}}</a>
+								<a href="{{ url_for('commerce_auth.logout') }}"><i class="fa fa-sign-out"></i> {{_('Log out')}}</a>
+							</div>
+						</div>
+						<div class="col-lg-9 col-md-8">
+							<div class="myaccount-content">
+								<h3>{{_('Edit profile')}}</h3>
+								<div class="account-details-form">
+									<form action="#">
+										<div class="row">
+											<div class="col-lg-6">
+												<div class="single-input-item">
+													<label for="first-name" class="required">{{_('Username')}}</label>
+													{% if form.username.errors %}
+														{{ form.username(class="input is-default  is-invalid") }}
+														<div class="invalid-feedback">
+															{% for error in form.username.errors %}
+																<span>{{ error }}</span>
+															{% endfor %}
+														</div>
+													{% else %}
+														{{ form.username(class="input is-default") }}
+													{% endif %}
+												</div>
+											</div>
+											<div class="col-lg-6">
+												<div class="single-input-item">
+													<label for="last-name" class="required">{{_('Full name')}}</label>
+													{% if form.fullname.errors %}
+														{{ form.fullname(class="input is-default  is-invalid") }}
+														<div class="invalid-feedback">
+															{% for error in form.fullname.errors %}
+																<span>{{ error }}</span>
+															{% endfor %}
+														</div>
+													{% else %}
+														{{ form.fullname(class="input is-default") }}
+													{% endif %}
+												</div>
+											</div>
+
+											<div class="col-lg-6">
+												<div class="single-input-item">
+													<label for="first-name" class="required">{{_('Address')}}</label>
+													{% if form.address.errors %}
+														{{ form.address(class="input is-default  is-invalid") }}
+														<div class="invalid-feedback">
+															{% for error in form.address.errors %}
+																<span>{{ error }}</span>
+															{% endfor %}
+														</div>
+													{% else %}
+														{{ form.address(class="input is-default") }}
+													{% endif %}
+												</div>
+											</div>
+											<div class="col-lg-6">
+												<div class="single-input-item">
+													<label for="last-name" class="required">{{_('Web address')}}</label>
+													{% if form.webAddress.errors %}
+														{{ form.webAddress(class="input is-default  is-invalid") }}
+														<div class="invalid-feedback">
+															{% for error in form.webAddress.errors %}
+																<span>{{ error }}</span>
+															{% endfor %}
+														</div>
+													{% else %}
+														{{ form.webAddress(class="input is-default") }}
+													{% endif %}
+												</div>
+											</div>
+
+											<div class="col-lg-6">
+												<div class="single-input-item">
+													<label for="first-name" class="required">{{_('Zip code')}}</label>
+													{% if form.zipCode.errors %}
+														{{ form.zipCode(class="input is-default  is-invalid") }}
+														<div class="invalid-feedback">
+															{% for error in form.zipCode.errors %}
+																<span>{{ error }}</span>
+															{% endfor %}
+														</div>
+													{% else %}
+														{{ form.zipCode(class="input is-default") }}
+													{% endif %}
+												</div>
+											</div>
+											<div class="col-lg-6">
+												<div class="single-input-item">
+													<label for="last-name" class="required">{{_('Mobile phone')}}</label>
+													{% if form.mobilePhone.errors %}
+														{{ form.mobilePhone(class="input is-default  is-invalid") }}
+														<div class="invalid-feedback">
+															{% for error in form.mobilePhone.errors %}
+																<span>{{ error }}</span>
+															{% endfor %}
+														</div>
+													{% else %}
+														{{ form.mobilePhone(class="input is-default") }}
+													{% endif %}
+												</div>
+											</div>
+
+											<div class="col-lg-6">
+												<div class="single-input-item">
+													<label for="first-name" class="required">{{_('Home phone')}}</label>
+													{% if form.homePhone.errors %}
+														{{ form.homePhone(class="input is-default  is-invalid") }}
+														<div class="invalid-feedback">
+															{% for error in form.homePhone.errors %}
+																<span>{{ error }}</span>
+															{% endfor %}
+														</div>
+													{% else %}
+														{{ form.homePhone(class="input is-default") }}
+													{% endif %}
+												</div>
+											</div>
+											<div class="col-lg-6">
+												<div class="single-input-item">
+													<label for="last-name" class="required">{{_('Work phone')}}</label>
+													{% if form.workPhone.errors %}
+														{{ form.workPhone(class="input is-default  is-invalid") }}
+														<div class="invalid-feedback">
+															{% for error in form.workPhone.errors %}
+																<span>{{ error }}</span>
+															{% endfor %}
+														</div>
+													{% else %}
+														{{ form.workPhone(class="input is-default") }}
+													{% endif %}
+												</div>
+											</div>
+
+											<div class="col-lg-6">
+												<div class="single-input-item">
+													<label for="first-name" class="required">{{_('Fax')}}</label>
+													{% if form.workFax.errors %}
+														{{ form.workFax(class="input is-default  is-invalid") }}
+														<div class="invalid-feedback">
+															{% for error in form.workFax.errors %}
+																<span>{{ error }}</span>
+															{% endfor %}
+														</div>
+													{% else %}
+														{{ form.workFax(class="input is-default") }}
+													{% endif %}
+												</div>
+											</div>
+										</div>
+										<div class="single-input-item">
+											<button class="check-btn sqr-btn ">{{_('Save')}}</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div> <!-- My Account Tab Content End -->
+			</div>
+		</div> <!-- My Account Page End -->
+	</div>
+</div>
+{% endblock %}
