@@ -22,6 +22,7 @@
 	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/hs/css/plugins/magnific-popup.css') }}">
 	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/hs/css/plugins/jquery-ui.css') }}">
 	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/hs/css/style.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/hs/js/izitoast/css/iziToast.min.css') }}">
 
 </head>
 
@@ -290,8 +291,23 @@
 			</div>
 		</footer>
 	</div>
+
+
 	<!-- JS
 ============================================ -->
+	<script type="text/javascript">
+		var url_prefix = "{{url_prefix if url_prefix else ''}}";
+		var session_currency_code = "{{ session.currency_code if session.currency_code else 'TMT' }}"
+		var error_title = "{{_('Error')}}";
+		var success_title = "{{_('Success')}}";
+		var unknown_error_text = "{{_('Unknown error')}}"
+		var add_to_cart_text = "{{_('Add to cart')}}";
+		var qty_error_text = "{{_('Cannot get more')}}";
+		var remove_from_cart_text = "{{_('Remove from cart')}}";
+		var no_photo_errorhandler_image = "{{ url_for('static', filename='commerce/bee/images/no_photo.svg') }}";
+		var rating_message = "{{_('You should put your rating and write a review')}}";
+		var csrf_token = "{{ csrf_token() }}";
+	</script>
 
 	<!-- Modernizer JS -->
 	<script src="{{ url_for('static', filename='commerce/hs/js/vendor/modernizr-3.6.0.min.js') }}"></script>
@@ -320,10 +336,15 @@
 	<script src="{{ url_for('static', filename='commerce/hs/js/plugins/sticky-sidebar.js') }}"></script>
 	<script src="{{ url_for('static', filename='commerce/hs/js/plugins/smoothscroll.js') }}"></script>
 	<script src="{{ url_for('static', filename='commerce/hs/js/plugins/zoom.min.js') }}"></script>
+
+	<script src="{{ url_for('static', filename='commerce/hs/js/sweetalert.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='commerce/hs/js/izitoast/js/iziToast.min.js') }}"></script>
 	<!-- Main JS -->
 	<script src="{{ url_for('static', filename='commerce/hs/js/main.js') }}"></script>
-	<script src="{{ url_for('static', filename='commerce/hs/js/cartsAndCheckouts.js') }}"></script>
 	<script src="{{ url_for('static', filename='commerce/hs/js/rating.js') }}"></script>
+	<script src="{{ url_for('static', filename='commerce/hs/js/ui_dynamicals.js') }}"></script>
+	<script src="{{ url_for('static', filename='commerce/hs/js/pure_functions.js') }}"></script>
+	<script src="{{ url_for('static', filename='commerce/hs/js/ux_actions.js') }}"></script>
 </body>
 
 </html>

@@ -25,7 +25,8 @@
 							<div class="myaccount-content">
 								<h3>{{_('Edit profile')}}</h3>
 								<div class="account-details-form">
-									<form action="#">
+									<form action="#" method="POST">
+										{{ form.csrf_token }}
 										<div class="row">
 											<div class="col-lg-6">
 												<div class="single-input-item">

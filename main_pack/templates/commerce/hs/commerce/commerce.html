@@ -10,10 +10,10 @@
 			<div class="container">
 				<div class="slider-active-4 owl-carousel dot-style-2">
 					{% for slider in sliders %}
-					{% if slider.SlName == "HomePageTop" %}
+					{% if slider.SlName == "commerce_header" %}
 						{% for sl_image in slider.Sl_images %}
 						{% if sl_image.SlImgMainImgFilePathM %}
-						<div class="slider-height-8 bg-img res-white-overly-xs" style="background-image:url({{url_for('static', filename='images/slider/hm8-bg-1.jpg')}});">
+						<div class="slider-height-8 bg-img res-white-overly-xs" style="background-image:url({{sl_image.SlImgMainImgFilePathM}});">
 							<div class="row align-items-center">
 								<div class="ml-auto col-lg-9 col-md-12 col-12 col-sm-12">
 									
