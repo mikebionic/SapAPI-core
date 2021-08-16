@@ -35,7 +35,7 @@
 							<div class="zoompro-wrap product-zoom-right pr-20">
 								{% for image in resource.Images %}
 								<div class="zoompro-span">
-									<img class="zoompro" src="{{image.FilePathS}}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}" />
+									<img data-action="zoom" class="zoompro" src="{{image.FilePathR}}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}" />
 									<span>-29%</span>
 								</div>
 								{% endfor %}
@@ -59,9 +59,6 @@
 									<i class="la la-star"></i>
 									<i class="la la-star"></i>
 									<i class="la la-star-half-o"></i>
-								</div>
-								<div class="product-review">
-									<span>40+ Reviews</span>
 								</div>
 							</div>
 							<div class="pro-details-color-wrap">
@@ -87,10 +84,10 @@
 								<div class="pro-details-buy-now btn-hover btn-hover-radious">
 									<a ownerId="{{ resource.ResId }}"><i class="ti-shopping-cart"></i><span>{{_('Add to cart')}}</span></a>
 									{% if current_user.is_authenticated %}
-										<div class="wishlist-compare">
-											<a href="#" data-tooltip="{{_('Wishlist')}}" class="{{'added' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}"><i class="ti-heart"></i></a>
-										</div>
+										<a href="#" data-tooltip="{{_('Wishlist')}}" class="{{'added' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}"><i class="ti-heart"></i></a>
 									{% endif %}
+										<!-- <div class="wishlist-compare">
+										</div> -->
 								</div>
 							</div>
 							
