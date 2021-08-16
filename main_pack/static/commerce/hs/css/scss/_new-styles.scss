@@ -354,3 +354,184 @@
     }
   }
 }
+.order-block {
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-pack: start;
+	justify-content: flex-start;
+	-ms-flex-align: center;
+	align-items: center;
+	padding: 10px 0;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-pack: start;
+	justify-content: flex-start;
+	-ms-flex-align: center;
+	align-items: center;
+	padding: 10px 0;
+	img {
+		height: 40px;
+		width: 40px;
+		border-radius: 50%;
+	}
+	.status {
+		margin: 0 10px;
+		div {
+			&:first-child {
+				text-transform: uppercase;
+				font-weight: 600;
+			}
+			&:nth-child(2) {
+				color: #828282;
+			}
+			&:nth-child(2).is-date {
+				font-weight: 500;
+			}
+			&:nth-child(2).is-price {
+				font-weight: 500;
+				color: #0023ff;
+				&:before {
+					content: '$';
+					position: relative;
+					top: -3px;
+				}
+			}
+		}
+	}
+	.date {
+		margin: 0 10px;
+		div {
+			&:first-child {
+				text-transform: uppercase;
+				font-weight: 600;
+			}
+			&:nth-child(2) {
+				color: #828282;
+			}
+			&:nth-child(2).is-date {
+				font-weight: 500;
+			}
+			&:nth-child(2).is-price {
+				font-weight: 500;
+				color: #0023ff;
+				&:before {
+					content: '$';
+					position: relative;
+					top: -3px;
+				}
+			}
+		}
+	}
+	.total {
+		margin: 0 10px;
+		div {
+			&:first-child {
+				text-transform: uppercase;
+				font-weight: 600;
+			}
+			&:nth-child(2) {
+				color: #828282;
+			}
+			&:nth-child(2).is-date {
+				font-weight: 500;
+			}
+			&:nth-child(2).is-price {
+				font-weight: 500;
+				color: #0023ff;
+				&:before {
+					content: '$';
+					position: relative;
+					top: -3px;
+				}
+			}
+		}
+		.tag {
+			margin: 0 5px;
+			font-weight: 400;
+		}
+	}
+	div {
+		&:first-child {
+			text-transform: uppercase;
+			font-weight: 600;
+		}
+		&:nth-child(2) {
+			color: #828282;
+		}
+		&:nth-child(2).is-date {
+			font-weight: 500;
+		}
+		&:nth-child(2).is-price {
+			font-weight: 500;
+			color: #0023ff;
+			&:before {
+				content: '$';
+				position: relative;
+				top: -3px;
+			}
+		}
+	}
+	.order-icon {
+		display: -ms-flexbox;
+		display: flex;
+		-ms-flex-pack: center;
+		justify-content: center;
+		-ms-flex-align: center;
+		align-items: center;
+		height: 40px;
+		width: 40px;
+		display: -ms-flexbox;
+		display: flex;
+		-ms-flex-pack: center;
+		justify-content: center;
+		-ms-flex-align: center;
+		align-items: center;
+		height: 40px;
+		width: 40px;
+		svg {
+			stroke: #999;
+			stroke-width: 1.4px;
+			height: 20px;
+			width: 20px;
+			stroke: #999;
+			stroke-width: 1.4px;
+			height: 20px;
+			width: 20px;
+		}
+	}
+	.tag.primary-tag {
+		background: #0023ff;
+		color: #fff;
+		background: #0023ff;
+		color: #fff;
+    padding: 2px;
+	}
+	.tag.success-tag {
+		background: #00b289;
+		color: #fff;
+		background: #00b289;
+		color: #fff;
+    padding: 2px;
+	}
+	.tag.warning-tag {
+		background: #eda514;
+		color: #fff;
+		background: #eda514;
+		color: #fff;
+    padding: 2px;
+	}
+	.tag.danger-tag {
+		background: #FF7273;
+		color: #fff;
+		background: #FF7273;
+		color: #fff;
+    padding: 2px;
+	}
+}
+.order_status{
+  display: flex;
+  justify-content: center;
+}
+
+
+// Heart 

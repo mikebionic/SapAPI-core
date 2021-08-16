@@ -22,76 +22,40 @@
 							</div>
 						</div>
 						<div class="col-lg-9 col-md-8">
-							<div class="myaccount-content">
-								<h3>Orders</h3>
-								<div class="myaccount-table table-responsive text-center">
-									{% for orderInv in orderInvoices %}
-								<!-- Order card -->
-								<div class="column is-4" onclick="location.href='{{ url_for('commerce_users.order_lines',OInvRegNo=orderInv.OInvRegNo) }}';" style="cursor:pointer;">
-									<div class="flat-card order-card has-popover-top">
-										<a class="card-link" href="{{ url_for('commerce_users.order_lines',OInvRegNo=orderInv.OInvRegNo) }}"></a>
-										<div class="order-info">
-											<span><a href="{{ url_for('commerce_users.order_lines',OInvRegNo=orderInv.OInvRegNo) }}" onclick="return true">{{ orderInv.OInvRegNo }}</a></span>
-											<span class="tag is-{{orderInv.StatusUI.class}}">{{orderInv.InvStatus.InvStatName}}</span>
-										</div>
-										<!-- Progress Circle -->
-										<div class="circle-chart-wrapper">
-											<svg class="circle-chart" viewbox="0 0 33.83098862 33.83098862" width="140" height="140" xmlns="http://www.w3.org/2000/svg">
-												<circle class="circle-chart-background" stroke="#efefef" stroke-width="2" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
-												<circle class="circle-chart-circle" stroke="{{orderInv.StatusUI.color_hash}}" stroke-width="2" stroke-dasharray="{{orderInv.StatusUI.percentage}},100" stroke-linecap="round" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
-											</svg>
-											<div class="chart-icon">
-												<i data-feather="{{orderInv.StatusUI.icon}}"></i>
-											</div>
-											<div class="ring-title has-text-centered">
-												<span>{{orderInv.StatusUI.percentage}}%</span>
-											</div>
-										</div>
-									</div>
-									<div class="webui-popover-content">
-										<div class="popover-flex-block">
-											<div class="content-block">
-												<label></label>
-												<span>{{_('Order')}} - {{ orderInv.OInvRegNo }}</span>
-											</div>
-										</div>
-										<div class="popover-flex-block">
-											<div class="icon-block">
-												<i data-feather="clock"></i>
-											</div>
-											<div class="content-block">
-												<label>{{_('Ordered date')}}</label>
-												<span>{{ orderInv.CreatedDate }}</span>
-											</div>
-										</div>
-										<div class="popover-flex-block">
-											<div class="icon-block">
-												<i data-feather="dollar-sign"></i>
-											</div>
-											<div class="content-block">
-												<label>{{_('Order Total')}}</label>
-												<span>{{ orderInv.OInvFTotal }} {{ orderInv.CurrencyCode }}</span>
-											</div>
-										</div>
-										<div class="popover-flex-block">
-											<div class="icon-block">
-												<i data-feather="{{orderInv.StatusUI.icon}}"></i>
-											</div>
-											<div class="content-block">
-												<label>{{_('Status')}}</label>
-												<span>{{orderInv.InvStatus.InvStatName}}</span>
-											</div>
+									<div class="myaccount-content">
+										<h3>{{_('Order')}}</h3>
+										<div class="myaccount-table table-responsive text-center">
+											<table class="table table-bordered">
+												<thead class="thead-light">
+													<tr>
+														<th>{{_('Order')}}</th>
+														<th>{{_('Ordered date')}}</th>
+														<th>{{_('Order Total')}}</th>
+														<th>{{_('Status')}}</th>
+														<th>{{_('Status')}}</th>
+													</tr>
+												</thead>
+												<tbody>
+													{% for orderInv in orderInvoices %}
+													<tr>
+														<td>{{ orderInv.OInvRegNo }}</td>
+														<td>{{ orderInv.CreatedDate }}</td>
+														<td>{{ orderInv.OInvFTotal }} {{ orderInv.CurrencyCode }}</td>
+														<td>{{orderInv.InvStatus.InvStatName}}</td>
+														<td><a href="{{ url_for('commerce_users.order_lines',OInvRegNo=orderInv.OInvRegNo) }}" class="check-btn sqr-btn ">View</a></td>
+													</tr>
+													{% endfor %}
+												</tbody>
+											</table>
 										</div>
 									</div>
-								</div>
-              {% endfor %}
 								</div>
 							</div>
-						</div>
+						</div> <!-- My Account Tab Content End -->
 					</div>
-				</div> <!-- My Account Tab Content End -->
+				</div> <!-- My Account Page End -->
 			</div>
-		</div> <!-- My Account Page End -->
+		</div>
 	</div>
 </div>
 {% endblock %}

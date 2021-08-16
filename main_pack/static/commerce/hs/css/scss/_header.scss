@@ -1637,6 +1637,7 @@
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  font-weight: 700;
 	.header-contact-2-icon {
 			margin: 0 11px 0 0;
 			i {
@@ -1645,6 +1646,8 @@
 			}
 	}
 	.header-contact-2-text {
+        display:flex;
+        align-items: center;
 			span , p {
 					font-size: 16px;
 					color: #030512;

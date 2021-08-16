@@ -81,6 +81,7 @@
         padding: 2px 20px;
         margin-bottom: 30px;
         position: relative;
+        box-shadow: 0 4px 10px #c2c3c2;
         @media #{$xs-layout} {
             margin-bottom: 20px;
         }
