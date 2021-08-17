@@ -131,7 +131,8 @@ $('body').delegate('.qtybtn','click', function() {
 /// Add to Cart and other cart actions
 $('body').delegate('.add-to-cart', 'click', function() {
 	var ownerId = $(this).attr('ownerId');
-	var all_this = $('.add-to-cart'+'[ownerId='+ownerId+']')
+	console.log(ownerId)
+	var all_this = $('.add-to-cart[ownerId='+ownerId+']')
 	all_this.hide();
 	var qty_obj = all_this.parent().find('.cartItemQty');
 	qty_obj.show();
@@ -144,7 +145,7 @@ $('body').delegate('.add-to-cart', 'click', function() {
 
 $('body').delegate('.productQty', 'keyup', function() {
 	var ownerId = $(this).attr('ownerid');
-	var all_this = $('.productQty'+'[ownerId='+ownerId+']')
+	var all_this = $('.productQty[ownerId='+ownerId+']')
 	var qtySelectWrapper = all_this.parent()
 
 	var this_quantity = parseInt($(this).val());

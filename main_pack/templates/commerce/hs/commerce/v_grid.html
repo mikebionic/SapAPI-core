@@ -89,8 +89,17 @@
 																<i class="la la-heart-o" aria-hidden="true"></i>
 															</a>
 														</div>
-														{% endif %}	
-														<a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class="la la-plus"></i></a>
+														{% endif %}
+														<div class="con-input-btns cartItemQty" style="display: none;">
+															<button class="qtyminus qtybtn"><i class="las la-minus"></i></button>
+															<input type="text" class="productQty"
+																pending_amount="{{resource.ResPendingTotalAmount}}"
+																min_amount="{{resource.ResMinSaleAmount}}"
+																max_amount="{{resource.ResMaxSaleAmount}}"
+																value="{{resource.productQty}}" ownerId="{{ resource.ResId }}">
+															<button class="qtyplus qtybtn"><i class="las la-plus"></i></button>
+															</div>
+														<a class="add-to-cart" ownerId="{{ resource.ResId }}"><i class="la la-plus"></i></a>
 													
 													</div>
 												</div>
