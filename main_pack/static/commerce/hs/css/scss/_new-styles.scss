@@ -679,3 +679,61 @@ img.zoom-img {
     }
   }
 }
+@keyframes heart {
+	0% {
+		transform: rotate(0deg) scale(1.7);
+	}
+	40% {
+		transform: rotate(0deg) scale(1);
+	}
+	41% {
+		transform: rotate(360deg) scale(1);
+	}
+	100% {
+		transform: rotate(0deg) scale(1);
+	}
+}
+.like {
+	color: #4b4b4b;
+	float: right;
+	line-height: 31px;
+	font-size: 15px;
+	border: 1px solid #4b4b4b;
+	padding: 5px;
+	border-radius: 50px;
+	&:hover {
+		color: #f44336;
+	}
+}
+.heart {
+	i.la-heart-o{
+		color: #f44336;
+	}
+	animation: heart 0.5s linear;
+}
+.yith-wcwl-add-to-wishlist {
+	.add_to_wishlist {
+		text-indent: -99999px;
+		display: block;
+		&::before {
+			content: "\6b";
+			font-family: 'techmarket-icons';
+			position: absolute;
+			top: 8px;
+			right: 14px;
+			text-indent: 0;
+			color: #444;
+			font-size: 1.429em;
+		}
+	}
+}
+@media (max-width: 1169px) {
+	.yith-wcwl-add-to-wishlist {
+		.add_to_wishlist {
+			&::before {
+				left: 14px;
+				right: auto;
+			}
+		}
+	}
+}

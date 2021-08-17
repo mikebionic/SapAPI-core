@@ -972,5 +972,48 @@
 	});
 
 
+    $('a').click(function(e) {
+        e.preventDefault();
+        $('svg').toggleClass('is-active');
+    });
+
+
+//// Wishlist
+$('.wishlist-button a').on('click', function(e){
+	e.preventDefault();
+	var ownerId = $(this).attr('ownerId');
+
+	if($(this).hasClass('heart')){
+		removeFromWishlist(ownerId);
+		$('.wishlist-button [ownerId='+ownerId+']').removeClass('heart');
+	} else {
+		addToWishlist(ownerId);
+		$('.wishlist-button [ownerId='+ownerId+']').addClass('heart');
+	}
+});
+
+$('body').delegate('.addToWishlist','click',function(){
+	$(this).hide();
+	var ownerId = $(this).attr('ownerId');
+	addToWishlist(ownerId);
+})
+
+$('body').delegate('.removeFromWishlist','click',function(){
+	var ownerId = $(this).attr('ownerId');
+	removeFromWishlist(ownerId);
+});
+
+function addToWishlist(ownerId){
+	configure_wishlist(ownerId, "POST");
+	$('.addToWishlist'+'[ownerId='+ownerId+']').hide();
+	$('.removeFromWishlist'+'[ownerId='+ownerId+']').show();
+}
+
+function removeFromWishlist(ownerId){
+	configure_wishlist(ownerId, "DELETE");
+	$('.removeFromWishlist'+'[ownerId='+ownerId+']').hide();
+	$('.addToWishlist'+'[ownerId='+ownerId+']').show();
+}
+	///// wishlist
 
 })(jQuery);

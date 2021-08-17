@@ -53,9 +53,12 @@
                 color: #737373;
                 border: 1px solid #e6e6e6;
                 background-color: #fff;
-                display: inline-block;
-                width: 40px;
-                height: 40px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 5px 5px;
+                // width: 40px;
+                // height: 40px;
                 line-height: 40px;
                 border-radius: 100%;
                 text-align: center;
@@ -243,7 +246,7 @@
             }
         }
         &.product-content-padding {
-            padding: 21px 20px;
+            padding: 2px 5px;
         }
         .timer-style-2 {
             border-top: 1px solid #f1f1f1;
