@@ -584,4 +584,98 @@ img.zoom-img {
   justify-content: center;
 }
 
+.cart-summary-button {
+  a {
+    display: inline-block;
+    font-size: 14px;
+    line-height: 1;
+    color: #333;
+    border: 1px solid $theme-color;
+    transition: all 0.5s ease-in-out 0s;
+    padding: 12px 30px 12px;
+    border-radius: 50px;
+    z-index: 1;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+}
 
+.con-input-btns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35%;
+    button {
+      padding: 10px;
+      min-width: 49px;
+      height: 42px;
+      border: 0px;
+      border-radius: 20px;
+      background: #56bb81;
+      color: #fff;
+      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.25s ease;
+    }
+    input {
+      padding: 10px;
+      flex: 1;
+      width: calc(100% - 100px);
+      border: 0px;
+      border-bottom: 2px solid #f5f5f5;
+      border-top: 2px solid #f5f5f5;
+      text-align: center;
+      font-size: 1.1rem;
+      background-color: transparent;
+    }
+}
+
+.pro-details-quality {
+  a {
+    display: inline-block;
+    font-size: 14px;
+    line-height: 1;
+    color: #333;
+    border: 1px solid #ffb9b9;
+    transition: all 0.5s ease-in-out 0s;
+    padding: 12px 30px 12px;
+    border-radius: 50px;
+    z-index: 1;
+    position: relative;
+    &:hover {
+        border: 1px solid $theme-color;
+        color: $white !important;
+    }
+    &::before, &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        transition: all 0.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+        z-index: -1;
+        border-radius: 50px;
+    }
+    &::after {
+        width: 0;
+        left: auto;
+        right: 0;
+        background: $theme-color;
+    }
+    &.black-color::after {
+        background: #373737;
+        // border-radius: 5px;
+    }
+    &.white-color::after {
+        background: #fff;
+    }
+    &:hover::after {
+        width: 100%;
+        left: 0;
+        right: auto;
+    }
+  }
+}

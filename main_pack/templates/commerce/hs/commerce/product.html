@@ -74,19 +74,19 @@
 								</div>
 							</div>
 							<div class="pro-details-quality">
-								<h5>{{_('Quantity')}}</h5>
-								<div class="cart-plus-minus">
-									<input class="cart-plus-minus-box"
-										type="text" name="qtybutton"
+								<div class="con-input-btns cartItemQty" style="display: none;">
+									<button class="qtyminus qtybtn"><i class="las la-minus"></i></button>
+									<input type="text" class="productQty"
 										pending_amount="{{resource.ResPendingTotalAmount}}"
 										min_amount="{{resource.ResMinSaleAmount}}"
 										max_amount="{{resource.ResMaxSaleAmount}}"
 										value="{{resource.productQty}}" ownerId="{{ resource.ResId }}">
-								</div>
+									<button class="qtyplus qtybtn"><i class="las la-plus"></i></button>
+									</div>
+									<a class="add-to-cart" ownerId="{{ resource.ResId }}"><i class="ti-shopping-cart"></i><span>{{_('Add to cart')}}</span></a>
 								<div class="pro-details-buy-now btn-hover btn-hover-radious">
-									<a ownerId="{{ resource.ResId }}"><i class="ti-shopping-cart"></i><span>{{_('Add to cart')}}</span></a>
 									{% if current_user.is_authenticated %}
-										<a href="#" data-tooltip="{{_('Wishlist')}}" class="{{'added' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}"><i class="ti-heart"></i></a>
+										<a rel="nofollow" data-tooltip="{{_('Wishlist')}}" class="{{'added' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}"><i class="ti-heart"></i></a>
 									{% endif %}
 								</div>
 							</div>
@@ -145,8 +145,9 @@
 										<div class="col-lg-12 col-12 mb-40 d-flex">
 											<div class="y_login">
 												<h2>{{_('You should login to add a review')}}</h2>
-												<div class="cart-summary-button">
-													<a href="{{ url_for('commerce_auth.login') }}"><button class="checkout-btn checkoutCartBtn" style="width: auto;float: none;">{{_('Login')}}</button></a>
+												<div class="cart-summary-button pro-details-buy-now btn-hover btn-hover-radious">
+													<a href="{{ url_for('commerce_auth.login') }}">
+														<i class="las la-sign-in-alt"></i><span>{{_('Login')}}</span>
 												</div>
 											</div>
 										</div>
