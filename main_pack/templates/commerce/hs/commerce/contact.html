@@ -1,66 +1,128 @@
 {% extends "commerce/hs/commerce/layout.html" %}
 
 
+{% block head %}
+<meta name="description" content="
+	{{company.CName}} | {{company.CFullName if company.CFullName else ''}}
+	{{company.CDesc if company.CDesc else ''}}
+	{% if company.CEmail %} {{_('Email')}}: {{company.CEmail}} {% endif %}
+	{% if company.CAddress %} {{_('Address')}}: {{company.CAddress}} {% endif %}
+	{% if company.Phone1 %} {{company.Phone1}} {% endif %}
+	{% if company.Phone2 %} {{company.Phone2}} {% endif %}
+	{% if company.Phone3 %} {{company.Phone3}} {% endif %}
+	{% if company.Phone4 %} {{company.Phone4}} {% endif %}
+">
+<meta property="og:description" content="
+	{{company.CName}} | {{company.CFullName if company.CFullName else ''}}
+	{{company.CDesc if company.CDesc else ''}}
+	{% if company.CEmail %} {{_('Email')}}: {{company.CEmail}} {% endif %}
+	{% if company.CAddress %} {{_('Address')}}: {{company.CAddress}} {% endif %}
+	{% if company.Phone1 %} {{company.Phone1}} {% endif %}
+	{% if company.Phone2 %} {{company.Phone2}} {% endif %}
+	{% if company.Phone3 %} {{company.Phone3}} {% endif %}
+	{% if company.Phone4 %} {{company.Phone4}} {% endif %}" />
+<meta property="og:image" content="{{ request.host_url }}{{ company_logo.FilePath if company_logo else url_for('static', filename='commerce/bee/images/favicon.svg') }}" />
+<meta name="twitter:description" content="
+	{{company.CName}} | {{company.CFullName if company.CFullName else ''}}
+	{{company.CDesc if company.CDesc else ''}}
+	{% if company.CEmail %} {{_('Email')}}: {{company.CEmail}} {% endif %}
+	{% if company.CAddress %} {{_('Address')}}: {{company.CAddress}} {% endif %}
+	{% if company.Phone1 %} {{company.Phone1}} {% endif %}
+	{% if company.Phone2 %} {{company.Phone2}} {% endif %}
+	{% if company.Phone3 %} {{company.Phone3}} {% endif %}
+	{% if company.Phone4 %} {{company.Phone4}} {% endif %}" />
+<meta name="twitter:image" content="{{ request.host_url }}{{ company_logo.FilePath if company_logo else url_for('static', filename='commerce/bee/images/favicon.svg') }}" />
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumb-area bg-img" style="background-image:url(../../static/images/bg/breadcrumb.jpg);">
+    <div class="container">
+        <div class="breadcrumb-content text-center">
+            <h2>{{_('Contact')}}</h2>
+            <ul>
+                <li>
+                    <a href="{{ url_for('commerce.commerce') }}">{{_('Main')}}</a>
+                </li>
+                <li class="active">{{_('Contact')}}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
 {% block content %}
 
-        <div class="breadcrumb-area bg-img" style="background-image:url(../../static/images/bg/breadcrumb.jpg);">
-            <div class="container">
-                <div class="breadcrumb-content text-center">
-                    <h2>contact page</h2>
-                    <ul>
-                        <li>
-                            <a href="index.html">Home</a>
-                        </li>
-                        <li class="active">contact us </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+        
         <div class="contact-area pt-85 pb-90">
             <div class="container">
                 <div class="contact-info-wrap mb-50">
-                    <h3>contact info</h3>
+                    <h3>{{_('Contact')}}</h3>
                     <div class="row">
+                        {% if company.CAddress %}
                         <div class="col-lg-4 col-md-4">
                             <div class="single-contact-info text-center mb-30">
                                 <i class="ti-location-pin"></i>
-                                <h4>our address</h4>
-                                <p>77 seventh Street, USA. </p>
+                                <h4>{{_('Address')}}</h4>
+                                <p>{{company.CAddress}}</p>
                             </div>
                         </div>
+                        {% endif %}
+                        {% if company.Phone1 or company.Phone2 or company.Phone3 or company.Phone4 %}
                         <div class="col-lg-4 col-md-4">
                             <div class="single-contact-info extra-contact-info text-center mb-30">
                                 <ul>
-                                    <li><i class="ti-mobile"></i> 716-298-1822 </li>
-                                    <li><i class="ti-email"></i> <a href="#"> info@example.com</a></li>
+                                    <h4>{{_('Phone')}}</h4>
+									{% if company.Phone1 %}<a href="tel:{{company.Phone1}}"><p>{{company.Phone1}}</p></a>{% endif %}
+									{% if company.Phone2 %}<a href="tel:{{company.Phone2}}"><p>{{company.Phone2}}</p></a>{% endif %}
+									{% if company.Phone3 %}<a href="tel:{{company.Phone3}}"><p>{{company.Phone3}}</p></a>{% endif %}
+									{% if company.Phone4 %}<a href="tel:{{company.Phone4}}"><p>{{company.Phone4}}</p></a>{% endif %}
                                 </ul>
                             </div>
                         </div>
+                        {% endif %}
+                        {% if company.CEmail %}
                         <div class="col-lg-4 col-md-4">
-                            <div class="single-contact-info text-center mb-30">
-                                <i class=" ti-alarm-clock"></i>
-                                <h4>openning hour</h4>
-                                <p>Monday - Friday. 9:00am - 5:00pm </p>
+                            <div class="single-contact-info extra-contact-info text-center mb-30">
+                                <ul>
+                                    <h4>{{_('Email')}}</h4>
+                                    <a href="mailto:{{company.CEmail}}"><p>{{company.CEmail}}</p></a>
+                                </ul>
                             </div>
                         </div>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="get-in-touch-wrap">
                     <h3>Get In Touch</h3>
                     <div class="contact-from contact-shadow">
-                        <form id="contact-form" action="../../static/mail.php" method="post">
+                        <form id="contact-form" action="" method="POST">
+                            {{form.hidden_tag()}}
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <input name="name" type="text" placeholder="Name">
+                                    <label for="first_name">{{_('First name')}}*</label>
+                                    {{form.FirstName}}
                                 </div>
                                 <div class="col-lg-6">
-                                    <input name="email" type="email" placeholder="Email">
+                                    <label for="last_name">{{_('Last name')}}</label>
+                                    {{form.LastName}}
+                                </div>
+                                <div class="col-lg-6">
+                                    <label for="email_address">{{_('Email')}}*</label>
+                                    {{form.Email}}
+                                    {% if form.Email.errors %}
+                                        <div class="col-12 mb-30">
+                                            {% for error in form.Email.errors %}
+                                                <span style="color: red">{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-lg-6">
+                                    <label for="phone_number">{{_('Phone')}}</label>
+                                    {{form.Phone}}
                                 </div>
                                 <div class="col-lg-12">
-                                    <input name="subject" type="text" placeholder="Subject">
-                                </div>
-                                <div class="col-lg-12">
-                                    <textarea name="message" placeholder="Your Message"></textarea>
+                                    <label for="message">{{_('Message')}}*</label>
+                                    {{form.Message}}
                                 </div>
                                 <div class="col-lg-12">
                                     <button class="submit" type="submit">Send Message</button>
