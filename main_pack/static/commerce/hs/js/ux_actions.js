@@ -131,7 +131,6 @@ $('body').delegate('.qtybtn','click', function() {
 /// Add to Cart and other cart actions
 $('body').delegate('.add-to-cart', 'click', function() {
 	var ownerId = $(this).attr('ownerId');
-	console.log(ownerId)
 	var all_this = $('.add-to-cart[ownerId='+ownerId+']')
 	all_this.hide();
 	var qty_obj = all_this.parent().find('.cartItemQty');
@@ -168,12 +167,13 @@ $('body').delegate('.productQty', 'keyup', function() {
 
 
 function addToCart(ownerId){
-	var priceValue = parseFloat($('.priceValue'+'[ownerId='+ownerId+']').attr('value'));
-	var productQty = parseInt($('.productQty'+'[ownerId='+ownerId+']').val());
-	var pending_amount = parseInt($('.productQty'+'[ownerId='+ownerId+']').attr('pending_amount'));
-	var min_amount = parseInt($('.productQty'+'[ownerId='+ownerId+']').attr('min_amount'));
-	var max_amount = parseInt($('.productQty'+'[ownerId='+ownerId+']').attr('max_amount'));
+	var priceValue = parseFloat($('.priceValue[ownerId='+ownerId+']').attr('value'));
+	var productQty = parseInt($('.productQty[ownerId='+ownerId+']').val());
+	var pending_amount = parseInt($('.productQty[ownerId='+ownerId+']').attr('pending_amount'));
+	var min_amount = parseInt($('.productQty[ownerId='+ownerId+']').attr('min_amount'));
+	var max_amount = parseInt($('.productQty[ownerId='+ownerId+']').attr('max_amount'));
 
+	console.log(priceValue, productQty, pending_amount, min_amount, max_amount)
 	configure_adding_to_cart(
 		ownerId,
 		priceValue,
