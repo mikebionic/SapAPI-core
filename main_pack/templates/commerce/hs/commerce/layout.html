@@ -162,25 +162,21 @@
 												<li class="cr-dropdown {{ 'yamm-tfw menu-item-has-children dropdown-submenu' if category.Categories else 'highlight' }}">
 													<a class="cat-style" title="{{ category.ResCatName }}" href="{{url_for('commerce.v_grid',ResCatId=category.ResCatId,ResCatName=category.ResCatName.replace('/','-').replace(' ','-'))}}"
 													{% if category.Categories %} aria-haspopup="true" {% endif %}>
-													{{ category.ResCatName }} <span class="la la-angle-right"></span>
+													{{ category.ResCatName }} <span class="la la-angle-down" style="display: block;"></span>
 
 													{% if not category.Categories %}
 													</a>
 													{% elif category.Categories %}
 
-													<div class="category-menu-dropdown ct-menu-res-height-2">
-														<div class="single-category-menu">
-															<ul>
-																{% for category in category.Categories %}
-																<li>
-																	<a href="{{url_for('commerce.v_grid',ResCatId=category.ResCatId,ResCatName=category.ResCatName.replace('/','-').replace(' ','-'))}}">
-																		{{ category.ResCatName }}
-																	</a>
-																</li>
-																{% endfor %}
-															</ul>
-														</div>
-													</div>
+													<ul class="cr-menu-desktop-none">
+														{% for category in category.Categories %}
+														<li class="cr-sub-dropdown">
+															<a href="{{url_for('commerce.v_grid',ResCatId=category.ResCatId,ResCatName=category.ResCatName.replace('/','-').replace(' ','-'))}}">
+																{{ category.ResCatName }}
+															</a>
+														</li>
+														{% endfor %}
+													</ul>
 													{% endif %}
 												</li>
 												{% endfor %}
