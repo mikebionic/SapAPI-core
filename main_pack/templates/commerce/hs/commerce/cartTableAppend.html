@@ -1,0 +1,19 @@
+{% for resource in data %}
+<tr>
+	<td class="product-thumbnail">
+			<a href="#"><img src="../../static/images/cart/cart-4.jpg" alt=""></a>
+	</td>
+	<td class="product-name"><a href="#">Demo Product Name</a></td>
+	<td class="product-price-cart"><span class="amount">$260.00</span></td>
+	<td class="product-quantity">
+			<div class="cart-plus-minus">
+					<input class="cart-plus-minus-box" type="text" name="qtybutton" value="2">
+			</div>
+	</td>
+	<td class="product-subtotal">$110.00</td>
+	<td class="product-remove">
+			<a href="#"><i class="la la-pencil"></i></a>
+			<a href="#"><i class="la la-close"></i></a>
+	</td>
+</tr>
+{% endfor %}

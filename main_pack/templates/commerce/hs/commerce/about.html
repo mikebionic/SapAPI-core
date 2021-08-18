@@ -1,21 +1,31 @@
 {% extends "commerce/hs/commerce/layout.html" %}
 
+{% block head %}
+<meta property="og:description" content="{{ company.CName }} {{ company.CDesc if company.CDesc}}" />
+<meta property="og:image" content="{{ request.host_url }}{{ company_logo.FilePath if company_logo else url_for('static', filename='commerce/bee/images/favicon.svg') }}" />
+<meta name="twitter:description" content="{{ company.CName }} {{ company.CDesc if company.CDesc}}" />
+<meta name="twitter:image" content="{{ request.host_url }}{{ company_logo.FilePath if company_logo else url_for('static', filename='commerce/bee/images/favicon.svg') }}" />
+{% endblock %}
 
-{% block content %}
 
-	<div class="breadcrumb-area bg-img" style="background-image:url(../../static/images/bg/breadcrumb.jpg);">
-			<div class="container">
-					<div class="breadcrumb-content text-center">
-							<h2>About us page</h2>
-							<ul>
-									<li>
-											<a href="index.html">Home</a>
-									</li>
-									<li class="active">About us </li>
-							</ul>
-					</div>
+{% block breadcrumbs %}
+<div class="breadcrumb-area bg-img" style="background-image:url(../../static/images/bg/breadcrumb.jpg);">
+	<div class="container">
+			<div class="breadcrumb-content text-center">
+					<h2>{{_('About us')}} </h2>
+					<ul>
+							<li>
+								<a href="{{ url_for('commerce.commerce') }}">{{_('Main')}}</a>
+							</li>
+							<li class="active">{{_('About us')}}</li>
+					</ul>
 			</div>
 	</div>
+</div>
+{% endblock %}
+{% block content %}
+
+	
 
 	<div class="about-us-area pt-90 pb-90">
 			<div class="container">
@@ -23,7 +33,7 @@
 							<div class="col-lg-6 col-md-6">
 									<div class="about-us-img text-center">
 											<a href="#">
-													<img src="../../static/images/banner/about-us.jpg" alt="">
+													<img src="{{ url_for('static', filename='commerce/bee/images/about-1.png') }}" alt="">
 											</a>
 									</div>
 							</div>
@@ -41,7 +51,7 @@
 			</div>
 	</div>
 
-	<div class="feature-area pb-90 section-padding-3">
+	<!-- <div class="feature-area pb-90 section-padding-3">
 			<div class="container">
 					<div class="feature-border feature-border-about">
 							<div class="row">
@@ -176,7 +186,7 @@
 							</div>
 					</div>
 			</div>
-	</div>
+	</div> -->
 
 
 	{% endblock %}

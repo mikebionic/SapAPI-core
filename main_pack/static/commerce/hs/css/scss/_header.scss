@@ -1739,7 +1739,7 @@
         a {
             color: #fff;
             img {
-                margin-right: 32px;
+                margin-right: 2px;
                 &.category-menu-stick {
                     display: none;
                 }
@@ -1752,7 +1752,6 @@
 }
 
 .category-menu {
-    border: 1px solid #77c4d3;
     width: 290px;
     position: absolute;
     top: 205%;
@@ -1764,11 +1763,11 @@
 		z-index: 999;
     @media #{$md-layout} {
         left: 50%;
-        transform: translateX(-50%);
+        transform: translateX(-5%);
     }
     @media #{$xs-layout} {
         left: 50%;
-        transform: translateX(-50%);
+        transform: translateX(-6%);
     }
     nav {
         > ul {

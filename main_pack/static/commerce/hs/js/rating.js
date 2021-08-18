@@ -13,15 +13,15 @@ function renderRatingStars(ratingValue,ownerId){
 	    sumValues = qty+1;
 	}
 	for (var i=0; i<qty; i++){
-		$('.ratingStars'+"[ownerId="+ownerId+"]").append(renderStarIconTemplate("fa fa-star"));
+		$('.ratingStars'+"[ownerId="+ownerId+"]").append(renderStarIconTemplate("la la-star"));
 	  // console.log('star');
 	}
 	if (afterDot>0){
-		$('.ratingStars'+"[ownerId="+ownerId+"]").append(renderStarIconTemplate("fa fa-star-half-o"));
+		$('.ratingStars'+"[ownerId="+ownerId+"]").append(renderStarIconTemplate("la la-star-half-o"));
 	  // console.log('star-half-o');
 	}
 	for (var i=0; i<(5-sumValues);i++){
-	  $('.ratingStars'+"[ownerId="+ownerId+"]").append(renderStarIconTemplate("fa fa-star-o"));
+	  $('.ratingStars'+"[ownerId="+ownerId+"]").append(renderStarIconTemplate("la la-star-o"));
 	  // console.log('star-o');
 	}	
 }

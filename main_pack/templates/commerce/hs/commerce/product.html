@@ -56,13 +56,8 @@
 							<span>{{ resource.ResCatName }}</span>
 							<h2>{{ resource.ResName }}</h2>
 							<div class="product-ratting-review" value="{{ resource.RtRatingValue }}" ownerId="{{ resource.ResId }}">
-								<div class="product-ratting" ownerId="{{ resource.ResId }}">
-									<i class="la la-star"></i>
-									<i class="la la-star"></i>
-									<i class="la la-star"></i>
-									<i class="la la-star-o"></i>
-									<i class="la la-star-half-o"></i>
-								</div>
+								<input type="hidden" class="ratingValue" value="{{ resource.RtRatingValue }}" ownerId="{{ resource.ResId }}">
+								<div class="product-ratting ratingStars" ownerId="{{ resource.ResId }}"></div>
 							</div>
 							<div class="pro-details-color-wrap">
 								<p>{{ resource.ResDesc if resource.ResDesc else '' }}</p>
@@ -167,13 +162,8 @@
 												{% set rating_count = resource.Rating.index(rating) %}
 												<div class="dec-client-name">
 													<h4>{{ rating.User.UName if rating.User else rating.Rp_acc.RpAccName }}</h4>
-													<div class="dec-client-rating">
-														<i class="la la-star"></i>
-														<i class="la la-star"></i>
-														<i class="la la-star"></i>
-														<i class="la la-star"></i>
-														<i class="la la-star-half-o"></i>
-													</div>
+													<input type="hidden" class="ratingValue" value="{{ rating.RtRatingValue }}" ownerId="{{rating_count}}uz3R{{ rating.User.UId if rating.User else rating.Rp_acc.RpAccId }}">
+													<div class="dec-client-rating ratingStars" ownerId="{{rating_count}}uz3R{{ rating.User.UId if rating.User else rating.Rp_acc.RpAccId }}"></div>
 												</div>
 											</div>
 										</div>
@@ -181,10 +171,9 @@
 											<div class="dec-review-content">
 												<p>{{ rating.RtRemark if rating.RtRemark else '' }}</p>
 												<div class="review-content-bottom">
-													<div class="review-like">
-													</div>
+													<div class="review-like"></div>
 													<div class="review-date">
-														<span>25 Jun 2019</span>
+														<span>{{ rating.CreatedDate }}</span>
 													</div>
 												</div>
 											</div>

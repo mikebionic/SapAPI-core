@@ -160,28 +160,26 @@
 												</li>
 												{% for category in categories %}
 												<li class="cr-dropdown {{ 'yamm-tfw menu-item-has-children dropdown-submenu' if category.Categories else 'highlight' }}">
-													<a class="cat-style" title="{{ category.ResCatName }}" href="{{url_for('commerce.v_grid',ResCatId=category.ResCatId,ResCatName=category.ResCatName.replace('/','-').replace(' ','-'))}}"
+													<a class="cat-style" title="{{ category.ResCatName }}" 
+														href="{{ url_for('commerce.v_grid',ResCatId=category.ResCatId,ResCatName=category.ResCatName.replace('/','-').replace(' ','-')) if not category.Categories else '#' }}"
 													{% if category.Categories %} aria-haspopup="true" {% endif %}>
-													{{ category.ResCatName }} <span class="la la-angle-right"></span>
+													{{ category.ResCatName }}
+													
+																										
+													{% if category.Categories %}
+														<span class="la la-angle-down" style="display: block;"></span>
 
-													{% if not category.Categories %}
-													</a>
-													{% elif category.Categories %}
-
-													<div class="category-menu-dropdown ct-menu-res-height-2">
-														<div class="single-category-menu">
-															<ul>
-																{% for category in category.Categories %}
-																<li>
-																	<a href="{{url_for('commerce.v_grid',ResCatId=category.ResCatId,ResCatName=category.ResCatName.replace('/','-').replace(' ','-'))}}">
-																		{{ category.ResCatName }}
-																	</a>
-																</li>
-																{% endfor %}
-															</ul>
-														</div>
-													</div>
+														<ul class="cr-menu-desktop-none">
+															{% for category in category.Categories %}
+															<li class="cr-sub-dropdown">
+																<a href="{{url_for('commerce.v_grid',ResCatId=category.ResCatId,ResCatName=category.ResCatName.replace('/','-').replace(' ','-'))}}">
+																	{{ category.ResCatName }}
+																</a>
+															</li>
+															{% endfor %}
+														</ul>
 													{% endif %}
+													</a>
 												</li>
 												{% endfor %}
 											</ul>
@@ -347,6 +345,7 @@
 	<script src="{{ url_for('static', filename='commerce/hs/js/ui_dynamicals.js') }}"></script>
 	<script src="{{ url_for('static', filename='commerce/hs/js/pure_functions.js') }}"></script>
 	<script src="{{ url_for('static', filename='commerce/hs/js/ux_actions.js') }}"></script>
+	{% block scripts %}{% endblock %}
 </body>
 
 </html>

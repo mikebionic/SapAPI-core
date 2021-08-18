@@ -668,22 +668,22 @@
     /*-------------------------
       category toggle function
     --------------------------*/
+    $(document).ready(function(){
+        configureCatSizeByScreen();
+    })
 
-    $('.showcat').on('click', function(e) {
-        e.preventDefault();
-        $('.hidecat').slideToggle(900);
-    });
-
-    function sidemenuDropdown() {
-        var $this = $('.mobile-category-menu');
-        $this.find('nav .cr-dropdown')
-            .find('ul').slideUp();
-        $this.find('nav li.cr-dropdown > a, nav li.cr-sub-dropdown > a').on('click', function(e) {
-            e.preventDefault();
-            $(this).next().slideToggle();
-        });
+    function configureCatSizeByScreen() {
+        var screenSize = $(window).width();
+        if (screenSize > 991) {
+            $('.showcat').on('click', function() {
+                $('.hidecat').slideToggle(900);
+            })
+        } else {
+            $('.showcat').on('click', function() {
+                $('.hidecat').animate({width: 'toggle'});
+            });
+        }
     }
-    sidemenuDropdown();
 
     /*--
         Masonry active
@@ -970,13 +970,6 @@
 		$('.featrued-cat-btn:first').addClass('active');
 		$('.tab-content .tab-pane:first').addClass('active');
 	});
-
-
-    $('a').click(function(e) {
-        e.preventDefault();
-        $('svg').toggleClass('is-active');
-    });
-
 
 //// Wishlist
 $('.wishlist-button a').on('click', function(e){
