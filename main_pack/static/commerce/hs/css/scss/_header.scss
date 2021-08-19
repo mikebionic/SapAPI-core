@@ -773,6 +773,9 @@
             @media #{$xs-layout} {
                 font-size: 25px;
             }
+            &:hover {
+                color: $black;
+            }
         }
     }
     .cart-wrap {

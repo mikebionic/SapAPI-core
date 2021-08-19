@@ -16,17 +16,18 @@
 		<span class="price currencySymbol">{{ resource.CurrencyCode }} </span>
 	</td>
 	<td>
-		<div class="product-count cardplacement cartItemQty" style="display: none;">
-			<div class="qtyminus qtybtn">-</div>
-			<input type="text" class="qty productQty"
-				pending_amount="{{resource.ResPendingTotalAmount}}"
-				min_amount="{{resource.ResMinSaleAmount}}"
-				max_amount="{{resource.ResMaxSaleAmount}}"
-				value="{{resource.productQty}}" ownerId="{{ resource.ResId }}">
-			<div class="qtyplus qtybtn">+</div>
+		<div class="pro-details-quality">
+			<div class="con-input-btns cartItemQty wishlist-add-to-cart" style="display: none; width: 70%;">
+				<button class="qtyminus qtybtn" style="font-size: 26px; border-top-left-radius: 100%; border-bottom-left-radius: 100%;"><i class="las la-minus"></i></button>
+				<input type="text" class="productQty"
+					pending_amount="{{resource.ResPendingTotalAmount if resource.ResPendingTotalAmount else 1}}"
+					min_amount="{{resource.ResMinSaleAmount}}"
+					max_amount="{{resource.ResMaxSaleAmount}}"
+					value="{{resource.productQty}}" ownerId="{{ resource.ResId }}" style="height: 36px;">
+				<button class="qtyplus qtybtn" style="font-size: 26px; border-top-right-radius: 100%; border-bottom-right-radius: 100%;"><i class="las la-plus"></i></button>
+			</div> 
+			<a class="add-to-cart" ownerId="{{ resource.ResId }}"><i class="ti-shopping-cart"></i><span>{{_('Add to cart')}}</span></a>
 		</div>
-		<a class="round-black-btn cardplacement add-to-cart" ownerId="{{ resource.ResId }}">{{_('Add to cart')}}</a>
-
 	</td>
 	<td class="product-subtotal">
 		<span class="productTotalPrice" ownerId="{{resource.ResId}}" value="{{resource.productTotal}}">{{ resource.productTotal }}</span>
