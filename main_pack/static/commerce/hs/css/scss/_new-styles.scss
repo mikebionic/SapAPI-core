@@ -83,7 +83,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #eee;
 }
 
 .pulse i {
@@ -391,19 +390,25 @@ img.zoom-img {
   cursor: -webkit-zoom-out;
 }
 
-.info-block {
-  margin-bottom: 20px;
-  span {
-    display: block;
-    .label-text {
-      color: #4a4a4a;
-      font-weight: 500;
-      font-size: 0.85rem;
-    .label-value {
-      color: #828282;
-    }
-    }
-  }
+.card-body {
+	.info-block {
+		margin-bottom: 20px;
+		span {
+			display: block;
+		}
+		span.label-value {
+			color: #828282;
+		}
+	}
+}
+.card-body {
+	.info-block {
+		span.label-text {
+			color: #4a4a4a;
+			font-weight: 500;
+			font-size: 0.85rem;
+		}
+	}
 }
 .order-block {
 	display: -ms-flexbox;
@@ -578,6 +583,34 @@ img.zoom-img {
 		color: #fff;
     padding: 2px;
 	}
+}
+.tag.primary-tag {
+  background: #0023ff;
+  color: #fff;
+  background: #0023ff;
+  color: #fff;
+  padding: 2px;
+}
+.tag.success-tag {
+  background: #00b289;
+  color: #fff;
+  background: #00b289;
+  color: #fff;
+  padding: 2px;
+}
+.tag.warning-tag { 
+  background: #eda514;
+  color: #fff;
+  background: #eda514;
+  color: #fff; 
+  padding: 2px;
+}
+.tag.danger-tag {
+  background: #FF7273;
+  color: #fff;
+  background: #FF7273;
+  color: #fff;
+  padding: 2px;
 }
 .order_status{
   display: flex;
@@ -778,4 +811,13 @@ img.zoom-img {
 		padding: 23px 0 25px;
 		z-index: 999;
 	}
+}
+.shopping-cart-title{
+  width: 50%;
+}
+.logo{
+  width: 100px;
+  img{
+    width: 100%;
+  }
 }

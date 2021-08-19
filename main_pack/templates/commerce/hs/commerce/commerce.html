@@ -13,20 +13,7 @@
 					{% if slider.SlName == "commerce_header" %}
 						{% for sl_image in slider.Sl_images %}
 						{% if sl_image.SlImgMainImgFilePathM %}
-						<div class="slider-height-8 bg-img res-white-overly-xs" style="background-image:url({{sl_image.SlImgMainImgFilePathM}});">
-							<div class="row align-items-center">
-								<div class="ml-auto col-lg-9 col-md-12 col-12 col-sm-12">
-									
-										<div class="slider-content-8 slider-animated-1">
-											<h1 class="animated">Solo Music xx1</h1>
-											<p class="animated">On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized.</p>
-											<div class="slider-btn-8 default-btn btn-hover hover-border-none">
-												<a class="animated black-color" href="{{ sl_image.SlImgLink if sl_image.SlImgLink else '#' }}">SHOP NOW</a>
-											</div>
-										</div>
-								</div>
-							</div>
-						</div>
+						<div class="slider-height-8 bg-img res-white-overly-xs" style="background-image:url({{sl_image.SlImgMainImgFilePathM}});"></div>
 						{% endif %}
 						{% endfor %}
 					{% endif %}

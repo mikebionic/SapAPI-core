@@ -41,8 +41,8 @@
 														<td>{{ orderInv.OInvRegNo }}</td>
 														<td>{{ orderInv.CreatedDate }}</td>
 														<td>{{ orderInv.OInvFTotal }} {{ orderInv.CurrencyCode }}</td>
-														<td>{{orderInv.InvStatus.InvStatName}}</td>
-														<td><a href="{{ url_for('commerce_users.order_lines',OInvRegNo=orderInv.OInvRegNo) }}" class="check-btn sqr-btn ">View</a></td>
+														<td><span class="tag {{orderInvoices[0].StatusUI.class}}-tag">{{orderInv.InvStatus.InvStatName}}</span></td>
+														<td><a href="{{ url_for('commerce_users.order_lines',OInvRegNo=orderInv.OInvRegNo) }}" class="check-btn sqr-btn "><i class="las la-eye"></i></a></td>
 													</tr>
 													{% endfor %}
 												</tbody>

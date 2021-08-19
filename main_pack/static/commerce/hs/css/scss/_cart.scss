@@ -17,6 +17,7 @@ h3.cart-page-title {
 .cart-table-content {
     table {
         border: 1px solid #ebebeb;
+        width: 100%;
         thead > tr {
             background-color: #f9f9f9;
             border: 1px solid #ebebeb;
@@ -41,6 +42,9 @@ h3.cart-page-title {
             border-bottom: 1px solid #ebebeb;
             td.product-thumbnail {
                 width: 150px;
+                img{
+                    height: 100px;
+                }
             }
             td.product-name {
                 width: 435px;
@@ -49,7 +53,10 @@ h3.cart-page-title {
                     &:hover {
                         color: $theme-color;
                     }
-                }
+                    img{
+                        height:100px;
+                    }
+                } 
             }
             td.product-price-cart {
                 width: 435px;
@@ -108,7 +115,7 @@ h3.cart-page-title {
             td.product-remove {
                 width: 100px;
                 a {
-                    font-size: 17px;
+                    font-size: 25px;
                     margin: 0 6px;
                     &:hover {
                         color: $theme-color;

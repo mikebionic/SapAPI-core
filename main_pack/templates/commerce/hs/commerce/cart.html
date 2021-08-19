@@ -1,23 +1,21 @@
 {% extends "commerce/hs/commerce/layout.html" %}
-
-
-{% block content %}
-
-
-
-	<div class="breadcrumb-area bg-img" style="background-image:url(../../static/images/bg/breadcrumb.jpg);">
-			<div class="container">
-					<div class="breadcrumb-content text-center">
-							<h2>cart page</h2>
-							<ul>
-									<li>
-											<a href="index.html">Home</a>
-									</li>
-									<li class="active">cart </li>
-							</ul>
-					</div>
+{% block breadcrumbs %}
+<div class="breadcrumb-area bg-img" style="background-image:url(../../static/images/bg/breadcrumb.jpg);">
+	<div class="container">
+			<div class="breadcrumb-content text-center">
+					<h2>{{_('Cart')}}</h2>
+					<ul> 
+							<li>
+								<a href="{{ url_for('commerce.commerce') }}">{{_('Main')}}</a>
+							</li>
+							<li class="active">{{_('Cart')}} </li>
+					</ul>
 			</div>
 	</div>
+</div>
+{% endblock %} 
+
+{% block content %}
 	<div class="cart-main-area pt-85 pb-90">
 			<div class="container">
 					<h3 class="cart-page-title">Your cart items</h3>
@@ -28,12 +26,12 @@
 													<table>
 															<thead>
 																	<tr>
-																			<th>Image</th>
-																			<th>Product Name</th>
-																			<th>Until Price</th>
-																			<th>Qty</th>
-																			<th>Subtotal</th>
-																			<th>action</th>
+																			<th>{{_('Image')}}</th>
+																			<th>{{_('Product')}}</th>
+																			<th>{{_('Price')}}</th>
+																			<th>{{_('Quantity')}}</th>
+																			<th>{{_('Total')}}</th>
+																			<th>{{_('Remove')}}</th>
 																	</tr>
 															</thead>
 															<tbody class="cartItemsTable"></tbody>
@@ -46,7 +44,6 @@
 																			<a href="#">Continue Shopping</a>
 																	</div>
 																	<div class="cart-clear">
-																			<button>Update Shopping Cart</button>
 																			<a href="#">Clear Shopping Cart</a>
 																	</div>
 															</div>
