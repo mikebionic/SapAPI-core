@@ -294,20 +294,6 @@
                 $this.siblings('.shopping-cart-content').removeClass('show').parent().removeClass('show');
             }
         });
-        /*Close When Click Close Button*/
-        $cartWrap.on('click', '.cart-close', function(e) {
-            e.preventDefault();
-            var $this = $(this);
-            $this.closest('.cart-wrap').removeClass('show').find('.shopping-cart-content').removeClass('show');
-        });
-        /*Close When Click Outside*/
-        $body.on('click', function(e) {
-            var $target = e.target;
-            if (!$($target).is('.cart-wrap') && !$($target).parents().is('.cart-wrap') && $cartWrap.hasClass('show')) {
-                $cartWrap.removeClass('show');
-                $cartContent.removeClass('show');
-            }
-        });
     }
 
     /*--- Quickview slide active ---*/
@@ -684,6 +670,13 @@
             });
         }
     }
+    $body.on('click', function(e) {
+        var $target = e.target;
+        if (!$($target).is('.showcat') && !$($target).parents().is('.showcat') && $cartWrap.hasClass('hidecat')) {
+            $cartWrap.removeClass('hidecat');
+            $cartContent.removeClass('hidecat');
+        }
+    });
 
     // Add to cart animation 
     
