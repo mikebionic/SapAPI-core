@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
-from flask import jsonify, request, make_response
+from flask import jsonify, request, make_response, url_for
 from datetime import datetime
-from sqlalchemy import and_
 
 from . import api
 from main_pack import db
@@ -13,8 +12,7 @@ from main_pack.api.auth.utils import sha_required
 from main_pack.api.base.validators import request_is_json
 from main_pack.base.apiMethods import checkApiResponseStatus
 
-from main_pack.models import Division
-from main_pack.models import Res_category, Resource, Res_total
+from main_pack.models import Res_category
 
 
 @api.route("/tbl-dk-categories/",methods=['GET'])

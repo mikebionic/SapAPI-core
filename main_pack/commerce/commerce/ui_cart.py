@@ -15,21 +15,14 @@ from main_pack.config import Config
 # useful methods
 from main_pack import db, gettext
 from main_pack.base.apiMethods import get_login_info
-from main_pack.base.languageMethods import dataLangSelector
-from main_pack.base.num2text import num2text,price2text
+from main_pack.base.num2text import price2text
 from main_pack.base.invoiceMethods import totalQtySubstitution
-from main_pack.commerce.auth.utils import ui_admin_required
 from main_pack.base.priceMethods import calculatePriceByGroup, price_currency_conversion
 # / useful methods /
 
 
-# Resource and view
-from main_pack.api.commerce.commerce_utils import apiResourceInfo
-from main_pack.commerce.admin.utils import resRelatedData
-# / Resource and view /
-
 # users and customers
-from main_pack.models import User, Rp_acc, Payment_method
+from main_pack.models import User, Payment_method
 # / users and customers /
 
 # Invoices

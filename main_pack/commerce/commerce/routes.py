@@ -1,10 +1,10 @@
 from flask import render_template, flash, session
 from flask_login import current_user, login_required
-from datetime import datetime
 
 from . import bp, url_prefix
 from main_pack.config import Config
 from main_pack import gettext
+from main_pack.base import log_print
 
 from main_pack.api.commerce.commerce_utils import apiResourceInfo, apiFeaturedResCat_Resources
 from main_pack.commerce.commerce.utils import (
@@ -96,7 +96,7 @@ def contact():
 					Email: {current_user.RpAccEMail}
 					'''
 				except Exception as ex:
-					print(f"{datetime.now()} | Email to company extra user data Exception: {ex}")
+					log_print(f"Email to company extra user data Exception: {ex}", "warning")
 
 		message	= f'''Message from user.
 		Email: {email_data["Email"]},
