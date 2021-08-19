@@ -13,6 +13,15 @@
 			<h4><a href="#">{{ resource.ResName if resource.ResName else '' }}</a></h4>
 			<span class="woocommerce-Price-amount amount priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{resource.ResPriceValue}}</span>
 			<span class="woocommerce-Price-currencySymbol">{{ resource.CurrencyCode }}</span>
+			<div class="con-input-btns cartItemQty" style="width: 40%;">
+				<button class="qtyminus qtybtn"><i class="las la-minus"></i></button>
+				<input type="text" class="productQty"
+					pending_amount="{{resource.ResPendingTotalAmount if resource.ResPendingTotalAmount else 1}}"
+					min_amount="{{resource.ResMinSaleAmount}}"
+					max_amount="{{resource.ResMaxSaleAmount}}"
+					value="{{resource.productQty}}" ownerId="{{ resource.ResId }}">
+				<button class="qtyplus qtybtn"><i class="las la-plus"></i></button>
+				</div>
 	</div>
 	<div class="shopping-cart-delete removeFromCart" ownerId="{{resource.ResId}}">
 			<a href="#"><i class="la la-trash"></i></a>

@@ -69,7 +69,7 @@
 								</div>
 							</div>
 							<div class="pro-details-quality">
-								<div class="con-input-btns cartItemQty" style="display: none;">
+								<div class="con-input-btns cartItemQty" style="display: none; width: 25%;">
 									<button class="qtyminus qtybtn"><i class="las la-minus"></i></button>
 									<input type="text" class="productQty"
 										pending_amount="{{resource.ResPendingTotalAmount}}"
@@ -206,20 +206,29 @@
 							<div class="product-action">
 								{% if current_user.is_authenticated %}
 								<div class="yith-wcwl-add-to-wishlist wishlist-button">
-									<a rel="nofollow" class="like {{'heart' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}">
+									<a rel="nofollow" class="like {{'heart' if related_resource.Wishlist == true}}" ownerId="{{ related_resource.ResId }}">
 										<i class="la la-heart" aria-hidden="true"></i>
 									</a>
 								</div>
-								{% endif %}	
-								<a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class="la la-plus"></i></a>
-							
+								{% endif %}
+								<div class="con-input-btns cartItemQty" style="display: none; width: 25%;">
+									<button class="qtyminus qtybtn"><i class="las la-minus"></i></button>
+									<input type="text" class="productQty"
+										pending_amount="{{related_resource.ResPendingTotalAmount if related_resource.ResPendingTotalAmount else 1}}"
+										min_amount="{{related_resource.ResMinSaleAmount}}"
+										max_amount="{{related_resource.ResMaxSaleAmount}}"
+										value="{{related_resource.productQty}}" ownerId="{{ related_resource.ResId }}">
+									<button class="qtyplus qtybtn"><i class="las la-plus"></i></button>
+									</div>
+								<a class="add-to-cart" ownerId="{{ related_resource.ResId }}"><i class="la la-plus"></i></a>	
+								
 							</div>
 						</div>
 						<div class="product-content">
 							<span>{{ related_resource.ResCatName }}</span>
 							<h4><a href="{{url_for('commerce.product',ResId=related_resource.ResId,ResName=related_resource.ResName.replace('/','-').replace(' ','-'))}}">{{ related_resource.ResName }}</a></h4>
 							<div class="price-addtocart">
-								<div class="product-price" ownerId="{{related_resource.ResId}}" value="{{related_resource.ResPriceValue}}">
+								<div class="product-price priceValue" ownerId="{{related_resource.ResId}}" value="{{related_resource.ResPriceValue}}">
 									{{ related_resource.ResPriceValue }}
 									<span>{{ related_resource.CurrencyCode }}</span>
 								</div>
