@@ -41,10 +41,10 @@
 													<div class="col-lg-12">
 															<div class="cart-shiping-update-wrapper">
 																	<div class="cart-shiping-update">
-																			<a href="#">Continue Shopping</a>
+																			<a href="{{ url_for('commerce.commerce') }}">Continue Shopping</a>
 																	</div>
 																	<div class="cart-clear">
-																			<a href="#">Clear Shopping Cart</a>
+																			<a href="#" class="clearCartBtn">Clear Shopping Cart</a>
 																	</div>
 															</div>
 													</div>
@@ -76,37 +76,17 @@
 											<div class="tab-content">
 												<div class="d-block my-3 paymentMethods">
 													{% for payment_method in payment_methods %}
-													<div class="custom-control custom-radio">
-														<input id="{{ payment_method.PmName }}" name="paymentMethod" type="radio" class="custom-control-input" value="{{ payment_method.PmId }}" required>
-														<label class="custom-control-label" for="{{ payment_method.PmName }}">
-														{{ payment_method.PmName }}
-															<p>{{ payment_method.PmDesc }}</p>
-														</label>
-													</div>
+														{% if payment_method.PmId != 2 %}
+														<div class="custom-control custom-radio">
+															<input id="{{ payment_method.PmName }}" name="paymentMethod" type="radio" class="custom-control-input" value="{{ payment_method.PmId }}" required>
+															<label class="custom-control-label" for="{{ payment_method.PmName }}">
+															{{ payment_method.PmName }}
+																<p>{{ payment_method.PmDesc }}</p>
+															</label>
+														</div>
+														{% endif %}
 													{% endfor %}
 												</div>
-
-												<div class="online_payment_types" style="display: none">
-													<div class="custom-control custom-radio online-payment-radio halkbank">
-														<input id="online1" name="online_payment_type" type="radio" class="custom-control-input" value="halkbank"
-															{{'checked' if session.currency_code=="TMT" else '' }} required>
-														<label class="custom-control-label" for="online1">
-															{{_('Halkbank - Joint Stock Commercial Bank of Turkmenistan')}}
-														</label>
-														<img loading="lazy"
-															src="{{ url_for('static', filename='commerce/ls/img/halkbank_logo.jpg') }}">
-													</div>
-													<div class="custom-control custom-radio online-payment-radio foreign_affairs_bank">
-														<input id="online2" name="online_payment_type" type="radio" class="custom-control-input" value="foreign_affairs_bank"
-															{{'checked' if session.currency_code!="TMT" else '' }} required>
-														<label class="custom-control-label" for="online2">
-															{{_('The State Bank for Foreign Economic Affairs of Turkmenistan')}}
-														</label>
-														<img loading="lazy"
-															src="{{ url_for('static', filename='commerce/ls/img/foreign_affairs_bank_logo.png') }}">
-													</div>
-												</div>
-
 											</div>
 											
 											<div class="checkoutForm" style="display: none;">
