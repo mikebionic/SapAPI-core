@@ -200,7 +200,7 @@
 					<div class="product-wrap">
 						<div class="product-img mb-15">
 							<a href="{{url_for('commerce.product',ResId=related_resource.ResId,ResName=related_resource.ResName.replace('/','-').replace(' ','-'))}}">
-								<img src="{{ related_resource.FilePathS if related_resource.FilePathS else url_for('static', filename='commerce/bee/images/no_photo.svg') }}" 
+								<img src="{{ related_resource.FilePathS if related_resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" 
 								alt="Product {{related_resource.ResName}} of category {{ related_resource.ResCatName if related_resource.ResCatName else '' }}" loading="lazy">
 							</a>
 							<div class="product-action">

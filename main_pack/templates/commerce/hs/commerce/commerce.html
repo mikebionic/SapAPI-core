@@ -13,7 +13,12 @@
 					{% if slider.SlName == "commerce_header" %}
 						{% for sl_image in slider.Sl_images %}
 						{% if sl_image.SlImgMainImgFilePathM %}
-						<div class="slider-height-8 bg-img res-white-overly-xs" style="background-image:url({{sl_image.SlImgMainImgFilePathM}});"></div>
+						<div class="slider-height-8 bg-img res-white-overly-xs">
+							<a href="{{ sl_image.SlImgLink if sl_image.SlImgLink else '#' }}">
+								<img loading="lazy" src="{{ sl_image.SlImgMainImgFilePathM }}" data-src-m="{{ sl_image.SlImgMainImgFilePathR }}"
+								 alt="{{ sl_image.SlImgTitle if sl_image.SlImgTitle else 'sl_image.SlImgMainImgFileName' }} {{ company.CName }}">
+							</a>
+						</div>
 						{% endif %}
 						{% endfor %}
 					{% endif %}
@@ -93,7 +98,7 @@
 											<div class="product-wrap product-border-3 product-img-zoom mb-30">
 													<div class="product-img">
 															<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">
-																<img src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/product/pro-hm5-6.jpg') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }} {{ company.CName }}">
+																<img src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }} {{ company.CName }}">
 															</a>
 															<div class="product-action">
 																{% if current_user.is_authenticated %}
@@ -173,7 +178,7 @@
 				<div class="product-slider-active owl-carousel">
 					<div class="product-wrap">
 						<div class="product-img mb-15">
-							<a href="product-details.html"><img src="{{ url_for('static', filename='commerce/hs/images/product/pro-hm5-6.jpg') }}" alt="product"></a>
+							<a href="product-details.html"><img src="{{ url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="product"></a>
 							<div class="product-action">
 								<div class="yith-wcwl-add-to-wishlist wishlist-button">
 									<a rel="nofollow" class="like">
@@ -195,7 +200,7 @@
 					</div>
 					<div class="product-wrap">
 						<div class="product-img mb-15">
-							<a href="product-details.html"><img src="{{ url_for('static', filename='commerce/hs/images/product/pro-hm5-6.jpg') }}" alt="product"></a>
+							<a href="product-details.html"><img src="{{ url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="product"></a>
 							<div class="product-action">
 								<div class="yith-wcwl-add-to-wishlist wishlist-button">
 									<a rel="nofollow" class="like">
@@ -218,7 +223,7 @@
 					</div>
 					<div class="product-wrap">
 						<div class="product-img mb-15">
-							<a href="product-details.html"><img src="{{ url_for('static', filename='commerce/hs/images/product/pro-hm5-6.jpg') }}" alt="product"></a>
+							<a href="product-details.html"><img src="{{ url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="product"></a>
 							<div class="product-action">
 								<div class="yith-wcwl-add-to-wishlist wishlist-button">
 									<a rel="nofollow" class="like">
@@ -240,7 +245,7 @@
 					</div>
 					<div class="product-wrap">
 						<div class="product-img mb-15">
-							<a href="product-details.html"><img src="{{ url_for('static', filename='commerce/hs/images/product/pro-hm5-6.jpg') }}" alt="product"></a>
+							<a href="product-details.html"><img src="{{ url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="product"></a>
 							<div class="product-action">
 								<div class="yith-wcwl-add-to-wishlist wishlist-button">
 									<a rel="nofollow" class="like">
@@ -263,7 +268,7 @@
 					</div>
 					<div class="product-wrap">
 						<div class="product-img mb-15">
-							<a href="product-details.html"><img src="{{ url_for('static', filename='commerce/hs/images/product/pro-hm5-6.jpg') }}" alt="product"></a>
+							<a href="product-details.html"><img src="{{ url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="product"></a>
 							<span class="price-dec">-30%</span>
 							<div class="product-action">
 								<div class="yith-wcwl-add-to-wishlist wishlist-button">
@@ -302,8 +307,8 @@
 						<div class="product-wrap product-border-3 product-img-zoom mb-30">
 							<div class="product-img">
 								<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">
-									<img src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/product/pro-hm5-6.jpg') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }} {{ company.CName }}">
-								</a>
+									<img src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }} {{ company.CName }}">
+								</a> 
 								<div class="product-action">
 									{% if current_user.is_authenticated %}
 									<div class="yith-wcwl-add-to-wishlist wishlist-button">
