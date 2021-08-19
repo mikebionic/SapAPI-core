@@ -125,14 +125,15 @@ h3.cart-page-title {
             td.product-wishlist-cart > a {
                 background-color: $theme-color;
                 color: #fff;
-                font-size: 12px;
+                font-size: 16px;
                 font-weight: 600;
                 line-height: 1;
                 padding: 7px 12px;
                 text-transform: uppercase;
-                border-radius: 20px;
+                border-radius: 100%;
                 &:hover {
-									background-color: #5faf3e;
+									background-color: $theme-color;
+									color: $black;
 									transition: 0.5s ease;
                 }
             }

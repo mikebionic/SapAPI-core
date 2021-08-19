@@ -634,9 +634,6 @@ img.zoom-img {
 }
 
 .con-input-btns {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   width: 100%;
     button {
       border: 0px;
@@ -649,36 +646,35 @@ img.zoom-img {
       font-size: 22px;
       padding: 5px 5px;
       line-height: 40px;
-      border-radius: 100%;
       text-align: center;
-      margin: 5px 0 5px 0;
       left: 20px;
     }
     input {
       padding: 10px;
       flex: 1;
-      border-radius: 20px;
       border: 0px;
-      border-bottom: 1px solid $white;
-      border-top: 1px solid $white;
       text-align: center;
       font-size: 1.1rem;
-      background-color: $white;
-      color: $black;
-      height: 26px;
+      background-color: $theme-color;
+      color: $white;
+      height: 40px;
+      width: 32px;
     }
   }
-  .rotate-icon {
-    transform: rotate(90deg);
-    .rotate-minus {
-      transform: rotate(90deg);
-    }
-    .rotate-plus {
-      transform: rotate(90deg)
-    }
-    .rotate-number {
-      transform: rotate(90deg)
-    }
+  .rotate-minus {
+    border-top-left-radius: 100%;
+    border-top-right-radius: 100%;
+  }
+  .rotate-plus {
+    border-bottom-left-radius: 100%;
+    border-bottom-right-radius: 100%;
+  }
+
+  .wishlist-add-to-cart {
+    width: 23%;
+    display: flex;
+    justify-content: center;
+    margin: 0px auto;
   }
 
 .pro-details-quality {

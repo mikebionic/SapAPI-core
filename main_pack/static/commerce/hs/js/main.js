@@ -685,6 +685,12 @@
         }
     }
 
+    // Add to cart animation 
+    
+    $('.add-to-cart').on('click', function() {
+        $('.rotate-icon').slideToggle(700); //owner id attr add
+    })
+
     /*--
         Masonry active
     -----------------------------------*/
