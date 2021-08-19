@@ -634,7 +634,19 @@ img.zoom-img {
       color: $black;
       height: 26px;
     }
-}
+  }
+  .rotate-icon {
+    transform: rotate(90deg);
+    .rotate-minus {
+      transform: rotate(90deg);
+    }
+    .rotate-plus {
+      transform: rotate(90deg)
+    }
+    .rotate-number {
+      transform: rotate(90deg)
+    }
+  }
 
 .pro-details-quality {
   a {
@@ -717,6 +729,7 @@ img.zoom-img {
 }
 .yith-wcwl-add-to-wishlist {
   display: flex;
+  justify-content: flex-end;
 	.add_to_wishlist {
 		text-indent: -99999px;
 		display: block;
