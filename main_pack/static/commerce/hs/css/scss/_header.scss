@@ -767,16 +767,15 @@
     justify-content: flex-end;
     .common-style {
         button {
-            background-color: transparent;
             border: none;
             font-size: 30px;
             padding: 0;
             @media #{$xs-layout} {
                 font-size: 25px;
             }
-        }
-        &:hover button {
-            color: $theme-color;
+            &:hover {
+                color: $black;
+            }
         }
     }
     .cart-wrap {
@@ -1109,6 +1108,7 @@
                 margin-bottom: 0;
             }
             .shopping-cart-delete {
+                height: 0;
                 display: flex;
                 flex-grow: 100;
                 justify-content: flex-end;

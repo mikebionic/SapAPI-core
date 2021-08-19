@@ -5,7 +5,7 @@
         <img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/bee/images/no_photo.svg') }}" 
         alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
       </a>
-    </td>
+    </td> 
     <td class="pro-title">
       <a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="resName">{{ resource.ResName if resource.ResName else '' }}</a>
     </td>
@@ -15,7 +15,7 @@
         <span class="price currencySymbol">{{ resource.CurrencyCode }} </span>
       </div>
     </td>
-    <td class="pro-quantity">
+    <td>
       <div class="pro-qty cartItemQty">
         <span class="dec qtybtn">-</span>
         <input class="cartItemQty productQty"

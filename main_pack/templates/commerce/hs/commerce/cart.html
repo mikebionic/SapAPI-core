@@ -1,39 +1,37 @@
 {% extends "commerce/hs/commerce/layout.html" %}
-
-
-{% block content %}
-
-
-
-	<div class="breadcrumb-area bg-img" style="background-image:url(../../static/images/bg/breadcrumb.jpg);">
-			<div class="container">
-					<div class="breadcrumb-content text-center">
-							<h2>cart page</h2>
-							<ul>
-									<li>
-											<a href="index.html">Home</a>
-									</li>
-									<li class="active">cart </li>
-							</ul>
-					</div>
+{% block breadcrumbs %}
+<div class="breadcrumb-area bg-img" style="background-image:url(../../static/images/bg/breadcrumb.jpg);">
+	<div class="container">
+			<div class="breadcrumb-content text-center">
+					<h2>{{_('Cart')}}</h2>
+					<ul> 
+							<li>
+								<a href="{{ url_for('commerce.commerce') }}">{{_('Main')}}</a>
+							</li>
+							<li class="active">{{_('Cart')}} </li>
+					</ul>
 			</div>
 	</div>
+</div>
+{% endblock %} 
+
+{% block content %}
 	<div class="cart-main-area pt-85 pb-90">
 			<div class="container">
 					<h3 class="cart-page-title">Your cart items</h3>
 					<div class="row">
-							<div class="col-lg-12 col-md-12 col-sm-12 col-12">
+							<div class="col-xl-8 col-lg-12 col-md-12 col-12 pb-30 pt-10">
 									<form action="#">
 											<div class="table-content table-responsive cart-table-content">
 													<table>
 															<thead>
 																	<tr>
-																			<th>Image</th>
-																			<th>Product Name</th>
-																			<th>Until Price</th>
-																			<th>Qty</th>
-																			<th>Subtotal</th>
-																			<th>action</th>
+																			<th>{{_('Image')}}</th>
+																			<th>{{_('Product')}}</th>
+																			<th>{{_('Price')}}</th>
+																			<th>{{_('Quantity')}}</th>
+																			<th>{{_('Total')}}</th>
+																			<th>{{_('Remove')}}</th>
 																	</tr>
 															</thead>
 															<tbody class="cartItemsTable"></tbody>
@@ -46,13 +44,91 @@
 																			<a href="#">Continue Shopping</a>
 																	</div>
 																	<div class="cart-clear">
-																			<button>Update Shopping Cart</button>
 																			<a href="#">Clear Shopping Cart</a>
 																	</div>
 															</div>
 													</div>
 											</div>
 									</form>
+							</div>
+							<div class="col-xl-4 col-lg-12 col-md-12 col-12 pb-30 pt-10" style="max-width: 100%; margin: 0 auto;">
+								<div class="cart-collaterals" style="margin: 0 auto;">
+									<div class="cart_totals">
+										<table class="shop_table shop_table_responsive">
+											<tbody>
+												<tr class="order-total">
+													<th>{{_('Total price')}}</th>
+													<td data-title="{{_('Total price')}}">
+														<strong style="color:#06d232">
+															<span class="woocommerce-Price-amount amount cartTotalPrice">
+																0.00
+															</span>
+															<span class="woocommerce-Price-currencySymbol currencySymbol">
+																{{ session.currency_code if session.currency_code else 'TMT' }}
+															</span>
+														</strong>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+										{% if current_user.is_authenticated %}
+										<div class="tabs">
+											<div class="tab-content">
+												<div class="d-block my-3 paymentMethods">
+													{% for payment_method in payment_methods %}
+													<div class="custom-control custom-radio">
+														<input id="{{ payment_method.PmName }}" name="paymentMethod" type="radio" class="custom-control-input" value="{{ payment_method.PmId }}" required>
+														<label class="custom-control-label" for="{{ payment_method.PmName }}">
+														{{ payment_method.PmName }}
+															<p>{{ payment_method.PmDesc }}</p>
+														</label>
+													</div>
+													{% endfor %}
+												</div>
+
+												<div class="online_payment_types" style="display: none">
+													<div class="custom-control custom-radio online-payment-radio halkbank">
+														<input id="online1" name="online_payment_type" type="radio" class="custom-control-input" value="halkbank"
+															{{'checked' if session.currency_code=="TMT" else '' }} required>
+														<label class="custom-control-label" for="online1">
+															{{_('Halkbank - Joint Stock Commercial Bank of Turkmenistan')}}
+														</label>
+														<img loading="lazy"
+															src="{{ url_for('static', filename='commerce/ls/img/halkbank_logo.jpg') }}">
+													</div>
+													<div class="custom-control custom-radio online-payment-radio foreign_affairs_bank">
+														<input id="online2" name="online_payment_type" type="radio" class="custom-control-input" value="foreign_affairs_bank"
+															{{'checked' if session.currency_code!="TMT" else '' }} required>
+														<label class="custom-control-label" for="online2">
+															{{_('The State Bank for Foreign Economic Affairs of Turkmenistan')}}
+														</label>
+														<img loading="lazy"
+															src="{{ url_for('static', filename='commerce/ls/img/foreign_affairs_bank_logo.png') }}">
+													</div>
+												</div>
+
+											</div>
+											
+											<div class="checkoutForm" style="display: none;">
+												<div class="contact-form">
+													<label for="message">{{_('Note')}}</label>
+													<textarea id="message" class="orderDesc" type="text" placeholder="{{_('Description')}} ({{_('City')}}, {{_('Av.')}}, {{_('Street')}}, {{_('House')}}, {{_('Flat')}})"></textarea>
+												</div>
+												<a class="checkout-button bg-red button alt wc-forward checkoutCartBtn">
+													{{_('Checkout')}}
+												</a>
+											</div>
+										</div>
+									
+
+									{% else %}
+										<h5 style="max-width: 12rem;">{{_('You should login if you want to checkout an order')}}!</h5>
+										<a class="checkout-button button alt wc-forward checkoutCartBtn" href="{{ url_for('commerce_auth.login') }}">
+											{{_('Login')}}
+										</a>
+									{% endif %}
+									</div>
+								</div>
 							</div>
 					</div>
 			</div>

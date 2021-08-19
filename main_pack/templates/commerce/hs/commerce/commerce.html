@@ -13,20 +13,7 @@
 					{% if slider.SlName == "commerce_header" %}
 						{% for sl_image in slider.Sl_images %}
 						{% if sl_image.SlImgMainImgFilePathM %}
-						<div class="slider-height-8 bg-img res-white-overly-xs" style="background-image:url({{sl_image.SlImgMainImgFilePathM}});">
-							<div class="row align-items-center">
-								<div class="ml-auto col-lg-9 col-md-12 col-12 col-sm-12">
-									
-										<div class="slider-content-8 slider-animated-1">
-											<h1 class="animated">Solo Music xx1</h1>
-											<p class="animated">On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized.</p>
-											<div class="slider-btn-8 default-btn btn-hover hover-border-none">
-												<a class="animated black-color" href="{{ sl_image.SlImgLink if sl_image.SlImgLink else '#' }}">SHOP NOW</a>
-											</div>
-										</div>
-								</div>
-							</div>
-						</div>
+						<div class="slider-height-8 bg-img res-white-overly-xs" style="background-image:url({{sl_image.SlImgMainImgFilePathM}});"></div>
 						{% endif %}
 						{% endfor %}
 					{% endif %}
@@ -112,18 +99,18 @@
 																{% if current_user.is_authenticated %}
 																<div class="yith-wcwl-add-to-wishlist wishlist-button">
 																	<a rel="nofollow" class="like {{'heart' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}">
-																		<i class="la la-heart-o" aria-hidden="true"></i>
+																		<i class="la la-heart" aria-hidden="true"></i>
 																	</a>
 																</div>
 																{% endif %}	
 																<div class="con-input-btns cartItemQty" style="display: none;">
-																	<button class="qtyminus qtybtn"><i class="las la-minus"></i></button>
-																	<input type="text" class="productQty"
+																	<button class="qtyminus qtybtn rotate-minus"><i class="las la-minus"></i></button>
+																	<input type="text" class="productQty rotate-number"
 																		pending_amount="{{resource.ResPendingTotalAmount}}"
 																		min_amount="{{resource.ResMinSaleAmount}}"
 																		max_amount="{{resource.ResMaxSaleAmount}}"
 																		value="{{resource.productQty}}" ownerId="{{ resource.ResId }}">
-																	<button class="qtyplus qtybtn"><i class="las la-plus"></i></button>
+																	<button class="qtyplus qtybtn rotate-plus"><i class="las la-plus"></i></button>
 																	</div>
 																<a class="add-to-cart" ownerId="{{ resource.ResId }}"><i class="la la-plus"></i></a>
 																	
@@ -190,7 +177,7 @@
 							<div class="product-action">
 								<div class="yith-wcwl-add-to-wishlist wishlist-button">
 									<a rel="nofollow" class="like">
-										<i class="la la-heart-o" aria-hidden="true"></i>
+										<i class="la la-heart" aria-hidden="true"></i>
 									</a>
 								</div>
 								<a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class="la la-plus"></i></a>
@@ -212,7 +199,7 @@
 							<div class="product-action">
 								<div class="yith-wcwl-add-to-wishlist wishlist-button">
 									<a rel="nofollow" class="like">
-										<i class="la la-heart-o" aria-hidden="true"></i>
+										<i class="la la-heart" aria-hidden="true"></i>
 									</a>
 								</div>
 								<a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class="la la-plus"></i></a>
@@ -235,7 +222,7 @@
 							<div class="product-action">
 								<div class="yith-wcwl-add-to-wishlist wishlist-button">
 									<a rel="nofollow" class="like">
-										<i class="la la-heart-o" aria-hidden="true"></i>
+										<i class="la la-heart" aria-hidden="true"></i>
 									</a>
 								</div>
 								<a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class="la la-plus"></i></a>
@@ -257,7 +244,7 @@
 							<div class="product-action">
 								<div class="yith-wcwl-add-to-wishlist wishlist-button">
 									<a rel="nofollow" class="like">
-										<i class="la la-heart-o" aria-hidden="true"></i>
+										<i class="la la-heart" aria-hidden="true"></i>
 									</a>
 								</div>
 								<a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class="la la-plus"></i></a>
@@ -281,7 +268,7 @@
 							<div class="product-action">
 								<div class="yith-wcwl-add-to-wishlist wishlist-button">
 									<a rel="nofollow" class="like">
-										<i class="la la-heart-o" aria-hidden="true"></i>
+										<i class="la la-heart" aria-hidden="true"></i>
 									</a>
 								</div>
 								<a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class="la la-plus"></i></a>
@@ -321,18 +308,18 @@
 									{% if current_user.is_authenticated %}
 									<div class="yith-wcwl-add-to-wishlist wishlist-button">
 										<a rel="nofollow" class="like {{'heart' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}">
-											<i class="la la-heart-o" aria-hidden="true"></i>
+											<i class="la la-heart" aria-hidden="true"></i>
 										</a>
 									</div>
 									{% endif %}	
-									<div class="con-input-btns cartItemQty" style="display: none;">
-										<button class="qtyminus qtybtn"><i class="las la-minus"></i></button>
+									<div class="con-input-btns cartItemQty rotate-icon" style="display: none;">
+										<button class="qtyminus qtybtn rotate-minus"><i class="las la-minus"></i></button>
 										<input type="text" class="productQty"
 											pending_amount="{{resource.ResPendingTotalAmount}}"
 											min_amount="{{resource.ResMinSaleAmount}}"
 											max_amount="{{resource.ResMaxSaleAmount}}"
 											value="{{resource.productQty}}" ownerId="{{ resource.ResId }}">
-										<button class="qtyplus qtybtn"><i class="las la-plus"></i></button>
+										<button class="qtyplus qtybtn rotate-plus"><i class="las la-plus"></i></button>
 										</div>
 									<a class="add-to-cart" ownerId="{{ resource.ResId }}"><i class="la la-plus"></i></a>
 								</div>
