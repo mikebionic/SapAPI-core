@@ -1282,16 +1282,25 @@ article {
 }
 
 .count {
-	font-size: 0.600em !important;
+	font-size: 0.4em !important;
 	padding: 0.5em 0;
-	width: 21px;
-	height: 21px;
+	width: 17px;
+	height: 16px;
 	flex-shrink: 0;
-	line-height: 0.2 !important;
-	font-weight: normal;
+	line-height: 0.4 !important;
 	text-align: center;
 	letter-spacing: -1px;
 	border-radius: 50px;
 	margin-left: 0.214em !important;
+	background-color: #56bb81;
+	font-weight: bold;
 	background-color: $theme-color;
+}
+
+.login-text {
+	padding-left: 6px;
+}
+
+.product-add-to-cart {
+	display: flex;
 }

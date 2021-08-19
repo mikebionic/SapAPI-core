@@ -373,3 +373,16 @@ $('body').delegate('.checkoutCartBtn','click',function(){
 		checkoutCart(order_data ,`${url_prefix}/checkout-cart-v1/`,'POST');
 	}
 });
+
+// for related resources
+
+$('body').delegate('.add-to-cart-rel', 'click', function() {
+	var ownerId = $(this).attr('ownerId');
+	if($(this).hasClass('added')){
+		removeFromCart(ownerId);
+		$('.add-to-cart-rel'+'[ownerId='+ownerId+']').removeClass('added').find('i').removeClass('ti-check').addClass('la la-plus').siblings('span').text(add_to_cart_text);
+	} else{
+		addToCart(ownerId);
+		$('.add-to-cart-rel'+'[ownerId='+ownerId+']').addClass('added').find('i').addClass('ti-check').removeClass('la la-plus').siblings('span').text(remove_from_cart_text);
+	}
+})
