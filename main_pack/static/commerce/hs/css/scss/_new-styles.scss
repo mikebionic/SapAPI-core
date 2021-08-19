@@ -808,3 +808,415 @@ img.zoom-img {
     width: 100%;
   }
 }
+
+@media (min-width: 991px) and (max-width: 576px) {
+	.cart-collaterals {
+		margin: auto;
+	}
+}
+.cart-collaterals {
+	.cart_totals {
+		padding: 1.250em;
+		background-color: #f9f9f9;
+		border-radius: 3px;
+		>h3 {
+			font-size: 1.5em;
+			line-height: 1.5em;
+			font-weight: 500;
+			color: #090909;
+			border-bottom: 1px solid #bebebe;
+			padding-bottom: 0.292em;
+			margin-top: -0.333em;
+		}
+		.shop_table {
+			font-size: 0.938em;
+			line-height: 2em;
+			display: block;
+			tbody {
+				display: block;
+			}
+			tr {
+				display: table;
+				width: 100%;
+				&:nth-last-child(2) {
+					td {
+						padding-bottom: 1.733em;
+					}
+					th {
+						padding-bottom: 1.733em;
+					}
+				}
+				&:last-child {
+					td {
+						padding-top: 0.8em;
+						padding-bottom: 0.8em;
+						border-top: 1px solid #bebebe;
+						font-size: 1.2em;
+					}
+					th {
+						padding-top: 0.8em;
+						padding-bottom: 0.8em;
+						border-top: 1px solid #bebebe;
+						font-size: 1.133em;
+					}
+				}
+			}
+			td {
+				padding: 0;
+				vertical-align: middle;
+				letter-spacing: -0.01em;
+				text-align: right;
+				.woocommerce-Price-amount {
+					font-weight: 500;
+				}
+			}
+			th {
+				padding: 0;
+				vertical-align: middle;
+				letter-spacing: -0.01em;
+				font-weight: 400;
+			}
+			.woocommerce-shipping-calculator {
+				display: none;
+			}
+			tr.shipping {
+				th {
+					display: table-row;
+					width: 100%;
+					padding: 0;
+					p {
+						line-height: 1.6em;
+					}
+				}
+				td {
+					display: table-row;
+					width: 100%;
+					text-align: left;
+					p {
+						line-height: 1.6em;
+					}
+					&:before {
+						content: none;
+					}
+					.woocommerce-Price-amount {
+						float: right;
+						color: #444;
+					}
+				}
+			}
+		}
+	}
+	.woocommerce-shipping-calculator {
+		.shipping-calculator-button {
+			display: block;
+			text-align: center;
+			color: #444;
+			font-size: 0.938em;
+			line-height: 1;
+		}
+		.shipping-calculator-form {
+			display: flex;
+			flex-wrap: wrap;
+			margin-right: -15px;
+			margin-left: -15px;
+			>p {
+				&:not(.form-row) {
+					position: relative;
+					width: 100%;
+					min-height: 1px;
+					padding-right: 15px;
+					padding-left: 15px;
+					flex: 0 0 100%;
+					max-width: 100%;
+					margin-bottom: 0;
+					width: 100%;
+				}
+			}
+		}
+		.button[name="calc_shipping"] {
+			color: #fff;
+			background-color: #444444;
+			border-color: #444444;
+			border-radius: 1.438em;
+			padding: .766em;
+			display: block;
+			text-align: center;
+			width: 100%;
+			&:hover {
+				color: #fff;
+				background-color: #2b2a2a;
+				border-color: #252525;
+			}
+			&:focus {
+				box-shadow: 0 0 0 2px rgba(68, 68, 68, 0.5);
+			}
+			&:disabled {
+				background-color: #444444;
+				border-color: #444444;
+			}
+			&:active {
+				color: #fff;
+				background-color: #2b2a2a;
+				background-image: none;
+				border-color: #252525;
+			}
+		}
+		article {
+			[name="calc_shipping"].more-link {
+				color: #fff;
+				background-color: #444444;
+				border-color: #444444;
+				border-radius: 1.438em;
+				padding: .766em;
+				display: block;
+				text-align: center;
+				width: 100%;
+				&:hover {
+					color: #fff;
+					background-color: #2b2a2a;
+					border-color: #252525;
+				}
+				&:focus {
+					box-shadow: 0 0 0 2px rgba(68, 68, 68, 0.5);
+				}
+				&:disabled {
+					background-color: #444444;
+					border-color: #444444;
+				}
+				&:active {
+					color: #fff;
+					background-color: #2b2a2a;
+					background-image: none;
+					border-color: #252525;
+				}
+			}
+			[name="calc_shipping"].focus.more-link {
+				box-shadow: 0 0 0 2px rgba(68, 68, 68, 0.5);
+			}
+			[name="calc_shipping"].disabled.more-link {
+				background-color: #444444;
+				border-color: #444444;
+			}
+			[name="calc_shipping"].active.more-link {
+				color: #fff;
+				background-color: #2b2a2a;
+				background-image: none;
+				border-color: #252525;
+			}
+		}
+		.button[name="calc_shipping"].focus {
+			box-shadow: 0 0 0 2px rgba(68, 68, 68, 0.5);
+		}
+		.button[name="calc_shipping"].disabled {
+			background-color: #444444;
+			border-color: #444444;
+		}
+		.button[name="calc_shipping"].active {
+			color: #fff;
+			background-color: #2b2a2a;
+			background-image: none;
+			border-color: #252525;
+		}
+	}
+	.wc-proceed-to-checkout {
+		border-bottom: 1px solid #bebebe;
+		margin-bottom: 1.625em;
+	}
+	.checkout-button {
+		display: block;
+		color: #fff!important;
+		text-align: center;
+		border-radius: 10.4380em;
+		font-weight: 500;
+		padding: .867em;
+		margin-top: 0.875em;
+		margin-bottom: 0.875em;
+		font-size: 0.938em;
+		letter-spacing: -0.5px;
+		&:focus {
+			box-shadow: none;
+		}
+		&:hover {
+			box-shadow: none;
+		}
+	}
+	.back-to-shopping {
+		color: #444;
+		font-size: 0.938em;
+		display: block;
+		text-align: center;
+		margin-bottom: 1.733em;
+	}
+	.shop-features {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		li {
+			font-size: 0.938em;
+			line-height: 1.5em;
+			color: #444;
+			+ {
+				li {
+					margin-top: 1.2em;
+				}
+			}
+			i {
+				margin-right: 1.083em;
+				font-size: 1.6em;
+			}
+		}
+	}
+}
+article {
+	.cart-collaterals {
+		.woocommerce-shipping-calculator {
+			[name="calc_shipping"].more-link {
+				color: #fff;
+				background-color: #444444;
+				border-color: #444444;
+				border-radius: 1.438em;
+				padding: .766em;
+				display: block;
+				text-align: center;
+				width: 100%;
+				&:hover {
+					color: #fff;
+					background-color: #2b2a2a;
+					border-color: #252525;
+				}
+				&:focus {
+					box-shadow: 0 0 0 2px rgba(68, 68, 68, 0.5);
+				}
+				&:disabled {
+					background-color: #444444;
+					border-color: #444444;
+				}
+				&:active {
+					color: #fff;
+					background-color: #2b2a2a;
+					background-image: none;
+					border-color: #252525;
+				}
+			}
+			[name="calc_shipping"].focus.more-link {
+				box-shadow: 0 0 0 2px rgba(68, 68, 68, 0.5);
+			}
+			[name="calc_shipping"].disabled.more-link {
+				background-color: #444444;
+				border-color: #444444;
+			}
+			[name="calc_shipping"].active.more-link {
+				color: #fff;
+				background-color: #2b2a2a;
+				background-image: none;
+				border-color: #252525;
+			}
+		}
+	}
+	.show {
+		>.cart-collaterals {
+			.woocommerce-shipping-calculator {
+				[name="calc_shipping"].dropdown-toggle.more-link {
+					color: #fff;
+					background-color: #2b2a2a;
+					background-image: none;
+					border-color: #252525;
+				}
+			}
+		}
+	}
+}
+.show {
+	>.cart-collaterals {
+		.woocommerce-shipping-calculator {
+			.button[name="calc_shipping"].dropdown-toggle {
+				color: #fff;
+				background-color: #2b2a2a;
+				background-image: none;
+				border-color: #252525;
+			}
+			article {
+				[name="calc_shipping"].dropdown-toggle.more-link {
+					color: #fff;
+					background-color: #2b2a2a;
+					background-image: none;
+					border-color: #252525;
+				}
+			}
+		}
+	}
+}
+@media (min-width: 576px) {
+	.cart-collaterals {
+		.woocommerce-shipping-calculator {
+			.shipping-calculator-form {
+				margin-right: -15px;
+				margin-left: -15px;
+				>p {
+					&:not(.form-row) {
+						padding-right: 15px;
+						padding-left: 15px;
+					}
+				}
+			}
+		}
+	}
+}
+@media (min-width: 768px) {
+	.cart-collaterals {
+		.woocommerce-shipping-calculator {
+			.shipping-calculator-form {
+				margin-right: -15px;
+				margin-left: -15px;
+				>p {
+					&:not(.form-row) {
+						padding-right: 15px;
+						padding-left: 15px;
+					}
+				}
+			}
+		}
+	}
+}
+@media (min-width: 992px) {
+	.cart-collaterals {
+		.woocommerce-shipping-calculator {
+			.shipping-calculator-form {
+				margin-right: -15px;
+				margin-left: -15px;
+				>p {
+					&:not(.form-row) {
+						padding-right: 15px;
+						padding-left: 15px;
+					}
+				}
+			}
+		}
+	}
+}
+@media (min-width: 1200px) {
+	.cart-collaterals {
+		.woocommerce-shipping-calculator {
+			.shipping-calculator-form {
+				margin-right: -15px;
+				margin-left: -15px;
+				>p {
+					&:not(.form-row) {
+						padding-right: 15px;
+						padding-left: 15px;
+					}
+				}  
+			}
+		}
+	}
+}
+
+.online-payment-radio {
+  display: flex;
+  margin-top: 10px;
+  margin-left: 32px;
+}
+
+.online-payment-radio img {
+  max-height: 40px;
+}

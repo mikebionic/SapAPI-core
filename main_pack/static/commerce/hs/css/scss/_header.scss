@@ -767,16 +767,12 @@
     justify-content: flex-end;
     .common-style {
         button {
-            background-color: transparent;
             border: none;
             font-size: 30px;
             padding: 0;
             @media #{$xs-layout} {
                 font-size: 25px;
             }
-        }
-        &:hover button {
-            color: $theme-color;
         }
     }
     .cart-wrap {
@@ -1112,6 +1108,7 @@
                 display: flex;
                 flex-grow: 100;
                 justify-content: flex-end;
+                height: 0;
                 a {
                     font-size: 16px;
                     color: #282828;
