@@ -80,7 +80,7 @@
 											<div class="product-wrap product-border-3 product-img-zoom mb-30">
 												<div class="product-img">
 													<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">
-														<img src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/product/pro-hm5-6.jpg') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }} {{ company.CName }}">
+														<img src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }} {{ company.CName }}">
 													</a>
 													<div class="product-action">
 														{% if current_user.is_authenticated %}

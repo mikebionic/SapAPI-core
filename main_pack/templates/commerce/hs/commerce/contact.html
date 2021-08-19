@@ -71,10 +71,10 @@
                             <div class="single-contact-info extra-contact-info text-center mb-30">
                                 <ul>
                                     <h4>{{_('Phone')}}</h4>
-									{% if company.Phone1 %}<a href="tel:{{company.Phone1}}"><p>{{company.Phone1}}</p></a>{% endif %}
-									{% if company.Phone2 %}<a href="tel:{{company.Phone2}}"><p>{{company.Phone2}}</p></a>{% endif %}
-									{% if company.Phone3 %}<a href="tel:{{company.Phone3}}"><p>{{company.Phone3}}</p></a>{% endif %}
-									{% if company.Phone4 %}<a href="tel:{{company.Phone4}}"><p>{{company.Phone4}}</p></a>{% endif %}
+									{% if company.Phone1 %}<a href="tel:{{company.Phone1}}"><p><i class="ti-mobile"></i>{{company.Phone1}}</p></a>{% endif %}
+									{% if company.Phone2 %}<a href="tel:{{company.Phone2}}"><p><i class="ti-mobile"></i>{{company.Phone2}}</p></a>{% endif %}
+									{% if company.Phone3 %}<a href="tel:{{company.Phone3}}"><p><i class="ti-mobile"></i>{{company.Phone3}}</p></a>{% endif %}
+									{% if company.Phone4 %}<a href="tel:{{company.Phone4}}"><p><i class="ti-mobile"></i>{{company.Phone4}}</p></a>{% endif %}
                                 </ul>
                             </div>
                         </div>
@@ -82,6 +82,7 @@
                         {% if company.CEmail %}
                         <div class="col-lg-4 col-md-4">
                             <div class="single-contact-info extra-contact-info text-center mb-30">
+                                <i class=" ti-email"></i>
                                 <ul>
                                     <h4>{{_('Email')}}</h4>
                                     <a href="mailto:{{company.CEmail}}"><p>{{company.CEmail}}</p></a>
