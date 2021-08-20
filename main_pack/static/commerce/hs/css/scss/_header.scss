@@ -1042,18 +1042,17 @@
         height: 350px;
         margin-top: 18px;
         top: 100%;
-        margin-top: 14px;
+        margin-top: 14px; 
     }
     @media #{$xs-layout} {
         width: 295px;
         right: 15px;
         padding: 31px 15px 10px;
         overflow-y: auto;
-        height: 350px;
         top: 100%;
         margin-top: 14px;
-    }
-    .shopping-cart-top {
+    } 
+    .shopping-cart-top { 
         display: flex;
         justify-content: space-between;
         border-bottom: 1px solid #cccccc;
@@ -1665,7 +1664,35 @@
 			}
 	}
 }
-
+.header-contact-3 {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    font-weight: 700;
+      .header-contact-2-icon {
+              margin: 0 1px 0 0;
+              i {
+                      font-size: 22px;
+                      color: #f4f8fa;
+                      cursor: pointer;
+              }
+      }
+      .header-contact-2-text {
+          display:flex;
+          align-items: center;
+              span , p {
+                      font-size: 16px;
+                      color: #030512;
+                      display: block;
+                      line-height: 1;
+                      letter-spacing: .2px;
+              }
+              p {
+                      margin: 6px 0 0;
+              }
+      }
+  }
 .cart-wrap-3 {
     text-align: right;
     button {

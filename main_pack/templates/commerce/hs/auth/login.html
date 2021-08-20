@@ -19,13 +19,19 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-<nav class="woocommerce-breadcrumb">
-	<a href="{{ url_for('commerce.commerce') }}">{{_('Main')}}</a>
-	<span class="delimiter">
-		<i class="fa fa-angle-right"></i>
-	</span>
-	{{_('Products')}}
-</nav>
+<div class="breadcrumb-area bg-img">
+	<div class="container">
+			<div class="breadcrumb-content text-center">
+					<h2>{{_('About us')}} </h2>
+					<ul>
+							<li>
+								<a href="{{ url_for('commerce.commerce') }}">{{_('Main')}}</a>
+							</li>
+							<li class="active">{{_('Login')}}</li>
+					</ul>
+			</div>
+	</div>
+</div>
 {% endblock %}
 
 {% block content %}
