@@ -103,9 +103,10 @@
 
 									{% else %}
 										<h5 style="max-width: 12rem;">{{_('You should login if you want to checkout an order')}}!</h5>
-										<a class="checkout-button button alt wc-forward checkoutCartBtn" href="{{ url_for('commerce_auth.login') }}">
-											{{_('Login')}}
-										</a>
+										<div class="cart-summary-button pro-details-buy-now btn-hover btn-hover-radious">
+											<a href="{{ url_for('commerce_auth.login') }}">
+												<i class="las la-sign-in-alt"></i><span class="login-text">{{_('Login')}}</span>
+										</div>
 									{% endif %}
 									</div>
 								</div>
