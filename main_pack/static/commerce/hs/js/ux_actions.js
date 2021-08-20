@@ -10,17 +10,17 @@ function configure_UI_CartStates(data){
 	}
 }
 
-//// Wishlist
+
 $('.wishlist-button a').on('click', function(e){
 	e.preventDefault();
 	var ownerId = $(this).attr('ownerId');
 
 	if($(this).hasClass('heart')){
 		removeFromWishlist(ownerId);
-		$('.wishlist-button av'+'[ownerId='+ownerId+']').removeClass('heart');
+		$('.wishlist-button [ownerId='+ownerId+']').removeClass('heart');
 	} else {
 		addToWishlist(ownerId);
-		$('.wishlist-button av'+'[ownerId='+ownerId+']').addClass('heart');
+		$('.wishlist-button [ownerId='+ownerId+']').addClass('heart');
 	}
 });
 
@@ -131,10 +131,13 @@ $('body').delegate('.qtybtn','click', function() {
 /// Add to Cart and other cart actions
 $('body').delegate('.add-to-cart', 'click', function() {
 	var ownerId = $(this).attr('ownerId');
+
 	var all_this = $('.add-to-cart[ownerId='+ownerId+']')
 	all_this.hide();
+
 	var qty_obj = all_this.parent().find('.cartItemQty');
-	qty_obj.show();
+	qty_obj.slideToggle(150);
+
 	var qtyvalue = all_this.parent().find('input').val();
 	if (qtyvalue < 1) {
 		all_this.parent().find('input').val(1);

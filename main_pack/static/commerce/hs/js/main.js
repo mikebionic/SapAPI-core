@@ -678,12 +678,6 @@
         }
     });
 
-    // Add to cart animation 
-    
-    $('.add-to-cart').on('click', function() {
-        $('.rotate-icon').slideToggle(700); //owner id attr add
-    })
-
     /*--
         Masonry active
     -----------------------------------*/
@@ -971,41 +965,49 @@
 	});
 
 //// Wishlist
-$('.wishlist-button a').on('click', function(e){
-	e.preventDefault();
-	var ownerId = $(this).attr('ownerId');
 
-	if($(this).hasClass('heart')){
-		removeFromWishlist(ownerId);
-		$('.wishlist-button [ownerId='+ownerId+']').removeClass('heart');
-	} else {
-		addToWishlist(ownerId);
-		$('.wishlist-button [ownerId='+ownerId+']').addClass('heart');
-	}
-});
 
-$('body').delegate('.addToWishlist','click',function(){
-	$(this).hide();
-	var ownerId = $(this).attr('ownerId');
-	addToWishlist(ownerId);
-})
+function slideCategoryByPathname() {
+	var pathnames = ['/commerce','/commerce/','/commerce/commerce','/commerce/commerce/','/main','/commerce/main','/main/','/commerce/main/','/','/index']
+	var current_path = location.pathname;
+    slideCategoryUp()
+	pathnames.forEach(function (item, index) {
+		if (item == current_path){
+			slideCategoryDown()
+		}
 
-$('body').delegate('.removeFromWishlist','click',function(){
-	var ownerId = $(this).attr('ownerId');
-	removeFromWishlist(ownerId);
-});
-
-function addToWishlist(ownerId){
-	configure_wishlist(ownerId, "POST");
-	$('.addToWishlist'+'[ownerId='+ownerId+']').hide();
-	$('.removeFromWishlist'+'[ownerId='+ownerId+']').show();
+	});
 }
 
-function removeFromWishlist(ownerId){
-	configure_wishlist(ownerId, "DELETE");
-	$('.removeFromWishlist'+'[ownerId='+ownerId+']').hide();
-	$('.addToWishlist'+'[ownerId='+ownerId+']').show();
+function slideCategoryUp(){
+    $('.category-menu').hide()
 }
-	///// wishlist
+
+function slideCategoryDown(){
+    $('.category-menu').show()
+}
+
+
+slideCategoryByPathname();
+
+$(window).on('scroll', function() {
+    var scroll = $(window).scrollTop();
+    if (scroll < 150) {
+        slideCategoryByPathname();
+    }
+
+    else if (scroll > 500){
+        slideCategoryUp()
+    }
+});
+
+
+document.addEventListener('error', function (event) {
+	if (event.target.tagName.toLowerCase() !== 'img') return;
+	event.target.src = no_photo_errorhandler_image;
+	event.target.className = 'full-width'
+}, true);
+
+
 
 })(jQuery);

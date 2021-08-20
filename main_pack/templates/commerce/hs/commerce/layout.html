@@ -120,7 +120,7 @@
 														<ul class="cartItemsList"></ul>
 														<div class="shopping-cart-bottom">
 																<div class="shopping-cart-total">
-																		<h4>{{_('Total')}}: <span class="shop-total">0.0</span></h4>
+																		<h4>{{_('Total')}}: <span class="shop-total cartTotalPrice">0.0</span></h4>
 																</div>
 																<div class="shopping-cart-btn btn-hover default-btn text-center">
 																	<a class="black-color" href="{{url_for('commerce.cart')}}">{{_('Checkout')}}</a>
@@ -203,18 +203,23 @@
 		</header>
 		{% block breadcrumbs %}{% endblock %}
 
- 
-
-
-
-
+		{% with messages = get_flashed_messages(with_categories=true) %}
+		{% if messages %}
+		{% for category, message in messages %}
+		<div class="alert alert-{{ category }} alert-dismissible show fade" style="margin: auto; height: 10%; opacity: 1; width: 95%; overflow: auto; text-align: center;">
+			<div class="alert-body" style="padding-top: 5px;">
+				<button class="close" data-dismiss="alert">
+					<span style="float: right;">×</span>
+				</button>
+				{{ message }}
+			</div>
+		</div>
+		{% endfor %}
+		{% endif %}
+		{% endwith %}
+	
 		{% block content %}{% endblock %}
-
-
-
-
-
-
+		
 		<footer class="footer-area section-padding-2 bg-bluegray pt-80">
 			<div class="container-fluid">
 				<div class="footer-top pb-40">
