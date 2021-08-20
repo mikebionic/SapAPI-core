@@ -69,7 +69,7 @@
 								</div>
 							</div>
 							<div class="pro-details-quality">
-								<div class="con-input-btns cartItemQty" style="display: none; width: 23%; display: flex;">
+								<div class="con-input-btns cartItemQty product-add-to-cart" style="display: none; width: 23%;">
 									<button class="qtyminus qtybtn" style="border-top-left-radius: 100%; border-bottom-left-radius: 100%;"><i class="las la-minus"></i></button>
 									<input type="text" class="productQty"
 										pending_amount="{{resource.ResPendingTotalAmount}}"
@@ -78,11 +78,11 @@
 										value="{{resource.productQty}}" ownerId="{{ resource.ResId }}">
 									<button class="qtyplus qtybtn" style="border-top-right-radius: 100%; border-bottom-right-radius: 100%;"><i class="las la-plus"></i></button>
 									</div>
-									<a class="add-to-cart" ownerId="{{ resource.ResId }}"><i class="ti-shopping-cart"></i><span>{{_('Add to cart')}}</span></a>
+									<a class="add-to-cart" ownerId="{{ resource.ResId }}"><i class="ti-shopping-cart"></i><span class="login-text">{{_('Add to cart')}}</span></a>
 								<div class="pro-details-buy-now btn-hover btn-hover-radious">
 									{% if current_user.is_authenticated %}
 									<div class="yith-wcwl-add-to-wishlist wishlist-button">
-										<a rel="nofollow" class="like {{'heart' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}">
+										<a rel="nofollow" class="product-wishlist like {{'heart' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}">
 											<i class="la la-heart" aria-hidden="true"></i>
 										</a>
 									</div>
@@ -146,7 +146,7 @@
 												<h2>{{_('You should login to add a review')}}</h2>
 												<div class="cart-summary-button pro-details-buy-now btn-hover btn-hover-radious">
 													<a href="{{ url_for('commerce_auth.login') }}">
-														<i class="las la-sign-in-alt"></i><span>{{_('Login')}}</span>
+														<i class="las la-sign-in-alt"></i><span class="login-text">{{_('Login')}}</span>
 												</div>
 											</div>
 										</div>
@@ -157,7 +157,7 @@
 									
 									<div class="row">
 										{% for rating in resource.Rating %}
-										<div class="col-xl-3 col-lg-4 col-md-5">
+										<div class="col-xl-3 col-lg-4 col-md-5 padding-review">
 											<div class="dec-review-img-wrap">
 												{% set rating_count = resource.Rating.index(rating) %}
 												<div class="dec-client-name">
@@ -167,7 +167,7 @@
 												</div>
 											</div>
 										</div>
-										<div class="col-xl-9 col-lg-8 col-md-7">
+										<div class="col-xl-9 col-lg-8 col-md-7 padding-review resp-pad">
 											<div class="dec-review-content">
 												<p>{{ rating.RtRemark if rating.RtRemark else '' }}</p>
 												<div class="review-content-bottom">
@@ -211,17 +211,9 @@
 									</a>
 								</div>
 								{% endif %}
-								<div class="con-input-btns cartItemQty rotate-icon" style="display: none; width: 25%;">
-									<button class="qtyminus qtybtn rotate-minus"><i class="las la-minus"></i></button>
-									<input type="text" class="productQty"
-										pending_amount="{{related_resource.ResPendingTotalAmount if related_resource.ResPendingTotalAmount else 1}}"
-										min_amount="{{related_resource.ResMinSaleAmount}}"
-										max_amount="{{related_resource.ResMaxSaleAmount}}"
-										value="{{related_resource.productQty}}" ownerId="{{ related_resource.ResId }}">
-									<button class="qtyplus qtybtn rotate-plus"><i class="las la-plus"></i></button>
-									</div>
-								<a class="add-to-cart" ownerId="{{ related_resource.ResId }}"><i class="la la-plus"></i></a>	
-								
+
+									<a class="add-to-cart-rel" ownerId="{{ related_resource.ResId }}"><i class="la la-plus"></i></a>	
+
 							</div>
 						</div>
 						<div class="product-content">

@@ -115,12 +115,20 @@
 										<div class="cart-wrap common-style ml-10" style="margin-top:-2px">
 												<button class="cart-active cart-3" style="background-color: transparent;">
 													<i class="las la-shopping-cart"></i>
+													<span class="count cartItemsFullQty">0</span>
 												</button>
 												<div class="shopping-cart-content">
 														<ul class="cartItemsList"></ul>
 														<div class="shopping-cart-bottom">
 																<div class="shopping-cart-total">
-																		<h4>{{_('Total')}}: <span class="shop-total cartTotalPrice">0.0</span></h4>
+																		<h4>{{_('Total')}}:
+																			<span class="woocommerce-Price-currencySymbol">
+																				{{ session.currency_code if session.currency_code else 'TMT' }}
+																			</span>
+																			<span class="woocommerce-Price-amount amount cartTotalPrice">
+																				0.00
+																			</span>
+																		</h4>
 																</div>
 																<div class="shopping-cart-btn btn-hover default-btn text-center">
 																	<a class="black-color" href="{{url_for('commerce.cart')}}">{{_('Checkout')}}</a>

@@ -91,6 +91,15 @@
         }
     }
     .dec-review-wrap {
+        @media #{$md-layout} {
+					padding: 0 50px;
+				}
+				@media #{$xs-layout} {
+					padding: 0 50px;
+				}
+				@media #{$sm-layout} {
+					padding: 0 50px;
+				}
         .dec-review-img-wrap {
             display: flex;
             align-items: center;
@@ -106,6 +115,7 @@
                     margin: 0 0 2px;
                     font-size: 18px;
                     color: #333333;
+                    font-weight: bold;
                 }
                 .dec-client-rating {
                     i {
@@ -127,7 +137,7 @@
                 margin-top: 20px;
             }
             p {
-                color: #666666;
+                color: $black;
                 line-height: 26px;
                 margin: 0;
             }
@@ -139,7 +149,7 @@
                     span {
                         font-size: 13px;
                         font-weight: 300;
-                        color: $theme-color;
+                        color: $black;
                         display: block;
                         line-height: 1;
                         i {
@@ -154,7 +164,7 @@
                     span {
                         font-size: 13px;
                         font-weight: 300;
-                        color: $theme-color;
+                        color: $black;
                         display: block;
                         line-height: 1;
                     }
