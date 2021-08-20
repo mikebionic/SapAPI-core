@@ -1021,6 +1021,10 @@
     transform-origin: center top 0;
     transform: rotateX(90deg);
     text-align: left;
+    ul{
+        overflow-y: auto;
+        height: 200px;
+    }
     &.show {
         opacity: 1;
         visibility: visible;
@@ -1030,8 +1034,8 @@
         max-height: 400px;
     }
      @media #{$lg-layout} {
-        overflow-y: auto;
-        height: 400px;
+        // overflow-y: auto;
+        // height: 400px;
     }
     @media #{$md-layout} {
         overflow-y: auto;
