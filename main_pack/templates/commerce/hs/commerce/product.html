@@ -69,16 +69,18 @@
 								</div>
 							</div>
 							<div class="pro-details-quality">
-								<div class="con-input-btns cartItemQty product-add-to-cart" style="display: none; width: 23%;">
-									<button class="qtyminus qtybtn" style="border-top-left-radius: 100%; border-bottom-left-radius: 100%;"><i class="las la-minus"></i></button>
-									<input type="text" class="productQty"
-										pending_amount="{{resource.ResPendingTotalAmount}}"
-										min_amount="{{resource.ResMinSaleAmount}}"
-										max_amount="{{resource.ResMaxSaleAmount}}"
-										value="{{resource.productQty}}" ownerId="{{ resource.ResId }}">
-									<button class="qtyplus qtybtn" style="border-top-right-radius: 100%; border-bottom-right-radius: 100%;"><i class="las la-plus"></i></button>
-									</div>
-									<a class="add-to-cart" ownerId="{{ resource.ResId }}"><i class="ti-shopping-cart"></i><span class="login-text">{{_('Add to cart')}}</span></a>
+								<div class="res-add-to-cart">
+									<div class="con-input-btns cartItemQty product-add-to-cart" style="display: none; width: 100%;">
+										<button class="qtyminus qtybtn" style="border-top-left-radius: 100%; border-bottom-left-radius: 100%;"><i class="las la-minus"></i></button>
+										<input type="text" class="productQty"
+											pending_amount="{{resource.ResPendingTotalAmount}}"
+											min_amount="{{resource.ResMinSaleAmount}}"
+											max_amount="{{resource.ResMaxSaleAmount}}"
+											value="{{resource.productQty}}" ownerId="{{ resource.ResId }}">
+										<button class="qtyplus qtybtn" style="border-top-right-radius: 100%; border-bottom-right-radius: 100%;"><i class="las la-plus"></i></button>
+										</div>
+										<a class="add-to-cart" ownerId="{{ resource.ResId }}"><i class="ti-shopping-cart"></i><span class="login-text">{{_('Add to cart')}}</span></a>
+								</div>
 								<div class="pro-details-buy-now btn-hover btn-hover-radious">
 									{% if current_user.is_authenticated %}
 									<div class="yith-wcwl-add-to-wishlist wishlist-button">

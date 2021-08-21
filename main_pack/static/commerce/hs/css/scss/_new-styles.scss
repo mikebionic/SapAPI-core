@@ -664,7 +664,7 @@ img.zoom-img {
       left: 20px;
     }
     input {
-      padding: 10px;
+      padding: 0 5px;
       flex: 1;
       border: 0px;
       text-align: center;
@@ -1303,4 +1303,14 @@ article {
 
 .product-add-to-cart {
 	display: flex;
+}
+
+@media #{$xs-layout} {
+	.zoompro-span {
+		height: 210px !important;
+	}
+}
+
+.res-add-to-cart {
+	width: 160px;
 }
