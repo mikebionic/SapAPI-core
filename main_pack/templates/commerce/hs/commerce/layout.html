@@ -8,6 +8,14 @@
 	<meta name="robots" content="noindex, follow" />
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta property="og:site_name" content="Halal Söwda | E-commerce" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="{{ title if title else _('Commerce') }} | Halal Söwda" />
+  <meta property="og:url" content="{{ request.url }}" />
+  <meta name="twitter:url" content="{{ request.url }}" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{{ title if title else _('Commerce') }} | Halal Söwda" />
+	<meta name="description" content="{% if Config.Desc %}{{ Config.Desc }}{% else %} Online commerce {{ company.CName }} {{ company.CDesc if company.CDesc}}{% endif %}">
 	<link rel="shortcut icon" type="image/x-icon" href="{{ company_logo.FilePath if company_logo else url_for('static', filename='commerce/hs/images/favicon.ico') }}">
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/hs/css/vendor/bootstrap.min.css') }}">
@@ -113,7 +121,8 @@
 										{% endif %}
 										
 										<div class="cart-wrap common-style ml-10" style="margin-top:-2px">
-												<button id="overlay" class="cart-active cart-3" style="background-color: transparent;">
+											<div class="cart-overlay"></div>
+												<button class="cart-active cart-3 header-cart" style="background-color: transparent;">
 													<i class="las la-shopping-cart"></i>
 													<span class="count cartItemsFullQty">0</span>
 												</button>

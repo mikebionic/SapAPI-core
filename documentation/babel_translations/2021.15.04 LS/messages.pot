@@ -870,3 +870,24 @@ msgstr "Halkbank - Joint Stock Commercial Bank of Turkmenistan"
 
 msgid "Your cart items"
 msgstr "Your cart items"
+
+msgid "Your previous orders"
+msgstr "Your previous orders"
+
+msgid "Price Filter"
+msgstr "Price Filter"
+
+msgid "Range:"
+msgstr "Range:"
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "Popular Tags"
+msgstr "Popular Tags"
+
+msgid "Clear Shopping Cart"
+msgstr "Clear Shopping Cart"
+
+msgid "Continue Shopping"
+msgstr "Continue Shopping"
