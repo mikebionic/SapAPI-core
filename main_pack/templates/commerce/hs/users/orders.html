@@ -1,5 +1,11 @@
 {% extends "commerce/hs/commerce/layout.html" %}
 
+{% block styles %}
+	<meta name="robots" content="noindex" />
+	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/bulma.css')}}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/core.css')}}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/jquery.webui-popover.min.css')}}">
+{% endblock %}
 
 {% block content %}
 		

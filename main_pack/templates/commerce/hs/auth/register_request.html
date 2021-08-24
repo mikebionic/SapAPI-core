@@ -3,19 +3,10 @@
 
 
 {% block head %}
-<meta name="description" 
-	content="{{_("To login you account, fill the required fields and click 'Login' button")}}.
-	{{_("If you don't have an account, click the 'Register' button and proceed the registration")}}" />
-<meta property="og:description" 
-	content="{{_("To login you account, fill the required fields and click 'Login' button")}}.
-	{{_("If you don't have an account, click the 'Register' button and proceed the registration")}}" />
-<meta property="og:image" 
-	content="{{ request.host_url }}{{ url_for('static', filename='commerce/ls/img/ls_logo.svg') }}" />
-<meta name="twitter:description" 
-	content="{{_("To login you account, fill the required fields and click 'Login' button")}}.
-	{{_("If you don't have an account, click the 'Register' button and proceed the registration")}}" />
-<meta name="twitter:image" 
-	content="{{ request.host_url }}{{ url_for('static', filename='commerce/ls/img/ls_logo.svg') }}" />
+<meta property="og:description" content="Register on online commerce {{ company.CName }} {{ company.CDesc if company.CDesc}}" />
+<meta property="og:image" content="{{ request.host_url }}{{ company_logo.FilePath if company_logo else url_for('static', filename='commerce/bee/images/favicon.svg') }}" />
+<meta name="twitter:description" content="Register on online commerce {{ company.CName }} {{ company.CDesc if company.CDesc}}" />
+<meta name="twitter:image" content="{{ request.host_url }}{{ company_logo.FilePath if company_logo else url_for('static', filename='commerce/bee/images/favicon.svg') }}" />
 {% endblock %}
 
 {% block breadcrumbs %}
