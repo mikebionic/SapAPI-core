@@ -1026,6 +1026,12 @@ $('body').delegate('.applySortingBtn','click',function(){
 	window.location.href = url;
 })
 
+// overlay
+function on() {
+  document.getElementById("overlay").style.display = "block";
+}
 
-
+function off() {
+  document.getElementById("overlay").style.display = "none";
+}
 })(jQuery);
