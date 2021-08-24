@@ -214,7 +214,13 @@
 								</div>
 								{% endif %}
 
-									<a class="add-to-cart-rel" ownerId="{{ related_resource.ResId }}"><i class="la la-plus"></i></a>	
+								<input type="hidden" class="productQty"
+									pending_amount="{{related_resource.ResPendingTotalAmount if related_resource.ResPendingTotalAmount else 1}}"
+									min_amount="{{related_resource.ResMinSaleAmount}}"
+									max_amount="{{related_resource.ResMaxSaleAmount}}"
+									value="{{related_resource.productQty}}" ownerId="{{ related_resource.ResId }}">
+
+								<a class="add-to-cart-rel" ownerId="{{ related_resource.ResId }}"><i class="la la-plus"></i></a>	
 
 							</div>
 						</div>

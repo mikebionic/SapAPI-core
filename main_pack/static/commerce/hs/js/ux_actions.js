@@ -6,6 +6,7 @@ function configure_UI_CartStates(data){
 		var ownerId = data[i]["resId"];
 		$('.add-to-cart'+'[ownerId='+ownerId+']').hide();
 		$('.add-to-cart'+'[ownerId='+ownerId+']').parent().find('.cartItemQty').show();
+		$('.add-to-cart-rel'+'[ownerId='+ownerId+']').addClass('added').find('i').addClass('ti-check').removeClass('la la-plus');
 		$('.productQty'+'[ownerId='+ownerId+']').val(data[i]["productQty"]);
 	}
 }
@@ -134,6 +135,7 @@ $('body').delegate('.add-to-cart', 'click', function() {
 
 	var all_this = $('.add-to-cart[ownerId='+ownerId+']')
 	all_this.hide();
+	console.log(all_this)
 
 	var qty_obj = all_this.parent().find('.cartItemQty');
 	qty_obj.slideToggle(150);
@@ -176,7 +178,7 @@ function addToCart(ownerId){
 	var min_amount = parseInt($('.productQty[ownerId='+ownerId+']').attr('min_amount'));
 	var max_amount = parseInt($('.productQty[ownerId='+ownerId+']').attr('max_amount'));
 
-	console.log(priceValue, productQty, pending_amount, min_amount, max_amount)
+	// console.log(priceValue, productQty, pending_amount, min_amount, max_amount)
 	configure_adding_to_cart(
 		ownerId,
 		priceValue,

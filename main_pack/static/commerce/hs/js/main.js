@@ -229,7 +229,7 @@
 
     /*Close Off Canvas Sub Menu*/
     $offCanvasNavSubMenu.slideUp();
- 
+
     /*Category Sub Menu Toggle*/
     $offCanvasNav.on('click', 'li a, li .menu-expand', function(e) {
         var $this = $(this);
@@ -247,7 +247,7 @@
         }
     });
 
-    
+
     /*--- language currency active ----*/
     $('.mobile-language-active').on('click', function(e) {
         e.preventDefault();
@@ -654,22 +654,7 @@
     /*-------------------------
       category toggle function
     --------------------------*/
-    $(document).ready(function(){
-        configureCatSizeByScreen();
-    })
 
-    function configureCatSizeByScreen() {
-        var screenSize = $(window).width();
-        if (screenSize > 991) {
-            $('.showcat').on('click', function() {
-                $('.hidecat').slideToggle(900);
-            })
-        } else {
-            $('.showcat').on('click', function() {
-                $('.hidecat').animate({width: 'toggle'});
-            });
-        }
-    }
     $body.on('click', function(e) {
         var $target = e.target;
         if (!$($target).is('.showcat') && !$($target).parents().is('.showcat') && $cartWrap.hasClass('hidecat')) {
@@ -677,12 +662,6 @@
             $cartContent.removeClass('hidecat');
         }
     });
-
-    // Add to cart animation 
-    
-    $('.add-to-cart').on('click', function() {
-        $('.rotate-icon').slideToggle(700); //owner id attr add
-    })
 
     /*--
         Masonry active
@@ -970,42 +949,66 @@
 		$('.tab-content .tab-pane:first').addClass('active');
 	});
 
-//// Wishlist
-$('.wishlist-button a').on('click', function(e){
-	e.preventDefault();
-	var ownerId = $(this).attr('ownerId');
 
-	if($(this).hasClass('heart')){
-		removeFromWishlist(ownerId);
-		$('.wishlist-button [ownerId='+ownerId+']').removeClass('heart');
-	} else {
-		addToWishlist(ownerId);
-		$('.wishlist-button [ownerId='+ownerId+']').addClass('heart');
-	}
+function slideCategoryByPathname() {
+	var pathnames = ['/commerce','/commerce/','/commerce/commerce','/commerce/commerce/','/main','/commerce/main','/main/','/commerce/main/','/','/index']
+	var current_path = location.pathname;
+    slideCategoryUp()
+    var screenSize = $(window).width();
+	pathnames.forEach(function (item, index) {
+		if (item == current_path && screenSize > 991){
+			slideCategoryDown()
+		}
+	});
+}
+
+function slideCategoryUp(){
+    $('.category-menu').hide()
+}
+
+function slideCategoryDown(){
+    $('.category-menu').show()
+}
+
+
+slideCategoryByPathname();
+
+$(window).on('scroll', function() {
+    var scroll = $(window).scrollTop();
+    if (scroll < 150) {
+        slideCategoryByPathname();
+    }
+    else if (scroll > 500){
+        slideCategoryUp()
+    }
 });
 
-$('body').delegate('.addToWishlist','click',function(){
-	$(this).hide();
-	var ownerId = $(this).attr('ownerId');
-	addToWishlist(ownerId);
+
+
+
+$(document).ready(function(){
+    configureCatSizeByScreen();
 })
 
-$('body').delegate('.removeFromWishlist','click',function(){
-	var ownerId = $(this).attr('ownerId');
-	removeFromWishlist(ownerId);
-});
-
-function addToWishlist(ownerId){
-	configure_wishlist(ownerId, "POST");
-	$('.addToWishlist'+'[ownerId='+ownerId+']').hide();
-	$('.removeFromWishlist'+'[ownerId='+ownerId+']').show();
+function configureCatSizeByScreen() {
+    var screenSize = $(window).width();
+    if (screenSize > 991) {
+        $('.showcat').on('click', function() {
+            $('.hidecat').slideToggle(900);
+        })
+    } else {
+        $('.showcat').on('click', function() {
+            $('.hidecat').animate({width: 'toggle'});
+        });
+    }
 }
 
-function removeFromWishlist(ownerId){
-	configure_wishlist(ownerId, "DELETE");
-	$('.removeFromWishlist'+'[ownerId='+ownerId+']').hide();
-	$('.addToWishlist'+'[ownerId='+ownerId+']').show();
-}
-	///// wishlist
+
+document.addEventListener('error', function (event) {
+	if (event.target.tagName.toLowerCase() !== 'img') return;
+	event.target.src = no_photo_errorhandler_image;
+	event.target.className = 'full-width'
+}, true);
+
 
 })(jQuery);
