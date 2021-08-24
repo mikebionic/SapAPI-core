@@ -68,6 +68,7 @@ from .Prog_language import *
 from .Rating import *
 from .Reg_num_type import *
 from .Reg_num import *
+from .Register_request import *
 from .Rel_status import *
 from .Relatives import *
 from .Report_file import *

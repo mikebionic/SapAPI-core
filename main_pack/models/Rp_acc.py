@@ -28,6 +28,9 @@ class Rp_acc(AddInf, BaseModel, db.Model, UserMixin):
 	RpAccUName = db.Column("RpAccUName",db.String(60))
 	RpAccUPass = db.Column("RpAccUPass",db.String(60))
 	RpAccName = db.Column("RpAccName",db.String(255))
+	IsMain = db.Column("IsMain",db.Integer)
+	RpAccVisibleIndex = db.Column("RpAccVisibleIndex",db.Integer)
+	RpAccViewCnt = db.Column("RpAccViewCnt",db.Integer)
 	DbGuid = db.Column("DbGuid",UUID(as_uuid=True))
 	DeviceQty = db.Column("DeviceQty",db.Integer)
 	UnusedDeviceQty = db.Column("UnusedDeviceQty",db.Integer)
@@ -108,6 +111,9 @@ class Rp_acc(AddInf, BaseModel, db.Model, UserMixin):
 			"RpAccUName": self.RpAccUName,
 			# "RpAccUPass": self.RpAccUPass,
 			"RpAccName": self.RpAccName,
+			"IsMain": self.IsMain,
+			"RpAccVisibleIndex": self.RpAccVisibleIndex,
+			"RpAccViewCnt": self.RpAccViewCnt,
 			"RpAccAddress": self.RpAccAddress,
 			"DbGuid": self.DbGuid,
 			"DeviceQty": self.DeviceQty,
