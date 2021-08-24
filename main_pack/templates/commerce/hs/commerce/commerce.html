@@ -1,6 +1,12 @@
 
 {% extends "commerce/hs/commerce/layout.html" %}
 
+{% block head %}
+<meta property="og:description" content="{{ company.CName }} {{ company.CDesc if company.CDesc}}" />
+<meta property="og:image" content="{{ request.host_url }}{{ company_logo.FilePath if company_logo else url_for('static', filename='commerce/bee/images/favicon.svg') }}" />
+<meta name="twitter:description" content="{{ company.CName }} {{ company.CDesc if company.CDesc}}" />
+<meta name="twitter:image" content="{{ request.host_url }}{{ company_logo.FilePath if company_logo else url_for('static', filename='commerce/bee/images/favicon.svg') }}" />
+{% endblock %}
 
 {% block content %}
 
@@ -173,7 +179,7 @@
 		<div class="product-area pb-85">
 			<div class="container">
 				<div class="section-title-6 mb-50 text-center">
-					<h2>Your previous orders</h2>
+					<h2>{{_('Your previous orders')}}</h2>
 				</div>
 				<div class="product-slider-active owl-carousel">
 					<div class="product-wrap">

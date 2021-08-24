@@ -887,3 +887,27 @@ msgstr "Türkmenistanyň Döwlet Daşary Ykdysady Iş Banky"
 
 msgid "Halkbank - Joint Stock Commercial Bank of Turkmenistan"
 msgstr "Halkbank - Türkmenistanyň paýdarlar täjirçilik banky"
+
+msgid "Your cart items"
+msgstr "Siziň sebediňiz"
+
+msgid "Your previous orders"
+msgstr "Öňki sargytlaryňyz"
+
+msgid "Price Filter"
+msgstr "Baha filteri"
+
+msgid "Range:"
+msgstr "Aralygy:"
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "Popular Tags"
+msgstr "Meşhur bellikler"
+
+msgid "Clear Shopping Cart"
+msgstr "Sebedi arassalamak"
+
+msgid "Continue Shopping"
+msgstr "Söwdany dowam etmek"
