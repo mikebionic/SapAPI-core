@@ -891,3 +891,24 @@ msgstr "Halkbank - Акционерно-коммерческий банк Тур
 
 msgid "Your cart items"
 msgstr "Ваша корзина"
+
+msgid "Your previous orders"
+msgstr "Ваши предыдущие заказы"
+
+msgid "Price Filter"
+msgstr "Ценовой фильтр"
+
+msgid "Range:"
+msgstr "Диапазон:"
+
+msgid "Filter"
+msgstr "Фильтр"
+
+msgid "Popular Tags"
+msgstr "Популярные теги"
+
+msgid "Clear Shopping Cart"
+msgstr "Очистить корзину"
+
+msgid "Continue Shopping"
+msgstr "Продолжить покупку"
