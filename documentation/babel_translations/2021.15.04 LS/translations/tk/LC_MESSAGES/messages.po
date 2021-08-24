@@ -887,3 +887,6 @@ msgstr "Türkmenistanyň Döwlet Daşary Ykdysady Iş Banky"
 
 msgid "Halkbank - Joint Stock Commercial Bank of Turkmenistan"
 msgstr "Halkbank - Türkmenistanyň paýdarlar täjirçilik banky"
+
+msgid "Your cart items"
+msgstr "Siziň sebediňiz"
