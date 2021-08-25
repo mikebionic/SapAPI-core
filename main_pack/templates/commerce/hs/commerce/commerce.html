@@ -47,11 +47,10 @@
 								data-src-m="{{ sl_image.SlImgMainImgFilePathR }}"
 								alt="banner {{ sl_image.SlImgMainImgFileName }} {{ company.CName }}">
 							</a>
-							<!-- <div class="banner-content-12">
-								<h2>Qucx Lapoo</h2>
-								<h5>G432xx</h5>
-								<h3>1990.00</h3>
-							</div> -->
+							<div class="banner-content-12">
+								<h2>{{ sl_image.SlImgTitle if sl_image.SlImgTitle else '' }}</h2>
+								<h5>{{ sl_image.SlImgDesc if sl_image.SlImgDesc else '' }}</h5>
+							</div>
 						</div>
 					</div>
 					{% endif %}
@@ -150,11 +149,10 @@
 								data-src-m="{{ sl_image.SlImgMainImgFilePathR }}"
 								alt="banner {{ sl_image.SlImgMainImgFileName }} {{ company.CName }}">
 							</a>
-							<!-- <div class="banner-content-12">
-								<h2>Qucx Lapoo</h2>
-								<h5>G432xx</h5>
-								<h3>1990.00</h3>
-							</div> -->
+							<div class="banner-content-12">
+								<h2>{{ sl_image.SlImgTitle if sl_image.SlImgTitle else '' }}</h2>
+								<h5>{{ sl_image.SlImgDesc if sl_image.SlImgDesc else '' }}</h5>
+							</div>
 						</div>
 					</div>
 					{% endif %}
@@ -167,126 +165,28 @@
 
 
 		
-		<div class="product-area pb-85">
+		<!-- <div class="product-area pb-85">
 			<div class="container">
 				<div class="section-title-6 mb-50 text-center">
 					<h2>{{_('Your previous orders')}}</h2>
 				</div>
 				<div class="product-slider-active owl-carousel">
-					<div class="product-wrap">
-						<div class="product-img mb-15">
-							<a href="product-details.html"><img src="{{ url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="product"></a>
-							<div class="product-action">
-								<div class="yith-wcwl-add-to-wishlist wishlist-button">
-									<a rel="nofollow" class="like">
-										<i class="la la-heart" aria-hidden="true"></i>
-									</a>
-								</div>
-								<a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class="la la-plus"></i></a>
-							</div>
-						</div>
-						<div class="product-content">
-							<span>Chair</span>
-							<h4><a href="product-details.html">Golden Easy Spot Chair.</a></h4>
-							<div class="price-addtocart">
-								<div class="product-price">
-									<span>m210.00</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="product-wrap">
-						<div class="product-img mb-15">
-							<a href="product-details.html"><img src="{{ url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="product"></a>
-							<div class="product-action">
-								<div class="yith-wcwl-add-to-wishlist wishlist-button">
-									<a rel="nofollow" class="like">
-										<i class="la la-heart" aria-hidden="true"></i>
-									</a>
-								</div>
-								<a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class="la la-plus"></i></a>
-							</div>
-						</div>
-						<div class="product-content">
-							<span>Chair</span>
-							<h4><a href="product-details.html">Golden Easy Spot Chair.</a></h4>
-							<div class="price-addtocart">
-								<div class="product-price">
-									<span>m210.00</span>
-									<span class="old">m230.00</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="product-wrap">
-						<div class="product-img mb-15">
-							<a href="product-details.html"><img src="{{ url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="product"></a>
-							<div class="product-action">
-								<div class="yith-wcwl-add-to-wishlist wishlist-button">
-									<a rel="nofollow" class="like">
-										<i class="la la-heart" aria-hidden="true"></i>
-									</a>
-								</div>
-								<a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class="la la-plus"></i></a>
-							</div>
-						</div>
-						<div class="product-content">
-							<span>Chair</span>
-							<h4><a href="product-details.html">Golden Easy Spot Chair.</a></h4>
-							<div class="price-addtocart">
-								<div class="product-price">
-									<span>m250.00</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="product-wrap">
-						<div class="product-img mb-15">
-							<a href="product-details.html"><img src="{{ url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="product"></a>
-							<div class="product-action">
-								<div class="yith-wcwl-add-to-wishlist wishlist-button">
-									<a rel="nofollow" class="like">
-										<i class="la la-heart" aria-hidden="true"></i>
-									</a>
-								</div>
-								<a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class="la la-plus"></i></a>
-							</div>
-						</div>
-						<div class="product-content">
-							<span>Chair</span>
-							<h4><a href="product-details.html">Golden Easy Spot Chair.</a></h4>
-							<div class="price-addtocart">
-								<div class="product-price">
-									<span>m320.00</span>
-									<span class="old">m120.00</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="product-wrap">
-						<div class="product-img mb-15">
-							<a href="product-details.html"><img src="{{ url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="product"></a>
-							<span class="price-dec">-30%</span>
-							<div class="product-action">
-								<div class="yith-wcwl-add-to-wishlist wishlist-button">
-									<a rel="nofollow" class="like">
-										<i class="la la-heart" aria-hidden="true"></i>
-									</a>
-								</div>
-								<a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class="la la-plus"></i></a>
-							</div>
-						</div>
-						<div class="product-content">
-							<span>Chair</span>
-							<h4><a href="product-details.html">Golden Easy Spot Chair.</a></h4>
-							<div class="price-addtocart">
-								<div class="product-price">
-									<span>m210.00</span>
-									<span class="old">m230.00</span>
-								</div>
-							</div>
-						</div>
-					</div>
+
+
+					
+				</div>
+			</div>
+		</div> -->
+
+		<div class="product-area pb-85">
+			<div class="container">
+				<div class="section-title-6 mb-50 text-center">
+					<h2>{{_('Previously viewed products')}}</h2>
+				</div>
+				<div class="product-slider-active owl-carousel recentViewedList">
+
+
+					
 				</div>
 			</div>
 		</div>
@@ -362,4 +262,8 @@
 		</div>
 		{% endif %}
 
+{% endblock %}
+
+{% block scripts %}
+<script>render_viewed_list()</script>
 {% endblock %}

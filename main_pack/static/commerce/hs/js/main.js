@@ -298,6 +298,7 @@
             $('.cart-overlay').removeClass('visible');
             $('.shopping-cart-content').removeClass('show');
             $('.cart-wrap').removeClass('show');
+            slideCategoryUp();
         });
     }
 
@@ -973,6 +974,7 @@ function slideCategoryUp(){
 
 function slideCategoryDown(){
     $('.category-menu').show()
+    $('.cart-overlay').addClass('visible');
 }
 
 
@@ -1004,6 +1006,7 @@ function configureCatSizeByScreen() {
     } else {
         $('.showcat').on('click', function() {
             $('.hidecat').animate({width: 'toggle'});
+            $('.cart-overlay').addClass('visible');
         });
     }
 }

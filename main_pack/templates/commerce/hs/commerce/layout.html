@@ -246,6 +246,7 @@
 							<div class="footer-widget mb-30">
 								<a href="{{ url_for('commerce.commerce') }}"><img src="{{ company_logo.FilePath }}" alt="logo"></a>
 								<div class="footer-about">
+									<p>{{ company.CFullName if company.CFullName else "" }} </p>
 									<p>{{ company.CDesc if company.CDesc else "" }} </p>
 								</div>
 							</div>
