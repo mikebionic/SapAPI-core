@@ -1303,7 +1303,7 @@ article {
 
 .product-add-to-cart {
 	display: flex;
-}
+} 
 
 @media #{$xs-layout} {
 	.zoompro-span {
@@ -1334,4 +1334,19 @@ article {
 .visible {
 	visibility: visible;
 	opacity: 1;
+}
+@media (min-width: 1440px) {
+	.banner-wrap {
+		height: 450px;
+	}
+}
+@media (min-width:575px) and (max-width: 1439px) {
+	.banner-wrap {
+		height: 150px;
+	}
+}
+@media (max-width: 574px) {
+	.banner-wrap {
+		height: 200px;
+	}
 }

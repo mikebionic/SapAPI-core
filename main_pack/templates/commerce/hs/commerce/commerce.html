@@ -32,48 +32,36 @@
 				</div>
 			</div>
 		</div>
+
+		{% for slider in sliders %}
+		{% if slider.SlName == "sidebar_banner" %}
 		<div class="banner-area pt-30 pb-40">
 			<div class="container">
 				<div class="row">
-					<div class="col-lg-6 col-md-12 col-sm-12">
+					{% for sl_image in slider.Sl_images %}
+					{% if sl_image.SlImgMainImgFilePathS %}
+					<div class="col-lg-4 col-md-4 col-sm-4 col-12">
 						<div class="banner-wrap mb-30">
 							<a href="product-details.html">
-								<img src="{{ url_for('static', filename='commerce/hs/images/banner/banner-20.png') }}" alt="banner">
+								<img src="{{ sl_image.SlImgMainImgFilePathM }}"
+								data-src-m="{{ sl_image.SlImgMainImgFilePathR }}"
+								alt="banner {{ sl_image.SlImgMainImgFileName }} {{ company.CName }}">
 							</a>
-							<div class="banner-content-12">
+							<!-- <div class="banner-content-12">
 								<h2>Qucx Lapoo</h2>
 								<h5>G432xx</h5>
 								<h3>1990.00</h3>
-							</div>
+							</div> -->
 						</div>
 					</div>
-					<div class="col-lg-3 col-md-6 col-sm-6">
-						<div class="banner-wrap mb-30">
-							<a href="product-details.html">
-								<img src="{{ url_for('static', filename='commerce/hs/images/banner/banner-21.png') }}" alt="banner">
-							</a>
-							<div class="banner-content-9">
-								<h3>Beots <br>Superb</h3>
-									<p>Lorem Ipsum is simply dummy text</p>
-									<a href="product-details.html">Shop Now</a>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-6 col-sm-6">
-						<div class="banner-wrap mb-30 res-white-overly-xs">
-							<a href="product-details.html">
-								<img src="{{ url_for('static', filename='commerce/hs/images/banner/banner-22.png') }}" alt="banner">
-							</a>
-							<div class="banner-content-9 banner-content-9-mrg2">
-								<h4>Sup<span>erb</span></h4>
-								<p>Lorem Ipsum is simply dummy text</p>
-								<a href="product-details.html">Shop Now</a>
-							</div>
-						</div>
-					</div>
+					{% endif %}
+					{% endfor %}
 				</div>
 			</div>
 		</div>
+		{% endif %}
+		{% endfor %}
+
 		{% if Featured_categories %}
 		<div class="product-area pb-40">
 			<div class="container">
@@ -147,32 +135,35 @@
 			</div>
 		</div>
 		{% endif %}
-		<div class="banner-area pb-40">
+
+		{% for slider in sliders %}
+		{% if slider.SlName == "commerce_footer" %}
+		<div class="banner-area pt-30 pb-40">
 			<div class="container">
 				<div class="row">
-					<div class="col-lg-4 col-md-4">
+					{% for sl_image in slider.Sl_images %}
+					{% if sl_image.SlImgMainImgFilePathS %}
+					<div class="col-lg-6 col-md-6 col-sm-6 col-12">
 						<div class="banner-wrap mb-30">
-							<a href="product-details.html"><img src="{{ url_for('static', filename='commerce/hs/images/banner/banner-15.png') }}" alt="banner"></a>
-							<div class="banner-content-10">
-								<h2>Mak Pro Gamming</h2>
-							</div>
-							<div class="banner-content-10-btn">
-								<a href="#">Shop Now</a>
-							</div>
+							<a href="product-details.html">
+								<img src="{{ sl_image.SlImgMainImgFilePathM }}"
+								data-src-m="{{ sl_image.SlImgMainImgFilePathR }}"
+								alt="banner {{ sl_image.SlImgMainImgFileName }} {{ company.CName }}">
+							</a>
+							<!-- <div class="banner-content-12">
+								<h2>Qucx Lapoo</h2>
+								<h5>G432xx</h5>
+								<h3>1990.00</h3>
+							</div> -->
 						</div>
 					</div>
-					<div class="col-lg-8 col-md-8">
-						<div class="banner-wrap mb-30 res-white-overly-xs res-white-overly-md">
-							<a href="product-details.html"><img src="{{ url_for('static', filename='commerce/hs/images/banner/banner-23.png') }}" alt="banner"></a>
-							<div class="banner-content-13">
-								<h3>Qucx electric scooter</h3>
-								<p>It is a long established fact that a reader will be distracted by the readable</p>
-							</div>
-						</div>
-					</div>
+					{% endif %}
+					{% endfor %}
 				</div>
 			</div>
 		</div>
+		{% endif %}
+		{% endfor %}
 
 
 		

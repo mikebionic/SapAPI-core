@@ -181,7 +181,7 @@ def addCompanyInfoDict(req):
 	CAddress = req.get('companyAddress')
 	CAddressLegal = req.get('companyAddressLegal')
 	CLatitude = req.get('companyLatitude') 
-	CLongitude = req.get('companyLongitude') 
+	CLongitude = req.get('companyLongitude')  
 	Phone1 = req.get('companyPhone1')
 	Phone2 = req.get('companyPhone2')
 	Phone3 = req.get('companyPhone3')
