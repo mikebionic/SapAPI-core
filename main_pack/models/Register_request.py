@@ -11,7 +11,7 @@ class Register_request(BaseModel, db.Model):
 	RegReqPhoneNumber = db.Column("RegReqPhoneNumber",db.String(100))
 	RegReqVerifyCode = db.Column("RegReqVerifyCode",db.String(1000))
 	RegReqVerified = db.Column("RegReqVerified",db.Integer)
-	RegReqExpDate = db.Column("RegReqExpDate",db.Datetime)
+	RegReqExpDate = db.Column("RegReqExpDate",db.DateTime)
 
 	def to_json_api(self):
 		data = {
