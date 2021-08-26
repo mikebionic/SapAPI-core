@@ -487,3 +487,25 @@ function render_viewed_list(){
 		})
 	}, 500);
 }
+
+function send_view_request(data){
+	setTimeout(() => {
+		$.ajax({
+			type: "GET",
+			url: `${url_prefix}/viewed-product/`,
+			headers: {...data},
+			success: function(response){
+				console.log(response)
+			}
+		})
+	}, 10000);
+}
+
+function handle_product_view(){
+	var view_product_data = {
+		"ResRegNo": btoa(resource_ResRegNo),
+		"ResGuid": btoa(resource_ResGuid)
+	}
+	console.log(view_product_data)
+	send_view_request(view_product_data)
+}
