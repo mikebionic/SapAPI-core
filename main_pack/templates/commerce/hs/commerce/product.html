@@ -244,5 +244,10 @@
 {% endblock %}
 
 {% block scripts %}
-<script>update_viewed_list({{resource.ResId}})</script>
+<script>
+	var resource_ResRegNo = "{{resource.ResRegNo}}"
+	var resource_ResGuid = "{{resource.ResGuid}}"
+	var resource_ResId = {{resource.ResId}}
+</script>
+<script>update_viewed_list(resource_ResId); handle_product_view();</script>
 {% endblock %}

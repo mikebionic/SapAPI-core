@@ -112,7 +112,7 @@ $('body').delegate('.qtybtn','click', function() {
 
 	if ($button.hasClass('qtyplus')) {
 	  var newVal = parseFloat(oldValue) + 1;
-	} 
+	}
 
 	else {
 		if (oldValue > 1) {
@@ -135,7 +135,6 @@ $('body').delegate('.add-to-cart', 'click', function() {
 
 	var all_this = $('.add-to-cart[ownerId='+ownerId+']')
 	all_this.hide();
-	console.log(all_this)
 
 	var qty_obj = all_this.parent().find('.cartItemQty');
 	qty_obj.slideToggle(150);
@@ -238,7 +237,7 @@ function qtyCheckout(
 	min_amount = 0,
 	max_amount = 0,
 	pending_amount = 0){
-	
+
 	var qtyValue = configure_qty_checkout(
 		ownerId,
 		qtyValue,
@@ -425,8 +424,10 @@ const single_cart_component = (resource) => `
 `
 
 function update_viewed_list(resId) {
+	var viewed_products_qty = 10
 	var viewed_list = get_local_data_by_name('recent_viewed')
 	var current_views_data = []
+
 	if (viewed_list["data"]){
 		var current_views_data = viewed_list["data"]
 	}
@@ -448,8 +449,14 @@ function update_viewed_list(resId) {
 		current_views_data.push(new_view_data)
 	}
 
+	current_views_data.sort(function(first, second) {
+		return second.date - first.date;
+	});
+	current_views_data.sort(function(first, second) {
+		return second.viewed - first.viewed;
+	});
 
-	viewed_list["data"] = current_views_data
+	viewed_list["data"] = current_views_data.splice(0, viewed_products_qty)
 	set_local_data_by_name('recent_viewed', viewed_list)
 }
 
@@ -465,7 +472,6 @@ function render_viewed_list(){
 			url: `${url_prefix}/product/get-product-data/`,
 			success: function(response){
 				if (response){
-					console.log(response)
 					if (response["status"] == 1){
 						response["data"].map((viewed_list_item) => {
 							$('.recentViewedList').append(single_cart_component(viewed_list_item))
@@ -478,5 +484,26 @@ function render_viewed_list(){
 			}
 		})
 	}, 500);
-	
+}
+
+function send_view_request(data){
+	setTimeout(() => {
+		$.ajax({
+			type: "GET",
+			url: `${url_prefix}/viewed-product/`,
+			headers: {...data},
+			success: function(response){
+				console.log(response)
+			}
+		})
+	}, 10000);
+}
+
+function handle_product_view(){
+	var view_product_data = {
+		"ResRegNo": btoa(resource_ResRegNo),
+		"ResGuid": btoa(resource_ResGuid)
+	}
+	console.log(view_product_data)
+	send_view_request(view_product_data)
 }
