@@ -21,9 +21,7 @@ from main_pack.api.common import get_payment_methods
 @bp.route("/")
 @bp.route(Config.COMMERCE_HOME_PAGE)
 def commerce():
-	latest_resources = apiResourceInfo(
-		showLatest = True,
-	)
+	latest_resources = apiResourceInfo(showLatest = True)
 	featured_categories = apiFeaturedResCat_Resources()
 	brands = UiBrandsList()
 	# "Rated_resources": rated_resources['data'],
@@ -34,6 +32,13 @@ def commerce():
 	}
 	sliders = slidersData()
 	categoriesData = UiCategoriesList()
+
+	if Config.COMMERCE_SHOW_FEATURED_PRODUCTS:
+		featured_resources = apiResourceInfo(
+			order_by_visible_index = True,
+			limit_by = 10,
+		)
+		res["Featured_products"] = featured_resources["data"]
 
 	return render_template(
 		f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/commerce/commerce.html",

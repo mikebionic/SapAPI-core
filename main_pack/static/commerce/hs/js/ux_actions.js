@@ -477,6 +477,7 @@ function render_viewed_list(){
 								$('.recentViewedList').append(single_cart_component(viewed_list_item))
 							})
 						}
+						reset_owl_carousel();
 					}
 				},
 				error: function(){
