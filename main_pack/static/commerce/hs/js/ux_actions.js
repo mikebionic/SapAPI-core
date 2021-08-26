@@ -507,5 +507,5 @@ function handle_product_view(){
 		"ResGuid": btoa(resource_ResGuid)
 	}
 	// console.log(view_product_data)
-	send_view_request(view_product_data)
+	// send_view_request(view_product_data)
 }
