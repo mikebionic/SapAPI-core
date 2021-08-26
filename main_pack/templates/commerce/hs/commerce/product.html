@@ -55,13 +55,12 @@
 						<div class="product-details-content pro-details-content-modify">
 							<span>{{ resource.ResCatName }}</span>
 							<h2>{{ resource.ResName }}</h2>
-							<p>{{ resource.ResViewCnt }}</p>
 							<div class="product-ratting-review" value="{{ resource.RtRatingValue }}" ownerId="{{ resource.ResId }}">
 								<input type="hidden" class="ratingValue" value="{{ resource.RtRatingValue }}" ownerId="{{ resource.ResId }}">
 								<div class="product-ratting ratingStars" ownerId="{{ resource.ResId }}"></div>
 								<div class="view_icon">
 									<i class="las la-eye"></i>
-									<span class="count cartItemsFullQty">0</span>
+									<span class="count">{{ resource.ResViewCnt }}</span>
 								</div>
 							</div>
 							<div class="pro-details-color-wrap">

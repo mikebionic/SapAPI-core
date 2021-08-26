@@ -998,6 +998,7 @@
     justify-content: flex-end;
     @media #{$xs-layout} {
         justify-content: flex-start;
+        padding: 10px 0;
     }
     @media #{$sm-layout} {
         justify-content: flex-end;

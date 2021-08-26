@@ -1315,7 +1315,6 @@ article {
 	width: 160px;
 }
 @media (max-width:991px){
-
 	.cart-overlay {
 		display: block;
 		position: fixed;
@@ -1323,9 +1322,10 @@ article {
 		top: 0;
 		height: 100%;
 		width: 100%;
-		z-index: 50;
+		z-index: 9;
 		visibility: hidden;
 		opacity: 0;
+		background:#04040429;
 		-webkit-transition: all 0.3s ease 0s;
 		-o-transition: all 0.3s ease 0s;
 		transition: all 0.3s ease 0s;
@@ -1431,11 +1431,26 @@ article {
 							font-weight: 300;
 							letter-spacing: .25px;
 							color: #333333;
-							margin-top: 70px;
+							@media (min-width:899px){
+								margin-top: 50px;
+							}
+							@media (min-width:576px) and (max-width: 899){
+								margin-top: 10px;
+							}
 							span {
 									font-weight: 500;
 							}
 					}
 			}
+	}
+}
+.view_icon{
+	i{
+		font-size: 35px
+	}
+	.count{
+		font-size: 0.6em !important;
+    padding: 0.5em 0.5em;
+		margin-left: -11px!important;
 	}
 }
