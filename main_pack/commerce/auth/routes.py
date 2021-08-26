@@ -292,3 +292,18 @@ def register_token(token):
 		url_prefix = url_prefix,
 		title = gettext('Register'),
 		form = form)
+
+
+@bp.route("/register-sms",methods=['GET','POST'])
+def register_sms():
+	if (current_user.is_authenticated and "model_type" in session):
+		if session["model_type"] == "rp_acc":
+			return redirect(url_for('commerce.commerce'))
+
+	categoryData = UiCategoriesList()
+	return render_template(
+		f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/auth/register_sms.html",
+		**categoryData,
+		url_prefix = url_prefix,
+		title = "{} - {}".format(gettext('Register'), "SMS"),
+	)
