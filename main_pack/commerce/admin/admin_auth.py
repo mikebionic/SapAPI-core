@@ -10,9 +10,11 @@ from main_pack.base.apiMethods import get_login_info
 from main_pack.models import User
 from main_pack.commerce.auth.forms import AdminLoginForm
 # / users and customers /
+from main_pack.api.auth.attempt_counter import attempt_counter
 
 
 @bp.route("/admin/login",methods=['GET','POST'])
+@attempt_counter
 def login():
 	if (current_user.is_authenticated and "model_type" in session):
 		if (session["model_type"] == "user" and current_user.is_admin):
