@@ -203,6 +203,8 @@ def apiResourceInfo(
 	notDivId = None,
 	currency_code = None,
 	language_code = None,
+	order_by_visible_index = False,
+	limit_by = None,
 ):
 
 	currencies = Currency.query.filter_by(GCRecord = None).all()
@@ -267,9 +269,15 @@ def apiResourceInfo(
 				joinedload(Resource.unit),
 				joinedload(Resource.brand),
 				joinedload(Resource.usage_status))
-			
+
 			if Config.SHOW_RES_TRANSLATIONS:
 				resources.options(joinedload(Resource.Res_translation))
+
+			if order_by_visible_index:
+				resources = resources.order_by(Resource.ResVisibleIndex.asc())
+
+			if limit_by:
+				resources = resources.limit(limit_by)
 
 			if fullInfo == True:
 				# !!! TODO: Res_color and color joins could be implemented on class level
@@ -597,7 +605,7 @@ def get_FeaturedResCategory_list(DivId = None):
 
 	featured_categories = featured_categories\
 		.all()
-	
+
 	return featured_categories
 
 

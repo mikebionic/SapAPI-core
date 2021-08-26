@@ -891,3 +891,6 @@ msgstr "Clear Shopping Cart"
 
 msgid "Continue Shopping"
 msgstr "Continue Shopping"
+
+msgid "Featured products"
+msgstr "Featured products"
