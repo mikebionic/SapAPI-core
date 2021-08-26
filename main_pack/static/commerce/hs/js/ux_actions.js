@@ -392,34 +392,32 @@ $('body').delegate('.add-to-cart-rel', 'click', function() {
 
 
 const single_cart_component = (resource) => `
-<div class="col-xl-3 col-lg-4 col-md-4 col-sm-4 col-6">
-	<div class="product-wrap product-border-3 product-img-zoom mb-30">
-		<div class="product-img">
-			<a href="${url_prefix}/product/${resource.ResId}">
-				<img src="${resource.FilePathS ? resource.FilePathS : no_photo_errorhandler_image} ">
-			</a>
-			<div class="product-action">
-				<div class="con-input-btns cartItemQty rotate-icon" style="display: none;">
-					<button class="qtyminus qtybtn rotate-minus"><i class="las la-minus"></i></button>
-					<input type="text" class="productQty"
-						pending_amount="${resource.ResPendingTotalAmount}"
-						min_amount="${resource.ResMinSaleAmount}"
-						max_amount="${resource.ResMaxSaleAmount}"
-						value="${resource.productQty}" ownerId="${resource.ResId}">
-					<button class="qtyplus qtybtn rotate-plus"><i class="las la-plus"></i></button>
-				</div>
-				<a class="add-to-cart" ownerId="${resource.ResId}"><i class="la la-plus"></i></a>
+<div class="product-wrap">
+	<div class="product-img mb-15">
+		<a href="${url_prefix}/product/${resource.ResId}">
+			<img src="${resource.FilePathS ? resource.FilePathS : no_photo_errorhandler_image} ">
+		</a> 
+		<div class="product-action">
+			<div class="con-input-btns cartItemQty rotate-icon" style="display: none;">
+				<button class="qtyminus qtybtn rotate-minus"><i class="las la-minus"></i></button>
+				<input type="text" class="productQty"
+					pending_amount="${resource.ResPendingTotalAmount}"
+					min_amount="${resource.ResMinSaleAmount}"
+					max_amount="${resource.ResMaxSaleAmount}"
+					value="${resource.productQty}" ownerId="${resource.ResId}">
+				<button class="qtyplus qtybtn rotate-plus"><i class="las la-plus"></i></button>
 			</div>
+			<a class="add-to-cart" ownerId="${resource.ResId}"><i class="la la-plus"></i></a>
 		</div>
-		<div class="product-content product-content-padding">
-			<h4><a href="${url_prefix}/product/${resource.ResId}">
-				${resource.ResName}
-			</a></h4>
-			<div class="price-addtocart">
-					<div class="product-price">
-							<span class="priceValue" ownerId="${resource.ResId}" value="${resource.ResPriceValue}">${resource.ResPriceValue}</span>
-					</div>
-			</div>
+	</div>
+	<div class="product-content">
+		<h4><a href="${url_prefix}/product/${resource.ResId}">
+			${resource.ResName}
+		</a></h4>
+		<div class="price-addtocart">
+				<div class="product-price">
+						<span class="priceValue" ownerId="${resource.ResId}" value="${resource.ResPriceValue}">${resource.ResPriceValue}</span>
+				</div>
 		</div>
 	</div>
 </div>

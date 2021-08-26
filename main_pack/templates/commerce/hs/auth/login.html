@@ -56,7 +56,8 @@
 																				{% endfor %}
 																			</div>
 																		{% endif %}
-																		{{ form.password(class="input-text") }}
+																		{{ form.password(id="password-field", class="input-text") }}
+																		<span toggle="#password-field" class="las la-low-vision field-icon toggle-password"></span>
 																			<div class="button-box">
 																					<div class="login-toggle-btn">
 																							<input type="checkbox">
