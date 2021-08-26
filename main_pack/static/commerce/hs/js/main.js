@@ -109,33 +109,7 @@
     });
 
     /* Product slider active */
-    $('.product-slider-active').owlCarousel({
-        loop: true,
-        nav: false,
-        autoplay: false,
-        autoplayTimeout: 5000,
-        animateOut: 'fadeOut',
-        animateIn: 'fadeIn',
-        item: 4,
-        margin: 30,
-        responsive: {
-            0: {
-                items: 2
-            },
-            576: {
-                items: 3
-            },
-            768: {
-                items: 3
-            },
-            992: {
-                items: 4
-            },
-            1200: {
-                items: 4
-            }
-        }
-    });
+    // reset_owl_carousel()
 
     /* Product slider active 2 */
     $('.product-slider-active-2').owlCarousel({
@@ -1050,13 +1024,46 @@ function on() {
 
 // Show/Hide button in Login
 $(".toggle-password").click(function() {
-	$(this).toggleClass("las la-eye");
 	var input = $($(this).attr("toggle"));
 	if (input.attr("type") == "password") {
+        $(this).removeClass("las la-low-vision");
+	    $(this).addClass("las la-eye");
 		input.attr("type", "text");
 	} else {
+	    $(this).removeClass("las la-eye");
+        $(this).addClass("las la-low-vision");
 		input.attr("type", "password");
 	}
 });
 
 })(jQuery);
+
+function reset_owl_carousel(){
+    $('.product-slider-active').owlCarousel({
+        loop: true,
+        nav: false,
+        autoplay: false,
+        autoplayTimeout: 5000,
+        animateOut: 'fadeOut',
+        animateIn: 'fadeIn',
+        item: 4,
+        margin: 30,
+        responsive: {
+            0: {
+                items: 2
+            },
+            576: {
+                items: 3
+            },
+            768: {
+                items: 3
+            },
+            992: {
+                items: 4
+            },
+            1200: {
+                items: 4
+            }
+        }
+    });
+}
