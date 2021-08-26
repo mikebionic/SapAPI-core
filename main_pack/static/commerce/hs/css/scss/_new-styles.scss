@@ -1316,25 +1316,25 @@ article {
 }
 @media (max-width:991px){
 
-.cart-overlay {
-	display: block;
-	position: fixed;
-	left: 0;
-	top: 0;
-	height: 100%;
-	width: 100%;
-	z-index: 50;
-	visibility: hidden;
-	opacity: 0;
-	-webkit-transition: all 0.3s ease 0s;
-	-o-transition: all 0.3s ease 0s;
-	transition: all 0.3s ease 0s;
-}
+	.cart-overlay {
+		display: block;
+		position: fixed;
+		left: 0;
+		top: 0;
+		height: 100%;
+		width: 100%;
+		z-index: 50;
+		visibility: hidden;
+		opacity: 0;
+		-webkit-transition: all 0.3s ease 0s;
+		-o-transition: all 0.3s ease 0s;
+		transition: all 0.3s ease 0s;
+	}
 
-.visible {
-	visibility: visible;
-	opacity: 1;
-}
+	.visible {
+		visibility: visible;
+		opacity: 1;
+	}
 }
 @media (min-width: 1440px) {
 	.banner-wrap {
