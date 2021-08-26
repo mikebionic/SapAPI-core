@@ -17,8 +17,10 @@
 												<h4 style="padding: 1rem;">{{_('Reset password')}} | {{ company.CName }}</h4>
 													<form action="#" method="post">
 														{{ form.csrf_token() }}
-														{{ form.password(class='input-text') }}
-														{{ form.confirm_password(class='input-text') }}
+														{{ form.password(id="password-field", class='input-text') }}
+														<span toggle="#password-field" class="las la-low-vision field-icon toggle-password"></span>
+														{{ form.confirm_password(id="password-field", class='input-text') }}
+														<span toggle="#password-field" class="las la-low-vision field-icon toggle-password"></span>
 														{% if form.confirm_password.errors %}
 															<p>
 																{% for error in form.confirm_password.errors %}

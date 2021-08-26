@@ -21,7 +21,8 @@
 														{{ form.full_name(class='input-text') }}
 														{{ form.phone_number(class='input-text') }}
 														{{ form.address(class='input-text') }}
-														{{ form.password(class='input-text') }}
+														{{ form.password(id="password-field", class='input-text') }}
+														<span toggle="#password-field" class="las la-low-vision field-icon toggle-password"></span>
 														{{ form.confirm_password(class='input-text') }}
 														{% if form.confirm_password.errors %}
 															<p>
