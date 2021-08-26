@@ -1,4 +1,11 @@
-from flask import make_response, jsonify, render_template, request
+from flask import (
+	make_response,
+	jsonify,
+	render_template,
+	request,
+	redirect,
+	url_for,
+)
 from flask_wtf.csrf import CSRFError
 
 from . import bp
@@ -33,10 +40,7 @@ def unauthorized(error):
 	if (request.path.startswith(Config.API_URL_PREFIX) or Config.API_AND_ADMIN_ONLY):
 		return make_response(jsonify(res), 401)
 
-	return render_template(
-		f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/errors/500.html",
-		title = res["error"],
-		**UiCategoriesList()), 500
+	return redirect(url_for('commerce_auth.login'))
 
 
 @bp.app_errorhandler(403)

@@ -20,8 +20,6 @@ from main_pack.models import User, Rp_acc
 from main_pack.models import (
 	Company,
 	Division,
-	Reg_num,
-	Reg_num_type
 )
 
 # utils
@@ -29,13 +27,17 @@ from main_pack.commerce.auth.utils import (
 	send_reset_email,
 	get_register_token,
 	verify_register_token,
-	send_register_email)
+	send_register_email,
+)
+from main_pack.api.auth.attempt_counter import attempt_counter
+
 from main_pack.commerce.commerce.utils import UiCategoriesList
 from main_pack.key_generator.utils import makeRegNo, generate
 from main_pack.base.apiMethods import get_login_info
 
 
 @bp.route("/login",methods=['GET','POST'])
+@attempt_counter
 def login():
 	form = LoginForm()
 

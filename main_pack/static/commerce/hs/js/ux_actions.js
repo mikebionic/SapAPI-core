@@ -464,41 +464,43 @@ function update_viewed_list(resId) {
 
 function render_viewed_list(){
 	var viewed_data = get_local_data_by_name('recent_viewed')
-
-	setTimeout(() => {
-		$.ajax({
-			contentType: "application/json",
-			dataType: "json",
-			data: JSON.stringify(viewed_data["data"]),
-			type: "PUT",
-			url: `${url_prefix}/product/get-product-data/`,
-			success: function(response){
-				if (response){
-					if (response["status"] == 1){
-						response["data"].map((viewed_list_item) => {
-							$('.recentViewedList').append(single_cart_component(viewed_list_item))
-						})
+	if (viewed_data["data"]){
+		setTimeout(() => {
+			$.ajax({
+				contentType: "application/json",
+				dataType: "json",
+				data: JSON.stringify(viewed_data["data"]),
+				type: "PUT",
+				url: `${url_prefix}/product/get-product-data/`,
+				success: function(response){
+					if (response){
+						if (response["status"] == 1){
+							response["data"].map((viewed_list_item) => {
+								$('.recentViewedList').append(single_cart_component(viewed_list_item))
+							})
+						}
 					}
+				},
+				error: function(){
+					errorToaster(message = unknown_error_text);
 				}
-			},
-			error: function(){
-				errorToaster(message = unknown_error_text);
-			}
-		})
-	}, 500);
+			})
+		}, 500);
+	}
 }
+
 
 function send_view_request(data){
 	setTimeout(() => {
 		$.ajax({
 			type: "GET",
-			url: `${url_prefix}/viewed-product/`,
+			url: `${view_req_url}/view-counter/product/`,
 			headers: {...data},
 			success: function(response){
 				console.log(response)
 			}
 		})
-	}, 10000);
+	}, 2000);
 }
 
 function handle_product_view(){
@@ -506,6 +508,6 @@ function handle_product_view(){
 		"ResRegNo": btoa(resource_ResRegNo),
 		"ResGuid": btoa(resource_ResGuid)
 	}
-	console.log(view_product_data)
+	// console.log(view_product_data)
 	send_view_request(view_product_data)
 }
