@@ -1,0 +1,14 @@
+from flask import make_response, jsonify
+
+def handle_default_response(data, message = "", status_code = None):
+	res = {
+		"data": data,
+		"status": 1 if data else 0,
+		"total": 1 if data else 0,
+		"message": message if message else "Default api response"
+	}
+
+	if not status_code:
+		status_code = 201 if data else 200
+
+	return make_response(jsonify(res)), status_code

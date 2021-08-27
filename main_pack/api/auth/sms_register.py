@@ -1,14 +1,18 @@
 
 from flask import (
-	jsonify,
 	request,
-	make_response,
 )
 
 from main_pack.api.auth import api
-from main_pack.api.auth.register_phone_number import register_phone_number
+from main_pack.api.auth.register_phone_number import (
+	register_phone_number,
+	check_phone_number_register,
+)
+from main_pack.api.response_handlers import handle_default_response
 
 from main_pack.base import log_print
+from main_pack.config import Config
+
 
 @api.route('/verify-sms-register/',methods=['POST'])
 def verify_sms_register():
@@ -16,26 +20,51 @@ def verify_sms_register():
 	print("headers: ", request.headers)
 	print("phone: ", req.get('phone_number'))
 	print("message: ", req.get('message_text'))
-	return make_response(jsonify(req))
+
+	return handle_default_response(req)
 
 
 @api.route("/request-sms-register/")
 def request_sms_register():
-	header_data = request.headers
+
+	data = {}
+
 	try:
+		header_data = request.headers
 		if "PhoneNumber" not in header_data:
 			raise Exception
 
-		data = register_phone_number(header_data["PhoneNumber"])
-	
+		data, message = register_phone_number(header_data["PhoneNumber"])
+
 	except Exception as ex:
-		log_print(f"UI SMS register exception: {ex}", "warning")
-	
-	res = {
-		"data": data,
-		"status": 1 if data else 0,
-		"total": 1 if data else 0,
-		"message": "Register request"
-	}
-	status_code = 201 if data else 200
-	return make_response(jsonify(res)), status_code
+		log_print(f"SMS register register exception: {ex}", "warning")
+
+	message = "{}: {}\n {} {} {}".format(
+		"Send an empty sms to number",
+		Config.REGISTER_REQUEST_VALIDATOR_PHONE_NUMBER,
+		"Request expires in",
+		Config.REGISTER_REQUEST_EXPIRE_TIME_MINUTES,
+		"(minutes)") if data else message or "Register request"
+
+	return handle_default_response(data, message)
+
+
+@api.route("/check-sms-register/")
+def check_sms_register():
+
+	data = {}
+
+	try:
+		header_data = request.headers
+		if "PhoneNumber" not in header_data:
+			raise Exception
+
+		data, message = check_phone_number_register(header_data["PhoneNumber"])
+
+	except Exception as ex:
+		log_print(f"SMS register check exception: {ex}", "warning")
+
+	message = "{}"\
+		.format("Register check success") if data else message or "Register request check"
+
+	return handle_default_response(data, message)

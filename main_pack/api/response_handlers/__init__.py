@@ -1,1 +1,1 @@
-from .respond_with_json import respond_with_json
+from .handle_default_response import handle_default_response

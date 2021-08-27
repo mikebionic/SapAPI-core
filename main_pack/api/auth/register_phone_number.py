@@ -1,18 +1,22 @@
 
-import uuid 
+import uuid
 from datetime import datetime, timedelta
 
 from main_pack.base import log_print
 from main_pack.models import Register_request
 from main_pack import db
+from main_pack.config import Config
+
+from main_pack.api.common import configurePhoneNumber
 
 
 def register_phone_number(phone_number):
-	data = {}
+	data, message = {}, ""
 	try:
-		PhoneNumber = phone_number.strip()
-		if len(PhoneNumber) < 10:
-			log_print(f"{PhoneNumber} has length {len(PhoneNumber)}", "warning")
+		PhoneNumber = configurePhoneNumber(phone_number)
+		if not PhoneNumber:
+			message = "{}: {}".format("Invalid phone number", phone_number)
+			log_print(message, "warning")
 			raise Exception
 
 		existing_register_request = Register_request.query\
@@ -20,23 +24,24 @@ def register_phone_number(phone_number):
 				RegReqPhoneNumber = PhoneNumber,
 				GCRecord = None)\
 			.first()
-		
+
 		if existing_register_request:
 			if existing_register_request.RegReqVerified:
-				log_print(f"phone number exists: {str(existing_register_request)}", "warning")
+				message = f"Phone number is already taken"
+				log_print(f"{message}: {str(existing_register_request)}", "warning")
 				raise Exception
-			
+
 			else:
-				existing_register_request.RegReqExpDate = datetime.now() + timedelta(minutes=10)
+				existing_register_request.RegReqExpDate = datetime.now() + timedelta(minutes=Config.REGISTER_REQUEST_EXPIRE_TIME_MINUTES)
 				db.session.commit()
 				data = existing_register_request.to_json_api()
-		
+
 		else:
 			new_register_request_data = {
 				"RegReqGuid": uuid.uuid4(),
 				"RegReqPhoneNumber": PhoneNumber,
 				"RegReqVerified": 0,
-				"RegReqExpDate": datetime.now() + timedelta(minutes=10)
+				"RegReqExpDate": datetime.now() + timedelta(minutes=Config.REGISTER_REQUEST_EXPIRE_TIME_MINUTES)
 			}
 			new_register_request = Register_request(**new_register_request_data)
 			db.session.add(new_register_request)
@@ -46,4 +51,37 @@ def register_phone_number(phone_number):
 	except Exception as ex:
 		log_print(f"Register phone number exception: {ex}", 'warning')
 
-	return data
+	return data, message
+
+
+def check_phone_number_register(phone_number):
+	data, message = {}, ""
+	try:
+		PhoneNumber = configurePhoneNumber(phone_number)
+		if not PhoneNumber:
+			message = "{}: {}".format("Invalid phone number", phone_number)
+			log_print(message, "warning")
+			raise Exception
+
+		registered_request = Register_request.query\
+			.filter_by(
+				RegReqPhoneNumber = PhoneNumber,
+				GCRecord = None)\
+			.first()
+
+		if not registered_request:
+			message = "{}: {}".format("Phone number not present", phone_number)
+			log_print(message, "warning")
+			raise Exception
+		
+		if not registered_request.RegReqVerified: 
+			message = "Phone number not validated yet"
+
+		if registered_request.RegReqVerified:
+			data = registered_request.to_json_api()
+			message = "Phone number verified"
+
+	except Exception as ex:
+		log_print(f"Check phone num register exception {ex}", "warning")
+
+	return data, message

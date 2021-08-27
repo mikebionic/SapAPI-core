@@ -3,7 +3,7 @@ from sqlalchemy.dialects.postgresql import UUID
 from main_pack import db
 from main_pack.models import BaseModel
 
-
+# !!! TODO: AddInf + Ip and User-agent info
 class Register_request(BaseModel, db.Model):
 	__tablename__ = "tbl_me_register_request"
 	RegReqId = db.Column("RegReqId",db.Integer,nullable=False,primary_key=True)
