@@ -41,12 +41,12 @@
 						<div id="lg2" class="tab-pane active">
 							<div class="login-form-container">
 								<div class="login-register-form">
-									<form action="" method="post">
+									<form action="" method="post" id="sms_register_form">
 										<p class="before-register-text">
 											{{_("Register to use all the features and posibilities of ecommerce")}}.
 										</p>
 
-										<input inputmode="tel" placeholder="{{_('Phone number')}}" class='input-text' />
+										<input inputmode="tel" placeholder="{{_('Phone number')}}" class='input-text' id="phone-number" />
 
 										<div class="button-box">
 											<button type="submit">{{_('Register')}}</button>
@@ -63,4 +63,8 @@
 </div>
 
 
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='commerce/hs/js/sms_register.js') }}"></script>
 {% endblock %}
