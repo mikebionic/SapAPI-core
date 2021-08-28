@@ -32,48 +32,36 @@
 				</div>
 			</div>
 		</div>
+
+		{% for slider in sliders %}
+		{% if slider.SlName == "sidebar_banner" %}
 		<div class="banner-area pt-30 pb-40">
 			<div class="container">
 				<div class="row">
-					<div class="col-lg-6 col-md-12 col-sm-12">
+					{% for sl_image in slider.Sl_images %}
+					{% if sl_image.SlImgMainImgFilePathS %}
+					<div class="col-lg-4 col-md-4 col-sm-4 col-12">
 						<div class="banner-wrap mb-30">
-							<a href="product-details.html">
-								<img src="{{ url_for('static', filename='commerce/hs/images/banner/banner-20.png') }}" alt="banner">
-							</a>
-							<div class="banner-content-12">
-								<h2>Qucx Lapoo</h2>
-								<h5>G432xx</h5>
-								<h3>1990.00</h3>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-6 col-sm-6">
-						<div class="banner-wrap mb-30">
-							<a href="product-details.html">
-								<img src="{{ url_for('static', filename='commerce/hs/images/banner/banner-21.png') }}" alt="banner">
-							</a>
-							<div class="banner-content-9">
-								<h3>Beots <br>Superb</h3>
-									<p>Lorem Ipsum is simply dummy text</p>
-									<a href="product-details.html">Shop Now</a>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-6 col-sm-6">
-						<div class="banner-wrap mb-30 res-white-overly-xs">
-							<a href="product-details.html">
-								<img src="{{ url_for('static', filename='commerce/hs/images/banner/banner-22.png') }}" alt="banner">
+							<a href="{{url_for('commerce.v_grid')}}">
+								<img src="{{ sl_image.SlImgMainImgFilePathM }}"
+								data-src-m="{{ sl_image.SlImgMainImgFilePathR }}"
+								alt="banner {{ sl_image.SlImgMainImgFileName }} {{ company.CName }}">
 							</a>
 							<div class="banner-content-9 banner-content-9-mrg2">
-								<h4>Sup<span>erb</span></h4>
-								<p>Lorem Ipsum is simply dummy text</p>
-								<a href="product-details.html">Shop Now</a>
+								<h4>{{ sl_image.SlImgTitle if sl_image.SlImgTitle else '' }}</h4>
+								<p>{{ sl_image.SlImgDesc if sl_image.SlImgDesc else '' }}</p>
+								<a href="{{url_for('commerce.v_grid')}}">Shop Now</a>
 							</div>
 						</div>
 					</div>
+					{% endif %}
+					{% endfor %}
 				</div>
 			</div>
 		</div>
+		{% endif %}
+		{% endfor %}
+
 		{% if Featured_categories %}
 		<div class="product-area pb-40">
 			<div class="container">
@@ -147,156 +135,99 @@
 			</div>
 		</div>
 		{% endif %}
-		<div class="banner-area pb-40">
+
+		{% for slider in sliders %}
+		{% if slider.SlName == "commerce_footer" %}
+		<div class="banner-area pt-30 pb-40">
 			<div class="container">
 				<div class="row">
-					<div class="col-lg-4 col-md-4">
-						<div class="banner-wrap mb-30">
-							<a href="product-details.html"><img src="{{ url_for('static', filename='commerce/hs/images/banner/banner-15.png') }}" alt="banner"></a>
-							<div class="banner-content-10">
-								<h2>Mak Pro Gamming</h2>
-							</div>
-							<div class="banner-content-10-btn">
-								<a href="#">Shop Now</a>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-8 col-md-8">
-						<div class="banner-wrap mb-30 res-white-overly-xs res-white-overly-md">
-							<a href="product-details.html"><img src="{{ url_for('static', filename='commerce/hs/images/banner/banner-23.png') }}" alt="banner"></a>
-							<div class="banner-content-13">
-								<h3>Qucx electric scooter</h3>
-								<p>It is a long established fact that a reader will be distracted by the readable</p>
+					{% for sl_image in slider.Sl_images %}
+					{% if sl_image.SlImgMainImgFilePathS %}
+					<div class="col-lg-6 col-md-6 col-sm-6 col-12">
+						<div class="banner-wrap bottom_banner mb-30">
+							<a href="{{url_for('commerce.v_grid')}}">
+								<img src="{{ sl_image.SlImgMainImgFilePathM }}"
+								data-src-m="{{ sl_image.SlImgMainImgFilePathR }}"
+								alt="banner {{ sl_image.SlImgMainImgFileName }} {{ company.CName }}">
+							</a>
+							<div class="banner-content-9 banner-content-9-mrg2">
+								<div class="centered_text">	
+									<h4>{{ sl_image.SlImgTitle if sl_image.SlImgTitle else '' }}</h4>
+									<p>{{ sl_image.SlImgDesc if sl_image.SlImgDesc else '' }}</p>
+									<a href="{{url_for('commerce.v_grid')}}">Shop Now</a>
+								</div>
 							</div>
 						</div>
 					</div>
+					{% endif %}
+					{% endfor %}
 				</div>
 			</div>
 		</div>
+		{% endif %}
+		{% endfor %}
 
 
-		
+		{% if Featured_products %}
 		<div class="product-area pb-85">
 			<div class="container">
 				<div class="section-title-6 mb-50 text-center">
-					<h2>{{_('Your previous orders')}}</h2>
+					<h2>{{_('Featured products')}}</h2>
 				</div>
-				<div class="product-slider-active owl-carousel">
-					<div class="product-wrap">
-						<div class="product-img mb-15">
-							<a href="product-details.html"><img src="{{ url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="product"></a>
-							<div class="product-action">
-								<div class="yith-wcwl-add-to-wishlist wishlist-button">
-									<a rel="nofollow" class="like">
-										<i class="la la-heart" aria-hidden="true"></i>
+				<div class="featured-product-slider owl-carousel">
+
+				{% for featured_resource in Featured_products %}
+					<div class="product-wrap product-border-3 product-img-zoom mb-30">
+							<div class="product-img">
+									<a href="{{url_for('commerce.product',ResId=featured_resource.ResId,ResName=featured_resource.ResName.replace('/','-').replace(' ','-'))}}">
+										<img src="{{ featured_resource.FilePathS if featured_resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="Product {{featured_resource.ResName}} of category {{ featured_resource.ResCatName if featured_resource.ResCatName else '' }} {{ company.CName }}">
 									</a>
-								</div>
-								<a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class="la la-plus"></i></a>
+									<div class="product-action">
+										{% if current_user.is_authenticated %}
+										<div class="yith-wcwl-add-to-wishlist wishlist-button">
+											<a rel="nofollow" class="like {{'heart' if featured_resource.Wishlist == true}}" ownerId="{{ featured_resource.ResId }}">
+												<i class="la la-heart" aria-hidden="true"></i>
+											</a>
+										</div>
+										{% endif %}	
+										<div class="con-input-btns cartItemQty" style="display: none;">
+											<button class="qtyminus qtybtn rotate-minus"><i class="las la-minus"></i></button>
+											<input type="text" class="productQty rotate-number"
+												pending_amount="{{featured_resource.ResPendingTotalAmount}}"
+												min_amount="{{featured_resource.ResMinSaleAmount}}"
+												max_amount="{{featured_resource.ResMaxSaleAmount}}"
+												value="{{featured_resource.productQty}}" ownerId="{{ featured_resource.ResId }}">
+											<button class="qtyplus qtybtn rotate-plus"><i class="las la-plus"></i></button>
+											</div>
+										<a class="add-to-cart" ownerId="{{ featured_resource.ResId }}"><i class="la la-plus"></i></a>
+											
+									</div>
 							</div>
-						</div>
-						<div class="product-content">
-							<span>Chair</span>
-							<h4><a href="product-details.html">Golden Easy Spot Chair.</a></h4>
-							<div class="price-addtocart">
-								<div class="product-price">
-									<span>m210.00</span>
-								</div>
+							<div class="product-content product-content-padding">
+									<h4><a href="{{url_for('commerce.product',ResId=featured_resource.ResId,ResName=featured_resource.ResName.replace('/','-').replace(' ','-'))}}">
+										{{ featured_resource.ResName }}
+										{{ featured_resource.ResVisibleIndex }}
+									</a></h4>
+									<div class="price-addtocart">
+											<div class="product-price">
+													<span class="priceValue" ownerId="{{featured_resource.ResId}}" value="{{featured_resource.ResPriceValue}}">{{ featured_resource.ResPriceValue }}</span>
+											</div>
+									</div>
 							</div>
-						</div>
 					</div>
-					<div class="product-wrap">
-						<div class="product-img mb-15">
-							<a href="product-details.html"><img src="{{ url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="product"></a>
-							<div class="product-action">
-								<div class="yith-wcwl-add-to-wishlist wishlist-button">
-									<a rel="nofollow" class="like">
-										<i class="la la-heart" aria-hidden="true"></i>
-									</a>
-								</div>
-								<a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class="la la-plus"></i></a>
-							</div>
-						</div>
-						<div class="product-content">
-							<span>Chair</span>
-							<h4><a href="product-details.html">Golden Easy Spot Chair.</a></h4>
-							<div class="price-addtocart">
-								<div class="product-price">
-									<span>m210.00</span>
-									<span class="old">m230.00</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="product-wrap">
-						<div class="product-img mb-15">
-							<a href="product-details.html"><img src="{{ url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="product"></a>
-							<div class="product-action">
-								<div class="yith-wcwl-add-to-wishlist wishlist-button">
-									<a rel="nofollow" class="like">
-										<i class="la la-heart" aria-hidden="true"></i>
-									</a>
-								</div>
-								<a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class="la la-plus"></i></a>
-							</div>
-						</div>
-						<div class="product-content">
-							<span>Chair</span>
-							<h4><a href="product-details.html">Golden Easy Spot Chair.</a></h4>
-							<div class="price-addtocart">
-								<div class="product-price">
-									<span>m250.00</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="product-wrap">
-						<div class="product-img mb-15">
-							<a href="product-details.html"><img src="{{ url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="product"></a>
-							<div class="product-action">
-								<div class="yith-wcwl-add-to-wishlist wishlist-button">
-									<a rel="nofollow" class="like">
-										<i class="la la-heart" aria-hidden="true"></i>
-									</a>
-								</div>
-								<a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class="la la-plus"></i></a>
-							</div>
-						</div>
-						<div class="product-content">
-							<span>Chair</span>
-							<h4><a href="product-details.html">Golden Easy Spot Chair.</a></h4>
-							<div class="price-addtocart">
-								<div class="product-price">
-									<span>m320.00</span>
-									<span class="old">m120.00</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="product-wrap">
-						<div class="product-img mb-15">
-							<a href="product-details.html"><img src="{{ url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="product"></a>
-							<span class="price-dec">-30%</span>
-							<div class="product-action">
-								<div class="yith-wcwl-add-to-wishlist wishlist-button">
-									<a rel="nofollow" class="like">
-										<i class="la la-heart" aria-hidden="true"></i>
-									</a>
-								</div>
-								<a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class="la la-plus"></i></a>
-							</div>
-						</div>
-						<div class="product-content">
-							<span>Chair</span>
-							<h4><a href="product-details.html">Golden Easy Spot Chair.</a></h4>
-							<div class="price-addtocart">
-								<div class="product-price">
-									<span>m210.00</span>
-									<span class="old">m230.00</span>
-								</div>
-							</div>
-						</div>
-					</div>
+				{% endfor %}
+					
 				</div>
+			</div>
+		</div>
+		{% endif %}
+
+		<div class="product-area pb-85">
+			<div class="container">
+				<div class="section-title-6 mb-50 text-center">
+					<h2>{{_('Previously viewed products')}}</h2>
+				</div>
+				<div class="product-slider-active owl-carousel recentViewedList"></div>
 			</div>
 		</div>
 
@@ -371,4 +302,8 @@
 		</div>
 		{% endif %}
 
+{% endblock %}
+
+{% block scripts %}
+<script>render_viewed_list()</script>
 {% endblock %}

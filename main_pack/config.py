@@ -291,6 +291,7 @@ class Config:
 	# / view route titles configuration /
 
 	COMMERCE_SHOW_BRANDS_ON_RESOURCES_PAGE = int(environ.get('COMMERCE_SHOW_BRANDS_ON_RESOURCES_PAGE')) if environ.get('COMMERCE_SHOW_BRANDS_ON_RESOURCES_PAGE') else 0
+	COMMERCE_SHOW_FEATURED_PRODUCTS = int(environ.get('COMMERCE_SHOW_FEATURED_PRODUCTS')) if environ.get('COMMERCE_SHOW_FEATURED_PRODUCTS') else 0
 
 	# templates file location configuration
 	COMMERCE_TEMPLATES_FOLDER_PATH = environ.get("COMMERCE_TEMPLATES_FOLDER_PATH") or "/commerce/bee"
@@ -301,6 +302,7 @@ class Config:
 	COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH = environ.get("COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH") or "/commerce/admin"
 	# / templates file location configuration /
 
+	ATTEMPT_ERROR_TIMEOUT_MINUTES = int(environ.get("ATTEMPT_ERROR_TIMEOUT_MINUTES")) if environ.get("ATTEMPT_ERROR_TIMEOUT_MINUTES") else 30
 	# tag resources as new if they exist **amount** days
 	COMMERCE_RESOURCE_NEWNESS_DAYS = int(environ.get('COMMERCE_RESOURCE_NEWNESS_DAYS')) if environ.get('COMMERCE_RESOURCE_NEWNESS_DAYS') else 15
 	# how many resources to show in rating view

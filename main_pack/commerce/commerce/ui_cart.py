@@ -3,6 +3,7 @@ from flask import (
 	jsonify,
 	session,
 	request,
+	make_response,
 )
 from flask_login import current_user, login_required
 import uuid
@@ -26,7 +27,7 @@ from main_pack.models import User, Payment_method
 # / users and customers /
 
 # Invoices
-from main_pack.api.commerce.commerce_utils import UiCartResourceData
+from main_pack.api.commerce.commerce_utils import UiCartResourceData, apiResourceInfo
 from main_pack.models import Warehouse, Currency
 from main_pack.models import (
 	Resource,
@@ -48,6 +49,36 @@ from datetime import datetime
 
 from main_pack.api.common import (get_ResPriceGroupId)
 
+
+@bp.route("/product/get-product-data/", methods=['PUT'])
+def get_product_data():
+	product_list = []
+	req = request.get_json()
+
+	status = 0
+	data = []
+
+	try:
+		for resElement in req:
+			ResId = resElement.get('resId')
+			product = {}
+			product['ResId'] = ResId
+			product_list.append(product)
+
+		resource_data = apiResourceInfo(product_list)
+		data = resource_data["data"] if resource_data else {}
+		status = 1
+
+
+	except Exception as ex:
+		print(f"{datetime.now()} | UI_get_procut_data Exception: {ex}")
+
+	response = {
+		"status": status,
+		"responseText": "Product Data",
+		"data": data
+	}
+	return make_response(jsonify(response))
 
 @bp.route("/product/ui_cart/", methods=['POST','PUT'])
 def ui_cart():
@@ -82,7 +113,7 @@ def ui_cart():
 			for resElement in req:
 				ResId = req[resElement].get('resId')
 				productQty = req[resElement].get('productQty')
-				
+
 				product={}
 				product['ResId'] = ResId
 				product['productQty'] = productQty
@@ -137,7 +168,7 @@ def ui_cart_table():
 			for resElement in req:
 				ResId = req[resElement].get('resId')
 				productQty = req[resElement].get('productQty')
-				
+
 				product={}
 				product['ResId'] = ResId
 				product['productQty'] = productQty
@@ -171,7 +202,7 @@ def ui_cart_table():
 # 			"priceValue": '10.0',
 # 			"productQty": 1
 # 		}
-# 	}, 
+# 	},
 # 	"orderDesc": ''
 # }
 
@@ -199,7 +230,7 @@ def ui_cart_checkout():
 					.first()
 				if not payment_method:
 					raise Exception
-			
+
 			except:
 				response = jsonify({
 					"status": 'error',
@@ -238,7 +269,7 @@ def ui_cart_checkout():
 
 			except Exception as ex:
 				print(f"{datetime.now()} | UI_checkout - Reg Num gen exception  {ex}")
-				orderRegNo = str(datetime.now().timestamp())			
+				orderRegNo = str(datetime.now().timestamp())
 
 			warehouse = Warehouse.query\
 				.filter_by(DivId = DivId, GCRecord = None)\
@@ -271,7 +302,7 @@ def ui_cart_checkout():
 			db.session.add(orderInv)
 
 			order_inv_lines = []
-			failed_order_inv_lines = []		
+			failed_order_inv_lines = []
 			OInvTotal = 0
 
 			for resElement in req['cartData']:
@@ -328,7 +359,7 @@ def ui_cart_checkout():
 
 					# add taxes and stuff later on
 					OInvLineFTotal = OInvLineTotal
-					
+
 					###### inv line assignment ######
 					resourceInv['OInvLineAmount'] = OInvLineAmount
 					resourceInv['OInvLinePrice'] = decimal.Decimal(OInvLinePrice)
@@ -338,7 +369,7 @@ def ui_cart_checkout():
 					resourceInv['UnitId'] = resource.UnitId
 					resourceInv['CurrencyId'] = price_data["CurrencyId"]
 					resourceInv['ExcRateValue'] = price_data["ExcRateValue"]
-					
+
 					order_inv_line = addOInvLineDict(resourceInv)
 
 					try:
@@ -351,12 +382,12 @@ def ui_cart_checkout():
 
 					order_inv_line['OInvLineRegNo'] = orderLineRegNo
 					order_inv_line['OInvLineGuid'] = uuid.uuid4()
-					
+
 					# increment of Main Order Inv Total Price
 					OInvTotal += OInvLineFTotal
 
 					thisOInvLine = Order_inv_line(**order_inv_line)
-					db.session.add(thisOInvLine)			
+					db.session.add(thisOInvLine)
 					order_inv_lines.append(thisOInvLine.to_json_api())
 
 				except Exception as ex:

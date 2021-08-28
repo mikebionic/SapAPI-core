@@ -112,7 +112,7 @@ $('body').delegate('.qtybtn','click', function() {
 
 	if ($button.hasClass('qtyplus')) {
 	  var newVal = parseFloat(oldValue) + 1;
-	} 
+	}
 
 	else {
 		if (oldValue > 1) {
@@ -135,7 +135,6 @@ $('body').delegate('.add-to-cart', 'click', function() {
 
 	var all_this = $('.add-to-cart[ownerId='+ownerId+']')
 	all_this.hide();
-	console.log(all_this)
 
 	var qty_obj = all_this.parent().find('.cartItemQty');
 	qty_obj.slideToggle(150);
@@ -238,7 +237,7 @@ function qtyCheckout(
 	min_amount = 0,
 	max_amount = 0,
 	pending_amount = 0){
-	
+
 	var qtyValue = configure_qty_checkout(
 		ownerId,
 		qtyValue,
@@ -388,3 +387,126 @@ $('body').delegate('.add-to-cart-rel', 'click', function() {
 		$('.add-to-cart-rel'+'[ownerId='+ownerId+']').addClass('added').find('i').addClass('ti-check').removeClass('la la-plus').siblings('span').text(remove_from_cart_text);
 	}
 })
+
+
+
+
+const single_cart_component = (resource) => `
+<div class="product-wrap">
+	<div class="product-img mb-15">
+		<a href="${url_prefix}/product/${resource.ResId}">
+			<img src="${resource.FilePathS ? resource.FilePathS : no_photo_errorhandler_image} ">
+		</a> 
+		<div class="product-action">
+			<div class="con-input-btns cartItemQty rotate-icon" style="display: none;">
+				<button class="qtyminus qtybtn rotate-minus"><i class="las la-minus"></i></button>
+				<input type="text" class="productQty"
+					pending_amount="${resource.ResPendingTotalAmount}"
+					min_amount="${resource.ResMinSaleAmount}"
+					max_amount="${resource.ResMaxSaleAmount}"
+					value="${resource.productQty}" ownerId="${resource.ResId}">
+				<button class="qtyplus qtybtn rotate-plus"><i class="las la-plus"></i></button>
+			</div>
+			<a class="add-to-cart" ownerId="${resource.ResId}"><i class="la la-plus"></i></a>
+		</div>
+	</div>
+	<div class="product-content">
+		<h4><a href="${url_prefix}/product/${resource.ResId}">
+			${resource.ResName}
+		</a></h4>
+		<div class="price-addtocart">
+				<div class="product-price">
+						<span class="priceValue" ownerId="${resource.ResId}" value="${resource.ResPriceValue}">${resource.ResPriceValue}</span>
+				</div>
+		</div>
+	</div>
+</div>
+`
+
+function update_viewed_list(resId) {
+	var viewed_products_qty = 10
+	var viewed_list = get_local_data_by_name('recent_viewed')
+	var current_views_data = []
+
+	if (viewed_list["data"]){
+		var current_views_data = viewed_list["data"]
+	}
+
+	var found_views = false
+	current_views_data.map((current_view_data) => {
+		if (current_view_data["resId"] == resId){
+			current_view_data["viewed"] += 1
+			found_views = true
+		}
+	})
+
+	if (!found_views){
+		var new_view_data = {
+			"resId": resId,
+			"date": Date.now(),
+			"viewed": 1
+		}
+		current_views_data.push(new_view_data)
+	}
+
+	current_views_data.sort(function(first, second) {
+		return second.date - first.date;
+	});
+	current_views_data.sort(function(first, second) {
+		return second.viewed - first.viewed;
+	});
+
+	viewed_list["data"] = current_views_data.splice(0, viewed_products_qty)
+	set_local_data_by_name('recent_viewed', viewed_list)
+}
+
+function render_viewed_list(){
+	var viewed_data = get_local_data_by_name('recent_viewed')
+	if (viewed_data["data"]){
+		setTimeout(() => {
+			$.ajax({
+				contentType: "application/json",
+				dataType: "json",
+				data: JSON.stringify(viewed_data["data"]),
+				type: "PUT",
+				url: `${url_prefix}/product/get-product-data/`,
+				success: function(response){
+					if (response){
+						if (response["status"] == 1){
+							response["data"].map((viewed_list_item) => {
+								$('.recentViewedList').append(single_cart_component(viewed_list_item))
+							})
+						}
+						reset_owl_carousel();
+					}
+				},
+				error: function(){
+					errorToaster(message = unknown_error_text);
+				}
+			})
+		}, 500);
+	}
+}
+
+
+function send_view_request(data){
+	setTimeout(() => {
+		$.ajax({
+			type: "GET",
+			url: `${view_req_url}/view-counter/product/`,
+			headers: {...data},
+			success: function(response){
+				console.log(response)
+			}
+		})
+	}, 2000);
+}
+
+function handle_product_view(){
+	var view_product_data = {
+		"ResRegNo": btoa(resource_ResRegNo),
+		"ResGuid": btoa(resource_ResGuid)
+	}
+	// console.log(view_product_data)
+	// send_view_request(view_product_data)
+}

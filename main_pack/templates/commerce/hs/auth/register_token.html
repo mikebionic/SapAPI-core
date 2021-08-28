@@ -18,11 +18,12 @@
 												<p>{{_('Please, proceed the registration')}}</p>
 													<form action="#" method="post">
 														{{ form.csrf_token() }}
-														{{ form.full_name(class='input-text') }}
-														{{ form.phone_number(class='input-text') }}
-														{{ form.address(class='input-text') }}
-														{{ form.password(class='input-text') }}
-														{{ form.confirm_password(class='input-text') }}
+														{{ form.full_name(class='input-text'),placeholder=_('Full name')}}
+														{{ form.phone_number(class='input-text',placeholder=_('Phone number')) }}
+														{{ form.address(class='input-text'),placeholder=_('Address')}}
+														{{ form.password(id="password-field", class='input-text'), placeholder=_('Password')}}
+														<span toggle="#password-field" class="las la-low-vision field-icon toggle-password"></span>
+														{{ form.confirm_password(class='input-text'), placeholder=_('Confirm password')}}
 														{% if form.confirm_password.errors %}
 															<p>
 																{% for error in form.confirm_password.errors %}

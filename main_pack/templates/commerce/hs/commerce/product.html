@@ -58,6 +58,10 @@
 							<div class="product-ratting-review" value="{{ resource.RtRatingValue }}" ownerId="{{ resource.ResId }}">
 								<input type="hidden" class="ratingValue" value="{{ resource.RtRatingValue }}" ownerId="{{ resource.ResId }}">
 								<div class="product-ratting ratingStars" ownerId="{{ resource.ResId }}"></div>
+								<div class="view_icon">
+									<i class="las la-eye"></i>
+									<span class="count">{{ resource.ResViewCnt }}</span>
+								</div>
 							</div>
 							<div class="pro-details-color-wrap">
 								<p>{{ resource.ResDesc if resource.ResDesc else '' }}</p>
@@ -241,4 +245,13 @@
 			</div>
 		</div>
 
+{% endblock %}
+
+{% block scripts %}
+<script>
+	var resource_ResRegNo = "{{resource.ResRegNo}}"
+	var resource_ResGuid = "{{resource.ResGuid}}"
+	var resource_ResId = {{resource.ResId}}
+</script>
+<script>update_viewed_list(resource_ResId); handle_product_view();</script>
 {% endblock %}

@@ -157,7 +157,7 @@
 							<div class="col-lg-4 col-3">
 								<div class="category-menu-wrap">
 									<h3 class="showcat">
-										<a href="#">
+										<a>
 											<img class="category-menu-non-stick" src="{{ url_for('static', filename='commerce/hs/images/icon-img/category-menu.png') }}" alt="icon">
 											<img class="category-menu-stick" src="{{ url_for('static', filename='commerce/hs/images/icon-img/category-menu-stick.png') }}" alt="icon">
 										<span>{{_('Categories')}}</span>
@@ -246,9 +246,11 @@
 							<div class="footer-widget mb-30">
 								<a href="{{ url_for('commerce.commerce') }}"><img src="{{ company_logo.FilePath }}" alt="logo"></a>
 								<div class="footer-about">
+									<h2>{{ company.CName }}</h2>
+									<p>{{ company.CFullName if company.CFullName else "" }} </p>
 									<p>{{ company.CDesc if company.CDesc else "" }} </p>
 								</div>
-							</div>
+							</div> 
 						</div>
 						
 						<div class="col-lg-9 col-md-12 col-12 col-sm-12">

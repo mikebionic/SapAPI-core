@@ -787,6 +787,7 @@
             }
             span {
                 font-size: 18px;
+                color: #fff;
                 display: block;
                 line-height: 1;
                 margin-left: 7px;
@@ -1760,6 +1761,7 @@
 }
 
 .category-menu-wrap {
+    z-index: 9;
     position: relative;
     h3 {
         font-size: 14px;

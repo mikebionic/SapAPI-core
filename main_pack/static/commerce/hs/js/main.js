@@ -109,33 +109,7 @@
     });
 
     /* Product slider active */
-    $('.product-slider-active').owlCarousel({
-        loop: true,
-        nav: false,
-        autoplay: false,
-        autoplayTimeout: 5000,
-        animateOut: 'fadeOut',
-        animateIn: 'fadeIn',
-        item: 4,
-        margin: 30,
-        responsive: {
-            0: {
-                items: 2
-            },
-            576: {
-                items: 3
-            },
-            768: {
-                items: 3
-            },
-            992: {
-                items: 4
-            },
-            1200: {
-                items: 4
-            }
-        }
-    });
+    // reset_owl_carousel()
 
     /* Product slider active 2 */
     $('.product-slider-active-2').owlCarousel({
@@ -286,7 +260,9 @@
             $cartWrap = $('.cart-wrap'),
             $cartContent = $cartWrap.find('.shopping-cart-content');
         $cartWrap.on('click', '.cart-active', function(e) {
-            $('.cart-overlay').addClass('visible');
+            if (!$('.cart-overlay').hasClass('visible')){
+                $('.cart-overlay').addClass('visible');
+            }
             e.preventDefault();
             var $this = $(this);
             if (!$this.parent().hasClass('show')) {
@@ -298,6 +274,7 @@
             $('.cart-overlay').removeClass('visible');
             $('.shopping-cart-content').removeClass('show');
             $('.cart-wrap').removeClass('show');
+            slideCategoryUp();
         });
     }
 
@@ -973,6 +950,9 @@ function slideCategoryUp(){
 
 function slideCategoryDown(){
     $('.category-menu').show()
+    if (!$('.cart-overlay').hasClass('visible')){
+        $('.cart-overlay').addClass('visible');
+    }
 }
 
 
@@ -989,8 +969,6 @@ $(window).on('scroll', function() {
 });
 
 
-
-
 $(document).ready(function(){
     configureCatSizeByScreen();
 })
@@ -1004,6 +982,9 @@ function configureCatSizeByScreen() {
     } else {
         $('.showcat').on('click', function() {
             $('.hidecat').animate({width: 'toggle'});
+            if (!$('.cart-overlay').hasClass('visible')){
+                $('.cart-overlay').addClass('visible');
+            }
         });
     }
 }
@@ -1045,5 +1026,84 @@ function on() {
 // 
 
 
+// Show/Hide button in Login
+$(".toggle-password").click(function() {
+	var input = $($(this).attr("toggle"));
+	if (input.attr("type") == "password") {
+        $(this).removeClass("las la-low-vision");
+	    $(this).addClass("las la-eye");
+		input.attr("type", "text");
+	} else {
+	    $(this).removeClass("las la-eye");
+        $(this).addClass("las la-low-vision");
+		input.attr("type", "password");
+	}
+});
+
+featured_product_owl_carousel();
 
 })(jQuery);
+
+function reset_owl_carousel(){
+    $('.product-slider-active').owlCarousel({
+        loop: true,
+        nav: false,
+        autoplay: false,
+        autoplayTimeout: 5000,
+        animateOut: 'fadeOut',
+        animateIn: 'fadeIn',
+        item: 4,
+        margin: 30,
+        responsive: {
+            0: {
+                items: 2
+            },
+            576: {
+                items: 3
+            },
+            768: {
+                items: 3
+            },
+            992: {
+                items: 4
+            },
+            1200: {
+                items: 4
+            }
+        }
+    });
+}
+
+
+
+
+
+function featured_product_owl_carousel(){
+    $('.featured-product-slider').owlCarousel({
+        loop: true,
+        nav: false,
+        autoplay: false,
+        autoplayTimeout: 5000,
+        animateOut: 'fadeOut',
+        animateIn: 'fadeIn',
+        item: 4,
+        margin: 30,
+        responsive: {
+            0: {
+                items: 2
+            },
+            576: {
+                items: 3
+            },
+            768: {
+                items: 3
+            },
+            992: {
+                items: 4
+            },
+            1200: {
+                items: 4
+            }
+        }
+    });
+}

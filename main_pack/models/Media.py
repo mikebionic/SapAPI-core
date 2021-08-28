@@ -23,6 +23,7 @@ class Media(AddInf, BaseModel, db.Model):
 	MediaUrl = db.Column("MediaUrl",db.String(1000))
 	MediaDate = db.Column("MediaDate",db.DateTime,default=datetime.now)
 	MediaIsFeatured = db.Column("MediaIsFeatured",db.Boolean,default=False)
+	MediaViewCnt = db.Column("MediaViewCnt",db.Integer)
 	# Tag = db.relationship("Tag",foreign_keys=MediaId,backref='media',lazy=True)
 
 	def to_json_api(self):
@@ -41,6 +42,7 @@ class Media(AddInf, BaseModel, db.Model):
 			"MediaUrl": self.MediaUrl,
 			"MediaDate": apiDataFormat(self.MediaDate),
 			"MediaIsFeatured": self.MediaIsFeatured,
+			"MediaViewCnt": self.MediaViewCnt,
 		}
 
 		for key, value in AddInf.to_json_api(self).items():

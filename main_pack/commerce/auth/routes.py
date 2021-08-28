@@ -20,8 +20,6 @@ from main_pack.models import User, Rp_acc
 from main_pack.models import (
 	Company,
 	Division,
-	Reg_num,
-	Reg_num_type
 )
 
 # utils
@@ -29,13 +27,17 @@ from main_pack.commerce.auth.utils import (
 	send_reset_email,
 	get_register_token,
 	verify_register_token,
-	send_register_email)
+	send_register_email,
+)
+from main_pack.api.auth.attempt_counter import attempt_counter
+
 from main_pack.commerce.commerce.utils import UiCategoriesList
 from main_pack.key_generator.utils import makeRegNo, generate
 from main_pack.base.apiMethods import get_login_info
 
 
 @bp.route("/login",methods=['GET','POST'])
+@attempt_counter
 def login():
 	form = LoginForm()
 
@@ -290,3 +292,18 @@ def register_token(token):
 		url_prefix = url_prefix,
 		title = gettext('Register'),
 		form = form)
+
+
+@bp.route("/register-sms",methods=['GET','POST'])
+def register_sms():
+	if (current_user.is_authenticated and "model_type" in session):
+		if session["model_type"] == "rp_acc":
+			return redirect(url_for('commerce.commerce'))
+
+	categoryData = UiCategoriesList()
+	return render_template(
+		f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/auth/register_sms.html",
+		**categoryData,
+		url_prefix = url_prefix,
+		title = "{} - {}".format(gettext('Register'), "SMS"),
+	)
