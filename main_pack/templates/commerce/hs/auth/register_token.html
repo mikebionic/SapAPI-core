@@ -7,41 +7,41 @@
 {% block content %}
 <div class="login-register-area pt-85 pb-90">
 	<div class="container">
-			<div class="row">
-					<div class="col-lg-7 col-md-12 ml-auto mr-auto">
-							<div class="login-register-wrapper">
-								<div class="tab-content">
-									<div id="lg1" class="tab-pane active">
-										<div class="login-form-container">
-											<div class="login-register-form">
-												<h4 style="padding: 1rem;">{{_('Register')}} | {{ company.CName }}</h4>
-												<p>{{_('Please, proceed the registration')}}</p>
-													<form action="#" method="post">
-														{{ form.csrf_token() }}
-														{{ form.full_name(class='input-text'),placeholder=_('Full name')}}
-														{{ form.phone_number(class='input-text',placeholder=_('Phone number')) }}
-														{{ form.address(class='input-text'),placeholder=_('Address')}}
-														{{ form.password(id="password-field", class='input-text'), placeholder=_('Password')}}
-														<span toggle="#password-field" class="las la-low-vision field-icon toggle-password"></span>
-														{{ form.confirm_password(class='input-text'), placeholder=_('Confirm password')}}
-														{% if form.confirm_password.errors %}
-															<p>
-																{% for error in form.confirm_password.errors %}
-																	<span style="color: red">{{ error }}</span>
-																{% endfor %}
-															</p>
-														{% endif %}
-															<div class="button-box">
-																	<button type="submit">{{_('Register')}}</button>
-															</div>
-													</form>
-											</div>
-										</div>
-									</div>
+		<div class="row">
+			<div class="col-lg-7 col-md-12 ml-auto mr-auto">
+				<div class="login-register-wrapper">
+					<div class="tab-content">
+						<div id="lg1" class="tab-pane active">
+							<div class="login-form-container">
+								<div class="login-register-form">
+									<h4 style="padding: 1rem;">{{_('Register')}} | {{ company.CName }}</h4>
+									<p>{{_('Please, proceed the registration')}}</p>
+										<form action="#" method="post">
+											{{ form.csrf_token() }}
+											{{ form.full_name(class='input-text'),placeholder=_('Full name')}}
+											{{ form.phone_number(class='input-text',placeholder=_('Phone number')) }}
+											{{ form.address(class='input-text'),placeholder=_('Address')}}
+											{{ form.password(id="password-field", class='input-text'), placeholder=_('Password')}}
+											<span toggle="#password-field" class="las la-low-vision field-icon toggle-password"></span>
+											{{ form.confirm_password(class='input-text'), placeholder=_('Confirm password')}}
+											{% if form.confirm_password.errors %}
+												<p>
+													{% for error in form.confirm_password.errors %}
+														<span style="color: red">{{ error }}</span>
+													{% endfor %}
+												</p>
+											{% endif %}
+												<div class="button-box">
+														<button type="submit">{{_('Register')}}</button>
+												</div>
+										</form>
 								</div>
 							</div>
+						</div>
 					</div>
+				</div>
 			</div>
+		</div>
 	</div>
 </div>
 {% endblock %}

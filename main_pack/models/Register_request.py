@@ -12,6 +12,8 @@ class Register_request(BaseModel, db.Model):
 	RegReqVerifyCode = db.Column("RegReqVerifyCode",db.String(1000))
 	RegReqVerified = db.Column("RegReqVerified",db.Integer)
 	RegReqExpDate = db.Column("RegReqExpDate",db.DateTime)
+	RegReqIpAddress = db.Column("RegReqIpAddress",db.String(100))
+	RegReqInfo = db.Column("RegReqInfo",db.String(500))
 
 	def to_json_api(self):
 		data = {
@@ -21,6 +23,8 @@ class Register_request(BaseModel, db.Model):
 			"RegReqVerifyCode": self.RegReqVerifyCode,
 			"RegReqVerified": self.RegReqVerified,
 			"RegReqExpDate": self.RegReqExpDate,
+			"RegReqIpAddress": self.RegReqIpAddress,
+			"RegReqInfo": self.RegReqInfo,			
 		}
 
 		for key, value in BaseModel.to_json_api(self).items():
