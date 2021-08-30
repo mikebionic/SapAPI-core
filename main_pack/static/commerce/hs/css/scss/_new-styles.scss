@@ -826,7 +826,11 @@ img.zoom-img {
   width: 50%;
 }
 .logo{
-  width: 100px;
+  width: 65px;
+	margin: 0 5px;
+	@media #{$xs-layout} {
+		width: 50px;
+	}
   img{
     width: 100%;
   }
