@@ -48,16 +48,16 @@
 							</div>
 							<div class="col-xl-8 col-lg-8 col-8">
 								<div class="header-contact-search-wrap header-contact-search-mrg">
-									<div class="header-contact-2" onclick="location.href='tel:{{company.Phone3}}';">
+									{% if company.Phone1 %}
+									<div class="header-contact-2" onclick="location.href='tel:{{company.Phone1}}';">
 										<div class="header-contact-2-icon">
 											<i class="la la-phone" style="color:#ea2e49;"></i>
 										</div>
-										{% if company.Phone1 %}
 										<div class="header-contact-2-text">
 											<a href="tel:{{company.Phone1}}">{{company.Phone1}}</a>
 										</div>
-										{% endif %}
 									</div>
+									{% endif %}
 									<div class="search-style-4">
 										<form method="get" action="{{url_for('commerce.v_grid')}}">
 											<div class="form-search-4">
@@ -362,9 +362,9 @@
 	<script src="{{ url_for('static', filename='commerce/hs/js/izitoast/js/iziToast.min.js') }}"></script>
 	<!-- Main JS -->
 	<script src="{{ url_for('static', filename='commerce/hs/js/main.js') }}"></script>
+	<script src="{{ url_for('static', filename='commerce/hs/js/pure_functions.js') }}"></script>
 	<script src="{{ url_for('static', filename='commerce/hs/js/rating.js') }}"></script>
 	<script src="{{ url_for('static', filename='commerce/hs/js/ui_dynamicals.js') }}"></script>
-	<script src="{{ url_for('static', filename='commerce/hs/js/pure_functions.js') }}"></script>
 	<script src="{{ url_for('static', filename='commerce/hs/js/ux_actions.js') }}"></script>
 	{% block scripts %}{% endblock %}
 </body>
