@@ -40,7 +40,7 @@ def logo_setup():
 	if "logoForm" in request.form and logoForm.validate_on_submit():
 		if logoForm.logoImage.data:
 			imageFile = save_icon(imageForm=logoForm.logoImage.data,module=os.path.join("uploads","commerce","Company"),id=company.CId)
-			
+
 			lastImage = Image.query.order_by(Image.ImgId.desc()).first()
 			ImgId = lastImage.ImgId+1
 			image = Image(
@@ -78,6 +78,7 @@ def remove_images():
 				file_name = image.FileName
 				remove_image(file_type,file_name)
 				db.session.delete(image)
+
 			except Exception as ex:
 				print(f"{datetime.now()} | Admin image removal exception: {ex}")
 				image.GCRecord = 1
@@ -94,11 +95,12 @@ def remove_images():
 
 			try:
 				file_type = imgType
-				file_name = Sl_image.SlImgMainImgFileName
+				file_name = sl_image.SlImgMainImgFileName
 				remove_image(file_type,file_name)
 				db.session.delete(sl_image)
 
 			except Exception as ex:
+				print(f"{datetime.now()} | Slider removal exception: {ex}")
 				sl_image.GCRecord = 1
 
 			db.session.commit()
@@ -140,7 +142,7 @@ def sliders():
 		sl_images = Sl_image.query\
 			.filter_by(GCRecord = None,SlId = slider.SlId)\
 			.all()
-		
+
 		slider_images = []
 		for sl_image in sl_images:
 			slider_images.append(sl_image.to_json_api())
@@ -181,7 +183,7 @@ def slider_images(SlId):
 					SlImgLink = sliderForm.sliderLink.data,
 					SlImgStartDate = dateDataCheck(sliderForm.SlImgStartDate.data),
 					SlImgEndDate = dateDataCheck(sliderForm.SlImgEndDate.data),
-					SlImgMainImgFilePath = imageFile['FilePath'],				
+					SlImgMainImgFilePath = imageFile['FilePath'],
 					SlId = slider.SlId)
 
 				db.session.add(image)
@@ -275,7 +277,7 @@ def resource_edit(ResId):
 
 	if not resource:
 		return redirect(url_for('commerce_admin.resources_table'))
-	
+
 	res = apiResourceInfo(
 		resource_list = [{"ResId": resource.ResId}],
 		single_object = True,
@@ -284,14 +286,14 @@ def resource_edit(ResId):
 
 	resource_info = res['data']
 	resourceForm = ResourceEditForm()
-	
+
 	brands_list = brands()
 	No_brand = (0,"...")
 	brandChoices = [No_brand]
 	for brand in brands_list:
 		obj = (brand['BrandId'],brand['BrandName'])
 		brandChoices.append(obj)
-	
+
 	if resource_info["BrandId"]:
 		# try:
 		BrandId = resource_info["BrandId"]
@@ -336,7 +338,7 @@ def resource_edit(ResId):
 	resourceForm.ResName.data = resource_info["ResName"]
 	resourceForm.ResDesc.data = resource_info["ResDesc"]
 	resourceForm.ResFullDesc.data = resource_info["ResFullDesc"]
-	
+
 	resourceForm.BrandId.choices = brandChoices
 
 	return render_template(f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/resource_edit.html",url_prefix=url_prefix,
