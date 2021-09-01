@@ -244,7 +244,9 @@
 					<div class="row">
 						<div class="col-lg-3 col-md-8 col-12 col-sm-12">
 							<div class="footer-widget mb-30">
-								<a href="{{ url_for('commerce.commerce') }}"><img src="{{ company_logo.FilePath }}" alt="logo"></a>
+								<div class="logo">
+									<a href="index.html"><img src="{{ url_for('static', filename='commerce/hs/images/logo/hs_logo.svg') }}" alt="logo"></a>
+								</div>
 								<div class="footer-about">
 									<h2>{{ company.CName }}</h2>
 									<p>{{ company.CFullName if company.CFullName else "" }} </p>
