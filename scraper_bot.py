@@ -1,4 +1,4 @@
-from scraper_pack import *
+from utils.scraper_pack import *
 
 from main_pack import create_app
 
