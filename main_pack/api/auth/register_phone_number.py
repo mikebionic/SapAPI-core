@@ -85,3 +85,36 @@ def check_phone_number_register(phone_number):
 		log_print(f"Check phone num register exception {ex}", "warning")
 
 	return data, message
+
+
+def verify_phone_number_register(phone_number, message_text = None):
+	data, message = {}, ""
+	try:
+		PhoneNumber = configurePhoneNumber(phone_number)
+		if not PhoneNumber:
+			message = "{}: {}".format("Invalid phone number", phone_number)
+			log_print(message, "warning")
+			raise Exception
+
+		registered_request = Register_request.query\
+			.filter_by(
+				RegReqPhoneNumber = PhoneNumber,
+				GCRecord = None)\
+			.filter(
+				datetime.now() < Register_request.RegReqExpDate,
+				Register_request.RegReqVerified != 1)\
+			.first()
+		
+		if not registered_request:
+			message = f"{PhoneNumber} | {message_text} wasn't registered or expired"
+			log_print(message, "warning")
+			raise Exception
+		
+		registered_request.RegReqVerified = 1
+		db.session.commit()
+		data = registered_request.to_json_api()
+
+	except Exception as ex:
+		log_print(f"validate phone num register exception {ex}", "warning")
+
+	return data, message

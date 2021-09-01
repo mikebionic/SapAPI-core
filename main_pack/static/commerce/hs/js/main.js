@@ -946,6 +946,7 @@ function slideCategoryByPathname() {
 
 function slideCategoryUp(){
     $('.category-menu').hide()
+    $('.cart-overlay').removeClass('visible');
 }
 
 function slideCategoryDown(){

@@ -27,6 +27,7 @@ def remove_image(file_type,file_name):
 		file = get_image(file_type=file_type,file_size=file_size,file_name=file_name,path_only=True)
 		FilePath = os.path.join(Config.STATIC_FOLDER_LOCATION, file)
 		os.remove(FilePath)
+
 	else:
 		file = get_image(file_type=file_type,file_size='S',file_name=file_name,path_only=True)
 		FilePathS = os.path.join(Config.STATIC_FOLDER_LOCATION, file)

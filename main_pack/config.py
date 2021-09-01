@@ -66,13 +66,13 @@ class Config:
 
 	DB_TYPE = environ.get('DB_TYPE') or 'postgres'
 	DB_URI_DATA = {
-			'user': environ.get('DB_USERNAME'),
-			'pw': environ.get('DB_PASSWORD'),
-			'db': environ.get('DB_DATABASE'),
-			'host': environ.get('DB_HOST'),
-			'port': environ.get('DB_PORT'),
-			'driver': environ.get('DB_DRIVER') or '',
-			'additionalFields': environ.get('DB_ADDITIONAL_FIELDS') or ''
+		'user': environ.get('DB_USERNAME'),
+		'pw': environ.get('DB_PASSWORD'),
+		'db': environ.get('DB_DATABASE'),
+		'host': environ.get('DB_HOST'),
+		'port': environ.get('DB_PORT'),
+		'driver': environ.get('DB_DRIVER') or '',
+		'additionalFields': environ.get('DB_ADDITIONAL_FIELDS') or ''
 	}
 	if DB_TYPE.lower() == "mssql":
 		SQLALCHEMY_DATABASE_URI = "mssql+pyodbc://%(user)s:%(pw)s@%(host)s:%(port)s/%(db)s?driver=%(driver)s%(additionalFields)s" % DB_URI_DATA

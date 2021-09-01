@@ -7,6 +7,7 @@ from main_pack.api.auth import api
 from main_pack.api.auth.register_phone_number import (
 	register_phone_number,
 	check_phone_number_register,
+	verify_phone_number_register,
 )
 from main_pack.api.auth.utils import sha_required
 from main_pack.api.response_handlers import handle_default_response
@@ -19,9 +20,11 @@ from main_pack.config import Config
 @sha_required
 def verify_sms_register():
 	req = request.get_json()
-	print("headers: ", request.headers)
-	print("phone: ", req.get('phone_number'))
-	print("message: ", req.get('message_text'))
+	# print("headers: ", request.headers)
+	phone_number = req.get('phone_number')
+	message_text = req.get('message_text')
+
+	verify_phone_number_register(phone_number, message_text)
 
 	return handle_default_response(req)
 
