@@ -16,10 +16,11 @@ def make_pop_merge_of_data(files_data, images_data):
 		if data["filename"] in images_data:
 			for f_data in files_data:
 				if f_data["filename"] == data["filename"]:
-					os.remove(f_data["path"])
 					files_data.pop(files_data.index(f_data))
 			images_data.pop(images_data.index(data["filename"]))
 
+	for data in files_data:
+		os.remove(data["path"])
 	# print(len(files_data))
 
 
