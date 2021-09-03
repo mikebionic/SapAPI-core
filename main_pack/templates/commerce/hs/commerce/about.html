@@ -12,15 +12,15 @@
 {% block breadcrumbs %}
 <div class="breadcrumb-area bg-img">
 	<div class="container">
-			<div class="breadcrumb-content text-center">
-					<h2>{{_('About us')}} </h2>
-					<ul>
-							<li>
-								<a href="{{ url_for('commerce.commerce') }}">{{_('Main')}}</a>
-							</li>
-							<li class="active">{{_('About us')}}</li>
-					</ul>
-			</div>
+		<div class="breadcrumb-content text-center">
+			<h2>{{_('About us')}} </h2>
+			<ul>
+				<li>
+					<a href="{{ url_for('commerce.commerce') }}">{{_('Main')}}</a>
+				</li>
+				<li class="active">{{_('About us')}}</li>
+			</ul>
+		</div>
 	</div>
 </div>
 {% endblock %}
@@ -29,165 +29,27 @@
 	
 
 	<div class="about-us-area pt-90 pb-90">
-			<div class="container">
-					<div class="row">
-							<div class="col-lg-6 col-md-6">
-									<div class="about-us-img text-center">
-											<a href="#">
-													<img src="{{ url_for('static', filename='commerce/bee/images/about-1.png') }}" alt="">
-											</a>
-									</div>
-							</div>
-							<div class="col-lg-6 col-md-6 align-self-center">
-									<div class="about-us-content">
-											<h2>Welcome To <span>Daxone</span> Store !</h2>
-											<p class="peragraph-blog">Daxone Shop is a premium HTML template designed and develoved from the ground up with the sole purpose of helping you create an astonishing, the beautiful and user friendly website that will boost your product’s sales.</p>
-											<p>The theme design package provides a complete Magento theme set for your online store according to your desired theme. This includes all Magento themes that are required for your online store's successful implementation.</p>
-											<div class="about-us-btn btn-hover hover-border-none">
-													<a class="btn-color-white btn-color-theme-bg black-color" href="shop.html">Shop now!</a>
-											</div>
-									</div>
-							</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-md-6">
+					<div class="about-us-img text-center">
+						<a href="#">
+							<img src="{{ url_for('static', filename='commerce/bee/images/about-1.png') }}" alt="">
+						</a>
 					</div>
+				</div>
+				<div class="col-lg-6 col-md-6 align-self-center">
+					<div class="about-us-content">
+						<h2>Welcome To <span>Daxone</span> Store !</h2>
+						<p class="peragraph-blog">Daxone Shop is a premium HTML template designed and develoved from the ground up with the sole purpose of helping you create an astonishing, the beautiful and user friendly website that will boost your product’s sales.</p>
+						<p>The theme design package provides a complete Magento theme set for your online store according to your desired theme. This includes all Magento themes that are required for your online store's successful implementation.</p>
+						<div class="about-us-btn btn-hover hover-border-none">
+								<a class="btn-color-white btn-color-theme-bg black-color" href="shop.html">Shop now!</a>
+						</div>
+					</div>
+				</div>
 			</div>
+		</div>
 	</div>
-
-	<!-- <div class="feature-area pb-90 section-padding-3">
-			<div class="container">
-					<div class="feature-border feature-border-about">
-							<div class="row">
-									<div class="col-lg-3 col-md-6 col-sm-6">
-											<div class="feature-wrap mb-30 text-center">
-													<img src="../../static/images/icon-img/feature-icon-1.png" alt="">
-													<h5>Best Product</h5>
-													<span>Best Queality Products</span>
-											</div>
-									</div>
-									<div class="col-lg-3 col-md-6 col-sm-6">
-											<div class="feature-wrap mb-30 text-center">
-													<img src="../../static/images/icon-img/feature-icon-2.png" alt="">
-													<h5>100% fresh</h5>
-													<span>Best Queality Products</span>
-											</div>
-									</div>
-									<div class="col-lg-3 col-md-6 col-sm-6">
-											<div class="feature-wrap mb-30 text-center">
-													<img src="../../static/images/icon-img/feature-icon-3.png" alt="">
-													<h5>Secure Payment</h5>
-													<span>Best Queality Products</span>
-											</div>
-									</div>
-									<div class="col-lg-3 col-md-6 col-sm-6">
-											<div class="feature-wrap mb-30 text-center">
-													<img src="../../static/images/icon-img/feature-icon-4.png" alt="">
-													<h5>Best Wood</h5>
-													<span>Best Queality Products</span>
-											</div>
-									</div>
-							</div>
-					</div>
-			</div>
-	</div>
-
-	<div class="banner-area">
-			<div class="container">
-					<div class="row">
-							<div class="col-lg-6 col-md-12 col-sm-12">
-									<div class="banner-wrap mb-30">
-											<a href="product-details.html">
-													<img src="../../static/images/banner/banner-12.png" alt="banner">
-											</a>
-											<div class="banner-content-8">
-													<h2>Best LED TV</h2>
-													<h5>G432xx</h5>
-													<h3><span>$</span>1990.00</h3>
-													<h4>0% <span>EMI </span> available</h4>
-											</div>
-									</div>
-							</div>
-							<div class="col-lg-3 col-md-6 col-sm-6">
-									<div class="banner-wrap mb-30">
-											<a href="product-details.html">
-													<img src="../../static/images/banner/banner-13.png" alt="banner">
-											</a>
-											<div class="banner-content-9">
-													<h3>Beots <br>Superb</h3>
-															<p>Lorem Ipsum is simply dummy text</p>
-															<a href="product-details.html">Shop Now</a>
-											</div>
-									</div>
-							</div>
-							<div class="col-lg-3 col-md-6 col-sm-6">
-									<div class="banner-wrap mb-30">
-											<a href="product-details.html">
-													<img src="../../static/images/banner/banner-14.png" alt="banner">
-											</a>
-											<div class="banner-content-9">
-													<h1>Beots</h1>
-													<h4>Sup<span>erb</span></h4>
-													<p>Lorem Ipsum is simply dummy text</p>
-													<a href="product-details.html">Shop Now</a>
-											</div>
-									</div>
-							</div>
-					</div>
-			</div>
-	</div>
-
-	<div class="banner-area">
-			<div class="container">
-					<div class="row">
-							<div class="col-lg-4 col-md-4">
-									<div class="banner-wrap mb-30">
-											<a href="product-details.html"><img src="../../static/images/banner/banner-15.png" alt="banner"></a>
-											<div class="banner-content-10">
-													<h2>MAK PRO GAMMING</h2>
-											</div>
-											<div class="banner-content-10-btn">
-													<a href="product-details.html">Shop Now</a>
-											</div>
-									</div>
-							</div>
-							<div class="col-lg-8 col-md-8">
-									<div class="banner-wrap mb-30">
-											<a href="product-details.html"><img src="../../static/images/banner/banner-16.png" alt="banner"></a>
-											<div class="banner-content-11">
-													<h2>35% </h2>
-													<h3>Discount</h3>
-													<h4>0% Interest EMI Available.</h4>
-											</div>
-									</div>
-							</div>
-					</div>
-			</div>
-	</div>
-
-	<div class="brand-logo-area pb-90">
-			<div class="container">
-					<div class="brand-logo-padding bg-gray-3">
-							<div class="brand-logo-active-2 owl-carousel">
-									<div class="single-brand-logo">
-											<img src="../../static/images/brand-logo/brand-logo-5.png" alt="">
-									</div>
-									<div class="single-brand-logo">
-											<img src="../../static/images/brand-logo/brand-logo-6.png" alt="">
-									</div>
-									<div class="single-brand-logo">
-											<img src="../../static/images/brand-logo/brand-logo-7.png" alt="">
-									</div>
-									<div class="single-brand-logo">
-											<img src="../../static/images/brand-logo/brand-logo-8.png" alt="">
-									</div>
-									<div class="single-brand-logo">
-											<img src="../../static/images/brand-logo/brand-logo-9.png" alt="">
-									</div>
-									<div class="single-brand-logo">
-											<img src="../../static/images/brand-logo/brand-logo-6.png" alt="">
-									</div>
-							</div>
-					</div>
-			</div>
-	</div> -->
-
 
 	{% endblock %}

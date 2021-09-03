@@ -44,7 +44,7 @@
 					<div class="col-lg-4 col-md-4 col-sm-4 col-12">
 						<div class="banner-wrap mb-30">
 							<a href="{{url_for('commerce.v_grid')}}">
-								<img src="{{ sl_image.SlImgMainImgFilePathM }}"
+								<img loading="lazy"  src="{{ sl_image.SlImgMainImgFilePathM }}"
 								data-src-m="{{ sl_image.SlImgMainImgFilePathR }}"
 								alt="banner {{ sl_image.SlImgMainImgFileName }} {{ company.CName }}">
 							</a>
@@ -93,7 +93,7 @@
 									<div class="product-wrap product-border-3 product-img-zoom mb-30">
 										<div class="product-img">
 											<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">
-												<img src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }} {{ company.CName }}">
+												<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }} {{ company.CName }}">
 											</a>
 											<div class="product-action">
 												{% if current_user.is_authenticated %}
@@ -148,7 +148,7 @@
 					<div class="col-lg-6 col-md-6 col-sm-6 col-12">
 						<div class="banner-wrap bottom_banner mb-30">
 							<a href="{{url_for('commerce.v_grid')}}">
-								<img src="{{ sl_image.SlImgMainImgFilePathM }}"
+								<img loading="lazy" src="{{ sl_image.SlImgMainImgFilePathM }}"
 								data-src-m="{{ sl_image.SlImgMainImgFilePathR }}"
 								alt="banner {{ sl_image.SlImgMainImgFileName }} {{ company.CName }}">
 							</a>
@@ -182,7 +182,7 @@
 					<div class="product-wrap product-border-3 product-img-zoom mb-30">
 						<div class="product-img">
 							<a href="{{url_for('commerce.product',ResId=featured_resource.ResId,ResName=featured_resource.ResName.replace('/','-').replace(' ','-'))}}">
-								<img src="{{ featured_resource.FilePathS if featured_resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="Product {{featured_resource.ResName}} of category {{ featured_resource.ResCatName if featured_resource.ResCatName else '' }} {{ company.CName }}">
+								<img loading="lazy" src="{{ featured_resource.FilePathS if featured_resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="Product {{featured_resource.ResName}} of category {{ featured_resource.ResCatName if featured_resource.ResCatName else '' }} {{ company.CName }}">
 							</a>
 							<div class="product-action">
 								{% if current_user.is_authenticated %}
@@ -246,7 +246,7 @@
 						<div class="product-wrap product-border-3 product-img-zoom mb-30">
 							<div class="product-img">
 								<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">
-									<img src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }} {{ company.CName }}">
+									<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }} {{ company.CName }}">
 								</a>
 								<div class="product-action">
 									{% if current_user.is_authenticated %}
