@@ -2,15 +2,15 @@
 
 
 {% block head %}
-<meta name="description" 
+<meta name="description"
 	content="{% for sort in sort_types %}{{ sort.sort_title if sort.status == 1 }}{% endfor %} {{_('Products')}}: {% for resource in data %} {{ resource.ResName }}, {% endfor %}">
-<meta property="og:description" 
+<meta property="og:description"
 	content="{% for sort in sort_types %}{{ sort.sort_title if sort.status == 1 }}{% endfor %} {{_('Products')}}: {% for resource in data %} {{ resource.ResName }}, {% endfor %}" />
-<meta property="og:image" 
+<meta property="og:image"
 	content="{{ request.host_url }}{{ url_for('static', filename='commerce/hs/images/logo/halal_OG.png') }}" />
-<meta name="twitter:description" 
+<meta name="twitter:description"
 	content="{% for sort in sort_types %}{{ sort.sort_title if sort.status == 1 }}{% endfor %} {{_('Products')}}: {% for resource in data %} {{ resource.ResName }}, {% endfor %}" />
-<meta name="twitter:image" 
+<meta name="twitter:image"
 	content="{{ request.host_url }}{{ url_for('static', filename='commerce/hs/images/logo/halal_OG.png') }}" />
 {% endblock %}
 {% block breadcrumbs %}
@@ -29,188 +29,184 @@
 	</div>
 {% endblock %}
 {% block content %}
-		
 
-
-
-		<div class="shop-area pt-90 pb-90">
-			<div class="container">
-				<div class="row flex-row-reverse">
-					<div class="col-lg-9">
-						<div class="shop-topbar-wrapper">
-							<div class="shop-topbar-left">
-								<div class="view-mode nav">
-									<a class="active" href="#shop-1" data-toggle="tab"><i class="la la-th"></i></a>
-								</div>
+	<div class="shop-area pt-90 pb-90">
+		<div class="container">
+			<div class="row flex-row-reverse">
+				<div class="col-lg-9">
+					<div class="shop-topbar-wrapper">
+						<div class="shop-topbar-left">
+							<div class="view-mode nav">
+								<a class="active" href="#shop-1" data-toggle="tab"><i class="la la-th"></i></a>
 							</div>
-							<div class="product-sorting-wrapper">
-									<div class="product-shorting shorting-style">
-										<label>{{_('Showing')}}</label>
-										<select name="showing" class="nice-select per_page">
-											<option value="{{ per_page }}">{{ per_page }}</option>
-											<option value="16">16</option>
-											<option value="32">32</option>
-											<option value="56">56</option>
-											<option value="80">80</option>
-											<option value="96">96</option>
-										</select>
-									</div>
-									<div class="product-show shorting-style sorting">
-										<label>{{_('View')}}</label>
-										<select>
-											{% for sort in sort_types %}
-												<option value="{{sort.sort}}" {{ 'selected' if sort.status == 1 }}>{{sort.sort_title}}</option>
-											{% endfor %}
-										</select>
-									</div>
-									<input type="hidden" class="category_sort" value="{{ category if category else '' }}">
-									<input type="hidden" class="brand_sort" value="{{ brand if brand else '' }}">
-									<input type="hidden" class="search_sort" value="{{ search if search else '' }}">
-									<button class="applySortingBtn btn" style="border:1px solid #ebebeb; padding:0 .75rem">{{_('View')}}</button>
-								</div>
 						</div>
-						<div class="shop-bottom-area">
-							<div class="tab-content jump">
-								<div id="shop-1" class="tab-pane active">
-									<div class="row">
-										{% if data == [] or data == null %}
-										{{_('Nothing found')}}
-										{% endif %}
-							
-										{% for resource in data %}
-										<div class="col-xl-3 col-lg-4 col-md-4 col-sm-4 col-6">
-											<div class="product-wrap product-border-3 product-img-zoom mb-30">
-												<div class="product-img">
-													<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">
-														<img src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }} {{ company.CName }}">
-													</a>
-													<div class="product-action">
-														{% if current_user.is_authenticated %}
-														<div class="yith-wcwl-add-to-wishlist wishlist-button">
-															<a rel="nofollow" class="like {{'heart' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}">
-																<i class="la la-heart" aria-hidden="true"></i>
-															</a>
-														</div>
-														{% endif %}
-														<div class="con-input-btns cartItemQty rotate-icon" style="display: none;">
-															<button class="qtyminus qtybtn rotate-minus"><i class="las la-minus"></i></button>
-															<input type="text" class="productQty"
-																pending_amount="{{resource.ResPendingTotalAmount}}"
-																min_amount="{{resource.ResMinSaleAmount}}"
-																max_amount="{{resource.ResMaxSaleAmount}}"
-																value="{{resource.productQty}}" ownerId="{{ resource.ResId }}">
-															<button class="qtyplus qtybtn rotate-plus"><i class="las la-plus"></i></button>
-															</div>
-														<a class="add-to-cart" ownerId="{{ resource.ResId }}"><i class="la la-plus"></i></a>
-													
+						<div class="product-sorting-wrapper">
+							<div class="product-shorting shorting-style">
+								<label>{{_('Showing')}}</label>
+								<select name="showing" class="nice-select per_page">
+									<option value="{{ per_page }}">{{ per_page }}</option>
+									<option value="16">16</option>
+									<option value="32">32</option>
+									<option value="56">56</option>
+									<option value="80">80</option>
+									<option value="96">96</option>
+								</select>
+							</div>
+							<div class="product-show shorting-style sorting">
+								<label>{{_('View')}}</label>
+								<select>
+									{% for sort in sort_types %}
+										<option value="{{sort.sort}}" {{ 'selected' if sort.status == 1 }}>{{sort.sort_title}}</option>
+									{% endfor %}
+								</select>
+							</div>
+							<input type="hidden" class="category_sort" value="{{ category if category else '' }}">
+							<input type="hidden" class="brand_sort" value="{{ brand if brand else '' }}">
+							<input type="hidden" class="search_sort" value="{{ search if search else '' }}">
+							<button class="applySortingBtn btn" style="border:1px solid #ebebeb; padding:0 .75rem">{{_('View')}}</button>
+						</div>
+					</div>
+					<div class="shop-bottom-area">
+						<div class="tab-content jump">
+							<div id="shop-1" class="tab-pane active">
+								<div class="row">
+									{% if data == [] or data == null %}
+									{{_('Nothing found')}}
+									{% endif %}
+
+									{% for resource in data %}
+									<div class="col-xl-3 col-lg-4 col-md-4 col-sm-4 col-6">
+										<div class="product-wrap product-border-3 product-img-zoom mb-30">
+											<div class="product-img">
+												<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">
+													<img src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }} {{ company.CName }}">
+												</a>
+												<div class="product-action">
+													{% if current_user.is_authenticated %}
+													<div class="yith-wcwl-add-to-wishlist wishlist-button">
+														<a rel="nofollow" class="like {{'heart' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}">
+															<i class="la la-heart" aria-hidden="true"></i>
+														</a>
 													</div>
+													{% endif %}
+													<div class="con-input-btns cartItemQty rotate-icon" style="display: none;">
+														<button class="qtyminus qtybtn rotate-minus"><i class="las la-minus"></i></button>
+														<input type="text" class="productQty"
+															pending_amount="{{resource.ResPendingTotalAmount}}"
+															min_amount="{{resource.ResMinSaleAmount}}"
+															max_amount="{{resource.ResMaxSaleAmount}}"
+															value="{{resource.productQty}}" ownerId="{{ resource.ResId }}">
+														<button class="qtyplus qtybtn rotate-plus"><i class="las la-plus"></i></button>
+														</div>
+													<a class="add-to-cart" ownerId="{{ resource.ResId }}"><i class="la la-plus"></i></a>
 												</div>
-												<div class="product-content product-content-padding">
-													<h4><a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">
-														{{ resource.ResName }}
-													</a></h4>
-													<div class="price-addtocart">
-															<div class="product-price">
-																<span class="priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue }}</span>
-															</div>
+											</div>
+											<div class="product-content product-content-padding">
+												<h4><a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">
+													{{ resource.ResName }}
+												</a></h4>
+												<div class="price-addtocart">
+													<div class="product-price">
+														<span class="priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue }}</span>
+														<span>{{ resource.CurrencyCode }}</span>
 													</div>
 												</div>
 											</div>
 										</div>
-										{% endfor %}
 									</div>
+									{% endfor %}
 								</div>
-								<div class="pagination-style text-center">
-									<ul>
-										{% if prev_url %}
-										<li><a class="prev" href="#"><i class="la la-angle-left"></i></a></li>
+							</div>
+							<div class="pagination-style text-center">
+								<ul>
+									{% if prev_url %}
+									<li><a class="prev" href="#"><i class="la la-angle-left"></i></a></li>
+									{% endif %}
+									{% for page_num in page_num_list %}
+											{% if page_num %}
+												{% if page_num.status == "active" %}
+													<li><a class="active" href="#">{{ page_num.page }}</a></li>
+												{% elif page_num.status == None %}
+													<li><a href="#">------</a></li>
+												{% else %}
+													<li><a href="{{ page_num.url }}">{{ page_num.page }}</a></li>
+												{% endif %}
 										{% endif %}
-										{% for page_num in page_num_list %}
-												{% if page_num %}
-													{% if page_num.status == "active" %}
-														<li><a class="active" href="#">{{ page_num.page }}</a></li>
-													{% elif page_num.status == None %}
-														<li><a href="#">------</a></li>
-													{% else %}
-														<li><a href="{{ page_num.url }}">{{ page_num.page }}</a></li>
-													{% endif %}
-											{% endif %}
-										{% endfor %}
-										{% if next_url %}
-											<li><a class="next" href="{{ next_url }}"><i class="la la-angle-right"></i></a></li>
-										{% endif %}
-									</ul>
-								</div>
+									{% endfor %}
+									{% if next_url %}
+										<li><a class="next" href="{{ next_url }}"><i class="la la-angle-right"></i></a></li>
+									{% endif %}
+								</ul>
 							</div>
 						</div>
 					</div>
-					<div class="col-lg-3">
-						<div class="sidebar-wrapper">
-							<div class="sidebar-widget">
-								<h4 class="sidebar-title">{{_('Search')}} </h4>
-								<div class="sidebar-search mb-40 mt-20">
-									<form class="sidebar-search-form" action="#">
-										<input type="text" id="search" dir="ltr" value="" name="search" placeholder="{{_('Search')}}" />
-										<button>
-											<i class="la la-search"></i>
-										</button>
-									</form>
-								</div>
+				</div>
+				<div class="col-lg-3">
+					<div class="sidebar-wrapper">
+						<div class="sidebar-widget">
+							<h4 class="sidebar-title">{{_('Search')}} </h4>
+							<div class="sidebar-search mb-40 mt-20">
+								<form class="sidebar-search-form" action="#">
+									<input type="text" id="search" dir="ltr" value="" name="search" placeholder="{{_('Search')}}" />
+									<button>
+										<i class="la la-search"></i>
+									</button>
+								</form>
 							</div>
-							<!-- <div class="sidebar-widget shop-sidebar-border pt-40">
-								<h4 class="sidebar-title">{{_('Categories')}}</h4>
-								<div class="shop-catigory mt-20">
-									<ul id="faq">
-										<li> <a data-toggle="collapse" data-parent="#faq" href="{{url_for('commerce.v_grid')}}">{{_('All')}}</a></li>
-										{% for category in categories %}
-										<li> <a data-toggle="collapse" data-parent="#faq" href="#shop-catigory-2">{{ category.ResCatName }}
-											<i class="la la-angle-down"></i>
-											{% if not category.Categories %}
-											</a>
-											{% elif category.Categories %}
-											<ul id="shop-catigory-2" class="panel-collapse collapse">
-												{% for category in category.Categories %}
-												<li><a href="{{url_for('commerce.v_grid',ResCatId=category.ResCatId,ResCatName=category.ResCatName.replace('/','-').replace(' ','-'))}}">
-													{{ category.ResCatName }}
-												 </a></li>
-												{% endfor %}
-											</ul>
-											{% endif %}
-										</li> 
-										{% endfor %}
-									</ul>
-								</div>
-							</div>
-							<div class="shop-price-filter mt-35 shop-sidebar-border pt-40 sidebar-widget">
-								<h4 class="sidebar-title">{{_('Price Filter')}}</h4>
-								<div class="price-filter mt-20">
-									<span>{{_('Range:')}}  $100.00 - 1.300.00 </span>
-									<div id="slider-range"></div>
-									<div class="price-slider-amount">
-										<div class="label-input">
-											<input type="text" id="amount" name="price" placeholder="Add Your Price" />
-										</div>
-										<button type="button">{{_('Filter')}}</button>
-									</div>
-								</div>
-							</div>
-							<div class="sidebar-widget pt-40 mt-40 shop-sidebar-border">
-								<h4 class="sidebar-title">{{_('Popular Tags')}} </h4>
-								<div class="sidebar-widget-tag mt-20">
-									<ul>
-										<li><a href="#">Clothing</a></li>
-										<li><a href="#">Accessories</a></li>
-										<li><a href="#">For Men</a></li>
-										<li><a href="#">Women</a></li>
-										<li><a href="#">Fashion</a></li>
-									</ul>
-								</div>
-							</div> -->
 						</div>
+						<!-- <div class="sidebar-widget shop-sidebar-border pt-40">
+							<h4 class="sidebar-title">{{_('Categories')}}</h4>
+							<div class="shop-catigory mt-20">
+								<ul id="faq">
+									<li> <a data-toggle="collapse" data-parent="#faq" href="{{url_for('commerce.v_grid')}}">{{_('All')}}</a></li>
+									{% for category in categories %}
+									<li> <a data-toggle="collapse" data-parent="#faq" href="#shop-catigory-2">{{ category.ResCatName }}
+										<i class="la la-angle-down"></i>
+										{% if not category.Categories %}
+										</a>
+										{% elif category.Categories %}
+										<ul id="shop-catigory-2" class="panel-collapse collapse">
+											{% for category in category.Categories %}
+											<li><a href="{{url_for('commerce.v_grid',ResCatId=category.ResCatId,ResCatName=category.ResCatName.replace('/','-').replace(' ','-'))}}">
+												{{ category.ResCatName }}
+												</a></li>
+											{% endfor %}
+										</ul>
+										{% endif %}
+									</li>
+									{% endfor %}
+								</ul>
+							</div>
+						</div>
+						<div class="shop-price-filter mt-35 shop-sidebar-border pt-40 sidebar-widget">
+							<h4 class="sidebar-title">{{_('Price Filter')}}</h4>
+							<div class="price-filter mt-20">
+								<span>{{_('Range:')}}  $100.00 - 1.300.00 </span>
+								<div id="slider-range"></div>
+								<div class="price-slider-amount">
+									<div class="label-input">
+										<input type="text" id="amount" name="price" placeholder="Add Your Price" />
+									</div>
+									<button type="button">{{_('Filter')}}</button>
+								</div>
+							</div>
+						</div>
+						<div class="sidebar-widget pt-40 mt-40 shop-sidebar-border">
+							<h4 class="sidebar-title">{{_('Popular Tags')}} </h4>
+							<div class="sidebar-widget-tag mt-20">
+								<ul>
+									<li><a href="#">Clothing</a></li>
+									<li><a href="#">Accessories</a></li>
+									<li><a href="#">For Men</a></li>
+									<li><a href="#">Women</a></li>
+									<li><a href="#">Fashion</a></li>
+								</ul>
+							</div>
+						</div> -->
 					</div>
 				</div>
 			</div>
 		</div>
-
+	</div>
 
 {% endblock %}

@@ -4,6 +4,7 @@ from datetime import datetime
 from main_pack.models import Image
 from main_pack.models import Sl_image
 
+
 def run_clearer(path, model_type="image"):
 	files_data = get_files_info_from_path(path)
 	images_data = get_images_query_from_db(model_type)
@@ -11,17 +12,9 @@ def run_clearer(path, model_type="image"):
 
 
 def make_pop_merge_of_data(files_data, images_data):
-	# print(len(files_data))
-	for data in files_data:
-		if data["filename"] in images_data:
-			for f_data in files_data:
-				if f_data["filename"] == data["filename"]:
-					files_data.pop(files_data.index(f_data))
-			images_data.pop(images_data.index(data["filename"]))
-
-	for data in files_data:
+	missing_in_list = list(filter(lambda d: d['filename'] not in images_data, files_data))
+	for data in missing_in_list:
 		os.remove(data["path"])
-	# print(len(files_data))
 
 
 def get_files_info_from_path(path):
