@@ -48,11 +48,6 @@
 								data-src-m="{{ sl_image.SlImgMainImgFilePathR }}"
 								alt="banner {{ sl_image.SlImgMainImgFileName }} {{ company.CName }}">
 							</a>
-							<div class="banner-content-9 banner-content-9-mrg2">
-								<h4>{{ sl_image.SlImgTitle if sl_image.SlImgTitle else '' }}</h4>
-								<p>{{ sl_image.SlImgDesc if sl_image.SlImgDesc else '' }}</p>
-								<a href="{{url_for('commerce.v_grid')}}">Shop Now</a>
-							</div>
 						</div>
 					</div>
 					{% endif %}
@@ -152,13 +147,6 @@
 								data-src-m="{{ sl_image.SlImgMainImgFilePathR }}"
 								alt="banner {{ sl_image.SlImgMainImgFileName }} {{ company.CName }}">
 							</a>
-							<div class="banner-content-9 banner-content-9-mrg2">
-								<div class="centered_text">
-									<h4>{{ sl_image.SlImgTitle if sl_image.SlImgTitle else '' }}</h4>
-									<p>{{ sl_image.SlImgDesc if sl_image.SlImgDesc else '' }}</p>
-									<a href="{{url_for('commerce.v_grid')}}">Shop Now</a>
-								</div>
-							</div>
 						</div>
 					</div>
 					{% endif %}
