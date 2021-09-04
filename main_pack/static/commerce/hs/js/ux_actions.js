@@ -493,13 +493,13 @@ function send_view_request(data){
 	setTimeout(() => {
 		$.ajax({
 			type: "GET",
-			url: `${view_req_url}/view-counter/product/`,
+			url: `${view_handler_api_url}?type=resource`,
 			headers: {...data},
 			success: function(response){
 				console.log(response)
 			}
 		})
-	}, 2000);
+	}, 15000);
 }
 
 function handle_product_view(){
@@ -507,6 +507,5 @@ function handle_product_view(){
 		"ResRegNo": btoa(resource_ResRegNo),
 		"ResGuid": btoa(resource_ResGuid)
 	}
-	// console.log(view_product_data)
-	// send_view_request(view_product_data)
+	send_view_request(view_product_data)
 }

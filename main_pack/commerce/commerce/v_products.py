@@ -159,4 +159,6 @@ def product(ResId, ResName = None):
 		**categoryData,
 		resource = resource,
 		url_prefix = url_prefix,
+		handle_product_view = Config.HANDLE_PRODUCT_VIEW,
+		view_handler_api_url = Config.VIEW_HANDLER_API_URL,
 		title = title)

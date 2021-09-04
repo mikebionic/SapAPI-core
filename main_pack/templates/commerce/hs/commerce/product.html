@@ -252,6 +252,13 @@
 	var resource_ResRegNo = "{{resource.ResRegNo}}"
 	var resource_ResGuid = "{{resource.ResGuid}}"
 	var resource_ResId = {{resource.ResId}}
+	var view_handling = {{handle_product_view}}
+	var view_handler_api_url = "{{view_handler_api_url}}"
 </script>
-<script>update_viewed_list(resource_ResId); handle_product_view();</script>
+<script>
+	update_viewed_list(resource_ResId); 
+	if (view_handling){
+		handle_product_view();
+	}
+</script>
 {% endblock %}
