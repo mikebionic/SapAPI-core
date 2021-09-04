@@ -311,6 +311,7 @@ def register_sms():
 	return render_template(
 		f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/auth/register_sms.html",
 		**categoryData,
-		url_prefix = Config.API_URL_PREFIX,
+		api_url_prefix = Config.API_URL_PREFIX,
+		url_prefix = url_prefix,
 		title = "{} - {}".format(gettext('Register'), "SMS"),
 	)

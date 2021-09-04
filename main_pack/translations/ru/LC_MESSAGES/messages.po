@@ -912,3 +912,9 @@ msgstr "Очистить корзину"
 
 msgid "Continue Shopping"
 msgstr "Продолжить покупку"
+
+msgid "Featured products"
+msgstr "Рекомендуемые продукты"
+
+msgid "Previously viewed products"
+msgstr "Недавно просмотренные продукты"

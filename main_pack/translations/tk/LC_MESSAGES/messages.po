@@ -911,3 +911,9 @@ msgstr "Sebedi arassalamak"
 
 msgid "Continue Shopping"
 msgstr "Söwdany dowam etmek"
+
+msgid "Featured products"
+msgstr "Aýratynlaşdyran harytlar"
+
+msgid "Previously viewed products"
+msgstr "Öňki gören harytlaryňyz"
