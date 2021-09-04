@@ -195,28 +195,7 @@
 													{% endif %}
 													</a>
 												</li>
-												<li class="cr-dropdown {{ 'yamm-tfw menu-item-has-children dropdown-submenu' if category.Categories else 'highlight' }}">
-													<a class="cat-style" title="{{ category.ResCatName }}" 
-														href="{{ url_for('commerce.v_grid',ResCatId=category.ResCatId,ResCatName=category.ResCatName.replace('/','-').replace(' ','-')) if not category.Categories else '#' }}"
-													{% if category.Categories %} aria-haspopup="true" {% endif %}>
-													{{ category.ResCatName }}
-													
-																										
-													{% if category.Categories %}
-														<span class="la la-angle-down" style="display: block;"></span>
-
-														<ul class="cr-menu-desktop-none">
-															{% for category in category.Categories %}
-															<li class="cr-sub-dropdown">
-																<a href="{{url_for('commerce.v_grid',ResCatId=category.ResCatId,ResCatName=category.ResCatName.replace('/','-').replace(' ','-'))}}">
-																	{{ category.ResCatName }}
-																</a>
-															</li>
-															{% endfor %}
-														</ul>
-													{% endif %}
-													</a>
-												</li>
+												
 												{% endfor %}
 											</ul>
 										</nav>
