@@ -832,7 +832,7 @@ img.zoom-img {
 		width: 50px;
 	}
   img{
-    width: 50%;
+    width: 80%;
   }
 }
 
@@ -1317,6 +1317,27 @@ article {
 
 .res-add-to-cart {
 	width: 160px;
+}
+
+.cart-overlay {
+	display: block;
+	position: fixed;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	z-index: 9;
+	visibility: hidden;
+	opacity: 0;
+	background:#04040429;
+	-webkit-transition: all 0.3s ease 0s;
+	-o-transition: all 0.3s ease 0s;
+	transition: all 0.3s ease 0s;
+}
+
+.visible {
+	visibility: visible;
+	opacity: 0;
 }
 @media (max-width:991px){
 	.cart-overlay {
