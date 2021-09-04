@@ -489,6 +489,31 @@ function render_viewed_list(){
 }
 
 
+$(document).ready(function(){
+	configureImageSizeByScreen();
+})
+function configureImageSizeByScreen(){
+	var screenSize = $(window).width();
+	if (screenSize >= 768){
+		$('.big-image img').each(function(){
+				data_m_img = $(this).attr('data-src-m')
+				$(this).attr('src', data_m_img)
+		})
+	}
+
+	if (screenSize >= 768){
+		$('.banner img').each(function(){
+				data_m_img = $(this).attr('data-src-m')
+				$(this).attr('src', data_m_img)
+		})
+		$('.slider-image img').each(function(){
+				data_m_img = $(this).attr('data-src-m')
+				$(this).attr('src', data_m_img)
+		})
+	}
+}
+
+
 function send_view_request(data){
 	setTimeout(() => {
 		$.ajax({

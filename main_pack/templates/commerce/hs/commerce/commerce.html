@@ -20,7 +20,7 @@
 					{% if slider.SlName == "commerce_header" %}
 						{% for sl_image in slider.Sl_images %}
 						{% if sl_image.SlImgMainImgFilePathM %}
-						<div class="slider-height-8 bg-img res-white-overly-xs">
+						<div class="slider-height-8 bg-img res-white-overly-xs slider-image">
 							<a href="{{ sl_image.SlImgLink if sl_image.SlImgLink else '#' }}">
 								<img loading="lazy" src="{{ sl_image.SlImgMainImgFilePathM }}" data-src-m="{{ sl_image.SlImgMainImgFilePathR }}"
 								 alt="{{ sl_image.SlImgTitle if sl_image.SlImgTitle else 'sl_image.SlImgMainImgFileName' }} {{ company.CName }}">
@@ -42,7 +42,7 @@
 					{% for sl_image in slider.Sl_images %}
 					{% if sl_image.SlImgMainImgFilePathS %}
 					<div class="col-lg-4 col-md-4 col-sm-4 col-12">
-						<div class="banner-wrap mb-30">
+						<div class="banner-wrap mb-30 slider-image">
 							<a href="{{url_for('commerce.v_grid')}}">
 								<img loading="lazy"  src="{{ sl_image.SlImgMainImgFilePathM }}"
 								data-src-m="{{ sl_image.SlImgMainImgFilePathR }}"
@@ -195,7 +195,6 @@
 						<div class="product-content product-content-padding">
 							<h4><a href="{{url_for('commerce.product',ResId=featured_resource.ResId,ResName=featured_resource.ResName.replace('/','-').replace(' ','-'))}}">
 								{{ featured_resource.ResName }}
-								{{ featured_resource.ResVisibleIndex }}
 							</a></h4>
 							<div class="price-addtocart">
 								<div class="product-price">
