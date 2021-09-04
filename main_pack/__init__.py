@@ -175,6 +175,16 @@ def create_app(config_class=Config):
 		from main_pack.commerce.users import bp as commerce_users_bp
 		app.register_blueprint(commerce_users_bp, url_prefix=commerce_url_prefix)
 
+
+	if Config.CORS_EXEMPT_SSR_ROUTES:
+		csrf.exempt(main_bp)
+		csrf.exempt(base_bp)
+		csrf.exempt(errors_bp)
+		csrf.exempt(commerce_admin_bp)
+		csrf.exempt(commerce_auth_bp)
+		csrf.exempt(commerce_bp)
+		csrf.exempt(commerce_users_bp)
+
 	else:
 		login_manager.login_view = 'commerce_admin.login'
 	# /commerce blueprints
