@@ -43,7 +43,7 @@
 						<div class="row align-items-center">
 							<div class="col-xl-2 col-lg-2 col-2">
 								<div class="logo">
-									<a href="index.html"><img src="{{ url_for('static', filename='commerce/hs/images/logo/hs_logo.svg') }}" alt="logo"></a>
+									<a href="{{url_for('commerce.commerce')}}"><img src="{{ url_for('static', filename='commerce/hs/images/logo/hs_logo.svg') }}" alt="logo"></a>
 								</div>
 							</div>
 							<div class="col-xl-8 col-lg-8 col-8">
@@ -195,6 +195,7 @@
 													{% endif %}
 													</a>
 												</li>
+												
 												{% endfor %}
 											</ul>
 										</nav>
@@ -244,7 +245,9 @@
 					<div class="row">
 						<div class="col-lg-3 col-md-8 col-12 col-sm-12">
 							<div class="footer-widget mb-30">
-								<a href="{{ url_for('commerce.commerce') }}"><img src="{{ company_logo.FilePath }}" alt="logo"></a>
+								<div class="logo">
+									<a href="{{ url_for('commerce.commerce') }}"><img src="{{ url_for('static', filename='commerce/hs/images/logo/hs_logo.svg') }}" alt="logo"></a>
+								</div>
 								<div class="footer-about">
 									<h2>{{ company.CName }}</h2>
 									<p>{{ company.CFullName if company.CFullName else "" }} </p>
@@ -302,7 +305,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="footer-bottom pt-40 border-top-1">
+				<div class="footer-bottom border-top-1">
 					<div class="copyright-3 text-center pt-20 pb-20 border-top-1">
 						<a href="http://saphasap.com/">
               <img src="{{ url_for('static', filename='commerce/main/images/logo/sap_cozgut_black.svg') }}" alt="Sap cozgut" style="width: 40px;">

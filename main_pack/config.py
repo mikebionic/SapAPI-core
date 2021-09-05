@@ -47,6 +47,7 @@ class Config:
 	TESTING = int(environ.get('TESTING')) if environ.get('TESTING') else 1
 
 	USE_FLASK_CORS = int(environ.get('USE_FLASK_CORS')) if environ.get('USE_FLASK_CORS') else 1
+	CORS_EXEMPT_SSR_ROUTES = int(environ.get('CORS_EXEMPT_SSR_ROUTES')) if environ.get('CORS_EXEMPT_SSR_ROUTES') else 0
 	USE_FLASK_COMPRESS = int(environ.get('USE_FLASK_COMPRESS')) if environ.get('USE_FLASK_COMPRESS') else 1
 	MINIFY_HTML_RESPONSE = int(environ.get('MINIFY_HTML_RESPONSE')) if environ.get('MINIFY_HTML_RESPONSE') else 1
 
@@ -302,6 +303,8 @@ class Config:
 	COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH = environ.get("COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH") or "/commerce/admin"
 	# / templates file location configuration /
 
+	HANDLE_PRODUCT_VIEW = int(environ.get("HANDLE_PRODUCT_VIEW")) if environ.get("HANDLE_PRODUCT_VIEW") else 0
+	VIEW_HANDLER_API_URL = environ.get("VIEW_HANDLER_API_URL") or '/view-counter/'
 	ATTEMPT_ERROR_TIMEOUT_MINUTES = int(environ.get("ATTEMPT_ERROR_TIMEOUT_MINUTES")) if environ.get("ATTEMPT_ERROR_TIMEOUT_MINUTES") else 30
 	REGISTER_REQUEST_EXPIRE_TIME_MINUTES = int(environ.get("REGISTER_REQUEST_EXPIRE_TIME_MINUTES")) if environ.get("REGISTER_REQUEST_EXPIRE_TIME_MINUTES") else 10
 	REGISTER_REQUEST_VALIDATOR_PHONE_NUMBER = environ.get("REGISTER_REQUEST_VALIDATOR_PHONE_NUMBER")

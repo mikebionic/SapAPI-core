@@ -894,3 +894,6 @@ msgstr "Continue Shopping"
 
 msgid "Featured products"
 msgstr "Featured products"
+
+msgid "Previously viewed products"
+msgstr "Previously viewed products"

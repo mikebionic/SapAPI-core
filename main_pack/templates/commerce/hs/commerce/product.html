@@ -34,19 +34,19 @@
 							{% if resource.Images %}
 							<div class="zoompro-wrap product-zoom-right pr-20">
 								{% for image in resource.Images %}
-								<div class="zoompro-span">
-									<img data-action="zoom" class="zoompro" 
+								<div class="zoompro-span big-image">
+									<img loading="lazy" data-action="zoom" class="zoompro" 
 									src="{{image.FilePathS}}" 
 									data-src-r="{{image.FilePathR}}"
 									alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}" />
-									<span>-29%</span>
+									<!-- <span>-29%</span> -->
 								</div>
 								{% endfor %}
 							</div>
 							{% endif %}
 							<!-- <div id="gallery" class="product-dec-slider-2">
 								<a data-image="../../static/images/product-details/product-detalis-l6.jpg">
-									<img src="../../static/images/product-details/product-detalis-s6.jpg" alt="">
+									<img loading="lazy" src="../../static/images/product-details/product-detalis-s6.jpg" alt="">
 								</a>
 							</div> -->
 						</div>
@@ -206,7 +206,7 @@
 					<div class="product-wrap">
 						<div class="product-img mb-15">
 							<a href="{{url_for('commerce.product',ResId=related_resource.ResId,ResName=related_resource.ResName.replace('/','-').replace(' ','-'))}}">
-								<img src="{{ related_resource.FilePathS if related_resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" 
+								<img loading="lazy" src="{{ related_resource.FilePathS if related_resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" 
 								alt="Product {{related_resource.ResName}} of category {{ related_resource.ResCatName if related_resource.ResCatName else '' }}" loading="lazy">
 							</a>
 							<div class="product-action">
@@ -252,6 +252,13 @@
 	var resource_ResRegNo = "{{resource.ResRegNo}}"
 	var resource_ResGuid = "{{resource.ResGuid}}"
 	var resource_ResId = {{resource.ResId}}
+	var view_handling = {{handle_product_view}}
+	var view_handler_api_url = "{{view_handler_api_url}}"
 </script>
-<script>update_viewed_list(resource_ResId); handle_product_view();</script>
+<script>
+	update_viewed_list(resource_ResId); 
+	if (view_handling){
+		handle_product_view();
+	}
+</script>
 {% endblock %}

@@ -15,7 +15,7 @@ function send_sms_register_request(phone_number){
 	else {
 		$.ajax({
 			headers: {"PhoneNumber": phone_number},
-			url: `${url_prefix}/request-sms-register/`,
+			url: `${api_url_prefix}/request-sms-register/`,
 			success: function(response){
 				if (response.status == 1){
 					destroy_phone_request_form();
@@ -55,7 +55,7 @@ function send_sms_register_request(phone_number){
 function check_for_phone_validation(phone_number, validation_interval){
 	$.ajax({
 		headers: {"PhoneNumber": phone_number},
-		url: `${url_prefix}/check-sms-register/`,
+		url: `${api_url_prefix}/check-sms-register/`,
 		success: function(response){
 			if (response.status == 1){
 				request_done = true;
@@ -97,7 +97,7 @@ $('#user-register-form').submit(function(e){
 			dataType: "json",
 			data: JSON.stringify(viewed_data["data"]),
 			type: "PUT",
-			url: `${url_prefix}/product/get-product-data/`,
+			url: `${api_url_prefix}/product/get-product-data/`,
 			success: function(response){
 				if (response){
 					if (response.status == 1){

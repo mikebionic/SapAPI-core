@@ -20,11 +20,11 @@
 					{% if slider.SlName == "commerce_header" %}
 						{% for sl_image in slider.Sl_images %}
 						{% if sl_image.SlImgMainImgFilePathM %}
-						<div class="slider-height-8 bg-img res-white-overly-xs">
+						<div class="slider-height-8 bg-img res-white-overly-xs slider-image">
 							<a href="{{ sl_image.SlImgLink if sl_image.SlImgLink else '#' }}">
 								<img loading="lazy" src="{{ sl_image.SlImgMainImgFilePathM }}" data-src-m="{{ sl_image.SlImgMainImgFilePathR }}"
 								 alt="{{ sl_image.SlImgTitle if sl_image.SlImgTitle else 'sl_image.SlImgMainImgFileName' }} {{ company.CName }}">
-							</a> 
+							</a>
 						</div>
 						{% endif %}
 						{% endfor %}
@@ -42,17 +42,12 @@
 					{% for sl_image in slider.Sl_images %}
 					{% if sl_image.SlImgMainImgFilePathS %}
 					<div class="col-lg-4 col-md-4 col-sm-4 col-12">
-						<div class="banner-wrap mb-30">
+						<div class="banner-wrap mb-30 slider-image">
 							<a href="{{url_for('commerce.v_grid')}}">
-								<img src="{{ sl_image.SlImgMainImgFilePathM }}"
+								<img loading="lazy"  src="{{ sl_image.SlImgMainImgFilePathM }}"
 								data-src-m="{{ sl_image.SlImgMainImgFilePathR }}"
 								alt="banner {{ sl_image.SlImgMainImgFileName }} {{ company.CName }}">
 							</a>
-							<div class="banner-content-9 banner-content-9-mrg2">
-								<h4>{{ sl_image.SlImgTitle if sl_image.SlImgTitle else '' }}</h4>
-								<p>{{ sl_image.SlImgDesc if sl_image.SlImgDesc else '' }}</p>
-								<a href="{{url_for('commerce.v_grid')}}">Shop Now</a>
-							</div>
 						</div>
 					</div>
 					{% endif %}
@@ -67,72 +62,73 @@
 		<div class="product-area pb-40">
 			<div class="container">
 					<div class="section-title-tab-wrap">
-							<div class="row">
-									<div class="col-xl-6 col-lg-4 col-md-4 col-sm-4">
-											<div class="section-title-5">
-													<h2>{{_('Featured')}}</h2>
-											</div>
-									</div>
-									<div class="col-xl-6 col-lg-8 col-md-8 col-sm-8">
-											<div class="product-tab-list-4 nav">
-												{% for category in Featured_categories %}
-													<a class="featrued-cat-btn" href="#tab-{{category.ResCatId}}" data-toggle="tab">
-															<h5>{{ category.ResCatName }} </h5>
-													</a>
-												{% endfor %}
-											</div>
-									</div>
+						<div class="row">
+							<div class="col-xl-6 col-lg-4 col-md-4 col-sm-4">
+								<div class="section-title-5">
+									<h2>{{_('Featured')}}</h2>
+								</div>
 							</div>
+							<div class="col-xl-6 col-lg-8 col-md-8 col-sm-8">
+								<div class="product-tab-list-4 nav">
+									{% for category in Featured_categories %}
+										<a class="featrued-cat-btn" href="#tab-{{category.ResCatId}}" data-toggle="tab">
+											<h5>{{ category.ResCatName }} </h5>
+										</a>
+									{% endfor %}
+								</div>
+							</div>
+						</div>
 					</div>
-					
+
 					<div class="tab-content jump">
 						{% for category in Featured_categories %}
 							<div id="tab-{{category.ResCatId}}" class="tab-pane">
-									<div class="product-slider-active owl-carousel">
-										{% for resource in category.Resources %}
-											<div class="product-wrap product-border-3 product-img-zoom mb-30">
-													<div class="product-img">
-															<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">
-																<img src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }} {{ company.CName }}">
-															</a>
-															<div class="product-action">
-																{% if current_user.is_authenticated %}
-																<div class="yith-wcwl-add-to-wishlist wishlist-button">
-																	<a rel="nofollow" class="like {{'heart' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}">
-																		<i class="la la-heart" aria-hidden="true"></i>
-																	</a>
-																</div>
-																{% endif %}	
-																<div class="con-input-btns cartItemQty" style="display: none;">
-																	<button class="qtyminus qtybtn rotate-minus"><i class="las la-minus"></i></button>
-																	<input type="text" class="productQty rotate-number"
-																		pending_amount="{{resource.ResPendingTotalAmount}}"
-																		min_amount="{{resource.ResMinSaleAmount}}"
-																		max_amount="{{resource.ResMaxSaleAmount}}"
-																		value="{{resource.productQty}}" ownerId="{{ resource.ResId }}">
-																	<button class="qtyplus qtybtn rotate-plus"><i class="las la-plus"></i></button>
-																	</div>
-																<a class="add-to-cart" ownerId="{{ resource.ResId }}"><i class="la la-plus"></i></a>
-																	
-															</div>
+								<div class="product-slider-active owl-carousel">
+									{% for resource in category.Resources %}
+									<div class="product-wrap product-border-3 product-img-zoom mb-30">
+										<div class="product-img">
+											<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">
+												<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }} {{ company.CName }}">
+											</a>
+											<div class="product-action">
+												{% if current_user.is_authenticated %}
+												<div class="yith-wcwl-add-to-wishlist wishlist-button">
+													<a rel="nofollow" class="like {{'heart' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}">
+														<i class="la la-heart" aria-hidden="true"></i>
+													</a>
+												</div>
+												{% endif %}
+												<div class="con-input-btns cartItemQty" style="display: none;">
+													<button class="qtyminus qtybtn rotate-minus"><i class="las la-minus"></i></button>
+													<input type="text" class="productQty rotate-number"
+														pending_amount="{{resource.ResPendingTotalAmount}}"
+														min_amount="{{resource.ResMinSaleAmount}}"
+														max_amount="{{resource.ResMaxSaleAmount}}"
+														value="{{resource.productQty}}" ownerId="{{ resource.ResId }}">
+													<button class="qtyplus qtybtn rotate-plus"><i class="las la-plus"></i></button>
 													</div>
-													<div class="product-content product-content-padding">
-															<h4><a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">
-																{{ resource.ResName }}
-															</a></h4>
-															<div class="price-addtocart">
-																	<div class="product-price">
-																			<span class="priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue }}</span>
-																	</div>
-															</div>
+												<a class="add-to-cart" ownerId="{{ resource.ResId }}"><i class="la la-plus"></i></a>
+
+												</div>
+											</div>
+												<div class="product-content product-content-padding">
+													<h4><a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">
+														{{ resource.ResName }}
+													</a></h4>
+													<div class="price-addtocart">
+														<div class="product-price">
+															<span class="priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue }}</span>
+															<span>{{ resource.CurrencyCode }}</span>
+														</div>
 													</div>
+												</div>
 											</div>
 										{% endfor %}
 									</div>
 							</div>
 						{% endfor %}
 					</div>
-					
+
 			</div>
 		</div>
 		{% endif %}
@@ -147,17 +143,10 @@
 					<div class="col-lg-6 col-md-6 col-sm-6 col-12">
 						<div class="banner-wrap bottom_banner mb-30">
 							<a href="{{url_for('commerce.v_grid')}}">
-								<img src="{{ sl_image.SlImgMainImgFilePathM }}"
+								<img loading="lazy" src="{{ sl_image.SlImgMainImgFilePathM }}"
 								data-src-m="{{ sl_image.SlImgMainImgFilePathR }}"
 								alt="banner {{ sl_image.SlImgMainImgFileName }} {{ company.CName }}">
 							</a>
-							<div class="banner-content-9 banner-content-9-mrg2">
-								<div class="centered_text">	
-									<h4>{{ sl_image.SlImgTitle if sl_image.SlImgTitle else '' }}</h4>
-									<p>{{ sl_image.SlImgDesc if sl_image.SlImgDesc else '' }}</p>
-									<a href="{{url_for('commerce.v_grid')}}">Shop Now</a>
-								</div>
-							</div>
 						</div>
 					</div>
 					{% endif %}
@@ -179,60 +168,48 @@
 
 				{% for featured_resource in Featured_products %}
 					<div class="product-wrap product-border-3 product-img-zoom mb-30">
-							<div class="product-img">
-									<a href="{{url_for('commerce.product',ResId=featured_resource.ResId,ResName=featured_resource.ResName.replace('/','-').replace(' ','-'))}}">
-										<img src="{{ featured_resource.FilePathS if featured_resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="Product {{featured_resource.ResName}} of category {{ featured_resource.ResCatName if featured_resource.ResCatName else '' }} {{ company.CName }}">
+						<div class="product-img">
+							<a href="{{url_for('commerce.product',ResId=featured_resource.ResId,ResName=featured_resource.ResName.replace('/','-').replace(' ','-'))}}">
+								<img loading="lazy" src="{{ featured_resource.FilePathS if featured_resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="Product {{featured_resource.ResName}} of category {{ featured_resource.ResCatName if featured_resource.ResCatName else '' }} {{ company.CName }}">
+							</a>
+							<div class="product-action">
+								{% if current_user.is_authenticated %}
+								<div class="yith-wcwl-add-to-wishlist wishlist-button">
+									<a rel="nofollow" class="like {{'heart' if featured_resource.Wishlist == true}}" ownerId="{{ featured_resource.ResId }}">
+										<i class="la la-heart" aria-hidden="true"></i>
 									</a>
-									<div class="product-action">
-										{% if current_user.is_authenticated %}
-										<div class="yith-wcwl-add-to-wishlist wishlist-button">
-											<a rel="nofollow" class="like {{'heart' if featured_resource.Wishlist == true}}" ownerId="{{ featured_resource.ResId }}">
-												<i class="la la-heart" aria-hidden="true"></i>
-											</a>
-										</div>
-										{% endif %}	
-										<div class="con-input-btns cartItemQty" style="display: none;">
-											<button class="qtyminus qtybtn rotate-minus"><i class="las la-minus"></i></button>
-											<input type="text" class="productQty rotate-number"
-												pending_amount="{{featured_resource.ResPendingTotalAmount}}"
-												min_amount="{{featured_resource.ResMinSaleAmount}}"
-												max_amount="{{featured_resource.ResMaxSaleAmount}}"
-												value="{{featured_resource.productQty}}" ownerId="{{ featured_resource.ResId }}">
-											<button class="qtyplus qtybtn rotate-plus"><i class="las la-plus"></i></button>
-											</div>
-										<a class="add-to-cart" ownerId="{{ featured_resource.ResId }}"><i class="la la-plus"></i></a>
-											
+								</div>
+								{% endif %}
+								<div class="con-input-btns cartItemQty" style="display: none;">
+									<button class="qtyminus qtybtn rotate-minus"><i class="las la-minus"></i></button>
+									<input type="text" class="productQty rotate-number"
+										pending_amount="{{featured_resource.ResPendingTotalAmount}}"
+										min_amount="{{featured_resource.ResMinSaleAmount}}"
+										max_amount="{{featured_resource.ResMaxSaleAmount}}"
+										value="{{featured_resource.productQty}}" ownerId="{{ featured_resource.ResId }}">
+									<button class="qtyplus qtybtn rotate-plus"><i class="las la-plus"></i></button>
 									</div>
+								<a class="add-to-cart" ownerId="{{ featured_resource.ResId }}"><i class="la la-plus"></i></a>
 							</div>
-							<div class="product-content product-content-padding">
-									<h4><a href="{{url_for('commerce.product',ResId=featured_resource.ResId,ResName=featured_resource.ResName.replace('/','-').replace(' ','-'))}}">
-										{{ featured_resource.ResName }}
-										{{ featured_resource.ResVisibleIndex }}
-									</a></h4>
-									<div class="price-addtocart">
-											<div class="product-price">
-													<span class="priceValue" ownerId="{{featured_resource.ResId}}" value="{{featured_resource.ResPriceValue}}">{{ featured_resource.ResPriceValue }}</span>
-											</div>
-									</div>
+						</div>
+						<div class="product-content product-content-padding">
+							<h4><a href="{{url_for('commerce.product',ResId=featured_resource.ResId,ResName=featured_resource.ResName.replace('/','-').replace(' ','-'))}}">
+								{{ featured_resource.ResName }}
+							</a></h4>
+							<div class="price-addtocart">
+								<div class="product-price">
+									<span class="priceValue" ownerId="{{featured_resource.ResId}}" value="{{featured_resource.ResPriceValue}}">{{ featured_resource.ResPriceValue }}</span>
+									<span>{{ featured_resource.CurrencyCode }}</span>
+								</div>
 							</div>
+						</div>
 					</div>
 				{% endfor %}
-					
+
 				</div>
 			</div>
 		</div>
 		{% endif %}
-
-		<div class="product-area pb-85">
-			<div class="container">
-				<div class="section-title-6 mb-50 text-center">
-					<h2>{{_('Previously viewed products')}}</h2>
-				</div>
-				<div class="product-slider-active owl-carousel recentViewedList"></div>
-			</div>
-		</div>
-
-
 
 		<div class="product-area pb-40">
 			<div class="container">
@@ -245,8 +222,8 @@
 						<div class="product-wrap product-border-3 product-img-zoom mb-30">
 							<div class="product-img">
 								<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">
-									<img src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }} {{ company.CName }}">
-								</a> 
+									<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }} {{ company.CName }}">
+								</a>
 								<div class="product-action">
 									{% if current_user.is_authenticated %}
 									<div class="yith-wcwl-add-to-wishlist wishlist-button">
@@ -254,7 +231,7 @@
 											<i class="la la-heart" aria-hidden="true"></i>
 										</a>
 									</div>
-									{% endif %}	
+									{% endif %}
 									<div class="con-input-btns cartItemQty rotate-icon" style="display: none;">
 										<button class="qtyminus qtybtn rotate-minus"><i class="las la-minus"></i></button>
 										<input type="text" class="productQty"
@@ -272,9 +249,10 @@
 									{{ resource.ResName }}
 								</a></h4>
 								<div class="price-addtocart">
-										<div class="product-price">
-												<span class="priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue }}</span>
-										</div>
+									<div class="product-price">
+										<span class="priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue }}</span>
+										<span>{{ resource.CurrencyCode }}</span>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -283,6 +261,16 @@
 				</div>
 			</div>
 		</div>
+
+		<div class="product-area pb-85">
+			<div class="container">
+				<div class="section-title-6 mb-50 text-center">
+					<h2>{{_('Previously viewed products')}}</h2>
+				</div>
+				<div class="product-slider-active owl-carousel recentViewedList"></div>
+			</div>
+		</div>
+
 		{% if Brands %}
 		<div class="brand-logo-area pb-70">
 			<div class="container">
