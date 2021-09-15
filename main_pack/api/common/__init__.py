@@ -1,5 +1,6 @@
 from .configurePhoneNumber import configurePhoneNumber
 from .fetch_and_generate_RegNo import fetch_and_generate_RegNo
+from .gather_required_register_rp_acc_data import gather_required_register_rp_acc_data
 from .get_CId_WhGuid_list import get_CId_WhGuid_list
 from .get_company_id_guid_list import get_company_id_guid_list
 from .get_currency_model_from_code import get_currency_model_from_code
@@ -16,3 +17,4 @@ from .get_rp_acc_id_guid_list import get_rp_acc_id_guid_list
 from .get_user_id_guid_list import get_user_id_guid_list
 from .get_UserId_and_RpAccId_from_login_and_uuid_info import get_UserId_and_RpAccId_from_login_and_uuid_info
 from .get_warehouse_id_guid_list import get_warehouse_id_guid_list
+from .password_utils import configurePassword, checkPassword

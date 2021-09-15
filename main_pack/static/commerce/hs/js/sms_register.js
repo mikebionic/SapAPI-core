@@ -95,9 +95,9 @@ $('#user-register-form').submit(function(e){
 		$.ajax({
 			contentType: "application/json",
 			dataType: "json",
-			data: JSON.stringify(viewed_data["data"]),
-			type: "PUT",
-			url: `${api_url_prefix}/product/get-product-data/`,
+			data: JSON.stringify(user_data),
+			type: "POST",
+			url: `${api_url_prefix}/check-sms-register/`,
 			success: function(response){
 				if (response){
 					if (response.status == 1){

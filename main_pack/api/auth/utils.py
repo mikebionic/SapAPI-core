@@ -21,7 +21,7 @@ def get_bearer_from_header(auth_header):
 		auth_token = auth_header.split(" ")[1]
 	except:
 		pass
-		log_print("Token malformed, couldn't get bearer token")
+		# log_print("Token malformed, couldn't get bearer token")
 
 	return auth_token
 
