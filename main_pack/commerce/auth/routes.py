@@ -229,15 +229,17 @@ def register_token(token):
 				"RpAccUPass": RpAccUPass,
 				"RpAccName": RpAccName,
 				"RpAccRegNo": RpAccRegNo,
-				"RpAccMobilePhoneNumber": RpAccMobilePhoneNumber,
 				"RpAccAddress": RpAccAddress,
 				"RpAccTypeId": 2,
 				"RpAccStatusId": 1,
 			}
+			if Config.INSERT_PHONE_NUMBER_ON_REGISTER:
+				rp_acc_data["RpAccMobilePhoneNumber"] = RpAccMobilePhoneNumber
 
-			lastUser = Rp_acc.query.order_by(Rp_acc.RpAccId.desc()).first()
-			RpAccId = lastUser.RpAccId + 1
-			rp_acc_data["RpAccId"] = RpAccId,
+			if Config.INSERT_LAST_ID_MANUALLY:
+				lastUser = Rp_acc.query.order_by(Rp_acc.RpAccId.desc()).first()
+				RpAccId = lastUser.RpAccId + 1
+				rp_acc_data["RpAccId"] = RpAccId,
 
 			user = Rp_acc(**rp_acc_data)
 			db.session.add(user)

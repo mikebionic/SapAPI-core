@@ -303,6 +303,11 @@ class Config:
 	COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH = environ.get("COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH") or "/commerce/admin"
 	# / templates file location configuration /
 
+
+	INSERT_LAST_ID_MANUALLY = int(environ.get("INSERT_LAST_ID_MANUALLY")) if environ.get("INSERT_LAST_ID_MANUALLY") else 0
+	INSERT_PHONE_NUMBER_ON_REGISTER = int(environ.get("INSERT_PHONE_NUMBER_ON_REGISTER")) if environ.get("INSERT_PHONE_NUMBER_ON_REGISTER") else 0
+	INSERT_EMAIL_ON_REGISTER = int(environ.get("INSERT_EMAIL_ON_REGISTER")) if environ.get("INSERT_EMAIL_ON_REGISTER") else 0
+
 	HANDLE_PRODUCT_VIEW = int(environ.get("HANDLE_PRODUCT_VIEW")) if environ.get("HANDLE_PRODUCT_VIEW") else 0
 	VIEW_HANDLER_API_URL = environ.get("VIEW_HANDLER_API_URL") or '/view-counter/'
 	ATTEMPT_ERROR_TIMEOUT_MINUTES = int(environ.get("ATTEMPT_ERROR_TIMEOUT_MINUTES")) if environ.get("ATTEMPT_ERROR_TIMEOUT_MINUTES") else 30

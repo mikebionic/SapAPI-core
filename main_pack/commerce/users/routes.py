@@ -24,6 +24,7 @@ from main_pack.models import Image
 from main_pack.base.imageMethods import save_image
 from main_pack.base.apiMethods import fileToURL
 # / Image operations /
+from main_pack.api.common import configurePhoneNumber
 
 
 @bp.route(Config.COMMERCE_PROFILE_PAGE)
@@ -91,7 +92,6 @@ def profile_edit():
 			"RpAccUName": form.username.data,
 			"RpAccName": form.fullname.data,
 			"RpAccAddress": form.address.data,
-			"RpAccMobilePhoneNumber": form.mobilePhone.data,
 			"RpAccHomePhoneNumber": form.homePhone.data,
 			"RpAccZipCode": form.zipCode.data,
 			"RpAccWorkPhoneNumber": form.workPhone.data,
@@ -99,6 +99,8 @@ def profile_edit():
 			"RpAccWebAddress": form.webAddress.data,
 			# 'RpAccEMail':form.email.data
 		}
+		if Config.INSERT_PHONE_NUMBER_ON_REGISTER:
+			rpAccData["RpAccMobilePhoneNumber"] = configurePhoneNumber(form.mobilePhone.data)
 
 		try:
 			current_user.update(**rpAccData)
