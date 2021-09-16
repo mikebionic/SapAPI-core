@@ -17,21 +17,19 @@ from main_pack.models import Rp_acc
 
 from main_pack.api.users.utils import addRpAccDict, apiRpAccData
 
-@api.route('/register/',methods=['POST'])
-@register_token_required
-def api_test():
-	return
-
 
 @api.route('/register/',methods=['POST'])
 @register_token_required
-def api_register():
+def api_register(token_data):
 	register_method = request.args.get("method","email",type=str)
 	auth_type = request.args.get("type","user",type=str)
 
 	error_response = [{"error": "Register failure, check credentials."}, 401, {"WWW-Authenticate": "basic realm"}]
-
+		
 	try:
+		if not token_data:
+			raise Exception
+
 		req = request.get_json()
 		rp_acc_data = addRpAccDict(req)
 

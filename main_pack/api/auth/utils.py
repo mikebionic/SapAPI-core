@@ -26,7 +26,6 @@ def get_bearer_from_header(auth_header):
 
 	return auth_token
 
-
 def register_token_required(f):
 	@wraps(f)
 	def decorated(*args, **kwargs):

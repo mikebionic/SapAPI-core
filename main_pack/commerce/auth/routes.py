@@ -232,9 +232,6 @@ def register_token():
 			user_model = Rp_acc(**rp_acc_data)
 			db.session.add(user_model)
 
-
-
-
 			check_registration = Rp_acc.query\
 				.filter_by(
 					RpAccEMail = rp_acc_data["RpAccEMail"],
@@ -243,8 +240,6 @@ def register_token():
 				.first()
 			if check_registration:
 				raise Exception
-
-
 
 			try:
 				login_info = get_login_info(request)
