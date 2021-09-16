@@ -4,6 +4,7 @@ api = Blueprint('auth_api', __name__)
 
 from main_pack.api.auth import (
 	api_login,
+	api_register,
 	sms_register_api,
 	attempt_counter,
 )

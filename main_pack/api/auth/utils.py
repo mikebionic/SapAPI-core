@@ -10,6 +10,7 @@ from main_pack.config import Config
 from main_pack import mail
 from main_pack.models import User, Rp_acc, Device
 
+from main_pack.api.auth.register_phone_number import check_phone_number_register
 from main_pack.base import log_print
 
 
@@ -24,6 +25,73 @@ def get_bearer_from_header(auth_header):
 		# log_print("Token malformed, couldn't get bearer token")
 
 	return auth_token
+
+
+def register_token_required(f):
+	@wraps(f)
+	def decorated(*args, **kwargs):
+		data = {}
+
+		register_method = request.args.get("method","email",type=str)
+		register_token = request.args.get("register-token","",type=str)
+		auth_type = request.args.get("type","user",type=str)
+
+		print("checking decorator ", register_method, register_token, auth_type)
+
+		try:
+			if not register_token:
+				if "register-token" in request.headers:
+					register_token = request.headers["register-token"]
+
+			if not register_token:
+				raise Exception
+
+			token_data = jwt.decode(register_token, Config.SECRET_KEY)
+			if register_method == "email":
+				username = token_data["username"].strip()
+				email = token_data["email"].strip()
+			
+				if auth_type == "rp_acc":
+					exiting_user = Rp_acc.query\
+						.filter_by(
+							RpAccUName = username, 
+							RpAccUEmail = email,
+							GCRecord = None
+						).first()
+					if exiting_user:
+						log_print("Email or Username requested is already registered")
+						raise Exception
+					
+					data = {
+						"username": username,
+						"email": email
+					}
+			
+			elif register_method == "phone-number":
+				phone_number, _ = check_phone_number_register(token_data["phone_number"].strip())
+				if not phone_number:
+					raise Exception
+				
+				if auth_type == "rp_acc":
+					existing_user = Rp_acc.query\
+						.filter_by(
+							RpAccMobilePhoneNumber = phone_number,
+							GCRecord = None,
+						).first()
+					if existing_user:
+						log_print("Phone number requested is already registered")
+						raise Exception
+				
+				data = {
+					"phone_number": phone_number
+				}
+
+		except:
+			pass
+
+		return f(data,*args,**kwargs)
+
+	return decorated
 
 
 def token_required(f):

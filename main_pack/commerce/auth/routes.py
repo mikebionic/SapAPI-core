@@ -1,3 +1,5 @@
+from main_pack.api.auth.utils import register_token_required
+from main_pack.api.users.utils import addRpAccDict
 from flask import (
 	render_template,
 	url_for,
@@ -8,7 +10,6 @@ from flask import (
 )
 from flask_login import login_user, current_user, logout_user
 from datetime import datetime
-import uuid
 
 from . import bp, url_prefix
 from main_pack.config import Config
@@ -179,8 +180,11 @@ def register():
 		form = form)
 
 
-@bp.route("/register/<token>",methods=['GET','POST'])
-def register_token(token):
+@bp.route("/register/",methods=['GET','POST'])
+# @register_token_required
+def register_token():
+	token = request.args.get("register-token","",type=str)
+
 	if (current_user.is_authenticated and "model_type" in session):
 		if session["model_type"] == "rp_acc":
 			return redirect(url_for('commerce.commerce'))
@@ -194,69 +198,67 @@ def register_token(token):
 	form = PasswordRegistrationForm()
 	if form.validate_on_submit():
 		try:
+			req = {
+				"RpAccUName": new_user['username'],
+				"RpAccEMail": new_user['email'],
+				"RpAccMobilePhoneNumber": form.phone_number.data,
+				"RpAccName": form.full_name.data,
+				"RpAccAddress": form.address.data,
+				"RpAccUPass": form.password.data,
+			}
+			rp_acc_data = addRpAccDict(req)
 
-			RpAccUName = new_user['username']
-			RpAccEMail = new_user['email']
-			
-			password = configurePassword(form.password.data)
-			if not password:
-				log_print("Register token exception, password not valid", "warning")
+			if not rp_acc_data["RpAccUPass"]:
+				log_print("Register api exception, password not valid", "warning")
 				raise Exception
 
-			RpAccUPass = password
-			RpAccMobilePhoneNumber = configurePhoneNumber(form.phone_number.data)
-			RpAccName = form.full_name.data.strip() if form.full_name.data else ""
-			RpAccAddress = form.address.data if form.address.data else None
+			UId, CId, DivId, RpAccRegNo, RpAccGuid = gather_required_register_rp_acc_data()
+			rp_acc_data["UId"] = UId
+			rp_acc_data["CId"] = CId
+			rp_acc_data["DivId"] = DivId
+			rp_acc_data["RpAccRegNo"] = RpAccRegNo
+			rp_acc_data["RpAccGuid"] = RpAccGuid
+			rp_acc_data["RpAccTypeId"] = 2
+			rp_acc_data["RpAccStatusId"] = 1
+
+			if not Config.INSERT_PHONE_NUMBER_ON_REGISTER:
+				rp_acc_data["RpAccMobilePhoneNumber"] = None
+
+			if Config.INSERT_LAST_ID_MANUALLY:
+				lastUser = Rp_acc.query.order_by(Rp_acc.RpAccId.desc()).first()
+				RpAccId = lastUser.RpAccId + 1
+				rp_acc_data["RpAccId"] = RpAccId
+
+			user_model = Rp_acc(**rp_acc_data)
+			db.session.add(user_model)
+
+
+
 
 			check_registration = Rp_acc.query\
 				.filter_by(
-					RpAccEMail = RpAccEMail,
-					RpAccUName = RpAccUName,
+					RpAccEMail = rp_acc_data["RpAccEMail"],
+					RpAccUName = rp_acc_data["RpAccUName"],
 					GCRecord = None)\
 				.first()
 			if check_registration:
 				raise Exception
 
-			UId, CId, DivId, RpAccRegNo, RpAccGuid = gather_required_register_rp_acc_data()
 
-			rp_acc_data = {
-				"UId": UId,
-				"CId": CId,
-				"DivId": DivId,
-				"RpAccGuid": RpAccGuid,
-				"RpAccUName": RpAccUName,
-				"RpAccEMail": RpAccEMail,
-				"RpAccUPass": RpAccUPass,
-				"RpAccName": RpAccName,
-				"RpAccRegNo": RpAccRegNo,
-				"RpAccAddress": RpAccAddress,
-				"RpAccTypeId": 2,
-				"RpAccStatusId": 1,
-			}
-			if Config.INSERT_PHONE_NUMBER_ON_REGISTER:
-				rp_acc_data["RpAccMobilePhoneNumber"] = RpAccMobilePhoneNumber
-
-			if Config.INSERT_LAST_ID_MANUALLY:
-				lastUser = Rp_acc.query.order_by(Rp_acc.RpAccId.desc()).first()
-				RpAccId = lastUser.RpAccId + 1
-				rp_acc_data["RpAccId"] = RpAccId,
-
-			user = Rp_acc(**rp_acc_data)
-			db.session.add(user)
 
 			try:
 				login_info = get_login_info(request)
-				user.RpAccLastActivityDate = login_info["date"]
-				user.RpAccLastActivityDevice = login_info["info"]
+				user_model.RpAccLastActivityDate = login_info["date"]
+				user_model.RpAccLastActivityDevice = login_info["info"]
 			except Exception as ex:
 				print(f"{datetime.now()} | Rp_acc activity info update Exception: {ex}")
 
 			db.session.commit()
 
-			flash("{}, {}".format(RpAccUName, lazy_gettext('your profile has been created!')),'success')
+			flash("{}, {}".format(rp_acc_data["RpAccUName"], lazy_gettext('your profile has been created!')),'success')
 			session["model_type"] = "rp_acc"
-			session["ResPriceGroupId"] = user.ResPriceGroupId
-			login_user(user)
+			session["ResPriceGroupId"] = user_model.ResPriceGroupId
+			login_user(user_model)
 			return redirect(url_for('commerce.commerce'))
 
 		except Exception as ex:

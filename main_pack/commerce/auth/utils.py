@@ -3,10 +3,10 @@ from flask_mail import Message
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 import os
 from functools import wraps
-from flask_login import current_user, login_required
+from flask_login import current_user
 
 from main_pack.config import Config
-from main_pack import mail, gettext, lazy_gettext
+from main_pack import mail, gettext
 
 
 def ui_admin_required(f):

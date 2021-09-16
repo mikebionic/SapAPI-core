@@ -137,7 +137,7 @@ function collect_register_user_data(
 		"RpAccUName": username,
 		"RpAccUPass": password,
 		"RpAccAddress": address,
-		"RpAccUFullName": full_name,
+		"RpAccName": full_name,
 	}
 
 	return data
