@@ -25,7 +25,7 @@ def api_register(token_data):
 	auth_type = request.args.get("type","user",type=str)
 
 	error_response = [{"error": "Register failure, check credentials."}, 401, {"WWW-Authenticate": "basic realm"}]
-		
+
 	try:
 		if not token_data:
 			raise Exception
@@ -49,9 +49,12 @@ def api_register(token_data):
 
 		if register_method == "email" and not Config.INSERT_PHONE_NUMBER_ON_REGISTER:
 			rp_acc_data["RpAccMobilePhoneNumber"] = None
+			rp_acc_data["RpAccEmail"] = token_data["email"]
+			rp_acc_data["RpAccUame"] = token_data["username"]
 
 		if register_method == "phone-number" and not Config.INSERT_EMAIL_ON_REGISTER:
 			rp_acc_data["RpAccEMail"] = None
+			rp_acc_data["RpAccMobilePhoneNumber"] = token_data["phone_number"]
 
 		if Config.INSERT_LAST_ID_MANUALLY:
 			lastUser = Rp_acc.query.order_by(Rp_acc.RpAccId.desc()).first()
@@ -83,9 +86,9 @@ def api_register(token_data):
 
 		login_user(user_model)
 		return jsonify(response_data)
-	
+
 	except Exception as ex:
 		log_print(f"API register exception {ex}")
 
-	
+
 	return make_response(*error_response)
