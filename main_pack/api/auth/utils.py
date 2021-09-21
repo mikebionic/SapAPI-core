@@ -32,15 +32,15 @@ def register_token_required(f):
 		data = {}
 
 		register_method = request.args.get("method","email",type=str)
-		register_token = request.args.get("register-token","",type=str)
+		register_token = request.args.get("token","",type=str)
 		auth_type = request.args.get("type","user",type=str)
 
 		print("checking decorator ", register_method, register_token, auth_type)
 
 		try:
 			if not register_token:
-				if "register-token" in request.headers:
-					register_token = request.headers["register-token"]
+				if "token" in request.headers:
+					register_token = request.headers["token"]
 
 			if not register_token:
 				raise Exception

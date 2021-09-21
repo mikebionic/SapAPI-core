@@ -183,13 +183,13 @@ def register():
 @bp.route("/register/",methods=['GET','POST'])
 # @register_token_required
 def register_token():
-	token = request.args.get("register-token","",type=str)
+	register_token = request.args.get("token","",type=str)
 
 	if (current_user.is_authenticated and "model_type" in session):
 		if session["model_type"] == "rp_acc":
 			return redirect(url_for('commerce.commerce'))
 
-	new_user = verify_register_token(token)
+	new_user = verify_register_token(register_token)
 
 	if not new_user:
 		flash(lazy_gettext('Token is invalid or expired'),'warning')
