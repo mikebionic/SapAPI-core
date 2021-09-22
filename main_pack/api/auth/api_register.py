@@ -47,14 +47,18 @@ def api_register(token_data):
 			rp_acc_data["RpAccTypeId"] = 2
 			rp_acc_data["RpAccStatusId"] = 1
 
-		if register_method == "email" and not Config.INSERT_PHONE_NUMBER_ON_REGISTER:
-			rp_acc_data["RpAccMobilePhoneNumber"] = None
+		if register_method == "email":
 			rp_acc_data["RpAccEmail"] = token_data["email"]
 			rp_acc_data["RpAccUame"] = token_data["username"]
 
-		if register_method == "phone-number" and not Config.INSERT_EMAIL_ON_REGISTER:
-			rp_acc_data["RpAccEMail"] = None
+			if not Config.INSERT_PHONE_NUMBER_ON_REGISTER:
+				rp_acc_data["RpAccMobilePhoneNumber"] = None
+
+		if register_method == "phone-number":
 			rp_acc_data["RpAccMobilePhoneNumber"] = token_data["phone_number"]
+
+			if not Config.INSERT_EMAIL_ON_REGISTER:
+				rp_acc_data["RpAccEMail"] = None
 
 		if Config.INSERT_LAST_ID_MANUALLY:
 			lastUser = Rp_acc.query.order_by(Rp_acc.RpAccId.desc()).first()
@@ -74,7 +78,8 @@ def api_register(token_data):
 
 		exp = datetime.now() + dt.timedelta(minutes = Config.TOKEN_EXP_TIME_MINUTES)
 		if auth_type == "rp_acc":
-			token = jwt.encode({"RpAccId": user_model.RpAccId, "exp": exp}, Config.SECRET_KEY)
+			token_encoding_data = {"RpAccId": user_model.RpAccId, "exp": exp}
+			token = jwt.encode(token_encoding_data, Config.SECRET_KEY, algorithm=Config.JWT_ALGORITHM)
 			loggedUserInfo = apiRpAccData(dbModel=user_model)
 
 		response_data = {"exp": apiDataFormat(exp)}

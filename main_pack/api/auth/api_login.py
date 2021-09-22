@@ -44,21 +44,24 @@ def api_login():
 		return make_response(*error_response)
 
 	if check_auth(auth_type, user_model, auth.password):
-		exp = datetime.now() + dt.timedelta(minutes = Config.TOKEN_EXP_TIME_MINUTES)
+		exp = datetime.now() + dt.timedelta(minutes = 30)
 		response_data = {"exp": apiDataFormat(exp)}
 
+		token_encoding_data = {"exp": exp}
+
 		if auth_type == "user":
-			token = jwt.encode({"UId": user_model.UId, "exp": exp}, Config.SECRET_KEY)
+			token_encoding_data["UId"] = user_model.UId
 			loggedUserInfo = apiUsersData(dbQuery = user_query)
 
 		elif auth_type == "rp_acc":
-			token = jwt.encode({"RpAccId": user_model.RpAccId, "exp": exp}, Config.SECRET_KEY)
+			token_encoding_data["RpAccId"] = user_model.RpAccId
 			loggedUserInfo = apiRpAccData(dbQuery = user_query)
 
 		elif auth_type == "device":
-			token = jwt.encode({"DevId": user_model.DevId, "exp": exp}, Config.SECRET_KEY)
+			token_encoding_data["DevId"] = user_model.DevId
 			loggedUserInfo = apiDeviceData(dbQuery = user_query)
-		
+
+		token = jwt.encode(token_encoding_data, Config.SECRET_KEY, algorithm=Config.JWT_ALGORITHM)
 		response_data[auth_type] = loggedUserInfo['data']
 		response_data["token"] = token.decode('UTF-8')
 
@@ -67,7 +70,7 @@ def api_login():
 			session["ResPriceGroupId"] = user_model.user.ResPriceGroupId if user_model.user else None
 
 		return jsonify(response_data)
-	
+
 	return make_response(*error_response)
 
 
@@ -87,7 +90,8 @@ def api_login_users():
 
 	if check_auth("user", user, auth.password):
 		exp = datetime.now() + dt.timedelta(minutes = Config.TOKEN_EXP_TIME_MINUTES)
-		token = jwt.encode({"UId": user.UId, "exp": exp}, Config.SECRET_KEY)
+		token_encoding_data = {"UId": user.UId, "exp": exp}
+		token = jwt.encode(token_encoding_data, Config.SECRET_KEY, algorithm=Config.JWT_ALGORITHM)
 		userData = apiUsersData(dbQuery = user_query)
 		session["ResPriceGroupId"] = user.ResPriceGroupId
 		return jsonify({
@@ -115,7 +119,8 @@ def api_login_rp_accs():
 
 	if check_auth("rp_acc", rp_acc, auth.password):
 		exp = datetime.now() + dt.timedelta(minutes = Config.TOKEN_EXP_TIME_MINUTES)
-		token = jwt.encode({"RpAccId": rp_acc.RpAccId, "exp": exp}, Config.SECRET_KEY)
+		token_encoding_data = {"RpAccId": rp_acc.RpAccId, "exp": exp}
+		token = jwt.encode(token_encoding_data, Config.SECRET_KEY, algorithm=Config.JWT_ALGORITHM)
 		rpAccData = apiRpAccData(dbQuery = user_query)
 		session["ResPriceGroupId"] = rp_acc.ResPriceGroupId
 		return jsonify({

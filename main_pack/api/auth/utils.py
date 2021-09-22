@@ -45,7 +45,7 @@ def register_token_required(f):
 			if not register_token:
 				raise Exception
 
-			token_data = jwt.decode(register_token, Config.SECRET_KEY)
+			token_data = jwt.decode(register_token, Config.SECRET_KEY, algorithms=[Config.JWT_ALGORITHM])
 			if register_method == "email":
 				username = token_data["username"].strip()
 				email = token_data["email"].strip()
@@ -107,7 +107,8 @@ def token_required(f):
 			return jsonify({"message": "Token is missing!"}), 401
 
 		try:
-			data = jwt.decode(auth_token, Config.SECRET_KEY)
+			data = jwt.decode(auth_token, Config.SECRET_KEY, algorithms=[Config.JWT_ALGORITHM])
+			print(data)
 
 			if "UId" in data:
 				model_type = 'user'
