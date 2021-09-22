@@ -44,10 +44,16 @@ def api_login():
 		return make_response(*error_response)
 
 	if check_auth(auth_type, user_model, auth.password):
-		exp = datetime.now() + dt.timedelta(minutes = 30)
+		exp = datetime.now() + dt.timedelta(minutes = Config.TOKEN_EXP_TIME_MINUTES)
+		exputc = datetime.utcnow() + dt.timedelta(minutes = Config.TOKEN_EXP_TIME_MINUTES)
+
 		response_data = {"exp": apiDataFormat(exp)}
 
-		token_encoding_data = {"exp": exp}
+		token_encoding_data = {
+			"exp": exputc,
+			"iat": datetime.utcnow(),
+			"nbf": datetime.utcnow()
+		}
 
 		if auth_type == "user":
 			token_encoding_data["UId"] = user_model.UId
@@ -90,7 +96,15 @@ def api_login_users():
 
 	if check_auth("user", user, auth.password):
 		exp = datetime.now() + dt.timedelta(minutes = Config.TOKEN_EXP_TIME_MINUTES)
-		token_encoding_data = {"UId": user.UId, "exp": exp}
+		exputc = datetime.utcnow() + dt.timedelta(minutes = Config.TOKEN_EXP_TIME_MINUTES)
+
+		token_encoding_data = {
+			"exp": exputc,
+			"iat": datetime.utcnow(),
+			"nbf": datetime.utcnow()
+		}
+
+		token_encoding_data["UId"] = user.UId
 		token = jwt.encode(token_encoding_data, Config.SECRET_KEY, algorithm=Config.JWT_ALGORITHM)
 		userData = apiUsersData(dbQuery = user_query)
 		session["ResPriceGroupId"] = user.ResPriceGroupId
@@ -119,7 +133,15 @@ def api_login_rp_accs():
 
 	if check_auth("rp_acc", rp_acc, auth.password):
 		exp = datetime.now() + dt.timedelta(minutes = Config.TOKEN_EXP_TIME_MINUTES)
-		token_encoding_data = {"RpAccId": rp_acc.RpAccId, "exp": exp}
+		exputc = datetime.utcnow() + dt.timedelta(minutes = Config.TOKEN_EXP_TIME_MINUTES)
+
+		token_encoding_data = {
+			"exp": exputc,
+			"iat": datetime.utcnow(),
+			"nbf": datetime.utcnow()
+		}
+
+		token_encoding_data["RpAccId"] = rp_acc.RpAccId
 		token = jwt.encode(token_encoding_data, Config.SECRET_KEY, algorithm=Config.JWT_ALGORITHM)
 		rpAccData = apiRpAccData(dbQuery = user_query)
 		session["ResPriceGroupId"] = rp_acc.ResPriceGroupId
