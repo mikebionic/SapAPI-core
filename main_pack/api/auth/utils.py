@@ -108,7 +108,7 @@ def token_required(f):
 
 		try:
 			data = jwt.decode(auth_token, Config.SECRET_KEY, algorithms=[Config.JWT_ALGORITHM])
-			print(data)
+			# print(data)
 
 			if "UId" in data:
 				model_type = 'user'

@@ -47,18 +47,21 @@ def api_register(token_data):
 			rp_acc_data["RpAccTypeId"] = 2
 			rp_acc_data["RpAccStatusId"] = 1
 
-		if register_method == "email":
+		if register_method == "email" and not Config.INSERT_PHONE_NUMBER_ON_REGISTER:
 			rp_acc_data["RpAccEmail"] = token_data["email"]
 			rp_acc_data["RpAccUame"] = token_data["username"]
+			rp_acc_data["RpAccMobilePhoneNumber"] = None
 
-			if not Config.INSERT_PHONE_NUMBER_ON_REGISTER:
-				rp_acc_data["RpAccMobilePhoneNumber"] = None
-
-		if register_method == "phone-number":
+		if register_method == "phone-number" and not Config.INSERT_EMAIL_ON_REGISTER:
+			rp_acc_data["RpAccEMail"] = None
 			rp_acc_data["RpAccMobilePhoneNumber"] = token_data["phone_number"]
-
-			if not Config.INSERT_EMAIL_ON_REGISTER:
-				rp_acc_data["RpAccEMail"] = None
+		
+		if "username" in token_data:
+			rp_acc_data["RpAccUame"] = token_data["username"]
+		if "email" in token_data:
+			rp_acc_data["RpAccEmail"] = token_data["email"]
+		if "phone_number" in token_data:
+			rp_acc_data["RpAccMobilePhoneNumber"] = token_data["phone_number"]
 
 		if Config.INSERT_LAST_ID_MANUALLY:
 			lastUser = Rp_acc.query.order_by(Rp_acc.RpAccId.desc()).first()
