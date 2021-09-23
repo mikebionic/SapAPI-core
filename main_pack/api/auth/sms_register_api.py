@@ -58,6 +58,7 @@ def request_sms_register():
 def check_sms_register():
 
 	data = {}
+	response_headers = {}
 
 	try:
 		header_data = request.headers
@@ -65,6 +66,9 @@ def check_sms_register():
 			raise Exception
 
 		data, message = check_phone_number_register(header_data["PhoneNumber"])
+		if data:
+			if "token" in data:
+				response_headers["token"] = response_headers
 
 	except Exception as ex:
 		log_print(f"SMS register check exception: {ex}", "warning")
@@ -72,4 +76,4 @@ def check_sms_register():
 	message = "{}"\
 		.format("Register check success") if data else message or "Register request check"
 
-	return handle_default_response(data, message)
+	return handle_default_response(data, message, headers = response_headers)

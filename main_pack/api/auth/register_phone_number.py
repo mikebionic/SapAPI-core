@@ -1,4 +1,5 @@
 
+from main_pack.base.cryptographyMethods import encodeJWT
 import uuid
 from datetime import datetime, timedelta
 
@@ -79,7 +80,8 @@ def check_phone_number_register(phone_number):
 
 		if registered_request.RegReqVerified:
 			data = registered_request.to_json_api()
-			data["token"] = PhoneNumber
+			data["token"] = encodeJWT({"phone_number": PhoneNumber})
+			data["phone_number"] = PhoneNumber
 			message = "Phone number verified"
 
 	except Exception as ex:

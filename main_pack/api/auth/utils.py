@@ -50,40 +50,40 @@ def register_token_required(f):
 			if register_method == "email":
 				username = token_data["username"].strip()
 				email = token_data["email"].strip()
-			
+
 				if auth_type == "rp_acc":
 					exiting_user = Rp_acc.query\
 						.filter_by(
-							RpAccUName = username, 
+							RpAccUName = username,
 							RpAccUEmail = email,
 							GCRecord = None
 						).first()
 					if exiting_user:
 						log_print("Email or Username requested is already registered")
 						raise Exception
-					
+
 					data = {
 						"username": username,
 						"email": email
 					}
-			
-			elif register_method == "phone-number":
-				phone_number, _ = check_phone_number_register(token_data["phone_number"].strip())
-				if not phone_number:
+
+			elif register_method == "phone_number":
+				phone_number_data, _ = check_phone_number_register(token_data["phone_number"].strip())
+				if not phone_number_data:
 					raise Exception
-				
+
 				if auth_type == "rp_acc":
 					existing_user = Rp_acc.query\
 						.filter_by(
-							RpAccMobilePhoneNumber = phone_number,
+							RpAccMobilePhoneNumber = phone_number_data["phone_number"],
 							GCRecord = None,
 						).first()
 					if existing_user:
 						log_print("Phone number requested is already registered")
 						raise Exception
-				
+
 				data = {
-					"phone_number": phone_number
+					"phone_number": phone_number_data["phone_number"]
 				}
 
 		except:

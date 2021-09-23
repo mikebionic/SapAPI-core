@@ -35,7 +35,7 @@ def api_register(token_data):
 			log_print("Register api exception, password not valid", "warning")
 			raise Exception
 
-		if register_method == "phone-number" and auth_type == "rp_acc":
+		if register_method == "phone_number" and auth_type == "rp_acc":
 			UId, CId, DivId, RpAccRegNo, RpAccGuid = gather_required_register_rp_acc_data()
 			rp_acc_data["UId"] = UId
 			rp_acc_data["CId"] = CId
@@ -50,7 +50,7 @@ def api_register(token_data):
 			rp_acc_data["RpAccUame"] = token_data["username"]
 			rp_acc_data["RpAccMobilePhoneNumber"] = None
 
-		if register_method == "phone-number" and not Config.INSERT_EMAIL_ON_REGISTER:
+		if register_method == "phone_number" and not Config.INSERT_EMAIL_ON_REGISTER:
 			rp_acc_data["RpAccEMail"] = None
 			rp_acc_data["RpAccMobilePhoneNumber"] = token_data["phone_number"]
 
