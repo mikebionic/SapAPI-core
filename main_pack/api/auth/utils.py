@@ -35,8 +35,6 @@ def register_token_required(f):
 		register_token = request.args.get("token","",type=str)
 		auth_type = request.args.get("type","user",type=str)
 
-		print("checking decorator ", register_method, register_token, auth_type)
-
 		try:
 			if not register_token:
 				if "token" in request.headers:

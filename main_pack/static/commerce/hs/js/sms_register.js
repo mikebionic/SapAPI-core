@@ -64,7 +64,7 @@ function check_for_phone_validation(phone_number, validation_interval){
 					message = response.message,
 					style = "success")
 				
-				// user_register_token = request.data["register_token"]
+				user_register_token = request.data["token"]
 				console.log(user_register_token)
 			
 				clearInterval(validation_interval);
@@ -81,41 +81,41 @@ function check_for_phone_validation(phone_number, validation_interval){
 $('#user-register-form').submit(function(e){
 	e.preventDefault();
 	if (user_register_token){
-		// do something
 		console.log("token exists, making request")
-	}
-	var user_data = collect_register_user_data(
-		$('#username').val().trim(),
-		$('#full-name').val().trim(),
-		$('#address').val().trim(),
-		$('#password').val().trim(),
-		$('#confirm-password').val().trim(),
-	);
-	if (!isEmpty(user_data)){
-		$.ajax({
-			contentType: "application/json",
-			dataType: "json",
-			data: JSON.stringify(user_data),
-			type: "POST",
-			url: `${api_url_prefix}/check-sms-register/`,
-			success: function(response){
-				if (response){
-					if (response.status == 1){
-						swal(
-							title = success_title,
-							message = response.message,
-							style = "success"
-						)
-						setTimeout(() => {
-							location.href = location.origin;
-						}, 3000);
+		var user_data = collect_register_user_data(
+			$('#username').val().trim(),
+			$('#full-name').val().trim(),
+			$('#address').val().trim(),
+			$('#password').val().trim(),
+			$('#confirm-password').val().trim(),
+		);
+		if (!isEmpty(user_data)){
+			$.ajax({
+				headers: {"token": user_register_token},
+				contentType: "application/json",
+				dataType: "json",
+				data: JSON.stringify(user_data),
+				type: "POST",
+				url: `${api_url_prefix}/check-sms-register/`,
+				success: function(response){
+					if (response){
+						if (response.status == 1){
+							swal(
+								title = success_title,
+								message = response.message,
+								style = "success"
+							)
+							setTimeout(() => {
+								location.href = location.origin;
+							}, 3000);
+						}
 					}
+				},
+				error: function(){
+					errorToaster(message = unknown_error_text);
 				}
-			},
-			error: function(){
-				errorToaster(message = unknown_error_text);
-			}
-		})
+			})
+		}
 	}
 })
 
