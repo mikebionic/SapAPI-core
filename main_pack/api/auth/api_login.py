@@ -3,7 +3,6 @@ from flask import jsonify, request, make_response, session
 from sqlalchemy.orm import joinedload
 from datetime import datetime
 import datetime as dt
-import jwt
 
 from main_pack.api.auth import api
 from main_pack.config import Config
@@ -13,6 +12,7 @@ from main_pack.models import User, Rp_acc, Device
 from main_pack.api.users.utils import apiUsersData, apiRpAccData, apiDeviceData
 from main_pack.base.dataMethods import apiDataFormat
 from main_pack.api.auth.auth_utils import check_auth
+from main_pack.base.cryptographyMethods import encodeJWT
 
 
 @api.route('/login/',methods=['GET','POST'])
@@ -44,16 +44,7 @@ def api_login():
 		return make_response(*error_response)
 
 	if check_auth(auth_type, user_model, auth.password):
-		exp = datetime.now() + dt.timedelta(minutes = Config.TOKEN_EXP_TIME_MINUTES)
-		exputc = datetime.utcnow() + dt.timedelta(minutes = Config.TOKEN_EXP_TIME_MINUTES)
-
-		response_data = {"exp": apiDataFormat(exp)}
-
-		token_encoding_data = {
-			"exp": exputc,
-			"iat": datetime.utcnow(),
-			"nbf": datetime.utcnow()
-		}
+		token_encoding_data = {}
 
 		if auth_type == "user":
 			token_encoding_data["UId"] = user_model.UId
@@ -67,7 +58,8 @@ def api_login():
 			token_encoding_data["DevId"] = user_model.DevId
 			loggedUserInfo = apiDeviceData(dbQuery = user_query)
 
-		token = jwt.encode(token_encoding_data, Config.SECRET_KEY, algorithm=Config.JWT_ALGORITHM)
+		token, exp = encodeJWT(token_encoding_data)
+		response_data = {"exp": apiDataFormat(exp)}
 		response_data[auth_type] = loggedUserInfo['data']
 		response_data["token"] = token.decode('UTF-8')
 
@@ -75,7 +67,11 @@ def api_login():
 		if (auth_type == "device"):
 			session["ResPriceGroupId"] = user_model.user.ResPriceGroupId if user_model.user else None
 
-		return jsonify(response_data)
+		response_headers = {
+			# "x-access-token": token,
+			"Authorization": f"Bearer {token.decode('UTF-8')}"
+		}
+		return make_response(response_data), response_headers
 
 	return make_response(*error_response)
 
@@ -95,17 +91,8 @@ def api_login_users():
 		return make_response(*error_response)
 
 	if check_auth("user", user, auth.password):
-		exp = datetime.now() + dt.timedelta(minutes = Config.TOKEN_EXP_TIME_MINUTES)
-		exputc = datetime.utcnow() + dt.timedelta(minutes = Config.TOKEN_EXP_TIME_MINUTES)
-
-		token_encoding_data = {
-			"exp": exputc,
-			"iat": datetime.utcnow(),
-			"nbf": datetime.utcnow()
-		}
-
-		token_encoding_data["UId"] = user.UId
-		token = jwt.encode(token_encoding_data, Config.SECRET_KEY, algorithm=Config.JWT_ALGORITHM)
+		token_encoding_data = {"UId": user.UId}
+		token, exp = encodeJWT(token_encoding_data)
 		userData = apiUsersData(dbQuery = user_query)
 		session["ResPriceGroupId"] = user.ResPriceGroupId
 		return jsonify({
@@ -132,17 +119,8 @@ def api_login_rp_accs():
 		return make_response(*error_response)
 
 	if check_auth("rp_acc", rp_acc, auth.password):
-		exp = datetime.now() + dt.timedelta(minutes = Config.TOKEN_EXP_TIME_MINUTES)
-		exputc = datetime.utcnow() + dt.timedelta(minutes = Config.TOKEN_EXP_TIME_MINUTES)
-
-		token_encoding_data = {
-			"exp": exputc,
-			"iat": datetime.utcnow(),
-			"nbf": datetime.utcnow()
-		}
-
-		token_encoding_data["RpAccId"] = rp_acc.RpAccId
-		token = jwt.encode(token_encoding_data, Config.SECRET_KEY, algorithm=Config.JWT_ALGORITHM)
+		token_encoding_data = {"RpAccId": rp_acc.RpAccId}
+		token, exp = encodeJWT(token_encoding_data)
 		rpAccData = apiRpAccData(dbQuery = user_query)
 		session["ResPriceGroupId"] = rp_acc.ResPriceGroupId
 		return jsonify({

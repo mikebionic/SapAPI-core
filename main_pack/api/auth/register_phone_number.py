@@ -79,6 +79,7 @@ def check_phone_number_register(phone_number):
 
 		if registered_request.RegReqVerified:
 			data = registered_request.to_json_api()
+			data["token"] = PhoneNumber
 			message = "Phone number verified"
 
 	except Exception as ex:

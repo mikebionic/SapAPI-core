@@ -1,14 +1,8 @@
 # -*- coding: utf-8 -*-
-from main_pack.base.dataMethods import apiDataFormat
-from main_pack.base.apiMethods import get_login_info
-from main_pack.api.common.gather_required_register_rp_acc_data import gather_required_register_rp_acc_data
 from flask_login import login_user
 from main_pack.base.log_print import log_print
 from main_pack.api.auth.utils import register_token_required
 from flask import jsonify, request, make_response, session
-from datetime import datetime
-import datetime as dt
-import jwt
 
 from main_pack import db
 from main_pack.api.auth import api
@@ -16,6 +10,10 @@ from main_pack.config import Config
 from main_pack.models import Rp_acc
 
 from main_pack.api.users.utils import addRpAccDict, apiRpAccData
+from main_pack.base.cryptographyMethods import encodeJWT
+from main_pack.base.dataMethods import apiDataFormat
+from main_pack.base.apiMethods import get_login_info
+from main_pack.api.common.gather_required_register_rp_acc_data import gather_required_register_rp_acc_data
 
 
 @api.route('/register/',methods=['POST'])
@@ -76,33 +74,26 @@ def api_register(token_data):
 			user_model.RpAccLastActivityDate = login_info["date"]
 			user_model.RpAccLastActivityDevice = login_info["info"]
 		except Exception as ex:
-			print(f"{datetime.now()} | Rp_acc activity info update Exception: {ex}")
+			log_print(f"Rp_acc activity info update Exception: {ex}")
 		db.session.commit()
 
-		exp = datetime.now() + dt.timedelta(minutes = Config.TOKEN_EXP_TIME_MINUTES)
 		if auth_type == "rp_acc":
-			exp = datetime.now() + dt.timedelta(minutes = Config.TOKEN_EXP_TIME_MINUTES)
-			exputc = datetime.utcnow() + dt.timedelta(minutes = Config.TOKEN_EXP_TIME_MINUTES)
-
-			token_encoding_data = {
-				"exp": exputc,
-				"iat": datetime.utcnow(),
-				"nbf": datetime.utcnow()
-			}
-
-			token_encoding_data["RpAccId"] = user_model.RpAccId
-			token = jwt.encode(token_encoding_data, Config.SECRET_KEY, algorithm=Config.JWT_ALGORITHM)
+			token_encoding_data = {"RpAccId": user_model.RpAccId}
+			token, exp = encodeJWT(token_encoding_data)
+			response_data = {"exp": apiDataFormat(exp)}
 			loggedUserInfo = apiRpAccData(dbModel=user_model)
 
-		response_data = {"exp": apiDataFormat(exp)}
-		response_data[auth_type] = loggedUserInfo['data']
-		response_data["token"] = token.decode('UTF-8')
+			response_data[auth_type] = loggedUserInfo['data']
+			response_data["token"] = token.decode('UTF-8')
 
-		session["model_type"] = "rp_acc"
-		session["ResPriceGroupId"] = user_model.ResPriceGroupId
+			session["model_type"] = "rp_acc"
+			session["ResPriceGroupId"] = user_model.ResPriceGroupId
+			login_user(user_model)
 
-		login_user(user_model)
-		return jsonify(response_data)
+			response_header = {
+				"Authorization": f"Bearer {token.decode('UTF-8')}"
+			}
+			return jsonify(response_data), response_header
 
 	except Exception as ex:
 		log_print(f"API register exception {ex}")

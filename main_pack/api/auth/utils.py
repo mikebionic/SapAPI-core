@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from flask import url_for, jsonify, request
-import jwt
 from functools import wraps
 from flask_mail import Message
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
@@ -12,6 +11,7 @@ from main_pack.models import User, Rp_acc, Device
 
 from main_pack.api.auth.register_phone_number import check_phone_number_register
 from main_pack.base import log_print
+from main_pack.base.cryptographyMethods import decodeJWT
 
 
 def get_bearer_from_header(auth_header):
@@ -45,7 +45,8 @@ def register_token_required(f):
 			if not register_token:
 				raise Exception
 
-			token_data = jwt.decode(register_token, Config.SECRET_KEY, algorithms=[Config.JWT_ALGORITHM])
+			token_data = decodeJWT(register_token)
+
 			if register_method == "email":
 				username = token_data["username"].strip()
 				email = token_data["email"].strip()
@@ -107,8 +108,7 @@ def token_required(f):
 			return jsonify({"message": "Token is missing!"}), 401
 
 		try:
-			data = jwt.decode(auth_token, Config.SECRET_KEY, algorithms=[Config.JWT_ALGORITHM])
-			# print(data)
+			data = decodeJWT(auth_token)
 
 			if "UId" in data:
 				model_type = 'user'
