@@ -201,8 +201,8 @@ def register_token():
 			req = {
 				"RpAccUName": new_user['username'],
 				"RpAccEMail": new_user['email'],
-				"RpAccMobilePhoneNumber": form.phone_number.data,
 				"RpAccName": form.full_name.data,
+				"RpAccMobilePhoneNumber": form.phone_number.data,
 				"RpAccAddress": form.address.data,
 				"RpAccUPass": form.password.data,
 			}
@@ -229,9 +229,6 @@ def register_token():
 				RpAccId = lastUser.RpAccId + 1
 				rp_acc_data["RpAccId"] = RpAccId
 
-			user_model = Rp_acc(**rp_acc_data)
-			db.session.add(user_model)
-
 			check_registration = Rp_acc.query\
 				.filter_by(
 					RpAccEMail = rp_acc_data["RpAccEMail"],
@@ -240,6 +237,9 @@ def register_token():
 				.first()
 			if check_registration:
 				raise Exception
+
+			user_model = Rp_acc(**rp_acc_data)
+			db.session.add(user_model)
 
 			try:
 				login_info = get_login_info(request)
