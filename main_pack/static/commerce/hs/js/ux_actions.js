@@ -513,7 +513,6 @@ function configureImageSizeByScreen(){
 	}
 }
 
-
 function send_view_request(data){
 	setTimeout(() => {
 		$.ajax({

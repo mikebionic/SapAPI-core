@@ -310,7 +310,12 @@ class Config:
 	INSERT_EMAIL_ON_REGISTER = int(environ.get("INSERT_EMAIL_ON_REGISTER")) if environ.get("INSERT_EMAIL_ON_REGISTER") else 0
 
 	HANDLE_PRODUCT_VIEW = int(environ.get("HANDLE_PRODUCT_VIEW")) if environ.get("HANDLE_PRODUCT_VIEW") else 0
-	VIEW_HANDLER_API_URL = environ.get("VIEW_HANDLER_API_URL") or '/view-counter/'
+	VIEW_HANDLER_API_URL = environ.get("VIEW_HANDLER_API_URL") or '/goapi/view-counter/'
+
+	# use only if goapi blueve search deployed
+	USE_SMART_SEARCH = int(environ.get("USE_SMART_SEARCH")) if environ.get("USE_SMART_SEARCH") else 0
+	SMART_SEARCH_API_URL = environ.get("SMART_SEARCH_API_URL") or '/goapi/find-product/'
+
 	ATTEMPT_ERROR_TIMEOUT_MINUTES = int(environ.get("ATTEMPT_ERROR_TIMEOUT_MINUTES")) if environ.get("ATTEMPT_ERROR_TIMEOUT_MINUTES") else 30
 	REGISTER_REQUEST_EXPIRE_TIME_MINUTES = int(environ.get("REGISTER_REQUEST_EXPIRE_TIME_MINUTES")) if environ.get("REGISTER_REQUEST_EXPIRE_TIME_MINUTES") else 10
 	REGISTER_REQUEST_VALIDATOR_PHONE_NUMBER = environ.get("REGISTER_REQUEST_VALIDATOR_PHONE_NUMBER")

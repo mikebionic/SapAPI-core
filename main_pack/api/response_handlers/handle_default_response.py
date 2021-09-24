@@ -9,6 +9,6 @@ def handle_default_response(data, message = "", status_code = None, headers = No
 	}
 
 	if not status_code:
-		status_code = 201 if data else 200
+		status_code = 200 if data else 404
 
 	return make_response(jsonify(res)), status_code, headers

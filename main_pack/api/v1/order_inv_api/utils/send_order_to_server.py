@@ -94,7 +94,7 @@ def send_order_to_sync(
 	data = json.dumps(payload),
 	headers = {
 		'Content-Type': 'application/json',
-		'sha-token': token,
+		'x-access-token': token,
 		}
 	)
 	# print(r.json())

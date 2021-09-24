@@ -1,30 +1,13 @@
-from flask import render_template,url_for,jsonify,session,flash,redirect,request,Response,abort
-from flask_login import current_user,login_required
-from sqlalchemy import and_
-from sqlalchemy.orm import joinedload
+from flask import render_template,request,abort
+
 
 from . import bp, url_prefix
-from main_pack import db,babel,gettext,lazy_gettext
+from main_pack import gettext
 from main_pack.config import Config
 
-# Resource and view
-from main_pack.models import (
-	Resource,
-	Res_total,
-	Barcode,
-	Rating,
-	Res_category,
-	Brand,
-	Res_price
-)
-
-from main_pack.models import Division
-
-from main_pack.commerce.commerce.utils import UiCategoriesList, uiSortingData, UiBrandsList
+from main_pack.commerce.commerce.utils import UiCategoriesList, UiBrandsList
 from main_pack.api.commerce.commerce_utils import UiCartResourceData
 from main_pack.api.commerce.pagination_utils import collect_resource_paginate_info
-# / Resource and view /
-from main_pack.base.priceMethods import calculatePriceByGroup, price_currency_conversion
 
 
 @bp.route(Config.COMMERCE_LIST_VIEW)

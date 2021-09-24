@@ -2,6 +2,7 @@
 from flask import url_for
 from sqlalchemy import and_, or_, extract
 from sqlalchemy.orm import joinedload
+import requests
 
 # datetime, date-parser
 import dateutil.parser
@@ -24,6 +25,8 @@ from main_pack.models import (
 	Res_price)
 # / Resource db Models /
 from main_pack.models import Order_inv
+
+from main_pack.base import log_print
 
 
 def collect_resource_paginate_info(
@@ -178,46 +181,60 @@ def collect_resource_paginate_info(
 	if search:
 		search = search.strip()
 		searching_tag = "%{}%".format(search)
+		resource_ids = []
+
 		barcodes_search = Barcode.query\
 			.filter(and_(
 				Barcode.GCRecord == None,\
 				Barcode.BarcodeVal.ilike(searching_tag)))
-
-		if Config.SEARCH_BY_RESOURCE_DESCRIPTION:
-			resources_search = Resource.query\
-				.filter(and_(
-					Resource.GCRecord == None,\
-					or_(
-						Resource.ResName.ilike(searching_tag),
-						Resource.ResDesc.ilike(searching_tag)
-					),\
-					Resource.UsageStatusId == 1))\
-				.order_by(Resource.ResId.desc())
-
-		else:
-			resources_search = Resource.query\
-				.filter(and_(
-					Resource.GCRecord == None,\
-					Resource.ResName.ilike(searching_tag),\
-					Resource.UsageStatusId == 1))\
-				.order_by(Resource.ResId.desc())
-
 		if DivId:
 			barcodes_search = barcodes_search.filter_by(DivId = DivId)
-			resources_search = resources_search.filter_by(DivId = DivId)
 		if notDivId:
 			barcodes_search = barcodes_search.filter(Barcode.DivId != DivId)
-			resources_search = resources_search.filter(Resource.DivId != notDivId)
-
 		barcodes_search = barcodes_search.all()
-		resources_search = resources_search.all()
 
-		resource_ids = []
+
+		if Config.USE_SMART_SEARCH:
+			try:
+				r = requests.get(f"{Config.SMART_SEARCH_API_URL}?search={search}")
+				smart_search_req = r.json()
+				print(smart_search_req)
+				resource_ids = [data["ResId"] for data in smart_search_req["data"] if smart_search_req["data"]]
+			except Exception as ex:
+				resource_ids = []
+				log_print(f"Smart search exception {ex}", "warning")
+
+		if not resource_ids or not Config.USE_SMART_SEARCH:
+			if Config.SEARCH_BY_RESOURCE_DESCRIPTION:
+				resources_search = Resource.query\
+					.filter(and_(
+						Resource.GCRecord == None,\
+						or_(
+							Resource.ResName.ilike(searching_tag),
+							Resource.ResDesc.ilike(searching_tag)
+						),\
+						Resource.UsageStatusId == 1))\
+					.order_by(Resource.ResId.desc())
+
+			else:
+				resources_search = Resource.query\
+					.filter(and_(
+						Resource.GCRecord == None,\
+						Resource.ResName.ilike(searching_tag),\
+						Resource.UsageStatusId == 1))\
+					.order_by(Resource.ResId.desc())
+
+			if DivId:
+				resources_search = resources_search.filter_by(DivId = DivId)
+			if notDivId:
+				resources_search = resources_search.filter(Resource.DivId != notDivId)
+			resources_search = resources_search.all()
+			for resource in resources_search:
+				resource_ids.append(resource.ResId)
+
 		if barcodes_search:
 			for barcode in barcodes_search:
 				resource_ids.append(barcode.ResId)
-		for resource in resources_search:
-			resource_ids.append(resource.ResId)
 
 		# removes duplicates
 		resource_ids = list(set(resource_ids))
