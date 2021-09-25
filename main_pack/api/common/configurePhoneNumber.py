@@ -1,7 +1,7 @@
-def configurePhoneNumber(number, remove_plus_sign=False):
+def configurePhoneNumber(input_number, remove_plus_sign=False):
 	number = None
 	try:
-		number = number.strip().replace(' ','').replace('-','').replace('(','').replace(')','')
+		number = input_number.strip().replace(' ','').replace('-','').replace('(','').replace(')','')
 
 		if len(number) > 9:
 			number = f"+{number}" if not remove_plus_sign and number[0] != "+" else number

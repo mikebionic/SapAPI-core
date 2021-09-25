@@ -68,7 +68,7 @@ def check_sms_register():
 		data, message = check_phone_number_register(header_data["PhoneNumber"])
 		if data:
 			if "token" in data:
-				response_headers["token"] = response_headers
+				response_headers["token"] = data["token"]
 
 	except Exception as ex:
 		log_print(f"SMS register check exception: {ex}", "warning")

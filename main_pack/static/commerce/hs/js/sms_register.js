@@ -29,12 +29,13 @@ function send_sms_register_request(phone_number){
 					var current_time = Date.now()
 
 					validation_interval = setInterval(() => {
+						// after 9 minutes:
 						if (Date.now() > current_time + 9*60000){
 							clearInterval(validation_interval)
 							location.reload();
 						}
 						check_for_phone_validation(phone_number, validation_interval)
-					}, 5000);
+					}, 10000);
 				}
 				else {
 					swal(
@@ -45,8 +46,9 @@ function send_sms_register_request(phone_number){
 			},
 			error: function(){
 				swal(
+					title = error_title,
 					message = `${unknown_error_text}: ${phone_number}`,
-					style = "danger");
+					style = "error");
 			}
 		})
 	}
@@ -64,16 +66,16 @@ function check_for_phone_validation(phone_number, validation_interval){
 					message = response.message,
 					style = "success")
 				
-				user_register_token = request.data["token"]
-				console.log(user_register_token)
-			
 				clearInterval(validation_interval);
+				user_register_token = response.data["token"]
+				// console.log(user_register_token)
+			
 				hide_loader_spinner();
 				show_user_register_form();
 			}
 		},
 		error: function(){
-			errorToaster(message = `${unknown_error_text}: Couldn't validate phone number, try again later.`);
+			// errorToaster(message = `${unknown_error_text}: Couldn't validate phone number, try again later.`);
 		}
 	})
 }
