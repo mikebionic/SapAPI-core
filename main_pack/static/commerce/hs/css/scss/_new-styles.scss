@@ -105,7 +105,7 @@
 .pulse::before {
   content: "";
   position: absolute;
-  border: 1px solid #f17070;
+  border: 1px solid #64bb82;
   width: calc(100% + 40px);
   height: calc(100% + 40px);
   border-radius: 50%;
@@ -115,7 +115,7 @@
 .pulse::after {
   content: "";
   position: absolute;
-  border: 1px solid #ff5151;
+  border: 1px solid #4c9a67;
   width: calc(100% + 40px);
   height: calc(100% + 40px);
   border-radius: 50%;

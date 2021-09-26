@@ -34920,3 +34920,33 @@ input:checked ~ .tab-content{
 .online-payment-radio img {
   max-height: 40px;
 }
+
+
+.view_icon svg{
+  width: 30px
+}
+
+.view_icon .count {
+	font-size: 0.6em !important;
+	padding: 0.5em 0;
+	width: 17px;
+	height: 16px;
+  color: #fff;
+	flex-shrink: 0;
+	line-height: 0.4 !important;
+	text-align: center;
+	letter-spacing: -1px;
+	border-radius: 50px;
+	margin-left: 0.214em !important;
+	background-color: #283d86;
+	font-weight: bold;
+	background-color: #283d86;
+}
+.view_icon .count{
+  font-size: 0.7em !important;
+  padding: 0.4em 0.5em;
+  margin-left: -11px!important;
+}
+.view_icon{
+  margin:0 10px;
+}
