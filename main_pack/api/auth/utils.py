@@ -33,7 +33,7 @@ def register_token_required(f):
 
 		register_method = request.args.get("method","email",type=str)
 		register_token = request.args.get("token","",type=str)
-		auth_type = request.args.get("type","user",type=str)
+		auth_type = request.args.get("type","rp_acc",type=str)
 
 		try:
 			if not register_token:
@@ -41,6 +41,7 @@ def register_token_required(f):
 					register_token = request.headers["token"]
 
 			if not register_token:
+				log_print("No token specified in header or query string parameter")
 				raise Exception
 
 			token_data = decodeJWT(register_token)
@@ -68,6 +69,7 @@ def register_token_required(f):
 			elif register_method == "phone_number":
 				phone_number_data, _ = check_phone_number_register(token_data["phone_number"].strip())
 				if not phone_number_data:
+					log_print("Phone number not found in token_data or invalid")
 					raise Exception
 
 				if auth_type == "rp_acc":
@@ -84,9 +86,12 @@ def register_token_required(f):
 					"phone_number": phone_number_data["phone_number"]
 				}
 
-		except:
-			pass
+				print(data)
 
+		except Exception as ex:
+			log_print(f"Register token required exception: {ex}")
+
+		print(data)
 		return f(data,*args,**kwargs)
 
 	return decorated

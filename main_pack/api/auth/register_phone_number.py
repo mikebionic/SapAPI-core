@@ -70,10 +70,8 @@ def register_phone_number(phone_number):
 
 def check_phone_number_register(phone_number):
 	data, message = {}, ""
-	# print(phone_number)
 	try:
 		PhoneNumber = configurePhoneNumber(phone_number)
-		# print(PhoneNumber)
 		if not PhoneNumber:
 			message = "{}: {}".format("Invalid phone number", phone_number)
 			log_print(message, "warning")
@@ -95,7 +93,8 @@ def check_phone_number_register(phone_number):
 
 		if registered_request.RegReqVerified:
 			data = registered_request.to_json_api()
-			data["token"] = encodeJWT({"phone_number": PhoneNumber}).encode('UTF-8')
+			encoded_token, _ = encodeJWT({"phone_number": PhoneNumber})
+			data["token"] = encoded_token.decode('UTF-8')
 			data["phone_number"] = PhoneNumber
 			message = "Phone number verified"
 

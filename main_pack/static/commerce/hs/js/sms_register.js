@@ -68,7 +68,6 @@ function check_for_phone_validation(phone_number, validation_interval){
 				
 				clearInterval(validation_interval);
 				user_register_token = response.data["token"]
-				// console.log(user_register_token)
 			
 				hide_loader_spinner();
 				show_user_register_form();
@@ -83,7 +82,6 @@ function check_for_phone_validation(phone_number, validation_interval){
 $('#user-register-form').submit(function(e){
 	e.preventDefault();
 	if (user_register_token){
-		console.log("token exists, making request")
 		var user_data = collect_register_user_data(
 			$('#username').val().trim(),
 			$('#full-name').val().trim(),
@@ -98,7 +96,7 @@ $('#user-register-form').submit(function(e){
 				dataType: "json",
 				data: JSON.stringify(user_data),
 				type: "POST",
-				url: `${api_url_prefix}/check-sms-register/`,
+				url: `${api_url_prefix}/register/?method=phone_number&type=rp_acc`,
 				success: function(response){
 					if (response){
 						if (response.status == 1){
@@ -118,6 +116,15 @@ $('#user-register-form').submit(function(e){
 				}
 			})
 		}
+	}
+	else{
+		swal(
+			title = error_title,
+			message = `${unknown_error_text} \n, Try again or contact administartiors`,
+			style = "error");
+		setTimeout(() => {
+			location.href = location.origin;
+		}, 5000);
 	}
 })
 

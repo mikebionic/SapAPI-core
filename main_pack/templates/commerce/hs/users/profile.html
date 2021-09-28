@@ -39,7 +39,7 @@
 													</div>
 													<div class="info-block">
 														<span class="label-text">{{_('Email')}}</span>
-														<span class="label-value profile_email">{{rpAcc.RpAccEMail}}</span>
+														<span class="label-value profile_email">{{ rpAcc.RpAccEMail if rpAcc.RpAccEMail else '' }}</span>
 													</div>
 													<div class="info-block">
 														<span class="label-text">{{_('Full name')}}</span>
