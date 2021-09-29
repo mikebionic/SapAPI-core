@@ -1104,4 +1104,48 @@ function featured_product_owl_carousel(){
     });
 }
 
+
+$('#user-register-form').submit(function(e){
+	e.preventDefault();
+	if (user_register_token){
+		var user_data = collect_register_user_data(
+			$('#phone-number').val().trim(),
+			$('#password').val().trim(),
+		);
+		if (!isEmpty(user_data)){
+			$.ajax({
+				type: "GET",
+				url: `${api_url_prefix}/login/?method=phone_number&type=rp_acc`,
+				success: function(response){
+					if (response){
+						if (response.status == 1){
+							swal(
+								title = success_title,
+								message = response.message,
+								style = "success"
+							)
+							setTimeout(() => {
+								location.href = location.origin;
+							}, 3000);
+						}
+					}
+				},
+				error: function(){
+					errorToaster(message = unknown_error_text);
+				}
+			})
+		}
+	}
+	else{
+		swal(
+			title = error_title,
+			message = `${unknown_error_text} \n, Try again or contact administartiors`,
+			style = "error");
+		setTimeout(() => {
+			location.href = location.origin;
+		}, 5000);
+	}
+})
+
+
 console.clear();

@@ -897,3 +897,18 @@ msgstr "Featured products"
 
 msgid "Previously viewed products"
 msgstr "Previously viewed products"
+
+msgid "Register by SMS"
+msgstr "Register by SMS"
+
+msgid "Login by phone number"
+msgstr "Login by phone number"
+
+msgid "Login by email"
+msgstr "Login by email"
+
+msgid "Register"
+msgstr "Register"
+
+msgid "Register"
+msgstr "Register"

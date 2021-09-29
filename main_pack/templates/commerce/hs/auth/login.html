@@ -43,7 +43,8 @@
 						<div id="lg1" class="tab-pane active">
 							<div class="login-form-container">
 								<div class="login-register-form">
-									<form action="#" method="post">
+
+									<form action="#" method="post" id="email-login-form">
 										{{ form.csrf_token() }}
 										<p class="before-login-text">
 											{{_("To login you account, fill the required fields and click 'Login' button")}}.
@@ -64,10 +65,50 @@
 												<label>{{_('Remember me')}}</label>
 												<a href="{{ url_for('commerce_auth.reset_request') }}">{{_('Forgot your password?')}}</a>
 											</div>
+
+											<div class="row" style="justify-content: space-around;">
+												<div class="button-box">
+													<button type="submit">{{_('Login')}}</button>
+												</div>
+												<div class="cart-summary-button btn-hover btn-hover-radious">
+													<a href="#" id="phone-number-login-button">
+														<i class="las la-sign-in-alt"></i>
+														<span class="login-text">{{_('Login by phone number')}}</span>
+													</a>
+												</div>
+											</div>
+
 											<button type="submit">{{_('Login')}}</button>
 										</div>
 									</form>
-									
+
+									<form action="" method="get" id="phone-number-login-form" style="display:none">
+										<h4 class="theme-text-message">
+											{{_('Please, proceed the registration')}}
+										</h4>
+										<p>{{_('Phone number')}}<span style="color:red"> *</span></p>
+										<input inputmode="tel" placeholder="{{_('Phone number')}} : +99361234567" class='input-text' id="phone-number" required />
+										<p>{{_('Password')}}<span style="color:red"> *</span></p>
+										<input type="password" placeholder="{{_('Password')}}" class='input-text' id="password" required />
+										<span toggle="#password" class="las la-low-vision field-icon toggle-password"></span>
+										<div class="button-box">
+											<button type="submit">{{_('Register')}}</button>
+										</div>
+
+										<div class="row" style="justify-content: space-around;">
+											<div class="button-box">
+												<button type="submit">{{_('Register')}}</button>
+											</div>
+											<div class="cart-summary-button btn-hover btn-hover-radious">
+												<a href="#" id="email-login-button">
+													<i class="las la-sign-in-alt"></i>
+													<span class="login-text">{{_('Login by email')}}</span>
+												</a>
+											</div>
+										</div>
+
+									</form>
+
 									<h4>{{_('Don’t have profile?')}} <a href="{{ url_for('commerce_auth.register') }}" style="color: #5995fd;">{{_('Register')}}</a></h4>
 									<h4>{{_('Forgot your password?')}} <a href="{{ url_for('commerce_auth.reset_request') }}" style="color: #5995fd;">{{_('Reset password')}}</a></h4>
 								</div>
@@ -82,3 +123,7 @@
 
 
 {% endblock %}
+
+<script>
+	var api_url_prefix = "{{api_url_prefix if api_url_prefix else ''}}";
+</script>

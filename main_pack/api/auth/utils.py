@@ -86,8 +86,6 @@ def register_token_required(f):
 					"phone_number": phone_number_data["phone_number"]
 				}
 
-				print(data)
-
 		except Exception as ex:
 			log_print(f"Register token required exception: {ex}")
 

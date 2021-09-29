@@ -82,6 +82,7 @@ def login():
 	return render_template(
 		f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/auth/login.html",
 		**categoryData,
+		api_url_prefix = Config.API_URL_PREFIX,
 		url_prefix = url_prefix,
 		title = gettext('Login'),
 		form = form)

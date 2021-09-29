@@ -1,12 +1,9 @@
 # -*- coding: utf-8 -*-
 from flask import jsonify, request, make_response, session
 from sqlalchemy.orm import joinedload
-from datetime import datetime
-import datetime as dt
+from flask_login import login_user
 
 from main_pack.api.auth import api
-from main_pack.config import Config
-
 from main_pack.models import User, Rp_acc, Device
 
 from main_pack.api.users.utils import apiUsersData, apiRpAccData, apiDeviceData
@@ -17,7 +14,7 @@ from main_pack.base.cryptographyMethods import encodeJWT
 
 @api.route('/login/',methods=['GET','POST'])
 def api_login():
-	# register_method = request.args.get("method","username",type=str)
+	login_method = request.args.get("method","username",type=str)
 	auth_type = request.args.get("type","user",type=str)
 	auth = request.authorization
 	error_response = [{"error": "Login failure, check credentials."}, 401, {"WWW-Authenticate": "basic realm"}]
@@ -25,21 +22,34 @@ def api_login():
 	if not auth or not auth.username:
 		return make_response(*error_response)
 
-	user_model = None
+	user_model, user_query = None, None
+	user_query_filter = {"GCRecord": None}
 
 	if auth_type == "user":
-		user_query = User.query.filter_by(GCRecord = None, UName = auth.username)
-		user_model = user_query.first()
+		if login_method == "username":
+			user_query_filter["UName"] = auth.username
+		elif login_method == "email":
+			user_query_filter["UEmail"] = auth.username
+
+		user_query = User.query.filter_by(**user_query_filter)
 
 	elif auth_type == "rp_acc":
-		user_query = Rp_acc.query.filter_by(GCRecord = None, RpAccUName = auth.username)
-		user_model = user_query.first()
+		if login_method == "username":
+			user_query_filter["RpAccUName"] = auth.username
+		elif login_method == "email":
+			user_query_filter["RpAccEMail"] = auth.username
+		elif login_method == "phone_number":
+			user_query_filter["RpAccMobilePhoneNumber"] = auth.username
+
+		user_query = Rp_acc.query.filter_by(**user_query_filter)
 
 	elif auth_type == "device":
+		user_query_filter["DevUniqueId"] = auth.username
 		user_query = Device.query\
-			.filter_by(GCRecord = None, DevUniqueId = auth.username)\
+			.filter_by(**user_query_filter)\
 			.options(joinedload(Device.user))
-		user_model = user_query.first()
+
+	user_model = user_query.first() if user_query else None
 
 	if not user_model:
 		return make_response(*error_response)
@@ -68,8 +78,9 @@ def api_login():
 		if (auth_type == "device"):
 			session["ResPriceGroupId"] = user_model.user.ResPriceGroupId if user_model.user else None
 
+		login_user(user_model)
+
 		response_headers = {
-			# "x-access-token": token,
 			"Authorization": f"Bearer {token.decode('UTF-8')}"
 		}
 		return make_response(response_data), response_headers

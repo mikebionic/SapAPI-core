@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from flask.helpers import make_response
-from main_pack.api.response_handlers.handle_default_response import handle_default_response
 from flask_login import login_user
 from main_pack.base.log_print import log_print
 from main_pack.api.auth.utils import register_token_required
@@ -17,6 +16,7 @@ from main_pack.base.cryptographyMethods import encodeJWT
 from main_pack.base.dataMethods import apiDataFormat
 from main_pack.base.apiMethods import get_login_info
 from main_pack.api.common.gather_required_register_rp_acc_data import gather_required_register_rp_acc_data
+from main_pack.api.response_handlers.handle_default_response import handle_default_response
 
 
 @api.route('/register/',methods=['POST'])
