@@ -1103,3 +1103,5 @@ function featured_product_owl_carousel(){
         }
     });
 }
+
+console.clear();

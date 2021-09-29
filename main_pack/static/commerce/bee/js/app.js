@@ -1737,3 +1737,5 @@ var postData = function(payload_data,url,type,formId,listName,responseForm,alert
 		}
 	})
 }
+
+console.clear();

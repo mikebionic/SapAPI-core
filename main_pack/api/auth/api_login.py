@@ -17,6 +17,7 @@ from main_pack.base.cryptographyMethods import encodeJWT
 
 @api.route('/login/',methods=['GET','POST'])
 def api_login():
+	# register_method = request.args.get("method","username",type=str)
 	auth_type = request.args.get("type","user",type=str)
 	auth = request.authorization
 	error_response = [{"error": "Login failure, check credentials."}, 401, {"WWW-Authenticate": "basic realm"}]

@@ -518,10 +518,7 @@ function send_view_request(data){
 		$.ajax({
 			type: "GET",
 			url: `${view_handler_api_url}?type=resource`,
-			headers: {...data},
-			success: function(response){
-				console.log(response)
-			}
+			headers: {...data}
 		})
 	}, 15000);
 }
