@@ -907,8 +907,8 @@ msgstr "Login by phone number"
 msgid "Login by email"
 msgstr "Login by email"
 
-msgid "Register"
-msgstr "Register"
+msgid "Send an empty SMS to number"
+msgstr "Send an empty SMS to number"
 
-msgid "Register"
-msgstr "Register"
+msgid "Request expires in"
+msgstr "Request expires in"

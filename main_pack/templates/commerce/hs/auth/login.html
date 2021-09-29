@@ -49,6 +49,7 @@
 										<p class="before-login-text">
 											{{_("To login you account, fill the required fields and click 'Login' button")}}.
 										</p>
+										<p>{{_('Email address')}}<span style="color:red"> *</span></p>
 										{{ form.email(class="input-text",inputmode="email",placeholder=_('Email address')) }}
 										{% if form.email.errors %}
 											<div class="col-12 mb-30">
@@ -57,6 +58,7 @@
 												{% endfor %}
 											</div>
 										{% endif %}
+										<p>{{_('Password')}}<span style="color:red"> *</span></p>
 										{{ form.password(id="password-field",class="input-text",placeholder=_('Password')) }}
 										<span toggle="#password-field" class="las la-low-vision field-icon toggle-password"></span>
 										<div class="button-box">
@@ -78,11 +80,11 @@
 												</div>
 											</div>
 
-											<button type="submit">{{_('Login')}}</button>
+											<!-- <button type="submit">{{_('Login')}}</button> -->
 										</div>
 									</form>
 
-									<form action="" method="get" id="phone-number-login-form" style="display:none">
+									<form action="" method="post" id="phone-number-login-form" style="display:none">
 										<h4 class="theme-text-message">
 											{{_('Please, proceed the registration')}}
 										</h4>
@@ -91,13 +93,10 @@
 										<p>{{_('Password')}}<span style="color:red"> *</span></p>
 										<input type="password" placeholder="{{_('Password')}}" class='input-text' id="password" required />
 										<span toggle="#password" class="las la-low-vision field-icon toggle-password"></span>
-										<div class="button-box">
-											<button type="submit">{{_('Register')}}</button>
-										</div>
 
 										<div class="row" style="justify-content: space-around;">
 											<div class="button-box">
-												<button type="submit">{{_('Register')}}</button>
+												<button type="submit">{{_('Login')}}</button>
 											</div>
 											<div class="cart-summary-button btn-hover btn-hover-radious">
 												<a href="#" id="email-login-button">
@@ -123,7 +122,8 @@
 
 
 {% endblock %}
-
+{% block scripts %}
 <script>
 	var api_url_prefix = "{{api_url_prefix if api_url_prefix else ''}}";
 </script>
+{% endblock %}

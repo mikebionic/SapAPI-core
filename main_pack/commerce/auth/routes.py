@@ -1,4 +1,3 @@
-from main_pack.api.auth.utils import register_token_required
 from main_pack.api.users.utils import addRpAccDict
 from flask import (
 	render_template,
@@ -41,7 +40,6 @@ from main_pack.base import log_print
 from main_pack.api.common import (
 	configurePassword,
 	checkPassword,
-	configurePhoneNumber,
 	gather_required_register_rp_acc_data,
 )
 
@@ -71,6 +69,8 @@ def login():
 			session["model_type"] = "rp_acc"
 			session["ResPriceGroupId"] = user.ResPriceGroupId
 			login_user(user, remember=form.remember.data)
+
+			print(session)
 			next_page = request.args.get("next")
 
 			return redirect(next_page) if next_page else redirect(url_for('commerce.commerce'))

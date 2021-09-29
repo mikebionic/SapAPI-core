@@ -3,6 +3,7 @@ from flask import (
 	request,
 )
 
+from main_pack import lazy_gettext
 from main_pack.api.auth import api
 from main_pack.api.auth.register_phone_number import (
 	register_phone_number,
@@ -20,7 +21,6 @@ from main_pack.config import Config
 @sha_required
 def verify_sms_register():
 	req = request.get_json()
-	# print("headers: ", request.headers)
 	phone_number = req.get('phone_number')
 	message_text = req.get('message_text')
 
@@ -45,9 +45,9 @@ def request_sms_register():
 		log_print(f"SMS register register exception: {ex}", "warning")
 
 	message = "{}: {}\n {} {} {}".format(
-		"Send an empty sms to number",
+		lazy_gettext('Send an empty SMS to number'),
 		Config.REGISTER_REQUEST_VALIDATOR_PHONE_NUMBER,
-		"Request expires in",
+		lazy_gettext('Request expires in'),
 		Config.REGISTER_REQUEST_EXPIRE_TIME_MINUTES,
 		"(minutes)") if data else message or "Register request"
 

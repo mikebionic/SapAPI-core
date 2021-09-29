@@ -1105,47 +1105,68 @@ function featured_product_owl_carousel(){
 }
 
 
-$('#user-register-form').submit(function(e){
+$('#email-login-button').click(function(){
+	show_email_login_form()
+})
+
+
+$('#phone-number-login-button').click(function(){
+	show_phone_login_form()
+})
+
+
+function show_email_login_form(){
+	$('#phone-number-login-form').hide()
+	$('#email-login-form').show()
+}
+
+function show_phone_login_form(){
+	$('#email-login-form').hide()
+	$('#phone-number-login-form').show()
+}
+
+
+$('#phone-number-login-form').submit(function(e){
 	e.preventDefault();
-	if (user_register_token){
-		var user_data = collect_register_user_data(
-			$('#phone-number').val().trim(),
-			$('#password').val().trim(),
-		);
-		if (!isEmpty(user_data)){
-			$.ajax({
-				type: "GET",
-				url: `${api_url_prefix}/login/?method=phone_number&type=rp_acc`,
-				success: function(response){
-					if (response){
-						if (response.status == 1){
-							swal(
-								title = success_title,
-								message = response.message,
-								style = "success"
-							)
-							setTimeout(() => {
-								location.href = location.origin;
-							}, 3000);
-						}
+	var auth_header = get_phone_number_login_auth()
+	
+	if (!isEmpty(auth_header)){
+		$.ajax({
+			type: "GET",
+			headers: auth_header,
+			url: `${api_url_prefix}/login/?method=phone_number&type=rp_acc`,
+			success: function(response){
+				if (response){
+					if (response.status == 1){
+						swal(
+							title = success_title,
+							message = response.message,
+							style = "success"
+						)
+						setTimeout(() => {
+							location.href = location.origin;
+						}, 3000);
 					}
-				},
-				error: function(){
-					errorToaster(message = unknown_error_text);
 				}
-			})
-		}
-	}
-	else{
-		swal(
-			title = error_title,
-			message = `${unknown_error_text} \n, Try again or contact administartiors`,
-			style = "error");
-		setTimeout(() => {
-			location.href = location.origin;
-		}, 5000);
+			},
+			error: function(){
+				errorToaster(message = `Login failed`);
+			}
+		})
 	}
 })
 
 
 console.clear();
+
+function get_phone_number_login_auth(){
+	var phone_number = $('#phone-number').val().trim()
+	var password = $('#password').val().trim()
+
+	if (phone_number.length < 6 || password.length < 2){
+		errorToaster(message = `${error_title}, phone number or password not specified.`)
+		return {};
+	}
+
+	return {"Authorization": "Basic " + btoa(`${phone_number}:${password}`)}
+}

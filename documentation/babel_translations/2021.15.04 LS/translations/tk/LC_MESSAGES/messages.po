@@ -917,3 +917,18 @@ msgstr "Aýratynlaşdyran harytlar"
 
 msgid "Previously viewed products"
 msgstr "Öňki gören harytlaryňyz"
+
+msgid "Register by SMS"
+msgstr "SMS registrasiýa"
+
+msgid "Login by phone number"
+msgstr "Telefon nomer giriş usuly"
+
+msgid "Login by email"
+msgstr "E-poçta giriş usuly"
+
+msgid "Send an empty SMS to number"
+msgstr "Görkezilen telefon nomere boş SMS ugradyň"
+
+msgid "Request expires in"
+msgstr "Talabyňyzyň işjeň ýagdaý wagty"

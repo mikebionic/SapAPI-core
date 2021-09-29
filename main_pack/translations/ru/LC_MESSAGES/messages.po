@@ -918,3 +918,18 @@ msgstr "Рекомендуемые продукты"
 
 msgid "Previously viewed products"
 msgstr "Недавно просмотренные продукты"
+
+msgid "Register by SMS"
+msgstr "СМС регистрация"
+
+msgid "Login by phone number"
+msgstr "Вход с номером телефона"
+
+msgid "Login by email"
+msgstr "Вход с электронной почтой"
+
+msgid "Send an empty SMS to number"
+msgstr "Отпарвьте пустое СМС на номер"
+
+msgid "Request expires in"
+msgstr "Запрос действителен в течении"

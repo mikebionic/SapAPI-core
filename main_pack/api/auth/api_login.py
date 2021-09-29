@@ -10,6 +10,7 @@ from main_pack.api.users.utils import apiUsersData, apiRpAccData, apiDeviceData
 from main_pack.base.dataMethods import apiDataFormat
 from main_pack.api.auth.auth_utils import check_auth
 from main_pack.base.cryptographyMethods import encodeJWT
+from main_pack.api.common import configurePhoneNumber
 
 
 @api.route('/login/',methods=['GET','POST'])
@@ -17,76 +18,83 @@ def api_login():
 	login_method = request.args.get("method","username",type=str)
 	auth_type = request.args.get("type","user",type=str)
 	auth = request.authorization
-	error_response = [{"error": "Login failure, check credentials."}, 401, {"WWW-Authenticate": "basic realm"}]
+	error_response = [{"message": "Login failure, check credentials.", "status": 0}, 401, {"WWW-Authenticate": "basic realm"}]
 
-	if not auth or not auth.username:
-		return make_response(*error_response)
+	try:
+		if not auth or not auth.username:
+			raise Exception
 
-	user_model, user_query = None, None
-	user_query_filter = {"GCRecord": None}
-
-	if auth_type == "user":
-		if login_method == "username":
-			user_query_filter["UName"] = auth.username
-		elif login_method == "email":
-			user_query_filter["UEmail"] = auth.username
-
-		user_query = User.query.filter_by(**user_query_filter)
-
-	elif auth_type == "rp_acc":
-		if login_method == "username":
-			user_query_filter["RpAccUName"] = auth.username
-		elif login_method == "email":
-			user_query_filter["RpAccEMail"] = auth.username
-		elif login_method == "phone_number":
-			user_query_filter["RpAccMobilePhoneNumber"] = auth.username
-
-		user_query = Rp_acc.query.filter_by(**user_query_filter)
-
-	elif auth_type == "device":
-		user_query_filter["DevUniqueId"] = auth.username
-		user_query = Device.query\
-			.filter_by(**user_query_filter)\
-			.options(joinedload(Device.user))
-
-	user_model = user_query.first() if user_query else None
-
-	if not user_model:
-		return make_response(*error_response)
-
-	if check_auth(auth_type, user_model, auth.password):
-		token_encoding_data = {}
+		user_model, user_query = None, None
+		user_query_filter = {"GCRecord": None}
 
 		if auth_type == "user":
-			token_encoding_data["UId"] = user_model.UId
-			loggedUserInfo = apiUsersData(dbQuery = user_query)
+			if login_method == "username":
+				user_query_filter["UName"] = auth.username
+			elif login_method == "email":
+				user_query_filter["UEmail"] = auth.username
+
+			user_query = User.query.filter_by(**user_query_filter)
 
 		elif auth_type == "rp_acc":
-			token_encoding_data["RpAccId"] = user_model.RpAccId
-			loggedUserInfo = apiRpAccData(dbQuery = user_query)
+			if login_method == "username":
+				user_query_filter["RpAccUName"] = auth.username
+			elif login_method == "email":
+				user_query_filter["RpAccEMail"] = auth.username
+			elif login_method == "phone_number":
+				phone_number = configurePhoneNumber(auth.username)
+				if not phone_number:
+					raise Exception
+				user_query_filter["RpAccMobilePhoneNumber"] = phone_number
+
+			user_query = Rp_acc.query.filter_by(**user_query_filter)
 
 		elif auth_type == "device":
-			token_encoding_data["DevId"] = user_model.DevId
-			loggedUserInfo = apiDeviceData(dbQuery = user_query)
+			user_query_filter["DevUniqueId"] = auth.username
+			user_query = Device.query\
+				.filter_by(**user_query_filter)\
+				.options(joinedload(Device.user))
 
-		token, exp = encodeJWT(token_encoding_data)
-		response_data = {"exp": apiDataFormat(exp)}
-		response_data[auth_type] = loggedUserInfo['data']
-		response_data["token"] = token.decode('UTF-8')
+		user_model = user_query.first() if user_query else None
 
-		session["ResPriceGroupId"] = user_model.ResPriceGroupId if auth_type != "device" else None
-		if (auth_type == "device"):
-			session["ResPriceGroupId"] = user_model.user.ResPriceGroupId if user_model.user else None
+		if not user_model:
+			raise Exception
 
-		login_user(user_model)
+		if check_auth(auth_type, user_model, auth.password):
+			token_encoding_data = {}
 
-		response_headers = {
-			"Authorization": f"Bearer {token.decode('UTF-8')}"
-		}
-		return make_response(response_data), response_headers
+			if auth_type == "user":
+				token_encoding_data["UId"] = user_model.UId
+				loggedUserInfo = apiUsersData(dbQuery = user_query)
 
+			elif auth_type == "rp_acc":
+				token_encoding_data["RpAccId"] = user_model.RpAccId
+				loggedUserInfo = apiRpAccData(dbQuery = user_query)
+
+			elif auth_type == "device":
+				token_encoding_data["DevId"] = user_model.DevId
+				loggedUserInfo = apiDeviceData(dbQuery = user_query)
+
+			token, exp = encodeJWT(token_encoding_data)
+			response_data = {"exp": apiDataFormat(exp)}
+			response_data[auth_type] = loggedUserInfo['data']
+			response_data["token"] = token.decode('UTF-8')
+			response_data["message"] = "Login success!"
+			response_data["status"] = 1
+
+			session["model_type"] = auth_type
+			session["ResPriceGroupId"] = user_model.ResPriceGroupId if auth_type != "device" else None
+			if (auth_type == "device"):
+				session["ResPriceGroupId"] = user_model.user.ResPriceGroupId if user_model.user else None
+
+			login_user(user_model)
+			response_headers = {
+				"Authorization": f"Bearer {token.decode('UTF-8')}"
+			}
+			return make_response(response_data), response_headers
+
+	except Exception:
+		pass
 	return make_response(*error_response)
-
 
 # !!! route should be kept till update process complete
 @api.route('/login/users/',methods=['GET','POST'])
