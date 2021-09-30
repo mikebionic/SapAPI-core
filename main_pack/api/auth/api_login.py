@@ -11,6 +11,7 @@ from main_pack.base.dataMethods import apiDataFormat
 from main_pack.api.auth.auth_utils import check_auth
 from main_pack.base.cryptographyMethods import encodeJWT
 from main_pack.api.common import configurePhoneNumber
+from main_pack.base import log_print
 
 
 @api.route('/login/',methods=['GET','POST'])
@@ -22,6 +23,7 @@ def api_login():
 
 	try:
 		if not auth or not auth.username:
+			log_print("API LOGIN not auth or auth.username")
 			raise Exception
 
 		user_model, user_query = None, None
@@ -43,6 +45,7 @@ def api_login():
 			elif login_method == "phone_number":
 				phone_number = configurePhoneNumber(auth.username)
 				if not phone_number:
+					log_print("not auth or auth.username")
 					raise Exception
 				user_query_filter["RpAccMobilePhoneNumber"] = phone_number
 
@@ -57,6 +60,7 @@ def api_login():
 		user_model = user_query.first() if user_query else None
 
 		if not user_model:
+			log_print("API LOGIN couldn't find db model")
 			raise Exception
 
 		if check_auth(auth_type, user_model, auth.password):

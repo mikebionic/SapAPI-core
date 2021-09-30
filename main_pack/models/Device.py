@@ -22,6 +22,9 @@ class Device(AddInf, BaseModel, db.Model, UserMixin):
 	DevVerifyDate = db.Column("DevVerifyDate",db.DateTime)
 	DevVerifyKey = db.Column("DevVerifyKey")
 
+	def get_id(self):
+		return (self.DevId)
+
 	def to_json_api(self):
 		data = {
 			"DevId": self.DevId,
