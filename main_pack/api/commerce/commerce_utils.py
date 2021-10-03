@@ -84,6 +84,10 @@ def collect_categories_query(
 				.options(
 					joinedload(Res_category.Resource)))
 
+	if Config.HIDE_UNDER_ZERO_VISIBLE_CATEGORIES:
+		categories_query = categories_query\
+			.filter(Res_category.ResCatVisibleIndex >= 0)
+
 	if showNullResourceCategory:
 		categories_query = categories_query\
 			.outerjoin(Resource, Resource.ResCatId == Res_category.ResCatId)\
@@ -160,19 +164,30 @@ def collect_resources_query(
 				Res_price.ResPriceTypeId == 2,
 				Res_price.ResPriceValue > 0))\
 
-	if showLatest == True:
-		resource_query = resource_query\
-			.order_by(Resource.CreatedDate.desc())\
-			.limit(Config.RESOURCE_MAIN_PAGE_SHOW_QTY)
+	category_joined = False
 
-	if showRated == True:
+	if Config.HIDE_UNDER_ZERO_VISIBLE_CATEGORIES:
 		resource_query = resource_query\
 			.join(Res_category, Res_category.ResCatId == Resource.ResCatId)\
+			.filter(Res_category.ResCatVisibleIndex >= 0)
+		category_joined = True
+
+	if showRated == True:
+		if not category_joined:
+			resource_query = resource_query\
+				.join(Res_category, Res_category.ResCatId == Resource.ResCatId)
+
+		resource_query = resource_query\
 			.filter(Res_category.IsMain == True)\
 			.outerjoin(Rating, Rating.ResId == Resource.ResId)\
 			.filter(Rating.RtRatingValue >= Config.SMALLEST_RATING_VALUE_SHOW)\
 			.order_by(Rating.RtRatingValue.asc())\
-			.limit(Config.RESOURCE_MAIN_PAGE_SHOW_QTY + 1)
+			.limit(Config.RESOURCE_MAIN_PAGE_SHOW_QTY)
+
+	if showLatest == True:
+		resource_query = resource_query\
+			.order_by(Resource.CreatedDate.desc())\
+			.limit(Config.RESOURCE_MAIN_PAGE_SHOW_QTY)
 
 	if notDivId:
 		resource_query = resource_query.filter(Resource.DivId != notDivId)

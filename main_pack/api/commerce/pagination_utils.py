@@ -242,6 +242,12 @@ def collect_resource_paginate_info(
 
 		resource_query = resource_query.filter(Resource.ResId.in_(resource_ids))
 
+
+	if Config.HIDE_UNDER_ZERO_VISIBLE_CATEGORIES:
+		resource_query = resource_query\
+			.join(Res_category, Res_category.ResCatId == Resource.ResCatId)\
+			.filter(Res_category.ResCatVisibleIndex >= 0)
+
 	resource_query = resource_query.options(
 		joinedload(Resource.Image),
 		joinedload(Resource.Barcode),
