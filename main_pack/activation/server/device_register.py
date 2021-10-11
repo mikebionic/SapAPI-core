@@ -1,5 +1,4 @@
 from flask import jsonify, request, make_response, abort
-from datetime import datetime
 import uuid
 
 from . import api
@@ -8,6 +7,7 @@ from main_pack.api.users.utils import addDeviceDict
 from main_pack.api.base.validators import request_is_json
 from main_pack.models import Device, Rp_acc
 from .utils import sap_key_required
+from main_pack.base import log_print
 
 @api.route("/devices/register/",methods=["POST"])
 @sap_key_required
@@ -47,7 +47,7 @@ def register_device():
 			data = thisDevice.to_json_api()
 
 		except Exception as ex:
-			print(f"{datetime.now()} | Device register server Exception: {ex}")
+			log_print(f"Device register server Exception: {ex}")
 
 	res = {
 		"status": 1 if data else 0,

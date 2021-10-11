@@ -4,15 +4,13 @@ from sqlalchemy.orm import joinedload
 
 from . import api
 from main_pack import db
-from main_pack.config import Config
-from main_pack.models import Device, Rp_acc
-from main_pack.models import Db_inf
+from main_pack.models import Rp_acc
 
 from .utils import sap_key_required
 from main_pack.base.cryptographyMethods import encrypt_data
 
 
-@api.route("/devices/fetch/",methods=["GET"])
+@api.route("/devices/fetch/")
 @sap_key_required
 def fetch_device():
 	db_guid = request.args.get("uuid",None,type=str)
