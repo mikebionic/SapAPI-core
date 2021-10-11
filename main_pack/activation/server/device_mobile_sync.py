@@ -18,7 +18,7 @@ def device_mobile_sync():
 		"status": 1 if data else 0,
 		"data": data,
 		"message": message if message else "Device mobile sync",
-		"total": len(data) if data else 0
+		"total": 1 if data else 0
 	}
 
 	response = make_response(jsonify(res), 200)
@@ -28,7 +28,7 @@ def device_mobile_sync():
 def process_mobile_sync_data(req):
 	data, message = [], ""
 	try:
-		if "devices" not in req:
+		if "Devices" not in req:
 			raise Exception
 
 		DbGuid = req["DbInfGuid"]
@@ -37,7 +37,7 @@ def process_mobile_sync_data(req):
 			abort(400)
 
 		RpAccId = rp_acc_model.RpAccId
-		for device_req in req["devices"]:
+		for device_req in req["Devices"]:
 			filtering = {
 				"GCRecord": None,
 				"DevUniqueId": device_req["DevUniqueId"],
