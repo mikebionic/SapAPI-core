@@ -26,30 +26,28 @@
 {% endblock %}
 {% block content %}
 
-	
-
-	<div class="about-us-area pt-90 pb-90">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-6 col-md-6">
-					<div class="about-us-img text-center">
-						<a href="#">
-							<img src="{{ url_for('static', filename='commerce/bee/images/about-1.png') }}" alt="">
-						</a>
-					</div>
+<div class="about-us-area pt-90 pb-90">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6 col-md-6">
+				<div class="about-us-img text-center">
+					<a href="#">
+						<img src="{{ url_for('static', filename='commerce/bee/images/about-1.png') }}" alt="">
+					</a>
 				</div>
-				<div class="col-lg-6 col-md-6 align-self-center">
-					<div class="about-us-content">
-						<h2>Welcome To <span>Daxone</span> Store !</h2>
-						<p class="peragraph-blog">Daxone Shop is a premium HTML template designed and develoved from the ground up with the sole purpose of helping you create an astonishing, the beautiful and user friendly website that will boost your product’s sales.</p>
-						<p>The theme design package provides a complete Magento theme set for your online store according to your desired theme. This includes all Magento themes that are required for your online store's successful implementation.</p>
-						<div class="about-us-btn btn-hover hover-border-none">
-								<a class="btn-color-white btn-color-theme-bg black-color" href="shop.html">Shop now!</a>
-						</div>
+			</div>
+			<div class="col-lg-6 col-md-6 align-self-center">
+				<div class="about-us-content">
+					<h2><span>Halal Söwda</span> platforma Hoş geldiňiz !</h2>
+					<p class="peragraph-blog">Biz söwda işleri ýerine ýetirýäris. Bizde Hilli harytlar bar. Sarp edijä amatly bahadan täze haryt üpjün edýäris</p>
+					<p>Şu onlaýn söwda platformasy ýeňillik bilen harytlarymyzy sargamaga mümkinçilik döreder</p>
+					<div class="about-us-btn btn-hover hover-border-none">
+							<a class="btn-color-white btn-color-theme-bg black-color" href="{{url_for('commerce.commerce')}}">{{_('Shop')}}!</a>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
 
-	{% endblock %}
+{% endblock %}

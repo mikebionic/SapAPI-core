@@ -60,7 +60,7 @@
 								<div class="product-ratting ratingStars" ownerId="{{ resource.ResId }}"></div>
 								<div class="view_icon">
 									<i class="las la-eye"></i>
-									<span class="count">{{ resource.ResViewCnt }}</span>
+									<span class="count">{{ resource.ResViewCnt if resource.ResViewCnt else 0 }}</span>
 								</div>
 							</div>
 							<div class="pro-details-color-wrap">
@@ -106,8 +106,8 @@
 				<div class="row">
 					<div class="ml-auto mr-auto col-lg-10">
 						<div class="dec-review-topbar nav mb-40">
-							<a data-toggle="tab" href="#des-details1" class="active">Description</a>
-							<a data-toggle="tab" href="#des-details3">Reviews</a>
+							<a data-toggle="tab" href="#des-details1" class="active">{{_('Description')}}</a>
+							<a data-toggle="tab" href="#des-details3">{{_('Customers reviews')}}</a>
 						</div>
 						<div class="tab-content dec-review-bottom">
 							<div id="des-details1" class="tab-pane active">
