@@ -1792,6 +1792,7 @@
     overflow: auto;
     position: absolute;
     top: 205%;
+    box-shadow: 0 0 2px #c1c1c1;
     left: 0;
     z-index: 9;
     background-color: #fff;
@@ -1809,6 +1810,24 @@
     nav {
         > ul {
             > li {
+                border: 0;
+                font-size: 16px;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+                width: 100%;
+                margin-top: 1px;
+                padding-left: 8px;
+                word-break: break-word;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                padding-right: 22px;
+                -webkit-line-clamp: 1;
+                -webkit-box-orient: vertical;
+                display: list-item;
+
                 margin-bottom: 23px;
                 position: relative;
                 &:last-child {
@@ -1825,8 +1844,9 @@
                 }
                 > a {
                     color: #333745;
-                    padding: 0 40px;
+                    padding: 5px 0px 5px 8px;
                     display: block;
+                    letter-spacing: 0.5px;
                     span {
                         float: right;
                         font-size: 14px;
@@ -1946,7 +1966,7 @@
                     }
                 }
                 &:hover > a , &:hover > a span {
-                    color: #ea2e49;
+                    color: #333;
                 }
                 &:hover .category-menu-dropdown {
                     transform: rotateX(0deg);
