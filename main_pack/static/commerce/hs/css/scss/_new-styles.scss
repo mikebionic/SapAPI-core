@@ -172,12 +172,11 @@
   padding: 0 40px;
   display: block;
   font-size: medium;
-  font-weight: bold;
   &:hover {
     color: $theme-color!important;
-    border-left: 3px solid $theme-color;
+    border-left: 4px solid $theme-color;
     background-color: $bg-cat-hover;
-    transition: 0s!important;
+    padding: 5px 0px 5px 8px;
   }
 }
 
