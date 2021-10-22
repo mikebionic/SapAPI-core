@@ -38,7 +38,7 @@ def register_phone_number(phone_number):
 				
 				if registered_phone_rp_acc:
 					message = f"Phone number is already taken"
-					log_print(f"{message}: {str(existing_register_request)}", "warning")
+					log_print(f"{message}: {PhoneNumber}", "warning")
 					raise Exception
 				
 				else:

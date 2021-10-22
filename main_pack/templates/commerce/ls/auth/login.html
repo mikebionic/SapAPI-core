@@ -2,18 +2,18 @@
 
 
 {% block head %}
-<meta name="description" 
+<meta name="description"
 	content="{{_("To login you account, fill the required fields and click 'Login' button")}}.
 	{{_("If you don't have an account, click the 'Register' button and proceed the registration")}}" />
-<meta property="og:description" 
+<meta property="og:description"
 	content="{{_("To login you account, fill the required fields and click 'Login' button")}}.
 	{{_("If you don't have an account, click the 'Register' button and proceed the registration")}}" />
-<meta property="og:image" 
+<meta property="og:image"
 	content="{{ request.host_url }}{{ url_for('static', filename='commerce/ls/img/ls_logo.svg') }}" />
-<meta name="twitter:description" 
+<meta name="twitter:description"
 	content="{{_("To login you account, fill the required fields and click 'Login' button")}}.
 	{{_("If you don't have an account, click the 'Register' button and proceed the registration")}}" />
-<meta name="twitter:image" 
+<meta name="twitter:image"
 	content="{{ request.host_url }}{{ url_for('static', filename='commerce/ls/img/ls_logo.svg') }}" />
 {% endblock %}
 
@@ -28,7 +28,8 @@
 						<div id="customer_login" class="u-columns col2-set">
 							<div class="u-column1 col-1">
 								<h2>{{_('Login')}} | {{ company.CName }}</h2>
-								<form method="post" action="" class="woocomerce-form woocommerce-form-login login">
+
+								<form method="post" action="" class="woocomerce-form woocommerce-form-login login" id="email-login-form">
 									{{ form.csrf_token() }}
 									<p class="before-login-text">
 										{{_("To login you account, fill the required fields and click 'Login' button")}}.
@@ -53,16 +54,67 @@
 										{{ form.password(class="input-text") }}
 									</p>
 									<p class="form-row">
-										<input class="woocommerce-Button button" type="submit" style="background-color: orange;" value="{{_('Login')}}" name="login">
+										<div class="form-row" style="justify-content: space-between;">
+											<input class="woocommerce-Button button" type="submit" style="background-color: orange;" value="{{_('Login')}}" name="login">
+
+											<a id="phone-number-login-button" style="background-color: orange; float: right;
+											font-size: 0.938em;
+											border-radius: 1.667em;
+											margin-bottom: 1.333em;
+											margin-top: 0.625em;" class="woocommerce-Button button">
+												{{_('Login by phone number')}}
+											</a>
+										</div>
+
 										<label for="rememberme" class="woocommerce-form__label woocommerce-form__label-for-checkbox inline">
 											<input class="woocommerce-form__input woocommerce-form__input-checkbox" name="rememberme" type="checkbox" id="rememberme" value="forever" /> {{_('Remember me')}}
 										</label>
 									</p>
-									<p class="woocommerce-LostPassword lost_password">
-										<a href="{{ url_for('commerce_auth.reset_request') }}">{{_('Forgot your password?')}}</a>
-									</p>
-									
 								</form>
+
+
+								<form method="post" action="" class="woocomerce-form woocommerce-form-login login" id="phone-number-login-form" style="display:none">
+									<p class="before-login-text">
+										{{_("To login you account, fill the required fields and click 'Login' button")}}.
+									</p>
+									<p class="form-row form-row-wide">
+										<label for="username">{{_('Phone number')}}
+											<span class="required">*</span>
+										</label>
+										<input inputmode="tel" placeholder="{{_('Phone number')}} : +99361234567" class='input-text' id="phone-number" required />
+									</p>
+
+									<p class="form-row form-row-wide">
+										<label for="password">{{_('Password')}}
+											<span class="required">*</span>
+										</label>
+										<input type="password" placeholder="{{_('Password')}}" class='input-text' id="phone-password" required />
+										<span toggle="#phone-password" class="las la-low-vision field-icon toggle-password"></span>
+									</p>
+
+									<p class="form-row">
+										<div class="form-row" style="justify-content: space-between;">
+											<input class="woocommerce-Button button" type="submit" style="background-color: orange;" value="{{_('Login')}}" name="login">
+
+											<a id="email-login-button" style="background-color: orange; float: right;
+											font-size: 0.938em;
+											border-radius: 1.667em;
+											margin-bottom: 1.333em;
+											margin-top: 0.625em;" class="woocommerce-Button button">
+												{{_('Login by email')}}
+											</a>
+										</div>
+
+										<label for="rememberme" class="woocommerce-form__label woocommerce-form__label-for-checkbox inline">
+											<input class="woocommerce-form__input woocommerce-form__input-checkbox" name="rememberme" type="checkbox" id="rememberme" value="forever" /> {{_('Remember me')}}
+										</label>
+									</p>
+								</form>
+
+								<p class="woocommerce-LostPassword lost_password">
+									<a href="{{ url_for('commerce_auth.reset_request') }}">{{_('Forgot your password?')}}</a>
+								</p>
+
 							</div>
 							<div class="u-column2 col-2">
 								<form class="register" method="post">
@@ -79,4 +131,10 @@
 		</div>
 	</main>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+	var api_url_prefix = "{{api_url_prefix if api_url_prefix else ''}}";
+</script>
 {% endblock %}
