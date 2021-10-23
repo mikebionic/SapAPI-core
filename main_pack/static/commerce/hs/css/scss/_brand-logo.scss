@@ -46,11 +46,14 @@
         }
     }
     .single-brand-logo {
-        height: 100%;
+        height: 70px;
         display: flex;
         align-items: center;
         &:hover img {
             opacity: 1;
+        }
+        a{
+            height: 100%;
         }
     }
 }

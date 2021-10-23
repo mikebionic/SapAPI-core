@@ -28430,19 +28430,6 @@ height: 100%;
   background: #eaeaea;
   height: 100%; }
 }
-::-webkit-scrollbar {
-  width: 4px;
-}
-
-::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: #fd7b2594;
-  outline: px solid slategrey;
-}
-
 
 /* -------- Cart page css --------- */
 /*-- Contact Form --*/
@@ -34949,4 +34936,19 @@ input:checked ~ .tab-content{
 }
 .view_icon{
   margin:0 10px;
+}
+
+
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #fd7b2594;
+  outline: 1px solid slategrey;
 }
