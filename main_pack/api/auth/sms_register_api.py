@@ -51,7 +51,8 @@ def request_sms_register():
 		Config.REGISTER_REQUEST_EXPIRE_TIME_MINUTES,
 		"(minutes)") if data else message or "Register request"
 
-	return handle_default_response(data, message)
+	print(data, message)
+	return handle_default_response(data, message, status_code=200)
 
 
 @api.route("/check-sms-register/")
@@ -76,4 +77,4 @@ def check_sms_register():
 	message = "{}"\
 		.format("Register check success") if data else message or "Register request check"
 
-	return handle_default_response(data, message, headers = response_headers)
+	return handle_default_response(data, message, headers = response_headers, status_code=200)

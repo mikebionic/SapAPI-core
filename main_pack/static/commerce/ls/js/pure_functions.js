@@ -365,3 +365,7 @@ function configure_cart_item_count(){
 	}
 	return res;
 }
+
+function isEmpty(obj) {
+  return Object.keys(obj).length === 0;
+}

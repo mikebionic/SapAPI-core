@@ -39,13 +39,13 @@ def process_mobile_sync_data(req):
 		RpAccId = rp_acc_model.RpAccId
 		for device_req in req["Devices"]:
 			filtering = {
-				"GCRecord": None,
 				"DevUniqueId": device_req["DevUniqueId"],
 				"RpAccId": RpAccId
 			}
 
 			thisDevice = Device.query.filter_by(**filtering).first()
 			if not thisDevice:
+				print("device not found")
 				device_info = addDeviceDict(device_req)
 				device_info["RpAccId"] = RpAccId
 				if not device_info["DevGuid"]:
@@ -55,33 +55,31 @@ def process_mobile_sync_data(req):
 				db.session.add(thisDevice)
 				db.session.commit()
 
-			devices_filtering = {
-				"GCRecord": None,
-				"RpAccId": RpAccId
-			}
-			rp_devices = Device.query.filter_by(**devices_filtering).all()
+		devices_filtering = {
+			"RpAccId": RpAccId
+		}
+		rp_devices = Device.query.filter_by(**devices_filtering).all()
 
-			allowed_device_qty = rp_acc_model.DeviceQty
-			unused_device_qty = rp_acc_model.UnusedDeviceQty
-			allowed_devices = [rp_device for rp_device in rp_devices if rp_device.IsAllowed]
+		allowed_device_qty = rp_acc_model.DeviceQty
+		allowed_devices = [rp_device for rp_device in rp_devices if rp_device.IsAllowed]
 
-			while (len(allowed_devices) > allowed_device_qty):
-				forbidding_device = allowed_devices.pop()
-				forbidding_device.IsAllowed = False
+		while (len(allowed_devices) > allowed_device_qty):
+			forbidding_device = allowed_devices.pop()
+			forbidding_device.IsAllowed = False
 
-			unused_device_qty = allowed_device_qty - len(allowed_devices)
-			if rp_acc_model.UnusedDeviceQty != unused_device_qty:
-				rp_acc_model.UnusedDeviceQty = unused_device_qty
+		unused_device_qty = allowed_device_qty - len(allowed_devices)
+		if rp_acc_model.UnusedDeviceQty != unused_device_qty:
+			rp_acc_model.UnusedDeviceQty = unused_device_qty
 
-			db.session.commit()
-			devices_list = [rp_device.to_json_api() for rp_device in rp_devices]
+		db.session.commit()
+		devices_list = [rp_device.to_json_api() for rp_device in rp_devices]
 
-			data = {
-				"DbGuid": DbGuid,
-				"DeviceQty": allowed_device_qty,
-				"UnusedDeviceQty": unused_device_qty,
-				"Devices": devices_list
-			}
+		data = {
+			"DbGuid": DbGuid,
+			"DeviceQty": allowed_device_qty,
+			"UnusedDeviceQty": unused_device_qty,
+			"Devices": devices_list
+		}
 
 	except Exception as ex:
 		log_print(f"Device mobile sync server Exception: {ex}")

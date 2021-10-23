@@ -12,66 +12,70 @@
 {% block content %}
 <div id="cover-spin" class="cover-spin"></div>
 <div id="sms-reg-spinner" class="cover-spin"></div>
+
 <div id="primary" class="content-area">
 	<main id="main" class="site-main">
-		<div class="type-page hentry">
-			<div class="entry-content">
-				<div class="woocommerce">
-					<div class="customer-login-form">
-						<span class="or-text">or</span>
-						<div id="customer_login" class="u-columns col2-set">
-							<div class="u-column1 col-1">
-								<h2>{{_('Register')}} | {{ company.CName }}</h2>
+		<div style="margin: 0 auto; max-width: 70%">
 
-							<div class="login-form-container">
-								<div class="login-register-form">
-									<form action="" method="get" id="sms_register_form">
-										<h4 class="theme-text-message">
-											{{_("Register to use all the features and posibilities of ecommerce")}}.
-										</h4>
+			<h2>{{_('Register')}} | {{ company.CName }}</h2>
 
-										<p class="form-row form-row-wide">
-											<label for="reg_email">{{_('Phone number')}}
-													<span class="required">*</span>
-											</label>
-											<input inputmode="tel" placeholder="{{_('Phone number')}} : +99361234567" class='woocommerce-Input woocommerce-Input--text input-text' id="phone-number" required />
-										</p>
+			<div class="login-form-container">
+				<div class="login-register-form">
+					<form action="" method="get" id="sms_register_form">
+						<p class="theme-text-message">
+							{{_("Register to use all the features and posibilities of ecommerce")}}.
+						</p>
 
-										<div class="button-box">
-											<button type="submit">{{_('Send')}}</button>
-										</div>
-									</form>
+						<p class="form-row form-row-wide">
+							<label for="reg_email">{{_('Phone number')}}
+									<span class="required">*</span>
+							</label>
+							<input inputmode="tel" placeholder="{{_('Phone number')}} : +99361234567" class='woocommerce-Input woocommerce-Input--text input-text' id="phone-number" required />
+						</p>
 
-									<form action="" method="post" id="user-register-form" style="display:none">
-										<h4 class="theme-text-message">
-											{{_('Please, proceed the registration')}}
-										</h4>
-
-										<p>{{_('Username')}}<span style="color:red"> *</span></p>
-										<input type="text" placeholder="{{_('Username')}}" class='woocommerce-Input woocommerce-Input--text input-text' id="username" required />
-										<input type="text" placeholder="{{_('Full name')}}" class='woocommerce-Input woocommerce-Input--text input-text' id="full-name" />
-										<input type="text" placeholder="{{_('Address')}}" class='woocommerce-Input woocommerce-Input--text input-text' id="address" />
-										<p>{{_('Password')}}<span style="color:red"> *</span></p>
-										<input type="password" placeholder="{{_('Password')}}" class='woocommerce-Input woocommerce-Input--text input-text' id="password" required />
-										<span toggle="#password" class="las la-low-vision field-icon toggle-password"></span>
-										<input type="password" placeholder="{{_('Confirm password')}}" class='woocommerce-Input woocommerce-Input--text input-text' id="confirm-password" required />
-										<span toggle="#confirm-password" class="las la-low-vision field-icon toggle-password"></span>
-
-										<div class="button-box">
-											<button type="submit">{{_('Register')}}</button>
-										</div>
-									</form>
-
-								</div>
-							</div>
+						<div class="button-box">
+							<button type="submit">{{_('Send')}}</button>
 						</div>
-					</div>
+					</form>
+
+					<form action="" method="post" id="user-register-form" style="display:none">
+						<h4 class="theme-text-message">
+							{{_('Please, proceed the registration')}}
+						</h4>
+
+						<p class="form-row form-row-wide">
+							<label>{{_('Username')}}</label><span style="color:red"> *</span>
+							<input type="text" placeholder="{{_('Username')}}" class='woocommerce-Input woocommerce-Input--text input-text' id="username" required />
+						</p>
+
+						<p class="form-row form-row-wide">
+							<label>{{_('Full name')}}</label>
+							<input type="text" placeholder="{{_('Full name')}}" class='woocommerce-Input woocommerce-Input--text input-text' id="full-name" />
+						</p>
+						<p class="form-row form-row-wide">
+							<label>{{_('Address')}}</label>
+							<input type="text" placeholder="{{_('Address')}}" class='woocommerce-Input woocommerce-Input--text input-text' id="address" />
+						</p>
+
+						<p class="form-row form-row-wide">
+							<label>{{_('Password')}}</label><span style="color:red"> *</span>
+							<input type="password" placeholder="{{_('Password')}}" class='woocommerce-Input woocommerce-Input--text input-text' id="password" required />
+							<span toggle="#password" class="las la-low-vision field-icon toggle-password"></span>
+							<input type="password" placeholder="{{_('Confirm password')}}" class='woocommerce-Input woocommerce-Input--text input-text' id="confirm-password" required />
+							<span toggle="#confirm-password" class="las la-low-vision field-icon toggle-password"></span>
+						</p>
+
+						<div class="button-box">
+							<button type="submit">{{_('Register')}}</button>
+						</div>
+					</form>
+
 				</div>
 			</div>
-		</div>
-	</div>
-</div>
 
+		</div>
+	</main>
+</div>
 
 {% endblock %}
 
