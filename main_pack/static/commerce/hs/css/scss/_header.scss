@@ -1847,6 +1847,7 @@
                     padding: 5px 0px 5px 8px;
                     display: block;
                     letter-spacing: 0.5px;
+                    // text-transform: lowercase;
                     span {
                         float: right;
                         font-size: 14px;
@@ -1855,6 +1856,7 @@
                         top: 1px;
                     }
                 }
+                
                 .category-menu-dropdown {
                     position: absolute;
                     left: 100%;
