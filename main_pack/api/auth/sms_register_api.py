@@ -51,7 +51,6 @@ def request_sms_register():
 		Config.REGISTER_REQUEST_EXPIRE_TIME_MINUTES,
 		"(minutes)") if data else message or "Register request"
 
-	print(data, message)
 	return handle_default_response(data, message, status_code=200)
 
 

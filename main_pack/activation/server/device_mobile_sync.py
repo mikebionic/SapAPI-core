@@ -45,7 +45,6 @@ def process_mobile_sync_data(req):
 
 			thisDevice = Device.query.filter_by(**filtering).first()
 			if not thisDevice:
-				print("device not found")
 				device_info = addDeviceDict(device_req)
 				device_info["RpAccId"] = RpAccId
 				if not device_info["DevGuid"]:
