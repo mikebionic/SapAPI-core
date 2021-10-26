@@ -1360,48 +1360,8 @@ article {
 		opacity: 1;
 	}
 }
-@media (min-width: 1440px) {
 	.banner-wrap {
-		height: 250px;
-		.banner-content-9{
-			top: 120px;
-		}
-	}
-}
-
-@media (min-width:575px) and (max-width: 1439px) {
-	.banner-wrap.bottom_banner {
-		height: 280px!important;
-	} 
-}
-@media (max-width:2850px){
-	.banner-wrap.bottom_banner .banner-content-9{
-		top: 170px!important;
-		.centered_text{
-			align-items: center;
-		}
-	}
-} 
-@media (max-width: 574px) {
-	.banner-wrap.bottom_banner {
-		height: 280px!important;
-	}
-}
-@media (max-width: 2850px) {
-	.banner-wrap.bottom_banner {
-		height: 350px!important;
-	}
-}
-@media (min-width:575px) and (max-width: 1439px) {
-	.banner-wrap {
-		height: 200px;
-	}
-}
-@media (max-width: 574px) {
-	.banner-wrap {
-		height: 200px;
-	}
-}
+		height: 200px;}
 .field-icon {
   float: right;
 	margin-left: -25px;
