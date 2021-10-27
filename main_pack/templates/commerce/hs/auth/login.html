@@ -46,11 +46,14 @@
 										{{ form.password(id="password-field",class="input-text",placeholder=_('Password')) }}
 										<span toggle="#password-field" class="las la-low-vision field-icon toggle-password"></span>
 										<div class="button-box">
-											<div class="login-toggle-btn">
-												<input type="checkbox">
-												<label>{{_('Remember me')}}</label>
+											<div class="top_box">
+												<div class="login-toggle-btn">
+													<input type="checkbox">
+													<label>{{_('Remember me')}}</label>
+												</div>
 												<a href="{{ url_for('commerce_auth.reset_request') }}">{{_('Forgot your password?')}}</a>
 											</div>
+
 
 											<div class="row" style="justify-content: space-around;">
 												<div class="button-box">
@@ -82,7 +85,7 @@
 												</div>
 											</div>
 										
-										<div class="row" style="justify-content: space-around;">
+										<div class="row" style="justify-content: space-around; width: 100%;">
 											<div class="button-box">
 												<button type="submit">{{_('Login')}}</button>
 											</div>
