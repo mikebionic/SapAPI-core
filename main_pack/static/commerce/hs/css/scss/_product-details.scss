@@ -373,10 +373,11 @@
         }
     }
     .product-zoom-right {
-        display: inline-block;
+        display: flex;
         position: relative;
         width: 80%;
-        float: left;
+        margin: 0 auto;
+        justify-content: center;
         @media #{$xs-layout} {
             width: 70%;
         }
