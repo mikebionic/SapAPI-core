@@ -933,3 +933,9 @@ msgstr "Отпарвьте пустое СМС на номер"
 
 msgid "Request expires in"
 msgstr "Запрос действителен в течении"
+
+msgid "Please wait until verification is complete"
+msgstr "Пожалуйста дождитесь завершения проверки"
+
+msgid "Type your address"
+msgstr "Напишите адрес"

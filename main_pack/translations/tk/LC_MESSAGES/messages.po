@@ -932,3 +932,9 @@ msgstr "Görkezilen telefon nomere boş SMS ugradyň"
 
 msgid "Request expires in"
 msgstr "Talabyňyzyň işjeň ýagdaý wagty"
+
+msgid "Please wait until verification is complete"
+msgstr "Barlag geçýänçä garaşmagyňyzy haýyş edýäris"
+
+msgid "Type your address"
+msgstr "Adresiňizi ýazyň"

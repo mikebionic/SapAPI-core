@@ -912,3 +912,9 @@ msgstr "Send an empty SMS to number"
 
 msgid "Request expires in"
 msgstr "Request expires in"
+
+msgid "Please wait until verification is complete"
+msgstr "Please wait until verification is complete"
+
+msgid "Type your address"
+msgstr "Type your address"

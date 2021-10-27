@@ -9,25 +9,11 @@
 <meta name="twitter:image" content="{{ request.host_url }}{{ company_logo.FilePath if company_logo else url_for('static', filename='commerce/hs/images/logo/halal_OG.png') }}" />
 {% endblock %}
 
-{% block breadcrumbs %}
-<div class="breadcrumb-area bg-img">
-	<div class="container">
-		<div class="breadcrumb-content text-center">
-			<h2>{{_('Register')}} </h2>
-			<ul>
-				<li>
-					<a href="{{ url_for('commerce.commerce') }}">{{_('Main')}}</a>
-				</li>
-				<li class="active">{{_('Register')}}</li>
-			</ul>
-		</div>
-	</div>
-</div>
-{% endblock %}
-
 {% block content %}
 <div id="cover-spin" class="cover-spin"></div>
-<div id="sms-reg-spinner" class="cover-spin"></div>
+<div id="sms-reg-spinner" class="cover-spin">
+	<p class="cover-spin-text">{{_('Please wait until verification is complete')}}!</p>
+</div>
 <div class="login-register-area pt-85 pb-90">
 	<div class="container">
 		<div class="row">
