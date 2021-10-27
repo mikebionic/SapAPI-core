@@ -36,8 +36,8 @@
 										{% for image in resource.Images %}
 										<div class="zoompro-span big-image">
 											<img loading="lazy" data-action="zoom" class="zoompro" 
-											src="{{image.FilePathS}}" 
-											data-src-r="{{image.FilePathR}}"
+											src="{{ url_for('static', filename='commerce/bee/images/hero/hero-3.png') }}" 
+											data-src-r="{{ url_for('static', filename='commerce/bee/images/hero/hero-3.png') }}"
 											alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}" />
 											<!-- <span>-29%</span> -->
 										</div>
