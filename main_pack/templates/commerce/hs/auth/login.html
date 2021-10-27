@@ -28,7 +28,7 @@
 							<div class="login-form-container">
 								<div class="login-register-form">
 
-									<form action="#" method="post" id="email-login-form">
+									<form action="" method="post" id="email-login-form" style="display:none">
 										{{ form.csrf_token() }}
 										<p class="before-login-text">
 											{{_("To login you account, fill the required fields and click 'Login' button")}}.
@@ -66,7 +66,7 @@
 										</div>
 									</form>
 
-									<form action="" method="post" id="phone-number-login-form" style="display:none">
+									<form action="" method="post" id="phone-number-login-form">
 										<h4 class="theme-text-message">
 											{{_("To login you account, fill the required fields and click 'Login' button")}}.
 										</h4>
@@ -75,7 +75,13 @@
 										<p>{{_('Password')}}<span style="color:red"> *</span></p>
 										<input type="password" placeholder="{{_('Password')}}" class='input-text' id="password" required />
 										<span toggle="#password" class="las la-low-vision field-icon toggle-password"></span>
-
+										
+											<div class="button-box">
+												<div class="login-toggle-btn">
+													<a href="{{ url_for('commerce_auth.reset_request_sms') }}">{{_('Forgot your password?')}}</a>
+												</div>
+											</div>
+										
 										<div class="row" style="justify-content: space-around;">
 											<div class="button-box">
 												<button type="submit">{{_('Login')}}</button>
@@ -90,7 +96,6 @@
 									</form>
 
 									<h4>{{_('Don’t have profile?')}} <a href="{{ url_for('commerce_auth.register') }}" style="color: #5995fd;">{{_('Register')}}</a></h4>
-									<h4>{{_('Forgot your password?')}} <a href="{{ url_for('commerce_auth.reset_request') }}" style="color: #5995fd;">{{_('Reset password')}}</a></h4>
 								</div>
 							</div>
 						</div>

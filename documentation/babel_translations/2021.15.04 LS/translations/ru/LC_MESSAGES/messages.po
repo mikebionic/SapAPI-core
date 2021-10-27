@@ -922,6 +922,9 @@ msgstr "Недавно просмотренные продукты"
 msgid "Register by SMS"
 msgstr "СМС регистрация"
 
+msgid "Register by email"
+msgstr "Регистрация по почте"
+
 msgid "Login by phone number"
 msgstr "Вход с номером телефона"
 

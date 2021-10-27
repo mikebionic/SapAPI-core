@@ -901,6 +901,9 @@ msgstr "Previously viewed products"
 msgid "Register by SMS"
 msgstr "Register by SMS"
 
+msgid "Register by email"
+msgstr "Register by email"
+
 msgid "Login by phone number"
 msgstr "Login by phone number"
 

@@ -286,3 +286,18 @@ def register_sms():
 		url_prefix = url_prefix,
 		title = "{} - {}".format(gettext('Register'), "SMS"),
 	)
+
+
+@bp.route("/reset_request_sms", methods=['GET','POST'])
+def reset_request_sms():
+	if (current_user.is_authenticated and "model_type" in session):
+		if session["model_type"] == "rp_acc":
+			return redirect(url_for('commerce.commerce'))
+
+	categoryData = UiCategoriesList()
+	return render_template(
+		f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/auth/reset_request_sms.html",
+		**categoryData,
+		url_prefix = url_prefix,
+		title = "{} - {}".format(gettext('Login'), "SMS"),
+		)

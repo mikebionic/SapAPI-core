@@ -26,7 +26,7 @@
 						<div id="lg2" class="tab-pane active">
 							<div class="login-form-container">
 								<div class="login-register-form">
-									<form action="#" method="post">
+									<form action="" method="post">
 										{{ form.csrf_token() }}
 										<p class="before-register-text">
 											{{_("Register to use all the features and posibilities of ecommerce")}}.
@@ -46,7 +46,7 @@
 											</div>
 											<div class="cart-summary-button btn-hover btn-hover-radious">
 												<a href="{{url_for('commerce_auth.register_sms')}}">
-													<i class="las la-sign-in-alt"></i>
+													<i class="las la-registered"></i>
 													<span class="login-text">{{_('Register by SMS')}}</span>
 												</a>
 											</div>

@@ -921,6 +921,9 @@ msgstr "Öňki gören harytlaryňyz"
 msgid "Register by SMS"
 msgstr "SMS registrasiýa"
 
+msgid "Register by email"
+msgstr "E-poçta registrasiýa"
+
 msgid "Login by phone number"
 msgstr "Telefon nomer giriş usuly"
 
