@@ -24,31 +24,34 @@
 					</ul>
 				</div>
 			</div>
-		</div>
+		</div> 
 		<div class="product-details-area pt-90 pb-90">
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-6 col-md-7">
-						<div class="product-details-img">
-
-							{% if resource.Images %}
-							<div class="zoompro-wrap product-zoom-right pr-20">
+						<div class="slider-area">
+							<div class="product-details-img slider-active-4 owl-carousel dot-style-2">
+								{% if resource.Images %}
 								{% for image in resource.Images %}
-								<div class="zoompro-span big-image">
-									<img loading="lazy" data-action="zoom" class="zoompro" 
-									src="{{image.FilePathS}}" 
-									data-src-r="{{image.FilePathR}}"
-									alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}" />
-									<!-- <span>-29%</span> -->
-								</div>
+									<div class="zoompro-wrap product-zoom-right pr-20">
+										<div class="zoompro-span big-image">
+											<img loading="lazy" data-action="zoom" class="zoompro" 
+											src="{{image.FilePathS}}" 
+											data-src-r="{{image.FilePathR}}"
+											alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}" />
+											<!-- <span>-29%</span> -->
+										</div>
+									</div>
 								{% endfor %}
+								{% else %}
+									<div id="gallery" class="product-dec-slider-2">
+										<a data-image="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/bee/images/no_photo.svg') }}">
+											<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/bee/images/no_photo.svg') }}"
+											alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
+										</a>
+									</div>
+								{% endif %}
 							</div>
-							{% endif %}
-							<!-- <div id="gallery" class="product-dec-slider-2">
-								<a data-image="../../static/images/product-details/product-detalis-l6.jpg">
-									<img loading="lazy" src="../../static/images/product-details/product-detalis-s6.jpg" alt="">
-								</a>
-							</div> -->
 						</div>
 					</div>
 					<div class="col-lg-6 col-md-5">
@@ -60,7 +63,7 @@
 								<div class="product-ratting ratingStars" ownerId="{{ resource.ResId }}"></div>
 								<div class="view_icon">
 									<i class="las la-eye"></i>
-									<span class="count">{{ resource.ResViewCnt }}</span>
+									<span class="count">{{ resource.ResViewCnt if resource.ResViewCnt else 0 }}</span>
 								</div>
 							</div>
 							<div class="pro-details-color-wrap">
@@ -106,8 +109,8 @@
 				<div class="row">
 					<div class="ml-auto mr-auto col-lg-10">
 						<div class="dec-review-topbar nav mb-40">
-							<a data-toggle="tab" href="#des-details1" class="active">Description</a>
-							<a data-toggle="tab" href="#des-details3">Reviews</a>
+							<a data-toggle="tab" href="#des-details1" class="active">{{_('Description')}}</a>
+							<a data-toggle="tab" href="#des-details3">{{_('Customers reviews')}}</a>
 						</div>
 						<div class="tab-content dec-review-bottom">
 							<div id="des-details1" class="tab-pane active">
@@ -251,8 +254,8 @@
 <script>
 	var resource_ResRegNo = "{{resource.ResRegNo}}"
 	var resource_ResGuid = "{{resource.ResGuid}}"
-	var resource_ResId = {{resource.ResId}}
-	var view_handling = {{handle_product_view}}
+	var resource_ResId = "{{resource.ResId}}"
+	var view_handling = "{{handle_product_view}}"
 	var view_handler_api_url = "{{view_handler_api_url}}"
 </script>
 <script>

@@ -14,17 +14,19 @@
 		<!-- commerce.html -->
 
 		<div class="slider-area">
-			<div class="container">
+			<div class="container" style="padding: 0;">
 				<div class="slider-active-4 owl-carousel dot-style-2">
 					{% for slider in sliders %}
 					{% if slider.SlName == "commerce_header" %}
 						{% for sl_image in slider.Sl_images %}
 						{% if sl_image.SlImgMainImgFilePathM %}
-						<div class="slider-height-8 bg-img res-white-overly-xs slider-image">
-							<a href="{{ sl_image.SlImgLink if sl_image.SlImgLink else '#' }}">
-								<img loading="lazy" src="{{ sl_image.SlImgMainImgFilePathM }}" data-src-m="{{ sl_image.SlImgMainImgFilePathR }}"
-								 alt="{{ sl_image.SlImgTitle if sl_image.SlImgTitle else 'sl_image.SlImgMainImgFileName' }} {{ company.CName }}">
-							</a>
+						<div class="col-xl-9 col-lg-8 col-md-12 col-12" style="float: right; padding: 0;">
+							<div class="slider-height-8 bg-img res-white-overly-xs slider-image">
+								<a href="{{ sl_image.SlImgLink if sl_image.SlImgLink else '#' }}">
+									<img loading="lazy" src="{{ sl_image.SlImgMainImgFilePathM }}" data-src-m="{{ sl_image.SlImgMainImgFilePathR }}"
+										alt="{{ sl_image.SlImgTitle if sl_image.SlImgTitle else 'sl_image.SlImgMainImgFileName' }} {{ company.CName }}">
+								</a>
+							</div>
 						</div>
 						{% endif %}
 						{% endfor %}
@@ -33,7 +35,7 @@
 				</div>
 			</div>
 		</div>
-
+		
 		{% for slider in sliders %}
 		{% if slider.SlName == "sidebar_banner" %}
 		<div class="banner-area pt-30 pb-40">
@@ -157,7 +159,7 @@
 		{% endif %}
 		{% endfor %}
 
-
+		
 		{% if Featured_products %}
 		<div class="product-area pb-85">
 			<div class="container">

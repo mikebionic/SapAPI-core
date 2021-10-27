@@ -73,6 +73,10 @@
 					</div>
 
 					<div class="single-product-description">
+						<div>
+              <i class="ti-eye"></i>
+              <span class="number">{{ resource.ResViewCnt if resource.ResViewCnt else 0 }}</span>
+            </div>
 						<input type="hidden" class="ratingValue" value="{{ resource.RtRatingValue }}" ownerId="{{ resource.ResId }}">
 						<div class="ratting ratingStars" ownerId="{{ resource.ResId }}"></div>
 
@@ -265,4 +269,19 @@
 	</div>
 </div>
 
+{% endblock %}
+
+{% block scripts %}
+<script>
+	var resource_ResRegNo = "{{resource.ResRegNo}}"
+	var resource_ResGuid = "{{resource.ResGuid}}"
+	var resource_ResId = {{resource.ResId}}
+	var view_handling = {{handle_product_view}}
+	var view_handler_api_url = "{{view_handler_api_url}}"
+</script>
+<script> 
+	if (view_handling){
+		handle_product_view();
+	}
+</script>
 {% endblock %}

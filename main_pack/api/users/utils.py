@@ -6,6 +6,8 @@ from datetime import datetime
 from main_pack.base.languageMethods import dataLangSelector
 from main_pack.base.apiMethods import fileToURL
 from main_pack.base.dataMethods import configureNulls, configureFloat, boolCheck
+from main_pack.api.common.password_utils import configurePassword
+from main_pack.api.common.configurePhoneNumber import configurePhoneNumber
 
 
 def addUsersDict(req):
@@ -14,10 +16,10 @@ def addUsersDict(req):
 	CId = req.get('CId')
 	DivId = req.get('DivId')
 	RpAccId = req.get('RpAccId')
-	UFullName = req.get('UFullName')
+	UFullName = req.get('UFullName').strip() if req.get('UFullName') else None
 	UName = req.get('UName').strip() if req.get('UName') else str(datetime.now().timestamp())
-	UEmail = req.get('UEmail')
-	UPass = req.get('UPass')
+	UEmail = req.get('UEmail').strip() if req.get('UEmail') else None
+	UPass = configurePassword(req.get('UPass'))
 	URegNo = req.get('URegNo')
 	UShortName = req.get('UShortName')
 	EmpId = req.get('EmpId')
@@ -80,20 +82,20 @@ def addRpAccDict(req):
 	RpAccTypeId = req.get('RpAccTypeId')
 	WpId = req.get('WpId')
 	RpAccRegNo = req.get('RpAccRegNo')
-	RpAccName = req.get('RpAccName')
+	RpAccName = req.get('RpAccName').strip() if req.get('RpAccName') else None
 	DbGuid = uuid.UUID(req.get('DbGuid')) if req.get('DbGuid') else None
-	RpAccUName = req.get('RpAccUName')
-	RpAccUPass = req.get('RpAccUPass')
-	RpAccAddress = req.get('RpAccAddress')
-	RpAccMobilePhoneNumber = req.get('RpAccMobilePhoneNumber')
-	RpAccHomePhoneNumber = req.get('RpAccHomePhoneNumber')
-	RpAccWorkPhoneNumber = req.get('RpAccWorkPhoneNumber')
+	RpAccUName = req.get('RpAccUName').strip() if req.get('RpAccUName') else None
+	RpAccUPass = configurePassword(req.get('RpAccUPass'))
+	RpAccAddress = req.get('RpAccAddress').strip() if req.get('RpAccAddress') else None
+	RpAccMobilePhoneNumber = configurePhoneNumber(req.get('RpAccMobilePhoneNumber'))
+	RpAccHomePhoneNumber = configurePhoneNumber(req.get('RpAccHomePhoneNumber'))
+	RpAccWorkPhoneNumber = configurePhoneNumber(req.get('RpAccWorkPhoneNumber'))
 	RpAccWorkFaxNumber = req.get('RpAccWorkFaxNumber')
 	RpAccZipCode = req.get('RpAccZipCode')
-	RpAccEMail = req.get('RpAccEMail')
-	RpAccFirstName = req.get('RpAccFirstName')
-	RpAccLastName = req.get('RpAccLastName')
-	RpAccPatronomic = req.get('RpAccPatronomic')
+	RpAccEMail = req.get('RpAccEMail').strip() if req.get('RpAccEMail') else None
+	RpAccFirstName = req.get('RpAccFirstName').strip() if req.get('RpAccFirstName') else None
+	RpAccLastName = req.get('RpAccLastName').strip() if req.get('RpAccLastName') else None
+	RpAccPatronomic = req.get('RpAccPatronomic').strip() if req.get('RpAccPatronomic') else None
 	RpAccBirthDate = req.get('RpAccBirthDate')
 	RpAccResidency = req.get('RpAccResidency')
 	RpAccPassportNo = req.get('RpAccPassportNo')
@@ -175,8 +177,8 @@ def addDeviceDict(req):
 	DevGuid = req.get('DevGuid')
 	DevUniqueId = req.get('DevUniqueId')
 	RpAccId = req.get('RpAccId')
-	DevName = req.get('DevName')
-	DevDesc = req.get('DevDesc')
+	DevName = req.get('DevName').strip() if req.get('DevName') else None
+	DevDesc = req.get('DevDesc').strip() if req.get('DevDesc') else None
 	IsAllowed = req.get('IsAllowed')
 	DevVerifyDate = req.get('DevVerifyDate')
 	DevVerifyKey = req.get('DevVerifyKey')

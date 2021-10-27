@@ -18,9 +18,18 @@
 									<form action="#" method="post">
 										{{ form.csrf_token() }}
 										{{ form.email(class="input-text",inputmode="email",placeholder=_('Email address')) }}
-										<div class="button-box">
-											<button type="submit">{{_('Reset password')}}</button>
+										<div class="row" style="justify-content: space-around;">
+											<div class="button-box">
+												<button type="submit">{{_('Send')}}</button>
+											</div>
+											<div class="cart-summary-button btn-hover btn-hover-radious">
+												<a href="{{url_for('commerce_auth.login')}}">
+													<i class="las la-registered"></i>
+													<span class="login-text">{{_('Login')}}</span>
+												</a>
+											</div>
 										</div>
+
 									</form>
 								</div>
 							</div>

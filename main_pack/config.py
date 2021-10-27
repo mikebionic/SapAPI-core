@@ -170,6 +170,7 @@ class Config:
 	HASHED_PASSWORDS = int(environ.get('HASHED_PASSWORDS')) if environ.get('HASHED_PASSWORDS') else 0
 
 	TOKEN_EXP_TIME_MINUTES = int(environ.get('TOKEN_EXP_TIME_MINUTES')) if environ.get('TOKEN_EXP_TIME_MINUTES') else 30
+	JWT_ALGORITHM = environ.get('JWT_ALGORITHM') or "HS256"
 
 	# # to give each api it's pagination:
 	RESOURCES_PER_PAGE = int(environ.get('RESOURCES_PER_PAGE')) if environ.get('RESOURCES_PER_PAGE') else 30
@@ -195,6 +196,7 @@ class Config:
 	# if no left in Res_total.ResTotBalace
 	SHOW_NEGATIVE_WH_QTY_RESOURCE = int(environ.get('SHOW_NEGATIVE_WH_QTY_RESOURCE')) if environ.get('SHOW_NEGATIVE_WH_QTY_RESOURCE') else 0
 	SHOW_NULL_RESOURCE_CATEGORY = int(environ.get('SHOW_NULL_RESOURCE_CATEGORY')) if environ.get('SHOW_NULL_RESOURCE_CATEGORY') else 1
+	HIDE_UNDER_ZERO_VISIBLE_CATEGORIES = int(environ.get('HIDE_UNDER_ZERO_VISIBLE_CATEGORIES')) if environ.get('HIDE_UNDER_ZERO_VISIBLE_CATEGORIES') else 0
 	SHOW_RES_TRANSLATIONS = int(environ.get('SHOW_RES_TRANSLATIONS')) if environ.get('SHOW_RES_TRANSLATIONS') else 0
 	SEARCH_BY_RESOURCE_DESCRIPTION = int(environ.get('SEARCH_BY_RESOURCE_DESCRIPTION')) if environ.get('SEARCH_BY_RESOURCE_DESCRIPTION') else 1
 	SHOW_ONLY_VALIDATED_RATING = 1
@@ -303,11 +305,21 @@ class Config:
 	COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH = environ.get("COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH") or "/commerce/admin"
 	# / templates file location configuration /
 
+
+	INSERT_LAST_ID_MANUALLY = int(environ.get("INSERT_LAST_ID_MANUALLY")) if environ.get("INSERT_LAST_ID_MANUALLY") else 0
+	INSERT_PHONE_NUMBER_ON_REGISTER = int(environ.get("INSERT_PHONE_NUMBER_ON_REGISTER")) if environ.get("INSERT_PHONE_NUMBER_ON_REGISTER") else 0
+	INSERT_EMAIL_ON_REGISTER = int(environ.get("INSERT_EMAIL_ON_REGISTER")) if environ.get("INSERT_EMAIL_ON_REGISTER") else 0
+
 	HANDLE_PRODUCT_VIEW = int(environ.get("HANDLE_PRODUCT_VIEW")) if environ.get("HANDLE_PRODUCT_VIEW") else 0
-	VIEW_HANDLER_API_URL = environ.get("VIEW_HANDLER_API_URL") or '/view-counter/'
+	VIEW_HANDLER_API_URL = environ.get("VIEW_HANDLER_API_URL") or '/goapi/view-counter/'
+
+	# use only if goapi blueve search deployed
+	USE_SMART_SEARCH = int(environ.get("USE_SMART_SEARCH")) if environ.get("USE_SMART_SEARCH") else 0
+	SMART_SEARCH_API_URL = environ.get("SMART_SEARCH_API_URL") or '/goapi/find-product/'
+
 	ATTEMPT_ERROR_TIMEOUT_MINUTES = int(environ.get("ATTEMPT_ERROR_TIMEOUT_MINUTES")) if environ.get("ATTEMPT_ERROR_TIMEOUT_MINUTES") else 30
 	REGISTER_REQUEST_EXPIRE_TIME_MINUTES = int(environ.get("REGISTER_REQUEST_EXPIRE_TIME_MINUTES")) if environ.get("REGISTER_REQUEST_EXPIRE_TIME_MINUTES") else 10
-	REGISTER_REQUEST_VALIDATOR_PHONE_NUMBER = environ.get("REGISTER_REQUEST_VALIDATOR_PHONE_NUMBER")
+	REGISTER_REQUEST_VALIDATOR_PHONE_NUMBER = environ.get("REGISTER_REQUEST_VALIDATOR_PHONE_NUMBER") or "+99361234567"
 	# tag resources as new if they exist **amount** days
 	COMMERCE_RESOURCE_NEWNESS_DAYS = int(environ.get('COMMERCE_RESOURCE_NEWNESS_DAYS')) if environ.get('COMMERCE_RESOURCE_NEWNESS_DAYS') else 15
 	# how many resources to show in rating view

@@ -51,7 +51,7 @@
 									{% if company.Phone1 %}
 									<div class="header-contact-2" onclick="location.href='tel:{{company.Phone1}}';">
 										<div class="header-contact-2-icon">
-											<i class="la la-phone" style="color:#ea2e49;"></i>
+											<i class="la la-phone" style="color:#4c8e38;"></i>
 										</div>
 										<div class="header-contact-2-text">
 											<a href="tel:{{company.Phone1}}">{{company.Phone1}}</a>
@@ -116,7 +116,7 @@
 											<a href="{{ url_for('commerce_auth.login') }}"><i class="las la-sign-in-alt"></i></a>
 										</div>
 										<div class="header-login ml-10">
-											<a href="{{ url_for('commerce_auth.register') }}"><i class="la la-registered"></i></a>
+											<a href="{{ url_for('commerce_auth.register_sms') }}"><i class="la la-registered"></i></a>
 										</div>
 										{% endif %}
 										
@@ -165,10 +165,11 @@
 									</h3>
 									<div class="cat">
 									<div class="category-menu hidecat">
-										<nav>
+										<nav> 
 											<ul>
 												<li class="cr-dropdown">
 													<a class="cat-style" title="{{_('All')}}" href="{{url_for('commerce.v_grid')}}">
+														<img class="img-fluid cat-icon" src="{{ url_for('static', filename='commerce/ls/img/icons/category.svg') }}" style="height: 25px; width: 25px; margin-right: 7px;">
 														{{_('All')}}
 													</a>
 												</li>
@@ -177,12 +178,11 @@
 													<a class="cat-style" title="{{ category.ResCatName }}" 
 														href="{{ url_for('commerce.v_grid',ResCatId=category.ResCatId,ResCatName=category.ResCatName.replace('/','-').replace(' ','-')) if not category.Categories else '#' }}"
 													{% if category.Categories %} aria-haspopup="true" {% endif %}>
+													<img class="img-fluid cat-icon" src="{{ category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static', filename='commerce/ls/img/icons/category.svg') }}" style="height:25px;width: 25px; margin-right: 7px;">
 													{{ category.ResCatName }}
-													
-																										
+
 													{% if category.Categories %}
 														<span class="la la-angle-down" style="display: block;"></span>
-
 														<ul class="cr-menu-desktop-none">
 															{% for category in category.Categories %}
 															<li class="cr-sub-dropdown">
@@ -193,9 +193,9 @@
 															{% endfor %}
 														</ul>
 													{% endif %}
+
 													</a>
-												</li>
-												
+												</li>												
 												{% endfor %}
 											</ul>
 										</nav>
@@ -243,7 +243,7 @@
 			<div class="container-fluid">
 				<div class="footer-top pb-40">
 					<div class="row">
-						<div class="col-lg-3 col-md-8 col-12 col-sm-12">
+						<div class="col-lg-3 col-md-8 col-12 col-sm-12" style="margin: 0 auto;text-align: center;">
 							<div class="footer-widget mb-30">
 								<div class="logo">
 									<a href="{{ url_for('commerce.commerce') }}"><img src="{{ url_for('static', filename='commerce/hs/images/logo/hs_logo.svg') }}" alt="logo"></a>
@@ -301,10 +301,32 @@
 									</div>
 								</div>
 								{% endif %}
+								{% if company.Phone4 %}
+								<div class="header-contact-3" style="margin: 0 auto;" onclick="location.href='tel:{{company.Phone4}}';">
+									<div class="header-contact-2-icon">
+										<div class="content-center">
+											<div class="pulse">
+												<i class="la la-phone"></i>
+											</div>
+										</div>
+									</div>
+									<div class="header-contact-2-text">
+										<a href="tel:{{company.Phone4}}">{{company.Phone4}}</a>
+									</div>
+								</div>
+								{% endif %}
+							</div>
+							<div class="feature feature-shipping">
+								<div class="feature-wrap">
+									<div class="icon"><img loading="lazy" src="{{ url_for('static', filename='commerce/hs/images/icons/delivery.svg') }}"></div>
+									<h4>130 manatdan kop sargasanyz</h4>
+									<h4>Eltip bermek hyzmaty mugt</h4>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+				
 				<div class="footer-bottom border-top-1">
 					<div class="copyright-3 text-center pt-20 pb-20 border-top-1">
 						<a href="http://saphasap.com/">

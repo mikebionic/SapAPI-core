@@ -9,21 +9,6 @@
 <meta name="twitter:image" content="{{ request.host_url }}{{ company_logo.FilePath if company_logo else url_for('static', filename='commerce/hs/images/logo/halal_OG.png') }}" />
 {% endblock %}
 
-{% block breadcrumbs %}
-<div class="breadcrumb-area bg-img">
-	<div class="container">
-		<div class="breadcrumb-content text-center">
-			<h2>{{_('About us')}} </h2>
-			<ul>
-				<li>
-					<a href="{{ url_for('commerce.commerce') }}">{{_('Main')}}</a>
-				</li>
-				<li class="active">{{_('Register')}}</li>
-			</ul>
-		</div>
-	</div>
-</div>
-{% endblock %}
 
 {% block content %}
 <div class="login-register-area pt-85 pb-90">
@@ -32,7 +17,7 @@
 			<div class="col-lg-7 col-md-12 ml-auto mr-auto">
 				<div class="login-register-wrapper">
 					<div class="login-register-tab-list nav">
-						<a href="{{ url_for('commerce_auth.login') }}">{{_('Login')}}</a>
+						<a class="not_active_reg" href="{{ url_for('commerce_auth.login') }}">{{_('Login')}}</a>
 							<a class="active" href="#">
 								<h4> {{_('Register')}} </h4>
 							</a>
@@ -41,7 +26,7 @@
 						<div id="lg2" class="tab-pane active">
 							<div class="login-form-container">
 								<div class="login-register-form">
-									<form action="#" method="post">
+									<form action="" method="post">
 										{{ form.csrf_token() }}
 										<p class="before-register-text">
 											{{_("Register to use all the features and posibilities of ecommerce")}}.
@@ -61,8 +46,8 @@
 											</div>
 											<div class="cart-summary-button btn-hover btn-hover-radious">
 												<a href="{{url_for('commerce_auth.register_sms')}}">
-													<i class="las la-sign-in-alt"></i>
-													<span class="login-text">SMS Registrasiýa</span>
+													<i class="las la-registered"></i>
+													<span class="login-text">{{_('Register by SMS')}}</span>
 												</a>
 											</div>
 										</div>

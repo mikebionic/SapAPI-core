@@ -17,6 +17,7 @@ function send_sms_register_request(phone_number){
 			headers: {"PhoneNumber": phone_number},
 			url: `${api_url_prefix}/request-sms-register/`,
 			success: function(response){
+				console.log(responseisEmpty)
 				if (response.status == 1){
 					destroy_phone_request_form();
 					show_loader_spinner();

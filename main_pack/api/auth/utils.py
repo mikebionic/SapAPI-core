@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from flask import url_for, jsonify, request
-import jwt
 from functools import wraps
 from flask_mail import Message
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
@@ -10,20 +9,107 @@ from main_pack.config import Config
 from main_pack import mail
 from main_pack.models import User, Rp_acc, Device
 
+from main_pack.api.auth.register_phone_number import check_phone_number_register
+from main_pack.base import log_print
+from main_pack.base.cryptographyMethods import decodeJWT
+
+
+def get_bearer_from_header(auth_header):
+	auth_token = None
+
+	try:
+		auth_header.split(" ")[0].lower().index("bearer")
+		auth_token = auth_header.split(" ")[1]
+	except:
+		pass
+		# log_print("Token malformed, couldn't get bearer token")
+
+	return auth_token
+
+def register_token_required(f):
+	@wraps(f)
+	def decorated(*args, **kwargs):
+		data = {}
+
+		register_method = request.args.get("method","email",type=str)
+		register_token = request.args.get("token","",type=str)
+		auth_type = request.args.get("type","rp_acc",type=str)
+
+		try:
+			if not register_token:
+				if "token" in request.headers:
+					register_token = request.headers["token"]
+
+			if not register_token:
+				log_print("No token specified in header or query string parameter")
+				raise Exception
+
+			token_data = decodeJWT(register_token)
+
+			if register_method == "email":
+				username = token_data["username"].strip()
+				email = token_data["email"].strip()
+
+				if auth_type == "rp_acc":
+					exiting_user = Rp_acc.query\
+						.filter_by(
+							RpAccUName = username,
+							RpAccUEmail = email,
+							GCRecord = None
+						).first()
+					if exiting_user:
+						log_print("Email or Username requested is already registered")
+						raise Exception
+
+					data = {
+						"username": username,
+						"email": email
+					}
+
+			elif register_method == "phone_number":
+				phone_number_data, _ = check_phone_number_register(token_data["phone_number"].strip())
+				if not phone_number_data:
+					log_print("Phone number not found in token_data or invalid")
+					raise Exception
+
+				if auth_type == "rp_acc":
+					existing_user = Rp_acc.query\
+						.filter_by(
+							RpAccMobilePhoneNumber = phone_number_data["phone_number"],
+							GCRecord = None,
+						).first()
+					if existing_user:
+						log_print("Phone number requested is already registered")
+						raise Exception
+
+				data = {
+					"phone_number": phone_number_data["phone_number"]
+				}
+
+		except Exception as ex:
+			log_print(f"Register token required exception: {ex}")
+
+		print(data)
+		return f(data,*args,**kwargs)
+
+	return decorated
+
 
 def token_required(f):
 	@wraps(f)
 	def decorated(*args,**kwargs):
-		token = None
+		auth_token = None
 
-		if 'x-access-token' in request.headers:
-			token = request.headers['x-access-token']
+		auth_token = get_bearer_from_header(request.headers.get('Authorization'))
 
-		if not token:
+		if not auth_token and 'x-access-token' in request.headers:
+			auth_token = request.headers['x-access-token']
+
+		if not auth_token:
 			return jsonify({"message": "Token is missing!"}), 401
 
 		try:
-			data = jwt.decode(token, Config.SECRET_KEY)
+			data = decodeJWT(auth_token)
 
 			if "UId" in data:
 				model_type = 'user'
@@ -59,15 +145,16 @@ def token_required(f):
 def sha_required(f):
 	@wraps(f)
 	def decorated(*args,**kwargs):
-		token = None
+		auth_token = None
 
-		if 'x-access-token' in request.headers:
-			token = request.headers['x-access-token']
+		auth_token = get_bearer_from_header(request.headers.get('Authorization'))
+		if not auth_token and 'x-access-token' in request.headers:
+			auth_token = request.headers['x-access-token']
 
-		if not token:
+		if not auth_token:
 			return jsonify({"message": "Token is missing!"}), 401
-		
-		if token != Config.SYNCH_SHA:
+
+		if auth_token != Config.SYNCH_SHA:
 			return jsonify({"message": "Token is invalid!"}), 401
 
 		return f(*args,**kwargs)
@@ -82,7 +169,7 @@ def send_reset_email(user):
 	msg = Message(lazy_gettext('Password reset request'), sender=Config.MAIL_USERNAME,recipients=[user.UEmail])
 	msg.body = f'''{lazy_gettext('To reset your password, visit the following link')}:
 	{url_for(url,token=token,_external=True)}
-	{lazy_gettext('If you did not make this request then simply ignore this email')}. 
+	{lazy_gettext('If you did not make this request then simply ignore this email')}.
 	'''
 	mail.send(msg)
 
@@ -106,6 +193,6 @@ def send_register_email(UName,UEmail):
 	{lazy_gettext('You have requested the registration on ecommerce')}.
 	{lazy_gettext('Please follow the link to verify your email')}!
 	{url_for('commerce_auth.register_token',token=token,_external=True)}
-	{lazy_gettext('If you did not make this request then simply ignore this email')}. 
+	{lazy_gettext('If you did not make this request then simply ignore this email')}.
 	'''
 	mail.send(msg)

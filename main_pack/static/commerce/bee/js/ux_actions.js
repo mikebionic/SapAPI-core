@@ -292,3 +292,21 @@ $('body').delegate('.checkoutCartBtn','click',function(){
 	set_local_data_by_name('orderInv', order_data)
 	checkoutCart(order_data ,`${url_prefix}/checkout-cart-v1/`,'POST');
 });
+
+function send_view_request(data){
+	setTimeout(() => {
+		$.ajax({
+			type: "GET",
+			url: `${view_handler_api_url}?type=resource`,
+			headers: {...data}
+		})
+	}, 15000);
+}
+
+function handle_product_view(){
+	var view_product_data = {
+		"ResRegNo": btoa(resource_ResRegNo),
+		"ResGuid": btoa(resource_ResGuid)
+	}
+	send_view_request(view_product_data)
+}

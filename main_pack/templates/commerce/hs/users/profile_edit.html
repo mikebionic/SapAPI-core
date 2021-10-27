@@ -7,8 +7,7 @@
 {% endblock %}
 
 {% block content %}
-		
-		
+
 <div class="my-account-wrapper pt-100 pb-100">
 	<div class="container">
 		<div class="row">
@@ -28,9 +27,12 @@
 						</div>
 						<div class="col-lg-9 col-md-8">
 							<div class="myaccount-content">
-								<h3>{{_('Edit profile')}}</h3>
+								<div class="row" style="justify-content: space-around;">
+									<h3>{{_('Edit profile')}}</h3>
+									<a href="{{ url_for('commerce_auth.reset_request') }}" class="button">{{_('Reset password')}}</a>
+								</div>
 								<div class="account-details-form">
-									<form action="#" method="POST">
+									<form action="" method="POST">
 										{{ form.csrf_token }}
 										<div class="row">
 											<div class="col-lg-6">
@@ -174,7 +176,7 @@
 											</div>
 										</div>
 										<div class="single-input-item">
-											<button class="check-btn sqr-btn ">{{_('Save')}}</button>
+											<button type="submit" class="check-btn sqr-btn ">{{_('Save')}}</button>
 										</div>
 									</form>
 								</div>

@@ -9,24 +9,8 @@
 <meta name="twitter:image" content="{{ request.host_url }}{{ company_logo.FilePath if company_logo else url_for('static', filename='commerce/hs/images/logo/halal_OG.png') }}" />
 {% endblock %}
 
-{% block breadcrumbs %}
-<div class="breadcrumb-area bg-img">
-	<div class="container">
-		<div class="breadcrumb-content text-center">
-			<h2>{{_('About us')}} </h2>
-			<ul>
-				<li>
-					<a href="{{ url_for('commerce.commerce') }}">{{_('Main')}}</a>
-				</li>
-				<li class="active">{{_('Login')}}</li>
-			</ul>
-		</div>
-	</div>
-</div>
-{% endblock %}
 
 {% block content %}
-
 
 <div class="login-register-area pt-85 pb-90">
 	<div class="container">
@@ -37,17 +21,19 @@
 						<a class="active" data-toggle="tab" href="#">
 							<h4> {{_('Login')}} </h4>
 						</a>
-						<a href="{{ url_for('commerce_auth.register') }}">{{_('Register')}}</a>
+						<a class="not_active_reg" href="{{ url_for('commerce_auth.register') }}">{{_('Register')}}</a>
 					</div>
 					<div class="tab-content">
 						<div id="lg1" class="tab-pane active">
 							<div class="login-form-container">
 								<div class="login-register-form">
-									<form action="#" method="post">
+
+									<form action="" method="post" id="email-login-form" style="display:none">
 										{{ form.csrf_token() }}
 										<p class="before-login-text">
 											{{_("To login you account, fill the required fields and click 'Login' button")}}.
 										</p>
+										<p>{{_('Email address')}}<span style="color:red"> *</span></p>
 										{{ form.email(class="input-text",inputmode="email",placeholder=_('Email address')) }}
 										{% if form.email.errors %}
 											<div class="col-12 mb-30">
@@ -56,6 +42,7 @@
 												{% endfor %}
 											</div>
 										{% endif %}
+										<p>{{_('Password')}}<span style="color:red"> *</span></p>
 										{{ form.password(id="password-field",class="input-text",placeholder=_('Password')) }}
 										<span toggle="#password-field" class="las la-low-vision field-icon toggle-password"></span>
 										<div class="button-box">
@@ -64,12 +51,51 @@
 												<label>{{_('Remember me')}}</label>
 												<a href="{{ url_for('commerce_auth.reset_request') }}">{{_('Forgot your password?')}}</a>
 											</div>
-											<button type="submit">{{_('Login')}}</button>
+
+											<div class="row" style="justify-content: space-around;">
+												<div class="button-box">
+													<button type="submit">{{_('Login')}}</button>
+												</div>
+												<div class="cart-summary-button btn-hover btn-hover-radious">
+													<a id="phone-number-login-button">
+														<i class="las la-sign-in-alt"></i>
+														<span class="login-text">{{_('Login by phone number')}}</span>
+													</a>
+												</div>
+											</div>
 										</div>
 									</form>
-									
+
+									<form action="" method="post" id="phone-number-login-form">
+										<h4 class="theme-text-message">
+											{{_("To login you account, fill the required fields and click 'Login' button")}}.
+										</h4>
+										<p>{{_('Phone number')}}<span style="color:red"> *</span></p>
+										<input inputmode="tel" placeholder="{{_('Phone number')}} : +99361234567" class='input-text' id="phone-number" required />
+										<p>{{_('Password')}}<span style="color:red"> *</span></p>
+										<input type="password" placeholder="{{_('Password')}}" class='input-text' id="password" required />
+										<span toggle="#password" class="las la-low-vision field-icon toggle-password"></span>
+										
+											<div class="button-box">
+												<div class="login-toggle-btn">
+													<a href="{{ url_for('commerce_auth.reset_request_sms') }}">{{_('Forgot your password?')}}</a>
+												</div>
+											</div>
+										
+										<div class="row" style="justify-content: space-around;">
+											<div class="button-box">
+												<button type="submit">{{_('Login')}}</button>
+											</div>
+											<div class="cart-summary-button btn-hover btn-hover-radious">
+												<a id="email-login-button">
+													<i class="las la-sign-in-alt"></i>
+													<span class="login-text">{{_('Login by email')}}</span>
+												</a>
+											</div>
+										</div>
+									</form>
+
 									<h4>{{_('Don’t have profile?')}} <a href="{{ url_for('commerce_auth.register') }}" style="color: #5995fd;">{{_('Register')}}</a></h4>
-									<h4>{{_('Forgot your password?')}} <a href="{{ url_for('commerce_auth.reset_request') }}" style="color: #5995fd;">{{_('Reset password')}}</a></h4>
 								</div>
 							</div>
 						</div>
@@ -81,4 +107,9 @@
 </div>
 
 
+{% endblock %}
+{% block scripts %}
+<script>
+	var api_url_prefix = "{{api_url_prefix if api_url_prefix else ''}}";
+</script>
 {% endblock %}

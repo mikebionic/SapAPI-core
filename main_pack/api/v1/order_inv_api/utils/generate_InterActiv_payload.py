@@ -94,7 +94,7 @@ def generate_InterActiv_payload(
 	}
 
 	if CustomerMobilePhone:
-		CustomerMobilePhone = configurePhoneNumber(CustomerMobilePhone)
+		CustomerMobilePhone = configurePhoneNumber(CustomerMobilePhone, 1)
 		if CustomerMobilePhone:
 			data["Environment"]["Customer"]["MobilePhone"] = {
 				"cc": CustomerMobilePhone[:3],
@@ -102,7 +102,7 @@ def generate_InterActiv_payload(
 			}
 
 	if CustomerHomePhone:
-		CustomerHomePhone = configurePhoneNumber(CustomerHomePhone)
+		CustomerHomePhone = configurePhoneNumber(CustomerHomePhone, 1)
 		if CustomerHomePhone:
 			data["Environment"]["Customer"]["HomePhone"] = {
 				"cc": CustomerHomePhone[:3],

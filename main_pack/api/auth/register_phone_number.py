@@ -1,4 +1,6 @@
 
+from main_pack.models.Rp_acc import Rp_acc
+from main_pack.base.cryptographyMethods import encodeJWT
 import uuid
 from datetime import datetime, timedelta
 
@@ -26,12 +28,24 @@ def register_phone_number(phone_number):
 			.first()
 
 		if existing_register_request:
+			should_register_state = 0
 			if existing_register_request.RegReqVerified:
-				message = f"Phone number is already taken"
-				log_print(f"{message}: {str(existing_register_request)}", "warning")
-				raise Exception
+				registered_phone_rp_acc = Rp_acc.query\
+					.filter_by(
+						RpAccMobilePhoneNumber = PhoneNumber,
+						GCRecord = None
+					).first()
+				
+				if registered_phone_rp_acc:
+					message = f"Phone number is already taken"
+					log_print(f"{message}: {PhoneNumber}", "warning")
+					raise Exception
+				
+				else:
+					existing_register_request.RegReqVerified = 0
+					should_register_state = 1
 
-			else:
+			if should_register_state or not existing_register_request.RegReqVerified:
 				existing_register_request.RegReqExpDate = datetime.now() + timedelta(minutes=Config.REGISTER_REQUEST_EXPIRE_TIME_MINUTES)
 				db.session.commit()
 				data = existing_register_request.to_json_api()
@@ -79,6 +93,9 @@ def check_phone_number_register(phone_number):
 
 		if registered_request.RegReqVerified:
 			data = registered_request.to_json_api()
+			encoded_token, _ = encodeJWT({"phone_number": PhoneNumber})
+			data["token"] = encoded_token.decode('UTF-8')
+			data["phone_number"] = PhoneNumber
 			message = "Phone number verified"
 
 	except Exception as ex:

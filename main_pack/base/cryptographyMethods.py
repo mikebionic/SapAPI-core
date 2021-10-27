@@ -1,4 +1,10 @@
 from cryptography.fernet import Fernet
+import jwt
+from datetime import datetime
+import datetime as dt
+
+from main_pack.base.log_print import log_print
+from main_pack.config import Config
 
 
 def encrypt_data(data, fernet_key, db_guid):
@@ -34,3 +40,30 @@ def decrypt_data(data, fernet_key, db_guid):
 
 	except Exception:
 		return None
+
+def encodeJWT(data):
+	token = ''
+	try:
+		exp = datetime.now() + dt.timedelta(minutes = Config.TOKEN_EXP_TIME_MINUTES)
+		exputc = datetime.utcnow() + dt.timedelta(minutes = Config.TOKEN_EXP_TIME_MINUTES)
+
+		token_encoding_data = {
+			"exp": exputc,
+			"iat": datetime.utcnow(),
+			"nbf": datetime.utcnow()
+		}
+		token_encoding_data.update(data)
+		token = jwt.encode(token_encoding_data, Config.SECRET_KEY, algorithm=Config.JWT_ALGORITHM)
+
+	except Exception as ex:
+		log_print(f"JWT encoding exception {ex}","danger")
+
+	return token, exp
+
+def decodeJWT(token):
+	token_data = ''
+	try:
+		token_data = jwt.decode(token, Config.SECRET_KEY, algorithms=[Config.JWT_ALGORITHM])
+	except Exception as ex:
+		log_print(f"JWT decoding exception {ex}","danger")
+	return token_data

@@ -897,3 +897,27 @@ msgstr "Featured products"
 
 msgid "Previously viewed products"
 msgstr "Previously viewed products"
+
+msgid "Register by SMS"
+msgstr "Register by SMS"
+
+msgid "Register by email"
+msgstr "Register by email"
+
+msgid "Login by phone number"
+msgstr "Login by phone number"
+
+msgid "Login by email"
+msgstr "Login by email"
+
+msgid "Send an empty SMS to number"
+msgstr "Send an empty SMS to number"
+
+msgid "Request expires in"
+msgstr "Request expires in"
+
+msgid "Please wait until verification is complete"
+msgstr "Please wait until verification is complete"
+
+msgid "Type your address"
+msgstr "Type your address"

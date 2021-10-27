@@ -3578,6 +3578,26 @@ img.mfp-img {
     margin-top: 5px;
     position: relative;
     left: -7px; }
+    .single-product-description div i {
+      font-size: 24px;
+      line-height: 30px;
+      display: block;
+      float: left; }
+    .single-product-description div .number {
+      width: 20px;
+      height: 20px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #202020;
+      background-color: #f5d730;
+      display: block;
+      overflow: hidden;
+      text-align: center;
+      line-height: 20px;
+      margin-top: 5px;
+      position: relative;
+      left: -7px; }
     @media only screen and (max-width: 479px) {
       .header-shop-links a .number {
         width: 16px;

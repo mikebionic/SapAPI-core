@@ -1427,9 +1427,12 @@ textarea {
     padding: 10px;
     width: 100%;
     font-size: 14px;
-    color: #737373;
-}
+    color: #080925;
 
+}
+textarea::placeholder{
+    color: #080925;
+}
 textarea:focus {
     background: transparent;
     border: 2px solid #4FC1F0;

@@ -21,10 +21,7 @@
 					{{ form.full_name(class='input-text') }}
 				</p>
 
-				<p class="form-row form-row-wide">
-					<label>{{_('Phone number')}}</label>
-					{{ form.phone_number(class='input-text') }}
-				</p>
+				{{ form.phone_number(class='input-text', type='hidden') }}
 
 				<p class="form-row form-row-wide">
 					<label>{{_('Address')}}</label>
@@ -48,7 +45,7 @@
 					</p>
 				{% endif %}
 				<p class="form-row">
-					<input type="submit" class="woocommerce-Button button" value="{{_('Register')}}" />
+					<input type="submit" style="background-color: orange;" class="woocommerce-Button button" value="{{_('Register')}}" />
 				</p>
 			</form>
 

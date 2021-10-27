@@ -1,3 +1,4 @@
+from main_pack.api.users.utils import addRpAccDict
 from flask import (
 	render_template,
 	url_for,
@@ -8,11 +9,10 @@ from flask import (
 )
 from flask_login import login_user, current_user, logout_user
 from datetime import datetime
-import uuid
 
 from . import bp, url_prefix
 from main_pack.config import Config
-from main_pack import db, bcrypt, gettext, lazy_gettext
+from main_pack import db, gettext, lazy_gettext
 
 # forms
 from main_pack.commerce.auth.forms import (
@@ -23,25 +23,25 @@ from main_pack.commerce.auth.forms import (
 	PasswordRegistrationForm)
 
 # db Models
-from main_pack.models import User, Rp_acc
-from main_pack.models import (
-	Company,
-	Division,
-)
+from main_pack.models import Rp_acc
 
 # utils
 from main_pack.commerce.auth.utils import (
 	send_reset_email,
-	get_register_token,
 	verify_register_token,
 	send_register_email,
 )
 from main_pack.api.auth.attempt_counter import attempt_counter
 
 from main_pack.commerce.commerce.utils import UiCategoriesList
-from main_pack.key_generator.utils import makeRegNo, generate
 from main_pack.base.apiMethods import get_login_info
+from main_pack.base import log_print
 
+from main_pack.api.common import (
+	configurePassword,
+	checkPassword,
+	gather_required_register_rp_acc_data,
+)
 
 @bp.route("/login",methods=['GET','POST'])
 @attempt_counter
@@ -55,12 +55,7 @@ def login():
 			if not user:
 				raise Exception
 
-			if Config.HASHED_PASSWORDS == True:
-				password = bcrypt.check_password_hash(user.RpAccUPass, form.password.data)
-			else:
-				password = (user.RpAccUPass == form.password.data)
-
-			if not password:
+			if not checkPassword(user.RpAccUPass, form.password.data):
 				raise Exception
 
 			try:
@@ -74,6 +69,8 @@ def login():
 			session["model_type"] = "rp_acc"
 			session["ResPriceGroupId"] = user.ResPriceGroupId
 			login_user(user, remember=form.remember.data)
+
+			print(session)
 			next_page = request.args.get("next")
 
 			return redirect(next_page) if next_page else redirect(url_for('commerce.commerce'))
@@ -85,6 +82,7 @@ def login():
 	return render_template(
 		f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/auth/login.html",
 		**categoryData,
+		api_url_prefix = Config.API_URL_PREFIX,
 		url_prefix = url_prefix,
 		title = gettext('Login'),
 		form = form)
@@ -104,15 +102,12 @@ def reset_request():
 			form = ResetPasswordForm()
 
 			if form.validate_on_submit():
-				if Config.HASHED_PASSWORDS == True:
-					password = bcrypt.generate_password_hash(form.password.data).decode()
-				else:
-					password = form.password.data
-
-				current_user.RpAccUPass = password
-				db.session.commit()
-				flash(lazy_gettext('Your password has been updated!'),'success')
-				return redirect(url_for('commerce.commerce'))
+				password = configurePassword(form.password.data)
+				if password:
+					current_user.RpAccUPass = password
+					db.session.commit()
+					flash(lazy_gettext('Your password has been updated!'),'success')
+					return redirect(url_for('commerce.commerce'))
 
 			return render_template(
 				f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/auth/reset_token.html",
@@ -148,17 +143,13 @@ def reset_token(token):
 
 	form = ResetPasswordForm()
 	if form.validate_on_submit():
-
-		if Config.HASHED_PASSWORDS == True:
-			password = bcrypt.generate_password_hash(form.password.data).decode()
-		else:
-			password = form.password.data
-
-		user.RpAccUPass = password
-		db.session.commit()
-		flash(lazy_gettext('Your password has been updated!'),'success')
-		login_user(user)
-		return redirect(url_for('commerce.commerce'))
+		password = configurePassword(form.password.data)
+		if password:
+			user.RpAccUPass = password
+			db.session.commit()
+			flash(lazy_gettext('Your password has been updated!'),'success')
+			login_user(user)
+			return redirect(url_for('commerce.commerce'))
 
 	categoryData = UiCategoriesList()
 	return render_template(
@@ -190,13 +181,16 @@ def register():
 		form = form)
 
 
-@bp.route("/register/<token>",methods=['GET','POST'])
-def register_token(token):
+@bp.route("/register/",methods=['GET','POST'])
+# @register_token_required
+def register_token():
+	register_token = request.args.get("token","",type=str)
+
 	if (current_user.is_authenticated and "model_type" in session):
 		if session["model_type"] == "rp_acc":
 			return redirect(url_for('commerce.commerce'))
 
-	new_user = verify_register_token(token)
+	new_user = verify_register_token(register_token)
 
 	if not new_user:
 		flash(lazy_gettext('Token is invalid or expired'),'warning')
@@ -205,85 +199,62 @@ def register_token(token):
 	form = PasswordRegistrationForm()
 	if form.validate_on_submit():
 		try:
-			username = new_user['username']
-			email = new_user['email']
+			req = {
+				"RpAccUName": new_user['username'],
+				"RpAccEMail": new_user['email'],
+				"RpAccName": form.full_name.data,
+				"RpAccMobilePhoneNumber": form.phone_number.data,
+				"RpAccAddress": form.address.data,
+				"RpAccUPass": form.password.data,
+			}
+			rp_acc_data = addRpAccDict(req)
 
-			if Config.HASHED_PASSWORDS == True:
-				password = bcrypt.generate_password_hash(form.password.data).decode()
-			else:
-				password = form.password.data
+			if not rp_acc_data["RpAccUPass"]:
+				log_print("Register api exception, password not valid", "warning")
+				raise Exception
+
+			UId, CId, DivId, RpAccRegNo, RpAccGuid = gather_required_register_rp_acc_data()
+			rp_acc_data["UId"] = UId
+			rp_acc_data["CId"] = CId
+			rp_acc_data["DivId"] = DivId
+			rp_acc_data["RpAccRegNo"] = RpAccRegNo
+			rp_acc_data["RpAccGuid"] = RpAccGuid
+			rp_acc_data["RpAccTypeId"] = 2
+			rp_acc_data["RpAccStatusId"] = 1
+
+			if not Config.INSERT_PHONE_NUMBER_ON_REGISTER:
+				rp_acc_data["RpAccMobilePhoneNumber"] = None
+
+			if Config.INSERT_LAST_ID_MANUALLY:
+				lastUser = Rp_acc.query.order_by(Rp_acc.RpAccId.desc()).first()
+				RpAccId = lastUser.RpAccId + 1
+				rp_acc_data["RpAccId"] = RpAccId
 
 			check_registration = Rp_acc.query\
 				.filter_by(
-					RpAccEMail = email,
-					RpAccUName = username,
+					RpAccEMail = rp_acc_data["RpAccEMail"],
+					RpAccUName = rp_acc_data["RpAccUName"],
 					GCRecord = None)\
 				.first()
 			if check_registration:
 				raise Exception
 
-			lastUser = Rp_acc.query.order_by(Rp_acc.RpAccId.desc()).first()
-			RpAccId = lastUser.RpAccId + 1
-
-			main_user = User.query\
-				.filter_by(GCRecord = None, UTypeId = 1)\
-				.first()
-
-			try:
-				reg_num = generate(UId=main_user.UId, RegNumTypeName='rp_code')
-				regNo = makeRegNo(main_user.UShortName, reg_num.RegNumPrefix, reg_num.RegNumLastNum + 1, '',RegNumTypeName='rp_code')
-				reg_num.RegNumLastNum = reg_num.RegNumLastNum + 1
-				db.session.commit()
-			except Exception as ex:
-				print(f"{datetime.now()} | UI Register Reg Num generation Exception: {ex}")
-				regNo = str(datetime.now().timestamp())
-				# flash(lazy_gettext('Error generating Registration number'),'warning')
-				# return redirect(url_for('commerce_auth.register'))
-
-			company = Company.query.filter_by(CGuid = Config.MAIN_CGUID).first()
-			if not company:
-				company = Company.query.first()
-
-			division = Division.query.filter_by(DivGuid = Config.C_REGISTRATION_DIVGUID).first()
-			if not division:
-				division = Division.query.first()
-
-			CId = company.CId if company else None
-			DivId = division.DivId if division else None
-
-			user_data = {
-				"RpAccId": RpAccId,
-				"UId": main_user.UId,
-				"RpAccGuid": uuid.uuid4(),
-				"RpAccUName": username,
-				"RpAccEMail": email,
-				"RpAccUPass": password,
-				"RpAccName": form.full_name.data,
-				"RpAccRegNo": regNo,
-				"RpAccTypeId": 2,
-				"RpAccMobilePhoneNumber": form.phone_number.data,
-				"RpAccAddress": form.address.data if form.address.data else None,
-				"CId": CId,
-				"DivId": DivId,
-				"RpAccStatusId": 1
-			}
-
-			user = Rp_acc(**user_data)
-			db.session.add(user)
+			user_model = Rp_acc(**rp_acc_data)
+			db.session.add(user_model)
 
 			try:
 				login_info = get_login_info(request)
-				user.RpAccLastActivityDate = login_info["date"]
-				user.RpAccLastActivityDevice = login_info["info"]
+				user_model.RpAccLastActivityDate = login_info["date"]
+				user_model.RpAccLastActivityDevice = login_info["info"]
 			except Exception as ex:
 				print(f"{datetime.now()} | Rp_acc activity info update Exception: {ex}")
 
 			db.session.commit()
 
-			flash("{}, {}".format(username, lazy_gettext('your profile has been created!')),'success')
+			flash("{}, {}".format(rp_acc_data["RpAccUName"], lazy_gettext('your profile has been created!')),'success')
 			session["model_type"] = "rp_acc"
-			session["ResPriceGroupId"] = user.ResPriceGroupId
-			login_user(user)
+			session["ResPriceGroupId"] = user_model.ResPriceGroupId
+			login_user(user_model)
 			return redirect(url_for('commerce.commerce'))
 
 		except Exception as ex:
@@ -315,3 +286,18 @@ def register_sms():
 		url_prefix = url_prefix,
 		title = "{} - {}".format(gettext('Register'), "SMS"),
 	)
+
+
+@bp.route("/reset_request_sms", methods=['GET','POST'])
+def reset_request_sms():
+	if (current_user.is_authenticated and "model_type" in session):
+		if session["model_type"] == "rp_acc":
+			return redirect(url_for('commerce.commerce'))
+
+	categoryData = UiCategoriesList()
+	return render_template(
+		f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/auth/reset_request_sms.html",
+		**categoryData,
+		url_prefix = url_prefix,
+		title = "{} - {}".format(gettext('Login'), "SMS"),
+		)

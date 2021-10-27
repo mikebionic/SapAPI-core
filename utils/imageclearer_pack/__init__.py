@@ -14,6 +14,7 @@ def run_clearer(path, model_type="image"):
 def make_pop_merge_of_data(files_data, images_data):
 	missing_in_list = list(filter(lambda d: d['filename'] not in images_data, files_data))
 	for data in missing_in_list:
+		print(f'removing {data["path"]}')
 		os.remove(data["path"])
 
 
