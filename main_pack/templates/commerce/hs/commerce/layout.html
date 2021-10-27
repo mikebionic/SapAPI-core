@@ -245,7 +245,7 @@
 			<div class="container-fluid">
 				<div class="footer-top pb-40">
 					<div class="row">
-						<div class="col-lg-3 col-md-8 col-12 col-sm-12">
+						<div class="col-lg-3 col-md-8 col-12 col-sm-12" style="margin: 0 auto;text-align: center;">
 							<div class="footer-widget mb-30">
 								<div class="logo">
 									<a href="{{ url_for('commerce.commerce') }}"><img src="{{ url_for('static', filename='commerce/hs/images/logo/hs_logo.svg') }}" alt="logo"></a>
@@ -304,9 +304,17 @@
 								</div>
 								{% endif %}
 							</div>
+							<div class="feature feature-shipping">
+								<div class="feature-wrap">
+									<div class="icon"><img loading="lazy" src="{{ url_for('static', filename='commerce/hs/images/icons/delivery.svg') }}"></div>
+									<h4>130manatdan kop sargasanyz</h4>
+									<h4>Eltip bermek hyzmaty mugt</h4>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
+				
 				<div class="footer-bottom border-top-1">
 					<div class="copyright-3 text-center pt-20 pb-20 border-top-1">
 						<a href="http://saphasap.com/">

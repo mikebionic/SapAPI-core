@@ -2192,8 +2192,16 @@
 ::-webkit-scrollbar-thumb {
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
-
-
+@media (max-width: 634px) {
+    .category-menu{
+        top: 20px
+    }    
+}
+@media (min-width: 724px) and (max-width: 991px) {
+    .category-menu{
+        top: 20px
+    }    
+}
 
 
 

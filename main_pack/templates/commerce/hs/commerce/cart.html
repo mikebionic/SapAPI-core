@@ -91,12 +91,19 @@
 											
 											<div class="checkoutForm" style="display: none;">
 												<div class="contact-form">
-													<label for="message">{{_('Note')}}</label>
+													<label for="message">{{_('Note')}}<span>Adresinizi yazyn</span></label>
 													<textarea id="message" class="orderDesc" type="text" placeholder="{{_('Description')}} ({{_('City')}}, {{_('Av.')}}, {{_('Street')}}, {{_('House')}}, {{_('Flat')}})"></textarea>
 												</div>
 												<a class="checkout-button bg-red button alt wc-forward checkoutCartBtn">
 													{{_('Checkout')}}
 												</a>
+												<div class="feature feature-shipping">
+													<div class="feature-wrap">
+														<div class="icon"><img loading="lazy" src="{{ url_for('static', filename='commerce/hs/images/icons/delivery.svg') }}"></div>
+														<h4>130manatdan kop sargasanyz</h4>
+														<h4>Eltip bermek hyzmaty mugt</h4>
+													</div>
+												</div>
 											</div>
 										</div>
 									
@@ -105,7 +112,15 @@
 										<h5 style="max-width: 12rem;">{{_('You should login if you want to checkout an order')}}!</h5>
 										<div class="cart-summary-button pro-details-buy-now btn-hover btn-hover-radious">
 											<a href="{{ url_for('commerce_auth.login') }}">
-												<i class="las la-sign-in-alt"></i><span class="login-text">{{_('Login')}}</span>
+											<i class="las la-sign-in-alt"></i><span class="login-text">{{_('Login')}}</span>
+											</a>
+											<div class="feature feature-shipping">
+												<div class="feature-wrap">
+													<div class="icon"><img loading="lazy" src="{{ url_for('static', filename='commerce/hs/images/icons/delivery.svg') }}"></div>
+													<h4>130manatdan kop sargasanyz</h4>
+													<h4>Eltip bermek hyzmaty mugt</h4>
+												</div>
+											</div>
 										</div>
 									{% endif %}
 									</div>

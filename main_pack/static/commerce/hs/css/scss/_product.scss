@@ -997,13 +997,14 @@
     display: flex;
     justify-content: flex-end;
     @media #{$xs-layout} {
-        justify-content: flex-start;
+        justify-content: space-around;
         padding: 10px 0;
     }
     @media #{$sm-layout} {
         justify-content: flex-end;
     }
     a {
+        padding: 5px 0;
         margin: 0 0px 0 45px;
         &:first-child {
             margin: 0 0px 0 0px;
@@ -1042,7 +1043,7 @@
                 left: 50%;
                 transform: translateX(-50%);
                 position: absolute;
-                bottom: -10px;
+                bottom: 0px;
                 width: 0;
                 opacity: 1;
                 visibility: visible;
