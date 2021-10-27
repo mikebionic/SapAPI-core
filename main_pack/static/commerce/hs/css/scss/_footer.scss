@@ -292,7 +292,7 @@
             }
             @media #{$md-layout} {
                 width: 90%;
-                margin: 25px 0 0;
+                margin: 25px auto;
             }
             @media #{$xs-layout} {
                 width: 100%;
@@ -789,6 +789,29 @@
                 }
             }
         }
+    }
+}
+.footer-widget{
+    .logo{
+        margin: 0 auto;
+    }
+}
+@media (max-width: 768px){
+    .footer-widget{
+        display: grid!important;
+        margin: 0!important;
+        .logo{
+            margin: 0 auto;
+            @media #{$md-layout} {
+                margin: 0 auto;
+            }
+        }
+        .footer-about{
+                text-align: center;
+        }
+    }
+    .header-contact-3{
+        padding: 10px 0;
     }
 }
 

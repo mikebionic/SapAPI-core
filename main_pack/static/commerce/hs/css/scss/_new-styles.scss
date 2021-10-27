@@ -808,17 +808,10 @@ img.zoom-img {
   .category-menu-dropdown {
     left: 0!important;
   }
+}
+@media (min-width:992px) {
 	.category-menu {
-		width: 290px;
-		position: relative;
-		top: 19px;
 		left: -16px;
-		height: 800px;
-		z-index: 9;
-		background-color: #fff;
-		border-radius: 5px;
-		padding: 23px 0 25px;
-		z-index: 999;
 	}
 }
 .shopping-cart-title{
@@ -1491,4 +1484,85 @@ article {
 	font-weight: 300;
 	color: #373737;
 	border-bottom: 1px solid;
+}
+
+/*-- Single Feature --*/
+.feature {
+  margin-top: 30px;
+	display: flex;
+	position: relative;
+	align-items: center;
+	justify-content: center;
+ }
+.feature .feature-wrap {
+	text-align: center;
+	border: 1px solid #e8e8e8;
+	padding: 25px 15px 20px; }
+.feature .feature-wrap .icon {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 14px;
+	position: relative;
+	overflow: hidden;
+	height: 60px;
+	width: 100%;
+ }
+.feature .feature-wrap .icon img {
+	position: absolute;
+	top: 0;
+	-webkit-transition: all 0.3s ease 0s;
+	-o-transition: all 0.3s ease 0s;
+	transition: all 0.3s ease 0s; 
+	width: 70px;
+}
+.feature .feature-wrap h4 {
+	display: block;
+	text-transform: uppercase;
+	font-size: 18px;
+	font-weight: 700;
+	margin-bottom: 6px; }
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+.feature .feature-wrap h4 {
+	font-size: 14px;
+	margin-bottom: 0; } }
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+.feature .feature-wrap h4 {
+	font-size: 16px; } }
+@media only screen and (max-width: 479px) {
+.feature .feature-wrap h4 {
+	font-size: 16px;
+	margin-bottom: 4px; } }
+.feature .feature-wrap p {
+	font-size: 14px;
+	line-height: 20px;
+	margin: 0; }
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+	.feature .feature-wrap p {
+		font-size: 12px; } }
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+	.feature .feature-wrap p {
+		font-size: 13px; } }
+@media only screen and (max-width: 479px) {
+	.feature .feature-wrap p {
+		font-size: 13px; } }
+.contact-form{
+	label{
+		font-size: 18px;
+		span{
+			padding: 0 10px;
+			font-weight: 600;
+			color: #64bb82;
+		}
+	}
+}
+.cart_totals{
+	h5{
+		font-weight: 600;
+		color: #64bb82;
+		font-size: 18px;
+		padding: 5px 0;
+	}
+}
+#phone-number-login-button:hover{
+	color: #fff;
 }
