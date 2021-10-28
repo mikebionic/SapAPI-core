@@ -100,8 +100,7 @@
 												<div class="feature feature-shipping">
 													<div class="feature-wrap">
 														<div class="icon"><img loading="lazy" src="{{ url_for('static', filename='commerce/hs/images/icons/delivery.svg') }}"></div>
-														<h4>130 manatdan kop sargasanyz</h4>
-														<h4>Eltip bermek hyzmaty mugt</h4>
+														<h4>{{ company.CAddress if company.CAddress else '130 manatdan kop sargasanyz eltip bermek hyzmaty mugt' }}</h4>
 													</div>
 												</div>
 											</div>
@@ -117,8 +116,7 @@
 											<div class="feature feature-shipping">
 												<div class="feature-wrap">
 													<div class="icon"><img loading="lazy" src="{{ url_for('static', filename='commerce/hs/images/icons/delivery.svg') }}"></div>
-													<h4>130 manatdan kop sargasanyz</h4>
-													<h4>Eltip bermek hyzmaty mugt</h4>
+													<h4>{{ company.CAddress if company.CAddress else '130 manatdan kop sargasanyz eltip bermek hyzmaty mugt' }}</h4>
 												</div>
 											</div>
 										</div>

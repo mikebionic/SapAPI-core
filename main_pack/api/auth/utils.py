@@ -89,7 +89,75 @@ def register_token_required(f):
 		except Exception as ex:
 			log_print(f"Register token required exception: {ex}")
 
-		print(data)
+		return f(data,*args,**kwargs)
+
+	return decorated
+
+
+
+def login_token_required(f):
+	@wraps(f)
+	def decorated(*args, **kwargs):
+		data = {}
+
+		login_method = request.args.get("method","email",type=str)
+		login_token = request.args.get("token","",type=str)
+		auth_type = request.args.get("type","rp_acc",type=str)
+
+		try:
+			if not login_token:
+				if "token" in request.headers:
+					login_token = request.headers["token"]
+
+			if not login_token:
+				log_print("No token specified in header or query string parameter")
+				raise Exception
+
+			token_data = decodeJWT(login_token)
+
+			if login_method == "email":
+				username = token_data["username"].strip()
+				email = token_data["email"].strip()
+
+				if auth_type == "rp_acc":
+					exiting_user = Rp_acc.query\
+						.filter_by(
+							RpAccUName = username,
+							RpAccUEmail = email,
+							GCRecord = None
+						).first()
+					if not exiting_user:
+						log_print("Email or Username requested not found")
+						raise Exception
+
+					data = {
+						"username": username,
+						"email": email
+					}
+
+			elif login_method == "phone_number":
+				phone_number_data, _ = check_phone_number_register(token_data["phone_number"].strip())
+				if not phone_number_data:
+					log_print("Phone number not found in token_data or invalid")
+					raise Exception
+
+				if auth_type == "rp_acc":
+					existing_user = Rp_acc.query\
+						.filter_by(
+							RpAccMobilePhoneNumber = phone_number_data["phone_number"],
+							GCRecord = None,
+						).first()
+					if not existing_user:
+						log_print("User not found")
+						raise Exception
+
+				data = {
+					"phone_number": phone_number_data["phone_number"]
+				}
+
+		except Exception as ex:
+			log_print(f"Login token required exception: {ex}")
+
 		return f(data,*args,**kwargs)
 
 	return decorated

@@ -4,6 +4,7 @@ from flask_login import login_user
 from main_pack.base.log_print import log_print
 from main_pack.api.auth.utils import register_token_required
 from flask import request, session
+from datetime import datetime
 
 from main_pack import db
 from main_pack.api.auth import api
@@ -35,6 +36,9 @@ def api_register(token_data):
 
 		req = request.get_json()
 		rp_acc_data = addRpAccDict(req)
+
+		if Config.SMS_REGISTER_API_RANDOM_PASSWORD and register_method == "phone_number":
+			rp_acc_data["RpAccUPass"] = f"{Config.COMPANY_NAME} | {datetime.now()}"
 
 		if not rp_acc_data["RpAccUPass"]:
 			message = "Register api exception, password not valid"

@@ -26,6 +26,7 @@ function send_sms_register_request(phone_number){
 						message = response.message,
 						style = "success")
 
+					$('.swal-text').html($('.swal-text').text())
 					var current_time = Date.now()
 
 					validation_interval = setInterval(() => {
@@ -66,6 +67,7 @@ function check_for_phone_validation(phone_number, validation_interval){
 					message = response.message,
 					style = "success")
 				
+				$('.swal-text').html($('.swal-text').text())
 				clearInterval(validation_interval);
 				user_register_token = response.data["token"]
 			
@@ -86,8 +88,8 @@ $('#user-register-form').submit(function(e){
 			$('#username').val().trim(),
 			$('#full-name').val().trim(),
 			$('#address').val().trim(),
-			$('#password').val().trim(),
-			$('#confirm-password').val().trim(),
+			$('#password').val() ? $('#password').val().trim() : null,
+			$('#confirm-password').val() ? $('#confirm-password').val().trim() : null,
 		);
 		if (!isEmpty(user_data)){
 			$.ajax({
@@ -105,6 +107,8 @@ $('#user-register-form').submit(function(e){
 								message = response.message,
 								style = "success"
 							)
+
+							$('.swal-text').html($('.swal-text').text())
 							setTimeout(() => {
 								location.href = location.origin;
 							}, 3000);
@@ -137,10 +141,10 @@ function collect_register_user_data(
 	confirm_password,
 ){
 	var data = {}
-	if (password != confirm_password || password == ''){
-		errorToaster("Passwords did not match!!")
-		return data
-	}
+	// if (password != confirm_password || password == ''){
+	// 	errorToaster("Passwords did not match!!")
+	// 	return data
+	// }
 
 	data = {
 		"RpAccUName": username,
@@ -166,4 +170,142 @@ function show_loader_spinner(){
 
 function hide_loader_spinner(){
 	$(`#sms-reg-spinner`).hide()
+}
+
+
+function send_sms_login_request(phone_number){
+	request_done++;
+	if (request_done > 3) {
+		location.reload()
+	}
+	else {
+		$.ajax({
+			headers: {"PhoneNumber": phone_number},
+			url: `${api_url_prefix}/request-sms-login/`,
+			success: function(response){
+				if (response.status == 1){
+					show_loader_spinner();
+					request_done = true;
+					swal(
+						title = `${success_title}: ${phone_number}`,
+						message = response.message,
+						style = "success")
+
+					$('.swal-text').html($('.swal-text').text())
+					var current_time = Date.now()
+
+					validation_interval = setInterval(() => {
+						// after 9 minutes:
+						if (Date.now() > current_time + 9*60000){
+							clearInterval(validation_interval)
+							location.reload();
+						}
+						check_for_phone_login_validation(phone_number, validation_interval)
+					}, 10000);
+				}
+				else {
+					swal(
+						title = error_title,
+						message = `${response.message}`,
+						style = "warning")
+				}
+			},
+			error: function(){
+				swal(
+					title = error_title,
+					message = `${unknown_error_text}: ${phone_number}`,
+					style = "error");
+			}
+		})
+	}
+}
+
+function check_for_phone_login_validation(phone_number, validation_interval){
+	$.ajax({
+		headers: {"PhoneNumber": phone_number},
+		url: `${api_url_prefix}/check-sms-register/`,
+		success: function(response){
+			if (response.status == 1){
+				request_done = true;
+				swal(
+					title = `${success_title}: ${phone_number}`,
+					message = response.message,
+					style = "success")
+				
+				$('.swal-text').html($('.swal-text').text())
+				clearInterval(validation_interval);
+				user_register_token = response.data["token"]
+				hide_loader_spinner();
+
+				setTimeout(() => {
+					login_request()
+				}, 100);
+
+				// setTimeout(() => {
+				// 	location.href = location.origin;
+				// }, 3000);
+			
+			}
+		},
+		error: function(){
+			// errorToaster(message = `${unknown_error_text}: Couldn't validate phone number, try again later.`);
+		}
+	})
+}
+
+
+$('#sms-login-form').submit(function(e){
+	e.preventDefault()
+	try {
+		var phone_number = $('#phone-number').val().trim()
+		send_sms_login_request(phone_number)
+	}
+	catch {
+		errorToaster(message = `${unknown_error_text}: Couldn't validate phone number, try again later.`);
+	}
+})
+
+
+function login_request(){
+	if (user_register_token){
+		$.ajax({
+			headers: {"token": user_register_token},
+			type: "GET",
+			url: `${api_url_prefix}/login-sms/?method=phone_number&type=rp_acc`,
+			success: function(response){
+				if (response){
+					if (response.status == 1){
+						swal(
+							title = success_title,
+							message = response.message,
+							style = "success"
+						)
+
+						$('.swal-text').html($('.swal-text').text())
+						setTimeout(() => {
+							location.href = location.origin;
+						}, 3000);
+					}
+				}
+			},
+			error: function(){
+				swal(
+					title = error_title,
+					message = `${unknown_error_text} \n, Try again or contact administartiors`,
+					style = "error");
+				setTimeout(() => {
+					location.href = location.origin;
+				}, 5000);
+			}
+		})
+	}
+	else{
+		swal(
+			title = error_title,
+			message = `${unknown_error_text} \n, Try again or contact administartiors`,
+			style = "error");
+		setTimeout(() => {
+			location.href = location.origin;
+		}, 5000);
+	}
 }

@@ -11,7 +11,10 @@
 
 
 {% block content %}
-
+<div id="cover-spin" class="cover-spin"></div>
+<div id="sms-reg-spinner" class="cover-spin">
+	<p class="cover-spin-text">{{_('Please wait until verification is complete')}}!</p>
+</div>
 <div class="login-register-area pt-85 pb-90">
 	<div class="container">
 		<div class="row">
@@ -69,36 +72,36 @@
 										</div>
 									</form>
 
-									<form action="" method="post" id="phone-number-login-form">
+									<form action="" method="GET" id="sms-login-form">
 										<h4 class="theme-text-message">
 											{{_("To login you account, fill the required fields and click 'Login' button")}}.
 										</h4>
 										<p>{{_('Phone number')}}<span style="color:red"> *</span></p>
 										<input inputmode="tel" placeholder="{{_('Phone number')}} : +99361234567" class='input-text' id="phone-number" required />
-										<p>{{_('Password')}}<span style="color:red"> *</span></p>
+										<!-- <p>{{_('Password')}}<span style="color:red"> *</span></p>
 										<input type="password" placeholder="{{_('Password')}}" class='input-text' id="password" required />
-										<span toggle="#password" class="las la-low-vision field-icon toggle-password"></span>
+										<span toggle="#password" class="las la-low-vision field-icon toggle-password"></span> -->
 										
-											<div class="button-box">
+											<!-- <div class="button-box">
 												<div class="login-toggle-btn">
 													<a href="{{ url_for('commerce_auth.reset_request') }}">{{_('Forgot your password?')}}</a>
 												</div>
-											</div>
+											</div> -->
 										
 										<div class="row" style="justify-content: space-around; width: 100%;">
 											<div class="button-box">
 												<button type="submit">{{_('Login')}}</button>
 											</div>
-											<div class="cart-summary-button btn-hover btn-hover-radious">
+											<!-- <div class="cart-summary-button btn-hover btn-hover-radious">
 												<a id="email-login-button">
 													<i class="las la-sign-in-alt"></i>
 													<span class="login-text">{{_('Login by email')}}</span>
 												</a>
-											</div>
+											</div> -->
 										</div>
 									</form>
 
-									<h4>{{_('Don’t have profile?')}} <a href="{{ url_for('commerce_auth.register') }}" style="color: #5995fd;">{{_('Register')}}</a></h4>
+									<h4>{{_('Don’t have profile?')}} <a href="{{ url_for('commerce_auth.register_sms') }}" style="color: #5995fd;">{{_('Register')}}</a></h4>
 								</div>
 							</div>
 						</div>
@@ -109,10 +112,11 @@
 	</div>
 </div>
 
-
 {% endblock %}
+
 {% block scripts %}
 <script>
 	var api_url_prefix = "{{api_url_prefix if api_url_prefix else ''}}";
 </script>
+<script src="{{ url_for('static', filename='commerce/hs/js/sms_register.js') }}"></script>
 {% endblock %}

@@ -12,7 +12,8 @@ def configurePassword(password_req):
 			password = password_req
 
 	except Exception as ex:
-		log_print(f"Password configure fail {ex}", "warning")
+		if not Config.SMS_REGISTER_API_RANDOM_PASSWORD:
+			log_print(f"Password configure fail {ex}", "warning")
 
 	return password
 
