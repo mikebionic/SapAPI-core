@@ -68,8 +68,11 @@ def api_register(token_data):
 			rp_acc_data["RpAccMobilePhoneNumber"] = token_data["phone_number"]
 
 		if Config.INSERT_LAST_ID_MANUALLY:
-			lastUser = Rp_acc.query.order_by(Rp_acc.RpAccId.desc()).first()
-			RpAccId = lastUser.RpAccId + 1
+			try:
+				lastUser = Rp_acc.query.order_by(Rp_acc.RpAccId.desc()).first()
+				RpAccId = lastUser.RpAccId + 1
+			except:
+				RpAccId = None
 			rp_acc_data["RpAccId"] = RpAccId
 
 		user_model = Rp_acc(**rp_acc_data)
