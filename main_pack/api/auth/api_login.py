@@ -12,6 +12,8 @@ from main_pack.api.auth.auth_utils import check_auth
 from main_pack.base.cryptographyMethods import encodeJWT
 from main_pack.api.common import configurePhoneNumber
 from main_pack.base import log_print
+from main_pack.api.auth.utils import login_token_required
+from main_pack.base.apiMethods import get_login_info
 
 
 @api.route('/login/',methods=['GET','POST'])
@@ -153,4 +155,57 @@ def api_login_rp_accs():
 			"exp": apiDataFormat(exp)
 			})
 
+	return make_response(*error_response)
+
+
+@api.route('/login-sms/')
+@login_token_required
+def api_login_sms(token_data):
+	auth_type = request.args.get("type","user",type=str)
+	error_response = [{"error": "Login failure, check credentials."}, 401, {"WWW-Authenticate": "basic realm"}]
+
+	user_model = None
+	try:
+		if not token_data:
+			log_print("No token_data specified")
+			raise Exception
+
+		if auth_type == "rp_acc":
+			user_query = Rp_acc.query\
+				.filter_by(
+					RpAccMobilePhoneNumber = token_data["phone_number"],
+					GCRecord = None
+				)
+			user_model = user_query.first() if user_query else None
+
+		if not user_model:
+			log_print("API LOGIN couldn't find db model")
+			raise Exception
+
+		token_encoding_data = {}
+		if auth_type == "rp_acc":
+			token_encoding_data["RpAccId"] = user_model.RpAccId
+			loggedUserInfo = apiRpAccData(dbQuery = user_query)
+
+		token, exp = encodeJWT(token_encoding_data)
+		response_data = {"exp": apiDataFormat(exp)}
+		response_data[auth_type] = loggedUserInfo['data']
+		response_data["token"] = token.decode('UTF-8')
+		response_data["message"] = "Login success!"
+		response_data["status"] = 1
+
+		session["model_type"] = auth_type
+		session["ResPriceGroupId"] = user_model.ResPriceGroupId if auth_type != "device" else None
+		if (auth_type == "device"):
+			session["ResPriceGroupId"] = user_model.user.ResPriceGroupId if user_model.user else None
+
+		login_user(user_model)
+		response_headers = {
+			"Authorization": f"Bearer {token.decode('UTF-8')}"
+		}
+		return make_response(response_data), response_headers
+
+	except Exception as ex:
+		print(ex)
+		pass
 	return make_response(*error_response)

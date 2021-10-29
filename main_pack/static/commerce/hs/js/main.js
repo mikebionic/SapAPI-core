@@ -1130,7 +1130,7 @@ function show_phone_login_form(){
 }
 
 
-$('#phone-number-login-form').submit(function(e){
+$('#phone-number-password-login-form').submit(function(e){
 	e.preventDefault();
 	var auth_header = get_phone_number_login_auth()
 	
@@ -1181,3 +1181,7 @@ if ($('.categorSize li').length > 15) {
 }else {
 	catHeight.removeClass('category_size');
 }
+
+$('.descriptionText').each(function(){
+	$(this).html($(this).text()); 
+});

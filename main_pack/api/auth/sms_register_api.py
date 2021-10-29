@@ -6,6 +6,7 @@ from flask import (
 from main_pack import lazy_gettext
 from main_pack.api.auth import api
 from main_pack.api.auth.register_phone_number import (
+	login_phone_number,
 	register_phone_number,
 	check_phone_number_register,
 	verify_phone_number_register,
@@ -42,14 +43,52 @@ def request_sms_register():
 		data, message = register_phone_number(header_data["PhoneNumber"])
 
 	except Exception as ex:
-		log_print(f"SMS register register exception: {ex}", "warning")
+		log_print(f"SMS register exception: {ex}", "warning")
 
-	message = "{}: {}\n {} {} {}".format(
+	message = "{}: <h4>{}</h4>\n {} {} {}".format(
 		lazy_gettext('Send an empty SMS to number'),
-		Config.REGISTER_REQUEST_VALIDATOR_PHONE_NUMBER,
+		f'''<div style="margin: 1rem 0">
+		<a href="sms:{Config.REGISTER_REQUEST_VALIDATOR_PHONE_NUMBER}">
+		{Config.REGISTER_REQUEST_VALIDATOR_PHONE_NUMBER}</a>
+		<a class="btn btn-success" style="margin-left: 1rem" href="sms:{Config.REGISTER_REQUEST_VALIDATOR_PHONE_NUMBER}">
+		Send</a>
+		</div>
+		''',
 		lazy_gettext('Request expires in'),
 		Config.REGISTER_REQUEST_EXPIRE_TIME_MINUTES,
 		"(minutes)") if data else message or "Register request"
+
+	return handle_default_response(data, message, status_code=200)
+
+
+# !!! Todo change to single route with args
+@api.route("/request-sms-login/")
+def request_sms_login():
+
+	data = {}
+
+	try:
+		header_data = request.headers
+		if "PhoneNumber" not in header_data:
+			raise Exception
+
+		data, message = login_phone_number(header_data["PhoneNumber"])
+
+	except Exception as ex:
+		log_print(f"SMS login exception: {ex}", "warning")
+
+	message = "{}: <h4>{}</h4>\n {} {} {}".format(
+		lazy_gettext('Send an empty SMS to number'),
+		f'''<div style="margin: 1rem 0">
+		<a href="sms:{Config.REGISTER_REQUEST_VALIDATOR_PHONE_NUMBER}">
+		{Config.REGISTER_REQUEST_VALIDATOR_PHONE_NUMBER}</a>
+		<a class="btn btn-success" style="margin-left: 1rem" href="sms:{Config.REGISTER_REQUEST_VALIDATOR_PHONE_NUMBER}">
+		Send</a>
+		</div>
+		''',
+		lazy_gettext('Request expires in'),
+		Config.REGISTER_REQUEST_EXPIRE_TIME_MINUTES,
+		"(minutes)") if data else message or "Login request"
 
 	return handle_default_response(data, message, status_code=200)
 
