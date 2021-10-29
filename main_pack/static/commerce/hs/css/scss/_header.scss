@@ -1678,7 +1678,7 @@
                       font-size: 22px;
                       color: #f4f8fa;
                       cursor: pointer;
-              }
+              } 
       }
       .header-contact-2-text {
           display:flex;
@@ -1785,10 +1785,9 @@
         }
     }
 }
-
 .category-menu {
     width: 290px;
-    height: 500px;
+    // height: 500px;
     overflow: auto;
     position: absolute;
     top: 205%;
@@ -2212,3 +2211,8 @@
 
 
 
+
+.category_size{
+    height: 400px;
+    overflow: auto;
+}

@@ -15,6 +15,8 @@
         }
     });
 
+    
+    
 
     /* Slider active */
     $('.slider-active').owlCarousel({
@@ -644,6 +646,8 @@
         }
     });
 
+    
+
     /*--
         Masonry active
     -----------------------------------*/
@@ -1171,4 +1175,9 @@ function get_phone_number_login_auth(){
 	return {"Authorization": "Basic " + btoa(`${phone_number}:${password}`)}
 }
 
-
+var catHeight = $('.categorSize')
+if ($('.categorSize li').length > 15) {
+	catHeight.addClass('category_size');
+}else {
+	catHeight.removeClass('category_size');
+}
