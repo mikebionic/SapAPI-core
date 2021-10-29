@@ -1737,8 +1737,8 @@ function get_phone_number_login_auth(){
 	return {"Authorization": "Basic " + btoa(`${phone_number}:${password}`)}
 }
 
-var catHeight = $('.categorSize')
-if ($('.categorSize .li').length > 15) {
+let catHeight = $('.categorSize')
+if ($('.categorSize .li').length > 12) {
 	catHeight.addClass('category_size');
 }else {
 	catHeight.removeClass('category_size');
