@@ -12,8 +12,6 @@ from main_pack.api.auth.auth_utils import check_auth
 from main_pack.base.cryptographyMethods import encodeJWT
 from main_pack.api.common import configurePhoneNumber
 from main_pack.base import log_print
-from main_pack.api.auth.utils import login_token_required
-from main_pack.base.apiMethods import get_login_info
 
 
 @api.route('/login/',methods=['GET','POST'])
@@ -157,10 +155,15 @@ def api_login_rp_accs():
 
 	return make_response(*error_response)
 
-
-@api.route('/login-sms/')
-@login_token_required
-def api_login_sms(token_data):
+# Note: Off and not used currently, functionality got holes in api
+#
+#
+# from main_pack.api.auth.utils import login_token_required
+# from main_pack.base.apiMethods import get_login_info
+#
+# @api.route('/login-sms/')
+# @login_token_required
+# def api_login_sms(token_data):
 	auth_type = request.args.get("type","user",type=str)
 	error_response = [{"error": "Login failure, check credentials."}, 401, {"WWW-Authenticate": "basic realm"}]
 
@@ -206,6 +209,6 @@ def api_login_sms(token_data):
 		return make_response(response_data), response_headers
 
 	except Exception as ex:
-		print(ex)
+		log_print(f"sms login exception {ex}")
 		pass
 	return make_response(*error_response)
