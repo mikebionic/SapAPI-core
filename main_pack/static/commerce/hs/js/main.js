@@ -15,6 +15,8 @@
         }
     });
 
+    
+    
 
     /* Slider active */
     $('.slider-active').owlCarousel({
@@ -644,6 +646,8 @@
         }
     });
 
+    
+
     /*--
         Masonry active
     -----------------------------------*/
@@ -1101,6 +1105,13 @@ function featured_product_owl_carousel(){
     });
 }
 
+let catHeight = $('.categorSize')
+
+if ($('.categorSize .li').length > 12) {
+	catHeight.addClass('category_size');
+}else {
+	catHeight.removeClass('category_size');
+}
 
 $('.descriptionText').each(function(){
 	$(this).html($(this).text()); 

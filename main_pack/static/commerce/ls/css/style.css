@@ -26568,7 +26568,7 @@ form.track_order {
   .header-v4 .departments-menu nav > .dropdown-menu {
   top: 25px !important;
   overflow: auto;
-  height: 35vw;
+  /* height: 35vw; */
 }
 @media only screen and (max-width:1024px){
   .header-v4 .departments-menu nav > .dropdown-menu {
@@ -30148,6 +30148,8 @@ input:checked ~ .tab-content{
 }
 .what-do-we-do h1{
   padding: 0 15px;
+  display: flex;
+  align-items: center;
 }
 
 @media (min-width:980px) and (max-width:991px){
@@ -34951,4 +34953,8 @@ input:checked ~ .tab-content{
 ::-webkit-scrollbar-thumb {
   background-color: #fd7b2594;
   outline: 1px solid slategrey;
+}
+.category_size{
+    height: 400px;
+    overflow: auto;
 }
