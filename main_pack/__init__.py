@@ -181,9 +181,11 @@ def create_app(config_class=Config):
 		csrf.exempt(base_bp)
 		csrf.exempt(errors_bp)
 		csrf.exempt(commerce_admin_bp)
-		csrf.exempt(commerce_auth_bp)
-		csrf.exempt(commerce_bp)
-		csrf.exempt(commerce_users_bp)
+
+		if not Config.API_AND_ADMIN_ONLY:
+			csrf.exempt(commerce_auth_bp)
+			csrf.exempt(commerce_bp)
+			csrf.exempt(commerce_users_bp)
 
 	else:
 		login_manager.login_view = 'commerce_admin.login'
