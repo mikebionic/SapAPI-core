@@ -2,7 +2,7 @@
 <tr class="cartTableObject{{resource.ResId}}">
 	<td class="product-thumbnail">
 		<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}">
-			<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/bee/images/no_photo.svg') }}" 
+			<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" 
 			alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
 		</a>
 	</td>

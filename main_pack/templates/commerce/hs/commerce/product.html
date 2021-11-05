@@ -45,8 +45,8 @@
 								{% endfor %}
 								{% else %}
 									<div id="gallery" class="product-dec-slider-2">
-										<a data-image="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/bee/images/no_photo.svg') }}">
-											<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/bee/images/no_photo.svg') }}"
+										<a data-image="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}">
+											<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}"
 											alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
 										</a>
 									</div>
