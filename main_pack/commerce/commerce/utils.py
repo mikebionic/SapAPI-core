@@ -136,6 +136,7 @@ def UiBrandsList():
 	res = {
 		"message": "Brands",
 		"data": data,
+		"status": 1 if len(data) > 1 else 0,
 		"total": len(data)
 	}
 	return res

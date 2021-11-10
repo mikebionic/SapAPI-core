@@ -1,14 +1,11 @@
 # -*- coding: utf-8 -*-
 from flask import jsonify, request, make_response
-from datetime import datetime
-from sqlalchemy import or_, and_
 from sqlalchemy.orm import joinedload
 
 from . import api
 
-from main_pack.models import Company
 from main_pack.models import Brand
-
+from main_pack.commerce.commerce.utils import UiBrandsList
 
 @api.route("/tbl-dk-brands/")
 def api_brands():
@@ -42,3 +39,9 @@ def api_brands():
 	response = make_response(jsonify(res), 200)
 
 	return response
+
+
+@api.route("/v-brands/")
+def api_v_brands():
+	res = UiBrandsList()
+	return res
