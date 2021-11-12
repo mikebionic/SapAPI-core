@@ -89,14 +89,16 @@ def register_phone_number(phone_number):
 				GCRecord = None)\
 			.first()
 
+		should_register = True
 		if existing_register_request:
 			if existing_register_request.RegReqVerified:
 				existing_register_request.RegReqVerified = 0
 				existing_register_request.RegReqExpDate = datetime.now() + timedelta(minutes=Config.REGISTER_REQUEST_EXPIRE_TIME_MINUTES)
 				db.session.commit()
 				data = existing_register_request.to_json_api()
+				should_register = False
 
-		else:
+		elif not existing_register_request or should_register:
 			new_register_request_data = {
 				"RegReqGuid": uuid.uuid4(),
 				"RegReqPhoneNumber": PhoneNumber,
