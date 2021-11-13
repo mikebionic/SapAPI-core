@@ -364,7 +364,7 @@
             > nav {
                 > ul {
                     > li {
-												margin-right: 25px;
+                        margin-right: 25px;
                         @media #{$xx-layout} {
                             margin-right: 38px;
                         }
@@ -374,11 +374,12 @@
                         @media #{$lg-layout} {
                             margin-right: 27px;
                         }
-                        &:last-child {
-                            margin-right: 0;
-                        }
+                        
                         &:hover > a {
                             color: $theme-color;
+                        }
+                        @media (max-width: 400px){
+                            margin-right: 10px;
                         }
                     }
                 }
@@ -400,7 +401,7 @@
                                 }
                             }
                             @media #{$xl-layout} {
-                                margin-right: 50px;
+                                margin-right: 35px;
                                 &:last-child {
                                     margin-right: 0;
                                 }
@@ -416,19 +417,19 @@
                             @media #{$xx-layout} {
                                 margin-right: 55px;
                                 &:last-child {
-                                    margin-right: 0;
+                                    margin-right: 35px;
                                 }
                             }
                             @media #{$xl-layout} {
                                 margin-right: 60px;
                                 &:last-child {
-                                    margin-right: 0;
+                                    margin-right: 40px;
                                 }
                             }
                             @media #{$lg-layout} {
                                 margin-right: 50px;
                                 &:last-child {
-                                    margin-right: 0;
+                                    margin-right: 40px;
                                 }
                             }
                         }
@@ -1027,7 +1028,6 @@
     z-index: 9999;
     box-shadow: 0 0 20px .4px rgba(0,0,0,.1);
     max-height: 591px;
-    overflow-y: auto;
     opacity: 0;
     visibility: hidden;
     transition: all 0.5s ease 0s;
@@ -1051,8 +1051,6 @@
         // height: 400px;
     }
     @media #{$md-layout} {
-        overflow-y: auto;
-        height: 350px;
         margin-top: 18px;
         top: 100%;
         margin-top: 0; 
@@ -1061,7 +1059,6 @@
         width: 295px;
         right: 0;
         padding: 31px 15px 10px;
-        overflow-y: auto;
         top: 100%;
         margin-top: 0;
     } 
@@ -2230,8 +2227,9 @@
 
 .cart-active{
 	border: none;
-	font-size: 27px;
+	font-size: 26px;
 	color: #fff;
+    padding: 0;
 	i{
 		margin: 0 -10px 0 0;
 	}
