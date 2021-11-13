@@ -28,6 +28,7 @@ function send_sms_register_request(phone_number){
 
 					$('.swal-text').html($('.swal-text').text())
 					var current_time = Date.now()
+					$('.swal-button-container').remove()
 
 					validation_interval = setInterval(() => {
 						// after 9 minutes:

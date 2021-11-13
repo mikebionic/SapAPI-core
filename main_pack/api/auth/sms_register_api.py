@@ -51,7 +51,7 @@ def request_sms_register():
 		<a href="sms:{Config.REGISTER_REQUEST_VALIDATOR_PHONE_NUMBER}">
 		{Config.REGISTER_REQUEST_VALIDATOR_PHONE_NUMBER}</a>
 		<a class="btn btn-success" style="margin-left: 1rem" href="sms:{Config.REGISTER_REQUEST_VALIDATOR_PHONE_NUMBER}">
-		Send</a>
+		{lazy_gettext('Send')}</a>
 		</div>
 		''',
 		lazy_gettext('Request expires in'),
