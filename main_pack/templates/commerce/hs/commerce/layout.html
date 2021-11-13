@@ -119,33 +119,6 @@
 											<a href="{{ url_for('commerce_auth.register_sms') }}"><i class="la la-registered"></i></a>
 										</div>
 										{% endif %}
-										
-										<div class="cart-wrap common-style ml-10" style="margin-top:-2px">
-											<div class="cart-overlay"></div>
-												<button class="cart-active cart-3 header-cart" style="background-color: transparent;">
-													<i class="las la-shopping-cart"></i>
-													<span class="count cartItemsFullQty">0</span>
-												</button>
-												<div class="shopping-cart-content">
-													<div class="bac_overlay"></div>
-														<ul class="cartItemsList"></ul>
-														<div class="shopping-cart-bottom">
-																<div class="shopping-cart-total">
-																		<h4>{{_('Total')}}:
-																			<span class="woocommerce-Price-currencySymbol">
-																				{{ session.currency_code if session.currency_code else 'TMT' }}
-																			</span>
-																			<span class="woocommerce-Price-amount amount cartTotalPrice">
-																				0.00
-																			</span>
-																		</h4>
-																</div>
-																<div class="shopping-cart-btn btn-hover default-btn text-center">
-																	<a class="black-color" href="{{url_for('commerce.cart')}}">{{_('Checkout')}}</a>
-																</div>
-														</div>
-												</div>
-										</div>
 								</div>
 						</div>
 						</div>
@@ -211,8 +184,39 @@
 											<li><a href="{{ url_for('commerce.v_grid') }}"><i class="la la-store"></i><span>{{_('Products')}}</span> </a></li>
 											<li><a href="{{ url_for('commerce.about') }}"><i class="la la-store-alt"></i><span>{{_('About us')}}</span> </a></li>
 											<li><a href="{{ url_for('commerce.contact') }}"><i class="la la-phone-volume"></i><span>{{_('Contact')}}</span></a></li>
+											
+										
 										</ul>
+										
 									</nav>
+									<div class="header-account-links">
+										<div class="cart-wrap common-style ml-10" style="margin-top:-2px">
+											<div class="cart-overlay"></div>
+												<button class="cart-active cart-3 header-cart" style="background-color: transparent;">
+													<i class="las la-shopping-cart"></i>
+													<span class="count cartItemsFullQty">0</span>
+												</button>
+												<div class="shopping-cart-content">
+													<div class="bac_overlay"></div>
+														<ul class="cartItemsList"></ul>
+														<div class="shopping-cart-bottom">
+																<div class="shopping-cart-total">
+																		<h4>{{_('Total')}}:
+																			<span class="woocommerce-Price-currencySymbol">
+																				{{ session.currency_code if session.currency_code else 'TMT' }}
+																			</span>
+																			<span class="woocommerce-Price-amount amount cartTotalPrice">
+																				0.00
+																			</span>
+																		</h4>
+																</div>
+																<div class="shopping-cart-btn btn-hover default-btn text-center">
+																	<a class="black-color" href="{{url_for('commerce.cart')}}">{{_('Checkout')}}</a>
+																</div>
+														</div>
+												</div>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
