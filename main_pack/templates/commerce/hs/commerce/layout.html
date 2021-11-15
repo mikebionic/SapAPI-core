@@ -41,7 +41,7 @@
 				<div class="header-middle border-top-2 pt-10 pb-10">
 					<div class="container">
 						<div class="row align-items-center">
-							<div class="col-xl-2 col-lg-2 col-2">
+							<div class="col-xl-2 col-lg-2 col-2" style="z-index: 10;">
 								<div class="logo">
 									<a href="{{url_for('commerce.commerce')}}"><img src="{{ url_for('static', filename='commerce/hs/images/logo/hs_logo.svg') }}" alt="logo"></a>
 								</div>
@@ -70,7 +70,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-xl-2 col-lg-2 col-2">
+							<div class="col-xl-2 col-lg-2 col-2" style="z-index: 10;">
 								<div class="header-right-wrap mt-10">
 									<div class="header-account-links" style="display:flex;">
 										<li class="dropdown" style="margin-top: -7px;list-style: none; position: inherit;">
@@ -176,6 +176,8 @@
 								</div>
 								</div>
 							</div>
+
+							<div class="cart-overlay"></div>
 							<div class="col-md-8 col-9 d-flex justify-content-end">
 								<div class="main-menu menu-common-style menu-lh-5 menu-margin-4 menu-font-2 menu-font-2-white res-hm8-margin">
 									<nav>
@@ -189,9 +191,9 @@
 										</ul>
 										
 									</nav>
+
 									<div class="header-account-links">
 										<div class="cart-wrap common-style" style="margin-top:-2px">
-											<div class="cart-overlay"></div>
 												<button class="cart-active cart-3 header-cart" style="background-color: transparent;">
 													<i class="las la-shopping-basket"></i>
 													<span class="count cartItemsFullQty">0</span>

@@ -301,6 +301,7 @@
                         > li {
                             > a {
                                 color: #fff;
+                                z-index: 10;
                             }
                             &:hover > a {
                                 color: $nav-hover;
@@ -364,6 +365,7 @@
             > nav {
                 > ul {
                     > li {
+                        z-index: 10;
                         margin-right: 25px;
                         @media #{$xx-layout} {
                             margin-right: 38px;
@@ -1770,7 +1772,7 @@
 }
 
 .category-menu-wrap {
-    z-index: 9;
+    z-index: 10;
     position: relative;
     h3 {
         font-size: 14px;
