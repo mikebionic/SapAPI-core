@@ -262,9 +262,7 @@
         $cartWrap = $('.cart-wrap'),
         $cartContent = $cartWrap.find('.shopping-cart-content');
         $cartWrap.on('click', '.cart-active', function(e) {
-            if ($(window).width() < 1002){
-                $('.cart-overlay').addClass('visible');
-            }
+            $('.cart-overlay').addClass('visible');
             
             e.preventDefault();
             var $this = $(this);
