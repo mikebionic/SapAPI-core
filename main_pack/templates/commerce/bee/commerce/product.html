@@ -73,10 +73,19 @@
 					</div>
 
 					<div class="single-product-description">
-						<div>
+						<div style="display: flex;">
               <i class="ti-eye"></i>
               <span class="number">{{ resource.ResViewCnt if resource.ResViewCnt else 0 }}</span>
+							{% if resource.BrandIcon %}
+							<div class="brand">
+								<a href="{{url_for('commerce.v_grid',BrandId=resource.BrandId,BrandName=resource.BrandName.replace('/','-').replace(' ','-'))}}" style="display: flex; align-items: center;">
+									<img alt="{{resource.BrandName}}" src="{{ resource.BrandIcon }}">
+									<span>{{ resource.BrandName }}</span>
+								</a>
+							</div>
+							{% endif %}
             </div>
+						
 						<input type="hidden" class="ratingValue" value="{{ resource.RtRatingValue }}" ownerId="{{ resource.ResId }}">
 						<div class="ratting ratingStars" ownerId="{{ resource.ResId }}"></div>
 
