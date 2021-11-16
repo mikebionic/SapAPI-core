@@ -63,7 +63,7 @@
 				<div class="single-product-content">
 					<div class="head-content">
 						<div class="category-title">
-							<a href="#" class="cat">{{ resource.ResCatName }}</a>
+							<a href="{{url_for('commerce.v_grid',ResCatId=resource.ResCatId,ResCatName=resource.ResCatName.replace('/','-').replace(' ','-'))}}" class="cat">{{ resource.ResCatName }}</a>
 							<h5 class="title">{{ resource.ResName }}</h5>
 						</div>
 						<div>
@@ -253,7 +253,7 @@
 
 										<div class="content">
 											<div class="category-title">
-												<a href="#" class="cat">{{ related_resource.ResCatName }}</a>
+												<a href="{{url_for('commerce.v_grid',ResCatId=related_resource.ResCatId,ResCatName=related_resource.ResCatName.replace('/','-').replace(' ','-'))}}" class="cat">{{ related_resource.ResCatName }}</a>
 												<h5 class="title">
 													<a href="{{url_for('commerce.product',ResId=related_resource.ResId,ResName=related_resource.ResName.replace('/','-').replace(' ','-'))}}">{{ related_resource.ResName }}</a>
 												</h5>
