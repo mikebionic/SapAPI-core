@@ -1,3 +1,4 @@
+from .configureEmail import configureEmail
 from .configurePhoneNumber import configurePhoneNumber
 from .fetch_and_generate_RegNo import fetch_and_generate_RegNo
 from .gather_required_register_rp_acc_data import gather_required_register_rp_acc_data
