@@ -12251,7 +12251,8 @@ ul.link-widget li {
 
 .cat-block figure span {
   /* position:relative */
-  height: 100px;
+  height: 10vh;
+  width: 10vw
 }
 
 .cat-block figure span:after {
@@ -13489,4 +13490,14 @@ ul.link-widget li {
     max-width: 150px;
     width: 50px;
     margin: 5px;
+  }
+  .content-404{
+    text-align: center;
+  }
+  .prcategory{
+    width: 30px;
+    margin: 0 10px;
+  }
+  .prcategory a img{
+    width: 100%;
   }

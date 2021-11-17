@@ -51,7 +51,7 @@
 									<a href="{{url_for('commerce.v_grid',BrandId=brand.BrandId,BrandName=brand.BrandName.replace('/','-').replace(' ','-'))}}" class="cat-block">
 										<figure>
 											<span>
-												<img loading="lazy" src="{{brand.FilePath if brand.FilePath}}" alt="Brand {{brand.BrandName}} {{ company.CName }}" style="height: 100%; width: 100px">
+												<img loading="lazy" src="{{brand.FilePath if brand.FilePath}}" alt="Brand {{brand.BrandName}} {{ company.CName }}" style="max-height: 100%; max-width: 100%">
 											</span>
 										</figure>
 										<h3 class="cat-block-title">{{brand.BrandName}}</h3>

@@ -84,13 +84,11 @@
 								</a>
 							</div>
 							{% endif %}
-							{% for category in categories %}
-								<li class="brand" data-tab=".tab-{{ category.ResCatId }}">
-									<img loading="lazy" class="cat-icon"
-									src="{{ category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static',filename='commerce/hs/images/icons/category.svg') }}">
-									{{ category.ResCatName }}
-								</li>
-							{% endfor %}
+							<div class="prcategory">
+								<a href="{{url_for('commerce.v_grid',ResCatId=resource.ResCatId,ResCatName=resource.ResCatName.replace('/','-').replace(' ','-'))}}">
+									<img alt="{{resource.ResCatName}}" src="{{ resource.CategoryIcon if resource.CategoryIcon else url_for('static', filename='commerce/ls/img/icons/category.svg') }}" alt="{{ company.CName }} category {{ resource.ResCatName }}">
+								</a>
+							</div>
             </div>
 						
 						<input type="hidden" class="ratingValue" value="{{ resource.RtRatingValue }}" ownerId="{{ resource.ResId }}">

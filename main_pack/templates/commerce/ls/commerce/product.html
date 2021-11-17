@@ -75,7 +75,7 @@
 			</div>
 
 			{% if resource.BrandIcon %}
-			<div class="brand">
+			<div class="brand"> 
 				<a href="{{url_for('commerce.v_grid',BrandId=resource.BrandId,BrandName=resource.BrandName.replace('/','-').replace(' ','-'))}}" style="display: flex; align-items: center;">
 					<img alt="{{resource.BrandName}}" src="{{ resource.BrandIcon }}">
 					<span>{{ resource.BrandName }}</span>
