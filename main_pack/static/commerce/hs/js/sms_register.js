@@ -14,7 +14,7 @@ function send_sms_register_request(phone_number){
 	}
 	else {
 		$.ajax({
-			headers: {"PhoneNumber": phone_number},
+			headers: {"phone_number": phone_number},
 			url: `${api_url_prefix}/request-sms-register/`,
 			success: function(response){
 				if (response.status == 1){
@@ -58,7 +58,7 @@ function send_sms_register_request(phone_number){
 
 function check_for_phone_validation(phone_number, validation_interval){
 	$.ajax({
-		headers: {"PhoneNumber": phone_number},
+		headers: {"phone_number": phone_number},
 		url: `${api_url_prefix}/check-sms-register/`,
 		success: function(response){
 			if (response.status == 1){
@@ -181,7 +181,7 @@ function send_sms_login_request(phone_number){
 	}
 	else {
 		$.ajax({
-			headers: {"PhoneNumber": phone_number},
+			headers: {"phone_number": phone_number},
 			url: `${api_url_prefix}/request-sms-login/`,
 			success: function(response){
 				if (response.status == 1){
@@ -293,7 +293,7 @@ function get_phone_number_login_auth(){
 
 // function check_for_phone_login_validation(phone_number, validation_interval){
 // 	$.ajax({
-// 		headers: {"PhoneNumber": phone_number},
+// 		headers: {"phone_number": phone_number},
 // 		url: `${api_url_prefix}/check-sms-register/`,
 // 		success: function(response){
 // 			if (response.status == 1){

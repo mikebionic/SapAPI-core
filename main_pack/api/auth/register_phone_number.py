@@ -109,6 +109,9 @@ def register_phone_number(phone_number):
 			db.session.commit()
 			data = new_register_request.to_json_api()
 
+		if data:
+			data["validator_phone_number"] = Config.REGISTER_REQUEST_VALIDATOR_PHONE_NUMBER
+
 	except Exception as ex:
 		log_print(f"Register phone number exception: {ex}", 'warning')
 
