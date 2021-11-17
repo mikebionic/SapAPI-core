@@ -12233,7 +12233,6 @@ ul.link-widget li {
 }
 
 .cat-block {
-  height:100px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -12252,6 +12251,7 @@ ul.link-widget li {
 
 .cat-block figure span {
   /* position:relative */
+  height: 100px;
 }
 
 .cat-block figure span:after {

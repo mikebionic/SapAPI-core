@@ -84,6 +84,13 @@
 								</a>
 							</div>
 							{% endif %}
+							{% for category in categories %}
+								<li class="brand" data-tab=".tab-{{ category.ResCatId }}">
+									<img loading="lazy" class="cat-icon"
+									src="{{ category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static',filename='commerce/hs/images/icons/category.svg') }}">
+									{{ category.ResCatName }}
+								</li>
+							{% endfor %}
             </div>
 						
 						<input type="hidden" class="ratingValue" value="{{ resource.RtRatingValue }}" ownerId="{{ resource.ResId }}">
@@ -148,7 +155,7 @@
 								<div class="smile"></div>
 							</div>
 						{% endif %}
-					</div>
+					</div> 
 
 					<div class="tab-pane fade" id="product-reviews">
 						<div class="product-ratting-wrap">

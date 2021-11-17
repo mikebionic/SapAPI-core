@@ -65,6 +65,21 @@
 									<i class="las la-eye"></i>
 									<span class="count">{{ resource.ResViewCnt if resource.ResViewCnt else 0 }}</span>
 								</div>
+								{% if resource.BrandIcon %}
+								<div class="brand">
+									<a href="{{url_for('commerce.v_grid',BrandId=resource.BrandId,BrandName=resource.BrandName.replace('/','-').replace(' ','-'))}}" style="display: flex; align-items: center;">
+										<img alt="{{resource.BrandName}}" src="{{ resource.BrandIcon }}">
+										<span>{{ resource.BrandName }}</span>
+									</a>
+								</div>
+								{% endif %}
+								{% for category in categories %}
+									<li class="brand" data-tab=".tab-{{ category.ResCatId }}">
+										<img loading="lazy" class="cat-icon"
+										src="{{ category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static',filename='commerce/hs/images/icons/category.svg') }}">
+										{{ category.ResCatName }}
+									</li>
+								{% endfor %}
 							</div>
 							<div class="pro-details-color-wrap">
 								<p>{{ resource.ResDesc if resource.ResDesc else '' }}</p>

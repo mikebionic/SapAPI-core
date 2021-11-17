@@ -1354,7 +1354,8 @@ article {
 	}
 }
 	.banner-wrap {
-		height: 200px;}
+		position: relative;
+    padding-top: 56.25%;}
 .field-icon {
   float: right;
 	margin-left: -25px;
@@ -1570,4 +1571,10 @@ article {
 .top_box{
 	display: flex;
 	justify-content: space-between;
+}
+
+.brand img {
+	max-width: 150px;
+	width: 50px;
+	margin: 5px;
 }
