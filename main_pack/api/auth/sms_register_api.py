@@ -33,7 +33,7 @@ def verify_sms_register():
 @api.route("/request-sms-register/")
 def request_sms_register():
 
-	data = {}
+	data, message = {}, ""
 
 	try:
 		header_data = request.headers
