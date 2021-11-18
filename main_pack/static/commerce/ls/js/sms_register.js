@@ -14,7 +14,7 @@ function send_sms_register_request(phone_number){
 	}
 	else {
 		$.ajax({
-			headers: {"phone_number": phone_number},
+			headers: {"PhoneNumber": phone_number},
 			url: `${api_url_prefix}/request-sms-register/`,
 			success: function(response){
 				console.log(responseisEmpty)
@@ -57,7 +57,7 @@ function send_sms_register_request(phone_number){
 
 function check_for_phone_validation(phone_number, validation_interval){
 	$.ajax({
-		headers: {"phone_number": phone_number},
+		headers: {"PhoneNumber": phone_number},
 		url: `${api_url_prefix}/check-sms-register/`,
 		success: function(response){
 			if (response.status == 1){
