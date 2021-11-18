@@ -28,7 +28,7 @@ def register_email(requested_email):
 				RpAccEMail = email,
 				GCRecord = None
 			).first()
-		
+
 		if registered_rp_acc:
 			message = f"Email is already taken"
 			log_print(f"{message}: {email}", "warning")
@@ -63,9 +63,9 @@ def register_email(requested_email):
 			db.session.commit()
 			data = new_register_request.to_json_api()
 
-			if data:
-				data["RegReqVerifyCode"] = ""
-				send_register_email(email, verify_code)
+		if data:
+			data["RegReqVerifyCode"] = ""
+			send_register_email(email, verify_code)
 
 	except Exception as ex:
 		log_print(f"Register email exception: {ex}", 'warning')
@@ -75,7 +75,6 @@ def register_email(requested_email):
 
 def send_register_email(email, verify_code):
 	msg = Message(gettext('Registration request'), sender=Config.MAIL_USERNAME, recipients=[email])
-	msg_dear = gettext('Dear')
 	msg_bodyText = gettext('You have requested the registration on ecommerce. Please follow the link to verify your email')
 	msg_ending = gettext('If you did not make this request then simply ignore this email') 
 	msg.body = f'''

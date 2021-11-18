@@ -16,17 +16,16 @@ from main_pack.api.auth.email_auth_utils import register_email
 
 @api.route("/register-request/")
 def register_request():
-	data = {}
-	message = ""
+	data, message = {}, ""
 
 	register_method = request.args.get("method","email",type=str)
 	header_data = request.headers
 
 	try:
-		if register_method == "Email":
+		if register_method == "email":
 			if "Email" not in header_data:
 				raise Exception
-			
+
 			data, message = register_email(header_data["Email"])
 			message = "{}, {}\n {} {} {}".format(
 				header_data["Email"],
@@ -36,10 +35,10 @@ def register_request():
 				"(minutes)") if data else message or "Register request"
 
 		if register_method == "phone_number":
-			if "phone_number" not in header_data:
+			if "PhoneNumber" not in header_data:
 				raise Exception
 
-			data, message = register_phone_number(header_data["phone_number"])
+			data, message = register_phone_number(header_data["PhoneNumber"])
 			message = "{}: <h4>{}</h4>\n {} {} {}".format(
 				lazy_gettext('Send an empty SMS to number'),
 				f'''<div style="margin: 1rem 0">
@@ -62,7 +61,7 @@ def register_request():
 @api.route("/check-register/")
 def check_register():
 
-	data = {}
+	data, message = {}, ""
 	response_headers = {}
 
 	try:
