@@ -33,14 +33,14 @@ def verify_sms_register():
 @api.route("/request-sms-register/")
 def request_sms_register():
 
-	data = {}
+	data, message = {}, ""
 
 	try:
 		header_data = request.headers
-		if "phone_number" not in header_data:
+		if "PhoneNumber" not in header_data:
 			raise Exception
 
-		data, message = register_phone_number(header_data["phone_number"])
+		data, message = register_phone_number(header_data["PhoneNumber"])
 
 	except Exception as ex:
 		log_print(f"SMS register exception: {ex}", "warning")
@@ -69,10 +69,10 @@ def request_sms_login():
 
 	try:
 		header_data = request.headers
-		if "phone_number" not in header_data:
+		if "PhoneNumber" not in header_data:
 			raise Exception
 
-		data, message = login_phone_number(header_data["phone_number"])
+		data, message = login_phone_number(header_data["PhoneNumber"])
 
 	except Exception as ex:
 		log_print(f"SMS login exception: {ex}", "warning")
@@ -96,15 +96,15 @@ def request_sms_login():
 @api.route("/check-sms-register/")
 def check_sms_register():
 
-	data = {}
+	data, message = {}, ""
 	response_headers = {}
 
 	try:
 		header_data = request.headers
-		if "phone_number" not in header_data:
+		if "PhoneNumber" not in header_data:
 			raise Exception
 
-		data, message = check_phone_number_register(header_data["phone_number"])
+		data, message = check_phone_number_register(header_data["PhoneNumber"])
 		if data:
 			if "token" in data:
 				response_headers["token"] = data["token"]

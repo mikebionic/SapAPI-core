@@ -23,13 +23,13 @@ def register_request():
 	header_data = request.headers
 
 	try:
-		if register_method == "email":
-			if "email" not in header_data:
+		if register_method == "Email":
+			if "Email" not in header_data:
 				raise Exception
 			
-			data, message = register_email(header_data["email"])
+			data, message = register_email(header_data["Email"])
 			message = "{}, {}\n {} {} {}".format(
-				header_data["email"],
+				header_data["Email"],
 				lazy_gettext('An email has been sent with instructions to register your profile'),
 				lazy_gettext('Request expires in'),
 				Config.REGISTER_REQUEST_EXPIRE_TIME_MINUTES,
@@ -67,10 +67,10 @@ def check_register():
 
 	try:
 		header_data = request.headers
-		if "phone_number" not in header_data:
+		if "PhoneNumber" not in header_data:
 			raise Exception
 
-		data, message = check_phone_number_register(header_data["phone_number"])
+		data, message = check_phone_number_register(header_data["PhoneNumber"])
 		if data:
 			if "token" in data:
 				response_headers["token"] = data["token"]
