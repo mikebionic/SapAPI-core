@@ -8,6 +8,6 @@ from main_pack.api.auth import (
 	sms_register_api,
 	attempt_counter,
 	email_auth_utils,
-	email_register_api,
+	register_api,
 	register_phone_number,
 )

@@ -47,6 +47,7 @@ def register_token_required(f):
 			token_data = decodeJWT(register_token)
 
 			if register_method == "email":
+				# !!!TODO: Remove username validation from here
 				username = token_data["username"].strip()
 				email = token_data["email"].strip()
 

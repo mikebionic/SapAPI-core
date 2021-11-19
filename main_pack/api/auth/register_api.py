@@ -58,6 +58,7 @@ def register_request():
 	return handle_default_response(data, message, status_code=200)
 
 
+# !!!TODO: This shouldnt work of uses code sending by api method
 @api.route("/check-register/")
 def check_register():
 

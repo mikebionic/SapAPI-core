@@ -13,7 +13,7 @@ Header:
 | **Title**   | **Type** | **Description**                     | **Example**         |
 | ----------- | :------: | ----------------------------------- | ------------------- |
 | Email       | **str**  | add if requests an email type       | example@example.com |
-| PhoneNumber | **str**  | add if requests a phone_number type | example@example.com |
+| PhoneNumber | **str**  | add if requests a phone_number type | +99361234567        |
 
 > Response:
 

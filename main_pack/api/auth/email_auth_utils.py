@@ -83,3 +83,39 @@ def send_register_email(email, verify_code):
 	{msg_ending}
 	'''
 	mail.send(msg)
+
+
+# def verify_email_register(requested_email, verify_code = None):
+# 	data, message = {}, ""
+# 	try:
+# 		email = configureEmail(requested_email)
+# 		if not email:
+# 			message = "{}: {}".format("Invalid email ", requested_email)
+# 			log_print(message, "warning")
+# 			raise Exception
+
+# 		registered_request = Register_request.query\
+# 			.filter_by(
+# 				RegReqPhoneNumber = email,
+# 				RegReqVerifyCode = verify_code,
+# 				GCRecord = None)\
+# 			.filter(
+# 				datetime.now() < Register_request.RegReqExpDate,
+# 				Register_request.RegReqVerified != 1)\
+# 			.first()
+		
+# 		if not registered_request:
+# 			message = f"{email} | {verify_code} code incorrect or expired"
+# 			log_print(message, "warning")
+# 			raise Exception
+		
+# 		registered_request.RegReqVerified = 1
+# 		db.session.commit()
+# 		data = registered_request.to_json_api()
+# 		encoded_token, _ = encodeJWT({"email": email})
+# 		data["token"] = encoded_token.decode('UTF-8')
+# 		data["email"] = email
+# 		message = f"{email}, email successfully verified"
+# 		response_headers["token"] = data["token"]
+
+# 	return data, message
