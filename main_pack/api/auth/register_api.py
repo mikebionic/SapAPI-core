@@ -9,9 +9,8 @@ from main_pack.api.response_handlers import handle_default_response
 from main_pack.api.auth import api
 from main_pack.api.auth.register_phone_number import (
 	register_phone_number,
-	check_phone_number_register,
 )
-from main_pack.api.auth.email_auth_utils import register_email
+from main_pack.api.auth.auth_utils import register_email, verify_email_register, verify_phone_number_register
 
 
 @api.route("/register-request/")
@@ -58,27 +57,29 @@ def register_request():
 	return handle_default_response(data, message, status_code=200)
 
 
-# !!!TODO: This shouldnt work of uses code sending by api method
-@api.route("/check-register/")
-def check_register():
-
-	data, message = {}, ""
+@api.route('/verify-register/',methods=['POST'])
+def verify_register():
+	data, message = {}, "Register verify api"
 	response_headers = {}
+	register_method = request.args.get("method","email",type=str)
 
 	try:
-		header_data = request.headers
-		if "PhoneNumber" not in header_data:
-			raise Exception
+		req = request.get_json()
+		if register_method == "email":
+			email = req.get('email')
+			verify_code = req.get('verify_code')
+			data, message = verify_email_register(email, verify_code)
 
-		data, message = check_phone_number_register(header_data["PhoneNumber"])
+		if register_method == "phone_number":
+			phone_number = req.get('phone_number')
+			verify_code = req.get('verify_code')
+			data, message = verify_phone_number_register(phone_number, verify_code)
+
 		if data:
 			if "token" in data:
 				response_headers["token"] = data["token"]
 
 	except Exception as ex:
-		log_print(f"register check exception: {ex}", "warning")
-
-	message = "{}"\
-		.format("Register check success") if data else message or "Register request check"
+		log_print(f"Verify register route exception: {ex}", "warning")
 
 	return handle_default_response(data, message, headers = response_headers, status_code=200)
