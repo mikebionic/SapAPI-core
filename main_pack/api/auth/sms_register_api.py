@@ -1,7 +1,5 @@
 
-from flask import (
-	request,
-)
+from flask import request
 
 from main_pack import lazy_gettext
 from main_pack.api.auth import api
@@ -32,7 +30,6 @@ def verify_sms_register():
 
 @api.route("/request-sms-register/")
 def request_sms_register():
-
 	data, message = {}, ""
 
 	try:
@@ -64,8 +61,7 @@ def request_sms_register():
 # !!! Todo change to single route with args
 @api.route("/request-sms-login/")
 def request_sms_login():
-
-	data = {}
+	data, message = {}, ""
 
 	try:
 		header_data = request.headers

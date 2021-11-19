@@ -45,7 +45,7 @@ def api_register(token_data):
 			log_print(message, "warning")
 			raise Exception
 
-		if register_method == "phone_number" and auth_type == "rp_acc":
+		if auth_type == "rp_acc":
 			UId, CId, DivId, RpAccRegNo, RpAccGuid = gather_required_register_rp_acc_data()
 			rp_acc_data["UId"] = UId
 			rp_acc_data["CId"] = CId
@@ -56,8 +56,7 @@ def api_register(token_data):
 			rp_acc_data["RpAccStatusId"] = 1
 
 		if register_method == "email" and not Config.INSERT_PHONE_NUMBER_ON_REGISTER:
-			rp_acc_data["RpAccEmail"] = token_data["email"]
-			rp_acc_data["RpAccUame"] = token_data["username"]
+			rp_acc_data["RpAccEMail"] = token_data["email"]
 			rp_acc_data["RpAccMobilePhoneNumber"] = None
 
 		if register_method == "phone_number" and not Config.INSERT_EMAIL_ON_REGISTER:
@@ -67,7 +66,7 @@ def api_register(token_data):
 		if "username" in token_data:
 			rp_acc_data["RpAccUame"] = token_data["username"]
 		if "email" in token_data:
-			rp_acc_data["RpAccEmail"] = token_data["email"]
+			rp_acc_data["RpAccEMail"] = token_data["email"]
 		if "phone_number" in token_data:
 			rp_acc_data["RpAccMobilePhoneNumber"] = token_data["phone_number"]
 
