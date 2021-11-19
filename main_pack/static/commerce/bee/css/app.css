@@ -12251,8 +12251,10 @@ ul.link-widget li {
 
 .cat-block figure span {
   /* position:relative */
-  height: 10vh;
-  width: 10vw
+  height: 15vh;
+  width: 10vw;
+  display: flex;
+  align-items: center;
 }
 
 .cat-block figure span:after {
