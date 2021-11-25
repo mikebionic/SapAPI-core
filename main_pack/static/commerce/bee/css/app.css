@@ -5266,15 +5266,14 @@ img.mfp-img {
 
     /*-- Hero Item --*/
     .hero-item-two {
-  /* padding: 49px 85px; */
-  /* height: 435px; */
-  background-color: #fbfafa;
-  background-repeat: no-repeat;
-  -webkit-background-size: cover;
-  background-size: cover; }
+      padding-bottom: 46.25%;
+      height: 100%
+      
+ }
   .hero-item-two img{
     width: 100%;
     height: 100%;
+    position: absolute;
   }
   .hero-item-two a{
     width: 100%;
@@ -13503,3 +13502,13 @@ ul.link-widget li {
   .prcategory a img{
     width: 100%;
   }
+
+/* .banner{
+  padding-bottom: 30.25px;
+  height: 100%;
+}
+.banner img{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+} */

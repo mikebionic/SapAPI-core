@@ -782,7 +782,7 @@
 } 
 @media #{$xs-layout} {
     .res-white-overly-xs {
-        position: relative;
+        // position: relative;
         &:before {
             position: absolute;
             left: 0;
