@@ -12533,7 +12533,7 @@ article.post {
   color: #fff; }
 
 @media (min-width: 1200px) {
-  .site-content .home-v6-slider .slider-1 {
+  
     .site-content .home-v6-slider .slider-1 .caption {
       flex: 0 0 46.6666666667%;
       max-width: 46.6666666667%;
@@ -12562,7 +12562,7 @@ article.post {
         padding-bottom: 1.200em; } }
 
 @media (max-width: 575px) {
-  .site-content .home-v6-slider .slider-1 {
+  
     .site-content .home-v6-slider .slider-1 .caption {
       flex: 0 0 46.6666666667%;
       max-width: 46.6666666667%;
@@ -12588,6 +12588,7 @@ article.post {
         font-size: 0.625em; } }
 
 @media (min-width: 576px) and (max-width: 1199px) {
+  
     .site-content .home-v6-slider .slider-1 .caption {
       flex: 0 0 39.1666666667%;
       max-width: 39.1666666667%;
@@ -12611,17 +12612,9 @@ article.post {
         padding-bottom: 1.200em; }
       .site-content .home-v6-slider .slider-1 .caption .button, .site-content .home-v6-slider .slider-1 .caption article .more-link, article .site-content .home-v6-slider .slider-1 .caption .more-link {
         font-size: 0.625em; } }
-.site-content .home-v6-slider .slider-1{
-  height:100%;
-  padding-bottom: 12.6%
-}
-.site-content .home-v6-slider .slider-1 img{
-  position:absolute;
-  height: 100%;
-  width: 100%;
-}
-        
+
 @media (min-width: 992px) and (max-width: 1399px) {
+  
     .site-content .home-v6-slider .slider-1 .caption {
       flex: 0 0 39.1666666667%;
       max-width: 39.1666666667%;
@@ -26517,7 +26510,7 @@ form.track_order {
 .header-v5 .departments-menu nav > .dropdown-menu,
 .header-v6 .departments-menu nav > .dropdown-menu,
 .header-v10 .departments-menu nav > .dropdown-menu {
-  left: -190px!important ; }
+  left: -202px!important ; }
 
 
 
@@ -34940,3 +34933,14 @@ input:checked ~ .tab-content{
     height: 400px;
     overflow: auto;
 }
+
+.site-content .home-v6-slider .slider-1 {
+  height:100%;
+  padding-bottom: 35.25%; 
+ }
+.site-content .home-v6-slider .slider-1 img {
+  right: 0;
+  width: 100%;
+  height: 100%;
+  position:absolute;
+  }
