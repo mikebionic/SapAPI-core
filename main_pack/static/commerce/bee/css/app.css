@@ -12250,7 +12250,7 @@ ul.link-widget li {
 
 .cat-block figure span {
   /* position:relative */
-  height: 15vh;
+  height: 20vh;
   width: 10vw;
   display: flex;
   align-items: center;
@@ -13489,8 +13489,8 @@ ul.link-widget li {
  }
   .brand img {
     max-width: 150px;
-    width: 50px;
-    margin: 5px;
+    width: 100%;
+    margin: 5px auto;
   }
   .content-404{
     text-align: center;
