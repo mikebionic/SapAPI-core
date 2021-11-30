@@ -45,7 +45,7 @@
 									<a href="{{url_for('commerce.commerce')}}"><img src="{{ url_for('static', filename='commerce/hs/images/logo/hs_logo.svg') }}" alt="logo"></a>
 								</div>
 							</div>
-							<div class="col-xl-8 col-lg-8 col-8">
+							<div class="col-xl-7 col-lg-8 col-8">
 								<div class="header-contact-search-wrap header-contact-search-mrg">
 									{% if company.Phone1 %}
 									<div class="header-contact-2" onclick="location.href='tel:{{company.Phone1}}';">
@@ -69,7 +69,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-xl-2 col-lg-2 col-2" style="z-index: 10;">
+							<div class="col-xl-3 col-lg-2 col-2" style="z-index: 10;">
 								<div class="header-right-wrap mt-10">
 									<div class="header-account-links" style="display:flex;">
 										<li class="dropdown" style="margin-top: -7px;list-style: none; position: inherit;">
@@ -105,17 +105,25 @@
 										</div>
 										{% if current_user.is_authenticated %}
 										<div class="header-login ml-10">
-											<a href="{{ url_for('commerce_users.profile') }}"><i class="la la-user"></i></a>
+											<a href="{{ url_for('commerce_users.profile') }}"><i class="la la-user"></i>
+												<span class="authe">Profile</span>
+											</a>
 										</div>
 										<div class="header-login ml-10">
-											<a href="{{ url_for('commerce_auth.logout') }}"><i class="las la-sign-out-alt"></i></a>
+											<a href="{{ url_for('commerce_auth.logout') }}"><i class="las la-sign-out-alt"></i>
+												<span class="authe">Logout</span>
+											</a>
 										</div>
 										{% else %}
 										<div class="header-login ml-10">
-											<a href="{{ url_for('commerce_auth.login') }}"><i class="las la-sign-in-alt"></i></a>
+											<a href="{{ url_for('commerce_auth.login') }}"><i class="las la-sign-in-alt"></i>
+													<span class="authe">Login</span>
+											</a>
 										</div>
 										<div class="header-login ml-10">
-											<a href="{{ url_for('commerce_auth.register_sms') }}"><i class="la la-registered"></i></a>
+											<a href="{{ url_for('commerce_auth.register_sms') }}"><i class="la la-registered"></i>
+												<span class="authe">Register</span>
+											</a>
 										</div>
 										{% endif %}
 								</div>

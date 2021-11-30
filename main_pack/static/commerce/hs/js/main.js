@@ -1120,3 +1120,11 @@ if ($('.categorSize .li').length > 12) {
 $('.descriptionText').each(function(){
 	$(this).html($(this).text()); 
 });
+
+$(".order-info a").each(function(){
+	this.text = this.text.trim();
+	if (this.text.length > 15){
+			this.text = this.text.slice(0, 15);
+			this.text += "...";
+	}
+});

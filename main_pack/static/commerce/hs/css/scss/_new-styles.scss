@@ -140,10 +140,13 @@
   }
 }
 
-@media (max-width: 991px){
+@media (max-width: 1141px){
   .header-contact-2{
     display: none;
   }
+	.header-contact-search-wrap.header-contact-search-mrg{
+		justify-content: center!important;
+	}
 }
 @media (max-width:778px){
   .search-style-4{

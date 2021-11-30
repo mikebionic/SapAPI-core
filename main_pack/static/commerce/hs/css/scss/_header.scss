@@ -982,10 +982,30 @@
         }
     }
     .header-login {
-        margin-top: -2px;
+        margin-top: -7px;
+        border-radius: 40px;
+        border: 1px solid #f0f0f0;
+        padding: 1px 5px;
+        display: flex;
+        align-items: center;
         a {
             font-size: 22px;
             color: #010211;
+            display: flex;
+            align-items: center;
+            .authe{
+                font-size: 0.4em !important;
+                padding: 0.3em 0.5em;
+                height: 16px;
+                flex-shrink: 0;
+                display: flex;
+                align-items: center;
+                text-align: center;
+                color:#000;
+                &:hover {
+                    color: $theme-color;
+                }
+            }
             &:hover {
                 color: $theme-color;
             }
