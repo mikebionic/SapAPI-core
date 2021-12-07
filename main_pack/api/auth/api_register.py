@@ -64,11 +64,14 @@ def api_register(token_data):
 			rp_acc_data["RpAccMobilePhoneNumber"] = token_data["phone_number"]
 
 		if "username" in token_data:
-			rp_acc_data["RpAccUame"] = token_data["username"]
+			rp_acc_data["RpAccUName"] = token_data["username"]
 		if "email" in token_data:
 			rp_acc_data["RpAccEMail"] = token_data["email"]
 		if "phone_number" in token_data:
 			rp_acc_data["RpAccMobilePhoneNumber"] = token_data["phone_number"]
+
+		if not rp_acc_data["RpAccName"]:
+			rp_acc_data["RpAccName"] = rp_acc_data["RpAccUName"]
 
 		if Config.INSERT_LAST_ID_MANUALLY:
 			try:
