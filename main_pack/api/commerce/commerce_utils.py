@@ -461,8 +461,11 @@ def apiResourceInfo(
 			resource_info["CurrencyCode"] = price_data["CurrencyCode"]
 			# resource_info["ResTotBalance"] = List_Res_total[0]["ResTotBalance"] if List_Res_total else 0.0
 			# resource_info["ResPendingTotalAmount"] = List_Res_total[0]["ResPendingTotalAmount"] if List_Res_total else 0.0
-			resource_info["ResTotBalance"] = resource_query.ResTotBalance_sum if resource_query.ResTotBalance_sum else 0.0
-			resource_info["ResPendingTotalAmount"] = resource_query.ResPendingTotalAmount_sum if resource_query.ResPendingTotalAmount_sum else 0.0
+
+			# resource_info["ResTotBalance"] = 9999 if Config.SET_UNLIMITED_RESOURCE_QTY == 1 else
+			# resource_info["ResPendingTotalAmount"]
+			resource_info["ResTotBalance"] = 9999 if Config.SET_UNLIMITED_RESOURCE_QTY == 1 else resource_query.ResTotBalance_sum if resource_query.ResTotBalance_sum else 0.0
+			resource_info["ResPendingTotalAmount"] = 9999 if Config.SET_UNLIMITED_RESOURCE_QTY == 1 else resource_query.ResPendingTotalAmount_sum if resource_query.ResPendingTotalAmount_sum else 0.0
 			resource_info["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=List_Images[-1]["FileName"]) if List_Images else ""
 			resource_info["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=List_Images[-1]["FileName"]) if List_Images else ""
 			resource_info["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_Images[-1]["FileName"]) if List_Images else ""

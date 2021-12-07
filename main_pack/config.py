@@ -195,6 +195,7 @@ class Config:
 	# set to True to show resources
 	# if no left in Res_total.ResTotBalace
 	SHOW_NEGATIVE_WH_QTY_RESOURCE = int(environ.get('SHOW_NEGATIVE_WH_QTY_RESOURCE')) if environ.get('SHOW_NEGATIVE_WH_QTY_RESOURCE') else 0
+	SET_UNLIMITED_RESOURCE_QTY = int(environ.get('SET_UNLIMITED_RESOURCE_QTY')) if environ.get('SET_UNLIMITED_RESOURCE_QTY') else 0
 	SHOW_NULL_RESOURCE_CATEGORY = int(environ.get('SHOW_NULL_RESOURCE_CATEGORY')) if environ.get('SHOW_NULL_RESOURCE_CATEGORY') else 1
 	HIDE_UNDER_ZERO_VISIBLE_CATEGORIES = int(environ.get('HIDE_UNDER_ZERO_VISIBLE_CATEGORIES')) if environ.get('HIDE_UNDER_ZERO_VISIBLE_CATEGORIES') else 0
 	SHOW_RES_TRANSLATIONS = int(environ.get('SHOW_RES_TRANSLATIONS')) if environ.get('SHOW_RES_TRANSLATIONS') else 0
