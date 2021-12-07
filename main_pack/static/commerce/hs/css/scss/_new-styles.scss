@@ -1586,3 +1586,126 @@ article {
 	width: 30px;
 	margin: 0 10px;
 }
+
+
+// Table
+.cart-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+	.cart-card {
+		width: 100%;
+		padding-bottom: 6px;
+		border-radius: 8px;
+		box-shadow: 0 1px 2px #ededed;
+		background-color: #fff;
+		.cart-header {
+			text-align: center;
+			font-style: normal;
+			font-weight: 700;
+			font-size: 18px;
+			line-height: 12px;
+			padding-top: 16px ;
+			border-bottom: 1px solid #e4e5e9;
+			padding-bottom: 14px ;
+			color: #101010;
+		}
+		// .c-rows {
+		// 	height: 84px;
+		// 	border-bottom: 0.5px solid #e4e5e9;
+		// 	margin-left: 6px;
+		// 	margin-right: 6px;
+		// 	min-width: 600px;
+		// }
+		.ant-row{
+			display: -ms-flexbox;
+			display: flex;
+			-ms-flex-flow: row wrap;
+			flex-flow: row wrap;
+		
+			.cart-item {
+				text-align: center;
+				margin: auto;
+				font-size: 10px;
+				font-style: normal;
+				font-weight: normal;
+				color: #101010;
+			}
+			
+			.ant-col-3 {
+				display: block;
+				-ms-flex: 0 0 12.5%;
+				flex: 0 0 12.5%;
+				max-width: 12.5%;
+			}
+			.ant-col {
+				position: relative;
+				max-width: 100%;
+				min-height: 1px;
+			}
+			.ant-col-7 {
+				display: block;
+				-ms-flex: 0 0 29.16666667%;
+				flex: 0 0 29.16666667%;
+				max-width: 29.16666667%;
+			}
+			.ant-col-4 {
+				display: block;
+				-ms-flex: 0 0 16.66666667%;
+				flex: 0 0 16.66666667%;
+				max-width: 16.66666667%;
+			}
+		}
+		.cart_img{
+			height: 50px;
+			width: 50px;
+			.c-img {
+				max-height: 100%;
+				max-width: 100%;
+			}
+		}
+	}
+}
+
+
+// .c-rows, .cart-table-title {
+//   font-size: 14px;
+//   font-weight: 600;
+// }
+
+
+// .ant-layout, .ant-layout * {
+//   -webkit-box-sizing: border-box;
+//   box-sizing: border-box;
+// }
+
+@media only screen and (min-width: 0px) and (max-width: 991px){
+.cart-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}}
+@media only screen and (min-width: 0px) and (max-width: 991px){
+.c-rows {
+    height: 84px;
+    font-size: 14px;
+    font-weight: 600;
+    border-bottom: 0.5px solid #e4e5e9;
+    margin-left: 6px;
+    margin-right: 6px;
+    width: 100%;
+    min-width: 100%;
+}}
+@media only screen and (min-width: 0px) and (max-width: 991px){
+.cart-item {
+    text-align: center;
+    margin: auto;
+}}
+@media only screen and (min-width: 0px) and (max-width: 991px){
+.c-img {
+    margin-top: 6px;
+    height: 50px;
+    width: 50px;
+}}

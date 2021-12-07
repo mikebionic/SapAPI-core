@@ -157,7 +157,7 @@ h3.cart-page-title {
     padding: 30px 0px 55px;
     @media #{$xs-layout} {
         display: flex;
-        padding: 30px 0px 15px;
+        padding: 10px 0px;
     }
     @media (max-width:500px){
         display: block;
@@ -178,7 +178,7 @@ h3.cart-page-title {
         }
         @media #{$xs-layout} {
             padding: 18px 40px 17px;
-            margin: 0 0 15px;
+            // margin: 0 0 15px;
         }
         @media (max-width:500px){
             display: flex;
