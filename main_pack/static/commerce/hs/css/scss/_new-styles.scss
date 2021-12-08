@@ -1485,11 +1485,13 @@ article {
 
 .not_active_reg{
 	font-size: 25px;
-	font-weight: 300;
-	color: #56bb81;
-	display: flex;
-	font-style: oblique;
-	align-items: center;
+    font-weight: 300;
+    color: #56bb81;
+    // display: flex;
+    font-style: oblique;
+    border-bottom: 1px solid;
+    /* padding: 0; */
+    align-items: center;
 }
 
 /*-- Single Feature --*/
