@@ -72,35 +72,35 @@ $(document).ready(function($) {
 					breakpoint: 1300,
 
 					settings: {
-							slidesToShow:6,
+							slidesToShow:4,
 					}
 			},
 			{
 					breakpoint: 1440,
 
 					settings: {
-							slidesToShow: 7,
+							slidesToShow: 5,
 					}
 			},
 			{
 					breakpoint: 1600,
 
 					settings: {
-							slidesToShow: 7,
+							slidesToShow: 5,
 					}
 			},
 			{
 					breakpoint: 1800,
 
 					settings: {
-							slidesToShow: 8,
+							slidesToShow: 5,
 					}
 			},
 			{
 					breakpoint: 2700,
 
 					settings: {
-							slidesToShow: 11,
+							slidesToShow: 8,
 					}
 			},
 			{
@@ -1539,16 +1539,17 @@ var windows = $(window);
 var screenSize = windows.width();
 var sticky = $('.header-sticky');
 
-windows.on('scroll', function() {
-	var scroll = windows.scrollTop();
-	if (windows.width() >= 803) {
-		if (scroll < 300) {
-			categoryMenuToggle();
-		}else{
-			slideCategoryUp()
-		}
-	}
-});
+// windows.on('scroll', function() {
+// 	var scroll = windows.scrollTop();
+// 	if (windows.width() >= 803) {
+// 		if (scroll < 300) {
+// 			categoryMenuToggle();
+// 		}
+// 		// else{
+// 		// 	slideCategoryUp()
+// 		// }
+// 	}
+// });
 
 var categoryToggle = $('.dropdown-toggle');
 var categoryMenu = $('.g-menu');
@@ -1738,7 +1739,7 @@ function get_phone_number_login_auth(){
 }
 
 let catHeight = $('.categorSize')
-if ($('.categorSize .li').length > 12) {
+if ($('.categorSize .li').length > 11) {
 	catHeight.addClass('category_size');
 }else {
 	catHeight.removeClass('category_size');

@@ -1484,10 +1484,12 @@ article {
 }
 
 .not_active_reg{
-	font-size: 15px;
+	font-size: 25px;
 	font-weight: 300;
-	color: #373737;
-	border-bottom: 1px solid;
+	color: #56bb81;
+	display: flex;
+	font-style: oblique;
+	align-items: center;
 }
 
 /*-- Single Feature --*/
@@ -1709,3 +1711,10 @@ article {
     height: 50px;
     width: 50px;
 }}
+.slash{
+	margin: 0 10px;
+	color: #008d36;
+	font-size: 35px;
+	display: flex;
+	align-items: center;
+}
