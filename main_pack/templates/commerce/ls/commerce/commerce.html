@@ -18,12 +18,7 @@
 					<div class="homev6-slider-with-banners row">
 						<div class="slider-block col-12">
 							<div class="home-v6-slider home-slider">
-								<div class="slider-1 slider-image">
-									<a href="#">
-										<img src="{{ url_for('static', filename='commerce/bee/images/about-1.png') }}" alt="">
-									</a>
-								</div>
-								<!-- {% for slider in sliders %}
+								{% for slider in sliders %}
 								{% if slider.SlName == "HomePageTop" %}
 									{% for sl_image in slider.Sl_images %}
 									{% if sl_image.SlImgMainImgFilePathM %}
@@ -36,7 +31,7 @@
 									{% endif %}
 									{% endfor %}
 								{% endif %}
-								{% endfor %} -->
+								{% endfor %}
 							</div>
 						</div>
 					</div>
