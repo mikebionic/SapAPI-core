@@ -23,10 +23,12 @@
 									{% for sl_image in slider.Sl_images %}
 									{% if sl_image.SlImgMainImgFilePathM %}
 										<div class="slider-1 slider-image">
-											<a href="{{ sl_image.SlImgLink if sl_image.SlImgLink else '#' }}">
-												<img loading="lazy" src="{{ sl_image.SlImgMainImgFilePathM }}" data-src-m="{{ sl_image.SlImgMainImgFilePathR }}"
-												alt="{{ sl_image.SlImgTitle if sl_image.SlImgTitle else 'sl_image.SlImgMainImgFileName' }} ecommerce ls {{ company.CName }} ">
-											</a>
+											<div class="header_carousel">
+												<a href="{{ sl_image.SlImgLink if sl_image.SlImgLink else '#' }}">
+													<img loading="lazy" src="{{ sl_image.SlImgMainImgFilePathM }}" data-src-m="{{ sl_image.SlImgMainImgFilePathR }}"
+													alt="{{ sl_image.SlImgTitle if sl_image.SlImgTitle else 'sl_image.SlImgMainImgFileName' }} ecommerce ls {{ company.CName }} ">
+												</a>
+											</div>
 										</div>
 									{% endif %}
 									{% endfor %}

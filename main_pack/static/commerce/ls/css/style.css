@@ -34919,7 +34919,7 @@ input:checked ~ .tab-content{
     overflow: auto;
 }
 
-.site-content .home-v6-slider .slider-1 {
+.header_carousel {
   height:100%;
   padding-bottom: 32.25%; 
  }
