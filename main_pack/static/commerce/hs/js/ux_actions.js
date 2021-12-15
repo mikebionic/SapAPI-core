@@ -323,26 +323,18 @@ $('.online_payment_types').click(function(){
 
 $('body').delegate('.checkoutCartBtn','click',function(){
 	var data = collectOrderData()
-	data['OInvDesc'] = $('.orderDesc').val();
-
-	var PmId = null;
-	var online_payment_type = null;
-	try {
-		var payment_method = parseInt(get_radiobutton_value('.paymentMethods'))
-		if (payment_method && payment_method > 0){
-			PmId = payment_method;
-			if (payment_method == 2){
-				online_payment_type = get_radiobutton_value('.online_payment_types')
-				if (session_currency_code !== 'TMT' && online_payment_type == "halkbank"){
-					online_payment_type == "foreign_affairs_bank";
-					errorToaster(message = `Can't checkout it with currency ${session_currency_code}`);
-				}
-			}
-		}
-	} catch {
-		PmId = null;
+	
+	var username = $('#username').val();
+	var phone_number = $('#phone-number').val();
+	if (!username || !phone_number){
+		swal(title=error_title, message="Telefon nomeriňizi we adyňyzy ýazyň!", style='warning');
+		return
 	}
-	data['PmId'] = PmId;
+	data['OInvDesc'] = `Phone: ${phone_number}, Name: ${username} | ${$('.orderDesc').val()}`;
+
+	var online_payment_type = null;
+
+	data['PmId'] = 1;
 	data['PtId'] = 1;
 
 	var order_data = get_local_data_by_name("orderInv");
@@ -363,16 +355,17 @@ $('body').delegate('.checkoutCartBtn','click',function(){
 		set_local_data_by_name('orderInv', order_data)
 	}
 
-	if (PmId == 2){
-		gen_reg_no_data = {
-			"RegNumTypeName": "sale_order_invoice_code",
-			"random_mode": 1,
-		}
-		gen_Reg_no_and_open_payment(gen_reg_no_data, `${url_prefix}/ui-gen-reg-no/`, 'POST');
-	}
-	else {
-		checkoutCart(order_data ,`${url_prefix}/checkout-cart-v1/`,'POST');
-	}
+	// if (PmId == 2){
+	// 	gen_reg_no_data = {
+	// 		"RegNumTypeName": "sale_order_invoice_code",
+	// 		"random_mode": 1,
+	// 	}
+	// 	gen_Reg_no_and_open_payment(gen_reg_no_data, `${url_prefix}/ui-gen-reg-no/`, 'POST');
+	// }
+	// else {
+	// 	checkoutCart(order_data ,`${url_prefix}/checkout-cart-v1/`,'POST');
+	// }
+	checkoutCart(order_data ,`${url_prefix}/checkout-cart-v1/`,'POST');
 });
 
 // for related resources

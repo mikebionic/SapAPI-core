@@ -103,29 +103,7 @@
 										<div class="header-wishlist">
 												<a href="{{ url_for('commerce_users.wishlist') }}"><i class="la la-heart-o"></i></a>
 										</div>
-										{% if current_user.is_authenticated %}
-										<div class="header-login ml-10">
-											<a href="{{ url_for('commerce_users.profile') }}"><i class="la la-user"></i>
-												<span class="authe">{{_('My profile')}}</span>
-											</a>
-										</div>
-										<div class="header-login ml-10">
-											<a href="{{ url_for('commerce_auth.logout') }}"><i class="las la-sign-out-alt"></i>
-												<span class="authe">{{_('Log out')}}</span>
-											</a>
-										</div>
-										{% else %}
-										<div class="header-login ml-10">
-											<a href="{{ url_for('commerce_auth.login') }}"><i class="las la-sign-in-alt"></i>
-													<span class="authe">{{_('Login')}}</span>
-											</a>
-										</div>
-										<div class="header-login ml-10">
-											<a href="{{ url_for('commerce_auth.register_sms') }}"><i class="la la-registered"></i>
-												<span class="authe">{{_('Register')}}</span>
-											</a>
-										</div>
-										{% endif %}
+
 								</div>
 						</div>
 						</div>
