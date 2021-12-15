@@ -23,7 +23,7 @@
 								<div class="fix-content fix-content-right">
 									<div class="home-v6-slider home-slider">
 									{% for slider in sliders %}
-									{% if slider.SlName == "HomePageTop" %}
+									{% if slider.SlName == "HomePageTop" or slider.SlName == "commerce_header" %}
 										{% for sl_image in slider.Sl_images %}
 										{% if sl_image.SlImgMainImgFilePathM %}
 										<div class="slider-1 slider-image">
