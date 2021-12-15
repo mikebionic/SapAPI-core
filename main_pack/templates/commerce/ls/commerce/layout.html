@@ -31,383 +31,350 @@
 		{% endif %}
 	</head>
 	<body class="garden-market page-template-template-homepage-v6 woocommerce-active single-product">
-		<div id="page" class="hfeed site">
-			<div class="top-bar top-bar-v4">
-				<div class="col-full">
+		
+			<div id="page" class="hfeed site">
+				<div class="top-bar top-bar-v4">
+					<div class="col-full">
 
-					<ul id="menu-top-bar-left" class="nav menu-top-bar-left">
-						<li class="menu-item animate-dropdown" style="display: none;"></li>
-						<li class="menu-item animate-dropdown">
-							
-							<a href="{{ url_for('commerce.commerce') }}">
-								<div class="menu_icon">
-									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
-										<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z">
-										</path>
-										<polyline  points="9 22 9 12 15 12 15 22">
-										</polyline>
-										</svg>
-									</div>
-								<span>
-									{{_('Main')}}
-								</span>
-							</a>
-						</li>
-						<li class="menu-item animate-dropdown">
-							<a href="{{ url_for('commerce.about') }}">
-								<div class="menu_icon">
-								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-briefcase">
-								<rect x="2" y="7" width="20" height="14" rx="2" ry="2">
-								</rect>
-								<path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16">
-								</path>
-								</svg>
-								</div>
-								<span>
-									{{_('About us')}}
-								</span>
-							</a>
-						</li>
-						<li class="menu-item animate-dropdown">
-							<a href="{{ url_for('commerce.contact') }}">
-								<div class="menu_icon">
-									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-phone-call">
-									<path d="M15.05 5A5 5 0 0 1 19 8.95M15.05 1A9 9 0 0 1 23 8.94m-1 7.98v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
-									</path>
-									</svg>
-								</div>
-								<span>
-									{{_('Contact')}}
-								</span>
-							</a>
-						</li>
-						{% if current_user.is_authenticated %}
+						<ul id="menu-top-bar-left" class="nav menu-top-bar-left">
+							<li class="menu-item animate-dropdown" style="display: none;"></li>
 							<li class="menu-item animate-dropdown">
-								<a href="{{ url_for('commerce_users.profile') }}">
+								
+								<a href="{{ url_for('commerce.commerce') }}">
+									<div class="menu_icon">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
+											<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z">
+											</path>
+											<polyline  points="9 22 9 12 15 12 15 22">
+											</polyline>
+											</svg>
+										</div>
+									<span>
+										{{_('Main')}}
+									</span>
+								</a>
+							</li>
+							{% if current_user.is_authenticated %}
+								<li class="menu-item animate-dropdown">
+									<a href="{{ url_for('commerce_users.profile') }}">
+										<div class="menu_icon">
+											
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
+											<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2">
+											</path>
+											<circle cx="12" cy="7" r="4">
+											</circle>
+											</svg>
+										</div>
+										<span>
+											{{_('Profile')}}
+										</span>
+									</a>
+								</li>
+								<li class="menu-item animate-dropdown">
+									<a href="{{ url_for('commerce_auth.logout') }}">
+										<div class="menu_icon">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out">
+											<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4">
+											</path>
+											<polyline points="16 17 21 12 16 7">
+											</polyline>
+											<line x1="21" y1="12" x2="9" y2="12">
+											</line>
+											</svg>
+										</div>
+										<span>
+											{{_('Log out')}}
+										</span>
+									</a>
+								</li>
+							{% else %}
+								<li class="menu-item animate-dropdown">
+									<a href="{{ url_for('commerce_auth.register') }}">
+										<div class="menu_icon">
+																				
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus">
+											<path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2">
+											</path>
+											<circle cx="8.5" cy="7" r="4">
+											</circle>
+											<line x1="20" y1="8" x2="20" y2="14">
+											</line>
+											<line x1="23" y1="11" x2="17" y2="11">
+											</line>
+											</svg>
+										</div>
+										<span>
+										{{_('Register')}}
+										</span>
+									</a>
+								</li>
+								<li class="menu-item animate-dropdown">
+									<a href="{{ url_for('commerce_auth.login') }}">
+										<div class="menu_icon">
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-in">
+											<path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4">
+											</path>
+											<polyline points="10 17 15 12 10 7">
+											</polyline>
+											<line x1="15" y1="12" x2="3" y2="12">
+											</line>
+											</svg>
+										</div>
+										<span>
+										{{_('Login')}}
+										</span>
+									</a>
+								</li>
+							{% endif %}
+							<li class="menu-item animate-dropdown dropdown language_" style="margin-top: auto;">
+								<a title="Dollar (US)" data-toggle="dropdown" href="javascript:void(0);" role="button">
+									<div class="menu_icon">
+										<img src="{{ url_for('static', filename='commerce/ls/images/dollar-sign.svg') }}" alt="">
+									</div>
+									<span>
+										{{ session.currency_code if session.currency_code else 'TMT' }}
+									</span>
+									<div class="notify"><span class="heartbit"></span><span class="point"></span></div>
+								</a>
+								<ul class="dropdown-menu slideUp2" style="z-index: 9999999; left: -57px;"> 
+									<li class="body">
+										<ul class="menu list-unstyled">
+											<li>
+												<a href="{{url_for('main.set_currency', currency_code='TMT')}}" class="dropdown-item">
+													TMT
+												</a>
+												<div class="dropdown-divider"></div>
+												<a href="{{url_for('main.set_currency', currency_code='USD')}}" class="dropdown-item">
+													USD
+												</a>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li class="menu-item animate-dropdown dropdown language_" style="margin-top: auto;">
+								<a href="javascript:void(0);"  title="Language" data-toggle="dropdown" role="button">
 									<div class="menu_icon">
 										
-									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
-										<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2">
-										</path>
-										<circle cx="12" cy="7" r="4">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-globe">
+										<circle cx="12" cy="12" r="10">
 										</circle>
-										</svg>
-									</div>
-									<span>
-										{{_('Profile')}}
-									</span>
-								</a>
-							</li>
-							<li class="menu-item animate-dropdown">
-								<a href="{{ url_for('commerce_auth.logout') }}">
-									<div class="menu_icon">
-									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out">
-										<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4">
+										<line x1="2" y1="12" x2="22" y2="12">
+										</line>
+										<path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
 										</path>
-										<polyline points="16 17 21 12 16 7">
-										</polyline>
-										<line x1="21" y1="12" x2="9" y2="12">
-										</line>
 										</svg>
 									</div>
-									<span>
-										{{_('Log out')}}
-									</span>
+									<div class="notify"><span class="heartbit"></span><span class="point"></span></div>
 								</a>
-							</li>
-						{% else %}
-							<li class="menu-item animate-dropdown">
-								<a href="{{ url_for('commerce_auth.register') }}">
-									<div class="menu_icon">
-																			
-									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus">
-										<path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2">
-										</path>
-										<circle cx="8.5" cy="7" r="4">
-										</circle>
-										<line x1="20" y1="8" x2="20" y2="14">
-										</line>
-										<line x1="23" y1="11" x2="17" y2="11">
-										</line>
-										</svg>
-									</div>
-									<span>
-									{{_('Register')}}
-									</span>
-								</a>
-							</li>
-							<li class="menu-item animate-dropdown">
-								<a href="{{ url_for('commerce_auth.login') }}">
-									<div class="menu_icon">
-										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-in">
-										<path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4">
-										</path>
-										<polyline points="10 17 15 12 10 7">
-										</polyline>
-										<line x1="15" y1="12" x2="3" y2="12">
-										</line>
-										</svg>
-									</div>
-									<span>
-									{{_('Login')}}
-									</span>
-								</a>
-							</li>
-						{% endif %}
-						<li class="menu-item animate-dropdown dropdown language_" style="margin-top: auto;">
-							<a title="Dollar (US)" data-toggle="dropdown" href="javascript:void(0);" role="button">
-								<div class="menu_icon">
-																
-							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign">
-								<line x1="12" y1="1" x2="12" y2="23">
-								</line>
-								<path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6">
-								</path>
-								</svg>
-								</div>
-								<span>
-									{{ session.currency_code if session.currency_code else 'TMT' }}
-								</span>
-								<div class="notify"><span class="heartbit"></span><span class="point"></span></div>
-							</a>
-							<ul class="dropdown-menu slideUp2" style="z-index: 9999999; left: -57px;"> 
-								<li class="body">
-									<ul class="menu list-unstyled">
-										<li>
-											<a href="{{url_for('main.set_currency', currency_code='TMT')}}" class="dropdown-item">
-												TMT
-											</a>
-											<div class="dropdown-divider"></div>
-											<a href="{{url_for('main.set_currency', currency_code='USD')}}" class="dropdown-item">
-												USD
-											</a>
-										</li>
-									</ul>
-								</li>
-							</ul>
-						</li>
-						<li class="menu-item animate-dropdown dropdown language_" style="margin-top: auto;">
-							<a href="javascript:void(0);"  title="Language" data-toggle="dropdown" role="button">
-								<div class="menu_icon">
-									
-								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-globe">
-									<circle cx="12" cy="12" r="10">
-									</circle>
-									<line x1="2" y1="12" x2="22" y2="12">
-									</line>
-									<path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
-									</path>
-									</svg>
-								</div>
-								<div class="notify"><span class="heartbit"></span><span class="point"></span></div>
-							</a>
-							<ul class="dropdown-menu slideUp2" style="z-index: 9999999; left: -57px;"> 
-								<li class="body">
-									<ul class="menu list-unstyled">
-										<li>
-											<a href="{{ url_for('main.set_language',language='en') }}" class="dropdown-item">
-												<img loading="lazy" src="{{ url_for('static', filename='commerce/main/images/us.svg') }}" style="width: 30px">
-												English language
-											</a>
-											<div class="dropdown-divider"></div>
-											<a href="{{ url_for('main.set_language',language='tk') }}" class="dropdown-item">
-												<img loading="lazy" src="{{ url_for('static', filename='commerce/main/images/tm.svg') }}" style="width: 30px">
-												Türkmen dili
-											</a>
-											<div class="dropdown-divider"></div>
-											<a href="{{ url_for('main.set_language',language='ru') }}" class="dropdown-item">
-												<img loading="lazy" src="{{ url_for('static', filename='commerce/main/images/ru.svg') }}" style="width: 30px">
-												Русский язык
-											</a>
-										</li>
-									</ul>
-								</li>
-							</ul>
-						</li>
-					</ul>
-						
-				</div>
-		</div>
-
-		<header id="masthead" class="site-header header-v4">
-			<div class="col-full desktop-only">
-				<div class="techmarket-sticky-wrap">
-					<div class="row">
-						<div class="site-branding">
-							<a href="{{ url_for('commerce.commerce') }}" class="custom-logo-link" rel="home">
-								<img src="{{ url_for('static', filename='commerce/ls/img/ls_mini.svg') }}" alt="Lomay Sowda logo wholesale">
-							</a>
-						</div>
-						<div id="departments-menu" class="dropdown departments-menu">
-							<button class="btn dropdown-toggle btn-block" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<i class="tm tm-departments-thin"></i>
-								<span>{{_('Categories')}}</span>
-							</button>
-							<nav >
-								<ul id="menu-departments-menu" class="dropdown-menu yamm departments-menu-dropdown g-menu categorSize">
-									<li class=" li highlight menu-item animate-dropdown">
-										<a title="{{_('All')}}" href="{{url_for('commerce.v_grid')}}" style="display: flex">
-											<img class="img-fluid cat-icon" src="{{ url_for('static', filename='commerce/ls/img/icons/category.svg') }}" style="width: 25px; margin-right: 7px;">
-											{{_('All')}}
-										</a> 
+								<ul class="dropdown-menu slideUp2" style="z-index: 9999999; left: -57px;"> 
+									<li class="body">
+										<ul class="menu list-unstyled">
+											<li>
+												<a href="{{ url_for('main.set_language',language='en') }}" class="dropdown-item">
+													<img loading="lazy" src="{{ url_for('static', filename='commerce/main/images/us.svg') }}" style="width: 30px">
+													English language
+												</a>
+												<div class="dropdown-divider"></div>
+												<a href="{{ url_for('main.set_language',language='tk') }}" class="dropdown-item">
+													<img loading="lazy" src="{{ url_for('static', filename='commerce/main/images/tm.svg') }}" style="width: 30px">
+													Türkmen dili
+												</a>
+												<div class="dropdown-divider"></div>
+												<a href="{{ url_for('main.set_language',language='ru') }}" class="dropdown-item">
+													<img loading="lazy" src="{{ url_for('static', filename='commerce/main/images/ru.svg') }}" style="width: 30px">
+													Русский язык
+												</a>
+											</li>
+										</ul>
 									</li>
-									
-									{% for category in categories %}
-										<li class="li menu-item animate-dropdown {{ 'yamm-tfw menu-item-has-children dropdown-submenu' if category.Categories else 'highlight' }}">
-											<a title="{{ category.ResCatName }}" href="{{url_for('commerce.v_grid',ResCatId=category.ResCatId,ResCatName=category.ResCatName.replace('/','-').replace(' ','-'))}}" style="display: flex"
-												{% if category.Categories %} data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true" {% endif %}
-											>
-												<img class="img-fluid cat-icon" src="{{ category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static', filename='commerce/ls/img/icons/category.svg') }}" style="width: 25px; margin-right: 7px;">
-												{{ category.ResCatName }}
+								</ul>
+							</li>
+						</ul>
+							
+					</div>
+			</div>
 
-												{% if not category.Categories %}
-													</a>
-												{% elif category.Categories %}
-													<span class="caret"></span>
-													</a>
-													<ul role="menu" class=" dropdown-menu">
-														<li class="menu-item menu-item-object-static_block animate-dropdown">
-															<div class="yamm-content">
-																{% if category.FilePathS %}
+			<header id="masthead" class="site-header header-v4">
+				<div class="col-full desktop-only">
+					<div class="techmarket-sticky-wrap">
+						<div class="row">
+							<div class="site-branding">
+								<a href="{{ url_for('commerce.commerce') }}" class="custom-logo-link" rel="home">
+									<img src="{{ url_for('static', filename='commerce/ls/img/ls_mini.svg') }}" alt="Lomay Sowda logo wholesale">
+								</a>
+							</div>
+							<div id="departments-menu" class="dropdown departments-menu">
+								<button class="btn dropdown-toggle btn-block" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<i class="tm tm-departments-thin"></i>
+									<span>{{_('Categories')}}</span>
+								</button>
+								<nav >
+									<ul id="menu-departments-menu" class="dropdown-menu yamm departments-menu-dropdown g-menu categorSize">
+										<li class=" li highlight menu-item animate-dropdown">
+											<a title="{{_('All')}}" href="{{url_for('commerce.v_grid')}}" style="display: flex">
+												<img class="img-fluid cat-icon" src="{{ url_for('static', filename='commerce/ls/img/icons/category.svg') }}" style="width: 25px; margin-right: 7px;">
+												{{_('All')}}
+											</a> 
+										</li>
+										
+										{% for category in categories %}
+											<li class="li menu-item animate-dropdown {{ 'yamm-tfw menu-item-has-children dropdown-submenu' if category.Categories else 'highlight' }}">
+												<a title="{{ category.ResCatName }}" href="{{url_for('commerce.v_grid',ResCatId=category.ResCatId,ResCatName=category.ResCatName.replace('/','-').replace(' ','-'))}}" style="display: flex"
+													{% if category.Categories %} data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true" {% endif %}
+												>
+													<img class="img-fluid cat-icon" src="{{ category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static', filename='commerce/ls/img/icons/category.svg') }}" style="width: 25px; margin-right: 7px;">
+													{{ category.ResCatName }}
+
+													{% if not category.Categories %}
+														</a>
+													{% elif category.Categories %}
+														<span class="caret"></span>
+														</a>
+														<ul role="menu" class=" dropdown-menu">
+															<li class="menu-item menu-item-object-static_block animate-dropdown">
+																<div class="yamm-content">
+																	{% if category.FilePathS %}
+																	<div class="bg-yamm-content bg-yamm-content-bottom bg-yamm-content-right">
+																		<div class="kc-col-container">
+																			<div class="kc_single_image">
+																					<img src="{{ category.FilePathS }}" alt="Category section image" />
+																			</div>
+																		</div>
+																	</div>
+																	{% endif %}
 																<div class="bg-yamm-content bg-yamm-content-bottom bg-yamm-content-right">
 																	<div class="kc-col-container">
 																		<div class="kc_single_image">
-																				<img src="{{ category.FilePathS }}" alt="Category section image" />
+																				<img src="{{ url_for('static', filename='commerce/ls/img/megamenu.jpg') }}" alt="Category section image" />
 																		</div>
 																	</div>
 																</div>
-																{% endif %}
-															<div class="bg-yamm-content bg-yamm-content-bottom bg-yamm-content-right">
-																<div class="kc-col-container">
-																	<div class="kc_single_image">
-																			<img src="{{ url_for('static', filename='commerce/ls/img/megamenu.jpg') }}" alt="Category section image" />
-																	</div>
-																</div>
-															</div>
-															<div class="row yamm-content-row">
-																<div class="col-md-6 col-sm-12">
-																	<div class="kc-col-container">
-																		<div class="kc_text_block">
-																			<ul>
-																				{% for category in category.Categories %}
-																					<li>
-																						<a href="{{url_for('commerce.v_grid',ResCatId=category.ResCatId,ResCatName=category.ResCatName.replace('/','-').replace(' ','-'))}}" style="display: flex">
-																							<img class="img-fluid cat-icon" src="{{ category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static', filename='commerce/ls/img/icons/category.svg') }}" style="width: 25px; margin-right: 7px;">
-																							{{ category.ResCatName }}
-																						</a>
-																					</li>
-																				{% endfor %}
-																			</ul>
+																<div class="row yamm-content-row">
+																	<div class="col-md-6 col-sm-12">
+																		<div class="kc-col-container">
+																			<div class="kc_text_block">
+																				<ul>
+																					{% for category in category.Categories %}
+																						<li>
+																							<a href="{{url_for('commerce.v_grid',ResCatId=category.ResCatId,ResCatName=category.ResCatName.replace('/','-').replace(' ','-'))}}" style="display: flex">
+																								<img class="img-fluid cat-icon" src="{{ category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static', filename='commerce/ls/img/icons/category.svg') }}" style="width: 25px; margin-right: 7px;">
+																								{{ category.ResCatName }}
+																							</a>
+																						</li>
+																					{% endfor %}
+																				</ul>
+																			</div>
 																		</div>
 																	</div>
 																</div>
-															</div>
-														</li>
-													</ul>
-												{% endif %}
-											</li>
-											
-										{% endfor %}
-								</ul>
-								<div class="cart-overlay"></div>
-							</nav>
-						</div>
-
-						<!-- Navbar search -->
-						<form class="navbar-search" method="get" action="{{url_for('commerce.v_grid')}}">
-							<label class="sr-only screen-reader-text" for="search">{{_('Search')}}</label>
-							<div class="input-group">
-								<input type="text" id="search" class="form-control search-field product-search-field" dir="ltr" value="" name="search" placeholder="{{_('Search')}}" />
-								<div class="input-group-addon search-categories popover-header">
-									<select name='category' id='product_cat' class='postform resizeselect'>
-										<option value='0' selected='selected'>{{_('All')}}</option>
-										{% for category in categories %}
-											<option class="level-0" value="{{category.ResCatId}}">{{ category.ResCatName }}</option>
-										{% endfor %}
-									</select>
-								</div>
-								<div class="input-group-btn input-group-append">
-									<button type="submit" class="btn btn-primary">
-										<i class="fa fa-search"></i>
-										<span class="search-btn">{{_('Search')}}</span>
-									</button>
-								</div>
+															</li>
+														</ul>
+													{% endif %}
+												</li>
+												
+											{% endfor %}
+									</ul>
+									<div class="cart-overlay"></div>
+								</nav>
 							</div>
-						</form>
 
-						<!-- Wishlist -->
-						<ul class="header-wishlist nav navbar-nav">
-							<li class="nav-item">
-								<a href="{{ url_for('commerce_users.wishlist') }}" class="nav-link">
-									<i class="tm tm-favorites"></i>
-								</a>
-							</li>
-						</ul>
+							<!-- Navbar search -->
+							<form class="navbar-search" method="get" action="{{url_for('commerce.v_grid')}}">
+								<label class="sr-only screen-reader-text" for="search">{{_('Search')}}</label>
+								<div class="input-group">
+									<input type="text" id="search" class="form-control search-field product-search-field" dir="ltr" value="" name="search" placeholder="{{_('Search')}}" />
+									<div class="input-group-addon search-categories popover-header">
+										<select name='category' id='product_cat' class='postform resizeselect'>
+											<option value='0' selected='selected'>{{_('All')}}</option>
+											{% for category in categories %}
+												<option class="level-0" value="{{category.ResCatId}}">{{ category.ResCatName }}</option>
+											{% endfor %}
+										</select>
+									</div>
+									<div class="input-group-btn input-group-append">
+										<button type="submit" class="btn btn-primary">
+											<i class="fa fa-search"></i>
+											<span class="search-btn">{{_('Search')}}</span>
+										</button>
+									</div>
+								</div>
+							</form>
 
-						<ul id="site-header-cart" class="site-header-cart menu">
-							<li class="animate-dropdown dropdown cart-dropdown">
-								<a class="cart-contents" id="cart" data-toggle="dropdown" title="View your shopping cart">
-									<i class="tm tm-shopping-bag"></i>
-									<span class="count cartItemsFullQty">0</span>
-									<span class="amount">
-										<span class="cartTotalPrice">0.00</span>
-										<span class="woocommerce-Price-currencySymbol">
-											{{ session.currency_code if session.currency_code else 'TMT' }}
+							<!-- Wishlist -->
+							<ul class="header-wishlist nav navbar-nav">
+								<li class="nav-item">
+									<a href="{{ url_for('commerce_users.wishlist') }}" class="nav-link">
+										<i class="tm tm-favorites"></i>
+									</a>
+								</li>
+							</ul>
+
+							<ul id="site-header-cart" class="site-header-cart menu">
+								<li class="animate-dropdown dropdown cart-dropdown">
+									<a class="cart-contents" id="cart" data-toggle="dropdown" title="View your shopping cart">
+										<i class="tm tm-shopping-bag"></i>
+										<span class="count cartItemsFullQty">0</span>
+										<span class="amount">
+											<span class="cartTotalPrice">0.00</span>
+											<span class="woocommerce-Price-currencySymbol">
+												{{ session.currency_code if session.currency_code else 'TMT' }}
+											</span>
 										</span>
-									</span>
-								</a>
-								<ul class="shopping-cart dropdown-menu dropdown-menu-mini-cart">
-									<li>
-										<div class="widget woocommerce widget_shopping_cart">
-											<div class="widget_shopping_cart_content">
-												<ul class="woocommerce-mini-cart cart_list product_list_widget cartItemsList"></ul>
-												<p class="woocommerce-mini-cart__total total">
-													<strong>{{_('Total')}}:</strong>
-													<span class="woocommerce-Price-amount amount cartTotalPrice">
-														0.00
-													</span>
-													<span class="woocommerce-Price-currencySymbol">
-														{{ session.currency_code if session.currency_code else 'TMT' }}
-													</span>
-												</p>
-												<div class="woocommerce-mini-cart__buttons buttons">
-													<a href="{{ url_for('commerce.cart') }}" class="button wc-forward">{{_('View cart')}}</a>
-													<a class="button wc-forward clearCartBtn"><i class="fa fa-fw fa-trash-o"></i></a>
+									</a>
+									<ul class="shopping-cart dropdown-menu dropdown-menu-mini-cart">
+										<li>
+											<div class="widget woocommerce widget_shopping_cart">
+												<div class="widget_shopping_cart_content">
+													<ul class="woocommerce-mini-cart cart_list product_list_widget cartItemsList"></ul>
+													<p class="woocommerce-mini-cart__total total">
+														<strong>{{_('Total')}}:</strong>
+														<span class="woocommerce-Price-amount amount cartTotalPrice">
+															0.00
+														</span>
+														<span class="woocommerce-Price-currencySymbol">
+															{{ session.currency_code if session.currency_code else 'TMT' }}
+														</span>
+													</p>
+													<div class="woocommerce-mini-cart__buttons buttons">
+														<a href="{{ url_for('commerce.cart') }}" class="button wc-forward">{{_('View cart')}}</a>
+														<a class="button wc-forward clearCartBtn"><i class="fa fa-fw fa-trash-o"></i></a>
+													</div>
 												</div>
 											</div>
-										</div>
-									</li>
-								</ul>
-							</li>
-						</ul>
-						<div class="shopping-cart-overlay"></div>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<div class="shopping-cart-overlay"></div>
+						</div>
 					</div>
 				</div>
-			</div>
 
-		</header>
+			</header>
 
-		{% block breadcrumbs %}{% endblock %}
+			{% block breadcrumbs %}{% endblock %}
 
-		{% with messages = get_flashed_messages(with_categories=true) %}
-		{% if messages %}
-			{% for category, message in messages %}
-			<div class="alert alert-{{ category }} alert-dismissible show fade" style="margin: auto; height: 10%; opacity: 1; width: 95%; overflow: auto; text-align: center;">
-				<div class="alert-body" style="padding-top: 5px;">
-					<button class="close" data-dismiss="alert">
-						<span style="float: right;">×</span>
-					</button>
-					{{ message }}
+			{% with messages = get_flashed_messages(with_categories=true) %}
+			{% if messages %}
+				{% for category, message in messages %}
+				<div class="alert alert-{{ category }} alert-dismissible show fade" style="margin: auto; height: 10%; opacity: 1; width: 95%; overflow: auto; text-align: center;">
+					<div class="alert-body" style="padding-top: 5px;">
+						<button class="close" data-dismiss="alert">
+							<span style="float: right;">×</span>
+						</button>
+						{{ message }}
+					</div>
 				</div>
+				{% endfor %}
+			{% endif %}
+			{% endwith %}
+
+
+			{% block content %}{% endblock %}
+
 			</div>
-			{% endfor %}
-		{% endif %}
-		{% endwith %}
-
-
-		{% block content %}{% endblock %}
-
-		
 		<footer class="site-footer footer-v1">
 			<div class="col-full">
 				<div class="footer-widgets-block">
@@ -433,7 +400,7 @@
 												{% if company.Phone1 %}
 													<div class="pulse">
 														<a href="tel:{{company.Phone1}}">
-															<i class="fa fa-fw fa-phone"></i>
+															<img src="{{ url_for('static', filename='commerce/ls/images/phone-call.svg') }}" alt="LS" style="width: 35px;">
 														</a>
 													</div>
 													<a href="tel:{{company.Phone1}}">{{company.Phone1}}</a>
@@ -461,7 +428,7 @@
 											{% if company.CEmail %}
 												<div class="pulse">
 													<a href="mailto:{{company.CEmail}}">
-														<i class="fa fa-fw fa-envelope-o"></i>
+														<img src="{{ url_for('static', filename='commerce/ls/img/gmail.svg') }}" alt="LS" style="width: 35px;">
 													</a>
 												</div>
 												<span class="adresss">{{_('Email')}}</span>

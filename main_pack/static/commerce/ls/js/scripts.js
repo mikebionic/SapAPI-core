@@ -1591,7 +1591,7 @@ function slideCategoryByPathname() {
 	var current_path = location.pathname;
 	pathnames.forEach(function (item, index) {
 		if (item == current_path){
-			slideCategoryDown()
+			// slideCategoryDown()
 		}
 	});
 }
