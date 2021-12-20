@@ -35646,7 +35646,7 @@ input:checked ~ .tab-content{
 }
 .home-category {
 	display: flex;
-  width: 93%;
+  width: 100%;
 }
 
 .home-category .hide {
@@ -40346,7 +40346,7 @@ a.ui2-button-normal:hover,a.ui2-button-primary:hover,a.ui2-button-secondary:hove
 		}
 }
  .right_banner{
-  padding-bottom: 12px;
+  padding-bottom: 15px;
   padding-left: 6px;
 }
 @media (max-width: 1321px){
