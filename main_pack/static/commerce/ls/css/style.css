@@ -40389,7 +40389,7 @@ a.ui2-button-normal:hover,a.ui2-button-primary:hover,a.ui2-button-secondary:hove
 }
 @media (min-width: 1110px) and (max-width: 1399px){
   .left-market{
-    height:400px;
+    height:320px;
     overflow: auto;
   }
 }
