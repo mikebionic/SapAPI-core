@@ -42,29 +42,19 @@
 								
 								<a href="{{ url_for('commerce.commerce') }}">
 									<div class="menu_icon">
-										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
-											<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z">
-											</path>
-											<polyline  points="9 22 9 12 15 12 15 22">
-											</polyline>
-											</svg>
-										</div>
+										<img src="{{ url_for('static', filename='commerce/ls/img/icons/homepage.svg') }}">
+									</div>
 									<span>
 										{{_('Main')}}
 									</span>
 								</a>
 							</li>
+							
 							{% if current_user.is_authenticated %}
 								<li class="menu-item animate-dropdown">
 									<a href="{{ url_for('commerce_users.profile') }}">
 										<div class="menu_icon">
-											
-										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
-											<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2">
-											</path>
-											<circle cx="12" cy="7" r="4">
-											</circle>
-											</svg>
+											<img src="{{ url_for('static', filename='commerce/ls/img/icons/profile.svg') }}">
 										</div>
 										<span>
 											{{_('Profile')}}
@@ -74,14 +64,7 @@
 								<li class="menu-item animate-dropdown">
 									<a href="{{ url_for('commerce_auth.logout') }}">
 										<div class="menu_icon">
-										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out">
-											<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4">
-											</path>
-											<polyline points="16 17 21 12 16 7">
-											</polyline>
-											<line x1="21" y1="12" x2="9" y2="12">
-											</line>
-											</svg>
+											<img src="{{ url_for('static', filename='commerce/ls/img/icons/logout.svg') }}">
 										</div>
 										<span>
 											{{_('Log out')}}
@@ -93,15 +76,7 @@
 									<a href="{{ url_for('commerce_auth.register') }}">
 										<div class="menu_icon">
 																				
-										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus">
-											<path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2">
-											</path>
-											<circle cx="8.5" cy="7" r="4">
-											</circle>
-											<line x1="20" y1="8" x2="20" y2="14">
-											</line>
-											<line x1="23" y1="11" x2="17" y2="11">
-											</line>
+											<img src="{{ url_for('static', filename='commerce/ls/img/icons/register.svg') }}">
 											</svg>
 										</div>
 										<span>
@@ -112,14 +87,7 @@
 								<li class="menu-item animate-dropdown">
 									<a href="{{ url_for('commerce_auth.login') }}">
 										<div class="menu_icon">
-											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-in">
-											<path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4">
-											</path>
-											<polyline points="10 17 15 12 10 7">
-											</polyline>
-											<line x1="15" y1="12" x2="3" y2="12">
-											</line>
-											</svg>
+											<img src="{{ url_for('static', filename='commerce/ls/img/icons/login.svg') }}">
 										</div>
 										<span>
 										{{_('Login')}}
@@ -129,8 +97,8 @@
 							{% endif %}
 							<li class="menu-item animate-dropdown dropdown language_" style="margin-top: auto;">
 								<a title="Dollar (US)" data-toggle="dropdown" href="javascript:void(0);" role="button">
-									<div class="menu_icon">
-										<img src="{{ url_for('static', filename='commerce/ls/images/dollar-sign.svg') }}" alt="">
+									<div class="menu_iconn">
+										<img src="{{ url_for('static', filename='commerce/ls/img/icons/wallet.svg') }}">
 									</div>
 									<span>
 										{{ session.currency_code if session.currency_code else 'TMT' }}
@@ -155,16 +123,9 @@
 							</li>
 							<li class="menu-item animate-dropdown dropdown language_" style="margin-top: auto;">
 								<a href="javascript:void(0);"  title="Language" data-toggle="dropdown" role="button">
-									<div class="menu_icon">
+									<div class="menu_iconn">
 										
-									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-globe">
-										<circle cx="12" cy="12" r="10">
-										</circle>
-										<line x1="2" y1="12" x2="22" y2="12">
-										</line>
-										<path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
-										</path>
-										</svg>
+										<img src="{{ url_for('static', filename='commerce/ls/img/icons/language.svg') }}">
 									</div>
 									<div class="notify"><span class="heartbit"></span><span class="point"></span></div>
 								</a>
@@ -214,7 +175,7 @@
 									<ul id="menu-departments-menu" class="dropdown-menu yamm departments-menu-dropdown g-menu categorSize">
 										<li class=" li highlight menu-item animate-dropdown">
 											<a title="{{_('All')}}" href="{{url_for('commerce.v_grid')}}" style="display: flex">
-												<img class="img-fluid cat-icon" src="{{ url_for('static', filename='commerce/ls/img/icons/category.svg') }}" style="width: 25px; margin-right: 7px;">
+												<img class="img-fluid cat-icon" src="{{ url_for('static', filename='commerce/ls/img/icons/all.svg') }}" style="width: 25px; margin-right: 7px;">
 												{{_('All')}}
 											</a> 
 										</li>
@@ -224,7 +185,7 @@
 												<a title="{{ category.ResCatName }}" href="{{url_for('commerce.v_grid',ResCatId=category.ResCatId,ResCatName=category.ResCatName.replace('/','-').replace(' ','-'))}}" style="display: flex"
 													{% if category.Categories %} data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true" {% endif %}
 												>
-													<img class="img-fluid cat-icon" src="{{ category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static', filename='commerce/ls/img/icons/category.svg') }}" style="width: 25px; margin-right: 7px;">
+													<img class="img-fluid cat-icon" src="{{ category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static', filename='commerce/ls/img/icons/all.svg') }}" style="width: 25px; margin-right: 7px;">
 													{{ category.ResCatName }}
 
 													{% if not category.Categories %}
@@ -259,7 +220,7 @@
 																					{% for category in category.Categories %}
 																						<li>
 																							<a href="{{url_for('commerce.v_grid',ResCatId=category.ResCatId,ResCatName=category.ResCatName.replace('/','-').replace(' ','-'))}}" style="display: flex">
-																								<img class="img-fluid cat-icon" src="{{ category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static', filename='commerce/ls/img/icons/category.svg') }}" style="width: 25px; margin-right: 7px;">
+																								<img class="img-fluid cat-icon" src="{{ category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static', filename='commerce/ls/img/icons/all.svg') }}" style="width: 25px; margin-right: 7px;">
 																								{{ category.ResCatName }}
 																							</a>
 																						</li>
@@ -374,7 +335,6 @@
 
 			{% block content %}{% endblock %}
 
-			</div>
 		<footer class="site-footer footer-v1">
 			<div class="col-full">
 				<div class="footer-widgets-block">
@@ -400,7 +360,7 @@
 												{% if company.Phone1 %}
 													<div class="pulse">
 														<a href="tel:{{company.Phone1}}">
-															<img src="{{ url_for('static', filename='commerce/ls/images/phone-call.svg') }}" alt="LS" style="width: 35px;">
+															<img src="{{ url_for('static', filename='commerce/ls/img/phone-call.svg') }}" alt="LS" style="width: 35px;">
 														</a>
 													</div>
 													<a href="tel:{{company.Phone1}}">{{company.Phone1}}</a>

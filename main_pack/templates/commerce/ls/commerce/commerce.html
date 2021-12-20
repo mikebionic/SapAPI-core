@@ -43,12 +43,12 @@
 							{% for slider in sliders %}
 							{% if slider.SlName == "sidebar_banner" %}
 								<div class="col col-right">   
-									<div class="ta-promotion row-content">
-										<div class="ta-promotion-list">
+									<!-- <div class="ta-promotion row-content">
+										<div class="ta-promotion-list"> -->
 											{% for sl_image in slider.Sl_images %}
 											{% if sl_image.SlImgMainImgFilePathS %}
 											<div class="right_banner">
-												<a href="{{url_for('commerce.v_grid')}}" class="ta-promotion-item zoom-wrap">
+												<a href="{{url_for('commerce.v_grid')}}">
 													<img loading="lazy"  src="{{ sl_image.SlImgMainImgFilePathM }}"
 													data-src-m="{{ sl_image.SlImgMainImgFilePathR }}"
 													alt="banner {{ sl_image.SlImgMainImgFileName }} {{ company.CName }}">
@@ -56,8 +56,8 @@
 											</div>
 											{% endif %}
 											{% endfor %}
-										</div>
-									</div>
+										<!-- </div>
+									</div> -->
 								</div>					
 							{% endif %}
 							{% endfor %}
@@ -73,7 +73,7 @@
 												<div class="category-item">
 													<div style="height:32px">
 														<span class="img">
-															<img class="img-fluid cat-icon" src="{{ url_for('static', filename='commerce/ls/img/icons/category.svg') }}">
+															<img class="img-fluid cat-icon" src="{{ url_for('static', filename='commerce/ls/img/icons/all.svg') }}">
 														</span>
 														<span class="txt">{{_('All')}}</span>
 													</div>
@@ -87,7 +87,7 @@
 												<div class="category-item">
 													<div style="height:32px">
 														<span class="img">
-															<img class="img-fluid cat-icon" src="{{ category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static', filename='commerce/ls/img/icons/category.svg') }}" style="width: 25px; margin-right: 7px;">
+															<img class="img-fluid cat-icon" src="{{ category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static', filename='commerce/ls/img/icons/all.svg') }}" style="width: 25px; margin-right: 7px;">
 														</span>
 														<span class="txt">	{{ category.ResCatName }}</span>
 													</div>
@@ -133,7 +133,7 @@
 									{% for category in Featured_categories %}
 										<li class="slider-container__tab-item button type2 featrued-cat-btn" data-tab=".tab-{{ category.ResCatId }}">
 											<img loading="lazy" class="cat-icon"
-											src="{{ category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static',filename='commerce/ls/img/icons/category.svg') }}">
+											src="{{ category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static',filename='commerce/ls/img/icons/all.svg') }}">
 											{{ category.ResCatName }}
 										</li>
 									{% endfor %}
