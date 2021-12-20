@@ -147,6 +147,7 @@ def api_res_prices():
 		failed_data = [] 
 
 		for res_price_req in req:
+			res_price_info = {}
 			res_price_info = addResPriceDict(res_price_req)
 			try:
 				ResRegNo = res_price_req['ResRegNo']
@@ -193,6 +194,8 @@ def api_res_prices():
 			except Exception as ex:
 				print(f"{datetime.now()} | Res_price Api Exception: {ex}")
 				failed_data.append(res_price_req)
+
+			res_price_info.clear()
 
 		db.session.commit()
 		cache.clear()
