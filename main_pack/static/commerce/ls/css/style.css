@@ -35645,7 +35645,8 @@ input:checked ~ .tab-content{
     padding: 0 4px
 }
 .home-category {
-	display: flex
+	display: flex;
+  width: 93%;
 }
 
 .home-category .hide {
@@ -40356,6 +40357,42 @@ a.ui2-button-normal:hover,a.ui2-button-primary:hover,a.ui2-button-secondary:hove
 .right_banner a{
   height: 100%
 }
+@media (min-width: 2135px) and (max-width: 2560px){
+  .left-market{
+    height:600px;
+    overflow: auto;
+  }
+}
+@media (min-width: 1805px) and (max-width: 2135px){
+  .left-market{
+    height:500px;
+    overflow: auto;
+  }
+}
+@media (min-width: 1420px) and (max-width: 1805px){
+  .left-market{
+    height:400px;
+    overflow: auto;
+  }
+}
+@media (min-width: 1400px) and (max-width: 1420px){
+  .left-market{
+    height:350px;
+    overflow: auto;
+  }
+}
+@media (min-width: 1200px) and (max-width: 1321px){
+  .left-market{
+    height:500px;
+    overflow: auto;
+  }
+}
+@media (min-width: 1110px) and (max-width: 1399px){
+  .left-market{
+    height:400px;
+    overflow: auto;
+  }
+}
 /* .right_banner img{
   position:absolute
 } */
@@ -40366,3 +40403,7 @@ a.ui2-button-normal:hover,a.ui2-button-primary:hover,a.ui2-button-secondary:hove
 /* .boxed_commerce{
   margin: 0 70px
 } */
+
+.category-left{
+  width:100%
+}
