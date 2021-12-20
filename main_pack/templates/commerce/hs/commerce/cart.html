@@ -4,7 +4,7 @@
 	<div class="container">
 		<div class="breadcrumb-content text-center">
 			<h2>{{_('Cart')}}</h2>
-			<ul> 
+			<ul>
 				<li>
 					<a href="{{ url_for('commerce.commerce') }}">{{_('Main')}}</a>
 				</li>
@@ -13,7 +13,7 @@
 		</div>
 	</div>
 </div>
-{% endblock %} 
+{% endblock %}
 
 {% block content %}
 	<div class="cart-main-area pt-85 pb-90">
@@ -68,28 +68,24 @@
 												</tr>
 											</tbody>
 										</table>
-										{% if current_user.is_authenticated %}
+
+
+
 										<div class="tabs">
-											<div class="tab-content">
-												<div class="d-block my-3 paymentMethods">
-													{% for payment_method in payment_methods %}
-														{% if payment_method.PmId != 2 %}
-														<div class="custom-control custom-radio">
-															<input id="{{ payment_method.PmName }}" name="paymentMethod" type="radio" class="custom-control-input" value="{{ payment_method.PmId }}" required>
-															<label class="custom-control-label" for="{{ payment_method.PmName }}">
-															{{ payment_method.PmName }}
-																<p>{{ payment_method.PmDesc }}</p>
-															</label>
-														</div>
-														{% endif %}
-													{% endfor %}
-												</div>
-											</div>
-											
-											<div class="checkoutForm" style="display: none;">
+											<div class="checkoutForm">
 												<div class="contact-form">
-													<label for="message">{{_('Note')}}<span>{{_('Type your address')}}</span></label>
-													<textarea id="message" class="orderDesc" type="text" placeholder="{{_('Description')}} ({{_('City')}}, {{_('Av.')}}, {{_('Street')}}, {{_('House')}}, {{_('Flat')}})"></textarea>
+													<div style="margin-bottom: 1rem">
+														<p>{{_('Phone number')}}<span style="color:red"> *</span></p>
+														<input inputmode="tel" placeholder="{{_('Phone number')}} : +99361234567" class='input-text' id="phone-number" required />
+													</div>
+
+													<div style="margin-bottom: 1rem">
+														<p>{{_('Name')}}<span style="color:red"> *</span></p>
+														<input inputmode="text" placeholder="{{_('Name')}}" class='input-text' id="username" required />
+													</div>
+
+													<label for="message">{{_('Note')}}<span>{{_('Type your address')}}!!</span></label>
+													<textarea id="message" class="orderDesc" type="text" placeholder="{{_('Description')}} {{_('Phone number')}} {{_('Address')}} ({{_('City')}}, {{_('Av.')}}, {{_('Street')}}, {{_('House')}}, {{_('Flat')}})"></textarea>
 												</div>
 												<a class="checkout-button bg-red button alt wc-forward checkoutCartBtn">
 													{{_('Checkout')}}
@@ -102,22 +98,9 @@
 												</div>
 											</div>
 										</div>
-									
 
-									{% else %}
-										<h5>{{_('You should login if you want to checkout an order')}}!</h5>
-										<div class="cart-summary-button pro-details-buy-now btn-hover btn-hover-radious">
-											<a href="{{ url_for('commerce_auth.login') }}">
-											<i class="las la-sign-in-alt"></i><span class="login-text">{{_('Login')}}</span>
-											</a>
-											<div class="feature feature-shipping">
-												<div class="feature-wrap">
-													<div class="icon"><img loading="lazy" src="{{ url_for('static', filename='commerce/hs/images/icons/delivery.svg') }}"></div>
-													<h4>{{ company.CAddress if company.CAddress else '130 manatdan kop sargasanyz eltip bermek hyzmaty mugt' }}</h4>
-												</div>
-											</div>
-										</div>
-									{% endif %}
+
+
 									</div>
 								</div>
 							</div>
