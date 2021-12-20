@@ -34962,7 +34962,7 @@ input:checked ~ .tab-content{
   .main-content{
     padding: 100px 60px 0 60px;
     background-size: cover;
-    background-image: url(../images/1.jpg);
+    background-image: url(../images/1.svg);
   }
   .what-do-we-do{
     padding:0 60px 15px 60px;
@@ -40371,13 +40371,13 @@ a.ui2-button-normal:hover,a.ui2-button-primary:hover,a.ui2-button-secondary:hove
 }
 @media (min-width: 1420px) and (max-width: 1805px){
   .left-market{
-    height:400px;
+    height:350px;
     overflow: auto;
   }
 }
 @media (min-width: 1400px) and (max-width: 1420px){
   .left-market{
-    height:350px;
+    height:330px;
     overflow: auto;
   }
 }
