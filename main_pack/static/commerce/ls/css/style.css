@@ -30117,6 +30117,7 @@ input:checked ~ .tab-content{
   font-size: 24px;
   line-height: 20px;
   margin-bottom: 14px;
+  padding-top: 10px;
 }
 
 @media (min-width:980px) and (max-width:991px){
@@ -35656,8 +35657,8 @@ input:checked ~ .tab-content{
 	align-items: center
 }
 .left-market{
-  /* height: 294px;
-  overflow: auto; */
+  height: 300px;
+  overflow: auto;
   font-family: 'Poppins'
 }
 
