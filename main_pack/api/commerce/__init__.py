@@ -4,6 +4,7 @@ api = Blueprint('commerce_api', __name__)
 
 from . import (
 	category_api,
+	category_icons,
 	barcode_api,
 	image_api,
 	res_price_api,

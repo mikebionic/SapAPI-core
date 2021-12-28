@@ -1,4 +1,4 @@
-from main_pack.models import Rp_acc
+from main_pack.models import Rp_acc, User
 
 def get_UserId_and_RpAccId_from_login_and_uuid_info(
 	model_type,
@@ -9,14 +9,20 @@ def get_UserId_and_RpAccId_from_login_and_uuid_info(
 
 	try:
 		if model_type == "rp_acc":
-			UserModel = current_user.user
+			if not current_user.user:
+				UserModel = User.query.filter_by(UTypeId = 1).first()
+			else:
+				UserModel = current_user.user
 			user_id = UserModel.UId
 			user_short_name = UserModel.UShortName
 			RpAccId = current_user.RpAccId
 			RpAccModel = current_user
 
 		if model_type == "device":
-			UserModel = current_user.user
+			if not current_user.user:
+				UserModel = User.query.filter_by(UTypeId = 1).first()
+			else:
+				UserModel = current_user.user
 			model_type = "user"
 
 		if model_type == "user":
