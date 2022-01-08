@@ -170,7 +170,6 @@ json_resource = {
             'resourceHeight':self.ResHeight,
             'resourceLength':self.ResLength,
             'resourceWeight':self.ResWeight,
-            'resourceOnSale':self.ResProductionOnSale,
             'resourceMinSaleAmount':self.ResMinSaleAmount,
             'resourceMaxSaleAmount':self.ResMaxSaleAmount,
             'resourceMinSalePrice':self.ResMinSalePrice,

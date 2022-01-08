@@ -30,7 +30,6 @@ class Resource(AddInf, BaseModel, db.Model):
 	ResHeight = db.Column("ResHeight",db.Float,default=0.0)
 	ResLength = db.Column("ResLength",db.Float,default=0.0)
 	ResWeight = db.Column("ResWeight",db.Float,default=0.0)
-	ResProductionOnSale = db.Column("ResProductionOnSale",db.Boolean,default=False)
 	ResMinSaleAmount = db.Column("ResMinSaleAmount",db.Float,default=0.0)
 	ResMaxSaleAmount = db.Column("ResMaxSaleAmount",db.Float,default=0.0)
 	ResMinSalePrice = db.Column("ResMinSalePrice",db.Float,default=0.0)
@@ -84,7 +83,6 @@ class Resource(AddInf, BaseModel, db.Model):
 			"ResHeight": configureFloat(self.ResHeight),
 			"ResLength": configureFloat(self.ResLength),
 			"ResWeight": configureFloat(self.ResWeight),
-			"ResProductionOnSale": self.ResProductionOnSale,
 			"ResMinSaleAmount": configureFloat(self.ResMinSaleAmount),
 			"ResMaxSaleAmount": configureFloat(self.ResMaxSaleAmount),
 			"ResMinSalePrice": configureFloat(self.ResMinSalePrice),
