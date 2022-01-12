@@ -196,7 +196,6 @@ def addResourceDict(req):
 	ResHeight = configureFloat(req.get('ResHeight'))
 	ResLength = configureFloat(req.get('ResLength'))
 	ResWeight = configureFloat(req.get('ResWeight'))
-	ResProductionOnSale = boolCheck(req.get('ResProductionOnSale'))
 	ResMinSaleAmount = configureFloat(req.get('ResMinSaleAmount'))
 	ResMaxSaleAmount = configureFloat(req.get('ResMaxSaleAmount'))
 	ResMinSalePrice = configureFloat(req.get('ResMinSalePrice'))
@@ -234,7 +233,6 @@ def addResourceDict(req):
 		"ResHeight": ResHeight,
 		"ResLength": ResLength,
 		"ResWeight": ResWeight,
-		"ResProductionOnSale": ResProductionOnSale,
 		"ResMinSaleAmount": ResMinSaleAmount,
 		"ResMaxSaleAmount": ResMaxSaleAmount,
 		"ResMinSalePrice": ResMinSalePrice,
