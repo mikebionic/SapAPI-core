@@ -14,7 +14,7 @@ from main_pack.api.common import configurePhoneNumber
 from main_pack.base import log_print
 
 
-@api.route('/login/',methods=['GET','POST'])
+@api.route('/login/')
 def api_login():
 	login_method = request.args.get("method","username",type=str)
 	auth_type = request.args.get("type","user",type=str)

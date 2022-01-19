@@ -1,4 +1,5 @@
 
+from main_pack.api.v1.order_inv_api.utils.send_order_to_server import send_order_to_sync
 from main_pack.models.Rp_acc import Rp_acc
 from main_pack.base.cryptographyMethods import encodeJWT
 import uuid
@@ -9,6 +10,8 @@ from main_pack.models import Register_request
 from main_pack import db
 from main_pack.config import Config
 
+
+from main_pack.base import generate_random_code
 from main_pack.api.common import configurePhoneNumber
 
 
@@ -79,7 +82,7 @@ def register_phone_number(phone_number):
 			).first()
 		
 		if registered_phone_rp_acc:
-			message = f"Phone number is already taken"
+			message = f"Phone number {phone_number} is already taken"
 			log_print(f"{message}: {PhoneNumber}", "warning")
 			raise Exception
 
@@ -89,8 +92,10 @@ def register_phone_number(phone_number):
 				GCRecord = None)\
 			.first()
 
+		verify_code = generate_random_code()
 		should_register = True
 		if existing_register_request:
+			existing_register_request.RegReqVerifyCode = verify_code
 			existing_register_request.RegReqVerified = 0
 			existing_register_request.RegReqExpDate = datetime.now() + timedelta(minutes=Config.REGISTER_REQUEST_EXPIRE_TIME_MINUTES)
 			db.session.commit()
@@ -101,6 +106,7 @@ def register_phone_number(phone_number):
 			new_register_request_data = {
 				"RegReqGuid": uuid.uuid4(),
 				"RegReqPhoneNumber": PhoneNumber,
+				"RegReqVerifyCode": verify_code,
 				"RegReqVerified": 0,
 				"RegReqExpDate": datetime.now() + timedelta(minutes=Config.REGISTER_REQUEST_EXPIRE_TIME_MINUTES)
 			}
@@ -111,11 +117,23 @@ def register_phone_number(phone_number):
 
 		if data:
 			data["validator_phone_number"] = Config.REGISTER_REQUEST_VALIDATOR_PHONE_NUMBER
+			data["RegReqVerifyCode"] = ""
+			send_sms_register_api_request(PhoneNumber, verify_code)
 
 	except Exception as ex:
 		log_print(f"Register phone number exception: {ex}", 'warning')
 
 	return data, message
+
+def send_sms_register_api_request(phone_number, verify_code):
+	send_order_to_sync(
+		payload={
+			"phone_number": phone_number,
+			"verify_code": verify_code
+		},
+		url_path=Config.SMS_SYNCH_URL_PATH
+	)
+	return
 
 def check_phone_number_register(phone_number):
 	data, message = {}, ""
