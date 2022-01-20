@@ -35551,16 +35551,6 @@ input:checked ~ .tab-content{
     position: relative;
     vertical-align: middle;
 }
-.home-category .category-left span.img::after {
-    border-radius:20px;
-    position: absolute;
-    content: '';
-    background: rgba(0, 0, 0, 0.05);
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-}
 .category-item img{
     width:27px;
     height:100%;
