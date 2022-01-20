@@ -14,7 +14,7 @@ from main_pack.models import Res_price, Resource, Res_price_group
 
 from main_pack.api.auth.utils import sha_required, token_required
 from main_pack.api.base.validators import request_is_json
-from main_pack.base.priceMethods import calculatePriceByGroup
+from main_pack.base.priceMethods import calculatePriceByGroup, price_currency_conversion
 from main_pack.base.apiMethods import checkApiResponseStatus
 
 
@@ -66,6 +66,16 @@ def get_res_prices(
 			res_price_info = List_Res_price[0]
 			res_price_info["ResGuid"] = res_price.resource.ResGuid if res_price.resource and not res_price.resource.GCRecord else None
 			res_price_info["ResRegNo"] = res_price.resource.ResRegNo if res_price.resource and not res_price.resource.GCRecord else None
+			
+			this_currencyCode = Config.MAIN_CURRENCY_CODE
+			currency_code = Config.DEFAULT_VIEW_CURRENCY_CODE
+			this_priceValue = List_Res_price[0]["ResPriceValue"] if List_Res_price else 0.0
+			price_data = price_currency_conversion(
+				priceValue = this_priceValue,
+				from_currency = this_currencyCode,
+				to_currency = currency_code)
+			res_price_info["ResPriceValue"] = price_data["ResPriceValue"]
+
 			data.append(res_price_info)
 
 		except Exception as ex:
