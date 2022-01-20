@@ -1,5 +1,4 @@
 
-from main_pack.api.v1.order_inv_api.utils.send_order_to_server import send_order_to_sync
 from main_pack.models.Rp_acc import Rp_acc
 from main_pack.base.cryptographyMethods import encodeJWT
 import uuid
@@ -13,6 +12,7 @@ from main_pack.config import Config
 
 from main_pack.base import generate_random_code
 from main_pack.api.common import configurePhoneNumber
+from main_pack.api.common import send_data_to_sync_server
 
 
 def login_phone_number(phone_number):
@@ -126,7 +126,7 @@ def register_phone_number(phone_number):
 	return data, message
 
 def send_sms_register_api_request(phone_number, verify_code):
-	send_order_to_sync(
+	send_data_to_sync_server(
 		payload={
 			"phone_number": phone_number,
 			"verify_code": verify_code
