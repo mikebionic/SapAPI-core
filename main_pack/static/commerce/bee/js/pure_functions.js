@@ -114,7 +114,7 @@ function checkoutCart(payload_data, url, type){
 				swal(title='', message=response.responseText, style='success');
 				clearCart();
 				setTimeout(function(){
-					window.location.href = `${url_prefix}/orders`;
+					window.location.href = `${url_prefix}/`;
 				}, 5000);
 			}
 			else{
