@@ -272,7 +272,6 @@ function countCartItems(){
 }
 //////////////////////////////
 
-
 /// // payment stuff
 // $('.paymentMethods input').click(function () {
 // 	data2 = $('.cartItemsTable')[0]
@@ -284,10 +283,16 @@ function countCartItems(){
 
 $('body').delegate('.checkoutCartBtn','click',function(){
 	var data = collectOrderData()
-	data['OInvDesc'] = $('.orderDesc').val();
 	data['PmId'] = 1
 	data['PtId'] = 1
 
+	var username = $('#username').val();
+	var phone_number = $('#phone-number').val();
+	if (!username || !phone_number){
+		swal(title=error_title, message="Telefon nomeriňizi we adyňyzy ýazyň!", style='warning');
+		return
+	}
+	data['OInvDesc'] = `Phone: ${phone_number}, Name: ${username} | ${$('.orderDesc').val()}`;
 	var order_data = {"orderInv": data, "validated": false}
 	set_local_data_by_name('orderInv', order_data)
 	checkoutCart(order_data ,`${url_prefix}/checkout-cart-v1/`,'POST');
