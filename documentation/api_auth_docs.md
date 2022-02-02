@@ -60,7 +60,8 @@
 ```json
 {
 	"email": "muhammedjepbarov@gmail.com",
-	"verify_code": "285184"
+	"verify_code": "285184",
+	// "phone_number": "+99361234567",
 }
 ```
 
