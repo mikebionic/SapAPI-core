@@ -177,14 +177,14 @@ def api_res_prices():
 				ResPriceTypeId = res_price_info["ResPriceTypeId"]
 				thisResPrice = Res_price.query\
 					.filter_by(
-						ResPriceTypeId = ResPriceTypeId,
 						ResId = ResId,
 						ResPriceGuid = ResPriceGuid)\
 					.first()
 
 				if thisResPrice:
-					res_price_info["ResPriceId"] = thisResPrice.ResPriceId
-					thisResPrice.update(**res_price_info)
+					if thisResPrice.ResPriceTypeId == ResPriceTypeId:
+						res_price_info["ResPriceId"] = thisResPrice.ResPriceId
+						thisResPrice.update(**res_price_info)
 
 				else:
 					try:
@@ -194,8 +194,8 @@ def api_res_prices():
 						ResPriceId = None
 					res_price_info["ResPriceId"] = ResPriceId
 
-					new_res_price = Res_price(**res_price_info)
-					db.session.add(new_res_price)
+					this_res_price = Res_price(**res_price_info)
+					db.session.add(this_res_price)
 
 				thisResPrice = None
 				data.append(res_price_req)
