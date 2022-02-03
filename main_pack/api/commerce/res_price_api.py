@@ -147,7 +147,6 @@ def api_res_prices():
 		req = request.get_json()
 	
 		resources = Resource.query\
-			.filter_by(GCRecord = None)\
 			.filter(Resource.ResGuid != None).all()
 
 		resource_ResId_list = [resource.ResId for resource in resources]
@@ -161,8 +160,9 @@ def api_res_prices():
 			res_price_info = addResPriceDict(res_price_req)
 			try:
 				ResRegNo = res_price_req['ResRegNo']
-				ResGuid = res_price_req['ResGuid']
+				ResGuid = str(res_price_req['ResGuid'])
 				ResPriceRegNo = res_price_req['ResPriceRegNo']
+				ResPriceGuid = str(res_price_req['ResPriceGuid'])
 				
 				try:
 					indexed_res_id = resource_ResId_list[resource_ResGuid_list.index(ResGuid)]
@@ -177,10 +177,9 @@ def api_res_prices():
 				ResPriceTypeId = res_price_info["ResPriceTypeId"]
 				thisResPrice = Res_price.query\
 					.filter_by(
-						GCRecord = None,
 						ResPriceTypeId = ResPriceTypeId,
 						ResId = ResId,
-						ResPriceRegNo = ResPriceRegNo)\
+						ResPriceGuid = ResPriceGuid)\
 					.first()
 
 				if thisResPrice:
@@ -195,8 +194,8 @@ def api_res_prices():
 						ResPriceId = None
 					res_price_info["ResPriceId"] = ResPriceId
 
-					thisResPrice = Res_price(**res_price_info)
-					db.session.add(thisResPrice)
+					new_res_price = Res_price(**res_price_info)
+					db.session.add(new_res_price)
 
 				thisResPrice = None
 				data.append(res_price_req)
