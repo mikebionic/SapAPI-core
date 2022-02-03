@@ -185,6 +185,9 @@ def api_res_prices():
 					if thisResPrice.ResPriceTypeId == ResPriceTypeId:
 						res_price_info["ResPriceId"] = thisResPrice.ResPriceId
 						thisResPrice.update(**res_price_info)
+					else:
+						print("ResPriceTypeId not equal ", ResPriceTypeId, thisResPrice.to_json_api())
+						raise Exception
 
 				else:
 					try:
