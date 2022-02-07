@@ -114,7 +114,6 @@ def api_resources():
 	brand = request.args.get("brand",None,type=int)
 	from_price = request.args.get("from_price",None,type=int)
 	to_price = request.args.get("to_price",None,type=int)
-	popular = request.args.get("popular",None,type=int)
 
 	DivId = request.args.get("DivId",None,type=int)
 	notDivId = request.args.get("notDivId",None,type=int)
@@ -132,7 +131,6 @@ def api_resources():
 		brand = brand,
 		from_price = from_price,
 		to_price = to_price,
-		popular = popular,
 		search = search,
 		DivId = DivId,
 		notDivId = notDivId)

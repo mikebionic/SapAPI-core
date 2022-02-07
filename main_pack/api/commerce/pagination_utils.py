@@ -38,7 +38,6 @@ def collect_resource_paginate_info(
 	brand = None,
 	from_price = None,
 	to_price = None,
-	popular = None,
 	search = None,
 	DivId = None,
 	notDivId = None,
@@ -155,10 +154,10 @@ def collect_resource_paginate_info(
 		resource_query = resource_query.filter(Resource.ResCatId.in_(category_ids))
 
 	if from_price:
-		resoruce_query = resource_query.filter(Res_price.ResPriceValue >= from_price)
+		resource_query = resource_query.filter(Res_price.ResPriceValue >= from_price)
 
 	if to_price:
-		resoruce_query = resource_query.filter(Res_price.ResPriceValue <= to_price)
+		resource_query = resource_query.filter(Res_price.ResPriceValue <= to_price)
 
 
 	if sort:
