@@ -36,9 +36,12 @@ def collect_resource_paginate_info(
 	sort = None,
 	category = None,
 	brand = None,
+	from_price = None,
+	to_price = None,
+	popular = None,
+	search = None,
 	DivId = None,
 	notDivId = None,
-	search = None,
 	avoidQtyCheckup = 0,
 	showNullPrice = False,
 	showInactive = False):
@@ -115,7 +118,8 @@ def collect_resource_paginate_info(
 		Res_Total_subquery.c.ResTotBalance_sum,
 		Res_Total_subquery.c.ResPendingTotalAmount_sum)\
 	.filter_by(**resource_filtering)\
-	.outerjoin(Res_Total_subquery, Resource.ResId == Res_Total_subquery.c.ResId)
+	.outerjoin(Res_Total_subquery, Resource.ResId == Res_Total_subquery.c.ResId)\
+	.order_by(Resource.ResViewCnt.desc())
 
 	if avoidQtyCheckup == 0:
 		if Config.SHOW_NEGATIVE_WH_QTY_RESOURCE == False:
@@ -149,6 +153,13 @@ def collect_resource_paginate_info(
 					category_ids.append(category.ResCatId)
 
 		resource_query = resource_query.filter(Resource.ResCatId.in_(category_ids))
+
+	if from_price:
+		resoruce_query = resource_query.filter(Res_price.ResPriceValue >= from_price)
+
+	if to_price:
+		resoruce_query = resource_query.filter(Res_price.ResPriceValue <= to_price)
+
 
 	if sort:
 		if sort == "date_new":
