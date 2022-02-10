@@ -381,3 +381,27 @@ curl 127.0.0.1:5000/ls/api/v1/v-images/ --header 'images-to-exclude: [{"FileName
 [Example](./examples/media_api.md)
 
 ---
+
+## Translation api
+
+| **Route**       | **Methods** | **Status** | **Note** |
+| --------------- | :---------: | :--------: | -------- |
+| /v-translation/ |   **GET**   |   Active   |
+
+**Properties**
+| **Name** | **Type** | **Description** | **Example** |
+| ---------- | :----------------------: | --------------- | --------------- |
+| id | **int** |
+| translGuid | **str** |
+| categoryId | **int** |
+| colorId | **int** |
+| prodId | **int** |
+| slImgId | **int** |
+| langId | **int** |
+| nameText | **str** |
+| descText | **str** |
+| language | **str** || "tk_TM" "en_US" |
+
+[Example](./examples/translation_api.md)
+
+---
