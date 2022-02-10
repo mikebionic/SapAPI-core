@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from sqlalchemy.orm import joinedload
+
 from main_pack.models import Translation
 from main_pack.models.Language import Language
 
@@ -14,6 +16,7 @@ def collect_translation_data(
 	TranslDesc = None,
 	LangName = None,
 ):
+	data = []
 
 	filtering = {"GCRecord": None}
 
@@ -52,8 +55,14 @@ def collect_translation_data(
 		db_translations = db_translations.filter(Translation.TranslDesc.ilike(f"%{TranslDesc}%"))
 
 
-	db_translations = db_translations.all()
+	db_translations = db_translations.options(
+			joinedload(Translation.language),
+			joinedload(Translation.res_category)
+		).all()
 
-	data = [translation_data.to_json_api() for translation_data in db_translations]
-
+	for translation_data in db_translations:
+		this_data = translation_data.to_json_api()
+		this_data["LangName"] = translation_data.language.LangName if translation_data.language else ""
+		this_data["ResCatName"] = translation_data.res_category.ResCatName if translation_data.res_category else ""
+		data.append(this_data)
 	return data
