@@ -11,6 +11,7 @@ class Language(BaseModel, db.Model):
 	LangName = db.Column("LangName",db.String(100),nullable=False)
 	LangDesc = db.Column("LangDesc",db.String(500))
 	Res_translation = db.relationship("Res_translation",backref='language',lazy=True)
+	Translation = db.relationship("Translation",backref='language',lazy=True)
 	Media = db.relationship("Media",backref='language',lazy=True)
 
 	def to_json_api(self):
