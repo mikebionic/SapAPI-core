@@ -59,7 +59,7 @@ def api_order_invoices():
 			DivId = DivId,
 			notDivId = notDivId,
 			currency_code = Config.MAIN_CURRENCY_CODE)
-	
+
 		status_code = 200
 		response = make_response(jsonify(res), status_code)
 
@@ -89,7 +89,7 @@ def api_order_invoices():
 		currencies = Currency.query.filter_by(GCRecord = None).all()
 
 		data = []
-		failed_data = [] 
+		failed_data = []
 
 		for order_inv_req in req:
 			try:
@@ -137,14 +137,19 @@ def api_order_invoices():
 					raise Exception
 
 				if thisOrderInv:
-					order_invoice['OInvId'] = thisOrderInv.OInvId
-					old_invoice_status = thisOrderInv.InvStatId
-					thisOrderInv.update(**order_invoice)
-					db.session.commit()
-					# if status: "returned" or "cancelled" (id=9, id=5) 
-					# all lines should update 
-					# res_total.ResPendingTotalAmount
-					thisInvStatus = thisOrderInv.InvStatId
+					if thisOrderInv.OInvRegNo == OInvRegNo:
+						order_invoice['OInvId'] = thisOrderInv.OInvId
+						old_invoice_status = thisOrderInv.InvStatId
+						thisOrderInv.update(**order_invoice)
+						db.session.commit()
+						# if status: "returned" or "cancelled" (id=9, id=5)
+						# all lines should update
+						# res_total.ResPendingTotalAmount
+						thisInvStatus = thisOrderInv.InvStatId
+
+					else:
+						print("OrderInvGuid or RegNo has changed ", OInvGuid, OInvRegNo, thisOrderInv.to_json_api())
+						raise Exception
 
 				else:
 					thisOrderInv = Order_inv(**order_invoice)
@@ -165,7 +170,7 @@ def api_order_invoices():
 							ResRegNo = ResRegNo,
 							ResGuid = ResGuid,
 							GCRecord = None)\
-						.first() 
+						.first()
 
 					try:
 						order_inv_line["ResId"] = this_line_resource.ResId
