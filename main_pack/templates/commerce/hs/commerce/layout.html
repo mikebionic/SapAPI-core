@@ -168,10 +168,7 @@
 											<li><a href="{{ url_for('commerce.v_grid') }}"><i class="la la-store"></i><span>{{_('Products')}}</span> </a></li>
 											<li><a href="{{ url_for('commerce.about') }}"><i class="la la-store-alt"></i><span>{{_('About us')}}</span> </a></li>
 											<li><a href="{{ url_for('commerce.contact') }}"><i class="la la-phone-volume"></i><span>{{_('Contact')}}</span></a></li>
-											
-										
 										</ul>
-										
 									</nav>
 
 									<div class="header-account-links">
@@ -184,19 +181,19 @@
 													<div class="bac_overlay"></div>
 														<ul class="cartItemsList"></ul>
 														<div class="shopping-cart-bottom">
-																<div class="shopping-cart-total">
-																		<h4>{{_('Total')}}:
-																			<span class="woocommerce-Price-currencySymbol">
-																				{{ session.currency_code if session.currency_code else 'TMT' }}
-																			</span>
-																			<span class="woocommerce-Price-amount amount cartTotalPrice">
-																				0.00
-																			</span>
-																		</h4>
-																</div>
-																<div class="shopping-cart-btn btn-hover default-btn text-center">
-																	<a class="black-color" href="{{url_for('commerce.cart')}}">{{_('Checkout')}}</a>
-																</div>
+															<div class="shopping-cart-total">
+																<h4>{{_('Total')}}:
+																	<span class="woocommerce-Price-currencySymbol">
+																		{{ session.currency_code if session.currency_code else 'TMT' }}
+																	</span>
+																	<span class="woocommerce-Price-amount amount cartTotalPrice">
+																		0.00
+																	</span>
+																</h4>
+															</div>
+															<div class="shopping-cart-btn btn-hover default-btn text-center">
+																<a class="black-color" href="{{url_for('commerce.cart')}}">{{_('Checkout')}}</a>
+															</div>
 														</div>
 												</div>
 										</div>
@@ -226,6 +223,11 @@
 		{% endwith %}
 	
 		{% block content %}{% endblock %}
+
+		<button class="cart-active cart-3 header-cart shoppingcart" style="position:fixed; z-index:999; background-color: #56bb81;">
+			<i class="las la-shopping-basket"></i>
+			<span class="count cartItemsFullQty">0</span>
+		</button>
 		
 		<footer class="footer-area section-padding-2 bg-bluegray pt-80">
 			<div class="container-fluid">
@@ -361,7 +363,7 @@
 	<script src="{{ url_for('static', filename='commerce/hs/js/plugins/jquery-ui-touch-punch.js') }}"></script>
 	<script src="{{ url_for('static', filename='commerce/hs/js/plugins/magnific-popup.js') }}"></script>
 	<script src="{{ url_for('static', filename='commerce/hs/js/plugins/owl-carousel.js') }}"></script>
-	<script src="{{ url_for('static', filename='commerce/hs/js/plugins/scrollup.js') }}"></script>
+	<!-- <script src="{{ url_for('static', filename='commerce/hs/js/plugins/scrollup.js') }}"></script> -->
 	<script src="{{ url_for('static', filename='commerce/hs/js/plugins/waypoints.js') }}"></script>
 	<script src="{{ url_for('static', filename='commerce/hs/js/plugins/slick.js') }}"></script>
 	<script src="{{ url_for('static', filename='commerce/hs/js/plugins/wow.js') }}"></script>

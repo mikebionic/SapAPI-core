@@ -1281,8 +1281,9 @@ article {
 }
 
 .count {
+	position: absolute;
 	font-size: 0.4em !important;
-	padding: 0.3em 0.5em;
+	padding: 0.7em 0.5em 0 0.5em;
 	width: 17px;
 	height: 16px;
 	flex-shrink: 0;
@@ -1290,7 +1291,7 @@ article {
 	text-align: center;
 	letter-spacing: -1px;
 	border-radius: 50px;
-	margin-left: 0.214em !important;
+	margin-left:-0.786em !important;
 	background-color: $theme-color;
 	font-weight: bold;
 	background-color: $theme-color;
@@ -1720,3 +1721,6 @@ article {
 	display: flex;
 	align-items: center;
 }
+
+
+// shopping cart

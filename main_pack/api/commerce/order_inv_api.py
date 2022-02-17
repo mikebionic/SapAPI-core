@@ -133,7 +133,7 @@ def api_order_invoices():
 				thisInvStatus = None
 
 				if not RpAccId or not DivId or not WhId:
-					print(f"{RpAccId}, {DivId}, {WhId}")
+					print(f"RpAccId - {RpAccId} by {RpAccGuid} | DivId - {DivId} by {DivGuid}, WhId - {WhId} | by {WhGuid}")
 					raise Exception
 
 				if thisOrderInv:

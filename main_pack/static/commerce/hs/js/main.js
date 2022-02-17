@@ -253,7 +253,7 @@
     };
     sidebarSearch();
 
-
+    
     /*--
     Cart active
     -----------------------------------*/
@@ -261,24 +261,27 @@
         var $body = $('body'),
         $cartWrap = $('.cart-wrap'),
         $cartContent = $cartWrap.find('.shopping-cart-content');
-        $cartWrap.on('click', '.cart-active', function(e) {
-            $('.cart-overlay').addClass('visible');
-            
-            e.preventDefault();
-            var $this = $(this);
-            if (!$this.parent().hasClass('show')) {
-                $this.siblings('.shopping-cart-content').addClass('show').parent().addClass('show');
-            } 
-        });
-        $('.cart-overlay').on('click', function(e){
-            e.preventDefault();
-            $('.cart-overlay').removeClass('visible');
-            $('.shopping-cart-content').removeClass('show');
-            $('.cart-wrap').removeClass('show');
-            slideCategoryUp();
-        });
     }
-
+    $(".cart-active").on('click', function(e){
+    // $cartWrap.on('click', '.cart-active', function(e) {
+        e.preventDefault();
+        // var $this = $(this);
+        // if (!$this.parent().hasClass('show')) {
+        //     $this.siblings('.shopping-cart-content').addClass('show').parent().addClass('show');
+        // } 
+        console.log("Cart clicked")
+        $('.cart-overlay').addClass('visible');
+        $("cart-wrap").addClass('show')
+        $("shopping-cart-content").addClass('show')
+    });
+    
+    $('.cart-overlay').on('click', function(e){
+        e.preventDefault();
+        $('.cart-overlay').removeClass('visible');
+        $('.shopping-cart-content').removeClass('show');
+        $('.cart-wrap').removeClass('show');
+        slideCategoryUp();
+    });
     /*--- Quickview slide active ---*/
     $('.quickview-slide-active').owlCarousel({
         loop: true,
@@ -721,14 +724,14 @@
     });
 
     /*--------------------------
-        ScrollUp
-    ---------------------------- */
-    $.scrollUp({
-        scrollText: '<i class="la la-arrow-up"></i>',
-        easingType: 'linear',
-        scrollSpeed: 900,
-        animation: 'fade'
-    });
+    //     ScrollUp
+    // ---------------------------- */
+    // $.scrollUp({
+    //     scrollText: '<i class="la la-arrow-up"></i>',
+    //     easingType: 'linear',
+    //     scrollSpeed: 900,
+    //     animation: 'fade'
+    // });
 
     /*-----------------------
         Product details slider

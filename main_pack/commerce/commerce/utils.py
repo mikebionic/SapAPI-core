@@ -62,6 +62,7 @@ def UiCategoriesList():
 	.options(joinedload(Res_category.Resource))\
 	.all()
 
+	language_code = None
 	if "language" in session:
 		language_code = session["language"] if session["language"] else None
 
