@@ -15,8 +15,8 @@
         }
     });
 
-    
-    
+
+
 
     /* Slider active */
     $('.slider-active').owlCarousel({
@@ -253,7 +253,7 @@
     };
     sidebarSearch();
 
-    
+
     /*--
     Cart active
     -----------------------------------*/
@@ -264,17 +264,17 @@
     }
     $(".cart-active").on('click', function(e){
     // $cartWrap.on('click', '.cart-active', function(e) {
-        e.preventDefault();
+    //     e.preventDefault();
         // var $this = $(this);
         // if (!$this.parent().hasClass('show')) {
         //     $this.siblings('.shopping-cart-content').addClass('show').parent().addClass('show');
-        // } 
+        // }
         console.log("Cart clicked")
         $('.cart-overlay').addClass('visible');
-        $("cart-wrap").addClass('show')
-        $("shopping-cart-content").addClass('show')
+        $(".cart-wrap").addClass('show')
+        $(".shopping-cart-content").addClass('show')
     });
-    
+
     $('.cart-overlay').on('click', function(e){
         e.preventDefault();
         $('.cart-overlay').removeClass('visible');
@@ -649,7 +649,7 @@
         }
     });
 
-    
+
 
     /*--
         Masonry active
@@ -1027,10 +1027,10 @@ function on() {
 
 // headerCart.on('click', function(e){
 // 	e.preventDefault();
-// 	
+//
 // 	miniCartWrap.addClass('open');
 // });
-// 
+//
 
 
 // Show/Hide button in Login
@@ -1121,7 +1121,7 @@ if ($('.categorSize .li').length > 12) {
 }
 
 $('.descriptionText').each(function(){
-	$(this).html($(this).text()); 
+	$(this).html($(this).text());
 });
 
 $(".order-info a").each(function(){
