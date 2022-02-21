@@ -2,6 +2,8 @@
 
 > POST
 
+http://<url>/<prefix>/v1/v-translations/
+
 ```json
 [
 	{

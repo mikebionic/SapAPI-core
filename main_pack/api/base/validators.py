@@ -5,7 +5,6 @@ def request_is_json(request):
 	def request_decorator(f):
 		@wraps(f)
 		def decorated(*args,**kwargs):
-
 			if (request.method != 'GET' and not request.json):
 				res = {
 					"status": 0,

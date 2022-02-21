@@ -56,9 +56,12 @@ def collect_translation_data(
 
 
 	db_translations = db_translations.options(
-			joinedload(Translation.language),
-			joinedload(Translation.res_category)
-		).all()
+		joinedload(Translation.language),
+		joinedload(Translation.res_category)
+	)\
+	.order_by(Translation.TranslId.desc())\
+	.order_by(Translation.ResCatId.desc())\
+	.all()
 
 	for translation_data in db_translations:
 		this_data = translation_data.to_json_api()

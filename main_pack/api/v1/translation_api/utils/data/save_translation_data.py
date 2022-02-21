@@ -45,7 +45,7 @@ def save_translation_data(req):
 				this_translation = Translation(**this_transl_data)
 				db.session.add(this_translation)
 
-			data.append(transl_req)
+			data.append(this_translation.to_json_api())
 
 		except Exception as ex:
 			log_print(f"Translations api: {ex}")
