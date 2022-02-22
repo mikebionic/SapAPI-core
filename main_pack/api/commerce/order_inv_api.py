@@ -127,7 +127,7 @@ def api_order_invoices():
 
 				thisOrderInv = Order_inv.query\
 					.filter_by(
-						OInvGuid = OInvGuid,
+						OInvRegNo = OInvRegNo,
 						GCRecord = None)\
 					.first()
 				thisInvStatus = None
@@ -137,7 +137,7 @@ def api_order_invoices():
 					raise Exception
 
 				if thisOrderInv:
-					if thisOrderInv.OInvRegNo == OInvRegNo:
+					if thisOrderInv.OInvGuid == OInvGuid:
 						order_invoice['OInvId'] = thisOrderInv.OInvId
 						old_invoice_status = thisOrderInv.InvStatId
 						thisOrderInv.update(**order_invoice)
