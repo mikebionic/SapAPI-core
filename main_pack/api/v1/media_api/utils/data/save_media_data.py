@@ -31,7 +31,7 @@ def save_media_data(req):
 				this_media.update(**this_req_data)
 
 			else:
-				this_req_data["TranslGuid"] = uuid4()
+				this_req_data["MediaGuid"] = uuid4()
 				this_media = Media(**this_req_data)
 				db.session.add(this_media)
 

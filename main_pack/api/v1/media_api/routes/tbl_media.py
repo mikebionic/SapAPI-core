@@ -33,7 +33,7 @@ def tbl_media_get():
 	}
 	return make_response(jsonify(res), 200)
 
-@api.route("/tbl_media/", methods=['POST'])
+@api.route("/tbl-media/", methods=['POST'])
 @request_is_json(request)
 def tbl_media_post():
 

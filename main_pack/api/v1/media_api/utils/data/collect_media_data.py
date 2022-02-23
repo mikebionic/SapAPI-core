@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from sqlalchemy import and_, extract
+from sqlalchemy.orm import joinedload
 from datetime import datetime
 import dateutil.parser
 
@@ -35,19 +36,19 @@ def collect_media_data(
 		if current_language:
 			filtering["LangId"] = current_language.LangId
 
-	medias = Media.query.filter_by(**filtering)
+	db_media = Media.query.filter_by(**filtering)
 
 	if MediaTitle:
-		medias = medias.filter(Media.MediaTitle.ilike(f"%{MediaTitle}%"))
+		db_media = db_media.filter(Media.MediaTitle.ilike(f"%{MediaTitle}%"))
 
 	if MediaName:
-		medias = medias.filter(Media.MediaName.ilike(f"%{MediaName}%"))
+		db_media = db_media.filter(Media.MediaName.ilike(f"%{MediaName}%"))
 
 	if MediaAuthor:
-		medias = medias.filter(Media.MediaAuthor.ilike(f"%{MediaAuthor}%"))
+		db_media = db_media.filter(Media.MediaAuthor.ilike(f"%{MediaAuthor}%"))
 
 	if MediaBody:
-		medias = medias.filter(Media.MediaBody.ilike(f"%{MediaBody}%"))
+		db_media = db_media.filter(Media.MediaBody.ilike(f"%{MediaBody}%"))
 
 	if startDate:
 		if (type(startDate) != datetime):
@@ -57,16 +58,22 @@ def collect_media_data(
 			endDate = dateutil.parser.parse(endDate)
 			endDate = datetime.date(endDate)
 
-		medias = medias\
+		db_media = db_media\
 			.filter(and_(
 				extract('year',Media.MediaDate).between(startDate.year,endDate.year),\
 				extract('month',Media.MediaDate).between(startDate.month,endDate.month),\
 				extract('day',Media.MediaDate).between(startDate.day,endDate.day)))
 
-	medias = medias.order_by(Media.MediaDate.desc())
+	db_media = db_media.order_by(Media.MediaDate.desc())
 
-	medias = medias.all()
+	db_media = db_media.options(
+		joinedload(Media.language)
+	).all()
 
-	data = [media.to_json_api() for media in medias]
+	data = []
+	for media_data in db_media:
+		this_data = media_data.to_json_api()
+		this_data["LangName"] = media_data.language.LangName if media_data.language else ""
+		data.append(this_data)
 
 	return data
