@@ -1,5 +1,6 @@
 from sqlalchemy.orm import joinedload
 from datetime import datetime
+from flask import session
 
 from main_pack.config import Config
 from main_pack import cache
@@ -35,7 +36,6 @@ def slidersData():
 		List_sl_images = []
 
 		for sl_image in slider.Sl_image:
-			if not sl_image.GCRecord:
 
 				if sl_image.SlImgEndDate:
 					if (sl_image.SlImgStartDate <= datetime.now()):
@@ -62,6 +62,10 @@ def UiCategoriesList():
 	.options(joinedload(Res_category.Resource))\
 	.all()
 
+	language_code = None
+	if "language" in session:
+		language_code = session["language"] if session["language"] else None
+
 	main_categories = []
 	last_categories = []
 	for category in categories:
@@ -83,11 +87,15 @@ def UiCategoriesList():
 		data = []
 		for subcategory in subcategories:
 			category_data = subcategory.to_json_api()
+			category_data = configure_res_translation(subcategory, category_data, language_code)
+
 			subcategory_children = [category.to_json_api() for category in subcategory.subcategory if not category.GCRecord]
 			category_data["Categories"] = subcategory_children
 			data.append(category_data)
 
 		category_data = main_category.to_json_api()
+		category_data = configure_res_translation(main_category, category_data, language_code)
+
 		category_data["Categories"] = data
 		categories_list.append(category_data)
 
@@ -116,6 +124,22 @@ def UiCategoriesList():
 	}
 	return res
 
+def configure_res_translation(
+	category_model,
+	category_data,
+	language_code = None,
+):
+	if Config.SHOW_RES_TRANSLATIONS:
+		if category_model.Translation and language_code:
+			for this_transl in category_model.Translation:
+				if language_code in this_transl.language.LangName:
+					if this_transl.TranslName:
+						category_data["ResCatName"] = this_transl.TranslName
+					if this_transl.TranslDesc:
+						category_data["ResCatDesc"] = this_transl.TranslDesc
+
+	return category_data
+
 
 @cache.cached(Config.DB_CACHE_TIME, key_prefix="ui_brands")
 def UiBrandsList():
@@ -136,6 +160,7 @@ def UiBrandsList():
 	res = {
 		"message": "Brands",
 		"data": data,
+		"status": 1 if len(data) > 1 else 0,
 		"total": len(data)
 	}
 	return res

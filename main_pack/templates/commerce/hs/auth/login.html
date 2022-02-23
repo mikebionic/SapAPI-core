@@ -11,7 +11,10 @@
 
 
 {% block content %}
-
+<div id="cover-spin" class="cover-spin"></div>
+<div id="sms-reg-spinner" class="cover-spin">
+	<p class="cover-spin-text">{{_('Please wait until verification is complete')}}!</p>
+</div>
 <div class="login-register-area pt-85 pb-90">
 	<div class="container">
 		<div class="row">
@@ -21,7 +24,7 @@
 						<a class="active" data-toggle="tab" href="#">
 							<h4> {{_('Login')}} </h4>
 						</a>
-						<a class="not_active_reg" href="{{ url_for('commerce_auth.register') }}">{{_('Register')}}</a>
+						<a class="not_active_reg" href="{{ url_for('commerce_auth.register_sms') }}">{{_('Register')}}</a>
 					</div>
 					<div class="tab-content">
 						<div id="lg1" class="tab-pane active">
@@ -46,11 +49,14 @@
 										{{ form.password(id="password-field",class="input-text",placeholder=_('Password')) }}
 										<span toggle="#password-field" class="las la-low-vision field-icon toggle-password"></span>
 										<div class="button-box">
-											<div class="login-toggle-btn">
-												<input type="checkbox">
-												<label>{{_('Remember me')}}</label>
+											<div class="top_box">
+												<div class="login-toggle-btn">
+													<input type="checkbox">
+													<label>{{_('Remember me')}}</label>
+												</div>
 												<a href="{{ url_for('commerce_auth.reset_request') }}">{{_('Forgot your password?')}}</a>
 											</div>
+
 
 											<div class="row" style="justify-content: space-around;">
 												<div class="button-box">
@@ -66,7 +72,7 @@
 										</div>
 									</form>
 
-									<form action="" method="post" id="phone-number-login-form">
+									<form action="" method="GET" id="phone-number-password-login-form">
 										<h4 class="theme-text-message">
 											{{_("To login you account, fill the required fields and click 'Login' button")}}.
 										</h4>
@@ -78,11 +84,11 @@
 										
 											<div class="button-box">
 												<div class="login-toggle-btn">
-													<a href="{{ url_for('commerce_auth.reset_request_sms') }}">{{_('Forgot your password?')}}</a>
+													<a href="{{ url_for('commerce_auth.reset_request') }}">{{_('Forgot your password?')}}</a>
 												</div>
 											</div>
 										
-										<div class="row" style="justify-content: space-around;">
+										<div class="row" style="justify-content: space-around; width: 100%;">
 											<div class="button-box">
 												<button type="submit">{{_('Login')}}</button>
 											</div>
@@ -95,7 +101,7 @@
 										</div>
 									</form>
 
-									<h4>{{_('Don’t have profile?')}} <a href="{{ url_for('commerce_auth.register') }}" style="color: #5995fd;">{{_('Register')}}</a></h4>
+									<h4>{{_('Don’t have profile?')}} <a href="{{ url_for('commerce_auth.register_sms') }}" style="color: #5995fd;">{{_('Register')}}</a></h4>
 								</div>
 							</div>
 						</div>
@@ -106,10 +112,11 @@
 	</div>
 </div>
 
-
 {% endblock %}
+
 {% block scripts %}
 <script>
 	var api_url_prefix = "{{api_url_prefix if api_url_prefix else ''}}";
 </script>
+<script src="{{ url_for('static', filename='commerce/hs/js/sms_register.js') }}"></script>
 {% endblock %}

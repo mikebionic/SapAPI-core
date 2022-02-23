@@ -75,7 +75,7 @@
 									{% endif %}
 
 									{% for resource in data %}
-									<div class="col-xl-3 col-lg-4 col-md-4 col-sm-4 col-6">
+									<div class="col-xl-2 col-lg-4 col-md-4 col-sm-4 col-6">
 										<div class="product-wrap product-border-3 product-img-zoom mb-30">
 											<div class="product-img">
 												<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">
@@ -102,7 +102,7 @@
 												</div>
 											</div>
 											<div class="product-content product-content-padding">
-												<h4><a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">
+												<h4 class="order-info"><a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">
 													{{ resource.ResName }}
 												</a></h4>
 												<div class="price-addtocart">

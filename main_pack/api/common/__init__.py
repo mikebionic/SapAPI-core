@@ -1,3 +1,4 @@
+from .configureEmail import configureEmail
 from .configurePhoneNumber import configurePhoneNumber
 from .fetch_and_generate_RegNo import fetch_and_generate_RegNo
 from .gather_required_register_rp_acc_data import gather_required_register_rp_acc_data
@@ -18,3 +19,4 @@ from .get_user_id_guid_list import get_user_id_guid_list
 from .get_UserId_and_RpAccId_from_login_and_uuid_info import get_UserId_and_RpAccId_from_login_and_uuid_info
 from .get_warehouse_id_guid_list import get_warehouse_id_guid_list
 from .password_utils import configurePassword, checkPassword
+from .send_data_to_sync_server import send_data_to_sync_server

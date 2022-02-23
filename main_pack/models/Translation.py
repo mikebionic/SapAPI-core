@@ -12,8 +12,9 @@ class Translation(AddInf, BaseModel, db.Model):
 	ColorId = db.Column("ColorId",db.Integer,db.ForeignKey("tbl_dk_color.ColorId"))
 	ProdId = db.Column("ProdId",db.Integer,db.ForeignKey("tbl_dk_production.ProdId"))
 	SlImgId = db.Column("SlImgId",db.Integer,db.ForeignKey("tbl_dk_sl_image.SlImgId"))
-	TransMain = db.Column("TransMain",db.String(500))
-	TransDesc = db.Column("TransDesc",db.String(1000))
+	LangId = db.Column("LangId",db.Integer,db.ForeignKey("tbl_dk_language.LangId"))
+	TranslName = db.Column("TranslName",db.String(500))
+	TranslDesc = db.Column("TranslDesc",db.String(1000))
 
 	def to_json_api(self):
 		data = {
@@ -23,8 +24,9 @@ class Translation(AddInf, BaseModel, db.Model):
 			"ColorId": self.ColorId,
 			"ProdId": self.ProdId,
 			"SlImgId": self.SlImgId,
-			"TransMain": self.TransMain,
-			"TransDesc": self.TransDesc
+			"LangId": self.LangId,
+			"TranslName": self.TranslName,
+			"TranslDesc": self.TranslDesc
 		}
 
 		for key, value in AddInf.to_json_api(self).items():

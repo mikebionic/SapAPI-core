@@ -23,6 +23,12 @@ def set_language(language=None):
 	return redirect(url_for('commerce.commerce'))
 
 
+@bp.route('/sap-admin/<page>')
+def render_sap_admin(page=None):
+	return render_template(
+		f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/sap_admin/index.html"
+	)
+
 @bp.route('/currency/<currency_code>')
 def set_currency(currency_code=None):
 	currency = Currency.query.filter_by(CurrencyCode = currency_code).first()

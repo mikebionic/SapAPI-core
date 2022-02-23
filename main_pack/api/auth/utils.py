@@ -1,12 +1,8 @@
 # -*- coding: utf-8 -*-
-from flask import url_for, jsonify, request
+from flask import jsonify, request
 from functools import wraps
-from flask_mail import Message
-from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
-from main_pack import lazy_gettext
 from main_pack.config import Config
-from main_pack import mail
 from main_pack.models import User, Rp_acc, Device
 
 from main_pack.api.auth.register_phone_number import check_phone_number_register
@@ -25,6 +21,7 @@ def get_bearer_from_header(auth_header):
 		# log_print("Token malformed, couldn't get bearer token")
 
 	return auth_token
+
 
 def register_token_required(f):
 	@wraps(f)
@@ -47,22 +44,20 @@ def register_token_required(f):
 			token_data = decodeJWT(register_token)
 
 			if register_method == "email":
-				username = token_data["username"].strip()
+				# !!!TODO: Remove rp_acc validation from here
 				email = token_data["email"].strip()
 
 				if auth_type == "rp_acc":
 					exiting_user = Rp_acc.query\
 						.filter_by(
-							RpAccUName = username,
-							RpAccUEmail = email,
+							RpAccEMail = email,
 							GCRecord = None
 						).first()
 					if exiting_user:
-						log_print("Email or Username requested is already registered")
+						log_print("Email requested is already registered")
 						raise Exception
 
 					data = {
-						"username": username,
 						"email": email
 					}
 
@@ -89,7 +84,6 @@ def register_token_required(f):
 		except Exception as ex:
 			log_print(f"Register token required exception: {ex}")
 
-		print(data)
 		return f(data,*args,**kwargs)
 
 	return decorated
@@ -160,39 +154,3 @@ def sha_required(f):
 		return f(*args,**kwargs)
 
 	return decorated
-
-
-# Email validation functions
-def send_reset_email(user):
-	url = 'commerce_auth.reset_token'
-	token = user.get_reset_token()
-	msg = Message(lazy_gettext('Password reset request'), sender=Config.MAIL_USERNAME,recipients=[user.UEmail])
-	msg.body = f'''{lazy_gettext('To reset your password, visit the following link')}:
-	{url_for(url,token=token,_external=True)}
-	{lazy_gettext('If you did not make this request then simply ignore this email')}.
-	'''
-	mail.send(msg)
-
-def get_register_token(UName,UEmail):
-	s = Serializer(Config.SECRET_KEY,1800)
-	return s.dumps({"UName": UName, "UEmail": UEmail}).decode('utf-8')
-
-def verify_register_token(token):
-	s = Serializer(Config.SECRET_KEY)
-	try:
-		UName = s.loads(token)['UName']
-		UEmail = s.loads(token)['UEmail']
-	except Exception as ex:
-		return None
-	return {"UName": UName, "UEmail": UEmail}
-
-def send_register_email(UName,UEmail):
-	token = get_register_token(UName=UName,UEmail=UEmail)
-	msg = Message(lazy_gettext('Password reset request'), sender=Config.MAIL_USERNAME,recipients=[UEmail])
-	msg.body = f'''{lazy_gettext('Dear')}, {UName}
-	{lazy_gettext('You have requested the registration on ecommerce')}.
-	{lazy_gettext('Please follow the link to verify your email')}!
-	{url_for('commerce_auth.register_token',token=token,_external=True)}
-	{lazy_gettext('If you did not make this request then simply ignore this email')}.
-	'''
-	mail.send(msg)

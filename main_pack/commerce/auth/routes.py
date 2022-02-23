@@ -300,4 +300,4 @@ def reset_request_sms():
 		**categoryData,
 		url_prefix = url_prefix,
 		title = "{} - {}".format(gettext('Login'), "SMS"),
-		)
+	)

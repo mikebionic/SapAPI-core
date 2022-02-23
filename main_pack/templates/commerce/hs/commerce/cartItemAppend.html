@@ -3,7 +3,7 @@
 	<div class="shopping-cart-img">
 			<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}">
 				<img alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}"
-				 src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/ls/img/icons/no_photo.svg') }}">
+				 src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}">
 			</a>
 			<div class="item-close">
 					<a href="#"><i class="sli sli-close"></i></a>

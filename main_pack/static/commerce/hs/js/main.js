@@ -16,6 +16,8 @@
     });
 
 
+
+
     /* Slider active */
     $('.slider-active').owlCarousel({
         loop: true,
@@ -257,26 +259,29 @@
     -----------------------------------*/
     if ($('.cart-wrap').length) {
         var $body = $('body'),
-            $cartWrap = $('.cart-wrap'),
-            $cartContent = $cartWrap.find('.shopping-cart-content');
-        $cartWrap.on('click', '.cart-active', function(e) {
-            $('.cart-overlay').addClass('visible');
-            
-            e.preventDefault();
-            var $this = $(this);
-            if (!$this.parent().hasClass('show')) {
-                $this.siblings('.shopping-cart-content').addClass('show').parent().addClass('show');
-            } 
-        });
-        $('.cart-overlay').on('click', function(e){
-            e.preventDefault();
-            $('.cart-overlay').removeClass('visible');
-            $('.shopping-cart-content').removeClass('show');
-            $('.cart-wrap').removeClass('show');
-            slideCategoryUp();
-        });
+        $cartWrap = $('.cart-wrap'),
+        $cartContent = $cartWrap.find('.shopping-cart-content');
     }
+    $(".cart-active").on('click', function(e){
+    // $cartWrap.on('click', '.cart-active', function(e) {
+    //     e.preventDefault();
+        // var $this = $(this);
+        // if (!$this.parent().hasClass('show')) {
+        //     $this.siblings('.shopping-cart-content').addClass('show').parent().addClass('show');
+        // }
+        console.log("Cart clicked")
+        $('.cart-overlay').addClass('visible');
+        $(".cart-wrap").addClass('show')
+        $(".shopping-cart-content").addClass('show')
+    });
 
+    $('.cart-overlay').on('click', function(e){
+        e.preventDefault();
+        $('.cart-overlay').removeClass('visible');
+        $('.shopping-cart-content').removeClass('show');
+        $('.cart-wrap').removeClass('show');
+        slideCategoryUp();
+    });
     /*--- Quickview slide active ---*/
     $('.quickview-slide-active').owlCarousel({
         loop: true,
@@ -644,6 +649,8 @@
         }
     });
 
+
+
     /*--
         Masonry active
     -----------------------------------*/
@@ -717,14 +724,14 @@
     });
 
     /*--------------------------
-        ScrollUp
-    ---------------------------- */
-    $.scrollUp({
-        scrollText: '<i class="la la-arrow-up"></i>',
-        easingType: 'linear',
-        scrollSpeed: 900,
-        animation: 'fade'
-    });
+    //     ScrollUp
+    // ---------------------------- */
+    // $.scrollUp({
+    //     scrollText: '<i class="la la-arrow-up"></i>',
+    //     easingType: 'linear',
+    //     scrollSpeed: 900,
+    //     animation: 'fade'
+    // });
 
     /*-----------------------
         Product details slider
@@ -950,7 +957,9 @@ function slideCategoryUp(){
 
 function slideCategoryDown(){
     $('.category-menu').show()
-    $('.cart-overlay').addClass('visible');
+    if ($(window).width() < 1002){
+        $('.cart-overlay').addClass('visible');
+    }
 }
 
 
@@ -980,7 +989,9 @@ function configureCatSizeByScreen() {
     } else {
         $('.showcat').on('click', function() {
             $('.hidecat').animate({width: 'toggle'});
-            $('.cart-overlay').addClass('visible');
+            if ($(window).width() < 1002){
+                $('.cart-overlay').addClass('visible');
+            }
         });
     }
 }
@@ -1016,10 +1027,10 @@ function on() {
 
 // headerCart.on('click', function(e){
 // 	e.preventDefault();
-// 	
+//
 // 	miniCartWrap.addClass('open');
 // });
-// 
+//
 
 
 // Show/Hide button in Login
@@ -1071,9 +1082,6 @@ function reset_owl_carousel(){
 }
 
 
-
-
-
 function featured_product_owl_carousel(){
     $('.featured-product-slider').owlCarousel({
         loop: true,
@@ -1104,71 +1112,22 @@ function featured_product_owl_carousel(){
     });
 }
 
+let catHeight = $('.categorSize')
 
-$('#email-login-button').click(function(){
-	show_email_login_form()
-})
-
-
-$('#phone-number-login-button').click(function(){
-	show_phone_login_form()
-})
-
-
-function show_email_login_form(){
-	$('#phone-number-login-form').hide()
-	$('#email-login-form').show()
+if ($('.categorSize .li').length > 12) {
+	catHeight.addClass('category_size');
+}else {
+	catHeight.removeClass('category_size');
 }
 
-function show_phone_login_form(){
-	$('#email-login-form').hide()
-	$('#phone-number-login-form').show()
-}
+$('.descriptionText').each(function(){
+	$(this).html($(this).text());
+});
 
-
-$('#phone-number-login-form').submit(function(e){
-	e.preventDefault();
-	var auth_header = get_phone_number_login_auth()
-	
-	if (!isEmpty(auth_header)){
-		$.ajax({
-			type: "GET",
-			headers: auth_header,
-			url: `${api_url_prefix}/login/?method=phone_number&type=rp_acc`,
-			success: function(response){
-				if (response){
-					if (response.status == 1){
-						swal(
-							title = success_title,
-							message = response.message,
-							style = "success"
-						)
-						setTimeout(() => {
-							location.href = location.origin;
-						}, 3000);
-					}
-				}
-			},
-			error: function(){
-				errorToaster(message = `Login failed`);
-			}
-		})
+$(".order-info a").each(function(){
+	this.text = this.text.trim();
+	if (this.text.length > 10){
+			this.text = this.text.slice(0, 10);
+			this.text += "...";
 	}
-})
-
-
-console.clear();
-
-function get_phone_number_login_auth(){
-	var phone_number = $('#phone-number').val().trim()
-	var password = $('#password').val().trim()
-
-	if (phone_number.length < 6 || password.length < 2){
-		errorToaster(message = `${error_title}, phone number or password not specified.`)
-		return {};
-	}
-
-	return {"Authorization": "Basic " + btoa(`${phone_number}:${password}`)}
-}
-
-
+});

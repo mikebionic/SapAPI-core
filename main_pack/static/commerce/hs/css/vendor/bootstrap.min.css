@@ -1909,8 +1909,7 @@ pre code {
 .table-responsive {
     display: block;
     width: 100%;
-    overflow: auto;
-    height:450px;
+    overflow-x:auto;
     -webkit-overflow-scrolling: touch
 }
 

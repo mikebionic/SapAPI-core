@@ -5,7 +5,6 @@
 	<meta charset="utf-8">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
 	<title>{{ title if title else _('Commerce') }}</title>
-	<meta name="robots" content="noindex, follow" />
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta property="og:site_name" content="Halal Söwda | E-commerce" />
@@ -41,12 +40,12 @@
 				<div class="header-middle border-top-2 pt-10 pb-10">
 					<div class="container">
 						<div class="row align-items-center">
-							<div class="col-xl-2 col-lg-2 col-2">
+							<div class="col-xl-2 col-lg-2 col-2" style="z-index: 10;">
 								<div class="logo">
 									<a href="{{url_for('commerce.commerce')}}"><img src="{{ url_for('static', filename='commerce/hs/images/logo/hs_logo.svg') }}" alt="logo"></a>
 								</div>
 							</div>
-							<div class="col-xl-8 col-lg-8 col-8">
+							<div class="col-xl-7 col-lg-8 col-8">
 								<div class="header-contact-search-wrap header-contact-search-mrg">
 									{% if company.Phone1 %}
 									<div class="header-contact-2" onclick="location.href='tel:{{company.Phone1}}';">
@@ -70,7 +69,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-xl-2 col-lg-2 col-2">
+							<div class="col-xl-3 col-lg-2 col-2" style="z-index: 10;">
 								<div class="header-right-wrap mt-10">
 									<div class="header-account-links" style="display:flex;">
 										<li class="dropdown" style="margin-top: -7px;list-style: none; position: inherit;">
@@ -83,17 +82,17 @@
 														<li>
 															<a href="{{ url_for('main.set_language',language='en') }}" class="dropdown-item">
 																<img loading="lazy" src="{{ url_for('static', filename='commerce/hs/images/us.svg') }}" style="width: 30px">
-																English language
+																English
 															</a>
 															<div class="dropdown-divider"></div>
 															<a href="{{ url_for('main.set_language',language='tk') }}" class="dropdown-item">
 																<img loading="lazy" src="{{ url_for('static', filename='commerce/hs/images/tm.svg') }}" style="width: 30px">
-																Türkmen dili
+																Türkmen
 															</a>
 															<div class="dropdown-divider"></div>
 															<a href="{{ url_for('main.set_language',language='ru') }}" class="dropdown-item">
 																<img loading="lazy" src="{{ url_for('static', filename='commerce/hs/images/ru.svg') }}" style="width: 30px">
-																Русский язык
+																Русский
 															</a>
 														</li>
 													</ul>
@@ -101,51 +100,7 @@
 											</ul>
 										</li>
 										</div>
-										<div class="header-wishlist">
-												<a href="{{ url_for('commerce_users.wishlist') }}"><i class="la la-heart-o"></i></a>
-										</div>
-										{% if current_user.is_authenticated %}
-										<div class="header-login ml-10">
-											<a href="{{ url_for('commerce_users.profile') }}"><i class="la la-user"></i></a>
-										</div>
-										<div class="header-login ml-10">
-											<a href="{{ url_for('commerce_auth.logout') }}"><i class="las la-sign-out-alt"></i></a>
-										</div>
-										{% else %}
-										<div class="header-login ml-10">
-											<a href="{{ url_for('commerce_auth.login') }}"><i class="las la-sign-in-alt"></i></a>
-										</div>
-										<div class="header-login ml-10">
-											<a href="{{ url_for('commerce_auth.register_sms') }}"><i class="la la-registered"></i></a>
-										</div>
-										{% endif %}
-										
-										<div class="cart-wrap common-style ml-10" style="margin-top:-2px">
-											<div class="cart-overlay"></div>
-												<button class="cart-active cart-3 header-cart" style="background-color: transparent;">
-													<i class="las la-shopping-cart"></i>
-													<span class="count cartItemsFullQty">0</span>
-												</button>
-												<div class="shopping-cart-content">
-													<div class="bac_overlay"></div>
-														<ul class="cartItemsList"></ul>
-														<div class="shopping-cart-bottom">
-																<div class="shopping-cart-total">
-																		<h4>{{_('Total')}}:
-																			<span class="woocommerce-Price-currencySymbol">
-																				{{ session.currency_code if session.currency_code else 'TMT' }}
-																			</span>
-																			<span class="woocommerce-Price-amount amount cartTotalPrice">
-																				0.00
-																			</span>
-																		</h4>
-																</div>
-																<div class="shopping-cart-btn btn-hover default-btn text-center">
-																	<a class="black-color" href="{{url_for('commerce.cart')}}">{{_('Checkout')}}</a>
-																</div>
-														</div>
-												</div>
-										</div>
+
 								</div>
 						</div>
 						</div>
@@ -154,7 +109,7 @@
 				<div class="header-bottom sticky-bar bg-red">
 					<div class="container">
 						<div class="row align-items-center">
-							<div class="col-lg-4 col-3">
+							<div class="col-lg-4 col-3" style="padding-right: 0;">
 								<div class="category-menu-wrap">
 									<h3 class="showcat">
 										<a>
@@ -166,19 +121,19 @@
 									<div class="cat">
 									<div class="category-menu hidecat">
 										<nav> 
-											<ul>
-												<li class="cr-dropdown">
+											<ul class="categorSize"> 
+												<li class="li cr-dropdown">
 													<a class="cat-style" title="{{_('All')}}" href="{{url_for('commerce.v_grid')}}">
-														<img class="img-fluid cat-icon" src="{{ url_for('static', filename='commerce/ls/img/icons/category.svg') }}" style="height: 25px; width: 25px; margin-right: 7px;">
+														<img class="img-fluid cat-icon" src="{{ url_for('static', filename='commerce/hs/images/icons/category.svg') }}" style="height: 25px; width: 25px; margin-right: 7px;">
 														{{_('All')}}
 													</a>
 												</li>
 												{% for category in categories %}
-												<li class="cr-dropdown {{ 'yamm-tfw menu-item-has-children dropdown-submenu' if category.Categories else 'highlight' }}">
+												<li class="li cr-dropdown {{ 'yamm-tfw menu-item-has-children dropdown-submenu' if category.Categories else 'highlight' }}">
 													<a class="cat-style" title="{{ category.ResCatName }}" 
 														href="{{ url_for('commerce.v_grid',ResCatId=category.ResCatId,ResCatName=category.ResCatName.replace('/','-').replace(' ','-')) if not category.Categories else '#' }}"
 													{% if category.Categories %} aria-haspopup="true" {% endif %}>
-													<img class="img-fluid cat-icon" src="{{ category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static', filename='commerce/ls/img/icons/category.svg') }}" style="height:25px;width: 25px; margin-right: 7px;">
+													<img class="img-fluid cat-icon" src="{{ category.ResCatIconFilePath if category.ResCatIconFilePath else url_for('static', filename='commerce/hs/images/icons/category.svg') }}" style="height:25px;width: 25px; margin-right: 7px;">
 													{{ category.ResCatName }}
 
 													{% if category.Categories %}
@@ -203,6 +158,8 @@
 								</div>
 								</div>
 							</div>
+
+							<div class="cart-overlay"></div>
 							<div class="col-md-8 col-9 d-flex justify-content-end">
 								<div class="main-menu menu-common-style menu-lh-5 menu-margin-4 menu-font-2 menu-font-2-white res-hm8-margin">
 									<nav>
@@ -213,6 +170,34 @@
 											<li><a href="{{ url_for('commerce.contact') }}"><i class="la la-phone-volume"></i><span>{{_('Contact')}}</span></a></li>
 										</ul>
 									</nav>
+
+									<div class="header-account-links">
+										<div class="cart-wrap common-style" style="margin-top:-2px">
+												<button class="cart-active cart-3 header-cart" style="background-color: transparent;">
+													<i class="las la-shopping-basket"></i>
+													<span class="count cartItemsFullQty">0</span>
+												</button>
+												<div class="shopping-cart-content">
+													<div class="bac_overlay"></div>
+														<ul class="cartItemsList"></ul>
+														<div class="shopping-cart-bottom">
+															<div class="shopping-cart-total">
+																<h4>{{_('Total')}}:
+																	<span class="woocommerce-Price-currencySymbol">
+																		{{ session.currency_code if session.currency_code else 'TMT' }}
+																	</span>
+																	<span class="woocommerce-Price-amount amount cartTotalPrice">
+																		0.00
+																	</span>
+																</h4>
+															</div>
+															<div class="shopping-cart-btn btn-hover default-btn text-center">
+																<a class="black-color" href="{{url_for('commerce.cart')}}">{{_('Checkout')}}</a>
+															</div>
+														</div>
+												</div>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -238,6 +223,11 @@
 		{% endwith %}
 	
 		{% block content %}{% endblock %}
+
+		<button class="cart-active cart-3 header-cart shoppingcart" style="position:fixed; z-index:999; background-color: #56bb81;">
+			<i class="las la-shopping-basket"></i>
+			<span class="count cartItemsFullQty">0</span>
+		</button>
 		
 		<footer class="footer-area section-padding-2 bg-bluegray pt-80">
 			<div class="container-fluid">
@@ -319,8 +309,7 @@
 							<div class="feature feature-shipping">
 								<div class="feature-wrap">
 									<div class="icon"><img loading="lazy" src="{{ url_for('static', filename='commerce/hs/images/icons/delivery.svg') }}"></div>
-									<h4>130 manatdan kop sargasanyz</h4>
-									<h4>Eltip bermek hyzmaty mugt</h4>
+									<h4>{{ company.CAddress if company.CAddress else '130 manatdan kop sargasanyz eltip bermek hyzmaty mugt' }}</h4>
 								</div>
 							</div>
 						</div>
@@ -374,7 +363,7 @@
 	<script src="{{ url_for('static', filename='commerce/hs/js/plugins/jquery-ui-touch-punch.js') }}"></script>
 	<script src="{{ url_for('static', filename='commerce/hs/js/plugins/magnific-popup.js') }}"></script>
 	<script src="{{ url_for('static', filename='commerce/hs/js/plugins/owl-carousel.js') }}"></script>
-	<script src="{{ url_for('static', filename='commerce/hs/js/plugins/scrollup.js') }}"></script>
+	<!-- <script src="{{ url_for('static', filename='commerce/hs/js/plugins/scrollup.js') }}"></script> -->
 	<script src="{{ url_for('static', filename='commerce/hs/js/plugins/waypoints.js') }}"></script>
 	<script src="{{ url_for('static', filename='commerce/hs/js/plugins/slick.js') }}"></script>
 	<script src="{{ url_for('static', filename='commerce/hs/js/plugins/wow.js') }}"></script>

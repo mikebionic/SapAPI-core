@@ -1,8 +1,54 @@
 {% for resource in data %}
-<tr class="cartTableObject{{resource.ResId}}">
+<div class="cart-container cartTableObject{{resource.ResId}}">
+	<div class="cart-card" style="border-radius: 8px;">
+		<div class="ant-row c-rows" style="margin-top: -3px; margin-bottom: 3px; opacity: 1;">
+			<div class="cart_img ant-col ant-col-2 cart-item" style="padding-top: 3px; padding-bottom: 3px;">
+				<center style="height: 45px;">
+					<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}">
+						<img class="c-img" loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" 
+						alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
+					</a>
+				</center>
+			</div>
+			<div class="order-info ant-col ant-col-7 cart-item" style="padding-top: 3px; padding-bottom: 3px;">
+				<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="resName">{{ resource.ResName if resource.ResName else '' }}</a>
+			</div>
+			<div class="ant-col ant-col-3 cart-item" style="padding-top: 3px; padding-bottom: 3px;">
+				<span class="priceValue amount" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">
+					{{ resource.ResPriceValue }}
+				</span>
+				<span class="price currencySymbol">{{ resource.CurrencyCode }} </span>
+			</div>
+			<div class="ant-col ant-col-4 cart-item" style="padding-top: 3px; padding-bottom: 3px;">
+				<div class="pro-details-quality">
+					<div class="res-add-to-cart" style="width: 100%;">
+						<div class="con-input-btns cartItemQty wishlist-add-to-cart">
+							<button class="qtyminus qtybtn" onclick="return false;" style="width: 15px;height:25px;font-size: 14px; border-top-left-radius: 100%; border-bottom-left-radius: 100%;"><i class="las la-minus"></i></button>
+							<input type="text" class="productQty"
+								pending_amount="{{resource.ResPendingTotalAmount if resource.ResPendingTotalAmount else 1}}"
+								min_amount="{{resource.ResMinSaleAmount}}"
+								max_amount="{{resource.ResMaxSaleAmount}}"
+								value="{{resource.productQty}}" ownerId="{{ resource.ResId }}" style="height: 25px; font-size: 0.7rem;">
+							<button class="qtyplus qtybtn" onclick="return false;" style="width: 15px;height:25px; font-size: 14px; border-top-right-radius: 100%; border-bottom-right-radius: 100%;"><i class="las la-plus"></i></button>
+						</div> 
+						<a class="add-to-cart" ownerId="{{ resource.ResId }}" style="display: none;"><i class="ti-shopping-cart"></i><span class="login-text">{{_('Add to cart')}}</span></a>
+					</div>
+				</div>
+			</div>
+			<div class="ant-col ant-col-3 cart-item r-none" style="padding-top: 3px; padding-bottom: 3px;">
+				<span class="productTotalPrice" ownerId="{{resource.ResId}}" value="{{resource.productTotal}}">{{ resource.productTotal }}</span>
+				<span class="price currencySymbol">{{ resource.CurrencyCode }} </span>
+			</div>
+			<div class="ant-col ant-col-3 cart-item cart-icon" style="padding-top: 3px; padding-bottom: 3px;">
+				<a class="removeFromCart" ownerId="{{resource.ResId}}"><i class="las la-trash-restore"></i></a>
+			</div>
+		 </div>
+	</div>
+</div>
+<!-- <tr class="cartTableObject{{resource.ResId}}">
 	<td class="product-thumbnail">
 		<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}">
-			<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/bee/images/no_photo.svg') }}" 
+			<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" 
 			alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
 		</a>
 	</td>
@@ -28,7 +74,7 @@
 					<button class="qtyplus qtybtn" onclick="return false;" style="font-size: 26px; border-top-right-radius: 100%; border-bottom-right-radius: 100%;"><i class="las la-plus"></i></button>
 				</div> 
 				<a class="add-to-cart" ownerId="{{ resource.ResId }}" style="display: none;"><i class="ti-shopping-cart"></i><span class="login-text">{{_('Add to cart')}}</span></a>
-		</div>
+			</div>
 		</div>
 	</td>
 	<td class="product-subtotal">
@@ -38,5 +84,5 @@
 	<td class="product-remove">
 			<a class="removeFromCart" ownerId="{{resource.ResId}}"><i class="las la-trash-restore"></i></a>
 	</td>
-</tr>
+</tr> -->
 {% endfor %}

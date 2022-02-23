@@ -104,6 +104,7 @@ def api_category_v_resources(ResCatId):
 	return response
 
 
+#  /resources/?brand=1&category=2&sort
 @api.route("/resources/")
 def api_resources():
 	page = request.args.get("page",1,type=int)
@@ -111,6 +112,8 @@ def api_resources():
 	per_page = request.args.get("per_page",None,type=int)
 	category = request.args.get("category",None,type=int)
 	brand = request.args.get("brand",None,type=int)
+	from_price = request.args.get("from_price",None,type=int)
+	to_price = request.args.get("to_price",None,type=int)
 
 	DivId = request.args.get("DivId",None,type=int)
 	notDivId = request.args.get("notDivId",None,type=int)
@@ -126,6 +129,8 @@ def api_resources():
 		sort = sort,
 		category = category,
 		brand = brand,
+		from_price = from_price,
+		to_price = to_price,
 		search = search,
 		DivId = DivId,
 		notDivId = notDivId)

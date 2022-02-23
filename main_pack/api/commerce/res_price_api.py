@@ -14,7 +14,7 @@ from main_pack.models import Res_price, Resource, Res_price_group
 
 from main_pack.api.auth.utils import sha_required, token_required
 from main_pack.api.base.validators import request_is_json
-from main_pack.base.priceMethods import calculatePriceByGroup
+from main_pack.base.priceMethods import calculatePriceByGroup, price_currency_conversion
 from main_pack.base.apiMethods import checkApiResponseStatus
 
 
@@ -66,6 +66,16 @@ def get_res_prices(
 			res_price_info = List_Res_price[0]
 			res_price_info["ResGuid"] = res_price.resource.ResGuid if res_price.resource and not res_price.resource.GCRecord else None
 			res_price_info["ResRegNo"] = res_price.resource.ResRegNo if res_price.resource and not res_price.resource.GCRecord else None
+			
+			this_currencyCode = Config.MAIN_CURRENCY_CODE
+			currency_code = Config.DEFAULT_VIEW_CURRENCY_CODE
+			this_priceValue = List_Res_price[0]["ResPriceValue"] if List_Res_price else 0.0
+			price_data = price_currency_conversion(
+				priceValue = this_priceValue,
+				from_currency = this_currencyCode,
+				to_currency = currency_code)
+			res_price_info["ResPriceValue"] = price_data["ResPriceValue"]
+
 			data.append(res_price_info)
 
 		except Exception as ex:
@@ -137,7 +147,6 @@ def api_res_prices():
 		req = request.get_json()
 	
 		resources = Resource.query\
-			.filter_by(GCRecord = None)\
 			.filter(Resource.ResGuid != None).all()
 
 		resource_ResId_list = [resource.ResId for resource in resources]
@@ -147,11 +156,13 @@ def api_res_prices():
 		failed_data = [] 
 
 		for res_price_req in req:
+			res_price_info = {}
 			res_price_info = addResPriceDict(res_price_req)
 			try:
 				ResRegNo = res_price_req['ResRegNo']
-				ResGuid = res_price_req['ResGuid']
+				ResGuid = str(res_price_req['ResGuid'])
 				ResPriceRegNo = res_price_req['ResPriceRegNo']
+				ResPriceGuid = str(res_price_req['ResPriceGuid'])
 				
 				try:
 					indexed_res_id = resource_ResId_list[resource_ResGuid_list.index(ResGuid)]
@@ -166,15 +177,17 @@ def api_res_prices():
 				ResPriceTypeId = res_price_info["ResPriceTypeId"]
 				thisResPrice = Res_price.query\
 					.filter_by(
-						GCRecord = None,
-						ResPriceTypeId = ResPriceTypeId,
 						ResId = ResId,
-						ResPriceRegNo = ResPriceRegNo)\
+						ResPriceGuid = ResPriceGuid)\
 					.first()
 
 				if thisResPrice:
-					res_price_info["ResPriceId"] = thisResPrice.ResPriceId
-					thisResPrice.update(**res_price_info)
+					if thisResPrice.ResPriceTypeId == ResPriceTypeId:
+						res_price_info["ResPriceId"] = thisResPrice.ResPriceId
+						thisResPrice.update(**res_price_info)
+					else:
+						print("ResPriceTypeId not equal ", ResPriceTypeId, thisResPrice.to_json_api())
+						raise Exception
 
 				else:
 					try:
@@ -184,8 +197,8 @@ def api_res_prices():
 						ResPriceId = None
 					res_price_info["ResPriceId"] = ResPriceId
 
-					thisResPrice = Res_price(**res_price_info)
-					db.session.add(thisResPrice)
+					this_res_price = Res_price(**res_price_info)
+					db.session.add(this_res_price)
 
 				thisResPrice = None
 				data.append(res_price_req)
@@ -193,6 +206,8 @@ def api_res_prices():
 			except Exception as ex:
 				print(f"{datetime.now()} | Res_price Api Exception: {ex}")
 				failed_data.append(res_price_req)
+
+			res_price_info.clear()
 
 		db.session.commit()
 		cache.clear()

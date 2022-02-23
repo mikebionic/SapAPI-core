@@ -63,7 +63,7 @@
 				<div class="single-product-content">
 					<div class="head-content">
 						<div class="category-title">
-							<a href="#" class="cat">{{ resource.ResCatName }}</a>
+							<a href="{{url_for('commerce.v_grid',ResCatId=resource.ResCatId,ResCatName=resource.ResCatName.replace('/','-').replace(' ','-'))}}" class="cat">{{ resource.ResCatName }}</a>
 							<h5 class="title">{{ resource.ResName }}</h5>
 						</div>
 						<div>
@@ -73,10 +73,23 @@
 					</div>
 
 					<div class="single-product-description">
-						<div>
+						<div style="display: flex; align-items: center">
               <i class="ti-eye"></i>
               <span class="number">{{ resource.ResViewCnt if resource.ResViewCnt else 0 }}</span>
+							{% if resource.BrandIcon %}
+							<div class="brand" style="width: 50px; margin: 0 10px;">
+								<a href="{{url_for('commerce.v_grid',BrandId=resource.BrandId,BrandName=resource.BrandName.replace('/','-').replace(' ','-'))}}" style="display: flex; align-items: center;">
+									<img alt="{{resource.BrandName}}" src="{{ resource.BrandIcon }}" style="max-width: 100%; max-height: 100%;">
+								</a>
+							</div>
+							{% endif %}
+							<div class="prcategory">
+								<a href="{{url_for('commerce.v_grid',ResCatId=resource.ResCatId,ResCatName=resource.ResCatName.replace('/','-').replace(' ','-'))}}">
+									<img alt="{{resource.ResCatName}}" src="{{ resource.CategoryIcon if resource.CategoryIcon else url_for('static', filename='commerce/ls/img/icons/category.svg') }}" alt="{{ company.CName }} category {{ resource.ResCatName }}">
+								</a>
+							</div>
             </div>
+						
 						<input type="hidden" class="ratingValue" value="{{ resource.RtRatingValue }}" ownerId="{{ resource.ResId }}">
 						<div class="ratting ratingStars" ownerId="{{ resource.ResId }}"></div>
 
@@ -139,7 +152,7 @@
 								<div class="smile"></div>
 							</div>
 						{% endif %}
-					</div>
+					</div> 
 
 					<div class="tab-pane fade" id="product-reviews">
 						<div class="product-ratting-wrap">
@@ -244,7 +257,7 @@
 
 										<div class="content">
 											<div class="category-title">
-												<a href="#" class="cat">{{ related_resource.ResCatName }}</a>
+												<a href="{{url_for('commerce.v_grid',ResCatId=related_resource.ResCatId,ResCatName=related_resource.ResCatName.replace('/','-').replace(' ','-'))}}" class="cat">{{ related_resource.ResCatName }}</a>
 												<h5 class="title">
 													<a href="{{url_for('commerce.product',ResId=related_resource.ResId,ResName=related_resource.ResName.replace('/','-').replace(' ','-'))}}">{{ related_resource.ResName }}</a>
 												</h5>

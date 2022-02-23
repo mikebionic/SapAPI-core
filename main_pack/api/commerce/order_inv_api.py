@@ -1,10 +1,5 @@
 # -*- coding: utf-8 -*-
 from flask import jsonify, request, make_response
-from sqlalchemy import and_, extract
-
-# datetime, date-parser
-import dateutil.parser
-import datetime as dt
 from datetime import datetime
 # / datetime, date-parser /
 
@@ -64,7 +59,7 @@ def api_order_invoices():
 			DivId = DivId,
 			notDivId = notDivId,
 			currency_code = Config.MAIN_CURRENCY_CODE)
-	
+
 		status_code = 200
 		response = make_response(jsonify(res), status_code)
 
@@ -94,7 +89,7 @@ def api_order_invoices():
 		currencies = Currency.query.filter_by(GCRecord = None).all()
 
 		data = []
-		failed_data = [] 
+		failed_data = []
 
 		for order_inv_req in req:
 			try:
@@ -132,24 +127,29 @@ def api_order_invoices():
 
 				thisOrderInv = Order_inv.query\
 					.filter_by(
-						OInvGuid = OInvGuid,
+						OInvRegNo = OInvRegNo,
 						GCRecord = None)\
 					.first()
 				thisInvStatus = None
 
 				if not RpAccId or not DivId or not WhId:
-					print(f"{RpAccId}, {DivId}, {WhId}")
+					print(f"RpAccId - {RpAccId} by {RpAccGuid} | DivId - {DivId} by {DivGuid}, WhId - {WhId} | by {WhGuid}")
 					raise Exception
 
 				if thisOrderInv:
-					order_invoice['OInvId'] = thisOrderInv.OInvId
-					old_invoice_status = thisOrderInv.InvStatId
-					thisOrderInv.update(**order_invoice)
-					db.session.commit()
-					# if status: "returned" or "cancelled" (id=9, id=5) 
-					# all lines should update 
-					# res_total.ResPendingTotalAmount
-					thisInvStatus = thisOrderInv.InvStatId
+					if thisOrderInv.OInvGuid == OInvGuid:
+						order_invoice['OInvId'] = thisOrderInv.OInvId
+						old_invoice_status = thisOrderInv.InvStatId
+						thisOrderInv.update(**order_invoice)
+						db.session.commit()
+						# if status: "returned" or "cancelled" (id=9, id=5)
+						# all lines should update
+						# res_total.ResPendingTotalAmount
+						thisInvStatus = thisOrderInv.InvStatId
+
+					else:
+						print("OrderInvGuid or RegNo has changed ", OInvGuid, OInvRegNo, thisOrderInv.to_json_api())
+						raise Exception
 
 				else:
 					thisOrderInv = Order_inv(**order_invoice)
@@ -170,7 +170,7 @@ def api_order_invoices():
 							ResRegNo = ResRegNo,
 							ResGuid = ResGuid,
 							GCRecord = None)\
-						.first() 
+						.first()
 
 					try:
 						order_inv_line["ResId"] = this_line_resource.ResId

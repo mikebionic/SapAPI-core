@@ -34,49 +34,47 @@
 				</form>
 
 				<div class="row">
-					{% if current_user.is_authenticated %}
-						<div class="col-lg-6 col-12 mb-15 mt-10">
-							<div class="discount-coupon">
-								<div class="contact-form mb-50">
-									<div class="row">
-										<div class="col-12 mb-25">
-											<label for="message">{{_('Note')}}</label>
-											<textarea id="message" type="text" class="orderDesc" placeholder="{{_('Description')}} ({{_('City')}}, {{_('Av.')}}, {{_('Street')}}, {{_('House')}}, {{_('Flat')}})"></textarea>
+					<div class="col-lg-6 col-12 mb-15 mt-10">
+						<div class="discount-coupon">
+							<div class="contact-form mb-50">
+								<div class="row">
+									<div class="col-12 mb-25">
+
+										<div style="margin-bottom: 1rem">
+											<p>{{_('Phone number')}}<span style="color:red"> *</span></p>
+											<input inputmode="tel" placeholder="{{_('Phone number')}} : +99361234567" class='input-text' id="phone-number" required />
 										</div>
+		
+										<div style="margin-bottom: 1rem">
+											<p>{{_('Name')}}<span style="color:red"> *</span></p>
+											<input inputmode="text" placeholder="{{_('Name')}}" class='input-text' id="username" required />
+										</div>
+
+										<label for="message">{{_('Note')}}</label>
+										<textarea id="message" type="text" class="orderDesc" placeholder="{{_('Description')}} ({{_('City')}}, {{_('Av.')}}, {{_('Street')}}, {{_('House')}}, {{_('Flat')}})"></textarea>
 									</div>
 								</div>
 							</div>
 						</div>
-						<!-- Cart Summary -->
-						<div class="col-lg-6 col-12 mb-40 d-flex">
-							<div class="cart-summary">
-								<div class="cart-summary-wrap">
-									<h4>{{_('Summary')}}</h4>
-									<p>
-										{{_('Total price')}}
-										<span class="currencySymbol">TMT</span>
-										<span class="cartTotalPrice">0.00</span>
-									</p>
-								</div>
-								<div class="cart-summary-button">
-									<button class="checkout-btn checkoutCartBtn">{{_('Checkout')}}</button>
-								</div>
+					</div>
+					<!-- Cart Summary -->
+					<div class="col-lg-6 col-12 mb-40 d-flex">
+						<div class="cart-summary">
+							<div class="cart-summary-wrap">
+								<h4>{{_('Summary')}}</h4>
+								<p>
+									{{_('Total price')}}
+									<span class="currencySymbol">TMT</span>
+									<span class="cartTotalPrice">0.00</span>
+								</p>
+							</div>
+							<div class="cart-summary-button">
+								<button class="checkout-btn checkoutCartBtn">{{_('Checkout')}}</button>
 							</div>
 						</div>
-					{% else %}
-						<div class="col-lg-12 col-12 mb-40 d-flex">
-							<div class="y_login">
-								<h2>{{_('You should login if you want to checkout an order')}}!</h2>
-								<div class="cart-summary-button">
-									<a href="{{ url_for('commerce_auth.login') }}" class="checkout-btn checkoutCartBtn" style="width: auto;float: none;font-weight: 700;text-transform: uppercase;color: #202020;
-									border-radius: 50px;background-color: #f5d730;border-color: #f5d730;padding: 5px 20px;">{{_('Login')}}</a>
-								</div>
-							</div>
-						</div>
-          {% endif %}
+					</div>
 
 				</div>
-
 			</div>
 		</div>
 	</div>

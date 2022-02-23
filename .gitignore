@@ -21,6 +21,7 @@
 **/imageDumps/*
 **/web_config/
 **/testing/**
+**/admin/sap_admin/**
 
 **/hs/css/style.css
 **/hs/css/style.css.map

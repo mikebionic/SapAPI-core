@@ -5266,22 +5266,21 @@ img.mfp-img {
 
     /*-- Hero Item --*/
     .hero-item-two {
-  /* padding: 49px 85px; */
-  /* height: 435px; */
-  background-color: #fbfafa;
-  background-repeat: no-repeat;
-  -webkit-background-size: cover;
-  background-size: cover; }
+      padding-bottom: 46.25%;
+      height: 100%
+      
+ }
   .hero-item-two img{
     width: 100%;
     height: 100%;
+    position: absolute;
   }
   .hero-item-two a{
     width: 100%;
+    height: 100%;
   }
   @media only screen and (min-width: 992px) and (max-width: 1199px) {
     .hero-item-two {
-      padding: 78px 70px;
     height: 393px;}
     .slick-active .hero-image-two img{
       height: 200px;
@@ -12233,7 +12232,6 @@ ul.link-widget li {
 }
 
 .cat-block {
-  height:100px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -12252,6 +12250,10 @@ ul.link-widget li {
 
 .cat-block figure span {
   /* position:relative */
+  height: 20vh;
+  width: 10vw;
+  display: flex;
+  align-items: center;
 }
 
 .cat-block figure span:after {
@@ -13485,3 +13487,28 @@ ul.link-widget li {
   left: 5px;
   bottom: 6px
  }
+  .brand img {
+    max-width: 150px;
+    width: 100%;
+    margin: 5px auto;
+  }
+  .content-404{
+    text-align: center;
+  }
+  .prcategory{
+    width: 30px;
+    margin: 0 10px;
+  }
+  .prcategory a img{
+    width: 100%;
+  }
+
+/* .banner{
+  padding-bottom: 30.25px;
+  height: 100%;
+}
+.banner img{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+} */

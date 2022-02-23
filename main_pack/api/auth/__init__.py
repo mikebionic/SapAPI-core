@@ -7,4 +7,6 @@ from main_pack.api.auth import (
 	api_register,
 	sms_register_api,
 	attempt_counter,
+	register_api,
+	register_phone_number,
 )

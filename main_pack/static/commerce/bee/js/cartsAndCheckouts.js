@@ -312,9 +312,9 @@ function checkoutCart(formData,url,type){
 			if(response.status == 1){
 				swal(title='',message=response.responseText,style='success');
 				clearCart();
-				setTimeout(function(){
-					window.location.href = url_prefix+'/orders';
-				}, 5000);
+				// setTimeout(function(){
+				// 	window.location.href = url_prefix+'/';
+				// }, 5000);
 			}
 			else{
 				swal(title='',message=response.responseText,style='warning');

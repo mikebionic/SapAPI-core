@@ -40,6 +40,7 @@ class Config:
 	HASAP_SYNC_HOST = environ.get('HASAP_SYNC_HOST') or "127.0.0.1"
 	HASAP_SYNC_PORT = int(environ.get('HASAP_SYNC_PORT')) if environ.get('HASAP_SYNC_PORT') else 8000
 	HASAP_SYNC_URL_PATH = environ.get('HASAP_SYNC_URL_PATH') or ''
+	SMS_SYNCH_URL_PATH = environ.get('SMS_SYNCH_URL_PATH') or ''
 	HASAP_SYNC_SHA_KEY = environ.get('HASAP_SYNC_SHA_KEY') or ''
 
 	# set to false to turn off debugging
@@ -195,11 +196,15 @@ class Config:
 	# set to True to show resources
 	# if no left in Res_total.ResTotBalace
 	SHOW_NEGATIVE_WH_QTY_RESOURCE = int(environ.get('SHOW_NEGATIVE_WH_QTY_RESOURCE')) if environ.get('SHOW_NEGATIVE_WH_QTY_RESOURCE') else 0
+	SET_UNLIMITED_RESOURCE_QTY = int(environ.get('SET_UNLIMITED_RESOURCE_QTY')) if environ.get('SET_UNLIMITED_RESOURCE_QTY') else 0
 	SHOW_NULL_RESOURCE_CATEGORY = int(environ.get('SHOW_NULL_RESOURCE_CATEGORY')) if environ.get('SHOW_NULL_RESOURCE_CATEGORY') else 1
 	HIDE_UNDER_ZERO_VISIBLE_CATEGORIES = int(environ.get('HIDE_UNDER_ZERO_VISIBLE_CATEGORIES')) if environ.get('HIDE_UNDER_ZERO_VISIBLE_CATEGORIES') else 0
 	SHOW_RES_TRANSLATIONS = int(environ.get('SHOW_RES_TRANSLATIONS')) if environ.get('SHOW_RES_TRANSLATIONS') else 0
 	SEARCH_BY_RESOURCE_DESCRIPTION = int(environ.get('SEARCH_BY_RESOURCE_DESCRIPTION')) if environ.get('SEARCH_BY_RESOURCE_DESCRIPTION') else 1
 	SHOW_ONLY_VALIDATED_RATING = 1
+
+	USE_APP_WITHOUT_AUTH = int(environ.get('USE_APP_WITHOUT_AUTH')) if environ.get('USE_APP_WITHOUT_AUTH') else 0
+	WITHOUT_AUTH_CHECKOUT_RPACCGUID = environ.get('WITHOUT_AUTH_CHECKOUT_RPACCGUID')
 
 	MAIN_CURRENCY_CODE = environ.get('MAIN_CURRENCY_CODE') or 'TMT'
 	DEFAULT_VIEW_CURRENCY_CODE = environ.get('DEFAULT_VIEW_CURRENCY_CODE') or 'TMT'
@@ -309,6 +314,8 @@ class Config:
 	INSERT_LAST_ID_MANUALLY = int(environ.get("INSERT_LAST_ID_MANUALLY")) if environ.get("INSERT_LAST_ID_MANUALLY") else 0
 	INSERT_PHONE_NUMBER_ON_REGISTER = int(environ.get("INSERT_PHONE_NUMBER_ON_REGISTER")) if environ.get("INSERT_PHONE_NUMBER_ON_REGISTER") else 0
 	INSERT_EMAIL_ON_REGISTER = int(environ.get("INSERT_EMAIL_ON_REGISTER")) if environ.get("INSERT_EMAIL_ON_REGISTER") else 0
+	SMS_REGISTER_API_RANDOM_PASSWORD = int(environ.get("SMS_REGISTER_API_RANDOM_PASSWORD")) if environ.get("SMS_REGISTER_API_RANDOM_PASSWORD") else 0
+
 
 	HANDLE_PRODUCT_VIEW = int(environ.get("HANDLE_PRODUCT_VIEW")) if environ.get("HANDLE_PRODUCT_VIEW") else 0
 	VIEW_HANDLER_API_URL = environ.get("VIEW_HANDLER_API_URL") or '/goapi/view-counter/'

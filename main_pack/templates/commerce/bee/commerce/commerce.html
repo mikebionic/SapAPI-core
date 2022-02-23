@@ -19,7 +19,7 @@
 					{% if slider.SlName == "commerce_header" %}
 						{% for sl_image in slider.Sl_images %}
 						{% if sl_image.SlImgMainImgFilePathS %}
-							<div class="slick-list draggable">
+							<div class="slick-list draggable"> 
 								<div class="slick-track" style="opacity: 1; width: 100%;">
 									<div class="hero-item-two slider-image slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" tabindex="0" role="tabpanel" id="slick-slide00" aria-describedby="slick-slide-control00" style="width: 100%; position: relative; left: 0px; top: 0px; z-index: 999; opacity: 1;">
 										<a href="{{ sl_image.SlImgLink if sl_image.SlImgLink else '#' }}">
@@ -51,7 +51,7 @@
 									<a href="{{url_for('commerce.v_grid',BrandId=brand.BrandId,BrandName=brand.BrandName.replace('/','-').replace(' ','-'))}}" class="cat-block">
 										<figure>
 											<span>
-												<img loading="lazy" src="{{brand.FilePath if brand.FilePath}}" alt="Brand {{brand.BrandName}} {{ company.CName }}" style="height: 80%; width: 100px;">
+												<img loading="lazy" src="{{brand.FilePath if brand.FilePath}}" alt="Brand {{brand.BrandName}} {{ company.CName }}" style="max-height: 100%; max-width: 100%">
 											</span>
 										</figure>
 										<h3 class="cat-block-title">{{brand.BrandName}}</h3>
@@ -226,25 +226,25 @@
 		</div>
 	</div>
 </div> 
-
 {% for slider in sliders %}
 {% if slider.SlName == "commerce_footer" %}
 <div class="banner-section section mb-90">
 	<div class="container">
 		<div class="row">
-			{% for sl_image in slider.Sl_images %}
-			{% if sl_image.SlImgMainImgFilePathS %}
-				<div class="col-12">
-					<div class="banner"><a>
-						<picture>
+			<div class="col-12">
+				<div class="single-product-image thumb-right">
+					<div id="single-image-1" class="fade show active big-image-slider">
+					{% for sl_image in slider.Sl_images %}
+					{% if sl_image.SlImgMainImgFilePathS %}
+						<div class="banner">
 							<img loading="lazy" src="{{ sl_image.SlImgMainImgFilePathM }}"
 							data-src-m="{{ sl_image.SlImgMainImgFilePathR }}"
-							alt="banner {{ sl_image.SlImgMainImgFileName }} {{ company.CName }}">
-						</picture>
-					</a></div>
+							alt="banner {{ sl_image.SlImgMainImgFileName }} {{ company.CName }}" style="width: 100%; height: 400px;">
+						</div>
+					{% endif %}
+					{% endfor %}
 				</div>
-			{% endif %}
-			{% endfor %}
+			</div>
 		</div>
 	</div>
 </div>
