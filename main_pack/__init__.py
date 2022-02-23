@@ -28,7 +28,6 @@ csrf = CSRFProtect()
 cache = Cache()
 compress = Compress()
 
-
 login_manager.login_view = 'commerce_auth.login'
 login_manager.login_message = lazy_gettext('Login the system!')
 login_manager.login_message_category = 'info'
@@ -218,12 +217,11 @@ def create_app(config_class=Config):
 			app.logger.addHandler(mail_handler)
 	# /logging
 
-	if Config.MINIFY_HTML_RESPONSE:
-		@app.after_request
-		def response_minify(response):
+	@app.after_request
+	def response_minify(response):
+		if Config.MINIFY_HTML_RESPONSE:
 			if response.content_type == u'text/html; charset=utf-8':
 				response.set_data(minify(response.get_data(as_text=True)))
-				return response
-			return response
+		return response
 
 	return app

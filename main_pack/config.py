@@ -14,6 +14,7 @@ class Config:
 
 	APP_PORT = int(environ.get('APP_PORT')) if environ.get('APP_PORT') else 5000
 	APP_HOST = environ.get('APP_HOST') or "0.0.0.0"
+	USE_MIDDLEWARE_PROFILER = int(environ.get('USE_MIDDLEWARE_PROFILER')) if environ.get('USE_MIDDLEWARE_PROFILER') else 0
 
 	# basic app configs (required)
 	SECRET_KEY = environ.get('SECRET_KEY')
