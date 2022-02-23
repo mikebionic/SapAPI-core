@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 from flask import request, make_response, jsonify
+from main_pack.api.base.validators import request_is_json
 
 from main_pack.api.v1.media_api import api
 from main_pack.api.v1.media_api.utils import collect_media_data
+from main_pack.api.v1.media_api.utils.data.save_media_data import save_media_data
+from main_pack.base.apiMethods import checkApiResponseStatus
 
 
 @api.route("/tbl-media/", methods=['GET'])
@@ -15,7 +18,7 @@ def tbl_media_get():
 		"MediaAuthor": request.args.get("author","",type=str),
 		"MediaIsFeatured": request.args.get("isFeatured",None,type=int),
 		"MediaCatId": request.args.get("categoryId",None,type=int),
-		"language": request.args.get("language","",type=str),
+		"LangName": request.args.get("language","",type=str),
 		"startDate": request.args.get("startDate","",type=str),
 		"endDate": request.args.get("endDate","",type=str),
 	}
@@ -29,3 +32,24 @@ def tbl_media_get():
 		"total": len(data)
 	}
 	return make_response(jsonify(res), 200)
+
+@api.route("/tbl_media/", methods=['POST'])
+@request_is_json(request)
+def tbl_media_post():
+
+	req = request.get_json()
+
+	data, fails = save_media_data(req)
+	status = checkApiResponseStatus(data, fails)
+
+	res = {
+		"data": data,
+		"fails": fails,
+		"success_total": len(data),
+		"fail_total": len(fails),
+	}
+	for e in status:
+		res[e] = status[e]
+
+	status_code = 201 if len(data) > 0 else 200
+	return make_response(jsonify(res), status_code)

@@ -13,7 +13,7 @@ def collect_media_data(
 	MediaAuthor = None,
 	MediaIsFeatured = None,
 	MediaCatId = None,
-	language = None,
+	LangName = None,
 	startDate = None,
 	endDate = datetime.now(),
 ):
@@ -28,8 +28,10 @@ def collect_media_data(
 	if MediaCatId:
 		filtering["MediaCatId"] = MediaCatId
 
-	if language:
-		current_language = Language.query.filter_by(LangName = language).first()
+	if LangName:
+		current_language = Language.query\
+			.filter(Language.LangName.ilike(f"%{LangName}%"))\
+			.first()
 		if current_language:
 			filtering["LangId"] = current_language.LangId
 

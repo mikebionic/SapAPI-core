@@ -386,7 +386,7 @@ curl 127.0.0.1:5000/ls/api/v1/v-images/ --header 'images-to-exclude: [{"FileName
 
 | **Route**       | **Methods** | **Status** | **Note** |
 | --------------- | :---------: | :--------: | -------- |
-| /v-translation/ |   **GET**   |   Active   |
+| /v-translations/ |   **GET**   |   Active   |
 
 **Properties**
 | **Name**   | **Type** | **Description** | **Example**     |

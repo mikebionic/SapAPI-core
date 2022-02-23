@@ -14,7 +14,7 @@ def add_Translation_dict(req):
 	TranslDesc = req.get('TranslDesc')
 	
 	data = {
-		"TranslId": TranslId,
+		# "TranslId": TranslId,
 		"TranslGuid": TranslGuid,
 		"ResCatId": ResCatId,
 		"ColorId": ColorId,
