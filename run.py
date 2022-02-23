@@ -10,4 +10,5 @@ if __name__ == "__main__":
 	if Config.USE_MIDDLEWARE_PROFILER:
 		from werkzeug.middleware.profiler import ProfilerMiddleware
 		app.wsgi_app = ProfilerMiddleware(app.wsgi_app, restrictions=[5], profile_dir='./profile')
+	app.jinja_env.cache = {}
 	app.run(host=app_host, port=app_port, threaded=True)
