@@ -6,6 +6,9 @@ from main_pack.api.v1.media_api import api
 from main_pack.api.v1.media_api.utils import collect_media_data
 from main_pack.api.v1.media_api.utils.data.save_media_data import save_media_data
 from main_pack.base.apiMethods import checkApiResponseStatus
+from main_pack.models import Media
+from main_pack.models import Rp_acc
+from main_pack.api.common.send_email_message import send_email_message
 
 
 @api.route("/tbl-media/", methods=['GET'])
@@ -53,3 +56,38 @@ def tbl_media_post():
 
 	status_code = 201 if len(data) > 0 else 200
 	return make_response(jsonify(res), status_code)
+
+
+@api.route("/send_as_email/")
+def send_as_email():
+	status = 1
+	message = "Mails sent"
+	MediaGuid = request.args.get('uuid', '', type=str)
+	try:
+		if not MediaGuid:
+			message = "uuid not passed"
+			raise Exception
+
+		selected_media = Media.query.filter_by(MediaGuid = MediaGuid).first()
+		if not selected_media:
+			message = "media not found"
+			raise Exception
+
+		emails = Rp_acc.get_emails(skipNulls = 1)
+		message_title = Media.MediaTitle
+		message_body = f'''
+			{Media.MediaTitle}
+			______
+			{Media.MediaBody}
+			--
+			{Media.MediaAuthor}
+		'''
+		send_email_message(emails, message_title, message_body)
+
+	except Exception as ex:
+		status = 0
+		message = "err.."
+		print(f"Media send as email exception {ex}")
+		
+
+	return make_response(jsonify({"status": status, "message": message}), 200)
