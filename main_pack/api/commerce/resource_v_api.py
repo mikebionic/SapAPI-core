@@ -136,5 +136,6 @@ def api_resources():
 		notDivId = notDivId)
 
 	status_code = 200
+	res["status"] = 1
 	response = make_response(jsonify(res), status_code)
 	return response
