@@ -77,6 +77,8 @@ def api_login():
 			elif auth_type == "device":
 				token_encoding_data["DevId"] = user_model.DevId
 				loggedUserInfo = apiDeviceData(dbQuery = user_query)
+				loggedUserInfo["data"]["DevVerifyKey"] = None
+				loggedUserInfo["data"]["DevVerifyDate"] = None
 
 			token, exp = encodeJWT(token_encoding_data)
 			response_data = {"exp": apiDataFormat(exp)}
