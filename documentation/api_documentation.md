@@ -212,10 +212,11 @@ Provide **username** and **password** in Authentication headers
 | /api/tbl-dk-brands/ |   **GET**   |   Active   |
 
 **Properties**
-| __Name__ | __Type__ | __Description__ | __Example__ |
-| -------- | :------: | --------------- | ----------- |
-| id       | **int**  |
-| name     | **str**  |
+| __Name__  | __Type__ | __Description__                  | __Example__ |
+| --------- | :------: | -------------------------------- | ----------- |
+| id        | **int**  |
+| name      | **str**  |
+| imageList | **int**  | returns Image[] list in response |
 
 
 ---
