@@ -22,7 +22,7 @@ curl --header "Authorization: Basic ZTRkNzg4ODc5ZmJlNjYzNTplNGQ3ODg4NzlmYmU2NjM1
 -------
 connecting to websocket
 
-wss://ls.com.tm/ws/1
+wss://ls.com.tm/<prefix>/ws/sms-register/
 
 send data:
 {"token": "<auth_token>"}
