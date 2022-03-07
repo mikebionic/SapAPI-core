@@ -53,3 +53,6 @@ api.register_blueprint(v1_translation_api) #, url_prefix=f"{api_url_prefix}/v1/"
 from main_pack.api.v1.language_api import api as v1_language_api
 api.register_blueprint(v1_language_api) #, url_prefix=f"{api_url_prefix}/v1/")
 # csrf.exempt(v1_language_api)
+
+from main_pack.api.v1.resource_api import api as v1_resource_api
+api.register_blueprint(v1_resource_api)

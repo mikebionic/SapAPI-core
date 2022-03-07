@@ -14,7 +14,7 @@ from flask_login import current_user
 
 # functions and methods
 from main_pack.base.languageMethods import dataLangSelector
-from main_pack.base.priceMethods import calculatePriceByGroup, price_currency_conversion
+from main_pack.base.priceMethods import calculatePriceByGroup, price_currency_conversion, configureDecimal
 # / functions and methods /
 
 # db models
@@ -409,6 +409,14 @@ def apiResourceInfo(
 
 			this_priceValue = List_Res_price[0]["ResPriceValue"] if List_Res_price else 0.0
 			this_currencyCode = List_Currencies[0]["CurrencyCode"] if List_Currencies else Config.MAIN_CURRENCY_CODE
+			resource_info["RealPrice"] = this_priceValue
+
+			if query_resource.Res_discount_SaleResId:
+				applying_disc = query_resource.Res_discount_SaleResId[-1]
+				if applying_disc.DiscTypeId == 1 and applying_disc.ResDiscIsActive:
+					resource_info["DiscValue"] = applying_disc.DiscValue
+					resource_info["DiscType"] = "%"
+					this_priceValue = float(configureDecimal(float(this_priceValue) - (float(this_priceValue) * float(applying_disc.DiscValue) / 100)))
 
 			price_data = price_currency_conversion(
 				priceValue = this_priceValue,

@@ -33,13 +33,13 @@ responses "connected" othervise disconnects
 > Client phone register request
 
 ```bash
-curl --header "PhoneNumber: +99363509038" --request GET https://ls.com.tm/ls/api/register-request/?method=phone_number
+curl --header "PhoneNumber: +99312312312" --request GET https://ls.com.tm/ls/api/register-request/?method=phone_number
 ```
 
 > response
 
 ```json
-{"data":{"CreatedDate":"2022-02-01 20:00:04","CreatedUId":null,"GCRecord":null,"ModifiedDate":"2022-02-01 23:17:19","ModifiedUId":null,"RegReqExpDate":"Tue, 01 Feb 2022 23:28:22 GMT","RegReqGuid":"50e258d7-d6d9-490b-97fc-116046c8c3c1","RegReqId":8,"RegReqInfo":null,"RegReqIpAddress":null,"RegReqPhoneNumber":"+99363509038","RegReqVerified":0,"RegReqVerifyCode":"","SyncDateTime":"2022-02-01 20:00:04","validator_phone_number":"Shu mumkincilik entak gurnalynmady.."},"message":"G\u00f6rkezilen telefon nomere bo\u015f SMS ugrady\u0148: <h4><div style=\"margin: 1rem 0\">\n\t\t\t\t<a href=\"sms:Shu mumkincilik entak gurnalynmady..\">\n\t\t\t\tShu mumkincilik entak gurnalynmady..</a>\n\t\t\t\t<a class=\"btn btn-success\" style=\"margin-left: 1rem\" href=\"sms:Shu mumkincilik entak gurnalynmady..\">\n\t\t\t\tIber</a>\n\t\t\t\t</div>\n\t\t\t\t</h4>\n Talaby\u0148yzy\u0148 i\u015fje\u0148 \u00fdagda\u00fd wagty 10 (minutes)","status":1,"total":1}
+{"data":{"CreatedDate":"2022-02-01 20:00:04","CreatedUId":null,"GCRecord":null,"ModifiedDate":"2022-02-01 23:17:19","ModifiedUId":null,"RegReqExpDate":"Tue, 01 Feb 2022 23:28:22 GMT","RegReqGuid":"50e258d7-d6d9-490b-97fc-116046c8c3c1","RegReqId":8,"RegReqInfo":null,"RegReqIpAddress":null,"RegReqPhoneNumber":"+99312312312","RegReqVerified":0,"RegReqVerifyCode":"","SyncDateTime":"2022-02-01 20:00:04","validator_phone_number":"Shu mumkincilik entak gurnalynmady.."},"message":"G\u00f6rkezilen telefon nomere bo\u015f SMS ugrady\u0148: <h4><div style=\"margin: 1rem 0\">\n\t\t\t\t<a href=\"sms:Shu mumkincilik entak gurnalynmady..\">\n\t\t\t\tShu mumkincilik entak gurnalynmady..</a>\n\t\t\t\t<a class=\"btn btn-success\" style=\"margin-left: 1rem\" href=\"sms:Shu mumkincilik entak gurnalynmady..\">\n\t\t\t\tIber</a>\n\t\t\t\t</div>\n\t\t\t\t</h4>\n Talaby\u0148yzy\u0148 i\u015fje\u0148 \u00fdagda\u00fd wagty 10 (minutes)","status":1,"total":1}
 ```
 
 
@@ -47,7 +47,57 @@ curl --header "PhoneNumber: +99363509038" --request GET https://ls.com.tm/ls/api
 
 ```json
 {
-  "phone_number": "+99363509038",
+  "phone_number": "+99312312312",
   "verify_code": 103379
 }
+```
+
+----
+
+Send register request from phone that received SMS with verify_code
+
+> request
+
+```bash
+curl --request POST \
+  --url 'https://ls.com.tm/ls/api/verify-register/?method=phone_number' \
+  --header 'Content-Type: application/json' \
+  --cookie session=310cc03a-3e1f-4b2e-af70-70ed065e4ccc \
+  --data '{
+	"verify_code": "103379",
+	"phone_number": "+99312312312"
+}'
+```
+
+> response 
+
+```json
+{
+  "data": {
+    "CreatedDate": "2022-03-05 20:00:04",
+    "CreatedUId": null,
+    "GCRecord": null,
+    "ModifiedDate": "2022-03-05 21:53:17",
+    "ModifiedUId": null,
+    "RegReqExpDate": "Sat, 05 Mar 2022 22:06:25 GMT",
+    "RegReqGuid": "712051c9-4508-41bd-9feb-ad8d45e11803",
+    "RegReqId": 11,
+    "RegReqInfo": null,
+    "RegReqIpAddress": null,
+    "RegReqPhoneNumber": "+99312312312",
+    "RegReqVerified": 1,
+    "RegReqVerifyCode": "442238",
+    "SyncDateTime": "2022-03-05 20:00:04",
+    "phone_number": "+99312312312",
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NDY1MDU0MTUsImlhdCI6MTY0NjQ5OTQxNSwibmJmIjoxNjQ2NDk5NDE1LCJwaG9uZV9udW1iZXIiOiIrOTkzNjE1MDkwMzgifQ._mPtHCR_1tUuvhIHJ1o6sSFRSiRgRyo7unMYTcN3nfk"
+  },
+  "message": "+99312312312, successfully verified",
+  "status": 1,
+  "total": 1
+}
+```
+
+Then use token to register the system.
+```
+{"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NDY1MDU0MTUsImlhdCI6MTY0NjQ5OTQxNSwibmJmIjoxNjQ2NDk5NDE1LCJwaG9uZV9udW1iZXIiOiIrOTkzNjE1MDkwMzgifQ._mPtHCR_1tUuvhIHJ1o6sSFRSiRgRyo7unMYTcN3nfk"}
 ```
