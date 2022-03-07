@@ -122,6 +122,7 @@ def collect_resources_query(
 	showInactive = False,
 	showLatest = False,
 	showRated = False,
+	showMain = False,
 	avoidQtyCheckup = 0,
 	showNullPrice = False,
 	DivId = None,
@@ -156,6 +157,10 @@ def collect_resources_query(
 		if not Config.SHOW_NEGATIVE_WH_QTY_RESOURCE:
 			resource_query = resource_query\
 				.filter(Res_Total_subquery.c.ResTotBalance_sum > 0)
+
+	if showMain:
+		resource_query = resource_query\
+			.filter(Resource.IsMain > 0)
 
 	if showNullPrice == False:
 		resource_query = resource_query\
@@ -212,6 +217,7 @@ def apiResourceInfo(
 	showRelated = False,
 	showLatest = False,
 	showRated = False,
+	showMain = None,
 	avoidQtyCheckup = 0,
 	showNullPrice = False,
 	DivId = None,
@@ -259,7 +265,6 @@ def apiResourceInfo(
 		if "language" in session:
 			language_code = session["language"] if session["language"] else None
 
-
 	if not resource_models:
 		resource_models = []
 		# if list with "ResId" is not provided, return all resources
@@ -269,6 +274,7 @@ def apiResourceInfo(
 					showInactive = showInactive,
 					showLatest = showLatest,
 					showRated = showRated,
+					showMain = showMain,
 					avoidQtyCheckup = avoidQtyCheckup,
 					showNullPrice = showNullPrice,
 					DivId = DivId,
@@ -283,7 +289,8 @@ def apiResourceInfo(
 				joinedload(Resource.res_category),
 				joinedload(Resource.unit),
 				joinedload(Resource.brand),
-				joinedload(Resource.usage_status))
+				joinedload(Resource.usage_status),
+				joinedload(Resource.Res_discount_SaleResId))
 
 			if Config.SHOW_RES_TRANSLATIONS:
 				resources.options(joinedload(Resource.Res_translation))
@@ -306,79 +313,72 @@ def apiResourceInfo(
 			resource_models = [resource for resource in resources if resources]
 
 		else:
-			for resource_index in resource_list:
-				ResId = int(resource_index["ResId"])
-				resource_filtering = {
-					"ResId": ResId,
-					"GCRecord": None,
-				}
-				if not showInactive:
-					resource_filtering["UsageStatusId"] = 1
+			res_id_list = [int(resource_index["ResId"]) for resource_index in resource_list if resource_index]
+			resource_filtering = {"GCRecord": None}
+			if not showInactive:
+				resource_filtering["UsageStatusId"] = 1
 
-				Res_Total_subquery = db.session.query(
-					Res_total.ResId,
-					db.func.sum(Res_total.ResTotBalance).label("ResTotBalance_sum"),
-					db.func.sum(Res_total.ResPendingTotalAmount).label("ResPendingTotalAmount_sum"))\
-				.filter(Res_total.ResId == ResId)
+			Res_Total_subquery = db.session.query(
+				Res_total.ResId,
+				db.func.sum(Res_total.ResTotBalance).label("ResTotBalance_sum"),
+				db.func.sum(Res_total.ResPendingTotalAmount).label("ResPendingTotalAmount_sum"))
 
-				if DivId:
-					Res_Total_subquery = Res_Total_subquery\
-						.filter(Res_total.DivId == DivId)
-
+			if DivId:
 				Res_Total_subquery = Res_Total_subquery\
-					.group_by(Res_total.ResId)\
-					.subquery()
+					.filter(Res_total.DivId == DivId)
 
-				resource_query = db.session.query(
-					Resource,
-					Res_Total_subquery.c.ResTotBalance_sum,
-					Res_Total_subquery.c.ResPendingTotalAmount_sum)\
-				.filter_by(**resource_filtering)\
-				.outerjoin(Res_Total_subquery, Resource.ResId == Res_Total_subquery.c.ResId)
+			Res_Total_subquery = Res_Total_subquery\
+				.group_by(Res_total.ResId)\
+				.subquery()
 
-				if avoidQtyCheckup == 0:
-					if not Config.SHOW_NEGATIVE_WH_QTY_RESOURCE:
-						resource_query = resource_query\
-							.filter(Res_Total_subquery.c.ResTotBalance_sum > 0)
+			resource_query = db.session.query(
+				Resource,
+				Res_Total_subquery.c.ResTotBalance_sum,
+				Res_Total_subquery.c.ResPendingTotalAmount_sum)\
+			.filter_by(**resource_filtering)\
+			.filter(Resource.ResId.in_(res_id_list))\
+			.outerjoin(Res_Total_subquery, Resource.ResId == Res_Total_subquery.c.ResId)
 
-				if showNullPrice == False:
+			if avoidQtyCheckup == 0:
+				if not Config.SHOW_NEGATIVE_WH_QTY_RESOURCE:
 					resource_query = resource_query\
-						.join(Res_price, Res_price.ResId == Resource.ResId)\
-						.filter(Res_price.ResPriceValue > 0)
+						.filter(Res_Total_subquery.c.ResTotBalance_sum > 0)
 
+			if showNullPrice == False:
+				resource_query = resource_query\
+					.join(Res_price, Res_price.ResId == Resource.ResId)\
+					.filter(Res_price.ResPriceValue > 0)
+
+			resource_query = resource_query.options(
+				joinedload(Resource.Image),
+				joinedload(Resource.Barcode),
+				joinedload(Resource.Res_price),
+				joinedload(Resource.Res_total),
+				joinedload(Resource.res_category),
+				joinedload(Resource.unit),
+				joinedload(Resource.brand).options(joinedload(Brand.Image)),
+				joinedload(Resource.usage_status),
+				joinedload(Resource.Res_discount_SaleResId))
+
+			if fullInfo:
 				resource_query = resource_query.options(
-					joinedload(Resource.Image),
-					joinedload(Resource.Barcode),
-					joinedload(Resource.Res_price),
-					joinedload(Resource.Res_total),
-					joinedload(Resource.res_category),
-					joinedload(Resource.unit),
-					joinedload(Resource.brand).options(joinedload(Brand.Image)),
-					joinedload(Resource.usage_status))
-
-				if fullInfo:
-					resource_query = resource_query.options(
-						joinedload(Resource.Res_color)\
-							.options(joinedload(Res_color.color)),
-						joinedload(Resource.Res_size)\
-							.options(joinedload(Res_size.size)),
-						joinedload(Resource.Rating)\
-							.options(
-								joinedload(Rating.user).options(joinedload(User.Image)),
-								joinedload(Rating.rp_acc).options(joinedload(Rp_acc.Image))
-							)
+					joinedload(Resource.Res_color)\
+						.options(joinedload(Res_color.color)),
+					joinedload(Resource.Res_size)\
+						.options(joinedload(Res_size.size)),
+					joinedload(Resource.Rating)\
+						.options(
+							joinedload(Rating.user).options(joinedload(User.Image)),
+							joinedload(Rating.rp_acc).options(joinedload(Rp_acc.Image))
 						)
+					)
 
-				elif fullInfo == False:
-					resource_query = resource_query.options(joinedload(Resource.Rating))
+			elif fullInfo == False:
+				resource_query = resource_query.options(joinedload(Resource.Rating))
 
-				resource_query = resource_query.first()
+			resource_models = resource_query.all()
 
-				if resource_query:
-					resource_models.append(resource_query)
-
-	data = []
-	fails = []
+	data, fails = [], []
 
 	for resource_query in resource_models:
 		try:

@@ -10,7 +10,6 @@ def collect_discount_resource_data():
 	discount_resources = Res_discount.query.all()
 	resource_list = []
 	for disc in discount_resources:
-		# print(disc.resource_SaleResId.to_json_api())
 		resource_list.append({"ResId": disc.SaleResId})
 	
 	data = apiResourceInfo(resource_list = resource_list)

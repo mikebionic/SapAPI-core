@@ -280,11 +280,12 @@ Provide **username** and **password** in Authentication headers
 | /api/v-resources/ |   **GET**   |   Active   |
 
 **Properties**
-| __Name__        | __Type__ | __Description__ | __Example__ |
-| --------------- | :------: | --------------- | ----------- |
+| __Name__        | __Type__ | __Description__     | __Example__ |
+| --------------- | :------: | ------------------- | ----------- |
 | DivId           | **int**  |
 | notDivId        | **int**  |
 | avoidQtyCheckup | **int**  |
+| showMain        | **int**  | shows featured only |
 
 
 ---
@@ -301,11 +302,11 @@ Provide **username** and **password** in Authentication headers
 | /api/v-full-resources/ |   **GET**   |  Old ver   | **!!deprecated** |
 
 **Properties**
-| __Name__ | __Type__ | __Description__ | __Example__ |
-| -------- | :------: | --------------- | ----------- |
+| __Name__ | __Type__ | __Description__     | __Example__ |
+| -------- | :------: | ------------------- | ----------- |
 | DivId    | **int**  |
 | notDivId | **int**  |
-
+| showMain | **int**  | shows featured only |
 
 ---
 
@@ -328,8 +329,8 @@ Provide **username** and **password** in Authentication headers
 | /api/resources/ |   **GET**   |   Active   |
 
 **Properties**
-| __Name__ | __Type__ | __Description__ | __Example__ |
-| -------- | :------: | --------------- | ----------- |
+| __Name__ | __Type__ | __Description__     | __Example__ |
+| -------- | :------: | ------------------- | ----------- |
 | DivId    | **int**  |
 | notDivId | **int**  |
 | page     | **int**  |
@@ -338,7 +339,7 @@ Provide **username** and **password** in Authentication headers
 | category | **int**  |
 | brand    | **int**  |
 | search   | **str**  |
-
+| showMain | **int**  | shows featured only |
 
 ---
 
