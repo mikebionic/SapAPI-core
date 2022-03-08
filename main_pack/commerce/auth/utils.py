@@ -1,6 +1,6 @@
 from flask import url_for, redirect, session
 from flask_mail import Message
-from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+# from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 import os
 from functools import wraps
 from flask_login import current_user
