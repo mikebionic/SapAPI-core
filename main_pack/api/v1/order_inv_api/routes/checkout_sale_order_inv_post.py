@@ -7,8 +7,9 @@ from main_pack.base.apiMethods import get_login_info
 
 from main_pack.api.v1.order_inv_api import api
 from main_pack.api.v1.order_inv_api.utils import save_order_checkout_data
+from main_pack import csrf
 
-
+@csrf.exempt
 @api.route("/checkout-sale-order-inv/", methods=['POST'])
 @token_required
 @request_is_json(request)

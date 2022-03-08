@@ -12,7 +12,7 @@ from main_pack.base.apiMethods import checkApiResponseStatus
 def v_translations_get():
 	arg_data = {
 		"TranslId": request.args.get("id",None,type=int),
-		"TranslGuid": request.args.get("translGuid","",type=int),
+		"TranslGuid": request.args.get("uuid","",type=int),
 		"ResCatId": request.args.get("categoryId",None,type=int),
 		"ColorId": request.args.get("colorId",None,type=int),
 		"ProdId": request.args.get("prodId",None,type=int),

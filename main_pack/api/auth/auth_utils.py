@@ -10,7 +10,7 @@ from main_pack.base.cryptographyMethods import encodeJWT
 from main_pack.config import Config
 
 from main_pack.base import generate_random_code
-from main_pack.api.common import configureEmail
+from main_pack.api.common import configureEmail, configurePhoneNumber
 
 from main_pack.models.Rp_acc import Rp_acc
 from main_pack.models import Register_request
@@ -159,7 +159,7 @@ def verify_email_register(requested_email, verify_code = None):
 def verify_phone_number_register(requested_phone_number, verify_code = None):
 	data, message = {}, ""
 	try:
-		phone_number = configureEmail(requested_phone_number)
+		phone_number = configurePhoneNumber(requested_phone_number)
 		if not phone_number:
 			message = "{}: {}".format("Invalid email ", requested_phone_number)
 			log_print(message, "warning")

@@ -39,6 +39,7 @@ def collect_resource_paginate_info(
 	from_price = None,
 	to_price = None,
 	search = None,
+	showMain = None,
 	DivId = None,
 	notDivId = None,
 	avoidQtyCheckup = 0,
@@ -159,6 +160,8 @@ def collect_resource_paginate_info(
 	if to_price:
 		resource_query = resource_query.filter(Res_price.ResPriceValue <= to_price)
 
+	if showMain:
+		resource_query = resource_query.filter(Resource.IsMain > 0)
 
 	if sort:
 		if sort == "date_new":
@@ -267,7 +270,8 @@ def collect_resource_paginate_info(
 		joinedload(Resource.res_category),
 		joinedload(Resource.unit),
 		joinedload(Resource.brand),
-		joinedload(Resource.usage_status))
+		joinedload(Resource.usage_status),
+		joinedload(Resource.Res_discount_SaleResId))
 
 	pagination_resources = resource_query.paginate(per_page=per_page if per_page else Config.RESOURCES_PER_PAGE,page=page)
 

@@ -384,8 +384,8 @@ curl 127.0.0.1:5000/ls/api/v1/v-images/ --header 'images-to-exclude: [{"FileName
 
 ## Translation api
 
-| **Route**       | **Methods** | **Status** | **Note** |
-| --------------- | :---------: | :--------: | -------- |
+| **Route**        | **Methods** | **Status** | **Note** |
+| ---------------- | :---------: | :--------: | -------- |
 | /v-translations/ |   **GET**   |   Active   |
 
 **Properties**
@@ -421,3 +421,12 @@ curl 127.0.0.1:5000/ls/api/v1/v-images/ --header 'images-to-exclude: [{"FileName
 | desc     | **str**  |
 
 [Example](./examples/language_api.md)
+
+
+## Discount resources
+
+| **Route**            | **Methods** | **Status** | **Note** |
+| -------------------- | :---------: | :--------: | -------- |
+| /discount-resources/ |   **GET**   |   Active   |
+
+<!-- !!!TODO: add filtering and currency showing if necessary -->

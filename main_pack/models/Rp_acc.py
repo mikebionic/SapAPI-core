@@ -93,6 +93,13 @@ class Rp_acc(AddInf, BaseModel, db.Model, UserMixin):
 	def get_id(self):
 		return (self.RpAccId)
 
+	def get_emails(skipNulls = 1):
+		rp_emails = Rp_acc.query.with_entities(Rp_acc.RpAccEMail, Rp_acc.RpAccUPass)
+		if skipNulls:
+			rp_emails = rp_emails.filter(Rp_acc.RpAccEMail != None)
+		rp_emails = [item.RpAccEMail for item in rp_emails.all()]
+		return rp_emails
+
 	def to_json_api(self):
 		data = {
 			"RpAccId": self.RpAccId,
