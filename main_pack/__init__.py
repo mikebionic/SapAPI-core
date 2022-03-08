@@ -95,9 +95,62 @@ def create_app(config_class=Config):
 	from main_pack.api.users import api as users_api
 	app.register_blueprint(users_api, url_prefix=api_url_prefix)
 
-	from main_pack.api.v1 import api as v1_api
-	app.register_blueprint(v1_api, url_prefix=f"{api_url_prefix}/v1/")
-	csrf.exempt(v1_api)
+
+	from main_pack.api.v1.rp_acc_api import api as v1_rp_acc_api
+	app.register_blueprint(v1_rp_acc_api, url_prefix=f"{api_url_prefix}/v1/")
+	csrf.exempt(v1_rp_acc_api)
+
+	from main_pack.api.v1.user_api import api as v1_user_api
+	app.register_blueprint(v1_user_api, url_prefix=f"{api_url_prefix}/v1/")
+	csrf.exempt(v1_user_api)
+
+	from main_pack.api.v1.invoice_api import api as v1_invoice_api
+	app.register_blueprint(v1_invoice_api, url_prefix=f"{api_url_prefix}/v1/")
+	csrf.exempt(v1_invoice_api)
+
+	from main_pack.api.v1.order_inv_api import api as v1_order_inv_api
+	app.register_blueprint(v1_order_inv_api, url_prefix=f"{api_url_prefix}/v1/")
+	csrf.exempt(v1_order_inv_api)
+
+	from main_pack.api.v1.warehouse_api import api as v1_warehouse_api
+	app.register_blueprint(v1_warehouse_api, url_prefix=f"{api_url_prefix}/v1/")
+	csrf.exempt(v1_warehouse_api)
+
+	from main_pack.api.v1.payment_info_api import api as v1_payment_info_api
+	app.register_blueprint(v1_payment_info_api, url_prefix=f"{api_url_prefix}/v1/")
+	csrf.exempt(v1_payment_info_api)
+
+	from main_pack.api.v1.session_api import api as v1_session_api
+	app.register_blueprint(v1_session_api, url_prefix=f"{api_url_prefix}/v1/")
+	csrf.exempt(v1_session_api)
+
+	from main_pack.api.v1.image_api import api as v1_image_api
+	app.register_blueprint(v1_image_api, url_prefix=f"{api_url_prefix}/v1/")
+	csrf.exempt(v1_image_api)
+
+	from main_pack.api.v1.media_api import api as v1_media_api
+	app.register_blueprint(v1_media_api, url_prefix=f"{api_url_prefix}/v1/")
+	csrf.exempt(v1_media_api)
+
+	from main_pack.api.v1.barcode_api import api as v1_barcode_api
+	app.register_blueprint(v1_barcode_api, url_prefix=f"{api_url_prefix}/v1/")
+	csrf.exempt(v1_barcode_api)
+
+	from main_pack.api.v1.device_api import api as v1_device_api
+	app.register_blueprint(v1_device_api, url_prefix=f"{api_url_prefix}/v1/")
+	csrf.exempt(v1_device_api)
+
+	from main_pack.api.v1.translation_api import api as v1_translation_api
+	app.register_blueprint(v1_translation_api, url_prefix=f"{api_url_prefix}/v1/")
+	csrf.exempt(v1_translation_api)
+
+	from main_pack.api.v1.language_api import api as v1_language_api
+	app.register_blueprint(v1_language_api, url_prefix=f"{api_url_prefix}/v1/")
+	csrf.exempt(v1_language_api)
+
+	from main_pack.api.v1.resource_api import api as v1_resource_api
+	app.register_blueprint(v1_resource_api)
+
 
 	if Config.USE_ACTIVATION_CUSTOMER:
 		from main_pack.activation.customer import api as activation_customer_api
