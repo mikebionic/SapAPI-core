@@ -4,8 +4,9 @@ from datetime import datetime
 
 from main_pack.api.v1.image_api import api
 from main_pack.api.v1.image_api.utils import get_images
+from main_pack import csrf
 
-
+@csrf.exempt
 @api.route("/v-images-by-excluded-list/", methods=['GET','POST'])
 def v_image_by_excluded_list_post():
 	arg_data = {
