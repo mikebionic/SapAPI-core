@@ -410,6 +410,8 @@ def apiResourceInfo(
 			this_priceValue = List_Res_price[0]["ResPriceValue"] if List_Res_price else 0.0
 			this_currencyCode = List_Currencies[0]["CurrencyCode"] if List_Currencies else Config.MAIN_CURRENCY_CODE
 			resource_info["RealPrice"] = this_priceValue
+			resource_info["DiscValue"] = None
+			resource_info["DiscType"] = None
 
 			if query_resource.Res_discount_SaleResId:
 				applying_disc = query_resource.Res_discount_SaleResId[-1]
@@ -547,6 +549,16 @@ def apiResourceInfo(
 
 						this_priceValue = Related_resource_price[0]["ResPriceValue"] if Related_resource_price else 0.0
 						this_currencyCode = Related_resource_currencies[0]["CurrencyCode"] if Related_resource_currencies else Config.MAIN_CURRENCY_CODE
+						related_resource_info["RealPrice"] = this_priceValue
+
+						related_resource_info["DiscValue"] = None
+						related_resource_info["DiscType"] = None
+						if resource.Res_discount_SaleResId:
+							applying_disc = resource.Res_discount_SaleResId[-1]
+							if applying_disc.DiscTypeId == 1 and applying_disc.ResDiscIsActive:
+								related_resource_info["DiscValue"] = applying_disc.DiscValue
+								related_resource_info["DiscType"] = "%"
+								this_priceValue = float(configureDecimal(float(this_priceValue) - (float(this_priceValue) * float(applying_disc.DiscValue) / 100)))
 
 						Related_resource_price_data = price_currency_conversion(
 							priceValue = this_priceValue,
