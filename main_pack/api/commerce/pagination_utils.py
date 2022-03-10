@@ -40,6 +40,7 @@ def collect_resource_paginate_info(
 	to_price = None,
 	search = None,
 	showMain = None,
+	limit_by = None,
 	DivId = None,
 	notDivId = None,
 	avoidQtyCheckup = 0,
@@ -206,7 +207,6 @@ def collect_resource_paginate_info(
 			barcodes_search = barcodes_search.filter(Barcode.DivId != DivId)
 		barcodes_search = barcodes_search.all()
 
-
 		if Config.USE_SMART_SEARCH:
 			try:
 				r = requests.get(f"{Config.SMART_SEARCH_API_URL}?search={search}")
@@ -255,7 +255,6 @@ def collect_resource_paginate_info(
 
 		resource_query = resource_query.filter(Resource.ResId.in_(resource_ids))
 
-
 	if Config.HIDE_UNDER_ZERO_VISIBLE_CATEGORIES:
 		resource_query = resource_query\
 			.join(Res_category, Res_category.ResCatId == Resource.ResCatId)\
@@ -278,7 +277,7 @@ def collect_resource_paginate_info(
 	resource_models = [resource for resource in pagination_resources.items if pagination_resources.items]
 	data = []
 	if resource_models:
-		res = apiResourceInfo(resource_models=resource_models)
+		res = apiResourceInfo(resource_models=resource_models, limit_by=limit_by)
 		data = res["data"]
 
 	pagination_info = {
