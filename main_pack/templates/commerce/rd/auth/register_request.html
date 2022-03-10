@@ -1,0 +1,65 @@
+
+{% extends "commerce/rd/commerce/layout.html" %}
+
+
+{% block head %}
+<meta property="og:description" content="Register on online commerce {{ company.CName }} {{ company.CDesc if company.CDesc}}" />
+<meta property="og:image" content="{{ request.host_url }}{{ company_logo.FilePath if company_logo else url_for('static', filename='commerce/hs/images/logo/halal_OG.png') }}" />
+<meta name="twitter:description" content="Register on online commerce {{ company.CName }} {{ company.CDesc if company.CDesc}}" />
+<meta name="twitter:image" content="{{ request.host_url }}{{ company_logo.FilePath if company_logo else url_for('static', filename='commerce/hs/images/logo/halal_OG.png') }}" />
+{% endblock %}
+
+
+{% block content %}
+<div class="login-register-area pt-85 pb-90">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-7 col-md-12 ml-auto mr-auto">
+				<div class="login-register-wrapper">
+					<div class="login-register-tab-list nav">
+						<a class="not_active_reg" href="{{ url_for('commerce_auth.login') }}">{{_('Login')}}</a>
+							<a class="active" href="{{ url_for('commerce_auth.register_sms') }}">
+								<h4> {{_('Register')}} </h4>
+							</a>
+					</div>
+					<div class="tab-content">
+						<div id="lg2" class="tab-pane active">
+							<div class="login-form-container">
+								<div class="login-register-form">
+									<form action="" method="post">
+										{{ form.csrf_token() }}
+										<p class="before-register-text">
+											{{_("Register to use all the features and posibilities of ecommerce")}}.
+										</p>
+										{{ form.username(class='input-text',placeholder=_('Username'))}}
+										{{ form.email(class="input-text",inputmode="email",placeholder=_('E-mail')) }}
+										{% if form.email.errors %}
+											<div class="col-12 mb-30">
+												{% for error in form.email.errors %}
+													<span style="color: red">{{ error }}</span>
+												{% endfor %}
+											</div>
+										{% endif %}
+										<div class="row" style="justify-content: space-around;">
+											<div class="button-box">
+												<button type="submit">{{_('Register')}}</button>
+											</div>
+											<div class="cart-summary-button btn-hover btn-hover-radious">
+												<a href="{{url_for('commerce_auth.register_sms')}}">
+													<i class="las la-registered"></i>
+													<span class="login-text">{{_('Register by SMS')}}</span>
+												</a>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

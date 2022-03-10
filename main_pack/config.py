@@ -308,6 +308,7 @@ class Config:
 	# COMMERCE_TEMPLATES_FOLDER_PATH = "/commerce/bee"
 	# COMMERCE_TEMPLATES_FOLDER_PATH = "/commerce/main"
 	# COMMERCE_TEMPLATES_FOLDER_PATH = "/commerce/testing"
+	print(COMMERCE_TEMPLATES_FOLDER_PATH)
 
 	COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH = environ.get("COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH") or "/commerce/admin"
 	# / templates file location configuration /

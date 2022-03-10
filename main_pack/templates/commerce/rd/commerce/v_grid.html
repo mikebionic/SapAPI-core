@@ -1,0 +1,251 @@
+{% extends "commerce/rd/commerce/layout.html" %}
+
+
+{% block head %}
+<meta name="description"
+	content="{% for sort in sort_types %}{{ sort.sort_title if sort.status == 1 }}{% endfor %} {{_('Products')}}: {% for resource in data %} {{ resource.ResName }}, {% endfor %}">
+<meta property="og:description"
+	content="{% for sort in sort_types %}{{ sort.sort_title if sort.status == 1 }}{% endfor %} {{_('Products')}}: {% for resource in data %} {{ resource.ResName }}, {% endfor %}" />
+<meta property="og:image"
+	content="{{ request.host_url }}{{ url_for('static', filename='commerce/hs/images/logo/halal_OG.png') }}" />
+<meta name="twitter:description"
+	content="{% for sort in sort_types %}{{ sort.sort_title if sort.status == 1 }}{% endfor %} {{_('Products')}}: {% for resource in data %} {{ resource.ResName }}, {% endfor %}" />
+<meta name="twitter:image"
+	content="{{ request.host_url }}{{ url_for('static', filename='commerce/hs/images/logo/halal_OG.png') }}" />
+{% endblock %}
+{% block breadcrumbs %}
+	<div class="breadcrumb-area bg-img">
+		<div class="container">
+			<div class="breadcrumb-content text-center">
+				<h2>{{_('Products')}}</h2>
+				<ul>
+					<li>
+						<a href="{{ url_for('commerce.commerce') }}">{{_('Main')}}</a>
+					</li>
+					<li class="active">{{_('Products')}} </li>
+				</ul>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+{% block content %}
+
+	<div class="shop-area pt-90 pb-90">
+		<div class="container">
+			<div class="row flex-row-reverse">
+				<div class="col-lg-9">
+					<div class="shop-topbar-wrapper">
+						<div class="shop-topbar-left">
+							<div class="view-mode nav">
+								<a class="active" href="#shop-1" data-toggle="tab"><i class="la la-th"></i></a>
+							</div>
+						</div>
+						<div class="product-sorting-wrapper">
+							<div class="product-shorting shorting-style">
+								<label>{{_('Showing')}}</label>
+								<select name="showing" class="nice-select per_page">
+									<option value="{{ per_page }}">{{ per_page }}</option>
+									<option value="16">16</option>
+									<option value="32">32</option>
+									<option value="56">56</option>
+									<option value="80">80</option>
+									<option value="96">96</option>
+								</select>
+							</div>
+							<div class="product-show shorting-style sorting">
+								<label>{{_('View')}}</label>
+								<select>
+									{% for sort in sort_types %}
+										<option value="{{sort.sort}}" {{ 'selected' if sort.status == 1 }}>{{sort.sort_title}}</option>
+									{% endfor %}
+								</select>
+							</div>
+							<input type="hidden" class="category_sort" value="{{ category if category else '' }}">
+							<input type="hidden" class="brand_sort" value="{{ brand if brand else '' }}">
+							<input type="hidden" class="search_sort" value="{{ search if search else '' }}">
+							<button class="applySortingBtn btn" style="border:1px solid #ebebeb; padding:0 .75rem">{{_('View')}}</button>
+						</div>
+					</div>
+					<div class="shop-bottom-area">
+						<div class="tab-content jump">
+							<div id="shop-1" class="tab-pane active">
+								<div class="row">
+									{% if data == [] or data == null %}
+									{{_('Nothing found')}}
+									{% endif %}
+
+									{% for resource in data %}
+									<div class="col-xl-3 col-lg-4 col-md-4 col-sm-4 col-6">
+										<div class="product-wrap product-border-3 product-img-zoom mb-30">
+											<div class="product-img">
+												<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">
+													<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }} {{ company.CName }}">
+												</a>
+											</div>
+											<div class="product-content product-content-padding">
+												<div class="hm3"><div class="ui-q0">
+													<span class="ui-q3 ui-q6">
+														{{ resource.ResPriceValue }} T
+													</span>
+												</div>
+												<span class="n1c c2n n2c nc5 f-tsBodyM" style="color:var(--ozOrange);">
+													<span>
+														Бестселлер
+													</span>
+												</span>
+												<a href="#" class="tile-hover-target k9h">
+													<span class="n1c c2n n2c nc4 f-tsBodyL k9h">
+														<span>{{ resource.ResName }}</span>
+													</span>
+												</a>
+												<div class="kh9 nc">
+													<div class="ui-ab7 ui-a6b ui-b7a">
+														<div class="ui-b5a ui-a6b">
+															<div class="ui-ba7 ui-a6b"></div>
+															<div class="ui-a7b" style="width:96.79595022222223%;"></div>
+														</div> 
+													</div>
+													<a href="#" class="cn0">1865 отзывов</a>
+												</div>
+												<div class="l8h hm">
+													<div class="l9h hm0">
+														<div class="cj5 j5c hl9">
+															<div class="ui-a1">
+																<div tabindex="0" type="button" class="ui-a3">
+																	<span class="ui-a4" style="border-radius:6px;">
+																		<span class="ui-d7">
+																			В корзину
+																		</span>
+																	</span>
+																</div>
+															</div>
+														</div>
+														<span class="n1c c2n nc2 nc5 f-tsBodyM h9l" style="color:#808d9a;">
+															<span><b>7 марта</b> доставит<b>Ozon</b>, продавец Издательство АСТ</span>
+														</span>
+													</div>
+												</div>
+												</div>
+											</div>
+											{% if current_user.is_authenticated %}
+											<div class="h0n">
+												<div interactive="true" class="ui-i4 n0h"> 
+													<div class="c2w ui-a1">
+														<div tabindex="0" type="button" class="ui-a3">
+															<span class="ui-a4 ui-b2 ui-a6 ui-d4" style="border-radius:6px;">
+																<svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg" class="ui-d2" style="color:var(--ozBlack);"><path d="M17.282 1C21.34 1 23.999 4.147 24 8.5c0 4.287-3.168 8.376-10.8 14.1l-1.2.9-1.2-.9C3.168 16.876 0 12.787 0 8.5 0 4.147 2.659 1 6.718 1 8.734 1 10.64 1.806 12 3.177A7.455 7.455 0 0117.282 1z" fill="#fff"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M23 8.5C23 4.8 20.861 2 17.282 2 15.115 2 13.136 3.069 12 4.742 10.864 3.069 8.884 2 6.718 2 3.138 2 1 4.8 1 8.5c0 3.817 2.886 7.664 10.4 13.3l.6.45.6-.45C20.115 16.164 23 12.316 23 8.5zM17.282 4C19.622 4 21 5.805 21 8.5c0 2.93-2.398 6.211-9 11.246C5.398 14.712 3 11.43 3 8.5 3 5.805 4.379 4 6.718 4 9.03 4 11 5.743 11 8h2c0-2.257 1.969-4 4.282-4z" fill="#001A34"></path></svg>
+																<span class="ui-d7"></span>
+															</span>
+														</div>
+													</div>
+												</div>
+												<div class="ui-i4 n0h">
+													<div class="ui-a1">
+														<div tabindex="0" type="button" class="ui-a3">
+															<span class="ui-a4 ui-b2 ui-a6 ui-d4" style="border-radius:6px;">
+																<svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg" class="ui-d2" style="color:var(--ozBlack);"><path d="M0 12C0 5.373 5.373 0 12 0s12 5.373 12 12-5.373 12-12 12S0 18.627 0 12z" fill="#fff"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M5 10a2 2 0 110 4 2 2 0 010-4zm14 0a2 2 0 110 4 2 2 0 010-4zm-5 2a2 2 0 10-4 0 2 2 0 004 0z" fill="#001A34"></path></svg>
+																<span class="ui-d7"></span>
+															</span>
+														</div>
+													</div>
+												</div>
+											</div>
+											{% endif %}
+										</div>
+									</div>
+									{% endfor %}
+								</div>
+							</div>
+							<div class="pagination-style text-center">
+								<ul>
+									{% if prev_url %}
+									<li><a class="prev" href="#"><i class="la la-angle-left"></i></a></li>
+									{% endif %}
+									{% for page_num in page_num_list %}
+											{% if page_num %}
+												{% if page_num.status == "active" %}
+													<li><a class="active" href="#">{{ page_num.page }}</a></li>
+												{% elif page_num.status == None %}
+													<li><a href="#">------</a></li>
+												{% else %}
+													<li><a href="{{ page_num.url }}">{{ page_num.page }}</a></li>
+												{% endif %}
+										{% endif %}
+									{% endfor %}
+									{% if next_url %}
+										<li><a class="next" href="{{ next_url }}"><i class="la la-angle-right"></i></a></li>
+									{% endif %}
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3">
+					<div class="sidebar-wrapper">
+						<div class="sidebar-widget">
+							<h4 class="sidebar-title">{{_('Search')}} </h4>
+							<div class="sidebar-search mb-40 mt-20">
+								<form class="sidebar-search-form" action="#">
+									<input type="text" id="search" dir="ltr" value="" name="search" placeholder="{{_('Search')}}" />
+									<button>
+										<i class="la la-search"></i>
+									</button>
+								</form>
+							</div>
+						</div>
+						<!-- <div class="sidebar-widget shop-sidebar-border pt-40">
+							<h4 class="sidebar-title">{{_('Categories')}}</h4>
+							<div class="shop-catigory mt-20">
+								<ul id="faq">
+									<li> <a data-toggle="collapse" data-parent="#faq" href="{{url_for('commerce.v_grid')}}">{{_('All')}}</a></li>
+									{% for category in categories %}
+									<li> <a data-toggle="collapse" data-parent="#faq" href="#shop-catigory-2">{{ category.ResCatName }}
+										<i class="la la-angle-down"></i>
+										{% if not category.Categories %}
+										</a>
+										{% elif category.Categories %}
+										<ul id="shop-catigory-2" class="panel-collapse collapse">
+											{% for category in category.Categories %}
+											<li><a href="{{url_for('commerce.v_grid',ResCatId=category.ResCatId,ResCatName=category.ResCatName.replace('/','-').replace(' ','-'))}}">
+												{{ category.ResCatName }}
+												</a></li>
+											{% endfor %}
+										</ul>
+										{% endif %}
+									</li>
+									{% endfor %}
+								</ul>
+							</div>
+						</div>
+						<div class="shop-price-filter mt-35 shop-sidebar-border pt-40 sidebar-widget">
+							<h4 class="sidebar-title">{{_('Price Filter')}}</h4>
+							<div class="price-filter mt-20">
+								<span>{{_('Range:')}}  $100.00 - 1.300.00 </span>
+								<div id="slider-range"></div>
+								<div class="price-slider-amount">
+									<div class="label-input">
+										<input type="text" id="amount" name="price" placeholder="Add Your Price" />
+									</div>
+									<button type="button">{{_('Filter')}}</button>
+								</div>
+							</div>
+						</div>
+						<div class="sidebar-widget pt-40 mt-40 shop-sidebar-border">
+							<h4 class="sidebar-title">{{_('Popular Tags')}} </h4>
+							<div class="sidebar-widget-tag mt-20">
+								<ul>
+									<li><a href="#">Clothing</a></li>
+									<li><a href="#">Accessories</a></li>
+									<li><a href="#">For Men</a></li>
+									<li><a href="#">Women</a></li>
+									<li><a href="#">Fashion</a></li>
+								</ul>
+							</div>
+						</div> -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
