@@ -57,6 +57,7 @@ class Resource(AddInf, BaseModel, db.Model):
 	Production_line = db.relationship("Production_line",backref='resource',lazy=True)
 	Rating = db.relationship("Rating",backref='resource',lazy=True)
 	Tag = db.relationship("Tag",backref='resource',lazy=True)
+	Res_collection_line = db.relationship("Res_collection_line",backref='resource',lazy=True)
 
 	def to_json_api(self):
 		data = {

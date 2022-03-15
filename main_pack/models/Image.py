@@ -17,6 +17,7 @@ class Image(BaseModel, db.Model):
 	ResId = db.Column("ResId",db.Integer,db.ForeignKey("tbl_dk_resource.ResId"))
 	ResCatId = db.Column("ResCatId",db.Integer,db.ForeignKey("tbl_dk_res_category.ResCatId"))
 	ProdId = db.Column("ProdId",db.Integer,db.ForeignKey("tbl_dk_production.ProdId"))
+	ResCollectionId = db.Column("ResCollectionId",db.Integer, db.ForeignKey("tbl_dk_res_collection.ResCollectionId"))
 	FileName = db.Column("FileName",db.String(100),default="")
 	FilePath = db.Column("FilePath",db.String(255))
 	FileHash = db.Column("FileHash",db.String(100))
