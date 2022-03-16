@@ -699,7 +699,7 @@ img.zoom-img {
     font-size: 14px;
     line-height: 1;
     color: #333;
-    border: 1px solid #56bb81;
+    border: 1px solid #2c5ca7;
     transition: all 0.5s ease-in-out 0s;
     padding: 12px 30px 12px;
     border-radius: 50px;
@@ -758,10 +758,8 @@ img.zoom-img {
 	color: #4b4b4b;
 	float: right;
 	line-height: 31px;
-	font-size: 15px;
-	border: 1px solid #4b4b4b;
+	font-size: 25px;
 	padding: 5px;
-	border-radius: 50px;
 	&:hover {
 		color: #f44336;
 	}
@@ -773,6 +771,10 @@ img.zoom-img {
 	animation: heart 0.5s linear;
 }
 .yith-wcwl-add-to-wishlist {
+	top:0;
+	position: absolute;
+	right: 0;
+	border: none;
   display: flex;
   justify-content: flex-end;
 	.add_to_wishlist {
@@ -1487,7 +1489,7 @@ article {
 .not_active_reg{
 	font-size: 25px;
     font-weight: 300;
-    color: #56bb81;
+    color: #2c5ca7;
     // display: flex;
     font-style: oblique;
     border-bottom: 1px solid;

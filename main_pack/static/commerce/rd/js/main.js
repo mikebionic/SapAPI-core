@@ -124,7 +124,7 @@
         item: 5,
         responsive: {
             0: {
-                items: 1
+                items: 2
             },
             576: {
                 items: 2
@@ -300,7 +300,7 @@
                 items: 3
             },
             768: {
-                items: 3
+                items: 2
             },
             1000: {
                 items: 3
@@ -499,7 +499,7 @@
                 items: 2
             },
             768: {
-                items: 3
+                items: 2
             },
             992: {
                 items: 4
@@ -555,7 +555,7 @@
                 items: 3,
             },
             768: {
-                items: 3
+                items: 2
             },
             992: {
                 items: 3
@@ -581,7 +581,7 @@
                 items: 2,
             },
             768: {
-                items: 3
+                items: 2
             },
             992: {
                 items: 3
@@ -590,7 +590,7 @@
                 items: 3
             }
         }
-    })
+    }) 
 
 
     /*--
@@ -865,7 +865,7 @@
                 items: 2
             },
             768: {
-                items: 3
+                items: 2
             },
             1000: {
                 items: 3
@@ -1066,10 +1066,10 @@ function reset_owl_carousel(){
                 items: 2
             },
             576: {
-                items: 3
+                items: 2
             },
             768: {
-                items: 3
+                items: 2
             },
             992: {
                 items: 4
@@ -1100,7 +1100,7 @@ function featured_product_owl_carousel(){
                 items: 3
             },
             768: {
-                items: 3
+                items: 2
             },
             992: {
                 items: 4

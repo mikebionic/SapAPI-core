@@ -64,7 +64,6 @@
 		</div>
 		{% endif %}
 		{% endfor %}
-
 		<div class="col-lg-12">
 			<div class="iq-card iq-card-block iq-card-stretch iq-card-height">
 				 <div class="iq-card-header d-flex justify-content-between align-items-center position-relative mb-0 trendy-detail">
@@ -77,416 +76,77 @@
 				 </div>
 				 <div class="iq-card-body trendy-contens">
 						<ul id="trendy-slider" class="list-inline p-0 mb-0 row">
-							 <li class="col-md-3">
-									<div class="product-wrap product-border-3 product-img-zoom mb-30">
-										<div class="product-img">
-											<a href="#">
-												<img loading="lazy" src="{{ url_for('static', filename='commerce/rd/2.webp') }}" alt="Product featured_resource.ResName of category  featured_resource.ResCatName if featured_resource.ResCatName else ''  company.CName ">
-											</a>
-										</div>
-										<div class="product-content product-content-padding">
-											<div class="hm3"><div class="ui-q0">
-												<span class="ui-q3 ui-q6">
-													15,85 T
-												</span>
-											</div>
-											<span class="n1c c2n n2c nc5 f-tsBodyM" style="color:var(--ozOrange);">
-												<span>
-													Бестселлер
-												</span>
-											</span>
-											<a href="#" class="tile-hover-target k9h">
-												<span class="n1c c2n n2c nc4 f-tsBodyL k9h">
-													<span>Портрет Дориана Грея | Уайльд Оскар</span>
-												</span>
-											</a>
-											<div class="kh9 nc">
-												<div class="ui-ab7 ui-a6b ui-b7a">
-													<div class="ui-b5a ui-a6b">
-														<i class="las la-star"></i>
-														<i class="las la-star"></i>
-														<i class="las la-star"></i>
-														<i class="las la-star"></i>
-														<i class="las la-star"></i>
-													</div> 
-												</div>
-												<a href="#" class="cn0">1865 отзывов</a>
-											</div> 
-											<div class="hw w0h">
-													<div class="wh0 h1w">
-															<div class="q6c qc7 wh">
-																	<div class="ui-b2">
-																			<button tabindex="0" type="button" class="ui-b4">
-																					<span class="ui-b5" style="border-radius: 6px;"><span class="ui-e8">В корзину</span></span>
-																			</button>
-																	</div>
-															</div>
-															<span class="uc3 cu4 c4u c7u f-tsBodyM hw0" style="color: #808d9a;">
-																	<span>
-																			<b><font color="#001a34">7 марта</font></b> доставит <font color="#005bff"><b>Ozon</b></font>, продавец <font color="#005bff"><b>Ozon</b></font>
-																	</span>
-															</span>
-													</div>
-											</div>
 
-											</div>
+						{% for resource in Latest_resources %}
+							<li class="col-md-3">
+								<div class="product-wrap product-border-3 product-img-zoom mb-30">
+									<div class="product-img">
+										<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">
+											<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }} {{ company.CName }}">
+										</a>
+									</div>
+									<div class="product-content product-content-padding">
+										{% if current_user.is_authenticated %}
+										<div class="yith-wcwl-add-to-wishlist wishlist-button">
+											<a rel="nofollow" class="like {{'heart' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}">
+												<i class="la la-heart" aria-hidden="true"></i>
+											</a>
 										</div>
-										<div class="h0n">
-											<div interactive="true" class="ui-i4 n0h"> 
-												<div class="c2w ui-a1">
-													<div tabindex="0" type="button" class="ui-a3">
-														<span class="ui-a4 ui-b2 ui-a6 ui-d4" style="border-radius:6px;">
-															<svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg" class="ui-d2" style="color:var(--ozBlack);"><path d="M17.282 1C21.34 1 23.999 4.147 24 8.5c0 4.287-3.168 8.376-10.8 14.1l-1.2.9-1.2-.9C3.168 16.876 0 12.787 0 8.5 0 4.147 2.659 1 6.718 1 8.734 1 10.64 1.806 12 3.177A7.455 7.455 0 0117.282 1z" fill="#fff"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M23 8.5C23 4.8 20.861 2 17.282 2 15.115 2 13.136 3.069 12 4.742 10.864 3.069 8.884 2 6.718 2 3.138 2 1 4.8 1 8.5c0 3.817 2.886 7.664 10.4 13.3l.6.45.6-.45C20.115 16.164 23 12.316 23 8.5zM17.282 4C19.622 4 21 5.805 21 8.5c0 2.93-2.398 6.211-9 11.246C5.398 14.712 3 11.43 3 8.5 3 5.805 4.379 4 6.718 4 9.03 4 11 5.743 11 8h2c0-2.257 1.969-4 4.282-4z" fill="#001A34"></path></svg>
-															<span class="ui-d7"></span>
-														</span>
-													</div>
-												</div>
+										{% endif %}
+										<div class="hm3"><div class="ui-q0">
+											<span class="ui-q3 ui-q6">
+												{{ resource.ResPriceValue }} 
+											</span>
+											<span class="ui-q3 ui-q6">
+												{{ resource.CurrencyCode }}
+											</span>
+										</div>
+										<span class="n1c c2n n2c nc5 f-tsBodyM" style="color:var(--ozOrange);">
+											<span>
+												Бестселлер
+											</span>
+										</span>
+										<a href="#" class="tile-hover-target k9h">
+											<span class="n1c c2n n2c nc4 f-tsBodyL k9h">
+												<span>{{ resource.ResName }}</span>
+											</span>
+										</a>
+										<div class="kh9 nc">
+											<div class="ui-ab7 ui-a6b ui-b7a">
+												<div class="ui-b5a ui-a6b">
+													<i class="las la-star"></i>
+													<i class="las la-star"></i>
+													<i class="las la-star"></i>
+													<i class="las la-star"></i>
+													<i class="las la-star"></i>
+												</div> 
 											</div>
+										</div> 
+										<div class="hw w0h">
+												<div class="wh0 h1w">
+														<div class="q6c qc7 wh">
+																<div class="ui-b2">
+																	<div class="product-count cardplacement cartItemQty" style="display: none;">
+																		<div class="qtyminus qtybtn">-</div>
+																		<input type="text" class="qty productQty"
+																			pending_amount="{{resource.ResPendingTotalAmount}}"
+																			min_amount="{{resource.ResMinSaleAmount}}"
+																			max_amount="{{resource.ResMaxSaleAmount}}"
+																			value="{{resource.productQty}}" ownerId="{{ resource.ResId }}">
+																		<div class="qtyplus qtybtn">+</div>
+																	</div>
+																	<a class="round-black-btn cardplacement add-to-cart" ownerId="{{ resource.ResId }}" style="color: #fff">{{_('Add to cart')}}</a>
+																</div>
+														</div>
+												</div>
+										</div>
 										</div>
 									</div>
-							 </li>
-							 <li class="col-md-3">
-									<div class="product-wrap product-border-3 product-img-zoom mb-30">
-										<div class="product-img">
-											<a href="#">
-												<img loading="lazy" src="{{ url_for('static', filename='commerce/rd/2.webp') }}" alt="Product featured_resource.ResName of category  featured_resource.ResCatName if featured_resource.ResCatName else ''  company.CName ">
-											</a>
-										</div>
-										<div class="product-content product-content-padding">
-											<div class="hm3"><div class="ui-q0">
-												<span class="ui-q3 ui-q6">
-													15,85 T
-												</span>
-											</div>
-											<span class="n1c c2n n2c nc5 f-tsBodyM" style="color:var(--ozOrange);">
-												<span>
-													Бестселлер
-												</span>
-											</span>
-											<a href="#" class="tile-hover-target k9h">
-												<span class="n1c c2n n2c nc4 f-tsBodyL k9h">
-													<span>Портрет Дориана Грея | Уайльд Оскар</span>
-												</span>
-											</a>
-											<div class="kh9 nc">
-												<div class="ui-ab7 ui-a6b ui-b7a">
-													<div class="ui-b5a ui-a6b">
-														<i class="las la-star"></i>
-														<i class="las la-star"></i>
-														<i class="las la-star"></i>
-														<i class="las la-star"></i>
-														<i class="las la-star"></i>
-													</div> 
-												</div>
-												<a href="#" class="cn0">1865 отзывов</a>
-											</div> 
-											<div class="hw w0h">
-													<div class="wh0 h1w">
-															<div class="q6c qc7 wh">
-																	<div class="ui-b2">
-																			<button tabindex="0" type="button" class="ui-b4">
-																					<span class="ui-b5" style="border-radius: 6px;"><span class="ui-e8">В корзину</span></span>
-																			</button>
-																	</div>
-															</div>
-															<span class="uc3 cu4 c4u c7u f-tsBodyM hw0" style="color: #808d9a;">
-																	<span>
-																			<b><font color="#001a34">7 марта</font></b> доставит <font color="#005bff"><b>Ozon</b></font>, продавец <font color="#005bff"><b>Ozon</b></font>
-																	</span>
-															</span>
-													</div>
-											</div>
-
-											</div>
-										</div>
-										<div class="h0n">
-											<div interactive="true" class="ui-i4 n0h"> 
-												<div class="c2w ui-a1">
-													<div tabindex="0" type="button" class="ui-a3">
-														<span class="ui-a4 ui-b2 ui-a6 ui-d4" style="border-radius:6px;">
-															<svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg" class="ui-d2" style="color:var(--ozBlack);"><path d="M17.282 1C21.34 1 23.999 4.147 24 8.5c0 4.287-3.168 8.376-10.8 14.1l-1.2.9-1.2-.9C3.168 16.876 0 12.787 0 8.5 0 4.147 2.659 1 6.718 1 8.734 1 10.64 1.806 12 3.177A7.455 7.455 0 0117.282 1z" fill="#fff"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M23 8.5C23 4.8 20.861 2 17.282 2 15.115 2 13.136 3.069 12 4.742 10.864 3.069 8.884 2 6.718 2 3.138 2 1 4.8 1 8.5c0 3.817 2.886 7.664 10.4 13.3l.6.45.6-.45C20.115 16.164 23 12.316 23 8.5zM17.282 4C19.622 4 21 5.805 21 8.5c0 2.93-2.398 6.211-9 11.246C5.398 14.712 3 11.43 3 8.5 3 5.805 4.379 4 6.718 4 9.03 4 11 5.743 11 8h2c0-2.257 1.969-4 4.282-4z" fill="#001A34"></path></svg>
-															<span class="ui-d7"></span>
-														</span>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-							 </li>
-							 <li class="col-md-3">
-									<div class="product-wrap product-border-3 product-img-zoom mb-30">
-										<div class="product-img">
-											<a href="#">
-												<img loading="lazy" src="{{ url_for('static', filename='commerce/rd/2.webp') }}" alt="Product featured_resource.ResName of category  featured_resource.ResCatName if featured_resource.ResCatName else ''  company.CName ">
-											</a>
-										</div>
-										<div class="product-content product-content-padding">
-											<div class="hm3"><div class="ui-q0">
-												<span class="ui-q3 ui-q6">
-													15,85 T
-												</span>
-											</div>
-											<span class="n1c c2n n2c nc5 f-tsBodyM" style="color:var(--ozOrange);">
-												<span>
-													Бестселлер
-												</span>
-											</span>
-											<a href="#" class="tile-hover-target k9h">
-												<span class="n1c c2n n2c nc4 f-tsBodyL k9h">
-													<span>Портрет Дориана Грея | Уайльд Оскар</span>
-												</span>
-											</a>
-											<div class="kh9 nc">
-												<div class="ui-ab7 ui-a6b ui-b7a">
-													<div class="ui-b5a ui-a6b">
-														<i class="las la-star"></i>
-														<i class="las la-star"></i>
-														<i class="las la-star"></i>
-														<i class="las la-star"></i>
-														<i class="las la-star"></i>
-													</div> 
-												</div>
-												<a href="#" class="cn0">1865 отзывов</a>
-											</div> 
-											<div class="hw w0h">
-													<div class="wh0 h1w">
-															<div class="q6c qc7 wh">
-																	<div class="ui-b2">
-																			<button tabindex="0" type="button" class="ui-b4">
-																					<span class="ui-b5" style="border-radius: 6px;"><span class="ui-e8">В корзину</span></span>
-																			</button>
-																	</div>
-															</div>
-															<span class="uc3 cu4 c4u c7u f-tsBodyM hw0" style="color: #808d9a;">
-																	<span>
-																			<b><font color="#001a34">7 марта</font></b> доставит <font color="#005bff"><b>Ozon</b></font>, продавец <font color="#005bff"><b>Ozon</b></font>
-																	</span>
-															</span>
-													</div>
-											</div>
-
-											</div>
-										</div>
-										<div class="h0n">
-											<div interactive="true" class="ui-i4 n0h"> 
-												<div class="c2w ui-a1">
-													<div tabindex="0" type="button" class="ui-a3">
-														<span class="ui-a4 ui-b2 ui-a6 ui-d4" style="border-radius:6px;">
-															<svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg" class="ui-d2" style="color:var(--ozBlack);"><path d="M17.282 1C21.34 1 23.999 4.147 24 8.5c0 4.287-3.168 8.376-10.8 14.1l-1.2.9-1.2-.9C3.168 16.876 0 12.787 0 8.5 0 4.147 2.659 1 6.718 1 8.734 1 10.64 1.806 12 3.177A7.455 7.455 0 0117.282 1z" fill="#fff"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M23 8.5C23 4.8 20.861 2 17.282 2 15.115 2 13.136 3.069 12 4.742 10.864 3.069 8.884 2 6.718 2 3.138 2 1 4.8 1 8.5c0 3.817 2.886 7.664 10.4 13.3l.6.45.6-.45C20.115 16.164 23 12.316 23 8.5zM17.282 4C19.622 4 21 5.805 21 8.5c0 2.93-2.398 6.211-9 11.246C5.398 14.712 3 11.43 3 8.5 3 5.805 4.379 4 6.718 4 9.03 4 11 5.743 11 8h2c0-2.257 1.969-4 4.282-4z" fill="#001A34"></path></svg>
-															<span class="ui-d7"></span>
-														</span>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-							 </li>
-							 <li class="col-md-3">
-									<div class="product-wrap product-border-3 product-img-zoom mb-30">
-										<div class="product-img">
-											<a href="#">
-												<img loading="lazy" src="{{ url_for('static', filename='commerce/rd/2.webp') }}" alt="Product featured_resource.ResName of category  featured_resource.ResCatName if featured_resource.ResCatName else ''  company.CName ">
-											</a>
-										</div>
-										<div class="product-content product-content-padding">
-											<div class="hm3"><div class="ui-q0">
-												<span class="ui-q3 ui-q6">
-													15,85 T
-												</span>
-											</div>
-											<span class="n1c c2n n2c nc5 f-tsBodyM" style="color:var(--ozOrange);">
-												<span>
-													Бестселлер
-												</span>
-											</span>
-											<a href="#" class="tile-hover-target k9h">
-												<span class="n1c c2n n2c nc4 f-tsBodyL k9h">
-													<span>Портрет Дориана Грея | Уайльд Оскар</span>
-												</span>
-											</a>
-											<div class="kh9 nc">
-												<div class="ui-ab7 ui-a6b ui-b7a">
-													<div class="ui-b5a ui-a6b">
-														<i class="las la-star"></i>
-														<i class="las la-star"></i>
-														<i class="las la-star"></i>
-														<i class="las la-star"></i>
-														<i class="las la-star"></i>
-													</div> 
-												</div>
-												<a href="#" class="cn0">1865 отзывов</a>
-											</div> 
-											<div class="hw w0h">
-													<div class="wh0 h1w">
-															<div class="q6c qc7 wh">
-																	<div class="ui-b2">
-																			<button tabindex="0" type="button" class="ui-b4">
-																					<span class="ui-b5" style="border-radius: 6px;"><span class="ui-e8">В корзину</span></span>
-																			</button>
-																	</div>
-															</div>
-															<span class="uc3 cu4 c4u c7u f-tsBodyM hw0" style="color: #808d9a;">
-																	<span>
-																			<b><font color="#001a34">7 марта</font></b> доставит <font color="#005bff"><b>Ozon</b></font>, продавец <font color="#005bff"><b>Ozon</b></font>
-																	</span>
-															</span>
-													</div>
-											</div>
-
-											</div>
-										</div>
-										<div class="h0n">
-											<div interactive="true" class="ui-i4 n0h"> 
-												<div class="c2w ui-a1">
-													<div tabindex="0" type="button" class="ui-a3">
-														<span class="ui-a4 ui-b2 ui-a6 ui-d4" style="border-radius:6px;">
-															<svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg" class="ui-d2" style="color:var(--ozBlack);"><path d="M17.282 1C21.34 1 23.999 4.147 24 8.5c0 4.287-3.168 8.376-10.8 14.1l-1.2.9-1.2-.9C3.168 16.876 0 12.787 0 8.5 0 4.147 2.659 1 6.718 1 8.734 1 10.64 1.806 12 3.177A7.455 7.455 0 0117.282 1z" fill="#fff"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M23 8.5C23 4.8 20.861 2 17.282 2 15.115 2 13.136 3.069 12 4.742 10.864 3.069 8.884 2 6.718 2 3.138 2 1 4.8 1 8.5c0 3.817 2.886 7.664 10.4 13.3l.6.45.6-.45C20.115 16.164 23 12.316 23 8.5zM17.282 4C19.622 4 21 5.805 21 8.5c0 2.93-2.398 6.211-9 11.246C5.398 14.712 3 11.43 3 8.5 3 5.805 4.379 4 6.718 4 9.03 4 11 5.743 11 8h2c0-2.257 1.969-4 4.282-4z" fill="#001A34"></path></svg>
-															<span class="ui-d7"></span>
-														</span>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-							 </li>
-							 <li class="col-md-3">
-									<div class="product-wrap product-border-3 product-img-zoom mb-30">
-										<div class="product-img">
-											<a href="#">
-												<img loading="lazy" src="{{ url_for('static', filename='commerce/rd/2.webp') }}" alt="Product featured_resource.ResName of category  featured_resource.ResCatName if featured_resource.ResCatName else ''  company.CName ">
-											</a>
-										</div>
-										<div class="product-content product-content-padding">
-											<div class="hm3"><div class="ui-q0">
-												<span class="ui-q3 ui-q6">
-													15,85 T
-												</span>
-											</div>
-											<span class="n1c c2n n2c nc5 f-tsBodyM" style="color:var(--ozOrange);">
-												<span>
-													Бестселлер
-												</span>
-											</span>
-											<a href="#" class="tile-hover-target k9h">
-												<span class="n1c c2n n2c nc4 f-tsBodyL k9h">
-													<span>Портрет Дориана Грея | Уайльд Оскар</span>
-												</span>
-											</a>
-											<div class="kh9 nc">
-												<div class="ui-ab7 ui-a6b ui-b7a">
-													<div class="ui-b5a ui-a6b">
-														<i class="las la-star"></i>
-														<i class="las la-star"></i>
-														<i class="las la-star"></i>
-														<i class="las la-star"></i>
-														<i class="las la-star"></i>
-													</div> 
-												</div>
-												<a href="#" class="cn0">1865 отзывов</a>
-											</div> 
-											<div class="hw w0h">
-													<div class="wh0 h1w">
-															<div class="q6c qc7 wh">
-																	<div class="ui-b2">
-																			<button tabindex="0" type="button" class="ui-b4">
-																					<span class="ui-b5" style="border-radius: 6px;"><span class="ui-e8">В корзину</span></span>
-																			</button>
-																	</div>
-															</div>
-															<span class="uc3 cu4 c4u c7u f-tsBodyM hw0" style="color: #808d9a;">
-																	<span>
-																			<b><font color="#001a34">7 марта</font></b> доставит <font color="#005bff"><b>Ozon</b></font>, продавец <font color="#005bff"><b>Ozon</b></font>
-																	</span>
-															</span>
-													</div>
-											</div>
-
-											</div>
-										</div>
-										<div class="h0n">
-											<div interactive="true" class="ui-i4 n0h"> 
-												<div class="c2w ui-a1">
-													<div tabindex="0" type="button" class="ui-a3">
-														<span class="ui-a4 ui-b2 ui-a6 ui-d4" style="border-radius:6px;">
-															<svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg" class="ui-d2" style="color:var(--ozBlack);"><path d="M17.282 1C21.34 1 23.999 4.147 24 8.5c0 4.287-3.168 8.376-10.8 14.1l-1.2.9-1.2-.9C3.168 16.876 0 12.787 0 8.5 0 4.147 2.659 1 6.718 1 8.734 1 10.64 1.806 12 3.177A7.455 7.455 0 0117.282 1z" fill="#fff"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M23 8.5C23 4.8 20.861 2 17.282 2 15.115 2 13.136 3.069 12 4.742 10.864 3.069 8.884 2 6.718 2 3.138 2 1 4.8 1 8.5c0 3.817 2.886 7.664 10.4 13.3l.6.45.6-.45C20.115 16.164 23 12.316 23 8.5zM17.282 4C19.622 4 21 5.805 21 8.5c0 2.93-2.398 6.211-9 11.246C5.398 14.712 3 11.43 3 8.5 3 5.805 4.379 4 6.718 4 9.03 4 11 5.743 11 8h2c0-2.257 1.969-4 4.282-4z" fill="#001A34"></path></svg>
-															<span class="ui-d7"></span>
-														</span>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-							 </li>
-							 <li class="col-md-3">
-									<div class="product-wrap product-border-3 product-img-zoom mb-30">
-										<div class="product-img">
-											<a href="#">
-												<img loading="lazy" src="{{ url_for('static', filename='commerce/rd/2.webp') }}" alt="Product featured_resource.ResName of category  featured_resource.ResCatName if featured_resource.ResCatName else ''  company.CName ">
-											</a>
-										</div>
-										<div class="product-content product-content-padding">
-											<div class="hm3"><div class="ui-q0">
-												<span class="ui-q3 ui-q6">
-													15,85 T
-												</span>
-											</div>
-											<span class="n1c c2n n2c nc5 f-tsBodyM" style="color:var(--ozOrange);">
-												<span>
-													Бестселлер
-												</span>
-											</span>
-											<a href="#" class="tile-hover-target k9h">
-												<span class="n1c c2n n2c nc4 f-tsBodyL k9h">
-													<span>Портрет Дориана Грея | Уайльд Оскар</span>
-												</span>
-											</a>
-											<div class="kh9 nc">
-												<div class="ui-ab7 ui-a6b ui-b7a">
-													<div class="ui-b5a ui-a6b">
-														<i class="las la-star"></i>
-														<i class="las la-star"></i>
-														<i class="las la-star"></i>
-														<i class="las la-star"></i>
-														<i class="las la-star"></i>
-													</div> 
-												</div>
-												<a href="#" class="cn0">1865 отзывов</a>
-											</div> 
-											<div class="hw w0h">
-													<div class="wh0 h1w">
-															<div class="q6c qc7 wh">
-																	<div class="ui-b2">
-																			<button tabindex="0" type="button" class="ui-b4">
-																					<span class="ui-b5" style="border-radius: 6px;"><span class="ui-e8">В корзину</span></span>
-																			</button>
-																	</div>
-															</div>
-															<span class="uc3 cu4 c4u c7u f-tsBodyM hw0" style="color: #808d9a;">
-																	<span>
-																			<b><font color="#001a34">7 марта</font></b> доставит <font color="#005bff"><b>Ozon</b></font>, продавец <font color="#005bff"><b>Ozon</b></font>
-																	</span>
-															</span>
-													</div>
-											</div>
-
-											</div>
-										</div>
-										<div class="h0n">
-											<div interactive="true" class="ui-i4 n0h"> 
-												<div class="c2w ui-a1">
-													<div tabindex="0" type="button" class="ui-a3">
-														<span class="ui-a4 ui-b2 ui-a6 ui-d4" style="border-radius:6px;">
-															<svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg" class="ui-d2" style="color:var(--ozBlack);"><path d="M17.282 1C21.34 1 23.999 4.147 24 8.5c0 4.287-3.168 8.376-10.8 14.1l-1.2.9-1.2-.9C3.168 16.876 0 12.787 0 8.5 0 4.147 2.659 1 6.718 1 8.734 1 10.64 1.806 12 3.177A7.455 7.455 0 0117.282 1z" fill="#fff"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M23 8.5C23 4.8 20.861 2 17.282 2 15.115 2 13.136 3.069 12 4.742 10.864 3.069 8.884 2 6.718 2 3.138 2 1 4.8 1 8.5c0 3.817 2.886 7.664 10.4 13.3l.6.45.6-.45C20.115 16.164 23 12.316 23 8.5zM17.282 4C19.622 4 21 5.805 21 8.5c0 2.93-2.398 6.211-9 11.246C5.398 14.712 3 11.43 3 8.5 3 5.805 4.379 4 6.718 4 9.03 4 11 5.743 11 8h2c0-2.257 1.969-4 4.282-4z" fill="#001A34"></path></svg>
-															<span class="ui-d7"></span>
-														</span>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-							 </li>
+								</div>
+							</li>
+							{% endfor %}
 						</ul>
-				 </div>
+					</div>
 			</div>
 		</div>
 		<div class="recent-selling-area pb-60">
@@ -529,7 +189,6 @@
 											<i class="las la-star"></i>
 										</div> 
 									</div>
-									<a href="#" class="cn0">1865 отзывов</a>
 								</div> 
 								<div class="hw w0h">
 										<div class="wh0 h1w">
@@ -540,11 +199,6 @@
 																</button>
 														</div>
 												</div>
-												<span class="uc3 cu4 c4u c7u f-tsBodyM hw0" style="color: #808d9a;">
-														<span>
-																<b><font color="#001a34">7 марта</font></b> доставит <font color="#005bff"><b>Ozon</b></font>, продавец <font color="#005bff"><b>Ozon</b></font>
-														</span>
-												</span>
 										</div>
 								</div>
 
@@ -945,63 +599,6 @@
 			   </div>
 			</div>
 		 </div>
-		 
-		
-		
-		
-		{% if Featured_products %}
-		<div class="product-area pb-85">
-			<div class="container">
-				<div class="section-title-6 mb-50 text-center">
-					<h2>{{_('Featured products')}}</h2>
-				</div>
-				<div class="featured-product-slider owl-carousel">
-
-				{% for featured_resource in Featured_products %}
-					<div class="product-wrap product-border-3 product-img-zoom mb-30">
-						<div class="product-img">
-							<a href="{{url_for('commerce.product',ResId=featured_resource.ResId,ResName=featured_resource.ResName.replace('/','-').replace(' ','-'))}}">
-								<img loading="lazy" src="{{ featured_resource.FilePathS if featured_resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="Product {{featured_resource.ResName}} of category {{ featured_resource.ResCatName if featured_resource.ResCatName else '' }} {{ company.CName }}">
-							</a>
-							<div class="product-action">
-								{% if current_user.is_authenticated %}
-								<div class="yith-wcwl-add-to-wishlist wishlist-button">
-									<a rel="nofollow" class="like {{'heart' if featured_resource.Wishlist == true}}" ownerId="{{ featured_resource.ResId }}">
-										<i class="la la-heart" aria-hidden="true"></i>
-									</a>
-								</div>
-								{% endif %}
-								<div class="con-input-btns cartItemQty" style="display: none;">
-									<button class="qtyminus qtybtn "><i class="las la-minus"></i></button>
-									<input type="text" class="productQty rotate-number"
-										pending_amount="{{featured_resource.ResPendingTotalAmount}}"
-										min_amount="{{featured_resource.ResMinSaleAmount}}"
-										max_amount="{{featured_resource.ResMaxSaleAmount}}"
-										value="{{featured_resource.productQty}}" ownerId="{{ featured_resource.ResId }}">
-									<button class="qtyplus qtybtn rotate-plus"><i class="las la-plus"></i></button>
-									</div>
-								<a class="add-to-cart" ownerId="{{ featured_resource.ResId }}"><i class="la la-plus"></i></a>
-							</div>
-						</div>
-						<div class="product-content product-content-padding">
-							<h4 class="order-info"><a href="{{url_for('commerce.product',ResId=featured_resource.ResId,ResName=featured_resource.ResName.replace('/','-').replace(' ','-'))}}">
-								{{ featured_resource.ResName }}
-							</a></h4>
-							<div class="price-addtocart">
-								<div class="product-price">
-									<span class="priceValue" ownerId="{{featured_resource.ResId}}" value="{{featured_resource.ResPriceValue}}">{{ featured_resource.ResPriceValue }}</span>
-									<span>{{ featured_resource.CurrencyCode }}</span>
-								</div>
-							</div>
-						</div>
-					</div>
-				{% endfor %}
-
-				</div>
-			</div>
-		</div>
-		{% endif %}
-
 		<div class="product-area pb-40">
 			<div class="container">
 				<div class="section-title-6 mb-50 text-center">
@@ -1017,9 +614,19 @@
 								</a>
 							</div>
 							<div class="product-content product-content-padding">
+								{% if current_user.is_authenticated %}
+								<div class="yith-wcwl-add-to-wishlist wishlist-button">
+									<a rel="nofollow" class="like {{'heart' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}">
+										<i class="la la-heart" aria-hidden="true"></i>
+									</a>
+								</div>
+								{% endif %}
 								<div class="hm3"><div class="ui-q0">
 									<span class="ui-q3 ui-q6">
-										{{ resource.ResPriceValue }} T
+										{{ resource.ResPriceValue }} 
+									</span>
+									<span class="ui-q3 ui-q6">
+										{{ resource.CurrencyCode }}
 									</span>
 								</div>
 								<span class="n1c c2n n2c nc5 f-tsBodyM" style="color:var(--ozOrange);">
@@ -1042,7 +649,6 @@
 											<i class="las la-star"></i>
 										</div> 
 									</div>
-									<a href="#" class="cn0">1865 отзывов</a>
 								</div> 
 								<div class="hw w0h">
 										<div class="wh0 h1w">
@@ -1060,68 +666,12 @@
 															<a class="round-black-btn cardplacement add-to-cart" ownerId="{{ resource.ResId }}" style="color: #fff">{{_('Add to cart')}}</a>
 														</div>
 												</div>
-												<span class="uc3 cu4 c4u c7u f-tsBodyM hw0" style="color: #808d9a;">
-														<span>
-																<b><font color="#001a34">7 марта</font></b> доставит <font color="#005bff"><b>Ozon</b></font>, продавец <font color="#005bff"><b>Ozon</b></font>
-														</span>
-												</span>
 										</div>
 								</div>
 								</div>
 							</div>
-							{% if current_user.is_authenticated %}
-							<div class="h0n">
-								<div interactive="true" class="ui-i4 n0h"> 
-									<div class="c2w ui-a1">
-										<div tabindex="0" type="button" class="ui-a3">
-											<span class="ui-a4 ui-b2 ui-a6 ui-d4" style="border-radius:6px;">
-												<svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg" class="ui-d2" style="color:var(--ozBlack);"><path d="M17.282 1C21.34 1 23.999 4.147 24 8.5c0 4.287-3.168 8.376-10.8 14.1l-1.2.9-1.2-.9C3.168 16.876 0 12.787 0 8.5 0 4.147 2.659 1 6.718 1 8.734 1 10.64 1.806 12 3.177A7.455 7.455 0 0117.282 1z" fill="#fff"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M23 8.5C23 4.8 20.861 2 17.282 2 15.115 2 13.136 3.069 12 4.742 10.864 3.069 8.884 2 6.718 2 3.138 2 1 4.8 1 8.5c0 3.817 2.886 7.664 10.4 13.3l.6.45.6-.45C20.115 16.164 23 12.316 23 8.5zM17.282 4C19.622 4 21 5.805 21 8.5c0 2.93-2.398 6.211-9 11.246C5.398 14.712 3 11.43 3 8.5 3 5.805 4.379 4 6.718 4 9.03 4 11 5.743 11 8h2c0-2.257 1.969-4 4.282-4z" fill="#001A34"></path></svg>
-												<span class="ui-d7"></span>
-											</span>
-										</div>
-									</div>
-								</div>
-								
-							</div>
-							{% endif %}
+							
 						</div>
-						<!-- <div class="product-wrap product-border-3 product-img-zoom mb-30">
-							<div class="product-img">
-								<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">
-									<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }} {{ company.CName }}">
-								</a>
-								<div class="product-action">
-									{% if current_user.is_authenticated %}
-									<div class="yith-wcwl-add-to-wishlist wishlist-button">
-										<a rel="nofollow" class="like {{'heart' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}">
-											<i class="la la-heart" aria-hidden="true"></i>
-										</a>
-									</div>
-									{% endif %}
-									<div class="con-input-btns cartItemQty rotate-icon" style="display: none;">
-										<button class="qtyminus qtybtn rotate-minus"><i class="las la-minus"></i></button>
-										<input type="text" class="productQty"
-											pending_amount="{{resource.ResPendingTotalAmount}}"
-											min_amount="{{resource.ResMinSaleAmount}}"
-											max_amount="{{resource.ResMaxSaleAmount}}"
-											value="{{resource.productQty}}" ownerId="{{ resource.ResId }}">
-										<button class="qtyplus qtybtn rotate-plus"><i class="las la-plus"></i></button>
-									</div>
-									<a class="add-to-cart" ownerId="{{ resource.ResId }}"><i class="la la-plus"></i></a>
-								</div>
-							</div>
-							<div class="product-content product-content-padding">
-								<h4 class="order-info"><a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">
-									{{ resource.ResName }}
-								</a></h4>
-								<div class="price-addtocart">
-									<div class="product-price">
-										<span class="priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue }}</span>
-										<span>{{ resource.CurrencyCode }}</span>
-									</div>
-								</div>
-							</div>
-						</div> -->
 					</div>
 				{% endfor %}
 				</div>
