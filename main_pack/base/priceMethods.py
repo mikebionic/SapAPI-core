@@ -77,6 +77,7 @@ def price_currency_conversion(
 			"ResPriceValue": priceValue,
 			"CurrencyCode": to_currency_data.CurrencyCode,
 			"CurrencyId": to_currency_data.CurrencyId,
+			"CurrencySymbol": to_currency_data.CurrencySymbol,
 			"ExcRateValue": to_rate_value
 		}
 

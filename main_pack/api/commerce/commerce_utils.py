@@ -123,6 +123,7 @@ def collect_resources_query(
 	showLatest = False,
 	showRated = False,
 	showMain = False,
+	limit_by = None,
 	avoidQtyCheckup = 0,
 	showNullPrice = False,
 	DivId = None,
@@ -193,6 +194,9 @@ def collect_resources_query(
 		resource_query = resource_query\
 			.order_by(Resource.CreatedDate.desc())\
 			.limit(Config.RESOURCE_MAIN_PAGE_SHOW_QTY)
+
+	if limit_by:
+		resource_query = resource_query.limit(limit_by)
 
 	if notDivId:
 		resource_query = resource_query.filter(Resource.DivId != notDivId)
@@ -410,6 +414,8 @@ def apiResourceInfo(
 			this_priceValue = List_Res_price[0]["ResPriceValue"] if List_Res_price else 0.0
 			this_currencyCode = List_Currencies[0]["CurrencyCode"] if List_Currencies else Config.MAIN_CURRENCY_CODE
 			resource_info["RealPrice"] = this_priceValue
+			resource_info["DiscValue"] = None
+			resource_info["DiscType"] = None
 
 			if query_resource.Res_discount_SaleResId:
 				applying_disc = query_resource.Res_discount_SaleResId[-1]
@@ -467,6 +473,7 @@ def apiResourceInfo(
 			resource_info["CategoryIcon"] = Res_category_info["ResCatIconFilePath"] if Res_category_info else ""
 			resource_info["ResPriceValue"] = price_data["ResPriceValue"]
 			resource_info["CurrencyCode"] = price_data["CurrencyCode"]
+			resource_info["CurrencySymbol"] = price_data["CurrencySymbol"]
 			# resource_info["ResTotBalance"] = List_Res_total[0]["ResTotBalance"] if List_Res_total else 0.0
 			# resource_info["ResPendingTotalAmount"] = List_Res_total[0]["ResPendingTotalAmount"] if List_Res_total else 0.0
 
@@ -547,6 +554,16 @@ def apiResourceInfo(
 
 						this_priceValue = Related_resource_price[0]["ResPriceValue"] if Related_resource_price else 0.0
 						this_currencyCode = Related_resource_currencies[0]["CurrencyCode"] if Related_resource_currencies else Config.MAIN_CURRENCY_CODE
+						related_resource_info["RealPrice"] = this_priceValue
+
+						related_resource_info["DiscValue"] = None
+						related_resource_info["DiscType"] = None
+						if resource.Res_discount_SaleResId:
+							applying_disc = resource.Res_discount_SaleResId[-1]
+							if applying_disc.DiscTypeId == 1 and applying_disc.ResDiscIsActive:
+								related_resource_info["DiscValue"] = applying_disc.DiscValue
+								related_resource_info["DiscType"] = "%"
+								this_priceValue = float(configureDecimal(float(this_priceValue) - (float(this_priceValue) * float(applying_disc.DiscValue) / 100)))
 
 						Related_resource_price_data = price_currency_conversion(
 							priceValue = this_priceValue,
@@ -558,6 +575,7 @@ def apiResourceInfo(
 						related_resource_info["ResCatName"] = Related_Res_category_info["ResCatName"] if Related_Res_category_info else ""
 						related_resource_info["ResPriceValue"] = Related_resource_price_data["ResPriceValue"]
 						related_resource_info["CurrencyCode"] = Related_resource_price_data["CurrencyCode"]
+						related_resource_info["CurrencySymbol"] = Related_resource_price_data["CurrencySymbol"]
 
 						if user:
 							Related_resource_Wish = [wish.to_json_api() for wish in wishes if wish.ResId == resource.ResId]
@@ -821,6 +839,7 @@ def apiOrderInvInfo(
 			order_inv_info["OInvFTotal"] = FTotal_price_data["ResPriceValue"]
 			order_inv_info["CurrencyId"] = price_data["CurrencyId"]
 			order_inv_info["CurrencyCode"] = price_data["CurrencyCode"]
+			order_inv_info["CurrencySymbol"] = price_data["CurrencySymbol"]
 
 
 			rp_acc_data = {}
@@ -889,6 +908,7 @@ def apiOrderInvInfo(
 						this_order_inv_line["OInvLinePrice"] = price_data["ResPriceValue"]
 						this_order_inv_line["CurrencyId"] = price_data["CurrencyId"]
 						this_order_inv_line["CurrencyCode"] = price_data["CurrencyCode"]
+						this_order_inv_line["CurrencySymbol"] = price_data["CurrencySymbol"]
 						this_order_inv_line["OInvLineTotal"] = Total_price_data["ResPriceValue"]
 						this_order_inv_line["OInvLineFTotal"] = FTotal_price_data["ResPriceValue"]
 

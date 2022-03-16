@@ -23,7 +23,13 @@ def api_v_full_resources():
 	DivId = request.args.get("DivId",None,type=int)
 	notDivId = request.args.get("notDivId",None,type=int)
 	showMain = request.args.get("showMain",0,type=int)
-	res = apiResourceInfo(fullInfo=True,DivId=DivId,notDivId=notDivId,showMain=showMain)
+	limit_by = request.args.get("limit",None,type=int)
+	res = apiResourceInfo(
+		fullInfo = True,
+		DivId = DivId,
+		notDivId = notDivId,
+		showMain = showMain,
+		limit_by = limit_by)
 	response = make_response(jsonify(res), 200)
 	return response
 
@@ -34,11 +40,13 @@ def api_v_resources():
 	notDivId = request.args.get("notDivId",None,type=int)
 	avoidQtyCheckup = request.args.get("avoidQtyCheckup",0,type=int)
 	showMain = request.args.get("showMain",0,type=int)
+	limit_by = request.args.get("limit",None,type=int)
 	res = apiResourceInfo(
 		DivId = DivId,
 		notDivId = notDivId,
 		avoidQtyCheckup = avoidQtyCheckup,
-		showMain = showMain)
+		showMain = showMain,
+		limit_by = limit_by)
 	response = make_response(jsonify(res), 200)
 	return response
 
@@ -62,6 +70,7 @@ def api_category_v_resources(ResCatId):
 	notDivId = request.args.get("notDivId",None,type=int)
 	avoidQtyCheckup = request.args.get("avoidQtyCheckup",0,type=int)
 	showMain = request.args.get("showMain",0,type=int)
+	limit_by = request.args.get("limit",None,type=int)
 	# fetching total by division 
 	if DivId is None:
 		# !!! TODO: This option will live for a while
@@ -103,7 +112,10 @@ def api_category_v_resources(ResCatId):
 			resources = resources\
 				.filter(Res_Total_subquery.c.ResTotBalance_sum > 0)
 
-	res = apiResourceInfo(resource_query=resources, showMain=showMain)
+	res = apiResourceInfo(
+		resource_query=resources,
+		showMain=showMain,
+		limit_by = limit_by)
 	status_code = 200
 	response = make_response(jsonify(res), status_code)
 	return response
@@ -123,6 +135,7 @@ def api_resources():
 	DivId = request.args.get("DivId",None,type=int)
 	notDivId = request.args.get("notDivId",None,type=int)
 	showMain = request.args.get("showMain",0,type=int)
+	limit_by = request.args.get("limit",0,type=int)
 
 	search = request.args.get("search",None,type=str)
 	search = search.strip() if search else None
@@ -139,6 +152,7 @@ def api_resources():
 		to_price = to_price,
 		search = search,
 		showMain = showMain,
+		limit_by = limit_by,
 		DivId = DivId,
 		notDivId = notDivId)
 
