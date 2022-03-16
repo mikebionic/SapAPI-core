@@ -34,16 +34,17 @@
 	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/rd/css/bulma.css')}}">
 	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/rd/css/core.css')}}">
 	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/rd/style.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/rd/css/font-awesome.min.css') }}">
 	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/rd/product.css') }}">
 	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/rd/css/style.css') }}">
 	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/rd/js/izitoast/css/iziToast.min.css') }}">
 
 </head>
-
+<!-- nr-header -->
 <body>
 	<div class="main-wrapper">
-		<header class="nr-header">
-			<div class="nr-header__main">
+		<header id="header" class="header-area style-01 layout-03">
+			<div class="nr-header__main ">
 				<div class="nr-header__main-container nr-container">
 					<div class="nr-header__main-row">
 						<div class="nr-header__main-col nr-header__main-col--left">
@@ -52,12 +53,223 @@
 									<img src="{{ url_for('static', filename='commerce/rd/logo.jpg') }}" alt="logo" sizes="(max-width: 976px) 190px, (min-width: 976px) 263px" />
 								</a>
 							</div>
-							<button type="button" class="nr-header__burger-desktop">
-								<span class="nr-header__burger-icon"><span class="nr-header__burger-icon-line"></span></span>
-								<span class="nr-header__burger-desktop-text">
-									{{_('Categories')}}
-								</span>
+						</div>
+						<div class="vertical-menu vertical-category-block">
+							<button type="button" class="nr-header__burger-desktop" style="border: none;padding:0;border-radius: 10px;width: 100%;">
+								<div class="block-title">
+									<span class="menu-icon">
+											<span class="line-1"></span>
+											<span class="line-2"></span>
+											<span class="line-3"></span>
+									</span>
+									<span class="menu-title">{{_('Categories')}}</span>
+									<span class="angle" data-tgleclass="fa fa-caret-down"><i class="fa fa-caret-up" aria-hidden="true"></i></span>
+							</div>
 							</button>
+							<div class="wrap-menu">
+								<ul class="menu clone-main-menu">
+										<li class="menu-item menu-item-has-children has-megamenu">
+												<a href="#" class="menu-name" data-title="Fruit & Nut Gifts"><i class="biolife-icon icon-fruits"></i>Fruit & Nut Gifts</a>
+												<div class="wrap-megamenu lg-width-900 md-width-640">
+														<div class="mega-content">
+																<div class="row">
+																		<div class="col-lg-3 col-md-4 col-sm-12 xs-margin-bottom-25 md-margin-bottom-0">
+																				<div class="wrap-custom-menu vertical-menu">
+																						<h4 class="menu-title">Fresh Fuits</h4>
+																						<ul class="menu">
+																								<li><a href="#">Fruit & Nut Gifts</a></li>
+																								<li><a href="#">Mixed Fruits</a></li>
+																								<li><a href="#">Oranges</a></li>
+																								<li><a href="#">Bananas & Plantains</a></li>
+																								<li><a href="#">Fresh Gala Apples</a></li>
+																								<li><a href="#">Berries</a></li>
+																								<li><a href="#">Pears</a></li>
+																								<li><a href="#">Produce</a></li>
+																								<li><a href="#">Snack Foods</a></li>
+																						</ul>
+																				</div>
+																		</div>
+																		<div class="col-lg-3 col-md-4 col-sm-12 lg-padding-left-23 xs-margin-bottom-25 md-margin-bottom-0">
+																				<div class="wrap-custom-menu vertical-menu">
+																						<h4 class="menu-title">Nut Gifts</h4>
+																						<ul class="menu">
+																								<li><a href="#">Non-Dairy Coffee Creamers</a></li>
+																								<li><a href="#">Coffee Creamers</a></li>
+																								<li><a href="#">Mayonnaise</a></li>
+																								<li><a href="#">Almond Milk</a></li>
+																								<li><a href="#">Ghee</a></li>
+																								<li><a href="#">Beverages</a></li>
+																								<li><a href="#">Ranch Salad Dressings</a></li>
+																								<li><a href="#">Hemp Milk</a></li>
+																								<li><a href="#">Nuts & Seeds</a></li>
+																						</ul>
+																				</div>
+																		</div>
+																		<div class="col-lg-6 col-md-4 col-sm-12 lg-padding-left-50 xs-margin-bottom-25 md-margin-bottom-0">
+																			<div class="wrap-custom-menu vertical-menu">
+																				<h4 class="menu-title">Fresh Fuits</h4>
+																				<ul class="menu">
+																						<li><a href="#">Fruit & Nut Gifts</a></li>
+																						<li><a href="#">Mixed Fruits</a></li>
+																						<li><a href="#">Oranges</a></li>
+																						<li><a href="#">Bananas & Plantains</a></li>
+																						<li><a href="#">Fresh Gala Apples</a></li>
+																						<li><a href="#">Berries</a></li>
+																						<li><a href="#">Pears</a></li>
+																						<li><a href="#">Produce</a></li>
+																						<li><a href="#">Snack Foods</a></li>
+																				</ul>
+																		</div>
+																		</div>
+																</div>
+														</div>
+												</div>
+										</li>
+										<li class="menu-item menu-item-has-children has-megamenu">
+												<a href="#" class="menu-name" data-title="Vegetables"><i class="biolife-icon icon-broccoli-1"></i>Vegetables</a>
+												<div class="wrap-megamenu lg-width-900 md-width-640 background-mega-01">
+														<div class="mega-content">
+																<div class="row">
+																		<div class="col-lg-3 col-md-4 col-sm-12 xs-margin-bottom-25 md-margin-bottom-0">
+																				<div class="wrap-custom-menu vertical-menu">
+																						<h4 class="menu-title">Vegetables</h4>
+																						<ul class="menu">
+																								<li><a href="#">Fruit & Nut Gifts</a></li>
+																								<li><a href="#">Mixed Fruits</a></li>
+																								<li><a href="#">Oranges</a></li>
+																								<li><a href="#">Bananas & Plantains</a></li>
+																								<li><a href="#">Fresh Gala Apples</a></li>
+																								<li><a href="#">Berries</a></li>
+																								<li><a href="#">Pears</a></li>
+																								<li><a href="#">Produce</a></li>
+																								<li><a href="#">Snack Foods</a></li>
+																						</ul>
+																				</div>
+																		</div>
+																		<div class="col-lg-4 col-md-4 col-sm-12 lg-padding-left-23 xs-margin-bottom-25 md-margin-bottom-0">
+																				<div class="wrap-custom-menu vertical-menu">
+																						<h4 class="menu-title">Gifts</h4>
+																						<ul class="menu">
+																								<li><a href="#">Non-Dairy Coffee Creamers</a></li>
+																								<li><a href="#">Coffee Creamers</a></li>
+																								<li><a href="#">Mayonnaise</a></li>
+																								<li><a href="#">Almond Milk</a></li>
+																								<li><a href="#">Ghee</a></li>
+																								<li><a href="#">Beverages</a></li>
+																								<li><a href="#">Ranch Salad Dressings</a></li>
+																								<li><a href="#">Hemp Milk</a></li>
+																								<li><a href="#">Nuts & Seeds</a></li>
+																						</ul>
+																				</div>
+																		</div>
+																		<div class="col-lg-5 col-md-4 col-sm-12 lg-padding-left-57 md-margin-bottom-30">
+																			<div class="wrap-custom-menu vertical-menu">
+																				<h4 class="menu-title">Fresh Fuits</h4>
+																				<ul class="menu">
+																						<li><a href="#">Fruit & Nut Gifts</a></li>
+																						<li><a href="#">Mixed Fruits</a></li>
+																						<li><a href="#">Oranges</a></li>
+																						<li><a href="#">Bananas & Plantains</a></li>
+																						<li><a href="#">Fresh Gala Apples</a></li>
+																						<li><a href="#">Berries</a></li>
+																						<li><a href="#">Pears</a></li>
+																						<li><a href="#">Produce</a></li>
+																						<li><a href="#">Snack Foods</a></li>
+																				</ul>
+																		</div>
+																		</div>
+																</div>
+														</div>
+												</div>
+										</li>
+										<li class="menu-item menu-item-has-children has-megamenu">
+												<a href="#" class="menu-name" data-title="Fresh Berries"><i class="biolife-icon icon-grape"></i>Fresh Berries</a>
+												<div class="wrap-megamenu lg-width-900 md-width-640 background-mega-02">
+														<div class="mega-content">
+																<div class="row">
+																		<div class="col-lg-3 col-md-4 sm-col-12 md-margin-bottom-83 xs-margin-bottom-25">
+																				<div class="wrap-custom-menu vertical-menu">
+																						<h4 class="menu-title">Fresh Berries</h4>
+																						<ul class="menu">
+																								<li><a href="#">Fruit & Nut Gifts</a></li>
+																								<li><a href="#">Mixed Fruits</a></li>
+																								<li><a href="#">Oranges</a></li>
+																								<li><a href="#">Bananas & Plantains</a></li>
+																								<li><a href="#">Fresh Gala Apples</a></li>
+																								<li><a href="#">Berries</a></li>
+																								<li><a href="#">Pears</a></li>
+																								<li><a href="#">Produce</a></li>
+																								<li><a href="#">Snack Foods</a></li>
+																						</ul>
+																				</div>
+																		</div>
+																		<div class="col-lg-3 col-md-4 sm-col-12 lg-padding-left-23 xs-margin-bottom-36px md-margin-bottom-0">
+																				<div class="wrap-custom-menu vertical-menu">
+																						<h4 class="menu-title">Gifts</h4>
+																						<ul class="menu">
+																								<li><a href="#">Non-Dairy Coffee Creamers</a></li>
+																								<li><a href="#">Coffee Creamers</a></li>
+																								<li><a href="#">Mayonnaise</a></li>
+																								<li><a href="#">Almond Milk</a></li>
+																								<li><a href="#">Ghee</a></li>
+																								<li><a href="#">Beverages</a></li>
+																								<li><a href="#">Ranch Salad Dressings</a></li>
+																								<li><a href="#">Hemp Milk</a></li>
+																								<li><a href="#">Nuts & Seeds</a></li>
+																						</ul>
+																				</div>
+																		</div>
+																		<div class="col-lg-6 col-md-4 sm-col-12 lg-padding-left-25 md-padding-top-55">
+																				<div class="biolife-banner layout-01">
+																						<h3 class="top-title">Farm Fresh</h3>
+																						<p class="content"> All the Lorem Ipsum generators on the Internet tend.</p>
+																						<b class="bottomm-title">Berries Series</b>
+																				</div>
+																		</div>
+																</div>
+														</div>
+												</div>
+										</li>
+										<li class="menu-item"><a href="#" class="menu-name" data-title="Ocean Foods"><i class="biolife-icon icon-fish"></i>Ocean Foods</a></li>
+										<li class="menu-item menu-item-has-children has-child">
+												<a href="#" class="menu-name" data-title="Butter & Eggs"><i class="biolife-icon icon-honey"></i>Butter & Eggs</a>
+												<ul class="sub-menu">
+														<li class="menu-item"><a href="#">Omelettes</a></li>
+														<li class="menu-item"><a href="#">Breakfast Scrambles</a></li>
+														<li class="menu-item menu-item-has-children has-child"><a href="#" class="menu-name" data-title="Eggs & other considerations">Eggs & other considerations</a>
+																<ul class="sub-menu">
+																		<li class="menu-item"><a href="#">Classic Breakfast</a></li>
+																		<li class="menu-item"><a href="#">Huevos Rancheros</a></li>
+																		<li class="menu-item"><a href="#">Everything Egg Sandwich</a></li>
+																		<li class="menu-item"><a href="#">Egg Sandwich</a></li>
+																		<li class="menu-item"><a href="#">Vegan Burrito</a></li>
+																		<li class="menu-item"><a href="#">Biscuits and Gravy</a></li>
+																		<li class="menu-item"><a href="#">Bacon Avo Egg Sandwich</a></li>
+																</ul>
+														</li>
+														<li class="menu-item"><a href="#">Griddle</a></li>
+														<li class="menu-item menu-item-has-children has-child"><a href="#" class="menu-name" data-title="Sides & Extras">Sides & Extras</a>
+																<ul class="sub-menu">
+																		<li class="menu-item"><a href="#">Breakfast Burrito</a></li>
+																		<li class="menu-item"><a href="#">Crab Cake Benedict</a></li>
+																		<li class="menu-item"><a href="#">Corned Beef Hash</a></li>
+																		<li class="menu-item"><a href="#">Steak & Eggs</a></li>
+																		<li class="menu-item"><a href="#">Oatmeal</a></li>
+																		<li class="menu-item"><a href="#">Fruit & Yogurt Parfait</a></li>
+																</ul>
+														</li>
+														<li class="menu-item"><a href="#">Biscuits</a></li>
+														<li class="menu-item"><a href="#">Seasonal Fruit Plate</a></li>
+												</ul>
+										</li>
+										<li class="menu-item"><a href="#" class="menu-title"><i class="biolife-icon icon-fast-food"></i>Fastfood</a></li>
+										<li class="menu-item"><a href="#" class="menu-title"><i class="biolife-icon icon-beef"></i>Fresh Meat</a></li>
+										<li class="menu-item"><a href="#" class="menu-title"><i class="biolife-icon icon-onions"></i>Fresh Onion</a></li>
+										<li class="menu-item"><a href="#" class="menu-title"><i class="biolife-icon icon-avocado"></i>Papaya & Crisps</a></li>
+										<li class="menu-item"><a href="#" class="menu-title"><i class="biolife-icon icon-contain"></i>Oatmeal</a></li>
+										<li class="menu-item"><a href="#" class="menu-title"><i class="biolife-icon icon-fresh-juice"></i>Fresh Bananas & Plantains</a></li>
+								</ul>
+						</div>
 						</div>
 						<div class="nr-header__main-col nr-header__main-col--right">
 							<div class="nr-header__search" data-v-342735b4="">
@@ -125,18 +337,7 @@
 								</form>
 								<div class="search-overlay" data-v-342735b4=""></div>
 							</div>
-							<div class="nr-header__user-nav">
-								<div class="nr-header__user-nav-item nr-header__user-nav-item--search">
-									<button type="button" aria-label="Поиск" class="nr-header__user-nav-link nr-header__user-nav-link--button nr-header__user-nav-link--search">
-										<div class="icon header-icon" data-v-0becd61c="">
-											<svg width="26" height="26" viewBox="0 0 26 26" xmlns="http://www.w3.org/2000/svg" data-v-0becd61c="">
-												<path
-													d="m 11.61621,2.1396485 c -4.8709529,0 -8.8164053,3.8296952 -8.8164054,8.5000005 0,4.670331 3.9454571,8.499999 8.8164054,8.499999 2.065444,0 3.9605,-0.694436 5.462891,-1.84375 l 4.734375,4.564453 1.386719,-1.441406 -4.679688,-4.511718 c 1.194434,-1.452054 1.91211,-3.281801 1.91211,-5.267578 0,-4.6703134 -3.945513,-8.5000005 -8.816407,-8.5000005 z m 0,2 c 3.831508,0 6.816407,2.9541729 6.816407,6.5000005 0,1.446306 -0.503468,2.789804 -1.351563,3.878906 l -0.103515,-0.09961 -1.388672,1.441406 0.03711,0.03516 c -1.117968,0.777408 -2.495064,1.244137 -4.009767,1.244137 -3.8315889,0 -6.8164054,-2.95413 -6.8164054,-6.499999 0,-3.5458357 2.9848211,-6.5000005 6.8164054,-6.5000005 z"
-												></path>
-											</svg>
-										</div>
-									</button>
-								</div> 
+							<div class="nr-header__user-nav"> 
 								{% if current_user.is_authenticated %}
 								<div class="nr-header__user-nav-item nr-header__user-nav-item--user">
 									<a href="{{ url_for('commerce_users.profile') }}"><i class="las la-user"></i></a>
@@ -153,28 +354,12 @@
 								</div>
 								{% endif %}
 								<div class="nr-header__user-nav-item nr-header__user-nav-item--wish">
-									<a href="#" title="Избранное" class="nr-header__user-nav-link">
-										<div class="icon header-icon" data-v-0becd61c="">
-											<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-v-0becd61c="">
-												<path
-													d="M 7.5,3 C 4.4350952,3 2,5.4084636 2,8.4101562 c 0,1.8354128 0.84186,3.5569628 2.3496094,5.3613278 1.5186521,1.817354 3.6301262,3.669636 6.2499996,5.949219 l 0.002,0.002 L 12,21 l 1.396484,-1.275391 0.0039,-0.0039 c 0.155351,-0.140893 0.308521,-0.279872 0.460937,-0.417969 2.362605,-2.140004 4.311545,-3.896009 5.751953,-5.605468 C 21.139679,11.885558 22,10.201233 22,8.4101562 22,5.4084745 19.564937,3 16.5,3 14.780719,3 13.113207,3.7723739 12,5.0664062 10.886798,3.7723793 9.2192963,3 7.5,3 Z m 0,2 c 1.0951437,0 2.2755769,0.5452076 2.984375,1.3691406 L 12,8.1328125 13.515625,6.3691406 C 14.224418,5.5452131 15.404881,5 16.5,5 18.561863,5 20,6.4490782 20,8.4101562 c 0,1.1566428 -0.540607,2.3655488 -1.916016,3.9980468 -1.299591,1.542341 -3.201858,3.272115 -5.564453,5.412109 -0.14997,0.135882 -0.302904,0.274287 -0.457031,0.414063 l -0.0078,0.0059 -0.05469,0.05078 -0.05273,-0.04687 -0.01758,-0.01758 -0.01758,-0.01562 0,0.002 C 9.297933,15.93818 7.2435535,14.114327 5.8847656,12.488281 4.536895,10.875247 4,9.647064 4,8.4101562 4,6.449089 5.4381848,5 7.5,5 Z"
-												></path>
-											</svg>
-										</div>
+									<a href="{{ url_for('commerce_auth.register') }}" style="font-size: 21px;">
+										<i class="fa fa-heart-o"></i>
 									</a>
 								</div>
 								<div class="nr-header__user-nav-item">
-									<a href="/cart" title="Корзина" class="nr-header__user-nav-link">
-										<div class="icon header-icon" data-v-0becd61c="">
-											<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" data-v-0becd61c="">
-												<path d="M19.5555 6.5L20.4412 22H3.55877L4.44449 6.5H19.5555Z" fill="#111111" stroke="#111111" stroke-width="2"></path>
-												<path d="M16 10V5C16 2.79086 14.2091 1 12 1V1C9.79086 1 8 2.79086 8 5V10" stroke="#111111" stroke-width="2"></path>
-											</svg>
-										</div>
-										<span class="nr-header__badge nr-header__badge--blue">
-											1
-										</span>
-									</a>
+									<a href="{{ url_for('commerce_auth.register') }}"><i class="las la-shopping-bag"></i></a>
 								</div>
 							</div>
 						</div>
@@ -225,6 +410,7 @@
 					</nav>
 				</div>
 			</div>
+			
 			<!---->
 			<!---->
 			<div class="v-portal" style="display: none;"></div>
@@ -247,87 +433,31 @@
 		{% endwith %}
 	
 		{% block content %}{% endblock %}
-
-		<button class="cart-active cart-3 header-cart shoppingcart" style="position:fixed; z-index:999; background-color: #56bb81;">
-			<i class="las la-shopping-basket"></i>
-			<span class="count cartItemsFullQty">0</span>
-		</button>
 		
-		<footer itemscope="itemscope" itemtype="https://schema.org/WPFooter" class="nr-footer">
-			<div class="nr-footer__section">
-				<div class="nr-footer__container nr-container">
-					<nav class="nr-footer__nav">
-						<ul class="nr-footer__nav-list">
-							<li class="nr-footer__nav-item">
-								<a href="/about" aria-current="page" title="О компании" class="nr-footer__link router-link-exact-active router-link-active">
-									О компании
-								</a>
-							</li>
-							<li class="nr-footer__nav-item">
-								<a href="/giftcard" title="Подарочная карта" class="nr-footer__link">
-									Подарочная карта
-								</a>
-							</li>
-							<li class="nr-footer__nav-item">
-								<a href="/ads" title="Реклама на сайте" class="nr-footer__link">
-									Реклама на сайте
-								</a>
-							</li>
-							<li class="nr-footer__nav-item">
-								<a href="/suppliers" title="Поставщикам" class="nr-footer__link">
-									Поставщикам
-								</a>
-							</li>
-							<li class="nr-footer__nav-item">
-								<a href="/terms-and-conditions" title="Условия продажи" class="nr-footer__link">
-									Условия продажи
-								</a>
-							</li>
-							<li class="nr-footer__nav-item">
-								<a href="/books-abonement" title="Книжный абонемент" class="nr-footer__link">
-									Книжный абонемент
-								</a>
-							</li>
-							<li class="nr-footer__nav-item">
-								<a href="/job" title="Работа" class="nr-footer__link">
-									Работа
-								</a>
-							</li>
-							<li class="nr-footer__nav-item"><a href="#" title="Проверить статус заказа" class="nr-footer__link">Проверить статус заказа</a></li>
-							<li class="nr-footer__nav-item"><a href="#" title="Проверка и активация сертификатов и абонементов" class="nr-footer__link">Проверка и активация сертификатов и абонементов</a></li>
-							<li class="nr-footer__nav-item">
-								<a href="/spasibosb" title="Бонусы Спасибо" class="nr-footer__link">
-									Бонусы Спасибо
-								</a>
-							</li>
-							<li class="nr-footer__nav-item">
-								<a href="/corp" title="Корпоративные продажи" class="nr-footer__link">
-									Корпоративные продажи
-								</a>
-							</li>
-						</ul>
-					</nav>
-					<div class="nr-footer__info">
-						<div class="nr-footer__info-left">
-							<p class="nr-footer__info-text">
-								©&nbsp;2006–2022&nbsp;ООО «ПроЛайф». Все права защищены.
-							</p>
-							<meta itemprop="copyrightYear" content="2022" /> <meta itemprop="copyrightHolder" content="ООО «ПроЛайф»" />
-							<p class="nr-footer__info-text">
-								Все цены на&nbsp;сайте указаны в&nbsp;российских рублях с&nbsp;учетом НДС и&nbsp;без учета стоимости доставки.<br />
-								Цены на сайте могут отличаться от цен в розничных магазинах.<br />
-								<span>Опция бесплатной доставки от&nbsp;3000 рублей не&nbsp;распространяется на&nbsp;срочный способ доставки.</span>
-							</p>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="v-portal" style="display: none;"></div>
-			<div class="v-portal" style="display: none;"></div>
-		</footer>
 	</div>
 
-
+	<div class="mobile-footer">
+		<div class="mobile-footer-inner">
+				<div class="mobile-block block-menu-main">
+						<a class="menu-bar menu-toggle btn-toggle" data-object="open-mobile-menu" href="javascript:void(0)">
+								<span class="fa fa-bars"></span>
+								<span class="text">Menu</span>
+						</a>
+				</div>
+				<div class="mobile-block block-minicart">
+						<a class="link-to-cart" href="#" style="font-size: 20px;color: #000">
+								<i class="las la-user" aria-hidden="true"></i>
+								<span class="text">Profile</span>
+						</a>
+				</div>
+				<div class="mobile-block block-global">
+						<a class="menu-bar myaccount-toggle btn-toggle" data-object="global-panel-opened" href="javascript:void(0)">
+								<span class="fa fa-heart-o"></span>
+								<span class="text">Wishlist</span>
+						</a>
+				</div>
+		</div>
+	</div>
 	<!-- JS
 ============================================ -->
 	<script type="text/javascript">
@@ -344,7 +474,10 @@
 		var csrf_token = "{{ csrf_token() }}";
 	</script>
 
+<script src="{{ url_for('static', filename='commerce/rd/js/jquery-3.4.1.min.js') }}"></script>
 <script src="{{ url_for('static', filename='commerce/rd/js/plugins/jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='commerce/rd/js/biolife.framework.js') }}"></script>
+<script src="{{ url_for('static', filename='commerce/rd/js/functions.js') }}"></script>
 	<!-- Modernizer JS -->
 	<script src="{{ url_for('static', filename='commerce/rd/js/vendor/modernizr-3.6.0.min.js') }}"></script>
 	<!-- Modernizer JS -->

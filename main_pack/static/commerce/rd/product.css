@@ -235,7 +235,6 @@ body,html {
   }
   
   .currency {
-    font-family: nr-currency-icons,serif;
     font-style: normal;
     font-feature-settings: normal;
     font-variant: normal;
@@ -243,9 +242,6 @@ body,html {
     -webkit-font-smoothing: antialiased
   }
   
-  .currency:before {
-    content: " "
-  }
   
   .loader>span[data-v-51a8d52b] {
     display: inline-block
@@ -4765,7 +4761,7 @@ body,html {
   }
   
   .all-content .right-content[data-v-503820a0] {
-    width: 480px
+    width: 100%
   }
   
   .all-content .about[data-v-503820a0] {
@@ -4798,7 +4794,9 @@ body,html {
   }
   
   .photos[data-v-503820a0] {
-    min-width: 0
+    min-width: 0;
+    justify-content: center;
+    display: flex;
   }
   
   .card-blocks[data-v-503820a0] {

@@ -33,7 +33,7 @@
 	<div class="shop-area pt-90 pb-90">
 		<div class="container">
 			<div class="row flex-row-reverse">
-				<div class="col-lg-9">
+				<div class="col-lg-12">
 					<div class="shop-topbar-wrapper">
 						<div class="shop-topbar-left">
 							<div class="view-mode nav">
@@ -83,9 +83,19 @@
 												</a>
 											</div>
 											<div class="product-content product-content-padding">
+												{% if current_user.is_authenticated %}
+												<div class="yith-wcwl-add-to-wishlist wishlist-button">
+													<a rel="nofollow" class="like {{'heart' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}">
+														<i class="la la-heart" aria-hidden="true"></i>
+													</a>
+												</div>
+												{% endif %}
 												<div class="hm3"><div class="ui-q0">
 													<span class="ui-q3 ui-q6">
-														{{ resource.ResPriceValue }} T
+														{{ resource.ResPriceValue }} 
+													</span>
+													<span class="ui-q3 ui-q6">
+														{{ resource.CurrencyCode }}
 													</span>
 												</div>
 												<span class="n1c c2n n2c nc5 f-tsBodyM" style="color:var(--ozOrange);">
@@ -105,52 +115,29 @@
 															<div class="ui-a7b" style="width:96.79595022222223%;"></div>
 														</div> 
 													</div>
-													<a href="#" class="cn0">1865 отзывов</a>
 												</div>
 												<div class="l8h hm">
 													<div class="l9h hm0">
 														<div class="cj5 j5c hl9">
-															<div class="ui-a1">
-																<div tabindex="0" type="button" class="ui-a3">
-																	<span class="ui-a4" style="border-radius:6px;">
-																		<span class="ui-d7">
-																			В корзину
-																		</span>
-																	</span>
+															<div class="ui-b2">
+																<div class="product-count cardplacement cartItemQty" style="display: none;">
+																	<div class="qtyminus qtybtn">-</div>
+																	<input type="text" class="qty productQty"
+																		pending_amount="{{resource.ResPendingTotalAmount}}"
+																		min_amount="{{resource.ResMinSaleAmount}}"
+																		max_amount="{{resource.ResMaxSaleAmount}}"
+																		value="{{resource.productQty}}" ownerId="{{ resource.ResId }}">
+																	<div class="qtyplus qtybtn">+</div>
 																</div>
+																<a class="round-black-btn cardplacement add-to-cart" ownerId="{{ resource.ResId }}" style="color: #fff">{{_('Add to cart')}}</a>
 															</div>
 														</div>
 														<span class="n1c c2n nc2 nc5 f-tsBodyM h9l" style="color:#808d9a;">
-															<span><b>7 марта</b> доставит<b>Ozon</b>, продавец Издательство АСТ</span>
 														</span>
 													</div>
 												</div>
 												</div>
 											</div>
-											{% if current_user.is_authenticated %}
-											<div class="h0n">
-												<div interactive="true" class="ui-i4 n0h"> 
-													<div class="c2w ui-a1">
-														<div tabindex="0" type="button" class="ui-a3">
-															<span class="ui-a4 ui-b2 ui-a6 ui-d4" style="border-radius:6px;">
-																<svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg" class="ui-d2" style="color:var(--ozBlack);"><path d="M17.282 1C21.34 1 23.999 4.147 24 8.5c0 4.287-3.168 8.376-10.8 14.1l-1.2.9-1.2-.9C3.168 16.876 0 12.787 0 8.5 0 4.147 2.659 1 6.718 1 8.734 1 10.64 1.806 12 3.177A7.455 7.455 0 0117.282 1z" fill="#fff"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M23 8.5C23 4.8 20.861 2 17.282 2 15.115 2 13.136 3.069 12 4.742 10.864 3.069 8.884 2 6.718 2 3.138 2 1 4.8 1 8.5c0 3.817 2.886 7.664 10.4 13.3l.6.45.6-.45C20.115 16.164 23 12.316 23 8.5zM17.282 4C19.622 4 21 5.805 21 8.5c0 2.93-2.398 6.211-9 11.246C5.398 14.712 3 11.43 3 8.5 3 5.805 4.379 4 6.718 4 9.03 4 11 5.743 11 8h2c0-2.257 1.969-4 4.282-4z" fill="#001A34"></path></svg>
-																<span class="ui-d7"></span>
-															</span>
-														</div>
-													</div>
-												</div>
-												<div class="ui-i4 n0h">
-													<div class="ui-a1">
-														<div tabindex="0" type="button" class="ui-a3">
-															<span class="ui-a4 ui-b2 ui-a6 ui-d4" style="border-radius:6px;">
-																<svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg" class="ui-d2" style="color:var(--ozBlack);"><path d="M0 12C0 5.373 5.373 0 12 0s12 5.373 12 12-5.373 12-12 12S0 18.627 0 12z" fill="#fff"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M5 10a2 2 0 110 4 2 2 0 010-4zm14 0a2 2 0 110 4 2 2 0 010-4zm-5 2a2 2 0 10-4 0 2 2 0 004 0z" fill="#001A34"></path></svg>
-																<span class="ui-d7"></span>
-															</span>
-														</div>
-													</div>
-												</div>
-											</div>
-											{% endif %}
 										</div>
 									</div>
 									{% endfor %}
@@ -178,70 +165,6 @@
 								</ul>
 							</div>
 						</div>
-					</div>
-				</div>
-				<div class="col-lg-3">
-					<div class="sidebar-wrapper">
-						<div class="sidebar-widget">
-							<h4 class="sidebar-title">{{_('Search')}} </h4>
-							<div class="sidebar-search mb-40 mt-20">
-								<form class="sidebar-search-form" action="#">
-									<input type="text" id="search" dir="ltr" value="" name="search" placeholder="{{_('Search')}}" />
-									<button>
-										<i class="la la-search"></i>
-									</button>
-								</form>
-							</div>
-						</div>
-						<!-- <div class="sidebar-widget shop-sidebar-border pt-40">
-							<h4 class="sidebar-title">{{_('Categories')}}</h4>
-							<div class="shop-catigory mt-20">
-								<ul id="faq">
-									<li> <a data-toggle="collapse" data-parent="#faq" href="{{url_for('commerce.v_grid')}}">{{_('All')}}</a></li>
-									{% for category in categories %}
-									<li> <a data-toggle="collapse" data-parent="#faq" href="#shop-catigory-2">{{ category.ResCatName }}
-										<i class="la la-angle-down"></i>
-										{% if not category.Categories %}
-										</a>
-										{% elif category.Categories %}
-										<ul id="shop-catigory-2" class="panel-collapse collapse">
-											{% for category in category.Categories %}
-											<li><a href="{{url_for('commerce.v_grid',ResCatId=category.ResCatId,ResCatName=category.ResCatName.replace('/','-').replace(' ','-'))}}">
-												{{ category.ResCatName }}
-												</a></li>
-											{% endfor %}
-										</ul>
-										{% endif %}
-									</li>
-									{% endfor %}
-								</ul>
-							</div>
-						</div>
-						<div class="shop-price-filter mt-35 shop-sidebar-border pt-40 sidebar-widget">
-							<h4 class="sidebar-title">{{_('Price Filter')}}</h4>
-							<div class="price-filter mt-20">
-								<span>{{_('Range:')}}  $100.00 - 1.300.00 </span>
-								<div id="slider-range"></div>
-								<div class="price-slider-amount">
-									<div class="label-input">
-										<input type="text" id="amount" name="price" placeholder="Add Your Price" />
-									</div>
-									<button type="button">{{_('Filter')}}</button>
-								</div>
-							</div>
-						</div>
-						<div class="sidebar-widget pt-40 mt-40 shop-sidebar-border">
-							<h4 class="sidebar-title">{{_('Popular Tags')}} </h4>
-							<div class="sidebar-widget-tag mt-20">
-								<ul>
-									<li><a href="#">Clothing</a></li>
-									<li><a href="#">Accessories</a></li>
-									<li><a href="#">For Men</a></li>
-									<li><a href="#">Women</a></li>
-									<li><a href="#">Fashion</a></li>
-								</ul>
-							</div>
-						</div> -->
 					</div>
 				</div>
 			</div>
