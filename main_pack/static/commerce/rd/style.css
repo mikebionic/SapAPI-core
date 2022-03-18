@@ -4953,6 +4953,15 @@ a.nr-button {
 .recent-selling-wrap .product-wrap .product-img {
   height: 130px;
 }
+.product-img{
+  height: 150px;
+  display: flex;
+  justify-content: center;
+}
+.product-img a img{ 
+  max-height: 100%;
+  max-width: 100%;
+}
 .recent-selling-wrap .product-wrap .product-img a {
   height: 100%;
 }
@@ -5138,7 +5147,6 @@ body{
   line-height: 24px;
   font-weight: 400;
   color: #666666;
-  overflow-x: hidden;
   -ms-word-wrap: break-word;
   word-wrap: break-word;
 }
