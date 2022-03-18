@@ -339,7 +339,7 @@
 							</div>
 							<div class="nr-header__user-nav"> 
 								{% if current_user.is_authenticated %}
-								<div class="nr-header__user-nav-item nr-header__user-nav-item--user">
+								<div class="prof nr-header__user-nav-item nr-header__user-nav-item--user">
 									<a href="{{ url_for('commerce_users.profile') }}"><i class="las la-user"></i></a>
 								</div>
 								<div class="nr-header__user-nav-item nr-header__user-nav-item--user">
@@ -353,7 +353,7 @@
 									<a href="{{ url_for('commerce_auth.register') }}"><i class="las la-registered"></i></a>
 								</div>
 								{% endif %}
-								<div class="nr-header__user-nav-item nr-header__user-nav-item--wish">
+								<div class="prof nr-header__user-nav-item nr-header__user-nav-item--wish">
 									<a href="{{ url_for('commerce_auth.register') }}" style="font-size: 21px;">
 										<i class="fa fa-heart-o"></i>
 									</a>
@@ -435,7 +435,7 @@
 		{% block content %}{% endblock %}
 		
 	</div>
-
+	
 	<div class="mobile-footer">
 		<div class="mobile-footer-inner">
 				<div class="mobile-block block-menu-main">
@@ -444,18 +444,33 @@
 								<span class="text">Menu</span>
 						</a>
 				</div>
+				{% if current_user.is_authenticated %}
 				<div class="mobile-block block-minicart">
-						<a class="link-to-cart" href="#" style="font-size: 20px;color: #000">
+						<a class="link-to-cart" href="{{ url_for('commerce_users.profile') }}" style="font-size: 20px;color: #000">
 								<i class="las la-user" aria-hidden="true"></i>
 								<span class="text">Profile</span>
 						</a>
 				</div>
 				<div class="mobile-block block-global">
-						<a class="menu-bar myaccount-toggle btn-toggle" data-object="global-panel-opened" href="javascript:void(0)">
+						<a class="link-to-cart" href="{{ url_for('commerce_users.wishlist') }}">
 								<span class="fa fa-heart-o"></span>
 								<span class="text">Wishlist</span>
 						</a>
 				</div>
+				{% else %}
+				<div class="mobile-block block-minicart">
+					<a class="link-to-cart" href="{{ url_for('commerce_auth.login') }}" style="font-size: 20px;color: #000">
+						<i class="las la-sign-in-alt"></i>
+							<span class="text">Login</span>
+					</a>
+				</div>
+				<div class="mobile-block block-global">
+						<a class="link-to-cart" href="{{ url_for('commerce_auth.register') }}">
+								<i class="las la-registered"></i>
+								<span class="text">Register</span>
+						</a>
+				</div>
+				{% endif %}
 		</div>
 	</div>
 	<!-- JS
