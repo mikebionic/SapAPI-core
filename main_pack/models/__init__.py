@@ -74,6 +74,8 @@ from .Relatives import *
 from .Report_file import *
 from .Representative import *
 from .Res_category import *
+from .Res_collection_line import *
+from .Res_collection import *
 from .Res_discount import *
 from .Res_maker import *
 from .Res_price_group import *
