@@ -1,0 +1,278 @@
+{% extends "commerce/rd/commerce/layout.html" %}
+
+{% block head %}
+<meta name="description" content="{{ resource.ResName }} | {{ resource.ResDesc.replace('<b>','').replace('</b>','').replace('<br/>',', ') if resource.ResDesc }}">
+<meta property="og:description" content="{{ resource.ResName }} | {{ resource.ResDesc.replace('<b>','').replace('</b>','').replace('<br/>',', ') if resource.ResDesc }}" />
+<meta property="og:image" content="{{ request.host_url }}{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/logo/halal_OG.png') }}" />
+<meta name="twitter:description" content="{{ resource.ResName }} | {{ resource.ResDesc.replace('<b>','').replace('</b>','').replace('<br/>',', ') if resource.ResDesc }}" />
+<meta name="twitter:image" content="{{ request.host_url }}{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/logo/halal_OG.png') }}" />
+{% endblock %}
+
+{% block content %}
+	<div class="container">
+		<div class="row">
+				<div class="product-area">
+					<div class="section-title-6 mt-50 mb-50 text-center">
+						<h2>{{ resource.ResName }}</h2>
+					</div>
+				</div>
+				<div class="all-content content" data-v-503820a0="">
+					<div class="left-content" data-v-503820a0="">
+
+			<div class="col-lg-6 col-md-7">
+							<div class="content" data-v-503820a0="">
+								<div class="middle" data-v-503820a0="">
+									<div class="photos" data-v-503820a0="">
+										<div class="product-details-img">
+											<div class="zoompro-wrap product-zoom-right pr-20">
+												<div class="zoompro-span">
+													<img class="zoompro" src="{{ url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}" />
+													<span>-29%</span>
+												</div>
+											</div>
+											<div id="gallery" class="product-dec-slider-2">
+												<a data-image="{{ url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}">
+														<img src="{{ url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="">
+												</a>
+												<a data-image="{{ url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}">
+													<img src="{{ url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="">
+												</a>
+												<a data-image="{{ url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}">
+													<img src="{{ url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="">
+												</a>
+												<a data-image="{{ url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}">
+													<img src="{{ url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="">
+												</a>
+												<a data-image="{{ url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}">
+													<img src="{{ url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="">
+												</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+							<!---->
+							<div class="card-blocks" data-v-503820a0="">
+								<div class="description-review-wrapper pb-90">
+										<div class="ml-auto mr-auto col-lg-10">
+												<div class="dec-review-topbar nav mb-40">
+														<a class="active" data-toggle="tab" href="#des-details1">Description</a>
+														<a data-toggle="tab" href="#des-details2">Specification</a>
+														<a data-toggle="tab" href="#des-details3">Reviews</a>
+												</div>
+												<div class="tab-content dec-review-bottom">
+														<div id="des-details1" class="tab-pane active">
+																<div class="description-wrap">
+																		<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text. It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters,</p>
+																</div>
+														</div>
+														<div id="des-details2" class="tab-pane ">
+																<div class="specification-wrap table-responsive">
+																		<table>
+																				<tbody>
+																						<tr>
+																								<td class="width1">Name / Model</td>
+																								<td>LaaVista Depro, FX 829 v1</td>
+																						</tr>
+																						<tr>
+																								<td>Type</td>
+																								<td>Categories</td>
+																						</tr>
+																						<tr>
+																								<td class="width1">Models</td>
+																								<td>FX 829 v1</td>
+																						</tr>
+																						<tr>
+																								<td class="width1">Categories</td>
+																								<td>Product Type</td>
+																						</tr>
+																						<tr>
+																								<td class="width1">Size</td>
+																								<td>60’’ x 40’’</td>
+																						</tr>
+																						<tr>
+																								<td class="width1">Display Port</td>
+																								<td>Multi</td>
+																						</tr>
+																						<tr>
+																								<td class="width1">Media</td>
+																								<td>Brightside</td>
+																						</tr>
+																						<tr>
+																								<td class="width1">Color</td>
+																								<td>Black, White</td>
+																						</tr>
+																				</tbody>
+																		</table>
+																</div>
+														</div>
+														<div id="des-details3" class="tab-pane">
+																<div class="dec-review-wrap mb-50">
+																		<div class="row">
+																				<div class="col-xl-3 col-lg-4 col-md-5">
+																						<div class="dec-review-img-wrap">
+																								
+																								<div class="dec-client-name">
+																										<h4>Jonathon Doe</h4>
+																										<div class="dec-client-rating">
+																												<i class="la la-star"></i>
+																												<i class="la la-star"></i>
+																												<i class="la la-star"></i>
+																												<i class="la la-star"></i>
+																												<i class="la la-star-half-o"></i>
+																										</div>
+																								</div>
+																						</div>
+																				</div>
+																				<div class="col-xl-9 col-lg-8 col-md-7">
+																						<div class="dec-review-content">
+																								<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters,</p>
+																								<div class="review-content-bottom">
+																										<div class="review-like">
+																												<span><i class="la la-heart-o"></i> 24 Likes</span>
+																										</div>
+																										<div class="review-date">
+																												<span>25 Jun 2019</span>
+																										</div>
+																								</div>
+																						</div>
+																				</div>
+																		</div>
+																</div>
+														</div>
+												</div>
+										</div>
+							</div>
+						</div>
+					</div>
+					<div class="right-content" style="" data-v-503820a0="">
+							<div data-v-10b5df08="" data-v-503820a0="" class="item-about about">
+									<!---->
+									<div data-v-10b5df08="" class="item-card-name-mobile">
+											<a data-v-10b5df08="" href="/authors/16083" class="card-manufactor-link" title="Джим Коллинз">
+													Джим Коллинз
+											</a>
+											<!---->
+									</div>
+									<!---->
+									<!---->
+									<div data-v-7fcfa635="" data-v-10b5df08="" class="fly">
+											<!---->
+											<!---->
+											<div data-v-7fcfa635="" itemprop="offers" itemscope="itemscope" class="price">
+												
+													<div data-v-7fcfa635="" class="price-current" style="display: flex;">
+														<span data-v-7fcfa635="" class="price price-current priceValue" ownerId="{{ resource.ResId }}" value="{{resource.ResPriceValue}}">
+															{{ resource.ResPriceValue }}
+														</span>
+														<span data-v-7fcfa635="" class="currency">
+																<span>
+																	{{ resource.CurrencyCode }}
+																</span>
+														</span>
+													</div>
+													<!---->
+											</div>
+											<!---->
+											<div data-v-7fcfa635="" class="buys">
+													<button data-v-7fcfa635="" type="button" class="buy">
+															В корзину
+													</button>
+													<!---->
+											</div>
+											<!---->
+									</div>
+									<div data-v-0b5002f0="" data-v-10b5df08="" class="deliveries">
+											<div data-v-877d3bbe="" data-v-0b5002f0="" class="delivery">
+													<!---->
+													<div data-v-877d3bbe="" class="delivery-info">
+															<a data-v-877d3bbe="" href="#" class="delivery-name">
+																	Пункты выдачи
+																	<!---->
+															</a>
+															<div data-v-877d3bbe="" class="delivery-date">
+																	<div data-v-877d3bbe="" class="delivery-later">
+																			2-3 дня
+																	</div>
+																	<!---->
+															</div>
+															<!---->
+													</div>
+													<div data-v-877d3bbe="" class="delivery-price">
+															От 125
+															<span data-v-877d3bbe="" class="currency">
+																	<span hidden="hidden">
+																			руб.
+																	</span>
+															</span>
+													</div>
+											</div>
+											<div data-v-877d3bbe="" data-v-0b5002f0="" class="delivery">
+													<!---->
+													<div data-v-877d3bbe="" class="delivery-info">
+															<a data-v-877d3bbe="" href="#" class="delivery-name">
+																	Курьерская или срочная доставка
+																	<!---->
+															</a>
+															<div data-v-877d3bbe="" class="delivery-date">
+																	<div data-v-877d3bbe="" class="delivery-later">
+																			3 часа - 1 день
+																	</div>
+																	<!---->
+															</div>
+															<!---->
+													</div>
+													<div data-v-877d3bbe="" class="delivery-price">
+															От 250
+															<span data-v-877d3bbe="" class="currency">
+																	<span hidden="hidden">
+																			руб.
+																	</span>
+															</span>
+													</div>
+											</div>
+											<div data-v-877d3bbe="" data-v-0b5002f0="" class="delivery">
+													<!---->
+													<div data-v-877d3bbe="" class="delivery-info">
+															<a data-v-877d3bbe="" href="#" class="delivery-name">
+																	Забронировать в магазине Р
+																	<!---->
+															</a>
+															<div data-v-877d3bbe="" class="delivery-date">
+																	<!---->
+																	<div data-v-877d3bbe="" class="delivery-now">
+																			Соберем за 3 часа
+																	</div>
+															</div>
+															<!---->
+													</div>
+													<div data-v-877d3bbe="" class="delivery-price">
+															Бесплатно
+															<!---->
+													</div>
+											</div>
+									</div>
+									<div data-v-10b5df08="" class="stick-test"></div>
+							</div>
+					</div>
+			</div>
+		</div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+	var resource_ResRegNo = "{{resource.ResRegNo}}"
+	var resource_ResGuid = "{{resource.ResGuid}}"
+	var resource_ResId = "{{resource.ResId}}"
+	var view_handling = "{{handle_product_view}}"
+	var view_handler_api_url = "{{view_handler_api_url}}"
+</script>
+<script>
+	update_viewed_list(resource_ResId); 
+	if (view_handling){
+		handle_product_view();
+	}
+</script>
+{% endblock %}

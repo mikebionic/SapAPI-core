@@ -1,0 +1,100 @@
+{% extends "commerce/rd/commerce/layout.html" %}
+
+{% block styles %}
+	<meta name="robots" content="noindex" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/bulma.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/core.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='commerce/main/css/webuipopover/jquery.webui-popover.min.css')}}">
+{% endblock %}
+
+{% block content %}
+	<div class="shop-wrapper">
+		<div class="section">
+			<div class="container">
+				<div class="columns account-header">
+					<div class="col-lg-12 col-12 is-tablet-landscape-padded" style="margin-bottom: 20px;">
+						<div class="account-title">
+							<h2>{{_('Orders')}}</h2>
+						</div> 
+						<div class="tabs account-tabs has-controls">
+							<ul>
+								<li><a href="account.html">{{_('Profile')}}</a></li>
+								<li class="is-active"><a href="{{ url_for('commerce_users.orders') }}">{{_('Orders')}}</a></li>
+								<li><a href="{{ url_for('commerce_users.wishlist') }}">{{_('Wishlist')}}</a></li>
+							</ul>
+						</div>
+						<div class="listing-controls">
+							<div class="columns is-account-grid is-multiline">
+								<div class="column is-12">
+
+									<div id="46895" class="flat-card is-auto order-list-card animated preFadeInUp fadeInUp">
+										<div class="order-block">
+											<div class="order-icon">
+												<i data-feather="{{ orderInvoices[0].StatusUI.icon }}"></i>
+											</div>
+											<div class="status">
+												<div>{{_('Status')}}</div>
+												<div><span class="tag {{orderInvoices[0].StatusUI.class}}-tag">{{orderInvoices[0].InvStatus.InvStatName}}</span></div>
+											</div>
+											<div class="order-icon">
+												<i data-feather="clock"></i>
+											</div>
+											<div class="date">
+												<div>{{_('Ordered date')}}</div>
+												<div class="is-date">{{orderInvoices[0].CreatedDate}}</div>
+											</div>
+											<div class="order-icon">
+												<i data-feather="dollar-sign"></i>
+											</div>
+											<div class="total">
+												<div>{{_('Total price')}}</div>
+												<div class="tag">{{ orderInvoices[0].CurrencyCode }} {{ orderInvoices[0].OInvFTotal }}</div>
+											</div>
+										</div>
+										<div class="table-block">
+											<table>
+												<thead>
+													<tr>
+                  					<th scope="col">{{_('Product name')}}</th>
+														<th scope="col">{{_('Amount')}}</th>
+														<th scope="col">{{_('Price')}}</th>
+														<th scope="col">{{_('Total price')}}</th>
+														<th scope="col">{{_('Currency')}}</th>
+													</tr>
+												</thead>
+												<tbody>
+												{% for orderInvLine in orderInvLines %}
+				                  <tr>
+				                    <td class="text-center">
+				                    	<a href="{{ url_for('commerce.product',ResId=orderInvLine.Resource.ResId)}}">
+				                    		{{ orderInvLine.Resource.ResName }}
+				                    	</a>
+				                    </td>
+				                    <td>{{ orderInvLine.OInvLineAmount }}</td>
+				                    <td>{{ orderInvLine.OInvLinePrice }}</td>
+				                    <td>{{ orderInvLine.OInvLineFTotal }}</td>
+				                    <td>{{ orderInvLine.CurrencyCode }}</td>
+				                  </tr>
+				                {% endfor %}
+												</tbody>
+											</table>
+										</div>
+										<p><b>{{_('Note')}}:</b></p>
+										<p>{{ orderInvoices[0].OInvDesc if orderInvoices[0].OInvDesc else '' }}</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+
+
+{% block scripts %}
+  <script src="{{ url_for('static', filename='commerce/main/js/app.js')}}"></script>
+  <script src="{{ url_for('static', filename='commerce/main/js/nephos.js')}}"></script>
+{% endblock %}

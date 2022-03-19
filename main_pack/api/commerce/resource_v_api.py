@@ -22,7 +22,14 @@ from main_pack.models import (
 def api_v_full_resources():
 	DivId = request.args.get("DivId",None,type=int)
 	notDivId = request.args.get("notDivId",None,type=int)
-	res = apiResourceInfo(fullInfo=True,DivId=DivId,notDivId=notDivId)
+	showMain = request.args.get("showMain",0,type=int)
+	limit_by = request.args.get("limit",None,type=int)
+	res = apiResourceInfo(
+		fullInfo = True,
+		DivId = DivId,
+		notDivId = notDivId,
+		showMain = showMain,
+		limit_by = limit_by)
 	response = make_response(jsonify(res), 200)
 	return response
 
@@ -32,10 +39,14 @@ def api_v_resources():
 	DivId = request.args.get("DivId",None,type=int)
 	notDivId = request.args.get("notDivId",None,type=int)
 	avoidQtyCheckup = request.args.get("avoidQtyCheckup",0,type=int)
+	showMain = request.args.get("showMain",0,type=int)
+	limit_by = request.args.get("limit",None,type=int)
 	res = apiResourceInfo(
 		DivId = DivId,
 		notDivId = notDivId,
-		avoidQtyCheckup = avoidQtyCheckup)
+		avoidQtyCheckup = avoidQtyCheckup,
+		showMain = showMain,
+		limit_by = limit_by)
 	response = make_response(jsonify(res), 200)
 	return response
 
@@ -43,7 +54,8 @@ def api_v_resources():
 @api.route("/v-resources/<int:ResId>/")
 def api_v_resource_info(ResId):
 	resource_list = [{"ResId": ResId}]
-	res = apiResourceInfo(resource_list,single_object=True,showRelated=False)
+	showRelated = request.args.get("showRelated",0,type=int)
+	res = apiResourceInfo(resource_list,single_object=True,showRelated=showRelated)
 	if res['status'] == 1:
 		status_code = 200
 	else:
@@ -57,6 +69,8 @@ def api_category_v_resources(ResCatId):
 	DivId = request.args.get("DivId",None,type=int)
 	notDivId = request.args.get("notDivId",None,type=int)
 	avoidQtyCheckup = request.args.get("avoidQtyCheckup",0,type=int)
+	showMain = request.args.get("showMain",0,type=int)
+	limit_by = request.args.get("limit",None,type=int)
 	# fetching total by division 
 	if DivId is None:
 		# !!! TODO: This option will live for a while
@@ -98,7 +112,10 @@ def api_category_v_resources(ResCatId):
 			resources = resources\
 				.filter(Res_Total_subquery.c.ResTotBalance_sum > 0)
 
-	res = apiResourceInfo(resource_query=resources)
+	res = apiResourceInfo(
+		resource_query=resources,
+		showMain=showMain,
+		limit_by = limit_by)
 	status_code = 200
 	response = make_response(jsonify(res), status_code)
 	return response
@@ -117,6 +134,8 @@ def api_resources():
 
 	DivId = request.args.get("DivId",None,type=int)
 	notDivId = request.args.get("notDivId",None,type=int)
+	showMain = request.args.get("showMain",0,type=int)
+	limit_by = request.args.get("limit",0,type=int)
 
 	search = request.args.get("search",None,type=str)
 	search = search.strip() if search else None
@@ -132,9 +151,12 @@ def api_resources():
 		from_price = from_price,
 		to_price = to_price,
 		search = search,
+		showMain = showMain,
+		limit_by = limit_by,
 		DivId = DivId,
 		notDivId = notDivId)
 
 	status_code = 200
+	res["status"] = 1
 	response = make_response(jsonify(res), status_code)
 	return response

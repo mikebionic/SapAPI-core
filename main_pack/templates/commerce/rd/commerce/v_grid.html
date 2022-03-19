@@ -1,0 +1,174 @@
+{% extends "commerce/rd/commerce/layout.html" %}
+
+
+{% block head %}
+<meta name="description"
+	content="{% for sort in sort_types %}{{ sort.sort_title if sort.status == 1 }}{% endfor %} {{_('Products')}}: {% for resource in data %} {{ resource.ResName }}, {% endfor %}">
+<meta property="og:description"
+	content="{% for sort in sort_types %}{{ sort.sort_title if sort.status == 1 }}{% endfor %} {{_('Products')}}: {% for resource in data %} {{ resource.ResName }}, {% endfor %}" />
+<meta property="og:image"
+	content="{{ request.host_url }}{{ url_for('static', filename='commerce/hs/images/logo/halal_OG.png') }}" />
+<meta name="twitter:description"
+	content="{% for sort in sort_types %}{{ sort.sort_title if sort.status == 1 }}{% endfor %} {{_('Products')}}: {% for resource in data %} {{ resource.ResName }}, {% endfor %}" />
+<meta name="twitter:image"
+	content="{{ request.host_url }}{{ url_for('static', filename='commerce/hs/images/logo/halal_OG.png') }}" />
+{% endblock %}
+{% block breadcrumbs %}
+	<div class="breadcrumb-area bg-img">
+		<div class="container">
+			<div class="breadcrumb-content text-center">
+				<h2>{{_('Products')}}</h2>
+				<ul>
+					<li>
+						<a href="{{ url_for('commerce.commerce') }}">{{_('Main')}}</a>
+					</li>
+					<li class="active">{{_('Products')}} </li>
+				</ul>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+{% block content %}
+
+	<div class="shop-area pt-90 pb-90">
+		<div class="container">
+			<div class="row flex-row-reverse">
+				<div class="col-lg-12">
+					<div class="shop-topbar-wrapper">
+						<div class="shop-topbar-left">
+							<div class="view-mode nav">
+								<a class="active" href="#shop-1" data-toggle="tab"><i class="la la-th"></i></a>
+							</div>
+						</div>
+						<div class="product-sorting-wrapper">
+							<div class="product-shorting shorting-style">
+								<label>{{_('Showing')}}</label>
+								<select name="showing" class="nice-select per_page">
+									<option value="{{ per_page }}">{{ per_page }}</option>
+									<option value="16">16</option>
+									<option value="32">32</option>
+									<option value="56">56</option>
+									<option value="80">80</option>
+									<option value="96">96</option>
+								</select>
+							</div>
+							<div class="product-show shorting-style sorting">
+								<label>{{_('View')}}</label>
+								<select>
+									{% for sort in sort_types %}
+										<option value="{{sort.sort}}" {{ 'selected' if sort.status == 1 }}>{{sort.sort_title}}</option>
+									{% endfor %}
+								</select>
+							</div>
+							<input type="hidden" class="category_sort" value="{{ category if category else '' }}">
+							<input type="hidden" class="brand_sort" value="{{ brand if brand else '' }}">
+							<input type="hidden" class="search_sort" value="{{ search if search else '' }}">
+							<button class="applySortingBtn btn" style="border:1px solid #ebebeb; padding:0 .75rem">{{_('View')}}</button>
+						</div>
+					</div>
+					<div class="shop-bottom-area">
+						<div class="tab-content jump">
+							<div id="shop-1" class="tab-pane active">
+								<div class="row">
+									{% if data == [] or data == null %}
+									{{_('Nothing found')}}
+									{% endif %}
+
+									{% for resource in data %}
+									<div class="col-xl-3 col-lg-4 col-md-4 col-sm-4 col-6">
+										<div class="product-wrap product-border-3 product-img-zoom mb-30">
+											<div class="product-img">
+												<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">
+													<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }} {{ company.CName }}">
+												</a>
+											</div>
+											<div class="product-content product-content-padding">
+												{% if current_user.is_authenticated %}
+												<div class="yith-wcwl-add-to-wishlist wishlist-button">
+													<a rel="nofollow" class="like {{'heart' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}">
+														<i class="la la-heart" aria-hidden="true"></i>
+													</a>
+												</div>
+												{% endif %}
+												<div class="hm3"><div class="ui-q0">
+													<span class="ui-q3 ui-q6">
+														{{ resource.ResPriceValue }} 
+													</span>
+													<span class="ui-q3 ui-q6">
+														{{ resource.CurrencyCode }}
+													</span>
+												</div>
+												<span class="n1c c2n n2c nc5 f-tsBodyM" style="color:var(--ozOrange);">
+													<span>
+														Бестселлер
+													</span>
+												</span>
+												<a href="#" class="tile-hover-target k9h">
+													<span class="n1c c2n n2c nc4 f-tsBodyL k9h">
+														<span>{{ resource.ResName }}</span>
+													</span>
+												</a>
+												<div class="kh9 nc">
+													<div class="ui-ab7 ui-a6b ui-b7a">
+														<div class="ui-b5a ui-a6b">
+															<div class="ui-ba7 ui-a6b"></div>
+															<div class="ui-a7b" style="width:96.79595022222223%;"></div>
+														</div> 
+													</div>
+												</div>
+												<div class="l8h hm">
+													<div class="l9h hm0">
+														<div class="cj5 j5c hl9">
+															<div class="ui-b2">
+																<div class="product-count cardplacement cartItemQty" style="display: none;">
+																	<div class="qtyminus qtybtn">-</div>
+																	<input type="text" class="qty productQty"
+																		pending_amount="{{resource.ResPendingTotalAmount}}"
+																		min_amount="{{resource.ResMinSaleAmount}}"
+																		max_amount="{{resource.ResMaxSaleAmount}}"
+																		value="{{resource.productQty}}" ownerId="{{ resource.ResId }}">
+																	<div class="qtyplus qtybtn">+</div>
+																</div>
+																<a class="round-black-btn cardplacement add-to-cart" ownerId="{{ resource.ResId }}" style="color: #fff">{{_('Add to cart')}}</a>
+															</div>
+														</div>
+														<span class="n1c c2n nc2 nc5 f-tsBodyM h9l" style="color:#808d9a;">
+														</span>
+													</div>
+												</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									{% endfor %}
+								</div>
+							</div>
+							<div class="pagination-style text-center">
+								<ul>
+									{% if prev_url %}
+									<li><a class="prev" href="#"><i class="la la-angle-left"></i></a></li>
+									{% endif %}
+									{% for page_num in page_num_list %}
+											{% if page_num %}
+												{% if page_num.status == "active" %}
+													<li><a class="active" href="#">{{ page_num.page }}</a></li>
+												{% elif page_num.status == None %}
+													<li><a href="#">------</a></li>
+												{% else %}
+													<li><a href="{{ page_num.url }}">{{ page_num.page }}</a></li>
+												{% endif %}
+										{% endif %}
+									{% endfor %}
+									{% if next_url %}
+										<li><a class="next" href="{{ next_url }}"><i class="la la-angle-right"></i></a></li>
+									{% endif %}
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

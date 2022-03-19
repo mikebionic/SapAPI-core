@@ -154,3 +154,46 @@ def sha_required(f):
 		return f(*args,**kwargs)
 
 	return decorated
+
+
+def admin_required(f):
+	@wraps(f)
+	def decorated(*args,**kwargs):
+		auth_token = None
+		current_user = None
+
+		try:
+			auth_token = get_bearer_from_header(request.headers.get('Authorization'))
+			if not auth_token and 'x-access-token' in request.headers:
+				auth_token = request.headers['x-access-token']
+
+			if not auth_token:
+				return jsonify({"message": "Token is missing!"}), 401
+
+			if auth_token == Config.SYNCH_SHA:
+				current_user = User.query.filter_by(UTypeId = 1).first()
+
+			else:
+				data = decodeJWT(auth_token)
+				if "UId" in data:
+					current_user = User.query\
+						.filter_by(
+							GCRecord = None,
+							UTypeId = 1,
+							UId = data['UId'])\
+						.first()
+
+		except Exception as ex:
+			log_print(f"Admin required exception {ex}")
+
+		if not current_user:
+			return jsonify({"message": "Token is invalid!"}), 401
+
+		user = {
+			"model_type": 'user',
+			"current_user": current_user
+		}
+
+		return f(user, *args,**kwargs)
+
+	return decorated

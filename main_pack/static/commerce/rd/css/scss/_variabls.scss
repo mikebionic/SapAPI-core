@@ -1,0 +1,49 @@
+// Font Family
+$roboto: 'Roboto', sans-serif;
+$poppins: 'Poppins', sans-serif;
+$marckscript: 'Marck Script', cursive;
+$robotoslab: 'Roboto Slab', serif;
+$robotomono: 'Roboto Mono', monospace;
+
+
+// text Colors ---------------
+
+$white: #ffffff;
+$black: #000000;
+$grey: #f8f8f8;
+
+$button-color: #3d3c3c;
+
+
+// Background colors
+$bg-landing: #f6fff9;
+$bg-header: #008d36;
+$bg-yellow-light: #f3e7cb;
+$bg-yellow-light-2: #fffaf3;
+$bg-black: #010211;
+$bg-black-2: #282828;
+$bg-black-3: #030512;
+$bg-black-4: #333745;
+$bg-bluegray: #f4f8fa;
+$bg-gray: #f8f8f8;
+$bg-gray-2: #ebebeb;
+$bg-gray-3: #f7f8f9;
+$bg-gray-4: #faf9f9;
+
+// Theme Color
+// $theme-color: #ff5151;
+$theme-color: #2c5ca7;
+$bg-cat-hover: #f0fff6;
+$nav-hover: #89d2a8;
+
+$pulse-color: #4c9a67;
+
+
+
+// Responsive Variables 
+$xx-layout : 'only screen and (min-width: 1366px) and (max-width: 1600px)';
+$xl-layout : 'only screen and (min-width: 1200px) and (max-width: 1365px)';
+$lg-layout : 'only screen and (min-width: 992px) and (max-width: 1199px)';
+$md-layout:'only screen and (min-width: 768px) and (max-width: 991px)';
+$xs-layout:'only screen and (max-width: 767px)';
+$sm-layout: 'only screen and (min-width: 576px) and (max-width: 767px)';

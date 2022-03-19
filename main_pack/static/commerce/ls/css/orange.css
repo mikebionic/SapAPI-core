@@ -101,8 +101,8 @@ input[type="submit"].dokan-btn-theme:focus, a.dokan-btn-theme:focus, .dokan-btn-
 .site-content .landing-v1-slider .slider-1 .button:hover,
 .site-content .landing-v2-slider .slider-1 .button:hover,
 .about-accordion .card .card-header h5 > a:not(.collapsed) i {
-  background-color: #29539b;
-  background-image: linear-gradient(336deg, #0175a052 0%, #042242a6 74%);
+  background: rgb(92,5,5);
+  background: linear-gradient(132deg, rgba(92,5,5,1) 0%, rgba(121,9,9,1) 43%, rgba(255,0,0,1) 100%);
 }
 
 .primary-navigation .nav .dropdown-menu,
@@ -111,7 +111,7 @@ input[type="submit"].dokan-btn-theme:focus, a.dokan-btn-theme:focus, .dokan-btn-
 .primary-navigation .nav .yamm-fw > .dropdown-menu > li,
 .navbar-primary .nav .yamm-fw > .dropdown-menu > li,
 .top-bar .nav .show > .dropdown-menu {
-  border-top-color: #29539b; }
+  border-top-color: rgb(92,5,5); }
 
 .widget_shopping_cart .buttons a:first-child:hover,
 .widget_shopping_cart_content .buttons a:first-child:hover,
@@ -130,10 +130,10 @@ table.cart td.actions div.coupon .button:hover,
 .wcmp_main_page .wcmp_main_holder .wcmp_headding1 button:hover,
 .btn-primary:hover,
 .navbar-search button:hover {
-  background-color: #29539b; }
+  background-color: rgb(92,5,5); }
 
 .home-v3-banner-with-products-carousel .banner .banner-action.button:hover {
-  background-color: #29539b; }
+  background-color: rgb(92,5,5); }
 
 .cart-collaterals .checkout-button:hover,
 #payment .place-order .button:hover,
@@ -144,13 +144,13 @@ table.cart td.actions div.coupon .button:hover,
 .woocommerce-wishlist table.cart .product-add-to-cart a.button:hover,
 table.cart td.actions div.coupon .button:hover,
 .btn-primary:hover {
-  border-color: #29539b; }
+  border-color: rgb(92,5,5); }
 
 .home-v3-banner-with-products-carousel .banner .banner-action.button:hover {
-  border-color: #29539b; }
+  border-color: rgb(92,5,5); }
 
 .top-bar.top-bar-v4 {
-  border-bottom-color: #29539b; }
+  border-bottom-color: rgb(92,5,5); }
 
 .price,
 .features-list .feature i,
@@ -210,13 +210,13 @@ article.post .post-readmore .btn-primary,
 .landing-v1-slider .slider-1 .button,
 .landing-v2-slider .slider-1 .button,
 .site-content .home-v6-slider .slider-1 .caption .offer-price {
-  color: #29539b; }
+  color: rgb(92,5,5); }
 
 #secondary.sidebar-blog .widget_recent_comments ul li.recentcomments a:hover,
 .footer-widgets.sidebar-blog .widget_recent_comments ul li.recentcomments a:hover,
 #secondary .widget.widget_rss li .rsswidget:hover,
 .footer-widgets .widget.widget_rss li .rsswidget:hover {
-  color: #29539b; }
+  color: rgb(92,5,5); }
 
 .top-bar.top-bar-v4 .nav-item + .nav-item .nav-link::before,
 .top-bar.top-bar-v4 .nav-item + .nav-item > a::before,
@@ -230,7 +230,7 @@ article.post .post-readmore .btn-primary,
 .pings-list #respond .comment-reply-title small:hover,
 .comment-list #respond .comment-reply-title small a:focus,
 .pings-list #respond .comment-reply-title small a:focus {
-  color: #29539b; }
+  color: rgb(92,5,5); }
 
 .top-bar.top-bar-v4 a,
 .site-header.header-v4 .site-header-cart .cart-contents .amount .price-label {
@@ -241,10 +241,10 @@ article.post .post-readmore .btn-primary,
 .widget_shopping_cart .product_list_widget .mini_cart_item .remove,
 .widget_shopping_cart_content .product_list_widget .mini_cart_item .remove,
 .site-header.header-v4 .site-header-cart .cart-contents .count {
-  background-color: #29539b; }
+  background-color: rgb(92,5,5); }
 
 .section-landscape-products-widget-carousel.product-widgets .section-header:after {
-  border-bottom-color: #29539b; }
+  border-bottom-color: rgb(92,5,5); }
 
 .site-header.header-v4 .site-branding .cls-3,
 .site-header.header-v5 .site-branding .cls-3 {
@@ -332,22 +332,22 @@ input[type="submit"].dokan-btn-theme:focus, a.dokan-btn-theme:focus, .dokan-btn-
 .site-content .home-v12-slider .slider-1 .button:hover,
 .site-content .landing-v1-slider .slider-1 .button:hover,
 .site-content .landing-v2-slider .slider-1 .button:hover {
-  border-color: #29539b; }
+  border-color: rgb(92,5,5); }
 
 .slider-sm-btn,
 .slider-sm-btn:hover {
-  border-color: #29539b !important; }
+  border-color: rgb(92,5,5) !important; }
 
 .slider-sm-btn {
-  color: #29539b !important; }
+  color: rgb(92,5,5) !important; }
 
 .slider-sm-btn:hover,
 .wcmp_main_page .wcmp_main_holder .wcmp_vendor_dashboard_content .action_div .wcmp_orange_btn {
-  background-color: #29539b !important; }
+  background-color: rgb(92,5,5) !important; }
 
 @media (max-width: 1023px) {
   .shop-control-bar {
-    background-color: #29539b; } }
+    background-color: rgb(92,5,5); } }
 @media (max-width:800px){
 
 .header-v4 .departments-menu nav > .dropdown-menu > li,

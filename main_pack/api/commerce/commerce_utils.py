@@ -14,7 +14,7 @@ from flask_login import current_user
 
 # functions and methods
 from main_pack.base.languageMethods import dataLangSelector
-from main_pack.base.priceMethods import calculatePriceByGroup, price_currency_conversion
+from main_pack.base.priceMethods import calculatePriceByGroup, price_currency_conversion, configureDecimal
 # / functions and methods /
 
 # db models
@@ -122,6 +122,8 @@ def collect_resources_query(
 	showInactive = False,
 	showLatest = False,
 	showRated = False,
+	showMain = False,
+	limit_by = None,
 	avoidQtyCheckup = 0,
 	showNullPrice = False,
 	DivId = None,
@@ -157,6 +159,10 @@ def collect_resources_query(
 			resource_query = resource_query\
 				.filter(Res_Total_subquery.c.ResTotBalance_sum > 0)
 
+	if showMain:
+		resource_query = resource_query\
+			.filter(Resource.IsMain > 0)
+
 	if showNullPrice == False:
 		resource_query = resource_query\
 			.join(Res_price, Res_price.ResId == Resource.ResId)\
@@ -189,6 +195,9 @@ def collect_resources_query(
 			.order_by(Resource.CreatedDate.desc())\
 			.limit(Config.RESOURCE_MAIN_PAGE_SHOW_QTY)
 
+	if limit_by:
+		resource_query = resource_query.limit(limit_by)
+
 	if notDivId:
 		resource_query = resource_query.filter(Resource.DivId != notDivId)
 
@@ -212,6 +221,7 @@ def apiResourceInfo(
 	showRelated = False,
 	showLatest = False,
 	showRated = False,
+	showMain = None,
 	avoidQtyCheckup = 0,
 	showNullPrice = False,
 	DivId = None,
@@ -259,7 +269,6 @@ def apiResourceInfo(
 		if "language" in session:
 			language_code = session["language"] if session["language"] else None
 
-
 	if not resource_models:
 		resource_models = []
 		# if list with "ResId" is not provided, return all resources
@@ -269,6 +278,7 @@ def apiResourceInfo(
 					showInactive = showInactive,
 					showLatest = showLatest,
 					showRated = showRated,
+					showMain = showMain,
 					avoidQtyCheckup = avoidQtyCheckup,
 					showNullPrice = showNullPrice,
 					DivId = DivId,
@@ -283,7 +293,8 @@ def apiResourceInfo(
 				joinedload(Resource.res_category),
 				joinedload(Resource.unit),
 				joinedload(Resource.brand),
-				joinedload(Resource.usage_status))
+				joinedload(Resource.usage_status),
+				joinedload(Resource.Res_discount_SaleResId))
 
 			if Config.SHOW_RES_TRANSLATIONS:
 				resources.options(joinedload(Resource.Res_translation))
@@ -306,79 +317,72 @@ def apiResourceInfo(
 			resource_models = [resource for resource in resources if resources]
 
 		else:
-			for resource_index in resource_list:
-				ResId = int(resource_index["ResId"])
-				resource_filtering = {
-					"ResId": ResId,
-					"GCRecord": None,
-				}
-				if not showInactive:
-					resource_filtering["UsageStatusId"] = 1
+			res_id_list = [int(resource_index["ResId"]) for resource_index in resource_list if resource_index]
+			resource_filtering = {"GCRecord": None}
+			if not showInactive:
+				resource_filtering["UsageStatusId"] = 1
 
-				Res_Total_subquery = db.session.query(
-					Res_total.ResId,
-					db.func.sum(Res_total.ResTotBalance).label("ResTotBalance_sum"),
-					db.func.sum(Res_total.ResPendingTotalAmount).label("ResPendingTotalAmount_sum"))\
-				.filter(Res_total.ResId == ResId)
+			Res_Total_subquery = db.session.query(
+				Res_total.ResId,
+				db.func.sum(Res_total.ResTotBalance).label("ResTotBalance_sum"),
+				db.func.sum(Res_total.ResPendingTotalAmount).label("ResPendingTotalAmount_sum"))
 
-				if DivId:
-					Res_Total_subquery = Res_Total_subquery\
-						.filter(Res_total.DivId == DivId)
-
+			if DivId:
 				Res_Total_subquery = Res_Total_subquery\
-					.group_by(Res_total.ResId)\
-					.subquery()
+					.filter(Res_total.DivId == DivId)
 
-				resource_query = db.session.query(
-					Resource,
-					Res_Total_subquery.c.ResTotBalance_sum,
-					Res_Total_subquery.c.ResPendingTotalAmount_sum)\
-				.filter_by(**resource_filtering)\
-				.outerjoin(Res_Total_subquery, Resource.ResId == Res_Total_subquery.c.ResId)
+			Res_Total_subquery = Res_Total_subquery\
+				.group_by(Res_total.ResId)\
+				.subquery()
 
-				if avoidQtyCheckup == 0:
-					if not Config.SHOW_NEGATIVE_WH_QTY_RESOURCE:
-						resource_query = resource_query\
-							.filter(Res_Total_subquery.c.ResTotBalance_sum > 0)
+			resource_query = db.session.query(
+				Resource,
+				Res_Total_subquery.c.ResTotBalance_sum,
+				Res_Total_subquery.c.ResPendingTotalAmount_sum)\
+			.filter_by(**resource_filtering)\
+			.filter(Resource.ResId.in_(res_id_list))\
+			.outerjoin(Res_Total_subquery, Resource.ResId == Res_Total_subquery.c.ResId)
 
-				if showNullPrice == False:
+			if avoidQtyCheckup == 0:
+				if not Config.SHOW_NEGATIVE_WH_QTY_RESOURCE:
 					resource_query = resource_query\
-						.join(Res_price, Res_price.ResId == Resource.ResId)\
-						.filter(Res_price.ResPriceValue > 0)
+						.filter(Res_Total_subquery.c.ResTotBalance_sum > 0)
 
+			if showNullPrice == False:
+				resource_query = resource_query\
+					.join(Res_price, Res_price.ResId == Resource.ResId)\
+					.filter(Res_price.ResPriceValue > 0)
+
+			resource_query = resource_query.options(
+				joinedload(Resource.Image),
+				joinedload(Resource.Barcode),
+				joinedload(Resource.Res_price),
+				joinedload(Resource.Res_total),
+				joinedload(Resource.res_category),
+				joinedload(Resource.unit),
+				joinedload(Resource.brand).options(joinedload(Brand.Image)),
+				joinedload(Resource.usage_status),
+				joinedload(Resource.Res_discount_SaleResId))
+
+			if fullInfo:
 				resource_query = resource_query.options(
-					joinedload(Resource.Image),
-					joinedload(Resource.Barcode),
-					joinedload(Resource.Res_price),
-					joinedload(Resource.Res_total),
-					joinedload(Resource.res_category),
-					joinedload(Resource.unit),
-					joinedload(Resource.brand).options(joinedload(Brand.Image)),
-					joinedload(Resource.usage_status))
-
-				if fullInfo:
-					resource_query = resource_query.options(
-						joinedload(Resource.Res_color)\
-							.options(joinedload(Res_color.color)),
-						joinedload(Resource.Res_size)\
-							.options(joinedload(Res_size.size)),
-						joinedload(Resource.Rating)\
-							.options(
-								joinedload(Rating.user).options(joinedload(User.Image)),
-								joinedload(Rating.rp_acc).options(joinedload(Rp_acc.Image))
-							)
+					joinedload(Resource.Res_color)\
+						.options(joinedload(Res_color.color)),
+					joinedload(Resource.Res_size)\
+						.options(joinedload(Res_size.size)),
+					joinedload(Resource.Rating)\
+						.options(
+							joinedload(Rating.user).options(joinedload(User.Image)),
+							joinedload(Rating.rp_acc).options(joinedload(Rp_acc.Image))
 						)
+					)
 
-				elif fullInfo == False:
-					resource_query = resource_query.options(joinedload(Resource.Rating))
+			elif fullInfo == False:
+				resource_query = resource_query.options(joinedload(Resource.Rating))
 
-				resource_query = resource_query.first()
+			resource_models = resource_query.all()
 
-				if resource_query:
-					resource_models.append(resource_query)
-
-	data = []
-	fails = []
+	data, fails = [], []
 
 	for resource_query in resource_models:
 		try:
@@ -409,6 +413,16 @@ def apiResourceInfo(
 
 			this_priceValue = List_Res_price[0]["ResPriceValue"] if List_Res_price else 0.0
 			this_currencyCode = List_Currencies[0]["CurrencyCode"] if List_Currencies else Config.MAIN_CURRENCY_CODE
+			resource_info["RealPrice"] = this_priceValue
+			resource_info["DiscValue"] = None
+			resource_info["DiscType"] = None
+
+			if query_resource.Res_discount_SaleResId:
+				applying_disc = query_resource.Res_discount_SaleResId[-1]
+				if applying_disc.DiscTypeId == 1 and applying_disc.ResDiscIsActive:
+					resource_info["DiscValue"] = applying_disc.DiscValue
+					resource_info["DiscType"] = "%"
+					this_priceValue = float(configureDecimal(float(this_priceValue) - (float(this_priceValue) * float(applying_disc.DiscValue) / 100)))
 
 			price_data = price_currency_conversion(
 				priceValue = this_priceValue,
@@ -459,6 +473,7 @@ def apiResourceInfo(
 			resource_info["CategoryIcon"] = Res_category_info["ResCatIconFilePath"] if Res_category_info else ""
 			resource_info["ResPriceValue"] = price_data["ResPriceValue"]
 			resource_info["CurrencyCode"] = price_data["CurrencyCode"]
+			resource_info["CurrencySymbol"] = price_data["CurrencySymbol"]
 			# resource_info["ResTotBalance"] = List_Res_total[0]["ResTotBalance"] if List_Res_total else 0.0
 			# resource_info["ResPendingTotalAmount"] = List_Res_total[0]["ResPendingTotalAmount"] if List_Res_total else 0.0
 
@@ -539,6 +554,16 @@ def apiResourceInfo(
 
 						this_priceValue = Related_resource_price[0]["ResPriceValue"] if Related_resource_price else 0.0
 						this_currencyCode = Related_resource_currencies[0]["CurrencyCode"] if Related_resource_currencies else Config.MAIN_CURRENCY_CODE
+						related_resource_info["RealPrice"] = this_priceValue
+
+						related_resource_info["DiscValue"] = None
+						related_resource_info["DiscType"] = None
+						if resource.Res_discount_SaleResId:
+							applying_disc = resource.Res_discount_SaleResId[-1]
+							if applying_disc.DiscTypeId == 1 and applying_disc.ResDiscIsActive:
+								related_resource_info["DiscValue"] = applying_disc.DiscValue
+								related_resource_info["DiscType"] = "%"
+								this_priceValue = float(configureDecimal(float(this_priceValue) - (float(this_priceValue) * float(applying_disc.DiscValue) / 100)))
 
 						Related_resource_price_data = price_currency_conversion(
 							priceValue = this_priceValue,
@@ -550,6 +575,7 @@ def apiResourceInfo(
 						related_resource_info["ResCatName"] = Related_Res_category_info["ResCatName"] if Related_Res_category_info else ""
 						related_resource_info["ResPriceValue"] = Related_resource_price_data["ResPriceValue"]
 						related_resource_info["CurrencyCode"] = Related_resource_price_data["CurrencyCode"]
+						related_resource_info["CurrencySymbol"] = Related_resource_price_data["CurrencySymbol"]
 
 						if user:
 							Related_resource_Wish = [wish.to_json_api() for wish in wishes if wish.ResId == resource.ResId]
@@ -813,6 +839,7 @@ def apiOrderInvInfo(
 			order_inv_info["OInvFTotal"] = FTotal_price_data["ResPriceValue"]
 			order_inv_info["CurrencyId"] = price_data["CurrencyId"]
 			order_inv_info["CurrencyCode"] = price_data["CurrencyCode"]
+			order_inv_info["CurrencySymbol"] = price_data["CurrencySymbol"]
 
 
 			rp_acc_data = {}
@@ -881,6 +908,7 @@ def apiOrderInvInfo(
 						this_order_inv_line["OInvLinePrice"] = price_data["ResPriceValue"]
 						this_order_inv_line["CurrencyId"] = price_data["CurrencyId"]
 						this_order_inv_line["CurrencyCode"] = price_data["CurrencyCode"]
+						this_order_inv_line["CurrencySymbol"] = price_data["CurrencySymbol"]
 						this_order_inv_line["OInvLineTotal"] = Total_price_data["ResPriceValue"]
 						this_order_inv_line["OInvLineFTotal"] = FTotal_price_data["ResPriceValue"]
 

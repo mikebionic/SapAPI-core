@@ -28,7 +28,6 @@ csrf = CSRFProtect()
 cache = Cache()
 compress = Compress()
 
-
 login_manager.login_view = 'commerce_auth.login'
 login_manager.login_message = lazy_gettext('Login the system!')
 login_manager.login_message_category = 'info'
@@ -149,6 +148,15 @@ def create_app(config_class=Config):
 	app.register_blueprint(v1_language_api, url_prefix=f"{api_url_prefix}/v1/")
 	csrf.exempt(v1_language_api)
 
+	from main_pack.api.v1.resource_api import api as v1_resource_api
+	app.register_blueprint(v1_resource_api, url_prefix=f"{api_url_prefix}/v1/")
+	csrf.exempt(v1_resource_api)
+
+	from main_pack.api.v1.res_collection_api import api as v1_res_collection_api
+	app.register_blueprint(v1_res_collection_api, url_prefix=f"{api_url_prefix}/v1/")
+	csrf.exempt(v1_res_collection_api)
+
+
 	if Config.USE_ACTIVATION_CUSTOMER:
 		from main_pack.activation.customer import api as activation_customer_api
 		app.register_blueprint(activation_customer_api, url_prefix=api_url_prefix)
@@ -218,12 +226,11 @@ def create_app(config_class=Config):
 			app.logger.addHandler(mail_handler)
 	# /logging
 
-	if Config.MINIFY_HTML_RESPONSE:
-		@app.after_request
-		def response_minify(response):
+	@app.after_request
+	def response_minify(response):
+		if Config.MINIFY_HTML_RESPONSE:
 			if response.content_type == u'text/html; charset=utf-8':
 				response.set_data(minify(response.get_data(as_text=True)))
-				return response
-			return response
+		return response
 
 	return app

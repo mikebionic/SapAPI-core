@@ -5,6 +5,7 @@ import dateutil.parser
 from sqlalchemy.orm import joinedload
 
 from main_pack import db
+from main_pack.base.log_print import log_print
 from . import api
 from .utils import addRpAccTrTotDict
 
@@ -185,6 +186,9 @@ def api_rp_accs():
 				DivGuid = rp_acc_req["DivGuid"]
 				CGuid = rp_acc_req["CGuid"]
 				UGuid = rp_acc_req["UGuid"]
+				if (rp_acc_info["RpAccStatusId"] > 2):
+					log_print(f"Rp_acc api status id issue {rp_acc_info['RpAccStatusId']} \n {rp_acc_info}", "warning")
+					raise Exception
 
 				try:
 					indexed_div_id = division_DivId_list[division_DivGuid_list.index(DivGuid)]

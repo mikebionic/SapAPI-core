@@ -39,6 +39,8 @@ def collect_resource_paginate_info(
 	from_price = None,
 	to_price = None,
 	search = None,
+	showMain = None,
+	limit_by = None,
 	DivId = None,
 	notDivId = None,
 	avoidQtyCheckup = 0,
@@ -159,6 +161,8 @@ def collect_resource_paginate_info(
 	if to_price:
 		resource_query = resource_query.filter(Res_price.ResPriceValue <= to_price)
 
+	if showMain:
+		resource_query = resource_query.filter(Resource.IsMain > 0)
 
 	if sort:
 		if sort == "date_new":
@@ -202,7 +206,6 @@ def collect_resource_paginate_info(
 		if notDivId:
 			barcodes_search = barcodes_search.filter(Barcode.DivId != DivId)
 		barcodes_search = barcodes_search.all()
-
 
 		if Config.USE_SMART_SEARCH:
 			try:
@@ -252,7 +255,6 @@ def collect_resource_paginate_info(
 
 		resource_query = resource_query.filter(Resource.ResId.in_(resource_ids))
 
-
 	if Config.HIDE_UNDER_ZERO_VISIBLE_CATEGORIES:
 		resource_query = resource_query\
 			.join(Res_category, Res_category.ResCatId == Resource.ResCatId)\
@@ -267,14 +269,15 @@ def collect_resource_paginate_info(
 		joinedload(Resource.res_category),
 		joinedload(Resource.unit),
 		joinedload(Resource.brand),
-		joinedload(Resource.usage_status))
+		joinedload(Resource.usage_status),
+		joinedload(Resource.Res_discount_SaleResId))
 
 	pagination_resources = resource_query.paginate(per_page=per_page if per_page else Config.RESOURCES_PER_PAGE,page=page)
 
 	resource_models = [resource for resource in pagination_resources.items if pagination_resources.items]
 	data = []
 	if resource_models:
-		res = apiResourceInfo(resource_models=resource_models)
+		res = apiResourceInfo(resource_models=resource_models, limit_by=limit_by)
 		data = res["data"]
 
 	pagination_info = {

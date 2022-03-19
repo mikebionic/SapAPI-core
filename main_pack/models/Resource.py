@@ -50,13 +50,14 @@ class Resource(AddInf, BaseModel, db.Model):
 	Rp_acc_resource = db.relationship("Rp_acc_resource",backref='resource',lazy=True)
 	Sale_agr_res_price = db.relationship("Sale_agr_res_price",backref='resource',lazy=True)
 	Res_price_rule = db.relationship("Res_price_rule",backref='resource',lazy=True)
-	Res_discount = db.relationship("Res_discount",foreign_keys='Res_discount.SaleResId',backref='resource',lazy=True)
-	Res_discount = db.relationship("Res_discount",foreign_keys='Res_discount.GiftResId',backref='resource',lazy=True)
+	Res_discount_SaleResId = db.relationship("Res_discount",foreign_keys='Res_discount.SaleResId',backref='resource_SaleResId',lazy=True)
+	Res_discount_GiftResId = db.relationship("Res_discount",foreign_keys='Res_discount.GiftResId',backref='resource_GiftResId',lazy=True)
 	Wish = db.relationship("Wish",backref='resource',lazy=True)
 	Production = db.relationship("Production",backref='resource',lazy=True)
 	Production_line = db.relationship("Production_line",backref='resource',lazy=True)
 	Rating = db.relationship("Rating",backref='resource',lazy=True)
 	Tag = db.relationship("Tag",backref='resource',lazy=True)
+	Res_collection_line = db.relationship("Res_collection_line",backref='resource',lazy=True)
 
 	def to_json_api(self):
 		data = {

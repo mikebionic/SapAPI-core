@@ -384,9 +384,9 @@ curl 127.0.0.1:5000/ls/api/v1/v-images/ --header 'images-to-exclude: [{"FileName
 
 ## Translation api
 
-| **Route**       | **Methods** | **Status** | **Note** |
-| --------------- | :---------: | :--------: | -------- |
-| /v-translation/ |   **GET**   |   Active   |
+| **Route**        | **Methods** | **Status** | **Note** |
+| ---------------- | :---------: | :--------: | -------- |
+| /v-translations/ |   **GET**   |   Active   |
 
 **Properties**
 | **Name**   | **Type** | **Description** | **Example**     |
@@ -421,3 +421,30 @@ curl 127.0.0.1:5000/ls/api/v1/v-images/ --header 'images-to-exclude: [{"FileName
 | desc     | **str**  |
 
 [Example](./examples/language_api.md)
+
+
+## Discount resources
+
+| **Route**            | **Methods** | **Status** | **Note** |
+| -------------------- | :---------: | :--------: | -------- |
+| /discount-resources/ |   **GET**   |   Active   |
+
+<!-- !!!TODO: add filtering and currency showing if necessary -->
+
+
+----
+
+| __Route__        | __Methods__ | __Status__ | __Note__ |
+| ---------------- | :---------: | :--------: | -------- |
+| /res-collection/ |   **GET**   |   Active   |
+
+**Properties**
+| __Name__ | __Type__ | __Description__ | __Example__ |
+| -------- | :------: | --------------- | ----------- |
+| id       | **int**  |
+| division | **int**  |
+| company  | **int**  |
+| name     | **str**  |
+| uuid     | **str**  |
+
+[Example](./examples/res_collections_api.md)

@@ -11,6 +11,7 @@ from flask_wtf.csrf import CSRFError
 from . import bp
 from main_pack.config import Config
 from main_pack.commerce.commerce.utils import UiCategoriesList
+from main_pack.base import log_print
 
 # !!! Prepare template error on admin page or handle on client app
 
@@ -125,4 +126,5 @@ def internal_server_error(error):
 
 @bp.app_errorhandler(CSRFError)
 def handle_csrf_error(e):
+	log_print(f"CORS error {e}", "danger")
 	return {"status": "CSRFError","reason":e.description}, 400

@@ -21,11 +21,13 @@ def api_categories():
 		DivId = request.args.get("DivId",None,type=int)
 		notDivId = request.args.get("notDivId",None,type=int)
 		avoidQtyCheckup = request.args.get("avoidQtyCheckup",0,type=int)
+		showNullResourceCategory = request.args.get("showNullResourceCategory",0,type=int)
 
 		categories = collect_categories_query(
 			DivId = DivId,
 			notDivId = notDivId,
-			avoidQtyCheckup = avoidQtyCheckup)
+			avoidQtyCheckup = avoidQtyCheckup,
+			showNullResourceCategory = showNullResourceCategory)
 
 		categories = categories.all()
 

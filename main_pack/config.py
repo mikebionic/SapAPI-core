@@ -14,6 +14,7 @@ class Config:
 
 	APP_PORT = int(environ.get('APP_PORT')) if environ.get('APP_PORT') else 5000
 	APP_HOST = environ.get('APP_HOST') or "0.0.0.0"
+	USE_MIDDLEWARE_PROFILER = int(environ.get('USE_MIDDLEWARE_PROFILER')) if environ.get('USE_MIDDLEWARE_PROFILER') else 0
 
 	# basic app configs (required)
 	SECRET_KEY = environ.get('SECRET_KEY')
@@ -50,6 +51,7 @@ class Config:
 	USE_FLASK_CORS = int(environ.get('USE_FLASK_CORS')) if environ.get('USE_FLASK_CORS') else 1
 	CORS_EXEMPT_SSR_ROUTES = int(environ.get('CORS_EXEMPT_SSR_ROUTES')) if environ.get('CORS_EXEMPT_SSR_ROUTES') else 0
 	USE_FLASK_COMPRESS = int(environ.get('USE_FLASK_COMPRESS')) if environ.get('USE_FLASK_COMPRESS') else 1
+	COMPRESS_LEVEL = 6
 	MINIFY_HTML_RESPONSE = int(environ.get('MINIFY_HTML_RESPONSE')) if environ.get('MINIFY_HTML_RESPONSE') else 1
 
 	EMAIL_ERROR_REPORTS = int(environ.get('EMAIL_ERROR_REPORTS')) if environ.get('EMAIL_ERROR_REPORTS') else 0
@@ -306,6 +308,7 @@ class Config:
 	# COMMERCE_TEMPLATES_FOLDER_PATH = "/commerce/bee"
 	# COMMERCE_TEMPLATES_FOLDER_PATH = "/commerce/main"
 	# COMMERCE_TEMPLATES_FOLDER_PATH = "/commerce/testing"
+	print(COMMERCE_TEMPLATES_FOLDER_PATH)
 
 	COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH = environ.get("COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH") or "/commerce/admin"
 	# / templates file location configuration /

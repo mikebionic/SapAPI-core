@@ -1,0 +1,53 @@
+{% extends "commerce/rd/commerce/layout.html" %}
+
+{% block head %}
+<meta name="description" content="{{company.CName}} | {{company.CDesc}}">
+<meta property="og:description" content="{{ company.CName }} {{ company.CDesc if company.CDesc}}" />
+<meta property="og:image" content="{{ request.host_url }}{{ company_logo.FilePath if company_logo else url_for('static', filename='commerce/hs/images/logo/halal_OG.png') }}" />
+<meta name="twitter:description" content="{{ company.CName }} {{ company.CDesc if company.CDesc}}" />
+<meta name="twitter:image" content="{{ request.host_url }}{{ company_logo.FilePath if company_logo else url_for('static', filename='commerce/hs/images/logo/halal_OG.png') }}" />
+{% endblock %}
+
+
+{% block breadcrumbs %}
+<div class="breadcrumb-area bg-img">
+	<div class="container">
+		<div class="breadcrumb-content text-center">
+			<h2>{{_('About us')}} </h2>
+			<ul>
+				<li>
+					<a href="{{ url_for('commerce.commerce') }}">{{_('Main')}}</a>
+				</li>
+				<li class="active">{{_('About us')}}</li>
+			</ul>
+		</div>
+	</div>
+</div>
+{% endblock %}
+{% block content %}
+
+<div class="about-us-area pt-90 pb-90">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6 col-md-6">
+				<div class="about-us-img text-center">
+					<a href="#">
+						<img src="{{ url_for('static', filename='commerce/bee/images/about-1.png') }}" alt="">
+					</a>
+				</div>
+			</div>
+			<div class="col-lg-6 col-md-6 align-self-center">
+				<div class="about-us-content">
+					<h2><span>Halal Söwda</span> platforma Hoş geldiňiz !</h2>
+					<p class="peragraph-blog">Biz söwda işleri ýerine ýetirýäris. Bizde Hilli harytlar bar. Sarp edijä amatly bahadan täze haryt üpjün edýäris</p>
+					<p>Şu onlaýn söwda platformasy ýeňillik bilen harytlarymyzy sargamaga mümkinçilik döreder</p>
+					<div class="about-us-btn btn-hover hover-border-none">
+							<a class="btn-color-white btn-color-theme-bg black-color" href="{{url_for('commerce.commerce')}}">{{_('Shop')}}!</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
