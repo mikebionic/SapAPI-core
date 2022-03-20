@@ -38,7 +38,7 @@
         font-size: 14px;
         color: #bababa;
         font-weight: 500;
-        margin: 0 49px;
+        margin: 0 30px;
         @media #{$xs-layout} {
             margin: 0 10px;
         }
@@ -378,6 +378,7 @@
         width: 80%;
         margin: 0 auto;
         justify-content: center;
+        align-items: center;
         @media #{$xs-layout} {
             width: 70%;
         }

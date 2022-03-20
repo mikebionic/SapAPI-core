@@ -8,46 +8,40 @@
 <meta name="twitter:image" content="{{ request.host_url }}{{ company_logo.FilePath if company_logo else url_for('static', filename='commerce/hs/images/logo/halal_OG.png') }}" />
 {% endblock %}
 
-
-{% block breadcrumbs %}
-<div class="breadcrumb-area bg-img">
-	<div class="container">
-		<div class="breadcrumb-content text-center">
-			<h2>{{_('About us')}} </h2>
-			<ul>
-				<li>
-					<a href="{{ url_for('commerce.commerce') }}">{{_('Main')}}</a>
-				</li>
-				<li class="active">{{_('About us')}}</li>
-			</ul>
-		</div>
-	</div>
-</div>
-{% endblock %}
 {% block content %}
 
-<div class="about-us-area pt-90 pb-90">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-6 col-md-6">
-				<div class="about-us-img text-center">
-					<a href="#">
-						<img src="{{ url_for('static', filename='commerce/bee/images/about-1.png') }}" alt="">
-					</a>
-				</div>
-			</div>
-			<div class="col-lg-6 col-md-6 align-self-center">
-				<div class="about-us-content">
-					<h2><span>Halal Söwda</span> platforma Hoş geldiňiz !</h2>
-					<p class="peragraph-blog">Biz söwda işleri ýerine ýetirýäris. Bizde Hilli harytlar bar. Sarp edijä amatly bahadan täze haryt üpjün edýäris</p>
-					<p>Şu onlaýn söwda platformasy ýeňillik bilen harytlarymyzy sargamaga mümkinçilik döreder</p>
-					<div class="about-us-btn btn-hover hover-border-none">
-							<a class="btn-color-white btn-color-theme-bg black-color" href="{{url_for('commerce.commerce')}}">{{_('Shop')}}!</a>
+<main class="rb-content">
+	<div class="static-wrapper" data-v-94788a02="">
+			<div class="static-content" data-v-94788a02="">
+					<h1 class="static-title" data-v-94788a02="">
+							О Readit*
+					</h1>
+					<div data-v-94788a02="">
+							<p>
+									Readit* – это свежий формат книжных магазинов с особой атмосферой. Здесь мировые бестселлеры соседствуют с подарками для любого праздника: от Дня космонавтики до Всемирного дня кошек. Онлайн-магазин
+									respublica.ru доставляет праздник в любой российский город. Каждую РЕСПУБЛИКУ* наполняют экспертные подборки книг, легендарные канцтовары, функциональные гаджеты, виниловые проигрыватели и пластинки, редкие
+									лакомства, beauty-средства, отдельная зона Kids.
+							</p>
+							<p>
+									Readit* развивает собственную коллекцию канцелярии и аксессуаров под брендом MADE IN R*. На упаковочных станциях внутри магазина вашу покупку, при желании, завернут в коллекционную хрустящую бумагу или
+									обычный крафт. В Readit* можно приобрести абонемент на 5 или 12 книг, который позволит вам получать новую книгу каждый месяц.
+							</p>
+							<p>
+									Readit* – это уникальный магазин-клуб, социальное пространство, которое меняет ткань города. В Лектории RESPUBLICA* UNIVERSITY регулярно проходят презентации книг и встречи с актуальными героями и
+									автограф-сессии. Оставайтесь на связи:
+									<br />
+							</p>
+							<h3>Контакты:</h3>
+							<p>
+									Номер телефона:
+									<a itemprop="telephone" class="mgo-number-1000000" href="tel:+99361099061">+99361099061</a>
+									<br />
+									или по электронной почте
+									<a href="mailto:store@respublica-pro.ru" onclick="gtag('config', 'UA-36538356-1', {'page_path': '/email'});yaCounter11368864.reachGoal ('email'); return true;">email@readit</a>
+							</p>
 					</div>
-				</div>
 			</div>
-		</div>
 	</div>
-</div>
+</main>
 
 {% endblock %}

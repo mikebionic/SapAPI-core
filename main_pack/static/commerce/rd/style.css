@@ -2218,8 +2218,7 @@ a.nr-button {
   line-height: 1.25;
 }
 .ui-q3.ui-q6 {
-  font-size: 20px;
-  font-size: var(--fs-h3);
+  font-size: 16px;
   line-height: 26px;
 }
 .ui-q3.ui-q6,
@@ -5001,7 +5000,7 @@ a.nr-button {
     border-radius: 0 3px 3px 0;
   }
   .product-count .qty {
-      width: 60px;
+      width: 40px;
       height: 34px;
       margin: 0;
       text-align: center;
@@ -5903,7 +5902,7 @@ body:not(.open-overlay) .header-area.layout-01{
   display: block;
   color: #333333;
   padding: 5px;
-  font-size: 0;
+  font-size: 20px;
   line-height: 0;
 }
 .mobile-footer .mobile-block>a .text{
@@ -6558,4 +6557,70 @@ body:not(.open-overlay) .header-area.layout-01{
 .slider-opt03__layout01 .buttons .btn.btn-bold:not(:hover),
 .biolife-cart-info .icon-qty-combine .qty{
     background-color: #fff;
+}
+.pr_flex{
+  display: flex;
+}
+
+.rb-content {
+  position: relative;
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: column;
+  margin-top: 20px
+}
+
+.static-wrapper[data-v-94788a02] {
+  background: #f7f7f7;
+  padding: 2.5rem 0;
+  font-size: .875rem;
+  line-height: 140%;
+  color: #000
+}
+
+@media(max-width: 630px) {
+  .static-wrapper[data-v-94788a02] {
+      padding:0;
+      font-size: .75rem
+  }
+}
+
+.static-content[data-v-94788a02] {
+  background: #fff;
+  border-radius: 10px;
+  padding: 2.5rem 2.6875rem;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 39.375rem;
+  box-sizing: border-box
+}
+
+@media(max-width: 630px) {
+  .static-content[data-v-94788a02] {
+      padding:1.5rem 1.25rem
+  }
+}
+
+.static-content img[data-v-94788a02] {
+  max-width: 100%
+}
+
+.static-title[data-v-94788a02] {
+  font-weight: 500;
+  font-size: 2.5rem;
+  line-height: 110%;
+  color: #000;
+  padding: 0;
+  margin: 0 0 2.5rem
+}
+
+@media(max-width: 630px) {
+  .static-title[data-v-94788a02] {
+      font-size:1.5rem;
+      margin-bottom: 1.5rem
+  }
+}
+.cart-3 i{
+  color: #423742;
+  font-size: 30px;
 }
