@@ -2,6 +2,8 @@
 from flask import request, make_response, jsonify
 from main_pack.api.base.validators import request_is_json
 
+from main_pack.api.auth.utils import admin_required
+
 from main_pack.api.v1.media_api import api
 from main_pack.api.v1.media_api.utils import collect_media_data
 from main_pack.api.v1.media_api.utils.data.save_media_data import save_media_data
@@ -11,7 +13,7 @@ from main_pack.models import Rp_acc
 from main_pack.api.common.send_email_message import send_email_message
 
 
-@api.route("/tbl-media/", methods=['GET'])
+@api.route("/tbl-media/")
 def tbl_media_get():
 	arg_data = {
 		"MediaId": request.args.get("id",None,type=int),
@@ -37,8 +39,9 @@ def tbl_media_get():
 	return make_response(jsonify(res), 200)
 
 @api.route("/tbl-media/", methods=['POST'])
+@admin_required
 @request_is_json(request)
-def tbl_media_post():
+def tbl_media_post(user):
 
 	req = request.get_json()
 
