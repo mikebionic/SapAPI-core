@@ -739,7 +739,8 @@ def apiOrderInvInfo(
 	rp_acc_user = None,
 	DivId = None,
 	notDivId = None,
-	currency_code = Config.DEFAULT_VIEW_CURRENCY_CODE
+	currency_code = Config.DEFAULT_VIEW_CURRENCY_CODE,
+	limit_by = None,
 ):
 
 	currencies = Currency.query.filter_by(GCRecord = None).all()
@@ -788,8 +789,11 @@ def apiOrderInvInfo(
 					joinedload(Order_inv.Order_inv_line)\
 						.options(
 							joinedload(Order_inv_line.resource)
-						))\
-				.all()
+						))
+
+			if limit_by:
+				order_invoices = order_invoices.limit(limit_by)
+			order_invoices = order_invoices.all()
 
 			for order_inv in order_invoices:
 				invoice_models.append(order_inv)
