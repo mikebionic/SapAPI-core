@@ -22,14 +22,16 @@
 							<div class="row align-items-center">
 								<div class="col-lg-7 col-md-6 col-12 col-sm-6">
 									<div class="slider-content-2 slider-animated-2 ml-20">
-										<h1 class="animated">Complete Summer <br>Fashion</h1>
-										<p class="animated">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt labore dolore magna aliqua.</p>
+										<h1 class="animated">{{sl_image.SlImgTitle}}</h1>
+										<p class="animated">{{sl_image.SlImgDesc}}</p>
 									</div>
 								</div>
 								<div class="col-lg-5 col-md-6 col-12 col-sm-6">
 									<div class="slider-sin-img-hm2 slider-sin-mrg2 slider-animated-2">
-										<img class="animated" loading="lazy" src="{{ url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" data-src-m="{{ sl_image.SlImgMainImgFilePathR }}"
-											alt="{{ sl_image.SlImgTitle if sl_image.SlImgTitle else 'sl_image.SlImgMainImgFileName' }} {{ company.CName }}">
+										<a id="first-banner-item" class="banner-item ui-switchable-panel" href="{{ sl_image.SlImgLink if sl_image.SlImgLink else '#' }}"> 
+											<img class="animated" loading="lazy" src="{{ sl_image.SlImgMainImgFilePathM }}" data-src-m="{{ sl_image.SlImgMainImgFilePathR }}"
+											alt="{{ sl_image.SlImgTitle if sl_image.SlImgTitle else 'sl_image.SlImgMainImgFileName' }} ecommerce ls {{ company.CName }} "> 
+										</a>
 									</div>
 								</div>
 							</div>
@@ -66,15 +68,15 @@
 		{% endfor %}
 		<div class="col-lg-12">
 			<div class="iq-card iq-card-block iq-card-stretch iq-card-height">
-				 <div class="iq-card-header d-flex justify-content-between align-items-center position-relative mb-0 trendy-detail">
+				<div class="iq-card-header d-flex justify-content-between align-items-center position-relative mb-0 trendy-detail">
 						<div class="iq-header-title">
-							 <h4 class="card-title mb-0">Новое поступление</h4>
+							<h4 class="card-title mb-0">Новое поступление</h4>
 						</div>
 						<div class="iq-card-header-toolbar d-flex align-items-center">
-							 <a href="category.html" class="btn btn-sm btn-primary view-more">Посмотреть больше</a>
+							<a href="category.html" class="btn btn-sm btn-primary view-more">Посмотреть больше</a>
 						</div>
-				 </div>
-				 <div class="iq-card-body trendy-contens">
+				</div>
+				<div class="iq-card-body trendy-contens">
 						<ul id="trendy-slider" class="list-inline p-0 mb-0 row">
 
 						{% for resource in Latest_resources %}

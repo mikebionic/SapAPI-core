@@ -6629,3 +6629,12 @@ body:not(.open-overlay) .header-area.layout-01{
   font-size: 30px;
 }
 
+.slider-sin-img-hm2{
+  padding-bottom: 100%;
+}
+.slider-sin-img-hm2 a{
+  position: absolute;
+  height: 100%;
+}
+
+
