@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import request, make_response, jsonify
+from flask import request
 
 from main_pack.api.v1.res_collection_api import api
 from main_pack.api.v1.res_collection_api.utils import collect_res_collection_data, save_res_collection_data
