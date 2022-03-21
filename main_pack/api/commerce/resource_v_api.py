@@ -129,13 +129,14 @@ def api_resources():
 	per_page = request.args.get("per_page",None,type=int)
 	category = request.args.get("category",None,type=int)
 	brand = request.args.get("brand",None,type=int)
-	from_price = request.args.get("from_price",None,type=int)
-	to_price = request.args.get("to_price",None,type=int)
+	from_price = request.args.get("from_price",None,type=float)
+	to_price = request.args.get("to_price",None,type=float)
 
 	DivId = request.args.get("DivId",None,type=int)
 	notDivId = request.args.get("notDivId",None,type=int)
 	showMain = request.args.get("showMain",0,type=int)
 	limit_by = request.args.get("limit",0,type=int)
+	showDiscounts = request.args.get("showDiscounts",0,type=int)
 
 	search = request.args.get("search",None,type=str)
 	search = search.strip() if search else None
@@ -154,7 +155,9 @@ def api_resources():
 		showMain = showMain,
 		limit_by = limit_by,
 		DivId = DivId,
-		notDivId = notDivId)
+		notDivId = notDivId,
+		showDiscounts = showDiscounts,
+	)
 
 	status_code = 200
 	res["status"] = 1

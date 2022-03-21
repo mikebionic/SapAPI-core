@@ -432,6 +432,14 @@ curl 127.0.0.1:5000/ls/api/v1/v-images/ --header 'images-to-exclude: [{"FileName
 | -------------------- | :---------: | :--------: | -------- |
 | /discount-resources/ |   **GET**   |   Active   |
 
+**Properties**
+| __Name__     | __Type__ |
+| ------------ | :------: |
+| limit        | **int**  |
+| showInactive | **int**  |
+
+
+
 <!-- !!!TODO: add filtering and currency showing if necessary -->
 
 
@@ -442,8 +450,8 @@ curl 127.0.0.1:5000/ls/api/v1/v-images/ --header 'images-to-exclude: [{"FileName
 | /res-collection/ |   **GET**   |   Active   |
 
 **Properties**
-| __Name__ | __Type__ | __Description__ | __Example__ |
-| -------- | :------: | --------------- | ----------- |
+| __Name__ | __Type__ |
+| -------- | :------: |
 | id       | **int**  |
 | division | **int**  |
 | company  | **int**  |

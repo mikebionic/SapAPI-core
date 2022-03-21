@@ -30,6 +30,9 @@ def v_rp_acc_post(user):
 def v_rp_accs_profile_edit(user):
 	model_type = user['model_type']
 	current_user = user['current_user']
+	if (model_type == "user"):
+		abort(400)
+
 	req = request.get_json()
 	data, fails = update_rp_acc_profile(req, model_type, current_user)
 	return handle_instertion_response(data, fails, "Rp_acc profile update")
