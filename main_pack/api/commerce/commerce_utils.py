@@ -56,6 +56,8 @@ import dateutil.parser
 from datetime import datetime, timedelta
 # / datetime, date-parser /
 
+from main_pack.base.invoiceMethods import getInvStatusUi
+
 
 def collect_categories_query(
 	DivId = None,
@@ -859,6 +861,7 @@ def apiOrderInvInfo(
 			order_inv_info["DivGuid"] = order_inv.division.DivGuid if order_inv.division and not order_inv.division.GCRecord else None
 			order_inv_info["RpAccGuid"] = order_inv.rp_acc.RpAccGuid if order_inv.rp_acc and not order_inv.rp_acc.GCRecord else None
 			order_inv_info["RpAccRegNo"] = order_inv.rp_acc.RpAccRegNo if order_inv.rp_acc and not order_inv.rp_acc.GCRecord else None
+			order_inv_info["StatusUI"] = getInvStatusUi(order_inv.InvStatId)
 
 			# !!! Check the send and get type of these params (root or structured?)
 			rp_acc_user = None
