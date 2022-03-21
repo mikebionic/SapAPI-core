@@ -1047,7 +1047,8 @@ img.zoom-img {
 		margin-bottom: 1.625em;
 	}
 	.checkout-button {
-		display: block;
+		display: flex;
+		align-items: center;
 		color: #fff!important;
 		text-align: center;
 		border-radius: 10.4380em;
@@ -1281,12 +1282,14 @@ article {
     padding-top: 10px;
   }
 }
-
+.view_icon{
+	width: 55px;
+}
 .count {
 	position: absolute;
 	font-size: 0.4em !important;
 	padding: 0.7em 0.5em 0 0.5em;
-	width: 17px;
+	width: 38px;
 	height: 16px;
 	flex-shrink: 0;
 	line-height: 0.4 !important;

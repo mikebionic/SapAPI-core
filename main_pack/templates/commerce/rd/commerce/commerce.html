@@ -17,7 +17,7 @@
 				{% if slider.SlName == "commerce_header" %}
 					{% for sl_image in slider.Sl_images %}
 					{% if sl_image.SlImgMainImgFilePathM %}
-					<div class="single-slider-2 bg-img slider-height-2" style="background: #ffe9e2">
+					<div class="single-slider-2 bg-img slider-height-2" style="background: #d7e0ee">
 						<div class="container">
 							<div class="row align-items-center">
 								<div class="col-lg-7 col-md-6 col-12 col-sm-6">
@@ -111,17 +111,6 @@
 												<span>{{ resource.ResName }}</span>
 											</span>
 										</a>
-										<div class="kh9 nc">
-											<div class="ui-ab7 ui-a6b ui-b7a">
-												<div class="ui-b5a ui-a6b">
-													<i class="las la-star"></i>
-													<i class="las la-star"></i>
-													<i class="las la-star"></i>
-													<i class="las la-star"></i>
-													<i class="las la-star"></i>
-												</div>
-											</div>
-										</div>
 										<div class="hw w0h">
 												<div class="wh0 h1w">
 														<div class="q6c qc7 wh">
@@ -157,69 +146,6 @@
 				</div>
 				<div class="row">
 					<div class="col-lg-4 col-md-12">
-
-
-						<!-- <div class="product-wrap product-border-3 product-img-zoom mb-30">
-							<div class="product-img" style="height: 65%;">
-								<a href="#">
-									<img loading="lazy" src="{{ url_for('static', filename='commerce/rd/1.jpg') }}" alt="Product featured_resource.ResName of category  featured_resource.ResCatName if featured_resource.ResCatName else ''  company.CName ">
-								</a>
-							</div>
-							<div class="product-content product-content-padding">
-								<div class="hm3"><div class="ui-q0">
-									<span class="ui-q3 ui-q6">
-										15,85 T
-									</span>
-								</div>
-								<span class="n1c c2n n2c nc5 f-tsBodyM" style="color:var(--ozOrange);">
-									<span>
-										Бестселлер
-									</span>
-								</span>
-								<a href="#" class="tile-hover-target k9h">
-									<span class="n1c c2n n2c nc4 f-tsBodyL k9h">
-										<span>Портрет Дориана Грея | Уайльд Оскар</span>
-									</span>
-								</a>
-								<div class="kh9 nc">
-									<div class="ui-ab7 ui-a6b ui-b7a">
-										<div class="ui-b5a ui-a6b">
-											<i class="las la-star"></i>
-											<i class="las la-star"></i>
-											<i class="las la-star"></i>
-											<i class="las la-star"></i>
-											<i class="las la-star"></i>
-										</div>
-									</div>
-								</div>
-								<div class="hw w0h">
-										<div class="wh0 h1w">
-												<div class="q6c qc7 wh">
-														<div class="ui-b2">
-																<button tabindex="0" type="button" class="ui-b4">
-																		<span class="ui-b5" style="border-radius: 6px;"><span class="ui-e8">В корзину</span></span>
-																</button>
-														</div>
-												</div>
-										</div>
-								</div>
-
-								</div>
-							</div>
-							<div class="h0n">
-								<div interactive="true" class="ui-i4 n0h">
-									<div class="c2w ui-a1">
-										<div tabindex="0" type="button" class="ui-a3">
-											<span class="ui-a4 ui-b2 ui-a6 ui-d4" style="border-radius:6px;">
-												<svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg" class="ui-d2" style="color:var(--ozBlack);"><path d="M17.282 1C21.34 1 23.999 4.147 24 8.5c0 4.287-3.168 8.376-10.8 14.1l-1.2.9-1.2-.9C3.168 16.876 0 12.787 0 8.5 0 4.147 2.659 1 6.718 1 8.734 1 10.64 1.806 12 3.177A7.455 7.455 0 0117.282 1z" fill="#fff"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M23 8.5C23 4.8 20.861 2 17.282 2 15.115 2 13.136 3.069 12 4.742 10.864 3.069 8.884 2 6.718 2 3.138 2 1 4.8 1 8.5c0 3.817 2.886 7.664 10.4 13.3l.6.45.6-.45C20.115 16.164 23 12.316 23 8.5zM17.282 4C19.622 4 21 5.805 21 8.5c0 2.93-2.398 6.211-9 11.246C5.398 14.712 3 11.43 3 8.5 3 5.805 4.379 4 6.718 4 9.03 4 11 5.743 11 8h2c0-2.257 1.969-4 4.282-4z" fill="#001A34"></path></svg>
-												<span class="ui-d7"></span>
-											</span>
-										</div>
-									</div>
-								</div>
-
-							</div>
-						</div> -->
 						{% set resource_main = Latest_resources[-1] if Latest_resources %}
 						{% if resource_main %}
 						<div class="product-wrap product-border-3 product-img-zoom mb-30">
@@ -254,17 +180,7 @@
 										<span>{{ resource_main.ResName }}</span>
 									</span>
 								</a>
-								<div class="kh9 nc">
-									<div class="ui-ab7 ui-a6b ui-b7a">
-										<div class="ui-b5a ui-a6b">
-											<i class="las la-star"></i>
-											<i class="las la-star"></i>
-											<i class="las la-star"></i>
-											<i class="las la-star"></i>
-											<i class="las la-star"></i>
-										</div>
-									</div>
-								</div>
+								
 								<div class="hw w0h">
 									<div class="wh0 h1w">
 										<div class="q6c qc7 wh">
@@ -329,17 +245,6 @@
 												<span>{{ resource.ResName }}</span>
 											</span>
 										</a>
-										<div class="kh9 nc">
-											<div class="ui-ab7 ui-a6b ui-b7a">
-												<div class="ui-b5a ui-a6b">
-													<i class="las la-star"></i>
-													<i class="las la-star"></i>
-													<i class="las la-star"></i>
-													<i class="las la-star"></i>
-													<i class="las la-star"></i>
-												</div>
-											</div>
-										</div>
 										<div class="hw w0h">
 											<div class="wh0 h1w">
 												<div class="q6c qc7 wh">
@@ -430,7 +335,7 @@
 				</div>
 				<div class="row">
 					{% for resource in Latest_resources %}
-					<div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-6">
+					<div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-6" style="padding-bottom: 10px;">
 						<div class="product-wrap product-border-3 product-img-zoom mb-30">
 							<div class="product-img">
 								<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">
@@ -463,17 +368,7 @@
 										<span>{{ resource.ResName }}</span>
 									</span>
 								</a>
-								<div class="kh9 nc">
-									<div class="ui-ab7 ui-a6b ui-b7a">
-										<div class="ui-b5a ui-a6b">
-											<i class="las la-star"></i>
-											<i class="las la-star"></i>
-											<i class="las la-star"></i>
-											<i class="las la-star"></i>
-											<i class="las la-star"></i>
-										</div>
-									</div>
-								</div>
+								
 								<div class="hw w0h">
 										<div class="wh0 h1w">
 												<div class="q6c qc7 wh">

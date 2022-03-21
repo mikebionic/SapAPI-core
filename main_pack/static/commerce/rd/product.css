@@ -4761,7 +4761,14 @@ body,html {
   }
   
   .all-content .right-content[data-v-503820a0] {
-    width: 100%
+    width: 40%;
+    position: fixed;
+  }
+  @media (max-width: 991px){
+    .all-content .right-content[data-v-503820a0]{
+      position: relative;
+      width: 100%;
+    }
   }
   
   .all-content .about[data-v-503820a0] {

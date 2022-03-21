@@ -17,7 +17,7 @@
 
 {% block content %}
 	<div class="cart-main-area pt-85 pb-90">
-			<div class="container">
+			<div class="container" style="margin: 0 10px; max-width: 100%;width: 100%;">
 					<h3 class="cart-page-title">{{_('Your cart items')}}</h3>
 					<div class="row">
 							<div class="col-xl-8 col-lg-12 col-md-12 col-12 pt-10" style="padding: 0 1px;">
@@ -72,7 +72,7 @@
 
 
 										<div class="tabs">
-											<div class="checkoutForm">
+											<div class="checkoutForm" style="width: 100%;">
 												<div class="contact-form">
 													<div style="margin-bottom: 1rem">
 														<p>{{_('Phone number')}}<span style="color:red"> *</span></p>
@@ -84,18 +84,12 @@
 														<input inputmode="text" placeholder="{{_('Name')}}" class='input-text' id="username" required />
 													</div>
 
-													<label for="message">{{_('Note')}}<span>{{_('Type your address')}}!!</span></label>
+													<p for="message">{{_('Note')}}<span>{{_('Type your address')}}!!</span></p>
 													<textarea id="message" class="orderDesc" type="text" placeholder="{{_('Description')}} {{_('Phone number')}} {{_('Address')}} ({{_('City')}}, {{_('Av.')}}, {{_('Street')}}, {{_('House')}}, {{_('Flat')}})"></textarea>
 												</div>
 												<a class="checkout-button bg-red button alt wc-forward checkoutCartBtn">
 													{{_('Checkout')}}
 												</a>
-												<div class="feature feature-shipping">
-													<div class="feature-wrap">
-														<div class="icon"><img loading="lazy" src="{{ url_for('static', filename='commerce/hs/images/icons/delivery.svg') }}"></div>
-														<h4>{{ company.CAddress if company.CAddress else '130 manatdan kop sargasanyz eltip bermek hyzmaty mugt' }}</h4>
-													</div>
-												</div>
 											</div>
 										</div>
 
