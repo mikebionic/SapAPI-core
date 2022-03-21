@@ -5605,11 +5605,12 @@ body{
 .block-posts .menu-title,
 .wrap-custom-menu .menu-title{
   display: block;
-  font-size: 16px;
-  font-weight: 700;
+  font-size: 20px;
+  font-weight: 900;
   text-align: left;
   margin: 0 0 13px 0;
   line-height: 24px;
+  color: #2c5ca7;
 }
 .wrap-custom-menu ul.menu{
   display: block;
@@ -5830,6 +5831,9 @@ body{
   position: static;
   width: 100%;
 }
+/* .vertical-menu{
+  padding: 0 8%;
+} */
 .header-area.layout-01 .header-bottom:not(.pre-sticky){
   padding-bottom: 42px;
 }
@@ -6624,3 +6628,4 @@ body:not(.open-overlay) .header-area.layout-01{
   color: #423742;
   font-size: 30px;
 }
+

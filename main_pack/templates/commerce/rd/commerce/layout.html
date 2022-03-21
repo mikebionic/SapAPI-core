@@ -73,7 +73,7 @@
 												<div class="wrap-megamenu lg-width-900 md-width-640">
 														<div class="mega-content">
 																<div class="row">
-																		<div class="col-lg-3 col-md-4 col-sm-12 xs-margin-bottom-25 md-margin-bottom-0">
+																		<div class="col-lg-3 col-md-12 col-sm-12 xs-margin-bottom-25 md-margin-bottom-0">
 																				<div class="wrap-custom-menu vertical-menu">
 																						<h4 class="menu-title">Fresh Fuits</h4>
 																						<ul class="menu">
@@ -89,7 +89,7 @@
 																						</ul>
 																				</div>
 																		</div>
-																		<div class="col-lg-3 col-md-4 col-sm-12 lg-padding-left-23 xs-margin-bottom-25 md-margin-bottom-0">
+																		<div class="col-lg-3 col-md-12 col-sm-12 lg-padding-left-23 xs-margin-bottom-25 md-margin-bottom-0">
 																				<div class="wrap-custom-menu vertical-menu">
 																						<h4 class="menu-title">Nut Gifts</h4>
 																						<ul class="menu">
@@ -105,7 +105,7 @@
 																						</ul>
 																				</div>
 																		</div>
-																		<div class="col-lg-6 col-md-4 col-sm-12 lg-padding-left-50 xs-margin-bottom-25 md-margin-bottom-0">
+																		<div class="col-lg-6 col-md-12 col-sm-12 lg-padding-left-50 xs-margin-bottom-25 md-margin-bottom-0">
 																			<div class="wrap-custom-menu vertical-menu">
 																				<h4 class="menu-title">Fresh Fuits</h4>
 																				<ul class="menu">
@@ -123,14 +123,14 @@
 																		</div>
 																</div>
 														</div>
-												</div>
+												</div> 
 										</li>
 										<li class="menu-item menu-item-has-children has-megamenu">
 												<a href="#" class="menu-name" data-title="Vegetables"><i class="biolife-icon icon-broccoli-1"></i>Vegetables</a>
 												<div class="wrap-megamenu lg-width-900 md-width-640 background-mega-01">
 														<div class="mega-content">
 																<div class="row">
-																		<div class="col-lg-3 col-md-4 col-sm-12 xs-margin-bottom-25 md-margin-bottom-0">
+																		<div class="col-lg-3 col-md-12 col-sm-12 xs-margin-bottom-25 md-margin-bottom-0">
 																				<div class="wrap-custom-menu vertical-menu">
 																						<h4 class="menu-title">Vegetables</h4>
 																						<ul class="menu">
@@ -146,7 +146,7 @@
 																						</ul>
 																				</div>
 																		</div>
-																		<div class="col-lg-4 col-md-4 col-sm-12 lg-padding-left-23 xs-margin-bottom-25 md-margin-bottom-0">
+																		<div class="col-lg-4 col-md-12 col-sm-12 lg-padding-left-23 xs-margin-bottom-25 md-margin-bottom-0">
 																				<div class="wrap-custom-menu vertical-menu">
 																						<h4 class="menu-title">Gifts</h4>
 																						<ul class="menu">
@@ -162,7 +162,7 @@
 																						</ul>
 																				</div>
 																		</div>
-																		<div class="col-lg-5 col-md-4 col-sm-12 lg-padding-left-57 md-margin-bottom-30">
+																		<div class="col-lg-5 col-md-12 col-sm-12 lg-padding-left-57 md-margin-bottom-30">
 																			<div class="wrap-custom-menu vertical-menu">
 																				<h4 class="menu-title">Fresh Fuits</h4>
 																				<ul class="menu">
@@ -354,7 +354,7 @@
 								</div>
 								{% endif %}
 								<div class="prof nr-header__user-nav-item nr-header__user-nav-item--wish">
-									<a href="{{ url_for('commerce_auth.register') }}" style="font-size: 21px;">
+									<a href="{{ url_for('commerce_users.wishlist') }}" style="font-size: 21px;">
 										<i class="fa fa-heart-o"></i>
 									</a>
 								</div>
@@ -458,33 +458,33 @@
 				<div class="mobile-block block-menu-main">
 						<a class="menu-bar menu-toggle btn-toggle" data-object="open-mobile-menu" href="javascript:void(0)">
 								<span class="fa fa-bars"></span>
-								<span class="text">Menu</span>
+								<span class="text">{{_('Menu')}}</span>
 						</a>
 				</div>
 				{% if current_user.is_authenticated %}
 				<div class="mobile-block block-minicart">
 						<a class="link-to-cart" href="{{ url_for('commerce_users.profile') }}" style="font-size: 20px;color: #000">
 								<i class="las la-user" aria-hidden="true"></i>
-								<span class="text">Profile</span>
+								<span class="text">{{_('Profile')}}</span>
 						</a>
 				</div>
 				<div class="mobile-block block-global">
 						<a class="link-to-cart" href="{{ url_for('commerce_users.wishlist') }}">
 								<span class="fa fa-heart-o"></span>
-								<span class="text">Wishlist</span>
+								<span class="text">{{_('Wishlist')}}</span>
 						</a>
 				</div>
 				{% else %}
 				<div class="mobile-block block-minicart">
 					<a class="link-to-cart" href="{{ url_for('commerce_auth.login') }}" style="font-size: 20px;color: #000">
 						<i class="las la-sign-in-alt"></i>
-							<span class="text">Login</span>
+							<span class="text">{{_('Login')}}</span>
 					</a>
 				</div>
 				<div class="mobile-block block-global">
 						<a class="link-to-cart" href="{{ url_for('commerce_auth.register') }}">
 								<i class="las la-registered"></i>
-								<span class="text">Register</span>
+								<span class="text">{{_('Register')}}</span>
 						</a>
 				</div>
 				{% endif %}
