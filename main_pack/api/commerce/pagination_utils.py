@@ -215,8 +215,8 @@ def collect_resource_paginate_info(
 			try:
 				r = requests.get(f"{Config.SMART_SEARCH_API_URL}?search={search}")
 				smart_search_req = r.json()
-				print(smart_search_req)
 				resource_ids = [data["ResId"] for data in smart_search_req["data"] if smart_search_req["data"]]
+
 			except Exception as ex:
 				resource_ids = []
 				log_print(f"Smart search exception {ex}", "warning")
@@ -286,8 +286,7 @@ def collect_resource_paginate_info(
 	resource_models = [resource for resource in pagination_resources.items if pagination_resources.items]
 	data = []
 	if resource_models:
-		res = apiResourceInfo(resource_models=resource_models, limit_by=limit_by)
-		data = res["data"]
+		data = apiResourceInfo(resource_models=resource_models, limit_by=limit_by)["data"]
 
 	pagination_info = {
 		"data": data,

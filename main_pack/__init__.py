@@ -56,7 +56,7 @@ def create_app(config_class=Config):
 	app.static_folder = Config.STATIC_FOLDER_LOCATION
 	app.template_folder = Config.TEMPLATE_FOLDER_LOCATION
 	if Config.USE_FLASK_CORS:
-		CORS(app)
+		CORS(app, supports_credentials=True)
 
 	db.init_app(app)
 	login_manager.init_app(app)
