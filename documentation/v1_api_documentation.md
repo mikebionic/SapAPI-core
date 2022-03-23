@@ -54,6 +54,8 @@
 | withImage     |         **int**          |
 
 
+
+
 ---
 
 > Check rp_acc by provided json of data if it exists
@@ -68,10 +70,11 @@
 
 > Post user info or udpate if exists
 
-| __Route__         | __Methods__ | __Status__ | __Note__            |
-| ----------------- | :---------: | :--------: | ------------------- |
-| /v-rp-accs/       |  **POST**   |   Active   | **@token required** |
-| /api/tbl-dk-accs/ |  **POST**   |   Active   | **@sha required**   |
+| __Route__                | __Methods__ | __Status__ | __Note__            |
+| ------------------------ | :---------: | :--------: | ------------------- |
+| /v-rp-accs/              |  **POST**   |   Active   | **@token required** |
+| /api/tbl-dk-accs/        |  **POST**   |   Active   | **@sha required**   |
+| /v-rp-accs/profile-edit/ |  **POST**   |   Active   | **@token required** |
 
 
 [Example](./examples/rp_acc_v1.md)
@@ -429,6 +432,14 @@ curl 127.0.0.1:5000/ls/api/v1/v-images/ --header 'images-to-exclude: [{"FileName
 | -------------------- | :---------: | :--------: | -------- |
 | /discount-resources/ |   **GET**   |   Active   |
 
+**Properties**
+| __Name__     | __Type__ |
+| ------------ | :------: |
+| limit        | **int**  |
+| showInactive | **int**  |
+
+
+
 <!-- !!!TODO: add filtering and currency showing if necessary -->
 
 
@@ -439,8 +450,8 @@ curl 127.0.0.1:5000/ls/api/v1/v-images/ --header 'images-to-exclude: [{"FileName
 | /res-collection/ |   **GET**   |   Active   |
 
 **Properties**
-| __Name__ | __Type__ | __Description__ | __Example__ |
-| -------- | :------: | --------------- | ----------- |
+| __Name__ | __Type__ |
+| -------- | :------: |
 | id       | **int**  |
 | division | **int**  |
 | company  | **int**  |
@@ -448,3 +459,17 @@ curl 127.0.0.1:5000/ls/api/v1/v-images/ --header 'images-to-exclude: [{"FileName
 | uuid     | **str**  |
 
 [Example](./examples/res_collections_api.md)
+
+
+| __Route__    | __Methods__ | __Status__ | __Note__                                   |
+| ------------ | :---------: | :--------: | ------------------------------------------ |
+| /v-wishlist/ |   **GET**   |   Active   | **@token required**                        |
+| /v-wishlist/ |  **POST**   |   Active   | **@token required**, provide ResId in body |
+| /v-wishlist/ | **DELETE**  |   Active   | **@token required**, provide ResId in body |
+
+**Properties**
+| __Name__ | __Type__ | __Description__                 | __Example__ |
+| -------- | :------: | ------------------------------- | ----------- |
+| page     | **int**  | returns next page of pagination |
+
+[Example](./examples/wishlist_api.md)

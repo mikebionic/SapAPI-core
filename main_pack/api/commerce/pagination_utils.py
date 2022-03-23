@@ -22,7 +22,9 @@ from main_pack.models import (
 	Rating,
 	Res_category,
 	Brand,
-	Res_price)
+	Res_price,
+	Res_discount,
+)
 # / Resource db Models /
 from main_pack.models import Order_inv
 
@@ -44,8 +46,10 @@ def collect_resource_paginate_info(
 	DivId = None,
 	notDivId = None,
 	avoidQtyCheckup = 0,
-	showNullPrice = False,
-	showInactive = False):
+	showNullPrice = 0,
+	showInactive = 0,
+	showDiscounts = 0,
+):
 	sort_types = [
 		{
 			"sort": "date_new",
@@ -211,8 +215,8 @@ def collect_resource_paginate_info(
 			try:
 				r = requests.get(f"{Config.SMART_SEARCH_API_URL}?search={search}")
 				smart_search_req = r.json()
-				print(smart_search_req)
 				resource_ids = [data["ResId"] for data in smart_search_req["data"] if smart_search_req["data"]]
+
 			except Exception as ex:
 				resource_ids = []
 				log_print(f"Smart search exception {ex}", "warning")
@@ -260,6 +264,11 @@ def collect_resource_paginate_info(
 			.join(Res_category, Res_category.ResCatId == Resource.ResCatId)\
 			.filter(Res_category.ResCatVisibleIndex >= 0)
 
+	if showDiscounts:
+		resource_query = resource_query\
+			.join(Res_discount, Res_discount.SaleResId == Resource.ResId)\
+				.filter(Res_discount.ResDiscIsActive == True)
+
 	resource_query = resource_query.options(
 		joinedload(Resource.Image),
 		joinedload(Resource.Barcode),
@@ -277,8 +286,7 @@ def collect_resource_paginate_info(
 	resource_models = [resource for resource in pagination_resources.items if pagination_resources.items]
 	data = []
 	if resource_models:
-		res = apiResourceInfo(resource_models=resource_models, limit_by=limit_by)
-		data = res["data"]
+		data = apiResourceInfo(resource_models=resource_models, limit_by=limit_by)["data"]
 
 	pagination_info = {
 		"data": data,
@@ -312,6 +320,8 @@ def collect_resource_paginate_info(
 		base_url_info["notDivId"] = notDivId
 	if search:
 		base_url_info["search"] = search
+	if showDiscounts:
+		base_url_info["showDiscounts"] = showDiscounts
 
 	if pagination_resources.has_next:
 		pagination_info["next_url"] = url_for(

@@ -72,6 +72,7 @@ def ui_sliders():
 			})
 
 	except Exception as ex:
+		print(ex)
 		response = jsonify({
 			"status": "error",
 			"responseText": gettext('Unknown error!'),

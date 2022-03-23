@@ -21,23 +21,26 @@ from main_pack.models import Resource, Barcode
 
 
 def remove_image(file_type,file_name):
-	if file_type == "icon":
-		file_type = "image"
-		file_size = "undefined"
-		file = get_image(file_type=file_type,file_size=file_size,file_name=file_name,path_only=True)
-		FilePath = os.path.join(Config.STATIC_FOLDER_LOCATION, file)
-		os.remove(FilePath)
+	try:
+		if file_type == "icon":
+			file_type = "image"
+			file_size = "undefined"
+			file = get_image(file_type=file_type,file_size=file_size,file_name=file_name,path_only=True)
+			FilePath = os.path.join(Config.STATIC_FOLDER_LOCATION, file)
+			os.remove(FilePath)
 
-	else:
-		file = get_image(file_type=file_type,file_size='S',file_name=file_name,path_only=True)
-		FilePathS = os.path.join(Config.STATIC_FOLDER_LOCATION, file)
-		file = get_image(file_type=file_type,file_size='M',file_name=file_name,path_only=True)
-		FilePathM = os.path.join(Config.STATIC_FOLDER_LOCATION, file)
-		file = get_image(file_type=file_type,file_size='R',file_name=file_name,path_only=True)
-		FilePathR = os.path.join(Config.STATIC_FOLDER_LOCATION, file)
-		os.remove(FilePathS)
-		os.remove(FilePathM)
-		os.remove(FilePathR)
+		else:
+			file = get_image(file_type=file_type,file_size='S',file_name=file_name,path_only=True)
+			FilePathS = os.path.join(Config.STATIC_FOLDER_LOCATION, file)
+			file = get_image(file_type=file_type,file_size='M',file_name=file_name,path_only=True)
+			FilePathM = os.path.join(Config.STATIC_FOLDER_LOCATION, file)
+			file = get_image(file_type=file_type,file_size='R',file_name=file_name,path_only=True)
+			FilePathR = os.path.join(Config.STATIC_FOLDER_LOCATION, file)
+			os.remove(FilePathS)
+			os.remove(FilePathM)
+			os.remove(FilePathR)
+	except Exception as ex:
+		print(f"remove_image exception {ex}")
 
 
 def get_images(
@@ -344,18 +347,20 @@ def get_image(file_type,file_size,file_name,path_only=False):
 		try:
 			if Config.OS_TYPE == 'win32':
 				full_path = path.replace("\\","/")
-			else:
-				full_path = path.replace("<FSize>",file_size)
+
+			full_path = path.replace("<FSize>",file_size)
 			response = send_from_directory(Config.STATIC_FOLDER_LOCATION, full_path, as_attachment=True)
 			if path_only:
 				return full_path
 			return response
 
 		except FileNotFoundError:
-			abort(404)
+			if not path_only:
+				abort(404)
 
 	except:
-		abort(404)
+		if not path_only:
+			abort(404)
 
 
 @api.route("/get-file/<file_type>/<file_name>")

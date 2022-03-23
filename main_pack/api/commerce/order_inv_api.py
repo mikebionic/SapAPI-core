@@ -265,13 +265,16 @@ def api_order_invoice_info(OInvRegNo):
 def api_v_order_invoices(user):
 	startDate = request.args.get("startDate",None,type=str)
 	endDate = request.args.get("endDate",datetime.now())
+	limit_by = request.args.get("limit",None,type=int)
 	current_user = user['current_user']
 
 	res = apiOrderInvInfo(
 		startDate = startDate,
 		endDate = endDate,
 		show_inv_line_resource = True,
-		rp_acc_user = current_user)
+		rp_acc_user = current_user,
+		limit_by = limit_by,
+	)
 
 	status_code = 200
 	response = make_response(jsonify(res), status_code)

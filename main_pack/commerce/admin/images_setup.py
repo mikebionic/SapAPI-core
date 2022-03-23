@@ -74,9 +74,7 @@ def remove_images():
 			image = Image.query.get(ImgId)
 
 			try:
-				file_type = imgType
-				file_name = image.FileName
-				remove_image(file_type,file_name)
+				remove_image(imgType,image.FileName)
 				db.session.delete(image)
 
 			except Exception as ex:
@@ -92,11 +90,8 @@ def remove_images():
 
 		elif imgType == 'slider':
 			sl_image = Sl_image.query.get(ImgId)
-
 			try:
-				file_type = imgType
-				file_name = sl_image.SlImgMainImgFileName
-				remove_image(file_type,file_name)
+				remove_image(imgType,sl_image.SlImgMainImgFileName)
 				db.session.delete(sl_image)
 
 			except Exception as ex:

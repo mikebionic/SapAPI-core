@@ -6,11 +6,13 @@ from main_pack.models import (
 
 from main_pack.api.commerce.commerce_utils import apiResourceInfo
 
-def collect_discount_resource_data(limit=None):
+def collect_discount_resource_data(limit=None, showInactive=False):
+	discount_resources = Res_discount.query.filter_by(GCRecord = None)
+	if not showInactive:
+		discount_resources = discount_resources.filter(Res_discount.ResDiscIsActive == True)
 	if limit:
-		discount_resources = Res_discount.query.limit(limit).all()
-	else:
-		discount_resources = Res_discount.query.all()
+		discount_resources = discount_resources.limit(limit)
+	discount_resources = discount_resources.all()
 
 	resource_list = []
 	for disc in discount_resources:
