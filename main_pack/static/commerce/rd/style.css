@@ -4798,10 +4798,27 @@ a.nr-button {
 .q3u {
   align-items: center;
 }
-
+@media (max-width:576px){
+  .slider-sin-img-hm2{
+    justify-content: center;
+    display: flex;
+    padding-bottom: 30%!important;
+  }
+}
 .q3u,
 .uq3 {
   display: inline;
+}
+.carousel_text{
+  justify-content: center;
+  display: flex
+}
+.slider-sin-img-hm2{
+  padding-bottom: 65%;
+}
+.slider-sin-img-hm2 a{
+  position: absolute;
+  height: 100%;
 }
 
 .uq3 {
@@ -6627,14 +6644,6 @@ body:not(.open-overlay) .header-area.layout-01{
 .cart-3 i{
   color: #423742;
   font-size: 30px;
-}
-
-.slider-sin-img-hm2{
-  padding-bottom: 100%;
-}
-.slider-sin-img-hm2 a{
-  position: absolute;
-  height: 100%;
 }
 
 
