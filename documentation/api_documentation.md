@@ -294,6 +294,12 @@ Provide **username** and **password** in Authentication headers
 | --------------------- | :---------: | :--------: | ---------------- |
 | /api/v-resources/:id/ |   **GET**   |   Active   | **!!deprecated** |
 
+**Properties**
+| __Name__    | __Type__ | __Description__                | __Example__ |
+| ----------- | :------: | ------------------------------ | ----------- |
+| showRelated | **int**  | shows "Related_resources" list |
+| showRatings | **int**  | shows "Rating" list            |
+
 
 ---
 
