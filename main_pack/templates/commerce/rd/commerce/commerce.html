@@ -22,8 +22,8 @@
 							<div class="row align-items-center">
 								<div class="col-lg-7 col-md-6 col-12 col-sm-6">
 									<div class="slider-content-2 slider-animated-2 ml-20">
-										<h1 class="animated">{{sl_image.SlImgTitle}}</h1>
-										<p class="animated">{{sl_image.SlImgDesc}}</p>
+										<h1 class="animated carousel_text">{{sl_image.SlImgTitle}}</h1>
+										<p class="animated carousel_text">{{sl_image.SlImgDesc}}</p>
 									</div>
 								</div>
 								<div class="col-lg-5 col-md-6 col-12 col-sm-6">
@@ -66,80 +66,85 @@
 		</div>
 		{% endif %}
 		{% endfor %}
-		<div class="col-lg-12">
-			<div class="iq-card iq-card-block iq-card-stretch iq-card-height">
-				<div class="iq-card-header d-flex justify-content-between align-items-center position-relative mb-0 trendy-detail">
-						<div class="iq-header-title">
-							<h4 class="card-title mb-0">Новое поступление</h4>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="iq-card iq-card-block iq-card-stretch iq-card-height">
+						<div class="iq-card-header d-flex justify-content-between align-items-center position-relative mb-0 trendy-detail">
+								<div class="iq-header-title">
+									<h4 class="card-title mb-0">Новое поступление</h4>
+								</div>
+								<div class="iq-card-header-toolbar d-flex align-items-center">
+									<a href="category.html" class="btn btn-sm btn-primary view-more">Посмотреть больше</a>
+								</div>
 						</div>
-						<div class="iq-card-header-toolbar d-flex align-items-center">
-							<a href="category.html" class="btn btn-sm btn-primary view-more">Посмотреть больше</a>
-						</div>
-				</div>
-				<div class="iq-card-body trendy-contens">
-						<ul id="trendy-slider" class="list-inline p-0 mb-0 row">
-
-						{% for resource in Latest_resources %}
-							<li class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-6">
-								<div class="product-wrap product-border-3 product-img-zoom mb-30">
-									<div class="product-img">
-										<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">
-											<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }} {{ company.CName }}">
-										</a>
-									</div>
-									<div class="product-content product-content-padding">
-										{% if current_user.is_authenticated %}
-										<div class="yith-wcwl-add-to-wishlist wishlist-button">
-											<a rel="nofollow" class="like {{'heart' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}">
-												<i class="la la-heart" aria-hidden="true"></i>
-											</a>
-										</div>
-										{% endif %}
-										<div class="hm3"><div class="ui-q0">
-											<span class="ui-q3 ui-q6">
-												{{ resource.ResPriceValue }} 
-											</span>
-											<span class="ui-q3 ui-q6">
-												{{ resource.CurrencyCode }}
-											</span>
-										</div>
-										<span class="n1c c2n n2c nc5 f-tsBodyM" style="color:var(--ozOrange);">
-											<span>
-												Бестселлер
-											</span>
-										</span>
-										<a href="#" class="tile-hover-target k9h">
-											<span class="n1c c2n n2c nc4 f-tsBodyL k9h">
-												<span>{{ resource.ResName }}</span>
-											</span>
-										</a>
-										<div class="hw w0h">
-												<div class="wh0 h1w">
-														<div class="q6c qc7 wh">
-																<div class="ui-b2">
-																	<div class="product-count cardplacement cartItemQty" style="display: none;">
-																		<div class="qtyminus qtybtn">-</div>
-																		<input type="text" class="qty productQty"
-																			pending_amount="{{resource.ResPendingTotalAmount}}"
-																			min_amount="{{resource.ResMinSaleAmount}}"
-																			max_amount="{{resource.ResMaxSaleAmount}}"
-																			value="{{resource.productQty}}" ownerId="{{ resource.ResId }}">
-																		<div class="qtyplus qtybtn">+</div>
-																	</div>
-																	<a class="round-black-btn cardplacement add-to-cart" ownerId="{{ resource.ResId }}" style="color: #fff">{{_('Add to cart')}}</a>
+						<div class="iq-card-body trendy-contens">
+							<ul id="trendy-slider" class="list-inline p-0 mb-0 row">
+		
+								{% for resource in Latest_resources %}
+									<li class="col-xl-2 col-lg-4 col-md-4 col-sm-6 col-6">
+										<div class="product-wrap product-border-3 product-img-zoom mb-30">
+											<div class="product-img">
+												<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">
+													<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }} {{ company.CName }}">
+												</a>
+											</div>
+											<div class="product-content product-content-padding">
+												{% if current_user.is_authenticated %}
+												<div class="yith-wcwl-add-to-wishlist wishlist-button">
+													<a rel="nofollow" class="like {{'heart' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}">
+														<i class="la la-heart" aria-hidden="true"></i>
+													</a>
+												</div>
+												{% endif %}
+												<div class="hm3"><div class="ui-q0">
+													<span class="ui-q3 ui-q6">
+														{{ resource.ResPriceValue }} 
+													</span>
+													<span class="ui-q3 ui-q6">
+														{{ resource.CurrencyCode }}
+													</span>
+												</div>
+												<span class="n1c c2n n2c nc5 f-tsBodyM" style="color:var(--ozOrange);">
+													<span>
+														Бестселлер
+													</span>
+												</span>
+												<a href="#" class="tile-hover-target k9h">
+													<span class="n1c c2n n2c nc4 f-tsBodyL k9h">
+														<span>{{ resource.ResName }}</span>
+													</span>
+												</a>
+												<div class="hw w0h">
+														<div class="wh0 h1w">
+																<div class="q6c qc7 wh">
+																		<div class="ui-b2">
+																			<div class="product-count cardplacement cartItemQty" style="display: none;">
+																				<div class="qtyminus qtybtn">-</div>
+																				<input type="text" class="qty productQty"
+																					pending_amount="{{resource.ResPendingTotalAmount}}"
+																					min_amount="{{resource.ResMinSaleAmount}}"
+																					max_amount="{{resource.ResMaxSaleAmount}}"
+																					value="{{resource.productQty}}" ownerId="{{ resource.ResId }}">
+																				<div class="qtyplus qtybtn">+</div>
+																			</div>
+																			<a class="round-black-btn cardplacement add-to-cart" ownerId="{{ resource.ResId }}" style="color: #fff">{{_('Add to cart')}}</a>
+																		</div>
 																</div>
 														</div>
 												</div>
+												</div>
+											</div>
 										</div>
-										</div>
-									</div>
-								</div>
-							</li>
-							{% endfor %}
-						</ul>
+									</li>
+									{% endfor %}
+								</ul>
+							</div>
 					</div>
+				</div>
 			</div>
 		</div>
+		
 		<div class="recent-selling-area pb-60">
 			<div class="container">
 				<div class="section-title-2 text-center">
@@ -147,7 +152,7 @@
 						<img src="{{ url_for('static', filename='commerce/rd/images/title-shape.png') }}" alt="icon-img">
 				</div>
 				<div class="row">
-					<div class="col-lg-4 col-md-12">
+					<div class="col-lg-3 col-md-12">
 						{% set resource_main = Latest_resources[-1] if Latest_resources %}
 						{% if resource_main %}
 						<div class="product-wrap product-border-3 product-img-zoom mb-30">
@@ -215,7 +220,7 @@
 							{% for resource in Latest_resources %}
 							{% set resource_count = resource_count + loop.index %}
 							{% if resource_count < 7 %}
-								<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-6">
+								<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6">
 									<div class="product-img">
 										<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">
 											<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }} {{ company.CName }}">
@@ -337,7 +342,7 @@
 				</div>
 				<div class="row">
 					{% for resource in Latest_resources %}
-					<div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-6" style="padding-bottom: 10px;">
+					<div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-6" style="padding-bottom: 10px;">
 						<div class="product-wrap product-border-3 product-img-zoom mb-30">
 							<div class="product-img">
 								<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">

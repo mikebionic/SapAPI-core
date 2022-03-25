@@ -6802,12 +6802,6 @@ a {
     left: 0;
     bottom: 0;
 }
-@media screen and (min-width: 1472px){
- .container {
-    max-width: 100%;
-    width: 100%;
-    }
-}
 .shop-wrapper {
     height: -webkit-fill-available;
 }

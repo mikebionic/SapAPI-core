@@ -203,100 +203,100 @@ $('.product-slider-4').slick({
 	nextArrow: '<button type="button" class="slick-next"><i class="icofont icofont-long-arrow-right"></i></button>',
 	responsive: [
 			{
-					breakpoint: 1199,
+				breakpoint: 1199,
 
-					settings: {
-							autoplay: true,
-							slidesToShow: 4,
-					}
+				settings: {
+					autoplay: true,
+					slidesToShow: 4,
+				}
 			},
 			 {
-					breakpoint: 1300,
+				breakpoint: 1300,
 
-					settings: {
-							autoplay: true,
-							slidesToShow: 5,
-					}
+				settings: {
+					autoplay: true,
+					slidesToShow: 5,
+				}
 			},
 			{
-					breakpoint: 1440,
+				breakpoint: 1440,
 
-					settings: {
-							autoplay: true,
-							slidesToShow: 5,
-					}
+				settings: {
+					autoplay: true,
+					slidesToShow: 5,
+				}
 			},
 			{
-					breakpoint: 1600,
+				breakpoint: 1600,
 
-					settings: {
-							autoplay: true,
-							slidesToShow: 5,
-					}
+				settings: {
+					autoplay: true,
+					slidesToShow: 5,
+				}
 			},
 			{
-					breakpoint: 1800,
+				breakpoint: 1800,
 
-					settings: {
-							autoplay: true,
-							slidesToShow: 6,
-					}
+				settings: {
+					autoplay: true,
+					slidesToShow: 6,
+				}
 			},
 			{
-					breakpoint: 2700,
+				breakpoint: 2700,
 
-					settings: {
-							autoplay: true,
-							slidesToShow: 9,
-					}
+				settings: {
+					autoplay: true,
+					slidesToShow: 9,
+				}
 			},
 			{
-					breakpoint: 2400,
+				breakpoint: 2400,
 
-					settings: {
-							autoplay: true,
-							slidesToShow: 8,
-					}
+				settings: {
+					autoplay: true,
+					slidesToShow: 8,
+				}
 			},
 			{
-					breakpoint: 2000,
+				breakpoint: 2000,
 
-					settings: {
-							autoplay: true,
-							slidesToShow: 7,
-					}
+				settings: {
+					autoplay: true,
+					slidesToShow: 7,
+				}
 			},
 			{
-					breakpoint: 992,
-					settings: {
-							autoplay: true,
-							slidesToShow: 3,
-					}
+				breakpoint: 992,
+				settings: {
+					autoplay: true,
+					slidesToShow: 3,
+				}
 			},
 			{
-					breakpoint: 767,
-					settings: {
-							autoplay: true,
-							slidesToShow: 3,
-							arrows: false,
-					}
+				breakpoint: 767,
+				settings: {
+					autoplay: true,
+					slidesToShow: 3,
+					arrows: false,
+				}
 			},
 			{
-					breakpoint: 654,
-					settings: {
-							slidesToScroll: 2,
-							autoplay: true,
-							slidesToShow: 2,
-							arrows: false,
-					}
+				breakpoint: 654,
+				settings: {
+					slidesToScroll: 2,
+					autoplay: true,
+					slidesToShow: 2,
+					arrows: false,
+				}
 			},
 			{
-					breakpoint: 319,
-					settings: {
-							autoplay: true,
-							slidesToShow: 1,
-							arrows: false,
-					}
+				breakpoint: 319,
+				settings: {
+					autoplay: true,
+					slidesToShow: 1,
+					arrows: false,
+				}
 			}
 	]
 });
