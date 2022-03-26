@@ -744,6 +744,10 @@ def apiOrderInvInfo(
 	notDivId = None,
 	currency_code = Config.DEFAULT_VIEW_CURRENCY_CODE,
 	limit_by = None,
+	UId = None,
+	RpAccId = None,
+	UGuid = None,
+	RpAccGuid = None,
 ):
 
 	currencies = Currency.query.filter_by(GCRecord = None).all()
@@ -757,6 +761,20 @@ def apiOrderInvInfo(
 			invoice_filtering["InvStatId"] = statusId
 		if rp_acc_user:
 			invoice_filtering["RpAccId"] = rp_acc_user.RpAccId
+
+		if UId:
+			invoice_filtering["UId"] = UId
+		if RpAccId:
+			invoice_filtering["RpAccId"] = RpAccId
+
+		if UGuid:
+			this_user = User.query.filter_by(UGuid = UGuid).first()
+			if this_user:
+				invoice_filtering["UId"] = this_user.UId
+		if RpAccGuid:
+			tihs_rp_acc = Rp_acc.query.filter_by(RpAccGuid = RpAccGuid).first()
+			if tihs_rp_acc:
+				invoice_filtering["RpAccId"] = tihs_rp_acc.RpAccId
 
 		invoice_models = []
 		if invoice_list is None:

@@ -34,7 +34,7 @@ from main_pack.base.languageMethods import dataLangSelector
 
 # auth and validation
 from main_pack.api.auth.utils import token_required
-from main_pack.api.auth.utils import sha_required
+from main_pack.api.auth.utils import admin_required
 from main_pack.api.base.validators import request_is_json
 # / auth and validation /
 
@@ -43,22 +43,33 @@ from .pagination_utils import collect_order_inv_paginate_info
 
 
 @api.route("/tbl-dk-order-invoices/",methods=['GET','POST'])
-@sha_required
+@admin_required
 @request_is_json(request)
-def api_order_invoices():
+def api_order_invoices(user):
 	if request.method == 'GET':
 		DivId = request.args.get("DivId",None,type=int)
 		notDivId = request.args.get("notDivId",None,type=int)
 		startDate = request.args.get("startDate",None,type=str)
 		endDate = request.args.get("endDate",datetime.now())
+		UId = request.args.get("userId",None,type=int)
+		RpAccId = request.args.get("rpAccId",None,type=int)
+		currency_code = request.args.get("currency_code",Config.MAIN_CURRENCY_CODE,type=str)
+		UGuid = request.args.get("userGuid",None,type=int)
+		RpAccGuid = request.args.get("rpAccGuid",None,type=int)
+		statusId = request.args.get("statusId",1,type=int)
 
 		res = apiOrderInvInfo(
-			startDate = startDate,
-			endDate = endDate,
-			statusId = 1,
 			DivId = DivId,
 			notDivId = notDivId,
-			currency_code = Config.MAIN_CURRENCY_CODE)
+			startDate = startDate,
+			endDate = endDate,
+			statusId = statusId,
+			currency_code = currency_code,
+			UId = UId,
+			RpAccId = RpAccId,
+			UGuid = UGuid,
+			RpAccGuid = RpAccGuid,
+		)
 
 		status_code = 200
 		response = make_response(jsonify(res), status_code)
@@ -243,8 +254,8 @@ def api_order_invoices():
 
 
 @api.route("/tbl-dk-order-invoices/<OInvRegNo>/")
-@sha_required
-def api_order_invoice_info(OInvRegNo):
+@admin_required
+def api_order_invoice_info(user, OInvRegNo):
 	invoice_list = [{"OInvRegNo": OInvRegNo}]
 
 	res = apiOrderInvInfo(
