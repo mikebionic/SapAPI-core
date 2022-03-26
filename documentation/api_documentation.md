@@ -466,8 +466,8 @@ Provide **username** and **password** in Authentication headers
 
 ---
 
-| __Route__                  |   __Methods__    | __Status__ | __Note__                  |
-| -------------------------- | :--------------: | :--------: | ------------------------- |
+| __Route__                  |   __Methods__    | __Status__ | __Note__            |
+| -------------------------- | :--------------: | :--------: | ------------------- |
 | /api/tbl-dk-order-invoices | **GET** **POST** |   Active   | **@admin_required** |
 
 **Properties**
