@@ -17,14 +17,14 @@ from main_pack.models import (
 )
 from .utils import addResourceDict, addBarcodeDict
 from main_pack.base.apiMethods import checkApiResponseStatus
-from main_pack.api.auth.utils import sha_required
+from main_pack.api.auth.utils import admin_required
 from main_pack.api.base.validators import request_is_json
 
 
 @api.route("/tbl-dk-resources/",methods=['GET','POST'])
-@sha_required
+@admin_required
 @request_is_json(request)
-def api_tbl_dk_resources():
+def api_tbl_dk_resources(user):
 	if request.method == 'GET':
 		DivId = request.args.get("DivId",None,type=int)
 		notDivId = request.args.get("notDivId",None,type=int)
