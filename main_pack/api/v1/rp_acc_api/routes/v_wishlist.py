@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
 from flask import request
+import uuid
+
 from main_pack.api.auth.utils import token_required
 from main_pack.api.base.validators import request_is_json
-from main_pack import Config
+from main_pack import Config, db
 from main_pack.api.commerce.commerce_utils import apiResourceInfo
 
 from main_pack.api.v1.rp_acc_api import api
 from main_pack.api.response_handlers import handle_default_response, handle_instertion_response
-from main_pack.models import Wish
+from main_pack.models import Wish, Resource
 from main_pack.base import log_print
 
 
@@ -70,6 +72,7 @@ def v_wishlist_post(user):
 				log_print(f"Wishlist api | Resource none by id={ResId}")
 				raise Exception
 
+			filtering["WishGuid"] = uuid.uuid4()
 			wish = Wish(**filtering)
 			db.session.add(wish)
 			db.session.commit()

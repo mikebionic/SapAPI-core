@@ -232,6 +232,7 @@ def apiResourceInfo(
 	language_code = None,
 	order_by_visible_index = False,
 	limit_by = None,
+	showRatings = 0,
 ):
 
 	currencies = Currency.query.filter_by(GCRecord = None).all()
@@ -438,7 +439,7 @@ def apiResourceInfo(
 			# Sorting list by Modified date
 			List_Images = (sorted(List_Images, key = lambda i: i["ModifiedDate"]))
 
-			if fullInfo == True:
+			if showRatings or fullInfo:
 				List_Ratings = []
 				for rating in query_resource.Rating:
 					try:
@@ -592,7 +593,7 @@ def apiResourceInfo(
 
 					resource_info["Related_resources"] = Related_resources
 
-			if fullInfo == True:
+			if fullInfo:
 				List_Colors = [res_color.color.to_json_api() for res_color in query_resource.Res_color if not res_color.GCRecord if not res_color.color.GCRecord]
 				List_Sizes = [res_size.size.to_json_api() for res_size in query_resource.Res_size if not res_size.GCRecord if not res_size.size.GCRecord]
 				resource_info["Colors"] = List_Colors if List_Colors else []
@@ -602,10 +603,12 @@ def apiResourceInfo(
 				resource_info["Res_category"] = Res_category_info if Res_category_info else {}
 				resource_info["Res_price"] = List_Res_price[0] if List_Res_price else {}
 				resource_info["Res_total"] = List_Res_total[0] if List_Res_total else {}
-				resource_info["Rating"] = List_Ratings if List_Ratings else []
 				resource_info["UsageStatus"] = dataLangSelector(UsageStatus_info) if UsageStatus_info else {}
 				resource_info["Currency"] = dataLangSelector(List_Currencies[0]) if List_Currencies else {}
 				resource_info["Unit"] = dataLangSelector(Units_info) if Units_info else {}
+
+			if showRatings or fullInfo:
+				resource_info["Rating"] = List_Ratings if List_Ratings else []
 
 			data.append(resource_info)
 
@@ -741,6 +744,10 @@ def apiOrderInvInfo(
 	notDivId = None,
 	currency_code = Config.DEFAULT_VIEW_CURRENCY_CODE,
 	limit_by = None,
+	UId = None,
+	RpAccId = None,
+	UGuid = None,
+	RpAccGuid = None,
 ):
 
 	currencies = Currency.query.filter_by(GCRecord = None).all()
@@ -754,6 +761,20 @@ def apiOrderInvInfo(
 			invoice_filtering["InvStatId"] = statusId
 		if rp_acc_user:
 			invoice_filtering["RpAccId"] = rp_acc_user.RpAccId
+
+		if UId:
+			invoice_filtering["UId"] = UId
+		if RpAccId:
+			invoice_filtering["RpAccId"] = RpAccId
+
+		if UGuid:
+			this_user = User.query.filter_by(UGuid = UGuid).first()
+			if this_user:
+				invoice_filtering["UId"] = this_user.UId
+		if RpAccGuid:
+			tihs_rp_acc = Rp_acc.query.filter_by(RpAccGuid = RpAccGuid).first()
+			if tihs_rp_acc:
+				invoice_filtering["RpAccId"] = tihs_rp_acc.RpAccId
 
 		invoice_models = []
 		if invoice_list is None:

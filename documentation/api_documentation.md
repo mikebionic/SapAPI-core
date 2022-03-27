@@ -294,6 +294,12 @@ Provide **username** and **password** in Authentication headers
 | --------------------- | :---------: | :--------: | ---------------- |
 | /api/v-resources/:id/ |   **GET**   |   Active   | **!!deprecated** |
 
+**Properties**
+| __Name__    | __Type__ | __Description__                | __Example__ |
+| ----------- | :------: | ------------------------------ | ----------- |
+| showRelated | **int**  | shows "Related_resources" list |
+| showRatings | **int**  | shows "Rating" list            |
+
 
 ---
 
@@ -459,6 +465,24 @@ Provide **username** and **password** in Authentication headers
 | synchDateTime | **str repr of datetime** |
 
 ---
+
+| __Route__                  |   __Methods__    | __Status__ | __Note__            |
+| -------------------------- | :--------------: | :--------: | ------------------- |
+| /api/tbl-dk-order-invoices | **GET** **POST** |   Active   | **@admin_required** |
+
+**Properties**
+| __Name__      | __Type__ | __Description__       | __Example__ |
+| ------------- | :------: | --------------------- | ----------- |
+| DivId         | **int**  |
+| notDivId      | **int**  |
+| startDate     | **int**  |
+| endDate       | **int**  |
+| userId        | **int**  |
+| rpAccId       | **int**  |
+| currency_code | **int**  | default main currency |
+| userGuid      | **int**  |
+| rpAccGuid     | **int**  |
+| statusId      | **int**  | default 1             |
 
 
 

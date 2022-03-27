@@ -34,5 +34,5 @@ def v_rp_accs_profile_edit(user):
 		abort(400)
 
 	req = request.get_json()
-	data, fails = update_rp_acc_profile(req, model_type, current_user)
-	return handle_instertion_response(data, fails, "Rp_acc profile update")
+	data = update_rp_acc_profile(req, model_type, current_user)
+	return handle_default_response(data, "Rp_acc profile update")
