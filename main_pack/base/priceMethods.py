@@ -90,7 +90,9 @@ def price_currency_conversion(
 def calculatePriceByGroup(
 	ResPriceGroupId,
 	Res_price_dbModels,
-	Res_pice_group_dbModels = None):
+	Res_pice_group_dbModels = None,
+	ResPriceTypeId = 2,
+):
 
 	data = []
 	try:
@@ -103,13 +105,13 @@ def calculatePriceByGroup(
 		if not ResPriceGroupId:
 			data = [res_price.to_json_api() 
 				for res_price in Res_price_dbModels
-				if res_price.ResPriceTypeId == 2
+				if res_price.ResPriceTypeId == ResPriceTypeId
 				and not res_price.GCRecord]
 
 		if ResPriceGroupId:
 			data = [res_price.to_json_api() 
 				for res_price in Res_price_dbModels 
-				if res_price.ResPriceTypeId == 2 
+				if res_price.ResPriceTypeId == ResPriceTypeId 
 				and res_price.ResPriceGroupId == ResPriceGroupId
 				and not res_price.GCRecord]
 
