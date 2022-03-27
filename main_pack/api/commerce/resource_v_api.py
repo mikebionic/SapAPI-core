@@ -43,7 +43,10 @@ def api_v_resources():
 	limit_by = request.args.get("limit",None,type=int)
 	showImage = request.args.get("showImage",1,type=int)
 	showLastVendor = request.args.get("showLastVendor",0,type=int)
-	# showBoughtPrice = request.args.get("showBoughtPrice",1,type=int)
+	showPurchacePrice = request.args.get("showPurchacePrice",0,type=int)	
+	search = request.args.get("search",None,type=str)
+	search = search.strip() if search else None
+
 	res = apiResourceInfo(
 		DivId = DivId,
 		notDivId = notDivId,
@@ -52,7 +55,8 @@ def api_v_resources():
 		limit_by = limit_by,
 		showImage = showImage,
 		showLastVendor = showLastVendor,
-		showBoughtPrice = 0,
+		showPurchacePrice = 0,
+		search = search,
 	)
 	return make_response(jsonify(res), 200)
 

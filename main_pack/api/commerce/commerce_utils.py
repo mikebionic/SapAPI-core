@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from flask import session
+from sqlalchemy import or_, and_
 
 from main_pack.config import Config
 from main_pack import db, cache
@@ -27,7 +28,9 @@ from main_pack.models import (
 	Res_category,
 	Wish,
 	Rating,
-	Exc_rate)
+	Exc_rate,
+	Barcode,
+)
 from main_pack.models import (
 	Res_color,
 	Res_size,
@@ -129,7 +132,9 @@ def collect_resources_query(
 	avoidQtyCheckup = 0,
 	showNullPrice = False,
 	DivId = None,
-	notDivId = None):
+	notDivId = None,
+	search = None,
+):
 	resource_filtering = {
 		"GCRecord": None,
 	}
@@ -155,6 +160,58 @@ def collect_resources_query(
 		Res_Total_subquery.c.ResPendingTotalAmount_sum)\
 	.filter_by(**resource_filtering)\
 	.outerjoin(Res_Total_subquery, Resource.ResId == Res_Total_subquery.c.ResId)
+
+	if search:
+		search = search.strip()
+		searching_tag = "%{}%".format(search)
+		resource_ids = []
+
+		barcodes_search = Barcode.query\
+			.filter(and_(
+				Barcode.GCRecord == None,\
+				Barcode.BarcodeVal.ilike(searching_tag)))
+		if DivId:
+			barcodes_search = barcodes_search.filter_by(DivId = DivId)
+		if notDivId:
+			barcodes_search = barcodes_search.filter(Barcode.DivId != DivId)
+		barcodes_search = barcodes_search.all()
+
+		if Config.SEARCH_BY_RESOURCE_DESCRIPTION:
+			resources_search = Resource.query\
+				.filter(and_(
+					Resource.GCRecord == None,\
+					or_(
+						Resource.ResName.ilike(searching_tag),
+						Resource.ResDesc.ilike(searching_tag)
+					),\
+					Resource.UsageStatusId == 1))\
+				.order_by(Resource.ResId.desc())
+
+		else:
+			resources_search = Resource.query\
+				.filter(and_(
+					Resource.GCRecord == None,\
+					Resource.ResName.ilike(searching_tag),\
+					Resource.UsageStatusId == 1))\
+				.order_by(Resource.ResId.desc())
+
+			if DivId:
+				resources_search = resources_search.filter_by(DivId = DivId)
+			if notDivId:
+				resources_search = resources_search.filter(Resource.DivId != notDivId)
+			resources_search = resources_search.all()
+			for resource in resources_search:
+				resource_ids.append(resource.ResId)
+
+		if barcodes_search:
+			for barcode in barcodes_search:
+				resource_ids.append(barcode.ResId)
+
+		# removes duplicates
+		resource_ids = list(set(resource_ids))
+		resource_ids = [ResId for ResId in resource_ids]
+
+		resource_query = resource_query.filter(Resource.ResId.in_(resource_ids))
 
 	if avoidQtyCheckup == 0:
 		if not Config.SHOW_NEGATIVE_WH_QTY_RESOURCE:
@@ -235,7 +292,8 @@ def apiResourceInfo(
 	showRatings = 0,
 	showImage = 1,
 	showLastVendor = 0,
-	showBoughtPrice = 0,
+	showPurchacePrice = 0,
+	search = None,
 ):
 
 	currencies = Currency.query.filter_by(GCRecord = None).all()
@@ -288,7 +346,9 @@ def apiResourceInfo(
 					avoidQtyCheckup = avoidQtyCheckup,
 					showNullPrice = showNullPrice,
 					DivId = DivId,
-					notDivId = notDivId)
+					notDivId = notDivId,
+					search = search,
+				)
 
 			resources = resource_query.options(
 				joinedload(Resource.Barcode),
@@ -419,8 +479,8 @@ def apiResourceInfo(
 				Res_price_dbModels = query_resource.Res_price,
 				Res_pice_group_dbModels = res_price_groups)
 			
-			if showBoughtPrice:
-				List_Res_price_sale = calculatePriceByGroup(
+			if showPurchacePrice:
+				List_Res_price_purchace = calculatePriceByGroup(
 					ResPriceGroupId = ResPriceGroupId,
 					Res_price_dbModels = query_resource.Res_price,
 					Res_pice_group_dbModels = res_price_groups,
@@ -436,8 +496,8 @@ def apiResourceInfo(
 				List_Currencies = []
 
 			this_priceValue = List_Res_price[0]["ResPriceValue"] if List_Res_price else 0.0
-			if showBoughtPrice:
-				this_priceValue_sale = List_Res_price_sale[0]["ResPriceValue"] if List_Res_price_sale else 0.0
+			if showPurchacePrice:
+				this_priceValue_purchace = List_Res_price_purchace[0]["ResPriceValue"] if List_Res_price_purchace else 0.0
 				
 			this_currencyCode = List_Currencies[0]["CurrencyCode"] if List_Currencies else Config.MAIN_CURRENCY_CODE
 			resource_info["RealPrice"] = this_priceValue
@@ -458,9 +518,9 @@ def apiResourceInfo(
 				currencies_dbModel = currencies,
 				exc_rates_dbModel = exc_rates)
 			
-			if showBoughtPrice:
-				price_data_sale = price_currency_conversion(
-					priceValue = this_priceValue_sale,
+			if showPurchacePrice:
+				price_data_purchace = price_currency_conversion(
+					priceValue = this_priceValue_purchace,
 					from_currency = this_currencyCode,
 					to_currency = currency_code,
 					currencies_dbModel = currencies,
@@ -513,8 +573,8 @@ def apiResourceInfo(
 			resource_info["ResPriceValue"] = price_data["ResPriceValue"]
 			resource_info["CurrencyCode"] = price_data["CurrencyCode"]
 			resource_info["CurrencySymbol"] = price_data["CurrencySymbol"]
-			if showBoughtPrice:
-				resource_info["SaleResPriceValue"] = price_data_sale["ResPriceValue"]
+			if showPurchacePrice:
+				resource_info["PurchaceResPriceValue"] = price_data_purchace["ResPriceValue"]
 			resource_info["ResTotBalance"] = 9999 if Config.SET_UNLIMITED_RESOURCE_QTY == 1 else resource_query.ResTotBalance_sum if resource_query.ResTotBalance_sum else 0.0
 			resource_info["ResPendingTotalAmount"] = 9999 if Config.SET_UNLIMITED_RESOURCE_QTY == 1 else resource_query.ResPendingTotalAmount_sum if resource_query.ResPendingTotalAmount_sum else 0.0
 
