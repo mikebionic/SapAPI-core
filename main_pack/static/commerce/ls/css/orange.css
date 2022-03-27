@@ -102,7 +102,7 @@ input[type="submit"].dokan-btn-theme:focus, a.dokan-btn-theme:focus, .dokan-btn-
 .site-content .landing-v2-slider .slider-1 .button:hover,
 .about-accordion .card .card-header h5 > a:not(.collapsed) i {
   background: rgb(92,5,5);
-  background: linear-gradient(172deg, #670913, #ec1c26);
+  background: linear-gradient(172deg, #b6001c, #dd0e1b);
 }
 
 .primary-navigation .nav .dropdown-menu,

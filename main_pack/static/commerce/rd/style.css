@@ -2469,7 +2469,6 @@ a.nr-button {
 .slider-area .nav-style-3 .owl-nav div {
   background-color: transparent !important;
 }
-
 .ui-a1 > .ui-a3 > .ui-a4.ui-b2 {
   background-color: transparent;
   color: #005bff;
@@ -4800,8 +4799,6 @@ a.nr-button {
 }
 @media (max-width:576px){
   .slider-sin-img-hm2{
-    justify-content: center;
-    display: flex;
     padding-bottom: 30%!important;
   }
 }
@@ -4810,11 +4807,12 @@ a.nr-button {
   display: inline;
 }
 .carousel_text{
-  justify-content: center;
   display: flex
 }
 .slider-sin-img-hm2{
   padding-bottom: 65%;
+  justify-content: center;
+  display: flex;
 }
 .slider-sin-img-hm2 a{
   position: absolute;
@@ -4999,7 +4997,7 @@ a.nr-button {
     width: 34px;
     height: 34px;
     background-color: #29539b;
-    background-image: linear-gradient(336deg, #0175a0b8 0%, #042242d9 74%);
+    background-image: linear-gradient(336deg, #0175a0b8 0%, #2c5ca7 74%);
     text-align: center;
     font-size: 19px;
     line-height: 36px;
@@ -5025,7 +5023,7 @@ a.nr-button {
 .round-black-btn {
     border-radius: 4px;
     background-color: #29539b;
-    background-image: linear-gradient(336deg, #0175a0b8 0%, #042242d9 74%);
+    background-image: linear-gradient(336deg, #0175a0b8 0%, #2c5ca7 74%);
     color: #fff;
     padding: 4px 15px;
     display: inline-block;
@@ -6647,3 +6645,6 @@ body:not(.open-overlay) .header-area.layout-01{
 }
 
 
+.pagination-style {
+  margin-top: 3%
+}
