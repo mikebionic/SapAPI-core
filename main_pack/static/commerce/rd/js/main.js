@@ -1123,10 +1123,10 @@ $('.descriptionText').each(function(){
 	$(this).html($(this).text());
 });
 
-$(".tile-hover-target span").each(function(){
+$(".order-info span").each(function(){
 	this.text = this.text.trim();
-	if (this.text.length > 7){
-			this.text = this.text.slice(0, 7);
+	if (this.text.length > 5){
+			this.text = this.text.slice(0, 5);
 			this.text += "...";
 	}
 });

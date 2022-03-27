@@ -11,7 +11,7 @@
 {% block content %}
 	<div class="container">
 		<div class="row">
-				<div class="all-content content" data-v-503820a0="">
+				<div class="all-content content" data-v-503820a0="" style="margin-top: 3%;">
 					<div class="left-content" data-v-503820a0="">
 						<div class="pr_flex">
 							<div class="col-lg-6 col-md-12">
@@ -21,26 +21,31 @@
 											<div class="product-details-img">
 												<div class="zoompro-wrap product-zoom-right pr-20">
 													<div class="zoompro-span">
-														<img class="zoompro" src="{{ url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}" />
+														<img class="zoompro"  src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/no_photo.svg') }}"
+														alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}" />
 														<span>-29%</span>
 													</div>
 												</div>
-												<div id="gallery" class="product-dec-slider-2">
-													<a data-image="{{ url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}">
-															<img src="{{ url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="">
-													</a>
-													<a data-image="{{ url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}">
-														<img src="{{ url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="">
-													</a>
-													<a data-image="{{ url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}">
-														<img src="{{ url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="">
-													</a>
+
+												{% if resource.Images %}
+												{% set image_count = 0 %}
+													<div id="gallery" class="product-dec-slider-2">
+														{% for image in resource.Images %}
+														{% set image_count = image_count + loop.index %}
+														{% if image_count < 4 %}
+															<a data-image="{{image.FilePathM}}">
+																<img loading="lazy" src="{{image.FilePathS}}" data-src-m="{{image.FilePathM}}"
+																	alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
+															</a>
+														{% endif %}
+														{% endfor %}
+													</div>
+												{% endif %}
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-							</div>
 							<div class="col-lg-6 col-md-12">
 								<div class="right-content" style="" data-v-503820a0="">
 									<div data-v-10b5df08="" data-v-503820a0="" class="item-about about">
@@ -108,95 +113,97 @@
 							</div>
 						</div>
 							<!---->
-						<div class="card-blocks" data-v-503820a0="">
-							<div class="description-review-wrapper pb-90">
-								<div class="ml-auto mr-auto col-lg-6" style="float: left;">
-										<div class="dec-review-topbar nav mb-40">
-												<a class="active" data-toggle="tab" href="#des-details1">Description</a>
-												<a data-toggle="tab" href="#des-details2">Specification</a>
-												<a data-toggle="tab" href="#des-details3">Reviews</a>
-										</div>
-										<div class="tab-content dec-review-bottom">
-												<div id="des-details1" class="tab-pane active">
-														<div class="description-wrap">
-																<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text. It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters,</p>
-														</div>
-												</div>
-												<div id="des-details2" class="tab-pane ">
-														<div class="specification-wrap table-responsive">
-																<table>
-																		<tbody>
-																				<tr>
-																						<td class="width1">Name / Model</td>
-																						<td>LaaVista Depro, FX 829 v1</td>
-																				</tr>
-																				<tr>
-																						<td>Type</td>
-																						<td>Categories</td>
-																				</tr>
-																				<tr>
-																						<td class="width1">Models</td>
-																						<td>FX 829 v1</td>
-																				</tr>
-																				<tr>
-																						<td class="width1">Categories</td>
-																						<td>Product Type</td>
-																				</tr>
-																				<tr>
-																						<td class="width1">Size</td>
-																						<td>60’’ x 40’’</td>
-																				</tr>
-																				<tr>
-																						<td class="width1">Display Port</td>
-																						<td>Multi</td>
-																				</tr>
-																				<tr>
-																						<td class="width1">Media</td>
-																						<td>Brightside</td>
-																				</tr>
-																				<tr>
-																						<td class="width1">Color</td>
-																						<td>Black, White</td>
-																				</tr>
-																		</tbody>
-																</table>
-														</div>
-												</div>
-												<div id="des-details3" class="tab-pane">
-														<div class="dec-review-wrap mb-50">
-																<div class="row">
-																		<div class="col-xl-3 col-lg-4 col-md-5">
-																				<div class="dec-review-img-wrap">
-																						
-																						<div class="dec-client-name">
-																								<h4>Jonathon Doe</h4>
-																								<div class="dec-client-rating">
-																										<i class="la la-star"></i>
-																										<i class="la la-star"></i>
-																										<i class="la la-star"></i>
-																										<i class="la la-star"></i>
-																										<i class="la la-star-half-o"></i>
-																								</div>
-																						</div>
-																				</div>
-																		</div>
-																		<div class="col-xl-9 col-lg-8 col-md-7">
-																				<div class="dec-review-content">
-																						<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters,</p>
-																						<div class="review-content-bottom">
-																								<div class="review-like">
-																										<span><i class="la la-heart-o"></i> 24 Likes</span>
-																								</div>
-																								<div class="review-date">
-																										<span>25 Jun 2019</span>
-																								</div>
-																						</div>
-																				</div>
-																		</div>
-																</div>
-														</div>
-												</div>
-										</div>
+						<div class="col-lg-6 col-md-12">
+							<div class="card-blocks" data-v-503820a0="">
+								<div class="description-review-wrapper pb-90">
+									<div class="ml-auto mr-auto" style="float: left;">
+											<div class="dec-review-topbar nav mb-40">
+													<a class="active" data-toggle="tab" href="#des-details1">Description</a>
+													<a data-toggle="tab" href="#des-details2">Specification</a>
+													<a data-toggle="tab" href="#des-details3">Reviews</a>
+											</div>
+											<div class="tab-content dec-review-bottom">
+													<div id="des-details1" class="tab-pane active">
+															<div class="description-wrap">
+																	<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text. It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters,</p>
+															</div>
+													</div>
+													<div id="des-details2" class="tab-pane ">
+															<div class="specification-wrap table-responsive">
+																	<table>
+																			<tbody>
+																					<tr>
+																							<td class="width1">Name / Model</td>
+																							<td>LaaVista Depro, FX 829 v1</td>
+																					</tr>
+																					<tr>
+																							<td>Type</td>
+																							<td>Categories</td>
+																					</tr>
+																					<tr>
+																							<td class="width1">Models</td>
+																							<td>FX 829 v1</td>
+																					</tr>
+																					<tr>
+																							<td class="width1">Categories</td>
+																							<td>Product Type</td>
+																					</tr>
+																					<tr>
+																							<td class="width1">Size</td>
+																							<td>60’’ x 40’’</td>
+																					</tr>
+																					<tr>
+																							<td class="width1">Display Port</td>
+																							<td>Multi</td>
+																					</tr>
+																					<tr>
+																							<td class="width1">Media</td>
+																							<td>Brightside</td>
+																					</tr>
+																					<tr>
+																							<td class="width1">Color</td>
+																							<td>Black, White</td>
+																					</tr>
+																			</tbody>
+																	</table>
+															</div>
+													</div>
+													<div id="des-details3" class="tab-pane">
+															<div class="dec-review-wrap mb-50">
+																	<div class="row">
+																			<div class="col-xl-3 col-lg-4 col-md-5">
+																					<div class="dec-review-img-wrap">
+																							
+																							<div class="dec-client-name">
+																									<h4>Jonathon Doe</h4>
+																									<div class="dec-client-rating">
+																											<i class="la la-star"></i>
+																											<i class="la la-star"></i>
+																											<i class="la la-star"></i>
+																											<i class="la la-star"></i>
+																											<i class="la la-star-half-o"></i>
+																									</div>
+																							</div>
+																					</div>
+																			</div>
+																			<div class="col-xl-9 col-lg-8 col-md-7">
+																					<div class="dec-review-content">
+																							<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters,</p>
+																							<div class="review-content-bottom">
+																									<div class="review-like">
+																											<span><i class="la la-heart-o"></i> 24 Likes</span>
+																									</div>
+																									<div class="review-date">
+																											<span>25 Jun 2019</span>
+																									</div>
+																							</div>
+																					</div>
+																			</div>
+																	</div>
+															</div>
+													</div>
+											</div>
+									</div>
 								</div>
 							</div>
 						</div>

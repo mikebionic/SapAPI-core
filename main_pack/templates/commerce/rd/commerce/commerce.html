@@ -51,7 +51,7 @@
 					{% for sl_image in slider.Sl_images %}
 					{% if sl_image.SlImgMainImgFilePathS %}
 					<div class="col-lg-6 col-md-6 col-sm-6 col-12">
-						<div class="banner-wrap bottom_banner mb-30">
+						<div class="banner-wrap bottom_banner">
 							<a href="{{url_for('commerce.v_grid')}}">
 								<img loading="lazy" src="{{ sl_image.SlImgMainImgFilePathM }}"
 								data-src-m="{{ sl_image.SlImgMainImgFilePathR }}"
@@ -83,7 +83,7 @@
 		
 								{% for resource in Latest_resources %}
 									<li class="col-xl-2 col-lg-4 col-md-4 col-sm-6 col-6">
-										<div class="product-wrap product-border-3 product-img-zoom mb-30">
+										<div class="product-wrap product-border-3 product-img-zoom">
 											<div class="product-img">
 												<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">
 													<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }} {{ company.CName }}">
@@ -111,7 +111,7 @@
 													</span>
 												</span>
 												<a href="#" class="tile-hover-target k9h">
-													<span class="n1c c2n n2c nc4 f-tsBodyL k9h">
+													<span class="order-info n1c c2n n2c nc4 f-tsBodyL k9h">
 														<span>{{ resource.ResName }}</span>
 													</span>
 												</a>
@@ -155,7 +155,7 @@
 					<div class="col-lg-3 col-md-12">
 						{% set resource_main = Latest_resources[-1] if Latest_resources %}
 						{% if resource_main %}
-						<div class="product-wrap product-border-3 product-img-zoom mb-30">
+						<div class="product-wrap product-border-3 product-img-zoom">
 							<div class="product-img" style="height: 65%;">
 								<a href="{{url_for('commerce.product',ResId=resource_main.ResId,ResName=resource_main.ResName.replace('/','-').replace(' ','-'))}}">
 									<img loading="lazy" src="{{ resource_main.FilePathS if resource_main.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="Product {{resource_main.ResName}} of category {{ resource_main.ResCatName if resource_main.ResCatName else '' }} {{ company.CName }}">
@@ -178,12 +178,9 @@
 									</span>
 								</div>
 								<span class="n1c c2n n2c nc5 f-tsBodyM" style="color:var(--ozOrange);">
-									<span>
-										Бестселлер
-									</span>
 								</span>
 								<a href="#" class="tile-hover-target k9h">
-									<span class="n1c c2n n2c nc4 f-tsBodyL k9h">
+									<span class="order-info n1c c2n n2c nc4 f-tsBodyL k9h">
 										<span>{{ resource_main.ResName }}</span>
 									</span>
 								</a>
@@ -247,8 +244,8 @@
 												Бестселлер
 											</span>
 										</span>
-										<a href="#" class="tile-hover-target k9h">
-											<span class="n1c c2n n2c nc4 f-tsBodyL k9h">
+										<a href="#" class="order-infotile-hover-target k9h">
+											<span class=" n1c c2n n2c nc4 f-tsBodyL k9h">
 												<span>{{ resource.ResName }}</span>
 											</span>
 										</a>
@@ -342,8 +339,8 @@
 				</div>
 				<div class="row">
 					{% for resource in Latest_resources %}
-					<div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-6" style="padding-bottom: 10px;">
-						<div class="product-wrap product-border-3 product-img-zoom mb-30">
+					<div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-6" style="padding-bottom: 10px;">
+						<div class="product-wrap product-border-3 product-img-zoom">
 							<div class="product-img">
 								<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">
 									<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }} {{ company.CName }}">
@@ -366,14 +363,12 @@
 									</span>
 								</div>
 								<span class="n1c c2n n2c nc5 f-tsBodyM" style="color:var(--ozOrange);">
-									<span>
-										Бестселлер
-									</span>
 								</span>
 								<a href="#" class="tile-hover-target k9h">
-									<span class="n1c c2n n2c nc4 f-tsBodyL k9h">
-										<span>{{ resource.ResName }}</span>
-									</span>
+									<h4 class="order-info">
+										<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">
+										{{ resource.ResName }}
+									</a></h4>
 								</a>
 								
 								<div class="hw w0h">

@@ -4183,7 +4183,7 @@ body.can-uppercase .section-categories-carousel.section-top-categories .readmore
 .site-info {
   width: 100vw;
   position: relative;
-  background-color: #8c0e18;
+  background-color: #222a37;
   background-image: linear-gradient(336deg, #d81923ad 0%, #810d17cf 74%);
   color: #bababa;
   font-size: 0.933em;
@@ -19278,7 +19278,7 @@ table.shop_table_responsive.my_account_orders .order-actions {
     .single-product .single-product-wrapper .product-images-wrapper {
       margin-bottom: 1.250em; } }
   .onsale {
-    background-color: #8c0e18;
+    background-color: #222a37;
     background-image: linear-gradient(336deg, #d81923ad 0%, #810d17cf 74%);
     border-radius: 4px;
     border-top-right-radius:0;
@@ -26538,7 +26538,7 @@ form.track_order {
     transition: all 0.25s ease 0s;
     opacity: 1;
     visibility: visible;
-    border-bottom: 2px solid #8c0e18;
+    border-bottom: 2px solid #222a37;
     border-bottom-left-radius: .25rem;
     border-bottom-right-radius: .25rem;
 
@@ -26639,7 +26639,7 @@ form.track_order {
     left: 0;
     width: 100%;
     height: 2px;
-    background-color: #8c0e18;
+    background-color: #222a37;
     transition: all 0.3s ease;
     transform: scale(0.85);
   }
@@ -27319,8 +27319,8 @@ button{
 .product-count .qtyplus {
   width: 34px;
   height: 34px;
-  background-color: #8c0e18;
-  background-image: linear-gradient(336deg, #d81923ad 0%, #810d17cf 74%);
+  background-color: #222a37;
+  background-image: linear-gradient(336deg, #232a37d4 0%, #212836c4 74%);
   text-align: center;
   font-size: 19px;
   line-height: 36px;
@@ -27344,8 +27344,8 @@ button{
 }
 .round-black-btn {
   border-radius: 4px;
-  background-color: #8c0e18;
-  background-image: linear-gradient(336deg, #d81923ad 0%, #810d17cf 74%);
+  background-color: #222a37;
+  background-image: linear-gradient(336deg, #232a37d4 0%, #212836c4 74%);
   color: #fff;
   padding: 4px 15px;
   display: inline-block;
@@ -27356,7 +27356,6 @@ button{
 .cardplacement {
   margin: 75% auto;
   z-index: 1;
-  opacity: 0.7;
 }
 
 .cardplacement:hover{
@@ -27670,7 +27669,7 @@ button{
 
 
 .description{
-  background-image: linear-gradient(336deg, #ea010180 0%, #690707db 74%);
+  background-image: linear-gradient(336deg, #232a37d4 0%, #212836c4 74%);
   background-color: transparent;
 	position: absolute;
 	width: 140px;
@@ -34962,7 +34961,8 @@ input:checked ~ .tab-content{
   .main-content{
     padding: 100px 60px 0 60px;
     background-size: cover;
-    background-image: url(../images/1.jpg);
+    background-position:center;
+    background-image: url(../images/1.svg);
   }
   .what-do-we-do{
     padding:0 60px 15px 60px;

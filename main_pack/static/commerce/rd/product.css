@@ -4752,8 +4752,7 @@ body,html {
   }
   
   .all-content[data-v-503820a0] {
-    display: flex;
-    justify-content: space-between
+    width: 100%;
   }
   
   .all-content .left-content[data-v-503820a0] {
