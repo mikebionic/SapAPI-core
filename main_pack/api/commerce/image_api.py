@@ -41,6 +41,7 @@ def remove_image(file_type,file_name):
 			os.remove(FilePathR)
 	except Exception as ex:
 		print(f"remove_image exception {ex}")
+		pass
 
 
 def get_images(

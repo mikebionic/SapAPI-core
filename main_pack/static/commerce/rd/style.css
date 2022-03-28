@@ -1414,6 +1414,7 @@ section {
   .nr-header__search-buttons {
     visibility: visible;
     opacity: 1;
+    display:none
   }
 
   .nr-header__search-clear {
@@ -5374,6 +5375,15 @@ body{
   float: right;
   position: relative;
 }
+
+/* .qty{
+  width: 5px;
+  display: flex;
+  top: 0px;
+  justify-content: center;
+  align-items: center;
+} */
+
 .biolife-clone-wrap .megamenu-item .menu-title{
   font-size: 14px;
   font-weight: 400;
@@ -6596,7 +6606,6 @@ body:not(.open-overlay) .header-area.layout-01{
   line-height: 140%;
   color: #000
 }
-
 @media(max-width: 630px) {
   .static-wrapper[data-v-94788a02] {
       padding:0;
@@ -6648,3 +6657,7 @@ body:not(.open-overlay) .header-area.layout-01{
 .pagination-style {
   margin-top: 3%
 }
+}
+
+
+/* shopping cart  */
