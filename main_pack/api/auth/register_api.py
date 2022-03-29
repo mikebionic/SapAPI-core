@@ -23,6 +23,7 @@ def register_request():
 	try:
 		if register_method == "email":
 			if "Email" not in header_data:
+				log_print(f"Email not in header {str(header_data)}")
 				raise Exception
 
 			data, message = register_email(header_data["Email"])
@@ -35,6 +36,7 @@ def register_request():
 
 		if register_method == "phone_number":
 			if "PhoneNumber" not in header_data:
+				log_print(f"PhoneNumber not in header {str(header_data)}")
 				raise Exception
 
 			data, message = register_phone_number(header_data["PhoneNumber"])
