@@ -286,6 +286,11 @@ Provide **username** and **password** in Authentication headers
 | notDivId        | **int**  |
 | avoidQtyCheckup | **int**  |
 | showMain        | **int**  | shows featured only |
+| limit_by        | **int**  |
+| showImage       | **int**  | defult: 1           |
+| showLastVendor  | **int**  | default: 0          |
+
+
 
 
 ---

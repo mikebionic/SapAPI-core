@@ -14,7 +14,7 @@ from main_pack.models import Rp_acc, User
 from main_pack.models import Rp_acc_trans_total
 
 from main_pack.base.apiMethods import checkApiResponseStatus, fileToURL
-from main_pack.api.auth.utils import sha_required, token_required
+from main_pack.api.auth.utils import admin_required, token_required
 from main_pack.api.base.validators import request_is_json
 from main_pack.api.users.utils import addRpAccDict
 
@@ -125,9 +125,9 @@ def api_v_rp_accs(user):
 
 
 @api.route("/tbl-dk-rp-accs/",methods=['GET','POST'])
-@sha_required
+@admin_required
 @request_is_json(request)
-def api_rp_accs():
+def api_rp_accs(user):
 	if request.method == 'GET':
 		arg_data = {
 			"DivId": request.args.get("DivId",None,type=int),

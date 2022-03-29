@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from flask import session
+from sqlalchemy import or_, and_
 
 from main_pack.config import Config
 from main_pack import db, cache
@@ -27,7 +28,9 @@ from main_pack.models import (
 	Res_category,
 	Wish,
 	Rating,
-	Exc_rate)
+	Exc_rate,
+	Barcode,
+)
 from main_pack.models import (
 	Res_color,
 	Res_size,
@@ -129,7 +132,9 @@ def collect_resources_query(
 	avoidQtyCheckup = 0,
 	showNullPrice = False,
 	DivId = None,
-	notDivId = None):
+	notDivId = None,
+	search = None,
+):
 	resource_filtering = {
 		"GCRecord": None,
 	}
@@ -155,6 +160,58 @@ def collect_resources_query(
 		Res_Total_subquery.c.ResPendingTotalAmount_sum)\
 	.filter_by(**resource_filtering)\
 	.outerjoin(Res_Total_subquery, Resource.ResId == Res_Total_subquery.c.ResId)
+
+	if search:
+		search = search.strip()
+		searching_tag = "%{}%".format(search)
+		resource_ids = []
+
+		barcodes_search = Barcode.query\
+			.filter(and_(
+				Barcode.GCRecord == None,\
+				Barcode.BarcodeVal.ilike(searching_tag)))
+		if DivId:
+			barcodes_search = barcodes_search.filter_by(DivId = DivId)
+		if notDivId:
+			barcodes_search = barcodes_search.filter(Barcode.DivId != DivId)
+		barcodes_search = barcodes_search.all()
+
+		if Config.SEARCH_BY_RESOURCE_DESCRIPTION:
+			resources_search = Resource.query\
+				.filter(and_(
+					Resource.GCRecord == None,\
+					or_(
+						Resource.ResName.ilike(searching_tag),
+						Resource.ResDesc.ilike(searching_tag)
+					),\
+					Resource.UsageStatusId == 1))\
+				.order_by(Resource.ResId.desc())
+
+		else:
+			resources_search = Resource.query\
+				.filter(and_(
+					Resource.GCRecord == None,\
+					Resource.ResName.ilike(searching_tag),\
+					Resource.UsageStatusId == 1))\
+				.order_by(Resource.ResId.desc())
+
+			if DivId:
+				resources_search = resources_search.filter_by(DivId = DivId)
+			if notDivId:
+				resources_search = resources_search.filter(Resource.DivId != notDivId)
+			resources_search = resources_search.all()
+			for resource in resources_search:
+				resource_ids.append(resource.ResId)
+
+		if barcodes_search:
+			for barcode in barcodes_search:
+				resource_ids.append(barcode.ResId)
+
+		# removes duplicates
+		resource_ids = list(set(resource_ids))
+		resource_ids = [ResId for ResId in resource_ids]
+
+		resource_query = resource_query.filter(Resource.ResId.in_(resource_ids))
 
 	if avoidQtyCheckup == 0:
 		if not Config.SHOW_NEGATIVE_WH_QTY_RESOURCE:
@@ -233,6 +290,10 @@ def apiResourceInfo(
 	order_by_visible_index = False,
 	limit_by = None,
 	showRatings = 0,
+	showImage = 1,
+	showLastVendor = 0,
+	showPurchacePrice = 0,
+	search = None,
 ):
 
 	currencies = Currency.query.filter_by(GCRecord = None).all()
@@ -285,10 +346,11 @@ def apiResourceInfo(
 					avoidQtyCheckup = avoidQtyCheckup,
 					showNullPrice = showNullPrice,
 					DivId = DivId,
-					notDivId = notDivId)
+					notDivId = notDivId,
+					search = search,
+				)
 
 			resources = resource_query.options(
-				joinedload(Resource.Image),
 				joinedload(Resource.Barcode),
 				joinedload(Resource.Rating),
 				joinedload(Resource.Res_price),
@@ -298,9 +360,15 @@ def apiResourceInfo(
 				joinedload(Resource.brand),
 				joinedload(Resource.usage_status),
 				joinedload(Resource.Res_discount_SaleResId))
+			
+			if showImage:
+				resources = resources.options(joinedload(Resource.Image))
+
+			if showLastVendor:
+				resources = resources.options(joinedload(Resource.last_vendor))
 
 			if Config.SHOW_RES_TRANSLATIONS:
-				resources.options(joinedload(Resource.Res_translation))
+				resources = resources.options(joinedload(Resource.Res_translation))
 
 			if order_by_visible_index:
 				resources = resources.order_by(Resource.ResVisibleIndex.asc())
@@ -357,7 +425,6 @@ def apiResourceInfo(
 					.filter(Res_price.ResPriceValue > 0)
 
 			resource_query = resource_query.options(
-				joinedload(Resource.Image),
 				joinedload(Resource.Barcode),
 				joinedload(Resource.Res_price),
 				joinedload(Resource.Res_total),
@@ -366,6 +433,12 @@ def apiResourceInfo(
 				joinedload(Resource.brand).options(joinedload(Brand.Image)),
 				joinedload(Resource.usage_status),
 				joinedload(Resource.Res_discount_SaleResId))
+
+			if showImage:
+				resource_query = resource_query.options(joinedload(Resource.Image))
+
+			if showLastVendor:
+				resource_query = resource_query.options(joinedload(Resource.last_vendor))
 
 			if fullInfo:
 				resource_query = resource_query.options(
@@ -405,6 +478,14 @@ def apiResourceInfo(
 				ResPriceGroupId = ResPriceGroupId,
 				Res_price_dbModels = query_resource.Res_price,
 				Res_pice_group_dbModels = res_price_groups)
+			
+			if showPurchacePrice:
+				List_Res_price_purchace = calculatePriceByGroup(
+					ResPriceGroupId = ResPriceGroupId,
+					Res_price_dbModels = query_resource.Res_price,
+					Res_pice_group_dbModels = res_price_groups,
+					ResPriceTypeId=1
+				)
 
 			if not List_Res_price:
 				raise Exception
@@ -415,6 +496,9 @@ def apiResourceInfo(
 				List_Currencies = []
 
 			this_priceValue = List_Res_price[0]["ResPriceValue"] if List_Res_price else 0.0
+			if showPurchacePrice:
+				this_priceValue_purchace = List_Res_price_purchace[0]["ResPriceValue"] if List_Res_price_purchace else 0.0
+				
 			this_currencyCode = List_Currencies[0]["CurrencyCode"] if List_Currencies else Config.MAIN_CURRENCY_CODE
 			resource_info["RealPrice"] = this_priceValue
 			resource_info["DiscValue"] = None
@@ -433,11 +517,23 @@ def apiResourceInfo(
 				to_currency = currency_code,
 				currencies_dbModel = currencies,
 				exc_rates_dbModel = exc_rates)
+			
+			if showPurchacePrice:
+				price_data_purchace = price_currency_conversion(
+					priceValue = this_priceValue_purchace,
+					from_currency = this_currencyCode,
+					to_currency = currency_code,
+					currencies_dbModel = currencies,
+					exc_rates_dbModel = exc_rates)
 
 			List_Res_total = [res_total.to_json_api() for res_total in query_resource.Res_total if not res_total.GCRecord and res_total.WhId == 1]
-			List_Images = [image.to_json_api() for image in query_resource.Image if not image.GCRecord]
-			# Sorting list by Modified date
-			List_Images = (sorted(List_Images, key = lambda i: i["ModifiedDate"]))
+
+			List_Images = []
+			if showImage:
+				List_Images = [image.to_json_api() for image in query_resource.Image if not image.GCRecord]
+				# Sorting list by Modified date
+				List_Images = (sorted(List_Images, key = lambda i: i["ModifiedDate"]))
+
 
 			if showRatings or fullInfo:
 				List_Ratings = []
@@ -477,17 +573,19 @@ def apiResourceInfo(
 			resource_info["ResPriceValue"] = price_data["ResPriceValue"]
 			resource_info["CurrencyCode"] = price_data["CurrencyCode"]
 			resource_info["CurrencySymbol"] = price_data["CurrencySymbol"]
-			# resource_info["ResTotBalance"] = List_Res_total[0]["ResTotBalance"] if List_Res_total else 0.0
-			# resource_info["ResPendingTotalAmount"] = List_Res_total[0]["ResPendingTotalAmount"] if List_Res_total else 0.0
-
-			# resource_info["ResTotBalance"] = 9999 if Config.SET_UNLIMITED_RESOURCE_QTY == 1 else
-			# resource_info["ResPendingTotalAmount"]
+			if showPurchacePrice:
+				resource_info["PurchaceResPriceValue"] = price_data_purchace["ResPriceValue"]
 			resource_info["ResTotBalance"] = 9999 if Config.SET_UNLIMITED_RESOURCE_QTY == 1 else resource_query.ResTotBalance_sum if resource_query.ResTotBalance_sum else 0.0
 			resource_info["ResPendingTotalAmount"] = 9999 if Config.SET_UNLIMITED_RESOURCE_QTY == 1 else resource_query.ResPendingTotalAmount_sum if resource_query.ResPendingTotalAmount_sum else 0.0
-			resource_info["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=List_Images[-1]["FileName"]) if List_Images else ""
-			resource_info["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=List_Images[-1]["FileName"]) if List_Images else ""
-			resource_info["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_Images[-1]["FileName"]) if List_Images else ""
-			resource_info["Images"] = List_Images if List_Images else []
+
+			if showImage:
+				resource_info["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=List_Images[-1]["FileName"]) if List_Images else ""
+				resource_info["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=List_Images[-1]["FileName"]) if List_Images else ""
+				resource_info["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_Images[-1]["FileName"]) if List_Images else ""
+				resource_info["Images"] = List_Images if List_Images else []
+
+			if showLastVendor:
+				resource_info["LastVendorName"] = query_resource.last_vendor.RpAccUName if query_resource.last_vendor else ""
 
 			if Config.SHOW_RES_TRANSLATIONS:
 				if query_resource.Res_translation and language_code:

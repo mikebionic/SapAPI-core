@@ -41,14 +41,24 @@ def api_v_resources():
 	avoidQtyCheckup = request.args.get("avoidQtyCheckup",0,type=int)
 	showMain = request.args.get("showMain",0,type=int)
 	limit_by = request.args.get("limit",None,type=int)
+	showImage = request.args.get("showImage",1,type=int)
+	showLastVendor = request.args.get("showLastVendor",0,type=int)
+	showPurchacePrice = request.args.get("showPurchacePrice",0,type=int)	
+	search = request.args.get("search",None,type=str)
+	search = search.strip() if search else None
+
 	res = apiResourceInfo(
 		DivId = DivId,
 		notDivId = notDivId,
 		avoidQtyCheckup = avoidQtyCheckup,
 		showMain = showMain,
-		limit_by = limit_by)
-	response = make_response(jsonify(res), 200)
-	return response
+		limit_by = limit_by,
+		showImage = showImage,
+		showLastVendor = showLastVendor,
+		showPurchacePrice = showPurchacePrice,
+		search = search,
+	)
+	return make_response(jsonify(res), 200)
 
 
 @api.route("/v-resources/<int:ResId>/")
