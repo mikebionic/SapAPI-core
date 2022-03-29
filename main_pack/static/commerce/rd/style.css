@@ -333,7 +333,7 @@ section {
 }
 
 .nr-header__topbar-link:hover {
-  color: #46c3d2;
+  color: #2c5ca7;
 }
 
 .nr-header__geo {
@@ -495,7 +495,7 @@ section {
 }
 
 .nr-header__geo-suggest-item:hover {
-  color: #46c3d2;
+  color: #2c5ca7;
 }
 
 .nr-header .nr-header__burger-desktop,
@@ -842,7 +842,7 @@ section {
 }
 
 .nr-header__search-popup-item:hover {
-  color: #46c3d2;
+  color: #2c5ca7;
 }
 
 .nr-header__user-nav {
@@ -908,7 +908,7 @@ section {
 
 .nr-header__user-nav-link:hover {
   text-decoration: none;
-  color: #46c3d2;
+  color: #2c5ca7;
 }
 
 .nr-header__badge {
@@ -924,7 +924,7 @@ section {
 }
 
 .nr-header__badge--blue {
-  background-color: #46c3d2;
+  background-color: #2c5ca7;
   color: #fff;
 }
 
@@ -1161,7 +1161,7 @@ section {
 }
 
 .nr-header__mobile-nav-account-logout:hover {
-  color: #46c3d2;
+  color: #2c5ca7;
 }
 
 .nr-header__mobile-nav-button {
@@ -1219,7 +1219,7 @@ section {
 
 .nr-header__mobile-nav-links-item .nr-header__mobile-nav-link:hover {
   text-decoration: none;
-  color: #46c3d2;
+  color: #2c5ca7;
 }
 
 .nr-header__mobile-nav-link {
@@ -1416,7 +1416,6 @@ section {
     opacity: 1;
     display:none
   }
-
   .nr-header__search-clear {
     margin-right: 1.25rem;
   }
@@ -1604,7 +1603,7 @@ a.nr-button {
 }
 
 .nr-button--blue {
-  background-color: #46c3d2;
+  background-color: #2c5ca7;
   color: #fff;
 }
 
@@ -2454,7 +2453,6 @@ a.nr-button {
 }
 .product-wrap.product-border-3 {
   border: 1px solid #f2f2f2;
-  height: 100% !important;
   overflow: hidden;
   border-radius: 10px;
 }

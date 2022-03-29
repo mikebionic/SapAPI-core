@@ -374,12 +374,10 @@
         }
     }
     .product-zoom-right {
-        display: flex;
         position: relative;
         width: 80%;
         margin: 0 auto;
         justify-content: center;
-        align-items: center;
         @media #{$xs-layout} {
             width: 70%;
         }
