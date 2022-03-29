@@ -55,7 +55,7 @@ def api_v_resources():
 		limit_by = limit_by,
 		showImage = showImage,
 		showLastVendor = showLastVendor,
-		showPurchacePrice = 0,
+		showPurchacePrice = showPurchacePrice,
 		search = search,
 	)
 	return make_response(jsonify(res), 200)
