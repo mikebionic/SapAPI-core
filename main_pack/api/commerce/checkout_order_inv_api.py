@@ -37,6 +37,8 @@ from main_pack.base.priceMethods import calculatePriceByGroup, price_currency_co
 from main_pack.base.num2text import num2text, price2text
 # / Resource models and operations /
 
+from main_pack.api.v1.order_inv_api.utils.send_order_to_server import send_order_to_server
+
 
 @api.route("/checkout-sale-order-inv/",methods=['POST'])
 @token_required
@@ -302,6 +304,11 @@ def api_checkout_sale_order_invoices(user):
 			status_code = 200
 			for e in status:
 				res[e] = status[e]
+			
+			if Config.SEND_ORDER_TO_HASAP_SYNC and not failed_order_inv_lines:
+				send_order_to_server(
+					res,
+					dbModel = newOrderInv)
 
 	except Exception as ex:
 		print(f"{datetime.now()} | Checkout OInv Exception: {ex}")
