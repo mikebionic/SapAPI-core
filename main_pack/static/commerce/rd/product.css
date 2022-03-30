@@ -5024,4 +5024,26 @@ body,html {
     color: #fff;
     background: #86d1da
   }
-  
+  .tabs{
+    -webkit-overflow-scrolling: touch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    display: -ms-flexbox;
+    display: flex;
+    font-size: 1rem;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    overflow: hidden;
+    overflow-x: auto;
+    white-space: -webkit-overflow-scrolling: touch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    display: -ms-flexbox;
+    display: flex;
+    font-size: 1rem;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    overflow: hidden;
+    overflow-x: auto;
+    white-space: inherit!important;
+  }

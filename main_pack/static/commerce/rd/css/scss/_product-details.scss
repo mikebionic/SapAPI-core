@@ -30,9 +30,8 @@
 
 .dec-review-topbar {
     display: flex;
-    justify-content: center;
-    border-bottom: 1px solid $bg-black-2;
-    border-top: 1px solid $bg-black-2;
+    justify-content: start;
+    border-top: 1px solid #dbdbdb;
     padding: 11px 0 14px;
     a {
         font-size: 14px;
