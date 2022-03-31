@@ -387,15 +387,15 @@ curl 127.0.0.1:5000/ls/api/v1/v-images/ --header 'images-to-exclude: [{"FileName
 
 ## Translation api
 
-| **Route**        | **Methods** | **Status** | **Note** |
-| ---------------- | :---------: | :--------: | -------- |
-| /v-translations/ |   **GET**   |   Active   |
+| **Route**        |   **Methods**    | **Status** | **Note** |
+| ---------------- | :--------------: | :--------: | -------- |
+| /v-translations/ | **GET** **POST** |   Active   |
 
 **Properties**
 | **Name**   | **Type** | **Description** | **Example**     |
 | ---------- | :------: | --------------- | --------------- |
 | id         | **int**  |
-| translGuid | **str**  |
+| uuid       | **str**  |
 | categoryId | **int**  |
 | colorId    | **int**  |
 | prodId     | **int**  |
@@ -406,6 +406,33 @@ curl 127.0.0.1:5000/ls/api/v1/v-images/ --header 'images-to-exclude: [{"FileName
 | language   | **str**  |                 | "tk_TM" "en_US" |
 
 [Example](./examples/translation_api.md)
+
+----
+
+
+| **Route**            |   **Methods**    | **Status** | **Note** |
+| -------------------- | :--------------: | :--------: | -------- |
+| /v-res-translations/ | **GET** **POST** |   Active   |
+
+**Properties**
+| **Name**     | **Type** | **Description** | **Example**     |
+| ------------ | :------: | --------------- | --------------- |
+| id           | **int**  |
+| uuid         | **str**  |
+| resId        | **int**  |
+| resName      | **str**  |
+| resGuid      | **str**  |
+| showResource | **int**  |
+| nameText     | **str**  |
+| descText     | **str**  |
+| langId       | **int**  |
+| language     | **str**  |                 | "tk_TM" "en_US" |
+
+[Example](./examples/translation_api.md)
+
+---
+
+
 
 ---
 
@@ -419,7 +446,7 @@ curl 127.0.0.1:5000/ls/api/v1/v-images/ --header 'images-to-exclude: [{"FileName
 | **Name** | **Type** | **Description** | **Example**     |
 | -------- | :------: | --------------- | --------------- |
 | id       | **int**  |
-| guid     | **str**  |
+| uuid     | **str**  |
 | name     | **str**  |                 | "tk_TM" "en_US" |
 | desc     | **str**  |
 
