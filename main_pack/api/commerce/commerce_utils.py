@@ -19,7 +19,7 @@ from main_pack.base.priceMethods import calculatePriceByGroup, price_currency_co
 # / functions and methods /
 
 # db models
-# from main_pack.models import Company, Division, Warehouse, Image, Res_translation
+# from main_pack.models import Company, Division, Warehouse, Image, 
 from main_pack.models import (
 	Resource,
 	Res_price,
@@ -30,6 +30,7 @@ from main_pack.models import (
 	Rating,
 	Exc_rate,
 	Barcode,
+	Res_translation,
 )
 from main_pack.models import (
 	Res_color,
@@ -368,7 +369,9 @@ def apiResourceInfo(
 				resources = resources.options(joinedload(Resource.last_vendor))
 
 			if Config.SHOW_RES_TRANSLATIONS:
-				resources = resources.options(joinedload(Resource.Res_translation))
+				resources = resources.options(
+					joinedload(Resource.Res_translation).options(joinedload(Res_translation.language))
+				)
 
 			if order_by_visible_index:
 				resources = resources.order_by(Resource.ResVisibleIndex.asc())
@@ -439,6 +442,11 @@ def apiResourceInfo(
 
 			if showLastVendor:
 				resource_query = resource_query.options(joinedload(Resource.last_vendor))
+
+			if Config.SHOW_RES_TRANSLATIONS:
+				resource_query = resource_query.options(
+					joinedload(Resource.Res_translation).options(joinedload(Res_translation.language))
+				)
 
 			if fullInfo:
 				resource_query = resource_query.options(
