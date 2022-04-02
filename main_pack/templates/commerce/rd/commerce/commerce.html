@@ -72,10 +72,10 @@
 					<div class="iq-card iq-card-block iq-card-stretch iq-card-height">
 						<div class="iq-card-header d-flex justify-content-between align-items-center position-relative mb-0 trendy-detail">
 								<div class="iq-header-title">
-									<h4 class="card-title mb-0">Новое поступление</h4>
+									<h4 class="card-title mb-0">Meshur kitaplar</h4>
 								</div>
 								<div class="iq-card-header-toolbar d-flex align-items-center">
-									<a href="category.html" class="btn btn-sm btn-primary view-more">Посмотреть больше</a>
+									<a href="{{url_for('commerce.v_grid')}}" class="btn btn-sm btn-primary view-more">Hemmesini gor</a>
 								</div>
 						</div>
 						<div class="iq-card-body trendy-contens">
@@ -97,6 +97,9 @@
 													</a>
 												</div>
 												{% endif %}
+													<span class="onsale">
+														<span class="woocommerce-Price-amount amount">-30%</span>
+													</span>
 												<div class="hm3"><div class="ui-q0">
 													<span class="ui-q3 ui-q6">
 														{{ resource.ResPriceValue }} 
@@ -124,7 +127,9 @@
 														<div class="wh0 h1w">
 																<div class="q6c qc7 wh">
 																		<div class="ui-b2">
-																			<span class="ui-f0">В корзину</span>
+																			<a class="add-to-cart" ownerId="{{ resource.ResId }}">
+																				<span>В корзину</span>
+																			</a>
 																		</div>
 																</div>
 														</div>
@@ -145,9 +150,8 @@
 		
 		<div class="recent-selling-area pb-60">
 			<div class="container">
-				<div class="section-title-2 text-center">
-						<h2>Recent Selling Product</h2>
-						<img src="{{ url_for('static', filename='commerce/rd/images/title-shape.png') }}" alt="icon-img">
+				<div class="section-title-6 mb-50 text-center">
+					<h2>Biznes kitaplar</h2>
 				</div>
 				<div class="row">
 					<div class="col-lg-3 col-md-12">
@@ -167,6 +171,10 @@
 									</a>
 								</div>
 								{% endif %}
+
+								<span class="onsale">
+									<span class="woocommerce-Price-amount amount">-30%</span>
+								</span>
 								<div class="hm3"><div class="ui-q0">
 									<span class="ui-q3 ui-q6">
 										{{ resource_main.ResPriceValue }} 
@@ -194,7 +202,9 @@
 										<div class="wh0 h1w">
 												<div class="q6c qc7 wh">
 														<div class="ui-b2">
-															<span class="ui-f0">В корзину</span>
+															<a class="add-to-cart" ownerId="{{ resource_main.ResId }}">
+																<span>В корзину</span>
+															</a>
 														</div>
 												</div>
 										</div>
@@ -229,6 +239,10 @@
 											</a>
 										</div>
 										{% endif %}
+
+										<span class="onsale" style="bottom: 52%">
+											<span class="woocommerce-Price-amount amount">-30%</span>
+										</span>
 										<div class="hm3"><div class="ui-q0">
 											<span class="ui-q3 ui-q6">
 												{{ resource.ResPriceValue }} 
@@ -256,7 +270,9 @@
 												<div class="wh0 h1w">
 														<div class="q6c qc7 wh">
 																<div class="ui-b2">
-																	<span class="ui-f0">В корзину</span>
+																	<a class="add-to-cart" ownerId="{{ resource.ResId }}">
+																		<span>В корзину</span>
+																	</a>
 																</div>
 														</div>
 												</div>
@@ -341,7 +357,7 @@
 				<div class="row">
 					{% for resource in Latest_resources %}
 					<div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-6" style="padding-bottom: 10px;">
-						<div class="product-wrap product-border-3 product-img-zoom">
+						<div class="product-wrap product-border-3 product-img-zoom" style="height: 100%;">
 							<div class="product-img">
 								<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">
 									<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }} {{ company.CName }}">
@@ -355,6 +371,10 @@
 									</a>
 								</div>
 								{% endif %}
+
+								<span class="onsale">
+									<span class="woocommerce-Price-amount amount">-30%</span>
+								</span>
 								<div class="hm3"><div class="ui-q0">
 									<span class="ui-q3 ui-q6">
 										{{ resource.ResPriceValue }} 
@@ -382,7 +402,9 @@
 										<div class="wh0 h1w">
 												<div class="q6c qc7 wh">
 														<div class="ui-b2">
-															<span class="ui-f0">В корзину</span>
+															<a class="add-to-cart" ownerId="{{ resource.ResId }}">
+																<span>В корзину</span>
+															</a>
 														</div>
 												</div>
 										</div>

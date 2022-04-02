@@ -1,129 +1,4 @@
-body,html {
-    padding: 0;
-    margin: 0;
-    font-size: 100%;
-    outline: 0
-  }
-  
-  main {
-    display: block
-  }
-  
-  button::-moz-focus-inner {
-    padding: 0;
-    border: 0
-  }
-  
-  button,input,select,textarea {
-    margin: 0;
-    font: inherit
-  }
-  
-  input[type=checkbox],input[type=radio] {
-    width: 13px;
-    height: 13px;
-    padding: 0
-  }
-  
-  img {
-    border: 0;
-    vertical-align: top
-  }
-  
-  a {
-    cursor: pointer
-  }
-  
-  aside,footer,header,nav,section {
-    display: block
-  }
-  
-  video {
-    display: -moz-inline-stack;
-    display: inline-block;
-    zoom:1}
-  
-  [hidden] {
-    display: none
-  }
-  
-  svg:not(:root) {
-    overflow: hidden
-  }
-  
-  html {
-    -webkit-text-size-adjust: 100%;
-    -ms-text-size-adjust: 100%;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale
-  }
-  
-  body,html {
-    height: 100%
-  }
-  
-  body {
-    min-width: 20rem;
-    display: flex;
-    flex-direction: column
-  }
-  
-  @font-face {
-    font-weight: 450;
-    font-style: normal;
-    font-family: nr-currency-icons;
-    src: url(data:font/woff2;base64,d09GMgABAAAAAAKcAAsAAAAABqgAAAJRAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCCcApkfgE2AiQDCAsGAAQgBYU+By0b8gURFYw1sp8Htls0MC71pMKPpqSLJ7kp6T0Hz/+vpffN/KU/AWDWgC4FVLUEqmrrawlsT1V89L6c9tN4hEk6ZM+3/pdveNINPUJ+BEB4TlxTP/HpQdrskapXSZW01jXQQId9XmUPsvMJbYTjiWxv1TbmHLE5Jzk91plJevTIHQJoYshCmlq6hnCikGMCyNb66jzOJoVCcc2JYDcKH+QeV67/LytAa3n7TTiXHAxsJtLSt9K8RN216AFxe9xe3LTjogA/AhPIAhTIkFnqwUQYN9ElRQKs1ShwLR7PG0RW9SH810m9FwBRIOxJfKSt1hsAqDqbCCSHdoARrifRWOSxRFUNrVeVH+Wswq2r6oXkZ6dJT7Xu2H6flZuVgkRtWe1+ikvXNvK6qvZVccfn3KzJd+3vJ7MK6pCKtMsu87c8KS8YmfWtunFa1xz4+/l9EXxpcNJLChyNuXYrWZaSAYCGNFZi6KgBaDTgoaQfn6LTQsg+kg5CPs2sVjSACi3M2rCYm7UTwpFWNJls4GOLQB5zRpQLIYuXiTXw4QdrksU/QGHiw9oIkQrWTpb0sZoROfwCLFLkm4bVYVYlxr+bUDi5ILLcaMhrr50ejE94kaZJGCpfdl/REZP2Rm8If0ifoTaLEFU2aIWN1lVgV5kJzY9me1MUMf/4PMp2YHWYVYnx7yYUTi6ILDca8tpraGC+7hdpmszNg8qXYaP7eyZpb/SG8If0GWqzCFFlS0Y7gHcW1lXY2O1dM6H5MVDYm0InRW/c45DACeFgw2MIdZiYBzkcDgA=) format("woff2"),url(/_nuxt/fonts/nr-currency-icons-book.523349a.woff) format("woff");
-    font-display: swap
-  }
-  
-  @font-face {
-    font-weight: 500;
-    font-style: normal;
-    font-family: nr-currency-icons;
-    src: url(data:font/woff2;base64,d09GMgABAAAAAAKMAAsAAAAABmwAAAJBAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCCcApkfgE2AiQDCAsGAAQgBYUCBy0btgUR1YtJsh8HdvtI2yfOXIORvBtpn4OI1srqnTmafUBWiKAD5IhcooAtoo2OMEj6NjdDyQjDlJwHzw9fQspOemnKCID/uSZfPb93wB9ELmvRVElriwTa88YESTtb+nQim9jAJzTrhn1xMuLfTDKN37w3CaHzEMAQRw5S39jejxsNnxJA1leWZnB3UTQaRTeCU0k/lVM4UPpbFoGm+vH/RHIELBwKrupebJin+ovIEXnofZgnD2n8LwDACRSQA2iQfjXbiUJAKUxWkwRzlQt8Ea/38iCz2gj+Oi71ASCG4gJfTm6ppRYAui0mA6muPWBFmjEMdjJtEdFQ9dGyR3Kw9KHpbk9OvXIg5bIxbRt3svKzUrPSs8qqyjbTN1PzW4duVVTdaGzLL8wqvdhwqTSrkGo4L2OyyfgdL+fm21P+5f/ddl4C799F/qyMLQZu3iICW6PuOYTCc9YCiIp0WrLrpAUYDOBNkQDeekeFwHVEXATekmpaBCGayAQHNqXgJJAGMGQz6GwTzEEUoj0ISZwLYOHHXVAk8RrRxAdwECZucJIkcWAYlOrvtkmTCzRrjkmVGN98ReE40JwOp1rzx7v/pHEVhrqo9Ff0xKTOaILxhXjNjZkHr3JCJ2x0HAJBZSO0YjELbVn6+JMWKGfGmmNSJcY3X1E4DjSnw6m1w8/GP2lcy3ahLiqP0iuPkDqjCcYX4jU3gTS/z6uc0PloY/o4BErQ922EViyOdGhLGeatSjFYO7dyDHDApiVSp1C7acwyAA==) format("woff2"),url(/_nuxt/fonts/nr-currency-icons-medium.068a1c7.woff) format("woff");
-    font-display: swap
-  }
-  
-  @font-face {
-    font-weight: 200;
-    font-style: normal;
-    font-family: Suisse Intl;
-    src: url(/_nuxt/fonts/suisseintl-thin-webfont.c06d1e4.woff2) format("woff2"),url(/_nuxt/fonts/suisseintl-thin-webfont.f8005bc.woff) format("woff");
-    font-display: swap
-  }
-  
-  @font-face {
-    font-weight: 400;
-    font-style: normal;
-    font-family: Suisse Intl;
-    src: url(/_nuxt/fonts/suisseintl-regular-webfont.6dfcf15.woff2) format("woff2"),url(/_nuxt/fonts/suisseintl-regular-webfont.ad6626c.woff) format("woff");
-    font-display: swap
-  }
-  
-  @font-face {
-    font-weight: 400;
-    font-style: italic;
-    font-family: Suisse Intl;
-    src: url(/_nuxt/fonts/suisseintl-regularitalic-webfont.d6276d7.woff2) format("woff2"),url(/_nuxt/fonts/suisseintl-regularitalic-webfont.10aad03.woff) format("woff");
-    font-display: swap
-  }
-  
-  @font-face {
-    font-weight: 450;
-    font-style: normal;
-    font-family: Suisse Intl;
-    src: url(/_nuxt/fonts/suisseintl-book-webfont.c177747.woff2) format("woff2"),url(/_nuxt/fonts/suisseintl-book-webfont.3fd37b0.woff) format("woff");
-    font-display: swap
-  }
-  
-  @font-face {
-    font-weight: 500;
-    font-style: normal;
-    font-family: Suisse Intl;
-    src: url(/_nuxt/fonts/suisseintl-medium-webfont.ac6c16e.woff2) format("woff2"),url(/_nuxt/fonts/suisseintl-medium-webfont.2db8463.woff) format("woff");
-    font-display: swap
-  }
-  
+
   .nr-button {
     width: auto;
     margin: 0;
@@ -3038,8 +2913,8 @@ body,html {
   }
   
   .item-card-name-mobile[data-v-10b5df08] {
-    display: none;
-    margin-bottom: .25rem
+    margin-bottom: .25rem;
+    margin-top: 10px
   }
   
   @media(max-width: 1120px) {
@@ -3076,7 +2951,8 @@ body,html {
   }
   
   .card-manufactor-link[data-v-10b5df08] {
-    color: #a0a0a0;
+    color: #001a47;
+    font-size: 20px;
     text-decoration: none
   }
   
@@ -5047,3 +4923,4 @@ body,html {
     overflow-x: auto;
     white-space: inherit!important;
   }
+  

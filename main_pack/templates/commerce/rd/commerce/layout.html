@@ -338,25 +338,43 @@
 								<div class="search-overlay" data-v-342735b4=""></div>
 							</div>
 							<div class="nr-header__user-nav"> 
-								{% if current_user.is_authenticated %}
+								
 								<div class="prof nr-header__user-nav-item nr-header__user-nav-item--user">
-									<a href="{{ url_for('commerce_users.profile') }}"><i class="las la-user"></i></a>
-								</div>
-								<div class="nr-header__user-nav-item nr-header__user-nav-item--user">
-									<a href="{{ url_for('commerce_auth.logout') }}"><i class="las la-sign-out-alt"></i></a>
-								</div>
-								{% else %}
-								<div class="prof nr-header__user-nav-item nr-header__user-nav-item--user">
-									<a href="{{ url_for('commerce_auth.login') }}"><i class="las la-sign-in-alt"></i></a>
-								</div>
-								<div class="prof nr-header__user-nav-item nr-header__user-nav-item--user">
-									<a href="{{ url_for('commerce_auth.register') }}"><i class="las la-registered"></i></a>
-								</div>
-								{% endif %}
-								<div class="prof nr-header__user-nav-item nr-header__user-nav-item--wish">
-									<a href="{{ url_for('commerce_users.wishlist') }}" style="font-size: 21px;">
-										<i class="fa fa-heart-o"></i>
-									</a>
+									<li class="menu-item animate-dropdown dropdown language_">
+										<a data-toggle="dropdown" href="javascript:void(0);" role="button">
+											<div class="menu_iconn">
+												<i class="las la-user"></i>
+											</div>
+											<div class="notify"><span clatextprofile_navbar_icon" class="heartbit"></span><span class="point"></span></div>
+										</a>
+										<ul class="dropdown-menu slideUp2" style="z-index: 9999999; left: -57px!important;"> 
+											<li class="body">
+												<div class="bg-primary p-3">
+													<h5 class="mb-0 text-white line-height">Привет Ирина</h5>
+											 	</div>
+												<ul class="menu list-unstyled">
+													<li>
+														{% if current_user.is_authenticated %}
+														<a class="profile_navbar_icon" href="{{ url_for('commerce_users.profile') }}"><i class="las la-user"></i><span class="profile_navbar_text">Profile</span></a>
+														<div class="dropdown-divider"></div>
+														<a class="profile_navbar_icon" href="{{ url_for('commerce_auth.logout') }}"><i class="las la-sign-out-alt"></i><span class="profile_navbar_text">Logout</span></a>
+														<div class="dropdown-divider"></div>
+														{% else %}
+														<a class="profile_navbar_icon" href="{{ url_for('commerce_auth.login') }}"><i class="las la-sign-in-alt"></i><span class="profile_navbar_text">Login</span></a>
+														<div class="dropdown-divider"></div>
+														<a class="profile_navbar_icon" href="{{ url_for('commerce_auth.register') }}"><i class="las la-registered"></i><span class="profile_navbar_text">Register</span></a>
+														{% endif %}
+														<a class="profile_navbar_icon" href="{{ url_for('commerce_users.wishlist') }}" style="font-size: 21px;padding-left: 14px;">
+															<i class="fa fa-heart-o"></i>
+															<span class="profile_navbar_text">
+																Wishlist
+															</span>
+														</a>
+													</li>
+												</ul>
+											</li>
+										</ul>
+									</li>
 								</div>
 								
 								<div class="header-account-links">
@@ -412,7 +430,7 @@
 								</a>
 							</li>
 							<li itemprop="name" class="nr-header__nav-item submenu-item" data-v-fe68b2f6="">
-								<a href="/lists" itemprop="url" class="submenu-link" data-v-fe68b2f6="">
+								<a href="{{ url_for('commerce.resource_request') }}" itemprop="url" class="submenu-link" data-v-fe68b2f6="">
 									Подборки
 								</a>
 							</li>

@@ -70,6 +70,17 @@ def about():
 		url_prefix = url_prefix,
 		title = gettext(Config.COMMERCE_ABOUT_PAGE_TITLE))
 
+@bp.route(Config.COMMERCE_RESOURCE_REQUEST_PAGE)
+def resource_request():
+	categoriesData = UiCategoriesList()
+
+	return render_template(
+		f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/commerce/resource_request.html",
+		**categoriesData,
+		url_prefix = url_prefix,
+		title = gettext(Config.COMMERCE_ABOUT_PAGE_TITLE))
+
+
 
 @bp.route(Config.COMMERCE_CONTACTS_PAGE, methods=['GET', 'POST'])
 def contact():

@@ -1289,7 +1289,6 @@ article {
 	position: absolute;
 	font-size: 0.4em !important;
 	padding: 0.7em 0.5em 0 0.5em;
-	width: 38px;
 	height: 16px;
 	flex-shrink: 0;
 	line-height: 0.4 !important;
@@ -1359,6 +1358,7 @@ article {
 	}
 }
 	.banner-wrap {
+		margin: 5px 0;
 		position: relative;
     padding-top: 56.25%;}
 .field-icon {

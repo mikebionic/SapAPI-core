@@ -265,6 +265,7 @@ class Config:
 	COMMERCE_PROFILE_EDIT_PAGE = environ.get('COMMERCE_PROFILE_EDIT_PAGE') or "/profile_edit"
 	COMMERCE_WISHLIST_PAGE = environ.get('COMMERCE_WISHLIST_PAGE') or "/wishlist"
 	COMMERCE_ORDERS_PAGE = environ.get('COMMERCE_ORDERS_PAGE') or "/orders"
+	COMMERCE_RESOURCE_REQUEST_PAGE = environ.get('COMMERCE_RESOURCE_REQUEST_PAGE') or "/resource-request"
 
 
 	COMMERCE_CART_VIEW = environ.get('COMMERCE_CART_VIEW') or "/cart"

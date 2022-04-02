@@ -90,6 +90,10 @@
 													</a>
 												</div>
 												{% endif %}
+
+												<span class="onsale">
+													<span class="woocommerce-Price-amount amount">-30%</span>
+												</span>
 												<div class="hm3"><div class="ui-q0">
 													<span class="ui-q3 ui-q6">
 														{{ resource.ResPriceValue }} 
@@ -116,9 +120,11 @@
 												<div class="hw w0h">
 														<div class="wh0 h1w">
 																<div class="q6c qc7 wh">
-																		<div class="ui-b2">
-																			<span class="ui-f0">В корзину</span>
-																		</div>
+																	<div class="ui-b2">
+																		<a class="add-to-cart" ownerId="{{ resource.ResId }}">
+																			<span>В корзину</span>
+																		</a>
+																	</div>
 																</div>
 														</div>
 												</div>
