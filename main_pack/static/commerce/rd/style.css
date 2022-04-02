@@ -227,14 +227,28 @@
   --xl-star-margin: 2px;
   --minus-one: -1;
 }
-aside,
-footer,
-header,
-nav,
-section {
-  display: block;
+
+.added{
+  width: 100%
 }
 
+.add-to-cart {
+  background-color: #2c5ca7;
+  color: #ffffff!important;
+  border-radius: 10px;
+  display: block;
+  /* width: 170px; */
+  font-weight: 600;
+  padding: 10px 10px;
+  -webkit-transition: all 0.7s cubic-bezier(0.77, -1.5, 0.12, 3) 0s;
+  transition: all 0.7s cubic-bezier(0.77, -1.5, 0.12, 3) 0s;
+}
+.ui-b2 a:hover{
+  color: #fff
+}
+.ui-b2 a i{
+  font-size: 20px
+}
 .nr-header__accordion-nav-item--active
   .nr-header__accordion-nav-item[data-v-0c001897] {
   visibility: visible;
@@ -242,7 +256,20 @@ section {
   transform: translate(0);
   transition: visibility 0s ease, opacity 1.5 ease, transform 5.2 ease;
 }
-
+.profile_navbar_icon{
+  font-size: 27px;
+  padding: 0 10px;
+  align-items: center;
+  display: flex;
+}
+.profile_navbar_icon i{
+  color: #2c5ca7;
+}
+.profile_navbar_text{
+  font-size: 17px;
+  font-weight: 700;
+  padding: 0 5px;
+}
 .sub-links[data-v-0c001897] {
   font-size: 14px;
 }
@@ -333,7 +360,7 @@ section {
 }
 
 .nr-header__topbar-link:hover {
-  color: #46c3d2;
+  color: #2c5ca7;
 }
 
 .nr-header__geo {
@@ -495,7 +522,7 @@ section {
 }
 
 .nr-header__geo-suggest-item:hover {
-  color: #46c3d2;
+  color: #2c5ca7;
 }
 
 .nr-header .nr-header__burger-desktop,
@@ -842,7 +869,7 @@ section {
 }
 
 .nr-header__search-popup-item:hover {
-  color: #46c3d2;
+  color: #2c5ca7;
 }
 
 .nr-header__user-nav {
@@ -908,7 +935,7 @@ section {
 
 .nr-header__user-nav-link:hover {
   text-decoration: none;
-  color: #46c3d2;
+  color: #2c5ca7;
 }
 
 .nr-header__badge {
@@ -924,7 +951,7 @@ section {
 }
 
 .nr-header__badge--blue {
-  background-color: #46c3d2;
+  background-color: #2c5ca7;
   color: #fff;
 }
 
@@ -1161,7 +1188,7 @@ section {
 }
 
 .nr-header__mobile-nav-account-logout:hover {
-  color: #46c3d2;
+  color: #2c5ca7;
 }
 
 .nr-header__mobile-nav-button {
@@ -1219,7 +1246,7 @@ section {
 
 .nr-header__mobile-nav-links-item .nr-header__mobile-nav-link:hover {
   text-decoration: none;
-  color: #46c3d2;
+  color: #2c5ca7;
 }
 
 .nr-header__mobile-nav-link {
@@ -1414,8 +1441,8 @@ section {
   .nr-header__search-buttons {
     visibility: visible;
     opacity: 1;
+    display:none
   }
-
   .nr-header__search-clear {
     margin-right: 1.25rem;
   }
@@ -1603,7 +1630,7 @@ a.nr-button {
 }
 
 .nr-button--blue {
-  background-color: #46c3d2;
+  background-color: #2c5ca7;
   color: #fff;
 }
 
@@ -2453,7 +2480,6 @@ a.nr-button {
 }
 .product-wrap.product-border-3 {
   border: 1px solid #f2f2f2;
-  height: 100% !important;
   overflow: hidden;
   border-radius: 10px;
 }
@@ -2553,16 +2579,11 @@ a.nr-button {
   }
 }
 
-.h2w,
-.hw2 {
-  width: 100%;
-}
 
 .h2w {
   align-items: flex-start;
   display: flex;
   flex-flow: column;
-  height: 100%;
 }
 
 .wh2 {
@@ -3278,7 +3299,6 @@ a.nr-button {
   margin-top: auto;
   padding-bottom: 16px;
   padding-top: 12px;
-  width: 100%;
 }
 
 .wh {
@@ -5374,6 +5394,15 @@ body{
   float: right;
   position: relative;
 }
+
+/* .qty{
+  width: 5px;
+  display: flex;
+  top: 0px;
+  justify-content: center;
+  align-items: center;
+} */
+
 .biolife-clone-wrap .megamenu-item .menu-title{
   font-size: 14px;
   font-weight: 400;
@@ -6586,7 +6615,7 @@ body:not(.open-overlay) .header-area.layout-01{
   display: flex;
   flex: 1 0 auto;
   flex-direction: column;
-  margin-top: 20px
+  margin: 20px 11px
 }
 
 .static-wrapper[data-v-94788a02] {
@@ -6596,7 +6625,6 @@ body:not(.open-overlay) .header-area.layout-01{
   line-height: 140%;
   color: #000
 }
-
 @media(max-width: 630px) {
   .static-wrapper[data-v-94788a02] {
       padding:0;
@@ -6647,4 +6675,24 @@ body:not(.open-overlay) .header-area.layout-01{
 
 .pagination-style {
   margin-top: 3%
+}
+}
+
+
+/* shopping cart  */
+.add-to-cart:hover{
+  background-color: #073783;
+}
+.star{
+  color: #ff9b00;
+}
+.onsale {
+  position: absolute;
+  left: 0;
+  padding: 0 16px;
+  z-index: 1;
+  color: #fff!important;
+  bottom: 41%;
+  background: #f44336;
+  border-radius: 16px;
 }

@@ -75,7 +75,7 @@
 									{% endif %}
 
 									{% for resource in data %}
-									<div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-6">
+									<div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-6" style="padding-bottom: 10px;">
 										<div class="product-wrap product-border-3 product-img-zoom mb-30">
 											<div class="product-img">
 												<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">
@@ -90,6 +90,10 @@
 													</a>
 												</div>
 												{% endif %}
+
+												<span class="onsale">
+													<span class="woocommerce-Price-amount amount">-30%</span>
+												</span>
 												<div class="hm3"><div class="ui-q0">
 													<span class="ui-q3 ui-q6">
 														{{ resource.ResPriceValue }} 
@@ -98,43 +102,31 @@
 														{{ resource.CurrencyCode }}
 													</span>
 												</div>
-												<span class="n1c c2n n2c nc5 f-tsBodyM" style="color:var(--ozOrange);">
-													<span>
-														Бестселлер
-													</span>
-												</span>
+												<span class="x9c cy3 tsBodyM d9g" style="color: rgb(255, 132, 0);"><span>Бестселлер</span></span>
 												<a href="#" class="tile-hover-target k9h">
-													<span class="n1c c2n n2c nc4 f-tsBodyL k9h">
-														<span>{{ resource.ResName }}</span>
-													</span>
+													<h4 class="order-info">
+														<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">
+														{{ resource.ResName }}
+													</a>
+												</h4>
 												</a>
-												<div class="kh9 nc">
-													<div class="ui-ab7 ui-a6b ui-b7a">
-														<div class="ui-b5a ui-a6b">
-															<div class="ui-ba7 ui-a6b"></div>
-															<div class="ui-a7b" style="width:96.79595022222223%;"></div>
-														</div> 
-													</div>
+												<div class="star">
+													<i class="fa fa-star" aria-hidden="true"></i>
+													<i class="fa fa-star" aria-hidden="true"></i>
+													<i class="fa fa-star" aria-hidden="true"></i>
+													<i class="fa fa-star" aria-hidden="true"></i>
+													<i class="fa fa-star" aria-hidden="true"></i>
 												</div>
-												<div class="l8h hm">
-													<div class="l9h hm0">
-														<div class="cj5 j5c hl9">
-															<div class="ui-b2">
-																<div class="product-count cardplacement cartItemQty" style="display: none;">
-																	<div class="qtyminus qtybtn">-</div>
-																	<input type="text" class="qty productQty"
-																		pending_amount="{{resource.ResPendingTotalAmount}}"
-																		min_amount="{{resource.ResMinSaleAmount}}"
-																		max_amount="{{resource.ResMaxSaleAmount}}"
-																		value="{{resource.productQty}}" ownerId="{{ resource.ResId }}">
-																	<div class="qtyplus qtybtn">+</div>
+												<div class="hw w0h">
+														<div class="wh0 h1w">
+																<div class="q6c qc7 wh">
+																	<div class="ui-b2">
+																		<a class="add-to-cart" ownerId="{{ resource.ResId }}">
+																			<span>В корзину</span>
+																		</a>
+																	</div>
 																</div>
-																<a class="round-black-btn cardplacement add-to-cart" ownerId="{{ resource.ResId }}" style="color: #fff">{{_('Add to cart')}}</a>
-															</div>
 														</div>
-														<span class="n1c c2n nc2 nc5 f-tsBodyM h9l" style="color:#808d9a;">
-														</span>
-													</div>
 												</div>
 												</div>
 											</div>

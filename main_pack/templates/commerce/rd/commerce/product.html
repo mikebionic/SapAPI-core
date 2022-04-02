@@ -6,121 +6,67 @@
 <meta property="og:image" content="{{ request.host_url }}{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/logo/halal_OG.png') }}" />
 <meta name="twitter:description" content="{{ resource.ResName }} | {{ resource.ResDesc.replace('<b>','').replace('</b>','').replace('<br/>',', ') if resource.ResDesc }}" />
 <meta name="twitter:image" content="{{ request.host_url }}{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/logo/halal_OG.png') }}" />
+
 {% endblock %}
 
 {% block content %}
-	<div class="container">
-		<div class="row">
-				<div class="all-content content" data-v-503820a0="" style="margin-top: 3%;">
-					<div class="left-content" data-v-503820a0="">
-						<div class="pr_flex">
-							<div class="col-lg-6 col-md-12">
-								<div class="content" data-v-503820a0="">
-									<div class="middle" data-v-503820a0="">
-										<div class="photos" data-v-503820a0="">
-											<div class="product-details-img">
-												<div class="zoompro-wrap product-zoom-right pr-20">
-													<div class="zoompro-span">
-														<img class="zoompro"  src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/no_photo.svg') }}"
-														alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}" />
-														<span>-29%</span>
-													</div>
-												</div>
+<div class="container">
+	<div class="row">
 
-												{% if resource.Images %}
-												{% set image_count = 0 %}
-													<div id="gallery" class="product-dec-slider-2">
-														{% for image in resource.Images %}
-														{% set image_count = image_count + loop.index %}
-														{% if image_count < 4 %}
-															<a data-image="{{image.FilePathM}}">
-																<img loading="lazy" src="{{image.FilePathS}}" data-src-m="{{image.FilePathM}}"
-																	alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
-															</a>
-														{% endif %}
-														{% endfor %}
-													</div>
-												{% endif %}
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							<div class="col-lg-6 col-md-12">
-								<div class="right-content" style="" data-v-503820a0="">
-									<div data-v-10b5df08="" data-v-503820a0="" class="item-about about">
-											<div data-v-7fcfa635="" data-v-10b5df08="" class="fly">
-													<!---->
-													<!---->
-													<div class="product-details-content pro-details-content-modify">
-														<span>{{ resource.ResCatName }}</span>
-														<h2>{{ resource.ResName }}</h2>
-														<div class="product-ratting-review" value="{{ resource.RtRatingValue }}" ownerId="{{ resource.ResId }}">
-															<input type="hidden" class="ratingValue" value="{{ resource.RtRatingValue }}" ownerId="{{ resource.ResId }}">
-															<div class="product-ratting ratingStars" ownerId="{{ resource.ResId }}"></div>
-															<div class="view_icon">
-																<i class="las la-eye"></i>
-																<span class="count">{{ resource.ResViewCnt if resource.ResViewCnt else 0 }}</span>
-															</div>
-															{% if resource.BrandIcon %}
-															<div class="brand">
-																<a href="{{url_for('commerce.v_grid',BrandId=resource.BrandId,BrandName=resource.BrandName.replace('/','-').replace(' ','-'))}}" style="display: flex; align-items: center;">
-																	<img alt="{{resource.BrandName}}" src="{{ resource.BrandIcon }}">
-																	<span>{{ resource.BrandName }}</span>
-																</a>
-															</div>
-															{% endif %}
-															<div class="prcategory">
-																<a href="{{url_for('commerce.v_grid',ResCatId=resource.ResCatId,ResCatName=resource.ResCatName.replace('/','-').replace(' ','-'))}}">
-																	<img alt="{{resource.ResCatName}}" src="{{ resource.CategoryIcon if resource.CategoryIcon else url_for('static', filename='commerce/ls/img/icons/category.svg') }}" alt="{{ company.CName }} category {{ resource.ResCatName }}">
-																</a>
-															</div>
-														</div>
-														<div class="pro-details-color-wrap">
-															<p>{{ resource.ResDesc if resource.ResDesc else '' }}</p>
-														</div>
-														<div class="pro-details-price-wrap">
-															<div class="product-price">
-																<span class="price priceValue" ownerId="{{ resource.ResId }}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue }}</span>
-																<span>{{ resource.CurrencyCode }}</span>
-															</div>
-														</div>
-														<div class="pro-details-quality">
-															<div class="product-count cardplacement cartItemQty" style="display: none;">
-																<div class="qtyminus qtybtn">-</div>
-																<input type="text" class="qty productQty"
-																	pending_amount="{{resource.ResPendingTotalAmount}}"
-																	min_amount="{{resource.ResMinSaleAmount}}"
-																	max_amount="{{resource.ResMaxSaleAmount}}"
-																	value="{{resource.productQty}}" ownerId="{{ resource.ResId }}">
-																<div class="qtyplus qtybtn">+</div>
-															</div>
-															<a class="round-black-btn cardplacement add-to-cart" ownerId="{{ resource.ResId }}" style="color: #fff">{{_('Add to cart')}}</a>
-															<div class="pro-details-buy-now btn-hover btn-hover-radious">
-																{% if current_user.is_authenticated %}
-																<div class="yith-wcwl-add-to-wishlist wishlist-button">
-																	<a rel="nofollow" class="product-wishlist like {{'heart' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}">
-																		<i class="la la-heart" aria-hidden="true"></i>
-																	</a>
+<div class="all-content content" data-v-503820a0="">
+	<div class="left-content" data-v-503820a0="">
+			<div class="content" data-v-503820a0="">
+					<div class="middle" data-v-503820a0="">
+							<div class="photos" data-v-503820a0="">
+									<div class="item-gallery" data-v-dc6cd19c="" data-v-503820a0="">
+											<div class="item-gallery-left" data-v-dc6cd19c="">
+												<div class="content" data-v-503820a0="">
+													<div class="middle" data-v-503820a0="">
+														<div class="photos" data-v-503820a0="">
+															<div class="product-details-img">
+																<div class="zoompro-wrap product-zoom-right pr-20">
+																	<div class="zoompro-span">
+																		<img class="zoompro"  src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/no_photo.svg') }}"
+																		alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}" />
+																		<span>-29%</span>
+																	</div>
 																</div>
-																{% endif %}	
+				
+																{% if resource.Images %}
+																{% set image_count = 0 %}
+																	<div id="gallery" class="product-dec-slider-2">
+																		{% for image in resource.Images %}
+																		{% set image_count = image_count + loop.index %}
+																		{% if image_count < 4 %}
+																			<a data-image="{{image.FilePathM}}" >
+																				<img loading="lazy" src="{{image.FilePathS}}" data-src-m="{{image.FilePathM}}"
+																					alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
+																			</a>
+																		{% endif %}
+																		{% endfor %}
+																	</div>
+																{% endif %}
+																</div>
 															</div>
 														</div>
 													</div>
 											</div>
-										</div>
-								</div>
+											<!---->
+									</div>
 							</div>
-						</div>
-							<!---->
-						<div class="col-lg-6 col-md-12">
-							<div class="card-blocks" data-v-503820a0="">
-								<div class="description-review-wrapper pb-90">
-									<div class="ml-auto mr-auto" style="float: left;">
+					</div>
+			</div>
+			<!---->
+			<div class="card-blocks" data-v-503820a0="">
+					<div class="card-block" data-v-503820a0="">
+							<div class="content" data-v-503820a0="">
+									<div id="full" class="tabs" data-v-e16259a4="" data-v-503820a0="">
+										<div class="ml-auto mr-auto" style="float: left;">
 											<div class="dec-review-topbar nav mb-40">
-													<a class="active" data-toggle="tab" href="#des-details1">Description</a>
-													<a data-toggle="tab" href="#des-details2">Specification</a>
-													<a data-toggle="tab" href="#des-details3">Reviews</a>
+													<a class="active" data-toggle="tab" href="#des-details1">Описание</a>
+													<a  data-toggle="tab" href="#des-details2">Характеристики</a>
+													<a data-toggle="tab" href="#des-details3">Рецензии
+                          </a>
 											</div>
 											<div class="tab-content dec-review-bottom">
 													<div id="des-details1" class="tab-pane active">
@@ -128,88 +74,238 @@
 																	<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text. It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters,</p>
 															</div>
 													</div>
-													<div id="des-details2" class="tab-pane ">
-															<div class="specification-wrap table-responsive">
-																	<table>
-																			<tbody>
-																					<tr>
-																							<td class="width1">Name / Model</td>
-																							<td>LaaVista Depro, FX 829 v1</td>
-																					</tr>
-																					<tr>
-																							<td>Type</td>
-																							<td>Categories</td>
-																					</tr>
-																					<tr>
-																							<td class="width1">Models</td>
-																							<td>FX 829 v1</td>
-																					</tr>
-																					<tr>
-																							<td class="width1">Categories</td>
-																							<td>Product Type</td>
-																					</tr>
-																					<tr>
-																							<td class="width1">Size</td>
-																							<td>60’’ x 40’’</td>
-																					</tr>
-																					<tr>
-																							<td class="width1">Display Port</td>
-																							<td>Multi</td>
-																					</tr>
-																					<tr>
-																							<td class="width1">Media</td>
-																							<td>Brightside</td>
-																					</tr>
-																					<tr>
-																							<td class="width1">Color</td>
-																							<td>Black, White</td>
-																					</tr>
-																			</tbody>
-																	</table>
-															</div>
+													<div id="des-details2" class="tab-pane">
+                            <div class="specification-wrap table-responsive" style="overflow: hidden!important">
+                              <li data-v-d1857f86="" class="property">
+                                <span data-v-d1857f86="">
+                                  <span data-v-d1857f86="" class="property-name"> Автор: </span>
+                                  <span data-v-d1857f86="" class="property-value">
+                                    Кэтрин Барр, Стив Уильямс
+                                  </span>
+                                </span>
+                              </li>
+                              <li data-v-d1857f86="" class="property">
+                                <span data-v-d1857f86="">
+                                  <span data-v-d1857f86="" class="property-name"> ISBN: </span>
+                                  <span data-v-d1857f86="" class="property-value">
+                                  978-5-91759-832-1
+                                  </span>
+                                </span>
+                              </li>
+                              <li data-v-d1857f86="" class="property">
+                                <span data-v-d1857f86="">
+                                  <span data-v-d1857f86="" class="property-name"> Возрастные: </span>
+                                  <span data-v-d1857f86="" class="property-value">
+                                    0+
+                                  </span>
+                                </span>
+                              </li>
+                              <li data-v-d1857f86="" class="property">
+                                <span data-v-d1857f86="">
+                                  <span data-v-d1857f86="" class="property-name"> Формат: </span>
+                                  <span data-v-d1857f86="" class="property-value">
+                                    25 x 28
+                                  </span>
+                                </span>
+                              </li>
+                              <li data-v-d1857f86="" class="property">
+                                <span data-v-d1857f86="">
+                                  <span data-v-d1857f86="" class="property-name"> Язык: </span>
+                                  <span data-v-d1857f86="" class="property-value">
+                                    Русский
+                                  </span>
+                                </span>
+                              </li>
+                              <li data-v-d1857f86="" class="property">
+                                <span data-v-d1857f86="">
+                                  <span data-v-d1857f86="" class="property-name"> Год издания: </span>
+                                  <span data-v-d1857f86="" class="property-value">
+                                    2019
+                                  </span>
+                                </span>
+                              </li>
+                              <li data-v-d1857f86="" class="property">
+                                <span data-v-d1857f86="">
+                                  <span data-v-d1857f86="" class="property-name"> Количество страниц: </span>
+                                  <span data-v-d1857f86="" class="property-value">
+                                    40
+                                  </span>
+                                </span>
+                              </li>
+                              <li data-v-d1857f86="" class="property">
+                                <span data-v-d1857f86="">
+                                  <span data-v-d1857f86="" class="property-name"> Обложка: </span>
+                                  <span data-v-d1857f86="" class="property-value">
+                                    Твердая
+                                  </span>
+                                </span>
+                              </li>
+                              <li data-v-d1857f86="" class="property">
+                                <span data-v-d1857f86="">
+                                  <span data-v-d1857f86="" class="property-name"> Страна-производитель: </span>
+                                  <span data-v-d1857f86="" class="property-value">
+                                    Русский
+                                  </span>
+                                </span>
+                              </li>
+                              <li data-v-d1857f86="" class="property">
+                                <span data-v-d1857f86="">
+                                  <span data-v-d1857f86="" class="property-name"> Возраст: </span>
+                                  <span data-v-d1857f86="" class="property-value">
+                                    4+
+                                  </span>
+                                </span>
+                              </li>
+                            </div>
 													</div>
 													<div id="des-details3" class="tab-pane">
 															<div class="dec-review-wrap mb-50">
-																	<div class="row">
-																			<div class="col-xl-3 col-lg-4 col-md-5">
-																					<div class="dec-review-img-wrap">
-																							
-																							<div class="dec-client-name">
-																									<h4>Jonathon Doe</h4>
-																									<div class="dec-client-rating">
-																											<i class="la la-star"></i>
-																											<i class="la la-star"></i>
-																											<i class="la la-star"></i>
-																											<i class="la la-star"></i>
-																											<i class="la la-star-half-o"></i>
-																									</div>
-																							</div>
-																					</div>
-																			</div>
-																			<div class="col-xl-9 col-lg-8 col-md-7">
-																					<div class="dec-review-content">
-																							<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters,</p>
-																							<div class="review-content-bottom">
-																									<div class="review-like">
-																											<span><i class="la la-heart-o"></i> 24 Likes</span>
-																									</div>
-																									<div class="review-date">
-																											<span>25 Jun 2019</span>
-																									</div>
-																							</div>
-																					</div>
-																			</div>
-																	</div>
+                                Напиши свою рецензию и получи промокод на 150 рублей!
 															</div>
+
+                              <div class="card-block" data-v-503820a0="">
+                                <div class="content" data-v-503820a0="">
+                                    <div class="be-first" data-v-503820a0="">
+                                        <div class="be-first-left" data-v-503820a0="">
+                                            <div class="be-first-none" data-v-503820a0="">
+                                                Отзывов пока что нет
+                                            </div>
+                                            <div class="be-first-slogan" data-v-503820a0="">
+                                                Будьте первым,
+                                                <span data-v-503820a0="">
+                                                    кто оставит отзыв
+                                                </span>
+                                            </div>
+                                            <a href="#" class="be-first-add" data-v-503820a0="">Оставить первый отзыв</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 													</div>
 											</div>
 									</div>
-								</div>
+									</div>
 							</div>
-						</div>
 					</div>
 			</div>
-		</div>
+	</div>
+	<div class="right-content" style="" data-v-503820a0="">
+			<div data-v-10b5df08="" data-v-503820a0="" class="item-about about">
+					<!---->
+					<!---->
+					<!---->
+					<div data-v-7fcfa635="" data-v-10b5df08="" class="fly">
+							<!---->
+							<!---->
+							<div data-v-7fcfa635="" itemprop="offers" itemscope="itemscope" itemtype="http://schema.org/Offer" class="price">
+									<meta data-v-7fcfa635="" content="RUB" itemprop="priceCurrency" /> <meta data-v-7fcfa635="" content="1738" itemprop="price" />
+									<meta data-v-7fcfa635="" content="https://schema.org/InStock" itemprop="availability" />
+									<link data-v-7fcfa635="" href="https://www.respublica.ru/knigi/biznes-knigi/menedzhment-i-predprinimatelstvo/591139-kollinz-dzh-ot-horoshego-k-velikomu-biblioteka-lidera-m-o" itemprop="url" />
+									<div data-v-7fcfa635="" class="price-name">
+											При доставке и самовывозе
+											<a data-v-7fcfa635="" href="/prices" class="question-icon" target="_blank"></a>
+									</div>
+									<div data-v-7fcfa635="" class="price-current">
+										<span class="ui-q3 ui-q6" style="color: #2c5ca7; font-size: 25px;">
+											{{ resource.ResPriceValue }} 
+										</span>
+										<span class="ui-q3 ui-q6" style="color: #2c5ca7; font-size: 25px;">
+											{{ resource.CurrencyCode }}
+										</span>
+									</div>
+									<!---->
+							</div>
+							<!---->
+							<div data-v-7fcfa635="" class="buys">
+									<button data-v-7fcfa635="" type="button" class="buy">
+											В корзину
+									</button>
+									<!---->
+							</div>
+							<!---->
+					</div>
+					<div data-v-0b5002f0="" data-v-10b5df08="" class="deliveries">
+							<div data-v-877d3bbe="" data-v-0b5002f0="" class="delivery">
+									<!---->
+									<div data-v-877d3bbe="" class="delivery-info">
+											<a data-v-877d3bbe="" href="#" class="delivery-name">
+													Пункты выдачи
+													<!---->
+											</a>
+											<div data-v-877d3bbe="" class="delivery-date">
+													<div data-v-877d3bbe="" class="delivery-later">
+															2-3 дня
+													</div>
+													<!---->
+											</div>
+											<!---->
+									</div>
+									<div data-v-877d3bbe="" class="delivery-price">
+										<span class="ui-q3 ui-q6">
+											{{ resource.ResPriceValue }} 
+										</span>
+										<span class="ui-q3 ui-q6">
+											{{ resource.CurrencyCode }}
+										</span>
+									</div>
+							</div>
+							<div data-v-877d3bbe="" data-v-0b5002f0="" class="delivery">
+									<!---->
+									<div data-v-877d3bbe="" class="delivery-info">
+											<a data-v-877d3bbe="" href="#" class="delivery-name">
+													Курьерская или срочная доставка
+													<!---->
+											</a>
+											<div data-v-877d3bbe="" class="delivery-date">
+													<div data-v-877d3bbe="" class="delivery-later">
+															3 часа - 1 день
+													</div>
+													<!---->
+											</div>
+											<!---->
+									</div>
+									<div data-v-877d3bbe="" class="delivery-price">
+										<span class="ui-q3 ui-q6">
+											{{ resource.ResPriceValue }} 
+										</span>
+										<span class="ui-q3 ui-q6">
+											{{ resource.CurrencyCode }}
+										</span>
+									</div>
+							</div>
+							<div data-v-877d3bbe="" data-v-0b5002f0="" class="delivery">
+									<!---->
+									<div data-v-877d3bbe="" class="delivery-info">
+											<a data-v-877d3bbe="" href="#" class="delivery-name">
+													Забронировать в магазине Р
+													<!---->
+											</a>
+											<div data-v-877d3bbe="" class="delivery-date">
+													<!---->
+													<div data-v-877d3bbe="" class="delivery-now">
+															Соберем за 3 часа
+													</div>
+											</div>
+											<!---->
+									</div>
+									<div data-v-877d3bbe="" class="delivery-price">
+											Бесплатно
+											<!---->
+									</div>
+            </div>
+            <div data-v-10b5df08="" class="item-card-name-mobile">
+              <a data-v-10b5df08="" href="{{url_for('commerce.v_grid')}}" class="card-manufactor-link" title="Джим Коллинз">
+                  Джим Коллинз
+              </a>
+              <!---->
+            </div>
+					</div>
+					<div data-v-10b5df08="" class="stick-test"></div>
+			</div>
+	</div>
+</div>
+</div>
+	</div>
 </div>
 {% endblock %}
 

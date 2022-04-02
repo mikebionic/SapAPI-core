@@ -15,7 +15,15 @@
         }
     });
 
-		
+	$('.add-to-cart').on('click', function(e){
+        e.preventDefault();
+    
+        if($(this).hasClass('added')){
+            $(this).removeClass('added').find('span').text('В корзину');
+        } else{
+            $(this).addClass('added').find('span').text('Перейти');
+        }
+    });	
 
 
     /* Slider active */

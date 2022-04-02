@@ -71,11 +71,14 @@ def remove_images():
 		url = url_for('commerce_admin.dashboard')
 
 		if imgType == 'image' or imgType == 'icon':
-			image = Image.query.get(ImgId)
+			url = url_for('commerce_admin.logo_setup')
+			if ResId:
+				url = url_for('commerce_admin.resource_edit',ResId=ResId)
 
+			image = Image.query.get(ImgId)
 			try:
-				remove_image(imgType,image.FileName)
 				db.session.delete(image)
+				remove_image(imgType,image.FileName)
 
 			except Exception as ex:
 				print(f"{datetime.now()} | Admin image removal exception: {ex}")
@@ -83,10 +86,6 @@ def remove_images():
 
 			db.session.commit()
 			cache.clear()
-
-			url = url_for('commerce_admin.logo_setup')
-			if ResId:
-				url = url_for('commerce_admin.resource_edit',ResId=ResId)
 
 		elif imgType == 'slider':
 			sl_image = Sl_image.query.get(ImgId)
@@ -105,6 +104,7 @@ def remove_images():
 
 		flash("Image successfully deleted!",'success')
 	except Exception as ex:
+		print(f"remove image error ", ex)
 		flash("Error, unable to execute this",'warning')
 
 	return redirect(url)

@@ -1,5 +1,5 @@
 {% for resource in data %}
-<tr>
+<tr style="display: flex; align-items: center">
 	<td class="product-thumbnail">
 		<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}">
 			<img class="c-img" loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" 

@@ -17,7 +17,7 @@
 				{% if slider.SlName == "commerce_header" %}
 					{% for sl_image in slider.Sl_images %}
 					{% if sl_image.SlImgMainImgFilePathM %}
-					<div class="single-slider-2 bg-img slider-height-2" style="background: #d7e0ee">
+					<div class="single-slider-2 bg-img slider-height-2" style="background:#d7e0ee">
 						<div class="container">
 							<div class="row align-items-center">
 								<div class="col-lg-7 col-md-6 col-12 col-sm-6">
@@ -72,10 +72,10 @@
 					<div class="iq-card iq-card-block iq-card-stretch iq-card-height">
 						<div class="iq-card-header d-flex justify-content-between align-items-center position-relative mb-0 trendy-detail">
 								<div class="iq-header-title">
-									<h4 class="card-title mb-0">Новое поступление</h4>
+									<h4 class="card-title mb-0">Meshur kitaplar</h4>
 								</div>
 								<div class="iq-card-header-toolbar d-flex align-items-center">
-									<a href="category.html" class="btn btn-sm btn-primary view-more">Посмотреть больше</a>
+									<a href="{{url_for('commerce.v_grid')}}" class="btn btn-sm btn-primary view-more">Hemmesini gor</a>
 								</div>
 						</div>
 						<div class="iq-card-body trendy-contens">
@@ -97,6 +97,9 @@
 													</a>
 												</div>
 												{% endif %}
+													<span class="onsale">
+														<span class="woocommerce-Price-amount amount">-30%</span>
+													</span>
 												<div class="hm3"><div class="ui-q0">
 													<span class="ui-q3 ui-q6">
 														{{ resource.ResPriceValue }} 
@@ -105,34 +108,34 @@
 														{{ resource.CurrencyCode }}
 													</span>
 												</div>
-												<span class="n1c c2n n2c nc5 f-tsBodyM" style="color:var(--ozOrange);">
-													<span>
-														Бестселлер
-													</span>
-												</span>
+												<span class="x9c cy3 tsBodyM d9g" style="color: rgb(255, 132, 0);"><span>Бестселлер</span></span>
 												<a href="#" class="tile-hover-target k9h">
-													<span class="order-info n1c c2n n2c nc4 f-tsBodyL k9h">
-														<span>{{ resource.ResName }}</span>
-													</span>
+													<h4 class="order-info">
+														<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">
+														{{ resource.ResName }}
+													</a>
+												</h4>
 												</a>
+												<div class="star">
+													<i class="fa fa-star" aria-hidden="true"></i>
+													<i class="fa fa-star" aria-hidden="true"></i>
+													<i class="fa fa-star" aria-hidden="true"></i>
+													<i class="fa fa-star" aria-hidden="true"></i>
+													<i class="fa fa-star" aria-hidden="true"></i>
+												</div>
 												<div class="hw w0h">
 														<div class="wh0 h1w">
 																<div class="q6c qc7 wh">
 																		<div class="ui-b2">
-																			<div class="product-count cardplacement cartItemQty" style="display: none;">
-																				<div class="qtyminus qtybtn">-</div>
-																				<input type="text" class="qty productQty"
-																					pending_amount="{{resource.ResPendingTotalAmount}}"
-																					min_amount="{{resource.ResMinSaleAmount}}"
-																					max_amount="{{resource.ResMaxSaleAmount}}"
-																					value="{{resource.productQty}}" ownerId="{{ resource.ResId }}">
-																				<div class="qtyplus qtybtn">+</div>
-																			</div>
-																			<a class="round-black-btn cardplacement add-to-cart" ownerId="{{ resource.ResId }}" style="color: #fff">{{_('Add to cart')}}</a>
+																			<a class="add-to-cart" ownerId="{{ resource.ResId }}">
+																				<span>В корзину</span>
+																			</a>
 																		</div>
 																</div>
 														</div>
 												</div>
+												
+								
 												</div>
 											</div>
 										</div>
@@ -147,9 +150,8 @@
 		
 		<div class="recent-selling-area pb-60">
 			<div class="container">
-				<div class="section-title-2 text-center">
-						<h2>Recent Selling Product</h2>
-						<img src="{{ url_for('static', filename='commerce/rd/images/title-shape.png') }}" alt="icon-img">
+				<div class="section-title-6 mb-50 text-center">
+					<h2>Biznes kitaplar</h2>
 				</div>
 				<div class="row">
 					<div class="col-lg-3 col-md-12">
@@ -169,6 +171,10 @@
 									</a>
 								</div>
 								{% endif %}
+
+								<span class="onsale">
+									<span class="woocommerce-Price-amount amount">-30%</span>
+								</span>
 								<div class="hm3"><div class="ui-q0">
 									<span class="ui-q3 ui-q6">
 										{{ resource_main.ResPriceValue }} 
@@ -177,32 +183,34 @@
 										{{ resource_main.CurrencyCode }}
 									</span>
 								</div>
-								<span class="n1c c2n n2c nc5 f-tsBodyM" style="color:var(--ozOrange);">
-								</span>
+								<span class="x9c cy3 tsBodyM d9g" style="color: rgb(255, 132, 0);"><span>Бестселлер</span></span>
 								<a href="#" class="tile-hover-target k9h">
-									<span class="order-info n1c c2n n2c nc4 f-tsBodyL k9h">
-										<span>{{ resource_main.ResName }}</span>
-									</span>
+									<h4 class="order-info">
+										<a href="{{url_for('commerce.product',ResId=resource_main.ResId,ResName=resource_main.ResName.replace('/','-').replace(' ','-'))}}">
+										{{ resource_main.ResName }}
+									</a>
+								</h4>
 								</a>
-								
-								<div class="hw w0h">
-									<div class="wh0 h1w">
-										<div class="q6c qc7 wh">
-											<div class="ui-b2">
-												<div class="product-count cardplacement cartItemQty" style="display: none;">
-													<div class="qtyminus qtybtn">-</div>
-													<input type="text" class="qty productQty"
-														pending_amount="{{resource_main.ResPendingTotalAmount}}"
-														min_amount="{{resource_main.ResMinSaleAmount}}"
-														max_amount="{{resource_main.ResMaxSaleAmount}}"
-														value="{{resource_main.productQty}}" ownerId="{{ resource_main.ResId }}">
-													<div class="qtyplus qtybtn">+</div>
-												</div>
-												<a class="round-black-btn cardplacement add-to-cart" ownerId="{{ resource_main.ResId }}" style="color: #fff">{{_('Add to cart')}}</a>
-											</div>
-										</div>
-									</div>
+								<div class="star">
+									<i class="fa fa-star" aria-hidden="true"></i>
+									<i class="fa fa-star" aria-hidden="true"></i>
+									<i class="fa fa-star" aria-hidden="true"></i>
+									<i class="fa fa-star" aria-hidden="true"></i>
+									<i class="fa fa-star" aria-hidden="true"></i>
 								</div>
+								<div class="hw w0h">
+										<div class="wh0 h1w">
+												<div class="q6c qc7 wh">
+														<div class="ui-b2">
+															<a class="add-to-cart" ownerId="{{ resource_main.ResId }}">
+																<span>В корзину</span>
+															</a>
+														</div>
+												</div>
+										</div>
+								</div>
+								
+								
 								</div>
 							</div>
 						</div>
@@ -217,7 +225,7 @@
 							{% for resource in Latest_resources %}
 							{% set resource_count = resource_count + loop.index %}
 							{% if resource_count < 7 %}
-								<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6">
+								<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6" style="margin-bottom: 3%;">
 									<div class="product-img">
 										<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">
 											<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }} {{ company.CName }}">
@@ -231,6 +239,10 @@
 											</a>
 										</div>
 										{% endif %}
+
+										<span class="onsale" style="bottom: 52%">
+											<span class="woocommerce-Price-amount amount">-30%</span>
+										</span>
 										<div class="hm3"><div class="ui-q0">
 											<span class="ui-q3 ui-q6">
 												{{ resource.ResPriceValue }} 
@@ -239,34 +251,33 @@
 												{{ resource.CurrencyCode }}
 											</span>
 										</div>
-										<span class="n1c c2n n2c nc5 f-tsBodyM" style="color:var(--ozOrange);">
-											<span>
-												Бестселлер
-											</span>
-										</span>
-										<a href="#" class="order-infotile-hover-target k9h">
-											<span class=" n1c c2n n2c nc4 f-tsBodyL k9h">
-												<span>{{ resource.ResName }}</span>
-											</span>
+										<span class="x9c cy3 tsBodyM d9g" style="color: rgb(255, 132, 0);"><span>Бестселлер</span></span>
+										<a href="#" class="tile-hover-target k9h">
+											<h4 class="order-info">
+												<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">
+												{{ resource.ResName }}
+											</a>
+										</h4>
 										</a>
-										<div class="hw w0h">
-											<div class="wh0 h1w">
-												<div class="q6c qc7 wh">
-													<div class="ui-b2">
-														<div class="product-count cardplacement cartItemQty" style="display: none;">
-															<div class="qtyminus qtybtn">-</div>
-															<input type="text" class="qty productQty"
-																pending_amount="{{resource.ResPendingTotalAmount}}"
-																min_amount="{{resource.ResMinSaleAmount}}"
-																max_amount="{{resource.ResMaxSaleAmount}}"
-																value="{{resource.productQty}}" ownerId="{{ resource.ResId }}">
-															<div class="qtyplus qtybtn">+</div>
-														</div>
-														<a class="round-black-btn cardplacement add-to-cart" ownerId="{{ resource.ResId }}" style="color: #fff">{{_('Add to cart')}}</a>
-													</div>
-												</div>
-											</div>
+										<div class="star">
+											<i class="fa fa-star" aria-hidden="true"></i>
+											<i class="fa fa-star" aria-hidden="true"></i>
+											<i class="fa fa-star" aria-hidden="true"></i>
+											<i class="fa fa-star" aria-hidden="true"></i>
+											<i class="fa fa-star" aria-hidden="true"></i>
 										</div>
+										<div class="hw w0h">
+												<div class="wh0 h1w">
+														<div class="q6c qc7 wh">
+																<div class="ui-b2">
+																	<a class="add-to-cart" ownerId="{{ resource.ResId }}">
+																		<span>В корзину</span>
+																	</a>
+																</div>
+														</div>
+												</div>
+										</div>
+										
 										</div>
 									</div>
 								</div>
@@ -279,59 +290,65 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-lg-12">
-			<div class="iq-card-transparent iq-card-block iq-card-stretch iq-card-height rounded">
-			   <div class="newrealease-contens">
-				  <ul id="newrealease-slider" class="list-inline p-0 m-0 d-flex align-items-center">
-					 <li class="item">
-						<a href="javascript:void(0);">
-						   <img src="{{ url_for('static', filename='commerce/rd/images/01.jpg') }}" class="img-fluid w-100 rounded" alt="">
-						</a>
-					 </li>
-					 <li class="item">
-						<a href="javascript:void(0);">
-						   <img src="{{ url_for('static', filename='commerce/rd/images/02.jpg') }}"  class="img-fluid w-100 rounded" alt="">
-						</a>
-					 </li>
-					 <li class="item">
-						<a href="javascript:void(0);">
-						   <img src="{{ url_for('static', filename='commerce/rd/images/03.jpg') }}"  class="img-fluid w-100 rounded" alt="">
-						</a>
-					 </li>
-					 <li class="item">
-						<a href="javascript:void(0);">
-						   <img src="{{ url_for('static', filename='commerce/rd/images/04.jpg') }}"  class="img-fluid w-100 rounded" alt="">
-						</a>
-					 </li>
-					 <li class="item">
-						<a href="javascript:void(0);">
-						   <img src="{{ url_for('static', filename='commerce/rd/images/05.jpg') }}"  class="img-fluid w-100 rounded" alt="">
-						</a>
-					 </li>
-					 <li class="item">
-						<a href="javascript:void(0);">
-						   <img src="{{ url_for('static', filename='commerce/rd/images/06.jpg') }}"  class="img-fluid w-100 rounded" alt="">
-						</a>
-					 </li>
-					 <li class="item">
-						<a href="javascript:void(0);">
-						   <img src="{{ url_for('static', filename='commerce/rd/images/07.jpg') }}"  class="img-fluid w-100 rounded" alt="">
-						</a>
-					 </li>
-					 <li class="item">
-						<a href="javascript:void(0);">
-						   <img src="{{ url_for('static', filename='commerce/rd/images/08.jpg') }}"  class="img-fluid w-100 rounded" alt="">
-						</a>
-					 </li>
-					 <li class="item">
-						<a href="javascript:void(0);">
-						   <img src="{{ url_for('static', filename='commerce/rd/images/09.jpg') }}"  class="img-fluid w-100 rounded" alt="">
-						</a>
-					 </li>
-				  </ul>
-			   </div>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="iq-card-transparent iq-card-block iq-card-stretch iq-card-height rounded">
+						 <div class="newrealease-contens">
+							<ul id="newrealease-slider" class="list-inline p-0 m-0 d-flex align-items-center">
+							 <li class="item">
+								<a href="javascript:void(0);">
+									 <img src="{{ url_for('static', filename='commerce/rd/images/01.jpg') }}" class="img-fluid w-100 rounded" alt="">
+								</a>
+							 </li>
+							 <li class="item">
+								<a href="javascript:void(0);">
+									 <img src="{{ url_for('static', filename='commerce/rd/images/02.jpg') }}"  class="img-fluid w-100 rounded" alt="">
+								</a>
+							 </li>
+							 <li class="item">
+								<a href="javascript:void(0);">
+									 <img src="{{ url_for('static', filename='commerce/rd/images/03.jpg') }}"  class="img-fluid w-100 rounded" alt="">
+								</a>
+							 </li>
+							 <li class="item">
+								<a href="javascript:void(0);">
+									 <img src="{{ url_for('static', filename='commerce/rd/images/04.jpg') }}"  class="img-fluid w-100 rounded" alt="">
+								</a>
+							 </li>
+							 <li class="item">
+								<a href="javascript:void(0);">
+									 <img src="{{ url_for('static', filename='commerce/rd/images/05.jpg') }}"  class="img-fluid w-100 rounded" alt="">
+								</a>
+							 </li>
+							 <li class="item">
+								<a href="javascript:void(0);">
+									 <img src="{{ url_for('static', filename='commerce/rd/images/06.jpg') }}"  class="img-fluid w-100 rounded" alt="">
+								</a>
+							 </li>
+							 <li class="item">
+								<a href="javascript:void(0);">
+									 <img src="{{ url_for('static', filename='commerce/rd/images/07.jpg') }}"  class="img-fluid w-100 rounded" alt="">
+								</a>
+							 </li>
+							 <li class="item">
+								<a href="javascript:void(0);">
+									 <img src="{{ url_for('static', filename='commerce/rd/images/08.jpg') }}"  class="img-fluid w-100 rounded" alt="">
+								</a>
+							 </li>
+							 <li class="item">
+								<a href="javascript:void(0);">
+									 <img src="{{ url_for('static', filename='commerce/rd/images/09.jpg') }}"  class="img-fluid w-100 rounded" alt="">
+								</a>
+							 </li>
+							</ul>
+						 </div>
+					</div>
+				 </div>
 			</div>
-		 </div>
+		</div>
+		
+
 		<div class="product-area pb-40">
 			<div class="container">
 				<div class="section-title-6 mb-50 text-center">
@@ -340,7 +357,7 @@
 				<div class="row">
 					{% for resource in Latest_resources %}
 					<div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-6" style="padding-bottom: 10px;">
-						<div class="product-wrap product-border-3 product-img-zoom">
+						<div class="product-wrap product-border-3 product-img-zoom" style="height: 100%;">
 							<div class="product-img">
 								<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">
 									<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }} {{ company.CName }}">
@@ -354,6 +371,10 @@
 									</a>
 								</div>
 								{% endif %}
+
+								<span class="onsale">
+									<span class="woocommerce-Price-amount amount">-30%</span>
+								</span>
 								<div class="hm3"><div class="ui-q0">
 									<span class="ui-q3 ui-q6">
 										{{ resource.ResPriceValue }} 
@@ -362,33 +383,33 @@
 										{{ resource.CurrencyCode }}
 									</span>
 								</div>
-								<span class="n1c c2n n2c nc5 f-tsBodyM" style="color:var(--ozOrange);">
-								</span>
+								<span class="x9c cy3 tsBodyM d9g" style="color: rgb(255, 132, 0);"><span>Бестселлер</span></span>
 								<a href="#" class="tile-hover-target k9h">
 									<h4 class="order-info">
 										<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">
 										{{ resource.ResName }}
-									</a></h4>
+									</a>
+								</h4>
 								</a>
-								
+								<div class="star">
+									<i class="fa fa-star" aria-hidden="true"></i>
+									<i class="fa fa-star" aria-hidden="true"></i>
+									<i class="fa fa-star" aria-hidden="true"></i>
+									<i class="fa fa-star" aria-hidden="true"></i>
+									<i class="fa fa-star" aria-hidden="true"></i>
+								</div>
 								<div class="hw w0h">
 										<div class="wh0 h1w">
 												<div class="q6c qc7 wh">
 														<div class="ui-b2">
-															<div class="product-count cardplacement cartItemQty" style="display: none;">
-																<div class="qtyminus qtybtn">-</div>
-																<input type="text" class="qty productQty"
-																	pending_amount="{{resource.ResPendingTotalAmount}}"
-																	min_amount="{{resource.ResMinSaleAmount}}"
-																	max_amount="{{resource.ResMaxSaleAmount}}"
-																	value="{{resource.productQty}}" ownerId="{{ resource.ResId }}">
-																<div class="qtyplus qtybtn">+</div>
-															</div>
-															<a class="round-black-btn cardplacement add-to-cart" ownerId="{{ resource.ResId }}" style="color: #fff">{{_('Add to cart')}}</a>
+															<a class="add-to-cart" ownerId="{{ resource.ResId }}">
+																<span>В корзину</span>
+															</a>
 														</div>
 												</div>
 										</div>
 								</div>
+								
 								</div>
 							</div>
 
