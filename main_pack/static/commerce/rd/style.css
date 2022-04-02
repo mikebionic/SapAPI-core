@@ -6615,7 +6615,7 @@ body:not(.open-overlay) .header-area.layout-01{
   display: flex;
   flex: 1 0 auto;
   flex-direction: column;
-  margin-top: 20px
+  margin: 20px 11px
 }
 
 .static-wrapper[data-v-94788a02] {
@@ -6693,6 +6693,6 @@ body:not(.open-overlay) .header-area.layout-01{
   z-index: 1;
   color: #fff!important;
   bottom: 41%;
-  background: #c30f0f;
+  background: #f44336;
   border-radius: 16px;
 }

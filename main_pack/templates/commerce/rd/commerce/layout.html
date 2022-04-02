@@ -43,7 +43,9 @@
 <!-- nr-header -->
 <body>
 	<div class="main-wrapper">
-		<header id="header" class="header-area style-01 layout-03">
+
+		<div class="cart-overlay"></div>
+		<header id="header" class="header-area bg-black sticky-bar header-padding-1">
 			<div class="nr-header__main ">
 				<div class="nr-header__main-container nr-container">
 					<div class="nr-header__main-row">
@@ -377,7 +379,7 @@
 									</li>
 								</div>
 								
-								<div class="header-account-links">
+								<!-- <div class="header-account-links">
 									<div class="cart-wrap common-style" style="margin-top:-2px">
 											<button class="cart-active cart-3 header-cart" style="background-color: transparent;">
 												<i class="las la-shopping-cart"></i>
@@ -403,7 +405,7 @@
 												</div>
 											</div>
 									</div>
-								</div>
+								</div> -->
 							</div>
 						</div>
 					</div>
@@ -482,18 +484,24 @@
 								<span class="text">{{_('Menu')}}</span>
 						</a>
 				</div>
-				{% if current_user.is_authenticated %}
-				<div class="mobile-block block-minicart">
-						<a class="link-to-cart" href="{{ url_for('commerce_users.profile') }}" style="font-size: 20px;color: #000">
-								<i class="las la-user" aria-hidden="true"></i>
-								<span class="text">{{_('Profile')}}</span>
-						</a>
+				<div class="mobile-block block-global">
+					<a class="link-to-cart" href="{{ url_for('commerce_users.wishlist') }}">
+							<span class="fa fa-shopping-basket" style="color: #424242;"></span>
+							<span class="text">{{_('Cart')}}</span>
+					</a>
 				</div>
+				{% if current_user.is_authenticated %}
 				<div class="mobile-block block-global">
 						<a class="link-to-cart" href="{{ url_for('commerce_users.wishlist') }}">
 								<span class="fa fa-heart-o"></span>
 								<span class="text">{{_('Wishlist')}}</span>
 						</a>
+				</div>
+				<div class="mobile-block block-minicart">
+					<a class="link-to-cart" href="{{ url_for('commerce_users.profile') }}" style="font-size: 20px;color: #000">
+							<i class="las la-user" aria-hidden="true"></i>
+							<span class="text">{{_('Profile')}}</span>
+					</a>
 				</div>
 				{% else %}
 				<div class="mobile-block block-minicart">
