@@ -74,6 +74,7 @@ def register_email(requested_email):
 			.first()
 
 		verify_code = generate_random_code()
+		print("FFFFUUUUUCKCKCKC ", verify_code)
 		should_register = True
 		if existing_register_request:
 			existing_register_request.RegReqVerifyCode = verify_code

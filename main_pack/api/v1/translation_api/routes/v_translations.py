@@ -6,13 +6,13 @@ from main_pack.api.v1.translation_api import api
 from main_pack.api.v1.translation_api.utils import collect_translation_data
 from main_pack.api.v1.translation_api.utils.data.save_translation_data import save_translation_data
 from main_pack.base.apiMethods import checkApiResponseStatus
-
+from main_pack.api.auth.utils import admin_required
 
 @api.route("/v-translations/", methods=['GET'])
 def v_translations_get():
 	arg_data = {
 		"TranslId": request.args.get("id",None,type=int),
-		"TranslGuid": request.args.get("uuid","",type=int),
+		"TranslGuid": request.args.get("uuid","",type=str),
 		"ResCatId": request.args.get("categoryId",None,type=int),
 		"ColorId": request.args.get("colorId",None,type=int),
 		"ProdId": request.args.get("prodId",None,type=int),
@@ -34,8 +34,9 @@ def v_translations_get():
 	return make_response(jsonify(res), 200)
 
 @api.route("/v-translations/", methods=['POST'])
+@admin_required
 @request_is_json(request)
-def v_translations_post():
+def v_translations_post(user):
 
 	req = request.get_json()
 
