@@ -8,7 +8,7 @@ def request_is_json(request):
 		@wraps(f)
 		def decorated(*args,**kwargs):
 			if (request.method != 'GET' and not request.json):
-				log_print(f"Not a Json request: {request.path}", "danger")
+				log_print(f"Not a Json request: {request.path} {request.get_json()}", "danger")
 				res = {
 					"status": 0,
 					"message": "Error. Not a JSON data."

@@ -110,7 +110,7 @@ Res_translation API
 
 > POST
 
-http://<url>/<prefix>/v1/v-translations/
+http://<url>/<prefix>/v1/v-res-translations/
 
 **request**
 
