@@ -156,6 +156,9 @@ def create_app(config_class=Config):
 	app.register_blueprint(v1_res_collection_api, url_prefix=f"{api_url_prefix}/v1/")
 	csrf.exempt(v1_res_collection_api)
 
+	from main_pack.api.v1.rating_api import api as v1_rating_api
+	app.register_blueprint(v1_rating_api, url_prefix=f"{api_url_prefix}/v1/")
+	csrf.exempt(v1_rating_api)
 
 	if Config.USE_ACTIVATION_CUSTOMER:
 		from main_pack.activation.customer import api as activation_customer_api

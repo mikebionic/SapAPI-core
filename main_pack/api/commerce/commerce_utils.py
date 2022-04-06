@@ -547,7 +547,7 @@ def apiResourceInfo(
 				List_Ratings = []
 				for rating in query_resource.Rating:
 					try:
-						if (Config.SHOW_ONLY_VALIDATED_RATING and not rating.RtValidated):
+						if (Config.SHOW_ONLY_VALIDATED_RATING and not rating.RtValidated) or rating.GCRecord:
 							raise Exception
 
 						Rating_info = rating.to_json_api()

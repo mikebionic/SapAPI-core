@@ -1,3 +1,2 @@
-from .add_rating_dict import add_rating_dict
-# from .collect_rating_data import collect_rating_data
+from .add_Rating_dict import add_Rating_dict
 from .manage_rating import manage_rating

@@ -500,3 +500,14 @@ curl 127.0.0.1:5000/ls/api/v1/v-images/ --header 'images-to-exclude: [{"FileName
 | page     | **int**  | returns next page of pagination |
 
 [Example](./examples/wishlist_api.md)
+
+
+---
+
+## Rating Api
+
+| __Route__   |     __Methods__      | __Status__ | __Note__            |
+| ----------- | :------------------: | :--------: | ------------------- |
+| /v-ratings/ | **POST**, **DELETE** |   Active   | **@token_required** |
+
+[Example](./examples/rating_api.md)
