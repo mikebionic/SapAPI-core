@@ -153,6 +153,7 @@ def api_resources():
 	showMain = request.args.get("showMain",0,type=int)
 	limit_by = request.args.get("limit",0,type=int)
 	showDiscounts = request.args.get("showDiscounts",0,type=int)
+	currency_code = request.args.get("currency_code",None,type=str)
 
 	search = request.args.get("search",None,type=str)
 	search = search.strip() if search else None
@@ -173,6 +174,7 @@ def api_resources():
 		DivId = DivId,
 		notDivId = notDivId,
 		showDiscounts = showDiscounts,
+		currency_code = currency_code,
 	)
 
 	status_code = 200

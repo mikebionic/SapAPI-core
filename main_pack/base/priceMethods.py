@@ -84,6 +84,7 @@ def price_currency_conversion(
 	except Exception as ex:
 		print(f"{datetime.now()} | Price currency conversion Exception: {ex}")
 
+	print(data)
 	return data
 
 

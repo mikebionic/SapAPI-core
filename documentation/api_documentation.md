@@ -340,20 +340,21 @@ Provide **username** and **password** in Authentication headers
 | /api/resources/ |   **GET**   |   Active   |
 
 **Properties**
-| __Name__   | __Type__ | __Description__     | __Example__ |
-| ---------- | :------: | ------------------- | ----------- |
-| page       | **int**  |
-| sort       | **str**  |
-| per_page   | **int**  |
-| category   | **int**  |
-| brand      | **int**  |
-| from_price | **int**  |
-| to_price   | **int**  |
-| DivId      | **int**  |
-| notDivId   | **int**  |
-| showMain   | **int**  | shows featured only |
-| limit      | **int**  |
-| search     | **str**  |
+| __Name__      | __Type__ | __Description__     | __Example__ |
+| ------------- | :------: | ------------------- | ----------- |
+| page          | **int**  |
+| sort          | **str**  |
+| per_page      | **int**  |
+| category      | **int**  |
+| brand         | **int**  |
+| from_price    | **int**  |
+| to_price      | **int**  |
+| DivId         | **int**  |
+| notDivId      | **int**  |
+| showMain      | **int**  | shows featured only |
+| limit         | **int**  |
+| search        | **str**  |
+| currency_code | **str**  |
 
 ---
 

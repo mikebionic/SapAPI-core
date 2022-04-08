@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import url_for
+from flask import url_for, session
 from sqlalchemy import and_, or_, extract
 from sqlalchemy.orm import joinedload
 import requests
@@ -13,6 +13,7 @@ from . import api
 from main_pack import db, gettext
 from main_pack.config import Config
 from .commerce_utils import apiResourceInfo, apiOrderInvInfo
+from main_pack.base.priceMethods import price_currency_conversion
 
 # Resource db Models
 from main_pack.models import (
@@ -49,7 +50,12 @@ def collect_resource_paginate_info(
 	showNullPrice = 0,
 	showInactive = 0,
 	showDiscounts = 0,
+	currency_code = None,
 ):
+	if not currency_code:
+		if "currency_code" in session:
+			currency_code = session["currency_code"] if session["currency_code"] else Config.DEFAULT_VIEW_CURRENCY_CODE
+
 	sort_types = [
 		{
 			"sort": "date_new",
@@ -160,9 +166,20 @@ def collect_resource_paginate_info(
 		resource_query = resource_query.filter(Resource.ResCatId.in_(category_ids))
 
 	if from_price:
+		print("+++++++++++++++++++ checking price", from_price, currency_code, currency_code != Config.MAIN_CURRENCY_CODE)
+		if currency_code != Config.MAIN_CURRENCY_CODE:
+			from_price = price_currency_conversion(
+				priceValue = from_price,
+				from_currency = currency_code,
+				to_currency = Config.MAIN_CURRENCY_CODE)["ResPriceValue"]
 		resource_query = resource_query.filter(Res_price.ResPriceValue >= from_price)
 
 	if to_price:
+		if currency_code != Config.MAIN_CURRENCY_CODE:
+			to_price = price_currency_conversion(
+				priceValue = to_price,
+				from_currency = currency_code,
+				to_currency = Config.MAIN_CURRENCY_CODE)["ResPriceValue"]
 		resource_query = resource_query.filter(Res_price.ResPriceValue <= to_price)
 
 	if showMain:
@@ -286,7 +303,11 @@ def collect_resource_paginate_info(
 	resource_models = [resource for resource in pagination_resources.items if pagination_resources.items]
 	data = []
 	if resource_models:
-		data = apiResourceInfo(resource_models=resource_models, limit_by=limit_by)["data"]
+		data = apiResourceInfo(
+			resource_models = resource_models,
+			limit_by = limit_by,
+			currency_code = currency_code,
+		)["data"]
 
 	pagination_info = {
 		"data": data,
