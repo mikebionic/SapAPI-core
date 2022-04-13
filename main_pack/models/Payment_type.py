@@ -23,6 +23,9 @@ class Payment_type(AddInf, BaseModel, db.Model):
 			"PtVisibleIndex": self.PtVisibleIndex
 		}
 
+		for key, value in AddInf.to_json_api(self).items():
+			data[key] = value
+
 		for key, value in BaseModel.to_json_api(self).items():
 			data[key] = value
 

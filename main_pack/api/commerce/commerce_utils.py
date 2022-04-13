@@ -1004,6 +1004,7 @@ def apiOrderInvInfo(
 						this_order_inv_line = order_inv_line.to_json_api()
 						this_order_inv_line["ResRegNo"] = order_inv_line.resource.ResRegNo if order_inv_line.resource and not order_inv_line.resource.GCRecord else None
 						this_order_inv_line["ResGuid"] = order_inv_line.resource.ResGuid if order_inv_line.resource and not order_inv_line.resource.GCRecord else None
+						this_order_inv_line["ResName"] = order_inv_line.resource.ResName if order_inv_line.resource and not order_inv_line.resource.GCRecord else None
 
 						currency_data = [currency.to_json_api() for currency in currencies if currency.CurrencyId == order_inv_line.CurrencyId]
 
