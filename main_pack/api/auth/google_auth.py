@@ -2,16 +2,21 @@
 from flask import jsonify, request, make_response, session
 from sqlalchemy.orm import joinedload
 from flask_login import login_user
+from datetime import datetime
 import requests
 
+from main_pack import db
+from main_pack.config import Config
 from main_pack.api.auth import api
 from main_pack.models import User, Rp_acc, Device
 from main_pack.api.users.utils import apiUsersData, apiRpAccData, apiDeviceData
+from main_pack.api.common.gather_required_register_rp_acc_data import gather_required_register_rp_acc_data
 
 from main_pack.api.base.validators import request_is_json
 from main_pack.base import log_print
 from main_pack.base.dataMethods import apiDataFormat
 from main_pack.base.cryptographyMethods import encodeJWT
+from main_pack.base.apiMethods import get_login_info
 
 
 @api.route('/google-auth/', methods=['POST'])
@@ -38,9 +43,7 @@ def google_auth():
 		user_model = user_query.first() if user_query else None
 
 		if not user_model:
-			log_print("API LOGIN couldn't find db model")
-			log_print("Here should be a profile creation")
-			raise Exception
+			user_model = register_new_user(auth_type, req)
 
 		if user_model:
 			token_encoding_data = {}
@@ -72,15 +75,72 @@ def google_auth():
 			return make_response(response_data), response_headers
 
 	except Exception as ex:
-		print(ex)
-		pass
+		log_print(f"Google Auth Api exception {ex}")
+
 	return make_response(*error_response)
 
 
 def check_google_token(token):
 	server_response = requests.get(f"https://www.googleapis.com/oauth2/v3/userinfo?access_token={token}").json()
-	print(server_response)
 	if 'email' in server_response:
 		session['language'] = ['locale']
 		return True
 	return False
+
+
+def register_new_user(auth_type, req, random_password=1):
+	user_model, message = None, ''
+	try:
+		if auth_type == "rp_acc":
+			rp_acc_data = {
+				"RpAccEMail": req['email'],
+				"RpAccName": req['fullName'],
+				"RpAccUName": req['username'],
+				"RpAccFirstName": req['firstName'],
+				"RpAccLastName": req['lastName'],
+				"AddInf1": req['googleId'],
+				"AddInf2": req['imageUrl'],
+				"RpAccTypeId": 2,
+				"RpAccStatusId": 1,
+			}
+			if random_password:
+				rp_acc_data["RpAccUPass"] = f"{Config.COMPANY_NAME}|{datetime.now()}"
+
+			if not rp_acc_data["RpAccUPass"]:
+				message = "Password not valid!"
+				log_print(message, "warning")
+				raise Exception
+
+			UId, CId, DivId, RpAccRegNo, RpAccGuid = gather_required_register_rp_acc_data()
+			rp_acc_data["UId"] = UId
+			rp_acc_data["CId"] = CId
+			rp_acc_data["DivId"] = DivId
+			rp_acc_data["RpAccRegNo"] = RpAccRegNo
+			rp_acc_data["RpAccGuid"] = RpAccGuid
+
+			if not rp_acc_data["RpAccName"]:
+				rp_acc_data["RpAccName"] = rp_acc_data["RpAccUName"]
+
+			if Config.INSERT_LAST_ID_MANUALLY:
+				try:
+					lastUser = Rp_acc.query.order_by(Rp_acc.RpAccId.desc()).first()
+					RpAccId = lastUser.RpAccId + 1
+				except:
+					RpAccId = None
+				rp_acc_data["RpAccId"] = RpAccId
+
+			user_model = Rp_acc(**rp_acc_data)
+			db.session.add(user_model)
+
+			try:
+				login_info = get_login_info(request)
+				user_model.RpAccLastActivityDate = login_info["date"]
+				user_model.RpAccLastActivityDevice = login_info["info"]
+			except Exception as ex:
+				log_print(f"Rp_acc activity info update Exception: {ex}")
+
+		db.session.commit()
+	except Exception as ex:
+		log_print(f"Register google User exception {ex}")
+
+	return user_model
