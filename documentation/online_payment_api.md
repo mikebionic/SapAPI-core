@@ -54,6 +54,7 @@ online_payment_type = "halkbank" || "foreign_affairs_bank"
 
 > 3. Prepare URl for payment
  
+ ```js
 req_payment_url_prepare(RegNum);
 
 payload = {
@@ -64,6 +65,8 @@ payload = {
 var online_payment_type = order_data["online_payment_type"]
 
 ${payment_req_url}?online_payment_type=${online_payment_type}
+
+```
 
 > Request for order payment register
 > This will return registered orderId and url that could be used for further payment
@@ -173,7 +176,6 @@ function detect_window_close(current_window){
 	"OInvRegNo": "RegNo",
 	"RpAccGuid": "GUID of rp_acc if not validating as rp_acc",
 }
-
 ```
 
 **Response**
