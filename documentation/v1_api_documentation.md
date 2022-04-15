@@ -122,8 +122,8 @@
 
 | __Route__            | __Methods__ | __Status__ | __Note__            |
 | -------------------- | :---------: | :--------: | ------------------- |
-| /api/v-devices/      |   **GET**   |   Active   | **@token required** |
-| /api/tbl-dk-devices/ |   **GET**   |   Active   | **@sha required**   |
+| /api/v-devices/      |   **GET**   |   Active   | **@token_required** |
+| /api/tbl-dk-devices/ |   **GET**   |   Active   | **@admin_required** |
 
 **Properties**
 | __Name__      |         __Type__         | __Description__ | __Example__ |
@@ -136,6 +136,7 @@
 | name          |         **str**          |
 | synchDateTime | **str repr of datetime** |
 
+[Example](./examples/device_v1.md)
 
 ---
 

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import dateutil.parser
 from datetime import datetime, timedelta
+from sqlalchemy.orm import joinedload
 
 from main_pack.models import Device
 
@@ -13,6 +14,7 @@ def collect_device_data(
 	IsAllowed = None,
 	DevUniqueId = None,
 	DevName = None,
+	withPassword = 0,
 ):
 
 	filtering = {"GCRecord": None}
@@ -38,8 +40,14 @@ def collect_device_data(
 			synchDateTime = dateutil.parser.parse(synchDateTime)
 		devices = devices.filter(Device.ModifiedDate > (synchDateTime - timedelta(minutes = 5)))
 
+	devices = devices.options(joinedload(Device.user))
 	devices = devices.all()
 
-	data = [device.to_json_api() for device in devices]
+	data = []
+	for device in devices:
+		device_data = device.to_json_api()
+		device_data["UName"] = device.user.UName if device.user else ''
+		device_data["UFullName"] = device.user.UFullName if device.user else ''
+		data.append(device_data)
 
 	return data

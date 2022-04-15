@@ -7,9 +7,10 @@ from main_pack.api.v1.device_api import api
 from main_pack.api.v1.device_api.utils import collect_device_data
 
 
+#!!! TODO: make logged in view user devices
 @api.route("/v-devices/", methods=['GET'])
 @token_required
-def v_device_get():
+def v_device_get(user):
 	arg_data = {
 		"synchDateTime": request.args.get("synchDateTime",None,type=str),
 		"DevId": request.args.get("id",None,type=int),

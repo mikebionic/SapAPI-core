@@ -13,7 +13,7 @@ from main_pack.models import User
 from main_pack.api.users.utils import addUsersDict
 
 from main_pack.base.apiMethods import checkApiResponseStatus
-from main_pack.api.auth.utils import sha_required, token_required
+from main_pack.api.auth.utils import admin_required, token_required
 from main_pack.api.base.validators import request_is_json
 
 
@@ -104,9 +104,9 @@ def api_v_users(user):
 
 
 @api.route("/tbl-dk-users/",methods=['GET','POST'])
-@sha_required
+@admin_required
 @request_is_json(request)
-def api_users():
+def api_users(user):
 	if request.method == 'GET':
 		arg_data = {
 			"DivId": request.args.get("DivId",None,type=int),

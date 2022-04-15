@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from flask import request, make_response, jsonify
 
-from main_pack.api.auth.utils import sha_required
+from main_pack.api.auth.utils import admin_required
 from main_pack.api.base.validators import request_is_json
 from main_pack.base.apiMethods import checkApiResponseStatus
 
@@ -10,9 +10,9 @@ from main_pack.api.v1.device_api.utils import save_device_sync_data
 
 
 @api.route("/tbl-devices/", methods=['POST'])
-@sha_required
+@admin_required
 @request_is_json(request)
-def tbl_device_post():
+def tbl_device_post(user):
 	req = request.get_json()
 
 	data, fails = save_device_sync_data(req)
