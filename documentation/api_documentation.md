@@ -26,6 +26,33 @@ Provide **username** and **password** in Authentication headers
 
 ---
 
+## Auth with google
+| __Route__         | __Methods__ | __Status__ | __Note__ |
+| ----------------- | :---------: | :--------: | -------- |
+| /api/google-auth/ |  **POST**   |  Updated   |
+
+**Properties**
+| __Name__ | __Type__ | __Description__ | __Example__                                     |
+| -------- | :------: | --------------- | ----------------------------------------------- |
+| type     | **str**  | user or rp_acc  | <prefix>/api/google-auth/?type=[user or rp_acc] |
+
+**payload**
+```json
+{
+	"email": "googleData.profileObj.email",
+	"username": "googleData.profileObj.givenName",
+	"fullName": "googleData.profileObj.name",
+	"firstName": "googleData.profileObj.givenName",
+	"lastName": "googleData.profileObj.familyName",
+	"imageUrl": "googleData.profileObj.imageUrl",
+	"googleId": "googleData.profileObj.googleId",
+	"tokenId": "googleData.tokenId",
+	"accessToken": "googleData.accessToken",
+}
+```
+
+---
+
 | __Route__           | __Methods__ | __Status__ | __Note__         |
 | ------------------- | :---------: | :--------: | ---------------- |
 | /api/login/users/   |   **GET**   |   Active   | **!!deprecated** |
