@@ -82,8 +82,8 @@ def update_profile_picture(file, model_type, current_user, session = None, remov
 					.filter(Image.ImgId != this_image.ImgId).all()
 
 				for other_image in other_images:
-					db.session.delete(other_image)
 					remove_image("image",other_image.FileName)
+					db.session.delete(other_image)
 
 				db.session.commit()
 
