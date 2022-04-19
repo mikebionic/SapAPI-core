@@ -4,4 +4,4 @@ from .check_Rp_acc_existence import check_Rp_acc_existence
 from .collect_rp_acc_data import collect_rp_acc_data
 from .save_rp_acc_synch_data import save_rp_acc_synch_data
 from .save_rp_acc_req_data import save_rp_acc_req_data
-from .update_rp_acc_profile import update_rp_acc_profile
+from .update_rp_acc_profile import update_rp_acc_profile, update_profile_picture

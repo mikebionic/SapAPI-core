@@ -35,7 +35,7 @@ app.app_context().push()
 # db.session.add(dep)
 ##########################
 
-lastUser = User.query.order_by(User.UId.desc()).first()
+lastUser = User.query.with_entities(User.UId).order_by(User.UId.desc()).first()
 lastRpAcc = Rp_acc.query.order_by(Rp_acc.RpAccId.desc()).first()
 if lastUser:
 	newUId = lastUser.UId+1

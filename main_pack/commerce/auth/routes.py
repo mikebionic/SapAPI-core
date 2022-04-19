@@ -70,7 +70,6 @@ def login():
 			session["ResPriceGroupId"] = user.ResPriceGroupId
 			login_user(user, remember=form.remember.data)
 
-			print(session)
 			next_page = request.args.get("next")
 
 			return redirect(next_page) if next_page else redirect(url_for('commerce.commerce'))
@@ -226,7 +225,7 @@ def register_token():
 				rp_acc_data["RpAccMobilePhoneNumber"] = None
 
 			if Config.INSERT_LAST_ID_MANUALLY:
-				lastUser = Rp_acc.query.order_by(Rp_acc.RpAccId.desc()).first()
+				lastUser = Rp_acc.query.with_entities(Rp_acc.RpAccId).order_by(Rp_acc.RpAccId.desc()).first()
 				RpAccId = lastUser.RpAccId + 1
 				rp_acc_data["RpAccId"] = RpAccId
 

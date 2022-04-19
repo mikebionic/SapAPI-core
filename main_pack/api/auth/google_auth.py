@@ -82,8 +82,8 @@ def google_auth():
 
 def check_google_token(token):
 	server_response = requests.get(f"https://www.googleapis.com/oauth2/v3/userinfo?access_token={token}").json()
-	if 'email' in server_response:
-		session['language'] = ['locale']
+	if 'locale' in server_response:
+		session['language'] = server_response['locale']
 		return True
 	return False
 
@@ -123,7 +123,7 @@ def register_new_user(auth_type, req, random_password=1):
 
 			if Config.INSERT_LAST_ID_MANUALLY:
 				try:
-					lastUser = Rp_acc.query.order_by(Rp_acc.RpAccId.desc()).first()
+					lastUser = Rp_acc.query.with_entities(Rp_acc.RpAccId).order_by(Rp_acc.RpAccId.desc()).first()
 					RpAccId = lastUser.RpAccId + 1
 				except:
 					RpAccId = None

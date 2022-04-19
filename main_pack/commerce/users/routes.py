@@ -111,7 +111,7 @@ def profile_edit():
 					module = os.path.join("uploads","commerce","Rp_acc"),
 					id = rpAcc.RpAccId)
 
-				lastImage = Image.query.order_by(Image.ImgId.desc()).first()
+				lastImage = Image.query.with_entities(Image.ImgId).order_by(Image.ImgId.desc()).first()
 				ImgId = lastImage.ImgId+1
 
 				image = Image(

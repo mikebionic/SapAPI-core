@@ -6,3 +6,4 @@ from .tbl_order_inv import tbl_order_inv
 from .v_order_inv_paginate import v_order_inv_paginate
 from .v_order_inv_RegNo import v_order_inv_RegNo
 from .v_order_inv import v_order_inv
+from .order_payment_service_register_request_post import order_payment_service_register_request_post

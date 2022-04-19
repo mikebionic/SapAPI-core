@@ -175,7 +175,7 @@ def api_tbl_dk_resources(user):
 
 				else:
 					try:
-						lastResource = Resource.query.order_by(Resource.ResId.desc()).first()
+						lastResource = Resource.query.with_entities(Resource.ResId).order_by(Resource.ResId.desc()).first()
 						ResId = lastResource.ResId+1
 					except:
 						ResId = None

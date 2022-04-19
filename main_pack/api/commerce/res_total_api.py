@@ -175,7 +175,7 @@ def api_res_totals():
 
 					else:
 						try:
-							lastTotal = Res_total.query.order_by(Res_total.ResTotId.desc()).first()
+							lastTotal = Res_total.query.with_entities(Res_total.ResTotId).order_by(Res_total.ResTotId.desc()).first()
 							ResTotId = lastTotal.ResTotId+1
 						except:
 							ResTotId = None

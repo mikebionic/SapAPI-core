@@ -21,6 +21,7 @@ from main_pack.models import Resource, Barcode
 
 
 def remove_image(file_type,file_name):
+	print(file_name)
 	try:
 		if file_type == "icon":
 			file_type = "image"
@@ -233,7 +234,7 @@ def api_images():
 						.first()
 					ResId = thisResource.ResId
 					barcode = thisResource.Barcode[0]
-					
+
 					if (Config.PROVIDED_IMAGE_FILENAME_TYPE == 1):
 						image_req["FileName"] = thisResource.ResName
 						if (len(list(filter(lambda n: n in image_req["FileName"], Config.FILENAME_INVALID_CHARACTERS))) > 0):
@@ -269,7 +270,7 @@ def api_images():
 
 						except Exception as ex:
 							print(f"{datetime.now()} | Image Api Deletion Exception: {ex}")
-						
+
 						thisImage.update(**image_data)
 						print(f"{datetime.now()} | Image updated (Different ModifiedDate)")
 
@@ -291,7 +292,7 @@ def api_images():
 						print(f"{datetime.now()} | Couldn't commit: {ex}")
 
 						try:
-							lastImage = Image.query.order_by(Image.ImgId.desc()).first()
+							lastImage = Image.query.with_entities(Image.ImgId).order_by(Image.ImgId.desc()).first()
 							ImgId = lastImage.ImgId+1
 						except:
 							ImgId = None
@@ -308,7 +309,7 @@ def api_images():
 				print(f"{datetime.now()} | Image Api Exception: {ex}")
 				image_req["Image"] = None
 				failed_data.append(image_req)
-			
+
 			thisImage = None
 
 		# db.session.commit()
@@ -334,10 +335,10 @@ def api_images():
 @api.route("/get-image/<file_type>/<file_size>/<file_name>")
 def get_image(file_type,file_size,file_name,path_only=False):
 	try:
-		if file_type == "slider": 
+		if file_type == "slider":
 			sl_image = Sl_image.query.filter(Sl_image.SlImgMainImgFileName == file_name).first()
 			path = sl_image.SlImgMainImgFilePath
-		if file_type == "image": 
+		if file_type == "image":
 			image = Image.query.filter(Image.FileName == file_name).first()
 			if not image.FilePath:
 				raise FileNotFoundError
@@ -367,7 +368,7 @@ def get_image(file_type,file_size,file_name,path_only=False):
 @api.route("/get-file/<file_type>/<file_name>")
 def get_file(file_type,file_name):
 	try:
-		if file_type == "slider": 
+		if file_type == "slider":
 			sl_image = Sl_image.query.filter(Sl_image.SlImgMainImgFileName == file_name).first()
 			path = sl_image.SlImgMainImgFilePath
 		try:

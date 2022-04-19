@@ -191,7 +191,7 @@ def api_res_prices():
 
 				else:
 					try:
-						lastPrice = Res_price.query.order_by(Res_price.ResPriceId.desc()).first()
+						lastPrice = Res_price.query.with_entities(Res_price.ResPriceId).order_by(Res_price.ResPriceId.desc()).first()
 						ResPriceId = lastPrice.ResPriceId + 1
 					except:
 						ResPriceId = None

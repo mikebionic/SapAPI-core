@@ -1,7 +1,12 @@
 # -*- coding: utf-8 -*-
-from main_pack.base import log_print
+import os
+import uuid
 from main_pack import db
+from main_pack.base import log_print
 from .add_Rp_acc_dict import add_Rp_acc_dict
+from main_pack.models import Image
+from main_pack.api.commerce.image_api import remove_image
+from main_pack.base.imageMethods import save_image
 
 
 def update_rp_acc_profile(req, model_type, current_user, session = None):
@@ -27,20 +32,64 @@ def update_rp_acc_profile(req, model_type, current_user, session = None):
 
 	return data
 
-# if form.picture.data:
-# 	imageFile = save_image(
-# 		imageForm = form.picture.data,
-# 		module = os.path.join("uploads","commerce","Rp_acc"),
-# 		id = current_user.RpAccId)
 
-# 	lastImage = Image.query.order_by(Image.ImgId.desc()).first()
-# 	ImgId = lastImage.ImgId+1
+def update_profile_picture(file, model_type, current_user, session = None, removeOthers = 0):
+	data, message = {}, "Error updating picture"
+	try:
+		userId = current_user.RpAccId if model_type == "rp_acc" else current_user.UId
+		imageFile = save_image(
+			imageForm = file,
+			module = os.path.join("uploads","commerce","Rp_acc" if model_type == "rp_acc" else "User"),
+			id = userId)
 
-# 	image = Image(
-# 		ImgId = ImgId,
-# 		ImgGuid = uuid.uuid4(),
-# 		FileName = imageFile['FileName'],
-# 		FilePath = imageFile['FilePath'],
-# 		RpAccId = current_user.RpAccId)
+		lastImage = Image.query.with_entities(Image.ImgId).order_by(Image.ImgId.desc()).first()
+		ImgId = lastImage.ImgId + 1
+		this_image_data = {
+			"ImgId": ImgId,
+			"ImgGuid": uuid.uuid4(),
+			"FileName": imageFile['FileName'],
+			"FilePath": imageFile['FilePath'],
+		}
+		if model_type == "rp_acc":
+			this_image_data["RpAccId"] = current_user.RpAccId
+		else:
+			this_image_data["UId"] = current_user.UId
+		
+		this_image = Image(**this_image_data)
+		db.session.add(this_image)
+		db.session.commit()
+		data, message = this_image.to_json_api(), "Picture successfully updated!"
 
-# 	db.session.add(image)
+		if removeOthers:
+			try:
+				filters = {}
+				if not current_user or not model_type:
+					log_print("no current_user or model_type")
+					raise Exception
+
+				if model_type == "rp_acc":
+					filters["RpAccId"] = current_user.RpAccId
+					if not filters["RpAccId"]:
+						raise Exception
+
+				else:
+					filters["UId"] = current_user.UId
+					if not filters["RpAccId"]:
+						raise Exception
+
+				other_images = Image.query\
+					.filter_by(**filters)\
+					.filter(Image.ImgId != this_image.ImgId).all()
+
+				for other_image in other_images:
+					db.session.delete(other_image)
+					remove_image("image",other_image.FileName)
+
+				db.session.commit()
+
+			except Exception as ex:
+				log_print(f"profile image removing exception {ex}")
+
+	except Exception as ex:
+		log_print(f"Update profile picture api error: {ex}")
+	return data, message

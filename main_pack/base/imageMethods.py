@@ -107,7 +107,10 @@ def save_image(
 
 	if imageForm:
 		# need to save the file to proceed compression and resizing if imageForm
-		_, f_ext = os.path.splitext(imageForm.filename)
+		try:
+			_, f_ext = os.path.splitext(imageForm.filename)
+		except:
+			f_ext = Config.BLOB_TO_IMAGE_SAVE_EXT
 		FileName = image_file_name + f_ext
 		size = "dump"
 

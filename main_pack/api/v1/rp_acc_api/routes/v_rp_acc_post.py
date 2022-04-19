@@ -5,7 +5,7 @@ from main_pack.api.auth.utils import token_required
 from main_pack.api.base.validators import request_is_json
 
 from main_pack.api.v1.rp_acc_api import api
-from main_pack.api.v1.rp_acc_api.utils import save_rp_acc_req_data, update_rp_acc_profile
+from main_pack.api.v1.rp_acc_api.utils import save_rp_acc_req_data, update_rp_acc_profile, update_profile_picture
 from main_pack.api.response_handlers import handle_default_response, handle_instertion_response
 
 
@@ -36,3 +36,23 @@ def v_rp_accs_profile_edit(user):
 	req = request.get_json()
 	data = update_rp_acc_profile(req, model_type, current_user)
 	return handle_default_response(data, "Rp_acc profile update")
+
+
+@api.route("/update-avatar/", methods=['POST'])
+@token_required
+def update_avatar(user):
+	removeOthers = request.args.get('removeOthers',1,type=int)
+	model_type = user['model_type']
+	current_user = user['current_user']
+
+	data, message = {}, "Error updating picture"
+	if 'image' in request.files:
+		file = request.files["image"]
+		data, message = update_profile_picture(
+			file,
+			model_type,
+			current_user,
+			removeOthers = removeOthers
+		)
+
+	return handle_default_response(data, message)

@@ -302,7 +302,7 @@ def manage_rp():
 				data["CId"] = company.CId
 				data["DivId"] = division.DivId
 
-				last_RpAcc = Rp_acc.query.order_by(Rp_acc.RpAccId.desc()).first()
+				last_RpAcc = Rp_acc.query.with_entities(Rp_acc.RpAccId).order_by(Rp_acc.RpAccId.desc()).first()
 				RpAccId = last_RpAcc.RpAccId + 1
 				data["RpAccId"] = RpAccId
 
@@ -313,7 +313,7 @@ def manage_rp():
 
 			if form.picture.data:
 				imageFile = save_image(imageForm=form.picture.data,module=os.path.join("uploads","commerce","Rp_acc"),id=rp_acc.RpAccId)
-				lastImage = Image.query.order_by(Image.ImgId.desc()).first()
+				lastImage = Image.query.with_entities(Image.ImgId).order_by(Image.ImgId.desc()).first()
 				ImgId = lastImage.ImgId+1
 				image_data = {
 					"ImgId": ImgId,
@@ -480,7 +480,7 @@ def manage_user():
 					imageForm = form.picture.data,
 					module = os.path.join("uploads","commerce","User"),
 					id = user.UId)
-				lastImage = Image.query.order_by(Image.ImgId.desc()).first()
+				lastImage = Image.query.with_entities(Image.ImgId).order_by(Image.ImgId.desc()).first()
 				ImgId = lastImage.ImgId+1
 				image = Image(
 					ImgId = ImgId,
@@ -664,7 +664,7 @@ def manage_brand():
 
 			if form.Image.data:
 				imageFile = save_icon(imageForm=form.Image.data,module=os.path.join("uploads","commerce","Brand"),id=brand.BrandId)
-				lastImage = Image.query.order_by(Image.ImgId.desc()).first()
+				lastImage = Image.query.with_entities(Image.ImgId).order_by(Image.ImgId.desc()).first()
 				ImgId = lastImage.ImgId+1
 				image = Image(
 					ImgId = ImgId,

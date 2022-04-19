@@ -74,7 +74,7 @@ def api_register(token_data):
 
 		if Config.INSERT_LAST_ID_MANUALLY:
 			try:
-				lastUser = Rp_acc.query.order_by(Rp_acc.RpAccId.desc()).first()
+				lastUser = Rp_acc.query.with_entities(Rp_acc.RpAccId).order_by(Rp_acc.RpAccId.desc()).first()
 				RpAccId = lastUser.RpAccId + 1
 			except:
 				RpAccId = None

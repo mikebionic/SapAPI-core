@@ -41,7 +41,7 @@ def logo_setup():
 		if logoForm.logoImage.data:
 			imageFile = save_icon(imageForm=logoForm.logoImage.data,module=os.path.join("uploads","commerce","Company"),id=company.CId)
 
-			lastImage = Image.query.order_by(Image.ImgId.desc()).first()
+			lastImage = Image.query.with_entities(Image.ImgId).order_by(Image.ImgId.desc()).first()
 			ImgId = lastImage.ImgId+1
 			image = Image(
 				ImgId = ImgId,
@@ -312,7 +312,7 @@ def resource_edit(ResId):
 				id = ResId,
 				apply_watermark = True)
 
-			lastImage = Image.query.order_by(Image.ImgId.desc()).first()
+			lastImage = Image.query.with_entities(Image.ImgId).order_by(Image.ImgId.desc()).first()
 			ImgId = lastImage.ImgId + 1
 			image = Image(
 				ImgId = ImgId,
