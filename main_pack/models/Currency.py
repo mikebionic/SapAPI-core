@@ -57,3 +57,30 @@ class Currency(AddInf, BaseModel, db.Model):
 			data[key] = value
 
 		return data
+
+	def get_all(
+		id = None,
+		uuid = None,
+		name = None,
+		name_tk = None,
+		name_ru = None,
+		name_en = None,
+	):
+		filtering = {"GCRecord": None}
+		if id:
+			filtering["CurrencyId"] = id,
+
+		db_query = Currency.query.filter_by(**filtering)
+		
+		if uuid:
+			db_query = db_query.filter(Currency.CurrencyGuid.ilike(uuid))
+		if name:
+			db_query = db_query.filter(Currency.CurrencyName_tkTM.ilike(name))
+		if name_tk:
+			db_query = db_query.filter(Currency.CurrencyName_tkTM.ilike(name_tk))
+		if name_ru:
+			db_query = db_query.filter(Currency.CurrencyName_ruRU.ilike(name_ru))
+		if name_en:
+			db_query = db_query.filter(Currency.CurrencyName_enUS.ilike(name_en))
+		
+		return db_query.all()

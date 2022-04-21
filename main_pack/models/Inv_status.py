@@ -33,3 +33,30 @@ class Inv_status(BaseModel, db.Model):
 			data[key] = value
 
 		return data
+	
+	def get_all(
+		id = None,
+		uuid = None,
+		name = None,
+		name_tk = None,
+		name_ru = None,
+		name_en = None,
+	):
+		filtering = {"GCRecord": None}
+		if id:
+			filtering["InvStatId"] = id,
+
+		db_query = Inv_status.query.filter_by(**filtering)
+		
+		if uuid:
+			db_query = db_query.filter(Inv_status.InvStatGuid.ilike(uuid))
+		if name:
+			db_query = db_query.filter(Inv_status.InvStatName_tkTM.ilike(name))
+		if name_tk:
+			db_query = db_query.filter(Inv_status.InvStatName_tkTM.ilike(name_tk))
+		if name_ru:
+			db_query = db_query.filter(Inv_status.InvStatName_ruRU.ilike(name_ru))
+		if name_en:
+			db_query = db_query.filter(Inv_status.InvStatName_enUS.ilike(name_en))
+		
+		return db_query.all()

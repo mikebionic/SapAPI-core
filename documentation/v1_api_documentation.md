@@ -81,6 +81,31 @@
 
 ---
 
+> Update avatar
+
+
+| __Route__       | __Methods__ | __Status__ | __Note__            |
+| --------------- | :---------: | :--------: | ------------------- |
+| /update-avatar/ |  **POST**   |   Active   | **@token required** |
+
+**Properties**
+| __Name__     | __Type__ | __Description__                                | __Example__ |
+| ------------ | :------: | ---------------------------------------------- | ----------- |
+| removeOthers | **int**  | Deletes old photographs from db and filesystem |
+
+request.body = {
+	"image": <image_file>
+}
+
+**response**
+```py
+{'ImgId': 76, 'ImgGuid': UUID('4c105a6a-4a94-4882-b82e-5b97806688c0'), 'EmpId': None, 'BrandId': None, 'CId': None, 'UId': None, 'RpAccId': 44, 'ResId': None, 'ResCatId': None, 'ProdId': None, 'FileName': '2b829e61a1269312f767d8e235e4.JPG', 'FilePath': '/ls/api/get-image/image/M/2b829e61a1269312f767d8e235e4.JPG', 'FilePathS': '/ls/api/get-image/image/S/2b829e61a1269312f767d8e235e4.JPG', 'FilePathM': '/ls/api/get-image/image/M/2b829e61a1269312f767d8e235e4.JPG', 'FilePathR': '/ls/api/get-image/image/R/2b829e61a1269312f767d8e235e4.JPG', 'FileHash': None, 'MinDarkFileName': '', 'MinDarkFilePath': '', 'MaxDarkFileName': '', 'MaxDarkFilePath': '', 'MinLightFileName': '', 'MinLightFilePath': '', 'MaxLightFileName': '', 'MaxLightFilePath': '', 'CreatedDate': '2022-04-19 18:19:02', 'ModifiedDate': '2022-04-19 18:19:02', 'SyncDateTime': '2022-04-19 18:19:02', 'CreatedUId': None, 'ModifiedUId': None, 'GCRecord': None}
+
+```
+
+
+----
+
 
 ## User api
 
@@ -512,3 +537,112 @@ curl 127.0.0.1:5000/ls/api/v1/v-images/ --header 'images-to-exclude: [{"FileName
 | /v-ratings/ | **POST**, **DELETE** |   Active   | **@token_required** |
 
 [Example](./examples/rating_api.md)
+
+
+----------------
+
+## Statuses API
+
+
+| __Route__      | __Methods__ | __Status__ | __Note__ |
+| -------------- | :---------: | :--------: | -------- |
+| /inv-statuses/ |   **GET**   |   Active   |
+**Properties**
+| __Name__ | __Type__ |
+| -------- | :------: |
+| id       | **int**  |
+| uuid     | **str**  |
+| name     | **str**  |
+| name_tk  | **str**  |
+| name_ru  | **str**  |
+| name_en  | **str**  |
+
+**request**
+
+<prefix>/inv-statuses/?id=2
+
+**response**
+
+```json
+{
+  "data": [
+    {
+      "CreatedDate": null,
+      "CreatedUId": 0,
+      "GCRecord": null,
+      "InvStatDesc_enUS": "Information received and being proceessed",
+      "InvStatDesc_ruRU": "Информация получена и находится обработке",
+      "InvStatDesc_tkTM": "Maglumat kabul edildi we degişli işler alnyp barylýar",
+      "InvStatGuid": null,
+      "InvStatId": 2,
+      "InvStatName_enUS": "Received",
+      "InvStatName_ruRU": "Принято",
+      "InvStatName_tkTM": "Kabul edildi",
+      "ModifiedDate": null,
+      "ModifiedUId": 0,
+      "SyncDateTime": null
+    }
+  ],
+  "message": "Invoice statuses",
+  "status": 1,
+  "total": 1
+}
+```
+
+
+-----
+
+
+| __Route__  | __Methods__ | __Status__ | __Note__ |
+| ---------- | :---------: | :--------: | -------- |
+| /currency/ |   **GET**   |   Active   |
+**Properties**
+| __Name__ | __Type__ |
+| -------- | :------: |
+| id       | **int**  |
+| uuid     | **str**  |
+| name     | **str**  |
+| name_tk  | **str**  |
+| name_ru  | **str**  |
+| name_en  | **str**  |
+
+**request**
+
+<prefix>/currency/?id=2
+
+**response**
+
+```json
+{
+  "data": [
+    {
+      "AddInf1": "",
+      "AddInf2": "",
+      "AddInf3": "",
+      "AddInf4": "",
+      "AddInf5": "",
+      "AddInf6": "",
+      "CreatedDate": null,
+      "CreatedUId": 0,
+      "CurrencyCode": "USD",
+      "CurrencyDesc_enUS": "",
+      "CurrencyDesc_ruRU": "",
+      "CurrencyDesc_tkTM": "",
+      "CurrencyGuid": "ba191a0e-fcec-4b83-a2c2-4ac24a4f786b",
+      "CurrencyId": 2,
+      "CurrencyName_enUS": "United states dollar",
+      "CurrencyName_ruRU": "Доллар США",
+      "CurrencyName_tkTM": "Amerikan dollary",
+      "CurrencyNumCode": 840,
+      "CurrencySymbol": "$",
+      "GCRecord": null,
+      "ModifiedDate": "2020-10-27 17:34:42",
+      "ModifiedUId": 6,
+      "SyncDateTime": null
+    }
+  ],
+  "message": "Currencies",
+  "status": 1,
+  "total": 1
+}
+```
