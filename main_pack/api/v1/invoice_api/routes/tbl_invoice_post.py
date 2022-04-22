@@ -4,18 +4,19 @@ from flask import request, make_response, jsonify
 from main_pack.api.v1.invoice_api import api
 from main_pack.api.v1.invoice_api.utils import save_invoice_synch_data
 
-from main_pack.api.auth.utils import sha_required
+from main_pack.api.auth.utils import admin_required
 from main_pack.api.base.validators import request_is_json
 from main_pack.base.apiMethods import checkApiResponseStatus
 
 
 @api.route("/tbl-invoices/", methods=['POST'])
-@sha_required
+@admin_required
 @request_is_json(request)
 def tbl_invoice_post():
+	whInv = request.args('whInv',0,type=int)
 	req = request.get_json()
 
-	data, fails = save_invoice_synch_data(req)
+	data, fails = save_invoice_synch_data(req, whInv = whInv)
 	status = checkApiResponseStatus(data, fails)
 
 	res = {

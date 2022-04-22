@@ -2,6 +2,7 @@ from main_pack.models import Division
 
 def get_division_id_guid_list():
 	divisions = Division.query\
+		.with_entities(Division.DivId,Division.DivGuid)\
 		.filter_by(GCRecord = None)\
 		.filter(Division.DivGuid != None).all()
 
