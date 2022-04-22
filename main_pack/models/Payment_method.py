@@ -13,6 +13,7 @@ class Payment_method(AddInf, BaseModel, db.Model):
 	PmVisibleIndex = db.Column("PmVisibleIndex",db.Integer,default=0)
 	Order_inv = db.relationship("Order_inv",backref='payment_method',lazy=True)
 	Invoice = db.relationship("Invoice",backref='payment_method',lazy=True)
+	Wh_invoice = db.relationship("Wh_invoice",backref='payment_method',lazy=True)
 
 	def to_json_api(self):
 		data = {

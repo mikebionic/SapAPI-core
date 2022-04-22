@@ -12,6 +12,7 @@ class Res_transaction(AddInf, BaseModel, db.Model):
 	InvLineId = db.Column("InvLineId",db.Integer,db.ForeignKey("tbl_dk_inv_line.InvLineId"))
 	ResTrInvLineId = db.Column("ResTrInvLineId",db.Integer,db.ForeignKey("tbl_dk_res_trans_inv_line.ResTrInvLineId"))
 	CurrencyId = db.Column("CurrencyId",db.Integer,db.ForeignKey("tbl_dk_currency.CurrencyId"))
+	WhInvLineId = db.Column("WhInvLineId",db.Integer,db.ForeignKey("tbl_dk_wh_inv_line.WhInvLineId"))
 	UnitId = db.Column("UnitId",db.Integer,db.ForeignKey("tbl_dk_unit.UnitId"))
 	WhId = db.Column("WhId",db.Integer,db.ForeignKey("tbl_dk_warehouse.WhId"))
 	ResId = db.Column("ResId",db.Integer,db.ForeignKey("tbl_dk_resource.ResId"))

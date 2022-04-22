@@ -25,6 +25,7 @@ class Unit(BaseModel, db.Model):
 	Sale_agr_res_price = db.relationship("Sale_agr_res_price",backref='unit',lazy=True)
 	Production_line = db.relationship("Production_line",backref='unit',lazy=True)
 	Res_collection_line = db.relationship("Res_collection_line",backref='unit',lazy=True)
+	Wh_inv_line = db.relationship("Wh_inv_line",backref='unit',lazy=True)
 
 	def to_json_api(self):
 		data = {

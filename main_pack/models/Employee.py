@@ -50,6 +50,7 @@ class Employee(AddInf, BaseModel, db.Model):
 	Rating = db.relationship("Rating",backref='employee',lazy=True)
 	Emp_recr_line = db.relationship("Emp_recr_line",backref='employee',lazy=True)
 	Contract = db.relationship("Contract",backref='employee',lazy=True)
+	Wh_invoice = db.relationship("Wh_invoice",backref='employee',lazy=True)
 
 	def to_json_api(self):
 		data = {

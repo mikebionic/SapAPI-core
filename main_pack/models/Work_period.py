@@ -20,6 +20,8 @@ class Work_period(BaseModel, db.Model):
 	Res_total = db.relationship("Res_total",backref='work_period',lazy=True)
 	Rp_acc_transaction = db.relationship("Rp_acc_transaction",backref='work_period',lazy=True)
 	Sale_card = db.relationship("Sale_card",backref='work_period',lazy=True)
+	Wh_invoice = db.relationship("Wh_invoice",backref='work_period',lazy=True)
+
 
 	def to_json_api(self):
 		data = {

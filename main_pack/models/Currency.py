@@ -34,6 +34,7 @@ class Currency(AddInf, BaseModel, db.Model):
 	Sale_agreement = db.relationship("Sale_agreement",backref='currency',lazy=True)
 	Sale_card = db.relationship("Sale_card",backref='currency',lazy=True)
 	Work_period = db.relationship("Work_period",backref='currency',lazy=True)
+	Wh_inv_line = db.relationship("Wh_inv_line",backref='currency',lazy=True)
 
 	def to_json_api(self):
 		data = {

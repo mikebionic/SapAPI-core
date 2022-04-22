@@ -32,17 +32,13 @@ login_manager.login_view = 'commerce_auth.login'
 login_manager.login_message = lazy_gettext('Login the system!')
 login_manager.login_message_category = 'info'
 
+
 @babel.localeselector
 def get_locale():
-	try:
-		language = session['language']
-	except KeyError:
-		# language = None
-		session['language'] = 'tk'
-		language = session['language']
-	if language is not None:
-		return language
-	return 'tk'
+	language = Config.BABEL_DEFAULT_LOCALE
+	if 'language' in session:
+		language = session['language'] if session['language'] else Config.BABEL_DEFAULT_LOCALE
+	return language
 
 LANGUAGES = {
 	'en': 'English',

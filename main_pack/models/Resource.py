@@ -41,7 +41,8 @@ class Resource(AddInf, BaseModel, db.Model):
 	Res_translation = db.relationship("Res_translation",backref='resource',lazy=True)
 	Res_unit = db.relationship("Res_unit",backref='resource',lazy=True)
 	Inv_line = db.relationship("Inv_line",backref='resource',lazy=True)
-	Inv_line_det = db.relationship("Inv_line_det",backref='resource',lazy=True)	
+	Inv_line_det = db.relationship("Inv_line_det",backref='resource',lazy=True)
+	Wh_inv_line_det = db.relationship("Wh_inv_line_det",backref='resource',lazy=True)
 	Order_inv_line = db.relationship("Order_inv_line",backref='resource',lazy=True)
 	Res_price = db.relationship("Res_price",backref='resource',lazy=True)
 	Res_total = db.relationship("Res_total",backref='resource',lazy=True)
@@ -58,6 +59,7 @@ class Resource(AddInf, BaseModel, db.Model):
 	Rating = db.relationship("Rating",backref='resource',lazy=True)
 	Tag = db.relationship("Tag",backref='resource',lazy=True)
 	Res_collection_line = db.relationship("Res_collection_line",backref='resource',lazy=True)
+	Wh_inv_line = db.relationship("Wh_inv_line",backref='resource',lazy=True)
 
 	def to_json_api(self):
 		data = {
