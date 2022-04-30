@@ -42,9 +42,9 @@ def send_order_to_server(
 				current_inv_line["ResGuid"] = str(inv_line.resource.ResGuid)
 
 				if Config.CONVERT_CURRENCY_ON_SYNCH:
-					payload["OInvLinePrice"], payload["CurrencyCode"] = convert_main_currency_price(inv_line.OInvLinePrice, current_currency)
-					payload["OInvLineFTotal"], payload["CurrencyCode"] = convert_main_currency_price(inv_line.OInvLineFTotal, current_currency)
-					payload["OInvLineTotal"], payload["CurrencyCode"] = convert_main_currency_price(inv_line.OInvLineTotal, current_currency)
+					current_inv_line["OInvLinePrice"], current_inv_line["CurrencyCode"] = convert_main_currency_price(inv_line.OInvLinePrice, current_currency)
+					current_inv_line["OInvLineFTotal"], current_inv_line["CurrencyCode"] = convert_main_currency_price(inv_line.OInvLineFTotal, current_currency)
+					current_inv_line["OInvLineTotal"], current_inv_line["CurrencyCode"] = convert_main_currency_price(inv_line.OInvLineTotal, current_currency)
 				inv_lines_payload.append(current_inv_line)
 			payload["Order_inv_lines"] = inv_lines_payload
 
