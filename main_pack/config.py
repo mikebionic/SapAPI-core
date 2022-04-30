@@ -43,6 +43,7 @@ class Config:
 	HASAP_SYNC_URL_PATH = environ.get('HASAP_SYNC_URL_PATH') or ''
 	SMS_SYNCH_URL_PATH = environ.get('SMS_SYNCH_URL_PATH') or ''
 	HASAP_SYNC_SHA_KEY = environ.get('HASAP_SYNC_SHA_KEY') or ''
+	CONVERT_CURRENCY_ON_SYNCH = int(environ.get('CONVERT_CURRENCY_ON_SYNCH')) if environ.get('CONVERT_CURRENCY_ON_SYNCH') else 0
 
 	# set to false to turn off debugging
 	DEBUG = int(environ.get('DEBUG')) if environ.get('DEBUG') else 1

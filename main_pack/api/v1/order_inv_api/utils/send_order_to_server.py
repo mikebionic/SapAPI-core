@@ -6,7 +6,11 @@ from main_pack.models import (
 	Rp_acc,
 	User,
 	Division,
+	Currency,
 )
+from main_pack import Config
+from main_pack.base.priceMethods import price_currency_conversion
+
 
 def send_order_to_server(
 	data,
@@ -18,6 +22,7 @@ def send_order_to_server(
 ):
 	try:
 		if dbModel:
+			current_currency = dbModel.currency.CurrencyCode
 			payload = dbModel.to_json_api()
 			payload["OInvGuid"] = str(payload["OInvGuid"])
 			payload["UGuid"] = str(dbModel.user.UGuid)
@@ -25,13 +30,22 @@ def send_order_to_server(
 			payload["DivGuid"] = str(dbModel.division.DivGuid)
 			payload["WhGuid"] = str(dbModel.warehouse.WhGuid)
 
+			if Config.CONVERT_CURRENCY_ON_SYNCH:
+				payload["OInvFTotal"], payload["CurrencyCode"] = convert_main_currency_price(dbModel.OInvFTotal, current_currency)
+				payload["OInvTotal"], payload["CurrencyCode"] = convert_main_currency_price(dbModel.OInvTotal, current_currency)
+				payload["OInvFTotalInWrite"] = ""
+
 			inv_lines_payload = []
 			for inv_line in dbModel.Order_inv_line:
 				current_inv_line = inv_line.to_json_api()
 				current_inv_line["OInvLineGuid"] = str(current_inv_line["OInvLineGuid"])
 				current_inv_line["ResGuid"] = str(inv_line.resource.ResGuid)
-				inv_lines_payload.append(current_inv_line)
 
+				if Config.CONVERT_CURRENCY_ON_SYNCH:
+					payload["OInvLinePrice"], payload["CurrencyCode"] = convert_main_currency_price(inv_line.OInvLinePrice, current_currency)
+					payload["OInvLineFTotal"], payload["CurrencyCode"] = convert_main_currency_price(inv_line.OInvLineFTotal, current_currency)
+					payload["OInvLineTotal"], payload["CurrencyCode"] = convert_main_currency_price(inv_line.OInvLineTotal, current_currency)
+				inv_lines_payload.append(current_inv_line)
 			payload["Order_inv_lines"] = inv_lines_payload
 
 		else:
@@ -56,6 +70,13 @@ def send_order_to_server(
 			if this_division:
 				payload["DivGuid"] = str(this_division.DivGuid)
 
+			current_currency = Currency.query.get(payload["CurrencyId"])
+
+			if Config.CONVERT_CURRENCY_ON_SYNCH:
+				payload["OInvFTotal"], payload["CurrencyCode"] = convert_main_currency_price(payload['OInvFTotal'], current_currency)
+				payload["OInvTotal"], payload["CurrencyCode"] = convert_main_currency_price(payload['OInvTotal'], current_currency)
+				payload["OInvFTotalInWrite"] = ""
+
 			inv_lines_payload = []
 			for inv_line in data["successes"]:
 				current_inv_line = inv_line.copy()
@@ -63,11 +84,27 @@ def send_order_to_server(
 				this_resource = Resource.query.get(inv_line["ResId"])
 				if this_resource:
 					current_inv_line["ResGuid"] = str(this_resource.ResGuid)
+
+					if Config.CONVERT_CURRENCY_ON_SYNCH:
+						current_inv_line["OInvLinePrice"], current_inv_line["CurrencyCode"] = convert_main_currency_price(current_inv_line['OInvLinePrice'], current_currency)
+						current_inv_line["OInvLineFTotal"], current_inv_line["CurrencyCode"] = convert_main_currency_price(current_inv_line['OInvLineFTotal'], current_currency)
+						current_inv_line["OInvLineTotal"], current_inv_line["CurrencyCode"] = convert_main_currency_price(current_inv_line['OInvLineTotal'], current_currency)
 					inv_lines_payload.append(current_inv_line)
 
 			payload["Order_inv_lines"] = inv_lines_payload
 
+		print(payload)
 		send_data_to_sync_server(payload, host, port, url_path, token)
 
 	except Exception as ex:
 		print(ex)
+
+
+def convert_main_currency_price(priceValue, current_currency, to_currency=Config.MAIN_CURRENCY_CODE):
+	if current_currency == to_currency:
+		return priceValue, current_currency
+	price_data = price_currency_conversion(
+		priceValue = priceValue,
+		from_currency = current_currency,
+		to_currency = to_currency)
+	return price_data["ResPriceValue"], price_data["CurrencyCode"]

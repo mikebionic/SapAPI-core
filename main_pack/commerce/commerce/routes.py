@@ -154,7 +154,7 @@ def cart():
 
 
 @bp.route("/payment-validation/")
-@bp.route("/payment-validation//<OrderId>")
+@bp.route("/payment-validation/<OrderId>")
 @login_required
 def render_payment_validation_view(OrderId = None):
 	categoriesData = UiCategoriesList()
