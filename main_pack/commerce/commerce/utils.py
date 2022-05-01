@@ -128,7 +128,7 @@ def UiCategoriesList():
 def configure_res_translation(
 	category_model,
 	category_data,
-	language_code = None,
+	language_code = Config.BABEL_DEFAULT_LOCALE,
 ):
 	if Config.SHOW_RES_TRANSLATIONS:
 		if category_model.Translation and language_code:

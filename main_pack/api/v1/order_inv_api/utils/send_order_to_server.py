@@ -92,8 +92,6 @@ def send_order_to_server(
 					inv_lines_payload.append(current_inv_line)
 
 			payload["Order_inv_lines"] = inv_lines_payload
-
-		print(payload)
 		send_data_to_sync_server(payload, host, port, url_path, token)
 
 	except Exception as ex:
