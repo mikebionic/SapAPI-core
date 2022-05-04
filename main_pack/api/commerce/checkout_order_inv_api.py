@@ -11,7 +11,7 @@ from main_pack.config import Config
 from . import api
 
 from main_pack.models import User
-from main_pack.api.auth.utils import token_required
+from main_pack.api.auth.utils import checkout_auth_handler, token_required
 
 # Orders
 from main_pack.models import Order_inv, Order_inv_line, Work_period
@@ -41,7 +41,7 @@ from main_pack.api.v1.order_inv_api.utils.send_order_to_server import send_order
 
 
 @api.route("/checkout-sale-order-inv/",methods=['POST'])
-@token_required
+@checkout_auth_handler
 @request_is_json(request)
 def api_checkout_sale_order_invoices(user):
 	model_type = user['model_type']

@@ -251,6 +251,7 @@ Provide **username** and **password** in Authentication headers
 
 | __Route__               | __Methods__ | __Status__ | __Note__ |
 | ----------------------- | :---------: | :--------: | -------- |
+| /api/v-categories/      |   **GET**   |   Active   |
 | /api/tbl-dk-categories/ |   **GET**   |   Active   |
 
 **Properties**
@@ -259,6 +260,8 @@ Provide **username** and **password** in Authentication headers
 | DivId           | **int**  |
 | notDivId        | **int**  |
 | avoidQtyCheckup | **int**  |
+
+
 
 
 ---
