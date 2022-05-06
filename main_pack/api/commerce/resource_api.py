@@ -191,10 +191,14 @@ def api_tbl_dk_resources(user):
 				failed_barcodes = []
 				for barcode_req in resource_req["Barcodes"]:
 					try:
+						barcode_info = None
 						barcode_info = addBarcodeDict(barcode_req)
 						UnitId = barcode_info["UnitId"]
-						ResId = thisResource.ResId
+						if not barcode_info["BarcodeVal"]:
+							print(f"Empty barcode {str(barcode_info)}")
+							raise Exception
 
+						ResId = thisResource.ResId
 						barcode_info["ResId"] = ResId
 						barcode_info["CId"] = CId
 						barcode_info["DivId"] = DivId
