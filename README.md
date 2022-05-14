@@ -92,6 +92,12 @@ In case if flask-mail is not working well, check this configuration:
 ```url
 https://www.google.com/settings/security/lesssecureapps
 ```
+
+In case of Description length error run
+```sql
+alter table tbl_dk_resource alter column "ResDesc" type character varying(9999999);
+```
+
 ------------
 ## Info and logs
 **Rest-Api backend information:**
