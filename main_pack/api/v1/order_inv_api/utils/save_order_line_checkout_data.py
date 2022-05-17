@@ -75,17 +75,18 @@ def save_order_line_checkout_data(
 				error_type = 2
 				raise Exception
 
-			res_total = Res_total.query\
-				.filter_by(GCRecord = None, ResId = ResId, WhId = WhId)\
-				.first()
-			totalSubstitutionResult = totalQtySubstitution(res_total.ResPendingTotalAmount,OInvLineAmount)
-			OInvLineAmount = totalSubstitutionResult["amount"]
-			res_total.ResPendingTotalAmount = totalSubstitutionResult["totalBalance"]
+			if Config.IGNORE_RES_TOTAL_ON_CHECKOUT:
+				res_total = Res_total.query\
+					.filter_by(GCRecord = None, ResId = ResId, WhId = WhId)\
+					.first()
+				totalSubstitutionResult = totalQtySubstitution(res_total.ResPendingTotalAmount,OInvLineAmount)
+				OInvLineAmount = totalSubstitutionResult["amount"]
+				res_total.ResPendingTotalAmount = totalSubstitutionResult["totalBalance"]
 
-			if totalSubstitutionResult["status"] == 0:
-				# resource is empty or bad request with amount = -1
-				error_type = 3
-				raise Exception
+				if totalSubstitutionResult["status"] == 0:
+					# resource is empty or bad request with amount = -1
+					error_type = 3
+					raise Exception
 
 			if not ResPriceGroupId:
 				if "ResPriceGroupId" in order_inv_line_req:

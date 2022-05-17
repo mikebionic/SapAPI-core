@@ -84,7 +84,7 @@ class Config:
 
 	if DB_TYPE.lower() == "postgres":
 		SQLALCHEMY_DATABASE_URI = 'postgresql://%(user)s:%(pw)s@%(host)s:%(port)s/%(db)s%(additionalFields)s' % DB_URI_DATA
-	
+
 	SQLALCHEMY_ECHO = int(environ.get('SQLALCHEMY_ECHO')) if environ.get('SQLALCHEMY_ECHO') else 0
 
 	# # Database bindings
@@ -191,6 +191,7 @@ class Config:
 	# if no left in Res_total.ResPendingTotalAmount
 	NEGATIVE_WH_QTY_SALE = int(environ.get('NEGATIVE_WH_QTY_SALE')) if environ.get('NEGATIVE_WH_QTY_SALE') else 0
 	NEGATIVE_WH_QTY_ORDER = int(environ.get('NEGATIVE_WH_QTY_ORDER')) if environ.get('NEGATIVE_WH_QTY_ORDER') else 1
+	IGNORE_RES_TOTAL_ON_CHECKOUT = int(environ.get('IGNORE_RES_TOTAL_ON_CHECKOUT')) if environ.get('IGNORE_RES_TOTAL_ON_CHECKOUT') else 0
 
 	# # ability to make an order if qty of resoruce
 	# # is greater than Res_total in warehouse
