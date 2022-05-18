@@ -187,7 +187,8 @@ def admin_required(f):
 			log_print(f"Admin required exception {ex}")
 
 		if not current_user:
-			return jsonify({"message": "Token is invalid!"}), 401
+			if auth_token != Config.SYNCH_SHA:
+				return jsonify({"message": "Token is invalid!"}), 401
 
 		user = {
 			"model_type": 'user',

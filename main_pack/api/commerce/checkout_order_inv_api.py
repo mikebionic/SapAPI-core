@@ -202,28 +202,28 @@ def api_checkout_sale_order_invoices(user):
 					currencies_dbModel = currencies,
 					exc_rates_dbModel = exc_rates)
 
-				res_total = Res_total.query\
-					.filter_by(GCRecord = None, ResId = ResId, WhId = WhId)\
-					.first()
-				totalSubstitutionResult = totalQtySubstitution(res_total.ResPendingTotalAmount,OInvLineAmount)
-
 				if resource.UsageStatusId == 2:
 					# resource unavailable or inactive
 					error_type = 2
 					raise Exception
 
-				if totalSubstitutionResult["status"] == 0:
-					# resource is empty or bad request with amount = -1
-					error_type = 3
-					raise Exception
+				if not Config.IGNORE_RES_TOTAL_ON_CHECKOUT:
+					res_total = Res_total.query\
+						.filter_by(GCRecord = None, ResId = ResId, WhId = WhId)\
+						.first()
+					totalSubstitutionResult = totalQtySubstitution(res_total.ResPendingTotalAmount,OInvLineAmount)
+					OInvLineAmount = totalSubstitutionResult["amount"]
+					res_total.ResPendingTotalAmount = totalSubstitutionResult["totalBalance"]
+
+					if totalSubstitutionResult["status"] == 0:
+						# resource is empty or bad request with amount = -1
+						error_type = 3
+						raise Exception
 
 				if order_inv_line["OInvLinePrice"] != price_data["ResPriceValue"]:
 					error_type = 4
 					raise Exception
 
-				OInvLineAmount = totalSubstitutionResult["amount"]
-				# ResPendingTotalAmount is decreased but not ResTotBalance
-				res_total.ResPendingTotalAmount = totalSubstitutionResult["totalBalance"]
 				############
 				OInvLinePrice = float(price_data["ResPriceValue"])
 				OInvLineTotal = OInvLinePrice * OInvLineAmount

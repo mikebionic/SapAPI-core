@@ -75,7 +75,7 @@ def save_order_line_checkout_data(
 				error_type = 2
 				raise Exception
 
-			if Config.IGNORE_RES_TOTAL_ON_CHECKOUT:
+			if not Config.IGNORE_RES_TOTAL_ON_CHECKOUT:
 				res_total = Res_total.query\
 					.filter_by(GCRecord = None, ResId = ResId, WhId = WhId)\
 					.first()
