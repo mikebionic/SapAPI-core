@@ -12,6 +12,7 @@ from main_pack.models import User, Rp_acc, Device
 from main_pack.api.users.utils import apiUsersData, apiRpAccData, apiDeviceData
 from main_pack.api.common.gather_required_register_rp_acc_data import gather_required_register_rp_acc_data
 
+from main_pack.base import generate_random_code
 from main_pack.api.base.validators import request_is_json
 from main_pack.base import log_print
 from main_pack.base.dataMethods import apiDataFormat
@@ -104,7 +105,7 @@ def register_new_user(auth_type, req, random_password=1):
 				"RpAccStatusId": 1,
 			}
 			if random_password:
-				rp_acc_data["RpAccUPass"] = f"{Config.COMPANY_NAME}|{datetime.now()}"
+				rp_acc_data["RpAccUPass"] = f"{Config.COMPANY_NAME}{generate_random_code()}"
 
 			if not rp_acc_data["RpAccUPass"]:
 				message = "Password not valid!"
