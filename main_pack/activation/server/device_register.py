@@ -30,24 +30,24 @@ def register_device():
 	thisDevice = Device.query.filter_by(**filtering).first()
 
 	data = {}
-	if thisDevice:
-		data = thisDevice.to_json_api()
+	device_info = addDeviceDict(req)
+	device_info["RpAccId"] = RpAccId
+	if not device_info["DevGuid"]:
+		device_info["DevGuid"] = uuid.uuid4()
 
-	else:
-		try:
-			device_info = addDeviceDict(req)
-			device_info["RpAccId"] = RpAccId
-			if not device_info["DevGuid"]:
-				device_info["DevGuid"] = uuid.uuid4()
+	try:
+		if thisDevice:
+			thisDevice.update(**device_info)
 
+		else:
 			thisDevice = Device(**device_info)
 			db.session.add(thisDevice)
-			db.session.commit()
 
-			data = thisDevice.to_json_api()
+		db.session.commit()
+		data = thisDevice.to_json_api()
 
-		except Exception as ex:
-			log_print(f"Device register server Exception: {ex}")
+	except Exception as ex:
+		log_print(f"Device register server Exception: {ex}")
 
 	res = {
 		"status": 1 if data else 0,
@@ -56,6 +56,4 @@ def register_device():
 		"total": 1 if data else 0
 	}
 
-	response = make_response(jsonify(res), 200)
-
-	return response
+	return make_response(jsonify(res), 200)

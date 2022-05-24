@@ -145,10 +145,10 @@ request.body = {
 
 > Get user info (by token and sha keys)
 
-| __Route__            | __Methods__ | __Status__ | __Note__            |
-| -------------------- | :---------: | :--------: | ------------------- |
-| /api/v-devices/      |   **GET**   |   Active   | **@token_required** |
-| /api/tbl-dk-devices/ |   **GET**   |   Active   | **@admin_required** |
+| __Route__         | __Methods__ | __Status__ | __Note__            |
+| ----------------- | :---------: | :--------: | ------------------- |
+| /api/v-devices/   |   **GET**   |   Active   | **@token_required** |
+| /api/tbl-devices/ |   **GET**   |   Active   | **@admin_required** |
 
 **Properties**
 | __Name__      |         __Type__         | __Description__ | __Example__ |
@@ -167,9 +167,9 @@ request.body = {
 
 > Post device info or udpate if exists
 
-| __Route__            | __Methods__ | __Status__ | __Note__          |
-| -------------------- | :---------: | :--------: | ----------------- |
-| /api/tbl-dk-devices/ |  **POST**   |   Active   | **@sha required** |
+| __Route__         | __Methods__ | __Status__ | __Note__          |
+| ----------------- | :---------: | :--------: | ----------------- |
+| /api/tbl-devices/ |  **POST**   |   Active   | **@sha required** |
 
 [Example](./examples/device_v1.md)
 

@@ -6,7 +6,7 @@ from datetime import datetime
 from . import api
 from main_pack import db
 from main_pack.config import Config
-from main_pack.api.auth.utils import token_required
+from main_pack.api.auth.utils import admin_required
 from main_pack.api.users.utils import addDeviceDict
 
 from main_pack.models import Device
@@ -14,17 +14,8 @@ from main_pack.models import Db_inf
 
 
 @api.route("/devices/fetch/",methods=["GET"])
-@token_required
+@admin_required
 def device_fetch_request(user):
-	model_type = user["model_type"]
-	current_user = user["current_user"]
-
-	if model_type == "rp_acc":
-		abort(401)
-
-	if not current_user.is_admin():
-		abort(401)
-
 	res = fetch_device()
 	return make_response(jsonify(res), 200)
 
@@ -98,7 +89,7 @@ def fetch_device():
 	res = {
 		"status": 1 if data else 0,
 		"data": data,
-		"message": "Device registration",
+		"message": "Device fetch & registration",
 		"total": 1 if data else 0
 	}
 
