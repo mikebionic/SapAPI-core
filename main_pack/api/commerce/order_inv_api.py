@@ -40,6 +40,7 @@ from main_pack.api.base.validators import request_is_json
 
 from .commerce_utils import apiOrderInvInfo
 from .pagination_utils import collect_order_inv_paginate_info
+from main_pack.base import log_print
 
 
 @api.route("/tbl-dk-order-invoices/",methods=['GET','POST'])
@@ -144,7 +145,7 @@ def api_order_invoices(user):
 				thisInvStatus = None
 
 				if not RpAccId or not DivId or not WhId:
-					print(f"RpAccId - {RpAccId} by {RpAccGuid} | DivId - {DivId} by {DivGuid}, WhId - {WhId} | by {WhGuid}")
+					log_print(f"RpAccId - {RpAccId} by {RpAccGuid} | DivId - {DivId} by {DivGuid}, WhId - {WhId} | by {WhGuid}")
 					raise Exception
 
 				if thisOrderInv:
@@ -159,7 +160,7 @@ def api_order_invoices(user):
 						thisInvStatus = thisOrderInv.InvStatId
 
 					else:
-						print("OrderInvGuid or RegNo has changed ", OInvGuid, OInvRegNo, thisOrderInv.to_json_api())
+						log_print("OrderInvGuid or RegNo has changed ", OInvGuid, OInvRegNo, thisOrderInv.to_json_api())
 						raise Exception
 
 				else:
@@ -212,7 +213,7 @@ def api_order_invoices(user):
 										order_res_total.ResPendingTotalAmount += thisOrderInvLine.OInvLineAmount
 
 								except Exception as ex:
-									print(f"{datetime.now()} | OInv Api Res_total Exception: {ex}")
+									log_print(f"OInv Api Res_total Exception: {ex}")
 
 							db.session.commit()
 							order_inv_lines.append(order_inv_line_req)
@@ -225,14 +226,14 @@ def api_order_invoices(user):
 							thisOrderInvLine = None
 
 					except Exception as ex:
-						print(f"{datetime.now()} | OInv Api OInvLine Exception: {ex}")
+						log_print(f"OInv Api OInvLine Exception: {ex}")
 						failed_order_inv_lines.append(order_inv_line_req)
 
 				order_invoice['Order_inv_lines'] = order_inv_lines
 				data.append(order_invoice)
 
 			except Exception as ex:
-				print(f"{datetime.now()} | OInv Api Exception: {ex}")
+				log_print(f"OInv Api Exception: {ex}")
 				failed_data.append(order_invoice)
 
 		status = checkApiResponseStatus(data, failed_data)

@@ -481,7 +481,9 @@ def manage_user():
 					module = os.path.join("uploads","commerce","User"),
 					id = user.UId)
 				lastImage = Image.query.with_entities(Image.ImgId).order_by(Image.ImgId.desc()).first()
-				ImgId = lastImage.ImgId+1
+				ImgId = 1
+				if lastImage:
+					ImgId = lastImage.ImgId+1
 				image = Image(
 					ImgId = ImgId,
 					ImgGuid = uuid.uuid4(),
@@ -665,7 +667,9 @@ def manage_brand():
 			if form.Image.data:
 				imageFile = save_icon(imageForm=form.Image.data,module=os.path.join("uploads","commerce","Brand"),id=brand.BrandId)
 				lastImage = Image.query.with_entities(Image.ImgId).order_by(Image.ImgId.desc()).first()
-				ImgId = lastImage.ImgId+1
+				ImgId = 1
+				if lastImage:
+					ImgId = lastImage.ImgId+1
 				image = Image(
 					ImgId = ImgId,
 					ImgGuid = uuid.uuid4(),

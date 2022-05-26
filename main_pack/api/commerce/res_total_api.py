@@ -17,6 +17,7 @@ from main_pack.models import Res_total, Resource
 from main_pack.api.auth.utils import sha_required, token_required
 from main_pack.base.apiMethods import checkApiResponseStatus
 from main_pack.api.base.validators import request_is_json
+from main_pack.base import log_print
 
 
 def get_res_totals(
@@ -141,6 +142,7 @@ def api_res_totals():
 					WhGuid = res_total_req["WhGuid"]
 					# WhGuid = uuid.UUID(res_total_req["WhGuid"]) # used for fetching Wh and Resources
 					if not ResRegNo or not ResGuid or not WhGuid:
+						log_print(f"no ResRegNo={ResRegNo} or no ResGuid={ResGuid} or no WhGuid={WhGuid}")
 						raise Exception
 
 					try:
@@ -164,6 +166,7 @@ def api_res_totals():
 					res_total_info["WhId"] = WhId
 
 					if not ResId or not WhId or not DivId:
+						log_print(f"no ResId={ResId} or no WhId={WhId} or no DivId={DivId}")
 						raise Exception
 
 					thisResTotal = Res_total.query\
@@ -188,10 +191,11 @@ def api_res_totals():
 					data.append(res_total_req)
 
 				else:
+					log_print(f"No WhId in res_total_info: {str(res_total_info)}")
 					raise Exception
 
 			except Exception as ex:
-				print(f"{datetime.now()} | Res_total Api Exception: {ex}")
+				log_print(f"Res_total Api Exception: {ex}")
 				failed_data.append(res_total_req)
 
 		db.session.commit()
