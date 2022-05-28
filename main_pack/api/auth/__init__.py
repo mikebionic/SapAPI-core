@@ -10,4 +10,5 @@ from main_pack.api.auth import (
 	attempt_counter,
 	register_api,
 	register_phone_number,
+	reset_password_api,
 )
