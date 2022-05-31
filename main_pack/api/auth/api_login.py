@@ -21,38 +21,47 @@ def api_login():
 	auth = request.authorization
 	error_response = [{"message": "Login failure, check credentials.", "status": 0}, 401, {"WWW-Authenticate": "basic realm"}]
 
+	data, message, headers = handle_login(login_method, auth_type, auth)
+	if data:
+		return make_response(data), headers
+
+	return make_response(*error_response)
+
+
+def handle_login(login_method, auth_type, auth):
+	response_data, message, response_headers = {}, "Login", None
 	try:
-		if not auth or not auth.username:
-			log_print("API LOGIN not auth or auth.username")
-			raise Exception
+		if not auth or not "username" in auth:
+			message = "API LOGIN not auth or auth.username"
+			raise Exception(message)
 
 		user_model, user_query = None, None
 		user_query_filter = {"GCRecord": None}
 
 		if auth_type == "user":
 			if login_method == "username":
-				user_query_filter["UName"] = auth.username
+				user_query_filter["UName"] = auth['username']
 			elif login_method == "email":
-				user_query_filter["UEmail"] = auth.username
+				user_query_filter["UEmail"] = auth['username']
 
 			user_query = User.query.filter_by(**user_query_filter)
 
 		elif auth_type == "rp_acc":
 			if login_method == "username":
-				user_query_filter["RpAccUName"] = auth.username
+				user_query_filter["RpAccUName"] = auth['username']
 			elif login_method == "email":
-				user_query_filter["RpAccEMail"] = auth.username
+				user_query_filter["RpAccEMail"] = auth['username']
 			elif login_method == "phone_number":
-				phone_number = configurePhoneNumber(auth.username)
+				phone_number = configurePhoneNumber(auth['username'])
 				if not phone_number:
-					log_print("not auth or auth.username")
-					raise Exception
+					message = "not auth or auth['username']"
+					raise Exception(message)
 				user_query_filter["RpAccMobilePhoneNumber"] = phone_number
 
 			user_query = Rp_acc.query.filter_by(**user_query_filter)
 
 		elif auth_type == "device":
-			user_query_filter["DevUniqueId"] = auth.username
+			user_query_filter["DevUniqueId"] = auth['username']
 			user_query = Device.query\
 				.filter_by(**user_query_filter)\
 				.options(joinedload(Device.user))
@@ -60,10 +69,10 @@ def api_login():
 		user_model = user_query.first() if user_query else None
 
 		if not user_model:
-			log_print("API LOGIN couldn't find db model")
-			raise Exception
+			message = "API LOGIN couldn't find user"
+			raise Exception(message)
 
-		if check_auth(auth_type, user_model, auth.password):
+		if check_auth(auth_type, user_model, auth['password']):
 			token_encoding_data = {}
 
 			if auth_type == "user":
@@ -96,12 +105,14 @@ def api_login():
 			response_headers = {
 				"Authorization": f"Bearer {token.decode('UTF-8')}"
 			}
-			return make_response(response_data), response_headers
 
-	except Exception:
-		pass
-	return make_response(*error_response)
+	except Exception as ex:
+		log_print(ex)
 
+	return response_data, message, response_headers
+
+
+			
 # !!! route should be kept till update process complete
 @api.route('/login/users/',methods=['GET','POST'])
 def api_login_users():

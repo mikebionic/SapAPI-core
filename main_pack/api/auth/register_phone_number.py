@@ -14,7 +14,7 @@ from main_pack.base import generate_random_code
 from main_pack.api.common import configurePhoneNumber
 from main_pack.api.common import send_data_to_sync_server
 
-
+# Legacy function, use reigser_phone_number with action_type=login
 def login_phone_number(phone_number):
 	data, message = {}, ""
 	try:
@@ -66,7 +66,7 @@ def login_phone_number(phone_number):
 	return data, message
 
 
-def register_phone_number(phone_number):
+def register_phone_number(phone_number, action_type="register"):
 	data, message = {}, ""
 	try:
 		PhoneNumber = configurePhoneNumber(phone_number)
@@ -80,11 +80,18 @@ def register_phone_number(phone_number):
 				RpAccMobilePhoneNumber = PhoneNumber,
 				GCRecord = None
 			).first()
-		
-		if registered_phone_rp_acc:
-			message = f"Phone number {phone_number} is already taken"
-			log_print(f"{message}: {PhoneNumber}", "warning")
-			raise Exception
+
+		if action_type == "register":
+			if registered_phone_rp_acc:
+				message = f"Phone number {phone_number} is already taken"
+				log_print(f"{message}: {PhoneNumber}", "warning")
+				raise Exception
+
+		else:			
+			if not registered_phone_rp_acc:
+				message = f"Phone number {phone_number} doesn't exist"
+				log_print(f"{message}: {PhoneNumber}", "warning")
+				raise Exception
 
 		existing_register_request = Register_request.query\
 			.filter_by(
