@@ -57,7 +57,7 @@ def request_sms_register():
 
 	return handle_default_response(data, message, status_code=200)
 
-
+# Legacy route
 # !!! Todo change to single route with args
 @api.route("/request-sms-login/")
 def request_sms_login():
