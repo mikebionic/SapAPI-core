@@ -987,6 +987,7 @@ def apiOrderInvInfo(
 
 			order_inv_info["Rp_acc"] = rp_acc_data
 			order_inv_info["UGuid"] = order_inv.user.UGuid if order_inv.user and not order_inv.user.GCRecord else None
+			order_inv_info["UName"] = order_inv.user.UName if order_inv.user and not order_inv.user.GCRecord else None
 			order_inv_info["CGuid"] = order_inv.company.CGuid if order_inv.company and not order_inv.company.GCRecord else None
 			order_inv_info["WhGuid"] = order_inv.warehouse.WhGuid if order_inv.warehouse and not order_inv.warehouse.GCRecord else None
 			order_inv_info["DivGuid"] = order_inv.division.DivGuid if order_inv.division and not order_inv.division.GCRecord else None
