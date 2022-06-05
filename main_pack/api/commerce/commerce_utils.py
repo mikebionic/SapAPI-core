@@ -986,6 +986,7 @@ def apiOrderInvInfo(
 			rp_acc_data["Images"] = []
 
 			order_inv_info["Rp_acc"] = rp_acc_data
+			order_inv_info["RpAccName"] = rp_acc_data["RpAccName"] if rp_acc_data else ""
 			order_inv_info["UGuid"] = order_inv.user.UGuid if order_inv.user and not order_inv.user.GCRecord else None
 			order_inv_info["UName"] = order_inv.user.UName if order_inv.user and not order_inv.user.GCRecord else None
 			order_inv_info["CGuid"] = order_inv.company.CGuid if order_inv.company and not order_inv.company.GCRecord else None
