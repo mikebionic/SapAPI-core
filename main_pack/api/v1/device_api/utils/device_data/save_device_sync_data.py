@@ -13,6 +13,9 @@ def save_device_sync_data(req):
 	for device_req in req:
 		try:
 			device_info = add_Device_dict(device_req)
+			if device_info["GCRecord"]:
+				device_info["IsAllowed"] = False
+
 			DevUniqueId = device_info["DevUniqueId"]
 			DevGuid = device_info["DevGuid"]
 			if "UGuid" in device_req:
