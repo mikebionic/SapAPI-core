@@ -34,6 +34,8 @@ def save_device_sync_data(req):
 			if thisDevice:
 				device_info["DevId"] = thisDevice.DevId
 				thisDevice.update(**device_info)
+				if device_info["GCRecord"] == None:
+					thisDevice.GCRecord = None
 
 			else:
 				thisDevice = Device(**device_info)

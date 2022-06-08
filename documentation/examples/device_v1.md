@@ -1,50 +1,88 @@
-> Post device data
+## Post device data
+
+> /v1/tbl-devices/
 
 **Request**
 
 ```json
-{
-	"DevGuid": "DevGuid",
-	"DevUniqueId": "DevUniqueId",
-	"UId": "UId",
-	"RpAccId": "RpAccId",
-	"DevName": "DevName",
-	"DevDesc": "DevDesc",
-	"AllowedDate": "AllowedDate",
-	"DisallowedDate": "DisallowedDate",
-	"IsAllowed": "IsAllowed",
-	"DevVerifyDate": "DevVerifyDate",
-	"DevVerifyKey": "DevVerifyKey",
-	"AddInf1": "AddInf1",
-	"AddInf2": "AddInf2",
-	"AddInf3": "AddInf3",
-	"AddInf4": "AddInf4",
-	"AddInf5": "AddInf5",
-	"AddInf6": "AddInf6",
-	"CreatedDate": "CreatedDate",
-	"ModifiedDate": "ModifiedDate",
-	"SyncDateTime": "SyncDateTime",
-	"CreatedUId": "CreatedUId",
-	"ModifiedUId": "ModifiedUId",
-	"GCRecord": "GCRecord"
-}
+[
+	{
+		"AddInf1": "",
+		"AddInf2": "",
+		"AddInf3": "",
+		"AddInf4": "hello",
+		"AddInf5": "",
+		"AddInf6": "1111111,androidId=e4d788879fbe6635,baseOS=,release=10,brand=samsung,device=a7y18lte,display=QP1A.190711.020.A750FXXU5CUI4,manufacturer=samsung,model=SM-A750F,isPhysicalDevice=true",
+		"AllowedDate": null,
+		"CreatedDate": "2022-01-29 08:00:04",
+		"CreatedUId": null,
+		"DevDesc": null,
+		"DevGuid": "ace9103d-9d83-4a72-8c0f-effb341b3c44",
+		"DevId": 62,
+		"DevName": "Dowlpack",
+		"DevUniqueId": "e4d788879fbe6635",
+		"DevVerifyDate": null,
+		"DevVerifyKey": null,
+		"DisallowedDate": null,
+		"GCRecord": null,
+		"IsAllowed": true,
+		"ModifiedDate": "2022-01-29 08:00:04",
+		"ModifiedUId": null,
+		"RpAccId": null,
+		"SyncDateTime": "2022-01-29 08:00:04",
+		"UFullName": null,
+		"UId": 10,
+		"UName": "dowlpack"
+	}
+]
 ```
 
 **Response**
 
 ```json
 {
-	"data": [],
-	"fails": [],
-	"success_total": 0,
-	"fail_total": 0,
-	"message": "Rp_acc management"
+  "data": [
+    {
+      "AddInf1": "",
+      "AddInf2": "",
+      "AddInf3": "",
+      "AddInf4": "hello",
+      "AddInf5": "",
+      "AddInf6": "1111111,androidId=e4d788879fbe6635,baseOS=,release=10,brand=samsung,device=a7y18lte,display=QP1A.190711.020.A750FXXU5CUI4,manufacturer=samsung,model=SM-A750F,isPhysicalDevice=true",
+      "AllowedDate": null,
+      "CreatedDate": "2022-01-29 08:00:04",
+      "CreatedUId": null,
+      "DevDesc": null,
+      "DevGuid": "ace9103d-9d83-4a72-8c0f-effb341b3c44",
+      "DevId": 62,
+      "DevName": "Dowlpack",
+      "DevUniqueId": "e4d788879fbe6635",
+      "DevVerifyDate": null,
+      "DevVerifyKey": null,
+      "DisallowedDate": null,
+      "GCRecord": null,
+      "IsAllowed": true,
+      "ModifiedDate": "2022-01-29 08:00:04",
+      "ModifiedUId": null,
+      "RpAccId": null,
+      "SyncDateTime": "2022-01-29 08:00:04",
+      "UFullName": null,
+      "UId": 10,
+      "UName": "dowlpack"
+    }
+  ],
+  "fail_total": 0,
+  "fails": [],
+  "message": "Success",
+  "status": 1,
+  "success_total": 1
 }
 ```
 
 
 -------------
 
+## Get device data
 
 > /v1/v-devices/
 
