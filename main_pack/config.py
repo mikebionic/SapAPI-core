@@ -84,7 +84,9 @@ class Config:
 
 	if DB_TYPE.lower() == "postgres":
 		SQLALCHEMY_DATABASE_URI = 'postgresql://%(user)s:%(pw)s@%(host)s:%(port)s/%(db)s%(additionalFields)s' % DB_URI_DATA
-
+	print(SQLALCHEMY_DATABASE_URI)
+	SQLALCHEMY_DATABASE_URI = environ.get('SQLALCHEMY_DATABASE_URI') or SQLALCHEMY_DATABASE_URI
+	print(SQLALCHEMY_DATABASE_URI)
 	SQLALCHEMY_ECHO = int(environ.get('SQLALCHEMY_ECHO')) if environ.get('SQLALCHEMY_ECHO') else 0
 
 	# # Database bindings

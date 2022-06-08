@@ -34,8 +34,8 @@
 
 ```json
 {
-	"data": {},
-	"fails": {},
+	"data": [],
+	"fails": [],
 	"success_total": 0,
 	"fail_total": 0,
 	"message": "Rp_acc management"
