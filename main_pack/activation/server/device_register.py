@@ -32,6 +32,10 @@ def register_device():
 	data = {}
 	device_info = addDeviceDict(req)
 	device_info["RpAccId"] = RpAccId
+
+	if device_info["GCRecord"]:
+		device_info["IsAllowed"] = False
+
 	if not device_info["DevGuid"]:
 		device_info["DevGuid"] = uuid.uuid4()
 
