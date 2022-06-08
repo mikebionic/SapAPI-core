@@ -7,7 +7,7 @@ from main_pack.api.v1.device_api import api
 from main_pack.api.v1.device_api.utils import collect_device_data
 
 
-@api.route("/tbl-devices/", methods=['GET'])
+@api.route("/tbl-devices/")
 @admin_required
 def tbl_device_get(user):
 	arg_data = {

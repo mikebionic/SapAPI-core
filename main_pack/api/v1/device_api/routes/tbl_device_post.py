@@ -18,7 +18,7 @@ def tbl_device_post(user):
 	req = request.get_json()
 	data = []
 	device_data, fails = save_device_sync_data(req)
-	succeded_devices = [device_info["DevUniqueId"] for device_info in data if "DevUniqueId" in device_info]
+	succeded_devices = [device_info["DevUniqueId"] for device_info in device_data if "DevUniqueId" in device_info]
 
 	if Config.USE_SERVERLESS_ACTIVATION:
 		data = device_data
