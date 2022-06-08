@@ -28,7 +28,7 @@ def save_device_sync_data(req):
 				.filter_by(
 					DevUniqueId = DevUniqueId,
 					DevGuid = DevGuid,
-					GCRecord = None)\
+				)\
 				.first()
 
 			if thisDevice:
