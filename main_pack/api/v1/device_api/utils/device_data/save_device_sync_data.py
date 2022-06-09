@@ -3,6 +3,7 @@ from datetime import datetime
 
 from main_pack import db
 
+from main_pack.config import Config
 from main_pack.models import Device, User
 from .add_Device_dict import add_Device_dict
 from main_pack.activation.customer.make_register_request import make_register_request
@@ -43,7 +44,7 @@ def save_device_sync_data(req):
 				db.session.add(thisDevice)
 
 			if not Config.USE_SERVERLESS_ACTIVATION:
-				res = make_register_request(thisDevice.to_json_api())
+				res = make_register_request(device_info)
 
 			data.append(device_req)
 			thisDevice = None
