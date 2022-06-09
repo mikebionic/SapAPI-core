@@ -51,7 +51,7 @@ def fetch_device():
 		untracked_devices = []
 
 		for device in customer_devices:
-			current_server_device = [dev for dev in service_devices if dev["DevUniqueId"] == device.DevUniqueId and dev["DevGuid"] == device.DevGuid]
+			current_server_device = [dev for dev in service_devices if dev["DevUniqueId"] == device.DevUniqueId and dev["DevGuid"] == str(device.DevGuid)]
 
 			if current_server_device:
 				current_server_device = current_server_device[0]
