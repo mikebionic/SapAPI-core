@@ -47,7 +47,7 @@ def fetch_device():
 		server_data = server_response["data"]
 		service_devices = server_data["Devices"]
 
-		customer_devices = Device.query.filter_by(GCRecord = None).all()
+		customer_devices = Device.query.all()
 		untracked_devices = []
 
 		for device in customer_devices:
