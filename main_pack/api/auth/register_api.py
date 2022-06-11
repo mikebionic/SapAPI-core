@@ -166,7 +166,7 @@ def verify_login():
 		}
 		data, message, headers = handle_login(auth_method, "rp_acc", auth)
 		if not data:
-			message = "verigy login error, credentials error, contact the administrator"
+			message = "verify login error, credentials error, contact the administrator"
 			raise Exception(message)
 
 	except Exception as ex:

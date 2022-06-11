@@ -134,7 +134,7 @@ def v_categories():
 	data = view_categories(language_code)
 	return handle_default_response(data, message="Categories")
 
-@cache.cached(Config.DB_CACHE_TIME, key_prefix="v_categories")
+#@cache.cached(Config.DB_CACHE_TIME, key_prefix="v_categories")
 def view_categories(language_code = None):
 	if not language_code:
 		if "language" in session:

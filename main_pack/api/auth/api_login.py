@@ -78,10 +78,12 @@ def handle_login(login_method, auth_type, auth):
 			if auth_type == "user":
 				token_encoding_data["UId"] = user_model.UId
 				loggedUserInfo = apiUsersData(dbQuery = user_query)
+				loggedUserInfo["data"]["UPass"] = user_model.UPass
 
 			elif auth_type == "rp_acc":
 				token_encoding_data["RpAccId"] = user_model.RpAccId
 				loggedUserInfo = apiRpAccData(dbQuery = user_query)
+				loggedUserInfo["data"]["RpAccUPass"] = user_model.RpAccUPass
 
 			elif auth_type == "device":
 				token_encoding_data["DevId"] = user_model.DevId
