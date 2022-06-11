@@ -7,9 +7,8 @@ from main_pack.api.v1.barcode_api import api
 from main_pack.api.v1.barcode_api.utils import collect_barcode_data
 
 
-@api.route("/v-barcodes/", methods=['GET'])
-@token_required
-def v_barcode_get(user):
+@api.route("/v-barcodes/")
+def v_barcode_get():
 	arg_data = {
 		"BarcodeId": request.args.get("id",None,type=int),
 		"BarcodeGuid": request.args.get("barcodeGuid","",type=str),
