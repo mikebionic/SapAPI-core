@@ -196,7 +196,6 @@ def addDeviceDict(req):
 	GCRecord = req.get('GCRecord')
 
 	json_data = {
-		# "DevId": DevId,
 		"DevGuid": DevGuid,
 		"DevUniqueId": DevUniqueId,
 		"RpAccId": RpAccId,

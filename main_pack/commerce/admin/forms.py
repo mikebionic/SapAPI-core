@@ -20,7 +20,7 @@ from main_pack.models import User, Rp_acc
 
 
 class LogoImageForm(FlaskForm):
-	logoImage = FileField(validators=[FileAllowed(['jpg','png','img','gif','svg'])])
+	logoImage = FileField(validators=[FileAllowed(['jpg','png','img','gif','svg','webp'])])
 
 
 class SliderImageForm(FlaskForm):
@@ -50,7 +50,7 @@ class BrandForm(FlaskForm):
 	BrandLink3 = StringField()
 	BrandLink4 = StringField()
 	BrandLink5 = StringField()
-	Image = FileField(validators=[FileAllowed(['jpg','png','img','gif','svg'])])
+	Image = FileField(validators=[FileAllowed(['jpg','png','img','gif','svg','webp'])])
 
 
 class UserForm(FlaskForm):

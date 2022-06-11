@@ -10,6 +10,8 @@ def make_register_request(payload):
 	data = {}
 	database = Db_inf.query.first()
 	payload["DbInfGuid"] = str(database.DbInfGuid) if database else None
+	if "DevGuid" in payload:
+		payload["DevGuid"] = str(payload["DevGuid"])
 
 	try:
 		r = requests.post(

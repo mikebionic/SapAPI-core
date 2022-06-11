@@ -1,0 +1,24 @@
+<svg id="Raw" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <g>
+    <line x1="24" y1="226.24" x2="200" y2="226.24" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="8"/>
+    <path d="M75.3,226.24a88,88,0,0,1-51.3-80v-48H200v48a88,88,0,0,1-51.3,80" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="8"/>
+    <path d="M200,98.24h0a32,32,0,0,1,32,32v8a32,32,0,0,1-32,32h-3.38" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="8"/>
+    <g>
+      <g>
+        <path d="M80.92,67.68S71.4,57,80.92,48.75s-.19-16-2.12-16" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="6"/>
+        <circle cx="78.87" cy="32.75" r="2.99"/>
+        <circle cx="80.94" cy="67.73" r="2.99"/>
+      </g>
+      <g>
+        <path d="M112.57,67.68s-9.52-10.73,0-18.93-.18-16-2.11-16" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="6"/>
+        <circle cx="110.53" cy="32.75" r="2.99"/>
+        <circle cx="112.6" cy="67.73" r="2.99"/>
+      </g>
+      <g>
+        <path d="M144,68.28s-9.53-10.73,0-18.93-.19-16-2.12-16" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="6"/>
+        <circle cx="141.96" cy="33.35" r="2.99"/>
+        <circle cx="144.03" cy="68.34" r="2.99"/>
+      </g>
+    </g>
+  </g>
+</svg>

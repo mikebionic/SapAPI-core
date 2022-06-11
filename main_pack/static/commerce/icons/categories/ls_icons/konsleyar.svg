@@ -1,0 +1,9 @@
+<svg id="Raw" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <g>
+    <circle cx="128" cy="128" r="107.28" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="8"/>
+    <polyline points="181.64 220.93 181.64 181.64 128 65.42 74.36 181.64 74.36 220.94" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="8"/>
+    <path d="M128,199.52a26.82,26.82,0,1,1,53.64,0" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="8"/>
+    <path d="M128,235.28V199.52a26.82,26.82,0,1,0-53.64,0" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="8"/>
+    <line x1="99.12" y1="128" x2="156.88" y2="128" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="8"/>
+  </g>
+</svg>
