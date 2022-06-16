@@ -85,7 +85,7 @@ def save_invoice_synch_data(req, whInv=0):
 
 			inv_lines, failed_inv_lines = [], []
 
-			for inv_line_req in invoice_data['Inv_lines']:
+			for inv_line_req in inv_req['Inv_lines']:
 				line_fail_code, line_fail_message, line_fail_data = 1, "", None
 				inv_line_data = add_Inv_line_dict(inv_line_req)
 				inv_line_data['InvId'] = thisInv.InvId
