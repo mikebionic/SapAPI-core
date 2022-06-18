@@ -96,17 +96,19 @@ def generate_InterActiv_payload(
 	if CustomerMobilePhone:
 		CustomerMobilePhone = configurePhoneNumber(CustomerMobilePhone, 1)
 		if CustomerMobilePhone:
-			data["Environment"]["Customer"]["MobilePhone"] = {
-				"cc": CustomerMobilePhone[:3],
-				"subscriber": CustomerMobilePhone[3:]
-			}
+			if len(CustomerMobilePhone) > 5:
+				data["Environment"]["Customer"]["MobilePhone"] = {
+					"cc": CustomerMobilePhone[:3],
+					"subscriber": CustomerMobilePhone[3:]
+				}
 
 	if CustomerHomePhone:
 		CustomerHomePhone = configurePhoneNumber(CustomerHomePhone, 1)
 		if CustomerHomePhone:
-			data["Environment"]["Customer"]["HomePhone"] = {
-				"cc": CustomerHomePhone[:3],
-				"subscriber": CustomerHomePhone[3:]
-			}
+			if len(CustomerHomePhone) > 5:
+				data["Environment"]["Customer"]["HomePhone"] = {
+					"cc": CustomerHomePhone[:3],
+					"subscriber": CustomerHomePhone[3:]
+				}
 
 	return data

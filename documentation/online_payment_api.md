@@ -174,6 +174,7 @@ function detect_window_close(current_window){
 {
 	"OrderId": "orderId of registered online service",
 	"OInvRegNo": "RegNo",
+	"online_payment_type": "halkbank",
 	"RpAccGuid": "GUID of rp_acc if not validating as rp_acc",
 }
 ```

@@ -66,6 +66,7 @@ def do_InterActiv_payment_service_register_request(
 			# if (data["response"][Config.INTERACTIV_PAYMENT_VALIDATION_KEY] != "OPG-00100"):
 			# 	raise Exception
 
+			print(data)
 			data["RegNo"] = OInvRegNo
 			data["OInvRegNo"] = OInvRegNo
 			data["TotalPrice"] = TotalPrice
