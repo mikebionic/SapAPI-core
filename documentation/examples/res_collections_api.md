@@ -71,6 +71,8 @@ http://localhost:5001/ls/api/v1/res-collections/
           "ResCollectionLineGuid": "b2ba4bf6-232d-499c-96a4-7a54172485ea",
           "ResCollectionLineId": 1,
           "ResCollectionLinePrice": 8888.0,
+				  "ResName": "HuiNyau",
+				  "ResGuid": "d6f40659-a880-40c2-9e73-2476d2577753"
           "ResId": 4,
           "SyncDateTime": null,
           "UnitId": null
