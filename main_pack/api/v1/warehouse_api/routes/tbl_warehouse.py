@@ -6,7 +6,7 @@ from main_pack.api.base.validators import request_is_json
 from main_pack.api.v1.warehouse_api import api
 from main_pack.api.v1.warehouse_api.utils import collect_warehouse_data
 
-@api.route("/tbl-warehouses/", methods=['GET'])
+@api.route("/tbl-warehouses/")
 @sha_required
 @request_is_json(request)
 def tbl_warehouse_get():

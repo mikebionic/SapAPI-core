@@ -10,7 +10,7 @@ from main_pack.api.v1.order_inv_api import api
 from main_pack.api.v1.order_inv_api.utils import collect_order_inv_data
 
 
-@api.route("/tbl-order-invoices/", methods=['GET'])
+@api.route("/tbl-order-invoices/")
 @sha_required
 @request_is_json(request)
 def tbl_order_inv():
