@@ -7,7 +7,7 @@ from main_pack.api.v1.user_api import api
 from main_pack.api.v1.user_api.utils import collect_user_data
 
 
-@api.route("/tbl-users/", methods=['GET'])
+@api.route("/tbl-users/")
 @admin_required
 def tbl_user_get(user):
 	arg_data = {

@@ -5,7 +5,7 @@ from main_pack.api.v1.language_api import api
 from main_pack.api.v1.language_api.utils import collect_language_data
 
 
-@api.route("/languages/", methods=['GET'])
+@api.route("/languages/")
 def tbl_language_get():
 	arg_data = {
 		"LangId": request.args.get('id',None,type=int),

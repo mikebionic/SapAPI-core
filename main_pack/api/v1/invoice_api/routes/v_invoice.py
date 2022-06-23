@@ -7,7 +7,7 @@ from main_pack.api.auth.utils import token_required
 from main_pack.api.v1.invoice_api.utils import collect_invoice_data
 
 
-@api.route("/v-invoices/", methods=['GET'])
+@api.route("/v-invoices/")
 @token_required
 def v_invoice(user):
 	startDate = request.args.get("startDate",None,type=str)

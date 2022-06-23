@@ -7,7 +7,7 @@ from main_pack.api.v1.resource_api import api
 from main_pack.api.v1.resource_api.utils import collect_resource_data
 
 
-@api.route("/v-resources/", methods=['GET'])
+@api.route("/v-resources/")
 @token_required
 def v_resource_get():
 	arg_data = {

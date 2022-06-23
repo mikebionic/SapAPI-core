@@ -7,7 +7,7 @@ from main_pack.api.v1.barcode_api import api
 from main_pack.api.v1.barcode_api.utils import collect_barcode_data
 
 
-@api.route("/tbl-barcodes/", methods=['GET'])
+@api.route("/tbl-barcodes/")
 @sha_required
 def tbl_barcode_get():
 	arg_data = {

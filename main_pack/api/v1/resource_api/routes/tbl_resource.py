@@ -7,7 +7,7 @@ from main_pack.api.v1.resource_api import api
 from main_pack.api.v1.resource_api.utils import collect_resource_data
 
 
-@api.route("/tbl-resources/", methods=['GET'])
+@api.route("/tbl-resources/")
 @sha_required
 def tbl_resource_get():
 	arg_data = {

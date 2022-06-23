@@ -9,7 +9,7 @@ from main_pack.base.apiMethods import checkApiResponseStatus
 from main_pack.api.auth.utils import admin_required
 
 
-@api.route("/v-res-translations/", methods=['GET'])
+@api.route("/v-res-translations/")
 def v_res_translations_get():
 	arg_data = {
 		"ResTranslId": request.args.get("id",None,type=int),
