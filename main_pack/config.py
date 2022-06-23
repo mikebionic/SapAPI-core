@@ -111,7 +111,7 @@ class Config:
 		SESSION_TYPE = environ.get('SESSION_TYPE')
 		SESSION_REDIS = redis.from_url(environ.get('SESSION_REDIS')) if environ.get('SESSION_REDIS') else redis.from_url('redis://:@127.0.0.1:6379/1')
 
-	CACHE_TYPE = environ.get('CACHE_TYPE') or ''
+	CACHE_TYPE = environ.get('CACHE_TYPE') or 'simple'
 	CACHE_DEFAULT_TIMEOUT = 300
 	DB_CACHE_TIME = int(environ.get('DB_CACHE_TIME')) if environ.get('DB_CACHE_TIME') else 600
 	CACHE_REDIS_URL = environ.get('CACHE_REDIS_URL') or 'redis://:@127.0.0.1:6379/2'

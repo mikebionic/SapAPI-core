@@ -205,24 +205,7 @@
 				</div>
 			</div>
 		</header>
-		{% block breadcrumbs %}{% endblock %}
-
-		{% with messages = get_flashed_messages(with_categories=true) %}
-		{% if messages %}
-		{% for category, message in messages %}
-		<div class="alert alert-{{ category }} alert-dismissible show fade" style="margin: auto; height: 10%; opacity: 1; width: 95%; overflow: auto; text-align: center;">
-			<div class="alert-body" style="padding-top: 5px;">
-				<button class="close" data-dismiss="alert">
-					<span style="float: right;">×</span>
-				</button>
-				{{ message }}
-			</div>
-		</div>
-		{% endfor %}
-		{% endif %}
-		{% endwith %}
-	
-		{% block content %}{% endblock %}
+		+
 
 		<button class="cart-active cart-3 header-cart shoppingcart" style="position:fixed; z-index:999; background-color: #56bb81;">
 			<i class="las la-shopping-cart"></i>

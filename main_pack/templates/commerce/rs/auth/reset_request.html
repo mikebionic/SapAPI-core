@@ -1,0 +1,43 @@
+{% extends "commerce/rd/commerce/layout.html" %}
+
+{% block styles %}
+	<meta name="robots" content="noindex" />
+{% endblock %}
+
+{% block content %}
+<div class="login-register-area pt-85 pb-90">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-7 col-md-12 ml-auto mr-auto">
+				<div class="login-register-wrapper">
+					<div class="tab-content">
+						<div id="lg1" class="tab-pane active">
+							<div class="login-form-container">
+								<div class="login-register-form">
+									<h4 style="padding: 1rem;">{{_('Reset password')}} | {{ company.CName }}</h4>
+									<form action="#" method="post">
+										{{ form.csrf_token() }}
+										{{ form.email(class="input-text",inputmode="email",placeholder=_('Email address')) }}
+										<div class="row" style="justify-content: space-around;">
+											<div class="button-box">
+												<button type="submit">{{_('Send')}}</button>
+											</div>
+											<div class="cart-summary-button btn-hover btn-hover-radious">
+												<a href="{{url_for('commerce_auth.login')}}">
+													<i class="las la-registered"></i>
+													<span class="login-text">{{_('Login')}}</span>
+												</a>
+											</div>
+										</div>
+
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
