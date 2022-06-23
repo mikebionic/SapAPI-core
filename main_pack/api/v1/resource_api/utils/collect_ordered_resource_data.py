@@ -1,6 +1,6 @@
 from main_pack.models import (
-	OrderInv,
-	OrderInvLine,
+	Order_inv,
+	Order_inv_line,
 	Resource,
 )
 
@@ -24,15 +24,15 @@ def collect_ordered_resource_data(ResId=None, ResGuid=None, limit=None):
 			message = "Resource not found"
 			raise Exception(message)
 
-		all_inv_lines = OrderInvLine.query.filter_by(ResId = thisResource.ResId).all()
+		all_inv_lines = Order_inv_line.query.filter_by(ResId = thisResource.ResId).all()
 		if not all_inv_lines:
 			message = "Data not available yet"
 			raise Exception(message)
 
 		order_ids_list = list(dict.fromkeys([oinv_line.OInvId for oinv_line in all_inv_lines]))
 		# try to get massive orders with more than 2 lines
-		all_orders = OrderInv.query.filter(OrderInv.OInvId.in_(order_ids_list))\
-			.options(joinedload(OrderInv.OrderInvLine))\
+		all_orders = Order_inv.query.filter(Order_inv.OInvId.in_(order_ids_list))\
+			.options(joinedload(Order_inv.Order_inv_line))\
 			.all()
 			# check this again
 		if not all_orders:
