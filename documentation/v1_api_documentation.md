@@ -492,6 +492,23 @@ curl 127.0.0.1:5000/ls/api/v1/v-images/ --header 'images-to-exclude: [{"FileName
 | showInactive | **int**  |
 
 
+## Ordered resources
+
+| **Route**           | **Methods** | **Status** | **Note**                                         |
+| ------------------- | :---------: | :--------: | ------------------------------------------------ |
+| /ordered-resources/ |   **GET**   |   Active   | shows what else people buy with current resource |
+
+**Properties**
+| __Name__ | __Type__ |      **Note**      |
+| -------- | :------: | :----------------: |
+| id       | **int**  | ResId of a product |
+| guid     | **str**  |      ResGuid       |
+| limit    | **int**  |
+
+
+[Example](./examples/resources_api.md)
+
+----
 
 <!-- !!!TODO: add filtering and currency showing if necessary -->
 
