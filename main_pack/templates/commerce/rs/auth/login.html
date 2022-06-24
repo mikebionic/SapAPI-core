@@ -1,5 +1,5 @@
 
-{% extends "commerce/rd/commerce/layout.html" %}
+{% extends "commerce/rs/commerce/layout.html" %}
 
 
 {% block head %}
@@ -11,33 +11,28 @@
 
 
 {% block content %}
-<div id="cover-spin" class="cover-spin"></div>
-<div id="sms-reg-spinner" class="cover-spin">
-	<p class="cover-spin-text">{{_('Please wait until verification is complete')}}!</p>
-</div>
-<div class="login-register-area pt-85 pb-90">
+<div class="section">
 	<div class="container">
 		<div class="row">
-			<div class="col-lg-7 col-md-12 ml-auto mr-auto">
-				<div class="login-register-wrapper">
-					<div class="login-register-tab-list nav">
-						<a class="active" data-toggle="tab" href="#">
-							<h4> {{_('Login')}} </h4>
-						</a>
-						<a class="not_active_reg" href="{{ url_for('commerce_auth.register_sms') }}">{{_('Register')}}</a>
+			<div class="col-12">
+				<div class="row">
+					<div class="col-lg-6 col-sm-12">
+						<div class="rd_registration">
+							<img src="{{ url_for('static', filename='commerce/rs/images/sign_img.png') }}" alt="">
+						</div>
 					</div>
-					<div class="tab-content">
-						<div id="lg1" class="tab-pane active">
-							<div class="login-form-container">
-								<div class="login-register-form">
-
-									<form action="" method="post" id="email-login-form" style="display:none">
+					<div class="col-lg-6 col-sm-12">
+						<div class="rd_registration regidtration">
+							<div class="inside_registration">
+								<h2>{{_('Login')}}</h2>
+								<form action="" method="post" id="email-login-form">
+									<div class="txt_field">
 										{{ form.csrf_token() }}
-										<p class="before-login-text">
-											{{_("To login you account, fill the required fields and click 'Login' button")}}.
-										</p>
-										<p>{{_('Email address')}}<span style="color:red"> *</span></p>
-										{{ form.email(class="input-text",inputmode="email",placeholder=_('Email address')) }}
+										<label>{{_('Email address')}}</label>
+										<br>
+										{{ form.email(inputmode="email",placeholder=_('Email address')) }}
+										<span></span>
+										
 										{% if form.email.errors %}
 											<div class="col-12 mb-30">
 												{% for error in form.email.errors %}
@@ -45,67 +40,22 @@
 												{% endfor %}
 											</div>
 										{% endif %}
-										<p>{{_('Password')}}<span style="color:red"> *</span></p>
-										{{ form.password(id="password-field",class="input-text",placeholder=_('Password')) }}
-										<span toggle="#password-field" class="las la-low-vision field-icon toggle-password"></span>
-										<div class="button-box">
-											<div class="top_box">
-												<div class="login-toggle-btn">
-													<input type="checkbox">
-													<label>{{_('Remember me')}}</label>
-												</div>
-												<a href="{{ url_for('commerce_auth.reset_request') }}">{{_('Forgot your password?')}}</a>
-											</div>
-
-
-											<div class="row" style="justify-content: space-around;">
-												<div class="button-box">
-													<button type="submit">{{_('Login')}}</button>
-												</div>
-												<div class="cart-summary-button btn-hover btn-hover-radious">
-													<a id="phone-number-login-button">
-														<i class="las la-sign-in-alt"></i>
-														<span class="login-text">{{_('Login by phone number')}}</span>
-													</a>
-												</div>
-											</div>
-										</div>
-									</form>
-
-									<form action="" method="GET" id="phone-number-password-login-form">
-										<h4 class="theme-text-message">
-											{{_("To login you account, fill the required fields and click 'Login' button")}}.
-										</h4>
-										<p>{{_('Phone number')}}<span style="color:red"> *</span></p>
-										<input inputmode="tel" placeholder="{{_('Phone number')}} : +99361234567" class='input-text' id="phone-number" required />
-										<p>{{_('Password')}}<span style="color:red"> *</span></p>
-										<input type="password" placeholder="{{_('Password')}}" class='input-text' id="password" required />
-										<span toggle="#password" class="las la-low-vision field-icon toggle-password"></span>
-										
-											<div class="button-box">
-												<div class="login-toggle-btn">
-													<a href="{{ url_for('commerce_auth.reset_request') }}">{{_('Forgot your password?')}}</a>
-												</div>
-											</div>
-										
-										<div class="row" style="justify-content: space-around; width: 100%;">
-											<div class="button-box">
-												<button type="submit">{{_('Login')}}</button>
-											</div>
-											<div class="cart-summary-button btn-hover btn-hover-radious">
-												<a id="email-login-button">
-													<i class="las la-sign-in-alt"></i>
-													<span class="login-text">{{_('Login by email')}}</span>
-												</a>
-											</div>
-										</div>
-									</form>
-
-									<h4>{{_('Don’t have profile?')}} <a href="{{ url_for('commerce_auth.register_sms') }}" style="color: #5995fd;">{{_('Register')}}</a></h4>
-								</div>
+									</div>
+									<div class="txt_field">
+										<label>{{_('Password')}}</label>
+										<br>
+										{{ form.password(id="password-field",placeholder=_('Password')) }}
+										<span></span>
+									</div>
+									<input type="submit" value="{{_('Login')}}">
+									<div class="signup_link">
+										<a href="{{ url_for('commerce_auth.register_sms') }}">{{_('Register')}}</a>
+									</div>
+								</form>
 							</div>
 						</div>
 					</div>
+					
 				</div>
 			</div>
 		</div>

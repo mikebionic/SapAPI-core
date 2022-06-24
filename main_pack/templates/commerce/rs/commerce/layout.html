@@ -37,7 +37,12 @@
 			</a>
 			<div class="header-catalog catalog des_C">
 				<div class="menu">
-					<img src="img/icons/catalog_v1.png" alt="">
+					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<circle cx="17.0002" cy="7" r="2" fill="#5A5C61"/>
+						<circle cx="17.0002" cy="17" r="2" fill="#5A5C61"/>
+						<circle cx="7.00024" cy="17" r="2" fill="#5A5C61"/>
+						<circle cx="7.00024" cy="7" r="2" fill="#5A5C61"/>
+					</svg>
 				</div>
 				<div class="catalog_text">
 					<p>{{_('Categories')}}</p>
@@ -51,7 +56,6 @@
 						<path d="M11.0002 19C15.4185 19 19.0002 15.4183 19.0002 11C19.0002 6.58172 15.4185 3 11.0002 3C6.58197 3 3.00024 6.58172 3.00024 11C3.00024 15.4183 6.58197 19 11.0002 19Z" stroke="#B9BCC5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 						<path d="M21.0003 21.0004L16.6503 16.6504" stroke="#B9BCC5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 					</svg>
-						
 					<input type="text" id="search" placeholder="{{_('Search')}}">
 				</div>
 			</div>
@@ -66,10 +70,12 @@
 				</div>
 
 				<div class="icon-container">
-					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21" stroke="#5A5C61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-						<path d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z" stroke="#5A5C61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-					</svg>
+					<a href="{{ url_for('commerce_users.profile') }}">
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21" stroke="#5A5C61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+							<path d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z" stroke="#5A5C61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						</svg>
+					</a>
 				</div>
 				<a href="cart.html" class="header-cart icon-container">
 					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -89,7 +95,12 @@
 			</div>
 			<div class="header-catalog catalog mob_C icon-container">
 				<div class="menu">
-					<img src="img/icons/catalog_v1.png" alt="">
+					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<circle cx="17.0002" cy="7" r="2" fill="#5A5C61"/>
+						<circle cx="17.0002" cy="17" r="2" fill="#5A5C61"/>
+						<circle cx="7.00024" cy="17" r="2" fill="#5A5C61"/>
+						<circle cx="7.00024" cy="7" r="2" fill="#5A5C61"/>
+					</svg>
 				</div>
 			</div>
 		</div>
@@ -148,41 +159,7 @@
 	</div>
 
 		<ul class="mini-cart-products">
-			{% for resource in data %}
-			<li>
-				<a class="image" href="{{ url_for('commerce.product',ResId=resource.ResId)}}">
-					<img src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}"
-					alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
-				</a>
-				<div class="content">
-					<a href="single-product.html" class="title">Олдос Хаксли</a>
-					<span class="price">{{ resource.ResName if resource.ResName else '' }}<</span>
-				</div>
-				
-				<button class="remove removeFromCart" ownerId="{{resource.ResId}}"><i class="las la-trash"></i></button>
-				<br>
-				<br>
-				<div class="price_qty">
-					<div class="price_text">
-					<p class="pric priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{resource.ResPriceValue}}</p>
-					<p class="qty">{{ resource.CurrencyCode }}</p>
-					</div>
-					<div class="pro-qty">
-						<button class="dec qtybtn">
-							-
-						</button>
-						<input type="text" class="productQty"
-						pending_amount="{{resource.ResPendingTotalAmount if resource.ResPendingTotalAmount else 1}}"
-						min_amount="{{resource.ResMinSaleAmount}}"
-						max_amount="{{resource.ResMaxSaleAmount}}"
-						value="{{resource.productQty}}" ownerId="{{ resource.ResId }}">
-						<button class="inc qtybtn">
-							+
-						</button>
-					</div>
-				</div>
-			</li>
-			{% endfor %}
+			
 		</ul>
 	</div>
 

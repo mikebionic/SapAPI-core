@@ -1,27 +1,35 @@
 {% for resource in data %}
-
-<li class="woocommerce-mini-cart-item mini_cart_item cartObject{{resource.ResId}}">
-	<a class="remove removeFromCart" ownerId="{{resource.ResId}}">×</a>
-	<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}">
-		<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/ls/img/icons/no_photo.svg') }}" 
-		alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}"
-		class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image">
-		<span class="resName">{{ resource.ResName if resource.ResName else '' }}</span>
+<li>
+	<a class="image" href="{{ url_for('commerce.product',ResId=resource.ResId)}}">
+		<img src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}"
+		alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
 	</a>
-	{{_('Price')}}
-	<span class="woocommerce-Price-amount amount priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{resource.ResPriceValue}}</span>
-	<span class="woocommerce-Price-currencySymbol">{{ resource.CurrencyCode }}</span>
-	<div class="cart-details">
-		<div class="product-count cartItemQty">
-			<span class="qtyminus qtybtn">-</span>
-			<input type="text" class="qty productQty"
-				pending_amount="{{resource.ResPendingTotalAmount}}"
-				min_amount="{{resource.ResMinSaleAmount}}"
-				max_amount="{{resource.ResMaxSaleAmount}}"
-				value="{{resource.productQty}}" ownerId="{{ resource.ResId }}">
-			<span class="qtyplus qtybtn">+</span>
+	<div class="content">
+		<a href="single-product.html" class="title">Олдос Хаксли</a>
+		<span class="price">{{ resource.ResName if resource.ResName else '' }}<</span>
+	</div>
+	
+	<button class="remove removeFromCart" ownerId="{{resource.ResId}}"><i class="las la-trash"></i></button>
+	<br>
+	<br>
+	<div class="price_qty">
+		<div class="price_text">
+		<p class="pric priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{resource.ResPriceValue}}</p>
+		<p class="qty">{{ resource.CurrencyCode }}</p>
+		</div>
+		<div class="pro-qty">
+			<button class="dec qtybtn">
+				-
+			</button>
+			<input type="text" class="productQty"
+			pending_amount="{{resource.ResPendingTotalAmount if resource.ResPendingTotalAmount else 1}}"
+			min_amount="{{resource.ResMinSaleAmount}}"
+			max_amount="{{resource.ResMaxSaleAmount}}"
+			value="{{resource.productQty}}" ownerId="{{ resource.ResId }}">
+			<button class="inc qtybtn">
+				+
+			</button>
 		</div>
 	</div>
 </li>
-
 {% endfor %}
