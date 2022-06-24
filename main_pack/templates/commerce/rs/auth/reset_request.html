@@ -5,36 +5,37 @@
 {% endblock %}
 
 {% block content %}
-<div class="login-register-area pt-85 pb-90">
+<div class="section">
 	<div class="container">
 		<div class="row">
-			<div class="col-lg-7 col-md-12 ml-auto mr-auto">
-				<div class="login-register-wrapper">
-					<div class="tab-content">
-						<div id="lg1" class="tab-pane active">
-							<div class="login-form-container">
-								<div class="login-register-form">
-									<h4 style="padding: 1rem;">{{_('Reset password')}} | {{ company.CName }}</h4>
-									<form action="#" method="post">
+			<div class="col-12">
+				<div class="row">
+					<div class="col-lg-6 col-sm-12">
+						<div class="rd_registration">
+							<img src="{{ url_for('static', filename='commerce/rs/images/sign_img.png') }}" alt="">
+						</div>
+					</div>
+					<div class="col-lg-6 col-sm-12">
+						<div class="rd_registration regidtration">
+							<div class="inside_registration">
+								<h2>{{_('Reset password')}}</h2>
+								<form action="" method="post" id="email-login-form">
+									<div class="txt_field">
 										{{ form.csrf_token() }}
-										{{ form.email(class="input-text",inputmode="email",placeholder=_('Email address')) }}
-										<div class="row" style="justify-content: space-around;">
-											<div class="button-box">
-												<button type="submit">{{_('Send')}}</button>
-											</div>
-											<div class="cart-summary-button btn-hover btn-hover-radious">
-												<a href="{{url_for('commerce_auth.login')}}">
-													<i class="las la-registered"></i>
-													<span class="login-text">{{_('Login')}}</span>
-												</a>
-											</div>
-										</div>
-
-									</form>
-								</div>
+										<label>{{_('Email address')}}</label>
+										<br>
+										{{ form.email(inputmode="email",placeholder=_('Email address')) }}
+										<span></span>
+									</div>
+									<input type="submit" value="{{_('Send')}}">
+									<div class="signup_link">
+										<a href="{{url_for('commerce_auth.login')}}">{{_('Login')}}</a>
+									</div>
+								</form>
 							</div>
 						</div>
 					</div>
+					
 				</div>
 			</div>
 		</div>

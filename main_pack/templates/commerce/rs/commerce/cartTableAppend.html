@@ -1,21 +1,28 @@
 {% for resource in data %}
-<tr style="display: flex; align-items: center">
-	<td class="product-thumbnail">
-		<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}">
-			<img class="c-img" loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" 
-			alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
-		</a>
-	</td>
-	<td class="product-name">
-		<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="resName">{{ resource.ResName if resource.ResName else '' }}</a>
-	</td>
-	<td class="product-price-cart">
-		<span class="priceValue amount" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">
-			{{ resource.ResPriceValue }}
-		</span>
-		<span class="price currencySymbol">{{ resource.CurrencyCode }} </span>
-	</td>
-	<td class="product-quantity">
+<li>
+	<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="image">
+		<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" 
+		alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
+	</a>
+	<div class="content">
+		<a href="single-product.html" class="title">{{ resource.ResCatName if resource.ResCatName else '' }}</a>
+		<span class="price">{{ resource.ResName if resource.ResName else '' }}</span>
+	</div>
+	
+	<button class="remove">
+		<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path d="M12 4L4 12" stroke="#709EF2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+			<path d="M4 4L12 12" stroke="#709EF2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+		</svg>
+	</button>
+	<br>
+	<br>
+	<div class="price_qty">
+		<div class="price_text priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">
+			<p class="pric">{{ resource.ResPriceValue }}</p>
+			<p class="qty">{{ resource.CurrencyCode }}</p>
+		</div>
+		<div class="pro-qty">
 			<div class="cart-plus-minus">
 				<div class="con-input-btns cartItemQty wishlist-add-to-cart">
 					<button class="qtyminus qtybtn" onclick="return false;" style="width: 15px;height:25px;font-size: 14px; border-top-left-radius: 100%; border-bottom-left-radius: 100%;"><i class="las la-minus"></i></button>
@@ -28,13 +35,7 @@
 				</div> 
 				<a class="add-to-cart" ownerId="{{ resource.ResId }}" style="display: none;"><i class="ti-shopping-cart"></i><span class="login-text">{{_('Add to cart')}}</span></a>
 			</div>
-	</td>
-	<td class="product-subtotal">
-		<span class="productTotalPrice" ownerId="{{resource.ResId}}" value="{{resource.productTotal}}">{{ resource.productTotal }}</span>
-		<span class="price currencySymbol">{{ resource.CurrencyCode }} </span>
-	</td>
-	<td class="product-remove">
-		<a class="removeFromCart" ownerId="{{resource.ResId}}"><i class="las la-trash-restore"></i></a>
-	</td>
-</tr>
+		</div>
+	</div>
+</li>
 {% endfor %}

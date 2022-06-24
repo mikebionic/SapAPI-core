@@ -348,7 +348,7 @@ def get_image(file_type,file_size,file_name,path_only=False):
 
 		try:
 			if Config.OS_TYPE == 'win32':
-				full_path = path.replace("\\","/")
+				path = path.replace("\\","/")
 
 			full_path = path.replace("<FSize>",file_size)
 			response = send_from_directory(Config.STATIC_FOLDER_LOCATION, full_path, as_attachment=True)

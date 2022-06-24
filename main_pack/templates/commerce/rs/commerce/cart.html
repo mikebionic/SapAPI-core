@@ -1,107 +1,116 @@
 {% extends "commerce/rs/commerce/layout.html" %}
-{% block breadcrumbs %}
-<div class="breadcrumb-area bg-img">
+
+{% block content %}
+<div class="section">
 	<div class="container">
-		<div class="breadcrumb-content text-center">
-			<h2>{{_('Cart')}}</h2>
-			<ul>
-				<li>
-					<a href="{{ url_for('commerce.commerce') }}">{{_('Main')}}</a>
-				</li>
-				<li class="active">{{_('Cart')}} </li>
-			</ul>
+		<div class="row">
+			<div class="col-12">
+				<div class="section_title_one top_purch">
+					<h1>{{_('Your cart items')}}</h1>
+				</div>
+			</div>
+			<div class="col-12" style="margin-top: 32px;">
+				<div class="gallery">
+					<div class="rd_purchase two-span-row">
+						<div class="section_title_two">
+							<h2>Резюме товаров</h2>
+						</div>
+						<ul class="mini-products">
+							
+						</ul>
+					</div>
+					<div class="rd_purchase_center">
+						<div class="section_title_two">
+							<h2>Информация покупателя</h2>
+						</div>
+						<div class="content">
+							<div class="inside_purchase">
+								<div class="bd_price purchase pr_border">
+									<p>Покупатель</p>
+									<span>Абдыкерим Бегенджов</span>
+								</div>
+								<div class="bd_price purchase pr_border">
+									<p>Номер телефона</p>
+									<span>+993 65 109283</span>
+								</div>
+								<div class="bd_price">
+									<p>Доставка</p>
+								</div>
+							</div>
+							<div class="purchase_country">
+								<div href="#" class="btn_country_first"><a href="#">Ашхабад</a></div>
+								<div  class="btn_country_second"><a href="#">Велаят</a></div>
+							</div>
+							<div class="add_receiver ">
+								Добавить получателя
+								<svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M12.5 5V19" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+									<path d="M5.5 12H19.5" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+								</svg>
+							</div>
+							<div class="added_receiver">
+								<div class="inside_add_receiver">
+									<div class="added_receiver_inside">
+										<h2>
+											Получатель
+											<i class="las la-close"></i>
+										</h2>
+										<div class="close_svg">
+											<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<path d="M12 4L4 12" stroke="#5A5C61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+												<path d="M4 4L12 12" stroke="#5A5C61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+											</svg>
+										</div>
+									</div>
+
+									<form method="post">
+										<div class="txt_field">
+											<label>Имя</label>
+											<br>
+											<input type="text" placeholder="Имя получателя" required>
+											<span></span>
+										</div>
+										<div class="txt_field">
+											<label>Номер</label>
+											<br>
+											<input type="tel" placeholder="Номер телефона" required>
+											<span></span>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="rd_purchase purch_sum">
+						<div class="section_title_two">
+							<h2>Счёт</h2>
+						</div>
+						<div class="content">
+							<div class="inside_purchase">
+								<div class="bd_price purchase pr_border">
+									<p>Товар</p>
+									<span>876 TMT</span>
+								</div>
+								<div class="bd_price purchase pr_border">
+									<p>Доставка</p>
+									<span>20 TMT</span>
+								</div>
+								<div class="bd_price pr_border">
+									<p>{{_('Total price')}}</p>
+									<span class="first_price_purchase">896 TMT</span>
+								</div>
+							</div>
+							<span class="bottom_purchase_text">Просим вас внимательно проверить все предоставлаемые информации</span>
+							<div class="buy_receiver">
+								<a href="#">Купить</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
-{% endblock %}
-
-{% block content %}
-	<div class="cart-main-area pt-85 pb-90">
-			<div class="container">
-					<h3 class="cart-page-title">{{_('Your cart items')}}</h3>
-					<div class="row">
-							<div class="col-xl-8 col-lg-12 col-md-12 col-12 pt-10" style="padding: 0 1px;">
-									<form>
-											<div class="table-content table-responsive cart-table-content">
-												<table>
-													<!-- <thead>
-														<tr>
-															<th>{{_('Image')}}</th>
-															<th>{{_('Product')}}</th>
-															<th>{{_('Price')}}</th>
-															<th>{{_('Quantity')}}</th>
-															<th>{{_('Total')}}</th>
-															<th>{{_('Remove')}}</th>
-														</tr>
-													</thead> -->
-													<tbody class="cartItemsTable"></tbody>
-												</table>
-											</div>
-											<div class="row">
-													<div class="col-lg-12">
-															<div class="cart-shiping-update-wrapper">
-																	<div class="cart-clear">
-																			<a class="clearCartBtn">{{_('Clear Shopping Cart')}}</a>
-																	</div>
-															</div>
-													</div>
-											</div>
-									</form>
-							</div>
-							<div class="col-xl-4 col-lg-12 col-md-12 col-12 pb-30 pt-10" style="max-width: 100%; margin: 0 auto;">
-								<div class="cart-collaterals" style="margin: 0 auto;">
-									<div class="cart_totals">
-										<table class="shop_table shop_table_responsive">
-											<tbody>
-												<tr class="order-total">
-													<th>{{_('Total price')}}</th>
-													<td data-title="{{_('Total price')}}">
-														<strong style="color:#2c5ca7">
-															<span class="woocommerce-Price-amount amount cartTotalPrice">
-																0.00
-															</span>
-															<span class="woocommerce-Price-currencySymbol currencySymbol">
-																{{ session.currency_code if session.currency_code else 'TMT' }}
-															</span>
-														</strong>
-													</td>
-												</tr>
-											</tbody>
-										</table>
-
-
-
-										<div class="tabs">
-											<div class="checkoutForm" style="width: 100%;">
-												<div class="contact-form">
-													<div style="margin-bottom: 1rem">
-														<p>{{_('Phone number')}}<span style="color:red"> *</span></p>
-														<input inputmode="tel" placeholder="{{_('Phone number')}} : +99361234567" class='input-text' id="phone-number" required />
-													</div>
-
-													<div style="margin-bottom: 1rem">
-														<p>{{_('Name')}}<span style="color:red"> *</span></p>
-														<input inputmode="text" placeholder="{{_('Name')}}" class='input-text' id="username" required />
-													</div>
-
-													<p for="message">{{_('Note')}}<span>{{_('Type your address')}}!!</span></p>
-													<textarea id="message" class="orderDesc" type="text" placeholder="{{_('Description')}} {{_('Phone number')}} {{_('Address')}} ({{_('City')}}, {{_('Av.')}}, {{_('Street')}}, {{_('House')}}, {{_('Flat')}})"></textarea>
-												</div>
-												<a class="checkout-button bg-red button alt wc-forward checkoutCartBtn">
-													{{_('Checkout')}}
-												</a>
-											</div>
-										</div>
-
-
-
-									</div>
-								</div>
-							</div>
-					</div>
-			</div>
-	</div>
-
 {% endblock %}
 
 {% block scripts %}
