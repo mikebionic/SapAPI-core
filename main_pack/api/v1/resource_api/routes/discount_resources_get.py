@@ -28,7 +28,7 @@ def discount_resources_get():
 @api.route("/recommended-resources/")
 def recommended_resources_get():
 	ResId = request.args.get("id", None, type=int)
-	ResGuid = request.args.get("guid", None, type=int)
+	ResGuid = request.args.get("guid", None, type=str)
 	limit = request.args.get("limit", None, type=int)
 	showInactive = request.args.get("showInactive", None, type=int)
 	data = collect_discount_resource_data(limit, showInactive)
@@ -38,7 +38,7 @@ def recommended_resources_get():
 @api.route("/ordered-resources/")
 def ordered_resources_get():
 	ResId = request.args.get("id", None, type=int)
-	ResGuid = request.args.get("guid", None, type=int)
+	ResGuid = request.args.get("guid", None, type=str)
 	limit = request.args.get("limit", None, type=int)
-	data = collect_ordered_resource_data(ResId, ResGuid, limit)
-	return handle_default_response(data, "With this product people also buy")
+	data, message = collect_ordered_resource_data(ResId, ResGuid, limit)
+	return handle_default_response(data, message)
