@@ -1,30 +1,31 @@
 {% for resource in data %}
-<li class="single-shopping-cart cartObject{{resource.ResId}}">
-	<div class="shopping-cart-img">
-			<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}">
-				<img alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}"
-				 src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}">
-			</a>
-			<div class="item-close">
-					<a href="#"><i class="sli sli-close"></i></a>
-			</div>
+<li class="cartObject{{resource.ResId}}">
+	<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="image">
+		<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/bee/images/no_photo.svg') }}" 
+		alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
+	</a>
+	<div class="content">
+		<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="title resCatName">{{ resource.ResCatName if resource.ResCatName else '' }}</a>
+		<span class="price resName">{{ resource.ResName if resource.ResName else '' }}</span>
 	</div>
-	<div class="shopping-cart-title">
-			<h4><a href="#">{{ resource.ResName if resource.ResName else '' }}</a></h4>
-			<span class="woocommerce-Price-amount amount priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{resource.ResPriceValue}}</span>
-			<span class="woocommerce-Price-currencySymbol">{{ resource.CurrencyCode }}</span>
-			<div class="con-input-btns cartItemQty" style="display: flex; width: 35px; height: 30px;">
-				<button class="qtyminus qtybtn" style="font-size: 26px; border-top-left-radius: 100%; border-bottom-left-radius: 100%;"><i class="las la-minus"></i></button>
-				<input type="text" class="productQty"
-					pending_amount="{{resource.ResPendingTotalAmount if resource.ResPendingTotalAmount else 1}}"
-					min_amount="{{resource.ResMinSaleAmount}}"
-					max_amount="{{resource.ResMaxSaleAmount}}"
-					value="{{resource.productQty}}" ownerId="{{ resource.ResId }}" style="height: 30px;">
-				<button class="qtyplus qtybtn" style="font-size: 26px; border-top-right-radius: 100%; border-bottom-right-radius: 100%;"><i class="las la-plus"></i></button>
-			</div> 
-	</div>
-	<div class="shopping-cart-delete removeFromCart" ownerId="{{resource.ResId}}">
-			<a href="#"><i class="las la-trash-restore"></i></a> 
+	
+	<button class="remove removeFromCart" ownerId="{{resource.ResId}}"><i class="las la-trash"></i></button>
+	<br>
+	<br>
+	<div class="price_qty">
+		<div class="price_text">
+		<p class="pric priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{resource.ResPriceValue}}</p>
+		<p class="qty currencySymbol">{{ resource.CurrencyCode }}</p>
+		</div>
+		<div class="pro-qty">
+			<span class="dec qtybtn">
+				-
+			</span>
+			<input type="text" value="1">
+			<span class="inc qtybtn">
+				+
+			</span>
+		</div>
 	</div>
 </li>
 {% endfor %}
