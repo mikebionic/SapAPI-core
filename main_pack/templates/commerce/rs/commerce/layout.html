@@ -87,8 +87,8 @@
 						<path d="M1 1H5L7.68 14.39C7.77144 14.8504 8.02191 15.264 8.38755 15.5583C8.75318 15.8526 9.2107 16.009 9.68 16H19.4C19.8693 16.009 20.3268 15.8526 20.6925 15.5583C21.0581 15.264 21.3086 14.8504 21.4 14.39L23 6H6" stroke="#5A5C61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 					</svg>
 					<div class="indicator">
-						<span class="number cartTotalPrice">
-							5
+						<span class="number cartItemsFullQty">
+							0
 						</span>
 					</div>
 				</a>
@@ -202,6 +202,13 @@
 
 	<!-- JS
 ============================================ -->
+
+	<script src="{{ url_for('static', filename='commerce/rs/js/jquery-1.12.4.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='commerce/rs/js/bootstrap.js') }}"></script>
+	<script src="{{ url_for('static', filename='commerce/rs/js/navbar.js') }}"></script>
+	<script src="{{ url_for('static', filename='commerce/rs/js/plugin.js') }}"></script>
+	<script src="{{ url_for('static', filename='commerce/rs/js/shop_page.js') }}"></script>
+	
 	<script type="text/javascript">
 		var url_prefix = "{{url_prefix if url_prefix else ''}}";
 		var session_currency_code = "{{ session.currency_code if session.currency_code else 'TMT' }}"
@@ -211,16 +218,10 @@
 		var add_to_cart_text = "{{_('Add to cart')}}";
 		var qty_error_text = "{{_('Cannot get more')}}";
 		var remove_from_cart_text = "{{_('Remove from cart')}}";
-		var no_photo_errorhandler_image = "{{ url_for('static', filename='commerce/rs/images/icons/no_photo.svg') }}";
+		var no_photo_errorhandler_image = "{{ url_for('static', filename='commerce/rs/images/no_photo.svg') }}";
 		var rating_message = "{{_('You should put your rating and write a review')}}";
 		var csrf_token = "{{ csrf_token() }}";
 	</script>
-
-	<script src="{{ url_for('static', filename='commerce/rs/js/jquery-1.12.4.min.js') }}"></script>
-	<script src="{{ url_for('static', filename='commerce/rs/js/bootstrap.js') }}"></script>
-	<script src="{{ url_for('static', filename='commerce/rs/js/navbar.js') }}"></script>
-	<script src="{{ url_for('static', filename='commerce/rs/js/plugin.js') }}"></script>
-	<script src="{{ url_for('static', filename='commerce/rs/js/shop_page.js') }}"></script>
 	
 	{% block scripts %}{% endblock %}
 </body>

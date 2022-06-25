@@ -19,7 +19,7 @@
 						
 						<div class="rd_b_detail">
 							<div class="rd_b_detail_title">
-								<a href="index.html">
+								<a href="{{ url_for('commerce.commerce') }}">
 									<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 										<path d="M15 18L9 12L15 6" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 									</svg>
@@ -65,18 +65,21 @@
 							
 						<div class="rd_b_detail_photo_name">
 							<div class="rd_b_detail_img">
-								<img src="img/products/product2.png" alt="">
+								<img loading="lazy"
+								src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/rs/img/icons/no_photo.svg') }}"
+								data-src-m="{{resource.FilePathM}}"
+								alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }} {{company.CName}}">
 								<div class="rd_book_detail_text">
 									<a href="#">
-										Сьюзи Ходж
+										{{ resource.ResCatName }}
 									</a>
-									<h2>Главное в истории искуств</h2>
+									<h2>{{ resource.ResName }}</h2>
 								</div>
 							</div>
 						</div>
 						<div class="mobile_right_price">
 							<div class="book_d_price">
-								<div class="bd_price">
+								<div class="bd_price"  ownerId="{{ resource.ResId }}" value="{{resource.ResPriceValue}}">
 									<p>Стоимость</p>
 									<p class="first_price">645 TMT</p>
 								</div>
@@ -99,8 +102,8 @@
 									<input type="radio" id="tab3" name="tab-control">  
 									<input type="radio" id="tab4" name="tab-control">
 									<ul>
-										<li title="Описание"><label for="tab1" role="button"><br><span>Описание</span></label></li>
-										<li title="Отзывы"><label for="tab2" role="button"><br><span>Отзывы</span></label></li>
+										<li title="description"><label for="tab1" role="button"><br><span>{{_('Description')}}</span></label></li>
+										<li title="review"><label for="tab2" role="button"><br><span>{{_('Customers reviews')}}</span></label></li>
 										<li title="Характеристика"><label for="tab3" role="button"><br><span>Характеристика</span></label></li>   
 									</ul>
 									
@@ -108,23 +111,7 @@
 									<div class="content">
 										<section class="description_tabs">
 											<div class="first_desc_text">
-												<p>Это умная и конструктивная книга о годах, которые нельзя тратить впустую. Компактный и легкий покетбук удобно взять с собой в дорогу, путешествие или на прогулку.</p>
-												<p>Новый формат — для самых важных и любимых книг. Мы сохранили качество: под мягкой обложкой — белая бумага, ляссе и уникальный дизайн. Ничто не помешает наслаждаться чтением без компромиссов.</p>
-												<p>«Важные годы» — книга, которая может существенно повлиять на вашу дальнейшую жизнь или на жизнь вашего ребенка. Кто-то называет годы с двадцатого по тридцатый второй молодостью, кто-то — началом взрослой жизни. Доктор Мэг Джей, клинический психолог, утверждает, что это самое важное десятилетие в жизни человека с точки зрения развития важных сфер жизни: работы, любви, физического и интеллектуального развития.</p>
-												<p>Книга основана на десятилетней работе с сотнями студентов и клиентов, сочетая в себе актуальные научные исследования и реальные истории тех, кто вступил в третий десяток.</p>
-											</div>
-											<div class="second_desc_text">
-												<p>Книга содержит все необходимые инструменты для максимально результативного использования самых важных десяти лет. Автор делится тем, что знают о критической важности этого периода психологи, социологи, неврологи, экономисты и топ-менеджеры, занимающиеся кадровой политикой. То, что вы делаете и чего не делаете в период с двадцатого по тридцатый год, может оказать огромное воздействие на вашу карьеру, личностный рост, развитие мозга, ваши взаимоотношения и на построение деловых и личных связей.</p>
-												<p>Фишки книги:
-												<br>
-													— Удобный и качественный формат — книгу можно брать с собой куда угодно. <br>
-													— Покетбуки занимают мало места, но приносят много пользы.<br>
-													— В серии покетбуков выходят самые важные книги МИФа.<br>
-													— Есть закладка-ляссе, а значит, вы всегда сможете продолжить читать книгу с того места, где остановились.
-												</p>
-												<p>Для кого эта книга:<br>
-													Для всех, кому от 14 до 30 лет. И для их родителей.
-												</p>
+												<p>{{ resource.ResFullDesc if resource.ResFullDesc else _('No description provided for this product') }}</p>
 											</div>
 										</section>
 										<section>
@@ -134,159 +121,29 @@
 														<div class="inside_comment_card">
 															<div class="top_comment_container">
 																<span>Annette Black</span>
-																<p>Very nice, great copy, gets right to the point. UX for the win while design gets out of the way.👏</p>
+																<p>{{_('Customers reviews')}}</p>
 															</div>
 															<div class="bottom_comment_rating">
-																<div class="comment_star">
-																	<svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-																		<path d="M10 0L12.2451 6.90983H19.5106L13.6327 11.1803L15.8779 18.0902L10 13.8197L4.12215 18.0902L6.36729 11.1803L0.489435 6.90983H7.75486L10 0Z" fill="#DD3872"/>
-																	</svg>
-																	<svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-																		<path d="M10 0L12.2451 6.90983H19.5106L13.6327 11.1803L15.8779 18.0902L10 13.8197L4.12215 18.0902L6.36729 11.1803L0.489435 6.90983H7.75486L10 0Z" fill="#DD3872"/>
-																	</svg>
-																	<svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-																		<path d="M10 0L12.2451 6.90983H19.5106L13.6327 11.1803L15.8779 18.0902L10 13.8197L4.12215 18.0902L6.36729 11.1803L0.489435 6.90983H7.75486L10 0Z" fill="#DD3872"/>
-																	</svg>
-																	<svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-																		<path d="M10 0L12.2451 6.90983H19.5106L13.6327 11.1803L15.8779 18.0902L10 13.8197L4.12215 18.0902L6.36729 11.1803L0.489435 6.90983H7.75486L10 0Z" fill="#DD3872"/>
-																	</svg>
-																	<svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-																		<path d="M10 0L12.2451 6.90983H19.5106L13.6327 11.1803L15.8779 18.0902L10 13.8197L4.12215 18.0902L6.36729 11.1803L0.489435 6.90983H7.75486L10 0Z" fill="#DD3872"/>
-																	</svg>
-
-																</div>
-																	<p>18 Oct, 2022</p>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="grid-item col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 ">
-													<div class="comment_card">
-														<div class="inside_comment_card">
-															<div class="top_comment_container">
-																<span>Albert Flores</span>
-																<p>Next, pick out two points on that second hand,
-																	one very close to the center at 1 foot, and one all the way at the end at 10 ft, and watch 
-																	them for 30 seconds. After half a minute, both of them have rotated exactly halfway around the 
-																	clock, or 180°. This is your angular velocity, and that doesn't change no matter where you are on something 
-																	that's spinning, because everything will finish a rotation in the same amount of time.1
-																</p>
-															</div>
-															<div class="bottom_comment_rating">
-																<div class="comment_star">
-																	<svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-																		<path d="M10 0L12.2451 6.90983H19.5106L13.6327 11.1803L15.8779 18.0902L10 13.8197L4.12215 18.0902L6.36729 11.1803L0.489435 6.90983H7.75486L10 0Z" fill="#DD3872"/>
-																	</svg>
-																	<svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-																		<path d="M10 0L12.2451 6.90983H19.5106L13.6327 11.1803L15.8779 18.0902L10 13.8197L4.12215 18.0902L6.36729 11.1803L0.489435 6.90983H7.75486L10 0Z" fill="#DD3872"/>
-																	</svg>
-																	<svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-																		<path d="M10 0L12.2451 6.90983H19.5106L13.6327 11.1803L15.8779 18.0902L10 13.8197L4.12215 18.0902L6.36729 11.1803L0.489435 6.90983H7.75486L10 0Z" fill="#DD3872"/>
-																	</svg>
-																	<svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-																		<path d="M10 0L12.2451 6.90983H19.5106L13.6327 11.1803L15.8779 18.0902L10 13.8197L4.12215 18.0902L6.36729 11.1803L0.489435 6.90983H7.75486L10 0Z" fill="#DD3872"/>
-																	</svg>
-																	<svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-																		<path d="M10 0L12.2451 6.90983H19.5106L13.6327 11.1803L15.8779 18.0902L10 13.8197L4.12215 18.0902L6.36729 11.1803L0.489435 6.90983H7.75486L10 0Z" fill="#B9BCC5"/>
-																	</svg>
-																		
-
-																</div>
-																	<p>18 Oct, 2022</p>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="grid-item col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 ">
-													<div class="comment_card">
-														<div class="inside_comment_card">
-														<div class="top_comment_container">
-															<span>Guy Hawkins</span>
-																<p>Had to look it up, the process of cutting and playing back the record are the same, the cutting stylus just imprints the wave in real time meaning near the edge it moves faster across 
-																	the record but imprints a relatively longer wave than the same sound would produce in the middle.
-																</p>
-															</div>
-															<div class="bottom_comment_rating">
-																<div class="comment_star">
-																	<svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-																		<path d="M10 0L12.2451 6.90983H19.5106L13.6327 11.1803L15.8779 18.0902L10 13.8197L4.12215 18.0902L6.36729 11.1803L0.489435 6.90983H7.75486L10 0Z" fill="#DD3872"/>
-																	</svg>
-																	<svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-																		<path d="M10 0L12.2451 6.90983H19.5106L13.6327 11.1803L15.8779 18.0902L10 13.8197L4.12215 18.0902L6.36729 11.1803L0.489435 6.90983H7.75486L10 0Z" fill="#DD3872"/>
-																	</svg>
-																	<svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-																		<path d="M10 0L12.2451 6.90983H19.5106L13.6327 11.1803L15.8779 18.0902L10 13.8197L4.12215 18.0902L6.36729 11.1803L0.489435 6.90983H7.75486L10 0Z" fill="#DD3872"/>
-																	</svg>
-																	<svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-																		<path d="M10 0L12.2451 6.90983H19.5106L13.6327 11.1803L15.8779 18.0902L10 13.8197L4.12215 18.0902L6.36729 11.1803L0.489435 6.90983H7.75486L10 0Z" fill="#DD3872"/>
-																	</svg>
-																	<svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-																		<path d="M10 0L12.2451 6.90983H19.5106L13.6327 11.1803L15.8779 18.0902L10 13.8197L4.12215 18.0902L6.36729 11.1803L0.489435 6.90983H7.75486L10 0Z" fill="#DD3872"/>
-																	</svg>
-
-																</div>
-																	<p>18 Oct, 2022</p>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="grid-item col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 ">
-													<div class="comment_card">
-														<div class="inside_comment_card">
-															<div class="top_comment_container">
-																<span>Dianne Russel</span>
-																<p>I remember this from a collections book I had years ago. Long since lost though. Tragic...</p>
-															</div>
-															<div class="bottom_comment_rating">
-																<div class="comment_star">
-																	<svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-																		<path d="M10 0L12.2451 6.90983H19.5106L13.6327 11.1803L15.8779 18.0902L10 13.8197L4.12215 18.0902L6.36729 11.1803L0.489435 6.90983H7.75486L10 0Z" fill="#DD3872"/>
-																	</svg>
-																	<svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-																		<path d="M10 0L12.2451 6.90983H19.5106L13.6327 11.1803L15.8779 18.0902L10 13.8197L4.12215 18.0902L6.36729 11.1803L0.489435 6.90983H7.75486L10 0Z" fill="#DD3872"/>
-																	</svg>
-																	<svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-																		<path d="M10 0L12.2451 6.90983H19.5106L13.6327 11.1803L15.8779 18.0902L10 13.8197L4.12215 18.0902L6.36729 11.1803L0.489435 6.90983H7.75486L10 0Z" fill="#DD3872"/>
-																	</svg>
-																	<svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-																		<path d="M10 0L12.2451 6.90983H19.5106L13.6327 11.1803L15.8779 18.0902L10 13.8197L4.12215 18.0902L6.36729 11.1803L0.489435 6.90983H7.75486L10 0Z" fill="#DD3872"/>
-																	</svg>
-																	<svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-																		<path d="M10 0L12.2451 6.90983H19.5106L13.6327 11.1803L15.8779 18.0902L10 13.8197L4.12215 18.0902L6.36729 11.1803L0.489435 6.90983H7.75486L10 0Z" fill="#B9BCC5"/>
-																	</svg>
-
-																</div>
-																	<p>18 Oct, 2022</p>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="grid-item col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 ">
-													<div class="comment_card">
-														<div class="inside_comment_card">
-															<div class="top_comment_container">
-																<span>Cameron Williamson</span>
-																<p>The real horror is that the ballpit just spits you back outside, where you have to become an adult in the real world.</p>
-															</div>
-															<div class="bottom_comment_rating">
-																<div class="comment_star">
-																	<svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-																		<path d="M10 0L12.2451 6.90983H19.5106L13.6327 11.1803L15.8779 18.0902L10 13.8197L4.12215 18.0902L6.36729 11.1803L0.489435 6.90983H7.75486L10 0Z" fill="#DD3872"/>
-																	</svg>
-																	<svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-																		<path d="M10 0L12.2451 6.90983H19.5106L13.6327 11.1803L15.8779 18.0902L10 13.8197L4.12215 18.0902L6.36729 11.1803L0.489435 6.90983H7.75486L10 0Z" fill="#DD3872"/>
-																	</svg>
-																	<svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-																		<path d="M10 0L12.2451 6.90983H19.5106L13.6327 11.1803L15.8779 18.0902L10 13.8197L4.12215 18.0902L6.36729 11.1803L0.489435 6.90983H7.75486L10 0Z" fill="#DD3872"/>
-																	</svg>
-																	<svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-																		<path d="M10 0L12.2451 6.90983H19.5106L13.6327 11.1803L15.8779 18.0902L10 13.8197L4.12215 18.0902L6.36729 11.1803L0.489435 6.90983H7.75486L10 0Z" fill="#B9BCC5"/>
-																	</svg>
-																	<svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-																		<path d="M10 0L12.2451 6.90983H19.5106L13.6327 11.1803L15.8779 18.0902L10 13.8197L4.12215 18.0902L6.36729 11.1803L0.489435 6.90983H7.75486L10 0Z" fill="#B9BCC5"/>
-																	</svg>
-
-																</div>
+																{% for rating in resource.Rating %}
+																	{% set rating_count = resource.Rating.index(rating) %}
+																	<div class="comment_star">
+																		<svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+																			<path d="M10 0L12.2451 6.90983H19.5106L13.6327 11.1803L15.8779 18.0902L10 13.8197L4.12215 18.0902L6.36729 11.1803L0.489435 6.90983H7.75486L10 0Z" fill="#DD3872"/>
+																		</svg>
+																		<svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+																			<path d="M10 0L12.2451 6.90983H19.5106L13.6327 11.1803L15.8779 18.0902L10 13.8197L4.12215 18.0902L6.36729 11.1803L0.489435 6.90983H7.75486L10 0Z" fill="#DD3872"/>
+																		</svg>
+																		<svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+																			<path d="M10 0L12.2451 6.90983H19.5106L13.6327 11.1803L15.8779 18.0902L10 13.8197L4.12215 18.0902L6.36729 11.1803L0.489435 6.90983H7.75486L10 0Z" fill="#DD3872"/>
+																		</svg>
+																		<svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+																			<path d="M10 0L12.2451 6.90983H19.5106L13.6327 11.1803L15.8779 18.0902L10 13.8197L4.12215 18.0902L6.36729 11.1803L0.489435 6.90983H7.75486L10 0Z" fill="#DD3872"/>
+																		</svg>
+																		<svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+																			<path d="M10 0L12.2451 6.90983H19.5106L13.6327 11.1803L15.8779 18.0902L10 13.8197L4.12215 18.0902L6.36729 11.1803L0.489435 6.90983H7.75486L10 0Z" fill="#DD3872"/>
+																		</svg>
+																	</div>
+																{% endfor %}
 																	<p>18 Oct, 2022</p>
 															</div>
 														</div>

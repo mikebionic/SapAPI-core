@@ -180,3 +180,14 @@ def brands():
 		brands = brands["data"],
 		url_prefix = url_prefix,
 		title = gettext(Config.COMMERCE_BRANDS_PAGE_TITLE))
+
+		
+@bp.route(Config.COMMERCE_ORDER_BOOK_PAGE)
+def order_book():
+	categoriesData = UiCategoriesList()
+
+	return render_template(
+		f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/commerce/order_book.html",
+		**categoriesData,
+		url_prefix = url_prefix,
+		title = gettext(Config.COMMERCE_ORDER_BOOK_PAGE_TITLE))
