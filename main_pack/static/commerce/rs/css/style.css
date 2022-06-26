@@ -63,7 +63,7 @@ li{
 }
 .catalog .catalog_text{
 	width: 100px;
-	height: 20px;
+	height: 15px;
 	font-family: 'Manrope';
 	font-style: normal;
 	font-weight: 500;
@@ -635,6 +635,12 @@ li{
 	border-left: 1px solid #CED1D9;
 	display: flex;
 	align-items: center;
+	padding: 0;
+}
+.mob_C .menu{
+	width: 100%;
+	height: 100%;
+	padding: 24px 16px;
 }
 /* //////////////////////////////////////// */
 /* /////////// Navbar Search /////////// */
