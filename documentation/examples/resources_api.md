@@ -278,3 +278,124 @@ curl http://localhost:5001/ls/api/v1/ordered-resources/?id=19
   "total": 2
 }
 ```
+
+
+-------
+
+## Recommended Resources
+
+**route** /recommended-resources/
+
+```bash
+curl --request GET \
+  --url http://localhost:5001/ls/api/v1/recommended-resources/ \
+  --header 'Authorization: Bearer eyJ......OiJKV1QiLCJhbGciOiJIUzI1NiJ9iA' 
+```
+
+```json
+{
+  "data": [
+    {
+      "AddInf1": null,
+      "AddInf2": "Smartfonlar",
+      "AddInf3": null,
+      "AddInf4": null,
+      "AddInf5": null,
+      "AddInf6": null,
+      "BarcodeVal": "+6519165",
+      "BrandId": null,
+      "CId": 1,
+      "CategoryIcon": "/ls/api/get-icon/Electronics/smartphone_tablet.svg",
+      "CreatedDate": "2020-10-27 17:39:11",
+      "CreatedUId": null,
+      "CurrencyCode": "TMT",
+      "CurrencySymbol": "m",
+      "DiscType": "%",
+      "DiscValue": 80.0,
+      "DivId": 1,
+      "FilePathM": "/ls/api/get-image/image/M/27210d69bea72d4c821da911349c.png",
+      "FilePathR": "/ls/api/get-image/image/R/27210d69bea72d4c821da911349c.png",
+      "FilePathS": "/ls/api/get-image/image/S/27210d69bea72d4c821da911349c.png",
+      "GCRecord": null,
+      "Images": [
+        {
+          "BrandId": null,
+          "CId": null,
+          "CreatedDate": "2020-10-27 17:48:16",
+          "CreatedUId": null,
+          "EmpId": null,
+          "FileHash": null,
+          "FileName": "27210d69bea72d4c821da911349c.png",
+          "FilePath": "/ls/api/get-image/image/M/27210d69bea72d4c821da911349c.png",
+          "FilePathM": "/ls/api/get-image/image/M/27210d69bea72d4c821da911349c.png",
+          "FilePathR": "/ls/api/get-image/image/R/27210d69bea72d4c821da911349c.png",
+          "FilePathS": "/ls/api/get-image/image/S/27210d69bea72d4c821da911349c.png",
+          "GCRecord": null,
+          "ImgGuid": "84bdf66a-ce1b-4a17-95b5-daa5e5ec75c9",
+          "ImgId": 4,
+          "MaxDarkFileName": "",
+          "MaxDarkFilePath": "",
+          "MaxLightFileName": "",
+          "MaxLightFilePath": "",
+          "MinDarkFileName": "",
+          "MinDarkFilePath": "",
+          "MinLightFileName": "",
+          "MinLightFilePath": "",
+          "ModifiedDate": "2020-09-21 17:29:04",
+          "ModifiedUId": null,
+          "ProdId": null,
+          "ResCatId": null,
+          "ResId": 4,
+          "RpAccId": null,
+          "SyncDateTime": "2020-10-27 17:48:16",
+          "UId": null
+        }
+      ],
+      "IsMain": null,
+      "ModifiedDate": "2020-10-27 17:49:15",
+      "ModifiedUId": null,
+      "New": false,
+      "RealPrice": 7200.0,
+      "ResCatId": 1,
+      "ResCatName": "Smartfonlar",
+      "ResDesc": "iPhone täze model 80 - 2045  ýyl. Ýady:264 Gb, RAM: 32Gb, Kamera: 100 MbPx",
+      "ResFullDesc": null,
+      "ResGuid": "d6f40659-a880-40c2-9e73-2476d2577753",
+      "ResHeight": 0.0,
+      "ResId": 4,
+      "ResLastVendorId": null,
+      "ResLength": 0.0,
+      "ResMainImgId": 0,
+      "ResMakerId": null,
+      "ResMaxSaleAmount": 0.0,
+      "ResMaxSalePrice": 0.0,
+      "ResMinSaleAmount": 0.0,
+      "ResMinSalePrice": 0.0,
+      "ResName": "Phone-80",
+      "ResPendingTotalAmount": 9999,
+      "ResPriceValue": 1440.0,
+      "ResRegNo": "AN00000007",
+      "ResTotBalance": 9999,
+      "ResTypeId": null,
+      "ResViewCnt": 1,
+      "ResVisibleIndex": null,
+      "ResWeight": 0.0,
+      "ResWidth": 0.0,
+      "RtRatingValue": 0.0,
+      "SyncDateTime": "2020-10-27 17:39:11",
+      "UnitId": 1,
+      "UnitName": "San",
+      "UsageStatusId": 1,
+      "UsageStatusName": "Işjeň",
+      "Wishlist": false
+    },
+  ],
+  "message": "Recommended resources",
+  "status": 1,
+  "total": 1
+}```
+
+
+
+
+

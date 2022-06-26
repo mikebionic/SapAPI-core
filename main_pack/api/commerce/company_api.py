@@ -11,7 +11,7 @@ from main_pack.models import (
 	Bank,
 	Accounting_info
 )
-from main_pack.api.auth.utils import token_required, sha_required
+from main_pack.api.auth.utils import token_required, admin_required
 from main_pack.base.apiMethods import checkApiResponseStatus
 from main_pack.api.base.validators import request_is_json
 from .utils import addCompanyDict
@@ -68,9 +68,9 @@ def api_company_info():
 
 
 @api.route("/company/", methods=['GET','POST'])
-@sha_required
+@admin_required
 @request_is_json(request)
-def api_company():
+def api_company(user):
 	if request.method == 'GET':
 		CGuid = request.args.get("CGuid",None,type=str)
 
