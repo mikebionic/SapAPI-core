@@ -1,4 +1,5 @@
 
+from main_pack.api.commerce.commerce_utils import apiResourceInfo
 from main_pack.base import log_print
 from main_pack.models import (
 	Order_inv,
@@ -8,10 +9,9 @@ from main_pack.models import (
 	Resource,
 	Res_category,
 	Brand,
-
 )
 
-def collect_recommended_resource_data(rp_acc_user, limit=10):
+def collect_recommended_resource_data(rp_acc_user, limit=15):
 	data, message = [], "Recommended resources"
 	try:
 		resource_ids = []
@@ -43,7 +43,6 @@ def collect_recommended_resource_data(rp_acc_user, limit=10):
 		
 		counted_res_dict = dict((i, resource_ids.count(i)) for i in resource_ids)
 		resource_ids = list({k: v for k, v in sorted(counted_res_dict.items(), key=lambda item: item[1])})[::-1][:limit]
-		#print(resource_ids)
 		if not resource_ids:
 			message = "Data not available yet"
 			raise Exception(message)
@@ -58,29 +57,60 @@ def collect_recommended_resource_data(rp_acc_user, limit=10):
 		brand_ids = list({k: v for k, v in sorted(dict((i, brand_ids.count(i)) for i in brand_ids).items(), key=lambda item: item[1])})[::-1][:limit]
 		category_ids = list({k: v for k, v in sorted(dict((i, category_ids.count(i)) for i in category_ids).items(), key=lambda item: item[1])})[::-1][:limit]
 
+		other_res_ids = []
 		if brand_ids:
-			all_brands = Brand.query.filter(Brand.BrandId.in_(brand_ids))\
-				.order_by(Brand.BrandVisibleIndex > 0)\
-				.order_by(Brand.BrandVisibleIndex.desc())\
-				.order_by(Brand.IsMain.desc())\
+			all_brands = Brand.query\
+				.with_entities(Brand.BrandId, Brand.BrandVisibleIndex, Brand.IsMain)\
+				.filter(Brand.BrandId.in_(brand_ids))\
+				.order_by(
+					Brand.BrandVisibleIndex > 0,
+					Brand.BrandVisibleIndex.desc(),
+					Brand.IsMain.desc())\
+				.limit(50)\
 				.all()
 
-		#if category_ids:
-		#	all_categorys = category.query.filter(category.categoryId.in_(category_ids))\
-		#		.order_by(category.categoryVisibleIndex > 0)\
-		#		.order_by(category.categoryVisibleIndex.desc())\
-		#		.order_by(category.IsMain.desc())\
-		#		.all()
+			if all_brands:
+				brand_resources = Resource.query\
+					.with_entities(Resource.ResId, Resource.BrandId)\
+					.filter(Resource.BrandId.in_([brand.BrandId for brand in all_brands]))\
+					.order_by(
+						Resource.ResVisibleIndex > 0, 
+						Resource.ResVisibleIndex.desc(),
+						Resource.ResViewCnt.desc())\
+					.limit(50)\
+					.all()
+				[other_res_ids.append(this_resource.ResId) for this_resource in brand_resources if brand_resources]
 
-		#final = Resource.query\
-		#	.filter(Resource.ResId.in_(resource_ids))\
-		#	.filter(Resource.ResViewCnt > 0)\
-		#	.order_by(Resource.ResViewCnt.desc())\
-		#	.all()
-			#.filter(Resource.IsMain > 0)\
-			#.filter(Resource.ResVisibleIndex > 0)\
-			#.order_by(Resource.ResVisibleIndex.asc())\
+		if category_ids:
+			all_categories = Res_category.query\
+				.with_entities(Res_category.ResCatId, Res_category.ResCatVisibleIndex, Res_category.IsMain)\
+				.filter(Res_category.ResCatId.in_(category_ids))\
+				.order_by(
+					Res_category.ResCatVisibleIndex > 0, 
+					Res_category.ResCatVisibleIndex.desc(), 
+					Res_category.IsMain.desc())\
+				.limit(50)\
+				.all()
 
+			if all_categories:
+				category_resources = Resource.query\
+					.with_entities(Resource.ResId, Resource.ResCatId)\
+					.filter(Resource.ResCatId.in_([category.ResCatId for category in all_categories]))\
+					.order_by(
+						Resource.ResVisibleIndex > 0, 
+						Resource.ResVisibleIndex.desc(),
+						Resource.ResViewCnt.desc())\
+					.limit(50)\
+					.all()
+				[other_res_ids.append(this_resource.ResId) for this_resource in category_resources if category_resources]
+
+		counted_other_res_ids = dict((i, other_res_ids.count(i)) for i in other_res_ids)
+		for ResId in resource_ids:
+			if ResId in counted_other_res_ids:
+				del counted_res_dict[ResId]
+
+		other_res_ids = list({k: v for k, v in sorted(counted_other_res_ids.items(), key=lambda item: item[1])})[::-1][:limit]
+		data = apiResourceInfo(resource_list = [{"ResId": item} for item in other_res_ids])["data"]
 
 	except Exception as ex:
 		log_print(ex)
@@ -92,7 +122,6 @@ def collect_recommended_resource_data(rp_acc_user, limit=10):
 #ResViewCnt
 #BrandId
 #ResCatId
-#Rating?
 
 #category
 #ResCatVisibleIndex

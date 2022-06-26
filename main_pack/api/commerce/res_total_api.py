@@ -14,7 +14,7 @@ from .utils import addResTotalDict
 from main_pack.models import Warehouse, Division
 from main_pack.models import Res_total, Resource
 
-from main_pack.api.auth.utils import sha_required, token_required
+from main_pack.api.auth.utils import admin_required, token_required
 from main_pack.base.apiMethods import checkApiResponseStatus
 from main_pack.api.base.validators import request_is_json
 from main_pack.base import log_print
@@ -78,9 +78,9 @@ def api_v_res_totals(user):
 
 
 @api.route("/tbl-dk-res-totals/",methods=['GET','POST'])
-@sha_required
+@admin_required
 @request_is_json(request)
-def api_res_totals():
+def api_res_totals(user):
 	if request.method == 'GET':
 		arg_data = {
 			"DivId": request.args.get("DivId",None,type=int),

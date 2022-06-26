@@ -6,7 +6,7 @@ from sqlalchemy.orm import joinedload
 from . import api
 from main_pack import db
 
-from main_pack.api.auth.utils import sha_required
+from main_pack.api.auth.utils import admin_required
 from main_pack.base.apiMethods import checkApiResponseStatus
 from main_pack.api.base.validators import request_is_json
 
@@ -15,9 +15,9 @@ from .utils import addDivisionDict
 
 
 @api.route("/division/",methods=['GET','POST'])
-@sha_required
+@admin_required
 @request_is_json(request)
-def api_division():
+def api_division(user):
 	if request.method == 'GET':
 		DivGuid = request.args.get("DivGuid",None,type=str)
 

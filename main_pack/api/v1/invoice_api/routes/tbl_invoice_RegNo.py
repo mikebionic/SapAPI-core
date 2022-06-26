@@ -3,13 +3,13 @@ from flask import make_response, jsonify
 from datetime import datetime
 
 from main_pack.api.v1.invoice_api import api
-from main_pack.api.auth.utils import sha_required
+from main_pack.api.auth.utils import admin_required
 from main_pack.api.v1.invoice_api.utils import collect_invoice_data
 
 
 @api.route("/tbl-invoices/<InvRegNo>/")
-@sha_required
-def tbl_invoice_RegNo(InvRegNo):
+@admin_required
+def tbl_invoice_RegNo(user, InvRegNo):
 	invoice_list = [{"InvRegNo": InvRegNo}]
 
 	res = collect_invoice_data(

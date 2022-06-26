@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
 from flask import request, make_response, jsonify
 
-from main_pack.api.auth.utils import sha_required
+from main_pack.api.auth.utils import admin_required
 
 from main_pack.api.v1.barcode_api import api
 from main_pack.api.v1.barcode_api.utils import collect_barcode_data
 
 
 @api.route("/tbl-barcodes/")
-@sha_required
-def tbl_barcode_get():
+@admin_required
+def tbl_barcode_get(user):
 	arg_data = {
 		"BarcodeId": request.args.get("id",None,type=int),
 		"BarcodeGuid": request.args.get("barcodeGuid","",type=str),

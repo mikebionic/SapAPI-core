@@ -9,15 +9,15 @@ from .utils import addOrderInvLineDict
 
 from main_pack.models import Order_inv_line
 
-from main_pack.api.auth.utils import sha_required
+from main_pack.api.auth.utils import admin_required
 from main_pack.api.base.validators import request_is_json
 from main_pack.base.apiMethods import checkApiResponseStatus
 
 
 @api.route("/tbl-dk-order-inv-lines/",methods=['GET','POST'])
-@sha_required
+@admin_required
 @request_is_json(request)
-def api_order_inv_lines():
+def api_order_inv_lines(user):
 	if request.method == 'GET':
 		DivId = request.args.get("DivId",None,type=int)
 		notDivId = request.args.get("notDivId",None,type=int)

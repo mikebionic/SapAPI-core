@@ -11,7 +11,7 @@ from .utils import addWarehouseDict
 
 from main_pack.models import Warehouse, Division
 
-from main_pack.api.auth.utils import sha_required, token_required
+from main_pack.api.auth.utils import admin_required, token_required
 from main_pack.base.apiMethods import checkApiResponseStatus
 from main_pack.api.base.validators import request_is_json
 
@@ -81,9 +81,9 @@ def api_v_warehouses(user):
 
 
 @api.route("/tbl-dk-warehouses/",methods=['GET','POST'])
-@sha_required
+@admin_required
 @request_is_json(request)
-def api_warehouses():
+def api_warehouses(user):
 	if request.method == 'GET':
 		arg_data = {
 			"DivId": request.args.get("DivId",None,type=int),

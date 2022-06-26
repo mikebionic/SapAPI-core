@@ -12,7 +12,7 @@ from main_pack import db
 from main_pack.config import Config
 from . import api
 from .utils import addImageDict, saveImageFile
-from main_pack.api.auth.utils import sha_required, token_required
+from main_pack.api.auth.utils import admin_required, token_required
 from main_pack.base.apiMethods import checkApiResponseStatus
 from main_pack.api.base.validators import request_is_json
 
@@ -172,9 +172,9 @@ def api_v_images(user):
 
 
 @api.route("/tbl-dk-images/",methods=['GET','POST'])
-@sha_required
+@admin_required
 @request_is_json(request)
-def api_images():
+def api_images(user):
 	if request.method == 'GET':
 		arg_data = {
 			"DivId": request.args.get("DivId",None,type=int),

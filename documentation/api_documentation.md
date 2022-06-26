@@ -525,7 +525,7 @@ Provide **username** and **password** in Authentication headers
 ## Order Invoice API
 > GET POST
 
-**@sha_required**
+**@admin_required**
 + /api/tbl-dk-order-invoices/?startDate=<datetime>&endDate=<datetime>&DivId=<id>&notDivId=<id>
 + /api/tbl-dk-order-invoices/<OInvRegNo>/
 + /api/tbl-dk-order-inv-lines/?DivId=<id>&notDivId=<id>
@@ -535,7 +535,7 @@ Provide **username** and **password** in Authentication headers
 
 ## Filtering order invoices and invoices by datetime
 
-**@sha_required** of **Synchronizer**
+**@admin_required** of **Synchronizer**
 
 + /api/tbl-dk-order-invoices/?startDate=<datetime>&endDate=<datetime>
 + /api/tbl-dk-invoices/?startDate=<datetime>&endDate=<datetime>

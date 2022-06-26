@@ -12,7 +12,7 @@ from main_pack.api.response_handlers import handle_default_response
 
 @api.route("/discount-resources/")
 def discount_resources_get():
-	limit = request.args.get("limit", None, type=int)
+	limit = request.args.get("limit", 15, type=int)
 	showInactive = request.args.get("showInactive", None, type=int)
 	data = collect_discount_resource_data(limit, showInactive)
 	return handle_default_response(data, "Discounts")
@@ -24,7 +24,7 @@ def recommended_resources_get(user):
 		message = "This route is available only for Rp_acc"
 		return handle_default_response([], message)
 
-	limit = request.args.get("limit", None, type=int)
+	limit = request.args.get("limit", 15, type=int)
 	data, message = collect_recommended_resource_data(user['current_user'], limit)
 	return handle_default_response(data, message)
 
@@ -32,6 +32,6 @@ def recommended_resources_get(user):
 def ordered_resources_get():
 	ResId = request.args.get("id", None, type=int)
 	ResGuid = request.args.get("guid", None, type=str)
-	limit = request.args.get("limit", None, type=int)
+	limit = request.args.get("limit", 15, type=int)
 	data, message = collect_ordered_resource_data(ResId, ResGuid, limit)
 	return handle_default_response(data, message)

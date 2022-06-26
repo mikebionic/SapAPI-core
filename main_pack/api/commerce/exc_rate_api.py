@@ -10,16 +10,16 @@ from . import api
 from .utils import addExcRateDict
 from main_pack.base.apiMethods import checkApiResponseStatus
 from main_pack.api.base.validators import request_is_json
-from main_pack.api.auth.utils import sha_required
+from main_pack.api.auth.utils import admin_required
 
 from main_pack.models import Exc_rate
 from main_pack.models import Currency
 
 
 @api.route("/tbl-dk-exc-rates/",methods=['GET','POST'])
-@sha_required
+@admin_required
 @request_is_json(request)
-def api_exc_rate():
+def api_exc_rate(user):
 	if request.method == 'GET':
 		ExcRateId = request.args.get("id",None,type=int)
 		CurrencyId = request.args.get("currencyId",None,type=int)
