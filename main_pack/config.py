@@ -278,6 +278,7 @@ class Config:
 	COMMERCE_RESOURCE_VIEW = environ.get('COMMERCE_RESOURCE_VIEW') or "/product"
 	COMMERCE_BRANDS_PAGE = environ.get('COMMERCE_BRANDS_PAGE') or "/brands"
 	COMMERCE_ORDER_BOOK_PAGE = environ.get('COMMERCE_ORDER_BOOK_PAGE') or "/order_book"
+	COMMERCE_NEWS_PAGE = environ.get('COMMERCE_NEWS_PAGE') or "/news"
 	# / VIEW AND ROUTES CONFIGURATION /
 
 	# view route titles configuration
@@ -289,6 +290,7 @@ class Config:
 	COMMERCE_CONTACTS_PAGE_TITLE = environ.get('COMMERCE_CONTACTS_PAGE_TITLE') or "Contact"
 	COMMERCE_BRANDS_PAGE_TITLE = environ.get('COMMERCE_BRANDS_PAGE_TITLE') or "Brands"
 	COMMERCE_ORDER_BOOK_PAGE_TITLE = environ.get('COMMERCE_ORDER_BOOK_PAGE_TITLE') or "Order book"
+	COMMERCE_NEWS_PAGE_TITLE = environ.get('COMMERCE_NEWS_PAGE_TITLE') or "News"
 
 	COMMERCE_PROFILE_PAGE_TITLE = environ.get('COMMERCE_PROFILE_PAGE_TITLE') or "Profile"
 	COMMERCE_PROFILE_EDIT_PAGE_TITLE = environ.get('COMMERCE_PROFILE_EDIT_PAGE_TITLE') or "Edit profile"
