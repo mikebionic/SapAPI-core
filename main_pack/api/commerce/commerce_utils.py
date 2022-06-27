@@ -748,7 +748,7 @@ def apiResourceInfo(
 	for e in status:
 		res[e] = status[e]
 	return res
-
+ 
 
 @cache.cached(Config.DB_CACHE_TIME, key_prefix="featured_categories")
 def get_FeaturedResCategory_list(DivId = None):

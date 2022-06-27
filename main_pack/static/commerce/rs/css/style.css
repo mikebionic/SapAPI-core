@@ -438,9 +438,9 @@ li{
   width: 320px;
   position: absolute;
   left: -320px;
-  z-index: 9822;
+  z-index: 9;
   height: 100%;
-	top: 65px;
+	top: 75px;
   -webkit-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s;
 }
@@ -2095,7 +2095,7 @@ input[type="submit"]:hover{
 	background: #FFD7E5;
 	border: none!important;
 }
-.added{
+.add-to-cart.added{
 	background: #1344A0;
 	color: #fff;
 }
@@ -2227,6 +2227,10 @@ input[type="submit"]:hover{
 }
 .workspace-sidebar-filter{
 	margin:40px 16px;
+	/* position: absolute; */
+}
+.workspace_sidebar_table{
+	display: flex;
 }
 
 .workspace-sidebar-filter h3{
@@ -2333,7 +2337,8 @@ input[type="submit"]:hover{
 }
 .workspace_sidebar_filter_inside{
 	overflow: auto;
-	height: 100%
+	height: 100%;
+	width: min-content
 }
 .filter_bottom_button{
 	margin-bottom: 0!important;
@@ -2374,16 +2379,31 @@ input[type="submit"]:hover{
 	line-height: 20px;
 	text-align: center;
 	letter-spacing: 0.1px;
+	
+  position: relative;
 	color: #7F8188;
 }
-.shop_page_top_navbar_inside li a:hover{
-  content: '';
+.shop_page_top_navbar_inside li a:hover::after{
+  width: 100%
+}
+.shop_page_top_navbar_inside li a::after{
+	position: absolute;
+  bottom: -29px;
+  left: 0;
+  width: 0%;
+  transition: width 0.2s ease;
   border-bottom: 1px solid #1344A0;
-  transform: scaleX(0);  
-  transition: transform 250ms ease-in-out;
-	transform-origin:  0% 50%; 
+  content: "";
 }
 
+.shop_page_top_navbar_inside li.activ:hover::after{
+  width: 100%
+}
+.shop_page_top_navbar_inside li.activ::after{
+  border-bottom: 1px solid #1344A0;
+	position: absolute;
+  bottom: -29px;
+}
 
 .pagination span{
 	font-weight: 400;
@@ -2891,6 +2911,12 @@ margin-bottom: 24px;
 /* ///////////////////////// */
 /* //////hero_slider////// */
 
+/*---------------------------------------
+    04. Hero
+-----------------------------------------*/
+/*--
+    04.1 Hero Slider One
+-----------------------------------------*/
 /*-- Hero Slider --*/
 .hero-slider-one {
   /*-- Arrow --*/
@@ -2966,6 +2992,15 @@ margin-bottom: 24px;
 		.hero-image{
 			order: 1
 		}
+/*-- Hero Image --*/
+/* @media only screen and (min-width: 768px) and (max-width: 991px) {
+		.hero-content{
+			order: 2;
+		} 
+		.hero-image{
+			order: 1
+		}
+	} */
 
 @media only screen and (max-width: 767px) {
   .hero-image {
@@ -3208,8 +3243,6 @@ margin-bottom: 24px;
   .hero-slider-two:hover .slick-arrow {
     opacity: 1; }
 
-
-		
 /* ///////////////////////// */
 /* //////responsive////// */
 
@@ -3436,7 +3469,7 @@ margin-bottom: 24px;
 	/* position:absolute; */
 	width:300px;
 	/* transform:translateX(calc(-100% + 50px)); */
-	border-right:50px solid #f2f6f9;
+	/* border-right:50px solid #f2f6f9; */
 	color:#3f464e;
 	display: flex;
 	border-bottom: 1px solid #CED1D9;
