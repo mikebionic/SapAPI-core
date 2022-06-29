@@ -51,6 +51,7 @@
 					</div>
 				</div>
 			</div>
+			
 		</div>
 	
 		<div class="workspace_sidebar_table">
@@ -148,24 +149,35 @@
 						<span>Всего 24 товаров</span>
 						<div class="page_controller">
 							
+							<div class="pagination_inside">
 							{% if prev_url %}
-							<a href="#">
-								<svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path d="M7 13L1 7L7 1" stroke="#343538" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-								</svg>
-							</a>
+								<a href="#">
+									<svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<path d="M7 13L1 7L7 1" stroke="#343538" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+									</svg>
+								</a>
 							{% endif %}
 							{% for page_num in page_num_list %}
 								{% if page_num %}
 									{% if page_num.status == "active" %}
-									<a href="#" class="pagination_link active">{{ page_num.page }}</a>
+									<a href="#" class="active">1</a>
+									<a href="#">2</a>
 									{% elif page_num.status == None %}
-									<a href="#" class="pagination_link">...</a>
+										<a href="#">...</a>
 									{% else %}
-									<a href="{{ page_num.url }}" class="pagination_link">{{ page_num.page }}</a>
+									<a href="{{ page_num.url }}">{{ page_num.page }}</a>
+									<a href="#">&raquo;</a>
 									{% endif %}
 								{% endif %}
 							{% endfor %}
+							{% if next_url %}
+								<a href="#">
+									<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<path d="M9 18L15 12L9 6" stroke="#343538" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+									</svg>
+								</a>
+							{% endif %}
+							</div>
 						</div>
 					</div>
 					<div class="row">

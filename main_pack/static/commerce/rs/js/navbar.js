@@ -276,22 +276,35 @@ closeCatalog.on("click", function (e) {
   miniCatalogWrap.removeClass("open");
 });
 
+// Category
+var headerProfile = $(".header_profile");
+var closeProfile = $(".profile-overlay");
+var miniProfileWrap = $(".menus");
+
+headerProfile.on("click", function (e) {
+  e.preventDefault();
+  $(".profile-overlay").addClass("visible");
+  miniProfileWrap.addClass("activee");
+});
+closeProfile.on("click", function (e) {
+  e.preventDefault();
+  $(".profile-overlay").removeClass("visible");
+  miniProfileWrap.removeClass("activee");
+});
 /*--
     Hero Slider
 --------------------------------------------*/
-var heroSlider = $(".hero-slider");
+var heroSlider = $('.hero-slider');
 heroSlider.slick({
-  arrows: true,
-  autoplay: false,
-  autoplaySpeed: 5000,
-  dots: true,
-  pauseOnFocus: false,
-  pauseOnHover: false,
-  fade: true,
-  infinite: true,
-  slidesToShow: 1,
-  prevArrow:
-    '<button type="button" class="slick-prev"><i class="icofont icofont-long-arrow-left"></i></button>',
-  nextArrow:
-    '<button type="button" class="slick-next"><i class="icofont icofont-long-arrow-right"></i></button>',
+	arrows: true,
+	autoplay: false,
+	autoplaySpeed: 5000,
+	dots: true,
+	pauseOnFocus: false,
+	pauseOnHover: false,
+	fade: true,
+	infinite: true,
+	slidesToShow: 1,
+	prevArrow: '<button type="button" class="slick-prev"><i class="icofont icofont-long-arrow-left"></i></button>',
+	nextArrow: '<button type="button" class="slick-next"><i class="icofont icofont-long-arrow-right"></i></button>',
 });

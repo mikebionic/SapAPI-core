@@ -1,6 +1,5 @@
 
 {% extends "commerce/rs/commerce/layout.html" %}
-
 {% block head %}
 <meta name="description" content="{{company.CName}} | {{company.CDesc}}">
 <meta property="og:description" content="{{ company.CName }} {{ company.CDesc if company.CDesc}}" />
@@ -15,17 +14,12 @@
 <!-- ------------------------------------------------------ -->
 <div class="hero-section section mb-30">
 	<div class="hero-slider hero-slider-one">
-		
-	{% for slider in sliders %}
-	{% if slider.SlName == "HomePageTop" or slider.SlName == "commerce_header" %}
-		{% for sl_image in slider.Sl_images %}
-		{% if sl_image.SlImgMainImgFilePathM %}
 		<div class="hero-item">
 			<div class="row align-items-center justify-content-between">
 				<div class="hero-content">
 					<h2>Событие</h2>
 					<span>Показ фильма “Жизнь на планете”</span>
-					<a href="{{ sl_image.SlImgLink if sl_image.SlImgLink else '#' }}" class="read_more">Узнать детали
+					<a href="details.html" class="read_more">Узнать детали
 						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M9 18L15 12L9 6" stroke="#F5F8FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 						</svg>
@@ -33,17 +27,47 @@
 				</div>
 				<div class="hero-image">
 					<a href="#">
-						<img loading="lazy" src="{{ sl_image.SlImgMainImgFilePathM }}" data-src-m="{{ sl_image.SlImgMainImgFilePathR }}"
-						alt="{{ sl_image.SlImgTitle if sl_image.SlImgTitle else 'sl_image.SlImgMainImgFileName' }} ecommerce ls {{ company.CName }} ">
+						<img src="img/image9.png" alt="Hero Image">
 					</a>
 				</div>
 			</div>
 		</div><!-- Hero Item End -->
-		
-		{% endif %}
-		{% endfor %}
-	{% endif %}
-	{% endfor %}
+
+		<!-- Hero Item Start -->
+		<div class="hero-item">
+			<div class="row align-items-center justify-content-between">
+				<div class="hero-content">
+					<h2>Событие</h2>
+					<span>Показ фильма “Жизнь на планете”</span>
+					<a href="details.html" class="read_more">Узнать детали
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M9 18L15 12L9 6" stroke="#F5F8FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						</svg>
+					</a>
+				</div>
+				<div class="hero-image ">
+					<img src="img/image9.png" alt="Hero Image">
+				</div>			
+			</div>
+		</div><!-- Hero Item End -->
+
+		<!-- Hero Item Start -->
+		<div class="hero-item">
+			<div class="row align-items-center justify-content-between">
+				<div class="hero-content ">
+					<h2>Событие</h2>
+					<span>Показ фильма “Жизнь на планете”</span>
+					<a href="details.html" class="read_more">Узнать детали
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M9 18L15 12L9 6" stroke="#F5F8FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						</svg>
+					</a>
+				</div>
+				<div class="hero-image">
+					<img src="img/image9.png" alt="Hero Image">
+				</div>			
+			</div>
+		</div><!-- Hero Item End -->
 </div>
 </div><!-- Hero Section End -->
 
@@ -262,7 +286,7 @@
 				<div class="row">
 					{% for resource in Latest_resources %}
 					<div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 pb-24">
-						<div class="rd_products">
+						<div class="rd_products no_resource">
 							<div class="image">
 								<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">
 									<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }} {{ company.CName }}">
@@ -279,7 +303,10 @@
 										<span class="rd_products_price">{{ resource.CurrencyCode }}</span>
 									</h5>
 								</div>
-								<div class="cart_wishlst">
+								<div class="no_resource_inside">
+									<span>Нет в наличии</span>
+								</div>
+								<!-- <div class="cart_wishlst">
 									<a class="add-to-cart" ownerId="{{ resource.ResId }}">
 										<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 											<path d="M9 22C9.55228 22 10 21.5523 10 21C10 20.4477 9.55228 20 9 20C8.44772 20 8 20.4477 8 21C8 21.5523 8.44772 22 9 22Z" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -304,7 +331,7 @@
 										</svg>
 									</a>
 									{% endif %}
-								</div>
+								</div> -->
 							</div>
 						</div>
 					</div>
@@ -402,5 +429,19 @@
 {% endblock %}
 
 {% block scripts %}
+<script>
+var heroSlider = $('.hero-slider');
+heroSlider.slick({
+	arrows: true,
+	autoplay: false,
+	autoplaySpeed: 5000,
+	dots: true,
+	pauseOnFocus: false,
+	pauseOnHover: false,
+	fade: true,
+	infinite: true,
+	slidesToShow: 1,
+});
+	</script>
 <script>render_viewed_list()</script>
 {% endblock %}
