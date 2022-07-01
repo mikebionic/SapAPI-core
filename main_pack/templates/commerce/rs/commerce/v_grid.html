@@ -17,10 +17,32 @@
 {% block content %}
 
 <div class="workspace">
+	
+	<ul class="shop_page_top_navbar_inside mob_shop_nav">
+		<li class="activ"><a href="#">Все</a></li>
+		<li><a href="#">Книги</a></li>
+		<li><a href="#">Игры</a></li>
+		<li><a href="#">Мерч</a></li>
+		<li><a href="#">Другие</a></li>
+	</ul>
 	<div class="workspace-data open-sidebar">
 		<div class="workspace-sidebar ">
 			<div class="workspace-sidebar-toggle open_filter">
-				<div class="sidebar_text header-sidebar">
+				<div class="sidebar_text header-sidebar mob_filter">
+					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M4 21V14" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						<path d="M4 10V3" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						<path d="M12 21V12" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						<path d="M12 8V3" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						<path d="M20 21V16" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						<path d="M20 12V3" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						<path d="M1 14H7" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						<path d="M9 8H15" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						<path d="M17 16H23" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+					</svg>
+					<a>Фильтр</a>
+				</div>
+				<div class="sidebar_text header-sidebar desc_filter">
 					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path d="M15 18L9 12L15 6" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 					</svg>
@@ -29,7 +51,7 @@
 			</div>
 			
 			<div class="shop_page_top_navbar">
-				<ul class="shop_page_top_navbar_inside">
+				<ul class="shop_page_top_navbar_inside desc_shop_nav">
 					<li class="activ"><a href="#">Все</a></li>
 					<li><a href="#">Книги</a></li>
 					<li><a href="#">Игры</a></li>
@@ -39,7 +61,7 @@
 				<div class="sec-center"> 	
 					<input class="dropdown" type="checkbox" id="dropdown" name="dropdown"/>
 					<label class="for-dropdown" for="dropdown">
-						Dropdown Menu 
+						<span class="mob_dropdown_section">Dropdown Menu </span>
 						<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M1.33333 2.32353C0.899635 2.32353 0.5 1.94263 0.5 1.41176C0.5 0.880897 0.899635 0.5 1.33333 0.5C1.76703 0.5 2.16667 0.880897 2.16667 1.41176C2.16667 1.94263 1.76703 2.32353 1.33333 2.32353ZM5.33333 0.970588H15.1111C15.2994 0.970588 15.5 1.1408 15.5 1.41176C15.5 1.68273 15.2994 1.85294 15.1111 1.85294H5.33333C5.1451 1.85294 4.94444 1.68273 4.94444 1.41176C4.94444 1.1408 5.1451 0.970588 5.33333 0.970588ZM5.33333 7.55882H15.1111C15.2994 7.55882 15.5 7.72902 15.5 8C15.5 8.27098 15.2994 8.44118 15.1111 8.44118H5.33333C5.1451 8.44118 4.94444 8.27097 4.94444 8C4.94444 7.72903 5.1451 7.55882 5.33333 7.55882ZM5.33333 14.1471H15.1111C15.2994 14.1471 15.5 14.3173 15.5 14.5882C15.5 14.8592 15.2994 15.0294 15.1111 15.0294H5.33333C5.1451 15.0294 4.94444 14.8592 4.94444 14.5882C4.94444 14.3173 5.1451 14.1471 5.33333 14.1471ZM1.33333 8.91177C0.899642 8.91177 0.5 8.53085 0.5 8C0.5 7.46915 0.899642 7.08824 1.33333 7.08824C1.76703 7.08824 2.16667 7.46915 2.16667 8C2.16667 8.53085 1.76702 8.91177 1.33333 8.91177ZM1.33333 15.5C0.899642 15.5 0.5 15.1191 0.5 14.5882C0.5 14.0574 0.899642 13.6765 1.33333 13.6765C1.76703 13.6765 2.16667 14.0574 2.16667 14.5882C2.16667 15.1191 1.76702 15.5 1.33333 15.5Z" fill="#5A5C61" stroke="#1344A0"/>
 						</svg>
@@ -161,7 +183,6 @@
 								{% if page_num %}
 									{% if page_num.status == "active" %}
 									<a href="#" class="active">1</a>
-									<a href="#">2</a>
 									{% elif page_num.status == None %}
 										<a href="#">...</a>
 									{% else %}
