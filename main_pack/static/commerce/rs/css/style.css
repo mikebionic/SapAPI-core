@@ -94,7 +94,7 @@ li{
 
 	border: 1px solid #CED1D9;
 }
-.personal .search_icon img{
+.personal .search_mob_icon{
 	display: none;
 	width: 0;
 	gap: 0
@@ -3393,9 +3393,11 @@ margin-bottom: 24px;
 	.search{
 		display: none!important
 	}
-	.personal .search_icon img{
-		display: block;
-		width: 24px;
+	.personal .search_mob_icon{
+		display: flex;
+		width: 30px;
+		align-items: center;
+		justify-content: center;
 	}
 	.navigation-container .personal{
 		width: 100%
@@ -4047,4 +4049,83 @@ margin-bottom: 24px;
 	.mob_filter{
 		width: 220px
 	}
+}
+
+
+
+.openBtn {
+  background: #f8f9fa;
+  border: none;
+  cursor: pointer;
+}
+
+.openBtn:hover {
+  background: #bbb;
+}
+
+.overlay {
+  height: 100%;
+  width: 100%;
+  display: none;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+}
+
+.overlay-content {
+  position: relative;
+  /* top: 46%;
+  width: 80%; */
+  text-align: center;
+  /* margin-top: 30px;
+  margin: auto; */
+}
+.overlay-content form{
+	display: flex;
+}
+
+.overlay .closebtn {
+  /* position: absolute;
+  top: 20px; */
+  right: 45px;
+  cursor: pointer;
+  color: white;
+}
+
+.overlay .closebtn:hover {
+  color: #ccc;
+}
+
+.overlay input[type=text] {
+  padding: 25px;
+	outline: none;
+  font-size: 17px;
+  border: none;
+  float: left;
+  width: 100%;
+  background: #FCFCFC;
+}
+
+.overlay input[type=text]:hover {
+  background: #FCFCFC;
+}
+
+.overlay button {
+  float: left;
+  width: 20%;
+  padding: 15px;
+  background: #FCFCFC;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+}
+.overlay a {
+  float: left;
+  width: 20%;
+  padding: 15px;
+  background: #FCFCFC;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
 }

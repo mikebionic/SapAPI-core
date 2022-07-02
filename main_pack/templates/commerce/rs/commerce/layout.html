@@ -63,13 +63,38 @@
 		</div>
 		<div class="personal">
 			<div class="nav_icons">
-				<div class="icon-container search_icon">
-					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="#5A5C61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-						<path d="M21 21.0004L16.65 16.6504" stroke="#5A5C61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-					</svg>
+				<div class="search-box search_mob_icon">
+					<div id="navbar-form">
+						<button class="openBtn" onclick="openSearch()">
+							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="#5A5C61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+								<path d="M21 21.0004L16.65 16.6504" stroke="#5A5C61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+							</svg>
+						</button>
+					</div>
 				</div>
-
+				
+				<div id="myOverlay" class="overlay">
+					<div class="overlay-content">
+						<form action="">
+							<button type="submit" style="float: left;">
+								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="#5A5C61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+									<path d="M21 21.0004L16.65 16.6504" stroke="#5A5C61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+								</svg>
+							</button>
+							<input type="text" placeholder="Search.." name="search">
+							<a style="float: right;">
+								<span class="closebtn" onclick="closeSearch()" title="Close Overlay">
+									<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<path d="M18 6L6 18" stroke="#9FA2AA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+										<path d="M6 6L18 18" stroke="#9FA2AA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+									</svg>
+								</span>
+							</a>
+						</form>
+					</div>
+				</div>
 				<div class="icon-container header_profile">
 					<a href="{{ url_for('commerce_users.profile') }}" class="mini-profile-wrap">
 						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -256,8 +281,7 @@
 
 	<!-- JS
 ============================================ -->
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<!-- <script src="{{ url_for('static', filename='commerce/rs/js/jquery-1.12.4.min.js') }}"></script> -->
+	<script src="{{ url_for('static', filename='commerce/rs/js/jquery-1.12.4.min.js') }}"></script>
 	<script src="{{ url_for('static', filename='commerce/rs/js/bootstrap.js') }}"></script>
 	<script src="{{ url_for('static', filename='commerce/rs/js/plugins.js') }}"></script>
 	<script src="{{ url_for('static', filename='commerce/rs/js/navbar.js') }}"></script>
@@ -269,6 +293,16 @@
 	<script src="{{ url_for('static', filename='commerce/rs/js/cart.js') }}"></script>
 	<script src="{{ url_for('static', filename='commerce/rs/js/cartsAndCheckouts.js') }}"></script>
 	
+	<script type="text/javascript">
+		
+		function openSearch() {
+			document.getElementById("myOverlay").style.display = "block";
+		}
+
+		function closeSearch() {
+			document.getElementById("myOverlay").style.display = "none";
+		}
+	</script>
 	<script type="text/javascript">
 		var url_prefix = "{{url_prefix if url_prefix else ''}}";
 		var session_currency_code = "{{ session.currency_code if session.currency_code else 'TMT' }}"

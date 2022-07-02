@@ -306,7 +306,6 @@ closeProfile.on("click", function (e) {
   $(".profile-overlay").removeClass("visible");
   miniProfileWrap.removeClass("activee");
 });
-
 /*--
     Hero Slider
 --------------------------------------------*/
