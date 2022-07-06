@@ -49,6 +49,8 @@ class Company(AddInf, BaseModel, db.Model):
 	Emp_recruitment = db.relationship("Emp_recruitment",backref='company',lazy=True)
 	Staffing_table = db.relationship("Staffing_table",backref='company',lazy=True)
 	Contract = db.relationship("Contract",backref='company',lazy=True)
+	Res_collection = db.relationship("Res_collection",backref='company',lazy=True)
+	Wh_invoice = db.relationship("Wh_invoice",backref='company',lazy=True)
 
 	def to_json_api(self):
 		data = {

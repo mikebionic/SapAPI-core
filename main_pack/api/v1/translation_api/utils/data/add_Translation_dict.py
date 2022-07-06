@@ -3,7 +3,6 @@ import uuid
 from main_pack.base.dataMethods import configureNulls
 
 def add_Translation_dict(req):
-	TranslId = req.get('TranslId')
 	TranslGuid = uuid.UUID(req.get('TranslGuid')) if req.get('TranslGuid') else ""
 	ResCatId = req.get('ResCatId')
 	ColorId = req.get('ColorId')
@@ -23,6 +22,26 @@ def add_Translation_dict(req):
 		"LangId": LangId,
 		"TranslName": TranslName,
 		"TranslDesc": TranslDesc
+	}
+
+	data = configureNulls(data)
+	return data
+
+def add_Res_translation_dict(req):
+	ResTranslGuid = uuid.UUID(req.get('ResTranslGuid')) if req.get('ResTranslGuid') else ""
+	ResId = req.get('ResId')
+	LangId = req.get('LangId')
+	ResName = req.get('ResName')
+	ResDesc = req.get('ResDesc')
+	ResFullDesc = req.get('ResFullDesc')
+	
+	data = {
+		"ResTranslGuid": ResTranslGuid,
+		"ResId": ResId,
+		"LangId": LangId,
+		"ResName": ResName,
+		"ResDesc": ResDesc,
+		"ResFullDesc": ResFullDesc,
 	}
 
 	data = configureNulls(data)

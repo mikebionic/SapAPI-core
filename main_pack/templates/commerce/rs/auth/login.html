@@ -1,0 +1,72 @@
+
+{% extends "commerce/rs/commerce/layout.html" %}
+
+
+{% block head %}
+<meta property="og:description" content="Login {{ company.CName }} {{ company.CDesc if company.CDesc}}" />
+<meta property="og:image" content="{{ request.host_url }}{{ company_logo.FilePath if company_logo else url_for('static', filename='commerce/hs/images/logo/halal_OG.png') }}" />
+<meta name="twitter:description" content="Login {{ company.CName }} {{ company.CDesc if company.CDesc}}" />
+<meta name="twitter:image" content="{{ request.host_url }}{{ company_logo.FilePath if company_logo else url_for('static', filename='commerce/hs/images/logo/halal_OG.png') }}" />
+{% endblock %}
+
+
+{% block content %}
+<div class="section">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="row">
+					<div class="col-lg-6 col-sm-12">
+						<div class="rd_registration">
+							<img src="{{ url_for('static', filename='commerce/rs/images/sign_img.png') }}" alt="">
+						</div>
+					</div>
+					<div class="col-lg-6 col-sm-12">
+						<div class="rd_registration regidtration">
+							<div class="inside_registration">
+								<h2>{{_('Login')}}</h2>
+								<form action="" method="post" id="email-login-form">
+									<div class="txt_field">
+										{{ form.csrf_token() }}
+										<label>{{_('Email address')}}</label>
+										<br>
+										{{ form.email(inputmode="email",placeholder=_('Email address')) }}
+										<span></span>
+										
+										{% if form.email.errors %}
+											<div class="col-12 mb-30">
+												{% for error in form.email.errors %}
+													<span style="color: red">{{ error }}</span>
+												{% endfor %}
+											</div>
+										{% endif %}
+									</div>
+									<div class="txt_field">
+										<label>{{_('Password')}}</label>
+										<br>
+										{{ form.password(id="password-field",placeholder=_('Password')) }}
+										<span></span>
+									</div>
+									<input type="submit" value="{{_('Login')}}">
+									<div class="signup_link">
+										<a href="{{ url_for('commerce_auth.register_sms') }}">{{_('Register')}}</a>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+	var api_url_prefix = "{{api_url_prefix if api_url_prefix else ''}}";
+</script>
+<script src="{{ url_for('static', filename='commerce/hs/js/sms_register.js') }}"></script>
+{% endblock %}

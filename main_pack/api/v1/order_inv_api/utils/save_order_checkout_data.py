@@ -25,6 +25,7 @@ from main_pack.api.common import (
 	get_UserId_and_RpAccId_from_login_and_uuid_info,
 	get_CurrencyCode_from_req_or_session,
 )
+from main_pack.base import log_print
 
 from .send_order_to_server import send_order_to_server
 
@@ -43,13 +44,16 @@ def save_order_checkout_data(req, model_type, current_user, session = None):
 
 		PmId = req["orderInv"]["PmId"]
 		if not PmId:
+			log_print(f"No payment method Id specified {req}", "danger")
 			raise Exception
 
 		payment_method = get_payment_method_by_id(PmId)
 		if not payment_method:
+			log_print(f"No payment method found {PmId}", "danger")
 			raise Exception
 
 		if not req["orderInv"]["OrderInvLines"]:
+			log_print(f"OrderInvLines is empty {req}", "danger")
 			raise Exception
 		order_inv_lines_req = req["orderInv"]["OrderInvLines"]
 
@@ -64,7 +68,7 @@ def save_order_checkout_data(req, model_type, current_user, session = None):
 			current_user = UserModel
 
 		if not RpAccId:
-			print("v1 checkout | no such rp acc")
+			log_print("v1 checkout | no such rp acc")
 			raise Exception
 
 		if not user_id:
@@ -84,17 +88,17 @@ def save_order_checkout_data(req, model_type, current_user, session = None):
 			orderRegNo
 		)
 		if not RegNo:
-			print("no reg no")
+			log_print("no reg no")
 			raise Exception
 
 		work_period = get_last_Work_period()
 		if not work_period:
-			print("no work period")
+			log_print("no work period")
 			raise Exception
 
 		warehouse = get_last_Warehouse_by_DivId(DivId)
 		if not warehouse:
-			print("no warehouse")
+			log_print("no warehouse")
 			raise Exception
 		WhId = warehouse.WhId
 
@@ -115,7 +119,7 @@ def save_order_checkout_data(req, model_type, current_user, session = None):
 			session = session,
 		)
 		if not inv_currency:
-			print(f"{datetime.now()} | v1 Order Checkout exception: No currency found")
+			log_print(f"v1 Order Checkout exception: No currency found")
 			raise Exception
 
 		order_invoice_info["CurrencyId"] = inv_currency.CurrencyId

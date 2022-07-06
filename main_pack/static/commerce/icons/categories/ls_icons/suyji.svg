@@ -1,0 +1,11 @@
+<svg id="Raw" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <g>
+    <path d="M75.88,101.31a41.08,41.08,0,0,0-11.4,19.53l17.59,51.75A41,41,0,0,0,103,181.14Z" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="5"/>
+    <path d="M103,181.14a26.8,26.8,0,0,0,15.47-1.75L89.11,93.65a19.51,19.51,0,0,0-12.44,7.17Z" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="5"/>
+    <path d="M159.83,71.46c-4.74-.47-10.42.84-15.21,3l29.24,86.08c4.81-1.71,10-3,14-6.79Z" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="5"/>
+    <path d="M61.16,121.41l-40.61-4.8s-9.16,6.07,0,19.66c0,0,6.32.8,9.56,8.55S24.33,169.4,40,173.9s7.19,21.15,7.19,21.15,6,15.66,23.66,6.71l8.87-25.67Z" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="5"/>
+    <path d="M223.89,67.2c-1.24-16.29-11.6-15.72-11.6-15.72L185.65,78.73l19,56,20.74,14.58c18.37-3.29,13.54-19.34,13.54-19.34s-16.12-8.29-7.19-21.16-7.7-21-9.88-29.08S223.89,67.2,223.89,67.2Z" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="5"/>
+    <path d="M144.61,74.45,89.22,93.27l-.21.08,29.26,86.11.2-.07,55.4-18.82Z" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="5"/>
+    <path d="M181.55,78.31a40,40,0,0,0-22.12-6.86l28,82.48A40,40,0,0,0,200.82,135Z" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="5"/>
+  </g>
+</svg>

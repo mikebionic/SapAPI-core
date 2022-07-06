@@ -15,7 +15,7 @@ def do_halkbank_payment_service_register_request(req, return_url=None):
 	TotalPrice = int(round(float(req['TotalPrice']), 2) * 100)
 	OrderDesc = req['OrderDesc']
 
-	currency = 934
+	currency = 934 # TMT
 	language = "ru"
 
 	register_url = Config.HALKBANK_PAYMENT_REGISTER_URL

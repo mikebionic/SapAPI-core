@@ -12,7 +12,7 @@ from .utils import addResPriceDict
 
 from main_pack.models import Res_price, Resource, Res_price_group
 
-from main_pack.api.auth.utils import sha_required, token_required
+from main_pack.api.auth.utils import admin_required, token_required
 from main_pack.api.base.validators import request_is_json
 from main_pack.base.priceMethods import calculatePriceByGroup, price_currency_conversion
 from main_pack.base.apiMethods import checkApiResponseStatus
@@ -122,9 +122,9 @@ def api_v_res_prices(user):
 
 
 @api.route("/tbl-dk-res-prices/",methods=['GET','POST'])
-@sha_required
+@admin_required
 @request_is_json(request)
-def api_res_prices():
+def api_res_prices(user):
 	if request.method == 'GET':
 		arg_data = {
 			"DivId": request.args.get("DivId",None,type=int),
@@ -191,7 +191,7 @@ def api_res_prices():
 
 				else:
 					try:
-						lastPrice = Res_price.query.order_by(Res_price.ResPriceId.desc()).first()
+						lastPrice = Res_price.query.with_entities(Res_price.ResPriceId).order_by(Res_price.ResPriceId.desc()).first()
 						ResPriceId = lastPrice.ResPriceId + 1
 					except:
 						ResPriceId = None

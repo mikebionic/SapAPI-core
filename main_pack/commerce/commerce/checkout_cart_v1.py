@@ -23,7 +23,6 @@ def checkout_cart_v1():
 		this_rp_acc = current_user
 
 	elif Config.USE_APP_WITHOUT_AUTH:
-		print("searching the user", Config.WITHOUT_AUTH_CHECKOUT_RPACCGUID)
 		this_rp_acc = Rp_acc.query\
 			.filter_by(
 				RpAccGuid = Config.WITHOUT_AUTH_CHECKOUT_RPACCGUID,
@@ -32,14 +31,9 @@ def checkout_cart_v1():
 
 		session["model_type"] = "rp_acc"
 
-	print(this_rp_acc)
 	if not this_rp_acc:
 		abort(401)
-
-
 	req = request.get_json()
-
-	print(req)
 
 	response = {
 		"status": 0,

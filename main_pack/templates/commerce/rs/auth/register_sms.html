@@ -1,0 +1,81 @@
+
+{% extends "commerce/rs/commerce/layout.html" %}
+
+
+{% block head %}
+<meta property="og:description" content="Register on online commerce {{ company.CName }} {{ company.CDesc if company.CDesc}}" />
+<meta property="og:image" content="{{ request.host_url }}{{ company_logo.FilePath if company_logo else url_for('static', filename='commerce/rs/images/logo.png') }}" />
+<meta name="twitter:description" content="Register on online commerce {{ company.CName }} {{ company.CDesc if company.CDesc}}" />
+<meta name="twitter:image" content="{{ request.host_url }}{{ company_logo.FilePath if company_logo else url_for('static', filename='commerce/rs/images/logo.png') }}" />
+{% endblock %}
+
+{% block content %}
+
+<div class="section">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="row">
+					<div class="col-lg-6 col-sm-12">
+						<div class="rd_registration">
+							<img src="{{ url_for('static', filename='commerce/rs/images/sign_img.png') }}" alt="">
+						</div>
+					</div>
+					<div class="col-lg-6 col-sm-12">
+						<div class="rd_registration regidtration">
+							<div class="inside_registration">
+								<h2>{{_('Register')}}</h2>
+								<form method="get">
+									<div class="txt_field">
+										<label>{{_('Username')}}</label>
+										<br>
+										<input type="text" placeholder="{{_('Username')}}" id="username" required>
+										<span></span>
+									</div>
+									<div class="txt_field">
+										<label>{{_('Full name')}}</label>
+										<br>
+										<input type="text" placeholder="{{_('Full name')}}" id="full-name" required>
+										<span></span>
+									</div>
+									<div class="txt_field">
+										<label>{{_('Email address')}}</label>
+										<br>
+										<input type="email" placeholder="{{_('Email address')}}" id="email-address" required>
+										<span></span>
+									</div>
+									<div class="txt_field">
+										<label>{{_('Phone number')}}</label>
+										<br>
+										<input type="tel" placeholder="{{_('Phone number')}} +9936*******" id="phone-number" required>
+										<span></span>
+									</div>
+									<div class="txt_field">
+										<label>{{_('Password')}}</label>
+										<br>
+										<input type="password" placeholder="{{_('Password')}}3" id="password" required>
+										<span></span>
+									</div>
+									<input type="submit" value="{{_('Register')}}">
+									<div class="signup_link">
+										<a href="#">У меня уже есть аккаунт</a>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+	var api_url_prefix = "{{api_url_prefix if api_url_prefix else ''}}";
+</script>
+<script src="{{ url_for('static', filename='commerce/rs/js/sms_register.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,543 @@
+{% extends "commerce/rs/commerce/layout.html" %}
+
+
+{% block content %}
+<div class="profile-section section">
+	<div class="container">
+		<div class="row">
+			<div class="proiletext_edit_btn">
+				<span>Профиль</span>
+				<a href="#" class="edit_btn">
+					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M17 3C17.2626 2.73735 17.5744 2.52901 17.9176 2.38687C18.2608 2.24473 18.6286 2.17157 19 2.17157C19.3714 2.17157 19.7392 2.24473 20.0824 2.38687C20.4256 2.52901 20.7374 2.73735 21 3C21.2626 3.26264 21.471 3.57444 21.6131 3.9176C21.7553 4.26077 21.8284 4.62856 21.8284 5C21.8284 5.37143 21.7553 5.73923 21.6131 6.08239C21.471 6.42555 21.2626 6.73735 21 7L7.5 20.5L2 22L3.5 16.5L17 3Z" stroke="#F5F8FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+					</svg>
+				</a>
+			</div>
+			<div class="profile_title">
+				<span>Абдыкерим Бегенджов <span class="numberr">/ +993 65019283 / abdykerim@gmail.com / </span></span>
+			</div>
+			
+			<div class="content">
+				<div class="tabs">
+
+					<input type="radio" id="tab1" name="tab-control" checked>
+					<input type="radio" id="tab2" name="tab-control">
+					<input type="radio" id="tab3" name="tab-control">  
+					<input type="radio" id="tab4" name="tab-control">
+					<ul>
+						<li title="История покупок"><label for="tab1" role="button"><br><span>История покупок</span></label></li>
+						<li title="Мои заказы"><label for="tab2" role="button"><br><span>{{_('Orders')}}</span></label></li>
+						<li title="Список желаний"><label for="tab3" role="button"><br><span>{{_('Wishlist')}}</span></label></li>   
+					</ul>
+					
+					<div class="slider"><div class="indicator"></div></div>
+					<div class="content">
+						
+						<section class="description_tabs">
+							<div class="accordion-menu">
+								<ul>
+									<li>
+										<input type="checkbox" checked>
+										<div>
+											<div class="info_container_inside">
+												<div class="info_container_top_img">
+													<div class="image-layers">
+														<img class="img-sm rounded-circle image-layer-item" src="img/products/product1.png" alt="profile"/>
+														<img class="img-sm rounded-circle image-layer-item" src="img/products/product1.png" alt="profile"/>
+														<img class="img-sm rounded-circle image-layer-item" src="img/products/product3.png" alt="profile"/>
+														<div class="img-sm profile-image-text  rounded-circle image-layer-item" style="background: #E1ECFE;">+3</div>
+													</div>
+												</div>
+												<div class="accordion_text">
+													<span class="count">Количество: 6</span>
+													<span class="date">23 MAR, 2022</span>
+												</div>
+												<span class="acardion_show">
+													Скрыть
+													<i class="arrow"></i>
+												</span>
+											</div>
+										</div>
+										<div class="accordion_products">
+											<div class="row">
+												<div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 pb-24">
+													<div class="rd_products">
+														<div class="image">
+															<a href="#">
+																<img src="img/products/product1.png" alt="">
+															</a>
+														</div>
+														<div class="content">
+															<div class="category_title">
+																<a href="#" class="cat">Олдос Хаксли</a>
+																<h5 class="title">О дивный новый мир</h5>
+																<h5 class="price">542<span class="rd_products_price">TMT</span></h5>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</li>
+									<li>
+										<input type="checkbox">
+										<div>
+											<div class="info_container_inside">
+												<div class="info_container_top_img">
+													<div class="image-layers">
+														<img class="img-sm rounded-circle image-layer-item" src="img/products/product1.png" alt="profile"/>
+														<img class="img-sm rounded-circle image-layer-item" src="img/products/product1.png" alt="profile"/>
+														<img class="img-sm rounded-circle image-layer-item" src="img/products/product3.png" alt="profile"/>
+														<div class="img-sm profile-image-text  rounded-circle image-layer-item" style="background: #E1ECFE;">+3</div>
+													</div>
+												</div>
+												<div class="accordion_text">
+													<span class="count">Количество: 6</span>
+													<span class="date">23 MAR, 2022</span>
+												</div>
+												<span class="acardion_show">
+													Скрыть
+													<i class="arrow"></i>
+												</span>
+											</div>
+										</div>
+										<div class="accordion_products">
+											<div class="row">
+												<div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 pb-24">
+													<div class="rd_products">
+														<div class="image">
+															<a href="#">
+																<img src="img/products/product1.png" alt="">
+															</a>
+														</div>
+														<div class="content">
+															<div class="category_title">
+																<a href="#" class="cat">Олдос Хаксли</a>
+																<h5 class="title">О дивный новый мир</h5>
+																<h5 class="price">542<span class="rd_products_price">TMT</span></h5>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</li>
+									<li>
+										<input type="checkbox">
+										<div>
+											<div class="info_container_inside">
+												<div class="info_container_top_img">
+													<div class="image-layers">
+														<img class="img-sm rounded-circle image-layer-item" src="img/products/product1.png" alt="profile"/>
+														<img class="img-sm rounded-circle image-layer-item" src="img/products/product1.png" alt="profile"/>
+														<img class="img-sm rounded-circle image-layer-item" src="img/products/product3.png" alt="profile"/>
+														<div class="img-sm profile-image-text  rounded-circle image-layer-item" style="background: #E1ECFE;">+3</div>
+													</div>
+												</div>
+												<div class="accordion_text">
+													<span class="count">Количество: 6</span>
+													<span class="date">23 MAR, 2022</span>
+												</div>
+												<span class="acardion_show">
+													Скрыть
+													<i class="arrow"></i>
+												</span>
+											</div>
+										</div>
+										<div class="accordion_products">
+											<div class="row">
+												<div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 pb-24">
+													<div class="rd_products">
+														<div class="image">
+															<a href="#">
+																<img src="img/products/product1.png" alt="">
+															</a>
+														</div>
+														<div class="content">
+															<div class="category_title">
+																<a href="#" class="cat">Олдос Хаксли</a>
+																<h5 class="title">О дивный новый мир</h5>
+																<h5 class="price">542<span class="rd_products_price">TMT</span></h5>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</li>
+									<li>
+										<input type="checkbox">
+										<div>
+											<div class="info_container_inside">
+												<div class="info_container_top_img">
+													<div class="image-layers">
+														<img class="img-sm rounded-circle image-layer-item" src="img/products/product1.png" alt="profile"/>
+														<img class="img-sm rounded-circle image-layer-item" src="img/products/product1.png" alt="profile"/>
+														<img class="img-sm rounded-circle image-layer-item" src="img/products/product3.png" alt="profile"/>
+														<div class="img-sm profile-image-text  rounded-circle image-layer-item" style="background: #E1ECFE;">+3</div>
+													</div>
+												</div>
+												<div class="accordion_text">
+													<span class="count">Количество: 6</span>
+													<span class="date">23 MAR, 2022</span>
+												</div>
+												<span class="acardion_show">
+													Скрыть
+													<i class="arrow"></i>
+												</span>
+											</div>
+										</div>
+										<div class="accordion_products">
+											<div class="row">
+												<div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 pb-24">
+													<div class="rd_products">
+														<div class="image">
+															<a href="#">
+																<img src="img/products/product1.png" alt="">
+															</a>
+														</div>
+														<div class="content">
+															<div class="category_title">
+																<a href="#" class="cat">Олдос Хаксли</a>
+																<h5 class="title">О дивный новый мир</h5>
+																<h5 class="price">542<span class="rd_products_price">TMT</span></h5>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</li>
+									<li>
+										<input type="checkbox">
+										<div>
+											<div class="info_container_inside">
+												<div class="info_container_top_img">
+													<div class="image-layers">
+														<img class="img-sm rounded-circle image-layer-item" src="img/products/product1.png" alt="profile"/>
+														<img class="img-sm rounded-circle image-layer-item" src="img/products/product1.png" alt="profile"/>
+														<img class="img-sm rounded-circle image-layer-item" src="img/products/product3.png" alt="profile"/>
+														<div class="img-sm profile-image-text  rounded-circle image-layer-item" style="background: #E1ECFE;">+3</div>
+													</div>
+												</div>
+												<div class="accordion_text">
+													<span class="count">Количество: 6</span>
+													<span class="date">23 MAR, 2022</span>
+												</div>
+												<span class="acardion_show">
+													Скрыть
+													<i class="arrow"></i>
+												</span>
+											</div>
+										</div>
+										<div class="accordion_products">
+											<div class="row">
+												<div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 pb-24">
+													<div class="rd_products">
+														<div class="image">
+															<a href="#">
+																<img src="img/products/product1.png" alt="">
+															</a>
+														</div>
+														<div class="content">
+															<div class="category_title">
+																<a href="#" class="cat">Олдос Хаксли</a>
+																<h5 class="title">О дивный новый мир</h5>
+																<h5 class="price">542<span class="rd_products_price">TMT</span></h5>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</li>
+								</ul>
+						</div>
+						</section>
+						<section>
+							<div class="comment">
+								<div class="comment_icon_text">
+									<div class="comment_icon order_tab">
+										<input type="text" placeholder="Пришлите нам заявку на заказ книги">
+										<div class="order_btn">
+											<a href="#" class="order_btn_inside">Заказать книгу</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="order_title">
+								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<rect width="24" height="24" fill="#FDF5E1"/>
+									<rect x="7" y="7" width="10" height="10" fill="#EBBC00"/>
+								</svg>
+								<h3>Заявка отправлена</h3>
+							</div>
+							<div class="row">
+								<div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 ">
+									<div class="order_card">
+										<div class="inside_order_card">
+											<div class="top_order_container">
+												<div class="order_name_svg">
+													<span>Андре Асиман</span>
+													<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+														<path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+														<path d="M19 13C19.5523 13 20 12.5523 20 12C20 11.4477 19.5523 11 19 11C18.4477 11 18 11.4477 18 12C18 12.5523 18.4477 13 19 13Z" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+														<path d="M5 13C5.55228 13 6 12.5523 6 12C6 11.4477 5.55228 11 5 11C4.44772 11 4 11.4477 4 12C4 12.5523 4.44772 13 5 13Z" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+													</svg>
+												</div>
+
+												<p>Главное в истории искуств</p>
+											</div>
+											<div class="bottom_order_rating">
+													<p>13 Окт, 2022</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="order_title">
+								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<rect width="24" height="24" fill="#F5F8FF"/>
+									<rect x="7" y="7" width="10" height="10" fill="#1B52B8"/>
+								</svg>
+									
+								<h3>Заявка принята</h3>
+							</div>
+							<div class="row">
+								<div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 ">
+									<div class="order_card">
+										<div class="inside_order_card">
+											<div class="top_order_container">
+												<div class="order_name_svg">
+													<span>Андре Асиман</span>
+													<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+														<path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+														<path d="M19 13C19.5523 13 20 12.5523 20 12C20 11.4477 19.5523 11 19 11C18.4477 11 18 11.4477 18 12C18 12.5523 18.4477 13 19 13Z" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+														<path d="M5 13C5.55228 13 6 12.5523 6 12C6 11.4477 5.55228 11 5 11C4.44772 11 4 11.4477 4 12C4 12.5523 4.44772 13 5 13Z" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+													</svg>
+												</div>
+
+												<p>Главное в истории искуств</p>
+											</div>
+											<div class="bottom_order_rating">
+													<p>13 Окт, 2022</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+
+
+							<div class="order_title">
+								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<rect width="24" height="24" fill="#F5F8FF"/>
+									<rect x="7" y="7" width="10" height="10" fill="#1B52B8"/>
+								</svg>
+									
+								<h3>В процессе доставки</h3>
+							</div>
+							<div class="row">
+								<div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 ">
+									<div class="order_card">
+										<div class="inside_order_card">
+											<div class="top_order_container">
+												<div class="order_name_svg">
+													<span>Андре Асиман</span>
+													<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+														<path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+														<path d="M19 13C19.5523 13 20 12.5523 20 12C20 11.4477 19.5523 11 19 11C18.4477 11 18 11.4477 18 12C18 12.5523 18.4477 13 19 13Z" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+														<path d="M5 13C5.55228 13 6 12.5523 6 12C6 11.4477 5.55228 11 5 11C4.44772 11 4 11.4477 4 12C4 12.5523 4.44772 13 5 13Z" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+													</svg>
+												</div>
+
+												<p>Главное в истории искуств</p>
+											</div>
+											<div class="bottom_order_rating">
+													<p>13 Окт, 2022</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+
+							<div class="order_title">
+								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<rect width="24" height="24" fill="#F5F8FF"/>
+									<rect x="7" y="7" width="10" height="10" fill="#1B52B8"/>
+								</svg>
+									
+								<h3>Товар на складе</h3>
+							</div>
+							<div class="row">
+								<div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 ">
+									<div class="order_card">
+										<div class="inside_order_card">
+											<div class="top_order_container">
+												<div class="order_name_svg">
+													<span>Андре Асиман</span>
+													<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+														<path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+														<path d="M19 13C19.5523 13 20 12.5523 20 12C20 11.4477 19.5523 11 19 11C18.4477 11 18 11.4477 18 12C18 12.5523 18.4477 13 19 13Z" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+														<path d="M5 13C5.55228 13 6 12.5523 6 12C6 11.4477 5.55228 11 5 11C4.44772 11 4 11.4477 4 12C4 12.5523 4.44772 13 5 13Z" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+													</svg>
+												</div>
+
+												<p>Главное в истории искуств</p>
+											</div>
+											<div class="bottom_order_rating">
+													<p>13 Окт, 2022</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="order_title">
+								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<rect width="24" height="24" fill="#E6F5E8"/>
+									<rect x="7" y="7" width="10" height="10" fill="#41CC5D"/>
+								</svg>
+									
+								<h3>Товар получен</h3>
+							</div>
+							<div class="row">
+								<div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 ">
+									<div class="order_card">
+										<div class="inside_order_card">
+											<div class="top_order_container">
+												<div class="order_name_svg">
+													<span>Андре Асиман</span>
+													<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+														<path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+														<path d="M19 13C19.5523 13 20 12.5523 20 12C20 11.4477 19.5523 11 19 11C18.4477 11 18 11.4477 18 12C18 12.5523 18.4477 13 19 13Z" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+														<path d="M5 13C5.55228 13 6 12.5523 6 12C6 11.4477 5.55228 11 5 11C4.44772 11 4 11.4477 4 12C4 12.5523 4.44772 13 5 13Z" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+													</svg>
+												</div>
+
+												<p>Главное в истории искуств</p>
+											</div>
+											<div class="bottom_order_rating">
+													<p>13 Окт, 2022</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+
+							<div class="order_title">
+								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<rect width="24" height="24" fill="#FCEAEA"/>
+									<rect x="7" y="7" width="10" height="10" fill="#DC362E"/>
+								</svg>
+								<h3>Заказ отменён</h3>
+							</div>
+							<div class="row">
+								<div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 ">
+									<div class="order_card">
+										<div class="inside_order_card">
+											<div class="top_order_container">
+												<div class="order_name_svg">
+													<span>Андре Асиман</span>
+													<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+														<path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+														<path d="M19 13C19.5523 13 20 12.5523 20 12C20 11.4477 19.5523 11 19 11C18.4477 11 18 11.4477 18 12C18 12.5523 18.4477 13 19 13Z" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+														<path d="M5 13C5.55228 13 6 12.5523 6 12C6 11.4477 5.55228 11 5 11C4.44772 11 4 11.4477 4 12C4 12.5523 4.44772 13 5 13Z" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+													</svg>
+												</div>
+
+												<p>Главное в истории искуств</p>
+											</div>
+											<div class="bottom_order_rating">
+													<p>13 Окт, 2022</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+
+							<div class="order_title">
+								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<rect width="24" height="24" fill="#FCEAEA"/>
+									<rect x="7" y="7" width="10" height="10" fill="#DC362E"/>
+								</svg>
+								<h3>Заказ отклонён</h3>
+							</div>
+							<div class="row">
+								<div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 ">
+									<div class="order_card">
+										<div class="inside_order_card">
+											<div class="top_order_container">
+												<div class="order_name_svg">
+													<span>Андре Асиман</span>
+													<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+														<path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+														<path d="M19 13C19.5523 13 20 12.5523 20 12C20 11.4477 19.5523 11 19 11C18.4477 11 18 11.4477 18 12C18 12.5523 18.4477 13 19 13Z" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+														<path d="M5 13C5.55228 13 6 12.5523 6 12C6 11.4477 5.55228 11 5 11C4.44772 11 4 11.4477 4 12C4 12.5523 4.44772 13 5 13Z" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+													</svg>
+												</div>
+
+												<p>Главное в истории искуств</p>
+											</div>
+											<div class="bottom_order_rating">
+													<p>13 Окт, 2022</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</section>
+						<section>
+							<div class="row">
+								<div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 pb-24">
+									<div class="rd_products">
+										<div class="image">
+											<a href="#">
+												<img src="img/products/product1.png" alt="">
+											</a>
+										</div>
+										<div class="content" style="margin-top: 16px;">
+											<div class="category_title">
+												<a href="#" class="cat">Олдос Хаксли</a>
+												<h5 class="title">О дивный новый мир</h5>
+												<h5 class="price">542<span class="rd_products_price">TMT</span></h5>
+											</div>
+											<div class="cart_wishlst">
+												<a class="add-to-cart">
+													<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+														<path d="M9 22C9.55228 22 10 21.5523 10 21C10 20.4477 9.55228 20 9 20C8.44772 20 8 20.4477 8 21C8 21.5523 8.44772 22 9 22Z" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+														<path d="M20 22C20.5523 22 21 21.5523 21 21C21 20.4477 20.5523 20 20 20C19.4477 20 19 20.4477 19 21C19 21.5523 19.4477 22 20 22Z" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+														<path d="M1 1H5L7.68 14.39C7.77144 14.8504 8.02191 15.264 8.38755 15.5583C8.75318 15.8526 9.2107 16.009 9.68 16H19.4C19.8693 16.009 20.3268 15.8526 20.6925 15.5583C21.0581 15.264 21.3086 14.8504 21.4 14.39L23 6H6" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+														<path d="M9 22C9.55228 22 10 21.5523 10 21C10 20.4477 9.55228 20 9 20C8.44772 20 8 20.4477 8 21C8 21.5523 8.44772 22 9 22Z" stroke="#5A5C61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+														<path d="M20 22C20.5523 22 21 21.5523 21 21C21 20.4477 20.5523 20 20 20C19.4477 20 19 20.4477 19 21C19 21.5523 19.4477 22 20 22Z" stroke="#5A5C61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+														<path d="M1 1H5L7.68 14.39C7.77144 14.8504 8.02191 15.264 8.38755 15.5583C8.75318 15.8526 9.2107 16.009 9.68 16H19.4C19.8693 16.009 20.3268 15.8526 20.6925 15.5583C21.0581 15.264 21.3086 14.8504 21.4 14.39L23 6H6" stroke="#5A5C61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+													</svg>
+													<span>В корзину</span>
+												</a>
+												<a class="wishlist">
+													<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+														<path d="M20.8401 5.60987C20.3294 5.09888 19.7229 4.69352 19.0555 4.41696C18.388 4.14039 17.6726 3.99805 16.9501 3.99805C16.2276 3.99805 15.5122 4.14039 14.8448 4.41696C14.1773 4.69352 13.5709 5.09888 13.0601 5.60987L12.0001 6.66987L10.9401 5.60987C9.90843 4.57818 8.50915 3.99858 7.05012 3.99858C5.59109 3.99858 4.19181 4.57818 3.16012 5.60987C2.12843 6.64156 1.54883 8.04084 1.54883 9.49987C1.54883 10.9589 2.12843 12.3582 3.16012 13.3899L4.22012 14.4499L12.0001 22.2299L19.7801 14.4499L20.8401 13.3899C21.3511 12.8791 21.7565 12.2727 22.033 11.6052C22.3096 10.9378 22.4519 10.2224 22.4519 9.49987C22.4519 8.77738 22.3096 8.06198 22.033 7.39452C21.7565 6.72706 21.3511 6.12063 20.8401 5.60987V5.60987Z" stroke="#E95086" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+													</svg>
+												</a>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+							</div>
+						</section>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

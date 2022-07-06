@@ -43,6 +43,7 @@ class Config:
 	HASAP_SYNC_URL_PATH = environ.get('HASAP_SYNC_URL_PATH') or ''
 	SMS_SYNCH_URL_PATH = environ.get('SMS_SYNCH_URL_PATH') or ''
 	HASAP_SYNC_SHA_KEY = environ.get('HASAP_SYNC_SHA_KEY') or ''
+	CONVERT_CURRENCY_ON_SYNCH = int(environ.get('CONVERT_CURRENCY_ON_SYNCH')) if environ.get('CONVERT_CURRENCY_ON_SYNCH') else 0
 
 	# set to false to turn off debugging
 	DEBUG = int(environ.get('DEBUG')) if environ.get('DEBUG') else 1
@@ -83,7 +84,8 @@ class Config:
 
 	if DB_TYPE.lower() == "postgres":
 		SQLALCHEMY_DATABASE_URI = 'postgresql://%(user)s:%(pw)s@%(host)s:%(port)s/%(db)s%(additionalFields)s' % DB_URI_DATA
-	
+	SQLALCHEMY_DATABASE_URI = environ.get('SQLALCHEMY_DATABASE_URI') or SQLALCHEMY_DATABASE_URI
+	print(SQLALCHEMY_DATABASE_URI)
 	SQLALCHEMY_ECHO = int(environ.get('SQLALCHEMY_ECHO')) if environ.get('SQLALCHEMY_ECHO') else 0
 
 	# # Database bindings
@@ -109,7 +111,7 @@ class Config:
 		SESSION_TYPE = environ.get('SESSION_TYPE')
 		SESSION_REDIS = redis.from_url(environ.get('SESSION_REDIS')) if environ.get('SESSION_REDIS') else redis.from_url('redis://:@127.0.0.1:6379/1')
 
-	CACHE_TYPE = environ.get('CACHE_TYPE') or ''
+	CACHE_TYPE = environ.get('CACHE_TYPE') or 'simple'
 	CACHE_DEFAULT_TIMEOUT = 300
 	DB_CACHE_TIME = int(environ.get('DB_CACHE_TIME')) if environ.get('DB_CACHE_TIME') else 600
 	CACHE_REDIS_URL = environ.get('CACHE_REDIS_URL') or 'redis://:@127.0.0.1:6379/2'
@@ -190,6 +192,7 @@ class Config:
 	# if no left in Res_total.ResPendingTotalAmount
 	NEGATIVE_WH_QTY_SALE = int(environ.get('NEGATIVE_WH_QTY_SALE')) if environ.get('NEGATIVE_WH_QTY_SALE') else 0
 	NEGATIVE_WH_QTY_ORDER = int(environ.get('NEGATIVE_WH_QTY_ORDER')) if environ.get('NEGATIVE_WH_QTY_ORDER') else 1
+	IGNORE_RES_TOTAL_ON_CHECKOUT = int(environ.get('IGNORE_RES_TOTAL_ON_CHECKOUT')) if environ.get('IGNORE_RES_TOTAL_ON_CHECKOUT') else 0
 
 	# # ability to make an order if qty of resoruce
 	# # is greater than Res_total in warehouse
@@ -203,7 +206,7 @@ class Config:
 	HIDE_UNDER_ZERO_VISIBLE_CATEGORIES = int(environ.get('HIDE_UNDER_ZERO_VISIBLE_CATEGORIES')) if environ.get('HIDE_UNDER_ZERO_VISIBLE_CATEGORIES') else 0
 	SHOW_RES_TRANSLATIONS = int(environ.get('SHOW_RES_TRANSLATIONS')) if environ.get('SHOW_RES_TRANSLATIONS') else 0
 	SEARCH_BY_RESOURCE_DESCRIPTION = int(environ.get('SEARCH_BY_RESOURCE_DESCRIPTION')) if environ.get('SEARCH_BY_RESOURCE_DESCRIPTION') else 1
-	SHOW_ONLY_VALIDATED_RATING = 1
+	SHOW_ONLY_VALIDATED_RATING = int(environ.get('SHOW_ONLY_VALIDATED_RATING')) if environ.get('SHOW_ONLY_VALIDATED_RATING') else 1
 
 	USE_APP_WITHOUT_AUTH = int(environ.get('USE_APP_WITHOUT_AUTH')) if environ.get('USE_APP_WITHOUT_AUTH') else 0
 	WITHOUT_AUTH_CHECKOUT_RPACCGUID = environ.get('WITHOUT_AUTH_CHECKOUT_RPACCGUID')
@@ -265,6 +268,7 @@ class Config:
 	COMMERCE_PROFILE_EDIT_PAGE = environ.get('COMMERCE_PROFILE_EDIT_PAGE') or "/profile_edit"
 	COMMERCE_WISHLIST_PAGE = environ.get('COMMERCE_WISHLIST_PAGE') or "/wishlist"
 	COMMERCE_ORDERS_PAGE = environ.get('COMMERCE_ORDERS_PAGE') or "/orders"
+	COMMERCE_RESOURCE_REQUEST_PAGE = environ.get('COMMERCE_RESOURCE_REQUEST_PAGE') or "/resource-request"
 
 
 	COMMERCE_CART_VIEW = environ.get('COMMERCE_CART_VIEW') or "/cart"
@@ -273,6 +277,8 @@ class Config:
 	COMMERCE_SEARCH_VIEW = environ.get('COMMERCE_SEARCH_VIEW') or "/search"
 	COMMERCE_RESOURCE_VIEW = environ.get('COMMERCE_RESOURCE_VIEW') or "/product"
 	COMMERCE_BRANDS_PAGE = environ.get('COMMERCE_BRANDS_PAGE') or "/brands"
+	COMMERCE_ORDER_BOOK_PAGE = environ.get('COMMERCE_ORDER_BOOK_PAGE') or "/order_book"
+	COMMERCE_NEWS_PAGE = environ.get('COMMERCE_NEWS_PAGE') or "/news"
 	# / VIEW AND ROUTES CONFIGURATION /
 
 	# view route titles configuration
@@ -283,6 +289,8 @@ class Config:
 	COMMERCE_COLLECTION_VIEW_TITLE = environ.get('COMMERCE_COLLECTION_VIEW_TITLE') or "Collection"
 	COMMERCE_CONTACTS_PAGE_TITLE = environ.get('COMMERCE_CONTACTS_PAGE_TITLE') or "Contact"
 	COMMERCE_BRANDS_PAGE_TITLE = environ.get('COMMERCE_BRANDS_PAGE_TITLE') or "Brands"
+	COMMERCE_ORDER_BOOK_PAGE_TITLE = environ.get('COMMERCE_ORDER_BOOK_PAGE_TITLE') or "Order book"
+	COMMERCE_NEWS_PAGE_TITLE = environ.get('COMMERCE_NEWS_PAGE_TITLE') or "News"
 
 	COMMERCE_PROFILE_PAGE_TITLE = environ.get('COMMERCE_PROFILE_PAGE_TITLE') or "Profile"
 	COMMERCE_PROFILE_EDIT_PAGE_TITLE = environ.get('COMMERCE_PROFILE_EDIT_PAGE_TITLE') or "Edit profile"

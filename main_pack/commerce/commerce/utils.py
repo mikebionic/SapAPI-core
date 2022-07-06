@@ -58,9 +58,10 @@ def UiCategoriesList():
 
 	categories = collect_categories_query(
 		showNullResourceCategory = Config.SHOW_NULL_RESOURCE_CATEGORY,
-	)\
-	.options(joinedload(Res_category.Resource))\
-	.all()
+	).options(joinedload(Res_category.Resource))
+	if Config.SHOW_RES_TRANSLATIONS:
+		categories = categories.options(joinedload(Res_category.Translation))
+	categories = categories.all()
 
 	language_code = None
 	if "language" in session:
@@ -127,7 +128,7 @@ def UiCategoriesList():
 def configure_res_translation(
 	category_model,
 	category_data,
-	language_code = None,
+	language_code = Config.BABEL_DEFAULT_LOCALE,
 ):
 	if Config.SHOW_RES_TRANSLATIONS:
 		if category_model.Translation and language_code:

@@ -27,6 +27,7 @@ class Inv_line(AddInf, BaseModel, db.Model):
 	ExcRateValue = db.Column("ExcRateValue",db.Float,default=0.0)
 	Inv_line_det = db.relationship("Inv_line_det",backref='inv_line',lazy=True)
 	Res_transaction = db.relationship("Res_transaction",backref='inv_line',lazy=True)
+	Wh_inv_line = db.relationship("Wh_inv_line",backref='inv_line',lazy=True)
 	# Rp_acc_transaction = db.relationship("Rp_acc_transaction",backref='inv_line',lazy=True)
 
 	def to_json_api(self):

@@ -15,7 +15,7 @@ from main_pack.models import (
 from main_pack import db
 from main_pack.config import Config
 from main_pack.base.invoiceMethods import totalQtySubstitution, get_order_error_type
-from main_pack.base.priceMethods import calculatePriceByGroup, price_currency_conversion
+from main_pack.base.priceMethods import calculatePriceByGroup, price_currency_conversion, configureDecimal
 from main_pack.api.common import (
 	fetch_and_generate_RegNo,
 )
@@ -60,32 +60,33 @@ def save_order_line_checkout_data(
 			ResId = order_inv_line["ResId"]
 			OInvLineAmount = int(order_inv_line["OInvLineAmount"])
 
-			resource = Resource.query\
+			query_resource = Resource.query\
 				.filter_by(GCRecord = None, ResId = ResId)\
 				.options(joinedload(Resource.Res_price))\
 				.first()
 
-			if not resource:
+			if not query_resource:
 				# type deleted or none
 				error_type = 1
 				raise Exception
 
-			if resource.UsageStatusId == 2:
+			if query_resource.UsageStatusId == 2:
 				# resource unavailable or inactive
 				error_type = 2
 				raise Exception
 
-			res_total = Res_total.query\
-				.filter_by(GCRecord = None, ResId = ResId, WhId = WhId)\
-				.first()
-			totalSubstitutionResult = totalQtySubstitution(res_total.ResPendingTotalAmount,OInvLineAmount)
-			OInvLineAmount = totalSubstitutionResult["amount"]
-			res_total.ResPendingTotalAmount = totalSubstitutionResult["totalBalance"]
+			if not Config.IGNORE_RES_TOTAL_ON_CHECKOUT:
+				res_total = Res_total.query\
+					.filter_by(GCRecord = None, ResId = ResId, WhId = WhId)\
+					.first()
+				totalSubstitutionResult = totalQtySubstitution(res_total.ResPendingTotalAmount,OInvLineAmount)
+				OInvLineAmount = totalSubstitutionResult["amount"]
+				res_total.ResPendingTotalAmount = totalSubstitutionResult["totalBalance"]
 
-			if totalSubstitutionResult["status"] == 0:
-				# resource is empty or bad request with amount = -1
-				error_type = 3
-				raise Exception
+				if totalSubstitutionResult["status"] == 0:
+					# resource is empty or bad request with amount = -1
+					error_type = 3
+					raise Exception
 
 			if not ResPriceGroupId:
 				if "ResPriceGroupId" in order_inv_line_req:
@@ -93,7 +94,7 @@ def save_order_line_checkout_data(
 
 			List_Res_price = calculatePriceByGroup(
 				ResPriceGroupId = ResPriceGroupId,
-				Res_price_dbModels = resource.Res_price,
+				Res_price_dbModels = query_resource.Res_price,
 				Res_pice_group_dbModels = res_price_groups
 			)
 			if not List_Res_price:
@@ -125,22 +126,35 @@ def save_order_line_checkout_data(
 			CurrencyCode = Resource_price_data["CurrencyCode"]
 			ExcRateValue = Resource_price_data["ExcRateValue"]
 
+			RealPrice = PriceValue
+			DiscValue = None
+			DiscType = None
+
+			if query_resource.Res_discount_SaleResId:
+				applying_disc = query_resource.Res_discount_SaleResId[-1]
+				if applying_disc.DiscTypeId == 1 and applying_disc.ResDiscIsActive:
+					DiscValue = applying_disc.DiscValue
+					DiscType = "%"
+					PriceValue = float(configureDecimal(float(RealPrice) - (float(RealPrice) * float(DiscValue) / 100)))
+					order_inv_line["OInvLineDiscAmount"] = RealPrice - DiscValue
+
+
 			if order_inv_line["OInvLinePrice"] != PriceValue:
 				print(f"{PriceValue} given,order inv line is {order_inv_line['OInvLinePrice']}")
 				error_type = 4
 				raise Exception
 
-			OInvLinePrice = PriceValue
+			OInvLinePrice = RealPrice
 			OInvLineTotal = OInvLinePrice * OInvLineAmount
 			# add taxes and stuff later on
-			OInvLineFTotal = OInvLineTotal
+			OInvLineFTotal = PriceValue * OInvLineAmount
 
 			order_inv_line["OInvLineAmount"] = round(float(OInvLineAmount), 2)
 			order_inv_line["OInvLinePrice"] = round(float(OInvLinePrice), 2)
 			order_inv_line["OInvLineTotal"] = round(float(OInvLineTotal), 2)
 			order_inv_line["OInvLineFTotal"] = round(float(OInvLineFTotal), 2)
 			order_inv_line["OInvId"] = OInvId
-			order_inv_line["UnitId"] = resource.UnitId
+			order_inv_line["UnitId"] = query_resource.UnitId
 			order_inv_line["CurrencyId"] = CurrencyId
 			order_inv_line["ExcRateValue"] = ExcRateValue
 

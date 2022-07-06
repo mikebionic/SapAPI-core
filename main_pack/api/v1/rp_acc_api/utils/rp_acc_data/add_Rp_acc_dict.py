@@ -24,6 +24,7 @@ def add_Rp_acc_dict(req):
 	RpAccHomePhoneNumber = req.get('RpAccHomePhoneNumber')
 	RpAccWorkPhoneNumber = req.get('RpAccWorkPhoneNumber')
 	RpAccWorkFaxNumber = req.get('RpAccWorkFaxNumber')
+	RpAccWebAddress = req.get('RpAccWebAddress')
 	RpAccZipCode = req.get('RpAccZipCode')
 	RpAccEMail = req.get('RpAccEMail')
 	RpAccFirstName = req.get('RpAccFirstName')
@@ -72,6 +73,7 @@ def add_Rp_acc_dict(req):
 		"RpAccHomePhoneNumber": RpAccHomePhoneNumber,
 		"RpAccWorkPhoneNumber": RpAccWorkPhoneNumber,
 		"RpAccWorkFaxNumber": RpAccWorkFaxNumber,
+		"RpAccWebAddress": RpAccWebAddress,
 		"RpAccZipCode": RpAccZipCode,
 		"RpAccEMail": RpAccEMail,
 		"RpAccFirstName": RpAccFirstName,

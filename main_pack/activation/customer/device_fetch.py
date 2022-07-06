@@ -6,25 +6,17 @@ from datetime import datetime
 from . import api
 from main_pack import db
 from main_pack.config import Config
-from main_pack.api.auth.utils import token_required
+from main_pack.api.auth.utils import admin_required
 from main_pack.api.users.utils import addDeviceDict
+from main_pack.base import log_print
 
 from main_pack.models import Device
 from main_pack.models import Db_inf
 
 
 @api.route("/devices/fetch/",methods=["GET"])
-@token_required
+@admin_required
 def device_fetch_request(user):
-	model_type = user["model_type"]
-	current_user = user["current_user"]
-
-	if model_type == "rp_acc":
-		abort(401)
-
-	if not current_user.is_admin():
-		abort(401)
-
 	res = fetch_device()
 	return make_response(jsonify(res), 200)
 
@@ -55,11 +47,11 @@ def fetch_device():
 		server_data = server_response["data"]
 		service_devices = server_data["Devices"]
 
-		customer_devices = Device.query.filter_by(GCRecord = None).all()
+		customer_devices = Device.query.all()
 		untracked_devices = []
 
 		for device in customer_devices:
-			current_server_device = [dev for dev in service_devices if dev["DevUniqueId"] == device.DevUniqueId]
+			current_server_device = [dev for dev in service_devices if dev["DevUniqueId"] == device.DevUniqueId and dev["DevGuid"] == str(device.DevGuid)]
 
 			if current_server_device:
 				current_server_device = current_server_device[0]
@@ -79,14 +71,18 @@ def fetch_device():
 				# 		'x-access-token': Config.SAP_SERVICE_KEY}
 				# 	)
 
-
-		if service_devices:
-			for device in service_devices:
-				device_info = addDeviceDict(device)
-				thisDevice = Device(**device_info)
-				db.session.add(thisDevice)					
-
 		db.session.commit()
+
+		try:
+			if service_devices:
+				for device in service_devices:
+					device_info = addDeviceDict(device)
+					thisDevice = Device(**device_info)
+					db.session.add(thisDevice)					
+
+			db.session.commit()
+		except Exception as ex:
+			log_print(f"{ex}")
 
 		updated_customer_devices = Device.query.filter_by(GCRecord = None).all()
 		data = {
@@ -98,7 +94,7 @@ def fetch_device():
 	res = {
 		"status": 1 if data else 0,
 		"data": data,
-		"message": "Device registration",
+		"message": "Device fetch & registration",
 		"total": 1 if data else 0
 	}
 

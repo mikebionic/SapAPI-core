@@ -28,7 +28,7 @@ def add_Device_dict(req):
 	ModifiedUId = req.get('ModifiedUId')
 	GCRecord = req.get('GCRecord')
 
-	users = {
+	return {
 		"DevGuid": DevGuid,
 		"DevUniqueId": DevUniqueId,
 		"UId": UId,
@@ -53,7 +53,3 @@ def add_Device_dict(req):
 		"ModifiedUId": ModifiedUId,
 		"GCRecord": GCRecord
 	}
-	# if(DevId != '' and DevId != None):
-	# 	users["DevId"] = DevId
-	users = configureNulls(users)
-	return users

@@ -1,0 +1,47 @@
+{% extends "commerce/rs/commerce/layout.html" %}
+
+{% block head %}
+<meta name="description" content="{{company.CName}} | {{company.CDesc}}">
+<meta property="og:description" content="{{ company.CName }} {{ company.CDesc if company.CDesc}}" />
+<meta property="og:image" content="{{ request.host_url }}{{ company_logo.FilePath if company_logo else url_for('static', filename='commerce/hs/images/logo/halal_OG.png') }}" />
+<meta name="twitter:description" content="{{ company.CName }} {{ company.CDesc if company.CDesc}}" />
+<meta name="twitter:image" content="{{ request.host_url }}{{ company_logo.FilePath if company_logo else url_for('static', filename='commerce/hs/images/logo/halal_OG.png') }}" />
+{% endblock %}
+
+{% block content %}
+
+<main class="rb-content">
+	<div class="static-wrapper" data-v-94788a02="">
+			<div class="static-content" data-v-94788a02="">
+					<h1 class="static-title" data-v-94788a02="">
+							О Readit*
+					</h1>
+					<div data-v-94788a02="">
+							<p>
+									Readit* – это свежий формат книжных магазинов с особой атмосферой. Здесь мировые бестселлеры соседствуют с подарками для любого праздника: от Дня космонавтики до Всемирного дня кошек. Онлайн-магазин
+									respublica.ru доставляет праздник в любой российский город. Каждую РЕСПУБЛИКУ* наполняют экспертные подборки книг, легендарные канцтовары, функциональные гаджеты, виниловые проигрыватели и пластинки, редкие
+									лакомства, beauty-средства, отдельная зона Kids.
+							</p>
+							<p>
+									Readit* развивает собственную коллекцию канцелярии и аксессуаров под брендом MADE IN R*. На упаковочных станциях внутри магазина вашу покупку, при желании, завернут в коллекционную хрустящую бумагу или
+									обычный крафт. В Readit* можно приобрести абонемент на 5 или 12 книг, который позволит вам получать новую книгу каждый месяц.
+							</p>
+							<p>
+									Readit* – это уникальный магазин-клуб, социальное пространство, которое меняет ткань города. В Лектории RESPUBLICA* UNIVERSITY регулярно проходят презентации книг и встречи с актуальными героями и
+									автограф-сессии. Оставайтесь на связи:
+									<br />
+							</p>
+							<h3>Контакты:</h3>
+							<p>
+									Номер телефона:
+									<a itemprop="telephone" class="mgo-number-1000000" href="tel:+99361099061">+99361099061</a>
+									<br />
+									или по электронной почте
+									<a href="mailto:store@respublica-pro.ru" onclick="gtag('config', 'UA-36538356-1', {'page_path': '/email'});yaCounter11368864.reachGoal ('email'); return true;">email@readit</a>
+							</p>
+					</div>
+			</div>
+	</div>
+</main>
+
+{% endblock %}

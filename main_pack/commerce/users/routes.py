@@ -1,4 +1,4 @@
-from flask import render_template, url_for, flash, redirect, request
+from flask import render_template, url_for, flash, redirect, request, session
 import os
 import uuid
 from datetime import datetime
@@ -30,6 +30,11 @@ from main_pack.api.common import configurePhoneNumber
 @bp.route(Config.COMMERCE_PROFILE_PAGE)
 @login_required
 def profile():
+	if "model_type" in session:
+		if session["model_type"] == "user":
+			flash("Your're not allowed to view this page")
+			return redirect(url_for('commerce.commerce'))
+
 	categoryData = UiCategoriesList()
 	rpAcc = Rp_acc.query.filter_by(RpAccId = current_user.RpAccId).first()
 	avatar = url_for('static', filename=f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/images/account-image-placeholder.png")
@@ -81,8 +86,12 @@ def wishlist():
 @bp.route(Config.COMMERCE_PROFILE_EDIT_PAGE,methods=['GET','POST'])
 @login_required
 def profile_edit():
-	form = UpdateRpAccForm()
+	if "model_type" in session:
+		if session["model_type"] == "user":
+			flash("Your're not allowed to view this page")
+			return redirect(url_for('commerce.commerce'))
 
+	form = UpdateRpAccForm()
 	rpAcc = Rp_acc.query\
 		.filter_by(RpAccId = current_user.RpAccId)\
 		.first()
@@ -111,7 +120,7 @@ def profile_edit():
 					module = os.path.join("uploads","commerce","Rp_acc"),
 					id = rpAcc.RpAccId)
 
-				lastImage = Image.query.order_by(Image.ImgId.desc()).first()
+				lastImage = Image.query.with_entities(Image.ImgId).order_by(Image.ImgId.desc()).first()
 				ImgId = lastImage.ImgId+1
 
 				image = Image(

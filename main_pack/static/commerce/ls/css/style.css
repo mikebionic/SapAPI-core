@@ -4183,8 +4183,8 @@ body.can-uppercase .section-categories-carousel.section-top-categories .readmore
 .site-info {
   width: 100vw;
   position: relative;
-  background-color: #29539b;
-  background-image: linear-gradient(336deg, #0175a052 0%, #011429a6 74%);
+  background-color: #222a37;
+  background-image: linear-gradient(336deg, #d81923ad 0%, #810d17cf 74%);
   color: #bababa;
   font-size: 0.933em;
   letter-spacing: -0.034em;
@@ -13593,7 +13593,7 @@ form.woocommerce-checkout.checkout .col2-set .woocommerce-shipping-fields .wooco
 
 .garden-market .site-header.header-v4 .navbar-search button,
 .garden-market .site-header.header-v4 .site-header-cart .cart-contents .count {
-  background-color: #283d86; }
+  background-color: #7b0c16; }
 
 .garden-market .footer-logo path.cls-1, .garden-market .footer-logo .cls-2 {
   fill: #ff7e21; }
@@ -19278,8 +19278,8 @@ table.shop_table_responsive.my_account_orders .order-actions {
     .single-product .single-product-wrapper .product-images-wrapper {
       margin-bottom: 1.250em; } }
   .onsale {
-    background-color: #29539b;
-    background-image: linear-gradient(336deg, #0175a0b8 0%, #042242d9 74%);
+    background-color: #222a37;
+    background-image: linear-gradient(336deg, #d81923ad 0%, #810d17cf 74%);
     border-radius: 4px;
     border-top-right-radius:0;
     border-bottom-right-radius:0;
@@ -22093,7 +22093,7 @@ form.checkout {
  * Price
  */
 .price {
-  color: #283d86!important;
+  color: #7b0c16!important;
   font-weight: bold;
   font-weight: 800;
   display: flex;
@@ -26538,7 +26538,7 @@ form.track_order {
     transition: all 0.25s ease 0s;
     opacity: 1;
     visibility: visible;
-    border-bottom: 2px solid #29539b;
+    border-bottom: 2px solid #222a37;
     border-bottom-left-radius: .25rem;
     border-bottom-right-radius: .25rem;
 
@@ -26639,7 +26639,7 @@ form.track_order {
     left: 0;
     width: 100%;
     height: 2px;
-    background-color: #29539b;
+    background-color: #222a37;
     transition: all 0.3s ease;
     transform: scale(0.85);
   }
@@ -27218,7 +27218,7 @@ button{
     font-weight: 400;
     /* padding: 10px 0; */
     clear: both;
-    color:#283d86;
+    color:#7b0c16;
 }
 .product-price-discount span.line-through {
 	text-decoration: line-through;
@@ -27286,7 +27286,7 @@ button{
   letter-spacing: -0.01em;
 }
 .btn_inf_company{
-  background-color: #283d86;
+  background-color: #7b0c16;
   color: #fff;
   padding: 10px 20px;
   display: inline-block;
@@ -27319,8 +27319,8 @@ button{
 .product-count .qtyplus {
   width: 34px;
   height: 34px;
-  background-color: #29539b;
-  background-image: linear-gradient(336deg, #0175a0b8 0%, #042242d9 74%);
+  background-color: #222a37;
+  background-image: linear-gradient(336deg, #232a37d4 0%, #212836c4 74%);
   text-align: center;
   font-size: 19px;
   line-height: 36px;
@@ -27344,8 +27344,8 @@ button{
 }
 .round-black-btn {
   border-radius: 4px;
-  background-color: #29539b;
-  background-image: linear-gradient(336deg, #0175a0b8 0%, #042242d9 74%);
+  background-color: #222a37;
+  background-image: linear-gradient(336deg, #232a37d4 0%, #212836c4 74%);
   color: #fff;
   padding: 4px 15px;
   display: inline-block;
@@ -27356,7 +27356,6 @@ button{
 .cardplacement {
   margin: 75% auto;
   z-index: 1;
-  opacity: 0.7;
 }
 
 .cardplacement:hover{
@@ -27366,7 +27365,7 @@ button{
 /* .round-black-btn:hover, .qtyminus:hover, .qtyplus:hover,
 .round-black-btn:focus {
 	background: transparent;
-	color: #283d86;
+	color: #7b0c16;
 	text-decoration: none;
 } */
 
@@ -27670,7 +27669,7 @@ button{
 
 
 .description{
-  background-image: linear-gradient(336deg, #0175a082 0%, #042242d4 74%);
+  background-image: linear-gradient(336deg, #232a37d4 0%, #212836c4 74%);
   background-color: transparent;
 	position: absolute;
 	width: 140px;
@@ -28590,8 +28589,8 @@ height: 100%;
   height: 50px;
   width: 50px;
   background: linear-gradient(
-    #016f99,
-    #041a39
+    #df1a24,
+    #830d17
   );
   position: absolute;
   margin: auto;
@@ -28613,7 +28612,7 @@ height: 100%;
   position: absolute;
   height: 80%;
   width: 80%;
-  background-color: #01709a;
+  background-color: #d91923;
   border-radius: 50%;
   z-index: -1;
   opacity: 0.7;
@@ -28634,7 +28633,7 @@ height: 100%;
 
 h3 i{
   font-size: 25px;
-  color: #283d86;
+  color: #7b0c16;
 }
 
 .g_contact i{
@@ -34901,9 +34900,9 @@ input:checked ~ .tab-content{
 	letter-spacing: -1px;
 	border-radius: 50px;
 	margin-left: 0.214em !important;
-	background-color: #283d86;
+	background-color: #7b0c16;
 	font-weight: bold;
-	background-color: #283d86;
+	background-color: #7b0c16;
 }
 .view_icon .count{
   font-size: 0.7em !important;
@@ -34962,7 +34961,8 @@ input:checked ~ .tab-content{
   .main-content{
     padding: 100px 60px 0 60px;
     background-size: cover;
-    background-image: url(../images/1.jpg);
+    background-position:center;
+    background-image: url(../images/1.svg);
   }
   .what-do-we-do{
     padding:0 60px 15px 60px;

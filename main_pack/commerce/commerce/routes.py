@@ -70,6 +70,17 @@ def about():
 		url_prefix = url_prefix,
 		title = gettext(Config.COMMERCE_ABOUT_PAGE_TITLE))
 
+@bp.route(Config.COMMERCE_RESOURCE_REQUEST_PAGE)
+def resource_request():
+	categoriesData = UiCategoriesList()
+
+	return render_template(
+		f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/commerce/resource_request.html",
+		**categoriesData,
+		url_prefix = url_prefix,
+		title = gettext(Config.COMMERCE_ABOUT_PAGE_TITLE))
+
+
 
 @bp.route(Config.COMMERCE_CONTACTS_PAGE, methods=['GET', 'POST'])
 def contact():
@@ -143,7 +154,7 @@ def cart():
 
 
 @bp.route("/payment-validation/")
-@bp.route("/payment-validation//<OrderId>")
+@bp.route("/payment-validation/<OrderId>")
 @login_required
 def render_payment_validation_view(OrderId = None):
 	categoriesData = UiCategoriesList()
@@ -169,3 +180,25 @@ def brands():
 		brands = brands["data"],
 		url_prefix = url_prefix,
 		title = gettext(Config.COMMERCE_BRANDS_PAGE_TITLE))
+
+		
+@bp.route(Config.COMMERCE_ORDER_BOOK_PAGE)
+def order_book():
+	categoriesData = UiCategoriesList()
+
+	return render_template(
+		f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/commerce/order_book.html",
+		**categoriesData,
+		url_prefix = url_prefix,
+		title = gettext(Config.COMMERCE_ORDER_BOOK_PAGE_TITLE))
+
+
+@bp.route(Config.COMMERCE_NEWS_PAGE)
+def news():
+	categoriesData = UiCategoriesList()
+
+	return render_template(
+		f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/commerce/news.html",
+		**categoriesData,
+		url_prefix = url_prefix,
+		title = gettext(Config.COMMERCE_NEWS_PAGE_TITLE))

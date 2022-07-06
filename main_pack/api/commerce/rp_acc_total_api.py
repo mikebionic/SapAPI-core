@@ -11,15 +11,15 @@ from .utils import addRpAccTrTotDict
 from main_pack.models import Rp_acc_trans_total
 from main_pack.models import Rp_acc
 
-from main_pack.api.auth.utils import sha_required
+from main_pack.api.auth.utils import admin_required
 from main_pack.api.base.validators import request_is_json
 from main_pack.base.apiMethods import checkApiResponseStatus
 
 
 @api.route("/tbl-dk-rp-acc-trans-totals/",methods=['GET','POST'])
-@sha_required
+@admin_required
 @request_is_json(request)
-def api_rp_acc_trans_totals():
+def api_rp_acc_trans_totals(user):
 	if request.method == 'GET':
 		DivId = request.args.get("DivId",None,type=int)
 		notDivId = request.args.get("notDivId",None,type=int)

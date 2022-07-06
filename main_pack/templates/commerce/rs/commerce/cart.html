@@ -1,0 +1,118 @@
+{% extends "commerce/rs/commerce/layout.html" %}
+
+{% block content %}
+<div class="section">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="section_title_one top_purch">
+					<h1>{{_('Your cart items')}}</h1>
+				</div>
+			</div>
+			<div class="col-12" style="margin-top: 32px;">
+				<div class="gallery">
+					<div class="rd_purchase two-span-row">
+						<div class="section_title_two">
+							<h2>Резюме товаров</h2>
+						</div>
+						<ul class="mini-products">
+							
+						</ul>
+					</div>
+					<div class="rd_purchase_center">
+						<div class="section_title_two">
+							<h2>Информация покупателя</h2>
+						</div>
+						<div class="content">
+							<div class="inside_purchase">
+								<div class="bd_price purchase pr_border">
+									<p>Покупатель</p>
+									<span>Абдыкерим Бегенджов</span>
+								</div>
+								<div class="bd_price purchase pr_border">
+									<p>Номер телефона</p>
+									<span>+993 65 109283</span>
+								</div>
+								<div class="bd_price">
+									<p>Доставка</p>
+								</div>
+							</div>
+							<div class="purchase_country">
+								<div href="#" class="btn_country_first"><a href="#">Ашхабад</a></div>
+								<div  class="btn_country_second"><a href="#">Велаят</a></div>
+							</div>
+							<div class="add_receiver ">
+								Добавить получателя
+								<svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M12.5 5V19" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+									<path d="M5.5 12H19.5" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+								</svg>
+							</div>
+							<div class="added_receiver">
+								<div class="inside_add_receiver">
+									<div class="added_receiver_inside">
+										<h2>
+											Получатель
+											<i class="las la-close"></i>
+										</h2>
+										<div class="close_svg">
+											<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<path d="M12 4L4 12" stroke="#5A5C61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+												<path d="M4 4L12 12" stroke="#5A5C61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+											</svg>
+										</div>
+									</div>
+
+									<form method="post">
+										<div class="txt_field">
+											<label>Имя</label>
+											<br>
+											<input type="text" placeholder="Имя получателя" required>
+											<span></span>
+										</div>
+										<div class="txt_field">
+											<label>Номер</label>
+											<br>
+											<input type="tel" placeholder="Номер телефона" required>
+											<span></span>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="rd_purchase purch_sum">
+						<div class="section_title_two">
+							<h2>Счёт</h2>
+						</div>
+						<div class="content">
+							<div class="inside_purchase">
+								<div class="bd_price purchase pr_border">
+									<p>Товар</p>
+									<span>876 TMT</span>
+								</div>
+								<div class="bd_price purchase pr_border">
+									<p>Доставка</p>
+									<span>20 TMT</span>
+								</div>
+								<div class="bd_price pr_border">
+									<p>{{_('Total price')}}</p>
+									<span class="first_price_purchase">896 TMT</span>
+								</div>
+							</div>
+							<span class="bottom_purchase_text">Просим вас внимательно проверить все предоставлаемые информации</span>
+							<div class="buy_receiver">
+								<a href="#">Купить</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+	<script src="{{ url_for('static', filename='commerce/hs/js/cart.js') }}"></script>
+{% endblock %}

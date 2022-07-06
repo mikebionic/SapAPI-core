@@ -41,21 +41,37 @@ def api_v_resources():
 	avoidQtyCheckup = request.args.get("avoidQtyCheckup",0,type=int)
 	showMain = request.args.get("showMain",0,type=int)
 	limit_by = request.args.get("limit",None,type=int)
+	showImage = request.args.get("showImage",1,type=int)
+	showLastVendor = request.args.get("showLastVendor",0,type=int)
+	showPurchacePrice = request.args.get("showPurchacePrice",0,type=int)	
+	search = request.args.get("search",None,type=str)
+	search = search.strip() if search else None
+
 	res = apiResourceInfo(
 		DivId = DivId,
 		notDivId = notDivId,
 		avoidQtyCheckup = avoidQtyCheckup,
 		showMain = showMain,
-		limit_by = limit_by)
-	response = make_response(jsonify(res), 200)
-	return response
+		limit_by = limit_by,
+		showImage = showImage,
+		showLastVendor = showLastVendor,
+		showPurchacePrice = showPurchacePrice,
+		search = search,
+	)
+	return make_response(jsonify(res), 200)
 
 
 @api.route("/v-resources/<int:ResId>/")
 def api_v_resource_info(ResId):
 	resource_list = [{"ResId": ResId}]
 	showRelated = request.args.get("showRelated",0,type=int)
-	res = apiResourceInfo(resource_list,single_object=True,showRelated=showRelated)
+	showRatings = request.args.get("showRatings",0,type=int)
+	res = apiResourceInfo(
+		resource_list,
+		single_object = True,
+		showRelated = showRelated,
+		showRatings = showRatings
+	)
 	if res['status'] == 1:
 		status_code = 200
 	else:
@@ -129,13 +145,15 @@ def api_resources():
 	per_page = request.args.get("per_page",None,type=int)
 	category = request.args.get("category",None,type=int)
 	brand = request.args.get("brand",None,type=int)
-	from_price = request.args.get("from_price",None,type=int)
-	to_price = request.args.get("to_price",None,type=int)
+	from_price = request.args.get("from_price",None,type=float)
+	to_price = request.args.get("to_price",None,type=float)
 
 	DivId = request.args.get("DivId",None,type=int)
 	notDivId = request.args.get("notDivId",None,type=int)
 	showMain = request.args.get("showMain",0,type=int)
 	limit_by = request.args.get("limit",0,type=int)
+	showDiscounts = request.args.get("showDiscounts",0,type=int)
+	currency_code = request.args.get("currency_code",None,type=str)
 
 	search = request.args.get("search",None,type=str)
 	search = search.strip() if search else None
@@ -154,7 +172,10 @@ def api_resources():
 		showMain = showMain,
 		limit_by = limit_by,
 		DivId = DivId,
-		notDivId = notDivId)
+		notDivId = notDivId,
+		showDiscounts = showDiscounts,
+		currency_code = currency_code,
+	)
 
 	status_code = 200
 	res["status"] = 1

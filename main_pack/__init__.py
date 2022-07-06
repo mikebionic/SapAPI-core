@@ -32,17 +32,13 @@ login_manager.login_view = 'commerce_auth.login'
 login_manager.login_message = lazy_gettext('Login the system!')
 login_manager.login_message_category = 'info'
 
+
 @babel.localeselector
 def get_locale():
-	try:
-		language = session['language']
-	except KeyError:
-		# language = None
-		session['language'] = 'tk'
-		language = session['language']
-	if language is not None:
-		return language
-	return 'tk'
+	language = Config.BABEL_DEFAULT_LOCALE
+	if 'language' in session:
+		language = session['language'] if session['language'] else Config.BABEL_DEFAULT_LOCALE
+	return language
 
 LANGUAGES = {
 	'en': 'English',
@@ -56,7 +52,7 @@ def create_app(config_class=Config):
 	app.static_folder = Config.STATIC_FOLDER_LOCATION
 	app.template_folder = Config.TEMPLATE_FOLDER_LOCATION
 	if Config.USE_FLASK_CORS:
-		CORS(app)
+		CORS(app, supports_credentials=True)
 
 	db.init_app(app)
 	login_manager.init_app(app)
@@ -150,8 +146,23 @@ def create_app(config_class=Config):
 
 	from main_pack.api.v1.resource_api import api as v1_resource_api
 	app.register_blueprint(v1_resource_api, url_prefix=f"{api_url_prefix}/v1/")
-	csrf.exempt(v1_language_api)
+	csrf.exempt(v1_resource_api)
 
+	from main_pack.api.v1.res_collection_api import api as v1_res_collection_api
+	app.register_blueprint(v1_res_collection_api, url_prefix=f"{api_url_prefix}/v1/")
+	csrf.exempt(v1_res_collection_api)
+
+	from main_pack.api.v1.rating_api import api as v1_rating_api
+	app.register_blueprint(v1_rating_api, url_prefix=f"{api_url_prefix}/v1/")
+	csrf.exempt(v1_rating_api)
+
+	from main_pack.api.v1.reg_no_api import api as v1_reg_no_api
+	app.register_blueprint(v1_reg_no_api, url_prefix=f"{api_url_prefix}/v1/")
+	csrf.exempt(v1_reg_no_api)
+
+	from main_pack.api.v1.status_api import api as v1_status_api
+	app.register_blueprint(v1_status_api, url_prefix=f"{api_url_prefix}/v1/")
+	csrf.exempt(v1_status_api)
 
 	if Config.USE_ACTIVATION_CUSTOMER:
 		from main_pack.activation.customer import api as activation_customer_api

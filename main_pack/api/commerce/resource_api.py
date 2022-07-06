@@ -17,14 +17,14 @@ from main_pack.models import (
 )
 from .utils import addResourceDict, addBarcodeDict
 from main_pack.base.apiMethods import checkApiResponseStatus
-from main_pack.api.auth.utils import sha_required
+from main_pack.api.auth.utils import admin_required
 from main_pack.api.base.validators import request_is_json
 
 
 @api.route("/tbl-dk-resources/",methods=['GET','POST'])
-@sha_required
+@admin_required
 @request_is_json(request)
-def api_tbl_dk_resources():
+def api_tbl_dk_resources(user):
 	if request.method == 'GET':
 		DivId = request.args.get("DivId",None,type=int)
 		notDivId = request.args.get("notDivId",None,type=int)
@@ -175,7 +175,7 @@ def api_tbl_dk_resources():
 
 				else:
 					try:
-						lastResource = Resource.query.order_by(Resource.ResId.desc()).first()
+						lastResource = Resource.query.with_entities(Resource.ResId).order_by(Resource.ResId.desc()).first()
 						ResId = lastResource.ResId+1
 					except:
 						ResId = None
@@ -191,10 +191,14 @@ def api_tbl_dk_resources():
 				failed_barcodes = []
 				for barcode_req in resource_req["Barcodes"]:
 					try:
+						barcode_info = None
 						barcode_info = addBarcodeDict(barcode_req)
 						UnitId = barcode_info["UnitId"]
-						ResId = thisResource.ResId
+						if not barcode_info["BarcodeVal"]:
+							print(f"Empty barcode {str(barcode_info)}")
+							raise Exception
 
+						ResId = thisResource.ResId
 						barcode_info["ResId"] = ResId
 						barcode_info["CId"] = CId
 						barcode_info["DivId"] = DivId

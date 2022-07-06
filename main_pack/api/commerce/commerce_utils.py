@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from flask import session
+from sqlalchemy import or_, and_
 
 from main_pack.config import Config
 from main_pack import db, cache
@@ -18,7 +19,7 @@ from main_pack.base.priceMethods import calculatePriceByGroup, price_currency_co
 # / functions and methods /
 
 # db models
-# from main_pack.models import Company, Division, Warehouse, Image, Res_translation
+# from main_pack.models import Company, Division, Warehouse, Image, 
 from main_pack.models import (
 	Resource,
 	Res_price,
@@ -27,7 +28,10 @@ from main_pack.models import (
 	Res_category,
 	Wish,
 	Rating,
-	Exc_rate)
+	Exc_rate,
+	Barcode,
+	Res_translation,
+)
 from main_pack.models import (
 	Res_color,
 	Res_size,
@@ -55,6 +59,8 @@ from main_pack.api.users.utils import apiRpAccData, apiUsersData
 import dateutil.parser
 from datetime import datetime, timedelta
 # / datetime, date-parser /
+
+from main_pack.base.invoiceMethods import getInvStatusUi
 
 
 def collect_categories_query(
@@ -127,7 +133,9 @@ def collect_resources_query(
 	avoidQtyCheckup = 0,
 	showNullPrice = False,
 	DivId = None,
-	notDivId = None):
+	notDivId = None,
+	search = None,
+):
 	resource_filtering = {
 		"GCRecord": None,
 	}
@@ -153,6 +161,58 @@ def collect_resources_query(
 		Res_Total_subquery.c.ResPendingTotalAmount_sum)\
 	.filter_by(**resource_filtering)\
 	.outerjoin(Res_Total_subquery, Resource.ResId == Res_Total_subquery.c.ResId)
+
+	if search:
+		search = search.strip()
+		searching_tag = "%{}%".format(search)
+		resource_ids = []
+
+		barcodes_search = Barcode.query\
+			.filter(and_(
+				Barcode.GCRecord == None,\
+				Barcode.BarcodeVal.ilike(searching_tag)))
+		if DivId:
+			barcodes_search = barcodes_search.filter_by(DivId = DivId)
+		if notDivId:
+			barcodes_search = barcodes_search.filter(Barcode.DivId != DivId)
+		barcodes_search = barcodes_search.all()
+
+		if Config.SEARCH_BY_RESOURCE_DESCRIPTION:
+			resources_search = Resource.query\
+				.filter(and_(
+					Resource.GCRecord == None,\
+					or_(
+						Resource.ResName.ilike(searching_tag),
+						Resource.ResDesc.ilike(searching_tag)
+					),\
+					Resource.UsageStatusId == 1))\
+				.order_by(Resource.ResId.desc())
+
+		else:
+			resources_search = Resource.query\
+				.filter(and_(
+					Resource.GCRecord == None,\
+					Resource.ResName.ilike(searching_tag),\
+					Resource.UsageStatusId == 1))\
+				.order_by(Resource.ResId.desc())
+
+			if DivId:
+				resources_search = resources_search.filter_by(DivId = DivId)
+			if notDivId:
+				resources_search = resources_search.filter(Resource.DivId != notDivId)
+			resources_search = resources_search.all()
+			for resource in resources_search:
+				resource_ids.append(resource.ResId)
+
+		if barcodes_search:
+			for barcode in barcodes_search:
+				resource_ids.append(barcode.ResId)
+
+		# removes duplicates
+		resource_ids = list(set(resource_ids))
+		resource_ids = [ResId for ResId in resource_ids]
+
+		resource_query = resource_query.filter(Resource.ResId.in_(resource_ids))
 
 	if avoidQtyCheckup == 0:
 		if not Config.SHOW_NEGATIVE_WH_QTY_RESOURCE:
@@ -230,6 +290,11 @@ def apiResourceInfo(
 	language_code = None,
 	order_by_visible_index = False,
 	limit_by = None,
+	showRatings = 0,
+	showImage = 1,
+	showLastVendor = 0,
+	showPurchacePrice = 0,
+	search = None,
 ):
 
 	currencies = Currency.query.filter_by(GCRecord = None).all()
@@ -282,10 +347,11 @@ def apiResourceInfo(
 					avoidQtyCheckup = avoidQtyCheckup,
 					showNullPrice = showNullPrice,
 					DivId = DivId,
-					notDivId = notDivId)
+					notDivId = notDivId,
+					search = search,
+				)
 
 			resources = resource_query.options(
-				joinedload(Resource.Image),
 				joinedload(Resource.Barcode),
 				joinedload(Resource.Rating),
 				joinedload(Resource.Res_price),
@@ -295,9 +361,17 @@ def apiResourceInfo(
 				joinedload(Resource.brand),
 				joinedload(Resource.usage_status),
 				joinedload(Resource.Res_discount_SaleResId))
+			
+			if showImage:
+				resources = resources.options(joinedload(Resource.Image))
+
+			if showLastVendor:
+				resources = resources.options(joinedload(Resource.last_vendor))
 
 			if Config.SHOW_RES_TRANSLATIONS:
-				resources.options(joinedload(Resource.Res_translation))
+				resources = resources.options(
+					joinedload(Resource.Res_translation).options(joinedload(Res_translation.language))
+				)
 
 			if order_by_visible_index:
 				resources = resources.order_by(Resource.ResVisibleIndex.asc())
@@ -354,7 +428,6 @@ def apiResourceInfo(
 					.filter(Res_price.ResPriceValue > 0)
 
 			resource_query = resource_query.options(
-				joinedload(Resource.Image),
 				joinedload(Resource.Barcode),
 				joinedload(Resource.Res_price),
 				joinedload(Resource.Res_total),
@@ -363,6 +436,17 @@ def apiResourceInfo(
 				joinedload(Resource.brand).options(joinedload(Brand.Image)),
 				joinedload(Resource.usage_status),
 				joinedload(Resource.Res_discount_SaleResId))
+
+			if showImage:
+				resource_query = resource_query.options(joinedload(Resource.Image))
+
+			if showLastVendor:
+				resource_query = resource_query.options(joinedload(Resource.last_vendor))
+
+			if Config.SHOW_RES_TRANSLATIONS:
+				resource_query = resource_query.options(
+					joinedload(Resource.Res_translation).options(joinedload(Res_translation.language))
+				)
 
 			if fullInfo:
 				resource_query = resource_query.options(
@@ -402,6 +486,14 @@ def apiResourceInfo(
 				ResPriceGroupId = ResPriceGroupId,
 				Res_price_dbModels = query_resource.Res_price,
 				Res_pice_group_dbModels = res_price_groups)
+			
+			if showPurchacePrice:
+				List_Res_price_purchace = calculatePriceByGroup(
+					ResPriceGroupId = ResPriceGroupId,
+					Res_price_dbModels = query_resource.Res_price,
+					Res_pice_group_dbModels = res_price_groups,
+					ResPriceTypeId=1
+				)
 
 			if not List_Res_price:
 				raise Exception
@@ -412,6 +504,9 @@ def apiResourceInfo(
 				List_Currencies = []
 
 			this_priceValue = List_Res_price[0]["ResPriceValue"] if List_Res_price else 0.0
+			if showPurchacePrice:
+				this_priceValue_purchace = List_Res_price_purchace[0]["ResPriceValue"] if List_Res_price_purchace else 0.0
+				
 			this_currencyCode = List_Currencies[0]["CurrencyCode"] if List_Currencies else Config.MAIN_CURRENCY_CODE
 			resource_info["RealPrice"] = this_priceValue
 			resource_info["DiscValue"] = None
@@ -430,17 +525,29 @@ def apiResourceInfo(
 				to_currency = currency_code,
 				currencies_dbModel = currencies,
 				exc_rates_dbModel = exc_rates)
+			
+			if showPurchacePrice:
+				price_data_purchace = price_currency_conversion(
+					priceValue = this_priceValue_purchace,
+					from_currency = this_currencyCode,
+					to_currency = currency_code,
+					currencies_dbModel = currencies,
+					exc_rates_dbModel = exc_rates)
 
 			List_Res_total = [res_total.to_json_api() for res_total in query_resource.Res_total if not res_total.GCRecord and res_total.WhId == 1]
-			List_Images = [image.to_json_api() for image in query_resource.Image if not image.GCRecord]
-			# Sorting list by Modified date
-			List_Images = (sorted(List_Images, key = lambda i: i["ModifiedDate"]))
 
-			if fullInfo == True:
+			List_Images = []
+			if showImage:
+				List_Images = [image.to_json_api() for image in query_resource.Image if not image.GCRecord]
+				# Sorting list by Modified date
+				List_Images = (sorted(List_Images, key = lambda i: i["ModifiedDate"]))
+
+
+			if showRatings or fullInfo:
 				List_Ratings = []
 				for rating in query_resource.Rating:
 					try:
-						if (Config.SHOW_ONLY_VALIDATED_RATING and not rating.RtValidated):
+						if (Config.SHOW_ONLY_VALIDATED_RATING and not rating.RtValidated) or rating.GCRecord:
 							raise Exception
 
 						Rating_info = rating.to_json_api()
@@ -474,17 +581,19 @@ def apiResourceInfo(
 			resource_info["ResPriceValue"] = price_data["ResPriceValue"]
 			resource_info["CurrencyCode"] = price_data["CurrencyCode"]
 			resource_info["CurrencySymbol"] = price_data["CurrencySymbol"]
-			# resource_info["ResTotBalance"] = List_Res_total[0]["ResTotBalance"] if List_Res_total else 0.0
-			# resource_info["ResPendingTotalAmount"] = List_Res_total[0]["ResPendingTotalAmount"] if List_Res_total else 0.0
-
-			# resource_info["ResTotBalance"] = 9999 if Config.SET_UNLIMITED_RESOURCE_QTY == 1 else
-			# resource_info["ResPendingTotalAmount"]
+			if showPurchacePrice:
+				resource_info["PurchaceResPriceValue"] = price_data_purchace["ResPriceValue"]
 			resource_info["ResTotBalance"] = 9999 if Config.SET_UNLIMITED_RESOURCE_QTY == 1 else resource_query.ResTotBalance_sum if resource_query.ResTotBalance_sum else 0.0
 			resource_info["ResPendingTotalAmount"] = 9999 if Config.SET_UNLIMITED_RESOURCE_QTY == 1 else resource_query.ResPendingTotalAmount_sum if resource_query.ResPendingTotalAmount_sum else 0.0
-			resource_info["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=List_Images[-1]["FileName"]) if List_Images else ""
-			resource_info["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=List_Images[-1]["FileName"]) if List_Images else ""
-			resource_info["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_Images[-1]["FileName"]) if List_Images else ""
-			resource_info["Images"] = List_Images if List_Images else []
+
+			if showImage:
+				resource_info["FilePathS"] = fileToURL(file_type='image',file_size='S',file_name=List_Images[-1]["FileName"]) if List_Images else ""
+				resource_info["FilePathM"] = fileToURL(file_type='image',file_size='M',file_name=List_Images[-1]["FileName"]) if List_Images else ""
+				resource_info["FilePathR"] = fileToURL(file_type='image',file_size='R',file_name=List_Images[-1]["FileName"]) if List_Images else ""
+				resource_info["Images"] = List_Images if List_Images else []
+
+			if showLastVendor:
+				resource_info["LastVendorName"] = query_resource.last_vendor.RpAccUName if query_resource.last_vendor else ""
 
 			if Config.SHOW_RES_TRANSLATIONS:
 				if query_resource.Res_translation and language_code:
@@ -590,7 +699,7 @@ def apiResourceInfo(
 
 					resource_info["Related_resources"] = Related_resources
 
-			if fullInfo == True:
+			if fullInfo:
 				List_Colors = [res_color.color.to_json_api() for res_color in query_resource.Res_color if not res_color.GCRecord if not res_color.color.GCRecord]
 				List_Sizes = [res_size.size.to_json_api() for res_size in query_resource.Res_size if not res_size.GCRecord if not res_size.size.GCRecord]
 				resource_info["Colors"] = List_Colors if List_Colors else []
@@ -600,10 +709,12 @@ def apiResourceInfo(
 				resource_info["Res_category"] = Res_category_info if Res_category_info else {}
 				resource_info["Res_price"] = List_Res_price[0] if List_Res_price else {}
 				resource_info["Res_total"] = List_Res_total[0] if List_Res_total else {}
-				resource_info["Rating"] = List_Ratings if List_Ratings else []
 				resource_info["UsageStatus"] = dataLangSelector(UsageStatus_info) if UsageStatus_info else {}
 				resource_info["Currency"] = dataLangSelector(List_Currencies[0]) if List_Currencies else {}
 				resource_info["Unit"] = dataLangSelector(Units_info) if Units_info else {}
+
+			if showRatings or fullInfo:
+				resource_info["Rating"] = List_Ratings if List_Ratings else []
 
 			data.append(resource_info)
 
@@ -737,7 +848,12 @@ def apiOrderInvInfo(
 	rp_acc_user = None,
 	DivId = None,
 	notDivId = None,
-	currency_code = Config.DEFAULT_VIEW_CURRENCY_CODE
+	currency_code = Config.DEFAULT_VIEW_CURRENCY_CODE,
+	limit_by = None,
+	UId = None,
+	RpAccId = None,
+	UGuid = None,
+	RpAccGuid = None,
 ):
 
 	currencies = Currency.query.filter_by(GCRecord = None).all()
@@ -751,6 +867,20 @@ def apiOrderInvInfo(
 			invoice_filtering["InvStatId"] = statusId
 		if rp_acc_user:
 			invoice_filtering["RpAccId"] = rp_acc_user.RpAccId
+
+		if UId:
+			invoice_filtering["UId"] = UId
+		if RpAccId:
+			invoice_filtering["RpAccId"] = RpAccId
+
+		if UGuid:
+			this_user = User.query.filter_by(UGuid = UGuid).first()
+			if this_user:
+				invoice_filtering["UId"] = this_user.UId
+		if RpAccGuid:
+			tihs_rp_acc = Rp_acc.query.filter_by(RpAccGuid = RpAccGuid).first()
+			if tihs_rp_acc:
+				invoice_filtering["RpAccId"] = tihs_rp_acc.RpAccId
 
 		invoice_models = []
 		if invoice_list is None:
@@ -786,8 +916,11 @@ def apiOrderInvInfo(
 					joinedload(Order_inv.Order_inv_line)\
 						.options(
 							joinedload(Order_inv_line.resource)
-						))\
-				.all()
+						))
+
+			if limit_by:
+				order_invoices = order_invoices.limit(limit_by)
+			order_invoices = order_invoices.all()
 
 			for order_inv in order_invoices:
 				invoice_models.append(order_inv)
@@ -853,12 +986,15 @@ def apiOrderInvInfo(
 			rp_acc_data["Images"] = []
 
 			order_inv_info["Rp_acc"] = rp_acc_data
+			order_inv_info["RpAccName"] = rp_acc_data["RpAccName"] if rp_acc_data else ""
 			order_inv_info["UGuid"] = order_inv.user.UGuid if order_inv.user and not order_inv.user.GCRecord else None
+			order_inv_info["UName"] = order_inv.user.UName if order_inv.user and not order_inv.user.GCRecord else None
 			order_inv_info["CGuid"] = order_inv.company.CGuid if order_inv.company and not order_inv.company.GCRecord else None
 			order_inv_info["WhGuid"] = order_inv.warehouse.WhGuid if order_inv.warehouse and not order_inv.warehouse.GCRecord else None
 			order_inv_info["DivGuid"] = order_inv.division.DivGuid if order_inv.division and not order_inv.division.GCRecord else None
 			order_inv_info["RpAccGuid"] = order_inv.rp_acc.RpAccGuid if order_inv.rp_acc and not order_inv.rp_acc.GCRecord else None
 			order_inv_info["RpAccRegNo"] = order_inv.rp_acc.RpAccRegNo if order_inv.rp_acc and not order_inv.rp_acc.GCRecord else None
+			order_inv_info["StatusUI"] = getInvStatusUi(order_inv.InvStatId)
 
 			# !!! Check the send and get type of these params (root or structured?)
 			rp_acc_user = None
@@ -870,6 +1006,7 @@ def apiOrderInvInfo(
 						this_order_inv_line = order_inv_line.to_json_api()
 						this_order_inv_line["ResRegNo"] = order_inv_line.resource.ResRegNo if order_inv_line.resource and not order_inv_line.resource.GCRecord else None
 						this_order_inv_line["ResGuid"] = order_inv_line.resource.ResGuid if order_inv_line.resource and not order_inv_line.resource.GCRecord else None
+						this_order_inv_line["ResName"] = order_inv_line.resource.ResName if order_inv_line.resource and not order_inv_line.resource.GCRecord else None
 
 						currency_data = [currency.to_json_api() for currency in currencies if currency.CurrencyId == order_inv_line.CurrencyId]
 

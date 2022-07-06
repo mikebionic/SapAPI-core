@@ -14,9 +14,10 @@ from .utils import addResTotalDict
 from main_pack.models import Warehouse, Division
 from main_pack.models import Res_total, Resource
 
-from main_pack.api.auth.utils import sha_required, token_required
+from main_pack.api.auth.utils import admin_required, token_required
 from main_pack.base.apiMethods import checkApiResponseStatus
 from main_pack.api.base.validators import request_is_json
+from main_pack.base import log_print
 
 
 def get_res_totals(
@@ -77,9 +78,9 @@ def api_v_res_totals(user):
 
 
 @api.route("/tbl-dk-res-totals/",methods=['GET','POST'])
-@sha_required
+@admin_required
 @request_is_json(request)
-def api_res_totals():
+def api_res_totals(user):
 	if request.method == 'GET':
 		arg_data = {
 			"DivId": request.args.get("DivId",None,type=int),
@@ -141,6 +142,7 @@ def api_res_totals():
 					WhGuid = res_total_req["WhGuid"]
 					# WhGuid = uuid.UUID(res_total_req["WhGuid"]) # used for fetching Wh and Resources
 					if not ResRegNo or not ResGuid or not WhGuid:
+						log_print(f"no ResRegNo={ResRegNo} or no ResGuid={ResGuid} or no WhGuid={WhGuid}")
 						raise Exception
 
 					try:
@@ -164,6 +166,7 @@ def api_res_totals():
 					res_total_info["WhId"] = WhId
 
 					if not ResId or not WhId or not DivId:
+						log_print(f"no ResId={ResId} or no WhId={WhId} or no DivId={DivId}")
 						raise Exception
 
 					thisResTotal = Res_total.query\
@@ -175,7 +178,7 @@ def api_res_totals():
 
 					else:
 						try:
-							lastTotal = Res_total.query.order_by(Res_total.ResTotId.desc()).first()
+							lastTotal = Res_total.query.with_entities(Res_total.ResTotId).order_by(Res_total.ResTotId.desc()).first()
 							ResTotId = lastTotal.ResTotId+1
 						except:
 							ResTotId = None
@@ -188,10 +191,11 @@ def api_res_totals():
 					data.append(res_total_req)
 
 				else:
+					log_print(f"No WhId in res_total_info: {str(res_total_info)}")
 					raise Exception
 
 			except Exception as ex:
-				print(f"{datetime.now()} | Res_total Api Exception: {ex}")
+				log_print(f"Res_total Api Exception: {ex}")
 				failed_data.append(res_total_req)
 
 		db.session.commit()

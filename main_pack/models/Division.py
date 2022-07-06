@@ -35,6 +35,8 @@ class Division(AddInf, BaseModel, db.Model):
 	Emp_recruitment = db.relationship("Emp_recruitment",backref='division',lazy=True)
 	Staffing_table = db.relationship("Staffing_table",backref='division',lazy=True)
 	Contract = db.relationship("Contract",backref='division',lazy=True)
+	Res_collection = db.relationship("Res_collection",backref='division',lazy=True)
+	Wh_invoice = db.relationship("Wh_invoice",backref='division',lazy=True)
 
 	def to_json_api(self):
 		data = {

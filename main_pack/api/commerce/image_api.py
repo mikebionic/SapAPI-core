@@ -12,7 +12,7 @@ from main_pack import db
 from main_pack.config import Config
 from . import api
 from .utils import addImageDict, saveImageFile
-from main_pack.api.auth.utils import sha_required, token_required
+from main_pack.api.auth.utils import admin_required, token_required
 from main_pack.base.apiMethods import checkApiResponseStatus
 from main_pack.api.base.validators import request_is_json
 
@@ -21,23 +21,28 @@ from main_pack.models import Resource, Barcode
 
 
 def remove_image(file_type,file_name):
-	if file_type == "icon":
-		file_type = "image"
-		file_size = "undefined"
-		file = get_image(file_type=file_type,file_size=file_size,file_name=file_name,path_only=True)
-		FilePath = os.path.join(Config.STATIC_FOLDER_LOCATION, file)
-		os.remove(FilePath)
+	print(file_name)
+	try:
+		if file_type == "icon":
+			file_type = "image"
+			file_size = "undefined"
+			file = get_image(file_type=file_type,file_size=file_size,file_name=file_name,path_only=True)
+			FilePath = os.path.join(Config.STATIC_FOLDER_LOCATION, file)
+			os.remove(FilePath)
 
-	else:
-		file = get_image(file_type=file_type,file_size='S',file_name=file_name,path_only=True)
-		FilePathS = os.path.join(Config.STATIC_FOLDER_LOCATION, file)
-		file = get_image(file_type=file_type,file_size='M',file_name=file_name,path_only=True)
-		FilePathM = os.path.join(Config.STATIC_FOLDER_LOCATION, file)
-		file = get_image(file_type=file_type,file_size='R',file_name=file_name,path_only=True)
-		FilePathR = os.path.join(Config.STATIC_FOLDER_LOCATION, file)
-		os.remove(FilePathS)
-		os.remove(FilePathM)
-		os.remove(FilePathR)
+		else:
+			file = get_image(file_type=file_type,file_size='S',file_name=file_name,path_only=True)
+			FilePathS = os.path.join(Config.STATIC_FOLDER_LOCATION, file)
+			file = get_image(file_type=file_type,file_size='M',file_name=file_name,path_only=True)
+			FilePathM = os.path.join(Config.STATIC_FOLDER_LOCATION, file)
+			file = get_image(file_type=file_type,file_size='R',file_name=file_name,path_only=True)
+			FilePathR = os.path.join(Config.STATIC_FOLDER_LOCATION, file)
+			os.remove(FilePathS)
+			os.remove(FilePathM)
+			os.remove(FilePathR)
+	except Exception as ex:
+		print(f"remove_image exception {ex}")
+		pass
 
 
 def get_images(
@@ -167,9 +172,9 @@ def api_v_images(user):
 
 
 @api.route("/tbl-dk-images/",methods=['GET','POST'])
-@sha_required
+@admin_required
 @request_is_json(request)
-def api_images():
+def api_images(user):
 	if request.method == 'GET':
 		arg_data = {
 			"DivId": request.args.get("DivId",None,type=int),
@@ -229,7 +234,7 @@ def api_images():
 						.first()
 					ResId = thisResource.ResId
 					barcode = thisResource.Barcode[0]
-					
+
 					if (Config.PROVIDED_IMAGE_FILENAME_TYPE == 1):
 						image_req["FileName"] = thisResource.ResName
 						if (len(list(filter(lambda n: n in image_req["FileName"], Config.FILENAME_INVALID_CHARACTERS))) > 0):
@@ -265,7 +270,7 @@ def api_images():
 
 						except Exception as ex:
 							print(f"{datetime.now()} | Image Api Deletion Exception: {ex}")
-						
+
 						thisImage.update(**image_data)
 						print(f"{datetime.now()} | Image updated (Different ModifiedDate)")
 
@@ -287,7 +292,7 @@ def api_images():
 						print(f"{datetime.now()} | Couldn't commit: {ex}")
 
 						try:
-							lastImage = Image.query.order_by(Image.ImgId.desc()).first()
+							lastImage = Image.query.with_entities(Image.ImgId).order_by(Image.ImgId.desc()).first()
 							ImgId = lastImage.ImgId+1
 						except:
 							ImgId = None
@@ -304,7 +309,7 @@ def api_images():
 				print(f"{datetime.now()} | Image Api Exception: {ex}")
 				image_req["Image"] = None
 				failed_data.append(image_req)
-			
+
 			thisImage = None
 
 		# db.session.commit()
@@ -330,10 +335,10 @@ def api_images():
 @api.route("/get-image/<file_type>/<file_size>/<file_name>")
 def get_image(file_type,file_size,file_name,path_only=False):
 	try:
-		if file_type == "slider": 
+		if file_type == "slider":
 			sl_image = Sl_image.query.filter(Sl_image.SlImgMainImgFileName == file_name).first()
 			path = sl_image.SlImgMainImgFilePath
-		if file_type == "image": 
+		if file_type == "image":
 			image = Image.query.filter(Image.FileName == file_name).first()
 			if not image.FilePath:
 				raise FileNotFoundError
@@ -343,25 +348,27 @@ def get_image(file_type,file_size,file_name,path_only=False):
 
 		try:
 			if Config.OS_TYPE == 'win32':
-				full_path = path.replace("\\","/")
-			else:
-				full_path = path.replace("<FSize>",file_size)
+				path = path.replace("\\","/")
+
+			full_path = path.replace("<FSize>",file_size)
 			response = send_from_directory(Config.STATIC_FOLDER_LOCATION, full_path, as_attachment=True)
 			if path_only:
 				return full_path
 			return response
 
 		except FileNotFoundError:
-			abort(404)
+			if not path_only:
+				abort(404)
 
 	except:
-		abort(404)
+		if not path_only:
+			abort(404)
 
 
 @api.route("/get-file/<file_type>/<file_name>")
 def get_file(file_type,file_name):
 	try:
-		if file_type == "slider": 
+		if file_type == "slider":
 			sl_image = Sl_image.query.filter(Sl_image.SlImgMainImgFileName == file_name).first()
 			path = sl_image.SlImgMainImgFilePath
 		try:

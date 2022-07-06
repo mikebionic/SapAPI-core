@@ -11,7 +11,7 @@ from main_pack.config import Config
 from . import api
 
 from main_pack.models import User
-from main_pack.api.auth.utils import token_required
+from main_pack.api.auth.utils import checkout_auth_handler, token_required
 
 # Orders
 from main_pack.models import Order_inv, Order_inv_line, Work_period
@@ -37,9 +37,11 @@ from main_pack.base.priceMethods import calculatePriceByGroup, price_currency_co
 from main_pack.base.num2text import num2text, price2text
 # / Resource models and operations /
 
+from main_pack.api.v1.order_inv_api.utils.send_order_to_server import send_order_to_server
+
 
 @api.route("/checkout-sale-order-inv/",methods=['POST'])
-@token_required
+@checkout_auth_handler
 @request_is_json(request)
 def api_checkout_sale_order_invoices(user):
 	model_type = user['model_type']
@@ -200,28 +202,28 @@ def api_checkout_sale_order_invoices(user):
 					currencies_dbModel = currencies,
 					exc_rates_dbModel = exc_rates)
 
-				res_total = Res_total.query\
-					.filter_by(GCRecord = None, ResId = ResId, WhId = WhId)\
-					.first()
-				totalSubstitutionResult = totalQtySubstitution(res_total.ResPendingTotalAmount,OInvLineAmount)
-
 				if resource.UsageStatusId == 2:
 					# resource unavailable or inactive
 					error_type = 2
 					raise Exception
 
-				if totalSubstitutionResult["status"] == 0:
-					# resource is empty or bad request with amount = -1
-					error_type = 3
-					raise Exception
+				if not Config.IGNORE_RES_TOTAL_ON_CHECKOUT:
+					res_total = Res_total.query\
+						.filter_by(GCRecord = None, ResId = ResId, WhId = WhId)\
+						.first()
+					totalSubstitutionResult = totalQtySubstitution(res_total.ResPendingTotalAmount,OInvLineAmount)
+					OInvLineAmount = totalSubstitutionResult["amount"]
+					res_total.ResPendingTotalAmount = totalSubstitutionResult["totalBalance"]
+
+					if totalSubstitutionResult["status"] == 0:
+						# resource is empty or bad request with amount = -1
+						error_type = 3
+						raise Exception
 
 				if order_inv_line["OInvLinePrice"] != price_data["ResPriceValue"]:
 					error_type = 4
 					raise Exception
 
-				OInvLineAmount = totalSubstitutionResult["amount"]
-				# ResPendingTotalAmount is decreased but not ResTotBalance
-				res_total.ResPendingTotalAmount = totalSubstitutionResult["totalBalance"]
 				############
 				OInvLinePrice = float(price_data["ResPriceValue"])
 				OInvLineTotal = OInvLinePrice * OInvLineAmount
@@ -302,6 +304,11 @@ def api_checkout_sale_order_invoices(user):
 			status_code = 200
 			for e in status:
 				res[e] = status[e]
+			
+			if Config.SEND_ORDER_TO_HASAP_SYNC and not failed_order_inv_lines:
+				send_order_to_server(
+					res,
+					dbModel = newOrderInv)
 
 	except Exception as ex:
 		print(f"{datetime.now()} | Checkout OInv Exception: {ex}")

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from flask import request, make_response, jsonify, session
 
-from main_pack.api.auth.utils import token_required
+from main_pack.api.auth.utils import checkout_auth_handler
 from main_pack.api.base.validators import request_is_json
 from main_pack.base.apiMethods import get_login_info
 
@@ -11,7 +11,7 @@ from main_pack import csrf
 
 @csrf.exempt
 @api.route("/checkout-sale-order-inv/", methods=['POST'])
-@token_required
+@checkout_auth_handler
 @request_is_json(request)
 def checkout_sale_order_inv_post(user):
 	model_type = user['model_type']

@@ -407,7 +407,7 @@ Buttons
 .btn-group-sm>.btn, .btn-sm { padding: .25rem .5rem; }
 
 /*--------------*/
-.btn-primary { background: var(--iq-primary); border-color: var(--iq-primary); }
+.btn-primary { background: #2c5ca7; border-color: var(--iq-primary); }
 .btn-secondary { background-color: var(--iq-secondary); border-color: var(--iq-secondary); }
 .btn-success { background-color: var(--iq-success); border-color: var(--iq-success); }
 .btn-danger { background-color: var(--iq-danger); border-color: var(--iq-danger); }

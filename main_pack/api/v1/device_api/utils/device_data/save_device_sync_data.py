@@ -3,8 +3,10 @@ from datetime import datetime
 
 from main_pack import db
 
-from main_pack.models import Device
+from main_pack.config import Config
+from main_pack.models import Device, User
 from .add_Device_dict import add_Device_dict
+from main_pack.activation.customer.make_register_request import make_register_request
 
 
 def save_device_sync_data(req):
@@ -13,27 +15,39 @@ def save_device_sync_data(req):
 	for device_req in req:
 		try:
 			device_info = add_Device_dict(device_req)
+			if device_info["GCRecord"]:
+				device_info["IsAllowed"] = False
 
 			DevUniqueId = device_info["DevUniqueId"]
 			DevGuid = device_info["DevGuid"]
+			if "UGuid" in device_req:
+				UGuid = device_req["UGuid"]
+				if UGuid:
+					this_user = User.query.filter(User.UGuid == UGuid).first()
+					device_info["UId"] = this_user.UId
 
 			thisDevice = Device.query\
 				.filter_by(
 					DevUniqueId = DevUniqueId,
 					DevGuid = DevGuid,
-					GCRecord = None)\
+				)\
 				.first()
 
 			if thisDevice:
 				device_info["DevId"] = thisDevice.DevId
 				thisDevice.update(**device_info)
-				data.append(device_req)
+				if device_info["GCRecord"] == None:
+					thisDevice.GCRecord = None
 
 			else:
 				thisDevice = Device(**device_info)
 				db.session.add(thisDevice)
-				data.append(device_req)
-				thisDevice = None
+
+			if not Config.USE_SERVERLESS_ACTIVATION:
+				res = make_register_request(device_info)
+
+			data.append(device_req)
+			thisDevice = None
 
 		except Exception as ex:
 			print(f"{datetime.now()} | v1 Device Api synch Exception: {ex}")

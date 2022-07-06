@@ -1,0 +1,31 @@
+{% for resource in data %}
+<li class="cartObject{{resource.ResId}}">
+	<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="image">
+		<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/bee/images/no_photo.svg') }}" 
+		alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
+	</a>
+	<div class="content">
+		<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="title resCatName">{{ resource.ResCatName if resource.ResCatName else '' }}</a>
+		<span class="price resName">{{ resource.ResName if resource.ResName else '' }}</span>
+	</div>
+	
+	<button class="remove removeFromCart" ownerId="{{resource.ResId}}"><i class="las la-trash"></i></button>
+	<br>
+	<br>
+	<div class="price_qty">
+		<div class="price_text">
+		<p class="pric priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{resource.ResPriceValue}}</p>
+		<p class="qty currencySymbol">{{ resource.CurrencyCode }}</p>
+		</div>
+		<div class="pro-qty">
+			<span class="dec qtybtn">
+				-
+			</span>
+			<input type="text" value="1">
+			<span class="inc qtybtn">
+				+
+			</span>
+		</div>
+	</div>
+</li>
+{% endfor %}

@@ -310,18 +310,18 @@
 }
 
 .slider-height-2 {
-    padding: 67px 0 0 0;
+    padding: 67px 0;
     @media #{$xx-layout} {
-        padding: 50px 0 0 0;
+        padding: 50px 0;
     }
     @media #{$xl-layout} {
-        padding: 30px 0 0 0;
+        padding: 30px 0;
     }
     @media #{$lg-layout} {
-        padding: 30px 0 0 0;
+        padding: 30px 0;
     }
     @media #{$md-layout} {
-        padding: 30px 0 0 0;
+        padding: 30px 0;
     }
 }
 .single-slider-2 {
@@ -331,30 +331,14 @@
 .slider-content-2 {
     position: relative;
     margin-top: -30px;
-    &:before {
-        position: absolute;
-        left: -20px;
-        top: -39px;
-        content: "";
-        width: 30px;
-        height: 407px;
-        background-color: #ffe9e2;
-        @media #{$xs-layout} {
-            top: -10px;
-            height: 380px;
-        }
-        @media #{$sm-layout} {
-            top: -20px;
-            height: 380px;
-        }
-    }
     h1 {
         font-weight: bold;
-        color: #010211;
+        color: #343a40;
         letter-spacing: .2px;
         line-height: 70px;
         font-size: 60px;
         margin: 0;
+        font-family: system-ui;
         @media #{$lg-layout} {
             line-height: 60px;
             font-size: 45px;
@@ -379,6 +363,7 @@
         color: #010211;
         width: 70%;
         margin: 9px 0 23px;
+        width: 100%;
         @media #{$md-layout} {
             width: 100%;
         }

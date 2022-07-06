@@ -13,6 +13,7 @@ class Payment_type(AddInf, BaseModel, db.Model):
 	PtVisibleIndex = db.Column("PtVisibleIndex",db.Integer,default=0)
 	Order_inv = db.relationship("Order_inv",backref='payment_type',lazy=True)
 	Invoice = db.relationship("Invoice",backref='payment_type',lazy=True)
+	Wh_invoice = db.relationship("Wh_invoice",backref='payment_type',lazy=True)
 
 	def to_json_api(self):
 		data = {
@@ -22,6 +23,9 @@ class Payment_type(AddInf, BaseModel, db.Model):
 			"PtDesc": self.PtDesc,
 			"PtVisibleIndex": self.PtVisibleIndex
 		}
+
+		for key, value in AddInf.to_json_api(self).items():
+			data[key] = value
 
 		for key, value in BaseModel.to_json_api(self).items():
 			data[key] = value

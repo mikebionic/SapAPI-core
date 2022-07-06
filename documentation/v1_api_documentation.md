@@ -9,10 +9,10 @@
 ## Barcode api
 
 
-| __Route__      | __Methods__ | __Status__ | __Note__            |
-| -------------- | :---------: | :--------: | ------------------- |
-| /v-barcodes/   |   **GET**   |   Active   | **@token required** |
-| /tbl-barcodes/ |   **GET**   |   Active   | **@sha required**   |
+| __Route__      | __Methods__ | __Status__ | __Note__          |
+| -------------- | :---------: | :--------: | ----------------- |
+| /v-barcodes/   |   **GET**   |   Active   |                   |
+| /tbl-barcodes/ |   **GET**   |   Active   | **@sha required** |
 
 **Properties**
 | __Name__    | __Type__ | __Description__ | __Example__ |
@@ -36,7 +36,7 @@
 
 | __Route__     | __Methods__ | __Status__ | __Note__            |
 | ------------- | :---------: | :--------: | ------------------- |
-| /v-rp-accs/   |   **GET**   |   Active   | **@token required** |
+| /v-rp-accs/   |   **GET**   |   Active   | **@token_required** |
 | /tbl-rp-accs/ |   **GET**   |   Active   | **@sha required**   |
 
 **Properties**
@@ -54,6 +54,8 @@
 | withImage     |         **int**          |
 
 
+
+
 ---
 
 > Check rp_acc by provided json of data if it exists
@@ -68,15 +70,41 @@
 
 > Post user info or udpate if exists
 
-| __Route__         | __Methods__ | __Status__ | __Note__            |
-| ----------------- | :---------: | :--------: | ------------------- |
-| /v-rp-accs/       |  **POST**   |   Active   | **@token required** |
-| /api/tbl-dk-accs/ |  **POST**   |   Active   | **@sha required**   |
+| __Route__                | __Methods__ | __Status__ | __Note__            |
+| ------------------------ | :---------: | :--------: | ------------------- |
+| /v-rp-accs/              |  **POST**   |   Active   | **@token_required** |
+| /api/tbl-dk-accs/        |  **POST**   |   Active   | **@sha required**   |
+| /v-rp-accs/profile-edit/ |  **POST**   |   Active   | **@token_required** |
 
 
 [Example](./examples/rp_acc_v1.md)
 
 ---
+
+> Update avatar
+
+
+| __Route__       | __Methods__ | __Status__ | __Note__            |
+| --------------- | :---------: | :--------: | ------------------- |
+| /update-avatar/ |  **POST**   |   Active   | **@token_required** |
+
+**Properties**
+| __Name__     | __Type__ | __Description__                                | __Example__ |
+| ------------ | :------: | ---------------------------------------------- | ----------- |
+| removeOthers | **int**  | Deletes old photographs from db and filesystem |
+
+request.body = {
+	"image": <image_file>
+}
+
+**response**
+```py
+{'ImgId': 76, 'ImgGuid': UUID('4c105a6a-4a94-4882-b82e-5b97806688c0'), 'EmpId': None, 'BrandId': None, 'CId': None, 'UId': None, 'RpAccId': 44, 'ResId': None, 'ResCatId': None, 'ProdId': None, 'FileName': '2b829e61a1269312f767d8e235e4.JPG', 'FilePath': '/ls/api/get-image/image/M/2b829e61a1269312f767d8e235e4.JPG', 'FilePathS': '/ls/api/get-image/image/S/2b829e61a1269312f767d8e235e4.JPG', 'FilePathM': '/ls/api/get-image/image/M/2b829e61a1269312f767d8e235e4.JPG', 'FilePathR': '/ls/api/get-image/image/R/2b829e61a1269312f767d8e235e4.JPG', 'FileHash': None, 'MinDarkFileName': '', 'MinDarkFilePath': '', 'MaxDarkFileName': '', 'MaxDarkFilePath': '', 'MinLightFileName': '', 'MinLightFilePath': '', 'MaxLightFileName': '', 'MaxLightFilePath': '', 'CreatedDate': '2022-04-19 18:19:02', 'ModifiedDate': '2022-04-19 18:19:02', 'SyncDateTime': '2022-04-19 18:19:02', 'CreatedUId': None, 'ModifiedUId': None, 'GCRecord': None}
+
+```
+
+
+----
 
 
 ## User api
@@ -85,7 +113,7 @@
 
 | __Route__          | __Methods__ | __Status__ | __Note__            |
 | ------------------ | :---------: | :--------: | ------------------- |
-| /api/v-users/      |   **GET**   |   Active   | **@token required** |
+| /api/v-users/      |   **GET**   |   Active   | **@token_required** |
 | /api/tbl-dk-users/ |   **GET**   |   Active   | **@sha required**   |
 
 **Properties**
@@ -117,10 +145,10 @@
 
 > Get user info (by token and sha keys)
 
-| __Route__            | __Methods__ | __Status__ | __Note__            |
-| -------------------- | :---------: | :--------: | ------------------- |
-| /api/v-devices/      |   **GET**   |   Active   | **@token required** |
-| /api/tbl-dk-devices/ |   **GET**   |   Active   | **@sha required**   |
+| __Route__         | __Methods__ | __Status__ | __Note__            |
+| ----------------- | :---------: | :--------: | ------------------- |
+| /api/v-devices/   |   **GET**   |   Active   | **@token_required** |
+| /api/tbl-devices/ |   **GET**   |   Active   | **@admin_required** |
 
 **Properties**
 | __Name__      |         __Type__         | __Description__ | __Example__ |
@@ -133,14 +161,15 @@
 | name          |         **str**          |
 | synchDateTime | **str repr of datetime** |
 
+[Example](./examples/device_v1.md)
 
 ---
 
 > Post device info or udpate if exists
 
-| __Route__            | __Methods__ | __Status__ | __Note__          |
-| -------------------- | :---------: | :--------: | ----------------- |
-| /api/tbl-dk-devices/ |  **POST**   |   Active   | **@sha required** |
+| __Route__         | __Methods__ | __Status__ | __Note__          |
+| ----------------- | :---------: | :--------: | ----------------- |
+| /api/tbl-devices/ |  **POST**   |   Active   | **@sha required** |
 
 [Example](./examples/device_v1.md)
 
@@ -153,7 +182,7 @@
 
 | __Route__                 | __Methods__ | __Status__ | __Note__            |
 | ------------------------- | :---------: | :--------: | ------------------- |
-| /checkout-sale-order-inv/ |  **POST**   |   Active   | **@token required** |
+| /checkout-sale-order-inv/ |  **POST**   |   Active   | **@token_required** |
 
 [Example](./examples/checkout_order_inv_api.md)
 
@@ -189,7 +218,7 @@
 
 | __Route__          | __Methods__ | __Status__ | __Note__            |
 | ------------------ | :---------: | :--------: | ------------------- |
-| /v-order-invoices/ |   **GET**   |   Active   | **@token required** |
+| /v-order-invoices/ |   **GET**   |   Active   | **@token_required** |
 
 **Properties**
 | __Name__  |         __Type__         | __Description__ | __Example__ |
@@ -205,7 +234,7 @@
 
 | __Route__                          | __Methods__ | __Status__ | __Note__            |
 | ---------------------------------- | :---------: | :--------: | ------------------- |
-| /v-order-invoices/<Order_RegNo>/   |   **GET**   |   Active   | **@token required** |
+| /v-order-invoices/<Order_RegNo>/   |   **GET**   |   Active   | **@token_required** |
 | /tbl-order-invoices/<Order_RegNo>/ |   **GET**   |   Active   | **@sha required**   |
 
 **Properties**
@@ -220,7 +249,7 @@
 
 | __Route__                        | __Methods__ | __Status__ | __Note__            |
 | -------------------------------- | :---------: | :--------: | ------------------- |
-| /order-payment-register-request/ |  **POST**   |   Active   | **@token required** |
+| /order-payment-register-request/ |  **POST**   |   Active   | **@token_required** |
 
 [Example](./examples/order_payment_register_request.md)
 
@@ -231,7 +260,7 @@
 
 | __Route__              | __Methods__ | __Status__ | __Note__            |
 | ---------------------- | :---------: | :--------: | ------------------- |
-| /order-inv-validation/ |  **POST**   |   Active   | **@token required** |
+| /order-inv-validation/ |  **POST**   |   Active   | **@token_required** |
 
 [Example](./examples/order_inv_validation.md)
 
@@ -241,7 +270,7 @@
 
 | __Route__                   | __Methods__ | __Status__  | __Note__            |
 | --------------------------- | :---------: | :---------: | ------------------- |
-| /v-order-invoices/paginate/ |   **GET**   | Development | **@token required** |
+| /v-order-invoices/paginate/ |   **GET**   | Development | **@token_required** |
 
 
 
@@ -264,7 +293,7 @@
 
 | __Route__    | __Methods__ | __Status__ | __Note__            |
 | ------------ | :---------: | :--------: | ------------------- |
-| /gen-reg-no/ |  **POST**   |   Active   | **@token required** |
+| /gen-reg-no/ |  **POST**   |   Active   | **@token_required** |
 
 [Example](./examples/reg_no_api.md)
 
@@ -384,15 +413,15 @@ curl 127.0.0.1:5000/ls/api/v1/v-images/ --header 'images-to-exclude: [{"FileName
 
 ## Translation api
 
-| **Route**        | **Methods** | **Status** | **Note** |
-| ---------------- | :---------: | :--------: | -------- |
-| /v-translations/ |   **GET**   |   Active   |
+| **Route**        |   **Methods**    | **Status** | **Note** |
+| ---------------- | :--------------: | :--------: | -------- |
+| /v-translations/ | **GET** **POST** |   Active   |
 
 **Properties**
 | **Name**   | **Type** | **Description** | **Example**     |
 | ---------- | :------: | --------------- | --------------- |
 | id         | **int**  |
-| translGuid | **str**  |
+| uuid       | **str**  |
 | categoryId | **int**  |
 | colorId    | **int**  |
 | prodId     | **int**  |
@@ -403,6 +432,33 @@ curl 127.0.0.1:5000/ls/api/v1/v-images/ --header 'images-to-exclude: [{"FileName
 | language   | **str**  |                 | "tk_TM" "en_US" |
 
 [Example](./examples/translation_api.md)
+
+----
+
+
+| **Route**            |   **Methods**    | **Status** | **Note** |
+| -------------------- | :--------------: | :--------: | -------- |
+| /v-res-translations/ | **GET** **POST** |   Active   |
+
+**Properties**
+| **Name**     | **Type** | **Description** | **Example**     |
+| ------------ | :------: | --------------- | --------------- |
+| id           | **int**  |
+| uuid         | **str**  |
+| resId        | **int**  |
+| resName      | **str**  |
+| resGuid      | **str**  |
+| showResource | **int**  |
+| nameText     | **str**  |
+| descText     | **str**  |
+| langId       | **int**  |
+| language     | **str**  |                 | "tk_TM" "en_US" |
+
+[Example](./examples/translation_api.md)
+
+---
+
+
 
 ---
 
@@ -416,7 +472,7 @@ curl 127.0.0.1:5000/ls/api/v1/v-images/ --header 'images-to-exclude: [{"FileName
 | **Name** | **Type** | **Description** | **Example**     |
 | -------- | :------: | --------------- | --------------- |
 | id       | **int**  |
-| guid     | **str**  |
+| uuid     | **str**  |
 | name     | **str**  |                 | "tk_TM" "en_US" |
 | desc     | **str**  |
 
@@ -429,4 +485,196 @@ curl 127.0.0.1:5000/ls/api/v1/v-images/ --header 'images-to-exclude: [{"FileName
 | -------------------- | :---------: | :--------: | -------- |
 | /discount-resources/ |   **GET**   |   Active   |
 
+**Properties**
+| __Name__     | __Type__ | **Default** |
+| ------------ | :------: | :---------: |
+| limit        | **int**  |     15      |
+| showInactive | **int**  |      0      |
+
+
+## Ordered resources
+
+| **Route**           | **Methods** | **Status** | **Note**                                         |
+| ------------------- | :---------: | :--------: | ------------------------------------------------ |
+| /ordered-resources/ |   **GET**   |   Active   | shows what else people buy with current resource |
+
+**Properties**
+| __Name__ | __Type__ | **Default** |      **Note**      |
+| -------- | :------: | :---------: | :----------------: |
+| id       | **int**  |             | ResId of a product |
+| guid     | **str**  |             |      ResGuid       |
+| limit    | **int**  |     15      |
+
+[Example](./examples/resources_api.md)
+
+
+## Recommended resources
+
+| **Route**           | **Methods** | **Status** | **Note**                                 |
+| ------------------- | :---------: | :--------: | ---------------------------------------- |
+| /ordered-resources/ |   **GET**   |   Active   | **@token_required** shows recomendations |
+
+**Properties**
+| __Name__ | __Type__ | **Default** |
+| -------- | :------: | :---------: |
+| limit    | **int**  |     15      |
+
+[Example](./examples/resources_api.md)
+
+/recommended-resources/
+
+----
+
 <!-- !!!TODO: add filtering and currency showing if necessary -->
+
+
+----
+
+| __Route__        | __Methods__ | __Status__ | __Note__ |
+| ---------------- | :---------: | :--------: | -------- |
+| /res-collection/ |   **GET**   |   Active   |
+
+**Properties**
+| __Name__ | __Type__ |
+| -------- | :------: |
+| id       | **int**  |
+| division | **int**  |
+| company  | **int**  |
+| name     | **str**  |
+| uuid     | **str**  |
+
+[Example](./examples/res_collections_api.md)
+
+
+| __Route__    | __Methods__ | __Status__ | __Note__                                   |
+| ------------ | :---------: | :--------: | ------------------------------------------ |
+| /v-wishlist/ |   **GET**   |   Active   | **@token_required**                        |
+| /v-wishlist/ |  **POST**   |   Active   | **@token_required**, provide ResId in body |
+| /v-wishlist/ | **DELETE**  |   Active   | **@token_required**, provide ResId in body |
+
+**Properties**
+| __Name__ | __Type__ | __Description__                 | __Example__ |
+| -------- | :------: | ------------------------------- | ----------- |
+| page     | **int**  | returns next page of pagination |
+
+[Example](./examples/wishlist_api.md)
+
+
+---
+
+## Rating Api
+
+| __Route__   |     __Methods__      | __Status__ | __Note__            |
+| ----------- | :------------------: | :--------: | ------------------- |
+| /v-ratings/ | **POST**, **DELETE** |   Active   | **@token_required** |
+
+[Example](./examples/rating_api.md)
+
+
+----------------
+
+## Statuses API
+
+
+| __Route__      | __Methods__ | __Status__ | __Note__ |
+| -------------- | :---------: | :--------: | -------- |
+| /inv-statuses/ |   **GET**   |   Active   |
+**Properties**
+| __Name__ | __Type__ |
+| -------- | :------: |
+| id       | **int**  |
+| uuid     | **str**  |
+| name     | **str**  |
+| name_tk  | **str**  |
+| name_ru  | **str**  |
+| name_en  | **str**  |
+
+**request**
+
+<prefix>/inv-statuses/?id=2
+
+**response**
+
+```json
+{
+  "data": [
+    {
+      "CreatedDate": null,
+      "CreatedUId": 0,
+      "GCRecord": null,
+      "InvStatDesc_enUS": "Information received and being proceessed",
+      "InvStatDesc_ruRU": "Информация получена и находится обработке",
+      "InvStatDesc_tkTM": "Maglumat kabul edildi we degişli işler alnyp barylýar",
+      "InvStatGuid": null,
+      "InvStatId": 2,
+      "InvStatName_enUS": "Received",
+      "InvStatName_ruRU": "Принято",
+      "InvStatName_tkTM": "Kabul edildi",
+      "ModifiedDate": null,
+      "ModifiedUId": 0,
+      "SyncDateTime": null
+    }
+  ],
+  "message": "Invoice statuses",
+  "status": 1,
+  "total": 1
+}
+```
+
+
+-----
+
+
+| __Route__  | __Methods__ | __Status__ | __Note__ |
+| ---------- | :---------: | :--------: | -------- |
+| /currency/ |   **GET**   |   Active   |
+**Properties**
+| __Name__ | __Type__ |
+| -------- | :------: |
+| id       | **int**  |
+| uuid     | **str**  |
+| name     | **str**  |
+| name_tk  | **str**  |
+| name_ru  | **str**  |
+| name_en  | **str**  |
+
+**request**
+
+<prefix>/currency/?id=2
+
+**response**
+
+```json
+{
+  "data": [
+    {
+      "AddInf1": "",
+      "AddInf2": "",
+      "AddInf3": "",
+      "AddInf4": "",
+      "AddInf5": "",
+      "AddInf6": "",
+      "CreatedDate": null,
+      "CreatedUId": 0,
+      "CurrencyCode": "USD",
+      "CurrencyDesc_enUS": "",
+      "CurrencyDesc_ruRU": "",
+      "CurrencyDesc_tkTM": "",
+      "CurrencyGuid": "ba191a0e-fcec-4b83-a2c2-4ac24a4f786b",
+      "CurrencyId": 2,
+      "CurrencyName_enUS": "United states dollar",
+      "CurrencyName_ruRU": "Доллар США",
+      "CurrencyName_tkTM": "Amerikan dollary",
+      "CurrencyNumCode": 840,
+      "CurrencySymbol": "$",
+      "GCRecord": null,
+      "ModifiedDate": "2020-10-27 17:34:42",
+      "ModifiedUId": 6,
+      "SyncDateTime": null
+    }
+  ],
+  "message": "Currencies",
+  "status": 1,
+  "total": 1
+}
+```

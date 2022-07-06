@@ -41,7 +41,7 @@ def logo_setup():
 		if logoForm.logoImage.data:
 			imageFile = save_icon(imageForm=logoForm.logoImage.data,module=os.path.join("uploads","commerce","Company"),id=company.CId)
 
-			lastImage = Image.query.order_by(Image.ImgId.desc()).first()
+			lastImage = Image.query.with_entities(Image.ImgId).order_by(Image.ImgId.desc()).first()
 			ImgId = lastImage.ImgId+1
 			image = Image(
 				ImgId = ImgId,
@@ -71,13 +71,14 @@ def remove_images():
 		url = url_for('commerce_admin.dashboard')
 
 		if imgType == 'image' or imgType == 'icon':
-			image = Image.query.get(ImgId)
+			url = url_for('commerce_admin.logo_setup')
+			if ResId:
+				url = url_for('commerce_admin.resource_edit',ResId=ResId)
 
+			image = Image.query.get(ImgId)
 			try:
-				file_type = imgType
-				file_name = image.FileName
-				remove_image(file_type,file_name)
 				db.session.delete(image)
+				remove_image(imgType,image.FileName)
 
 			except Exception as ex:
 				print(f"{datetime.now()} | Admin image removal exception: {ex}")
@@ -86,17 +87,10 @@ def remove_images():
 			db.session.commit()
 			cache.clear()
 
-			url = url_for('commerce_admin.logo_setup')
-			if ResId:
-				url = url_for('commerce_admin.resource_edit',ResId=ResId)
-
 		elif imgType == 'slider':
 			sl_image = Sl_image.query.get(ImgId)
-
 			try:
-				file_type = imgType
-				file_name = sl_image.SlImgMainImgFileName
-				remove_image(file_type,file_name)
+				remove_image(imgType,sl_image.SlImgMainImgFileName)
 				db.session.delete(sl_image)
 
 			except Exception as ex:
@@ -110,6 +104,7 @@ def remove_images():
 
 		flash("Image successfully deleted!",'success')
 	except Exception as ex:
+		print(f"remove image error ", ex)
 		flash("Error, unable to execute this",'warning')
 
 	return redirect(url)
@@ -317,7 +312,7 @@ def resource_edit(ResId):
 				id = ResId,
 				apply_watermark = True)
 
-			lastImage = Image.query.order_by(Image.ImgId.desc()).first()
+			lastImage = Image.query.with_entities(Image.ImgId).order_by(Image.ImgId.desc()).first()
 			ImgId = lastImage.ImgId + 1
 			image = Image(
 				ImgId = ImgId,

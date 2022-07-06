@@ -15,6 +15,7 @@ class Inv_type(BaseModel, db.Model):
 	InvTypeName_enUS = db.Column("InvTypeName_enUS",db.String(100))
 	InvTypeDesc_enUS = db.Column("InvTypeDesc_enUS",db.String(500))
 	Invoice = db.relationship("Invoice",backref='inv_type',lazy=True)
+	Wh_invoice = db.relationship("Wh_invoice",backref='inv_type',lazy=True)
 
 	def to_json_api(self):
 		data = {

@@ -79,7 +79,7 @@ def addRpAccDict(req):
 	NatId = req.get('NatId')
 	RpAccStatusId = req.get('RpAccStatusId')
 	ReprId = req.get('ReprId')
-	RpAccTypeId = req.get('RpAccTypeId')
+	RpAccTypeId = req.get('RpAccTypeId') or None
 	WpId = req.get('WpId')
 	RpAccRegNo = req.get('RpAccRegNo')
 	RpAccName = req.get('RpAccName').strip() if req.get('RpAccName') else None
@@ -196,7 +196,6 @@ def addDeviceDict(req):
 	GCRecord = req.get('GCRecord')
 
 	json_data = {
-		# "DevId": DevId,
 		"DevGuid": DevGuid,
 		"DevUniqueId": DevUniqueId,
 		"RpAccId": RpAccId,

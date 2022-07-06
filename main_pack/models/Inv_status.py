@@ -16,6 +16,7 @@ class Inv_status(BaseModel, db.Model):
 	InvStatDesc_enUS = db.Column("InvStatDesc_enUS",db.String(500))
 	Order_inv = db.relationship("Order_inv",backref='inv_status',lazy=True)
 	Invoice = db.relationship("Invoice",backref='inv_status',lazy=True)
+	Wh_invoice = db.relationship("Wh_invoice",backref='inv_status',lazy=True)
 
 	def to_json_api(self):
 		data = {
@@ -33,3 +34,30 @@ class Inv_status(BaseModel, db.Model):
 			data[key] = value
 
 		return data
+	
+	def get_all(
+		id = None,
+		uuid = None,
+		name = None,
+		name_tk = None,
+		name_ru = None,
+		name_en = None,
+	):
+		filtering = {"GCRecord": None}
+		if id:
+			filtering["InvStatId"] = id,
+
+		db_query = Inv_status.query.filter_by(**filtering)
+		
+		if uuid:
+			db_query = db_query.filter(Inv_status.InvStatGuid.ilike(uuid))
+		if name:
+			db_query = db_query.filter(Inv_status.InvStatName_tkTM.ilike(name))
+		if name_tk:
+			db_query = db_query.filter(Inv_status.InvStatName_tkTM.ilike(name_tk))
+		if name_ru:
+			db_query = db_query.filter(Inv_status.InvStatName_ruRU.ilike(name_ru))
+		if name_en:
+			db_query = db_query.filter(Inv_status.InvStatName_enUS.ilike(name_en))
+		
+		return db_query.all()

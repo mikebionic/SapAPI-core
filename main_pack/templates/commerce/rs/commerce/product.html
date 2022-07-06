@@ -1,0 +1,248 @@
+{% extends "commerce/rs/commerce/layout.html" %}
+
+{% block head %}
+<meta name="description" content="{{ resource.ResName }} | {{ resource.ResDesc.replace('<b>','').replace('</b>','').replace('<br/>',', ') if resource.ResDesc }}">
+<meta property="og:description" content="{{ resource.ResName }} | {{ resource.ResDesc.replace('<b>','').replace('</b>','').replace('<br/>',', ') if resource.ResDesc }}" />
+<meta property="og:image" content="{{ request.host_url }}{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/rs/images/logo.png') }}" />
+<meta name="twitter:description" content="{{ resource.ResName }} | {{ resource.ResDesc.replace('<b>','').replace('</b>','').replace('<br/>',', ') if resource.ResDesc }}" />
+<meta name="twitter:image" content="{{ request.host_url }}{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/rs/images/logo.png') }}" />
+
+{% endblock %}
+
+{% block content %}
+<div class="section">
+	<div class="container" style="max-width: 100%; padding: 0">
+		<div class="row">
+			<div class="col-12">
+				<div class="row">
+					<div class="inside_book_detail">
+						
+						<div class="rd_b_detail">
+							<div class="rd_b_detail_title">
+								<a href="{{ url_for('commerce.commerce') }}">
+									<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<path d="M15 18L9 12L15 6" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+									</svg>
+									Вернуться назад
+								</a>
+							</div>
+							<div class="content">
+								<div class="book_d_price">
+									<div class="bd_price">
+										<p>Стоимость</p>
+										<p class="first_price">645 TMT</p>
+									</div>
+									<div class="bd_price bd_border">
+										<p>Доставка (Ашхабад)</p>
+										<span>20 TMT</span>
+									</div>
+									<div class="bd_price">
+										<p>Доставка (Велаяты)</p>
+										<span>50 TMT</span>
+									</div>
+								</div>
+								<div class="cart_wishlst">
+									<a class="add-to-cart" ownerId="{{ resource.ResId }}">
+										<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M9 22C9.55228 22 10 21.5523 10 21C10 20.4477 9.55228 20 9 20C8.44772 20 8 20.4477 8 21C8 21.5523 8.44772 22 9 22Z" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+											<path d="M20 22C20.5523 22 21 21.5523 21 21C21 20.4477 20.5523 20 20 20C19.4477 20 19 20.4477 19 21C19 21.5523 19.4477 22 20 22Z" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+											<path d="M1 1H5L7.68 14.39C7.77144 14.8504 8.02191 15.264 8.38755 15.5583C8.75318 15.8526 9.2107 16.009 9.68 16H19.4C19.8693 16.009 20.3268 15.8526 20.6925 15.5583C21.0581 15.264 21.3086 14.8504 21.4 14.39L23 6H6" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+											<path d="M9 22C9.55228 22 10 21.5523 10 21C10 20.4477 9.55228 20 9 20C8.44772 20 8 20.4477 8 21C8 21.5523 8.44772 22 9 22Z" stroke="#5A5C61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+											<path d="M20 22C20.5523 22 21 21.5523 21 21C21 20.4477 20.5523 20 20 20C19.4477 20 19 20.4477 19 21C19 21.5523 19.4477 22 20 22Z" stroke="#5A5C61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+											<path d="M1 1H5L7.68 14.39C7.77144 14.8504 8.02191 15.264 8.38755 15.5583C8.75318 15.8526 9.2107 16.009 9.68 16H19.4C19.8693 16.009 20.3268 15.8526 20.6925 15.5583C21.0581 15.264 21.3086 14.8504 21.4 14.39L23 6H6" stroke="#5A5C61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+										</svg>
+										<span>{{_('Add to cart')}}</span>
+									</a>
+									<a class="wishlist">
+										<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+											<path d="M20.8401 5.60987C20.3294 5.09888 19.7229 4.69352 19.0555 4.41696C18.388 4.14039 17.6726 3.99805 16.9501 3.99805C16.2276 3.99805 15.5122 4.14039 14.8448 4.41696C14.1773 4.69352 13.5709 5.09888 13.0601 5.60987L12.0001 6.66987L10.9401 5.60987C9.90843 4.57818 8.50915 3.99858 7.05012 3.99858C5.59109 3.99858 4.19181 4.57818 3.16012 5.60987C2.12843 6.64156 1.54883 8.04084 1.54883 9.49987C1.54883 10.9589 2.12843 12.3582 3.16012 13.3899L4.22012 14.4499L12.0001 22.2299L19.7801 14.4499L20.8401 13.3899C21.3511 12.8791 21.7565 12.2727 22.033 11.6052C22.3096 10.9378 22.4519 10.2224 22.4519 9.49987C22.4519 8.77738 22.3096 8.06198 22.033 7.39452C21.7565 6.72706 21.3511 6.12063 20.8401 5.60987V5.60987Z" stroke="#E95086" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+										</svg>
+									</a>
+								</div>
+							</div>
+						</div>
+						<div class="right_content">
+							
+						<div class="rd_b_detail_photo_name">
+							<div class="rd_b_detail_img">
+								<img loading="lazy"
+								src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/rs/img/icons/no_photo.svg') }}"
+								data-src-m="{{resource.FilePathM}}"
+								alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }} {{company.CName}}">
+								<div class="rd_book_detail_text">
+									<a href="#">
+										{{ resource.ResCatName }}
+									</a>
+									<h2>{{ resource.ResName }}</h2>
+								</div>
+							</div>
+						</div>
+						<div class="mobile_right_price">
+							<div class="book_d_price">
+								<div class="bd_price"  ownerId="{{ resource.ResId }}" value="{{resource.ResPriceValue}}">
+									<p>Стоимость</p>
+									<p class="first_price">645 TMT</p>
+								</div>
+								<div class="bd_price bd_border">
+									<p>Доставка (Ашхабад)</p>
+									<span>20 TMT</span>
+								</div>
+								<div class="bd_price">
+									<p>Доставка (Велаяты)</p>
+									<span>50 TMT</span>
+								</div>
+							</div>
+						</div>
+						<div class="rd_b_detail_desc">
+							<div class="content">
+								<div class="tabs">
+
+									<input type="radio" id="tab1" name="tab-control" checked>
+									<input type="radio" id="tab2" name="tab-control">
+									<input type="radio" id="tab3" name="tab-control">  
+									<input type="radio" id="tab4" name="tab-control">
+									<ul>
+										<li title="description"><label for="tab1" role="button"><br><span>{{_('Description')}}</span></label></li>
+										<li title="review"><label for="tab2" role="button"><br><span>{{_('Customers reviews')}}</span></label></li>
+										<li title="Характеристика"><label for="tab3" role="button"><br><span>Характеристика</span></label></li>   
+									</ul>
+									
+									<div class="slider"><div class="indicator"></div></div>
+									<div class="content">
+										<section class="description_tabs">
+											<div class="first_desc_text">
+												<p>{{ resource.ResFullDesc if resource.ResFullDesc else _('No description provided for this product') }}</p>
+											</div>
+										</section>
+										<section>
+											<div class="row">
+												<div class="grid-item col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 ">
+													<div class="comment_card">
+														<div class="inside_comment_card">
+															<div class="top_comment_container">
+																<span>Annette Black</span>
+																<p>{{_('Customers reviews')}}</p>
+															</div>
+															<div class="bottom_comment_rating">
+																{% for rating in resource.Rating %}
+																	{% set rating_count = resource.Rating.index(rating) %}
+																	<div class="comment_star">
+																		<svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+																			<path d="M10 0L12.2451 6.90983H19.5106L13.6327 11.1803L15.8779 18.0902L10 13.8197L4.12215 18.0902L6.36729 11.1803L0.489435 6.90983H7.75486L10 0Z" fill="#DD3872"/>
+																		</svg>
+																		<svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+																			<path d="M10 0L12.2451 6.90983H19.5106L13.6327 11.1803L15.8779 18.0902L10 13.8197L4.12215 18.0902L6.36729 11.1803L0.489435 6.90983H7.75486L10 0Z" fill="#DD3872"/>
+																		</svg>
+																		<svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+																			<path d="M10 0L12.2451 6.90983H19.5106L13.6327 11.1803L15.8779 18.0902L10 13.8197L4.12215 18.0902L6.36729 11.1803L0.489435 6.90983H7.75486L10 0Z" fill="#DD3872"/>
+																		</svg>
+																		<svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+																			<path d="M10 0L12.2451 6.90983H19.5106L13.6327 11.1803L15.8779 18.0902L10 13.8197L4.12215 18.0902L6.36729 11.1803L0.489435 6.90983H7.75486L10 0Z" fill="#DD3872"/>
+																		</svg>
+																		<svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+																			<path d="M10 0L12.2451 6.90983H19.5106L13.6327 11.1803L15.8779 18.0902L10 13.8197L4.12215 18.0902L6.36729 11.1803L0.489435 6.90983H7.75486L10 0Z" fill="#DD3872"/>
+																		</svg>
+																	</div>
+																{% endfor %}
+																	<p>18 Oct, 2022</p>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="comment">
+													<div class="comment_icon_text">
+														<div class="comment_icon">
+															<input type="text" placeholder="Написать отзыв">
+															<div class="comment_star_inside">
+																<svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+																	<path d="M10 0L12.2451 6.90983H19.5106L13.6327 11.1803L15.8779 18.0902L10 13.8197L4.12215 18.0902L6.36729 11.1803L0.489435 6.90983H7.75486L10 0Z" fill="#DD3872"/>
+																</svg>
+																<svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+																	<path d="M10 0L12.2451 6.90983H19.5106L13.6327 11.1803L15.8779 18.0902L10 13.8197L4.12215 18.0902L6.36729 11.1803L0.489435 6.90983H7.75486L10 0Z" fill="#DD3872"/>
+																</svg>
+																<svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+																	<path d="M10 0L12.2451 6.90983H19.5106L13.6327 11.1803L15.8779 18.0902L10 13.8197L4.12215 18.0902L6.36729 11.1803L0.489435 6.90983H7.75486L10 0Z" fill="#DD3872"/>
+																</svg>
+																<svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+																	<path d="M10 0L12.2451 6.90983H19.5106L13.6327 11.1803L15.8779 18.0902L10 13.8197L4.12215 18.0902L6.36729 11.1803L0.489435 6.90983H7.75486L10 0Z" fill="#DD3872"/>
+																</svg>
+																<svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+																	<path d="M10 0L12.2451 6.90983H19.5106L13.6327 11.1803L15.8779 18.0902L10 13.8197L4.12215 18.0902L6.36729 11.1803L0.489435 6.90983H7.75486L10 0Z" fill="#DD3872"/>
+																</svg>
+															</div>
+															<div class="comment_btn">
+																<a href="#" class="comment_btn_inside">Опубликовать</a>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</section>
+										<section>
+											<div class="info-block">
+												<span class="label-text">Автор:</span>
+												<span class="label-value author">Сьюзи Ходж</span>
+
+												<span class="label-text">ISBN:</span>
+												<span class="label-value">978-5-00195-102-5</span>
+
+												<span class="label-text">Язык:</span>
+												<span class="label-value">Русский</span>
+
+												<span class="label-text">Вес:</span>
+												<span class="label-value">323 г</span>
+
+												<span class="label-text">Ширина:</span>
+												<span class="label-value">125 мм</span>
+
+												<span class="label-text">Обложка:</span>
+												<span class="label-value">Мягкая</span>
+											</div>
+											<div class="info-block">
+												<span class="label-text">Издательство::</span>
+												<span class="label-value">Манн, Иванов и Фербер</span>
+
+												<span class="label-text">Формат:</span>
+												<span class="label-value">84 x 108 / 32</span>
+
+												<span class="label-text">Количество страний:</span>
+												<span class="label-value">320</span>
+
+												<span class="label-text">Длина:</span>
+												<span class="label-value">23 мм</span>
+
+												<span class="label-text">Высота:</span>
+												<span class="label-value">185 мм</span>
+
+												<span class="label-text">Страна-производитель:</span>
+												<span class="label-value">Россия</span>
+											</div>
+										</section>
+									</div>
+								</div>
+							</div>
+						</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+	var resource_ResRegNo = "{{resource.ResRegNo}}"
+	var resource_ResGuid = "{{resource.ResGuid}}"
+	var resource_ResId = "{{resource.ResId}}"
+	var view_handling = "{{handle_product_view}}"
+	var view_handler_api_url = "{{view_handler_api_url}}"
+</script>
+<script>
+	update_viewed_list(resource_ResId); 
+	if (view_handling){
+		handle_product_view();
+	}
+</script>
+{% endblock %}

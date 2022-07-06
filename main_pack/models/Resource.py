@@ -21,8 +21,8 @@ class Resource(AddInf, BaseModel, db.Model):
 	ResLastVendorId = db.Column("ResLastVendorId",db.Integer,db.ForeignKey("tbl_dk_rp_acc.RpAccId"))
 	ResRegNo = db.Column("ResRegNo",db.String(50),nullable=False,unique=True)
 	ResName = db.Column("ResName",db.String(255),nullable=False)
-	ResDesc = db.Column("ResDesc",db.String(1000))
-	ResFullDesc = db.Column("ResFullDesc",db.String(50000))
+	ResDesc = db.Column("ResDesc",db.String)
+	ResFullDesc = db.Column("ResFullDesc",db.String)
 	IsMain = db.Column("IsMain",db.Integer)
 	ResVisibleIndex = db.Column("ResVisibleIndex",db.Integer)
 	ResViewCnt = db.Column("ResViewCnt",db.Integer)
@@ -41,7 +41,8 @@ class Resource(AddInf, BaseModel, db.Model):
 	Res_translation = db.relationship("Res_translation",backref='resource',lazy=True)
 	Res_unit = db.relationship("Res_unit",backref='resource',lazy=True)
 	Inv_line = db.relationship("Inv_line",backref='resource',lazy=True)
-	Inv_line_det = db.relationship("Inv_line_det",backref='resource',lazy=True)	
+	Inv_line_det = db.relationship("Inv_line_det",backref='resource',lazy=True)
+	Wh_inv_line_det = db.relationship("Wh_inv_line_det",backref='resource',lazy=True)
 	Order_inv_line = db.relationship("Order_inv_line",backref='resource',lazy=True)
 	Res_price = db.relationship("Res_price",backref='resource',lazy=True)
 	Res_total = db.relationship("Res_total",backref='resource',lazy=True)
@@ -57,6 +58,8 @@ class Resource(AddInf, BaseModel, db.Model):
 	Production_line = db.relationship("Production_line",backref='resource',lazy=True)
 	Rating = db.relationship("Rating",backref='resource',lazy=True)
 	Tag = db.relationship("Tag",backref='resource',lazy=True)
+	Res_collection_line = db.relationship("Res_collection_line",backref='resource',lazy=True)
+	Wh_inv_line = db.relationship("Wh_inv_line",backref='resource',lazy=True)
 
 	def to_json_api(self):
 		data = {

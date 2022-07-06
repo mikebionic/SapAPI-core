@@ -15,6 +15,7 @@ class Inv_line_det_type(BaseModel, db.Model):
 	InvLineDetTypeName_enUS = db.Column("InvLineDetTypeName_enUS",db.String(100))
 	InvLineDetTypeDesc_enUS = db.Column("InvLineDetTypeDesc_enUS",db.String(500))
 	Inv_line_det = db.relationship("Inv_line_det",backref='inv_line_det_type',lazy=True)
+	Wh_inv_line_det = db.relationship("Wh_inv_line_det",backref='inv_line_det_type',lazy=True)
 
 	def to_json_api(self):
 		data = {

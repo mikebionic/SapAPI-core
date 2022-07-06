@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from flask import request, make_response, jsonify
 
-from main_pack.api.auth.utils import sha_required
+from main_pack.api.auth.utils import admin_required
 from main_pack.api.base.validators import request_is_json
 from main_pack.base.apiMethods import checkApiResponseStatus
 
@@ -10,9 +10,9 @@ from main_pack.api.v1.rp_acc_api.utils import save_rp_acc_synch_data
 
 
 @api.route("/tbl-rp-accs/", methods=['POST'])
-@sha_required
+@admin_required
 @request_is_json(request)
-def tbl_rp_acc_post():
+def tbl_rp_acc_post(user):
 
 	req = request.get_json()
 	data, fails = save_rp_acc_synch_data(req)

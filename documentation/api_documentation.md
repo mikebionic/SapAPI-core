@@ -26,6 +26,33 @@ Provide **username** and **password** in Authentication headers
 
 ---
 
+## Auth with google
+| __Route__         | __Methods__ | __Status__ | __Note__ |
+| ----------------- | :---------: | :--------: | -------- |
+| /api/google-auth/ |  **POST**   |  Updated   |
+
+**Properties**
+| __Name__ | __Type__ | __Description__ | __Example__                                     |
+| -------- | :------: | --------------- | ----------------------------------------------- |
+| type     | **str**  | user or rp_acc  | <prefix>/api/google-auth/?type=[user or rp_acc] |
+
+**payload**
+```json
+{
+	"email": "googleData.profileObj.email",
+	"username": "googleData.profileObj.givenName",
+	"fullName": "googleData.profileObj.name",
+	"firstName": "googleData.profileObj.givenName",
+	"lastName": "googleData.profileObj.familyName",
+	"imageUrl": "googleData.profileObj.imageUrl",
+	"googleId": "googleData.profileObj.googleId",
+	"tokenId": "googleData.tokenId",
+	"accessToken": "googleData.accessToken",
+}
+```
+
+---
+
 | __Route__           | __Methods__ | __Status__ | __Note__         |
 | ------------------- | :---------: | :--------: | ---------------- |
 | /api/login/users/   |   **GET**   |   Active   | **!!deprecated** |
@@ -224,6 +251,7 @@ Provide **username** and **password** in Authentication headers
 
 | __Route__               | __Methods__ | __Status__ | __Note__ |
 | ----------------------- | :---------: | :--------: | -------- |
+| /api/v-categories/      |   **GET**   |   Active   |
 | /api/tbl-dk-categories/ |   **GET**   |   Active   |
 
 **Properties**
@@ -232,6 +260,8 @@ Provide **username** and **password** in Authentication headers
 | DivId           | **int**  |
 | notDivId        | **int**  |
 | avoidQtyCheckup | **int**  |
+
+
 
 
 ---
@@ -286,6 +316,11 @@ Provide **username** and **password** in Authentication headers
 | notDivId        | **int**  |
 | avoidQtyCheckup | **int**  |
 | showMain        | **int**  | shows featured only |
+| limit_by        | **int**  |
+| showImage       | **int**  | defult: 1           |
+| showLastVendor  | **int**  | default: 0          |
+
+
 
 
 ---
@@ -293,6 +328,12 @@ Provide **username** and **password** in Authentication headers
 | __Route__             | __Methods__ | __Status__ | __Note__         |
 | --------------------- | :---------: | :--------: | ---------------- |
 | /api/v-resources/:id/ |   **GET**   |   Active   | **!!deprecated** |
+
+**Properties**
+| __Name__    | __Type__ | __Description__                | __Example__ |
+| ----------- | :------: | ------------------------------ | ----------- |
+| showRelated | **int**  | shows "Related_resources" list |
+| showRatings | **int**  | shows "Rating" list            |
 
 
 ---
@@ -329,17 +370,21 @@ Provide **username** and **password** in Authentication headers
 | /api/resources/ |   **GET**   |   Active   |
 
 **Properties**
-| __Name__ | __Type__ | __Description__     | __Example__ |
-| -------- | :------: | ------------------- | ----------- |
-| DivId    | **int**  |
-| notDivId | **int**  |
-| page     | **int**  |
-| per_page | **int**  |
-| sort     | **str**  |
-| category | **int**  |
-| brand    | **int**  |
-| search   | **str**  |
-| showMain | **int**  | shows featured only |
+| __Name__      | __Type__ | __Description__     | __Example__ |
+| ------------- | :------: | ------------------- | ----------- |
+| page          | **int**  |
+| sort          | **str**  |
+| per_page      | **int**  |
+| category      | **int**  |
+| brand         | **int**  |
+| from_price    | **int**  |
+| to_price      | **int**  |
+| DivId         | **int**  |
+| notDivId      | **int**  |
+| showMain      | **int**  | shows featured only |
+| limit         | **int**  |
+| search        | **str**  |
+| currency_code | **str**  |
 
 ---
 
@@ -457,12 +502,30 @@ Provide **username** and **password** in Authentication headers
 
 ---
 
+| __Route__                  |   __Methods__    | __Status__ | __Note__            |
+| -------------------------- | :--------------: | :--------: | ------------------- |
+| /api/tbl-dk-order-invoices | **GET** **POST** |   Active   | **@admin_required** |
+
+**Properties**
+| __Name__      | __Type__ | __Description__       | __Example__ |
+| ------------- | :------: | --------------------- | ----------- |
+| DivId         | **int**  |
+| notDivId      | **int**  |
+| startDate     | **int**  |
+| endDate       | **int**  |
+| userId        | **int**  |
+| rpAccId       | **int**  |
+| currency_code | **int**  | default main currency |
+| userGuid      | **int**  |
+| rpAccGuid     | **int**  |
+| statusId      | **int**  | default 1             |
+
 
 
 ## Order Invoice API
 > GET POST
 
-**@sha_required**
+**@admin_required**
 + /api/tbl-dk-order-invoices/?startDate=<datetime>&endDate=<datetime>&DivId=<id>&notDivId=<id>
 + /api/tbl-dk-order-invoices/<OInvRegNo>/
 + /api/tbl-dk-order-inv-lines/?DivId=<id>&notDivId=<id>
@@ -472,7 +535,7 @@ Provide **username** and **password** in Authentication headers
 
 ## Filtering order invoices and invoices by datetime
 
-**@sha_required** of **Synchronizer**
+**@admin_required** of **Synchronizer**
 
 + /api/tbl-dk-order-invoices/?startDate=<datetime>&endDate=<datetime>
 + /api/tbl-dk-invoices/?startDate=<datetime>&endDate=<datetime>

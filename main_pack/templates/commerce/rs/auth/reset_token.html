@@ -1,0 +1,55 @@
+{% extends "commerce/rd/commerce/layout.html" %}
+
+{% block styles %}
+	<meta name="robots" content="noindex" />
+{% endblock %}
+
+{% block content %}
+<div class="section">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="row">
+					<div class="col-lg-6 col-sm-12">
+						<div class="rd_registration">
+							<img src="{{ url_for('static', filename='commerce/rs/images/sign_img.png') }}" alt="">
+						</div>
+					</div>
+					<div class="col-lg-6 col-sm-12">
+						<div class="rd_registration regidtration">
+							<div class="inside_registration">
+								<h2>{{_('Reset password')}}</h2>
+								<form action="" method="post" id="email-login-form">
+									<div class="txt_field">
+										{{ form.csrf_token() }}
+										<label>{{_('Password')}}</label>
+										<br>
+										{{ form.password(placeholder=_('Password')) }}
+										<span></span>
+									</div>
+									<div class="txt_field">
+										{{ form.csrf_token() }}
+										<label>{{_('Confirm password')}}</label>
+										<br>
+										{{ form.confirm_password(placeholder=_('Confirm password')) }}
+										<span></span>
+										{% if form.confirm_password.errors %}
+											<p>
+												{% for error in form.confirm_password.errors %}
+													<span style="color: red">{{ error }}</span>
+												{% endfor %}
+											</p>
+										{% endif %}
+									</div>
+									<input type="submit" value="{{_('Reset password')}}">
+								</form>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,237 @@
+
+{% extends "commerce/rs/commerce/layout.html" %}
+
+
+{% block head %}
+<meta name="description"
+	content="{% for sort in sort_types %}{{ sort.sort_title if sort.status == 1 }}{% endfor %} {{_('Products')}}: {% for resource in data %} {{ resource.ResName }}, {% endfor %}">
+<meta property="og:description"
+	content="{% for sort in sort_types %}{{ sort.sort_title if sort.status == 1 }}{% endfor %} {{_('Products')}}: {% for resource in data %} {{ resource.ResName }}, {% endfor %}" />
+<meta property="og:image"
+	content="{{ request.host_url }}{{ url_for('static', filename='commerce/rs/images/logo.png') }}" />
+<meta name="twitter:description"
+	content="{% for sort in sort_types %}{{ sort.sort_title if sort.status == 1 }}{% endfor %} {{_('Products')}}: {% for resource in data %} {{ resource.ResName }}, {% endfor %}" />
+<meta name="twitter:image"
+	content="{{ request.host_url }}{{ url_for('static', filename='commerce/rs/images/logo.png') }}" />
+{% endblock %}
+{% block content %}
+
+<div class="workspace">
+	<section class="workspace-data open-sidebar">
+		<div class="workspace-sidebar ">
+			<div class="open_filter">
+				<div class="sidebar_text header-sidebar">
+					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M15 18L9 12L15 6" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+					</svg>
+					<a>Скрыть фильтр</a>
+				</div>
+			</div>
+			<div class="shop_page_top_navbar">
+				<ul class="shop_page_top_navbar_inside">
+					<li><a href="#">Все</a></li>
+					<li><a href="#">Книги</a></li>
+					<li><a href="#">Игры</a></li>
+					<li><a href="#">Мерч</a></li>
+					<li><a href="#">Другие</a></li>
+				</ul>
+				<div class="sec-center"> 	
+					<input class="dropdown" type="checkbox" id="dropdown" name="dropdown"/>
+					<label class="for-dropdown" for="dropdown">
+						Dropdown Menu 
+						<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M1.33333 2.32353C0.899635 2.32353 0.5 1.94263 0.5 1.41176C0.5 0.880897 0.899635 0.5 1.33333 0.5C1.76703 0.5 2.16667 0.880897 2.16667 1.41176C2.16667 1.94263 1.76703 2.32353 1.33333 2.32353ZM5.33333 0.970588H15.1111C15.2994 0.970588 15.5 1.1408 15.5 1.41176C15.5 1.68273 15.2994 1.85294 15.1111 1.85294H5.33333C5.1451 1.85294 4.94444 1.68273 4.94444 1.41176C4.94444 1.1408 5.1451 0.970588 5.33333 0.970588ZM5.33333 7.55882H15.1111C15.2994 7.55882 15.5 7.72902 15.5 8C15.5 8.27098 15.2994 8.44118 15.1111 8.44118H5.33333C5.1451 8.44118 4.94444 8.27097 4.94444 8C4.94444 7.72903 5.1451 7.55882 5.33333 7.55882ZM5.33333 14.1471H15.1111C15.2994 14.1471 15.5 14.3173 15.5 14.5882C15.5 14.8592 15.2994 15.0294 15.1111 15.0294H5.33333C5.1451 15.0294 4.94444 14.8592 4.94444 14.5882C4.94444 14.3173 5.1451 14.1471 5.33333 14.1471ZM1.33333 8.91177C0.899642 8.91177 0.5 8.53085 0.5 8C0.5 7.46915 0.899642 7.08824 1.33333 7.08824C1.76703 7.08824 2.16667 7.46915 2.16667 8C2.16667 8.53085 1.76702 8.91177 1.33333 8.91177ZM1.33333 15.5C0.899642 15.5 0.5 15.1191 0.5 14.5882C0.5 14.0574 0.899642 13.6765 1.33333 13.6765C1.76703 13.6765 2.16667 14.0574 2.16667 14.5882C2.16667 15.1191 1.76702 15.5 1.33333 15.5Z" fill="#5A5C61" stroke="#1344A0"/>
+						</svg>
+					</label>
+					<div class="section-dropdown"> 
+						<a href="#">По умолчанию</a>
+						<a href="#">По новизне</a>
+						<a href="#">По популярности</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+		<div class="mini-sidebar-wrap open">
+			<div class="mini_sidebar">
+				<div class="workspace_sidebar_filter_inside">
+					<div class="workspace-sidebar-filter">
+						<span class="workspace_sidebar_title">Поиск по</span>
+						<ul>
+							<br>
+							<a href="#" class="filter_button">Названию товара</a>
+							<br>
+							<br>
+							<a href="#" class="filter_button">Имени автора</a>
+							<br>
+							<br>
+							<a href="#" class="filter_button">Названию бренда</a>
+							<br>
+							<br>
+						</ul>
+					</div>
+					<div class="workspace-sidebar-filter">
+						<span class="workspace_sidebar_title">Категория</span>
+						<br>
+						
+						<div class="dropdown-chose-top">
+							<a href="#" class="dropdown_choose_button_inside">
+								Выбрать
+								<svg width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M1 1L7 7L13 1" stroke="#9FA2AA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+								</svg>
+							</a>
+						</div>
+						
+					</div>
+					<div class="workspace-sidebar-filter">
+						<span class="workspace_sidebar_title">Под категория</span>
+						<br>
+						
+						<div class="dropdown-chose-top">
+							<a href="#" class="dropdown_choose_button_inside">
+								Выбрать
+								<svg width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M1 1L7 7L13 1" stroke="#9FA2AA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+								</svg>
+							</a>
+						</div>
+						
+					</div>
+					<div class="workspace-sidebar-filter">
+						<span class="workspace_sidebar_title">Под категория</span>
+						<br>
+						
+						<div class="dropdown-chose-top">
+							<a href="#" class="dropdown_choose_button_inside">
+								<input type="text" placeholder="Поиск">
+								<div class="search_icon_text">
+									<div class="search_icon">
+										<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M11.0002 19C15.4185 19 19.0002 15.4183 19.0002 11C19.0002 6.58172 15.4185 3 11.0002 3C6.58197 3 3.00024 6.58172 3.00024 11C3.00024 15.4183 6.58197 19 11.0002 19Z" stroke="#B9BCC5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+											<path d="M21.0003 21.0004L16.6503 16.6504" stroke="#B9BCC5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+										</svg>
+									</div>
+								</div>
+							</a>
+						</div>
+						
+					</div>
+					
+					<div class="workspace-sidebar-filter">
+						<span class="workspace_sidebar_title">Язык</span>
+						<ul class="filter_lang">
+							<a href="#" class="filter_lang_button">Русский</a>
+							<a href="#" class="filter_lang_button">Туркменский</a>
+							<a href="#" class="filter_lang_button">Турецкий</a>
+							<a href="#" class="filter_lang_button">Английский</a>
+							<br>
+							<br>
+						</ul>
+					</div>
+					
+					<div class="mini-cart-bottom filter_bottom_button">
+						<div class="button">
+							<a href="checkout.html">Сбросить фильтр</a>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div><!-- Mini Cart Wrap End --> 
+
+		<!-- Cart Overlay -->
+		<div class="sidebar-overlay"></div>
+		<div class="workspace-table">
+			<div class="inside_workspace">
+				<div class="workspace_title">
+					<span>Коллекция</span>
+					<h2>Бестселлеры: 2022 года</h2>
+				</div>
+				<div class="pagination">
+					<span>Всего 24 товаров</span>
+					<div class="page_controller">
+						
+						{% if prev_url %}
+						<a href="#">
+							<svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M7 13L1 7L7 1" stroke="#343538" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+							</svg>
+						</a>
+						{% endif %}
+						{% for page_num in page_num_list %}
+							{% if page_num %}
+								{% if page_num.status == "active" %}
+								<a href="#" class="pagination_link active">{{ page_num.page }}</a>
+								{% elif page_num.status == None %}
+								<a href="#" class="pagination_link">...</a>
+								{% else %}
+								<a href="{{ page_num.url }}" class="pagination_link">{{ page_num.page }}</a>
+								{% endif %}
+							{% endif %}
+						{% endfor %}
+					</div>
+				</div>
+				<div class="row">
+					
+					{% if data == [] or data == null %}
+					{{_('Nothing found')}}
+					{% endif %}
+
+					{% for resource in data %}
+					<div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 pb-24">
+						<div class="rd_products">
+							<div class="image">
+								<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">
+									<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }} {{ company.CName }}">
+								</a>
+							</div>
+							<div class="content">
+								<div class="category_title">
+									<a href="shop_page.html" class="cat">{{ resource.ResCatName if resource.ResCatName else '' }}</a>
+									<a href="shop_page.html">
+										<h5 class="title">{{ resource.ResName }}</h5>
+									</a>
+									<h5 class="price">
+										{{ resource.ResPriceValue }}
+										<span class="rd_products_price">{{ resource.CurrencyCode }}</span>
+									</h5>
+								</div>
+								<div class="cart_wishlst">
+									<a class="add-to-cart" ownerId="{{ resource.ResId }}">
+										<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M9 22C9.55228 22 10 21.5523 10 21C10 20.4477 9.55228 20 9 20C8.44772 20 8 20.4477 8 21C8 21.5523 8.44772 22 9 22Z" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+											<path d="M20 22C20.5523 22 21 21.5523 21 21C21 20.4477 20.5523 20 20 20C19.4477 20 19 20.4477 19 21C19 21.5523 19.4477 22 20 22Z" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+											<path d="M1 1H5L7.68 14.39C7.77144 14.8504 8.02191 15.264 8.38755 15.5583C8.75318 15.8526 9.2107 16.009 9.68 16H19.4C19.8693 16.009 20.3268 15.8526 20.6925 15.5583C21.0581 15.264 21.3086 14.8504 21.4 14.39L23 6H6" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+											<path d="M9 22C9.55228 22 10 21.5523 10 21C10 20.4477 9.55228 20 9 20C8.44772 20 8 20.4477 8 21C8 21.5523 8.44772 22 9 22Z" stroke="#5A5C61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+											<path d="M20 22C20.5523 22 21 21.5523 21 21C21 20.4477 20.5523 20 20 20C19.4477 20 19 20.4477 19 21C19 21.5523 19.4477 22 20 22Z" stroke="#5A5C61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+											<path d="M1 1H5L7.68 14.39C7.77144 14.8504 8.02191 15.264 8.38755 15.5583C8.75318 15.8526 9.2107 16.009 9.68 16H19.4C19.8693 16.009 20.3268 15.8526 20.6925 15.5583C21.0581 15.264 21.3086 14.8504 21.4 14.39L23 6H6" stroke="#5A5C61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+										</svg>
+										<span>В корзину</span>
+									</a>
+									{% if current_user.is_authenticated %}
+									<a class="wishlist">
+										<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+											<path d="M20.8401 5.60987C20.3294 5.09888 19.7229 4.69352 19.0555 4.41696C18.388 4.14039 17.6726 3.99805 16.9501 3.99805C16.2276 3.99805 15.5122 4.14039 14.8448 4.41696C14.1773 4.69352 13.5709 5.09888 13.0601 5.60987L12.0001 6.66987L10.9401 5.60987C9.90843 4.57818 8.50915 3.99858 7.05012 3.99858C5.59109 3.99858 4.19181 4.57818 3.16012 5.60987C2.12843 6.64156 1.54883 8.04084 1.54883 9.49987C1.54883 10.9589 2.12843 12.3582 3.16012 13.3899L4.22012 14.4499L12.0001 22.2299L19.7801 14.4499L20.8401 13.3899C21.3511 12.8791 21.7565 12.2727 22.033 11.6052C22.3096 10.9378 22.4519 10.2224 22.4519 9.49987C22.4519 8.77738 22.3096 8.06198 22.033 7.39452C21.7565 6.72706 21.3511 6.12063 20.8401 5.60987V5.60987Z" stroke="#E95086" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+										</svg>
+									</a>
+									{% else %}
+									<a href="{{ url_for('commerce_auth.login') }}" class="wishlist {{'heart' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}">
+										<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+											<path d="M20.8401 5.60987C20.3294 5.09888 19.7229 4.69352 19.0555 4.41696C18.388 4.14039 17.6726 3.99805 16.9501 3.99805C16.2276 3.99805 15.5122 4.14039 14.8448 4.41696C14.1773 4.69352 13.5709 5.09888 13.0601 5.60987L12.0001 6.66987L10.9401 5.60987C9.90843 4.57818 8.50915 3.99858 7.05012 3.99858C5.59109 3.99858 4.19181 4.57818 3.16012 5.60987C2.12843 6.64156 1.54883 8.04084 1.54883 9.49987C1.54883 10.9589 2.12843 12.3582 3.16012 13.3899L4.22012 14.4499L12.0001 22.2299L19.7801 14.4499L20.8401 13.3899C21.3511 12.8791 21.7565 12.2727 22.033 11.6052C22.3096 10.9378 22.4519 10.2224 22.4519 9.49987C22.4519 8.77738 22.3096 8.06198 22.033 7.39452C21.7565 6.72706 21.3511 6.12063 20.8401 5.60987V5.60987Z" stroke="#E95086" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+										</svg>
+									</a>
+									{% endif %}
+								</div>
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</section>
+</div>
+
+{% endblock %}

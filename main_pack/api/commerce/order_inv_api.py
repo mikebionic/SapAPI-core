@@ -34,31 +34,43 @@ from main_pack.base.languageMethods import dataLangSelector
 
 # auth and validation
 from main_pack.api.auth.utils import token_required
-from main_pack.api.auth.utils import sha_required
+from main_pack.api.auth.utils import admin_required
 from main_pack.api.base.validators import request_is_json
 # / auth and validation /
 
 from .commerce_utils import apiOrderInvInfo
 from .pagination_utils import collect_order_inv_paginate_info
+from main_pack.base import log_print
 
 
 @api.route("/tbl-dk-order-invoices/",methods=['GET','POST'])
-@sha_required
+@admin_required
 @request_is_json(request)
-def api_order_invoices():
+def api_order_invoices(user):
 	if request.method == 'GET':
 		DivId = request.args.get("DivId",None,type=int)
 		notDivId = request.args.get("notDivId",None,type=int)
 		startDate = request.args.get("startDate",None,type=str)
 		endDate = request.args.get("endDate",datetime.now())
+		UId = request.args.get("userId",None,type=int)
+		RpAccId = request.args.get("rpAccId",None,type=int)
+		currency_code = request.args.get("currency_code",Config.MAIN_CURRENCY_CODE,type=str)
+		UGuid = request.args.get("userGuid",None,type=int)
+		RpAccGuid = request.args.get("rpAccGuid",None,type=int)
+		statusId = request.args.get("statusId",1,type=int)
 
 		res = apiOrderInvInfo(
-			startDate = startDate,
-			endDate = endDate,
-			statusId = 1,
 			DivId = DivId,
 			notDivId = notDivId,
-			currency_code = Config.MAIN_CURRENCY_CODE)
+			startDate = startDate,
+			endDate = endDate,
+			statusId = statusId,
+			currency_code = currency_code,
+			UId = UId,
+			RpAccId = RpAccId,
+			UGuid = UGuid,
+			RpAccGuid = RpAccGuid,
+		)
 
 		status_code = 200
 		response = make_response(jsonify(res), status_code)
@@ -133,7 +145,7 @@ def api_order_invoices():
 				thisInvStatus = None
 
 				if not RpAccId or not DivId or not WhId:
-					print(f"RpAccId - {RpAccId} by {RpAccGuid} | DivId - {DivId} by {DivGuid}, WhId - {WhId} | by {WhGuid}")
+					log_print(f"RpAccId - {RpAccId} by {RpAccGuid} | DivId - {DivId} by {DivGuid}, WhId - {WhId} | by {WhGuid}")
 					raise Exception
 
 				if thisOrderInv:
@@ -148,7 +160,7 @@ def api_order_invoices():
 						thisInvStatus = thisOrderInv.InvStatId
 
 					else:
-						print("OrderInvGuid or RegNo has changed ", OInvGuid, OInvRegNo, thisOrderInv.to_json_api())
+						log_print("OrderInvGuid or RegNo has changed ", OInvGuid, OInvRegNo, thisOrderInv.to_json_api())
 						raise Exception
 
 				else:
@@ -201,7 +213,7 @@ def api_order_invoices():
 										order_res_total.ResPendingTotalAmount += thisOrderInvLine.OInvLineAmount
 
 								except Exception as ex:
-									print(f"{datetime.now()} | OInv Api Res_total Exception: {ex}")
+									log_print(f"OInv Api Res_total Exception: {ex}")
 
 							db.session.commit()
 							order_inv_lines.append(order_inv_line_req)
@@ -214,14 +226,14 @@ def api_order_invoices():
 							thisOrderInvLine = None
 
 					except Exception as ex:
-						print(f"{datetime.now()} | OInv Api OInvLine Exception: {ex}")
+						log_print(f"OInv Api OInvLine Exception: {ex}")
 						failed_order_inv_lines.append(order_inv_line_req)
 
 				order_invoice['Order_inv_lines'] = order_inv_lines
 				data.append(order_invoice)
 
 			except Exception as ex:
-				print(f"{datetime.now()} | OInv Api Exception: {ex}")
+				log_print(f"OInv Api Exception: {ex}")
 				failed_data.append(order_invoice)
 
 		status = checkApiResponseStatus(data, failed_data)
@@ -243,8 +255,8 @@ def api_order_invoices():
 
 
 @api.route("/tbl-dk-order-invoices/<OInvRegNo>/")
-@sha_required
-def api_order_invoice_info(OInvRegNo):
+@admin_required
+def api_order_invoice_info(user, OInvRegNo):
 	invoice_list = [{"OInvRegNo": OInvRegNo}]
 
 	res = apiOrderInvInfo(
@@ -265,13 +277,16 @@ def api_order_invoice_info(OInvRegNo):
 def api_v_order_invoices(user):
 	startDate = request.args.get("startDate",None,type=str)
 	endDate = request.args.get("endDate",datetime.now())
+	limit_by = request.args.get("limit",None,type=int)
 	current_user = user['current_user']
 
 	res = apiOrderInvInfo(
 		startDate = startDate,
 		endDate = endDate,
 		show_inv_line_resource = True,
-		rp_acc_user = current_user)
+		rp_acc_user = current_user,
+		limit_by = limit_by,
+	)
 
 	status_code = 200
 	response = make_response(jsonify(res), status_code)

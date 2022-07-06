@@ -19,6 +19,7 @@ from main_pack.api.common import (
 from .add_Order_inv_dict import add_Order_inv_dict
 from .add_Order_inv_line_dict import add_Order_inv_line_dict
 from main_pack.base import get_id_from_list_indexing
+from main_pack.base import log_print
 
 
 def save_order_inv_synch_data(req):
@@ -46,7 +47,7 @@ def save_order_inv_synch_data(req):
 			RpAccId = get_id_from_list_indexing(RpAccId_list, RpAccGuid_list, RpAccGuid)
 
 			if not RpAccId or not DivId or not WhId:
-				print(f"{RpAccId}, {DivId}, {WhId}")
+				log_print(f"no RpAccId={RpAccId} or no DivId={DivId} or no WhId={WhId}")
 				raise Exception
 
 			order_invoice['DivId'] = DivId
@@ -62,7 +63,7 @@ def save_order_inv_synch_data(req):
 				Currency_dbModels = currencies,
 			)
 			if not inv_currency:
-				print(f"{datetime.now()} | v1 Order Checkout exception: No currency found")
+				log_print(f"v1 Order Checkout exception: No currency found | inv_currency {currency_code}")
 				raise Exception
 
 			order_invoice["CurrencyId"] = inv_currency.CurrencyId
@@ -108,7 +109,7 @@ def save_order_inv_synch_data(req):
 					Currency_dbModels = currencies,
 				)
 				if not inv_line_currency:
-					print(f"{datetime.now()} | v1 Order Checkout exception: No currency found")
+					log_print(f"v1 Order Checkout exception: No currency found | inv_line_currency {currency_code}")
 					raise Exception
 
 				order_inv_line["CurrencyId"] = inv_line_currency.CurrencyId
@@ -146,7 +147,7 @@ def save_order_inv_synch_data(req):
 									order_res_total.ResPendingTotalAmount += thisOrderInvLine.OInvLineAmount
 
 							except Exception as ex:
-								print(f"{datetime.now()} | OInv Api Res_total Exception: {ex}")
+								log_print(f"OInv Api Res_total Exception: {ex}")
 
 						db.session.commit()
 						order_inv_lines.append(order_inv_line_req)
@@ -159,14 +160,14 @@ def save_order_inv_synch_data(req):
 						thisOrderInvLine = None
 
 				except Exception as ex:
-					print(f"{datetime.now()} | OInv Api OInvLine Exception: {ex}")
+					log_print(f"OInv Api OInvLine Exception: {ex}")
 					failed_order_inv_lines.append(order_inv_line_req)
 
 			order_invoice['Order_inv_lines'] = order_inv_lines
 			data.append(order_invoice)
 
 		except Exception as ex:
-			print(f"{datetime.now()} | OInv Api Exception: {ex}")
+			log_print(f"OInv Api Exception: {ex}")
 			fails.append(order_invoice)
 
 	return data, fails

@@ -23,11 +23,9 @@ from main_pack.api.response_handlers.handle_default_response import handle_defau
 @api.route('/register/',methods=['POST'])
 @register_token_required
 def api_register(token_data):
-	message = "Register api"
+	message = "Register failure, check credentials."
 	register_method = request.args.get("method","email",type=str)
 	auth_type = request.args.get("type","user",type=str)
-
-	error_response = [{"error": "Register failure, check credentials."}, 401, {"WWW-Authenticate": "basic realm"}]
 
 	try:
 		if not token_data:
@@ -41,7 +39,7 @@ def api_register(token_data):
 			rp_acc_data["RpAccUPass"] = f"{Config.COMPANY_NAME} | {datetime.now()}"
 
 		if not rp_acc_data["RpAccUPass"]:
-			message = "Register api exception, password not valid"
+			message = "Password not valid!"
 			log_print(message, "warning")
 			raise Exception
 
@@ -52,8 +50,9 @@ def api_register(token_data):
 			rp_acc_data["DivId"] = DivId
 			rp_acc_data["RpAccRegNo"] = RpAccRegNo
 			rp_acc_data["RpAccGuid"] = RpAccGuid
-			rp_acc_data["RpAccTypeId"] = 2
 			rp_acc_data["RpAccStatusId"] = 1
+			if not rp_acc_data["RpAccTypeId"]:
+				rp_acc_data["RpAccTypeId"] = 2
 
 		if register_method == "email" and not Config.INSERT_PHONE_NUMBER_ON_REGISTER:
 			rp_acc_data["RpAccEMail"] = token_data["email"]
@@ -75,7 +74,7 @@ def api_register(token_data):
 
 		if Config.INSERT_LAST_ID_MANUALLY:
 			try:
-				lastUser = Rp_acc.query.order_by(Rp_acc.RpAccId.desc()).first()
+				lastUser = Rp_acc.query.with_entities(Rp_acc.RpAccId).order_by(Rp_acc.RpAccId.desc()).first()
 				RpAccId = lastUser.RpAccId + 1
 			except:
 				RpAccId = None
@@ -105,15 +104,12 @@ def api_register(token_data):
 			session["ResPriceGroupId"] = user_model.ResPriceGroupId
 			login_user(user_model)
 
-			response_header = {
-				"Authorization": f"Bearer {token.decode('UTF-8')}"
-			}
+			response_header = {"Authorization": f"Bearer {token.decode('UTF-8')}"}
 			message = "{}, {}".format(rp_acc_data["RpAccUName"], lazy_gettext('your profile has been created!'))
 			return handle_default_response(response_data, message, headers=response_header)
 
 	except Exception as ex:
-		message = f"API register exception {ex}"
-		log_print(message, "warning")
+		message = f"{message} {ex}"
+		log_print(f"Register api exception {message}", "warning")
 
-
-	return make_response(*error_response)
+	return handle_default_response({}, message, status_code=200, headers={"WWW-Authenticate": "basic realm"})

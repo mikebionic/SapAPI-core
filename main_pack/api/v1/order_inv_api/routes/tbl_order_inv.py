@@ -3,17 +3,17 @@ from flask import jsonify, request, make_response
 from datetime import datetime
 
 from main_pack.config import Config
-from main_pack.api.auth.utils import sha_required
+from main_pack.api.auth.utils import admin_required
 from main_pack.api.base.validators import request_is_json
 
 from main_pack.api.v1.order_inv_api import api
 from main_pack.api.v1.order_inv_api.utils import collect_order_inv_data
 
 
-@api.route("/tbl-order-invoices/", methods=['GET'])
-@sha_required
+@api.route("/tbl-order-invoices/")
+@admin_required
 @request_is_json(request)
-def tbl_order_inv():
+def tbl_order_inv(user):
 	DivId = request.args.get("DivId",None,type=int)
 	notDivId = request.args.get("notDivId",None,type=int)
 	statusId = request.args.get("statusId",None,type=int)

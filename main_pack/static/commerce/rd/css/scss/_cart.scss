@@ -41,13 +41,11 @@ h3.cart-page-title {
         tbody > tr {
             border-bottom: 1px solid #ebebeb;
             td.product-thumbnail {
-                width: 150px;
                 img{
                     height: 100px;
                 }
             }
             td.product-name {
-                width: 435px;
                 a {
                     font-size: 15px;
                     &:hover {
@@ -59,14 +57,12 @@ h3.cart-page-title {
                 } 
             }
             td.product-price-cart {
-                width: 435px;
                 span {
                     color: #333;
                     font-weight: 500;
                 }
             }
             td.product-quantity {
-                width: 435px;
                 .cart-plus-minus {
                     display: inline-block;
                     height: 40px;

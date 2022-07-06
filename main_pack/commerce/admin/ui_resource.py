@@ -65,7 +65,7 @@ def ui_resource():
 		resId = req.get('resId')
 		if resId == None:
 			# # Method for getting the last resource if there're pre-added ones
-			lastObject = Resource.query.order_by(Resource.ResId.desc()).first()
+			lastObject = Resource.query.with_entities(Resource.ResId).order_by(Resource.ResId.desc()).first()
 			newId = lastObject.ResId+1
 			resource['ResId'] = newId
 

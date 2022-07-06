@@ -47,7 +47,7 @@ def check_auth(auth_type, user_model, password):
 	return auth_status
 
 
-def register_email(requested_email):
+def register_email(requested_email, action_type="register"):
 	data, message = {}, ""
 	try:
 		email = configureEmail(requested_email)
@@ -62,10 +62,17 @@ def register_email(requested_email):
 				GCRecord = None
 			).first()
 
-		if registered_rp_acc:
-			message = f"Email is already taken"
-			log_print(f"{message}: {email}", "warning")
-			raise Exception
+		if action_type == "register":
+			if registered_rp_acc:
+				message = f"Email is already taken"
+				log_print(f"{message}: {email}", "warning")
+				raise Exception
+
+		else:
+			if not registered_rp_acc:
+				message = f"Email doesn't exist"
+				log_print(f"{message}: {email}", "warning")
+				raise Exception
 
 		existing_register_request = Register_request.query\
 			.filter_by(
@@ -74,6 +81,7 @@ def register_email(requested_email):
 			.first()
 
 		verify_code = generate_random_code()
+		print("FFFFUUUUUCKCKCKC ", verify_code)
 		should_register = True
 		if existing_register_request:
 			existing_register_request.RegReqVerifyCode = verify_code
@@ -106,10 +114,15 @@ def register_email(requested_email):
 	return data, message
 
 
-def send_register_email(email, verify_code):
+def send_register_email(email, verify_code, message=None):
 	msg = Message(gettext('Registration request'), sender=Config.MAIL_USERNAME, recipients=[email])
-	msg_bodyText = gettext('You have requested the registration on ecommerce. Please follow the link to verify your email')
+	# msg_bodyText = gettext('You have requested the registration on ecommerce. Please follow the link to verify your email')
+	msg_bodyText = "Enter this code to continue verification!"
 	msg_ending = gettext('If you did not make this request then simply ignore this email') 
+
+	if message:
+		msg_bodyText = message
+
 	msg.body = f'''
 	{msg_bodyText}
 	{verify_code}

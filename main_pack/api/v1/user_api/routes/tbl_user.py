@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
 from flask import request, make_response, jsonify
 
-from main_pack.api.auth.utils import sha_required
+from main_pack.api.auth.utils import admin_required
 
 from main_pack.api.v1.user_api import api
 from main_pack.api.v1.user_api.utils import collect_user_data
 
 
-@api.route("/tbl-users/", methods=['GET'])
-@sha_required
-def tbl_user_get():
+@api.route("/tbl-users/")
+@admin_required
+def tbl_user_get(user):
 	arg_data = {
 		"DivId": request.args.get("DivId",None,type=int),
 		"notDivId": request.args.get("notDivId",None,type=int),

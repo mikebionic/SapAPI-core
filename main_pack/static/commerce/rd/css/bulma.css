@@ -2499,7 +2499,7 @@ a.box:active {
     -ms-flex-pack: end;
     justify-content: flex-end
 }
-
+/* 
 .container {
     margin: 0 auto;
     position: relative
@@ -2545,7 +2545,7 @@ a.box:active {
         max-width:1344px;
         width: 1344px
     }
-}
+} */
 
 .content li+li {
     margin-top: 0.25em

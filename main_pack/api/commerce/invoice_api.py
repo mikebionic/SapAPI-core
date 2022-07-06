@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from flask import jsonify, request, abort, make_response
-from sqlalchemy import and_, extract
 
 # datetime, date-parser
 import dateutil.parser
@@ -15,8 +14,6 @@ from . import api
 from main_pack.models import (
 	Invoice,
 	Inv_line,
-	Inv_status,
-	Res_total
 )
 from .utils import (
 	addInvDict,
@@ -28,24 +25,19 @@ from main_pack.base.apiMethods import checkApiResponseStatus
 
 # Rp_acc db Model and methods
 from main_pack.models import Rp_acc
-from main_pack.api.users.utils import apiRpAccData
 # / Rp_acc db Model and methods /
-
-# functions and methods
-from main_pack.base.languageMethods import dataLangSelector
-# / functions and methods /
 
 # auth and validation
 from main_pack.api.auth.utils import token_required
-from main_pack.api.auth.utils import sha_required
+from main_pack.api.auth.utils import admin_required
 from main_pack.api.base.validators import request_is_json
 # / auth and validation /
 
 
 @api.route("/tbl-dk-invoices/",methods=['GET','POST'])
-@sha_required
+@admin_required
 @request_is_json(request)
-def api_invoices():
+def api_invoices(user):
 	if request.method == 'GET':
 		DivId = request.args.get("DivId",None,type=int)
 		notDivId = request.args.get("notDivId",None,type=int)
@@ -151,8 +143,8 @@ def api_invoices():
 
 
 @api.route("/tbl-dk-invoices/<InvRegNo>/")
-@sha_required
-def api_invoice_info(InvRegNo):
+@admin_required
+def api_invoice_info(user, InvRegNo):
 	invoice_list = [{"InvRegNo": InvRegNo}]
 	res = apiInvInfo(
 		invoice_list = invoice_list,

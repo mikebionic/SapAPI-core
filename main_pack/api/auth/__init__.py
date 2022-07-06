@@ -5,8 +5,10 @@ api = Blueprint('auth_api', __name__)
 from main_pack.api.auth import (
 	api_login,
 	api_register,
+	google_auth,
 	sms_register_api,
 	attempt_counter,
 	register_api,
 	register_phone_number,
+	reset_password_api,
 )
