@@ -10,6 +10,11 @@ def request_is_json(request):
 					"status": 0,
 					"message": "Error. Not a JSON data."
 				}
+				print(request.path, "Not a Json data error++++++++++++++++++++++++++++++++++++++")
+				try:
+					print(request.data)
+				except:
+					pass
 				return make_response(jsonify(res), 400)
 
 			return f(*args,**kwargs)
