@@ -4,8 +4,8 @@ First of all you have to get into the folder where you have your application and
 
 ```bash
 [python: **.py]
-[jinja2: **/templates/**.html]
-extensions=jinja2.ext.autoescape,jinja2.ext.with_
+[jinja2: templates/**.html]
+extensions=jinja2.ext.autoescape,jinja2.ext.with_,webassets.ext.jinja2.AssetsExtension
 ```
 
 Save it as babel.cfg or something similar next to your application. Then it’s time to run the pybabel command that comes with Babel to extract your strings:

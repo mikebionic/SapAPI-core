@@ -11,14 +11,14 @@ from main_pack.models import Currency
 from main_pack.models import Work_period
 
 from main_pack.base.apiMethods import checkApiResponseStatus
-from main_pack.api.auth.utils import sha_required
+from main_pack.api.auth.utils import admin_required
 from main_pack.api.base.validators import request_is_json
 
 
 @api.route("/tbl-dk-work-periods/",methods=['GET','POST'])
-@sha_required
+@admin_required
 @request_is_json(request)
-def api_work_periods():
+def api_work_periods(user):
 	if request.method == 'GET':
 		DivId = request.args.get("DivId",None,type=int)
 		notDivId = request.args.get("notDivId",None,type=int)

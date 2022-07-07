@@ -1,0 +1,53 @@
+
+{% extends "commerce/rs/commerce/layout.html" %}
+
+
+{% block content %}
+<div class="section">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="row">
+					<div class="col-lg-6 col-sm-12">
+						<div class="rd_registration">
+							<img src="{{ url_for('static', filename='commerce/rs/images/sign_img.png') }}" alt="">
+						</div>
+					</div>
+					<div class="col-lg-6 col-sm-12">
+						<div class="rd_registration regidtration">
+							<div class="inside_registration">
+								<h2>Заказ книги</h2>
+								<form method="post">
+									<div class="txt_field">
+										<label>Книга</label>
+										<br>
+										<input type="text" placeholder="Название книги" required>
+										<span></span>
+									</div>
+									<div class="txt_field">
+										<label>Автор</label>
+										<br>
+										<input type="password" placeholder="Имя автора" required>
+										<span></span>
+									</div>
+									<div class="txt_field">
+										<label>Дополнительная информация</label>
+										<br>
+										<textarea placeholder="Дополнительная информация книги" required></textarea>
+										<span></span>
+									</div>
+									<input type="submit" value="Отправить заявку">
+									<div class="order_book_text">
+										<a href="#">Заказанные книги будут доставлены в течение 30-40 дней.</a>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

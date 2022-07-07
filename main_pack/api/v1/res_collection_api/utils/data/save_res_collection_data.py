@@ -57,11 +57,18 @@ def save_res_collection_data(req):
 						this_line_data["ResCollectionId"] = this_res_collection.ResCollectionId
 
 						try:
-							this_line_res_guid = line_req["ResGuid"]
-							if this_line_res_guid:
-								this_line_resource = Resource.query.filter_by(ResGuid = this_line_res_guid).first()
-								if this_line_resource:
-									this_line_data["ResId"] = this_line_resource.ResId
+							if "ResId" in line_req:
+								this_line_data["ResId"] = int(line_req["ResId"]) if line_req["ResId"] else None
+
+							if "ResGuid" in line_req:
+								this_line_res_guid = line_req["ResGuid"]
+								if this_line_res_guid:
+									print("guid found ", this_line_res_guid)
+									this_line_resource = Resource.query.filter_by(ResGuid = this_line_res_guid).first()
+									print(this_line_resource)
+									if this_line_resource:
+										this_line_data["ResId"] = this_line_resource.ResId
+										print("updated line data ", this_line_data)
 						except:
 							pass
 

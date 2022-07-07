@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
 from flask import jsonify, request, make_response
 
-from main_pack.api.auth.utils import sha_required
+from main_pack.api.auth.utils import admin_required
 from main_pack.api.base.validators import request_is_json
 from main_pack.api.v1.warehouse_api import api
 from main_pack.api.v1.warehouse_api.utils import collect_warehouse_data
 
-@api.route("/tbl-warehouses/", methods=['GET'])
-@sha_required
+@api.route("/tbl-warehouses/")
+@admin_required
 @request_is_json(request)
-def tbl_warehouse_get():
+def tbl_warehouse_get(user):
 	arg_data = {
 		"DivId": request.args.get("DivId",None,type=int),
 		"notDivId": request.args.get("notDivId",None,type=int),

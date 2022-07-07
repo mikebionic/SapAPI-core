@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
 from flask import request, make_response, jsonify
 
-from main_pack.api.auth.utils import sha_required
+from main_pack.api.auth.utils import admin_required
 
 from main_pack.api.v1.rp_acc_api import api
 from main_pack.api.v1.rp_acc_api.utils import collect_rp_acc_data
 
 
 @api.route("/tbl-rp-accs/", methods = ['GET'])
-@sha_required
-def tbl_rp_acc_get():
+@admin_required
+def tbl_rp_acc_get(user):
 	arg_data = {
 		"DivId": request.args.get("DivId",None,type=int),
 		"DivGuid": request.args.get("DivGuid",None,type=str),

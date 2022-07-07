@@ -12,14 +12,14 @@ from .utils import addOrderInvTypeDict
 from main_pack.base.apiMethods import checkApiResponseStatus
 # / orders and db methods /
 
-from main_pack.api.auth.utils import sha_required
+from main_pack.api.auth.utils import admin_required
 from main_pack.api.base.validators import request_is_json
 
 
 @api.route("/tbl-dk-order-inv-types/",methods=['GET','POST'])
-@sha_required
+@admin_required
 @request_is_json(request)
-def api_order_inv_types():
+def api_order_inv_types(user):
 	if request.method == 'GET':
 		order_inv_types = Order_inv_type.query.filter_by(GCRecord = None).all()
 		data = [order_inv_type.to_json_api() for order_inv_type in order_inv_types]

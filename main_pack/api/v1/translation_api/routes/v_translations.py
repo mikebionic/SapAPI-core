@@ -8,7 +8,7 @@ from main_pack.api.v1.translation_api.utils.data.save_translation_data import sa
 from main_pack.base.apiMethods import checkApiResponseStatus
 from main_pack.api.auth.utils import admin_required
 
-@api.route("/v-translations/", methods=['GET'])
+@api.route("/v-translations/")
 def v_translations_get():
 	arg_data = {
 		"TranslId": request.args.get("id",None,type=int),

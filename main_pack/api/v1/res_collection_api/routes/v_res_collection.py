@@ -16,7 +16,6 @@ def v_res_collection_get():
 		"ResCollectionName": request.args.get("name","",type=str),
 		"ResCollectionGuid": request.args.get("uuid","",type=str)
 	}
-
 	data = collect_res_collection_data(**arg_data)
 
 	return handle_default_response(data, message = "Res_collection")

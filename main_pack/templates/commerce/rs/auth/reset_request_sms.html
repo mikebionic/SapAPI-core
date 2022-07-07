@@ -1,0 +1,64 @@
+{% extends "commerce/rd/commerce/layout.html" %}
+
+{% block head %}
+<meta property="og:description" content="Register on online commerce {{ company.CName }} {{ company.CDesc if company.CDesc}}" />
+<meta property="og:image" content="{{ request.host_url }}{{ company_logo.FilePath if company_logo else url_for('static', filename='commerce/rs/images/logo.png') }}" />
+<meta name="twitter:description" content="Register on online commerce {{ company.CName }} {{ company.CDesc if company.CDesc}}" />
+<meta name="twitter:image" content="{{ request.host_url }}{{ company_logo.FilePath if company_logo else url_for('static', filename='commerce/rs/images/logo.png') }}" />
+{% endblock %}
+
+{% block content %}
+<div class="section">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="row">
+					<div class="col-lg-6 col-sm-12">
+						<div class="rd_registration">
+							<img src="{{ url_for('static', filename='commerce/rs/images/sign_img.png') }}" alt="">
+						</div>
+					</div>
+					<div class="col-lg-6 col-sm-12">
+						<div class="rd_registration regidtration">
+							<div class="inside_registration">
+								<h2>{{_('Login')}}</h2>
+								<p class="before-register-text">
+									{{_("Register to use all the features and posibilities of ecommerce")}}.
+								</p>
+								<form action="" method="post" id="email-login-form">
+									<div class="txt_field">
+										{{ form.csrf_token() }}
+										<label>{{_('Phone number')}}</label>
+										<br>
+										{{ form.phone_number(placeholder=_('Phone number')) }}
+										<span></span>
+										{% if form.phone_number.errors %}
+											<p>
+												{% for error in form.phone_number.errors %}
+													<span style="color: red">{{ error }}</span>
+												{% endfor %}
+											</p>
+										{% endif %}
+									</div>
+									<input type="submit" value="{{_('Send')}}">
+									<div class="signup_link">
+										<a href="{{url_for('commerce_auth.login')}}">{{_('Login')}}</a>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+	var api_url_prefix = "{{api_url_prefix if api_url_prefix else ''}}";
+</script>
+<script src="{{ url_for('static', filename='commerce/hs/js/sms_register.js') }}"></script>
+{% endblock %}

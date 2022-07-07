@@ -1,0 +1,235 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>{{ title if title else _('Commerce') }}</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta property="og:site_name" content="Readit Store | E-commerce" />
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="{{ title if title else _('Commerce') }} | Readit Store" />
+	<meta property="og:url" content="{{ request.url }}" />
+	<meta name="twitter:url" content="{{ request.url }}" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:title" content="{{ title if title else _('Commerce') }} | Readit Store" />
+	<meta name="description" content="{% if Config.Desc %}{{ Config.Desc }}{% else %} Online commerce {{ company.CName }} {{ company.CDesc if company.CDesc}}{% endif %}">
+	<link rel="shortcut icon" type="image/x-icon" href="{{ company_logo.FilePath if company_logo else url_for('static', filename='commerce/rs/images/favicon.ico') }}">
+	<!-- othres CSS --> 
+	{% block head %}{% endblock %}
+	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/rs/css/style.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/rs/css/bootstrap.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/rs/css/normalize.min.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='commerce/rs/css/plugin.css') }}">
+
+</head>
+<!-- nr-header -->
+<body>
+
+
+
+<nav class="navigation-container navbar navbar-expand-lg navbar-light bg-light header-sticky">
+	<div class="navigation">
+		<div class="logo-catalog">
+			<a class="navbar-brand" href="{{url_for('commerce.commerce')}}">
+				<img src="{{ url_for('static', filename='commerce/rs/images/logo.png') }}" alt="logo">
+			</a>
+			<div class="header-catalog catalog des_C">
+				<div class="menu">
+					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<circle cx="17.0002" cy="7" r="2" fill="#5A5C61"/>
+						<circle cx="17.0002" cy="17" r="2" fill="#5A5C61"/>
+						<circle cx="7.00024" cy="17" r="2" fill="#5A5C61"/>
+						<circle cx="7.00024" cy="7" r="2" fill="#5A5C61"/>
+					</svg>
+				</div>
+				<div class="catalog_text">
+					<p>{{_('Categories')}}</p>
+				</div>
+			</div>
+		</div>
+		<div class="search">
+			<div class="search_icon_text">
+				<div class="search_icon">
+					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M11.0002 19C15.4185 19 19.0002 15.4183 19.0002 11C19.0002 6.58172 15.4185 3 11.0002 3C6.58197 3 3.00024 6.58172 3.00024 11C3.00024 15.4183 6.58197 19 11.0002 19Z" stroke="#B9BCC5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						<path d="M21.0003 21.0004L16.6503 16.6504" stroke="#B9BCC5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+					</svg>
+					<input type="text" id="search" placeholder="{{_('Search')}}">
+				</div>
+			</div>
+		</div>
+		<div class="personal">
+			<div class="nav_icons">
+				<div class="icon-container search_icon">
+					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="#5A5C61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						<path d="M21 21.0004L16.65 16.6504" stroke="#5A5C61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+					</svg>
+				</div>
+
+				<div class="icon-container">
+					<a href="{{ url_for('commerce_users.profile') }}">
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21" stroke="#5A5C61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+							<path d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z" stroke="#5A5C61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						</svg>
+					</a>
+				</div>
+				<a href="cart.html" class="header-cart icon-container">
+					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M9 22C9.55228 22 10 21.5523 10 21C10 20.4477 9.55228 20 9 20C8.44772 20 8 20.4477 8 21C8 21.5523 8.44772 22 9 22Z" stroke="#5A5C61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						<path d="M20 22C20.5523 22 21 21.5523 21 21C21 20.4477 20.5523 20 20 20C19.4477 20 19 20.4477 19 21C19 21.5523 19.4477 22 20 22Z" stroke="#5A5C61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						<path d="M1 1H5L7.68 14.39C7.77144 14.8504 8.02191 15.264 8.38755 15.5583C8.75318 15.8526 9.2107 16.009 9.68 16H19.4C19.8693 16.009 20.3268 15.8526 20.6925 15.5583C21.0581 15.264 21.3086 14.8504 21.4 14.39L23 6H6" stroke="#5A5C61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						<path d="M9 22C9.55228 22 10 21.5523 10 21C10 20.4477 9.55228 20 9 20C8.44772 20 8 20.4477 8 21C8 21.5523 8.44772 22 9 22Z" stroke="#5A5C61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						<path d="M20 22C20.5523 22 21 21.5523 21 21C21 20.4477 20.5523 20 20 20C19.4477 20 19 20.4477 19 21C19 21.5523 19.4477 22 20 22Z" stroke="#5A5C61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						<path d="M1 1H5L7.68 14.39C7.77144 14.8504 8.02191 15.264 8.38755 15.5583C8.75318 15.8526 9.2107 16.009 9.68 16H19.4C19.8693 16.009 20.3268 15.8526 20.6925 15.5583C21.0581 15.264 21.3086 14.8504 21.4 14.39L23 6H6" stroke="#5A5C61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+					</svg>
+					<div class="indicator">
+						<span class="number cartItemsFullQty">
+							0
+						</span>
+					</div>
+				</a>
+			</div>
+			<div class="header-catalog catalog mob_C icon-container">
+				<div class="menu">
+					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<circle cx="17.0002" cy="7" r="2" fill="#5A5C61"/>
+						<circle cx="17.0002" cy="17" r="2" fill="#5A5C61"/>
+						<circle cx="7.00024" cy="17" r="2" fill="#5A5C61"/>
+						<circle cx="7.00024" cy="7" r="2" fill="#5A5C61"/>
+					</svg>
+				</div>
+			</div>
+		</div>
+	</div>
+		
+</nav>
+
+<!-- ///////////////// -->
+<!-- Category -->
+<!-- //////////////// -->
+<div class="mini-catalog-wrap">
+	<div class="mini_catalog">
+		
+	<!-- Mini Cart Top -->
+			<div class="mini-catalog-top">
+				<button class="close-catalog">Книги<img src="img/icons/chevron-down.png" class="catalog_down_img" alt=""></button>
+			</div>
+
+		<!-- Mini Cart Products -->
+		<ul class="mini-catalog-products">
+			
+			{% for category in categories %}
+				<li class="mini_catalog_text">
+					<a href="{{url_for('commerce.v_grid',ResCatId=category.ResCatId,ResCatName=category.ResCatName.replace('/','-').replace(' ','-'))}}" class="catalog_top_text"
+						{% if category.Categories %} data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true" {% endif %}>
+						{{ category.ResCatName }}
+					</a>
+					{% if category.Categories %}
+						<ul>
+							{% for category in category.Categories %}
+								<li><a href="{{url_for('commerce.v_grid',ResCatId=category.ResCatId,ResCatName=category.ResCatName.replace('/','-').replace(' ','-'))}}">{{ category.ResCatName }}</a></li>
+							{% endfor %}
+						</ul>
+					{% endif %}
+				</li>
+			{% endfor %}
+		</ul>
+
+	</div>
+
+</div>
+<div class="catalog-overlay"></div>
+<!-- ///////////////// -->
+<!-- End Category -->
+<!-- //////////////// -->
+
+
+
+<!-- ///////////////// -->
+<!-- cart -->
+<!-- //////////////// -->
+<div class="mini-cart-wrap">
+	<div class="mini_cart">
+	<div class="mini-cart-top">
+		<button class="close-cart">Корзина</button>
+	</div>
+
+		<ul class="mini-cart-products">
+			
+		</ul>
+	</div>
+
+	<!-- Mini Cart Bottom -->
+	<div class="mini-cart-bottom">
+			<div class="button">
+					<a href="{{url_for('commerce.cart')}}">{{_('Checkout')}}</a>
+			</div>
+			
+	</div>
+
+</div>
+<div class="cart-overlay"></div>
+<!-- ///////////////// -->
+<!-- End Cart -->
+<!-- //////////////// -->
+
+<!-- {% block breadcrumbs %}{% endblock %} -->
+
+	{% with messages = get_flashed_messages(with_categories=true) %}
+	{% if messages %}
+	{% for category, message in messages %}
+	<div class="alert alert-{{ category }} alert-dismissible show fade" style="margin: auto; height: 10%; opacity: 1; width: 95%; overflow: auto; text-align: center;">
+		<div class="alert-body" style="padding-top: 5px;">
+			<button class="close" data-dismiss="alert">
+				<span style="float: right;">×</span>
+			</button>
+			{{ message }}
+		</div>
+	</div>
+	{% endfor %}
+	{% endif %}
+	{% endwith %}
+
+	{% block content %}{% endblock %}
+
+
+
+
+
+	<!-- JS
+============================================ -->
+
+	<script src="{{ url_for('static', filename='commerce/rs/js/jquery-1.12.4.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='commerce/rs/js/bootstrap.js') }}"></script>
+	<script src="{{ url_for('static', filename='commerce/rs/js/navbar.js') }}"></script>
+	<script src="{{ url_for('static', filename='commerce/rs/js/plugin.js') }}"></script>
+	<script src="{{ url_for('static', filename='commerce/rs/js/shop_page.js') }}"></script>
+	<script src="{{ url_for('static', filename='commerce/rs/js/pure_functions.js') }}"></script>
+	<script src="{{ url_for('static', filename='commerce/rs/js/sweetalert.js') }}"></script>
+	<script src="{{ url_for('static', filename='commerce/rs/js/ux_actions.js') }}"></script>
+	<script src="{{ url_for('static', filename='commerce/rs/js/ui_dynamicals.js') }}"></script>
+	<script src="{{ url_for('static', filename='commerce/rs/js/cart.js') }}"></script>
+	<script src="{{ url_for('static', filename='commerce/rs/js/cartsAndChecouts.js') }}"></script>
+	
+	<script type="text/javascript">
+		var url_prefix = "{{url_prefix if url_prefix else ''}}";
+		var session_currency_code = "{{ session.currency_code if session.currency_code else 'TMT' }}"
+		var error_title = "{{_('Error')}}";
+		var success_title = "{{_('Success')}}";
+		var unknown_error_text = "{{_('Unknown error')}}"
+		var add_to_cart_text = "{{_('Add to cart')}}";
+		var qty_error_text = "{{_('Cannot get more')}}";
+		var remove_from_cart_text = "{{_('Remove from cart')}}";
+		var no_photo_errorhandler_image = "{{ url_for('static', filename='commerce/rs/images/no_photo.svg') }}";
+		var rating_message = "{{_('You should put your rating and write a review')}}";
+		var csrf_token = "{{ csrf_token() }}";
+	</script>
+	
+	{% block scripts %}{% endblock %}
+</body>
+
+</html>

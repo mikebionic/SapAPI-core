@@ -9,7 +9,7 @@ from main_pack.api.auth.register_phone_number import (
 	check_phone_number_register,
 	verify_phone_number_register,
 )
-from main_pack.api.auth.utils import sha_required
+from main_pack.api.auth.utils import admin_required
 from main_pack.api.response_handlers import handle_default_response
 
 from main_pack.base import log_print
@@ -17,8 +17,8 @@ from main_pack.config import Config
 
 
 @api.route('/verify-sms-register/',methods=['POST'])
-@sha_required
-def verify_sms_register():
+@admin_required
+def verify_sms_register(user):
 	req = request.get_json()
 	phone_number = req.get('phone_number')
 	message_text = req.get('message_text')

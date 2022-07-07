@@ -36,7 +36,7 @@
 
 | __Route__     | __Methods__ | __Status__ | __Note__            |
 | ------------- | :---------: | :--------: | ------------------- |
-| /v-rp-accs/   |   **GET**   |   Active   | **@token required** |
+| /v-rp-accs/   |   **GET**   |   Active   | **@token_required** |
 | /tbl-rp-accs/ |   **GET**   |   Active   | **@sha required**   |
 
 **Properties**
@@ -72,9 +72,9 @@
 
 | __Route__                | __Methods__ | __Status__ | __Note__            |
 | ------------------------ | :---------: | :--------: | ------------------- |
-| /v-rp-accs/              |  **POST**   |   Active   | **@token required** |
+| /v-rp-accs/              |  **POST**   |   Active   | **@token_required** |
 | /api/tbl-dk-accs/        |  **POST**   |   Active   | **@sha required**   |
-| /v-rp-accs/profile-edit/ |  **POST**   |   Active   | **@token required** |
+| /v-rp-accs/profile-edit/ |  **POST**   |   Active   | **@token_required** |
 
 
 [Example](./examples/rp_acc_v1.md)
@@ -86,7 +86,7 @@
 
 | __Route__       | __Methods__ | __Status__ | __Note__            |
 | --------------- | :---------: | :--------: | ------------------- |
-| /update-avatar/ |  **POST**   |   Active   | **@token required** |
+| /update-avatar/ |  **POST**   |   Active   | **@token_required** |
 
 **Properties**
 | __Name__     | __Type__ | __Description__                                | __Example__ |
@@ -113,7 +113,7 @@ request.body = {
 
 | __Route__          | __Methods__ | __Status__ | __Note__            |
 | ------------------ | :---------: | :--------: | ------------------- |
-| /api/v-users/      |   **GET**   |   Active   | **@token required** |
+| /api/v-users/      |   **GET**   |   Active   | **@token_required** |
 | /api/tbl-dk-users/ |   **GET**   |   Active   | **@sha required**   |
 
 **Properties**
@@ -182,7 +182,7 @@ request.body = {
 
 | __Route__                 | __Methods__ | __Status__ | __Note__            |
 | ------------------------- | :---------: | :--------: | ------------------- |
-| /checkout-sale-order-inv/ |  **POST**   |   Active   | **@token required** |
+| /checkout-sale-order-inv/ |  **POST**   |   Active   | **@token_required** |
 
 [Example](./examples/checkout_order_inv_api.md)
 
@@ -218,7 +218,7 @@ request.body = {
 
 | __Route__          | __Methods__ | __Status__ | __Note__            |
 | ------------------ | :---------: | :--------: | ------------------- |
-| /v-order-invoices/ |   **GET**   |   Active   | **@token required** |
+| /v-order-invoices/ |   **GET**   |   Active   | **@token_required** |
 
 **Properties**
 | __Name__  |         __Type__         | __Description__ | __Example__ |
@@ -234,7 +234,7 @@ request.body = {
 
 | __Route__                          | __Methods__ | __Status__ | __Note__            |
 | ---------------------------------- | :---------: | :--------: | ------------------- |
-| /v-order-invoices/<Order_RegNo>/   |   **GET**   |   Active   | **@token required** |
+| /v-order-invoices/<Order_RegNo>/   |   **GET**   |   Active   | **@token_required** |
 | /tbl-order-invoices/<Order_RegNo>/ |   **GET**   |   Active   | **@sha required**   |
 
 **Properties**
@@ -249,7 +249,7 @@ request.body = {
 
 | __Route__                        | __Methods__ | __Status__ | __Note__            |
 | -------------------------------- | :---------: | :--------: | ------------------- |
-| /order-payment-register-request/ |  **POST**   |   Active   | **@token required** |
+| /order-payment-register-request/ |  **POST**   |   Active   | **@token_required** |
 
 [Example](./examples/order_payment_register_request.md)
 
@@ -260,7 +260,7 @@ request.body = {
 
 | __Route__              | __Methods__ | __Status__ | __Note__            |
 | ---------------------- | :---------: | :--------: | ------------------- |
-| /order-inv-validation/ |  **POST**   |   Active   | **@token required** |
+| /order-inv-validation/ |  **POST**   |   Active   | **@token_required** |
 
 [Example](./examples/order_inv_validation.md)
 
@@ -270,7 +270,7 @@ request.body = {
 
 | __Route__                   | __Methods__ | __Status__  | __Note__            |
 | --------------------------- | :---------: | :---------: | ------------------- |
-| /v-order-invoices/paginate/ |   **GET**   | Development | **@token required** |
+| /v-order-invoices/paginate/ |   **GET**   | Development | **@token_required** |
 
 
 
@@ -293,7 +293,7 @@ request.body = {
 
 | __Route__    | __Methods__ | __Status__ | __Note__            |
 | ------------ | :---------: | :--------: | ------------------- |
-| /gen-reg-no/ |  **POST**   |   Active   | **@token required** |
+| /gen-reg-no/ |  **POST**   |   Active   | **@token_required** |
 
 [Example](./examples/reg_no_api.md)
 
@@ -486,12 +486,44 @@ curl 127.0.0.1:5000/ls/api/v1/v-images/ --header 'images-to-exclude: [{"FileName
 | /discount-resources/ |   **GET**   |   Active   |
 
 **Properties**
-| __Name__     | __Type__ |
-| ------------ | :------: |
-| limit        | **int**  |
-| showInactive | **int**  |
+| __Name__     | __Type__ | **Default** |
+| ------------ | :------: | :---------: |
+| limit        | **int**  |     15      |
+| showInactive | **int**  |      0      |
 
 
+## Ordered resources
+
+| **Route**           | **Methods** | **Status** | **Note**                                         |
+| ------------------- | :---------: | :--------: | ------------------------------------------------ |
+| /ordered-resources/ |   **GET**   |   Active   | shows what else people buy with current resource |
+
+**Properties**
+| __Name__ | __Type__ | **Default** |      **Note**      |
+| -------- | :------: | :---------: | :----------------: |
+| id       | **int**  |             | ResId of a product |
+| guid     | **str**  |             |      ResGuid       |
+| limit    | **int**  |     15      |
+
+[Example](./examples/resources_api.md)
+
+
+## Recommended resources
+
+| **Route**           | **Methods** | **Status** | **Note**                                 |
+| ------------------- | :---------: | :--------: | ---------------------------------------- |
+| /ordered-resources/ |   **GET**   |   Active   | **@token_required** shows recomendations |
+
+**Properties**
+| __Name__ | __Type__ | **Default** |
+| -------- | :------: | :---------: |
+| limit    | **int**  |     15      |
+
+[Example](./examples/resources_api.md)
+
+/recommended-resources/
+
+----
 
 <!-- !!!TODO: add filtering and currency showing if necessary -->
 
@@ -516,9 +548,9 @@ curl 127.0.0.1:5000/ls/api/v1/v-images/ --header 'images-to-exclude: [{"FileName
 
 | __Route__    | __Methods__ | __Status__ | __Note__                                   |
 | ------------ | :---------: | :--------: | ------------------------------------------ |
-| /v-wishlist/ |   **GET**   |   Active   | **@token required**                        |
-| /v-wishlist/ |  **POST**   |   Active   | **@token required**, provide ResId in body |
-| /v-wishlist/ | **DELETE**  |   Active   | **@token required**, provide ResId in body |
+| /v-wishlist/ |   **GET**   |   Active   | **@token_required**                        |
+| /v-wishlist/ |  **POST**   |   Active   | **@token_required**, provide ResId in body |
+| /v-wishlist/ | **DELETE**  |   Active   | **@token_required**, provide ResId in body |
 
 **Properties**
 | __Name__ | __Type__ | __Description__                 | __Example__ |

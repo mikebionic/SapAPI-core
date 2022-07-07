@@ -33,7 +33,7 @@ def validate_order_inv_payment(req, model_type, current_user):
 		if not OInvRegNo or not OrderId:
 			message = "Payment Validation: failed (Reg no or OrderId is None)"
 			print(f"{datetime.now()} | {message}")
-			raise Exception
+			raise Exception(message)
 
 		order_inv = Order_inv.query\
 			.filter_by(
@@ -77,7 +77,7 @@ def validate_order_inv_payment(req, model_type, current_user):
 				message = "Payment successfully done!"
 
 		else:
-			message = "Payment Validation: failed (Order_inv is None)"
+			message = "Payment Validation: failed, Order not found"
 			print(f"{datetime.now()} | {message}")
 	
 	except Exception as ex:

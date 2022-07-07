@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
 from flask import request, make_response, jsonify
 
-from main_pack.api.auth.utils import sha_required
+from main_pack.api.auth.utils import admin_required
 
 from main_pack.api.v1.resource_api import api
 from main_pack.api.v1.resource_api.utils import collect_resource_data
 
 
-@api.route("/tbl-resources/", methods=['GET'])
-@sha_required
-def tbl_resource_get():
+@api.route("/tbl-resources/")
+@admin_required
+def tbl_resource_get(user):
 	arg_data = {
 		"synchDateTime": request.args.get("synchDateTime",None,type=str),
 		"DevId": request.args.get("id",None,type=int),
