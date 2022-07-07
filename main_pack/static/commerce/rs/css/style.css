@@ -4059,9 +4059,6 @@ margin-bottom: 24px;
   cursor: pointer;
 }
 
-.openBtn:hover {
-  background: #bbb;
-}
 
 .overlay {
   height: 100%;
