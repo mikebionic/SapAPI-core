@@ -3,7 +3,6 @@ from sqlalchemy.dialects.postgresql import UUID
 from main_pack import db
 from main_pack.models import AddInf, BaseModel
 
-
 class Res_collection_line(AddInf, BaseModel, db.Model):
 	__tablename__ = "tbl_dk_res_collection_line"
 	ResCollectionLineId = db.Column("ResCollectionLineId",db.Integer,nullable=False,primary_key=True)
