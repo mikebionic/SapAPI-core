@@ -111,6 +111,10 @@ def addRpAccDict(req):
 	AddInf4 = req.get('AddInf4')
 	AddInf5 = req.get('AddInf5')
 	AddInf6 = req.get('AddInf6')
+	AddInf7 = req.get('AddInf7')
+	AddInf8 = req.get('AddInf8')
+	AddInf9 = req.get('AddInf9')
+	AddInf10 = req.get('AddInf10')
 	CreatedDate = req.get('CreatedDate')
 	ModifiedDate = req.get('ModifiedDate')
 	SyncDateTime = req.get('SyncDateTime')	
@@ -159,6 +163,10 @@ def addRpAccDict(req):
 		"AddInf4": AddInf4,
 		"AddInf5": AddInf5,
 		"AddInf6": AddInf6,
+		"AddInf7": AddInf7,
+		"AddInf8": AddInf8,
+		"AddInf9": AddInf9,
+		"AddInf10": AddInf10,
 		"CreatedDate": CreatedDate,
 		"ModifiedDate": ModifiedDate,
 		"SyncDateTime": SyncDateTime,

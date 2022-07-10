@@ -42,6 +42,8 @@ def register_device():
 	try:
 		if thisDevice:
 			thisDevice.update(**device_info)
+			if device_info["GCRecord"] == None:
+				thisDevice.GCRecord = None
 
 		else:
 			thisDevice = Device(**device_info)

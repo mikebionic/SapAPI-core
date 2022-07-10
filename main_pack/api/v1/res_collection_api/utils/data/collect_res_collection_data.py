@@ -32,7 +32,7 @@ def collect_res_collection_data(
 	data = []
 	for collection in res_collections_query:
 		collection_data = collection.to_json_api()
-		res_id_list = [{"ResId": line.ResId} for line in collection.Res_collection_line]
+		res_id_list = [{"ResId": line.ResId} for line in collection.Res_collection_line if line.ResId if line]
 		resources_data = apiResourceInfo(resource_list=res_id_list)
 		collection_data["Resources"] = resources_data["data"] if resources_data else []
 
@@ -41,8 +41,8 @@ def collect_res_collection_data(
 			this_line_data = line.to_json_api()
 			for resource in resources_data["data"]:
 				if resource["ResId"] == line.ResId:
-				  this_line_data["ResName"] = resource["ResName"]
-				  this_line_data["ResGuid"] = resource["ResGuid"]
+					this_line_data["ResName"] = resource["ResName"]
+					this_line_data["ResGuid"] = resource["ResGuid"]
 			lines_list.append(this_line_data)
 
 		collection_data["Res_collection_lines"] = lines_list

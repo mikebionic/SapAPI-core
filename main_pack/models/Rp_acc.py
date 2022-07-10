@@ -48,6 +48,7 @@ class Rp_acc(AddInf, BaseModel, db.Model, UserMixin):
 	RpAccPatronomic = db.Column("RpAccPatronomic",db.String(100))
 	RpAccBirthDate = db.Column("RpAccBirthDate",db.DateTime)
 	RpAccResidency = db.Column("RpAccResidency",db.String(100))
+	RpAccRegistrationPlace = db.Column("RpAccRegistrationPlace",db.String(100))
 	RpAccPassportNo = db.Column("RpAccPassportNo",db.String(100))
 	RpAccPassportIssuePlace = db.Column("RpAccPassportIssuePlace",db.String(100))
 	RpAccLangSkills = db.Column("RpAccLangSkills",db.String(100))
@@ -140,6 +141,7 @@ class Rp_acc(AddInf, BaseModel, db.Model, UserMixin):
 			"RpAccPatronomic": self.RpAccPatronomic,
 			"RpAccBirthDate": apiDataFormat(self.RpAccBirthDate),
 			"RpAccResidency": self.RpAccResidency,
+			"RpAccRegistrationPlace": self.RpAccRegistrationPlace,
 			"RpAccPassportNo": self.RpAccPassportNo,
 			"RpAccPassportIssuePlace": self.RpAccPassportIssuePlace,
 			"RpAccLangSkills": self.RpAccLangSkills,
