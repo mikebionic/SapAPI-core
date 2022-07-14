@@ -1,4 +1,6 @@
 
+jQuery(document).ready(function($){
+
 // cartsAndCheckouts.js
 resource_forms = ['resId','resName','resDesc','resPrice','resColor','resSize']
 
@@ -143,6 +145,28 @@ function addToCart(ownerId){
 }
 
 
+
+
+
+
+var addReceiver = $(".add_receiver");
+var addedReceiver = $(".added_receiver")
+var closSvg = $(".close_svg")
+
+addReceiver.on("click", function (e) {
+	e.preventDefault();
+
+	addedReceiver.addClass("open_receiver");
+	addReceiver.addClass("none_receiver");
+});
+
+closSvg.on("click", function (e) {
+  e.preventDefault();
+	
+  addedReceiver.removeClass("open_receiver");
+  addReceiver.removeClass("none_receiver");
+});
+
 $(document).ready(function(){
 	local_cart_data = get_local_data_by_name('cart');
 	if (local_cart_data){
@@ -186,8 +210,21 @@ $('.pagination_link').on('click', function(e){
 	}
 })
 /*--
-    Menu Sticky
+    Menu Sticky 
 -----------------------------------*/
+var windows = $(window);
+var screenSize = windows.width();
+var sticky = $('.workspace-sidebar');
+
+windows.on('scroll', function() {
+    var scroll = windows.scrollTop();
+    if (scroll < 100) {
+        sticky.removeClass('is-sticky');
+    }else{
+        sticky.addClass('is-sticky');
+    }
+});
+
 var windows = $(window);
 var screenSize = windows.width();
 var sticky = $('.header-sticky');
@@ -254,44 +291,37 @@ closeCatalog.on("click", function (e) {
   miniCatalogWrap.removeClass("open");
 });
 
+// Category
+var headerProfile = $(".header_profile");
+var closeProfile = $(".profile-overlay");
+var miniProfileWrap = $(".menus");
 
+headerProfile.on("click", function (e) {
+  e.preventDefault();
+  $(".profile-overlay").addClass("visible");
+  miniProfileWrap.addClass("activee");
+});
+closeProfile.on("click", function (e) {
+  e.preventDefault();
+  $(".profile-overlay").removeClass("visible");
+  miniProfileWrap.removeClass("activee");
+});
 /*--
     Hero Slider
 --------------------------------------------*/
-var heroSlider = $(".hero-slider");
-heroSlider.slick({
-  arrows: true,
-  autoplay: false,
-  autoplaySpeed: 5000,
-  dots: true,
-  pauseOnFocus: false,
-  pauseOnHover: false,
-  fade: true,
-  infinite: true,
-  slidesToShow: 1,
-  prevArrow:
-    '<button type="button" class="slick-prev"><i class="icofont icofont-long-arrow-left"></i></button>',
-  nextArrow:
-    '<button type="button" class="slick-next"><i class="icofont icofont-long-arrow-right"></i></button>',
-});
-
-
-
-var addReceiver = $(".add_receiver");
-var addedReceiver = $(".added_receiver")
-var closSvg = $(".close_svg")
-
-addReceiver.on("click", function (e) {
-	e.preventDefault();
-
-	addedReceiver.addClass("open_receiver");
-	addReceiver.addClass("none_receiver");
-});
-
-closSvg.on("click", function (e) {
-  e.preventDefault();
+	var heroSlider = $('.hero-slider');
+	heroSlider.slick({
+		arrows: true,
+		autoplay: false,
+		autoplaySpeed: 5000,
+		dots: true,
+		pauseOnFocus: false,
+		pauseOnHover: false,
+		fade: true,
+		infinite: true,
+		slidesToShow: 1,
+		prevArrow: '<button type="button" class="slick-prev"><i class="icofont icofont-long-arrow-left"></i></button>',
+		nextArrow: '<button type="button" class="slick-next"><i class="icofont icofont-long-arrow-right"></i></button>',
+	});
 	
-  addedReceiver.removeClass("open_receiver");
-  addReceiver.removeClass("none_receiver");
 });
-

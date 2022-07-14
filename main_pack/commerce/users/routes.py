@@ -34,7 +34,7 @@ def profile():
 		if session["model_type"] == "user":
 			flash("Your're not allowed to view this page")
 			return redirect(url_for('commerce.commerce'))
-
+	
 	categoryData = UiCategoriesList()
 	rpAcc = Rp_acc.query.filter_by(RpAccId = current_user.RpAccId).first()
 	avatar = url_for('static', filename=f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/images/account-image-placeholder.png")
@@ -47,6 +47,7 @@ def profile():
 			avatar = fileToURL(file_type='image',file_size='S',file_name=image.FileName)
 	return render_template(
 		f"{Config.COMMERCE_TEMPLATES_FOLDER_PATH}/users/profile.html",
+		
 		**categoryData,
 		rpAcc = rpAcc,
 		avatar = avatar,
