@@ -36,8 +36,8 @@ class Invoice(AddInf, BaseModel, db.Model):
 	InvPrintCount = db.Column("InvPrintCount",db.Integer,default=0)
 	InvCreditDays = db.Column("InvCreditDays",db.Integer,default=0)
 	InvCreditDesc = db.Column("InvCreditDesc",db.String(100))
-	Inv_line = db.relationship("Inv_line",backref='invoice',lazy=True)
-	Rp_acc_transaction = db.relationship("Rp_acc_transaction",backref='invoice',lazy=True)
+	Inv_line = db.relationship("Inv_line",backref='invoice',lazy=False)
+	Rp_acc_transaction = db.relationship("Rp_acc_transaction",backref='invoice',lazy=False)
 
 	def to_json_api(self):
 		data = {
