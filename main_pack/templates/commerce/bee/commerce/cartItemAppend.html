@@ -1,30 +1,47 @@
 {% for resource in data %}
-  <li class="cartObject{{resource.ResId}}">
-    <a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
-      <img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/bee/images/no_photo.svg') }}" 
-      alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
-    </a>
-    <div class="content">
-      <a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="title resName">{{ resource.ResName if resource.ResName else '' }}</a>
-      <div style="display: flex;">
-        <span class="price">{{_('Price')}}:</span>
-        <span class="price priceValue" ownerId="{{resource.ResId}}" value="{{resource.ResPriceValue}}">{{resource.ResPriceValue}}</span>
-        <span class="price currencySymbol">{{ resource.CurrencyCode }}</span>
-      </div>
-      <div class="quantity-colors">
-        <div class="quantity">
-          <div class="pro-qty cartItemQty">
-            <span class="dec qtybtn">-</span>
-            <input class="cartItemQty productQty"
-              pending_amount="{{resource.ResPendingTotalAmount}}"
-              min_amount="{{resource.ResMinSaleAmount}}"
-              max_amount="{{resource.ResMaxSaleAmount}}"
-              value="{{resource.productQty}}" ownerId="{{ resource.ResId }}">
-            <span class="inc qtybtn">+</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <button class="remove removeFromCart" ownerId="{{resource.ResId}}"><i class="fa fa-trash-o"></i></button>
-  </li>
+<li class="cartObject{{resource.ResId}}">
+	<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="img">
+		<img
+			loading="lazy"
+			src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/bee/images/no_photo.svg') }}"
+			alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}"
+		/>
+	</a>
+	<div class="content">
+		<a
+			href="{{ url_for('commerce.product',ResId=resource.ResId)}}"
+			class="title resName"
+			>{{ resource.ResName if resource.ResName else '' }}</a
+		>
+		<div style="display: flex">
+			<span class="price">{{_('Price')}}:</span>
+			<span
+				class="price priceValue"
+				ownerId="{{resource.ResId}}"
+				value="{{resource.ResPriceValue}}"
+				>{{resource.ResPriceValue}}</span
+			>
+			<span class="price currencySymbol">{{ resource.CurrencyCode }}</span>
+		</div>
+		<div class="quantity-colors">
+			<div class="quantity">
+				<div class="pro-qty cartItemQty">
+					<span class="dec qtybtn">-</span>
+					<input
+						class="cartItemQty productQty"
+						pending_amount="{{resource.ResPendingTotalAmount}}"
+						min_amount="{{resource.ResMinSaleAmount}}"
+						max_amount="{{resource.ResMaxSaleAmount}}"
+						value="{{resource.productQty}}"
+						ownerId="{{ resource.ResId }}"
+					/>
+					<span class="inc qtybtn">+</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<button class="remove removeFromCart" ownerId="{{resource.ResId}}">
+		<i class="fa fa-trash-o"></i>
+	</button>
+</li>
 {% endfor %}
