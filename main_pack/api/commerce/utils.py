@@ -458,6 +458,7 @@ def addResPriceDict(req):
 	ResPriceGroupId = req.get('ResPriceGroupId')
 	UnitId = req.get('UnitId')
 	CurrencyId = req.get('CurrencyId')
+	CurrencyCode = req.get('CurrencyCode')
 	ResId = req.get('ResId')
 	ResPriceRegNo = req.get('ResPriceRegNo')
 	ResPriceValue = configureFloat(req.get('ResPriceValue'))
@@ -476,6 +477,7 @@ def addResPriceDict(req):
 		"ResPriceGroupId": ResPriceGroupId,
 		"UnitId": UnitId,
 		"CurrencyId": CurrencyId,
+		"CurrencyCode": CurrencyCode,
 		"ResId": ResId,
 		"ResPriceRegNo": ResPriceRegNo,
 		"ResPriceValue": ResPriceValue,
