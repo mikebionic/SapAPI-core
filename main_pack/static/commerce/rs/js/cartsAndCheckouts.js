@@ -226,7 +226,6 @@ function addToCart(ownerId) {
 		productQty: productQty,
 	}
 	cartData['product' + ownerId] = productData
-	console.log(cartData)
 	Cookies.set('cart', JSON.stringify(cartData))
 	// sending request
 	if (pending_amount > 0) {
