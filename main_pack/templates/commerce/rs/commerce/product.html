@@ -29,8 +29,8 @@
 							<div class="content">
 								<div class="book_d_price">
 									<div class="bd_price">
-										<p>Стоимость</p>
-										<p class="first_price">645 TMT</p>
+										<p>{{_('Price')}}</p>
+										<p class="first_price">{{ related_resource.ResPriceValue }} TMT</p>
 									</div>
 									<div class="bd_price bd_border">
 										<p>Доставка (Ашхабад)</p>
@@ -80,8 +80,8 @@
 						<div class="mobile_right_price">
 							<div class="book_d_price">
 								<div class="bd_price"  ownerId="{{ resource.ResId }}" value="{{resource.ResPriceValue}}">
-									<p>Стоимость</p>
-									<p class="first_price">645 TMT</p>
+									<p>{{_('Price')}}</p>
+									<p class="first_price">{{ related_resource.ResPriceValue }} TMT</p>
 								</div>
 								<div class="bd_price bd_border">
 									<p>Доставка (Ашхабад)</p>
@@ -143,8 +143,9 @@
 																			<path d="M10 0L12.2451 6.90983H19.5106L13.6327 11.1803L15.8779 18.0902L10 13.8197L4.12215 18.0902L6.36729 11.1803L0.489435 6.90983H7.75486L10 0Z" fill="#DD3872"/>
 																		</svg>
 																	</div>
+																	
+																	<p>{{ rating.CreatedDate }}</p>
 																{% endfor %}
-																	<p>18 Oct, 2022</p>
 															</div>
 														</div>
 													</div>

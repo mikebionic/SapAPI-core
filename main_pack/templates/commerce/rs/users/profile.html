@@ -19,21 +19,18 @@
 			
 			<div class="content">
 				<div class="tabs">
-
-					<input type="radio" id="tab1" name="tab-control" checked>
-					<input type="radio" id="tab2" name="tab-control">
-					<input type="radio" id="tab3" name="tab-control">
 					<ul>
-						<li title="История покупок"><a href="{{ url_for('commerce_users.profile') }}"><label for="tab1" role="button"><br><span>История покупок</span></label></a></li>
-						<li title="Мои заказы"><a href="{{ url_for('commerce_users.orders') }}"><label for="tab2" role="button"><br><span>{{_('Orders')}}</span></label></a></li>
-						<li title="Список желаний"><a href="{{ url_for('commerce_users.wishlist') }}"><label for="tab3" role="button"><br><span>{{_('Wishlist')}}</span></label></a></li>
+						
+						<li><a href="{{ url_for('commerce_users.profile') }}"><label><br><span>История покупок</span></label></a></li>
+						<li><a href="{{ url_for('commerce_users.orders') }}"><label><br><span>{{_('Orders')}}</span></label></a></li>
+						<li><a href="{{ url_for('commerce_users.wishlist') }}"><label><br><span>{{_('Wishlist')}}</span></label></a></li>
 					</ul>
 					
 					<div class="slider"><div class="indicator"></div></div>
 					<div class="content">
 						<section class="description_tabs">
 							<div class="accordion-menu">
-								<ul>
+								<ul> 
 									<li>
 										<input type="checkbox" checked>
 										<div>

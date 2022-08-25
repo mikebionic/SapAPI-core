@@ -216,7 +216,7 @@
 						</div>
 						<div class="icon-container header_profile">
 							<a
-								href="{{ url_for('commerce_users.profile') }}"
+								href="#"
 								class="mini-profile-wrap"
 							>
 								<svg
@@ -440,7 +440,7 @@
 
 			<!-- Mini Cart Bottom -->
 
-			<div class="mini-cart-bottom">
+			<div class="mini-cart-bottom" style="position: relative;">
 				<h4 class="sub-total">
 					{{_('Total')}}: <span class="cartTotalPrice">0.0</span>
 				</h4>
@@ -498,8 +498,7 @@
 		</script>
 
 		<script
-			type="text/javascript"
-			src="{{ url_for('static', filename='commerce/rs/js/jquery-1.12.4.min.js') }}"
+			src="https://code.jquery.com/jquery-3.6.0.min.js"
 		></script>
 
 		<script src="{{ url_for('static', filename='commerce/rs/js/app.js') }}"></script>

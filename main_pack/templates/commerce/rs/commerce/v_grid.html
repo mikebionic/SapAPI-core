@@ -52,11 +52,14 @@
 			
 			<div class="shop_page_top_navbar">
 				<ul class="shop_page_top_navbar_inside desc_shop_nav">
-					<li class="activ"><a href="#">Все</a></li>
-					<li><a href="#">Книги</a></li>
-					<li><a href="#">Игры</a></li>
-					<li><a href="#">Мерч</a></li>
-					<li><a href="#">Другие</a></li>
+				{% for category in categories %}
+					<!-- <li class="activ"><a href="#">Все</a></li> -->
+					<li>
+						<a href="{{ url_for('commerce.v_grid',ResCatId=category.ResCatId,ResCatName=category.ResCatName.replace('/','-').replace(' ','-')) if not category.Categories else '#' }}">
+							{{category.ResCatName}}
+						</a>
+					</li>
+				{% endfor %}
 				</ul>
 				<div class="sec-center"> 	
 					<input class="dropdown" type="checkbox" id="dropdown" name="dropdown"/>
@@ -145,10 +148,10 @@
 					<div class="workspace-sidebar-filter">
 						<span class="workspace_sidebar_title">Язык</span>
 						<ul class="filter_lang">
-							<a href="#" class="filter_lang_button">Русский</a>
-							<a href="#" class="filter_lang_button">Туркменский</a>
+							<a href="{{ url_for('main.set_language',language='ru') }}" class="filter_lang_button">Русский</a>
+							<a href="{{ url_for('main.set_language',language='tk') }}" class="filter_lang_button">Туркменский</a>
 							<a href="#" class="filter_lang_button">Турецкий</a>
-							<a href="#" class="filter_lang_button">Английский</a>
+							<a href="{{ url_for('main.set_language',language='en') }}" class="filter_lang_button">Английский</a>
 							<br>
 							<br>
 						</ul>

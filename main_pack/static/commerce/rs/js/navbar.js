@@ -325,11 +325,6 @@ jQuery(document).ready(function ($) {
 		miniSidebarWrap.removeClass('open')
 	})
 
-	var mainAvatar = document.querySelector(".open_filter");
-	var workspace = document.querySelector(".workspace-data");
-	mainAvatar.onclick = function () {
-	  workspace.classList.toggle("open-sidebar");
-	}
 
 	// Category
 	var headerCatalog = $('.header-catalog')
@@ -380,4 +375,9 @@ jQuery(document).ready(function ($) {
 		nextArrow: '<button type="button" class="slick-next"><i class="icofont icofont-long-arrow-right"></i></button>',
 	});
 	
+	var mainAvatar = document.querySelector(".open_filter");
+	var workspace = document.querySelector(".workspace-data");
+	mainAvatar.onclick = function () {
+	  workspace.classList.toggle("open-sidebar");
+	}
 });

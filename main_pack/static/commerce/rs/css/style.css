@@ -1,7 +1,7 @@
 /* 1) Navbar */
 
 body {
-	font-family: 'Cairo', sans-serif;
+	font-family: 'Manrope', sans-serif;
 	font-size: 15px;
 	line-height: 24px;
 	font-weight: 400;
@@ -253,10 +253,13 @@ li {
 .mini-cart-wrap .mini-cart-products li .image {
 	float: left;
 	margin-right: 16px;
+	height: 56px;
+	width: 36px
 }
 
 .mini-cart-wrap .mini-cart-products li .image img {
 	width: 100%;
+	height: 100%
 }
 
 .mini-cart-wrap .mini-cart-products li .content {
@@ -2578,7 +2581,7 @@ input[type='submit']:hover {
 	position: relative;
 	color: #fff;
 	transition: all 200ms linear;
-	font-family: 'Roboto', sans-serif;
+	font-family: 'Manrope', sans-serif;
 	font-weight: 500;
 	font-size: 15px;
 	border-radius: 2px;
@@ -3623,7 +3626,7 @@ input[type='submit']:hover {
 }
 
 .serif-font {
-	font-family: Tiempos Headline, Times New Roman, serif;
+	font-family: 'Manrope', serif;
 }
 
 .left-side {
@@ -3815,7 +3818,7 @@ input[type='submit']:hover {
 }
 .tabs .content section h2,
 .tabs ul li label {
-	font-family: 'Montserrat';
+	font-family: 'Manrope';
 	font-weight: bold;
 	font-size: 18px;
 	color: #1344a0;
@@ -3878,7 +3881,7 @@ input[type='submit']:hover {
 	margin-top: 64px;
 }
 .tabs .content section {
-	display: none;
+	/* display: none; */
 	-webkit-animation-name: content;
 	animation-name: content;
 	-webkit-animation-direction: normal;
