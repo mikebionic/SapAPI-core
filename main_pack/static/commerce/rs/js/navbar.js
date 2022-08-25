@@ -323,5 +323,29 @@ closeProfile.on("click", function (e) {
 		prevArrow: '<button type="button" class="slick-prev"><i class="icofont icofont-long-arrow-left"></i></button>',
 		nextArrow: '<button type="button" class="slick-next"><i class="icofont icofont-long-arrow-right"></i></button>',
 	});
-	
+		
+	const swiper = new Swiper('.swiper', {
+		slidesPerView: 4,
+		spaceBetween: 30,
+
+		autoplay: {
+			delay: 6000,
+		},
+
+		breakpoints: {
+			640: {
+				slidesPerView: 1,
+				spaceBetween: 20,
+			},
+			768: {
+				slidesPerView: 2,
+				spaceBetween: 40,
+			},
+			1024: {
+				slidesPerView: 4,
+				spaceBetween: 50,
+			},
+		},
+	});
+
 });

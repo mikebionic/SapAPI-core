@@ -8,40 +8,204 @@
 <meta name="twitter:image" content="{{ request.host_url }}{{ company_logo.FilePath if company_logo else url_for('static', filename='commerce/hs/images/logo/halal_OG.png') }}" />
 {% endblock %}
 
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='commerce/rs/css/swipe.css') }}">
+{% endblock %}
 {% block content %}
-
-<main class="rb-content">
-	<div class="static-wrapper" data-v-94788a02="">
-			<div class="static-content" data-v-94788a02="">
-					<h1 class="static-title" data-v-94788a02="">
-							О Readit*
-					</h1>
-					<div data-v-94788a02="">
-							<p>
-									Readit* – это свежий формат книжных магазинов с особой атмосферой. Здесь мировые бестселлеры соседствуют с подарками для любого праздника: от Дня космонавтики до Всемирного дня кошек. Онлайн-магазин
-									respublica.ru доставляет праздник в любой российский город. Каждую РЕСПУБЛИКУ* наполняют экспертные подборки книг, легендарные канцтовары, функциональные гаджеты, виниловые проигрыватели и пластинки, редкие
-									лакомства, beauty-средства, отдельная зона Kids.
-							</p>
-							<p>
-									Readit* развивает собственную коллекцию канцелярии и аксессуаров под брендом MADE IN R*. На упаковочных станциях внутри магазина вашу покупку, при желании, завернут в коллекционную хрустящую бумагу или
-									обычный крафт. В Readit* можно приобрести абонемент на 5 или 12 книг, который позволит вам получать новую книгу каждый месяц.
-							</p>
-							<p>
-									Readit* – это уникальный магазин-клуб, социальное пространство, которое меняет ткань города. В Лектории RESPUBLICA* UNIVERSITY регулярно проходят презентации книг и встречи с актуальными героями и
-									автограф-сессии. Оставайтесь на связи:
-									<br />
-							</p>
-							<h3>Контакты:</h3>
-							<p>
-									Номер телефона:
-									<a itemprop="telephone" class="mgo-number-1000000" href="tel:+99361099061">+99361099061</a>
-									<br />
-									или по электронной почте
-									<a href="mailto:store@respublica-pro.ru" onclick="gtag('config', 'UA-36538356-1', {'page_path': '/email'});yaCounter11368864.reachGoal ('email'); return true;">email@readit</a>
-							</p>
+<div class="section">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="row">
+					<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 pb-24">
+						<div class="about_detail">
+							<div class="about_title">
+								<h1>Книжный магазин вашей мечты</h1>
+							</div>
+							<div class="second_about_text">
+								<p>Eget commodo eu nibh dolor sodales. Sed pulvinar commodo morbi senectus urna, mattis.
+									Dui habitasse fermentum nisl viverra imperdiet sagittis sit sed. Scelerisque sit justo
+									viverra nulla. At aliquam leo adipiscing vel viverra nibh viverra commodo sit. Ultrices
+									dolor risus, in metus, sed magna lectus in id. Elit amet nibh est molestie sit ligula. 
+									Sed suspendisse fringilla urna curabitur nunc sollicitudin varius sit. Turpis scelerisque
+									at amet risus iaculis mattis a, malesuada dignissim.
+								</p>
+							</div>
+						</div>
 					</div>
+					<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 pb-24">
+						<div class="about_top_img">
+							<img src="{{ url_for('static', filename='commerce/rs/images/about/image 10.png') }}" alt="">
+						</div>
+					</div>
+				</div>
 			</div>
+			
+			<div class="custom-nav">
+				<div class="prev">
+					<i class="bi bi-chevron-left"></i>
+				</div>
+				<div class="next">
+					<i class="bi bi-chevron-right"></i>
+				</div> 
+			</div>
+			<div class="swiper">
+				<!-- Additional required wrapper -->  
+				<div class="swiper-wrapper">
+					<!-- Slides -->
+					<div class="swiper-slide">
+						<div class="product__image">
+							
+							<img src="{{ url_for('static', filename='commerce/rs/images/about/image.png') }}" alt="">
+						</div>
+		
+						<div class="product__details">
+							<p class="product__name">
+								Nike Running Shoe.
+								
+							</p>
+							<p class="product__info">
+								Running Shoes for the Pros.
+								Top Performance and Latest Innovation
+							</p>  
+		
+							<div class="product__cta">
+								<p class="price">$121</p>
+		
+								<button><i class="bi bi-cart"></i> Buy Now</button>
+							</div>
+						</div>
+					</div>
+		
+					<div class="swiper-slide">
+						<div class="product__image">
+							<img src="{{ url_for('static', filename='commerce/rs/images/about/5.png') }}" alt="">
+						</div>
+						<div class="product__details">
+							<p class="product__name">
+								Sony WH1000XM4
+							</p>
+							<p class="product__info">
+								Best Noise Cancelling headphones, With 20 Hours plus battery.
+							</p>  
+		
+							<div class="product__cta">
+								<p class="price">$348</p>
+								<button><i class="bi bi-cart"></i> Buy Now</button>
+							</div>
+						</div>
+					</div>
+					<div class="swiper-slide">
+						<div class="product__image">
+							<img src="{{ url_for('static', filename='commerce/rs/images/about/3.png') }}" alt="">
+						</div>
+						<div class="product__details">
+							<p class="product__name">
+							 Apple M1 Macbook Air
+							</p>
+							<p class="product__info">
+								M1 chip with 8‑core CPU, 7‑core GPU, and 16‑core Neural Engine.
+							</p>  
+		
+							<div class="product__cta">
+								<p class="price">$999</p>
+								<button><i class="bi bi-cart"></i> Buy Now</button>
+							</div>
+						</div>
+					</div>
+					<div class="swiper-slide">
+						<div class="product__image">
+							<img src="{{ url_for('static', filename='commerce/rs/images/about/2.png') }}" alt="">
+						</div>
+						<div class="product__details">
+							<p class="product__name">
+								Samsung S21 Plus
+							</p>
+							<p class="product__info">
+								The phones making every moment epic. <br>
+								6.2 Inch, 4000mAh, 128GB 
+							</p>  
+		
+							<div class="product__cta">
+								<p class="price">$799</p>
+								<button><i class="bi bi-cart"></i> Buy Now</button>
+							</div>
+						</div>
+					</div>
+					<div class="swiper-slide">
+						<div class="product__image">
+							<img src="{{ url_for('static', filename='commerce/rs/images/about/1.png') }}" alt="">
+						</div>
+						<div class="product__details">
+							<p class="product__name">
+							 Logitech K380 KEYBOARD
+							</p>
+							<p class="product__info">
+								Minimalist Bluetooth keyboard for computers, tablets and phones
+							</p>  
+		
+							<div class="product__cta">
+								<p class="price">$39</p>
+								<button><i class="bi bi-cart"></i> Buy Now</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="custom-nav">
+				<div class="prev">
+					<i class="bi bi-chevron-left"></i>
+				</div>
+				<div class="next">
+					<i class="bi bi-chevron-right"></i>
+				</div> 
+			</div>
+			<div class="col-12">
+				<div class="row" style="border: 1px solid #CED1D9;">
+					<div class="contact_title">
+						<h2>Контакты</h2>
+					</div>
+					<div class="col-md-4 col-12">
+						<div class="bottom_contact">
+							<div class="bottom_contact_title">
+								<span>Адрес</span>
+							</div>
+							<div class="bottom_about_text">
+								<p> Туркменистан, Ашхабад, ТЦ «Ашхабад» 0 этаж</p>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-md-4 col-12">
+						<div class="bottom_contact gmaill">
+							<div class="bottom_contact_title">
+								<span>Почта</span>
+							</div>
+							<div class="bottom_about_text">
+								<p>info@readit.store[</p>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-md-4 col-12">
+						<div class="bottom_contact">
+							<div class="bottom_contact_title">
+								<span>Телефон</span>
+							</div>
+							<div class="bottom_about_text">
+								<p>+993(64)824441</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-</main>
+</div>
+{% endblock %}
 
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='commerce/rs/js/swiper.js') }}"></script>
 {% endblock %}
