@@ -325,11 +325,11 @@ jQuery(document).ready(function ($) {
 		miniSidebarWrap.removeClass('open')
 	})
 
-	// var mainAvatar = document.querySelector(".open_filter");
-	// var workspace = document.querySelector(".workspace-data");
-	// mainAvatar.onclick = function () {
-	//   workspace.classList.toggle("open-sidebar");
-	// }
+	var mainAvatar = document.querySelector(".open_filter");
+	var workspace = document.querySelector(".workspace-data");
+	mainAvatar.onclick = function () {
+	  workspace.classList.toggle("open-sidebar");
+	}
 
 	// Category
 	var headerCatalog = $('.header-catalog')
