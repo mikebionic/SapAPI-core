@@ -46,7 +46,7 @@
 
 body {
   margin: 0;
-  font-family: var(--bs-font-sans-serif);
+  font-family: 'Manrope';
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
@@ -5484,7 +5484,7 @@ textarea.form-control-lg {
   z-index: 1080;
   display: block;
   margin: 0;
-  font-family: var(--bs-font-sans-serif);
+  font-family: 'Manrope';
   font-style: normal;
   font-weight: 400;
   line-height: 1.5;
@@ -5586,7 +5586,7 @@ textarea.form-control-lg {
   z-index: 1070;
   display: block;
   max-width: 276px;
-  font-family: var(--bs-font-sans-serif);
+  font-family: 'Manrope';
   font-style: normal;
   font-weight: 400;
   line-height: 1.5;
