@@ -1,6 +1,11 @@
 # The E-commerce Web application [Branch of SAPHASAP System] 
 ## Languages:
 
+## Mekan samsyk, haywan, kody dowman ishle gayrat et!! :)
+
+## Boldy boldy hokman dowam eders :) Haywanam collaborate eday diyya su rep
+
+
 > Python >= v3.6
 
 > JavaScript | jQuery | ReactJS

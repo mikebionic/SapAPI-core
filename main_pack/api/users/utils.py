@@ -105,6 +105,7 @@ def addRpAccDict(req):
 	RpAccPurchBalanceLimit = req.get('RpAccPurchBalanceLimit')
 	RpAccLatitude = req.get('RpAccLatitude')
 	RpAccLongitude = req.get('RpAccLongitude')
+	RpAccRegistrationPlace = req.get('RpAccRegistrationPlace')
 	AddInf1 = req.get('AddInf1')
 	AddInf2 = req.get('AddInf2')
 	AddInf3 = req.get('AddInf3')
@@ -157,6 +158,7 @@ def addRpAccDict(req):
 		"RpAccPurchBalanceLimit": RpAccPurchBalanceLimit,
 		"RpAccLatitude": RpAccLatitude,
 		"RpAccLongitude": RpAccLongitude,
+		"RpAccRegistrationPlace": RpAccRegistrationPlace,
 		"AddInf1": AddInf1,
 		"AddInf2": AddInf2,
 		"AddInf3": AddInf3,

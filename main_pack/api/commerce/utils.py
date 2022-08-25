@@ -458,6 +458,7 @@ def addResPriceDict(req):
 	ResPriceGroupId = req.get('ResPriceGroupId')
 	UnitId = req.get('UnitId')
 	CurrencyId = req.get('CurrencyId')
+	CurrencyCode = req.get('CurrencyCode')
 	ResId = req.get('ResId')
 	ResPriceRegNo = req.get('ResPriceRegNo')
 	ResPriceValue = configureFloat(req.get('ResPriceValue'))
@@ -476,6 +477,7 @@ def addResPriceDict(req):
 		"ResPriceGroupId": ResPriceGroupId,
 		"UnitId": UnitId,
 		"CurrencyId": CurrencyId,
+		"CurrencyCode": CurrencyCode,
 		"ResId": ResId,
 		"ResPriceRegNo": ResPriceRegNo,
 		"ResPriceValue": ResPriceValue,
@@ -863,12 +865,14 @@ def addInvDict(req):
 
 def addInvLineDict(req):
 	InvLineId = req.get('InvLineId')
-	InvGuid = uuid.UUID(req.get('InvGuid'))
+	# InvGuid = uuid.UUID(req.get('InvGuid'))
 	InvId = req.get('InvId')
 	UnitId = req.get('UnitId')
 	CurrencyId = req.get('CurrencyId')
 	ResId = req.get('ResId')
 	LastVendorId = req.get('LastVendorId')
+	InvLineGuid = uuid.UUID(req.get('InvLineGuid'))
+	InvLineRegNo = req.get('InvLineRegNo')
 	InvLineDesc = req.get('InvLineDesc')
 	InvLineAmount = req.get('InvLineAmount')
 	InvLinePrice = configureFloat(req.get('InvLinePrice'))
@@ -892,12 +896,14 @@ def addInvLineDict(req):
 	GCRecord = req.get('GCRecord')
 
 	data = {
-		"InvGuid": InvGuid,
+		# "InvGuid": InvGuid,
 		"InvId": InvId,
 		"UnitId": UnitId,
 		"CurrencyId": CurrencyId,
 		"ResId": ResId,
 		"LastVendorId": LastVendorId,
+		"InvLineGuid": InvLineGuid,
+		"InvLineRegNo": InvLineRegNo,
 		"InvLineDesc": InvLineDesc,
 		"InvLineAmount": InvLineAmount,
 		"InvLinePrice": InvLinePrice,

@@ -678,3 +678,211 @@ curl 127.0.0.1:5000/ls/api/v1/v-images/ --header 'images-to-exclude: [{"FileName
   "total": 1
 }
 ```
+
+---
+
+## Invoice API
+
+>POST
+
+| __Route__              |   __Methods__    | __Status__ | __Note__          |
+| ---------------------- | :--------------: | :--------: | ----------------- |
+| /api/v1/v-invoices/ | **POST** |   Active   | **@sha required** |
+
+# example of request invoice
+
+**request**
+```json
+[
+    {
+        "InvGuid": "582d5db3-3e58-4044-98e5-2f979b2960d8",
+        "ModifiedDate": "2022-03-12T17:36:11.54"
+    },
+    {
+        "InvGuid": "4a6f9c77-66a2-4902-91ae-d38badc1f001",
+        "ModifiedDate": "2022-03-12T17:36:32.07"
+    },
+    {
+        "InvGuid": "fa499e8c-b330-4c7b-8ae9-0d516f60caec",
+        "ModifiedDate": "2022-03-12T17:37:23.827"
+    },
+    {
+        "InvGuid": "6f06a7f5-eacf-4832-a2df-6bf84fa13041",
+        "ModifiedDate": "2022-03-12T20:18:59.047"
+    },
+    {
+        "InvGuid": "a1ec660a-7a7f-4a68-a530-401d5b99161b",
+        "ModifiedDate": "2022-03-14T10:28:05.633"
+    },
+    {
+        "InvGuid": "19edba3a-0c0d-444d-ba40-a5dbe7fba824",
+        "ModifiedDate": "2022-03-15T12:53:47.75"
+    }
+]
+```
+
+**response**
+
+```json
+"data": [
+		{
+			"AddInf1": null,
+			"AddInf10": null,
+			"AddInf2": null,
+			"AddInf3": null,
+			"AddInf4": null,
+			"AddInf5": null,
+			"AddInf6": null,
+			"AddInf7": null,
+			"AddInf8": null,
+			"AddInf9": null,
+			"CGuid": null,
+			"CId": null,
+			"CreatedDate": "2022-04-26 18:47:18",
+			"CreatedUId": 2013,
+			"CurrencyCode": "TMT",
+			"CurrencyId": 1,
+			"CurrencySymbol": "m",
+			"DivGuid": "e172dd11-07b4-4d3c-a9f8-58610df41f51",
+			"DivId": 1,
+			"EmpId": null,
+			"GCRecord": null,
+			"InvCreditDays": 0,
+			"InvCreditDesc": null,
+			"InvDate": "2022-04-26 18:38:27",
+			"InvDesc": null,
+			"InvDiscountAmount": 0.0,
+			"InvExpenseAmount": 0.0,
+			"InvFTotal": 300.0,
+			"InvFTotalInWrite": "Üç yüz manat 0 teňňe",
+			"InvGuid": "cddeea33-2a3c-471b-bf71-e637340cd5e9",
+			"InvId": 14191,
+			"InvLatitude": 0.0,
+			"InvLongitude": 0.0,
+			"InvModifyCount": 0,
+			"InvPrintCount": 0,
+			"InvRegNo": "SRHSF-00000054",
+			"InvStatId": 1,
+			"InvTaxAmount": 0.0,
+			"InvTotal": 300.0,
+			"InvTypeId": 3,
+			"ModifiedDate": "2022-04-27 09:12:48",
+			"ModifiedUId": 6,
+			"PmId": null,
+			"PtId": null,
+			"RpAccGuid": "1e291363-9b33-416b-8443-9354f73f2f6b",
+			"RpAccId": 567,
+			"RpAccName": "Nagt satuw",
+			"RpAccRegNo": "YP00000001",
+			"Rp_acc": {
+				"AddInf1": null,
+				"AddInf10": "",
+				"AddInf2": null,
+				"AddInf3": null,
+				"AddInf4": null,
+				"AddInf5": null,
+				"AddInf6": null,
+				"AddInf7": "",
+				"AddInf8": "",
+				"AddInf9": "",
+				"CId": 1,
+				"CreatedDate": "2022-07-06 16:41:33",
+				"CreatedUId": null,
+				"DbGuid": null,
+				"DeviceQty": null,
+				"DivId": 1,
+				"EmpId": null,
+				"GCRecord": null,
+				"GenderId": null,
+				"IsMain": null,
+				"ModifiedDate": "2022-07-07 17:08:30",
+				"ModifiedUId": null,
+				"NatId": null,
+				"ReprId": null,
+				"ResPriceGroupId": null,
+				"RpAccAddress": null,
+				"RpAccBirthDate": null,
+				"RpAccEMail": null,
+				"RpAccFirstName": null,
+				"RpAccGuid": "1e291363-9b33-416b-8443-9354f73f2f6b",
+				"RpAccHomePhoneNumber": null,
+				"RpAccId": 567,
+				"RpAccLangSkills": null,
+				"RpAccLastActivityDate": "2022-07-06 16:41:33",
+				"RpAccLastActivityDevice": null,
+				"RpAccLastName": null,
+				"RpAccLatitude": 0.0,
+				"RpAccLongitude": 0.0,
+				"RpAccMobilePhoneNumber": null,
+				"RpAccName": "Nagt satuw",
+				"RpAccPassportIssuePlace": null,
+				"RpAccPassportNo": null,
+				"RpAccPatronomic": null,
+				"RpAccPurchBalanceLimit": 0.0,
+				"RpAccRegNo": "YP00000001",
+				"RpAccRegistrationPlace": "",
+				"RpAccResidency": null,
+				"RpAccSaleBalanceLimit": 0.0,
+				"RpAccStatusId": 1,
+				"RpAccTypeId": 2,
+				"RpAccUName": "user178810",
+				"RpAccViewCnt": null,
+				"RpAccVisibleIndex": null,
+				"RpAccWebAddress": null,
+				"RpAccWorkFaxNumber": null,
+				"RpAccWorkPhoneNumber": null,
+				"RpAccZipCode": null,
+				"SyncDateTime": "2022-07-06 16:41:33",
+				"UnusedDeviceQty": null,
+				"WpId": null
+			},
+			"SyncDateTime": "2022-07-29 18:18:31",
+			"WhGuid": "6b0aa15f-00ff-4a40-9d52-a70e260067d6",
+			"WhId": 1,
+			"WpId": null,
+			"inv_lines": [
+				{
+					"AddInf1": null,
+					"AddInf10": null,
+					"AddInf2": null,
+					"AddInf3": null,
+					"AddInf4": null,
+					"AddInf5": null,
+					"AddInf6": null,
+					"AddInf7": null,
+					"AddInf8": null,
+					"AddInf9": null,
+					"CreatedDate": "2022-07-29 18:18:31",
+					"CreatedUId": null,
+					"CurrencyCode": "TMT",
+					"CurrencyId": 1,
+					"CurrencySymbol": "m",
+					"ExcRateValue": 0.0,
+					"GCRecord": null,
+					"InvId": 14191,
+					"InvLineAmount": 1.0,
+					"InvLineDate": "Wed, 27 Apr 2022 09:12:48 GMT",
+					"InvLineDesc": null,
+					"InvLineDiscAmount": 0.0,
+					"InvLineExpenseAmount": 0.0,
+					"InvLineFTotal": 19.2,
+					"InvLineGuid": "7fef39cd-616f-44d4-8bec-fdbfb6ad134a",
+					"InvLineId": 2585,
+					"InvLinePrice": 19.2,
+					"InvLineTaxAmount": 0.0,
+					"InvLineTotal": 19.2,
+					"LastVendorId": null,
+					"ModifiedDate": "2022-07-29 18:18:31",
+					"ModifiedUId": null,
+					"ResGuid": "f639bd95-8b69-4276-84cf-6ca4fe7749c0",
+					"ResId": 48,
+					"ResName": "NIKAI - blender NB1700J  350W ",
+					"ResRegNo": "YP00000046",
+					"SyncDateTime": "2022-07-29 18:18:31",
+					"UnitId": 1
+				}
+      ]
+    }
+]
+
+```

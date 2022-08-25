@@ -1,50 +1,71 @@
-
-{% extends "commerce/rs/commerce/layout.html" %}
-{% block head %}
-<meta name="description" content="{{company.CName}} | {{company.CDesc}}">
-<meta property="og:description" content="{{ company.CName }} {{ company.CDesc if company.CDesc}}" />
-<meta property="og:image" content="{{ request.host_url }}{{ company_logo.FilePath if company_logo else url_for('static', filename='commerce/rs/images/logo.png') }}" />
-<meta name="twitter:description" content="{{ company.CName }} {{ company.CDesc if company.CDesc}}" />
-<meta name="twitter:image" content="{{ request.host_url }}{{ company_logo.FilePath if company_logo else url_for('static', filename='commerce/rs/images/logo.png') }}" />
-{% endblock %}
-
-{% block content %}
+{% extends "commerce/rs/commerce/layout.html" %} {% block head %}
+<meta name="description" content="{{company.CName}} | {{company.CDesc}}" />
+<meta
+	property="og:description"
+	content="{{ company.CName }} {{ company.CDesc if company.CDesc}}"
+/>
+<meta
+	property="og:image"
+	content="{{ request.host_url }}{{ company_logo.FilePath if company_logo else url_for('static', filename='commerce/rs/images/logo.png') }}"
+/>
+<meta
+	name="twitter:description"
+	content="{{ company.CName }} {{ company.CDesc if company.CDesc}}"
+/>
+<meta
+	name="twitter:image"
+	content="{{ request.host_url }}{{ company_logo.FilePath if company_logo else url_for('static', filename='commerce/rs/images/logo.png') }}"
+/>
+{% endblock %} {% block content %}
 <!-- ------------------------------------------------------ -->
 <!-- ------------------------Carousel-------------------------- -->
 <!-- ------------------------------------------------------ -->
 <div class="hero-section section mb-30">
 	<div class="hero-slider hero-slider-one">
-		
-		{% for slider in sliders %}
-		{% if slider.SlName == "commerce_header" %}
-			{% for sl_image in slider.Sl_images %}
-			{% if sl_image.SlImgMainImgFilePathS %}
-			<div class="hero-item">
-				<div class="row align-items-center justify-content-between">
-					<div class="hero-content">
-						<h2>Событие</h2>
-						<span>Показ фильма “Жизнь на планете”</span>
-						<a href="details.html" class="read_more">Узнать детали
-							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<path d="M9 18L15 12L9 6" stroke="#F5F8FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-							</svg>
-						</a>
-					</div>
-					<div class="hero-image">
-						<a href="{{ sl_image.SlImgLink if sl_image.SlImgLink else '#' }}">
-							<img loading="lazy" src="{{ sl_image.SlImgMainImgFilePathM }}" data-src-m="{{ sl_image.SlImgMainImgFilePathR }}"
-							alt="{{ sl_image.SlImgTitle if sl_image.SlImgTitle else 'sl_image.SlImgMainImgFileName' }} {{ company.CName }}">
-						</a>
-					</div>
+		{% for slider in sliders %} {% if slider.SlName == "commerce_header" %} {%
+		for sl_image in slider.Sl_images %} {% if sl_image.SlImgMainImgFilePathS %}
+		<div class="hero-item">
+			<div class="row align-items-center justify-content-between">
+				<div class="hero-content">
+					<h2>Событие</h2>
+					<span>Показ фильма “Жизнь на планете”</span>
+					<a href="details.html" class="read_more"
+						>Узнать детали
+						<svg
+							width="24"
+							height="24"
+							viewBox="0 0 24 24"
+							fill="none"
+							xmlns="http://www.w3.org/2000/svg"
+						>
+							<path
+								d="M9 18L15 12L9 6"
+								stroke="#F5F8FF"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							/>
+						</svg>
+					</a>
 				</div>
-			</div><!-- Hero Item End -->
-			
-			{% endif %}
-			{% endfor %}
-		{% endif %}
-		{% endfor %}
+				<div class="hero-image">
+					<a href="{{ sl_image.SlImgLink if sl_image.SlImgLink else '#' }}">
+						<img
+							loading="lazy"
+							src="{{ sl_image.SlImgMainImgFilePathM }}"
+							data-src-m="{{ sl_image.SlImgMainImgFilePathR }}"
+							alt="{{ sl_image.SlImgTitle if sl_image.SlImgTitle else 'sl_image.SlImgMainImgFileName' }} {{ company.CName }}"
+						/>
+					</a>
+				</div>
+			</div>
+		</div>
+		<!-- Hero Item End -->
+
+		{% endif %} {% endfor %} {% endif %} {% endfor %}
+	</div>
 </div>
-</div><!-- Hero Section End -->
+<!-- Hero Section End -->
 
 <!-- ------------------------------------------------------ -->
 <!-- ------------------------Banner-------------------------- -->
@@ -58,49 +79,79 @@
 				<div class="post-elem">
 					<div class="post-item style-left-info">
 						<div class="thumbnail">
-								<a href="details.html" class="link-to-post"><img src="img/banner/banner1.png" width="336" height="336" alt=""></a>
+							<a href="details.html" class="link-to-post"
+								><img
+									src="img/banner/banner1.png"
+									width="336"
+									height="336"
+									alt=""
+							/></a>
 						</div>
 						<div class="post-content">
 							<span class="post-archive">Новость</span>
 							<div class="text_container">
-								<span class="post-name">Теперь у нас в наличии есть все для любителей искусства и художников!</span>
-									
+								<span class="post-name"
+									>Теперь у нас в наличии есть все для любителей искусства и
+									художников!</span
+								>
+
 								<div class="group-buttons banner_button_link">
 									<a href="details.html" class="button">
 										Узнать детали
-									<svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-										<path d="M1 13L7 7L1 1" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-									</svg>
+										<svg
+											width="8"
+											height="14"
+											viewBox="0 0 8 14"
+											fill="none"
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<path
+												d="M1 13L7 7L1 1"
+												stroke="#1344A0"
+												stroke-width="2"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+											/>
+										</svg>
 									</a>
-									
-
 								</div>
 							</div>
-
 						</div>
 					</div>
 				</div>
 			</div>
-				
-				
+
 			<div class="col-xl-3 col-lg-5 col-md-5 col-12 mb-30">
 				<div class="post-elem">
 					<div class="post-item style-left-info">
 						<div class="post-content">
 							<span class="post-archive">Акция</span>
 							<div class="text_container">
-								<span class="post-name">При покупке двух книг на вторую книгу действует 50% скидка!</span>
-								
-							<div class="group-buttons banner_button_link">
-								<a href="details.html" class="button">
-									Узнать детали
-								<svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-										<path d="M1 13L7 7L1 1" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-									</svg>
-								</a>
-								
+								<span class="post-name"
+									>При покупке двух книг на вторую книгу действует 50%
+									скидка!</span
+								>
 
-							</div>
+								<div class="group-buttons banner_button_link">
+									<a href="details.html" class="button">
+										Узнать детали
+										<svg
+											width="8"
+											height="14"
+											viewBox="0 0 8 14"
+											fill="none"
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<path
+												d="M1 13L7 7L1 1"
+												stroke="#1344A0"
+												stroke-width="2"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+											/>
+										</svg>
+									</a>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -111,25 +162,40 @@
 				<div class="post-elem">
 					<div class="post-item style-left-info">
 						<div class="thumbnail">
-								<a href="details.html" class="link-to-post"><img src="img/banner/banner2.png" width="336" height="336" alt=""></a>
+							<a href="details.html" class="link-to-post"
+								><img
+									src="img/banner/banner2.png"
+									width="336"
+									height="336"
+									alt=""
+							/></a>
 						</div>
 						<div class="post-content">
 							<span class="post-archive">Новость</span>
 							<div class="text_container">
 								<span class="post-name">Мы открылись!</span>
-									
+
 								<div class="group-buttons banner_button_link">
 									<a href="details.html" class="button">
 										Узнать детали
-									<svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-										<path d="M1 13L7 7L1 1" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-									</svg>
+										<svg
+											width="8"
+											height="14"
+											viewBox="0 0 8 14"
+											fill="none"
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<path
+												d="M1 13L7 7L1 1"
+												stroke="#1344A0"
+												stroke-width="2"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+											/>
+										</svg>
 									</a>
-									
-
 								</div>
 							</div>
-
 						</div>
 					</div>
 				</div>
@@ -139,35 +205,48 @@
 				<div class="post-elem">
 					<div class="post-item style-left-info">
 						<div class="thumbnail">
-								<a href="details.html" class="link-to-post"><img src="img/banner/banner3.png" width="336" height="336" alt=""></a>
+							<a href="details.html" class="link-to-post"
+								><img
+									src="img/banner/banner3.png"
+									width="336"
+									height="336"
+									alt=""
+							/></a>
 						</div>
 						<div class="post-content">
 							<span class="post-archive">Новость</span>
 							<div class="text_container">
 								<span class="post-name">Всем студентам скидка 10%</span>
-									
+
 								<div class="group-buttons banner_button_link">
 									<a href="details.html" class="button">
 										Узнать детали
-									<svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-										<path d="M1 13L7 7L1 1" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-									</svg>
+										<svg
+											width="8"
+											height="14"
+											viewBox="0 0 8 14"
+											fill="none"
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<path
+												d="M1 13L7 7L1 1"
+												stroke="#1344A0"
+												stroke-width="2"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+											/>
+										</svg>
 									</a>
-									
-
 								</div>
 							</div>
-
 						</div>
 					</div>
 				</div>
 			</div>
-				
 		</div>
 	</div>
 </div>
 <!-- Banner Section End -->
-
 
 <!-- ------------------------------------------------------ -->
 <!-- ------------------------Новые книги-------------------------- -->
@@ -180,49 +259,134 @@
 					<h1>{{_('New arrival')}}</h1>
 				</div>
 			</div>
-			<div class="col-12" style="margin-top: 32px;">
+			<div class="col-12" style="margin-top: 32px">
 				<div class="row">
 					{% for resource in Latest_resources %}
 					<div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 pb-24">
 						<div class="rd_products">
 							<div class="image">
-								<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">
-									<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }} {{ company.CName }}">
+								<a
+									href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}"
+								>
+									<img
+										loading="lazy"
+										src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}"
+										alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }} {{ company.CName }}"
+									/>
 								</a>
 							</div>
 							<div class="content">
 								<div class="category_title">
-									<a href="{{url_for('commerce.v_grid')}}" class="cat">{{ resource.ResCatName if resource.ResCatName else '' }}</a>
+									<a href="{{url_for('commerce.v_grid')}}" class="cat"
+										>{{ resource.ResCatName if resource.ResCatName else '' }}</a
+									>
 									<a href="{{url_for('commerce.v_grid')}}">
 										<h5 class="title">{{ resource.ResName }}</h5>
 									</a>
-									<h5 class="price">
+									<div
+										class="price priceValue"
+										value="{{ resource.ResPriceValue }}"
+										ownerId="{{resource.ResId}}"
+									>
 										{{ resource.ResPriceValue }}
-										<span class="rd_products_price">{{ resource.CurrencyCode }}</span>
-									</h5>
+										<span class="rd_products_price"
+											>{{ resource.CurrencyCode }}</span
+										>
+									</div>
 								</div>
 								<div class="cart_wishlst">
 									<a class="add-to-cart" ownerId="{{ resource.ResId }}">
-										<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-											<path d="M9 22C9.55228 22 10 21.5523 10 21C10 20.4477 9.55228 20 9 20C8.44772 20 8 20.4477 8 21C8 21.5523 8.44772 22 9 22Z" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-											<path d="M20 22C20.5523 22 21 21.5523 21 21C21 20.4477 20.5523 20 20 20C19.4477 20 19 20.4477 19 21C19 21.5523 19.4477 22 20 22Z" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-											<path d="M1 1H5L7.68 14.39C7.77144 14.8504 8.02191 15.264 8.38755 15.5583C8.75318 15.8526 9.2107 16.009 9.68 16H19.4C19.8693 16.009 20.3268 15.8526 20.6925 15.5583C21.0581 15.264 21.3086 14.8504 21.4 14.39L23 6H6" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-											<path d="M9 22C9.55228 22 10 21.5523 10 21C10 20.4477 9.55228 20 9 20C8.44772 20 8 20.4477 8 21C8 21.5523 8.44772 22 9 22Z" stroke="#5A5C61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-											<path d="M20 22C20.5523 22 21 21.5523 21 21C21 20.4477 20.5523 20 20 20C19.4477 20 19 20.4477 19 21C19 21.5523 19.4477 22 20 22Z" stroke="#5A5C61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-											<path d="M1 1H5L7.68 14.39C7.77144 14.8504 8.02191 15.264 8.38755 15.5583C8.75318 15.8526 9.2107 16.009 9.68 16H19.4C19.8693 16.009 20.3268 15.8526 20.6925 15.5583C21.0581 15.264 21.3086 14.8504 21.4 14.39L23 6H6" stroke="#5A5C61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+										<svg
+											width="24"
+											height="24"
+											viewBox="0 0 24 24"
+											fill="none"
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<path
+												d="M9 22C9.55228 22 10 21.5523 10 21C10 20.4477 9.55228 20 9 20C8.44772 20 8 20.4477 8 21C8 21.5523 8.44772 22 9 22Z"
+												stroke="#1344A0"
+												stroke-width="2"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+											/>
+											<path
+												d="M20 22C20.5523 22 21 21.5523 21 21C21 20.4477 20.5523 20 20 20C19.4477 20 19 20.4477 19 21C19 21.5523 19.4477 22 20 22Z"
+												stroke="#1344A0"
+												stroke-width="2"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+											/>
+											<path
+												d="M1 1H5L7.68 14.39C7.77144 14.8504 8.02191 15.264 8.38755 15.5583C8.75318 15.8526 9.2107 16.009 9.68 16H19.4C19.8693 16.009 20.3268 15.8526 20.6925 15.5583C21.0581 15.264 21.3086 14.8504 21.4 14.39L23 6H6"
+												stroke="#1344A0"
+												stroke-width="2"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+											/>
+											<path
+												d="M9 22C9.55228 22 10 21.5523 10 21C10 20.4477 9.55228 20 9 20C8.44772 20 8 20.4477 8 21C8 21.5523 8.44772 22 9 22Z"
+												stroke="#5A5C61"
+												stroke-width="2"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+											/>
+											<path
+												d="M20 22C20.5523 22 21 21.5523 21 21C21 20.4477 20.5523 20 20 20C19.4477 20 19 20.4477 19 21C19 21.5523 19.4477 22 20 22Z"
+												stroke="#5A5C61"
+												stroke-width="2"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+											/>
+											<path
+												d="M1 1H5L7.68 14.39C7.77144 14.8504 8.02191 15.264 8.38755 15.5583C8.75318 15.8526 9.2107 16.009 9.68 16H19.4C19.8693 16.009 20.3268 15.8526 20.6925 15.5583C21.0581 15.264 21.3086 14.8504 21.4 14.39L23 6H6"
+												stroke="#5A5C61"
+												stroke-width="2"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+											/>
 										</svg>
 										<span>{{_('Add to cart')}}</span>
 									</a>
 									{% if current_user.is_authenticated %}
-									<a class="wishlist {{'added' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}">
-										<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-											<path d="M20.8401 5.60987C20.3294 5.09888 19.7229 4.69352 19.0555 4.41696C18.388 4.14039 17.6726 3.99805 16.9501 3.99805C16.2276 3.99805 15.5122 4.14039 14.8448 4.41696C14.1773 4.69352 13.5709 5.09888 13.0601 5.60987L12.0001 6.66987L10.9401 5.60987C9.90843 4.57818 8.50915 3.99858 7.05012 3.99858C5.59109 3.99858 4.19181 4.57818 3.16012 5.60987C2.12843 6.64156 1.54883 8.04084 1.54883 9.49987C1.54883 10.9589 2.12843 12.3582 3.16012 13.3899L4.22012 14.4499L12.0001 22.2299L19.7801 14.4499L20.8401 13.3899C21.3511 12.8791 21.7565 12.2727 22.033 11.6052C22.3096 10.9378 22.4519 10.2224 22.4519 9.49987C22.4519 8.77738 22.3096 8.06198 22.033 7.39452C21.7565 6.72706 21.3511 6.12063 20.8401 5.60987V5.60987Z" stroke="#E95086" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+									<a
+										class="wishlist {{'added' if resource.Wishlist == true}}"
+										ownerId="{{ resource.ResId }}"
+									>
+										<svg
+											width="24"
+											height="24"
+											viewBox="0 0 24 24"
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<path
+												d="M20.8401 5.60987C20.3294 5.09888 19.7229 4.69352 19.0555 4.41696C18.388 4.14039 17.6726 3.99805 16.9501 3.99805C16.2276 3.99805 15.5122 4.14039 14.8448 4.41696C14.1773 4.69352 13.5709 5.09888 13.0601 5.60987L12.0001 6.66987L10.9401 5.60987C9.90843 4.57818 8.50915 3.99858 7.05012 3.99858C5.59109 3.99858 4.19181 4.57818 3.16012 5.60987C2.12843 6.64156 1.54883 8.04084 1.54883 9.49987C1.54883 10.9589 2.12843 12.3582 3.16012 13.3899L4.22012 14.4499L12.0001 22.2299L19.7801 14.4499L20.8401 13.3899C21.3511 12.8791 21.7565 12.2727 22.033 11.6052C22.3096 10.9378 22.4519 10.2224 22.4519 9.49987C22.4519 8.77738 22.3096 8.06198 22.033 7.39452C21.7565 6.72706 21.3511 6.12063 20.8401 5.60987V5.60987Z"
+												stroke="#E95086"
+												stroke-width="2"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+											/>
 										</svg>
 									</a>
 									{% else %}
-									<a href="{{ url_for('commerce_auth.login') }}" class="wishlist {{'heart' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}">
-										<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-											<path d="M20.8401 5.60987C20.3294 5.09888 19.7229 4.69352 19.0555 4.41696C18.388 4.14039 17.6726 3.99805 16.9501 3.99805C16.2276 3.99805 15.5122 4.14039 14.8448 4.41696C14.1773 4.69352 13.5709 5.09888 13.0601 5.60987L12.0001 6.66987L10.9401 5.60987C9.90843 4.57818 8.50915 3.99858 7.05012 3.99858C5.59109 3.99858 4.19181 4.57818 3.16012 5.60987C2.12843 6.64156 1.54883 8.04084 1.54883 9.49987C1.54883 10.9589 2.12843 12.3582 3.16012 13.3899L4.22012 14.4499L12.0001 22.2299L19.7801 14.4499L20.8401 13.3899C21.3511 12.8791 21.7565 12.2727 22.033 11.6052C22.3096 10.9378 22.4519 10.2224 22.4519 9.49987C22.4519 8.77738 22.3096 8.06198 22.033 7.39452C21.7565 6.72706 21.3511 6.12063 20.8401 5.60987V5.60987Z" stroke="#E95086" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+									<a
+										href="{{ url_for('commerce_auth.login') }}"
+										class="wishlist {{'heart' if resource.Wishlist == true}}"
+										ownerId="{{ resource.ResId }}"
+									>
+										<svg
+											width="24"
+											height="24"
+											viewBox="0 0 24 24"
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<path
+												d="M20.8401 5.60987C20.3294 5.09888 19.7229 4.69352 19.0555 4.41696C18.388 4.14039 17.6726 3.99805 16.9501 3.99805C16.2276 3.99805 15.5122 4.14039 14.8448 4.41696C14.1773 4.69352 13.5709 5.09888 13.0601 5.60987L12.0001 6.66987L10.9401 5.60987C9.90843 4.57818 8.50915 3.99858 7.05012 3.99858C5.59109 3.99858 4.19181 4.57818 3.16012 5.60987C2.12843 6.64156 1.54883 8.04084 1.54883 9.49987C1.54883 10.9589 2.12843 12.3582 3.16012 13.3899L4.22012 14.4499L12.0001 22.2299L19.7801 14.4499L20.8401 13.3899C21.3511 12.8791 21.7565 12.2727 22.033 11.6052C22.3096 10.9378 22.4519 10.2224 22.4519 9.49987C22.4519 8.77738 22.3096 8.06198 22.033 7.39452C21.7565 6.72706 21.3511 6.12063 20.8401 5.60987V5.60987Z"
+												stroke="#E95086"
+												stroke-width="2"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+											/>
 										</svg>
 									</a>
 									{% endif %}
@@ -234,8 +398,20 @@
 					<div class="reed_more">
 						<a href="{{url_for('commerce.v_grid')}}">
 							Посмотреть все
-							<svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<path d="M1 13L7 7L1 1" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+							<svg
+								width="8"
+								height="14"
+								viewBox="0 0 8 14"
+								fill="none"
+								xmlns="http://www.w3.org/2000/svg"
+							>
+								<path
+									d="M1 13L7 7L1 1"
+									stroke="#1344A0"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								/>
 							</svg>
 						</a>
 					</div>
@@ -244,7 +420,6 @@
 		</div>
 	</div>
 </div>
-
 
 <!-- ------------------------------------------------------ -->
 <!-- ------------------------Новый мерч-------------------------- -->
@@ -257,32 +432,45 @@
 					<h1>{{_('New arrival')}}</h1>
 				</div>
 			</div>
-			<div class="col-12" style="margin-top: 32px;">
+			<div class="col-12" style="margin-top: 32px">
 				<div class="row">
 					{% for resource in Latest_resources %}
 					<div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 pb-24">
 						<div class="rd_products no_resource">
 							<div class="image">
-								<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">
-									<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }} {{ company.CName }}">
+								<a
+									href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}"
+								>
+									<img
+										loading="lazy"
+										src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}"
+										alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }} {{ company.CName }}"
+									/>
 								</a>
 							</div>
 							<div class="content">
 								<div class="category_title">
-									<a href="{{url_for('commerce.v_grid')}}" class="cat">{{ resource.ResCatName if resource.ResCatName else '' }}</a>
+									<a href="{{url_for('commerce.v_grid')}}" class="cat"
+										>{{ resource.ResCatName if resource.ResCatName else '' }}</a
+									>
 									<a href="{{url_for('commerce.v_grid')}}">
 										<h5 class="title">{{ resource.ResName }}</h5>
 									</a>
-									<h5 class="price">
+									<div
+										class="price priceValue"
+										value="{{ resource.ResPriceValue }}"
+										ownerId="{{resource.ResId}}"
+									>
 										{{ resource.ResPriceValue }}
-										<span class="rd_products_price">{{ resource.CurrencyCode }}</span>
-									</h5>
+										<span class="rd_products_price"
+											>{{ resource.CurrencyCode }}</span
+										>
+									</div>
 								</div>
 								<div class="no_resource_inside">
 									<span>Нет в наличии</span>
 								</div>
-								<!-- <div class="cart_wishlst">
-									<a class="add-to-cart" ownerId="{{ resource.ResId }}">
+								<!-- <div class="cart_wishlst">>
 										<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 											<path d="M9 22C9.55228 22 10 21.5523 10 21C10 20.4477 9.55228 20 9 20C8.44772 20 8 20.4477 8 21C8 21.5523 8.44772 22 9 22Z" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 											<path d="M20 22C20.5523 22 21 21.5523 21 21C21 20.4477 20.5523 20 20 20C19.4477 20 19 20.4477 19 21C19 21.5523 19.4477 22 20 22Z" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -312,10 +500,22 @@
 					</div>
 					{% endfor %}
 					<div class="reed_more">
-						<a  href="{{url_for('commerce.v_grid')}}">
+						<a href="{{url_for('commerce.v_grid')}}">
 							Посмотреть все
-							<svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<path d="M1 13L7 7L1 1" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+							<svg
+								width="8"
+								height="14"
+								viewBox="0 0 8 14"
+								fill="none"
+								xmlns="http://www.w3.org/2000/svg"
+							>
+								<path
+									d="M1 13L7 7L1 1"
+									stroke="#1344A0"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								/>
 							</svg>
 						</a>
 					</div>
@@ -336,49 +536,134 @@
 					<h1>{{_('New arrival')}}</h1>
 				</div>
 			</div>
-			<div class="col-12" style="margin-top: 32px;">
+			<div class="col-12" style="margin-top: 32px">
 				<div class="row">
 					{% for resource in Latest_resources %}
 					<div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 pb-24">
 						<div class="rd_products">
 							<div class="image">
-								<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">
-									<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }} {{ company.CName }}">
+								<a
+									href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}"
+								>
+									<img
+										loading="lazy"
+										src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}"
+										alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }} {{ company.CName }}"
+									/>
 								</a>
 							</div>
 							<div class="content">
 								<div class="category_title">
-									<a href="{{url_for('commerce.v_grid')}}" class="cat">{{ resource.ResCatName if resource.ResCatName else '' }}</a>
+									<a href="{{url_for('commerce.v_grid')}}" class="cat"
+										>{{ resource.ResCatName if resource.ResCatName else '' }}</a
+									>
 									<a href="{{url_for('commerce.v_grid')}}">
 										<h5 class="title">{{ resource.ResName }}</h5>
 									</a>
-									<h5 class="price">
+									<div
+										class="price priceValue"
+										value="{{ resource.ResPriceValue }}"
+										ownerId="{{resource.ResId}}"
+									>
 										{{ resource.ResPriceValue }}
-										<span class="rd_products_price">{{ resource.CurrencyCode }}</span>
-									</h5>
+										<span class="rd_products_price"
+											>{{ resource.CurrencyCode }}</span
+										>
+									</div>
 								</div>
 								<div class="cart_wishlst">
 									<a class="add-to-cart" ownerId="{{ resource.ResId }}">
-										<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-											<path d="M9 22C9.55228 22 10 21.5523 10 21C10 20.4477 9.55228 20 9 20C8.44772 20 8 20.4477 8 21C8 21.5523 8.44772 22 9 22Z" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-											<path d="M20 22C20.5523 22 21 21.5523 21 21C21 20.4477 20.5523 20 20 20C19.4477 20 19 20.4477 19 21C19 21.5523 19.4477 22 20 22Z" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-											<path d="M1 1H5L7.68 14.39C7.77144 14.8504 8.02191 15.264 8.38755 15.5583C8.75318 15.8526 9.2107 16.009 9.68 16H19.4C19.8693 16.009 20.3268 15.8526 20.6925 15.5583C21.0581 15.264 21.3086 14.8504 21.4 14.39L23 6H6" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-											<path d="M9 22C9.55228 22 10 21.5523 10 21C10 20.4477 9.55228 20 9 20C8.44772 20 8 20.4477 8 21C8 21.5523 8.44772 22 9 22Z" stroke="#5A5C61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-											<path d="M20 22C20.5523 22 21 21.5523 21 21C21 20.4477 20.5523 20 20 20C19.4477 20 19 20.4477 19 21C19 21.5523 19.4477 22 20 22Z" stroke="#5A5C61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-											<path d="M1 1H5L7.68 14.39C7.77144 14.8504 8.02191 15.264 8.38755 15.5583C8.75318 15.8526 9.2107 16.009 9.68 16H19.4C19.8693 16.009 20.3268 15.8526 20.6925 15.5583C21.0581 15.264 21.3086 14.8504 21.4 14.39L23 6H6" stroke="#5A5C61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+										<svg
+											width="24"
+											height="24"
+											viewBox="0 0 24 24"
+											fill="none"
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<path
+												d="M9 22C9.55228 22 10 21.5523 10 21C10 20.4477 9.55228 20 9 20C8.44772 20 8 20.4477 8 21C8 21.5523 8.44772 22 9 22Z"
+												stroke="#1344A0"
+												stroke-width="2"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+											/>
+											<path
+												d="M20 22C20.5523 22 21 21.5523 21 21C21 20.4477 20.5523 20 20 20C19.4477 20 19 20.4477 19 21C19 21.5523 19.4477 22 20 22Z"
+												stroke="#1344A0"
+												stroke-width="2"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+											/>
+											<path
+												d="M1 1H5L7.68 14.39C7.77144 14.8504 8.02191 15.264 8.38755 15.5583C8.75318 15.8526 9.2107 16.009 9.68 16H19.4C19.8693 16.009 20.3268 15.8526 20.6925 15.5583C21.0581 15.264 21.3086 14.8504 21.4 14.39L23 6H6"
+												stroke="#1344A0"
+												stroke-width="2"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+											/>
+											<path
+												d="M9 22C9.55228 22 10 21.5523 10 21C10 20.4477 9.55228 20 9 20C8.44772 20 8 20.4477 8 21C8 21.5523 8.44772 22 9 22Z"
+												stroke="#5A5C61"
+												stroke-width="2"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+											/>
+											<path
+												d="M20 22C20.5523 22 21 21.5523 21 21C21 20.4477 20.5523 20 20 20C19.4477 20 19 20.4477 19 21C19 21.5523 19.4477 22 20 22Z"
+												stroke="#5A5C61"
+												stroke-width="2"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+											/>
+											<path
+												d="M1 1H5L7.68 14.39C7.77144 14.8504 8.02191 15.264 8.38755 15.5583C8.75318 15.8526 9.2107 16.009 9.68 16H19.4C19.8693 16.009 20.3268 15.8526 20.6925 15.5583C21.0581 15.264 21.3086 14.8504 21.4 14.39L23 6H6"
+												stroke="#5A5C61"
+												stroke-width="2"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+											/>
 										</svg>
 										<span>{{_('Add to cart')}}</span>
 									</a>
 									{% if current_user.is_authenticated %}
-									<a class="wishlist {{'added' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}">
-										<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-											<path d="M20.8401 5.60987C20.3294 5.09888 19.7229 4.69352 19.0555 4.41696C18.388 4.14039 17.6726 3.99805 16.9501 3.99805C16.2276 3.99805 15.5122 4.14039 14.8448 4.41696C14.1773 4.69352 13.5709 5.09888 13.0601 5.60987L12.0001 6.66987L10.9401 5.60987C9.90843 4.57818 8.50915 3.99858 7.05012 3.99858C5.59109 3.99858 4.19181 4.57818 3.16012 5.60987C2.12843 6.64156 1.54883 8.04084 1.54883 9.49987C1.54883 10.9589 2.12843 12.3582 3.16012 13.3899L4.22012 14.4499L12.0001 22.2299L19.7801 14.4499L20.8401 13.3899C21.3511 12.8791 21.7565 12.2727 22.033 11.6052C22.3096 10.9378 22.4519 10.2224 22.4519 9.49987C22.4519 8.77738 22.3096 8.06198 22.033 7.39452C21.7565 6.72706 21.3511 6.12063 20.8401 5.60987V5.60987Z" stroke="#E95086" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+									<a
+										class="wishlist {{'added' if resource.Wishlist == true}}"
+										ownerId="{{ resource.ResId }}"
+									>
+										<svg
+											width="24"
+											height="24"
+											viewBox="0 0 24 24"
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<path
+												d="M20.8401 5.60987C20.3294 5.09888 19.7229 4.69352 19.0555 4.41696C18.388 4.14039 17.6726 3.99805 16.9501 3.99805C16.2276 3.99805 15.5122 4.14039 14.8448 4.41696C14.1773 4.69352 13.5709 5.09888 13.0601 5.60987L12.0001 6.66987L10.9401 5.60987C9.90843 4.57818 8.50915 3.99858 7.05012 3.99858C5.59109 3.99858 4.19181 4.57818 3.16012 5.60987C2.12843 6.64156 1.54883 8.04084 1.54883 9.49987C1.54883 10.9589 2.12843 12.3582 3.16012 13.3899L4.22012 14.4499L12.0001 22.2299L19.7801 14.4499L20.8401 13.3899C21.3511 12.8791 21.7565 12.2727 22.033 11.6052C22.3096 10.9378 22.4519 10.2224 22.4519 9.49987C22.4519 8.77738 22.3096 8.06198 22.033 7.39452C21.7565 6.72706 21.3511 6.12063 20.8401 5.60987V5.60987Z"
+												stroke="#E95086"
+												stroke-width="2"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+											/>
 										</svg>
 									</a>
 									{% else %}
-									<a href="{{ url_for('commerce_auth.login') }}" class="wishlist {{'heart' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}">
-										<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-											<path d="M20.8401 5.60987C20.3294 5.09888 19.7229 4.69352 19.0555 4.41696C18.388 4.14039 17.6726 3.99805 16.9501 3.99805C16.2276 3.99805 15.5122 4.14039 14.8448 4.41696C14.1773 4.69352 13.5709 5.09888 13.0601 5.60987L12.0001 6.66987L10.9401 5.60987C9.90843 4.57818 8.50915 3.99858 7.05012 3.99858C5.59109 3.99858 4.19181 4.57818 3.16012 5.60987C2.12843 6.64156 1.54883 8.04084 1.54883 9.49987C1.54883 10.9589 2.12843 12.3582 3.16012 13.3899L4.22012 14.4499L12.0001 22.2299L19.7801 14.4499L20.8401 13.3899C21.3511 12.8791 21.7565 12.2727 22.033 11.6052C22.3096 10.9378 22.4519 10.2224 22.4519 9.49987C22.4519 8.77738 22.3096 8.06198 22.033 7.39452C21.7565 6.72706 21.3511 6.12063 20.8401 5.60987V5.60987Z" stroke="#E95086" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+									<a
+										href="{{ url_for('commerce_auth.login') }}"
+										class="wishlist {{'heart' if resource.Wishlist == true}}"
+										ownerId="{{ resource.ResId }}"
+									>
+										<svg
+											width="24"
+											height="24"
+											viewBox="0 0 24 24"
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<path
+												d="M20.8401 5.60987C20.3294 5.09888 19.7229 4.69352 19.0555 4.41696C18.388 4.14039 17.6726 3.99805 16.9501 3.99805C16.2276 3.99805 15.5122 4.14039 14.8448 4.41696C14.1773 4.69352 13.5709 5.09888 13.0601 5.60987L12.0001 6.66987L10.9401 5.60987C9.90843 4.57818 8.50915 3.99858 7.05012 3.99858C5.59109 3.99858 4.19181 4.57818 3.16012 5.60987C2.12843 6.64156 1.54883 8.04084 1.54883 9.49987C1.54883 10.9589 2.12843 12.3582 3.16012 13.3899L4.22012 14.4499L12.0001 22.2299L19.7801 14.4499L20.8401 13.3899C21.3511 12.8791 21.7565 12.2727 22.033 11.6052C22.3096 10.9378 22.4519 10.2224 22.4519 9.49987C22.4519 8.77738 22.3096 8.06198 22.033 7.39452C21.7565 6.72706 21.3511 6.12063 20.8401 5.60987V5.60987Z"
+												stroke="#E95086"
+												stroke-width="2"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+											/>
 										</svg>
 									</a>
 									{% endif %}
@@ -388,10 +673,22 @@
 					</div>
 					{% endfor %}
 					<div class="reed_more">
-						<a  href="{{url_for('commerce.v_grid')}}">
+						<a href="{{url_for('commerce.v_grid')}}">
 							Посмотреть все
-							<svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<path d="M1 13L7 7L1 1" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+							<svg
+								width="8"
+								height="14"
+								viewBox="0 0 8 14"
+								fill="none"
+								xmlns="http://www.w3.org/2000/svg"
+							>
+								<path
+									d="M1 13L7 7L1 1"
+									stroke="#1344A0"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								/>
 							</svg>
 						</a>
 					</div>
@@ -403,6 +700,6 @@
 
 {% endblock %}
 
-{% block scripts %}
+<!-- {% block scripts %}
 <script>render_viewed_list()</script>
-{% endblock %}
+{% endblock %} -->
