@@ -220,8 +220,10 @@
 								</div>
 								<div class="content">
 									<div class="category_title">
-										<a href="shop_page.html" class="cat">{{ resource.ResCatName if resource.ResCatName else '' }}</a>
-										<a href="shop_page.html">
+										<a href="{{url_for('commerce.v_grid')}}" class="cat">
+											{{ resource.BrandName if resource.BrandName else '' }}
+										</a>
+										<a href="{{url_for('commerce.product')}}">
 											<h5 class="title">{{ resource.ResName }}</h5>
 										</a>
 										<h5 class="price">

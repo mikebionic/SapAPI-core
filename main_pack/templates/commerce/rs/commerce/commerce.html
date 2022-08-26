@@ -274,13 +274,13 @@
 										alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }} {{ company.CName }}"
 									/>
 								</a>
-							</div>
+							</div> 
 							<div class="content">
 								<div class="category_title">
 									<a href="{{url_for('commerce.v_grid')}}" class="cat"
-										>{{ resource.ResCatName if resource.ResCatName else '' }}</a
+										>{{ resource.BrandName if resource.BrandName else '' }}</a
 									>
-									<a href="{{url_for('commerce.v_grid')}}">
+									<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">
 										<h5 class="title">{{ resource.ResName }}</h5>
 									</a>
 									<div
@@ -451,9 +451,9 @@
 							<div class="content">
 								<div class="category_title">
 									<a href="{{url_for('commerce.v_grid')}}" class="cat"
-										>{{ resource.ResCatName if resource.ResCatName else '' }}</a
+										>{{ resource.BrandName if resource.BrandName else '' }}</a
 									>
-									<a href="{{url_for('commerce.v_grid')}}">
+									<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">
 										<h5 class="title">{{ resource.ResName }}</h5>
 									</a>
 									<div
@@ -470,31 +470,6 @@
 								<div class="no_resource_inside">
 									<span>Нет в наличии</span>
 								</div>
-								<!-- <div class="cart_wishlst">>
-										<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-											<path d="M9 22C9.55228 22 10 21.5523 10 21C10 20.4477 9.55228 20 9 20C8.44772 20 8 20.4477 8 21C8 21.5523 8.44772 22 9 22Z" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-											<path d="M20 22C20.5523 22 21 21.5523 21 21C21 20.4477 20.5523 20 20 20C19.4477 20 19 20.4477 19 21C19 21.5523 19.4477 22 20 22Z" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-											<path d="M1 1H5L7.68 14.39C7.77144 14.8504 8.02191 15.264 8.38755 15.5583C8.75318 15.8526 9.2107 16.009 9.68 16H19.4C19.8693 16.009 20.3268 15.8526 20.6925 15.5583C21.0581 15.264 21.3086 14.8504 21.4 14.39L23 6H6" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-											<path d="M9 22C9.55228 22 10 21.5523 10 21C10 20.4477 9.55228 20 9 20C8.44772 20 8 20.4477 8 21C8 21.5523 8.44772 22 9 22Z" stroke="#5A5C61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-											<path d="M20 22C20.5523 22 21 21.5523 21 21C21 20.4477 20.5523 20 20 20C19.4477 20 19 20.4477 19 21C19 21.5523 19.4477 22 20 22Z" stroke="#5A5C61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-											<path d="M1 1H5L7.68 14.39C7.77144 14.8504 8.02191 15.264 8.38755 15.5583C8.75318 15.8526 9.2107 16.009 9.68 16H19.4C19.8693 16.009 20.3268 15.8526 20.6925 15.5583C21.0581 15.264 21.3086 14.8504 21.4 14.39L23 6H6" stroke="#5A5C61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-										</svg>
-										<span>{{_('Add to cart')}}</span>
-									</a>
-									{% if current_user.is_authenticated %}
-									<a class="wishlist {{'added' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}">
-										<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-											<path d="M20.8401 5.60987C20.3294 5.09888 19.7229 4.69352 19.0555 4.41696C18.388 4.14039 17.6726 3.99805 16.9501 3.99805C16.2276 3.99805 15.5122 4.14039 14.8448 4.41696C14.1773 4.69352 13.5709 5.09888 13.0601 5.60987L12.0001 6.66987L10.9401 5.60987C9.90843 4.57818 8.50915 3.99858 7.05012 3.99858C5.59109 3.99858 4.19181 4.57818 3.16012 5.60987C2.12843 6.64156 1.54883 8.04084 1.54883 9.49987C1.54883 10.9589 2.12843 12.3582 3.16012 13.3899L4.22012 14.4499L12.0001 22.2299L19.7801 14.4499L20.8401 13.3899C21.3511 12.8791 21.7565 12.2727 22.033 11.6052C22.3096 10.9378 22.4519 10.2224 22.4519 9.49987C22.4519 8.77738 22.3096 8.06198 22.033 7.39452C21.7565 6.72706 21.3511 6.12063 20.8401 5.60987V5.60987Z" stroke="#E95086" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-										</svg>
-									</a>
-									{% else %}
-									<a href="{{ url_for('commerce_auth.login') }}" class="wishlist {{'heart' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}">
-										<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-											<path d="M20.8401 5.60987C20.3294 5.09888 19.7229 4.69352 19.0555 4.41696C18.388 4.14039 17.6726 3.99805 16.9501 3.99805C16.2276 3.99805 15.5122 4.14039 14.8448 4.41696C14.1773 4.69352 13.5709 5.09888 13.0601 5.60987L12.0001 6.66987L10.9401 5.60987C9.90843 4.57818 8.50915 3.99858 7.05012 3.99858C5.59109 3.99858 4.19181 4.57818 3.16012 5.60987C2.12843 6.64156 1.54883 8.04084 1.54883 9.49987C1.54883 10.9589 2.12843 12.3582 3.16012 13.3899L4.22012 14.4499L12.0001 22.2299L19.7801 14.4499L20.8401 13.3899C21.3511 12.8791 21.7565 12.2727 22.033 11.6052C22.3096 10.9378 22.4519 10.2224 22.4519 9.49987C22.4519 8.77738 22.3096 8.06198 22.033 7.39452C21.7565 6.72706 21.3511 6.12063 20.8401 5.60987V5.60987Z" stroke="#E95086" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-										</svg>
-									</a>
-									{% endif %}
-								</div> -->
 							</div>
 						</div>
 					</div>
@@ -555,9 +530,9 @@
 							<div class="content">
 								<div class="category_title">
 									<a href="{{url_for('commerce.v_grid')}}" class="cat"
-										>{{ resource.ResCatName if resource.ResCatName else '' }}</a
+										>{{ resource.BrandName if resource.BrandName else '' }}</a
 									>
-									<a href="{{url_for('commerce.v_grid')}}">
+									<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}">
 										<h5 class="title">{{ resource.ResName }}</h5>
 									</a>
 									<div

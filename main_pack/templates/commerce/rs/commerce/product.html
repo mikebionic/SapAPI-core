@@ -70,8 +70,8 @@
 								data-src-m="{{resource.FilePathM}}"
 								alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }} {{company.CName}}">
 								<div class="rd_book_detail_text">
-									<a href="#">
-										{{ resource.ResCatName }}
+									<a href="{{url_for('commerce.v_grid')}}">
+										{{ resource.BrandName }}
 									</a>
 									<h2>{{ resource.ResName }}</h2>
 								</div>
