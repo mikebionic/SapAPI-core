@@ -1,5 +1,5 @@
 {% for resource in data %}
-<li>
+<li class="cartTableObject{{resource.ResId}}">
 	<a href="{{ url_for('commerce.product',ResId=resource.ResId)}}" class="image">
 		<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/hs/images/icons/no_photo.svg') }}" 
 		alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
@@ -9,7 +9,7 @@
 		<span class="price">{{ resource.ResName if resource.ResName else '' }}</span>
 	</div>
 	
-	<button class="remove">
+	<button class="remove removeFromCart" ownerId="{{resource.ResId}}">
 		<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path d="M12 4L4 12" stroke="#709EF2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 			<path d="M4 4L12 12" stroke="#709EF2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
