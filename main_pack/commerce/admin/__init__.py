@@ -20,5 +20,6 @@ from . import (
 	ui_sliders,
 	ui_invoices,
 	ui_users_customers,
-	ui_rating
-)
+	ui_rating,
+	ui_media
+	)

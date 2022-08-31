@@ -100,6 +100,18 @@ def company():
 		title = gettext('Company'))
 
 
+@bp.route("/admin/media")
+@login_required
+@ui_admin_required
+def media():
+	# media = Media.query.first()
+	return render_template(
+		f"{Config.COMMERCE_ADMIN_TEMPLATES_FOLDER_PATH}/media.html",
+		url_prefix = url_prefix,
+		media = media,
+		# title = gettext('Media')
+		)
+
 @bp.route("/admin/category_table")
 @login_required
 @ui_admin_required
