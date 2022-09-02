@@ -1,0 +1,69 @@
+{% extends "commerce/admin/layout.html" %}
+
+{% block content %}
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <form method="POST" action="" enctype="multipart/form-data">
+          {{ resourceForm.hidden_tag() }}
+          <div class="card-header">
+            <a href="{{ url_for('commerce_admin.resources_table') }}">
+              <i data-feather="arrow-left-circle"></i>
+            </a>
+            {{ resourceForm.ResName(class="form-control") }}
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="form-group col-6">
+                <label>{{_('Description')}}</label>
+                {{ resourceForm.ResDesc(class="form-control") }}
+              </div>
+              <div class="form-group col-6">
+                <label>{{_('Brand')}}</label>
+                <div class="input-group">
+                  {{ resourceForm.BrandId(class="custom-select") }}
+                </div>
+              </div>
+            </div>
+            <div class="card-header">
+              <h6>{{_('Full description')}}</h6>
+            </div>
+            {{ resourceForm.ResFullDesc(class="form-control") }}
+            <br>
+            {% for image in resource.Images %}
+              <div class="gallery gallery-md" data-item-height="100" style="display: flex;">
+                <div class="gallery-item" data-toggle="popover" data-trigger="hover" title="{{image.FileName}}" data-image="{{ image.FilePathS }}"></div>
+                <div class="carousel_icon">
+                  <li>
+                    <a href="{{ url_for('commerce_admin.remove_images',type='image',imgId=image.ImgId,prodId=resource.ResId) }}" class="btn btn-icon btn-light">
+                      <i class="fas fa-trash-alt"></i>
+                    </a>
+                  </li>
+                </div>
+              </div>
+            {% endfor %}
+            <br>
+            <div class="form-group col-6">
+              <label>{{_('Upload images')}}</label>
+              <div class="custom-file">
+                {{ resourceForm.resourceImage(class="custom-file-input") }}
+                {% if resourceForm.resourceImage.errors %}
+                  {% for error in resourceForm.resourceImage.errors %}
+                    <span class="text-danger">{{ error }}</span>
+                  {% endfor %}
+                {% endif %}
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary m-t-15 waves-effect" name="resourceForm">{{_('Save')}}</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  <script src="{{ url_for('static', filename='commerce/admin/js/moment.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/admin/js/basic-form-elements.js') }}"></script>
+  <script src="{{ url_for('static', filename='commerce/admin/js/page/gallery1.js') }}"></script>
+{% endblock %}
