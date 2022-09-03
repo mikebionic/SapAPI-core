@@ -17,7 +17,7 @@
 		<div class="row">
 			<div class="col-12">
 				<div class="row">
-					<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 pb-24">
+					<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
 						<div class="about_detail">
 							<div class="about_title">
 								<h1>Книжный магазин вашей мечты</h1>
@@ -33,7 +33,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 pb-24">
+					<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
 						<div class="about_top_img">
 							<img src="{{ url_for('static', filename='commerce/rs/images/about/image 10.png') }}" alt="">
 						</div>
@@ -41,125 +41,100 @@
 				</div>
 			</div>
 			
-			<div class="custom-nav">
-				<div class="prev">
-					<i class="bi bi-chevron-left"></i>
-				</div>
-				<div class="next">
-					<i class="bi bi-chevron-right"></i>
-				</div> 
-			</div>
-			<div class="swiper">
-				<!-- Additional required wrapper -->  
-				<div class="swiper-wrapper">
-					<!-- Slides -->
-					<div class="swiper-slide">
-						<div class="product__image">
-							
-							<img src="{{ url_for('static', filename='commerce/rs/images/about/image.png') }}" alt="">
-						</div>
-		
-						<div class="product__details">
-							<p class="product__name">
-								Nike Running Shoe.
-								
-							</p>
-							<p class="product__info">
-								Running Shoes for the Pros.
-								Top Performance and Latest Innovation
-							</p>  
-		
-							<div class="product__cta">
-								<p class="price">$121</p>
-		
-								<button><i class="bi bi-cart"></i> Buy Now</button>
+			<div class="our_happy_clients position-relative overflow-hidden">
+				<div class="container" style="width: 100%;">
+					<div class="our_happy_clients_content">
+						<div class="splide" id="client" aria-label="Our happy Clients">
+							<div class="our_happy_clients_head d-flex align-items-center text-center justify-content-lg-between justify-content-center">
+								<h2 class="text-center flex-column d-flex flex-lg-row">История</h2>
+								<div class="splide__arrows d-none d-lg-flex align-items-center">
+									<button class="splide__arrow splide__arrow--prev">
+										<svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M28 31L22 25L28 19" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+											<rect x="1" y="1" width="48" height="48" stroke="#1344A0"/>
+										</svg>
+									</button>
+									<button class="splide__arrow splide__arrow--next">
+										<svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M22 31L28 25L22 19" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+											<rect x="1" y="1" width="48" height="48" stroke="#1344A0"/>
+										</svg>
+									</button>
+								</div>
 							</div>
-						</div>
-					</div>
-		
-					<div class="swiper-slide">
-						<div class="product__image">
-							<img src="{{ url_for('static', filename='commerce/rs/images/about/5.png') }}" alt="">
-						</div>
-						<div class="product__details">
-							<p class="product__name">
-								Sony WH1000XM4
-							</p>
-							<p class="product__info">
-								Best Noise Cancelling headphones, With 20 Hours plus battery.
-							</p>  
-		
-							<div class="product__cta">
-								<p class="price">$348</p>
-								<button><i class="bi bi-cart"></i> Buy Now</button>
-							</div>
-						</div>
-					</div>
-					<div class="swiper-slide">
-						<div class="product__image">
-							<img src="{{ url_for('static', filename='commerce/rs/images/about/3.png') }}" alt="">
-						</div>
-						<div class="product__details">
-							<p class="product__name">
-							 Apple M1 Macbook Air
-							</p>
-							<p class="product__info">
-								M1 chip with 8‑core CPU, 7‑core GPU, and 16‑core Neural Engine.
-							</p>  
-		
-							<div class="product__cta">
-								<p class="price">$999</p>
-								<button><i class="bi bi-cart"></i> Buy Now</button>
-							</div>
-						</div>
-					</div>
-					<div class="swiper-slide">
-						<div class="product__image">
-							<img src="{{ url_for('static', filename='commerce/rs/images/about/2.png') }}" alt="">
-						</div>
-						<div class="product__details">
-							<p class="product__name">
-								Samsung S21 Plus
-							</p>
-							<p class="product__info">
-								The phones making every moment epic. <br>
-								6.2 Inch, 4000mAh, 128GB 
-							</p>  
-		
-							<div class="product__cta">
-								<p class="price">$799</p>
-								<button><i class="bi bi-cart"></i> Buy Now</button>
-							</div>
-						</div>
-					</div>
-					<div class="swiper-slide">
-						<div class="product__image">
-							<img src="{{ url_for('static', filename='commerce/rs/images/about/1.png') }}" alt="">
-						</div>
-						<div class="product__details">
-							<p class="product__name">
-							 Logitech K380 KEYBOARD
-							</p>
-							<p class="product__info">
-								Minimalist Bluetooth keyboard for computers, tablets and phones
-							</p>  
-		
-							<div class="product__cta">
-								<p class="price">$39</p>
-								<button><i class="bi bi-cart"></i> Buy Now</button>
+							<div class="splide__track">
+								<ul class="splide__list">
+									<li class="splide__slide">
+										<div class="client_quote_card bg-white shadow">
+											<a href="#" class="splide_slider">
+												<img src="{{ url_for('static', filename='commerce/rs/images/about/1.png') }}" alt="">
+											</a>
+											<div class="splide_text">
+												<span class="splide_title">2016 - Покорение интернета</span>
+												<span class="splide_desc">Eget commodo eu nibh dolor sodales. Sed pulvinar commodo morbi senectus urna, mattis. Dui habitasse fermentum nisl viverra imperdiet sagittis sit sed. Scelerisque sit justo viverra nulla. At aliquam leo adipiscing vel viverra nibh viverra commodo sit. Ultrices dolor risus, in metus, sed magna lectus in id. Elit amet nibh est molestie sit ligula. Sed suspendisse fringilla urna curabitur nunc sollicitudin varius sit. Turpis scelerisque at amet risus iaculis mattis a, malesuada dignissim.</span>
+											</div>
+										</div>
+									</li>
+									<li class="splide__slide">
+										<div class="client_quote_card bg-white shadow">
+											<a href="#" class="splide_slider">
+												<img src="{{ url_for('static', filename='commerce/rs/images/about/2.png') }}" alt="">
+											</a>
+											<div class="splide_text">
+												<span class="splide_title">2016 - Покорение интернета</span>
+												<span class="splide_desc">Eget commodo eu nibh dolor sodales. Sed pulvinar commodo morbi senectus urna, mattis. Dui habitasse fermentum nisl viverra imperdiet sagittis sit sed. Scelerisque sit justo viverra nulla. At aliquam leo adipiscing vel viverra nibh viverra commodo sit. Ultrices dolor risus, in metus, sed magna lectus in id. Elit amet nibh est molestie sit ligula. Sed suspendisse fringilla urna curabitur nunc sollicitudin varius sit. Turpis scelerisque at amet risus iaculis mattis a, malesuada dignissim.</span>
+											</div>
+										</div>
+									</li>
+									<li class="splide__slide">
+										<div class="client_quote_card bg-white shadow">
+											<a href="#" class="splide_slider">
+												<img src="{{ url_for('static', filename='commerce/rs/images/about/3.png') }}" alt="">
+											</a>
+											<div class="splide_text">
+												<span class="splide_title">2016 - Покорение интернета</span>
+												<span class="splide_desc">Eget commodo eu nibh dolor sodales. Sed pulvinar commodo morbi senectus urna, mattis. Dui habitasse fermentum nisl viverra imperdiet sagittis sit sed. Scelerisque sit justo viverra nulla. At aliquam leo adipiscing vel viverra nibh viverra commodo sit. Ultrices dolor risus, in metus, sed magna lectus in id. Elit amet nibh est molestie sit ligula. Sed suspendisse fringilla urna curabitur nunc sollicitudin varius sit. Turpis scelerisque at amet risus iaculis mattis a, malesuada dignissim.</span>
+											</div>
+										</div>
+									</li>
+									<li class="splide__slide">
+										<div class="client_quote_card bg-white shadow">
+											<a href="#" class="splide_slider">
+												<img src="{{ url_for('static', filename='commerce/rs/images/about/5.png') }}" alt="">
+											</a>
+											<div class="splide_text">
+												<span class="splide_title">2016 - Покорение интернета</span>
+												<span class="splide_desc">Eget commodo eu nibh dolor sodales. Sed pulvinar commodo morbi senectus urna, mattis. Dui habitasse fermentum nisl viverra imperdiet sagittis sit sed. Scelerisque sit justo viverra nulla. At aliquam leo adipiscing vel viverra nibh viverra commodo sit. Ultrices dolor risus, in metus, sed magna lectus in id. Elit amet nibh est molestie sit ligula. Sed suspendisse fringilla urna curabitur nunc sollicitudin varius sit. Turpis scelerisque at amet risus iaculis mattis a, malesuada dignissim.</span>
+											</div>
+										</div>
+									</li>
+									<li class="splide__slide">
+										<div class="client_quote_card bg-white shadow">
+											<a href="#" class="splide_slider">
+												<img src="{{ url_for('static', filename='commerce/rs/images/about/1.png') }}" alt="">
+											</a>
+											<div class="splide_text">
+												<span class="splide_title">2016 - Покорение интернета</span>
+												<span class="splide_desc">Eget commodo eu nibh dolor sodales. Sed pulvinar commodo morbi senectus urna, mattis. Dui habitasse fermentum nisl viverra imperdiet sagittis sit sed. Scelerisque sit justo viverra nulla. At aliquam leo adipiscing vel viverra nibh viverra commodo sit. Ultrices dolor risus, in metus, sed magna lectus in id. Elit amet nibh est molestie sit ligula. Sed suspendisse fringilla urna curabitur nunc sollicitudin varius sit. Turpis scelerisque at amet risus iaculis mattis a, malesuada dignissim.</span>
+											</div>
+										</div>
+									</li>
+									<li class="splide__slide">
+										<div class="client_quote_card bg-white shadow">
+											<a href="#" class="splide_slider">
+												<img src="{{ url_for('static', filename='commerce/rs/images/about/2.png') }}" alt="">
+											</a>
+											<div class="splide_text">
+												<span class="splide_title">2016 - Покорение интернета</span>
+												<span class="splide_desc">Eget commodo eu nibh dolor sodales. Sed pulvinar commodo morbi senectus urna, mattis. Dui habitasse fermentum nisl viverra imperdiet sagittis sit sed. Scelerisque sit justo viverra nulla. At aliquam leo adipiscing vel viverra nibh viverra commodo sit. Ultrices dolor risus, in metus, sed magna lectus in id. Elit amet nibh est molestie sit ligula. Sed suspendisse fringilla urna curabitur nunc sollicitudin varius sit. Turpis scelerisque at amet risus iaculis mattis a, malesuada dignissim.</span>
+											</div>
+										</div>
+									</li>
+								</ul>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			
-			<div class="custom-nav">
-				<div class="prev">
-					<i class="bi bi-chevron-left"></i>
-				</div>
-				<div class="next">
-					<i class="bi bi-chevron-right"></i>
-				</div> 
 			</div>
 			<div class="col-12">
 				<div class="row" style="border: 1px solid #CED1D9;">

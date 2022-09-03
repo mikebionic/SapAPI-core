@@ -4313,3 +4313,144 @@ button:hover .bi-cart {
 .tabs ul li a label{
 	cursor: pointer;
 }
+
+/* !!!! Splide Slider !!!! */
+.splide__pagination {
+  position: relative;
+  bottom: auto;
+  padding: 40px 0 0;
+  row-gap: 5px;
+}
+.splide.is-focus-in .splide__pagination__page:focus,
+.splide__pagination__page:focus-visible {
+  outline: 0;
+  outline-offset: 0;
+}
+.splide__pagination li {
+  background: var(--bs-white);
+  line-height: 0;
+  margin: 0 7.5px;
+  border: 1px solid var(--bs-primary);
+  border-radius: 50%;
+}
+.splide__pagination__page {
+  background: transparent;
+  opacity: 1;
+}
+.splide__pagination__page.is-active {
+  background: var(--bs-primary);
+}
+.splide__pagination__page.is-active {
+  background: var(--bs-primary);
+}
+.splide__arrows .splide__arrow {
+  position: relative;
+  left: 0;
+  right: 0;
+  top: auto;
+  opacity: 1;
+  margin: 0;
+  transform: none;
+  width: auto;
+  height: auto;
+  padding: 0;
+	border: transparent;
+}
+.splide__arrows .splide__arrow svg {
+  width: auto;
+  height: auto;
+  transform: none;
+}
+.splide__arrows .splide__arrow:disabled {
+  background: var(--bs-transparent);
+}
+.splide__arrows .splide__arrow svg circle {
+  stroke: var(--bs-primary);
+}
+.splide_slider{
+	width: 100%;
+}
+.splide_slider img{
+	width: 100%;
+	padding: 0
+}
+.splide_text{
+	padding:32px 24px 48px;
+}
+.splide_title{
+	font-weight: 400;
+	font-size: 28px;
+	line-height: 36px;
+	color: #343538;
+	display: block;
+}
+.splide_desc{
+	margin-top: 40px;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 20px;
+	letter-spacing: 0.25px;
+	color: #343538;
+}
+.splide__arrows .splide__arrow:disabled svg path,
+.splide__arrows .splide__arrow:disabled svg circle {
+  stroke: var(--bs-gray);
+}
+/* !! Our happy Clients Section CSS !! */
+.our_happy_clients_content{
+	margin-bottom: 20px;
+}
+.our_happy_clients .display-5 {
+  margin-left: 30px;
+}
+.our_happy_clients .splide__track {
+  overflow: inherit;
+}
+.our_happy_clients_head{
+	
+	border: 1px solid #CED1D9;
+	padding: 40px 24px;
+}
+.our_happy_clients_head h2 {
+	font-weight: 400;
+	font-size: 36px;
+	line-height: 44px;
+}
+.our_happy_clients_head .splide__arrows {
+  gap: 8px;
+}
+
+.client_quote_card {
+  border-radius: var(--bs-border-radius-lg);
+}
+.client_quote_card img {
+  margin: 0 0 39px;
+}
+.client_quote_card h6 {
+  font-size: 18px;
+  line-height: 30px;
+  font-weight: 700;
+  margin: 0;
+}
+.client_quote_card small {
+  display: block;
+  font-size: 14px;
+  letter-spacing: 0.01em;
+  line-height: 31px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  margin: 0 0 10px;
+}
+.client_quote_card .read-more {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--bs-primary);
+  margin-bottom: 33px;
+  cursor: pointer;
+  border-bottom: 1px solid var(--bs-primary);
+  text-transform: capitalize;
+}

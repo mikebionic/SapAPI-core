@@ -58,6 +58,8 @@
 			href="{{ url_for('static', filename='commerce/rs/js/izitoast/css/iziToast.min.css') }}"
 		/>
 		<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;600&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="{{ url_for('static', filename='commerce/rs/css/splide-core.min.css') }}">
+		<link rel="stylesheet" href="{{ url_for('static', filename='commerce/rs/css/splide.css') }}">
 
 	</head>
 	<!-- nr-header -->
@@ -483,6 +485,9 @@
 
 		<!-- JS
 		============================================ -->
+
+		<script src="{{ url_for('static', filename='commerce/rs/js/jquery-1.12.4.min.js') }}"></script>
+			
 		<script type="text/javascript">
 			var url_prefix = "{{url_prefix if url_prefix else ''}}"
 			var session_currency_code =
@@ -500,11 +505,6 @@
 			var csrf_token = '{{ csrf_token() }}'
 		</script>
 
-		<script
-			type="text/javascript"
-			src="{{ url_for('static', filename='commerce/rs/js/jquery-1.12.4.min.js') }}"
-		></script>
-
 		<script src="{{ url_for('static', filename='commerce/rs/js/app.js') }}"></script>
 		<script src="{{ url_for('static', filename='commerce/rs/js/js.cookie.min.js') }}"></script>
 		<script src="{{ url_for('static', filename='commerce/rs/js/bootstrap.js') }}"></script>
@@ -514,6 +514,11 @@
 		<script src="{{ url_for('static', filename='commerce/rs/js/ui_dynamicals.js') }}"></script>
 		<script src="{{ url_for('static', filename='commerce/rs/js/pure_functions.js') }}"></script>
 		<!-- <script src="{{ url_for('static', filename='commerce/rs/js/cart.js') }}"></script> -->
+		
+		<script src="{{ url_for('static', filename='commerce/rs/js/bootstrap.bundle.js') }}"></script>
+		
+		<script src="{{ url_for('static', filename='commerce/rs/js/splide.js') }}"></script>
+		<script src="{{ url_for('static', filename='commerce/rs/js/script.js') }}"></script>
 		<script src="{{ url_for('static', filename='commerce/rs/js/navbar.js') }}"></script>
 		<script src="{{ url_for('static', filename='commerce/rs/js/ux_actions.js') }}"></script>
 		<script src="{{ url_for('static', filename='commerce/rs/js/cartsAndCheckouts.js') }}"></script>
@@ -529,6 +534,6 @@
 			}
 		</script>
 
-		<!-- {% block scripts %}{% endblock %} -->
+		{% block scripts %}{% endblock %}
 	</body>
 </html>
