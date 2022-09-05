@@ -156,6 +156,10 @@ def create_app(config_class=Config):
 	app.register_blueprint(v1_rating_api, url_prefix=f"{api_url_prefix}/v1/")
 	csrf.exempt(v1_rating_api)
 
+	from main_pack.api.v1.res_request_api import api as v1_res_request_api
+	app.register_blueprint(v1_res_request_api, url_prefix=f"{api_url_prefix}/v1/")
+	csrf.exempt(v1_res_request_api)
+
 	from main_pack.api.v1.reg_no_api import api as v1_reg_no_api
 	app.register_blueprint(v1_reg_no_api, url_prefix=f"{api_url_prefix}/v1/")
 	csrf.exempt(v1_reg_no_api)
