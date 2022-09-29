@@ -294,6 +294,7 @@ function clearCart() {
 function countCartItems() {
 	var num = 0
 	var totalPrice = 0
+	var deliveryPrice = 0
 	$('.cartItemsList li').each(function () {
 		num += 1
 	})
@@ -301,9 +302,11 @@ function countCartItems() {
 		quantity = cartData[i]['productQty']
 		price = cartData[i]['priceValue']
 		totalPrice += price * quantity
+		deliveryPrice += totalPrice + 20
 	}
 	$('.cartItemsFullQty').text(num)
 	$('.cartTotalPrice').text(parseFloat(totalPrice).toFixed(2))
+	$('.cartTotalPriceWithDelivery').text(parseFloat(deliveryPrice).toFixed(2))
 }
 
 function qtyCheckout(ownerId, newQtyValue, pending_amount = 0) {

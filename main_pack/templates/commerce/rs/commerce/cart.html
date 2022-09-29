@@ -1,6 +1,4 @@
-{% extends "commerce/rs/commerce/layout.html" %}
-
-{% block content %}
+{% extends "commerce/rs/commerce/layout.html" %} {% block content %}
 <div class="section">
 	<div class="container">
 		<div class="row">
@@ -9,48 +7,82 @@
 					<h1>{{_('Your cart items')}}</h1>
 				</div>
 			</div>
-			<div class="col-12" style="margin-top: 32px;">
+			<div class="col-12" style="margin-top: 32px">
 				<div class="gallery">
 					<div class="rd_purchase two-span-row">
 						<div class="section_title_two">
-							<h2>Резюме товаров</h2>
+							<h2>{{_('Product List')}}</h2>
 						</div>
-						<ul class="mini-products">
-							
-						</ul>
+						<div class="cart-table table-responsive mb-40">
+							<table class="table">
+								<thead>
+									<tr>
+										<th class="pro-thumbnail">{{_('Image')}}</th>
+										<th class="pro-title">{{_('Product')}}</th>
+										<th class="pro-price">{{_('Price')}}</th>
+										<th class="pro-quantity">{{_('Quantity')}}</th>
+										<th class="pro-subtotal">{{_('Total')}}</th>
+										<th class="pro-remove">{{_('Remove')}}</th>
+									</tr>
+								</thead>
+								<tbody class="cartItemsTable"></tbody>
+							</table>
+						</div>
+						<ul class="mini-products"></ul>
 					</div>
 					<div class="rd_purchase_center">
 						<div class="section_title_two">
-							<h2>Информация покупателя</h2>
+							<h2>{{_('Information Customer')}}</h2>
 						</div>
-						
+
 						<div class="content">
-							
-						{% if current_user.is_authenticated %}
+							{% if current_user.is_authenticated %}
 							<div class="inside_purchase">
 								<div class="bd_price purchase pr_border">
-									<p>Покупатель</p>
-									<span>Абдыкерим Бегенджов</span>
+									<p>{{_('Customer')}}</p>
+									<span>{{current_user.UFullName}}</span>
 								</div>
 								<div class="bd_price purchase pr_border">
 									<p>{{_('Phone number')}}</p>
-									<span>+993 65 109283</span>
+									<span>{{current_user.mobilePhone}}</span>
 								</div>
 								<div class="bd_price">
-									<p>Доставка</p>
+									<p>{{_('Delivery')}}</p>
 								</div>
-								
+
 								<div class="purchase_country">
-									<div href="#" class="btn_country_first"><a href="#">Ашхабад</a></div>
-									<div  class="btn_country_second"><a href="#">Велаят</a></div>
+									<div href="#" class="btn_country_first">
+										<a href="#">{{_('Ashgabat')}}</a>
+									</div>
+									<div class="btn_country_second">
+										<a href="#">{{_('Region')}}</a>
+									</div>
 								</div>
 							</div>
-							
-							<div class="add_receiver ">
-								Добавить получателя
-								<svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path d="M12.5 5V19" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-									<path d="M5.5 12H19.5" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+							<div class="add_receiver">
+								{{_('Add Receiver')}}
+								<svg
+									width="25"
+									height="24"
+									viewBox="0 0 25 24"
+									fill="none"
+									xmlns="http://www.w3.org/2000/svg"
+								>
+									<path
+										d="M12.5 5V19"
+										stroke="#1344A0"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									/>
+									<path
+										d="M5.5 12H19.5"
+										stroke="#1344A0"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									/>
 								</svg>
 							</div>
 							<div class="added_receiver">
@@ -61,9 +93,27 @@
 											<i class="las la-close"></i>
 										</h2>
 										<div class="close_svg">
-											<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-												<path d="M12 4L4 12" stroke="#5A5C61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-												<path d="M4 4L12 12" stroke="#5A5C61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+											<svg
+												width="16"
+												height="16"
+												viewBox="0 0 16 16"
+												fill="none"
+												xmlns="http://www.w3.org/2000/svg"
+											>
+												<path
+													d="M12 4L4 12"
+													stroke="#5A5C61"
+													stroke-width="2"
+													stroke-linecap="round"
+													stroke-linejoin="round"
+												/>
+												<path
+													d="M4 4L12 12"
+													stroke="#5A5C61"
+													stroke-width="2"
+													stroke-linecap="round"
+													stroke-linejoin="round"
+												/>
 											</svg>
 										</div>
 									</div>
@@ -71,14 +121,26 @@
 									<form method="post">
 										<div class="txt_field">
 											<label>{{_('Name')}}</label>
-											<br>
-											<input type="text" placeholder="{{_('Name')}}" class='input-text' id="username" required>
+											<br />
+											<input
+												type="text"
+												placeholder="{{_('Name')}}"
+												class="input-text"
+												id="username"
+												required
+											/>
 											<span></span>
 										</div>
 										<div class="txt_field">
 											<label>{{_('Phone number')}}</label>
-											<br>
-											<input type="tel" placeholder="{{_('Phone number')}} : +99361234567" class='input-text' id="phone-number" required>
+											<br />
+											<input
+												type="tel"
+												placeholder="{{_('Phone number')}} : +99361234567"
+												class="input-text"
+												id="phone-number"
+												required
+											/>
 											<span></span>
 										</div>
 									</form>
@@ -86,17 +148,39 @@
 							</div>
 							{% else %}
 							<div class="bd_price">
-								<p>Доставка</p>
+								<p>{{_('Delivery')}}</p>
 							</div>
 							<div class="purchase_country">
-								<div href="#" class="btn_country_first"><a href="#">Ашхабад</a></div>
-								<div  class="btn_country_second"><a href="#">Велаят</a></div>
+								<div href="#" class="btn_country_first">
+									<a href="#">{{_('Ashgabat')}}</a>
+								</div>
+								<div class="btn_country_second">
+									<a href="#">{{_('Region')}}</a>
+								</div>
 							</div>
-							<div class="add_receiver ">
-								Добавить получателя
-								<svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path d="M12.5 5V19" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-									<path d="M5.5 12H19.5" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+							<div class="add_receiver">
+								{{_('Add Receiver')}}
+								<svg
+									width="25"
+									height="24"
+									viewBox="0 0 25 24"
+									fill="none"
+									xmlns="http://www.w3.org/2000/svg"
+								>
+									<path
+										d="M12.5 5V19"
+										stroke="#1344A0"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									/>
+									<path
+										d="M5.5 12H19.5"
+										stroke="#1344A0"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									/>
 								</svg>
 							</div>
 							<div class="added_receiver">
@@ -107,9 +191,27 @@
 											<i class="las la-close"></i>
 										</h2>
 										<div class="close_svg">
-											<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-												<path d="M12 4L4 12" stroke="#5A5C61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-												<path d="M4 4L12 12" stroke="#5A5C61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+											<svg
+												width="16"
+												height="16"
+												viewBox="0 0 16 16"
+												fill="none"
+												xmlns="http://www.w3.org/2000/svg"
+											>
+												<path
+													d="M12 4L4 12"
+													stroke="#5A5C61"
+													stroke-width="2"
+													stroke-linecap="round"
+													stroke-linejoin="round"
+												/>
+												<path
+													d="M4 4L12 12"
+													stroke="#5A5C61"
+													stroke-width="2"
+													stroke-linecap="round"
+													stroke-linejoin="round"
+												/>
 											</svg>
 										</div>
 									</div>
@@ -117,20 +219,32 @@
 									<form method="post">
 										<div class="txt_field">
 											<label>{{_('Name')}}</label>
-											<br>
-											<input type="text" placeholder="{{_('Name')}}" class='input-text' id="username" required>
+											<br />
+											<input
+												type="text"
+												placeholder="{{_('Name')}}"
+												class="input-text"
+												id="username"
+												required
+											/>
 											<span></span>
 										</div>
 										<div class="txt_field">
 											<label>{{_('Phone number')}}</label>
-											<br>
-											<input type="tel" placeholder="{{_('Phone number')}} : +99361234567" class='input-text' id="phone-number" required>
+											<br />
+											<input
+												type="tel"
+												placeholder="{{_('Phone number')}} : +99361234567"
+												class="input-text"
+												id="phone-number"
+												required
+											/>
 											<span></span>
 										</div>
 									</form>
 								</div>
 							</div>
-							
+
 							{% endif %}
 						</div>
 					</div>
@@ -141,22 +255,34 @@
 						<div class="content">
 							<div class="inside_purchase">
 								<div class="bd_price purchase pr_border">
-									<p>Товар</p>
-									<span>876 TMT</span>
+									<p>{{_('Product')}}</p>
+									<div class="first_price_purchase">
+										<span class="cartTotalPrice">0.00</span>
+										<span class="currencySymbol">TMT</span>
+									</div>
 								</div>
 								<div class="bd_price purchase pr_border">
-									<p>Доставка</p>
+									<p>{{_('Delivery')}}</p>
 									<span>20 TMT</span>
 								</div>
 								<div class="bd_price pr_border">
 									<p>{{_('Total price')}}</p>
-									<span class="first_price_purchase">896 TMT</span>
+									<div class="first_price_purchase">
+										<span class="cartTotalPriceWithDelivery">0.00</span>
+										<span class="currencySymbol">TMT</span>
+									</div>
 								</div>
 							</div>
-							<span class="bottom_purchase_text">Просим вас внимательно проверить все предоставлаемые информации</span>
-							<div class="buy_receiver">
-								<a href="#">{{_('Checkout')}}</a>
-							</div>
+							<span class="bottom_purchase_text"
+								>{{_('We are asking you to check carefully provided
+								information')}}</span
+							>
+							<button
+								class="checkoutCartBtn buy_receiver"
+								style="color: white; width: 100%"
+							>
+								{{_('Checkout')}}
+							</button>
 						</div>
 					</div>
 				</div>
@@ -164,8 +290,6 @@
 		</div>
 	</div>
 </div>
-{% endblock %}
-
-{% block scripts %}
-	<script src="{{ url_for('static', filename='commerce/hs/js/cart.js') }}"></script>
+{% endblock %} {% block scripts %}
+<script src="{{ url_for('static', filename='commerce/hs/js/cart.js') }}"></script>
 {% endblock %}

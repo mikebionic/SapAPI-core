@@ -1,60 +1,89 @@
-{% extends "commerce/bee/commerce/layout.html" %}
-
-
-{% block head %}
-<meta name="description" content="{{ resource.ResName }} | {{ resource.ResDesc.replace('<b>','').replace('</b>','').replace('<br/>',', ') if resource.ResDesc }}">
-<meta property="og:description" content="{{ resource.ResName }} | {{ resource.ResDesc.replace('<b>','').replace('</b>','').replace('<br/>',', ') if resource.ResDesc }}" />
-<meta property="og:image" content="{{ request.host_url }}{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/bee/images/favicon.svg') }}" />
-<meta name="twitter:description" content="{{ resource.ResName }} | {{ resource.ResDesc.replace('<b>','').replace('</b>','').replace('<br/>',', ') if resource.ResDesc }}" />
-<meta name="twitter:image" content="{{ request.host_url }}{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/bee/images/favicon.svg') }}" />
-{% endblock %}
-
-{% block breadcrumbs %}
+{% extends "commerce/bee/commerce/layout.html" %} {% block head %}
+<meta
+	name="description"
+	content="{{ resource.ResName }} | {{ resource.ResDesc.replace('<b>','').replace('</b>','').replace('<br/>',', ') if resource.ResDesc }}"
+/>
+<meta
+	property="og:description"
+	content="{{ resource.ResName }} | {{ resource.ResDesc.replace('<b>','').replace('</b>','').replace('<br/>',', ') if resource.ResDesc }}"
+/>
+<meta
+	property="og:image"
+	content="{{ request.host_url }}{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/bee/images/favicon.svg') }}"
+/>
+<meta
+	name="twitter:description"
+	content="{{ resource.ResName }} | {{ resource.ResDesc.replace('<b>','').replace('</b>','').replace('<br/>',', ') if resource.ResDesc }}"
+/>
+<meta
+	name="twitter:image"
+	content="{{ request.host_url }}{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/bee/images/favicon.svg') }}"
+/>
+{% endblock %} {% block breadcrumbs %}
 <nav class="woocommerce-breadcrumb">
 	<a href="{{ url_for('commerce.commerce') }}">{{_('Main')}}</a>
 	<span class="delimiter">
 		<i class="fa fa-angle-right"></i>
 	</span>
-	<a href="{{ url_for('commerce.v_grid',ResCatId=resource.ResCatId,ResCatName=resource.ResCatName.replace('/','-').replace(' ','-')) }}">{{ resource.ResCatName }}</a>
+	<a
+		href="{{ url_for('commerce.v_grid',ResCatId=resource.ResCatId,ResCatName=resource.ResCatName.replace('/','-').replace(' ','-')) }}"
+		>{{ resource.ResCatName }}</a
+	>
 	<span class="delimiter">
 		<i class="fa fa-angle-right"></i>
 	</span>
 	{{ resource.ResName }}
 </nav>
-{% endblock %}
-
-{% block content %}
+{% endblock %} {% block content %}
 <div class="product-section section mt-90 mb-90">
 	<div class="container">
 		<div class="row mb-90">
 			<div class="col-lg-6 col-12 mb-50">
 				<div class="single-product-image thumb-right">
-
 					{% if resource.Images %}
-						<div class="tab-content">
-							<div id="single-image-1" class="tab-pane fade show active big-image-slider">
-								{% for image in resource.Images %}
-								<div class="big-image" style="display: flex;justify-content: center;">
-									<img loading="lazy" src="{{image.FilePathS}}" data-src-m="{{image.FilePathM}}"
-									alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
-									<a href="{{image.FilePathR}}" class="big-image-popup">
-										<i class="fa fa-search-plus"></i>
-									</a>
-								</div>
-								{% endfor %}
+					<div class="tab-content">
+						<div
+							id="single-image-1"
+							class="tab-pane fade show active big-image-slider"
+						>
+							{% for image in resource.Images %}
+							<div
+								class="big-image"
+								style="display: flex; justify-content: center"
+							>
+								<img
+									loading="lazy"
+									src="{{image.FilePathS}}"
+									data-src-m="{{image.FilePathM}}"
+									alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}"
+								/>
+								<a href="{{image.FilePathR}}" class="big-image-popup">
+									<i class="fa fa-search-plus"></i>
+								</a>
 							</div>
+							{% endfor %}
 						</div>
+					</div>
 					{% else %}
-						<div class="tab-content">
-							<div id="single-image-1" class="tab-pane fade show active big-image-slider">
-								<div class="big-image">
-									<a href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}" class="img">
-										<img loading="lazy" src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/bee/images/no_photo.svg') }}"
-										alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}">
-									</a>
-								</div>
+					<div class="tab-content">
+						<div
+							id="single-image-1"
+							class="tab-pane fade show active big-image-slider"
+						>
+							<div class="big-image">
+								<a
+									href="{{url_for('commerce.product',ResId=resource.ResId,ResName=resource.ResName.replace('/','-').replace(' ','-'))}}"
+									class="img"
+								>
+									<img
+										loading="lazy"
+										src="{{ resource.FilePathS if resource.FilePathS else url_for('static', filename='commerce/bee/images/no_photo.svg') }}"
+										alt="Product {{resource.ResName}} of category {{ resource.ResCatName if resource.ResCatName else '' }}"
+									/>
+								</a>
 							</div>
 						</div>
+					</div>
 					{% endif %}
 				</div>
 			</div>
@@ -63,62 +92,108 @@
 				<div class="single-product-content">
 					<div class="head-content">
 						<div class="category-title">
-							<a href="{{url_for('commerce.v_grid',ResCatId=resource.ResCatId,ResCatName=resource.ResCatName.replace('/','-').replace(' ','-'))}}" class="cat">{{ resource.ResCatName }}</a>
+							<a
+								href="{{url_for('commerce.v_grid',ResCatId=resource.ResCatId,ResCatName=resource.ResCatName.replace('/','-').replace(' ','-'))}}"
+								class="cat"
+								>{{ resource.ResCatName }}</a
+							>
 							<h5 class="title">{{ resource.ResName }}</h5>
 						</div>
 						<div>
 							<span class="price">{{ resource.CurrencyCode }}</span>
-							<h5 class="price priceValue" ownerId="{{ resource.ResId }}" value="{{resource.ResPriceValue}}">{{ resource.ResPriceValue }}</h5>
+							<h5
+								class="price priceValue"
+								ownerId="{{ resource.ResId }}"
+								value="{{resource.ResPriceValue}}"
+							>
+								{{ resource.ResPriceValue }}
+							</h5>
 						</div>
 					</div>
 
 					<div class="single-product-description">
 						<div style="display: flex; align-items: center">
-              <i class="ti-eye"></i>
-              <span class="number">{{ resource.ResViewCnt if resource.ResViewCnt else 0 }}</span>
+							<i class="ti-eye"></i>
+							<span class="number"
+								>{{ resource.ResViewCnt if resource.ResViewCnt else 0 }}</span
+							>
 							{% if resource.BrandIcon %}
-							<div class="brand" style="width: 50px; margin: 0 10px;">
-								<a href="{{url_for('commerce.v_grid',BrandId=resource.BrandId,BrandName=resource.BrandName.replace('/','-').replace(' ','-'))}}" style="display: flex; align-items: center;">
-									<img alt="{{resource.BrandName}}" src="{{ resource.BrandIcon }}" style="max-width: 100%; max-height: 100%;">
+							<div class="brand" style="width: 50px; margin: 0 10px">
+								<a
+									href="{{url_for('commerce.v_grid',BrandId=resource.BrandId,BrandName=resource.BrandName.replace('/','-').replace(' ','-'))}}"
+									style="display: flex; align-items: center"
+								>
+									<img
+										alt="{{resource.BrandName}}"
+										src="{{ resource.BrandIcon }}"
+										style="max-width: 100%; max-height: 100%"
+									/>
 								</a>
 							</div>
 							{% endif %}
 							<div class="prcategory">
-								<a href="{{url_for('commerce.v_grid',ResCatId=resource.ResCatId,ResCatName=resource.ResCatName.replace('/','-').replace(' ','-'))}}">
-									<img alt="{{resource.ResCatName}}" src="{{ resource.CategoryIcon if resource.CategoryIcon else url_for('static', filename='commerce/ls/img/icons/category.svg') }}" alt="{{ company.CName }} category {{ resource.ResCatName }}">
+								<a
+									href="{{url_for('commerce.v_grid',ResCatId=resource.ResCatId,ResCatName=resource.ResCatName.replace('/','-').replace(' ','-'))}}"
+								>
+									<img
+										alt="{{resource.ResCatName}}"
+										src="{{ resource.CategoryIcon if resource.CategoryIcon else url_for('static', filename='commerce/ls/img/icons/category.svg') }}"
+										alt="{{ company.CName }} category {{ resource.ResCatName }}"
+									/>
 								</a>
 							</div>
-            </div>
-						
-						<input type="hidden" class="ratingValue" value="{{ resource.RtRatingValue }}" ownerId="{{ resource.ResId }}">
-						<div class="ratting ratingStars" ownerId="{{ resource.ResId }}"></div>
+						</div>
+
+						<input
+							type="hidden"
+							class="ratingValue"
+							value="{{ resource.RtRatingValue }}"
+							ownerId="{{ resource.ResId }}"
+						/>
+						<div
+							class="ratting ratingStars"
+							ownerId="{{ resource.ResId }}"
+						></div>
 
 						<div class="desc descriptionText">
 							<p>{{ resource.ResDesc if resource.ResDesc else '' }}</p>
 						</div>
 
-						<span class="availability">{{_('Availability')}}: <span>{{_('In stock')}}</span></span>
+						<span class="availability"
+							>{{_('Availability')}}: <span>{{_('In stock')}}</span></span
+						>
 
 						<div class="quantity-colors">
-
 							<div class="quantity">
 								<h5>{{_('Quantity')}}</h5>
 								<div class="pro-qty cartItemQty">
-									<input class="cartItemQty productQty"
+									<input
+										class="cartItemQty productQty"
 										pending_amount="{{resource.ResPendingTotalAmount}}"
 										min_amount="{{resource.ResMinSaleAmount}}"
 										max_amount="{{resource.ResMaxSaleAmount}}"
-										value="{{resource.productQty}}" ownerId="{{ resource.ResId }}">
+										value="{{resource.productQty}}"
+										ownerId="{{ resource.ResId }}"
+									/>
 								</div>
 							</div>
 						</div>
 
 						<div class="actions">
-							<a class="add-to-cart" ownerId="{{ resource.ResId }}"><i class="ti-shopping-cart"></i><span>{{_('Add to cart')}}</span></a>
+							<a class="add-to-cart" ownerId="{{ resource.ResId }}"
+								><i class="ti-shopping-cart"></i
+								><span>{{_('Add to cart')}}</span></a
+							>
 							{% if current_user.is_authenticated %}
-								<div class="wishlist-compare">
-									<a href="#" data-tooltip="{{_('Wishlist')}}" class="{{'added' if resource.Wishlist == true}}" ownerId="{{ resource.ResId }}"><i class="ti-heart"></i></a>
-								</div>
+							<div class="wishlist-compare">
+								<a
+									href="#"
+									data-tooltip="{{_('Wishlist')}}"
+									class="{{'added' if resource.Wishlist == true}}"
+									ownerId="{{ resource.ResId }}"
+									><i class="ti-heart"></i
+								></a>
+							</div>
 							{% endif %}
 						</div>
 					</div>
@@ -128,78 +203,154 @@
 
 		<div class="row">
 			<div class="col-lg-10 col-12 ml-auto mr-auto">
-
 				<ul class="single-product-tab-list nav">
-					<li><a href="#product-description" class="active" data-toggle="tab" >{{_('Description')}}</a></li>
-					<li><a href="#product-reviews" data-toggle="tab" >{{_('Customers reviews')}}</a></li>
+					<li>
+						<a href="#product-description" class="active" data-toggle="tab"
+							>{{_('Description')}}</a
+						>
+					</li>
+					<li>
+						<a href="#product-reviews" data-toggle="tab"
+							>{{_('Customers reviews')}}</a
+						>
+					</li>
 				</ul>
 
 				<div class="single-product-tab-content tab-content">
-					<div class="tab-pane fade show active" id="product-description" style="margin: 10px 10px;padding: 10px 10px;text-align: center;">
+					<div
+						class="tab-pane fade show active"
+						id="product-description"
+						style="margin: 10px 10px; padding: 10px 10px; text-align: center"
+					>
 						{% if resource.ResFullDesc %}
-							<h4 style="font-weight: 100; margin-top: 30px; padding-right: 45px;" class="descriptionText">{{ resource.ResFullDesc }}</h4>
+						<h4
+							style="font-weight: 100; margin-top: 30px; padding-right: 45px"
+							class="descriptionText"
+						>
+							{{ resource.ResFullDesc }}
+						</h4>
 						{% else %}
-							<h2 style="font-weight: 100; margin-top: 30px; padding-right: 45px;">{{ _('No description provided for this product') }}</h2>
-							<div class="emoji-box outfit">
-								<div class="spects">
-									<div class="box"></div>
-									<div class="box"></div>
-								</div>
-								<div class="eyes">
-									<div class="eye"></div>
-									<div class="eye"></div>
-								</div>
-								<div class="smile"></div>
+						<h2 style="font-weight: 100; margin-top: 30px; padding-right: 45px">
+							{{ _('No description provided for this product') }}
+						</h2>
+						<div class="emoji-box outfit">
+							<div class="spects">
+								<div class="box"></div>
+								<div class="box"></div>
 							</div>
+							<div class="eyes">
+								<div class="eye"></div>
+								<div class="eye"></div>
+							</div>
+							<div class="smile"></div>
+						</div>
 						{% endif %}
-					</div> 
+					</div>
 
 					<div class="tab-pane fade" id="product-reviews">
 						<div class="product-ratting-wrap">
 							<div class="rattings-wrapper">
-								{% for rating in resource.Rating %}
-									{% set rating_count = resource.Rating.index(rating) %}
-									<div class="sin-rattings">
-										<div class="ratting-author" style="align-items: center; display: flex;">
-											<h3>{{ rating.User.UName if rating.User else rating.Rp_acc.RpAccName }}</h3>
-											<input type="hidden" class="ratingValue" value="{{ rating.RtRatingValue }}" ownerId="{{rating_count}}uz3R{{ rating.User.UId if rating.User else rating.Rp_acc.RpAccId }}">
-											<div class="ratting-star ratingStars" ownerId="{{rating_count}}uz3R{{ rating.User.UId if rating.User else rating.Rp_acc.RpAccId }}"></div>
-											<span>({{ rating.RtRatingValue }})</span>
-										</div>
-										<p>{{ rating.RtRemark if rating.RtRemark else '' }}</p>
+								{% for rating in resource.Rating %} {% set rating_count =
+								resource.Rating.index(rating) %}
+								<div class="sin-rattings">
+									<div
+										class="ratting-author"
+										style="align-items: center; display: flex"
+									>
+										<h3>
+											{{ rating.User.UName if rating.User else
+											rating.Rp_acc.RpAccName }}
+										</h3>
+										<input
+											type="hidden"
+											class="ratingValue"
+											value="{{ rating.RtRatingValue }}"
+											ownerId="{{rating_count}}uz3R{{ rating.User.UId if rating.User else rating.Rp_acc.RpAccId }}"
+										/>
+										<div
+											class="ratting-star ratingStars"
+											ownerId="{{rating_count}}uz3R{{ rating.User.UId if rating.User else rating.Rp_acc.RpAccId }}"
+										></div>
+										<span>({{ rating.RtRatingValue }})</span>
 									</div>
+									<p>{{ rating.RtRemark if rating.RtRemark else '' }}</p>
+								</div>
 								{% endfor %}
 							</div>
 							<div class="ratting-form-wrapper fix" ng-app>
 								{% if current_user.is_authenticated %}
-									<h3>{{_('Submit your review')}}</h3>
-									<form>
-										<div class="ratting-form row">
-											<div class="col-12 mb-15">
-												<h5>{{_('Your rating')}}:</h5>
-												<fieldset class="rating rateButtons">
-													<input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5"></label>
-													<input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4"></label>
-													<input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3"></label>
-													<input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2"></label>
-													<input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1"></label>
-												</fieldset>
-											</div>
-											<input type="hidden" class="reviewRatingValue" value="0">
-											<div class="col-12 mb-15">
-												<textarea name="review" class="reviewRatingText" ownerId="{{ resource.ResId }}" id="your-review" placeholder="{{_('Write your review')}}..." required></textarea>
-											</div>
-											<div class="col-12">
-												<input value="{{_('Send')}}" class="sendReviewBtn" ownerId="{{ resource.ResId }}" type="submit">
-											</div>
+								<h3>{{_('Submit your review')}}</h3>
+								<form>
+									<div class="ratting-form row">
+										<div class="col-12 mb-15">
+											<h5>{{_('Your rating')}}:</h5>
+											<fieldset class="rating rateButtons">
+												<input
+													type="radio"
+													id="star5"
+													name="rating"
+													value="5"
+												/><label class="full" for="star5"></label>
+												<input
+													type="radio"
+													id="star4"
+													name="rating"
+													value="4"
+												/><label class="full" for="star4"></label>
+												<input
+													type="radio"
+													id="star3"
+													name="rating"
+													value="3"
+												/><label class="full" for="star3"></label>
+												<input
+													type="radio"
+													id="star2"
+													name="rating"
+													value="2"
+												/><label class="full" for="star2"></label>
+												<input
+													type="radio"
+													id="star1"
+													name="rating"
+													value="1"
+												/><label class="full" for="star1"></label>
+											</fieldset>
 										</div>
-									</form>
+										<input type="hidden" class="reviewRatingValue" value="0" />
+										<div class="col-12 mb-15">
+											<textarea
+												name="review"
+												class="reviewRatingText"
+												ownerId="{{ resource.ResId }}"
+												id="your-review"
+												placeholder="{{_('Write your review')}}..."
+												required
+											></textarea>
+										</div>
+										<div class="col-12">
+											<input
+												value="{{_('Send')}}"
+												class="sendReviewBtn"
+												ownerId="{{ resource.ResId }}"
+												type="submit"
+											/>
+										</div>
+									</div>
+								</form>
 								{% else %}
 								<div class="col-lg-12 col-12 mb-40 d-flex">
 									<div class="y_login">
 										<h2>{{_('You should login to add a review')}}</h2>
 										<div class="cart-summary-button">
-											<a href="{{ url_for('commerce_auth.login') }}"><button class="checkout-btn checkoutCartBtn" style="width: auto;float: none;">{{_('Login')}}</button></a>
+											<a href="{{ url_for('commerce_auth.login') }}"
+												><button
+													class="checkout-btn checkoutCartBtn"
+													style="width: auto; float: none"
+												>
+													{{_('Login')}}
+												</button></a
+											>
 										</div>
 									</div>
 								</div>
@@ -207,7 +358,6 @@
 							</div>
 						</div>
 					</div>
-
 				</div>
 			</div>
 		</div>
@@ -217,64 +367,96 @@
 <div class="product-section section mb-70">
 	<div class="container">
 		<div class="row">
-
 			<div class="col-12 mb-40">
-				<div class="section-title-one" style="text-transform:uppercase"><h1>{{_('Products from this category')}}</h1></div>
+				<div class="section-title-one" style="text-transform: uppercase">
+					<h1>{{_('Products from this category')}}</h1>
+				</div>
 			</div>
 
 			<div class="col-12">
 				<div class="product-slider-wrap product-slider-arrow-one">
 					<div class="product-slider product-slider-4">
-						{% if resource.Related_resources %}
-						{% for related_resource in resource.Related_resources %}
-							<div class="col pb-20 pt-10">
-								<div class="pr_bag">
-									<div class="ee-product">
-										<div class="image">
-											<a href="{{url_for('commerce.product',ResId=related_resource.ResId,ResName=related_resource.ResName.replace('/','-').replace(' ','-'))}}" class="img">
-												<img loading="lazy" src="{{ related_resource.FilePathS if related_resource.FilePathS else url_for('static', filename='commerce/bee/images/no_photo.svg') }}"
-												alt="Product {{related_resource.ResName}} of category {{ related_resource.ResCatName if related_resource.ResCatName else '' }}">
+						{% if resource.Related_resources %} {% for related_resource in
+						resource.Related_resources %}
+						<div class="col pb-20 pt-10">
+							<div class="pr_bag">
+								<div class="ee-product">
+									<div class="image">
+										<a
+											href="{{url_for('commerce.product',ResId=related_resource.ResId,ResName=related_resource.ResName.replace('/','-').replace(' ','-'))}}"
+											class="img"
+										>
+											<img
+												loading="lazy"
+												src="{{ related_resource.FilePathS if related_resource.FilePathS else url_for('static', filename='commerce/bee/images/no_photo.svg') }}"
+												alt="Product {{related_resource.ResName}} of category {{ related_resource.ResCatName if related_resource.ResCatName else '' }}"
+											/>
+										</a>
+										{% if current_user.is_authenticated %}
+										<div class="wishlist-compare">
+											<a
+												href="#"
+												data-tooltip="Wishlist"
+												class="{{'added' if related_resource.Wishlist == true}}"
+												ownerId="{{ related_resource.ResId }}"
+											>
+												<i class="ti-heart"></i>
 											</a>
-											{% if current_user.is_authenticated %}
-												<div class="wishlist-compare">
-													<a href="#" data-tooltip="Wishlist" class="{{'added' if related_resource.Wishlist == true}}" ownerId="{{ related_resource.ResId }}">
-														<i class="ti-heart"></i>
-													</a>
-												</div>
-											{% endif %}
-												<input type="hidden" class="productQty"
-													pending_amount="{{related_resource.ResPendingTotalAmount}}"
-													min_amount="{{related_resource.ResMinSaleAmount}}"
-													max_amount="{{related_resource.ResMaxSaleAmount}}"
-													value="{{related_resource.productQty}}" ownerId="{{ related_resource.ResId }}">
+										</div>
+										{% endif %}
+										<input
+											type="hidden"
+											class="productQty"
+											pending_amount="{{related_resource.ResPendingTotalAmount}}"
+											min_amount="{{related_resource.ResMinSaleAmount}}"
+											max_amount="{{related_resource.ResMaxSaleAmount}}"
+											value="{{related_resource.productQty}}"
+											ownerId="{{ related_resource.ResId }}"
+										/>
 
-												<a class="add-to-cart" ownerId="{{ related_resource.ResId }}">
-													<i class="ti-shopping-cart"></i>
-													<span>{{_('Add to cart')}}</span>
-												</a>
+										<a
+											class="add-to-cart"
+											ownerId="{{ related_resource.ResId }}"
+										>
+											<i class="ti-shopping-cart"></i>
+											<span>{{_('Add to cart')}}</span>
+										</a>
+									</div>
 
+									<div class="content">
+										<div class="category-title">
+											<a
+												href="{{url_for('commerce.v_grid',ResCatId=related_resource.ResCatId,ResCatName=related_resource.ResCatName.replace('/','-').replace(' ','-'))}}"
+												class="cat"
+												>{{ related_resource.ResCatName }}</a
+											>
+											<h5 class="title">
+												<a
+													href="{{url_for('commerce.product',ResId=related_resource.ResId,ResName=related_resource.ResName.replace('/','-').replace(' ','-'))}}"
+													>{{ related_resource.ResName }}</a
+												>
+											</h5>
 										</div>
 
-										<div class="content">
-											<div class="category-title">
-												<a href="{{url_for('commerce.v_grid',ResCatId=related_resource.ResCatId,ResCatName=related_resource.ResCatName.replace('/','-').replace(' ','-'))}}" class="cat">{{ related_resource.ResCatName }}</a>
-												<h5 class="title">
-													<a href="{{url_for('commerce.product',ResId=related_resource.ResId,ResName=related_resource.ResName.replace('/','-').replace(' ','-'))}}">{{ related_resource.ResName }}</a>
-												</h5>
-											</div>
-
-											<div class="price-ratting">
-												<h5 class="price">
-													<div class="priceValue" ownerId="{{related_resource.ResId}}" value="{{related_resource.ResPriceValue}}">{{ related_resource.ResPriceValue }}</div>
-													<p class="tm_currency">{{ related_resource.CurrencyCode }}</p>
-												</h5>
-											</div>
+										<div class="price-ratting">
+											<h5 class="price">
+												<div
+													class="priceValue"
+													ownerId="{{related_resource.ResId}}"
+													value="{{related_resource.ResPriceValue}}"
+												>
+													{{ related_resource.ResPriceValue }}
+												</div>
+												<p class="tm_currency">
+													{{ related_resource.CurrencyCode }}
+												</p>
+											</h5>
 										</div>
 									</div>
 								</div>
 							</div>
-						{% endfor %}
-						{% endif %}
+						</div>
+						{% endfor %} {% endif %}
 					</div>
 				</div>
 			</div>
@@ -282,19 +464,17 @@
 	</div>
 </div>
 
-{% endblock %}
-
-{% block scripts %}
+{% endblock %} {% block scripts %}
 <script>
-	var resource_ResRegNo = "{{resource.ResRegNo}}"
-	var resource_ResGuid = "{{resource.ResGuid}}"
-	var resource_ResId = {{resource.ResId}}
-	var view_handling = {{handle_product_view}}
-	var view_handler_api_url = "{{view_handler_api_url}}"
+	var resource_ResRegNo = '{{resource.ResRegNo}}'
+	var resource_ResGuid = '{{resource.ResGuid}}'
+	var resource_ResId = '{{resource.ResId}}'
+	var view_handling = '{{handle_product_view}}'
+	var view_handler_api_url = '{{view_handler_api_url}}'
 </script>
-<script> 
-	if (view_handling){
-		handle_product_view();
+<script>
+	if (view_handling) {
+		handle_product_view()
 	}
 </script>
 {% endblock %}

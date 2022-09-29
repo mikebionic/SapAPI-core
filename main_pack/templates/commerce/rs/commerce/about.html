@@ -1,17 +1,27 @@
-{% extends "commerce/rs/commerce/layout.html" %}
-
-{% block head %}
-<meta name="description" content="{{company.CName}} | {{company.CDesc}}">
-<meta property="og:description" content="{{ company.CName }} {{ company.CDesc if company.CDesc}}" />
-<meta property="og:image" content="{{ request.host_url }}{{ company_logo.FilePath if company_logo else url_for('static', filename='commerce/hs/images/logo/halal_OG.png') }}" />
-<meta name="twitter:description" content="{{ company.CName }} {{ company.CDesc if company.CDesc}}" />
-<meta name="twitter:image" content="{{ request.host_url }}{{ company_logo.FilePath if company_logo else url_for('static', filename='commerce/hs/images/logo/halal_OG.png') }}" />
-{% endblock %}
-
-{% block styles %}
-<link rel="stylesheet" href="{{ url_for('static', filename='commerce/rs/css/swipe.css') }}">
-{% endblock %}
-{% block content %}
+{% extends "commerce/rs/commerce/layout.html" %} {% block head %}
+<meta name="description" content="{{company.CName}} | {{company.CDesc}}" />
+<meta
+	property="og:description"
+	content="{{ company.CName }} {{ company.CDesc if company.CDesc}}"
+/>
+<meta
+	property="og:image"
+	content="{{ request.host_url }}{{ company_logo.FilePath if company_logo else url_for('static', filename='commerce/hs/images/logo/halal_OG.png') }}"
+/>
+<meta
+	name="twitter:description"
+	content="{{ company.CName }} {{ company.CDesc if company.CDesc}}"
+/>
+<meta
+	name="twitter:image"
+	content="{{ request.host_url }}{{ company_logo.FilePath if company_logo else url_for('static', filename='commerce/hs/images/logo/halal_OG.png') }}"
+/>
+{% endblock %} {% block styles %}
+<link
+	rel="stylesheet"
+	href="{{ url_for('static', filename='commerce/rs/css/swipe.css') }}"
+/>
+{% endblock %} {% block content %}
 <div class="section">
 	<div class="container">
 		<div class="row">
@@ -23,41 +33,88 @@
 								<h1>Книжный магазин вашей мечты</h1>
 							</div>
 							<div class="second_about_text">
-								<p>Eget commodo eu nibh dolor sodales. Sed pulvinar commodo morbi senectus urna, mattis.
-									Dui habitasse fermentum nisl viverra imperdiet sagittis sit sed. Scelerisque sit justo
-									viverra nulla. At aliquam leo adipiscing vel viverra nibh viverra commodo sit. Ultrices
-									dolor risus, in metus, sed magna lectus in id. Elit amet nibh est molestie sit ligula. 
-									Sed suspendisse fringilla urna curabitur nunc sollicitudin varius sit. Turpis scelerisque
-									at amet risus iaculis mattis a, malesuada dignissim.
+								<p>
+									Eget commodo eu nibh dolor sodales. Sed pulvinar commodo morbi
+									senectus urna, mattis. Dui habitasse fermentum nisl viverra
+									imperdiet sagittis sit sed. Scelerisque sit justo viverra
+									nulla. At aliquam leo adipiscing vel viverra nibh viverra
+									commodo sit. Ultrices dolor risus, in metus, sed magna lectus
+									in id. Elit amet nibh est molestie sit ligula. Sed suspendisse
+									fringilla urna curabitur nunc sollicitudin varius sit. Turpis
+									scelerisque at amet risus iaculis mattis a, malesuada
+									dignissim.
 								</p>
 							</div>
 						</div>
 					</div>
 					<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
 						<div class="about_top_img">
-							<img src="{{ url_for('static', filename='commerce/rs/images/about/image 10.png') }}" alt="">
+							<img
+								src="{{ url_for('static', filename='commerce/rs/images/about/image 10.png') }}"
+								alt=""
+							/>
 						</div>
 					</div>
 				</div>
 			</div>
-			
+
 			<div class="our_happy_clients position-relative overflow-hidden">
-				<div class="container" style="width: 100%;">
+				<div class="container" style="width: 100%">
 					<div class="our_happy_clients_content">
 						<div class="splide" id="client" aria-label="Our happy Clients">
-							<div class="our_happy_clients_head d-flex align-items-center text-center justify-content-lg-between justify-content-center">
-								<h2 class="text-center flex-column d-flex flex-lg-row">История</h2>
+							<div
+								class="our_happy_clients_head d-flex align-items-center text-center justify-content-lg-between justify-content-center"
+							>
+								<h2 class="text-center flex-column d-flex flex-lg-row">
+									История
+								</h2>
 								<div class="splide__arrows d-none d-lg-flex align-items-center">
 									<button class="splide__arrow splide__arrow--prev">
-										<svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-											<path d="M28 31L22 25L28 19" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-											<rect x="1" y="1" width="48" height="48" stroke="#1344A0"/>
+										<svg
+											width="50"
+											height="50"
+											viewBox="0 0 50 50"
+											fill="none"
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<path
+												d="M28 31L22 25L28 19"
+												stroke="#1344A0"
+												stroke-width="2"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+											/>
+											<rect
+												x="1"
+												y="1"
+												width="48"
+												height="48"
+												stroke="#1344A0"
+											/>
 										</svg>
 									</button>
 									<button class="splide__arrow splide__arrow--next">
-										<svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-											<path d="M22 31L28 25L22 19" stroke="#1344A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-											<rect x="1" y="1" width="48" height="48" stroke="#1344A0"/>
+										<svg
+											width="50"
+											height="50"
+											viewBox="0 0 50 50"
+											fill="none"
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<path
+												d="M22 31L28 25L22 19"
+												stroke="#1344A0"
+												stroke-width="2"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+											/>
+											<rect
+												x="1"
+												y="1"
+												width="48"
+												height="48"
+												stroke="#1344A0"
+											/>
 										</svg>
 									</button>
 								</div>
@@ -67,66 +124,162 @@
 									<li class="splide__slide">
 										<div class="client_quote_card bg-white shadow">
 											<a href="#" class="splide_slider">
-												<img src="{{ url_for('static', filename='commerce/rs/images/about/1.png') }}" alt="">
+												<img
+													src="{{ url_for('static', filename='commerce/rs/images/about/1.png') }}"
+													alt=""
+												/>
 											</a>
 											<div class="splide_text">
-												<span class="splide_title">2016 - Покорение интернета</span>
-												<span class="splide_desc">Eget commodo eu nibh dolor sodales. Sed pulvinar commodo morbi senectus urna, mattis. Dui habitasse fermentum nisl viverra imperdiet sagittis sit sed. Scelerisque sit justo viverra nulla. At aliquam leo adipiscing vel viverra nibh viverra commodo sit. Ultrices dolor risus, in metus, sed magna lectus in id. Elit amet nibh est molestie sit ligula. Sed suspendisse fringilla urna curabitur nunc sollicitudin varius sit. Turpis scelerisque at amet risus iaculis mattis a, malesuada dignissim.</span>
+												<span class="splide_title"
+													>2016 - Покорение интернета</span
+												>
+												<span class="splide_desc"
+													>Eget commodo eu nibh dolor sodales. Sed pulvinar
+													commodo morbi senectus urna, mattis. Dui habitasse
+													fermentum nisl viverra imperdiet sagittis sit sed.
+													Scelerisque sit justo viverra nulla. At aliquam leo
+													adipiscing vel viverra nibh viverra commodo sit.
+													Ultrices dolor risus, in metus, sed magna lectus in
+													id. Elit amet nibh est molestie sit ligula. Sed
+													suspendisse fringilla urna curabitur nunc sollicitudin
+													varius sit. Turpis scelerisque at amet risus iaculis
+													mattis a, malesuada dignissim.</span
+												>
 											</div>
 										</div>
 									</li>
 									<li class="splide__slide">
 										<div class="client_quote_card bg-white shadow">
 											<a href="#" class="splide_slider">
-												<img src="{{ url_for('static', filename='commerce/rs/images/about/2.png') }}" alt="">
+												<img
+													src="{{ url_for('static', filename='commerce/rs/images/about/2.png') }}"
+													alt=""
+												/>
 											</a>
 											<div class="splide_text">
-												<span class="splide_title">2016 - Покорение интернета</span>
-												<span class="splide_desc">Eget commodo eu nibh dolor sodales. Sed pulvinar commodo morbi senectus urna, mattis. Dui habitasse fermentum nisl viverra imperdiet sagittis sit sed. Scelerisque sit justo viverra nulla. At aliquam leo adipiscing vel viverra nibh viverra commodo sit. Ultrices dolor risus, in metus, sed magna lectus in id. Elit amet nibh est molestie sit ligula. Sed suspendisse fringilla urna curabitur nunc sollicitudin varius sit. Turpis scelerisque at amet risus iaculis mattis a, malesuada dignissim.</span>
+												<span class="splide_title"
+													>2016 - Покорение интернета</span
+												>
+												<span class="splide_desc"
+													>Eget commodo eu nibh dolor sodales. Sed pulvinar
+													commodo morbi senectus urna, mattis. Dui habitasse
+													fermentum nisl viverra imperdiet sagittis sit sed.
+													Scelerisque sit justo viverra nulla. At aliquam leo
+													adipiscing vel viverra nibh viverra commodo sit.
+													Ultrices dolor risus, in metus, sed magna lectus in
+													id. Elit amet nibh est molestie sit ligula. Sed
+													suspendisse fringilla urna curabitur nunc sollicitudin
+													varius sit. Turpis scelerisque at amet risus iaculis
+													mattis a, malesuada dignissim.</span
+												>
 											</div>
 										</div>
 									</li>
 									<li class="splide__slide">
 										<div class="client_quote_card bg-white shadow">
 											<a href="#" class="splide_slider">
-												<img src="{{ url_for('static', filename='commerce/rs/images/about/3.png') }}" alt="">
+												<img
+													src="{{ url_for('static', filename='commerce/rs/images/about/3.png') }}"
+													alt=""
+												/>
 											</a>
 											<div class="splide_text">
-												<span class="splide_title">2016 - Покорение интернета</span>
-												<span class="splide_desc">Eget commodo eu nibh dolor sodales. Sed pulvinar commodo morbi senectus urna, mattis. Dui habitasse fermentum nisl viverra imperdiet sagittis sit sed. Scelerisque sit justo viverra nulla. At aliquam leo adipiscing vel viverra nibh viverra commodo sit. Ultrices dolor risus, in metus, sed magna lectus in id. Elit amet nibh est molestie sit ligula. Sed suspendisse fringilla urna curabitur nunc sollicitudin varius sit. Turpis scelerisque at amet risus iaculis mattis a, malesuada dignissim.</span>
+												<span class="splide_title"
+													>2016 - Покорение интернета</span
+												>
+												<span class="splide_desc"
+													>Eget commodo eu nibh dolor sodales. Sed pulvinar
+													commodo morbi senectus urna, mattis. Dui habitasse
+													fermentum nisl viverra imperdiet sagittis sit sed.
+													Scelerisque sit justo viverra nulla. At aliquam leo
+													adipiscing vel viverra nibh viverra commodo sit.
+													Ultrices dolor risus, in metus, sed magna lectus in
+													id. Elit amet nibh est molestie sit ligula. Sed
+													suspendisse fringilla urna curabitur nunc sollicitudin
+													varius sit. Turpis scelerisque at amet risus iaculis
+													mattis a, malesuada dignissim.</span
+												>
 											</div>
 										</div>
 									</li>
 									<li class="splide__slide">
 										<div class="client_quote_card bg-white shadow">
 											<a href="#" class="splide_slider">
-												<img src="{{ url_for('static', filename='commerce/rs/images/about/5.png') }}" alt="">
+												<img
+													src="{{ url_for('static', filename='commerce/rs/images/about/5.png') }}"
+													alt=""
+												/>
 											</a>
 											<div class="splide_text">
-												<span class="splide_title">2016 - Покорение интернета</span>
-												<span class="splide_desc">Eget commodo eu nibh dolor sodales. Sed pulvinar commodo morbi senectus urna, mattis. Dui habitasse fermentum nisl viverra imperdiet sagittis sit sed. Scelerisque sit justo viverra nulla. At aliquam leo adipiscing vel viverra nibh viverra commodo sit. Ultrices dolor risus, in metus, sed magna lectus in id. Elit amet nibh est molestie sit ligula. Sed suspendisse fringilla urna curabitur nunc sollicitudin varius sit. Turpis scelerisque at amet risus iaculis mattis a, malesuada dignissim.</span>
+												<span class="splide_title"
+													>2016 - Покорение интернета</span
+												>
+												<span class="splide_desc"
+													>Eget commodo eu nibh dolor sodales. Sed pulvinar
+													commodo morbi senectus urna, mattis. Dui habitasse
+													fermentum nisl viverra imperdiet sagittis sit sed.
+													Scelerisque sit justo viverra nulla. At aliquam leo
+													adipiscing vel viverra nibh viverra commodo sit.
+													Ultrices dolor risus, in metus, sed magna lectus in
+													id. Elit amet nibh est molestie sit ligula. Sed
+													suspendisse fringilla urna curabitur nunc sollicitudin
+													varius sit. Turpis scelerisque at amet risus iaculis
+													mattis a, malesuada dignissim.</span
+												>
 											</div>
 										</div>
 									</li>
 									<li class="splide__slide">
 										<div class="client_quote_card bg-white shadow">
 											<a href="#" class="splide_slider">
-												<img src="{{ url_for('static', filename='commerce/rs/images/about/1.png') }}" alt="">
+												<img
+													src="{{ url_for('static', filename='commerce/rs/images/about/1.png') }}"
+													alt=""
+												/>
 											</a>
 											<div class="splide_text">
-												<span class="splide_title">2016 - Покорение интернета</span>
-												<span class="splide_desc">Eget commodo eu nibh dolor sodales. Sed pulvinar commodo morbi senectus urna, mattis. Dui habitasse fermentum nisl viverra imperdiet sagittis sit sed. Scelerisque sit justo viverra nulla. At aliquam leo adipiscing vel viverra nibh viverra commodo sit. Ultrices dolor risus, in metus, sed magna lectus in id. Elit amet nibh est molestie sit ligula. Sed suspendisse fringilla urna curabitur nunc sollicitudin varius sit. Turpis scelerisque at amet risus iaculis mattis a, malesuada dignissim.</span>
+												<span class="splide_title"
+													>2016 - Покорение интернета</span
+												>
+												<span class="splide_desc"
+													>Eget commodo eu nibh dolor sodales. Sed pulvinar
+													commodo morbi senectus urna, mattis. Dui habitasse
+													fermentum nisl viverra imperdiet sagittis sit sed.
+													Scelerisque sit justo viverra nulla. At aliquam leo
+													adipiscing vel viverra nibh viverra commodo sit.
+													Ultrices dolor risus, in metus, sed magna lectus in
+													id. Elit amet nibh est molestie sit ligula. Sed
+													suspendisse fringilla urna curabitur nunc sollicitudin
+													varius sit. Turpis scelerisque at amet risus iaculis
+													mattis a, malesuada dignissim.</span
+												>
 											</div>
 										</div>
 									</li>
 									<li class="splide__slide">
 										<div class="client_quote_card bg-white shadow">
 											<a href="#" class="splide_slider">
-												<img src="{{ url_for('static', filename='commerce/rs/images/about/2.png') }}" alt="">
+												<img
+													src="{{ url_for('static', filename='commerce/rs/images/about/2.png') }}"
+													alt=""
+												/>
 											</a>
 											<div class="splide_text">
-												<span class="splide_title">2016 - Покорение интернета</span>
-												<span class="splide_desc">Eget commodo eu nibh dolor sodales. Sed pulvinar commodo morbi senectus urna, mattis. Dui habitasse fermentum nisl viverra imperdiet sagittis sit sed. Scelerisque sit justo viverra nulla. At aliquam leo adipiscing vel viverra nibh viverra commodo sit. Ultrices dolor risus, in metus, sed magna lectus in id. Elit amet nibh est molestie sit ligula. Sed suspendisse fringilla urna curabitur nunc sollicitudin varius sit. Turpis scelerisque at amet risus iaculis mattis a, malesuada dignissim.</span>
+												<span class="splide_title"
+													>2016 - Покорение интернета</span
+												>
+												<span class="splide_desc"
+													>Eget commodo eu nibh dolor sodales. Sed pulvinar
+													commodo morbi senectus urna, mattis. Dui habitasse
+													fermentum nisl viverra imperdiet sagittis sit sed.
+													Scelerisque sit justo viverra nulla. At aliquam leo
+													adipiscing vel viverra nibh viverra commodo sit.
+													Ultrices dolor risus, in metus, sed magna lectus in
+													id. Elit amet nibh est molestie sit ligula. Sed
+													suspendisse fringilla urna curabitur nunc sollicitudin
+													varius sit. Turpis scelerisque at amet risus iaculis
+													mattis a, malesuada dignissim.</span
+												>
 											</div>
 										</div>
 									</li>
@@ -137,36 +290,36 @@
 				</div>
 			</div>
 			<div class="col-12">
-				<div class="row" style="border: 1px solid #CED1D9;">
+				<div class="row" style="border: 1px solid #ced1d9">
 					<div class="contact_title">
-						<h2>Контакты</h2>
+						<h2>{{_('Contact')}}</h2>
 					</div>
 					<div class="col-md-4 col-12">
 						<div class="bottom_contact">
 							<div class="bottom_contact_title">
-								<span>Адрес</span>
+								<span>{{_('Adress')}}</span>
 							</div>
 							<div class="bottom_about_text">
-								<p> Туркменистан, Ашхабад, ТЦ «Ашхабад» 0 этаж</p>
+								<p>Туркменистан, Ашхабад, ТЦ «Ашхабад» 0 этаж</p>
 							</div>
 						</div>
 					</div>
-					
+
 					<div class="col-md-4 col-12">
 						<div class="bottom_contact gmaill">
 							<div class="bottom_contact_title">
-								<span>Почта</span>
+								<span>{{_('Email')}}</span>
 							</div>
 							<div class="bottom_about_text">
-								<p>info@readit.store[</p>
+								<p>info@readit.store</p>
 							</div>
 						</div>
 					</div>
-					
+
 					<div class="col-md-4 col-12">
 						<div class="bottom_contact">
 							<div class="bottom_contact_title">
-								<span>Телефон</span>
+								<span>{{_('Telephone')}}</span>
 							</div>
 							<div class="bottom_about_text">
 								<p>+993(64)824441</p>
@@ -178,9 +331,6 @@
 		</div>
 	</div>
 </div>
-{% endblock %}
-
-
-{% block scripts %}
+{% endblock %} {% block scripts %}
 <script src="{{ url_for('static', filename='commerce/rs/js/swiper.js') }}"></script>
 {% endblock %}
