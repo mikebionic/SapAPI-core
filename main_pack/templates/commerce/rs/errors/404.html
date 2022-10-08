@@ -1,25 +1,22 @@
-{% extends "commerce/rd/commerce/layout.html" %}
-
-{% block styles %}
-	<meta name="robots" content="noindex" />
-{% endblock %}
-
-{% block content %}
+{% extends "commerce/rs/commerce/layout.html" %} {% block styles %}
+<meta name="robots" content="noindex" />
+{% endblock %} {% block content %}
 
 <div class="product-section section mb-70 mt-10">
 	<div class="container">
 		<div class="row">
-			<div class="col-12 mb-40" style="display: flex;justify-content: center;height: 300px;">
-                <b>404 NOT FOUND</b>
-            </div>
-        </div>
-    </div>
+			<div
+				class="col-12 mb-40"
+				style="display: flex; justify-content: center; height: 300px"
+			>
+				<b>404 NOT FOUND</b>
+			</div>
+		</div>
+	</div>
 </div>
 
-{% endblock content %}
-
-{% block scripts %}
+{% endblock content %} {% block scripts %}
 <script>
-    $('.footer-bottom-section').css({"position": "fixed"})
+	$('.footer-bottom-section').css({ position: 'fixed' })
 </script>
 {% endblock %}

@@ -131,7 +131,7 @@ def api_res_prices(user):
 			"notDivId": request.args.get("notDivId",None,type=int),
 			"ResPriceTypeId": request.args.get("priceType",None,type=int),
 			"ResPriceGroupId": request.args.get("priceGroup",None,type=int),
-			"IsConverted": request.args.get("isConverted",None, type=int)
+			# "IsConverted": request.args.get("isConverted",None, type=int)
 		}
 
 		data = get_res_prices(**arg_data)
@@ -147,7 +147,7 @@ def api_res_prices(user):
 	elif request.method == 'POST':
 		req = request.get_json()
 
-		IsConverted = request.args.get("isConverted",None, type=int)
+		# IsConverted = request.args.get("isConverted",None, type=int)
 
 		resources = Resource.query\
 			.filter(Resource.ResGuid != None).all()
@@ -168,38 +168,38 @@ def api_res_prices(user):
 				ResGuid = str(res_price_req['ResGuid'])
 				ResPriceRegNo = res_price_req['ResPriceRegNo']
 				ResPriceGuid = str(res_price_req['ResPriceGuid'])
-				CurrencyCode = res_price_req['CurrencyCode']
+				# CurrencyCode = res_price_req['CurrencyCode']
 				PriceValue = res_price_req['ResPriceValue']
-				if IsConverted == 1:
-					try:
-						if CurrencyCode == "TMT":
-							price_data = price_currency_conversion(
-								priceValue = PriceValue,
-								from_currency = CurrencyCode,
-								to_currency = "USD",
-								currencies_dbModel = currencies,
-								exc_rates_dbModel = exc_rates
-							)
-							res_price_info["ResPriceValue"] = price_data["ResPriceValue"]
-							res_price_info["CurrencyCode"] = price_data["CurrencyCode"]
-							res_price_info["CurrencyId"] = 2
-							res_price_req.update(**res_price_info)
+				# if IsConverted == 1:
+					# try:
+						# if CurrencyCode == "TMT":
+							# price_data = price_currency_conversion(
+								# priceValue = PriceValue,
+								# from_currency = CurrencyCode,
+								# to_currency = "USD",
+								# currencies_dbModel = currencies,
+								# exc_rates_dbModel = exc_rates
+							# )
+							# res_price_info["ResPriceValue"] = price_data["ResPriceValue"]
+							# res_price_info["CurrencyCode"] = price_data["CurrencyCode"]
+							# res_price_info["CurrencyId"] = 2
+							# res_price_req.update(**res_price_info)
 						
-						elif CurrencyCode == "USD":
-							price_data = price_currency_conversion(
-								priceValue = PriceValue,
-								from_currency = CurrencyCode,
-								to_currency = "TMT",
-								currencies_dbModel = currencies,
-								exc_rates_dbModel = exc_rates
-							)
-							res_price_info["ResPriceValue"] = price_data["ResPriceValue"]
-							res_price_info["CurrencyCode"] = price_data["CurrencyCode"]
-							res_price_info["CurrencyId"] = 1
-							res_price_req.update(**res_price_info)
+						# elif CurrencyCode == "USD":
+							# price_data = price_currency_conversion(
+								# priceValue = PriceValue,
+								# from_currency = CurrencyCode,
+								# to_currency = "TMT",
+								# currencies_dbModel = currencies,
+								# exc_rates_dbModel = exc_rates
+							# )
+							# res_price_info["ResPriceValue"] = price_data["ResPriceValue"]
+							# res_price_info["CurrencyCode"] = price_data["CurrencyCode"]
+							# res_price_info["CurrencyId"] = 1
+							# res_price_req.update(**res_price_info)
 					
-					except Exception as ex:
-						print(f"{datetime.now()} | Res_price Api Exception: {ex}")
+					# except Exception as ex:
+						# print(f"{datetime.now()} | Res_price Api Exception: {ex}")
 
 				try:
 					indexed_res_id = resource_ResId_list[resource_ResGuid_list.index(ResGuid)]
