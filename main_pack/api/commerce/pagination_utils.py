@@ -160,8 +160,8 @@ def collect_resource_paginate_info(
 			category_ids.append(res_category.ResCatId)
 			for subcategory in res_category.subcategory:
 				category_ids.append(subcategory.ResCatId)
-				for category in subcategory.subcategory:
-					category_ids.append(category.ResCatId)
+				for subsubcategory in subcategory.subcategory:
+					category_ids.append(subsubcategory.ResCatId)
 
 		resource_query = resource_query.filter(Resource.ResCatId.in_(category_ids))
 
