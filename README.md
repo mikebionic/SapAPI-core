@@ -55,19 +55,31 @@ It supports:
 ## **Features**
 
 ✅ Stable REST API
+
 ✅ Web service for client applications
+
 ✅ Web-admin UI
+
 ✅ Web-client UI
+
 ✅ Multi-language (n18) support
+
 ✅ File management & compression
+
 ✅ Security & encryption
+
 ✅ Relational DB management
+
 ✅ PostgreSQL support
+
 ✅ Redis session & caching
+
 ✅ Modular architecture
 
 🔲 Client Admin API
+
 🔲 Full feature key activation
+
 🔲 WebSocket support
 
 ---
