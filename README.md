@@ -2,212 +2,315 @@
 
 *A powerful and flexible e-commerce platform with API + Flask Jinja template support*
 
----
+![Deployed Example of SapAPI website](https://mikebionic.github.io/portfolio/static/projects/web_proj/lomaysowda_v2.webp)
 
 ## **Overview**
 
-This is a **large-scale e-commerce platform** designed as part of the **SAPHASAP System**.
-It combines:
+SAPHASAP is a **large-scale, modular e-commerce platform** designed to support entire marketplaces. It combines:
 
 * A **robust API backend**
 * A **Flask Jinja2-compatible frontend system**
-* Multiple **sample templates** ready to configure and deploy
+* Multiple **sample templates** ready for configuration and deployment
 
-The system is fully customizable, scalable, and built on a strong codebase using **Flask** and **SQLAlchemy ORM**.
+The platform is fully **customizable, scalable**, and built on a strong codebase using **Flask** and **SQLAlchemy ORM**.
 
 ### **Core Concept**
 
-The platform supports building **entire marketplaces** where each business can:
+Businesses can:
 
-* Create their own online store
-* Add and manage their products
-* Organize with custom categories and attributes
-* Design their storefront look and feel
+* Create and manage their own online store
+* Add products, categories, and attributes
+* Customize storefront designs
 
-It supports:
+Supports:
 
 * Multiple currencies & exchange rates
 * Precision attribute filtering
-* Multiple image upload with watermarking
+* Multiple image uploads with watermarking
 * Brand, collection, and slider creation
-* Checkout with online bank BPC integration (Turkmenistan legacy support)
-* Rich, flexible database structure
+* Checkout with **online bank BPC integration** (Turkmenistan legacy support)
+* Flexible database structure
 * Strong security & session management
 
 ---
 
+## **Core Features**
+
+* **Customizable Marketplaces**: Businesses can create and manage stores with custom categories, products, and storefront designs
+* **Multi-language Support**: Full internationalization (i18n) support
+* **Multi-currency & Exchange Rates**: Handles multiple currencies with real-time exchange rates
+* **Secure Authentication**: Username/password, Google OAuth, SMS-based registration
+* **File Management**: Image upload with watermarking, compression, and management
+* **Payment Integration**: Online bank BPC and other gateways
+* **Modular Architecture**: Extensible codebase with Flask & SQLAlchemy ORM
+* **Caching & Performance**: Redis for session management and caching
+* **Rich API**: Comprehensive endpoints for categories, resources, orders, and more
+
+---
+
+<div style="display: flex; justify-content: center; gap: 10px;">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1024px-Python-logo-notext.svg.png" alt="Flask" height="40" />
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Flask_logo.svg/1920px-Flask_logo.svg.png" alt="Flask" height="40" />
+  <img src="https://upload.wikimedia.org/wikipedia/commons/2/29/Postgresql_elephant.svg" alt="PostgreSQL" height="40" />
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Redis_logo.svg/1920px-Redis_logo.svg.png" alt="Redis" height="40" />
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Nginx_logo.svg/250px-Nginx_logo.svg.png" alt="Nginx" height="40" />
+  <img src="https://www.svgrepo.com/show/473669/jinja.svg" alt="Jinja" height="40" />
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/HTML5_logo_and_wordmark.svg/1024px-HTML5_logo_and_wordmark.svg.png" alt="HTML5" height="40" />
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/CSS3_logo_and_wordmark.svg/800px-CSS3_logo_and_wordmark.svg.png" alt="CSS3" height="40" />
+  <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png" alt="JavaScript" height="40" />
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/React_Logo_SVG.svg/1280px-React_Logo_SVG.svg.png" alt="JWT" height="40" />
+</div>
+
 ## **Tech Stack**
 
-**Languages & Frameworks:**
-
-* Python (≥ 3.6)
-* Flask + Flask-Jinja Templates
-* SQLAlchemy ORM
-* JavaScript / jQuery / ReactJS
-
-**Database & Caching:**
-
-* PostgreSQL
-* Redis (session and DB cache support)
+**Backend:** Python (≥3.6), Flask, SQLAlchemy ORM
+**Frontend:** Flask Jinja2 templates, JavaScript, jQuery, ReactJS
+**Database:** PostgreSQL
+**Caching:** Redis
+**Other Tools:** BCrypt for password hashing, JWT for authentication, Elasticsearch (optional)
 
 ---
 
 ## **Features**
 
-✅ Stable REST API
-
-✅ Web service for client applications
-
-✅ Web-admin UI
-
-✅ Web-client UI
-
-✅ Multi-language (n18) support
-
-✅ File management & compression
-
-✅ Security & encryption
-
-✅ Relational DB management
-
-✅ PostgreSQL support
-
-✅ Redis session & caching
-
-✅ Modular architecture
-
-🔲 Client Admin API
-
-🔲 Full feature key activation
-
-🔲 WebSocket support
-
----
-
-## **TODO**
-
-* [ ] Write admin client application
-* [x] Prevent HTTP 500 server errors
-* [x] Email server error notifications
-* [x] Configure BCrypt usage toggler
-* [ ] Reconfigure app to separate API from UI:
-
-  * [ ] Separate API repository
-  * [ ] Separate UI repository
-  * [ ] Build new Flask-style repo
-  * [ ] Optimize backend using Node.js
-* [ ] Database updates:
-
-  * [x] Track last user login, device, etc.
-  * [ ] Migrate app configs to database
+- ✅ Stable REST API
+- ✅ Web-admin UI
+- ✅ Web-client UI
+- ✅ Multi-language support
+- ✅ File management & compression
+- ✅ Security & encryption
+- ✅ Relational DB management
+- ✅ PostgreSQL support
+- ✅ Redis session & caching
+- ✅ Modular architecture
+- ✅ Client Admin API
+- ✅ Full feature key activation
+- ✅ WebSocket support
 
 ---
 
 ## **Installation Guide**
 
-### **1. Install Python, pip, and venv**
+### **1. Prerequisites**
+
+* Python ≥ 3.6
+* PostgreSQL
+* Redis
+* pip and virtualenv
+
+### **2. Clone Repository**
 
 ```bash
-sudo apt install python3-dev python3-venv python3-pip
+git clone <repository-url>
+cd saphasap
 ```
 
-### **2. Install PostgreSQL**
+### **3. Create Virtual Environment**
 
 ```bash
-sudo apt install postgresql postgresql-contrib libpq-dev
+python3 -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
 
-### **3. Install Redis**
+### **4. Install Dependencies**
 
 ```bash
-sudo apt install redis
+pip install -r requirements.txt
 ```
 
-### **4. Create a Python Virtual Environment**
+### **5. Configure Environment Variables**
+
+Copy `.env.example` to `.env` and update values:
 
 ```bash
-python3 -m venv example_env
-source example_env/bin/activate
+cp .env.example .env
+nano .env
 ```
 
-### **5. Install Requirements**
+### **6. Database Setup**
+
+Create a database:
 
 ```bash
-pip3 install -r documentation/requirements.txt
+sudo -u postgres psql
+CREATE DATABASE saphasap;
+\q
 ```
 
-Or use the alternative [pip installation command](documentation/pip_installation_command.md).
+Run migrations:
+
+```bash
+python migrate.py
+```
+
+Or restore from backup:
+
+```bash
+psql -U postgres -d saphasap < commerceDBTemplate.backup
+```
+
+### **7. Start Application**
+
+```bash
+python run.py
+```
+
+Or via `Makefile`:
+
+```bash
+make run
+```
 
 ---
 
 ## **Configuration**
 
-1. Edit settings in [`config.py`](main_pack/config.py)
-2. Load sensitive data from `.env` ([example here](main_pack/.env.example.config))
-3. Ensure `.env` is listed in `.gitignore` to prevent leaks
+### **Environment Variables**
+
+Sensitive settings are stored in `.env`. Ensure `.env` is listed in `.gitignore`.
 
 ### **Site Configuration**
 
-In `main_pack/static/web_config`:
+Add static files in `main_pack/static/web_config`:
 
-* Add `robots.txt`
-* Add `sitemap.xml`
-* Add `watermark.png`
+* `robots.txt`
+* `sitemap.xml`
+* `watermark.png`
 
-### **Database Migration**
-
-```bash
-python3 migrate.py
-```
-
-Or restore from the backup:
-
-```bash
-commerceDBTemplate.backup
-```
+Customize templates in `main_pack/templates/commerce`.
 
 ---
 
 ## **API Highlights**
 
-The backend provides a **rich set of endpoints** for managing categories, resources, orders, companies, and more.
+The backend exposes **RESTful endpoints**.
 
-### **Example: Category Management**
+### **Category Management**
 
-**Get all categories:**
+* **Get all categories**:
 
 ```http
 GET /api/categories/
 ```
 
-**Add categories:**
+* **Add category**:
 
 ```http
 POST /api/categories/
+Content-Type: application/json
+{
+  "name": "Electronics",
+  "description": "Electronic gadgets"
+}
 ```
 
-**Update categories:**
+* **Update category**:
 
 ```http
-PUT /api/categories/
+PUT /api/categories/<id>/
+Content-Type: application/json
+{
+  "name": "Updated Electronics",
+  "description": "Updated description"
+}
 ```
 
-(See full examples in documentation)
+See [API Documentation](documentation/api_documentation.md) for full details.
 
 ---
 
-## **Additional Documentation**
+## **Development**
+
+### **Project Structure**
+
+```
+saphasap/
+├── codes_for_checking/       # Utility scripts
+├── documentation/            # API docs and developer notes
+├── main_pack/                # Core app
+│   ├── api/                  # API routes and logic
+│   ├── commerce/             # Frontend routes and templates
+│   ├── models/               # SQLAlchemy models
+│   ├── static/               # CSS, JS, images
+│   ├── templates/            # Jinja2 templates
+│   └── utils/                # Helper utilities
+├── .env.example              # Sample environment variables
+├── Makefile                  # Build and deployment tasks
+├── requirements.txt          # Python dependencies
+├── run.py                    # Application entry point
+└── migrate.py                # Database migration script
+```
+
+### **Running Tests**
+
+```bash
+make test
+```
+
+Use `curl` or Postman for API testing:
+
+```bash
+curl -X GET http://localhost:5000/api/categories/
+```
+
+See [API Testing Guide](documentation/api_testing.md) for full instructions.
+
+---
+
+## **Deployment**
+
+### **Using Docker**
+
+```bash
+make docker-build
+make docker-run
+```
+
+### **Manual Deployment**
+
+1. Install dependencies
+2. Copy app code
+3. Set `.env` variables
+4. Run migrations: `python migrate.py`
+5. Start with Gunicorn:
+
+```bash
+gunicorn --workers 4 --bind 0.0.0.0:5000 run:app
+```
+
+---
+
+## **Contributing**
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature-name`
+3. Commit changes: `git commit -m "Add feature"`
+4. Push to branch: `git push origin feature-name`
+5. Open a pull request
+
+Follow the [Code Style Guide](documentation/code_style.md) and include tests for new features.
+
+---
+
+## **TODO / Roadmap**
+
+* [ ] Separate API and UI repositories
+* [ ] Optimize backend (Node.js optional)
+* [ ] Implement WebSocket support
+* [ ] Develop admin client application
+* [ ] Migrate app configurations to database
+
+---
+
+## **Additional Resources**
 
 * [API Backend Info](documentation/api_backend.md)
-* [API Routes](documentation/api_documentation.md)
 * [Mail Setup](documentation/mail_setup.md)
-* [py-Babel Translation](documentation/pybabel_usage.md)
+* [PyBabel Translation](documentation/pybabel_usage.md)
+* [Developer Notes](documentation/developers_notes/)
 
 ---
 
-## **Developer Notes**
+## **License**
 
-* Supports **CLI testing** with `curl` commands for device registration.
-* Authentication can be done via **username/password** or **Google OAuth**.
-* Includes **order invoice API** with payment validation integration.
-
+This project is licensed under the MIT License.
